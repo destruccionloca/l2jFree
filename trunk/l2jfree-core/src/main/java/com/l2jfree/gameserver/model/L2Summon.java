@@ -33,6 +33,7 @@ import com.l2jfree.gameserver.model.actor.stat.SummonStat;
 import com.l2jfree.gameserver.model.actor.status.SummonStatus;
 import com.l2jfree.gameserver.model.base.Experience;
 import com.l2jfree.gameserver.model.itemcontainer.PetInventory;
+import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExPartyPetWindowAdd;
@@ -852,6 +853,14 @@ public abstract class L2Summon extends L2PlayableInstance
 				else
 					getOwner().sendPacket(new SystemMessage(SystemMessageId.CRITICAL_HIT_BY_PET));
 
+			if (getOwner().isInOlympiadMode() &&
+					target instanceof L2PcInstance &&
+					((L2PcInstance)target).isInOlympiadMode() &&
+					((L2PcInstance)target).getOlympiadGameId() == getOwner().getOlympiadGameId())
+			{
+				Olympiad.getInstance().notifyCompetitorDamage(getOwner(), damage, getOwner().getOlympiadGameId());
+			}
+			
 			SystemMessage sm;
 			if (this instanceof L2SummonInstance)
 				sm = new SystemMessage(SystemMessageId.SUMMON_GAVE_DAMAGE_S1);

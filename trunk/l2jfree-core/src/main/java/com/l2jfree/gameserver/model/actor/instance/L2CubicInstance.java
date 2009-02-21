@@ -17,7 +17,6 @@ import javolution.util.FastList;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.gameserver.Olympiad;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.handler.ICubicSkillHandler;
@@ -27,10 +26,11 @@ import com.l2jfree.gameserver.instancemanager.DuelManager;
 import com.l2jfree.gameserver.model.L2Attackable;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Effect;
-import com.l2jfree.gameserver.model.L2Party;
 import com.l2jfree.gameserver.model.L2Object;
+import com.l2jfree.gameserver.model.L2Party;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.entity.events.TvT;
+import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillDrain;
@@ -285,7 +285,7 @@ public class L2CubicInstance
 		return _owner;
 	}
 
-	public final int getMCriticalHit(@SuppressWarnings("unused") L2Character target, @SuppressWarnings("unused") L2Skill skill)
+	public final int getMCriticalHit(L2Character target, L2Skill skill)
 	{
 		// TODO: Temporary now mcrit for cubics is the baseMCritRate of its owner
 		return _owner.getTemplate().getBaseMCritRate();

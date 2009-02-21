@@ -23,7 +23,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.Olympiad;
 import com.l2jfree.gameserver.datatables.CharTemplateTable;
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
@@ -271,20 +270,13 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 			case 3: // Change/Cancel Subclass - Initial
 				content.append("Change Subclass:<br>Which of the following sub classes would you like to change?<br>");
 				int classIndex = 1;
-				if (Olympiad.getInstance().isRegisteredInComp(player) || player.getOlympiadGameId() > 0)
+				for (Iterator<SubClass> subList = iterSubClasses(player); subList.hasNext();)
 				{
-					player.sendPacket(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT);
-				}
-				else
-				{
-					for (Iterator<SubClass> subList = iterSubClasses(player); subList.hasNext();)
-					{
-						SubClass subClass = subList.next();
+					SubClass subClass = subList.next();
 
-						content.append("Sub-class " + classIndex++ + "<br1>");
-						content.append("<a action=\"bypass -h npc_" + getObjectId() + "_Subclass 6 " + subClass.getClassIndex() + "\">"
-								+ CharTemplateTable.getClassNameById(subClass.getClassId()) + "</a><br>");
-					}
+					content.append("Sub-class " + classIndex++ + "<br1>");
+					content.append("<a action=\"bypass -h npc_" + getObjectId() + "_Subclass 6 " + subClass.getClassIndex() + "\">"
+							+ CharTemplateTable.getClassNameById(subClass.getClassId()) + "</a><br>");
 				}
 				content.append("<br>If you change a sub class, you'll start at level 40 after the 2nd class transfer.");
 				break;
@@ -309,13 +301,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 
 				if (player._inEventCTF || player._inEventDM || player._inEventTvT || player._inEventVIP)
 				{
-					player.sendPacket(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT);
-					return;
-				}
-
-				if (Olympiad.getInstance().isRegisteredInComp(player) || player.getOlympiadGameId() > 0)
-				{
-					player.sendPacket(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT);
+					player.sendMessage("You may not add a new sub class while being registered on event.");
 					return;
 				}
 
@@ -405,13 +391,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 				 */
 				if (player._inEventCTF || player._inEventDM || player._inEventTvT || player._inEventVIP)
 				{
-					player.sendPacket(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT);
-					return;
-				}
-
-				if (Olympiad.getInstance().isRegisteredInComp(player) || player.getOlympiadGameId() > 0)
-				{
-					player.sendPacket(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT);
+					player.sendMessage("You are registered at event right now.");
 					return;
 				}
 
@@ -440,11 +420,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 
 				subsAvailable = getAvailableSubClasses(player);
 
-				if (Olympiad.getInstance().isRegisteredInComp(player) || player.getOlympiadGameId() > 0)
-				{
-					player.sendPacket(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT);
-				}
-				else if (subsAvailable != null && !subsAvailable.isEmpty())
+				if (subsAvailable != null && !subsAvailable.isEmpty())
 				{
 					for (PlayerClass subClass : subsAvailable)
 						content.append("<a action=\"bypass -h npc_" + getObjectId() + "_Subclass 7 " + paramOne + " " + subClass.ordinal() + "\">"
@@ -466,11 +442,6 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 				{
 					_log.warn("Player "+player.getName()+" has performed a subclass change too fast");
 					return;
-				}
-
-				if (Olympiad.getInstance().isRegisteredInComp(player) || player.getOlympiadGameId() > 0)
-				{
-					player.sendPacket(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT);
 				}
 				else if (player.modifySubClass(paramOne, paramTwo))
 				{

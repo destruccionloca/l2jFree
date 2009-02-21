@@ -32,6 +32,7 @@ import com.l2jfree.gameserver.instancemanager.leaderboards.ArenaManager;
 import com.l2jfree.gameserver.instancemanager.leaderboards.FishermanManager;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -404,15 +405,8 @@ public class Shutdown extends Thread
 		System.out.println("GrandBossSpawnManager: All grandboss info saved.");
 		TradeListTable.getInstance().dataCountStore();
 		System.out.println("TradeController: All count Item Saved");
-		try
-		{
-			Olympiad.getInstance().save();
-			System.out.println("Olympiad: Data saved.");
-		}
-		catch (Exception e)
-		{
-			System.err.println(e.getMessage());
-		}
+		Olympiad.getInstance().saveOlympiadStatus();
+		System.out.println("Olympiad System: Data saved!!");
 
 		// Save all manor data
 		CastleManorManager.getInstance().save();

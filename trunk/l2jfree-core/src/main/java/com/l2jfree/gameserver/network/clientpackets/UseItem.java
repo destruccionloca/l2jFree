@@ -53,8 +53,8 @@ public class UseItem extends L2GameClientPacket
 	/** Weapon Equip Task */
 	public class WeaponEquipTask implements Runnable
 	{
-		private L2ItemInstance item;
-		private L2PcInstance activeChar;
+		private L2ItemInstance	item;
+		private L2PcInstance	activeChar;
 
 		public WeaponEquipTask(L2ItemInstance it, L2PcInstance character)
 		{
@@ -261,7 +261,7 @@ public class UseItem extends L2GameClientPacket
 
 		// Char cannot use pet items
 		if ((item.getItem() instanceof L2Armor && item.getItem().getItemType() == L2ArmorType.PET)
-			|| (item.getItem() instanceof L2Weapon && item.getItem().getItemType() == L2WeaponType.PET))
+				|| (item.getItem() instanceof L2Weapon && item.getItem().getItemType() == L2WeaponType.PET))
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.CANNOT_EQUIP_PET_ITEM); // You cannot equip a pet item.
 			sm.addItemName(item);
@@ -328,6 +328,13 @@ public class UseItem extends L2GameClientPacket
 				return;
 			}
 
+			// Don't allow hero equipment and restricted items during Olympiad
+			if (activeChar.isInOlympiadMode() && (item.isHeroItem() || item.isOlyRestrictedItem()))
+			{
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.THIS_ITEM_CANT_BE_EQUIPPED_FOR_THE_OLYMPIAD_EVENT));
+				return;
+			}
+
 			int bodyPart = item.getItem().getBodyPart();
 
 			// Prevent player to remove the weapon on special conditions
@@ -365,26 +372,20 @@ public class UseItem extends L2GameClientPacket
 
 			if (activeChar.isAttackingNow() && !activeChar.isInOlympiadMode())
 			{
-				ThreadPoolManager.getInstance().scheduleGeneral(new WeaponEquipTask(item, activeChar), (activeChar.getAttackEndTime() - GameTimeController.getGameTicks()) * GameTimeController.MILLIS_IN_TICK);
+				ThreadPoolManager.getInstance().scheduleGeneral(new WeaponEquipTask(item, activeChar),
+						(activeChar.getAttackEndTime() - GameTimeController.getGameTicks()) * GameTimeController.MILLIS_IN_TICK);
 				return;
 			}
 			else if (activeChar.isAttackingNow() && activeChar.isInOlympiadMode() && !item.isOlyRestrictedItem() && !item.isHeroItem())
 			{
-				ThreadPoolManager.getInstance().scheduleGeneral(new WeaponEquipTask(item, activeChar), (activeChar.getAttackEndTime() - GameTimeController.getGameTicks()) * GameTimeController.MILLIS_IN_TICK);
+				ThreadPoolManager.getInstance().scheduleGeneral(new WeaponEquipTask(item, activeChar),
+						(activeChar.getAttackEndTime() - GameTimeController.getGameTicks()) * GameTimeController.MILLIS_IN_TICK);
 				return;
 			}
 
 			// Fortress siege combat flags can't be unequipped
 			if (itemId == 9819)
 				return;
-
-			// Don't allow weapon/shield hero equipment during Olympiads
-			if (activeChar.isInOlympiadMode() && (bodyPart == L2Item.SLOT_LR_HAND || bodyPart == L2Item.SLOT_L_HAND || bodyPart == L2Item.SLOT_R_HAND)
-					&& (item.isHeroItem() || item.isOlyRestrictedItem()))
-			{
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.THIS_ITEM_CANT_BE_EQUIPPED_FOR_THE_OLYMPIAD_EVENT));
-				return;
-			}
 
 			if (!activeChar.isHero() && !activeChar.isGM() && item.isHeroItem() && Config.ALT_STRICT_HERO_SYSTEM)
 				return;
@@ -396,11 +397,8 @@ public class UseItem extends L2GameClientPacket
 		{
 			L2Weapon weaponItem = activeChar.getActiveWeaponItem();
 			int itemid = item.getItemId();
-			// _log.debug("item not equipable id:"+ item.getItemId());
 			if (itemid == 4393)
-			{
 				activeChar.sendPacket(new ShowCalculator(4393));
-			}
 			else if ((weaponItem != null && weaponItem.getItemType() == L2WeaponType.ROD)
 					&& ((itemid >= 6519 && itemid <= 6527) || (itemid >= 7610 && itemid <= 7613) || (itemid >= 7807 && itemid <= 7809)
 							|| (itemid >= 8484 && itemid <= 8486) || (itemid >= 8505 && itemid <= 8513)))

@@ -16,46 +16,44 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-
 /**
  * This class ...
  * 
  * @version $Revision: 1.4.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
- * 
  * @author godson
  */
 public class ExOlympiadUserInfo extends L2GameServerPacket
 {
 	// chcdSddddd
-	private static final String _S__FE_29_OLYMPIADUSERINFO = "[S] FE:2C OlympiadUserInfo";
-	
-	@SuppressWarnings("unused")
-	private L2PcInstance _activeChar;
+	private static final String	_S__FE_29_OLYMPIADUSERINFO	= "[S] FE:7A ExOlympiadUserInfo";
+	private int					_side;
+	private L2PcInstance		_player;
 
 	/**
 	 * @param _player
 	 * @param _side (1 = right, 2 = left)
 	 */
-	public ExOlympiadUserInfo(L2PcInstance player)
+	public ExOlympiadUserInfo(L2PcInstance player, int side)
 	{
-		_activeChar = player;
+		_player = player;
+		_side = side;
 	}
-	
 
 	@Override
 	protected final void writeImpl()
 	{
-		/*writeC(0xfe);
-		writeH(0x2c);
-		writeD(_activeChar.getObjectId());
-		writeS(_activeChar.getName());
-		writeD(_activeChar.getClassId().getId());
-		writeD((int)_activeChar.getStatus().getCurrentHp());
-		writeD(_activeChar.getMaxHp());
-		writeD((int)_activeChar.getStatus().getCurrentCp());
-		writeD(_activeChar.getMaxCp());*/
+		writeC(0xfe);
+		writeH(0x7a);
+		writeC(_side);
+		writeD(_player.getObjectId());
+		writeS(_player.getName());
+		writeD(_player.getClassId().getId());
+		writeD((int) _player.getStatus().getCurrentHp());
+		writeD(_player.getMaxHp());
+		writeD((int) _player.getStatus().getCurrentCp());
+		writeD(_player.getMaxCp());
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
 	 */

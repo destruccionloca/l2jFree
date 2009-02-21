@@ -38,7 +38,6 @@ import com.l2jfree.gameserver.GameServer;
 import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.ItemsAutoDestroy;
 import com.l2jfree.gameserver.LoginServerThread;
-import com.l2jfree.gameserver.Olympiad;
 import com.l2jfree.gameserver.RecipeController;
 import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.SevenSignsFestival;
@@ -152,6 +151,7 @@ import com.l2jfree.gameserver.model.itemcontainer.PcFreight;
 import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.model.itemcontainer.PcWarehouse;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
+import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.model.quest.State;
@@ -173,7 +173,7 @@ import com.l2jfree.gameserver.network.serverpackets.ExFishingEnd;
 import com.l2jfree.gameserver.network.serverpackets.ExFishingStart;
 import com.l2jfree.gameserver.network.serverpackets.ExOlympiadMode;
 import com.l2jfree.gameserver.network.serverpackets.ExOlympiadSpelledInfo;
-import com.l2jfree.gameserver.network.serverpackets.ExOlympiadUserInfoSpectator;
+import com.l2jfree.gameserver.network.serverpackets.ExOlympiadUserInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExSetCompassZoneCode;
 import com.l2jfree.gameserver.network.serverpackets.ExSpawnEmitter;
 import com.l2jfree.gameserver.network.serverpackets.FriendList;
@@ -4009,20 +4009,16 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			for (L2PcInstance player : getKnownList().getKnownPlayers().values())
 				if (player.getOlympiadGameId() == getOlympiadGameId() && player.isOlympiadStart())
-					player.sendPacket(new ExOlympiadUserInfoSpectator(this, 1));
+					player.sendPacket(new ExOlympiadUserInfo(this, 1));
 			
-			if (isOlympiadStart())
-			{
-				List<L2PcInstance> spectators = Olympiad.getInstance().getSpectators(_olympiadGameId);
-				
-				if (spectators != null)
-				{
-					ExOlympiadUserInfoSpectator eouis = new ExOlympiadUserInfoSpectator(this);
-					
-					for (L2PcInstance spectator : spectators)
-						spectator.sendPacket(eouis);
-				}
-			}
+			if(Olympiad.getInstance().getSpectators(_olympiadGameId) != null && this.isOlympiadStart())
+            {
+                for(L2PcInstance spectator : Olympiad.getInstance().getSpectators(_olympiadGameId))
+                {
+                    if (spectator == null) continue;
+                    spectator.sendPacket(new ExOlympiadUserInfo(this, getOlympiadSide()));
+                }
+            }
 		}
 		
 		if (isInDuel())
@@ -4059,7 +4055,7 @@ public final class L2PcInstance extends L2PlayableInstance
 					effect.addIcon(mi);
 				if (ps != null)
 					effect.addPartySpelledIcon(ps);
-				if (os != null)
+				if (os != null && !effect.getSkill().isToggle())
 					effect.addOlympiadSpelledIcon(os);
 			}
 		}
@@ -9232,7 +9228,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		broadcastPacket(new CharInfo(this));
 	}
 
-	public void enterOlympiadObserverMode(int x, int y, int z, int id)
+	public void enterOlympiadObserverMode(int x, int y, int z, int id, boolean storeCoords)
 	{
 		if (getPet() != null)
 			getPet().unSummon(this);
@@ -9247,13 +9243,19 @@ public final class L2PcInstance extends L2PlayableInstance
 
 			getCubics().clear();
 		}
+		
+		if (getParty() != null)
+			getParty().removePartyMember(this);
 
 		_olympiadGameId = id;
-		_obsX = getX();
 		if (isSitting())
 			standUp();
-		_obsY = getY();
-		_obsZ = getZ();
+		if (storeCoords)
+        {
+	        _obsX = getX();
+	        _obsY = getY();
+	        _obsZ = getZ();
+        }
 		setTarget(null);
 		setIsInvul(true);
 		getAppearance().setInvisible();
@@ -9298,10 +9300,14 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		setTarget(null);
 		getPosition().setXYZ(_obsX, _obsY, _obsZ);
-		getAppearance().setVisible();
 		sendPacket(new GMHide(0));
-		setIsInvul(false);
 		setIsParalyzed(false);
+		
+		if (!isGM())
+		{
+			getAppearance().setVisible();
+			setIsInvul(false);
+		}
 
 		if (getAI() != null)
 			getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
@@ -9326,7 +9332,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 		}
-		Olympiad.getInstance().removeSpectator(_olympiadGameId, this);
+		Olympiad.removeSpectator(_olympiadGameId, this);
 		_olympiadGameId = -1;
 		_observerMode = false;
 		broadcastUserInfo();
@@ -11384,7 +11390,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			}
 		}
 
-		if (getOlympiadGameId() != -1) // Handle removal from olympiad game
+		if (Olympiad.getInstance().isRegistered(this) || getOlympiadGameId() != -1) // handle removal from olympiad game
 			Olympiad.getInstance().removeDisconnectedCompetitor(this);
 
 		if (getClanId() != 0 && getClan() != null)
@@ -12987,6 +12993,14 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (mcrit)
 			sendPacket(SystemMessageId.CRITICAL_HIT_MAGIC);
 
+		if (isInOlympiadMode() &&
+        		target instanceof L2PcInstance &&
+        		((L2PcInstance)target).isInOlympiadMode() &&
+        		((L2PcInstance)target).getOlympiadGameId() == getOlympiadGameId())
+        {
+        	Olympiad.getInstance().notifyCompetitorDamage(this, damage, getOlympiadGameId());
+        }
+		
 		SystemMessage sm = new SystemMessage(SystemMessageId.S1_GAVE_S2_DAMAGE_OF_S3);
 		sm.addPcName(this);
 		sm.addCharName(target);

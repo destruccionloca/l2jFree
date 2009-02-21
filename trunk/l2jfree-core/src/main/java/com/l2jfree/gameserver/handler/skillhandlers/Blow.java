@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.handler.skillhandlers;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Effect;
@@ -24,6 +25,7 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
+import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
@@ -176,6 +178,9 @@ public class Blow implements ISkillHandler
 									player.getStatus().stopHpMpRegeneration();
 									player.setIsDead(true);
 									player.setIsPendingRevive(true);
+									
+									if (player.getPet() != null)
+										player.getPet().getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE, null);
 								}
 								else
 									player.doDie(activeChar);
@@ -210,9 +215,19 @@ public class Blow implements ISkillHandler
 
 				if (activeChar instanceof L2PcInstance)
 				{
+					L2PcInstance activePlayer = (L2PcInstance) activeChar; 
+					
 					activeChar.sendPacket(SystemMessageId.CRITICAL_HIT);
 					if (target instanceof L2PcInstance)
 						activeChar.sendPacket(new SystemMessage(SystemMessageId.S1_HAD_CRITICAL_HIT).addPcName((L2PcInstance) activeChar));
+				
+					if (activePlayer.isInOlympiadMode() &&
+			        		target instanceof L2PcInstance &&
+			        		((L2PcInstance)target).isInOlympiadMode() &&
+			        		((L2PcInstance)target).getOlympiadGameId() == activePlayer.getOlympiadGameId())
+			        {
+			        	Olympiad.getInstance().notifyCompetitorDamage(activePlayer, (int) damage, activePlayer.getOlympiadGameId());
+			        }
 				}
 
 				SystemMessage sm = new SystemMessage(SystemMessageId.YOU_DID_S1_DMG);

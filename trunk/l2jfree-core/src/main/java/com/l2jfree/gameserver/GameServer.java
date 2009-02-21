@@ -112,10 +112,11 @@ import com.l2jfree.gameserver.model.L2Manor;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.Hero;
+import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
+import com.l2jfree.gameserver.network.IOFloodManager;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.L2GamePacketHandler;
-import com.l2jfree.gameserver.network.IOFloodManager;
 import com.l2jfree.gameserver.script.faenor.FaenorScriptEngine;
 import com.l2jfree.gameserver.scripting.CompiledScriptCache;
 import com.l2jfree.gameserver.scripting.L2ScriptEngineManager;
@@ -171,13 +172,11 @@ public class GameServer
 			DeadlockDetector.getInstance();
 		SQLQueue.getInstance();
 
-		if (Config.GEODATA>0)
+		if (Config.GEODATA > 0)
 		{
 			GeoData.getInstance();
-			if (Config.GEODATA>=2)
-			{
+			if (Config.GEODATA >= 2)
 				PathFinding.getInstance();
-			}
 		}
 
 		StaticObjects.getInstance();
@@ -185,13 +184,13 @@ public class GameServer
 		TeleportLocationTable.getInstance();
 		BoatManager.getInstance();
 		InstanceManager.getInstance();
-		
+
 		Util.printSection("TaskManagers");
 		AttackStanceTaskManager.getInstance();
 		DecayTaskManager.getInstance();
 		KnownListUpdateTaskManager.getInstance();
 		PacketBroadcaster.getInstance();
-		
+
 		Util.printSection("Skills");
 		SkillTreeTable.getInstance();
 		SkillsEngine.getInstance();
@@ -278,9 +277,7 @@ public class GameServer
 		{
 			CompiledScriptCache compiledScriptCache = L2ScriptEngineManager.getInstance().getCompiledScriptCache();
 			if (compiledScriptCache == null)
-			{
 				_log.info("Compiled Scripts Cache is disabled.");
-			}
 			else
 			{
 				compiledScriptCache.purge();
@@ -290,9 +287,7 @@ public class GameServer
 					_log.info("Compiled Scripts Cache was saved.");
 				}
 				else
-				{
 					_log.info("Compiled Scripts Cache is up-to-date.");
-				}
 			}
 
 		}
@@ -370,9 +365,7 @@ public class GameServer
 		RemoteAdministrationImpl.getInstance().startServer();
 		PetitionManager.getInstance();
 		if (Config.ONLINE_PLAYERS_ANNOUNCE_INTERVAL > 0)
-		{
 			OnlinePlayers.getInstance();
-		}
 		ForumsBBSManager.getInstance();
 
 		Runtime.getRuntime().addShutdownHook(Shutdown.getInstance());

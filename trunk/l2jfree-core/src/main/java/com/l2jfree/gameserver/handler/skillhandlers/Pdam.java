@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.handler.skillhandlers;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Effect;
@@ -214,6 +215,8 @@ public class Pdam implements ISkillHandler
 											player.getStatus().stopHpMpRegeneration();
 											player.setIsDead(true);
 											player.setIsPendingRevive(true);
+											if (player.getPet() != null)
+												player.getPet().getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE, null);
 										}
 										else
 											player.doDie(activeChar);

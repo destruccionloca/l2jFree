@@ -21,7 +21,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.Olympiad;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.instancemanager.DuelManager;
@@ -132,17 +131,6 @@ public class CharStatus
 	public void increaseHp(double value)
 	{
 		setCurrentHp(getCurrentHp() + value);
-		if (Config.ALT_OLY_MATCH_HEAL_COUNTS)
-		{
-			if ((getActiveChar() instanceof L2PcInstance) && ((L2PcInstance) getActiveChar()).isInOlympiadMode())
-			{
-				L2PcInstance opp = Olympiad.getInstance().getParticipant(((L2PcInstance) getActiveChar()).getOlympiadOpponentId());
-				if (opp != null)
-				{
-					opp.reduceOlyDamage((int) value);
-				}
-			}
-		}
 	}
 
 	/**
@@ -296,6 +284,8 @@ public class CharStatus
 				stopHpMpRegeneration();
 				player.setIsDead(true);
 				player.setIsPendingRevive(true);
+				if (player.getPet() != null)
+					player.getPet().getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE, null);
 				return;
 			}
 

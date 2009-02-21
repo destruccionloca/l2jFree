@@ -23,7 +23,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.Olympiad;
 import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.datatables.GmListTable;
@@ -46,6 +45,7 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.model.base.Experience;
+import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.PetInfo;
@@ -355,15 +355,8 @@ public class AdminAdmin implements IAdminCommandHandler
 		}
 		else if (command.startsWith("admin_saveolymp"))
 		{
-			try
-			{
-				Olympiad.getInstance().save();
-			}
-			catch (Exception e)
-			{
-				_log.error(e.getMessage(), e);
-			}
-			activeChar.sendMessage("Olympiad stuff saved!");
+			Olympiad.getInstance().saveOlympiadStatus();
+			activeChar.sendMessage("Olympiad system saved.");
 		}
 		else if (command.startsWith("admin_endolympiad"))
 		{

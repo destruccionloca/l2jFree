@@ -18,7 +18,9 @@ import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
+import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * This class ...
@@ -27,39 +29,49 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
  */
 public final class Action extends L2GameClientPacket
 {
-	private static final String ACTION__C__04 = "[C] 04 Action";
-	
+	private static final String	ACTION__C__04	= "[C] 04 Action";
+
 	// cddddc
-	private int _objectId;
+	private int					_objectId;
 	@SuppressWarnings("unused")
-	private int _originX;
+	private int					_originX;
 	@SuppressWarnings("unused")
-	private int _originY;
+	private int					_originY;
 	@SuppressWarnings("unused")
-	private int _originZ;
-	private int _actionId;
+	private int					_originZ;
+	private int					_actionId;
 
 	@Override
 	protected void readImpl()
 	{
-		_objectId  = readD();   // Target object Identifier
-		_originX   = readD();
-		_originY   = readD();
-		_originZ   = readD();
-		_actionId  = readC();   // Action identifier : 0-Simple click, 1-Shift click
+		_objectId = readD(); // Target object Identifier
+		_originX = readD();
+		_originY = readD();
+		_originZ = readD();
+		_actionId = readC(); // Action identifier : 0-Simple click, 1-Shift click
 	}
 
 	@Override
 	protected void runImpl()
 	{
-		if (_log.isDebugEnabled()) _log.debug("Action:" + _actionId);
-		if (_log.isDebugEnabled()) _log.debug("oid:" + _objectId);
+		if (_log.isDebugEnabled())
+			_log.debug("Action:" + _actionId);
+		if (_log.isDebugEnabled())
+			_log.debug("oid:" + _objectId);
 
 		// Get the current L2PcInstance of the player
 		L2PcInstance activeChar = getClient().getActiveChar();
 
 		if (activeChar == null)
 			return;
+
+		if (activeChar.inObserverMode())
+		{
+			SystemMessage sm = new SystemMessage(SystemMessageId.OBSERVERS_CANNOT_PARTICIPATE);
+			getClient().sendPacket(sm);
+			getClient().sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
 
 		L2Object obj = null;
 
@@ -91,7 +103,7 @@ public final class Action extends L2GameClientPacket
 					obj.onAction(activeChar);
 					break;
 				case 1:
-					if (obj instanceof L2Character && ((L2Character)obj).isAlikeDead() && !activeChar.isGM())
+					if (obj instanceof L2Character && ((L2Character) obj).isAlikeDead() && !activeChar.isGM())
 						obj.onAction(activeChar);
 					else
 						obj.onActionShift(activeChar);

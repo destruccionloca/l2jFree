@@ -14,7 +14,9 @@
  */
 package com.l2jfree.gameserver.skills.funcs;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ItemInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.templates.item.L2Item;
@@ -22,8 +24,7 @@ import com.l2jfree.gameserver.templates.item.L2WeaponType;
 
 public class FuncEnchant extends Func
 {
-	public FuncEnchant(Stats pStat, int pOrder, Object owner, @SuppressWarnings("unused")
-	Lambda lambda)
+	public FuncEnchant(Stats pStat, int pOrder, Object owner, Lambda lambda)
 	{
 		super(pStat, pOrder, owner);
 	}
@@ -49,6 +50,23 @@ public class FuncEnchant extends Func
 			enchant = 3;
 		}
 
+		if (env.player != null && env.player instanceof L2PcInstance)
+		{
+			L2PcInstance player = (L2PcInstance) env.player;
+			if (player.isInOlympiadMode() && Config.ALT_OLY_ENCHANT_LIMIT >= 0 && (enchant + overenchant) > Config.ALT_OLY_ENCHANT_LIMIT)
+			{
+				if (Config.ALT_OLY_ENCHANT_LIMIT > 3)
+				{
+					overenchant = Config.ALT_OLY_ENCHANT_LIMIT - 3;
+				}
+				else
+				{
+					overenchant = 0;
+					enchant = Config.ALT_OLY_ENCHANT_LIMIT;
+				}
+			}
+		}
+
 		if (stat == Stats.MAGIC_DEFENCE || stat == Stats.POWER_DEFENCE || stat == Stats.SHIELD_DEFENCE)
 		{
 			env.value += enchant + 3 * overenchant;
@@ -59,22 +77,22 @@ public class FuncEnchant extends Func
 		{
 			switch (item.getItem().getCrystalType())
 			{
-			case L2Item.CRYSTAL_S:
-			case L2Item.CRYSTAL_S80:
-				env.value += 4 * enchant + 8 * overenchant;
-				break;
-			case L2Item.CRYSTAL_A:
-				env.value += 3 * enchant + 6 * overenchant;
-				break;
-			case L2Item.CRYSTAL_B:
-				env.value += 3 * enchant + 6 * overenchant;
-				break;
-			case L2Item.CRYSTAL_C:
-				env.value += 3 * enchant + 6 * overenchant;
-				break;
-			case L2Item.CRYSTAL_D:
-				env.value += 2 * enchant + 4 * overenchant;
-				break;
+				case L2Item.CRYSTAL_S:
+				case L2Item.CRYSTAL_S80:
+					env.value += 4 * enchant + 8 * overenchant;
+					break;
+				case L2Item.CRYSTAL_A:
+					env.value += 3 * enchant + 6 * overenchant;
+					break;
+				case L2Item.CRYSTAL_B:
+					env.value += 3 * enchant + 6 * overenchant;
+					break;
+				case L2Item.CRYSTAL_C:
+					env.value += 3 * enchant + 6 * overenchant;
+					break;
+				case L2Item.CRYSTAL_D:
+					env.value += 2 * enchant + 4 * overenchant;
+					break;
 			}
 			return;
 		}
@@ -85,70 +103,70 @@ public class FuncEnchant extends Func
 
 			switch (item.getItem().getCrystalType())
 			{
-			case L2Item.CRYSTAL_S:
-			case L2Item.CRYSTAL_S80:
-				switch(type)
-				{
-					case BOW:
-					case CROSSBOW:
-						env.value += 10 * enchant + 20 * overenchant;
-						break;
-					default:
-						env.value += 5 * enchant + 10 * overenchant;
-						break;
-				}
-				break;
-			case L2Item.CRYSTAL_A:
-				switch (type)
-				{
-				case BOW:
-				case CROSSBOW:
-					env.value += 8 * enchant + 16 * overenchant;
+				case L2Item.CRYSTAL_S:
+				case L2Item.CRYSTAL_S80:
+					switch (type)
+					{
+						case BOW:
+						case CROSSBOW:
+							env.value += 10 * enchant + 20 * overenchant;
+							break;
+						default:
+							env.value += 5 * enchant + 10 * overenchant;
+							break;
+					}
 					break;
-				default:
-					env.value += 4 * enchant + 8 * overenchant;
+				case L2Item.CRYSTAL_A:
+					switch (type)
+					{
+						case BOW:
+						case CROSSBOW:
+							env.value += 8 * enchant + 16 * overenchant;
+							break;
+						default:
+							env.value += 4 * enchant + 8 * overenchant;
+							break;
+					}
 					break;
-				}
-				break;
-			case L2Item.CRYSTAL_B:
-				switch (type)
-				{
-				case BOW:
-				case CROSSBOW:
-					env.value += 6 * enchant + 12 * overenchant;
+				case L2Item.CRYSTAL_B:
+					switch (type)
+					{
+						case BOW:
+						case CROSSBOW:
+							env.value += 6 * enchant + 12 * overenchant;
+							break;
+						default:
+							env.value += 3 * enchant + 6 * overenchant;
+							break;
+					}
 					break;
-				default:
-					env.value += 3 * enchant + 6 * overenchant;
+				case L2Item.CRYSTAL_C:
+					switch (type)
+					{
+						case BOW:
+						case CROSSBOW:
+							env.value += 6 * enchant + 12 * overenchant;
+							break;
+						default:
+							env.value += 3 * enchant + 6 * overenchant;
+							break;
+					}
 					break;
-				}
-				break;
-			case L2Item.CRYSTAL_C:
-				switch (type)
-				{
-				case BOW:
-				case CROSSBOW:
-					env.value += 6 * enchant + 12 * overenchant;
+				case L2Item.CRYSTAL_D:
+				case L2Item.CRYSTAL_NONE:
+					switch (type)
+					{
+						case BOW:
+						case CROSSBOW:
+						{
+							env.value += 4 * enchant + 8 * overenchant;
+							break;
+						}
+						default:
+							env.value += 2 * enchant + 4 * overenchant;
+							break;
+					}
 					break;
-				default:
-					env.value += 3 * enchant + 6 * overenchant;
-					break;
-				}
-				break;
-			case L2Item.CRYSTAL_D:
-			case L2Item.CRYSTAL_NONE:
-				switch (type)
-				{
-				case BOW:
-				case CROSSBOW:
-				{
-					env.value += 4 * enchant + 8 * overenchant;
-					break;
-				}
-				default:
-					env.value += 2 * enchant + 4 * overenchant;
-					break;
-				}
-				break;
 			}
 		}
 	}

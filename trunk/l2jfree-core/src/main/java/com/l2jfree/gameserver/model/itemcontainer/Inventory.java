@@ -19,6 +19,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javolution.util.FastList;
+
 import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.datatables.ArmorSetsTable;
@@ -39,8 +41,6 @@ import com.l2jfree.gameserver.templates.item.L2EtcItemType;
 import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
 import com.l2jfree.gameserver.templates.item.L2WeaponType;
-
-import javolution.util.FastList;
 
 /**
  * This class manages inventory
@@ -88,6 +88,8 @@ public abstract class Inventory extends ItemContainer
     public static final int PAPERDOLL_DECO4 = 27;
     public static final int PAPERDOLL_DECO5 = 28;
     public static final int PAPERDOLL_DECO6 = 29;
+    
+    public static final int PAPERDOLL_TOTALSLOTS = 30;
 	
 	// Speed percentage mods
 	public static final double					MAX_ARMOR_WEIGHT	= 12000;
@@ -124,7 +126,6 @@ public abstract class Inventory extends ItemContainer
 		/**
 		 * Add alteration in inventory when item equiped
 		 */
-		@SuppressWarnings("unused")
 		public void notifyEquiped(int slot, L2ItemInstance item)
 		{
 			if (!_changed.contains(item))
@@ -134,7 +135,6 @@ public abstract class Inventory extends ItemContainer
 		/**
 		 * Add alteration in inventory when item unequiped
 		 */
-		@SuppressWarnings("unused")
 		public void notifyUnequiped(int slot, L2ItemInstance item)
 		{
 			if (!_changed.contains(item))

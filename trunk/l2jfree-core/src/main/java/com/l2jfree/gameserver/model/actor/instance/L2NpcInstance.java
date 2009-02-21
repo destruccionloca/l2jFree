@@ -23,7 +23,6 @@ import javolution.text.TextBuilder;
 import javolution.util.FastList;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.Olympiad;
 import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.SevenSignsFestival;
 import com.l2jfree.gameserver.Shutdown;
@@ -74,6 +73,7 @@ import com.l2jfree.gameserver.model.entity.events.DM;
 import com.l2jfree.gameserver.model.entity.events.TvT;
 import com.l2jfree.gameserver.model.entity.events.VIP;
 import com.l2jfree.gameserver.model.itemcontainer.NpcInventory;
+import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.model.quest.State;
@@ -480,8 +480,7 @@ public class L2NpcInstance extends L2Character
 	 * <li> L2PcInstance</li><BR><BR>
 	 */
 	@Override
-	public boolean isAutoAttackable(@SuppressWarnings("unused")
-	L2Character attacker)
+	public boolean isAutoAttackable(L2Character attacker)
 	{
 		return false;
 	}
@@ -2585,7 +2584,7 @@ public class L2NpcInstance extends L2Character
 			break;
 		case 31688:
 			if (player.isNoble())
-				filename = Olympiad.OLYMPIAD_HTML_FILE + "noble_main.htm";
+				filename = Olympiad.OLYMPIAD_HTML_PATH + "noble_main.htm";
 			else
 				filename = (getHtmlPath(npcId, val));
 			break;
@@ -2595,15 +2594,15 @@ public class L2NpcInstance extends L2Character
 		case 31771:
 		case 31772:
 			if (player.isHero())
-				filename = Olympiad.OLYMPIAD_HTML_FILE + "hero_main.htm";
+				filename = Olympiad.OLYMPIAD_HTML_PATH + "hero_main.htm";
 			else
 				filename = (getHtmlPath(npcId, val));
 			break;
 		case 36402:
 			if (player.olyBuff > 0)
-				filename = Olympiad.OLYMPIAD_HTML_FILE + "olympiad_buffs.htm";
+				filename = Olympiad.OLYMPIAD_HTML_PATH + "olympiad_buffs.htm";
 			else
-				filename = Olympiad.OLYMPIAD_HTML_FILE + "olympiad_nobuffs.htm";
+				filename = Olympiad.OLYMPIAD_HTML_PATH + "olympiad_nobuffs.htm";
 			break;
 		default:
 			if (npcId >= 31865 && npcId <= 31918)

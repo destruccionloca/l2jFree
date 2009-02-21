@@ -14,11 +14,10 @@
  */
 package com.l2jfree.gameserver.taskmanager.tasks;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.gameserver.Olympiad;
+import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.taskmanager.Task;
 import com.l2jfree.gameserver.taskmanager.TaskManager;
 import com.l2jfree.gameserver.taskmanager.TaskTypes;
@@ -43,17 +42,10 @@ public class TaskOlympiadSave extends Task
 	@Override
 	public void onTimeElapsed(ExecutedTask task)
 	{
-		try
+		if (Olympiad.getInstance().inCompPeriod())
 		{
-			if (Olympiad.getInstance().inCompPeriod())
-			{
-				Olympiad.getInstance().save();
-				_log.info("Olympiad System: Data updated successfully.");
-			}
-		}
-		catch (Exception e)
-		{
-			_log.warn("Olympiad System: Failed to save Olympiad configuration: " + e);
+			Olympiad.getInstance().saveOlympiadStatus();
+			_log.info("Olympiad System: Data updated.");
 		}
 	}
 

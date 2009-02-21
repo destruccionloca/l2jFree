@@ -17,8 +17,7 @@ package com.l2jfree.gameserver.network;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
- *
- * @author  Noctarius & Nille02 & crion & Skatershi
+ * @author Noctarius & Nille02 & crion & Skatershi
  */
 public enum SystemMessageId
 {
@@ -30,7 +29,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1<br>
-	 * Message: The server will be coming down in $1 seconds. Please find a safe place to log out.
+	 * Message: The server will be coming down in $1 seconds. Please find a safe
+	 * place to log out.
 	 */
 	THE_SERVER_WILL_BE_COMING_DOWN_IN_S1_SECONDS(1),
 
@@ -102,13 +102,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 13<br>
-	 * Message: Unable to disperse: your clan has requested to participate in a castle siege.
+	 * Message: Unable to disperse: your clan has requested to participate in a
+	 * castle siege.
 	 */
 	CANNOT_DISSOLVE_CAUSE_CLAN_WILL_PARTICIPATE_IN_CASTLE_SIEGE(13),
 
 	/**
 	 * ID: 14<br>
-	 * Message: Unable to disperse: your clan owns one or more castles or hideouts.
+	 * Message: Unable to disperse: your clan owns one or more castles or
+	 * hideouts.
 	 */
 	CANNOT_DISSOLVE_CAUSE_CLAN_OWNS_CASTLES_HIDEOUTS(14),
 
@@ -160,13 +162,13 @@ public enum SystemMessageId
 	 */
 	TARGET_TOO_FAR(22),
 
-	/** 
+	/**
 	 * ID: 23<br>
 	 * Message: Not enough HP.
 	 */
 	NOT_ENOUGH_HP(23),
 
-	/** 
+	/**
 	 * ID: 24<br>
 	 * Message: Not enough MP.
 	 */
@@ -216,7 +218,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 32<br>
-	 * Message: You are unable to engage in combat. Please go to the nearest restart point.
+	 * Message: You are unable to engage in combat. Please go to the nearest
+	 * restart point.
 	 */
 	UNABLE_COMBAT_PLEASE_GO_RESTART(32),
 
@@ -264,7 +267,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 40<br>
-	 * Message: This is the TGS demo: the character will immediately be restored.
+	 * Message: This is the TGS demo: the character will immediately be
+	 * restored.
 	 */
 	TGS_DEMO(40),
 
@@ -420,25 +424,28 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 66<br>
-	 * Message: $s1 has invited you to his/her party. Do you accept the invitation?
+	 * Message: $s1 has invited you to his/her party. Do you accept the
+	 * invitation?
 	 */
 	S1_INVITED_YOU_TO_PARTY(66),
 
 	/**
 	 * ID: 67<br>
-	 * Message: $s1 has invited you to the join the clan, $s2. Do you wish to join?
+	 * Message: $s1 has invited you to the join the clan, $s2. Do you wish to
+	 * join?
 	 */
 	S1_HAS_INVITED_YOU_TO_JOIN_THE_CLAN_S2(67),
 
 	/**
 	 * ID: 68<br>
-	 * Message: Would you like to withdraw from the $s1 clan? If you leave, you will have to wait at least a day before joining another clan.
+	 * Message: Would you like to withdraw from the $s1 clan? If you leave, you
+	 * will have to wait at least a day before joining another clan.
 	 */
 	WOULD_YOU_LIKE_TO_WITHDRAW_FROM_THE_S1_CLAN(68),
 
 	/**
 	 * ID: 69<br>
-	 * Message: "Would you like to dismiss $s1 from the clan? If you do so, you will have to wait at least a day before accepting a new member."
+	 * Message:"Would you like to dismiss $s1 from the clan? If you do so, you will have to wait at least a day before accepting a new member."
 	 */
 	WOULD_YOU_LIKE_TO_DISMISS_S1_FROM_THE_CLAN(69),
 
@@ -486,7 +493,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 77<br>
-	 * Message: You cannot create another character. Please delete the existing character and try again.
+	 * Message: You cannot create another character. Please delete the existing
+	 * character and try again.
 	 */
 	CANNOT_CREATE_CHARACTER(77),
 
@@ -504,7 +512,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 80<br>
-	 * Message: Names must be between 1-16 characters, excluding spaces or special characters.
+	 * Message: Names must be between 1-16 characters, excluding spaces or
+	 * special characters.
 	 */
 	NAMING_CHARNAME_UP_TO_16CHARS(80),
 
@@ -526,43 +535,44 @@ public enum SystemMessageId
 	 */
 	PLEASE_SELECT_GENDER(83),
 
-	/** 
+	/**
 	 * ID: 84<br>
 	 * Message: You may not attack in a peaceful zone.
 	 */
 	CANT_ATK_PEACEZONE(84),
 
-	/** 
+	/**
 	 * ID: 85<br>
 	 * Message: You may not attack this target in a peaceful zone.
 	 */
 	TARGET_IN_PEACEZONE(85),
 
-	/** 
+	/**
 	 * ID: 86<br>
 	 * Message: Please enter your ID.
 	 */
 	PLEASE_ENTER_ID(86),
 
-	/** 
+	/**
 	 * ID: 87<br>
 	 * Message: Please enter your password.
 	 */
 	PLEASE_ENTER_PASSWORD(87),
 
-	/** 
+	/**
 	 * ID: 88<br>
-	 * Message: Your protocol version is different, please restart your client and run a full check.
+	 * Message: Your protocol version is different, please restart your client
+	 * and run a full check.
 	 */
 	WRONG_PROTOCOL_CHECK(88),
 
-	/** 
+	/**
 	 * ID: 89<br>
 	 * Message: Your protocol version is different, please continue.
 	 */
 	WRONG_PROTOCOL_CONTINUE(89),
 
-	/** 
+	/**
 	 * ID: 90<br>
 	 * Message: You are unable to connect to the server.
 	 */
@@ -828,13 +838,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 135<br>
-	 * Message: $s1 did not reply to your invitation), your invite has been canceled.
+	 * Message: $s1 did not reply to your invitation), your invite has been
+	 * canceled.
 	 */
 	S1_DID_NOT_REPLY(135),
 
 	/**
 	 * ID: 136<br>
-	 * Message: You have not replied to $s1's invitation), the offer has been canceled.
+	 * Message: You have not replied to $s1's invitation), the offer has been
+	 * canceled.
 	 */
 	YOU_DID_NOT_REPLY(136),
 
@@ -876,7 +888,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 143<br>
-	 * Message: $s1 is already trading with another person. Please try again later.
+	 * Message: $s1 is already trading with another person. Please try again
+	 * later.
 	 */
 	S1_ALREADY_TRADING(143),
 
@@ -918,7 +931,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 150<br>
-	 * Message: You cannot discard or destroy an item while trading at a private store.
+	 * Message: You cannot discard or destroy an item while trading at a private
+	 * store.
 	 */
 	CANNOT_DISCARD_OR_DESTROY_ITEM_WHILE_TRADING(150),
 
@@ -1003,7 +1017,7 @@ public enum SystemMessageId
 	/**
 	 * ID: 164<br>
 	 * Message: Waiting for another reply.
-	 */ 
+	 */
 	WAITING_FOR_ANOTHER_REPLY(164),
 
 	/**
@@ -1038,7 +1052,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 170<br>
-	 * Message: The user who requested to become friends is not found in the game.
+	 * Message: The user who requested to become friends is not found in the
+	 * game.
 	 */
 	THE_USER_YOU_REQUESTED_IS_NOT_IN_GAME(170),
 
@@ -1098,7 +1113,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 180<br>
-	 * Message: You have $s1 day(s) left until deletion. Do you wish to cancel this action?
+	 * Message: You have $s1 day(s) left until deletion. Do you wish to cancel
+	 * this action?
 	 */
 	S1_DAYS_LEFT_CANCEL_ACTION(180),
 
@@ -1212,7 +1228,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 199<br>
-	 * Message: You have recently been dismissed from a clan. You are not allowed to join another clan for 24-hours.
+	 * Message: You have recently been dismissed from a clan. You are not
+	 * allowed to join another clan for 24-hours.
 	 */
 	CLAN_MEMBERSHIP_TERMINATED(199),
 
@@ -1272,7 +1289,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 209<br>
-	 * Message: The size of the image file is inappropriate. Please adjust to 16*12
+	 * Message: The size of the image file is inappropriate. Please adjust to
+	 * 16*12
 	 */
 	IMAGE_SIZE_INAPPROPRIATE(209),
 
@@ -1332,7 +1350,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 219<br>
-	 * Message: Your clan leader has died. You have been defeated by the $s1 clan.
+	 * Message: Your clan leader has died. You have been defeated by the $s1
+	 * clan.
 	 */
 	YOU_WERE_DEFEATED_BY_S1_CLAN(219),
 
@@ -1344,7 +1363,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 221<br>
-	 * Message: The time limit for the clan war is up. War with the $s1 clan is over.
+	 * Message: The time limit for the clan war is up. War with the $s1 clan is
+	 * over.
 	 */
 	CLAN_WAR_WITH_S1_CLAN_HAS_ENDED(221),
 
@@ -1368,7 +1388,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 225<br>
-	 * Message: You didn't respond to $s1's invitation: joining has been cancelled.
+	 * Message: You didn't respond to $s1's invitation: joining has been
+	 * cancelled.
 	 */
 	YOU_DID_NOT_RESPOND_TO_S1_CLAN_INVITATION(225),
 
@@ -1380,7 +1401,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 227<br>
-	 * Message: Clan war has been refused because you did not respond to $s1 clan's war proclamation.
+	 * Message: Clan war has been refused because you did not respond to $s1
+	 * clan's war proclamation.
 	 */
 	CLAN_WAR_REFUSED_YOU_DID_NOT_RESPOND_TO_S1(227),
 
@@ -1404,19 +1426,21 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 231<br>
-	 * Message: After a clan member is dismissed from a clan, the clan must wait at least a day before accepting a new member.
+	 * Message: After a clan member is dismissed from a clan, the clan must wait
+	 * at least a day before accepting a new member.
 	 */
 	YOU_MUST_WAIT_BEFORE_ACCEPTING_A_NEW_MEMBER(231),
 
 	/**
 	 * ID: 232<br>
-	 * Message: After leaving or having been dismissed from a clan, you must wait at least a day before joining another clan.
+	 * Message: After leaving or having been dismissed from a clan, you must
+	 * wait at least a day before joining another clan.
 	 */
 	YOU_MUST_WAIT_BEFORE_JOINING_ANOTHER_CLAN(232),
 
 	/**
 	 * ID: 233<br>
-	 * Message: 
+	 * Message:
 	 */
 	SUBCLAN_IS_FULL(233),
 
@@ -1488,7 +1512,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 245<br>
-	 * Message: 5 days has not passed since you were refused war. Do you wish to continue?
+	 * Message: 5 days has not passed since you were refused war. Do you wish to
+	 * continue?
 	 */
 	FIVE_DAYS_NOT_PASSED_SINCE_REFUSED_WAR(245),
 
@@ -1500,13 +1525,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 247<br>
-	 * Message: You have already been at war with the $s1 clan: 5 days must pass before you can challenge this clan again
+	 * Message: You have already been at war with the $s1 clan: 5 days must pass
+	 * before you can challenge this clan again
 	 */
 	FIVE_DAYS_MUST_PASS_BEFORE_CHALLENGE_AGAIN(247),
 
 	/**
 	 * ID: 248<br>
-	 * Message: You cannot proclaim war: the $s1 clan does not have enough members.
+	 * Message: You cannot proclaim war: the $s1 clan does not have enough
+	 * members.
 	 */
 	S1_CLAN_NOT_ENOUGH_MEMBERS_FOR_WAR(248),
 
@@ -1518,8 +1545,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 250<br>
-	 * Message: You have personally surrendered to the $s1 clan. 
-	 * You are no longer participating in this clan war.
+	 * Message: You have personally surrendered to the $s1 clan. You are no
+	 * longer participating in this clan war.
 	 */
 	YOU_HAVE_PERSONALLY_SURRENDERED_TO_THE_S1_CLAN(250),
 
@@ -1579,7 +1606,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 260<br>
-	 * Message: Fame level has decreased: 5 days have not passed since you were refused war
+	 * Message: Fame level has decreased: 5 days have not passed since you were
+	 * refused war
 	 */
 	FIVE_DAYS_NOT_PASSED_SINCE_YOU_WERE_REFUSED_WAR(260),
 
@@ -1609,7 +1637,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 265<br>
-	 * Message: You cannot dissolve a clan during a siege or while protecting a castle.
+	 * Message: You cannot dissolve a clan during a siege or while protecting a
+	 * castle.
 	 */
 	CANNOT_DISSOLVE_WHILE_IN_SIEGE(265),
 
@@ -1645,19 +1674,22 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 271<br>
-	 * Message: A player can only be granted a title if the clan is level 3 or above
+	 * Message: A player can only be granted a title if the clan is level 3 or
+	 * above
 	 */
 	CLAN_LVL_3_NEEDED_TO_ENDOWE_TITLE(271),
 
 	/**
 	 * ID: 272<br>
-	 * Message: A clan crest can only be registered when the clan's skill level is 3 or above.
+	 * Message: A clan crest can only be registered when the clan's skill level
+	 * is 3 or above.
 	 */
 	CLAN_LVL_3_NEEDED_TO_SET_CREST(272),
 
 	/**
 	 * ID: 273<br>
-	 * Message: A clan war can only be declared when a clan's skill level is 3 or above.
+	 * Message: A clan war can only be declared when a clan's skill level is 3
+	 * or above.
 	 */
 	CLAN_LVL_3_NEEDED_TO_DECLARE_WAR(273),
 
@@ -1675,7 +1707,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 276<br>
-	 * Message: You do not have the necessary materials or prerequisites to learn this skill.
+	 * Message: You do not have the necessary materials or prerequisites to
+	 * learn this skill.
 	 */
 	ITEM_MISSING_TO_LEARN_SKILL(276),
 
@@ -1783,13 +1816,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 294<br>
-	 * Message: Because your clan is not currently on the offensive in a Clan Hall siege war, it cannot summon its base camp.
+	 * Message: Because your clan is not currently on the offensive in a Clan
+	 * Hall siege war, it cannot summon its base camp.
 	 */
 	BECAUSE_YOUR_CLAN_IS_NOT_CURRENTLY_ON_THE_OFFENSIVE_IN_A_CLAN_HALL_SIEGE_WAR_IT_CANNOT_SUMMON_ITS_BASE_CAMP(294),
 
 	/**
 	 * ID: 295<br>
-	 * Message: $s1's siege was canceled because there were no clans that participated.
+	 * Message: $s1's siege was canceled because there were no clans that
+	 * participated.
 	 */
 	S1_SIEGE_WAS_CANCELED_BECAUSE_NO_CLANS_PARTICIPATED(295),
 
@@ -1993,7 +2028,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 337<br>
-	 * Message: The soulshot you are attempting to use does not match the grade of your equipped weapon.
+	 * Message: The soulshot you are attempting to use does not match the grade
+	 * of your equipped weapon.
 	 */
 	SOULSHOTS_GRADE_MISMATCH(337),
 
@@ -2123,7 +2159,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 362<br>
-	 * Message: You have acquired $s1 bonus experience from a successful over-hit.
+	 * Message: You have acquired $s1 bonus experience from a successful
+	 * over-hit.
 	 */
 	ACQUIRED_BONUS_EXPERIENCE_THROUGH_OVER_HIT(362),
 
@@ -2195,7 +2232,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 374<br>
-	 * Message: You are attempting to crystallize +$s1 $s2. Do you wish to continue?
+	 * Message: You are attempting to crystallize +$s1 $s2. Do you wish to
+	 * continue?
 	 */
 	WISH_CRYSTALLIZE_S1_S2(374),
 
@@ -2237,7 +2275,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 381<br>
-	 * Message: The game client encountered an error and was unable to connect to the petition server.
+	 * Message: The game client encountered an error and was unable to connect
+	 * to the petition server.
 	 */
 	GAME_CLIENT_UNABLE_TO_CONNECT_TO_PETITION_SERVER(381),
 
@@ -2267,14 +2306,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 386<br>
-	 * Message: The body of your petition must be more than five characters in length.
+	 * Message: The body of your petition must be more than five characters in
+	 * length.
 	 */
 	PETITION_MORE_THAN_FIVE_CHARACTERS(386),
 
 	/**
 	 * ID: 387<br>
-	 * Message: This ends the GM petition consultation. 
-	 * Please take a moment to provide feedback about this service.
+	 * Message: This ends the GM petition consultation. Please take a moment to
+	 * provide feedback about this service.
 	 */
 	THIS_END_THE_PETITION_PLEASE_PROVIDE_FEEDBACK(387),
 
@@ -2286,7 +2326,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 389<br>
-	 * Message: our petition application has been accepted. - Receipt No. is $s1.
+	 * Message: our petition application has been accepted. - Receipt No. is
+	 * $s1.
 	 */
 	PETITION_ACCEPTED_RECENT_NO_S1(389),
 
@@ -2456,7 +2497,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 418<br>
-	 * Message: There is a significant difference between the item's price and its standard price. Please check again.
+	 * Message: There is a significant difference between the item's price and
+	 * its standard price. Please check again.
 	 */
 	PRICE_DIFFERECE(418),
 
@@ -2504,7 +2546,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 426<br>
-	 * Message: Your account has been reported for intentionally not paying the cyber cafe fees.
+	 * Message: Your account has been reported for intentionally not paying the
+	 * cyber cafe fees.
 	 */
 	ACCOUNT_REPORTED_NOT_PAYING(426),
 
@@ -2516,13 +2559,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 428<br>
-	 * Message: In accordance with company policy, your account has been suspended due to  ...
+	 * Message: In accordance with company policy, your account has been
+	 * suspended due to ...
 	 */
 	ILLEGAL_USE1(428),
 
 	/**
 	 * ID: 429<br>
-	 * Message: In accordance with company policy, your account has been suspended due to  ...
+	 * Message: In accordance with company policy, your account has been
+	 * suspended due to ...
 	 */
 	ILLEGAL_USE2(429),
 
@@ -2624,8 +2669,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 446<br>
-	 * Message: For more information, please visit the Support Center on the PlayNC website
-	 * (http://www.plaync.com/us/support/).
+	 * Message: For more information, please visit the Support Center on the
+	 * PlayNC website (http://www.plaync.com/us/support/).
 	 */
 	NCSOFT_SUPPOR(446),
 
@@ -2661,7 +2706,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 452<br>
-	 * Message: Please confirm your account information and try logging in later.
+	 * Message: Please confirm your account information and try logging in
+	 * later.
 	 */
 	PLEASE_CONFIRM_ACCOUNT_LOGIN_LATER(452),
 
@@ -2673,7 +2719,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 454<br>
-	 * Message: For more details, please contact our customer service center at http://support.plaync.com.
+	 * Message: For more details, please contact our customer service center at
+	 * http://support.plaync.com.
 	 */
 	DETAILS_NCSUPPORT(454),
 
@@ -2685,13 +2732,16 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 456<br>
-	 * Message: Lineage II game services may be used by individuals 15 years of age or older except for PvP servers,which may only be used by adults 18 years of age and older (Korea Only)
+	 * Message: Lineage II game services may be used by individuals 15 years of
+	 * age or older except for PvP servers,which may only be used by adults 18
+	 * years of age and older (Korea Only)
 	 */
 	LINAGE_MINIMUM_AGE(456),
 
 	/**
 	 * ID: 457<br>
-	 * Message: Currently undergoing game server maintenance. Please log in again later.
+	 * Message: Currently undergoing game server maintenance. Please log in
+	 * again later.
 	 */
 	SERVER_MAINTENANCE(457),
 
@@ -2751,21 +2801,22 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 467<br>
-	 * Message: You may not accept any clan within a day after expelling another clan.
+	 * Message: You may not accept any clan within a day after expelling another
+	 * clan.
 	 */
 	CANT_INVITE_CLAN_WITHIN_1_DAY(467),
 
 	/**
 	 * ID: 468<br>
-	 * Message: A clan that has withdrawn or been expelled cannot enter 
-	 * into an alliance within one day of withdrawal or expulsion.
+	 * Message: A clan that has withdrawn or been expelled cannot enter into an
+	 * alliance within one day of withdrawal or expulsion.
 	 */
 	CANT_ENTER_ALLIANCE_WITHIN_1_DAY(468),
 
 	/**
 	 * ID: 469<br>
-	 * Message: You may not ally with a clan you are currently at war with. 
-	 * That would be diabolical and treacherous.
+	 * Message: You may not ally with a clan you are currently at war with. That
+	 * would be diabolical and treacherous.
 	 */
 	MAY_NOT_ALLY_CLAN_BATTLE(469),
 
@@ -2981,7 +3032,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 505<br>
-	 * Message: You cannot create a new alliance within 10 days after dissolution.
+	 * Message: You cannot create a new alliance within 10 days after
+	 * dissolution.
 	 */
 	CANT_CREATE_ALLIANCE_10_DAYS_DISOLUTION(505),
 
@@ -3005,7 +3057,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 509<br>
-	 * Message: Cannot accept. clan ally is registered as an enemy during siege battle.
+	 * Message: Cannot accept. clan ally is registered as an enemy during siege
+	 * battle.
 	 */
 	CANT_ACCEPT_ALLY_ENEMY_FOR_SIEGE(509),
 
@@ -3191,19 +3244,22 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 540<br>
-	 * Message: Clan leaders may not be deleted. Dissolve the clan first and try again.
+	 * Message: Clan leaders may not be deleted. Dissolve the clan first and try
+	 * again.
 	 */
 	CLAN_LEADERS_MAY_NOT_BE_DELETED(540),
 
 	/**
 	 * ID: 541<br>
-	 * Message: You may not delete a clan member. Withdraw from the clan first and try again.
+	 * Message: You may not delete a clan member. Withdraw from the clan first
+	 * and try again.
 	 */
 	CLAN_MEMBER_MAY_NOT_BE_DELETED(541),
 
 	/**
 	 * ID: 542<br>
-	 * Message: The NPC server is currently down. Pets and servitors cannot be summoned at this time.
+	 * Message: The NPC server is currently down. Pets and servitors cannot be
+	 * summoned at this time.
 	 */
 	THE_NPC_SERVER_IS_CURRENTLY_DOWN(542),
 
@@ -3221,7 +3277,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 545<br>
-	 * Message: Your pet cannot carry any more items. Remove some, then try again.
+	 * Message: Your pet cannot carry any more items. Remove some, then try
+	 * again.
 	 */
 	YOUR_PET_CANNOT_CARRY_ANY_MORE_ITEMS(545),
 
@@ -3241,7 +3298,7 @@ public enum SystemMessageId
 	 * ID: 548<br>
 	 * Message: Your pet's name can be up to 8 characters in length.
 	 */
-	NAMING_PETNAME_UP_TO_8CHARS(548), 
+	NAMING_PETNAME_UP_TO_8CHARS(548),
 
 	/**
 	 * ID: 549<br>
@@ -3251,19 +3308,22 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 550<br>
-	 * Message: You may not create an alliance during the term of dissolution postponement.
+	 * Message: You may not create an alliance during the term of dissolution
+	 * postponement.
 	 */
 	YOU_MAY_NOT_CREATE_ALLY_WHILE_DISSOLVING(550),
 
 	/**
 	 * ID: 551<br>
-	 * Message: You cannot raise your clan level during the term of dispersion postponement.
+	 * Message: You cannot raise your clan level during the term of dispersion
+	 * postponement.
 	 */
 	CANNOT_RISE_LEVEL_WHILE_DISSOLUTION_IN_PROGRESS(551),
 
 	/**
 	 * ID: 552<br>
-	 * Message: During the grace period for dissolving a clan, the registration or deletion of a clan's crest is not allowed.
+	 * Message: During the grace period for dissolving a clan, the registration
+	 * or deletion of a clan's crest is not allowed.
 	 */
 	CANNOT_SET_CREST_WHILE_DISSOLUTION_IN_PROGRESS(552),
 
@@ -3323,7 +3383,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 562<br>
-	 * Message: You may not crystallize this item. Your crystallization skill level is too low.
+	 * Message: You may not crystallize this item. Your crystallization skill
+	 * level is too low.
 	 */
 	CRYSTALLIZE_LEVEL_TOO_LOW(562),
 
@@ -3365,7 +3426,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 569<br>
-	 * Message: Caution -- this item's price greatly differs from non-player run shops. Do you wish to continue?
+	 * Message: Caution -- this item's price greatly differs from non-player run
+	 * shops. Do you wish to continue?
 	 */
 	GREATLY_DIFF_ITEM_PRICE(569),
 
@@ -3383,7 +3445,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 572<br>
-	 * Message: Do you wish to join $s1's party? (Item distribution: Finders Keepers)
+	 * Message: Do you wish to join $s1's party? (Item distribution: Finders
+	 * Keepers)
 	 */
 	S1_INVITED_YOU_TO_PARTY_FINDER_KEEPER(572),
 
@@ -3413,7 +3476,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 577<br>
-	 * Message: You cannot summon during a trade or while using the private shops.
+	 * Message: You cannot summon during a trade or while using the private
+	 * shops.
 	 */
 	CANNOT_SUMMON_DURING_TRADE_SHOP(577),
 
@@ -3491,8 +3555,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 590<br>
-	 * Message: Your pet is motionless and any attempt you make to give 
-	 * it something goes unrecognized.
+	 * Message: Your pet is motionless and any attempt you make to give it
+	 * something goes unrecognized.
 	 */
 	CANNOT_GIVE_ITEMS_TO_DEAD_PET(590),
 
@@ -3504,7 +3568,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 592<br>
-	 * Message: Do you wish to dismiss your pet? Dismissing your pet will cause the pet necklace to disappear
+	 * Message: Do you wish to dismiss your pet? Dismissing your pet will cause
+	 * the pet necklace to disappear
 	 */
 	WISH_TO_DISMISS_PET(592),
 
@@ -3546,7 +3611,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 599<br>
-	 * Message: The GM has an important notice. Chat has been temporarily disabled.
+	 * Message: The GM has an important notice. Chat has been temporarily
+	 * disabled.
 	 */
 	GM_NOTICE_CHAT_DISABLED(599),
 
@@ -3564,7 +3630,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 602<br>
-	 * Message: The petition system is currently unavailable. Please try again later.
+	 * Message: The petition system is currently unavailable. Please try again
+	 * later.
 	 */
 	PETITION_SYSTEM_CURRENT_UNAVAILABLE(602),
 
@@ -3576,25 +3643,28 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 604<br>
-	 * Message: You may not call forth a pet or summoned creature from this location
+	 * Message: You may not call forth a pet or summoned creature from this
+	 * location
 	 */
 	NOT_CALL_PET_FROM_THIS_LOCATION(604),
 
 	/**
 	 * ID: 605<br>
-	 * Message: You may register  up to 64 people on your list.
+	 * Message: You may register up to 64 people on your list.
 	 */
 	MAY_REGISTER_UP_TO_64_PEOPLE(605),
 
 	/**
 	 * ID: 606<br>
-	 * Message: You cannot be registered because the other person has already registered 64 people on his/her list.
+	 * Message: You cannot be registered because the other person has already
+	 * registered 64 people on his/her list.
 	 */
 	OTHER_PERSON_ALREADY_64_PEOPLE(606),
 
 	/**
 	 * ID: 607<br>
-	 * Message: You do not have any further skills to learn. Come back when you have reached Level $s1.
+	 * Message: You do not have any further skills to learn. Come back when you
+	 * have reached Level $s1.
 	 */
 	DO_NOT_HAVE_FURTHER_SKILLS_TO_LEARN(607),
 
@@ -3690,7 +3760,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 623<br>
-	 * Message: Your opponent has exceeded the number of simultaneous alliance battles alllowed.
+	 * Message: Your opponent has exceeded the number of simultaneous alliance
+	 * battles alllowed.
 	 */
 	OPPONENT_TOO_MUCH_ALLY_BATTLES1(623),
 
@@ -3714,19 +3785,22 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 627<br>
-	 * Message: Clan battle has been refused because you did not respond to $s1 clan's war proclamation.
+	 * Message: Clan battle has been refused because you did not respond to $s1
+	 * clan's war proclamation.
 	 */
 	YOU_REFUSED_CLAN_WAR_PROCLAMATION(627),
 
 	/**
 	 * ID: 628<br>
-	 * Message: You have already been at war with the $s1 clan: 5 days must pass before you can declare war again.
+	 * Message: You have already been at war with the $s1 clan: 5 days must pass
+	 * before you can declare war again.
 	 */
 	ALREADY_AT_WAR_WITH_S1_WAIT_5_DAYS(628),
 
 	/**
 	 * ID: 629<br>
-	 * Message: Your opponent has exceeded the number of simultaneous alliance battles alllowed.
+	 * Message: Your opponent has exceeded the number of simultaneous alliance
+	 * battles alllowed.
 	 */
 	OPPONENT_TOO_MUCH_ALLY_BATTLES2(629),
 
@@ -3756,13 +3830,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 634<br>
-	 * Message: Your alliance leader has been slain. You have been defeated by the clan.
+	 * Message: Your alliance leader has been slain. You have been defeated by
+	 * the clan.
 	 */
 	DEFEATED_BY_CLAN(634),
 
 	/**
 	 * ID: 635<br>
-	 * Message: The time limit for the clan war has been exceeded. War with the clan is over.
+	 * Message: The time limit for the clan war has been exceeded. War with the
+	 * clan is over.
 	 */
 	TIME_UP_WAR_OVER(635),
 
@@ -3786,7 +3862,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 639<br>
-	 * Message: Your application has been denied because you have already submitted a request for another Siege Battle.
+	 * Message: Your application has been denied because you have already
+	 * submitted a request for another Siege Battle.
 	 */
 	APPLICATION_DENIED_BECAUSE_ALREADY_SUBMITTED_A_REQUEST_FOR_ANOTHER_SIEGE_BATTLE(639),
 
@@ -3794,13 +3871,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 642<br>
-	 * Message: You are already registered to the attacker side and must not cancel your registration before submitting your request
+	 * Message: You are already registered to the attacker side and must not
+	 * cancel your registration before submitting your request
 	 */
 	ALREADY_ATTACKER_NOT_CANCEL(642),
 
 	/**
 	 * ID: 643<br>
-	 * Message: You are already registered to the defender side and must not cancel your registration before submitting your request
+	 * Message: You are already registered to the defender side and must not
+	 * cancel your registration before submitting your request
 	 */
 	ALREADY_DEFENDER_NOT_CANCEL(643),
 
@@ -3838,7 +3917,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 651<br>
-	 * Message: Place  in the current location and direction. Do you wish to continue?
+	 * Message: Place in the current location and direction. Do you wish to
+	 * continue?
 	 */
 	PLACE_CURRENT_LOCATION_DIRECTION(651),
 
@@ -3874,25 +3954,29 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 657<br>
-	 * Message: Positioning cannot be done here because the distance between mercenaries is too short.
+	 * Message: Positioning cannot be done here because the distance between
+	 * mercenaries is too short.
 	 */
 	POSITIONING_CANNOT_BE_DONE_BECAUSE_DISTANCE_BETWEEN_MERCENARIES_TOO_SHORT(657),
 
 	/**
 	 * ID: 658<br>
-	 * Message: This is not a mercenary of a castle that you own and so you cannot cancel its positioning.
+	 * Message: This is not a mercenary of a castle that you own and so you
+	 * cannot cancel its positioning.
 	 */
 	THIS_IS_NOT_A_MERCENARY_OF_A_CASTLE_THAT_YOU_OWN_AND_SO_CANNOT_CANCEL_POSITIONING(658),
 
 	/**
 	 * ID: 659<br>
-	 * Message: This is not the time for siege registration and so registrations cannot be accepted or rejected.
+	 * Message: This is not the time for siege registration and so registrations
+	 * cannot be accepted or rejected.
 	 */
 	NOT_SIEGE_REGISTRATION_TIME1(659),
 
 	/**
 	 * ID: 659<br>
-	 * Message: This is not the time for siege registration and so registration and cancellation cannot be done.
+	 * Message: This is not the time for siege registration and so registration
+	 * and cancellation cannot be done.
 	 */
 	NOT_SIEGE_REGISTRATION_TIME2(660),
 
@@ -3918,43 +4002,50 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 665<br>
-	 * Message:  of alliance is applying for alliance war. Do you want to accept the challenge?
+	 * Message: of alliance is applying for alliance war. Do you want to accept
+	 * the challenge?
 	 */
 	APPLYING_ALLIANCE_WAR(665),
 
 	/**
 	 * ID: 666<br>
-	 * Message:  A request for ceasefire has been received from alliance. Do you agree?
+	 * Message: A request for ceasefire has been received from alliance. Do you
+	 * agree?
 	 */
 	REQUEST_FOR_CEASEFIRE(666),
 
 	/**
 	 * ID: 667<br>
-	 * Message:  You are registering on the attacking side of the siege. Do you want to continue?
+	 * Message: You are registering on the attacking side of the siege. Do you
+	 * want to continue?
 	 */
 	REGISTERING_ON_ATTACKING_SIDE(667),
 
 	/**
 	 * ID: 668<br>
-	 * Message:  You are registering on the defending side of the siege. Do you want to continue?
+	 * Message: You are registering on the defending side of the siege. Do you
+	 * want to continue?
 	 */
 	REGISTERING_ON_DEFENDING_SIDE(668),
 
 	/**
 	 * ID: 669<br>
-	 * Message:  You are canceling your application to participate in the siege battle. Do you want to continue?
+	 * Message: You are canceling your application to participate in the siege
+	 * battle. Do you want to continue?
 	 */
 	CANCELING_REGISTRATION(669),
 
 	/**
 	 * ID: 670<br>
-	 * Message:  You are refusing the registration of clan on the defending side. Do you want to continue?
+	 * Message: You are refusing the registration of clan on the defending side.
+	 * Do you want to continue?
 	 */
 	REFUSING_REGISTRATION(670),
 
 	/**
 	 * ID: 671<br>
-	 * Message:  You are agreeing to the registration of clan on the defending side. Do you want to continue?
+	 * Message: You are agreeing to the registration of clan on the defending
+	 * side. Do you want to continue?
 	 */
 	AGREEING_REGISTRATION(671),
 
@@ -3966,7 +4057,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 673<br>
-	 * Message: Only a clan leader whose clan is of level 2 or higher is allowed to participate in a clan hall auction.
+	 * Message: Only a clan leader whose clan is of level 2 or higher is allowed
+	 * to participate in a clan hall auction.
 	 */
 	AUCTION_ONLY_CLAN_LEVEL_2_HIGHER(673),
 
@@ -3984,13 +4076,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 676<br>
-	 * Message: Since you have already submitted a bid, you are not allowed to participate in another auction at this time.
+	 * Message: Since you have already submitted a bid, you are not allowed to
+	 * participate in another auction at this time.
 	 */
 	ALREADY_SUBMITTED_BID(676),
 
 	/**
 	 * ID: 677<br>
-	 * Message: Your bid price must be higher than the minimum price that can be bid.
+	 * Message: Your bid price must be higher than the minimum price that can be
+	 * bid.
 	 */
 	BID_PRICE_MUST_BE_HIGHER(677),
 
@@ -4012,8 +4106,6 @@ public enum SystemMessageId
 	 */
 	//CLAN_HAS_NO_CLAN_HALL(681) // Doesn't work in CT1
 
-
-
 	/**
 	 * ID: 683<br>
 	 * Message: There are no priority rights on a sweeper.
@@ -4028,7 +4120,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 685<br>
-	 * Message: You cannot apply for clan war with a clan that belongs to the same alliance
+	 * Message: You cannot apply for clan war with a clan that belongs to the
+	 * same alliance
 	 */
 	CANNOT_DECLARE_WAR_ON_ALLY(685),
 
@@ -4046,7 +4139,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 688<br>
-	 * Message: The clan that owns the castle is automatically registered on the defending side.
+	 * Message: The clan that owns the castle is automatically registered on the
+	 * defending side.
 	 */
 	CLAN_THAT_OWNS_CASTLE_IS_AUTOMATICALLY_REGISTERED_DEFENDING(688),
 
@@ -4058,7 +4152,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 690<br>
-	 * Message: You cannot register on the attacking side because you are part of an alliance with the clan that owns the castle.
+	 * Message: You cannot register on the attacking side because you are part
+	 * of an alliance with the clan that owns the castle.
 	 */
 	CANNOT_ATTACK_ALLIANCE_CASTLE(690),
 
@@ -4094,7 +4189,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 696<br>
-	 * Message: Your account is restricted for not paying your PC room usage fees.
+	 * Message: Your account is restricted for not paying your PC room usage
+	 * fees.
 	 */
 	ACCOUNT_RESTRICTED_NOT_PAYING(696),
 
@@ -4130,9 +4226,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 702 <br>
-	 * Message: There are no GMs 
-	 * currently visible in the public list as they may be 
-	 * performing other functions at the moment.
+	 * Message: There are no GMs currently visible in the public list as they
+	 * may be performing other functions at the moment.
 	 */
 	NO_GM_PROVIDING_SERVICE_NOW(702),
 
@@ -4222,7 +4317,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 717<br>
-	 * Message: The guardian tower has been destroyed and resurrection is not possible
+	 * Message: The guardian tower has been destroyed and resurrection is not
+	 * possible
 	 */
 	TOWER_DESTROYED_NO_RESURRECTION(717),
 
@@ -4240,8 +4336,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 720<br>
-	 * Message: The purchase price is higher than the amount 
-	 * of money that you have and so you cannot open a personal store.
+	 * Message: The purchase price is higher than the amount of money that you
+	 * have and so you cannot open a personal store.
 	 */
 	THE_PURCHASE_PRICE_IS_HIGHER_THAN_MONEY(720),
 
@@ -4253,7 +4349,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 722<br>
-	 * Message: You cannot dissolve an alliance while an affiliated clan is participating in a siege battle.
+	 * Message: You cannot dissolve an alliance while an affiliated clan is
+	 * participating in a siege battle.
 	 */
 	CANNOT_DISSOLVE_ALLY_WHILE_IN_SIEGE(722),
 
@@ -4271,7 +4368,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 725<br>
-	 * Message: You cannot banish a clan from an alliance while the clan is participating in a siege
+	 * Message: You cannot banish a clan from an alliance while the clan is
+	 * participating in a siege
 	 */
 	CANNOT_DISMISS_WHILE_SIEGE(725),
 
@@ -4289,7 +4387,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 728<br>
-	 * Message: You cannot apply for dissolution again within seven days after a previous application for dissolution.
+	 * Message: You cannot apply for dissolution again within seven days after a
+	 * previous application for dissolution.
 	 */
 	CANNOT_APPLY_DISSOLUTION_AGAIN(728),
 
@@ -4301,13 +4400,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 730<br>
-	 * Message: - You have submitted your $s1th petition. - You may submit $s2 more petition(s) today.
+	 * Message: - You have submitted your $s1th petition. - You may submit $s2
+	 * more petition(s) today.
 	 */
 	SUBMITTED_YOU_S1_TH_PETITION_S2_LEFT(730),
 
 	/**
 	 * ID: 731<br>
-	 * Message: A petition has been received by the GM on behalf of $s1. The petition code is $s2.
+	 * Message: A petition has been received by the GM on behalf of $s1. The
+	 * petition code is $s2.
 	 */
 	PETITION_S1_RECEIVED_CODE_IS_S2(731),
 
@@ -4319,28 +4420,30 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 733<br>
-	 * Message: We have received $s1 petitions from you today and that is 
-	 * the maximum that you can submit in one day. You cannot submit any more petitions.
+	 * Message: We have received $s1 petitions from you today and that is the
+	 * maximum that you can submit in one day. You cannot submit any more
+	 * petitions.
 	 */
 	WE_HAVE_RECEIVED_S1_PETITIONS_TODAY(733),
 
 	/**
 	 * ID: 734<br>
-	 * Message: You have failed at submitting a petition on behalf of someone else.
-	 * $s1 already submitted a petition.
+	 * Message: You have failed at submitting a petition on behalf of someone
+	 * else. $s1 already submitted a petition.
 	 */
 	PETITION_FAILED_S1_ALREADY_SUBMITTED(734),
 
 	/**
 	 * ID: 735<br>
-	 * Message: You have failed at submitting a petition on behalf of $s1.
-	 * The error number is $s2.
+	 * Message: You have failed at submitting a petition on behalf of $s1. The
+	 * error number is $s2.
 	 */
 	PETITION_FAILED_S1_ERROR_NUMBER_S2(735),
 
 	/**
 	 * ID: 736<br>
-	 * Message: The petition was canceled. You may submit $s1 more petition(s) today.
+	 * Message: The petition was canceled. You may submit $s1 more petition(s)
+	 * today.
 	 */
 	PETITION_CANCELED_SUBMIT_S1_MORE_TODAY(736),
 
@@ -4358,8 +4461,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 739<br>
-	 * Message: You have failed at cancelling a petition on behalf of $s1.
-	 * The error number is $s2.
+	 * Message: You have failed at cancelling a petition on behalf of $s1. The
+	 * error number is $s2.
 	 */
 	PETITION_CANCEL_FAILED_S1_ERROR_NUMBER_S2(739),
 
@@ -4371,14 +4474,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 741<br>
-	 * Message: You have failed at adding $s1 to the petition chat. Petition has already been submitted.
+	 * Message: You have failed at adding $s1 to the petition chat. Petition has
+	 * already been submitted.
 	 */
 	FAILED_ADDING_S1_TO_PETITION(741),
 
 	/**
 	 * ID: 742<br>
-	 * Message: You have failed at adding $s1 to the petition chat.
-	 * The error code is $s2.
+	 * Message: You have failed at adding $s1 to the petition chat. The error
+	 * code is $s2.
 	 */
 	PETITION_ADDING_S1_FAILED_ERROR_NUMBER_S2(742),
 
@@ -4390,8 +4494,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 744<br>
-	 * Message: You have failed at removing $s1 from the petition chat.
-	 * The error code is $s2.
+	 * Message: You have failed at removing $s1 from the petition chat. The
+	 * error code is $s2.
 	 */
 	PETITION_REMOVING_S1_FAILED_ERROR_NUMBER_S2(744),
 
@@ -4409,8 +4513,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 747<br>
-	 * Message: If you need help, please visit the Support Center on the PlayNC website
-	 * (http://www.plaync.com/us/support/).
+	 * Message: If you need help, please visit the Support Center on the PlayNC
+	 * website (http://www.plaync.com/us/support/).
 	 */
 	PLAYNC_SUPPORT_CENTER(747),
 
@@ -4434,7 +4538,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 751<br>
-	 * Message: As there is a conflict in the siege relationship with a clan in the alliance, you cannot invite that clan to the alliance.
+	 * Message: As there is a conflict in the siege relationship with a clan in
+	 * the alliance, you cannot invite that clan to the alliance.
 	 */
 	CANNOT_INVITE_CONFLICT_CLAN(751),
 
@@ -4452,7 +4557,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 754<br>
-	 * Message: There are $s1 hours and $s2 minutes left in this week's usage time.
+	 * Message: There are $s1 hours and $s2 minutes left in this week's usage
+	 * time.
 	 */
 	S1_HOURS_S2_MINUTES_LEFT_THIS_WEEK(754),
 
@@ -4476,7 +4582,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 758<br>
-	 * Message: There are $s1 hours and $s2 minutes left in this week's play time.
+	 * Message: There are $s1 hours and $s2 minutes left in this week's play
+	 * time.
 	 */
 	S1_HOURS_S2_MINUTES_LEFT_THIS_WEEKS_PLAY_TIME(758),
 
@@ -4488,13 +4595,14 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 760<br>
-	 * Message: $s1 cannot join the clan because one day has not yet passed since he/she left another clan. 
+	 * Message: $s1 cannot join the clan because one day has not yet passed
+	 * since he/she left another clan.
 	 */
 	S1_MUST_WAIT_BEFORE_JOINING_ANOTHER_CLAN(760),
 
 	/**
 	 * ID: 761<br>
-	 * Message: $s1 clan cannot join the alliance because one day has not yet 
+	 * Message: $s1 clan cannot join the alliance because one day has not yet
 	 * passed since it left another alliance.
 	 */
 	S1_CANT_ENTER_ALLIANCE_WITHIN_1_DAY(761),
@@ -4507,25 +4615,29 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 763<br>
-	 * Message: You failed at sending the package because you are too far from the warehouse.
+	 * Message: You failed at sending the package because you are too far from
+	 * the warehouse.
 	 */
 	FAILED_SENDING_PACKAGE_TOO_FAR(763),
 
 	/**
 	 * ID: 764<br>
-	 * Message: You have been playing for an extended period of time. Please consider taking a break.
+	 * Message: You have been playing for an extended period of time. Please
+	 * consider taking a break.
 	 */
 	PLAYING_FOR_LONG_TIME(764),
 
 	/**
 	 * ID: 765<br>
-	 * Message: GameGuard is already running. Please try running it again after rebooting.
+	 * Message: GameGuard is already running. Please try running it again after
+	 * rebooting.
 	 */
 	GG_ALREADY_RUNNING(765),
 
 	/**
 	 * ID: 766<br>
-	 * Message: There is a GameGuard initialization error. Please try running it again after rebooting.
+	 * Message: There is a GameGuard initialization error. Please try running it
+	 * again after rebooting.
 	 */
 	GG_INITIALIZATION_ERROR(766),
 
@@ -4537,26 +4649,30 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 768<br>
-	 * Message: A Windows system file is damaged. Please reinstall Internet Explorer.
+	 * Message: A Windows system file is damaged. Please reinstall Internet
+	 * Explorer.
 	 */
 	WINDOWS_FILE_DAMAGED(768),
 
 	/**
 	 * ID: 769<br>
-	 * Message: A hacking tool has been discovered. Please try again after closing unnecessary programs.
+	 * Message: A hacking tool has been discovered. Please try again after
+	 * closing unnecessary programs.
 	 */
 	HACKING_TOOL(769),
 
 	/**
 	 * ID: 770<br>
-	 * Message: The GameGuard update was canceled. Please check your network connection status or firewall.
+	 * Message: The GameGuard update was canceled. Please check your network
+	 * connection status or firewall.
 	 */
 	GG_UPDATE_CANCELED1(770),
 
 	/**
 	 * ID: 771<br>
-	 * Message: The GameGuard update was canceled. Please try running it again after
-	 * doing a virus scan or changing the settings in your PC management program.
+	 * Message: The GameGuard update was canceled. Please try running it again
+	 * after doing a virus scan or changing the settings in your PC management
+	 * program.
 	 */
 	GG_UPDATE_CANCELED2(771),
 
@@ -4586,13 +4702,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 776<br>
-	 * Message: The clan hall which was put up for auction has been awarded to  clan.
+	 * Message: The clan hall which was put up for auction has been awarded to
+	 * clan.
 	 */
 	CLANHALL_AWARDED_TO_CLAN(776),
 
 	/**
 	 * ID: 777<br>
-	 * Message: The clan hall which was put up for auction was not sold and therefore has been re-listed.
+	 * Message: The clan hall which was put up for auction was not sold and
+	 * therefore has been re-listed.
 	 */
 	CLANHALL_NOT_SOLD(777),
 
@@ -4706,7 +4824,7 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 796<br>
-	 * Message: Your remaining observation time is  minutes.
+	 * Message: Your remaining observation time is minutes.
 	 */
 	REMAINING_OBSERVATION_TIME(796),
 
@@ -4742,7 +4860,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 802<br>
-	 * Message: Petitions are not being accepted at this time. You may submit your petition after a.m./p.m.
+	 * Message: Petitions are not being accepted at this time. You may submit
+	 * your petition after a.m./p.m.
 	 */
 	PETITION_NOT_ACCEPTED_NOW(802),
 
@@ -4760,7 +4879,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 805<br>
-	 * Message: Petitions are not being accepted at this time. You may submit your petition after $s1 a.m./p.m.
+	 * Message: Petitions are not being accepted at this time. You may submit
+	 * your petition after $s1 a.m./p.m.
 	 */
 	PETITION_NOT_ACCEPTED_SUBMIT_AT_S1(805),
 
@@ -4772,7 +4892,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 807<br>
-	 * Message: This terrain is navigable. Prepare for transport to the nearest village.
+	 * Message: This terrain is navigable. Prepare for transport to the nearest
+	 * village.
 	 */
 	STUCK_PREPARE_FOR_TRANSPORT(807),
 
@@ -4784,7 +4905,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 809<br>
-	 * Message: You are stuck. You will be transported to the nearest village in five minutes.
+	 * Message: You are stuck. You will be transported to the nearest village in
+	 * five minutes.
 	 */
 	STUCK_TRANSPORT_IN_FIVE_MINUTES(809),
 
@@ -4886,7 +5008,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 826<br>
-	 * Message: First prize goes to the player in lane $s1. Second prize goes to the player in lane $s2.
+	 * Message: First prize goes to the player in lane $s1. Second prize goes to
+	 * the player in lane $s2.
 	 */
 	MONSRACE_FIRST_PLACE_S1_SECOND_S2(826),
 
@@ -4898,7 +5021,7 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 828<br>
-	 * Message: Are you sure you wish to delete the  macro?
+	 * Message: Are you sure you wish to delete the macro?
 	 */
 	WISH_TO_DELETE_MACRO(828),
 
@@ -4910,7 +5033,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 830<br>
-	 * Message: You have recommended $s1. You are authorized to make $s2 more recommendations.
+	 * Message: You have recommended $s1. You are authorized to make $s2 more
+	 * recommendations.
 	 */
 	YOU_HAVE_RECOMMENDED(830),
 
@@ -4928,8 +5052,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 833<br>
-	 * Message: You are not authorized to make further recommendations at this time. 
-	 * You will receive more recommendation credits each day at 1 p.m.
+	 * Message: You are not authorized to make further recommendations at this
+	 * time. You will receive more recommendation credits each day at 1 p.m.
 	 */
 	NO_MORE_RECOMMENDATIONS_TO_HAVE(833),
 
@@ -4947,7 +5071,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 836<br>
-	 * Message: You have exceeded your inventory volume limit and cannot take this item.
+	 * Message: You have exceeded your inventory volume limit and cannot take
+	 * this item.
 	 */
 	YOU_HAVE_EXCEEDED_YOUR_INVENTORY_VOLUME_LIMIT_AND_CANNOT_TAKE_THIS_ITEM(836),
 
@@ -5013,7 +5138,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 847<br>
-	 * Message: A clan that owns a clan hall may not participate in a clan hall siege.
+	 * Message: A clan that owns a clan hall may not participate in a clan hall
+	 * siege.
 	 */
 	CLAN_OWNING_CLANHALL_MAY_NOT_SIEGE_CLANHALL(847),
 
@@ -5049,7 +5175,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 853<br>
-	 * Message: You may not alter your recipe book while engaged in manufacturing.
+	 * Message: You may not alter your recipe book while engaged in
+	 * manufacturing.
 	 */
 	CANT_ALTER_RECIPEBOOK_WHILE_CRAFTING(853),
 
@@ -5091,7 +5218,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 860<br>
-	 * Message: You may not buld your headquarters in close proximity to another headquarters.
+	 * Message: You may not buld your headquarters in close proximity to another
+	 * headquarters.
 	 */
 	HEADQUARTERS_TOO_CLOSE(860),
 
@@ -5313,13 +5441,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 897<br>
-	 * Message:The ferry will leave for Talking Island Harbor after anchoring for ten minutes.
+	 * Message:The ferry will leave for Talking Island Harbor after anchoring
+	 * for ten minutes.
 	 */
 	FERRY_LEAVE_TALKING(897),
 
 	/**
 	 * ID: 898<br>
-	 * Message: Only characters of level 10 or above are authorized to make recommendations.
+	 * Message: Only characters of level 10 or above are authorized to make
+	 * recommendations.
 	 */
 	ONLY_LEVEL_SUP_10_CAN_RECOMMEND(898),
 
@@ -5541,7 +5671,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 935<br>
-	 * Message: The amount is not sufficient and so the manor is not in operation.
+	 * Message: The amount is not sufficient and so the manor is not in
+	 * operation.
 	 */
 	THE_AMOUNT_IS_NOT_SUFFICIENT_AND_SO_THE_MANOR_IS_NOT_IN_OPERATION(935),
 
@@ -5577,7 +5708,7 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 941<br>
-	 * Message: Restart at Talking Island Village. 
+	 * Message: Restart at Talking Island Village.
 	 */
 	RESTART_AT_TI(941),
 
@@ -5679,7 +5810,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 958<br>
-	 * Message: Items cannot be discarded or destroyed while operating a private store or workshop.
+	 * Message: Items cannot be discarded or destroyed while operating a private
+	 * store or workshop.
 	 */
 	ITEMS_CANNOT_BE_DISCARDED_OR_DESTROYED_WHILE_OPERATING_PRIVATE_STORE_OR_WORKSHOP(958),
 
@@ -5727,14 +5859,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 966<br>
-	 * Message: Chatting is currently prohibited. If you try to chat before the prohibition is
-	 * removed, the prohibition time will become even longer.
+	 * Message: Chatting is currently prohibited. If you try to chat before the
+	 * prohibition is removed, the prohibition time will become even longer.
 	 */
 	CHATTING_IS_CURRENTLY_PROHIBITED(966),
 
 	/**
 	 * ID: 967<br>
-	 * Message: Do you accept 's party invitation? (Item Distribution: Random including spoil.)
+	 * Message: Do you accept 's party invitation? (Item Distribution: Random
+	 * including spoil.)
 	 */
 	PARTY_INVITE_RANDOM_INCLUDING_SPOIL(967),
 
@@ -5746,7 +5879,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 969<br>
-	 * Message: Do you accept 's party invitation? (Item Distribution: By Turn including spoil.)
+	 * Message: Do you accept 's party invitation? (Item Distribution: By Turn
+	 * including spoil.)
 	 */
 	PARTY_INVITE_BY_TURN_INCLUDING_SPOIL(969),
 
@@ -5788,13 +5922,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 976<br>
-	 * Message: The soul crystal broke because it was not able to endure the soul energy.
+	 * Message: The soul crystal broke because it was not able to endure the
+	 * soul energy.
 	 */
 	SOUL_CRYSTAL_BROKE(976),
 
 	/**
 	 * ID: 977<br>
-	 * Message: The soul crystals caused resonation and failed at absorbing a soul.
+	 * Message: The soul crystals caused resonation and failed at absorbing a
+	 * soul.
 	 */
 	SOUL_CRYSTAL_ABSORBING_FAILED_RESONATION(977),
 
@@ -5812,7 +5948,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 980<br>
-	 * Message: The ferry will leave for Gludin Harbor after anchoring for ten minutes.
+	 * Message: The ferry will leave for Gludin Harbor after anchoring for ten
+	 * minutes.
 	 */
 	FERRY_LEAVE_FOR_GLUDIN_AFTER_10_MINUTES(980),
 
@@ -5854,7 +5991,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 987<br>
-	 * Message: The ferry will leave for Talking Island Harbor after anchoring for ten minutes.
+	 * Message: The ferry will leave for Talking Island Harbor after anchoring
+	 * for ten minutes.
 	 */
 	FERRY_LEAVE_FOR_TALKING_AFTER_10_MINUTES(987),
 
@@ -5890,7 +6028,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 993<br>
-	 * Message: The ferry will leave for Giran Harbor after anchoring for ten minutes.
+	 * Message: The ferry will leave for Giran Harbor after anchoring for ten
+	 * minutes.
 	 */
 	FERRY_LEAVE_FOR_GIRAN_AFTER_10_MINUTES(993),
 
@@ -5920,7 +6059,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 998<br>
-	 * Message: The Innadril pleasure boat has arrived. It will anchor for ten minutes.
+	 * Message: The Innadril pleasure boat has arrived. It will anchor for ten
+	 * minutes.
 	 */
 	INNADRIL_BOAT_ANCHOR_10_MINUTES(998),
 
@@ -6166,15 +6306,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1039<br>
-	 * Message: Items left at the clan hall warehouse can only be retrieved by the clan leader. 
-	 * Do you want to continue?
+	 * Message: Items left at the clan hall warehouse can only be retrieved by
+	 * the clan leader. Do you want to continue?
 	 */
 	ONLY_CLAN_LEADER_CAN_RETRIEVE_ITEMS_FROM_CLAN_WAREHOUSE(1039),
 
 	/**
 	 * ID: 1040<br>
-	 * Message: Items sent by freight can be picked up from any Warehouse location.
-	 * Do you want to continue?
+	 * Message: Items sent by freight can be picked up from any Warehouse
+	 * location. Do you want to continue?
 	 */
 	ITEMS_SENT_BY_FREIGHT_PICKED_UP_FROM_ANYWHERE(1040),
 
@@ -6192,13 +6332,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1043<br>
-	 * Message: At the current time, the /unstuck command cannot be used. Please send in a petition.
+	 * Message: At the current time, the /unstuck command cannot be used. Please
+	 * send in a petition.
 	 */
 	NO_UNSTUCK_PLEASE_SEND_PETITION(1043),
 
 	/**
 	 * ID: 1044<br>
-	 * Message: Monster race payout information is not available while tickets are being sold.
+	 * Message: Monster race payout information is not available while tickets
+	 * are being sold.
 	 */
 	MONSRACE_NO_PAYOUT_INFO(1044),
 
@@ -6222,23 +6364,26 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1049<br>
-	 * Message: When blocking everything, it is not possible to send invitations for organizing parties.
+	 * Message: When blocking everything, it is not possible to send invitations
+	 * for organizing parties.
 	 */
 	NO_PARTY_WHEN_BLOCKING(1049),
 
 	/**
 	 * ID: 1050<br>
-	 * Message: There are no communities in my clan. Clan communities are allowed for clans with skill levels of 2 and higher.
+	 * Message: There are no communities in my clan. Clan communities are
+	 * allowed for clans with skill levels of 2 and higher.
 	 */
 	NO_CB_IN_MY_CLAN(1050),
 
-	/** 
+	/**
 	 * ID: 1051 <br>
-	 * Message: Payment for your clan hall has not been made please make payment tomorrow.
+	 * Message: Payment for your clan hall has not been made please make payment
+	 * tomorrow.
 	 */
 	PAYMENT_FOR_YOUR_CLAN_HALL_HAS_NOT_BEEN_MADE_PLEASE_MAKE_PAYMENT_TO_YOUR_CLAN_WAREHOUSE_BY_S1_TOMORROW(1051),
 
-	/** 
+	/**
 	 * ID: 1052 <br>
 	 * Message: Payment of Clan Hall is overdue the owner loose Clan Hall.
 	 */
@@ -6246,7 +6391,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1053<br>
-	 * Message: It is not possible to resurrect in battlefields where a siege war is taking place.
+	 * Message: It is not possible to resurrect in battlefields where a siege
+	 * war is taking place.
 	 */
 	CANNOT_BE_RESURRECTED_DURING_SIEGE(1053),
 
@@ -6294,7 +6440,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1061<br>
-	 * Message: The recipe cannot be registered. You do not have the ability to create items.
+	 * Message: The recipe cannot be registered. You do not have the ability to
+	 * create items.
 	 */
 	CANT_REGISTER_NO_ABILITY_TO_CRAFT(1061),
 
@@ -6306,8 +6453,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1063<br>
-	 * Message: The Petition Service is currently unavailable, please try again later; in the interim,
-	 * if you become trapped or unable to move, please use the '/unstuck' command.
+	 * Message: The Petition Service is currently unavailable, please try again
+	 * later; in the interim, if you become trapped or unable to move, please
+	 * use the '/unstuck' command.
 	 */
 	PETITION_UNAVAILABLE(1063),
 
@@ -6319,7 +6467,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1065<br>
-	 * Message: While operating a private store or workshop, you cannot discard, destroy, or trade an item.
+	 * Message: While operating a private store or workshop, you cannot discard,
+	 * destroy, or trade an item.
 	 */
 	CANNOT_TRADE_DISCARD_DROP_ITEM_WHILE_IN_SHOPMODE(1065),
 
@@ -6373,7 +6522,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1074<br>
-	 * Message: You do not meet the age requirement to purchase a Monster Race Ticket.
+	 * Message: You do not meet the age requirement to purchase a Monster Race
+	 * Ticket.
 	 */
 	NOT_MEET_AGE_REQUIREMENT_FOR_MONS_RACE(1074),
 
@@ -6391,15 +6541,16 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1077<br>
-	 * Message: A GameGuard Execution error has occurred. Please send the *.erl file(s) located
-	 * in the GameGuard folder to game@inca.co.kr
+	 * Message: A GameGuard Execution error has occurred. Please send the *.erl
+	 * file(s) located in the GameGuard folder to game@inca.co.kr
 	 */
 	GG_EXECUTION_ERROR(1077),
 
 	/**
 	 * ID: 1078<br>
-	 * Message: When a user's keyboard input exceeds a certain cumulative score a chat ban will be applied.
-	 * This is done to discourage spamming. Please avoid posting the same message multiple times during a short period.
+	 * Message: When a user's keyboard input exceeds a certain cumulative score
+	 * a chat ban will be applied. This is done to discourage spamming. Please
+	 * avoid posting the same message multiple times during a short period.
 	 */
 	DONT_SPAM(1078),
 
@@ -6411,19 +6562,22 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1080<br>
-	 * Message: Being permanent, are you sure you wish to use the facelift potion - Type A?
+	 * Message: Being permanent, are you sure you wish to use the facelift
+	 * potion - Type A?
 	 */
 	FACELIFT_POTION_TYPE_A(1080),
 
 	/**
 	 * ID: 1081<br>
-	 * Message: Being permanent, are you sure you wish to use the hair dye potion - Type A?
+	 * Message: Being permanent, are you sure you wish to use the hair dye
+	 * potion - Type A?
 	 */
 	HAIRDYE_POTION_TYPE_A(1081),
 
 	/**
 	 * ID: 1082<br>
-	 * Message: Do you wish to use the hair style change potion - Type A? It is permanent.
+	 * Message: Do you wish to use the hair style change potion - Type A? It is
+	 * permanent.
 	 */
 	HAIRSTYLE_POTION_TYPE_A(1082),
 
@@ -6471,67 +6625,78 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1090<br>
-	 * Message: Being permanent, are you sure you wish to use the facelift potion - Type B?
+	 * Message: Being permanent, are you sure you wish to use the facelift
+	 * potion - Type B?
 	 */
 	FACELIFT_POTION_TYPE_B(1090),
 
 	/**
 	 * ID: 1091<br>
-	 * Message: Being permanent, are you sure you wish to use the facelift potion - Type C?
+	 * Message: Being permanent, are you sure you wish to use the facelift
+	 * potion - Type C?
 	 */
 	FACELIFT_POTION_TYPE_C(1091),
 
 	/**
 	 * ID: 1092<br>
-	 * Message: Being permanent, are you sure you wish to use the hair dye potion - Type B?
+	 * Message: Being permanent, are you sure you wish to use the hair dye
+	 * potion - Type B?
 	 */
 	HAIRDYE_POTION_TYPE_B(1092),
 
 	/**
 	 * ID: 1093<br>
-	 * Message: Being permanent, are you sure you wish to use the hair dye potion - Type C?
+	 * Message: Being permanent, are you sure you wish to use the hair dye
+	 * potion - Type C?
 	 */
 	HAIRDYE_POTION_TYPE_C(1093),
 
 	/**
 	 * ID: 1094<br>
-	 * Message: Being permanent, are you sure you wish to use the hair dye potion - Type D?
+	 * Message: Being permanent, are you sure you wish to use the hair dye
+	 * potion - Type D?
 	 */
 	HAIRDYE_POTION_TYPE_D(1094),
 
 	/**
 	 * ID: 1095<br>
-	 * Message: Do you wish to use the hair style change potion - Type B? It is permanent.
+	 * Message: Do you wish to use the hair style change potion - Type B? It is
+	 * permanent.
 	 */
 	HAIRSTYLE_POTION_TYPE_B(1095),
 
 	/**
 	 * ID: 1096<br>
-	 * Message: Do you wish to use the hair style change potion - Type C? It is permanent.
+	 * Message: Do you wish to use the hair style change potion - Type C? It is
+	 * permanent.
 	 */
 	HAIRSTYLE_POTION_TYPE_C(1096),
 
 	/**
 	 * ID: 1097<br>
-	 * Message: Do you wish to use the hair style change potion - Type D? It is permanent.
+	 * Message: Do you wish to use the hair style change potion - Type D? It is
+	 * permanent.
 	 */
 	HAIRSTYLE_POTION_TYPE_D(1097),
 
 	/**
 	 * ID: 1098<br>
-	 * Message: Do you wish to use the hair style change potion - Type E? It is permanent.
+	 * Message: Do you wish to use the hair style change potion - Type E? It is
+	 * permanent.
 	 */
 	HAIRSTYLE_POTION_TYPE_E(1098),
 
 	/**
 	 * ID: 1099<br>
-	 * Message: Do you wish to use the hair style change potion - Type F? It is permanent.
+	 * Message: Do you wish to use the hair style change potion - Type F? It is
+	 * permanent.
 	 */
 	HAIRSTYLE_POTION_TYPE_F(1099),
 
 	/**
 	 * ID: 1100<br>
-	 * Message: Do you wish to use the hair style change potion - Type G? It is permanent.
+	 * Message: Do you wish to use the hair style change potion - Type G? It is
+	 * permanent.
 	 */
 	HAIRSTYLE_POTION_TYPE_G(1100),
 
@@ -6603,22 +6768,23 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1112<br>
-	 * Message: The prize amount for the winner of Lottery #$s1 is $s2 adena. We have $s3 first prize winners.
+	 * Message: The prize amount for the winner of Lottery #$s1 is $s2 adena. We
+	 * have $s3 first prize winners.
 	 */
 	AMOUNT_FOR_WINNER_S1_IS_S2_ADENA_WE_HAVE_S3_PRIZE_WINNER(1112),
 
 	/**
 	 * ID: 1113<br>
-	 * Message: The prize amount for Lucky Lottery #$s1 is $s2 adena. 
-	 * There was no first prize winner in this drawing, therefore the 
-	 * jackpot will be added to the next drawing.
+	 * Message: The prize amount for Lucky Lottery #$s1 is $s2 adena. There was
+	 * no first prize winner in this drawing, therefore the jackpot will be
+	 * added to the next drawing.
 	 */
 	AMOUNT_FOR_LOTTERY_S1_IS_S2_ADENA_NO_WINNER(1113),
 
 	/**
 	 * ID: 1114<br>
-	 * Message: Your clan may not register to participate in a siege while under a 
-	 * grace period of the clan's dissolution.
+	 * Message: Your clan may not register to participate in a siege while under
+	 * a grace period of the clan's dissolution.
 	 */
 	CANT_PARTICIPATE_IN_SIEGE_WHILE_DISSOLUTION_IN_PROGRESS(1114),
 
@@ -6642,15 +6808,16 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1118<br>
-	 * Message: Progress in a quest is possible only when your inventory's 
+	 * Message: Progress in a quest is possible only when your inventory's
 	 * weight and volume are less than 80 percent of capacity.
 	 */
 	INVENTORY_LESS_THAN_80_PERCENT(1118),
 
 	/**
 	 * ID: 1119<br>
-	 * Message: Quest was automatically canceled when you attempted to settle the accounts of
-	 * your quest while your inventory exceeded 80 percent of capacity.
+	 * Message: Quest was automatically canceled when you attempted to settle
+	 * the accounts of your quest while your inventory exceeded 80 percent of
+	 * capacity.
 	 */
 	QUEST_CANCELED_INVENTORY_EXCEEDS_80_PERCENT(1119),
 
@@ -6674,7 +6841,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1123<br>
-	 * Message: Weight and volume limit has been exceeded. That skill is currently unavailable.
+	 * Message: Weight and volume limit has been exceeded. That skill is
+	 * currently unavailable.
 	 */
 	WEIGHT_EXCEEDED_SKILL_UNAVAILABLE(1123),
 
@@ -6704,7 +6872,7 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1128<br>
-	 * Message: A private store may not  be opened while using a skill.
+	 * Message: A private store may not be opened while using a skill.
 	 */
 	PRIVATE_STORE_NOT_WHILE_CASTING(1128),
 
@@ -6716,7 +6884,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1130<br>
-	 * Message: You have given $s1 damage to your target and $s2 damage to the servitor.
+	 * Message: You have given $s1 damage to your target and $s2 damage to the
+	 * servitor.
 	 */
 	GIVEN_S1_DAMAGE_TO_YOUR_TARGET_AND_S2_DAMAGE_TO_SERVITOR(1130),
 
@@ -6746,14 +6915,16 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1135<br>
-	 * Message: While you are engaged in combat, you cannot operate a private store or private workshop.
+	 * Message: While you are engaged in combat, you cannot operate a private
+	 * store or private workshop.
 	 */
 	CANT_CRAFT_DURING_COMBAT(1135),
 
 	/**
 	 * ID: 1136<br>
-	 * Message: Since there was an account that used this IP and attempted to log in illegally, this account
-	 * is not allowed to connect to the game server for $s1 minutes. Please use another game server.
+	 * Message: Since there was an account that used this IP and attempted to
+	 * log in illegally, this account is not allowed to connect to the game
+	 * server for $s1 minutes. Please use another game server.
 	 */
 	ACCOUNT_NOT_ALLOWED_TO_CONNECT(1136),
 
@@ -6771,7 +6942,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1139<br>
-	 * Message: The weight and volume limit of your inventory must not be exceeded.
+	 * Message: The weight and volume limit of your inventory must not be
+	 * exceeded.
 	 */
 	INVENTORY_LIMIT_MUST_NOT_BE_EXCEEDED(1139),
 
@@ -6795,7 +6967,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1143<br>
-	 * Message: Since you do not have enough items to maintain the servitor's stay, the servitor will disappear.
+	 * Message: Since you do not have enough items to maintain the servitor's
+	 * stay, the servitor will disappear.
 	 */
 	SERVITOR_DISAPPEARED_NOT_ENOUGH_ITEMS(1143),
 
@@ -6807,7 +6980,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1145<br>
-	 * Message: $s2 has been created for $s1 after the payment of $s3 adena is received.
+	 * Message: $s2 has been created for $s1 after the payment of $s3 adena is
+	 * received.
 	 */
 	S2_CREATED_FOR_S1_FOR_S3_ADENA(1145),
 
@@ -6831,7 +7005,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1149<br>
-	 * Message: Your attempt to create $s2 for $s1 at the price of $s3 adena has failed.
+	 * Message: Your attempt to create $s2 for $s1 at the price of $s3 adena has
+	 * failed.
 	 */
 	CREATION_OF_S2_FOR_S1_AT_S3_ADENA_FAILED(1149),
 
@@ -6879,7 +7054,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1157<br>
-	 * Message: Trying on state lasts for only 5 seconds. When a character's state changes, it can be cancelled.
+	 * Message: Trying on state lasts for only 5 seconds. When a character's
+	 * state changes, it can be cancelled.
 	 */
 	TRYING_ON_STATE(1157),
 
@@ -6897,97 +7073,113 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1160<br>
-	 * Message: The ferry from Talking Island will be arriving at Gludin Harbor in approximately 5 minutes.
+	 * Message: The ferry from Talking Island will be arriving at Gludin Harbor
+	 * in approximately 5 minutes.
 	 */
 	FERRY_FROM_TALKING_ARRIVE_AT_GLUDIN_5_MINUTES(1160),
 
 	/**
 	 * ID: 1161<br>
-	 * Message: The ferry from Talking Island will be arriving at Gludin Harbor in approximately 1 minute.
+	 * Message: The ferry from Talking Island will be arriving at Gludin Harbor
+	 * in approximately 1 minute.
 	 */
 	FERRY_FROM_TALKING_ARRIVE_AT_GLUDIN_1_MINUTE(1161),
 
 	/**
 	 * ID: 1162<br>
-	 * Message: The ferry from Giran Harbor will be arriving at Talking Island in approximately 15 minutes.
+	 * Message: The ferry from Giran Harbor will be arriving at Talking Island
+	 * in approximately 15 minutes.
 	 */
 	FERRY_FROM_GIRAN_ARRIVE_AT_TALKING_15_MINUTES(1162),
 
 	/**
 	 * ID: 1163<br>
-	 * Message: The ferry from Giran Harbor will be arriving at Talking Island in approximately 10 minutes.
+	 * Message: The ferry from Giran Harbor will be arriving at Talking Island
+	 * in approximately 10 minutes.
 	 */
 	FERRY_FROM_GIRAN_ARRIVE_AT_TALKING_10_MINUTES(1163),
 
 	/**
 	 * ID: 1164<br>
-	 * Message: The ferry from Giran Harbor will be arriving at Talking Island in approximately 5 minutes.
+	 * Message: The ferry from Giran Harbor will be arriving at Talking Island
+	 * in approximately 5 minutes.
 	 */
 	FERRY_FROM_GIRAN_ARRIVE_AT_TALKING_5_MINUTES(1164),
 
 	/**
 	 * ID: 1165<br>
-	 * Message: The ferry from Giran Harbor will be arriving at Talking Island in approximately 1 minute.
+	 * Message: The ferry from Giran Harbor will be arriving at Talking Island
+	 * in approximately 1 minute.
 	 */
 	FERRY_FROM_GIRAN_ARRIVE_AT_TALKING_1_MINUTE(1165),
 
 	/**
 	 * ID: 1166<br>
-	 * Message: The ferry from Talking Island will be arriving at Giran Harbor in approximately 20 minutes.
+	 * Message: The ferry from Talking Island will be arriving at Giran Harbor
+	 * in approximately 20 minutes.
 	 */
 	FERRY_FROM_TALKING_ARRIVE_AT_GIRAN_20_MINUTES(1166),
 
 	/**
 	 * ID: 1167<br>
-	 * Message: The ferry from Talking Island will be arriving at Giran Harbor in approximately 20 minutes.
+	 * Message: The ferry from Talking Island will be arriving at Giran Harbor
+	 * in approximately 20 minutes.
 	 */
 	FERRY_FROM_TALKING_ARRIVE_AT_GIRAN_15_MINUTES(1167),
 
 	/**
 	 * ID: 1168<br>
-	 * Message: The ferry from Talking Island will be arriving at Giran Harbor in approximately 20 minutes.
+	 * Message: The ferry from Talking Island will be arriving at Giran Harbor
+	 * in approximately 20 minutes.
 	 */
 	FERRY_FROM_TALKING_ARRIVE_AT_GIRAN_10_MINUTES(1168),
 
 	/**
 	 * ID: 1169<br>
-	 * Message: The ferry from Talking Island will be arriving at Giran Harbor in approximately 20 minutes.
+	 * Message: The ferry from Talking Island will be arriving at Giran Harbor
+	 * in approximately 20 minutes.
 	 */
 	FERRY_FROM_TALKING_ARRIVE_AT_GIRAN_5_MINUTES(1169),
 
 	/**
 	 * ID: 1170<br>
-	 * Message: The ferry from Talking Island will be arriving at Giran Harbor in approximately 1 minute.
+	 * Message: The ferry from Talking Island will be arriving at Giran Harbor
+	 * in approximately 1 minute.
 	 */
 	FERRY_FROM_TALKING_ARRIVE_AT_GIRAN_1_MINUTE(1170),
 
 	/**
 	 * ID: 1171<br>
-	 * Message: The Innadril pleasure boat will arrive in approximately 20 minutes.
+	 * Message: The Innadril pleasure boat will arrive in approximately 20
+	 * minutes.
 	 */
 	INNADRIL_BOAT_ARRIVE_20_MINUTES(1171),
 
 	/**
 	 * ID: 1172<br>
-	 * Message: The Innadril pleasure boat will arrive in approximately 15 minutes.
+	 * Message: The Innadril pleasure boat will arrive in approximately 15
+	 * minutes.
 	 */
 	INNADRIL_BOAT_ARRIVE_15_MINUTES(1172),
 
 	/**
 	 * ID: 1173<br>
-	 * Message: The Innadril pleasure boat will arrive in approximately 10 minutes.
+	 * Message: The Innadril pleasure boat will arrive in approximately 10
+	 * minutes.
 	 */
 	INNADRIL_BOAT_ARRIVE_10_MINUTES(1173),
 
 	/**
 	 * ID: 1174<br>
-	 * Message: The Innadril pleasure boat will arrive in approximately 5 minutes.
+	 * Message: The Innadril pleasure boat will arrive in approximately 5
+	 * minutes.
 	 */
 	INNADRIL_BOAT_ARRIVE_5_MINUTES(1174),
 
 	/**
 	 * ID: 1175<br>
-	 * Message: The Innadril pleasure boat will arrive in approximately 1 minute.
+	 * Message: The Innadril pleasure boat will arrive in approximately 1
+	 * minute.
 	 */
 	INNADRIL_BOAT_ARRIVE_1_MINUTE(1175),
 
@@ -7047,7 +7239,7 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1185<br>
-	 * Message:  days left until deletion.
+	 * Message: days left until deletion.
 	 */
 	DAYS_LEFT_UNTIL_DELETION(1185),
 
@@ -7060,8 +7252,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1187<br>
-	 * Message: If you forgotten your account information or password, please visit the Support Center
-	 * on the PlayNC website(http://www.plaync.com/us/support/)
+	 * Message: If you forgotten your account information or password, please
+	 * visit the Support Center on the PlayNC
+	 * website(http://www.plaync.com/us/support/)
 	 */
 	ACCOUNT_INFORMATION_FORGOTTON_VISIT_WEBSITE(1187),
 
@@ -7073,43 +7266,50 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1189<br>
-	 * Message: This temporary alliance of the Castle Attacker team is in effect. It will be dissolved when the Castle Lord is replaced.
+	 * Message: This temporary alliance of the Castle Attacker team is in
+	 * effect. It will be dissolved when the Castle Lord is replaced.
 	 */
 	TEMPORARY_ALLIANCE(1189),
 
 	/**
 	 * ID: 1189<br>
-	 * Message: This temporary alliance of the Castle Attacker team has been dissolved.
+	 * Message: This temporary alliance of the Castle Attacker team has been
+	 * dissolved.
 	 */
 	TEMPORARY_ALLIANCE_DISSOLVED(1190),
 
 	/**
 	 * ID: 1191<br>
-	 * Message: The ferry from Gludin Harbor will be arriving at Talking Island in approximately 10 minutes.
+	 * Message: The ferry from Gludin Harbor will be arriving at Talking Island
+	 * in approximately 10 minutes.
 	 */
 	FERRY_FROM_GLUDIN_ARRIVE_AT_TALKING_10_MINUTES(1191),
 
 	/**
 	 * ID: 1192<br>
-	 * Message: The ferry from Gludin Harbor will be arriving at Talking Island in approximately 5 minutes.
+	 * Message: The ferry from Gludin Harbor will be arriving at Talking Island
+	 * in approximately 5 minutes.
 	 */
 	FERRY_FROM_GLUDIN_ARRIVE_AT_TALKING_5_MINUTES(1192),
 
 	/**
 	 * ID: 1193<br>
-	 * Message: The ferry from Gludin Harbor will be arriving at Talking Island in approximately 1 minute.
+	 * Message: The ferry from Gludin Harbor will be arriving at Talking Island
+	 * in approximately 1 minute.
 	 */
 	FERRY_FROM_GLUDIN_ARRIVE_AT_TALKING_1_MINUTE(1193),
 
 	/**
 	 * ID: 1194<br>
-	 * Message: A mercenary can be assigned to a position from the beginning of the Seal Validatio period until the time when a siege starts.
+	 * Message: A mercenary can be assigned to a position from the beginning of
+	 * the Seal Validatio period until the time when a siege starts.
 	 */
 	MERC_CAN_BE_ASSIGNED(1194),
 
 	/**
 	 * ID: 1195<br>
-	 * Message: This mercenary cannot be assigned to a position by using the Seal of Strife.
+	 * Message: This mercenary cannot be assigned to a position by using the
+	 * Seal of Strife.
 	 */
 	MERC_CANT_BE_ASSIGNED_USING_STRIFE(1195),
 
@@ -7197,24 +7397,24 @@ public enum SystemMessageId
 	 */
 	RAID_WAS_SUCCESSFUL(1209),
 
-
 	/**
 	 * ID: 1210<br>
-	 * Message: Seven Signs: The quest event period has begun. 
-	 * Visit a Priest of Dawn or Priestess of Dusk to participate in the event.
+	 * Message: Seven Signs: The quest event period has begun. Visit a Priest of
+	 * Dawn or Priestess of Dusk to participate in the event.
 	 */
 	QUEST_EVENT_PERIOD_BEGUN(1210),
 
 	/**
 	 * ID: 1211<br>
-	 * Message: Seven Signs: The quest event period has ended. 
-	 * The next quest event will start in one week.
+	 * Message: Seven Signs: The quest event period has ended. The next quest
+	 * event will start in one week.
 	 */
 	QUEST_EVENT_PERIOD_ENDED(1211),
 
 	/**
 	 * ID: 1212<br>
-	 * Message: Seven Signs: The Lords of Dawn have obtained the Seal of Avarice.
+	 * Message: Seven Signs: The Lords of Dawn have obtained the Seal of
+	 * Avarice.
 	 */
 	DAWN_OBTAINED_AVARICE(1212),
 
@@ -7232,19 +7432,22 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1215<br>
-	 * Message: Seven Signs: The Revolutionaries of Dusk have obtained the Seal of Avarice.
+	 * Message: Seven Signs: The Revolutionaries of Dusk have obtained the Seal
+	 * of Avarice.
 	 */
 	DUSK_OBTAINED_AVARICE(1215),
 
 	/**
 	 * ID: 1216<br>
-	 * Message: Seven Signs: The Revolutionaries of Dusk have obtained the Seal of Gnosis.
+	 * Message: Seven Signs: The Revolutionaries of Dusk have obtained the Seal
+	 * of Gnosis.
 	 */
 	DUSK_OBTAINED_GNOSIS(1216),
 
 	/**
 	 * ID: 1217<br>
-	 * Message: Seven Signs: The Revolutionaries of Dusk have obtained the Seal of Strife.
+	 * Message: Seven Signs: The Revolutionaries of Dusk have obtained the Seal
+	 * of Strife.
 	 */
 	DUSK_OBTAINED_STRIFE(1217),
 
@@ -7316,7 +7519,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1229<br>
-	 * Message: No more messages may be sent at this time. Each account is allowed 10 messages per day.
+	 * Message: No more messages may be sent at this time. Each account is
+	 * allowed 10 messages per day.
 	 */
 	NO_MORE_MESSAGES_TODAY(1229),
 
@@ -7370,13 +7574,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1238<br>
-	 * Message: Your temporary mailbox is full. No more mail can be stored; you have reached the 10 message limit.
+	 * Message: Your temporary mailbox is full. No more mail can be stored; you
+	 * have reached the 10 message limit.
 	 */
 	TEMP_MAILBOX_FULL(1238),
 
 	/**
 	 * ID: 1239<br>
-	 * Message: The keyboard security module has failed to load. Please exit the game and try again.
+	 * Message: The keyboard security module has failed to load. Please exit the
+	 * game and try again.
 	 */
 	KEYBOARD_MODULE_FAILED_LOAD(1239),
 
@@ -7394,7 +7600,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1242<br>
-	 * Message: Users who have not verified their age may not log in between the hours if 10:00 p.m. and 6:00 a.m.
+	 * Message: Users who have not verified their age may not log in between the
+	 * hours if 10:00 p.m. and 6:00 a.m.
 	 */
 	NOT_VERIFIED_AGE_NO_LOGIN(1242),
 
@@ -7406,8 +7613,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1244<br>
-	 * Message: Users who have not verified their age may not log in between the hours if 10:00 p.m. and 6:00 a.m.
-	 * Logging off now
+	 * Message: Users who have not verified their age may not log in between the
+	 * hours if 10:00 p.m. and 6:00 a.m. Logging off now
 	 */
 	NOT_VERIFIED_AGE_LOG_OFF(1244),
 
@@ -7443,28 +7650,30 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1250<br>
-	 * Message: Do you really want to surrender? If you surrender during an alliance war, your Exp will drop
-	 * the same as if you were to die once.
+	 * Message: Do you really want to surrender? If you surrender during an
+	 * alliance war, your Exp will drop the same as if you were to die once.
 	 */
 	SURRENDER_ALLY_WAR_CONFIRM(1250),
 
 	/**
 	 * ID: 1251<br>
-	 * Message: Are you sure you want to dismiss the alliance? If you use the /allydismiss command,
-	 * you will not be able to accept another clan to your alliance for one day.
+	 * Message: Are you sure you want to dismiss the alliance? If you use the
+	 * /allydismiss command, you will not be able to accept another clan to your
+	 * alliance for one day.
 	 */
 	DISMISS_ALLY_CONFIRM(1251),
 
 	/**
 	 * ID: 1252<br>
-	 * Message: Are you sure you want to surrender? Exp penalty will be the same as death.
+	 * Message: Are you sure you want to surrender? Exp penalty will be the same
+	 * as death.
 	 */
 	SURRENDER_CONFIRM1(1252),
 
 	/**
 	 * ID: 1253<br>
-	 * Message: Are you sure you want to surrender? Exp penalty will be the same as death
-	 * and you will not be allowed to participate in clan war.
+	 * Message: Are you sure you want to surrender? Exp penalty will be the same
+	 * as death and you will not be allowed to participate in clan war.
 	 */
 	SURRENDER_CONFIRM2(1253),
 
@@ -7488,7 +7697,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1257<br>
-	 * Message: The special skill of a servitor or pet cannot be registerd as a macro.
+	 * Message: The special skill of a servitor or pet cannot be registerd as a
+	 * macro.
 	 */
 	PET_SKILL_NOT_AS_MACRO(1257),
 
@@ -7512,8 +7722,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1261<br>
-	 * Message: Seven Signs: The quest event period has begun. 
-	 * Speak with a Priest of Dawn or Dusk Priestess if you wish to participate in the event.
+	 * Message: Seven Signs: The quest event period has begun. Speak with a
+	 * Priest of Dawn or Dusk Priestess if you wish to participate in the event.
 	 */
 	COMPETITION_PERIOD_BEGUN(1261),
 
@@ -7525,13 +7735,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1263<br>
-	 * Message: Seven Signs: This is the seal validation period. A new quest event period begins next Monday.
+	 * Message: Seven Signs: This is the seal validation period. A new quest
+	 * event period begins next Monday.
 	 */
 	VALIDATION_PERIOD_BEGUN(1263),
 
 	/**
 	 * ID: 1264<br>
-	 * Message: This soul stone cannot currently absorb souls. Absorption has failed.
+	 * Message: This soul stone cannot currently absorb souls. Absorption has
+	 * failed.
 	 */
 	STONE_CANNOT_ABSORB(1264),
 
@@ -7555,7 +7767,7 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1268<br>
-	 * Message: Do you wish to add  class as your sub class?
+	 * Message: Do you wish to add class as your sub class?
 	 */
 	ADD_SUBCLASS_CONFIRM(1268),
 
@@ -7573,45 +7785,50 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1271<br>
-	 * Message: Do you wish to participate? Until the next seal validation period, you are a member
-	 * of the Lords of Dawn.
+	 * Message: Do you wish to participate? Until the next seal validation
+	 * period, you are a member of the Lords of Dawn.
 	 */
 	DAWN_CONFIRM(1271),
 
 	/**
 	 * ID: 1271<br>
-	 * Message: Do you wish to participate? Until the next seal validation period, you are a member
-	 * of the Revolutionaries of Dusk.
+	 * Message: Do you wish to participate? Until the next seal validation
+	 * period, you are a member of the Revolutionaries of Dusk.
 	 */
 	DUSK_CONFIRM(1272),
 
 	/**
 	 * ID: 1273<br>
-	 * Message: You will participate in the Seven Signs as a member of the Lords of Dawn.
+	 * Message: You will participate in the Seven Signs as a member of the Lords
+	 * of Dawn.
 	 */
 	SEVENSIGNS_PARTECIPATION_DAWN(1273),
 
 	/**
 	 * ID: 1274<br>
-	 * Message: You will participate in the Seven Signs as a member of the Revolutionaries of Dusk.
+	 * Message: You will participate in the Seven Signs as a member of the
+	 * Revolutionaries of Dusk.
 	 */
 	SEVENSIGNS_PARTECIPATION_DUSK(1274),
 
 	/**
 	 * ID: 1275<br>
-	 * Message: You've chosen to fight for the Seal of Avarice during this quest event period.
+	 * Message: You've chosen to fight for the Seal of Avarice during this quest
+	 * event period.
 	 */
 	FIGHT_FOR_AVARICE(1275),
 
 	/**
 	 * ID: 1276<br>
-	 * Message: You've chosen to fight for the Seal of Gnosis during this quest event period.
+	 * Message: You've chosen to fight for the Seal of Gnosis during this quest
+	 * event period.
 	 */
 	FIGHT_FOR_GNOSIS(1276),
 
 	/**
 	 * ID: 1277<br>
-	 * Message: You've chosen to fight for the Seal of Strife during this quest event period.
+	 * Message: You've chosen to fight for the Seal of Strife during this quest
+	 * event period.
 	 */
 	FIGHT_FOR_STRIFE(1277),
 
@@ -7689,21 +7906,22 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1290<br>
-	 * Message: Although the seal was not owned, since 35 percent or more people have voted.
+	 * Message: Although the seal was not owned, since 35 percent or more people
+	 * have voted.
 	 */
 	SEAL_NOT_OWNED_35_MORE_VOTED(1290),
 
 	/**
 	 * ID: 1291<br>
-	 * Message: Although the seal was owned during the previous period, 
-	 * because less than 10 percent of people have voted.
+	 * Message: Although the seal was owned during the previous period, because
+	 * less than 10 percent of people have voted.
 	 */
 	SEAL_OWNED_10_LESS_VOTED(1291),
 
 	/**
 	 * ID: 1292<br>
-	 * Message: Since the seal was not owned during the previous period, 
-	 * and since less than 35 percent of people have voted.
+	 * Message: Since the seal was not owned during the previous period, and
+	 * since less than 35 percent of people have voted.
 	 */
 	SEAL_NOT_OWNED_35_LESS_VOTED(1292),
 
@@ -7715,13 +7933,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1294<br>
-	 * Message: The competition has ended in a tie. Therefore, nobody has been awarded the seal.
+	 * Message: The competition has ended in a tie. Therefore, nobody has been
+	 * awarded the seal.
 	 */
 	COMPETITION_TIE_SEAL_NOT_AWARDED(1294),
 
 	/**
 	 * ID: 1295<br>
-	 * Message: Sub classes may not be created or changed while a skill is in use.
+	 * Message: Sub classes may not be created or changed while a skill is in
+	 * use.
 	 */
 	SUBCLASS_NO_CHANGE_OR_CREATE_WHILE_SKILL_IN_USE(1295),
 
@@ -7739,7 +7959,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1298<br>
-	 * Message: Please confirm that you would like to exit the Monster Race Track.
+	 * Message: Please confirm that you would like to exit the Monster Race
+	 * Track.
 	 */
 	MONS_EXIT_CONFIRM(1298),
 
@@ -7775,14 +7996,16 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1304<br>
-	 * Message: The influence of the Seal of Strife has caused all defensive registrations to be canceled,
-	 * except for an Alliance with a castle owning clan.
+	 * Message: The influence of the Seal of Strife has caused all defensive
+	 * registrations to be canceled, except for an Alliance with a castle owning
+	 * clan.
 	 */
 	STRIFE_CANCELED_DEFENSIVE_REGISTRATION(1304),
 
 	/**
 	 * ID: 1305<br>
-	 * Message: Seal Stones may only be transferred during the quest event period.
+	 * Message: Seal Stones may only be transferred during the quest event
+	 * period.
 	 */
 	SEAL_STONES_ONLY_WHILE_QUEST(1305),
 
@@ -7794,39 +8017,43 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1307<br>
-	 * Message: Only during the seal validation period may you settle your account.
+	 * Message: Only during the seal validation period may you settle your
+	 * account.
 	 */
 	SETTLE_ACCOUNT_ONLY_IN_SEAL_VALIDATION(1307),
 
 	/**
 	 * ID: 1308<br>
-	 * Message: Congratulations - You've completed a class transfer! 
+	 * Message: Congratulations - You've completed a class transfer!
 	 */
 	CLASS_TRANSFER(1308),
 
 	/**
 	 * ID: 1309<br>
-	 * Message:To use this option, you must have the lastest version of MSN Messenger installed on your computer.
+	 * Message:To use this option, you must have the lastest version of MSN
+	 * Messenger installed on your computer.
 	 */
 	LATEST_MSN_REQUIRED(1309),
 
 	/**
 	 * ID: 1310<br>
-	 * Message: For full functionality, the latest version of MSN Messenger must be installed on your computer.
+	 * Message: For full functionality, the latest version of MSN Messenger must
+	 * be installed on your computer.
 	 */
 	LATEST_MSN_RECOMMENDED(1310),
 
 	/**
 	 * ID: 1311<br>
-	 * Message: Previous versions of MSN Messenger only provide the basic features for in-game MSN Messenger Chat.
-	 * Add/Delete Contacts and other MSN Messenger options are not available
+	 * Message: Previous versions of MSN Messenger only provide the basic
+	 * features for in-game MSN Messenger Chat. Add/Delete Contacts and other
+	 * MSN Messenger options are not available
 	 */
 	MSN_ONLY_BASIC(1311),
 
 	/**
 	 * ID: 1312<br>
-	 * Message: The latest version of MSN Messenger may be obtained from the MSN web site
-	 * (http://messenger.msn.com).
+	 * Message: The latest version of MSN Messenger may be obtained from the MSN
+	 * web site (http://messenger.msn.com).
 	 */
 	MSN_OBTAINED_FROM(1312),
 
@@ -7838,14 +8065,16 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1314<br>
-	 * Message: Please enter the passport ID of the person you wish to add to your contact list.
+	 * Message: Please enter the passport ID of the person you wish to add to
+	 * your contact list.
 	 */
 	ENTER_PASSPORT_FOR_ADDING(1314),
 
 	/**
 	 * ID: 1315<br>
-	 * Message: Deleting a contact will remove that contact from MSN Messenger as well.
-	 * The contact can still check your online status and well not be blocked from sending you a message.
+	 * Message: Deleting a contact will remove that contact from MSN Messenger
+	 * as well. The contact can still check your online status and well not be
+	 * blocked from sending you a message.
 	 */
 	DELETING_A_CONTACT(1315),
 
@@ -7869,13 +8098,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1319<br>
-	 * Message: Please select the name of the contact you wish to change to another group.
+	 * Message: Please select the name of the contact you wish to change to
+	 * another group.
 	 */
 	SELECT_CONTACT_FOR_CHANGE_GROUP(1319),
 
 	/**
 	 * ID: 1320<br>
-	 * Message: After selecting the group you wish to move your contact to, press the OK button.
+	 * Message: After selecting the group you wish to move your contact to,
+	 * press the OK button.
 	 */
 	SELECT_GROUP_PRESS_OK(1320),
 
@@ -7905,8 +8136,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1325<br>
-	 * Message: You've logged into another computer and have been logged out of the .NET
-	 * Messenger Service on this computer.
+	 * Message: You've logged into another computer and have been logged out of
+	 * the .NET Messenger Service on this computer.
 	 */
 	ANOTHER_COMPUTER_LOGOUT(1325),
 
@@ -7930,22 +8161,24 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1329<br>
-	 * Message: You are currently blocked from using the Private Store and Private Workshop.
+	 * Message: You are currently blocked from using the Private Store and
+	 * Private Workshop.
 	 */
 	BLOCKED_FROM_USING_STORE(1329),
 
 	/**
 	 * ID: 1330<br>
-	 * Message: You may not open a Private Store or Private Workshop for another $s1 minute(s)
+	 * Message: You may not open a Private Store or Private Workshop for another
+	 * $s1 minute(s)
 	 */
 	NO_STORE_FOR_S1_MINUTES(1330),
 
 	/**
 	 * ID: 1331<br>
-	 * Message: You are no longer blocked from using the Private Store and Private Workshop
+	 * Message: You are no longer blocked from using the Private Store and
+	 * Private Workshop
 	 */
 	NO_LONGER_BLOCKED_USING_STORE(1331),
-
 
 	/**
 	 * ID: 1332<br>
@@ -7955,8 +8188,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1333<br>
-	 * Message: The replay file is not accessible. Please verify that the replay.ini exists
-	 * in your Linage 2 directory.
+	 * Message: The replay file is not accessible. Please verify that the
+	 * replay.ini exists in your Linage 2 directory.
 	 */
 	REPLAY_INACCESSIBLE(1333),
 
@@ -7974,7 +8207,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1336<br>
-	 * Message: The replay file, $s1.$$s2 has been corrupted, please check the fle.
+	 * Message: The replay file, $s1.$$s2 has been corrupted, please check the
+	 * fle.
 	 */
 	REPLAY_S1_S2_CORRUPTED(1336),
 
@@ -7986,13 +8220,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1338<br>
-	 * Message: You have exceeded the maximum amount that may be transferred at one time.
+	 * Message: You have exceeded the maximum amount that may be transferred at
+	 * one time.
 	 */
 	EXCEEDED_MAXIMUM_AMOUNT(1338),
 
 	/**
 	 * ID: 1339<br>
-	 * Message: Once a macro is assigned to a shortcut, it cannot be run as a macro again.
+	 * Message: Once a macro is assigned to a shortcut, it cannot be run as a
+	 * macro again.
 	 */
 	MACRO_SHORTCUT_NOT_RUN(1339),
 
@@ -8016,15 +8252,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1343<br>
-	 * Message: Incorrect email address and/or password. Your attempt to log into
-	 * .NET Messenger Service has failed.
+	 * Message: Incorrect email address and/or password. Your attempt to log
+	 * into .NET Messenger Service has failed.
 	 */
 	INCORRECT_ADDRESS_OR_PASSWORD(1343),
 
 	/**
 	 * ID: 1344<br>
-	 * Message: Your request to log into the .NET Messenger service has failed. Please verify
-	 * that you are currently connected to the internet.
+	 * Message: Your request to log into the .NET Messenger service has failed.
+	 * Please verify that you are currently connected to the internet.
 	 */
 	NET_LOGIN_FAILED(1344),
 
@@ -8042,7 +8278,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1347<br>
-	 * Message: The Linage II messenger could not carry out the task you requested.
+	 * Message: The Linage II messenger could not carry out the task you
+	 * requested.
 	 */
 	MESSENGER_FAILED_CARRYING_OUT_TASK(1347),
 
@@ -8060,14 +8297,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1350<br>
-	 * Message: The state will be changed to indicate off-line. All the chat windows
-	 * currently opened will be closed.
+	 * Message: The state will be changed to indicate off-line. All the chat
+	 * windows currently opened will be closed.
 	 */
 	GOING_OFFLINE(1350),
 
 	/**
 	 * ID: 1351<br>
-	 * Message: Click the Delete button after selecting the contact you wish to remove.
+	 * Message: Click the Delete button after selecting the contact you wish to
+	 * remove.
 	 */
 	SELECT_CONTACT_CLICK_REMOVE(1351),
 
@@ -8079,14 +8317,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1353<br>
-	 * Message: You can set the option to show your status as always being off-line
-	 * to all of your contacts.
+	 * Message: You can set the option to show your status as always being
+	 * off-line to all of your contacts.
 	 */
 	CAN_SET_OPTION_TO_ALWAYS_SHOW_OFFLINE(1353),
 
 	/**
 	 * ID: 1354<br>
-	 * Message: You are not allowed to chat with a contact while chatting block is imposed.
+	 * Message: You are not allowed to chat with a contact while chatting block
+	 * is imposed.
 	 */
 	NO_CHAT_WHILE_BLOCKED(1354),
 
@@ -8128,14 +8367,16 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1361<br>
-	 * Message: Due to a system error, you have been logged out of the .NET Messenger Service.
+	 * Message: Due to a system error, you have been logged out of the .NET
+	 * Messenger Service.
 	 */
 	LOGGED_OUT_DUE_TO_ERROR(1361),
 
 	/**
 	 * ID: 1362<br>
-	 * Message: Please select the contact you wish to delete. If you would like to delete a group,
-	 * click the button next to My Status and then use the Options menu.
+	 * Message: Please select the contact you wish to delete. If you would like
+	 * to delete a group, click the button next to My Status and then use the
+	 * Options menu.
 	 */
 	SELECT_CONTACT_TO_DELETE(1362),
 
@@ -8183,15 +8424,16 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1370<br>
-	 * Message: Your message to $s1 did not reach its recipient. You cannot send mail
-	 * to the GM staff.
+	 * Message: Your message to $s1 did not reach its recipient. You cannot send
+	 * mail to the GM staff.
 	 */
 	CANNOT_MAIL_GM(1370),
 
 	/**
 	 * ID: 1371<br>
-	 * Message: It has been determined that you're not engaged in normal gameplay and a
-	 * restriction has been imposed upon you. You may not move for $s1 minutes.
+	 * Message: It has been determined that you're not engaged in normal
+	 * gameplay and a restriction has been imposed upon you. You may not move
+	 * for $s1 minutes.
 	 */
 	GAMEPLAY_RESTRICTION_PENALTY_S1(1371),
 
@@ -8227,13 +8469,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1377<br>
-	 * Message: $s1 has picked up $s3 $s2(s) that was dropped by a another character.
+	 * Message: $s1 has picked up $s3 $s2(s) that was dropped by a another
+	 * character.
 	 */
 	S1_PICKED_UP_S3_S2_S_FROM_ANOTHER_CHARACTER(1377),
 
 	/**
 	 * ID: 1378<br>
-	 * Message: $s1 has picked up +$s3 $s2 that was dropped by a another character.
+	 * Message: $s1 has picked up +$s3 $s2 that was dropped by a another
+	 * character.
 	 */
 	S1_PICKED_UP_S3_S2_FROM_ANOTHER_CHARACTER(1378),
 
@@ -8257,8 +8501,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1382<br>
-	 * Message: To fulfill the quest, you must bring the chosen weapon. Are you sure
-	 * you want to choose this weapon?
+	 * Message: To fulfill the quest, you must bring the chosen weapon. Are you
+	 * sure you want to choose this weapon?
 	 */
 	CHOOSE_WEAPON_CONFIRM(1382),
 
@@ -8342,8 +8586,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1396<br>
-	 * Message: The list of party rooms can only be viewed by a person who has not joined
-	 * a party or who is currently the leader of a party.
+	 * Message: The list of party rooms can only be viewed by a person who has
+	 * not joined a party or who is currently the leader of a party.
 	 */
 	CANT_VIEW_PARTY_ROOMS(1396),
 
@@ -8361,7 +8605,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1399<br>
-	 * Message: Only the leader of the party can transfer party leadership to another player.
+	 * Message: Only the leader of the party can transfer party leadership to
+	 * another player.
 	 */
 	ONLY_A_PARTY_LEADER_CAN_TRANSFER_ONES_RIGHTS_TO_ANOTHER_PLAYER(1399),
 
@@ -8379,7 +8624,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1402<br>
-	 * Message: You may only transfer party leadership to another member of the party.
+	 * Message: You may only transfer party leadership to another member of the
+	 * party.
 	 */
 	YOU_CAN_TRANSFER_RIGHTS_ONLY_TO_ANOTHER_PARTY_MEMBER(1402),
 
@@ -8391,8 +8637,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1404<br>
-	 * Message: The owner of the private manufacturing store has changed the price for creating this item.
-	 * Please check the new price before trying again.
+	 * Message: The owner of the private manufacturing store has changed the
+	 * price for creating this item. Please check the new price before trying
+	 * again.
 	 */
 	MANUFACTURE_PRICE_HAS_CHANGED(1404),
 
@@ -8410,25 +8657,30 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1407<br>
-	 * Message: You are using a computer that does not allow you to log in with two accounts at the same time.
+	 * Message: You are using a computer that does not allow you to log in with
+	 * two accounts at the same time.
 	 */
 	NO_LOGIN_WITH_TWO_ACCOUNTS(1407),
 
 	/**
 	 * ID: 1408<br>
-	 * Message: Your prepaid remaining usage time is $s1 hours and $s2 minutes. You have $s3 paid reservations left.
+	 * Message: Your prepaid remaining usage time is $s1 hours and $s2 minutes.
+	 * You have $s3 paid reservations left.
 	 */
 	PREPAID_LEFT_S1_S2_S3(1408),
 
 	/**
 	 * ID: 1409<br>
-	 * Message: Your prepaid usage time has expired. Your new prepaid reservation will be used. The remaining usage time is $s1 hours and $s2 minutes.
+	 * Message: Your prepaid usage time has expired. Your new prepaid
+	 * reservation will be used. The remaining usage time is $s1 hours and $s2
+	 * minutes.
 	 */
 	PREPAID_EXPIRED_S1_S2(1409),
 
 	/**
 	 * ID: 1410<br>
-	 * Message: Your prepaid usage time has expired. You do not have any more prepaid reservations left.
+	 * Message: Your prepaid usage time has expired. You do not have any more
+	 * prepaid reservations left.
 	 */
 	PREPAID_EXPIRED(1410),
 
@@ -8452,7 +8704,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1414<br>
-	 * Message: The width and length should be 100 or more grids and less than 5000 grids respectively.
+	 * Message: The width and length should be 100 or more grids and less than
+	 * 5000 grids respectively.
 	 */
 	WRONG_GRID_COUNT(1414),
 
@@ -8578,20 +8831,23 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1435<br>
-	 * Message: Due to insufficient $s1, the automatic use function has been deactivated.
+	 * Message: Due to insufficient $s1, the automatic use function has been
+	 * deactivated.
 	 */
 	AUTO_USE_CANCELLED_LACK_OF_S1(1435),
 
 	/**
 	 * ID: 1436<br>
-	 * Message: Due to insufficient $s1, the automatic use function cannot be activated.
+	 * Message: Due to insufficient $s1, the automatic use function cannot be
+	 * activated.
 	 */
 	CANNOT_AUTO_USE_LACK_OF_S1(1436),
 
 	/**
 	 * ID: 1437<br>
-	 * Message: Players are no longer allowed to play dice. Dice can no longer be purchased from a village store.
-	 * However, you can still sell them to any village store.
+	 * Message: Players are no longer allowed to play dice. Dice can no longer
+	 * be purchased from a village store. However, you can still sell them to
+	 * any village store.
 	 */
 	DICE_NO_LONGER_ALLOWED(1437),
 
@@ -8633,8 +8889,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1445<br>
-	 * Message: Your previous subclass will be removed and replaced with the new subclass at level 40.
-	 * Do you wish to continue?
+	 * Message: Your previous subclass will be removed and replaced with the new
+	 * subclass at level 40. Do you wish to continue?
 	 */
 	REPLACE_SUBCLASS_CONFIRM(1445),
 
@@ -8700,7 +8956,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1456<br>
-	 * Message: You cannot fish while riding as a passenger of a boat - it's against the rules.
+	 * Message: You cannot fish while riding as a passenger of a boat - it's
+	 * against the rules.
 	 */
 	CANNOT_FISH_ON_BOAT(1456),
 
@@ -8796,8 +9053,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1472<br>
-	 * Message: You look oddly at the fishing pole in disbelief and 
-	 * realize that you can't attack anything with this.
+	 * Message: You look oddly at the fishing pole in disbelief and realize that
+	 * you can't attack anything with this.
 	 */
 	CANNOT_ATTACK_WITH_FISHING_POLE(1472),
 
@@ -8845,7 +9102,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1480<br>
-	 * Message: Are you sure you want to remove yourself from the Grand Olympiad Games waiting list?
+	 * Message: Are you sure you want to remove yourself from the Grand Olympiad
+	 * Games waiting list?
 	 */
 	OLYMPIAD_REMOVE_CONFIRM(1480),
 
@@ -8869,7 +9127,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1484<br>
-	 * Message: Are you sure this is the Hero weapon you wish to use? Kamael race cannot use this.
+	 * Message: Are you sure this is the Hero weapon you wish to use? Kamael
+	 * race cannot use this.
 	 */
 	HERO_WEAPON_CONFIRM(1484),
 
@@ -8923,13 +9182,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1493<br>
-	 * Message: Your opponent made haste with their tail between their legs), the match has been cancelled.
+	 * Message: Your opponent made haste with their tail between their legs),
+	 * the match has been cancelled.
 	 */
 	THE_GAME_HAS_BEEN_CANCELLED_BECAUSE_THE_OTHER_PARTY_ENDS_THE_GAME(1493),
 
 	/**
 	 * ID: 1494<br>
-	 * Message: Your opponent does not meet the requirements to do battle), the match has been cancelled.
+	 * Message: Your opponent does not meet the requirements to do battle), the
+	 * match has been cancelled.
 	 */
 	THE_GAME_HAS_BEEN_CANCELLED_BECAUSE_THE_OTHER_PARTY_DOES_NOT_MEET_THE_REQUIREMENTS_FOR_JOINING_THE_GAME(1494),
 
@@ -8965,43 +9226,49 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1500<br>
-	 * Message: You cannot participate in the Grand Olympiad Games with a character in their subclass.
+	 * Message: $c1% does not meet the participation requirements. A sub-class
+	 * character cannot participate in the Olympiad.
 	 */
-	YOU_CANT_JOIN_THE_OLYMPIAD_WITH_A_SUB_JOB_CHARACTER(1500),
+	C1_CANT_JOIN_THE_OLYMPIAD_WITH_A_SUB_CLASS_CHARACTER(1500),
 
 	/**
 	 * ID: 1501<br>
-	 * Message: Only Noblesse can participate in the Olympiad.
+	 * Message: $c1% does not meet the participation requirements. Only Noblesse
+	 * can participate in the Olympiad.
 	 */
-	ONLY_NOBLESS_CAN_PARTICIPATE_IN_THE_OLYMPIAD(1501),
+	C1_DOES_NOT_MEET_REQUIREMENTS_ONLY_NOBLESS_CAN_PARTICIPATE_IN_THE_OLYMPIAD(1501),
 
 	/**
 	 * ID: 1502<br>
-	 * Message: You have already been registered in a waiting list of an event.
+	 * Message: $c1 is already registered on the match waiting list.
 	 */
-	YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT(1502),
+	C1_IS_ALREADY_REGISTERED_ON_THE_MATCH_WAITING_LIST(1502),
 
 	/**
 	 * ID: 1503<br>
-	 * Message: You have been registered in the Grand Olympiad Games waiting list for a class specific match.
+	 * Message: You have been registered in the Grand Olympiad Games waiting
+	 * list for a class specific match.
 	 */
 	YOU_HAVE_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_CLASSIFIED_GAMES(1503),
 
 	/**
 	 * ID: 1504<br>
-	 * Message: You have been registered in the Grand Olympiad Games waiting list for a non-class specific match.
+	 * Message: You have been registered in the Grand Olympiad Games waiting
+	 * list for a non-class specific match.
 	 */
 	YOU_HAVE_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_NO_CLASS_GAMES(1504),
 
 	/**
 	 * ID: 1505<br>
-	 * Message: You have been removed from the Grand Olympiad Games waiting list.
+	 * Message: You have been removed from the Grand Olympiad Games waiting
+	 * list.
 	 */
 	YOU_HAVE_BEEN_DELETED_FROM_THE_WAITING_LIST_OF_A_GAME(1505),
 
 	/**
 	 * ID: 1506<br>
-	 * Message: You are not currently registered on any Grand Olympiad Games waiting list.
+	 * Message: You are not currently registered on any Grand Olympiad Games
+	 * waiting list.
 	 */
 	YOU_HAVE_NOT_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_A_GAME(1506),
 
@@ -9025,20 +9292,22 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1510<br>
-	 * Message: $s1 is making an attempt at resurrection. 
-	 * Do you want to continue with this resurrection? 
+	 * Message: $s1 is making an attempt at resurrection. Do you want to
+	 * continue with this resurrection?
 	 */
 	RESSURECTION_REQUEST(1510),
 
 	/**
 	 * ID: 1511<br>
-	 * Message: While a pet is attempting to resurrect, it cannot help in resurrecting its master.
+	 * Message: While a pet is attempting to resurrect, it cannot help in
+	 * resurrecting its master.
 	 */
 	MASTER_CANNOT_RES(1511),
 
 	/**
 	 * ID: 1512<br>
-	 * Message: You cannot resurrect a pet while their owner is being resurrected.
+	 * Message: You cannot resurrect a pet while their owner is being
+	 * resurrected.
 	 */
 	CANNOT_RES_PET(1512),
 
@@ -9050,13 +9319,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1514<br>
-	 * Message: You cannot the owner of a pet while their pet is being resurrected
+	 * Message: You cannot the owner of a pet while their pet is being
+	 * resurrected
 	 */
 	CANNOT_RES_MASTER(1514),
 
 	/**
 	 * ID: 1515<br>
-	 * Message: A pet cannot be resurrected while it's owner is in the process of resurrecting.
+	 * Message: A pet cannot be resurrected while it's owner is in the process
+	 * of resurrecting.
 	 */
 	CANNOT_RES_PET2(1515),
 
@@ -9068,7 +9339,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1517<br>
-	 * Message: Failed in Blessed Enchant. The enchant value of the item became 0.
+	 * Message: Failed in Blessed Enchant. The enchant value of the item became
+	 * 0.
 	 */
 	BLESSED_ENCHANT_FAILED(1517),
 
@@ -9080,8 +9352,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1519<br>
-	 * Message: Your pet has been killed! Make sure you resurrect your pet within 20 minutes
-	 * or your pet and all of it's items will disappear forever!
+	 * Message: Your pet has been killed! Make sure you resurrect your pet
+	 * within 20 minutes or your pet and all of it's items will disappear
+	 * forever!
 	 */
 	MAKE_SURE_YOU_RESSURECT_YOUR_PET_WITHIN_20_MINUTES(1519),
 
@@ -9105,7 +9378,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1523<br>
-	 * Message: You should release your pet or servitor so that it does not fall off of the boat and drown!
+	 * Message: You should release your pet or servitor so that it does not fall
+	 * off of the boat and drown!
 	 */
 	RELEASE_PET_ON_BOAT(1523),
 
@@ -9159,7 +9433,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1532<br>
-	 * Message: Enter the name of the clan that you wish to have a cease-fire with.
+	 * Message: Enter the name of the clan that you wish to have a cease-fire
+	 * with.
 	 */
 	ENTER_CLAN_NAME_TO_CEASE_FIRE(1532),
 
@@ -9339,29 +9614,30 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1562<br>
-	 * Message: A Clan War has been declared against the clan, $s1. 
-	 * If you are killed during the Clan War by members of the opposing clan, 
-	 * you will only lose a quarter of the normal experience from death.
+	 * Message: A Clan War has been declared against the clan, $s1. If you are
+	 * killed during the Clan War by members of the opposing clan, you will only
+	 * lose a quarter of the normal experience from death.
 	 */
 	CLAN_WAR_DECLARED_AGAINST_S1_IF_KILLED_LOSE_LOW_EXP(1562),
 
 	/**
 	 * ID: 1563<br>
-	 * Message: The clan, $s1, cannot declare a Clan War because their clan is less than level three,
-	 * or they do not have enough members.
+	 * Message: The clan, $s1, cannot declare a Clan War because their clan is
+	 * less than level three, or they do not have enough members.
 	 */
 	CANNOT_DECLARE_WAR_TOO_LOW_LEVEL_OR_NOT_ENOUGH_MEMBERS(1562),
 
 	/**
 	 * ID: 1564<br>
-	 * Message: A Clan War can be declared only if the clan is 
-	 * level three or above, and the number of clan members is fifteen or greater.
+	 * Message: A Clan War can be declared only if the clan is level three or
+	 * above, and the number of clan members is fifteen or greater.
 	 */
 	CLAN_WAR_DECLARED_IF_CLAN_LVL3_OR_15_MEMBER(1564),
 
 	/**
 	 * ID: 1565<br>
-	 * Message: A Clan War cannot be declared against a clan that does not exist!
+	 * Message: A Clan War cannot be declared against a clan that does not
+	 * exist!
 	 */
 	CLAN_WAR_CANNOT_DECLARED_CLAN_NOT_EXIST(1565),
 
@@ -9391,7 +9667,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1570<br>
-	 * Message: A declaration of war against more than 30 Clans can't be made at the same time
+	 * Message: A declaration of war against more than 30 Clans can't be made at
+	 * the same time
 	 */
 	TOO_MANY_CLAN_WARS(1570),
 
@@ -9415,13 +9692,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1574<br>
-	 * Message: All is well. There are no clans that have declared war against your clan.
+	 * Message: All is well. There are no clans that have declared war against
+	 * your clan.
 	 */
 	NO_WARS_AGAINST_YOU(1574),
 
 	/**
 	 * ID: 1575<br>
-	 * Message: Command Channels can only be formed by a party leader who is also the leader of a level 5 clan.
+	 * Message: Command Channels can only be formed by a party leader who is
+	 * also the leader of a level 5 clan.
 	 */
 	COMMAND_CHANNEL_ONLY_BY_LEVEL_5_CLAN_LEADER_PARTY_LEADER(1575),
 
@@ -9439,7 +9718,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1578<br>
-	 * Message: Items are not available for a private store or a private manufacture.
+	 * Message: Items are not available for a private store or a private
+	 * manufacture.
 	 */
 	ITEMS_UNAVAILABLE_FOR_STORE_MANUFACTURE(1578),
 
@@ -9499,7 +9779,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1588<br>
-	 * Message: The Command Channel is activated only when there are at least 5 parties participating.
+	 * Message: The Command Channel is activated only when there are at least 5
+	 * parties participating.
 	 */
 	COMMAND_CHANNEL_ONLY_AT_LEAST_5_PARTIES(1588),
 
@@ -9529,7 +9810,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1593<br>
-	 * Message: You do not have authority to invite someone to the Command Channel.
+	 * Message: You do not have authority to invite someone to the Command
+	 * Channel.
 	 */
 	CANNOT_INVITE_TO_COMMAND_CHANNEL(1593),
 
@@ -9559,7 +9841,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1598<br>
-	 * Message: Soulshots and spiritshots are not available for a dead pet or servitor. Sad, isn't it?
+	 * Message: Soulshots and spiritshots are not available for a dead pet or
+	 * servitor. Sad, isn't it?
 	 */
 	SOULSHOTS_AND_SPIRITSHOTS_ARE_NOT_AVAILABLE_FOR_A_DEAD_PET(1598),
 
@@ -9577,7 +9860,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1601<br>
-	 * Message: Tomorrow's items will all be set to the same value as today's items. Do you wish to continue?
+	 * Message: Tomorrow's items will all be set to the same value as today's
+	 * items. Do you wish to continue?
 	 */
 	TOMORROW_ITEM_SAME_CONFIRM(1601),
 
@@ -9595,7 +9879,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1604<br>
-	 * Message: While dressed in formal wear, you can't use items that require all skills and casting operations.
+	 * Message: While dressed in formal wear, you can't use items that require
+	 * all skills and casting operations.
 	 */
 	CANNOT_USE_ITEMS_SKILLS_WITH_FORMALWEAR(1604),
 
@@ -9607,7 +9892,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1606<br>
-	 * Message: Congratulations - You've completed the third-class transfer quest!
+	 * Message: Congratulations - You've completed the third-class transfer
+	 * quest!
 	 */
 	THIRD_CLASS_TRANSFER(1606),
 
@@ -9625,7 +9911,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1609<br>
-	 * Message: War has already been declared against that clan... but I'll make note that you really don't like them.
+	 * Message: War has already been declared against that clan... but I'll make
+	 * note that you really don't like them.
 	 */
 	WAR_ALREADY_DECLARED(1609),
 
@@ -9661,7 +9948,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1615<br>
-	 * Message: The number of remaining parties is  $s1 until a channel is activated
+	 * Message: The number of remaining parties is $s1 until a channel is
+	 * activated
 	 */
 	S1_PARTIES_REMAINING_UNTIL_CHANNEL(1615),
 
@@ -9715,14 +10003,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1624<br>
-	 * Message: We are now departing for Gludin Harbor
-	 * Hold on and enjoy the ride!
+	 * Message: We are now departing for Gludin Harbor Hold on and enjoy the
+	 * ride!
 	 */
 	DEPARTURE_FOR_GLUDIN_NOW(1624),
 
 	/**
 	 * ID: 1625<br>
-	 * Message: Departure for Rune Harbor will take place after anchoring for ten minutes.
+	 * Message: Departure for Rune Harbor will take place after anchoring for
+	 * ten minutes.
 	 */
 	REPARTURE_FOR_RUNE_10_MINUTES(1625),
 
@@ -9746,62 +10035,70 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1629<br>
-	 * Message: We are now departing for Rune Harbor
-	 * Hold on and enjoy the ride!
+	 * Message: We are now departing for Rune Harbor Hold on and enjoy the ride!
 	 */
 	DEPARTURE_FOR_RUNE_NOW(1629),
 
 	/**
 	 * ID: 1630<br>
-	 * Message: The ferry from Rune Harbor will be arriving at Gludin Harbor in approximately 15 minutes.
+	 * Message: The ferry from Rune Harbor will be arriving at Gludin Harbor in
+	 * approximately 15 minutes.
 	 */
 	FERRY_FROM_RUNE_AT_GLUDIN_15_MINUTES(1630),
 
 	/**
 	 * ID: 1631<br>
-	 * Message: The ferry from Rune Harbor will be arriving at Gludin Harbor in approximately 10 minutes.
+	 * Message: The ferry from Rune Harbor will be arriving at Gludin Harbor in
+	 * approximately 10 minutes.
 	 */
 	FERRY_FROM_RUNE_AT_GLUDIN_10_MINUTES(1631),
 
 	/**
 	 * ID: 1632<br>
-	 * Message: The ferry from Rune Harbor will be arriving at Gludin Harbor in approximately 10 minutes.
+	 * Message: The ferry from Rune Harbor will be arriving at Gludin Harbor in
+	 * approximately 10 minutes.
 	 */
 	FERRY_FROM_RUNE_AT_GLUDIN_5_MINUTES(1632),
 
 	/**
 	 * ID: 1633<br>
-	 * Message: The ferry from Rune Harbor will be arriving at Gludin Harbor in approximately 1 minute.
+	 * Message: The ferry from Rune Harbor will be arriving at Gludin Harbor in
+	 * approximately 1 minute.
 	 */
 	FERRY_FROM_RUNE_AT_GLUDIN_1_MINUTE(1633),
 
 	/**
 	 * ID: 1634<br>
-	 * Message: The ferry from Gludin Harbor will be arriving at Rune Harbor in approximately 15 minutes.
+	 * Message: The ferry from Gludin Harbor will be arriving at Rune Harbor in
+	 * approximately 15 minutes.
 	 */
 	FERRY_FROM_GLUDIN_AT_RUNE_15_MINUTES(1634),
 
 	/**
 	 * ID: 1635<br>
-	 * Message: The ferry from Gludin Harbor will be arriving at Rune harbor in approximately 10 minutes.
+	 * Message: The ferry from Gludin Harbor will be arriving at Rune harbor in
+	 * approximately 10 minutes.
 	 */
 	FERRY_FROM_GLUDIN_AT_RUNE_10_MINUTES(1635),
 
 	/**
 	 * ID: 1636<br>
-	 * Message: The ferry from Gludin Harbor will be arriving at Rune Harbor in approximately 10 minutes.
+	 * Message: The ferry from Gludin Harbor will be arriving at Rune Harbor in
+	 * approximately 10 minutes.
 	 */
 	FERRY_FROM_GLUDIN_AT_RUNE_5_MINUTES(1636),
 
 	/**
 	 * ID: 1637<br>
-	 * Message: The ferry from Gludin Harbor will be arriving at Rune Harbor in approximately 1 minute.
+	 * Message: The ferry from Gludin Harbor will be arriving at Rune Harbor in
+	 * approximately 1 minute.
 	 */
 	FERRY_FROM_GLUDIN_AT_RUNE_1_MINUTE(1637),
 
 	/**
 	 * ID: 1638<br>
-	 * Message: You cannot fish while using a recipe book, private manufacture or private store.
+	 * Message: You cannot fish while using a recipe book, private manufacture
+	 * or private store.
 	 */
 	CANNOT_FISH_WHILE_USING_RECIPE_BOOK(1638),
 
@@ -9819,16 +10116,16 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1641<br>
-	 * Message: Sharpen your swords, tighten the stitchings in your armor, 
-	 * and make haste to a Grand Olympiad Manager! 
-	 * Battles in the Grand Olympiad Games are now taking place!
+	 * Message: Sharpen your swords, tighten the stitchings in your armor, and
+	 * make haste to a Grand Olympiad Manager! Battles in the Grand Olympiad
+	 * Games are now taking place!
 	 */
 	THE_OLYMPIAD_GAME_HAS_STARTED(1641),
 
 	/**
 	 * ID: 1642<br>
-	 * Message: Much carnage has been left for the cleanup crew of the Olympiad Stadium. 
-	 * Battles in the Grand Olympiad Games are now over!
+	 * Message: Much carnage has been left for the cleanup crew of the Olympiad
+	 * Stadium. Battles in the Grand Olympiad Games are now over!
 	 */
 	THE_OLYMPIAD_GAME_HAS_ENDED(1642),
 
@@ -9848,7 +10145,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1650<br>
-	 * Message: Due to high server traffic, your login attempt has failed. Please try again soon.
+	 * Message: Due to high server traffic, your login attempt has failed.
+	 * Please try again soon.
 	 */
 	TRY_LOGIN_LATER(1650),
 
@@ -9878,7 +10176,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1655<br>
-	 * Message: You caught something smelly and scary, maybe you should throw it back!?
+	 * Message: You caught something smelly and scary, maybe you should throw it
+	 * back!?
 	 */
 	YOU_CAUGHT_SOMETHING_SMELLY_THROW_IT_BACK(1655),
 
@@ -9920,27 +10219,29 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1662<br>
-	 * Message: The fish are no longer biting here because you've caught 
-	 * too many! Try fishing in another location.
+	 * Message: The fish are no longer biting here because you've caught too
+	 * many! Try fishing in another location.
 	 */
 	FISH_NO_MORE_BITING_TRY_OTHER_LOCATION(1662),
 
 	/**
 	 * ID: 1663<br>
-	 * Message: The clan crest was successfully registered. Remember, only a clan 
-	 * that owns a clan hall or castle can have their crest displayed.
+	 * Message: The clan crest was successfully registered. Remember, only a
+	 * clan that owns a clan hall or castle can have their crest displayed.
 	 */
 	CLAN_EMBLEM_WAS_SUCCESSFULLY_REGISTERED(1663),
 
 	/**
 	 * ID: 1664<br>
-	 * Message: The fish is resisting your efforts to haul it in! Look at that bobber go!
+	 * Message: The fish is resisting your efforts to haul it in! Look at that
+	 * bobber go!
 	 */
 	FISH_RESISTING_LOOK_BOBBLER(1664),
 
 	/**
 	 * ID: 1665<br>
-	 * Message: You've worn that fish out! It can't even pull the bobber under the water!
+	 * Message: You've worn that fish out! It can't even pull the bobber under
+	 * the water!
 	 */
 	YOU_WORN_FISH_OUT(1665),
 
@@ -9970,8 +10271,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1670<br>
-	 * Message: Due to your Reeling and/or Pumping skill being three 
-	 * or more levels higher than your Fishing skill, a 50 damage penalty will be applied.
+	 * Message: Due to your Reeling and/or Pumping skill being three or more
+	 * levels higher than your Fishing skill, a 50 damage penalty will be
+	 * applied.
 	 */
 	REELING_PUMPING_3_LEVELS_HIGHER_THAN_FISHING_PENALTY(1670),
 
@@ -9989,9 +10291,10 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1673<br>
-	 * Message: Your current record for this Grand Olympiad is $s1 match(es), $s2 win(s) and $s3 defeat(s). You heave earned $s4 Olympiad Point(s).
+	 * Message: Your current record for this Grand Olympiad is $s1 match(es),
+	 * $s2 win(s) and $s3 defeat(s). You have earned $s4 Olympiad Point(s).
 	 */
-	THE_PRESENT_RECORD_DURING_THE_CURRENT_OLYMPIAD_SESSION_IS_S1_WINS_S2_DEFEATS_YOU_HAVE_EARNED_S3_OLYMPIAD_POINTS(1673),
+	THE_CURRENT_RECORD_FOR_THIS_OLYMPIAD_SESSION_IS_S1_MATCHES_S2_WINS_S3_DEFEATS_YOU_HAVE_EARNED_S4_OLYMPIAD_POINTS(1673),
 
 	/**
 	 * ID: 1674<br>
@@ -10007,13 +10310,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1676<br>
-	 * Message: You do not have a servitor or pet and therefore cannot use the automatic-use function.
+	 * Message: You do not have a servitor or pet and therefore cannot use the
+	 * automatic-use function.
 	 */
 	NO_SERVITOR_CANNOT_AUTOMATE_USE(1676),
 
 	/**
 	 * ID: 1677<br>
-	 * Message: A cease-fire during a Clan War can not be called while members of your clan are engaged in battle.
+	 * Message: A cease-fire during a Clan War can not be called while members
+	 * of your clan are engaged in battle.
 	 */
 	CANT_STOP_CLAN_WAR_WHILE_IN_COMBAT(1677),
 
@@ -10043,7 +10348,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1682<br>
-	 * Message: Only the creator of a channel can use the channel dismiss command.
+	 * Message: Only the creator of a channel can use the channel dismiss
+	 * command.
 	 */
 	ONLY_CHANNEL_CREATOR_CAN_DISMISS(1682),
 
@@ -10055,69 +10361,77 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1684<br>
-	 * Message: A Clan War can not be declared against a clan that is being dissolved.
+	 * Message: A Clan War can not be declared against a clan that is being
+	 * dissolved.
 	 */
 	NO_CLAN_WAR_AGAINST_DISSOLVING_CLAN(1684),
 
 	/**
 	 * ID: 1685<br>
-	 * Message: You are unable to equip this item when your PK count is greater or equal to one.
+	 * Message: You are unable to equip this item when your PK count is greater
+	 * or equal to one.
 	 */
 	YOU_ARE_UNABLE_TO_EQUIP_THIS_ITEM_WHEN_YOUR_PK_COUNT_IS_GREATER_THAN_OR_EQUAL_TO_ONE(1685),
 
 	/**
 	 * ID: 1686<br>
-	 * Message: Stones and mortar tumble to the earth - the castle wall has taken damage!
+	 * Message: Stones and mortar tumble to the earth - the castle wall has
+	 * taken damage!
 	 */
 	CASTLE_WALL_DAMAGED(1686),
 
 	/**
 	 * ID: 1687<br>
-	 * Message: This area cannot be entered while mounted atop of a Wyvern.  You will be dismounted from your Wyvern if you do not leave!
+	 * Message: This area cannot be entered while mounted atop of a Wyvern. You
+	 * will be dismounted from your Wyvern if you do not leave!
 	 */
 	AREA_CANNOT_BE_ENTERED_WHILE_MOUNTED_WYVERN(1687),
 
 	/**
 	 * ID: 1688<br>
-	 * Message: You cannot enchant while operating a Private Store or Private Workshop.
+	 * Message: You cannot enchant while operating a Private Store or Private
+	 * Workshop.
 	 */
 	CANNOT_ENCHANT_WHILE_STORE(1688),
 
 	/**
 	 * ID: 1689<br>
-	 * Message: You have already joined the waiting list for a class specific match.
+	 * Message: $c1 is already registered on the class match waiting list.
 	 */
-	YOU_ARE_ALREADY_ON_THE_WAITING_LIST_TO_PARTICIPATE_IN_THE_GAME_FOR_YOUR_CLASS(1689),
+	C1_IS_ALREADY_REGISTERED_ON_THE_CLASS_MATCH_WAITING_LIST(1689),
 
 	/**
 	 * ID: 1690<br>
-	 * Message: You have already joined the waiting list for a non-class specific match.
+	 * Message: $c1 is already registered on the waiting list for the
+	 * non-class-limited individual match event.
 	 */
-	YOU_ARE_ALREADY_ON_THE_WAITING_LIST_FOR_ALL_CLASSES_WAITING_TO_PARTICIPATE_IN_THE_GAME(1690),
+	C1_IS_ALREADY_REGISTERED_ON_THE_NON_CLASS_LIMITED_MATCH_WAITING_LIST(1690),
 
 	/**
 	 * ID: 1691<br>
-	 * Message: You can't join a Grand Olympiad Game match with that much stuff on you! 
-	 * Reduce your weight to below 80 percent full and request to join again!
+	 * Message: $c1% does not meet the participation requirements. You cannot
+	 * participate in the Olympiad because your inventory slot exceeds 80%.
 	 */
-	SINCE_80_PERCENT_OR_MORE_OF_YOUR_INVENTORY_SLOTS_ARE_FULL_YOU_CANNOT_PARTICIPATE_IN_THE_OLYMPIAD(1691),
+	C1_CANNOT_PARTICIPATE_IN_OLYMPIAD_INVENTORY_SLOT_EXCEEDS_80_PERCENT(1691),
 
 	/**
 	 * ID: 1692<br>
-	 * Message: You have changed from your main class to a subclass 
-	 * and therefore are removed from the Grand Olympiad Games waiting list.
+	 * Message: $c1% does not meet the participation requirements. You cannot
+	 * participate in the Olympiad because you have changed to your sub-class.
 	 */
-	SINCE_YOU_HAVE_CHANGED_YOUR_CLASS_INTO_A_SUB_JOB_YOU_CANNOT_PARTICIPATE_IN_THE_OLYMPIAD(1692),
+	C1_CANNOT_PARTICIPATE_IN_OLYMPIAD_WHILE_CHANGED_TO_SUB_CLASS(1692),
 
 	/**
 	 * ID: 1693<br>
-	 * Message: You may not observe a Grand Olympiad Games match while you are on the waiting list.
+	 * Message: You may not observe a Grand Olympiad Games match while you are
+	 * on the waiting list.
 	 */
 	WHILE_YOU_ARE_ON_THE_WAITING_LIST_YOU_ARE_NOT_ALLOWED_TO_WATCH_THE_GAME(1693),
 
 	/**
 	 * ID: 1694<br>
-	 * Message: Only a clan leader that is a Noblesse can view the Siege War Status window during a siege war.
+	 * Message: Only a clan leader that is a Noblesse can view the Siege War
+	 * Status window during a siege war.
 	 */
 	ONLY_NOBLESSE_LEADER_CAN_VIEW_SIEGE_STATUS_WINDOW(1694),
 
@@ -10135,13 +10449,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1697<br>
-	 * Message: Your accumulated play time has reached Fatigue level, so you will receive experience or item drops at only 50 percent [...]
+	 * Message: Your accumulated play time has reached Fatigue level, so you
+	 * will receive experience or item drops at only 50 percent [...]
 	 */
 	ACCUMULATED_PLAY_TIME_WARNING1(1697),
 
 	/**
 	 * ID: 1698<br>
-	 * Message: Your accumulated play time has reached Ill-health level, so you will no longer gain experience or item drops. [...}
+	 * Message: Your accumulated play time has reached Ill-health level, so you
+	 * will no longer gain experience or item drops. [...}
 	 */
 	ACCUMULATED_PLAY_TIME_WARNING2(1698),
 
@@ -10171,32 +10487,36 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1702<br>
-	 * Message: The previous investigated user is not using a third party program
+	 * Message: The previous investigated user is not using a third party
+	 * program
 	 */
 	NOT_USING_THIRD_PARTY_PROGRAM1(1702),
 
 	/**
 	 * ID: 1703<br>
-	 * Message: The previous investigated user is not using a third party program
+	 * Message: The previous investigated user is not using a third party
+	 * program
 	 */
 	NOT_USING_THIRD_PARTY_PROGRAM2(1703),
 
 	/**
 	 * ID: 1704<br>
-	 * Message: Please close the setup window for your private manufacturing store
-	 * or private store, and try again.
+	 * Message: Please close the setup window for your private manufacturing
+	 * store or private store, and try again.
 	 */
 	CLOSE_STORE_WINDOW_AND_TRY_AGAIN(1704),
 
 	/**
 	 * ID: 1705<br>
-	 * Message: PC Bang Points acquisition period. Points acquisition period left $s1 hour.
+	 * Message: PC Bang Points acquisition period. Points acquisition period
+	 * left $s1 hour.
 	 */
 	PCPOINT_ACQUISITION_PERIOD(1705),
 
 	/**
 	 * ID: 1706<br>
-	 * Message: PC Bang Points use period. Points acquisition period left $s1 hour.
+	 * Message: PC Bang Points use period. Points acquisition period left $s1
+	 * hour.
 	 */
 	PCPOINT_USE_PERIOD(1706),
 
@@ -10238,7 +10558,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1713<br>
-	 * Message: The games may be delayed due to an insufficient number of players waiting.
+	 * Message: The games may be delayed due to an insufficient number of
+	 * players waiting.
 	 */
 	GAMES_DELAYED(1713),
 
@@ -10298,7 +10619,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1723<br>
-	 * Message: Please take a moment to provide feedback about the petition service.
+	 * Message: Please take a moment to provide feedback about the petition
+	 * service.
 	 */
 	PLEASE_PROVIDE_PETITION_FEEDBACK(1723),
 
@@ -10328,7 +10650,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1728<br>
-	 * Message: The recipient of your invitation did not accept the party matching invitation.
+	 * Message: The recipient of your invitation did not accept the party
+	 * matching invitation.
 	 */
 	PARTY_MATCHING_REQUEST_NO_RESPONSE(1728),
 
@@ -10340,7 +10663,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1730<br>
-	 * Message: To establish a Clan Academy, your clan must be Level 5 or higher. 
+	 * Message: To establish a Clan Academy, your clan must be Level 5 or
+	 * higher.
 	 */
 	YOU_DO_NOT_MEET_CRITERIA_IN_ORDER_TO_CREATE_A_CLAN_ACADEMY(1730),
 
@@ -10364,7 +10688,7 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1734<br>
-	 * Message: To join a Clan Academy, characters must be Level 40 or below, 
+	 * Message: To join a Clan Academy, characters must be Level 40 or below,
 	 * not belong another clan and not yet completed their 2nd class transfer.
 	 */
 	ACADEMY_REQUIREMENTS(1734),
@@ -10383,7 +10707,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1737<br>
-	 * Message: Your clan has not established a Clan Academy but is eligible to do so.
+	 * Message: Your clan has not established a Clan Academy but is eligible to
+	 * do so.
 	 */
 	CLAN_CAN_CREATE_ACADEMY(1737),
 
@@ -10419,19 +10744,22 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1743<br>
-	 * Message: To open a Clan Academy, the leader of a Level 5 clan or above must pay XX Proofs of Blood or a certain amount of adena.
+	 * Message: To open a Clan Academy, the leader of a Level 5 clan or above
+	 * must pay XX Proofs of Blood or a certain amount of adena.
 	 */
 	OPEN_ACADEMY_CONDITIONS(1743),
 
 	/**
 	 * ID: 1744<br>
-	 * Message: There was no response to your invitation to join the Clan Academy, so the invitation has been rescinded.
+	 * Message: There was no response to your invitation to join the Clan
+	 * Academy, so the invitation has been rescinded.
 	 */
 	ACADEMY_JOIN_NO_RESPONSE(1744),
 
 	/**
 	 * ID: 1745<br>
-	 * Message: The recipient of your invitation to join the Clan Academy has declined.
+	 * Message: The recipient of your invitation to join the Clan Academy has
+	 * declined.
 	 */
 	ACADEMY_JOIN_DECLINE(1745),
 
@@ -10443,20 +10771,24 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1747<br>
-	 * Message: $s1 has sent you an invitation to join the Clan Academy belonging to the $s2 clan. Do you accept?
+	 * Message: $s1 has sent you an invitation to join the Clan Academy
+	 * belonging to the $s2 clan. Do you accept?
 	 */
 	JOIN_ACADEMY_REQUEST_BY_S1_FOR_CLAN_S2(1747),
 
 	/**
 	 * ID: 1748<br>
-	 * Message: Clan Academy member $s1 has successfully completed the 2nd class 
+	 * Message: Clan Academy member $s1 has successfully completed the 2nd class
 	 * transfer and obtained $s2 Clan Reputation points.
 	 */
 	CLAN_MEMBER_GRADUATED_FROM_ACADEMY(1748),
 
 	/**
 	 * ID: 1749<br>
-	 * Message: Congratulations! You will now graduate from the Clan Academy and leave your current clan. As a graduate of the academy, you can immediately join a clan as a regular member without being subject to any penalties.
+	 * Message: Congratulations! You will now graduate from the Clan Academy and
+	 * leave your current clan. As a graduate of the academy, you can
+	 * immediately join a clan as a regular member without being subject to any
+	 * penalties.
 	 */
 	ACADEMY_MEMBERSHIP_TERMINATED(1749),
 
@@ -10474,13 +10806,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1752<br>
-	 * Message: Since the clan has received a graduate of the Clan Academy, it has earned $s1 points towards its reputation score.
+	 * Message: Since the clan has received a graduate of the Clan Academy, it
+	 * has earned $s1 points towards its reputation score.
 	 */
 	MEMBER_GRADUATED_EARNED_S1_REPU(1752),
 
 	/**
 	 * ID: 1753<br>
-	 * Message: The clan leader has decreed that that particular privilege cannot be granted to a Clan Academy member.
+	 * Message: The clan leader has decreed that that particular privilege
+	 * cannot be granted to a Clan Academy member.
 	 */
 	CANT_TRANSFER_PRIVILEGE_TO_ACADEMY_MEMBER(1753),
 
@@ -10552,7 +10886,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1765<br>
-	 * Message: As a graduate of the Clan Academy, you can no longer wear this item.
+	 * Message: As a graduate of the Clan Academy, you can no longer wear this
+	 * item.
 	 */
 	EQUIP_NOT_FOR_GRADUATES(1765),
 
@@ -10570,89 +10905,94 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1768<br>
-	 * Message: $s1 has invited you to join the Clan Academy of $s2 clan. Would you like to join?
+	 * Message: $s1 has invited you to join the Clan Academy of $s2 clan. Would
+	 * you like to join?
 	 */
 	JOIN_REQUEST_BY_S1_TO_CLAN_S2_ACADEMY(1768),
 
 	/**
 	 * ID: 1769<br>
-	 * Message: $s1 has sent you an invitation to join the $s3 Order of Knights under the $s2 clan. Would you like to join?
+	 * Message: $s1 has sent you an invitation to join the $s3 Order of Knights
+	 * under the $s2 clan. Would you like to join?
 	 */
 	JOIN_REQUEST_BY_S1_TO_ORDER_OF_KNIGHTS_S3_UNDER_CLAN_S2(1769),
 
 	/**
 	 * ID: 1770<br>
-	 * Message: The clan's reputation score has dropped below 0. The clan may face certain penalties as a result.
+	 * Message: The clan's reputation score has dropped below 0. The clan may
+	 * face certain penalties as a result.
 	 */
 	CLAN_REPU_0_MAY_FACE_PENALTIES(1770),
 
 	/**
 	 * ID: 1771<br>
-	 * Message: Now that your clan level is above Level 5, it can accumulate clan 
-	 * reputation points.
+	 * Message: Now that your clan level is above Level 5, it can accumulate
+	 * clan reputation points.
 	 */
 	CLAN_CAN_ACCUMULATE_CLAN_REPUTATION_POINTS(1771),
 
 	/**
 	 * ID: 1772<br>
-	 * Message: Since your clan was defeated in a siege, $s1 points have been 
-	 * deducted from your clan's reputation score and given to the opposing clan.
+	 * Message: Since your clan was defeated in a siege, $s1 points have been
+	 * deducted from your clan's reputation score and given to the opposing
+	 * clan.
 	 */
 	CLAN_WAS_DEFEATED_IN_SIEGE_AND_LOST_S1_REPUTATION_POINTS(1772),
 
 	/**
 	 * ID: 1773<br>
-	 * Message: Since your clan emerged victorious from the siege, $s1 points 
+	 * Message: Since your clan emerged victorious from the siege, $s1 points
 	 * have been added to your clan's reputation score.
 	 */
 	CLAN_VICTORIOUS_IN_SIEGE_AND_GAINED_S1_REPUTATION_POINTS(1773),
 
 	/**
 	 * ID: 1774<br>
-	 * Message: Your clan's newly acquired contested clan hall has added $s1 
+	 * Message: Your clan's newly acquired contested clan hall has added $s1
 	 * points to your clan's reputation score.
 	 */
 	CLAN_ACQUIRED_CONTESTED_CLAN_HALL_AND_S1_REPUTATION_POINTS(1774),
 
 	/**
 	 * ID: 1775<br>
-	 * Message: Clan member $s1 was an active member of the highest-ranked party 
-	 * in the Festival of Darkness. $s2 points have been added to your clan's reputation score.
+	 * Message: Clan member $s1 was an active member of the highest-ranked party
+	 * in the Festival of Darkness. $s2 points have been added to your clan's
+	 * reputation score.
 	 */
 	CLAN_MEMBER_S1_WAS_IN_HIGHEST_RANKED_PARTY_IN_FESTIVAL_OF_DARKNESS_AND_GAINED_S2_REPUTATION(1775),
 
 	/**
 	 * ID: 1776<br>
-	 * Message: Clan member $s1 was named a hero. $2s points have been added to your 
-	 * clan's reputation score.
+	 * Message: Clan member $s1 was named a hero. $2s points have been added to
+	 * your clan's reputation score.
 	 */
 	CLAN_MEMBER_S1_BECAME_HERO_AND_GAINED_S2_REPUTATION_POINTS(1776),
 
 	/**
 	 * ID: 1777<br>
-	 * Message: You have successfully completed a clan quest. $s1 points have been added to your 
-	 * clan's reputation score.
+	 * Message: You have successfully completed a clan quest. $s1 points have
+	 * been added to your clan's reputation score.
 	 */
 	CLAN_QUEST_COMPLETED_AND_S1_POINTS_GAINED(1777),
 
 	/**
 	 * ID: 1778<br>
-	 * Message: An opposing clan has captured your clan's contested clan hall. $s1 points have 
-	 * been deducted from your clan's reputation score.
+	 * Message: An opposing clan has captured your clan's contested clan hall.
+	 * $s1 points have been deducted from your clan's reputation score.
 	 */
 	OPPOSING_CLAN_CAPTURED_CLAN_HALL_AND_YOUR_CLAN_LOSES_S1_POINTS(1778),
 
 	/**
 	 * ID: 1779<br>
-	 * Message: After losing the contested clan hall, 300 points have been deducted from your 
-	 * clan's reputation score.
+	 * Message: After losing the contested clan hall, 300 points have been
+	 * deducted from your clan's reputation score.
 	 */
 	CLAN_LOST_CONTESTED_CLAN_HALL_AND_300_POINTS(1779),
 
 	/**
 	 * ID: 1780<br>
-	 * Message: Your clan has captured your opponent's contested clan hall. $s1 points have 
-	 * been deducted from your opponent's clan reputation score.
+	 * Message: Your clan has captured your opponent's contested clan hall. $s1
+	 * points have been deducted from your opponent's clan reputation score.
 	 */
 	CLAN_CAPTURED_CONTESTED_CLAN_HALL_AND_S1_POINTS_DEDUCTED_FROM_OPPONENT(1780),
 
@@ -10664,35 +11004,36 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1782<br>
-	 * Message: Your clan member $s1 was killed. $s2 points have been deducted from 
-	 * your clan's reputation score and added to your opponent's clan reputation score.
+	 * Message: Your clan member $s1 was killed. $s2 points have been deducted
+	 * from your clan's reputation score and added to your opponent's clan
+	 * reputation score.
 	 */
 	CLAN_MEMBER_S1_WAS_KILLED_AND_S2_POINTS_DEDUCTED_FROM_REPUTATION(1782),
 
 	/**
 	 * ID: 1783<br>
-	 * Message: For killing an opposing clan member, $s1 points have been deducted 
-	 * from your opponents' clan reputation score.
+	 * Message: For killing an opposing clan member, $s1 points have been
+	 * deducted from your opponents' clan reputation score.
 	 */
 	FOR_KILLING_OPPOSING_MEMBER_S1_POINTS_WERE_DEDUCTED_FROM_OPPONENTS(1783),
 
 	/**
 	 * ID: 1784<br>
-	 * Message: Your clan has failed to defend the castle. $s1 points have been 
+	 * Message: Your clan has failed to defend the castle. $s1 points have been
 	 * deducted from your clan's reputation score and added to your opponents'.
 	 */
 	YOUR_CLAN_FAILED_TO_DEFEND_CASTLE_AND_S1_POINTS_LOST_AND_ADDED_TO_OPPONENT(1784),
 
 	/**
 	 * ID: 1785<br>
-	 * Message: The clan you belong to has been initialized. $s1 points have been 
-	 * deducted from your clan reputation score.
+	 * Message: The clan you belong to has been initialized. $s1 points have
+	 * been deducted from your clan reputation score.
 	 */
 	YOUR_CLAN_HAS_BEEN_INITIALIZED_AND_S1_POINTS_LOST(1785),
 
 	/**
 	 * ID: 1786<br>
-	 * Message: Your clan has failed to defend the castle. $s1 points have been 
+	 * Message: Your clan has failed to defend the castle. $s1 points have been
 	 * deducted from your clan's reputation score.
 	 */
 	YOUR_CLAN_FAILED_TO_DEFEND_CASTLE_AND_S1_POINTS_LOST(1786),
@@ -10711,20 +11052,22 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1789<br>
-	 * Message: Since the Clan Reputation Score has dropped to 0 or lower, your 
+	 * Message: Since the Clan Reputation Score has dropped to 0 or lower, your
 	 * clan skill(s) will be de-activated.
 	 */
 	REPUTATION_POINTS_0_OR_LOWER_CLAN_SKILLS_DEACTIVATED(1789),
 
 	/**
 	 * ID: 1790<br>
-	 * Message: The conditions necessary to increase the clan's level have not been met.
+	 * Message: The conditions necessary to increase the clan's level have not
+	 * been met.
 	 */
 	FAILED_TO_INCREASE_CLAN_LEVEL(1790),
 
 	/**
 	 * ID: 1791<br>
-	 * Message: The conditions necessary to create a military unit have not been met.
+	 * Message: The conditions necessary to create a military unit have not been
+	 * met.
 	 */
 	YOU_DO_NOT_MEET_CRITERIA_IN_ORDER_TO_CREATE_A_MILITARY_UNIT(1791),
 
@@ -10796,7 +11139,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1803<br>
-	 * Message: The request to participate in the game cannot be made starting from 10 minutes before the end of the game.
+	 * Message: The request to participate in the game cannot be made starting
+	 * from 10 minutes before the end of the game.
 	 */
 	GAME_REQUEST_CANNOT_BE_MADE(1803),
 
@@ -10832,8 +11176,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1809<br>
-	 * Message: Your account must be verified. For information on verification procedures,
-	 * please visit the PlayNC website (http://www.plaync.com/us/support/)
+	 * Message: Your account must be verified. For information on verification
+	 * procedures, please visit the PlayNC website
+	 * (http://www.plaync.com/us/support/)
 	 */
 	ACCOUNT_MUST_VERIFIED(1809),
 
@@ -10845,7 +11190,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1812<br>
-	 * Message: Since the refuse invitation state is currently activated, no invitation can be made
+	 * Message: Since the refuse invitation state is currently activated, no
+	 * invitation can be made
 	 */
 	REFUSE_INVITATION_CURRENTLY_ACTIVE(1812),
 
@@ -10917,26 +11263,29 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1824<br>
-	 * Message: You have been registered for a clan hall war. Please move to the left side of
-	 * the clan hall's arena and get ready.
+	 * Message: You have been registered for a clan hall war. Please move to the
+	 * left side of the clan hall's arena and get ready.
 	 */
 	REGISTERED_FOR_CLANHALL_WAR(1824),
 
 	/**
 	 * ID: 1825<br>
-	 * Message: You have failed in your attempt to register for the clan hall war. Please try again.
+	 * Message: You have failed in your attempt to register for the clan hall
+	 * war. Please try again.
 	 */
 	CLANHALL_WAR_REGISTRATION_FAILED(1825),
 
 	/**
 	 * ID: 1826<br>
-	 * Message: In $s1 minute(s), the game will begin. All players must hurry and move to the left side of the clan hall's arena.
+	 * Message: In $s1 minute(s), the game will begin. All players must hurry
+	 * and move to the left side of the clan hall's arena.
 	 */
 	CLANHALL_WAR_BEGINS_IN_S1_MINUTES(1826),
 
 	/**
 	 * ID: 1827<br>
-	 * Message: In $s1 minute(s), the game will begin. All players must, please enter the arena now
+	 * Message: In $s1 minute(s), the game will begin. All players must, please
+	 * enter the arena now
 	 */
 	CLANHALL_WAR_BEGINS_IN_S1_MINUTES_ENTER_NOW(1827),
 
@@ -10954,13 +11303,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1830<br>
-	 * Message: $s1 is not allowed to use the party room invite command. Please update the waiting list.
+	 * Message: $s1 is not allowed to use the party room invite command. Please
+	 * update the waiting list.
 	 */
 	S1_NOT_ALLOWED_INVITE_TO_PARTY_ROOM(1830),
 
 	/**
 	 * ID: 1831<br>
-	 * Message: $s1 does not meet the conditions of the party room. Please update the waiting list.
+	 * Message: $s1 does not meet the conditions of the party room. Please
+	 * update the waiting list.
 	 */
 	S1_NOT_MEET_CONDITIONS_FOR_PARTY_ROOM(1831),
 
@@ -10984,19 +11335,22 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1835<br>
-	 * Message: $s1 is full and cannot accept additional clan members at this time.
+	 * Message: $s1 is full and cannot accept additional clan members at this
+	 * time.
 	 */
 	S1_CLAN_IS_FULL(1835),
 
 	/**
 	 * ID: 1836<br>
-	 * Message: You cannot join a Clan Academy because you have successfully completed your 2nd class transfer.
+	 * Message: You cannot join a Clan Academy because you have successfully
+	 * completed your 2nd class transfer.
 	 */
 	CANNOT_JOIN_ACADEMY_AFTER_2ND_OCCUPATION(1836),
 
 	/**
 	 * ID: 1837<br>
-	 * Message: $s1 has sent you an invitation to join the $s3 Royal Guard under the $s2 clan. Would you like to join?
+	 * Message: $s1 has sent you an invitation to join the $s3 Royal Guard under
+	 * the $s2 clan. Would you like to join?
 	 */
 	S1_SENT_INVITATION_TO_ROYAL_GUARD_S3_OF_CLAN_S2(1837),
 
@@ -11014,13 +11368,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1840<br>
-	 * Message: 3. If you enter the incorrect serial number more than 5 times, ...
+	 * Message: 3. If you enter the incorrect serial number more than 5 times,
+	 * ...
 	 */
 	SERIAL_INPUT_INCORRECT(1840),
 
 	/**
 	 * ID: 1841<br>
-	 * Message: The clan hall war has been cancelled. Not enough clans have registered.
+	 * Message: The clan hall war has been cancelled. Not enough clans have
+	 * registered.
 	 */
 	CLANHALL_WAR_CANCELLED(1841),
 
@@ -11062,7 +11418,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1848<br>
-	 * Message: Because of the size of fish caught, you will be registered in the ranking
+	 * Message: Because of the size of fish caught, you will be registered in
+	 * the ranking
 	 */
 	REGISTERED_IN_FISH_SIZE_RANKING(1848),
 
@@ -11086,13 +11443,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1852<br>
-	 * Message: The attempt to acquire the skill has failed because of an insufficient Clan Reputation Score.
+	 * Message: The attempt to acquire the skill has failed because of an
+	 * insufficient Clan Reputation Score.
 	 */
 	ACQUIRE_SKILL_FAILED_BAD_CLAN_REP_SCORE(1852),
 
 	/**
 	 * ID: 1853<br>
-	 * Message: Quantity items of the same type cannot be exchanged at the same time
+	 * Message: Quantity items of the same type cannot be exchanged at the same
+	 * time
 	 */
 	CANT_EXCHANGE_QUANTITY_ITEMS_OF_SAME_TYPE(1853),
 
@@ -11104,13 +11463,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1855<br>
-	 * Message: Another military unit is already using that name. Please enter a different name.
+	 * Message: Another military unit is already using that name. Please enter a
+	 * different name.
 	 */
 	ANOTHER_MILITARY_UNIT_IS_ALREADY_USING_THAT_NAME(1855),
 
 	/**
 	 * ID: 1856<br>
-	 * Message: Since your opponent is now the owner of $s1, the Olympiad has been cancelled.
+	 * Message: Since your opponent is now the owner of $s1, the Olympiad has
+	 * been cancelled.
 	 */
 	OPPONENT_POSSESSES_S1_OLYMPIAD_CANCELLED(1856),
 
@@ -11122,9 +11483,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1858<br>
-	 * Message: You cannot participate in the Olympiad while dead.
+	 * Message: $c1 is currently dead and cannot participate in the Olympiad.
 	 */
-	CANNOT_PARTICIPATE_OLYMPIAD_WHILE_DEAD(1858),
+	C1_CANNOT_PARTICIPATE_OLYMPIAD_WHILE_DEAD(1858),
 
 	/**
 	 * ID: 1859<br>
@@ -11146,13 +11507,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1862<br>
-	 * Message: Clan skills will now be activated since the clan's reputation score is 0 or higher.
+	 * Message: Clan skills will now be activated since the clan's reputation
+	 * score is 0 or higher.
 	 */
 	CLAN_SKILLS_WILL_BE_ACTIVATED_SINCE_REPUTATION_IS_0_OR_HIGHER(1862),
 
 	/**
 	 * ID: 1863<br>
-	 * Message: $s1 purchased a clan item, reducing the Clan Reputation by $s2 points.
+	 * Message: $s1 purchased a clan item, reducing the Clan Reputation by $s2
+	 * points.
 	 */
 	S1_PURCHASED_CLAN_ITEM_REDUCING_S2_REPU_POINTS(1863),
 
@@ -11188,7 +11551,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1869<br>
-	 * Message: $s1 has granted the Command Channel's master party the privilege of item looting.
+	 * Message: $s1 has granted the Command Channel's master party the privilege
+	 * of item looting.
 	 */
 	S1_GRANTED_MASTER_PARTY_LOOTING_RIGHTS(1869),
 
@@ -11212,7 +11576,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1873<br>
-	 * Message: There are $s1 hour(s) and $s2 minute(s) left in the fixed use time for this PC Cafe.
+	 * Message: There are $s1 hour(s) and $s2 minute(s) left in the fixed use
+	 * time for this PC Cafe.
 	 */
 	S1_HOURS_S2_MINUTES_LEFT_FOR_THIS_PCCAFE(1873),
 
@@ -11224,7 +11589,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1875<br>
-	 * Message: There are $s1 minute(s) left in the fixed use time for this PC Cafe.
+	 * Message: There are $s1 minute(s) left in the fixed use time for this PC
+	 * Cafe.
 	 */
 	S1_MINUTES_LEFT_FOR_THIS_PCCAFE(1875),
 
@@ -11248,19 +11614,22 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1879<br>
-	 * Message: In $s1 minute(s), you will be teleported outside of the game arena.
+	 * Message: In $s1 minute(s), you will be teleported outside of the game
+	 * arena.
 	 */
 	IN_S1_MINUTES_TELEPORTED_OUTSIDE_OF_GAME_ARENA(1879),
 
 	/**
 	 * ID: 1880<br>
-	 * Message: In $s1 seconds(s), you will be teleported outside of the game arena.
+	 * Message: In $s1 seconds(s), you will be teleported outside of the game
+	 * arena.
 	 */
 	IN_S1_SECONDS_TELEPORTED_OUTSIDE_OF_GAME_ARENA(1880),
 
 	/**
 	 * ID: 1881<br>
-	 * Message: The preliminary match will begin in $s1 second(s). Prepare yourself.
+	 * Message: The preliminary match will begin in $s1 second(s). Prepare
+	 * yourself.
 	 */
 	PRELIMINARY_MATCH_BEGIN_IN_S1_SECONDS(1881),
 
@@ -11284,7 +11653,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1885<br>
-	 * Message: This serial number cannot be entered. Please try again in  minute(s).
+	 * Message: This serial number cannot be entered. Please try again in
+	 * minute(s).
 	 */
 	SERIAL_NUMBER_CANT_ENTERED(1885),
 
@@ -11296,15 +11666,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1887<br>
-	 * Message: Invalid serial number. Your attempt to enter the number has failed  time(s).
-	 * You will be allowed to make  more attempt(s).
+	 * Message: Invalid serial number. Your attempt to enter the number has
+	 * failed time(s). You will be allowed to make more attempt(s).
 	 */
 	SERIAL_NUMBER_ENTERING_FAILED(1887),
 
 	/**
 	 * ID: 1888<br>
-	 * Message: Invalid serial number. Your attempt to enter the number has failed 5 time(s).
-	 * Please try again in 4 hours.
+	 * Message: Invalid serial number. Your attempt to enter the number has
+	 * failed 5 time(s). Please try again in 4 hours.
 	 */
 	SERIAL_NUMBER_ENTERING_FAILED_5_TIMES(1888),
 
@@ -11316,7 +11686,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1890<br>
-	 * Message: Since you have already used this coupon, you may not use this serial number.
+	 * Message: Since you have already used this coupon, you may not use this
+	 * serial number.
 	 */
 	ALREADY_USED_COUPON_NOT_USE_SERIAL_NUMBER(1890),
 
@@ -11340,7 +11711,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1894<br>
-	 * Message: A sub-class cannot be created or changed while you are over your weight limit.
+	 * Message: A sub-class cannot be created or changed while you are over your
+	 * weight limit.
 	 */
 	NOT_SUBCLASS_WHILE_OVERWEIGHT(1894),
 
@@ -11364,7 +11736,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1898<br>
-	 * Message:  $s1 is currently trading or operating a private store and cannot be summoned.
+	 * Message: $s1 is currently trading or operating a private store and cannot
+	 * be summoned.
 	 */
 	S1_CURRENTLY_TRADING_OR_OPERATING_PRIVATE_STORE_AND_CANNOT_BE_SUMMONED(1898),
 
@@ -11394,13 +11767,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1903<br>
-	 * Message: Those of you who have requested NCOTP should run NCOTP by using your cell phone [...]
+	 * Message: Those of you who have requested NCOTP should run NCOTP by using
+	 * your cell phone [...]
 	 */
 	NCOTP(1903),
 
 	/**
 	 * ID: 1904<br>
-	 * Message: A sub-class may not be created or changed while a servitor or pet is summoned.
+	 * Message: A sub-class may not be created or changed while a servitor or
+	 * pet is summoned.
 	 */
 	CANT_SUBCLASS_WITH_SUMMONED_SERVITOR(1904),
 
@@ -11442,13 +11817,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1911<br>
-	 * Message: You cannot summon players who are currently participating in the Grand Olympiad.
+	 * Message: You cannot summon players who are currently participating in the
+	 * Grand Olympiad.
 	 */
 	YOU_CANNOT_SUMMON_PLAYERS_WHO_ARE_IN_OLYMPIAD(1911),
 
 	/**
 	 * ID: 1912<br>
-	 * Message: Only those requesting NCOTP should make an entry into this field.
+	 * Message: Only those requesting NCOTP should make an entry into this
+	 * field.
 	 */
 	NCOTP2(1912),
 
@@ -11496,9 +11873,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1920<br>
-	 * Message: Your account is currently inactive because you have not logged into the game
-	 * for some time. You may reactivate your account by visiting the PlayNC website
-	 * (http://www.plaync.com/us/support/).
+	 * Message: Your account is currently inactive because you have not logged
+	 * into the game for some time. You may reactivate your account by visiting
+	 * the PlayNC website (http://www.plaync.com/us/support/).
 	 */
 	ACCOUNT_INACTIVITY(1920),
 
@@ -11528,7 +11905,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1925<br>
-	 * Message: Due to the affects of the Seal of Strife, it is not possible to summon at this time.
+	 * Message: Due to the affects of the Seal of Strife, it is not possible to
+	 * summon at this time.
 	 */
 	SEAL_OF_STRIFE_FORBIDS_SUMMONING(1925),
 
@@ -11552,13 +11930,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1929<br>
-	 * Message: $s1 has accepted your challenge to a duel. The duel will begin in a few moments.
+	 * Message: $s1 has accepted your challenge to a duel. The duel will begin
+	 * in a few moments.
 	 */
 	S1_HAS_ACCEPTED_YOUR_CHALLENGE_TO_A_DUEL_THE_DUEL_WILL_BEGIN_IN_A_FEW_MOMENTS(1929),
 
 	/**
 	 * ID: 1930<br>
-	 * Message: You have accepted $s1's challenge to a duel. The duel will begin in a few moments.
+	 * Message: You have accepted $s1's challenge to a duel. The duel will begin
+	 * in a few moments.
 	 */
 	YOU_HAVE_ACCEPTED_S1S_CHALLENGE_TO_A_DUEL_THE_DUEL_WILL_BEGIN_IN_A_FEW_MOMENTS(1930),
 
@@ -11576,13 +11956,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1933<br>
-	 * Message: You have accepted $s1's challenge to a party duel. The duel will begin in a few moments.
+	 * Message: You have accepted $s1's challenge to a party duel. The duel will
+	 * begin in a few moments.
 	 */
 	YOU_HAVE_ACCEPTED_S1S_CHALLENGE_TO_A_PARTY_DUEL_THE_DUEL_WILL_BEGIN_IN_A_FEW_MOMENTS(1933),
 
 	/**
 	 * ID: 1934<br>
-	 * Message: $s1 has accepted your challenge to duel against their party. The duel will begin in a few moments.
+	 * Message: $s1 has accepted your challenge to duel against their party. The
+	 * duel will begin in a few moments.
 	 */
 	S1_HAS_ACCEPTED_YOUR_CHALLENGE_TO_DUEL_AGAINST_THEIR_PARTY_THE_DUEL_WILL_BEGIN_IN_A_FEW_MOMENTS(1934),
 
@@ -11600,7 +11982,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1937<br>
-	 * Message: Since the person you challenged is not currently in a party, they cannot duel against your party.
+	 * Message: Since the person you challenged is not currently in a party,
+	 * they cannot duel against your party.
 	 */
 	SINCE_THE_PERSON_YOU_CHALLENGED_IS_NOT_CURRENTLY_IN_A_PARTY_THEY_CANNOT_DUEL_AGAINST_YOUR_PARTY(1937),
 
@@ -11624,25 +12007,29 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1941<br>
-	 * Message: This is no suitable place to challenge anyone or party to a duel.
+	 * Message: This is no suitable place to challenge anyone or party to a
+	 * duel.
 	 */
 	NO_PLACE_FOR_DUEL(1941),
 
 	/**
 	 * ID: 1942<br>
-	 * Message: The opposing party is currently unable to accept a challenge to a duel.
+	 * Message: The opposing party is currently unable to accept a challenge to
+	 * a duel.
 	 */
 	THE_OPPOSING_PARTY_IS_CURRENTLY_UNABLE_TO_ACCEPT_A_CHALLENGE_TO_A_DUEL(1942),
 
 	/**
 	 * ID: 1943<br>
-	 * Message: The opposing party is currently not in a suitable location for a duel.
+	 * Message: The opposing party is currently not in a suitable location for a
+	 * duel.
 	 */
 	THE_OPPOSING_PARTY_IS_AT_BAD_LOCATION_FOR_A_DUEL(1943),
 
 	/**
 	 * ID: 1944<br>
-	 * Message: In a moment, you will be transported to the site where the duel will take place.
+	 * Message: In a moment, you will be transported to the site where the duel
+	 * will take place.
 	 */
 	IN_A_MOMENT_YOU_WILL_BE_TRANSPORTED_TO_THE_SITE_WHERE_THE_DUEL_WILL_TAKE_PLACE(1944),
 
@@ -11660,7 +12047,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1947<br>
-	 * Message: $s1's party has challenged your party to a duel. Will you accept?
+	 * Message: $s1's party has challenged your party to a duel. Will you
+	 * accept?
 	 */
 	S1_CHALLENGED_YOU_TO_A_PARTY_DUEL(1947),
 
@@ -11798,7 +12186,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1972<br>
-	 * Message: You cannot augment items while a private store or private workshop is in operation.
+	 * Message: You cannot augment items while a private store or private
+	 * workshop is in operation.
 	 */
 	YOU_CANNOT_AUGMENT_ITEMS_WHILE_A_PRIVATE_STORE_OR_PRIVATE_WORKSHOP_IS_IN_OPERATION(1972),
 
@@ -11900,7 +12289,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1989<br>
-	 * Message: The ferry will leave for Rune Harbor after anchoring for three minutes.
+	 * Message: The ferry will leave for Rune Harbor after anchoring for three
+	 * minutes.
 	 */
 	FERRY_LEAVING_FOR_RUNE_3_MINUTES(1989),
 
@@ -11912,7 +12302,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1991<br>
-	 * Message: The ferry will leave for Primeval Isle after anchoring for three minutes.
+	 * Message: The ferry will leave for Primeval Isle after anchoring for three
+	 * minutes.
 	 */
 	FERRY_LEAVING_FOR_PRIMEVAL_3_MINUTES(1991),
 
@@ -12050,8 +12441,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2014<br>
-	 * Message: You cannot proceed because the manor cannot accept any more crops. All crops
-	 * have been returned and no adena withdrawn.
+	 * Message: You cannot proceed because the manor cannot accept any more
+	 * crops. All crops have been returned and no adena withdrawn.
 	 */
 	MANOR_CANT_ACCEPT_MORE_CROPS(2014),
 
@@ -12063,13 +12454,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2016<br>
-	 * Message: A skill is ready to be used again but its re-use counter time has increased.
+	 * Message: A skill is ready to be used again but its re-use counter time
+	 * has increased.
 	 */
 	SKILL_READY_TO_USE_AGAIN_BUT_TIME_INCREASED(2016),
 
 	/**
 	 * ID: 2017<br>
-	 * Message: $s1 cannot duel because $s1 is currently engaged in a private store or manufacture.
+	 * Message: $s1 cannot duel because $s1 is currently engaged in a private
+	 * store or manufacture.
 	 */
 	S1_CANNOT_DUEL_BECAUSE_S1_IS_CURRENTLY_ENGAGED_IN_A_PRIVATE_STORE_OR_MANUFACTURE(2017),
 
@@ -12087,8 +12480,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2020<br>
-	 * Message: $s1 cannot make a challenge to a duel because $s1 is currently 
-	 * in a duel-prohibited area (Peaceful Zone / Seven Signs Zone / Near Water / Restart Prohibited Area).
+	 * Message: $s1 cannot make a challenge to a duel because $s1 is currently
+	 * in a duel-prohibited area (Peaceful Zone / Seven Signs Zone / Near Water
+	 * / Restart Prohibited Area).
 	 */
 	S1_CANNOT_MAKE_A_CHALLANGE_TO_A_DUEL_BECAUSE_S1_IS_CURRENTLY_IN_A_DUEL_PROHIBITED_AREA(2020),
 
@@ -12130,7 +12524,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2027<br>
-	 * Message: $s1 cannot duel because $s1 is currently riding a boat, wyvern, or strider.
+	 * Message: $s1 cannot duel because $s1 is currently riding a boat, wyvern,
+	 * or strider.
 	 */
 	S1_CANNOT_DUEL_BECAUSE_S1_IS_CURRENTLY_RIDING_A_BOAT_WYVERN_OR_STRIDER(2027),
 
@@ -12166,19 +12561,22 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2033<br>
-	 * Message: A sub-class cannot be created or changed because you have exceeded your inventory limit.
+	 * Message: A sub-class cannot be created or changed because you have
+	 * exceeded your inventory limit.
 	 */
 	NOT_SUBCLASS_WHILE_INVENTORY_FULL(2033),
 
 	/**
 	 * ID: 2034<br>
-	 * Message: There are $s1 hour(s) and $s2 minute(s) remaining until the time when the item can be purchased.
+	 * Message: There are $s1 hour(s) and $s2 minute(s) remaining until the time
+	 * when the item can be purchased.
 	 */
 	ITEM_PURCHASABLE_IN_S1_HOURS_S2_MINUTES(2034),
 
 	/**
 	 * ID: 2035<br>
-	 * Message: There are $s1 minute(s) remaining until the time when the item can be purchased.
+	 * Message: There are $s1 minute(s) remaining until the time when the item
+	 * can be purchased.
 	 */
 	ITEM_PURCHASABLE_IN_S1_MINUTES(2035),
 
@@ -12190,8 +12588,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2037<br>
-	 * Message: Unable to create character. You are unable to create a new character on the selected server.
-	 * A restriction is in place which restricts users from creating characters on different servers where no
+	 * Message: Unable to create character. You are unable to create a new
+	 * character on the selected server. A restriction is in place which
+	 * restricts users from creating characters on different servers where no
 	 * previous characters exists. Please choose another server.
 	 */
 	CANT_CREATE_CHARACTER_DURING_RESTRICTION(2037),
@@ -12228,8 +12627,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2043<br>
-	 * Message: You have exceeded your inventory volume limit and may not take this quest item.
-	 * Please make room in your inventory and try again
+	 * Message: You have exceeded your inventory volume limit and may not take
+	 * this quest item. Please make room in your inventory and try again
 	 */
 	YOU_HAVE_EXCEEDED_YOUR_INVENTORY_VOLUME_LIMIT_AND_CANNOT_TAKE_THIS_QUESTITEM(2043),
 
@@ -12259,14 +12658,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2048<br>
-	 * Message: The shortcut in use conflicts with $s1. Do you wish to reset the conflicting shortcuts
-	 * and use the saved shortcut?
+	 * Message: The shortcut in use conflicts with $s1. Do you wish to reset the
+	 * conflicting shortcuts and use the saved shortcut?
 	 */
 	CONFLICTING_SHORTCUT(2048),
 
 	/**
 	 * ID: 2049<br>
-	 * Message: The shortcut will be applied and saved in the server. Will you continue?
+	 * Message: The shortcut will be applied and saved in the server. Will you
+	 * continue?
 	 */
 	CONFIRM_SHORTCUT_WILL_SAVED_ON_SERVER(2049),
 
@@ -12278,19 +12678,22 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2051<br>
-	 * Message: You must accept the User Agreement before this account can access Lineage II.
+	 * Message: You must accept the User Agreement before this account can
+	 * access Lineage II.
 	 */
 	MUST_ACCEPT_AGREEMENT(2051),
 
 	/**
 	 * ID: 2052<br>
-	 * Message: A guardian's consent is required before this account can be used to play Lineage II.
+	 * Message: A guardian's consent is required before this account can be used
+	 * to play Lineage II.
 	 */
 	NEED_CONSENT_TO_PLAY_THIS_ACCOUNT(2052),
 
 	/**
 	 * ID: 2053<br>
-	 * Message: This account has declined the User Agreement or is pending a withdrawl request.
+	 * Message: This account has declined the User Agreement or is pending a
+	 * withdrawl request.
 	 */
 	ACCOUNT_DECLINED_AGREEMENT_OR_PENDING(2053),
 
@@ -12308,7 +12711,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2056<br>
-	 * Message: Your account has been converted to an integrated account, and is unable to be accessed.
+	 * Message: Your account has been converted to an integrated account, and is
+	 * unable to be accessed.
 	 */
 	ACCOUNT_CONVERTED(2056),
 
@@ -12375,50 +12779,57 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2067<br>
-	 * Message: That weapon cannot use any other skill except the weapon's skill.
+	 * Message: That weapon cannot use any other skill except the weapon's
+	 * skill.
 	 */
 	WEAPON_CAN_USE_ONLY_WEAPON_SKILL(2067),
 
 	/**
 	 * ID: 2068<br>
-	 * Message: You do not have all of the items needed to untrain the enchant skill.
+	 * Message: You do not have all of the items needed to untrain the enchant
+	 * skill.
 	 */
 	YOU_DONT_HAVE_ALL_ITENS_NEEDED_TO_UNTRAIN_SKILL_ENCHANT(2068),
 
 	/**
 	 * ID: 2069<br>
-	 * Message: Untrain of enchant skill was successful. Current level of enchant skill $s1 has been decreased by 1.
+	 * Message: Untrain of enchant skill was successful. Current level of
+	 * enchant skill $s1 has been decreased by 1.
 	 */
 	UNTRAIN_SUCCESSFUL_SKILL_S1_ENCHANT_LEVEL_DECREASED_BY_ONE(2069),
 
 	/**
 	 * ID: 2070<br>
-	 * Message: Untrain of enchant skill was successful. Current level of enchant skill $s1 became 0
-	 * and enchant skill will be initialized.
+	 * Message: Untrain of enchant skill was successful. Current level of
+	 * enchant skill $s1 became 0 and enchant skill will be initialized.
 	 */
 	UNTRAIN_SUCCESSFUL_SKILL_S1_ENCHANT_LEVEL_RESETED(2070),
 
 	/**
 	 * ID: 2071<br>
-	 * Message: You do not have all of the items needed to enchant skill route change.
+	 * Message: You do not have all of the items needed to enchant skill route
+	 * change.
 	 */
 	YOU_DONT_HAVE_ALL_ITENS_NEEDED_TO_CHANGE_SKILL_ENCHANT_ROUTE(2071),
 
 	/**
 	 * ID: 2072<br>
-	 * Message: Enchant skill route change was successful. Lv of enchant skill $s1 has been decreased by $s2.
+	 * Message: Enchant skill route change was successful. Lv of enchant skill
+	 * $s1 has been decreased by $s2.
 	 */
 	SKILL_ENCHANT_CHANGE_SUCCESSFUL_S1_LEVEL_WAS_DECREASED_BY_S2(2072),
 
 	/**
 	 * ID: 2073<br>
-	 * Message: Enchant skill route change was successful. Lv of enchant skill $s1 will remain.
+	 * Message: Enchant skill route change was successful. Lv of enchant skill
+	 * $s1 will remain.
 	 */
 	SKILL_ENCHANT_CHANGE_SUCCESSFUL_S1_LEVEL_WILL_REMAIN(2073),
 
 	/**
 	 * ID: 2074<br>
-	 * Message: Skill enchant failed. Current level of enchant skill $s1 will remain unchanged.
+	 * Message: Skill enchant failed. Current level of enchant skill $s1 will
+	 * remain unchanged.
 	 */
 	SKILL_ENCHANT_FAILED_S1_LEVEL_WILL_REMAIN(2074),
 
@@ -12448,7 +12859,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2079<br>
-	 * Message: You currently have the highest bid, but the reserve has not been met.
+	 * Message: You currently have the highest bid, but the reserve has not been
+	 * met.
 	 */
 	HIGHEST_BID_BUT_RESERVE_NOT_MET(2079),
 
@@ -12466,7 +12878,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2082<br>
-	 * Message: You have exceeded the total amount of adena allowed in inventory.
+	 * Message: You have exceeded the total amount of adena allowed in
+	 * inventory.
 	 */
 	EXCEEDED_MAX_ADENA_AMOUNT_IN_INVENTORY(2082),
 
@@ -12484,13 +12897,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2085<br>
-	 * Message: Shout and trade chatting cannot be used while possessing a cursed weapon.
+	 * Message: Shout and trade chatting cannot be used while possessing a
+	 * cursed weapon.
 	 */
 	SHOUT_AND_TRADE_CHAT_CANNOT_BE_USED_WHILE_POSSESSING_CURSED_WEAPON(2085),
 
 	/**
 	 * ID: 2086<br>
-	 * Message: Search on user $s2 for third-party program use will be completed in $s1 minute(s).
+	 * Message: Search on user $s2 for third-party program use will be completed
+	 * in $s1 minute(s).
 	 */
 	SEARCH_ON_S2_FOR_BOT_USE_COMPLETED_IN_S1_MINUTES(2086),
 
@@ -12520,7 +12935,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2091<br>
-	 * Message: Your account can only be used after changing your password and quiz.
+	 * Message: Your account can only be used after changing your password and
+	 * quiz.
 	 */
 	CHANGE_PASSWORT_FIRST(2091),
 
@@ -12532,7 +12948,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2093<br>
-	 * Message: The passed-in price is $s1 adena. Would you like to return the passed-in price?
+	 * Message: The passed-in price is $s1 adena. Would you like to return the
+	 * passed-in price?
 	 */
 	PASSED_IN_PRICE_IS_S1_ADENA_WOULD_YOU_LIKE_TO_RETURN_IT(2093),
 
@@ -12550,7 +12967,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2096<br>
-	 * Message: $s1 is in a location which cannot be entered, therefore it cannot be processed.
+	 * Message: $s1 is in a location which cannot be entered, therefore it
+	 * cannot be processed.
 	 */
 	S1_IS_IN_LOCATION_THAT_CANNOT_ENTERED_PROCESSED(2096),
 
@@ -12574,7 +12992,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2100<br>
-	 * Message: It is not yet an available re-enter time for $s1 therefore $s1 cannot enter.
+	 * Message: It is not yet an available re-enter time for $s1 therefore $s1
+	 * cannot enter.
 	 */
 	NO_RE_ENTER_TIME_FOR_S1(2100),
 
@@ -12592,31 +13011,36 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2103<br>
-	 * Message: You cannot enter because you are not in a current Command Channel.
+	 * Message: You cannot enter because you are not in a current Command
+	 * Channel.
 	 */
 	NOT_IN_COMMAND_CHANNEL_CANT_ENTER(2103),
 
 	/**
 	 * ID: 2104<br>
-	 * Message: The maximum number of instance zones has been exceeded. You cannot enter.
+	 * Message: The maximum number of instance zones has been exceeded. You
+	 * cannot enter.
 	 */
 	MAXIMUM_INSTANCE_ZONE_NUMBER_EXCEEDED_CANT_ENTER(2104),
 
 	/**
 	 * ID: 2105<br>
-	 * Message: You have entered another instance zone, therefore you cannot enter corresponding dungeon.
+	 * Message: You have entered another instance zone, therefore you cannot
+	 * enter corresponding dungeon.
 	 */
 	ALREADY_ENTERED_ANOTHER_INSTANCE_CANT_ENTER(2105),
 
 	/**
 	 * ID: 2106<br>
-	 * Message: This dungeon will expire in $s1 minute(s). You will be forced out of the dungeon when the time expires.
+	 * Message: This dungeon will expire in $s1 minute(s). You will be forced
+	 * out of the dungeon when the time expires.
 	 */
 	DUNGEON_EXPIRES_IN_S1_MINUTES(2106),
 
 	/**
 	 * ID: 2107<br>
-	 * Message: This instance zone will be terminated in $s1 minute(s). You will be forced out of the dungeon when the time expires.
+	 * Message: This instance zone will be terminated in $s1 minute(s). You will
+	 * be forced out of the dungeon when the time expires.
 	 */
 	INSTANCE_ZONE_TERMINATES_IN_S1_MINUTES(2107),
 
@@ -12628,14 +13052,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2109<br>
-	 * Message: The server has been integrated, and your character, $s1, has overlapped with another name.
-	 * Please enter a new name for your character
+	 * Message: The server has been integrated, and your character, $s1, has
+	 * overlapped with another name. Please enter a new name for your character
 	 */
 	CHARACTER_NAME_OVERLAPPING_RENAME_CHARACTER(2109),
 
 	/**
 	 * ID: 2110<br>
-	 * Message: This character name already exists or is an invalid name. Please enter a new name
+	 * Message: This character name already exists or is an invalid name. Please
+	 * enter a new name
 	 */
 	CHARACTER_NAME_INVALID_RENAME_CHARACTER(2110),
 
@@ -12647,7 +13072,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2112<br>
-	 * Message: Sub-key can be CTRL, ALT, SHIFT and you may enter two sub-keys at a time.
+	 * Message: Sub-key can be CTRL, ALT, SHIFT and you may enter two sub-keys
+	 * at a time.
 	 */
 	SUBKEY_EXPLANATION1(2112),
 
@@ -12659,9 +13085,10 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2114<br>
-	 * Message: Forced attack and stand-in-place attacks assigned previously to Ctrl and Shift
-	 * will be changed to Alt + Q and Alt + E when set as expanded sub-key mode, and CTRL and SHIFT
-	 * will be available to assign to another shortcut. Will you continue?
+	 * Message: Forced attack and stand-in-place attacks assigned previously to
+	 * Ctrl and Shift will be changed to Alt + Q and Alt + E when set as
+	 * expanded sub-key mode, and CTRL and SHIFT will be available to assign to
+	 * another shortcut. Will you continue?
 	 */
 	SUBKEY_EXPLANATION3(2114),
 
@@ -12721,14 +13148,16 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2124<br>
-	 * Message: The server has been integrated, and your Clan name, $s1, has been 
-	 * overlapped with another name. Please enter the Clan name to be changed.
+	 * Message: The server has been integrated, and your Clan name, $s1, has
+	 * been overlapped with another name. Please enter the Clan name to be
+	 * changed.
 	 */
 	CLAN_NAME_OVERLAPPING_RENAME_CLAN(2124),
 
 	/**
 	 * ID: 2125<br>
-	 * Message: This name already exists or is an invalid name. Please enter the Clan name to be changed.
+	 * Message: This name already exists or is an invalid name. Please enter the
+	 * Clan name to be changed.
 	 */
 	CLAN_NAME_INVALID_RENAME_CLAN(2125),
 
@@ -12752,7 +13181,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2129<br>
-	 * Message: The augmented item cannot be converted. Please convert after the augmentation has been removed.
+	 * Message: The augmented item cannot be converted. Please convert after the
+	 * augmentation has been removed.
 	 */
 	AUGMENTED_ITEM_CANT_CONVERTED(2129),
 
@@ -12764,8 +13194,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2131<br>
-	 * Message: You have bid the highest price and have won the item.
-	 * The item can be found in your personal warehouse.
+	 * Message: You have bid the highest price and have won the item. The item
+	 * can be found in your personal warehouse.
 	 */
 	WON_BID_ITEM_CAN_BE_FOUND_IN_WAREHOUSE(2131),
 
@@ -12837,7 +13267,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2143<br>
-	 * Message: You cannot add elemental power while operating a Private Store or Private Workshop.
+	 * Message: You cannot add elemental power while operating a Private Store
+	 * or Private Workshop.
 	 */
 	CANNOT_ADD_ELEMENTAL_POWER_WHILE_OPERATING_PRIVATE_STORE_OR_WORKSHOP(2143),
 
@@ -12879,7 +13310,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2150<br>
-	 * Message: Another elemental power has already been added. This elemental power cannot be added.
+	 * Message: Another elemental power has already been added. This elemental
+	 * power cannot be added.
 	 */
 	ANOTHER_ELEMENTAL_POWER_ALREADY_ADDED(2150),
 
@@ -12891,14 +13323,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2152<br>
-	 * Message: The assigned shortcut will be deleted and the initial shortcut setting restored.
-	 * Will you continue?
+	 * Message: The assigned shortcut will be deleted and the initial shortcut
+	 * setting restored. Will you continue?
 	 */
 	CONFIRM_SHORCUT_DELETE(2152),
 
 	/**
 	 * ID: 2153<br>
-	 * Message: You are currently logged into 10 of your accounts and can no longer access your other accounts.
+	 * Message: You are currently logged into 10 of your accounts and can no
+	 * longer access your other accounts.
 	 */
 	MAXIMUM_ACCOUNT_LOGINS_REACHED(2153),
 
@@ -12910,7 +13343,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2155<br>
-	 * Message: A flag is already being displayed, another flag cannot be displayed.
+	 * Message: A flag is already being displayed, another flag cannot be
+	 * displayed.
 	 */
 	A_FLAG_IS_ALREADY_BEING_DISPLAYED_ANOTHER_FLAG_CANNOT_BE_DISPLAYED(2155),
 
@@ -12928,7 +13362,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2158<br>
-	 * Message: Forced attack is impossible against siege side temporary allied members.
+	 * Message: Forced attack is impossible against siege side temporary allied
+	 * members.
 	 */
 	FORCED_ATTACK_IS_IMPOSSIBLE_AGAINST_SIEGE_SIDE_TEMPORARY_ALLIED_MEMBERS(2158),
 
@@ -13006,7 +13441,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2170<br>
-	 * Message: A malicious skill cannot be used when an opponent is in the peace zone
+	 * Message: A malicious skill cannot be used when an opponent is in the
+	 * peace zone
 	 */
 	CANT_USE_BAD_MAGIC_WHEN_OPPONENT_IN_PEACE_ZONE(2170),
 
@@ -13114,7 +13550,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2188<br>
-	 * Message: Another enchantment is in progress. Please complete previous task and try again.
+	 * Message: Another enchantment is in progress. Please complete previous
+	 * task and try again.
 	 */
 	ENCHANTMENT_ALREADY_IN_PROGRESS(2188),
 
@@ -13132,8 +13569,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2191<br>
-	 * Message: To apply selected options, the game needs to be reloaded. If you don't apply now,
-	 * it will applied when you start the game next time. Will you apply now?
+	 * Message: To apply selected options, the game needs to be reloaded. If you
+	 * don't apply now, it will applied when you start the game next time. Will
+	 * you apply now?
 	 */
 	CONFIRM_APPLY_SELECTIONS(2191),
 
@@ -13151,7 +13589,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2194<br>
-	 * Message: Current polymorph form cannot be applied with corresponding effects.
+	 * Message: Current polymorph form cannot be applied with corresponding
+	 * effects.
 	 */
 	CANT_APPLY_CURRENT_POLYMORPH_WITH_CORRESPONDING_EFFECTS(2194),
 
@@ -13181,14 +13620,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2199<br>
-	 * Message: You cannot enter this instance zone while the NPC server is unavailable.
+	 * Message: You cannot enter this instance zone while the NPC server is
+	 * unavailable.
 	 */
 	CANT_ENTER_INSTANCE_ZONE_NPC_SERVER_OFFLINE(2199),
 
 	/**
 	 * ID: 2200<br>
-	 * Message: This instance zone will be terminated because the NPC server is unavailable.
-	 * You will be forcibly removed from the dungeon shortly
+	 * Message: This instance zone will be terminated because the NPC server is
+	 * unavailable. You will be forcibly removed from the dungeon shortly
 	 */
 	INSTANCE_ZONE_TERMINATED_NPC_SERVER_OFFLINE(2200),
 
@@ -13218,7 +13658,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2205<br>
-	 * Message: You have entered an area where the mini map cannot be used. The mini map will be closed.
+	 * Message: You have entered an area where the mini map cannot be used. The
+	 * mini map will be closed.
 	 */
 	AREA_FORBIDS_MINIMAP(2205),
 
@@ -13230,7 +13671,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2207<br>
-	 * Message: This is an area where you cannot use the mini map. The mini map will not be opened.
+	 * Message: This is an area where you cannot use the mini map. The mini map
+	 * will not be opened.
 	 */
 	CANT_OPEN_MINIMAP(2207),
 
@@ -13254,13 +13696,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2211<br>
-	 * Message: You have not acquired a good deed skill so you cannot acquire new skills.
+	 * Message: You have not acquired a good deed skill so you cannot acquire
+	 * new skills.
 	 */
 	NOT_ACQUIRED_DEED_SKILL_CANNOT_ACQUIRE_SKILLS(2211),
 
 	/**
 	 * ID: 2212<br>
-	 * Message: You have not completed the necessary quest for skill acquisition.
+	 * Message: You have not completed the necessary quest for skill
+	 * acquisition.
 	 */
 	NOT_COMPLETED_QUEST_FOR_SKILL_ACQUISITION(2212),
 
@@ -13272,7 +13716,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2214<br>
-	 * Message: A new character will be created with the current settings. Continue
+	 * Message: A new character will be created with the current settings.
+	 * Continue
 	 */
 	CONFIRM_CHARACTER_CREATION(2214),
 
@@ -13284,13 +13729,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2216<br>
-	 * Message: The CPU driver is not up to date. Please install an up-to-date CPU driver.
+	 * Message: The CPU driver is not up to date. Please install an up-to-date
+	 * CPU driver.
 	 */
 	PLEASE_UPDATE_CPU_DRIVER(2216),
 
 	/**
 	 * ID: 2217<br>
-	 * Message: The ballista has been successfully destroyed and the clan's reputation will be increased.
+	 * Message: The ballista has been successfully destroyed and the clan's
+	 * reputation will be increased.
 	 */
 	BALLISTA_DESTROYED_CLAN_REPU_INCREASED(2217),
 
@@ -13326,7 +13773,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2223<br>
-	 * Message: It will cost 200,000 adena for a fortress gate enhancement. Will you enhance it?
+	 * Message: It will cost 200,000 adena for a fortress gate enhancement. Will
+	 * you enhance it?
 	 */
 	FORTRESS_GATE_COSTS_200000_ADENA(2223),
 
@@ -13338,7 +13786,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2225<br>
-	 * Message: There are no other skills to learn. Please come back after $s1st class change
+	 * Message: There are no other skills to learn. Please come back after $s1st
+	 * class change
 	 */
 	NO_SKILLS_TO_LEARN_RETURN_AFTER_S1_CLASS_CHANGE(2225),
 
@@ -13350,7 +13799,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2227<br>
-	 * Message: It is not possible to register for the castle siege side or castle siege of a higher castle in the contract
+	 * Message: It is not possible to register for the castle siege side or
+	 * castle siege of a higher castle in the contract
 	 */
 	NOT_POSSIBLE_TO_REGISTER_TO_CASTLE_SIEGE(2227),
 
@@ -13374,7 +13824,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2231<br>
-	 * Message: The reputation score of the upper castle in contract is not enough and supply was not granted.
+	 * Message: The reputation score of the upper castle in contract is not
+	 * enough and supply was not granted.
 	 */
 	REPUTATION_SCORE_FOR_CONTRACT_NOT_ENOUGH(2231),
 
@@ -13386,7 +13837,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2233<br>
-	 * Message: Siege registration is not possible due to a contract with a higher castle.
+	 * Message: Siege registration is not possible due to a contract with a
+	 * higher castle.
 	 */
 	CANT_REGISTER_TO_SIEGE_DUE_TO_CONTRACT(2233),
 
@@ -13398,7 +13850,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2235<br>
-	 * Message: The instance zone in use has been deleted and cannot be accessed.
+	 * Message: The instance zone in use has been deleted and cannot be
+	 * accessed.
 	 */
 	INSTANCE_ZONE_DELETED_CANT_ACCESSED(2235),
 
@@ -13416,7 +13869,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2238<br>
-	 * Message: You have participated in the siege of $s1. This siege will continue for 2 hours.
+	 * Message: You have participated in the siege of $s1. This siege will
+	 * continue for 2 hours.
 	 */
 	PARTICIPATING_IN_SIEGE_OF_S1(2238),
 
@@ -13435,22 +13889,23 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2241<br>
-	 * Message: You cannot apply for a Clan Lord transaction if your clan has registed
-	 * for the Team Battle Clan Hall War.
+	 * Message: You cannot apply for a Clan Lord transaction if your clan has
+	 * registed for the Team Battle Clan Hall War.
 	 */
 	CANT_APPLY_ON_LORD_TRANSACTION_WHILE_REGISTERED_TO_TEAM_BATTLE_CLAN_HALL_WAR(2241),
 
 	/**
 	 * ID: 2242<br>
-	 * Message: Clan members cannot leave or be expelled when they are regisered for
-	 * the Team Battle Clan Hall War.
+	 * Message: Clan members cannot leave or be expelled when they are regisered
+	 * for the Team Battle Clan Hall War.
 	 */
 	MEMBERS_CANT_LEAVE_WHEN_REGISTERED_TO_TEAM_BATTLE_CLAN_HALL_WAR(2242),
 
 	/**
 	 * ID: 2243<br>
-	 * Message: When a clan lord occupying the Bandit Stronghold or Wild Beast Reserver clan hall is in danger,
-	 * the previous clan lord rather than the new clan lord participates in the clan hall battle.
+	 * Message: When a clan lord occupying the Bandit Stronghold or Wild Beast
+	 * Reserver clan hall is in danger, the previous clan lord rather than the
+	 * new clan lord participates in the clan hall battle.
 	 */
 	WHEN_BANDITSTRONGHOLD_WILDBEASTRESERVRE_CLANLORD_IN_DANGER_PREVIOUS_LORD_PARTICIPATES_IN_BATTLE(2243),
 
@@ -13552,7 +14007,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2260<br>
-	 * Message: A pet can run away if you do not fill its hunger gauge to 10% or above.
+	 * Message: A pet can run away if you do not fill its hunger gauge to 10% or
+	 * above.
 	 */
 	PET_CAN_RUN_AWAY_WHEN_HUNGER_BELOW_10_PERCENT(2260),
 
@@ -13624,14 +14080,16 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2272<br>
-	 * Message: You have selected shortcuts without settings up sub-keys.
-	 * You can only use the set shortcut in the Enter Chat mode. Do you still wish to use the set shortcuts
+	 * Message: You have selected shortcuts without settings up sub-keys. You
+	 * can only use the set shortcut in the Enter Chat mode. Do you still wish
+	 * to use the set shortcuts
 	 */
 	USE_SHORTCUT_CONFIRM(2272),
 
 	/**
 	 * ID: 2273<br>
-	 * Message: This skill cannot be learned while in the sub-class state. Please try again after changing to the main class.
+	 * Message: This skill cannot be learned while in the sub-class state.
+	 * Please try again after changing to the main class.
 	 */
 	SKILL_NOT_FOR_SUBCLASS(2273),
 
@@ -13679,7 +14137,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2281<br>
-	 * Message: $c1 caused damage of $s3 to $c2, and also caused damage of $s4 to the damage transition object.
+	 * Message: $c1 caused damage of $s3 to $c2, and also caused damage of $s4
+	 * to the damage transition object.
 	 */
 	C1_DAMAGED_S3_TO_C2_AND_DAMAGED_S4_TO_TRANSITION_OBJ(2281),
 
@@ -13697,7 +14156,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2284<br>
-	 * Message: You have obtained all the points you can get today in a place other than Internet Cafe.
+	 * Message: You have obtained all the points you can get today in a place
+	 * other than Internet Cafe.
 	 */
 	OBTAINED_ALL_POINTS_YOU_CAN_GET_TODAY(2284),
 
@@ -13721,13 +14181,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2288<br>
-	 * Message: Resurrection is going to take place near the Tower of Resurrection in $s1 seconds.
+	 * Message: Resurrection is going to take place near the Tower of
+	 * Resurrection in $s1 seconds.
 	 */
 	RESSURECTION_NEAR_TOWER_OF_RESURRECTION_S1_SECONDS(2288),
 
 	/**
 	 * ID: 2289<br>
-	 * Message: The match between the parties is not available because one of the party members is being teleported.
+	 * Message: The match between the parties is not available because one of
+	 * the party members is being teleported.
 	 */
 	CANNOT_MATCH_BETWEEN_PARTIES_ONE_TELEPORTED(2289),
 
@@ -13757,13 +14219,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2294<br>
-	 * Message: The width of the uploaded badge or insignia does not meet the standard requirements.
+	 * Message: The width of the uploaded badge or insignia does not meet the
+	 * standard requirements.
 	 */
 	INVALID_INSIGNIA_WIDTH(2294),
 
 	/**
 	 * ID: 2295<br>
-	 * Message: The length of the uploaded badge or insignia does not meet the standard requirements.
+	 * Message: The length of the uploaded badge or insignia does not meet the
+	 * standard requirements.
 	 */
 	INVALID_INSIGNIA_LENGTH(2295),
 
@@ -13775,25 +14239,29 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2297<br>
-	 * Message: 
+	 * Message:
 	 */
 	EMPTY2(2297),
 
 	/**
 	 * ID: 2298<br>
-	 * Message: The color of the badge or insignia that you want to register does not meet the standard requirements.
+	 * Message: The color of the badge or insignia that you want to register
+	 * does not meet the standard requirements.
 	 */
 	INVALID_INSIGNIA_COLOR(2298),
 
 	/**
 	 * ID: 2299<br>
-	 * Message: The file format of the badge or insignia that you want to register does not meet the standard requirements.
+	 * Message: The file format of the badge or insignia that you want to
+	 * register does not meet the standard requirements.
 	 */
 	INVALID_INSIGNIA_FORMAT(2299),
 
 	/**
 	 * ID: 2300<br>
-	 * Message: Failed to load keyboard security module. For effective gaming functionality, when the game is over, please check all the files in the Lineage II automatic update.
+	 * Message: Failed to load keyboard security module. For effective gaming
+	 * functionality, when the game is over, please check all the files in the
+	 * Lineage II automatic update.
 	 */
 	CANNOT_LOAD_KEY_SECURITY(2300),
 
@@ -13805,953 +14273,1016 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2302<br>
-	 * Message: The premium item has arrived. If you go to the $c1% in each village, you can obtain the item.
+	 * Message: The premium item has arrived. If you go to the $c1% in each
+	 * village, you can obtain the item.
 	 */
 	PREMIUM_ITEM_ARRIVED_GOTO_C1_IN_EACH_VILLAGE(2302),
 
 	/**
-	* ID: 2303<br>
-	* Message: There are $s2 second(s) remaining in $s1's re-use time.
-	*/
+	 * ID: 2303<br>
+	 * Message: There are $s2 second(s) remaining in $s1's re-use time.
+	 */
 	S2_SECONDS_REMAIMNING_FOR_REUSE_S1(2303),
 
 	/**
-	* ID: 2304<br>
-	* Message: There are $s2 minute(s), $s3 second(s) remaining in $s1's re-use time.
-	*/
+	 * ID: 2304<br>
+	 * Message: There are $s2 minute(s), $s3 second(s) remaining in $s1's re-use
+	 * time.
+	 */
 	S2_MINUTES_S3_SECONDS_REMAINING_FOR_REUSE_S1(2304),
 
 	/**
-	* ID: 2305<br>
-	* Message: There are $s2 hour(s), $s3 minute(s), and $s4 second(s) remaining in $s1's re-use time.
-	*/
+	 * ID: 2305<br>
+	 * Message: There are $s2 hour(s), $s3 minute(s), and $s4 second(s)
+	 * remaining in $s1's re-use time.
+	 */
 	S2_HOURS_S3_MINUTES_S4_SECONDS_REMAINING_FOR_REUSE_S1(2305),
 	/**
-	* ID: 2306<br>
-	* Message: Resurrection is possible because of the courage charm's effect. Would you like to resurrect now?
-	*/
+	 * ID: 2306<br>
+	 * Message: Resurrection is possible because of the courage charm's effect.
+	 * Would you like to resurrect now?
+	 */
 	RESURRECTION_POSSIBLE_BECAUSE_CHARM_EFFECT(2306),
 
 	/**
-	* ID: 2307<br>
-	* Message: The target is receiving the Courage Charm's effect
-	*/
+	 * ID: 2307<br>
+	 * Message: The target is receiving the Courage Charm's effect
+	 */
 	TARGET_RECEIVE_COURAGE_CHARM_EFFECT(2307),
 
 	/**
-	* ID: 2308<br>
-	* Message: Remaining time: %s1 day(s)
-	*/
+	 * ID: 2308<br>
+	 * Message: Remaining time: %s1 day(s)
+	 */
 	S1_DAY_REMAINING_TIME(2308),
 
 	/**
-	* ID: 2309<br>
-	* Message: Remaining time: %s1 hour(s)
-	*/
+	 * ID: 2309<br>
+	 * Message: Remaining time: %s1 hour(s)
+	 */
 	S1_HOUR_REMAINING_TIME(2309),
 
 	/**
-	* ID: 2310<br>
-	* Message: Remaining time: %s1 minute(s)
-	*/
+	 * ID: 2310<br>
+	 * Message: Remaining time: %s1 minute(s)
+	 */
 	S1_MINUTE_REMAINING_TIME(2310),
 
 	/**
-	* ID: 2311<br>
-	* Message: You do not have a servitor.
-	*/
+	 * ID: 2311<br>
+	 * Message: You do not have a servitor.
+	 */
 	DONT_HAVE_SERVITOR(2311),
 
 	/**
-	* ID: 2312<br>
-	* Message: You do not have a pet.
-	*/
+	 * ID: 2312<br>
+	 * Message: You do not have a pet.
+	 */
 	DONT_HAVE_PET(2312),
 
 	/**
-	* ID: 2313<br>
-	* Message: The premium item has arrived.
-	*/
+	 * ID: 2313<br>
+	 * Message: The premium item has arrived.
+	 */
 	PREMIUM_ITEM_ARRIVED(2313),
 
 	/**
-	* ID: 2314<br>
-	* Message: Your Vitality is at maximum.
-	*/
+	 * ID: 2314<br>
+	 * Message: Your Vitality is at maximum.
+	 */
 	VITALITY_IS_AT_MAXIMUM(2314),
 
 	/**
-	* ID: 2315<br>
-	* Message: Your Vitality has increased,
-	*/
+	 * ID: 2315<br>
+	 * Message: Your Vitality has increased,
+	 */
 	VITALITY_HAS_INCREASED(2315),
 
 	/**
-	* ID: 2316<br>
-	* Message: Your Vitality has decreased.
-	*/
+	 * ID: 2316<br>
+	 * Message: Your Vitality has decreased.
+	 */
 	VITALITY_HAS_DECREASED(2316),
 
 	/**
-	* ID: 2317<br>
-	* Message: Your Vitality is fully exhausted.
-	*/
+	 * ID: 2317<br>
+	 * Message: Your Vitality is fully exhausted.
+	 */
 	VITALITY_IS_EXHAUSTED(2317),
 
 	/**
-	* ID: 2318<br>
-	* Message: Only an enhanced skill can be cancelled.
-	*/
+	 * ID: 2318<br>
+	 * Message: Only an enhanced skill can be cancelled.
+	 */
 	ONLY_ENHANCED_SKILL_CAN_BE_CANCELLED(2318),
 
 	/**
-	* ID: 2319<br>
-	* Message: You have acquired $s1 reputation score.
-	*/
+	 * ID: 2319<br>
+	 * Message: You have acquired $s1 reputation score.
+	 */
 	ACQUIRED_S1_REPUTATION_SCORE(2319),
 
 	/**
-	* ID: 2320<br>
-	* Message: Masterwork item production possible
-	*/
+	 * ID: 2320<br>
+	 * Message: Masterwork item production possible
+	 */
 	MASTERWORK_ITEM_PRODUCTION_POSSIBLE(2320),
 
 	/**
-	* ID: 2321<br>
-	* Message: Current location: Inside Kamaloka
-	*/
+	 * ID: 2321<br>
+	 * Message: Current location: Inside Kamaloka
+	 */
 	LOC_INSIDE_KAMALOKA(2321),
 
 	/**
-	* ID: 2322<br>
-	* Message: Current location: Inside Nia Kamaloka
-	*/
+	 * ID: 2322<br>
+	 * Message: Current location: Inside Nia Kamaloka
+	 */
 	LOC_INSIDE_NIA_KAMALOKA(2322),
 
 	/**
-	* ID: 2323<br>
-	* Message: Current location: Inside Rim Kamaloka
-	*/
+	 * ID: 2323<br>
+	 * Message: Current location: Inside Rim Kamaloka
+	 */
 	LOC_INSIDE_RIM_KAMALOKA(2323),
 
 	/**
-	* ID: 2324<br>
-	* Message: $c1, you cannot enter because you have insufficient PC cafe points.
-	*/
+	 * ID: 2324<br>
+	 * Message: $c1, you cannot enter because you have insufficient PC cafe
+	 * points.
+	 */
 	C1_CANNOT_ENTER_BECAUSE_INSUFFICIENT_PC_CAFE_POINTS(2324),
 
 	/**
-	* ID: 2325<br>
-	* Message: Another teleport is taking place. Please try again once the teleport in process ends.
-	*/
+	 * ID: 2325<br>
+	 * Message: Another teleport is taking place. Please try again once the
+	 * teleport in process ends.
+	 */
 	ANOTHER_TELEPORT_IS_TAKING_PLACE(2325),
 
 	/**
-	* ID: 2326<br>
-	* Message: You have acquired 50 Clan's Fame Points.
-	*/
+	 * ID: 2326<br>
+	 * Message: You have acquired 50 Clan's Fame Points.
+	 */
 	ACQUIRED_50_CLAN_FAME_POINTS(2326),
 
 	/**
-	* ID: 2327<br>
-	* Message: You don't have enough reputation score.
-	*/
+	 * ID: 2327<br>
+	 * Message: You don't have enough reputation score.
+	 */
 	NOT_ENOUGH_FAME_POINTS(2327),
 
 	/**
-	* ID: 2328<br>
-	* Message: Clans of level 4 or above can register for hideaway wars for devastated castle and fortress of the dead.
-	*/
+	 * ID: 2328<br>
+	 * Message: Clans of level 4 or above can register for hideaway wars for
+	 * devastated castle and fortress of the dead.
+	 */
 	CLAN_LEVEL_4_OR_ABOVE_CAN_REGISTER_FOR_HIDEAWAYS_WARS_FOR_DEVASTED_CASTLE_AND_FORTRESS_OF_THE_DEAD(2328),
 
 	/**
-	* ID: 2329<br>
-	* Message: Vitality Level$s1 $s2
-	*/
+	 * ID: 2329<br>
+	 * Message: Vitality Level$s1 $s2
+	 */
 	VITALITY_LEVEL_S1_S2(2329),
 
 	/**
-	* ID: 2330<br>
-	* Message: - Experience score increases $s1 percent.
-	*/
+	 * ID: 2330<br>
+	 * Message: - Experience score increases $s1 percent.
+	 */
 	EXP_SCORE_INCREASES_S1_PERCENT(2330),
 
 	/**
-	* ID: 2331<br>
-	* Message: <Rare> $s1
-	*/
+	 * ID: 2331<br>
+	 * Message: <Rare> $s1
+	 */
 	RARE_S1(2331),
 
 	/**
-	* ID: 2332<br>
-	* Message: <Supply> $s1
-	*/
+	 * ID: 2332<br>
+	 * Message: <Supply> $s1
+	 */
 	SUPPLY_S1(2332),
 
 	/**
-	* ID: 2333<br>
-	* Message: The premium item cannot be given because the inventory weight/quantity limit has been exceeded.
-	*/
+	 * ID: 2333<br>
+	 * Message: The premium item cannot be given because the inventory
+	 * weight/quantity limit has been exceeded.
+	 */
 	PREMIUM_ITEM_CANNOT_BE_GIVEN_BECAUSE_INVENTORY_WEIGHT_QUANTITY_LIMIT_EXCEECED(2333),
 
 	/**
-	* ID: 2334<br>
-	* Message: Score that shows an individual's fame. It can be obtained by participating in a castle siege, fortress siege, hideout siege, the Underground Coliseum, the Festival of Darkness, and the Olympiad.
-	*/
+	 * ID: 2334<br>
+	 * Message: Score that shows an individual's fame. It can be obtained by
+	 * participating in a castle siege, fortress siege, hideout siege, the
+	 * Underground Coliseum, the Festival of Darkness, and the Olympiad.
+	 */
 	INDIVIDUAL_FAME_CAN_BE_OBTAINED_BY_PARTICIPATING_IN_SIEGE_UNDERGROUND_COLISEUM_FESTIVAL_OF_DARKNESS_AND_OLYMPIAD(2334),
 
 	/**
-	* ID: 2335<br>
-	* Message: There are no more premium items to be found.
-	*/
+	 * ID: 2335<br>
+	 * Message: There are no more premium items to be found.
+	 */
 	NO_MORE_PREMIUM_ITEM_BE_FOUND(2335),
 
 	/**
-	* ID: 2336<br>
-	* Message: Half Kill!
-	*/
+	 * ID: 2336<br>
+	 * Message: Half Kill!
+	 */
 	HALF_KILL(2336),
 
 	/**
-	* ID: 2337<br>
-	* Message: CP disappears when hit with a half kill skill.
-	*/
+	 * ID: 2337<br>
+	 * Message: CP disappears when hit with a half kill skill.
+	 */
 	CP_DISAPPEARS_WHEN_HIT_WITH_A_HALF_KILL_SKILL(2337),
 
 	/**
-	* ID: 2363<br>
-	* Message: Your account has been banned because it is registered under a different name. Please contact support for more information.
-	*/
+	 * ID: 2363<br>
+	 * Message: Your account has been banned because it is registered under a
+	 * different name. Please contact support for more information.
+	 */
 	ACCOUNT_HAS_BEEN_BANNED_BECAUSE_REGISTERED_UNDER_DIFFERENT_NAME(2363),
 
 	/**
-	* ID: 2501<br>
-	* Message: You will be moved to the previous chatting channel tab
-	*/
+	 * ID: 2501<br>
+	 * Message: You will be moved to the previous chatting channel tab
+	 */
 	MOVED_TO_THE_PREVIOUS_CHATTING_CHANNEL_TAB(2501),
 
 	/**
-	* ID: 2502<br>
-	* Message: You will be moved to the next chatting channel tab.
-	*/
+	 * ID: 2502<br>
+	 * Message: You will be moved to the next chatting channel tab.
+	 */
 	MOVED_TO_THE_NEXT_CHATTING_CHANNEL_TAB(2502),
 
 	/**
-	* ID: 2503<br>
-	* Message: The currently selected target will be cancelled.
-	*/
+	 * ID: 2503<br>
+	 * Message: The currently selected target will be cancelled.
+	 */
 	CURRENT_TARGET_WILL_BE_CANCELLED(2503),
 
 	/**
-	* ID: 2504<br>
-	* Message: Focus will be moved to chat window.
-	*/
+	 * ID: 2504<br>
+	 * Message: Focus will be moved to chat window.
+	 */
 	FOCUS_WILL_MOVED_TO_CHAT_WINDOW(2504),
 
 	/**
-	* ID: 2505<br>
-	* Message: Opens or closes the inventory window.
-	*/
+	 * ID: 2505<br>
+	 * Message: Opens or closes the inventory window.
+	 */
 	OPENS_OR_CLOSES_INVENTORY_WINDOW(2505),
 
 	/**
-	* ID: 2506<br>
-	* Message: Temporarily hides all open windows.
-	*/
+	 * ID: 2506<br>
+	 * Message: Temporarily hides all open windows.
+	 */
 	TEMPORARILY_HIDES_ALL_OPEN_WINDOWS(2506),
 
 	/**
-	* ID: 2507<br>
-	* Message: Closes all open windows.
-	*/
+	 * ID: 2507<br>
+	 * Message: Closes all open windows.
+	 */
 	CLOSES_ALL_OPEN_WINDOWS(2507),
 
 	/**
-	* ID: 2508<br>
-	* Message: Opens the GM manager window.
-	*/
+	 * ID: 2508<br>
+	 * Message: Opens the GM manager window.
+	 */
 	OPENS_GM_MANAGER_WINDOW(2508),
 
 	/**
-	* ID: 2509<br>
-	* Message: Opens the GM petition window.
-	*/
+	 * ID: 2509<br>
+	 * Message: Opens the GM petition window.
+	 */
 	OPENS_GM_PETITION_WINDOW(2509),
 
 	/**
-	* ID: 2510<br>
-	* Message: The buff in the party window is toggled. Buff for one input, debuff for two inputs, a song and dance for three inputs, turnoff for 4 inputs.
-	*/
+	 * ID: 2510<br>
+	 * Message: The buff in the party window is toggled. Buff for one input,
+	 * debuff for two inputs, a song and dance for three inputs, turnoff for 4
+	 * inputs.
+	 */
 	BUFF_IN_PARTY_WINDOW_IS_TOGGLED(2510),
 
 	/**
-	* ID: 2511<br>
-	* Message: Activates or deactivates minimum frame function
-	*/
+	 * ID: 2511<br>
+	 * Message: Activates or deactivates minimum frame function
+	 */
 	ACTIVATES_DESACTIVATES_MINIMUM_FRAME(2511),
 
 	/**
-	* ID: 2512<br>
-	* Message: Runs or closes the MSN messenger window.
-	*/
+	 * ID: 2512<br>
+	 * Message: Runs or closes the MSN messenger window.
+	 */
 	RUNS_OR_CLOSES_MSN_WINDOW(2512),
 
 	/**
-	* ID: 2513<br>
-	* Message: Assign 1st slot shortcut in the shortcut base window. Combination of Ctrl and Shift cannot be assigned.
-	*/
+	 * ID: 2513<br>
+	 * Message: Assign 1st slot shortcut in the shortcut base window.
+	 * Combination of Ctrl and Shift cannot be assigned.
+	 */
 	ASSIGN_1_SLOT_SHORTCUT_BASE_WINDOW(2513),
 
 	/**
-	* ID: 2514<br>
-	* Message: Assign 2nd slot shortcut in the shortcut base window. Combination of Ctrl and Shift cannot be assigned.
-	*/
+	 * ID: 2514<br>
+	 * Message: Assign 2nd slot shortcut in the shortcut base window.
+	 * Combination of Ctrl and Shift cannot be assigned.
+	 */
 	ASSIGN_2_SLOT_SHORTCUT_BASE_WINDOW(2514),
 
 	/**
-	* ID: 2515<br>
-	* Message: Assign 3rd slot shortcut in the shortcut base window. Combination of Ctrl and Shift cannot be assigned.
-	*/
+	 * ID: 2515<br>
+	 * Message: Assign 3rd slot shortcut in the shortcut base window.
+	 * Combination of Ctrl and Shift cannot be assigned.
+	 */
 	ASSIGN_3_SLOT_SHORTCUT_BASE_WINDOW(2515),
 
 	/**
-	* ID: 2516<br>
-	* Message: Assign 4th slot shortcut in the shortcut base window. Combination of Ctrl and Shift cannot be assigned.
-	*/
+	 * ID: 2516<br>
+	 * Message: Assign 4th slot shortcut in the shortcut base window.
+	 * Combination of Ctrl and Shift cannot be assigned.
+	 */
 	ASSIGN_4_SLOT_SHORTCUT_BASE_WINDOW(2516),
 
 	/**
-	* ID: 2517<br>
-	* Message: Assign 5th slot shortcut in the shortcut base window. Combination of Ctrl and Shift cannot be assigned.
-	*/
+	 * ID: 2517<br>
+	 * Message: Assign 5th slot shortcut in the shortcut base window.
+	 * Combination of Ctrl and Shift cannot be assigned.
+	 */
 	ASSIGN_5_SLOT_SHORTCUT_BASE_WINDOW(2517),
 
 	/**
-	* ID: 2518<br>
-	* Message: Assign 6th slot shortcut in the shortcut base window. Combination of Ctrl and Shift cannot be assigned.
-	*/
+	 * ID: 2518<br>
+	 * Message: Assign 6th slot shortcut in the shortcut base window.
+	 * Combination of Ctrl and Shift cannot be assigned.
+	 */
 	ASSIGN_6_SLOT_SHORTCUT_BASE_WINDOW(2518),
 
 	/**
-	* ID: 2519<br>
-	* Message: Assign 7th slot shortcut in the shortcut base window. Combination of Ctrl and Shift cannot be assigned.
-	*/
+	 * ID: 2519<br>
+	 * Message: Assign 7th slot shortcut in the shortcut base window.
+	 * Combination of Ctrl and Shift cannot be assigned.
+	 */
 	ASSIGN_7_SLOT_SHORTCUT_BASE_WINDOW(2519),
 
 	/**
-	* ID: 2520<br>
-	* Message: Assign 8th slot shortcut in the shortcut base window. Combination of Ctrl and Shift cannot be assigned.
-	*/
+	 * ID: 2520<br>
+	 * Message: Assign 8th slot shortcut in the shortcut base window.
+	 * Combination of Ctrl and Shift cannot be assigned.
+	 */
 	ASSIGN_8_SLOT_SHORTCUT_BASE_WINDOW(2520),
 
 	/**
-	* ID: 2521<br>
-	* Message: Assign 9th slot shortcut in the shortcut base window. Combination of Ctrl and Shift cannot be assigned.
-	*/
+	 * ID: 2521<br>
+	 * Message: Assign 9th slot shortcut in the shortcut base window.
+	 * Combination of Ctrl and Shift cannot be assigned.
+	 */
 	ASSIGN_9_SLOT_SHORTCUT_BASE_WINDOW(2521),
 
 	/**
-	* ID: 2522<br>
-	* Message: Assign 10th slot shortcut in the shortcut base window. Combination of Ctrl and Shift cannot be assigned.
-	*/
+	 * ID: 2522<br>
+	 * Message: Assign 10th slot shortcut in the shortcut base window.
+	 * Combination of Ctrl and Shift cannot be assigned.
+	 */
 	ASSIGN_10_SLOT_SHORTCUT_BASE_WINDOW(2522),
 
 	/**
-	* ID: 2523<br>
-	* Message: Assign 11th slot shortcut in the shortcut base window. Combination of Ctrl and Shift cannot be assigned.
-	*/
+	 * ID: 2523<br>
+	 * Message: Assign 11th slot shortcut in the shortcut base window.
+	 * Combination of Ctrl and Shift cannot be assigned.
+	 */
 	ASSIGN_11_SLOT_SHORTCUT_BASE_WINDOW(2523),
 
 	/**
-	* ID: 2524<br>
-	* Message: Assign 12th slot shortcut in the shortcut base window. Combination of Ctrl and Shift cannot be assigned.
-	*/
+	 * ID: 2524<br>
+	 * Message: Assign 12th slot shortcut in the shortcut base window.
+	 * Combination of Ctrl and Shift cannot be assigned.
+	 */
 	ASSIGN_12_SLOT_SHORTCUT_BASE_WINDOW(2524),
 
 	/**
-	* ID: 2525<br>
-	* Message: Assign 1st slot shortcut in the 1st shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
-	*/
+	 * ID: 2525<br>
+	 * Message: Assign 1st slot shortcut in the 1st shortcut expanded window.
+	 * Combination of Ctrl and Shift cannot be assigned.
+	 */
 	ASSIGN_1_SLOT_SHORTCUT_EXPANDED_WINDOW(2525),
 
 	/**
-	* ID: 2526<br>
-	* Message: Assign 2nd slot shortcut in the 1st shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
-	*/
+	 * ID: 2526<br>
+	 * Message: Assign 2nd slot shortcut in the 1st shortcut expanded window.
+	 * Combination of Ctrl and Shift cannot be assigned.
+	 */
 	ASSIGN_2_SLOT_SHORTCUT_EXPANDED_WINDOW(2526),
 
 	/**
-	* ID: 2527<br>
-	* Message: Assign 3rd slot shortcut in the 1st shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
-	*/
+	 * ID: 2527<br>
+	 * Message: Assign 3rd slot shortcut in the 1st shortcut expanded window.
+	 * Combination of Ctrl and Shift cannot be assigned.
+	 */
 	ASSIGN_3_SLOT_SHORTCUT_EXPANDED_WINDOW(2527),
 
 	/**
-	* ID: 2528<br>
-	* Message: Assign 4th slot shortcut in the 1st shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
-	*/
+	 * ID: 2528<br>
+	 * Message: Assign 4th slot shortcut in the 1st shortcut expanded window.
+	 * Combination of Ctrl and Shift cannot be assigned.
+	 */
 	ASSIGN_4_SLOT_SHORTCUT_EXPANDED_WINDOW(2528),
 
 	/**
-	* ID: 2529<br>
-	* Message: Assign 5th slot shortcut in the 1st shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
-	*/
+	 * ID: 2529<br>
+	 * Message: Assign 5th slot shortcut in the 1st shortcut expanded window.
+	 * Combination of Ctrl and Shift cannot be assigned.
+	 */
 	ASSIGN_5_SLOT_SHORTCUT_EXPANDED_WINDOW(2529),
 
 	/**
-	* ID: 2530<br>
-	* Message: Assign 6th slot shortcut in the 1st shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
-	*/
+	 * ID: 2530<br>
+	 * Message: Assign 6th slot shortcut in the 1st shortcut expanded window.
+	 * Combination of Ctrl and Shift cannot be assigned.
+	 */
 	ASSIGN_6_SLOT_SHORTCUT_EXPANDED_WINDOW(2530),
 
 	/**
-	* ID: 2531<br>
-	* Message: Assign 7th slot shortcut in the 1st shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
-	*/
+	 * ID: 2531<br>
+	 * Message: Assign 7th slot shortcut in the 1st shortcut expanded window.
+	 * Combination of Ctrl and Shift cannot be assigned.
+	 */
 	ASSIGN_7_SLOT_SHORTCUT_EXPANDED_WINDOW(2531),
 
 	/**
-	* ID: 2532<br>
-	* Message: Assign 8th slot shortcut in the 1st shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
-	*/
+	 * ID: 2532<br>
+	 * Message: Assign 8th slot shortcut in the 1st shortcut expanded window.
+	 * Combination of Ctrl and Shift cannot be assigned.
+	 */
 	ASSIGN_8_SLOT_SHORTCUT_EXPANDED_WINDOW(2532),
 
 	/**
-	* ID: 2533<br>
-	* Message: Assign 9th slot shortcut in the 1st shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
-	*/
+	 * ID: 2533<br>
+	 * Message: Assign 9th slot shortcut in the 1st shortcut expanded window.
+	 * Combination of Ctrl and Shift cannot be assigned.
+	 */
 	ASSIGN_9_SLOT_SHORTCUT_EXPANDED_WINDOW(2533),
 
 	/**
-	* ID: 2534<br>
-	* Message: Assign 10th slot shortcut in the 1st shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
-	*/
+	 * ID: 2534<br>
+	 * Message: Assign 10th slot shortcut in the 1st shortcut expanded window.
+	 * Combination of Ctrl and Shift cannot be assigned.
+	 */
 	ASSIGN_10_SLOT_SHORTCUT_EXPANDED_WINDOW(2534),
 
 	/**
-	* ID: 2535<br>
-	* Message: Assign 11th slot shortcut in the 1st shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
-	*/
+	 * ID: 2535<br>
+	 * Message: Assign 11th slot shortcut in the 1st shortcut expanded window.
+	 * Combination of Ctrl and Shift cannot be assigned.
+	 */
 	ASSIGN_11_SLOT_SHORTCUT_EXPANDED_WINDOW(2535),
 
 	/**
-	* ID: 2536<br>
-	* Message: Assign 12th slot shortcut in the 1st shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
-	*/
+	 * ID: 2536<br>
+	 * Message: Assign 12th slot shortcut in the 1st shortcut expanded window.
+	 * Combination of Ctrl and Shift cannot be assigned.
+	 */
 	ASSIGN_12_SLOT_SHORTCUT_EXPANDED_WINDOW(2536),
 
 	/**
-	* ID: 2537<br>
-	* Message: Assign 1st slot shortcut in the 2nd shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
-	*/
+	 * ID: 2537<br>
+	 * Message: Assign 1st slot shortcut in the 2nd shortcut expanded window.
+	 * Combination of Ctrl and Shift cannot be assigned.
+	 */
 	ASSIGN_1_SLOT_SHORTCUT_EXPANDED_WINDOW2(2537),
 
 	/**
-	* ID: 2538<br>
-	* Message: Assign 2nd slot shortcut in the 2nd shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
-	*/
+	 * ID: 2538<br>
+	 * Message: Assign 2nd slot shortcut in the 2nd shortcut expanded window.
+	 * Combination of Ctrl and Shift cannot be assigned.
+	 */
 	ASSIGN_2_SLOT_SHORTCUT_EXPANDED_WINDOW2(2538),
 
 	/**
-	* ID: 2539<br>
-	* Message: Assign 3rd slot shortcut in the 2nd shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
-	*/
+	 * ID: 2539<br>
+	 * Message: Assign 3rd slot shortcut in the 2nd shortcut expanded window.
+	 * Combination of Ctrl and Shift cannot be assigned.
+	 */
 	ASSIGN_3_SLOT_SHORTCUT_EXPANDED_WINDOW2(2539),
 
 	/**
-	* ID: 2540<br>
-	* Message: Assign 4th slot shortcut in the 2nd shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
-	*/
+	 * ID: 2540<br>
+	 * Message: Assign 4th slot shortcut in the 2nd shortcut expanded window.
+	 * Combination of Ctrl and Shift cannot be assigned.
+	 */
 	ASSIGN_4_SLOT_SHORTCUT_EXPANDED_WINDOW2(2540),
 
 	/**
-	* ID: 2541<br>
-	* Message: Assign 5th slot shortcut in the 2nd shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
-	*/
+	 * ID: 2541<br>
+	 * Message: Assign 5th slot shortcut in the 2nd shortcut expanded window.
+	 * Combination of Ctrl and Shift cannot be assigned.
+	 */
 	ASSIGN_5_SLOT_SHORTCUT_EXPANDED_WINDOW2(2541),
 
 	/**
-	* ID: 2542<br>
-	* Message: Assign 6th slot shortcut in the 2nd shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
-	*/
+	 * ID: 2542<br>
+	 * Message: Assign 6th slot shortcut in the 2nd shortcut expanded window.
+	 * Combination of Ctrl and Shift cannot be assigned.
+	 */
 	ASSIGN_6_SLOT_SHORTCUT_EXPANDED_WINDOW2(2542),
 
 	/**
-	* ID: 2543<br>
-	* Message: Assign 7th slot shortcut in the 2nd shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
-	*/
+	 * ID: 2543<br>
+	 * Message: Assign 7th slot shortcut in the 2nd shortcut expanded window.
+	 * Combination of Ctrl and Shift cannot be assigned.
+	 */
 	ASSIGN_7_SLOT_SHORTCUT_EXPANDED_WINDOW2(2543),
 
 	/**
-	* ID: 2544<br>
-	* Message: Assign 8th slot shortcut in the 2nd shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
-	*/
+	 * ID: 2544<br>
+	 * Message: Assign 8th slot shortcut in the 2nd shortcut expanded window.
+	 * Combination of Ctrl and Shift cannot be assigned.
+	 */
 	ASSIGN_8_SLOT_SHORTCUT_EXPANDED_WINDOW2(2544),
 
 	/**
-	* ID: 2545<br>
-	* Message: Assign 9th slot shortcut in the 2nd shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
-	*/
+	 * ID: 2545<br>
+	 * Message: Assign 9th slot shortcut in the 2nd shortcut expanded window.
+	 * Combination of Ctrl and Shift cannot be assigned.
+	 */
 	ASSIGN_9_SLOT_SHORTCUT_EXPANDED_WINDOW2(2545),
 
 	/**
-	* ID: 2546<br>
-	* Message: Assign 10th slot shortcut in the 2nd shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
-	*/
+	 * ID: 2546<br>
+	 * Message: Assign 10th slot shortcut in the 2nd shortcut expanded window.
+	 * Combination of Ctrl and Shift cannot be assigned.
+	 */
 	ASSIGN_10_SLOT_SHORTCUT_EXPANDED_WINDOW2(2546),
 
 	/**
-	* ID: 2547<br>
-	* Message: Assign 11th slot shortcut in the 2nd shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
-	*/
+	 * ID: 2547<br>
+	 * Message: Assign 11th slot shortcut in the 2nd shortcut expanded window.
+	 * Combination of Ctrl and Shift cannot be assigned.
+	 */
 	ASSIGN_11_SLOT_SHORTCUT_EXPANDED_WINDOW2(2547),
 
 	/**
-	* ID: 2548<br>
-	* Message: Assign 12th slot shortcut in the 2nd shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
-	*/
+	 * ID: 2548<br>
+	 * Message: Assign 12th slot shortcut in the 2nd shortcut expanded window.
+	 * Combination of Ctrl and Shift cannot be assigned.
+	 */
 	ASSIGN_12_SLOT_SHORTCUT_EXPANDED_WINDOW2(2548),
 
 	/**
-	* ID: 2549<br>
-	* Message: Move the shortcut page in the shortcut base window to page 1.
-	*/
+	 * ID: 2549<br>
+	 * Message: Move the shortcut page in the shortcut base window to page 1.
+	 */
 	MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE1(2549),
 
 	/**
-	* ID: 2550<br>
-	* Message: Move the shortcut page in the shortcut base window to page 2.
-	*/
+	 * ID: 2550<br>
+	 * Message: Move the shortcut page in the shortcut base window to page 2.
+	 */
 	MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE2(2550),
 
 	/**
-	* ID: 2551<br>
-	* Message: Move the shortcut page in the shortcut base window to page 3.
-	*/
+	 * ID: 2551<br>
+	 * Message: Move the shortcut page in the shortcut base window to page 3.
+	 */
 	MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE3(2551),
 
 	/**
-	* ID: 2552<br>
-	* Message: Move the shortcut page in the shortcut base window to page 4.
-	*/
+	 * ID: 2552<br>
+	 * Message: Move the shortcut page in the shortcut base window to page 4.
+	 */
 	MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE4(2552),
 
 	/**
-	* ID: 2553<br>
-	* Message: Move the shortcut page in the shortcut base window to page 5.
-	*/
+	 * ID: 2553<br>
+	 * Message: Move the shortcut page in the shortcut base window to page 5.
+	 */
 	MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE5(2553),
 
 	/**
-	* ID: 2554<br>
-	* Message: Move the shortcut page in the shortcut base window to page 6.
-	*/
+	 * ID: 2554<br>
+	 * Message: Move the shortcut page in the shortcut base window to page 6.
+	 */
 	MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE6(2554),
 
 	/**
-	* ID: 2555<br>
-	* Message: Move the shortcut page in the shortcut base window to page 7.
-	*/
+	 * ID: 2555<br>
+	 * Message: Move the shortcut page in the shortcut base window to page 7.
+	 */
 	MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE7(2555),
 
 	/**
-	* ID: 2556<br>
-	* Message: Move the shortcut page in the shortcut base window to page 8.
-	*/
+	 * ID: 2556<br>
+	 * Message: Move the shortcut page in the shortcut base window to page 8.
+	 */
 	MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE8(2556),
 
 	/**
-	* ID: 2557<br>
-	* Message: Move the shortcut page in the shortcut base window to page 9.
-	*/
+	 * ID: 2557<br>
+	 * Message: Move the shortcut page in the shortcut base window to page 9.
+	 */
 	MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE9(2557),
 
 	/**
-	* ID: 2558<br>
-	* Message: Move the shortcut page in the shortcut base window to page 10.
-	*/
+	 * ID: 2558<br>
+	 * Message: Move the shortcut page in the shortcut base window to page 10.
+	 */
 	MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE10(2558),
 
 	/**
-	* ID: 2559<br>
-	* Message: Opens and closes the action window, executing character actions and game commands.
-	*/
+	 * ID: 2559<br>
+	 * Message: Opens and closes the action window, executing character actions
+	 * and game commands.
+	 */
 	OPENS_CLOSES_ACTION_WINDOW(2559),
 
 	/**
-	* ID: 2560<br>
-	* Message: Opens and closes the game bulletin board.
-	*/
+	 * ID: 2560<br>
+	 * Message: Opens and closes the game bulletin board.
+	 */
 	OPENS_CLOSES_GAME_BOARD(2560),
 
 	/**
-	* ID: 2561<br>
-	* Message: Opens and closes the calculator.
-	*/
+	 * ID: 2561<br>
+	 * Message: Opens and closes the calculator.
+	 */
 	OPENS_CLOSES_CALCULATOR(2561),
 
 	/**
-	* ID: 2562<br>
-	* Message: Hides or shows the chat window, the window always shows by default.
-	*/
+	 * ID: 2562<br>
+	 * Message: Hides or shows the chat window, the window always shows by
+	 * default.
+	 */
 	HIDES_SHOWS_CHAT_WINDOW(2562),
 
 	/**
-	* ID: 2563<br>
-	* Message: Opens and closes the clan window, confirming information of the included clan and performs the various set-ups related to the clan.
-	*/
+	 * ID: 2563<br>
+	 * Message: Opens and closes the clan window, confirming information of the
+	 * included clan and performs the various set-ups related to the clan.
+	 */
 	OPENS_CLOSES_CLAN_WINDOW(2563),
 
 	/**
-	* ID: 2564<br>
-	* Message: Opens and closes the status window, showing the detailed status of a character that you created.
-	*/
+	 * ID: 2564<br>
+	 * Message: Opens and closes the status window, showing the detailed status
+	 * of a character that you created.
+	 */
 	OPENS_CLOSES_STATUS_WINDOW(2564),
 
 	/**
-	* ID: 2565<br>
-	* Message: Opens and closes the help window.
-	*/
+	 * ID: 2565<br>
+	 * Message: Opens and closes the help window.
+	 */
 	OPENS_CLOSES_HELP_WINDOW(2565),
 
 	/**
-	* ID: 2566<br>
-	* Message: Opens or closes the inventory window.
-	*/
+	 * ID: 2566<br>
+	 * Message: Opens or closes the inventory window.
+	 */
 	OPENS_CLOSES_INVENTORY_WINDOW(2566),
 
 	/**
-	* ID: 2567<br>
-	* Message: Opens and closes the macro window for macro settings.
-	*/
+	 * ID: 2567<br>
+	 * Message: Opens and closes the macro window for macro settings.
+	 */
 	OPENS_CLOSES_MACRO_WINDOW(2567),
 
 	/**
-	* ID: 2568<br>
-	* Message: Opens and closes the skill window, displaying the list of skills that you can use.
-	*/
+	 * ID: 2568<br>
+	 * Message: Opens and closes the skill window, displaying the list of skills
+	 * that you can use.
+	 */
 	OPENS_CLOSES_SKILL_WINDOW(2568),
 
 	/**
-	* ID: 2569<br>
-	* Message: Hides or shows the menu window, the window shows by default.
-	*/
+	 * ID: 2569<br>
+	 * Message: Hides or shows the menu window, the window shows by default.
+	 */
 	HIDES_SHOWS_MENU_WINDOW(2569),
 
 	/**
-	* ID: 2570<br>
-	* Message: Opens and closes the mini map, showing detailed information about the game world.
-	*/
+	 * ID: 2570<br>
+	 * Message: Opens and closes the mini map, showing detailed information
+	 * about the game world.
+	 */
 	OPENS_CLOSES_MINI_MAP(2570),
 
 	/**
-	* ID: 2571<br>
-	* Message: Opens and closes the option window.
-	*/
+	 * ID: 2571<br>
+	 * Message: Opens and closes the option window.
+	 */
 	OPENS_CLOSES_OPTION_WINDOW(2571),
 
 	/**
-	* ID: 2572<br>
-	* Message: Open and close the party matching window, useful in organizing a party by helping to easily find other members looking for a party.
-	*/
+	 * ID: 2572<br>
+	 * Message: Open and close the party matching window, useful in organizing a
+	 * party by helping to easily find other members looking for a party.
+	 */
 	OPEN_CLOSE_PARTY_WINDOW(2572),
 
 	/**
-	* ID: 2573<br>
-	* Message: Open and close the quest journal, displaying the progress of quests.
-	*/
+	 * ID: 2573<br>
+	 * Message: Open and close the quest journal, displaying the progress of
+	 * quests.
+	 */
 	OPEN_CLOSE_QUEST_WINDOW(2573),
 
 	/**
-	* ID: 2574<br>
-	* Message: Hide or show the radar map, the map will always show by default.
-	*/
+	 * ID: 2574<br>
+	 * Message: Hide or show the radar map, the map will always show by default.
+	 */
 	HIDE_SHOW_RADAR_MAP(2574),
 
 	/**
-	* ID: 2575<br>
-	* Message: Hide or show the status window, the window will show by default.
-	*/
+	 * ID: 2575<br>
+	 * Message: Hide or show the status window, the window will show by default.
+	 */
 	HIDE_SHOW_STATUS_WINDOW(2575),
 
 	/**
-	* ID: 2576<br>
-	* Message: Opens and closes the system menu window, enables detailed menu selection.
-	*/
+	 * ID: 2576<br>
+	 * Message: Opens and closes the system menu window, enables detailed menu
+	 * selection.
+	 */
 	OPENS_CLOSES_SYSTEM_WINDOW(2576),
 
 	/**
-	* ID: 2577<br>
-	* Message: Do not show drop items dropped in the world. Game performance speed can be enhanced by using this option.
-	*/
+	 * ID: 2577<br>
+	 * Message: Do not show drop items dropped in the world. Game performance
+	 * speed can be enhanced by using this option.
+	 */
 	DONT_SHOW_DROPS_ITEMS(2577),
 
 	/**
-	* ID: 2578<br>
-	* Message: A key to automatically send whispers to a targeted character.
-	*/
+	 * ID: 2578<br>
+	 * Message: A key to automatically send whispers to a targeted character.
+	 */
 	KEY_TO_AUTO_SEND_WHISPERS(2578),
 
 	/**
-	* ID: 2579<br>
-	* Message: Turns off all game sounds.
-	*/
+	 * ID: 2579<br>
+	 * Message: Turns off all game sounds.
+	 */
 	DISABLE_ALL_GAME_SOUNDS(2579),
 
 	/**
-	* ID: 2580<br>
-	* Message: Expands each shortcut window.
-	*/
+	 * ID: 2580<br>
+	 * Message: Expands each shortcut window.
+	 */
 	EXPANDS_SHORTCUT_WINDOW(2580),
 
 	/**
-	* ID: 2581<br>
-	* Message: Initialize user interface location to a default location.
-	*/
+	 * ID: 2581<br>
+	 * Message: Initialize user interface location to a default location.
+	 */
 	INITIALIZE_USER_INTERFACE(2581),
 
 	/**
-	* ID: 2582<br>
-	* Message: Turns the character to the left.
-	*/
+	 * ID: 2582<br>
+	 * Message: Turns the character to the left.
+	 */
 	TURNS_CHARACTER_TO_LEFT(2582),
 
 	/**
-	* ID: 2583<br>
-	* Message: Turns the character to the right.
-	*/
+	 * ID: 2583<br>
+	 * Message: Turns the character to the right.
+	 */
 	TURNS_CHARACTER_TO_RIGHT(2583),
 
 	/**
-	* ID: 2584<br>
-	* Message: Moves the character forward.
-	*/
+	 * ID: 2584<br>
+	 * Message: Moves the character forward.
+	 */
 	MOVES_CHARACTER_FORWARD(2584),
 
 	/**
-	* ID: 2585<br>
-	* Message: Moves the character backwards.
-	*/
+	 * ID: 2585<br>
+	 * Message: Moves the character backwards.
+	 */
 	MOVES_CHARACTER_BACKWARDS(2585),
 
 	/**
-	* ID: 2586<br>
-	* Message: Moves the character forward automatically.
-	*/
+	 * ID: 2586<br>
+	 * Message: Moves the character forward automatically.
+	 */
 	MOVES_CHARACTER_FORWARD_AUTO(2586),
 
 	/**
-	* ID: 2587<br>
-	* Message: Reduces the character's view.
-	*/
+	 * ID: 2587<br>
+	 * Message: Reduces the character's view.
+	 */
 	REDUCES_CHARACTER_VIEW(2587),
 
 	/**
-	* ID: 2588<br>
-	* Message: Expands the character's view.
-	*/
+	 * ID: 2588<br>
+	 * Message: Expands the character's view.
+	 */
 	EXPANDS_CHARACTER_VIEW(2588),
 
 	/**
-	* ID: 2589<br>
-	* Message: Rapidly turns character's view to the front and back.
-	*/
+	 * ID: 2589<br>
+	 * Message: Rapidly turns character's view to the front and back.
+	 */
 	RAPID_TURNS_CHARACTER_VIEW(2589),
 
 	/**
-	* ID: 2590<br>
-	* Message: Opens the GM manager window.
-	*/
+	 * ID: 2590<br>
+	 * Message: Opens the GM manager window.
+	 */
 	OPENS_THE_GM_MANAGER_WINDOW(2590),
 
 	/**
-	* ID: 2591<br>
-	* Message: Opens the GM petition window.
-	*/
+	 * ID: 2591<br>
+	 * Message: Opens the GM petition window.
+	 */
 	OPENS_THE_GM_PETITION_WINDOW(2591),
 
 	/**
-	* ID: 2592<br>
-	* Message: Rapidly converts the contents of an expanded shortcut window. This function cannot be used currently.
-	*/
+	 * ID: 2592<br>
+	 * Message: Rapidly converts the contents of an expanded shortcut window.
+	 * This function cannot be used currently.
+	 */
 	RAPID_CONVERTS_CONTENTS_OF_EXPANDED_SHORTCUT_WINDOW(2592),
 
 	/**
-	* ID: 2593<br>
-	* Message: Moves a character's view ahead by a certain distance.
-	*/
+	 * ID: 2593<br>
+	 * Message: Moves a character's view ahead by a certain distance.
+	 */
 	MOVES_CHARACTER_VIEW_AHEAD(2593),
 
 	/**
-	* ID: 2594<br>
-	* Message: Moves a character's view behind by a certain distance.
-	*/
+	 * ID: 2594<br>
+	 * Message: Moves a character's view behind by a certain distance.
+	 */
 	MOVES_CHARACTER_VIEW_BEHIND(2594),
 
 	/**
-	* ID: 2595<br>
-	* Message: Restores the character's view to default.
-	*/
+	 * ID: 2595<br>
+	 * Message: Restores the character's view to default.
+	 */
 	RESTORES_CHARACTER_VIEW(2595),
 
 	/**
-	* ID: 2596<br>
-	* Message: No translation required
-	*/
+	 * ID: 2596<br>
+	 * Message: No translation required
+	 */
 	NO_TRANSLATION1(2596),
 
 	/**
-	* ID: 2597<br>
-	* Message: No translation required
-	*/
+	 * ID: 2597<br>
+	 * Message: No translation required
+	 */
 	NO_TRANSLATION2(2597),
 
 	/**
-	* ID: 2598<br>
-	* Message: No translation required
-	*/
+	 * ID: 2598<br>
+	 * Message: No translation required
+	 */
 	NO_TRANSLATION3(2598),
 
 	/**
-	* ID: 2599<br>
-	* Message: No translation required
-	*/
+	 * ID: 2599<br>
+	 * Message: No translation required
+	 */
 	NO_TRANSLATION4(2599),
 
 	/**
-	* ID: 2600<br>
-	* Message: No translation required
-	*/
+	 * ID: 2600<br>
+	 * Message: No translation required
+	 */
 	NO_TRANSLATION5(2600),
 
 	/**
-	* ID: 2601<br>
-	* Message: No translation required
-	*/
+	 * ID: 2601<br>
+	 * Message: No translation required
+	 */
 	NO_TRANSLATION6(2601),
 
 	/**
-	* ID: 2602<br>
-	* Message: No translation required
-	*/
+	 * ID: 2602<br>
+	 * Message: No translation required
+	 */
 	NO_TRANSLATION7(2602),
 
 	/**
-	* ID: 2603<br>
-	* Message: No translation required
-	*/
+	 * ID: 2603<br>
+	 * Message: No translation required
+	 */
 	NO_TRANSLATION8(2603),
 
 	/**
-	* ID: 2604<br>
-	* Message: No translation required
-	*/
+	 * ID: 2604<br>
+	 * Message: No translation required
+	 */
 	NO_TRANSLATION9(2604),
 
 	/**
-	* ID: 2605<br>
-	* Message: No translation required
-	*/
+	 * ID: 2605<br>
+	 * Message: No translation required
+	 */
 	NO_TRANSLATION10(2605),
 
 	/**
-	* ID: 2606<br>
-	* Message: No translation required
-	*/
+	 * ID: 2606<br>
+	 * Message: No translation required
+	 */
 	NO_TRANSLATION11(2606),
 
 	/**
-	* ID: 2607<br>
-	* Message: No translation required
-	*/
+	 * ID: 2607<br>
+	 * Message: No translation required
+	 */
 	NO_TRANSLATION12(2607),
 
 	/**
-	* ID: 2608<br>
-	* Message: No translation required
-	*/
+	 * ID: 2608<br>
+	 * Message: No translation required
+	 */
 	NO_TRANSLATION13(2608),
 
 	/**
-	* ID: 2609<br>
-	* Message: No translation required
-	*/
+	 * ID: 2609<br>
+	 * Message: No translation required
+	 */
 	NO_TRANSLATION14(2609),
 
 	/**
-	* ID: 2610<br>
-	* Message: No translation required
-	*/
+	 * ID: 2610<br>
+	 * Message: No translation required
+	 */
 	NO_TRANSLATION15(2610),
 
 	/**
-	* ID: 2611<br>
-	* Message: No translation required
-	*/
+	 * ID: 2611<br>
+	 * Message: No translation required
+	 */
 	NO_TRANSLATION16(2611),
 
 	/**
-	* ID: 2612<br>
-	* Message: No translation required
-	*/
+	 * ID: 2612<br>
+	 * Message: No translation required
+	 */
 	NO_TRANSLATION17(2612),
 
 	/**
-	* ID: 2613<br>
-	* Message: No translation required
-	*/
+	 * ID: 2613<br>
+	 * Message: No translation required
+	 */
 	NO_TRANSLATION18(2613),
 
 	/**
-	* ID: 2614<br>
-	* Message: No translation required
-	*/
+	 * ID: 2614<br>
+	 * Message: No translation required
+	 */
 	NO_TRANSLATION19(2614),
 
 	/**
-	* ID: 2615<br>
-	* Message: No translation required
-	*/
+	 * ID: 2615<br>
+	 * Message: No translation required
+	 */
 	NO_TRANSLATION20(2615),
 
 	/**
-	* ID: 2616<br>
-	* Message: If you join the clan academy, you can become a clan member and learn the game system until you become level 40. If you want more fun, we recommend that you join the clan academy.
-	*/
+	 * ID: 2616<br>
+	 * Message: If you join the clan academy, you can become a clan member and
+	 * learn the game system until you become level 40. If you want more fun, we
+	 * recommend that you join the clan academy.
+	 */
 	JOIN_CLAN_ACADEMY_INFORMATION(2616),
 
 	/**
-	* ID: 2617<br>
-	* Message: If you become level 40, the second class change is available. If you complete the second class change, the character's capability is enhanced.
-	*/
+	 * ID: 2617<br>
+	 * Message: If you become level 40, the second class change is available. If
+	 * you complete the second class change, the character's capability is
+	 * enhanced.
+	 */
 	BECOME_LEVEL_40_INFORMATION(2617);
 
+	private final SystemMessage	_systemMessage;
+	private final int			_id;
 
-	private final SystemMessage _systemMessage;
-	private final int _id;
-	
 	private SystemMessageId(int id)
 	{
 		_id = id;
 		_systemMessage = new SystemMessage(id);
 	}
-	
+
 	public final int getId()
 	{
 		return _id;
 	}
-	
+
 	public final SystemMessage getSystemMessage()
 	{
 		return _systemMessage;
 	}
-	
+
 	public static final SystemMessageId getSystemMessageId(int id)
 	{
 		for (SystemMessageId sysmsgid : SystemMessageId.values())
 			if (sysmsgid.getId() == id)
 				return sysmsgid;
-		
+
 		return SystemMessageId.S1;
 	}
 }

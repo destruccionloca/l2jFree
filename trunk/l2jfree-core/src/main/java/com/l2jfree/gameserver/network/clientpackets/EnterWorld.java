@@ -19,7 +19,6 @@ import java.io.File;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Announcements;
 import com.l2jfree.gameserver.L2JfreeInfo;
-import com.l2jfree.gameserver.Olympiad;
 import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.TaskPriority;
 import com.l2jfree.gameserver.communitybbs.Manager.RegionBBSManager;
@@ -31,9 +30,9 @@ import com.l2jfree.gameserver.instancemanager.CoupleManager;
 import com.l2jfree.gameserver.instancemanager.CrownManager;
 import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
 import com.l2jfree.gameserver.instancemanager.DimensionalRiftManager;
+import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.instancemanager.InstanceManager;
 import com.l2jfree.gameserver.instancemanager.PetitionManager;
-import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2ClanMember;
@@ -44,14 +43,15 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.ClanHall;
 import com.l2jfree.gameserver.model.entity.Couple;
+import com.l2jfree.gameserver.model.entity.FortSiege;
 import com.l2jfree.gameserver.model.entity.Hero;
 import com.l2jfree.gameserver.model.entity.L2Event;
 import com.l2jfree.gameserver.model.entity.Siege;
-import com.l2jfree.gameserver.model.entity.FortSiege;
 import com.l2jfree.gameserver.model.entity.events.CTF;
 import com.l2jfree.gameserver.model.entity.events.DM;
 import com.l2jfree.gameserver.model.entity.events.TvT;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
+import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
@@ -78,12 +78,13 @@ import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 import com.l2jfree.gameserver.util.FloodProtector;
 
 /**
- * Enter World Packet Handler<p>
+ * Enter World Packet Handler
  * <p>
- * 0000: 03 <p>
+ * 0000: 03
+ * <p>
  * packet format rev656 cbdddd
  * <p>
- *
+ * 
  * @version $Revision: 1.16.2.1.2.7 $ $Date: 2005/03/29 23:15:33 $
  */
 public class EnterWorld extends L2GameClientPacket
@@ -116,17 +117,15 @@ public class EnterWorld extends L2GameClientPacket
 		}
 
 		// restore instance
-		if(Config.RESTORE_PLAYER_INSTANCE)
-		{
+		if (Config.RESTORE_PLAYER_INSTANCE)
 			activeChar.setInstanceId(InstanceManager.getInstance().getPlayerInstance(activeChar.getObjectId()));
-		}
 		else
 		{
 			int instanceId = InstanceManager.getInstance().getPlayerInstance(activeChar.getObjectId());
 			if (instanceId > 0)
 				InstanceManager.getInstance().getInstance(instanceId).removePlayer(activeChar.getObjectId());
 		}
-		
+
 		// Restore Vitality
 		if (Config.RECOVER_VITALITY_ON_RECONNECT)
 			activeChar.restoreVitality();
@@ -232,9 +231,9 @@ public class EnterWorld extends L2GameClientPacket
 			{
 				int cabal = SevenSigns.getInstance().getPlayerCabal(activeChar);
 				if (cabal == owner)
-					activeChar.addSkill(SkillTable.getInstance().getInfo(5074,1), false);
+					activeChar.addSkill(SkillTable.getInstance().getInfo(5074, 1), false);
 				else if (cabal != SevenSigns.CABAL_NULL)
-					activeChar.addSkill(SkillTable.getInstance().getInfo(5075,1), false);
+					activeChar.addSkill(SkillTable.getInstance().getInfo(5075, 1), false);
 			}
 		}
 
@@ -407,6 +406,7 @@ public class EnterWorld extends L2GameClientPacket
 
 		if (Olympiad.getInstance().playerInStadia(activeChar))
 		{
+			activeChar.doRevive();
 			activeChar.teleToLocation(TeleportWhereType.Town);
 			activeChar.sendMessage("You have been teleported to the nearest town due to you being in an Olympiad Stadium.");
 		}
@@ -516,7 +516,7 @@ public class EnterWorld extends L2GameClientPacket
 		{
 
 			L2PcInstance partner = L2World.getInstance().getPlayer(cha.getPartnerId());
-			
+
 			if (partner != null)
 				partner.sendMessage("Your Partner " + cha.getName() + " has logged in.");
 		}
@@ -561,7 +561,8 @@ public class EnterWorld extends L2GameClientPacket
 				msg = null;
 				clan.broadcastToOtherOnlineMembers(new PledgeShowMemberListUpdate(activeChar), activeChar);
 				if (clan.isNoticeEnabled() && clan.getNotice() != "")
-					sendPacket(new NpcHtmlMessage(1, "<html><title>Clan Announcements</title><body><br><center><font color=\"CCAA00\">" + activeChar.getClan().getName() + "</font> <font color=\"6655FF\">Clan Alert Message</font></center><br>"
+					sendPacket(new NpcHtmlMessage(1, "<html><title>Clan Announcements</title><body><br><center><font color=\"CCAA00\">"
+							+ activeChar.getClan().getName() + "</font> <font color=\"6655FF\">Clan Alert Message</font></center><br>"
 							+ "<img src=\"L2UI.SquareWhite\" width=270 height=1><br>" + activeChar.getClan().getNotice() + "</body></html>"));
 			}
 		}
@@ -598,6 +599,7 @@ public class EnterWorld extends L2GameClientPacket
 
 	/**
 	 * CT1 doesn't update shortcuts so we need to reregister them to the client
+	 * 
 	 * @param activeChar
 	 */
 	private void updateShortCuts(L2PcInstance activeChar)

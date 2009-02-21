@@ -1716,6 +1716,6 @@ public final class L2ItemInstance extends L2Object
 
 	public boolean isOlyRestrictedItem()
 	{
-		return Config.ALT_LIST_OLY_RESTRICTED_ITEMS.contains(_itemId);
+		return (Config.ALT_LIST_OLY_RESTRICTED_ITEMS.contains(_itemId));
 	}
 }

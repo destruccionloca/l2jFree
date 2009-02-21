@@ -16,22 +16,20 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 import java.util.Map;
 
-import com.l2jfree.gameserver.Olympiad;
 import com.l2jfree.gameserver.model.entity.Hero;
+import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.templates.StatsSet;
-
 
 /**
  * @author -Wooden-
- * Format from KenM
- * 
+ * Format from KenM<br>
  * Re-written by godson
  */
 public class ExHeroList extends L2GameServerPacket
 {
-	private static final String _S__FE_79_EXHEROLIST = "[S] FE:79 ExHeroList [d(sdsdsdd)]";
-	private Map<Integer, StatsSet> _heroList;
-	
+	private static final String		_S__FE_79_EXHEROLIST	= "[S] FE:79 ExHeroList [d(sdsdsdd)]";
+	private Map<Integer, StatsSet>	_heroList;
+
 	public ExHeroList()
 	{
 		_heroList = Hero.getInstance().getHeroes();
@@ -41,12 +39,11 @@ public class ExHeroList extends L2GameServerPacket
 	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#writeImpl()
 	 */
 	@Override
-	protected
-	void writeImpl()
+	protected void writeImpl()
 	{
 		writeC(0xfe);
 		writeH(0x79);
-		
+
 		writeD(_heroList.size());
 		for (Integer heroId : _heroList.keySet())
 		{

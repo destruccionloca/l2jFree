@@ -14,19 +14,18 @@
  */
 package com.l2jfree.gameserver.handler.usercommandhandlers;
 
-import com.l2jfree.gameserver.Olympiad;
 import com.l2jfree.gameserver.handler.IUserCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.olympiad.Olympiad;
+import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
- * Support for /olympiadstat command  
- * Added by kamy
+ * Support for /olympiadstat command Added by kamy
  */
 public class OlympiadStat implements IUserCommandHandler
 {
-	private static final int[]	COMMAND_IDS	=
-											{ 109 };
+	private static final int[]	COMMAND_IDS	= { 109 };
 
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.handler.IUserCommandHandler#useUserCommand(int, com.l2jfree.gameserver.model.L2PcInstance)
@@ -36,9 +35,12 @@ public class OlympiadStat implements IUserCommandHandler
 		if (id != COMMAND_IDS[0])
 			return false;
 
-		SystemMessage sm = SystemMessage.sendString("Your current record for this Grand Olympiad is "
-				+ Olympiad.getInstance().getCompetitionDone(activeChar.getObjectId()) + " match(s) played. You have earned "
-				+ Olympiad.getInstance().getNoblePoints(activeChar.getObjectId()) + " Olympiad Point(s)");
+		SystemMessage sm = new SystemMessage(
+				SystemMessageId.THE_CURRENT_RECORD_FOR_THIS_OLYMPIAD_SESSION_IS_S1_MATCHES_S2_WINS_S3_DEFEATS_YOU_HAVE_EARNED_S4_OLYMPIAD_POINTS);
+		sm.addNumber(Olympiad.getInstance().getCompetitionDone(activeChar.getObjectId()));
+		sm.addNumber(Olympiad.getInstance().getCompetitionWon(activeChar.getObjectId()));
+		sm.addNumber(Olympiad.getInstance().getCompetitionLost(activeChar.getObjectId()));
+		sm.addNumber(Olympiad.getInstance().getNoblePoints(activeChar.getObjectId()));
 		activeChar.sendPacket(sm);
 		return true;
 	}

@@ -1424,23 +1424,22 @@ public final class Config
 	public static int					ALT_OLY_MIN;																// Olympiad Minutes
 	public static int					ALT_OLY_CPERIOD;															// Olympaid Competition Period
 	public static int					ALT_OLY_BATTLE;															// Olympiad Battle Period
-	public static int					ALT_OLY_BWAIT;																// Olympiad Battle Wait
-	public static int					ALT_OLY_IWAIT;																// Olympiad Inital Wait
 	public static int					ALT_OLY_WPERIOD;															// Olympiad Weekly Period
 	public static int					ALT_OLY_VPERIOD;															// Olympiad Validation Period
 	public static boolean				ALT_OLY_SAME_IP;															// Olympiad allow Matches from same Ip
 	public static int					ALT_OLY_CLASSED;
-	public static int					ALT_OLY_CLASSED_REWARD_ITEM;
+	public static int					ALT_OLY_BATTLE_REWARD_ITEM;
 	public static int					ALT_OLY_CLASSED_RITEM_C;
-	public static int					ALT_OLY_NONCLASSED_REWARD_ITEM;
 	public static int					ALT_OLY_NONCLASSED_RITEM_C;
 	public static int					ALT_OLY_GP_PER_POINT;
 	public static int					ALT_OLY_MIN_POINT_FOR_EXCH;
 	public static int					ALT_OLY_HERO_POINTS;
-	public static String				ALT_OLY_RESTRICTED_ITEMS;
+	public static boolean				ALT_OLY_LOG_FIGHTS;
+	public static boolean				ALT_OLY_SHOW_MONTHLY_WINNERS;
+	public static boolean				ALT_OLY_ANNOUNCE_GAMES;
+	public static int					ALT_OLY_ENCHANT_LIMIT;
 	public static FastList<Integer>		ALT_LIST_OLY_RESTRICTED_ITEMS		= new FastList<Integer>();
 	public static int					ALT_OLY_NONCLASSED;
-	public static boolean				ALT_OLY_MATCH_HEAL_COUNTS;
 	public static boolean				ALT_OLY_SUMMON_DAMAGE_COUNTS;
 	public static boolean				ALT_OLY_REMOVE_CUBICS;
 	public static float					ALT_GAME_SUMMON_PENALTY_RATE;												// Alternative game summon penalty
@@ -1609,29 +1608,28 @@ public final class Config
 			ALT_OLY_MIN = Integer.parseInt(altSettings.getProperty("AltOlyMin", "00"));
 			ALT_OLY_CPERIOD = Integer.parseInt(altSettings.getProperty("AltOlyCPeriod", "21600000"));
 			ALT_OLY_BATTLE = Integer.parseInt(altSettings.getProperty("AltOlyBattle", "360000"));
-			ALT_OLY_BWAIT = Integer.parseInt(altSettings.getProperty("AltOlyBWait", "600000"));
-			ALT_OLY_IWAIT = Integer.parseInt(altSettings.getProperty("AltOlyPwait", "300000"));
 			ALT_OLY_WPERIOD = Integer.parseInt(altSettings.getProperty("AltOlyWperiod", "604800000"));
 			ALT_OLY_VPERIOD = Integer.parseInt(altSettings.getProperty("AltOlyVperiod", "86400000"));
 			ALT_OLY_SAME_IP = Boolean.parseBoolean(altSettings.getProperty("AltOlySameIp", "true"));
 			ALT_OLY_CLASSED = Integer.parseInt(altSettings.getProperty("AltOlyClassedParticipants", "5"));
 			ALT_OLY_NONCLASSED = Integer.parseInt(altSettings.getProperty("AltOlyNonClassedParticipants", "9"));
-			ALT_OLY_MATCH_HEAL_COUNTS = Boolean.parseBoolean(altSettings.getProperty("AltOlyMatchHealCounts", "false"));
 			ALT_OLY_SUMMON_DAMAGE_COUNTS = Boolean.parseBoolean(altSettings.getProperty("AltOlySummonDamageCounts", "false"));
 			ALT_OLY_REMOVE_CUBICS = Boolean.parseBoolean(altSettings.getProperty("AltOlyRemoveCubics", "false"));
-			ALT_OLY_CLASSED_REWARD_ITEM = Integer.parseInt(altSettings.getProperty("AltOlyClassedRewardItem", "6651"));
-			ALT_OLY_NONCLASSED_REWARD_ITEM = Integer.parseInt(altSettings.getProperty("AltOlyNonClassedRewardItem", "6651"));
+			ALT_OLY_BATTLE_REWARD_ITEM = Integer.parseInt(altSettings.getProperty("AltOlyBattleRewItem", "6651"));
 			ALT_OLY_CLASSED_RITEM_C = Integer.parseInt(altSettings.getProperty("AltOlyClassedRewItemCount", "50"));
 			ALT_OLY_NONCLASSED_RITEM_C = Integer.parseInt(altSettings.getProperty("AltOlyNonClassedRewItemCount", "30"));
 			ALT_OLY_GP_PER_POINT = Integer.parseInt(altSettings.getProperty("AltOlyGPPerPoint", "1000"));
 			ALT_OLY_MIN_POINT_FOR_EXCH = Integer.parseInt(altSettings.getProperty("AltOlyMinPointForExchange", "50"));
 			ALT_OLY_HERO_POINTS = Integer.parseInt(altSettings.getProperty("AltOlyHeroPoints", "300"));
-			ALT_OLY_RESTRICTED_ITEMS = altSettings.getProperty("AltOlyRestrictedItems", "0");
+            ALT_OLY_LOG_FIGHTS = Boolean.parseBoolean(altSettings.getProperty("AlyOlyLogFights","false"));
+            ALT_OLY_SHOW_MONTHLY_WINNERS = Boolean.parseBoolean(altSettings.getProperty("AltOlyShowMonthlyWinners","true"));
+            ALT_OLY_ANNOUNCE_GAMES = Boolean.parseBoolean(altSettings.getProperty("AltOlyAnnounceGames","true"));
 			ALT_LIST_OLY_RESTRICTED_ITEMS = new FastList<Integer>();
-			for (String id : ALT_OLY_RESTRICTED_ITEMS.split(","))
+			for (String id : altSettings.getProperty("AltOlyRestrictedItems","0").split(","))
 			{
 				ALT_LIST_OLY_RESTRICTED_ITEMS.add(Integer.parseInt(id));
 			}
+			ALT_OLY_ENCHANT_LIMIT = Integer.parseInt(altSettings.getProperty("AltOlyEnchantLimit","-1"));
 
 			ALT_MANOR_REFRESH_TIME = Integer.parseInt(altSettings.getProperty("AltManorRefreshTime", "20"));
 			ALT_MANOR_REFRESH_MIN = Integer.parseInt(altSettings.getProperty("AltManorRefreshMin", "00"));
