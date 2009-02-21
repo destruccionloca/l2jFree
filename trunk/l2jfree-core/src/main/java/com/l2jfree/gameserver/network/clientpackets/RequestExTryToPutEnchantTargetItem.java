@@ -46,11 +46,16 @@ public class RequestExTryToPutEnchantTargetItem extends L2GameClientPacket
 
 		if (activeChar != null)
 		{
+			if (activeChar.isEnchanting())
+				return;
+
 			L2ItemInstance targetItem = activeChar.getInventory().getItemByObjectId(_objectId);
 			L2ItemInstance enchantScroll = activeChar.getActiveEnchantItem();
 
 			if (targetItem == null || enchantScroll == null)
 				return;
+
+			activeChar.setIsEnchanting(true);
 			
 			if (targetItem.isEtcItem() || targetItem.isWear() || targetItem.getItem().getItemType() == L2WeaponType.ROD || targetItem.isHeroItem() || targetItem.getItemId() >= 7816 && targetItem.getItemId() <= 7831
 					|| targetItem.isShadowItem() || targetItem.getItem().isCommonItem())

@@ -32,6 +32,8 @@ public class RequestShortCutReg extends L2GameClientPacket
 	private int _slot;
 	private int _page;
 	private int _unk;
+	@SuppressWarnings("unused")
+	private int _userShortCut;
 	/**
 	 * packet type id 0x33
 	 * format:		cdddd
@@ -44,6 +46,7 @@ public class RequestShortCutReg extends L2GameClientPacket
         int slot = readD();
         _id = readD();
         _unk = readD();
+        _userShortCut = readD();
 
         _slot = slot % 12;
         _page = slot / 12;

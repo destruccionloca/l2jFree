@@ -98,28 +98,21 @@ public class RecipeController
 
 	public L2RecipeList getRecipeByItemId(int itemId)
 	{
-		for (int i = 0; i < _lists.size(); i++)
+		for (L2RecipeList find : _lists.values())
 		{
-			L2RecipeList find = _lists.get(i);
 			if (find.getRecipeId() == itemId)
-			{
 				return find;
-			}
 		}
 		return null;
 	}
 
-	public L2RecipeList getRecipeById(int recId)
+	public int[] getAllItemIds()
 	{
-		for (int i = 0; i < _lists.size(); i++)
-		{
-			L2RecipeList find = _lists.get(i);
-			if (find.getId() == recId)
-			{
-				return find;
-			}
-		}
-		return null;
+		int[] idList = new int[_lists.size()];
+		int i = 0;
+		for (L2RecipeList rec: _lists.values())
+			idList[i++] = rec.getRecipeId();
+		return idList;
 	}
 
 	public synchronized void requestBookOpen(L2PcInstance player, boolean isDwarvenCraft)
@@ -230,68 +223,6 @@ public class RecipeController
 				maker.run();
 		}
 	}
-
-	//TODO XMLize the recipe list
-	/*private void parseList(String line)
-	{
-		try
-		{
-			StringTokenizer st = new StringTokenizer(line, ";");
-			List<L2RecipeInstance> recipePartList = new FastList<L2RecipeInstance>();
-
-			//we use common/dwarf for easy reading of the recipes.csv file
-			String recipeTypeString = st.nextToken();
-
-			// now parse the string into a boolean
-			boolean isDwarvenRecipe;
-
-			if (recipeTypeString.equalsIgnoreCase("dwarven")) isDwarvenRecipe = true;
-			else if (recipeTypeString.equalsIgnoreCase("common")) isDwarvenRecipe = false;
-			else
-			{ //prints a helpfull message
-				_log.warning("Error parsing recipes.csv, unknown recipe type " + recipeTypeString);
-				return;
-			}
-
-			String recipeName = st.nextToken();
-			int id = Integer.parseInt(st.nextToken());
-			int recipeId = Integer.parseInt(st.nextToken());
-			int level = Integer.parseInt(st.nextToken());
-
-			//material
-			StringTokenizer st2 = new StringTokenizer(st.nextToken(), "[],");
-			while (st2.hasMoreTokens())
-			{
-				StringTokenizer st3 = new StringTokenizer(st2.nextToken(), "()");
-				int rpItemId = Integer.parseInt(st3.nextToken());
-				int quantity = Integer.parseInt(st3.nextToken());
-				L2RecipeInstance rp = new L2RecipeInstance(rpItemId, quantity);
-				recipePartList.add(rp);
-			}
-
-			int itemId = Integer.parseInt(st.nextToken());
-			int count = Integer.parseInt(st.nextToken());
-
-			//npc fee
-			//String notdoneyet = 
-			st.nextToken();
-
-			int mpCost = Integer.parseInt(st.nextToken());
-			int successRate = Integer.parseInt(st.nextToken());
-
-			L2RecipeList recipeList = new L2RecipeList(id, level, recipeId, recipeName, successRate,
-													   mpCost, itemId, count, isDwarvenRecipe);
-			for (L2RecipeInstance recipePart : recipePartList)
-			{
-				recipeList.addRecipe(recipePart);
-			}
-			_lists.put(new Integer(_lists.size()), recipeList);
-		}
-		catch (Exception e)
-		{
-			_log.severe("Exception in RecipeController.parseList() - " + e);
-		}
-	}*/
 
 	private void loadFromXML() throws SAXException, IOException, ParserConfigurationException
 	{
@@ -587,7 +518,7 @@ public class RecipeController
 				{
 					// divided by RATE_CONSUMABLES_COST to remove craft time increase on higher consumables rates
 					_delay = (int) (Config.ALT_GAME_CREATION_SPEED * _player.getStat().getMReuseRate(_skill) * GameTimeController.TICKS_PER_SECOND / Config.RATE_CONSUMABLE_COST)
-							* GameTimeController.MILLIS_IN_TICK;
+					* GameTimeController.MILLIS_IN_TICK;
 
 					// FIXME: please fix this packet to show crafting animation (somebody)
 					MagicSkillUse msk = new MagicSkillUse(_player, _skillId, _skillLevel, _delay, 0);
@@ -739,7 +670,7 @@ public class RecipeController
 					ThreadPoolManager.getInstance().scheduleGeneral(this, 100 + _delay);
 				}
 				else
-				// no rest - report no mana
+					// no rest - report no mana
 				{
 					_target.sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_MP));
 					abort();
@@ -876,9 +807,9 @@ public class RecipeController
 		{
 			int itemId = _recipeList.getItemId();
 			int itemCount = _recipeList.getCount();
-			
+
 			int masterworkId = _recipeList.getMasterwork();
-			
+
 			if (Config.ALLOW_MASTERWORK)
 			{
 				if (masterworkId > -1 && Rnd.get(100) <= Config.RATE_MASTERWORK)
@@ -886,7 +817,7 @@ public class RecipeController
 					itemId = masterworkId;
 				}
 			}
-			
+
 			// Critical Craft support done by Psychokiller1888
 			if (Config.ALLOW_CRITICAL_CRAFT && _recipeList.isCriticalAffected())
 			{

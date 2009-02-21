@@ -41,7 +41,7 @@ public class RequestRecipeBookDestroy extends L2GameClientPacket
         L2PcInstance activeChar = getClient().getActiveChar();
         if (activeChar != null)
         {
-            L2RecipeList rp = RecipeController.getInstance().getRecipeList(_recipeId-1);
+            L2RecipeList rp = RecipeController.getInstance().getRecipeList(_recipeId);
             if (rp == null)
                 return;
             activeChar.unregisterRecipeList(_recipeId);

@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import java.util.List;
 
-
 import javolution.util.FastList;
 
 import org.apache.commons.logging.Log;
@@ -38,21 +37,19 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.item.L2EtcItemType;
 
 /**
- *
- * @author  -Wooden-
+ * @author -Wooden-
  */
 public final class RequestPackageSend extends L2GameClientPacket
 {
 	private static final String	_C_9F_REQUESTPACKAGESEND	= "[C] 9F RequestPackageSend";
 	protected static final Log	_log						= LogFactory.getLog(RequestPackageSend.class.getName());
 	private List<Item>			_items						= new FastList<Item>();
-	private int					_objectID;
 	private int					_count;
 
 	@Override
 	protected void readImpl()
 	{
-		_objectID = readD();
+		readD(); // Object ID
 		_count = readD();
 		if (_count < 0 || _count > 500)
 		{
@@ -78,11 +75,11 @@ public final class RequestPackageSend extends L2GameClientPacket
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null)
 			return;
-		L2PcInstance target = L2PcInstance.load(_objectID);
+		// L2PcInstance target = L2PcInstance.load(_objectID);
 
 		try
 		{
-			PcFreight freight = target.getFreight();
+			PcFreight freight = player.getFreight();
 			getClient().getActiveChar().setActiveWarehouse(freight);
 			ItemContainer warehouse = player.getActiveWarehouse();
 			if (warehouse == null)
@@ -199,7 +196,7 @@ public final class RequestPackageSend extends L2GameClientPacket
 		}
 		finally
 		{
-			target.deleteMe();
+			// target.deleteMe();
 		}
 	}
 

@@ -748,7 +748,7 @@ public class ItemTable
 		if (item.isStackable() && count > 1)
 			item.setCount(count);
 
-		if (Config.LOG_ITEMS)
+		if (Config.LOG_ITEMS && !process.equals("Reset"))
 		{
 			List<Object> param = new ArrayList<Object>();
 			param.add("CREATE:" + process);

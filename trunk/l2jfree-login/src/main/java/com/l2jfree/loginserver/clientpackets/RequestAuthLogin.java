@@ -35,29 +35,22 @@ import com.l2jfree.loginserver.services.exception.AccountBannedException;
 import com.l2jfree.loginserver.services.exception.AccountWrongPasswordException;
 
 /**
- * Format: x
- * 0 (a leading null)
- * x: the rsa encrypted block with the login an password
+ * Format: x 0 (a leading null) x: the rsa encrypted block with the login an
+ * password
  */
 public class RequestAuthLogin extends L2LoginClientPacket
 {
-	private byte[]				_raw	= new byte[128];
+	private byte[]	_raw	= new byte[128];
 
-	private String				_user;
-	private String				_password;
-	private int					_ncotp;
+	private String	_user;
+	private String	_password;
+	private int		_ncotp;
 
-	/**
-	 * @return
-	 */
 	public String getPassword()
 	{
 		return _password;
 	}
 
-	/**
-	 * @return
-	 */
 	public String getUser()
 	{
 		return _user;
@@ -113,53 +106,49 @@ public class RequestAuthLogin extends L2LoginClientPacket
 			AuthLoginResult result = lc.tryAuthLogin(_user, _password, getClient());
 			switch (result)
 			{
-			case AUTH_SUCCESS:
-				client.setAccount(_user);
-				client.setState(LoginClientState.AUTHED_LOGIN);
-				client.setSessionKey(lc.assignSessionKeyToClient(_user, client));
-				if (Config.SHOW_LICENCE)
-				{
-					client.sendPacket(new LoginOk(getClient().getSessionKey()));
-				}
-				else
-				{
-					getClient().sendPacket(new ServerList(getClient()));
-				}
-				break;
-			case ALREADY_ON_LS:
-				L2LoginClient oldClient;
-				if ((oldClient = lc.getAuthedClient(_user)) != null)
-				{
-					// kick the other client
-					oldClient.close(LoginFailReason.REASON_ACCOUNT_IN_USE);
-					lc.removeAuthedLoginClient(_user);
-				}
-				break;
-			case ALREADY_ON_GS:
-				GameServerInfo gsi;
-				if ((gsi = lc.getAccountOnGameServer(_user)) != null)
-				{
-					client.close(LoginFailReason.REASON_ACCOUNT_IN_USE);
-
-					// kick from there
-					if (gsi.isAuthed())
+				case AUTH_SUCCESS:
+					client.setAccount(_user);
+					client.setState(LoginClientState.AUTHED_LOGIN);
+					client.setSessionKey(lc.assignSessionKeyToClient(_user, client));
+					if (Config.SHOW_LICENCE)
+						client.sendPacket(new LoginOk(getClient().getSessionKey()));
+					else
+						getClient().sendPacket(new ServerList(getClient()));
+					break;
+				case ALREADY_ON_LS:
+					L2LoginClient oldClient;
+					if ((oldClient = lc.getAuthedClient(_user)) != null)
 					{
-						gsi.getGameServerThread().kickPlayer(_user);
+						// kick the other client
+						oldClient.close(LoginFailReason.REASON_ACCOUNT_IN_USE);
+						lc.removeAuthedLoginClient(_user);
 					}
-				}
-				break;
-			case SYSTEM_ERROR:
-			default:
-				client.close(LoginFailReason.REASON_SYSTEM_ERROR);
+					// kick also current client
+					client.close(LoginFailReason.REASON_ACCOUNT_IN_USE);
+					break;
+				case ALREADY_ON_GS:
+					GameServerInfo gsi;
+					if ((gsi = lc.getAccountOnGameServer(_user)) != null)
+					{
+						client.close(LoginFailReason.REASON_ACCOUNT_IN_USE);
+
+						// kick from there
+						if (gsi.isAuthed())
+							gsi.getGameServerThread().kickPlayer(_user);
+					}
+					break;
+				case SYSTEM_ERROR:
+				default:
+					client.close(LoginFailReason.REASON_SYSTEM_ERROR);
 
 			}
 		}
-//		catch (HackingException e)
-//		{
-//			InetAddress address = getClient().getSocket().getInetAddress();
-//			BanManager.getInstance().addBanForAddress(address, Config.LOGIN_BLOCK_AFTER_BAN * 1000);
-//			_log.info("Banned (" + address + ") for " + Config.LOGIN_BLOCK_AFTER_BAN + " seconds, due to " + e.getConnects() + " incorrect login attempts.");
-//		}
+		// catch (HackingException e)
+		// {
+		// 	InetAddress address = getClient().getSocket().getInetAddress();
+		// 	BanManager.getInstance().addBanForAddress(address, Config.LOGIN_BLOCK_AFTER_BAN * 1000);
+		// 	_log.info("Banned (" + address + ") for " + Config.LOGIN_BLOCK_AFTER_BAN + " seconds, due to " + e.getConnects() + " incorrect login attempts.");
+		// }
 		catch (AccountBannedException e)
 		{
 			client.close(LoginFailReason.REASON_ACCOUNT_BANNED);
@@ -169,5 +158,4 @@ public class RequestAuthLogin extends L2LoginClientPacket
 			client.close(LoginFailReason.REASON_USER_OR_PASS_WRONG);
 		}
 	}
-
 }

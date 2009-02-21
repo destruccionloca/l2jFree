@@ -58,6 +58,9 @@ public class AuthLogin extends L2GameClientPacket
     @Override
     protected void runImpl()
 	{
+    	if (getClient().isProtocolOk())
+    		return;
+
 		SessionKey key = new SessionKey(_loginKey1, _loginKey2, _playKey1, _playKey2);
 		if (_log.isDebugEnabled()) {
 			_log.info("user:" + _loginName);

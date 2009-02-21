@@ -80,9 +80,9 @@ public class MagicSkillUse extends L2GameServerPacket
 		writeH(0x00); // unknown loop but not AoE
 		//for()
 		//{
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
+		//	writeH(0x00);
+		//	writeH(0x00);
+		//	writeH(0x00);
 		//}
 	}
 	

@@ -20,10 +20,7 @@ package com.l2jfree.loginserver.serverpackets;
 
 import com.l2jfree.loginserver.L2LoginClient;
 
-/**
- * Fromat: d
- * d: the failure reason
- */
+/** Format: d d: the failure reason */
 public final class LoginFail extends L2LoginServerPacket
 {
 
@@ -41,6 +38,6 @@ public final class LoginFail extends L2LoginServerPacket
 	protected void write(L2LoginClient client)
 	{
 		writeC(0x01);
-		writeD(_reason.getCode());
+		writeC(_reason.getCode());
 	}
 }

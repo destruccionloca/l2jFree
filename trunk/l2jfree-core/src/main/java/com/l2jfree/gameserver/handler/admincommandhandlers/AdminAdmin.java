@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.handler.admincommandhandlers;
 
+import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
 import javolution.text.TextBuilder;
@@ -37,6 +38,7 @@ import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.instancemanager.Manager;
 import com.l2jfree.gameserver.instancemanager.MapRegionManager;
+import com.l2jfree.gameserver.instancemanager.QuestManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.instancemanager.ZoneManager;
 import com.l2jfree.gameserver.model.L2Multisell;
@@ -272,6 +274,12 @@ public class AdminAdmin implements IAdminCommandHandler
 						.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|fortsiege|wedding|elayne|geodata|vitality>");
 				}
 			}
+			catch (NoSuchElementException e)
+			{
+				// No args, reload all config
+				Config.load();
+				activeChar.sendMessage("All configs reloaded");
+			}
 			catch (Exception e)
 			{
 				activeChar
@@ -464,6 +472,7 @@ public class AdminAdmin implements IAdminCommandHandler
 				else if (type.startsWith("npc"))
 				{
 					NpcTable.getInstance().cleanUp();
+					QuestManager.getInstance().reloadAllQuests();
 					NpcTable.getInstance().reloadAll();
 					activeChar.sendMessage("Npcs reloaded");
 				}
@@ -513,6 +522,11 @@ public class AdminAdmin implements IAdminCommandHandler
 				{
 					FortSiegeManager.getInstance().reload();
 					activeChar.sendMessage("Castle/Fortress Siege config reloaded");
+				}
+				else if (type.startsWith("quests"))
+				{
+					QuestManager.getInstance().reloadAllQuests();
+					activeChar.sendMessage("All Quests have been reloaded");
 				}
 				else
 				{

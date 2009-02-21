@@ -65,10 +65,15 @@ public class FriendList extends L2GameServerPacket
 				writeD(_friend.getKey());
 				writeS(_friend.getValue());
 				if (friend == null)
+				{
 					writeD(0); // offline
+					writeD(0x00030b7a); // object id if online
+				}
 				else
+				{
 					writeD(1); // online
-				writeH(0); // ??
+					writeD(0x00); // ??
+				}
 			}
 		}
 	}

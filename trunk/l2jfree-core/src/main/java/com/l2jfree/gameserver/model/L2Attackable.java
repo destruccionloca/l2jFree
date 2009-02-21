@@ -54,8 +54,8 @@ import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Stats;
-import com.l2jfree.gameserver.templates.item.L2EtcItemType;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
+import com.l2jfree.gameserver.templates.item.L2EtcItemType;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.random.Rnd;
 import com.l2jfree.util.SingletonMap;
@@ -1013,7 +1013,7 @@ public class L2Attackable extends L2NpcInstance
 			getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
 
 		// Notify the L2Attackable AI with EVT_ATTACKED
-		if (damage > 0)
+		if (!this.isDead())
 		{
 			getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, attacker);
 

@@ -28,6 +28,7 @@ import com.l2jfree.gameserver.datatables.SpawnTable;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.instancemanager.DayNightSpawnManager;
 import com.l2jfree.gameserver.instancemanager.GrandBossSpawnManager;
+import com.l2jfree.gameserver.instancemanager.QuestManager;
 import com.l2jfree.gameserver.instancemanager.RaidBossSpawnManager;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Spawn;
@@ -365,6 +366,7 @@ public class AdminSpawn implements IAdminCommandHandler
 			NpcTable.getInstance().reloadAll();
 			SpawnTable.getInstance().reloadAll();
 			RaidBossSpawnManager.getInstance().reloadBosses();
+			QuestManager.getInstance().reloadAllQuests();
 			activeChar.sendMessage("NPCs respawn sequence complete.");
 		}
 		return true;

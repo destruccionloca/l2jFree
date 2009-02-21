@@ -2415,6 +2415,62 @@ public final class Formulas
 		return multiplier;
 	}
 
+	public double calcSkillProficiency(L2Skill skill, L2Character attacker, L2Character target)
+	{
+		double multiplier = 1; // initialize...
+		if (skill != null)
+		{
+			// Calculate skilltype vulnerabilities
+			L2SkillType type = skill.getSkillType();
+
+			// For additional effects on PDAM and MDAM skills (like STUN, SHOCK, PARALYZE...)
+			if (type != null && (type == L2SkillType.PDAM || type == L2SkillType.MDAM))
+				type = skill.getEffectType();
+
+			if (type != null)
+			{
+				switch (type)
+				{
+					case BLEED:
+						multiplier = attacker.calcStat(Stats.BLEED_PROF, multiplier, target, null);
+						break;
+					case POISON:
+						multiplier = attacker.calcStat(Stats.POISON_PROF, multiplier, target, null);
+						break;
+					case STUN:
+						multiplier = attacker.calcStat(Stats.STUN_PROF, multiplier, target, null);
+						break;
+					case PARALYZE:
+						multiplier = attacker.calcStat(Stats.PARALYZE_PROF, multiplier, target, null);
+						break;
+					case ROOT:
+						multiplier = attacker.calcStat(Stats.ROOT_PROF, multiplier, target, null);
+						break;
+					case SLEEP:
+						multiplier = attacker.calcStat(Stats.SLEEP_PROF, multiplier, target, null);
+						break;
+					case MUTE:
+					case FEAR:
+					case BETRAY:
+					case AGGREDUCE_CHAR:
+						multiplier = attacker.calcStat(Stats.DERANGEMENT_PROF, multiplier, target, null);
+						break;
+					case CONFUSION:
+					case CONFUSE_MOB_ONLY:
+						multiplier = attacker.calcStat(Stats.CONFUSION_PROF, multiplier, target, null);
+						break;
+					case DEBUFF:
+					case WEAKNESS:
+						multiplier = attacker.calcStat(Stats.DEBUFF_PROF, multiplier, target, null);
+						break;
+					default:
+						break;
+				}
+			}
+		}
+		return multiplier;
+	}
+
 	public double calcSkillStatModifier(L2SkillType type, L2Character target)
 	{
 		double multiplier = 1;
@@ -2580,7 +2636,7 @@ public final class Formulas
 			rate = 1;
 
 		//Finaly apply resists.
-		rate *= resmodifier;
+		rate *= resmodifier * calcSkillProficiency(skill, attacker, target);
 
 		if (_log.isDebugEnabled())
 			_log.debug(skill.getName() + ": " + value + ", " + statmodifier + ", " + resmodifier + ", "

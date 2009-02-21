@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -23,9 +22,6 @@ import com.l2jfree.gameserver.model.L2RecipeList;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
- * 
- *
- * 
  * format   dddd
  * 
  * @version $Revision: 1.1.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
@@ -33,7 +29,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public class RecipeItemMakeInfo extends L2GameServerPacket
 {
     private static final String _S__D7_RECIPEITEMMAKEINFO = "[S] D7 RecipeItemMakeInfo";
-    private static Log _log = LogFactory.getLog(RecipeItemMakeInfo.class.getName());
+    private static Log			_log						= LogFactory.getLog(RecipeItemMakeInfo.class.getName());
 
     private int _id;
     private L2PcInstance _activeChar;
@@ -56,7 +52,7 @@ public class RecipeItemMakeInfo extends L2GameServerPacket
     @Override
     protected final void writeImpl()
     {
-        L2RecipeList recipe = RecipeController.getInstance().getRecipeById(_id);
+        L2RecipeList recipe = RecipeController.getInstance().getRecipeList(_id);
 
         if (recipe != null)
         {

@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.instancemanager;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 
 import javolution.util.FastMap;
@@ -21,7 +23,9 @@ import javolution.util.FastMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.quest.Quest;
+import com.l2jfree.gameserver.scripting.L2ScriptEngineManager;
 import com.l2jfree.gameserver.scripting.ScriptManager;
 
 public class QuestManager extends ScriptManager<Quest>
@@ -63,9 +67,11 @@ public class QuestManager extends ScriptManager<Quest>
 
 	/**
 	 * Reloads a the quest given by questId.<BR>
-	 * <B>NOTICE: Will only work if the quest name is equal the quest folder name</B>
+	 * <B>NOTICE: Will only work if the quest name is equal the quest folder
+	 * name</B>
+	 * 
 	 * @param questId The id of the quest to be reloaded
-	 * @return true if reload was succesful, false otherwise
+	 * @return true if reload was successful, false otherwise
 	 */
 	public final boolean reload(int questId)
 	{
@@ -75,6 +81,26 @@ public class QuestManager extends ScriptManager<Quest>
 			return false;
 		}
 		return q.reload();
+	}
+
+	public final void reloadAllQuests()
+	{
+		_log.info("Reloading Server Scripts");
+		try
+		{
+			// unload all scripts
+			for (Quest quest : _quests.values())
+				quest.unload();
+
+			// now load all scripts
+			File scripts = new File(Config.DATAPACK_ROOT + "/data/scripts.cfg");
+			L2ScriptEngineManager.getInstance().executeScriptList(scripts);
+			QuestManager.getInstance().report();
+		}
+		catch (IOException e)
+		{
+			_log.warn("Failed loading scripts.cfg, no script going to be loaded");
+		}
 	}
 
 	public final void report()

@@ -37,8 +37,8 @@ import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2SiegeSummonInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2SiegeSummonInstance;
 import com.l2jfree.gameserver.model.base.Experience;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -294,29 +294,14 @@ public class Disablers implements ICubicSkillHandler
 				}
 				if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss))
 				{
-					// stop same type effect if avaiable
+					// stop same type effect if available
 					L2Effect[] effects = target.getAllEffects();
 					for (L2Effect e : effects)
 					{
 						if (e.getSkill().getSkillType() == type)
 							e.exit();
 					}
-					// then restart
-					// Make above skills mdef dependant
-					if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss))
-					{
-						skill.getEffects(activeChar, target);
-					}
-					else
-					{
-						if (activeChar instanceof L2PcInstance)
-						{
-							SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
-							sm.addCharName(target);
-							sm.addSkillName(skill);
-							activeChar.sendPacket(sm);
-						}
-					}
+					skill.getEffects(activeChar, target);
 				}
 				else
 				{

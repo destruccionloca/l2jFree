@@ -585,6 +585,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	private int								_expertiseIndex;																	// Index in EXPERTISE_LEVELS
 	private int								_expertisePenalty		= 0;
 
+	private boolean							_isEnchanting			= false;
 	private L2ItemInstance					_activeEnchantItem		= null;
 	private L2ItemInstance					_activeEnchantAttrItem	= null;
 
@@ -2377,6 +2378,10 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	public void setActiveEnchantItem(L2ItemInstance scroll)
 	{
+		// If we dont have a Enchant Item, we are not enchanting.
+		if (scroll == null)
+			setIsEnchanting(false);
+
 		_activeEnchantItem = scroll;
 	}
 
@@ -2393,6 +2398,16 @@ public final class L2PcInstance extends L2PlayableInstance
 	public L2ItemInstance getActiveEnchantAttrItem()
 	{
 		return _activeEnchantAttrItem;
+	}
+
+	public void setIsEnchanting(boolean val)
+	{
+		_isEnchanting = val;
+	}
+
+	public boolean isEnchanting()
+	{
+		return _isEnchanting;
 	}
 
 	/**
@@ -7082,7 +7097,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			L2RecipeList recipe;
 			while (rset.next())
 			{
-				recipe = RecipeController.getInstance().getRecipeList(rset.getInt("id") - 1);
+				recipe = RecipeController.getInstance().getRecipeList(rset.getInt("id"));
 
 				if (rset.getInt("type") == 1)
 					registerDwarvenRecipeList(recipe);
@@ -8127,7 +8142,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	public void useMagic(L2Skill skill, boolean forceUse, boolean dontMove)
 	{
 		// Check if the skill is active
-		if (skill.isPassive() || skill.isChance())
+		if (skill.isPassive() || skill.isChance() || skill.bestowed())
 		{
 			// Just ignore the passive skill request. why does the client send it anyway ??
 			// Send a Server->Client packet ActionFailed to the L2PcInstance

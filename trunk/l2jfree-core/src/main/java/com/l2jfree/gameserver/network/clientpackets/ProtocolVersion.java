@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -29,57 +28,68 @@ import com.l2jfree.gameserver.network.serverpackets.KeyPacket;
  */
 public class ProtocolVersion extends L2GameClientPacket
 {
-	private static final String _C__00_PROTOCOLVERSION = "[C] 00 ProtocolVersion";
-	static Log _log = LogFactory.getLog(ProtocolVersion.class.getName());
-    
-    private long _version;
+	private static final String	_C__00_PROTOCOLVERSION	= "[C] 00 ProtocolVersion";
+	private static Log			_log					= LogFactory.getLog(ProtocolVersion.class.getName());
+
+	private long				_version;
 
 	/**
-	 * packet type id 0x00
-	 * format:	cd
-	 *  
+	 * packet type id 0x00 format: cd
+	 * 
 	 * @param rawPacket
 	 */
-    @Override
-    protected void readImpl()
-    {
-		_version  = readD();
+	@Override
+	protected void readImpl()
+	{
+		_version = readD();
 	}
 
 	/** urgent messages, execute immediatly */
-	public TaskPriority getPriority() { return TaskPriority.PR_HIGH; }
-	
-    @Override
-    protected void runImpl()
+	public TaskPriority getPriority()
 	{
+		return TaskPriority.PR_HIGH;
+	}
+
+	@Override
+	protected void runImpl()
+	{
+		KeyPacket kp = null;
 		// this packet is never encrypted
 		if (_version == -2)
 		{
-            if (_log.isDebugEnabled()) _log.info("Ping received");
+			if (_log.isDebugEnabled())
+				_log.info("Ping received");
 			// this is just a ping attempt from the new C2 client
 			getClient().closeNow();
 		}
-        else if (_version < Config.MIN_PROTOCOL_REVISION)
-        {
-            _log.info("Client Protocol Revision:" + _version + " is too low. only "+Config.MIN_PROTOCOL_REVISION+" and "+Config.MAX_PROTOCOL_REVISION+" are supported. Closing connection.");
-            _log.warn("Wrong Protocol Version "+_version);
-            getClient().closeNow();
-        }
-        else if (_version > Config.MAX_PROTOCOL_REVISION)
-        {
-            _log.info("Client Protocol Revision:" + _version + " is too high. only "+Config.MIN_PROTOCOL_REVISION+" and "+Config.MAX_PROTOCOL_REVISION+" are supported. Closing connection.");
-            _log.warn("Wrong Protocol Version "+_version);
-            getClient().closeNow();
-        }
-        else
-        {
-            if (_log.isDebugEnabled())
-            	_log.debug("Client Protocol Revision is ok:"+_version);
-    		KeyPacket pk = new KeyPacket(getClient().enableCrypt());
-    		sendPacket(pk);
-        }
+		else if (_version < Config.MIN_PROTOCOL_REVISION)
+		{
+			_log.info("Client Protocol Revision:" + _version + " is too low. only " + Config.MIN_PROTOCOL_REVISION + " and " + Config.MAX_PROTOCOL_REVISION
+					+ " are supported. Closing connection.");
+			_log.warn("Wrong Protocol Version " + _version);
+			kp = new KeyPacket(getClient().enableCrypt(), 0);
+			getClient().sendPacket(kp);
+			getClient().setProtocolOk(false);
+		}
+		else if (_version > Config.MAX_PROTOCOL_REVISION)
+		{
+			_log.info("Client Protocol Revision:" + _version + " is too high. only " + Config.MIN_PROTOCOL_REVISION + " and " + Config.MAX_PROTOCOL_REVISION
+					+ " are supported. Closing connection.");
+			_log.warn("Wrong Protocol Version " + _version);
+			kp = new KeyPacket(getClient().enableCrypt(), 0);
+			getClient().sendPacket(kp);
+			getClient().setProtocolOk(false);
+		}
+		else
+		{
+			if (_log.isDebugEnabled())
+				_log.debug("Client Protocol Revision is ok: " + _version);
+			kp = new KeyPacket(getClient().enableCrypt(), 1);
+			sendPacket(kp);
+			getClient().setProtocolOk(true);
+		}
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
 	 */

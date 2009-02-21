@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.gameserver.model.L2FriendList;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.FriendList;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
@@ -82,8 +83,13 @@ public class RequestAnswerFriendInvite extends L2GameClientPacket
 			requestor.sendPacket(sm);
 		}   		
 		sm = null;
+
 		activeChar.setActiveRequester(null);
 		requestor.onTransactionResponse();
+
+		// Send notifications for both player in order to show them online
+		activeChar.sendPacket(new FriendList(activeChar));
+		requestor.sendPacket(new FriendList(requestor));
 	}
 
 	/* (non-Javadoc)

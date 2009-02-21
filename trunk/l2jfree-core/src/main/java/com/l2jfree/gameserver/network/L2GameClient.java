@@ -70,6 +70,7 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 	private int[] _charSlotMapping;
 	private GameCrypt _crypt;
 	private boolean _disconnected;
+	private boolean _protocol;
 	
 	public L2GameClient(SelectorThread<L2GameClient> selectorThread, ISocket socket, SelectionKey key)
 	{
@@ -537,6 +538,16 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 		TextBuilder.recycle(tb);
 		
 		return toString;
+	}
+
+	public boolean isProtocolOk()
+	{
+		return _protocol;
+	}
+
+	public void setProtocolOk(boolean b)
+	{
+		_protocol = b;
 	}
 	
 	private final class DisconnectTask implements Runnable
