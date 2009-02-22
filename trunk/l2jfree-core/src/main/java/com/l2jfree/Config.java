@@ -1113,6 +1113,7 @@ public final class Config
 	public static int				DEADLOCKCHECK_INTERVAL;
 	public static boolean			ALLOW_MASTERWORK;
 	public static boolean			ALLOW_CRITICAL_CRAFT;
+	public static boolean			MAIL_STORE_DELETED_LETTERS;
 
 	// *******************************************************************************************
 	public static void loadOptionsConfig()
@@ -1197,6 +1198,7 @@ public final class Config
 			COMMUNITY_TYPE = Integer.parseInt(optionsSettings.getProperty("CommunityType", "1"));
 			BBS_SHOW_PLAYERLIST = Boolean.parseBoolean(optionsSettings.getProperty("BBSShowPlayerList", "false"));
 			BBS_DEFAULT = optionsSettings.getProperty("BBSDefault", "_bbshome");
+			MAIL_STORE_DELETED_LETTERS = Boolean.parseBoolean(optionsSettings.getProperty("MailStoreDeletedLetters", "False"));
 			SHOW_LEVEL_COMMUNITYBOARD = Boolean.parseBoolean(optionsSettings.getProperty("ShowLevelOnCommunityBoard", "False"));
 			SHOW_STATUS_COMMUNITYBOARD = Boolean.parseBoolean(optionsSettings.getProperty("ShowStatusOnCommunityBoard", "True"));
 			NAME_PAGE_SIZE_COMMUNITYBOARD = Integer.parseInt(optionsSettings.getProperty("NamePageSizeOnCommunityBoard", "50"));
@@ -1868,6 +1870,36 @@ public final class Config
 		{
 			_log.error(e);
 			throw new Error("Failed to Load " + GM_ACCESS_FILE + " File.");
+		}
+	}
+	
+	// *******************************************************************************************
+	public static final String	DATETIME_FILE	= "./config/datetime.properties";
+	// *******************************************************************************************
+	public static boolean		DATETIME_SAVECAL;
+	public static int			DATETIME_SUNRISE;
+	public static int			DATETIME_SUNSET;
+	public static int			DATETIME_MULTI;
+	public static int			DATETIME_MOVE_DELAY;
+
+	// *******************************************************************************************
+	public static void loadDateTimeConfig()
+	{
+		_log.info("loading " + DATETIME_FILE);
+		try
+		{
+			Properties datetimeSettings = new L2Properties(DATETIME_FILE);
+
+			DATETIME_SAVECAL = Boolean.parseBoolean(datetimeSettings.getProperty("SaveDate", "false"));
+			DATETIME_MULTI = Integer.parseInt(datetimeSettings.getProperty("TimeMulti", "10"));			
+			DATETIME_SUNSET = Integer.parseInt(datetimeSettings.getProperty("SunRise", "6"));			
+			DATETIME_SUNRISE = Integer.parseInt(datetimeSettings.getProperty("SunSet", "18"));
+			DATETIME_MOVE_DELAY = Integer.parseInt(datetimeSettings.getProperty("MoveDelay", "200"));
+		}
+		catch (Exception e)
+		{
+			_log.error(e);
+			throw new Error("Failed to Load " + DATETIME_FILE + " File.");
 		}
 	}
 

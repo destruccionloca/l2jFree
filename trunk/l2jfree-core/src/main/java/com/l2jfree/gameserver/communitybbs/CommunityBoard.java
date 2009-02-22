@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.communitybbs;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.communitybbs.Manager.ClanBBSManager;
+import com.l2jfree.gameserver.communitybbs.Manager.MailBBSManager;
 import com.l2jfree.gameserver.communitybbs.Manager.PostBBSManager;
 import com.l2jfree.gameserver.communitybbs.Manager.RegionBBSManager;
 import com.l2jfree.gameserver.communitybbs.Manager.TopBBSManager;
@@ -27,7 +28,7 @@ import com.l2jfree.gameserver.network.serverpackets.ShowBoard;
 
 public class CommunityBoard
 {
-	private static CommunityBoard _instance;
+	private static CommunityBoard	_instance;
 
 	public CommunityBoard()
 	{
@@ -46,55 +47,60 @@ public class CommunityBoard
 	public void handleCommands(L2GameClient client, String command)
 	{
 		L2PcInstance activeChar = client.getActiveChar();
-		if(activeChar == null)
+		if (activeChar == null)
 			return;
 
 		switch (Config.COMMUNITY_TYPE)
 		{
-			default:
-			case 0: //disabled
-				activeChar.sendPacket(SystemMessageId.CB_OFFLINE);
-				break;
-			case 1: // old
+		default:
+		case 0: //disabled
+			activeChar.sendPacket(SystemMessageId.CB_OFFLINE);
+			break;
+		case 1: // old
+			RegionBBSManager.getInstance().parsecmd(command, activeChar);
+			break;
+		case 2: // new
+			if (command.startsWith("_bbsclan"))
+			{
+				ClanBBSManager.getInstance().parsecmd(command, activeChar);
+			}
+			else if (command.startsWith("_bbsmemo"))
+			{
+				TopicBBSManager.getInstance().parsecmd(command, activeChar);
+			}
+			else if (command.startsWith("_bbstopics"))
+			{
+				TopicBBSManager.getInstance().parsecmd(command, activeChar);
+			}
+			else if (command.startsWith("_bbsposts"))
+			{
+				PostBBSManager.getInstance().parsecmd(command, activeChar);
+			}
+			else if (command.startsWith("_bbstop"))
+			{
+				TopBBSManager.getInstance().parsecmd(command, activeChar);
+			}
+			else if (command.startsWith("_bbshome"))
+			{
+				TopBBSManager.getInstance().parsecmd(command, activeChar);
+			}
+			else if (command.startsWith("_bbsloc"))
+			{
 				RegionBBSManager.getInstance().parsecmd(command, activeChar);
-				break;
-			case 2: // new
-				if (command.startsWith("_bbsclan"))
-				{
-					ClanBBSManager.getInstance().parsecmd(command,activeChar);
-				}
-				else if(command.startsWith("_bbsmemo"))
-				{
-					TopicBBSManager.getInstance().parsecmd(command,activeChar);
-				}
-				else if(command.startsWith("_bbstopics"))
-				{
-					TopicBBSManager.getInstance().parsecmd(command,activeChar);
-				}
-				else if(command.startsWith("_bbsposts"))
-				{
-					PostBBSManager.getInstance().parsecmd(command,activeChar);
-				}
-				else if(command.startsWith("_bbstop"))
-				{
-					TopBBSManager.getInstance().parsecmd(command,activeChar);
-				}
-				else if(command.startsWith("_bbshome"))
-				{
-					TopBBSManager.getInstance().parsecmd(command,activeChar);
-				}
-				else if(command.startsWith("_bbsloc"))
-				{
-					RegionBBSManager.getInstance().parsecmd(command,activeChar);
-				}
-				else
-				{
-					ShowBoard sb = new ShowBoard("<html><body><br><br><center>the command: "+command+" is not implemented yet</center><br><br></body></html>","101");
-					activeChar.sendPacket(sb);
-					activeChar.sendPacket(new ShowBoard(null,"102"));
-					activeChar.sendPacket(new ShowBoard(null,"103"));
-				}
-				break;
+			}
+			else if (command.startsWith("_maillist_0_1_0_"))
+			{
+				MailBBSManager.getInstance().parsecmd(command, activeChar);
+			}
+			else
+			{
+				ShowBoard sb = new ShowBoard("<html><body><br><br><center>the command: " + command + " is not implemented yet</center><br><br></body></html>",
+						"101");
+				activeChar.sendPacket(sb);
+				activeChar.sendPacket(new ShowBoard(null, "102"));
+				activeChar.sendPacket(new ShowBoard(null, "103"));
+			}
+			break;
 		}
 	}
 
@@ -110,46 +116,47 @@ public class CommunityBoard
 	public void handleWriteCommands(L2GameClient client, String url, String arg1, String arg2, String arg3, String arg4, String arg5)
 	{
 		L2PcInstance activeChar = client.getActiveChar();
-		if(activeChar == null)
+		if (activeChar == null)
 			return;
 
 		switch (Config.COMMUNITY_TYPE)
 		{
-			case 2:
-				if (url.equals("Topic"))
-				{
-					TopicBBSManager.getInstance().parsewrite(arg1, arg2, arg3, arg4, arg5, activeChar);
-				}
-				else if (url.equals("Post"))
-				{
-					PostBBSManager.getInstance().parsewrite(arg1, arg2, arg3, arg4, arg5, activeChar);
-				}
-				else if (url.equals("Region"))
-				{
-					RegionBBSManager.getInstance().parsewrite(arg1, arg2, arg3, arg4, arg5, activeChar);
-				}
-				else if (url.equals("Notice"))
-				{
-					ClanBBSManager.getInstance().parsewrite(arg1, arg2, arg3, arg4, arg5, activeChar);				
-				}
-				else
-				{
-					ShowBoard sb = new ShowBoard("<html><body><br><br><center>the command: " + url + " is not implemented yet</center><br><br></body></html>", "101");
-					activeChar.sendPacket(sb);
-					activeChar.sendPacket(new ShowBoard(null, "102"));
-					activeChar.sendPacket(new ShowBoard(null, "103"));
-				}
-				break;
-			case 1:
+		case 2:
+			if (url.equals("Topic"))
+			{
+				TopicBBSManager.getInstance().parsewrite(arg1, arg2, arg3, arg4, arg5, activeChar);
+			}
+			else if (url.equals("Post"))
+			{
+				PostBBSManager.getInstance().parsewrite(arg1, arg2, arg3, arg4, arg5, activeChar);
+			}
+			else if (url.equals("Region"))
+			{
 				RegionBBSManager.getInstance().parsewrite(arg1, arg2, arg3, arg4, arg5, activeChar);
-				break;
-			default:
-			case 0:
-				ShowBoard sb = new ShowBoard("<html><body><br><br><center>The Community board is currently disabled</center><br><br></body></html>", "101");
+			}
+			else if (url.equals("Notice"))
+			{
+				ClanBBSManager.getInstance().parsewrite(arg1, arg2, arg3, arg4, arg5, activeChar);
+			}
+			else
+			{
+				ShowBoard sb = new ShowBoard("<html><body><br><br><center>the command: " + url + " is not implemented yet</center><br><br></body></html>",
+						"101");
 				activeChar.sendPacket(sb);
 				activeChar.sendPacket(new ShowBoard(null, "102"));
 				activeChar.sendPacket(new ShowBoard(null, "103"));
-				break;
+			}
+			break;
+		case 1:
+			RegionBBSManager.getInstance().parsewrite(arg1, arg2, arg3, arg4, arg5, activeChar);
+			break;
+		default:
+		case 0:
+			ShowBoard sb = new ShowBoard("<html><body><br><br><center>The Community board is currently disabled</center><br><br></body></html>", "101");
+			activeChar.sendPacket(sb);
+			activeChar.sendPacket(new ShowBoard(null, "102"));
+			activeChar.sendPacket(new ShowBoard(null, "103"));
+			break;
 		}
 	}
 }

@@ -35,7 +35,7 @@ public class ExMailArrived extends L2GameServerPacket
 	{
 		writeC(0xfe);
 		writeH(0x2e);
-		
+		writeD(0x01);
 	}
 
 	/* (non-Javadoc)
