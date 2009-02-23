@@ -19,7 +19,7 @@ LICENSE_OF_MINER = 1498
 VOUCHER_OF_FLAME = 1496
 SOULSHOT_NOVICE = 5789
 SPIRITSHOT_NOVICE = 5790
-BLUE_GEM=6353
+BLUE_GEM = 6353
 TOKEN = 8542
 SCROLL= 8594
 DIPLOMA = 9881
@@ -156,10 +156,10 @@ class Quest (JQuest) :
      if reward == 0:
        if isMage :
          st.playTutorialVoice("tutorial_voice_027")
-         st.giveItems(SPIRITSHOT_NOVICE,100)
+         st.rewardItems(SPIRITSHOT_NOVICE,100)
        else:
          st.playTutorialVoice("tutorial_voice_026")
-         st.giveItems(SOULSHOT_NOVICE,200)
+         st.rewardItems(SOULSHOT_NOVICE,200)
        st.giveItems(TOKEN,12)
        st.giveItems(SCROLL,2)
        qs.set("reward","1")
@@ -190,13 +190,13 @@ class Quest (JQuest) :
            qs.set("ucMemo","3")
            if isMage :
              st.playTutorialVoice("tutorial_voice_027")
-             st.giveItems(SPIRITSHOT_NOVICE,100)
+             st.rewardItems(SPIRITSHOT_NOVICE,100)
              htmltext = htmlfiles[2]
              if htmltext == 0 :
                  htmltext = "<html><body>I am sorry.  I only help warriors.  Please go to another Newbie Helper who may assist you.</body></html>"
            else:
              st.playTutorialVoice("tutorial_voice_026")
-             st.giveItems(SOULSHOT_NOVICE,200)
+             st.rewardItems(SOULSHOT_NOVICE,200)
              htmltext = htmlfiles[1]
              if htmltext == 0 :
                  htmltext = "<html><body>I am sorry.  I only help mystics.  Please go to another Newbie Helper who may assist you.</body></html>"
@@ -233,9 +233,9 @@ class Quest (JQuest) :
          st.playTutorialVoice("tutorial_voice_011")
          st.showQuestionMark(3)
          qs.set("Ex","2")
-      if Ex in [0,1,2] and st.getQuestItemsCount(6353) < 1 :
+      if Ex in [0,1,2] and st.getQuestItemsCount(BLUE_GEM) < 1 :
          if st.getRandom(100) < 50 :
-            st.dropItem(npc,player,6353,1)
+            st.dropItem(npc,player,BLUE_GEM,1)
             st.playSound("ItemSound.quest_tutorial")
    return
 

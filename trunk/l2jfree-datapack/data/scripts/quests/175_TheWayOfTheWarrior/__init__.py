@@ -20,6 +20,7 @@ ECHO = range(4412,4417)
 SOULSHOT_FOR_BEGINNERS = 5789
 WOLF_TAIL = 9807
 MUERTOS_CLAW = 9808
+ADENA = 57
 
 #MOBS
 MOUNTAIN_WEREWOLF = 22235
@@ -46,12 +47,12 @@ class Quest (JQuest) :
        st.playSound("ItemSound.quest_accept")  
      elif event == "32138-12.htm" :
        st.takeItems(MUERTOS_CLAW,-1)
-       st.rewardItems(57,8799)
+       st.rewardItems(ADENA,8799)
        st.rewardItems(LESSER_HEALING_POTIONS,100)
        for item in ECHO :
          st.rewardItems(item,10)
        if player.getLevel() < 25 and player.isNewbie() :
-         st.giveItems(SOULSHOT_FOR_BEGINNERS,7000)
+         st.rewardItems(SOULSHOT_FOR_BEGINNERS,7000)
          st.playTutorialVoice("tutorial_voice_026")
        st.giveItems(WARRIORS_SWORD,1)
        st.addExpAndSp(20739,1777)

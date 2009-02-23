@@ -15,6 +15,9 @@ ICONPAST = 32255
 ICONPRESENT = 32256
 ICONFUTURE = 32257
 
+#ITEMS
+EAD = 956
+
 class Quest (JQuest) :
 
  def __init__(self,id,name,descr):
@@ -29,7 +32,7 @@ class Quest (JQuest) :
        st.setState(State.STARTED)
        st.playSound("ItemSound.quest_accept")
      elif event == "32138-07.htm" :
-       st.giveItems(956,1)
+       st.giveItems(EAD,1)
        st.addExpAndSp(20123,976)
        st.exitQuest(False)
        st.playSound("ItemSound.quest_finish")

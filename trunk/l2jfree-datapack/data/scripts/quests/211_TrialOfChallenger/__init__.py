@@ -66,21 +66,21 @@ class Quest (JQuest) :
               st.playSound("ItemSound.quest_jackpot")
               n = st.getRandom(100)
               if n > 90 :
-                 st.giveItems(MITHRIL_SCALE_GAITERS_MATERIAL,1)
-                 st.giveItems(BRIGANDINE_GAUNTLET_PATTERN,1)
-                 st.giveItems(MANTICOR_SKIN_GAITERS_PATTERN,1)
-                 st.giveItems(GAUNTLET_OF_REPOSE_OF_THE_SOUL_PATTERN,1)
-                 st.giveItems(IRON_BOOTS_DESIGN,1)
+                 st.rewardItems(MITHRIL_SCALE_GAITERS_MATERIAL,1)
+                 st.rewardItems(BRIGANDINE_GAUNTLET_PATTERN,1)
+                 st.rewardItems(MANTICOR_SKIN_GAITERS_PATTERN,1)
+                 st.rewardItems(GAUNTLET_OF_REPOSE_OF_THE_SOUL_PATTERN,1)
+                 st.rewardItems(IRON_BOOTS_DESIGN,1)
                  st.playSound("Itemsound.quest_middle")
               elif n > 70 :
-                 st.giveItems(TOME_OF_BLOOD_PAGE,1)
-                 st.giveItems(ELVEN_NECKLACE_BEADS,1)
+                 st.rewardItems(TOME_OF_BLOOD_PAGE,1)
+                 st.rewardItems(ELVEN_NECKLACE_BEADS,1)
                  st.playSound("Itemsound.quest_middle")
               elif n > 40 :
-                 st.giveItems(WHITE_TUNIC_PATTERN,1)
+                 st.rewardItems(WHITE_TUNIC_PATTERN,1)
                  st.playSound("Itemsound.quest_middle")
               else:
-                 st.giveItems(IRON_BOOTS_DESIGN,1)
+                 st.rewardItems(IRON_BOOTS_DESIGN,1)
                  st.playSound("Itemsound.quest_middle")
              else:
               htmltext = "30647-02.htm"
