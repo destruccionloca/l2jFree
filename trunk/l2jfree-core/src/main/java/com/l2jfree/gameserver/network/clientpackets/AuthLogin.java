@@ -26,58 +26,61 @@ import com.l2jfree.gameserver.network.L2GameClient;
  */
 public class AuthLogin extends L2GameClientPacket
 {
-	private static final String _C__08_AUTHLOGIN = "[C] 08 AuthLogin";
+	private static final String	_C__08_AUTHLOGIN	= "[C] 08 AuthLogin";
 
-    // loginName + keys must match what the loginserver used.  
-    private String _loginName;
-    /*private final long _key1;
-    private final long _key2;
-    private final long _key3;
-    private final long _key4;*/
-    private int _playKey1;
-    private int _playKey2;
-    private int _loginKey1;
-    private int _loginKey2;
-    
-    /**
-     * @param decrypt
-     */
-    @Override
-    protected void readImpl()
-    {
-        _loginName = readS().toLowerCase();
-        _playKey2 = readD();
-        _playKey1 = readD();
-        _loginKey1 = readD();
-        _loginKey2 = readD();
-    }
+	// loginName + keys must match what the loginserver used.  
+	private String				_loginName;
+	/*private final long _key1;
+	private final long _key2;
+	private final long _key3;
+	private final long _key4;*/
+	private int					_playKey1;
+	private int					_playKey2;
+	private int					_loginKey1;
+	private int					_loginKey2;
 
-	/** urgent messages, execute immediatly */
-    public TaskPriority getPriority() { return TaskPriority.PR_HIGH; }
-	
-    @Override
-    protected void runImpl()
+	/**
+	 * @param decrypt
+	 */
+	@Override
+	protected void readImpl()
 	{
-    	if (getClient().isProtocolOk())
-    		return;
-
-		SessionKey key = new SessionKey(_loginKey1, _loginKey2, _playKey1, _playKey2);
-		if (_log.isDebugEnabled()) {
-			_log.info("user:" + _loginName);
-			_log.info("key:" + key);
-		}
-		
-		L2GameClient client = getClient();
-        // avoid potential exploits
-        if (client.getAccountName() == null)
-        {
-            client.setAccountName(_loginName);
-            LoginServerThread.getInstance().addGameServerLogin(_loginName, client);
-            LoginServerThread.getInstance().addWaitingClientAndSendRequest(_loginName, client, key);
-        }
+		_loginName = readS().toLowerCase();
+		_playKey2 = readD();
+		_playKey1 = readD();
+		_loginKey1 = readD();
+		_loginKey2 = readD();
 	}
 
-    
+	/** urgent messages, execute immediatly */
+	public TaskPriority getPriority()
+	{
+		return TaskPriority.PR_HIGH;
+	}
+
+	@Override
+	protected void runImpl()
+	{
+		if (!getClient().isProtocolOk())
+			return;
+
+		SessionKey key = new SessionKey(_loginKey1, _loginKey2, _playKey1, _playKey2);
+		if (_log.isDebugEnabled())
+		{
+			_log.info("User: " + _loginName);
+			_log.info("Key: " + key);
+		}
+
+		L2GameClient client = getClient();
+		// avoid potential exploits
+		if (client.getAccountName() == null)
+		{
+			client.setAccountName(_loginName);
+			LoginServerThread.getInstance().addGameServerLogin(_loginName, client);
+			LoginServerThread.getInstance().addWaitingClientAndSendRequest(_loginName, client, key);
+		}
+	}
+
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
