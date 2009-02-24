@@ -3283,6 +3283,7 @@ public final class Config
 		loadSayFilter();
 		loadElayneConfig();
 		loadVitalityConfig();
+		loadDateTimeConfig();
 
 		initDBProperties();
 	}
