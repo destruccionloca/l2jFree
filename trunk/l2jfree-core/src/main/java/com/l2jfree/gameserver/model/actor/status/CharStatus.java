@@ -27,6 +27,7 @@ import com.l2jfree.gameserver.instancemanager.DuelManager;
 import com.l2jfree.gameserver.model.L2Attackable;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Summon;
+import com.l2jfree.gameserver.model.actor.instance.L2FortBallistaInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
@@ -147,7 +148,13 @@ public class CharStatus
 	 */
 	public void reduceHp(double value, L2Character attacker, boolean awake, boolean isDOT)
 	{
-		if (getActiveChar().isInvul() || getActiveChar().isDead() || getActiveChar().isPetrified())
+		if (getActiveChar().isDead() || getActiveChar().isPetrified())
+			return;
+
+		if (getActiveChar() instanceof L2FortBallistaInstance && getActiveChar().getMaxHp() == value)
+		{
+		}
+		else if (getActiveChar().isInvul())
 			return;
 
 		if (attacker instanceof L2PcInstance)

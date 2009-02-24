@@ -43,6 +43,8 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2FeedableBeastInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2FestivalMonsterInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2FortCommanderInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2FortSiegeGuardInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2GuardInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2RiftInvaderInstance;
@@ -284,7 +286,8 @@ public class CursedWeaponsManager
 		if (Config.ALLOW_CURSED_WEAPONS)
 		{
 			if (attackable instanceof L2SiegeGuardInstance || attackable instanceof L2RiftInvaderInstance || attackable instanceof L2FestivalMonsterInstance
-					|| attackable instanceof L2GuardInstance || attackable instanceof L2Boss || attackable instanceof L2FeedableBeastInstance)
+					|| attackable instanceof L2GuardInstance || attackable instanceof L2Boss || attackable instanceof L2FeedableBeastInstance
+					|| attackable instanceof L2FortSiegeGuardInstance || attackable instanceof L2FortCommanderInstance)
 				return;
 
 			for (CursedWeapon cw : _cursedWeapons.values())

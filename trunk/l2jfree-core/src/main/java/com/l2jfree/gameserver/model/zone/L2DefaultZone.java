@@ -212,14 +212,14 @@ public class L2DefaultZone extends L2Zone
 	}
 
 	@Override
-	public final void onDieInside(L2Character character)
+	public void onDieInside(L2Character character)
 	{
 		if (_exitOnDeath)
 			onExit(character);
 	}
 	
 	@Override
-	public final void onReviveInside(L2Character character)
+	public void onReviveInside(L2Character character)
 	{
 		if (_exitOnDeath)
 			onEnter(character);

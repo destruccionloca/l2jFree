@@ -83,16 +83,20 @@ public abstract class L2Transformation
     /**
      * @return Returns the collisionRadius.
      */
-    public double getCollisionRadius()
+    public double getCollisionRadius(L2PcInstance player)
     {
+        if (getId() >= 312 && getId() <= 318)
+             return player.getTemplate().getCollisionRadius();
         return _collisionRadius;
     }
 
     /**
      * @return Returns the collisionHeight.
      */
-    public double getCollisionHeight()
+    public double getCollisionHeight(L2PcInstance player)
     {
+        if (getId() >= 312 && getId() <= 318)
+             return player.getTemplate().getCollisionHeight();
         return _collisionHeight;
     }
 

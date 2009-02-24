@@ -38,7 +38,7 @@ public class StaticObject extends L2GameServerPacket
 		_objectId = staticObject.getObjectId();
 		_type = 0;
 		_isTargetable = true;
-		_meshIndex = 0;
+		_meshIndex = staticObject.getMeshIndex();;
 		_isClosed = false;
 		_isEnemy = false;
 		_maxHp = 0;
@@ -49,7 +49,7 @@ public class StaticObject extends L2GameServerPacket
 	
 	public StaticObject(L2DoorInstance door)
 	{
-		this(door, door.getCastle() != null || door.getFort() != null);
+		this(door, door.getCastle() != null || (door.getFort() != null && !door.getIsCommanderDoor()));
 	}
 	
 	public StaticObject(L2DoorInstance door, boolean showHp)

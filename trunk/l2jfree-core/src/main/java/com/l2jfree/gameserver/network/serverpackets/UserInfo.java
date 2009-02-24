@@ -248,8 +248,8 @@ public class UserInfo extends L2GameServerPacket
 		}
 		else if ((trans = _activeChar.getTransformation()) != null)
 		{
-			writeF(trans.getCollisionRadius());
-			writeF(trans.getCollisionHeight());
+			writeF(trans.getCollisionRadius(_activeChar));
+			writeF(trans.getCollisionHeight(_activeChar));
 		}
 		else if (_appearance.getSex())
 		{

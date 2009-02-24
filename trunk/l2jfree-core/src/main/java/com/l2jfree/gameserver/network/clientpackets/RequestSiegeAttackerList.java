@@ -16,10 +16,7 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.instancemanager.CastleManager;
-import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.model.entity.Castle;
-import com.l2jfree.gameserver.model.entity.Fort;
-import com.l2jfree.gameserver.network.serverpackets.FortSiegeAttackerList;
 import com.l2jfree.gameserver.network.serverpackets.SiegeAttackerList;
 
 /**
@@ -43,20 +40,11 @@ public class RequestSiegeAttackerList extends L2GameClientPacket
     @Override
     protected void runImpl()
     {
-        if (_castleId < 100)
-        {
-            Castle castle = CastleManager.getInstance().getCastleById(_castleId);
-            if (castle == null) return;
-            SiegeAttackerList sal = new SiegeAttackerList(castle);
-            sendPacket(sal);
-        }
-        else
-        {
-            Fort fort = FortManager.getInstance().getFortById(_castleId);
-            if (fort == null) return;
-            FortSiegeAttackerList sal = new FortSiegeAttackerList(fort);
-            sendPacket(sal);
-        }
+        Castle castle = CastleManager.getInstance().getCastleById(_castleId);
+        if (castle == null)
+            return;
+        SiegeAttackerList sal = new SiegeAttackerList(castle);
+        sendPacket(sal);
     }
     
     @Override

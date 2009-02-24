@@ -19,7 +19,6 @@ import java.util.StringTokenizer;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
-import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.TeleportLocationTable;
 import com.l2jfree.gameserver.model.L2Clan;
@@ -133,22 +132,6 @@ public class L2FortManagerInstance extends L2MerchantInstance
 					return;
 				}
 			}
-			else if (actualCommand.equalsIgnoreCase("list_siege_clans"))
-			{
-				if ((player.getClanPrivileges() & L2Clan.CP_CS_MANAGE_SIEGE) == L2Clan.CP_CS_MANAGE_SIEGE)
-				{
-					getFort().getSiege().listRegisterClan(player); // List current register clan
-					return;
-				}
-				else
-				{
-					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-					html.setFile("data/html/fortress/foreman-noprivs.htm");
-					html.replace("%objectId%", String.valueOf(getObjectId()));
-					player.sendPacket(html);
-					return;
-				}
-			}
 			else if (actualCommand.equalsIgnoreCase("receive_report"))
 			{
 				if (player.isClanLeader())
@@ -156,27 +139,11 @@ public class L2FortManagerInstance extends L2MerchantInstance
 					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 					html.setFile("data/html/fortress/foreman-report.htm");
 					html.replace("%objectId%", String.valueOf(getObjectId()));
-					L2Clan clan = ClanTable.getInstance().getClan(getFort().getOwnerId());
+					L2Clan clan = getFort().getOwnerClan();
 					html.replace("%clanname%", clan.getName());
 					html.replace("%clanleadername%", clan.getLeaderName());
 					html.replace("%fortname%", getFort().getName());
 					player.sendPacket(html);
-					return;
-				}
-				else
-				{
-					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-					html.setFile("data/html/fortress/foreman-noprivs.htm");
-					html.replace("%objectId%", String.valueOf(getObjectId()));
-					player.sendPacket(html);
-					return;
-				}
-			}
-			else if (actualCommand.equalsIgnoreCase("manage_siege_defender"))
-			{
-				if ((player.getClanPrivileges() & L2Clan.CP_CS_MANAGE_SIEGE) == L2Clan.CP_CS_MANAGE_SIEGE)
-				{
-					getFort().getSiege().listRegisterClan(player);
 					return;
 				}
 				else
@@ -278,7 +245,7 @@ public class L2FortManagerInstance extends L2MerchantInstance
 					{
 						if (st.countTokens() >= 1)
 						{
-							if (getFort().getOwnerId() == 0)
+							if (getFort().getOwnerClan() == null)
 							{
 								player.sendMessage("This fortress have no owner, you cannot change configuration");
 								return;
@@ -597,7 +564,7 @@ public class L2FortManagerInstance extends L2MerchantInstance
 					{
 						if (st.countTokens() >= 1)
 						{
-							if (getFort().getOwnerId() == 0)
+							if (getFort().getOwnerClan() == null)
 							{
 								player.sendMessage("This fortress have no owner, you cannot change configuration");
 								return;
@@ -948,7 +915,7 @@ public class L2FortManagerInstance extends L2MerchantInstance
 			{
 				if (getFort().getSiege().getIsInProgress())
 					return COND_BUSY_BECAUSE_OF_SIEGE; // Busy because of siege
-				else if (getFort().getOwnerId() == player.getClanId()) // Clan owns fortress
+				else if (getFort().getOwnerClan() == player.getClan()) // Clan owns fortress
 					return COND_OWNER; // Owner
 			}
 		}

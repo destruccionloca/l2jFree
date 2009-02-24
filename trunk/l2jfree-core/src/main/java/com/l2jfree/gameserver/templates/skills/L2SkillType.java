@@ -126,6 +126,7 @@ public enum L2SkillType
 	REMOVE_TRAP,
 	SHIFT_TARGET,
 	INSTANT_JUMP,
+	BALLISTA,
 
 	AGATHION(L2SkillAgathion.class),
 	CHANGEWEAPON(L2SkillChangeWeapon.class),

@@ -23,109 +23,30 @@ import java.util.StringTokenizer;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
-import com.l2jfree.gameserver.ai.L2CharacterAI;
-import com.l2jfree.gameserver.ai.L2NpcWalkerAI;
-import com.l2jfree.gameserver.datatables.ClanTable;
-import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.network.SystemChatChannelId;
+import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
+import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 /**
  * @author Vice 
  */
-public class L2FortMerchantInstance extends L2NpcWalkerInstance
+public class L2FortSiegeNpcInstance extends L2NpcWalkerInstance
 {
-	public L2FortMerchantInstance(int objectID, L2NpcTemplate template)
+	public L2FortSiegeNpcInstance(int objectID, L2NpcTemplate template)
 	{
 		super(objectID, template);
-			setAI(new L2NpcWalkerAI(new L2NpcWalkerAIAccessor()));
 	}
 
-	/**
-	 * AI can't be deattached, npc must move always with the same AI instance.
-	 * @param newAI AI to set for this L2NpcWalkerInstance
-	 */
-	@Override
-	public void setAI(L2CharacterAI newAI)
-	{
-		if(_ai == null || !(_ai instanceof L2NpcWalkerAI))
-			_ai = newAI;
-	}
-	
-	@Override
-	public void onSpawn()
-	{
-		getAI().setHomeX(getX());
-		getAI().setHomeY(getY());
-		getAI().setHomeZ(getZ());
-	}
-
-	/**
-	 * Sends a chat to all _knowObjects
-	 * @param chat message to say
-	 */
-	@Override
-	public void broadcastChat(String chat)
-	{
-		Map<Integer, L2PcInstance> _knownPlayers = getKnownList().getKnownPlayers();
-
-		if (_knownPlayers == null)
-		{
-			if(Config.DEVELOPER)
-				_log.info("broadcastChat _players == null");
-			return;
-		}
-
-		// We send message to known players only!
-		if (_knownPlayers.size() > 0)
-		{
-			CreatureSay cs = new CreatureSay(getObjectId(), SystemChatChannelId.Chat_Normal, getName(), chat);
-
-			//we interact and list players here
-			for (L2PcInstance players : _knownPlayers.values())
-				//finally send packet :D
-				players.sendPacket(cs);
-		}
-	}
-
-	/**
-	 * NPCs are immortal
-	 * @param i ignore it
-	 * @param attacker  ignore it
-	 * @param awake  ignore it
-	 */
-	@Override
-	public void reduceCurrentHp(double i, L2Character attacker, boolean awake, boolean isDOT)
-	{
-	}
-
-	/**
-	 * NPCs are immortal
-	 * @param killer ignore it
-	 * @return false
-	 */
-	@Override
-	public boolean doDie(L2Character killer)
-	{
-		return false;
-	}
-
-	@Override
-	public L2NpcWalkerAI getAI()
-	{
-		return (L2NpcWalkerAI)_ai;
-	}
-	
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-		if (!canTarget(player)) return;
-        
+		if (!canTarget(player))
+			return;
+
 		// Check if the L2PcInstance already target the L2NpcInstance
 		if (this != player.getTarget())
 		{
@@ -161,10 +82,9 @@ public class L2FortMerchantInstance extends L2NpcWalkerInstance
 	{
 		StringTokenizer st = new StringTokenizer(command, " ");
 		String actualCommand = st.nextToken(); // Get actual command
-		String par = null;
 
-		if (st.countTokens() >= 1)
-			par = st.nextToken();
+		String par = "";
+		if (st.countTokens() >= 1) {par = st.nextToken();}
 
 		if (actualCommand.equalsIgnoreCase("Chat"))
 		{
@@ -177,16 +97,35 @@ public class L2FortMerchantInstance extends L2NpcWalkerInstance
 			catch (NumberFormatException nfe){}
 			showMessageWindow(player, val);
 		}
-		else if (actualCommand.equalsIgnoreCase("showSiegeInfo"))
+		else if (actualCommand.equalsIgnoreCase("register"))
 		{
-			showSiegeInfoWindow(player);
+			if (player.getClan() == null || !player.isClanLeader()
+					|| (getFort().getOwnerClan() != null && player.getClan().getHasCastle() > 0
+							&& player.getClan().getHasCastle() != getFort().getCastleId())
+					|| player.getClan().getLevel() < 4)
+			{
+				player.sendMessage("You are not able to participate"); // replace me with html
+			}
+			else if (getFort().getSiege().getAttackerClans().size() == 0 && player.getInventory().getAdena() < 250000)
+			{
+				player.sendMessage("You need 250,000 adena to register"); // replace me with html
+			}
+			else
+			{
+				if (getFort().getSiege().registerAttacker(player, false))
+				{
+					SystemMessage sm = new SystemMessage(SystemMessageId.REGISTERED_TO_S1_FORTRESS_BATTLE);
+					sm.addString(getFort().getName());
+					player.sendPacket(sm);
+				}
+			}
 		}
 		else
 		{
 			super.onBypassFeedback(player, command);
 		}
 	}
-    
+
 	private void showMessageWindow(L2PcInstance player)
 	{
 		showMessageWindow(player, 0);
@@ -207,41 +146,17 @@ public class L2FortMerchantInstance extends L2NpcWalkerInstance
 		html.setFile(filename);
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		html.replace("%npcId%", String.valueOf(getNpcId()));
-		if ( getFort().getOwnerId() > 0 ) 
-			html.replace("%clanname%", ClanTable.getInstance().getClan(getFort().getOwnerId()).getName());
+		if (getFort().getOwnerClan() != null)
+			html.replace("%clanname%", getFort().getOwnerClan().getName());
 		else
 			html.replace("%clanname%", "NPC");
-        
-		html.replace("%castleid%", Integer.toString(getFort().getFortId()));
+		
 		player.sendPacket(html);
-	}
-    
-    /**
-     * If siege is in progress shows the Busy HTML<BR>
-     * else Shows the SiegeInfo window
-     * 
-     * @param player
-     */
-	public void showSiegeInfoWindow(L2PcInstance player)
-	{
-		if (validateCondition(player))
-			getFort().getSiege().listRegisterClan(player);
-		else
-		{
-			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-			html.setFile("data/html/fortress/merchant-busy.htm");
-			html.replace("%fortname%", getFort().getName());
-			html.replace("%objectId%", String.valueOf(getObjectId()));
-			player.sendPacket(html);
-			player.sendPacket(ActionFailed.STATIC_PACKET);
-		}
-	}
+	} 
 
-    /**
-     * @param player
-     */
-	private boolean validateCondition(L2PcInstance player)
+	@Override
+	public boolean hasRandomAnimation()
 	{
-        return !getFort().getSiege().getIsInProgress();
-    }
+		return false;
+	}
 }

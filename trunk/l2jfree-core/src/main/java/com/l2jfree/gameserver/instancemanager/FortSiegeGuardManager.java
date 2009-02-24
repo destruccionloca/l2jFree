@@ -21,6 +21,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -28,108 +29,21 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.model.L2Spawn;
-import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2FortBallistaInstance;
 import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public class FortSiegeGuardManager
 {
-	protected static final Log	_log				= LogFactory.getLog(SiegeGuardManager.class.getName());
+	protected static final Log	_log				= LogFactory.getLog(FortSiegeGuardManager.class.getName());
 
-	// =========================================================
-	// Data Field
 	private Fort				_fort;
-	private List<L2Spawn>		_siegeGuardSpawn	= new FastList<L2Spawn>();
+	protected FastMap<Integer, FastList<L2Spawn>> _siegeGuards = new FastMap<Integer, FastList<L2Spawn>>();
+	protected FastList<L2Spawn> _siegeGuardsSpawns;
 
-	// =========================================================
-	// Constructor
 	public FortSiegeGuardManager(Fort fort)
 	{
 		_fort = fort;
-	}
-
-	// =========================================================
-	// Method - Public
-	/**
-	 * Add guard.<BR><BR>
-	 */
-	public void addSiegeGuard(L2PcInstance activeChar, int npcId)
-	{
-		if (activeChar == null)
-			return;
-		addSiegeGuard(activeChar.getX(), activeChar.getY(), activeChar.getZ(), activeChar.getHeading(), npcId);
-	}
-
-	/**
-	 * Add guard.<BR><BR>
-	 */
-	public void addSiegeGuard(int x, int y, int z, int heading, int npcId)
-	{
-		saveSiegeGuard(x, y, z, heading, npcId, 0);
-	}
-
-	/**
-	 * Hire merc.<BR><BR>
-	 */
-	public void hireMerc(L2PcInstance activeChar, int npcId)
-	{
-		if (activeChar == null)
-			return;
-		hireMerc(activeChar.getX(), activeChar.getY(), activeChar.getZ(), activeChar.getHeading(), npcId);
-	}
-
-	/**
-	 * Hire merc.<BR><BR>
-	 */
-	public void hireMerc(int x, int y, int z, int heading, int npcId)
-	{
-		saveSiegeGuard(x, y, z, heading, npcId, 1);
-	}
-
-	/**
-	 * Remove a single mercenary, identified by the npcId and location.
-	 * Presumably, this is used when a fort lord picks up a previously dropped ticket
-	 */
-	public void removeMerc(int npcId, int x, int y, int z)
-	{
-		Connection con = null;
-		try
-		{
-			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con.prepareStatement("Delete From fort_siege_guards Where npcId = ? And x = ? AND y = ? AND z = ? AND isHired = 1");
-			statement.setInt(1, npcId);
-			statement.setInt(2, x);
-			statement.setInt(3, y);
-			statement.setInt(4, z);
-			statement.execute();
-			statement.close();
-		}
-		catch (Exception e1)
-		{
-			_log.warn("Error deleting hired siege guard at " + x + ',' + y + ',' + z + ":" + e1);
-		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
-	}
-
-	/**
-	 * Remove mercs.<BR><BR>
-	 */
-	public void removeMercs()
-	{
-		Connection con = null;
-		try
-		{
-			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con.prepareStatement("Delete From fort_siege_guards Where fortId = ? And isHired = 1");
-			statement.setInt(1, getFort().getFortId());
-			statement.execute();
-			statement.close();
-		}
-		catch (Exception e1)
-		{
-			_log.warn("Error deleting hired siege guard for fort " + getFort().getName() + ":" + e1);
-		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	/**
@@ -139,27 +53,23 @@ public class FortSiegeGuardManager
 	{
 		try
 		{
-			int hiredCount = 0;
-			//hiredMax    = MercTicketManager.getInstance().getMaxAllowedMerc(_fort.getFortId());  
-			boolean isHired = (getFort().getOwnerId() > 0);
-			loadSiegeGuard();
-			for (L2Spawn spawn : getSiegeGuardSpawn())
+			FastList<L2Spawn> monsterList = getSiegeGuardSpawn().get(getFort().getFortId());
+			if (monsterList != null)
 			{
-				if (spawn != null)
+				for (L2Spawn spawnDat : monsterList)
 				{
-					spawn.init();
-					if (isHired)
-					{
-						hiredCount++;
-						//if (hiredCount > hiredMax)
-						//    return;
-					}
+					spawnDat.doSpawn();
+					if (spawnDat.getLastSpawn() instanceof L2FortBallistaInstance)
+						spawnDat.stopRespawn();
+					else
+						spawnDat.startRespawn();
 				}
 			}
 		}
-		catch (Throwable t)
+		catch (Exception e)
 		{
-			_log.warn("Error spawning siege guards for fort " + getFort().getName() + ":" + t.toString());
+			_log.warn("Error spawning siege guards for fort " + getFort().getName() + ":" + e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
@@ -168,25 +78,31 @@ public class FortSiegeGuardManager
 	 */
 	public void unspawnSiegeGuard()
 	{
-		for (L2Spawn spawn : getSiegeGuardSpawn())
+		try
 		{
-			if (spawn == null)
-				continue;
-
-			spawn.stopRespawn();
-			spawn.getLastSpawn().doDie(spawn.getLastSpawn());
+			FastList<L2Spawn> monsterList = getSiegeGuardSpawn().get(getFort().getFortId());
+			if (monsterList != null)
+			{
+				for (L2Spawn spawnDat : monsterList)
+				{
+					spawnDat.stopRespawn();
+					spawnDat.getLastSpawn().doDie(spawnDat.getLastSpawn());
+				}
+			}
 		}
-
-		getSiegeGuardSpawn().clear();
+		catch (Exception e)
+		{
+			_log.warn("Error unspawning siege guards for fort " + getFort().getName() + ":" + e.getMessage());
+			e.printStackTrace();
+		}
 	}
 
-	// =========================================================
-	// Method - Private
 	/**
 	 * Load guards.<BR><BR>
 	 */
-	private void loadSiegeGuard()
+	void loadSiegeGuard()
 	{
+		_siegeGuards.clear();
 		Connection con = null;
 		try
 		{
@@ -198,8 +114,10 @@ public class FortSiegeGuardManager
 			L2Spawn spawn1;
 			L2NpcTemplate template1;
 
+			_siegeGuardsSpawns = new FastList<L2Spawn>();
 			while (rs.next())
 			{
+				int fortId = rs.getInt("fortId");
 				template1 = NpcTable.getInstance().getTemplate(rs.getInt("npcId"));
 				if (template1 != null)
 				{
@@ -213,12 +131,13 @@ public class FortSiegeGuardManager
 					spawn1.setRespawnDelay(rs.getInt("respawnDelay"));
 					spawn1.setLocation(0);
 
-					_siegeGuardSpawn.add(spawn1);
+					_siegeGuardsSpawns.add(spawn1);
 				}
 				else
 				{
 					_log.warn("Missing npc data in npc table for id: " + rs.getInt("npcId"));
 				}
+				_siegeGuards.put(fortId, _siegeGuardsSpawns);
 			}
 			rs.close();
 			statement.close();
@@ -226,52 +145,18 @@ public class FortSiegeGuardManager
 		catch (Exception e1)
 		{
 			_log.warn("Error loading siege guard for fort " + getFort().getName() + ":" + e1);
+			e1.printStackTrace();
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
-
-	/**
-	 * Save guards.<BR><BR>
-	 */
-	private void saveSiegeGuard(int x, int y, int z, int heading, int npcId, int isHire)
-	{
-		Connection con = null;
-		try
-		{
-			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con
-					.prepareStatement("Insert Into fort_siege_guards (fortId, npcId, x, y, z, heading, respawnDelay, isHired) Values (?, ?, ?, ?, ?, ?, ?, ?)");
-			statement.setInt(1, getFort().getFortId());
-			statement.setInt(2, npcId);
-			statement.setInt(3, x);
-			statement.setInt(4, y);
-			statement.setInt(5, z);
-			statement.setInt(6, heading);
-			if (isHire == 1)
-				statement.setInt(7, 0);
-			else
-				statement.setInt(7, 600);
-			statement.setInt(8, isHire);
-			statement.execute();
-			statement.close();
-		}
-		catch (Exception e1)
-		{
-			_log.warn("Error adding siege guard for fort " + getFort().getName() + ":" + e1);
-		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
-	}
-
-	// =========================================================
-	// Proeprty
 
 	public final Fort getFort()
 	{
 		return _fort;
 	}
 
-	public final List<L2Spawn> getSiegeGuardSpawn()
+	public final FastMap<Integer, FastList<L2Spawn>> getSiegeGuardSpawn()
 	{
-		return _siegeGuardSpawn;
+		return _siegeGuards;
 	}
 }

@@ -14,9 +14,17 @@
  */
 package com.l2jfree.gameserver.model.zone;
 
+import com.l2jfree.gameserver.datatables.ClanTable;
+import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.FortManager;
+import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.L2Clan;
+import com.l2jfree.gameserver.model.L2Effect;
+import com.l2jfree.gameserver.model.L2ItemInstance;
+import com.l2jfree.gameserver.model.L2SiegeClan;
+import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeSummonInstance;
 import com.l2jfree.gameserver.model.entity.Castle;
@@ -95,6 +103,25 @@ public class L2SiegeZone extends EntityZone
 		{
 			((L2SiegeSummonInstance)character).unSummon(((L2SiegeSummonInstance)character).getOwner());
 		}
+		if (character instanceof L2PcInstance)
+		{
+			L2PcInstance activeChar = (L2PcInstance) character;
+			L2ItemInstance item = activeChar.getInventory().getItemByItemId(9819);
+			if (item != null)
+			{
+				Fort fort = FortManager.getInstance().getFort(activeChar);
+				if (fort != null)
+				{
+					FortSiegeManager.getInstance().dropCombatFlag(activeChar);
+				}
+				else
+				{
+					int slot = item.getItem().getBodyPart();
+					activeChar.getInventory().unEquipItemInBodySlotAndRecord(slot);
+					activeChar.destroyItem("CombatFlag", item, null, true);
+				}
+			}
+		}
 
 		super.onExit(character);
 	}
@@ -137,5 +164,61 @@ public class L2SiegeZone extends EntityZone
 				}
 			}
 		}
+	}
+
+	@Override
+	public void onDieInside(L2Character character)
+	{
+		if (_entity instanceof Fort)
+		{
+			Fort fort = (Fort) _entity;
+			if (fort.getSiege().getIsInProgress())
+			{
+				// debuff participants only if they die inside siege zone
+				if (character instanceof L2PcInstance && ((L2PcInstance) character).getClan() != null)
+				{
+					int lvl = 1;
+					for (L2Effect effect: character.getAllEffects())
+					{
+						if (effect != null && effect.getSkill().getId() == 5660)
+						{
+							lvl = lvl + effect.getLevel();
+							if (lvl > 5)
+								lvl = 5;
+							break;
+						}
+					}
+					L2Clan clan;
+					L2Skill skill;
+					if (fort.getOwnerClan() == ((L2PcInstance)character).getClan())
+					{
+						skill = SkillTable.getInstance().getInfo(5660, lvl);
+						if (skill != null)
+							skill.getEffects(character, character);
+					}
+					else
+					{
+						for (L2SiegeClan siegeclan : fort.getSiege().getAttackerClans())
+						{
+							if (siegeclan == null)
+								continue;
+							clan = ClanTable.getInstance().getClan(siegeclan.getClanId());
+							if (((L2PcInstance) character).getClan() == clan)
+							{
+								skill = SkillTable.getInstance().getInfo(5660, lvl);
+								if (skill != null)
+									skill.getEffects(character, character);
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	@Override
+	public void onReviveInside(L2Character character)
+	{
 	}
 }

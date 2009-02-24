@@ -63,6 +63,7 @@ public class ItemHandler
 	{
 		_datatable = new TreeMap<Integer, IItemHandler>();
 		registerItemHandler(new AdvQuestItems());
+		registerItemHandler(new BallistaBomb());
 		registerItemHandler(new BeastSoulShot());
 		registerItemHandler(new BeastSpice());
 		registerItemHandler(new BeastSpiritShot());

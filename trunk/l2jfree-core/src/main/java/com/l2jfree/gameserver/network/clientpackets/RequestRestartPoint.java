@@ -130,12 +130,11 @@ public class RequestRestartPoint extends L2GameClientPacket
 					fsiege = FortSiegeManager.getInstance().getSiege(activeChar);
 					if (fsiege != null && fsiege.getIsInProgress())
 					{
-						//siege in progress
-						if (fsiege.checkIsDefender(activeChar.getClan()))
-							loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.Fortress);
 						// Just in case you lost fort while beeing dead.. Port to nearest Town.
-						else if (fsiege.checkIsAttacker(activeChar.getClan()))
+						if (fsiege.checkIsAttacker(activeChar.getClan()))
+						{
 							loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.Town);
+						}
 						else
 						{
 							_log.warn("Player ["+activeChar.getName()+"] called RestartPointPacket - To Fortress and he doesn't have Fortress!");

@@ -14,6 +14,9 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.util.Collection;
 import java.util.concurrent.ScheduledFuture;
 
@@ -44,12 +47,14 @@ import com.l2jfree.gameserver.model.entity.ClanHall;
 import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.model.mapregion.L2MapRegion;
+import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ConfirmDlg;
 import com.l2jfree.gameserver.network.serverpackets.DoorStatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.StaticObject;
+import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
@@ -61,6 +66,8 @@ import com.l2jfree.gameserver.templates.item.L2Weapon;
  */
 public class L2DoorInstance extends L2Character
 {
+	protected static final Log		_log	= LogFactory.getLog(L2DoorInstance.class.getName());
+
 	/** The castle index in the array of L2Castle this L2DoorInstance belongs to */
 	private int					_castleIndex		= -2;
 	private Castle				_castle;
@@ -73,6 +80,7 @@ public class L2DoorInstance extends L2Character
 	protected final int			_doorId;
 	protected final String		_name;
 	private boolean				_open;
+	private boolean				_isCommanderDoor;
 	private boolean				_unlockable;
 
 	// when door is closed, the dimensions are
@@ -279,6 +287,23 @@ public class L2DoorInstance extends L2Character
 	}
 
 	/**
+	 * @param val Used for Fortresses to determine if doors can be attacked during siege or not
+	 */
+	public void setIsCommanderDoor(boolean val)
+	{
+		_isCommanderDoor = val;
+	}
+
+	/**
+	 * @return Doors that cannot be attacked during siege
+	 * these doors will be auto opened if u take control of all commanders buildings
+	 */
+	public boolean getIsCommanderDoor()
+	{
+		return _isCommanderDoor;
+	}
+
+	/**
 	 * Sets the delay in milliseconds for automatic opening/closing of this door
 	 * instance. <BR>
 	 * <B>Note:</B> A value of -1 cancels the auto open/close task.
@@ -367,7 +392,9 @@ public class L2DoorInstance extends L2Character
 	{
 		if (getCastle() != null && getCastle().getSiege().getIsInProgress())
 			return true;
-        return getFort() != null && getFort().getSiege().getIsInProgress();
+		if (getFort() != null && getFort().getSiege().getIsInProgress() && !getIsCommanderDoor())
+			return true;
+		return false;
     }
 
 	@Override
@@ -377,13 +404,43 @@ public class L2DoorInstance extends L2Character
 			return true;
 
 		// Doors can't be attacked by NPCs
-		if (!(attacker instanceof L2PcInstance))
+		if (!(attacker instanceof L2PlayableInstance))
 			return false;
 
-		// Attackable only during siege by everyone
+		// Attackable only during siege by everyone (not owner)
 		boolean isCastle = (getCastle() != null && getCastle().getCastleId() > 0 && getCastle().getSiege().getIsInProgress());
+		boolean isFort = (getFort() != null && getFort().getFortId() > 0 && getFort().getSiege().getIsInProgress() && !getIsCommanderDoor());
 
-		boolean isFort = (getFort() != null && getFort().getFortId() > 0 && getFort().getSiege().getIsInProgress());
+		if (isFort)
+		{
+			if (attacker instanceof L2SummonInstance)
+			{
+				L2Clan clan = ((L2SummonInstance)attacker).getOwner().getClan();
+				if (clan != null && clan == getFort().getOwnerClan())
+					return false;
+			}
+			else if (attacker instanceof L2PcInstance)
+			{
+				L2Clan clan = ((L2PcInstance)attacker).getClan();
+				if (clan != null && clan == getFort().getOwnerClan())
+					return false;
+			}
+		}
+		else if (isCastle)
+		{
+			if (attacker instanceof L2SummonInstance)
+			{
+				L2Clan clan = ((L2SummonInstance)attacker).getOwner().getClan();
+				if (clan != null && clan.getClanId() == getCastle().getOwnerId())
+					return false;
+			}
+			else if (attacker instanceof L2PcInstance)
+			{
+				L2Clan clan = ((L2PcInstance)attacker).getClan();
+				if (clan != null && clan.getClanId() == getCastle().getOwnerId())
+					return false;
+			}
+		}
 
 		return (isCastle || isFort);
 	}
@@ -544,7 +601,7 @@ public class L2DoorInstance extends L2Character
 					}
 				}
 			}
-			else if (player.getClan() != null && getFort() != null && player.getClanId() == getFort().getOwnerId() && isUnlockable())
+			else if (player.getClan() != null && getFort() != null && player.getClanId() == getFort().getOwnerId() && isUnlockable() && !getFort().getSiege().getIsInProgress())
 			{
 				if (!isInsideRadius(player, L2NpcInstance.INTERACTION_DISTANCE, false, false))
 				{
@@ -587,15 +644,15 @@ public class L2DoorInstance extends L2Character
 			html1.append("<tr><td>S.Y.L. Says:</td></tr>");
 			html1.append("<tr><td>Current HP  " + getStatus().getCurrentHp() + "</td></tr>");
 			html1.append("<tr><td>Max HP      " + getMaxHp() + "</td></tr>");
-			html1.append("<tr><td>Max X      " + getXMax() + "</td></tr>");
-			html1.append("<tr><td>Max Y      " + getYMax() + "</td></tr>");
-			html1.append("<tr><td>Max Z      " + getZMax() + "</td></tr>");
-			html1.append("<tr><td>Min X      " + getXMin() + "</td></tr>");
-			html1.append("<tr><td>Min Y      " + getYMin() + "</td></tr>");
-			html1.append("<tr><td>Min Z      " + getZMin() + "</td></tr>");
-
-			html1.append("<tr><td>Object ID: " + getObjectId() + "</td></tr>");
-			html1.append("<tr><td>Door ID:<br>" + getDoorId() + "</td></tr>");
+			html1.append("<tr><td>Max X       " + getXMax() + "</td></tr>");
+			html1.append("<tr><td>Max Y       " + getYMax() + "</td></tr>");
+			html1.append("<tr><td>Max Z       " + getZMax() + "</td></tr>");
+			html1.append("<tr><td>Min X       " + getXMin() + "</td></tr>");
+			html1.append("<tr><td>Min Y       " + getYMin() + "</td></tr>");
+			html1.append("<tr><td>Min Z       " + getZMin() + "</td></tr>");
+			html1.append("<tr><td>Object ID:  " + getObjectId() + "</td></tr>");
+			html1.append("<tr><td>Door ID: <br>" + getDoorId() + "</td></tr>");
+			html1.append("<tr><td><br></td></tr>");
 			html1.append("<tr><td><br></td></tr>");
 
 			html1.append("<tr><td>Class: " + getClass().getName() + "</td></tr>");
@@ -740,6 +797,22 @@ public class L2DoorInstance extends L2Character
 				result.add((L2SiegeGuardInstance) obj);
 		}
 
+		return result;
+	}
+
+	public Collection<L2FortSiegeGuardInstance> getKnownFortSiegeGuards()
+	{
+		FastList<L2FortSiegeGuardInstance> result = new FastList<L2FortSiegeGuardInstance>();
+		
+		Collection<L2Object> objs = getKnownList().getKnownObjects().values();
+		//synchronized (getKnownList().getKnownObjects())
+		{
+			for (L2Object obj : objs)
+			{
+				if (obj instanceof L2FortSiegeGuardInstance)
+					result.add((L2FortSiegeGuardInstance) obj);
+			}
+		}
 		return result;
 	}
 

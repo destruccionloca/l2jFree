@@ -15,19 +15,19 @@
 package com.l2jfree.gameserver.model.actor.knownlist;
 
 import com.l2jfree.gameserver.model.L2Object;
-import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2FortSiegeGuardInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeGuardInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2StaticObjectInstance;
 
-public class DoorKnownList extends CharKnownList
+public class StaticObjectKnownList extends CharKnownList
 {
 	// =========================================================
 	// Data Field
 
 	// =========================================================
 	// Constructor
-	public DoorKnownList(L2DoorInstance activeChar)
+	public StaticObjectKnownList(L2StaticObjectInstance activeChar)
 	{
 		super(activeChar);
 	}
@@ -41,9 +41,9 @@ public class DoorKnownList extends CharKnownList
 	// =========================================================
 	// Property - Public
 	@Override
-	public final L2DoorInstance getActiveChar()
+	public final L2StaticObjectInstance getActiveChar()
 	{
-		return (L2DoorInstance) super.getActiveChar();
+		return (L2StaticObjectInstance) super.getActiveChar();
 	}
 
 	@Override

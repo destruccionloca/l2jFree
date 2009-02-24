@@ -231,7 +231,7 @@ public class CharEffectList
 		// Exit them
 		for (L2Effect e : effects)
 		{
-			if (e != null)
+			if (e != null && e.getSkill().getId() != 5660)
 			{
 				e.exit(true);
 			}

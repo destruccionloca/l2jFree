@@ -279,8 +279,8 @@ public class NpcInfo extends L2GameServerPacket
 			}
 			else if ((trans = owner.getTransformation()) != null)
 			{
-				writeF(trans.getCollisionRadius());
-				writeF(trans.getCollisionHeight());
+				writeF(trans.getCollisionRadius(owner));
+				writeF(trans.getCollisionHeight(owner));
 			}
 			else
 			{

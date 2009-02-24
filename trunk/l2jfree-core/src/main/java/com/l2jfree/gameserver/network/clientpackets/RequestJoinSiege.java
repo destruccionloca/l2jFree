@@ -56,57 +56,25 @@ public class RequestJoinSiege extends L2GameClientPacket
 		if (!activeChar.isClanLeader())
 			return;
 
-		if (_castleId < 100)
+		Castle castle = CastleManager.getInstance().getCastleById(_castleId);
+		if (castle == null)
+			return;
+
+		if (_isJoining == 1)
 		{
-			Castle castle = CastleManager.getInstance().getCastleById(_castleId);
-
-			if (castle == null)
-				return;
-
-			// you cant register as attacker for your own castle!
-			if (castle.getOwnerId() == activeChar.getClanId())
-				return;
-
-			if (_isJoining == 1)
+			if (System.currentTimeMillis() < activeChar.getClan().getDissolvingExpiryTime())
 			{
-				if (System.currentTimeMillis() < activeChar.getClan().getDissolvingExpiryTime())
-				{
-					activeChar.sendPacket(new SystemMessage(SystemMessageId.CANT_PARTICIPATE_IN_SIEGE_WHILE_DISSOLUTION_IN_PROGRESS));
-					return;
-				}
-				if (_isAttacker == 1)
-					castle.getSiege().registerAttacker(activeChar);
-				else
-					castle.getSiege().registerDefender(activeChar);
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.CANT_PARTICIPATE_IN_SIEGE_WHILE_DISSOLUTION_IN_PROGRESS));
+				return;
 			}
+			if (_isAttacker == 1)
+				castle.getSiege().registerAttacker(activeChar);
 			else
-				castle.getSiege().removeSiegeClan(activeChar);
-
-			castle.getSiege().listRegisterClan(activeChar);
+				castle.getSiege().registerDefender(activeChar);
 		}
 		else
-		{
-			Fort fort = FortManager.getInstance().getFortById(_castleId);
-			if (fort == null)
-				return;
-
-			if (_isJoining == 1)
-			{
-				if (System.currentTimeMillis() < activeChar.getClan().getDissolvingExpiryTime())
-				{
-					activeChar.sendPacket(new SystemMessage(SystemMessageId.CANT_PARTICIPATE_IN_SIEGE_WHILE_DISSOLUTION_IN_PROGRESS));
-					return;
-				}
-				if (_isAttacker == 1)
-					fort.getSiege().registerAttacker(activeChar);
-				else
-					fort.getSiege().registerDefender(activeChar);
-			}
-			else
-				fort.getSiege().removeSiegeClan(activeChar);
-
-			fort.getSiege().listRegisterClan(activeChar);
-		}
+			castle.getSiege().removeSiegeClan(activeChar);
+		castle.getSiege().listRegisterClan(activeChar);
 	}
 
 	@Override

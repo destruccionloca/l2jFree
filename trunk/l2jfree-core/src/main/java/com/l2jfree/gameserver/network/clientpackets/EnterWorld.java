@@ -30,6 +30,7 @@ import com.l2jfree.gameserver.instancemanager.CoupleManager;
 import com.l2jfree.gameserver.instancemanager.CrownManager;
 import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
 import com.l2jfree.gameserver.instancemanager.DimensionalRiftManager;
+import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.instancemanager.InstanceManager;
 import com.l2jfree.gameserver.instancemanager.PetitionManager;
@@ -43,6 +44,7 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.ClanHall;
 import com.l2jfree.gameserver.model.entity.Couple;
+import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.model.entity.FortSiege;
 import com.l2jfree.gameserver.model.entity.Hero;
 import com.l2jfree.gameserver.model.entity.L2Event;
@@ -439,11 +441,27 @@ public class EnterWorld extends L2GameClientPacket
 
 		updateShortCuts(activeChar);
 
+		// remove combat flag before teleporting
+		L2ItemInstance flag = activeChar.getInventory().getItemByItemId(9819);
+		if (flag != null)
+		{
+			Fort fort = FortManager.getInstance().getFort(activeChar);
+			if (fort != null)
+			{
+				FortSiegeManager.getInstance().dropCombatFlag(activeChar);
+			}
+			else
+			{
+				int slot = flag.getItem().getBodyPart();
+				activeChar.getInventory().unEquipItemInBodySlotAndRecord(slot);
+				activeChar.destroyItem("CombatFlag", flag, null, true);
+			}
+		}
 		if (!activeChar.isGM() && activeChar.getSiegeState() < 2 && SiegeManager.getInstance().checkIfInZone(activeChar))
 		{
 			// Attacker or spectator logging in to a siege zone. Actually should be checked for inside castle only?
 			activeChar.teleToLocation(TeleportWhereType.Town);
-			activeChar.sendMessage("You have been teleported to the nearest town due to you being in siege zone");
+			//activeChar.sendMessage("You have been teleported to the nearest town due to you being in siege zone"); - custom
 		}
 
 		RegionBBSManager.getInstance().changeCommunityBoard();

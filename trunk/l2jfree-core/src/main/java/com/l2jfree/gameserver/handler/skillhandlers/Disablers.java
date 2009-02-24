@@ -561,7 +561,7 @@ public class Disablers implements ICubicSkillHandler
 					if (e.getSkill().isDebuff() && count < skill.getMaxNegatedEffects())
 					{
 						//Do not remove raid curse skills
-						if (e.getSkill().getId() != 4215 && e.getSkill().getId() != 4515 && e.getSkill().getId() != 4082)
+						if (e.getSkill().getId() != 4215 && e.getSkill().getId() != 4515 && e.getSkill().getId() != 4082 && e.getSkill().getId() != 5660)
 						{
 							e.exit();
 							if (count > -1)
@@ -888,7 +888,7 @@ public class Disablers implements ICubicSkillHandler
 						if (e.getSkill().isDebuff() && count < skill.getMaxNegatedEffects())
 						{
 							//Do not remove raid curse skills
-							if (e.getSkill().getId() != 4215 && e.getSkill().getId() != 4515 && e.getSkill().getId() != 4082)
+							if (e.getSkill().getId() != 4215 && e.getSkill().getId() != 4515 && e.getSkill().getId() != 4082 && e.getSkill().getId() != 5660)
 							{
 								e.exit();
 								if (count > -1)

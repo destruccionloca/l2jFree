@@ -14,10 +14,7 @@
  */
 package com.l2jfree.gameserver.ai;
 
-import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_ACTIVE;
-import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_ATTACK;
-import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
-import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_INTERACT;
+import static com.l2jfree.gameserver.ai.CtrlIntention.*;
 
 import java.util.List;
 import java.util.concurrent.Future;

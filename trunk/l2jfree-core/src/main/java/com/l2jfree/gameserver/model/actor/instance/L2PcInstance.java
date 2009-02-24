@@ -78,6 +78,7 @@ import com.l2jfree.gameserver.instancemanager.CoupleManager;
 import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
 import com.l2jfree.gameserver.instancemanager.DimensionalRiftManager;
 import com.l2jfree.gameserver.instancemanager.DuelManager;
+import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.instancemanager.FourSepulchersManager;
 import com.l2jfree.gameserver.instancemanager.QuestManager;
@@ -137,6 +138,8 @@ import com.l2jfree.gameserver.model.base.Race;
 import com.l2jfree.gameserver.model.base.SubClass;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.Duel;
+import com.l2jfree.gameserver.model.entity.Fort;
+import com.l2jfree.gameserver.model.entity.FortSiege;
 import com.l2jfree.gameserver.model.entity.GrandBossState;
 import com.l2jfree.gameserver.model.entity.L2Event;
 import com.l2jfree.gameserver.model.entity.Siege;
@@ -3149,7 +3152,12 @@ public final class L2PcInstance extends L2PlayableInstance
 		// Combat Flag
 		else if (FortSiegeManager.getInstance().isCombat(newitem.getItemId()))
 		{
-			FortSiegeManager.getInstance().activateCombatFlag(this, newitem);
+			if (FortSiegeManager.getInstance().activateCombatFlag(this, newitem))
+			{
+				Fort fort = FortManager.getInstance().getFort(this);
+				if (fort != null)
+					fort.getSiege().announceToPlayer(new SystemMessage(SystemMessageId.S1_ACQUIRED_THE_FLAG), getName());
+			}
 		}
 
 		// Auto use herbs - autoloot
@@ -3671,7 +3679,17 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		final L2GameClient client = _client;
 		if (client != null)
-			client.close(LeaveWorld.STATIC_PACKET);
+		{
+			if (client.isDetached())
+			{
+				client.cleanMe(true);
+			}
+			else
+			{
+				client.close(LeaveWorld.STATIC_PACKET);
+			}
+		}
+
 	}
 
 	public Point3D getCurrentSkillWorldPosition()
@@ -8111,6 +8129,14 @@ public final class L2PcInstance extends L2PlayableInstance
 				return (siege != null && siege.checkIsAttacker(getClan()));
 			}
 		}
+		else if (attacker instanceof L2FortSiegeGuardInstance)
+		{
+			if (getClan() != null)
+			{
+				FortSiege siege = FortSiegeManager.getInstance().getSiege(this);
+				return (siege != null && siege.checkIsAttacker(getClan()));
+			}
+		}
 
 		return false;
 	}
@@ -8349,7 +8375,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			L2DoorInstance door = (L2DoorInstance) target;
 			boolean isCastleDoor = (door.getCastle() != null && door.getCastle().getSiege().getIsInProgress());
-			boolean isFortDoor = (door.getFort() != null && door.getFort().getSiege().getIsInProgress());
+			boolean isFortDoor = (door.getFort() != null && door.getFort().getSiege().getIsInProgress() && !door.getIsCommanderDoor());
 			if (!isCastleDoor && !isFortDoor && !(door.isUnlockable() && skill.getSkillType() == L2SkillType.UNLOCK))
 				return false;
 		}
@@ -8712,7 +8738,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 
 		if ((sklTargetType == SkillTargetType.TARGET_HOLY && (!TakeCastle.checkIfOkToCastSealOfRule(this, false)))
-			|| (sklTargetType == SkillTargetType.TARGET_FLAGPOLE && !TakeFort.checkIfOkToCastFlagDisplay(this, false))
+			|| (sklTargetType == SkillTargetType.TARGET_FLAGPOLE && !TakeFort.checkIfOkToCastFlagDisplay(this, false, skill, getTarget()))
 			|| (sklType == L2SkillType.SIEGEFLAG && (!SiegeManager.checkIfOkToPlaceFlag(this, false) && !FortSiegeManager.checkIfOkToPlaceFlag(this, false)))
 			|| (sklType == L2SkillType.STRSIEGEASSAULT && (!SiegeManager.checkIfOkToUseStriderSiegeAssault(this, false) && !FortSiegeManager.checkIfOkToUseStriderSiegeAssault(this, false))))
 		{
@@ -11243,6 +11269,27 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			if (isFlying())
 				removeSkill(SkillTable.getInstance().getInfo(4289, 1));
+		}
+		catch (Exception e)
+		{
+			_log.fatal(e.getMessage(), e);
+		}
+
+		try
+		{
+			L2ItemInstance flag = getInventory().getItemByItemId(9819);
+			if (flag != null)
+			{
+				Fort fort = FortManager.getInstance().getFort(this);
+				if (fort != null)
+					FortSiegeManager.getInstance().dropCombatFlag(this);
+				else
+				{
+					int slot = flag.getItem().getBodyPart();
+					getInventory().unEquipItemInBodySlotAndRecord(slot);
+					destroyItem("CombatFlag", flag, null, true);
+				}
+			}
 		}
 		catch (Exception e)
 		{

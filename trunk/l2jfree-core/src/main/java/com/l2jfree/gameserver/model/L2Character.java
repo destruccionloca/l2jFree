@@ -49,7 +49,6 @@ import com.l2jfree.gameserver.instancemanager.MapRegionManager;
 import com.l2jfree.gameserver.model.L2Skill.SkillTargetType;
 import com.l2jfree.gameserver.model.actor.instance.L2ArtefactInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2CommanderInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2ControlTowerInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2EffectPointInstance;
@@ -272,7 +271,7 @@ public abstract class L2Character extends L2Object
 
 		if (!(this instanceof L2PlayableInstance) && !(this instanceof L2Attackable) && !(this instanceof L2ControlTowerInstance)
 				&& !(this instanceof L2DoorInstance) && !(this instanceof L2Trap) && !(this instanceof L2SiegeFlagInstance) && !(this instanceof L2Decoy)
-				&& !(this instanceof L2EffectPointInstance) && !(this instanceof L2CommanderInstance) && !(this instanceof L2FolkInstance))
+				&& !(this instanceof L2EffectPointInstance) && !(this instanceof L2FolkInstance))
 			setIsInvul(true);
 	}
 
@@ -873,13 +872,12 @@ public abstract class L2Character extends L2Object
 					sendPacket(ActionFailed.STATIC_PACKET);
 					return;
 				}
-				else if (target.getLevel() < Config.ALT_PLAYER_PROTECTION_LEVEL)
+				if (target.getLevel() < Config.ALT_PLAYER_PROTECTION_LEVEL)
 				{
 					sendMessage("Player under newbie protection until level " + String.valueOf(Config.ALT_PLAYER_PROTECTION_LEVEL) + ".");
 					sendPacket(ActionFailed.STATIC_PACKET);
 					return;
 				}
-
 				// Checking if target has moved to peace zone
 				if (target.isInsidePeaceZone((L2PcInstance) this))
 				{
@@ -900,6 +898,14 @@ public abstract class L2Character extends L2Object
 
 		// Get the active weapon instance (always equipped in the right hand)
 		L2ItemInstance weaponInst = getActiveWeaponInstance();
+
+		// TODO: unhardcode this to support boolean if with that weapon u can attack or not (for ex transform weapons)
+		if (weaponInst != null && weaponInst.getItemId() == 9819)
+		{
+			sendPacket(new SystemMessage(SystemMessageId.THAT_WEAPON_CANT_ATTACK));
+			sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
 
 		// Get the active weapon item corresponding to the active weapon instance (always equipped in the right hand)
 		L2Weapon weaponItem = getActiveWeaponItem();
@@ -7562,6 +7568,24 @@ public abstract class L2Character extends L2Object
 	public int getAttackElement()
 	{
 		return getStat().getAttackElement();
+	}
+
+	// Wrapper
+	public double getCurrentHp()
+	{
+		return getStatus().getCurrentHp();
+	}
+
+	// Wrapper
+	public double getCurrentMp()
+	{
+		return getStatus().getCurrentMp();
+	}
+
+	// Wrapper
+	public double getCurrentCp()
+	{
+		return getStatus().getCurrentCp();
 	}
 
 	public int getAttackElementValue(int attackAttribute)

@@ -20,7 +20,7 @@ import java.nio.channels.SelectionKey;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
+import java.util.concurrent.ScheduledFuture;
 import javolution.text.TextBuilder;
 
 import org.apache.commons.logging.Log;
@@ -70,7 +70,10 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 	private int[] _charSlotMapping;
 	private GameCrypt _crypt;
 	private boolean _disconnected;
+	private boolean _isDetached = false;
 	private boolean _protocol;
+
+	protected ScheduledFuture<?> _cleanupTask = null;
 	
 	public L2GameClient(SelectorThread<L2GameClient> selectorThread, ISocket socket, SelectionKey key)
 	{
@@ -163,11 +166,30 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 	
 	public void sendPacket(L2GameServerPacket gsp)
 	{
+		if (_isDetached)
+			return;
 		gsp.runImpl(this, getActiveChar());
 		
 		super.sendPacket(gsp);
 	}
 	
+	@Override
+	public void closeNow()
+	{
+		super.closeNow();
+		cleanMe(true);
+	}
+	
+	public boolean isDetached()
+	{
+		return _isDetached;
+	}
+	
+	public void isDetached(boolean b)
+	{
+		_isDetached = b;
+	}
+
 	public void execute(ReceivablePacket<L2GameClient> rp)
 	{
 		getPacketQueue().execute(rp);
@@ -552,6 +574,50 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 	
 	private final class DisconnectTask implements Runnable
 	{
+		/**
+		 * @see java.lang.Runnable#run()
+		 */
+		public void run()
+		{
+			boolean fast = true;
+
+			try
+			{
+				isDetached(true);
+				L2PcInstance player = L2GameClient.this.getActiveChar();
+				if (player != null && player.isInCombat())
+				{
+					fast = false;
+				}
+				cleanMe(fast);
+			}
+			catch (Exception e1)
+			{
+				_log.error("Error while disconnecting client.", e1);
+			}
+		}
+	}
+
+	public void cleanMe(boolean fast)
+	{
+		try
+		{
+			synchronized(this)
+			{
+				if (_cleanupTask == null)
+				{
+					_cleanupTask = ThreadPoolManager.getInstance().scheduleGeneral(new CleanupTask(), fast ? 500 : 15000L);
+				}
+			}
+		}
+		catch (Exception e1)
+		{
+			_log.error("Error during cleanup.", e1);
+		}
+	}
+
+	public class CleanupTask implements Runnable
+	{
 		public void run()
 		{
 			synchronized (L2GameClient.this)
@@ -562,6 +628,9 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 				_disconnected = true;
 			}
 			
+			// to prevent call cleanMe() again
+			isDetached(false);
+			
 			LoginServerThread.getInstance().sendLogout(getAccountName());
 			
 			L2PcInstance player = getActiveChar();
@@ -570,7 +639,6 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 			if (player != null) // this should only happen on connection loss
 			{
 				player.setClient(null);
-				
 				saveCharToDisk(player, true);
 				player.deleteMe();
 			}

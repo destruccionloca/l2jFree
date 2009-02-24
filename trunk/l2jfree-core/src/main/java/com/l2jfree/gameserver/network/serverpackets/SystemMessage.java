@@ -38,8 +38,9 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 public class SystemMessage extends L2GameServerPacket
 {
 	// d d (d S/d d/d dd)
-	//      |--------------> 0 - String  1-number 2-textref npcname (1000000-1002655)  3-textref itemname 4-textref skills 5-??
+	//      |--------------> 0 - String  1-number 2-textref npcname (1000000-1002655)  3-textref itemname 4-textref skills 5-fortress names
 	private static final int TYPE_ZONE_NAME = 7;
+	private static final int TYPE_FORTRESS = 5; // maybe not only for fortress, rename if needed
 	private static final int TYPE_SKILL_NAME = 4;
 	private static final int TYPE_ITEM_NAME = 3;
 	private static final int TYPE_NPC_NAME = 2;
@@ -74,6 +75,13 @@ public class SystemMessage extends L2GameServerPacket
 		_types.add(TYPE_TEXT);
 		_values.add(text);
 		
+		return this;
+	}
+
+	public SystemMessage addFortId(int number)
+	{
+		_types.add(new Integer(TYPE_FORTRESS));
+		_values.add(new Integer(number));
 		return this;
 	}
 
@@ -213,9 +221,10 @@ public class SystemMessage extends L2GameServerPacket
 				case TYPE_NUMBER:
 				case TYPE_NPC_NAME:
 				case TYPE_ITEM_NAME:
+				case TYPE_FORTRESS:
 				{
 					int t1 = (Integer) _values.get(i);
-					writeD(t1);	
+					writeD(t1);
 					break;
 				}
 				case TYPE_SKILL_NAME:

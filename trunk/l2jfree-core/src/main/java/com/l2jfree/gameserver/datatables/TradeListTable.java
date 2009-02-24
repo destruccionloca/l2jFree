@@ -41,7 +41,7 @@ public class TradeListTable
 	private static TradeListTable			_instance;
 
 	private int								_nextListId;
-	private FastMap<Integer, L2TradeList>	_lists;
+	private FastMap<Integer, L2TradeList>	_lists = new FastMap<Integer, L2TradeList>();
 
 	/** Task launching the function for restore count of Item (Clan Hall) */
 	public class RestoreCount implements Runnable
@@ -76,7 +76,7 @@ public class TradeListTable
 
 	private TradeListTable()
 	{
-		_lists = new FastMap<Integer, L2TradeList>();
+		_lists.clear();
 		load();
 	}
 

@@ -46,11 +46,16 @@ public class TakeFort implements ISkillHandler
 
 		L2PcInstance player = (L2PcInstance) activeChar;
 
+		L2Object target = player.getTarget();
+
 		if (player.getClan() == null)
 			return;
 
+		if (target == null)
+			return;
+
 		Fort fort = FortManager.getInstance().getFort(player);
-		if (fort == null || !checkIfOkToCastFlagDisplay(player, fort, true))
+		if (fort == null || !checkIfOkToCastFlagDisplay(player, fort, true, skill, target))
 			return;
 
 		fort.endOfSiege(player.getClan());
@@ -67,31 +72,43 @@ public class TakeFort implements ISkillHandler
 	 * @param activeChar The L2Character of the character placing the flag
 	 *
 	 */
-	public static boolean checkIfOkToCastFlagDisplay(L2Character activeChar, boolean isCheckOnly)
+	public static boolean checkIfOkToCastFlagDisplay(L2Character activeChar, boolean isCheckOnly, L2Skill skill, L2Object target)
 	{
-		return checkIfOkToCastFlagDisplay(activeChar, FortManager.getInstance().getFort(activeChar), isCheckOnly);
+		return checkIfOkToCastFlagDisplay(activeChar, FortManager.getInstance().getFort(activeChar), isCheckOnly, skill, target);
 	}
 
-	public static boolean checkIfOkToCastFlagDisplay(L2Character activeChar, Fort fort, boolean isCheckOnly)
+	public static boolean checkIfOkToCastFlagDisplay(L2Character activeChar, Fort fort, boolean isCheckOnly,L2Skill skill, L2Object target)
 	{
 		if (activeChar == null || !(activeChar instanceof L2PcInstance))
 			return false;
 
-		SystemMessage sm = new SystemMessage(SystemMessageId.S1);
+		SystemMessage sm;
 		L2PcInstance player = (L2PcInstance) activeChar;
 
 		if (fort == null || fort.getFortId() <= 0)
-			sm.addString("You must be on fort ground to use this skill");
+		{
+			sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
+			sm.addSkillName(skill);
+		}
 		else if (!fort.getSiege().getIsInProgress())
-			sm.addString("You can only use this skill during a siege.");
+		{
+			sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
+			sm.addSkillName(skill);
+		}
 		else if (!Util.checkIfInRange(200, player, player.getTarget(), true))
-			sm.addString("You are not in range of the flagpole.");
+		{
+			sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
+			sm.addSkillName(skill);
+		}
 		else if (fort.getSiege().getAttackerClan(player.getClan()) == null)
-			sm.addString("You must be an attacker to use this skill");
+		{
+			sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
+			sm.addSkillName(skill);
+		}
 		else
 		{
 			if (!isCheckOnly)
-				fort.getSiege().announceToPlayer("Clan " + player.getClan().getName() + " has begun to raise the flag.", true);
+				fort.getSiege().announceToPlayer(new SystemMessage(SystemMessageId.S1_TRYING_RAISE_FLAG), player.getClan().getName());
 			return true;
 		}
 

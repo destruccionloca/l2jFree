@@ -254,8 +254,8 @@ public class CharInfo extends L2GameServerPacket
 			}
 			else if (_activeChar.getTransformation() != null)
 			{
-				writeF(_activeChar.getTransformation().getCollisionRadius());
-				writeF(_activeChar.getTransformation().getCollisionHeight());
+				writeF(_activeChar.getTransformation().getCollisionRadius(_activeChar));
+				writeF(_activeChar.getTransformation().getCollisionHeight(_activeChar));
 			}
 			else if (_appearance.getSex())
 			{

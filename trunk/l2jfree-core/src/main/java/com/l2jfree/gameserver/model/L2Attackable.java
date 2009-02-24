@@ -30,6 +30,7 @@ import com.l2jfree.gameserver.ai.CtrlEvent;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2AttackableAI;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
+import com.l2jfree.gameserver.ai.L2FortSiegeGuardAI;
 import com.l2jfree.gameserver.ai.L2SiegeGuardAI;
 import com.l2jfree.gameserver.datatables.EventDroplist;
 import com.l2jfree.gameserver.datatables.ItemTable;
@@ -43,7 +44,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2SiegeGuardInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.model.actor.knownlist.AttackableKnownList;
 import com.l2jfree.gameserver.model.base.SoulCrystal;
@@ -2574,10 +2574,7 @@ public class L2Attackable extends L2NpcInstance
 		// check the region where this mob is, do not activate the AI if region is inactive.
 		if (!isInActiveRegion())
 		{
-			if (this instanceof L2SiegeGuardInstance)
-				getAI().stopAITask();
-			else
-				getAI().stopAITask();
+			getAI().stopAITask();
 		}
 	}
 

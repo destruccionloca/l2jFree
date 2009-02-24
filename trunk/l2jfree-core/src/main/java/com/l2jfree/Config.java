@@ -2027,14 +2027,11 @@ public final class Config
 	// *******************************************************************************************
 
 	public static int			FORTSIEGE_MAX_ATTACKER;
-	public static int			FORTSIEGE_MAX_DEFENDER;
-	public static int			FORTSIEGE_RESPAWN_DELAY_ATTACKER;
-	public static int			FORTSIEGE_RESPAWN_DELAY_DEFENDER;
-
-	public static int			FORTSIEGE_CT_LOSS_PENALTY;
 	public static int			FORTSIEGE_FLAG_MAX_COUNT;
 	public static int			FORTSIEGE_CLAN_MIN_LEVEL;
 	public static int			FORTSIEGE_LENGTH_MINUTES;
+	public static int			FORTSIEGE_COUNTDOWN_LENGTH;
+	public static int			FORTSIEGE_MERCHANT_DELAY;
 
 	public static long			FS_TELE_FEE_RATIO;
 	public static int			FS_TELE1_FEE;
@@ -2060,14 +2057,12 @@ public final class Config
 			Properties fortSiegeSettings = new L2Properties(SIEGE_CONFIGURATION_FILE);
 
 			FORTSIEGE_MAX_ATTACKER = Integer.parseInt(fortSiegeSettings.getProperty("AttackerMaxClans", "500"));
-			FORTSIEGE_MAX_DEFENDER = Integer.parseInt(fortSiegeSettings.getProperty("DefenderMaxClans", "500"));
-			FORTSIEGE_RESPAWN_DELAY_ATTACKER = Integer.parseInt(fortSiegeSettings.getProperty("AttackerRespawn", "30000"));
-			FORTSIEGE_RESPAWN_DELAY_DEFENDER = Integer.parseInt(fortSiegeSettings.getProperty("DefenderRespawn", "30000"));
-
-			FORTSIEGE_CT_LOSS_PENALTY = Integer.parseInt(fortSiegeSettings.getProperty("CTLossPenalty", "20000"));
 			FORTSIEGE_FLAG_MAX_COUNT = Integer.parseInt(fortSiegeSettings.getProperty("MaxFlags", "1"));
 			FORTSIEGE_CLAN_MIN_LEVEL = Integer.parseInt(fortSiegeSettings.getProperty("SiegeClanMinLevel", "4"));
-			FORTSIEGE_LENGTH_MINUTES = Integer.parseInt(fortSiegeSettings.getProperty("SiegeLength", "120"));
+			FORTSIEGE_LENGTH_MINUTES = Integer.parseInt(fortSiegeSettings.getProperty("SiegeLength", "60"));
+			FORTSIEGE_COUNTDOWN_LENGTH = Integer.decode(fortSiegeSettings.getProperty("CountDownLength", "10"));
+			FORTSIEGE_MERCHANT_DELAY = Integer.decode(fortSiegeSettings.getProperty("SuspiciousMerchantRespawnDelay", "180"));
+
 
 			FS_TELE_FEE_RATIO           = Long.parseLong(fortSiegeSettings.getProperty("FortressTeleportFunctionFeeRatio", "604800000"));
 			FS_TELE1_FEE                = Integer.parseInt(fortSiegeSettings.getProperty("FortressTeleportFunctionFeeLvl1", "1000"));

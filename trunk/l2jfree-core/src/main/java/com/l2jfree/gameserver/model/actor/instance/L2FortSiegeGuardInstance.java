@@ -20,7 +20,7 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
-import com.l2jfree.gameserver.ai.L2SiegeGuardAI;
+import com.l2jfree.gameserver.ai.L2FortSiegeGuardAI;
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
@@ -29,7 +29,8 @@ import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2SiegeClan;
-import com.l2jfree.gameserver.model.actor.knownlist.SiegeGuardKnownList;
+import com.l2jfree.gameserver.model.L2Summon;
+import com.l2jfree.gameserver.model.actor.knownlist.FortSiegeGuardKnownList;
 import com.l2jfree.gameserver.model.entity.FortSiege;
 import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
@@ -40,29 +41,23 @@ import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.tools.random.Rnd;
 
-/**
- * This class represents all guards in the world. It inherits all methods from
- * L2Attackable and adds some more such as tracking PK's or custom interactions.
- * 
- * @version $Revision: 1.11.2.1.2.7 $ $Date: 2005/04/06 16:13:40 $
- */
-public class L2SiegeGuardInstance extends L2Attackable
+public class L2FortSiegeGuardInstance extends L2Attackable
 {
-	protected final static Log	_log	= LogFactory.getLog(L2SiegeGuardInstance.class.getName());
+	private final static Log	_log	= LogFactory.getLog(L2FortSiegeGuardInstance.class.getName());
 
-	public L2SiegeGuardInstance(int objectId, L2NpcTemplate template)
+	public L2FortSiegeGuardInstance(int objectId, L2NpcTemplate template)
 	{
 		super(objectId, template);
 		getKnownList(); // Inits the knownlist
 	}
 
 	@Override
-	public SiegeGuardKnownList getKnownList()
+	public FortSiegeGuardKnownList getKnownList()
 	{
 		if (_knownList == null)
-			_knownList = new SiegeGuardKnownList(this);
+			_knownList = new FortSiegeGuardKnownList(this);
 		
-		return (SiegeGuardKnownList)_knownList;
+		return (FortSiegeGuardKnownList)_knownList;
 	}
 
 	@Override
@@ -74,7 +69,7 @@ public class L2SiegeGuardInstance extends L2Attackable
 			 synchronized(this)
 			 {
 				 if (_ai == null)
-					_ai = new L2SiegeGuardAI(new AIAccessor());
+					_ai = new L2FortSiegeGuardAI(new AIAccessor());
 				 return _ai;
 			 }
 		 }
@@ -86,7 +81,7 @@ public class L2SiegeGuardInstance extends L2Attackable
 	 * a Defender.<BR>
 	 * <BR>
 	 * 
-	 * @param attacker The L2Character that the L2SiegeGuardInstance try to
+	 * @param attacker The L2Character that the L2FortSiegeGuardInstance try to
 	 *            attack
 	 * 
 	 */
@@ -100,11 +95,11 @@ public class L2SiegeGuardInstance extends L2Attackable
 		if (player.getClan() == null)
 			return true;
 
-		boolean isCastle = (getCastle() != null && getCastle().getSiege().getIsInProgress()
-				&& !getCastle().getSiege().checkIsDefender(player.getClan()));
+		boolean isFort = ( getFort() != null && getFort().getSiege().getIsInProgress()
+				&& !getFort().getSiege().checkIsDefender(player.getClan()));
 
 		// Attackable during siege by all except defenders ( Castle or Fort )
-		return isCastle;
+		return isFort;
 	}
 
 	@Override
@@ -143,56 +138,6 @@ public class L2SiegeGuardInstance extends L2Attackable
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-		if(Config.SIEGE_ONLY_REGISTERED)
-		{
-			boolean opp = false;
-			Siege siege = SiegeManager.getInstance().getSiege(player);
-			FortSiege fortSiege = FortSiegeManager.getInstance().getSiege(player);
-			L2Clan oppClan = player.getClan();
-			//Castle Sieges
-			if (siege != null && siege.getIsInProgress() && oppClan != null)
-			{
-				for (L2SiegeClan clan : siege.getAttackerClans())
-				{
-					L2Clan cl = ClanTable.getInstance().getClan(clan.getClanId());
-	
-					if (cl == oppClan || cl.getAllyId() == player.getAllyId())
-					{
-						opp = true;
-						break;
-					}
-				}
-	
-				for (L2SiegeClan clan : siege.getDefenderClans())
-				{
-					L2Clan cl = ClanTable.getInstance().getClan(clan.getClanId());
-	
-					if (cl == oppClan || cl.getAllyId() == player.getAllyId())
-					{
-						opp = true;
-						break;
-					}
-				}
-			}
-			//Fort Sieges
-			else if (fortSiege != null && fortSiege.getIsInProgress() && oppClan != null)
-			{
-				for (L2SiegeClan clan : fortSiege.getAttackerClans())
-				{
-					L2Clan cl = ClanTable.getInstance().getClan(clan.getClanId());
-	
-					if (cl == oppClan || cl.getAllyId() == player.getAllyId())
-					{
-						opp = true;
-						break;
-					}
-				}
-			}
-			
-			if(!opp)
-				return;
-		}
-			
 		if (!canTarget(player))
 			return;
 
@@ -255,8 +200,18 @@ public class L2SiegeGuardInstance extends L2Attackable
 		if (attacker == null)
 			return;
 
-		if (!(attacker instanceof L2SiegeGuardInstance))
+		if (!(attacker instanceof L2FortSiegeGuardInstance))
 		{
+			if (attacker instanceof L2PlayableInstance)
+			{
+				L2PcInstance player = null;
+				if (attacker instanceof L2PcInstance)
+					player = ((L2PcInstance)attacker);
+				else if (attacker instanceof L2Summon)
+					player = ((L2Summon)attacker).getOwner();
+				if (player != null && player.getClan() != null && player.getClan().getHasFort() == getFort().getFortId())
+					return;
+			}
 			super.addDamageHate(attacker, damage, aggro);
 		}
 	}

@@ -34,6 +34,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.base.ClassId;
+import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.PartySmallWindowAll;
@@ -758,25 +759,55 @@ public class AdminEditChar implements IAdminCommandHandler
 	 */
 	private void findCharactersPerIp(L2PcInstance activeChar, String IpAdress) throws IllegalArgumentException
 	{
-		if (!IpAdress.matches("^(?:(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2(?:[0-4][0-9]|5[0-5]))\\.){3}(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2(?:[0-4][0-9]|5[0-5]))$"))
-			throw new IllegalArgumentException("Malformed IPv4 number");
+		boolean findDisconnected = false;
+		
+		if (IpAdress.equals("disconnected"))
+		{
+			findDisconnected = true;
+		}
+		else
+		{
+			if (!IpAdress.matches("^(?:(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2(?:[0-4][0-9]|5[0-5]))\\.){3}(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2(?:[0-4][0-9]|5[0-5]))$"))
+				throw new IllegalArgumentException("Malformed IPv4 number");
+		}
+
 		Collection<L2PcInstance> allPlayers = L2World.getInstance().getAllPlayers();
 		L2PcInstance[] players = allPlayers.toArray(new L2PcInstance[allPlayers.size()]);
 		int CharactersFound = 0;
+		L2GameClient client;
 		String name, ip = "0.0.0.0";
 		TextBuilder replyMSG = new TextBuilder();
 		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
 		adminReply.setFile("data/html/admin/ipfind.htm");
-		for (L2PcInstance element : players)
+		for (L2PcInstance player : players)
 		{
-			ip = element.getClient().getSocket().getInetAddress().getHostAddress();
-			if (ip.equals(IpAdress))
+			client = player.getClient();
+			if (client.isDetached())
 			{
-				name = element.getName();
-				CharactersFound = CharactersFound + 1;
-				replyMSG.append("<tr><td width=80><a action=\"bypass -h admin_character_list " + name + "\">" + name + "</a></td><td width=110>"
-						+ element.getTemplate().getClassName() + "</td><td width=40>" + element.getLevel() + "</td></tr>");
+				if (!findDisconnected)
+				{
+					continue;
+				}
 			}
+			else
+			{
+				if (findDisconnected)
+				{
+					continue;
+				}
+				else
+				{
+					ip = client.getSocket().getInetAddress().getHostAddress();
+					if (!ip.equals(IpAdress))
+						continue;
+				}
+			}
+			
+			name = player.getName();
+			CharactersFound = CharactersFound + 1;
+			replyMSG.append("<tr><td width=80><a action=\"bypass -h admin_character_list " + name + "\">" + name + "</a></td><td width=110>" + player.getTemplate().getClassName() + "</td><td width=40>" + player.getLevel()
+					+ "</td></tr>");
+
 			if (CharactersFound > 20)
 				break;
 		}

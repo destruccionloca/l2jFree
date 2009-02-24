@@ -20,6 +20,7 @@ import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2FortSiegeGuardInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeGuardInstance;
 
 /**
@@ -164,7 +165,11 @@ public class L2DoorAI extends L2CharacterAI
 			getActor().getKnownList().updateKnownObjects();
 			
 			for (L2SiegeGuardInstance guard : ((L2DoorInstance)getActor()).getKnownSiegeGuards())
-				if (getActor().isInsideRadius(guard, guard.getFactionRange(), false, true))
+				if (getActor().isInsideRadius(guard, guard.getFactionRange(), false, true) && Math.abs(_attacker.getZ() - guard.getZ()) < 200)
+					guard.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, _attacker, 15);
+
+			for (L2FortSiegeGuardInstance guard : ((L2DoorInstance)getActor()).getKnownFortSiegeGuards())
+				if (_actor.isInsideRadius(guard, guard.getFactionRange(), false, true) && Math.abs(_attacker.getZ() - guard.getZ()) < 200)
 					guard.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, _attacker, 15);
 		}
 	}

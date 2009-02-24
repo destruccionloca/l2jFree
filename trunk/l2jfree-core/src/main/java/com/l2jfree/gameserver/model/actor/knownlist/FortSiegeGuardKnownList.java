@@ -18,17 +18,18 @@ import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Summon;
+import com.l2jfree.gameserver.model.actor.instance.L2FortCommanderInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2FortSiegeGuardInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2SiegeGuardInstance;
 
-public class SiegeGuardKnownList extends AttackableKnownList
+public class FortSiegeGuardKnownList extends AttackableKnownList
 {
 	// =========================================================
 	// Data Field
 	
 	// =========================================================
 	// Constructor
-	public SiegeGuardKnownList(L2SiegeGuardInstance activeChar)
+	public FortSiegeGuardKnownList(L2FortSiegeGuardInstance activeChar)
 	{
 		super(activeChar);
 	}
@@ -73,8 +74,10 @@ public class SiegeGuardKnownList extends AttackableKnownList
 	// =========================================================
 	// Property - Public
 	@Override
-	public final L2SiegeGuardInstance getActiveChar()
+	public final L2FortSiegeGuardInstance getActiveChar()
 	{
-		return (L2SiegeGuardInstance) super.getActiveChar();
+		if (super.getActiveChar() instanceof L2FortCommanderInstance)
+			return (L2FortCommanderInstance) super.getActiveChar();
+		return (L2FortSiegeGuardInstance) super.getActiveChar();
 	}
 }

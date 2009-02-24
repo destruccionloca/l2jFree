@@ -12925,13 +12925,13 @@ public enum SystemMessageId
 	 * ID: 2089<br>
 	 * Message: $s1 minute(s) until the fortress battle starts.
 	 */
-	S1_MINUTES_UNTIL_THE_FORTRESS_BATTLE_STARTS2(2089),
+	S1_SECONDS_UNTIL_THE_FORTRESS_BATTLE_STARTS(2089),
 
 	/**
 	 * ID: 2090<br>
 	 * Message: The fortress battle $s1 has begun.
 	 */
-	THE_FORTRESS_BATTLE_S1_AS_BEGUN(2090),
+	THE_FORTRESS_BATTLE_S1_HAS_BEGUN(2090),
 
 	/**
 	 * ID: 2091<br>
@@ -13411,15 +13411,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2165<br>
-	 * Message: The door of the commanding barracks has been opened.
+	 * Message: All barracks are occupied.
 	 */
-	BARRACKS_DOOR_OPENED1(2165),
-
-	/**
-	 * ID: 2166<br>
-	 * Message: The door of the commanding barracks has been opened.
-	 */
-	BARRACKS_DOOR_OPENED2(2166),
+	ALL_BARRACKS_OCCUPIED(2166),
 
 	/**
 	 * ID: 2167<br>
@@ -13435,7 +13429,7 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2169<br>
-	 * Message: It has been registered to $s1's fortress battle.
+	 * Message: Your clan has been registered to $s1's fortress battle.
 	 */
 	REGISTERED_TO_S1_FORTRESS_BATTLE(2169),
 
@@ -14106,10 +14100,10 @@ public enum SystemMessageId
 	AREA_CANNOT_CANCEL_PET_SUMMON(2275),
 
 	/**
-	 * ID: 2276<br>
-	 * Message: The rebel army recaptured the fortress.
-	 */
-	REBELS_RECAPTURED_FORTRESS(2276),
+	* ID: 2276<br>
+	* Message: The rebel army recaptured the fortress.
+	*/
+	NPCS_RECAPTURED_FORTRESS(2276),
 
 	/**
 	 * ID: 2277<br>

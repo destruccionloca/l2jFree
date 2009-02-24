@@ -171,9 +171,9 @@ public class DoorTable
 		if (st.hasMoreTokens())
 			unlockable = Boolean.parseBoolean(st.nextToken());
 
-		boolean startOpen = false;
+		boolean isCommanderDoor = false;
 		if (st.hasMoreTokens())
-			startOpen = Boolean.parseBoolean(st.nextToken());
+			isCommanderDoor = Boolean.parseBoolean(st.nextToken());
 		
 		StatsSet npcDat = new StatsSet();
 		npcDat.set("npcId", id);
@@ -235,7 +235,7 @@ public class DoorTable
 		}
 		template.setCollisionRadius(Math.min(x - ax, y - ay));
 		door.getStatus().setCurrentHpMp(door.getMaxHp(), door.getMaxMp());
-		door.setOpen(startOpen);
+		door.setIsCommanderDoor(isCommanderDoor);
 		door.getPosition().setXYZInvisible(x, y, z);
 
 		return door;
@@ -271,6 +271,7 @@ public class DoorTable
 	public void checkAutoOpen()
 	{
 		for (L2DoorInstance doorInst : _staticItems.values())
+		{
 			// Garden of Eva (every 7 minutes)
 			if (doorInst.getDoorName().startsWith("goe"))
 				doorInst.setAutoActionDelay(420000);
@@ -296,6 +297,7 @@ public class DoorTable
 		else if (doorInst.getDoorName().startsWith("Normils_garden")) 
 		    doorInst.setAutoActionDelay(900000);
 		*/
+		}
 	}
 	public boolean checkIfDoorsBetween(AbstractNodeLoc start, AbstractNodeLoc end)
 	{

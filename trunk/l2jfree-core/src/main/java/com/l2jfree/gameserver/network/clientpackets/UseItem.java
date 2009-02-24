@@ -20,6 +20,7 @@ import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.handler.ItemHandler;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
+import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -276,7 +277,10 @@ public class UseItem extends L2GameClientPacket
 		if (item.isEquipable())
 		{
 			if (activeChar.isDisarmed())
+			{
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.NO_CONDITION_TO_EQUIP));
 				return;
+			}
 
 			if (!((L2Equip) item.getItem()).allowEquip(activeChar))
 			{
@@ -347,8 +351,7 @@ public class UseItem extends L2GameClientPacket
 				}
 				if (activeChar.isMounted() || (activeChar._inEventCTF && activeChar._haveFlagCTF))
 				{
-					if (activeChar._inEventCTF && activeChar._haveFlagCTF)
-						activeChar.sendMessage("This item can not be equipped when you have the flag.");
+					activeChar.sendPacket(new SystemMessage(SystemMessageId.NO_CONDITION_TO_EQUIP));
 					return;
 				}
 			}
@@ -365,10 +368,27 @@ public class UseItem extends L2GameClientPacket
 				return;
 			}
 
+			// prevent players to equip weapon while wearing combat flag
+			if (activeChar.getActiveWeaponItem() != null && activeChar.getActiveWeaponItem().getItemId() == 9819 && (bodyPart == L2Item.SLOT_LR_HAND || bodyPart == L2Item.SLOT_L_HAND || bodyPart == L2Item.SLOT_R_HAND))
+			{
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.NO_CONDITION_TO_EQUIP));
+				return;
+			}
+
 			// Don't allow weapon/shield equipment if a cursed weapon is equiped
 			if (activeChar.isCursedWeaponEquipped()
 					&& ((bodyPart == L2Item.SLOT_LR_HAND || bodyPart == L2Item.SLOT_L_HAND || bodyPart == L2Item.SLOT_R_HAND) || itemId == 6408)) // Don't allow to put formal wear
 				return;
+
+			// Fortress siege combat flags can't be unequipped
+			if (itemId == 9819)
+				return;
+
+			if (!activeChar.isHero() && !activeChar.isGM() && item.isHeroItem() && Config.ALT_STRICT_HERO_SYSTEM)
+				return;
+
+			if (FortSiegeManager.getInstance().isCombat(item.getItemId()))
+				return;	//no message
 
 			if (activeChar.isAttackingNow() && !activeChar.isInOlympiadMode())
 			{
@@ -382,13 +402,6 @@ public class UseItem extends L2GameClientPacket
 						(activeChar.getAttackEndTime() - GameTimeController.getGameTicks()) * GameTimeController.MILLIS_IN_TICK);
 				return;
 			}
-
-			// Fortress siege combat flags can't be unequipped
-			if (itemId == 9819)
-				return;
-
-			if (!activeChar.isHero() && !activeChar.isGM() && item.isHeroItem() && Config.ALT_STRICT_HERO_SYSTEM)
-				return;
 
 			// Equip or unEquip
 			activeChar.useEquippableItem(item, true);

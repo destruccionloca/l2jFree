@@ -30,10 +30,14 @@ import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
+import com.l2jfree.gameserver.instancemanager.FortManager;
+import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2ClanMember;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Castle;
+import com.l2jfree.gameserver.model.entity.Fort;
+import com.l2jfree.gameserver.model.entity.FortSiege;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.PledgeShowInfoUpdate;
 import com.l2jfree.gameserver.network.serverpackets.PledgeShowMemberListAll;
@@ -220,6 +224,14 @@ public class ClanTable
 				castle.getSiege().removeSiegeClan(clanId);
 			}
 		}
+		int fortId = clan.getHasFort();
+		if (fortId == 0)
+		{
+			for (FortSiege siege : FortSiegeManager.getInstance().getSieges())
+			{
+				siege.removeSiegeClan(clanId);
+			}
+		}
 
 		L2ClanMember leaderMember = clan.getLeader();
 		if (leaderMember == null)
@@ -271,6 +283,16 @@ public class ClanTable
 				statement.setInt(2, castleId);
 				statement.execute();
 				statement.close();
+			}
+			if (fortId != 0)
+			{
+				Fort fort = FortManager.getInstance().getFortById(fortId);
+				if (fort != null)
+				{
+					L2Clan owner = fort.getOwnerClan();
+					if (clan == owner)
+						fort.removeOwner(true);
+				}
 			}
 
 			if (_log.isDebugEnabled())

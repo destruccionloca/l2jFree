@@ -409,7 +409,11 @@ public class Castle extends Siegeable
 
 		// if clan have fortress, remove it
 		if (clan != null && clan.getHasFort() > 0)
-			FortManager.getInstance().getFortByOwner(clan).removeOwner(clan);
+		{
+			Fort fort = FortManager.getInstance().getFortByOwner(clan);
+			if (fort != null)
+				fort.removeOwner(true);
+		}
 
 		if (getSiege().getIsInProgress()) // If siege in progress
 			getSiege().midVictory(); // Mid victory phase of siege
