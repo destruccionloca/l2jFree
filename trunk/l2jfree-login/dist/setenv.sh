@@ -19,7 +19,7 @@ CLASSPATH=${CLASSPATH}:c3p0-0.9.1.2.jar
 
 # for logging usage
 CLASSPATH=${CLASSPATH}:commons-logging-1.1.jar
-CLASSPATH=${CLASSPATH}:log4j-1.2.12.jar
+CLASSPATH=${CLASSPATH}:log4j-1.2.14.jar
 
 # for common input output 
 CLASSPATH=${CLASSPATH}:commons-io-1.2.jar
@@ -28,7 +28,7 @@ CLASSPATH=${CLASSPATH}:commons-io-1.2.jar
 CLASSPATH=${CLASSPATH}:dom4j-1.6.1.jar
 
 # for performance usage
-CLASSPATH=${CLASSPATH}:javolution-1.5.4.2.6.jar
+CLASSPATH=${CLASSPATH}:javolution-1.5.5.2.6.jar
 
 # main jar
 CLASSPATH=${CLASSPATH}:l2j-commons-1.1.10.jar
