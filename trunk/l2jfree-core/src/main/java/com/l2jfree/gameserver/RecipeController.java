@@ -233,7 +233,7 @@ public class RecipeController
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		factory.setValidating(false);
 		factory.setIgnoringComments(true);
-		File file = new File(Config.DATAPACK_ROOT + "/data/" + RECIPES_FILE);
+		File file = new File(Config.DATAPACK_ROOT, "data/" + RECIPES_FILE);
 		if (file.exists())
 		{
 			Document doc = factory.newDocumentBuilder().parse(file);

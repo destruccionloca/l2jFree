@@ -34,6 +34,7 @@ public final class PathCreator
 	{
 		new File(Config.DATAPACK_ROOT, "data/crests").mkdirs();
 		new File(Config.DATAPACK_ROOT, "data/pathnode").mkdirs();
+		new File(Config.DATAPACK_ROOT, "data/serial").mkdirs();
 		_log.info("Preparations: done");
 	}
 }

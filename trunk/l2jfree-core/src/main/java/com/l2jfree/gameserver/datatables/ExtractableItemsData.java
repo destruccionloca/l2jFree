@@ -59,11 +59,11 @@ public class ExtractableItemsData
 
 		try
 		{
-			s = new Scanner(new File(Config.DATAPACK_ROOT, "/data/extractable_items.csv"));
+			s = new Scanner(new File(Config.DATAPACK_ROOT, "data/extractable_items.csv"));
 		}
 		catch (Exception e)
 		{
-			_log.warn("Extractable items data: Can not find '" + Config.DATAPACK_ROOT + "/data/extractable_items.csv'");
+			_log.warn("Extractable items data: Can not find '" + Config.DATAPACK_ROOT + "data/extractable_items.csv'");
 			return;
 		}
 

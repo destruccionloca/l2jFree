@@ -309,7 +309,7 @@ public class AdminTeleport implements IAdminCommandHandler
 
 	private void delbookmark(String Name)
 	{
-		File file = new File(Config.DATAPACK_ROOT+"/"+"data/html/admin/tele/bookmark.txt");
+		File file = new File(Config.DATAPACK_ROOT, "data/html/admin/tele/bookmark.txt");
 		LineNumberReader lnr = null;
 		String bookmarks = "";
 
@@ -352,7 +352,7 @@ public class AdminTeleport implements IAdminCommandHandler
 	// L2J_JP ADD
 	private void bookmark(L2PcInstance activeChar, String Name)
 	{
-		File file = new File(Config.DATAPACK_ROOT + "/" + "data/html/admin/tele/bookmark.txt");
+		File file = new File(Config.DATAPACK_ROOT, "data/html/admin/tele/bookmark.txt");
 		LineNumberReader lnr = null;
 		String bookmarks = "";
 		String table = "";

@@ -192,7 +192,7 @@ public class AugmentationData
 			factory.setValidating(false);
 			factory.setIgnoringComments(true);
 
-			File file = new File(Config.DATAPACK_ROOT + "/data/stats/augmentation/augmentation_skillmap.xml");
+			File file = new File(Config.DATAPACK_ROOT, "data/stats/augmentation/augmentation_skillmap.xml");
 			if (!file.exists())
 			{
 				if (_log.isDebugEnabled())
@@ -256,7 +256,7 @@ public class AugmentationData
 				factory.setValidating(false);
 				factory.setIgnoringComments(true);
 
-				File file = new File(Config.DATAPACK_ROOT + "/data/stats/augmentation/augmentation_stats" + i + ".xml");
+				File file = new File(Config.DATAPACK_ROOT, "data/stats/augmentation/augmentation_stats" + i + ".xml");
 				if (!file.exists())
 				{
 					if (_log.isDebugEnabled())

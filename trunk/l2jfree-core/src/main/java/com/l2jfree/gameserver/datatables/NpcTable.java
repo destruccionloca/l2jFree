@@ -733,7 +733,7 @@ public class NpcTable
 					quest.unload();
 				}
 				// now load all scripts
-				File scripts = new File(Config.DATAPACK_ROOT + "/data/scripts.cfg");
+				File scripts = new File(Config.DATAPACK_ROOT, "data/scripts.cfg");
 				L2ScriptEngineManager.getInstance().executeScriptList(scripts);
 				QuestManager.getInstance().report();
 			}
