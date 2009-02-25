@@ -180,7 +180,7 @@ public final class EffectSignetMDam extends L2Effect
 						target.breakCast();
 					}
 					caster.sendDamageMessage(target, mdam, mcrit, false, false);
-					target.reduceCurrentHp(mdam, caster);
+					target.reduceCurrentHp(mdam, caster, getSkill());
 				}
 				target.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, caster);
 			}

@@ -197,7 +197,7 @@ public class Mdam implements ICubicSkillHandler
 						}
 					}
 				}
-				target.reduceCurrentHp(damage, activeChar);
+				target.reduceCurrentHp(damage, activeChar, skill);
 				if (damage > 5000 && activeChar instanceof L2PcInstance)
 				{
 					String name = "";
@@ -285,7 +285,7 @@ public class Mdam implements ICubicSkillHandler
 					}
 				}
 
-				target.reduceCurrentHp(damage, activeCubic.getOwner());
+				target.reduceCurrentHp(damage, activeCubic.getOwner(), skill);
 			}
 		}
 	}

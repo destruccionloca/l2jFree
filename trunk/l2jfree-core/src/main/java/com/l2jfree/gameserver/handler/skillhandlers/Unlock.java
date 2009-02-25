@@ -148,7 +148,7 @@ public class Unlock implements ISkillHandler
 					chest.setSpecialDrop();
 					chest.setMustRewardExpSp(false);
 					chest.setInteracted();
-					chest.reduceCurrentHp(chest.getMaxHp(), activeChar);
+					chest.reduceCurrentHp(chest.getMaxHp(), activeChar, skill);
 				}
 				else
 				{

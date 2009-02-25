@@ -22,6 +22,7 @@ import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2SiegeClan;
+import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.model.entity.FortSiege;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -155,13 +156,13 @@ public class L2SiegeFlagInstance extends L2NpcInstance
 	}
 
 	@Override
-	public void reduceCurrentHp(double damage, L2Character attacker)
+	public void reduceCurrentHp(double damage, L2Character attacker, boolean awake, boolean isDOT, L2Skill skill)
 	{
 		// Advanced Headquarters have double HP.
 		if(_isAdvanced)
 			 damage /= 2;
 
-		super.reduceCurrentHp(damage, attacker);
+		super.reduceCurrentHp(damage, attacker, awake, isDOT, skill);
 
 		if (canTalk())
 		{

@@ -7402,15 +7402,20 @@ public abstract class L2Character extends L2Object
 	// Method - Public
 	public void reduceCurrentHp(double i, L2Character attacker)
 	{
-		reduceCurrentHp(i, attacker, true, false);
+		reduceCurrentHp(i, attacker, true, false, null);
 	}
 
-	public void reduceCurrentHp(double i, L2Character attacker, boolean awake)
+	public void reduceCurrentHp(double i, L2Character attacker, L2Skill skill)
 	{
-		reduceCurrentHp(i, attacker, awake, false);
+		reduceCurrentHp(i, attacker, true, false, skill);
 	}
 
-	public void reduceCurrentHp(double i, L2Character attacker, boolean awake, boolean isDOT)
+	public void reduceCurrentHp(double i, L2Character attacker, boolean awake, L2Skill skill)
+	{
+		reduceCurrentHp(i, attacker, awake, false, skill);
+	}
+
+	public void reduceCurrentHp(double i, L2Character attacker, boolean awake, boolean isDOT, L2Skill skill)
 	{
 		getStatus().reduceHp(i, attacker, awake, isDOT);
 	}

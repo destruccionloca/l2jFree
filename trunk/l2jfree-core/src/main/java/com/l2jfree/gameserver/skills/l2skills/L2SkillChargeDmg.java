@@ -92,7 +92,7 @@ public class L2SkillChargeDmg extends L2Skill
 			else if (damage > 0)
 			{
 				double finalDamage = damage * modifier;
-				target.reduceCurrentHp(finalDamage, activeChar);
+				target.reduceCurrentHp(finalDamage, activeChar, this);
 
 				activeChar.sendDamageMessage(target, (int) finalDamage, false, crit, false);
 

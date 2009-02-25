@@ -159,7 +159,7 @@ public class Blow implements ISkillHandler
 								tDmg = (int) summon.getStatus().getCurrentHp() - 1;
 							if (tDmg > 0)
 							{
-								summon.reduceCurrentHp(tDmg, activeChar);
+								summon.reduceCurrentHp(tDmg, activeChar, skill);
 								damage -= tDmg;
 							}
 						}
@@ -204,7 +204,7 @@ public class Blow implements ISkillHandler
 					player.sendPacket(smsg);
 				}
 				else
-					target.reduceCurrentHp(damage, activeChar);
+					target.reduceCurrentHp(damage, activeChar, skill);
 
 				// Manage attack or cast break of the target (calculating rate, sending message...)
 				if (!target.isRaid() && Formulas.getInstance().calcAtkBreak(target, damage))

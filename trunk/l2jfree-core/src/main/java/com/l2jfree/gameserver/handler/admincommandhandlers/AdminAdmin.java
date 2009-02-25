@@ -465,7 +465,6 @@ public class AdminAdmin implements IAdminCommandHandler
 				else if (type.startsWith("npc"))
 				{
 					NpcTable.getInstance().cleanUp();
-					QuestManager.getInstance().reloadAllQuests();
 					NpcTable.getInstance().reloadAll();
 					activeChar.sendMessage("Npcs reloaded");
 				}

@@ -40,7 +40,7 @@ public class BallistaBomb implements ISkillHandler
 		{
 			if (Rnd.get(3) == 0)
 			{
-				target.reduceCurrentHp(target.getMaxHp(), activeChar);
+				target.reduceCurrentHp(target.getMaxHp(), activeChar, skill);
 			}
 		}
 	}

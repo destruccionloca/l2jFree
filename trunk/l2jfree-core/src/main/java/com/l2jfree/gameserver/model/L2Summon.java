@@ -871,9 +871,9 @@ public abstract class L2Summon extends L2PlayableInstance
 		}
 	}
 
-	public void reduceCurrentHp(int damage, L2Character attacker, boolean awake, boolean isDOT)
+	public void reduceCurrentHp(int damage, L2Character attacker, boolean awake, boolean isDOT, L2Skill skill)
 	{
-		super.reduceCurrentHp(damage, attacker);
+		super.reduceCurrentHp(damage, attacker, awake, isDOT, skill);
 
 		if (isDOT)
 			return;

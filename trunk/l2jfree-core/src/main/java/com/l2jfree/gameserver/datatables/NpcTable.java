@@ -719,29 +719,7 @@ public class NpcTable
 	public void reloadAll()
 	{
 		restoreNpcData();
-
-		// Reload quest templates
-		FastMap<String, Quest> quests = QuestManager.getInstance().getQuests();
-		if (quests != null && quests.size() != 0)
-		{
-			_log.info("Reloading Server Scripts");
-			try
-			{
-				// unload all scripts
-				for (Quest quest : quests.values())
-				{
-					quest.unload();
-				}
-				// now load all scripts
-				File scripts = new File(Config.DATAPACK_ROOT, "data/scripts.cfg");
-				L2ScriptEngineManager.getInstance().executeScriptList(scripts);
-				QuestManager.getInstance().report();
-			}
-			catch (IOException ioe)
-			{
-				_log.fatal("Failed loading scripts.cfg, no script going to be loaded");
-			}
-		}
+		QuestManager.getInstance().reloadAllQuests();
 	}
 
 	public void cleanUp()

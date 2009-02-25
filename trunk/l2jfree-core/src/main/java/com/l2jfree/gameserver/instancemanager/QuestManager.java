@@ -105,12 +105,12 @@ public class QuestManager extends ScriptManager<Quest>
 
 	public final void report()
 	{
-		_log.info("Loaded: " + getQuests().size() + " quests");
+		_log.info("Loaded: " + _quests.size() + " quests");
 	}
 
 	public final void save()
 	{
-		for (Quest q : getQuests().values())
+		for (Quest q : _quests.values())
 		{
 			q.saveGlobalData();
 		}
@@ -120,12 +120,12 @@ public class QuestManager extends ScriptManager<Quest>
 	// Property - Public
 	public final Quest getQuest(String name)
 	{
-		return getQuests().get(name);
+		return _quests.get(name);
 	}
 
 	public final Quest getQuest(int questId)
 	{
-		for (Quest q : getQuests().values())
+		for (Quest q : _quests.values())
 		{
 			if (q.getQuestIntId() == questId)
 				return q;
@@ -139,7 +139,7 @@ public class QuestManager extends ScriptManager<Quest>
 		{
 			throw new IllegalArgumentException("Quest argument cannot be null");
 		}
-		Quest old = this.getQuests().get(newQuest.getName());
+		Quest old = _quests.get(newQuest.getName());
 
 		// FIXME: unloading the old quest at this point is a tad too late.
 		// the new quest has already initialized itself and read the data, starting
@@ -155,19 +155,12 @@ public class QuestManager extends ScriptManager<Quest>
 			old.unload();
 			_log.info("Replaced: (" + old.getName() + ") with a new version (" + newQuest.getName() + ")");
 		}
-		this.getQuests().put(newQuest.getName(), newQuest);
+		_quests.put(newQuest.getName(), newQuest);
 	}
 
 	public final boolean removeQuest(Quest q)
 	{
-		return this.getQuests().remove(q.getName()) != null;
-	}
-
-	public final FastMap<String, Quest> getQuests()
-	{
-		if (_quests == null)
-			_quests = new FastMap<String, Quest>();
-		return (FastMap<String, Quest>) _quests;
+		return _quests.remove(q.getName()) != null;
 	}
 
 	/**

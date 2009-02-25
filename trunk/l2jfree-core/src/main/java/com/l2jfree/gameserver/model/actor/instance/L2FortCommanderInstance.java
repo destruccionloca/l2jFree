@@ -22,6 +22,7 @@ import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.instancemanager.FortSiegeManager.SiegeSpawn;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.network.serverpackets.NpcSay;
@@ -59,14 +60,14 @@ public class L2FortCommanderInstance extends L2FortSiegeGuardInstance
 	}
 
 	@Override
-	public void addDamageHate(L2Character attacker, int damage, int aggro)
+	public void addDamageHate(L2Character attacker, int damage, int aggro, L2Skill skill)
 	{
 		if (attacker == null)
 			return;
 
 		if (!(attacker instanceof L2FortCommanderInstance))
 		{
-			super.addDamageHate(attacker, damage, aggro);
+			super.addDamageHate(attacker, damage, aggro, skill);
 		}
 	}
 
@@ -102,7 +103,7 @@ public class L2FortCommanderInstance extends L2FortSiegeGuardInstance
 	}
 
 	@Override
-	public final void addDamage(L2Character attacker, int damage)
+	public final void addDamage(L2Character attacker, int damage, L2Skill skill)
 	{
 		L2Spawn spawn = getSpawn();
 		if (spawn != null && canTalk())
@@ -136,16 +137,11 @@ public class L2FortCommanderInstance extends L2FortSiegeGuardInstance
 				}
 			}
 		}
-		super.addDamage(attacker, damage);
+		super.addDamage(attacker, damage, skill);
 	}
 
 	private class ScheduleTalkTask implements Runnable
 	{
-		
-		public ScheduleTalkTask()
-		{
-		}
-		
 		public void run()
 		{
 			setCanTalk(true);

@@ -1940,7 +1940,7 @@ public final class Formulas
 			if (skill.getLethalChance2() > 0 && chance < calcLethal(activeChar, target, skill.getLethalChance2(), skill.getMagicLevel()))
 			{
 				if (target instanceof L2NpcInstance)
-					target.reduceCurrentHp(target.getStatus().getCurrentHp() - 1, activeChar);
+					target.reduceCurrentHp(target.getStatus().getCurrentHp() - 1, activeChar, skill);
 				else if (target instanceof L2PcInstance) // If is a active player set his HP and CP to 1
 				{
 					L2PcInstance player = (L2PcInstance) target;
@@ -1965,7 +1965,7 @@ public final class Formulas
 					}
 				}
 				else if (target instanceof L2NpcInstance) // If is a monster remove first damage and after 50% of current hp
-					target.reduceCurrentHp(target.getStatus().getCurrentHp() / 2, activeChar);
+					target.reduceCurrentHp(target.getStatus().getCurrentHp() / 2, activeChar, skill);
 				activeChar.sendPacket(SystemMessageId.HALF_KILL);
 			}
 			else
@@ -2418,13 +2418,14 @@ public final class Formulas
 	public double calcSkillProficiency(L2Skill skill, L2Character attacker, L2Character target)
 	{
 		double multiplier = 1; // initialize...
+
 		if (skill != null)
 		{
 			// Calculate skilltype vulnerabilities
 			L2SkillType type = skill.getSkillType();
 
 			// For additional effects on PDAM and MDAM skills (like STUN, SHOCK, PARALYZE...)
-			if (type != null && (type == L2SkillType.PDAM || type == L2SkillType.MDAM))
+			if (type == L2SkillType.PDAM || type == L2SkillType.MDAM || type == L2SkillType.DRAIN || type == L2SkillType.WEAPON_SA)
 				type = skill.getEffectType();
 
 			if (type != null)

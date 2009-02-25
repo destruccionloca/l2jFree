@@ -20,6 +20,7 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.ai.L2NpcWalkerAI;
 import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
@@ -96,7 +97,7 @@ public class L2NpcWalkerInstance extends L2NpcInstance
 	 * @param awake  ignore it
 	 */
 	@Override
-	public void reduceCurrentHp(double i, L2Character attacker, boolean awake, boolean isDOT)
+	public void reduceCurrentHp(double i, L2Character attacker, boolean awake, boolean isDOT, L2Skill skill)
 	{
 	}
 

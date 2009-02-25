@@ -447,7 +447,7 @@ public class L2Attackable extends L2NpcInstance
 	 * @param awake The awake state (If True : stop sleeping)
 	 */
 	@Override
-	public void reduceCurrentHp(double damage, L2Character attacker, boolean awake, boolean isDOT)
+	public void reduceCurrentHp(double damage, L2Character attacker, boolean awake, boolean isDOT, L2Skill skill)
 	{
 		/*
 		if ((this instanceof L2SiegeGuardInstance) && (attacker instanceof L2SiegeGuardInstance))
@@ -475,7 +475,7 @@ public class L2Attackable extends L2NpcInstance
 
 		// Add damage and hate to the attacker AggroInfo of the L2Attackable _aggroList
 		if (attacker != null)
-			addDamage(attacker, (int) damage);
+			addDamage(attacker, (int) damage, skill);
 
 		// If this L2Attackable is a L2MonsterInstance and it has spawned minions, call its minions to battle
 		if (this instanceof L2MonsterInstance)
@@ -485,14 +485,14 @@ public class L2Attackable extends L2NpcInstance
 			{
 				master = ((L2MinionInstance) this).getLeader();
 				if (!master.isInCombat() && !master.isDead())
-					master.addDamage(attacker, 1);
+					master.addDamage(attacker, 1, skill);
 			}
 			if (master.hasMinions())
 				master.callMinionsToAssist(attacker);
 		}
 
 		// Reduce the current HP of the L2Attackable and launch the doDie Task if necessary
-		super.reduceCurrentHp(damage, attacker, awake, isDOT);
+		super.reduceCurrentHp(damage, attacker, awake, isDOT, skill);
 	}
 
 	public synchronized void setMustRewardExpSp(boolean value)
@@ -929,9 +929,14 @@ public class L2Attackable extends L2NpcInstance
 	 * @param attacker The L2Character that gave damages to this L2Attackable
 	 * @param damage The number of damages given by the attacker L2Character
 	 */
+	public void addDamage(L2Character attacker, int damage, L2Skill skill)
+	{
+		addDamageHate(attacker, damage, damage, skill);
+	}
+
 	public void addDamage(L2Character attacker, int damage)
 	{
-		addDamageHate(attacker, damage, damage);
+		addDamageHate(attacker, damage, damage, null);
 	}
 
 	/**
@@ -943,7 +948,7 @@ public class L2Attackable extends L2NpcInstance
 	 * @param damage The number of damages given by the attacker L2Character
 	 * @param aggro The hate (=damage) given by the attacker L2Character
 	 */
-	public void addDamageHate(L2Character attacker, int damage, int aggro)
+	public void addDamageHate(L2Character attacker, int damage, int aggro, L2Skill skill)
 	{
 		// TODO: Aggro calculation ought to be removed from here and placed within
 		// onAttack and onSkillSee in the AI Script (Fulminus)
@@ -1012,7 +1017,7 @@ public class L2Attackable extends L2NpcInstance
 			getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
 
 		// Notify the L2Attackable AI with EVT_ATTACKED
-		if (!this.isDead())
+		if (!isDead())
 		{
 			getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, attacker);
 
@@ -1025,7 +1030,7 @@ public class L2Attackable extends L2NpcInstance
 					if (getTemplate().getEventQuests(Quest.QuestEventType.ON_ATTACK) != null)
 					{
 						for (Quest quest : getTemplate().getEventQuests(Quest.QuestEventType.ON_ATTACK))
-							quest.notifyAttack(this, player, damage, attacker instanceof L2Summon);
+							quest.notifyAttack(this, player, damage, attacker instanceof L2Summon, skill);
 					}
 				}
 			}
@@ -1034,6 +1039,11 @@ public class L2Attackable extends L2NpcInstance
 				_log.fatal("", e);
 			}
 		}
+	}
+
+	public void addDamageHate(L2Character attacker, int damage, int aggro)
+	{
+		addDamageHate(attacker, damage, aggro, null);
 	}
 
 	public void reduceHate(L2Character target, int amount)

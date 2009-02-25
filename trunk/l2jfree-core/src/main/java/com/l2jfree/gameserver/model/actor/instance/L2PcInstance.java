@@ -9175,7 +9175,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			if (reduceHp < 1)
 				reduceHp = 1;
 
-			reduceCurrentHp(reduceHp, L2PcInstance.this, false);
+			reduceCurrentHp(reduceHp, L2PcInstance.this, false, false, null);
 			// Reduced hp, because not rest
 			SystemMessage sm = new SystemMessage(SystemMessageId.DROWN_DAMAGE_S1);
 			sm.addNumber((int) reduceHp);
@@ -11026,7 +11026,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	}
 
 	@Override
-	public void reduceCurrentHp(double value, L2Character attacker, boolean awake, boolean isDOT)
+	public void reduceCurrentHp(double value, L2Character attacker, boolean awake, boolean isDOT, L2Skill skill)
 	{
 		getStatus().reduceHp(value, attacker, awake, isDOT);
 

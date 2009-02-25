@@ -754,7 +754,7 @@ public class RecipeController
 						ret = false;
 					}
 					else if (isReduce)
-						_player.reduceCurrentHp(modifiedValue, _player, true);
+						_player.reduceCurrentHp(modifiedValue, _player, true, false, null);
 				}
 				else if (statUse.getType() == L2RecipeStatInstance.statType.MP)
 				{

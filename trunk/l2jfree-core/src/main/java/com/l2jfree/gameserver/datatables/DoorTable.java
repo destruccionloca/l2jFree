@@ -137,6 +137,21 @@ public class DoorTable
 		}
 	}
 
+	public void setCommanderDoors()
+	{
+		if (_staticItems == null)
+			return;
+
+		for (L2DoorInstance door : _staticItems.values())
+		{
+			if (door.getFort() != null && door.getOpen())
+			{
+				door.setOpen(false);
+				door.setIsCommanderDoor(true);
+			}
+		}
+	}
+
 	public static L2DoorInstance parseList(String line)
 	{
 		StringTokenizer st = new StringTokenizer(line, ";");
@@ -171,9 +186,9 @@ public class DoorTable
 		if (st.hasMoreTokens())
 			unlockable = Boolean.parseBoolean(st.nextToken());
 
-		boolean isCommanderDoor = false;
+		boolean startOpen = false;
 		if (st.hasMoreTokens())
-			isCommanderDoor = Boolean.parseBoolean(st.nextToken());
+			startOpen = Boolean.parseBoolean(st.nextToken());
 		
 		StatsSet npcDat = new StatsSet();
 		npcDat.set("npcId", id);
@@ -235,7 +250,7 @@ public class DoorTable
 		}
 		template.setCollisionRadius(Math.min(x - ax, y - ay));
 		door.getStatus().setCurrentHpMp(door.getMaxHp(), door.getMaxMp());
-		door.setIsCommanderDoor(isCommanderDoor);
+		door.setOpen(startOpen);
 		door.getPosition().setXYZInvisible(x, y, z);
 
 		return door;

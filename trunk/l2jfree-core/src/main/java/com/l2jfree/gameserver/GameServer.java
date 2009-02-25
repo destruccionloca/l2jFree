@@ -255,6 +255,7 @@ public class GameServer
 		ZoneManager.getInstance();
 		MercTicketManager.getInstance();
 		DoorTable.getInstance().registerToClanHalls();
+		DoorTable.getInstance().setCommanderDoors();
 		// make sure that all the scheduled siege dates are in the Seal Validation period
 		for (Castle castle : CastleManager.getInstance().getCastles().values())
 		{

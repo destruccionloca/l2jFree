@@ -21,6 +21,7 @@ import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.ai.L2ControllableMobAI;
 import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 /**
@@ -96,7 +97,7 @@ public class L2ControllableMobInstance extends L2MonsterInstance
 	}
 
 	@Override
-	public void reduceCurrentHp(double i, L2Character attacker, boolean awake, boolean isDOT)
+	public void reduceCurrentHp(double i, L2Character attacker, boolean awake, boolean isDOT, L2Skill skill)
     {
 		if (isInvul() || isDead() || isPetrified())
 			return;
