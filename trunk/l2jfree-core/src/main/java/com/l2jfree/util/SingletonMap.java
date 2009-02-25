@@ -19,7 +19,6 @@
 package com.l2jfree.util;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
@@ -41,7 +40,7 @@ public final class SingletonMap<K, V> implements Map<K, V>
 			if (init)
 				_map = ((FastMap<K, V>)FastMap.newInstance()).setShared(_shared);
 			else
-				return Collections.emptyMap();
+				return L2Collections.emptyMap();
 		}
 		
 		return _map;

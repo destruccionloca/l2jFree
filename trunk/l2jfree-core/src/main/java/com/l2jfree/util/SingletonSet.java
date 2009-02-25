@@ -18,7 +18,6 @@
  */
 package com.l2jfree.util;
 
-import java.util.Collections;
 import java.util.Set;
 
 import javolution.util.FastSet;
@@ -38,7 +37,7 @@ public final class SingletonSet<E> extends SingletonCollection<E> implements Set
 			if (init)
 				_set = FastSet.newInstance();
 			else
-				return Collections.emptySet();
+				return L2Collections.emptySet();
 		}
 		
 		return _set;

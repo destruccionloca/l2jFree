@@ -19,7 +19,6 @@
 package com.l2jfree.util;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -40,7 +39,7 @@ public final class SingletonList<E> extends SingletonCollection<E> implements Li
 			if (init)
 				_list = FastList.newInstance();
 			else
-				return Collections.emptyList();
+				return L2Collections.emptyList();
 		}
 		
 		return _list;
