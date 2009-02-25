@@ -18,10 +18,8 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
-import java.util.Map;
 import java.util.StringTokenizer;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;

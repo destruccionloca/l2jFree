@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import javolution.util.FastList;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
@@ -90,6 +89,7 @@ public class L2FortCommanderInstance extends L2FortSiegeGuardInstance
 	 * This method forces guard to return to home location previously set
 	 *
 	 */
+	@Override
 	public void returnHome()
 	{
 		if (!isInsideRadius(getSpawn().getLocx(), getSpawn().getLocy(), 200, false))

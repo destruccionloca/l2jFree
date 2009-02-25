@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.handler.itemhandlers;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.model.L2ItemInstance;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2FortBallistaInstance;

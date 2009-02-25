@@ -30,7 +30,6 @@ import com.l2jfree.gameserver.ai.CtrlEvent;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2AttackableAI;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
-import com.l2jfree.gameserver.ai.L2FortSiegeGuardAI;
 import com.l2jfree.gameserver.ai.L2SiegeGuardAI;
 import com.l2jfree.gameserver.datatables.EventDroplist;
 import com.l2jfree.gameserver.datatables.ItemTable;

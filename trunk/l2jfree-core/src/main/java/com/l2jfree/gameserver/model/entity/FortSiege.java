@@ -51,7 +51,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.model.zone.L2SiegeZone;
-import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.NpcSay;
 import com.l2jfree.gameserver.network.serverpackets.RelationChanged;

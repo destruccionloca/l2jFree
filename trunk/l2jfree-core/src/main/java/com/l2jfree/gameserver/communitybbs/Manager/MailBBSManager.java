@@ -130,10 +130,10 @@ public class MailBBSManager extends BaseBBSManager
 				letter.recipientNames = result.getString("recipientNames");
 				letter.subject = result.getString("subject");
 				letter.message = result.getString("message");
-				letter.sentDateFormated = new SimpleDateFormat("yyyy-MM-dd").format(new Date(result.getLong("sentDate")));
 				letter.sentDate = result.getLong("sentDate");
-				letter.deleteDateFormated = new SimpleDateFormat("yyyy-MM-dd").format(new Date(result.getLong("deleteDate")));
+				letter.sentDateFormated = new SimpleDateFormat("yyyy-MM-dd").format(new Date(letter.sentDate));
 				letter.deleteDate = result.getLong("deleteDate");
+				letter.deleteDateFormated = new SimpleDateFormat("yyyy-MM-dd").format(new Date(letter.deleteDate));
 				letter.unread = result.getString("unread");
 				_letters.add(letter);
 			}

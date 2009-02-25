@@ -792,6 +792,7 @@ public class Fort extends Siegeable
 		}
 	}
 
+	@Override
 	public final int getFortId()
 	{
 		return _fortId;
@@ -939,6 +940,7 @@ public class Fort extends Siegeable
 	/**
 	 * @return Returns Castle Id of fortress contracted with castle.
 	 */
+	@Override
 	public final int getCastleId()
 	{
 		return _castleId;

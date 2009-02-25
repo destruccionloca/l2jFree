@@ -293,7 +293,7 @@ public final class GameTimeController extends Thread
 			{
 				String filename = "data/serial/clock.dat";
 				ObjectOutputStream objstream = new ObjectOutputStream(new FileOutputStream(filename));
-				objstream.writeObject(this._calendar);
+				objstream.writeObject(_calendar);
 				objstream.close();
 			}
 			catch (IOException e)

@@ -32,7 +32,6 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.knownlist.StaticObjectKnownList;
 import com.l2jfree.gameserver.model.actor.stat.StaticObjStat;
 import com.l2jfree.gameserver.model.actor.status.StaticObjStatus;
-import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ChairSit;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;

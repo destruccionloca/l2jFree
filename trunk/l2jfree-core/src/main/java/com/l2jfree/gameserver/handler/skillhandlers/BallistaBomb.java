@@ -30,7 +30,7 @@ public class BallistaBomb implements ISkillHandler
 		L2SkillType.BALLISTA
 	};
 
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Object... targets)
 	{
 		if (!(activeChar instanceof L2PcInstance) || targets.length == 0)
 			return;

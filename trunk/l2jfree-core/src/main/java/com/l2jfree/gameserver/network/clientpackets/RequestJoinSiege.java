@@ -16,10 +16,8 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.instancemanager.CastleManager;
-import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Castle;
-import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 

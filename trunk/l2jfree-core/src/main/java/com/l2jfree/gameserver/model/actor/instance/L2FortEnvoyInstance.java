@@ -91,7 +91,8 @@ public class L2FortEnvoyInstance extends L2NpcInstance
         player.sendPacket(html);
     }
 
-    public void onBypassFeedback(L2PcInstance player, String command)
+    @Override
+	public void onBypassFeedback(L2PcInstance player, String command)
     {
         StringTokenizer st = new StringTokenizer(command, " ");
         String actualCommand = st.nextToken(); // Get actual command

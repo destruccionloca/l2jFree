@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 import java.util.List;
 
-import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.entity.Fort;

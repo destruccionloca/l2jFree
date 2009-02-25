@@ -10,7 +10,7 @@ public class L2Calendar implements Serializable
 	private static final long	serialVersionUID	= 3020475454828258247L;
 
 	private GregorianCalendar	cal					= new GregorianCalendar();
-	public int					gameTicks			= 3600000 / GameTimeController.getInstance().MILLIS_IN_TICK;
+	public int					gameTicks			= 3600000 / GameTimeController.MILLIS_IN_TICK;
 	private long				gameStarted;
 
 	public long getGameStarted()

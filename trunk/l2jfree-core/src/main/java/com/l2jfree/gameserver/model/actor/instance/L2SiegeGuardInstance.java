@@ -34,11 +34,9 @@ import com.l2jfree.gameserver.model.entity.FortSiege;
 import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
-import com.l2jfree.gameserver.network.serverpackets.SocialAction;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
-import com.l2jfree.tools.random.Rnd;
 
 /**
  * This class represents all guards in the world. It inherits all methods from

@@ -17,29 +17,19 @@ package com.l2jfree.gameserver.model.actor.instance;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.ai.L2FortSiegeGuardAI;
-import com.l2jfree.gameserver.datatables.ClanTable;
-import com.l2jfree.gameserver.instancemanager.SiegeManager;
-import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.model.L2Attackable;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.L2Clan;
-import com.l2jfree.gameserver.model.L2SiegeClan;
 import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.actor.knownlist.FortSiegeGuardKnownList;
-import com.l2jfree.gameserver.model.entity.FortSiege;
-import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
-import com.l2jfree.gameserver.network.serverpackets.SocialAction;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
-import com.l2jfree.tools.random.Rnd;
 
 public class L2FortSiegeGuardInstance extends L2Attackable
 {

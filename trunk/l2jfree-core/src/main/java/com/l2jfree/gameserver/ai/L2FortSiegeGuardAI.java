@@ -14,7 +14,9 @@
  */
 package com.l2jfree.gameserver.ai;
 
-import static com.l2jfree.gameserver.ai.CtrlIntention.*;
+import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_ACTIVE;
+import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_ATTACK;
+import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
 
 import java.util.concurrent.Future;
 
@@ -132,7 +134,7 @@ public class L2FortSiegeGuardAI extends L2CharacterAI implements Runnable
 				player = ((L2PcInstance) target);
 			else if (target instanceof L2Summon)
 				player = ((L2Summon) target).getOwner();
-			if (player == null || (player != null && player.getClan() != null && player.getClan().getHasFort() == ((L2NpcInstance) _actor).getFort().getFortId()))
+			if (player == null || (player.getClan() != null && player.getClan().getHasFort() == ((L2NpcInstance) _actor).getFort().getFortId()))
 				return false;
 		}
 
