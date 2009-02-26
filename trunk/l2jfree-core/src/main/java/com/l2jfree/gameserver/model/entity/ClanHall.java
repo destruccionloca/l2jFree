@@ -400,10 +400,12 @@ public class ClanHall extends Entity
 	public void openCloseDoor(L2DoorInstance door, boolean open)
 	{
 		if (door != null)
+		{
 			if (open)
 				door.openMe();
 			else
 				door.closeMe();
+		}
 	}
 
 	public void openCloseDoors(L2PcInstance activeChar, boolean open)
@@ -484,13 +486,20 @@ public class ClanHall extends Entity
 	{
 		if (player == null)
 			return false;
+
 		if (_log.isDebugEnabled())
 			_log.warn("Called ClanHall.updateFunctions(int type, int lvl, int lease, long rate, boolean addNew) Owner : " + getOwnerId());
+
 		if (lease > 0)
+		{
 			if (!player.destroyItemByItemId("Consume", 57, lease, null, true))
 				return false;
+		}
+
 		if (addNew)
+		{
 			_functions.put(type, new ClanHallFunction(type, lvl, lease, 0, rate, 0, false));
+		}
 		else
 		{
 			if (lvl == 0 && lease == 0)
@@ -545,7 +554,9 @@ public class ClanHall extends Entity
 	{
 		long currentTime = System.currentTimeMillis();
 		if (_paidUntil > currentTime)
+		{
 			ThreadPoolManager.getInstance().scheduleGeneral(new FeeTask(), _paidUntil - currentTime);
+		}
 		else if (!_paid && !forced)
 		{
 			if (System.currentTimeMillis() + (1000 * 60 * 60 * 24) <= _paidUntil + _chRate)
@@ -574,10 +585,13 @@ public class ClanHall extends Entity
 				if (getOwnerClan().getWarehouse().getAdena() >= getLease())
 				{
 					if (_paidUntil != 0)
+					{
 						while (_paidUntil < System.currentTimeMillis())
 							_paidUntil += _chRate;
+					}
 					else
 						_paidUntil = System.currentTimeMillis() + _chRate;
+
 					getOwnerClan().getWarehouse().destroyItemByItemId("CH_rental_fee", 57, getLease(), null, null);
 					if (_log.isDebugEnabled())
 						_log.warn("deducted " + getLease() + " adena from " + getName() + " owner's cwh for ClanHall _paidUntil" + _paidUntil);

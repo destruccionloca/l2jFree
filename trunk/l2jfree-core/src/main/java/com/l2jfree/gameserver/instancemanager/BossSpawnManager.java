@@ -225,6 +225,8 @@ public abstract class BossSpawnManager
 			deleteFromDb(spawnDat, bossId);
 	}
 
+	public abstract void updateSpawn(int bossId, int x, int y, int z, int h);
+
 	protected abstract void deleteFromDb(L2Spawn spawnDat, int bossId);
 
 	protected abstract void updateDb();

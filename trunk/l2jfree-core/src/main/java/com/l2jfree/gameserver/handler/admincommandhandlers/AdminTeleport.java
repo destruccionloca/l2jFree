@@ -36,13 +36,18 @@ import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.SpawnTable;
+import com.l2jfree.gameserver.instancemanager.GrandBossSpawnManager;
+import com.l2jfree.gameserver.instancemanager.RaidBossSpawnManager;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.L2World;
+import com.l2jfree.gameserver.model.actor.instance.L2GrandBossInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2MinionInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2RaidBossInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
@@ -552,7 +557,7 @@ public class AdminTeleport implements IAdminCommandHandler
 	private void recallNPC(L2PcInstance activeChar)
 	{
 		L2Object obj = activeChar.getTarget();
-		if (obj instanceof L2NpcInstance)
+		if (obj instanceof L2NpcInstance && !(obj instanceof L2MinionInstance) && !(obj instanceof L2RaidBossInstance) && !(obj instanceof L2GrandBossInstance))
 		{
 			L2NpcInstance target = (L2NpcInstance) obj;
 
@@ -582,6 +587,16 @@ public class AdminTeleport implements IAdminCommandHandler
 			spawn.respawnNpc(target);
 			spawn.setInstanceId(activeChar.getInstanceId());
 			SpawnTable.getInstance().updateSpawn(spawn);
+		}
+		else if (obj instanceof L2RaidBossInstance)
+		{
+			L2RaidBossInstance target = (L2RaidBossInstance) obj;
+			RaidBossSpawnManager.getInstance().updateSpawn(target.getNpcId(), activeChar.getX(), activeChar.getY(), activeChar.getZ(), activeChar.getHeading());
+		}
+		else if (obj instanceof L2GrandBossInstance)
+		{
+			L2GrandBossInstance target = (L2GrandBossInstance) obj;
+			GrandBossSpawnManager.getInstance().updateSpawn(target.getNpcId(), activeChar.getX(), activeChar.getY(), activeChar.getZ(), activeChar.getHeading());
 		}
 		else
 		{

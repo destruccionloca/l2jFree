@@ -211,8 +211,10 @@ public class ClanHallManager
 	public final ClanHall getClanHall(int x, int y)
 	{
 		for (Map.Entry<Integer, ClanHall> ch : _allClanHalls.entrySet())
+		{
 			if (ch.getValue().checkIfInZone(x, y))
 				return ch.getValue();
+		}
 
 		return null;
 	}
@@ -221,8 +223,10 @@ public class ClanHallManager
 	public final ClanHall getClanHall(String name)
 	{
 		for (Map.Entry<Integer, ClanHall> ch : _allClanHalls.entrySet())
+		{
 			if (ch.getValue().getName().equals(name))
 				return ch.getValue();
+		}
 
 		return null;
 	}
@@ -231,8 +235,10 @@ public class ClanHallManager
 	public final ClanHall getClanHallByOwner(L2Clan clan)
 	{
 		for (Map.Entry<Integer, ClanHall> ch : _clanHall.entrySet())
+		{
 			if (clan.getClanId() == ch.getValue().getOwnerId())
 				return ch.getValue();
+		}
 		return null;
 	}
 

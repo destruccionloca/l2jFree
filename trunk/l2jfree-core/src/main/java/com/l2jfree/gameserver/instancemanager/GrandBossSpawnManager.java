@@ -125,6 +125,30 @@ public class GrandBossSpawnManager extends BossSpawnManager
 	}
 
 	@Override
+	public void updateSpawn(int bossId, int x, int y, int z, int h)
+	{
+		Connection con = null;
+
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement = con.prepareStatement("UPDATE grandboss_spawnlist SET loc_x = ?, loc_y = ?, loc_z = ?, heading = ? WHERE boss_id=?");
+			statement.setInt(1, x);
+			statement.setInt(2, y);
+			statement.setInt(3, z);
+			statement.setInt(4, h);
+			statement.setInt(5, bossId);
+			statement.execute();
+			statement.close();
+		}
+		catch (Exception e)
+		{
+			_log.warn("GrandBossSpawnManager: Could not update raidboss #" + bossId + " in DB: " + e);
+		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+	}
+
+	@Override
 	protected void deleteFromDb(L2Spawn spawnDat, int bossId)
 	{
 		Connection con = null;
