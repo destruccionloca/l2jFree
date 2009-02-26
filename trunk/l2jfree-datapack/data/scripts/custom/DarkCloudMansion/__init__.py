@@ -1,20 +1,22 @@
 # '''''''''''''''''''''''''''''''''''
-# '''    By: evill33t & vital     '''
+# '''      By: evill33t & vital      '''
 # '''''''''''''''''''''''''''''''''''
+# Psycho: Room 5 might be incorrect, but at least is working. Info concerning it are poor
 from com.l2jfree.gameserver.instancemanager        import InstanceManager
 from com.l2jfree.gameserver.model.entity           import Instance
 from com.l2jfree.gameserver.model                  import L2Summon
 from com.l2jfree.gameserver.model.quest            import State
 from com.l2jfree.gameserver.model.quest            import QuestState
 from com.l2jfree.gameserver.model.quest.jython     import QuestJython as JQuest
+from com.l2jfree.gameserver.network                import SystemChatChannelId
 from com.l2jfree.gameserver.network.serverpackets  import CreatureSay
 from com.l2jfree.gameserver.network.serverpackets  import MagicSkillUse
 from com.l2jfree.gameserver.network.serverpackets  import SystemMessage
-from com.l2jfree.gameserver.model.itemcontainer import PcInventory
-from com.l2jfree.gameserver.model import L2ItemInstance
-from com.l2jfree.gameserver.network.serverpackets import InventoryUpdate
-from com.l2jfree.gameserver.network.serverpackets import SystemMessage
-from com.l2jfree.gameserver.network import SystemMessageId
+from com.l2jfree.gameserver.model.itemcontainer    import PcInventory
+from com.l2jfree.gameserver.model                  import L2ItemInstance
+from com.l2jfree.gameserver.network.serverpackets  import InventoryUpdate
+from com.l2jfree.gameserver.network.serverpackets  import SystemMessage
+from com.l2jfree.gameserver.network                import SystemMessageId
 from com.l2jfree.tools.random                      import Rnd
 
 qn = "DarkCloudMansion"
@@ -113,7 +115,12 @@ def openDoor(doorId,instanceId):
 	for door in InstanceManager.getInstance().getInstance(instanceId).getDoors():
 		if door.getDoorId() == doorId:
 			door.openMe()
-
+			
+def closeDoor(doorId,instanceId):
+	for door in InstanceManager.getInstance().getInstance(instanceId).getDoors():
+		if door.getDoorId() == doorId:
+			door.closeMe()
+			
 def checkCondition(player):
 	if not player.getLevel() >= 78:
 		player.sendPacket(SystemMessage.sendString("You must be level 78 to enter Dark Cloud Mansion."))
@@ -141,12 +148,12 @@ def enterInstance(self,player,template,teleto):
 	if not checkCondition(player):
 		return 0
 	party = player.getParty()
-	#check for exising instances of party members
+	# Check for exising instances of party members
 	for partyMember in party.getPartyMembers().toArray():
 		if partyMember.getInstanceId()!=0:
 			instanceId = partyMember.getInstanceId()
 			if debug: print "DarkCloudMansion: found party member in instance:"+str(instanceId)
-	#exising instance
+	# Existing instance
 	if instanceId != 0:
 		foundworld = False
 		for worldid in self.world_ids:
@@ -158,7 +165,7 @@ def enterInstance(self,player,template,teleto):
 		teleto.instanceId = instanceId
 		teleportplayer(self,player,teleto)
 		return instanceId
-	#new instance
+	# New instance
 	else:
 		instanceId = InstanceManager.getInstance().createDynamicInstance(template)	
 		if not self.worlds.has_key(instanceId):
@@ -236,10 +243,10 @@ def runFirstRoom(self,world):
 
 def runHall2(self,world):
 	world.status=3
+	newNpc = self.addSpawn(SOFaith,147808,179619,-6121,0,False,0,False,world.instanceId)
 	spawnHall(self,world)
 
 def runSecondRoom(self,world):
-	newNpc = self.addSpawn(SOFaith,147818,179643,-6117,0,False,0,False,world.instanceId)
 	world.status=4
 	openDoor(D3,world.instanceId)
 	world.SecondRoom = PyObject()
@@ -284,6 +291,26 @@ def runThirdRoom(self,world):
 	newNpc = self.addSpawn(BM[2],148865,180705,-6117,0,False,0,False,world.instanceId)
 	world.ThirdRoom.npclist[newNpc]=False
 	if debug: print "DarkCloudMansion: spawned third room"
+	
+def runThirdRoomBis(self,world):
+	world.status=8
+	self.addSpawn(SOAdventure,148910,178397,-6117,16383,False,0,False,world.instanceId)	
+	openDoor(D4,world.instanceId)
+	world.ThirdRoomBis = PyObject()
+	world.ThirdRoomBis.npclist = {}
+	newNpc = self.addSpawn(BM[1],148765,180450,-6117,0,False,0,False,world.instanceId)
+	world.ThirdRoomBis.npclist[newNpc]=False
+	newNpc = self.addSpawn(BM[2],148865,180190,-6117,0,False,0,False,world.instanceId)
+	world.ThirdRoomBis.npclist[newNpc]=False
+	newNpc = self.addSpawn(BM[1],148995,180190,-6117,0,False,0,False,world.instanceId)
+	world.ThirdRoomBis.npclist[newNpc]=False
+	newNpc = self.addSpawn(BM[0],149090,180450,-6117,0,False,0,False,world.instanceId)
+	world.ThirdRoomBis.npclist[newNpc]=False
+	newNpc = self.addSpawn(BM[1],148995,180705,-6117,0,False,0,False,world.instanceId)
+	world.ThirdRoomBis.npclist[newNpc]=False
+	newNpc = self.addSpawn(BM[2],148865,180705,-6117,0,False,0,False,world.instanceId)
+	world.ThirdRoomBis.npclist[newNpc]=False
+	if debug: print "DarkCloudMansion: spawned third room bis"  
 
 def runForthRoom(self,world):
 	world.status = 7
@@ -311,14 +338,15 @@ def runForthRoom(self,world):
 	for npc in world.ForthRoom.npclist:
 		if npc[1] == 0 :
 			npc[0].setIsInvul(True)
-	if debug: print "DarkCloudMansion: spawned forth room"
+	if debug: print "DarkCloudMansion: spawned forth room"  	
 
-def runFifthRoom(self,world):
-	world.status = 8
+def runFifthRoom(self,world,player):
+	world.status = 9
+	world.foundBeleth = 0
+	world.attacked = False
 	openDoor(D6,world.instanceId)
 	world.FifthRoom = PyObject()
 	world.FifthRoom.npclist = []
-	self.addSpawn(SOAdventure,148910,178397,-6117,16383,False,0,False,world.instanceId)	
 	a,b,c,d,e,f,g = beleths[Rnd.get(len(beleths))]
 	world.FifthRoom.belethOrder = []
 	world.FifthRoom.belethOrder.append([a,b,c,d,e,f,g])
@@ -326,9 +354,36 @@ def runFifthRoom(self,world):
 	idx = 0
 	for x in range(148720,149175,65):
 		newNpc = self.addSpawn(BS[idx],x,182145,-6117,48810,False,0,False,world.instanceId)
-		world.FifthRoom.npclist.append([newNpc,idx,temp[idx],0])
+		world.FifthRoom.npclist.append([newNpc,idx,temp[idx]])
+		if temp[idx] == 1 and Rnd.get(100) < 50:
+			player.sendPacket(CreatureSay(newNpc.getObjectId(), SystemChatChannelId.Chat_Normal, newNpc.getName(), "You will never pass this test!"))
 		idx += 1
 	if debug: print "DarkCloudMansion: spawned fifth room"
+	if debug: print str(world.FifthRoom.npclist)
+	
+def checkBelethSampleProgress(self,world,npc,player,BS):
+	world.attacked = False
+	idx = 0
+	if world.foundBeleth == 3:
+		for mob in world.FifthRoom.npclist:
+			mob[0].decayMe()
+		endInstance(self,world)
+	else:
+		for mob in world.FifthRoom.npclist:
+			if mob[0] == npc and mob[2] == 0:
+				runFifthRoom(self,world,player)
+						
+def checkBelethSample(self,world,npc,player,BS):
+	world.attacked = True
+	for mob in world.FifthRoom.npclist:
+		if mob[0] == npc:
+			if mob[2] == 0:
+				world.foundBeleth = 0
+				for mob in world.FifthRoom.npclist:
+					if mob[0] != npc:
+						mob[0].decayMe()
+			else:
+				world.foundBeleth += 1
 
 def checkKillProgress(npc,room):
 	cont = True
@@ -356,30 +411,16 @@ def checkStone(self,npc,order,npcObj,world) :
 	spawnRndGolem(self,world)
 
 def endInstance(self,world):
-	world.status = 9
+	world.status = 10
 	newNpc = self.addSpawn(SOTruth,148911,181940,-6117,16383,False,0,False,world.instanceId)
 	world.startRoom = None
 	world.Hall = None
 	world.SecondRoom = None
 	world.ThirdRoom = None
+	world.ThirdRoomBis = None
 	world.ForthRoom = None
 	world.FifthRoom = None
 	if debug: print "DarkCloudMansion: finished"
-
-def checkBelethSample(self,world,npc,player,BS):
-	for mob in world.FifthRoom.npclist:
-		for order in world.FifthRoom.belethOrder :
-			if mob[0] == npc and mob[3] == 1:
-				player.sendPacket(CreatureSay(npc.getObjectId(), 0, npc.getName(), "You have done well!"))
-				mob[3] = 0
-	for mob in world.FifthRoom.npclist:
-		if mob[3] == 0:
-			continue
-		else:
-			return
-	for mob in world.FifthRoom.npclist:
-		mob[0].decayMe()
-	endInstance(self,world)
 
 def allStonesDone(self,world) :
 	for npc in world.SecondRoom.monolith :
@@ -401,7 +442,11 @@ def chkShadowColumn(self,world,npc):
 					openDoor(W1+i,world.instanceId)
 					world.ForthRoom.counter += 1 
 					if world.ForthRoom.counter == 7:
-						runFifthRoom(self,world)
+						runThirdRoomBis(self,world)
+
+def removeShadowColumn(self,world):
+	for npc in world.ForthRoom.npclist:
+		npc[0].decayMe()
 
 class DarkCloudMansion(JQuest):
 	def __init__(self,id,name,descr):
@@ -468,38 +513,71 @@ class DarkCloudMansion(JQuest):
 				if checkKillProgress(npc,world.ThirdRoom):
 					runForthRoom(self,world)
 			if world.status==7:
-					chkShadowColumn(self,world,npc)		
+					chkShadowColumn(self,world,npc)
 			if world.status==8:
-					checkBelethSample(self,world,npc,player,BS) 
+				if checkKillProgress(npc,world.ThirdRoomBis):
+					runFifthRoom(self,world,player)
+			if world.status==9:
+				checkBelethSampleProgress(self,world,npc,player,BS) 
 		return
 
 	def onAttack(self,npc,player,damage,isPet):
 		npcId = npc.getNpcId()
-		world = self.worlds[player.getInstanceId()]
-		if world.status == 7:
-			for mob in world.ForthRoom.npclist:
-				if mob[0] == npc :
-					if mob[0].isInvul() and Rnd.get(100) < 12 :
-						if debug: print "DarkCloudMansion: spawn room 4 guard"
-						newNpc = self.addSpawn(BM[Rnd.get(len(BM))],player.getX(),player.getY(),player.getZ(),0,False,0,False,world.instanceId)
+		if self.worlds.has_key(npc.getInstanceId()):
+			world = self.worlds[player.getInstanceId()]
+			if world.status == 2:
+				if npcId == 22264:
+					closeDoor(D2,world.instanceId)
+			if world.status == 7:
+				if npcId == SC:
+					closeDoor(D5,world.instanceId)
+				for mob in world.ForthRoom.npclist:
+					if mob[0] == npc :
+						if mob[0].isInvul() and Rnd.get(100) < 12 :
+							if debug: print "DarkCloudMansion: spawn room 4 guard"
+							newNpc = self.addSpawn(BM[Rnd.get(len(BM))],player.getX(),player.getY(),player.getZ(),0,False,0,False,world.instanceId)
+			if world.status==9 and not world.attacked:
+				checkBelethSample(self,world,npc,player,BS) 
 
 	def onFirstTalk (self,npc,player):
 		npcId = npc.getNpcId()
 		world = self.worlds[player.getInstanceId()]
-		if world.status==4:				
+		if world.status==3:
+			if npcId == SOFaith:
+				openDoor(D2,world.instanceId)
+				htmltext = "<html><body>Symbol of Faith:<br>You have proven your trustworthiness...<br>I have a secret to tell you about the demons.<br>You may find <font color=\"LEVEL\">Water Dragon Scales</font> in the Chromatic Highlands. This is a symbol that signified those who long ago followed the Water Dragon, Fafurion. It is an excellent cure for those who have been driven insane by the demons.<br>Perhaps you can use it on Tears, who was once Parme's best water spirit, but is now a demon henchman. You will find Tears in the Coral Garden<br></body></html>"
+				return htmltext
+		elif world.status==4:
+			if npcId == BSM:
+				closeDoor(D3,world.instanceId)
 			for npcObj in world.SecondRoom.monolith:
 				if npcObj[0] == npc:
 					checkStone(self,npc,world.SecondRoom.monolithOrder,npcObj,world)
 			if allStonesDone(self,world) : 
 				removeMonoliths(self,world)
 				runHall3(self,world)
+		elif world.status == 5:
+			if npcId == SOAdversity:
+				openDoor(D3,world.instanceId)
+				htmltext = "<html><body>Symbol of Adversity:<br>I knew you would succeed!<br>However, there are still two tests left, so be alert they will be more challenging than the tests you have already passed.<br>But first I shall grant you a reward. You have proven your trustworthiness, and its a show of gratitude on behalf of those you have helped, I give you this advice.<br>Go to the Island of Paryer and find a man named  <font color=\"LEVEL\">Ringos</font>. Accept his offer, though it may seem strange, and you shall earn a secret key that will prove essential at the Emerald Square.</body></html>"
+				return htmltext
+		elif world.status == 8:
+			if npcId == SOAdventure:
+				removeShadowColumn(self,world)
+				openDoor(D5,world.instanceId)
+				htmltext = "<html><body>Symbol of Anventure:<br>You have succeeded again...<br>Now comes the final test.<br>It is rumored that when Parme was captured by the Demon Beleth, one of her maids hid some valuable items in the <font color=\"LEVEL\">boxes on the bed of the Crystal Lake</font>. She hoped that adventurers like you would find them and use them to help rescue Parme.</body></html>"
+				return htmltext
 		return ""
 
 QUEST = DarkCloudMansion(-1, qn, "DCM")
 QUEST.addFirstTalkId(BSM)
+QUEST.addFirstTalkId(SOFaith)
+QUEST.addFirstTalkId(SOAdversity)
+QUEST.addFirstTalkId(SOAdventure)
 QUEST.addStartNpc(YIYEN)
 QUEST.addTalkId(YIYEN)
 QUEST.addTalkId(SOTruth)
-QUEST.addAttackId(SC)
+for mob in [18371,18372,18373,18374,18375,18376,18377,22264,SC]:
+	QUEST.addAttackId(mob)
 for mob in [18371,18372,18373,18374,18375,18376,18377,22318,22319,22272,22273,22274,18369,18370,22402,22264]:
-  QUEST.addKillId(mob)
+	QUEST.addKillId(mob)
