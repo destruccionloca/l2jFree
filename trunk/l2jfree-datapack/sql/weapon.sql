@@ -1,6 +1,6 @@
--- ---------------------------
+-- ------------------------------------
 -- Table structure for table `weapon`
--- ---------------------------
+-- ------------------------------------
 DROP TABLE IF EXISTS `weapon`;
 CREATE TABLE `weapon` (
   `item_id` decimal(11,0) NOT NULL DEFAULT '0',
@@ -791,7 +791,7 @@ INSERT INTO `weapon` VALUES
 (4875,'Cursed Staff - Magic Weakness','lrhand','true',1000,2,2,'wood','c',119,20,'bigblunt',4,4,0,0,0,325,0,91,-1,2870000,884,'true','true','true','true','','','1164-6-8','',0),
 (4876,'Paradia Staff - Magic Regeneration','lrhand','true',1010,3,3,'wood','c',135,20,'bigblunt',4,4,0,0,0,325,0,101,-1,4300000,1322,'true','true','true','true','','','1044-2-30','',0),
 (4877,'Paradia Staff - Mental Shield','lrhand','true',1010,3,3,'wood','c',135,20,'bigblunt',4,4,0,0,0,325,0,101,-1,4300000,1322,'true','true','true','true','','','1035-3-30','',0),
-(4878,'Paradia Staff - Magic Hold','lrhand','true',1010,3,3,'wood','c',135,20,'bigblunt',4,4,0,0,0,325,0,101,-1,4300000,1322,'true','true','true','true','','','','',0),
+(4878,'Paradia Staff - Magic Hold','lrhand','true',1010,3,3,'wood','c',135,20,'bigblunt',4,4,0,0,0,325,0,101,-1,4300000,1322,'true','true','true','true','','','3577-1-10','',0),
 (4879,'Pa\'agrian Hammer - Rsk. Evasion','lrhand','true',1010,3,3,'blood_steel','c',135,20,'bigblunt',4,4,0,0,0,325,0,101,-1,4300000,1322,'true','true','true','true','3031-3','','','',0),
 (4880,'Pa\'agrian Hammer - Magic Poison','lrhand','true',1010,3,3,'blood_steel','c',135,20,'bigblunt',4,4,0,0,0,325,0,101,-1,4300000,1322,'true','true','true','true','','','1168-6-7','',0),
 (4881,'Pa\'agrian Hammer - Magic Weakness','lrhand','true',1010,3,3,'blood_steel','c',135,20,'bigblunt',4,4,0,0,0,325,0,101,-1,4300000,1322,'true','true','true','true','','','1164-6-7','',0),
@@ -1015,7 +1015,7 @@ INSERT INTO `weapon` VALUES
 (7577,'Draconic Bow - Focus','lrhand','true',1650,1,1,'adamantaite','s',581,5,'bow',12,-3,0,0,0,293,11,132,-1,48800000,2052,'true','true','true','true','3044-17','','','',9374),
 (7578,'Draconic Bow - Critical Slow','lrhand','true',1650,1,1,'adamantaite','s',581,5,'bow',12,-3,0,0,0,293,11,132,-1,48800000,2052,'true','true','true','true','','','','3574-1-10',9375),
 (7701,'Stick of Faith - Mana Up','rhand','true',1160,2,2,'wood','c',85,20,'blunt',4,4,0,0,0,379,0,81,-1,2290000,705,'true','true','true','true','3014-1','','','',0),
-(7702,'Stick of Faith - Magic Hold','rhand','true',1160,2,2,'wood','c',85,20,'blunt',4,4,0,0,0,379,0,81,-1,2290000,705,'true','true','true','true','','','','',0),
+(7702,'Stick of Faith - Magic Hold','rhand','true',1160,2,2,'wood','c',85,20,'blunt',4,4,0,0,0,379,0,81,-1,2290000,705,'true','true','true','true','','','3577-1-10','',0),
 (7703,'Stick of Faith - Magic Shield','rhand','true',1160,2,2,'wood','c',85,20,'blunt',4,4,0,0,0,379,0,81,-1,2290000,705,'true','true','true','true','','','','',0),
 (7704,'Stick of Eternity - Empower','rhand','true',1130,3,3,'wood','c',111,20,'blunt',4,4,0,0,0,379,0,101,-1,4300000,1322,'true','true','true','true','','','','',0),
 (7705,'Stick of Eternity - Rsk. Evasion','rhand','true',1130,3,3,'wood','c',111,20,'blunt',4,4,0,0,0,379,0,101,-1,4300000,1322,'true','true','true','true','','','','',0),
@@ -1025,7 +1025,7 @@ INSERT INTO `weapon` VALUES
 (7709,'Nirvana Axe - Magic Weakness','rhand','true',1150,3,3,'fine_steel','c',111,20,'blunt',4,4,0,0,0,379,0,101,-1,4300000,1322,'true','true','true','true','','','1164-6-7','',0),
 (7710,'Club of Nature - Acumen','rhand','true',1100,3,3,'wood','c',111,20,'blunt',4,4,0,0,0,379,0,101,-1,4300000,1322,'true','true','true','true','3047-1','','','',0),
 (7711,'Club of Nature - Magic Mental Shield','rhand','true',1100,3,3,'wood','c',111,20,'blunt',4,4,0,0,0,379,0,101,-1,4300000,1322,'true','true','true','true','','','1035-3-50','',0),
-(7712,'Club of Nature - Magic Hold','rhand','true',1100,3,3,'wood','c',111,20,'blunt',4,4,0,0,0,379,0,101,-1,4300000,1322,'true','true','true','true','','','','',0),
+(7712,'Club of Nature - Magic Hold','rhand','true',1100,3,3,'wood','c',111,20,'blunt',4,4,0,0,0,379,0,101,-1,4300000,1322,'true','true','true','true','','','3577-1-10','',0),
 (7713,'Mace of The Underworld - Mana Up','rhand','true',1090,3,3,'fine_steel','c',111,20,'blunt',4,4,0,0,0,379,0,101,-1,4300000,1322,'true','true','true','true','3014-1','','','',0),
 (7714,'Mace of The Underworld - Magic Silence','rhand','true',1090,3,3,'fine_steel','c',111,20,'blunt',4,4,0,0,0,379,0,101,-1,4300000,1322,'true','true','true','true','','','','1064-1-10',0),
 (7715,'Mace of The Underworld - Conversion','rhand','true',1090,3,3,'fine_steel','c',111,20,'blunt',4,4,0,0,0,379,0,101,-1,4300000,1322,'true','true','true','true','3048-1','','','',0),
@@ -1039,7 +1039,7 @@ INSERT INTO `weapon` VALUES
 (7723,'Sword of Valhalla - Magic Weakness','rhand','true',900,1,1,'oriharukon','b',140,10,'sword',8,0,0,0,0,379,0,122,-1,8680000,891,'true','true','true','true','','','1164-6-7','',0),
 (7724,'Sword of Valhalla - Magic Regeneration','rhand','true',900,1,1,'oriharukon','b',140,10,'sword',8,0,0,0,0,379,0,122,-1,8680000,891,'true','true','true','true','','','1044-3-30','',0),
 (7810,'Soulfire Dirk - Mana Up','rhand','true',750,2,2,'fine_steel','c',86,5,'dagger',12,-3,0,0,0,433,0,91,-1,2870000,884,'true','true','true','true','3014-1','','','',0),
-(7811,'Soulfire Dirk - Magic Hold','rhand','true',750,2,2,'fine_steel','c',86,5,'dagger',12,-3,0,0,0,433,0,91,-1,2870000,884,'true','true','true','true','','','','',0),
+(7811,'Soulfire Dirk - Magic Hold','rhand','true',750,2,2,'fine_steel','c',86,5,'dagger',12,-3,0,0,0,433,0,91,-1,2870000,884,'true','true','true','true','','','3577-1-10','',0),
 (7812,'Soulfire Dirk - Magic Silence','rhand','true',750,2,2,'fine_steel','c',86,5,'dagger',12,-3,0,0,0,433,0,91,-1,2870000,884,'true','true','true','true','','','','1064-1-10',0),
 (7813,'Hell Knife - Magic Regeneration','rhand','true',740,1,1,'blood_steel','b',122,5,'dagger',12,-3,0,0,0,433,0,122,-1,8680000,891,'true','true','true','true','','','1044-3-30','',0),
 (7814,'Hell Knife - Mental Shield','rhand','true',740,1,1,'blood_steel','b',122,5,'dagger',12,-3,0,0,0,433,0,122,-1,8680000,891,'true','true','true','true','','','1035-4-50','',0),
@@ -1123,10 +1123,10 @@ INSERT INTO `weapon` VALUES
 (8137,'Doom Crusher - Rsk. Haste','lrhand','true',1900,1,1,'fine_steel','a',282,20,'bigblunt',4,4,0,0,0,325,0,114,-1,27000000,1659,'true','true','true','true','','','','',0),
 (8138,'Ecliptic Axe - Conversion','rhand','true',1640,3,3,'fine_steel','c',125,20,'blunt',4,4,0,0,0,379,0,111,-1,6130000,1885,'true','true','true','true','3048-1','','','',0),
 (8139,'Ecliptic Axe - Magic Power','rhand','true',1640,3,3,'fine_steel','c',125,20,'blunt',4,4,0,0,0,379,0,111,-1,6130000,1885,'true','true','true','true','','','','',0),
-(8140,'Ecliptic Axe - Magic Hold','rhand','true',1640,3,3,'fine_steel','c',125,20,'blunt',4,4,0,0,0,379,0,111,-1,6130000,1885,'true','true','true','true','','','','',0),
+(8140,'Ecliptic Axe - Magic Hold','rhand','true',1640,3,3,'fine_steel','c',125,20,'blunt',4,4,0,0,0,379,0,111,-1,6130000,1885,'true','true','true','true','','','3577-1-10','',0),
 (8141,'Spell Breaker - Acumen','rhand','true',1620,1,1,'fine_steel','b',140,20,'blunt',4,4,0,0,0,379,0,122,-1,8680000,891,'true','true','true','true','3047-1','','','',0),
 (8142,'Spell Breaker - Magic Mental Shield','rhand','true',1620,1,1,'fine_steel','b',140,20,'blunt',4,4,0,0,0,379,0,122,-1,8680000,891,'true','true','true','true','','','','1035-4-50',0),
-(8143,'Spell Breaker - Magic Hold','rhand','true',1620,1,1,'fine_steel','b',140,20,'blunt',4,4,0,0,0,379,0,122,-1,8680000,891,'true','true','true','true','3577-1','','0-0-10','',0),
+(8143,'Spell Breaker - Magic Hold','rhand','true',1620,1,1,'fine_steel','b',140,20,'blunt',4,4,0,0,0,379,0,122,-1,8680000,891,'true','true','true','true','','','3577-1-10','',0),
 (8144,'Kaim Vanul\'s Bones - Mana Up','rhand','true',1570,1,1,'bone','b',155,20,'blunt',4,4,0,0,0,379,0,132,-1,13100000,1346,'true','true','true','true','3014-1','','','',0),
 (8145,'Kaim Vanul\'s Bones - Magic Silence','rhand','true',1570,1,1,'bone','b',155,20,'blunt',4,4,0,0,0,379,0,132,-1,13100000,1346,'true','true','true','true','','','','1064-1-10',0),
 (8146,'Kaim Vanul\'s Bones - Conversion','rhand','true',1570,1,1,'bone','b',155,20,'blunt',4,4,0,0,0,379,0,132,-1,13100000,1346,'true','true','true','true','3048-1','','','',0),
@@ -1763,7 +1763,7 @@ INSERT INTO `weapon` VALUES
 (10733,'Arcana Mace - PvP - Mana Up','rhand','true',1300,1,1,'fine_steel','s',225,20,'blunt',4,4,0,0,0,379,0,175,-1,48800000,2052,'true','true','true','true','3014-2','','','',0),
 (10734,'Imperial Staff - PvP - Empower','lrhand','true',910,1,1,'fine_steel','s',274,20,'bigblunt',4,4,0,0,0,325,0,175,-1,48800000,2052,'true','true','true','true','','','','',0),
 (10735,'Imperial Staff - PvP - MP Regeneration','lrhand','true',910,1,1,'fine_steel','s',274,20,'bigblunt',4,4,0,0,0,325,0,175,-1,48800000,2052,'true','true','true','true','','','','',0),
-(10736,'Imperial Staff - PvP - Magic Hold','lrhand','true',910,1,1,'fine_steel','s',274,20,'bigblunt',4,4,0,0,0,325,0,175,-1,48800000,2052,'true','true','true','true','','','','',0),
+(10736,'Imperial Staff - PvP - Magic Hold','lrhand','true',910,1,1,'fine_steel','s',274,20,'bigblunt',4,4,0,0,0,325,0,175,-1,48800000,2052,'true','true','true','true','','','3577-1-20','',0),
 (10737,'Draconic Bow - PvP - Cheap Shot','lrhand','true',1650,1,1,'fine_steel','s',581,5,'bow',12,-3,0,0,0,293,11,132,-1,48800000,2052,'true','true','true','true','','','','',0),
 (10738,'Draconic Bow - PvP - Focus','lrhand','true',1650,1,1,'fine_steel','s',581,5,'bow',12,-3,0,0,0,293,11,132,-1,48800000,2052,'true','true','true','true','','','','',0),
 (10739,'Draconic Bow - PvP - Critical Slow','lrhand','true',1650,1,1,'fine_steel','s',581,5,'bow',12,-3,0,0,0,293,11,132,-1,48800000,2052,'true','true','true','true','','','','',0),
@@ -1851,7 +1851,7 @@ INSERT INTO `weapon` VALUES
 (10898,'Spell Breaker - Hail','rhand','true',1620,1,1,'fine_steel','b',140,20,'blunt',4,4,0,0,0,379,0,122,-1,6680000,891,'true','true','true','true','','','','',0),
 (10899,'Spell Breaker - Hail - Acumen','rhand','true',1620,1,1,'fine_steel','b',140,20,'blunt',4,4,0,0,0,379,0,122,-1,6680000,891,'true','true','true','true','3047-1','','','',0),
 (10900,'Spell Breaker - Hail - Magic Mental Shield','rhand','true',1620,1,1,'fine_steel','b',140,20,'blunt',4,4,0,0,0,379,0,122,-1,6680000,891,'true','true','true','true','','','','',0),
-(10901,'Spell Breaker - Hail - Magic Hold','rhand','true',1620,1,1,'fine_steel','b',140,20,'blunt',4,4,0,0,0,379,0,122,-1,6680000,891,'true','true','true','true','','','','',0),
+(10901,'Spell Breaker - Hail - Magic Hold','rhand','true',1620,1,1,'fine_steel','b',140,20,'blunt',4,4,0,0,0,379,0,122,-1,6680000,891,'true','true','true','true','','','3577-1-10','',0),
 (10902,'Arthro Nail - Destruction','lrhand','true',1420,1,1,'fine_steel','b',213,5,'dualfist',4,4,0,0,0,325,0,91,-1,6680000,891,'true','true','true','true','','','','',0),
 (10903,'Arthro Nail - Destruction - Critical Poison','lrhand','true',1420,1,1,'fine_steel','b',213,5,'dualfist',4,4,0,0,0,325,0,91,-1,6680000,891,'true','true','true','true','','','','',0),
 (10904,'Arthro Nail - Destruction - Rsk. Evasion','lrhand','true',1420,1,1,'fine_steel','b',213,5,'dualfist',4,4,0,0,0,325,0,91,-1,6680000,891,'true','true','true','true','','','','',0),
@@ -1869,7 +1869,7 @@ INSERT INTO `weapon` VALUES
 (10916,'Sprite\'s Staff - Hail','lrhand','true',960,1,1,'fine_steel','b',170,20,'bigblunt',4,4,0,0,0,325,0,122,-1,6680000,891,'true','true','true','true','','','','',0),
 (10917,'Sprite\'s Staff - Hail - Magic Regeneration','lrhand','true',960,1,1,'fine_steel','b',170,20,'bigblunt',4,4,0,0,0,325,0,122,-1,6680000,891,'true','true','true','true','','','','',0),
 (10918,'Sprite\'s Staff - Hail - Magic Mental Shield','lrhand','true',960,1,1,'fine_steel','b',170,20,'bigblunt',4,4,0,0,0,325,0,122,-1,6680000,891,'true','true','true','true','','','','',0),
-(10919,'Sprite\'s Staff - Hail - Magic Hold','lrhand','true',960,1,1,'fine_steel','b',170,20,'bigblunt',4,4,0,0,0,325,0,122,-1,6680000,891,'true','true','true','true','','','','',0),
+(10919,'Sprite\'s Staff - Hail - Magic Hold','lrhand','true',960,1,1,'fine_steel','b',170,20,'bigblunt',4,4,0,0,0,325,0,122,-1,6680000,891,'true','true','true','true','','','3577-1-10','',0),
 (10920,'Tsurugi*Tsurugi - Destruction','lrhand','true',2120,1,1,'fine_steel','b',213,10,'dual',8,0,0,0,0,325,0,91,-1,6680000,891,'true','true','true','true','','','','',0),
 (10921,'Caliburs*Sword of Limit - Destruction','lrhand','true',2150,1,1,'fine_steel','b',213,10,'dual',8,0,0,0,0,325,0,91,-1,6680000,891,'true','true','true','true','','','','',0),
 (10922,'Caliburs*Sword of Delusion - Destruction','lrhand','true',2140,1,1,'fine_steel','b',213,10,'dual',8,0,0,0,0,325,0,91,-1,6680000,891,'true','true','true','true','','','','',0),
@@ -2184,7 +2184,7 @@ INSERT INTO `weapon` VALUES
 (11230,'Imperial Staff - Nature','lrhand','true',910,1,1,'fine_steel','s',274,20,'bigblunt',4,4,0,0,0,325,0,175,-1,48800000,2052,'true','true','true','true','','','','',0),
 (11231,'Imperial Staff - Nature - Empower','lrhand','true',910,1,1,'fine_steel','s',274,20,'bigblunt',4,4,0,0,0,325,0,175,-1,48800000,2052,'true','true','true','true','','','','',0),
 (11232,'Imperial Staff - Nature - MP Regeneration','lrhand','true',910,1,1,'fine_steel','s',274,20,'bigblunt',4,4,0,0,0,325,0,175,-1,48800000,2052,'true','true','true','true','','','','',0),
-(11233,'Imperial Staff - Nature - Magic Hold','lrhand','true',910,1,1,'fine_steel','s',274,20,'bigblunt',4,4,0,0,0,325,0,175,-1,48800000,2052,'true','true','true','true','','','','',0),
+(11233,'Imperial Staff - Nature - Magic Hold','lrhand','true',910,1,1,'fine_steel','s',274,20,'bigblunt',4,4,0,0,0,325,0,175,-1,48800000,2052,'true','true','true','true','','','3577-1-20','',0),
 (11234,'Tallum Blade*Dark Legion\'s Edge - Thunder','lrhand','true',2080,1,1,'fine_steel','s',342,10,'dual',8,0,0,0,0,325,0,132,-1,48800000,2052,'true','true','true','true','','','','',0),
 (11235,'Forgotten Blade - Thunder','rhand','true',1300,1,1,'fine_steel','s',281,10,'sword',8,0,0,0,0,379,0,132,-1,48800000,2052,'true','true','true','true','','','','',0),
 (11236,'Forgotten Blade - Thunder - Haste','rhand','true',1300,1,1,'fine_steel','s',281,10,'sword',8,0,0,0,0,379,0,132,-1,48800000,2052,'true','true','true','true','3564-1','','','',0),
@@ -2834,7 +2834,7 @@ INSERT INTO `weapon` VALUES
 (12924,'Angel Slayer - Concentration - Haste','rhand','true',950,1,1,'fine_steel','s',246,5,'dagger',12,-3,0,0,0,433,0,132,-1,48800000,2052,'true','true','true','true','3564-1','','','',0),
 (12925,'Imperial Staff - Nature - Empower','lrhand','true',910,1,1,'fine_steel','s',274,20,'bigblunt',4,4,0,0,0,325,0,175,-1,48800000,2052,'true','true','true','true','','','','',0),
 (12926,'Imperial Staff - Nature - MP Regeneration','lrhand','true',910,1,1,'fine_steel','s',274,20,'bigblunt',4,4,0,0,0,325,0,175,-1,48800000,2052,'true','true','true','true','','','','',0),
-(12927,'Imperial Staff - Nature - Magic Hold','lrhand','true',910,1,1,'fine_steel','s',274,20,'bigblunt',4,4,0,0,0,325,0,175,-1,48800000,2052,'true','true','true','true','','','','',0),
+(12927,'Imperial Staff - Nature - Magic Hold','lrhand','true',910,1,1,'fine_steel','s',274,20,'bigblunt',4,4,0,0,0,325,0,175,-1,48800000,2052,'true','true','true','true','','','3577-1-20','',0),
 (12928,'Tallum Blade*Dark Legion\'s Edge - Thunder','lrhand','true',2080,1,1,'fine_steel','s',342,10,'dual',8,0,0,0,0,325,0,132,-1,48800000,2052,'true','true','true','true','','','','',0),
 (12929,'Forgotten Blade - Thunder - Haste','rhand','true',1300,1,1,'fine_steel','s',281,10,'sword',8,0,0,0,0,379,0,132,-1,48800000,2052,'true','true','true','true','3564-1','','','',0),
 (12930,'Forgotten Blade - Thunder - Health','rhand','true',1300,1,1,'fine_steel','s',281,10,'sword',8,0,0,0,0,379,0,132,-1,48800000,2052,'true','true','true','true','3013-3','','','',0),
@@ -2994,17 +2994,11 @@ INSERT INTO `weapon` VALUES
 UPDATE `weapon` SET `crystallizable` = 'false' WHERE `item_id` IN (9656,9657,9658,9659,9660,9661);
 UPDATE `weapon` SET `material` = 'steel' WHERE `item_id` IN (9656,9657,9658,9659,9660,9661);
 
--- Multiple skills and race/sex/class restriction
-ALTER TABLE `weapon` ADD `races` VARCHAR(20) NOT NULL DEFAULT '-1';
-ALTER TABLE `weapon` ADD `classes` VARCHAR(255) NOT NULL DEFAULT '-1';
-ALTER TABLE `weapon` ADD `sex` INT (1) NOT NULL DEFAULT -1;
-
 -- Wedding System part
 UPDATE `weapon` SET `skills_item` = '3260-1;3261-1;3262-1' WHERE `item_id` IN (9140,9141);
 
 -- Fix for SEVERE Cannot find onCast skill (0,0) for weapon item 8143
 UPDATE `weapon` SET `skills_item` = '',`skills_onCast` = '3577-1-10' WHERE `item_id` = 8143;
-
 
 -- Add Skills to Kamael Hero Weapons by DrunkenDave
 UPDATE `weapon` SET `skills_onCrit` = '3594-1-7' WHERE `item_id` = 9390;

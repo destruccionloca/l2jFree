@@ -2,36 +2,69 @@
 <!DOCTYPE list SYSTEM "armors.dtd">
 <list>
   <item id='9605' name="Agathion Seal Bracelet - Rainbow Clan Hall">
+    <cond msgId="1518">
+      <player clanHall="65"/>
+    </cond>
     <for/>
   </item>
   <item id='9606' name="Agathion Seal Bracelet - Wild Beast Reserve">
+    <cond msgId="1518">
+      <player clanHall="63"/>
+    </cond>
     <for/>
   </item>
   <item id='9607' name="Agathion Seal Bracelet - Gludio">
+    <cond msgId="1518">
+      <player castle = "1"/>
+    </cond>
     <for/>
   </item>
   <item id='9608' name="Agathion Seal Bracelet - Dion">
+    <cond msgId="1518">
+      <player castle = "2"/>
+    </cond>
     <for/>
   </item>
   <item id='9609' name="Agathion Seal Bracelet - Giran">
+    <cond msgId="1518">
+      <player castle = "3"/>
+    </cond>
     <for/>
   </item>
   <item id='9610' name="Agathion Seal Bracelet - Oren">
+    <cond msgId="1518">
+      <player castle = "4"/>
+    </cond>
     <for/>
   </item>
   <item id='9611' name="Agathion Seal Bracelet - Aden">
+    <cond msgId="1518">
+      <player castle = "5"/>
+    </cond>
     <for/>
   </item>
   <item id='9612' name="Agathion Seal Bracelet - Innadril">
+    <cond msgId="1518">
+      <player castle = "6"/>
+    </cond>
     <for/>
   </item>
   <item id='9613' name="Agathion Seal Bracelet - Goddard">
+    <cond msgId="1518">
+      <player castle = "7"/>
+    </cond>
     <for/>
   </item>
   <item id='9614' name="Agathion Seal Bracelet - Rune">
+    <cond msgId="1518">
+      <player castle = "8"/>
+    </cond>
     <for/>
   </item>
   <item id='9615' name="Agathion Seal Bracelet - Schuttgart">
+    <cond msgId="1518">
+      <player castle = "9"/>
+    </cond>
     <for/>
   </item>
   <item id='9662' name="Great Wolf Scale Armor">

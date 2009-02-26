@@ -562,6 +562,7 @@
     <set name="mpConsume" val="#mpConsume" />
     <set name="hitTime" val="1500" />
     <set name="operateType" val="OP_ACTIVE" />
+    <set name="power" val="80"/> <!-- Needs to be checked -->
     <set name="target" val="TARGET_ONE" />
     <set name="isDebuff" val="true" />
     <set name="skillType" val="WEAKNESS" />
@@ -845,6 +846,9 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="soulConsumeCount" val="20" />
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect count="1" name="Transformation" time="300" val="0">
         <!-- Transformation lasts 5 minutes -->
@@ -921,6 +925,9 @@
     <set name="transformId" val="201" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect count="1" name="Transformation" time="1800" val="0" />
       <!-- Transformation lasts 30 minutes -->
@@ -939,6 +946,9 @@
     <set name="transformId" val="202" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect count="1" name="Transformation" time="1800" val="0" />
       <!-- Transformation lasts 30 minutes -->
@@ -957,6 +967,9 @@
     <set name="transformId" val="203" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect count="1" name="Transformation" time="1800" val="0" />
       <!-- Transformation lasts 30 minutes -->
@@ -975,6 +988,9 @@
     <set name="transformId" val="204" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect count="1" name="Transformation" time="1800" val="0" />
       <!-- Transformation lasts 30 minutes -->
@@ -993,6 +1009,9 @@
     <set name="transformId" val="205" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect count="1" name="Transformation" time="1800" val="0" />
       <!-- Transformation lasts 30 minutes -->
@@ -1011,6 +1030,9 @@
     <set name="transformId" val="206" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect count="1" name="Transformation" time="1800" val="0" />
       <!-- Transformation lasts 30 minutes -->
@@ -1029,6 +1051,9 @@
     <set name="transformId" val="207" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect count="1" name="Transformation" time="1800" val="0" />
       <!-- Transformation lasts 30 minutes -->
@@ -1047,6 +1072,9 @@
     <set name="transformId" val="208" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect count="1" name="Transformation" time="1800" val="0" />
       <!-- Transformation lasts 30 minutes -->
@@ -1065,6 +1093,9 @@
     <set name="transformId" val="209" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect count="1" name="Transformation" time="1800" val="0" />
       <!-- Transformation lasts 30 minutes -->
@@ -1083,6 +1114,9 @@
     <set name="transformId" val="210" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect count="1" name="Transformation" time="1800" val="0" />
       <!-- Transformation lasts 30 minutes -->
@@ -1101,6 +1135,9 @@
     <set name="transformId" val="211" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect count="1" name="Transformation" time="1800" val="0" />
       <!-- Transformation lasts 30 minutes -->
@@ -1119,6 +1156,9 @@
     <set name="transformId" val="212" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect count="1" name="Transformation" time="1800" val="0" />
       <!-- Transformation lasts 30 minutes -->
@@ -1137,6 +1177,9 @@
     <set name="transformId" val="213" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect count="1" name="Transformation" time="1800" val="0" />
       <!-- Transformation lasts 30 minutes -->
@@ -1155,6 +1198,9 @@
     <set name="transformId" val="214" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect count="1" name="Transformation" time="1800" val="0" />
       <!-- Transformation lasts 30 minutes -->
@@ -1173,6 +1219,9 @@
     <set name="transformId" val="215" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect count="1" name="Transformation" time="1800" val="0" />
       <!-- Transformation lasts 30 minutes -->
@@ -1191,6 +1240,9 @@
     <set name="transformId" val="216" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect count="1" name="Transformation" time="1800" val="0" />
       <!-- Transformation lasts 30 minutes -->
@@ -1209,6 +1261,9 @@
     <set name="transformId" val="217" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect count="1" name="Transformation" time="1800" val="0" />
       <!-- Transformation lasts 30 minutes -->
@@ -1227,6 +1282,9 @@
     <set name="transformId" val="218" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect count="1" name="Transformation" time="1800" val="0" />
       <!-- Transformation lasts 30 minutes -->
@@ -1651,8 +1709,8 @@
     <table name="#accCombat">13 15 17 19</table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="target" val="TARGET_AREA" />
-    <set name="skillRadius" val="250" />
-    <set name="reuseDelay" val="13000" />
+    <set name="skillRadius" val="300" />
+    <set name="reuseDelay" val="8000" />
     <set name="hitTime" val="3000" />
     <set name="skillType" val="DEBUFF" />
     <set name="operateType" val="OP_ACTIVE" />
@@ -1711,8 +1769,7 @@
     <set name="effectRange" val="-1" />
     <for>
       <effect count="1" name="SilentMove" abnormal="stealth" time="120" val="0">
-        <mul order="0x30" stat="runSpd" val="0.82" />
-        <!-- runSpd is reduced about 17-18% (maybe 19%) when is used -->
+        <sub order="0x40" stat="runSpd" val="18" />
       </effect>
     </for>
   </skill>

@@ -35,8 +35,5 @@ CREATE TABLE IF NOT EXISTS `custom_weapon` (
   `skills_onCast` varchar(70) NOT NULL DEFAULT '',
   `skills_onCrit` varchar(70) NOT NULL DEFAULT '',
   `change_weaponId` decimal(11,0) NOT NULL DEFAULT '0',
-  `races` VARCHAR(20) NOT NULL DEFAULT '-1',
-  `classes` VARCHAR(255) NOT NULL DEFAULT '-1',
-  `sex` INT (1) NOT NULL DEFAULT -1,
   PRIMARY KEY (`item_id`)
 ) DEFAULT CHARSET=utf8; 

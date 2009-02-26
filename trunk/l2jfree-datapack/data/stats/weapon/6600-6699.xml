@@ -139,6 +139,9 @@
     </for>
   </item>
   <item id='6611' name="Infinity Blade">
+    <cond msgId="1508">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <set val='379' order='0x08' stat='pAtk' />
       <set val='169' order='0x08' stat='mAtk' />
@@ -154,6 +157,9 @@
     </for>
   </item>
   <item id='6612' name="Infinity Cleaver">
+    <cond msgId="1508">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <set val='461' order='0x08' stat='pAtk' />
       <set val='169' order='0x08' stat='mAtk' />
@@ -169,6 +175,9 @@
     </for>
   </item>
   <item id='6613' name="Infinity Axe">
+    <cond msgId="1508">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <set val='379' order='0x08' stat='pAtk' />
       <set val='169' order='0x08' stat='mAtk' />
@@ -184,6 +193,9 @@
     </for>
   </item>
   <item id='6614' name="Infinity Rod">
+    <cond msgId="1508">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <set val='303' order='0x08' stat='pAtk' />
       <set val='226' order='0x08' stat='mAtk' />
@@ -200,6 +212,9 @@
     </for>
   </item>
   <item id='6615' name="Infinity Crusher">
+    <cond msgId="1508">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <set val='461' order='0x08' stat='pAtk' />
       <set val='169' order='0x08' stat='mAtk' />
@@ -215,6 +230,9 @@
     </for>
   </item>
   <item id='6616' name="Infinity Scepter">
+    <cond msgId="1508">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <set val='369' order='0x08' stat='pAtk' />
       <set val='226' order='0x08' stat='mAtk' />
@@ -231,6 +249,9 @@
     </for>
   </item>
   <item id='6617' name="Infinity Stinger">
+    <cond msgId="1508">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <set val='332' order='0x08' stat='pAtk' />
       <set val='169' order='0x08' stat='mAtk' />
@@ -246,6 +267,9 @@
     </for>
   </item>
   <item id='6618' name="Infinity Fang">
+    <cond msgId="1508">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <set val='461' order='0x08' stat='pAtk' />
       <set val='169' order='0x08' stat='mAtk' />
@@ -261,6 +285,9 @@
     </for>
   </item>
   <item id='6619' name="Infinity Bow">
+    <cond msgId="1508">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <set val='707' order='0x08' stat='pAtk' />
       <set val='169' order='0x08' stat='mAtk' />
@@ -281,6 +308,9 @@
     </for>
   </item>
   <item id='6620' name="Infinity Wing">
+    <cond msgId="1508">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <set val='461' order='0x08' stat='pAtk' />
       <set val='169' order='0x08' stat='mAtk' />
@@ -296,6 +326,9 @@
     </for>
   </item>
   <item id='6621' name="Infinity Spear">
+    <cond msgId="1508">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <set val='379' order='0x08' stat='pAtk' />
       <set val='169' order='0x08' stat='mAtk' />
