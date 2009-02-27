@@ -9143,3 +9143,12 @@ REPLACE INTO `npc` VALUES
 
 -- Daniel - Clan Hall Gatekeeper Type fix
 UPDATE `npc` SET `type` = 'L2Doormen' WHERE id = 35440;
+
+-- -------------------------
+-- Plaza Helm
+-- -------------------------
+UPDATE `npc` SET `level` = '82',
+`hp` = '23319',
+`mp` = '8000',
+`exp` = '36332',
+`sp` = '3789' WHERE CONCAT( `npc`.`id` ) =22289 LIMIT 1 ;
