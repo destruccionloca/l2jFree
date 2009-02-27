@@ -7,22 +7,13 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "19_GoToThePastureland"
 
-#QUEST LEVEL
-QLVL = 63
-
 #NPC
 VLADIMIR = 31302
 TUNATUN  = 31537
 
 #ITEMS
 BEAST_MEAT = 7547
-
-#REWARDS
 ADENA_ID     = 57
-ADENA_REWARD = 50000
-EXP          = 136766
-SP           = 12688
-
 
 class Quest (JQuest) :
 
@@ -39,8 +30,8 @@ class Quest (JQuest) :
      st.playSound("ItemSound.quest_accept")
    if event == "31537-1.htm" :
      st.takeItems(BEAST_MEAT,1)
-     st.rewardItems(ADENA_ID,ADENA_REWARD)
-     st.addExpAndSp(EXP,SP)
+     st.rewardItems(ADENA_ID,50000)
+     st.addExpAndSp(136766,12688)
      st.unset("cond")
      st.exitQuest(False)
      st.playSound("ItemSound.quest_finish")
@@ -58,7 +49,8 @@ class Quest (JQuest) :
      if cond == 0 :
        if id == State.COMPLETED :
          htmltext = "<html><body>This quest has already been completed.</body></html>"
-       elif player.getLevel() >= QLVL :
+
+       elif player.getLevel() >= 63 :
          htmltext = "31302-0.htm"
        else:
          htmltext = "<html><body>Quest for characters level 63 or above.</body></html>"

@@ -134,9 +134,9 @@ class Quest (JQuest) :
                 htmltext = "32198-14.htm"
             elif cond == 12 :
                 htmltext = "32198-15.htm"
-                st.rewardItems(57,81900)
                 st.takeItems(Soul_C,-1)
                 st.giveItems(Eval,1)
+                st.rewardItems(57,81900)
                 st.addExpAndSp(160267,11023)
                 st.playSound("ItemSound.quest_finish")
                 st.exitQuest(False)

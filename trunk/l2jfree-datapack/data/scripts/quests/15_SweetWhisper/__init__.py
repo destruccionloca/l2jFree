@@ -7,17 +7,10 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "15_SweetWhisper"
 
-#QUEST LEVEL
-QLVL = 60
-
 #NPC
 VLADIMIR      = 31302
 HIERARCH      = 31517
 M_NECROMANCER = 31518
-
-#REWARDS
-EXP = 350531
-SP  = 28204
 
 class Quest (JQuest) :
 
@@ -33,10 +26,11 @@ class Quest (JQuest) :
    if event == "31518-1.htm" :
      if cond == 1 :
        st.set("cond","2")
+       st.playSound("ItemSound.quest_middle")
    if event == "31517-1.htm" :
      if cond == 2 :
-       st.addExpAndSp(EXP,SP)
-       st.set("cond","0")
+       st.addExpAndSp(350531,28204)
+       st.unset("cond")
        st.playSound("ItemSound.quest_finish")
        st.exitQuest(False)
    return htmltext
@@ -49,22 +43,18 @@ class Quest (JQuest) :
    npcId = npc.getNpcId()
    cond = st.getInt("cond")
    id = st.getState()
-   if id == State.CREATED :
-     st.set("cond","0")
-   if npcId == VLADIMIR and st.getInt("cond") == 0 :
-     if id == State.COMPLETED :
-       htmltext = "<html><body>This quest has already been completed.</body></html>"
-       return htmltext
-     elif player.getLevel() >= QLVL :
-       htmltext = "31302-0.htm"
-       return htmltext
-     else:
-       htmltext = "31302-0a.htm"
-       st.exitQuest(1)
-   if npcId == VLADIMIR and cond == 1 :
-       htmltext = "31302-1a.htm"
-   if id == State.STARTED :
-       if npcId == M_NECROMANCER and cond == 1 :
+   if id == State.COMPLETED :
+        htmltext = "<html><body>This quest has already been completed.</body></html>"
+   elif id == State.CREATED :
+       if player.getLevel() >= 60 :
+         htmltext = "31302-0.htm"
+       else:
+         htmltext = "31302-0a.htm"
+         st.exitQuest(1)
+   elif id == State.STARTED :
+       if npcId == VLADIMIR and cond == 1:
+         htmltext = "31302-1a.htm"
+       elif npcId == M_NECROMANCER and cond == 1 :
          htmltext = "31518-0.htm"
        elif npcId == M_NECROMANCER and cond == 2 :
          htmltext = "31518-1a.htm"
@@ -76,7 +66,7 @@ QUEST       = Quest(15,qn,"Sweet Whisper")
 
 
 QUEST.addStartNpc(VLADIMIR)
-
 QUEST.addTalkId(VLADIMIR)
+
 QUEST.addTalkId(HIERARCH)
 QUEST.addTalkId(M_NECROMANCER)

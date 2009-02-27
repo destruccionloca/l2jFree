@@ -13,12 +13,6 @@ ARTISANS_FRAME   = 1891
 ORIHARUKON       = 1893
 SEWING_KIT       = 7078
 
-# NEEDED
-FERRIS_STEEL            = 5
-FERRIS_FRAME            = 10
-FERRIS_ORIHARUKON       = 10
-FERRIS_REINFORCED_STEEL = 10
-
 # NPC
 FERRIS = 30847
 ENCHANTED_IRON_GOLEM = 20566
@@ -37,7 +31,7 @@ class Quest (JQuest) :
      st.setState(State.STARTED)
      st.playSound("ItemSound.quest_accept")
    if event == "30847-3.htm" and cond == 2 :
-     st.takeItems(REINFORCED_STEEL,FERRIS_STEEL)
+     st.takeItems(REINFORCED_STEEL,5)
      st.set("cond","3")
    return htmltext
 
@@ -47,7 +41,9 @@ class Quest (JQuest) :
    if not st : return htmltext
    id = st.getState()
    cond = st.getInt("cond")
-   if cond == 0 and st.getQuestItemsCount(SEWING_KIT) == 0 :
+   if id == State.COMPLETED:
+     htmltext = "<html><body>This quest has already been completed.</body></html>"
+   elif cond == 0 and st.getQuestItemsCount(SEWING_KIT) == 0 :
      fwear=player.getQuestState("37_PleaseMakeMeFormalWear")
      if fwear:
          if fwear.get("cond") == "6" :
@@ -56,11 +52,11 @@ class Quest (JQuest) :
            st.exitQuest(1)
      else:
        st.exitQuest(1)
-   elif st.getQuestItemsCount(REINFORCED_STEEL) >= FERRIS_STEEL :
+   elif st.getQuestItemsCount(REINFORCED_STEEL) == 5 :
      htmltext = "30847-2.htm"
-   elif cond == 3 and st.getQuestItemsCount(ORIHARUKON) >= FERRIS_ORIHARUKON and st.getQuestItemsCount(ARTISANS_FRAME) >= FERRIS_FRAME :
-     st.takeItems(ORIHARUKON,FERRIS_ORIHARUKON)
-     st.takeItems(ARTISANS_FRAME,FERRIS_FRAME)
+   elif cond == 3 and st.getQuestItemsCount(ORIHARUKON) >= 10 and st.getQuestItemsCount(ARTISANS_FRAME) >= 10 :
+     st.takeItems(ORIHARUKON,10)
+     st.takeItems(ARTISANS_FRAME,10)
      st.giveItems(SEWING_KIT,int(1))
      st.playSound("ItemSound.quest_finish")
      htmltext = "30847-4.htm"
@@ -73,9 +69,9 @@ class Quest (JQuest) :
    st = partyMember.getQuestState(qn)
    
    count = st.getQuestItemsCount(REINFORCED_STEEL)
-   if count < FERRIS_REINFORCED_STEEL :
+   if count < 5 :
      st.giveItems(REINFORCED_STEEL,int(1))
-     if count == (FERRIS_REINFORCED_STEEL - 1) :
+     if count == 4 :
        st.playSound("ItemSound.quest_middle")
        st.set("cond","2")
      else:
@@ -85,7 +81,5 @@ class Quest (JQuest) :
 QUEST       = Quest(36,qn,"Make A Sewing Kit")
 
 QUEST.addStartNpc(FERRIS)
-
 QUEST.addTalkId(FERRIS)
-
 QUEST.addKillId(ENCHANTED_IRON_GOLEM)

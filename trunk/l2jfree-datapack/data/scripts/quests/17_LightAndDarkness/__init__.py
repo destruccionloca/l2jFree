@@ -1,7 +1,7 @@
 # Made with contributions from :
 # disKret, Skeleton & DrLecter.
 # this script is part of the Official L2J Datapack Project.
-# Visit http://forum.l2jdp.com for more details.
+# Visit http://www.l2jdp.com/forum/ for more details.
 
 import sys
 from com.l2jfree import Config
@@ -10,9 +10,6 @@ from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "17_LightAndDarkness"
-
-#QUEST LEVEL
-QLVL = 61
 
 #NPC
 HIERARCH = 31517
@@ -24,10 +21,6 @@ SAINT_ALTAR_4 = 31511
 #ITEMS
 BLOOD_OF_SAINT = 7168
 
-#REWARDS
-EXP = 697040
-SP  = 54887
-
 class Quest (JQuest) :
 
  def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
@@ -37,7 +30,7 @@ class Quest (JQuest) :
    cond = st.getInt("cond")
    blood = st.getQuestItemsCount(BLOOD_OF_SAINT)
    if event == "31517-02.htm" :
-     if st.getPlayer().getLevel() >= QLVL :
+     if st.getPlayer().getLevel() >= 61 :
        st.giveItems(BLOOD_OF_SAINT,4)
        st.set("cond","1")
        st.setState(State.STARTED)
@@ -79,11 +72,8 @@ class Quest (JQuest) :
       htmltext = "<html><body>This quest has already been completed.</body></html>"
    if id == State.CREATED :
       st2 = player.getQuestState("15_SweetWhisper")
-      if st2 :
-         if st2.getState() != State.COMPLETED :
-            htmltext = "<html><body>Quest Sweet Whisper need to be finished first.</body></html>"
-         else :
-            htmltext = "31517-00.htm"
+      if st2 and st2.getState() == State.COMPLETED:
+         htmltext = "31517-00.htm"
       else :
          htmltext = "<html><body>Quest Sweet Whisper need to be finished first.</body></html>"
    elif id == State.STARTED :
@@ -96,7 +86,7 @@ class Quest (JQuest) :
            st.exitQuest(1)
            st.playSound("ItemSound.quest_giveup")
       else :
-        st.addExpAndSp(EXP,SP)
+        st.addExpAndSp(697040,54887)
         st.unset("cond")
         st.exitQuest(False)
         st.playSound("ItemSound.quest_finish")
@@ -136,6 +126,7 @@ class Quest (JQuest) :
    return htmltext
 
 QUEST       = Quest(17,qn,"Light and Darkness")
+
 
 QUEST.addStartNpc(HIERARCH)
 QUEST.addTalkId(HIERARCH)

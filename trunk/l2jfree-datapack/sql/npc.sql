@@ -1,6 +1,6 @@
--- ---------------------------
+-- ---------------------------------
 -- Table structure for table `npc`
--- ---------------------------
+-- ---------------------------------
 DROP TABLE IF EXISTS `npc`;
 CREATE TABLE `npc`(
   `id` decimal(11,0) NOT NULL DEFAULT '0',
@@ -9135,20 +9135,16 @@ INSERT INTO `npc` (`id`, `idTemplate`, `name`, `serverSideName`, `title`, `serve
 (14916, 14916, 'Tigress', 0, '', 0, 'LineageMonster.saber_toothed_tiger_070p', 8.00, 20.00, 63, 'female', 'L2Monster', 40, 3862, 1722, 11.85, 2.78, 40, 43, 30, 21, 20, 25, 0, 0, 1335, 470, 780, 440, 282, 0, 333, 0, 0, 0, 88, 187, 'NULL', 0, 0, 0, 'LAST_HIT', 4, 4, 0, 'fighter', 'false'),
 (14917, 14917, 'Tigress', 0, '', 0, 'LineageMonster.saber_toothed_tiger_070p', 8.00, 20.00, 67, 'female', 'L2Monster', 40, 3862, 1722, 11.85, 2.78, 40, 43, 30, 21, 20, 25, 0, 0, 1335, 470, 780, 440, 282, 0, 333, 0, 0, 0, 88, 187, 'NULL', 0, 0, 0, 'LAST_HIT', 4, 4, 0, 'fighter', 'false');
 
--- -------------------------
+-- -------------------
 -- Halloween Pumpkin
--- -------------------------
+-- -------------------
 REPLACE INTO `npc` VALUES
 (13135, 13135, 'Pumpkin Ghost', 0, '', 0, 'Npc2.Pumpkin_Head_man', 8.00, 25.00, 70, 'etc', 'L2Npc', 40, 3862, 1493, 11.85, 2.78, 40, 43, 30, 21, 20, 10, 0, 0, 1314, 470, 780, 382, 278, 0, 333, 0, 0, 0, 50, 120, 'NULL', 0, 1, 0, 'LAST_HIT', 0, 0, 0, 'balanced', 'false');
 
 -- Daniel - Clan Hall Gatekeeper Type fix
 UPDATE `npc` SET `type` = 'L2Doormen' WHERE id = 35440;
 
--- -------------------------
+-- ------------
 -- Plaza Helm
--- -------------------------
-UPDATE `npc` SET `level` = '82',
-`hp` = '23319',
-`mp` = '8000',
-`exp` = '36332',
-`sp` = '3789' WHERE CONCAT( `npc`.`id` ) =22289 LIMIT 1 ;
+-- ------------
+UPDATE `npc` SET `level` = '82',`hp` = '23319',`mp` = '8000',`exp` = '36332',`sp` = '3789' WHERE `id` = 22289;

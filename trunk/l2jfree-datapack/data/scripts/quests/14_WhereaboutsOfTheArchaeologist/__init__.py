@@ -7,21 +7,13 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "14_WhereaboutsOfTheArchaeologist"
 
-#QUEST LEVEL
-QLVL = 74
-
 #NPC
 LIESEL = 31263
 GHOST_OF_ADVENTURER = 31538
 
-#QUEST ITEM
+#ITEMS
 LETTER = 7253
-
-#REWARDS
-ADENA_ID     = 57
-ADENA_REWARD = 136928
-EXP          = 325881
-SP           =  32524
+ADENA_ID = 57
 
 class Quest (JQuest) :
 
@@ -39,9 +31,9 @@ class Quest (JQuest) :
      st.playSound("ItemSound.quest_accept")
    elif event == "31538-1.htm" :
      if cond == 1 and st.getQuestItemsCount(LETTER) == 1 :
-       st.rewardItems(ADENA_ID,ADENA_REWARD)
+       st.rewardItems(ADENA_ID,136928)
        st.takeItems(LETTER,1)
-       st.addExpAndSp(EXP,SP)
+       st.addExpAndSp(325881,32524)
        st.exitQuest(False)
        st.set("cond","0")
        st.playSound("ItemSound.quest_finish")
@@ -59,10 +51,10 @@ class Quest (JQuest) :
    if npcId == LIESEL and cond == 0 :
      if id == State.COMPLETED :
        htmltext = "<html><body>This quest has already been completed.</body></html>"
-     elif player.getLevel() < QLVL : 
+     elif player.getLevel() < 74 : 
        htmltext = "31263-1.htm"
        st.exitQuest(1)
-     elif player.getLevel() >= QLVL : 
+     elif player.getLevel() >= 74 : 
        htmltext = "31263-0.htm"
    elif npcId == LIESEL and cond == 1 :
      htmltext = "31263-2.htm"

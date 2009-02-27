@@ -10,14 +10,9 @@ qn = "34_InSearchOfClothes"
 
 #ITEM
 SPINNERET  = 7528
-SPIDERSILK = 1493
 SUEDE      = 1866
 THREAD     = 1868
-
-#NEEDED
-RALFORD_SPINNERET = 10
-RADIA_SUEDE       = 3000
-RADIA_THREAD      = 5000
+SPIDERSILK = 1493
 
 #QUEST MONSTER
 TRISALIM_SPIDER    = 20560
@@ -51,20 +46,21 @@ class Quest (JQuest) :
    if event == "30165-1.htm" and cond == 3:
      st.set("cond","4")
    if event == "30165-3.htm" and cond == 5:
-     if st.getQuestItemsCount(SPINNERET) == RALFORD_SPINNERET :
-       st.takeItems(SPINNERET,RALFORD_SPINNERET)
+     if st.getQuestItemsCount(SPINNERET) == 10 :
+       st.takeItems(SPINNERET,10)
        st.giveItems(SPIDERSILK,1)
        st.set("cond","6")
      else :
        htmltext = "You don't have enough materials"
    if event == "30088-5.htm" and cond == 6 :
-     if st.getQuestItemsCount(SUEDE) >= RADIA_SUEDE and st.getQuestItemsCount(THREAD) >= RADIA_THREAD and st.getQuestItemsCount(SPIDERSILK) == 1 :
-       st.takeItems(SUEDE,RADIA_SUEDE)
-       st.takeItems(THREAD,RADIA_THREAD)
+     if st.getQuestItemsCount(SUEDE) >= 3000 and st.getQuestItemsCount(THREAD) >= 5000 and st.getQuestItemsCount(SPIDERSILK) == 1 :
+       st.takeItems(SUEDE,3000)
+       st.takeItems(THREAD,5000)
        st.takeItems(SPIDERSILK,1)
        st.giveItems(MYSTERIOUS_CLOTH,1)
        st.playSound("ItemSound.quest_finish")
-       st.exitQuest(1)
+       st.exitQuest(False)
+       st.unset("cond")
      else :
        htmltext = "You don't have enough materials"
    return htmltext
@@ -76,7 +72,9 @@ class Quest (JQuest) :
    npcId = npc.getNpcId()
    id = st.getState()
    cond = st.getInt("cond")
-   if npcId == RADIA and cond == 0 and st.getQuestItemsCount(MYSTERIOUS_CLOTH) == 0 :
+   if id == State.COMPLETED:
+     htmltext = "<html><body>This quest has already been completed.</body></html>"
+   elif npcId == RADIA and cond == 0 and st.getQuestItemsCount(MYSTERIOUS_CLOTH) == 0 :
      fwear=player.getQuestState("37_PleaseMakeMeFormalWear")
      if fwear :
        if fwear.get("cond") == "6" :
@@ -101,15 +99,14 @@ class Quest (JQuest) :
  def onKill(self,npc,player,isPet):
    partyMember = self.getRandomPartyMember(player,"4")
    if not partyMember : return
-
    st = partyMember.getQuestState(qn)
    if not st : return 
    if st.getState() != State.STARTED : return
 
    count = st.getQuestItemsCount(SPINNERET)
-   if count < RALFORD_SPINNERET :
+   if count < 10 :
      st.giveItems(SPINNERET,int(1))
-     if count == (RALFORD_SPINNERET - 1) :
+     if count == 9 :
        st.playSound("ItemSound.quest_middle")
        st.set("cond","5")
      else :
@@ -119,10 +116,9 @@ class Quest (JQuest) :
 QUEST = Quest(34,qn,"In Search of Clothes")
 
 QUEST.addStartNpc(RADIA)
-
 QUEST.addTalkId(RADIA)
+
 QUEST.addTalkId(RALFORD)
 QUEST.addTalkId(VARAN)
-
 QUEST.addKillId(TRISALIM_SPIDER)
 QUEST.addKillId(TRISALIM_TARANTULA)

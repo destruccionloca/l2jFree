@@ -8,20 +8,14 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "35_FindGlitteringJewelry"
 
-#REWARD
-JEWEL_BOX = 7077
-
 #ITEM
 ROUGH_JEWEL   = 7162
 ORIHARUKON    = 1893
 SILVER_NUGGET = 1873
 THONS         = 4044
 
-#NEEDED
-ELLIE_JEWEL       = 10
-ELLIE_ORIHARUKON  = 5
-ELLIE_SILV_NUGGET = 500
-ELLIE_THONS       = 150
+#REWARD
+JEWEL_BOX = 7077
 
 #NPC
 ELLIE  = 30091
@@ -46,16 +40,17 @@ class Quest (JQuest) :
    if event == "30879-1.htm" and cond == 1:
      st.set("cond","2")
    if event == "30091-3.htm" and cond == 3:
-     st.takeItems(ROUGH_JEWEL,ELLIE_JEWEL)
+     st.takeItems(ROUGH_JEWEL,10)
      st.set("cond","4")
    if event == "30091-5.htm" and cond == 4:
-     if st.getQuestItemsCount(ORIHARUKON) >= ELLIE_ORIHARUKON and st.getQuestItemsCount(SILVER_NUGGET) >= ELLIE_SILV_NUGGET and st.getQuestItemsCount(THONS) >= ELLIE_THONS :
-       st.takeItems(ORIHARUKON,ELLIE_ORIHARUKON)
-       st.takeItems(SILVER_NUGGET,ELLIE_SILV_NUGGET)
-       st.takeItems(THONS,ELLIE_THONS)
+     if st.getQuestItemsCount(ORIHARUKON) >= 5 and st.getQuestItemsCount(SILVER_NUGGET) >= 500 and st.getQuestItemsCount(THONS) >= 150 :
+       st.takeItems(ORIHARUKON,5)
+       st.takeItems(SILVER_NUGGET,500)
+       st.takeItems(THONS,150)
        st.giveItems(JEWEL_BOX,1)
        st.playSound("ItemSound.quest_finish")
-       st.exitQuest(1)
+       st.unset("cond")
+       st.exitQuest(False)
      else :
        htmltext = "You don't have enough materials"
    return htmltext
@@ -67,24 +62,24 @@ class Quest (JQuest) :
    npcId = npc.getNpcId()
    cond = st.getInt("cond")
    id = st.getState()
-   if npcId == ELLIE and cond == 0 and st.getQuestItemsCount(JEWEL_BOX) == 0 :
+   if id == State.COMPLETED:
+     htmltext = "<html><body>This quest has already been completed.</body></html>"
+   elif npcId == ELLIE and cond == 0 and st.getQuestItemsCount(JEWEL_BOX) == 0 :
      fwear=player.getQuestState("37_PleaseMakeMeFormalWear")
-     if not fwear is None :
+     if fwear :
        if fwear.get("cond") == "6" :
          htmltext = "30091-0.htm"
          return htmltext
        else:
-         htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>" 
          st.exitQuest(1)
      else:
-       htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>" 
        st.exitQuest(1)
    elif npcId == FELTON and cond == 1 :
      htmltext = "30879-0.htm"
    elif id == State.STARTED :  
-       if npcId == ELLIE and st.getQuestItemsCount(ROUGH_JEWEL) == ELLIE_JEWEL :
+       if npcId == ELLIE and st.getQuestItemsCount(ROUGH_JEWEL) == 10 :
          htmltext = "30091-2.htm"
-       elif npcId == ELLIE and cond == 4 and st.getQuestItemsCount(ORIHARUKON) >= ELLIE_ORIHARUKON and st.getQuestItemsCount(SILVER_NUGGET) >= ELLIE_SILV_NUGGET and st.getQuestItemsCount(THONS) >= ELLIE_THONS :
+       elif npcId == ELLIE and cond == 4 and st.getQuestItemsCount(ORIHARUKON) >= 5 and st.getQuestItemsCount(SILVER_NUGGET) >= 500 and st.getQuestItemsCount(THONS) >= 150 :
          htmltext = "30091-4.htm"
    return htmltext
 
@@ -104,9 +99,9 @@ class Quest (JQuest) :
    if not st : return 
    if st.getState() != State.STARTED : return   
    count = st.getQuestItemsCount(ROUGH_JEWEL)
-   if count < ELLIE_JEWEL :
+   if count<10 :
      st.giveItems(ROUGH_JEWEL,int(1))
-     if count == (ELLIE_JEWEL - 1) :
+     if count == 9 :
        st.playSound("ItemSound.quest_middle")
        st.set("cond","3")
      else:
@@ -116,8 +111,7 @@ class Quest (JQuest) :
 QUEST       = Quest(35,qn,"Find Glittering Jewelry")
 
 QUEST.addStartNpc(ELLIE)
-
 QUEST.addTalkId(ELLIE)
-QUEST.addTalkId(FELTON)
 
+QUEST.addTalkId(FELTON)
 QUEST.addKillId(ALLIGATOR)

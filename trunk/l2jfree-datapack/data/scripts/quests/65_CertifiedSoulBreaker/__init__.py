@@ -1,6 +1,6 @@
 # Made by Kerberos v1.0 on 2008/02/03
 # this script is part of the Official L2J Datapack Project.
-# Visit http://forum.l2jdp.com for more details.
+# Visit http://www.l2jdp.com/forum/ for more details.
 import sys
 from com.l2jfree.gameserver.ai                 import CtrlIntention
 from com.l2jfree.gameserver.model.quest        import State

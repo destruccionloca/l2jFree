@@ -7,9 +7,6 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "32_AnObviousLie"
 
-#QUEST LEVEL
-QLVL = 45
-
 #NPC
 MAXIMILIAN   = 30120
 GENTLER      = 30094
@@ -27,11 +24,6 @@ MEDICINAL_HERB = 7166
 SPIRIT_ORES    = 3031
 THREAD         = 1868
 SUEDE          = 1866
-
-GENTLER_MED_H      = 20
-GENTLER_SPIRIT_ORE = 500
-GENTLER_THREAD     = 1000
-GENTLER_SUEDE      = 500
 
 #REWARDS
 RACCOON_EAR = 7680
@@ -57,15 +49,15 @@ class Quest (JQuest) :
      st.takeItems(MAP,1)
      st.set("cond","3")
    elif event == "30094-4.htm" :
-     if st.getQuestItemsCount(MEDICINAL_HERB) >= (GENTLER_MED_H) :
-       st.takeItems(MEDICINAL_HERB,GENTLER_MED_H)
+     if st.getQuestItemsCount(MEDICINAL_HERB) > 19 :
+       st.takeItems(MEDICINAL_HERB,20)
        st.set("cond","5")
      else:
        htmltext="You don't have enough materials"
        st.set("cond","3")
    elif event == "30094-7.htm" :
-     if st.getQuestItemsCount(SPIRIT_ORES) >= GENTLER_SPIRIT_ORE:
-       st.takeItems(SPIRIT_ORES,GENTLER_SPIRIT_ORE)
+     if st.getQuestItemsCount(SPIRIT_ORES) >= 500:
+       st.takeItems(SPIRIT_ORES,500)
        st.set("cond","6")
      else:
        htmltext="Youn don't have enough materials"
@@ -74,9 +66,9 @@ class Quest (JQuest) :
    elif event == "30094-10.htm" :
      st.set("cond","8")
    elif event == "30094-13.htm" :
-     if st.getQuestItemsCount(THREAD) >= GENTLER_THREAD and st.getQuestItemsCount(SUEDE) >= GENTLER_SUEDE :
-       st.takeItems(THREAD,GENTLER_THREAD)
-       st.takeItems(SUEDE,GENTLER_SUEDE)
+     if st.getQuestItemsCount(THREAD) >= 1000 and st.getQuestItemsCount(SUEDE) >= 500 :
+       st.takeItems(THREAD,1000)
+       st.takeItems(SUEDE,500)
      else:
        htmltext="You don't have enough materials"
    elif event in ["cat","racoon","rabbit"] :
@@ -104,18 +96,18 @@ class Quest (JQuest) :
    npcId = npc.getNpcId()
    id = st.getState()
    cond=st.getInt("cond")
-   if npcId == MAXIMILIAN :
-     if cond == 0 :
-       if player.getLevel() >= QLVL :
+   if id == State.COMPLETED :
+       htmltext = "<html><body>This quest has already been completed.</body></html>"
+   elif npcId == MAXIMILIAN :
+     if id == State.CREATED :
+       if player.getLevel() >= 45 :
          htmltext = "30120-0.htm"
-       elif id == State.COMPLETED :
-         htmltext = "<html><body>This quest has already been completed.</body></html>"
        else:
          htmltext = "30120-0a.htm"
          st.exitQuest(1)
      elif cond == 1 :
        htmltext = "30120-2.htm"
-   if id == State.STARTED :    
+   elif id == State.STARTED :
        if npcId == GENTLER :
          if cond == 1 :
            htmltext = "30094-0.htm"
@@ -123,17 +115,17 @@ class Quest (JQuest) :
            htmltext = "30094-2.htm"
          elif cond == 4 :
            htmltext = "30094-3.htm"
-         elif cond == 5 and st.getQuestItemsCount(SPIRIT_ORES) < GENTLER_SPIRIT_ORE :
+         elif cond == 5 and st.getQuestItemsCount(SPIRIT_ORES) < 500 :
            htmltext = "30094-5.htm"
-         elif cond == 5 and st.getQuestItemsCount(SPIRIT_ORES) >= GENTLER_SPIRIT_ORE :
+         elif cond == 5 and st.getQuestItemsCount(SPIRIT_ORES) >= 500 :
            htmltext = "30094-6.htm"
          elif cond == 6 :
            htmltext = "30094-8.htm"
          elif cond == 7 :
            htmltext = "30094-9.htm"
-         elif cond == 8 and (st.getQuestItemsCount(THREAD) < GENTLER_THREAD or st.getQuestItemsCount(SUEDE) < GENTLER_SUEDE) :
+         elif cond == 8 and (st.getQuestItemsCount(THREAD) < 1000 or st.getQuestItemsCount(SUEDE) < 500) :
            htmltext = "30094-11.htm"
-         elif cond == 8 and st.getQuestItemsCount(THREAD) >= GENTLER_THREAD and st.getQuestItemsCount(SUEDE) >= GENTLER_SUEDE :
+         elif cond == 8 and st.getQuestItemsCount(THREAD) >= 1000 and st.getQuestItemsCount(SUEDE) >= 500 :
            htmltext = "30094-12.htm"
        if npcId == MIKI_THE_CAT :
          if cond == 2 :
@@ -150,13 +142,13 @@ class Quest (JQuest) :
    st = player.getQuestState(qn)
    if not st : return
    if st.getState()!=State.STARTED : return
-   
+
    chance = st.getRandom(100)
    count = st.getQuestItemsCount(MEDICINAL_HERB)
    if chance < CHANCE_FOR_DROP and st.getInt("cond")== 3 :
-     if count < GENTLER_MED_H :
+     if count < 20 :
        st.giveItems(MEDICINAL_HERB,int(1))
-       if count == (GENTLER_MED_H - 1) :
+       if count == 19 :
          st.playSound("ItemSound.quest_middle")
          st.set("cond","4")
        else:
@@ -166,9 +158,8 @@ class Quest (JQuest) :
 QUEST       = Quest(32,qn,"An Obvious Lie")
 
 QUEST.addStartNpc(MAXIMILIAN)
-
 QUEST.addTalkId(MAXIMILIAN)
+
 QUEST.addTalkId(GENTLER)
 QUEST.addTalkId(MIKI_THE_CAT)
-
 QUEST.addKillId(ALLIGATOR)

@@ -13,11 +13,10 @@ IAN     = 30164
 LEIKAR  = 31520
 
 #ITEM
-ADENA           = 57
 LEATHER         = 1882
 THREAD          = 1868
+ADENA           = 57
 DRESS_SHOES_BOX = 7113
-
 
 class Quest (JQuest) :
 
@@ -50,7 +49,8 @@ class Quest (JQuest) :
    if event == "30838-7.htm" :
      st.giveItems(DRESS_SHOES_BOX,1)
      st.playSound("ItemSound.quest_finish")
-     st.exitQuest(1)
+     st.unset("cond")
+     st.exitQuest(False)
    return htmltext
 
  def onTalk (self,npc,player):
@@ -60,10 +60,10 @@ class Quest (JQuest) :
 
    npcId = npc.getNpcId()
    id = st.getState()
-   if id == State.CREATED :
-     st.set("cond","0")
    cond = st.getInt("cond")
-   if npcId == WOODLEY and cond == 0 and st.getQuestItemsCount(DRESS_SHOES_BOX) == 0 :
+   if id == State.COMPLETED:
+     htmltext = "<html><body>This quest has already been completed.</body></html>"
+   elif npcId == WOODLEY and cond == 0 and st.getQuestItemsCount(DRESS_SHOES_BOX) == 0 :
      fwear=player.getQuestState("37_PleaseMakeMeFormalWear")
      if fwear :
        if fwear.get("cond") == "7" :
@@ -89,7 +89,7 @@ QUEST       = Quest(33,qn,"Make A Pair Of Dress Shoes")
 
 
 QUEST.addStartNpc(WOODLEY)
-
 QUEST.addTalkId(WOODLEY)
+
 QUEST.addTalkId(IAN)
 QUEST.addTalkId(LEIKAR)

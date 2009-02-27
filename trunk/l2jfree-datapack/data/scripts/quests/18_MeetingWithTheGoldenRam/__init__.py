@@ -10,9 +10,6 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "18_MeetingWithTheGoldenRam"
 
-#QUEST LEVEL
-QLVL = 66
-
 #NPC
 DONAL       = 31314
 DAISY       = 31315
@@ -20,12 +17,7 @@ ABERCROMBIE = 31555
 
 #ITEM
 BOX = 7245
-
-#REWARDS
-ADENA_ID     = 57
-ADENA_REWARD = 40000
-EXP          = 126668
-SP           = 11731
+ADENA_ID = 57
 
 class Quest (JQuest) :
 
@@ -34,7 +26,7 @@ class Quest (JQuest) :
  def onEvent (self,event,st) :
      htmltext = event
      if event == "31314-03.htm" :
-       if st.getPlayer().getLevel() >= QLVL :
+       if st.getPlayer().getLevel() >= 66 :
          st.set("cond","1")
          st.setState(State.STARTED)
          st.playSound("ItemSound.quest_accept")
@@ -46,9 +38,9 @@ class Quest (JQuest) :
        htmltext = "31315-02.htm"
        st.giveItems(BOX,1)
      elif event == "31555-02.htm" :
-       st.rewardItems(ADENA_ID,ADENA_REWARD)
+       st.rewardItems(ADENA_ID,40000)
        st.takeItems(BOX,-1)
-       st.addExpAndSp(EXP,SP)
+       st.addExpAndSp(126668,11731)
        st.unset("cond")
        st.playSound("ItemSound.quest_finish")
        st.exitQuest(False)
@@ -63,6 +55,7 @@ class Quest (JQuest) :
      cond = st.getInt("cond")
      if id == State.COMPLETED :
        htmltext = htmltext = "<html><body>This quest has already been completed.</body></html>"
+
      elif id == State.CREATED and npcId == DONAL :
        htmltext = "31314-01.htm"
      elif id == State.STARTED :

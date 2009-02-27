@@ -7,18 +7,12 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "20_BringUpWithLove"
 
-#QUEST LEVEL
-QLVL = 65
-
 #NPCs
 TUNATUN = 31537
 
 #ITEMS 
 GEM = 7185
-
-#REWARDS
-ADENA_ID     = 57
-ADENA_REWARD = 68500
+ADENA_ID = 57
 
 #NOTE: This quest requires the giving of item GEM upon successful growth and taming of a wild beast, so the rewarding of
 # the gem is handled by the feedable_beasts ai script.
@@ -34,7 +28,7 @@ class Quest (JQuest) :
      st.setState(State.STARTED)
      st.playSound("ItemSound.quest_accept")
    elif event == "31537-12.htm" :
-       st.rewardItems(ADENA_ID,ADENA_REWARD)
+       st.rewardItems(ADENA_ID,68500)
        st.takeItems(GEM,-1)
        st.playSound("ItemSound.quest_finish")
        st.exitQuest(False)
@@ -52,8 +46,9 @@ class Quest (JQuest) :
    GEM_COUNT = st.getQuestItemsCount(GEM)
    if id == State.COMPLETED :
        htmltext = "<html><body>This quest has already been completed.</body></html>"
+
    elif id == State.CREATED and onlyone == 0 :
-     if player.getLevel() >= QLVL :
+     if player.getLevel() >= 65 :
          htmltext = "31537-01.htm"
      else:
          htmltext = "31537-02.htm"
