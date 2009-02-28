@@ -2,11 +2,11 @@
 <list>
   <item id='5703' name="Lucky Charm">
     <cond msgId="1902">
-      <player grade="0" />
+      <player grade="0"/>
     </cond>
     <cond msgId="1508">
-      <player olympiad="false" />
+      <player olympiad="false"/>
     </cond>
-    <for />
+    <for/>
   </item>
 </list>

@@ -39,7 +39,7 @@ def openDoor(doorId,instanceId):
 def dropItem(npc,itemId,count):
 	ditem = ItemTable.getInstance().createItem("Loot", itemId, count, None)
 	ditem.dropMe(npc, npc.getX(), npc.getY(), npc.getZ());
-			
+
 def checkKillProgress(npc,room):
 	cont = True
 	if room.npclist.has_key(npc):
@@ -56,11 +56,11 @@ def checkCondition(player):
 		return False
 	party = player.getParty()
 	if not party:
-		player.sendPacket(SystemMessage.sendString("You must be in a party with at least one other person."))	
+		player.sendPacket(SystemMessage.sendString("You must be in a party with at least one other person."))
 		return False
 	item = player.getInventory().getItemByItemId(CRYSTAL)
 	if not item:
-		player.sendPacket(SystemMessage.sendString("You must have a Contaminated Crystal in your Inventory."))	
+		player.sendPacket(SystemMessage.sendString("You must have a Contaminated Crystal in your Inventory."))
 		return False
 	return True
 
@@ -73,7 +73,7 @@ def teleportplayer(self,player,teleto):
 		pet.setInstanceId(teleto.instanceId)
 		pet.teleToLocation(teleto.x, teleto.y, teleto.z)
 	return
-	
+
 def enterInstance(self,player,template,teleto):
 	instanceId = 0
 	if not checkCondition(player):
@@ -91,25 +91,25 @@ def enterInstance(self,player,template,teleto):
 			if worldid == instanceId:
 				foundworld = True
 		if not foundworld:
-			player.sendPacket(SystemMessage.sendString("Your Party Members are in another Instance."))	
+			player.sendPacket(SystemMessage.sendString("Your Party Members are in another Instance."))
 			return 0
 		teleto.instanceId = instanceId
 		teleportplayer(self,player,teleto)
 		return instanceId
 	# New instance
 	else:
-		instanceId = InstanceManager.getInstance().createDynamicInstance(template)	
+		instanceId = InstanceManager.getInstance().createDynamicInstance(template)
 		if not self.worlds.has_key(instanceId):
 			world = PyObject()
 			world.instanceId = instanceId
 			self.worlds[instanceId]=world
 			self.world_ids.append(instanceId)
-			print template + "Coral Garden Instance: " +str(instanceId) + " created by player: " + str(player.getName()) 
+			print template + "Coral Garden Instance: " +str(instanceId) + " created by player: " + str(player.getName())
 			# Close all doors
 			for door in InstanceManager.getInstance().getInstance(instanceId).getDoors():
 				door.closeMe()
 			# Start the first room
-			runHall(self,world)				
+			runHall(self,world)
 		# Teleport player
 		teleto.instanceId = instanceId
 		teleportplayer(self,player,teleto)
@@ -123,7 +123,7 @@ def exitInstance(player,tele):
 	if pet != None :
 		pet.setInstanceId(0)
 		pet.teleToLocation(teleto.x, teleto.y, teleto.z)
-		
+
 def runHall(self,world):
 	world.status=0
 	world.startRoom = PyObject()
@@ -223,13 +223,13 @@ def runHall(self,world):
 	newNpc = self.addSpawn(22316, 140800, 150707, -11817, 55884, False,0,False, world.instanceId)
 	world.startRoom.npclist[newNpc]=False
 	if debug: print "Coral: hall spawned in instance " + str(world.instanceId)
-	
+
 def runGolems(self,world):
 	world.status = 1
 	newNpc = self.addSpawn(TEARS,144298,154420,-11854,63371,False,0,False, world.instanceId) # Tears
 	newNpc = self.addSpawn(32328,140547,151670,-11813,32767,False,0,False, world.instanceId)
 	newNpc = self.addSpawn(32328,141941,151684,-11813,63371,False,0,False, world.instanceId)
-	
+
 
 class CoralGarden(JQuest):
 	def __init__(self,id,name,descr):

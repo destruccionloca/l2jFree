@@ -30,9 +30,8 @@ class oracle6(JQuest):
 			instanceId = npc.getInstanceId()
 			openDoor(DOOR1,instanceId)
 			openDoor(DOOR2,instanceId)
-			
-	
+
+
 QUEST = oracle6(-1, "oracle6", "ai")
 QUEST.addStartNpc(ORACLE_GUIDE)
 QUEST.addFirstTalkId(ORACLE_GUIDE)
-

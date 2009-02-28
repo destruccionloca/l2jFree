@@ -3,8 +3,8 @@
   <item id='735' name="Potion of Alacrity">
     <!-- <skill id="2012" lvl="1"/> -->
     <cond>
-      <player olympiad="false" />
+      <player olympiad="false"/>
     </cond>
-    <for />
+    <for/>
   </item>
 </list>

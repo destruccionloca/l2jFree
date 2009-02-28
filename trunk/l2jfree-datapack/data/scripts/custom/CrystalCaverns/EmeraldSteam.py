@@ -62,14 +62,14 @@ ordreOracle1 = [
                 [32274,32274,32275,32274],
                 [32274,32274,32274,32275]
                ]
- 
+
 ordreOracle2 = [
                 [32276,32274,32274,32274],
                 [32274,32276,32274,32274],
                 [32274,32274,32276,32274],
                 [32274,32274,32274,32276]
                ]
-			   
+
 ordreOracle3 = [
                 [32277,32274,32274,32274],
                 [32274,32277,32274,32274],
@@ -88,7 +88,7 @@ def openDoor(doorId,instanceId):
 def dropItem(npc,itemId,count):
 	ditem = ItemTable.getInstance().createItem("Loot", itemId, count, None)
 	ditem.dropMe(npc, npc.getX(), npc.getY(), npc.getZ())
-			
+
 def checkCondition(player):
 	if not player.getLevel() >= 78:
 		player.sendPacket(SystemMessage.sendString("You must be level 78 to enter Crystal Caverns."))
@@ -99,7 +99,7 @@ def checkCondition(player):
 		return False
 	item = player.getInventory().getItemByItemId(CRYSTAL)
 	if not item:
-		player.sendPacket(SystemMessage.sendString("You must have a Contaminated Crystal in your Inventory."))	
+		player.sendPacket(SystemMessage.sendString("You must have a Contaminated Crystal in your Inventory."))
 		return False
 	return True
 
@@ -131,26 +131,26 @@ def enterInstance(self,player,template,teleto):
 			if worldid == instanceId:
 				foundworld = True
 		if not foundworld:
-			player.sendPacket(SystemMessage.sendString("Your Party Members are in another Instance."))	
+			player.sendPacket(SystemMessage.sendString("Your Party Members are in another Instance."))
 			return 0
 		teleto.instanceId = instanceId
 		teleportplayer(self,player,teleto,True)
 		return instanceId
 	# New instance
 	else:
-		instanceId = InstanceManager.getInstance().createDynamicInstance(template)	
+		instanceId = InstanceManager.getInstance().createDynamicInstance(template)
 		if not self.worlds.has_key(instanceId):
 			world = PyObject()
 			world.instanceId = instanceId
 			world.bosses = 5
 			self.worlds[instanceId]=world
 			self.world_ids.append(instanceId)
-			print "Emerald/Steam Instance: " +str(instanceId) + " created by player: " + str(player.getName()) 
+			print "Emerald/Steam Instance: " +str(instanceId) + " created by player: " + str(player.getName())
 			# Close all doors
 			for door in InstanceManager.getInstance().getInstance(instanceId).getDoors():
 				door.closeMe()
 			# Start the first room
-			runEmeraldAndSteamFirstRoom(self,world)				
+			runEmeraldAndSteamFirstRoom(self,world)
 		# Teleports player
 		teleto.instanceId = instanceId
 		teleportplayer(self,player,teleto,True)
@@ -164,7 +164,7 @@ def exitInstance(player,tele):
 	if pet != None :
 		pet.setInstanceId(0)
 		pet.teleToLocation(teleto.x, teleto.y, teleto.z)
-		
+
 def checkKillProgress(npc,room):
 	cont = True
 	if room.npclist.has_key(npc):
@@ -212,7 +212,7 @@ def runEmeraldAndSteamFirstRoom(self,world):
 	self.addSpawn(22284, 146491, 151144, -12140, 28915, False, 0, False, world.instanceId)
 	self.addSpawn(22284, 147783, 151257, -12140, 37421, False, 0, False, world.instanceId)
 	self.addSpawn(ORACLE_GUIDE3, 154333, 145200, -12589, 16483, False, 0, False, world.instanceId)
-	
+
 def runEmerald(self,world):
 	world.status = 1
 	runSecretRoom1(self,world)
@@ -333,7 +333,7 @@ def runEmerald(self,world):
 	world.emeraldRoom.npclist[newNpc]=False
 	newNpc = self.addSpawn(22293, 148388, 143092, -12227, 11429, False, 0, False, world.instanceId)
 	world.emeraldRoom.npclist[newNpc]=False
-	
+
 def runSecretRoom1(self,world):
 	world.SecretRoom1 = PyObject()
 	world.SecretRoom1.npclist = {}
@@ -351,7 +351,7 @@ def runSecretRoom1(self,world):
 	world.SecretRoom1.npclist[newNpc]=False
 	# Blacksmith
 	self.addSpawn(32359, 142110, 139896, -11888, 8033, False, 0, False, world.instanceId)
-	
+
 def runSecretRoom2(self,world):
 	world.SecretRoom2 = PyObject()
 	world.SecretRoom2.npclist = {}
@@ -369,7 +369,7 @@ def runSecretRoom2(self,world):
 	world.SecretRoom2.npclist[newNpc]=False
 	newNpc = self.addSpawn(22287, 146276, 140847, -11888, 22210, False, 0, False, world.instanceId)
 	world.SecretRoom2.npclist[newNpc]=False
-	
+
 def runSecretRoom3(self,world):
 	world.SecretRoom3 = PyObject()
 	world.SecretRoom3.npclist = {}
@@ -385,7 +385,7 @@ def runSecretRoom3(self,world):
 	world.SecretRoom3.npclist[newNpc]=False
 	newNpc = self.addSpawn(22297, 145126, 143697, -12815, 33214, False, 0, False, world.instanceId)
 	world.SecretRoom3.npclist[newNpc]=False
-	
+
 def runSecretRoom4(self,world):
 	world.SecretRoom4 = PyObject()
 	world.SecretRoom4.npclist = {}
@@ -403,7 +403,7 @@ def runSecretRoom4(self,world):
 	world.SecretRoom4.npclist[newNpc]=False
 	newNpc = self.addSpawn(22304, 150564, 142231, -12115, 4836, False, 0, False, world.instanceId)
 	world.SecretRoom4.npclist[newNpc]=False
-	
+
 def runDarnel(self,world):
 	world.status = 7
 	world.DarnelRoom = PyObject()
@@ -412,7 +412,7 @@ def runDarnel(self,world):
 	world.DarnelRoom.npclist[newNpc]=False
 	openDoor(24220005,world.instanceId)
 	openDoor(24220006,world.instanceId)
-	
+
 def runSteamRoom1(self,world):
 	world.status = 20
 	world.killedCaptains = 0
@@ -448,7 +448,7 @@ def runSteamRoom1Oracle(self,world):
 	self.addSpawn(o2, 147090, 152575, -12169, 31613, False, 0, False, world.instanceId)
 	self.addSpawn(o3, 147090, 152645, -12169, 31613, False, 0, False, world.instanceId)
 	self.addSpawn(o4, 147090, 152715, -12169, 31613, False, 0, False, world.instanceId)
-	
+
 def runSteamRoom2(self,world):
 	world.status = 21
 	world.killedCaptains = 0
@@ -484,7 +484,7 @@ def runSteamRoom2Oracle(self,world):
 	self.addSpawn(o2, 149783, 152575, -12169, 31613, False, 0, False, world.instanceId)
 	self.addSpawn(o3, 149783, 152645, -12169, 31613, False, 0, False, world.instanceId)
 	self.addSpawn(o4, 149783, 152715, -12169, 31613, False, 0, False, world.instanceId)
-	
+
 def runSteamRoom3(self,world):
 	world.status = 22
 	world.killedCaptains = 0
@@ -518,7 +518,7 @@ def runSteamRoom3(self,world):
 	world.steamRoom3.npclist[newNpc] = False
 	newNpc = self.addSpawn(22307, 152054, 152557, -12172, 40959, False, 0, False, world.instanceId)
 	world.steamRoom3.npclist[newNpc] = False
-	
+
 def runSteamRoom3Oracle(self,world):
 	world.OracleTriggered = False
 	o1,o2,o3,o4 = ordreOracle3[Rnd.get(len(ordreOracle3))]
@@ -552,7 +552,7 @@ def runSteamRoom4(self,world):
 	world.steamRoom4.npclist[newNpc] = False
 	newNpc = self.addSpawn(22419, 150031, 149797, -12172, 16560, False, 0, False, world.instanceId)
 	world.steamRoom4.npclist[newNpc] = False
-	
+
 def runKechi(self,world):
 	world.status = 24
 	world.kechiRoom = PyObject()
@@ -584,7 +584,7 @@ class EmeraldSteam(JQuest):
 		if instanceId == 0:
 			return
 		return
-		
+
 	def onFirstTalk(self,npc,player):
 		world = self.worlds[npc.getInstanceId()]
 		npcId = npc.getNpcId()
@@ -626,7 +626,7 @@ class EmeraldSteam(JQuest):
 					teleportplayer(self,partyMember,teleto,False)
 			else:
 				teleportplayer(self,player,teleto,False)
-				
+
 	def onSkillSee(self,npc,caster,skill,targets,isPet):
 		world = self.worlds[npc.getInstanceId()]
 		skillId = skill.getId()
@@ -634,7 +634,7 @@ class EmeraldSteam(JQuest):
 			npcId = mob.getNpcId()
 			if npcId in [32275,32276,32277] and skillId in [1217,1218,1011,1015,1401,5146]:
 				world.OracleTriggered = True
-   
+
 	def onAttack(self,npc,player,damage,isPet):
 		return
 
@@ -715,7 +715,7 @@ class EmeraldSteam(JQuest):
 				elif npcId == KECHI:
 					dropItem(npc,RED_CRYSTAL,1)
 		return
-		
+
 QUEST = EmeraldSteam(-1, qn, "EmeraldSteam")
 QUEST.addStartNpc(ORACLE_GUIDE)
 QUEST.addTalkId(ORACLE_GUIDE)

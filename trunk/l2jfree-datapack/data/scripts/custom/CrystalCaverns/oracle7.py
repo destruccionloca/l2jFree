@@ -41,7 +41,7 @@ def teleportplayer(player,teleto):
 
 def dropItem(npc,itemId,count):
 	ditem = ItemTable.getInstance().createItem("Loot", itemId, count, None)
-	ditem.dropMe(npc, npc.getX(), npc.getY() + 50, npc.getZ()); 
+	ditem.dropMe(npc, npc.getX(), npc.getY() + 50, npc.getZ());
 
 class oracle7(JQuest):
 	def __init__(self,id,name,descr):
@@ -79,8 +79,8 @@ class oracle7(JQuest):
 		if npcId == ORACLE_GUIDE:
 			htmltext = "32280.htm"
 		return htmltext
-			
-	
+
+
 QUEST = oracle7(-1, "oracle7", "ai")
 QUEST.addStartNpc(ORACLE_GUIDE)
 QUEST.addTalkId(ORACLE_GUIDE)

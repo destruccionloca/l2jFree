@@ -11,7 +11,7 @@ from com.l2jfree.tools.random import Rnd
 
 GK1 = 22275
 GK2 = 22277
-	
+
 def dropItem(npc,itemId,count):
 	ditem = ItemTable.getInstance().createItem("Loot", itemId, count, None)
 	ditem.dropMe(npc, npc.getX(), npc.getY(), npc.getZ()); 
@@ -34,7 +34,7 @@ class cc_gate(JQuest):
 				if nnpc.getNpcId() == GK2 and nnpc.getNpcId() != npc.getNpcId():
 					nnpc.decayMe()
 		return
-	
+
 QUEST = cc_gate(-1, "cc_gate", "ai")
 QUEST.addKillId(GK1)
 QUEST.addKillId(GK2)
