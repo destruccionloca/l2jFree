@@ -43,6 +43,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2SiegeGuardInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.model.actor.knownlist.AttackableKnownList;
 import com.l2jfree.gameserver.model.base.SoulCrystal;
@@ -284,7 +285,7 @@ public class L2Attackable extends L2NpcInstance
 	 * and L2Character that attacked the L2Attackable This Map is Thread Safe,
 	 * but Removing Object While Interating Over It Will Result NPE
 	 */
-	private final Map<L2Character, AggroInfo> _aggroList = new SingletonMap<L2Character, AggroInfo>().setShared();
+	private final Map<L2Character, AggroInfo>	_aggroList	= new SingletonMap<L2Character, AggroInfo>().setShared();
 
 	/** Use this to Read or Put Object to this Map */
 	public final Map<L2Character, AggroInfo> getAggroListRP()
@@ -307,7 +308,7 @@ public class L2Attackable extends L2NpcInstance
 		return _aggroList;
 	}
 
-	private final Map<L2Character, AggroInfo> _damageContributors = new SingletonMap<L2Character, AggroInfo>().setShared();
+	private final Map<L2Character, AggroInfo>	_damageContributors	= new SingletonMap<L2Character, AggroInfo>().setShared();
 
 	public final Map<L2Character, AggroInfo> getDamageContributors()
 	{
@@ -339,50 +340,50 @@ public class L2Attackable extends L2NpcInstance
 	}
 
 	/** Table containing all Items that a Dwarf can Sweep on this L2Attackable */
-	private RewardItem[]						_sweepItems;
+	private RewardItem[]							_sweepItems;
 
 	/** crops */
-	private RewardItem[]						_harvestItems;
-	private boolean								_seeded;
-	private int									_seedType						= 0;
-	private L2PcInstance						_seeder							= null;
+	private RewardItem[]							_harvestItems;
+	private boolean									_seeded;
+	private int										_seedType						= 0;
+	private L2PcInstance							_seeder							= null;
 
 	/**
 	 * True if an over-hit enabled skill has successfully landed on the
 	 * L2Attackable
 	 */
-	private boolean								_overhit;
+	private boolean									_overhit;
 
 	/**
 	 * Stores the extra (over-hit) damage done to the L2Attackable when the
 	 * attacker uses an over-hit enabled skill
 	 */
-	private double								_overhitDamage;
+	private double									_overhitDamage;
 
 	/**
 	 * Stores the attacker who used the over-hit enabled skill on the
 	 * L2Attackable
 	 */
-	private L2Character							_overhitAttacker;
+	private L2Character								_overhitAttacker;
 
 	/**
 	 * First CommandChannel who attacked the L2Attackable and meet the
 	 * requirements
 	 **/
-	private L2CommandChannel					_firstCommandChannelAttacked	= null;
-	private CommandChannelTimer					_commandChannelTimer			= null;
+	private L2CommandChannel						_firstCommandChannelAttacked	= null;
+	private CommandChannelTimer						_commandChannelTimer			= null;
 
 	/** True if a Soul Crystal was successfuly used on the L2Attackable */
-	private boolean								_absorbed;
+	private boolean									_absorbed;
 
 	/**
 	 * The table containing all L2PcInstance that successfuly absorbed the soul
 	 * of this L2Attackable
 	 */
-	private final Map<L2PcInstance, AbsorberInfo> _absorbersList = new SingletonMap<L2PcInstance, AbsorberInfo>().setShared();
+	private final Map<L2PcInstance, AbsorberInfo>	_absorbersList					= new SingletonMap<L2PcInstance, AbsorberInfo>().setShared();
 
 	/** Have this L2Attackable to reward Exp and SP on Die? **/
-	private boolean								_mustGiveExpSp;
+	private boolean									_mustGiveExpSp;
 
 	/**
 	 * Constructor of L2Attackable (use L2Character and L2NpcInstance
@@ -427,7 +428,7 @@ public class L2Attackable extends L2NpcInstance
 		L2CharacterAI ai = _ai; // copy handle
 		if (ai == null)
 		{
-			synchronized(this)
+			synchronized (this)
 			{
 				if (_ai == null)
 					_ai = new L2AttackableAI(new AIAccessor());
@@ -447,7 +448,7 @@ public class L2Attackable extends L2NpcInstance
 	 * @param awake The awake state (If True : stop sleeping)
 	 */
 	@Override
-	public void reduceCurrentHp(double damage, L2Character attacker, boolean awake, boolean isDOT, L2Skill skill)
+	public void reduceCurrentHp(double damage, L2Character attacker, boolean awake, boolean isDOT)
 	{
 		/*
 		if ((this instanceof L2SiegeGuardInstance) && (attacker instanceof L2SiegeGuardInstance))
@@ -466,8 +467,7 @@ public class L2Attackable extends L2NpcInstance
 			_firstCommandChannelAttacked = attacker.getParty().getCommandChannel();
 			_commandChannelTimer = new CommandChannelTimer(this, attacker.getParty().getCommandChannel());
 			ThreadPoolManager.getInstance().scheduleGeneral(_commandChannelTimer, 300000); // 5 min
-			_firstCommandChannelAttacked.broadcastToChannelMembers(new CreatureSay(0, SystemChatChannelId.Chat_Party_Room, "",
-					"You have looting rights!"));
+			_firstCommandChannelAttacked.broadcastToChannelMembers(new CreatureSay(0, SystemChatChannelId.Chat_Party_Room, "", "You have looting rights!"));
 		}
 
 		if (isEventMob)
@@ -475,24 +475,26 @@ public class L2Attackable extends L2NpcInstance
 
 		// Add damage and hate to the attacker AggroInfo of the L2Attackable _aggroList
 		if (attacker != null)
-			addDamage(attacker, (int) damage, skill);
+			addDamage(attacker, (int) damage);
 
 		// If this L2Attackable is a L2MonsterInstance and it has spawned minions, call its minions to battle
 		if (this instanceof L2MonsterInstance)
 		{
 			L2MonsterInstance master = (L2MonsterInstance) this;
+
 			if (this instanceof L2MinionInstance)
 			{
 				master = ((L2MinionInstance) this).getLeader();
 				if (!master.isInCombat() && !master.isDead())
-					master.addDamage(attacker, 1, skill);
+					master.addDamage(attacker, 1);
 			}
+
 			if (master.hasMinions())
 				master.callMinionsToAssist(attacker);
-		}
 
+		}
 		// Reduce the current HP of the L2Attackable and launch the doDie Task if necessary
-		super.reduceCurrentHp(damage, attacker, awake, isDOT, skill);
+		super.reduceCurrentHp(damage, attacker, awake, isDOT);
 	}
 
 	public synchronized void setMustRewardExpSp(boolean value)
@@ -769,10 +771,10 @@ public class L2Attackable extends L2NpcInstance
 								{
 									if (attacker instanceof L2PcInstance)
 									{
-										if (!isChampion() || (isChampion() && Config.ENABLE_VITALITY_CHAMPION)) 
+										if (!isChampion() || (isChampion() && Config.ENABLE_VITALITY_CHAMPION))
 										{
-											((L2PcInstance)attacker).addVitExpAndSp(addexp, addsp, this);
-											((L2PcInstance)attacker).calculateVitalityPoints(this, damage);
+											((L2PcInstance) attacker).addVitExpAndSp(addexp, addsp, this);
+											((L2PcInstance) attacker).calculateVitalityPoints(this, damage);
 										}
 										else
 											attacker.addExpAndSp(addexp, addsp);
@@ -929,14 +931,9 @@ public class L2Attackable extends L2NpcInstance
 	 * @param attacker The L2Character that gave damages to this L2Attackable
 	 * @param damage The number of damages given by the attacker L2Character
 	 */
-	public void addDamage(L2Character attacker, int damage, L2Skill skill)
-	{
-		addDamageHate(attacker, damage, damage, skill);
-	}
-
 	public void addDamage(L2Character attacker, int damage)
 	{
-		addDamageHate(attacker, damage, damage, null);
+		addDamageHate(attacker, damage, damage);
 	}
 
 	/**
@@ -948,10 +945,8 @@ public class L2Attackable extends L2NpcInstance
 	 * @param damage The number of damages given by the attacker L2Character
 	 * @param aggro The hate (=damage) given by the attacker L2Character
 	 */
-	public void addDamageHate(L2Character attacker, int damage, int aggro, L2Skill skill)
+	public void addDamageHate(L2Character attacker, int damage, int aggro)
 	{
-		// TODO: Aggro calculation ought to be removed from here and placed within
-		// onAttack and onSkillSee in the AI Script (Fulminus)
 		if (attacker == null /*|| _aggroList == null*/)
 			return;
 
@@ -966,84 +961,19 @@ public class L2Attackable extends L2NpcInstance
 			if ((attacker instanceof L2PcInstance || attacker instanceof L2Summon) && !attacker.isAlikeDead())
 			{
 				L2PcInstance targetPlayer = (attacker instanceof L2PcInstance) ? (L2PcInstance) attacker : ((L2Summon) attacker).getOwner();
-				Quest[] events = getTemplate().getEventQuests(Quest.QuestEventType.ON_AGGRO_RANGE_ENTER);
-				if (events != null)
-				{
-					for (Quest quest : events)
+				if (getTemplate().getEventQuests(Quest.QuestEventType.ON_AGGRO_RANGE_ENTER) != null)
+					for (Quest quest : getTemplate().getEventQuests(Quest.QuestEventType.ON_AGGRO_RANGE_ENTER))
 						quest.notifyAggroRangeEnter(this, targetPlayer, (attacker instanceof L2Summon));
-				}
+
 			}
 		}
 
-		// If aggro is negative, its comming from SEE_SPELL, buffs use constant 150
-		if (aggro < 0)
-		{
-			ai._hate -= (aggro * 150) / (getLevel() + 7);
-			aggro = -aggro;
-		}
-		// if damage == 0 -> this is case of adding only to aggro list, dont apply formula on it
-		else if (damage == 0)
-			ai._hate += aggro;
-		// else its damage that must be added using constant 100
-		else
-			ai._hate += (aggro * 100) / (getLevel() + 7);
-
-		// Add new damage and aggro (=damage) to the AggroInfo object
+		ai._hate += aggro;
 		ai._damage += damage;
-		ai._hate += (aggro * 100) / (getLevel() + 7);
-
-		// we will do some special treatments for _attacker but _attacker is not for sure a L2PlayableInstance...
-		if (attacker instanceof L2PlayableInstance)
-		{
-			// attacker L2PcInstance could be the the attacker or the owner of the attacker 
-			L2PcInstance _attacker = attacker instanceof L2PcInstance ? (L2PcInstance) attacker : ((L2Summon) attacker).getOwner();
-			AggroInfo damageContrib = getDamageContributors().get(_attacker);
-			if (damageContrib != null)
-			{
-				damageContrib._damage += damage;
-				damageContrib._hate += aggro;
-			}
-			else
-			{
-				damageContrib = new AggroInfo(_attacker);
-				damageContrib._damage = damage;
-				damageContrib._hate = aggro;
-				getDamageContributors().put(_attacker, damageContrib);
-			}
-		}
 
 		// Set the intention to the L2Attackable to AI_INTENTION_ACTIVE
 		if (aggro > 0 && getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE)
 			getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
-
-		// Notify the L2Attackable AI with EVT_ATTACKED
-		if (!isDead())
-		{
-			getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, attacker);
-
-			try
-			{
-				if (attacker instanceof L2PcInstance || attacker instanceof L2Summon)
-				{
-					L2PcInstance player = attacker instanceof L2PcInstance ? (L2PcInstance) attacker : ((L2Summon) attacker).getOwner();
-
-					if (getTemplate().getEventQuests(Quest.QuestEventType.ON_ATTACK) != null)
-					{
-						for (Quest quest : getTemplate().getEventQuests(Quest.QuestEventType.ON_ATTACK))
-							quest.notifyAttack(this, player, damage, attacker instanceof L2Summon, skill);
-					}
-				}
-			}
-			catch (Exception e)
-			{
-				_log.fatal("", e);
-			}
-		}
-	}
-
-	public void addDamageHate(L2Character attacker, int damage, int aggro)
-	{
-		addDamageHate(attacker, damage, aggro, null);
 	}
 
 	public void reduceHate(L2Character target, int amount)
@@ -2583,7 +2513,10 @@ public class L2Attackable extends L2NpcInstance
 		// check the region where this mob is, do not activate the AI if region is inactive.
 		if (!isInActiveRegion())
 		{
-			getAI().stopAITask();
+			if (this instanceof L2SiegeGuardInstance)
+				getAI().stopAITask();
+			else
+				getAI().stopAITask();
 		}
 	}
 
