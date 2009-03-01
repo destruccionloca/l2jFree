@@ -6,7 +6,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * This is currently only a test of the java script engine
- * 
+ *
  * @author durgus
  *
  */
@@ -24,9 +24,8 @@ public class Akamanah extends L2Transformation
 		player.getAppearance().setVisibleName("Akamanah");
 		player.getAppearance().setVisibleTitle("");
 
-		// Void Burst, Void Flow
-		addSkill(player, 3630, 1);
-		addSkill(player, 3631, 1);
+		addSkill(player, 3630, 1); // Void Burst
+		addSkill(player, 3631, 1); // Void Flow
 	}
 
 	public void onUntransform(L2PcInstance player)
@@ -35,9 +34,8 @@ public class Akamanah extends L2Transformation
 		player.getAppearance().setVisibleName(null);
 		player.getAppearance().setVisibleTitle(null);
 
-		// Void Burst, Void Flow
-		removeSkill(player, 3630);
-		removeSkill(player, 3631);
+		removeSkill(player, 3630); // Void Burst
+		removeSkill(player, 3631); // Void Flow
 	}
 
 	public static void main(String[] args)

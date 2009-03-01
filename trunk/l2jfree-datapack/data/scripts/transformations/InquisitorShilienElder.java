@@ -52,18 +52,12 @@ public class InquisitorShilienElder extends L2Transformation
 		if (player.getLevel() > 43)
 		{
 			int level = player.getLevel() - 43;
-			// Divine Punishment
-			addSkill(player, 1523, level);
-			// Divine Flash
-			addSkill(player, 1528, level);
-			// Holy Weapon
-			addSkill(player, 1043, 1);
-			// Surrender to the Holy
-			addSkill(player, 1524, level);
-			// Divine Curse
-			addSkill(player, 1525, level);
-			// Switch Stance
-			addSkill(player, 838, 1);
+			addSkill(player, 1523, level); // Divine Punishment
+			addSkill(player, 1524, level); // Surrender to the Holy
+			addSkill(player, 1525, level); // Divine Curse
+			addSkill(player, 1528, level); // Divine Flash
+			addSkill(player, 1043, 1); // Holy Weapon
+			addSkill(player, 838, 1); // Switch Stance
 			// Send a Server->Client packet StatusUpdate to the L2PcInstance.
 			player.sendSkillList();
 		}
@@ -77,18 +71,12 @@ public class InquisitorShilienElder extends L2Transformation
 
 	public void removeSkills(L2PcInstance player)
 	{
-		// Divine Punishment
-		removeSkill(player, 1523);
-		// Divine Flash
-		removeSkill(player, 1528);
-		// Holy Weapon
-		removeSkill(player, 1043);
-		// Surrender to the Holy
-		removeSkill(player, 1524);
-		// Divine Curse
-		removeSkill(player, 1525);
-		// Switch Stance
-		removeSkill(player, 838);
+		removeSkill(player, 1523); // Divine Punishment
+		removeSkill(player, 1524); // Surrender to the Holy
+		removeSkill(player, 1525); // Divine Curse
+		removeSkill(player, 1528); // Divine Flash
+		removeSkill(player, 1043); // Holy Weapon
+		removeSkill(player, 838); // Switch Stance
 		// Send a Server->Client packet StatusUpdate to the L2PcInstance.
 		player.sendSkillList();
 	}

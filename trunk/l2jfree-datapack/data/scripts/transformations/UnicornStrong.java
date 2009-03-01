@@ -7,10 +7,10 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 /**
  * Description: <br>
  * This will handle the transformation, giving the skills, and removing them, when the player logs out and is transformed these skills
- * do not save. 
+ * do not save.
  * When the player logs back in, there will be a call from the enterworld packet that will add all their skills.
  * The enterworld packet will transform a player.
- * 
+ *
  * @author durgus
  *
  */
@@ -24,26 +24,18 @@ public class UnicornStrong extends L2DefaultTransformation
 
 	public void transformedSkills(L2PcInstance player)
 	{
-		// Horn of Doom
-		addSkill(player, 563, 4);
-		// Gravity Control
-		addSkill(player, 564, 4);
-		// Horn Assault
-		addSkill(player, 565, 4);
-		// Light of Heal
-		addSkill(player, 567, 4);
+		addSkill(player, 563, 4); // Horn of Doom
+		addSkill(player, 564, 4); // Gravity Control
+		addSkill(player, 565, 4); // Horn Assault
+		addSkill(player, 567, 4); // Light of Heal
 	}
 
 	public void removeSkills(L2PcInstance player)
 	{
-		// Horn of Doom
-		removeSkill(player, 563);
-		// Gravity Control
-		removeSkill(player, 564);
-		// Horn Assault
-		removeSkill(player, 565);
-		// Light of Heal
-		removeSkill(player, 567);
+		removeSkill(player, 563); // Horn of Doom
+		removeSkill(player, 564); // Gravity Control
+		removeSkill(player, 565); // Horn Assault
+		removeSkill(player, 567); // Light of Heal
 	}
 
 	public static void main(String[] args)

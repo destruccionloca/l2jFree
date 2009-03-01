@@ -24,26 +24,18 @@ public class InfernoDrakeWeak extends L2DefaultTransformation
 
 	public void transformedSkills(L2PcInstance player)
 	{
-		// Paw Strike
-		addSkill(player, 576, 2);
-		// Fire Breath
-		addSkill(player, 577, 2);
-		// Blaze Quake
-		addSkill(player, 578, 2);
-		// Fire Armor
-		addSkill(player, 579, 2);
+		addSkill(player, 576, 2); // Paw Strike
+		addSkill(player, 577, 2); // Fire Breath
+		addSkill(player, 578, 2); // Blaze Quake
+		addSkill(player, 579, 2); // Fire Armor
 	}
 
 	public void removeSkills(L2PcInstance player)
 	{
-		// Paw Strike
-		removeSkill(player, 576);
-		// Fire Breath
-		removeSkill(player, 577);
-		// Blaze Quake
-		removeSkill(player, 578);
-		// Fire Armor
-		removeSkill(player, 579);
+		removeSkill(player, 576); // Paw Strike
+		removeSkill(player, 577); // Fire Breath
+		removeSkill(player, 578); // Blaze Quake
+		removeSkill(player, 579); // Fire Armor
 	}
 
 	public static void main(String[] args)

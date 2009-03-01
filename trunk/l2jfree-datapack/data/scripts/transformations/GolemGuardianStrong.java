@@ -7,10 +7,10 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 /**
  * Description: <br>
  * This will handle the transformation, giving the skills, and removing them, when the player logs out and is transformed these skills
- * do not save. 
+ * do not save.
  * When the player logs back in, there will be a call from the enterworld packet that will add all their skills.
  * The enterworld packet will transform a player.
- * 
+ *
  * @author durgus
  *
  */
@@ -24,26 +24,18 @@ public class GolemGuardianStrong extends L2DefaultTransformation
 
 	public void transformedSkills(L2PcInstance player)
 	{
-		// Double Slasher
-		addSkill(player, 572, 4);
-		// Earthquake
-		addSkill(player, 573, 4);
-		// Bomb Installation
-		addSkill(player, 574, 4);
-		// Steel Cutter
-		addSkill(player, 575, 4);
+		addSkill(player, 572, 4); // Double Slasher
+		addSkill(player, 573, 4); // Earthquake
+		addSkill(player, 574, 4); // Bomb Installation
+		addSkill(player, 575, 4); // Steel Cutter
 	}
 
 	public void removeSkills(L2PcInstance player)
 	{
-		// Double Slasher
-		removeSkill(player, 572);
-		// Earthquake
-		removeSkill(player, 573);
-		// Bomb Installation
-		removeSkill(player, 574);
-		// Steel Cutter
-		removeSkill(player, 575);
+		removeSkill(player, 572); // Double Slasher
+		removeSkill(player, 573); // Earthquake
+		removeSkill(player, 574); // Bomb Installation
+		removeSkill(player, 575); // Steel Cutter
 	}
 
 	public static void main(String[] args)

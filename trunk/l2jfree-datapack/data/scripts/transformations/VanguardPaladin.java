@@ -55,12 +55,9 @@ public class VanguardPaladin extends L2Transformation
 		if (player.getLevel() > 43)
 		{
 			int level = player.getLevel() - 43;
-			// Power Divide
-			addSkill(player, 816, level);
-			// Full Swing
-			addSkill(player, 814, level);
-			// Switch Stance
-			addSkill(player, 838, 1);
+			addSkill(player, 814, level); // Full Swing
+			addSkill(player, 816, level); // Power Divide
+			addSkill(player, 838, 1); // Switch Stance
 			// Send a Server->Client packet StatusUpdate to the L2PcInstance.
 			player.sendSkillList();
 		}
@@ -74,12 +71,9 @@ public class VanguardPaladin extends L2Transformation
 
 	public void removeSkills(L2PcInstance player)
 	{
-		// Power Divide
-		removeSkill(player, 816);
-		// Full Swing
-		removeSkill(player, 814);
-		// Switch Stance
-		removeSkill(player, 838);
+		removeSkill(player, 814); // Full Swing
+		removeSkill(player, 816); // Power Divide
+		removeSkill(player, 838); // Switch Stance
 		// Send a Server->Client packet StatusUpdate to the L2PcInstance.
 		player.sendSkillList();
 	}
