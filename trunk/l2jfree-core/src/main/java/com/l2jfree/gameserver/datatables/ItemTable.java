@@ -173,13 +173,13 @@ public class ItemTable
 			"SELECT item_id, name, crystallizable, item_type, weight, consume_type, material, crystal_type, duration, price, crystal_count, sellable, dropable, destroyable, tradeable FROM etcitem",
 
 			"SELECT item_id, name, bodypart, crystallizable, armor_type, weight," + " material, crystal_type, avoid_modify, duration, p_def, m_def, mp_bonus,"
-					+ " price, crystal_count, sellable, dropable, destroyable, tradeable," + " skills_item, races, classes, sex FROM armor",
+					+ " price, crystal_count, sellable, dropable, destroyable, tradeable," + " skills_item FROM armor",
 
 			"SELECT item_id, name, bodypart, crystallizable, weight, soulshots, spiritshots,"
 					+ " material, crystal_type, p_dam, rnd_dam, weaponType, critical, hit_modify, avoid_modify,"
 					+ " shield_def, shield_def_rate, atk_speed, mp_consume, m_dam, duration, price, crystal_count,"
 					+ " sellable,  dropable, destroyable, tradeable, skills_item, skills_enchant4,"
-					+ " skills_onCast, skills_onCrit, races, classes, sex, change_weaponId FROM weapon" };
+					+ " skills_onCast, skills_onCrit, change_weaponId FROM weapon" };
 
 	private static final String[]					SQL_CUSTOM_ITEM_SELECTS	=
 																			{
@@ -187,13 +187,13 @@ public class ItemTable
 
 			"SELECT item_id, item_display_id, name, bodypart, crystallizable, armor_type, weight,"
 					+ " material, crystal_type, avoid_modify, duration, p_def, m_def, mp_bonus,"
-					+ " price, crystal_count, sellable, dropable, destroyable, tradeable," + " skills_item, races, classes, sex FROM custom_armor",
+					+ " price, crystal_count, sellable, dropable, destroyable, tradeable," + " skills_item FROM custom_armor",
 
 			"SELECT item_id, item_display_id, name, bodypart, crystallizable, weight, soulshots, spiritshots,"
 					+ " material, crystal_type, p_dam, rnd_dam, weaponType, critical, hit_modify, avoid_modify,"
 					+ " shield_def, shield_def_rate, atk_speed, mp_consume, m_dam, duration, price, crystal_count,"
 					+ " sellable,  dropable, destroyable, tradeable, skills_item, skills_enchant4,"
-					+ " skills_onCast, skills_onCrit, races, classes, sex, change_weaponId FROM custom_weapon" };
+					+ " skills_onCast, skills_onCrit, change_weaponId FROM custom_weapon" };
 
 	/** List of etcItem */
 	private static final FastMap<Integer, Item>		itemData				= new FastMap<Integer, Item>();
@@ -384,10 +384,6 @@ public class ItemTable
 		item.set.set("destroyable", Boolean.valueOf(rset.getString("destroyable")));
 		item.set.set("tradeable", Boolean.valueOf(rset.getString("tradeable")));
 
-		item.set.set("races", rset.getString("races"));
-		item.set.set("classes", rset.getString("classes"));
-		item.set.set("sex", rset.getInt("sex"));
-
 		item.set.set("skills_item", rset.getString("skills_item"));
 		item.set.set("skills_enchant4", rset.getString("skills_enchant4"));
 		item.set.set("skills_onCast", rset.getString("skills_onCast"));
@@ -442,10 +438,6 @@ public class ItemTable
 		item.set.set("tradeable", Boolean.valueOf(rset.getString("tradeable")));
 
 		item.set.set("skills_item", rset.getString("skills_item"));
-
-		item.set.set("races", rset.getString("races"));
-		item.set.set("classes", rset.getString("classes"));
-		item.set.set("sex", rset.getInt("sex"));
 
 		if (bodypart == L2Item.SLOT_NECK || bodypart == L2Item.SLOT_HAIR || bodypart == L2Item.SLOT_HAIR2 || bodypart == L2Item.SLOT_HAIRALL
 				|| (bodypart & L2Item.SLOT_L_EAR) != 0 || (bodypart & L2Item.SLOT_L_FINGER) != 0)
