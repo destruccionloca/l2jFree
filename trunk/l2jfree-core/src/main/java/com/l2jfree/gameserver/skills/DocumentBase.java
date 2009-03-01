@@ -33,20 +33,56 @@ import org.w3c.dom.Node;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.base.PlayerState;
 import com.l2jfree.gameserver.model.base.Race;
-import com.l2jfree.gameserver.skills.conditions.*;
+import com.l2jfree.gameserver.skills.conditions.Condition;
+import com.l2jfree.gameserver.skills.conditions.ConditionChangeWeapon;
+import com.l2jfree.gameserver.skills.conditions.ConditionForceBuff;
+import com.l2jfree.gameserver.skills.conditions.ConditionGameChance;
+import com.l2jfree.gameserver.skills.conditions.ConditionGameTime;
+import com.l2jfree.gameserver.skills.conditions.ConditionLogicAnd;
+import com.l2jfree.gameserver.skills.conditions.ConditionLogicNot;
+import com.l2jfree.gameserver.skills.conditions.ConditionLogicOr;
+import com.l2jfree.gameserver.skills.conditions.ConditionMinDistance;
+import com.l2jfree.gameserver.skills.conditions.ConditionPlayerCp;
+import com.l2jfree.gameserver.skills.conditions.ConditionPlayerGrade;
+import com.l2jfree.gameserver.skills.conditions.ConditionPlayerHasCastle;
+import com.l2jfree.gameserver.skills.conditions.ConditionPlayerHasClanHall;
+import com.l2jfree.gameserver.skills.conditions.ConditionPlayerHasFort;
+import com.l2jfree.gameserver.skills.conditions.ConditionPlayerHp;
+import com.l2jfree.gameserver.skills.conditions.ConditionPlayerHpPercentage;
+import com.l2jfree.gameserver.skills.conditions.ConditionPlayerLevel;
+import com.l2jfree.gameserver.skills.conditions.ConditionPlayerMp;
+import com.l2jfree.gameserver.skills.conditions.ConditionPlayerPledgeClass;
+import com.l2jfree.gameserver.skills.conditions.ConditionPlayerRace;
+import com.l2jfree.gameserver.skills.conditions.ConditionPlayerSex;
+import com.l2jfree.gameserver.skills.conditions.ConditionPlayerState;
+import com.l2jfree.gameserver.skills.conditions.ConditionPlayerWeight;
+import com.l2jfree.gameserver.skills.conditions.ConditionSiegeZone;
+import com.l2jfree.gameserver.skills.conditions.ConditionSkillStats;
+import com.l2jfree.gameserver.skills.conditions.ConditionSlotItemId;
+import com.l2jfree.gameserver.skills.conditions.ConditionTargetActiveEffectId;
+import com.l2jfree.gameserver.skills.conditions.ConditionTargetActiveSkillId;
+import com.l2jfree.gameserver.skills.conditions.ConditionTargetAggro;
+import com.l2jfree.gameserver.skills.conditions.ConditionTargetClassIdRestriction;
+import com.l2jfree.gameserver.skills.conditions.ConditionTargetLevel;
+import com.l2jfree.gameserver.skills.conditions.ConditionTargetRaceId;
+import com.l2jfree.gameserver.skills.conditions.ConditionTargetUndead;
+import com.l2jfree.gameserver.skills.conditions.ConditionTargetUsesWeaponKind;
+import com.l2jfree.gameserver.skills.conditions.ConditionUsingItemType;
+import com.l2jfree.gameserver.skills.conditions.ConditionUsingSkill;
+import com.l2jfree.gameserver.skills.conditions.ConditionWithSkill;
 import com.l2jfree.gameserver.skills.conditions.ConditionGameTime.CheckGameTime;
-import com.l2jfree.gameserver.skills.conditions.ConditionPlayerState.CheckPlayerState;
 import com.l2jfree.gameserver.skills.effects.EffectTemplate;
 import com.l2jfree.gameserver.skills.funcs.FuncTemplate;
 import com.l2jfree.gameserver.skills.funcs.Lambda;
 import com.l2jfree.gameserver.skills.funcs.LambdaCalc;
 import com.l2jfree.gameserver.skills.funcs.LambdaConst;
 import com.l2jfree.gameserver.skills.funcs.LambdaStats;
+import com.l2jfree.gameserver.templates.StatsSet;
 import com.l2jfree.gameserver.templates.item.L2ArmorType;
 import com.l2jfree.gameserver.templates.item.L2Equip;
 import com.l2jfree.gameserver.templates.item.L2WeaponType;
-import com.l2jfree.gameserver.templates.StatsSet;
 
 /**
  * @author mkizub
@@ -119,8 +155,11 @@ abstract class DocumentBase
 		{
 			condition = parseCondition(n.getFirstChild(), template);
 			Node msg = n.getAttributes().getNamedItem("msg");
+			Node msgId = n.getAttributes().getNamedItem("msgId");
 			if (condition != null && msg != null)
 				condition.setMessage(msg.getNodeValue());
+			else if (condition != null && msgId != null)
+				condition.setMessageId(Integer.decode(getValue(msgId.getNodeValue(), null)));
 			n = n.getNextSibling();
 		}
 		for (; n != null; n = n.getNextSibling())
@@ -140,7 +179,7 @@ abstract class DocumentBase
 			else if ("enchant".equalsIgnoreCase(n.getNodeName()))
 				attachFunc(n, template, "Enchant", condition);
 			//else if ("skill".equalsIgnoreCase(n.getNodeName()))
-				//attachSkill(n, template, condition);
+			//attachSkill(n, template, condition);
 			else if ("effect".equalsIgnoreCase(n.getNodeName()))
 			{
 				if (template instanceof EffectTemplate)
@@ -260,8 +299,7 @@ abstract class DocumentBase
 			((L2Skill) template).attachSelf(lt);
 	}
 
-	protected void attachSkill(Node n, Object template, @SuppressWarnings("unused")
-	Condition attachCond)
+	protected void attachSkill(Node n, Object template, @SuppressWarnings("unused") Condition attachCond)
 	{
 		NamedNodeMap attrs = n.getAttributes();
 		int id = 0, lvl = 1;
@@ -288,15 +326,15 @@ abstract class DocumentBase
 		// TODO: Move item XMLs to SQL or SQL to XMLs
 		//if (template instanceof L2Weapon)
 		//{
-			// Seems onUse handler was never used and is replaced by item handlers
-			// TODO: Remove this
-			//if ((attrs.getNamedItem("onCrit") == null && attrs.getNamedItem("onCast") == null))
-			//((L2Weapon) template).attach(skill); // Attach as skill triggered on use
+		// Seems onUse handler was never used and is replaced by item handlers
+		// TODO: Remove this
+		//if ((attrs.getNamedItem("onCrit") == null && attrs.getNamedItem("onCast") == null))
+		//((L2Weapon) template).attach(skill); // Attach as skill triggered on use
 
-			//if (attrs.getNamedItem("onCrit") != null)
-				//((L2Weapon) template).attachOnCrit(skill); // Attach as skill triggered on critical hit
-			//if (attrs.getNamedItem("onCast") != null)
-				//((L2Weapon) template).attachOnCast(skill); // Attach as skill triggered on cast
+		//if (attrs.getNamedItem("onCrit") != null)
+		//((L2Weapon) template).attachOnCrit(skill); // Attach as skill triggered on critical hit
+		//if (attrs.getNamedItem("onCast") != null)
+		//((L2Weapon) template).attachOnCast(skill); // Attach as skill triggered on cast
 		//}
 
 		// Seems not used for etcitems
@@ -320,7 +358,7 @@ abstract class DocumentBase
 		if ("not".equalsIgnoreCase(n.getNodeName()))
 			return parseLogicNot(n, template);
 		if ("player".equalsIgnoreCase(n.getNodeName()))
-			return parsePlayerCondition(n);
+			return parsePlayerCondition(n, template);
 		if ("target".equalsIgnoreCase(n.getNodeName()))
 			return parseTargetCondition(n, template);
 		if ("skill".equalsIgnoreCase(n.getNodeName()))
@@ -371,7 +409,7 @@ abstract class DocumentBase
 		return null;
 	}
 
-	protected Condition parsePlayerCondition(Node n)
+	protected Condition parsePlayerCondition(Node n, Object template)
 	{
 		Condition cond = null;
 		byte[] forces = new byte[2];
@@ -397,32 +435,43 @@ abstract class DocumentBase
 			else if ("resting".equalsIgnoreCase(a.getNodeName()))
 			{
 				boolean val = Boolean.valueOf(a.getNodeValue());
-				cond = joinAnd(cond, new ConditionPlayerState(CheckPlayerState.RESTING, val));
+				cond = joinAnd(cond, new ConditionPlayerState(PlayerState.RESTING, val));
 			}
 			else if ("moving".equalsIgnoreCase(a.getNodeName()))
 			{
 				boolean val = Boolean.valueOf(a.getNodeValue());
-				cond = joinAnd(cond, new ConditionPlayerState(CheckPlayerState.MOVING, val));
+				cond = joinAnd(cond, new ConditionPlayerState(PlayerState.MOVING, val));
 			}
 			else if ("running".equalsIgnoreCase(a.getNodeName()))
 			{
 				boolean val = Boolean.valueOf(a.getNodeValue());
-				cond = joinAnd(cond, new ConditionPlayerState(CheckPlayerState.RUNNING, val));
+				cond = joinAnd(cond, new ConditionPlayerState(PlayerState.RUNNING, val));
 			}
 			else if ("behind".equalsIgnoreCase(a.getNodeName()))
 			{
 				boolean val = Boolean.valueOf(a.getNodeValue());
-				cond = joinAnd(cond, new ConditionPlayerState(CheckPlayerState.BEHIND, val));
+				cond = joinAnd(cond, new ConditionPlayerState(PlayerState.BEHIND, val));
 			}
 			else if ("front".equalsIgnoreCase(a.getNodeName()))
 			{
 				boolean val = Boolean.valueOf(a.getNodeValue());
-				cond = joinAnd(cond, new ConditionPlayerState(CheckPlayerState.FRONT, val));
+				cond = joinAnd(cond, new ConditionPlayerState(PlayerState.FRONT, val));
+			}
+			else if ("chaotic".equalsIgnoreCase(a.getNodeName()))
+			{
+				boolean val = Boolean.valueOf(a.getNodeValue());
+				cond = joinAnd(cond, new ConditionPlayerState(PlayerState.CHAOTIC, val));
+			}
+			else if ("olympiad".equalsIgnoreCase(a.getNodeName()))
+			{
+				boolean val = Boolean.valueOf(a.getNodeValue());
+				cond = joinAnd(cond, new ConditionPlayerState(PlayerState.OLYMPIAD, val));
+
 			}
 			else if ("flying".equalsIgnoreCase(a.getNodeName()))
 			{
 				boolean val = Boolean.valueOf(a.getNodeValue());
-				cond = joinAnd(cond, new ConditionPlayerState(CheckPlayerState.FLYING, val));
+				cond = joinAnd(cond, new ConditionPlayerState(PlayerState.FLYING, val));
 			}
 			else if ("hp".equalsIgnoreCase(a.getNodeName()))
 			{
@@ -444,6 +493,16 @@ abstract class DocumentBase
 				int cp = Integer.decode(getValue(a.getNodeValue(), null));
 				cond = joinAnd(cond, new ConditionPlayerCp(cp));
 			}
+			else if ("grade".equalsIgnoreCase(a.getNodeName()))
+			{
+				int expIndex = Integer.decode(getValue(a.getNodeValue(), template));
+				cond = joinAnd(cond, new ConditionPlayerGrade(expIndex));
+			}
+			else if ("siegezone".equalsIgnoreCase(a.getNodeName()))
+			{
+				int value = Integer.decode(getValue(a.getNodeValue(), null));
+				cond = joinAnd(cond, new ConditionSiegeZone(value, true));
+			}
 			else if ("battle_force".equalsIgnoreCase(a.getNodeName()))
 			{
 				forces[0] = Byte.decode(getValue(a.getNodeValue(), null));
@@ -456,6 +515,37 @@ abstract class DocumentBase
 			{
 				int weight = Integer.decode(getValue(a.getNodeValue(), null));
 				cond = joinAnd(cond, new ConditionPlayerWeight(weight));
+			}
+			else if ("pledgeClass".equalsIgnoreCase(a.getNodeName()))
+			{
+				int pledgeClass = Integer.decode(getValue(a.getNodeValue(), null));
+				cond = joinAnd(cond, new ConditionPlayerPledgeClass(pledgeClass));
+			}
+			else if ("clanHall".equalsIgnoreCase(a.getNodeName()))
+			{
+				FastList<Integer> array = new FastList<Integer>();
+				StringTokenizer st = new StringTokenizer(a.getNodeValue(), ",");
+				while (st.hasMoreTokens())
+				{
+					String item = st.nextToken().trim();
+					array.add(Integer.decode(getValue(item, null)));
+				}
+				cond = joinAnd(cond, new ConditionPlayerHasClanHall(array));
+			}
+			else if ("fort".equalsIgnoreCase(a.getNodeName()))
+			{
+				int fort = Integer.decode(getValue(a.getNodeValue(), null));
+				cond = joinAnd(cond, new ConditionPlayerHasFort(fort));
+			}
+			else if ("castle".equalsIgnoreCase(a.getNodeName()))
+			{
+				int castle = Integer.decode(getValue(a.getNodeValue(), null));
+				cond = joinAnd(cond, new ConditionPlayerHasCastle(castle));
+			}
+			else if ("sex".equalsIgnoreCase(a.getNodeName()))
+			{
+				int sex = Integer.decode(getValue(a.getNodeValue(), null));
+				cond = joinAnd(cond, new ConditionPlayerSex(sex));
 			}
 		}
 
@@ -480,6 +570,11 @@ abstract class DocumentBase
 			{
 				boolean val = Boolean.valueOf(a.getNodeValue());
 				cond = joinAnd(cond, new ConditionTargetAggro(val));
+			}
+			else if ("siegezone".equalsIgnoreCase(a.getNodeName()))
+			{
+				int value = Integer.decode(getValue(a.getNodeValue(), null));
+				cond = joinAnd(cond, new ConditionSiegeZone(value, false));
 			}
 			else if ("level".equalsIgnoreCase(a.getNodeName()))
 			{
@@ -507,9 +602,9 @@ abstract class DocumentBase
 				int skill_id = Integer.decode(getValue(a.getNodeValue(), template));
 				cond = joinAnd(cond, new ConditionTargetActiveSkillId(skill_id));
 			}
-			else if("mindistance".equalsIgnoreCase(a.getNodeName()))
+			else if ("mindistance".equalsIgnoreCase(a.getNodeName()))
 			{
-				int distance = Integer.decode(getValue(a.getNodeValue(),null));
+				int distance = Integer.decode(getValue(a.getNodeValue(), null));
 				cond = joinAnd(cond, new ConditionMinDistance(distance * distance));
 			}
 			else if ("race_id".equalsIgnoreCase(a.getNodeName()))

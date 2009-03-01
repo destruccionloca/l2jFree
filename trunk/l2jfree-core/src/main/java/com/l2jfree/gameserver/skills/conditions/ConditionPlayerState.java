@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.skills.conditions;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.base.PlayerState;
 import com.l2jfree.gameserver.skills.Env;
 
 /**
@@ -22,15 +23,10 @@ import com.l2jfree.gameserver.skills.Env;
  */
 public class ConditionPlayerState extends Condition
 {
-	public enum CheckPlayerState
-	{
-		RESTING, MOVING, RUNNING, FLYING, BEHIND, FRONT
-	}
+	private final PlayerState	_check;
+	private final boolean		_required;
 
-	private final CheckPlayerState	_check;
-	private final boolean			_required;
-
-	public ConditionPlayerState(CheckPlayerState check, boolean required)
+	public ConditionPlayerState(PlayerState check, boolean required)
 	{
 		_check = check;
 		_required = required;
@@ -39,6 +35,7 @@ public class ConditionPlayerState extends Condition
 	@Override
 	public boolean testImpl(Env env)
 	{
+		L2PcInstance player;
 		switch (_check)
 		{
 		case RESTING:
@@ -55,6 +52,17 @@ public class ConditionPlayerState extends Condition
 			return env.player.isBehindTarget() == _required;
 		case FRONT:
 			return env.player.isInFrontOfTarget() == _required;
+		case CHAOTIC:
+			player = env.player.getActingPlayer();
+			if (player != null)
+				return player.getKarma() > 0 == _required;
+			return !_required;
+		case OLYMPIAD:
+			player = env.player.getActingPlayer();
+			if (player != null)
+				return player.isInOlympiadMode() == _required;
+			return !_required;
+
 		case FLYING:
 			return env.player.isFlying() == _required;
 		}

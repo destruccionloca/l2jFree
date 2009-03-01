@@ -437,6 +437,7 @@ public class L2Clan
 
 		exLeader.setPledgeClass(L2ClanMember.getCurrentPledgeClass(exLeader));
 		exLeader.broadcastUserInfo();
+		exLeader.checkItemRestriction();
 		L2PcInstance newLeader = member.getPlayerInstance();
 		newLeader.setClan(this);
 		newLeader.setPledgeClass(L2ClanMember.getCurrentPledgeClass(newLeader));

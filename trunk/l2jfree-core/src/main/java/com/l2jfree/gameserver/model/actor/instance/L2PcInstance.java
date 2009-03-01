@@ -13792,4 +13792,31 @@ public final class L2PcInstance extends L2PlayableInstance
 				_autoSaveTask = ThreadPoolManager.getInstance().schedule(this, delay);
 		}
 	}
+	
+    public void checkItemRestriction()
+    {
+    	for (int i = 0; i < Inventory.PAPERDOLL_TOTALSLOTS; i++)
+    	{
+    		L2ItemInstance equippedItem = getInventory().getPaperdollItem(i);
+    		if (equippedItem != null && !equippedItem.getItem().checkCondition(this, this))
+    		{
+				getInventory().unEquipItemInSlotAndRecord(i);
+				if (equippedItem.isWear())
+					continue;
+				SystemMessage sm = null;
+				if (equippedItem.getEnchantLevel() > 0)
+				{
+					sm = new SystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED);
+					sm.addNumber(equippedItem.getEnchantLevel());
+					sm.addItemName(equippedItem);
+				}
+				else
+				{
+					sm = new SystemMessage(SystemMessageId.S1_DISARMED);
+					sm.addItemName(equippedItem);
+				}
+				sendPacket(sm);
+    		}
+    	}
+    }
 }

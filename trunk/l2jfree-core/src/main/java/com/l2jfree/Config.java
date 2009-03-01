@@ -1762,6 +1762,8 @@ public final class Config
 	public static boolean		GM_HERO_AURA;										// Place an aura around the GM ?
 	public static boolean		GM_STARTUP_INVULNERABLE;							// Set the GM invulnerable at startup ?
 	public static boolean		GM_ANNOUNCER_NAME;
+	public static boolean 		GM_ITEM_RESTRICTION;
+
 
 	// *******************************************************************************************
 	public static void loadGmAccess()
@@ -1852,7 +1854,8 @@ public final class Config
 			HIDE_GM_STATUS = Boolean.parseBoolean(gmSettings.getProperty("HideGMStatus", "false"));
 			GM_STARTUP_INVISIBLE = Boolean.parseBoolean(gmSettings.getProperty("GMStartupInvisible", "True"));
 			GM_STARTUP_SILENCE = Boolean.parseBoolean(gmSettings.getProperty("GMStartupSilence", "True"));
-
+			
+			GM_ITEM_RESTRICTION	= Boolean.parseBoolean(gmSettings.getProperty("GmItemRestriction", "False"));
 		}
 		catch (Exception e)
 		{

@@ -285,31 +285,7 @@ public class OlympiadGame
 					party.removePartyMember(player);
 				}
 
-				// Remove over enchanted items and hero weapons
-				for (int i = 0; i < Inventory.PAPERDOLL_TOTALSLOTS; i++)
-				{
-					L2ItemInstance equippedItem = player.getInventory().getPaperdollItem(i);
-
-					if (equippedItem != null && (equippedItem.isHeroItem() || equippedItem.isOlyRestrictedItem()))
-					{
-						player.getInventory().unEquipItemInSlotAndRecord(i);
-						if (equippedItem.isWear())
-							continue;
-						SystemMessage sm = null;
-						if (equippedItem.getEnchantLevel() > 0)
-						{
-							sm = new SystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED);
-							sm.addNumber(equippedItem.getEnchantLevel());
-							sm.addItemName(equippedItem);
-						}
-						else
-						{
-							sm = new SystemMessage(SystemMessageId.S1_DISARMED);
-							sm.addItemName(equippedItem);
-						}
-						player.sendPacket(sm);
-					}
-				}
+				player.checkItemRestriction();
 
 				// Remove shot automation
 				Map<Integer, Integer> activeSoulShots = player.getAutoSoulShot();
@@ -1123,8 +1099,8 @@ class OlympiadGameTask implements Runnable
 			return false;
 		}
 		OlympiadManager.STADIUMS[_game._stadiumID].closeDoors();
-		_game.removals();
 		_game.portPlayersToArena();
+		_game.removals();
 		if (Config.ALT_OLY_ANNOUNCE_GAMES)
 			_game.announceGame();
 		try

@@ -1550,8 +1550,13 @@ public class L2Skill
 	{
 		if ((getCondition() & L2Skill.COND_SHIELD) != 0)
 		{
-			// TODO: add checks for shield here.
-
+            /*
+            L2Armor armorPiece;
+            L2ItemInstance dummy;
+            dummy = activeChar.getInventory().getPaperdollItem(Inventory.PAPERDOLL_RHAND);
+            armorPiece = (L2Armor) dummy.getItem();
+            */
+           //TODO add checks for shield here.
 		}
 
 		Condition preCondition = _preCondition;
@@ -1568,12 +1573,17 @@ public class L2Skill
 
 		if (!preCondition.test(env))
 		{
-			String msg = preCondition.getMessage();
-			if (msg != null)
-			{
-				activeChar.sendMessage(msg);
-			}
-			return false;
+            String msg = preCondition.getMessage();
+            int msgId = preCondition.getMessageId();
+            if (msgId != 0)
+            {
+            	activeChar.sendPacket(new SystemMessage(msgId));
+            }
+            else if (msg != null)
+            {
+                activeChar.sendMessage(msg);
+            }
+            return false;
 		}
 		return true;
 	}

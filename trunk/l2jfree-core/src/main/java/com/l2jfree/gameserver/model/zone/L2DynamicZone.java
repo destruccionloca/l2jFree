@@ -18,14 +18,15 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.util.concurrent.ScheduledFuture;
 
-
 import javolution.util.FastList;
+
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.base.PlayerState;
 import com.l2jfree.gameserver.model.base.Race;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.conditions.Condition;
@@ -50,7 +51,6 @@ import com.l2jfree.gameserver.skills.conditions.ConditionTargetRaceId;
 import com.l2jfree.gameserver.skills.conditions.ConditionTargetUndead;
 import com.l2jfree.gameserver.skills.conditions.ConditionTargetUsesWeaponKind;
 import com.l2jfree.gameserver.skills.conditions.ConditionGameTime.CheckGameTime;
-import com.l2jfree.gameserver.skills.conditions.ConditionPlayerState.CheckPlayerState;
 import com.l2jfree.gameserver.templates.item.L2ArmorType;
 import com.l2jfree.gameserver.templates.item.L2WeaponType;
 
@@ -263,22 +263,22 @@ public class L2DynamicZone extends L2DefaultZone
 			else if ("resting".equalsIgnoreCase(a.getNodeName()))
 			{
 				boolean val = Boolean.valueOf(a.getNodeValue());
-				cond = joinAnd(cond, new ConditionPlayerState(CheckPlayerState.RESTING, val));
+				cond = joinAnd(cond, new ConditionPlayerState(PlayerState.RESTING, val));
 			}
 			else if ("moving".equalsIgnoreCase(a.getNodeName()))
 			{
 				boolean val = Boolean.valueOf(a.getNodeValue());
-				cond = joinAnd(cond, new ConditionPlayerState(CheckPlayerState.MOVING, val));
+				cond = joinAnd(cond, new ConditionPlayerState(PlayerState.MOVING, val));
 			}
 			else if ("running".equalsIgnoreCase(a.getNodeName()))
 			{
 				boolean val = Boolean.valueOf(a.getNodeValue());
-				cond = joinAnd(cond, new ConditionPlayerState(CheckPlayerState.RUNNING, val));
+				cond = joinAnd(cond, new ConditionPlayerState(PlayerState.RUNNING, val));
 			}
 			else if ("flying".equalsIgnoreCase(a.getNodeName()))
 			{
 				boolean val = Boolean.valueOf(a.getNodeValue());
-				cond = joinAnd(cond, new ConditionPlayerState(CheckPlayerState.FLYING, val));
+				cond = joinAnd(cond, new ConditionPlayerState(PlayerState.FLYING, val));
 			}
 			else if ("hp".equalsIgnoreCase(a.getNodeName()))
 			{

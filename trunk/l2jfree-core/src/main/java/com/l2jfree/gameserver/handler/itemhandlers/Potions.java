@@ -336,17 +336,7 @@ public class Potions implements IItemHandler
 			if (!isUseable(activeChar, item, 2287))
 				return;
 			byte expIndex = (byte) activeChar.getExpertiseIndex();
-			if ((itemId == 8622 && expIndex == 0) || (itemId == 8623 && expIndex == 1) || (itemId == 8624 && expIndex == 2)
-					|| (itemId == 8625 && expIndex == 3) || (itemId == 8626 && expIndex == 4) || (itemId == 8627 && (expIndex == 5 || expIndex == 6)))
-				res = usePotion(activeChar, 2287, (expIndex > 5 ? expIndex : expIndex + 1));
-			else
-			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.INCOMPATIBLE_ITEM_GRADE);
-				sm.addItemName(item);
-				activeChar.sendPacket(sm);
-				return;
-			}
-			break;
+			res = usePotion(activeChar, 2287, (expIndex > 5 ? expIndex : expIndex + 1));
 		}
 		case 8628:
 		case 8629:
@@ -360,17 +350,7 @@ public class Potions implements IItemHandler
 				return;
 			byte expIndex = (byte) activeChar.getExpertiseIndex();
 			// Elixir of Strength
-			if ((itemId == 8628 && expIndex == 0) || (itemId == 8629 && expIndex == 1) || (itemId == 8630 && expIndex == 2)
-					|| (itemId == 8631 && expIndex == 3) || (itemId == 8632 && expIndex == 4) || (itemId == 8633 && (expIndex == 5 || expIndex == 6)))
-				res = usePotion(activeChar, 2288, (expIndex > 5 ? expIndex : expIndex + 1));
-			else
-			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.INCOMPATIBLE_ITEM_GRADE);
-				sm.addItemName(item);
-				activeChar.sendPacket(sm);
-				return;
-			}
-			break;
+			res = usePotion(activeChar, 2288, (expIndex > 5 ? expIndex : expIndex + 1));
 		}
 		case 8634:
 		case 8635:
@@ -384,17 +364,7 @@ public class Potions implements IItemHandler
 				return;
 			byte expIndex = (byte) activeChar.getExpertiseIndex();
 			// Elixir of cp
-			if ((itemId == 8634 && expIndex == 0) || (itemId == 8635 && expIndex == 1) || (itemId == 8636 && expIndex == 2)
-					|| (itemId == 8637 && expIndex == 3) || (itemId == 8638 && expIndex == 4) || (itemId == 8639 && (expIndex == 5 || expIndex == 6)))
-				res = usePotion(activeChar, 2289, (expIndex > 5 ? expIndex : expIndex + 1));
-			else
-			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.INCOMPATIBLE_ITEM_GRADE);
-				sm.addItemName(item);
-				activeChar.sendPacket(sm);
-				return;
-			}
-			break;
+			res = usePotion(activeChar, 2289, (expIndex > 5 ? expIndex : expIndex + 1));
 		}
 			// Valakas Amulets
 		case 6652: // Amulet Protection of Valakas
