@@ -38,7 +38,7 @@ public class TransformationItems implements IItemHandler
 		L2PcInstance client = (L2PcInstance) playable;
 		int itemId = item.getItemId();
 
-		if (client.getPet() != null || client.isTransformed() || client.isRidingStrider() || client.isRidingFenrirWolf() || client.isRidingGreatSnowWolf() || client.isRidingWFenrirWolf() || client.isFlying())
+		if (client.getPet() != null || client.isTransformed() || client.isMounted() || client.isFlying())
 		{
 			client.sendPacket((new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED)).addItemName(item));
 			return;

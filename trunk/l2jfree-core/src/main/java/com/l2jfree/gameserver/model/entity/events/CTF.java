@@ -534,7 +534,7 @@ public class CTF
 					//if the player is near a enemy flag
 					if (InRangeOfFlag(_player, indexEnemy, 100) && !_flagsTaken.get(indexEnemy) && !_player._haveFlagCTF && !_player.isDead())
 					{
-						if(_player.isRidingFenrirWolf() || _player.isRidingGreatSnowWolf() || _player.isRidingStrider() || _player.isRidingWFenrirWolf() || _player.isFlying())
+						if(_player.isMounted() || _player.isFlying())
 						{
 							_player.sendPacket(SystemMessageId.YOU_CANNOT_MOUNT_A_STEED_WHILE_A_PET_OR_A_SERVITOR_IS_SUMMONED);
 							break;

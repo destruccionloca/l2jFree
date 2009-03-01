@@ -780,13 +780,6 @@ public final class Config
 	// *******************************************************************************************
 	public static boolean			JAIL_IS_PVP;											// Jail config
 	public static boolean			JAIL_DISABLE_CHAT;										// Jail config
-	public static int				WYVERN_SPEED;
-	public static int				STRIDER_SPEED;
-	public static int				RED_STRIDER_SPEED;
-	public static int				FENRIR_SPEED;
-	public static int				GREAT_SNOW_WOLF_SPEED;
-	public static int				SNOW_FENRIR_SPEED;
-	public static int				HORSE_SPEED;
 	public static int				GREAT_WOLF_MOUNT_LEVEL;
 	public static boolean			ALLOW_WYVERN_UPGRADER;
 	public static boolean			PETITIONING_ALLOWED;
@@ -866,13 +859,6 @@ public final class Config
 
 			DEEPBLUE_DROP_RULES = Boolean.parseBoolean(otherSettings.getProperty("UseDeepBlueDropRules", "True"));
 			EFFECT_CANCELING = Boolean.parseBoolean(otherSettings.getProperty("CancelLesserEffect", "True"));
-			WYVERN_SPEED = Integer.parseInt(otherSettings.getProperty("WyvernSpeed", "100"));
-			STRIDER_SPEED = Integer.parseInt(otherSettings.getProperty("StriderSpeed", "80"));
-			RED_STRIDER_SPEED = Integer.parseInt(otherSettings.getProperty("RedStriderSpeed", "90"));
-			FENRIR_SPEED = Integer.parseInt(otherSettings.getProperty("FenrirSpeed", "80"));
-			SNOW_FENRIR_SPEED = Integer.parseInt(otherSettings.getProperty("SnowFenrirSpeed", "80"));
-			GREAT_SNOW_WOLF_SPEED = Integer.parseInt(otherSettings.getProperty("GreatSnowWolfSpeed", "80"));
-	                HORSE_SPEED = Integer.parseInt(otherSettings.getProperty("HorseSpeed", "80"));
 
 			GREAT_WOLF_MOUNT_LEVEL = Integer.parseInt(otherSettings.getProperty("GreatWolfMountLevel", "70"));
 
@@ -3467,18 +3453,6 @@ public final class Config
 			DEEPBLUE_DROP_RULES = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("CancelLesserEffect"))
 			EFFECT_CANCELING = Boolean.parseBoolean(pValue);
-		else if (pName.equalsIgnoreCase("WyvernSpeed"))
-			WYVERN_SPEED = Integer.parseInt(pValue);
-		else if (pName.equalsIgnoreCase("StriderSpeed"))
-			STRIDER_SPEED = Integer.parseInt(pValue);
-		else if (pName.equalsIgnoreCase("RedStriderSpeed"))
-			RED_STRIDER_SPEED = Integer.parseInt(pValue);
-		else if (pName.equalsIgnoreCase("FenrirSpeed"))
-			FENRIR_SPEED = Integer.parseInt(pValue);
-		else if (pName.equalsIgnoreCase("SnowFenrirSpeed"))
-			SNOW_FENRIR_SPEED = Integer.parseInt(pValue);
-		else if (pName.equalsIgnoreCase("GreatSnowWolfSpeed"))
-			GREAT_SNOW_WOLF_SPEED = Integer.parseInt(pValue);
 
 		else if (pName.equalsIgnoreCase("MaximumSlotsForNoDwarf"))
 			INVENTORY_MAXIMUM_NO_DWARF = Integer.parseInt(pValue);

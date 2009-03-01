@@ -18,6 +18,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.datatables.PetDataTable;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -661,7 +662,14 @@ public class CharStat
 
 		// err we should be adding TO the persons run speed
 		// not making it a constant
-		int val = (int) calcStat(Stats.RUN_SPEED, _activeChar.getTemplate().getBaseRunSpd(), null, null);
+		double baseRunSpd = _activeChar.getTemplate().getBaseRunSpd();
+		if (_activeChar instanceof L2PcInstance)
+		{
+			L2PcInstance player = (L2PcInstance)_activeChar;
+			if (player.isMounted())
+				baseRunSpd = PetDataTable.getInstance().getPetData(player.getMountNpcId(), player.getMountLevel()).getPetSpeed();
+		}
+		int val = (int) (calcStat(Stats.RUN_SPEED, baseRunSpd, null, null) * Config.RATE_RUN_SPEED);
 
 		return val;
 	}
