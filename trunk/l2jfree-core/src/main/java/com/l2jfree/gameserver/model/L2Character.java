@@ -6285,6 +6285,9 @@ public abstract class L2Character extends L2Object
 				((L2PcInstance) this).broadcastUserInfo();
 			}
 
+			if (oldSkill instanceof L2SkillMount && this instanceof L2PcInstance && ((L2PcInstance)this).isMounted())
+				((L2PcInstance)this).dismount();
+			
 			if (oldSkill.isChance() && _chanceSkills != null)
 			{
 				removeChanceSkill(oldSkill.getId());

@@ -17,7 +17,18 @@ package com.l2jfree.gameserver.templates.skills;
 import java.lang.reflect.Constructor;
 
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.skills.l2skills.*;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillAgathion;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillChangeWeapon;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillChargeDmg;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillChargeNegate;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillCreateItem;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillDecoy;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillDrain;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillMount;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillSignet;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillSignetCasttime;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillSummon;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillTrap;
 import com.l2jfree.gameserver.templates.StatsSet;
 
 public enum L2SkillType
@@ -129,6 +140,7 @@ public enum L2SkillType
 	BALLISTA,
 
 	AGATHION(L2SkillAgathion.class),
+	MOUNT(L2SkillMount.class),
 	CHANGEWEAPON(L2SkillChangeWeapon.class),
 	CHARGEDAM(L2SkillChargeDmg.class),
 	CHARGE_NEGATE(L2SkillChargeNegate.class),
