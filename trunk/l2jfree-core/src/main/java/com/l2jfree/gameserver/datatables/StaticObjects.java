@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.LineNumberReader;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 import javolution.util.FastMap;
@@ -34,10 +35,10 @@ import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
 
 public class StaticObjects
 {
-	private final static Log							_log	= LogFactory.getLog(StaticObjects.class.getName());
+	private final static Log						_log	= LogFactory.getLog(StaticObjects.class.getName());
 
-	private static StaticObjects						_instance;
-	private FastMap<Integer, L2StaticObjectInstance>	_staticObjects;
+	private static StaticObjects					_instance;
+	private Map<Integer, L2StaticObjectInstance>	_staticObjects;
 
 	public static StaticObjects getInstance()
 	{
@@ -77,9 +78,19 @@ public class StaticObjects
 		}
 		catch (Exception e)
 		{
-			_log.warn("error while creating StaticObjects table " + e);
+			_log.warn("error while creating StaticObjects table");
+			 e.printStackTrace();
 		}
-		finally { try { if (lnr != null) lnr.close(); } catch (Exception e) { e.printStackTrace(); } }
+		finally
+		{
+			try
+			{
+				lnr.close();
+			}
+			catch (Exception e)
+			{
+			}
+		}
 	}
 
 	public static L2StaticObjectInstance parse(String line)
@@ -118,6 +129,8 @@ public class StaticObjects
 		//npcDat.set("name", "");
 		npcDat.set("collision_radius", 10);
 		npcDat.set("collision_height", 10);
+		npcDat.set("fcollision_radius", 10);
+		npcDat.set("fcollision_height", 10);
 		npcDat.set("sex", "male");
 		npcDat.set("type", "");
 		npcDat.set("baseAtkRange", 0);
@@ -144,7 +157,6 @@ public class StaticObjects
 
 		L2CharTemplate template = new L2CharTemplate(npcDat);
 		L2StaticObjectInstance obj = new L2StaticObjectInstance(IdFactory.getInstance().getNextId(), template, id);
-
 		obj.setType(type);
 		obj.getPosition().setXYZ(x, y, z);
 		obj.setMap(texture, map_x, map_y);
