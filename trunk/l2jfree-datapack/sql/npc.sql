@@ -9148,3 +9148,17 @@ UPDATE `npc` SET `type` = 'L2Doormen' WHERE id = 35440;
 -- Plaza Helm
 -- ------------
 UPDATE `npc` SET `level` = '82',`hp` = '23319',`mp` = '8000',`exp` = '36332',`sp` = '3789' WHERE `id` = 22289;
+
+-- Agathion NPC's
+REPLACE INTO `npc` VALUES
+(1508, 1508, 'White Cupid Agathion', 0, '', 0, 'LineageNPC2.Agathion_CL', 32.00, 23.56, 70, 'male', 'L2Npc', 40, 2444, 2444, 0.00, 0.00, 10, 10, 10, 10, 10, 10, 0, 0, 500, 500, 500, 500, 253, 0, 253, 0, 0, NULL, 80, 120, 'NULL', 0, 0, 0, 'LAST_HIT', 0, 0, 0, 'balanced', 'false'),
+(1509, 1509, 'Dark Cupid Agathion', 0, '', 0, 'LineageNPC2.Agathion_CL', 32.00, 23.56, 70, 'male', 'L2Npc', 40, 2444, 2444, 0.00, 0.00, 10, 10, 10, 10, 10, 10, 0, 0, 500, 500, 500, 500, 253, 0, 253, 0, 0, NULL, 80, 120, 'NULL', 0, 0, 0, 'LAST_HIT', 0, 0, 0, 'balanced', 'false'),
+(1510, 1510, 'White Maneki Neko Agathion', 0, '', 0, 'LineageNPC2.Agathion_CL', 32.00, 23.56, 70, 'male', 'L2Npc', 40, 2444, 2444, 0.00, 0.00, 10, 10, 10, 10, 10, 10, 0, 0, 500, 500, 500, 500, 253, 0, 253, 0, 0, NULL, 80, 120, 'NULL', 0, 0, 0, 'LAST_HIT', 0, 0, 0, 'balanced', 'false'),
+(1511, 1511, 'Black Maneki Neko Agathion', 0, '', 0, 'LineageNPC2.Agathion_CL', 32.00, 23.56, 70, 'male', 'L2Npc', 40, 2444, 2444, 0.00, 0.00, 10, 10, 10, 10, 10, 10, 0, 0, 500, 500, 500, 500, 253, 0, 253, 0, 0, NULL, 80, 120, 'NULL', 0, 0, 0, 'LAST_HIT', 0, 0, 0, 'balanced', 'false'),
+(1512, 1512, 'Brown Maneki Neko Agathion', 0, '', 0, 'LineageNPC2.Agathion_CL', 32.00, 23.56, 70, 'male', 'L2Npc', 40, 2444, 2444, 0.00, 0.00, 10, 10, 10, 10, 10, 10, 0, 0, 500, 500, 500, 500, 253, 0, 253, 0, 0, NULL, 80, 120, 'NULL', 0, 0, 0, 'LAST_HIT', 0, 0, 0, 'balanced', 'false'),
+(1513, 1513, 'One-Eyed Bat Drove Agathion', 0, '', 0, 'LineageNPC2.Agathion_CL', 32.00, 23.56, 70, 'male', 'L2Npc', 40, 2444, 2444, 0.00, 0.00, 10, 10, 10, 10, 10, 10, 0, 0, 500, 500, 500, 500, 253, 0, 253, 0, 0, NULL, 80, 120, 'NULL', 0, 0, 0, 'LAST_HIT', 0, 0, 0, 'balanced', 'false'),
+(1514, 1514, 'Pegasus Agathion', 0, '', 0, 'LineageNPC2.Agathion_CL', 32.00, 23.56, 70, 'male', 'L2Npc', 40, 2444, 2444, 0.00, 0.00, 10, 10, 10, 10, 10, 10, 0, 0, 500, 500, 500, 500, 253, 0, 253, 0, 0, NULL, 80, 120, 'NULL', 0, 0, 0, 'LAST_HIT', 0, 0, 0, 'balanced', 'false'),
+(1515, 1515, 'Yellow-Robed Tojigong Agathion', 0, '', 0, 'LineageNPC2.Agathion_CL', 32.00, 23.56, 70, 'male', 'L2Npc', 40, 2444, 2444, 0.00, 0.00, 10, 10, 10, 10, 10, 10, 0, 0, 500, 500, 500, 500, 253, 0, 253, 0, 0, NULL, 80, 120, 'NULL', 0, 0, 0, 'LAST_HIT', 0, 0, 0, 'balanced', 'false'),
+(1516, 1516, 'Blue-Robed Tojigong Agathion', 0, '', 0, 'LineageNPC2.Agathion_CL', 32.00, 23.56, 70, 'male', 'L2Npc', 40, 2444, 2444, 0.00, 0.00, 10, 10, 10, 10, 10, 10, 0, 0, 500, 500, 500, 500, 253, 0, 253, 0, 0, NULL, 80, 120, 'NULL', 0, 0, 0, 'LAST_HIT', 0, 0, 0, 'balanced', 'false'),
+(1517, 1517, 'Green-Robed Tojigong Agathion', 0, '', 0, 'LineageNPC2.Agathion_CL', 32.00, 23.56, 70, 'male', 'L2Npc', 40, 2444, 2444, 0.00, 0.00, 10, 10, 10, 10, 10, 10, 0, 0, 500, 500, 500, 500, 253, 0, 253, 0, 0, NULL, 80, 120, 'NULL', 0, 0, 0, 'LAST_HIT', 0, 0, 0, 'balanced', 'false'),
+(1518, 1518, 'Bugbear Agathion', 0, '', 0, 'LineageNPC2.Agathion_CL', 32.00, 23.56, 70, 'male', 'L2Npc', 40, 2444, 2444, 0.00, 0.00, 10, 10, 10, 10, 10, 10, 0, 0, 500, 500, 500, 500, 253, 0, 253, 0, 0, NULL, 80, 120, 'NULL', 0, 0, 0, 'LAST_HIT', 0, 0, 0, 'balanced', 'false');

@@ -2209,3 +2209,26 @@ UPDATE `armor` SET `crystal_count` = 27 WHERE `item_id` = 12117;
 UPDATE `armor` SET `crystal_count` = 75 WHERE `item_id` = 12067;
 UPDATE `armor` SET `crystal_count` = 39 WHERE `item_id` = 12040;
 UPDATE `armor` SET `crystal_count` = 1 WHERE `item_id` IN (13389,13390,13391,13392);
+
+INSERT INTO `armor` VALUES
+(20212, 'Agathion Seal Bracelet - Charming Cupid', 'lbracelet', 'false', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '21031-1;3267-1'),
+(20213, 'Agathion Seal Bracelet - Naughty Cupid', 'lbracelet', 'false', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '21032-1;3267-1'),
+(20221, 'Agathion Seal Bracelet - White Maneki Neko', 'lbracelet', 'false', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '21033-1;3267-1'),
+(20222, 'Agathion Seal Bracelet - Black Maneki Neko', 'lbracelet', 'false', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '21034-1;3267-1'),
+(20223, 'Agathion Seal Bracelet - Brown Maneki Neko', 'lbracelet', 'false', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '21035-1;3267-1'),
+(20224, 'Agathion Seal Bracelet - White Maneki Neko Resurrection', 'lbracelet', 'false', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '21033-1;3267-1'),
+(20225, 'Agathion Seal Bracelet - Black Maneki Neko Escape', 'lbracelet', 'false', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '21034-1;3267-1'),
+(20226, 'Agathion Seal Bracelet - Brown Maneki Neko Vitality', 'lbracelet', 'false', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '21035-1;3267-1'),
+(20230, 'Agathion Seal Bracelet - One-Eyed Bat Drove', 'lbracelet', 'false', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '21036-1;3267-1'),
+(20231, 'Agathion Seal Bracelet - One-Eyed Bat Drove Resist Unholy', 'lbracelet', 'false', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '21036-1;3267-1'),
+(20232, 'Agathion Seal Bracelet - One-Eyed Bat Drove Vitality', 'lbracelet', 'false', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '21036-1;3267-1'),
+(20236, 'Agathion Seal Bracelet - Pegasus', 'lbracelet', 'false', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '21037-1;3267-1'),
+(20237, 'Agathion Seal Bracelet - Pegasus Wind Walk', 'lbracelet', 'false', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '21037-1;3267-1'),
+(20238, 'Agathion Seal Bracelet - Pegasus Escape', 'lbracelet', 'false', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '21037-1;3267-1'),
+(20245, 'Agathion Seal Bracelet - Yellow-Robed Tojigong', 'lbracelet', 'false', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '21038-1;3267-1'),
+(20246, 'Agathion Seal Bracelet - Blue-Robed Tojigong', 'lbracelet', 'false', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '21039-1;3267-1'),
+(20247, 'Agathion Seal Bracelet - Green-Robed Tojigong', 'lbracelet', 'false', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '21040-1;3267-1'),
+(20248, 'Agathion Seal Bracelet - Yellow-Robed Tojigong Greater Heal', 'lbracelet', 'false', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '21038-1;3267-1'),
+(20249, 'Agathion Seal Bracelet - Blue-Robed Tojigong Reflect Damage', 'lbracelet', 'false', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '21039-1;3267-1'),
+(20250, 'Agathion Seal Bracelet - Green-Robed Tojigong Mana Regeneration', 'lbracelet', 'false', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '21040-1;3267-1'),
+(20252, 'Agathion Seal Bracelet - Bugbear', 'lbracelet', 'false', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '21041-1;3267-1');
