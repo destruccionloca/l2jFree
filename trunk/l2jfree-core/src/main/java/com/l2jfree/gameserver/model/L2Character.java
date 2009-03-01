@@ -109,6 +109,7 @@ import com.l2jfree.gameserver.util.Broadcast;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.tools.random.Rnd;
+import com.l2jfree.util.Bunch;
 import com.l2jfree.util.SingletonList;
 import com.l2jfree.util.SingletonSet;
 
@@ -4151,13 +4152,10 @@ public abstract class L2Character extends L2Object
 	 */
 	public final void addStatFuncs(Func[] funcs)
 	{
-		FastList<Stats> modifiedStats = new FastList<Stats>();
 		for (Func f : funcs)
-		{
-			modifiedStats.add(f.stat);
 			addStatFunc(f);
-		}
-		broadcastModifiedStats(modifiedStats);
+		
+		broadcastModifiedStats(funcs);
 	}
 
 	/**
@@ -4239,13 +4237,10 @@ public abstract class L2Character extends L2Object
 	 */
 	public final void removeStatFuncs(Func[] funcs)
 	{
-		FastList<Stats> modifiedStats = new FastList<Stats>();
 		for (Func f : funcs)
-		{
-			modifiedStats.add(f.stat);
 			removeStatFunc(f);
-		}
-		broadcastModifiedStats(modifiedStats);
+		
+		broadcastModifiedStats(funcs);
 	}
 
 	/**
@@ -4281,7 +4276,7 @@ public abstract class L2Character extends L2Object
 	 */
 	public final void removeStatsOwner(Object owner)
 	{
-		FastList<Stats> modifiedStats = null;
+		Bunch<Func> modified = new Bunch<Func>();
 
 		// Go through the Calculator set
 		synchronized (_calculators)
@@ -4291,11 +4286,8 @@ public abstract class L2Character extends L2Object
 				if (_calculators[i] != null)
 				{
 					// Delete all Func objects of the selected owner
-					if (modifiedStats != null)
-						modifiedStats.addAll(_calculators[i].removeOwner(owner));
-					else
-						modifiedStats = _calculators[i].removeOwner(owner);
-
+					modified.addAll(_calculators[i].removeOwner(owner));
+					
 					if (_calculators[i].size() == 0)
 						_calculators[i] = null;
 				}
@@ -4316,21 +4308,25 @@ public abstract class L2Character extends L2Object
 			}
 
 			if (owner instanceof L2Effect && !((L2Effect) owner).preventExitUpdate)
-				broadcastModifiedStats(modifiedStats);
+				broadcastModifiedStats(modified.moveToArray(new Func[modified.size()]));
 		}
+		
+		modified.clear();
 	}
 
-	private void broadcastModifiedStats(FastList<Stats> stats)
+	private void broadcastModifiedStats(Func[] funcs)
 	{
-		if (stats == null || stats.isEmpty())
+		if (funcs == null || funcs.length == 0)
 			return;
 
 		boolean broadcastFull = false;
 		boolean otherStats = false;
 		StatusUpdate su = null;
 
-		for (Stats stat : stats)
+		for (Func func : funcs)
 		{
+			final Stats stat = func.stat;
+			
 			if (stat == Stats.POWER_ATTACK_SPEED)
 			{
 				broadcastFull = true;
@@ -6934,7 +6930,7 @@ public abstract class L2Character extends L2Object
 				// Launch weapon Special ability skill effect if available
 				if (activeWeapon != null && !target.isDead())
 				{
-					if (activeWeapon.getSkillEffects(this, target, skill).length > 0 && this instanceof L2PcInstance)
+					if (activeWeapon.getSkillEffects(this, target, skill) && this instanceof L2PcInstance)
 					{
 						sendPacket(SystemMessage.sendString("Target affected by weapon special ability!"));
 					}

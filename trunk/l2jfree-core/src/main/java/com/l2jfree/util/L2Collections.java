@@ -290,6 +290,11 @@ public final class L2Collections
 			throw new UnsupportedOperationException();
 		}
 		
+		public IBunch<Object> addAll(Object[] array)
+		{
+			throw new UnsupportedOperationException();
+		}
+		
 		public void clear()
 		{
 		}

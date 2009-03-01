@@ -68,6 +68,8 @@ public interface IBunch<E> extends Iterable<E>
 	
 	public IBunch<E> addAll(Iterable<? extends E> c);
 	
+	public IBunch<E> addAll(E[] array);
+	
 	public Iterator<E> iterator();
 	
 	public Object[] moveToArray();

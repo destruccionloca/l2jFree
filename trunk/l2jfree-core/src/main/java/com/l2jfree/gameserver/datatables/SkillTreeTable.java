@@ -18,7 +18,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +37,7 @@ import com.l2jfree.gameserver.model.L2TransformSkillLearn;
 import com.l2jfree.gameserver.model.L2EnchantSkillLearn.EnchantSkillDetail;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.base.ClassId;
+import com.l2jfree.util.Bunch;
 
 /**
  * This class ...
@@ -393,7 +393,7 @@ public class SkillTreeTable
 
 	public L2SkillLearn[] getAvailableSkills(L2PcInstance cha, ClassId classId)
 	{
-		List<L2SkillLearn> result = new FastList<L2SkillLearn>();
+		Bunch<L2SkillLearn> result = new Bunch<L2SkillLearn>();
 		Collection<L2SkillLearn> skills = getSkillTrees().get(classId).values();
 
 		if (skills == null)
@@ -433,13 +433,13 @@ public class SkillTreeTable
 			}
 		}
 
-		return result.toArray(new L2SkillLearn[result.size()]);
+		return result.moveToArray(new L2SkillLearn[result.size()]);
 	}
 
 	public L2SkillLearn[] getAvailableSkills(L2PcInstance cha)
 	{
-		List<L2SkillLearn> result = new FastList<L2SkillLearn>();
-		List<L2SkillLearn> skills = new FastList<L2SkillLearn>();
+		Bunch<L2SkillLearn> result = new Bunch<L2SkillLearn>();
+		Bunch<L2SkillLearn> skills = new Bunch<L2SkillLearn>();
 
 		skills.addAll(_fishingSkillTrees);
 
@@ -485,7 +485,8 @@ public class SkillTreeTable
 			}
 		}
 
-		return result.toArray(new L2SkillLearn[result.size()]);
+		skills.clear();
+		return result.moveToArray(new L2SkillLearn[result.size()]);
 	}
 
 	public L2EnchantSkillLearn getSkillEnchantmentForSkill(L2Skill skill)
@@ -506,7 +507,7 @@ public class SkillTreeTable
 
 	public L2PledgeSkillLearn[] getAvailablePledgeSkills(L2PcInstance cha)
 	{
-		List<L2PledgeSkillLearn> result = new FastList<L2PledgeSkillLearn>();
+		Bunch<L2PledgeSkillLearn> result = new Bunch<L2PledgeSkillLearn>();
 		List<L2PledgeSkillLearn> skills = _pledgeSkillTrees;
 
 		if (skills == null)
@@ -544,12 +545,12 @@ public class SkillTreeTable
 				}
 			}
 		}
-		return result.toArray(new L2PledgeSkillLearn[result.size()]);
+		return result.moveToArray(new L2PledgeSkillLearn[result.size()]);
 	}
 
 	public L2TransformSkillLearn[] getAvailableTransformSkills(L2PcInstance cha)
 	{
-		List<L2TransformSkillLearn> result = new FastList<L2TransformSkillLearn>();
+		Bunch<L2TransformSkillLearn> result = new Bunch<L2TransformSkillLearn>();
 		List<L2TransformSkillLearn> skills = _TransformSkillTrees;
 
 		if (skills == null)
@@ -590,7 +591,7 @@ public class SkillTreeTable
 			}
 		}
 
-		return result.toArray(new L2TransformSkillLearn[result.size()]);
+		return result.moveToArray(new L2TransformSkillLearn[result.size()]);
 	}
 
 	/**

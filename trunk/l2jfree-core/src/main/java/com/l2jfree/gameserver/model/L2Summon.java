@@ -674,7 +674,7 @@ public abstract class L2Summon extends L2PlayableInstance
 		//************************************* Check Target *******************************************
 
 		// Get the target for the skill
-		L2Object target = null;
+		L2Character target = null;
 
 		switch (skill.getTargetType())
 		{

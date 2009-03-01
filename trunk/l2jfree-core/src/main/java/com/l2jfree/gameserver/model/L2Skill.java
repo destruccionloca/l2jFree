@@ -3605,7 +3605,7 @@ public class L2Skill
 		return getTargetList(activeChar, false);
 	}
 
-	public final L2Object getFirstOfTargetList(L2Character activeChar)
+	public final L2Character getFirstOfTargetList(L2Character activeChar)
 	{
 		L2Character[] targets;
 

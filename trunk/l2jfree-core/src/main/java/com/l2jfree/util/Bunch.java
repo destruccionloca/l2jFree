@@ -247,6 +247,15 @@ public class Bunch<E> implements IBunch<E>
 		return this;
 	}
 	
+	public Bunch<E> addAll(E[] array)
+	{
+		if (array != null)
+			for (E e : array)
+				add(e);
+		
+		return this;
+	}
+	
 	public Iterator<E> iterator()
 	{
 		return BunchIterator.newInstance(this);

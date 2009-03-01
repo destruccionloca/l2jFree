@@ -383,9 +383,6 @@ public final class L2PcInstance extends L2PlayableInstance
 				return;
 			default:
 			{
-				L2Object mainTarget = skill.getFirstOfTargetList(L2PcInstance.this);
-				if (!(mainTarget instanceof L2Character))
-					return;
 				for (L2CubicInstance cubic : getCubics().values())
 					if (cubic.getId() != L2CubicInstance.LIFE_CUBIC)
 						cubic.doAction();
@@ -8263,7 +8260,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 
 		// Check if the target is correct and Notify the AI with AI_INTENTION_CAST and target
-		L2Object target = null;
+		L2Character target = null;
 
 		switch (skill.getTargetType())
 		{

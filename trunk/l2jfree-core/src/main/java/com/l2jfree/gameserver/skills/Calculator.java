@@ -15,8 +15,7 @@
 package com.l2jfree.gameserver.skills;
 
 import com.l2jfree.gameserver.skills.funcs.Func;
-
-import javolution.util.FastList;
+import com.l2jfree.util.Bunch;
 
 /**
  * A calculator is created to manage and dynamically calculate the effect of a character property (ex : MAX_HP, REGENERATE_HP_RATE...). 
@@ -145,19 +144,19 @@ public final class Calculator
 	/**
 	 * Remove each Func with the specified owner of the Calculator.<BR><BR>
 	 */
-	public synchronized FastList<Stats> removeOwner(Object owner)
+	public synchronized Func[] removeOwner(Object owner)
 	{
-		FastList<Stats> modifiedStats = new FastList<Stats>();
+		Bunch<Func> modified = new Bunch<Func>();
 
 		for (Func element : _functions)
 		{
 			if (element.funcOwner == owner)
 			{
-				modifiedStats.add(element.stat);
+				modified.add(element);
 				removeFunc(element);
 			}
 		}
-		return modifiedStats;
+		return modified.moveToArray(new Func[modified.size()]);
 	}
 
 	/**
