@@ -35,7 +35,8 @@ import com.l2jfree.gameserver.templates.skills.L2EffectType;
  */
 public abstract class L2PlayableInstance extends L2Character
 {
-
+	public static final L2PlayableInstance[] EMPTY_ARRAY = new L2PlayableInstance[0];
+	
 	private boolean	_isNoblesseBlessed	= false;	// For Noblesse Blessing skill, restores buffs after death
 	private boolean	_getCharmOfLuck		= false;	// Charm of Luck - During a Raid/Boss war, decreased chance for death penalty
 	private boolean	_isPhoenixBlessed	= false;	// For Soul of The Phoenix or Salvation buffs

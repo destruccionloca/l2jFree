@@ -45,6 +45,8 @@ import com.l2jfree.util.L2Entity;
  */
 public abstract class L2Object implements L2Entity
 {
+	public static final L2Object[] EMPTY_ARRAY = new L2Object[0];
+	
 	/**
 	 * Object visibility
 	 */

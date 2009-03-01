@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.model;
 
-import java.util.List;import java.util.Arrays;
 import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastList;
@@ -29,6 +28,7 @@ import com.l2jfree.gameserver.datatables.SpawnTable;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.model.zone.L2Zone;
+import com.l2jfree.util.Bunch;
 import com.l2jfree.util.L2Collection;
 import com.l2jfree.util.L2SynchronizedCollection;
 
@@ -427,7 +427,7 @@ public final class L2WorldRegion
 	
 	private void updateRegion()
 	{
-		List<L2Object> addList = getAllSurroundingObjects();
+		L2Object[] addList = getAllSurroundingObjects();
 		
 		for (L2Object object : getVisibleObjects())
 		{
@@ -438,13 +438,13 @@ public final class L2WorldRegion
 		}
 	}
 	
-	public final List<L2Object> getAllSurroundingObjects()
+	public final L2Object[] getAllSurroundingObjects()
 	{
-		List<L2Object> result = new FastList<L2Object>();
+		Bunch<L2Object> result = new Bunch<L2Object>();
 		
 		for (L2WorldRegion region : getSurroundingRegions())
-            result.addAll(Arrays.asList(region.getVisibleObjects()));
+			result.addAll(region.getVisibleObjects());
 		
-		return result;
+		return result.moveToArray(new L2Object[result.size()]);
 	}
 }

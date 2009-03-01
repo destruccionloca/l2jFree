@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.model.actor.knownlist;
 
-import java.util.List;
 import java.util.Map;
 
 import com.l2jfree.gameserver.model.L2Character;
@@ -176,7 +175,7 @@ public class ObjectKnownList
 		return getKnownObjects().get(objectId);
 	}
 	
-	public final void tryAddObjects(List<L2Object> addList)
+	public final void tryAddObjects(L2Object[] addList)
 	{
 		if (getActiveObject() instanceof L2Character)
 		{

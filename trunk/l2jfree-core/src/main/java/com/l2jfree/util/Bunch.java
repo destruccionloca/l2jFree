@@ -180,6 +180,8 @@ public class Bunch<E> implements IBunch<E>
 			
 			node = tmp;
 		}
+		
+		delete(_first);
 	}
 	
 	public boolean isEmpty()
@@ -275,9 +277,6 @@ public class Bunch<E> implements IBunch<E>
 	{
 		if (array.length != size())
 			array = (T[])Array.newInstance(array.getClass().getComponentType(), size());
-		
-		if (isEmpty() && array.length == 0)
-			return array;
 		
 		int i = 0;
 		for (Node node = _first; (node = node.next) != null && i < array.length;)

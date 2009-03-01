@@ -18,7 +18,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.apache.commons.logging.Log;
@@ -29,6 +28,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.tools.geometry.Point3D;
+import com.l2jfree.util.Bunch;
 import com.l2jfree.util.L2Collection;
 import com.l2jfree.util.L2ReadWriteCollection;
 
@@ -351,9 +351,9 @@ public final class L2World
 
 		// Get all visible objects contained in the _visibleObjects of L2WorldRegions
 		// in a circular area of 2000 units
-		FastList<L2Object> visible = getVisibleObjects(object, 2000);
+		L2Object[] visible = getVisibleObjects(object, 2000);
 		if (_log.isDebugEnabled())
-			_log.info("objects in range:" + visible.size());
+			_log.info("objects in range:" + visible.length);
 
 		for (L2Object element : visible)
 		{
@@ -482,33 +482,33 @@ public final class L2World
 	 * @param object L2object that determine the current L2WorldRegion
 	 *
 	 */
-	public FastList<L2Object> getVisibleObjects(L2Object object)
+	public L2Object[] getVisibleObjects(L2Object object)
 	{
-		FastList<L2Object> result = new FastList<L2Object>();
-
 		if (object == null)
-			return result;
-
+			return L2Object.EMPTY_ARRAY;
+		
 		L2WorldRegion reg = object.getWorldRegion();
-
+		
 		if (reg == null)
-			return result;
-
+			return L2Object.EMPTY_ARRAY;
+		
+		Bunch<L2Object> result = new Bunch<L2Object>();
+		
 		for (L2WorldRegion region : reg.getSurroundingRegions())
 		{
 			for (L2Object obj : region.getVisibleObjects())
 			{
 				if (obj == null || obj == object)
 					continue;
-
+				
 				if (!obj.isVisible())
 					continue;
-
+				
 				result.add(obj);
 			}
 		}
-
-		return result;
+		
+		return result.moveToArray(new L2Object[result.size()]);
 	}
 
 	/**
@@ -527,17 +527,17 @@ public final class L2World
 	 * @param radius Radius of the circular area
 	 *
 	 */
-	public FastList<L2Object> getVisibleObjects(L2Object object, int radius)
+	public L2Object[] getVisibleObjects(L2Object object, int radius)
 	{
 		if (object == null || !object.isVisible())
-			return new FastList<L2Object>();
+			return L2Object.EMPTY_ARRAY;
 
 		int x = object.getX();
 		int y = object.getY();
 		int sqRadius = radius * radius;
 
 		// Create an FastList in order to contain all visible L2Object
-		FastList<L2Object> result = new FastList<L2Object>();
+		Bunch<L2Object> result = new Bunch<L2Object>();
 
 		// Go through the FastList of region
 		for (L2WorldRegion regi : object.getWorldRegion().getSurroundingRegions())
@@ -565,7 +565,7 @@ public final class L2World
 			}
 		}
 
-		return result;
+		return result.moveToArray(new L2Object[result.size()]);
 	}
 
 	/**
@@ -583,10 +583,10 @@ public final class L2World
 	 * @param radius Radius of the spheric area
 	 *
 	 */
-	public FastList<L2Object> getVisibleObjects3D(L2Object object, int radius)
+	public L2Object[] getVisibleObjects3D(L2Object object, int radius)
 	{
 		if (object == null || !object.isVisible())
-			return new FastList<L2Object>();
+			return L2Object.EMPTY_ARRAY;
 
 		int x = object.getX();
 		int y = object.getY();
@@ -594,7 +594,7 @@ public final class L2World
 		int sqRadius = radius * radius;
 
 		// Create an FastList in order to contain all visible L2Object
-		FastList<L2Object> result = new FastList<L2Object>();
+		Bunch<L2Object> result = new Bunch<L2Object>();
 
 		// Go through visible object of the selected region
 		for (L2WorldRegion regi : object.getWorldRegion().getSurroundingRegions())
@@ -621,7 +621,7 @@ public final class L2World
 			}
 		}
 
-		return result;
+		return result.moveToArray(new L2Object[result.size()]);
 	}
 
 	/**
@@ -637,15 +637,15 @@ public final class L2World
 	 * @param object L2object that determine the current L2WorldRegion
 	 *
 	 */
-	public FastList<L2PlayableInstance> getVisiblePlayable(L2Object object)
+	public L2PlayableInstance[] getVisiblePlayable(L2Object object)
 	{
 		L2WorldRegion reg = object.getWorldRegion();
 
 		if (reg == null)
-			return null;
+			return L2PlayableInstance.EMPTY_ARRAY;
 
 		// Create an FastList in order to contain all visible L2Object
-		FastList<L2PlayableInstance> result = new FastList<L2PlayableInstance>();
+		Bunch<L2PlayableInstance> result = new Bunch<L2PlayableInstance>();
 
 		// Go through the FastList of region
 		for (L2WorldRegion regi : reg.getSurroundingRegions())
@@ -666,7 +666,7 @@ public final class L2World
 			}
 		}
 
-		return result;
+		return result.moveToArray(new L2PlayableInstance[result.size()]);
 	}
 
 	/**
