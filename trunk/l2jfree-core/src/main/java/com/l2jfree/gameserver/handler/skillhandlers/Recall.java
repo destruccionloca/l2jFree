@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.handler.skillhandlers;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -57,12 +56,10 @@ public class Recall implements ISkillHandler
 			}
 		}
 
-		for (L2Object element : targets)
+		for (L2Character target : targets)
 		{
-			if (!(element instanceof L2Character))
+			if (target == null)
 				continue;
-			
-			L2Character target = (L2Character) element;
 			
 			if (target instanceof L2PcInstance)
 			{
@@ -117,7 +114,7 @@ public class Recall implements ISkillHandler
 	}
 
 	// [L2J_JP ADD SANDMAN]
-	protected void doZakenTeleport(L2Object[] targets)
+	protected void doZakenTeleport(L2Character... targets)
 	{
 		final int loc[][] =
 		{
@@ -140,13 +137,10 @@ public class Recall implements ISkillHandler
 		int rndX = 0;
 		int rndY = 0;
 
-		for (L2Object element : targets)
+		for (L2Character target : targets)
 		{
-			if (element == null ||
-					!(element instanceof L2Character))
+			if (target == null)
 				continue;
-
-			L2Character target = (L2Character) element;
 
 			target.abortAttack();
 

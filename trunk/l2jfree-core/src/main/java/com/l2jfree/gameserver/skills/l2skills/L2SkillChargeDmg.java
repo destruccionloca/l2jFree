@@ -18,14 +18,13 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2ItemInstance;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Formulas;
-import com.l2jfree.gameserver.templates.item.L2WeaponType;
 import com.l2jfree.gameserver.templates.StatsSet;
+import com.l2jfree.gameserver.templates.item.L2WeaponType;
 
 public class L2SkillChargeDmg extends L2Skill
 {
@@ -46,10 +45,9 @@ public class L2SkillChargeDmg extends L2Skill
 		player.decreaseCharges(getNeededCharges());
 		Formulas f = Formulas.getInstance();
 
-		for (L2Object element : targets)
+		for (L2Character target : targets)
 		{
 			L2ItemInstance weapon = activeChar.getActiveWeaponInstance();
-			L2Character target = (L2Character) element;
 			if (target.isAlikeDead())
 				continue;
 

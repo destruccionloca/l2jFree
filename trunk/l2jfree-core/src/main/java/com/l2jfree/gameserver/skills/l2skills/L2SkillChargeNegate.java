@@ -16,15 +16,14 @@ package com.l2jfree.gameserver.skills.l2skills;
 
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Effect;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.funcs.Func;
-import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.gameserver.templates.StatsSet;
+import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
 /**
  * Used for Break Duress skill mainly
@@ -44,9 +43,8 @@ public class L2SkillChargeNegate extends L2Skill
 		if (activeChar.isAlikeDead() || !(activeChar instanceof L2PcInstance))
 			return;
 
-		for (L2Object element : targets)
+		for (L2Character target : targets)
 		{
-			L2Character target = (L2Character) element;
 			if (target.isAlikeDead())
 				continue;
 

@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.handler.skillhandlers;
 import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2ItemInstance;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
@@ -84,12 +83,10 @@ public class Manadam implements ISkillHandler
 			ss = ((L2NpcInstance) activeChar).isUsingShot(true);
 		}
 
-		for (L2Object element : targets)
+		for (L2Character target : targets)
 		{
-			if (!(element instanceof L2Character))
+			if (target == null)
 				continue;
-			
-			L2Character target = (L2Character) element;
 			
 			if (target.reflectSkill(skill))
 				target = activeChar;

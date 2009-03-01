@@ -19,12 +19,11 @@ import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2ItemInstance;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.skills.Formulas;
-import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.gameserver.templates.item.L2WeaponType;
+import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
 /**
  * @author _tomciaaa_
@@ -47,12 +46,10 @@ public class StrSiegeAssault implements ISkillHandler
 			//TODO: damage calculation below is crap - needs rewrite
 			int damage = 0;
 
-			for (L2Object element : targets)
+			for (L2Character target : targets)
 			{
-				if (!(element instanceof L2Character))
+				if (target == null)
 					continue;
-				
-				L2Character target = (L2Character) element;
 				
 				L2ItemInstance weapon = activeChar.getActiveWeaponInstance();
 				if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance && target.isFakeDeath())

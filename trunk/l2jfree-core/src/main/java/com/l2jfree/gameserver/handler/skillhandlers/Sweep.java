@@ -19,7 +19,6 @@ import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.model.L2Attackable;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2ItemInstance;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -48,7 +47,7 @@ public class Sweep implements ISkillHandler
 		InventoryUpdate iu = Config.FORCE_INVENTORY_UPDATE ? null : new InventoryUpdate();
 		boolean send = false;
 
-		for (L2Object element : targets)
+		for (L2Character element : targets)
 		{
 			if (!(element instanceof L2Attackable))
 				continue;

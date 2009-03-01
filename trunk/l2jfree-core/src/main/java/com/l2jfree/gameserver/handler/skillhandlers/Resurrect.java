@@ -14,9 +14,10 @@
  */
 package com.l2jfree.gameserver.handler.skillhandlers;
 
+import javolution.util.FastList;
+
 import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Skill.SkillTargetType;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -24,8 +25,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
-
-import javolution.util.FastList;
 
 /**
  * This class ...
@@ -47,12 +46,10 @@ public class Resurrect implements ISkillHandler
 		L2PcInstance targetPlayer;
 		FastList<L2Character> targetToRes = new FastList<L2Character>();
 
-		for (L2Object element : targets)
+		for (L2Character target : targets)
 		{
-			if (!(element instanceof L2Character))
+			if (target == null)
 				continue;
-			
-			L2Character target = (L2Character) element;
 			
 			if (target instanceof L2PcInstance)
 			{

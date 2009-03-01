@@ -20,7 +20,6 @@ import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2ItemInstance;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -54,12 +53,10 @@ public class Blow implements ISkillHandler
 		if (activeChar.isAlikeDead())
 			return;
 
-		for (L2Object element : targets)
+		for (L2Character target : targets)
 		{
-			if (!(element instanceof L2Character))
+			if (target == null)
 				continue;
-
-			L2Character target = (L2Character) element;
 
 			if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance)
 			{

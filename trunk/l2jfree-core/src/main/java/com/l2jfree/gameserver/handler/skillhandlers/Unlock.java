@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.handler.skillhandlers;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2ChestInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
@@ -36,7 +35,7 @@ public class Unlock implements ISkillHandler
 	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused")
 	L2Character... targets)
 	{
-		for (L2Object element : targets)
+		for (L2Character element : targets)
 		{
 			if (element instanceof L2DoorInstance)
 			{

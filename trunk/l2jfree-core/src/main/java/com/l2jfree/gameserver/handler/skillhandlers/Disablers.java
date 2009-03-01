@@ -31,7 +31,6 @@ import com.l2jfree.gameserver.model.L2Attackable;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2ItemInstance;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
@@ -157,12 +156,10 @@ public class Disablers implements ICubicSkillHandler
 			ss = ((L2NpcInstance) activeChar).isUsingShot(true);
 		}
 
-		for (L2Object element : targets)
+		for (L2Character target : targets)
 		{
-			if (!(element instanceof L2Character))
+			if (target == null)
 				continue;
-			
-			L2Character target = (L2Character) element;
 			
 			if (target.isDead() || target.isInvul() || target.isPetrified()) //bypass if target is null, invul or dead
 				continue;
@@ -826,20 +823,17 @@ public class Disablers implements ICubicSkillHandler
 		skill.getEffectsSelf(activeChar);
 	}
 
-	public void useCubicSkill(L2CubicInstance activeCubic, L2Skill skill, L2Object... targets)
+	public void useCubicSkill(L2CubicInstance activeCubic, L2Skill skill, L2Character... targets)
 	{
 		if (_log.isDebugEnabled())
 			_log.info("Disablers: useCubicSkill()");
 
 		L2SkillType type = skill.getSkillType();
 
-		for (L2Object element : targets)
+		for (L2Character target : targets)
 		{
-			if (element == null || 
-					!(element instanceof L2Character))
+			if (target == null)
 				continue;
-			
-			L2Character target = (L2Character) element;
 			
 			if (target.isDead()) // Bypass if target is null or dead
 				continue;

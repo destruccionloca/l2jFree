@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.handler.skillhandlers;
 
 import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
@@ -31,12 +30,10 @@ public class GiveSp implements ISkillHandler
 
 	public void useSkill(@SuppressWarnings("unused") L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
-		for (L2Object element : targets)
+		for (L2Character target : targets)
 		{
-			if (!(element instanceof L2Character))
+			if (target == null)
 				continue;
-			
-			L2Character target = (L2Character) element;
 			
 			int spToAdd = (int)skill.getPower();
 			target.addExpAndSp(0, spToAdd);

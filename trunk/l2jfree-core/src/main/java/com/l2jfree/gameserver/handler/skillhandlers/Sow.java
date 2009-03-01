@@ -19,7 +19,6 @@ import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Manor;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -47,7 +46,7 @@ public class Sow implements ISkillHandler
 		if (_log.isDebugEnabled())
 			_log.info("Casting sow");
 
-		for (L2Object element : targets)
+		for (L2Character element : targets)
 		{
 			if (!(element instanceof L2MonsterInstance))
 				continue;

@@ -18,7 +18,6 @@ import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2ItemInstance;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
@@ -58,12 +57,10 @@ public class Heal implements ISkillHandler
 			player = (L2PcInstance) activeChar;
 		boolean clearSpiritShot = false;
 
-		for (L2Object element : targets)
+		for (L2Character target : targets)
 		{
-			if (!(element instanceof L2Character))
+			if (target == null)
 				continue;
-			
-			L2Character target = (L2Character) element;
 						
 			// We should not heal if char is dead
 			if (target.isDead())
