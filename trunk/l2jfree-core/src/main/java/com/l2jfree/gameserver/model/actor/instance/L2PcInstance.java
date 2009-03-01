@@ -249,6 +249,7 @@ import com.l2jfree.gameserver.util.Broadcast;
 import com.l2jfree.gameserver.util.FloodProtector;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.tools.random.Rnd;
+import com.l2jfree.util.Bunch;
 import com.l2jfree.util.EventData;
 
 /**
@@ -1466,7 +1467,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public Quest[] getAllActiveQuests()
 	{
-		List<Quest> quests = new FastList<Quest>();
+		Bunch<Quest> quests = new Bunch<Quest>();
 
 		for (QuestState qs : _quests.values())
 		{
@@ -1480,7 +1481,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			quests.add(qs.getQuest());
 		}
 
-		return quests.toArray(new Quest[quests.size()]);
+		return quests.moveToArray(new Quest[quests.size()]);
 	}
 
 	/**

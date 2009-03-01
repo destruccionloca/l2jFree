@@ -63,6 +63,7 @@ import com.l2jfree.gameserver.templates.StatsSet;
 import com.l2jfree.gameserver.templates.item.L2WeaponType;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.util.Bunch;
 
 public class L2Skill
 {
@@ -1577,7 +1578,7 @@ public class L2Skill
 		return true;
 	}
 
-	public final L2Object[] getTargetList(L2Character activeChar, boolean onlyFirst)
+	public final L2Character[] getTargetList(L2Character activeChar, boolean onlyFirst)
 	{
 		// Init to null the target of the skill
 		L2Character target = null;
@@ -1615,10 +1616,10 @@ public class L2Skill
 	 * @param activeChar
 	 *            The L2Character who use the skill
 	 */
-	public final L2Object[] getTargetList(L2Character activeChar, boolean onlyFirst, L2Character target)
+	public final L2Character[] getTargetList(L2Character activeChar, boolean onlyFirst, L2Character target)
 	{
-		FastList<L2Character> targetList = new FastList<L2Character>();
-
+		Bunch<L2Character> targetList = new Bunch<L2Character>();
+		try {
 		// Get the target type of the skill
 		// (ex : ONE, SELF, HOLY, PET, AURA, AURA_CLOSE, AREA, MULTIFACE, PARTY, CLAN, CORPSE_PLAYER, CORPSE_MOB, CORPSE_CLAN, UNLOCKABLE, ITEM, UNDEAD)
 		SkillTargetType targetType = getTargetType();
@@ -1835,7 +1836,7 @@ public class L2Skill
 						{ (L2Character) obj };
 				}
 			}
-			return targetList.toArray(new L2Character[targetList.size()]);
+			return targetList.moveToArray(new L2Character[targetList.size()]);
 		}
 			// [L2J_JP ADD SANDMAN]
 			// case TARGET_AURA:
@@ -1923,7 +1924,7 @@ public class L2Skill
 						{ (L2Character) obj };
 				}
 			}
-			return targetList.toArray(new L2Character[targetList.size()]);
+			return targetList.moveToArray(new L2Character[targetList.size()]);
 		}
 		case TARGET_BEHIND_AURA:
 		{
@@ -2002,7 +2003,7 @@ public class L2Skill
 						{ (L2Character) obj };
 				}
 			}
-			return targetList.toArray(new L2Character[targetList.size()]);
+			return targetList.moveToArray(new L2Character[targetList.size()]);
 		}
 		case TARGET_AREA:
 		{
@@ -2124,7 +2125,7 @@ public class L2Skill
 			if (targetList.size() == 0)
 				return null;
 
-			return targetList.toArray(new L2Character[targetList.size()]);
+			return targetList.moveToArray(new L2Character[targetList.size()]);
 		}
 		case TARGET_FRONT_AREA:
 		{
@@ -2251,7 +2252,7 @@ public class L2Skill
 			if (targetList.size() == 0)
 				return null;
 
-			return targetList.toArray(new L2Character[targetList.size()]);
+			return targetList.moveToArray(new L2Character[targetList.size()]);
 		}
 		case TARGET_BEHIND_AREA:
 		{
@@ -2377,7 +2378,7 @@ public class L2Skill
 			if (targetList.size() == 0)
 				return null;
 
-			return targetList.toArray(new L2Character[targetList.size()]);
+			return targetList.moveToArray(new L2Character[targetList.size()]);
 		}
 		case TARGET_AREA_UNDEAD:
 		{
@@ -2425,7 +2426,7 @@ public class L2Skill
 
 			if (targetList.size() == 0)
 				return null;
-			return targetList.toArray(new L2Character[targetList.size()]);
+			return targetList.moveToArray(new L2Character[targetList.size()]);
 		}
 		case TARGET_PARTY:
 		{
@@ -2484,7 +2485,7 @@ public class L2Skill
 					}
 				}
 			}
-			return targetList.toArray(new L2Character[targetList.size()]);
+			return targetList.moveToArray(new L2Character[targetList.size()]);
 		}
 		case TARGET_PARTY_MEMBER:
 		{
@@ -2644,7 +2645,7 @@ public class L2Skill
 					}
 				}
 			}
-			return targetList.toArray(new L2Character[targetList.size()]);
+			return targetList.moveToArray(new L2Character[targetList.size()]);
 		}
 		case TARGET_ENEMY_ALLY:
 		{
@@ -2687,7 +2688,7 @@ public class L2Skill
 				}
 			}
 			//FIXME: (Noctarius) Added return here to deny fallthrough - is it wished to add more targets?
-			return targetList.toArray(new L2Character[targetList.size()]);
+			return targetList.moveToArray(new L2Character[targetList.size()]);
 		}
 		case TARGET_CORPSE_CLAN:
 		case TARGET_CLAN:
@@ -2813,7 +2814,7 @@ public class L2Skill
 				}
 			}
 
-			return targetList.toArray(new L2Character[targetList.size()]);
+			return targetList.moveToArray(new L2Character[targetList.size()]);
 		}
 		case TARGET_CORPSE_PLAYER:
 		{
@@ -2878,7 +2879,7 @@ public class L2Skill
 						if (!onlyFirst)
 						{
 							targetList.add(target);
-							return targetList.toArray(new L2Object[targetList.size()]);
+							return targetList.moveToArray(new L2Character[targetList.size()]);
 						}
 
 						return new L2Character[] { target };
@@ -2915,7 +2916,7 @@ public class L2Skill
 			if (!onlyFirst)
 			{
 				targetList.add(target);
-				return targetList.toArray(new L2Object[targetList.size()]);
+				return targetList.moveToArray(new L2Character[targetList.size()]);
 			}
 
 			return new L2Character[] { target };
@@ -3010,7 +3011,7 @@ public class L2Skill
 
 			if (targetList.size() == 0)
 				return null;
-			return targetList.toArray(new L2Character[targetList.size()]);
+			return targetList.moveToArray(new L2Character[targetList.size()]);
 		}
 		case TARGET_AREA_CORPSES:
 		{
@@ -3047,7 +3048,7 @@ public class L2Skill
 
 			if (targetList.size() == 0)
 				return null;
-			return targetList.toArray(new L2Character[targetList.size()]);
+			return targetList.moveToArray(new L2Character[targetList.size()]);
 		}
 		case TARGET_UNLOCKABLE:
 		{
@@ -3060,7 +3061,7 @@ public class L2Skill
 			if (!onlyFirst)
 			{
 				targetList.add(target);
-				return targetList.toArray(new L2Object[targetList.size()]);
+				return targetList.moveToArray(new L2Character[targetList.size()]);
 			}
 
 			return new L2Character[] { target };
@@ -3119,7 +3120,7 @@ public class L2Skill
 
 			if (targetList.size() == 0)
 				return null;
-			return targetList.toArray(new L2Character[targetList.size()]);
+			return targetList.moveToArray(new L2Character[targetList.size()]);
 		}
 		default:
 		{
@@ -3128,12 +3129,13 @@ public class L2Skill
 			return null;
 		}
 		}// end switch
+		} finally { targetList.clear(); }
 	}
 
 	// [L2J_JP ADD SANDMAN START]
-	public final L2Object[] getAreaTargetList(L2Character activeChar)
+	public final L2Character[] getAreaTargetList(L2Character activeChar)
 	{
-		List<L2Character> targetList = new FastList<L2Character>();
+		Bunch<L2Character> targetList = new Bunch<L2Character>();
 		L2Object target;
 		L2PcInstance tgOwner;
 		L2Clan acClan;
@@ -3177,7 +3179,7 @@ public class L2Skill
 			}
 			if (targetList.size() == 0)
 				return null;
-			return targetList.toArray(new L2Character[targetList.size()]);
+			return targetList.moveToArray(new L2Character[targetList.size()]);
 		}
 
 		if (activeChar instanceof L2PcInstance)
@@ -3321,12 +3323,12 @@ public class L2Skill
 			return null;
 		}
 
-		return targetList.toArray(new L2Character[targetList.size()]);
+		return targetList.moveToArray(new L2Character[targetList.size()]);
 	}
 
-	public final L2Object[] getMultiFaceTargetList(L2Character activeChar)
+	public final L2Character[] getMultiFaceTargetList(L2Character activeChar)
 	{
-		List<L2Character> targetList = new FastList<L2Character>();
+		Bunch<L2Character> targetList = new Bunch<L2Character>();
 		L2Object target;
 		L2Object FirstTarget;
 		L2PcInstance tgOwner;
@@ -3377,7 +3379,7 @@ public class L2Skill
 			}
 			if (targetList.size() == 0)
 				return null;
-			return targetList.toArray(new L2Character[targetList.size()]);
+			return targetList.moveToArray(new L2Character[targetList.size()]);
 		}
 
 		if (activeChar.getActingPlayer() != null)
@@ -3531,7 +3533,7 @@ public class L2Skill
 			return null;
 		}
 
-		return targetList.toArray(new L2Character[targetList.size()]);
+		return targetList.moveToArray(new L2Character[targetList.size()]);
 	}
 
 	protected int getNewHeadingToTarget(L2Character caster, L2Character target)
@@ -3598,14 +3600,14 @@ public class L2Skill
     }
 
 	// [L2J_JP ADD SANDMAN END]
-	public final L2Object[] getTargetList(L2Character activeChar)
+	public final L2Character[] getTargetList(L2Character activeChar)
 	{
 		return getTargetList(activeChar, false);
 	}
 
 	public final L2Object getFirstOfTargetList(L2Character activeChar)
 	{
-		L2Object[] targets;
+		L2Character[] targets;
 
 		targets = getTargetList(activeChar, true);
 
@@ -3622,7 +3624,7 @@ public class L2Skill
 			return _emptyFunctionSet;
 		if (_funcTemplates == null)
 			return _emptyFunctionSet;
-		FastList<Func> funcs = new FastList<Func>();
+		Bunch<Func> funcs = new Bunch<Func>();
 		for (FuncTemplate t : _funcTemplates)
 		{
 			Env env = new Env();
@@ -3634,7 +3636,7 @@ public class L2Skill
 		}
 		if (funcs.size() == 0)
 			return _emptyFunctionSet;
-		return funcs.toArray(new Func[funcs.size()]);
+		return funcs.moveToArray(new Func[funcs.size()]);
 	}
 
 	public boolean hasEffects()
@@ -3666,7 +3668,7 @@ public class L2Skill
 			}
 		}
 
-		FastList<L2Effect> effects = new FastList<L2Effect>();
+		Bunch<L2Effect> effects = new Bunch<L2Effect>();
 
 		boolean skillMastery = false;
 
@@ -3688,32 +3690,30 @@ public class L2Skill
 		if (effects.size() == 0)
 			return _emptyEffectSet;
 
-		return effects.toArray(new L2Effect[effects.size()]);
+		return effects.moveToArray(new L2Effect[effects.size()]);
 	}
 
-	public final L2Effect[] getEffects(L2CubicInstance effector, L2Character effected)
+	public final void getEffects(L2CubicInstance effector, L2Character effected)
 	{
 		if (isPassive())
-			return _emptyEffectSet;
+			return;
 
 		if (_effectTemplates == null)
-			return _emptyEffectSet;
+			return;
 
 		// doors and siege flags cannot receive any effects
 		if (effected instanceof L2DoorInstance || effected instanceof L2SiegeFlagInstance)
-			return _emptyEffectSet;
+			return;
 
 		if ((!effector.equals(effected)) && effected.isInvul())
-			return _emptyEffectSet;
+			return;
 
 		if ((isDebuff() || isOffensive()) && effector.getOwner() != effected &&
 				effector.getOwner().isGM() && 
 				effector.getOwner().getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
 		{
-			return _emptyEffectSet;
+			return;
 		}
-
-		List<L2Effect> effects = new FastList<L2Effect>();
 
 		for (EffectTemplate et : _effectTemplates)
 		{
@@ -3722,26 +3722,17 @@ public class L2Skill
 			env.cubic = effector;
 			env.target = effected;
 			env.skill = this;
-			L2Effect e = et.getEffect(env);
-			if (e != null)
-				effects.add(e);
+			et.getEffect(env);
 		}
-
-		if (effects.size() == 0)
-			return _emptyEffectSet;
-
-		return effects.toArray(new L2Effect[effects.size()]);
 	}
 
-	public final L2Effect[] getEffectsSelf(L2Character effector)
+	public final void getEffectsSelf(L2Character effector)
 	{
 		if (isPassive())
-			return _emptyEffectSet;
+			return;
 
 		if (_effectTemplatesSelf == null)
-			return _emptyEffectSet;
-
-		FastList<L2Effect> effects = new FastList<L2Effect>();
+			return;
 
 		for (EffectTemplate et : _effectTemplatesSelf)
 		{
@@ -3749,16 +3740,8 @@ public class L2Skill
 			env.player = effector;
 			env.target = effector;
 			env.skill = this;
-			L2Effect e = et.getEffect(env);
-			if (e != null)
-			{
-				effects.add(e);
-			}
+			et.getEffect(env);
 		}
-		if (effects.size() == 0)
-			return _emptyEffectSet;
-
-		return effects.toArray(new L2Effect[effects.size()]);
 	}
 
 	public final void attach(FuncTemplate f)

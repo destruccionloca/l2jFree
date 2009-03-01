@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.templates.item;
 
+import javolution.util.FastList;
+
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Effect;
@@ -25,8 +27,7 @@ import com.l2jfree.gameserver.skills.effects.EffectTemplate;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.funcs.FuncTemplate;
 import com.l2jfree.gameserver.templates.StatsSet;
-
-import javolution.util.FastList;
+import com.l2jfree.util.Bunch;
 
 
 public abstract class L2Equip extends L2Item
@@ -216,7 +217,7 @@ public abstract class L2Equip extends L2Item
 		if (_funcTemplates == null)
 			return EMPTY_FUNC_SET;
 
-		FastList<Func> funcs = new FastList<Func>();
+		Bunch<Func> funcs = new Bunch<Func>();
 		for (FuncTemplate t : _funcTemplates)
 		{
 			Env env = new Env();
@@ -230,7 +231,7 @@ public abstract class L2Equip extends L2Item
 
 		if (funcs.size() == 0)
 			return EMPTY_FUNC_SET;
-		return funcs.toArray(new Func[funcs.size()]);
+		return funcs.moveToArray(new Func[funcs.size()]);
 	}
 
 	/**

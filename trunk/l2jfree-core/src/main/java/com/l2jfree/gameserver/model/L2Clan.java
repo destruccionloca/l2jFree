@@ -52,6 +52,7 @@ import com.l2jfree.gameserver.network.serverpackets.SkillCoolTime;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
+import com.l2jfree.util.Bunch;
 
 /**
  * This class ...
@@ -707,7 +708,7 @@ public class L2Clan
 
 	public L2PcInstance[] getOnlineMembers(int exclude)
 	{
-		List<L2PcInstance> result = new FastList<L2PcInstance>();
+		Bunch<L2PcInstance> result = new Bunch<L2PcInstance>();
 		for (L2ClanMember temp : _members.values())
 		{
 			if (temp != null) {
@@ -716,7 +717,7 @@ public class L2Clan
 			}
 		}
 
-		return result.toArray(new L2PcInstance[result.size()]);
+		return result.moveToArray(new L2PcInstance[result.size()]);
 	}
 
 	/**

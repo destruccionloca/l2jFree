@@ -14,11 +14,8 @@
  */
 package com.l2jfree.gameserver.model;
 
-import java.util.List;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-
-import javolution.util.FastList;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -38,6 +35,7 @@ import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.funcs.FuncTemplate;
 import com.l2jfree.gameserver.skills.funcs.Lambda;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
+import com.l2jfree.util.Bunch;
 
 /**
  * This class ...
@@ -535,7 +533,7 @@ public abstract class L2Effect
 		if (_funcTemplates == null)
 			return _emptyFunctionSet;
 		
-		List<Func> funcs = new FastList<Func>();
+		Bunch<Func> funcs = new Bunch<Func>();
 		for (FuncTemplate t : _funcTemplates)
 		{
 			Env env = new Env();
@@ -550,7 +548,7 @@ public abstract class L2Effect
 		if (funcs.size() == 0)
 			return _emptyFunctionSet;
 		
-		return funcs.toArray(new Func[funcs.size()]);
+		return funcs.moveToArray(new Func[funcs.size()]);
 	}
 	
 	public final void addIcon(AbnormalStatusUpdate mi)

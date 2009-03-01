@@ -29,6 +29,7 @@ import com.l2jfree.gameserver.instancemanager.ZoneManager;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
@@ -38,8 +39,8 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.funcs.FuncTemplate;
-import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.tools.random.Rnd;
+import com.l2jfree.util.Bunch;
 
 public abstract class L2Zone
 {
@@ -865,8 +866,8 @@ public abstract class L2Zone
 	{
 		if (_funcTemplates == null)
 			return EMPTY_FUNC_SET;
-
-		FastList<Func> funcs = new FastList<Func>();
+		
+		Bunch<Func> funcs = new Bunch<Func>();
 		for (FuncTemplate t : _funcTemplates)
 		{
 			Env env = new Env();
@@ -876,9 +877,8 @@ public abstract class L2Zone
 			if (f != null)
 				funcs.add(f);
 		}
-
 		if (funcs.size() == 0)
 			return EMPTY_FUNC_SET;
-		return funcs.toArray(new Func[funcs.size()]);
+		return funcs.moveToArray(new Func[funcs.size()]);
 	}
 }

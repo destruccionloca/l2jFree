@@ -18,6 +18,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javolution.util.FastList;
+import javolution.util.FastMap;
+
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -25,9 +28,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.effects.EffectCharmOfCourage;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
+import com.l2jfree.util.Bunch;
 
 public class CharEffectList
 {
@@ -60,7 +61,7 @@ public class CharEffectList
 		}
 
 		// Create a copy of the effects
-		FastList<L2Effect> temp = new FastList<L2Effect>();
+		Bunch<L2Effect> temp = new Bunch<L2Effect>();
 
 		synchronized (this)
 		{
@@ -72,9 +73,7 @@ public class CharEffectList
 		}
 
 		// Return all effects in an array
-		L2Effect[] tempArray = new L2Effect[temp.size()];
-		temp.toArray(tempArray);
-		return tempArray;
+		return temp.moveToArray(new L2Effect[temp.size()]);
 	}
 
 	/**

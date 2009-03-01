@@ -57,6 +57,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.item.L2EtcItemType;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.random.Rnd;
+import com.l2jfree.util.Bunch;
 import com.l2jfree.util.SingletonMap;
 
 /**
@@ -1582,7 +1583,7 @@ public class L2Attackable extends L2NpcInstance
 					// according to sh1ny, seeded mobs CAN be spoiled and swept.
 					if (isSpoil()/* && !isSeeded() */)
 					{
-						FastList<RewardItem> sweepList = new FastList<RewardItem>();
+						Bunch<RewardItem> sweepList = new Bunch<RewardItem>();
 
 						for (L2DropData drop : cat.getAllDrops())
 						{
@@ -1597,7 +1598,7 @@ public class L2Attackable extends L2NpcInstance
 
 						// Set the table _sweepItems of this L2Attackable
 						if (!sweepList.isEmpty())
-							_sweepItems = sweepList.toArray(new RewardItem[sweepList.size()]);
+							_sweepItems = sweepList.moveToArray(new RewardItem[sweepList.size()]);
 					}
 				}
 				else
@@ -2669,12 +2670,9 @@ public class L2Attackable extends L2NpcInstance
 		// hi-lvl mobs bonus
 		if (diff > 0)
 			count += diff;
-
-		FastList<RewardItem> harvested = new FastList<RewardItem>();
-
-		harvested.add(new RewardItem(L2Manor.getInstance().getCropType(_seedType), count * Config.RATE_DROP_MANOR));
-
-		_harvestItems = harvested.toArray(new RewardItem[harvested.size()]);
+		
+		_harvestItems = new RewardItem[] {
+			new RewardItem(L2Manor.getInstance().getCropType(_seedType), count * Config.RATE_DROP_MANOR) };
 	}
 
 	public void setSeeded(boolean seeded)

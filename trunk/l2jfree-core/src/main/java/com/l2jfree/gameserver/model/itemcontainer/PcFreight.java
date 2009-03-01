@@ -14,14 +14,11 @@
  */
 package com.l2jfree.gameserver.model.itemcontainer;
 
-import java.util.List;
-
-import javolution.util.FastList;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2ItemInstance.ItemLocation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.util.Bunch;
 
 public class PcFreight extends ItemContainer
 {
@@ -81,14 +78,14 @@ public class PcFreight extends ItemContainer
 	@Override
 	public L2ItemInstance[] getItems()
 	{
-		List<L2ItemInstance> list = new FastList<L2ItemInstance>();
+		Bunch<L2ItemInstance> list = new Bunch<L2ItemInstance>();
 		for (L2ItemInstance item : _items)
 		{
 			if (item.getLocationSlot() == 0 || item.getLocationSlot() == _activeLocationId)
 				list.add(item);
 		}
 
-		return list.toArray(new L2ItemInstance[list.size()]);
+		return list.moveToArray(new L2ItemInstance[list.size()]);
 	}
 
 	/**

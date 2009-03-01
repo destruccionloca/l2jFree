@@ -30,6 +30,7 @@ import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.item.L2EtcItemType;
 import com.l2jfree.gameserver.templates.item.L2Item;
+import com.l2jfree.util.Bunch;
 
 /**
  * @author Advi
@@ -224,7 +225,7 @@ public class TradeList
      */
     public TradeList.TradeItem[] getAvailableItems(PcInventory inventory)
     {
-        FastList<TradeList.TradeItem> list = new FastList<TradeList.TradeItem>();
+        Bunch<TradeList.TradeItem> list = new Bunch<TradeList.TradeItem>();
         for (TradeList.TradeItem item : _items)
         {
             item = new TradeItem(item, item.getCount(), item.getPrice());
@@ -232,7 +233,7 @@ public class TradeList
             list.add(item);
         }
 
-        return list.toArray(new TradeList.TradeItem[list.size()]);
+        return list.moveToArray(new TradeList.TradeItem[list.size()]);
     }
 
     /**
