@@ -14,8 +14,6 @@
  */
 package com.l2jfree.gameserver.datatables;
 
-import java.io.File;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -39,8 +37,6 @@ import com.l2jfree.gameserver.model.L2MinionData;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.base.ClassId;
 import com.l2jfree.gameserver.model.entity.faction.Faction;
-import com.l2jfree.gameserver.model.quest.Quest;
-import com.l2jfree.gameserver.scripting.L2ScriptEngineManager;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.StatsSet;

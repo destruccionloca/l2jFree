@@ -946,6 +946,7 @@ public abstract class L2Summon extends L2PlayableInstance
 		return this;
 	}
 	
+	@Override
 	public boolean isInCombat()
 	{
 		// summons/pets have shared combat mode with their masters

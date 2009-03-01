@@ -41,7 +41,6 @@ import com.l2jfree.gameserver.network.serverpackets.PartySmallWindowAdd;
 import com.l2jfree.gameserver.network.serverpackets.PartySmallWindowAll;
 import com.l2jfree.gameserver.network.serverpackets.PartySmallWindowDelete;
 import com.l2jfree.gameserver.network.serverpackets.PartySmallWindowDeleteAll;
-import com.l2jfree.gameserver.network.serverpackets.PartySmallWindowUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.util.Util;

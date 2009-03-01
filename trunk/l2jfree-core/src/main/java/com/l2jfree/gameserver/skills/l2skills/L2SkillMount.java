@@ -36,7 +36,7 @@ public class L2SkillMount extends L2Skill
 	}
 
 	@Override
-	public void useSkill(L2Character caster, L2Object[] targets)
+	public void useSkill(L2Character caster, L2Object... targets)
 	{
 		if (!(caster instanceof L2PcInstance))
 			return;

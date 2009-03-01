@@ -1119,6 +1119,7 @@ public class L2PetInstance extends L2Summon
 		}
 	}
 	
+	@Override
 	public int getCurrentLoad()
 	{
 		return _inventory.getTotalWeight();
