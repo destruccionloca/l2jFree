@@ -278,7 +278,9 @@ public final class L2WarehouseInstance extends L2FolkInstance
 	private void showDepositWindowFreight(L2PcInstance player, int obj_Id)
 	{
 		player.sendPacket(ActionFailed.STATIC_PACKET);
+
 		PcFreight freight = new PcFreight(null);
+
 		freight.doQuickRestore(obj_Id);
 
 		if (Config.ALT_GAME_FREIGHTS)

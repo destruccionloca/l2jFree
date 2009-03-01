@@ -56,24 +56,24 @@ import com.l2jfree.gameserver.templates.item.L2Weapon;
 
 public abstract class L2Summon extends L2PlayableInstance
 {
-	public static final int		SIEGE_GOLEM_ID			= 14737;
-	public static final int		HOG_CANNON_ID			= 14768;
-	public static final int		SWOOP_CANNON_ID			= 14839;
+	public static final int	SIEGE_GOLEM_ID			= 14737;
+	public static final int	HOG_CANNON_ID			= 14768;
+	public static final int	SWOOP_CANNON_ID			= 14839;
 
-	protected int				_pkKills;
-	private byte				_pvpFlag;
-	private L2PcInstance		_owner;
-	private int					_attackRange			= 36;											//Melee range
-	private boolean				_follow					= true;
-	private boolean				_previousFollowStatus	= true;
-	private int					_maxLoad;
+	protected int			_pkKills;
+	private byte			_pvpFlag;
+	private L2PcInstance	_owner;
+	private int				_attackRange			= 36;		//Melee range
+	private boolean			_follow					= true;
+	private boolean			_previousFollowStatus	= true;
+	private int				_maxLoad;
 
-	private int					_chargedSoulShot;
-	private int					_chargedSpiritShot;
+	private int				_chargedSoulShot;
+	private int				_chargedSpiritShot;
 
 	// TODO: currently, all servitors use 1 shot.  However, this value should vary depending on the servitor template (id and level)!
-	private int					_soulShotsPerHit		= 1;
-	private int					_spiritShotsPerHit		= 1;
+	private int				_soulShotsPerHit		= 1;
+	private int				_spiritShotsPerHit		= 1;
 
 	public class AIAccessor extends L2Character.AIAccessor
 	{
@@ -281,7 +281,7 @@ public abstract class L2Summon extends L2PlayableInstance
 
 	public final int getKarma()
 	{
-		return getOwner()!= null ? getOwner().getKarma() : 0;
+		return getOwner() != null ? getOwner().getKarma() : 0;
 	}
 
 	public final L2PcInstance getOwner()
@@ -412,15 +412,15 @@ public abstract class L2Summon extends L2PlayableInstance
 	{
 		PartySpelled ps = new PartySpelled(this);
 
-		for (L2Effect effect: getAllEffects())
+		for (L2Effect effect : getAllEffects())
 		{
 			if (!effect.getShowIcon())
 				continue;
 
 			switch (effect.getEffectType())
 			{
-				case SIGNET_GROUND:
-					continue;
+			case SIGNET_GROUND:
+				continue;
 			}
 
 			if (effect.getInUse())
@@ -610,7 +610,7 @@ public abstract class L2Summon extends L2PlayableInstance
 	@Override
 	public boolean isInvul()
 	{
-		return _isInvul  || _isTeleporting ||  getOwner().getProtection() > 0;
+		return _isInvul || _isTeleporting || getOwner().getProtection() > 0;
 	}
 
 	public abstract int getCurrentFed();
@@ -853,14 +853,12 @@ public abstract class L2Summon extends L2PlayableInstance
 				else
 					getOwner().sendPacket(new SystemMessage(SystemMessageId.CRITICAL_HIT_BY_PET));
 
-			if (getOwner().isInOlympiadMode() &&
-					target instanceof L2PcInstance &&
-					((L2PcInstance)target).isInOlympiadMode() &&
-					((L2PcInstance)target).getOlympiadGameId() == getOwner().getOlympiadGameId())
+			if (getOwner().isInOlympiadMode() && target instanceof L2PcInstance && ((L2PcInstance) target).isInOlympiadMode()
+					&& ((L2PcInstance) target).getOlympiadGameId() == getOwner().getOlympiadGameId())
 			{
 				Olympiad.getInstance().notifyCompetitorDamage(getOwner(), damage, getOwner().getOlympiadGameId());
 			}
-			
+
 			SystemMessage sm;
 			if (this instanceof L2SummonInstance)
 				sm = new SystemMessage(SystemMessageId.SUMMON_GAVE_DAMAGE_S1);
@@ -907,6 +905,13 @@ public abstract class L2Summon extends L2PlayableInstance
 	public void doCast(L2Skill skill)
 	{
 		final L2PcInstance actingPlayer = getActingPlayer();
+
+		if (actingPlayer.isGM() && actingPlayer.getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
+		{
+			actingPlayer.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+			actingPlayer.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
 
 		if (!actingPlayer.checkPvpSkill(getTarget(), skill))
 		{

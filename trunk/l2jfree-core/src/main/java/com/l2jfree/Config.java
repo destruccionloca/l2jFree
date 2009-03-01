@@ -1300,6 +1300,7 @@ public final class Config
 	public static double				ALT_GAME_CREATION_SPEED;													// Alternative game crafting speed mutiplier - default 0
 	// (fastest but still not instant)
 	public static double				ALT_GAME_CREATION_XP_RATE;													// Alternative game crafting XP rate multiplier - default 1
+	public static double				ALT_GAME_CREATION_RARE_XPSP_RATE;
 	public static double				ALT_GAME_CREATION_SP_RATE;													// Alternative game crafting SP rate multiplier - default 1
 	public static boolean				ALT_BLACKSMITH_USE_RECIPES;												// Alternative setting to blacksmith use of recipes to craft -
 	// default true
@@ -1495,8 +1496,9 @@ public final class Config
 			ALT_GAME_TIREDNESS = Boolean.parseBoolean(altSettings.getProperty("AltGameTiredness", "false"));
 			ALT_GAME_CREATION = Boolean.parseBoolean(altSettings.getProperty("AltGameCreation", "false"));
 			ALT_GAME_CREATION_SPEED = Double.parseDouble(altSettings.getProperty("AltGameCreationSpeed", "1"));
-			ALT_GAME_CREATION_XP_RATE = Double.parseDouble(altSettings.getProperty("AltGameCreationRateXp", "1"));
-			ALT_GAME_CREATION_SP_RATE = Double.parseDouble(altSettings.getProperty("AltGameCreationRateSp", "1"));
+			ALT_GAME_CREATION_XP_RATE = Double.parseDouble(altSettings.getProperty("AltGameCreationXpRate", "1"));
+			ALT_GAME_CREATION_RARE_XPSP_RATE = Double.parseDouble(altSettings.getProperty("AltGameCreationRareXpSpRate", "2"));
+			ALT_GAME_CREATION_SP_RATE = Double.parseDouble(altSettings.getProperty("AltGameCreationSpRate", "1"));
 			ALT_WEIGHT_LIMIT = Double.parseDouble(altSettings.getProperty("AltWeightLimit", "1."));
 			ALT_BLACKSMITH_USE_RECIPES = Boolean.parseBoolean(altSettings.getProperty("AltBlacksmithUseRecipes", "true"));
 			ALT_MINIMUM_FALL_HEIGHT = Integer.parseInt(altSettings.getProperty("AltMinimumFallHeight", "400"));
@@ -3629,6 +3631,8 @@ public final class Config
 			ALT_GAME_CREATION_SPEED = Double.parseDouble(pValue);
 		else if (pName.equalsIgnoreCase("AltGameCreationXpRate"))
 			ALT_GAME_CREATION_XP_RATE = Double.parseDouble(pValue);
+		else if (pName.equalsIgnoreCase("AltGameCreationRareXpSpRate"))
+			ALT_GAME_CREATION_RARE_XPSP_RATE = Double.parseDouble(pValue);
 		else if (pName.equalsIgnoreCase("AltGameCreationSpRate"))
 			ALT_GAME_CREATION_SP_RATE = Double.parseDouble(pValue);
 		else if (pName.equalsIgnoreCase("AltWeightLimit"))
