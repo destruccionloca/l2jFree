@@ -66,7 +66,6 @@ public abstract class L2Summon extends L2PlayableInstance
 	private int				_attackRange			= 36;		//Melee range
 	private boolean			_follow					= true;
 	private boolean			_previousFollowStatus	= true;
-	private int				_maxLoad;
 
 	private int				_chargedSoulShot;
 	private int				_chargedSpiritShot;
@@ -557,14 +556,9 @@ public abstract class L2Summon extends L2PlayableInstance
 
 	public int getMaxLoad()
 	{
-		return _maxLoad;
+	    return 0;
 	}
-
-	public void setMaxLoad(int maxLoad)
-	{
-		_maxLoad = maxLoad;
-	}
-
+	
 	/**
 	 * @param object
 	 */
@@ -950,5 +944,17 @@ public abstract class L2Summon extends L2PlayableInstance
 	public final L2Summon getActingSummon()
 	{
 		return this;
+	}
+	
+	public boolean isInCombat()
+	{
+		// summons/pets have shared combat mode with their masters
+		if (getOwner() != null)
+		{
+			return ((getOwner().getAI().getAttackTarget() != null) || getOwner().getAI().isAutoAttacking());
+		}
+		
+		// Should never get here, all pets SHOULD have owners.
+		return false;
 	}
 }

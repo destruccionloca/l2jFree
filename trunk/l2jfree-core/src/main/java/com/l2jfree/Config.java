@@ -1467,6 +1467,7 @@ public final class Config
 	public static boolean				ALT_MANA_POTIONS;
 	public static int					ALT_AUTOCHAT_DELAY;
 	public static boolean				ALT_SPECIAL_PETS_FOR_ALL;
+	public static int					ALT_INVENTORY_MAXIMUM_PET;
 
 	// *******************************************************************************************
 	// *******************************************************************************************
@@ -1681,6 +1682,7 @@ public final class Config
 			ALT_MANA_POTIONS = Boolean.parseBoolean(altSettings.getProperty("AllowManaPotions", "false"));
 			ALT_AUTOCHAT_DELAY = Integer.parseInt(altSettings.getProperty("AutoChatDelay", "30000"));
 			ALT_SPECIAL_PETS_FOR_ALL = Boolean.parseBoolean(altSettings.getProperty("EverybodyCanUseSpecPets", "false"));
+			ALT_INVENTORY_MAXIMUM_PET = Integer.parseInt(altSettings.getProperty("MaximumSlotsForPet", "12"));
 		}
 		catch (Exception e)
 		{

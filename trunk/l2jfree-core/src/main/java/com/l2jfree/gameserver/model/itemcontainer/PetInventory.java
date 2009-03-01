@@ -14,25 +14,28 @@
  */
 package com.l2jfree.gameserver.model.itemcontainer;
 
+import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2ItemInstance.ItemLocation;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.network.serverpackets.PetInventoryUpdate;
+import com.l2jfree.gameserver.templates.item.L2EtcItemType;
+import com.l2jfree.gameserver.templates.item.L2Item;
 
-public class PetInventory extends Inventory 
+public class PetInventory extends Inventory
 {
-	private final L2PetInstance _owner;
+	private final L2PetInstance	_owner;
 
-	public PetInventory(L2PetInstance owner) 
-    {
+	public PetInventory(L2PetInstance owner)
+	{
 		_owner = owner;
 	}
-    
-    @Override
-    public L2PetInstance getOwner() 
-    { 
-        return _owner; 
-    }
+
+	@Override
+	public L2PetInstance getOwner()
+	{
+		return _owner;
+	}
 
 	@Override
 	public int getOwnerId()
@@ -40,43 +43,70 @@ public class PetInventory extends Inventory
 		// gets the L2PcInstance-owner's ID
 		int id = 0;
 
-		if (_owner.getOwner() != null) {
+		if (_owner.getOwner() != null)
+		{
 			id = _owner.getOwner().getObjectId();
 		}
 
 		return id;
 	}
 
+	public boolean validateCapacity(L2ItemInstance item)
+	{
+		int slots = 0;
+
+		if (!(item.isStackable() && getItemByItemId(item.getItemId()) != null) && item.getItemType() != L2EtcItemType.HERB)
+			slots++;
+
+		return validateCapacity(slots);
+	}
+
 	@Override
-    protected ItemLocation getBaseLocation() 
-    {
-        return ItemLocation.PET; 
-    }
-    
-    @Override
-    protected ItemLocation getEquipLocation() 
-    { 
-        return ItemLocation.PET_EQUIP; 
-    }
-	
-    @Override
-    protected void refreshWeight()
-    {
-        super.refreshWeight();
-        getOwner().refreshOverloaded();
-    }
+	public boolean validateCapacity(int slots)
+	{
+		return (_items.size() + slots <= _owner.getInventoryLimit());
+	}
 
-    @Override
-    public boolean validateWeight(int weight)
-    {
-        return (_totalWeight + weight <= _owner.getMaxLoad());
-    }
+	public boolean validateWeight(L2ItemInstance item, int count)
+	{
+		int weight = 0;
+		L2Item template = ItemTable.getInstance().getTemplate(item.getItemId());
+		if (template == null)
+			return false;
+		weight += count * template.getWeight();
+		return validateWeight(weight);
+	}
 
-    @Override
-    public void updateInventory(L2ItemInstance newItem)
-    {
-        PetInventoryUpdate petIU = new PetInventoryUpdate();
-        petIU.addItem(newItem);
-        getOwner().getOwner().sendPacket(petIU);        
-    }
+	@Override
+	public boolean validateWeight(int weight)
+	{
+		return (_totalWeight + weight <= _owner.getMaxLoad());
+	}
+
+	@Override
+	protected ItemLocation getBaseLocation()
+	{
+		return ItemLocation.PET;
+	}
+
+	@Override
+	protected ItemLocation getEquipLocation()
+	{
+		return ItemLocation.PET_EQUIP;
+	}
+
+	@Override
+	protected void refreshWeight()
+	{
+		super.refreshWeight();
+		getOwner().refreshOverloaded();
+	}
+
+	@Override
+	public void updateInventory(L2ItemInstance newItem)
+	{
+		PetInventoryUpdate petIU = new PetInventoryUpdate();
+		petIU.addItem(newItem);
+		getOwner().getOwner().sendPacket(petIU);
+	}
 }

@@ -153,6 +153,7 @@ import com.l2jfree.gameserver.model.itemcontainer.ItemContainer;
 import com.l2jfree.gameserver.model.itemcontainer.PcFreight;
 import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.model.itemcontainer.PcWarehouse;
+import com.l2jfree.gameserver.model.itemcontainer.PetInventory;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.model.quest.Quest;
@@ -196,6 +197,7 @@ import com.l2jfree.gameserver.network.serverpackets.ObservationReturn;
 import com.l2jfree.gameserver.network.serverpackets.PartySmallWindowUpdate;
 import com.l2jfree.gameserver.network.serverpackets.PartySpelled;
 import com.l2jfree.gameserver.network.serverpackets.PetInfo;
+import com.l2jfree.gameserver.network.serverpackets.PetInventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.PlaySound;
 import com.l2jfree.gameserver.network.serverpackets.PledgeShowInfoUpdate;
 import com.l2jfree.gameserver.network.serverpackets.PledgeShowMemberListDelete;
@@ -3438,21 +3440,65 @@ public final class L2PcInstance extends L2PlayableInstance
 	 * @param reference : L2Object Object referencing current action like NPC selling item or previous item in transformation
 	 * @return L2ItemInstance corresponding to the new item or the updated item in inventory
 	 */
-	public L2ItemInstance transferItem(String process, int objectId, int count, Inventory inventory, L2Object reference)
+	public L2ItemInstance transferItem(String process, int objectId, int count, Inventory target, L2Object reference)
 	{
 		L2ItemInstance oldItem = checkItemManipulation(objectId, count, "transfer");
-		if (oldItem == null)
-			return null;
-		L2ItemInstance newItem = getInventory().transferItem(process, objectId, count, inventory, this, reference);
-		if (newItem == null)
-			return null;
+		if (oldItem == null) return null;
+		L2ItemInstance newItem = getInventory().transferItem(process, objectId, count, target, this, reference);
+		if (newItem == null) return null;
 
-		// Send inventory update packet		
-		inventory.updateInventory(newItem);
-		if (oldItem == newItem)
+		// Send inventory update packet
+		if (!Config.FORCE_INVENTORY_UPDATE)
 		{
-			oldItem.setLastChange(L2ItemInstance.REMOVED);
-			_inventory.updateInventory(oldItem);
+			InventoryUpdate playerIU = new InventoryUpdate();
+
+			if (oldItem.getCount() > 0 && oldItem != newItem)
+                playerIU.addModifiedItem(oldItem);
+			else
+                playerIU.addRemovedItem(oldItem);
+
+			sendPacket(playerIU);
+		}
+		else sendPacket(new ItemList(this, false));
+
+		// Update current load as well
+		StatusUpdate playerSU = new StatusUpdate(getObjectId());
+		playerSU.addAttribute(StatusUpdate.CUR_LOAD, getCurrentLoad());
+		sendPacket(playerSU);
+
+		// Send target update packet
+		if (target instanceof PcInventory)
+		{
+			L2PcInstance targetPlayer = ((PcInventory)target).getOwner();
+
+			if (!Config.FORCE_INVENTORY_UPDATE)
+			{
+				InventoryUpdate playerIU = new InventoryUpdate();
+
+				if (newItem.getCount() > count)
+                    playerIU.addModifiedItem(newItem);
+				else
+                    playerIU.addNewItem(newItem);
+
+				targetPlayer.sendPacket(playerIU);
+			}
+			else targetPlayer.sendPacket(new ItemList(targetPlayer, false));
+
+			// Update current load as well
+			playerSU = new StatusUpdate(targetPlayer.getObjectId());
+			playerSU.addAttribute(StatusUpdate.CUR_LOAD, targetPlayer.getCurrentLoad());
+			targetPlayer.sendPacket(playerSU);
+		}
+		else if (target instanceof PetInventory)
+		{
+			PetInventoryUpdate petIU = new PetInventoryUpdate();
+
+			if (newItem.getCount() > count)
+                petIU.addModifiedItem(newItem);
+			else
+                petIU.addNewItem(newItem);
+
+			((PetInventory)target).getOwner().getOwner().sendPacket(petIU);
 		}
 
 		return newItem;
@@ -5761,6 +5807,15 @@ public final class L2PcInstance extends L2PlayableInstance
 		_activeRequester = requester;
 	}
 
+	/**
+	 * Return true if last request is expired.
+	 * @return
+	 */
+	public boolean isRequestExpired()
+	{
+		return !(_requestExpireTime > GameTimeController.getGameTicks());
+	}
+	
 	/**
 	 * Return the L2PcInstance requester of a transaction (ex : FriendInvite, JoinAlly, JoinParty...).<BR><BR>
 	 */
