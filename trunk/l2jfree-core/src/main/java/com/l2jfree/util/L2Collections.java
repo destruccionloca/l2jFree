@@ -276,6 +276,84 @@ public final class L2Collections
 		}
 	}
 	
+	private static class EmptyBunch implements IBunch<Object>
+	{
+		private static final IBunch<Object> INSTANCE = new EmptyBunch();
+		
+		public IBunch<Object> add(Object e)
+		{
+			throw new UnsupportedOperationException();
+		}
+		
+		public IBunch<Object> addAll(Iterable<? extends Object> c)
+		{
+			throw new UnsupportedOperationException();
+		}
+		
+		public void clear()
+		{
+		}
+		
+		public boolean contains(Object o)
+		{
+			return false;
+		}
+		
+		public Object get(int index)
+		{
+			throw new UnsupportedOperationException();
+		}
+		
+		public boolean isEmpty()
+		{
+			return true;
+		}
+		
+		public Iterator<Object> iterator()
+		{
+			return emptyListIterator();
+		}
+		
+		public Object[] moveToArray()
+		{
+			return EMPTY_ARRAY;
+		}
+		
+		@SuppressWarnings("unchecked")
+		public <T> T[] moveToArray(T[] array)
+		{
+			if (array.length != 0)
+				return (T[])moveToArray();
+			
+			return array;
+		}
+		
+		public List<Object> moveToList(List<Object> list)
+		{
+			return list;
+		}
+		
+		public IBunch<Object> remove(Object o)
+		{
+			return this;
+		}
+		
+		public Object remove(int index)
+		{
+			throw new UnsupportedOperationException();
+		}
+		
+		public Object set(int index, Object value)
+		{
+			throw new UnsupportedOperationException();
+		}
+		
+		public int size()
+		{
+			return 0;
+		}
+	}
+	
 	@SuppressWarnings("unchecked")
 	private static <T> ListIterator<T> emptyListIterator()
 	{
@@ -304,5 +382,11 @@ public final class L2Collections
 	public static final <K, V> Map<K, V> emptyMap()
 	{
 		return (Map<K, V>)EmptyMap.INSTANCE;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static final <T> IBunch<T> emptyBunch()
+	{
+		return (IBunch<T>)EmptyBunch.INSTANCE;
 	}
 }
