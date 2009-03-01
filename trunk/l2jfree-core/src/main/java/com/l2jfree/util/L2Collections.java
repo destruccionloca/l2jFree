@@ -18,11 +18,13 @@
  */
 package com.l2jfree.util;
 
+import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 /**
@@ -276,7 +278,7 @@ public final class L2Collections
 		}
 	}
 	
-	private static class EmptyBunch implements IBunch<Object>
+	private static final class EmptyBunch implements IBunch<Object>
 	{
 		private static final IBunch<Object> INSTANCE = new EmptyBunch();
 		
@@ -328,7 +330,7 @@ public final class L2Collections
 		public <T> T[] moveToArray(T[] array)
 		{
 			if (array.length != 0)
-				return (T[])moveToArray();
+				array = (T[])Array.newInstance(array.getClass().getComponentType(), 0);
 			
 			return array;
 		}
@@ -393,5 +395,99 @@ public final class L2Collections
 	public static final <T> IBunch<T> emptyBunch()
 	{
 		return (IBunch<T>)EmptyBunch.INSTANCE;
+	}
+	
+	public static <T> Iterable<T> filteredIterable(Class<T> clazz, Iterable<? super T> iterable, Filter<T> filter)
+	{
+		return new FilteredIterable<T>(clazz, iterable, filter);
+	}
+	
+	public static <T> Iterator<T> filteredIterator(Class<T> clazz, Iterable<? super T> iterable, Filter<T> filter)
+	{
+		return new FilteredIterator<T>(clazz, iterable, filter);
+	}
+	
+	public interface Filter<E>
+	{
+		public boolean accept(E element);
+	}
+	
+	private static final class FilteredIterable<E> implements Iterable<E>
+	{
+		private final Iterable<? super E> _iterable;
+		private final Filter<E> _filter;
+		private final Class<E> _clazz;
+		
+		private FilteredIterable(Class<E> clazz, Iterable<? super E> iterable, Filter<E> filter)
+		{
+			_iterable = iterable;
+			_filter = filter;
+			_clazz = clazz;
+		}
+		
+		public Iterator<E> iterator()
+		{
+			return filteredIterator(_clazz, _iterable, _filter);
+		}
+	}
+	
+	private static final class FilteredIterator<E> implements Iterator<E>
+	{
+		private final Iterator<? super E> _iterator;
+		private final Filter<E> _filter;
+		private final Class<E> _clazz;
+		
+		private E _next;
+		
+		private FilteredIterator(Class<E> clazz, Iterable<? super E> iterable, Filter<E> filter)
+		{
+			_iterator = iterable.iterator();
+			_filter = filter;
+			_clazz = clazz;
+			
+			step();
+		}
+		
+		public boolean hasNext()
+		{
+			return _next != null;
+		}
+		
+		public E next()
+		{
+			if (!hasNext())
+				throw new NoSuchElementException();
+			
+			E next = _next;
+			
+			step();
+			
+			return next;
+		}
+		
+		@SuppressWarnings("unchecked")
+		private void step()
+		{
+			while (_iterator.hasNext())
+			{
+				Object next = _iterator.next();
+				
+				if (next == null || !_clazz.isInstance(next))
+					continue;
+				
+				if (_filter == null || _filter.accept((E)next))
+				{
+					_next = (E)next;
+					return;
+				}
+			}
+			
+			_next = null;
+		}
+		
+		public void remove()
+		{
+			throw new UnsupportedOperationException();
+		}
 	}
 }

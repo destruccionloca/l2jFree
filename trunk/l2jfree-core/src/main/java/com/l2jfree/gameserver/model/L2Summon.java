@@ -14,8 +14,6 @@
  */
 package com.l2jfree.gameserver.model;
 
-import java.util.Collection;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
@@ -348,8 +346,7 @@ public abstract class L2Summon extends L2PlayableInstance
 
 		if (owner != null)
 		{
-			Collection<L2Character> KnownTarget = getKnownList().getKnownCharacters();
-			for (L2Character TgMob : KnownTarget)
+			for (L2Character TgMob : getKnownList().getKnownCharacters())
 			{
 				// get the mobs which have aggro on the this instance
 				if (TgMob instanceof L2Attackable)

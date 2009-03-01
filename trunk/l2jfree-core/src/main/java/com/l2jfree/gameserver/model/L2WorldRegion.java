@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.model;
 
+import java.util.Arrays;
 import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastList;
@@ -42,7 +43,7 @@ public final class L2WorldRegion
     /** L2ReadWriteCollection(L2Object) containing L2Object visible in this L2WorldRegion */
     private final L2Collection<L2Object> _objects = new L2SynchronizedCollection<L2Object>();
 
-    private FastList<L2WorldRegion> _surroundingRegions;
+    private L2WorldRegion[] _surroundingRegions;
     private int _tileX, _tileY;
     private Boolean _active = false;   
     protected ScheduledFuture<?> _neighborsTask = null;
@@ -55,7 +56,7 @@ public final class L2WorldRegion
 
     public L2WorldRegion(int pTileX, int pTileY)
     {
-        _surroundingRegions = new FastList<L2WorldRegion>();
+        _surroundingRegions = new L2WorldRegion[0];
         //_surroundingRegions.add(this); //done in L2World.initRegions()
 
         _tileX = pTileX;
@@ -369,16 +370,17 @@ public final class L2WorldRegion
                 startDeactivation();
         }
     }
-
-    public void addSurroundingRegion(L2WorldRegion region)
-    {
-        _surroundingRegions.add(region);
-    }
-
-    /**
-     * Return the FastList _surroundingRegions containing all L2WorldRegion around the current L2WorldRegion 
-     */
-    public FastList<L2WorldRegion> getSurroundingRegions()
+	
+	public void addSurroundingRegion(L2WorldRegion region)
+	{
+		_surroundingRegions = Arrays.copyOf(_surroundingRegions, _surroundingRegions.length + 1);
+		_surroundingRegions[_surroundingRegions.length - 1] = region;
+	}
+	
+	/**
+	 * Return the _surroundingRegions containing all L2WorldRegion around the current L2WorldRegion
+	 */
+    public L2WorldRegion[] getSurroundingRegions()
     {
         //change to return L2WorldRegion[] ?
         //this should not change after initialization, so maybe changes are not necessary 

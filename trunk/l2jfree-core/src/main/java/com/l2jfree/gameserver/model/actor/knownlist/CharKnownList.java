@@ -14,17 +14,15 @@
  */
 package com.l2jfree.gameserver.model.actor.knownlist;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
-import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.util.L2Collections;
 import com.l2jfree.util.SingletonMap;
 
 
@@ -116,44 +114,24 @@ public class CharKnownList extends ObjectKnownList
     @Override
     public int getDistanceToWatchObject(L2Object object) { return 0; }
 
-    public Collection<L2Character> getKnownCharacters()
-    {
-        List<L2Character> result = new ArrayList<L2Character>();
-        
-        for (L2Object obj : getKnownObjects().values())  
-        {  
-            if (obj instanceof L2Character) result.add((L2Character) obj);  
-        }
-        
-        return result;
-    }
-    
-    public Collection<L2Character> getKnownCharactersInRadius(long radius)
-    {
-        List<L2Character> result = new ArrayList<L2Character>();
-
-        for (L2Object obj : getKnownObjects().values())
-        {
-            if (obj instanceof L2PcInstance)
-            {
-                if (Util.checkIfInRange((int)radius, getActiveChar(), obj, true))
-                    result.add((L2PcInstance)obj);
-            }
-            else if (obj instanceof L2MonsterInstance)  
-            {
-                if (Util.checkIfInRange((int)radius, getActiveChar(), obj, true))
-                    result.add((L2MonsterInstance)obj);
-            }
-            else if (obj instanceof L2NpcInstance)
-            {
-                if (Util.checkIfInRange((int)radius, getActiveChar(), obj, true))
-                    result.add((L2NpcInstance)obj);
-            }
-        }
-
-        return result;
-    }
-
+	public Iterable<L2Character> getKnownCharacters()
+	{
+		return L2Collections.filteredIterable(L2Character.class, getKnownObjects().values(), null);
+	}
+	
+	public Iterable<L2Character> getKnownCharactersInRadius(final int radius)
+	{
+		return L2Collections.filteredIterable(L2Character.class, getKnownObjects().values(), new L2Collections.Filter<L2Character>() {
+			public boolean accept(L2Character obj)
+			{
+				if (!Util.checkIfInRange(radius, getActiveChar(), obj, true))
+					return false;
+				
+				return obj instanceof L2PlayableInstance || obj instanceof L2NpcInstance;
+			}
+		});
+	}
+	
     public final Map<Integer, L2PcInstance> getKnownPlayers()
     {
         if (_knownPlayers == null) _knownPlayers = new SingletonMap<Integer, L2PcInstance>().setShared();
@@ -166,14 +144,13 @@ public class CharKnownList extends ObjectKnownList
         return _knownRelations;
     }
 
-    public final Collection<L2PcInstance> getKnownPlayersInRadius(long radius)
-    {
-        List<L2PcInstance> result = new ArrayList<L2PcInstance>();
-        
-        for (L2PcInstance player : getKnownPlayers().values())
-            if (Util.checkIfInRange((int)radius, getActiveChar(), player, true))
-                result.add(player);
-            
-        return result;
-    }
+	public final Iterable<L2PcInstance> getKnownPlayersInRadius(final int radius)
+	{
+		return L2Collections.filteredIterable(L2PcInstance.class, getKnownPlayers().values(), new L2Collections.Filter<L2PcInstance>() {
+			public boolean accept(L2PcInstance player)
+			{
+				return Util.checkIfInRange(radius, getActiveChar(), player, true);
+			}
+		});
+	}
 }

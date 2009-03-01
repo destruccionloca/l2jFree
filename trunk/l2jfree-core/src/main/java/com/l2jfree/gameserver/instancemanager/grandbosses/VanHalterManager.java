@@ -45,8 +45,8 @@ import com.l2jfree.gameserver.model.entity.GrandBossState;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
-import com.l2jfree.gameserver.templates.skills.L2EffectType;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
+import com.l2jfree.gameserver.templates.skills.L2EffectType;
 import com.l2jfree.tools.random.Rnd;
 
 /**
@@ -1120,7 +1120,7 @@ public class VanHalterManager extends BossLair
 
 		for (L2NpcInstance tr : _triolRevelation)
 		{
-			if (tr.getKnownList().getKnownPlayersInRadius(tr.getAggroRange()).size() == 0 || tr.isDead())
+			if (!tr.getKnownList().getKnownPlayersInRadius(tr.getAggroRange()).iterator().hasNext() || tr.isDead())
 				continue;
 
 			List<L2PcInstance> bpc = new FastList<L2PcInstance>();
