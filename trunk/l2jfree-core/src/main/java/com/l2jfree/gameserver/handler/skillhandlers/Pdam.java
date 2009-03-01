@@ -28,8 +28,8 @@ import com.l2jfree.gameserver.model.actor.instance.L2RaidBossInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Formulas;
-import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.gameserver.templates.item.L2WeaponType;
+import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
 /**
  * This class ...
@@ -48,7 +48,7 @@ public class Pdam implements ISkillHandler
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.L2PcInstance, com.l2jfree.gameserver.model.L2ItemInstance)
 	 */
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object... targets)
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
 		if (activeChar.isAlikeDead())
 			return;
@@ -284,8 +284,8 @@ public class Pdam implements ISkillHandler
 
 		if (skill.isSuicideAttack())
 		{
-			if (targets.length > 0 && targets[0] instanceof L2Character)
-				activeChar.doDie((L2Character) targets[0]);
+			if (targets.length > 0)
+				activeChar.doDie(targets[0]);
 			else
 				activeChar.doDie(null);
 		}

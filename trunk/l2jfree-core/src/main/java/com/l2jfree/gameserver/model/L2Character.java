@@ -1598,7 +1598,7 @@ public abstract class L2Character extends L2Object
 		L2Character target = null;
 
 		// Get all possible targets of the skill in a table in function of the skill target type
-		L2Object[] targets = skill.getTargetList(this);
+		L2Character[] targets = skill.getTargetList(this);
 
 		// AURA skills should always be using caster as target
 		switch (skill.getTargetType())
@@ -1635,7 +1635,7 @@ public abstract class L2Character extends L2Object
 			case COMBATPOINTHEAL:
 			case MANAHEAL:
 			case REFLECT:
-				target = (L2Character) targets[0];
+				target = targets[0];
 				break;
 			default:
 			{
@@ -1647,7 +1647,7 @@ public abstract class L2Character extends L2Object
 				case TARGET_CLAN:
 				case TARGET_ALLY:
 				case TARGET_ENEMY_ALLY:
-					target = (L2Character) targets[0];
+					target = targets[0];
 					break;
 				case TARGET_OWNER_PET:
 					if (this instanceof L2PetInstance)
@@ -2920,13 +2920,13 @@ public abstract class L2Character extends L2Object
 	/** Task launching the magic skill phases */
 	class MagicUseTask implements Runnable
 	{
-		L2Object[]	_targets;
+		L2Character[]	_targets;
 		L2Skill		_skill;
 		int			_coolTime;
 		int			_phase;
 		boolean _simultaneously;
 
-		public MagicUseTask(L2Object[] targets, L2Skill skill, int coolTime, int phase, boolean simultaneously)
+		public MagicUseTask(L2Character[] targets, L2Skill skill, int coolTime, int phase, boolean simultaneously)
 		{
 			_targets = targets;
 			_skill = skill;
@@ -6400,7 +6400,7 @@ public abstract class L2Character extends L2Object
 	 * @param skill
 	 *            The L2Skill to use
 	 */
-	public void onMagicLaunchedTimer(L2Object[] targets, L2Skill skill, int coolTime, boolean instant, boolean simultaneously)
+	public void onMagicLaunchedTimer(L2Character[] targets, L2Skill skill, int coolTime, boolean instant, boolean simultaneously)
 	{
 		if (skill == null || targets == null || targets.length <= 0)
 		{
@@ -6493,7 +6493,7 @@ public abstract class L2Character extends L2Object
 	/*
 	 * Runs in the end of skill casting
 	 */
-	public void onMagicHitTimer(L2Object[] targets, L2Skill skill, int coolTime, boolean instant, boolean simultaneously)
+	public void onMagicHitTimer(L2Character[] targets, L2Skill skill, int coolTime, boolean instant, boolean simultaneously)
 	{
 		if (skill == null || targets == null || targets.length == 0)
 		{
@@ -6867,7 +6867,7 @@ public abstract class L2Character extends L2Object
 	 * @param targets
 	 *            The table of L2Object targets
 	 */
-	public void callSkill(L2Skill skill, L2Object[] targets)
+	public void callSkill(L2Skill skill, L2Character... targets)
 	{
 		L2Weapon activeWeapon = getActiveWeaponItem();
 

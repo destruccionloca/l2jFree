@@ -632,7 +632,7 @@ public class L2Skill
 		}
 	}
 	
-	public void useSkill(L2Character caster, @SuppressWarnings("unused") L2Object... targets)
+	public void useSkill(L2Character caster, L2Character... targets)
 	{
 		caster.sendPacket(ActionFailed.STATIC_PACKET);
 		

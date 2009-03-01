@@ -38,7 +38,7 @@ public class Resurrect implements ISkillHandler
 	private static final L2SkillType[]	SKILL_IDS	=
 													{ L2SkillType.RESURRECT };
 
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object... targets)
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
 		L2PcInstance player = null;
 		if (activeChar instanceof L2PcInstance)

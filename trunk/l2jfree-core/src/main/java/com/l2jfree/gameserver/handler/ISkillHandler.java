@@ -14,19 +14,18 @@
  */
 package com.l2jfree.gameserver.handler;
 
-import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.L2Object;
-import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.templates.skills.L2SkillType;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.templates.skills.L2SkillType;
+
 public interface ISkillHandler
 {
-	public static Log	_log	= LogFactory.getLog(ISkillHandler.class.getName());
+	public static final Log _log = LogFactory.getLog(ISkillHandler.class);
 	
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object... targets);
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets);
 	
 	public L2SkillType[] getSkillIds();
 }

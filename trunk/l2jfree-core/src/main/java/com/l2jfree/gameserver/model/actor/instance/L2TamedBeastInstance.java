@@ -14,11 +14,11 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
+import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
+
 import java.util.concurrent.Future;
 
 import javolution.util.FastMap;
-
-import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
 
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
@@ -344,7 +344,7 @@ public final class L2TamedBeastInstance extends L2FeedableBeastInstance
 			{
 				L2Object oldTarget = owner.getTarget();
  				owner.setTarget(_tamedBeast);
-				L2Object[] targets = {_tamedBeast};
+				L2Character[] targets = {_tamedBeast};
     			
 				// Emulate a call to the owner using food, but bypass all checks for range, etc
 				// this also causes a call to the AI tasks handling feeding, which may call onReceiveFood as required.

@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.skills.l2skills;
 import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2ItemInstance;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -46,10 +45,10 @@ public class L2SkillCreateItem extends L2Skill
 
 	/**
 	 * @see com.l2jfree.gameserver.model.L2Skill#useSkill(com.l2jfree.gameserver.model.L2Character,
-	 *      L2Object...)
+	 *      L2Character...)
 	 */
 	@Override
-	public void useSkill(L2Character activeChar, L2Object... targets)
+	public void useSkill(L2Character activeChar, L2Character... targets)
 	{
 		if (activeChar.isAlikeDead())
 			return;

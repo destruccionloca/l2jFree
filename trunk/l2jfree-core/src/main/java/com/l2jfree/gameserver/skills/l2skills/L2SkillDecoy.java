@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.skills.l2skills;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2DecoyInstance;
@@ -37,7 +36,7 @@ public class L2SkillDecoy extends L2Skill
 	}
 
 	@Override
-	public void useSkill(L2Character caster, L2Object... targets)
+	public void useSkill(L2Character caster, L2Character... targets)
 	{
 		if (caster.isAlikeDead() || !(caster instanceof L2PcInstance))
 			return;

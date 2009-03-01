@@ -44,7 +44,7 @@ public class L2SkillDrain extends L2Skill
 	}
 
 	@Override
-	public void useSkill(L2Character activeChar, L2Object... targets)
+	public void useSkill(L2Character activeChar, L2Character... targets)
 	{
 		if (activeChar.isAlikeDead())
 			return;
@@ -52,7 +52,7 @@ public class L2SkillDrain extends L2Skill
 		boolean ss = false;
 		boolean bss = false;
 
-		for (L2Character target: (L2Character[]) targets)
+		for (L2Character target: targets)
 		{
 			if (target.isAlikeDead() && getTargetType() != SkillTargetType.TARGET_CORPSE_MOB)
 				continue;

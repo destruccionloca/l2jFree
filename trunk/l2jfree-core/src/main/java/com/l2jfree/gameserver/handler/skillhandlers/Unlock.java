@@ -34,7 +34,7 @@ public class Unlock implements ISkillHandler
 													{ L2SkillType.UNLOCK };
 
 	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused")
-	L2Object... targets)
+	L2Character... targets)
 	{
 		for (L2Object element : targets)
 		{

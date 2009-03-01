@@ -20,7 +20,6 @@ import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeFlagInstance;
@@ -40,7 +39,7 @@ public class SiegeFlag implements ISkillHandler
 
 	public void useSkill(L2Character activeChar, @SuppressWarnings("unused")
 	L2Skill skill, @SuppressWarnings("unused")
-	L2Object... targets)
+	L2Character... targets)
 	{
 		if (!(activeChar instanceof L2PcInstance))
 			return;

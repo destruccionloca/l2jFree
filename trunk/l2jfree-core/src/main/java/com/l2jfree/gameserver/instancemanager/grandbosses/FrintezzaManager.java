@@ -885,20 +885,17 @@ public class FrintezzaManager extends BossLair
 				{
 				case 1: // Consecutive Heal : Greater Heal - on the monsters
 					skill = SkillTable.getInstance().getInfo(1217, 33);
-					frintezza.callSkill(skill, new L2Object[]
-					{ target });
+					frintezza.callSkill(skill, target);
 					break;
 
 				case 2: // Consecutive Dash : Wind Walk - monsters run faster
 					skill = SkillTable.getInstance().getInfo(1204, 2);
-					frintezza.callSkill(skill, new L2Object[]
-					{ target });
+					frintezza.callSkill(skill, target);
 					break;
 
 				case 3: // Affecting Atk Spd : Haste Buff - monsters attack faster
 					skill = SkillTable.getInstance().getInfo(1086, 2);
-					frintezza.callSkill(skill, new L2Object[]
-					{ target });
+					frintezza.callSkill(skill, target);
 					break;
 
 				case 4: // Offensive Skill: Decreases the effect of HP reg. on the players
@@ -936,8 +933,7 @@ public class FrintezzaManager extends BossLair
 	{
 		L2Skill skill = SkillTable.getInstance().getInfo(5008, 4);
 
-		frintezza.callSkill(skill, new L2Object[]
-		{ target });
+		frintezza.callSkill(skill, target);
 
 		// send target the message, the skill was launched
 		SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
@@ -1091,8 +1087,7 @@ public class FrintezzaManager extends BossLair
 				_effected.startAbnormalEffect(L2Character.ABNORMAL_EFFECT_DANCE_STUNNED);
 
 				// add the effect icon
-				_effected.callSkill(_skill, new L2Object[]
-				{ _effected });
+				_effected.callSkill(_skill, _effected);
 
 				// send target the message
 				SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
@@ -1733,8 +1728,7 @@ public class FrintezzaManager extends BossLair
 		ThreadPoolManager.getInstance().scheduleGeneral(new doSkill(weakScarlet, skill, _intervalOfRetarget, 200), 50);
 
 		skill = SkillTable.getInstance().getInfo(1068, 3);
-		weakScarlet.callSkill(skill, new L2Object[]
-		{ weakScarlet });
+		weakScarlet.callSkill(skill, weakScarlet);
 
 		ThreadPoolManager.getInstance().scheduleGeneral(new SetMobilised(weakScarlet), 1100);
 

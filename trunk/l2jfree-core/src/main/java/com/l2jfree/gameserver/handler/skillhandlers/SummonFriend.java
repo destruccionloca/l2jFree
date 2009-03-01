@@ -206,7 +206,7 @@ public class SummonFriend implements ISkillHandler
 		targetChar.teleToLocation(summonerChar.getX(), summonerChar.getY(), summonerChar.getZ(), true);
 	}
 
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object... targets)
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
 		if (!(activeChar instanceof L2PcInstance))
 			return; // currently not implemented for others

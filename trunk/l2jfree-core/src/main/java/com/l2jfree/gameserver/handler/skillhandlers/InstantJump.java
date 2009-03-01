@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.handler.skillhandlers;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.FlyToLocation;
@@ -40,13 +39,12 @@ public class InstantJump implements ISkillHandler
 		L2SkillType.INSTANT_JUMP
 	};
 
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object... targets)
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
-		if (targets.length == 0 ||
-				!(targets[0] instanceof L2Character))
+		if (targets.length == 0 || targets[0] == null)
 			return;
 		
-		L2Character target = (L2Character)targets[0];
+		L2Character target = targets[0];
 
 		Formulas f = Formulas.getInstance();
 		

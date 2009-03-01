@@ -36,7 +36,7 @@ public class BalanceLife implements ISkillHandler
 	private static final L2SkillType[]	SKILL_IDS	=
 													{ L2SkillType.BALANCE_LIFE };
 
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object... targets)
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
 		SkillHandler.getInstance().getSkillHandler(L2SkillType.BUFF).useSkill(activeChar, skill, targets);
 

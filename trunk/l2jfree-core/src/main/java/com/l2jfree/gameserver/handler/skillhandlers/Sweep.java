@@ -37,7 +37,7 @@ public class Sweep implements ISkillHandler
 													{ L2SkillType.SWEEP };
 
 	public void useSkill(L2Character activeChar, @SuppressWarnings("unused")
-	L2Skill skill, L2Object... targets)
+	L2Skill skill, L2Character... targets)
 	{
 		if (!(activeChar instanceof L2PcInstance))
 		{

@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.handler.skillhandlers;
 import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2ArtefactInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -37,7 +36,7 @@ public class TakeCastle implements ISkillHandler
 
 	public void useSkill(L2Character activeChar, @SuppressWarnings("unused")
 	L2Skill skill, @SuppressWarnings("unused")
-	L2Object... targets)
+	L2Character... targets)
 	{
 		if (!(activeChar instanceof L2PcInstance))
 			return;

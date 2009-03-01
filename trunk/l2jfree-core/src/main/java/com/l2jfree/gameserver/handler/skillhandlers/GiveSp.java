@@ -29,7 +29,7 @@ public class GiveSp implements ISkillHandler
 {
 	private static final L2SkillType[] SKILL_IDS = {L2SkillType.GIVE_SP};
 
-	public void useSkill(@SuppressWarnings("unused") L2Character activeChar, L2Skill skill, L2Object... targets)
+	public void useSkill(@SuppressWarnings("unused") L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
 		for (L2Object element : targets)
 		{

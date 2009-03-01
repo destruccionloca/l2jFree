@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.handler.skillhandlers;
 
 import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
@@ -30,7 +29,7 @@ public class DeluxeKey implements ISkillHandler
 													{ L2SkillType.DELUXE_KEY_UNLOCK };
 
 	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused")
-	L2Object... targets)
+	L2Character... targets)
 	{
 		if (_log.isDebugEnabled())
 			_log.info("Deluxe key casting succeded.");

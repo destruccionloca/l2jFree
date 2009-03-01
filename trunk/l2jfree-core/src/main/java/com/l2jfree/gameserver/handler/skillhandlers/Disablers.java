@@ -83,7 +83,7 @@ public class Disablers implements ICubicSkillHandler
 			L2SkillType.DISARM,
 			L2SkillType.STEAL_BUFF						};
 
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object... targets)
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
 		L2SkillType type = skill.getSkillType();
 

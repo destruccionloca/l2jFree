@@ -38,7 +38,7 @@ public class Sow implements ISkillHandler
 													{ L2SkillType.SOW };
 
 	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused")
-	L2Object... targets)
+	L2Character... targets)
 	{
 		if (!(activeChar instanceof L2PcInstance))
 			return;

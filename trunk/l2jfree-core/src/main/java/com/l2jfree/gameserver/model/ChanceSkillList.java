@@ -122,11 +122,11 @@ public class ChanceSkillList extends FastMap<L2Skill, ChanceCondition>
 						return;
 				}
 				
-				L2Object[] targets = skill.getTargetList(_owner, false, target);
+				L2Character[] targets = skill.getTargetList(_owner, false, target);
 				if (targets != null && targets.length > 0)
 				{
 					_owner.broadcastPacket(new MagicSkillLaunched(_owner, skill.getDisplayId(), skill.getLevel(), targets));
-					_owner.broadcastPacket(new MagicSkillUse(_owner, (L2Character)targets[0], skill.getDisplayId(), skill.getLevel(), 0, 0));
+					_owner.broadcastPacket(new MagicSkillUse(_owner, targets[0], skill.getDisplayId(), skill.getLevel(), 0, 0));
 
 					// Launch the magic skill and calculate its effects
 					ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(skill.getSkillType());

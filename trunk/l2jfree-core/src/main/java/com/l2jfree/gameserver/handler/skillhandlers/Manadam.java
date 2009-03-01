@@ -39,7 +39,7 @@ public class Manadam implements ISkillHandler
 													{ L2SkillType.MANADAM };
 
 	public void useSkill(@SuppressWarnings("unused")
-	L2Character activeChar, L2Skill skill, L2Object... targets)
+	L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
 		if (activeChar.isAlikeDead())
 			return;

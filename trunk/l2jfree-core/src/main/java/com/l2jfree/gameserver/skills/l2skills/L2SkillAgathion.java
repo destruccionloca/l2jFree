@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.skills.l2skills;
 
 import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.templates.StatsSet;
@@ -31,7 +30,7 @@ public class L2SkillAgathion extends L2Skill
 	}
 
 	@Override
-	public void useSkill(L2Character caster, L2Object... targets)
+	public void useSkill(L2Character caster, L2Character... targets)
 	{
 		if (caster.isAlikeDead() || !(caster instanceof L2PcInstance))
 			return;

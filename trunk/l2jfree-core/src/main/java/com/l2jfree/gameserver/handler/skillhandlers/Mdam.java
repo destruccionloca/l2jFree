@@ -48,7 +48,7 @@ public class Mdam implements ICubicSkillHandler
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.L2PcInstance, com.l2jfree.gameserver.model.L2ItemInstance)
 	 */
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object... targets)
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
 		if (activeChar.isAlikeDead())
 			return;
@@ -227,8 +227,8 @@ public class Mdam implements ICubicSkillHandler
 
 		if (skill.isSuicideAttack())
 		{
-			if (targets.length > 0 && targets[0] instanceof L2Character)
-				activeChar.doDie((L2Character) targets[0]);
+			if (targets.length > 0)
+				activeChar.doDie(targets[0]);
 			else
 				activeChar.doDie(null);
 		}

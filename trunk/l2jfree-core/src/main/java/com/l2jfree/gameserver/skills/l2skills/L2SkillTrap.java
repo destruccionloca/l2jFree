@@ -18,7 +18,6 @@ import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.L2Trap;
@@ -49,11 +48,11 @@ public class L2SkillTrap extends L2Skill
 
 	/**
 	 * 
-	 * @see com.l2jfree.gameserver.model.L2Skill#useSkill(com.l2jfree.gameserver.model.L2Character, L2Object...)
+	 * @see com.l2jfree.gameserver.model.L2Skill#useSkill(com.l2jfree.gameserver.model.L2Character, L2Character...)
 	 */
 	@Override
 	public void useSkill(L2Character caster, @SuppressWarnings("unused")
-	L2Object... targets)
+	L2Character... targets)
 	{
 		if (caster.isAlikeDead() || !(caster instanceof L2PcInstance))
 			return;

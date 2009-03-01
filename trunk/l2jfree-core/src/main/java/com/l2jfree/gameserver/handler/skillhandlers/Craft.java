@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.handler.skillhandlers;
 import com.l2jfree.gameserver.RecipeController;
 import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -41,7 +40,7 @@ public class Craft implements ISkillHandler
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.L2PcInstance, com.l2jfree.gameserver.model.L2ItemInstance)
 	 */
 	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused")
-	L2Object... targets)
+	L2Character... targets)
 	{
 		if (!(activeChar instanceof L2PcInstance))
 			return;

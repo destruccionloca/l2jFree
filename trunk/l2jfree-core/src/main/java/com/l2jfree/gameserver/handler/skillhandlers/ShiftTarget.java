@@ -32,7 +32,7 @@ public class ShiftTarget implements ISkillHandler
 	private static final L2SkillType[]	SKILL_IDS	=
 													{ L2SkillType.SHIFT_TARGET };
 
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object... targets)
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
 		L2Attackable attackerChar = null;
 		L2NpcInstance attacker = null;

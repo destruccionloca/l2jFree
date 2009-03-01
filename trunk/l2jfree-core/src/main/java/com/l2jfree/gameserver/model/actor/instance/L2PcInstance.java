@@ -7702,8 +7702,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public void restoreEffects()
 	{
-		L2Object[] targets = new L2Character[]
-		{ this };
+		L2Character[] targets = new L2Character[] { this };
 		Connection con = null;
 
 		try

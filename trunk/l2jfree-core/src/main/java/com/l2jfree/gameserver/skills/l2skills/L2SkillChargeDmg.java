@@ -35,7 +35,7 @@ public class L2SkillChargeDmg extends L2Skill
 	}
 
 	@Override
-	public void useSkill(L2Character activeChar, L2Object... targets)
+	public void useSkill(L2Character activeChar, L2Character... targets)
 	{
 		if (activeChar.isAlikeDead() || !(activeChar instanceof L2PcInstance))
 			return;

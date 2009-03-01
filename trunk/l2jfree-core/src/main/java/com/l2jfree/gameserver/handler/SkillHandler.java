@@ -23,7 +23,6 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.gameserver.handler.skillhandlers.*;
 import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
@@ -104,7 +103,7 @@ public final class SkillHandler implements ISkillHandler
 		return handler == null ? this : handler;
 	}
 
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object... targets)
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
 		skill.useSkill(activeChar, targets);
 	}

@@ -35,7 +35,7 @@ public class StrSiegeAssault implements ISkillHandler
 	private static final L2SkillType[]	SKILL_IDS	=
 													{ L2SkillType.STRSIEGEASSAULT };
 
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object... targets)
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
 		if (!(activeChar instanceof L2PcInstance))
 			return;

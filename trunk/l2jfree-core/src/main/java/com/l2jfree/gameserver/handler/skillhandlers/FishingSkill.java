@@ -18,7 +18,6 @@ import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Fishing;
 import com.l2jfree.gameserver.model.L2ItemInstance;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -33,7 +32,7 @@ public class FishingSkill implements ISkillHandler
 
 	public void useSkill(L2Character activeChar, @SuppressWarnings("unused")
 	L2Skill skill, @SuppressWarnings("unused")
-	L2Object... targets)
+	L2Character... targets)
 	{
 		if (!(activeChar instanceof L2PcInstance))
 			return;
