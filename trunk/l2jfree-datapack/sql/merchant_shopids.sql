@@ -1,6 +1,6 @@
--- ---------------------------
+-- ----------------------------------------------
 -- Table structure for table `merchant_shopids`
--- ---------------------------
+-- ----------------------------------------------
 DROP TABLE IF EXISTS `merchant_shopids`;
 CREATE TABLE `merchant_shopids` (
   `shop_id` decimal(9,0) NOT NULL DEFAULT '0',
@@ -9,7 +9,7 @@ CREATE TABLE `merchant_shopids` (
 ) DEFAULT CHARSET=utf8;
 
 -- General Shops
-INSERT INTO merchant_shopids VALUES
+INSERT INTO `merchant_shopids` VALUES
 (3000100,'30001'),
 (3000101,'30001'),
 (3000200,'30002'),
@@ -350,6 +350,7 @@ INSERT INTO merchant_shopids VALUES
 (3001,'gm'),
 (3002,'gm'),
 (3003,'gm'),
+(3004,'gm'),
 (9001,'gm'),
 (9002,'gm'),
 (9003,'gm'),
@@ -548,7 +549,6 @@ INSERT INTO merchant_shopids VALUES
 (9159,'gm'),
 (9160,'gm'),
 (9161,'gm'),
-
 --
 -- Castle 
 --
@@ -565,7 +565,6 @@ INSERT INTO merchant_shopids VALUES
 (335558, '35558'),
 (335644, '35644'),
 (335645, '35645'),
-
 --
 -- Castles Item creation
 --
@@ -578,7 +577,6 @@ INSERT INTO merchant_shopids VALUES
 (353631,'35363'),
 (355091,'35509'),
 (355551,'35555'),
-
 --
 -- Clan Halls Item creation
 --
@@ -708,7 +706,7 @@ INSERT INTO merchant_shopids VALUES
 -- L2J-Free Add-ons
 
 -- GM Shop Addition bySkatershi
-INSERT INTO merchant_shopids VALUES
+INSERT INTO `merchant_shopids` VALUES
 (71040, 'gm'), -- Interlude Spellbooks
 (71041, 'gm'), -- Interlude Recipes
 (71042, 'gm'), -- CT1/CT1.5 Battle Manuals
