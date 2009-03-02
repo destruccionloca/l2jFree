@@ -42,6 +42,7 @@ import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.taskmanager.tasks.TaskCleanUp;
 import com.l2jfree.gameserver.taskmanager.tasks.TaskJython;
 import com.l2jfree.gameserver.taskmanager.tasks.TaskOlympiadSave;
+import com.l2jfree.gameserver.taskmanager.tasks.TaskRaidPointsReset;
 import com.l2jfree.gameserver.taskmanager.tasks.TaskRecom;
 import com.l2jfree.gameserver.taskmanager.tasks.TaskRestart;
 import com.l2jfree.gameserver.taskmanager.tasks.TaskSevenSignsUpdate;
@@ -104,9 +105,20 @@ public final class TaskManager
 			{
 				_log.warn("cannot updated the Global Task " + id + ": " + e.getMessage());
 			}
-            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+			finally
+			{
+				try
+				{
+					if (con != null)
+						con.close();
+				}
+				catch (SQLException e)
+				{
+					e.printStackTrace();
+				}
+			}
 
-            if (type == TYPE_SHEDULED || type == TYPE_TIME)
+			if (type == TYPE_SHEDULED || type == TYPE_TIME)
 			{
 				stopTask();
 			}
@@ -175,6 +187,7 @@ public final class TaskManager
 		registerTask(new TaskJython());
 		registerTask(new TaskOlympiadSave());
 		registerTask(new TaskRecom());
+		registerTask(new TaskRaidPointsReset());
 		registerTask(new TaskRestart());
 		registerTask(new TaskSevenSignsUpdate());
 		registerTask(new TaskShutdown());
@@ -223,7 +236,18 @@ public final class TaskManager
 				_log.fatal("error while loading Global Task table " + e, e);
 			}
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			try
+			{
+				if (con != null)
+					con.close();
+			}
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 
 	private boolean launchTask(ExecutedTask task)
@@ -351,9 +375,20 @@ public final class TaskManager
 		{
 			_log.warn("cannot add the unique task: " + e.getMessage());
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			try
+			{
+				if (con != null)
+					con.close();
+			}
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
 
-        return false;
+		return false;
 	}
 
 	public static boolean addTask(String task, TaskTypes type, String param1, String param2, String param3)
@@ -383,8 +418,19 @@ public final class TaskManager
 		{
 			_log.warn("cannot add the task:  " + e.getMessage());
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			try
+			{
+				if (con != null)
+					con.close();
+			}
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
 
-        return false;
+		return false;
 	}
 }

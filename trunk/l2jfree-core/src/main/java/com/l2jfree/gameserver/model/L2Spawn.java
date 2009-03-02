@@ -104,9 +104,9 @@ public class L2Spawn
 	}
 
 	/** If True then spawn point is custom */
-	private boolean							_customSpawn;
+	private boolean									_customSpawn;
 
-	private L2NpcInstance					_lastSpawn;
+	private L2NpcInstance							_lastSpawn;
 	private final static FastList<SpawnListener>	_spawnListeners	= new FastList<SpawnListener>();
 
 	/** The task launching the function doSpawn() */
@@ -425,12 +425,12 @@ public class L2Spawn
 	{
 		return init(false);
 	}
-	
+
 	public int init(boolean firstspawn)
 	{
 		while (_currentCount < _maximumCount)
 		{
-			doSpawn(false,firstspawn);
+			doSpawn(false, firstspawn);
 		}
 		_doRespawn = true;
 
@@ -447,14 +447,14 @@ public class L2Spawn
 
 	public L2NpcInstance doSpawn(boolean isSummonSpawn)
 	{
-		return doSpawn(isSummonSpawn,false);
+		return doSpawn(isSummonSpawn, false);
 	}
 
 	public L2NpcInstance doSpawn()
 	{
-		return doSpawn(false,false);
+		return doSpawn(false, false);
 	}
-	
+
 	/**
 	 * Set _doRespawn to False to stop respawn in thios L2Spawn.<BR><BR>
 	 */
@@ -521,7 +521,7 @@ public class L2Spawn
 			if (!(tmp instanceof L2NpcInstance))
 				return mob;
 			mob = (L2NpcInstance) tmp;
-			return intializeNpcInstance(mob,firstspawn);
+			return intializeNpcInstance(mob, firstspawn);
 		}
 		catch (Exception e)
 		{
@@ -536,12 +536,12 @@ public class L2Spawn
 	 * @param mob
 	 * @return
 	 */
-	private L2NpcInstance intializeNpcInstance(L2NpcInstance mob,boolean firstspawn)
+	private L2NpcInstance intializeNpcInstance(L2NpcInstance mob, boolean firstspawn)
 	{
 		int newlocx, newlocy, newlocz;
 
 		boolean doCorrect = false;
-		if (Config.GEODATA > 0 )
+		if (Config.GEODATA > 0)
 		{
 			switch (Config.GEO_CORRECT_Z)
 			{
@@ -654,8 +654,8 @@ public class L2Spawn
 		if (i < 0)
 			_log.warn("respawn delay is negative for spawnId:" + _id);
 
-		if (i < 60 && i != 0)
-			i = 60;
+		if (i < 10 && i != 0)
+			i = 10;
 
 		_respawnDelay = i * 1000;
 	}
@@ -671,7 +671,7 @@ public class L2Spawn
 	public void respawnNpc(L2NpcInstance oldNpc)
 	{
 		oldNpc.refreshID();
-		intializeNpcInstance(oldNpc,false);
+		intializeNpcInstance(oldNpc, false);
 	}
 
 	public L2NpcTemplate getTemplate()

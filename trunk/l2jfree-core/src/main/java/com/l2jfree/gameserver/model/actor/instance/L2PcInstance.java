@@ -1190,16 +1190,6 @@ public final class L2PcInstance extends L2PlayableInstance
 	}
 
 	/**
-	 * Return the _newbie state of the L2PcInstance.<BR><BR>
-	 * @deprecated Use {@link #getNewbie()} instead
-	 */
-	@Deprecated
-	public int isNewbie()
-	{
-		return getNewbie();
-	}
-
-	/**
 	 * Return the _newbie rewards state of the L2PcInstance.<BR><BR>
 	 */
 	public int getNewbie()
@@ -2200,6 +2190,9 @@ public final class L2PcInstance extends L2PlayableInstance
 
 		// Update class icon in party and clan
 		broadcastClassIcon();
+		
+		if (Config.ALT_AUTO_LEARN_SKILLS)
+			rewardSkills();
 	}
 
 	public void checkIfWeaponIsAllowed()
@@ -13193,11 +13186,12 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (this.isTransformed())
 		{
 			restoreSkills();
+			regiveTemporarySkills();
 			_transformation.onUntransform(this);
 			_transformation = null;
-			regiveTemporarySkills();
-			sendPacket(ExBasicActionList.DEFAULT_ACTION_LIST);
+			stopEffects(L2EffectType.TRANSFORMATION);
 			broadcastUserInfo();
+			sendPacket(ExBasicActionList.DEFAULT_ACTION_LIST);
 			sendPacket(new SkillCoolTime(this));
 		}
 	}

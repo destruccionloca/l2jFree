@@ -2137,7 +2137,7 @@ public abstract class L2Character extends L2Object
 				}
 
 				// Send a System Message to the caster
-				sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS));
+				sendPacket(new SystemMessage(SystemMessageId.THERE_ARE_NOT_ENOUGH_NECESSARY_ITEMS_TO_USE_THE_SKILL));
 				return false;
 			}
 		}

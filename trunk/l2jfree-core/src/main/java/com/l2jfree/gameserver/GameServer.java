@@ -312,7 +312,7 @@ public class GameServer
 		DayNightSpawnManager.getInstance().notifyChangeMode();
 		RaidBossSpawnManager.getInstance();
 		GrandBossSpawnManager.getInstance();
-		RaidPointsManager.getInstance();
+		RaidPointsManager.init();
 		AutoChatHandler.getInstance();
 		AutoSpawnManager.getInstance();
 		Util.printSection("Economy");

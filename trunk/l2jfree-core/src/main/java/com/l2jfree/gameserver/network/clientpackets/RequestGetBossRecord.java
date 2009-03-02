@@ -14,12 +14,12 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import java.util.Map;
+import java.util.logging.Logger;
+
 import com.l2jfree.gameserver.instancemanager.RaidPointsManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.ExGetBossRecord;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * Format: (ch) d
@@ -28,41 +28,43 @@ import org.apache.commons.logging.LogFactory;
  */
 public class RequestGetBossRecord extends L2GameClientPacket
 {
-	private static final String _C__D0_18_REQUESTGETBOSSRECORD = "[C] D0:18 RequestGetBossRecord";
-	private final static Log _log = LogFactory.getLog(RequestGetBossRecord.class.getName());
+	protected static final Logger	_log							= Logger.getLogger(RequestGetBossRecord.class.getName());
+	private static final String		_C__D0_18_REQUESTGETBOSSRECORD	= "[C] D0:18 RequestGetBossRecord";
+	private int						_bossId;
 
-	private int _bossId;
-
-	/**
-	* @param buf
-	* @param client
-	*/
 	@Override
 	protected void readImpl()
 	{
-		_bossId = readD(); // always 0?
+		_bossId = readD();
 	}
 
 	/**
-	* @see com.l2jfree.gameserver.network.clientpackets.ClientBasePacket#runImpl()
-	*/
+	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#runImpl()
+	 */
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if(activeChar == null)
+		if (activeChar == null)
 			return;
 
 		if (_bossId != 0)
 		{
-			_log.info("C5: RequestGetBossRecord: d: "+_bossId+" ActiveChar: "+activeChar); // should be always 0, log it if isnt 0 for furture research
+			_log.info("C5: RequestGetBossRecord: d: " + _bossId + " ActiveChar: " + activeChar); // should be always 0, log it if isnt 0 for furture research
 		}
-		activeChar.sendPacket(new ExGetBossRecord(RaidPointsManager.getInstance().getPlayerEntry(activeChar)));
+
+		int points = RaidPointsManager.getPointsByOwnerId(activeChar.getObjectId());
+		int ranking = RaidPointsManager.calculateRanking(activeChar.getObjectId());
+
+		Map<Integer, Integer> list = RaidPointsManager.getList(activeChar);
+
+		// trigger packet
+		activeChar.sendPacket(new ExGetBossRecord(ranking, points, list));
 	}
 
 	/**
-	* @see com.l2jfree.gameserver.network.BasePacket#getType()
-	*/
+	 * @see com.l2jfree.gameserver.BasePacket#getType()
+	 */
 	@Override
 	public String getType()
 	{

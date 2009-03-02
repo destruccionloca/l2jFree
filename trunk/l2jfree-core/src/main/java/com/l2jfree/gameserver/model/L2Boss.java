@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.model;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -30,108 +29,110 @@ import com.l2jfree.tools.random.Rnd;
 
 public abstract class L2Boss extends L2MonsterInstance
 {
-    private static final int BOSS_MAINTENANCE_INTERVAL = 10000;
+	private static final int	BOSS_MAINTENANCE_INTERVAL	= 10000;
 
-    public static final int BOSS_INTERACTION_DISTANCE = 500;
+	public static final int		BOSS_INTERACTION_DISTANCE	= 500;
 
-    protected final static Log _log = LogFactory.getLog(L2Boss.class.getName());
+	protected final static Log	_log						= LogFactory.getLog(L2Boss.class.getName());
 
-    public L2Boss(int objectId, L2NpcTemplate template)
-    {
-        super(objectId, template);
-    }
+	public L2Boss(int objectId, L2NpcTemplate template)
+	{
+		super(objectId, template);
+	}
 
-    private BossSpawnManager.StatusEnum _raidStatus;
+	private BossSpawnManager.StatusEnum	_raidStatus;
 
-    @Override
-    protected int getMaintenanceInterval() { return BOSS_MAINTENANCE_INTERVAL; }
+	@Override
+	protected int getMaintenanceInterval()
+	{
+		return BOSS_MAINTENANCE_INTERVAL;
+	}
 
-    @Override
-    public boolean doDie(L2Character killer)
-    {
-        if (!super.doDie(killer))
-            return false;
+	@Override
+	public boolean doDie(L2Character killer)
+	{
+		if (!super.doDie(killer))
+			return false;
 
-        L2PcInstance player = killer.getActingPlayer();
-        if (player != null)
-        {
-            broadcastPacket(new SystemMessage(SystemMessageId.RAID_WAS_SUCCESSFUL));
-            if (player.getParty() != null)
-            {
-                for (L2PcInstance member : player.getParty().getPartyMembers())
-                    rewardRaidPoints(member);
-            }
-            else
-                rewardRaidPoints(player);
-            RaidPointsManager.getInstance().calculateRanking();
-        }
-        return true;
-    }
+		L2PcInstance player = killer.getActingPlayer();
+		if (player != null)
+		{
+			broadcastPacket(new SystemMessage(SystemMessageId.RAID_WAS_SUCCESSFUL));
+			if (player.getParty() != null)
+			{
+				for (L2PcInstance member : player.getParty().getPartyMembers())
+					rewardRaidPoints(member);
+			}
+			else
+				rewardRaidPoints(player);
+		}
+		return true;
+	}
 
-    private void rewardRaidPoints(L2PcInstance player)
-    {
-        int points = (getLevel() / 2) + Rnd.get(-5, 5);
-        RaidPointsManager.getInstance().addPoints(player, getNpcId(), points);
-        SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S1_RAID_POINTS);
-        sm.addNumber(points);
-        player.sendPacket(sm);
-    }
+	private void rewardRaidPoints(L2PcInstance player)
+	{
+		int points = (getLevel() / 2) + Rnd.get(-5, 5);
+		RaidPointsManager.addPoints(player, getNpcId(), points);
+		SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S1_RAID_POINTS);
+		sm.addNumber(points);
+		player.sendPacket(sm);
+	}
 
-    @Override
-    public boolean hasRandomAnimation()
-    {
-        return false;
-    }
+	@Override
+	public boolean hasRandomAnimation()
+	{
+		return false;
+	}
 
-    @Override
-    protected boolean canInteract(L2PcInstance player)
-    {
-        // TODO: NPC busy check etc...
-        return isInsideRadius(player, BOSS_INTERACTION_DISTANCE, false, false);
-    }
+	@Override
+	protected boolean canInteract(L2PcInstance player)
+	{
+		// TODO: NPC busy check etc...
+		return isInsideRadius(player, BOSS_INTERACTION_DISTANCE, false, false);
+	}
 
-    public void setRaidStatus (BossSpawnManager.StatusEnum status)
-    {
-        _raidStatus = status;
-    }
+	public void setRaidStatus(BossSpawnManager.StatusEnum status)
+	{
+		_raidStatus = status;
+	}
 
-    public BossSpawnManager.StatusEnum getRaidStatus()
-    {
-        return _raidStatus;
-    }
+	public BossSpawnManager.StatusEnum getRaidStatus()
+	{
+		return _raidStatus;
+	}
 
-    /**
-     * Spawn all minions at a regular interval
-     * if minions are not near the raid boss, teleport them 
-     * 
-     */
-    @Override
-    protected void manageMinions()
-    {
-        _minionList.spawnMinions();
-        _minionMaintainTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new Runnable()
-        {
-            public void run()
-            {
-                // teleport raid boss home if it's too far from home location
-                L2Spawn bossSpawn = getSpawn();
-                if(!isInsideRadius(bossSpawn.getLocx(),bossSpawn.getLocy(),bossSpawn.getLocz(), 5000, true, false))
-                {
-                    teleToLocation(bossSpawn.getLocx(),bossSpawn.getLocy(),bossSpawn.getLocz(), true);
-                    healFull(); // prevents minor exploiting with it
-                }
-                _minionList.maintainMinions();
-            }
-        }, 60000, getMaintenanceInterval()+Rnd.get(5000));
-    }
+	/**
+	 * Spawn all minions at a regular interval
+	 * if minions are not near the raid boss, teleport them 
+	 * 
+	 */
+	@Override
+	protected void manageMinions()
+	{
+		_minionList.spawnMinions();
+		_minionMaintainTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new Runnable()
+		{
+			public void run()
+			{
+				// teleport raid boss home if it's too far from home location
+				L2Spawn bossSpawn = getSpawn();
+				if (!isInsideRadius(bossSpawn.getLocx(), bossSpawn.getLocy(), bossSpawn.getLocz(), 5000, true, false))
+				{
+					teleToLocation(bossSpawn.getLocx(), bossSpawn.getLocy(), bossSpawn.getLocz(), true);
+					healFull(); // prevents minor exploiting with it
+				}
+				_minionList.maintainMinions();
+			}
+		}, 60000, getMaintenanceInterval() + Rnd.get(5000));
+	}
 
-    /**
-     * Restore full Amount of HP and MP 
-     * 
-     */
-    public void healFull()
-    {
-        super.getStatus().setCurrentHp(super.getMaxHp());
-        super.getStatus().setCurrentMp(super.getMaxMp());
-    }
+	/**
+	 * Restore full Amount of HP and MP 
+	 * 
+	 */
+	public void healFull()
+	{
+		super.getStatus().setCurrentHp(super.getMaxHp());
+		super.getStatus().setCurrentMp(super.getMaxMp());
+	}
 }

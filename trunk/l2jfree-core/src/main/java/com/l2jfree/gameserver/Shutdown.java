@@ -396,9 +396,6 @@ public class Shutdown extends Thread
 		// Save Seven Signs data before closing. :)
 		SevenSigns.getInstance().saveSevenSignsData(null, true);
 		System.out.println("SevenSigns: Data saved.");
-		// Save all raidboss status ^_^
-		RaidPointsManager.getInstance().cleanUp();
-		System.out.println("RaidPointsManager: All character raid points saved.");
 		RaidBossSpawnManager.getInstance().cleanUp();
 		System.out.println("RaidBossSpawnManager: All raidboss info saved.");
 		GrandBossSpawnManager.getInstance().cleanUp();
