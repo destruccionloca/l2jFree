@@ -1,26 +1,26 @@
--- ---------------------------------
+-- ---------------------------
 -- Table structure for castle_door
--- ---------------------------------
+-- ---------------------------
 DROP TABLE IF EXISTS `castle_door`;
 CREATE TABLE `castle_door` (
-  `castleId` INT NOT NULL DEFAULT 0,
-  `id` INT NOT NULL DEFAULT 0,
+  `castleId` INT NOT NULL default 0,
+  `id` INT NOT NULL default 0,
   `name` varchar(30) NOT NULL,
-  `x` INT NOT NULL DEFAULT 0,
-  `y` INT NOT NULL DEFAULT 0,
-  `z` INT NOT NULL DEFAULT 0,
-  `range_xmin` INT NOT NULL DEFAULT 0,
-  `range_ymin` INT NOT NULL DEFAULT 0,
-  `range_zmin` INT NOT NULL DEFAULT 0,
-  `range_xmax` INT NOT NULL DEFAULT 0,
-  `range_ymax` INT NOT NULL DEFAULT 0,
-  `range_zmax` INT NOT NULL DEFAULT 0,
-  `hp` INT NOT NULL DEFAULT 0,
-  `pDef` INT NOT NULL DEFAULT 0,
-  `mDef` INT NOT NULL DEFAULT 0,
+  `x` INT NOT NULL default 0,
+  `y` INT NOT NULL default 0,
+  `z` INT NOT NULL default 0,
+  `range_xmin` INT NOT NULL default 0,
+  `range_ymin` INT NOT NULL default 0,
+  `range_zmin` INT NOT NULL default 0,
+  `range_xmax` INT NOT NULL default 0,
+  `range_ymax` INT NOT NULL default 0,
+  `range_zmax` INT NOT NULL default 0,
+  `hp` INT NOT NULL default 0,
+  `pDef` INT NOT NULL default 0,
+  `mDef` INT NOT NULL default 0,
   PRIMARY KEY (`id`),
   KEY `id` (`castleId`)
-) DEFAULT CHARSET=utf8;
+);
 
 INSERT INTO `castle_door` VALUES 
 (1,19210001,'Gludio_outer_001',-18481,113065,-2774,-18481,113058,-2799,-18350,113072,-2479,316500,644,518),
