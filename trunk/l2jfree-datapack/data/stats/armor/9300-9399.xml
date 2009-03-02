@@ -15,7 +15,7 @@
   </item>
   <item id='9393' name="Dark Elven Circlet">
     <cond msgId="1518">
-      <player race="DarkElf"/>
+      <player race="Darkelf"/>
     </cond>
     <for/>
   </item>
