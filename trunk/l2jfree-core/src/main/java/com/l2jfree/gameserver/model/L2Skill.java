@@ -97,6 +97,7 @@ public class L2Skill
 		TARGET_SELF,
 		TARGET_ONE,
 		TARGET_PET,
+		TARGET_SUMMON,
 		TARGET_PARTY,
 		TARGET_ALLY,
 		TARGET_CLAN,
@@ -1728,6 +1729,15 @@ public class L2Skill
 		{
 			target = activeChar.getPet();
 			if (target != null && !target.isDead())
+				return new L2Character[]
+				{ target };
+
+			return null;
+        }
+		case TARGET_SUMMON:
+		{
+			target = activeChar.getPet();
+			if (target != null && !target.isDead() && target instanceof L2SummonInstance)
 				return new L2Character[]
 				{ target };
 
