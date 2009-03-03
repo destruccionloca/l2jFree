@@ -4310,9 +4310,9 @@ public abstract class L2Character extends L2Object
 
 			if (owner instanceof L2Effect && !((L2Effect) owner).preventExitUpdate)
 				broadcastModifiedStats(modified.moveToArray(new Func[modified.size()]));
+			else
+				modified.clear();
 		}
-		
-		modified.clear();
 	}
 
 	private void broadcastModifiedStats(Func[] funcs)

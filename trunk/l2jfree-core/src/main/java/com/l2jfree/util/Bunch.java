@@ -55,14 +55,16 @@ public class Bunch<E> implements IBunch<E>
 			if (bunch._last != null)
 				bunch._last.next = node;
 			bunch._last = node;
-			bunch._size++;
+			if (node.value != NULL)
+				bunch._size++;
 			
 			return node;
 		}
 		
 		private static <E> void recycle(final Bunch<E> bunch, final Node node)
 		{
-			bunch._size--;
+			if (node.value != NULL)
+				bunch._size--;
 			if (bunch._last == node)
 				bunch._last = bunch._last.previous;
 			
@@ -181,7 +183,8 @@ public class Bunch<E> implements IBunch<E>
 			node = tmp;
 		}
 		
-		delete(_first);
+		if (_last == _first)
+			delete(_first);
 	}
 	
 	public boolean isEmpty()
@@ -318,6 +321,7 @@ public class Bunch<E> implements IBunch<E>
 		return o1 == null ? o2 == null : o1 == o2 || o1.equals(o2);
 	}
 	
+	// TODO:
 	private static final class BunchIterator<T> implements Iterator<T>
 	{
 		private static final ObjectPool<BunchIterator<?>> POOL = new ObjectPool<BunchIterator<?>>() {
