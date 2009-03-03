@@ -34,6 +34,7 @@ import com.l2jfree.gameserver.skills.effects.EffectTemplate;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.funcs.FuncTemplate;
 import com.l2jfree.gameserver.templates.StatsSet;
+import com.l2jfree.util.Bunch;
 
 /**
  * This class contains all informations concerning the item (weapon, armor, etc).<BR>
@@ -513,20 +514,22 @@ public abstract class L2Item
 	{
 		if (_funcTemplates == null)
 			return _emptyFunctionSet;
-		List<Func> funcs = new FastList<Func>();
+		
+		Bunch<Func> funcs = new Bunch<Func>();
 		for (FuncTemplate t : _funcTemplates)
 		{
 			Env env = new Env();
 			env.player = player;
 			env.target = player;
 			env.item = instance;
-			Func f = t.getFunc(env, this); // skill is owner
+			Func f = t.getFunc(env, instance);
 			if (f != null)
 				funcs.add(f);
 		}
+		
 		if (funcs.size() == 0)
 			return _emptyFunctionSet;
-		return funcs.toArray(new Func[funcs.size()]);
+		return funcs.moveToArray(new Func[funcs.size()]);
 	}
 
 	/**
