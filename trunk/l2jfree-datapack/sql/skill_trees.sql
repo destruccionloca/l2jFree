@@ -13325,6 +13325,7 @@ INSERT INTO skill_trees VALUES
 (57,148,6,'Vital Force',183000,58),
 (57,422,1,'Polearm Accuracy',183000,58),
 (57,424,1,'War Frenzy',183000,58),
+(57,823,3,'Strengthen Golem',183000,58),
 (57,190,22,'Fatal Strike',161000,60),
 (57,190,23,'Fatal Strike',161000,60),
 (57,25,6,'Summon Mechanic Golem',322000,60),
