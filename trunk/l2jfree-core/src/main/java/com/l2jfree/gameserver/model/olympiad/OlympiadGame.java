@@ -44,6 +44,7 @@ import com.l2jfree.gameserver.network.serverpackets.ExOlympiadSpelledInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExOlympiadUserInfo;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillSummon;
 import com.l2jfree.gameserver.templates.StatsSet;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
@@ -261,21 +262,29 @@ public class OlympiadGame
 						summon.unSummon(player);
 				}
 
-				if (player.getCubics() != null)
+				// Remove invalid cubics
+				if (player.getCubics() != null && Config.ALT_OLY_REMOVE_CUBICS)
 				{
-					boolean removed = false;
+					FastList<Integer> allowedList = new FastList<Integer>();
+
+					for (L2Skill skill : player.getAllSkills())
+					{
+						if (skill.isCubic() && skill instanceof L2SkillSummon)
+						{
+							int npcId = ((L2SkillSummon) skill).getNpcId();
+							if (npcId != 0)
+								allowedList.add(npcId);
+						}
+					}
+					
 					for (L2CubicInstance cubic : player.getCubics().values())
 					{
-						/* TODO: Sync this. Should remove only cubics given by other players. */
-						//if (cubic.givenByOther())
-						//{
-						cubic.stopAction();
-						player.delCubic(cubic.getId());
-						removed = true;
-						//}
+						if (!allowedList.contains((cubic.getId())))
+						{
+							cubic.stopAction();
+							player.delCubic(cubic.getId());
+						}
 					}
-					if (removed)
-						player.broadcastUserInfo();
 				}
 
 				// Remove player from his party
