@@ -10,7 +10,7 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="7001" levels="1" name="Dispel Buff">
-    <set name="magicLevel" val="99"/>
+    <set name="magicLvl" val="99"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="NEGATE"/>
     <set name="negateStats" val="BUFF"/>
@@ -20,7 +20,7 @@
     <set name="aggroPoints" val="100"/>
   </skill>
   <skill id="7002" levels="1" name="Dispel Debuff">
-    <set name="magicLevel" val="99"/>
+    <set name="magicLvl" val="99"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="NEGATE"/>
     <set name="negateStats" val="DEBUFF"/>
@@ -30,7 +30,7 @@
     <set name="aggroPoints" val="100"/>
   </skill>
   <skill id="7003" levels="1" name="Dispel All">
-    <set name="magicLevel" val="99"/>
+    <set name="magicLvl" val="99"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="NEGATE"/>
     <set name="negateStats" val="BUFF DEBUFF"/>
@@ -40,7 +40,7 @@
     <set name="aggroPoints" val="100"/>
   </skill>
   <skill id="7004" levels="2" name="Dispel Petrification">
-    <set name="magicLevel" val="60"/>
+    <set name="magicLvl" val="60"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="NEGATE"/>
     <set name="negateLvl" val="2"/>
@@ -53,7 +53,7 @@
     <set name="aggroPoints" val="566" />
   </skill>
   <skill id="7005" levels="4" name="Greater Chant of Vampire">
-    <set name="magicLevel" val="74" />
+    <set name="magicLvl" val="74" />
     <set name="mpInitialConsume" val="55" />
     <set name="mpConsume" val="217" />
     <set name="target" val="TARGET_CLAN" />

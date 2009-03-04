@@ -642,7 +642,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="hitTime" val="1000" />
-    <set name="magicLevel" val="79" />
+    <set name="magicLvl" val="79" />
     <set name="mpConsume" val="43" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="reuseDelay" val="300000" />
@@ -1683,7 +1683,7 @@
     -->
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
-    <set name="magicLevel" val="50" />
+    <set name="magicLvl" val="50" />
     <set name="target" val="TARGET_ONE" />
     <set name="onCrit" val="true" />
     <set name="skillRadius" val="300" />
