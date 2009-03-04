@@ -1018,7 +1018,7 @@ public class L2Attackable extends L2NpcInstance
 			getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
 
 		// Notify the L2Attackable AI with EVT_ATTACKED
-		if (!isDead())
+		if (!isDead() && damage > 0)
 		{
 			getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, attacker);
 
