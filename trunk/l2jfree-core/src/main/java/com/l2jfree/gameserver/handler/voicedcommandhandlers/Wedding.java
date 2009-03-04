@@ -347,7 +347,7 @@ public class Wedding implements IVoicedCommandHandler
 			activeChar.sendMessage("Your partner is currently holding a cursed weapon.");
 			return false;
 		}
-		else if (partner.isInsideZone(L2Zone.FLAG_NOESCAPE))
+		else if (partner.isInsideZone(L2Zone.FLAG_NOESCAPE) || partner.isInsideZone(L2Zone.FLAG_SUNLIGHTROOM) || partner.isInsideZone(L2Zone.FLAG_NOSUMMON))
 		{
 			activeChar.sendMessage("Your partner is in a unsuitable area for teleporting.");
 			return false;
