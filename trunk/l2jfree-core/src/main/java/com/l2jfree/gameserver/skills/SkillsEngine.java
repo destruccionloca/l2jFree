@@ -137,6 +137,7 @@ public class SkillsEngine
 
 		for (L2Item item : loadData(itemData, _etcitemFiles))
 		{
+			list.add((L2EtcItem)item);
 			xmlItem.add(item.getItemId());
 		}
 		for (Item item : itemData.values())
