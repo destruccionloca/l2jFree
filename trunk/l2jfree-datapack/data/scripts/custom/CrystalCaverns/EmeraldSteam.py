@@ -635,7 +635,7 @@ class EmeraldSteam(JQuest):
 			if npcId in [32275,32276,32277] and skillId in [1217,1218,1011,1015,1401,5146]:
 				world.OracleTriggered = True
 
-	def onAttack(self,npc,player,damage,isPet):
+	def onAttack(self,npc,player,damage,isPet,skill):
 		return
 
 	def onKill(self,npc,player,isPet):

@@ -521,7 +521,7 @@ class DarkCloudMansion(JQuest):
 				checkBelethSampleProgress(self,world,npc,player,BS)
 		return
 
-	def onAttack(self,npc,player,damage,isPet):
+	def onAttack(self,npc,player,damage,isPet,skill):
 		npcId = npc.getNpcId()
 		if self.worlds.has_key(npc.getInstanceId()):
 			world = self.worlds[player.getInstanceId()]

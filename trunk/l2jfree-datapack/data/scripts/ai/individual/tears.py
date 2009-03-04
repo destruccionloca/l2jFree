@@ -17,7 +17,7 @@ class Quest (JQuest) :
 		JQuest.__init__(self,id,name,descr)
 		self.npcobject = {}
 
-	def onAttack (self, npc, player, damage, isPet):
+	def onAttack (self, npc, player, damage, isPet, skill):
 		npcId = npc.getNpcId()
 		if npcId == Tears:
 			try:

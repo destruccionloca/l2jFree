@@ -29,7 +29,7 @@ class Quest (JQuest) :
 		newNpc = self.addSpawn(GUARD3,154374,149399,-12152,0,False,0,False, npc.getInstanceId())
 		newNpc = self.addSpawn(GUARD3,153796,149646,-12159,0,False,0,False, npc.getInstanceId())
 		
-	def onAttack(self, npc, player, damage, isPet):
+	def onAttack(self, npc, player, damage, isPet, skill):
 		npcId = npc.getNpcId()
 		if npcId == KECHI:
 			try:

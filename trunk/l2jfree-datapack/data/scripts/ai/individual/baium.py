@@ -55,7 +55,7 @@ class baium (JQuest):
         return "<html><body>Angelic Vortex:<br>You may not enter at this time.</body></html>"
     return
 
-  def onAttack(self, npc, player, damage, isPet) :
+  def onAttack(self, npc, player, damage, isPet, skill) :
     if npc.getNpcId() == ARCHANGEL:
       if Rnd.get(100) < 10 :
         skill = SkillTable.getInstance().getInfo(SPEAR_POUND,1)

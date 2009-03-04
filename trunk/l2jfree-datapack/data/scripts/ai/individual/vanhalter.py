@@ -26,7 +26,7 @@ class vanhalter(JQuest):
   def __init__(self,id,name,descr) : JQuest.__init__(self,id,name,descr)
 
 
-  def onAttack (self,npc,player,damage,isPet) :
+  def onAttack (self,npc,player,damage,isPet,skill) :
     npcId = npc.getNpcId()
     if npcId == ANDREAS_VAN_HALTER :
       maxHp = npc.getMaxHp()
