@@ -10,15 +10,7 @@ ANDREAS_VAN_HALTER = 29062
 ANDREAS_CAPTAIN    = 22188
 
 #TRIOL'S REVELATIONS
-TRIOLS_1 = 32058
-TRIOLS_2 = 32059
-TRIOLS_3 = 32060
-TRIOLS_4 = 32061
-TRIOLS_5 = 32062
-TRIOLS_6 = 32063
-TRIOLS_7 = 32064
-TRIOLS_8 = 32065
-TRIOLS_9 = 32066
+TRIOLS = [32058,32059,32060,32061,32062,32063,32064,32065,32066]
 
 # Main Quest Code
 class vanhalter(JQuest):
@@ -35,7 +27,7 @@ class vanhalter(JQuest):
 
   def onKill (self,npc,player,isPet) :
     npcId = npc.getNpcId()
-    if npcId == TRIOLS_1 or npcId == TRIOLS_2 or npcId == TRIOLS_3 or npcId == TRIOLS_4 or npcId == TRIOLS_5 or npcId == TRIOLS_6 or npcId == TRIOLS_7 or npcId == TRIOLS_8 or npcId == TRIOLS_9 :
+    if npcId in TRIOLS :
       VanHalterManager.getInstance().removeBleeding(npcId)
       VanHalterManager.getInstance().checkTriolRevelationDestroy()
     if npcId == ANDREAS_CAPTAIN :
@@ -53,12 +45,5 @@ QUEST.addKillId(ANDREAS_VAN_HALTER)
 # Andreas' Captain of the Royal Guard
 QUEST.addKillId(ANDREAS_CAPTAIN)
 # Triol's Revelation
-QUEST.addKillId(TRIOLS_1)
-QUEST.addKillId(TRIOLS_2)
-QUEST.addKillId(TRIOLS_3)
-QUEST.addKillId(TRIOLS_4)
-QUEST.addKillId(TRIOLS_5)
-QUEST.addKillId(TRIOLS_6)
-QUEST.addKillId(TRIOLS_7)
-QUEST.addKillId(TRIOLS_8)
-QUEST.addKillId(TRIOLS_9)
+for Triol in TRIOLS :
+    QUEST.addKillId(Triol)
