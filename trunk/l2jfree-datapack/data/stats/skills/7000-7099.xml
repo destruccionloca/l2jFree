@@ -2,10 +2,12 @@
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
   <skill id="7000" levels="1" name="NPC Default">
-    <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="isMagic" val="false"/>
+    <set name="skillType" val="PDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="0"/>
+    <set name="effectRange" val="-1"/>
   </skill>
   <skill id="7001" levels="1" name="Dispel Buff">
     <set name="magicLevel" val="99"/>
