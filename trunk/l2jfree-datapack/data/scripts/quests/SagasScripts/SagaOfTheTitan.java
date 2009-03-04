@@ -14,7 +14,6 @@
  */
 package quests.SagasScripts;
 
-
 /**
 *
 * @author Emperorc
