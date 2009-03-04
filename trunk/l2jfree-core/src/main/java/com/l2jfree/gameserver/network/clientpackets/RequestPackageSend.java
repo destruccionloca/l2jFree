@@ -44,12 +44,13 @@ public final class RequestPackageSend extends L2GameClientPacket
 	private static final String	_C_9F_REQUESTPACKAGESEND	= "[C] 9F RequestPackageSend";
 	protected static final Log	_log						= LogFactory.getLog(RequestPackageSend.class.getName());
 	private List<Item>			_items						= new FastList<Item>();
+	private int					_objectID;
 	private int					_count;
 
 	@Override
 	protected void readImpl()
 	{
-		readD(); // Object ID
+		_objectID = readD();
 		_count = readD();
 		if (_count < 0 || _count > 500)
 		{
@@ -75,11 +76,11 @@ public final class RequestPackageSend extends L2GameClientPacket
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null)
 			return;
-		// L2PcInstance target = L2PcInstance.load(_objectID);
+		L2PcInstance target = L2PcInstance.load(_objectID);
 
 		try
 		{
-			PcFreight freight = player.getFreight();
+			PcFreight freight = target.getFreight();
 			getClient().getActiveChar().setActiveWarehouse(freight);
 			ItemContainer warehouse = player.getActiveWarehouse();
 			if (warehouse == null)
@@ -196,7 +197,7 @@ public final class RequestPackageSend extends L2GameClientPacket
 		}
 		finally
 		{
-			// target.deleteMe();
+			target.deleteMe();
 		}
 	}
 
