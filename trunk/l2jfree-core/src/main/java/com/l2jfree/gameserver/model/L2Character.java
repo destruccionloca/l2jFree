@@ -6363,8 +6363,13 @@ public abstract class L2Character extends L2Object
 	{
 		if (_skills == null)
 			return null;
-
+		
 		return _skills.get(skillId);
+	}
+	
+	public final boolean hasSkill(int skillId)
+	{
+		return getKnownSkill(skillId) != null;
 	}
 
 	/**

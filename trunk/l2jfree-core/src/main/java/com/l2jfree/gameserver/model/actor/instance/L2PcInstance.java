@@ -2103,7 +2103,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			if (newPenalty <= 0)
 				newPenalty = 0;
 
-			if (getExpertisePenalty() != newPenalty)
+			if (getExpertisePenalty() != newPenalty || hasSkill(4267) != (newPenalty > 0))
 			{
 				_expertisePenalty = newPenalty;
 

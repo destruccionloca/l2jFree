@@ -14,9 +14,6 @@
  */
 package com.l2jfree.gameserver.skills.conditions;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.skills.Env;
 
@@ -26,7 +23,6 @@ import com.l2jfree.gameserver.skills.Env;
 
 public final class ConditionPlayerGrade extends Condition
 {
-	private final static Log	_log		= LogFactory.getLog(ConditionPlayerGrade.class);
 	//	conditional values
     public final static int COND_NO_GRADE = 0x0001;
     public final static int COND_D_GRADE = 0x0002;
