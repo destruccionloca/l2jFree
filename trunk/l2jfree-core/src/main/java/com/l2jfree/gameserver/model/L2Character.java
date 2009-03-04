@@ -5749,11 +5749,11 @@ public abstract class L2Character extends L2Object
 				}
 
 				// Reduce targets HP
-				target.reduceCurrentHp(damage, this);
+				target.reduceCurrentHp(damage, this, null);
 
 				if (reflectedDamage > 0)
 				{
-					getStatus().reduceHp(reflectedDamage, target, true);
+					reduceCurrentHp(reflectedDamage, target, true, false, null);
 
 					// Custom messages - nice but also more network load
 					/*

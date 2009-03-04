@@ -127,6 +127,16 @@ public abstract class L2Boss extends L2MonsterInstance
 	}
 
 	/**
+     * Reduce the current HP of the L2Attackable, update its _aggroList and launch the doDie Task if necessary.<BR><BR>
+     *
+     */
+    @Override
+    public void reduceCurrentHp(double damage, L2Character attacker, boolean awake, boolean isDOT, L2Skill skill)
+    {
+        super.reduceCurrentHp(damage, attacker, awake, isDOT, skill);
+    }
+    
+	/**
 	 * Restore full Amount of HP and MP 
 	 * 
 	 */

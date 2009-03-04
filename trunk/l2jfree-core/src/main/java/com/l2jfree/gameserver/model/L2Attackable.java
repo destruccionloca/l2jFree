@@ -486,7 +486,7 @@ public class L2Attackable extends L2NpcInstance
 			{
 				master = ((L2MinionInstance) this).getLeader();
 				if (!master.isInCombat() && !master.isDead())
-					master.addDamage(attacker, 1, skill);
+					master.addDamage(attacker, 1, null);
 			}
 			if (master.hasMinions())
 				master.callMinionsToAssist(attacker);

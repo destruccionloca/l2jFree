@@ -190,10 +190,10 @@ public class L2MonsterInstance extends L2Attackable
 					// Trigger the aggro condition of the minion
 					if (minion != null && !minion.isDead())
 					{
-						if (isRaidBoss())
-							minion.addDamage(attacker, 100);
+						if (isRaidBoss()&&!isRaidMinion())
+							minion.addDamage(attacker, 100, null);
 						else
-							minion.addDamage(attacker, 1);
+							minion.addDamage(attacker, 1, null);
 					}
 				}
 			}
