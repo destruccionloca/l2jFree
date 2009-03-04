@@ -14,7 +14,7 @@
  */
 package quests.SagasScripts;
 
-import java.util.logging.Logger;
+//import java.util.logging.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -39,7 +39,7 @@ import com.l2jfree.tools.random.Rnd;
 
 public class SagasSuperClass extends QuestJython
 {
-	private static Logger _log = Logger.getLogger("SagasSuperClass");
+	//private static Logger _log = Logger.getLogger("SagasSuperClass");
 
 	private static FastList<Quest> _scripts = new FastList<Quest>();
 	public String qn = "SagasSuperClass";
