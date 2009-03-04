@@ -28,7 +28,7 @@ class Quest (JQuest) :
 		newNpc = self.addSpawn(GUARD2,153945,149224,-12151,0,False,0,False, npc.getInstanceId())
 		newNpc = self.addSpawn(GUARD3,154374,149399,-12152,0,False,0,False, npc.getInstanceId())
 		newNpc = self.addSpawn(GUARD3,153796,149646,-12159,0,False,0,False, npc.getInstanceId())
-		
+
 	def onAttack(self, npc, player, damage, isPet, skill):
 		npcId = npc.getNpcId()
 		if npcId == KECHI:
@@ -76,7 +76,7 @@ class Quest (JQuest) :
 			self.addSpawn(32279,154077,149527,-12159,0,False,0,False, player.getInstanceId())
 			self.npcobject[npc.getObjectId()].killed = True
 		return 
-		
+
 QUEST = Quest(-1,"Kechi","ai")
 QUEST.addKillId(KECHI)
 QUEST.addAttackId(KECHI)

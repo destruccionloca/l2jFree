@@ -15,7 +15,6 @@ CHOIR_PRAYER  = 18339
 CHOIR_CAPTAIN = 18334
 FRINTEZZA     = 29045
 
-
 class lastimperialtomb (JQuest):
   def __init__(self,id,name,descr) :
     JQuest.__init__(self,id,name,descr)

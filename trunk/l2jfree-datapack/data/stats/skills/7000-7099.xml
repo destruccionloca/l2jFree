@@ -2,45 +2,40 @@
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
   <skill id="7000" levels="1" name="NPC Default">
-    <set name="target" val="TARGET_ONE" />
-    <set name="isMagic" val="false" />
-    <set name="skillType" val="PDAM" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="castRange" val="0" />
-    <set name="effectRange" val="-1" />
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="0"/>
   </skill>
   <skill id="7001" levels="1" name="Dispel Buff">
-    <set name="magicLevel" val="99" />
-    <set name="power" val="100"/> <!-- Base Land Rate -->
-    <set name="target" val="TARGET_ONE" />
-    <set name="skillType" val="CANCEL" />
-    <set name="negateStats" val="BUFF HEAL_PERCENT"/>
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="castRange" val="400" />
-    <set name="effectRange" val="900" />
-    <set name="aggroPoints" val="100" />
+    <set name="magicLevel" val="99"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="NEGATE"/>
+    <set name="negateStats" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="400"/>
+    <set name="effectRange" val="900"/>
+    <set name="aggroPoints" val="100"/>
   </skill>
   <skill id="7002" levels="1" name="Dispel Debuff">
-    <set name="magicLevel" val="99" />
-    <set name="power" val="100" />
-    <set name="target" val="TARGET_ONE" />
-    <set name="skillType" val="CANCEL"/>
+    <set name="magicLevel" val="99"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="NEGATE"/>
     <set name="negateStats" val="DEBUFF"/>
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="castRange" val="400" />
-    <set name="effectRange" val="900" />
-    <set name="aggroPoints" val="100" />
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="400"/>
+    <set name="effectRange" val="900"/>
+    <set name="aggroPoints" val="100"/>
   </skill>
   <skill id="7003" levels="1" name="Dispel All">
     <set name="magicLevel" val="99"/>
-    <set name="power" val="100"/> <!-- Base Land Rate -->
     <set name="target" val="TARGET_ONE"/>
-    <set name="skillType" val="CANCEL"/> <!-- Needs core support for CANCEL_ALL -->
-    <set name="negateStats" val="BUFF DEBUFF HEAL_PERCENT"/>
+    <set name="skillType" val="NEGATE"/>
+    <set name="negateStats" val="BUFF DEBUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="400" />
-    <set name="effectRange" val="900" />
-    <set name="aggroPoints" val="100" />
+    <set name="castRange" val="400"/>
+    <set name="effectRange" val="900"/>
+    <set name="aggroPoints" val="100"/>
   </skill>
   <skill id="7004" levels="2" name="Dispel Petrification">
     <set name="magicLevel" val="60"/>
@@ -87,21 +82,20 @@
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
     <set name="aggroPoints" val="655" />
-    <set name="coolTime" val="1666" />
   </skill>
   <skill id="7007" levels="4" name="Greater Seal of Flame">
     <!-- Needs to be done -->
-    <set name="mpConsume" val="122" />
-    <set name="mpInitialConsume" val="30" />
-    <set name="skillRadius" val="200" />
-    <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="PASSIVE" />
-    <set name="hitTime" val="4000" />
-    <set name="coolTime" val="2666" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="isMagic" val="true" />
-    <set name="castRange" val="400" />
-    <set name="effectRange" val="900" />
+    <set name="mpConsume" val="122"/>
+    <set name="mpInitialConsume" val="30"/>
+    <set name="skillRadius" val="200"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="PASSIVE"/>
+    <set name="hitTime" val="4000"/>
+    <set name="lvlDepend" val="1"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="isMagic" val="true"/>
+    <set name="castRange" val="400"/>
+    <set name="effectRange" val="900"/>
   </skill>
   <skill id="7008" levels="1" name="not_used">
     <set name="target" val="TARGET_SELF" />

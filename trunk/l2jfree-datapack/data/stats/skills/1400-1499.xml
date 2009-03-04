@@ -961,21 +961,20 @@
     <table name="#mpConsume_Init">5 8</table>
     <table name="#mpConsume">33 42</table>
     <table name="#Tab-mAtk">1.55 1.65</table>
-    <set name="mpInitialConsume" val="#mpConsume_Init" />
-    <set name="mpConsume" val="#mpConsume" />
-    <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="BUFF" />
-    <set name="isMagic" val="true" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="reuseDelay" val="6000" />
-    <set name="hitTime" val="2000" />
-    <set name="isMagic" val="true" />
-    <set name="castRange" val="-1" />
-    <set name="effectRange" val="-1" />
+    <set name="mpInitialConsume" val="#mpConsume_Init"/>
+    <set name="mpConsume" val="#mpConsume"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="reuseDelay" val="6000"/>
+    <set name="hitTime" val="2000"/>
+    <set name="isMagic" val="true"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
         stackOrder="#Tab-mAtk" stackType="ma_up">
-        <mul order="0x30" stat="mAtk" val="#Tab-mAtk" />
+        <mul order="0x30" stat="mAtk" val="#Tab-mAtk"/>
       </effect>
     </for>
   </skill>

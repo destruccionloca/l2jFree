@@ -837,22 +837,19 @@
     </for>
   </skill>
   <skill id="538" levels="1" name="Final Form">
-    <set name="mpConsume" val="70" />
-    <set name="hpConsume" val="200" />
-    <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="BUFF" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="hitTime" val="2500" />
-    <set name="reuseDelay" val="7200000" />
-    <set name="staticReuse" val="true" />
-    <set name="staticHitTime" val="true" />
-    <set name="transformId" val="251" />
-    <set name="castRange" val="-1" />
-    <set name="effectRange" val="-1" />
-    <set name="soulConsumeCount" val="20" />
-    <cond msgId="1509">
-      <player olympiad="false"/>
-    </cond>
+    <set name="mpConsume" val="70"/>
+    <set name="hpConsume" val="200"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="2500"/>
+    <set name="reuseDelay" val="7200000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="transformId" val="251"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <set name="soulConsumeCount" val="20"/>
     <for>
       <effect count="1" name="Transformation" time="300" val="0">
         <!-- Transformation lasts 5 minutes -->

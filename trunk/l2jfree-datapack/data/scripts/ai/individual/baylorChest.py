@@ -27,7 +27,6 @@ class baylorChest(JQuest):
 		else:
 			dropItem(npc,6704,10)
 		return
-		
-	
+
 QUEST = baylorChest(-1, "baylorChest", "ai")
 QUEST.addKillId(BOX)

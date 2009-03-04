@@ -21,6 +21,6 @@ class Quest (JQuest) :
 		if npcId == DARNEL:
 			self.addSpawn(32279,152761,145950,-12588,0,False,0,False,player.getInstanceId())
 		return 
-		
+
 QUEST = Quest(-1,"Darnel","ai")
 QUEST.addKillId(DARNEL)

@@ -41,7 +41,7 @@ class valakas(JQuest):
           st.takeItems(FLOATING_STONE,1)
           player.teleToLocation(183831,-115457,-3296)
           st.set("ok","1")
-        else :
+        else:
           st.exitQuest(1)
           return "<html><body>Klein:<br>You do not have the Floating Stone. Go get one and then come back to me.</body></html>"
       else:

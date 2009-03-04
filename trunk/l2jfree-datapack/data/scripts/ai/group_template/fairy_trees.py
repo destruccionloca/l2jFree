@@ -38,8 +38,7 @@ class trees(JQuest) :
                   skill = SkillTable.getInstance().getInfo(VENOMOUS_POISON,1)
                   if skill != None and killer:
                      skill.getEffects(newNpc, killer)
-        return 
-
+        return
 
 QUEST        = trees(-2,"fairy trees","ai")
 

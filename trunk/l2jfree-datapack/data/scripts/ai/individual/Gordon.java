@@ -15,6 +15,7 @@
 package ai.individual;
 
 import java.util.Collection;
+
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.SpawnTable;
 import com.l2jfree.gameserver.model.L2Attackable;

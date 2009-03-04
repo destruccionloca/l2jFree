@@ -21,7 +21,7 @@ def autochat(npc,text):
 
 class PyObject:
 	pass
-	
+
 class crys (JQuest):
 
 	def __init__(self,id,name,descr):
@@ -40,7 +40,7 @@ class crys (JQuest):
 					npc.broadcastPacket(MagicSkillUse(npc, npc, 5441, 1, 1, 0))
 					self.npcobject[npc.getObjectId()].correct = True
 					self.worlds[npc.getInstanceId()].correct = self.worlds[npc.getInstanceId()].correct +1
-			
+
 			if self.npcobject[npc.getObjectId()].correct == False:
 				dx = npc.getX() - 139494
 				dy = npc.getY() - 151668
@@ -49,19 +49,19 @@ class crys (JQuest):
 					npc.broadcastPacket(MagicSkillUse(npc, npc, 5441, 1, 1, 0))
 					self.npcobject[npc.getObjectId()].correct = True
 					self.worlds[npc.getInstanceId()].correct = self.worlds[npc.getInstanceId()].correct +1
-					
+
 			if self.worlds[npc.getInstanceId()].correct>=2:
 				for door in InstanceManager.getInstance().getInstance(npc.getInstanceId()).getDoors():
 					if door.getDoorId() == 24220026:
 						door.openMe()
 				return
-				
+
 			if self.npcobject[npc.getObjectId()].lastitem:
 				L2World.getInstance().removeVisibleObject(self.npcobject[npc.getObjectId()].lastitem, self.npcobject[npc.getObjectId()].lastitem.getWorldRegion())
 				L2World.getInstance().removeObject(self.npcobject[npc.getObjectId()].lastitem)
 				if len(self.npcobject[npc.getObjectId()].walklist_order)==0:
 					return
-		
+
 			for item in self.npcobject[npc.getObjectId()].walklist_order:
 				crystal = self.npcobject[npc.getObjectId()].walklist[item]
 				newpos = L2CharPosition(crystal.getX(), crystal.getY(), crystal.getZ(), 0)
@@ -69,7 +69,7 @@ class crys (JQuest):
 				self.npcobject[npc.getObjectId()].lastitem = crystal
 				self.npcobject[npc.getObjectId()].walklist_order.remove(item)
 				break;
-				
+
 			if(len(self.npcobject[npc.getObjectId()].walklist_order))>0:
 				if event == "timer":
 					self.startQuestTimer("timer2",2000,npc,None)
@@ -83,7 +83,7 @@ class crys (JQuest):
 					else:
 						self.startQuestTimer("timer",2000,npc,None)
 			return
-  
+
 	def onTalk (self,npc,player):
 		self.lastitem = None
 		self.timer = 0
@@ -92,7 +92,7 @@ class crys (JQuest):
 			if isinstance(object,L2ItemInstance):
 				if object.getItemId()==crystalid:
 					crystals.append(object)
-		
+
 		walklist_order = []		
 		walklist = {}
 		for crystal in crystals:
@@ -108,11 +108,11 @@ class crys (JQuest):
 			test = self.npcobject[npc.getObjectId()]
 		except:
 			self.npcobject[npc.getObjectId()] = PyObject()
-		
+
 		self.npcobject[npc.getObjectId()].last = False
 		self.npcobject[npc.getObjectId()].walklist = walklist
 		self.npcobject[npc.getObjectId()].walklist_order = walklist_order
-		
+
 		try:
 			test = self.npcobject[npc.getObjectId()].lastitem
 		except:

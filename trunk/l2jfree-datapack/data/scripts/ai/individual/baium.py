@@ -46,7 +46,7 @@ class baium (JQuest):
         if player.isFlying() :
           return "<html><body>Angelic Vortex:<br>You may not enter while flying a wyvern.</body></html>"
         if st.getQuestItemsCount(FABRIC) :
-          st.takeItems(FABRIC, 1)
+          st.takeItems(FABRIC,1)
           player.teleToLocation(113100,14500,10077)
           st.set("ok","1")
         else :

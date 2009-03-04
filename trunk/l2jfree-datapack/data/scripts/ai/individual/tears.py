@@ -32,7 +32,7 @@ class Quest (JQuest) :
 				test = self.npcobject[npc.getObjectId()].isSpawned
 			except:
 				self.npcobject[npc.getObjectId()].isSpawned = False
-		
+
 			if self.npcobject[npc.getObjectId()].isSpawned:
 				for onpc in self.npcobject[npc.getObjectId()].copylist:
 					onpc.onDecay()
@@ -63,13 +63,13 @@ class Quest (JQuest) :
 				self.npcobject[npc.getObjectId()].isSpawned = True
 				for i in range(0,10):
 					self.npcobject[npc.getObjectId()].copylist.append(self.addSpawn(Tears_Copy,npc.getX(),npc.getY(),npc.getZ(),0,False,0,False,player.getInstanceId()))
-    
+
 	def onKill(self,npc,player,isPet):
 		npcId = npc.getNpcId()
 		if npcId == Tears:
 			self.addSpawn(32279,144307,154419,-11857,0,False,0,False, player.getInstanceId())
 		return 
-		
+
 QUEST = Quest(-1,"Tears","ai")
 QUEST.addAttackId(Tears)
 QUEST.addAttackId(Tears_Copy)

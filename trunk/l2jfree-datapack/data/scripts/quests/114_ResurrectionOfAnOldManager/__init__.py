@@ -1,6 +1,6 @@
 # Made by Kerberos
 # this script is part of the Official L2J Datapack Project.
-# Visit http://forum.l2jdp.com for more details.
+# Visit http://www.l2jdp.com/forum/ for more details.
 import sys
 from com.l2jfree.gameserver.ai import CtrlIntention
 from com.l2jfree.gameserver.datatables import SpawnTable
@@ -148,7 +148,7 @@ class Quest (JQuest) :
     elif event == "32047-15a.htm" :
        if self.isSpawned == 0 :
           golem = st.addSpawn(Guardian,96977,-110625,-3280,0,False,900000)
-          golem.broadcastPacket(NpcSay(golem.getObjectId(),0,golem.getNpcId(),"You, "+player.getName()+", you attacked Wendy. Prepare to die!"))
+          golem.broadcastPacket(NpcSay(golem.getObjectId(),0,golem.getNpcId(),"You, "+st.getPlayer().getName()+", you attacked Wendy. Prepare to die!"))
           golem.setRunning()
           golem.addDamageHate(player,0,999)
           golem.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, player)
@@ -184,6 +184,7 @@ class Quest (JQuest) :
           st.playSound("ItemSound.quest_middle")
     elif event == "32047-38.htm" :
        st.giveItems(Starstone2,1)
+       st.takeItems(57,3000)
        st.set("cond","26")
        st.playSound("ItemSound.quest_middle")
     elif event == "32050-02.htm" :

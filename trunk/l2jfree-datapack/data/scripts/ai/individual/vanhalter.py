@@ -25,7 +25,6 @@ class vanhalter(JQuest):
 
   def __init__(self,id,name,descr) : JQuest.__init__(self,id,name,descr)
 
-
   def onAttack (self,npc,player,damage,isPet,skill) :
     npcId = npc.getNpcId()
     if npcId == ANDREAS_VAN_HALTER :
@@ -43,7 +42,6 @@ class vanhalter(JQuest):
       VanHalterManager.getInstance().checkRoyalGuardCaptainDestroy()
     if npcId == ANDREAS_VAN_HALTER :
       VanHalterManager.getInstance().enterInterval()
-
 
 # Quest class and state definition
 QUEST = vanhalter(-1,"vanhalter","ai")

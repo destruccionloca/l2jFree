@@ -28,7 +28,6 @@ class evabox(JQuest):
 			dropid = Rnd.get(len(REWARDS))
 			dropItem(npc,REWARDS[dropid],1)
 		return
-		
-	
+
 QUEST = evabox(-1, "evabox", "ai")
 QUEST.addKillId(BOX)
