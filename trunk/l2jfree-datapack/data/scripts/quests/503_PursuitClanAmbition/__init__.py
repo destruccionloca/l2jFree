@@ -1,14 +1,14 @@
-# Written by
-# questdevs Team
+# Written by questdevs Team
 
 import sys
 from java.util                                    import Iterator
+from com.l2jfree                                  import L2DatabaseFactory
 from com.l2jfree.tools.random                     import Rnd
 from com.l2jfree.gameserver.model.quest           import State
 from com.l2jfree.gameserver.model.quest           import QuestState
 from com.l2jfree.gameserver.model.quest.jython    import QuestJython as JQuest
 from com.l2jfree.gameserver.network.serverpackets import NpcSay
-from com.l2jfree                                  import L2DatabaseFactory
+from com.l2jfree.gameserver.network.serverpackets import SocialAction
 
 qn = "503_PursuitClanAmbition"
 qd = "Pursuit Clan Ambition"
@@ -38,7 +38,6 @@ Scepter_Judgement = 3869
 # the final item
 Proof_Aspiration = 3870
 
-
 EggList = [Mi_Drake_Eggs,Bl_Wyrm_Eggs,Drake_Eggs,Th_Wyrm_Eggs]
 
 # NPC = Martien,Athrea,Kalis,Gustaf,Fritz,Lutz,Kurtz,Kusto,Balthazar,Rodemai,Coffer,Cleo
@@ -63,7 +62,7 @@ DROPLIST = {
 def suscribe_members(st) :
   clan=st.getPlayer().getClan().getClanId()
   con=L2DatabaseFactory.getInstance().getConnection(None)
-  offline=con.prepareStatement("SELECT `charId` FROM `characters` WHERE `clanid`=? AND `online`=0")
+  offline=con.prepareStatement("SELECT charId FROM characters WHERE clanid=? AND online=0")
   offline.setInt(1, clan)
   rs=offline.executeQuery()
   while (rs.next()) :
@@ -87,7 +86,7 @@ def suscribe_members(st) :
 def offlineMemberExit(st) :
   clan=st.getPlayer().getClan().getClanId()
   con=L2DatabaseFactory.getInstance().getConnection(None)
-  offline=con.prepareStatement("DELETE FROM `character_quests` WHERE `name` = ? AND `charId` IN (SELECT `charId` FROM `characters` WHERE `clanId` =? AND `online`=0")
+  offline=con.prepareStatement("DELETE FROM character_quests WHERE name = ? AND charId IN (SELECT charId FROM characters WHERE clanId =? AND online=0")
   offline.setString(1, qn)
   offline.setInt(2, clan)
   try :
@@ -111,7 +110,7 @@ def getLeaderVar(st, var) :
     pass
   leaderId=st.getPlayer().getClan().getLeaderId()
   con=L2DatabaseFactory.getInstance().getConnection(None)
-  offline=con.prepareStatement("SELECT `value` FROM `character_quests` WHERE `charId`=? AND `var`=? AND `name`=?")
+  offline=con.prepareStatement("SELECT value FROM character_quests WHERE charId=? AND var=? AND name=?")
   offline.setInt(1, leaderId)
   offline.setString(2, var)
   offline.setString(3, qn)
@@ -141,7 +140,7 @@ def setLeaderVar(st, var, value) :
   else :
     leaderId=st.getPlayer().getClan().getLeaderId()
     con=L2DatabaseFactory.getInstance().getConnection(None)
-    offline=con.prepareStatement("UPDATE `character_quests` SET `value`=? WHERE `charId`=? AND `var`=? AND `name`=?")
+    offline=con.prepareStatement("UPDATE character_quests SET value=? WHERE charId=? AND var=? AND name=?")
     offline.setString(1, value)
     offline.setInt(2, leaderId)
     offline.setString(3, var)
@@ -179,6 +178,8 @@ def exit503(completed,st):
     if completed:
       st.giveItems(Proof_Aspiration,1)
       st.addExpAndSp(0,250000)
+      ObjectId=st.getPlayer().getObjectId()
+      st.getPlayer().broadcastPacket(SocialAction(ObjectId,3))
       for var in STATS:
         st.unset(var)
       st.exitQuest(False)
@@ -297,7 +298,6 @@ class Quest (JQuest) :
       st.takeItems(Scepter_Judgement,-1)
       exit503(0,st)
     return htmltext
-
 
   def onTalk (self,npc,player):
     htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"

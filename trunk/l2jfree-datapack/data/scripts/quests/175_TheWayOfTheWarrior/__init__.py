@@ -1,5 +1,5 @@
 # Contributed by t0rm3nt0r (tormentor2000@mail.ru) to the Official L2J Datapack Project
-# Visit http://forum.l2jdp.com for more details.
+# Visit http://www.l2jdp.com/forum/ for more details.
 
 import sys
 from com.l2jfree.gameserver.model.quest import State
@@ -26,7 +26,7 @@ ADENA = 57
 MOUNTAIN_WEREWOLF = 22235
 MUERTOS = [22236]+range(22239,22241)+range(22242,22244)+range(22245,22247)
 
-
+NEWBIE_REWARD = 16
 class Quest (JQuest) :
 
  def __init__(self,id,name,descr):
@@ -51,7 +51,9 @@ class Quest (JQuest) :
        st.rewardItems(LESSER_HEALING_POTIONS,100)
        for item in ECHO :
          st.rewardItems(item,10)
-       if player.getLevel() < 25 and player.isNewbie() :
+       newbie = player.getNewbie()
+       if newbie | NEWBIE_REWARD != newbie :
+         player.setNewbie(newbie|NEWBIE_REWARD)
          st.rewardItems(SOULSHOT_FOR_BEGINNERS,7000)
          st.playTutorialVoice("tutorial_voice_026")
        st.giveItems(WARRIORS_SWORD,1)

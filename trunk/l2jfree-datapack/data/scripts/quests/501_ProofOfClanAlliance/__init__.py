@@ -6,6 +6,7 @@ import sys
 from com.l2jfree.gameserver.datatables            import SkillTable
 from com.l2jfree.gameserver.network.serverpackets import NpcSay
 from com.l2jfree.gameserver.network.serverpackets import MagicSkillUse
+from com.l2jfree.gameserver.network.serverpackets import SocialAction
 from com.l2jfree.gameserver.model.quest           import State
 from com.l2jfree.gameserver.model.quest           import QuestState
 from com.l2jfree.gameserver.model.quest.jython    import QuestJython as JQuest
@@ -206,6 +207,8 @@ class Quest (JQuest) :
                st.takeItems(VOUCHER_OF_FAITH,1)
                st.giveItems(PROOF_OF_ALLIANCE,1)
                st.addExpAndSp(0,120000)
+               ObjectId=player.getObjectId()
+               player.broadcastPacket(SocialAction(ObjectId,3))
                st.exitQuest(False)
                htmltext = "09"
    elif npcId == WITCH_KALIS :
