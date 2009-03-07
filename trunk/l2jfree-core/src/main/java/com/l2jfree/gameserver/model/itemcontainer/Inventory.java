@@ -1050,7 +1050,7 @@ public abstract class Inventory extends ItemContainer
 				break;
 			
 			case L2Item.SLOT_BACK:
-				pdollSlot = PAPERDOLL_UNDER;
+				pdollSlot = PAPERDOLL_BACK;
 				break;
 			
 			case L2Item.SLOT_FEET:

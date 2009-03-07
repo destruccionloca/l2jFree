@@ -207,7 +207,7 @@ public abstract class IdFactory
 			cleanCount += stmt.executeUpdate("DELETE FROM clan_subpledges WHERE clan_subpledges.clan_id NOT IN (SELECT clan_id FROM clan_data);");
 			cleanCount += stmt.executeUpdate("DELETE FROM clan_wars WHERE clan_wars.clan1 NOT IN (SELECT clan_id FROM clan_data) OR clan_wars.clan2 NOT IN (SELECT clan_id FROM clan_data);");
 			cleanCount += stmt.executeUpdate("DELETE FROM forums WHERE forum_owner_id <> 0 AND forums.forum_owner_id NOT IN (SELECT clan_id FROM clan_data);");
-			cleanCount += stmt.executeUpdate("DELETE FROM items WHERE loc = 'clanwh' and items.owner_id NOT IN (SELECT clan_id FROM clan_data);");
+			cleanCount += stmt.executeUpdate("DELETE FROM items WHERE loc = 'clanwh' AND items.owner_id NOT IN (SELECT clan_id FROM clan_data);");
 			cleanCount += stmt.executeUpdate("DELETE FROM siege_clans WHERE siege_clans.clan_id NOT IN (SELECT clan_id FROM clan_data);");
 
 			stmt.executeUpdate("UPDATE characters SET `clanid`='0', `clan_privs`='0', `clan_join_expiry_time`='0', `clan_create_expiry_time`='0' WHERE characters.clanid NOT IN (SELECT clan_id FROM clan_data);");
@@ -223,7 +223,6 @@ public abstract class IdFactory
 			cleanCount += stmt.executeUpdate("DELETE FROM clanhall_functions WHERE clanhall_functions.hall_id NOT IN (SELECT id FROM clanhall WHERE ownerId <> 0);");
 
 			// Others
-			stmt.executeUpdate("UPDATE items SET loc='INVENTORY' WHERE loc='PAPERDOLL' AND loc_data=0;");
 			stmt.executeUpdate("DELETE FROM item_attributes WHERE `itemId` NOT IN (SELECT object_id FROM items);");
 
 			stmt.close();
@@ -273,7 +272,7 @@ public abstract class IdFactory
 				_log.info("tmp table size: " + tmp_obj_ids.length);
 			result.close();
 
-			result = s.executeQuery("select object_id from temporaryObjectTable ORDER BY object_id");
+			result = s.executeQuery("SELECT object_id FROM temporaryObjectTable ORDER BY object_id");
 
 			int idx = 0;
 			while (result.next())
