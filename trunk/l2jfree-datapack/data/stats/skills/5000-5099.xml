@@ -180,7 +180,7 @@
     -->
     <set name="mpConsume" val="20" />
     <set name="save" val="3" />
-    <set name="power" val="250.0" />
+    <set name="power" val="250" />
     <set name="lvlDepend" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="hitTime" val="4500" />
@@ -300,7 +300,7 @@
       Lvl 5: Demon 2 slow charge.
       Lvl 6: Demon 3 slow charge.
     -->
-    <table name="#power">3.0 5.0 10.0 15.0 20.0 30.0</table>
+    <table name="#power">3 5 10 15 20 30</table>
     <table name="#hitTime"> 1500 1450 1300 1200 1050 900 </table>
     <set name="mpConsume" val="20" />
     <set name="hpConsume" val="300" />

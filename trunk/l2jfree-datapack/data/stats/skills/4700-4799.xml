@@ -1413,7 +1413,7 @@
     <table name="#mpConsume"> 43 69 99 134 173 207 239 250 258 262
       262 263 </table>
     <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="1.0" />
+    <set name="power" val="1" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="hitTime" val="2000" />
@@ -1433,7 +1433,7 @@
     <table name="#mpConsume"> 43 69 99 134 173 207 239 250 258 262
       262 263 </table>
     <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="1.0" />
+    <set name="power" val="1" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="hitTime" val="2000" />
@@ -1451,7 +1451,7 @@
     <table name="#hot"> 53 91 145 214 301 375 414 431 439 444 443 440 </table>
     <table name="#mpConsume"> 43 69 99 134 173 207 239 250 258 262 262 263 </table>
     <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="1.0" />
+    <set name="power" val="1" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="hitTime" val="2000" />
@@ -1471,7 +1471,7 @@
     <table name="#mpConsume"> 43 69 99 134 173 207 239 250 258 262
       262 263 </table>
     <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="1.0" />
+    <set name="power" val="1" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="hitTime" val="2000" />
@@ -1489,7 +1489,7 @@
     <table name="#hot"> 47 80 127 187 263 329 363 379 387 390 389 388 </table>
     <table name="#mpConsume"> 43 69 99 134 173 207 239 250 258 262 262 263 </table>
     <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="1.0" />
+    <set name="power" val="1" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="hitTime" val="2000" />

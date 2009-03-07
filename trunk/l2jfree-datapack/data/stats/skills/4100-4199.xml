@@ -1411,7 +1411,7 @@
   </skill>
   <skill id="4181" levels="12" name="BOSS Mortal Blow">
     <table name="#power"> 301 812 2231 5844 14708 28428 43658
-      50651 58107 65907 73917 81989.0 </table>
+      50651 58107 65907 73917 81989 </table>
     <table name="#mpConsume"> 16 23 32 42 53 65 75 79 82 84 85 87 </table>
     <table name="#magicLvl"> 14 24 34 44 54 64 74 79 84 89 94 99 </table>
     <set name="magicLvl" val="#magicLvl" />

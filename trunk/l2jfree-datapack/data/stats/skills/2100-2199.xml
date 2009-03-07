@@ -574,7 +574,7 @@
     <set name="castRange" val="-1" />
   </skill>
   <skill id="2179" levels="1" name="Blessed Scroll of Resurrection: Pet">
-    <set name="power" val="100.0" />
+    <set name="power" val="100" />
     <set name="target" val="TARGET_CORPSE_PET" />
     <set name="hitTime" val="15000" />
     <set name="skillType" val="RESURRECT" />

@@ -826,7 +826,7 @@
     <set name="mpConsume" val="151" />
     <set name="itemConsumeId" val="3031" />
     <set name="itemConsumeCount" val="#itemConsumeCount" />
-    <set name="power" val="15005.0" />
+    <set name="power" val="15005" />
     <set name="target" val="TARGET_ONE" />
     <set name="hitTime" val="1080" />
     <set name="coolTime" val="720" />
@@ -1159,7 +1159,7 @@
     <set name="magicLvl" val="78" />
     <set name="hpConsume" val="50" />
     <set name="mpConsume" val="5" />
-    <set name="power" val="7.0" />
+    <set name="power" val="7" />
     <set name="SSBoost" val="2.0" />
     <set name="overHit" val="true"/>
     <set name="target" val="TARGET_ONE" />
@@ -1179,7 +1179,7 @@
     <set name="magicLvl" val="78" />
     <set name="hpConsume" val="50" />
     <set name="mpConsume" val="5" />
-    <set name="power" val="7.0" />
+    <set name="power" val="7" />
     <set name="overHit" val="true"/>
     <set name="SSBoost" val="2.0" />
     <set name="target" val="TARGET_ONE" />

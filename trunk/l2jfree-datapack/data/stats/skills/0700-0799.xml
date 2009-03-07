@@ -694,7 +694,7 @@
     <set name="magicLvl" val="81" />
     <set name="target" val="TARGET_AREA" />
     <set name="skillType" val="DEBUFF" />
-    <set name="power" val="80.0" />
+    <set name="power" val="80" />
     <set name="skillRadius" val="180" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
@@ -1173,7 +1173,7 @@
     <!-- by Sephiroth -->
     <set name="hitTime" val="1800" />
     <set name="mpConsume" val="0" />
-    <set name="power" val="80.0" />
+    <set name="power" val="80" />
     <set name="magicLvl" val="81" />
     <set name="skillRadius" val="250" />
     <set name="reuseDelay" val="95000" />
@@ -1212,7 +1212,7 @@
     <!-- by Sephiroth -->
     <set name="mpConsume" val="55" />
     <set name="magicLvl" val="81" />
-    <set name="power" val="108.0" />
+    <set name="power" val="108" />
     <set name="lvlDepend" val="1" />
     <set name="target" val="TARGET_AREA" />
     <set name="reuseDelay" val="120000" />
@@ -1238,28 +1238,29 @@
     <set name="castRange" val="-1" />
   </skill>
   <skill id="793" levels="1" name="Rush Impact">
-    <set name="mpInitialConsume" val="30" />
-    <set name="mpConsume" val="83" />
-    <set name="magicLvl" val="78" />
-    <set name="power" val="40" />
-    <set name="weaponsAllowed" val="32768" />
-    <set name="hitTime" val="800" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="target" val="TARGET_ONE" />
-    <set name="skillType" val="STUN" />
-    <set name="castRange" val="600" />
-    <set name="effectRange" val="1100" />
-    <set name="isDebuff" val="true" />
-    <set name="reuseDelay" val="1800000" />
-    <set name="soulConsumeCount" val="5" />
-    <set name="flyType" val="CHARGE" />
-    <set name="flyRadius" val="300" />
-    <cond msg="An ancient sword or short sword must be equipped to use this skill">
-      <using kind="Ancient,Sword" />
+    <set name="castRange" val="600"/>
+    <set name="effectPower" val="50"/> <!-- Base Land Rate -->
+    <set name="effectRange" val="1100"/>
+    <set name="effectType" val="STUN"/>
+    <set name="flyType" val="CHARGE"/>
+    <set name="hitTime" val="800"/>
+    <set name="isDebuff" val="true"/>
+    <set name="lvlDepend" val="1"/>
+    <set name="magicLvl" val="78"/>
+    <set name="mpConsume" val="83"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="power" val="4040"/>
+    <set name="skillRadius" val="600"/>
+    <set name="skillType" val="PDAM"/>
+    <set name="soulMaxConsumeCount" val="5"/>
+    <set name="SSBoost" val="2.0"/>
+    <set name="target" val="TARGET_FRONT_AREA"/>
+    <set name="weaponsAllowed" val="32768"/> <!-- Ancient -->
+    <cond msg="Rush Impact cannot be used due to unsuitable terms.">
+      <target mindistance="200"/>
     </cond>
     <for>
-      <effect count="1" name="Stun" time="9" val="0"
-        stackOrder="1" stackType="Stun" />
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun" />
     </for>
   </skill>
   <skill id="794" levels="1" name="Mass Disarm">
@@ -1277,7 +1278,7 @@
     <set name="skillType" val="DISARM" />
     <set name="target" val="TARGET_AURA" />
     <for>
-      <effect count="1" name="Disarm" time="10" val="0" />
+      <effect count="1" name="Disarm" time="5" val="0" />
     </for>
   </skill>
   <skill id="795" levels="1" name="Divine Knight Brandish">

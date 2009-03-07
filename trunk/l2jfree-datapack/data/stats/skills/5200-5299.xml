@@ -72,7 +72,7 @@
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5206" levels="1" name="Decrease Speed">
-    <set name="power" val="542.0" />
+    <set name="power" val="542" />
     <set name="target" val="TARGET_ONE" />
     <set name="hitTime" val="2200" />
     <set name="skillType" val="PDAM" />
@@ -106,7 +106,7 @@
     </for>
   </skill>
   <skill id="5208" levels="1" name="Event Wind walk">
-    <set name="power" val="1.0" />
+    <set name="power" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BUFF" />
     <set name="isMagic" val="true" />
@@ -121,7 +121,7 @@
     </for>
   </skill>
   <skill id="5209" levels="1" name="Event Shield">
-    <set name="power" val="1.0" />
+    <set name="power" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BUFF" />
     <set name="isMagic" val="true" />
@@ -136,7 +136,7 @@
     </for>
   </skill>
   <skill id="5210" levels="1" name="Event Bless the body">
-    <set name="power" val="1.0" />
+    <set name="power" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BUFF" />
     <set name="isMagic" val="true" />
@@ -151,7 +151,7 @@
     </for>
   </skill>
   <skill id="5211" levels="1" name="Event Vampiric rage">
-    <set name="power" val="1.0" />
+    <set name="power" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_ACTIVE" />
@@ -165,7 +165,7 @@
     </for>
   </skill>
   <skill id="5212" levels="1" name="Event Regeneration">
-    <set name="power" val="1.0" />
+    <set name="power" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BUFF" />
     <set name="isMagic" val="true" />
@@ -180,7 +180,7 @@
     </for>
   </skill>
   <skill id="5213" levels="1" name="Event Haste">
-    <set name="power" val="1.0" />
+    <set name="power" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BUFF" />
     <set name="isMagic" val="true" />
@@ -195,7 +195,7 @@
     </for>
   </skill>
   <skill id="5214" levels="1" name="Event Bless the Soul">
-    <set name="power" val="1.0" />
+    <set name="power" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BUFF" />
     <set name="isMagic" val="true" />
@@ -210,7 +210,7 @@
     </for>
   </skill>
   <skill id="5215" levels="1" name="Event Acumen">
-    <set name="power" val="1.0" />
+    <set name="power" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BUFF" />
     <set name="isMagic" val="true" />
@@ -239,7 +239,7 @@
     </for>
   </skill>
   <skill id="5217" levels="1" name="Event Empower">
-    <set name="power" val="1.0" />
+    <set name="power" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BUFF" />
     <set name="isMagic" val="true" />
@@ -266,7 +266,7 @@
   <skill id="5219" levels="1" name="Stun of giant mutated animal">
     <set name="magicLvl" val="99" />
     <set name="lvlDepend" val="1" />
-    <set name="power" val="47895.0" />
+    <set name="power" val="47895" />
     <set name="mpConsume" val="43" />
     <set name="target" val="TARGET_ONE" />
     <set name="hitTime" val="6000" />
