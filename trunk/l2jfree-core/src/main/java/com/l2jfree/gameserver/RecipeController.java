@@ -369,7 +369,7 @@ public class RecipeController
 							for (L2RecipeStatInstance recipeAltStatChange : recipeAltStatChangeList)
 								recipeList.addAltStatChange(recipeAltStatChange);
 
-							_lists.put(_lists.size(), recipeList);
+							_lists.put(recipeList.getId(), recipeList);
 						}
 					}
 				}
@@ -1025,7 +1025,7 @@ public class RecipeController
 
 	private L2RecipeList getValidRecipeList(L2PcInstance player, int id)
 	{
-		L2RecipeList recipeList = getRecipeList(id - 1);
+		L2RecipeList recipeList = getRecipeList(id);
 
 		if ((recipeList == null) || (recipeList.getRecipes().length == 0))
 		{
