@@ -35,8 +35,13 @@ public abstract class FIFORunnableQueue<T extends Runnable> implements Runnable
 	{
 		addLast(t);
 		
-		if (!_running)
-			ThreadPoolManager.getInstance().execute(this);
+		synchronized (this)
+		{
+			if (_running)
+				return;
+		}
+		
+		ThreadPoolManager.getInstance().execute(this);
 	}
 	
 	private void addLast(T t)
@@ -63,20 +68,29 @@ public abstract class FIFORunnableQueue<T extends Runnable> implements Runnable
 		}
 	}
 	
-	public synchronized final void run()
+	public final void run()
 	{
 		while (!isEmpty())
 		{
 			try
 			{
-				_running = true;
+				synchronized (this)
+				{
+					if (_running)
+						return;
+					
+					_running = true;
+				}
 				
 				while (!isEmpty())
 					ExecuteWrapper.execute(removeFirst());
 			}
 			finally
 			{
-				_running = false;
+				synchronized (this)
+				{
+					_running = false;
+				}
 			}
 		}
 	}
