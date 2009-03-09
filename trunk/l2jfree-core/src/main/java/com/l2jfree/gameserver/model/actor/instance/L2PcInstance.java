@@ -3851,7 +3851,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 
 		if (((TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (CTF._started && !Config.CTF_ALLOW_INTERFERENCE)
-				|| (DM._started && !Config.DM_ALLOW_INTERFERENCE)) && !this.isGM())
+				|| (DM._started && !Config.DM_ALLOW_INTERFERENCE)) && !isGM())
 		{
 			if ((_inEventTvT && !player._inEventTvT) || (!_inEventTvT && player._inEventTvT))
 			{
@@ -3903,7 +3903,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			{
 				// Check if this L2PcInstance is autoAttackable
 				if (isAutoAttackable(player) || (player._inEventTvT && TvT._started) || (player._inEventCTF && CTF._started)
-						|| (player._inEventDM && DM._started) || (player._inEventVIP && VIP._started))
+						|| (player._inEventDM && DM._started) || (player._inEventVIP && VIP._started) && !isGM())
 				{
 					// Player with lvl < 21 can't attack a cursed weapon holder
 					// And a cursed weapon holder  can't attack players with lvl < 21
@@ -3967,7 +3967,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	@Override
 	public boolean isInFunEvent()
 	{
-		return (atEvent || (TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF) || (VIP._started && _inEventVIP));
+		return (atEvent || (TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF) || (VIP._started && _inEventVIP) && !isGM());
 	}
 
 	/**
@@ -8558,7 +8558,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		// Check if this is offensive magic skill
 		if (skill.isOffensive())
 		{
-			if ((isInsidePeaceZone(this, target)) && (getAccessLevel() < Config.GM_PEACEATTACK) && !(_inEventVIP && VIP._started))
+			if ((isInsidePeaceZone(this, target)) && (getAccessLevel() < Config.GM_PEACEATTACK))
 			{
 				if (!isInFunEvent() || !target.isInFunEvent())
 				{
