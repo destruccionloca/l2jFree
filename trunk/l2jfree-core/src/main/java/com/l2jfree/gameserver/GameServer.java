@@ -145,6 +145,28 @@ public class GameServer
 	public GameServer() throws Throwable
 	{
 		long serverLoadStart = System.currentTimeMillis();
+
+		// Readded root check at server startup
+		// AND DON'T DELETE IT AGAIN CRION
+		// I CANNOT BELIEVE SOMEONE DELETES A SECURITY THINGGY
+		String username = java.lang.System.getProperty("user.name");
+		String userdir = java.lang.System.getProperty("user.home");
+		if (username.equals("root") && userdir.equals("/root")) {
+			System.out.print("L2Jfree servers should not run under root-account ...");
+
+			for (int i = 0; i < 9; i++) {
+				System.out.print(".");
+				
+				long ticker = Calendar.getInstance().getTimeInMillis();
+				while (Calendar.getInstance().getTimeInMillis() - ticker < 1000) {
+					//
+				}
+			}
+
+			System.out.println(". exited.");
+			System.exit(-1);
+		}
+
 		Config.load();
 
 		Util.printSection("Database");
