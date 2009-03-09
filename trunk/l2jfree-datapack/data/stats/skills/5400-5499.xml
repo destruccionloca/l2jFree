@@ -156,6 +156,9 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
+    <cond msg="This skill is only to be used with correct Agathion summoned.">
+      <player agathionId="16026" />
+    </cond>
   </skill>
   <skill id="5414" levels="1" name="Performing Agathion - Rainbow Clan Hall">
     <!-- Needs to be verified -->
@@ -166,6 +169,9 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
+    <cond msg="This skill is only to be used with correct Agathion summoned.">
+      <player agathionId="16027" />
+    </cond>
   </skill>
   <skill id="5415" levels="1" name="Performing Agathion - Castle">
     <!-- Needs to be verified -->
@@ -176,6 +182,9 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
+    <cond msg="This skill is only to be used with correct Agathion summoned.">
+      <player agathionId="16028" />
+    </cond>
   </skill>
   <skill id="5416" levels="1" name="Dark Cloud Mansion">
     <!--
@@ -718,6 +727,9 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
+    <cond msg="This skill is only to be used with correct Agathion summoned.">
+      <player agathionId="16029" />
+    </cond>
   </skill>
   <skill id="5459" levels="1" name="Paralysis">
     <!--
