@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='utf-8'?>
+  <!-- Unseal B-Grade -->
+  <!-- This list is best used in exc_multisel -->
+<list maintainEnchantment="true">
+  <!-- Zubei's Gauntlets - Heavy Armor -->
+  <item id="1">
+    <production id="5710" count="1"/>
+    <ingredient id="612" count="1"/>
+  </item>
+  <!-- Zubei's Gauntlets - Light Armor -->
+  <item id="2">
+    <production id="5711" count="1"/>
+    <ingredient id="612" count="1"/>
+  </item>
+  <!-- Zubei's Gauntlets - Robe -->
+  <item id="3">
+    <production id="5712" count="1"/>
+    <ingredient id="612" count="1"/>
+  </item>
+  <!-- Avadon Gloves - Heavy Armor -->
+  <item id="4">
+    <production id="5714" count="1"/>
+    <ingredient id="2464" count="1"/>
+  </item>
+  <!-- Avadon Gloves - Light Armor -->
+  <item id="5">
+    <production id="5715" count="1"/>
+    <ingredient id="2464" count="1"/>
+  </item>
+  <!-- Avadon Gloves - Robe -->
+  <item id="6">
+    <production id="5716" count="1"/>
+    <ingredient id="2464" count="1"/>
+  </item>
+  <!-- Blue Wolf Gloves - Heavy Armor -->
+  <item id="7">
+    <production id="5718" count="1"/>
+    <ingredient id="2487" count="1"/>
+  </item>
+  <!-- Blue Wolf Gloves - Light Armor -->
+  <item id="8">
+    <production id="5719" count="1"/>
+    <ingredient id="2487" count="1"/>
+  </item>
+  <!-- Blue Wolf Gloves - Robe -->
+  <item id="9">
+    <production id="5720" count="1"/>
+    <ingredient id="2487" count="1"/>
+  </item>
+  <!-- Doom Gloves - Heavy Armor -->
+  <item id="10">
+    <production id="5722" count="1"/>
+    <ingredient id="2475" count="1"/>
+  </item>
+  <!-- Doom Gloves - Light Armor -->
+  <item id="11">
+    <production id="5723" count="1"/>
+    <ingredient id="2475" count="1"/>
+  </item>
+  <!-- Doom Gloves - Robe -->
+  <item id="12">
+    <production id="5724" count="1"/>
+    <ingredient id="2475" count="1"/>
+  </item>
+  <!-- Zubei's Boots - Heavy Armor -->
+  <item id="13">
+    <production id="5726" count="1"/>
+    <ingredient id="554" count="1"/>
+  </item>
+  <!-- Zubei's Boots - Light Armor -->
+  <item id="14">
+    <production id="5727" count="1"/>
+    <ingredient id="554" count="1"/>
+  </item>
+  <!-- Zubei's Boots - Robe -->
+  <item id="15">
+    <production id="5728" count="1"/>
+    <ingredient id="554" count="1"/>
+  </item>
+  <!-- Avadon Boots - Heavy Armor -->
+  <item id="16">
+    <production id="5730" count="1"/>
+    <ingredient id="600" count="1"/>
+  </item>
+  <!-- Avadon Boots - Light Armor -->
+  <item id="17">
+    <production id="5731" count="1"/>
+    <ingredient id="600" count="1"/>
+  </item>
+  <!-- Avadon Boots - Robe -->
+  <item id="18">
+    <production id="5732" count="1"/>
+    <ingredient id="600" count="1"/>
+  </item>
+  <!-- Blue Wolf Boots - Heavy Armor -->
+  <item id="19">
+    <production id="5734" count="1"/>
+    <ingredient id="2439" count="1"/>
+  </item>
+  <!-- Blue Wolf Boots - Light Armor -->
+  <item id="20">
+    <production id="5735" count="1"/>
+    <ingredient id="2439" count="1"/>
+  </item>
+  <!-- Blue Wolf Boots - Robe -->
+  <item id="21">
+    <production id="5736" count="1"/>
+    <ingredient id="2439" count="1"/>
+  </item>
+  <!-- Doom Boots - Heavy Armor -->
+  <item id="22">
+    <production id="5738" count="1"/>
+    <ingredient id="601" count="1"/>
+  </item>
+  <!-- Doom Boots - Light Armor -->
+  <item id="23">
+    <production id="5739" count="1"/>
+    <ingredient id="601" count="1"/>
+  </item>
+  <!-- Doom Boots - Robe -->
+  <item id="24">
+    <production id="5740" count="1"/>
+    <ingredient id="601" count="1"/>
+  </item>
+</list>
