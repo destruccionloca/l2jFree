@@ -36,6 +36,7 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.base.PlayerState;
 import com.l2jfree.gameserver.model.base.Race;
 import com.l2jfree.gameserver.skills.conditions.Condition;
+import com.l2jfree.gameserver.skills.conditions.ConditionAgathionSummoned;
 import com.l2jfree.gameserver.skills.conditions.ConditionChangeWeapon;
 import com.l2jfree.gameserver.skills.conditions.ConditionForceBuff;
 import com.l2jfree.gameserver.skills.conditions.ConditionGameChance;
@@ -546,6 +547,11 @@ abstract class DocumentBase
 			{
 				int sex = Integer.decode(getValue(a.getNodeValue(), null));
 				cond = joinAnd(cond, new ConditionPlayerSex(sex));
+			}
+			else if ("agathionId".equalsIgnoreCase(a.getNodeName()))
+			{
+				int agathionId = Integer.decode(getValue(a.getNodeValue(), null));
+				cond = joinAnd(cond, new ConditionAgathionSummoned(agathionId));
 			}
 		}
 
