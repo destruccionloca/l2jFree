@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>l2jfree</groupId>
   <artifactId>l2jfree-gameserver</artifactId>
-  <version>1.2.10</version>
+  <version>1.2.11</version>
   <packaging>jar</packaging>
   <url>http://www.l2jfree.com</url>
   <scm>
@@ -142,7 +142,7 @@
     <dependency>
       <groupId>l2jfree</groupId>
       <artifactId>l2jfree-core</artifactId>
-      <version>1.2.10</version>
+      <version>1.2.11</version>
     </dependency>
   </dependencies>
   <issueManagement>
@@ -192,7 +192,7 @@
                 <artifactItem>
                   <groupId>l2jfree</groupId>
                   <artifactId>datapack</artifactId>
-                  <version>1.2.10</version>
+                  <version>1.2.11</version>
                   <type>jar</type>
                 </artifactItem>
               </artifactItems>

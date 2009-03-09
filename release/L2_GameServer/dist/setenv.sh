@@ -1,4 +1,4 @@
-CLASSPATH=${CLASSPATH}:l2j-mmocore-1.1.0.jar
+CLASSPATH=${CLASSPATH}:l2j-mmocore-1.1.1.jar
 
 #jython
 CLASSPATH=${CLASSPATH}:jython-2.2.1.jar
@@ -24,10 +24,9 @@ CLASSPATH=${CLASSPATH}:commons-io-1.2.jar
 CLASSPATH=${CLASSPATH}:javolution-1.5.5.2.6.jar
 
 # main jar
-CLASSPATH=${CLASSPATH}:l2j-commons-1.1.8.jar
-CLASSPATH=${CLASSPATH}:l2jfree-geoserver-1.2.0.jar
-CLASSPATH=${CLASSPATH}:l2jfree-core-1.2.10.jar
-CLASSPATH=${CLASSPATH}:l2jfree-gameserver-1.2.10.jar
+CLASSPATH=${CLASSPATH}:l2j-commons-1.1.10.jar
+CLASSPATH=${CLASSPATH}:l2jfree-core-1.2.11.jar
+CLASSPATH=${CLASSPATH}:l2jfree-gameserver-1.2.11.jar
 
 
 CLASSPATH=${CLASSPATH}:core-3.3.0.jar

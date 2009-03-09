@@ -112,7 +112,9 @@ import com.l2jfree.gameserver.model.L2Manor;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.Hero;
+import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
+import com.l2jfree.gameserver.network.IOFloodManager;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.L2GamePacketHandler;
 import com.l2jfree.gameserver.script.faenor.FaenorScriptEngine;
@@ -128,7 +130,6 @@ import com.l2jfree.gameserver.taskmanager.TaskManager;
 import com.l2jfree.gameserver.threadmanager.DeadlockDetector;
 import com.l2jfree.gameserver.threadmanager.RunnableStatsManager;
 import com.l2jfree.gameserver.util.DynamicExtension;
-import com.l2jfree.gameserver.util.FloodProtector;
 import com.l2jfree.gameserver.util.PathCreator;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.status.Status;
@@ -144,6 +145,28 @@ public class GameServer
 	public GameServer() throws Throwable
 	{
 		long serverLoadStart = System.currentTimeMillis();
+
+		// Readded root check at server startup
+		// AND DON'T DELETE IT AGAIN CRION
+		// I CANNOT BELIEVE SOMEONE DELETES A SECURITY THINGGY
+		String username = java.lang.System.getProperty("user.name");
+		String userdir = java.lang.System.getProperty("user.home");
+		if (username.equals("root") && userdir.equals("/root")) {
+			System.out.print("L2Jfree servers should not run under root-account ...");
+
+			for (int i = 0; i < 9; i++) {
+				System.out.print(".");
+				
+				long ticker = Calendar.getInstance().getTimeInMillis();
+				while (Calendar.getInstance().getTimeInMillis() - ticker < 1000) {
+					//
+				}
+			}
+
+			System.out.println(". exited.");
+			System.exit(-1);
+		}
+
 		Config.load();
 
 		Util.printSection("Database");
@@ -171,13 +194,11 @@ public class GameServer
 			DeadlockDetector.getInstance();
 		SQLQueue.getInstance();
 
-		if (Config.GEODATA>0)
+		if (Config.GEODATA > 0)
 		{
 			GeoData.getInstance();
-			if (Config.GEODATA>=2)
-			{
+			if (Config.GEODATA >= 2)
 				PathFinding.getInstance();
-			}
 		}
 
 		StaticObjects.getInstance();
@@ -185,13 +206,13 @@ public class GameServer
 		TeleportLocationTable.getInstance();
 		BoatManager.getInstance();
 		InstanceManager.getInstance();
-		
+
 		Util.printSection("TaskManagers");
 		AttackStanceTaskManager.getInstance();
 		DecayTaskManager.getInstance();
 		KnownListUpdateTaskManager.getInstance();
 		PacketBroadcaster.getInstance();
-		
+
 		Util.printSection("Skills");
 		SkillTreeTable.getInstance();
 		SkillsEngine.getInstance();
@@ -256,6 +277,7 @@ public class GameServer
 		ZoneManager.getInstance();
 		MercTicketManager.getInstance();
 		DoorTable.getInstance().registerToClanHalls();
+		DoorTable.getInstance().setCommanderDoors();
 		// make sure that all the scheduled siege dates are in the Seal Validation period
 		for (Castle castle : CastleManager.getInstance().getCastles().values())
 		{
@@ -278,9 +300,7 @@ public class GameServer
 		{
 			CompiledScriptCache compiledScriptCache = L2ScriptEngineManager.getInstance().getCompiledScriptCache();
 			if (compiledScriptCache == null)
-			{
 				_log.info("Compiled Scripts Cache is disabled.");
-			}
 			else
 			{
 				compiledScriptCache.purge();
@@ -290,9 +310,7 @@ public class GameServer
 					_log.info("Compiled Scripts Cache was saved.");
 				}
 				else
-				{
 					_log.info("Compiled Scripts Cache is up-to-date.");
-				}
 			}
 
 		}
@@ -316,7 +334,7 @@ public class GameServer
 		DayNightSpawnManager.getInstance().notifyChangeMode();
 		RaidBossSpawnManager.getInstance();
 		GrandBossSpawnManager.getInstance();
-		RaidPointsManager.getInstance();
+		RaidPointsManager.init();
 		AutoChatHandler.getInstance();
 		AutoSpawnManager.getInstance();
 		Util.printSection("Economy");
@@ -370,9 +388,7 @@ public class GameServer
 		RemoteAdministrationImpl.getInstance().startServer();
 		PetitionManager.getInstance();
 		if (Config.ONLINE_PLAYERS_ANNOUNCE_INTERVAL > 0)
-		{
 			OnlinePlayers.getInstance();
-		}
 		ForumsBBSManager.getInstance();
 
 		Runtime.getRuntime().addShutdownHook(Shutdown.getInstance());
@@ -386,7 +402,7 @@ public class GameServer
 		SelectorConfig<L2GameClient> sc = new SelectorConfig<L2GameClient>(null, null, gph, gph);
 		sc.setMaxSendPerPass(12);
 		sc.setSelectorSleepTime(20);
-		_selectorThread = new SelectorThread<L2GameClient>(sc, gph, gph, null);
+		_selectorThread = new SelectorThread<L2GameClient>(sc, gph, gph, IOFloodManager.getInstance());
 		_selectorThread.openServerSocket(InetAddress.getByName(Config.GAMESERVER_HOSTNAME), Config.PORT_GAME);
 		_selectorThread.start();
 
