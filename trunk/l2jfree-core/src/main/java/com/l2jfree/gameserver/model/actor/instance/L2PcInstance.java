@@ -8558,7 +8558,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		// Check if this is offensive magic skill
 		if (skill.isOffensive())
 		{
-			if ((isInsidePeaceZone(this, target)) && (getAccessLevel() < Config.GM_PEACEATTACK))
+			if (isInsidePeaceZone(this, target) && (getAccessLevel() < Config.GM_PEACEATTACK))
 			{
 				if (!isInFunEvent() || !target.isInFunEvent())
 				{
