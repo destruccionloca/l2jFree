@@ -35394,3 +35394,9 @@ INSERT INTO `npcskills` (`npcid`,`skillid`,`level`) VALUES
 (36477,4416,14),
 (36478,4045,1),
 (36478,4416,18);
+
+--
+-- L2J-Free Add-ons
+--
+
+DELETE FROM npcskills WHERE skillid IN (5104, 5105);
