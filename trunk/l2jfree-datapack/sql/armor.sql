@@ -2231,4 +2231,7 @@ INSERT INTO `armor` VALUES
 (20248, 'Agathion Seal Bracelet - Yellow-Robed Tojigong Greater Heal', 'lbracelet', 'false', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '21038-1;3267-1'),
 (20249, 'Agathion Seal Bracelet - Blue-Robed Tojigong Reflect Damage', 'lbracelet', 'false', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '21039-1;3267-1'),
 (20250, 'Agathion Seal Bracelet - Green-Robed Tojigong Mana Regeneration', 'lbracelet', 'false', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '21040-1;3267-1'),
-(20252, 'Agathion Seal Bracelet - Bugbear', 'lbracelet', 'false', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '21041-1;3267-1');
+(20252, 'Agathion Seal Bracelet - Bugbear', 'lbracelet', 'false', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '21041-1;3267-1'),
+(20275, 'Gold Afro', 'dhair', 'false', 'none', 10, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', ''),
+(20276, 'Pink Afro', 'dhair', 'false', 'none', 10, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '');
+
