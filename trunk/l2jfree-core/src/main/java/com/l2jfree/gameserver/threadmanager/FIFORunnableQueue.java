@@ -27,9 +27,13 @@ import com.l2jfree.gameserver.ThreadPoolManager;
  */
 public abstract class FIFORunnableQueue<T extends Runnable> implements Runnable
 {
+	private static final byte NONE = 0;
+	private static final byte QUEUED = 1;
+	private static final byte RUNNING = 2;
+	
 	private final FastList<T> _queue = new FastList<T>();
 	
-	private volatile boolean _running = false;
+	private volatile byte _state = NONE;
 	
 	public final void execute(T t)
 	{
@@ -37,8 +41,10 @@ public abstract class FIFORunnableQueue<T extends Runnable> implements Runnable
 		
 		synchronized (this)
 		{
-			if (_running)
+			if (_state != NONE)
 				return;
+			
+			_state = QUEUED;
 		}
 		
 		ThreadPoolManager.getInstance().execute(this);
@@ -76,10 +82,10 @@ public abstract class FIFORunnableQueue<T extends Runnable> implements Runnable
 			{
 				synchronized (this)
 				{
-					if (_running)
+					if (_state == RUNNING)
 						return;
 					
-					_running = true;
+					_state = RUNNING;
 				}
 				
 				while (!isEmpty())
@@ -89,7 +95,7 @@ public abstract class FIFORunnableQueue<T extends Runnable> implements Runnable
 			{
 				synchronized (this)
 				{
-					_running = false;
+					_state = NONE;
 				}
 			}
 		}
