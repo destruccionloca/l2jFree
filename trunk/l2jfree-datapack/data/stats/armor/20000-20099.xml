@@ -98,15 +98,9 @@
     <for/>
   </item>
   <item id='20098' name="Formal Dress - Event - 1 hour Shadow time">
-    <cond msgId="1518">
-      <player sex="1"/>
-    </cond>
     <for/>
   </item>
   <item id='20099' name="Formal Dress - Event - 7 day limited period">
-    <cond msgId="1518">
-      <player sex="1"/>
-    </cond>
     <for/>
   </item>
 </list>

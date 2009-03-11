@@ -508,7 +508,7 @@
       <sub order="0x40" stat="derangementVuln" val="0.04"/>
     </for>
   </item>
-  <item id='9479' name="Dynasty Earrings - Darkness Resistance">
+  <item id='9479' name="Dynasty Earrings (not used) - Darkness Resistance">
     <!-- Done by BoDiE - Retail verified values -->
     <for>
       <add val='27' order='0x10' stat='mDef'/>
@@ -517,7 +517,7 @@
       <sub order="0x40" stat="darkVuln" val="0.06"/>
     </for>
   </item>
-  <item id='9480' name="Dynasty Necklace - Darkness Resistance">
+  <item id='9480' name="Dynasty Necklace (not used) - Darkness Resistance">
     <!-- Done by BoDiE - Retail verified values -->
     <for>
       <add val='36' order='0x10' stat='mDef'/>
@@ -526,7 +526,7 @@
       <sub order="0x40" stat="darkVuln" val="0.07"/>
     </for>
   </item>
-  <item id='9481' name="Dynasty Ring - Darkness Resistance">
+  <item id='9481' name="Dynasty Ring (not used) - Darkness Resistance">
     <!-- Done by BoDiE - Retail verified values -->
     <for>
       <add val='18' order='0x10' stat='mDef'/>
