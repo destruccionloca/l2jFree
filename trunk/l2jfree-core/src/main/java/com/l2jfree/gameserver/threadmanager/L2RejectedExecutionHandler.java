@@ -31,6 +31,9 @@ public final class L2RejectedExecutionHandler implements RejectedExecutionHandle
 	@Override
 	public void rejectedExecution(Runnable r, ThreadPoolExecutor executor)
 	{
+		if (executor.isShutdown())
+			return;
+		
 		_log.warn(r + " from " + executor, new RejectedExecutionException());
 		
 		if (Thread.currentThread().getPriority() > Thread.NORM_PRIORITY)

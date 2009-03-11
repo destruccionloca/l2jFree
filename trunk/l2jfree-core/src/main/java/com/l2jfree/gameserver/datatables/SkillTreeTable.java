@@ -38,6 +38,7 @@ import com.l2jfree.gameserver.model.L2EnchantSkillLearn.EnchantSkillDetail;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.base.ClassId;
 import com.l2jfree.util.Bunch;
+import com.l2jfree.util.L2Collections;
 
 /**
  * This class ...
@@ -439,9 +440,6 @@ public class SkillTreeTable
 	public L2SkillLearn[] getAvailableSkills(L2PcInstance cha)
 	{
 		Bunch<L2SkillLearn> result = new Bunch<L2SkillLearn>();
-		Bunch<L2SkillLearn> skills = new Bunch<L2SkillLearn>();
-
-		skills.addAll(_fishingSkillTrees);
 
 		//if (skills == null)
 		//{
@@ -450,14 +448,12 @@ public class SkillTreeTable
 		//    return new L2SkillLearn[0];
 		//}
 
-		if (cha.hasDwarvenCraft() && _expandDwarfCraftSkillTrees != null)
-		{
-			skills.addAll(_expandDwarfCraftSkillTrees);
-		}
+		Iterable<L2SkillLearn> iterable = cha.hasDwarvenCraft() ? 
+			L2Collections.concatenatedIterable(_fishingSkillTrees, _expandDwarfCraftSkillTrees) : _fishingSkillTrees;
 
 		L2Skill[] oldSkills = cha.getAllSkills();
 
-		for (L2SkillLearn temp : skills)
+		for (L2SkillLearn temp : iterable)
 		{
 			if (temp.getMinLevel() <= cha.getLevel())
 			{
@@ -485,7 +481,6 @@ public class SkillTreeTable
 			}
 		}
 
-		skills.clear();
 		return result.moveToArray(new L2SkillLearn[result.size()]);
 	}
 

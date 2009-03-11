@@ -189,7 +189,7 @@ public class GameServer
 		}
 		_log.info("IdFactory: Free ObjectID's remaining: " + IdFactory.getInstance().size());
 		RunnableStatsManager.getInstance();
-		ThreadPoolManager.getInstance().startPurgeTask(600000L);
+		ThreadPoolManager.getInstance();
 		if (Config.DEADLOCKCHECK_INTERVAL > 0)
 			DeadlockDetector.getInstance();
 		SQLQueue.getInstance();

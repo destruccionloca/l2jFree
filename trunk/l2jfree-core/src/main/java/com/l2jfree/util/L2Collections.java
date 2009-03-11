@@ -490,4 +490,103 @@ public final class L2Collections
 			throw new UnsupportedOperationException();
 		}
 	}
+	
+	@SuppressWarnings("unchecked")
+	public static <T> Iterable<T> concatenatedIterable(Iterable<? extends T> iterable1, Iterable<? extends T> iterable2)
+	{
+		return new ConcatenatedIterable<T>(iterable1, iterable2);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static <T> Iterable<T> concatenatedIterable(Iterable<? extends T> iterable1,
+		Iterable<? extends T> iterable2, Iterable<? extends T> iterable3)
+	{
+		return new ConcatenatedIterable<T>(iterable1, iterable2, iterable3);
+	}
+	
+	public static <T> Iterable<T> concatenatedIterable(Iterable<? extends T>... iterables)
+	{
+		return new ConcatenatedIterable<T>(iterables);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static <T> Iterator<T> concatenatedIterator(Iterable<? extends T> iterable1, Iterable<? extends T> iterable2)
+	{
+		return new ConcatenatedIterator<T>(iterable1, iterable2);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static <T> Iterator<T> concatenatedIterator(Iterable<? extends T> iterable1,
+		Iterable<? extends T> iterable2, Iterable<? extends T> iterable3)
+	{
+		return new ConcatenatedIterator<T>(iterable1, iterable2, iterable3);
+	}
+	
+	public static <T> Iterator<T> concatenatedIterator(Iterable<? extends T>... iterables)
+	{
+		return new ConcatenatedIterator<T>(iterables);
+	}
+	
+	private static final class ConcatenatedIterable<E> implements Iterable<E>
+	{
+		private final Iterable<? extends E>[] _iterables;
+		
+		private ConcatenatedIterable(Iterable<? extends E>... iterables)
+		{
+			_iterables = iterables;
+		}
+		
+		public Iterator<E> iterator()
+		{
+			return concatenatedIterator(_iterables);
+		}
+	}
+	
+	private static final class ConcatenatedIterator<E> implements Iterator<E>
+	{
+		private final Iterable<? extends E>[] _iterables;
+		
+		private Iterator<? extends E> _iterator;
+		private int _index = -1;
+		
+		private ConcatenatedIterator(Iterable<? extends E>... iterables)
+		{
+			_iterables = iterables;
+			
+			validateIterator();
+		}
+		
+		public boolean hasNext()
+		{
+			validateIterator();
+			
+			return _iterator != null && _iterator.hasNext();
+		}
+		
+		public E next()
+		{
+			if (!hasNext())
+				throw new NoSuchElementException();
+			
+			return _iterator.next();
+		}
+		
+		private void validateIterator()
+		{
+			while (_iterator == null || !_iterator.hasNext())
+			{
+				_index++;
+				
+				if (_index >= _iterables.length)
+					return;
+				
+				_iterator = _iterables[_index].iterator();
+			}
+		}
+		
+		public void remove()
+		{
+			throw new UnsupportedOperationException();
+		}
+	}
 }
