@@ -27,6 +27,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.model.entity.events.CTF;
 import com.l2jfree.gameserver.model.entity.events.DM;
 import com.l2jfree.gameserver.model.entity.events.TvT;
+import com.l2jfree.gameserver.model.entity.events.VIP;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
@@ -164,7 +165,7 @@ public class Potions implements IItemHandler
 			return;
 
 		if ((activeChar._inEventTvT && TvT._started && !Config.TVT_ALLOW_POTIONS) || (activeChar._inEventCTF && CTF._started && !Config.CTF_ALLOW_POTIONS)
-				|| (activeChar._inEventDM && DM._started && !Config.DM_ALLOW_POTIONS))
+				|| (activeChar._inEventDM && DM._started && !Config.DM_ALLOW_POTIONS) || (activeChar._inEventVIP && VIP._started && !Config.VIP_ALLOW_POTIONS))
 		{
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;

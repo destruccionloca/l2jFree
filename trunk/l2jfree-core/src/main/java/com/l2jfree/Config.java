@@ -2451,9 +2451,7 @@ public final class Config
 	// *******************************************************************************************
 	public static final String	FUN_ENGINES_FILE	= "./config/fun_engines.properties";
 	// *******************************************************************************************
-	public static String		TVT_EVEN_TEAMS;
 	public static String		CTF_EVEN_TEAMS;
-	public static String		FortressSiege_EVEN_TEAMS;
 	public static boolean		CTF_ALLOW_INTERFERENCE;
 	public static boolean		CTF_ALLOW_POTIONS;
 	public static boolean		CTF_ALLOW_SUMMON;
@@ -2464,16 +2462,7 @@ public final class Config
 	public static boolean		CTF_JOIN_CURSED;
 	public static boolean		CTF_REVIVE_RECOVERY;
 	public static long			CTF_REVIVE_DELAY;
-	public static boolean		FortressSiege_SAME_IP_PLAYERS_ALLOWED;
-	public static boolean		FortressSiege_ALLOW_INTERFERENCE;
-	public static boolean		FortressSiege_ALLOW_POTIONS;
-	public static boolean		FortressSiege_ALLOW_SUMMON;
-	public static boolean		FortressSiege_ON_START_REMOVE_ALL_EFFECTS;
-	public static boolean		FortressSiege_ON_START_UNSUMMON_PET;
-	public static boolean		FortressSiege_ANNOUNCE_TEAM_STATS;
-	public static boolean		FortressSiege_JOIN_CURSED;
-	public static boolean		FortressSiege_REVIVE_RECOVERY;
-	public static boolean		FortressSiege_PRICE_NO_KILLS;
+	public static String		TVT_EVEN_TEAMS;
 	public static boolean		TVT_ALLOW_INTERFERENCE;
 	public static boolean		TVT_ALLOW_POTIONS;
 	public static boolean		TVT_ALLOW_SUMMON;
@@ -2491,6 +2480,11 @@ public final class Config
 	public static boolean		DM_ON_START_REMOVE_ALL_EFFECTS;
 	public static boolean		DM_ON_START_UNSUMMON_PET;
 	public static long			DM_REVIVE_DELAY;
+	public static boolean		VIP_ALLOW_INTERFERENCE;
+	public static boolean		VIP_ALLOW_POTIONS;
+	public static boolean		VIP_ON_START_REMOVE_ALL_EFFECTS;
+	public static int			VIP_MIN_LEVEL;
+	public static int			VIP_MAX_LEVEL;
 	public static boolean		FALLDOWNONDEATH;
 	public static boolean		ARENA_ENABLED;
 	public static int			ARENA_INTERVAL;
@@ -2509,18 +2503,6 @@ public final class Config
 		try
 		{
 			Properties funEnginesSettings = new L2Properties(FUN_ENGINES_FILE);
-
-			FortressSiege_EVEN_TEAMS = funEnginesSettings.getProperty("FortressSiegeEvenTeams", "BALANCE");
-			FortressSiege_SAME_IP_PLAYERS_ALLOWED = Boolean.parseBoolean(funEnginesSettings.getProperty("FortressSiegeSameIPPlayersAllowed", "false"));
-			FortressSiege_ALLOW_INTERFERENCE = Boolean.parseBoolean(funEnginesSettings.getProperty("FortressSiegeAllowInterference", "false"));
-			FortressSiege_ALLOW_POTIONS = Boolean.parseBoolean(funEnginesSettings.getProperty("FortressSiegeAllowPotions", "false"));
-			FortressSiege_ALLOW_SUMMON = Boolean.parseBoolean(funEnginesSettings.getProperty("FortressSiegeAllowSummon", "false"));
-			FortressSiege_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(funEnginesSettings.getProperty("FortressSiegeOnStartRemoveAllEffects", "true"));
-			FortressSiege_ON_START_UNSUMMON_PET = Boolean.parseBoolean(funEnginesSettings.getProperty("FortressSiegeOnStartUnsummonPet", "true"));
-			FortressSiege_REVIVE_RECOVERY = Boolean.parseBoolean(funEnginesSettings.getProperty("FortressSiegeReviveRecovery", "false"));
-			FortressSiege_ANNOUNCE_TEAM_STATS = Boolean.parseBoolean(funEnginesSettings.getProperty("FortressSiegeAnnounceTeamStats", "false"));
-			FortressSiege_PRICE_NO_KILLS = Boolean.parseBoolean(funEnginesSettings.getProperty("FortressSiegePriceNoKills", "false"));
-			FortressSiege_JOIN_CURSED = Boolean.parseBoolean(funEnginesSettings.getProperty("FortressSiegeJoinWithCursedWeapon", "true"));
 
 			CTF_EVEN_TEAMS = funEnginesSettings.getProperty("CTFEvenTeams", "BALANCE");
 			CTF_ALLOW_INTERFERENCE = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFAllowInterference", "false"));
@@ -2559,6 +2541,16 @@ public final class Config
 			DM_REVIVE_DELAY = Long.parseLong(funEnginesSettings.getProperty("DMReviveDelay", "20000"));
 			if (DM_REVIVE_DELAY < 1000)
 				DM_REVIVE_DELAY = 1000; //can't be set less then 1 second
+			
+			VIP_ALLOW_INTERFERENCE = Boolean.parseBoolean(funEnginesSettings.getProperty("VIPAllowInterference", "false"));
+			VIP_ALLOW_POTIONS = Boolean.parseBoolean(funEnginesSettings.getProperty("VIPAllowPotions", "false"));
+			VIP_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(funEnginesSettings.getProperty("VIPOnStartRemoveAllEffects", "true"));
+			VIP_MIN_LEVEL = Integer.parseInt(funEnginesSettings.getProperty("VIPMinLevel", "1"));
+			if (VIP_MIN_LEVEL < 1)
+				VIP_MIN_LEVEL = 1; //can't be set less then lvl 1
+			VIP_MAX_LEVEL = Integer.parseInt(funEnginesSettings.getProperty("VIPMaxLevel", "85"));
+			if (VIP_MAX_LEVEL < VIP_MIN_LEVEL)
+				VIP_MAX_LEVEL = VIP_MIN_LEVEL + 1; //can't be set less then Min Level
 
 			FALLDOWNONDEATH = Boolean.parseBoolean(funEnginesSettings.getProperty("FallDownOnDeath", "true"));
 
@@ -3773,20 +3765,16 @@ public final class Config
 		else if (pName.equalsIgnoreCase("MenuStyle"))
 			GM_ADMIN_MENU_STYLE = pValue;
 
-		else if (pName.equalsIgnoreCase("FortressSiegeEvenTeams"))
-			FortressSiege_EVEN_TEAMS = pValue;
-		else if (pName.equalsIgnoreCase("FortressSiegeSameIPPlayersAllowed"))
-			FortressSiege_SAME_IP_PLAYERS_ALLOWED = Boolean.parseBoolean(pValue);
-		else if (pName.equalsIgnoreCase("FortressSiegeAllowInterference"))
-			FortressSiege_ALLOW_INTERFERENCE = Boolean.parseBoolean(pValue);
-		else if (pName.equalsIgnoreCase("FortressSiegeAllowPotions"))
-			FortressSiege_ALLOW_POTIONS = Boolean.parseBoolean(pValue);
-		else if (pName.equalsIgnoreCase("FortressSiegeAllowSummon"))
-			FortressSiege_ALLOW_SUMMON = Boolean.parseBoolean(pValue);
-		else if (pName.equalsIgnoreCase("FortressSiegeOnStartRemoveAllEffects"))
-			FortressSiege_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(pValue);
-		else if (pName.equalsIgnoreCase("FortressSiegeOnStartUnsummonPet"))
-			FortressSiege_ON_START_UNSUMMON_PET = Boolean.parseBoolean(pValue);
+		else if (pName.equalsIgnoreCase("VIPAllowInterference"))
+			VIP_ALLOW_INTERFERENCE = Boolean.parseBoolean(pValue);
+		else if (pName.equalsIgnoreCase("VIPAllowPotions"))
+			VIP_ALLOW_POTIONS = Boolean.parseBoolean(pValue);
+		else if (pName.equalsIgnoreCase("VIPOnStartRemoveAllEffects"))
+			VIP_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(pValue);
+		else if (pName.equalsIgnoreCase("VIPMinLevel"))
+			VIP_MIN_LEVEL = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("VIPMaxLevel"))
+			VIP_MAX_LEVEL = Integer.parseInt(pValue);
 
 		else if (pName.equalsIgnoreCase("CTFEvenTeams"))
 			CTF_EVEN_TEAMS = pValue;

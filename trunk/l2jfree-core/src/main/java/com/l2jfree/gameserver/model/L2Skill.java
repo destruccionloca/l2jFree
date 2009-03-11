@@ -47,6 +47,7 @@ import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.model.entity.events.CTF;
 import com.l2jfree.gameserver.model.entity.events.DM;
 import com.l2jfree.gameserver.model.entity.events.TvT;
+import com.l2jfree.gameserver.model.entity.events.VIP;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
@@ -2486,13 +2487,15 @@ public class L2Skill
 					
 					//check if allow interference is allowed if player is not on event but target is on event
 					if (((TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (CTF._started && !Config.CTF_ALLOW_INTERFERENCE)
-							|| (DM._started && !Config.DM_ALLOW_INTERFERENCE)) && !player.isGM())
+							|| (DM._started && !Config.DM_ALLOW_INTERFERENCE) || (VIP._started && !Config.VIP_ALLOW_INTERFERENCE)) && !player.isGM())
 					{
 						if ((partyMember._inEventTvT && !player._inEventTvT) || (!partyMember._inEventTvT && player._inEventTvT))
 							continue;
 						if ((partyMember._inEventCTF && !player._inEventCTF) || (!partyMember._inEventCTF && player._inEventCTF))
 							continue;
-						else if ((partyMember._inEventDM && !player._inEventDM) || (!partyMember._inEventDM && player._inEventDM))
+						if ((partyMember._inEventDM && !player._inEventDM) || (!partyMember._inEventDM && player._inEventDM))
+							continue;
+						else if ((partyMember._inEventVIP && !player._inEventVIP) || (!partyMember._inEventVIP && player._inEventVIP))
 							continue;
 					}
 

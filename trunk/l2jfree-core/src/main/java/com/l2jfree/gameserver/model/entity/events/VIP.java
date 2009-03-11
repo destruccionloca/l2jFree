@@ -29,12 +29,14 @@ import javolution.text.TextBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.Announcements;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.SpawnTable;
+import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.base.Race;
@@ -50,7 +52,7 @@ public class VIP {
 	private final static Log _log = LogFactory.getLog(VIP.class.getName());
 	public static String	_teamName = "", _joinArea = "";
 	
-	public static int	   _time = 0, _winners = 0,
+	public static int	   _time = 0, _winners = 0, _minPlayers = 0,
 							_vipReward = 0, _vipRewardAmount = 0,
 							_notVipReward = 0, _notVipRewardAmount = 0,
 							_theVipReward = 0, _theVipRewardAmount = 0,
@@ -102,10 +104,51 @@ public class VIP {
 		setLoc();
 	}
 	
+	public static void setTeam(String team){
+		if (team.compareToIgnoreCase("Human") == 0){
+			_team = 1;
+			_teamName = "Human";
+		}
+		else if (team.compareToIgnoreCase("Elf") == 0){
+			_team = 2;
+			_teamName = "Elf";
+		}
+		else if (team.compareToIgnoreCase("Dark") == 0){
+			_team = 3;
+			_teamName = "Dark Elf";
+		}
+		else if (team.compareToIgnoreCase("Orc") == 0){
+			_team = 4;
+			_teamName = "Orc";
+		}
+		else if (team.compareToIgnoreCase("Dwarf") == 0){
+			_team = 5;
+			_teamName = "Dwarf";
+		}
+		setLoc();
+	}
+	
 	/**
 	 * @param activeChar  
 	 */
 	public static void setRandomTeam(L2PcInstance activeChar)
+	{
+		int random = Rnd.nextInt(5) + 1; // (0 - 4) + 1
+		
+		if (_log.isDebugEnabled())_log.debug("Random number generated in setRandomTeam(): " + random);
+		
+		switch (random)
+		{
+			case 1: _team = 1; _teamName = "Human"; setLoc(); break;
+			case 2: _team = 2; _teamName = "Elf"; setLoc(); break;
+			case 3: _team = 3; _teamName = "Dark"; setLoc(); break;
+			case 4: _team = 4; _teamName = "Orc"; setLoc(); break;
+			case 5: _team = 5; _teamName = "Dwarf"; setLoc(); break;
+			default: break;
+		}
+	}
+	
+	public static void setAutoRandomTeam()
 	{
 		int random = Rnd.nextInt(5) + 1; // (0 - 4) + 1
 		
@@ -176,6 +219,32 @@ public class VIP {
 			activeChar.sendMessage("VIP Engine[endNPC(" + activeChar.getName() + ")]: exception: " + e.getMessage());
 		}
 	}
+	
+	public static void endNPC(int npcId)
+	{
+		if (_team == 0)
+		{
+			return;
+		}
+		
+		L2NpcTemplate npctmp = NpcTable.getInstance().getTemplate(npcId);
+		_endNPC = npcId;
+		
+		try
+		{
+			_endSpawn = new L2Spawn(npctmp);
+			_endSpawn.setLocx(_endX);
+			_endSpawn.setLocy(_endY);
+			_endSpawn.setLocz(_endZ);
+			_endSpawn.setAmount(1);
+			_endSpawn.setHeading(0);
+			_endSpawn.setRespawnDelay(1);
+		}
+		catch (Exception e)
+		{
+			_log.error("VIP Engine[endNPC]: exception: " + e.getMessage());
+		}
+	}
 
 	public static void joinNPC(int npcId, L2PcInstance activeChar)
 	{
@@ -201,6 +270,32 @@ public class VIP {
 		catch (Exception e)
 		{
 			activeChar.sendMessage("VIP Engine[joinNPC(" + activeChar.getName() + ")]: exception: " + e.getMessage());
+		}
+	}
+	
+	public static void joinNPC(int npcId)
+	{
+		if (_joinX == 0)
+		{
+			return;
+		}
+		
+		L2NpcTemplate npctmp = NpcTable.getInstance().getTemplate(npcId);
+		_joinNPC = npcId;
+		
+		try
+		{
+			_joinSpawn = new L2Spawn(npctmp);
+			_joinSpawn.setLocx(_joinX);
+			_joinSpawn.setLocy(_joinY);
+			_joinSpawn.setLocz(_joinZ);
+			_joinSpawn.setAmount(1);
+			_joinSpawn.setHeading(0);
+			_joinSpawn.setRespawnDelay(1);
+		}
+		catch (Exception e)
+		{
+			_log.error("VIP Engine[joinNPC]: exception: " + e.getMessage());
 		}
 	}
 
@@ -258,6 +353,24 @@ public class VIP {
 			return "";
 
 		L2NpcTemplate npctmp = NpcTable.getInstance().getTemplate(id);
+		if (npctmp == null)
+		{
+			activeChar.sendMessage("VIP Engine[joinNPC(" + activeChar.getName() + ")]: exception: wrong NPC Id");
+			return "";
+		}
+		
+		return npctmp.getName();
+	}
+	
+	public static String getNPCName(int id)
+	{
+		if (id == 0)
+			return "";
+
+		L2NpcTemplate npctmp = NpcTable.getInstance().getTemplate(id);
+		if (npctmp == null)		
+			return "";
+		
 		return npctmp.getName();
 	}
 
@@ -271,6 +384,24 @@ public class VIP {
 			return "";
 
 		L2Item itemtmp = ItemTable.getInstance().getTemplate(id);
+		if(itemtmp == null)
+		{
+			activeChar.sendMessage("VIP Engine[joinNPC(" + activeChar.getName() + ")]: exception: wrong item Id");
+			return "";
+		}
+		
+		return itemtmp.getName();
+	}
+	
+	public static String getItemName(int id)
+	{
+		if (id == 0)
+			return "";
+
+		L2Item itemtmp = ItemTable.getInstance().getTemplate(id);
+		if(itemtmp == null)		
+			return "";
+		
 		return itemtmp.getName();
 	}
 
@@ -324,42 +455,97 @@ public class VIP {
 		}, _delay);
 	}
 	
-	public static void startEvent()
+	public static void startAutoJoin()
 	{
-		Announcements.getInstance().announceToAll("Registration for the VIP event involving " + _teamName + " has ended.");
-		Announcements.getInstance().announceToAll("Players will be teleported to their locations in 20 seconds.");
+		if (_teamName == "" || _joinArea == "" || _time == 0 || _vipReward == 0 || _vipRewardAmount == 0 || _notVipReward == 0 || 
+				_notVipRewardAmount == 0 || _theVipReward == 0 || _theVipRewardAmount == 0 ||
+				_endNPC == 0 || _joinNPC == 0 || _delay == 0 || _endX == 0 || _endY == 0 || _endZ == 0 ||
+				_startX == 0 || _startY == 0 || _startZ == 0 || _joinX == 0 || _joinY == 0 || _joinZ == 0 || _team == 0 )
+		{
+			_log.error("VIP Engine : Cannot initiate join status of event, not all the values are filled in");
+			return;
+		}
+		
+		if (_joining)
+		{
+			_log.error("VIP Engine : Players are already allowed to join the event");
+			return;
+		}
+		
+		if (_started)
+		{
+			_log.error("VIP Engine : Event already started. Please wait for it to finish or finish it manually");
+			return;
+		}
+		
+		_joining = true;
+		Announcements.getInstance().announceToAll("Attention all players. An event is about to start!");
+		Announcements.getInstance().announceToAll("At this time you are able to join a VIP event which will start in " + _delay/1000/60 + " mins.");
+		Announcements.getInstance().announceToAll("In this event the " + _teamName + " characters must safely escort a certain player from one location to their starter town");
+		Announcements.getInstance().announceToAll("Players will automatically be assigned to their respective teams");
+		Announcements.getInstance().announceToAll("Please find " + getNPCName(VIP._joinNPC) + " located in " + _joinArea + " to sign up.");
+		
+		spawnJoinNPC();
 		
 		ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
 		{
 			public void run()
 			{
-				teleportPlayers();
-				chooseVIP();
-				setUserData();
-				Announcements.getInstance().announceToAll("Players have been teleported for the VIP event.");
-				Announcements.getInstance().announceToAll("VIP event will start in 20 seconds.");
-				spawnEndNPC();
-				
-				ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
-				{
-					public void run()
-					{
-						Announcements.getInstance().announceToAll("VIP event has started. " + _teamName + "'s VIP must get to the starter city and talk with " + getNPCName(_endNPC, null) + ". The opposing team must kill the VIP. All players except the VIP will respawn at their current locations.");
-						Announcements.getInstance().announceToAll("VIP event will end if the " + _teamName + " team makes it to their town or when " + _time/1000/60 + " mins have elapsed.");
-						VIP.sit();
-						
-						ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
-						{
-							public void run()
-							{
-								endEventTime();
-							}
-						}, _time);
-					}
-				}, 20000);
-				
+				_joining = false;
+				_started = true;
+				startEvent();
 			}
-		}, 20000);
+		}, _delay);
+	}
+	
+	public static void startEvent()
+	{
+		if ((_playersVIP.size() + _playersNotVIP.size()) < _minPlayers)
+		{
+			Announcements.getInstance().announceToAll("Registration for the VIP event involving " + _teamName + " has ended.");
+			Announcements.getInstance().announceToAll("Event aborted due not enought players : min players requested for event " + _minPlayers);
+			_started = false;
+			spawnEndNPC();
+			unspawnEventNpcs();
+			VIP.clean();
+		}
+		else
+		{
+			Announcements.getInstance().announceToAll("Registration for the VIP event involving " + _teamName + " has ended.");
+			Announcements.getInstance().announceToAll("Players will be teleported to their locations in 20 seconds.");
+			
+			ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
+			{
+				public void run()
+				{
+					teleportPlayers();
+					chooseVIP();
+					setUserData();
+					Announcements.getInstance().announceToAll("Players have been teleported for the VIP event.");
+					Announcements.getInstance().announceToAll("VIP event will start in 20 seconds.");
+					spawnEndNPC();
+					
+					ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
+					{
+						public void run()
+						{
+							Announcements.getInstance().announceToAll("VIP event has started. " + _teamName + "'s VIP must get to the starter city and talk with " + getNPCName(_endNPC, null) + ". The opposing team must kill the VIP. All players except the VIP will respawn at their current locations.");
+							Announcements.getInstance().announceToAll("VIP event will end if the " + _teamName + " team makes it to their town or when " + _time/1000/60 + " mins have elapsed.");
+							VIP.sit();
+							
+							ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
+							{
+								public void run()
+								{
+									endEventTime();
+								}
+							}, _time);
+						}
+					}, 20000);
+					
+				}
+			}, 20000);
+		}
 	}
 	
 	public static void vipDied()
@@ -670,12 +856,28 @@ public class VIP {
 			
 			player.setKarma(0);
 			player.broadcastUserInfo();
+			if (Config.VIP_ON_START_REMOVE_ALL_EFFECTS)
+			{
+				for (L2Effect e : player.getAllEffects())
+				{
+					if (e != null)
+						e.exit();
+				}
+			}
 		}
 		for (L2PcInstance player : _playersNotVIP)
 		{
 			player.getAppearance().setNameColor(0,255,0);
 			player.setKarma(0);
 			player.broadcastUserInfo();
+			if (Config.VIP_ON_START_REMOVE_ALL_EFFECTS)
+			{
+				for (L2Effect e : player.getAllEffects())
+				{
+					if (e != null)
+						e.exit();
+				}
+			}
 		}
 	}
 	
@@ -697,6 +899,13 @@ public class VIP {
 				if (_playersVIP.contains(eventPlayer) || _playersNotVIP.contains(eventPlayer))
 				{
 					replyMSG.append("You are already on a team<br><br>");
+				}
+				else if (eventPlayer.getLevel() < Config.VIP_MIN_LEVEL || eventPlayer.getLevel() > Config.VIP_MAX_LEVEL)
+				{
+					replyMSG.append("Your level : <font color=\"00FF00\">" + eventPlayer.getLevel() + "</font><br>");
+					replyMSG.append("Min level : <font color=\"00FF00\">" + Config.VIP_MIN_LEVEL + "</font><br>");
+					replyMSG.append("Max level : <font color=\"00FF00\">" + Config.VIP_MAX_LEVEL + "</font><br><br>");
+					replyMSG.append("<font color=\"FFFF00\">You can't participate in this event.</font><br>");
 				}
 				else
 				{
