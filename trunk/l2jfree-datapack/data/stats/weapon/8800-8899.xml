@@ -10,6 +10,9 @@
       <set val='433' order='0x08' stat='pAtkSpd'/>
       <enchant val='0' order='0x0C' stat='pAtk'/>
       <enchant val='0' order='0x0C' stat='mAtk'/>
+      <!-- Enhances damage to target during PvP -->
+      <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+      <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
     </for>
   </item>
   <item id='8801' name="Naga Storm - Critical Damage">
@@ -42,7 +45,7 @@
       <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
     </for>
   </item>
-  <item id='8803' name="Tiphon\'s Spear - Critical Stun">
+  <item id='8803' name="Tiphon's Spear - Critical Stun">
     <for>
       <set val='251' order='0x08' stat='pAtk'/>
       <set val='121' order='0x08' stat='mAtk'/>
@@ -57,7 +60,7 @@
       <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
     </for>
   </item>
-  <item id='8804' name="Tiphon\'s Spear - Towering Blow">
+  <item id='8804' name="Tiphon's Spear - Towering Blow">
     <for>
       <set val='251' order='0x08' stat='pAtk'/>
       <set val='121' order='0x08' stat='mAtk'/>
@@ -74,7 +77,7 @@
       <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
     </for>
   </item>
-  <item id='8805' name="Tiphon\'s Spear - Wild Blow">
+  <item id='8805' name="Tiphon's Spear - Wild Blow">
     <for>
       <set val='251' order='0x08' stat='pAtk'/>
       <set val='121' order='0x08' stat='mAtk'/>
@@ -91,7 +94,7 @@
       <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
     </for>
   </item>
-  <item id='8806' name="Shyeed\'s Bow - Cheap Shot">
+  <item id='8806' name="Shyeed's Bow - Cheap Shot">
     <for>
       <set val='570' order='0x08' stat='pAtk'/>
       <set val='133' order='0x08' stat='mAtk'/>
@@ -112,7 +115,7 @@
       <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
     </for>
   </item>
-  <item id='8807' name="Shyeed\'s Bow - Focus">
+  <item id='8807' name="Shyeed's Bow - Focus">
     <for>
       <set val='570' order='0x08' stat='pAtk'/>
       <set val='133' order='0x08' stat='mAtk'/>
@@ -121,9 +124,12 @@
       <set val='227' order='0x08' stat='pAtkSpd'/>
       <enchant val='0' order='0x0C' stat='pAtk'/>
       <enchant val='0' order='0x0C' stat='mAtk'/>
+      <!-- Enhances damage to target during PvP -->
+      <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+      <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
     </for>
   </item>
-  <item id='8808' name="Shyeed\'s Bow - Quick Recovery">
+  <item id='8808' name="Shyeed's Bow - Quick Recovery">
     <for>
       <set val='570' order='0x08' stat='pAtk'/>
       <set val='133' order='0x08' stat='mAtk'/>
@@ -139,7 +145,7 @@
       <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
     </for>
   </item>
-  <item id='8809' name="Sobekk\'s Hurricane - Rsk. Haste">
+  <item id='8809' name="Sobekk's Hurricane - Rsk. Haste">
     <for>
       <set val='305' order='0x08' stat='pAtk'/>
       <set val='121' order='0x08' stat='mAtk'/>
@@ -153,7 +159,7 @@
       <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
     </for>
   </item>
-  <item id='8810' name="Sobekk\'s Hurricane - Haste">
+  <item id='8810' name="Sobekk's Hurricane - Haste">
     <for>
       <set val='305' order='0x08' stat='pAtk'/>
       <set val='121' order='0x08' stat='mAtk'/>
@@ -164,7 +170,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8811' name="Sobekk\'s Hurricane - Critical Drain">
+  <item id='8811' name="Sobekk's Hurricane - Critical Drain">
     <for>
       <set val='305' order='0x08' stat='pAtk'/>
       <set val='121' order='0x08' stat='mAtk'/>
@@ -178,7 +184,7 @@
       <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
     </for>
   </item>
-  <item id='8812' name="Themis\' Tongue - Mana Up">
+  <item id='8812' name="Themis' Tongue - Mana Up">
     <for>
       <set val='202' order='0x08' stat='pAtk'/>
       <set val='161' order='0x08' stat='mAtk'/>
@@ -189,21 +195,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8813' name="Themis\' Tongue - Magic Mental Shield">
-    <for>
-      <set val='202' order='0x08' stat='pAtk'/>
-      <set val='161' order='0x08' stat='mAtk'/>
-      <set val='8' order='0x08' stat='rCrit'/>
-      <add val='0' order='0x10' stat='accCombat'/>
-      <set val='379' order='0x08' stat='pAtkSpd'/>
-      <enchant val='0' order='0x0C' stat='pAtk'/>
-      <enchant val='0' order='0x0C' stat='mAtk'/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
-      <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
-    </for>
-  </item>
-  <item id='8814' name="Themis\' Tongue - Magic Focus">
+  <item id='8813' name="Themis' Tongue - Magic Mental Shield">
     <for>
       <set val='202' order='0x08' stat='pAtk'/>
       <set val='161' order='0x08' stat='mAtk'/>
@@ -217,7 +209,21 @@
       <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
     </for>
   </item>
-  <item id='8815' name="Cabrio\'s Hand - Conversion">
+  <item id='8814' name="Themis' Tongue - Magic Focus">
+    <for>
+      <set val='202' order='0x08' stat='pAtk'/>
+      <set val='161' order='0x08' stat='mAtk'/>
+      <set val='8' order='0x08' stat='rCrit'/>
+      <add val='0' order='0x10' stat='accCombat'/>
+      <set val='379' order='0x08' stat='pAtkSpd'/>
+      <enchant val='0' order='0x0C' stat='pAtk'/>
+      <enchant val='0' order='0x0C' stat='mAtk'/>
+      <!-- Enhances damage to target during PvP -->
+      <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+      <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
+    </for>
+  </item>
+  <item id='8815' name="Cabrio's Hand - Conversion">
     <for>
       <set val='202' order='0x08' stat='pAtk'/>
       <set val='161' order='0x08' stat='mAtk'/>
@@ -228,7 +234,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8816' name="Cabrio\'s Hand - Mana Up">
+  <item id='8816' name="Cabrio's Hand - Mana Up">
     <for>
       <set val='202' order='0x08' stat='pAtk'/>
       <set val='161' order='0x08' stat='mAtk'/>
@@ -239,7 +245,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8817' name="Cabrio\'s Hand - Magic Silence">
+  <item id='8817' name="Cabrio's Hand - Magic Silence">
     <for>
       <set val='202' order='0x08' stat='pAtk'/>
       <set val='161' order='0x08' stat='mAtk'/>
@@ -248,6 +254,9 @@
       <set val='379' order='0x08' stat='pAtkSpd'/>
       <enchant val='0' order='0x0C' stat='pAtk'/>
       <enchant val='0' order='0x0C' stat='mAtk'/>
+      <!-- Enhances damage to target during PvP -->
+      <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+      <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
     </for>
   </item>
   <item id='8818' name="Daimon Crystal - Mana Up">
@@ -487,7 +496,7 @@
       <set val='325' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8843' name="Shadow Item: Pa\'agrian Hammer">
+  <item id='8843' name="Shadow Item: Pa'agrian Hammer">
     <for>
       <set val='135' order='0x08' stat='pAtk'/>
       <set val='101' order='0x08' stat='mAtk'/>
@@ -514,7 +523,7 @@
       <set val='227' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8846' name="Shadow Item: Pa\'agrian Sword">
+  <item id='8846' name="Shadow Item: Pa'agrian Sword">
     <for>
       <set val='169' order='0x08' stat='pAtk'/>
       <set val='76' order='0x08' stat='mAtk'/>
@@ -559,7 +568,7 @@
       <set val='379' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8851' name="Shadow Item: Sprite\'s Staff">
+  <item id='8851' name="Shadow Item: Sprite's Staff">
     <for>
       <set val='170' order='0x08' stat='pAtk'/>
       <set val='122' order='0x08' stat='mAtk'/>
@@ -651,7 +660,7 @@
       <set val='66' order='0x08' stat='pAtkRange'/>
     </for>
   </item>
-  <item id='8861' name="Shadow Item: Dasparion\'s Staff">
+  <item id='8861' name="Shadow Item: Dasparion's Staff">
     <for>
       <set val='207' order='0x08' stat='pAtk'/>
       <set val='143' order='0x08' stat='mAtk'/>

@@ -141,6 +141,7 @@ WALKS  = {
 "27"     : [-56702,-56340,-2008,"29",1800]
 }
 
+
 class MC_Show(JQuest) :
   def __init__(self,id,name,descr):
      JQuest.__init__(self,id,name,descr)
@@ -272,7 +273,7 @@ class MC_Show(JQuest) :
     elif event in ["social1","social1_1"] and npc :
        npc.broadcastPacket(SocialAction(npc.getObjectId(),1))
     elif event == "clean_npc" and npc :
-       if npc.getNpcId() in [self.MC, self.circus[0], self.circus[1], self.circus[2],self.circus[3],self.circus[4]] :
+       if npc.getNpcId() in [self.circus[0], self.circus[1], self.circus[2],self.circus[3],self.circus[4]] :
           self.isSpawned = 0
        npc.deleteMe()
     return 

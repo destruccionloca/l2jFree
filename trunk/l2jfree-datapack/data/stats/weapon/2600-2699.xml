@@ -16,7 +16,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2601' name="Raid Sword*Sword Of Limit">
+  <item id='2601' name="Raid Sword*Sword of Limit">
     <for>
       <set val='204' order='0x08' stat='pAtk'/>
       <set val='89' order='0x08' stat='mAtk'/>
@@ -32,7 +32,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2602' name="Raid Sword*Sword Of Delusion">
+  <item id='2602' name="Raid Sword*Sword of Delusion">
     <for>
       <set val='204' order='0x08' stat='pAtk'/>
       <set val='89' order='0x08' stat='mAtk'/>
@@ -48,7 +48,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2603' name="Raid Sword*Sword Of Nightmare">
+  <item id='2603' name="Raid Sword*Sword of Nightmare">
     <for>
       <set val='204' order='0x08' stat='pAtk'/>
       <set val='89' order='0x08' stat='mAtk'/>
@@ -112,7 +112,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2607' name="Caliburs*Sword Of Limit">
+  <item id='2607' name="Caliburs*Sword of Limit">
     <for>
       <set val='213' order='0x08' stat='pAtk'/>
       <set val='91' order='0x08' stat='mAtk'/>
@@ -128,7 +128,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2608' name="Caliburs*Sword Of Delusion">
+  <item id='2608' name="Caliburs*Sword of Delusion">
     <for>
       <set val='213' order='0x08' stat='pAtk'/>
       <set val='91' order='0x08' stat='mAtk'/>
@@ -144,7 +144,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2609' name="Caliburs*Sword Of Nightmare">
+  <item id='2609' name="Caliburs*Sword of Nightmare">
     <for>
       <set val='213' order='0x08' stat='pAtk'/>
       <set val='91' order='0x08' stat='mAtk'/>
@@ -191,7 +191,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2612' name="Sword Of Limit*Sword Of Limit">
+  <item id='2612' name="Sword of Limit*Sword of Limit">
     <for>
       <set val='213' order='0x08' stat='pAtk'/>
       <set val='91' order='0x08' stat='mAtk'/>
@@ -207,7 +207,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2613' name="Sword Of Limit*Sword Of Delusion">
+  <item id='2613' name="Sword of Limit*Sword of Delusion">
     <for>
       <set val='213' order='0x08' stat='pAtk'/>
       <set val='91' order='0x08' stat='mAtk'/>
@@ -223,7 +223,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2614' name="Sword Of Limit*Sword Of Nightmare">
+  <item id='2614' name="Sword of Limit*Sword of Nightmare">
     <for>
       <set val='213' order='0x08' stat='pAtk'/>
       <set val='91' order='0x08' stat='mAtk'/>
@@ -239,7 +239,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2615' name="Sword Of Limit*Tsurugi">
+  <item id='2615' name="Sword of Limit*Tsurugi">
     <for>
       <set val='213' order='0x08' stat='pAtk'/>
       <set val='91' order='0x08' stat='mAtk'/>
@@ -255,7 +255,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2616' name="Sword Of Limit*Samurai Long Sword">
+  <item id='2616' name="Sword of Limit*Samurai Long Sword">
     <for>
       <set val='228' order='0x08' stat='pAtk'/>
       <set val='97' order='0x08' stat='mAtk'/>
@@ -270,7 +270,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2617' name="Sword Of Delusion*Sword Of Delusion">
+  <item id='2617' name="Sword of Delusion*Sword of Delusion">
     <for>
       <set val='213' order='0x08' stat='pAtk'/>
       <set val='91' order='0x08' stat='mAtk'/>
@@ -285,7 +285,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2618' name="Sword Of Delusion*Sword Of Nightmare">
+  <item id='2618' name="Sword of Delusion*Sword of Nightmare">
     <for>
       <set val='213' order='0x08' stat='pAtk'/>
       <set val='91' order='0x08' stat='mAtk'/>
@@ -301,7 +301,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2619' name="Sword Of Delusion*Tsurugi">
+  <item id='2619' name="Sword of Delusion*Tsurugi">
     <for>
       <set val='213' order='0x08' stat='pAtk'/>
       <set val='91' order='0x08' stat='mAtk'/>
@@ -317,7 +317,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2620' name="Sword Of Delusion*Samurai Long Sword">
+  <item id='2620' name="Sword of Delusion*Samurai Long Sword">
     <for>
       <set val='228' order='0x08' stat='pAtk'/>
       <set val='97' order='0x08' stat='mAtk'/>
@@ -333,7 +333,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2621' name="Sword Of Nightmare*Sword Of Nightmare">
+  <item id='2621' name="Sword of Nightmare*Sword of Nightmare">
     <for>
       <set val='213' order='0x08' stat='pAtk'/>
       <set val='91' order='0x08' stat='mAtk'/>
@@ -349,7 +349,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2622' name="Sword Of Nightmare*Tsurugi">
+  <item id='2622' name="Sword of Nightmare*Tsurugi">
     <for>
       <set val='213' order='0x08' stat='pAtk'/>
       <set val='91' order='0x08' stat='mAtk'/>
@@ -365,7 +365,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2623' name="Sword Of Nightmare*Samurai Long Sword">
+  <item id='2623' name="Sword of Nightmare*Samurai Long Sword">
     <for>
       <set val='228' order='0x08' stat='pAtk'/>
       <set val='97' order='0x08' stat='mAtk'/>

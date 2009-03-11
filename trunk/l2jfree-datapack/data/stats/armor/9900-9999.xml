@@ -31,7 +31,7 @@
   <item id='9920' name="Blue Talisman of Invisibility">
     <for/>
   </item>
-  <item id='9921' name="Blue Talisman of Protection">
+  <item id='9921' name="Blue Talisman - Shield Protection">
     <for/>
   </item>
   <item id='9922' name="Black Talisman - Mending">
@@ -55,10 +55,10 @@
   <item id='9928' name="Red Talisman of Mental Regeneration">
     <for/>
   </item>
-  <item id='9929' name="Blue Talisman of Protection">
+  <item id='9929' name="Blue Talisman - Shield Protection">
     <for/>
   </item>
-  <item id='9930' name="Blue Talisman of Dodging">
+  <item id='9930' name="Blue Talisman of Evasion">
     <for/>
   </item>
   <item id='9931' name="Red Talisman of Meditation">
@@ -103,7 +103,7 @@
   <item id='9944' name="Yellow Talisman of Critical Dodging">
     <for/>
   </item>
-  <item id='9945' name="Yellow Talisman of Dodging">
+  <item id='9945' name="Yellow Talisman of Evasion">
     <for/>
   </item>
   <item id='9946' name="Yellow Talisman of Healing">

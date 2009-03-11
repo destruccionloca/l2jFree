@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "weapons.dtd">
 <list>
-  <item id='8203' name="Monster Only(benom_sword)">
+  <item id='8203' name="Monster Only (Venom Sword)">
     <for>
       <set val='0' order='0x08' stat='pAtk'/>
       <set val='0' order='0x08' stat='mAtk'/>
@@ -10,7 +10,7 @@
       <set val='325' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8204' name="Monster OnlyMonster Only(follower_of_frintessa_calibur)">
+  <item id='8204' name="Monster Only (Follower of Frintezza Calibur)">
     <for>
       <set val='0' order='0x08' stat='pAtk'/>
       <set val='0' order='0x08' stat='mAtk'/>
@@ -19,7 +19,7 @@
       <set val='379' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8205' name="Monster Only(heretic_priest_sickle)">
+  <item id='8205' name="Monster Only (Heretic Priest Sickle)">
     <for>
       <set val='0' order='0x08' stat='pAtk'/>
       <set val='0' order='0x08' stat='mAtk'/>
@@ -28,7 +28,7 @@
       <set val='325' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8206' name="Monster Only(heretic_priest_sword)">
+  <item id='8206' name="Monster Only (Heretic Priest Sword)">
     <for>
       <set val='0' order='0x08' stat='pAtk'/>
       <set val='0' order='0x08' stat='mAtk'/>
@@ -37,7 +37,7 @@
       <set val='325' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8207' name="Monster Only(heretic_privates_axe)">
+  <item id='8207' name="Monster Only (Heretic Private Axe)">
     <for>
       <set val='0' order='0x08' stat='pAtk'/>
       <set val='0' order='0x08' stat='mAtk'/>
@@ -46,7 +46,7 @@
       <set val='325' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8208' name="Monster Only(heretic_privates_staff)">
+  <item id='8208' name="Monster Only (Heretic Private Staff)">
     <for>
       <set val='0' order='0x08' stat='pAtk'/>
       <set val='0' order='0x08' stat='mAtk'/>
@@ -55,7 +55,7 @@
       <set val='325' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8209' name="Monster Only(lidia_von_helmann_sword)">
+  <item id='8209' name="Monster Only (Lidia Von Helmann Sword)">
     <for>
       <set val='0' order='0x08' stat='pAtk'/>
       <set val='0' order='0x08' stat='mAtk'/>
@@ -64,14 +64,14 @@
       <set val='379' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8210' name="Monster Only(monk_warrior_shield)">
+  <item id='8210' name="Monster Only (Monk Warrior Shield)">
     <for>
       <sub val='8' order='0x10' stat='rEvas'/>
       <set val='230' order='0x08' stat='sDef'/>
       <set val='20' order='0x08' stat='rShld'/>
     </for>
   </item>
-  <item id='8211' name="Monster Only(monk_warrior_sword)">
+  <item id='8211' name="Monster Only (Monk Warrior Sword)">
     <for>
       <set val='0' order='0x08' stat='pAtk'/>
       <set val='0' order='0x08' stat='mAtk'/>
@@ -80,7 +80,7 @@
       <set val='379' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8212' name="Monster Only(solina_brother_mace)">
+  <item id='8212' name="Monster Only (Solina Brother Mace)">
     <for>
       <set val='0' order='0x08' stat='pAtk'/>
       <set val='0' order='0x08' stat='mAtk'/>
@@ -89,7 +89,7 @@
       <set val='379' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8213' name="Monster Only(solina_father_mace)">
+  <item id='8213' name="Monster Only (Solina Father Mace)">
     <for>
       <set val='0' order='0x08' stat='pAtk'/>
       <set val='0' order='0x08' stat='mAtk'/>
@@ -98,7 +98,7 @@
       <set val='379' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8214' name="Monster Only(solina_priest_pole)">
+  <item id='8214' name="Monster Only (Solina Priest Pole)">
     <for>
       <set val='0' order='0x08' stat='pAtk'/>
       <set val='0' order='0x08' stat='mAtk'/>
@@ -108,7 +108,7 @@
       <set val='325' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8215' name="Monster Only(zombie_enlisted_man_sword)">
+  <item id='8215' name="Monster Only (Zombie Enlisted Man Sword)">
     <for>
       <set val='0' order='0x08' stat='pAtk'/>
       <set val='0' order='0x08' stat='mAtk'/>
@@ -117,7 +117,7 @@
       <set val='325' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8216' name="Monster Only(zombie_enlisted_man_sword)">
+  <item id='8216' name="Monster Only (Zombie Enlisted Man Claw)">
     <for>
       <set val='0' order='0x08' stat='pAtk'/>
       <set val='0' order='0x08' stat='mAtk'/>
@@ -126,7 +126,7 @@
       <set val='325' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8217' name="Monster Only(zombie_gateguard_spear)">
+  <item id='8217' name="Monster Only (Zombie Gateguard Spear)">
     <for>
       <set val='0' order='0x08' stat='pAtk'/>
       <set val='0' order='0x08' stat='mAtk'/>
@@ -136,7 +136,7 @@
       <set val='379' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8218' name="Monster Only(zombie_laborer_axe)">
+  <item id='8218' name="Monster Only (Zombie Laborer Axe)">
     <for>
       <set val='0' order='0x08' stat='pAtk'/>
       <set val='0' order='0x08' stat='mAtk'/>
@@ -145,7 +145,7 @@
       <set val='379' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8219' name="Monster Only(zombie_laborer_sword)">
+  <item id='8219' name="Monster Only (Zombie Laborer Sword)">
     <for>
       <set val='0' order='0x08' stat='pAtk'/>
       <set val='0' order='0x08' stat='mAtk'/>
@@ -154,7 +154,7 @@
       <set val='379' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8220' name="Monster Only(apostle_grail_bow)">
+  <item id='8220' name="Monster Only (Grail Apostle Bow)">
     <for>
       <set val='0' order='0x08' stat='pAtk'/>
       <set val='0' order='0x08' stat='mAtk'/>
@@ -163,7 +163,7 @@
       <set val='293' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8221' name="Monster Only(apostle_grail_spear)">
+  <item id='8221' name="Monster Only (Grail Apostle Spear)">
     <for>
       <set val='0' order='0x08' stat='pAtk'/>
       <set val='0' order='0x08' stat='mAtk'/>
@@ -173,7 +173,7 @@
       <set val='325' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8222' name="Monster Only(follower_of_frintessa_tran_calibur)">
+  <item id='8222' name="Monster Only (Follower of Frintezza Tran Calibur)">
     <for>
       <set val='0' order='0x08' stat='pAtk'/>
       <set val='0' order='0x08' stat='mAtk'/>

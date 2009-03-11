@@ -748,8 +748,7 @@
     <set name="castRange" val="40" />
     <set name="effectRange" val="400" />
     <for>
-      <effect self="1" count="1" name="Buff" time="15"
-        val="0" stackOrder="40" stackType="speed_up_special">
+      <effect self="1" count="1" name="Buff" time="15" val="0" stackOrder="40" stackType="speed_up_special">
         <add order="0x40" stat="runSpd" val="40" />
       </effect>
       <effect count="1" name="Bluff" time="1" val="0" noicon="1" />
@@ -1393,12 +1392,14 @@
         <mul order="0x30" stat="blowRate" val="1.60"/> <!-- Blow land rate +60% -->
         <mul order="0x30" stat="cAtk" val="0.70"> <!-- Critical Damage from front -30% -->
           <and>
-            <player front="True" />
+            <player front="True"/>
+              <using kind="Dagger"/>
           </and>
         </mul>
         <mul order="0x30" stat="cAtk" val="1.90"> <!-- Critical Damage from back +90% -->
           <and>
             <player behind="True"/>
+              <using kind="Dagger"/>
           </and>
         </mul>
       </effect>
@@ -1420,19 +1421,38 @@
         <basemul order="0x30" stat="rCrit" val="-0.30"> <!-- Critical Chance from front -30% -->
           <and>
             <player front="True"/>
+              <using kind="Dagger"/>
           </and>
         </basemul>
+        <mul order="0x30" stat="blowRate" val="0.70"> <!-- Blow land rate from front -30% -->
+          <and>
+            <player front="True"/>
+          </and>
+        </mul>
         <basemul order="0x30" stat="rCrit" val="0.30"> <!-- Critical Chance from side +30% -->
           <and>
-            <player front="False" />
-            <player behind="False" />
+            <player front="False"/>
+            <player behind="False"/>
+            <using kind="Dagger"/>
           </and>
         </basemul>
+        <mul order="0x30" stat="blowRate" val="1.30"> <!-- Blow land rate from side +30% -->
+          <and>
+            <player front="False"/>
+            <player behind="False"/>
+          </and>
+        </mul>
         <basemul order="0x30" stat="rCrit" val="0.60"> <!-- Critical Chance from back +60% -->
           <and>
-            <player behind="True" />
+            <player behind="True"/>
+            <using kind="Dagger"/>
           </and>
         </basemul>
+        <mul order="0x30" stat="blowRate" val="1.60"> <!-- Blow land rate from back +60% -->
+          <and>
+            <player behind="True"/>
+          </and>
+        </mul>
       </effect>
     </for>
   </skill>
@@ -1481,24 +1501,23 @@
     -->
     <!-- Done by BoDiE -->
     <set name="weaponsAllowed" val="16"/> <!-- Dagger -->
-    <set name="magicLvl" val="77" />
-    <set name="mpConsume" val="35" />
-    <set name="power" val="40" />
-    <set name="target" val="TARGET_ONE" />
-    <set name="condition" val="16" />
-    <set name="skillType" val="AGGREDUCE_CHAR" />
-    <set name="effectType" val="STUN" />
-    <set name="effectPower" val="40" />
-    <set name="lvlDepend" val="1" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="castRange" val="40" />
-    <set name="effectRange" val="400" />
-    <set name="reuseDelay" val="80000" />
-    <set name="hitTime" val="1000" />
+    <set name="magicLvl" val="77"/>
+    <set name="mpConsume" val="35"/>
+    <set name="power" val="40"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="condition" val="16"/>
+    <set name="skillType" val="AGGREDUCE_CHAR"/>
+    <set name="effectType" val="STUN"/>
+    <set name="effectPower" val="40"/>
+    <set name="lvlDepend" val="1"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="40"/>
+    <set name="effectRange" val="400"/>
+    <set name="reuseDelay" val="80000"/>
+    <set name="hitTime" val="1000"/>
     <for>
-      <effect count="1" name="Bluff" time="1" val="0"
-        stackOrder="1" stackType="Stun" />
-      <effect count="1" name="RemoveTarget" time="1" val="0" />
+      <effect count="1" name="Bluff" time="3" val="0" stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="RemoveTarget" time="1" val="0"/>
     </for>
   </skill>
   <skill id="359" levels="1" name="Eye of Hunter">

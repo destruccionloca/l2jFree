@@ -1669,7 +1669,7 @@ INSERT INTO `weapon` VALUES
 (10457,'Icarus Hall - Acumen','rhand','true',1080,1,1,'wood','s80',290,15,'blunt',10,0,0,0,0,325,0,217,-1,0,10394,'true','true','true','true','3047-3','','','',0),
 (10458,'Icarus Hand - Rsk. Evasion','lrhand','true',1550,1,1,'steel','s80',442,15,'dualfist',10,0,0,0,0,325,0,163,-1,0,10394,'true','true','true','true','','','','',0),
 (10459,'Icarus Hand - Focus','lrhand','true',1550,1,1,'steel','s80',442,15,'dualfist',10,0,0,0,0,325,0,163,-1,0,10394,'true','true','true','true','3044-18','','','',0),
-(10460,'Icarus Hand - Haste','lrhand','true',1550,1,1,'steel','s80',442,15,'dualfist',10,0,0,0,0,325,0,163,-1,0,10394,'true','true','true','true','','','','',0),
+(10460,'Icarus Hand - Haste','lrhand','true',1550,1,1,'steel','s80',442,15,'dualfist',10,0,0,0,0,325,0,163,-1,0,10394,'true','true','true','true','3564-2','','','',0),
 (10461,'Icarus Stinger - Focus','rhand','true',1280,1,1,'steel','s80',329,15,'rapier',10,0,0,0,0,406,0,163,-1,0,10394,'true','true','true','true','','','','',10434),
 (10462,'Icarus Stinger - Health','rhand','true',1280,1,1,'steel','s80',329,15,'rapier',10,0,0,0,0,406,0,163,-1,0,10394,'true','true','true','true','3013-5','','','',10435),
 (10463,'Icarus Stinger - Light','rhand','true',1280,1,1,'steel','s80',329,15,'rapier',10,0,0,0,0,406,0,163,-1,0,10394,'true','true','true','true','3498-1','','','',10436),

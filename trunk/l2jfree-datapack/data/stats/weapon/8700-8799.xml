@@ -12,7 +12,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8788' name="Sirra\'s Blade - Haste">
+  <item id='8788' name="Sirra's Blade - Haste">
     <for>
       <set val='251' order='0x08' stat='pAtk'/>
       <set val='121' order='0x08' stat='mAtk'/>
@@ -23,7 +23,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8789' name="Sirra\'s Blade - Health">
+  <item id='8789' name="Sirra's Blade - Health">
     <for>
       <set val='251' order='0x08' stat='pAtk'/>
       <set val='121' order='0x08' stat='mAtk'/>
@@ -34,7 +34,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8790' name="Sirra\'s Blade - Critical Poison">
+  <item id='8790' name="Sirra's Blade - Critical Poison">
     <for>
       <set val='251' order='0x08' stat='pAtk'/>
       <set val='121' order='0x08' stat='mAtk'/>
@@ -57,6 +57,9 @@
       <set val='325' order='0x08' stat='pAtkSpd'/>
       <enchant val='0' order='0x0C' stat='pAtk'/>
       <enchant val='0' order='0x0C' stat='mAtk'/>
+      <!-- Enhances damage to target during PvP -->
+      <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+      <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
     </for>
   </item>
   <item id='8792' name="Sword of Ipos - Haste">
@@ -81,7 +84,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8794' name="Barakiel\'s Axe - Health">
+  <item id='8794' name="Barakiel's Axe - Health">
     <for>
       <set val='251' order='0x08' stat='pAtk'/>
       <set val='121' order='0x08' stat='mAtk'/>
@@ -92,7 +95,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8795' name="Barakiel\'s Axe - Haste">
+  <item id='8795' name="Barakiel's Axe - Haste">
     <for>
       <set val='251' order='0x08' stat='pAtk'/>
       <set val='121' order='0x08' stat='mAtk'/>
@@ -103,7 +106,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8796' name="Barakiel\'s Axe - Focus">
+  <item id='8796' name="Barakiel's Axe - Focus">
     <for>
       <set val='251' order='0x08' stat='pAtk'/>
       <set val='121' order='0x08' stat='mAtk'/>
@@ -112,9 +115,26 @@
       <set val='379' order='0x08' stat='pAtkSpd'/>
       <enchant val='0' order='0x0C' stat='pAtk'/>
       <enchant val='0' order='0x0C' stat='mAtk'/>
+      <!-- Enhances damage to target during PvP -->
+      <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+      <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
     </for>
   </item>
-  <item id='8797' name="Behemoth\'s Tuning Fork - Focus">
+  <item id='8797' name="Behemoth's Tuning Fork - Focus">
+    <for>
+      <set val='305' order='0x08' stat='pAtk'/>
+      <set val='121' order='0x08' stat='mAtk'/>
+      <set val='4' order='0x08' stat='rCrit'/>
+      <add val='4' order='0x10' stat='accCombat'/>
+      <set val='325' order='0x08' stat='pAtkSpd'/>
+      <enchant val='0' order='0x0C' stat='pAtk'/>
+      <enchant val='0' order='0x0C' stat='mAtk'/>
+      <!-- Enhances damage to target during PvP -->
+      <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+      <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
+    </for>
+  </item>
+  <item id='8798' name="Behemoth's Tuning Fork - Health">
     <for>
       <set val='305' order='0x08' stat='pAtk'/>
       <set val='121' order='0x08' stat='mAtk'/>
@@ -125,18 +145,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8798' name="Behemoth\'s Tuning Fork - Health">
-    <for>
-      <set val='305' order='0x08' stat='pAtk'/>
-      <set val='121' order='0x08' stat='mAtk'/>
-      <set val='4' order='0x08' stat='rCrit'/>
-      <add val='4' order='0x10' stat='accCombat'/>
-      <set val='325' order='0x08' stat='pAtkSpd'/>
-      <enchant val='0' order='0x0C' stat='pAtk'/>
-      <enchant val='0' order='0x0C' stat='mAtk'/>
-    </for>
-  </item>
-  <item id='8799' name="Behemoth\'s Tuning Fork - Anger">
+  <item id='8799' name="Behemoth's Tuning Fork - Anger">
     <for>
       <set val='305' order='0x08' stat='pAtk'/>
       <set val='121' order='0x08' stat='mAtk'/>

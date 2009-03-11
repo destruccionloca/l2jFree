@@ -1,8 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <!DOCTYPE list SYSTEM "weapons.dtd">
-  <!-- Lineage2: Interlude Weapons by KID (L2j-b Project) -->
 <list>
-  <item id='8678' name="Sirra\'s Blade">
+  <item id='8678' name="Sirra's Blade">
     <for>
       <set val='251' order='0x08' stat='pAtk'/>
       <set val='121' order='0x08' stat='mAtk'/>
@@ -24,7 +23,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8680' name="Barakiel\'s Axe">
+  <item id='8680' name="Barakiel's Axe">
     <for>
       <set val='251' order='0x08' stat='pAtk'/>
       <set val='121' order='0x08' stat='mAtk'/>
@@ -35,7 +34,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8681' name="Behemoth\'s Tuning Fork">
+  <item id='8681' name="Behemoth's Tuning Fork">
     <for>
       <set val='305' order='0x08' stat='pAtk'/>
       <set val='121' order='0x08' stat='mAtk'/>
@@ -57,7 +56,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8683' name="Tiphon\'s Spear">
+  <item id='8683' name="Tiphon's Spear">
     <for>
       <set val='251' order='0x08' stat='pAtk'/>
       <set val='121' order='0x08' stat='mAtk'/>
@@ -69,7 +68,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8684' name="Shyeed\'s Bow">
+  <item id='8684' name="Shyeed's Bow">
     <for>
       <set val='570' order='0x08' stat='pAtk'/>
       <set val='133' order='0x08' stat='mAtk'/>
@@ -80,7 +79,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8685' name="Sobekk\'s Hurricane">
+  <item id='8685' name="Sobekk's Hurricane">
     <for>
       <set val='305' order='0x08' stat='pAtk'/>
       <set val='121' order='0x08' stat='mAtk'/>
@@ -91,7 +90,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8686' name="Themis\' Tongue">
+  <item id='8686' name="Themis' Tongue">
     <for>
       <set val='202' order='0x08' stat='pAtk'/>
       <set val='161' order='0x08' stat='mAtk'/>
@@ -102,7 +101,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8687' name="Cabrio\'s Hand">
+  <item id='8687' name="Cabrio's Hand">
     <for>
       <set val='202' order='0x08' stat='pAtk'/>
       <set val='161' order='0x08' stat='mAtk'/>

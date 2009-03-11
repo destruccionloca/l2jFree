@@ -67,7 +67,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='4806' name="Bellion Cestus - Rsk. haste">
+  <item id='4806' name="Bellion Cestus - Rsk. Haste">
     <for>
       <set val='236' order='0x08' stat='pAtk'/>
       <set val='99' order='0x08' stat='mAtk'/>
@@ -187,7 +187,7 @@
       <set val='639' order='0x50' stat='bowReuse'/>
     </for>
   </item>
-  <item id='4816' name="Elven Bow Of Nobility - Evasion">
+  <item id='4816' name="Elven Bow of Nobility - Evasion">
     <for>
       <set val='252' order='0x08' stat='pAtk'/>
       <set val='68' order='0x08' stat='mAtk'/>
@@ -198,7 +198,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='4817' name="Elven Bow Of Nobility - Miser">
+  <item id='4817' name="Elven Bow of Nobility - Miser">
     <for>
       <set val='252' order='0x08' stat='pAtk'/>
       <set val='68' order='0x08' stat='mAtk'/>
@@ -215,7 +215,7 @@
       </set>
     </for>
   </item>
-  <item id='4818' name="Elven Bow Of Nobility - Cheap Shot">
+  <item id='4818' name="Elven Bow of Nobility - Cheap Shot">
     <for>
       <set val='252' order='0x08' stat='pAtk'/>
       <set val='68' order='0x08' stat='mAtk'/>
@@ -357,7 +357,7 @@
       </set>
     </for>
   </item>
-  <item id='4828' name="Bow Of Peril - Guidance">
+  <item id='4828' name="Bow of Peril - Guidance">
     <for>
       <set val='400' order='0x08' stat='pAtk'/>
       <set val='99' order='0x08' stat='mAtk'/>
@@ -368,7 +368,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='4829' name="Bow Of Peril - Quick Recovery">
+  <item id='4829' name="Bow of Peril - Quick Recovery">
     <for>
       <set val='400' order='0x08' stat='pAtk'/>
       <set val='99' order='0x08' stat='mAtk'/>
@@ -381,7 +381,7 @@
       <set val='1310' order='0x50' stat='bowReuse'/>
     </for>
   </item>
-  <item id='4830' name="Bow Of Peril - Cheap Shot">
+  <item id='4830' name="Bow of Peril - Cheap Shot">
     <for>
       <set val='400' order='0x08' stat='pAtk'/>
       <set val='99' order='0x08' stat='mAtk'/>
@@ -410,7 +410,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='4832' name="Carnage Bow - Mana up">
+  <item id='4832' name="Carnage Bow - Mana Up">
     <for>
       <set val='440' order='0x08' stat='pAtk'/>
       <set val='107' order='0x08' stat='mAtk'/>
@@ -492,7 +492,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='4839' name="Orcish Glaive - Long Blow">
+  <item id='4839' name="Orcish Glaive - Towering Blow">
     <for>
       <set val='107' order='0x08' stat='pAtk'/>
       <set val='61' order='0x08' stat='mAtk'/>
@@ -517,7 +517,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='4841' name="Body Slasher - Long Blow">
+  <item id='4841' name="Body Slasher - Towering Blow">
     <for>
       <set val='107' order='0x08' stat='pAtk'/>
       <set val='61' order='0x08' stat='mAtk'/>
@@ -544,7 +544,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='4843' name="Bec De Corbin - Critical Stun">
+  <item id='4843' name="Bec de Corbin - Critical Stun">
     <for>
       <set val='122' order='0x08' stat='pAtk'/>
       <set val='68' order='0x08' stat='mAtk'/>
@@ -556,7 +556,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='4844' name="Bec De Corbin - Long Blow">
+  <item id='4844' name="Bec de Corbin - Towering Blow">
     <for>
       <set val='122' order='0x08' stat='pAtk'/>
       <set val='68' order='0x08' stat='mAtk'/>
@@ -569,7 +569,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='4845' name="Bec De Corbin - Light">
+  <item id='4845' name="Bec de Corbin - Light">
     <for>
       <set val='122' order='0x08' stat='pAtk'/>
       <set val='68' order='0x08' stat='mAtk'/>
@@ -593,7 +593,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='4847' name="Scorpion Critical - Stun">
+  <item id='4847' name="Scorpion - Critical Stun">
     <for>
       <set val='144' order='0x08' stat='pAtk'/>
       <set val='78' order='0x08' stat='mAtk'/>
@@ -605,7 +605,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='4848' name="Scorpion - Long Blow">
+  <item id='4848' name="Scorpion - Towering Blow">
     <for>
       <set val='144' order='0x08' stat='pAtk'/>
       <set val='78' order='0x08' stat='mAtk'/>
@@ -630,7 +630,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='4850' name="Widow Maker - Long Blow">
+  <item id='4850' name="Widow Maker - Towering Blow">
     <for>
       <set val='144' order='0x08' stat='pAtk'/>
       <set val='78' order='0x08' stat='mAtk'/>
@@ -669,7 +669,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='4853' name="Orcish Poleaxe - Long Blow">
+  <item id='4853' name="Orcish Poleaxe - Towering Blow">
     <for>
       <set val='156' order='0x08' stat='pAtk'/>
       <set val='83' order='0x08' stat='mAtk'/>
@@ -756,7 +756,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='4860' name="Lance - Long Blow">
+  <item id='4860' name="Lance - Towering Blow">
     <for>
       <set val='194' order='0x08' stat='pAtk'/>
       <set val='99' order='0x08' stat='mAtk'/>
@@ -781,7 +781,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='4862' name="Halberd - Long Blow">
+  <item id='4862' name="Halberd - Towering Blow">
     <for>
       <set val='213' order='0x08' stat='pAtk'/>
       <set val='107' order='0x08' stat='mAtk'/>
@@ -830,7 +830,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='4866' name="Heavy Doom Hammer - Magic hold">
+  <item id='4866' name="Heavy Doom Hammer - Magic Hold">
     <for>
       <set val='103' order='0x08' stat='pAtk'/>
       <set val='81' order='0x08' stat='mAtk'/>
@@ -852,7 +852,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='4868' name="Crystal Staff - Mana up">
+  <item id='4868' name="Crystal Staff - Mana Up">
     <for>
       <set val='103' order='0x08' stat='pAtk'/>
       <set val='81' order='0x08' stat='mAtk'/>
@@ -863,7 +863,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='4869' name="Crystal Staff - Bodily Blessing">
+  <item id='4869' name="Crystal Staff - Blessed Body">
     <for>
       <set val='103' order='0x08' stat='pAtk'/>
       <set val='81' order='0x08' stat='mAtk'/>
@@ -962,7 +962,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='4878' name="Paradia Staff - Magic hold">
+  <item id='4878' name="Paradia Staff - Magic Hold">
     <for>
       <set val='135' order='0x08' stat='pAtk'/>
       <set val='101' order='0x08' stat='mAtk'/>
@@ -973,7 +973,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='4879' name="Paagrio Hammer - Rsk. Evasion">
+  <item id='4879' name="Pa'agrian Hammer - Rsk. Evasion">
     <for>
       <set val='135' order='0x08' stat='pAtk'/>
       <set val='101' order='0x08' stat='mAtk'/>
@@ -984,7 +984,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='4880' name="Paagrio Hammer - Magic Poison">
+  <item id='4880' name="Pa'agrian Hammer - Magic Poison">
     <for>
       <set val='135' order='0x08' stat='pAtk'/>
       <set val='101' order='0x08' stat='mAtk'/>
@@ -995,7 +995,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='4881' name="Paagrio Hammer - Magic Weakness">
+  <item id='4881' name="Pa'agrian Hammer - Magic Weakness">
     <for>
       <set val='135' order='0x08' stat='pAtk'/>
       <set val='101' order='0x08' stat='mAtk'/>
@@ -1039,7 +1039,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='4885' name="Paagrio Axe - Mana up">
+  <item id='4885' name="Pa'agrian Axe - Mana Up">
     <for>
       <set val='141' order='0x08' stat='pAtk'/>
       <set val='104' order='0x08' stat='mAtk'/>
@@ -1050,7 +1050,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='4886' name="Paagrio Axe - Magic Weakness">
+  <item id='4886' name="Pa'agrian Axe - Magic Weakness">
     <for>
       <set val='141' order='0x08' stat='pAtk'/>
       <set val='104' order='0x08' stat='mAtk'/>
@@ -1061,7 +1061,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='4887' name="Paagrio Axe - Magic Chaos">
+  <item id='4887' name="Pa'agrian Axe - Magic Chaos">
     <for>
       <set val='141' order='0x08' stat='pAtk'/>
       <set val='104' order='0x08' stat='mAtk'/>
@@ -1127,7 +1127,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='4893' name="Ghoul's Staff - Bodily Blessing">
+  <item id='4893' name="Ghoul's Staff - Blessed Body">
     <for>
       <set val='152' order='0x08' stat='pAtk'/>
       <set val='111' order='0x08' stat='mAtk'/>

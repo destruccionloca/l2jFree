@@ -10,25 +10,25 @@
   <item id='20008' name="Agathion Seal Bracelet - Black Majo">
     <for/>
   </item>
-  <item id='20009' name="Agathion Seal Bracelet - Majo - Big Head 30-day limited period">
+  <item id='20009' name="Agathion Seal Bracelet - Majo - Big Head 30 Day Expiration Period">
     <for/>
   </item>
-  <item id='20010' name="Agathion Seal Bracelet - Gold Majo - Resurrection 30-day limited period">
+  <item id='20010' name="Agathion Seal Bracelet - Gold Majo - Resurrection 30 Day Expiration Period">
     <for/>
   </item>
-  <item id='20011' name="Agathion Seal Bracelet - Black Majo - Escape 30-day limited period">
+  <item id='20011' name="Agathion Seal Bracelet - Black Majo - Escape 30 Day Expiration Period">
     <for/>
   </item>
   <item id='20012' name="Agathion Seal Bracelet - Plaipitak">
     <for/>
   </item>
-  <item id='20013' name="Agathion Seal Bracelet - Plaipitak - Big Head 30-day limited period">
+  <item id='20013' name="Agathion Seal Bracelet - Plaipitak - Big Head 30 Day Expiration Period">
     <for/>
   </item>
-  <item id='20014' name="Agathion Seal Bracelet - Plaipitak - Resurrection 30-day limited period">
+  <item id='20014' name="Agathion Seal Bracelet - Plaipitak - Resurrection 30 Day Expiration Period">
     <for/>
   </item>
-  <item id='20015' name="Agathion Seal Bracelet - Plaipitak - Escape 30-day limited period">
+  <item id='20015' name="Agathion Seal Bracelet - Plaipitak - Escape 30 Day Expiration Period">
     <for/>
   </item>
   <item id='20016' name="Horn-Rimmed Glasses - Agility">
@@ -92,6 +92,21 @@
     <for/>
   </item>
   <item id='20068' name="Agathion Seal Bracelet - Sexy Panda">
+    <for/>
+  </item>
+  <item id='20095' name="Santa Horn Hat">
+    <for/>
+  </item>
+  <item id='20098' name="Formal Dress - Event - 1 hour Shadow time">
+    <cond msgId="1518">
+      <player sex="1"/>
+    </cond>
+    <for/>
+  </item>
+  <item id='20099' name="Formal Dress - Event - 7 day limited period">
+    <cond msgId="1518">
+      <player sex="1"/>
+    </cond>
     <for/>
   </item>
 </list>

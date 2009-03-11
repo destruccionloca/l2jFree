@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "weapons.dtd">
 <list>
-  <item id='1213' name="Guards Bow">
+  <item id='1213' name="Guard's Bow">
     <for>
       <set val='49' order='0x08' stat='pAtk'/>
       <set val='17' order='0x08' stat='mAtk'/>

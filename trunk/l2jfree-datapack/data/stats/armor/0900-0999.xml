@@ -16,7 +16,7 @@
   <item id='902' name="Phoenix Ring">
     <for>
       <add val='40' order='0x10' stat='mDef'/>
-      <add val='13' order='0x10' stat='maxMp'/>
+      <add val='13' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='mDef'/>
     </for>
   </item>
@@ -121,7 +121,7 @@
   <item id='920' name="Tateossian Necklace">
     <for>
       <add val='95' order='0x10' stat='mDef'/>
-      <add val='42' order='0x10' stat='maxMp'/>
+      <add val='42' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='mDef'/>
     </for>
   </item>
@@ -146,7 +146,7 @@
   <item id='924' name="Majestic Necklace">
     <for>
       <add val='85' order='0x10' stat='mDef'/>
-      <add val='33' order='0x10' stat='maxMp'/>
+      <add val='33' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='mDef'/>
     </for>
   </item>
@@ -201,7 +201,7 @@
   <item id='933' name="Phoenix Necklace">
     <for>
       <add val='80' order='0x10' stat='mDef'/>
-      <add val='26' order='0x10' stat='maxMp'/>
+      <add val='26' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='mDef'/>
     </for>
   </item>

@@ -33,7 +33,7 @@
       <set val='304' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='3906' name="Fang Of Saltydog">
+  <item id='3906' name="Fang of Saltydog">
     <for>
       <add val='40' order='0x10' stat='pAtk'/>
       <add val='30' order='0x10' stat='mAtk'/>
@@ -41,7 +41,7 @@
       <set val='304' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='3907' name="Fang Of Cerberus">
+  <item id='3907' name="Fang of Cerberus">
     <for>
       <add val='49' order='0x10' stat='pAtk'/>
       <add val='36' order='0x10' stat='mAtk'/>
@@ -49,7 +49,7 @@
       <set val='304' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='3908' name="Fang Of Coyote">
+  <item id='3908' name="Fang of Coyote">
     <for>
       <add val='58' order='0x10' stat='pAtk'/>
       <add val='42' order='0x10' stat='mAtk'/>
@@ -65,7 +65,7 @@
       <set val='304' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='3910' name="Fang Of The Blue Wolf">
+  <item id='3910' name="Fang of the Blue Wolf">
     <for>
       <add val='80' order='0x10' stat='pAtk'/>
       <add val='58' order='0x10' stat='mAtk'/>
@@ -73,7 +73,7 @@
       <set val='304' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='3911' name="Fang Of Fenril">
+  <item id='3911' name="Fang of Fenril">
     <for>
       <add val='93' order='0x10' stat='pAtk'/>
       <add val='66' order='0x10' stat='mAtk'/>

@@ -43,13 +43,13 @@
     </cond>
     <for/>
   </item>
-  <item id='9407' name="Weapon Master Circlet(Kamael only)">
+  <item id='9407' name="Weapon Master Circlet (Kamael only)">
     <cond msgId="1518">
       <target class_id_restriction="131, 132, 133"/>
     </cond>
     <for/>
   </item>
-  <item id='9408' name="Bow Master Circlet(Kamael only)">
+  <item id='9408' name="Bow Master Circlet (Kamael only)">
     <cond msgId="1518">
       <target class_id_restriction="134"/>
     </cond>
@@ -211,7 +211,7 @@
   <item id='9432' name="Dynasty Tunic">
     <for>
       <add val='113' order='0x10' stat='pDef'/>
-      <add val='592' order='0x10' stat='maxMp'/>
+      <add val='592' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='pDef'/>
     </for>
   </item>
@@ -221,7 +221,7 @@
     </cond>
     <for>
       <add val='113' order='0x10' stat='pDef'/>
-      <add val='592' order='0x10' stat='maxMp'/>
+      <add val='592' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='pDef'/>
     </for>
   </item>
@@ -231,7 +231,7 @@
     </cond>
     <for>
       <add val='113' order='0x10' stat='pDef'/>
-      <add val='592' order='0x10' stat='maxMp'/>
+      <add val='592' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='pDef'/>
     </for>
   </item>
@@ -241,7 +241,7 @@
     </cond>
     <for>
       <add val='113' order='0x10' stat='pDef'/>
-      <add val='592' order='0x10' stat='maxMp'/>
+      <add val='592' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='pDef'/>
     </for>
   </item>
@@ -251,14 +251,14 @@
     </cond>
     <for>
       <add val='113' order='0x10' stat='pDef'/>
-      <add val='592' order='0x10' stat='maxMp'/>
+      <add val='592' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='pDef'/>
     </for>
   </item>
   <item id='9437' name="Dynasty Stockings">
     <for>
       <add val='71' order='0x10' stat='pDef'/>
-      <add val='370' order='0x10' stat='maxMp'/>
+      <add val='370' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='pDef'/>
     </for>
   </item>
@@ -301,21 +301,21 @@
   <item id='9455' name="Dynasty Earrings">
     <for>
       <add val='90' order='0x10' stat='mDef'/>
-      <add val='35' order='0x10' stat='maxMp'/>
+      <add val='35' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='mDef'/>
     </for>
   </item>
   <item id='9456' name="Dynasty Necklace">
     <for>
       <add val='120' order='0x10' stat='mDef'/>
-      <add val='46' order='0x10' stat='maxMp'/>
+      <add val='46' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='mDef'/>
     </for>
   </item>
   <item id='9457' name="Dynasty Ring">
     <for>
       <add val='60' order='0x10' stat='mDef'/>
-      <add val='23' order='0x10' stat='maxMp'/>
+      <add val='23' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='mDef'/>
     </for>
   </item>
@@ -323,7 +323,7 @@
     <!-- Done by BoDiE - Retail verified values -->
     <for>
       <add val='27' order='0x10' stat='mDef'/>
-      <add val='35' order='0x10' stat='maxMp'/>
+      <add val='35' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='mDef'/>
       <sub order="0x40" stat="stunVuln" val="0.12"/>
     </for>
@@ -332,7 +332,7 @@
     <!-- Done by BoDiE - Retail verified values -->
     <for>
       <add val='36' order='0x10' stat='mDef'/>
-      <add val='46' order='0x10' stat='maxMp'/>
+      <add val='46' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='mDef'/>
       <sub order="0x40" stat="stunVuln" val="0.18"/>
     </for>
@@ -341,7 +341,7 @@
     <!-- Done by BoDiE - Retail verified values -->
     <for>
       <add val='18' order='0x10' stat='mDef'/>
-      <add val='23' order='0x10' stat='maxMp'/>
+      <add val='23' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='mDef'/>
       <sub order="0x40" stat="stunVuln" val="0.08"/>
     </for>
@@ -350,7 +350,7 @@
     <!-- Done by BoDiE - Retail verified values -->
     <for>
       <add val='27' order='0x10' stat='mDef'/>
-      <add val='35' order='0x10' stat='maxMp'/>
+      <add val='35' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='mDef'/>
       <sub order="0x40" stat="poisonVuln" val="0.08"/>
     </for>
@@ -359,7 +359,7 @@
     <!-- Done by BoDiE - Retail verified values -->
     <for>
       <add val='36' order='0x10' stat='mDef'/>
-      <add val='46' order='0x10' stat='maxMp'/>
+      <add val='46' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='mDef'/>
       <sub order="0x40" stat="poisonVuln" val="0.16"/>
     </for>
@@ -368,7 +368,7 @@
     <!-- Done by BoDiE - Retail verified values -->
     <for>
       <add val='18' order='0x10' stat='mDef'/>
-      <add val='23' order='0x10' stat='maxMp'/>
+      <add val='23' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='mDef'/>
       <sub order="0x40" stat="poisonVuln" val="0.07"/>
     </for>
@@ -377,7 +377,7 @@
     <!-- Done by BoDiE - Retail verified values -->
     <for>
       <add val='27' order='0x10' stat='mDef'/>
-      <add val='35' order='0x10' stat='maxMp'/>
+      <add val='35' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='mDef'/>
       <sub order="0x40" stat="bleedVuln" val="0.08"/>
     </for>
@@ -386,7 +386,7 @@
     <!-- Done by BoDiE - Retail verified values -->
     <for>
       <add val='36' order='0x10' stat='mDef'/>
-      <add val='46' order='0x10' stat='maxMp'/>
+      <add val='46' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='mDef'/>
       <sub order="0x40" stat="bleedVuln" val="0.11"/>
     </for>
@@ -395,7 +395,7 @@
     <!-- Done by BoDiE - Retail verified values -->
     <for>
       <add val='18' order='0x10' stat='mDef'/>
-      <add val='23' order='0x10' stat='maxMp'/>
+      <add val='23' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='mDef'/>
       <sub order="0x40" stat="bleedVuln" val="0.05"/>
     </for>
@@ -404,7 +404,7 @@
     <!-- Done by BoDiE - Retail verified values -->
     <for>
       <add val='27' order='0x10' stat='mDef'/>
-      <add val='35' order='0x10' stat='maxMp'/>
+      <add val='35' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='mDef'/>
       <sub order="0x40" stat="sleepVuln" val="0.12"/>
     </for>
@@ -413,7 +413,7 @@
     <!-- Done by BoDiE - Retail verified values -->
     <for>
       <add val='36' order='0x10' stat='mDef'/>
-      <add val='46' order='0x10' stat='maxMp'/>
+      <add val='46' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='mDef'/>
       <sub order="0x40" stat="sleepVuln" val="0.18"/>
     </for>
@@ -422,7 +422,7 @@
     <!-- Done by BoDiE - Retail verified values -->
     <for>
       <add val='18' order='0x10' stat='mDef'/>
-      <add val='23' order='0x10' stat='maxMp'/>
+      <add val='23' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='mDef'/>
       <sub order="0x40" stat="sleepVuln" val="0.08"/>
     </for>
@@ -431,7 +431,7 @@
     <!-- Done by BoDiE - Retail verified values -->
     <for>
       <add val='27' order='0x10' stat='mDef'/>
-      <add val='35' order='0x10' stat='maxMp'/>
+      <add val='35' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='mDef'/>
       <sub order="0x40" stat="paralyzeVuln" val="0.06"/>
     </for>
@@ -440,7 +440,7 @@
     <!-- Done by BoDiE - Retail verified values -->
     <for>
       <add val='36' order='0x10' stat='mDef'/>
-      <add val='46' order='0x10' stat='maxMp'/>
+      <add val='46' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='mDef'/>
       <sub order="0x40" stat="paralyzeVuln" val="0.09"/>
     </for>
@@ -449,7 +449,7 @@
     <!-- Done by BoDiE - Retail verified values -->
     <for>
       <add val='18' order='0x10' stat='mDef'/>
-      <add val='23' order='0x10' stat='maxMp'/>
+      <add val='23' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='mDef'/>
       <sub order="0x40" stat="paralyzeVuln" val="0.04"/>
     </for>
@@ -458,7 +458,7 @@
     <!-- Done by BoDiE - Retail verified values -->
     <for>
       <add val='27' order='0x10' stat='mDef'/>
-      <add val='35' order='0x10' stat='maxMp'/>
+      <add val='35' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='mDef'/>
       <sub order="0x40" stat="rootVuln" val="0.12"/>
     </for>
@@ -467,7 +467,7 @@
     <!-- Done by BoDiE - Retail verified values -->
     <for>
       <add val='36' order='0x10' stat='mDef'/>
-      <add val='46' order='0x10' stat='maxMp'/>
+      <add val='46' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='mDef'/>
       <sub order="0x40" stat="rootVuln" val="0.18"/>
     </for>
@@ -476,7 +476,7 @@
     <!-- Done by BoDiE - Retail verified values -->
     <for>
       <add val='18' order='0x10' stat='mDef'/>
-      <add val='23' order='0x10' stat='maxMp'/>
+      <add val='23' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='mDef'/>
       <sub order="0x40" stat="rootVuln" val="0.08"/>
     </for>
@@ -485,7 +485,7 @@
     <!-- Done by BoDiE - Retail verified values -->
     <for>
       <add val='27' order='0x10' stat='mDef'/>
-      <add val='35' order='0x10' stat='maxMp'/>
+      <add val='35' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='mDef'/>
       <sub order="0x40" stat="derangementVuln" val="0.06"/>
     </for>
@@ -494,7 +494,7 @@
     <!-- Done by BoDiE - Retail verified values -->
     <for>
       <add val='36' order='0x10' stat='mDef'/>
-      <add val='46' order='0x10' stat='maxMp'/>
+      <add val='46' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='mDef'/>
       <sub order="0x40" stat="derangementVuln" val="0.09"/>
     </for>
@@ -503,7 +503,7 @@
     <!-- Done by BoDiE - Retail verified values -->
     <for>
       <add val='18' order='0x10' stat='mDef'/>
-      <add val='23' order='0x10' stat='maxMp'/>
+      <add val='23' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='mDef'/>
       <sub order="0x40" stat="derangementVuln" val="0.04"/>
     </for>
@@ -512,7 +512,7 @@
     <!-- Done by BoDiE - Retail verified values -->
     <for>
       <add val='27' order='0x10' stat='mDef'/>
-      <add val='35' order='0x10' stat='maxMp'/>
+      <add val='35' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='mDef'/>
       <sub order="0x40" stat="darkVuln" val="0.06"/>
     </for>
@@ -521,7 +521,7 @@
     <!-- Done by BoDiE - Retail verified values -->
     <for>
       <add val='36' order='0x10' stat='mDef'/>
-      <add val='46' order='0x10' stat='maxMp'/>
+      <add val='46' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='mDef'/>
       <sub order="0x40" stat="darkVuln" val="0.07"/>
     </for>
@@ -530,7 +530,7 @@
     <!-- Done by BoDiE - Retail verified values -->
     <for>
       <add val='18' order='0x10' stat='mDef'/>
-      <add val='23' order='0x10' stat='maxMp'/>
+      <add val='23' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='mDef'/>
       <sub order="0x40" stat="darkVuln" val="0.05"/>
     </for>

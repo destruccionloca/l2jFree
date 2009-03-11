@@ -13,7 +13,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='3027' name="Old Knights Sword">
+  <item id='3027' name="Old Knight's Sword">
     <for>
       <set val='29' order='0x08' stat='pAtk'/>
       <set val='17' order='0x08' stat='mAtk'/>
@@ -35,7 +35,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='3029' name="Sword Of Binding">
+  <item id='3029' name="Sword of Binding">
     <for>
       <set val='17' order='0x08' stat='pAtk'/>
       <set val='12' order='0x08' stat='mAtk'/>

@@ -2183,7 +2183,11 @@ INSERT INTO armor VALUES
 (20065,'Agathion Seal Bracelet - Sexy Panda','lbracelet','false','none',150, 'wood','none',0,-1,0,0,0,0,0,'false','false','true','false','21010-1;3267-1'),
 (20066,'Agathion Seal Bracelet - Baby Panda','lbracelet','false','none',150, 'wood','none',0,-1,0,0,0,0,0,'false','false','true','false','21008-1;3267-1'),
 (20067,'Agathion Seal Bracelet - Bamboo Panda','lbracelet','false','none',150, 'wood','none',0,-1,0,0,0,0,0,'false','false','true','false','21009-1;3267-1'),
-(20068,'Agathion Seal Bracelet - Sexy Panda','lbracelet','false','none',150, 'wood','none',0,-1,0,0,0,0,0,'false','false','true','false','21010-1;3267-1');
+(20068,'Agathion Seal Bracelet - Sexy Panda','lbracelet','false','none',150, 'wood','none',0,-1,0,0,0,0,0,'false','false','true','false','21010-1;3267-1'),
+(20095,'Santa Horn Hat','dhair','false','none',10, 'wood','none',0,-1,0,0,0,0,0,'true','false','true','true',''),
+(20098,'Formal Dress - Event - 1 hour Shadow time','fullarmor','false','none',1000, 'cloth','none',0,-1,0,0,0,5000000,0,'true','true','true','true',''),
+(20099,'Formal Dress - Event - 7 day limited period','fullarmor','false','none',1000, 'cloth','none',0,-1,0,0,0,5000000,0,'true','true','true','true',''),
+(20100,'Saving Santa Hat','dhair','false','none',10, 'wood','none',0,-1,0,0,0,0,0,'true','false','true','true','');
 
 --
 -- L2J-Free Add-ons

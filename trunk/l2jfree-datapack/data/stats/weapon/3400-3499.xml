@@ -9,7 +9,7 @@
       <set val='304' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='3471' name="Cybellins Dagger">
+  <item id='3471' name="Cybellin's Dagger">
     <for>
       <set val='10' order='0x08' stat='pAtk'/>
       <set val='9' order='0x08' stat='mAtk'/>

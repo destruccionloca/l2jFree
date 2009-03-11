@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "weapons.dtd">
 <list>
-  <item id='2500' name="Dark Legions Edge">
+  <item id='2500' name="Dark Legion's Edge">
     <for>
       <set val='232' order='0x08' stat='pAtk'/>
       <set val='114' order='0x08' stat='mAtk'/>
@@ -108,7 +108,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2519' name="Saber*Artisans Sword">
+  <item id='2519' name="Saber*Artisan's Sword">
     <for>
       <set val='83' order='0x08' stat='pAtk'/>
       <set val='41' order='0x08' stat='mAtk'/>
@@ -119,7 +119,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2520' name="Saber*Knights Sword">
+  <item id='2520' name="Saber*Knight's Sword">
     <for>
       <set val='83' order='0x08' stat='pAtk'/>
       <set val='41' order='0x08' stat='mAtk'/>
@@ -152,7 +152,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2523' name="Saber*Sword Of Revolution">
+  <item id='2523' name="Saber*Sword of Revolution">
     <for>
       <set val='118' order='0x08' stat='pAtk'/>
       <set val='56' order='0x08' stat='mAtk'/>
@@ -196,7 +196,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2527' name="Bastard Sword*Artisans Sword">
+  <item id='2527' name="Bastard Sword*Artisan's Sword">
     <for>
       <set val='96' order='0x08' stat='pAtk'/>
       <set val='47' order='0x08' stat='mAtk'/>
@@ -207,7 +207,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2528' name="Bastard Sword*Knights Sword">
+  <item id='2528' name="Bastard Sword*Knight's Sword">
     <for>
       <set val='96' order='0x08' stat='pAtk'/>
       <set val='47' order='0x08' stat='mAtk'/>
@@ -240,7 +240,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2531' name="Bastard Sword*Sword Of Revolution">
+  <item id='2531' name="Bastard Sword*Sword of Revolution">
     <for>
       <set val='124' order='0x08' stat='pAtk'/>
       <set val='58' order='0x08' stat='mAtk'/>
@@ -273,7 +273,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2534' name="Spinebone Sword*Artisans Sword">
+  <item id='2534' name="Spinebone Sword*Artisan's Sword">
     <for>
       <set val='96' order='0x08' stat='pAtk'/>
       <set val='47' order='0x08' stat='mAtk'/>
@@ -284,7 +284,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2535' name="Spinebone Sword*Knights Sword">
+  <item id='2535' name="Spinebone Sword*Knight's Sword">
     <for>
       <set val='96' order='0x08' stat='pAtk'/>
       <set val='47' order='0x08' stat='mAtk'/>
@@ -317,7 +317,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2538' name="Spinebone Sword*Sword Of Revolution">
+  <item id='2538' name="Spinebone Sword*Sword of Revolution">
     <for>
       <set val='124' order='0x08' stat='pAtk'/>
       <set val='58' order='0x08' stat='mAtk'/>
@@ -339,7 +339,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2540' name="Artisans Sword*Artisans Sword">
+  <item id='2540' name="Artisan's Sword*Artisan's Sword">
     <for>
       <set val='96' order='0x08' stat='pAtk'/>
       <set val='47' order='0x08' stat='mAtk'/>
@@ -350,7 +350,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2541' name="Artisans Sword*Knights Sword">
+  <item id='2541' name="Artisan's Sword*Knight's Sword">
     <for>
       <set val='96' order='0x08' stat='pAtk'/>
       <set val='47' order='0x08' stat='mAtk'/>
@@ -361,7 +361,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2542' name="Artisans Sword*Crimson Sword">
+  <item id='2542' name="Artisan's Sword*Crimson Sword">
     <for>
       <set val='107' order='0x08' stat='pAtk'/>
       <set val='51' order='0x08' stat='mAtk'/>
@@ -372,7 +372,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2543' name="Artisans Sword*Elven Sword">
+  <item id='2543' name="Artisan's Sword*Elven Sword">
     <for>
       <set val='107' order='0x08' stat='pAtk'/>
       <set val='51' order='0x08' stat='mAtk'/>
@@ -383,7 +383,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2544' name="Artisans Sword*Sword Of Revolution">
+  <item id='2544' name="Artisan's Sword*Sword of Revolution">
     <for>
       <set val='124' order='0x08' stat='pAtk'/>
       <set val='58' order='0x08' stat='mAtk'/>
@@ -394,7 +394,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2545' name="Artisans Sword*Elven Long Sword">
+  <item id='2545' name="Artisan's Sword*Elven Long Sword">
     <for>
       <set val='136' order='0x08' stat='pAtk'/>
       <set val='63' order='0x08' stat='mAtk'/>
@@ -405,7 +405,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2546' name="Knights Sword*Knights Sword">
+  <item id='2546' name="Knight's Sword*Knight's Sword">
     <for>
       <set val='96' order='0x08' stat='pAtk'/>
       <set val='47' order='0x08' stat='mAtk'/>
@@ -416,7 +416,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2547' name="Knights Sword*Crimson Sword">
+  <item id='2547' name="Knight's Sword*Crimson Sword">
     <for>
       <set val='107' order='0x08' stat='pAtk'/>
       <set val='51' order='0x08' stat='mAtk'/>
@@ -427,7 +427,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2548' name="Knights Sword*Elven Sword">
+  <item id='2548' name="Knight's Sword*Elven Sword">
     <for>
       <set val='107' order='0x08' stat='pAtk'/>
       <set val='51' order='0x08' stat='mAtk'/>
@@ -438,7 +438,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2549' name="Knights Sword*Sword Of Revolution">
+  <item id='2549' name="Knight's Sword*Sword of Revolution">
     <for>
       <set val='124' order='0x08' stat='pAtk'/>
       <set val='58' order='0x08' stat='mAtk'/>
@@ -449,7 +449,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2550' name="Knights Sword*Elven Long Sword">
+  <item id='2550' name="Knight's Sword*Elven Long Sword">
     <for>
       <set val='136' order='0x08' stat='pAtk'/>
       <set val='63' order='0x08' stat='mAtk'/>
@@ -482,7 +482,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2553' name="Crimson Sword*Sword Of Revolution">
+  <item id='2553' name="Crimson Sword*Sword of Revolution">
     <for>
       <set val='136' order='0x08' stat='pAtk'/>
       <set val='63' order='0x08' stat='mAtk'/>
@@ -519,7 +519,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2556' name="Elven Sword*Sword Of Revolution">
+  <item id='2556' name="Elven Sword*Sword of Revolution">
     <for>
       <set val='136' order='0x08' stat='pAtk'/>
       <set val='63' order='0x08' stat='mAtk'/>
@@ -546,7 +546,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2558' name="Sword Of Revolution*Sword Of Revolution">
+  <item id='2558' name="Sword of Revolution*Sword of Revolution">
     <for>
       <set val='148' order='0x08' stat='pAtk'/>
       <set val='68' order='0x08' stat='mAtk'/>
@@ -562,7 +562,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2559' name="Sword Of Revolution*Elven Long Sword">
+  <item id='2559' name="Sword of Revolution*Elven Long Sword">
     <for>
       <set val='155' order='0x08' stat='pAtk'/>
       <set val='70' order='0x08' stat='mAtk'/>
@@ -688,7 +688,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2567' name="Stormbringer*Sword Of Limit">
+  <item id='2567' name="Stormbringer*Sword of Limit">
     <for>
       <set val='197' order='0x08' stat='pAtk'/>
       <set val='86' order='0x08' stat='mAtk'/>
@@ -704,7 +704,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2568' name="Stormbringer*Sword Of Delusion">
+  <item id='2568' name="Stormbringer*Sword of Delusion">
     <for>
       <set val='197' order='0x08' stat='pAtk'/>
       <set val='86' order='0x08' stat='mAtk'/>
@@ -720,7 +720,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2569' name="Stormbringer*Sword Of Nightmare">
+  <item id='2569' name="Stormbringer*Sword of Nightmare">
     <for>
       <set val='197' order='0x08' stat='pAtk'/>
       <set val='86' order='0x08' stat='mAtk'/>
@@ -845,7 +845,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2577' name="Shamshir*Sword Of Limit">
+  <item id='2577' name="Shamshir*Sword of Limit">
     <for>
       <set val='204' order='0x08' stat='pAtk'/>
       <set val='89' order='0x08' stat='mAtk'/>
@@ -861,7 +861,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2578' name="Shamshir*Sword Of Delusion">
+  <item id='2578' name="Shamshir*Sword of Delusion">
     <for>
       <set val='204' order='0x08' stat='pAtk'/>
       <set val='89' order='0x08' stat='mAtk'/>
@@ -877,7 +877,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2579' name="Shamshir*Sword Of Nightmare">
+  <item id='2579' name="Shamshir*Sword of Nightmare">
     <for>
       <set val='204' order='0x08' stat='pAtk'/>
       <set val='89' order='0x08' stat='mAtk'/>
@@ -986,7 +986,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2586' name="Katana*Sword Of Limit">
+  <item id='2586' name="Katana*Sword of Limit">
     <for>
       <set val='204' order='0x08' stat='pAtk'/>
       <set val='89' order='0x08' stat='mAtk'/>
@@ -1002,7 +1002,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2587' name="Katana*Sword Of Delusion">
+  <item id='2587' name="Katana*Sword of Delusion">
     <for>
       <set val='204' order='0x08' stat='pAtk'/>
       <set val='89' order='0x08' stat='mAtk'/>
@@ -1018,7 +1018,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2588' name="Katana*Sword Of Nightmare">
+  <item id='2588' name="Katana*Sword of Nightmare">
     <for>
       <set val='204' order='0x08' stat='pAtk'/>
       <set val='89' order='0x08' stat='mAtk'/>
@@ -1113,7 +1113,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2594' name="Spirit Sword*Sword Of Limit">
+  <item id='2594' name="Spirit Sword*Sword of Limit">
     <for>
       <set val='204' order='0x08' stat='pAtk'/>
       <set val='89' order='0x08' stat='mAtk'/>
@@ -1129,7 +1129,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2595' name="Spirit Sword*Sword Of Delusion">
+  <item id='2595' name="Spirit Sword*Sword of Delusion">
     <for>
       <set val='204' order='0x08' stat='pAtk'/>
       <set val='89' order='0x08' stat='mAtk'/>
@@ -1145,7 +1145,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='2596' name="Spirit Sword*Sword Of Nightmare">
+  <item id='2596' name="Spirit Sword*Sword of Nightmare">
     <for>
       <set val='204' order='0x08' stat='pAtk'/>
       <set val='89' order='0x08' stat='mAtk'/>

@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <!DOCTYPE list SYSTEM "weapons.dtd">
 <list>
-  <item id='8102' name="Pa\'agrian Sword - Focus">
+  <item id='8102' name="Pa'agrian Sword - Focus">
     <for>
       <set val='169' order='0x08' stat='pAtk'/>
       <set val='76' order='0x08' stat='mAtk'/>
@@ -12,7 +12,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8103' name="sword_of_paagrio_health">
+  <item id='8103' name="Pa'agrian Sword - Health">
     <for>
       <set val='169' order='0x08' stat='pAtk'/>
       <set val='76' order='0x08' stat='mAtk'/>
@@ -23,7 +23,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8104' name="sword_of_paagrio_crt._drain">
+  <item id='8104' name="Pa'agrian Sword - Critical Drain">
     <for>
       <set val='169' order='0x08' stat='pAtk'/>
       <set val='76' order='0x08' stat='mAtk'/>
@@ -34,7 +34,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8105' name="guardian_sword_crt._bleed">
+  <item id='8105' name="Guardian Sword - Critical Drain">
     <for>
       <set val='236' order='0x08' stat='pAtk'/>
       <set val='99' order='0x08' stat='mAtk'/>
@@ -45,7 +45,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8106' name="guardian_sword_health">
+  <item id='8106' name="Guardian Sword - Health">
     <for>
       <set val='236' order='0x08' stat='pAtk'/>
       <set val='99' order='0x08' stat='mAtk'/>
@@ -56,7 +56,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8107' name="guardian_sword_crt._drain">
+  <item id='8107' name="Guardian Sword - Critical Bleed">
     <for>
       <set val='236' order='0x08' stat='pAtk'/>
       <set val='99' order='0x08' stat='mAtk'/>
@@ -67,7 +67,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8108' name="infernal_master_haste">
+  <item id='8108' name="Infernal Master - Haste">
     <for>
       <set val='259' order='0x08' stat='pAtk'/>
       <set val='107' order='0x08' stat='mAtk'/>
@@ -78,7 +78,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8109' name="infernal_master_crt._damage">
+  <item id='8109' name="Infernal Master - Critical Damage">
     <for>
       <set val='259' order='0x08' stat='pAtk'/>
       <set val='107' order='0x08' stat='mAtk'/>
@@ -113,7 +113,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8112' name="mysterious_sword_magic_power">
+  <item id='8112' name="Mysterious Sword - Magic Power">
     <for>
       <set val='85' order='0x08' stat='pAtk'/>
       <set val='81' order='0x08' stat='mAtk'/>
@@ -127,7 +127,7 @@
       <mul val='1.15' order='0x30' stat='MpConsume'/>
     </for>
   </item>
-  <item id='8113' name="mysterious_sword_magic_weakness">
+  <item id='8113' name="Mysterious Sword - Magic Weakness">
     <for>
       <set val='85' order='0x08' stat='pAtk'/>
       <set val='81' order='0x08' stat='mAtk'/>
@@ -138,7 +138,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8114' name="ecliptic_sword_empower">
+  <item id='8114' name="Ecliptic Sword - Empower">
     <for>
       <set val='125' order='0x08' stat='pAtk'/>
       <set val='111' order='0x08' stat='mAtk'/>
@@ -151,7 +151,7 @@
       <add val='26' order='0x40' stat='mAtk'/>
     </for>
   </item>
-  <item id='8115' name="ecliptic_sword_magic_power">
+  <item id='8115' name="Ecliptic Sword - Magic Power">
     <for>
       <set val='125' order='0x08' stat='pAtk'/>
       <set val='111' order='0x08' stat='mAtk'/>
@@ -165,7 +165,7 @@
       <mul val='1.15' order='0x30' stat='MpConsume'/>
     </for>
   </item>
-  <item id='8116' name="ecliptic_sword_magic_silence">
+  <item id='8116' name="Ecliptic Sword - Magic Silence">
     <for>
       <set val='125' order='0x08' stat='pAtk'/>
       <set val='111' order='0x08' stat='mAtk'/>
@@ -176,7 +176,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8117' name="Wizard\'s Tear - Acumen">
+  <item id='8117' name="Wizard's Tear - Acumen">
     <for>
       <set val='155' order='0x08' stat='pAtk'/>
       <set val='132' order='0x08' stat='mAtk'/>
@@ -187,7 +187,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8118' name="wizards_tear_magic_power">
+  <item id='8118' name="Wizard's Tear - Magic Power">
     <for>
       <set val='155' order='0x08' stat='pAtk'/>
       <set val='132' order='0x08' stat='mAtk'/>
@@ -201,7 +201,7 @@
       <mul val='1.15' order='0x30' stat='MpConsume'/>
     </for>
   </item>
-  <item id='8119' name="Wizard\'s Tear - Conversion">
+  <item id='8119' name="Wizard's Tear - Conversion">
     <for>
       <set val='155' order='0x08' stat='pAtk'/>
       <set val='132' order='0x08' stat='mAtk'/>
@@ -212,7 +212,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8120' name="dwarven_hammer_health">
+  <item id='8120' name="Dwarven Hammer - Health">
     <for>
       <set val='190' order='0x08' stat='pAtk'/>
       <set val='83' order='0x08' stat='mAtk'/>
@@ -223,7 +223,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8121' name="dwarven_hammer_anger">
+  <item id='8121' name="Dwarven Hammer - Anger">
     <for>
       <set val='190' order='0x08' stat='pAtk'/>
       <set val='83' order='0x08' stat='mAtk'/>
@@ -237,7 +237,7 @@
       <mul val='0.85' order='0x30' stat='maxHp'/>
     </for>
   </item>
-  <item id='8122' name="dwarven_hammer_crt._bleed">
+  <item id='8122' name="Dwarven Hammer - Critical Bleed">
     <for>
       <set val='190' order='0x08' stat='pAtk'/>
       <set val='83' order='0x08' stat='mAtk'/>
@@ -259,7 +259,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8124' name="karik_horn_haste">
+  <item id='8124' name="Karik Horn - Haste">
     <for>
       <set val='169' order='0x08' stat='pAtk'/>
       <set val='76' order='0x08' stat='mAtk'/>
@@ -270,7 +270,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8125' name="karik_horn_crt.drain">
+  <item id='8125' name="Karik Horn - Critical Drain">
     <for>
       <set val='169' order='0x08' stat='pAtk'/>
       <set val='76' order='0x08' stat='mAtk'/>
@@ -281,7 +281,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8126' name="destroyer_hammer_health">
+  <item id='8126' name="Destroyer Hammer - Health">
     <for>
       <set val='259' order='0x08' stat='pAtk'/>
       <set val='107' order='0x08' stat='mAtk'/>
@@ -292,7 +292,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8127' name="destroyer_hammer_haste">
+  <item id='8127' name="Destroyer Hammer - Haste">
     <for>
       <set val='259' order='0x08' stat='pAtk'/>
       <set val='107' order='0x08' stat='mAtk'/>
@@ -303,7 +303,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8128' name="destroyer_hammer_crt._drain">
+  <item id='8128' name="Destroyer Hammer - Critical Drain">
     <for>
       <set val='259' order='0x08' stat='pAtk'/>
       <set val='107' order='0x08' stat='mAtk'/>
@@ -325,7 +325,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8130' name="ice_storm_hammer_anger">
+  <item id='8130' name="Ice Storm Hammer - Anger">
     <for>
       <set val='213' order='0x08' stat='pAtk'/>
       <set val='91' order='0x08' stat='mAtk'/>
@@ -339,7 +339,7 @@
       <mul val='0.85' order='0x30' stat='maxHp'/>
     </for>
   </item>
-  <item id='8131' name="ice_storm_hammer_crt._bleed">
+  <item id='8131' name="Ice Storm Hammer - Critical Bleed">
     <for>
       <set val='213' order='0x08' stat='pAtk'/>
       <set val='91' order='0x08' stat='mAtk'/>
@@ -350,7 +350,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8132' name="star_buster_health">
+  <item id='8132' name="Star Buster - Health">
     <for>
       <set val='236' order='0x08' stat='pAtk'/>
       <set val='99' order='0x08' stat='mAtk'/>
@@ -361,7 +361,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8133' name="star_buster_haste">
+  <item id='8133' name="Star Buster - Haste">
     <for>
       <set val='236' order='0x08' stat='pAtk'/>
       <set val='99' order='0x08' stat='mAtk'/>
@@ -383,7 +383,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8135' name="doom_crusher_health">
+  <item id='8135' name="Doom Crusher - Health">
     <for>
       <set val='282' order='0x08' stat='pAtk'/>
       <set val='114' order='0x08' stat='mAtk'/>
@@ -394,7 +394,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8136' name="doom_crusher_anger">
+  <item id='8136' name="Doom Crusher - Anger">
     <for>
       <set val='282' order='0x08' stat='pAtk'/>
       <set val='114' order='0x08' stat='mAtk'/>
@@ -408,7 +408,7 @@
       <mul val='0.85' order='0x30' stat='maxHp'/>
     </for>
   </item>
-  <item id='8137' name="doom_crusher_rsk._haste">
+  <item id='8137' name="Doom Crusher - Rsk. Haste">
     <for>
       <set val='282' order='0x08' stat='pAtk'/>
       <set val='114' order='0x08' stat='mAtk'/>
@@ -436,7 +436,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8139' name="ecliptic_axe_magic_power">
+  <item id='8139' name="Ecliptic Axe - Magic Power">
     <for>
       <set val='125' order='0x08' stat='pAtk'/>
       <set val='111' order='0x08' stat='mAtk'/>
@@ -450,7 +450,7 @@
       <mul val='1.15' order='0x30' stat='MpConsume'/>
     </for>
   </item>
-  <item id='8140' name="ecliptic_axe_magic_hold">
+  <item id='8140' name="Ecliptic Axe - Magic Hold">
     <for>
       <set val='125' order='0x08' stat='pAtk'/>
       <set val='111' order='0x08' stat='mAtk'/>
@@ -459,8 +459,6 @@
       <set val='379' order='0x08' stat='pAtkSpd'/>
       <enchant val='0' order='0x0C' stat='pAtk'/>
       <enchant val='0' order='0x0C' stat='mAtk'/>
-      <!-- Magic Hold -->
-      <skill onCast='1' id='1201' lvl='1' chance='10'/>
     </for>
   </item>
   <item id='8141' name="Spell Breaker - Acumen">
@@ -474,7 +472,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8142' name="spell_breaker_mental_shield">
+  <item id='8142' name="Spell Breaker - Magic Mental Shield">
     <for>
       <set val='140' order='0x08' stat='pAtk'/>
       <set val='122' order='0x08' stat='mAtk'/>
@@ -485,7 +483,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8143' name="spell_breaker_magic_hold">
+  <item id='8143' name="Spell Breaker - Magic Hold">
     <for>
       <set val='140' order='0x08' stat='pAtk'/>
       <set val='122' order='0x08' stat='mAtk'/>
@@ -494,11 +492,9 @@
       <set val='379' order='0x08' stat='pAtkSpd'/>
       <enchant val='0' order='0x0C' stat='pAtk'/>
       <enchant val='0' order='0x0C' stat='mAtk'/>
-      <!-- Magic Hold -->
-      <skill onCast='1' id='1201' lvl='1' chance='10'/>
     </for>
   </item>
-  <item id='8144' name="kaim_vanuls_bone_mana_up">
+  <item id='8144' name="Kaim Vanul's Bones - Mana Up">
     <for>
       <set val='155' order='0x08' stat='pAtk'/>
       <set val='132' order='0x08' stat='mAtk'/>
@@ -509,7 +505,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8145' name="kaim_vanuls_bone_magic_silence">
+  <item id='8145' name="Kaim Vanul's Bones - Magic Silence">
     <for>
       <set val='155' order='0x08' stat='pAtk'/>
       <set val='132' order='0x08' stat='mAtk'/>
@@ -520,7 +516,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8146' name="Kaim Vanul\'s Bones - Conversion">
+  <item id='8146' name="Kaim Vanul's Bones - Conversion">
     <for>
       <set val='155' order='0x08' stat='pAtk'/>
       <set val='132' order='0x08' stat='mAtk'/>
@@ -531,7 +527,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8147' name="spiritual_eye_mana_up">
+  <item id='8147' name="Spiritual Eye - Mana Up">
     <for>
       <set val='170' order='0x08' stat='pAtk'/>
       <set val='143' order='0x08' stat='mAtk'/>
@@ -542,7 +538,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8148' name="spiritual_eye_magic_poison">
+  <item id='8148' name="Spiritual Eye - Magic Poison">
     <for>
       <set val='170' order='0x08' stat='pAtk'/>
       <set val='143' order='0x08' stat='mAtk'/>
@@ -575,7 +571,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8151' name="flaming_dragon_skull_magic_power">
+  <item id='8151' name="Flaming Dragon Skull - Magic Power">
     <for>
       <set val='186' order='0x08' stat='pAtk'/>
       <set val='152' order='0x08' stat='mAtk'/>
@@ -589,7 +585,7 @@
       <mul val='1.15' order='0x30' stat='MpConsume'/>
     </for>
   </item>
-  <item id='8152' name="flaming_dragon_skull_magic_silence">
+  <item id='8152' name="Flaming Dragon Skull - Magic Silence">
     <for>
       <set val='186' order='0x08' stat='pAtk'/>
       <set val='152' order='0x08' stat='mAtk'/>
@@ -600,7 +596,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='8190' name="demonic_sword_zariche">
+  <item id='8190' name="Demonic Sword Zariche">
     <for>
       <set val='361' order='0x08' stat='pAtk'/>
       <set val='137' order='0x08' stat='mAtk'/>

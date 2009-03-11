@@ -1222,13 +1222,12 @@
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="ROOT" />
     <set name="isDebuff" val="true" />
-    <set name="lvlDepend" val="1" />
+    <set name="lvlDepend" val="2" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="1000" />
     <set name="effectRange" val="1500" />
     <for>
-      <effect count="1" name="Root" time="30" val="0"
-        stackOrder="1" stackType="Root" />
+      <effect count="1" name="Root" time="30" val="0" stackOrder="1" stackType="Root" />
     </for>
   </skill>
   <skill id="3578" levels="1" name="Special Ability: Infinity Blade">

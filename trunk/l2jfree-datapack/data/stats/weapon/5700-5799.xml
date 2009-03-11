@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "weapons.dtd">
 <list>
-  <item id='5704' name="keshanberk*keshanberk">
+  <item id='5704' name="Keshanberk*Keshanberk">
     <for>
       <set val='259' order='0x08' stat='pAtk'/>
       <set val='107' order='0x08' stat='mAtk'/>
@@ -17,7 +17,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='5705' name="keshanberk*damascus">
+  <item id='5705' name="Keshanberk*Damascus">
     <for>
       <set val='275' order='0x08' stat='pAtk'/>
       <set val='112' order='0x08' stat='mAtk'/>
@@ -36,7 +36,7 @@
       <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
     </for>
   </item>
-  <item id='5706' name="damascus*damascus">
+  <item id='5706' name="Damascus*Damascus">
     <for>
       <set val='282' order='0x08' stat='pAtk'/>
       <set val='114' order='0x08' stat='mAtk'/>
@@ -54,7 +54,7 @@
       <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
     </for>
   </item>
-  <item id='5791' name="tomb_guard_a">
+  <item id='5791' name="Tomb Guard A">
     <for>
       <set val='78' order='0x08' stat='pAtk'/>
       <set val='39' order='0x08' stat='mAtk'/>
@@ -65,7 +65,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='5792' name="tomb_guard_b">
+  <item id='5792' name="Tomb Guard B">
     <for>
       <set val='78' order='0x08' stat='pAtk'/>
       <set val='39' order='0x08' stat='mAtk'/>
@@ -76,7 +76,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='5793' name="tomb_savant_a">
+  <item id='5793' name="Tomb Savant A">
     <for>
       <set val='156' order='0x08' stat='pAtk'/>
       <set val='83' order='0x08' stat='mAtk'/>
@@ -87,7 +87,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='5794' name="tomb_savant_b">
+  <item id='5794' name="Tomb Savant B">
     <for>
       <set val='156' order='0x08' stat='pAtk'/>
       <set val='83' order='0x08' stat='mAtk'/>
@@ -98,7 +98,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='5795' name="tomb_guard_a">
+  <item id='5795' name="Tomb Guard A">
     <for>
       <set val='78' order='0x08' stat='pAtk'/>
       <set val='39' order='0x08' stat='mAtk'/>
@@ -109,7 +109,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='5796' name="tomb_guard_b">
+  <item id='5796' name="Tomb Guard B">
     <for>
       <set val='78' order='0x08' stat='pAtk'/>
       <set val='39' order='0x08' stat='mAtk'/>
@@ -120,7 +120,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='5797' name="tomb_savant_a">
+  <item id='5797' name="Tomb Savant A">
     <for>
       <set val='156' order='0x08' stat='pAtk'/>
       <set val='83' order='0x08' stat='mAtk'/>
@@ -131,7 +131,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='5798' name="tomb_savant_b">
+  <item id='5798' name="Tomb Savant B">
     <for>
       <set val='156' order='0x08' stat='pAtk'/>
       <set val='83' order='0x08' stat='mAtk'/>
@@ -142,7 +142,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='5799' name="nephilim_lord">
+  <item id='5799' name="Nephilim Lord">
     <for>
       <sub val='8' order='0x10' stat='rEvas'/>
       <set val='142' order='0x08' stat='sDef'/>

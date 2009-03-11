@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "armors.dtd">
 <list>
-  <item id='7680' name="Raccoon Ear">
+  <item id='7680' name="Raccoon Ears">
     <for>
       <add val='0' order='0x10' stat='pDef'/>
     </for>

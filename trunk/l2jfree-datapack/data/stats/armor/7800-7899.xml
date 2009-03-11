@@ -96,7 +96,7 @@
       <enchant val='0' order='0x0C' stat='pDef'/>
     </for>
   </item>
-  <item id='7852' name="Clan Oath Gauntlets">
+  <item id='7852' name="Clan Oath Gauntlets - Heavy Armor">
     <cond msgId="1518">
       <player pledgeClass="1"/>
     </cond>
@@ -105,7 +105,7 @@
       <enchant val='0' order='0x0C' stat='pDef'/>
     </for>
   </item>
-  <item id='7853' name="Clan Oath Sabaton">
+  <item id='7853' name="Clan Oath Sabaton - Heavy Armor">
     <cond msgId="1518">
       <player pledgeClass="1"/>
     </cond>
@@ -123,7 +123,7 @@
       <enchant val='0' order='0x0C' stat='pDef'/>
     </for>
   </item>
-  <item id='7855' name="Clan Oath Leather Glover">
+  <item id='7855' name="Clan Oath Leather Gloves - Light Armor">
     <cond msgId="1518">
       <player pledgeClass="1"/>
     </cond>
@@ -132,7 +132,7 @@
       <enchant val='0' order='0x0C' stat='pDef'/>
     </for>
   </item>
-  <item id='7856' name="Clan Oath Boots">
+  <item id='7856' name="Clan Oath Boots - Light Armor">
     <cond msgId="1518">
       <player pledgeClass="1"/>
     </cond>
@@ -147,11 +147,11 @@
     </cond>
     <for>
       <add val='79' order='0x10' stat='pDef'/>
-      <add val='239' order='0x10' stat='maxMp'/>
+      <add val='239' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='pDef'/>
     </for>
   </item>
-  <item id='7858' name="Clan Oath Padded Gloves">
+  <item id='7858' name="Clan Oath Padded Gloves - Robe">
     <cond msgId="1518">
       <player pledgeClass="1"/>
     </cond>
@@ -160,7 +160,7 @@
       <enchant val='0' order='0x0C' stat='pDef'/>
     </for>
   </item>
-  <item id='7859' name="Clan Oath Sandals">
+  <item id='7859' name="Clan Oath Sandals - Robe">
     <cond msgId="1518">
       <player pledgeClass="1"/>
     </cond>
@@ -187,7 +187,7 @@
       <enchant val='0' order='0x0C' stat='pDef'/>
     </for>
   </item>
-  <item id='7862' name="Apella Gauntlet">
+  <item id='7862' name="Apella Gauntlet - Heavy Armor">
     <cond msgId="1518">
       <player pledgeClass="5"/>
     </cond>
@@ -196,7 +196,7 @@
       <enchant val='0' order='0x0C' stat='pDef'/>
     </for>
   </item>
-  <item id='7863' name="Apella Solleret">
+  <item id='7863' name="Apella Solleret - Heavy Armor">
     <cond msgId="1518">
       <player pledgeClass="5"/>
     </cond>
@@ -214,7 +214,7 @@
       <enchant val='0' order='0x0C' stat='pDef'/>
     </for>
   </item>
-  <item id='7865' name="Apella Leather Gloves">
+  <item id='7865' name="Apella Leather Gloves - Light Armor">
     <cond msgId="1518">
       <player pledgeClass="5"/>
     </cond>
@@ -223,7 +223,7 @@
       <enchant val='0' order='0x0C' stat='pDef'/>
     </for>
   </item>
-  <item id='7866' name="Apella Boots">
+  <item id='7866' name="Apella Boots - Light Armor">
     <cond msgId="1518">
       <player pledgeClass="5"/>
     </cond>
@@ -238,11 +238,11 @@
     </cond>
     <for>
       <add val='139' order='0x10' stat='pDef'/>
-      <add val='665' order='0x10' stat='maxMp'/>
+      <add val='665' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='pDef'/>
     </for>
   </item>
-  <item id='7868' name="Apella Silk Gloves">
+  <item id='7868' name="Apella Silk Gloves - Robe">
     <cond msgId="1518">
       <player pledgeClass="5"/>
     </cond>
@@ -251,7 +251,7 @@
       <enchant val='0' order='0x0C' stat='pDef'/>
     </for>
   </item>
-  <item id='7869' name="Apella Sandals Robe">
+  <item id='7869' name="Apella Sandals - Robe">
     <cond msgId="1518">
       <player pledgeClass="5"/>
     </cond>
@@ -260,7 +260,7 @@
       <enchant val='0' order='0x0C' stat='pDef'/>
     </for>
   </item>
-  <item id='7870' name="Sealed Apella Helmet">
+  <item id='7870' name="Sealed Apella Helm">
     <cond msgId="1518">
       <player pledgeClass="5"/>
     </cond>
@@ -278,7 +278,7 @@
       <enchant val='0' order='0x0C' stat='pDef'/>
     </for>
   </item>
-  <item id='7872' name="Sealed Apella Gauntlet">
+  <item id='7872' name="Sealed Apella Gauntlet - Heavy Armor">
     <cond msgId="1518">
       <player pledgeClass="5"/>
     </cond>
@@ -287,7 +287,7 @@
       <enchant val='0' order='0x0C' stat='pDef'/>
     </for>
   </item>
-  <item id='7873' name="Sealed Apella Solleret">
+  <item id='7873' name="Sealed Apella Solleret - Heavy Armor">
     <cond msgId="1518">
       <player pledgeClass="5"/>
     </cond>
@@ -305,7 +305,7 @@
       <enchant val='0' order='0x0C' stat='pDef'/>
     </for>
   </item>
-  <item id='7875' name="Sealed Apella Leather Gloves">
+  <item id='7875' name="Sealed Apella Leather Gloves - Light Armor">
     <cond msgId="1518">
       <player pledgeClass="5"/>
     </cond>
@@ -314,7 +314,7 @@
       <enchant val='0' order='0x0C' stat='pDef'/>
     </for>
   </item>
-  <item id='7876' name="Sealed Apella Boots">
+  <item id='7876' name="Sealed Apella Boots - Light Armor">
     <cond msgId="1518">
       <player pledgeClass="5"/>
     </cond>
@@ -329,11 +329,11 @@
     </cond>
     <for>
       <add val='139' order='0x10' stat='pDef'/>
-      <add val='665' order='0x10' stat='maxMp'/>
+      <add val='665' order='0x40' stat='maxMp'/>
       <enchant val='0' order='0x0C' stat='pDef'/>
     </for>
   </item>
-  <item id='7878' name="Sealed Apella Silk Gloves">
+  <item id='7878' name="Sealed Apella Silk Gloves - Robe">
     <cond msgId="1518">
       <player pledgeClass="5"/>
     </cond>
@@ -342,7 +342,7 @@
       <enchant val='0' order='0x0C' stat='pDef'/>
     </for>
   </item>
-  <item id='7879' name="Sealed Apella Sandals Robe">
+  <item id='7879' name="Sealed Apella Sandals - Robe">
     <cond msgId="1518">
       <player pledgeClass="5"/>
     </cond>

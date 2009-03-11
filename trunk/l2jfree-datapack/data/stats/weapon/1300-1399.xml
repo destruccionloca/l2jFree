@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "weapons.dtd">
 <list>
-  <item id='1300' name="Apprentices Rod">
+  <item id='1300' name="Apprentice's Rod">
     <for>
       <set val='22' order='0x08' stat='pAtk'/>
       <set val='6' order='0x08' stat='mAtk'/>
@@ -23,7 +23,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='1302' name="Bec De Corbin">
+  <item id='1302' name="Bec de Corbin">
     <for>
       <set val='22' order='0x08' stat='pAtk'/>
       <set val='6' order='0x08' stat='mAtk'/>
@@ -47,7 +47,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='1304' name="Conjurors Staff">
+  <item id='1304' name="Conjuror's Staff">
     <for>
       <set val='15' order='0x08' stat='pAtk'/>
       <set val='17' order='0x08' stat='mAtk'/>
@@ -91,7 +91,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='1328' name="Shield Of Grace">
+  <item id='1328' name="Shield of Grace">
     <for>
       <sub val='8' order='0x10' stat='rEvas'/>
       <set val='71' order='0x08' stat='sDef'/>
@@ -99,7 +99,7 @@
       <enchant val='0' order='0x0C' stat='sDef'/>
     </for>
   </item>
-  <item id='1329' name="Shield Of Victory">
+  <item id='1329' name="Shield of Victory">
     <for>
       <sub val='8' order='0x10' stat='rEvas'/>
       <set val='71' order='0x08' stat='sDef'/>
@@ -107,7 +107,7 @@
       <enchant val='0' order='0x0C' stat='sDef'/>
     </for>
   </item>
-  <item id='1330' name="Zubeis Shield">
+  <item id='1330' name="Zubei's Shield">
     <for>
       <sub val='8' order='0x10' stat='rEvas'/>
       <set val='71' order='0x08' stat='sDef'/>
@@ -123,7 +123,7 @@
       <enchant val='0' order='0x0C' stat='sDef'/>
     </for>
   </item>
-  <item id='1332' name="Knight Shield">
+  <item id='1332' name="Knight's Shield">
     <for>
       <sub val='8' order='0x10' stat='rEvas'/>
       <set val='71' order='0x08' stat='sDef'/>

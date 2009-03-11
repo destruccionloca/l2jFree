@@ -1,6 +1,6 @@
--- ---------------------------
+-- --------------------------------------
 -- Table structure for table `npcskills`
--- ---------------------------
+-- --------------------------------------
 DROP TABLE IF EXISTS `npcskills`;
 CREATE TABLE npcskills (
   `npcid` int(11) NOT NULL DEFAULT '0',
@@ -35399,4 +35399,4 @@ INSERT INTO `npcskills` (`npcid`,`skillid`,`level`) VALUES
 -- L2J-Free Add-ons
 --
 
-DELETE FROM npcskills WHERE skillid IN (5104, 5105);
+DELETE FROM `npcskills` WHERE `skillid` IN (5104, 5105);

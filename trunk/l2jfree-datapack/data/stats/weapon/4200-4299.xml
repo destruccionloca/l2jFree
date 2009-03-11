@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "weapons.dtd">
 <list>
-  <item id='4202' name="Chrono cithara">
+  <item id='4202' name="Chrono Cithara">
     <for>
       <set val='1' order='0x08' stat='pAtk'/>
       <set val='1' order='0x08' stat='mAtk'/>
@@ -72,7 +72,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='4237' name="Hatchlings Level 65 Weapon">
+  <item id='4237' name="Hatchling's Level 65 Weapon">
     <for>
       <add val='24' order='0x10' stat='pAtk'/>
       <add val='32' order='0x10' stat='mAtk'/>
@@ -80,7 +80,7 @@
       <set val='304' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='4238' name="Hatchlings Level 75 Weapon">
+  <item id='4238' name="Hatchling's Level 75 Weapon">
     <for>
       <add val='31' order='0x10' stat='pAtk'/>
       <add val='43' order='0x10' stat='mAtk'/>

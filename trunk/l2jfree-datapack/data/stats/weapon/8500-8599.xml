@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "weapons.dtd">
 <list>
-  <item id='8527' name="(Monster Only)Strengthened Bow">
+  <item id='8527' name="For Monsters Only (Strengthened Bow)">
     <for>
       <set val='82' order='0x08' stat='pAtk'/>
       <set val='26' order='0x08' stat='mAtk'/>
@@ -10,7 +10,7 @@
       <set val='293' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8528' name="(Monster Only)Doom Hammer">
+  <item id='8528' name="For Monsters Only (Doom Hammer)">
     <for>
       <set val='41' order='0x08' stat='pAtk'/>
       <set val='43' order='0x08' stat='mAtk'/>
@@ -19,7 +19,7 @@
       <set val='379' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8529' name="(Monster Only)Knife">
+  <item id='8529' name="For Monsters Only (Knife)">
     <for>
       <set val='10' order='0x08' stat='pAtk'/>
       <set val='9' order='0x08' stat='mAtk'/>
@@ -28,7 +28,7 @@
       <set val='433' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8530' name="(Monster Only)Squires Sword">
+  <item id='8530' name="For Monsters Only (Squire's Sword)">
     <for>
       <set val='6' order='0x08' stat='pAtk'/>
       <set val='5' order='0x08' stat='mAtk'/>
@@ -37,7 +37,7 @@
       <set val='379' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8531' name="(Monster Only)Bone Staff">
+  <item id='8531' name="For Monsters Only (Bone Staff)">
     <for>
       <set val='39' order='0x08' stat='pAtk'/>
       <set val='35' order='0x08' stat='mAtk'/>
@@ -46,7 +46,7 @@
       <set val='325' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8532' name="(Monster Only)Spinebone Sword">
+  <item id='8532' name="For Monsters Only (Spinebone Sword)">
     <for>
       <set val='51' order='0x08' stat='pAtk'/>
       <set val='32' order='0x08' stat='mAtk'/>
@@ -55,7 +55,7 @@
       <set val='379' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8533' name="(Monster Only)Crimson Sword">
+  <item id='8533' name="For Monsters Only (Crimson Sword)">
     <for>
       <set val='64' order='0x08' stat='pAtk'/>
       <set val='39' order='0x08' stat='mAtk'/>
@@ -64,7 +64,7 @@
       <set val='379' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8576' name="Apprentice's Staff - For Coupon Event">
+  <item id='8576' name="Apprentice's Staff (Event)">
     <for>
       <set val='23' order='0x08' stat='pAtk'/>
       <set val='22' order='0x08' stat='mAtk'/>
@@ -73,7 +73,7 @@
       <set val='325' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8577' name="Bone Club - For Coupon Event">
+  <item id='8577' name="Bone Club (Event)">
     <for>
       <set val='24' order='0x08' stat='pAtk'/>
       <set val='17' order='0x08' stat='mAtk'/>
@@ -82,7 +82,7 @@
       <set val='379' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8578' name="Shining Knife - For Coupon Event">
+  <item id='8578' name="Shining Knife (Event)">
     <for>
       <set val='21' order='0x08' stat='pAtk'/>
       <set val='17' order='0x08' stat='mAtk'/>
@@ -91,7 +91,7 @@
       <set val='433' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8579' name="Cestus - For Coupon Event">
+  <item id='8579' name="Cestus (Event)">
     <for>
       <set val='29' order='0x08' stat='pAtk'/>
       <set val='17' order='0x08' stat='mAtk'/>
@@ -100,7 +100,7 @@
       <set val='325' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8580' name="Forest Bow - For Coupon Event">
+  <item id='8580' name="Forest Bow (Event)">
     <for>
       <set val='49' order='0x08' stat='pAtk'/>
       <set val='17' order='0x08' stat='mAtk'/>
@@ -109,7 +109,7 @@
       <set val='293' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8581' name="Long Sword - For Coupon Event">
+  <item id='8581' name="Long Sword (Event)">
     <for>
       <set val='24' order='0x08' stat='pAtk'/>
       <set val='17' order='0x08' stat='mAtk'/>
@@ -118,7 +118,7 @@
       <set val='379' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8582' name="Mace of Prayer - For Coupon Event">
+  <item id='8582' name="Mace of Prayer (Event)">
     <for>
       <set val='41' order='0x08' stat='pAtk'/>
       <set val='43' order='0x08' stat='mAtk'/>
@@ -127,7 +127,7 @@
       <set val='379' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8583' name="Dark Elven Bow - For Coupon Event">
+  <item id='8583' name="Dark Elven Bow (Event)">
     <for>
       <set val='105' order='0x08' stat='pAtk'/>
       <set val='32' order='0x08' stat='mAtk'/>
@@ -136,7 +136,7 @@
       <set val='293' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8584' name="Long Bow - For Coupon Event">
+  <item id='8584' name="Long Bow (Event)">
     <for>
       <set val='114' order='0x08' stat='pAtk'/>
       <set val='35' order='0x08' stat='mAtk'/>
@@ -145,7 +145,7 @@
       <set val='227' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8585' name="Staff of Mana - For Coupon Event">
+  <item id='8585' name="Staff of Mana (Event)">
     <for>
       <set val='50' order='0x08' stat='pAtk'/>
       <set val='43' order='0x08' stat='mAtk'/>
@@ -154,7 +154,7 @@
       <set val='325' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8586' name="Bastard Sword - For Coupon Event">
+  <item id='8586' name="Bastard Sword (Event)">
     <for>
       <set val='51' order='0x08' stat='pAtk'/>
       <set val='32' order='0x08' stat='mAtk'/>
@@ -163,7 +163,7 @@
       <set val='379' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8587' name="Divine Tomb - For Coupon Event">
+  <item id='8587' name="Divine Tomb (Event)">
     <for>
       <set val='41' order='0x08' stat='pAtk'/>
       <set val='43' order='0x08' stat='mAtk'/>
@@ -172,7 +172,7 @@
       <set val='379' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8588' name="Single-Edged Jamadhr - For Coupon Event">
+  <item id='8588' name="Single-Edged Jamadhr (Event)">
     <for>
       <set val='62' order='0x08' stat='pAtk'/>
       <set val='32' order='0x08' stat='mAtk'/>
@@ -181,7 +181,7 @@
       <set val='325' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8589' name="Tomahawk - For Coupon Event">
+  <item id='8589' name="Tomahawk (Event)">
     <for>
       <set val='51' order='0x08' stat='pAtk'/>
       <set val='32' order='0x08' stat='mAtk'/>
@@ -190,7 +190,7 @@
       <set val='379' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8590' name="Poniard Dagger - For Coupon Event">
+  <item id='8590' name="Poniard Daggar (Event)">
     <for>
       <set val='45' order='0x08' stat='pAtk'/>
       <set val='32' order='0x08' stat='mAtk'/>
@@ -200,7 +200,7 @@
       <set val='433' order='0x08' stat='pAtkSpd'/>
     </for>
   </item>
-  <item id='8591' name="Pike - For Coupon Event">
+  <item id='8591' name="Pike (Event)">
     <for>
       <set val='51' order='0x08' stat='pAtk'/>
       <set val='32' order='0x08' stat='mAtk'/>
