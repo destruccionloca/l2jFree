@@ -2485,6 +2485,7 @@ public final class Config
 	public static boolean		VIP_ON_START_REMOVE_ALL_EFFECTS;
 	public static int			VIP_MIN_LEVEL;
 	public static int			VIP_MAX_LEVEL;
+	public static int			VIP_MIN_PARTICIPANTS;
 	public static boolean		FALLDOWNONDEATH;
 	public static boolean		ARENA_ENABLED;
 	public static int			ARENA_INTERVAL;
@@ -2551,6 +2552,9 @@ public final class Config
 			VIP_MAX_LEVEL = Integer.parseInt(funEnginesSettings.getProperty("VIPMaxLevel", "85"));
 			if (VIP_MAX_LEVEL < VIP_MIN_LEVEL)
 				VIP_MAX_LEVEL = VIP_MIN_LEVEL + 1; //can't be set less then Min Level
+			VIP_MIN_PARTICIPANTS = Integer.parseInt(funEnginesSettings.getProperty("VIPMinParticipants", "10"));
+			if (VIP_MIN_PARTICIPANTS < 10)
+				VIP_MIN_PARTICIPANTS = 10; //can't be set less then lvl 10
 
 			FALLDOWNONDEATH = Boolean.parseBoolean(funEnginesSettings.getProperty("FallDownOnDeath", "true"));
 
@@ -3775,6 +3779,8 @@ public final class Config
 			VIP_MIN_LEVEL = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("VIPMaxLevel"))
 			VIP_MAX_LEVEL = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("VIPMinParticipants"))
+			VIP_MIN_PARTICIPANTS = Integer.parseInt(pValue);
 
 		else if (pName.equalsIgnoreCase("CTFEvenTeams"))
 			CTF_EVEN_TEAMS = pValue;

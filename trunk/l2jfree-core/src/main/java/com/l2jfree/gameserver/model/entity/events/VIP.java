@@ -52,7 +52,7 @@ public class VIP {
 	private final static Log _log = LogFactory.getLog(VIP.class.getName());
 	public static String	_teamName = "", _joinArea = "";
 	
-	public static int	   _time = 0, _winners = 0, _minPlayers = 0,
+	public static int	   _time = 0, _winners = 0, _minPlayers = Config.VIP_MIN_PARTICIPANTS,
 							_vipReward = 0, _vipRewardAmount = 0,
 							_notVipReward = 0, _notVipRewardAmount = 0,
 							_theVipReward = 0, _theVipRewardAmount = 0,
