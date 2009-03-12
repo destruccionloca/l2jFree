@@ -455,13 +455,13 @@
     <set name="effectRange" val="-1" />
   </skill>
   <skill id="2049" levels="1" name="Blessed Scroll of Resurrection">
-    <set name="power" val="100" />
-    <set name="target" val="TARGET_CORPSE_PLAYER" />
-    <set name="hitTime" val="3000" />
-    <set name="skillType" val="RESURRECT" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="castRange" val="400" />
-    <set name="effectRange" val="600" />
+    <set name="power" val="100"/>
+    <set name="target" val="TARGET_CORPSE_PLAYER"/>
+    <set name="hitTime" val="3000"/>
+    <set name="skillType" val="RESURRECT"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="400"/>
+    <set name="effectRange" val="600"/>
   </skill>
   <skill id="2050" levels="1" name="Scroll of Guidance">
     <set name="target" val="TARGET_SELF" />

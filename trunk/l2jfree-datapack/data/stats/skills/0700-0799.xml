@@ -129,8 +129,7 @@
     <set name="castRange" val="800" />
     <set name="effectRange" val="1500" />
     <for>
-      <effect count="1" name="Root" time="8" val="0"
-        stackOrder="1" stackType="Root" />
+      <effect count="1" name="Root" time="8" val="0" stackOrder="1" stackType="Root" />
     </for>
   </skill>
   <skill id="717" levels="4" name="Zaken Concentrated Attack">
@@ -173,8 +172,7 @@
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
     <for>
-      <effect name="Buff" time="1200" count="1" val="0"
-        stackOrder="9" stackType="vampRage">
+      <effect name="Buff" time="1200" count="1" val="0" stackOrder="9" stackType="vampRage">
         <add order="0x40" stat="absorbDam" val="9" />
       </effect>
     </for>
@@ -293,8 +291,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="1.08" stackType="pa_up">
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="1.08" stackType="pa_up">
         <mul order="0x30" stat="pAtk" val="1.08" />
       </effect>
     </for>
@@ -372,8 +369,7 @@
     <set name="effectType" val="STUN" />
     <set name="effectPower" val="50" />
     <for>
-      <effect count="1" name="Stun" time="9" val="0"
-        stackOrder="1" stackType="Stun" />
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun" />
     </for>
   </skill>
   <skill id="733" levels="1" name="Kechi Double Cutter">
@@ -440,12 +436,10 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <for>
-      <effect count="1" name="ImmobileBuff" time="30"
-        val="0" stackOrder="1" stackType="pd_up_special">
+      <effect count="1" name="ImmobileBuff" time="30" val="0" stackOrder="1" stackType="pd_up_special">
         <add order="0x40" stat="pDef" val="3600" />
         <add order="0x40" stat="mDef" val="2700" />
-        <mul order="0x30" stat="cancelVuln" val="0.9" />
-        <!-- value to be confirmed -->
+        <mul order="0x30" stat="cancelVuln" val="0.9" /> <!-- value to be confirmed -->
       </effect>
     </for>
   </skill>
@@ -515,18 +509,20 @@
     <set name="castRange" val="-1" />
   </skill>
   <skill id="745" levels="3" name="Vale Master Dark Cure">
-    <table name="#mpConsume">27 28 29</table>
-    <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="100" />
-    <set name="target" val="TARGET_ONE" />
-    <set name="hitTime" val="4000" />
-    <set name="reuseDelay" val="32000" />
-    <set name="skillType" val="CANCEL_DEBUFF" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="isMagic" val="true" />
-    <set name="castRange" val="600" />
-    <set name="effectRange" val="1800" />
-    <set name="aggroPoints" val="624" />
+    <table name="#mpInitialConsume"> 5 6 7 </table>
+    <set name="mpInitialConsume" val="#mpInitialConsume"/>
+    <table name="#mpConsume">21 22 23</table>
+    <set name="mpConsume" val="#mpConsume"/>
+    <set name="power" val="100"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="hitTime" val="4000"/>
+    <set name="reuseDelay" val="32000"/>
+    <set name="skillType" val="CANCEL_DEBUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="isMagic" val="true"/>
+    <set name="castRange" val="600"/>
+    <set name="effectRange" val="1100"/>
+    <set name="aggroPoints" val="624"/>
   </skill>
   <skill id="746" levels="3" name="Saber Tooth Tiger Bite">
     <set name="target" val="TARGET_NONE" />
@@ -689,15 +685,17 @@
   </skill>
   <skill id="763" levels="1" name="Hell Scream">
     <!-- by Sephiroth -->
-    <set name="hitTime" val="1000" />
-    <set name="reuseDelay" val="29000" />
-    <set name="magicLvl" val="81" />
-    <set name="target" val="TARGET_AREA" />
-    <set name="skillType" val="DEBUFF" />
-    <set name="power" val="80" />
-    <set name="skillRadius" val="180" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="castRange" val="-1" />
+    <set name="mpConsume" val="87"/>
+    <set name="hitTime" val="1000"/>
+    <set name="reuseDelay" val="29000"/>
+    <set name="magicLvl" val="81"/>
+    <set name="target" val="TARGET_AREA"/>
+    <set name="skillType" val="DEBUFF"/>
+    <set name="power" val="80"/>
+    <set name="skillRadius" val="180"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
     <for>
       <effect name="Fear" count="1" time="60" val="0">
         <mul order="0x30" stat="pDef" val="0.77" />

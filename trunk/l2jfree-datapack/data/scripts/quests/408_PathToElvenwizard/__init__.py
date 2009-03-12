@@ -1,6 +1,6 @@
 # Made by Mr. Have fun! Version 0.2
 # Shadow Weapon Coupons contributed by BiTi for the Official L2J Datapack Project
-# Visit http://forum.l2jdp.com for more details
+# Visit http://www.l2jdp.com/forum/ for more details
 import sys
 from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
@@ -60,7 +60,6 @@ class Quest (JQuest) :
             if st.getQuestItemsCount(ROGELLIAS_LETTER) == 0 :
               st.giveItems(ROGELLIAS_LETTER,1)
             htmltext = "30414-07.htm"
-            st.set("cond","2")
     elif event == "408_4" :
           if st.getInt("cond") != 0 and st.getQuestItemsCount(ROGELLIAS_LETTER) != 0 :
             st.takeItems(ROGELLIAS_LETTER,st.getQuestItemsCount(ROGELLIAS_LETTER))
@@ -201,7 +200,7 @@ class Quest (JQuest) :
               st.playSound("ItemSound.quest_itemget")
    return
 
-QUEST       = Quest(408,qn,"Path To Elvenwizard")
+QUEST       = Quest(408,qn,"Path To Elven Wizard")
 
 QUEST.addStartNpc(30414)
 
