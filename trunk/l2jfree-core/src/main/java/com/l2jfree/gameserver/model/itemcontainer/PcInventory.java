@@ -18,6 +18,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javolution.util.FastList;
@@ -83,7 +84,7 @@ public class PcInventory extends Inventory
 	
 	public L2ItemInstance[] getUniqueItems(boolean allowAdena, boolean allowAncientAdena, boolean onlyAvailable)    
     {
-        Bunch<L2ItemInstance> list = new Bunch<L2ItemInstance>();
+        List<L2ItemInstance> list = new ArrayList<L2ItemInstance>();
         for (L2ItemInstance item : _items)
         {
             if ((!allowAdena && item.getItemId() == 57)) 
@@ -102,7 +103,7 @@ public class PcInventory extends Inventory
             if (!isDuplicate && (!onlyAvailable || (item.isSellable() && item.isAvailable(getOwner(), false)))) list.add(item);
        }
 
-       return list.moveToArray(new L2ItemInstance[list.size()]);
+       return list.toArray(new L2ItemInstance[list.size()]);
    }
    
    /**
@@ -117,7 +118,7 @@ public class PcInventory extends Inventory
    
    public L2ItemInstance[] getUniqueItemsByEnchantLevel(boolean allowAdena, boolean allowAncientAdena, boolean onlyAvailable)
    {
-       Bunch<L2ItemInstance> list = new Bunch<L2ItemInstance>();
+       List<L2ItemInstance> list = new ArrayList<L2ItemInstance>();
        for (L2ItemInstance item : _items)
        {
            if ((!allowAdena && item.getItemId() == 57)) 
@@ -135,7 +136,7 @@ public class PcInventory extends Inventory
            if (!isDuplicate && (!onlyAvailable || (item.isSellable() && item.isAvailable(getOwner(), false)))) list.add(item);
        }
 
-       return list.moveToArray(new L2ItemInstance[list.size()]);
+       return list.toArray(new L2ItemInstance[list.size()]);
    }
    
    /**

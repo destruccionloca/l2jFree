@@ -19,22 +19,22 @@
 package com.l2jfree.util;
 
 import java.lang.reflect.Array;
-import java.util.Iterator;
 import java.util.List;
-import java.util.NoSuchElementException;
+
+import com.l2jfree.util.L2Collections.Filter;
 
 /**
  * <p>
- * Default implementation of {@link IBunch<E>}. It uses nodes to storing objects, so no array reallocation needed -
- * like array-based collections. The created nodes are reused so garbage is reduced heavily.
+ * Default implementation of {@link IBunch<E>}. It uses nodes to store objects, so no array reallocation needed. The
+ * created nodes are reused so garbage is reduced heavily.
  * </p>
  * 
  * @author NB4L1
  */
 @SuppressWarnings("unchecked")
-public class Bunch<E> implements IBunch<E>
+public final class Bunch<E> extends AbstractNode implements IBunch<E>
 {
-	private static final class Node
+	private static final class Node extends AbstractNode
 	{
 		private static final ObjectPool<Node> POOL = new ObjectPool<Node>() {
 			@Override
@@ -48,84 +48,78 @@ public class Bunch<E> implements IBunch<E>
 		{
 			final Node node = POOL.get();
 			
-			node.previous = bunch._last;
-			node.value = value;
-			node.next = null;
+			node.setPrevious(bunch._last);
+			node.setValue(value);
+			node.setNext(null);
 			
 			if (bunch._last != null)
-				bunch._last.next = node;
+				bunch._last.setNext(node);
 			bunch._last = node;
-			if (node.value != NULL)
-				bunch._size++;
+			bunch._size++;
 			
 			return node;
 		}
 		
 		private static <E> void recycle(final Bunch<E> bunch, final Node node)
 		{
-			if (node.value != NULL)
-				bunch._size--;
+			bunch._size--;
 			if (bunch._last == node)
-				bunch._last = bunch._last.previous;
+				bunch._last = bunch._last.getPrevious();
 			
-			if (node.previous != null)
-				node.previous.next = node.next;
+			if (node.getPrevious() != null)
+				node.getPrevious().setNext(node.getNext());
 			
-			node.value = null;
+			node.setValue(null);
 			
-			if (node.next != null)
-				node.next.previous = node.previous;
+			if (node.getNext() != null)
+				node.getNext().setPrevious(node.getPrevious());
 			
 			POOL.store(node);
 		}
 		
-		private Node previous;
-		private Object value;
-		private Node next;
+		private AbstractNode _previous;
+		private Object _value;
 		
-		private Node getPreviousInBunch()
+		@Override
+		AbstractNode getPrevious()
 		{
-			for (Node node = this; (node = node.previous) != null;)
-			{
-				if (node.isInBunch())
-					return node;
-			}
-			
-			throw new InternalError();
+			return _previous;
 		}
 		
-		private Node getNextInBunch()
+		@Override
+		void setPrevious(AbstractNode previous)
 		{
-			for (Node node = getPreviousInBunch(); (node = node.next) != null;)
-			{
-				if (node != this)
-					return node;
-			}
-			
-			return null;
+			_previous = previous;
 		}
 		
-		private boolean isInBunch()
+		@Override
+		Object getValue()
 		{
-			return value != null;
+			return _value;
+		}
+		
+		@Override
+		void setValue(Object value)
+		{
+			_value = value;
 		}
 	}
 	
-	private static final Object NULL = new Object();
-	
-	private final Node _first = Node.newInstance(this, NULL);
-	private Node _last;
-	
+	private AbstractNode _last = this;
 	private int _size = 0;
 	
-	private E valueOf(Node node)
+	private E valueOf(AbstractNode node)
 	{
-		return (E)node.value;
+		return (E)node.getValue();
 	}
 	
-	private void delete(Node node)
+	private AbstractNode delete(AbstractNode node)
 	{
-		Node.recycle(this, node);
+		AbstractNode previous = node.getPrevious();
+		
+		Node.recycle(this, (Node)node);
+		
+		return previous;
 	}
 	
 	private Node getNode(int index)
@@ -134,9 +128,9 @@ public class Bunch<E> implements IBunch<E>
 			throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size());
 		
 		int i = 0;
-		for (Node node = _first; (node = node.next) != null; i++)
+		for (AbstractNode node = this; (node = node.getNext()) != null; i++)
 			if (i == index)
-				return node;
+				return (Node)node;
 		
 		return null;
 	}
@@ -155,17 +149,13 @@ public class Bunch<E> implements IBunch<E>
 		return this;
 	}
 	
-	public Bunch<E> remove(Object value)
+	public Bunch<E> remove(E value)
 	{
-		for (Node node = _first; (node = node.next) != null;)
+		for (AbstractNode node = this; (node = node.getNext()) != null;)
 		{
 			if (equals(value, valueOf(node)))
 			{
-				Node tmp = node.previous;
-				
-				delete(node);
-				
-				node = tmp;
+				node = delete(node);
 			}
 		}
 		
@@ -174,17 +164,10 @@ public class Bunch<E> implements IBunch<E>
 	
 	public void clear()
 	{
-		for (Node node = _first; (node = node.next) != null;)
+		for (AbstractNode node = this; (node = node.getNext()) != null;)
 		{
-			Node tmp = node.previous;
-			
-			delete(node);
-			
-			node = tmp;
+			node = delete(node);
 		}
-		
-		if (_last == _first)
-			delete(_first);
 	}
 	
 	public boolean isEmpty()
@@ -205,7 +188,7 @@ public class Bunch<E> implements IBunch<E>
 		final Node node = getNode(index);
 		final E old = valueOf(node);
 		
-		node.value = value;
+		node.setValue(value);
 		
 		return old;
 	}
@@ -220,9 +203,9 @@ public class Bunch<E> implements IBunch<E>
 		return value;
 	}
 	
-	public boolean contains(Object value)
+	public boolean contains(E value)
 	{
-		for (Node node = _first; (node = node.next) != null;)
+		for (AbstractNode node = this; (node = node.getNext()) != null;)
 		{
 			if (equals(value, valueOf(node)))
 				return true;
@@ -231,10 +214,10 @@ public class Bunch<E> implements IBunch<E>
 		return false;
 	}
 	
-	private Bunch<E> addAll(Bunch<? extends E> b)
+	public Bunch<E> addAll(Bunch<? extends E> b)
 	{
 		if (b != null)
-			for (Node node = b._first; (node = node.next) != null;)
+			for (AbstractNode node = b; (node = node.getNext()) != null;)
 				add(valueOf(node));
 		
 		return this;
@@ -242,9 +225,6 @@ public class Bunch<E> implements IBunch<E>
 	
 	public Bunch<E> addAll(Iterable<? extends E> c)
 	{
-		if (c instanceof Bunch<?>)
-			addAll((Bunch<? extends E>)c);
-		
 		if (c != null)
 			for (E e : c)
 				add(e);
@@ -261,16 +241,6 @@ public class Bunch<E> implements IBunch<E>
 		return this;
 	}
 	
-	public Iterator<E> iterator()
-	{
-		return BunchIterator.newInstance(this);
-	}
-	
-	public static <T> void recycleIterator(BunchIterator<T> bunchIterator)
-	{
-		BunchIterator.recycle(bunchIterator);
-	}
-	
 	public Object[] moveToArray()
 	{
 		return moveToArray(new Object[size()]);
@@ -282,15 +252,11 @@ public class Bunch<E> implements IBunch<E>
 			array = (T[])Array.newInstance(array.getClass().getComponentType(), size());
 		
 		int i = 0;
-		for (Node node = _first; (node = node.next) != null && i < array.length;)
+		for (AbstractNode node = this; (node = node.getNext()) != null && i < array.length;)
 		{
 			array[i++] = (T)valueOf(node);
 			
-			Node tmp = node.previous;
-			
-			delete(node);
-			
-			node = tmp;
+			node = delete(node);
 		}
 		
 		clear();
@@ -300,15 +266,11 @@ public class Bunch<E> implements IBunch<E>
 	
 	public List<E> moveToList(List<E> list)
 	{
-		for (Node node = _first; (node = node.next) != null;)
+		for (AbstractNode node = this; (node = node.getNext()) != null;)
 		{
 			list.add(valueOf(node));
 			
-			Node tmp = node.previous;
-			
-			delete(node);
-			
-			node = tmp;
+			node = delete(node);
 		}
 		
 		clear();
@@ -316,71 +278,56 @@ public class Bunch<E> implements IBunch<E>
 		return list;
 	}
 	
-	private static boolean equals(Object o1, Object o2)
+	private boolean equals(E o1, E o2)
 	{
 		return o1 == null ? o2 == null : o1 == o2 || o1.equals(o2);
 	}
 	
-	// TODO:
-	private static final class BunchIterator<T> implements Iterator<T>
+	public Bunch<E> cleanByFilter(Filter<E> filter)
 	{
-		private static final ObjectPool<BunchIterator<?>> POOL = new ObjectPool<BunchIterator<?>>() {
-			@Override
-			protected BunchIterator<?> create()
+		for (AbstractNode node = this; (node = node.getNext()) != null;)
+		{
+			if (!filter.accept(valueOf(node)))
 			{
-				return new BunchIterator<Object>();
+				node = delete(node);
 			}
-		};
-		
-		private static <T> BunchIterator<T> newInstance(final Bunch<T> bunch)
-		{
-			final BunchIterator<T> bunchIterator = (BunchIterator<T>)POOL.get();
-			bunchIterator._bunch = bunch;
-			bunchIterator._current = null;
-			bunchIterator._next = bunch._first.next;
-			
-			return bunchIterator;
 		}
 		
-		private static <T> void recycle(final BunchIterator<T> bunchIterator)
-		{
-			bunchIterator._bunch = null;
-			bunchIterator._current = null;
-			bunchIterator._next = null;
-			
-			POOL.store(bunchIterator);
-		}
-		
-		private Bunch<T> _bunch;
-		private Node _current;
-		private Node _next;
-		
-		public boolean hasNext()
-		{
-			if (_next != null && !_next.isInBunch())
-				_next = _next.getNextInBunch();
-			
-			return _next != null;
-		}
-		
-		public T next()
-		{
-			if (!hasNext())
-				throw new NoSuchElementException();
-			
-			_current = _next;
-			_next = _next.next;
-			
-			return _bunch.valueOf(_current);
-		}
-		
-		public void remove()
-		{
-			if (_current == null)
-				throw new IllegalStateException();
-			
-			_bunch.delete(_current);
-			_current = null;
-		}
+		return this;
+	}
+}
+
+abstract class AbstractNode
+{
+	AbstractNode getPrevious()
+	{
+		throw new UnsupportedOperationException();
+	}
+	
+	void setPrevious(AbstractNode previous)
+	{
+		throw new UnsupportedOperationException();
+	}
+	
+	Object getValue()
+	{
+		throw new UnsupportedOperationException();
+	}
+	
+	void setValue(Object value)
+	{
+		throw new UnsupportedOperationException();
+	}
+	
+	private AbstractNode _next;
+	
+	final AbstractNode getNext()
+	{
+		return _next;
+	}
+	
+	final void setNext(AbstractNode next)
+	{
+		_next = next;
 	}
 }

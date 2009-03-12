@@ -316,11 +316,6 @@ public final class L2Collections
 			return true;
 		}
 		
-		public Iterator<Object> iterator()
-		{
-			return emptyListIterator();
-		}
-		
 		public Object[] moveToArray()
 		{
 			return EMPTY_ARRAY;
@@ -359,6 +354,12 @@ public final class L2Collections
 		{
 			return 0;
 		}
+		
+		@Override
+		public IBunch<Object> cleanByFilter(Filter<Object> filter)
+		{
+			return this;
+		}
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -386,20 +387,30 @@ public final class L2Collections
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static final <K, V> Map<K, V> emptyMap()
+	public static <K, V> Map<K, V> emptyMap()
 	{
 		return (Map<K, V>)EmptyMap.INSTANCE;
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static final <T> IBunch<T> emptyBunch()
+	public static <T> IBunch<T> emptyBunch()
 	{
 		return (IBunch<T>)EmptyBunch.INSTANCE;
+	}
+	
+	public static <T> Iterable<T> filteredIterable(Class<T> clazz, Iterable<? super T> iterable)
+	{
+		return filteredIterable(clazz, iterable, null);
 	}
 	
 	public static <T> Iterable<T> filteredIterable(Class<T> clazz, Iterable<? super T> iterable, Filter<T> filter)
 	{
 		return new FilteredIterable<T>(clazz, iterable, filter);
+	}
+	
+	public static <T> Iterator<T> filteredIterator(Class<T> clazz, Iterable<? super T> iterable)
+	{
+		return filteredIterator(clazz, iterable, null);
 	}
 	
 	public static <T> Iterator<T> filteredIterator(Class<T> clazz, Iterable<? super T> iterable, Filter<T> filter)
@@ -492,14 +503,15 @@ public final class L2Collections
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static <T> Iterable<T> concatenatedIterable(Iterable<? extends T> iterable1, Iterable<? extends T> iterable2)
+	public static <T> Iterable<T> concatenatedIterable(
+		Iterable<? extends T> iterable1, Iterable<? extends T> iterable2)
 	{
 		return new ConcatenatedIterable<T>(iterable1, iterable2);
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static <T> Iterable<T> concatenatedIterable(Iterable<? extends T> iterable1,
-		Iterable<? extends T> iterable2, Iterable<? extends T> iterable3)
+	public static <T> Iterable<T> concatenatedIterable(
+		Iterable<? extends T> iterable1, Iterable<? extends T> iterable2, Iterable<? extends T> iterable3)
 	{
 		return new ConcatenatedIterable<T>(iterable1, iterable2, iterable3);
 	}
@@ -510,14 +522,15 @@ public final class L2Collections
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static <T> Iterator<T> concatenatedIterator(Iterable<? extends T> iterable1, Iterable<? extends T> iterable2)
+	public static <T> Iterator<T> concatenatedIterator(
+		Iterable<? extends T> iterable1, Iterable<? extends T> iterable2)
 	{
 		return new ConcatenatedIterator<T>(iterable1, iterable2);
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static <T> Iterator<T> concatenatedIterator(Iterable<? extends T> iterable1,
-		Iterable<? extends T> iterable2, Iterable<? extends T> iterable3)
+	public static <T> Iterator<T> concatenatedIterator(
+		Iterable<? extends T> iterable1, Iterable<? extends T> iterable2, Iterable<? extends T> iterable3)
 	{
 		return new ConcatenatedIterator<T>(iterable1, iterable2, iterable3);
 	}

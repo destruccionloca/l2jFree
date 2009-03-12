@@ -116,7 +116,7 @@ public class CharKnownList extends ObjectKnownList
 
 	public Iterable<L2Character> getKnownCharacters()
 	{
-		return L2Collections.filteredIterable(L2Character.class, getKnownObjects().values(), null);
+		return L2Collections.filteredIterable(L2Character.class, getKnownObjects().values());
 	}
 	
 	public Iterable<L2Character> getKnownCharactersInRadius(final int radius)
