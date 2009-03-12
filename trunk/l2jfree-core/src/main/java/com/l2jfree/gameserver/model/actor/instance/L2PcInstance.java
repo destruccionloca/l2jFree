@@ -3851,7 +3851,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 
 		if (((TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (CTF._started && !Config.CTF_ALLOW_INTERFERENCE)
-				|| (DM._started && !Config.DM_ALLOW_INTERFERENCE)) && !isGM())
+				|| (DM._started && !Config.DM_ALLOW_INTERFERENCE) || (VIP._started && !Config.VIP_ALLOW_INTERFERENCE)) && !isGM())
 		{
 			if ((_inEventTvT && !player._inEventTvT) || (!_inEventTvT && player._inEventTvT))
 			{
@@ -3865,6 +3865,12 @@ public final class L2PcInstance extends L2PlayableInstance
 				return;
 			}
 			else if ((_inEventDM && !player._inEventDM) || (!_inEventDM && player._inEventDM))
+			{
+				sendPacket(ActionFailed.STATIC_PACKET);
+				return;
+			}
+			
+			else if ((_inEventVIP && !player._inEventVIP) || (!_inEventVIP && player._inEventVIP))
 			{
 				sendPacket(ActionFailed.STATIC_PACKET);
 				return;
@@ -4833,7 +4839,7 @@ public final class L2PcInstance extends L2PlayableInstance
 						ps = new PlaySound(0, "ItemSound.quest_itemget", 1, getObjectId(), getX(), getY(), getZ());
 						_countTvTdies++;
 						pk._countTvTkills++;
-						pk.setTitle("Kills: " + ((L2PcInstance) killer)._countTvTkills);
+						//pk.setTitle("Kills: " + ((L2PcInstance) killer)._countTvTkills);
 						pk.sendPacket(ps);
 						TvT.setTeamKillsCount(pk._teamNameTvT, TvT.teamKillsCount(pk._teamNameTvT) + 1);
 					}
@@ -4944,6 +4950,12 @@ public final class L2PcInstance extends L2PlayableInstance
 					else if (_isTheVIP && !pk._inEventVIP)
 					{
 						Announcements.getInstance().announceToAll("VIP Killed by non-event character. VIP going back to initial spawn.");
+						doRevive();
+						teleToLocation(VIP._startX, VIP._startY, VIP._startZ);
+					}
+					else if (_isTheVIP && pk._isVIP)
+					{
+						Announcements.getInstance().announceToAll("VIP Killed by same team player. VIP going back to initial spawn.");
 						doRevive();
 						teleToLocation(VIP._startX, VIP._startY, VIP._startZ);
 					}
@@ -8425,7 +8437,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			if (!isCastleDoor && !isFortDoor && !(door.isUnlockable() && skill.getSkillType() == L2SkillType.UNLOCK))
 				return false;
 		}
-
+		
 		// Are the target and the player in the same duel?
 		if (isInDuel())
 		{
