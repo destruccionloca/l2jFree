@@ -747,7 +747,7 @@ public class L2CubicInstance
 							
 							handler.useSkill(_owner, skill, targets);
 							
-							MagicSkillUse msu = new MagicSkillUse(_owner, _target, skill.getId(), skill.getLevel(), 0, 0);
+							MagicSkillUse msu = new MagicSkillUse(_owner, target, skill.getId(), skill.getLevel(), 0, 0);
 							_owner.broadcastPacket(msu);
 						}
 					}
