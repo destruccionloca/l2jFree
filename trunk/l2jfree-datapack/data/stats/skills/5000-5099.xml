@@ -2,44 +2,24 @@
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
   <skill id="5000" levels="1" name="Alfred - Super Strike">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5001" levels="1" name="Alfred - Life Drain">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5002" levels="1" name="Giselle - Vampiric Rage">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5003" levels="1" name="Giselle - Tempest">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="element" val="1" /><!-- Wind -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -583,33 +563,18 @@
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5038" levels="16" name="Summon PVP Penalty">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5039" levels="1" name="NPC - Ultra Bomb">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5040" levels="12" name="NPC - Healing Potion">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -626,33 +591,18 @@
     </for>
   </skill>
   <skill id="5042" levels="12" name="NPC Dispel Bomb">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5043" levels="12" name="NPC Super Sonic Blaster">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5044" levels="3" name="NPC Ultimate Defense">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -688,66 +638,36 @@
     <set name="effectRange" val="2100"/>
   </skill>
   <skill id="5047" levels="12" name="Castle Spinning Slash">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5048" levels="12" name="Castle Burst Shot">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5049" levels="12" name="Castle Blow">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5050" levels="12" name="Castle DD Fire">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5051" levels="12" name="Castle Self AE Fire">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5052" levels="12" name="Castle Long AE Fire">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -771,121 +691,66 @@
     <set name="effectRange" val="2100"/>
   </skill>
   <skill id="5054" levels="12" name="Castle Self AE Water">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5055" levels="12" name="Castle Long AE Water">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5056" levels="12" name="Castle DD Wind">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5057" levels="12" name="Castle Self AE Wind">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5058" levels="12" name="Castle Long AE Wind">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5059" levels="12" name="Castle DD Earth">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5060" levels="12" name="Castle Self AE Earth">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5061" levels="12" name="Castle Long AE Earth">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5062" levels="12" name="Castle DD Holy">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5063" levels="12" name="Castle Self AE Holy">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5064" levels="12" name="Castle Long AE Holy">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -909,22 +774,12 @@
     <set name="effectRange" val="2100"/>
   </skill>
   <skill id="5066" levels="12" name="Castle Self AE Unholy">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5067" levels="12" name="Castle Long AE Unholy">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -1119,33 +974,18 @@
     </for>
   </skill>
   <skill id="5077" levels="1" name="NPC Remove Death Penalty">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5078" levels="1" name="Frintezza Critical Power">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5079" levels="1" name="NPC Focused Haste">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -1272,22 +1112,12 @@
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5088" levels="1" name="Signal">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5089" levels="1" name="Representation - Enter the Sailren Nest Quest">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -1346,44 +1176,24 @@
     <set name="effectRange" val="1100" />
   </skill>
   <skill id="5094" levels="1" name="Antharas Subordinate Suicide ">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5095" levels="1" name="Antharas Subordinate Melee Attack">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5096" levels="1" name="Antharas Subordinate Remote Attack">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5097" levels="1" name="Antharas Subordinate Suicide (Narrow Range)">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -1401,11 +1211,6 @@
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5099" levels="1" name="Cancel Capture A">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />

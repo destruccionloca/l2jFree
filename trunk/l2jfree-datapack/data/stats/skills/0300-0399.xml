@@ -650,8 +650,7 @@
       wA=2 (Shield)
     -->
     <for>
-      <effect count="0x7fffffff" name="ManaDamOverTime"
-        time="9999" val="0">
+      <effect count="0x7fffffff" name="ManaDamOverTime" time="9999" val="0">
         <mul order="0x30" stat="sDef" val="0.6" />
         <set order="0x30" stat="shldAngle" val="180">
           <using kind="Shield" /> <!-- when a shield is equipped. -->
@@ -821,20 +820,19 @@
     <set name="random_count" val="4" />
   </skill>
   <skill id="325" levels="1" name="Strider Siege Assault">
-    <table name="#itemConsumeCount">5</table>
-    <set name="mpConsume" val="151" />
-    <set name="itemConsumeId" val="3031" />
-    <set name="itemConsumeCount" val="#itemConsumeCount" />
-    <set name="power" val="15005" />
-    <set name="target" val="TARGET_ONE" />
-    <set name="hitTime" val="1080" />
-    <set name="coolTime" val="720" />
-    <set name="SSBoost" val="2.0" />
-    <set name="reuseDelay" val="35000" />
-    <set name="skillType" val="STRSIEGEASSAULT" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="castRange" val="40" />
-    <set name="effectRange" val="500" />
+    <set name="mpConsume" val="151"/>
+    <set name="itemConsumeId" val="3031"/>
+    <set name="itemConsumeCount" val="5"/>
+    <set name="power" val="15005"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="hitTime" val="1080"/>
+    <set name="coolTime" val="720"/>
+    <set name="SSBoost" val="2.0"/>
+    <set name="reuseDelay" val="35000"/>
+    <set name="skillType" val="STRSIEGEASSAULT"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="40"/>
+    <set name="effectRange" val="500"/>
     <cond msgId="1518">
       <player SiegeZone="126"/>
     </cond>
@@ -870,8 +868,7 @@
       <player flying="true" />
     </cond>
     <for>
-      <effect count="1" name="Buff" time="9" val="0"
-        stackOrder="3" stackType="pd_up_special">
+      <effect count="1" name="Buff" time="9" val="0" stackOrder="3" stackType="pd_up_special">
         <add order="0x40" stat="pDef" val="7000">
           <player flying="true" />
         </add>
@@ -941,7 +938,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
-  <skill id="333" levels="1" name="Extra Sell Inventory">
+  <skill id="333" levels="1" name="Extra Sales Slots">
     <!-- Increases private store sales slots. -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -1053,6 +1050,7 @@
   <skill id="340" levels="1" name="Riposte Stance">
     <set name="magicLvl" val="77" />
     <set name="mpConsume" val="35" />
+    <set name="power" val="30"/>
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="CONT" />
     <set name="operateType" val="OP_TOGGLE" />
@@ -1106,7 +1104,7 @@
     <set name="reuseDelay" val="1200000"/>
     <set name="skillType" val="CANCEL"/>
     <set name="target" val="TARGET_ONE"/>
-    <cond msg="when HP 75% or lower">
+    <cond msg="When HP 75% or lower">
       <player hp="75"/>
     </cond>
     <for>
@@ -1254,8 +1252,7 @@
     <set name="effectRange" val="-1" />
     <set name="aggroPoints" val="666" />
     <for>
-      <effect name="Buff" time="120" count="1" val="0"
-        stackType="song_of_renewal">
+      <effect name="Buff" time="120" count="1" val="0" stackType="song_of_renewal">
         <mul order="0x30" stat="mReuse" val="0.7" />
         <mul order="0x30" stat="pReuse" val="0.7" />
         <mul order="0x30" stat="MagicalMpConsumeRate" val="0.90" />
@@ -1324,9 +1321,8 @@
     <set name="reuseDelay" val="10000" />
     <set name="hitTime" val="1000" />
     <for>
-      <effect count="1" name="Stun" time="2" val="0"
-        stackOrder="1" stackType="Stun" />
-      <effect count="1" name="RemoveTarget" time="1" val="0" />
+      <effect count="1" name="Stun" time="2" val="0" stackOrder="1" stackType="Stun" />
+      <effect count="1" name="RemoveTarget" time="1" val="0" noicon="1"/>
     </for>
   </skill>
   <skill id="353" levels="1" name="Shield Slam">
@@ -1345,7 +1341,7 @@
     <set name="hitTime" val="2000" />
     <for>
       <effect count="1" name="PhysicalMute" time="120" val="0" />
-      <effect count="1" name="RemoveTarget" time="1" val="0" />
+      <effect count="1" name="RemoveTarget" time="1" val="0" noicon="1"/>
     </for>
   </skill>
   <skill id="354" levels="1" name="Hamstring Shot">
@@ -1368,8 +1364,7 @@
     <set name="lvlDepend" val="1" />
     <set name="baseCritRate" val="15" />
     <for>
-      <effect count="1" name="Debuff" time="30" val="0"
-        stackOrder="0.5" stackType="RunSpeedDown">
+      <effect count="1" name="Debuff" time="30" val="0" stackOrder="0.5" stackType="RunSpeedDown">
         <mul order="0x30" stat="runSpd" val="0.5" />
       </effect>
     </for>
@@ -1516,7 +1511,7 @@
     <set name="hitTime" val="1000"/>
     <for>
       <effect count="1" name="Bluff" time="3" val="0" stackOrder="1" stackType="Stun"/>
-      <effect count="1" name="RemoveTarget" time="1" val="0"/>
+      <effect count="1" name="RemoveTarget" time="1" val="0"  noicon="1"/>
     </for>
   </skill>
   <skill id="359" levels="1" name="Eye of Hunter">
@@ -1530,8 +1525,7 @@
     <set name="effectRange" val="-1" />
     <set name="aggroPoints" val="666" />
     <for>
-      <effect count="1" name="Buff" time="600" val="0"
-        stackOrder="1" stackType="detect_weakness">
+      <effect count="1" name="Buff" time="600" val="0" stackOrder="1" stackType="detect_weakness">
         <mul order="0x30" stat="pAtk-insects" val="1.5" />
         <mul order="0x30" stat="pAtk-plants" val="1.5" />
         <mul order="0x30" stat="pAtk-animals" val="1.5" />
@@ -1549,8 +1543,7 @@
     <set name="effectRange" val="-1" />
     <set name="aggroPoints" val="669" />
     <for>
-      <effect count="1" name="Buff" time="600" val="0"
-        stackOrder="1" stackType="detect_weakness">
+      <effect count="1" name="Buff" time="600" val="0" stackOrder="1" stackType="detect_weakness">
         <mul order="0x30" stat="pAtk-monsters" val="1.5" />
         <mul order="0x30" stat="pAtk-dragons" val="1.5" />
         <mul order="0x30" stat="pAtk-giants" val="1.5" />
@@ -1581,12 +1574,11 @@
     <set name="lvlDepend" val="1" />
     <set name="baseCritRate" val="15" />
     <for>
-      <effect count="1" name="Stun" time="9" val="0"
-        stackOrder="2" stackType="Stun">
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="2" stackType="Stun">
         <mul order="0x30" stat="pDef" val="0.7" />
         <mul order="0x30" stat="mDef" val="0.7" />
       </effect>
-      <effect count="1" name="RemoveTarget" time="1" val="0" />
+      <effect count="1" name="RemoveTarget" time="1" val="0"/>
     </for>
   </skill>
   <skill id="362" levels="1" name="Armor Crush">
@@ -1611,8 +1603,7 @@
     <set name="lvlDepend" val="1" />
     <set name="baseCritRate" val="15" />
     <for>
-      <effect count="1" name="Stun" time="9" val="0"
-        stackOrder="2" stackType="Stun">
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="2" stackType="Stun">
         <mul order="0x30" stat="pDef" val="0.7" />
         <mul order="0x30" stat="mDef" val="0.7" />
       </effect>
@@ -1632,8 +1623,7 @@
     <set name="effectRange" val="-1" />
     <set name="aggroPoints" val="666" />
     <for>
-      <effect name="Buff" time="120" count="1" val="0"
-        stackOrder="1" stackType="song_of_meditation">
+      <effect name="Buff" time="120" count="1" val="0" stackOrder="1" stackType="song_of_meditation">
         <mul order="0x30" stat="regMp" val="1.2" />
         <mul order="0x30" stat="MagicalMpConsumeRate" val="0.90" />
       </effect>
@@ -1653,8 +1643,7 @@
     <set name="effectRange" val="-1" />
     <set name="aggroPoints" val="669" />
     <for>
-      <effect name="Buff" time="120" count="1" val="0"
-        stackOrder="1" stackType="dance_of_champion">
+      <effect name="Buff" time="120" count="1" val="0" stackOrder="1" stackType="song_of_champion">
         <mul order="0x30" stat="pReuse" val="0.7" />
         <mul order="0x30" stat="PhysicalMpConsumeRate" val="0.8" />
       </effect>
@@ -2141,7 +2130,8 @@
     <set name="minPledgeClass" val="4" />
   </skill>
   <skill id="395" levels="1" name="Heroic Miracle">
-    <set name="mpConsume" val="72" />
+    <set name="mpInitialConsume" val="59"/>
+    <set name="mpConsume" val="13" />
     <set name="itemConsumeId" val="1785" />
     <set name="itemConsumeCount" val="40" />
     <set name="hitTime" val="1000" />
@@ -2152,8 +2142,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect name="Buff" time="30" count="1" val="0"
-        stackOrder="1" stackType="hero">
+      <effect name="Buff" time="30" count="1" val="0" stackOrder="1" stackType="hero">
         <add order="0x40" stat="pDef" val="5400" />
         <add order="0x40" stat="mDef" val="4050" />
         <add order="0x40" stat="runSpd" val="5" />
@@ -2163,7 +2152,8 @@
     </for>
   </skill>
   <skill id="396" levels="1" name="Heroic Berserker">
-    <set name="mpConsume" val="72" />
+    <set name="mpInitialConsume" val="59"/>
+    <set name="mpConsume" val="13" />
     <set name="itemConsumeId" val="1785" />
     <set name="itemConsumeCount" val="40" />
     <set name="hitTime" val="1000" />

@@ -143,13 +143,14 @@
     <set name="power" val="40" />
     <set name="reuseDelay" val="10000" />
     <set name="hitTime" val="2000" />
-   <set name="target" val="TARGET_AREA_UNDEAD"/>
+    <set name="target" val="TARGET_AREA_UNDEAD"/>
     <set name="isDebuff" val="true" />
     <set name="skillType" val="FEAR" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="lethal2" val="40"/>
     <set name="castRange" val="150" />
     <set name="effectRange" val="650" />
+    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant1 name="mpConsume" val="#ench1MpConsume" />
     <for>
       <effect count="8" name="Fear" time="2" val="0" />
@@ -412,8 +413,7 @@
     <set name="effectRange" val="-1" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0">
-        <mul order="0x30" stat="PhysicalMpConsumeRate"
-          val="#mpConsumeRate" />
+        <mul order="0x30" stat="PhysicalMpConsumeRate" val="#mpConsumeRate" />
       </effect>
     </for>
   </skill>
@@ -569,8 +569,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Buff" time="120" val="0"
-        abnormal="flame" stackOrder="#stack" stackType="MagicDefUpAtr">
+      <effect count="1" name="Buff" time="120" val="0" abnormal="flame" stackOrder="#stack" stackType="MagicDefUpAtr">
         <mul order="0x30" stat="fireVuln" val="#vuln" />
         <mul order="0x30" stat="pAtk" val="#pAtk" />
         <!-- Adding to enable pAtk missing effect -->
@@ -654,6 +653,7 @@
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
+    <set name="effectRange" val="-1"/>
     <for>
       <mul order="0x30" stat="DanceMpConsumeRate" val="0.95" />
     </for>
@@ -852,8 +852,7 @@
     <set name="effectRange" val="-1" />
     <for>
       <effect count="1" name="Buff" time="300" val="0">
-        <add order="0x40" stat="reflectSkillMeleePhysic"
-          val="40" />
+        <add order="0x40" stat="reflectSkillMeleePhysic" val="40" />
       </effect>
     </for>
   </skill>
@@ -875,9 +874,6 @@
   <skill id="441" levels="1" name="Force Meditation">
     <!-- Done by Ritsu -->
     <!-- Needs to be verified -->
-    <table name="#pDef">0.20</table>
-    <table name="#hhot">100</table><!-- Guessing -->
-    <table name="#mhot">20</table><!-- Guessing -->
     <set name="negateId" val="441"/>
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
@@ -889,12 +885,10 @@
     <set name="target" val="TARGET_SELF" />
     <for>
       <effect count="1" name="ImmobileUntilAttacked" time="120" val="0">
-        <mul order="0x30" stat="pDef" val="#pDef" />
+        <mul order="0x30" stat="pDef" val="0.20" />
       </effect>
-      <effect count="40" name="HealOverTime" time="3"
-        noicon="1" val="#hhot" />
-      <effect count="40" name="ManaHealOverTime"
-        time="3" noicon="1" val="#mhot" />
+      <effect count="40" name="HealOverTime" time="3" noicon="1" val="100" />
+      <effect count="40" name="ManaHealOverTime" time="3" noicon="1" val="20" />
     </for>
   </skill>
   <skill id="442" levels="1" name="Sonic Barrier">
@@ -984,15 +978,13 @@
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="isMagic" val="false" />
     <set name="reuseDelay" val="300000" />
     <set name="hitTime" val="1000" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
       <effect count="1" name="Buff" time="10" val="0"> <!-- Retail CT2.2 value By SarutrA -->
-        <add order="0x40" stat="reflectSkillMeleePhysic"
-          val="100" />
+        <add order="0x40" stat="reflectSkillMeleePhysic" val="100" />
       </effect>
     </for>
   </skill>
@@ -1096,8 +1088,7 @@
     <set name="effectRange" val="-1" />
     <set name="needCharges" val="#charges" />
     <for>
-      <effect name="Buff" time="15" count="1" val="0"
-        stackOrder="#spd" stackType="speed_up_special">
+      <effect name="Buff" time="15" count="1" val="0" stackOrder="#spd" stackType="speed_up_special">
         <!-- changed to 15s duration - retail info -->
         <add order="0x40" stat="runSpd" val="#spd" />
       </effect>
@@ -1907,11 +1898,6 @@
     </enchant1for>
   </skill>
   <skill id="491" levels="1" name="Not In Use">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -2013,7 +1999,7 @@
       <target mindistance="200"/>
     </cond>
     <for>
-      <effect count="1" name="EnemyCharge" time="1" val="0"/>
+      <effect count="1" name="EnemyCharge" time="1" val="0" noicon="1"/>
       <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
@@ -2046,7 +2032,7 @@
       <target mindistance="200"/>
     </cond>
     <for>
-      <effect count="1" name="EnemyCharge" time="1" val="0"/>
+      <effect count="1" name="EnemyCharge" time="1" val="0" noicon="1"/>
       <!-- retail value: 13 17 22 27 31 34/sec; stat update every 5 units (3 1/3 sec) -->
       <effect count="7" name="DamOverTime" time="3" val="#dmg" abnormal="bleeding">
         <sub order="0x40" stat="runSpd" val="25"/>

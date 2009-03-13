@@ -802,8 +802,7 @@
       <player cp="80" />
     </cond>
     <for>
-      <effect count="1" name="Buff" time="60" val="0"
-        stackOrder="1" stackType="multi_buff">
+      <effect count="1" name="Buff" time="60" val="0" stackOrder="1" stackType="multi_buff">
         <mul order="0x30" stat="pAtk" val="1.25" />
         <mul order="0x30" stat="pAtkSpd" val="1.15" />
         <mul order="0x30" stat="pDef" val="1.25" />
@@ -1390,8 +1389,7 @@
     <set name="castRange" val="40" />
     <set name="effectRange" val="40" />
     <for>
-      <effect name="Buff" count="1" val="0" time="60"
-        stackOrder="200" stackType="gravitycontrol">
+      <effect name="Buff" count="1" val="0" time="60" stackOrder="200" stackType="gravitycontrol">
         <mul order="0x30" stat="pAtkSpd" val="0.90" />
         <sub order="0x40" stat="runSpd" val="35" />
       </effect>
@@ -1500,8 +1498,7 @@
     <set name="castRange" val="-1" />
     <set name="skillRadius" val="200" />
     <for>
-      <effect count="10" name="DamOverTime" time="3"
-        val="#dmg" abnormal="poison" />
+      <effect count="10" name="DamOverTime" time="3" val="#dmg" abnormal="poison" />
     </for>
   </skill>
   <skill id="572" levels="4" name="Double Slasher">
@@ -1630,8 +1627,7 @@
     <set name="effectType" val="DOT" />
     <set name="effectLevel" val="#effectLevel" />
     <for>
-      <effect count="11" name="DamOverTime" time="3"
-        val="#dmg" abnormal="bleed" />
+      <effect count="11" name="DamOverTime" time="3" val="#dmg" abnormal="bleed" />
     </for>
   </skill>
   <skill id="579" levels="4" name="Fire Armor">
@@ -1647,8 +1643,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <for>
-      <effect count="1" name="ImmobileBuff" time="30"
-        val="0" stackOrder="1" stackType="fireArmor">
+      <effect count="1" name="ImmobileBuff" time="30" val="0" stackOrder="1" stackType="fireArmor">
         <mul order="0x30" val="#powerDef" stat="pDef" />
         <add order="0x40" val="#power" stat="reflectDam" />
       </effect>
@@ -1787,8 +1782,7 @@
     <set name="effectRange" val="-1" />
     <set name="aggroPoints" val="438" />
     <for>
-      <effect count="1" name="Buff" time="15" val="0"
-        stackOrder="66" stackType="speed_up_special">
+      <effect count="1" name="Buff" time="15" val="0" stackOrder="66" stackType="speed_up_special">
         <add order="0x40" stat="runSpd" val="66" />
       </effect>
     </for>
@@ -1841,8 +1835,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <for>
-      <effect name="Buff" count="1" val="0" time="30"
-        stackOrder="700" stackType="curse">
+      <effect name="Buff" count="1" val="0" time="30" stackOrder="700" stackType="curse">
         <mul order="0x30" val="#power" stat="darkVuln" />
         <sub order="0x40" val="#reduce" stat="runSpd" />
         <mul order="0x30" val="#power" stat="pAtkSpd" />

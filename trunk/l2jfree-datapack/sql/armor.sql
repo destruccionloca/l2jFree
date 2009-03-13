@@ -2096,7 +2096,7 @@ INSERT INTO `armor` VALUES
 
 
 INSERT INTO armor VALUES
-(13022,'Light Purple-Maned Horse Mounting Bracelet - 7 day limited period','lbracelet','false','none',30, 'wood','none',0,-1,0,0,0,0,0,'true','true','true','true','8247-1;839-1'),
+(13022,'Light Purple-Maned Horse Mounting Bracelet - 7 day limited period','lbracelet','false','none',30, 'wood','none',0,-1,0,0,0,0,0,'false','false','true','false','8247-1;839-1'),
 (13023,'Agathion of Love - 30-day limited period','lbracelet','false','none',30, 'wood','none',0,-1,0,0,0,0,0,'false','false','true','false','8245-1;3267-1'),
 (13024,'Sudden Agathion - 30-day limited period','lbracelet','false','none',30, 'wood','none',0,-1,0,0,0,0,0,'false','false','true','false','3267-1'),
 (13025,'Shiny Agathion - 30-day limited period','lbracelet','false','none',30, 'wood','none',0,-1,0,0,0,0,0,'false','false','true','false','3267-1'),
@@ -2174,7 +2174,7 @@ INSERT INTO armor VALUES
 (20022,'Ruthless Tribe Mask','face','false','none',10, 'wood','none',0,-1,0,0,0,0,0,'true','true','true','true',''),
 (20023,'Ribbon Hairband','face','false','none',10, 'wood','none',0,-1,0,0,0,0,0,'true','true','true','true',''),
 (20024,'Visor','dhair','false','none',10, 'wood','none',0,-1,0,0,0,0,0,'true','true','true','true',''),
-(20029,'Light Purple-Maned Horse Mounting Bracelet','lbracelet','false','none',30, 'wood','none',0,-1,0,0,0,0,0,'true','true','true','true','8247-1;839-1'),
+(20029,'Light Purple-Maned Horse Mounting Bracelet','lbracelet','false','none',30, 'wood','none',0,-1,0,0,0,0,0,'false','false','true','false','8247-1;839-1'),
 (20030,'Light Purple-Maned Horse Mounting Bracelet - 30 day limited period','lbracelet','false','none',30, 'wood','none',0,-1,0,0,0,0,0,'false','false','true','false','8247-1;839-1'),
 (20031,'Kat the Cat Hat','dhair','false','none',10, 'wood','none',0,-1,0,0,0,0,0,'true','true','true','true',''),
 (20032,'Skull Hat','dhair','false','none',10, 'wood','none',0,-1,0,0,0,0,0,'true','true','true','true',''),

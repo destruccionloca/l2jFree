@@ -3,12 +3,6 @@
 <!-- 1stThrone Skills List By Skatershi -->
 <list>
   <skill id="5300" levels="9" name="NPC(party) - Physical Range Long Range Attack - Dark">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -157,24 +151,12 @@
     <set name="effectRange" val="750" />
   </skill>
   <skill id="5312" levels="9" name="NPC(party) -Magic Single Long Range DD - Fire">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5313" levels="9" name="NPC(party) -Magic Range Long Range DD - Fire">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -197,60 +179,30 @@
     <set name="effectRange" val="1250" />
   </skill>
   <skill id="5315" levels="9" name="NPC(party) -Magic Range Close Range DD - Fire(Self-Destruction)">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5316" levels="9" name="NPC(party) -Magic Single Long Range DD - Water">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5317" levels="9" name="NPC(party) -Magic Range Long Range DD - Water">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5318" levels="9" name="NPC(party) -Magic Range Close Range DD - Water">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5319" levels="9" name="NPC(party) -Magic Single Long Range DD - Wind">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -289,36 +241,18 @@
     <set name="effectRange" val="1250" />
   </skill>
   <skill id="5322" levels="9" name="NPC(party) -Magic Single Long Range DD - Earth">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5323" levels="9" name="NPC(party) -Magic Range Long Range DD - Earth">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5324" levels="9" name="NPC(party) -Magic Range Close Range DD - Earth">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -343,48 +277,24 @@
     <set name="effectRange" val="1100" />
   </skill>
   <skill id="5326" levels="9" name="NPC(party) -Magic Range Long Range DD - Holy">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5327" levels="9" name="NPC(party) -Magic Range Close Range DD - Holy">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5328" levels="9" name="NPC(party) -Magic Single Long Range DD - Dark">
-    <!--
-    Needs to be finished.
-    Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-    Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5329" levels="9" name="NPC(party) -Magic Range Long Range DD - Holy">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -470,60 +380,30 @@
     <set name="effectRange" val="200" />
   </skill>
   <skill id="5335" levels="9" name="NPC(party) - Physical Single Long Range Attack">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5336" levels="9" name="NPC(party) - Physical Range Close Range Attack">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5337" levels="9" name="NPC(party) - Physical Range Long Range Attack">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5338" levels="9" name="NPC(party) - Physical Single Close Range Attack - Fire">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5339" levels="9" name="NPC(party) - Physical Single Long Range Attack - Fire">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -547,216 +427,108 @@
     <set name="element" val="2" />
   </skill>
   <skill id="5341" levels="9" name="NPC(party) - Physical Range Long Range Attack - Fire">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5342" levels="9" name="NPC(party) - Physical Single Close Range Attack - Water">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5343" levels="9" name="NPC(party) - Physical Single Long Range Attack - Water">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5344" levels="9" name="NPC(party) - Physical Range Close Range Attack - Water">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5345" levels="9" name="NPC(party) - Physical Range Long Range Attack - Water">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5346" levels="9" name="NPC(party) - Physical Single Close Range Attack - Wind">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5347" levels="9" name="NPC(party) - Physical Single Long Range Attack - Wind">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5348" levels="9" name="NPC(party) - Physical Range Close Range Attack - Wind">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5349" levels="9" name="NPC(party) - Physical Range Long Range Attack - Wind">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5350" levels="9" name="NPC(party) - Physical Single Close Range Attack - Earth">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5351" levels="9" name="NPC(party) - Physical Single Long Range Attack - Earth">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5352" levels="9" name="NPC(party) - Physical Range Close Range Attack - Earth">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5353" levels="9" name="NPC(party) - Physical Range Long Range Attack - Earth">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5354" levels="9" name="NPC(party) - Physical Single Close Range Attack - Holy">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5355" levels="9" name="NPC(party) - Physical Single Long Range Attack - Holy">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5356" levels="9" name="NPC(party) - Physical Range Close Range Attack - Holy">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5357" levels="9" name="NPC(party) - Physical Range Long Range Attack - Holy">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5358" levels="9" name="NPC(party) - Physical Single Close Range Attack - Dark">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -797,12 +569,6 @@
     <set name="effectRange" val="400" />
   </skill>
   <skill id="5361" levels="9" name="NPC(party) - Physical Range Long Range Attack - Dark">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -826,8 +592,7 @@
     <set name="effectType" val="STUN" />
     <set name="effectPower" val="80" />
     <for>
-      <effect count="1" name="Stun" time="9" val="0"
-        stackOrder="1" stackType="Stun" />
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun" />
     </for>
   </skill>
   <skill id="5363" levels="9" name="Poison">
@@ -927,108 +692,54 @@
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5371" levels="9" name="NPC(party) - Magic Close Range DD - less powerful">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5372" levels="9" name="NPC(party) - Magic Close Range Range DD - less powerful">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5373" levels="9" name="NPC(party) -Magic Single Long Range DD - Fire">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5374" levels="9" name="NPC(party) -Magic Range Long Range DD - Fire">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5375" levels="9" name="NPC(party) -Magic Range Close Range DD - Fire">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5376" levels="9" name="NPC(party) -Magic Range Close Range DD - Fire(Self-Destruction)">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5377" levels="9" name="NPC(party) -Magic Single Long Range DD - Water">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5378" levels="9" name="NPC(party) -Magic Range Long Range DD - Water">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5379" levels="9" name="NPC(party) -Magic Range Close Range DD - Water">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -1083,36 +794,18 @@
     <set name="effectRange" val="1225" />
   </skill>
   <skill id="5383" levels="9" name="NPC(party) -Magic Single Long Range DD - Earth">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5384" levels="9" name="NPC(party) -Magic Range Long Range DD - Earth">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5385" levels="9" name="NPC(party) -Magic Range Close Range DD - Earth">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -1137,60 +830,30 @@
     <set name="effectRange" val="1100" />
   </skill>
   <skill id="5387" levels="9" name="NPC(party) -Magic Range Long Range DD - Holy">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5388" levels="9" name="NPC(party) -Magic Range Close Range DD - Holy">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5389" levels="9" name="NPC(party) -Magic Single Long Range DD - Dark">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5390" levels="9" name="NPC(party) -Magic Range Long Range DD - Holy">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5391" levels="9" name="NPC(party) -Magic Range Close Range DD - Holy">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -1246,64 +909,34 @@
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
     <for>
-      <effect count="10" name="DamOverTime" time="3"
-        val="#dmg" abnormal="poison" />
+      <effect count="10" name="DamOverTime" time="3" val="#dmg" abnormal="poison" />
     </for>
   </skill>
   <skill id="5395" levels="3" name="NPC Clan Buff - Super Might Haste">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5396" levels="1" name="NPC - Spell Stance">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5397" levels="3" name="NPC - Spell Force">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5398" levels="1" name="NPC - Combination Force">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5399" levels="1" name="Heat of Desert">
-    <!--
-      Needs to be finished.
-      Description(s):
-      Condition causing target to decrease HP by heat of desert.
-    -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="CONT" />
     <set name="operateType" val="OP_ACTIVE" />

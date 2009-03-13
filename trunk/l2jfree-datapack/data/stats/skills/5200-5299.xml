@@ -61,11 +61,6 @@
     <set name="effectRange" val="-1" />
   </skill>
   <skill id="5205" levels="1" name="Boss Regeneration">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -106,7 +101,6 @@
     </for>
   </skill>
   <skill id="5208" levels="1" name="Event Wind walk">
-    <set name="power" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BUFF" />
     <set name="isMagic" val="true" />
@@ -121,7 +115,6 @@
     </for>
   </skill>
   <skill id="5209" levels="1" name="Event Shield">
-    <set name="power" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BUFF" />
     <set name="isMagic" val="true" />
@@ -136,7 +129,6 @@
     </for>
   </skill>
   <skill id="5210" levels="1" name="Event Bless the body">
-    <set name="power" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BUFF" />
     <set name="isMagic" val="true" />
@@ -151,7 +143,6 @@
     </for>
   </skill>
   <skill id="5211" levels="1" name="Event Vampiric rage">
-    <set name="power" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_ACTIVE" />
@@ -165,7 +156,6 @@
     </for>
   </skill>
   <skill id="5212" levels="1" name="Event Regeneration">
-    <set name="power" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BUFF" />
     <set name="isMagic" val="true" />
@@ -180,7 +170,6 @@
     </for>
   </skill>
   <skill id="5213" levels="1" name="Event Haste">
-    <set name="power" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BUFF" />
     <set name="isMagic" val="true" />
@@ -195,7 +184,6 @@
     </for>
   </skill>
   <skill id="5214" levels="1" name="Event Bless the Soul">
-    <set name="power" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BUFF" />
     <set name="isMagic" val="true" />
@@ -210,7 +198,6 @@
     </for>
   </skill>
   <skill id="5215" levels="1" name="Event Acumen">
-    <set name="power" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BUFF" />
     <set name="isMagic" val="true" />
@@ -239,7 +226,6 @@
     </for>
   </skill>
   <skill id="5217" levels="1" name="Event Empower">
-    <set name="power" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BUFF" />
     <set name="isMagic" val="true" />

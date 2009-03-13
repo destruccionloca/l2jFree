@@ -8460,3 +8460,5 @@ UPDATE `etcitem` SET `sellable` = 'false', `tradeable` = 'false',`dropable` = 'f
 
 -- Visitor's Mark and Pagan's Mark tradeable
 UPDATE `etcitem` SET `tradeable` = 'true' WHERE `item_id` IN (8064,8067);
+-- Small fix for quests items
+UPDATE `etcitem` SET `item_type` = 'quest' WHERE `item_id` IN (8085,8098);

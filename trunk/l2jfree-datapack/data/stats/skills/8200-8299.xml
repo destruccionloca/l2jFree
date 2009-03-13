@@ -805,13 +805,16 @@
     <set name="itemId" val="20029"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1" />
+    <set name="effectRange" val="-1"/>
   </skill>
   <skill id="8248" levels="1" name="Cancel Gatekeeper Transformation">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="TRANSFORMDISPEL" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="hitTime" val="2500" />
+    <set name="staticHitTime" val="true"/>
     <set name="castRange" val="-1" />
+    <set name="effectRange" val="-1"/>
   </skill>
   <skill id="8249" levels="1" name="Cancel Critical Hit">
     <set name="target" val="TARGET_NONE" />

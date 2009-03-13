@@ -121,6 +121,7 @@
     <set name="magicLvl" val="#magicLvl" />
     <set name="weaponsAllowed" val="512" /> <!-- Dual Sword -->
     <set name="mpConsume" val="#mpConsume" />
+    <set name="magicLvl" val="#magicLvl"/>
     <set name="overHit" val="true"/>
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
@@ -1067,14 +1068,14 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="power" val="#power"/>
     <set name="ignoreShld" val="true" />
-    <enchant1 name="effectPower" val="#ench1effPower" />
-    <enchant2 name="mpConsume" val="#ench2MpConsume" />
-    <enchant2 name="power" val="#ench2Power" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="isDebuff" val="true" />
     <set name="effectType" val="STUN" />
     <set name="effectPower" val="50" />
+    <enchant1 name="effectPower" val="#ench1effPower"/>
+    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant2 name="power" val="#ench2Power"/>
     <for>
       <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun" />
     </for>
@@ -1115,7 +1116,7 @@
     <enchant1 name="power" val="#ench1Power" />
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
     <enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init" />
-    <cond msg="Your target is not undead">
+    <cond msg="Your target is not undead.">
       <target undead="true" />
     </cond>
   </skill>

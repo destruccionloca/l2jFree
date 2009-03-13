@@ -61,11 +61,6 @@
     <set name="target" val="TARGET_SELF" />
   </skill>
   <skill id="2307" levels="1" name="Remove Petrification Scroll">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />

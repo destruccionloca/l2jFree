@@ -2,33 +2,18 @@
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
   <skill id="5100" levels="1" name="Cancel Capture B">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5101" levels="1" name="Cancel Capture C">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5102" levels="1" name="Cancel All Capture">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -244,22 +229,12 @@
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5118" levels="1" name="Cancel Sailren Use">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5119" levels="1" name="Bleed">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -296,11 +271,6 @@
     <set name="effectRange" val="-1" />
   </skill>
   <skill id="5122" levels="1" name="Sailren Use Might">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -546,11 +516,6 @@
     <set name="effectRange" val="900" />
   </skill>
   <skill id="5143" levels="1" name="Sailren Use Blow">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -564,7 +529,6 @@
     <set name="effectRange" val="1400" />
     <set name="operateType" val="OP_CHANCE" />
     <set name="skillType" val="AGGDAMAGE"/>
-    <set name="power" val="0"/>
     <set name="target" val="TARGET_ONE" />
     <set name="bestowed" val="true"/>
     <for>
