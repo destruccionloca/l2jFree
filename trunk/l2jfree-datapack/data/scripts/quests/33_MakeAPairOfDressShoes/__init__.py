@@ -1,6 +1,5 @@
 # Made by disKret
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -86,7 +85,6 @@ class Quest (JQuest) :
    return htmltext
 
 QUEST       = Quest(33,qn,"Make A Pair Of Dress Shoes")
-
 
 QUEST.addStartNpc(WOODLEY)
 QUEST.addTalkId(WOODLEY)

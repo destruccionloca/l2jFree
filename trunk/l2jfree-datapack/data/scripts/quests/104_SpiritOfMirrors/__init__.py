@@ -3,7 +3,6 @@ import sys
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
-from com.l2jfree import Config
 
 qn = "104_SpiritOfMirrors"
 
@@ -86,7 +85,7 @@ class Quest (JQuest) :
         if newbie | NEWBIE_REWARD != newbie :
            player.setNewbie(newbie|NEWBIE_REWARD)
            if player.getClassId().isMage() :
-              st.giveItems(SPIRITSHOT_NO_GRADE_FOR_BEGINNERS,3000)
+              st.rewardItems(SPIRITSHOT_NO_GRADE_FOR_BEGINNERS,3000)
               st.playTutorialVoice("tutorial_voice_027")
         st.rewardItems(1060,100)     # Lesser Healing Potions
         st.giveItems(WAND_OF_ADEPT,1)
@@ -122,7 +121,6 @@ class Quest (JQuest) :
    return
 
 QUEST       = Quest(104,qn,"Spirit Of Mirrors")
-
 
 QUEST.addStartNpc(30017)
 

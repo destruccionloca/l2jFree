@@ -105,7 +105,6 @@ class Quest (JQuest) :
           st.set("cond","7")
     return htmltext
 
-
  def onTalk (self,npc,player):
    htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
    st = player.getQuestState(qn)
@@ -236,7 +235,7 @@ class Quest (JQuest) :
      elif st.getInt("cond") and st.getQuestItemsCount(SCORE_OF_ELEMENTS)==1 and st.getQuestItemsCount(TONE_OF_EARTH)==1 and st.getQuestItemsCount(SERPENT_CHARM)==0 :
         htmltext = "30409-06.htm"
    return htmltext
-                             
+
  def onKill(self,npc,player,isPet):
    st = player.getQuestState(qn)
    if not st : return 
@@ -260,7 +259,6 @@ class Quest (JQuest) :
      st.giveItems(item,1)
      st.playSound("ItemSound.quest_itemget")
    return
-
 
 QUEST       = Quest(228,qn,"Test Of Magus")
 

@@ -61,7 +61,6 @@ class Quest (JQuest) :
               st.playTutorialVoice("tutorial_voice_026")
     return htmltext
 
-
  def onTalk (self,npc,player) :
    npcId = npc.getNpcId()
    htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>" 

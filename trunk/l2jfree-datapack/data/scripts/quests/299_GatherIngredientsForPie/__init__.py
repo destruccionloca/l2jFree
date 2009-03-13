@@ -54,9 +54,16 @@ class Quest (JQuest) :
      st.set("cond","6")
    elif event == "30620-7.htm" and st.getQuestItemsCount(FRUIT_BASKET):
      st.takeItems(FRUIT_BASKET,1)
-#Reward should be random (adena, varnish, coal, charcoal, iron ore)... etc don't know how to do that
      st.rewardItems(ADENA,25000)
-     st.rewardItems(VARNISH,50)
+     randomReward = st.getRandom(3)
+     if randomReward == 0 :
+       st.rewardItems(VARNISH,50)
+     elif randomReward == 1 :
+       st.rewardItems(IRON_ORE,50)
+     elif randomReward == 2 :
+       st.rewardItems(COAL,50)
+     elif randomReward == 3 :
+       st.rewardItems(CHARCOAL,50)
      st.unset("cond")
      st.playSound("ItemSound.quest_finish")
      st.exitQuest(1)

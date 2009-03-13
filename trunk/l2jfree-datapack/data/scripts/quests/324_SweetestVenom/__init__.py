@@ -67,7 +67,6 @@ class Quest (JQuest) :
 
 QUEST       = Quest(324,qn,"Sweetest Venom")
 
-
 QUEST.addStartNpc(30351)
 
 QUEST.addTalkId(30351)

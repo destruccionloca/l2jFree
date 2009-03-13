@@ -1,6 +1,5 @@
 # Made by Mr. Have fun! Version 0.3 updated by Sh1ning for www.l2jdp.com 
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -32,8 +31,6 @@ SPIRITSHOT_NO_GRADE = 2509
 SOULSHOT_NO_GRADE_FOR_BEGINNERS = 5789
 SOULSHOT_NO_GRADE = 1835
 
-
-
 class Quest (JQuest) :
 
  def __init__(self,id,name,descr):
@@ -60,14 +57,12 @@ class Quest (JQuest) :
           st.giveItems(KENDNELLS_ORDER4,1)
     return htmltext
 
-
  def onTalk (self,npc,player):
-
    npcId = npc.getNpcId()
    htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
    st = player.getQuestState(qn)
    if not st : return htmltext
-    
+
    id = st.getState()
    if id == State.COMPLETED :
       htmltext = "<html><body>This quest has already been completed.</body></html>"

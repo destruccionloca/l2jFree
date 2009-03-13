@@ -9,9 +9,6 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "30_ChestCaughtWithABaitOfFire"
 
-#QUEST LEVEL
-QLVL = 61
-
 #NPC
 LINNAEUS = 31577
 RUKAL    = 30629
@@ -55,7 +52,7 @@ class Quest (JQuest) :
     if id == State.CREATED :
       req = player.getQuestState("53_LinnaeusSpecialBait")
       if req : reqst = req.getState()
-      if player.getLevel() >= QLVL and req and reqst == State.COMPLETED :
+      if player.getLevel() >= 61 and req and reqst == State.COMPLETED :
         htmltext = "31577-01.htm"
       else :
         st.exitQuest(1)
@@ -77,7 +74,6 @@ class Quest (JQuest) :
     return htmltext
 
 QUEST = Quest(30,qn,"Chest Caught With A Bait Of Fire")
-
 
 QUEST.addStartNpc(LINNAEUS)
 QUEST.addTalkId(LINNAEUS)

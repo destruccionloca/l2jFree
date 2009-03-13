@@ -66,21 +66,21 @@ class Quest (JQuest) :
               st.playSound("ItemSound.quest_jackpot")
               n = st.getRandom(100)
               if n > 90 :
-                 st.rewardItems(MITHRIL_SCALE_GAITERS_MATERIAL,1)
-                 st.rewardItems(BRIGANDINE_GAUNTLET_PATTERN,1)
-                 st.rewardItems(MANTICOR_SKIN_GAITERS_PATTERN,1)
-                 st.rewardItems(GAUNTLET_OF_REPOSE_OF_THE_SOUL_PATTERN,1)
-                 st.rewardItems(IRON_BOOTS_DESIGN,1)
+                 st.giveItems(MITHRIL_SCALE_GAITERS_MATERIAL,1)
+                 st.giveItems(BRIGANDINE_GAUNTLET_PATTERN,1)
+                 st.giveItems(MANTICOR_SKIN_GAITERS_PATTERN,1)
+                 st.giveItems(GAUNTLET_OF_REPOSE_OF_THE_SOUL_PATTERN,1)
+                 st.giveItems(IRON_BOOTS_DESIGN,1)
                  st.playSound("Itemsound.quest_middle")
               elif n > 70 :
-                 st.rewardItems(TOME_OF_BLOOD_PAGE,1)
-                 st.rewardItems(ELVEN_NECKLACE_BEADS,1)
+                 st.giveItems(TOME_OF_BLOOD_PAGE,1)
+                 st.giveItems(ELVEN_NECKLACE_BEADS,1)
                  st.playSound("Itemsound.quest_middle")
               elif n > 40 :
-                 st.rewardItems(WHITE_TUNIC_PATTERN,1)
+                 st.giveItems(WHITE_TUNIC_PATTERN,1)
                  st.playSound("Itemsound.quest_middle")
               else:
-                 st.rewardItems(IRON_BOOTS_DESIGN,1)
+                 st.giveItems(IRON_BOOTS_DESIGN,1)
                  st.playSound("Itemsound.quest_middle")
              else:
               htmltext = "30647-02.htm"
@@ -104,7 +104,6 @@ class Quest (JQuest) :
           st.set("cond","8")
           st.takeItems(WATCHERS_EYE2,1)
     return htmltext
-
 
  def onTalk (self,npc,player):
    htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
@@ -185,7 +184,7 @@ class Quest (JQuest) :
 
  def onKill(self,npc,player,isPet):
    st = player.getQuestState(qn)
-   if not st : return 
+   if not st : return
    if st.getState() != State.STARTED : return
    cond = st.getInt("cond")
    npcId = npc.getNpcId()

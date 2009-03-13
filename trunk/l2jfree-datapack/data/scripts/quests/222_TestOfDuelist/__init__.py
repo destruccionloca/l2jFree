@@ -131,7 +131,7 @@ class Quest (JQuest) :
             htmltext = "30623-18.htm"
             st.unset("step")
             st.set("cond","0")
-            st.exitQuest(False) 
+            st.exitQuest(False)
             st.playSound("ItemSound.quest_finish")
         else :
           htmltext = "30623-17.htm"
@@ -154,7 +154,6 @@ class Quest (JQuest) :
   return
 
 QUEST       = Quest(222,qn,"Test Of Duelist")
-
 
 QUEST.addStartNpc(30623)
 

@@ -3,7 +3,6 @@
 # Visit http://www.l2jdp.com/trac if you find a bug.
 # Corrected proper items order for take/give commands, to avoid any exploit - BoDiE
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -12,10 +11,13 @@ qn = "50_LanoscosSpecialBait"
 
 #NPC
 LANOSCO = 31570
+
 #ITEMS
 ESSENCE_OF_WIND = 7621
+
 #REWARDS
 WIND_FISHING_LURE = 7610
+
 #MOB
 SINGING_WIND = 21026
 

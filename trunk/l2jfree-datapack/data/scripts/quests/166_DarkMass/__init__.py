@@ -27,7 +27,6 @@ class Quest (JQuest) :
        st.playSound("ItemSound.quest_accept")
     return htmltext
 
-
  def onTalk (self,npc,player):
    htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
    st = player.getQuestState(qn)
@@ -62,9 +61,9 @@ class Quest (JQuest) :
             st.rewardItems(ADENA_ID,2966)
             st.addExpAndSp(5672,446)
             st.set("cond","0")
-            st.exitQuest(False) 
+            st.exitQuest(False)
             st.playSound("ItemSound.quest_finish")
-   elif id == State.STARTED: 
+   elif id == State.STARTED:
        if npcId == 30135 :
           if st.getQuestItemsCount(UNDRES_LETTER_ID) :
              if not st.getQuestItemsCount(CEREMONIAL_DAGGER_ID) :

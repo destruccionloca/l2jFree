@@ -63,11 +63,11 @@ class Quest (JQuest) :
           htmltext = "30349-06.htm"
           st.takeItems(OLD_BRONZE_SWORD_ID,2)
           st.set("cond","0")
-          st.exitQuest(False) 
+          st.exitQuest(False)
           st.playSound("ItemSound.quest_finish")
           st.set("onlyone","1")
           st.rewardItems(ADENA_ID,820)
-   elif id == State.STARTED :       
+   elif id == State.STARTED :
        if npcId == 30360 and st.getInt("cond")==1 and st.getQuestItemsCount(JENNIES_LETTER_ID)==1 :
             htmltext = "30360-01.htm"
             st.takeItems(JENNIES_LETTER_ID,1)

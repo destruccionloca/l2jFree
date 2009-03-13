@@ -1,7 +1,6 @@
 # Made by Mr. Have fun! Version 0.2
 # Version 0.3 by H1GHL4ND3R
 import sys
-from com.l2jfree import Config 
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest

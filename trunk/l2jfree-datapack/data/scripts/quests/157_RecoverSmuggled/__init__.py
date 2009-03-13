@@ -1,6 +1,5 @@
 # Made by Mr. - Version 0.3 by DrLecter
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -45,7 +44,7 @@ class Quest (JQuest) :
    elif cond :
      if st.getQuestItemsCount(ADAMANTITE_ORE)>=20 :
         st.takeItems(ADAMANTITE_ORE,-1)
-        st.exitQuest(False) 
+        st.exitQuest(False)
         st.playSound("ItemSound.quest_finish")
         st.giveItems(BUCKLER,1)
         htmltext = "30005-07.htm"
@@ -55,12 +54,12 @@ class Quest (JQuest) :
 
  def onKill(self,npc,player,isPet):
    st = player.getQuestState(qn)
-   if not st : return 
+   if not st : return
    if st.getState() != State.STARTED : return
    adamantite = st.getQuestItemsCount(ADAMANTITE_ORE)
    if st.getInt("cond") == 1 and adamantite < 20 :
        npcId = npc.getNpcId()
-       numItems, chance = divmod(40*Config.RATE_DROP_QUEST,100)
+       numItems, chance = divmod(40,100)
        if st.getRandom(100) <= chance :
           numItems += 1
        numItems = int(numItems)

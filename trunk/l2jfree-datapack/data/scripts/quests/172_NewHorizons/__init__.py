@@ -15,7 +15,7 @@ RAGARA = 32163
 #ITEM'S
 SCROLL_OF_ESCAPE_GIRAN = 7559
 MARK_OF_TRAVELER       = 7570
- 
+
 class Quest (JQuest) :
 
  def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)

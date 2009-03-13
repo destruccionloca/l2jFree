@@ -84,7 +84,7 @@ class Quest (JQuest) :
         htmltext = "30034-02.htm"
       else:
         st.takeItems(CLAY_URN_FRAGMENT,n)
-        st.addExpAndSp(n*152,0)
+        st.addExpAndSp(int(n*152),0)
         st.playSound("ItemSound.quest_itemget")
     elif event == "30034-04.htm" :
       n = st.getQuestItemsCount(BRASS_TRINKET_PIECE)
@@ -92,7 +92,7 @@ class Quest (JQuest) :
         htmltext = "30034-02.htm"
       else:
         st.takeItems(BRASS_TRINKET_PIECE,n)
-        st.addExpAndSp(n*182,0)
+        st.addExpAndSp(int(n*182),0)
         st.playSound("ItemSound.quest_itemget")
     elif event == "30034-05.htm" :
       n = st.getQuestItemsCount(BRONZE_MIRROR_PIECE)
@@ -100,7 +100,7 @@ class Quest (JQuest) :
         htmltext = "30034-02.htm"
       else:
         st.takeItems(BRONZE_MIRROR_PIECE,n)
-        st.addExpAndSp(n*182,0)
+        st.addExpAndSp(int(n*182),0)
         st.playSound("ItemSound.quest_itemget")
     elif event == "30034-06.htm" :
       n = st.getQuestItemsCount(JADE_NECKLACE_BEAD)
@@ -108,7 +108,7 @@ class Quest (JQuest) :
         htmltext = "30034-02.htm"
       else:
        st.takeItems(JADE_NECKLACE_BEAD,n)
-       st.addExpAndSp(n*182,0)
+       st.addExpAndSp(int(n*182),0)
        st.playSound("ItemSound.quest_itemget")
     elif event == "30034-07.htm" :
       n1 = 0
@@ -117,7 +117,7 @@ class Quest (JQuest) :
          if n :
            n1 = 1
            st.takeItems(i,n)
-           st.addExpAndSp(n*EXP[i],0)
+           st.addExpAndSp(int(n*EXP[i]),0)
            st.playSound("ItemSound.quest_itemget")
       if not n1 :
         htmltext = "30034-02.htm"

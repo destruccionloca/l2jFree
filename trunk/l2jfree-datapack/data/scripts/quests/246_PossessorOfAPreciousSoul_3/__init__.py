@@ -83,7 +83,7 @@ class Quest (JQuest) :
          if cond == 0 and st.getQuestItemsCount(CARADINE_LETTER) == 1 :
            if id == State.COMPLETED :
              htmltext = "<html><body>This quest has already been completed.</body></html>"
-           elif player.getLevel() < 65 : 
+           elif player.getLevel() < 65 :
              htmltext = "31740-2.htm"
              st.exitQuest(1)
            elif player.getLevel() >= 65 :

@@ -29,7 +29,7 @@ Starstone = 8287
 Letter = 8288
 Starstone2 = 8289
 
-class Quest (JQuest) : 
+class Quest (JQuest) :
 
  def __init__(self,id,name,descr):
     JQuest.__init__(self,id,name,descr)
@@ -210,7 +210,7 @@ class Quest (JQuest) :
     return None
 
  def onTalk (self,npc,player):
-    htmltext = "<html><head><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
+    htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
     st = player.getQuestState(qn)
     if not st : return htmltext
     state = st.getState()
@@ -350,7 +350,7 @@ class Quest (JQuest) :
 
  def onKill(self,npc,player,isPet):
    st = player.getQuestState(qn)
-   if not st: return 
+   if not st: return
    npcId = npc.getNpcId()
    if st.getState() == State.STARTED and st.getInt("cond") == 10:
       if npcId == Guardian :

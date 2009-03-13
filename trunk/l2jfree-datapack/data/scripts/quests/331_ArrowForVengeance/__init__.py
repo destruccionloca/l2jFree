@@ -48,7 +48,7 @@ class Quest (JQuest) :
    elif npcId == 30125 and st.getInt("cond")==1 :
      if st.getQuestItemsCount(HARPY_FEATHER)+st.getQuestItemsCount(MEDUSA_VENOM)+st.getQuestItemsCount(WYRMS_TOOTH)>0 :
         if st.getQuestItemsCount(HARPY_FEATHER)+st.getQuestItemsCount(MEDUSA_VENOM)+st.getQuestItemsCount(WYRMS_TOOTH)>= 10 :
-           bonus = 3100
+          bonus = 3100
         st.rewardItems(ADENA,78*st.getQuestItemsCount(HARPY_FEATHER)+88*st.getQuestItemsCount(MEDUSA_VENOM)+92*st.getQuestItemsCount(WYRMS_TOOTH)+bonus)
         st.takeItems(HARPY_FEATHER,-1)
         st.takeItems(MEDUSA_VENOM,-1)

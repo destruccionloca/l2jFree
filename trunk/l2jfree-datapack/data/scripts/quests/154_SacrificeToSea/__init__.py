@@ -27,7 +27,6 @@ class Quest (JQuest) :
         st.playSound("ItemSound.quest_accept")
     return htmltext
 
-
  def onTalk (self,npc,player):
    htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
    st = player.getQuestState(qn)
@@ -44,7 +43,7 @@ class Quest (JQuest) :
         st.exitQuest(1)
    elif npcId == 30312 and st.getInt("cond")==0 and st.getInt("onlyone")==1 :
         htmltext = "<html><body>This quest has already been completed.</body></html>"
-   if id == State.STARTED:     
+   if id == State.STARTED:
        if npcId == 30312 and st.getInt("cond")>=1 and (st.getQuestItemsCount(FOX_FUR_YARN_ID)==0 and st.getQuestItemsCount(MAIDEN_DOLL_ID)==0) and st.getQuestItemsCount(FOX_FUR_ID)<10 :
             htmltext = "30312-05.htm"
        elif npcId == 30312 and st.getInt("cond")>=1 and st.getQuestItemsCount(FOX_FUR_ID)>=10 :
@@ -81,7 +80,7 @@ class Quest (JQuest) :
             st.takeItems(MAIDEN_DOLL_ID,-1)
             st.addExpAndSp(100,0)
             st.set("cond","0")
-            st.exitQuest(False) 
+            st.exitQuest(False)
             st.playSound("ItemSound.quest_finish")
             st.set("onlyone","1")
    return htmltext
@@ -90,7 +89,7 @@ class Quest (JQuest) :
    st = player.getQuestState(qn)
    if not st : return 
    if st.getState() != State.STARTED : return
-   
+
    npcId = npc.getNpcId()
    if npcId == 20481 :
         st.set("id","0")

@@ -101,7 +101,6 @@ class Quest (JQuest) :
        npc.broadcastPacket(NpcSay(npc.getObjectId(),0,npc.getNpcId(),"Don't bother trying to find out more about me. Follow your own destiny."))
     return htmltext
 
-
  def onTalk (self,npc,player):
     htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
     st = player.getQuestState(qn)

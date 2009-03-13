@@ -1,9 +1,8 @@
 # Contributed by Kilkenny to the Official L2J Datapack Project.
 # with little cleanups by DrLecter.
 # Visit http://www.l2jdp.com/trac if you find a bug.
-#Corrected proper items order for take/give commands, to avoid any exploit - BoDiE
+# Corrected proper items order for take/give commands, to avoid any exploit - BoDiE
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -12,10 +11,13 @@ qn = "51_OFullesSpecialBait"
 
 #NPC
 OFULLE = 31572
+
 #ITEMS
 LOST_BAIT = 7622
+
 #REWARDS
 ICY_AIR_LURE = 7611
+
 #MOB
 FETTERED_SOUL = 20552
 

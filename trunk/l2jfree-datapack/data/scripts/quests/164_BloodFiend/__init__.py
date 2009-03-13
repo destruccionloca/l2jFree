@@ -25,7 +25,6 @@ class Quest (JQuest) :
         st.playSound("ItemSound.quest_accept")
     return htmltext
 
-
  def onTalk (self,npc,player):
    htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
    st = player.getQuestState(qn)

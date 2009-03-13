@@ -92,7 +92,6 @@ class Quest (JQuest) :
       st.set("cond","19")
     return htmltext
 
-
  def onTalk (self,npc,player):
    htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
    st = player.getQuestState(qn)
@@ -225,7 +224,7 @@ class Quest (JQuest) :
      elif cond == 20 :                                     # Condition 20 bring the 1 Heart of Porta to Nichola
          if npcId == 30621 and st.getQuestItemsCount(ORDER_OF_NICHOLA_ID) and st.getQuestItemsCount(HEART_OF_PORTA_ID) :
            htmltext = "30621-04.htm"
-           st.takeItems(HEART_OF_PORTA_ID,-1)
+           st.takeItems(HEART_OF_PORTA_ID,1)
            st.takeItems(ORDER_OF_NICHOLA_ID,1)
            st.set("cond","21")
      elif cond == 21 :                                     # Condition 21 take the letter to Lockirin
@@ -258,7 +257,7 @@ class Quest (JQuest) :
            st.giveItems(MARK_OF_TRUST_ID,1)
            st.unset("cond")
            st.unset("id")
-           st.exitQuest(False) 
+           st.exitQuest(False)
            st.playSound("ItemSound.quest_finish")
    return htmltext
 

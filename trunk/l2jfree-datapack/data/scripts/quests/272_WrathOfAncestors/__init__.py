@@ -56,10 +56,10 @@ class Quest (JQuest) :
 
  def onKill(self,npc,player,isPet):
    st = player.getQuestState(qn)
-   if not st : return 
-   if st.getState() != State.STARTED : return 
+   if not st : return
+   if st.getState() != State.STARTED : return
    
-   count = st.getQuestItemsCount(GRAVE_ROBBERS_HEAD)  
+   count = st.getQuestItemsCount(GRAVE_ROBBERS_HEAD)
    if count < 50 :
       st.giveItems(GRAVE_ROBBERS_HEAD,1)
       if count < 49 :

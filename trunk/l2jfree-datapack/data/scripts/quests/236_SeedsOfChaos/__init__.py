@@ -97,7 +97,7 @@ class Quest (JQuest) :
     elif event == "spawn_harkil" : #talk to the rock, this spawns Harkilgamed
         if not self.harkil :
             st.addSpawn(HARKILGAMED,120000)
-            self.hark = 1
+            self.harkil = 1
             st.startQuestTimer("Despawn_Harkil",120000)
         return
     elif event == "6" : #now go hunt splendor mobs
@@ -200,7 +200,7 @@ class Quest (JQuest) :
             st.takeItems(SHINING_MEDALLION,-1)
             htmltext = "32236_07.htm"
         elif cond > 13:
-            htmltext = "<html><body>Harkilgamed:<br><br>Go talk to Kekropus already.</body></html>"
+            htmltext = "<html><body>Harkilgamed:<br>Go talk to Kekropus already.</body></html>"
     elif npcId == MAO and id == State.STARTED: #Ok.  The deal with Mao is that he's supposed to port you to Mother Nornil, but since she's not yet in the spawnlist, he's just gonna tell ya where to find her.
         #THIS MEANS: WHOEVER SPAWNS NORNIL AND RODENPICULA MUST WRITE THE FOLLOWING .htm FILE ACCORDINGLY
         if cond == 15 or cond == 16:
@@ -229,7 +229,7 @@ class Quest (JQuest) :
  
  def onKill(self,npc,player,isPet):
     st = player.getQuestState(qn)
-    if not st : return 
+    if not st : return
     if st.getState() != State.STARTED : return 
     #The following algorithm should work for both quest mobs and drops for this quest.... hopefully.
     npcId = npc.getNpcId()

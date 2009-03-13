@@ -28,7 +28,6 @@ class Quest (JQuest) :
       st.playSound("ItemSound.quest_accept")
     return htmltext
 
-
  def onTalk (self,npc,player):
    htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
    st = player.getQuestState(qn)
@@ -59,7 +58,7 @@ class Quest (JQuest) :
           st.takeItems(RUMIELS_POEM_5_ID,1)
           st.addExpAndSp(21643,943)
           st.set("cond","0")
-          st.exitQuest(False) 
+          st.exitQuest(False)
           st.playSound("ItemSound.quest_finish")
           st.set("onlyone","1")
       else:
@@ -68,8 +67,8 @@ class Quest (JQuest) :
 
  def onKill(self,npc,player,isPet):
    st = player.getQuestState(qn)
-   if not st : return 
-   if st.getState() != State.STARTED : return 
+   if not st : return
+   if st.getState() != State.STARTED : return
 
    npcId = npc.getNpcId()
    if npcId == 20372 :

@@ -68,7 +68,7 @@ class Quest (JQuest) :
    st = player.getQuestState(qn)
    if not st : return
    if st.getState() != State.STARTED: return
-   
+
    if not st.getQuestItemsCount(POISON_SAC) and st.getInt("cond") == 1 :
       if st.getRandom(5) == 0 :
          st.giveItems(POISON_SAC,1)

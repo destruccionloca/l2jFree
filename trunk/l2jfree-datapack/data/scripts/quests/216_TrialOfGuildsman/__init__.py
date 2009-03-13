@@ -1,7 +1,6 @@
 # Made by Mr. Have fun! Version 0.2
-#
 # Updated by ElgarL
-#
+
 import sys
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
@@ -66,7 +65,7 @@ class Quest (JQuest) :
         st.exitQuest(False)
         st.playSound("ItemSound.quest_finish")
         st.addExpAndSp(514739,33384)
-        st.giveItems(57,93803)
+        st.rewardItems(57,93803)
         st.giveItems(7562,85)
         st.takeItems(JOURNEYMAN_RING_ID,-1)
         st.takeItems(ALLTRANS_INSTRUCTIONS_ID,1)
@@ -75,7 +74,7 @@ class Quest (JQuest) :
         st.getPlayer().sendPacket(SocialAction(st.getPlayer().getObjectId(),3))
     elif event == "30103_4" :
         st.addExpAndSp(514739,33384)
-        st.giveItems(57,93803)
+        st.rewardItems(57,93803)
         st.giveItems(7562,85)
         htmltext = "30103-09b.htm"
         st.set("cond","0")

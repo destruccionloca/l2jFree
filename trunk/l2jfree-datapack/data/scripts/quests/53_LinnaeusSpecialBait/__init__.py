@@ -1,6 +1,5 @@
 # Linnaeus Special Bait - a seamless merge from Next and DooMita contributions
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -16,7 +15,7 @@ CHANCE = 50
 #Custom setting: wether or not to check for fishing skill level?
 #default False to require fishing skill level, any other value to ignore fishing
 #and evaluate char level only.
-ALT_IGNORE_FISHING=False
+ALT_IGNORE_FISHING = False
 
 def fishing_level(player):
     if ALT_IGNORE_FISHING :
@@ -47,7 +46,7 @@ class Quest (JQuest):
            st.takeItems(CRIMSON_DRAKE_HEART, 100)
            st.rewardItems(FLAMING_FISHING_LURE,4)
            st.exitQuest(False)
-           st.unset("cond") # we dont need it in db if quest is already State.COMPLETED
+           st.unset("cond") # we dont need it in db if quest is already completed
            st.playSound("ItemSound.quest_finish")
         else :
            htmltext = "31577-5.htm"
@@ -55,7 +54,7 @@ class Quest (JQuest):
 
  def onTalk (self,npc,player):
      st = player.getQuestState(qn)
-     htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
+     htmltext="<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
      if not st: return htmltext
      id = st.getState()
      if id == State.COMPLETED:
@@ -80,7 +79,7 @@ class Quest (JQuest):
      if st :
         count = st.getQuestItemsCount(CRIMSON_DRAKE_HEART)
         if st.getInt("cond") == 1 and count < 100 :
-           chance = 33 * Config.RATE_DROP_QUEST
+           chance = 33
            numItems, chance = divmod(chance,100)
            if st.getRandom(100) < chance :
               numItems += 1

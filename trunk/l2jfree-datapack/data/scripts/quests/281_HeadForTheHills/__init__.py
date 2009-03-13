@@ -25,7 +25,7 @@ class Quest (JQuest) :
  def __init__(self,id,name,descr):
      JQuest.__init__(self,id,name,descr)
      self.questItemIds = [HILLS]
-  
+
  def onEvent (self,event,st) :
      htmltext = event
      player = st.getPlayer()
@@ -60,7 +60,7 @@ class Quest (JQuest) :
            st.takeItems(HILLS,50)
            st.set("onlyone","1")
          else :
-           st.giveItems(REWARD,1)
+           st.rewardItems(REWARD,1)
            st.takeItems(HILLS,50)
      elif event == "32173-09.htm" :
        st.takeItems(HILLS,-1)
@@ -87,7 +87,7 @@ class Quest (JQuest) :
        else :
          htmltext = "32173-05.htm"
      return htmltext
-    
+
  def onKill(self,npc,player,isPet) :
      st = player.getQuestState(qn)
      if not st: return

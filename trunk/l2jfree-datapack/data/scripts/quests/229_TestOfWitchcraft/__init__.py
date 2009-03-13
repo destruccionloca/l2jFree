@@ -62,7 +62,6 @@ DROPLIST={
 20582:  ["gem1",  [2,3,4],20,70,[LETO_LIZARDMAN_CHARM],0]
 }
 
-
 class Quest (JQuest) :
 
   def __init__(self,id,name,descr):
@@ -418,8 +417,6 @@ class Quest (JQuest) :
               st.playSound("ItemSound.quest_itemget")
             return
     return
-            
-            
 
 QUEST       = Quest(229,qn,"Test Of Witchcraft")
 

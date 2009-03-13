@@ -52,8 +52,8 @@ class Quest (JQuest) :
 
  def onKill(self,npc,player,isPet):
    st = player.getQuestState(qn)
-   if not st : return 
-   if st.getState() != State.STARTED : return 
+   if not st : return
+   if st.getState() != State.STARTED : return
    
    count = st.getQuestItemsCount(FUNGUS_SAC)
    chance = 3

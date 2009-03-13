@@ -174,7 +174,6 @@ class Quest (JQuest) :
           st.playSound("ItemSound.quest_middle")
     return htmltext
 
-
  def onTalk (self,npc,player):
    htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
    st = player.getQuestState(qn)
@@ -216,7 +215,7 @@ class Quest (JQuest) :
         htmltext = "30104-12.htm"
    elif npcId == 30104 and st.getInt("cond")>=1 and st.getQuestItemsCount(RING_OF_TESTIMONY2_ID) and st.getQuestItemsCount(MAPHR_TABLET_FRAGMENT_ID) :
           st.addExpAndSp(599979,40040)
-          st.giveItems(57,108841)
+          st.rewardItems(57,108841)
           st.giveItems(7562,50)
           st.takeItems(RING_OF_TESTIMONY2_ID,1)
           st.giveItems(MARK_OF_PROSPERITY_ID,1)

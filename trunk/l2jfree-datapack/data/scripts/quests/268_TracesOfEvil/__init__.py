@@ -49,8 +49,8 @@ class Quest (JQuest) :
 
  def onKill(self,npc,player,isPet):
    st = player.getQuestState(qn)
-   if not st : return 
-   if st.getState() != State.STARTED and st.getInt("cond")!=1: return 
+   if not st : return
+   if st.getState() != State.STARTED and st.getInt("cond")!=1: return
    if st.getQuestItemsCount(10869) < 29:
       st.playSound("ItemSound.quest_itemget")
    elif st.getQuestItemsCount(10869) >= 29:

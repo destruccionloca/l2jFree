@@ -62,7 +62,6 @@ DROPLIST={
 20779:["markantusStat",1,1,100, 1,RAGNA_CHIEF_NOTICE]
 }   
 
-
 class Quest (JQuest) :
 
   def __init__(self,id,name,descr):
@@ -130,7 +129,7 @@ class Quest (JQuest) :
           st.unset(var)
         for var in STATS[1]:
           st.unset(var)
-        st.exitQuest(False) 
+        st.exitQuest(False)
       elif event == "30649_1" :
         htmltext = "30649-02.htm"
       elif event == "30649_2" :

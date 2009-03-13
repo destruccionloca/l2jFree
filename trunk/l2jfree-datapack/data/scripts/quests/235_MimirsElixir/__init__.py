@@ -99,7 +99,7 @@ class Quest (JQuest) :
             htmltext = "30166-10.htm"     # here's what you do...
             st.takeItems(MIMIRS_ELIXIR,-1)  #remove this line for compatibility with L2JServer revisions prior to 376
             st.giveItems(SCROLL_ENCHANT_WEAPON_A,1)
-            st.exitQuest(False) 
+            st.exitQuest(False)
             st.unset("cond")
     elif npcId == JOAN and id == State.STARTED:
        # first time talking to Joan: You ask for True Gold, she sends you for Sage's stone
@@ -136,7 +136,6 @@ class Quest (JQuest) :
 
 # Quest class and state definition
 QUEST       = Quest(QUEST_NUMBER, qn, QUEST_DESCRIPTION)
-
 
 # Quest NPC starter initialization
 QUEST.addStartNpc(LADD)

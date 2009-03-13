@@ -1,6 +1,5 @@
 # Made by Mr. Have fun! Version 0.2
 import sys
-from com.l2jfree import Config 
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -56,15 +55,15 @@ class Quest (JQuest) :
             st.rewardItems(LESSER_HEALING_POTION_ID,5)
             st.addExpAndSp(1000,0)
             st.set("cond","0")
-            st.exitQuest(False) 
+            st.exitQuest(False)
             st.playSound("ItemSound.quest_finish")
             st.set("onlyone","1")
    return htmltext
 
  def onKill(self,npc,player,isPet):
    st = player.getQuestState(qn)
-   if not st : return 
-   if st.getState() != State.STARTED : return 
+   if not st : return
+   if st.getState() != State.STARTED : return
 
    npcId = npc.getNpcId()
    if npcId in [20529,20532,20536,20456] :

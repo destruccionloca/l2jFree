@@ -3,15 +3,11 @@
 # Visit http://forum.l2jdp.com for more details.
 
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "38_DragonFangs"
-
-#QUEST LVL
-QLVL = 19
 
 #Quest items
 FEATHER_ORNAMENT,TOOTH_OF_TOTEM,TOOTH_OF_DRAGON,LETTER_OF_IRIS,LETTER_OF_ROHMER = range(7173,7178)
@@ -79,7 +75,6 @@ class Quest (JQuest) :
        st.exitQuest(False)
     return htmltext
 
-
  def onTalk (self,npc,player):
    htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
    st = player.getQuestState(qn)
@@ -91,7 +86,7 @@ class Quest (JQuest) :
       htmltext = "<html><body>This quest has already been completed.</body></html>"
    elif npcId == LUIS :
       if cond == 0 :
-        if player.getLevel() >= QLVL :
+        if player.getLevel() >= 19 :
            htmltext = "30386-01.htm"
         else :
            st.exitQuest(1)

@@ -1,6 +1,5 @@
 # Created by Eyerobot, edited by Emperorc
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -19,7 +18,7 @@ Golden_Badge_Recruit = 7246
 Golden_Badge_Soldier = 7247
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class Quest (JQuest) : 
+class Quest (JQuest) :
 
     def __init__(self,id,name,descr):
     	JQuest.__init__(self,id,name,descr)
@@ -41,7 +40,7 @@ class Quest (JQuest) :
             return htmltext
 
     def onTalk (self,npc,player):
-        htmltext = "<html><head><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
+        htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
         st = player.getQuestState(qn)
         if st :
             npcId = npc.getNpcId()
@@ -80,7 +79,7 @@ class Quest (JQuest) :
                     st.addExpAndSp(146113,13723)
                     st.exitQuest(False)
                     st.playSound("ItemSound.quest_finish")
-        return htmltext 
+        return htmltext
 
 QUEST = Quest(109,qn,"In Search of the Nest")
 

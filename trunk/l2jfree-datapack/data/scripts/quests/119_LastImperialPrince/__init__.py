@@ -35,7 +35,7 @@ class Quest (JQuest) :
        st.set("cond","2")
        st.playSound("ItemSound.quest_middle")
     elif event == "31453-7.htm" :
-       st.giveItems(ADENA,AMOUNT)
+       st.rewardItems(ADENA,AMOUNT)
        st.setState(State.COMPLETED)
        st.playSound("ItemSound.quest_finish")
        st.exitQuest(1)

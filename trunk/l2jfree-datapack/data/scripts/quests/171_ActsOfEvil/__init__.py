@@ -73,7 +73,7 @@ class Quest (JQuest) :
                htmltext = "30381-01a.htm"
                st.exitQuest(1)
          elif id == State.COMPLETED :
-             htmltext = "<html><body>This quest has already been completed</body></html>"
+             htmltext = "<html><body>This quest has already been completed.</body></html>"
          elif cond==1 :
              htmltext = "30381-02a.htm"
          elif cond==4 :
@@ -156,8 +156,8 @@ class Quest (JQuest) :
 
  def onKill(self,npc,player,isPet):
      st = player.getQuestState(qn)
-     if not st : return 
-     if st.getState() != State.STARTED : return 
+     if not st : return
+     if st.getState() != State.STARTED : return
 
      npcId = npc.getNpcId()
      cond = st.getInt("cond")

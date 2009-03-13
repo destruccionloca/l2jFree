@@ -1,6 +1,5 @@
 # Made by disKret
 import sys
-from com.l2jfree import Config
 from com.l2jfree.tools.random import Rnd
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
@@ -82,7 +81,6 @@ class Quest (JQuest) :
        elif npcId == ELLIE and cond == 4 and st.getQuestItemsCount(ORIHARUKON) >= 5 and st.getQuestItemsCount(SILVER_NUGGET) >= 500 and st.getQuestItemsCount(THONS) >= 150 :
          htmltext = "30091-4.htm"
    return htmltext
-
 
  def onKill(self,npc,player,isPet):
    partyMember1 = self.getRandomPartyMember(player,"1")

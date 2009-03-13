@@ -6,7 +6,7 @@ from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
-#Complete - 100%. 
+#Complete - 100%.
 qn = "173_ToTheIsleOfSouls"
 
 #NPC'S
@@ -15,10 +15,10 @@ GENTLER = 30094
 
 #ITEM'S
 SCROLL_OF_ESCAPE_KAMAEL_VILLAGE = 9716
-MARK_OF_TRAVELER       = 7570
+MARK_OF_TRAVELER = 7570
 GWAINS_DOCUMENT = 7563
 MAGIC_SWORD_HILT = 7568
- 
+
 class Quest (JQuest) :
 
  def __init__(self,id,name,descr):
@@ -60,9 +60,9 @@ class Quest (JQuest) :
          htmltext = "30097-02.htm"
        else :
          htmltext = "30097-01.htm"
-         st.exitQuest(1)       
+         st.exitQuest(1)
      elif id == State.STARTED :
-       if npcId == GALLADUCCI : 
+       if npcId == GALLADUCCI :
          if cond == 1 :
            htmltext = "30097-04.htm"
          elif cond == 2 :
@@ -73,12 +73,10 @@ class Quest (JQuest) :
          elif cond == 2 :
            htmltext = "30094-03.htm"
      return htmltext
- 
-QUEST     = Quest(173,qn,"To the Isle of Souls") 
- 
-QUEST.addStartNpc(GALLADUCCI) 
 
-QUEST.addTalkId(GALLADUCCI) 
-QUEST.addTalkId(GENTLER) 
- 
+QUEST     = Quest(173,qn,"To the Isle of Souls")
 
+QUEST.addStartNpc(GALLADUCCI)
+
+QUEST.addTalkId(GALLADUCCI)
+QUEST.addTalkId(GENTLER)

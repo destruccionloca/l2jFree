@@ -1,7 +1,6 @@
 # Made by Mr. Have fun!
 # Version 0.3 by H1GHL4ND3R
 import sys
-from com.l2jfree import Config 
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -93,7 +92,7 @@ class Quest (JQuest) :
           st.rewardItems(LESSER_HEALING_POTION,5)
           st.addExpAndSp(1000,0)
           st.unset("cond")
-          st.exitQuest(False) 
+          st.exitQuest(False)
           st.playSound("ItemSound.quest_finish")
           htmltext = "30370-06.htm"
    return htmltext

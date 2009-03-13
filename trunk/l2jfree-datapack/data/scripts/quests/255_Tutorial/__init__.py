@@ -160,7 +160,6 @@ class Quest (JQuest) :
                 else :
                     return
 
-
         # QUEST TIMER #
 
         elif string == "QT" :
@@ -340,7 +339,6 @@ class Quest (JQuest) :
                     st.playSound("ItemSound.quest_tutorial")
                     st.set("Gemstone","1")
                     st.showQuestionMark(5)
-
 
         # QUESTION MARK CLICKED [N] #
 

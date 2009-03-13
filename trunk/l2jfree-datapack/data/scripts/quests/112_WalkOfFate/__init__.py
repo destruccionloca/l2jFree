@@ -6,14 +6,12 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "112_WalkOfFate"
 
-# ~~~~~ npcId list: ~~~~~
-Livina            = 30572
-Karuda            = 32017
-# ~~~~~~~~~~~~~~~~~~~~~~~
+# npcId
+Livina = 30572
+Karuda = 32017
 
-# ~~~~~~ itemId list: ~~~~~~
-EnchantD            = 956
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~
+# itemId list
+EnchantD = 956
 
 class Quest (JQuest) :
 
@@ -37,7 +35,7 @@ class Quest (JQuest) :
     return htmltext
 
  def onTalk (self,npc,player):
-    htmltext = "<html><head><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
+    htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
     st = player.getQuestState(qn)
     if not st : return htmltext
     state = st.getState()

@@ -1,14 +1,10 @@
 # Made by disKret
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "37_PleaseMakeMeFormalWear"
-
-#QUEST LEVEL
-QLVL = 60
 
 #NPC
 ALEXIS = 30842
@@ -84,7 +80,7 @@ class Quest (JQuest) :
    if npcId == ALEXIS and cond == 0 :
      if id == State.COMPLETED :
        htmltext = "<html><body>This quest has already been completed.</body></html>"
-     elif player.getLevel() >= QLVL :
+     elif player.getLevel() >= 60 :
        htmltext = "30842-0.htm"
        return htmltext
      else:

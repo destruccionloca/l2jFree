@@ -1,6 +1,5 @@
 #Made by Ethernaly ethernaly@email.it
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -29,9 +28,9 @@ class Quest (JQuest) :
     return htmltext
 
   def onTalk(self, npc, player):
-    htmltext="<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
+    htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
     st = player.getQuestState(qn)
-    if not st : return htmltext    
+    if not st : return htmltext
     npcId=npc.getNpcId()
     id = st.getState()
     cond = st.getInt("cond")
@@ -49,7 +48,7 @@ class Quest (JQuest) :
             htmltext = "32041-1.htm"
        else :
          htmltext = "31961-2.htm"
-    return htmltext    
+    return htmltext
 
 QUEST=Quest(121,qn,"Pavel The Giants")
 

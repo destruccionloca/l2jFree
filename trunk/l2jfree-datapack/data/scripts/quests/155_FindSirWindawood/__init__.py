@@ -1,6 +1,5 @@
 # Made by Mr. - Version 0.3 by DrLecter
 import sys
-from com.l2jfree import Config 
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -34,7 +33,7 @@ class Quest (JQuest) :
    npcId = npc.getNpcId()
    id = st.getState()
    if id == State.COMPLETED:
-      htmltext = "<html><body>This quest has already been completed.</body></html>" 
+      htmltext = "<html><body>This quest has already been completed.</body></html>"
    elif npcId == 30042 :
       if not st.getInt("cond") :
          if player.getLevel() >= 3 :
@@ -48,7 +47,7 @@ class Quest (JQuest) :
       st.takeItems(OFFICIAL_LETTER_ID,-1)
       st.rewardItems(HASTE_POTION_ID,1)
       st.unset("cond")
-      st.exitQuest(False) 
+      st.exitQuest(False)
       st.playSound("ItemSound.quest_finish")
       htmltext = "30311-01.htm"
    return htmltext

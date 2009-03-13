@@ -7,9 +7,6 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "31_SecretBuriedInTheSwamp"
 
-#QUEST LEVEL
-QLVL = 66
-
 #NPC
 ABERCROMBIE          = 31555
 FORGOTTEN_MONUMENT_1 = 31661
@@ -77,7 +74,7 @@ class Quest (JQuest) :
      htmltext = "<html><body>This quest has already been completed.</body></html>"
    elif npcId == ABERCROMBIE :
      if cond == 0 :
-       if player.getLevel() >= QLVL :
+       if player.getLevel() >= 66 :
          htmltext = "31555-0.htm"
        else :
          htmltext = "31555-0a.htm"

@@ -245,7 +245,6 @@ class Quest (JQuest) :
 
 QUEST       = Quest(215,qn,"Trial Of Pilgrim")
 
-
 QUEST.addStartNpc(30648)
 
 for npcId in [30648,30036,30117,30362,30550,30571,30612,30649,30650,30651,30652] :

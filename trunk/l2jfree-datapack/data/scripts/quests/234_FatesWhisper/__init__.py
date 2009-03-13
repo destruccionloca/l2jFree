@@ -112,7 +112,7 @@ class Quest (JQuest) :
         # now show the A Grade weapon list
         htmltext = "31002-AGradeList.htm"
       else :
-        htmltext = "<html><body>Maestro Reorin:<br>Are you trying to cheat me?!  What happenned to the weapon you were about to give me for the neutralization of Infernum's evil aura?</body></html>"
+        htmltext = "<html><body>Maestro Reorin:<br>Are you trying to cheat me?! What happenned to the weapon you were about to give me for the neutralization of Infernum's evil aura?</body></html>"
     elif event.startswith("selectAGrade_"):
       if st.getInt("bypass"):
         aGradeItemId = int(event.replace("selectAGrade_", ""))
@@ -306,7 +306,6 @@ class Quest (JQuest) :
 
 
 QUEST    = Quest(234,qn,"Fate's Whisper")
-
 
 QUEST.addStartNpc(NPC[0])
 

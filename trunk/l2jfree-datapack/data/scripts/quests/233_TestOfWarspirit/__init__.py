@@ -76,7 +76,6 @@ for mob in DROPLIST.keys():
     continue
   PART1_MOBS.append(mob)
 
-
 class Quest (JQuest) :
 
   def __init__(self,id,name,descr):

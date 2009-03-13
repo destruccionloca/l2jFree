@@ -8,7 +8,7 @@ qn = "118_ToLeadAndBeLed"
 
 #CONFIG
 DEBUG=1
-#ITEMS 
+#ITEMS
 BLOOD,LEG = 8062,8063
 #NPCS
 PINTER = 30298
@@ -19,7 +19,6 @@ DROPLIST={20919:[BLOOD,90,10,1,0],
           20927:[LEG,100,8,7,1]
           }
 
- 
 class Quest (JQuest) :
 
  def __init__(self,id,name,descr):
@@ -53,7 +52,7 @@ class Quest (JQuest) :
          st.takeItems(BLOOD,-1)
          st.set("cond","5");
          st.set("settype","3")
-         st.playSound("ItemSound.quest_middle") 
+         st.playSound("ItemSound.quest_middle")
      else:
          htmltext = "Incorrect item count"
    elif event == "30517-09.htm" :
@@ -80,7 +79,7 @@ class Quest (JQuest) :
        elif DEBUG:htmltext = "30517-FC.htm"
      elif DEBUG:htmltext = "30517-FB.htm"
      #st.exitQuest(1) #needed?
-   return htmltext 
+   return htmltext
 
  def onTalk (self,npc,player):
    npcId = npc.getNpcId()
@@ -89,13 +88,13 @@ class Quest (JQuest) :
    if not st : return htmltext
 
    id = st.getState()
-   cond = st.getInt("cond") 
+   cond = st.getInt("cond")
    if player.getClan() == None :
      htmltext = "30517-00.htm"
      st.exitQuest(1)
    elif player.getSubPledgeType() == -1 :
      if id==State.COMPLETED:
-       htmltext = "<html><body>This quest has already been completed.</body></html>" 
+       htmltext = "<html><body>This quest has already been completed.</body></html>"
      elif player.getLevel() < 19 or not player.getSponsor() :
        htmltext = "30517-00.htm"
        st.exitQuest(1)
@@ -103,7 +102,7 @@ class Quest (JQuest) :
        if id == State.CREATED :
          htmltext = "30517-01.htm"
        elif cond == 1 :
-         htmltext = "30517-03.htm" 
+         htmltext = "30517-03.htm"
        elif cond == 2 :
          htmltext = "30517-04.htm"
        elif cond == 3 :
@@ -131,7 +130,7 @@ class Quest (JQuest) :
             st.giveItems(item,1)
          st.unset("cond")
          st.unset("settype")
-         st.exitQuest(False)  
+         st.exitQuest(False)
          st.playSound("ItemSound.quest_finish")
    elif player.getApprentice() :
      cm_apprentice = player.getClan().getClanMember(player.getApprentice())
@@ -184,11 +183,10 @@ class Quest (JQuest) :
        else :
           st.playSound("ItemSound.quest_itemget")
     return
-     
 
-QUEST     = Quest(118,qn,"To Lead And Be Led") 
+QUEST     = Quest(118,qn,"To Lead And Be Led")
 
-QUEST.addStartNpc(PINTER) 
+QUEST.addStartNpc(PINTER)
 
 QUEST.addTalkId(PINTER)
 

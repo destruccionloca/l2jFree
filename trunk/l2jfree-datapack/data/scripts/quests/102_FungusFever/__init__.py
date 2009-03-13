@@ -1,6 +1,5 @@
 # Made by Mr. Have fun! Version 0.2
 import sys
-from com.l2jfree import Config 
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -28,7 +27,6 @@ def check(st) :
        st.set("cond","6")
        st.playSound("ItemSound.quest_middle")
 
-
 class Quest (JQuest) :
 
  def __init__(self,id,name,descr):
@@ -44,7 +42,6 @@ class Quest (JQuest) :
         st.setState(State.STARTED)
         st.playSound("ItemSound.quest_accept")
     return htmltext
-
 
  def onTalk (self,npc,player):
    npcId = npc.getNpcId()

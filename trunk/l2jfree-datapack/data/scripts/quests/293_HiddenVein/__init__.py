@@ -27,7 +27,6 @@ def newbie_rewards(st) :
      player.setNewbie(newbie|NEWBIE_REWARD)
      st.giveItems(SOULSHOT_FOR_BEGINNERS,6000)
      st.playTutorialVoice("tutorial_voice_026")
-  
 
 class Quest (JQuest) :
 

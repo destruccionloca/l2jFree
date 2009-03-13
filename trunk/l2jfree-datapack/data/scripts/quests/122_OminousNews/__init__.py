@@ -32,7 +32,7 @@ class Quest (JQuest) :
          st.addExpAndSp(45151, 2310)
          st.unset("cond")
          st.unset("ok")
-         st.exitQuest(False) 
+         st.exitQuest(False)
          st.playSound("ItemSound.quest_finish")
        else :
          htmltext=default
@@ -47,7 +47,7 @@ class Quest (JQuest) :
    id = st.getState()
    cond = st.getInt("cond")
    if id == State.COMPLETED :
-      htmltext="<html><body>This quest have already been completed</body></html>"
+      htmltext="<html><body>This quest has already been completed.</body></html>"
    elif npcId == MOIRA :
       if cond == 0 :
          if player.getLevel()>=20 :
@@ -63,7 +63,6 @@ class Quest (JQuest) :
    return htmltext
 
 QUEST       = Quest(122,qn,"Ominous News")
-
 
 QUEST.addStartNpc(MOIRA)
 

@@ -42,7 +42,6 @@ class Quest (JQuest) :
         st.playSound("ItemSound.quest_accept")
     return htmltext
 
-
  def onTalk (self,npc,player) :
    npcId = npc.getNpcId()
    htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
@@ -108,9 +107,9 @@ class Quest (JQuest) :
             mage = player.getClassId().isMage()
             if mage :
                st.giveItems(SPIRITSHOT_NO_GRADE,500)
-            else : 
+            else :
                st.giveItems(SOULSHOT_NO_GRADE,1000)
-            for item in range(4412,4417) : 
+            for item in range(4412,4417) :
                st.rewardItems(item,int(10))   # Echo crystals
             st.set("cond","0")
             st.exitQuest(False)

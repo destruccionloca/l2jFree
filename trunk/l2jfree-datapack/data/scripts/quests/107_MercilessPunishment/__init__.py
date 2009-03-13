@@ -1,6 +1,5 @@
 # Made by Mr. Have fun! Version 0.3 updated by Censor for www.l2jdp.com
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -77,9 +76,7 @@ class Quest (JQuest) :
               st.giveItems(HATOSS_ORDER3_ID,1)
     return htmltext
 
-
  def onTalk (self,npc,player):
-
    npcId = npc.getNpcId()
    htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
    st = player.getQuestState(qn)
@@ -143,7 +140,7 @@ class Quest (JQuest) :
    st = player.getQuestState(qn)
    if not st : return
    if st.getState() != State.STARTED : return
-    
+
    npcId = npc.getNpcId()
    if npcId == 27041 :
         st.set("id","0")

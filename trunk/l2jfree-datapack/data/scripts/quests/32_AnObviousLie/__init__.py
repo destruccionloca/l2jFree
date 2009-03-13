@@ -1,6 +1,5 @@
 # Made by disKret
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -16,7 +15,7 @@ MIKI_THE_CAT = 31706
 ALLIGATOR = 20135
 
 #CHANCE FOR DROP
-CHANCE_FOR_DROP = 30*Config.RATE_DROP_QUEST
+CHANCE_FOR_DROP = 30
 
 #ITEMS
 MAP            = 7165

@@ -49,7 +49,7 @@ class Quest (JQuest) :
       if broken+heart >= 10 :
          bonus = 1183
       if broken+heart>0 :
-         st.rewardItems(ADENA,50*broken+1000*heart+bonus )
+         st.rewardItems(ADENA,50*broken+1000*heart+bonus)
          st.takeItems(BROKEN_HEARTSTONE,-1)
          st.takeItems(GOLEM_HEARTSTONE,-1)
          htmltext = "30437-05.htm"

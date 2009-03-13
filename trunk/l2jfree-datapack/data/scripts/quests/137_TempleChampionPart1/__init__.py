@@ -43,7 +43,7 @@ class Quest (JQuest) :
     elif event == "30070-16.htm" :
        st.takeItems(10334, -1)
        st.takeItems(10339, -1)
-       st.giveItems(57, 69146)
+       st.rewardItems(57, 69146)
        st.playSound("ItemSound.quest_finish")
        st.unset("talk")
        st.exitQuest(False)

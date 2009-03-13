@@ -1,8 +1,7 @@
 # Created by CubicVirtuoso
 # Any problems feel free to drop by #l2j-datapack on irc.freenode.net
-#Corrected proper items order for take/give commands, to avoid any exploit - BoDiE
+# Corrected proper items order for take/give commands, to avoid any exploit - BoDiE
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest

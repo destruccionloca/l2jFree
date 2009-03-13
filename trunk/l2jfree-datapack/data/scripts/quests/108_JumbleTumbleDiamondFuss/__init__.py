@@ -1,6 +1,5 @@
-# Made by Mr. Have fun! Version 0.3 by Censor for www.l2jdp.com 
+# Made by Mr. Have fun! Version 0.3 by Censor for www.l2jdp.com
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -30,7 +29,6 @@ NEWBIE_REWARD = 2
 SOULSHOT_NO_GRADE_FOR_BEGINNERS = 5789
 SPIRITSHOT_NO_GRADE_FOR_BEGINNERS = 5790
 
-
 class Quest (JQuest) :
 
  def __init__(self,id,name,descr):
@@ -55,9 +53,7 @@ class Quest (JQuest) :
           st.giveItems(BRONPS_CONTRACT,1)
     return htmltext
 
-
  def onTalk (self,npc,player):
-
    npcId = npc.getNpcId()
    htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
    st = player.getQuestState(qn)
@@ -99,13 +95,13 @@ class Quest (JQuest) :
           st.giveItems(SILVERSMITH_HAMMER,1)
           st.takeItems(STAR_DIAMOND,-1)
           for item in range(4412,4417) :
-              st.giveItems(item,10)   # Echo crystals
+            st.giveItems(item,10)   # Echo crystals
           if player.getClassId().isMage() :
-                st.giveItems(SPIRITSHOT_NO_GRADE_FOR_BEGINNERS,3000)
-                st.playTutorialVoice("tutorial_voice_027")
+            st.giveItems(SPIRITSHOT_NO_GRADE_FOR_BEGINNERS,3000)
+            st.playTutorialVoice("tutorial_voice_027")
           else :
-                st.giveItems(SOULSHOT_NO_GRADE_FOR_BEGINNERS,7000)
-                st.playTutorialVoice("tutorial_voice_026")
+            st.giveItems(SOULSHOT_NO_GRADE_FOR_BEGINNERS,7000)
+            st.playTutorialVoice("tutorial_voice_026")
           st.addExpAndSp(34565, 2962)
           st.set("cond","0")
           st.exitQuest(False)

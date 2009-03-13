@@ -144,7 +144,7 @@ class Quest (JQuest) :
               st.set("cond","0")
               st.set("onlyone","1")
               st.set("id","0")
-              st.exitQuest(False) 
+              st.exitQuest(False)
               st.playSound("ItemSound.quest_finish")
               st.takeItems(TERYS_REPORT_ID,1)
               st.giveItems(MARK_OF_SEEKER_ID,1)
@@ -228,8 +228,8 @@ class Quest (JQuest) :
 
  def onKill(self,npc,player,isPet):
    st = player.getQuestState(qn)
-   if not st : return 
-   if st.getState() != State.STARTED : return 
+   if not st : return
+   if st.getState() != State.STARTED : return
    cond = st.getInt("cond")
    npcId = npc.getNpcId()
    required,item,chance,maxqty=DROPLIST[npcId]

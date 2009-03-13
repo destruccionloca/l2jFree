@@ -61,7 +61,6 @@ SLEIN:["30663-01.htm","30663-02.htm","30663-03.htm","30663-04.htm"],
 KEIN:["30664-01.htm","30664-02.htm","30664-03.htm","30664-04.htm"]
 }
 
-
 class Quest (JQuest) :
 
  def __init__(self,id,name,descr):

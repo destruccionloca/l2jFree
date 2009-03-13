@@ -3,7 +3,6 @@
 # Visit http://www.l2jdp.com/trac if you find a bug.
 # Corrected proper items order for take/give commands, to avoid any exploit - BoDiE
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -12,10 +11,13 @@ qn = "52_WilliesSpecialBait"
 
 #NPC
 WILLIE = 31574
+
 #ITEMS
 TARLK_EYE = 7623
+
 #REWARDS
 EARTH_FISHING_LURE = 7612
+
 #MOB
 TARLK_BASILISK = 20573
 
@@ -69,7 +71,7 @@ class Quest (JQuest) :
    if st :
       count = st.getQuestItemsCount(TARLK_EYE)
       if st.getInt("cond") == 1 and count < 100 :
-         chance = 33 * Config.RATE_DROP_QUEST
+         chance = 33
          numItems, chance = divmod(chance,100)
          if st.getRandom(100) < chance :
             numItems += 1

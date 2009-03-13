@@ -26,6 +26,7 @@ class Quest (JQuest) :
     def onAdvEvent (self,event,npc, player) :
         st = player.getQuestState(qn)
         if not st: return
+
         htmltext = event
         if event == "30512-03.htm":
             st.playSound("ItemSound.quest_accept")
@@ -37,7 +38,7 @@ class Quest (JQuest) :
         elif event == "30621-02.htm":
             if player.getLevel() < 50:
                st.addExpAndSp(60000,3000)
-            st.giveItems(Adena,18100)
+            st.rewardItems(Adena,18100)
             st.exitQuest(False)
             st.playSound("ItemSound.quest_finish")
         elif event == "Contract" :
@@ -60,6 +61,7 @@ class Quest (JQuest) :
         htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
         st = player.getQuestState(qn)
         if not st : return htmltext
+
         npcId = npc.getNpcId()
         id = st.getState()
         cond = st.getInt("cond")

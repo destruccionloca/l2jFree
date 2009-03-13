@@ -54,7 +54,7 @@ class Quest (JQuest) :
          st.takeItems(ELF_SKULL,-1)
          st.takeItems(BONE_FRAGMENT3,-1)
          st.unset("cond")
-         st.exitQuest(False) 
+         st.exitQuest(False)
          st.playSound("ItemSound.quest_finish")
    return htmltext
 
@@ -62,7 +62,7 @@ class Quest (JQuest) :
    st = player.getQuestState(qn)
    if not st : return
    if st.getState() != State.STARTED : return
-   
+
    if st.getRandom(4) == 1 :
      npcId = npc.getNpcId()
      bones = st.getQuestItemsCount(BONE_FRAGMENT3)

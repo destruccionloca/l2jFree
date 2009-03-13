@@ -1,6 +1,4 @@
-### ---------------------------------------------------------------------------
-###  Create by Skeleton!!!
-### ---------------------------------------------------------------------------
+# Create by Skeleton!!!
 import sys
 from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
@@ -9,18 +7,15 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "29_ChestCaughtWithABaitOfEarth"
 
-#QUEST LEVEL
-QLVL = 48
-
 # NPC List
 Willie = 31574
 Anabel = 30909
-# ~~~
+
 # Item List
 SmallPurpleTreasureChest = 6507
 SmallGlassBox            = 7627
 PlatedLeatherGloves      = 2455
-# ~~~
+
 class Quest (JQuest) :
     def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
     def onEvent (self,event,st) :
@@ -60,7 +55,7 @@ class Quest (JQuest) :
         if npcId ==Willie :
             if cond==0 and id==State.STARTED :
                 PlayerLevel = player.getLevel()
-                if PlayerLevel >= QLVL :
+                if PlayerLevel >= 48 :
                     WilliesSpecialBait = player.getQuestState("52_WilliesSpecialBait")
                     if WilliesSpecialBait:
                         if WilliesSpecialBait.getState() == State.COMPLETED :
@@ -89,7 +84,6 @@ class Quest (JQuest) :
         return htmltext
 
 QUEST       = Quest(29,qn,"Chest Caught With A Bait Of Earth")
-
 
 QUEST.addStartNpc(Willie)
 QUEST.addTalkId(Willie)

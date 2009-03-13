@@ -1,7 +1,5 @@
-#
 # Created by DraX on 2005.09.08
 # C4 Update by DrLecter
-#
 
 import sys
 from com.l2jfree.gameserver.datatables            import SpawnTable

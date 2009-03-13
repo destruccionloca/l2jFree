@@ -25,7 +25,7 @@ class Quest (JQuest) :
      htmltext = event
 
      if event == "32113-02.htm" :
-       st.setState(State.STARTED) 
+       st.setState(State.STARTED)
      if event == "32113-03.htm" :
        if cond == 0 :
          st.set("cond","1")
@@ -55,7 +55,6 @@ class Quest (JQuest) :
          st.set("cond","6")
          st.playSound("ItemSound.quest_middle")
      return htmltext
-
 
  def onTalk (self,npc,player):
      htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"

@@ -67,16 +67,16 @@ class Quest (JQuest) :
       st.rewardItems(ADENA,18250)
       htmltext = "30154-08.htm"
       st.unset("cond")
-      st.exitQuest(False) 
+      st.exitQuest(False)
       st.playSound("ItemSound.quest_finish")
    return htmltext
 
  def onKill(self,npc,player,isPet):
    st = player.getQuestState(qn)
-   if not st : return 
+   if not st : return
    st = player.getQuestState(qn)
    if st.getState() != State.STARTED : return
-   
+
    npcId = npc.getNpcId()
    cond = st.getInt("cond")
    count = st.getQuestItemsCount(PLAGUE_DUST)

@@ -21,7 +21,7 @@ class Quest (JQuest) :
 
  def __init__(self,id,name,descr):
      JQuest.__init__(self,id,name,descr)
-  
+
  def onEvent (self,event,st) :
      htmltext = event
      claw = st.getQuestItemsCount(CLAW)
@@ -60,7 +60,7 @@ class Quest (JQuest) :
        else :
          htmltext = "32133-05.htm"
      return htmltext
-    
+
  def onKill(self,npc,player,isPet) :
      st = player.getQuestState(qn)
      if not st: return
@@ -72,7 +72,7 @@ class Quest (JQuest) :
          st.playSound("ItemSound.quest_itemget")
      return
 
-QUEST       = Quest(283, qn, "The Few, The Proud, The Brave")
+QUEST = Quest(283, qn, "The Few, The Proud, The Brave")
 
 QUEST.addStartNpc(PERWAN)
 

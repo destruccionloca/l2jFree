@@ -1,6 +1,5 @@
 # Made by Mr. - Version 0.3 by DrLecter
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -52,7 +51,7 @@ class Quest (JQuest) :
      htmltext = "30577-04.htm"
    elif st.getQuestItemsCount(KASHA_WOLF_FANG) >= 50 :
      st.set("cond","0")
-     st.exitQuest(False) 
+     st.exitQuest(False)
      st.playSound("ItemSound.quest_finish")
      st.takeItems(KASHA_WOLF_FANG,-1)
      if st.getRandom(100) <= 13 :
@@ -69,7 +68,7 @@ class Quest (JQuest) :
    
    count = st.getQuestItemsCount(KASHA_WOLF_FANG)
    if count < 50 :
-      numItems, chance = divmod(125*Config.RATE_DROP_QUEST,100)
+      numItems, chance = divmod(125,100)
       if st.getRandom(100) <= chance :
          numItems += 1
       numItems = int(numItems)

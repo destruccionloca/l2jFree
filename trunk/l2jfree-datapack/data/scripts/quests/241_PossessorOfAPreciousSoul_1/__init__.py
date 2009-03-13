@@ -31,7 +31,6 @@ HELLFIRE_OIL = 6033
 VIRGILS_LETTER = 7677
 
 #CHANCE
-#
 CRIMSON_MOSS_CHANCE = 5
 MALRUK_SUCCUBUS_CLAW_CHANCE = 10
 
@@ -159,7 +158,7 @@ class Quest (JQuest) :
            htmltext = "<html><body>This quest has already been completed.</body></html>"
          elif player.getLevel() >= 50 and player.isSubClassActive():
            htmltext = "31739-1.htm"
-         else : 
+         else :
            htmltext = "31739-2.htm"
            st.exitQuest(1)
        if not player.isSubClassActive() :
@@ -254,7 +253,7 @@ class Quest (JQuest) :
  def onKill(self,npc,player,isPet):
    npcId = npc.getNpcId()
    if npcId == BARAHAM:
-     # get a random party member who is doing this quest and is at cond == 3  
+     # get a random party member who is doing this quest and is at cond == 3
      partyMember = self.getRandomPartyMember(player, "3")
      if partyMember :
          st = partyMember.getQuestState(qn)
@@ -262,7 +261,7 @@ class Quest (JQuest) :
          st.giveItems(LEGEND_OF_SEVENTEEN,1)
          st.playSound("ItemSound.quest_itemget")
    elif npcId in [20244,20245,20283,20284] :
-     # get a random party member who is doing this quest and is at cond == 6  
+     # get a random party member who is doing this quest and is at cond == 6
      partyMember = self.getRandomPartyMember(player, "6")
      if partyMember :
          st = partyMember.getQuestState(qn)
@@ -274,7 +273,7 @@ class Quest (JQuest) :
              st.set("cond","7")
              st.playSound("ItemSound.quest_middle")
    elif npcId in range(21508,21513) :
-     # get a random party member who is doing this quest and is at cond == 14  
+     # get a random party member who is doing this quest and is at cond == 14
      partyMember = self.getRandomPartyMember(player, "14")
      if partyMember :
          st = partyMember.getQuestState(qn)
