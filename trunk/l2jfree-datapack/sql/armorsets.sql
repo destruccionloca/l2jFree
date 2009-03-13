@@ -24,7 +24,6 @@ CREATE TABLE `armorsets` (
   PRIMARY KEY (`id`,`chest`)
 ) DEFAULT CHARSET=utf8;
 
-INSERT INTO `armorsets` VALUES
 -- NO GRADE
 -- ########################    id    chest  legs  head  gloves feet   skill  skill_lvl shield sh_skill enchant6      mw_chest  mw_legs  mw_head  mw_gloves  mw_feet  mw_shield
 INSERT INTO `armorsets` VALUES (1,    23,   2386,  43,    0,    0,    3500,      1,      0,      0,       0,            0,        0,       0,       0,       0,        0);--		Wooden Breastplate set (heavy)
