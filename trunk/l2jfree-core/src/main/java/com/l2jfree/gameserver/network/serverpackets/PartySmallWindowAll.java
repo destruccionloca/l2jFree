@@ -14,45 +14,44 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import java.util.List;
-
+import com.l2jfree.gameserver.model.L2Party;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.L2GameClient;
 
-import javolution.util.FastList;
-
-public class PartySmallWindowAll extends L2GameServerPacket
+public final class PartySmallWindowAll extends L2GameServerPacket
 {
 	private static final String _S__4E_PARTYSMALLWINDOWALL = "[S] 4e PartySmallWindowAll [ddd (dsddddddddddd)]";
-	private List<L2PcInstance> _partyMembers = new FastList<L2PcInstance>();
-	private L2PcInstance _exclude;
-
-	public PartySmallWindowAll(L2PcInstance exclude, List<L2PcInstance> party)
+	
+	private final L2Party _party;
+	private final L2PcInstance _leader;
+	
+	public PartySmallWindowAll(L2Party party)
 	{
-		_exclude = exclude;
-		_partyMembers = party;
+		_party = party;
+		_leader = _party.getLeader();
 	}
-
+	
 	@Override
-	protected final void writeImpl()
+	protected void writeImpl(L2GameClient client, L2PcInstance activeChar)
 	{
 		writeC(0x4e);
-		writeD(_partyMembers.get(0).getObjectId()); // c3 party leader id
-		writeD(_partyMembers.get(0).getParty().getLootDistribution());//c3 party loot type (0,1,2,....)
-		writeD(_partyMembers.size()-1);
+		writeD(_leader.getObjectId()); // c3 party leader id
+		writeD(_party.getLootDistribution());//c3 party loot type (0,1,2,....)
+		writeD(_party.getPartyMembers().size() - 1);
 		
-		for (L2PcInstance member: _partyMembers)
+		for (L2PcInstance member : _party.getPartyMembers())
 		{
-			if (member != _exclude)
+			if (member != activeChar)
 			{
 				writeD(member.getObjectId());
 				writeS(member.getName());
 				
-				writeD((int) member.getStatus().getCurrentCp()); //c4
+				writeD((int)member.getStatus().getCurrentCp()); //c4
 				writeD(member.getMaxCp()); //c4
 				
-				writeD((int) member.getStatus().getCurrentHp());
+				writeD((int)member.getStatus().getCurrentHp());
 				writeD(member.getMaxHp());
-				writeD((int) member.getStatus().getCurrentMp());
+				writeD((int)member.getStatus().getCurrentMp());
 				writeD(member.getMaxMp());
 				writeD(member.getLevel());
 				writeD(member.getClassId().getId());
@@ -61,7 +60,7 @@ public class PartySmallWindowAll extends L2GameServerPacket
 				if (member.getPet() != null)
 				{
 					writeD(member.getPet().getObjectId());
-					writeD(member.getPet().getNpcId()+1000000);
+					writeD(member.getPet().getNpcId() + 1000000);
 					writeS(member.getPet().getName());
 					writeD((int)member.getPet().getCurrentHp());
 					writeD(member.getPet().getMaxHp());
@@ -74,10 +73,7 @@ public class PartySmallWindowAll extends L2GameServerPacket
 			}
 		}
 	}
-
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
-	 */
+	
 	@Override
 	public String getType()
 	{

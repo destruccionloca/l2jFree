@@ -14,24 +14,22 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
- */
-public class PartySmallWindowDeleteAll extends L2GameServerPacket 
+public final class PartySmallWindowDeleteAll extends L2GameServerPacket
 {
 	private static final String _S__50_PARTYSMALLWINDOWDELETEALL = "[S] 50 PartySmallWindowDeleteAll []";
 	
+	public static final PartySmallWindowDeleteAll STATIC_PACKET = new PartySmallWindowDeleteAll();
+	
+	private PartySmallWindowDeleteAll()
+	{
+	}
+	
 	@Override
-	protected final void writeImpl()
+	protected void writeImpl()
 	{
 		writeC(0x50);
 	}
-
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
-	 */
+	
 	@Override
 	public String getType()
 	{

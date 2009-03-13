@@ -45,6 +45,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.random.Rnd;
+import com.l2jfree.util.Bunch;
 
 /**
  * This class ...
@@ -216,17 +217,11 @@ public class L2Party
 				member.sendPacket(msg);
 		}
 	}
-
+	
 	public void broadcastToPartyMembersNewLeader()
 	{
-		for (L2PcInstance member : getPartyMembers())
-		{
-			if (member != null)
-			{
-				member.sendPacket(new PartySmallWindowDeleteAll());
-				member.sendPacket(new PartySmallWindowAll(member, getPartyMembers()));
-			}
-		}
+		broadcastToPartyMembers(new SystemMessage(SystemMessageId.S1_HAS_BECOME_A_PARTY_LEADER).addString(getLeader().getName()));
+		refreshPartyView();
 	}
 	
 	public void broadcastCSToPartyMembers(CreatureSay msg, L2PcInstance broadcaster)
@@ -298,11 +293,11 @@ public class L2Party
 				return false;
 			}
 		}
-
+		
 		//sends new member party window for all members
 		//we do all actions before adding member to a list, this speeds things up a little
-		player.sendPacket(new PartySmallWindowAll(player, getPartyMembers()));
-
+		player.sendPacket(new PartySmallWindowAll(this));
+		
 		// sends pets/summons of party members
 		L2Summon summon;
 		for (L2PcInstance pMember : getPartyMembers())
@@ -335,16 +330,8 @@ public class L2Party
 			_partyLvl = player.getLevel();
 		}
 		//update partySpelled 
-		for (L2PcInstance member : getPartyMembers())
-		{
-			member.updateEffectIcons();
-			summon = member.getPet();
-			if (summon != null)
-			{
-				summon.updateEffectIcons();
-			}
-		}
-
+		updateEffectIcons();
+		
 		if (isInDimensionalRift())
 		{
 			_dr.partyMemberInvited();
@@ -358,6 +345,21 @@ public class L2Party
 		}
 
 		return true;
+	}
+	
+	private void updateEffectIcons()
+	{
+		for (L2PcInstance member : getPartyMembers())
+		{
+			if (member != null)
+			{
+				member.updateEffectIcons();
+				
+				L2Summon summon = member.getPet();
+				if (summon != null)
+					summon.updateEffectIcons();
+			}
+		}
 	}
 	
 	/**
@@ -406,7 +408,7 @@ public class L2Party
 
 			SystemMessage msg = new SystemMessage(SystemMessageId.YOU_LEFT_PARTY);
 			player.sendPacket(msg);
-			player.sendPacket(new PartySmallWindowDeleteAll());
+			player.sendPacket(PartySmallWindowDeleteAll.STATIC_PACKET);
 			player.setParty(null);
 			
 			msg = new SystemMessage(SystemMessageId.S1_LEFT_PARTY);
@@ -421,14 +423,9 @@ public class L2Party
 
 			if (isInDimensionalRift())
 				_dr.partyMemberExited(player);
-
+			
 			if (isLeader && getPartyMembers().size() > 1)
-			{
-				msg = new SystemMessage(SystemMessageId.S1_HAS_BECOME_A_PARTY_LEADER);
-				msg.addString(getLeader().getName());
-				broadcastToPartyMembers(msg);
 				broadcastToPartyMembersNewLeader();
-			}
 			
 			if (getPartyMembers().size() == 1)
 			{
@@ -494,10 +491,7 @@ public class L2Party
 					int p1 = getPartyMembers().indexOf(player);
 					getPartyMembers().set(0, getPartyMembers().get(p1));
 					getPartyMembers().set(p1, leader);
-
-					SystemMessage msg = new SystemMessage(SystemMessageId.S1_HAS_BECOME_A_PARTY_LEADER);
-					msg.addString(getLeader().getName());
-					broadcastToPartyMembers(msg);
+					
 					broadcastToPartyMembersNewLeader();
 					if (isInCommandChannel() && getCommandChannel().getChannelLeader() == leader)
 					{
@@ -520,58 +514,32 @@ public class L2Party
 	 */
 	public void refreshPartyView()
 	{
-		//delete view for all members:
-		broadcastToPartyMembers(new PartySmallWindowDeleteAll());
-
-		//rebuild the view for all members:
-		for (L2PcInstance player : getPartyMembers())
-		{
-			if (isLeader(player))
-			{
-				for (L2PcInstance p : getPartyMembers(player,true))
-					player.sendPacket(new PartySmallWindowAdd(p));
-			}
-			else
-			{
-				player.sendPacket(new PartySmallWindowAll(player, getPartyMembers()));
-			}
-		}
-		for (L2PcInstance player : getPartyMembers())
-		{
-			if(player!=null)
-				player.updateEffectIcons();
-		}
+		broadcastToPartyMembers(PartySmallWindowDeleteAll.STATIC_PACKET);
+		
+		final L2PcInstance leader = getLeader();
+		
+		broadcastToPartyMembers(leader, new PartySmallWindowAll(this));
+		
+		for (L2PcInstance member : getPartyMembersWithoutLeader())
+			leader.sendPacket(new PartySmallWindowAdd(member));
+		
+		updateEffectIcons();
 	}
 	
 	/**
-	 * returns all party members except for player
-	 * @param player the L2PcInstance player that needs the view
-	 * @param leader boolean is the player a party leader
-	 * @return List<L2PcInstance> of the party members that need to be shown
+	 * @return all party members except the leader
 	 */
-	public FastList<L2PcInstance> getPartyMembers(L2PcInstance player, boolean leader)
+	public L2PcInstance[] getPartyMembersWithoutLeader()
 	{
-		try
-		{
-			if (_members == null)
-				return getPartyMembers();
-
-			FastList<L2PcInstance> list = new FastList<L2PcInstance>();
-			for (L2PcInstance p : _members)
-			{
-				if (p != player) 
-					list.add(p);
-			}
-			if(!leader) 
+		Bunch<L2PcInstance> list = new Bunch<L2PcInstance>();
+		
+		for (L2PcInstance player : getPartyMembers())
+			if (!isLeader(player))
 				list.add(player);
-			return list;
-		}
-		catch(Throwable t)
-		{
-			return getPartyMembers();
-		}
+		
+		return list.moveToArray(new L2PcInstance[list.size()]);
 	}
-
+	
 	/**
 	 * finds a player in the party by name
 	 * @param name

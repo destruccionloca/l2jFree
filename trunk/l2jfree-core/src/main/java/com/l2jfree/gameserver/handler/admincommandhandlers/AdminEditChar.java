@@ -37,8 +37,6 @@ import com.l2jfree.gameserver.model.base.ClassId;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
-import com.l2jfree.gameserver.network.serverpackets.PartySmallWindowAll;
-import com.l2jfree.gameserver.network.serverpackets.PartySmallWindowDeleteAll;
 import com.l2jfree.gameserver.network.serverpackets.SetSummonRemainTime;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
@@ -341,13 +339,7 @@ public class AdminEditChar implements IAdminCommandHandler
 					if (player.isInParty())
 					{
 						// Delete party window for other party members
-						player.getParty().broadcastToPartyMembers(player, new PartySmallWindowDeleteAll());
-						for (L2PcInstance member : player.getParty().getPartyMembers())
-						{
-							// And re-add
-							if (member != player)
-								member.sendPacket(new PartySmallWindowAll(member, player.getParty().getPartyMembers()));
-						}
+						player.getParty().refreshPartyView();
 					}
 					if (player.getClan() != null)
 					{
