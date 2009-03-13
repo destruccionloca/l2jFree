@@ -121,7 +121,6 @@
     <set name="magicLvl" val="#magicLvl" />
     <set name="weaponsAllowed" val="512" /> <!-- Dual Sword -->
     <set name="mpConsume" val="#mpConsume" />
-    <set name="magicLvl" val="#magicLvl"/>
     <set name="overHit" val="true"/>
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />

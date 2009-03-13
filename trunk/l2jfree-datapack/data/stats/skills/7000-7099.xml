@@ -379,7 +379,7 @@
     <set name="effectRange" val="400" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#Tab-rCrit" stackType="critical_prob_up">
+        stackOrder="0.3" stackType="critical_prob_up">
         <basemul order="0x30" stat="rCrit" val="0.3" />
       </effect>
     </for>
@@ -401,7 +401,7 @@
     <set name="coolTime" val="332" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#Tab-cAtk" stackType="critical_dmg_up">
+        stackOrder="1.35" stackType="critical_dmg_up">
         <mul order="0x30" stat="cAtk" val="1.35" />
       </effect>
     </for>
@@ -423,7 +423,7 @@
     <set name="coolTime" val="332" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#Tab-pAtkSpd" stackType="attack_time_down">
+        stackOrder="1.33" stackType="attack_time_down">
         <mul order="0x30" stat="pAtkSpd" val="1.33" />
       </effect>
     </for>
@@ -445,7 +445,7 @@
     <set name="coolTime" val="332" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#Tab-accCombat" stackType="hit_up">
+        stackOrder="4" stackType="hit_up">
         <add order="0x40" stat="accCombat" val="4" />
       </effect>
     </for>
@@ -468,7 +468,7 @@
     <set name="coolTime" val="332" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#Tab-maxHp" stackType="max_hp_up">
+        stackOrder="1.35" stackType="max_hp_up">
         <mul order="0x30" stat="maxHp" val="1.35" />
       </effect>
     </for>
@@ -490,7 +490,7 @@
     <set name="coolTime" val="332" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#Tab-maxMp" stackType="max_mp_up">
+        stackOrder="1.35" stackType="max_mp_up">
         <mul order="0x30" stat="maxMp" val="1.35" />
       </effect>
     </for>
@@ -512,7 +512,7 @@
     <set name="coolTime" val="332" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#Tab-rEvas" stackType="rEvas">
+        stackOrder="4" stackType="rEvas">
         <add order="0x40" stat="rEvas" val="4" />
       </effect>
     </for>
@@ -534,7 +534,7 @@
     <set name="coolTime" val="332" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#Tab-mAtkSpd" stackType="casting_time_down">
+        stackOrder="1.3" stackType="casting_time_down">
         <mul order="0x30" stat="mAtkSpd" val="1.3" />
       </effect>
     </for>
@@ -555,7 +555,7 @@
     <set name="coolTime" val="332" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#Weight" stackType="Weight">
+        stackOrder="9000" stackType="Weight">
         <add order="0x40" stat="maxLoad" val="9000" />
       </effect>
     </for>
@@ -577,7 +577,7 @@
     <set name="coolTime" val="332" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#rate" stackType="pa_up">
+        stackOrder="1.15" stackType="pa_up">
         <mul order="0x30" stat="pAtk" val="1.15" />
       </effect>
     </for>
@@ -599,7 +599,7 @@
     <set name="coolTime" val="332" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#rate" stackType="pd_up">
+        stackOrder="1.15" stackType="pd_up">
         <mul order="0x30" stat="pDef" val="1.15" />
       </effect>
     </for>
@@ -621,7 +621,7 @@
     <set name="coolTime" val="332" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#Tab-mDef" stackType="MagicDefUp">
+        stackOrder="1.3" stackType="MagicDefUp">
         <mul order="0x30" stat="mDef" val="1.3" />
       </effect>
     </for>
@@ -644,7 +644,7 @@
     <set name="coolTime" val="332" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#Tab-absorbDam" stackType="vampRage">
+        stackOrder="9" stackType="vampRage">
         <add order="0x40" stat="absorbDam" val="9" />
       </effect>
     </for>
@@ -666,7 +666,7 @@
     <set name="coolTime" val="332" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#Tab-mAtk" stackType="ma_up">
+        stackOrder="1.75" stackType="ma_up">
         <mul order="0x30" stat="mAtk" val="1.75" />
       </effect>
     </for>
@@ -688,7 +688,7 @@
     <set name="coolTime" val="332" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#Tab-runSpd" stackType="speed_up">
+        stackOrder="33" stackType="speed_up">
         <add order="0x40" stat="runSpd" val="33" />
       </effect>
     </for>
@@ -782,7 +782,7 @@
     <set name="effectRange" val="900" />
     <set name="coolTime" val="332" />
     <for>
-      <effect count="1" name="Buff" time="1200" val="0" stackOrder="#mCrit" stackType="magic_critical_up">
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="1.4" stackType="magic_critical_up">
         <mul order="0x30" stat="mCritRate" val="1.4" />
       </effect>
     </for>
@@ -804,7 +804,7 @@
     <set name="coolTime" val="332" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#mpConsume" stackType="MPrate">
+        stackOrder="2" stackType="MPrate">
         <mul order="0x30" stat="MagicalMpConsumeRate" val="0.9" />
         <mul order="0x30" stat="PhysicalMpConsumeRate" val="0.9" />
       </effect>
