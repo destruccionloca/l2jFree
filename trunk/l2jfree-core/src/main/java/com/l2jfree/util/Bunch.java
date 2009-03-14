@@ -21,6 +21,9 @@ package com.l2jfree.util;
 import java.lang.reflect.Array;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.l2jfree.util.L2Collections.Filter;
 
 /**
@@ -34,6 +37,8 @@ import com.l2jfree.util.L2Collections.Filter;
 @SuppressWarnings("unchecked")
 public final class Bunch<E> extends AbstractNode implements IBunch<E>
 {
+	private static final Log _log = LogFactory.getLog(Bunch.class);
+	
 	private static final class Node extends AbstractNode
 	{
 		private static final ObjectPool<Node> POOL = new ObjectPool<Node>() {
@@ -135,6 +140,14 @@ public final class Bunch<E> extends AbstractNode implements IBunch<E>
 		return null;
 	}
 	
+	private boolean isNull(E value)
+	{
+		if (value == null)
+			_log.warn("Null element added!", new NullPointerException());
+		
+		return value == null;
+	}
+	
 	public int size()
 	{
 		return _size;
@@ -142,8 +155,8 @@ public final class Bunch<E> extends AbstractNode implements IBunch<E>
 	
 	public Bunch<E> add(E value)
 	{
-		if (value == null)
-			throw new NullPointerException();
+		if (isNull(value))
+			return;
 		
 		Node.newInstance(this, value);
 		return this;
@@ -182,8 +195,8 @@ public final class Bunch<E> extends AbstractNode implements IBunch<E>
 	
 	public E set(int index, E value)
 	{
-		if (value == null)
-			throw new NullPointerException();
+		if (isNull(value))
+			return;
 		
 		final Node node = getNode(index);
 		final E old = valueOf(node);
