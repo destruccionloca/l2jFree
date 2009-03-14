@@ -80,7 +80,6 @@ class oracle7(JQuest):
 			htmltext = "32280.htm"
 		return htmltext
 
-
 QUEST = oracle7(-1, "oracle7", "ai")
 QUEST.addStartNpc(ORACLE_GUIDE)
 QUEST.addTalkId(ORACLE_GUIDE)

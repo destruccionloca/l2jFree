@@ -230,7 +230,6 @@ def runGolems(self,world):
 	newNpc = self.addSpawn(32328,140547,151670,-11813,32767,False,0,False, world.instanceId)
 	newNpc = self.addSpawn(32328,141941,151684,-11813,63371,False,0,False, world.instanceId)
 
-
 class CoralGarden(JQuest):
 	def __init__(self,id,name,descr):
 		JQuest.__init__(self,id,name,descr)

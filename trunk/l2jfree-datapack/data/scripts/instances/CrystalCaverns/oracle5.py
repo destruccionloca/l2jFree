@@ -12,7 +12,6 @@ ORACLE_GUIDE = 32279
 class PyObject:
 	pass
 
-
 def exitInstance(player,teleto):
 	player.setInstanceId(0)
 	player.teleToLocation(teleto.x, teleto.y, teleto.z)
@@ -59,10 +58,6 @@ class oracle5(JQuest):
 			else:
 				htmltext = "teleportOut.htm"
 		return htmltext
-
-
-
-
 
 QUEST = oracle5(-1, "oracle5", "ai")
 QUEST.addStartNpc(ORACLE_GUIDE)

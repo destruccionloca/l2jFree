@@ -480,7 +480,7 @@ class DarkCloudMansion(JQuest):
 					item = player.getInventory().addItem("Quest", CC, 1, player, None)
 					iu = InventoryUpdate()
 					iu.addItem(item)
-					player.sendPacket(iu);
+					player.sendPacket(iu)
 					sm = SystemMessage(SystemMessageId.YOU_PICKED_UP_S1_S2)
 					sm.addItemName(item)
 					sm.addNumber(1)
