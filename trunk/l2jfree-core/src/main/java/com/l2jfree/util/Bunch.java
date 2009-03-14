@@ -140,14 +140,6 @@ public final class Bunch<E> extends AbstractNode implements IBunch<E>
 		return null;
 	}
 	
-	private boolean isNull(E value)
-	{
-		if (value == null)
-			_log.warn("Null element added!", new NullPointerException());
-		
-		return value == null;
-	}
-	
 	public int size()
 	{
 		return _size;
@@ -155,8 +147,11 @@ public final class Bunch<E> extends AbstractNode implements IBunch<E>
 	
 	public Bunch<E> add(E value)
 	{
-		if (isNull(value))
-			return;
+		if (value == null)
+		{
+			_log.warn("Null element added!", new NullPointerException());
+			return this;
+		}
 		
 		Node.newInstance(this, value);
 		return this;
@@ -195,8 +190,8 @@ public final class Bunch<E> extends AbstractNode implements IBunch<E>
 	
 	public E set(int index, E value)
 	{
-		if (isNull(value))
-			return;
+		if (value == null)
+			throw new NullPointerException();
 		
 		final Node node = getNode(index);
 		final E old = valueOf(node);
