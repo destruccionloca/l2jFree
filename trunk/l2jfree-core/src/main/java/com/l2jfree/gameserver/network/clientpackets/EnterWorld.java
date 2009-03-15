@@ -52,6 +52,7 @@ import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.model.entity.events.CTF;
 import com.l2jfree.gameserver.model.entity.events.DM;
 import com.l2jfree.gameserver.model.entity.events.TvT;
+import com.l2jfree.gameserver.model.entity.events.VIP;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.model.quest.Quest;
@@ -479,6 +480,9 @@ public class EnterWorld extends L2GameClientPacket
 
 		if (DM._savePlayers.contains(activeChar.getName()))
 			DM.addDisconnectedPlayer(activeChar);
+		
+		if (VIP._savePlayers.contains(activeChar.getName()))
+			VIP.addDisconnectedPlayer(activeChar);
 
 		if (!activeChar.isTransformed())
 		{

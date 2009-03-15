@@ -50,7 +50,7 @@ import com.l2jfree.tools.random.Rnd;
 public class VIP {
 	
 	private final static Log _log = LogFactory.getLog(VIP.class.getName());
-	public static String	_teamName = "", _joinArea = "";
+	public static String	_teamName = "", _joinArea = "", _theVIPName = "";
 	
 	public static int	   _time = 0, _winners = 0, _minPlayers = Config.VIP_MIN_PARTICIPANTS,
 							_vipReward = 0, _vipRewardAmount = 0,
@@ -72,7 +72,7 @@ public class VIP {
 							_sitForced = false;
 	
 	public static L2Spawn   _endSpawn, _joinSpawn;
-	
+	public static Vector<String>		_savePlayers	= new Vector<String>();
 	public static Vector<L2PcInstance>  _playersVIP = new Vector<L2PcInstance>(),
 										_playersNotVIP = new Vector<L2PcInstance>();
 	
@@ -740,7 +740,7 @@ public class VIP {
 		_time = _winners = _endNPC = _joinNPC = _delay = _endX = _endY = _endZ = _startX = _startY = _startZ = _joinX = _joinY = _joinZ = _team = 0;
 		_vipReward = _vipRewardAmount = _notVipReward = _notVipRewardAmount = _theVipReward = _theVipRewardAmount = 0;
 		_started = _joining = _sitForced = false;
-		_teamName = _joinArea = "";
+		_teamName = _joinArea = _theVIPName = "";
 		
 		for (L2PcInstance player : _playersVIP)
 		{
@@ -763,7 +763,7 @@ public class VIP {
 			player._isNotVIP = false;
 			player._isVIP = false;
 		}
-		
+		_savePlayers = new Vector<String>();
 		_playersVIP = new Vector<L2PcInstance>();
 		_playersNotVIP = new Vector<L2PcInstance>();
 	}
@@ -780,6 +780,7 @@ public class VIP {
 		
 		L2PcInstance VIP = _playersVIP.get(random);
 		VIP._isTheVIP = true;
+		_theVIPName = VIP.getName();
 	}
 
 	public static void teleportPlayers()
@@ -995,6 +996,7 @@ public class VIP {
 		activeChar._originalNameColourVIP = activeChar.getAppearance().getNameColor();
 		activeChar._originalKarmaVIP = activeChar.getKarma();
 		activeChar._inEventVIP = true;
+		_savePlayers.add(activeChar.getName());
 	}
 
 	public static void addPlayerNotVIP(L2PcInstance activeChar)
@@ -1014,5 +1016,72 @@ public class VIP {
 		activeChar._originalNameColourVIP = activeChar.getAppearance().getNameColor();
 		activeChar._originalKarmaVIP = activeChar.getKarma();
 		activeChar._inEventVIP = true;
+		_savePlayers.add(activeChar.getName());
+	}
+	
+	public static synchronized void addDisconnectedPlayer(L2PcInstance player)
+	{
+		if (_started)
+		{
+			if(_savePlayers.contains(player.getName()))
+			{
+				if (Config.VIP_ON_START_REMOVE_ALL_EFFECTS)
+				{
+					for (L2Effect e : player.getAllEffects())
+					{
+						if (e != null)
+							e.exit();
+					}
+				}
+
+				for (L2PcInstance p : _playersVIP)
+				{
+					if (p == null)
+						continue;
+					//check by name incase player got new objectId
+					else if (p.getName().equals(player.getName()))
+					{
+						player._isVIP = true;
+						player._originalNameColourVIP = player.getAppearance().getNameColor();
+						player._originalKarmaVIP = player.getKarma();
+						player._inEventVIP = true;
+						_playersVIP.remove(p); //removing old object id from vector
+						_playersVIP.add(player); //adding new objectId to vector
+						if(_theVIPName.equals(player.getName()))
+						{
+							player.getAppearance().setNameColor(255,255,0);
+							player._isTheVIP = true;
+						}
+						else
+							player.getAppearance().setNameColor(255,0,0);						
+						player.setKarma(0);
+						player.broadcastUserInfo();
+						player.teleToLocation(_startX, _startY, _startZ);
+						break;
+					}
+				}
+
+				for (L2PcInstance p : _playersNotVIP)
+				{
+					if (p == null)
+						continue;
+					//check by name incase player got new objectId
+					else if (p.getName().equals(player.getName()))
+					{
+						player._isNotVIP = true;
+						player._originalNameColourVIP = player.getAppearance().getNameColor();
+						player._originalKarmaVIP = player.getKarma();
+						player._inEventVIP = true;
+						_playersNotVIP.remove(p); //removing old object id from vector
+						_playersNotVIP.add(player); //adding new objectId to vector
+						player.getAppearance().setNameColor(0,255,0);
+						player.setKarma(0);
+						player.broadcastUserInfo();
+						player.teleToLocation(_endX, _endY, _endZ);
+						break;
+					}
+				}
+			}
+		}
 	}
 }
