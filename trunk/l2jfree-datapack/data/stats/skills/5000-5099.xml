@@ -2,29 +2,29 @@
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
   <skill id="5000" levels="1" name="Alfred - Super Strike">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5001" levels="1" name="Alfred - Life Drain">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5002" levels="1" name="Giselle - Vampiric Rage">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5003" levels="1" name="Giselle - Tempest">
-    <set name="element" val="1" /><!-- Wind -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="element" val="1"/><!-- Wind -->
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5004" levels="1" name="Dimensional Stun">
     <!--
@@ -32,37 +32,37 @@
       skillType to NOTDONE for server compatability.
       Description(s): Shocks and instantly Immobilizes.
     -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5005" levels="1" name="Frintezza's Ghost Summoning">
     <!--
       Lvl 1: Frintezza is in temporary state of paralysis.
     -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="900" />
-    <set name="effectRange" val="1400" />
-    <set name="isMagic" val="true" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="900"/>
+    <set name="effectRange" val="1400"/>
+    <set name="isMagic" val="true"/>
   </skill>
   <skill id="5006" levels="1" name="Frintezza's Melody">
     <!--
       Needs to be finished. Description(s): A general
       performance.
     -->
-    <set name="power" val="60000" />
-    <set name="target" val="TARGET_AREA" />
-    <set name="skillRadius" val="700" />
-    <set name="skillTime" val="25000" />
-    <set name="skillType" val="MDAM" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="castRange" val="1200" />
-    <set name="effectRange" val="1400" />
-    <set name="hitTime" val="25000" />
-    <set name="reuseDelay" val="40000" />
+    <set name="power" val="60000"/>
+    <set name="target" val="TARGET_AREA"/>
+    <set name="skillRadius" val="700"/>
+    <set name="skillTime" val="25000"/>
+    <set name="skillType" val="MDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="1200"/>
+    <set name="effectRange" val="1400"/>
+    <set name="hitTime" val="25000"/>
+    <set name="reuseDelay" val="40000"/>
   </skill>
   <skill id="5007" levels="5" name="Frintezza's Songs">
     <!--
@@ -81,33 +81,33 @@
     <table name="#Heal">2.3 0 0 10 30</table>
     <table name="#time">20 20 0 10 30</table>
     <table name="#rampage">0 1000 0 0 0</table>
-    <table name="#Plague">0 0 0 450.0 0</table>
+    <table name="#Plague">0 0 0 450 0</table>
     <table name="#Psycho">0 0 0 0 4.9</table>
     <table name="#shTime"> 32000 32000 32000 31000 35000 </table>
-    <set name="hitTime" val="#shTime" />
-    <set name="skillTime" val="#shTime" />
-    <set name="target" val="TARGET_ONE" />
-    <set name="skillType" val="DEBUFF" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="skillRadius" val="#skillRadius" />
-    <set name="castRange" val="1200" />
-    <set name="skill_landing_percent" val="#skill_landing_percent" />
-    <set name="negateStats" val="Buff" />
-    <set name="negatePower" val="#rampage" />
+    <set name="hitTime" val="#shTime"/>
+    <set name="skillTime" val="#shTime"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="DEBUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="skillRadius" val="#skillRadius"/>
+    <set name="castRange" val="1200"/>
+    <set name="skill_landing_percent" val="#skill_landing_percent"/>
+    <set name="negateStats" val="Buff"/>
+    <set name="negatePower" val="#rampage"/>
     <for>
-      <effect count="5" name="DamOverTime" time="#time" val="#Plague" />
+      <effect count="5" name="DamOverTime" time="#time" val="#Plague"/>
       <effect count="1" name="Confusion" time="#time" val="0">
-        <div stat="pAtkSpd" val="#Psycho" order="0x40" />
-        <div stat="mAtkSpd" val="#Psycho" order="0x40" />
-        <div stat="runSpd" val="#Psycho" order="0x40" />
-        <div stat="accCombat" val="#Psycho" order="0x40" />
-        <div stat="rEvas" val="#Psycho" order="0x40" />
-        <div stat="pDef" val="#Psycho" order="0x40" />
+        <div stat="pAtkSpd" val="#Psycho" order="0x40"/>
+        <div stat="mAtkSpd" val="#Psycho" order="0x40"/>
+        <div stat="runSpd" val="#Psycho" order="0x40"/>
+        <div stat="accCombat" val="#Psycho" order="0x40"/>
+        <div stat="rEvas" val="#Psycho" order="0x40"/>
+        <div stat="pDef" val="#Psycho" order="0x40"/>
       </effect>
       <effect count="1" name="Buff" time="#time" val="0">
-        <div stat="pAtkSpd" val="#Power" order="0x40" />
-        <div stat="runSpd" val="#Power" order="0x40" />
-        <div stat="regHp" val="#Heal" order="0x40" />
+        <div stat="pAtkSpd" val="#Power" order="0x40"/>
+        <div stat="runSpd" val="#Power" order="0x40"/>
+        <div stat="regHp" val="#Heal" order="0x40"/>
       </effect>
     </for>
   </skill>
@@ -119,15 +119,15 @@
       Lvl 4: Mournful Chorale Prelude (Instantly decreases the effect of HP regeneration magic).
       Lvl 5: Hypnotic Mazurka (Instantly immobilizes the target by making it dance involuntarily).
     -->
-    <set name="target" val="TARGET_SELF" />
-    <set name="hitTime" val="0" />
-    <set name="skillType" val="BUFF" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="castRange" val="-1" />
-    <set name="effectRange" val="-1" />
-    <set name="aggroPoints" val="0" />
+    <set name="target" val="TARGET_SELF"/>
+    <set name="hitTime" val="0"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <set name="aggroPoints" val="0"/>
     <for>
-      <effect count="1" name="Buff" time="15" val="0" />
+      <effect count="1" name="Buff" time="15" val="0"/>
     </for>
   </skill>
   <skill id="5009" levels="1" name="Frintezza's Ghostly Fighter">
@@ -135,22 +135,22 @@
       Needs to be finished. Description(s): A portrait ghost
       that can make physical attacks.
     -->
-    <set name="power" val="250" />
-    <set name="mpConsume" val="140" />
-    <set name="save" val="4" />
-    <set name="target" val="TARGET_ONE" />
-    <set name="skillTime" val="4500" />
-    <set name="skillType" val="PDAM" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="buffDuration" val="10000" />
-    <set name="castRange" val="900" />
-    <set name="hitTime" val="830" />
-    <set name="effectRange" val="1400" />
-    <set name="effectType" val="STUN" />
-    <set name="effectPower" val="900000" />
+    <set name="power" val="250"/>
+    <set name="mpConsume" val="140"/>
+    <set name="save" val="4"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillTime" val="4500"/>
+    <set name="skillType" val="PDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="buffDuration" val="10000"/>
+    <set name="castRange" val="900"/>
+    <set name="hitTime" val="830"/>
+    <set name="effectRange" val="1400"/>
+    <set name="effectType" val="STUN"/>
+    <set name="effectPower" val="900000"/>
     <for>
       <effect count="1" name="Stun" time="10" val="0"
-        stackOrder="1" stackType="Stun" />
+        stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="5010" levels="1" name="Frintezza's Ghostly Mage">
@@ -158,23 +158,23 @@
       Needs to be finished. Description(s): A portrait ghost
       that can make magical attacks.
     -->
-    <set name="mpConsume" val="20" />
-    <set name="save" val="3" />
-    <set name="power" val="250" />
-    <set name="lvlDepend" val="1" />
-    <set name="target" val="TARGET_ONE" />
-    <set name="hitTime" val="4500" />
-    <set name="skillTime" val="4000" />
-    <set name="skillType" val="MDAM" />
-    <set name="isMagic" val="true" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="buffDuration" val="6000" />
-    <set name="castRange" val="400" />
-    <set name="effectRange" val="900" />
-    <set name="effectType" val="PARALYZE" />
-    <set name="effectPower" val="90" />
+    <set name="mpConsume" val="20"/>
+    <set name="save" val="3"/>
+    <set name="power" val="250"/>
+    <set name="lvlDepend" val="1"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="hitTime" val="4500"/>
+    <set name="skillTime" val="4000"/>
+    <set name="skillType" val="MDAM"/>
+    <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="buffDuration" val="6000"/>
+    <set name="castRange" val="400"/>
+    <set name="effectRange" val="900"/>
+    <set name="effectType" val="PARALYZE"/>
+    <set name="effectPower" val="90"/>
     <for>
-      <effect count="1" name="Paralyze" time="6" val="0" />
+      <effect count="1" name="Paralyze" time="6" val="0"/>
     </for>
   </skill>
   <skill id="5011" levels="1" name="Frintezza's Bomber Ghost">
@@ -182,24 +182,24 @@
       Needs to be finished. Description(s): A portrait ghost
       who can create a suicide explosion.
     -->
-    <set name="hpConsume" val="28000" />
-    <set name="mpConsume" val="1" />
-    <set name="power" val="120000" />
-    <set name="overHit" val="true" />
-    <set name="target" val="TARGET_AURA" />
-    <set name="skillRadius" val="300" />
-    <set name="skillType" val="PDAM" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="castRange" val="50" />
-    <set name="effectRange" val="120" />
-    <set name="skillTime" val="2000" />
-    <set name="hitTime" val="2000" />
+    <set name="hpConsume" val="28000"/>
+    <set name="mpConsume" val="1"/>
+    <set name="power" val="120000"/>
+    <set name="overHit" val="true"/>
+    <set name="target" val="TARGET_AURA"/>
+    <set name="skillRadius" val="300"/>
+    <set name="skillType" val="PDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="50"/>
+    <set name="effectRange" val="120"/>
+    <set name="skillTime" val="2000"/>
+    <set name="hitTime" val="2000"/>
     <cond>
-      <player hp="75" />
+      <player hp="75"/>
     </cond>
     <for>
       <effect count="1" name="Stun" time="25" val="0">
-        <add order="0x40" stat="rCrit" val="20" />
+        <add order="0x40" stat="rCrit" val="20"/>
       </effect>
     </for>
   </skill>
@@ -208,23 +208,23 @@
       Needs to be finished. Description(s): Instantly
       Immobilizes.
     -->
-    <set name="mpConsume" val="200" />
-    <set name="save" val="5" />
-    <set name="power" val="100" />
-    <set name="lvlDepend" val="2" />
-    <set name="target" val="TARGET_AREA" />
-    <set name="hitTime" val="830" />
-    <set name="reuseDelay" val="9000" />
-    <set name="skillTime" val="2500" />
-    <set name="skillType" val="PARALYZE" />
-    <set name="isMagic" val="true" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="buffDuration" val="30000" />
-    <set name="castRange" val="600" />
-    <set name="effectRange" val="1100" />
+    <set name="mpConsume" val="200"/>
+    <set name="save" val="5"/>
+    <set name="power" val="100"/>
+    <set name="lvlDepend" val="2"/>
+    <set name="target" val="TARGET_AREA"/>
+    <set name="hitTime" val="830"/>
+    <set name="reuseDelay" val="9000"/>
+    <set name="skillTime" val="2500"/>
+    <set name="skillType" val="PARALYZE"/>
+    <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="buffDuration" val="30000"/>
+    <set name="castRange" val="600"/>
+    <set name="effectRange" val="1100"/>
     <for>
       <effect count="1" name="Paralyze" time="30"
-        val="0" stackOrder="1" stackType="Paralyze" />
+        val="0" stackOrder="1" stackType="Paralyze"/>
     </for>
   </skill>
   <skill id="5013" levels="1" name="Frintezza Ghost Drain">
@@ -232,20 +232,20 @@
       Needs to be finished. Description(s): Portrait ghost
       drains HP.
     -->
-    <set name="element" val="6" />
+    <set name="element" val="6"/>
     <!-- Dark -->
-    <set name="mpConsume" val="200" />
-    <set name="power" val="200" />
-    <set name="target" val="TARGET_ONE" />
-    <set name="hitTime" val="1000" />
-    <set name="element" val="6" />
-    <set name="skillTime" val="1000" />
-    <set name="skillType" val="DRAIN" />
-    <set name="isMagic" val="true" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="castRange" val="600" />
-    <set name="effectRange" val="1100" />
-    <set name="absorbPart" val="0.8" />
+    <set name="mpConsume" val="200"/>
+    <set name="power" val="200"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="hitTime" val="1000"/>
+    <set name="element" val="6"/>
+    <set name="skillTime" val="1000"/>
+    <set name="skillType" val="DRAIN"/>
+    <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="600"/>
+    <set name="effectRange" val="1100"/>
+    <set name="absorbPart" val="0.8"/>
   </skill>
   <skill id="5014" levels="3" name="Frintezza's Daemon Attack">
     <!--
@@ -253,22 +253,22 @@
       general attack. Lvl 2 - Demon 2 general attack. Lvl 3
       - Demon 3 general attack.
     -->
-    <set name="mpConsume" val="300" />
-    <set name="power" val="60000" />
-    <set name="target" val="TARGET_ONE" />
-    <set name="conditionValue" val="2" />
-    <set name="reuseDelay" val="100000" />
-    <set name="hitTime" val="2030" />
-    <set name="condition" val="128" />
-    <set name="skillTime" val="2000" />
-    <set name="skillType" val="PDAM" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="castRange" val="200" />
-    <set name="effectRange" val="400" />
+    <set name="mpConsume" val="300"/>
+    <set name="power" val="60000"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="conditionValue" val="2"/>
+    <set name="reuseDelay" val="100000"/>
+    <set name="hitTime" val="2030"/>
+    <set name="condition" val="128"/>
+    <set name="skillTime" val="2000"/>
+    <set name="skillType" val="PDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="200"/>
+    <set name="effectRange" val="400"/>
     <!-- charge values ... should be done by AI -->
     <!--
-      <set name="num_charges" val="1" /> <set
-      name="charge_skill_id" val="5015" />
+      <set name="num_charges" val="1"/> <set
+      name="charge_skill_id" val="5015"/>
     -->
   </skill>
   <skill id="5015" levels="6" name="Frintezza's Daemon Charge">
@@ -282,39 +282,39 @@
     -->
     <table name="#power">3 5 10 15 20 30</table>
     <table name="#hitTime"> 1500 1450 1300 1200 1050 900 </table>
-    <set name="mpConsume" val="20" />
-    <set name="hpConsume" val="300" />
-    <set name="power" val="#power" />
-    <set name="hitTime" val="#hitTime" />
-    <set name="target" val="TARGET_SELF" />
-    <set name="skillTime" val="900" />
-    <set name="skillType" val="CONT" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="castRange" val="-1" />
-    <set name="effectRange" val="-1" />
+    <set name="mpConsume" val="20"/>
+    <set name="hpConsume" val="300"/>
+    <set name="power" val="#power"/>
+    <set name="hitTime" val="#hitTime"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillTime" val="900"/>
+    <set name="skillType" val="CONT"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
   </skill>
   <skill id="5016" levels="1" name="Yoke of Scarlet">
     <!--
       Needs to be finished. 
       Description(s): Instantly Immobilizes.
     -->
-    <set name="mpConsume" val="200" />
-    <set name="save" val="5" />
-    <set name="power" val="100" />
-    <set name="lvlDepend" val="2" />
-    <set name="target" val="TARGET_AREA" />
-    <set name="hitTime" val="2030" />
-    <set name="reuseDelay" val="9000" />
-    <set name="skillTime" val="2000" />
-    <set name="skillType" val="PARALYZE" />
-    <set name="isMagic" val="true" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="buffDuration" val="30000" />
-    <set name="castRange" val="600" />
-    <set name="effectRange" val="1100" />
+    <set name="mpConsume" val="200"/>
+    <set name="save" val="5"/>
+    <set name="power" val="100"/>
+    <set name="lvlDepend" val="2"/>
+    <set name="target" val="TARGET_AREA"/>
+    <set name="hitTime" val="2030"/>
+    <set name="reuseDelay" val="9000"/>
+    <set name="skillTime" val="2000"/>
+    <set name="skillType" val="PARALYZE"/>
+    <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="buffDuration" val="30000"/>
+    <set name="castRange" val="600"/>
+    <set name="effectRange" val="1100"/>
     <for>
       <effect count="1" name="Paralyze" time="30"
-        val="0" stackOrder="1" stackType="Paralyze" />
+        val="0" stackOrder="1" stackType="Paralyze"/>
     </for>
   </skill>
   <skill id="5017" levels="1" name="Frintezza's Daemon Morph">
@@ -322,23 +322,23 @@
       Needs to be finished. Description(s): Demon 1
       metamorphosis.
     -->
-    <set name="mpConsume" val="300" />
-    <set name="target" val="TARGET_SELF" />
-    <set name="reuseDelay" val="1000000" />
-    <set name="skillTime" val="2300" />
-    <set name="skillType" val="BUFF" />
-    <set name="isMagic" val="true" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="buffDuration" val="120000" />
-    <set name="castRange" val="-1" />
-    <set name="hitTime" val="2500" />
-    <set name="effectRange" val="1400" />
+    <set name="mpConsume" val="300"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="reuseDelay" val="1000000"/>
+    <set name="skillTime" val="2300"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="buffDuration" val="120000"/>
+    <set name="castRange" val="-1"/>
+    <set name="hitTime" val="2500"/>
+    <set name="effectRange" val="1400"/>
     <for>
       <effect count="1" name="Buff" time="120" val="0">
-        <add order="0x40" stat="pDef" val="500" />
-        <add order="0x40" stat="mDef" val="300" />
-        <add order="0x40" stat="rEvas" val="10" />
-        <sub order="0x40" stat="cancel" val="30" />
+        <add order="0x40" stat="pDef" val="500"/>
+        <add order="0x40" stat="mDef" val="300"/>
+        <add order="0x40" stat="rEvas" val="10"/>
+        <sub order="0x40" stat="cancel" val="30"/>
       </effect>
     </for>
   </skill>
@@ -348,18 +348,18 @@
       magic field. Lvl 2 - Demon 3 magic field.
     -->
     <table name="#Tab-pDef">2.08 3.12</table>
-    <set name="target" val="TARGET_SELF" />
-    <set name="hitTime" val="1000" />
-    <set name="skillTime" val="1500" />
-    <set name="skillType" val="BUFF" />
-    <set name="reuseDelay" val="1000000" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="buffDuration" val="60000" />
-    <set name="castRange" val="-1" />
-    <set name="effectRange" val="-1" />
+    <set name="target" val="TARGET_SELF"/>
+    <set name="hitTime" val="1000"/>
+    <set name="skillTime" val="1500"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="reuseDelay" val="1000000"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="buffDuration" val="60000"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
     <for>
       <effect count="1" name="Buff" time="60" val="0">
-        <mul order="0x30" stat="pDef" val="#Tab-pDef" />
+        <mul order="0x30" stat="pDef" val="#Tab-pDef"/>
       </effect>
     </for>
   </skill>
@@ -367,18 +367,18 @@
     <!--
       Needs to be finished. Description(s): Demon 3 HP drain range.
     -->
-    <set name="mpConsume" val="200" />
-    <set name="power" val="2000" />
-    <set name="target" val="TARGET_ONE" />
-    <set name="hitTime" val="3000" />
-    <set name="element" val="6" />
-    <set name="skillTime" val="2700" />
-    <set name="skillType" val="DRAIN" />
-    <set name="isMagic" val="true" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="castRange" val="600" />
-    <set name="effectRange" val="1100" />
-    <set name="absorbPart" val="0.8" />
+    <set name="mpConsume" val="200"/>
+    <set name="power" val="2000"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="hitTime" val="3000"/>
+    <set name="element" val="6"/>
+    <set name="skillTime" val="2700"/>
+    <set name="skillType" val="DRAIN"/>
+    <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="600"/>
+    <set name="effectRange" val="1100"/>
+    <set name="absorbPart" val="0.8"/>
   </skill>
   <skill id="5020" levels="1" name="Forced Action">
     <!--
@@ -387,10 +387,10 @@
       Description(s): Crumples to the ground because of
       unknown power.
     -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5021" levels="12" name="Inspiration of Einhasad">
     <!--
@@ -399,10 +399,10 @@
       Description(s):
       Lvl 1-12: Makes sacred attacks.
     -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5022" levels="12" name="Decrease Speed">
     <!--
@@ -413,10 +413,10 @@
       Lvl 2-3: Instantly reduces Speed. Effect 2.
       Lvl 4-12: Instantly reduces Speed. Effect 3.
     -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5023" levels="12" name="Hold">
     <!--
@@ -425,10 +425,10 @@
       Description(s):
       Lvl 1-12: Temporarily holds and Immobilizes target.
     -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5024" levels="12" name="Decrease Atk. Spd.">
     <!--
@@ -447,106 +447,106 @@
       Instantly reduces Atk. Spd. Effect 3. Lvl 12 -
       Instantly reduces Atk. Spd. Effect 3.
     -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5025" levels="1" name="Raid Boss - Level 30">
     <!-- This Skill Is Only For Description In The Client -->
-    <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="PASSIVE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <set name="effectRange" val="-1" />
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="PASSIVE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
   </skill>
   <skill id="5026" levels="1" name="Raid Boss - Level 39">
     <!-- This Skill Is Only For Description In The Client -->
-    <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="PASSIVE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <set name="effectRange" val="-1" />
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="PASSIVE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
   </skill>
   <skill id="5027" levels="1" name="Raid Boss - Level 37">
     <!-- This Skill Is Only For Description In The Client -->
-    <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="PASSIVE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <set name="effectRange" val="-1" />
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="PASSIVE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
   </skill>
   <skill id="5028" levels="1" name="Raid Boss - Level 53">
     <!-- This Skill Is Only For Description In The Client -->
-    <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="PASSIVE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <set name="effectRange" val="-1" />
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="PASSIVE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
   </skill>
   <skill id="5029" levels="1" name="Raid Boss - Level 52">
     <!-- This Skill Is Only For Description In The Client -->
-    <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="PASSIVE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <set name="effectRange" val="-1" />
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="PASSIVE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
   </skill>
   <skill id="5030" levels="1" name="Raid Boss - Level 59">
     <!-- This Skill Is Only For Description In The Client -->
-    <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="PASSIVE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <set name="effectRange" val="-1" />
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="PASSIVE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
   </skill>
   <skill id="5031" levels="1" name="Raid Boss - Level 80">
     <!-- This Skill Is Only For Description In The Client -->
-    <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="PASSIVE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <set name="effectRange" val="-1" />
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="PASSIVE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
   </skill>
   <skill id="5032" levels="1" name="Raid Boss - Level 87">
     <!-- This Skill Is Only For Description In The Client -->
-    <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="PASSIVE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <set name="effectRange" val="-1" />
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="PASSIVE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
   </skill>
   <skill id="5033" levels="1" name="Raid Boss - Level 87">
     <!-- This Skill Is Only For Description In The Client -->
-    <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="PASSIVE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <set name="effectRange" val="-1" />
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="PASSIVE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
   </skill>
   <skill id="5034" levels="1" name="Raid Boss - Level 73">
     <!-- This Skill Is Only For Description In The Client -->
-    <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="PASSIVE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <set name="effectRange" val="-1" />
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="PASSIVE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
   </skill>
   <skill id="5035" levels="1" name="Raid Boss - Level 76">
     <!-- This Skill Is Only For Description In The Client -->
-    <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="PASSIVE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <set name="effectRange" val="-1" />
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="PASSIVE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
   </skill>
   <skill id="5036" levels="1" name="Raid Boss - Level 60">
     <!-- This Skill Is Only For Description In The Client -->
-    <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="PASSIVE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <set name="effectRange" val="-1" />
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="PASSIVE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
   </skill>
   <skill id="5037" levels="3" name="Decrease Casting Spd">
     <!--
@@ -557,56 +557,56 @@
           Lvl 2 - Instantly reduces Casting Speed. Effect 2.
 	  Lvl 3 - Instantly reduces Casting Speed. Effect 3.
     -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5038" levels="16" name="Summon PVP Penalty">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5039" levels="1" name="NPC - Ultra Bomb">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5040" levels="12" name="NPC - Healing Potion">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5041" levels="1" name="Charm of Courage">
-    <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="BUFF" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="castRange" val="-1" />
-    <set name="effectRange" val="-1" />
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
     <for>
       <effect count="1" name="CharmOfCourage" time="1200" val="0" noicon="1"/>
     </for>
   </skill>
   <skill id="5042" levels="12" name="NPC Dispel Bomb">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5043" levels="12" name="NPC Super Sonic Blaster">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5044" levels="3" name="NPC Ultimate Defense">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5045" levels="12" name="Castle Power Strike">
     <table name="#power"> 65 164 451 1121 2992 5736 8832 10130 11982 13131 14865 16351 </table>
@@ -638,40 +638,40 @@
     <set name="effectRange" val="2100"/>
   </skill>
   <skill id="5047" levels="12" name="Castle Spinning Slash">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5048" levels="12" name="Castle Burst Shot">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5049" levels="12" name="Castle Blow">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5050" levels="12" name="Castle DD Fire">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5051" levels="12" name="Castle Self AE Fire">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5052" levels="12" name="Castle Long AE Fire">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5053" levels="12" name="Castle DD Water">
     <table name="#mpConsume"> 7 10 14 18 23 28 33 35 37 38 39 39 </table>
@@ -691,70 +691,70 @@
     <set name="effectRange" val="2100"/>
   </skill>
   <skill id="5054" levels="12" name="Castle Self AE Water">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5055" levels="12" name="Castle Long AE Water">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5056" levels="12" name="Castle DD Wind">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5057" levels="12" name="Castle Self AE Wind">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5058" levels="12" name="Castle Long AE Wind">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5059" levels="12" name="Castle DD Earth">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5060" levels="12" name="Castle Self AE Earth">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5061" levels="12" name="Castle Long AE Earth">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5062" levels="12" name="Castle DD Holy">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5063" levels="12" name="Castle Self AE Holy">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5064" levels="12" name="Castle Long AE Holy">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5065" levels="12" name="Castle DD Unholy">
     <table name="#mpConsume"> 7 10 14 18 23 28 33 35 37 38 39 39 </table>
@@ -774,16 +774,16 @@
     <set name="effectRange" val="2100"/>
   </skill>
   <skill id="5066" levels="12" name="Castle Self AE Unholy">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5067" levels="12" name="Castle Long AE Unholy">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5068" levels="12" name="Decrease Speed">
     <!--
@@ -803,10 +803,10 @@
           Lvl 11 - Instantly reduces Speed. Effect 3.
           Lvl 12 - Instantly reduces Speed. Effect 3.
     -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5069" levels="12" name="Decrease Atk. Spd.">
     <!--
@@ -826,10 +826,10 @@
           Lvl 11 - Instantly reduces Atk. Spd. Effect 3.
           Lvl 12 - Instantly reduces Atk. Spd. Effect 3.
     -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5070" levels="12" name="Decrease Casting Spd">
     <!--
@@ -849,10 +849,10 @@
           Lvl 11 - Instantly reduces Casting Spd. Effect 3.
           Lvl 12 - Instantly reduces Casting Spd. Effect 3.
     -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5071" levels="12" name="Decrease P. Atk.">
     <!--
@@ -872,10 +872,10 @@
           Lvl 11 - Instantly reduces P. Atk. Effect 3.
           Lvl 12 - Instantly reduces P. Atk. Effect 3.
     -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5072" levels="12" name="Decrease M. Atk.">
     <!--
@@ -895,42 +895,42 @@
           Lvl 11 - Instantly reduces M. Atk. Effect 3.
           Lvl 12 - Instantly reduces M. Atk. Effect 3.
     -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5073" levels="12" name="Quest Trap -  Power Shot">
     <table name="#power"> 18 26 38 52 68 85 102 110 116 122 126 129 </table>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
-    <set name="magicLvl" val="#magicLvl" />
-    <set name="power" val="#power" />
-    <set name="element" val="1" /> <!-- Wind -->
-    <set name="target" val="TARGET_ONE" />
-    <set name="hitTime" val="1500" />
-    <set name="skillType" val="MDAM" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="castRange" val="1500" />
-    <set name="effectRange" val="1500" />
+    <set name="magicLvl" val="#magicLvl"/>
+    <set name="power" val="#power"/>
+    <set name="element" val="1"/> <!-- Wind -->
+    <set name="target" val="TARGET_ONE"/>
+    <set name="hitTime" val="1500"/>
+    <set name="skillType" val="MDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="1500"/>
+    <set name="effectRange" val="1500"/>
   </skill>
   <skill id="5074" levels="1" name="The Victor of War">
-    <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="BUFF" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <set name="effectRange" val="-1" />
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
     <for>
-      <mul order="0x30" stat="maxCp" val="1.10" />
+      <mul order="0x30" stat="maxCp" val="1.1"/>
     </for>
   </skill>
   <skill id="5075" levels="1" name="The Vanquished of War">
-    <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="BUFF" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <set name="effectRange" val="-1" />
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
     <for>
-      <mul order="0x30" stat="maxCp" val="0.90" />
+      <mul order="0x30" stat="maxCp" val="0.9"/>
     </for>
   </skill>
   <skill id="5076" levels="15" name="Death Penalty">
@@ -955,41 +955,41 @@
       0.643 0.592 0.591 0.540 0.489 0.438 0.387 0.336 0.285 </table>
     <table name="#accCombat"> 1 0.949 0.898 0.847 0.796 0.745 0.694
       0.643 0.592 0.591 0.540 0.489 0.438 0.387 0.336 0.285 </table>
-    <set name="power" val="#power" />
-    <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="BUFF" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="power" val="#power"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
     <for>
-      <mul order="0x30" stat="pAtk" val="#pAtk" />
-      <mul order="0x30" stat="mAtk" val="#mAtk" />
-      <mul order="0x30" stat="pDef" val="#pDef" />
-      <mul order="0x30" stat="mDef" val="#mDef" />
-      <mul order="0x30" stat="pAtkSpd" val="#pAtkSpd" />
-      <mul order="0x30" stat="mAtkSpd" val="#mAtkSpd" />
-      <mul order="0x30" stat="runSpd" val="#runSpd" />
-      <mul order="0x30" stat="rEvas" val="#rEvas" />
-      <mul order="0x30" stat="cAtk" val="#cAtk" />
-      <mul order="0x30" stat="accCombat" val="#accCombat" />
+      <mul order="0x30" stat="pAtk" val="#pAtk"/>
+      <mul order="0x30" stat="mAtk" val="#mAtk"/>
+      <mul order="0x30" stat="pDef" val="#pDef"/>
+      <mul order="0x30" stat="mDef" val="#mDef"/>
+      <mul order="0x30" stat="pAtkSpd" val="#pAtkSpd"/>
+      <mul order="0x30" stat="mAtkSpd" val="#mAtkSpd"/>
+      <mul order="0x30" stat="runSpd" val="#runSpd"/>
+      <mul order="0x30" stat="rEvas" val="#rEvas"/>
+      <mul order="0x30" stat="cAtk" val="#cAtk"/>
+      <mul order="0x30" stat="accCombat" val="#accCombat"/>
     </for>
   </skill>
   <skill id="5077" levels="1" name="NPC Remove Death Penalty">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5078" levels="1" name="Frintezza Critical Power">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5079" levels="1" name="NPC Focused Haste">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5080" levels="1" name="NPC Mighty Haste">
     <set name="magicLvl" val="80"/>
@@ -1083,10 +1083,10 @@
       skillType to NOTDONE for server compatability.
       Description(s): Temporarily stunned and Immobilized.
     -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5086" levels="1" name="Deadly Poison">
     <!--
@@ -1095,10 +1095,10 @@
       Description(s): Infected with poison and gradually
       losing HP. If HP falls to 0, death will ensue.
     -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5087" levels="2" name="Berserk">
     <!--
@@ -1106,98 +1106,98 @@
       skillType to NOTDONE for server compatability.
       Description(s): Lvl 1-2 - none
     -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5088" levels="1" name="Signal">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5089" levels="1" name="Representation - Enter the Sailren Nest Quest">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5090" levels="1" name="Sailren Production">
     <!-- Needs more work -->
     <!-- Only pre-implementation -->
-    <set name="target" val="TARGET_SELF" />
+    <set name="target" val="TARGET_SELF"/>
     <!-- Needs to be checked -->
-    <set name="skillType" val="BUFF" />
-    <set name="hitTime" val="1000" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="castRange" val="-1" />
-    <set name="effectRange" val="-1" />
+    <set name="skillType" val="BUFF"/>
+    <set name="hitTime" val="1000"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
   </skill>
   <skill id="5091" levels="1" name="Sailren Production 2">
     <!-- Needs more work -->
     <!-- Only pre-implementation -->
-    <set name="target" val="TARGET_SELF" />
+    <set name="target" val="TARGET_SELF"/>
     <!-- Needs to be checked -->
-    <set name="skillType" val="BUFF" />
-    <set name="hitTime" val="1000" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="castRange" val="-1" />
-    <set name="effectRange" val="-1" />
+    <set name="skillType" val="BUFF"/>
+    <set name="hitTime" val="1000"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
   </skill>
   <skill id="5092" levels="1" name="Antharas Terror">
     <!-- Antharas Skills -->
-    <set name="magicLvl" val="70" />
-    <set name="lvlDepend" val="1" />
-    <set name="power" val="90" />
-    <set name="target" val="TARGET_AREA" />
-    <set name="skillRadius" val="900" />
-    <set name="coolTime" val="2700" />
-    <set name="hitTime" val="2300" />
-    <set name="isDebuff" val="true" />
-    <set name="skillType" val="FEAR" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="castRange" val="600" />
-    <set name="effectRange" val="1100" />
+    <set name="magicLvl" val="70"/>
+    <set name="lvlDepend" val="1"/>
+    <set name="power" val="90"/>
+    <set name="target" val="TARGET_AREA"/>
+    <set name="skillRadius" val="900"/>
+    <set name="coolTime" val="2700"/>
+    <set name="hitTime" val="2300"/>
+    <set name="isDebuff" val="true"/>
+    <set name="skillType" val="FEAR"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="600"/>
+    <set name="effectRange" val="1100"/>
     <for>
       <effect count="10" name="Fear" time="3" val="0"
-        stackOrder="1" stackType="turn_flee" />
+        stackOrder="1" stackType="turn_flee"/>
     </for>
   </skill>
   <skill id="5093" levels="1" name="Antharas Meteor">
     <!-- Antharas Skills -->
-    <set name="magicLvl" val="70" />
-    <set name="target" val="TARGET_AREA" />
-    <set name="power" val="22000" /><!-- Guessing -->
-    <set name="skillType" val="PDAM" />
-    <set name="hitTime" val="8000" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="castRange" val="600" />
-    <set name="effectRange" val="1100" />
+    <set name="magicLvl" val="70"/>
+    <set name="target" val="TARGET_AREA"/>
+    <set name="power" val="22000"/><!-- Guessing -->
+    <set name="skillType" val="PDAM"/>
+    <set name="hitTime" val="8000"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="600"/>
+    <set name="effectRange" val="1100"/>
   </skill>
   <skill id="5094" levels="1" name="Antharas Subordinate Suicide ">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5095" levels="1" name="Antharas Subordinate Melee Attack">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5096" levels="1" name="Antharas Subordinate Remote Attack">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5097" levels="1" name="Antharas Subordinate Suicide (Narrow Range)">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5098" levels="2" name="Capture Penalty">
     <!--
@@ -1205,15 +1205,15 @@
       skillType to NOTDONE for server compatability.
       Description(s): Lvl 1-2 - none
     -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
   <skill id="5099" levels="1" name="Cancel Capture A">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
   </skill>
 </list>

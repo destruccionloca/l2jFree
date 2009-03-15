@@ -72,7 +72,7 @@
     </for>
   </skill>
   <skill id="23005" levels="1" name="Gold Majo Agathion Special Skill - Power of Blessed Resurrection">
-    <set name="power" val="100.0"/>
+    <set name="power" val="100"/>
     <set name="target" val="TARGET_CORPSE_PLAYER"/>
     <set name="hitTime" val="25000"/>
     <set name="skillType" val="RESURRECT"/>
@@ -130,7 +130,7 @@
     </cond>
   </skill>
   <skill id="23009" levels="1" name="Plaipitak Agathion Special Skill - Power of Blessed Resurrection">
-    <set name="power" val="100.0"/>
+    <set name="power" val="100"/>
     <set name="target" val="TARGET_CORPSE_PLAYER"/>
     <set name="hitTime" val="25000"/>
     <set name="skillType" val="RESURRECT"/>
@@ -201,7 +201,7 @@
     </for>
   </skill>
   <skill id="23014" levels="1" name="Bamboo Panda Agathion Special Skill - Power of Blessed Resurrection">
-    <set name="power" val="100.0"/>
+    <set name="power" val="100"/>
     <set name="target" val="TARGET_CORPSE_PLAYER"/>
     <set name="hitTime" val="25000"/>
     <set name="skillType" val="RESURRECT"/>
@@ -228,7 +228,7 @@
     </cond>
   </skill>
   <skill id="23016" levels="1" name="Rudolph Agathion Special Skill - Ability of Energy">
-    <set name="power" val="100.0"/>
+    <set name="power" val="100"/>
     <set name="target" val="TARGET_CORPSE_PLAYER"/>
     <set name="hitTime" val="25000"/>
     <set name="skillType" val="RESURRECT"/>
@@ -362,7 +362,7 @@
     </cond>
   </skill>
   <skill id="23030" levels="1" name="White Maneki Neko Agathion Special Skill - Blessed Resurrection Ability">
-    <set name="power" val="100.0"/>
+    <set name="power" val="100"/>
     <set name="target" val="TARGET_CORPSE_PLAYER"/>
     <set name="hitTime" val="25000"/>
     <set name="skillType" val="RESURRECT"/>

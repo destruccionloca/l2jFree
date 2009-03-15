@@ -9,15 +9,15 @@
       58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75
       76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93
       94 95 96 97 98 99 </table>
-    <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="LUCK" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <set name="effectRange" val="-1" />
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="LUCK"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
     <!-- cannot be learned, given -->
-    <set name="canLearn" val="" />
+    <set name="canLearn" val=""/>
     <for>
-      <add val="#lvl" order="0x10" stat="INT" />
+      <add val="#lvl" order="0x10" stat="INT"/>
     </for>
   </skill>
   <skill id="9002" levels="99" name="WIT">
@@ -28,15 +28,15 @@
       58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75
       76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93
       94 95 96 97 98 99 </table>
-    <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="LUCK" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <set name="effectRange" val="-1" />
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="LUCK"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
     <!-- cannot be learned, given -->
-    <set name="canLearn" val="" />
+    <set name="canLearn" val=""/>
     <for>
-      <add val="#lvl" order="0x10" stat="WIT" />
+      <add val="#lvl" order="0x10" stat="WIT"/>
     </for>
   </skill>
   <skill id="9003" levels="99" name="MEN">
@@ -47,15 +47,15 @@
       58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75
       76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93
       94 95 96 97 98 99 </table>
-    <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="LUCK" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <set name="effectRange" val="-1" />
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="LUCK"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
     <!-- cannot be learned, given -->
-    <set name="canLearn" val="" />
+    <set name="canLearn" val=""/>
     <for>
-      <add val="#lvl" order="0x10" stat="MEN" />
+      <add val="#lvl" order="0x10" stat="MEN"/>
     </for>
   </skill>
   <skill id="9004" levels="99" name="CON">
@@ -66,15 +66,15 @@
       58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75
       76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93
       94 95 96 97 98 99 </table>
-    <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="LUCK" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <set name="effectRange" val="-1" />
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="LUCK"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
     <!-- cannot be learned, given -->
-    <set name="canLearn" val="" />
+    <set name="canLearn" val=""/>
     <for>
-      <add val="#lvl" order="0x10" stat="CON" />
+      <add val="#lvl" order="0x10" stat="CON"/>
     </for>
   </skill>
   <skill id="9005" levels="99" name="DEX">
@@ -85,15 +85,15 @@
       58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75
       76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93
       94 95 96 97 98 99 </table>
-    <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="LUCK" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <set name="effectRange" val="-1" />
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="LUCK"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
     <!-- cannot be learned, given -->
-    <set name="canLearn" val="" />
+    <set name="canLearn" val=""/>
     <for>
-      <add val="#lvl" order="0x10" stat="DEX" />
+      <add val="#lvl" order="0x10" stat="DEX"/>
     </for>
   </skill>
   <skill id="9006" levels="99" name="STR">
@@ -104,15 +104,15 @@
       58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75
       76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93
       94 95 96 97 98 99 </table>
-    <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="LUCK" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <set name="effectRange" val="-1" />
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="LUCK"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
     <!-- cannot be learned, given -->
-    <set name="canLearn" val="" />
+    <set name="canLearn" val=""/>
     <for>
-      <add val="#lvl" order="0x10" stat="STR" />
+      <add val="#lvl" order="0x10" stat="STR"/>
     </for>
   </skill>
 </list>
