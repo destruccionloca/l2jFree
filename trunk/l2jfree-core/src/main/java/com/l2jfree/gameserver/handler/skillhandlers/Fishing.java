@@ -86,10 +86,10 @@ public class Fishing implements ISkillHandler
 		double angle = Util.convertHeadingToDegree(player.getHeading());
 		double radian = Math.toRadians(angle);
 
-		int dx = (int) (d * Math.sin(radian));
-		int dy = (int) (d * Math.cos(radian));
+		int dx = (int) (d * Math.cos(radian));
+		int dy = (int) (d * Math.sin(radian));
 
-		int x = activeChar.getX() - dx;
+		int x = activeChar.getX() + dx;
 		int y = activeChar.getY() + dy;
 
 		L2Zone water = ZoneManager.getInstance().isInsideZone(L2Zone.ZoneType.Water, x, y);
