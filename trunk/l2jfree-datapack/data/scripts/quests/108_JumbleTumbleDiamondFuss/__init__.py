@@ -20,6 +20,8 @@ BERRY_TART = 1569
 BAT_DIAGRAM = 1570
 STAR_DIAMOND = 1571
 SILVERSMITH_HAMMER = 1511
+ADENA = 57
+LESSER_HEALING_POTION = 1060
 #Newbie/one time rewards section
 #Any quest should rely on a unique bit, but
 #it could be shared among quest that were mutually
@@ -87,21 +89,21 @@ class Quest (JQuest) :
    elif npcId == 30523 and st.getInt("cond")==1 and st.getQuestItemsCount(STAR_DIAMOND) :
           htmltext = "30523-08.htm"
           # check the player state against this quest newbie rewarding mark.
+          st.rewardItems(ADENA,14666)
           newbie = player.getNewbie()
           if newbie | NEWBIE_REWARD != newbie :
              player.setNewbie(newbie|NEWBIE_REWARD)
-          st.rewardItems(57,14666)
-          st.giveItems(1060,100)     # Lesser Healing Potions
-          st.giveItems(SILVERSMITH_HAMMER,1)
-          st.takeItems(STAR_DIAMOND,-1)
-          for item in range(4412,4417) :
-            st.giveItems(item,10)   # Echo crystals
           if player.getClassId().isMage() :
             st.giveItems(SPIRITSHOT_NO_GRADE_FOR_BEGINNERS,3000)
             st.playTutorialVoice("tutorial_voice_027")
           else :
             st.giveItems(SOULSHOT_NO_GRADE_FOR_BEGINNERS,7000)
             st.playTutorialVoice("tutorial_voice_026")
+          st.rewardItems(LESSER_HEALING_POTION,int(100))
+          st.giveItems(SILVERSMITH_HAMMER,1)
+          for item in range(4412,4417) :
+              st.rewardItems(item,int(10))   # Echo crystals
+          st.takeItems(STAR_DIAMOND,-1)
           st.addExpAndSp(34565, 2962)
           st.set("cond","0")
           st.exitQuest(False)
@@ -184,14 +186,17 @@ class Quest (JQuest) :
    if npcId == 20323 :
         if st.getInt("cond") == 1 and st.getQuestItemsCount(BRONPS_CONTRACT) :
           if st.getRandom(10) < 8 :
+            st.giveItems(AQUAMARINE,1)
             if st.getQuestItemsCount(AQUAMARINE)+st.getQuestItemsCount(CHRYSOBERYL) == 19 :
               if st.getQuestItemsCount(AQUAMARINE) < 10 :
-                st.giveItems(AQUAMARINE,1)
+                st.playSound("ItemSound.quest_itemget")
+              else :
                 st.playSound("ItemSound.quest_middle")
             else:
               if st.getQuestItemsCount(AQUAMARINE) < 10 :
-                st.giveItems(AQUAMARINE,1)
                 st.playSound("ItemSound.quest_itemget")
+              else :
+                st.playSound("ItemSound.quest_middle")
           if st.getRandom(10) < 8 :
             if st.getQuestItemsCount(AQUAMARINE)+st.getQuestItemsCount(CHRYSOBERYL) == 19 :
               if st.getQuestItemsCount(CHRYSOBERYL) < 10 :

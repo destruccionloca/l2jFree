@@ -20,6 +20,9 @@ ORC = 27070
 NEWBIE_REWARD = 2
 SPIRITSHOT_FOR_BEGINNERS = 5790
 SOULSHOT_FOR_BEGINNERS = 5789
+LESSER_HEALING_POTION = 1060
+SPIRITSHOT_NO_GRADE = 2509
+SOULSHOT_NO_GRADE = 1835
 
 class Quest (JQuest) :
 
@@ -65,6 +68,7 @@ class Quest (JQuest) :
          st.takeItems(ONYX_TALISMAN1,1)
          st.giveItems(ONYX_TALISMAN2,1)
          st.set("cond","2")
+         st.playSound("ItemSound.quest_middle")
      elif cond == 2 :
        if npcId == 30358 :
          htmltext = "30358-06.htm"
@@ -80,18 +84,19 @@ class Quest (JQuest) :
          st.takeItems(ANCIENT_CLAY_TABLET,1)
          st.giveItems(KARTAS_TRANSLATION,1)
          st.set("cond","4")
+         st.playSound("ItemSound.quest_middle")
      elif cond == 4 :
        if npcId == 30358 and st.getQuestItemsCount(KARTAS_TRANSLATION) :
          htmltext = "30358-07.htm"
          st.takeItems(KARTAS_TRANSLATION,1)
          st.giveItems(ELDRITCH_DAGGER,1)
          for item in range(4412,4417) :
-               st.rewardItems(item,10)
-         st.rewardItems(1060,100)
+               st.rewardItems(item,int(10))
+         st.rewardItems(LESSER_HEALING_POTION,int(100))
          if player.getClassId().isMage() :
-            st.rewardItems(2509,500)
+            st.rewardItems(SPIRITSHOT_NO_GRADE,int(500))
          else :
-            st.rewardItems(1835,1000)
+            st.rewardItems(SOULSHOT_NO_GRADE,int(1000))
          # check the player state against this quest newbie rewarding mark.
          newbie = player.getNewbie()
          if newbie | NEWBIE_REWARD != newbie :

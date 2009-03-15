@@ -1,7 +1,5 @@
-### ---------------------------------------------------------------------------
-###  Created by Skeleton!!!
-### ---------------------------------------------------------------------------
-#Modified and updated by Emperorc
+# Created by Skeleton!!!
+# Modified and updated by Emperorc
 
 import sys
 from com.l2jfree.gameserver.model.quest import State
@@ -18,10 +16,11 @@ GIANT_POISON_BEE = 21095
 CLOUDY_BEAST = 21096
 YOUNG_ARANEID = 21097
 
-#QUEST ITEMS
+#ITEMS
 STING_OF_GIANT_POISON = 8283
 TALON_OF_YOUNG_ARANEID = 8285
 CLOUDY_GEM = 8284
+ADENA = 57
 
 #Droplist format - npcId : [item,chance]
 DROPLIST = {
@@ -49,7 +48,7 @@ class Quest (JQuest) :
       bonus = 0
       if STING+GEM+TALON >= 10 :
           bonus = 2871
-      st.rewardItems(57,STING*57+GEM*56+TALON*60+bonus)
+      st.rewardItems(ADENA,STING*57+GEM*56+TALON*60+bonus)
       st.takeItems(STING_OF_GIANT_POISON,-1)
       st.takeItems(TALON_OF_YOUNG_ARANEID,-1)
       st.takeItems(CLOUDY_GEM,-1)
@@ -65,13 +64,13 @@ class Quest (JQuest) :
    if not st : return htmltext
    npcid = npc.getNpcId()
    cond = st.getInt("cond")
-   if cond == 0 :
+   if not cond :
       if st.getPlayer().getLevel() >= 21 :
          htmltext = "30210-02.htm"
       else :
          htmltext = "30210-01.htm"
          st.exitQuest(1)
-   if cond == 1 :
+   if cond :
       S = st.getQuestItemsCount(STING_OF_GIANT_POISON)  
       T = st.getQuestItemsCount(TALON_OF_YOUNG_ARANEID)
       C = st.getQuestItemsCount(CLOUDY_GEM)     
@@ -85,13 +84,12 @@ class Quest (JQuest) :
     st = player.getQuestState(qn)
     if not st : return
     if st.getState() != State.STARTED : return
-    if st.getInt("cond") == 1 :
         npcId = npc.getNpcId()
         rand = st.getRandom(100)
         if npcId in DROPLIST.keys() :
             item,chance = DROPLIST[npcId]
             if rand < chance :
-                st.rewardItems(item,1)
+                st.rewardItems(item,int(1))
                 st.playSound("ItemSound.quest_itemget")
     return
 

@@ -10,7 +10,8 @@ IVAN = 32014
 BATIDAE = 31989
 
 #Items
-SOE = 736
+SCROLL_OF_ESCAPE = 736
+ADENA = 57
 
 class Quest (JQuest) :
 
@@ -21,11 +22,11 @@ class Quest (JQuest) :
     st = player.getQuestState(qn)
     if not st : return
     if event == "32014-04.htm" :
-      if st.getQuestItemsCount(SOE):
+      if st.getQuestItemsCount(SCROLL_OF_ESCAPE):
         st.set("cond","1")
         st.setState(State.STARTED)
         st.playSound("ItemSound.quest_accept")
-        st.takeItems(SOE,1)
+        st.takeItems(SCROLL_OF_ESCAPE,1)
         htmltext = "32014-03.htm"
         npc.deleteMe()
     elif event == "32014-04a.htm" :
@@ -46,9 +47,9 @@ class Quest (JQuest) :
       else:
          htmltext = "32014-01.htm"
          st.exitQuest(1)
-   elif npcId == BATIDAE and st.getInt("cond")==1 :
+   elif npcId == BATIDAE and st.getInt("cond") :
       htmltext = "31989-01.htm"
-      st.giveItems(57,2883)
+      st.rewardItems(ADENA,2883)
       st.playSound("ItemSound.quest_finish")
       st.exitQuest(1)
    return htmltext

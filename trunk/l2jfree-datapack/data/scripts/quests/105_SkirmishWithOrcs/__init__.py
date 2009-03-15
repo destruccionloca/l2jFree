@@ -30,6 +30,8 @@ SPIRITSHOT_NO_GRADE_FOR_BEGINNERS = 5790
 SPIRITSHOT_NO_GRADE = 2509
 SOULSHOT_NO_GRADE_FOR_BEGINNERS = 5789
 SOULSHOT_NO_GRADE = 1835
+ADENA = 57
+LESSER_HEALING_POTION = 1060
 
 class Quest (JQuest) :
 
@@ -115,7 +117,7 @@ class Quest (JQuest) :
             st.takeItems(KABOO_CHIEF_TORC2,1)
             newbie = player.getNewbie()
             mage = player.getClassId().isMage()
-            st.rewardItems(57,17599)
+            st.rewardItems(ADENA,17599)
             if mage :
                st.giveItems(RED_SUNSET_STAFF,1)
                st.giveItems(SPIRITSHOT_NO_GRADE,500)
@@ -131,14 +133,14 @@ class Quest (JQuest) :
                   st.playTutorialVoice("tutorial_voice_026")
                   st.giveItems(SOULSHOT_NO_GRADE_FOR_BEGINNERS,7000)
                st.playSound("ItemSound.quest_tutorial")
-            st.rewardItems(1060,100)     # Lesser Healing Potions
+            st.rewardItems(LESSER_HEALING_POTION,int(100))
             for item in range(4412,4417) :
-                st.giveItems(item,10)   # Echo crystals
+                st.rewardItems(item,int(10))   # Echo crystals
             st.addExpAndSp(41478,3555)
             player.sendPacket(SocialAction(player.getObjectId(),3))
             st.exitQuest(False)
             st.playSound("ItemSound.quest_finish")
-            st.set("cond","0")
+            st.unset("cond")
       elif st.getQuestItemsCount(KENDNELLS_ORDER5) or st.getQuestItemsCount(KENDNELLS_ORDER6) or st.getQuestItemsCount(KENDNELLS_ORDER7) or st.getQuestItemsCount(KENDNELLS_ORDER8) :
         htmltext = "30218-07.htm"
    return htmltext

@@ -12,8 +12,9 @@ GALATEA = 30634
 # MOBS
 MOBS=[20078,21026,21025,21024,21023]
 
-#QUEST ITEMS
+# ITEMS
 FAIRY_BREATH = 8286
+ADENA = 57
 
 
 class Quest (JQuest) :
@@ -36,7 +37,7 @@ class Quest (JQuest) :
           else :
              reward = count*50+5365
           st.takeItems(FAIRY_BREATH,-1)
-          st.giveItems(57,reward)
+          st.rewardItems(ADENA,reward)
     elif event == "30634-08.htm" :
        st.exitQuest(1)
     return htmltext
@@ -47,14 +48,12 @@ class Quest (JQuest) :
    if not st: return
    id = st.getState()
    if id == State.CREATED :
-      st.set("cond","0")
-   cond = st.getInt("cond") 
-   if st.getPlayer().getLevel() < 26 :
-      htmltext = "30634-01.htm"
-      st.exitQuest(1)
-   elif cond == 0 :
-      htmltext = "30634-02.htm"
-   elif cond == 1 :
+      if st.getPlayer().getLevel() < 26 :
+         htmltext = "30634-01.htm"
+         st.exitQuest(1)
+      else :
+         htmltext = "30634-02.htm"
+   else :
       if st.getQuestItemsCount(FAIRY_BREATH) == 0 :
         htmltext = "30634-04.htm"
       else :

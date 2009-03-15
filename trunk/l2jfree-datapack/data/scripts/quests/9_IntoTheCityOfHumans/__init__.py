@@ -1,7 +1,6 @@
 # Created by CubicVirtuoso
 # Any problems feel free to drop by #l2j-datapack on irc.freenode.net
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -17,7 +16,6 @@ TAMIL   = 30576
 SCROLL_OF_ESCAPE_GIRAN = 7559
 MARK_OF_TRAVELER = 7570
 
-
 class Quest (JQuest) :
 
  def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
@@ -26,17 +24,15 @@ class Quest (JQuest) :
    htmltext = event
    if event == "30583-03.htm" :
      st.set("cond","1")
-     st.set("id","1")
      st.setState(State.STARTED)
      st.playSound("ItemSound.quest_accept")
    elif event == "30571-02.htm" :
      st.set("cond","2")
-     st.set("id","2")
      st.playSound("ItemSound.quest_middle")
    elif event == "30576-02.htm" :
      st.giveItems(MARK_OF_TRAVELER,1)
      st.giveItems(SCROLL_OF_ESCAPE_GIRAN,1)
-     st.set("cond","0")
+     st.unset("cond")
      st.exitQuest(False)
      st.playSound("ItemSound.quest_finish")
    return htmltext
@@ -48,11 +44,11 @@ class Quest (JQuest) :
    npcId = npc.getNpcId()
    cond  = st.getInt("cond")
    id    = st.getState()
-
-   if id == State.CREATED :
-     st.set("cond","0")
+   if id == State.COMPLETED :
+     htmltext = "<html><body>This quest has already been completed.</body></html>"
+   elif id == State.CREATED :
      if player.getRace().ordinal() == 3 :
-       if player.getLevel() >= 3 and player.getLevel() <= 10:
+       if player.getLevel() >= 3 and player.getLevel() <= 10 :
          htmltext = "30583-02.htm"
        else:
          htmltext = "<html><body>Quest for characters level 3 and above.</body></html>"
@@ -60,13 +56,11 @@ class Quest (JQuest) :
      else :
        htmltext = "30583-01.htm"
        st.exitQuest(1)
-   elif npc == PETUKAI and id == State.COMPLETED :
-     htmltext = "<html><body>I can't supply you with another Giran Scroll of Escape. Sorry traveller.</body></html>"
-   elif npc == PETUKAI and cond == 1 :
-     htmltext = "30583-04.htm"
-   if id == State.STARTED :
+   elif id == State.STARTED :
        if npcId == TANAPI and cond :
          htmltext = "30571-01.htm"
+       elif npc == PETUKAI and cond == 1 :
+         htmltext = "30583-04.htm"
        elif npcId == TAMIL and cond == 2 :
          htmltext = "30576-01.htm"
    return htmltext

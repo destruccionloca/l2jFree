@@ -28,6 +28,7 @@ CRYSTAL_CELEBRATION = 4416
 NEWBIE_REWARD = 2
 SPIRITSHOT_NO_GRADE_FOR_BEGINNERS = 5790
 SOULSHOT_NO_GRADE_FOR_BEGINNERS = 5789
+ADENA = 57
 
 class Quest (JQuest) :
 
@@ -46,13 +47,7 @@ class Quest (JQuest) :
           st.playSound("ItemSound.quest_accept")
     elif event == "30568_1" :
             htmltext = "30568-06.htm"
-            st.takeItems(HATOSS_ORDER2_ID,1)
-            st.takeItems(LETTER_TO_DARKELF_ID,1)
-            st.takeItems(LETTER_TO_HUMAN_ID,1)
-            st.takeItems(LETTER_TO_ELF_ID,1)
-            st.takeItems(HATOSS_ORDER1_ID,1)
-            st.takeItems(HATOSS_ORDER3_ID,1)
-            st.set("cond","0")
+            st.exitQuest(1)
             st.playSound("ItemSound.quest_giveup")
     elif event == "30568_2" :
             htmltext = "30568-07.htm"
@@ -61,13 +56,7 @@ class Quest (JQuest) :
               st.giveItems(HATOSS_ORDER2_ID,1)
     elif event == "30568_3" :
             htmltext = "30568-06.htm"
-            st.takeItems(HATOSS_ORDER1_ID,1)
-            st.takeItems(LETTER_TO_DARKELF_ID,1)
-            st.takeItems(LETTER_TO_HUMAN_ID,1)
-            st.takeItems(LETTER_TO_ELF_ID,1)
-            st.takeItems(HATOSS_ORDER2_ID,1)
-            st.takeItems(HATOSS_ORDER3_ID,1)
-            st.set("cond","0")
+            st.exitQuest(1)
             st.playSound("ItemSound.quest_giveup")
     elif event == "30568_4" :
             htmltext = "30568-09.htm"
@@ -105,18 +94,18 @@ class Quest (JQuest) :
           if st.getInt("id") != 107 :
             st.set("id","107")
             htmltext = "30568-10.htm"
-            st.rewardItems(57, 14666)
-            st.rewardItems(LESSER_HEALING_ID,100)
-            st.giveItems(BUTCHER_ID,1)
             st.takeItems(LETTER_TO_DARKELF_ID,1)
             st.takeItems(LETTER_TO_HUMAN_ID,1)
             st.takeItems(LETTER_TO_ELF_ID,1)
             st.takeItems(HATOSS_ORDER3_ID,1)
-            st.giveItems(CRYSTAL_BATTLE,10)
-            st.giveItems(CRYSTAL_LOVE,10)
-            st.giveItems(CRYSTAL_SOLITUDE,10)
-            st.giveItems(CRYSTAL_FEAST,10)
-            st.giveItems(CRYSTAL_CELEBRATION,10)
+            st.rewardItems(ADENA, 14666)
+            st.rewardItems(LESSER_HEALING_ID,int(100))
+            st.giveItems(BUTCHER_ID,1)
+            st.rewardItems(CRYSTAL_BATTLE,int(10))
+            st.rewardItems(CRYSTAL_LOVE,int(10))
+            st.rewardItems(CRYSTAL_SOLITUDE,int(10))
+            st.rewardItems(CRYSTAL_FEAST,int(10))
+            st.rewardItems(CRYSTAL_CELEBRATION,int(10))
             # check the player state against this quest newbie rewarding mark.
             newbie = player.getNewbie()
             if newbie | NEWBIE_REWARD != newbie :
@@ -127,7 +116,7 @@ class Quest (JQuest) :
                else :
                   st.giveItems(SOULSHOT_NO_GRADE_FOR_BEGINNERS,7000)
                   st.playTutorialVoice("tutorial_voice_026")
-            st.set("cond","0")
+            st.unset("cond")
             st.addExpAndSp(34565,2962)
             player.sendPacket(SocialAction(player.getObjectId(),3))
             st.exitQuest(False)

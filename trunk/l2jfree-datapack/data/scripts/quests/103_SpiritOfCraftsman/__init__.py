@@ -26,6 +26,7 @@ NEWBIE_REWARD = 8
 SOULSHOT_FOR_BEGINNERS = 5789
 SOULSHOT_NO_GRADE = 1835
 SPIRITSHOT_NO_GRADE = 2509
+ADENA = 57
 LESSER_HEALING_POTION = 1060
 class Quest (JQuest) :
 
@@ -65,6 +66,7 @@ class Quest (JQuest) :
        elif npcId == 30132 and st.getInt("cond")==1 and st.getQuestItemsCount(KAROYDS_LETTER_ID)==1 :
             htmltext = "30132-01.htm"
             st.set("cond","2")
+            st.playSound("ItemSound.quest_middle")
             st.takeItems(KAROYDS_LETTER_ID,1)
             st.giveItems(CECKTINONS_VOUCHER1_ID,1)
        elif npcId == 30132 and st.getInt("cond")>=2 and (st.getQuestItemsCount(CECKTINONS_VOUCHER1_ID)>=1 or st.getQuestItemsCount(CECKTINONS_VOUCHER2_ID)>=1) :
@@ -72,6 +74,7 @@ class Quest (JQuest) :
        elif npcId == 30144 and st.getInt("cond")==2 and st.getQuestItemsCount(CECKTINONS_VOUCHER1_ID)>=1 :
             htmltext = "30144-01.htm"
             st.set("cond","3")
+            st.playSound("ItemSound.quest_middle")
             st.takeItems(CECKTINONS_VOUCHER1_ID,1)
             st.giveItems(CECKTINONS_VOUCHER2_ID,1)
        elif npcId == 30144 and st.getInt("cond")==3 and st.getQuestItemsCount(CECKTINONS_VOUCHER2_ID)>=1 and st.getQuestItemsCount(BONE_FRAGMENT1_ID)<10 :
@@ -79,6 +82,7 @@ class Quest (JQuest) :
        elif npcId == 30144 and st.getInt("cond")==4 and st.getQuestItemsCount(CECKTINONS_VOUCHER2_ID)==1 and st.getQuestItemsCount(BONE_FRAGMENT1_ID)>=10 :
             htmltext = "30144-03.htm"
             st.set("cond","5")
+            st.playSound("ItemSound.quest_middle")
             st.takeItems(CECKTINONS_VOUCHER2_ID,1)
             st.takeItems(BONE_FRAGMENT1_ID,10)
             st.giveItems(SOUL_CATCHER_ID,1)
@@ -87,6 +91,7 @@ class Quest (JQuest) :
        elif npcId == 30132 and st.getInt("cond")==5 and st.getQuestItemsCount(SOUL_CATCHER_ID)==1 :
             htmltext = "30132-03.htm"
             st.set("cond","6")
+            st.playSound("ItemSound.quest_middle")
             st.takeItems(SOUL_CATCHER_ID,1)
             st.giveItems(PRESERVE_OIL_ID,1)
        elif npcId == 30132 and st.getInt("cond")==6 and st.getQuestItemsCount(PRESERVE_OIL_ID)==1 and st.getQuestItemsCount(ZOMBIE_HEAD_ID)==0 and st.getQuestItemsCount(STEELBENDERS_HEAD_ID)==0 :
@@ -94,16 +99,17 @@ class Quest (JQuest) :
        elif npcId == 30132 and st.getInt("cond")==7 and st.getQuestItemsCount(ZOMBIE_HEAD_ID)==1 :
             htmltext = "30132-05.htm"
             st.set("cond","8")
+            st.playSound("ItemSound.quest_middle")
             st.takeItems(ZOMBIE_HEAD_ID,1)
             st.giveItems(STEELBENDERS_HEAD_ID,1)
        elif npcId == 30132 and st.getInt("cond")==8 and st.getQuestItemsCount(STEELBENDERS_HEAD_ID)==1 :
             htmltext = "30132-06.htm"
        elif npcId == 30307 and st.getInt("cond")==8 and st.getQuestItemsCount(STEELBENDERS_HEAD_ID)==1 :
             htmltext = "30307-07.htm"
-            st.rewardItems(57,19799)
+            st.rewardItems(ADENA,19799)
             st.takeItems(STEELBENDERS_HEAD_ID,1)
             st.giveItems(BLOODSABER_ID,1)
-            st.rewardItems(LESSER_HEALING_POTION,100)
+            st.rewardItems(LESSER_HEALING_POTION,int(100))
             mage = player.getClassId().isMage()
             if mage :
                st.giveItems(SPIRITSHOT_NO_GRADE,500)
@@ -111,7 +117,7 @@ class Quest (JQuest) :
                st.giveItems(SOULSHOT_NO_GRADE,1000)
             for item in range(4412,4417) :
                st.rewardItems(item,int(10))   # Echo crystals
-            st.set("cond","0")
+            st.unset("cond")
             st.exitQuest(False)
             st.playSound("ItemSound.quest_finish")
             # check the player state against this quest newbie rewarding mark.

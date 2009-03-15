@@ -16,6 +16,7 @@ Kahman          = 31554
 Memo            = 8083
 Golden_Badge_Recruit = 7246
 Golden_Badge_Soldier = 7247
+ADENA                = 57
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class Quest (JQuest) :
@@ -37,7 +38,8 @@ class Quest (JQuest) :
         elif event == "31553-02.htm" and cond == 2 :
             st.takeItems(Memo,-1)
             st.set("cond","3")
-            return htmltext
+            st.playSound("ItemSound.quest_middle")
+        return htmltext
 
     def onTalk (self,npc,player):
         htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
@@ -48,7 +50,6 @@ class Quest (JQuest) :
             state = st.getState()
             if state == State.COMPLETED :
                 htmltext = "<html><body>This quest has already been completed.</body></html>"
-                st.playSound("ItemSound.quest_giveup")
             elif state == State.CREATED :
                 if st.getPlayer().getLevel() >= 66 and npcId == Pierce and (st.getQuestItemsCount(Golden_Badge_Recruit) > 0 or st.getQuestItemsCount(Golden_Badge_Soldier) > 0) :
                     st.setState(State.STARTED)
@@ -75,8 +76,9 @@ class Quest (JQuest) :
                         htmltext = "<html><body>Mercenary Captain Pierce:<br>Thanks for your help. See Kahman for your reward!</body></html>"#custom
                 elif npcId == Kahman and cond == 3 :
                     htmltext = "31554-01.htm"
-                    st.rewardItems(57,25461)
+                    st.rewardItems(ADENA,25461)
                     st.addExpAndSp(146113,13723)
+                    st.unset("cond")
                     st.exitQuest(False)
                     st.playSound("ItemSound.quest_finish")
         return htmltext

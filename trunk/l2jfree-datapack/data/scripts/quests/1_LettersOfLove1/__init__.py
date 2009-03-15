@@ -1,6 +1,5 @@
 # Made by Mr. Have fun! Version 0.2
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -20,7 +19,7 @@ BAULS_POTION       = 1080
 
 #REWARDS
 NECKLACE  = 906
-ADENA_ID  = 57
+ADENA     = 57
 
 
 class Quest (JQuest) :
@@ -33,7 +32,6 @@ class Quest (JQuest) :
    htmltext = event
    if event == "30048-06.htm" :
      st.set("cond","1")
-     st.set("id","1")
      st.setState(State.STARTED)
      st.playSound("ItemSound.quest_accept")
      if st.getQuestItemsCount(DARINGS_LETTER) == 0 :
@@ -72,7 +70,6 @@ class Quest (JQuest) :
            st.takeItems(DARINGS_LETTER,-1)
            st.giveItems(RAPUNZELS_KERCHIEF,1)
            st.set("cond","2")
-           st.set("id","2")
            st.playSound("ItemSound.quest_middle")
          elif ItemsCount_BP or ItemsCount_DR :
            htmltext = "30006-03.htm"
@@ -83,7 +80,6 @@ class Quest (JQuest) :
          st.takeItems(RAPUNZELS_KERCHIEF,-1)
          st.giveItems(DARINGS_RECEIPT,1)
          st.set("cond","3")
-         st.set("id","3")
          st.playSound("ItemSound.quest_middle")
        elif npcId == BAULRO and cond:
          if ItemsCount_DR > 0 :
@@ -91,7 +87,6 @@ class Quest (JQuest) :
            st.takeItems(DARINGS_RECEIPT,-1)
            st.giveItems(BAULS_POTION,1)
            st.set("cond","4")
-           st.set("id","4")
            st.playSound("ItemSound.quest_middle")
          elif ItemsCount_BP > 0 :
            htmltext = "30033-02.htm"
@@ -101,10 +96,10 @@ class Quest (JQuest) :
          elif ItemsCount_BP > 0 :
            htmltext = "30048-10.htm"
            st.takeItems(BAULS_POTION,-1)
-           st.rewardItems(ADENA_ID, 2466)
+           st.rewardItems(ADENA, 2466)
            st.giveItems(NECKLACE,1)
            st.addExpAndSp(5672,446)
-           st.set("cond","0")
+           st.unset("cond")
            st.exitQuest(False)
            st.playSound("ItemSound.quest_finish")
          else:
@@ -116,6 +111,5 @@ QUEST     = Quest(1,qn,"Letters of Love")
 QUEST.addStartNpc(DARIN)
 
 QUEST.addTalkId(DARIN)
-
 QUEST.addTalkId(ROXXY)
 QUEST.addTalkId(BAULRO)

@@ -1,5 +1,6 @@
 #quest by zerghase
 import sys
+from com.l2jfree import Config 
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -45,8 +46,8 @@ class Quest (JQuest) :
     if event=="7":
       htmltext="30827-07.htm"
       st.giveItems(PET_TICKET,1)
+      st.unset("cond")
       st.exitQuest(False)
-      st.exitQuest(0)
     return htmltext
 
   def onTalk(self, npc, player):
@@ -60,7 +61,7 @@ class Quest (JQuest) :
         htmltext="30827-00.htm"
       else:
         st.exitQuest(1)
-        htmltext="<html><body>This quest can only be taken by characters that have a minimum level of %s. Return when you are more experienced.</body></html>" % MIN_LEVEL
+        htmltext="<html><body>This quest can only be taken by characters that have a minimum level of 24. Return when you are more experienced.</body></html>" % MIN_LEVEL
     elif id==State.STARTED:
       cond=st.getInt("cond")
       if npcId==LUNDY:
@@ -83,9 +84,7 @@ class Quest (JQuest) :
         elif cond==5:
           htmltext="30505-06a.htm"
     elif id==State.COMPLETED:
-      st.exitQuest(0)
       htmltext="<html><body>This quest has already been completed.</body></html>"
-
     return htmltext
 
   def onKill(self,npc,player,isPet):
@@ -95,7 +94,7 @@ class Quest (JQuest) :
     npcId = npc.getNpcId()
     cond=st.getInt("cond")
     if cond==2:
-      numItems,chance = divmod(100,100)
+      numItems,chance = divmod(100*Config.RATE_QUESTS_REWARD,100)
       if st.getRandom(100) < chance :
         numItems = numItems +1  
       pieces=st.getQuestItemsCount(GEMSTONE_FRAGMENT)
@@ -114,7 +113,6 @@ QUEST=Quest(44,qn,"Help The Son!")
 QUEST.addStartNpc(LUNDY)
 
 QUEST.addTalkId(LUNDY)
-
 QUEST.addTalkId(DRIKUS)
 
 QUEST.addKillId(MAILLE_GUARD)

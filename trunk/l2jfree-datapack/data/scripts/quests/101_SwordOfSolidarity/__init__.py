@@ -21,6 +21,8 @@ SWORD_OF_SOLIDARITY = 738
 #Bit #1 isn't used for backwards compatibility.
 NEWBIE_REWARD = 8
 SOULSHOT_FOR_BEGINNERS = 5789
+ADENA = 57
+LESSER_HEALING_POTION = 1060
 
 class Quest (JQuest) :
 
@@ -41,14 +43,14 @@ class Quest (JQuest) :
         st.takeItems(ROIENS_LETTER,st.getQuestItemsCount(ROIENS_LETTER))
         st.giveItems(HOWTOGO_RUINS,1)
     elif event == "30283-07.htm" :
-        st.rewardItems(57,10981)
+        st.rewardItems(ADENA,10981)
         st.takeItems(BROKEN_SWORD_HANDLE,-1)
         st.giveItems(SWORD_OF_SOLIDARITY,1)
-        st.rewardItems(1060,int(100))     # Lesser Healing Potions 
+        st.rewardItems(LESSER_HEALING_POTION,int(100))
         for item in range(4412,4417) :
-            st.rewardItems(item,10)   # Echo crystals
+            st.rewardItems(item,int(10))   # Echo crystals
         st.addExpAndSp(25747,2171)
-        st.set("cond","0")
+        st.unset("cond")
         st.exitQuest(False)
         st.playSound("ItemSound.quest_finish")
         # check the player state against this quest newbie rewarding mark.
@@ -127,14 +129,14 @@ class Quest (JQuest) :
              if st.getQuestItemsCount(BROKEN_BLADE_TOP) == 0 :
                 if st.getRandom(5) == 0 :
                    st.giveItems(BROKEN_BLADE_TOP,1)
-                   st.playSound("ItemSound.quest_middle")
              elif st.getQuestItemsCount(BROKEN_BLADE_BOTTOM) == 0 :
                 if st.getRandom(5) == 0 :
                    st.giveItems(BROKEN_BLADE_BOTTOM,1)
-                   st.playSound("ItemSound.quest_middle")
           if st.getQuestItemsCount(BROKEN_BLADE_TOP) and st.getQuestItemsCount(BROKEN_BLADE_BOTTOM) :
              st.set("cond","3")
              st.playSound("ItemSound.quest_middle")
+          else :
+             st.playSound("ItemSound.quest_itemget")
    return
 
 QUEST       = Quest(101,qn,"Sword Of Solidarity")

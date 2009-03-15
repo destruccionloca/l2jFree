@@ -1,6 +1,5 @@
 # Made by Kerb
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -11,7 +10,9 @@ TANTAN = 32012
 SARA = 30180
 
 #Items
-CSS = 1464
+SOULSHOT_C = 1464
+ADENA = 57
+ENCHANT_ARMOR_D = 956 
 
 class Quest (JQuest) :
 
@@ -22,11 +23,11 @@ class Quest (JQuest) :
     if not st: return
     htmltext = event
     if event == "32012-02.htm" :
-      if st.getQuestItemsCount(CSS) > 99 :
+      if st.getQuestItemsCount(SOULSHOT_C) > 99 :
         st.set("cond","1")
         st.setState(State.STARTED)
         st.playSound("ItemSound.quest_accept")
-        st.takeItems(CSS,100)
+        st.takeItems(SOULSHOT_C,100)
         htmltext = "32012-03.htm"
         npc.deleteMe()
     elif event == "32012-02a.htm" :
@@ -47,12 +48,12 @@ class Quest (JQuest) :
        else:
            htmltext = "32012-00.htm"
            st.exitQuest(1)
-   elif npcId == SARA and st.getInt("cond")==1 :
+   elif npcId == SARA and st.getInt("cond") :
        htmltext = "30180-01.htm"
        EAD_CHANCE = st.getRandom(100)
-       st.rewardItems(57,5026)
+       st.rewardItems(ADENA,5026)
        if EAD_CHANCE <= 50:
-          st.giveItems(956,int(1))
+          st.rewardItems(ENCHANT_ARMOR_D,int(1))
        st.playSound("ItemSound.quest_finish")
        st.exitQuest(1)
    return htmltext

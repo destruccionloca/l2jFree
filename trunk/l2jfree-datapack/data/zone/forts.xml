@@ -242,8 +242,8 @@
   </zone>
   <zone id="31" name="Antharas Fortress" type="Fort">
     <entity fortId="116"/>
-    <restart_chaotic x="75904" y="86336" z="-3472"/>
-    <restart_owner x="75904" y="86336" z="-3472"/>
+    <restart_chaotic x="79199" y="91021" z="-2878"/>
+    <restart_owner x="79199" y="91021" z="-2878"/>
     <shape type="Rect" zMin="-3800" zMax="3200">
       <point x="75904" y="86336"/>
       <point x="80448" y="95488"/>

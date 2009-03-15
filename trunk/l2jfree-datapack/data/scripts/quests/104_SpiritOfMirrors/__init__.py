@@ -20,6 +20,8 @@ NEWBIE_REWARD = 2
 SPIRITSHOT_NO_GRADE_FOR_BEGINNERS = 5790
 SPIRITSHOT_NO_GRADE = 2509
 SOULSHOT_NO_GRADE = 1835
+ADENA = 57
+LESSER_HEALING_POTION = 1060
 
 DROPLIST = {
 27003: (WAND_SPIRITBOUND1),
@@ -85,26 +87,29 @@ class Quest (JQuest) :
         if newbie | NEWBIE_REWARD != newbie :
            player.setNewbie(newbie|NEWBIE_REWARD)
            if player.getClassId().isMage() :
-              st.rewardItems(SPIRITSHOT_NO_GRADE_FOR_BEGINNERS,3000)
+              st.rewardItems(SPIRITSHOT_NO_GRADE_FOR_BEGINNERS,int(3000))
               st.playTutorialVoice("tutorial_voice_027")
-        st.rewardItems(1060,100)     # Lesser Healing Potions
+        st.rewardItems(LESSER_HEALING_POTION,int(100))
         st.giveItems(WAND_OF_ADEPT,1)
         for item in range(4412,4417) :
-            st.giveItems(item,10)   # Echo crystals
+            st.rewardItems(item,int(10))   # Echo crystals
 	st.addExpAndSp(39750,3407)
         htmltext = "30017-05.htm"
-        st.set("cond","0")
+        st.unset("cond")
         st.exitQuest(False)
         st.playSound("ItemSound.quest_finish")
      elif npcId == 30045 and st.getInt("cond") :
         htmltext = "30045-01.htm"
         st.set("cond","2")
+        st.playSound("ItemSound.quest_middle")
      elif npcId == 30043 and st.getInt("cond") :
         htmltext = "30043-01.htm"
         st.set("cond","2")
+        st.playSound("ItemSound.quest_middle")
      elif npcId == 30041 and st.getInt("cond") :
         htmltext = "30041-01.htm"
         st.set("cond","2")
+        st.playSound("ItemSound.quest_middle")
    return htmltext
 
  def onKill(self,npc,player,isPet):
@@ -117,7 +122,9 @@ class Quest (JQuest) :
      st.giveItems(DROPLIST[npcId],1)
      if HaveAllQuestItems(st) :
        st.set("cond","3")
-     st.playSound("ItemSound.quest_middle")
+       st.playSound("ItemSound.quest_middle")
+     else:
+       st.playSound("ItemSound.quest_itemget")
    return
 
 QUEST       = Quest(104,qn,"Spirit Of Mirrors")
