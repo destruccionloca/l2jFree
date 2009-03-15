@@ -1057,7 +1057,7 @@ public class VIP {
 						player.setKarma(0);
 						player.broadcastUserInfo();
 						player.teleToLocation(_startX, _startY, _startZ);
-						break;
+						return;
 					}
 				}
 
@@ -1078,7 +1078,7 @@ public class VIP {
 						player.setKarma(0);
 						player.broadcastUserInfo();
 						player.teleToLocation(_endX, _endY, _endZ);
-						break;
+						return;
 					}
 				}
 			}
