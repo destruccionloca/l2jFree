@@ -48,12 +48,9 @@
     </enchant2for>
   </skill>
   <skill id="208" levels="52" name="Bow Mastery">
-    <table name="#pAtk"> 10.3 11.4 27.6 32.8 35.6 38.6 45.2
-      48.9 52.7 61.1 65.6 70.4 80.9 86.5 92.4 105.1 111.9
-      178.8 189.9 201.4 213.5 226 239.1 252.7 266.7 281.3
-      296.4 311.9 328 344.5 361.6 379.1 397 415.4 434.3
-      453.5 473.2 493.1 513.5 534.2 555.1 576.3 597.8 619.4
-      641.2 663.1 685 707.1 729.1 751 772.9 794.6 </table>
+    <table name="#pAtk"> 10.3 11.4 27.6 32.8 35.6 38.6 45.2 48.9 52.7 61.1 65.6 70.4 80.9 86.5 92.4 105.1 111.9
+      178.8 189.9 201.4 213.5 226 239.1 252.7 266.7 281.3 296.4 311.9 328 344.5 361.6 379.1 397 415.4 434.3 453.5
+      473.2 493.1 513.5 534.2 555.1 576.3 597.8 619.4 641.2 663.1 685 707.1 729.1 751 772.9 794.6 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1988,7 +1985,7 @@
     <!-- Summon-specific -->
     <table name="#npcIds"> 14799 14800 14801 14802 14803 14804 14805 </table>
     <set name="npcId" val="#npcIds"/>
-    <set name="expPenalty" val="0.15"/>
+    <set name="expPenalty" val="0.15"/> <!-- 15 percent of acquired Exp will also be consumed. -->
   </skill>
   <skill id="284" levels="40" name="Hurricane Assault" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
@@ -1996,8 +1993,7 @@
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench2MpConsume"> 104 103 102 102 101 101 100 99 99 98
-      97 97 96 95 95 94 93 93 92 91 91 90 90 89 88 88 87 86
-      86 85 </table>
+      97 97 96 95 95 94 93 93 92 91 91 90 90 89 88 88 87 86 86 85 </table>
     <table name="#mpConsume"> 44 45 47 50 52 54 54 55 57 59 60 62
       64 66 67 69 69 71 73 75 76 78 80 82 83 85 85 87 89 90
       92 93 95 96 98 99 101 102 104 105 </table>
@@ -2010,8 +2006,7 @@
       2494 2581 2669 2757 2846 2934 3022 3109 3196 </table>
     <table name="#ench1Power"> 3225 3254 3283 3312 3340 3369 3398
       3427 3456 3484 3513 3542 3571 3600 3628 3657 3686 3715
-      3744 3772 3801 3830 3859 3888 3916 3945 3974 4003 4032
-      4061 </table>
+      3744 3772 3801 3830 3859 3888 3916 3945 3974 4003 4032 4061 </table>
     <set name="weaponsAllowed" val="1024"/> <!-- Dual Fist -->
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
@@ -2134,14 +2129,10 @@
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
-    <table name="#mpConsume_Init"> 10 10 12 12 12 14 14 16 15 16 17 17
-      17 17 19 </table>
-    <table name="#mpConsume"> 37 39 42 46 50 51 55 57 60 62 63 66
-      68 70 70 </table>
-    <table name="#magicLvl"> 40 43 46 49 52 55 58 60 62 64 66 68
-      70 72 74 </table>
-    <table name="#power"> 26 29 31 33 36 39 41 43 45 46 48 50
-      51 53 54 </table>
+    <table name="#mpConsume_Init"> 10 10 12 12 12 14 14 16 15 16 17 17 17 17 19 </table>
+    <table name="#mpConsume"> 37 39 42 46 50 51 55 57 60 62 63 66 68 70 70 </table>
+    <table name="#magicLvl"> 40 43 46 49 52 55 58 60 62 64 66 68 70 72 74 </table>
+    <table name="#power"> 26 29 31 33 36 39 41 43 45 46 48 50 51 53 54 </table>
     <table name="#ench1power"> 55 55 55 56 56 56 57 57 57 58 58 58
       58 59 59 59 60 60 60 61 61 61 62 62 62 63 63 63 64 64 </table>
     <table name="#ench2mpConsume"> 69 69 68 68 67 67 66 65 65 64 64 63
@@ -2160,7 +2151,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
-    <set name="absorbPart" val="0.8"/>
+    <set name="absorbPart" val="0.8"/> <!-- absorbs 80% of damage -->
     <enchant1 name="power" val="#ench1power"/>
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpConsume_Init"/>
@@ -2180,8 +2171,7 @@
     </for>
   </skill>
   <skill id="291" levels="11" name="Final Fortress">
-    <table name="#final"> 116.9 129 141.6 150.4 159.3 168.4
-      177.7 187 196.5 206.2 215.8 </table>
+    <table name="#final"> 116.9 129 141.6 150.4 159.3 168.4 177.7 187 196.5 206.2 215.8 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -2224,8 +2214,7 @@
   </skill>
   <skill id="293" levels="20" name="Two-handed Weapon Mastery">
     <table name="#Attack"> 4.5 7.3 10.7 15.1 20.5 27.1 32.9 39.4
-      46.6 54.6 63.3 72.7 79.3 86.1 93.1 100.2 107.5 114.8
-      122.1 129.3 </table>
+      46.6 54.6 63.3 72.7 79.3 86.1 93.1 100.2 107.5 114.8 122.1 129.3 </table>
     <table name="#Accuracy"> 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -2275,12 +2264,10 @@
     <set name="effectRange" val="-1"/>
     <for>
       <!--
-        retail value: 2MP/sec; stat update every 5 units (3
-        1/3 sec)
+        retail value: 2MP/sec; stat update every 5 units (3 1/3 sec)
       -->
       <!-- Verified by slyce -  Interlude - 12th Aug 2007 -->
-      <effect count="0x7fffffff" name="ChameleonRest"
-        abnormal="stealth" time="3" val="6"/>
+      <effect count="0x7fffffff" name="ChameleonRest" abnormal="stealth" time="3" val="6"/>
     </for>
   </skill>
   <skill id="297" levels="2" name="Duelist Spirit">
@@ -2297,8 +2284,7 @@
     <set name="effectRange" val="-1"/>
     <set name="aggroPoints" val="#aggro"/>
     <for>
-      <effect count="1" name="Buff" time="60" val="0"
-        stackOrder="1" stackType="duelist_spirit">
+      <effect count="1" name="Buff" time="60" val="0" stackOrder="1" stackType="duelist_spirit">
         <mul order="0x30" stat="pAtkSpd" val="#Tab-pAtkSpd">
           <using kind="Dual Sword"/>
         </mul>

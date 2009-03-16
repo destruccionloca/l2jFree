@@ -16,7 +16,7 @@ GIANT_POISON_BEE = 21095
 CLOUDY_BEAST = 21096
 YOUNG_ARANEID = 21097
 
-#ITEMS
+# ITEMS
 STING_OF_GIANT_POISON = 8283
 TALON_OF_YOUNG_ARANEID = 8285
 CLOUDY_GEM = 8284
@@ -84,13 +84,13 @@ class Quest (JQuest) :
     st = player.getQuestState(qn)
     if not st : return
     if st.getState() != State.STARTED : return
-        npcId = npc.getNpcId()
-        rand = st.getRandom(100)
-        if npcId in DROPLIST.keys() :
-            item,chance = DROPLIST[npcId]
-            if rand < chance :
-                st.rewardItems(item,int(1))
-                st.playSound("ItemSound.quest_itemget")
+    npcId = npc.getNpcId()
+    rand = st.getRandom(100)
+    if npcId in DROPLIST.keys() :
+        item,chance = DROPLIST[npcId]
+        if rand < chance :
+            st.rewardItems(item,int(1))
+            st.playSound("ItemSound.quest_itemget")
     return
 
 QUEST = Quest(661,qn,"Making the Harvest Grounds Safe")

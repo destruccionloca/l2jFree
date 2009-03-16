@@ -67,8 +67,7 @@
     <set name="effectRange" val="900"/>
     <set name="aggroPoints" val="655"/>
     <for>
-      <effect name="Buff" time="1200" count="1" val="0"
-        stackOrder="9" stackType="vampRage">
+      <effect name="Buff" time="1200" count="1" val="0" stackOrder="9" stackType="vampRage">
         <add order="0x40" stat="absorbDam" val="9"/>
       </effect>
     </for>
@@ -238,8 +237,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <effect name="Buff" time="144000" count="1"
-        val="0" stackOrder="99" stackType="attack_time_down">
+      <effect name="Buff" time="144000" count="1" val="0" stackOrder="99" stackType="attack_time_down">
         <mul order="0x30" stat="runSpd" val="#Tab-runSpd"/>
         <div order="0x30" stat="pReuse" val="#Tab-pReuse"/>
         <div order="0x30" stat="mReuse" val="#Tab-mReuse"/>
@@ -268,7 +266,7 @@
     <set name="effectRange" val="-1"/>
     <!-- Summon-specific -->
     <set name="npcId" val="150"/>
-    <set name="expPenalty" val="0.3"/>
+    <set name="expPenalty" val="0"/>
   </skill>
   <skill id="7031" levels="1" name="Summon Skeleton Royal Guard">
     <set name="itemConsumeId" val="1458"/>
@@ -288,7 +286,7 @@
     <set name="effectRange" val="-1"/>
     <!-- Summon-specific -->
     <set name="npcId" val="622"/>
-    <set name="expPenalty" val="0.3"/>
+    <set name="expPenalty" val="0"/>
   </skill>
   <skill id="7032" levels="1" name="Summon Hunter Gargoyle">
     <set name="itemConsumeId" val="1458"/>
@@ -308,7 +306,7 @@
     <set name="effectRange" val="-1"/>
     <!-- Summon-specific -->
     <set name="npcId" val="241"/>
-    <set name="expPenalty" val="0.3"/>
+    <set name="expPenalty" val="0"/>
   </skill>
   <skill id="7033" levels="1" name="not_used">
     <set name="target" val="TARGET_NONE"/>
@@ -378,8 +376,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="400"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="0.3" stackType="critical_prob_up">
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="0.3" stackType="critical_prob_up">
         <basemul order="0x30" stat="rCrit" val="0.3"/>
       </effect>
     </for>
@@ -398,18 +395,15 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
-    <set name="coolTime" val="332"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="1.35" stackType="critical_dmg_up">
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="1.35" stackType="critical_dmg_up">
         <mul order="0x30" stat="cAtk" val="1.35"/>
       </effect>
     </for>
   </skill>
   <skill id="7043" levels="1" name="Master's Blessing - Haste">
     <!--
-      A GM is always by your side. Increases Atk. Spd.
-      temporarily. Effect 2.
+      A GM is always by your side. Increases Atk. Spd. temporarily. Effect 2.
     -->
     <set name="mpConsume" val="2"/>
     <set name="magicLvl" val="1"/>
@@ -420,18 +414,15 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
-    <set name="coolTime" val="332"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="1.33" stackType="attack_time_down">
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="1.33" stackType="attack_time_down">
         <mul order="0x30" stat="pAtkSpd" val="1.33"/>
       </effect>
     </for>
   </skill>
   <skill id="7044" levels="1" name="Master's Blessing - Guidance">
     <!--
-      A GM is always by your side. Increases Accuracy
-      temporarily. Effect 3.
+      A GM is always by your side. Increases Accuracy temporarily. Effect 3.
     -->
     <set name="mpConsume" val="2"/>
     <set name="magicLvl" val="1"/>
@@ -442,10 +433,8 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
-    <set name="coolTime" val="332"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="4" stackType="hit_up">
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="4" stackType="hit_up">
         <add order="0x40" stat="accCombat" val="4"/>
       </effect>
     </for>
@@ -453,8 +442,7 @@
 
   <skill id="7045" levels="1" name="Master's Blessing - Blessed Body">
     <!--
-      A GM is always by your side. Increases maximum HP
-      temporarily. Effect 6.
+      A GM is always by your side. Increases maximum HP temporarily. Effect 6.
     -->
     <set name="mpConsume" val="2"/>
     <set name="magicLvl" val="1"/>
@@ -465,18 +453,15 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
-    <set name="coolTime" val="332"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="1.35" stackType="max_hp_up">
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="1.35" stackType="max_hp_up">
         <mul order="0x30" stat="maxHp" val="1.35"/>
       </effect>
     </for>
   </skill>
   <skill id="7046" levels="1" name="Master's Blessing - Blessed Soul">
     <!--
-      A GM is always by your side. Increases maximum MP
-      temporarily. Effect 6.
+      A GM is always by your side. Increases maximum MP temporarily. Effect 6.
     -->
     <set name="mpConsume" val="2"/>
     <set name="magicLvl" val="1"/>
@@ -487,18 +472,15 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
-    <set name="coolTime" val="332"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="1.35" stackType="max_mp_up">
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="1.35" stackType="max_mp_up">
         <mul order="0x30" stat="maxMp" val="1.35"/>
       </effect>
     </for>
   </skill>
   <skill id="7047" levels="1" name="Master's Blessing - Agility">
     <!--
-      A GM is always by your side. Increases Evasion
-      temporarily. Effect 3.
+      A GM is always by your side. Increases Evasion temporarily. Effect 3.
     -->
     <set name="mpConsume" val="2"/>
     <set name="magicLvl" val="1"/>
@@ -509,18 +491,15 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
-    <set name="coolTime" val="332"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="4" stackType="rEvas">
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="4" stackType="rEvas">
         <add order="0x40" stat="rEvas" val="4"/>
       </effect>
     </for>
   </skill>
   <skill id="7048" levels="1" name="Master's Blessing - Acumen">
     <!--
-      A GM is always by your side. Increases Casting Spd.
-      temporarily. Effect 3.
+      A GM is always by your side. Increases Casting Spd. temporarily. Effect 3.
     -->
     <set name="mpConsume" val="2"/>
     <set name="magicLvl" val="1"/>
@@ -531,10 +510,8 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
-    <set name="coolTime" val="332"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="1.3" stackType="casting_time_down">
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="1.3" stackType="casting_time_down">
         <mul order="0x30" stat="mAtkSpd" val="1.3"/>
       </effect>
     </for>
@@ -552,18 +529,15 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
-    <set name="coolTime" val="332"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="9000" stackType="Weight">
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="9000" stackType="Weight">
         <add order="0x40" stat="maxLoad" val="9000"/>
       </effect>
     </for>
   </skill>
   <skill id="7050" levels="1" name="Master's Blessing - Might">
     <!--
-      A GM is always by your side. Increases P. Atk.
-      temporarily. Effect 3.
+      A GM is always by your side. Increases P. Atk. temporarily. Effect 3.
     -->
     <set name="mpConsume" val="2"/>
     <set name="magicLvl" val="1"/>
@@ -574,18 +548,15 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
-    <set name="coolTime" val="332"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="1.15" stackType="pa_up">
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="1.15" stackType="pa_up">
         <mul order="0x30" stat="pAtk" val="1.15"/>
       </effect>
     </for>
   </skill>
   <skill id="7051" levels="1" name="Master's Blessing - Shield">
     <!--
-      A GM is always by your side. Increases P. Def.
-      temporarily. Effect 3.
+      A GM is always by your side. Increases P. Def. temporarily. Effect 3.
     -->
     <set name="mpConsume" val="2"/>
     <set name="magicLvl" val="1"/>
@@ -596,18 +567,15 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
-    <set name="coolTime" val="332"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="1.15" stackType="pd_up">
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="1.15" stackType="pd_up">
         <mul order="0x30" stat="pDef" val="1.15"/>
       </effect>
     </for>
   </skill>
   <skill id="7052" levels="1" name="Master's Blessing - Magic Barrier">
     <!--
-      A GM is always by your side. Increases M. Def.
-      temporarily. Effect 3.
+      A GM is always by your side. Increases M. Def. temporarily. Effect 3.
     -->
     <set name="mpConsume" val="2"/>
     <set name="magicLvl" val="1"/>
@@ -618,10 +586,8 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
-    <set name="coolTime" val="332"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="1.3" stackType="MagicDefUp">
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="1.3" stackType="MagicDefUp">
         <mul order="0x30" stat="mDef" val="1.3"/>
       </effect>
     </for>
@@ -641,10 +607,8 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
-    <set name="coolTime" val="332"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="9" stackType="vampRage">
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="9" stackType="vampRage">
         <add order="0x40" stat="absorbDam" val="9"/>
       </effect>
     </for>
@@ -663,18 +627,15 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
-    <set name="coolTime" val="332"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="1.75" stackType="ma_up">
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="1.75" stackType="ma_up">
         <mul order="0x30" stat="mAtk" val="1.75"/>
       </effect>
     </for>
   </skill>
   <skill id="7055" levels="1" name="Master's Blessing - Wind Walk">
     <!--
-      A GM is always by your side. Increases Speed
-      temporarily. Effect 2.
+      A GM is always by your side. Increases Speed temporarily. Effect 2.
     -->
     <set name="mpConsume" val="2"/>
     <set name="magicLvl" val="1"/>
@@ -685,10 +646,8 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
-    <set name="coolTime" val="332"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="33" stackType="speed_up">
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="33" stackType="speed_up">
         <add order="0x40" stat="runSpd" val="33"/>
       </effect>
     </for>
@@ -708,7 +667,6 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
-    <set name="coolTime" val="332"/>
     <for>
       <effect count="1" name="Buff" time="1200" val="0" stackOrder="1" stackType="berserk">
         <mul order="0x30" stat="mAtk" val="1.16"/>
@@ -736,10 +694,8 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
-    <set name="coolTime" val="332"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="0" stackType="Great">
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="0" stackType="Great">
         <mul order="0x30" stat="pAtk" val="1.1"/>
       </effect>
     </for>
@@ -758,10 +714,8 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
-    <set name="coolTime" val="332"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="0" stackType="Great">
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="0" stackType="Great">
         <mul order="0x30" stat="pDef" val="1.15"/>
       </effect>
     </for>
@@ -780,7 +734,6 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
-    <set name="coolTime" val="332"/>
     <for>
       <effect count="1" name="Buff" time="1200" val="0" stackOrder="1.4" stackType="magic_critical_up">
         <mul order="0x30" stat="mCritRate" val="1.4"/>
@@ -801,10 +754,8 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
-    <set name="coolTime" val="332"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="2" stackType="MPrate">
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="2" stackType="MPrate">
         <mul order="0x30" stat="MagicalMpConsumeRate" val="0.9"/>
         <mul order="0x30" stat="PhysicalMpConsumeRate" val="0.9"/>
       </effect>
@@ -824,10 +775,8 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
-    <set name="coolTime" val="332"/>
     <for>
-      <effect count="1" name="Buff" time="300" val="0"
-        stackOrder="1" stackType="multi_buff">
+      <effect count="1" name="Buff" time="300" val="0" stackOrder="1" stackType="multi_buff">
         <mul order="0x30" stat="mAtk" val="1.2"/>
         <mul order="0x30" stat="mDef" val="1.2"/>
         <mul order="0x30" stat="mAtkSpd" val="1.2"/>
@@ -852,10 +801,8 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
-    <set name="coolTime" val="332"/>
     <for>
-      <effect count="1" name="Buff" time="300" val="0"
-        stackOrder="1" stackType="multi_buff">
+      <effect count="1" name="Buff" time="300" val="0" stackOrder="1" stackType="multi_buff">
         <mul order="0x30" stat="pAtk" val="1.1"/>
         <mul order="0x30" stat="pDef" val="1.2"/>
         <add order="0x40" stat="accCombat" val="4"/>
@@ -881,10 +828,8 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
-    <set name="coolTime" val="332"/>
     <for>
-      <effect count="1" name="Buff" time="300" val="0"
-        stackOrder="1" stackType="multi_buff">
+      <effect count="1" name="Buff" time="300" val="0" stackOrder="1" stackType="multi_buff">
         <add order="0x40" stat="absorbDam" val="5"/>
         <add order="0x40" stat="accCombat" val="4"/>
         <add order="0x40" stat="rEvas" val="4"/>
@@ -913,10 +858,8 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
-    <set name="coolTime" val="332"/>
     <for>
-      <effect count="1" name="Buff" time="300" val="0"
-        stackOrder="1" stackType="multi_buff">
+      <effect count="1" name="Buff" time="300" val="0" stackOrder="1" stackType="multi_buff">
         <mul order="0x30" stat="pAtk" val="1.1"/>
         <mul order="0x30" stat="pDef" val="1.2"/>
         <basemul order="0x30" stat="rCrit" val="0.2"/>

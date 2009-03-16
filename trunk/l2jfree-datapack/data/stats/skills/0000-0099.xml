@@ -6,21 +6,16 @@
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
-    <table name="#mpConsume"> 42 43 45 45 46 47 49 50 52 53 55 56
-      58 58 59 61 62 64 65 67 68 70 71 71 73 74 75 77 78 79
-      80 82 83 84 85 86 86 </table>
+    <table name="#mpConsume"> 42 43 45 45 46 47 49 50 52 53 55 56 58 58 59 61 62 64 65 67
+      68 70 71 71 73 74 75 77 78 79 80 82 83 84 85 86 86 </table>
     <table name="#ench2MpConsume"> 85 84 83 82 81 80 79 78 78 77 76 75
       74 73 72 71 71 70 69 68 67 66 65 64 64 63 62 61 60 59 </table>
-    <table name="#power"> 517 549 583 619 656 694 735 777 820
-      865 912 960 1010 1062 1115 1169 1225 1283 1342 1402
-      1464 1527 1591 1656 1722 1789 1857 1926 1995 2065 2135
-      2206 2277 2347 2417 2488 2557 </table>
-    <table name="#ench1Power"> 2581 2604 2627 2650 2673 2696 2719
-      2743 2766 2789 2812 2835 2858 2881 2904 2927 2950 2973 2996
-      3019 3042 3065 3088 3111 3134 3157 3180 3204 3227 3250 </table>
-    <table name="#magicLvl"> 38 39 40 41 42 43 44 45 46 47 48 49
-      50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67
-      68 69 70 71 72 73 74 </table>
+    <table name="#power"> 517 549 583 619 656 694 735 777 820 865 912 960 1010 1062 1115 1169 1225 1283
+      1342 1402 1464 1527 1591 1656 1722 1789 1857 1926 1995 2065 2135 2206 2277 2347 2417 2488 2557 </table>
+    <table name="#ench1Power"> 2581 2604 2627 2650 2673 2696 2719 2743 2766 2789 2812 2835 2858
+      2881 2904 2927 2950 2973 2996 3019 3042 3065 3088 3111 3134 3157 3180 3204 3227 3250 </table>
+    <table name="#magicLvl"> 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54
+      55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 </table>
     <set name="weaponsAllowed" val="512"/> <!-- Dual Sword -->
     <set name="magicLvl" val="#magicLvl"/>
     <set name="mpConsume" val="#mpConsume"/>
@@ -41,10 +36,8 @@
   </skill>
   <skill id="2" levels="19" name="Confusion">
     <table name="#mpConsume_Init"> 3 3 3 4 4 4 5 5 5 5 6 6 6 6 7 7 7 7 7 </table>
-    <table name="#mpConsume"> 9 10 11 13 14 15 17 18 19 20 22 22 23
-      24 25 26 26 27 28 </table>
-    <table name="#magicLvl"> 24 28 32 36 40 43 46 49 52 55 58 60
-      62 64 66 68 70 72 74 </table>
+    <table name="#mpConsume"> 9 10 11 13 14 15 17 18 19 20 22 22 23 24 25 26 26 27 28 </table>
+    <table name="#magicLvl"> 24 28 32 36 40 43 46 49 52 55 58 60 62 64 66 68 70 72 74 </table>
     <set name="mpInitialConsume" val="#mpConsume_Init"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
@@ -94,8 +87,7 @@
     <set name="effectRange" val="-1"/>
     <set name="aggroPoints" val="#aggro"/>
     <for>
-      <effect count="1" name="Buff" time="15" val="0"
-        stackOrder="#spd" stackType="speed_up_special">
+      <effect count="1" name="Buff" time="15" val="0" stackOrder="#spd" stackType="speed_up_special">
         <add order="0x40" stat="runSpd" val="#spd"/>
       </effect>
     </for>
@@ -241,8 +233,7 @@
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#magicLvl"> 41 42 43 44 45 46 47 48 49 50 51 52
-      53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70
-      71 72 73 74 </table>
+      53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 </table>
     <set name="magicLvl" val="#magicLvl"/>
     <table name="#mpConsume"> 46 47 49 50 52 53 55 56 58 59 59 61
       62 64 65 67 69 70 71 73 73 75 76 77 79 80 81 83 84 85
@@ -332,19 +323,16 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="12000"/>
     <set name="hitTime" val="1200"/>
-    <set name="skillType" val="CONFUSE_MOB_ONLY"/>
+    <set name="skillType" val="DEBUFF"/>
     <!--
-      Only for Temp Fix: Needs Core Support for Randomize
-      Aggro/Target Effect
+      Only for Temp Fix: Needs Core Support for Randomize Aggro/Target Effect
     -->
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <for>
-      <effect count="4" name="Confusion" time="1" val="0"/>
       <!--
-        Only for Temp Fix: Needs Core Support for Randomize
-        Aggro/Target Effect
+        Only for Temp Fix: Needs Core Support for Randomize Aggro/Target Effect
       -->
       <effect count="1" name="RemoveTarget" time="1" val="0"/>
     </for>
@@ -659,10 +647,9 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <!-- Summon-specific -->
-    <table name="#npcIds"> 14663 14664 14665 14666 14667 14668
-      14669 14670 14671 </table>
+    <table name="#npcIds"> 14663 14664 14665 14666 14667 14668 14669 14670 14671 </table>
     <set name="npcId" val="#npcIds"/>
-    <set name="expPenalty" val="0.15"/>
+    <set name="expPenalty" val="0.15"/> <!-- 15 percent of earned Exp will be consumed -->
   </skill>
   <skill id="27" levels="14" name="Unlock">
     <table name="#mpConsume"> 19 22 25 28 31 35 39 43 47 51 55 59 63 67 </table>
@@ -948,10 +935,9 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="20"/>
     <set name="effectRange" val="400"/>
-    <enchant1 name="absorbPart" val="0"/>
-    <!-- no damage, it's dead -->
-    <enchant1 name="absorbAbs" val="#ench1drain"/>
-    <!-- absorbs absolute value -->
+    <!-- Drain-specific: absorb from a mob's corpse -->
+    <enchant1 name="absorbPart" val="0"/> <!-- no damage, it's dead -->
+    <enchant1 name="absorbAbs" val="#ench1drain"/> <!-- absorbs absolute value -->
   </skill>
   <skill id="44" levels="3" name="Remedy">
     <table name="#mpConsume_Init">7 9 11</table>
@@ -1423,8 +1409,7 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="element" val="6"/>
-    <!-- Dark -->
+    <set name="element" val="6"/> <!-- Dark -->
     <set name="reuseDelay" val="15000"/>
     <set name="hitTime" val="3000"/>
     <set name="skillType" val="DRAIN"/>
@@ -1436,19 +1421,15 @@
     <enchant2 name="mpConsume" val="#ench2MpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init"/>
     <!-- Drain-specific: absorb 20% from target's damage -->
-    <set name="absorbPart" val="0.2"/>
-    <!-- absorbs 20% or damage -->
-    <set name="absorbAbs" val="0"/>
-    <!-- Drain absorbs absolute values from corpses only -->
+    <set name="absorbPart" val="0.2"/> <!-- absorbs 20% or damage -->
   </skill>
   <skill id="72" levels="3" name="Iron Will" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
-    <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480
-      1520 1560 1600 1640 1680 1720 1760 1800 1840 1880 1920
-      1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
+    <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
+      1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
     <table name="#ench2MpConsume"> 20 20 19 19 19 18 18 18 17 17 17 16
       16 16 15 15 15 14 14 14 13 13 12 12 12 11 11 11 10 10 </table>
     <table name="#ench2MpConsume_Init"> 5 5 5 5 5 5 5 5 5 5 4 4 4 4 4 4 4 4 4
@@ -1471,14 +1452,12 @@
     <enchant2 name="mpConsume" val="#ench2MpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#Tab-mDef" stackType="MagicDefUp">
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="#Tab-mDef" stackType="MagicDefUp">
         <mul order="0x30" stat="mDef" val="#Tab-mDef"/>
       </effect>
     </for>
     <enchant1for>
-      <effect count="1" name="Buff" time="#ench1time"
-        val="0" stackOrder="1.3" stackType="MagicDefUp">
+      <effect count="1" name="Buff" time="#ench1time" val="0" stackOrder="1.3" stackType="MagicDefUp">
         <mul order="0x30" stat="mDef" val="1.3"/>
       </effect>
     </enchant1for>
@@ -1494,8 +1473,7 @@
     <set name="effectRange" val="-1"/>
     <set name="aggroPoints" val="303"/>
     <for>
-      <effect count="1" name="Buff" time="600" val="0"
-        stackOrder="1" stackType="detect_weakness">
+      <effect count="1" name="Buff" time="600" val="0" stackOrder="1" stackType="detect_weakness">
         <mul order="0x30" stat="pAtk-insects" val="1.5"/>
       </effect>
     </for>
@@ -1542,8 +1520,7 @@
     <set name="effectRange" val="-1"/>
     <set name="aggroPoints" val="#aggro"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#rate" stackType="pa_up">
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="#rate" stackType="pa_up">
         <mul order="0x30" stat="pAtk" val="#rate"/>
       </effect>
     </for>
@@ -1564,8 +1541,7 @@
     <set name="effectRange" val="-1"/>
     <set name="aggroPoints" val="#aggro"/>
     <for>
-      <effect count="1" name="Buff" time="60" val="0"
-        stackOrder="#uprate" stackType="pa_up_special">
+      <effect count="1" name="Buff" time="60" val="0" stackOrder="#uprate" stackType="pa_up_special">
         <mul order="0x30" stat="pAtk" val="#pAtk"/>
       </effect>
     </for>
