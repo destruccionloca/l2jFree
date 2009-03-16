@@ -132,7 +132,7 @@
     <enchant2 name="mpConsume" val="#ench2MpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init"/>
     <for>
-      <effect count="1" name="Debuff" time="30" val="0" StackOrder="#Tab-runSpd" stackType="RunSpeedDown">
+      <effect count="1" name="Debuff" time="30" val="0" stackOrder="#Tab-runSpd" stackType="RunSpeedDown">
         <mul order="0x30" stat="runSpd" val="#Tab-runSpd"/>
       </effect>
     </for>
