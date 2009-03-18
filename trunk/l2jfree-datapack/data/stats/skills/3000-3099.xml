@@ -57,7 +57,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add val='#val' order='0x40' stat='accCombat'/>
+      <add val="#val" order="0x40" stat="accCombat"/>
     </for>
   </skill>
   <skill id="3008" levels="6" name="Special Ability: Guidance">
@@ -71,7 +71,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add val='#val' order='0x40' stat='accCombat'/>
+      <add val="#val" order="0x40" stat="accCombat"/>
     </for>
   </skill>
   <skill id="3009" levels="6" name="Special Ability: Evasion">
@@ -86,7 +86,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add val='#val' order='0x40' stat='rEvas'/>
+      <add val="#val" order="0x40" stat="rEvas"/>
     </for>
   </skill>
   <skill id="3010" levels="6" name="Special Ability: Focus">
@@ -130,8 +130,8 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add val='#patk' order='0x40' stat='pAtk'/>
-      <mul val='0.85' order='0x30' stat='maxHp'/>
+      <add val="#patk" order="0x40" stat="pAtk"/>
+      <mul val="0.85" order="0x30" stat="maxHp"/>
     </for>
   </skill>
   <skill id="3013" levels="5" name="Special Ability: Health">
@@ -304,7 +304,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add val='#val' order='0x40' stat='cAtkAdd'/>
+      <add val="#val" order="0x40" stat="cAtkAdd"/>
     </for>
   </skill>
   <skill id="3024" levels="6" name="Special Ability: Critical Poison">
@@ -379,9 +379,9 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add order='0x40' stat='rEvas' val='#val'>
+      <add order="0x40" stat="rEvas" val="#val">
         <and>
-          <player hp='60'/>
+          <player hp="60"/>
         </and>
       </add>
     </for>
@@ -411,9 +411,9 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add order='0x40' stat='rEvas' val='#val'>
+      <add order="0x40" stat="rEvas" val="#val">
         <and>
-          <player hp='60'/>
+          <player hp="60"/>
         </and>
       </add>
     </for>
@@ -429,9 +429,9 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add order='0x40' stat='rEvas' val='#val'>
+      <add order="0x40" stat="rEvas" val="#val">
         <and>
-          <player hp='60'/>
+          <player hp="60"/>
         </and>
       </add>
     </for>
@@ -447,9 +447,9 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <mul order='0x30' stat='pAtkSpd' val='#val'>
+      <mul order="0x30" stat="pAtkSpd" val="#val">
         <and>
-          <player hp='60'/>
+          <player hp="60"/>
         </and>
       </mul>
     </for>
@@ -465,9 +465,9 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <mul order='0x30' stat='pAtkSpd' val='#val'>
+      <mul order="0x30" stat="pAtkSpd" val="#val">
         <and>
-          <player hp='60'/>
+          <player hp="60"/>
         </and>
       </mul>
     </for>
@@ -483,7 +483,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <mul order='0x30' stat='pAtkSpd' val='#val'>
+      <mul order="0x30" stat="pAtkSpd" val="#val">
         <and>
           <player hp="60"/>
         </and>
@@ -625,7 +625,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add val='#val' order='0x40' stat='cAtkAdd'/>
+      <add val="#val" order="0x40" stat="cAtkAdd"/>
     </for>
   </skill>
   <skill id="3044" levels="20" name="Special Ability: Focus">
@@ -764,7 +764,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add val='67' order='0x40' stat='rCrit'/>
+      <add val="67" order="0x40" stat="rCrit"/>
       <mul val="#pvpBonus" order="0x30" stat="pvpPhysDmg"/>
       <!-- Enhances damage to target during PvP -->
       <mul val="#pvpBonus" order="0x30" stat="pvpMagicalDmg"/>
@@ -855,9 +855,9 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <mul order='0x30' stat='pAtkSpd' val='1.11'>
+      <mul order="0x30" stat="pAtkSpd" val="1.11">
         <and>
-          <player hp='60'/>
+          <player hp="60"/>
         </and>
       </mul>
     </for>
@@ -877,8 +877,8 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add val='32' order='0x40' stat='pAtk'/>
-      <mul val='0.85' order='0x30' stat='maxHp'/>
+      <add val="32" order="0x40" stat="pAtk"/>
+      <mul val="0.85" order="0x30" stat="maxHp"/>
     </for>
   </skill>
   <skill id="3058" levels="2" name="Special Ability: Anger">
@@ -894,8 +894,8 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add val='38' order='0x40' stat='pAtk'/>
-      <mul val='0.85' order='0x30' stat='maxHp'/>
+      <add val="38" order="0x40" stat="pAtk"/>
+      <mul val="0.85" order="0x30" stat="maxHp"/>
     </for>
   </skill>
   <skill id="3059" levels="2" name="Special Ability: Critical Drain">
@@ -991,7 +991,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add val='4' order='0x40' stat='accCombat'/>
+      <add val="4" order="0x40" stat="accCombat"/>
     </for>
   </skill>
   <skill id="3065" levels="1" name="Special Ability: Guidance">
@@ -1005,7 +1005,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add val='5.41' order='0x40' stat='accCombat'/>
+      <add val="5.41" order="0x40" stat="accCombat"/>
     </for>
   </skill>
   <skill id="3066" levels="4" name="Special Ability: Critical Damage">
@@ -1024,7 +1024,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add val='#val' order='0x40' stat='cAtkAdd'/>
+      <add val="#val" order="0x40" stat="cAtkAdd"/>
     </for>
   </skill>
   <skill id="3067" levels="2" name="Special Ability: Critical Damage">
@@ -1041,7 +1041,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add val='#val' order='0x40' stat='cAtkAdd'/>
+      <add val="#val" order="0x40" stat="cAtkAdd"/>
     </for>
   </skill>
   <skill id="3068" levels="3" name="Special Ability: Haste">
@@ -1074,9 +1074,9 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add order='0x40' stat='rEvas' val='6'>
+      <add order="0x40" stat="rEvas" val="6">
         <and>
-          <player hp='60'/>
+          <player hp="60"/>
         </and>
       </add>
     </for>
@@ -1145,7 +1145,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add val='#val' order='0x40' stat='mAtk'/>
+      <add val="#val" order="0x40" stat="mAtk"/>
     </for>
   </skill>
   <skill id="3073" levels="2" name="Special Ability: Magic Power">
@@ -1162,8 +1162,8 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add val='#val' order='0x40' stat='mAtk'/>
-      <mul val='1.15' order='0x30' stat='MpConsume'/>
+      <add val="#val" order="0x40" stat="mAtk"/>
+      <mul val="1.15" order="0x30" stat="MpConsume"/>
     </for>
   </skill>
   <skill id="3074" levels="2" name="Special Ability: Magic Silence">
@@ -1224,7 +1224,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add val='60' order='0x40' stat='mAtk'/>
+      <add val="60" order="0x40" stat="mAtk"/>
     </for>
   </skill>
   <skill id="3077" levels="6" name="Special Ability: Magic Power">
@@ -1240,8 +1240,8 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add val='#val' order='0x40' stat='mAtk'/>
-      <mul val='1.15' order='0x30' stat='MpConsume'/>
+      <add val="#val" order="0x40" stat="mAtk"/>
+      <mul val="1.15" order="0x30" stat="MpConsume"/>
     </for>
   </skill>
   <skill id="3078" levels="6" name="Special Ability: Magic Silence">

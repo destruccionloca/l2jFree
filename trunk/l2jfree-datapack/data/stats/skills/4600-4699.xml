@@ -364,7 +364,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect count="1" name="RemoveTarget" time="1" val="0"/>
+      <effect count="1" name="RemoveTarget" time="1" val="0" noicon="1"/>
     </for>
   </skill>
   <skill id="4619" levels="1" name="NPC Dispel Sleep">
@@ -1431,8 +1431,7 @@
     </for>
   </skill>
   <skill id="4681" levels="1" name="Valakas Trample">
-    <!-- Valakas Skills -->
-    <!-- Valakas Trample Left -->
+    <!-- Valakas Skills - Valakas Trample Left -->
     <set name="magicLvl" val="75"/>
     <set name="power" val="23397"/>
     <set name="target" val="TARGET_MULTIFACE"/>
@@ -1445,8 +1444,7 @@
     <set name="effectRange" val="400"/>
   </skill>
   <skill id="4682" levels="1" name="Valakas Trample">
-    <!-- Valakas Skills -->
-    <!-- Valakas Trample Right -->
+    <!-- Valakas Skills - Valakas Trample Right -->
     <set name="magicLvl" val="75"/>
     <set name="power" val="23397"/>
     <set name="target" val="TARGET_MULTIFACE"/>
@@ -1459,8 +1457,7 @@
     <set name="effectRange" val="400"/>
   </skill>
   <skill id="4683" levels="1" name="Valakas Dragon Breath">
-    <!-- Valakas Skills -->
-    <!-- Valakas Dragon Breath Low -->
+    <!-- Valakas Skills - Valakas Dragon Breath Low -->
     <set name="magicLvl" val="75"/>
     <set name="power" val="499"/>
     <set name="isDebuff" val="true"/>
@@ -1481,8 +1478,7 @@
     </for>
   </skill>
   <skill id="4684" levels="1" name="Valakas Dragon Breath">
-    <!-- Valakas Skills -->
-    <!-- Valakas Dragon Breath High -->
+    <!-- Valakas Skills - Valakas Dragon Breath High -->
     <set name="magicLvl" val="75"/>
     <set name="power" val="499"/>
     <set name="target" val="TARGET_MULTIFACE"/>
@@ -1503,8 +1499,7 @@
     </for>
   </skill>
   <skill id="4685" levels="1" name="Valakas Tail Stomp">
-    <!-- Valakas Skills -->
-    <!-- Valakas Tail Stomp A from Behind -->
+    <!-- Valakas Skills - Valakas Tail Stomp A from Behind -->
     <set name="magicLvl" val="75"/>
     <set name="power" val="37224"/>
     <set name="target" val="TARGET_MULTIFACE"/>
@@ -1518,8 +1513,7 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4686" levels="1" name="Valakas Tail Stomp">
-    <!-- Valakas Skills -->
-    <!-- Valakas Tail Stomp B from Behind -->
+    <!-- Valakas Skills - Valakas Tail Stomp B from Behind -->
     <set name="magicLvl" val="75"/>
     <set name="power" val="121"/>
     <set name="target" val="TARGET_MULTIFACE"/>
@@ -1531,8 +1525,7 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4687" levels="1" name="Valakas Tail Stomp">
-    <!-- Valakas Skills -->
-    <!-- Valakas Tail Stomp Visual -->
+    <!-- Valakas Skills - Valakas Tail Stomp Visual -->
     <set name="magicLvl" val="75"/>
     <set name="power" val="0"/>
     <set name="target" val="TARGET_SELF"/>
@@ -1543,8 +1536,7 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4688" levels="1" name="Valakas Stun">
-    <!-- Valakas Skills -->
-    <!-- "Valakas Tail Lash" from Behind -->
+    <!-- Valakas Skills - "Valakas Tail Lash" from Behind -->
     <set name="magicLvl" val="75"/>
     <set name="power" val="21423"/>
     <set name="target" val="TARGET_MULTIFACE"/>
@@ -1564,9 +1556,11 @@
     </for>
   </skill>
   <skill id="4689" levels="2" name="Valakas Fear">
-    <!-- Valakas Skills -->
-    <!-- Lvl 1: Valakas Fear from Front -->
-    <!-- Lvl 2: Valakas Fear Visual -->
+    <!-- 
+      Valakas Skills
+      Lvl 1: Valakas Fear from Front
+      Lvl 2: Valakas Fear Visual
+    -->
     <table name="#coolTime">2000 0</table>
     <table name="#hitTime">3000 0</table>
     <table name="#lvlDepend"> 1 0 </table>

@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
   <skill id="800" levels="3" name="Master Ability - Magic Defense">
@@ -80,7 +80,7 @@
     <for>
       <effect count="1" name="Transformation" time="18400" val="0">
         <mul order="0x30" stat="pDef" val="0.75"/>
-        <mul order="0x30" stat="sDef" val="0.8"/>  <!-- Guess - need retail confirmation -->
+        <mul order="0x30" stat="sDef" val="0.8"/> <!-- Guess - need retail confirmation -->
       </effect>
     </for>
   </skill>
@@ -97,7 +97,7 @@
     <for>
       <effect count="1" name="Transformation" time="18400" val="0">
         <mul order="0x30" stat="pDef" val="0.75"/>
-        <mul order="0x30" stat="sDef" val="0.8"/>  <!-- Guess - need retail confirmation -->
+        <mul order="0x30" stat="sDef" val="0.8"/> <!-- Guess - need retail confirmation -->
       </effect>
     </for>
   </skill>
@@ -114,7 +114,7 @@
     <for>
       <effect count="1" name="Transformation" time="18400" val="0">
         <mul order="0x30" stat="pDef" val="0.75"/>
-        <mul order="0x30" stat="sDef" val="0.8"/>  <!-- Guess - need retail confirmation -->
+        <mul order="0x30" stat="sDef" val="0.8"/> <!-- Guess - need retail confirmation -->
       </effect>
     </for>
   </skill>
@@ -131,7 +131,7 @@
     <for>
       <effect count="1" name="Transformation" time="18400" val="0">
         <mul order="0x30" stat="pDef" val="0.75"/>
-        <mul order="0x30" stat="sDef" val="0.8"/>  <!-- Guess - need retail confirmation -->
+        <mul order="0x30" stat="sDef" val="0.8"/> <!-- Guess - need retail confirmation -->
       </effect>
     </for>
   </skill>
@@ -563,7 +563,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="staticReuse" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="400"/> 
+    <set name="castRange" val="400"/>
     <!-- TODO: after effect id: 5696-->
     <for>
       <effect count="1" name="Invincible" time="10" val="0" stackOrder="1" stackType="Instant_Shield"/>

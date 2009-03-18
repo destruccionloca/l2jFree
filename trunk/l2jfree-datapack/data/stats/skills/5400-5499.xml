@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
   <skill id="5400" levels="1" name="Presentation - Solar Spark">
@@ -527,8 +527,7 @@
   </skill>
   <skill id="5447" levels="7" name="Paralysis">
     <!-- Needs to be verified -->
-    <table name="#dmg">5 10 15 20 25 30 35</table>
-    <!-- guees -->
+    <table name="#dmg">5 10 15 20 25 30 35</table> <!-- guess -->
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="6"/><!-- Dark -->
     <set name="skillType" val="PARALYZE"/>
@@ -700,7 +699,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <mul val='0.85' order='0x30' stat='fireVuln'/>
+      <mul val="0.85" order="0x30" stat="fireVuln"/>
     </for>
   </skill>
   <skill id="5463" levels="1" name="Water Attacks">
@@ -710,7 +709,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <mul val='0.85' order='0x30' stat='waterVuln'/>
+      <mul val="0.85" order="0x30" stat="waterVuln"/>
     </for>
   </skill>
   <skill id="5464" levels="1" name="Wind Attacks">
@@ -720,7 +719,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <mul val='0.85' order='0x30' stat='windVuln'/>
+      <mul val="0.85" order="0x30" stat="windVuln"/>
     </for>
   </skill>
   <skill id="5465" levels="1" name="Earth Attacks">
@@ -730,7 +729,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <mul val='0.85' order='0x30' stat='earthVuln'/>
+      <mul val="0.85" order="0x30" stat="earthVuln"/>
     </for>
   </skill>
   <skill id="5466" levels="1" name="Holy Attacks">
@@ -740,7 +739,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <mul val='0.85' order='0x30' stat='holyVuln'/>
+      <mul val="0.85" order="0x30" stat="holyVuln"/>
     </for>
   </skill>
   <skill id="5467" levels="1" name="Dark Attacks">
@@ -750,7 +749,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <mul val='0.85' order='0x30' stat='darkVuln'/>
+      <mul val="0.85" order="0x30" stat="darkVuln"/>
     </for>
   </skill>
   <skill id="5468" levels="12" name="Castle Gunner Fire">

@@ -1050,10 +1050,10 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add val="80" order="0x40" stat='rCrit'/>
-      <mul val="1.05" order="0x30" stat='pvpPhysDmg'/>
+      <add val="80" order="0x40" stat="rCrit"/>
+      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
       <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat='pvpMagicalDmg'/>
+      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </skill>
   <skill id="3566" levels="1" name="Special Ability: Focus">
@@ -1101,7 +1101,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <for>
-      <add val='3' order='0x40' stat='absorbDam'/>
+      <add val="3" order="0x40" stat="absorbDam"/>
     </for>
   </skill>
   <skill id="3569" levels="1" name="Special Ability: HP Regeneration">
@@ -1155,7 +1155,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add val='265' order='0x40' stat='cAtkAdd'/>
+      <add val="265" order="0x40" stat="cAtkAdd"/>
     </for>
   </skill>
   <skill id="3573" levels="1" name="Special Ability: Guidance">
@@ -1169,7 +1169,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add val='5' order='0x40' stat='accCombat'/>
+      <add val="5" order="0x40" stat="accCombat"/>
     </for>
   </skill>
   <skill id="3574" levels="1" name="Special Ability: Crt. Slow">

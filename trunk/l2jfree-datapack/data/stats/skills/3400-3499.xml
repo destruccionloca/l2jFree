@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
   <skill id="3400" levels="1" name="Traits Strengthen Earring">
@@ -981,9 +981,9 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <mul val='1.2' order='0x30' stat='maxLoad'/>
-      <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
-      <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
+      <mul val="1.2" order="0x30" stat="maxLoad"/>
+      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
+      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </skill>
   <skill id="3499" levels="1" name="Transform Dispel">

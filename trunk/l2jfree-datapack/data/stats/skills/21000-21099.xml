@@ -324,5 +324,5 @@
     <set name="npcId" val="1518"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-  </skill>  
+  </skill>
 </list>

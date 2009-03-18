@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
   <skill id="700" levels="1" name="Divine Healer Group Heal">
@@ -588,7 +588,7 @@
   <skill id="756" levels="1" name="Protection of Elemental">
     <!-- by Sephiroth -->
     <set name="isMagic" val="true"/>
-    <set name="hiTime" val="4000"/>
+    <set name="hitTime" val="4000"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -667,7 +667,7 @@
   <skill id="762" levels="1" name="Insane Crusher">
     <!-- by Sephiroth -->
     <set name="hitTime" val="1300"/>
-    <set name="magiclvl" val="81"/>
+    <set name="magicLvl" val="81"/>
     <set name="mpConsume" val="89"/>
     <set name="reuseDelay" val="21000"/>
     <set name="power" val="9014"/>
@@ -930,7 +930,7 @@
   <skill id="777" levels="1" name="Demolition Impact">
     <!-- by Sephiroth -->
     <set name="hitTime" val="1200"/>
-    <set name="magiclvl" val="81"/>
+    <set name="magicLvl" val="81"/>
     <set name="mpConsume" val="178"/>
     <set name="reuseDelay" val="21000"/>
     <set name="power" val="5750"/>
@@ -1189,7 +1189,7 @@
   <skill id="790" levels="1" name="Wild Shot">
     <!-- by Sephiroth -->
     <set name="hitTime" val="3500"/>
-    <set name="magiclvl" val="81"/>
+    <set name="magicLvl" val="81"/>
     <set name="mpConsume" val="134"/>
     <set name="reuseDelay" val="21000"/>
     <set name="power" val="5750"/>
