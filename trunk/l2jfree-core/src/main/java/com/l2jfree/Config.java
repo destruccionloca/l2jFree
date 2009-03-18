@@ -1882,9 +1882,9 @@ public final class Config
 			Properties datetimeSettings = new L2Properties(DATETIME_FILE);
 
 			DATETIME_SAVECAL = Boolean.parseBoolean(datetimeSettings.getProperty("SaveDate", "false"));
-			DATETIME_MULTI = Integer.parseInt(datetimeSettings.getProperty("TimeMulti", "10"));			
-			DATETIME_SUNSET = Integer.parseInt(datetimeSettings.getProperty("SunRise", "6"));			
-			DATETIME_SUNRISE = Integer.parseInt(datetimeSettings.getProperty("SunSet", "18"));
+			DATETIME_MULTI = Integer.parseInt(datetimeSettings.getProperty("TimeMulti", "10"));
+			DATETIME_SUNSET = Integer.parseInt(datetimeSettings.getProperty("SunSet", "18"));
+			DATETIME_SUNRISE = Integer.parseInt(datetimeSettings.getProperty("SunRise", "6"));
 			DATETIME_MOVE_DELAY = Integer.parseInt(datetimeSettings.getProperty("MoveDelay", "200"));
 		}
 		catch (Exception e)

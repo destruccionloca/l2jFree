@@ -172,14 +172,14 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 		
 		super.sendPacket(gsp);
 	}
-	
+
 	@Override
 	public void closeNow()
 	{
 		super.closeNow();
 		cleanMe(true);
 	}
-	
+
 	public boolean isDetached()
 	{
 		return _isDetached;
