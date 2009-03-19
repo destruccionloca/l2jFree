@@ -9250,7 +9250,7 @@ public final class L2PcInstance extends L2PlayableInstance
 				return;
 			}
 
-			if (_fishType == -1)
+			if (!GameTimeController.getInstance().isNowNight() && _lure.isNightLure())
 				return;
 
 			int check = Rnd.get(1000);
@@ -11721,8 +11721,6 @@ public final class L2PcInstance extends L2PlayableInstance
 		fishs = null;
 		sendPacket(SystemMessageId.CAST_LINE_AND_START_FISHING);
 		ExFishingStart efs = null;
-		if (!GameTimeController.getInstance().isNowNight() && _lure.isNightLure())
-			_fish.setType(-1);
 		efs = new ExFishingStart(this, _fish.getType(), x, y, z, _lure.isNightLure());
 		broadcastPacket(efs);
 		startLookingForFishTask();
