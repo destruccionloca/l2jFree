@@ -643,8 +643,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <for>
-      <effect name="Buff" count="1" time="1200" val="0"
-        stackOrder="50" statckType="buffElem">
+      <effect name="Buff" count="1" time="1200" val="0" stackOrder="50" statckType="buffElem">
         <mul order="0x30" stat="fireVuln" val="0.82"/>
         <mul order="0x30" stat="waterVuln" val="0.82"/>
         <mul order="0x30" stat="windVuln" val="0.82"/>

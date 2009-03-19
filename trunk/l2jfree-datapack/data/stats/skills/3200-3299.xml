@@ -73,8 +73,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
     <for>
-      <effect count="1" name="BigHead" time="120" val="0" abnormal="bighead" stackOrder="300"
-        stackType="big_head"/>
+      <effect count="1" name="BigHead" time="120" val="0" abnormal="bighead" stackOrder="300" stackType="big_head"/>
     </for>
   </skill>
   <skill id="3204" levels="3" name="Item Skill: Reflect Damage">
@@ -809,8 +808,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="750"/>
     <for>
-      <effect count="15" name="HealOverTime" time="1" val="#hotValue" stackOrder="#hotValue"
-        stackType="LifeForce"/>
+      <effect count="15" name="HealOverTime" time="1" val="#hotValue" stackOrder="#hotValue" stackType="LifeForce"/>
     </for>
   </skill>
   <skill id="3261" levels="1" name="Heart Shot">
@@ -850,8 +848,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="750"/>
     <for>
-      <effect count="15" name="HealOverTime" time="1" val="#hotValue" stackOrder="#hotValue"
-        stackType="LifeForce"/>
+      <effect count="15" name="HealOverTime" time="1" val="#hotValue" stackOrder="#hotValue" stackType="LifeForce"/>
       <div order="0x30" stat="pDef" val="#pDef"/>
       <div order="0x30" stat="mDef" val="#mDef"/>
     </for>
@@ -883,8 +880,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
     <for>
-      <effect count="1" name="BigHead" time="300" val="0" abnormal="bighead" stackOrder="300"
-        stackType="big_head"/>
+      <effect count="1" name="BigHead" time="300" val="0" abnormal="bighead" stackOrder="300" stackType="big_head"/>
     </for>
   </skill>
   <skill id="3266" levels="1" name="Large Fireworks Ability">

@@ -271,14 +271,12 @@
     <enchant2 name="aggroPoints" val="655"/>
     <enchant2 name="mpConsume" val="#ench2MpConsume"/>
     <for>
-      <effect name="Buff" time="120" count="1" val="0"
-        stackOrder="1" stackType="song_of_stormguard">
+      <effect name="Buff" time="120" count="1" val="0" stackOrder="1" stackType="song_of_stormguard">
         <mul stat="windVuln" order="0x30" val="0.7"/>
       </effect>
     </for>
     <enchant1for>
-      <effect name="Buff" time="#ench1time" count="1"
-        val="0" stackOrder="1" stackType="song_of_stormguard">
+      <effect name="Buff" time="#ench1time" count="1" val="0" stackOrder="1" stackType="song_of_stormguard">
         <mul stat="windVuln" order="0x30" val="0.7"/>
       </effect>
     </enchant1for>
@@ -310,14 +308,12 @@
     <enchant2 name="aggroPoints" val="655"/>
     <enchant2 name="mpConsume" val="#ench2MpConsume"/>
     <for>
-      <effect name="Buff" time="120" count="1" val="0"
-        stackOrder="1" stackType="dance_of_earthguard">
+      <effect name="Buff" time="120" count="1" val="0" stackOrder="1" stackType="dance_of_earthguard">
         <mul stat="earthVuln" val="0.7" order="0x30"/>
       </effect>
     </for>
     <enchant1for>
-      <effect name="Buff" time="#ench1time" count="1"
-        val="0" stackOrder="1" stackType="dance_of_earthguard">
+      <effect name="Buff" time="#ench1time" count="1" val="0" stackOrder="1" stackType="dance_of_earthguard">
         <mul stat="earthVuln" val="0.7" order="0x30"/>
       </effect>
     </enchant1for>
@@ -347,14 +343,12 @@
     <set name="aggroPoints" val="655"/>
     <enchant2 name="mpConsume" val="#ench2MpConsume"/>
     <for>
-      <effect name="Buff" time="120" count="1" val="0"
-        stackOrder="1" stackType="dance_of_vampire">
+      <effect name="Buff" time="120" count="1" val="0" stackOrder="1" stackType="dance_of_vampire">
         <add stat="absorbDam" val="8" order="0x40"/>
       </effect>
     </for>
     <enchant1for>
-      <effect name="Buff" time="#ench1time" count="1"
-        val="0" stackOrder="1" stackType="dance_of_vampire">
+      <effect name="Buff" time="#ench1time" count="1" val="0" stackOrder="1" stackType="dance_of_vampire">
         <add stat="absorbDam" val="8" order="0x40"/>
       </effect>
     </enchant1for>
@@ -386,14 +380,12 @@
     <enchant2 name="aggroPoints" val="655"/>
     <enchant2 name="mpConsume" val="#ench2MpConsume"/>
     <for>
-      <effect name="Buff" time="120" count="1" val="0"
-        stackType="dance_of_protection">
+      <effect name="Buff" time="120" count="1" val="0" stackType="dance_of_protection">
         <mul stat="earthVuln" val="0.7" order="0x30"/>
       </effect>
     </for>
     <enchant1for>
-      <effect name="Buff" time="#ench1time" count="1"
-        val="0" stackType="dance_of_protection">
+      <effect name="Buff" time="#ench1time" count="1" val="0" stackType="dance_of_protection">
         <mul stat="earthVuln" val="0.7" order="0x30"/>
       </effect>
     </enchant1for>
@@ -633,8 +625,7 @@
     <set name="effectRange" val="-1"/>
     <set name="weaponsAllowed" val="2"/>
     <!--
-      Proper weapon restriction would be nice ;) -> Added
-      wA=2 (Shield)
+      Proper weapon restriction would be nice ;) -> Added wA=2 (Shield)
     -->
     <for>
       <effect count="0x7fffffff" name="ManaDamOverTime" time="9999" val="0">
@@ -1199,7 +1190,7 @@
     <set name="hitTime" val="1800"/>
     <set name="baseCritRate" val="15"/>
     <for>
-      <effect count="1" name="RemoveTarget" time="1" val="0"/>
+      <effect count="1" name="RemoveTarget" time="1" val="0" noicon="1"/>
     </for>
   </skill>
   <skill id="348" levels="1" name="Spoil Crush">
@@ -1498,7 +1489,7 @@
     <set name="hitTime" val="1000"/>
     <for>
       <effect count="1" name="Bluff" time="3" val="0" stackOrder="1" stackType="Stun"/>
-      <effect count="1" name="RemoveTarget" time="1" val="0"  noicon="1"/>
+      <effect count="1" name="RemoveTarget" time="1" val="0" noicon="1"/>
     </for>
   </skill>
   <skill id="359" levels="1" name="Eye of Hunter">
@@ -1565,7 +1556,7 @@
         <mul order="0x30" stat="pDef" val="0.7"/>
         <mul order="0x30" stat="mDef" val="0.7"/>
       </effect>
-      <effect count="1" name="RemoveTarget" time="1" val="0"/>
+      <effect count="1" name="RemoveTarget" time="1" val="0" noicon="1"/>
     </for>
   </skill>
   <skill id="362" levels="1" name="Armor Crush">
@@ -1693,8 +1684,7 @@
     <set name="hitTime" val="2000"/>
     <set name="reuseDelay" val="120000"/>
     <for>
-      <effect count="1" name="Petrify" time="30" val="0"
-        stackOrder="30" stackType="turn_stone"/>
+      <effect count="1" name="Petrify" time="30" val="0" stackOrder="30" stackType="turn_stone"/>
     </for>
   </skill>
   <skill id="368" levels="1" name="Vengeance">

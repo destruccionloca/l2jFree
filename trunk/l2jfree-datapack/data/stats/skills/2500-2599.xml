@@ -88,8 +88,7 @@
     <set name="isPotion" val="true"/>
     <set name="buffDuration" val="300000"/>
     <for>
-      <effect count="1" name="BigHead" time="300" val="0"
-        abnormal="bighead" stackOrder="300" stackType="big_head"/>
+      <effect count="1" name="BigHead" time="300" val="0" abnormal="bighead" stackOrder="300" stackType="big_head"/>
     </for>
   </skill>
   <skill id="2514" levels="1" name="Herb of Mortal Blow - Damage">

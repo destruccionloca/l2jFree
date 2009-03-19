@@ -34,10 +34,17 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
   </skill>
-  <skill id="4102" levels="2" name="Become weak against line of fire">
-    <table name="#Tab-fireVuln">1.15 1.2</table>
-    <table name="#mpConsume">35 65</table>
-    <table name="#magicLvl">20 70</table>
+  <skill id="4102" levels="3" name="Surrender To Fire">
+    <!-- 
+      Description:
+       Lvl 1: Instantly decreases resistance to fire attacks and increases resistance to water attacks. Effect 1
+       Lvl 2: Instantly decreases resistance to fire attacks and increases resistance to water attacks. Effect 2
+       Lvl 3: Instantly decreases resistance to fire attacks and increases resistance to water attacks. Effect 3
+    -->
+    <table name="#Tab-fireVuln">1.15 1.2 1.25</table> <!-- Custom Lvl 3, needs retail values -->
+    <table name="#Tab-waterVuln"> 0.85 0.7 0.75 </table> <!-- Custom Lvl 3, needs retail values -->
+    <table name="#mpConsume">20 35 50</table> <!-- Custom Lvl 3, needs retail values -->
+    <table name="#magicLvl">20 70 70</table> <!-- Custom Lvl 3, needs retail values -->
     <set name="magicLvl" val="#magicLvl"/>
     <set name="lvlDepend" val="2"/>
     <set name="mpConsume" val="#mpConsume"/>
@@ -54,6 +61,7 @@
     <for>
       <effect count="1" name="Debuff" time="120" val="0" stackOrder="2" stackType="surrender">
         <mul order="0x30" stat="fireVuln" val="#Tab-fireVuln"/>
+        <mul order="0x30" stat="waterVuln" val="#Tab-waterVuln"/>
       </effect>
     </for>
   </skill>
@@ -115,8 +123,10 @@
     <set name="effectRange" val="1100"/>
   </skill>
   <skill id="4106" levels="1" name="Antharas Stun">
-    <!-- Antharas Skills -->
-    <!-- "Antharas Jump" from Front -->
+    <!--
+     Antharas Skills
+     "Antharas Jump" from Front
+    -->
     <set name="magicLvl" val="70"/>
     <set name="power" val="11000"/>
     <set name="target" val="TARGET_FRONT_AURA"/>
@@ -136,8 +146,10 @@
     </for>
   </skill>
   <skill id="4107" levels="1" name="Antharas Stun">
-    <!-- Antharas Skills -->
-    <!-- "Antharas Tail" from Behind -->
+    <!-- 
+     Antharas Skills
+     "Antharas Tail" from Behind
+    -->
     <set name="magicLvl" val="70"/>
     <set name="power" val="11000"/>
     <set name="target" val="TARGET_MULTIFACE"/>

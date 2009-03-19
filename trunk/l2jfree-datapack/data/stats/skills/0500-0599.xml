@@ -666,8 +666,7 @@
     <set name="skillRadius" val="1000"/>
     <set name="target" val="TARGET_PARTY"/>
     <for>
-      <effect count="1" name="Buff" time="15" val="0"
-        stackOrder="1" stackType="pd_up_special">
+      <effect count="1" name="Buff" time="15" val="0" stackOrder="1" stackType="pd_up_special">
         <add order="0x40" stat="pDef" val="3600"/>
         <add order="0x40" stat="mDef" val="2700"/>
       </effect>
@@ -1681,8 +1680,7 @@
     <set name="nextAction" val="attack"/>
     <!-- To prevent character stop from attacking -->
     <for>
-      <effect name="Buff" time="15" count="1" val="0"
-        stackOrder="#accCombat" stackType="accuracyDown">
+      <effect name="Buff" time="15" count="1" val="0" stackOrder="#accCombat" stackType="accuracyDown">
         <sub order="0x40" stat="accCombat" val="#accCombat"/>
       </effect>
     </for>
@@ -1702,8 +1700,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="360"/>
     <for>
-      <effect name="Debuff" time="15" count="1" val="0"
-        stackOrder="#accCombat" stackType="accuracyDown">
+      <effect name="Debuff" time="15" count="1" val="0" stackOrder="#accCombat" stackType="accuracyDown">
         <sub order="0x40" stat="accCombat" val="#accCombat"/>
       </effect>
     </for>

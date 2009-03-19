@@ -800,8 +800,6 @@
   </skill>
   <skill id="3144" levels="10" name="Item Skill: Acrobatics">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s):
         Lvl 1-10 - Active: Increases the height from which you can jump 
 	without sustaining damage temporarily.
@@ -813,8 +811,6 @@
   </skill>
   <skill id="3145" levels="10" name="Item Skill: Iron Body">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Lvl 1-10 - Active: Raises resistance
       to damage from falling.
     -->
@@ -946,7 +942,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect count="1" name="RemoveTarget" time="1" val="0"/>
+      <effect count="1" name="RemoveTarget" time="1" val="0" noicon="1"/>
     </for>
   </skill>
   <skill id="3153" levels="10" name="Item Skill: Vampiric Touch">
@@ -1599,8 +1595,7 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <for>
-      <effect count="1" name="Debuff" time="30" val="0"
-        stackOrder="#Tab-runSpd" stackType="RunSpeedDown">
+      <effect count="1" name="Debuff" time="30" val="0" stackOrder="#Tab-runSpd" stackType="RunSpeedDown">
         <mul order="0x30" stat="runSpd" val="#Tab-runSpd"/>
       </effect>
     </for>
@@ -1624,8 +1619,7 @@
     <set name="isDebuff" val="true"/>
     <set name="effectRange" val="1100"/>
     <for>
-      <effect count="1" name="Debuff" time="5" val="0"
-        stackOrder="0.77" stackType="attack_time_up">
+      <effect count="1" name="Debuff" time="5" val="0" stackOrder="0.77" stackType="attack_time_up">
         <mul order="0x30" stat="pAtkSpd" val="0.77"/>
       </effect>
     </for>
@@ -1649,8 +1643,7 @@
     <set name="effectRange" val="400"/>
     <set name="isDebuff" val="true"/>
     <for>
-      <effect count="1" name="Stun" time="9" val="0"
-        stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="3190" levels="10" name="Item Skill: Hold">
@@ -1673,8 +1666,7 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect count="1" name="Root" time="30" val="0"
-        stackOrder="1" stackType="Root"/>
+      <effect count="1" name="Root" time="30" val="0" stackOrder="1" stackType="Root"/>
     </for>
   </skill>
   <skill id="3191" levels="10" name="Item Skill: Sleep">
@@ -1697,8 +1689,7 @@
     <set name="lvlDepend" val="2"/>
     <set name="reuseDelay" val="12000"/>
     <for>
-      <effect count="1" name="Sleep" time="30" val="0"
-        stackOrder="1" stackType="sleep"/>
+      <effect count="1" name="Sleep" time="30" val="0" stackOrder="1" stackType="sleep"/>
     </for>
   </skill>
   <skill id="3192" levels="10" name="Item Skill: Paralyze">
@@ -1744,8 +1735,7 @@
     <set name="hitTime" val="2000"/>
     <set name="reuseDelay" val="120000"/>
     <for>
-      <effect count="1" name="Petrify" time="30" val="0"
-        stackOrder="30" stackType="turn_stone"/>
+      <effect count="1" name="Petrify" time="30" val="0" stackOrder="30" stackType="turn_stone"/>
     </for>
   </skill>
   <skill id="3194" levels="10" name="Item Skill: Fear">
@@ -1792,8 +1782,7 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <for>
-      <effect count="10" name="DamOverTime" time="3"
-        val="#dmg" abnormal="poison"/>
+      <effect count="10" name="DamOverTime" time="3" val="#dmg" abnormal="poison"/>
     </for>
   </skill>
   <skill id="3196" levels="10" name="Item Skill: Bleed">
@@ -1841,8 +1830,7 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <for>
-      <effect count="1" name="Mute" time="30" val="0"
-        stackOrder="1" stackType="silence"/>
+      <effect count="1" name="Mute" time="30" val="0" stackOrder="1" stackType="silence"/>
     </for>
   </skill>
   <skill id="3198" levels="10" name="Item Skill: Doom">

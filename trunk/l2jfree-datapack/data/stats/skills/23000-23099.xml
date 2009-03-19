@@ -67,8 +67,7 @@
       <player agathionId="1501"/>
     </cond>
     <for>
-      <effect count="1" name="BigHead" time="1200" val="0"
-        abnormal="bighead" stackOrder="600" stackType="big_head"/>
+      <effect count="1" name="BigHead" time="1200" val="0" abnormal="bighead" stackOrder="600" stackType="big_head"/>
     </for>
   </skill>
   <skill id="23005" levels="1" name="Gold Majo Agathion Special Skill - Power of Blessed Resurrection">
@@ -112,8 +111,7 @@
       <player agathionId="1504"/>
     </cond>
     <for>
-      <effect count="1" name="BigHead" time="1200" val="0"
-        abnormal="bighead" stackOrder="600" stackType="big_head"/>
+      <effect count="1" name="BigHead" time="1200" val="0" abnormal="bighead" stackOrder="600" stackType="big_head"/>
     </for>
   </skill>
   <skill id="23008" levels="1" name="Plaipitak Agathion Special Skill - Power of Blessed Return">
@@ -196,8 +194,7 @@
       <player agathionId="1505"/>
     </cond>
     <for>
-      <effect count="1" name="BigHead" time="1200" val="0"
-        abnormal="bighead" stackOrder="600" stackType="big_head"/>
+      <effect count="1" name="BigHead" time="1200" val="0" abnormal="bighead" stackOrder="600" stackType="big_head"/>
     </for>
   </skill>
   <skill id="23014" levels="1" name="Bamboo Panda Agathion Special Skill - Power of Blessed Resurrection">
@@ -453,7 +450,7 @@
       <player agathionId="1514"/>
     </cond>
   </skill>
-  <skill id="23037" levels="1" name="Pegasus Agathion Special Skill -  Wind Walk Ability">
+  <skill id="23037" levels="1" name="Pegasus Agathion Special Skill - Wind Walk Ability">
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="hitTime" val="4000"/>

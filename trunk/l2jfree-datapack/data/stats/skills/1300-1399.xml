@@ -68,8 +68,7 @@
     <enchant2 name="mpConsume" val="#ench2MpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#mCrit" stackType="magic_critical_up">
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="#mCrit" stackType="magic_critical_up">
         <mul order="0x30" stat="mCritRate" val="#mCrit"/>
         <!--
           Magic critical rate has been reduced for 30% on
@@ -79,8 +78,7 @@
       </effect>
     </for>
     <enchant1for>
-      <effect name="Buff" time="#ench1time" count="1"
-        val="0" stackOrder="4" stackType="magic_critical_up">
+      <effect name="Buff" time="#ench1time" count="1" val="0" stackOrder="4" stackType="magic_critical_up">
         <mul order="0x30" stat="mCritRate" val="1.4"/>
       </effect>
     </enchant1for>
@@ -265,14 +263,12 @@
     <enchant2 name="mpConsume" val="#ench2MpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#Tab-rCrit" stackType="critical_prob_up">
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="#Tab-rCrit" stackType="critical_prob_up">
         <basemul order="0x30" stat="rCrit" val="#Tab-rCrit"/>
       </effect>
     </for>
     <enchant1for>
-      <effect count="1" name="Buff" time="#ench1time"
-        val="0" stackOrder="1.3" stackType="critical_prob_up">
+      <effect count="1" name="Buff" time="#ench1time" val="0" stackOrder="1.3" stackType="critical_prob_up">
         <basemul order="0x30" stat="rCrit" val="0.3"/>
       </effect>
     </enchant1for>
@@ -309,14 +305,12 @@
     <enchant2 name="mpConsume" val="#ench2MpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#Tab-accCombat" stackType="hit_up">
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="#Tab-accCombat" stackType="hit_up">
         <add order="0x40" stat="accCombat" val="#Tab-accCombat"/>
       </effect>
     </for>
     <enchant1for>
-      <effect count="1" name="Buff" time="#ench1time"
-        val="0" stackOrder="4" stackType="hit_up">
+      <effect count="1" name="Buff" time="#ench1time" val="0" stackOrder="4" stackType="hit_up">
         <add order="0x40" stat="accCombat" val="4"/>
       </effect>
     </enchant1for>
@@ -349,14 +343,12 @@
     <enchant2 name="mpConsume" val="#ench2MpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#Tab-absorbDam" stackType="vampRage">
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="#Tab-absorbDam" stackType="vampRage">
         <add order="0x40" stat="absorbDam" val="#Tab-absorbDam"/>
       </effect>
     </for>
     <enchant1for>
-      <effect name="Buff" time="#ench1time" count="1"
-        val="0" stackOrder="9" stackType="vampRage">
+      <effect name="Buff" time="#ench1time" count="1" val="0" stackOrder="9" stackType="vampRage">
         <add order="0x40" stat="absorbDam" val="9"/>
       </effect>
     </enchant1for>
@@ -401,8 +393,7 @@
       </effect>
     </for>
     <enchant1for>
-      <effect count="1" name="Buff" time="#ench1time"
-        val="0" stackOrder="1.35" stackType="max_hp_up">
+      <effect count="1" name="Buff" time="#ench1time" val="0" stackOrder="1.35" stackType="max_hp_up">
         <mul order="0x30" stat="maxHp" val="1.35"/>
       </effect>
     </enchant1for>
@@ -419,8 +410,7 @@
   </skill>
   <skill id="1313" levels="27" name="Pumping">
     <table name="#power"> 24 37 50 62 70 76 82 88 94 100 104
-      107 110 113 116 119 121 124 127 130 133 136 139 142
-      145 149 155 </table>
+      107 110 113 116 119 121 124 127 130 133 136 139 142 145 149 155 </table>
     <set name="mpConsume" val="2"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_SELF"/>
@@ -433,8 +423,7 @@
   </skill>
   <skill id="1314" levels="27" name="Reeling">
     <table name="#power"> 24 37 50 62 70 76 82 88 94 100 104
-      107 110 113 116 119 121 124 127 130 133 136 139 142
-      145 149 155 </table>
+      107 110 113 116 119 121 124 127 130 133 136 139 142 145 149 155 </table>
     <set name="mpConsume" val="2"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_SELF"/>
@@ -512,8 +501,7 @@
     <set name="effectRange" val="900"/>
     <set name="aggroPoints" val="1"/>
     <for>
-      <effect count="1" name="NoblesseBless" time="3600"
-        val="0" stackOrder="1" stackType="noblebless"/>
+      <effect count="1" name="NoblesseBless" time="3600" val="0" stackOrder="1" stackType="noblebless"/>
     </for>
   </skill>
   <skill id="1324" levels="1" name="Summon CP Potion">
@@ -545,8 +533,7 @@
     <set name="effectRange" val="-1"/>
     <set name="aggroPoints" val="659"/>
     <for>
-      <effect name="CharmOfLuck" time="3600" count="1"
-        val="0" stackOrder="1" stackType="LuckyCharm"/>
+      <effect name="CharmOfLuck" time="3600" count="1" val="0" stackOrder="1" stackType="LuckyCharm"/>
     </for>
   </skill>
   <skill id="1326" levels="1" name="Harmony of Noblesse">
@@ -1651,8 +1638,7 @@
     <set name="effectRange" val="-1"/>
     <set name="isMagic" val="true"/>
     <for>
-      <effect count="1" name="Buff" time="120" val="0"
-        stackOrder="1" stackType="hero">
+      <effect count="1" name="Buff" time="120" val="0" stackOrder="1" stackType="hero">
         <add order="0x40" stat="pAtk" val="250"/>
         <add order="0x40" stat="pDef" val="500"/>
       </effect>
@@ -1683,8 +1669,7 @@
         <sub order="0x40" stat="rEvas" val="16"/>
         <mul order="0x30" stat="rShld" val="0.5"/>
         <!--
-          increases the chance of negating the effects of
-          magical damage
+          increases the chance of negating the effects of magical damage
         -->
       </effect>
     </for>
@@ -1791,8 +1776,7 @@
     <set name="effectRange" val="1400"/>
     <set name="isMagic" val="true"/>
     <for>
-      <effect count="1" name="Debuff" time="15" val="0"
-        stackOrder="1" stackType="matkdebuff">
+      <effect count="1" name="Debuff" time="15" val="0" stackOrder="1" stackType="matkdebuff">
         <div order="0x30" stat="mDef" val="#mDef"/>
       </effect>
     </for>
@@ -1817,8 +1801,7 @@
     <set name="effectRange" val="1400"/>
     <set name="isMagic" val="true"/>
     <for>
-      <effect count="1" name="Debuff" time="120" val="0"
-        stackOrder="2" stackType="surrender">
+      <effect count="1" name="Debuff" time="120" val="0" stackOrder="2" stackType="surrender">
         <mul order="0x30" stat="fireVuln" val="#fireVuln"/>
       </effect>
     </for>
@@ -1843,8 +1826,7 @@
     <set name="effectRange" val="1400"/>
     <set name="isMagic" val="true"/>
     <for>
-      <effect count="1" name="Debuff" time="120" val="0"
-        stackOrder="2" stackType="surrender">
+      <effect count="1" name="Debuff" time="120" val="0" stackOrder="2" stackType="surrender">
         <mul order="0x30" stat="waterVuln" val="#waterVuln"/>
       </effect>
     </for>
@@ -1869,8 +1851,7 @@
     <set name="isDebuff" val="true"/>
     <set name="isMagic" val="true"/>
     <for>
-      <effect count="1" name="Debuff" time="120" val="0"
-        stackOrder="2" stackType="surrender">
+      <effect count="1" name="Debuff" time="120" val="0" stackOrder="2" stackType="surrender">
         <mul order="0x30" stat="windVuln" val="#windVuln"/>
       </effect>
     </for>
@@ -1880,8 +1861,7 @@
     <table name="#mpConsume"> 52 54 55 58 60 62 64 65 67 69 </table>
     <table name="#magicLvl"> 56 58 60 62 64 66 68 70 72 74 </table>
     <!--
-      L2P still need to confirm mAtkSpd reduction values -
-      says about -23%
+      L2P still need to confirm mAtkSpd reduction values - says about -23%
     -->
     <table name="#mAtkSpd"> 1.11 1.13 1.15 1.16 1.18 1.21 1.24
       1.26 1.29 1.32 </table>
@@ -1938,8 +1918,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="0" stackType="Great">
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="0" stackType="Great">
         <mul order="0x30" stat="pAtk" val="#pAtk"/>
       </effect>
     </for>
@@ -1962,8 +1941,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="0" stackType="Great">
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="0" stackType="Great">
         <mul order="0x30" stat="pDef" val="#rate"/>
       </effect>
     </for>
@@ -1986,8 +1964,7 @@
     <set name="effectRange" val="-1"/>
     <set name="isMagic" val="true"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="0" stackType="Great">
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="0" stackType="Great">
         <mul order="0x30" stat="pAtk" val="#pAtk"/>
       </effect>
     </for>
@@ -2011,8 +1988,7 @@
     <set name="effectRange" val="-1"/>
     <set name="isMagic" val="true"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="0" stackType="Great">
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="0" stackType="Great">
         <mul order="0x30" stat="pDef" val="#pDef"/>
       </effect>
     </for>
@@ -2086,8 +2062,7 @@
     <enchant1 name="mpConsume" val="#ench1MpConsume"/>
     <enchant2 name="power" val="#ench2Power"/>
     <for>
-      <effect count="1" name="Sleep" time="15" val="0"
-        stackOrder="1" stackType="sleep"/>
+      <effect count="1" name="Sleep" time="15" val="0" stackOrder="1" stackType="sleep"/>
     </for>
   </skill>
   <skill id="1395" levels="10" name="Erase">
@@ -2125,8 +2100,7 @@
     <set name="isMagic" val="true"/>
     <for>
       <effect count="1" name="Debuff" time="30" val="0">
-        <mul order="0x30" stat="MagicalMpConsumeRate"
-          val="#mpConsumeRate"/>
+        <mul order="0x30" stat="MagicalMpConsumeRate" val="#mpConsumeRate"/>
       </effect>
     </for>
   </skill>

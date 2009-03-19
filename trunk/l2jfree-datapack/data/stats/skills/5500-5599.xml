@@ -275,8 +275,7 @@
       <player agathionId="16031"/>
     </cond>
     <for>
-      <effect count="1" name="BigHead" time="1200" val="0"
-        abnormal="bighead" stackOrder="600" stackType="big_head"/>
+      <effect count="1" name="BigHead" time="1200" val="0" abnormal="bighead" stackOrder="600" stackType="big_head"/>
     </for>
   </skill>
   <skill id="5540" levels="1" name="Little Angel Agathion Special Skill - Power of Blessed Return">
@@ -327,8 +326,7 @@
       <player agathionId="16032"/>
     </cond>
     <for>
-      <effect count="1" name="BigHead" time="1200" val="0"
-        abnormal="bighead" stackOrder="600" stackType="big_head"/>
+      <effect count="1" name="BigHead" time="1200" val="0" abnormal="bighead" stackOrder="600" stackType="big_head"/>
     </for>
   </skill>
   <skill id="5544" levels="1" name="Little Devil Agathion Special Skill - Power of Blessed Return">

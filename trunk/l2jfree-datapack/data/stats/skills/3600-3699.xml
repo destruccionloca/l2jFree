@@ -7,7 +7,7 @@
            Lvl 1-6: Decreases the character's Maximum HP but increases P. Atk. Allows the character
                     to attack multiple opponents.
            Lvl 7-9: Decreases the character's Maximum HP but increases P. Atk., and allows the character
-	            to attack multiple opponents and inflicts     additional damage during PvP.
+	            to attack multiple opponents and inflicts additional damage during PvP.
     -->
     <table name="#val"> 20.44 22.64 24.77 26.78 28.59 30.12 31.3 39 45 </table>
     <set name="target" val="TARGET_SELF"/>

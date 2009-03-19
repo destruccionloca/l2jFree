@@ -296,7 +296,7 @@
         <target mindistance="300"/>
     </cond>
     <for>
-        <effect count="1" name="RemoveTarget" time="1" val="0"/>
+        <effect count="1" name="RemoveTarget" time="1" val="0" noicon="1"/>
     </for>
   </skill>
   <skill id="822" levels="3" name="Repair Golem">

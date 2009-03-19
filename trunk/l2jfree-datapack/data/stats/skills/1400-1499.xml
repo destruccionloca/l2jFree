@@ -242,8 +242,7 @@
     <for>
       <effect count="1" name="Buff" time="30" val="0">
         <!--
-          mul order="0x30" stat="buffVuln" val="0" Needs
-          Core Support
+          mul order="0x30" stat="buffVuln" val="0" Needs Core Support
         -->
         <mul order="0x30" stat="debuffVuln" val="0"/>
       </effect>
@@ -251,8 +250,7 @@
   </skill>
   <skill id="1412" levels="1" name="Spell Turning">
     <!--
-      Description(s): Cancels a nearby target's magic
-      casting.
+      Description(s): Cancels a nearby target's magic casting.
     -->
     <set name="mpConsume" val="25"/>
     <set name="target" val="TARGET_ONE"/>
@@ -266,7 +264,7 @@
     <set name="effectRange" val="150"/>
     <for>
       <effect count="1" name="Mute" time="1" val="0"/>
-      <effect count="1" name="RemoveTarget" time="1" val="0"/>
+      <effect count="1" name="RemoveTarget" time="1" val="0" noicon="1"/>
     </for>
   </skill>
   <skill id="1413" levels="1" name="Magnus Chant">
@@ -284,8 +282,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <effect count="1" name="Buff" time="300" val="0"
-        stackOrder="1" stackType="multi_buff">
+      <effect count="1" name="Buff" time="300" val="0" stackOrder="1" stackType="multi_buff">
         <!-- Does it stacks with CoV ? -->
         <mul order="0x30" stat="regMp" val="1.5"/>
         <mul order="0x30" stat="mAtkSpd" val="1.2"/>
@@ -297,23 +294,24 @@
       </effect>
     </for>
   </skill>
-  <skill id="1414" levels="1" name="Victories of Pa'agrio">
+  <skill id="1414" levels="1" name="Victory of Pa'agrio">
     <set name="itemConsumeId" val="3031"/>
     <set name="itemConsumeCount" val="40"/>
     <set name="mpInitialConsume" val="57"/>
     <set name="mpConsume" val="227"/>
+    <set name="power" val="20"/>
     <set name="target" val="TARGET_CLAN"/>
     <set name="skillRadius" val="900"/>
     <set name="reuseDelay" val="1200000"/>
     <set name="hitTime" val="2500"/>
-    <set name="skillType" val="BUFF"/>
+    <set name="skillType" val="HEAL_PERCENT"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
+    <set name="aggroPoints" val="669"/>
     <for>
-      <effect count="1" name="Buff" time="300" val="0"
-        stackOrder="1" stackType="multi_buff">
+      <effect count="1" name="Buff" time="300" val="0" stackOrder="1" stackType="multi_buff">
         <!-- This skills seems to be exacly same as CoV -->
         <mul order="0x30" stat="pAtk" val="1.1"/>
         <mul order="0x30" stat="pDef" val="1.2"/>
@@ -344,8 +342,7 @@
     <set name="effectRange" val="-1"/>
     <set name="aggroPoints" val="666"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="1" stackType="resist_debuff_dispel">
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="1" stackType="resist_debuff_dispel">
         <mul order="0x30" stat="cancelVuln" val="0.7"/>
         <mul order="0x30" stat="debuffVuln" val="0.8"/>
       </effect>
@@ -395,14 +392,14 @@
     <set name="skillType" val="MDAM"/>
     <set name="target" val="TARGET_AURA"/>
     <for>
-      <effect count="1" name="RemoveTarget" time="1" val="0"/>
+      <effect count="1" name="RemoveTarget" time="1" val="0" noicon="1"/>
     </for>
   </skill>
   <skill id="1418" levels="1" name="Celestial Shield">
     <set name="mpConsume" val="60"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="hitTime" val="4000"/>
-    <set name="reuseDelay" val="2600000"/>
+    <set name="reuseDelay" val="600000"/>
     <set name="skillType" val="BUFF"/>
     <set name="staticReuse" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -523,8 +520,7 @@
       <!--
         Require Core support to generate a static effect
         bassed on skill effect range, further information on
-        skill desc <effect count="1" name="Symbol" time="60"
-        val="0"/>
+        skill desc <effect count="1" name="Symbol" time="60" val="0"/>
       -->
     </for>
   </skill>
@@ -700,8 +696,7 @@
     <set name="effectRange" val="-1"/>
     <set name="negateId" val="1430"/>
     <for>
-      <effect count="10" name="ManaHealOverTime"
-        time="3" noicon="1" val="#mhot"/>
+      <effect count="10" name="ManaHealOverTime" time="3" noicon="1" val="#mhot"/>
       <effect count="1" name="ImmobileUntilAttacked" time="30" val="0">
         <mul order="0x30" stat="pDef" val="#pDef"/>
       </effect>
@@ -741,8 +736,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#rate" stackType="pa_up">
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="#rate" stackType="pa_up">
         <mul order="0x30" stat="pAtk" val="#rate"/>
       </effect>
     </for>
@@ -850,7 +844,7 @@
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="mpConsume" val="#ench2MpConsume"/>
     <for>
-      <effect count="1" name="RemoveTarget" time="1" val="0"/>
+      <effect count="1" name="RemoveTarget" time="1" val="0" noicon="1"/>
     </for>
   </skill>
   <skill id="1437" levels="26" name="Dark Flame" enchantLevels1="30" enchantLevels2="30">
@@ -927,11 +921,7 @@
     <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   </skill>
   <skill id="1439" levels="5" name="Curse of Divinity">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE
-      for server compatability.
-    -->
+    <!-- Needs to be finished. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -972,8 +962,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#Tab-mAtk" stackType="ma_up">
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="#Tab-mAtk" stackType="ma_up">
         <mul order="0x30" stat="mAtk" val="#Tab-mAtk"/>
       </effect>
     </for>
@@ -995,8 +984,7 @@
     <set name="effectRange" val="900"/>
     <set name="aggroPoints" val="#aggro"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="1" stackType="DarkAtr">
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="1" stackType="DarkAtr">
         <mul order="0x30" stat="darkVuln" val="#vuln"/>
       </effect>
     </for>
@@ -1066,12 +1054,12 @@
   </skill>
   <skill id="1445" levels="18" name="Surrender to the Unholy">
     <table name="#mpConsume_Init"> 2 2 3 3 4 4 5 5 6 6 7 7 8 8 9 9 10 10 </table>
-    <table name="#mpConsume"> 23 26 29 32 34 38 39 43 44 48 48 51
-      52 54 55 56 57 59 </table>
-    <table name="#magicLvl"> 28 32 36 40 43 46 49 52 56 58 60 62
-      64 66 68 70 72 74 </table>
+    <table name="#mpConsume"> 23 26 29 32 34 38 39 43 44 48 48 51 52 54 55 56 57 59 </table>
+    <table name="#magicLvl"> 28 32 36 40 43 46 49 52 56 58 60 62 64 66 68 70 72 74 </table>
     <table name="#Tab-darkVuln"> 1.25 1.25 1.25 1.3 1.3 1.3 1.3 1.3
       1.3 1.3 1.3 1.3 1.3 1.3 1.3 1.3 1.3 1.3 </table>
+    <table name="#Tab-holyVuln"> 0.75 0.75 0.75 0.7 0.7 0.7 0.7
+    	0.7 0.7 0.7 0.7 0.7 0.7 0.7 0.7 0.7 0.7 0.7 </table>
     <table name="#Tab-castRange"> 750 750 750 900 900 900 900 900 900
       900 900 900 900 900 900 900 900 900 </table>
     <set name="mpInitialConsume" val="#mpConsume_Init"/>
@@ -1089,9 +1077,9 @@
     <set name="castRange" val="#Tab-castRange"/>
     <set name="effectRange" val="1400"/>
     <for>
-      <effect count="1" name="Debuff" time="15" val="0"
-        stackOrder="2" stackType="surrender">
+      <effect count="1" name="Debuff" time="15" val="0" stackOrder="2" stackType="surrender">
         <mul order="0x30" stat="darkVuln" val="#Tab-darkVuln"/>
+        <mul order="0x30" stat="holyVuln" val="#Tab-holyVuln"/>
       </effect>
     </for>
   </skill>
@@ -1161,8 +1149,6 @@
   </skill>
   <skill id="1449" levels="1" name="Transfer Soul">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Transfer a soul to the target. Only
       possible when the target is a Kamael. Consumes 1 Soul.
     -->
@@ -1173,8 +1159,6 @@
   </skill>
   <skill id="1450" levels="1" name="Chain Lightning">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Unleash a force of thunderbolts to
       electrocute nearby enemies. Consumes 4 soul.
     -->
@@ -1260,8 +1244,7 @@
     <set name="skillType" val="DEBUFF"/>
     <set name="target" val="TARGET_AURA"/>
     <for>
-      <effect count="1" name="Debuff" time="30" val="0"
-        stackOrder="0.7" stackType="RunSpeedDown">
+      <effect count="1" name="Debuff" time="30" val="0" stackOrder="0.7" stackType="RunSpeedDown">
         <mul order="0x30" stat="runSpd" val="0.7"/>
       </effect>
     </for>
@@ -1359,8 +1342,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
     <for>
-      <effect count="1" name="Buff" time="10" val="0"
-        stackOrder="1000" stackType="giveHp">
+      <effect count="1" name="Buff" time="10" val="0" stackOrder="1000" stackType="giveHp">
         <add order="0x40" stat="bonusHp" val="1000"/>
       </effect>
     </for>
@@ -1382,8 +1364,7 @@
       </not>
     </cond>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="1.6" stackType="gainMp">
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="1.6" stackType="gainMp">
         <mul order="0x30" stat="gainMp" val="1.6"/>
       </effect>
     </for>
@@ -1406,8 +1387,7 @@
     <set name="effectRange" val="-1"/>
     <set name="aggroPoints" val="624"/>
     <for>
-      <effect count="1" name="Buff" time="600" val="0"
-        stackOrder="1" stackType="critVuln">
+      <effect count="1" name="Buff" time="600" val="0" stackOrder="1" stackType="critVuln">
         <mul order="0x30" stat="critVuln" val="0.8"/>
       </effect>
     </for>
@@ -1435,8 +1415,6 @@
   </skill>
   <skill id="1463" levels="1" name="Fire Weapon">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Adds fire damage to a physical attack.
     -->
     <set name="target" val="TARGET_NONE"/>
@@ -1446,10 +1424,7 @@
   </skill>
   <skill id="1464" levels="1" name="Ice Weapon">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): Adds water damage to a physical
-      attack.
+      Description(s): Adds water damage to a physical attack.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -1458,8 +1433,6 @@
   </skill>
   <skill id="1465" levels="1" name="Wind Weapon">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Adds wind damage to a physical attack.
     -->
     <set name="target" val="TARGET_NONE"/>
@@ -1469,10 +1442,7 @@
   </skill>
   <skill id="1466" levels="1" name="Earth Weapon">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): Bestows the earth elemental to a
-      physical attack.
+      Description(s): Bestows the earth elemental to a physical attack.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -1533,8 +1503,7 @@
     <set name="effectRange" val="-1"/>
     <set name="aggroPoints" val="379"/>
     <for>
-      <effect count="1" name="Buff" time="120" val="0"
-        stackOrder="1" stackType="prahnah">
+      <effect count="1" name="Buff" time="120" val="0" stackOrder="1" stackType="prahnah">
         <mul order="0x30" stat="mDef" val="1.3"/>
       </effect>
     </for>
@@ -1652,8 +1621,7 @@
     <set name="effectRange" val="-1"/>
     <set name="aggroPoints" val="#aggro"/>
     <for>
-      <effect name="Buff" time="10" count="1" val="0"
-        stackOrder="#Tab-absorbDam" stackType="vampRage">
+      <effect name="Buff" time="10" count="1" val="0" stackOrder="#Tab-absorbDam" stackType="vampRage">
         <add order="0x40" stat="absorbDam" val="#Tab-absorbDam"/>
       </effect>
     </for>
@@ -1676,8 +1644,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_PARTY"/>
     <for>
-      <effect name="Buff" time="10" count="1" val="0"
-        stackOrder="1" stackType="pd_up_special">
+      <effect name="Buff" time="10" count="1" val="0" stackOrder="1" stackType="pd_up_special">
         <add order="0x40" stat="mDef" val="#mDef"/>
         <add order="0x40" stat="pDef" val="#pDef"/>
       </effect>
@@ -1710,8 +1677,6 @@
   </skill>
   <skill id="1480" levels="1" name="Soul Harmony">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Consumes a large amount of your soul
       to communicate with party members' souls.
       Communicating to party members' souls while they are
@@ -1724,8 +1689,6 @@
   </skill>
   <skill id="1481" levels="7" name="Obilivion">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Lvl 1 When damage is received by the
       curse of Forsaken on an enemy, there is a chance that
       the target will be lost. Consumes 2 soul. Lvl 2 When
@@ -1752,8 +1715,6 @@
   </skill>
   <skill id="1482" levels="4" name="Weak Constitution">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Lvl 1 When damage is received by the
       curse of Weakness on an enemy, there is a chance that
       the target will faint. Consumes 3 soul. Lvl 2 When
@@ -1773,23 +1734,9 @@
   </skill>
   <skill id="1483" levels="7" name="Thin Skin">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): Lvl 1 Casts curse to weaken the
-      enemy's skin so that they are wounded when damaged.
-      Consumes 2 soul. Lvl 2 Casts curse to weaken the
-      enemy's skin so that they are wounded when damaged.
-      Consumes 2 soul. Lvl 3 Casts curse to weaken the
-      enemy's skin so that they are wounded when damaged.
-      Consumes 2 soul. Lvl 4 Casts curse to weaken the
-      enemy's skin so that they are wounded when damaged.
-      Consumes 2 soul. Lvl 5 Casts curse to weaken the
-      enemy's skin so that they are wounded when damaged.
-      Consumes 2 soul. Lvl 6 Casts curse to weaken the
-      enemy's skin so that they are wounded when damaged.
-      Consumes 2 soul. Lvl 7 Casts curse to weaken the
-      enemy's skin so that they are wounded when damaged.
-      Consumes 2 soul.
+      Description(s):
+       Lvl 1-7 Casts curse to weaken the enemy's skin so that they are wounded when damaged.
+       Consumes 2 soul.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -1798,8 +1745,6 @@
   </skill>
   <skill id="1484" levels="4" name="Enervation">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Lvl 1 May cause the enemy to forfeit
       their desire to decrease your attack
       speed/speed/casting speed when damaged. Consumes 3
@@ -1820,8 +1765,6 @@
   </skill>
   <skill id="1485" levels="3" name="Spite">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Lvl 1 Casts a curse to hold a grudge
       against a target so that an enemy receives higher
       critical damage by chance when damaged. Consumes 3
@@ -1839,8 +1782,6 @@
   </skill>
   <skill id="1486" levels="4" name="Mental Impoverish">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Lvl 1 Impoverishes an enemy's mind,
       potentially eliminating their MP when damaged.
       Consumes 2 soul. Lvl 2 Impoverishes an enemy's mind,

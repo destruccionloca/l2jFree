@@ -12,8 +12,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect count="1" name="Buff" time="3600" val="0"
-        stackOrder="#Tab-mAtkSpd" stackType="casting_time_down">
+      <effect count="1" name="Buff" time="3600" val="0" stackOrder="#Tab-mAtkSpd" stackType="casting_time_down">
         <mul order="0x30" stat="mAtkSpd" val="#Tab-mAtkSpd"/>
       </effect>
     </for>
@@ -29,8 +28,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect count="1" name="Buff" time="3600" val="0"
-        stackOrder="#Tab-mAtk" stackType="ma_up">
+      <effect count="1" name="Buff" time="3600" val="0" stackOrder="#Tab-mAtk" stackType="ma_up">
         <mul order="0x30" stat="mAtk" val="#Tab-mAtk"/>
       </effect>
     </for>
@@ -46,8 +44,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect count="1" name="Buff" time="3600" val="0"
-        stackOrder="#Tab-pAtkSpd" stackType="attack_time_down">
+      <effect count="1" name="Buff" time="3600" val="0" stackOrder="#Tab-pAtkSpd" stackType="attack_time_down">
         <mul order="0x30" stat="pAtkSpd" val="#Tab-pAtkSpd"/>
       </effect>
     </for>
@@ -63,8 +60,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_ONE"/>
     <for>
-      <effect count="1" name="Buff" time="3600" val="0"
-        stackOrder="#accCombat" stackType="hit_up">
+      <effect count="1" name="Buff" time="3600" val="0" stackOrder="#accCombat" stackType="hit_up">
         <add order="0x40" stat="accCombat" val="#accCombat"/>
       </effect>
     </for>
@@ -80,8 +76,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect count="1" name="Buff" time="3600" val="0"
-        stackOrder="#Tab-rCrit" stackType="critical_prob_up">
+      <effect count="1" name="Buff" time="3600" val="0" stackOrder="#Tab-rCrit" stackType="critical_prob_up">
         <basemul order="0x30" stat="rCrit" val="#Tab-rCrit"/>
       </effect>
     </for>
@@ -97,8 +92,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect count="1" name="Buff" time="3600" val="0"
-        stackOrder="#Tab-cAtk" stackType="critical_dmg_up">
+      <effect count="1" name="Buff" time="3600" val="0" stackOrder="#Tab-cAtk" stackType="critical_dmg_up">
         <mul order="0x30" stat="cAtk" val="#Tab-cAtk"/>
       </effect>
     </for>
@@ -121,8 +115,6 @@
   </skill>
   <skill id="4407" levels="2" name="Monster Type">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s):
         Lvl 1 Name - Ordinary Monster
         Lvl 2 Name - Strong Type Monster
@@ -225,7 +217,6 @@
         Lvl 21 Name - Extremely Strong P. Atk.
         Lvl 22 Name - Ultra Strong P. Atk.
     -->
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -257,7 +248,6 @@
         Lvl 21 Name - Extremely Strong M. Atk.
         Lvl 22 Name - Ultra Strong M. Atk.
     -->
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -289,7 +279,6 @@
         Lvl 21 Name - Extremely Strong P. Def.
         Lvl 22 Name - Ultra Strong P. Def.
     -->
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -321,7 +310,6 @@
         Lvl 21 Name - Extremely Strong M. Def.
         Lvl 22 Name - Ultra Strong M. Def.
     -->
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -979,8 +967,7 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <for>
-      <effect count="1" name="Debuff" time="120" val="0"
-        stackOrder="2" stackType="surrender">
+      <effect count="1" name="Debuff" time="120" val="0" stackOrder="2" stackType="surrender">
         <mul order="0x30" stat="fireVuln" val="#fire"/>
         <mul order="0x30" stat="waterVuln" val="#water"/>
       </effect>
@@ -1004,8 +991,7 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <for>
-      <effect count="1" name="Debuff" time="120" val="0"
-        stackOrder="2" stackType="surrender">
+      <effect count="1" name="Debuff" time="120" val="0" stackOrder="2" stackType="surrender">
         <mul order="0x30" stat="windVuln" val="#wind"/>
         <mul order="0x30" stat="earthVuln" val="#earth"/>
       </effect>
@@ -1029,8 +1015,7 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <for>
-      <effect count="1" name="Debuff" time="120" val="0"
-        stackOrder="2" stackType="surrender">
+      <effect count="1" name="Debuff" time="120" val="0" stackOrder="2" stackType="surrender">
         <mul order="0x30" stat="earthVuln" val="#earth"/>
         <mul order="0x30" stat="windVuln" val="#wind"/>
       </effect>
@@ -1054,8 +1039,7 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <for>
-      <effect count="1" name="Debuff" time="120" val="0"
-        stackOrder="2" stackType="surrender">
+      <effect count="1" name="Debuff" time="120" val="0" stackOrder="2" stackType="surrender">
         <mul order="0x30" stat="darkVuln" val="#dark"/>
         <mul order="0x30" stat="holyVuln" val="#holy"/>
       </effect>
@@ -1079,8 +1063,7 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <for>
-      <effect count="1" name="Debuff" time="120" val="0"
-        stackOrder="2" stackType="surrender">
+      <effect count="1" name="Debuff" time="120" val="0" stackOrder="2" stackType="surrender">
         <mul order="0x30" stat="holyVuln" val="#holy"/>
         <mul order="0x30" stat="darkVuln" val="#dark"/>
       </effect>
@@ -1124,8 +1107,6 @@
   </skill>
   <skill id="4472" levels="12" name="NPC Strike Golem">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): 
         For powerful Golems that are 1.5x stronger
     -->
@@ -1154,8 +1135,7 @@
     <set name="effectType" val="STUN"/>
     <set name="effectPower" val="30"/> <!-- Guessing -->
     <for>
-      <effect count="1" name="Stun" time="9" val="0"
-        stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4474" levels="5" name="Area Heal - Per">
@@ -1180,8 +1160,6 @@
   </skill>
   <skill id="4476" levels="5" name="Silent Move">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Blocks monsters' first strike.
     -->
     <set name="target" val="TARGET_NONE"/>
@@ -1215,8 +1193,6 @@
   </skill>
   <skill id="4479" levels="1" name="Ice Fairy Resist Cold">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Increases resistance to cold attacks.
       Effect 4.
     -->
@@ -1260,8 +1236,7 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <for>
-      <effect count="1" name="Root" time="30" val="0"
-        stackOrder="1" stackType="Root"/>
+      <effect count="1" name="Root" time="30" val="0" stackOrder="1" stackType="Root"/>
     </for>
   </skill>
   <skill id="4484" levels="1" name="Eating Follower Heal">
@@ -1296,8 +1271,7 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <for>
-      <effect count="1" name="Debuff" time="120" val="0"
-        stackOrder="2" stackType="surrender">
+      <effect count="1" name="Debuff" time="120" val="0" stackOrder="2" stackType="surrender">
         <mul order="0x30" stat="pDef" val="#pdef"/>
       </effect>
     </for>
@@ -1322,8 +1296,7 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <for>
-      <effect count="1" name="Debuff" time="120" val="0"
-        stackOrder="2" stackType="surrender">
+      <effect count="1" name="Debuff" time="120" val="0" stackOrder="2" stackType="surrender">
         <mul order="0x30" stat="mDef" val="#mdef"/>
       </effect>
     </for>
@@ -1345,8 +1318,7 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <for>
-      <effect count="1" name="Root" time="30" val="0"
-        stackOrder="1" stackType="Root"/>
+      <effect count="1" name="Root" time="30" val="0" stackOrder="1" stackType="Root"/>
     </for>
   </skill>
   <skill id="4489" levels="12" name="NPC Death MP Bomb">
@@ -1363,8 +1335,6 @@
   </skill>
   <skill id="4491" levels="12" name="Holy Weapon">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Makes sacred attacks.
     -->
     <set name="target" val="TARGET_NONE"/>
@@ -1383,8 +1353,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
     <for>
-      <effect count="1" name="BigHead" time="300" val="0"
-      abnormal="bighead" stackOrder="300" stackType="big_head"/>
+      <effect count="1" name="BigHead" time="300" val="0" abnormal="bighead" stackOrder="300" stackType="big_head"/>
     </for>
   </skill>
   <skill id="4493" levels="12" name="NPC Debuff Shield Slow">
@@ -1394,7 +1363,6 @@
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="4494" levels="1" name="Raid Boss">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1438,12 +1406,10 @@
     <set name="effectType" val="STUN"/>
     <set name="effectPower" val="80"/> <!-- Base Land Rate -->
     <for>
-      <effect count="1" name="Stun" time="9" val="0"
-        stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4497" levels="1" name="Treasure Chest - Level 21">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1451,7 +1417,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4498" levels="1" name="Treasure Chest - Level 22">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1459,7 +1424,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4499" levels="1" name="Treasure Chest - Level 25">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>

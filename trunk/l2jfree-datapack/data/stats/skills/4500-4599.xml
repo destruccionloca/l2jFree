@@ -2,7 +2,6 @@
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
   <skill id="4500" levels="1" name="Treasure Chest - Level 27">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -10,7 +9,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4501" levels="1" name="Treasure Chest - Level 29">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -18,7 +16,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4502" levels="1" name="Treasure Chest - Level 31">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -26,7 +23,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4503" levels="1" name="Treasure Chest - Level 32">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -34,7 +30,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4504" levels="1" name="Treasure Chest - Level 33">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -42,7 +37,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4505" levels="1" name="Treasure Chest - Level 35">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -50,7 +44,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4506" levels="1" name="Treasure Chest - Level 39">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -58,7 +51,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4507" levels="1" name="Treasure Chest - Level 42">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -66,7 +58,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4508" levels="1" name="Treasure Chest - Level 43">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -74,7 +65,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4509" levels="1" name="Treasure Chest - Level 45">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -82,7 +72,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4510" levels="1" name="Treasure Chest - Level 47">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -90,7 +79,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4511" levels="1" name="Treasure Chest - Level 49">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -98,7 +86,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4512" levels="1" name="Treasure Chest - Level 52">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -128,8 +115,7 @@
     <set name="castRange" val="1500"/>
     <set name="effectRange" val="2000"/>
     <for>
-      <effect count="1" name="Petrify" time="120"
-        val="0" stackOrder="120" stackType="turn_stone"/>
+      <effect count="1" name="Petrify" time="120" val="0" stackOrder="120" stackType="turn_stone"/>
     </for>
   </skill>
   <skill id="4516" levels="1" name="Orfen Heal">
@@ -389,8 +375,7 @@
     <set name="skillType" val="DEBUFF"/>
     <set name="target" val="TARGET_ONE"/>
     <for>
-      <effect count="1" name="Debuff" time="600" val="0"
-        stackOrder="1" stackType="dance_of_inspiration">
+      <effect count="1" name="Debuff" time="600" val="0" stackOrder="1" stackType="dance_of_inspiration">
         <mul order="0x30" stat="runSpd" val="0.5"/>
         <sub order="0x40" stat="accCombat" val="40"/>
       </effect>
@@ -408,8 +393,7 @@
     <set name="skillType" val="DEBUFF"/>
     <set name="target" val="TARGET_ONE"/>
     <for>
-      <effect count="1" name="Debuff" time="600" val="0"
-        stackOrder="1" stackType="dance_of_fury">
+      <effect count="1" name="Debuff" time="600" val="0" stackOrder="1" stackType="dance_of_fury">
         <mul order="0x30" stat="pAtkSpd" val="0.7"/>
         <sub order="0x40" stat="rEvas" val="40"/>
       </effect>
@@ -427,8 +411,7 @@
     <set name="skillType" val="DEBUFF"/>
     <set name="target" val="TARGET_ONE"/>
     <for>
-      <effect count="1" name="Debuff" time="600" val="0"
-        stackOrder="1" stackType="dance_of_vampire">
+      <effect count="1" name="Debuff" time="600" val="0" stackOrder="1" stackType="dance_of_vampire">
         <mul order="0x30" stat="pDef" val="0.5"/>
         <mul order="0x30" stat="pAtk" val="0.5"/>
       </effect>
@@ -446,8 +429,7 @@
     <set name="skillType" val="DEBUFF"/>
     <set name="target" val="TARGET_ONE"/>
     <for>
-      <effect count="1" name="Debuff" time="600" val="0"
-        stackOrder="1" stackType="song_of_wind">
+      <effect count="1" name="Debuff" time="600" val="0" stackOrder="1" stackType="song_of_wind">
         <mul order="0x30" stat="runSpd" val="0.5"/>
         <sub order="0x40" stat="accCombat" val="40"/>
       </effect>
@@ -465,8 +447,7 @@
     <set name="isDebuff" val="true"/>
     <set name="target" val="TARGET_ONE"/>
     <for>
-      <effect count="1" name="Debuff" time="600" val="0"
-        stackOrder="1" stackType="song_of_water">
+      <effect count="1" name="Debuff" time="600" val="0" stackOrder="1" stackType="song_of_water">
         <mul order="0x30" stat="pAtkSpd" val="0.7"/>
         <sub order="0x40" stat="rEvas" val="40"/>
       </effect>
@@ -484,8 +465,7 @@
     <set name="skillType" val="DEBUFF"/>
     <set name="target" val="TARGET_ONE"/>
     <for>
-      <effect count="1" name="Debuff" time="600" val="0"
-        stackOrder="1" stackType="song_of_vengeance">
+      <effect count="1" name="Debuff" time="600" val="0" stackOrder="1" stackType="song_of_vengeance">
         <mul order="0x30" stat="pDef" val="0.5"/>
         <mul order="0x30" stat="pAtk" val="0.5"/>
       </effect>
@@ -504,8 +484,7 @@
     <set name="isDebuff" val="true"/>
     <set name="target" val="TARGET_ONE"/>
     <for>
-      <effect count="1" name="Debuff" time="600" val="0"
-        stackOrder="1" stackType="hit_up">
+      <effect count="1" name="Debuff" time="600" val="0" stackOrder="1" stackType="hit_up">
         <mul order="0x30" stat="runSpd" val="0.5"/>
         <sub order="0x40" stat="accCombat" val="40"/>
       </effect>
@@ -524,8 +503,7 @@
     <set name="skillType" val="DEBUFF"/>
     <set name="target" val="TARGET_ONE"/>
     <for>
-      <effect count="1" name="Debuff" time="600" val="0"
-        stackOrder="1" stackType="pd_up">
+      <effect count="1" name="Debuff" time="600" val="0" stackOrder="1" stackType="pd_up">
         <mul order="0x30" stat="pDef" val="0.5"/>
         <mul order="0x30" stat="runSpd" val="0.5"/>
       </effect>
@@ -544,8 +522,7 @@
     <set name="skillType" val="DEBUFF"/>
     <set name="target" val="TARGET_ONE"/>
     <for>
-      <effect count="1" name="Debuff" time="600" val="0"
-        stackOrder="1" stackType="pa_up">
+      <effect count="1" name="Debuff" time="600" val="0" stackOrder="1" stackType="pa_up">
         <mul order="0x30" stat="pAtk" val="0.5"/>
         <mul order="0x30" stat="pAtkSpd" val="0.5"/>
         <mul order="0x30" stat="mAtk" val="0.5"/>
@@ -681,8 +658,7 @@
     <set name="effectRange" val="1100"/>
     <set name="aggroPoints" val="-100"/>
     <for>
-      <effect count="1" name="Debuff" time="3600"
-        val="0" abnormal="poison">
+      <effect count="1" name="Debuff" time="3600" val="0" abnormal="poison">
         <!-- needs core support for abnormal = spa_disease_a -->
         <mul order="0x30" stat="pDef" val="#pDef"/>
         <add order="0x40" stat="rCrit" val="#rCrit"/>
@@ -705,8 +681,7 @@
     <set name="effectRange" val="1100"/>
     <set name="aggroPoints" val="-100"/>
     <for>
-      <effect count="1" name="Debuff" time="3600"
-        val="0" abnormal="poison">
+      <effect count="1" name="Debuff" time="3600" val="0" abnormal="poison">
         <!-- needs core support for abnormal = spa_disease_b -->
         <sub order="0x40" stat="rEvas" val="#rEvas"/>
         <add order="0x40" stat="accCombat" val="#accCombat"/>
@@ -730,8 +705,7 @@
     <set name="effectRange" val="1100"/>
     <set name="aggroPoints" val="-100"/>
     <for>
-      <effect count="1" name="Debuff" time="3600"
-        val="0" abnormal="poison">
+      <effect count="1" name="Debuff" time="3600" val="0" abnormal="poison">
         <!-- needs core support for abnormal = spa_disease_c -->
         <mul order="0x30" stat="pAtkSpd" val="#pAtkSpd"/>
         <mul order="0x30" stat="pAtk" val="#pAtk"/>
@@ -814,8 +788,7 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <for>
-      <effect count="1" name="BigHead" time="600" val="0"
-        abnormal="bighead" stackOrder="600" stackType="big_head"/>
+      <effect count="1" name="BigHead" time="600" val="0" abnormal="bighead" stackOrder="600" stackType="big_head"/>
     </for>
   </skill>
   <skill id="4560" levels="12" name="NPC Fire Burn">
@@ -1106,8 +1079,7 @@
     <set name="effectRange" val="-1"/>
     <set name="aggroPoints" val="100"/>
     <for>
-      <effect count="1" name="Buff" time="120" val="0"
-        stackOrder="1" stackType="attack_time_down">
+      <effect count="1" name="Buff" time="120" val="0" stackOrder="1" stackType="attack_time_down">
         <mul order="0x30" stat="pAtkSpd" val="#pAtkSpd"/>
       </effect>
     </for>
@@ -1175,8 +1147,7 @@
     <set name="skillType" val="PARALYZE"/>
     <set name="target" val="TARGET_ONE"/>
     <for>
-      <effect count="1" name="Petrify" time="20" val="0"
-        stackOrder="20" stackType="turn_stone"/>
+      <effect count="1" name="Petrify" time="20" val="0" stackOrder="20" stackType="turn_stone"/>
     </for>
   </skill>
   <skill id="4579" levels="12" name="Bleed">
@@ -1341,8 +1312,7 @@
     <set name="effectRange" val="-1"/>
     <set name="aggroPoints" val="100"/>
     <for>
-      <effect count="1" name="Grow" time="120" val="0"
-        stackOrder="1" stackType="multi_buff">
+      <effect count="1" name="Grow" time="120" val="0" stackOrder="1" stackType="multi_buff">
         <mul order="0x30" stat="pAtk" val="#pAtk"/>
         <mul order="0x30" stat="pAtkSpd" val="#pAtkSpd"/>
         <mul order="0x30" stat="mAtk" val="#mAtk"/>
@@ -1426,8 +1396,7 @@
     <set name="effectRange" val="-1"/>
     <set name="aggroPoints" val="100"/>
     <for>
-      <effect count="1" name="Buff" time="120" val="0"
-        stackOrder="1" stackType="multi_buff">
+      <effect count="1" name="Buff" time="120" val="0" stackOrder="1" stackType="multi_buff">
         <mul order="0x30" stat="pAtk" val="#pAtk"/>
         <mul order="0x30" stat="pAtkSpd" val="#pAtkSpd"/>
         <mul order="0x30" stat="mAtk" val="#mAtk"/>
@@ -1600,8 +1569,7 @@
     <set name="effectRange" val="-1"/>
     <set name="aggroPoints" val="100"/>
     <for>
-      <effect count="1" name="Buff" time="120" val="0"
-        stackOrder="1" stackType="multi_buff">
+      <effect count="1" name="Buff" time="120" val="0" stackOrder="1" stackType="multi_buff">
         <mul order="0x30" stat="mAtkSpd" val="#mAtkSpd"/>
         <mul order="0x30" stat="pDef" val="#pDef"/>
       </effect>

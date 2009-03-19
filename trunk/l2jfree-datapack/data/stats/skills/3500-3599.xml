@@ -627,8 +627,7 @@
       <!-- Hold Resistance +70% -->
       <add order="0x40" stat="absorbDam" val="3"/>
       <!--
-        Restores 3% of melee damage inflicted on the enemy
-        to oneself
+        Restores 3% of melee damage inflicted on the enemy to oneself
       -->
       <add order="0x10" stat="DEX" val="1"/>
       <!-- DEX +1 -->
@@ -704,8 +703,6 @@
   </skill>
   <skill id="3542" levels="6" name="Special Ability: Critical Damage">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s):
         Lvl 1 - Inflicts additional damage during critical attacks.
         Lvl 2 - Inflicts additional damage during critical attacks.
@@ -820,8 +817,6 @@
   </skill>
   <skill id="3552" levels="2" name="Special Ability: PvP Damage">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s):
         Lvl 1 - Increases damage inflicted during PvP.
         Lv1 2 - Launches an attack that strikes multiple opponents,
@@ -1118,8 +1113,6 @@
   </skill>
   <skill id="3570" levels="1" name="Special Ability: Robust Health">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Increases MaxHP, MaxMP, MaxCP and
       enhances damage to target during PvP.
     -->
@@ -1142,8 +1135,7 @@
     <set name="effectType" val="STUN"/>
     <set name="effectPower" val="80"/>
     <for>
-      <effect count="1" name="Stun" time="9" val="0"
-        stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="3572" levels="1" name="Special Ability: Crt. Damage">
@@ -1186,16 +1178,13 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <for>
-      <effect count="1" name="Buff" time="30" val="0"
-        stackOrder="0.50" stackType="RunSpeedDown">
+      <effect count="1" name="Buff" time="30" val="0" stackOrder="0.50" stackType="RunSpeedDown">
         <mul order="0x30" stat="runSpd" val="0.50"/>
       </effect>
     </for>
   </skill>
   <skill id="3575" levels="1" name="Special Ability: Empower Option">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Increases M. Atk. Enhances damage to
       target during PvP.
     -->
@@ -1269,8 +1258,7 @@
     <set name="effectRange" val="400"/>
     <set name="isDebuff" val="true"/>
     <for>
-      <effect count="1" name="Debuff" time="120" val="0"
-        stackOrder="0.77" stackType="pDefDown">
+      <effect count="1" name="Debuff" time="120" val="0" stackOrder="0.77" stackType="pDefDown">
         <mul order="0x30" stat="pDef" val="0.77"/>
       </effect>
     </for>
@@ -1382,8 +1370,7 @@
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
     <for>
-      <effect count="1" name="Stun" time="9" val="0"
-        stackOrder="2" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="2" stackType="Stun"/>
     </for>
   </skill>
   <skill id="3585" levels="1" name="Special Ability: Infinity Wing">
@@ -1428,8 +1415,7 @@
     <set name="effectRange" val="400"/>
     <set name="effectType" val="MUTE"/>
     <for>
-      <effect count="1" name="PhysicalMute" time="60"
-        val="0" stackOrder="1" stackType="silence"/>
+      <effect count="1" name="PhysicalMute" time="60" val="0" stackOrder="1" stackType="silence"/>
     </for>
   </skill>
   <skill id="3587" levels="1" name="Special Ability: Infinity Fang">
@@ -1473,8 +1459,7 @@
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
     <for>
-      <effect count="1" name="Stun" time="9" val="0"
-        stackOrder="2" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="2" stackType="Stun"/>
     </for>
   </skill>
   <skill id="3589" levels="1" name="Special Ability: Infinity Stinger">
@@ -1520,8 +1505,7 @@
     <set name="effectRange" val="400"/>
     <set name="isDebuff" val="true"/>
     <for>
-      <effect count="1" name="Mute" time="120" val="0"
-        stackOrder="1" stackType="silence"/>
+      <effect count="1" name="Mute" time="120" val="0" stackOrder="1" stackType="silence"/>
     </for>
   </skill>
   <skill id="3591" levels="1" name="Special Ability: Infinity Spear">
@@ -1600,8 +1584,7 @@
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
     <for>
-      <effect count="1" name="Debuff" time="30" val="0"
-        stackOrder="0.50" stackType="RunSpeedDown">
+      <effect count="1" name="Debuff" time="30" val="0" stackOrder="0.50" stackType="RunSpeedDown">
         <mul order="0x30" stat="runSpd" val="0.5"/>
       </effect>
     </for>

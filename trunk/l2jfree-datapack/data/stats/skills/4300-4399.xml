@@ -927,8 +927,7 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <for>
-      <effect count="1" name="Debuff" time="1200" val="0"
-        stackOrder="10" stackType="accuracyDown">
+      <effect count="1" name="Debuff" time="1200" val="0" stackOrder="10" stackType="accuracyDown">
         <sub order="0x40" stat="accCombat" val="10"/>
       </effect>
     </for>
@@ -983,8 +982,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="1.5" stackType="Weight">
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="1.5" stackType="Weight">
         <mul order="0x30" stat="maxLoad" val="1.25"/>
         <mul order="0x30" stat="poisonVuln" val="0.75"/>
         <mul order="0x30" stat="bleedVuln" val="0.75"/>
@@ -1154,8 +1152,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <effect count="1" name="Buff" time="60" val="0"
-        stackOrder="20" stackType="DmgShield">
+      <effect count="1" name="Buff" time="60" val="0" stackOrder="20" stackType="DmgShield">
         <add order="0x40" stat="reflectDam" val="20"/>
       </effect>
     </for>
@@ -1200,8 +1197,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
     <for>
-      <effect count="1" name="BigHead" time="300" val="0"
-        abnormal="bighead" stackOrder="300" stackType="big_head"/>
+      <effect count="1" name="BigHead" time="300" val="0" abnormal="bighead" stackOrder="300" stackType="big_head"/>
     </for>
   </skill>
   <skill id="4383" levels="1" name="NPC Hate Stone">
@@ -1216,8 +1212,7 @@
     <set name="skillType" val="AGGDEBUFF"/>
     <set name="target" val="TARGET_AURA"/>
     <for>
-      <effect count="1" name="Petrify" time="10" val="0"
-        stackOrder="10" stackType="turn_stone"/>
+      <effect count="1" name="Petrify" time="10" val="0" stackOrder="10" stackType="turn_stone"/>
       <effect count="1" name="TargetMe" time="1" val="0"/>
     </for>
   </skill>
@@ -1323,8 +1318,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect count="1" name="Buff" time="3600" val="0"
-        stackOrder="#Tab-runSpd" stackType="speed_up">
+      <effect count="1" name="Buff" time="3600" val="0" stackOrder="#Tab-runSpd" stackType="speed_up">
         <add order="0x40" stat="runSpd" val="#Tab-runSpd"/>
       </effect>
     </for>
@@ -1340,8 +1334,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect count="1" name="Buff" time="3600" val="0"
-        stackOrder="#rate" stackType="pd_up">
+      <effect count="1" name="Buff" time="3600" val="0" stackOrder="#rate" stackType="pd_up">
         <mul order="0x30" stat="pDef" val="#rate"/>
       </effect>
     </for>
@@ -1357,8 +1350,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect count="1" name="Buff" time="3600" val="0"
-        stackOrder="#pAtk" stackType="pa_up">
+      <effect count="1" name="Buff" time="3600" val="0" stackOrder="#pAtk" stackType="pa_up">
         <mul order="0x30" stat="pAtk" val="#pAtk"/>
       </effect>
     </for>
@@ -1373,8 +1365,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect count="1" name="Buff" time="3600" val="0"
-        stackOrder="#Tab-maxHp" stackType="max_hp_up">
+      <effect count="1" name="Buff" time="3600" val="0" stackOrder="#Tab-maxHp" stackType="max_hp_up">
         <mul order="0x30" stat="maxHp" val="#Tab-maxHp"/>
       </effect>
     </for>
@@ -1389,8 +1380,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect count="1" name="Buff" time="3600" val="0"
-        stackOrder="#Tab-maxMp" stackType="max_mp_up">
+      <effect count="1" name="Buff" time="3600" val="0" stackOrder="#Tab-maxMp" stackType="max_mp_up">
         <mul order="0x30" stat="maxMp" val="#Tab-maxMp"/>
       </effect>
     </for>
@@ -1405,8 +1395,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect count="1" name="Buff" time="3600" val="0"
-        stackOrder="#Tab-mDef" stackType="MagicDefUp">
+      <effect count="1" name="Buff" time="3600" val="0" stackOrder="#Tab-mDef" stackType="MagicDefUp">
         <mul order="0x30" stat="mDef" val="#Tab-mDef"/>
       </effect>
     </for>
@@ -1429,8 +1418,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect count="1" name="Buff" time="3600" val="0"
-        stackOrder="1" stackType="berserk">
+      <effect count="1" name="Buff" time="3600" val="0" stackOrder="1" stackType="berserk">
         <mul order="0x30" stat="pAtk" val="#pAtk"/>
         <mul order="0x30" stat="pAtkSpd" val="#pAtkSpd"/>
         <mul order="0x30" stat="mAtk" val="#mAtk"/>
@@ -1452,8 +1440,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect count="1" name="Buff" time="3600" val="0"
-        stackOrder="#Tab-rShld" stackType="shieldProbUp">
+      <effect count="1" name="Buff" time="3600" val="0" stackOrder="#Tab-rShld" stackType="shieldProbUp">
         <mul order="0x30" stat="rShld" val="#Tab-rShld"/>
       </effect>
     </for>
@@ -1469,8 +1456,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect name="Buff" time="3600" count="1" val="0"
-        stackOrder="#Tab-absorbDam" stackType="vampRage">
+      <effect name="Buff" time="3600" count="1" val="0" stackOrder="#Tab-absorbDam" stackType="vampRage">
         <add stat="absorbDam" val="#Tab-absorbDam" order="0x40"/>
       </effect>
     </for>

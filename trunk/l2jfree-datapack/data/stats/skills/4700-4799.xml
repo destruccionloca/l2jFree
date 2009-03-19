@@ -22,8 +22,7 @@
     <set name="effectRange" val="-1"/>
     <set name="aggroPoints" val="#power"/>
     <for>
-      <effect count="1" name="Buff" time="#time" val="0"
-        stackOrder="1" stackType="QueenBuff">
+      <effect count="1" name="Buff" time="#time" val="0" stackOrder="1" stackType="QueenBuff">
         <mul order="0x30" stat="pAtk" val="#Tab-pAtk"/>
         <add order="0x40" stat="accCombat" val="#Tab-accCombat"/>
       </effect>
@@ -69,8 +68,7 @@
     <set name="effectRange" val="-1"/>
     <set name="aggroPoints" val="#power"/>
     <for>
-      <effect name="Buff" time="#time" count="1" val="0"
-        stackOrder="1" stackType="SeraphimBuff">
+      <effect name="Buff" time="#time" count="1" val="0" stackOrder="1" stackType="SeraphimBuff">
         <mul order="0x30" stat="regMp" val="#Tab-regMp"/>
       </effect>
     </for>
@@ -96,8 +94,7 @@
     <set name="effectRange" val="-1"/>
     <set name="aggroPoints" val="#power"/>
     <for>
-      <effect name="Buff" time="#time" count="1" val="0"
-        stackOrder="1" stackType="SeraphimBuff">
+      <effect name="Buff" time="#time" count="1" val="0" stackOrder="1" stackType="SeraphimBuff">
         <mul order="0x30" stat="mReuse" val="#Tab-mReuse"/>
       </effect>
     </for>
@@ -144,8 +141,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect count="1" name="Debuff" time="30" val="0"
-        stackOrder="#stackOrder" stackType="debuff_nightshade">
+      <effect count="1" name="Debuff" time="30" val="0" stackOrder="#stackOrder" stackType="debuff_nightshade">
         <mul order="0x30" stat="mDef" val="#Tab-mDef"/>
         <mul order="0x30" stat="pDef" val="#Tab-pDef"/>
       </effect>
@@ -178,8 +174,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <effect count="1" name="Debuff" time="30" val="0"
-        stackOrder="#stackOrder" stackType="debuff_nightshade">
+      <effect count="1" name="Debuff" time="30" val="0" stackOrder="#stackOrder" stackType="debuff_nightshade">
         <mul order="0x30" stat="mDef" val="#Tab-mDef"/>
         <mul order="0x30" stat="pDef" val="#Tab-pDef"/>
       </effect>
@@ -223,8 +218,7 @@
     <set name="effectType" val="STUN"/>
     <set name="effectPower" val="50"/> <!-- Base Land Rate -->
     <for>
-      <effect count="1" name="Stun" time="9" val="0"
-        stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4709" levels="10" name="Cursed Blow">
@@ -262,8 +256,7 @@
     <set name="effectType" val="STUN"/>
     <set name="effectPower" val="15"/> <!-- Base Land Rate -->
     <for>
-      <effect count="1" name="Stun" time="9" val="0"
-        stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4711" levels="12" name="Wild Defense">
@@ -323,7 +316,6 @@
     <set name="aggroPoints" val="#aggro"/>
   </skill>
   <skill id="4714" levels="1" name="Twilight Dragon">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="35"/>
@@ -332,7 +324,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4715" levels="1" name="Wind Dragon">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="35"/>
@@ -341,7 +332,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4716" levels="1" name="Star Dragon">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="35"/>
@@ -467,8 +457,7 @@
     <set name="effectType" val="STUN"/>
     <set name="effectPower" val="80"/>
     <for>
-      <effect count="1" name="Stun" time="9" val="0"
-        stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4725" levels="12" name="Stun">
@@ -489,8 +478,7 @@
     <set name="effectType" val="STUN"/>
     <set name="effectPower" val="80"/>
     <for>
-      <effect count="1" name="Stun" time="9" val="0"
-        stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4726" levels="12" name="Stun">
@@ -511,8 +499,7 @@
     <set name="effectType" val="STUN"/>
     <set name="effectPower" val="80"/>
     <for>
-      <effect count="1" name="Stun" time="9" val="0"
-        stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4727" levels="12" name="Stun">
@@ -533,8 +520,7 @@
     <set name="effectType" val="STUN"/>
     <set name="effectPower" val="80"/>
     <for>
-      <effect count="1" name="Stun" time="9" val="0"
-        stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4728" levels="12" name="Stun">
@@ -555,8 +541,7 @@
     <set name="effectType" val="STUN"/>
     <set name="effectPower" val="80"/>
     <for>
-      <effect count="1" name="Stun" time="9" val="0"
-        stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4729" levels="12" name="BOSS Mortal Blow">
@@ -779,8 +764,7 @@
     <set name="effectRange" val="200"/>
     <set name="effectType" val="STUN"/>
     <for>
-      <effect count="1" name="Stun" time="9" val="0"
-        stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4745" levels="12" name="Stun">
@@ -798,8 +782,7 @@
     <set name="effectRange" val="200"/>
     <set name="effectType" val="STUN"/>
     <for>
-      <effect count="1" name="Stun" time="9" val="0"
-        stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4746" levels="12" name="Stun">
@@ -817,8 +800,7 @@
     <set name="effectRange" val="200"/>
     <set name="effectType" val="STUN"/>
     <for>
-      <effect count="1" name="Stun" time="9" val="0"
-        stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4747" levels="12" name="Stun">
@@ -836,8 +818,7 @@
     <set name="effectRange" val="200"/>
     <set name="effectType" val="STUN"/>
     <for>
-      <effect count="1" name="Stun" time="9" val="0"
-        stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4748" levels="12" name="Stun">
@@ -855,8 +836,7 @@
     <set name="isDebuff" val="true"/>
     <set name="effectType" val="STUN"/>
     <for>
-      <effect count="1" name="Stun" time="9" val="0"
-        stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4749" levels="12" name="BOSS Mortal Blow">
@@ -1015,8 +995,7 @@
     <set name="effectRange" val="1400"/>
     <set name="effectType" val="STUN"/>
     <for>
-      <effect count="1" name="Stun" time="9" val="0"
-        stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4760" levels="12" name="Stun">
@@ -1035,8 +1014,7 @@
     <set name="effectRange" val="1400"/>
     <set name="effectType" val="STUN"/>
     <for>
-      <effect count="1" name="Stun" time="9" val="0"
-        stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4761" levels="12" name="Stun">
@@ -1055,8 +1033,7 @@
     <set name="effectRange" val="1400"/>
     <set name="effectType" val="STUN"/>
     <for>
-      <effect count="1" name="Stun" time="9" val="0"
-        stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4762" levels="12" name="Stun">
@@ -1074,8 +1051,7 @@
     <set name="isDebuff" val="true"/>
     <set name="effectType" val="STUN"/>
     <for>
-      <effect count="1" name="Stun" time="9" val="0"
-        stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4763" levels="12" name="Stun">
@@ -1094,8 +1070,7 @@
     <set name="effectType" val="STUN"/>
     <set name="isDebuff" val="true"/>
     <for>
-      <effect count="1" name="Stun" time="9" val="0"
-        stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4764" levels="12" name="BOSS Power Shot">
@@ -1184,8 +1159,7 @@
     <set name="effectType" val="STUN"/>
     <set name="isDebuff" val="true"/>
     <for>
-      <effect count="1" name="Stun" time="9" val="0"
-        stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4770" levels="12" name="Stun">
@@ -1204,8 +1178,7 @@
     <set name="effectType" val="STUN"/>
     <set name="isDebuff" val="true"/>
     <for>
-      <effect count="1" name="Stun" time="9" val="0"
-        stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4771" levels="12" name="Stun">
@@ -1223,8 +1196,7 @@
     <set name="isDebuff" val="true"/>
     <set name="effectType" val="STUN"/>
     <for>
-      <effect count="1" name="Stun" time="9" val="0"
-        stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4772" levels="12" name="Stun">
@@ -1242,8 +1214,7 @@
     <set name="isDebuff" val="true"/>
     <set name="effectType" val="STUN"/>
     <for>
-      <effect count="1" name="Stun" time="9" val="0"
-        stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4773" levels="12" name="Stun">
@@ -1261,8 +1232,7 @@
     <set name="isDebuff" val="true"/>
     <set name="effectType" val="STUN"/>
     <for>
-      <effect count="1" name="Stun" time="9" val="0"
-        stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4774" levels="12" name="BOSS Spear Attack">
@@ -1423,8 +1393,7 @@
     <set name="effectRange" val="1200"/>
     <set name="aggroPoints" val="100"/>
     <for>
-      <effect count="15" name="HealOverTime" time="1"
-        val="#hot" stackOrder="#hot" stackType="HpRecover"/>
+      <effect count="15" name="HealOverTime" time="1" val="#hot" stackOrder="#hot" stackType="HpRecover"/>
     </for>
   </skill>
   <skill id="4785" levels="12" name="BOSS Chant of Life">
@@ -1443,8 +1412,7 @@
     <set name="effectRange" val="1200"/>
     <set name="aggroPoints" val="100"/>
     <for>
-      <effect count="15" name="HealOverTime" time="1"
-        val="#hot" stackOrder="#hot" stackType="HpRecover"/>
+      <effect count="15" name="HealOverTime" time="1" val="#hot" stackOrder="#hot" stackType="HpRecover"/>
     </for>
   </skill>
   <skill id="4786" levels="12" name="BOSS Chant of Life">
@@ -1461,8 +1429,7 @@
     <set name="effectRange" val="1200"/>
     <set name="aggroPoints" val="100"/>
     <for>
-      <effect count="15" name="HealOverTime" time="1"
-        val="#hot" stackOrder="#hot" stackType="HpRecover"/>
+      <effect count="15" name="HealOverTime" time="1" val="#hot" stackOrder="#hot" stackType="HpRecover"/>
     </for>
   </skill>
   <skill id="4787" levels="12" name="BOSS Chant of Life">
@@ -1481,8 +1448,7 @@
     <set name="effectRange" val="1200"/>
     <set name="aggroPoints" val="100"/>
     <for>
-      <effect count="15" name="HealOverTime" time="1"
-        val="#hot" stackOrder="#hot" stackType="HpRecover"/>
+      <effect count="15" name="HealOverTime" time="1" val="#hot" stackOrder="#hot" stackType="HpRecover"/>
     </for>
   </skill>
   <skill id="4788" levels="12" name="BOSS Chant of Life">
@@ -1499,8 +1465,7 @@
     <set name="effectRange" val="1200"/>
     <set name="aggroPoints" val="100"/>
     <for>
-      <effect count="15" name="HealOverTime" time="1"
-        val="#hot" stackOrder="#hot" stackType="HpRecover"/>
+      <effect count="15" name="HealOverTime" time="1" val="#hot" stackOrder="#hot" stackType="HpRecover"/>
     </for>
   </skill>
   <skill id="4789" levels="10" name="NPC High Level">
@@ -1518,14 +1483,6 @@
     </for>
   </skill>
   <skill id="4790" levels="1" name="Raid Boss - Level 23">
-  <!--
-    A soldier of the Convict Mercenaries, who were famous
-    for their bravery during the Aden-Gracia War. Currently,
-    he is the Commander of the Gracia Convict Mercenaries,
-    the surviving remnants of the company left in Aden
-    Kingdom. His soldiers are based in Gludio. He waits for
-    an opportunity to return to his country.
-  -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1533,13 +1490,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4791" levels="1" name="Raid Boss - Level 30">
-  <!--
-    The commander of the Katu Mercenaries. Prone to violent
-    outbursts at any cause, he takes special joy in battling
-    both elves and dark elves. He has no care for personal
-    appearance or common courtesies, and some claim him
-    touched by madness.
-  -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1547,15 +1497,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4792" levels="1" name="Raid Boss - Level 42">
-  <!--
-    A wicked Spider that once lived in the Wastelands while
-    Beleth was free. After Beleth was sealed away, the
-    Spider was chased away by a colony of Ants, empowered by
-    the magic power of the Wastelands. The Spider was forced
-    to retreat to this place. It swears that someday it will
-    feed on the Ants and destroy them. It quietly grows in
-    power while sharpening its fangs for vengeance.
-  -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1563,15 +1504,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4793" levels="1" name="Raid Boss - Level 55">
-  <!--
-    A Treant who used to live south of Gludio, he loved
-    trees and nature. After the war with Beleth, his
-    beautiful forest home was destroyed, and his friends
-    were slain. Deeply affected by that traumatic loss he is
-    now trapped in a haze of hatred, madness, and the desire
-    for revenge. Gripped by his anger, he is still at war
-    against all humans and mystics.
-  -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1579,16 +1511,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4794" levels="1" name="Raid Boss - Level 50">
-  <!--
-    One of the leaders of the peasants who resisted the
-    merciless rule of Lord Ashton.He was ultimately captured
-    and brutally executed by Ashton's cruel soldiers. Yet
-    even that did not stop him. To overthrow Ashton, he made
-    a contract with a devil and came back to life. But the
-    devil's bargain turned his once noble ideals towards
-    loathing, turning him into a monster with the power of
-    evil magic.
-  -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1596,16 +1518,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4795" levels="1" name="Raid Boss - Level 60">
-  <!--
-    A mechanical golem owned by the Lord of Innadril Castle.
-    The lord's family has been protected by Eva for
-    generations.This golem was created to protect the Garden
-    of Ev made by a dwarven master artisan. It is a guard to
-    fend off the Water Dragon Fafurion's troops, or invaders
-    threatening the garden. The dwarven master made two
-    other golems, but this third and final one was the
-    strongest.
-  -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1613,15 +1525,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4796" levels="1" name="Raid Boss - Level 25">
-  <!--
-    A Pan who was once a long-time friend of the Elves, and
-    guarded the ancient Elven Forest. The Pans stayed
-    neutral during the tragic war between the Elves and the
-    Dark Elves, and both sides turned against them. The
-    other Pans retreated into hiding after suffering cruel
-    attacks from both sides, but Pay Dryad still remains
-    here waiting for the golden age of peace to return.
-  -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1629,15 +1532,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4797" levels="1" name="Raid Boss - Level 34">
-  <!--
-    An Orc Dark Mage with superior talent. He was once known
-    as "the Hope of the Breka Orc tribe," but he was tricked
-    into plotting against his leader, and exiled. Now, he
-    dreams of the day he will take vengeance on those who
-    betrayed and exiled him. He grows in power, and uses
-    summoning magic learned from the Dark Elves to harness
-    powerful servitors and minions.
-  -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1645,15 +1539,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4798" levels="1" name="Raid Boss - Level 34">
-  <!--
-    She is the Ruthless Queen of Marsh Stakatos, deep in the
-    Cruma Marshlands. The Queen is notorious for
-    mecilessness and cruelty to both her own forces and
-    enemies alike. She has ordered the deaths of any and all
-    who oppose her, including subordinates and even her own
-    children. The Queen yearns to build a kingdom for Marsh
-    Stakatos someday.
-  -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1661,15 +1546,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4799" levels="1" name="Raid Boss - Level 49">
-  <!--
-    He is the Commander of the advance forces of the
-    powerful Ketra Orc tribe, who hail from the Goddard
-    Territory of Elmore Kingdom. He believes completely in
-    the superiority of his tribe. He was dispatched to
-    expand their influence upon Aden Kingdom. He greatly
-    detests the Silenos as well as humans, and is a
-    formidable enemy.
-  -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>

@@ -28,8 +28,6 @@
   </skill>
   <skill id="5004" levels="1" name="Dimensional Stun">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Shocks and instantly Immobilizes.
     -->
     <set name="target" val="TARGET_NONE"/>
@@ -149,8 +147,7 @@
     <set name="effectType" val="STUN"/>
     <set name="effectPower" val="900000"/>
     <for>
-      <effect count="1" name="Stun" time="10" val="0"
-        stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="10" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="5010" levels="1" name="Frintezza's Ghostly Mage">
@@ -223,8 +220,7 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <for>
-      <effect count="1" name="Paralyze" time="30"
-        val="0" stackOrder="1" stackType="Paralyze"/>
+      <effect count="1" name="Paralyze" time="30" val="0" stackOrder="1" stackType="Paralyze"/>
     </for>
   </skill>
   <skill id="5013" levels="1" name="Frintezza Ghost Drain">
@@ -313,8 +309,7 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <for>
-      <effect count="1" name="Paralyze" time="30"
-        val="0" stackOrder="1" stackType="Paralyze"/>
+      <effect count="1" name="Paralyze" time="30" val="0" stackOrder="1" stackType="Paralyze"/>
     </for>
   </skill>
   <skill id="5017" levels="1" name="Frintezza's Daemon Morph">
@@ -382,8 +377,6 @@
   </skill>
   <skill id="5020" levels="1" name="Forced Action">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Crumples to the ground because of
       unknown power.
     -->
@@ -394,8 +387,6 @@
   </skill>
   <skill id="5021" levels="12" name="Inspiration of Einhasad">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s):
       Lvl 1-12: Makes sacred attacks.
     -->
@@ -406,8 +397,6 @@
   </skill>
   <skill id="5022" levels="12" name="Decrease Speed">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s):
       Lvl 1: Instantly reduces Speed. Effect 1.
       Lvl 2-3: Instantly reduces Speed. Effect 2.
@@ -420,8 +409,6 @@
   </skill>
   <skill id="5023" levels="12" name="Hold">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s):
       Lvl 1-12: Temporarily holds and Immobilizes target.
     -->
@@ -432,20 +419,10 @@
   </skill>
   <skill id="5024" levels="12" name="Decrease Atk. Spd.">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): Lvl 1 - Instantly reduces Atk. Spd.
-      Effect 1. Lvl 2 - Instantly reduces Atk. Spd. Effect
-      2. Lvl 3 - Instantly reduces Atk. Spd. Effect 2. Lvl 4
-      - Instantly reduces Atk. Spd. Effect 3. Lvl 5 -
-      Instantly reduces Atk. Spd. Effect 3. Lvl 6 -
-      Instantly reduces Atk. Spd. Effect 3. Lvl 7 -
-      Instantly reduces Atk. Spd. Effect 3. Lvl 8 -
-      Instantly reduces Atk. Spd. Effect 3. Lvl 9 -
-      Instantly reduces Atk. Spd. Effect 3. Lvl 10 -
-      Instantly reduces Atk. Spd. Effect 3. Lvl 11 -
-      Instantly reduces Atk. Spd. Effect 3. Lvl 12 -
-      Instantly reduces Atk. Spd. Effect 3.
+      Description(s): 
+        Lvl 1 - Instantly reduces Atk. Spd. Effect 1.
+        Lvl 2-3 - Instantly reduces Atk. Spd. Effect 2.
+        Lvl 4-12 - Instantly reduces Atk. Spd. Effect 3.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -453,7 +430,6 @@
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5025" levels="1" name="Raid Boss - Level 30">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -461,7 +437,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="5026" levels="1" name="Raid Boss - Level 39">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -469,7 +444,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="5027" levels="1" name="Raid Boss - Level 37">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -477,7 +451,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="5028" levels="1" name="Raid Boss - Level 53">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -485,7 +458,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="5029" levels="1" name="Raid Boss - Level 52">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -493,7 +465,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="5030" levels="1" name="Raid Boss - Level 59">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -501,7 +472,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="5031" levels="1" name="Raid Boss - Level 80">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -509,7 +479,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="5032" levels="1" name="Raid Boss - Level 87">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -517,7 +486,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="5033" levels="1" name="Raid Boss - Level 87">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -525,7 +493,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="5034" levels="1" name="Raid Boss - Level 73">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -533,7 +500,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="5035" levels="1" name="Raid Boss - Level 76">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -541,7 +507,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="5036" levels="1" name="Raid Boss - Level 60">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -550,12 +515,10 @@
   </skill>
   <skill id="5037" levels="3" name="Decrease Casting Spd">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s):
-          Lvl 1 - Instantly reduces Casting Speed. Effect 1.
-          Lvl 2 - Instantly reduces Casting Speed. Effect 2.
-	  Lvl 3 - Instantly reduces Casting Speed. Effect 3.
+        Lvl 1 - Instantly reduces Casting Speed. Effect 1.
+        Lvl 2 - Instantly reduces Casting Speed. Effect 2.
+	      Lvl 3 - Instantly reduces Casting Speed. Effect 3.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -787,21 +750,8 @@
   </skill>
   <skill id="5068" levels="12" name="Decrease Speed">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s):
-          Lvl 1 - Instantly reduces Speed. Effect 3.
-          Lvl 2 - Instantly reduces Speed. Effect 3.
-          Lvl 3 - Instantly reduces Speed. Effect 3.
-          Lvl 4 - Instantly reduces Speed. Effect 3.
-          Lvl 5 - Instantly reduces Speed. Effect 3.
-          Lvl 6 - Instantly reduces Speed. Effect 3.
-          Lvl 7 - Instantly reduces Speed. Effect 3.
-          Lvl 8 - Instantly reduces Speed. Effect 3.
-          Lvl 9 - Instantly reduces Speed. Effect 3.
-          Lvl 10 - Instantly reduces Speed. Effect 3.
-          Lvl 11 - Instantly reduces Speed. Effect 3.
-          Lvl 12 - Instantly reduces Speed. Effect 3.
+        Lvl 1-12 - Instantly reduces Speed. Effect 3.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -810,21 +760,8 @@
   </skill>
   <skill id="5069" levels="12" name="Decrease Atk. Spd.">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s):
-          Lvl 1 - Instantly reduces Atk. Spd. Effect 3.
-          Lvl 2 - Instantly reduces Atk. Spd. Effect 3.
-          Lvl 3 - Instantly reduces Atk. Spd. Effect 3.
-          Lvl 4 - Instantly reduces Atk. Spd. Effect 3.
-          Lvl 5 - Instantly reduces Atk. Spd. Effect 3.
-          Lvl 6 - Instantly reduces Atk. Spd. Effect 3.
-          Lvl 7 - Instantly reduces Atk. Spd. Effect 3.
-          Lvl 8 - Instantly reduces Atk. Spd. Effect 3.
-          Lvl 9 - Instantly reduces Atk. Spd. Effect 3.
-          Lvl 10 - Instantly reduces Atk. Spd. Effect 3.
-          Lvl 11 - Instantly reduces Atk. Spd. Effect 3.
-          Lvl 12 - Instantly reduces Atk. Spd. Effect 3.
+        Lvl 1-12 - Instantly reduces Atk. Spd. Effect 3.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -833,21 +770,8 @@
   </skill>
   <skill id="5070" levels="12" name="Decrease Casting Spd">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s):
-          Lvl 1 - Instantly reduces Casting Spd. Effect 3.
-          Lvl 2 - Instantly reduces Casting Spd. Effect 3.
-          Lvl 3 - Instantly reduces Casting Spd. Effect 3.
-          Lvl 4 - Instantly reduces Casting Spd. Effect 3.
-          Lvl 5 - Instantly reduces Casting Spd. Effect 3.
-          Lvl 6 - Instantly reduces Casting Spd. Effect 3.
-          Lvl 7 - Instantly reduces Casting Spd. Effect 3.
-          Lvl 8 - Instantly reduces Casting Spd. Effect 3.
-          Lvl 9 - Instantly reduces Casting Spd. Effect 3.
-          Lvl 10 - Instantly reduces Casting Spd. Effect 3.
-          Lvl 11 - Instantly reduces Casting Spd. Effect 3.
-          Lvl 12 - Instantly reduces Casting Spd. Effect 3.
+        Lvl 1-12 - Instantly reduces Casting Spd. Effect 3.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -856,21 +780,8 @@
   </skill>
   <skill id="5071" levels="12" name="Decrease P. Atk.">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s):
-          Lvl 1 - Instantly reduces P. Atk. Effect 3.
-          Lvl 2 - Instantly reduces P. Atk. Effect 3.
-          Lvl 3 - Instantly reduces P. Atk. Effect 3.
-          Lvl 4 - Instantly reduces P. Atk. Effect 3.
-          Lvl 5 - Instantly reduces P. Atk. Effect 3.
-          Lvl 6 - Instantly reduces P. Atk. Effect 3.
-          Lvl 7 - Instantly reduces P. Atk. Effect 3.
-          Lvl 8 - Instantly reduces P. Atk. Effect 3.
-          Lvl 9 - Instantly reduces P. Atk. Effect 3.
-          Lvl 10 - Instantly reduces P. Atk. Effect 3.
-          Lvl 11 - Instantly reduces P. Atk. Effect 3.
-          Lvl 12 - Instantly reduces P. Atk. Effect 3.
+        Lvl 1-12 - Instantly reduces P. Atk. Effect 3.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -879,28 +790,15 @@
   </skill>
   <skill id="5072" levels="12" name="Decrease M. Atk.">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s):
-          Lvl 1 - Instantly reduces M. Atk. Effect 3.
-          Lvl 2 - Instantly reduces M. Atk. Effect 3.
-          Lvl 3 - Instantly reduces M. Atk. Effect 3.
-          Lvl 4 - Instantly reduces M. Atk. Effect 3.
-          Lvl 5 - Instantly reduces M. Atk. Effect 3.
-          Lvl 6 - Instantly reduces M. Atk. Effect 3.
-          Lvl 7 - Instantly reduces M. Atk. Effect 3.
-          Lvl 8 - Instantly reduces M. Atk. Effect 3.
-          Lvl 9 - Instantly reduces M. Atk. Effect 3.
-          Lvl 10 - Instantly reduces M. Atk. Effect 3.
-          Lvl 11 - Instantly reduces M. Atk. Effect 3.
-          Lvl 12 - Instantly reduces M. Atk. Effect 3.
+        Lvl 1-12 - Instantly reduces M. Atk. Effect 3.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
   </skill>
-  <skill id="5073" levels="12" name="Quest Trap -  Power Shot">
+  <skill id="5073" levels="12" name="Quest Trap - Power Shot">
     <table name="#power"> 18 26 38 52 68 85 102 110 116 122 126 129 </table>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
     <set name="magicLvl" val="#magicLvl"/>
@@ -1079,8 +977,6 @@
   </skill>
   <skill id="5085" levels="1" name="Anesthesia">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Temporarily stunned and Immobilized.
     -->
     <set name="target" val="TARGET_NONE"/>
@@ -1090,8 +986,6 @@
   </skill>
   <skill id="5086" levels="1" name="Deadly Poison">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Infected with poison and gradually
       losing HP. If HP falls to 0, death will ensue.
     -->
@@ -1101,11 +995,6 @@
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5087" levels="2" name="Berserk">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): Lvl 1-2 - none
-    -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1160,8 +1049,7 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <for>
-      <effect count="10" name="Fear" time="3" val="0"
-        stackOrder="1" stackType="turn_flee"/>
+      <effect count="10" name="Fear" time="3" val="0" stackOrder="1" stackType="turn_flee"/>
     </for>
   </skill>
   <skill id="5093" levels="1" name="Antharas Meteor">
@@ -1200,11 +1088,6 @@
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5098" levels="2" name="Capture Penalty">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): Lvl 1-2 - none
-    -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>

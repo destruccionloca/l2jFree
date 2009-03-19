@@ -181,8 +181,7 @@
       <mul order="0x30" stat="rootVuln" val="0.87"/> <!-- Hold resistance are increased +13% -->
       <mul order="0x30" stat="pAtkSpd" val="1.0266"/> <!-- Atk. Spd. are increased +2.66% -->
       <!--
-        Decreases damage received during PvP and has a chance to cancel an attacker's target when
-        attacked.
+        Decreases damage received during PvP and has a chance to cancel an attacker's target when attacked.
       -->
     </for>
   </skill>
@@ -391,8 +390,7 @@
       <mul order="0x30" stat="pAtk" val="1.0266"/> <!-- Increase P. Atk. +2.66% -->
       <mul order="0x30" stat="pDef" val="1.0266"/> <!-- Increase P. Def. +2.66% -->
       <!--
-        Decreases damage received during PvP and has a chance to cancel an attacker's target when
-        attacked.
+        Decreases damage received during PvP and has a chance to cancel an attacker's target when attacked.
       -->
     </for>
   </skill>
@@ -558,8 +556,7 @@
       <add order="0x40" stat="cAtkAdd" val="282"/> <!-- Critical Damage +282 -->
       <basemul order="0x30" stat="rCrit" val="0.0295"/> <!-- Critical Rate +2.95% Increase -->
       <!--
-        Decreases damage received during PvP and has a chance to cancel an attacker's target when
-        attacked.
+        Decreases damage received during PvP and has a chance to cancel an attacker's target when attacked.
       -->
     </for>
   </skill>

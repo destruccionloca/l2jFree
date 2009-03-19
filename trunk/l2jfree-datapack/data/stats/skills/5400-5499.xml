@@ -9,8 +9,6 @@
   </skill>
   <skill id="5401" levels="1" name="Stun">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Temporarily gets thrown into a state
       of shock and immobilized.
     -->
@@ -21,8 +19,6 @@
   </skill>
   <skill id="5402" levels="1" name="Presentation - Balor 2">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Balor - Magic Skill1
     -->
     <set name="target" val="TARGET_NONE"/>
@@ -32,8 +28,6 @@
   </skill>
   <skill id="5403" levels="1" name="Presentation - Balor 3">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Balor - Magic Skill2
     -->
     <set name="target" val="TARGET_NONE"/>
@@ -43,8 +37,6 @@
   </skill>
   <skill id="5404" levels="1" name="Presentation - Balor 4">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Balor - Instant Cast Skill
     -->
     <set name="target" val="TARGET_NONE"/>
@@ -54,8 +46,6 @@
   </skill>
   <skill id="5405" levels="1" name="Presentation - Demonic 1">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Demonic - General Long Range Magic
       Skill
     -->
@@ -72,8 +62,6 @@
   </skill>
   <skill id="5407" levels="1" name="Presentation - Crystaline Golem 1">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Crystaline-Instant Cast Skill
     -->
     <set name="target" val="TARGET_NONE"/>
@@ -83,8 +71,6 @@
   </skill>
   <skill id="5408" levels="1" name="Presentation - Crystaline Golem 2">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Crystaline-General Long Range Magic
       Skill
     -->
@@ -95,8 +81,6 @@
   </skill>
   <skill id="5409" levels="1" name="Presentation - Crystaline Golem 3">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Crystaline Golem
     -->
     <set name="target" val="TARGET_NONE"/>
@@ -106,8 +90,6 @@
   </skill>
   <skill id="5410" levels="1" name="Presentation - Balor 10">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Balor Social.
     -->
     <set name="target" val="TARGET_NONE"/>
@@ -174,8 +156,6 @@
   </skill>
   <skill id="5417" levels="1" name="Invincible">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Invincible against general attack and
       skill, buff/de-buff.
     -->
@@ -186,8 +166,6 @@
   </skill>
   <skill id="5418" levels="1" name="Invincible">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Invincible against general attack and
       skill, buff/de-buff.
     -->
@@ -198,8 +176,6 @@
   </skill>
   <skill id="5419" levels="1" name="Invincible Blow">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Crystaline Golem
     -->
     <set name="target" val="TARGET_NONE"/>
@@ -209,8 +185,6 @@
   </skill>
   <skill id="5420" levels="1" name="Invincible">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Invincible against general attack and
       skill, buff/de-buff.
     -->
@@ -221,8 +195,6 @@
   </skill>
   <skill id="5422" levels="15" name="Flame">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Body is on fire. HP continually
       decreases.
     -->
@@ -248,8 +220,7 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <for>
-      <effect count="10" name="DamOverTime" time="3"
-        val="#dmg" abnormal="poison"/>
+      <effect count="10" name="DamOverTime" time="3" val="#dmg" abnormal="poison"/>
     </for>
   </skill>
   <skill id="5424" levels="12" name="Bleed">
@@ -268,8 +239,7 @@
     <set name="castRange" val="500"/>
     <set name="effectRange" val="1000"/>
     <for>
-      <effect count="7" name="DamOverTime" time="3"
-        val="#dmg" abnormal="bleed"/>
+      <effect count="7" name="DamOverTime" time="3" val="#dmg" abnormal="bleed"/>
     </for>
   </skill>
   <skill id="5425" levels="1" name="Iron Shield">
@@ -363,8 +333,6 @@
   </skill>
   <skill id="5431" levels="1" name="Slow">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Condition causing target to
       temporarily decrease attack speed and casting speed.
     -->
@@ -387,8 +355,6 @@
   </skill>
   <skill id="5434" levels="1" name="Gust">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Instantly immobilized by gust.
     -->
     <set name="target" val="TARGET_NONE"/>
@@ -398,8 +364,6 @@
   </skill>
   <skill id="5435" levels="1" name="Gust">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Instantly immobilized by gust.
     -->
     <set name="target" val="TARGET_NONE"/>
@@ -409,8 +373,6 @@
   </skill>
   <skill id="5436" levels="1" name="Increase Recovery Rate">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Condition causing target to increase
       recovery rate of HP and MP.
     -->
@@ -421,8 +383,6 @@
   </skill>
   <skill id="5437" levels="2" name="Dissonance">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): A dissonance of body and soul that
       causes a condition rendering you unable to control
       your body.
@@ -458,8 +418,6 @@
   </skill>
   <skill id="5442" levels="4" name="Bite Attack">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Bite ferociously with sharp teeth.
       Information Note : (If the Wolf evolve into Great Wolf
       before) Bite Attack level 1 - Wolf level 55 Bite
@@ -473,8 +431,6 @@
   </skill>
   <skill id="5443" levels="4" name="Cry of the Wolf">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Dominate nearby enemies with a mighty
       roar. Information Note : (If the Wolf evolve into
       Great Wolf before) Cry of the Wolf level 1 - Wolf
@@ -489,8 +445,6 @@
   </skill>
   <skill id="5444" levels="2" name="Maul">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Attacks with fore-claws to create
       wound. Power 1. Effect 3. Information Note : (If the
       Wolf evolve into Great Wolf before) Maul level 1 -
@@ -503,8 +457,6 @@
   </skill>
   <skill id="5445" levels="1" name="Awakening">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Brings out the instinct of the wolf.
       Information Note : (If the Wolf evolve into Great Wolf
       before) Awakening level 1 - Wolf level 70
@@ -516,8 +468,6 @@
   </skill>
   <skill id="5446" levels="45" name="Soul Expansion">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Soul increased to level 1-45.
     -->
     <set name="target" val="TARGET_NONE"/>
@@ -537,8 +487,7 @@
     <set name="castRange" val="40"/>
     <for>
       <effect count="1" name="Paralyze" time="15" val="0"/>
-      <effect count="5" name="DamOverTime" time="3"
-        val="#dmg" abnormal="poison" noicon="1"/>
+      <effect count="5" name="DamOverTime" time="3" val="#dmg" abnormal="poison" noicon="1"/>
     </for>
   </skill>
   <skill id="5448" levels="1" name="Obilivion">
@@ -549,8 +498,6 @@
   </skill>
   <skill id="5449" levels="1" name="Weak Constitution">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Temporarily gets thrown into a state
       of shock and immobilized.
     -->
@@ -561,8 +508,6 @@
   </skill>
   <skill id="5450" levels="7" name="Tin Skin">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Instantly decreases HP due to Bleed
       Attack. Effect 4-8.
     -->
@@ -573,8 +518,6 @@
   </skill>
   <skill id="5451" levels="1" name="Enervation">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Decreases attack and magic speed.
     -->
     <set name="target" val="TARGET_NONE"/>
@@ -584,8 +527,6 @@
   </skill>
   <skill id="5452" levels="3" name="Spite">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Greatly increases the amount of
       critical damage received
     -->
@@ -602,8 +543,6 @@
   </skill>
   <skill id="5454" levels="1" name="Shadow Bind">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Immobilized.
     -->
     <set name="target" val="TARGET_NONE"/>
@@ -613,8 +552,6 @@
   </skill>
   <skill id="5455" levels="1" name="Voice Bind">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Silenced.
     -->
     <set name="target" val="TARGET_NONE"/>
@@ -624,8 +561,6 @@
   </skill>
   <skill id="5456" levels="1" name="Stubborn Resistance">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Condition causing target to instantly
       slow down Atk. Speed and Speed due to stubborn
       resistance.
@@ -656,8 +591,6 @@
   </skill>
   <skill id="5459" levels="1" name="Paralysis">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): A temporary paralysis that prevents
       movement.
     -->
@@ -668,8 +601,6 @@
   </skill>
   <skill id="5460" levels="1" name="Fear">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Causes a temporary fear so strong that
       a target flees mindlessly.
     -->
@@ -768,7 +699,6 @@
     <set name="effectRange" val="600"/>
   </skill>
   <skill id="5469" levels="1" name="Raid Boss - Level 22">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -776,7 +706,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="5470" levels="1" name="Raid Boss - Level 81">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -784,7 +713,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="5471" levels="1" name="Raid Boss - Level 82">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -792,7 +720,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="5472" levels="1" name="Raid Boss - Level 83">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -800,7 +727,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="5473" levels="1" name="Raid Boss - Level 83">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -808,7 +734,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="5474" levels="1" name="Raid Boss - Level 84">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -816,7 +741,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="5475" levels="1" name="Raid Boss - Level 85">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -824,7 +748,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="5476" levels="1" name="Raid Boss - Level 85">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -832,7 +755,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="5477" levels="1" name="Raid Boss - Level 86">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -840,7 +762,6 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="5478" levels="1" name="Raid Boss - Level 83">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -849,8 +770,6 @@
   </skill>
   <skill id="5479" levels="1" name="Boss Petrification Resistance">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Resist against Petrification.
     -->
     <set name="target" val="TARGET_NONE"/>
@@ -866,8 +785,6 @@
   </skill>
   <skill id="5481" levels="1" name="Transform Penalty">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): You cannot be transformed while under
       this effect.
     -->
@@ -878,8 +795,6 @@
   </skill>
   <skill id="5482" levels="1" name="Transform Penalty">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): You cannot be transformed while under
       this effect.
     -->
@@ -896,8 +811,6 @@
   </skill>
   <skill id="5484" levels="1" name="Endurance Defense Up">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Increases P. Def. Effect 1.
     -->
     <set name="target" val="TARGET_NONE"/>
@@ -907,8 +820,6 @@
   </skill>
   <skill id="5485" levels="1" name="Endurance Defense Up">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Increases P. Def. Effect 1.
     -->
     <set name="target" val="TARGET_NONE"/>
@@ -918,8 +829,6 @@
   </skill>
   <skill id="5486" levels="1" name="Endurance Offense Up">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Increases P. Atk. Effect 1.
     -->
     <set name="target" val="TARGET_NONE"/>
@@ -935,8 +844,6 @@
   </skill>
   <skill id="5488" levels="1" name="Counter Critical Power Up">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Increases critical attack power.
       Effect 1.
     -->
@@ -947,8 +854,6 @@
   </skill>
   <skill id="5489" levels="1" name="Counter Critical Rate Up">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Increases critical attack rate. Effect
       1.
     -->
@@ -959,8 +864,6 @@
   </skill>
   <skill id="5490" levels="1" name="Weakened Life">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): You have been infected by a fatal
       poison.
     -->
@@ -1005,8 +908,6 @@
   </skill>
   <skill id="5495" levels="1" name="Bleed">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): HP decreases temporarily by bleeding.
       Effect 10.
     -->
@@ -1023,8 +924,6 @@
   </skill>
   <skill id="5497" levels="1" name="Horn of Rising Darkness">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
       Description(s): Cannot move and HP decreases
       temporarily due to the stun and bleeding. Effect 1.
     -->
