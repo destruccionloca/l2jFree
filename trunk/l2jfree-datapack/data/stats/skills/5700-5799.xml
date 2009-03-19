@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE list SYSTEM "skills.dtd">
+<list>
+  <skill id="5700" levels="7" name="Magic Resistance Decrease">
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+  <skill id="5701" levels="7" name="Decrease P. Atk">
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+  <skill id="5702" levels="2" name="Adiantum Round Fighter">
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+  <skill id="5703" levels="2" name="Adiantum Water Strike Deflect">
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+  <skill id="5704" levels="1" name="Water Strike">
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+  <skill id="5705" levels="1" name="Fire Trap">
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+  <skill id="5706" levels="1" name="Poison">
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+  <skill id="5707" levels="1" name="Paralysis">
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+  <skill id="5708" levels="1" name="Water Cannon">
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+  <skill id="5709" levels="1" name="Whirlpool">
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+  <skill id="5710" levels="1" name="Triple Sword">
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+  <skill id="5711" levels="1" name="Power of Rage">
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+  <skill id="5712" levels="1" name="Energy Ditch">
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+  <skill id="5713" levels="5" name="Energy Ditch">
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+  <skill id="5714" levels="1" name="Boom Up">
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+  <skill id="5715" levels="1" name="Electric Flame">
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+  <skill id="5716" levels="1" name="Stun">
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+  <skill id="5717" levels="1" name="Fire Breath">
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+  <skill id="5718" levels="1" name="Anger">
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+  <skill id="5719" levels="1" name="Kamabion Susceptibility">
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+  <skill id="5720" levels="6" name="Blade Cut">
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+  <skill id="5721" levels="6" name="Blade Strike">
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+  <skill id="5722" levels="6" name="Hammer Assault">
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+  <skill id="5723" levels="6" name="Hammer Swing">
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+  <skill id="5724" levels="6" name="Broom Strike">
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+  <skill id="5725" levels="6" name="Broom Trusting">
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+  <skill id="5726" levels="6" name="Scissors Attack">
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+  <skill id="5727" levels="6" name="Scissors Strike">
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+  <skill id="5728" levels="6" name="Shobel Attack">
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+  <skill id="5729" levels="6" name="Shobel Whirlwind">
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+  <skill id="5730" levels="6" name="Made Fireball">
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+</list>

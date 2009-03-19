@@ -27,18 +27,14 @@
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5004" levels="1" name="Dimensional Stun">
-    <!--
-      Description(s): Shocks and instantly Immobilizes.
-    -->
+    <!-- Description(s): Shocks and instantly Immobilizes. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5005" levels="1" name="Frintezza's Ghost Summoning">
-    <!--
-      Lvl 1: Frintezza is in temporary state of paralysis.
-    -->
+    <!-- Lvl 1: Frintezza is in temporary state of paralysis. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -47,10 +43,7 @@
     <set name="isMagic" val="true"/>
   </skill>
   <skill id="5006" levels="1" name="Frintezza's Melody">
-    <!--
-      Needs to be finished. Description(s): A general
-      performance.
-    -->
+    <!-- Needs to be finished. Description(s): A general performance. -->
     <set name="power" val="60000"/>
     <set name="target" val="TARGET_AREA"/>
     <set name="skillRadius" val="700"/>
@@ -202,8 +195,7 @@
   </skill>
   <skill id="5012" levels="1" name="Breath of Scarlet">
     <!--
-      Needs to be finished. Description(s): Instantly
-      Immobilizes.
+      Needs to be finished. Description(s): Instantly Immobilizes.
     -->
     <set name="mpConsume" val="200"/>
     <set name="save" val="5"/>
@@ -225,11 +217,9 @@
   </skill>
   <skill id="5013" levels="1" name="Frintezza Ghost Drain">
     <!--
-      Needs to be finished. Description(s): Portrait ghost
-      drains HP.
+      Needs to be finished. Description(s): Portrait ghost drains HP.
     -->
-    <set name="element" val="6"/>
-    <!-- Dark -->
+    <set name="element" val="6"/> <!-- Dark -->
     <set name="mpConsume" val="200"/>
     <set name="power" val="200"/>
     <set name="target" val="TARGET_ONE"/>

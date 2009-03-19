@@ -417,17 +417,16 @@
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5442" levels="4" name="Bite Attack">
-    <!--
-      Description(s): Bite ferociously with sharp teeth.
-      Information Note : (If the Wolf evolve into Great Wolf
-      before) Bite Attack level 1 - Wolf level 55 Bite
-      Attack level 2 - Wolf level 56 Bite Attack level 3 -
-      Wolf level 57 Bite Attack level 4 - Wolf level 58
-    -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="castRange" val="-1"/>
+    <!-- Bite ferociously with sharp teeth. -->
+    <table name="#mpConsume"> 55 61 66 71 </table>
+    <set name="mpConsume" val="#mpConsume"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="PDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="1080"/>
+    <set name="reuseDelay" val="10000"/>
+    <set name="castRange" val="40"/>
+    <set name="effectRange" val="160"/>
   </skill>
   <skill id="5443" levels="4" name="Cry of the Wolf">
     <!--
@@ -467,9 +466,7 @@
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5446" levels="45" name="Soul Expansion">
-    <!--
-      Description(s): Soul increased to level 1-45.
-    -->
+    <!-- Description(s): Soul increased to level 1-45. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -506,7 +503,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
   </skill>
-  <skill id="5450" levels="7" name="Tin Skin">
+  <skill id="5450" levels="7" name="Thin Skin">
     <!--
       Description(s): Instantly decreases HP due to Bleed
       Attack. Effect 4-8.
@@ -527,8 +524,7 @@
   </skill>
   <skill id="5452" levels="3" name="Spite">
     <!--
-      Description(s): Greatly increases the amount of
-      critical damage received
+      Description(s): Greatly increases the amount of critical damage received
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -542,18 +538,14 @@
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5454" levels="1" name="Shadow Bind">
-    <!--
-      Description(s): Immobilized.
-    -->
+    <!-- Description(s): Immobilized. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5455" levels="1" name="Voice Bind">
-    <!--
-      Description(s): Silenced.
-    -->
+    <!-- Description(s): Silenced. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -562,8 +554,7 @@
   <skill id="5456" levels="1" name="Stubborn Resistance">
     <!--
       Description(s): Condition causing target to instantly
-      slow down Atk. Speed and Speed due to stubborn
-      resistance.
+      slow down Atk. Speed and Speed due to stubborn resistance.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -591,8 +582,7 @@
   </skill>
   <skill id="5459" levels="1" name="Paralysis">
     <!--
-      Description(s): A temporary paralysis that prevents
-      movement.
+      Description(s): A temporary paralysis that prevents movement.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>

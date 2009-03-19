@@ -312,7 +312,7 @@
     <set name="aggroPoints" val="669"/>
     <for>
       <effect count="1" name="Buff" time="300" val="0" stackOrder="1" stackType="multi_buff">
-        <!-- This skills seems to be exacly same as CoV -->
+        <!-- The following values are copied from Chant of Victory Skill -->
         <mul order="0x30" stat="pAtk" val="1.1"/>
         <mul order="0x30" stat="pDef" val="1.2"/>
         <basemul order="0x30" stat="rCrit" val="0.2"/>
@@ -329,6 +329,7 @@
     </for>
   </skill>
   <skill id="1415" levels="1" name="Pa'agrio's Emblem">
+    <!-- All the values here are guessed (taken from Chant of Spirit and other clan buffs) -->
     <set name="mpInitialConsume" val="56"/>
     <set name="mpConsume" val="172"/>
     <set name="target" val="TARGET_CLAN"/>
