@@ -100,7 +100,7 @@
       <enchant val="0" order="0x0C" stat="mAtk"/>
     </for>
   </item>
-  <item id="13061" name="Exclusive to Monsters (Baroness" Employee)">
+  <item id="13061" name="Exclusive to Monsters (Baroness' Employee)">
     <for>
       <set val="267" order="0x08" stat="pAtk"/>
       <set val="202" order="0x08" stat="mAtk"/>
