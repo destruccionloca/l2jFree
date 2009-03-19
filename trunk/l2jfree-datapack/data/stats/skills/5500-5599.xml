@@ -356,18 +356,21 @@
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5547" levels="1" name="Maximum Ability">
-    <set name="target" val="TARGET_ONE"/>
-    <set name="skillType" val="CONT"/>
-    <set name="operateType" val="OP_ACTIVE"/>
+    <!-- Rapier Skill -->
+    <!-- Attack ability, magic power, and mp consume decrease. -->
     <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <set name="magicLvl" val="80"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="target" val="TARGET_PARTY"/>
+    <set name="skillRadius" val="300"/>
     <for>
-      <effect name="Buff" time="120" count="1" val="0">
-        <!-- all these values are guessed -->
+      <effect name="Buff" time="8" count="1" val="0">
         <mul order="0x30" stat="pAtk" val="1.1"/>
         <mul order="0x30" stat="mAtk" val="1.1"/>
         <mul order="0x30" stat="MagicalMpConsumeRate" val="0.9"/>
         <mul order="0x30" stat="PhysicalMpConsumeRate" val="0.9"/>
-        <!-- missing heal power buff -->
       </effect>
     </for>
   </skill>
