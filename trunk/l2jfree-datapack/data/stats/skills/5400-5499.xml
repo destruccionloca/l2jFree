@@ -18,37 +18,28 @@
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5402" levels="1" name="Presentation - Balor 2">
-    <!--
-      Description(s): Balor - Magic Skill1
-    -->
+    <!-- Description(s): Balor - Magic Skill1 -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5403" levels="1" name="Presentation - Balor 3">
-    <!--
-      Description(s): Balor - Magic Skill2
-    -->
+    <!-- Description(s): Balor - Magic Skill2 -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5404" levels="1" name="Presentation - Balor 4">
-    <!--
-      Description(s): Balor - Instant Cast Skill
-    -->
+    <!-- Description(s): Balor - Instant Cast Skill -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5405" levels="1" name="Presentation - Demonic 1">
-    <!--
-      Description(s): Demonic - General Long Range Magic
-      Skill
-    -->
+    <!-- Description(s): Demonic - General Long Range Magic Skill -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -61,37 +52,28 @@
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5407" levels="1" name="Presentation - Crystaline Golem 1">
-    <!--
-      Description(s): Crystaline-Instant Cast Skill
-    -->
+    <!-- Description(s): Crystaline-Instant Cast Skill -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5408" levels="1" name="Presentation - Crystaline Golem 2">
-    <!--
-      Description(s): Crystaline-General Long Range Magic
-      Skill
-    -->
+    <!-- Description(s): Crystaline-General Long Range Magic Skill -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5409" levels="1" name="Presentation - Crystaline Golem 3">
-    <!--
-      Description(s): Crystaline Golem
-    -->
+    <!-- Description(s): Crystaline Golem -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5410" levels="1" name="Presentation - Balor 10">
-    <!--
-      Description(s): Balor Social.
-    -->
+    <!-- Description(s): Balor Social. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -175,9 +157,7 @@
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5419" levels="1" name="Invincible Blow">
-    <!--
-      Description(s): Crystaline Golem
-    -->
+    <!-- Description(s): Crystaline Golem -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -195,8 +175,7 @@
   </skill>
   <skill id="5422" levels="15" name="Flame">
     <!--
-      Description(s): Body is on fire. HP continually
-      decreases.
+      Description(s): Body is on fire. HP continually decreases.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -354,27 +333,22 @@
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5434" levels="1" name="Gust">
-    <!--
-      Description(s): Instantly immobilized by gust.
-    -->
+    <!-- Description(s): Instantly immobilized by gust. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5435" levels="1" name="Gust">
-    <!--
-      Description(s): Instantly immobilized by gust.
-    -->
+    <!-- Description(s): Instantly immobilized by gust. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5436" levels="1" name="Increase Recovery Rate">
-    <!--
-      Description(s): Condition causing target to increase
-      recovery rate of HP and MP.
+    <!-- 
+      Description(s): Condition causing target to increase recovery rate of HP and MP.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -384,8 +358,7 @@
   <skill id="5437" levels="2" name="Dissonance">
     <!--
       Description(s): A dissonance of body and soul that
-      causes a condition rendering you unable to control
-      your body.
+      causes a condition rendering you unable to control your body.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -419,14 +392,17 @@
   <skill id="5442" levels="4" name="Bite Attack">
     <!-- Bite ferociously with sharp teeth. -->
     <table name="#mpConsume"> 55 61 66 71 </table>
-    <set name="mpConsume" val="#mpConsume"/>
-    <set name="target" val="TARGET_ONE"/>
-    <set name="skillType" val="PDAM"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-    <set name="hitTime" val="1080"/>
-    <set name="reuseDelay" val="10000"/>
     <set name="castRange" val="40"/>
-    <set name="effectRange" val="160"/>
+    <set name="effectRange" val="400"/>
+    <set name="hitTime" val="1080"/>
+    <set name="mpConsume" val="#mpConsume"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="overHit" val="true"/>
+    <set name="power" val="700"/> <!-- Guessing -->
+    <set name="reuseDelay" val="10000"/>
+    <set name="skillType" val="PDAM"/>
+    <set name="SSBoost" val="2.0"/>
+    <set name="target" val="TARGET_ONE"/>
   </skill>
   <skill id="5443" levels="4" name="Cry of the Wolf">
     <!--
@@ -514,9 +490,7 @@
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5451" levels="1" name="Enervation">
-    <!--
-      Description(s): Decreases attack and magic speed.
-    -->
+    <!-- Description(s): Decreases attack and magic speed. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>

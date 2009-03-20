@@ -37,8 +37,7 @@
     <set name="staticReuse" val="true"/>
     <for>
       <effect count="1" name="Buff" time="120" val="0">
-        <mul order="0x30" stat="pReuse" val="#pReuseRate"/>
-        <!-- needs core support -->
+        <mul order="0x30" stat="pReuse" val="#pReuseRate"/> <!-- Needs core support -->
       </effect>
     </for>
   </skill>
@@ -79,7 +78,7 @@
   <skill id="3204" levels="3" name="Item Skill: Reflect Damage">
     <table name="#mpConsume_Init"> 5 6 7 </table>
     <table name="#mpConsume"> 20 24 28 </table>
-    <table name="#reflectDam"> 1.05 1.06 1.07 </table>
+    <table name="#reflectDam"> 5 6 7 </table>
     <set name="mpInitialConsume" val="#mpConsume_Init"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_SELF"/>
@@ -780,14 +779,14 @@
     </for>
   </skill>
   <skill id="3259" levels="3" name="Item Skill: Reflect Damage">
-    <table name="#Tab-Atk"> 1.05 1.06 1.07 </table>
+    <table name="#reflectDam"> 5 6 7 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <mul order="0x30" stat="reflectDam" val="#Tab-Atk"/>
+      <add order="0x40" stat="reflectDam" val="#reflectDam"/>
     </for>
   </skill>
   <skill id="3260" levels="1" name="Heart Shot">
@@ -854,18 +853,14 @@
     </for>
   </skill>
   <skill id="3263" levels="1" name="Blessed Resurrection">
-    <!--
-      Description(s): Allows the use of Blessed Resurrection.
-    -->
+    <!-- Description(s): Allows the use of Blessed Resurrection. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="3264" levels="1" name="Blessed Escape">
-    <!--
-      Description(s): Allows the use of Blessed Escape.
-    -->
+    <!-- Description(s): Allows the use of Blessed Escape. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -884,9 +879,7 @@
     </for>
   </skill>
   <skill id="3266" levels="1" name="Large Fireworks Ability">
-    <!--
-      Description(s): Allows the use of Large Fireworks.
-    -->
+    <!-- Description(s): Allows the use of Large Fireworks. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>

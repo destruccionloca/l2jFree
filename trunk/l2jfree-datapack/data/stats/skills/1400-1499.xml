@@ -7,9 +7,8 @@
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
-    <table name="#ench1Power"> 413 415 417 419 421 423 425 427 429
-      431 433 435 437 439 441 443 445 447 449 451 453 455
-      457 461 463 465 467 469 471 473 </table>
+    <table name="#ench1Power"> 413 415 417 419 421 423 425 427 429 431 433 435
+      437 439 441 443 445 447 449 451 453 455 457 461 463 465 467 469 471 473 </table>
     <table name="#ench2MpConsume"> 66 65 65 63 62 62 61 60 58 58 57 56
       55 55 53 52 52 51 50 48 48 47 46 45 45 43 42 42 41 40 </table>
     <table name="#mpConsume"> 52 54 55 58 60 62 64 65 67 69 </table>
@@ -1057,11 +1056,11 @@
     <table name="#mpConsume_Init"> 2 2 3 3 4 4 5 5 6 6 7 7 8 8 9 9 10 10 </table>
     <table name="#mpConsume"> 23 26 29 32 34 38 39 43 44 48 48 51 52 54 55 56 57 59 </table>
     <table name="#magicLvl"> 28 32 36 40 43 46 49 52 56 58 60 62 64 66 68 70 72 74 </table>
-    <table name="#Tab-darkVuln"> 1.25 1.25 1.25 1.3 1.3 1.3 1.3 1.3
+    <table name="#darkVuln"> 1.25 1.25 1.25 1.3 1.3 1.3 1.3 1.3
       1.3 1.3 1.3 1.3 1.3 1.3 1.3 1.3 1.3 1.3 </table>
-    <table name="#Tab-holyVuln"> 0.75 0.75 0.75 0.7 0.7 0.7 0.7
-    	0.7 0.7 0.7 0.7 0.7 0.7 0.7 0.7 0.7 0.7 0.7 </table>
-    <table name="#Tab-castRange"> 750 750 750 900 900 900 900 900 900
+    <table name="#holyVuln"> 0.75 0.75 0.75 0.7 0.7 0.7 0.7
+      0.7 0.7 0.7 0.7 0.7 0.7 0.7 0.7 0.7 0.7 0.7 </table>
+    <table name="#castRange"> 750 750 750 900 900 900 900 900 900
       900 900 900 900 900 900 900 900 900 </table>
     <set name="mpInitialConsume" val="#mpConsume_Init"/>
     <set name="mpConsume" val="#mpConsume"/>
@@ -1075,12 +1074,12 @@
     <set name="isMagic" val="true"/>
     <set name="isDebuff" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="#Tab-castRange"/>
+    <set name="castRange" val="#castRange"/>
     <set name="effectRange" val="1400"/>
     <for>
       <effect count="1" name="Debuff" time="15" val="0" stackOrder="2" stackType="surrender">
-        <mul order="0x30" stat="darkVuln" val="#Tab-darkVuln"/>
-        <mul order="0x30" stat="holyVuln" val="#Tab-holyVuln"/>
+        <mul order="0x30" stat="darkVuln" val="#darkVuln"/>
+        <mul order="0x30" stat="holyVuln" val="#holyVuln"/>
       </effect>
     </for>
   </skill>
@@ -1372,8 +1371,7 @@
   </skill>
   <skill id="1461" levels="1" name="Chant of Protection">
     <!--
-      Temporarily decreases the power of critical attack
-      suffered by party members.
+      Temporarily decreases the power of critical attack suffered by party members.
     -->
     <set name="mpInitialConsume" val="39"/>
     <set name="mpConsume" val="250"/>
@@ -1415,36 +1413,28 @@
     </for>
   </skill>
   <skill id="1463" levels="1" name="Fire Weapon">
-    <!--
-      Description(s): Adds fire damage to a physical attack.
-    -->
+    <!-- Description(s): Adds fire damage to a physical attack. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="1464" levels="1" name="Ice Weapon">
-    <!--
-      Description(s): Adds water damage to a physical attack.
-    -->
+    <!-- Description(s): Adds water damage to a physical attack. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="1465" levels="1" name="Wind Weapon">
-    <!--
-      Description(s): Adds wind damage to a physical attack.
-    -->
+    <!-- Description(s): Adds wind damage to a physical attack. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="1466" levels="1" name="Earth Weapon">
-    <!--
-      Description(s): Bestows the earth elemental to a physical attack.
-    -->
+    <!-- Description(s): Bestows the earth elemental to a physical attack. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1678,10 +1668,9 @@
   </skill>
   <skill id="1480" levels="1" name="Soul Harmony">
     <!--
-      Description(s): Consumes a large amount of your soul
-      to communicate with party members' souls.
-      Communicating to party members' souls while they are
-      immobilized recovers MP. Consumes 20 Souls.
+      Description(s):
+       Consumes a large amount of your soul to communicate with party members' souls. Communicating
+       to party members' souls while they are immobilized recovers MP. Consumes 20 Souls.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -1690,24 +1679,9 @@
   </skill>
   <skill id="1481" levels="7" name="Obilivion">
     <!--
-      Description(s): Lvl 1 When damage is received by the
-      curse of Forsaken on an enemy, there is a chance that
-      the target will be lost. Consumes 2 soul. Lvl 2 When
-      damage is received by the curse of Forsaken on an
-      enemy, there is a chance that the target will be lost.
-      Consumes 2 soul. Lvl 3 When damage is received by the
-      curse of Forsaken on an enemy, there is a chance that
-      the target will be lost. Consumes 2 soul. Lvl 4 When
-      damage is received by the curse of Forsaken on an
-      enemy, there is a chance that the target will be lost.
-      Consumes 2 soul. Lvl 5 When damage is received by the
-      curse of Forsaken on an enemy, there is a chance that
-      the target will be lost. Consumes 2 soul. Lvl 6 When
-      damage is received by the curse of Forsaken on an
-      enemy, there is a chance that the target will be lost.
-      Consumes 2 soul. Lvl 7 When damage is received by the
-      curse of Forsaken on an enemy, there is a chance that
-      the target will be lost. Consumes 2 soul.
+      Description(s): 
+       Lvl 1-7: When damage is received by the curse of Forsaken on an enemy,
+       there is a chance that the target will be lost. Consumes 2 soul.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -1716,17 +1690,9 @@
   </skill>
   <skill id="1482" levels="4" name="Weak Constitution">
     <!--
-      Description(s): Lvl 1 When damage is received by the
-      curse of Weakness on an enemy, there is a chance that
-      the target will faint. Consumes 3 soul. Lvl 2 When
-      damage is received by the curse of Weakness on an
-      enemy, there is a chance that the target will faint.
-      Consumes 3 soul. Lvl 3 When damage is received by the
-      curse of Weakness on an enemy, there is a chance that
-      the target will faint. Consumes 3 soul. Lvl 4 When
-      damage is received by the curse of Weakness on an
-      enemy, there is a chance that the target will faint.
-      Consumes 3 soul.
+      Description(s):
+       Lvl 1-4: When damage is received by the curse of Weakness on an enemy,
+        there is a chance that the target will faint. Consumes 3 soul.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -1736,8 +1702,8 @@
   <skill id="1483" levels="7" name="Thin Skin">
     <!--
       Description(s):
-       Lvl 1-7 Casts curse to weaken the enemy's skin so that they are wounded when damaged.
-       Consumes 2 soul.
+        Lvl 1-7: Casts curse to weaken the enemy's skin so that they are wounded when damaged.
+        Consumes 2 soul.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -1746,18 +1712,9 @@
   </skill>
   <skill id="1484" levels="4" name="Enervation">
     <!--
-      Description(s): Lvl 1 May cause the enemy to forfeit
-      their desire to decrease your attack
-      speed/speed/casting speed when damaged. Consumes 3
-      soul. Lvl 2 May cause the enemy to forfeit their
-      desire to decrease your attack speed/speed/casting
-      speed when damaged. Consumes 3 soul. Lvl 3 May cause
-      the enemy to forfeit their desire to decrease your
-      attack speed/speed/casting speed when damaged.
-      Consumes 3 soul. Lvl 4 May cause the enemy to forfeit
-      their desire to decrease your attack
-      speed/speed/casting speed when damaged. Consumes 3
-      soul.
+      Description(s):
+       Lvl 1-4: May cause the enemy to forfeit their desire to decrease
+       your attack speed/speed/casting speed when damaged. Consumes 3 soul.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -1766,15 +1723,9 @@
   </skill>
   <skill id="1485" levels="3" name="Spite">
     <!--
-      Description(s): Lvl 1 Casts a curse to hold a grudge
-      against a target so that an enemy receives higher
-      critical damage by chance when damaged. Consumes 3
-      soul. Lvl 2 Casts a curse to hold a grudge against a
-      target so that an enemy receives higher critical
-      damage by chance when damaged. Consumes 3 soul. Lvl 3
-      Casts a curse to hold a grudge against a target so
-      that an enemy receives higher critical damage by
-      chance when damaged. Consumes 3 soul.
+      Description(s):
+       Lvl 1-3: Casts a curse to hold a grudge against a target so that an enemy receives
+       higher critical damage by chance when damaged. Consumes 3 soul.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -1783,15 +1734,9 @@
   </skill>
   <skill id="1486" levels="4" name="Mental Impoverish">
     <!--
-      Description(s): Lvl 1 Impoverishes an enemy's mind,
-      potentially eliminating their MP when damaged.
-      Consumes 2 soul. Lvl 2 Impoverishes an enemy's mind,
-      potentially eliminating their MP when damaged.
-      Consumes 2 soul. Lvl 3 Impoverishes an enemy's mind,
-      potentially eliminating their MP when damaged.
-      Consumes 2 soul. Lvl 4 Impoverishes an enemy's mind,
-      potentially eliminating their MP when damaged.
-      Consumes 2 soul.
+      Description(s):
+       Lvl 1-4: Impoverishes an enemy's mind, potentially eliminating their MP when damaged.
+       Consumes 2 soul.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -1820,13 +1765,10 @@
   </skill>
   <skill id="1488" levels="3" name="Restoration Impact">
     <!--
-      Description(s): Lvl 1 Recovers 10% of maximum HP by
-      catalysis under restoration. Restoration will
-      disappear. Lvl 2 Recovers 15% of maximum HP by
-      catalysis under restoration. Restoration will
-      disappear. Lvl 3 Recovers 20% of maximum HP by
-      catalysis under restoration. Restoration will
-      disappear.
+      Description(s):
+       Lvl 1 Recovers 10% of maximum HP by catalysis under restoration. Restoration will disappear.
+       Lvl 2 Recovers 15% of maximum HP by catalysis under restoration. Restoration will disappear.
+       Lvl 3 Recovers 20% of maximum HP by catalysis under restoration. Restoration will disappear.
     -->
     <table name="#mpConsume_Init">7 8 10</table>
     <table name="#mpConsume">16 20 23</table>
