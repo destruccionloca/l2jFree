@@ -1049,11 +1049,9 @@ public abstract class L2Character extends L2Object
 		int timeToHit = timeAtk / 2;
 		// Get the Attack Reuse Delay of the L2Weapon
 		int reuse = calculateReuseTime(target, weaponItem);
-
-		_attackEndTime = GameTimeController.getGameTicks();
-		_attackEndTime += timeAtk / GameTimeController.MILLIS_IN_TICK;
-		_attackEndTime -= 1;
-
+		
+		_attackEndTime = System.currentTimeMillis() + timeAtk;
+		
 		int ssGrade = 0;
 
 		if (weaponItem != null)
@@ -2465,7 +2463,7 @@ public abstract class L2Character extends L2Object
 	/** Return True if the L2Character can't attack (stun, sleep, attackEndTime, fakeDeath, paralyse). */
 	public boolean isAttackingDisabled()
 	{
-		return isStunned() || isSleeping() || isImmobileUntilAttacked() || _attackEndTime > GameTimeController.getGameTicks() || isFakeDeath() || isParalyzed()
+		return isStunned() || isSleeping() || isImmobileUntilAttacked() || isAttackingNow() || isFakeDeath() || isParalyzed()
 				|| isPetrified() || isFallsdown() || isPhysicalAttackMuted() || isCoreAIDisabled();
 	}
 
@@ -4005,7 +4003,7 @@ public abstract class L2Character extends L2Object
 	private L2Object					_target					= null;
 
 	// set by the start of attack, in game ticks
-	private int							_attackEndTime;
+	private volatile long				_attackEndTime;
 	private int							_attacking;
 	private int							_disableBowAttackEndTime;
 	private int							_disableCrossBowAttackEndTime;
@@ -4568,7 +4566,7 @@ public abstract class L2Character extends L2Object
 	 */
 	public final boolean isAttackingNow()
 	{
-		return _attackEndTime > GameTimeController.getGameTicks();
+		return getAttackEndTime() > System.currentTimeMillis();
 	}
 
 	/**
@@ -7266,7 +7264,7 @@ public abstract class L2Character extends L2Object
 		return "mob " + getObjectId();
 	}
 
-	public int getAttackEndTime()
+	public long getAttackEndTime()
 	{
 		return _attackEndTime;
 	}

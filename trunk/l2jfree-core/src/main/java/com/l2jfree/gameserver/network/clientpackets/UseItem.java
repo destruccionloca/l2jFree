@@ -18,7 +18,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.handler.ItemHandler;
@@ -341,7 +340,7 @@ public final class UseItem extends L2GameClientPacket
 			if (activeChar.isAttackingNow())
 			{
 				ThreadPoolManager.getInstance().scheduleGeneral(new WeaponEquipTask(item, activeChar),
-						(activeChar.getAttackEndTime() - GameTimeController.getGameTicks()) * GameTimeController.MILLIS_IN_TICK);
+					activeChar.getAttackEndTime() - System.currentTimeMillis());
 				return;
 			}
 			// Equip or unEquip
