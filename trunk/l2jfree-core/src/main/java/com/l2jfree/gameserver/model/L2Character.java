@@ -1050,7 +1050,7 @@ public abstract class L2Character extends L2Object
 		// Get the Attack Reuse Delay of the L2Weapon
 		int reuse = calculateReuseTime(target, weaponItem);
 		
-		_attackEndTime = System.currentTimeMillis() + timeAtk;
+		_attackEndTime = GameTimeController.now() + timeAtk;
 		
 		int ssGrade = 0;
 
@@ -4003,7 +4003,7 @@ public abstract class L2Character extends L2Object
 	private L2Object					_target					= null;
 
 	// set by the start of attack, in game ticks
-	private volatile long				_attackEndTime;
+	private long						_attackEndTime;
 	private int							_attacking;
 	private int							_disableBowAttackEndTime;
 	private int							_disableCrossBowAttackEndTime;
@@ -4566,7 +4566,7 @@ public abstract class L2Character extends L2Object
 	 */
 	public final boolean isAttackingNow()
 	{
-		return getAttackEndTime() > System.currentTimeMillis();
+		return getAttackEndTime() > GameTimeController.now();
 	}
 
 	/**

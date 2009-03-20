@@ -23,6 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import javolution.util.FastList;
 import javolution.util.FastSet;
@@ -57,7 +58,14 @@ public final class GameTimeController extends Thread
 	{
 		return _instance;
 	}
-
+	
+	private static final long BEGIN = System.nanoTime();
+	
+	public static long now()
+	{
+		return TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - BEGIN);
+	}
+	
 	// Close door of pirate's room.
 	private class ClosePiratesRoom implements Runnable
 	{
