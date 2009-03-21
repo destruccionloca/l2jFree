@@ -37,7 +37,7 @@ import com.l2jfree.gameserver.model.L2TransformSkillLearn;
 import com.l2jfree.gameserver.model.L2EnchantSkillLearn.EnchantSkillDetail;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.base.ClassId;
-import com.l2jfree.util.Bunch;
+import com.l2jfree.util.LinkedBunch;
 import com.l2jfree.util.L2Collections;
 
 /**
@@ -394,7 +394,7 @@ public class SkillTreeTable
 
 	public L2SkillLearn[] getAvailableSkills(L2PcInstance cha, ClassId classId)
 	{
-		Bunch<L2SkillLearn> result = new Bunch<L2SkillLearn>();
+		LinkedBunch<L2SkillLearn> result = new LinkedBunch<L2SkillLearn>();
 		Collection<L2SkillLearn> skills = getSkillTrees().get(classId).values();
 
 		if (skills == null)
@@ -439,7 +439,7 @@ public class SkillTreeTable
 
 	public L2SkillLearn[] getAvailableSkills(L2PcInstance cha)
 	{
-		Bunch<L2SkillLearn> result = new Bunch<L2SkillLearn>();
+		LinkedBunch<L2SkillLearn> result = new LinkedBunch<L2SkillLearn>();
 
 		//if (skills == null)
 		//{
@@ -502,7 +502,7 @@ public class SkillTreeTable
 
 	public L2PledgeSkillLearn[] getAvailablePledgeSkills(L2PcInstance cha)
 	{
-		Bunch<L2PledgeSkillLearn> result = new Bunch<L2PledgeSkillLearn>();
+		LinkedBunch<L2PledgeSkillLearn> result = new LinkedBunch<L2PledgeSkillLearn>();
 		List<L2PledgeSkillLearn> skills = _pledgeSkillTrees;
 
 		if (skills == null)
@@ -545,7 +545,7 @@ public class SkillTreeTable
 
 	public L2TransformSkillLearn[] getAvailableTransformSkills(L2PcInstance cha)
 	{
-		Bunch<L2TransformSkillLearn> result = new Bunch<L2TransformSkillLearn>();
+		LinkedBunch<L2TransformSkillLearn> result = new LinkedBunch<L2TransformSkillLearn>();
 		List<L2TransformSkillLearn> skills = _TransformSkillTrees;
 
 		if (skills == null)

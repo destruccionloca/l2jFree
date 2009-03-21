@@ -34,7 +34,7 @@ import com.l2jfree.gameserver.skills.effects.EffectTemplate;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.funcs.FuncTemplate;
 import com.l2jfree.gameserver.templates.StatsSet;
-import com.l2jfree.util.Bunch;
+import com.l2jfree.util.LinkedBunch;
 
 /**
  * This class contains all informations concerning the item (weapon, armor, etc).<BR>
@@ -515,7 +515,7 @@ public abstract class L2Item
 		if (_funcTemplates == null)
 			return _emptyFunctionSet;
 		
-		Bunch<Func> funcs = new Bunch<Func>();
+		LinkedBunch<Func> funcs = new LinkedBunch<Func>();
 		for (FuncTemplate t : _funcTemplates)
 		{
 			Env env = new Env();

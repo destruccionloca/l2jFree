@@ -15,7 +15,7 @@
 package com.l2jfree.gameserver.skills;
 
 import com.l2jfree.gameserver.skills.funcs.Func;
-import com.l2jfree.util.Bunch;
+import com.l2jfree.util.LinkedBunch;
 
 /**
  * A calculator is created to manage and dynamically calculate the effect of a character property (ex : MAX_HP, REGENERATE_HP_RATE...). 
@@ -146,7 +146,7 @@ public final class Calculator
 	 */
 	public synchronized Func[] removeOwner(Object owner)
 	{
-		Bunch<Func> modified = new Bunch<Func>();
+		LinkedBunch<Func> modified = new LinkedBunch<Func>();
 
 		for (Func element : _functions)
 		{

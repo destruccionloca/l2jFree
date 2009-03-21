@@ -109,7 +109,7 @@ import com.l2jfree.gameserver.util.Broadcast;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.tools.random.Rnd;
-import com.l2jfree.util.Bunch;
+import com.l2jfree.util.LinkedBunch;
 import com.l2jfree.util.SingletonList;
 import com.l2jfree.util.SingletonSet;
 
@@ -4275,7 +4275,7 @@ public abstract class L2Character extends L2Object
 	 */
 	public final void removeStatsOwner(Object owner)
 	{
-		Bunch<Func> modified = new Bunch<Func>();
+		LinkedBunch<Func> modified = new LinkedBunch<Func>();
 
 		// Go through the Calculator set
 		synchronized (_calculators)

@@ -28,7 +28,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.effects.EffectCharmOfCourage;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
-import com.l2jfree.util.Bunch;
+import com.l2jfree.util.LinkedBunch;
 
 public class CharEffectList
 {
@@ -61,7 +61,7 @@ public class CharEffectList
 		}
 
 		// Create a copy of the effects
-		Bunch<L2Effect> temp = new Bunch<L2Effect>();
+		LinkedBunch<L2Effect> temp = new LinkedBunch<L2Effect>();
 
 		synchronized (this)
 		{

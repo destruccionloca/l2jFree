@@ -18,7 +18,7 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2ItemInstance.ItemLocation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.util.Bunch;
+import com.l2jfree.util.LinkedBunch;
 
 public class PcFreight extends ItemContainer
 {
@@ -78,7 +78,7 @@ public class PcFreight extends ItemContainer
 	@Override
 	public L2ItemInstance[] getItems()
 	{
-		Bunch<L2ItemInstance> list = new Bunch<L2ItemInstance>();
+		LinkedBunch<L2ItemInstance> list = new LinkedBunch<L2ItemInstance>();
 		for (L2ItemInstance item : _items)
 		{
 			if (item.getLocationSlot() == 0 || item.getLocationSlot() == _activeLocationId)

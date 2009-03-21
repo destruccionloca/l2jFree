@@ -30,7 +30,7 @@ import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.item.L2EtcItemType;
 import com.l2jfree.gameserver.templates.item.L2Item;
-import com.l2jfree.util.Bunch;
+import com.l2jfree.util.LinkedBunch;
 
 /**
  * @author Advi
@@ -225,7 +225,7 @@ public class TradeList
      */
     public TradeList.TradeItem[] getAvailableItems(PcInventory inventory)
     {
-        Bunch<TradeList.TradeItem> list = new Bunch<TradeList.TradeItem>();
+        LinkedBunch<TradeList.TradeItem> list = new LinkedBunch<TradeList.TradeItem>();
         for (TradeList.TradeItem item : _items)
         {
             item = new TradeItem(item, item.getCount(), item.getPrice());

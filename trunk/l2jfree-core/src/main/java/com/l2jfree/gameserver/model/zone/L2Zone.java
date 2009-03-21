@@ -40,7 +40,7 @@ import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.funcs.FuncTemplate;
 import com.l2jfree.tools.random.Rnd;
-import com.l2jfree.util.Bunch;
+import com.l2jfree.util.LinkedBunch;
 
 public abstract class L2Zone
 {
@@ -867,7 +867,7 @@ public abstract class L2Zone
 		if (_funcTemplates == null)
 			return EMPTY_FUNC_SET;
 		
-		Bunch<Func> funcs = new Bunch<Func>();
+		LinkedBunch<Func> funcs = new LinkedBunch<Func>();
 		for (FuncTemplate t : _funcTemplates)
 		{
 			Env env = new Env();

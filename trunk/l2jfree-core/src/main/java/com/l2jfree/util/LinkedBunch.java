@@ -35,9 +35,9 @@ import com.l2jfree.util.L2Collections.Filter;
  * @author NB4L1
  */
 @SuppressWarnings("unchecked")
-public final class Bunch<E> extends AbstractNode implements IBunch<E>
+public final class LinkedBunch<E> extends AbstractNode implements IBunch<E>
 {
-	private static final Log _log = LogFactory.getLog(Bunch.class);
+	private static final Log _log = LogFactory.getLog(LinkedBunch.class);
 	
 	private static final class Node extends AbstractNode
 	{
@@ -49,7 +49,7 @@ public final class Bunch<E> extends AbstractNode implements IBunch<E>
 			}
 		};
 		
-		private static <E> Node newInstance(final Bunch<E> bunch, final Object value)
+		private static <E> Node newInstance(final LinkedBunch<E> bunch, final Object value)
 		{
 			final Node node = POOL.get();
 			
@@ -65,7 +65,7 @@ public final class Bunch<E> extends AbstractNode implements IBunch<E>
 			return node;
 		}
 		
-		private static <E> void recycle(final Bunch<E> bunch, final Node node)
+		private static <E> void recycle(final LinkedBunch<E> bunch, final Node node)
 		{
 			bunch._size--;
 			if (bunch._last == node)
@@ -145,7 +145,7 @@ public final class Bunch<E> extends AbstractNode implements IBunch<E>
 		return _size;
 	}
 	
-	public Bunch<E> add(E value)
+	public LinkedBunch<E> add(E value)
 	{
 		if (value == null)
 		{
@@ -157,7 +157,7 @@ public final class Bunch<E> extends AbstractNode implements IBunch<E>
 		return this;
 	}
 	
-	public Bunch<E> remove(E value)
+	public LinkedBunch<E> remove(E value)
 	{
 		for (AbstractNode node = this; (node = node.getNext()) != null;)
 		{
@@ -222,7 +222,7 @@ public final class Bunch<E> extends AbstractNode implements IBunch<E>
 		return false;
 	}
 	
-	public Bunch<E> addAll(Bunch<? extends E> b)
+	public LinkedBunch<E> addAll(LinkedBunch<? extends E> b)
 	{
 		if (b != null)
 			for (AbstractNode node = b; (node = node.getNext()) != null;)
@@ -231,7 +231,7 @@ public final class Bunch<E> extends AbstractNode implements IBunch<E>
 		return this;
 	}
 	
-	public Bunch<E> addAll(Iterable<? extends E> c)
+	public LinkedBunch<E> addAll(Iterable<? extends E> c)
 	{
 		if (c != null)
 			for (E e : c)
@@ -240,7 +240,7 @@ public final class Bunch<E> extends AbstractNode implements IBunch<E>
 		return this;
 	}
 	
-	public Bunch<E> addAll(E[] array)
+	public LinkedBunch<E> addAll(E[] array)
 	{
 		if (array != null)
 			for (E e : array)
@@ -291,7 +291,7 @@ public final class Bunch<E> extends AbstractNode implements IBunch<E>
 		return o1 == null ? o2 == null : o1 == o2 || o1.equals(o2);
 	}
 	
-	public Bunch<E> cleanByFilter(Filter<E> filter)
+	public LinkedBunch<E> cleanByFilter(Filter<E> filter)
 	{
 		for (AbstractNode node = this; (node = node.getNext()) != null;)
 		{

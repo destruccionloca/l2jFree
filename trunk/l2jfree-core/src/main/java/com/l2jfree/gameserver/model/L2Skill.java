@@ -64,7 +64,7 @@ import com.l2jfree.gameserver.templates.StatsSet;
 import com.l2jfree.gameserver.templates.item.L2WeaponType;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.gameserver.util.Util;
-import com.l2jfree.util.Bunch;
+import com.l2jfree.util.LinkedBunch;
 
 public class L2Skill
 {
@@ -1630,7 +1630,7 @@ public class L2Skill
 	 */
 	public final L2Character[] getTargetList(L2Character activeChar, boolean onlyFirst, L2Character target)
 	{
-		Bunch<L2Character> targetList = new Bunch<L2Character>();
+		LinkedBunch<L2Character> targetList = new LinkedBunch<L2Character>();
 		try {
 		// Get the target type of the skill
 		// (ex : ONE, SELF, HOLY, PET, AURA, AURA_CLOSE, AREA, MULTIFACE, PARTY, CLAN, CORPSE_PLAYER, CORPSE_MOB, CORPSE_CLAN, UNLOCKABLE, ITEM, UNDEAD)
@@ -3158,7 +3158,7 @@ public class L2Skill
 	// [L2J_JP ADD SANDMAN START]
 	public final L2Character[] getAreaTargetList(L2Character activeChar)
 	{
-		Bunch<L2Character> targetList = new Bunch<L2Character>();
+		LinkedBunch<L2Character> targetList = new LinkedBunch<L2Character>();
 		L2Object target;
 		L2PcInstance tgOwner;
 		L2Clan acClan;
@@ -3351,7 +3351,7 @@ public class L2Skill
 
 	public final L2Character[] getMultiFaceTargetList(L2Character activeChar)
 	{
-		Bunch<L2Character> targetList = new Bunch<L2Character>();
+		LinkedBunch<L2Character> targetList = new LinkedBunch<L2Character>();
 		L2Object target;
 		L2Object FirstTarget;
 		L2PcInstance tgOwner;
@@ -3647,7 +3647,7 @@ public class L2Skill
 			return _emptyFunctionSet;
 		if (_funcTemplates == null)
 			return _emptyFunctionSet;
-		Bunch<Func> funcs = new Bunch<Func>();
+		LinkedBunch<Func> funcs = new LinkedBunch<Func>();
 		for (FuncTemplate t : _funcTemplates)
 		{
 			Env env = new Env();
@@ -3691,7 +3691,7 @@ public class L2Skill
 			}
 		}
 
-		Bunch<L2Effect> effects = new Bunch<L2Effect>();
+		LinkedBunch<L2Effect> effects = new LinkedBunch<L2Effect>();
 
 		boolean skillMastery = false;
 

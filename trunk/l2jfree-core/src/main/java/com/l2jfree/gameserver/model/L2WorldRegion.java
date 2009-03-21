@@ -29,7 +29,7 @@ import com.l2jfree.gameserver.datatables.SpawnTable;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.model.zone.L2Zone;
-import com.l2jfree.util.Bunch;
+import com.l2jfree.util.LinkedBunch;
 import com.l2jfree.util.L2Collection;
 import com.l2jfree.util.L2SynchronizedCollection;
 
@@ -442,7 +442,7 @@ public final class L2WorldRegion
 	
 	public final L2Object[] getAllSurroundingObjects()
 	{
-		Bunch<L2Object> result = new Bunch<L2Object>();
+		LinkedBunch<L2Object> result = new LinkedBunch<L2Object>();
 		
 		for (L2WorldRegion region : getSurroundingRegions())
 			result.addAll(region.getVisibleObjects());

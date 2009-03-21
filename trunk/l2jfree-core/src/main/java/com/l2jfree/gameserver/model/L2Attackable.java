@@ -57,7 +57,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.item.L2EtcItemType;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.random.Rnd;
-import com.l2jfree.util.Bunch;
+import com.l2jfree.util.LinkedBunch;
 import com.l2jfree.util.SingletonMap;
 
 /**
@@ -1583,7 +1583,7 @@ public class L2Attackable extends L2NpcInstance
 					// according to sh1ny, seeded mobs CAN be spoiled and swept.
 					if (isSpoil()/* && !isSeeded() */)
 					{
-						Bunch<RewardItem> sweepList = new Bunch<RewardItem>();
+						LinkedBunch<RewardItem> sweepList = new LinkedBunch<RewardItem>();
 
 						for (L2DropData drop : cat.getAllDrops())
 						{

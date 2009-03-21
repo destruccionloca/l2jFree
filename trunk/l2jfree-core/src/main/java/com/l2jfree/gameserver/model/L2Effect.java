@@ -35,7 +35,7 @@ import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.funcs.FuncTemplate;
 import com.l2jfree.gameserver.skills.funcs.Lambda;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
-import com.l2jfree.util.Bunch;
+import com.l2jfree.util.LinkedBunch;
 
 /**
  * This class ...
@@ -533,7 +533,7 @@ public abstract class L2Effect
 		if (_funcTemplates == null)
 			return _emptyFunctionSet;
 		
-		Bunch<Func> funcs = new Bunch<Func>();
+		LinkedBunch<Func> funcs = new LinkedBunch<Func>();
 		for (FuncTemplate t : _funcTemplates)
 		{
 			Env env = new Env();

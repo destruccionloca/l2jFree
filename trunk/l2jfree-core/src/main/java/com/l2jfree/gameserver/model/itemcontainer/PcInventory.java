@@ -36,7 +36,7 @@ import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.templates.item.L2EtcItemType;
-import com.l2jfree.util.Bunch;
+import com.l2jfree.util.LinkedBunch;
 
 public class PcInventory extends Inventory 
 {
@@ -145,7 +145,7 @@ public class PcInventory extends Inventory
     */
    public L2ItemInstance[] getAllItemsByItemId(int itemId)
    {
-       Bunch<L2ItemInstance> list = new Bunch<L2ItemInstance>();
+       LinkedBunch<L2ItemInstance> list = new LinkedBunch<L2ItemInstance>();
        for (L2ItemInstance item : _items)
        {
 			if (item.getItemId() == itemId)
@@ -161,7 +161,7 @@ public class PcInventory extends Inventory
     */
    public L2ItemInstance[] getAllItemsByItemId(int itemId, int enchantment)
    {
-       Bunch<L2ItemInstance> list = new Bunch<L2ItemInstance>();
+       LinkedBunch<L2ItemInstance> list = new LinkedBunch<L2ItemInstance>();
        for (L2ItemInstance item : _items)
        {
 			if ((item.getItemId() == itemId) && (item.getEnchantLevel() == enchantment))
@@ -190,7 +190,7 @@ public class PcInventory extends Inventory
 	 */
 	public L2ItemInstance[] getAugmentedItems()
 	{
-		Bunch<L2ItemInstance> list = new Bunch<L2ItemInstance>();
+		LinkedBunch<L2ItemInstance> list = new LinkedBunch<L2ItemInstance>();
 		for (L2ItemInstance item : _items)
 			if (item != null && item.isAugmented()) list.add(item);
 	
@@ -203,7 +203,7 @@ public class PcInventory extends Inventory
      */
     public TradeList.TradeItem[] getAvailableItems(TradeList tradeList)
     {
-        Bunch<TradeList.TradeItem> list = new Bunch<TradeList.TradeItem>();
+        LinkedBunch<TradeList.TradeItem> list = new LinkedBunch<TradeList.TradeItem>();
         for (L2ItemInstance item : _items)
         {
             if (item.isAvailable(getOwner(), false))

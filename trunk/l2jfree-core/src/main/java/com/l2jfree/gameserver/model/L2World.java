@@ -28,7 +28,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.tools.geometry.Point3D;
-import com.l2jfree.util.Bunch;
+import com.l2jfree.util.LinkedBunch;
 import com.l2jfree.util.L2Collection;
 import com.l2jfree.util.L2ReadWriteCollection;
 
@@ -492,7 +492,7 @@ public final class L2World
 		if (reg == null)
 			return L2Object.EMPTY_ARRAY;
 		
-		Bunch<L2Object> result = new Bunch<L2Object>();
+		LinkedBunch<L2Object> result = new LinkedBunch<L2Object>();
 		
 		for (L2WorldRegion region : reg.getSurroundingRegions())
 		{
@@ -537,7 +537,7 @@ public final class L2World
 		int sqRadius = radius * radius;
 
 		// Create an FastList in order to contain all visible L2Object
-		Bunch<L2Object> result = new Bunch<L2Object>();
+		LinkedBunch<L2Object> result = new LinkedBunch<L2Object>();
 
 		// Go through the FastList of region
 		for (L2WorldRegion regi : object.getWorldRegion().getSurroundingRegions())
@@ -594,7 +594,7 @@ public final class L2World
 		int sqRadius = radius * radius;
 
 		// Create an FastList in order to contain all visible L2Object
-		Bunch<L2Object> result = new Bunch<L2Object>();
+		LinkedBunch<L2Object> result = new LinkedBunch<L2Object>();
 
 		// Go through visible object of the selected region
 		for (L2WorldRegion regi : object.getWorldRegion().getSurroundingRegions())
@@ -645,7 +645,7 @@ public final class L2World
 			return L2PlayableInstance.EMPTY_ARRAY;
 
 		// Create an FastList in order to contain all visible L2Object
-		Bunch<L2PlayableInstance> result = new Bunch<L2PlayableInstance>();
+		LinkedBunch<L2PlayableInstance> result = new LinkedBunch<L2PlayableInstance>();
 
 		// Go through the FastList of region
 		for (L2WorldRegion regi : reg.getSurroundingRegions())
