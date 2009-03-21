@@ -27,7 +27,7 @@ public final class L2System
 	{
 	}
 	
-	public static synchronized long milliTime()
+	public static long milliTime()
 	{
 		return TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - ZERO);
 	}
