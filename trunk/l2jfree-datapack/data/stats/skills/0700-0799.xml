@@ -851,7 +851,7 @@
     <set name="hitTime" val="4000"/>
     <set name="reuseDelay" val="80000"/>
     <set name="overHit" val="true"/>
-    <ste name="power" val="4312"/>
+    <set name="power" val="4312"/>
     <set name="target" val="TARGET_AREA"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -869,7 +869,7 @@
     <set name="hitTime" val="3000"/>
     <set name="reuseDelay" val="80000"/>
     <set name="overHit" val="true"/>
-    <ste name="power" val="6037"/>
+    <set name="power" val="6037"/>
     <set name="target" val="TARGET_AREA"/>
     <set name="element" val="6"/>
     <set name="skillType" val="PDAM"/>
