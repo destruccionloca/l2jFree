@@ -107,6 +107,7 @@ import com.l2jfree.gameserver.templates.skills.L2EffectType;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.gameserver.util.Broadcast;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.lang.L2System;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.tools.random.Rnd;
 import com.l2jfree.util.LinkedBunch;
@@ -1050,7 +1051,7 @@ public abstract class L2Character extends L2Object
 		// Get the Attack Reuse Delay of the L2Weapon
 		int reuse = calculateReuseTime(target, weaponItem);
 		
-		_attackEndTime = GameTimeController.now() + timeAtk;
+		_attackEndTime = L2System.milliTime() + timeAtk;
 		
 		int ssGrade = 0;
 
@@ -4566,7 +4567,7 @@ public abstract class L2Character extends L2Object
 	 */
 	public final boolean isAttackingNow()
 	{
-		return getAttackEndTime() > GameTimeController.now();
+		return getAttackEndTime() > L2System.milliTime();
 	}
 
 	/**

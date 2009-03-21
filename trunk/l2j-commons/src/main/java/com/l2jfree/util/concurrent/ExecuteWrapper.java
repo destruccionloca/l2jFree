@@ -12,20 +12,44 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.config;
+package com.l2jfree.util.concurrent;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+
 /**
- * @author evill33t
+ * @author NB4L1
  */
-public class L2Config
+public final class ExecuteWrapper implements Runnable
 {
-	@SuppressWarnings("unused")
-	private static final Log _log = LogFactory.getLog(L2Config.class);
+	private static final Log _log = LogFactory.getLog(ExecuteWrapper.class);
 	
-	private L2Config()
+	private final Runnable _runnable;
+	
+	public ExecuteWrapper(Runnable runnable)
 	{
+		_runnable = runnable;
+	}
+	
+	public void run()
+	{
+		ExecuteWrapper.execute(_runnable);
+	}
+	
+	public static void execute(Runnable runnable)
+	{
+		long begin = System.nanoTime();
+		
+		try
+		{
+			runnable.run();
+			
+			RunnableStatsManager.getInstance().handleStats(runnable.getClass(), System.nanoTime() - begin);
+		}
+		catch (Exception e)
+		{
+			_log.warn("Exception in a Runnable execution:", e);
+		}
 	}
 }

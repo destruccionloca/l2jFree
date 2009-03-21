@@ -16,14 +16,16 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package com.l2jfree.util;
+package com.l2jfree.util.concurrent;
 
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+
+import com.l2jfree.lang.L2Entity;
 
 /**
  * @author NB4L1
  */
-public final class L2ReadWriteCollection<T extends L2Entity> extends L2Collection<T>
+public final class L2ReadWriteCollection<T extends L2Entity<Integer>> extends L2Collection<T>
 {
 	private final ReentrantReadWriteLock _lock = new ReentrantReadWriteLock();
 	private final ReentrantReadWriteLock.ReadLock _read = _lock.readLock();

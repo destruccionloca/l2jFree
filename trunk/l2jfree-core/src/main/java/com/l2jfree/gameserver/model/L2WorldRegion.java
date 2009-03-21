@@ -30,8 +30,8 @@ import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.util.LinkedBunch;
-import com.l2jfree.util.L2Collection;
-import com.l2jfree.util.L2SynchronizedCollection;
+import com.l2jfree.util.concurrent.L2Collection;
+import com.l2jfree.util.concurrent.L2SynchronizedCollection;
 
 public final class L2WorldRegion
 {

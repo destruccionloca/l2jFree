@@ -138,6 +138,7 @@ import com.l2jfree.gameserver.model.base.Race;
 import com.l2jfree.gameserver.model.base.SubClass;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.Duel;
+import com.l2jfree.gameserver.model.entity.EventData;
 import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.model.entity.FortSiege;
 import com.l2jfree.gameserver.model.entity.GrandBossState;
@@ -250,7 +251,6 @@ import com.l2jfree.gameserver.util.FloodProtector;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.tools.random.Rnd;
 import com.l2jfree.util.LinkedBunch;
-import com.l2jfree.util.EventData;
 
 /**
  * This class represents all player characters in the world.

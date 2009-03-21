@@ -12,20 +12,23 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.gameserver.exception.clientpackets;
+package com.l2jfree.lang;
 
-import com.l2jfree.gameserver.exception.L2JFunctionnalException;
+import java.util.concurrent.TimeUnit;
 
-public class MultiSellChooseException extends L2JFunctionnalException
+/**
+ * @author NB4L1
+ */
+public final class L2System
 {
-
-	/**
-	 * serial Version uid
-	 */
-	private static final long	serialVersionUID	= 5760255150312655106L;
-
-	public MultiSellChooseException(String msg)
+	private static final long ZERO = System.nanoTime();
+	
+	private L2System()
 	{
-		super(msg);
+	}
+	
+	public static synchronized long milliTime()
+	{
+		return TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - ZERO);
 	}
 }

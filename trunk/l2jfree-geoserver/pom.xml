@@ -124,7 +124,7 @@
     <dependency>
       <groupId>l2jfree</groupId>
       <artifactId>l2j-commons</artifactId>
-      <version>1.1.9</version>
+      <version>1.1.11</version>
     </dependency>
     <!-- override version of log4j -->
     <dependency>

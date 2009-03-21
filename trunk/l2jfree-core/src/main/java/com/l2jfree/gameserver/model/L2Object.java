@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.model;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.cache.L2Integer;
 import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.instancemanager.InstanceManager;
 import com.l2jfree.gameserver.instancemanager.ItemsOnGroundManager;
@@ -28,7 +27,8 @@ import com.l2jfree.gameserver.model.entity.Instance;
 import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.GetItem;
-import com.l2jfree.util.L2Entity;
+import com.l2jfree.lang.L2Entity;
+import com.l2jfree.lang.L2Integer;
 
 /**
  * Mother class of all objects in the world wich ones is it possible 
@@ -43,7 +43,7 @@ import com.l2jfree.util.L2Entity;
  * <li>L2Potion</li> 
  * 
  */
-public abstract class L2Object implements L2Entity
+public abstract class L2Object implements L2Entity<Integer>
 {
 	public static final L2Object[] EMPTY_ARRAY = new L2Object[0];
 	

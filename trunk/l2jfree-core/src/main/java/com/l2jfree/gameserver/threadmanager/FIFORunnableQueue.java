@@ -21,6 +21,7 @@ package com.l2jfree.gameserver.threadmanager;
 import javolution.util.FastList;
 
 import com.l2jfree.gameserver.ThreadPoolManager;
+import com.l2jfree.util.concurrent.ExecuteWrapper;
 
 /**
  * @author NB4L1

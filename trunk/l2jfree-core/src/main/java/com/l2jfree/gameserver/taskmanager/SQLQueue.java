@@ -15,19 +15,19 @@
 package com.l2jfree.gameserver.taskmanager;
 
 import java.sql.Connection;
-
-import javolution.util.FastList;
+import java.sql.SQLException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.ThreadPoolManager;
+import com.l2jfree.sql.SQLQueryQueue;
 
 /**
- * @author DiezelMax, NB4L1
+ * @author NB4L1
  */
-public final class SQLQueue implements Runnable
+public final class SQLQueue extends SQLQueryQueue
 {
 	private static final Log _log = LogFactory.getLog(SQLQueue.class);
 	
@@ -41,70 +41,16 @@ public final class SQLQueue implements Runnable
 		return _instance;
 	}
 	
-	private final FastList<SQLQuery> _queue = new FastList<SQLQuery>();
-	
 	private SQLQueue()
 	{
 		ThreadPoolManager.getInstance().scheduleAtFixedRate(this, 60000, 60000);
 		
-		_log.info("SQLQueue: Initialized.");
+		_log.info("SQLQueryQueue: Initialized.");
 	}
 	
-	public void execute(SQLQuery query)
+	@Override
+	protected Connection getConnection() throws SQLException
 	{
-		add(query);
-		
-		run();
-	}
-	
-	public void add(SQLQuery query)
-	{
-		synchronized (_queue)
-		{
-			_queue.add(query);
-		}
-	}
-	
-	private SQLQuery getNextQuery()
-	{
-		synchronized (_queue)
-		{
-			if (_queue.isEmpty())
-				return null;
-			
-			return _queue.removeFirst();
-		}
-	}
-	
-	public synchronized void run()
-	{
-		if (_queue.isEmpty())
-			return;
-		
-		Connection con = null;
-		try
-		{
-			con = L2DatabaseFactory.getInstance().getConnection();
-			
-			for (SQLQuery query; (query = getNextQuery()) != null;)
-			{
-				try
-				{
-					query.execute(con);
-				}
-				catch (Exception e)
-				{
-					_log.fatal("", e);
-				}
-			}
-		}
-		catch (Exception e)
-		{
-			_log.fatal("", e);
-		}
-		finally
-		{
-			L2DatabaseFactory.close(con);
-		}
+		return L2DatabaseFactory.getInstance().getConnection();
 	}
 }

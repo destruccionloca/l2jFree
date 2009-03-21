@@ -12,14 +12,20 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.gameserver.taskmanager;
+package com.l2jfree;
 
-import java.sql.Connection;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
- * @author NB4L1
+ * @author evill33t
  */
-public interface SQLQuery
+public abstract class L2Config
 {
-	public void execute(Connection con);
+	protected static final Log _log = LogFactory.getLog(L2Config.class);
+	
+	protected L2Config()
+	{
+		throw new InternalError();
+	}
 }

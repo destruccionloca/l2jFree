@@ -26,9 +26,9 @@ import org.mmocore.network.ReceivablePacket;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.network.L2GameClient;
-import com.l2jfree.gameserver.threadmanager.ExecuteWrapper;
-import com.l2jfree.gameserver.threadmanager.L2RejectedExecutionHandler;
-import com.l2jfree.gameserver.threadmanager.ScheduledFutureWrapper;
+import com.l2jfree.util.concurrent.ExecuteWrapper;
+import com.l2jfree.util.concurrent.L2RejectedExecutionHandler;
+import com.l2jfree.util.concurrent.ScheduledFutureWrapper;
 
 /**
  * @author -Wooden-, NB4L1

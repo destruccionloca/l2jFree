@@ -24,8 +24,8 @@ import org.apache.commons.logging.LogFactory;
 import org.mmocore.network.IAcceptFilter;
 
 import com.l2jfree.gameserver.GameServer;
-import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.network.clientpackets.L2GameClientPacket;
+import com.l2jfree.lang.L2System;
 
 /**
  * @author NB4L1
@@ -188,7 +188,7 @@ public final class IOFloodManager implements IAcceptFilter
 			
 			private int getCurrentTick()
 			{
-				return (int)(GameTimeController.now() / _tickLength);
+				return (int)(L2System.milliTime() / _tickLength);
 			}
 			
 			private boolean isFlooding(boolean increment)

@@ -16,18 +16,12 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package com.l2jfree.util;
-
-import java.util.Iterator;
+package com.l2jfree.lang;
 
 /**
  * @author NB4L1
  */
-public final class L2SharedCollection<T extends L2Entity> extends L2Collection<T> implements Iterable<T>
+public interface L2Entity<T>
 {
-	@Override
-	public Iterator<T> iterator()
-	{
-		return super.iterator();
-	}
+	public T getPrimaryKey();
 }

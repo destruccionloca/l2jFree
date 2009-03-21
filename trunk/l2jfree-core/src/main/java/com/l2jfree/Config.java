@@ -48,7 +48,7 @@ import com.l2jfree.gameserver.util.Util;
  * It's initialized at the very begin of startup, and later JIT will optimize
  * away debug/unused code.
  */
-public final class Config
+public final class Config extends L2Config
 {
 	private final static Log	_log								= LogFactory.getLog(Config.class.getName());
 

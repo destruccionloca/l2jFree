@@ -29,8 +29,8 @@ import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.util.LinkedBunch;
-import com.l2jfree.util.L2Collection;
-import com.l2jfree.util.L2ReadWriteCollection;
+import com.l2jfree.util.concurrent.L2Collection;
+import com.l2jfree.util.concurrent.L2ReadWriteCollection;
 
 /**
  * This class ...

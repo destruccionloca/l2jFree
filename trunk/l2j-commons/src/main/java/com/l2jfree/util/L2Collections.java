@@ -508,15 +508,14 @@ public final class L2Collections
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static <T> Iterable<T> concatenatedIterable(
-		Iterable<? extends T> iterable1, Iterable<? extends T> iterable2)
+	public static <T> Iterable<T> concatenatedIterable(Iterable<? extends T> iterable1, Iterable<? extends T> iterable2)
 	{
 		return new ConcatenatedIterable<T>(iterable1, iterable2);
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static <T> Iterable<T> concatenatedIterable(
-		Iterable<? extends T> iterable1, Iterable<? extends T> iterable2, Iterable<? extends T> iterable3)
+	public static <T> Iterable<T> concatenatedIterable(Iterable<? extends T> iterable1,
+		Iterable<? extends T> iterable2, Iterable<? extends T> iterable3)
 	{
 		return new ConcatenatedIterable<T>(iterable1, iterable2, iterable3);
 	}
@@ -527,15 +526,14 @@ public final class L2Collections
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static <T> Iterator<T> concatenatedIterator(
-		Iterable<? extends T> iterable1, Iterable<? extends T> iterable2)
+	public static <T> Iterator<T> concatenatedIterator(Iterable<? extends T> iterable1, Iterable<? extends T> iterable2)
 	{
 		return new ConcatenatedIterator<T>(iterable1, iterable2);
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static <T> Iterator<T> concatenatedIterator(
-		Iterable<? extends T> iterable1, Iterable<? extends T> iterable2, Iterable<? extends T> iterable3)
+	public static <T> Iterator<T> concatenatedIterator(Iterable<? extends T> iterable1,
+		Iterable<? extends T> iterable2, Iterable<? extends T> iterable3)
 	{
 		return new ConcatenatedIterator<T>(iterable1, iterable2, iterable3);
 	}

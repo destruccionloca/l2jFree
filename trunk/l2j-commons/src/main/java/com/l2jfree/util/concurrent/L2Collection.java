@@ -16,15 +16,18 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package com.l2jfree.util;
+package com.l2jfree.util.concurrent;
 
 import java.lang.reflect.Array;
 import java.util.Iterator;
 
+import com.l2jfree.lang.L2Entity;
+import com.l2jfree.util.SingletonMap;
+
 /**
  * @author NB4L1
  */
-public abstract class L2Collection<T extends L2Entity>
+public abstract class L2Collection<T extends L2Entity<Integer>>
 {
 	private final SingletonMap<Integer, T> _map = new SingletonMap<Integer, T>();
 	

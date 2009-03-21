@@ -36,6 +36,7 @@ import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
 import com.l2jfree.gameserver.templates.item.L2WeaponType;
 import com.l2jfree.gameserver.util.FloodProtector;
+import com.l2jfree.lang.L2System;
 
 /**
  * This class ...
@@ -340,7 +341,7 @@ public final class UseItem extends L2GameClientPacket
 			if (activeChar.isAttackingNow())
 			{
 				ThreadPoolManager.getInstance().scheduleGeneral(new WeaponEquipTask(item, activeChar),
-					activeChar.getAttackEndTime() - System.currentTimeMillis());
+					activeChar.getAttackEndTime() - L2System.milliTime());
 				return;
 			}
 			// Equip or unEquip

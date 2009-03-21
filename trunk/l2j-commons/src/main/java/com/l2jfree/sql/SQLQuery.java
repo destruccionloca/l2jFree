@@ -12,18 +12,14 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.gameserver.exception;
+package com.l2jfree.sql;
 
-public class L2JFunctionnalException extends Exception
+import java.sql.Connection;
+
+/**
+ * @author NB4L1
+ */
+public interface SQLQuery
 {
-
-	/**
-	 * serial Version uid
-	 */
-	private static final long	serialVersionUID	= -4561810450704054574L;
-
-	public L2JFunctionnalException(String msg)
-	{
-		super("Functionnal error : " + msg);
-	}
+	public void execute(Connection con);
 }
