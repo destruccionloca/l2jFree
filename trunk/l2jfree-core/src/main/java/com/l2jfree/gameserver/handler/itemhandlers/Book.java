@@ -33,6 +33,7 @@ public class Book implements IItemHandler
 			7063,
 			7064,
 			7065,
+			7066,
 			7082,
 			7083,
 			7084,
