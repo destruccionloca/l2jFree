@@ -31,7 +31,7 @@ CLASSPATH=${CLASSPATH}:dom4j-1.6.1.jar
 CLASSPATH=${CLASSPATH}:javolution-1.5.5.2.6.jar
 
 # main jar
-CLASSPATH=${CLASSPATH}:l2j-commons-1.1.10.jar
+CLASSPATH=${CLASSPATH}:l2j-commons-1.1.11.jar
 CLASSPATH=${CLASSPATH}:l2jfree-login-1.2.0.jar
 
 # spring 
