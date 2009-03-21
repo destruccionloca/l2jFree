@@ -310,6 +310,8 @@ public class L2Skill
 	private final int				_skillInterruptTime;
 	private final int				_coolTime;
 	private final int				_reuseDelay;
+	// for item skills delay on equip
+	private final int				_equipDelay;
 
 	/** Target type of the skill : SELF, PARTY, CLAN, PET... */
 	private final SkillTargetType	_targetType;
@@ -487,6 +489,8 @@ public class L2Skill
 		_coolTime = set.getInteger("coolTime", 0);
 		_skillInterruptTime = (_hitTime / 2);
 		_reuseDelay = set.getInteger("reuseDelay", 0);
+		_equipDelay = set.getInteger("equipDelay", 0);
+		
 
 		_skillType = set.getEnum("skillType", L2SkillType.class);
 		_isDance = set.getBool("isDance", false);
@@ -1140,6 +1144,11 @@ public class L2Skill
 	public final int getReuseDelay()
 	{
 		return _reuseDelay;
+	}
+
+	public final int getEquipDelay()
+	{
+		return _equipDelay;
 	}
 
 	public final int getCoolTime()

@@ -34,6 +34,7 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.L2ItemInstance.ItemLocation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.serverpackets.SkillCoolTime;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.templates.item.L2Armor;
 import com.l2jfree.gameserver.templates.item.L2EtcItem;
@@ -297,19 +298,53 @@ public abstract class Inventory extends ItemContainer
 				itemSkills = ((L2Armor) it).getSkills();
 			}
 
+			boolean updateTimeStamp = false;
+
 			if (itemSkills != null)
 			{
 				for (L2Skill itemSkill : itemSkills)
+				{
 					player.addSkill(itemSkill, false);
+					if (itemSkill.isActive())
+					{
+						if (!player.getReuseTimeStamps().containsKey(itemSkill.getId()))
+						{
+							int equipDelay = itemSkill.getEquipDelay();
+							if (equipDelay > 0)
+							{
+								player.addTimeStamp(itemSkill.getId(), equipDelay);
+								player.disableSkill(itemSkill.getId(), equipDelay);
+								updateTimeStamp = true;
+							}
+						}
+					}
+				}
 			}
 			if (enchant4Skills != null)
 			{
 				for (L2Skill itemSkill : enchant4Skills)
+				{
 					player.addSkill(itemSkill, false);
+					if (itemSkill.isActive())
+					{
+						if (!player.getReuseTimeStamps().containsKey(itemSkill.getId()))
+						{
+							int equipDelay = itemSkill.getEquipDelay();
+							if (equipDelay > 0)
+							{
+								player.addTimeStamp(itemSkill.getId(), equipDelay);
+								player.disableSkill(itemSkill.getId(), equipDelay);
+								updateTimeStamp = true;
+							}
+						}
+					}
+				}
 			}
 
 			if (itemSkills != null || enchant4Skills != null)
 				player.sendSkillList();
+			if (updateTimeStamp)
+				player.sendPacket(new SkillCoolTime(player));
 		}
 	}
 

@@ -7747,12 +7747,9 @@ public final class L2PcInstance extends L2PlayableInstance
 					continue;
 
 				L2Skill skill = SkillTable.getInstance().getInfo(skillId, skillLvl);
-				ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(skill.getSkillType());
-				if (handler == null)
-					return;
-				
-				handler.useSkill(this, skill, targets);
-				
+				if (skill != null)
+					skill.getEffects(this, this);
+
 				if (remainingTime > 10)
 				{
 					disableSkill(skillId, remainingTime);

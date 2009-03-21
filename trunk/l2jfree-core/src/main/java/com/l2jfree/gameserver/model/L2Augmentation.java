@@ -19,6 +19,7 @@ import javolution.util.FastList;
 import com.l2jfree.gameserver.datatables.AugmentationData;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.serverpackets.SkillCoolTime;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.funcs.FuncAdd;
 import com.l2jfree.gameserver.skills.funcs.LambdaConst;
@@ -123,11 +124,27 @@ public final class L2Augmentation
 	{
 		_boni.applyBonus(player);
 
+		boolean updateTimeStamp = false;
 		// add the skill if any
 		if (_skill != null)
 		{
 			player.addSkill(_skill);
+			if (_skill.isActive())
+			{
+				if (!player.getReuseTimeStamps().containsKey(_skill.getId()))
+				{
+					int equipDelay = _skill.getEquipDelay();
+					if (equipDelay > 0)
+					{
+						player.addTimeStamp(_skill.getId(), equipDelay);
+						player.disableSkill(_skill.getId(), equipDelay);
+						updateTimeStamp = true;
+					}
+				}
+			}
 			player.sendSkillList();
+			if (updateTimeStamp)
+				player.sendPacket(new SkillCoolTime(player));
 		}
 	}
 
