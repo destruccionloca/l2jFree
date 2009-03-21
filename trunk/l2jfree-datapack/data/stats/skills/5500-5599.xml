@@ -336,6 +336,9 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
+    <cond msg="This skill is only to be used with correct Agathion summoned.">
+      <player agathionId="16032"/>
+    </cond>
   </skill>
   <skill id="5545" levels="1" name="Little Devil Agathion Special Skill - Power of Blessed Resurrection">
     <set name="power" val="100"/>
