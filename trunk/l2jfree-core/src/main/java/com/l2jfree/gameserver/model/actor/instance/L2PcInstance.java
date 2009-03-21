@@ -66,9 +66,7 @@ import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
 import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.handler.IItemHandler;
-import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.handler.ItemHandler;
-import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminEditChar;
 import com.l2jfree.gameserver.handler.skillhandlers.SummonFriend;
 import com.l2jfree.gameserver.handler.skillhandlers.TakeCastle;
@@ -7707,9 +7705,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public void restoreEffects()
 	{
-		L2Character[] targets = new L2Character[] { this };
 		Connection con = null;
-
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
