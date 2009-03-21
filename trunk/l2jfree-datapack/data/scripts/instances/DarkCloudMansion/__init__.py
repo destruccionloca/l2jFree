@@ -9,7 +9,7 @@ from com.l2jfree.gameserver.model.quest            import State
 from com.l2jfree.gameserver.model.quest            import QuestState
 from com.l2jfree.gameserver.model.quest.jython     import QuestJython as JQuest
 from com.l2jfree.gameserver.network                import SystemChatChannelId
-from com.l2jfree.gameserver.network.serverpackets  import CreatureSay
+from com.l2jfree.gameserver.network.serverpackets  import NpcSay
 from com.l2jfree.gameserver.network.serverpackets  import MagicSkillUse
 from com.l2jfree.gameserver.network.serverpackets  import SystemMessage
 from com.l2jfree.gameserver.model.itemcontainer    import PcInventory
@@ -356,7 +356,7 @@ def runFifthRoom(self,world,player):
 		newNpc = self.addSpawn(BS[idx],x,182145,-6117,48810,False,0,False,world.instanceId)
 		world.FifthRoom.npclist.append([newNpc,idx,temp[idx]])
 		if temp[idx] == 1 and Rnd.get(100) < 50:
-			player.sendPacket(CreatureSay(newNpc.getObjectId(), SystemChatChannelId.Chat_Normal, newNpc.getName(), "You will never pass this test!"))
+			newNpc.broadcastPacket(NpcSay(newNpc.getObjectId(),0,newNpc.getNpcId(),"You will never pass this test!"))
 		idx += 1
 	if debug: print "DarkCloudMansion: spawned fifth room"
 	if debug: print str(world.FifthRoom.npclist)
