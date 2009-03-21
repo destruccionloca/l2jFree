@@ -29,6 +29,7 @@ import org.mmocore.network.SelectorThread;
 import org.mmocore.network.TCPHeaderHandler;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.network.IOFloodManager.ErrorMode;
 import com.l2jfree.gameserver.network.L2GameClient.GameClientState;
 import com.l2jfree.gameserver.network.clientpackets.*;
 import com.l2jfree.tools.util.HexUtil;
@@ -56,8 +57,11 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 	{
 		if (client.isDetached())
 			return null;
-
-		int opcode = buf.get() & 0xFF;
+		
+		final int opcode = buf.get() & 0xFF;
+		
+		if (!IOFloodManager.getInstance().canReceivePacketFrom(client, opcode))
+			return null;
 		
 		ReceivablePacket<L2GameClient> msg = null;
 		GameClientState state = client.getState();
@@ -894,6 +898,8 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 		byte[] array = new byte[size];
 		buf.get(array);
 		_log.warn(HexUtil.printData(array, size));
+		
+		IOFloodManager.getInstance().report(ErrorMode.INVALID_OPCODE, client, null, null);
 	}
 	
 	private void printDebugDoubleOpcode(int opcode, int id2, ByteBuffer buf, GameClientState state, L2GameClient client)
@@ -904,6 +910,8 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 		byte[] array = new byte[size];
 		buf.get(array);
 		_log.warn(HexUtil.printData(array, size));
+		
+		IOFloodManager.getInstance().report(ErrorMode.INVALID_OPCODE, client, null, null);
 	}
 	
 	public L2GameClient create(SelectorThread<L2GameClient> selectorThread, ISocket socket, SelectionKey key)

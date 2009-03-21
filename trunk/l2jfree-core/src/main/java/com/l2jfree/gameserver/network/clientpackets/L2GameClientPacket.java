@@ -24,7 +24,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.IOFloodManager;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.IOFloodManager.FloodLogMode;
+import com.l2jfree.gameserver.network.IOFloodManager.ErrorMode;
 import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 
 /**
@@ -41,7 +41,7 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 	{
 		if (getAvaliableBytes() < getMinimumLength())
 		{
-			IOFloodManager.getInstance().log(FloodLogMode.BUFFER_UNDER_FLOW, getClient(), this, null);
+			IOFloodManager.getInstance().report(ErrorMode.BUFFER_UNDER_FLOW, getClient(), this, null);
 			return false;
 		}
 		
@@ -52,11 +52,11 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 		}
 		catch (BufferUnderflowException e)
 		{
-			IOFloodManager.getInstance().log(FloodLogMode.BUFFER_UNDER_FLOW, getClient(), this, e);
+			IOFloodManager.getInstance().report(ErrorMode.BUFFER_UNDER_FLOW, getClient(), this, e);
 		}
 		catch (Exception e)
 		{
-			IOFloodManager.getInstance().log(FloodLogMode.FAILED_READING, getClient(), this, e);
+			IOFloodManager.getInstance().report(ErrorMode.FAILED_READING, getClient(), this, e);
 		}
 		
 		return false;
@@ -88,7 +88,7 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 		}
 		catch (Exception e)
 		{
-			IOFloodManager.getInstance().log(FloodLogMode.FAILED_RUNNING, getClient(), this, e);
+			IOFloodManager.getInstance().report(ErrorMode.FAILED_RUNNING, getClient(), this, e);
 		}
 	}
 	
