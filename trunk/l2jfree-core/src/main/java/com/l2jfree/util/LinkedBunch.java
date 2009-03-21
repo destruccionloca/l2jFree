@@ -28,14 +28,14 @@ import com.l2jfree.util.L2Collections.Filter;
 
 /**
  * <p>
- * Default implementation of {@link IBunch<E>}. It uses nodes to store objects, so no array reallocation needed. The
+ * Default implementation of {@link Bunch<E>}. It uses nodes to store objects, so no array reallocation needed. The
  * created nodes are reused so garbage is reduced heavily.
  * </p>
  * 
  * @author NB4L1
  */
 @SuppressWarnings("unchecked")
-public final class LinkedBunch<E> extends AbstractNode implements IBunch<E>
+public final class LinkedBunch<E> extends AbstractNode implements Bunch<E>
 {
 	private static final Log _log = LogFactory.getLog(LinkedBunch.class);
 	
@@ -270,6 +270,11 @@ public final class LinkedBunch<E> extends AbstractNode implements IBunch<E>
 		clear();
 		
 		return array;
+	}
+	
+	public <T> T[] moveToArray(Class<T> clazz)
+	{
+		return moveToArray((T[])Array.newInstance(clazz, size()));
 	}
 	
 	public List<E> moveToList(List<E> list)

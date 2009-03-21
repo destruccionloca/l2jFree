@@ -278,21 +278,22 @@ public final class L2Collections
 		}
 	}
 	
-	private static final class EmptyBunch implements IBunch<Object>
+	@SuppressWarnings("unchecked")
+	private static final class EmptyBunch implements Bunch<Object>
 	{
-		private static final IBunch<Object> INSTANCE = new EmptyBunch();
+		private static final Bunch<Object> INSTANCE = new EmptyBunch();
 		
-		public IBunch<Object> add(Object e)
+		public Bunch<Object> add(Object e)
 		{
 			throw new UnsupportedOperationException();
 		}
 		
-		public IBunch<Object> addAll(Iterable<? extends Object> c)
+		public Bunch<Object> addAll(Iterable<? extends Object> c)
 		{
 			throw new UnsupportedOperationException();
 		}
 		
-		public IBunch<Object> addAll(Object[] array)
+		public Bunch<Object> addAll(Object[] array)
 		{
 			throw new UnsupportedOperationException();
 		}
@@ -321,7 +322,6 @@ public final class L2Collections
 			return EMPTY_ARRAY;
 		}
 		
-		@SuppressWarnings("unchecked")
 		public <T> T[] moveToArray(T[] array)
 		{
 			if (array.length != 0)
@@ -330,12 +330,17 @@ public final class L2Collections
 			return array;
 		}
 		
+		public <T> T[] moveToArray(Class<T> clazz)
+		{
+			return (T[])Array.newInstance(clazz, 0);
+		}
+		
 		public List<Object> moveToList(List<Object> list)
 		{
 			return list;
 		}
 		
-		public IBunch<Object> remove(Object o)
+		public Bunch<Object> remove(Object o)
 		{
 			return this;
 		}
@@ -356,7 +361,7 @@ public final class L2Collections
 		}
 		
 		@Override
-		public IBunch<Object> cleanByFilter(Filter<Object> filter)
+		public Bunch<Object> cleanByFilter(Filter<Object> filter)
 		{
 			return this;
 		}
@@ -393,9 +398,9 @@ public final class L2Collections
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static <T> IBunch<T> emptyBunch()
+	public static <T> Bunch<T> emptyBunch()
 	{
-		return (IBunch<T>)EmptyBunch.INSTANCE;
+		return (Bunch<T>)EmptyBunch.INSTANCE;
 	}
 	
 	public static <T> Iterable<T> filteredIterable(Class<T> clazz, Iterable<? super T> iterable)

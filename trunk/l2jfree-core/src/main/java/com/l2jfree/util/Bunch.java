@@ -42,13 +42,13 @@ import com.l2jfree.util.L2Collections.Filter;
  * 
  * @author NB4L1
  */
-public interface IBunch<E>
+public interface Bunch<E>
 {
 	public int size();
 	
-	public IBunch<E> add(E value);
+	public Bunch<E> add(E value);
 	
-	public IBunch<E> remove(E value);
+	public Bunch<E> remove(E value);
 	
 	public void clear();
 	
@@ -62,15 +62,17 @@ public interface IBunch<E>
 	
 	public boolean contains(E value);
 	
-	public IBunch<E> addAll(Iterable<? extends E> c);
+	public Bunch<E> addAll(Iterable<? extends E> c);
 	
-	public IBunch<E> addAll(E[] array);
+	public Bunch<E> addAll(E[] array);
 	
 	public Object[] moveToArray();
 	
 	public <T> T[] moveToArray(T[] array);
 	
+	public <T> T[] moveToArray(Class<T> clazz);
+	
 	public List<E> moveToList(List<E> list);
 	
-	public IBunch<E> cleanByFilter(Filter<E> filter);
+	public Bunch<E> cleanByFilter(Filter<E> filter);
 }
