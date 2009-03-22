@@ -741,7 +741,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	/** Current skill in use. Note that L2Character has _lastSkillCast, but this has the button presses */
 	private SkillDat						_currentSkill;
-
+	private SkillDat						_currentPetSkill;
 	/** Skills queued because a skill is already in progress */
 	private SkillDat						_queuedSkill;
 
@@ -8837,6 +8837,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		return false;
 	}
 
+
 	/**
 	 * Check if the requested casting is a Pc->Pc skill cast and if it's a valid pvp condition
 	 * @param obj L2Object instance containing the target
@@ -8844,6 +8845,17 @@ public final class L2PcInstance extends L2PlayableInstance
 	 * @return False if the skill is a pvpSkill and target is not a valid pvp target
 	 */
 	public boolean checkPvpSkill(L2Object obj, L2Skill skill)
+	{
+		return checkPvpSkill(obj,skill,false);
+	}
+	/**
+	 * Check if the requested casting is a Pc->Pc skill cast and if it's a valid pvp condition
+	 * @param obj L2Object instance containing the target
+	 * @param skill L2Skill instance with the skill being casted
+	 * @param srcIsSummon is L2Summon - caster?
+	 * @return False if the skill is a pvpSkill and target is not a valid pvp target
+	 */
+	public boolean checkPvpSkill(L2Object obj, L2Skill skill,boolean srcIsSummon)
 	{
 		if ((_inEventTvT && TvT._started) || (_inEventDM && DM._started) || (_inEventCTF && CTF._started) || (_inEventVIP && VIP._started))
 			return true;
@@ -8870,7 +8882,8 @@ public final class L2PcInstance extends L2PlayableInstance
 				)
 					return false;
 			}
-			else if (getCurrentSkill() != null && !getCurrentSkill().isCtrlPressed() && skill.isOffensive())
+			else if ((getCurrentSkill() != null && !getCurrentSkill().isCtrlPressed() && skill.isOffensive() && !srcIsSummon)
+					|| (getCurrentPetSkill() != null && !getCurrentPetSkill().isCtrlPressed() && skill.isOffensive() && srcIsSummon))
 			{
 				if(getClan() != null && target.getClan() != null)
 				{
@@ -8883,7 +8896,6 @@ public final class L2PcInstance extends L2PlayableInstance
 					return false;
 			}
 		}
-
 		return true;
 	}
 
@@ -12131,7 +12143,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		return _currentSkill;
 	}
-
+	
 	/**
 	 * Create a new SkillDat object and set the player _currentSkill.<BR><BR>
 	 * 
@@ -12153,6 +12165,35 @@ public final class L2PcInstance extends L2PlayableInstance
 		_currentSkill = new SkillDat(currentSkill, ctrlPressed, shiftPressed);
 	}
 
+	/**
+	 * Get the current pet skill in use or return null.<BR><BR>
+	 * 
+	 */
+	public SkillDat getCurrentPetSkill()
+	{
+		return _currentPetSkill;
+	}
+	/**
+	 * Create a new SkillDat object and set the player _currentPetSkill.<BR><BR>
+	 * 
+	 */
+	public void setCurrentPetSkill(L2Skill currentSkill, boolean ctrlPressed, boolean shiftPressed)
+	{
+		if (currentSkill == null)
+		{
+			if (_log.isDebugEnabled())
+				_log.info("Setting current skill: NULL for " + getName() + ".");
+
+			_currentPetSkill = null;
+			return;
+		}
+
+		if (_log.isDebugEnabled())
+			_log.info("Setting current skill: " + currentSkill.getName() + " (ID: " + currentSkill.getId() + ") for " + getName() + ".");
+
+		_currentPetSkill = new SkillDat(currentSkill, ctrlPressed, shiftPressed);
+	}
+	
 	public SkillDat getQueuedSkill()
 	{
 		return _queuedSkill;

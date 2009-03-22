@@ -2060,7 +2060,8 @@ public class L2Skill
 				cha = activeChar;
 
 			boolean effectOriginIsL2PlayableInstance = (cha instanceof L2PlayableInstance);
-
+			boolean srcIsSummon = (activeChar instanceof L2Summon);
+						
 			L2PcInstance src = activeChar.getActingPlayer();
 
 			int radius = getSkillRadius();
@@ -2083,7 +2084,6 @@ public class L2Skill
 				{
 					if (!Util.checkIfInRange(radius, obj, cha, true))
 						continue;
-
 					if (src != null) // caster is l2playableinstance and exists
 					{
 						if (obj instanceof L2PcInstance)
@@ -2108,7 +2108,7 @@ public class L2Skill
 										continue;
 								}
 
-								if (!src.checkPvpSkill(obj, this))
+								if (!src.checkPvpSkill(obj, this, srcIsSummon))
 									continue;
 							}
 						}
@@ -2132,7 +2132,7 @@ public class L2Skill
 										continue;
 								}
 
-								if (!src.checkPvpSkill(trg, this))
+								if (!src.checkPvpSkill(trg, this, srcIsSummon))
 									continue;
 							}
 
