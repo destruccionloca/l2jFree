@@ -109,7 +109,7 @@ public final class IOFloodManager implements IAcceptFilter
 			_log.warn("Rejected packet (" + Integer.toHexString(opcode) + ") from " + client);
 		}
 		
-		return isFlooding;
+		return !isFlooding;
 	}
 	
 	@Override
