@@ -79,5 +79,5 @@ public class MonsterKnownList extends AttackableKnownList
     // =========================================================
     // Property - Public
     @Override
-    public final L2MonsterInstance getActiveChar() { return (L2MonsterInstance)super.getActiveChar(); }
+    public final L2MonsterInstance getActiveChar() { return (L2MonsterInstance)_activeObject; }
 }

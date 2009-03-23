@@ -47,15 +47,6 @@ public class NullKnownList extends ObjectKnownList
     }
 
     /* (non-Javadoc)
-     * @see com.l2jfree.gameserver.model.actor.knownlist.ObjectKnownList#getActiveObject()
-     */
-    @Override
-    public L2Object getActiveObject()
-    {
-        return super.getActiveObject();
-    }
-
-    /* (non-Javadoc)
      * @see com.l2jfree.gameserver.model.actor.knownlist.ObjectKnownList#getDistanceToForgetObject(com.l2jfree.gameserver.model.L2Object)
      */
     @Override

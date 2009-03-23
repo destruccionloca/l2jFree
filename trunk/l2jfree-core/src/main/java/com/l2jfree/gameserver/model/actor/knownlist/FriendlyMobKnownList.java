@@ -77,5 +77,5 @@ public class FriendlyMobKnownList extends AttackableKnownList
     // =========================================================
     // Property - Public
     @Override
-    public final L2FriendlyMobInstance getActiveChar() { return (L2FriendlyMobInstance)super.getActiveChar(); }
+    public final L2FriendlyMobInstance getActiveChar() { return (L2FriendlyMobInstance)_activeObject; }
 }

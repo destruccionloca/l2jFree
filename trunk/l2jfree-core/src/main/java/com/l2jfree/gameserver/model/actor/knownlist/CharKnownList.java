@@ -106,7 +106,7 @@ public class CharKnownList extends ObjectKnownList
     // =========================================================
     // Property - Public
 
-    public L2Character getActiveChar() { return (L2Character)super.getActiveObject(); }
+    public L2Character getActiveChar() { return (L2Character)_activeObject; }
     
     @Override
     public int getDistanceToForgetObject(L2Object object) { return 0; }

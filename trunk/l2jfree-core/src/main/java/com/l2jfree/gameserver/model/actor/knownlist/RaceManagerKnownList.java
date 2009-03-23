@@ -77,5 +77,5 @@ public class RaceManagerKnownList extends NpcKnownList
     // =========================================================
     // Property - Public
     @Override
-    public L2RaceManagerInstance getActiveChar() { return (L2RaceManagerInstance)super.getActiveChar(); }
+    public L2RaceManagerInstance getActiveChar() { return (L2RaceManagerInstance)_activeObject; }
 }

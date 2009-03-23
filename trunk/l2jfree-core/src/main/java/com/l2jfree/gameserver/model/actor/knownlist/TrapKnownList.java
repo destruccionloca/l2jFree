@@ -27,7 +27,7 @@ public class TrapKnownList extends CharKnownList
     @Override
     public final L2Trap getActiveChar()
     {
-        return (L2Trap) super.getActiveChar();
+        return (L2Trap)_activeObject;
     }
     
     @Override

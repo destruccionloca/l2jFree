@@ -258,7 +258,7 @@ public class PcKnownList extends PlayableKnownList
     // =========================================================
     // Property - Public
     @Override
-    public final L2PcInstance getActiveChar() { return (L2PcInstance)super.getActiveChar(); }
+    public final L2PcInstance getActiveChar() { return (L2PcInstance)_activeObject; }
 
     @Override
     public int getDistanceToForgetObject(L2Object object) 

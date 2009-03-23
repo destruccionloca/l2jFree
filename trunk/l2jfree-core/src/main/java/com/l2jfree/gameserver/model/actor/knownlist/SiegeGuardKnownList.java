@@ -75,6 +75,6 @@ public class SiegeGuardKnownList extends AttackableKnownList
 	@Override
 	public final L2SiegeGuardInstance getActiveChar()
 	{
-		return (L2SiegeGuardInstance) super.getActiveChar();
+		return (L2SiegeGuardInstance)_activeObject;
 	}
 }

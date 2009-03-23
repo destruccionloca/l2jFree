@@ -43,7 +43,7 @@ public class StaticObjectKnownList extends CharKnownList
 	@Override
 	public final L2StaticObjectInstance getActiveChar()
 	{
-		return (L2StaticObjectInstance) super.getActiveChar();
+		return (L2StaticObjectInstance)_activeObject;
 	}
 
 	@Override

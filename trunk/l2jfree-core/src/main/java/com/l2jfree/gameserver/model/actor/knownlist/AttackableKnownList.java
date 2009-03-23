@@ -68,7 +68,7 @@ public class AttackableKnownList extends NpcKnownList
     // =========================================================
     // Property - Public
     @Override
-    public L2Attackable getActiveChar() { return (L2Attackable)super.getActiveChar(); }
+    public L2Attackable getActiveChar() { return (L2Attackable)_activeObject; }
 
     @Override
     public int getDistanceToForgetObject(L2Object object)

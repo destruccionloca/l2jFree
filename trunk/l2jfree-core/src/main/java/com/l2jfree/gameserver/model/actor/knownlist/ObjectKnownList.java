@@ -37,7 +37,7 @@ public class ObjectKnownList
     /**
      * Reference to the L2Object
      */
-    private L2Object _activeObject;
+    protected final L2Object _activeObject;
     
     /**
      * Map of all L2Object known by the active char
@@ -134,7 +134,7 @@ public class ObjectKnownList
 	/**
 	 * @return the active object
 	 */
-	public L2Object getActiveObject()
+	public final L2Object getActiveObject()
 	{
 		return _activeObject;
 	}

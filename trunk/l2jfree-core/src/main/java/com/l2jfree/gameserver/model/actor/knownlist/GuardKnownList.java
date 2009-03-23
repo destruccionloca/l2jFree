@@ -106,5 +106,5 @@ public class GuardKnownList extends AttackableKnownList
     // =========================================================
     // Property - Public
     @Override
-    public final L2GuardInstance getActiveChar() { return (L2GuardInstance)super.getActiveChar(); }
+    public final L2GuardInstance getActiveChar() { return (L2GuardInstance)_activeObject; }
 }

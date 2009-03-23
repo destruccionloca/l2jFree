@@ -43,7 +43,7 @@ public class NpcKnownList extends CharKnownList
     // =========================================================
     // Property - Public
     @Override
-    public L2NpcInstance getActiveChar() { return (L2NpcInstance)super.getActiveChar(); }
+    public L2NpcInstance getActiveChar() { return (L2NpcInstance)_activeObject; }
 
     @Override
     public int getDistanceToForgetObject(L2Object object) { return 2 * getDistanceToWatchObject(object); }
