@@ -54,7 +54,7 @@ public class CharStatus
 {
 	protected static Log		_log				= LogFactory.getLog(CharStatus.class.getName());
 
-	private L2Character			_activeChar;
+	protected final L2Character _activeChar;
 	private double				_currentCp			= 0;												//Current CP of the L2Character
 	private double				_currentHp			= 0;												//Current HP of the L2Character
 	private double				_currentMp			= 0;												//Current MP of the L2Character

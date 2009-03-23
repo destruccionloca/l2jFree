@@ -45,5 +45,5 @@ public class PlayableStatus extends CharStatus
     // =========================================================
     // Property - Public
     @Override
-    public L2PlayableInstance getActiveChar() { return (L2PlayableInstance)super.getActiveChar(); }
+    public L2PlayableInstance getActiveChar() { return (L2PlayableInstance)_activeChar; }
 }

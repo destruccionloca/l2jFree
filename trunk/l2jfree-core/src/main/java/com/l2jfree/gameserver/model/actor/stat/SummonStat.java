@@ -37,5 +37,5 @@ public class SummonStat extends PlayableStat
     // =========================================================
     // Property - Public
     @Override
-    public L2Summon getActiveChar() { return (L2Summon)super.getActiveChar(); }
+    public L2Summon getActiveChar() { return (L2Summon)_activeChar; }
 }

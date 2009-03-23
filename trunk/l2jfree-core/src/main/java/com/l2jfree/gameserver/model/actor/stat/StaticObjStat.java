@@ -41,7 +41,7 @@ public class StaticObjStat extends CharStat
 	@Override
 	public L2StaticObjectInstance getActiveChar()
 	{
-		return (L2StaticObjectInstance) super.getActiveChar();
+		return (L2StaticObjectInstance)_activeChar;
 	}
 
 	@Override

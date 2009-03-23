@@ -178,7 +178,7 @@ public class PlayableStat extends CharStat
     // =========================================================
     // Property - Public
     @Override
-    public L2PlayableInstance getActiveChar() { return (L2PlayableInstance)super.getActiveChar(); }
+    public L2PlayableInstance getActiveChar() { return (L2PlayableInstance)_activeChar; }
 
 	/**
 	 * Return the RunSpeed (base+modifier) of the L2Character in function of the

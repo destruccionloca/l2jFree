@@ -60,7 +60,7 @@ public class PetStatus extends SummonStatus
     // =========================================================
     // Property - Public
     @Override
-    public L2PetInstance getActiveChar() { return (L2PetInstance)super.getActiveChar(); }
+    public L2PetInstance getActiveChar() { return (L2PetInstance)_activeChar; }
 
     public int getCurrentFed() { return _currentFed; }
     public void setCurrentFed(int value) { _currentFed = value; }

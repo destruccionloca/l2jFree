@@ -244,7 +244,7 @@ public class PcStat extends PlayableStat
 	@Override
 	public final L2PcInstance getActiveChar()
 	{
-		return (L2PcInstance) super.getActiveChar();
+		return (L2PcInstance)_activeChar;
 	}
 
 	@Override

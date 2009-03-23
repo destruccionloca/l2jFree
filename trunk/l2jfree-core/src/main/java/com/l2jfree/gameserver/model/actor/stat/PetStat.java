@@ -113,7 +113,7 @@ public class PetStat extends SummonStat
     // =========================================================
     // Property - Public
     @Override
-    public L2PetInstance getActiveChar() { return (L2PetInstance)super.getActiveChar(); }
+    public L2PetInstance getActiveChar() { return (L2PetInstance)_activeChar; }
 
     public final int getFeedBattle() { return getActiveChar().getPetData().getPetFeedBattle(); }
 

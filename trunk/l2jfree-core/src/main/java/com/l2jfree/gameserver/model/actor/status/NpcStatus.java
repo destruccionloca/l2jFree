@@ -58,5 +58,5 @@ public class NpcStatus extends CharStatus
     // =========================================================
     // Property - Public
     @Override
-    public L2NpcInstance getActiveChar() { return (L2NpcInstance)super.getActiveChar(); }
+    public L2NpcInstance getActiveChar() { return (L2NpcInstance)_activeChar; }
 }

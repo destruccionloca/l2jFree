@@ -34,7 +34,7 @@ public class CharStat
 
 	// =========================================================
 	// Data Field
-	protected L2Character		_activeChar;
+	protected final L2Character _activeChar;
 	private long				_exp	= 0;
 	private int					_sp		= 0;
 	private byte				_level	= 1;

@@ -132,5 +132,5 @@ public class PcStatus extends PlayableStatus
     // =========================================================
     // Property - Public
     @Override
-    public L2PcInstance getActiveChar() { return (L2PcInstance)super.getActiveChar(); }
+    public L2PcInstance getActiveChar() { return (L2PcInstance)_activeChar; }
 }
