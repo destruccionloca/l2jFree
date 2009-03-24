@@ -34,7 +34,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2StaticObjectInstance;
 public class L2PlayerAI extends L2CharacterAI
 {
 
-	private boolean		_thinking;				// to prevent recursive thinking
+	private volatile boolean _thinking; // to prevent recursive thinking
 
 	//private Stack<IntentionCommand> _interruptedIntentions = new Stack<IntentionCommand>();
 	IntentionCommand	_nextIntention	= null;

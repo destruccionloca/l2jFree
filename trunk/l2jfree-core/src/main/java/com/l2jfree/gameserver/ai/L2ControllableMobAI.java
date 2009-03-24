@@ -51,8 +51,7 @@ public class L2ControllableMobAI extends L2AttackableAI
 
 	private int				_alternateAI;
 
-	private boolean			_isThinking;			// to prevent thinking
-	// recursively
+	private volatile boolean _isThinking; // to prevent thinking recursively
 	private boolean			_isNotMoving;
 
 	private L2Character		_forcedTarget;

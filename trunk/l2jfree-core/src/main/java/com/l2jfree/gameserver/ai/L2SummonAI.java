@@ -24,7 +24,7 @@ import com.l2jfree.gameserver.model.L2Character.AIAccessor;
 public class L2SummonAI extends L2CharacterAI
 {
 
-	private boolean	_thinking;	// to prevent recursive thinking
+	private volatile boolean _thinking; // to prevent recursive thinking
 	private boolean _startFollow = ((L2Summon)_actor).getFollowStatus();
 
 	public L2SummonAI(AIAccessor accessor)

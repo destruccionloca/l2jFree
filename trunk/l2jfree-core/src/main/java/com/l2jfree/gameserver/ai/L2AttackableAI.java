@@ -78,7 +78,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 	private int					_globalAggro;
 
 	/** The flag used to indicate that a thinking action is in progress */
-	private boolean				_thinking;											// to prevent recursive thinking
+	private volatile boolean _thinking; // to prevent recursive thinking
 
 	/** For attack AI, analysis of mob and its targets */
 	private SelfAnalysis		_selfAnalysis				= new SelfAnalysis();

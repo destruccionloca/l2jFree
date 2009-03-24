@@ -60,7 +60,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 	private int					_globalAggro;
 
 	/** The flag used to indicate that a thinking action is in progress */
-	private boolean				_thinking;									// to prevent recursive thinking
+	private volatile boolean _thinking; // to prevent recursive thinking
 
 	private int					_attackRange;
 
