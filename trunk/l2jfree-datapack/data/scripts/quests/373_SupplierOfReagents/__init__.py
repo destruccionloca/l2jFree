@@ -3,7 +3,6 @@
 # Visit http://forum.l2jdp.com for more details.
 
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -29,7 +28,7 @@ ITEMS={
 6023:["etc_powder_white_i00","Moon Dust","Low Level Reagent"],
 6024:["etc_potion_purpel_i00","Necroplasm","Low Level Reagent"],
 6025:["etc_potion_green_i00","Demonplasm","Low Level Reagent"],
-6026:["etc_powder_black_i00","Inferno Dust",""], 
+6026:["etc_powder_black_i00","Inferno Dust",""],
 6027:["etc_dragon_blood_i00","Draconic Essence","High Level Reagent"],
 6028:["etc_dragons_blood_i00","Fire Essence","High Level Reagent"],
 6029:["etc_mithril_ore_i00","Lunargent","High Level Reagent"],
@@ -39,7 +38,7 @@ ITEMS={
 6033:["etc_luxury_wine_b_i00","Hellfire Oil","Highest Level Reagent"],
 6034:["etc_luxury_wine_c_i00","Nightmare Oil","Highest Level Reagent"],
 6320:["etc_broken_crystal_silver_i00","Pure Silver",""],
-6321:["etc_broken_crystal_gold_i00","True Gold",""],
+6321:["etc_broken_crystal_gold_i00","True Gold",""]
 }
 #Quest items
 REAGENT_POUCH1,   REAGENT_POUCH2,REAGENT_POUCH3, REAGENT_BOX, \
@@ -70,7 +69,7 @@ DROPLIST = {
 21115: [50, (REAGENT_POUCH3,50)]
 }
 #temperature:[success_%,reagent_qty_obtained]
-TEMPERATURE={1:[100,1],2:[45,2],3:[15,3]}
+TEMPERATURE={1:[100,1],2:[45,3],3:[15,5]}
 #reagent:[ingredient,ingredient_qty,catalyst,catalyst_qty]
 FORMULAS = {
 DRACOPLASM:      [WYRMS_BLOOD,10,BLOOD_ROOT,1],     MAGMA_DUST:     [LAVA_STONE,10,VOLCANIC_ASH,1],MOON_DUST:[MOONSTONE_SHARD,10,VOLCANIC_ASH,1],
@@ -78,7 +77,7 @@ NECROPLASM:      [ROTTEN_BONE,10,BLOOD_ROOT,1],     DEMONPLASM:     [DEMONS_BLOO
 DRACONIC_ESSENCE:[DRACOPLASM,10,QUICKSILVER,1],     FIRE_ESSENCE:   [MAGMA_DUST,10,SULFUR,1],      LUNARGENT:[MOON_DUST,10,QUICKSILVER,1],
 MIDNIGHT_OIL:    [NECROPLASM,10,QUICKSILVER,1],     DEMONIC_ESSENCE:[DEMONPLASM,10,SULFUR,1],      ABYSS_OIL:[INFERNO_DUST,10,SULFUR,1],
 HELLFIRE_OIL:    [FIRE_ESSENCE,1,DEMONIC_ESSENCE,1],NIGHTMARE_OIL:  [LUNARGENT,1,MIDNIGHT_OIL,1],  PURE_SILVER:[LUNARGENT,1,QUICKSILVER,1],
-MIMIRS_ELIXIR:   [PURE_SILVER,1,TRUE_GOLD,1],
+MIMIRS_ELIXIR:   [PURE_SILVER,1,TRUE_GOLD,1]
 }
 
 def render_urn(st, page) :
@@ -115,7 +114,7 @@ class Quest (JQuest) :
      self.questItemIds = [5904]
 
  def onEvent (self,event,st) :
-    id = st.getState() 
+    id = st.getState()
     htmltext = event
     if event == "30166-4.htm" :
        st.setState(State.STARTED)
@@ -130,7 +129,7 @@ class Quest (JQuest) :
        st.giveItems(5904,1)
        st.playSound("ItemSound.quest_accept")
     elif event == "30166-5.htm" :
-       for i in range(6007,6035)+[6317,5904] : 
+       for i in range(6007,6035)+[6317,5904] :
           st.takeItems(i,-1)
        st.exitQuest(1)
        st.playSound("ItemSound.quest_finish")
@@ -174,7 +173,7 @@ class Quest (JQuest) :
              st.giveItems(item,qty)
              htmltext="31149-3a.htm"
           else :
-             htmltext = "31149-3b.htm" 
+             htmltext = "31149-3b.htm"
     elif event.startswith("x_") :
        x,qty,dst,item=event.split("_")
        if qty=="2": qty="10"
@@ -281,7 +280,7 @@ class Quest (JQuest) :
      # that appear later in the list, first check with the sum of all entries to
      # see if any one of them will drop, then select which one...
      totalDropChance = DROPLIST[npcId][0]
-     if totalDropChance*Config.RATE_DROP_QUEST > st.getRandom(100) :
+     if totalDropChance > st.getRandom(100) :
         # At this point, we decided that one entry from this list will definitely be dropped
         # to select which one, get a random value in the range of the total chance and find
         # the first item that passes this range.
@@ -296,7 +295,7 @@ class Quest (JQuest) :
               # 100% after rates.  Apply rates to see for bonus amounts...
               # definitely give at least 1 item.  If the chance exceeds 100%, then give some
               # additional bonus...
-              numItems,chance = divmod(chance*Config.RATE_DROP_QUEST,100)
+              numItems,chance = divmod(chance,100)
               if numItems == 0 or chance > st.getRandom(100) :
                  numItems += 1
               st.giveItems(item,int(numItems))

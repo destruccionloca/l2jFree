@@ -1,7 +1,6 @@
 # Illegitimate Child Of A Goddess version 0.1 
 # by DrLecter
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -11,7 +10,7 @@ QUEST_NUMBER,QUEST_NAME,QUEST_DESCRIPTION = 358,"IllegitimateChildOfAGoddess","I
 qn = "358_IllegitimateChildOfAGoddess"
 
 #Variables
-DROP_RATE=12*Config.RATE_DROP_QUEST  #in %
+DROP_RATE=12  #in %
 REQUIRED=108 #how many items will be paid for a reward (affects onkill sounds too)
 
 #Quest items

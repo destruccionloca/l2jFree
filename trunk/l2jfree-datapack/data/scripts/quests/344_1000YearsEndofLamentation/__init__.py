@@ -16,6 +16,7 @@ ARTICLES_DEAD_HEROES,OLD_KEY,OLD_HILT,OLD_TOTEM,CRUCIFIX = range(4269,4274)
 #Chances
 CHANCE = 36
 SPECIAL = int(1+(1000/Config.RATE_QUESTS_REWARD_ITEMS))
+
 #NPCs
 GILMORE = 30754
 RODEMAI = 30756
@@ -99,7 +100,7 @@ class Quest (JQuest) :
           htmltext = "30754-06a.htm"
        else:
           if st.getRandom(SPECIAL)>=amount :
-            st.giveItems(ADENA,amount*60)
+            st.rewardItems(ADENA,amount*60)
           else :
             htmltext="30754-10.htm"
             st.set("ok","1")
@@ -170,7 +171,7 @@ class Quest (JQuest) :
             st.giveItems(4042,1)
          if amt:
             st.unset("amount")
-            st.giveItems(ADENA,amt*50+bonus)
+            st.rewardItems(ADENA,amt*50+bonus)
          htmltext="30754-16.htm"
          st.set("cond","1")
          st.unset("mission")
@@ -184,7 +185,7 @@ class Quest (JQuest) :
      if st.getState() != State.STARTED : return
 
      npcId = npc.getNpcId()
-     chance = (CHANCE+(npcId-20234)*2)*Config.RATE_DROP_QUEST
+     chance = (CHANCE+(npcId-20234)*2)
      bonus = int(divmod(chance,100)[0])
      if st.getInt("cond") == 1 and st.getRandom(100)<chance :
          st.giveItems(ARTICLES_DEAD_HEROES,1+bonus)
@@ -196,7 +197,6 @@ QUEST       = Quest(344,qn,"1000 Years, the End of Lamentation")
 QUEST.addStartNpc(GILMORE)
 
 QUEST.addTalkId(GILMORE)
-
 QUEST.addTalkId(RODEMAI)
 QUEST.addTalkId(ORVEN)
 QUEST.addTalkId(GARVARENTZ)

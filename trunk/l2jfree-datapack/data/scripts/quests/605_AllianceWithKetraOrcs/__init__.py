@@ -57,7 +57,7 @@ Ketra_Alliance_One, Ketra_Alliance_Two, Ketra_Alliance_Three, \
 Ketra_Alliance_Four, Ketra_Alliance_Five = [7211, 7212, 7213, 7214, 7215]
 Varka_Alliance_One, Varka_Alliance_Two, Varka_Alliance_Three, \
 Varka_Alliance_Four, Varka_Alliance_Five  = [7221, 7222, 7223, 7224, 7225]
-Ketra_Badge_Soldier, Ketra_Badge_Officer, Ketra_Badge_Captain  = [7226, 7227,7228]
+Ketra_Badge_Soldier, Ketra_Badge_Officer, Ketra_Badge_Captain  = [7226, 7227, 7228]
 Valor_Totem, Wisdom_Totem = [ 7219,7220 ]
 Mane = 7233
 
@@ -127,7 +127,7 @@ def giveReward(st,item,chance,MAX,drop) :
   if st.getQuestItemsCount(item) > 0 :
     count = st.getQuestItemsCount(drop)
     if count < MAX or drop == Mane :
-      numItems,chance = divmod(chance*Config.RATE_DROP_QUEST,1000)
+      numItems,chance = divmod(chance,1000)
       if st.getRandom(1000) < chance :
         numItems += 1
       numItems = int(numItems)

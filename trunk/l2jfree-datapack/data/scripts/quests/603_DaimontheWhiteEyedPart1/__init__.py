@@ -29,7 +29,7 @@ class Quest (JQuest) :
    cond = st.getInt("cond")
    htmltext = event
    if event == "31683-02.htm" :
-      if st.getPlayer().getLevel() < 73 : 
+      if st.getPlayer().getLevel() < 73 :
          htmltext = "31683-01a.htm"
          st.exitQuest(1)
       else :
@@ -137,9 +137,9 @@ class Quest (JQuest) :
      if st :
          count = st.getQuestItemsCount(EVIL_SPIRIT)
          if st.getInt("cond") == 7 and count < 200 :
-            chance = DROP_CHANCE * Config.RATE_DROP_QUEST
+            chance = DROP_CHANCE
             numItems, chance = divmod(chance,100)
-            if st.getRandom(100) < chance : 
+            if st.getRandom(100) < chance :
                numItems += 1
             if numItems :
                if count + numItems >= 200 :
@@ -147,7 +147,7 @@ class Quest (JQuest) :
                   st.playSound("ItemSound.quest_middle")
                   st.set("cond","8")
                else:
-                  st.playSound("ItemSound.quest_itemget")   
+                  st.playSound("ItemSound.quest_itemget")
                st.giveItems(EVIL_SPIRIT,int(numItems))
      return
 

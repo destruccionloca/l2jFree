@@ -1,6 +1,5 @@
 #  Created by Kerberos
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver import GameTimeController
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
@@ -9,26 +8,23 @@ from com.l2jfree.gameserver.network.serverpackets import NpcSay
 
 qn = "24_InhabitantsOfTheForrestOfTheDead"
 
-# Quest Item
-DROP_CHANCE = 30*Config.RATE_DROP_QUEST
-
 # Npcs
-Dorian     = 31389
-Wizard     = 31522
-Tombstone  = 31531
+Dorian = 31389
+Wizard = 31522
+Tombstone = 31531
 MaidOfLidia = 31532
 
 # Mob
 DORIAN_MOB = 25332
 
 #Items
-Letter            = 7065
-Hairpin           = 7148
-Totem             = 7151
-Flower            = 7152
-SilverCross       = 7153
+Letter = 7065
+Hairpin = 7148
+Totem = 7151
+Flower = 7152
+SilverCross = 7153
 BrokenSilverCross = 7154
-SuspiciousTotem   = 7156
+SuspiciousTotem = 7156
 
 def FindTemplate (npcId) :
     npcinstance = 0
@@ -100,8 +96,8 @@ class Quest (JQuest) :
         htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
         st = player.getQuestState(qn)
         if not st : return htmltext
-        npcId = npc.getNpcId()
         state = st.getState()
+        npcId = npc.getNpcId()
         if state == State.COMPLETED :
             if npcId == Wizard :
                 htmltext = "31522-20.htm"
@@ -157,7 +153,7 @@ class Quest (JQuest) :
         if st.getState() != State.STARTED : return 
         npcId = npc.getNpcId()
         if not st.getQuestItemsCount(Totem) and st.getInt("cond") == 9:
-            if npcId in [21557,21558,21560,21563,21564,21565,21566,21567] and st.getRandom(100) <= DROP_CHANCE:
+            if npcId in [21557,21558,21560,21563,21564,21565,21566,21567] and st.getRandom(100) <=30:
                 st.giveItems(Totem,1)
                 st.set("cond","10")
                 st.playSound("ItemSound.quest_middle")
@@ -176,7 +172,7 @@ class Quest (JQuest) :
              AutoChat(npc,"That sign!")
        return
 
-QUEST     = Quest(24,qn,"Inhabitants Of The Forrest Of The Dead")
+QUEST     = Quest(24,qn,"Inhabitants of the Forest of the Dead")
 
 QUEST.addStartNpc(Dorian)
 

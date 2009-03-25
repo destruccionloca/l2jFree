@@ -1,7 +1,6 @@
 #Hunt of the Golden Ram Mercenary Force
 # Made by Polo - Have fun!..... fix & addition by t0rm3nt0r and LEX
 import sys
-from com.l2jfree import Config 
 from com.l2jfree.gameserver.datatables import SkillTable
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
@@ -143,7 +142,7 @@ class Quest (JQuest) :
         if st.getState() == State.STARTED :
             npcId = npc.getNpcId()
             cond = st.getInt("cond")
-            chance = CHANCE[npcId]*Config.RATE_DROP_QUEST
+            chance = CHANCE[npcId]
             numItems, chance = divmod(chance,MAX)
             if st.getRandom(100) <chance :
                numItems = numItems + 1

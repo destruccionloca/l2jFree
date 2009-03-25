@@ -130,7 +130,6 @@ class Quest (JQuest) :
 
 QUEST       = Quest(378,qn,"Magnificent Feast")
 
-
 QUEST.addStartNpc(RANSPO)
 
 QUEST.addTalkId(RANSPO)

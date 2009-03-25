@@ -1,7 +1,6 @@
 # Whisper of Dreams, part 1 version 0.1 
 # by DrLecter
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -11,11 +10,13 @@ qn = "374_WhisperOfDreams1"
 
 #Variables
 #Quest items drop rate
-DROP_RATE   = 50*Config.RATE_DROP_QUEST
+DROP_RATE = 50
 DROP_MAX = 100 #in % unless you change this
+
 #Mysterious Stone drop rate
-DROP_RATE_2 = 1*Config.RATE_DROP_QUEST
+DROP_RATE_2 = 1
 DROP_MAX_2 = 1000 # default: ~ 1/1000
+
 #Rewards
 SHOP_LIST={
 5485:["etc_leather_yellow_i00",4,10450,"Sealed Tallum Tunic Textures"    ],# 4xTallum Tunic Textures: 10450a
@@ -24,19 +25,18 @@ SHOP_LIST={
 5488:["etc_leather_gray_i00",  2,18050,"Sealed Majestic Robe Fabrics"   ],
 5489:["etc_leather_gray_i00",  6,15550,"Sealed Tallum Stockings Fabrics"] 
 }
- 
- 
+
 #Quest items
 CB_TOOTH, DW_LIGHT, SEALD_MSTONE, MSTONE = range(5884,5888)
 #Messages
 default   = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
- 
+
 #NPCs
 MANAKIA,TORAI = 30515, 30557
- 
+
 #Mobs & Drop
 DROPLIST = {20620:[CB_TOOTH,"awaitTooth"],20621:[DW_LIGHT,"awaitLight"]}
- 
+
 def render_shop() :
     html = "<html><body><font color=\"LEVEL\">Robe Armor Fabrics:</font><table border=0 width=300>"
     for i in SHOP_LIST.keys() :

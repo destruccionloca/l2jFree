@@ -1,7 +1,6 @@
 # version 0.1
 # by DrLecter
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -80,7 +79,6 @@ def check_elements(st,progress) :
         return "420_maria_4.htm"
      else :
         return "420_maria_1.htm"
-
 
 def craft_stone(st,progress) :
     if progress in [1,8]:
@@ -478,7 +476,7 @@ class Quest (JQuest):
               return check_eggs(st,"shamhai",progress)
           elif progress in [ 19,20 ] and st.getQuestItemsCount(SH_EGG) == 1 :
               return "420_shamhai_5.htm"
-    return "<html><body>I have nothing to say to you</body></html>"
+    return "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
 
   def onKill(self,npc,player,isPet):
     st = player.getQuestState(qn)
@@ -496,7 +494,7 @@ class Quest (JQuest):
            count = 10
         else :
            count = 20
-        numItems, chance = divmod(BACK_DROP*Config.RATE_DROP_QUEST,100)
+        numItems, chance = divmod(BACK_DROP,100)
         if st.getRandom(100) <= chance :
           numItems += 1
         numItems = int(numItems)
@@ -533,7 +531,7 @@ class Quest (JQuest):
       prevItems = st.getQuestItemsCount(eggs)
       if st.getQuestItemsCount(scale) == 1 and prevItems < REQUIRED_EGGS :
          if npcId == eggdropper :
-            chance = EGG_DROP*Config.RATE_DROP_QUEST
+            chance = EGG_DROP
             numItems, chance = divmod(chance,100)
             if st.getRandom(100) <= chance :
                numItems += 1

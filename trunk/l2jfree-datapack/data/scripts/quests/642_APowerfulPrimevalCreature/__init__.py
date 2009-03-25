@@ -1,6 +1,5 @@
 # Created by Gigiikun
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -18,7 +17,6 @@ DINOSAUR_TISSUE = 8774
 DINOSAUR_EGG = 8775
 DINOSAURS = [22196,22197,22198,22199,22200,22201,22202,22203,22204,22205,22218,22219,22220,22223,22224,22225,18344]
 REWARDS = [8690,8692,8694,8696,8698,8700,8702,8704,8706,8708,8710]
-
 
 class Quest (JQuest) :
 
@@ -38,7 +36,7 @@ class Quest (JQuest) :
        st.playSound("ItemSound.quest_accept")
     elif event == "32105-08.htm" :
        st.takeItems(DINOSAUR_TISSUE,-1)
-       st.giveItems(57,count_tissue*5000)
+       st.rewardItems(57,count_tissue*5000)
     elif event == "32105-07.htm" :
        if count_tissue < 150 or count_egg == 0 :
           htmltext = "32105-05.htm"
@@ -55,7 +53,7 @@ class Quest (JQuest) :
           else :
              st.giveItems(int(event),1)
        else :
-          htmltext = "Incorrect item count"
+          htmltext = "Incorrect item count."
     return htmltext
 
  def onTalk (self, npc, player):
@@ -77,7 +75,7 @@ class Quest (JQuest) :
              htmltext = "32105-06.htm"
     return htmltext
 
- def onKill (self, npc, player,isPet):
+ def onKill (self, npc, player, isPet):
     partyMember = self.getRandomPartyMember(player,"1")
     if not partyMember: return
     st = partyMember.getQuestState(qn)
@@ -89,11 +87,11 @@ class Quest (JQuest) :
           if cond == 1 :
              if npcId == 18344 :
                 itemId = DINOSAUR_EGG
-                chance = EGG_DROP_CHANCE*Config.RATE_DROP_QUEST
+                chance = EGG_DROP_CHANCE
                 numItems, chance = divmod(chance,100)
              else :
                 itemId = DINOSAUR_TISSUE
-                chance = TISSUE_DROP_CHANCE*Config.RATE_DROP_QUEST
+                chance = TISSUE_DROP_CHANCE
                 numItems, chance = divmod(chance,100)
              if st.getRandom(100) < chance :
                 numItems += 1
@@ -105,7 +103,7 @@ class Quest (JQuest) :
                 st.giveItems(itemId,int(numItems))
     return
 
-QUEST = Quest(642,qn,"A Powerful Primeval creature")
+QUEST = Quest(642,qn,"A Powerful Primeval Creature")
 
 QUEST.addStartNpc(32105)
 

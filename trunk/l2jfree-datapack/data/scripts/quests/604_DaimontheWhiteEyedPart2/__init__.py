@@ -20,7 +20,6 @@ U_SUMMON,S_SUMMON,ESSENCE = range(7192,7195)
 #Rewards dye +2int-2men/+2int-2wit/+2men-2int/+2men-2wit/+2wit-2int/+2wit-2men
 REWARDS = range(4595,4601)
 
-
 def AutoChat(npc,text) :
     chars = npc.getKnownList().getKnownPlayers().values().toArray()
     if chars != None:
@@ -41,7 +40,6 @@ class Quest (JQuest) :
            self.startQuestTimer("spawn_npc", remain, None, None)
      else :
         self.addSpawn(31541,186304,-43744,-3193,57000, False, 0, True)
-
 
  def onAdvEvent (self, event, npc, player) :
    if event == "Daimon the White-Eyed has despawned" :
@@ -153,7 +151,6 @@ class Quest (JQuest) :
                 st.set("cond","3")
                 st.playSound("ItemSound.quest_middle")
      return
-
 
 QUEST = Quest(604,qn,"Daimon the White-Eyed - Part 2")
 

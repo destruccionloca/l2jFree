@@ -24,8 +24,8 @@ BLOODSABER_ID = 975
 #Bit #1 isn't used for backwards compatibility.
 NEWBIE_REWARD = 8
 SOULSHOT_FOR_BEGINNERS = 5789
-SOULSHOT_NO_GRADE = 1835
 SPIRITSHOT_NO_GRADE = 2509
+SOULSHOT_NO_GRADE = 1835
 ADENA = 57
 LESSER_HEALING_POTION = 1060
 class Quest (JQuest) :
@@ -50,7 +50,7 @@ class Quest (JQuest) :
    if not st: return htmltext
    id = st.getState()
    if id == State.COMPLETED :
-        htmltext = "<html><body>This quest has already been completed.</body></html>"
+     htmltext = "<html><body>This quest has already been completed.</body></html>"
    elif npcId == 30307 and id == State.CREATED :
      if player.getRace().ordinal() != 2 :
         htmltext = "30307-00.htm"
@@ -158,12 +158,11 @@ class Quest (JQuest) :
             st.takeItems(PRESERVE_OIL_ID,1)
    return
 
-QUEST       = Quest(103,qn,"Spirit Of Craftsman")
+QUEST       = Quest(103,qn,"Spirit of Craftsman")
 
 QUEST.addStartNpc(30307)
 
 QUEST.addTalkId(30307)
-
 QUEST.addTalkId(30132)
 QUEST.addTalkId(30144)
 

@@ -1,6 +1,5 @@
 # Kail's Magic Coin ver. 0.1 by DrLecter
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -9,10 +8,13 @@ qn = "382_KailsMagicCoin"
 
 #Messages
 default = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
+
 #Quest items
 ROYAL_MEMBERSHIP = 5898
+
 #NPCs
 VERGARA = 30687
+
 #MOBs and CHANCES
 MOBS={21017:[5961],21019:[5962],21020:[5963],21022:[5961,5962,5963]}
 CHANCE = 10
@@ -55,9 +57,9 @@ class Quest (JQuest) :
 
   def onKill(self,npc,player,isPet):
       st = player.getQuestState(qn)
-      if not st : return 
-      if st.getState() != State.STARTED : return 
-      numItems,chance = divmod(CHANCE*Config.RATE_DROP_QUEST,MAX)
+      if not st : return
+      if st.getState() != State.STARTED : return
+      numItems,chance = divmod(CHANCE,MAX)
       if st.getQuestItemsCount(ROYAL_MEMBERSHIP) :
          if st.getRandom(MAX) < chance :
             numItems = numItems + 1

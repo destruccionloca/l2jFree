@@ -1,7 +1,6 @@
 # Exploration of Giants Cave, part 1 version 0.1 
 # by DrLecter
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -11,19 +10,18 @@ qn = "376_GiantsExploration1"
 
 #Variables
 #Ancient parchment drop rate in %
-DROP_RATE   = 15*Config.RATE_DROP_QUEST
+DROP_RATE = 15
 MAX = 100
 #Mysterious Book drop rate in %
-DROP_RATE_2 = 5*Config.RATE_DROP_QUEST
+DROP_RATE_2 = 5
 #By changing this setting you can make a group of recipes harder to get
 RP_BALANCE = 50
 #Changing this value to non-zero, will turn recipes to 100% instead of 60%
 ALT_RP_100 = 0
 
-
 #Quest items
 ANC_SCROLL = 5944
-DICT1  = 5891 
+DICT1  = 5891
 DICT2  = 5892 #Given as a proof for 2nd part
 MST_BK = 5890
 
@@ -38,17 +36,17 @@ EXCHANGE = [
 
 #Messages
 default   = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
-error_1   = "<html><body>Head Researcher Sobling:<br><br>I think it is too early for you to help me. Come back after you have gained some more experience. <br><font color=\"LEVEL\">(Quest for characters level 51 and above.)</font></body></html>"
-start     = "<html><body>Head Researcher Sobling:<br><br>As leader of the research team i'm looking for experienced adventurers to join us. Actually we're searching for relics from the ancient Giants Culture. There are four scripts we can't find yet: <font color=\"LEVEL\">Plans for the construction of Golems, Basis of the Giant's Magic, Construction Technology Handbook and Giant's Medical Theory.</font><br><br>Given the value of the items we're looking for, there is no need to tell you how generous shall be my rewards.<br><br><a action=\"bypass -h Quest 376_GiantsExploration1 yes\">I will search for ancient items</a><br><a action=\"bypass -h Quest 376_GiantsExploration1 0\">I won't help you</a><br></body></html>"
+error_1   = "<html><body>Head Researcher Sobling:<br>I think it is too early for you to help me. Come back after you have gained some more experience.<br><font color=\"LEVEL\">(Quest for characters level 51 and above.)</font></body></html>"
+start     = "<html><body>Head Researcher Sobling:<br>As leader of the research team I'm looking for experienced adventurers to join us. Actually we're searching for relics from the ancient Giants Culture. There are four scripts we can't find yet: <font color=\"LEVEL\">Plans for the construction of Golems, Basis of the Giant's Magic, Construction Technology Handbook and Giant's Medical Theory.</font><br>Given the value of the items we're looking for, there is no need to tell you how generous shall be my rewards.<br><a action=\"bypass -h Quest 376_GiantsExploration1 yes\">I will search for ancient items</a><br><a action=\"bypass -h Quest 376_GiantsExploration1 0\">I won't help you</a></body></html>"
 starting  = "Starting.htm"
-checkout  = "<html><body>Head Researcher Sobling:<br><br>Excellent! You came back! Was it difficult to collect ancient pieces?<br><br>Let me see what you've found thus far...<br><br><a action=\"bypass -h Quest 376_GiantsExploration1 show\">Show him the books you collected</a><br><a action=\"bypass -h Quest 376_GiantsExploration1 myst\">Show him another items you've found</a><br></body></html>"
-checkout2 = "<html><body>Head Researcher Sobling:<br><br>Excellent! You came back! Was it difficult to collect ancient pieces?<br><br>Hum... what is it? You have some ancient scrolls here, but those are of no use to me until you translate its contents, i have no time to do it on my own and that's why i gave you the dictionary. Anyway i can check any other ancient item you may have...<br><br><a action=\"bypass -h Quest 376_GiantsExploration1 show\">Show him the scrolls you collected</a><br><a action=\"bypass -h Quest 376_GiantsExploration1 myst\">Show him another items you've found</a><br></body></html>"
-no_items  = "<html><body>Head Researcher Sobling:<br><br>Hum... I see no valuable items here, you should continue your research. I'm pretty sure you can do it better if you put more effort... what you think?<br><br><a action=\"bypass -h Quest 376_GiantsExploration1 Starting.htm\">I will continue</a><br><a action=\"bypass -h Quest 376_GiantsExploration1 0\">I will quit</a><br></body></html>"
-tnx4items = "<html><body>Head Researcher Sobling:<br><br>Amazing! These are the sort of items i was looking for... Take this rare recipes as a proof of my gratitude. Anyhow, I'm sure there are more ancient relics guarded by those monsters, would you like to search some more?<br><br><a action=\"bypass -h Quest 376_GiantsExploration1 Starting.htm\">I will continue</a><br><a action=\"bypass -h Quest 376_GiantsExploration1 0\">I will quit</a><br></body></html>"
-go_part2  = "<html><body>Head Researcher Sobling:<br><br>Interesting. What could this mysterious book be? I'm afraid we will not be able to figure out it's contents without assistance. But don't worry, i know who can help us, go now and talk with <font color=\"LEVEL\">Warehouse Freightman Cliff in Oren Castle Town</font>, show him the tome and he will probably know what to do with it.<br><br></body></html>"
-no_part2  = "<html><body>Head Researcher Sobling:<br><br>I don't find anything useful here... I'm aware already about some discoveries related to giant's living, but there is no archeological value in vane letters or drawings you may find. As i told you, we are in desperate search for <font color=\"LEVEL\">Plans for the construction of Golems, Basis of the Giant's Magic, Construction Technology and Giant's Medical Theory.</font> You must bring any of those books complete. Few we can do only with fragments.<br><br></body></html>"
-ok_part2  = "<html><body>Warehouse Freightman Cliff:<br><br>What is that book? Sobling told you to bring it to me? Well... It's written in a very ancient language.. yes.. Humm.. Take this \"Ancient Language Dictionary: Intermediate Level\" and meet <font color=\"LEVEL\">Sobling</font> again. With this he will be able to translate it. Leave now.</body></html>"
-gogogo_2  = "<html><body>Head Researcher Sobling:<br><br>Are you still there with the book? There is no way to read it's contents with our current knowledge. Take the book to <font color=\"LEVEL\">Warehouse Freightman Cliff in Oren Castle Town</font>.<br><br></body></html>"
+checkout  = "<html><body>Head Researcher Sobling:<br>Excellent! You came back! Was it difficult to collect ancient pieces?<br>Let me see what you've found thus far...<br><a action=\"bypass -h Quest 376_GiantsExploration1 show\">Show him the books you collected</a><br><a action=\"bypass -h Quest 376_GiantsExploration1 myst\">Show him another items you've found</a></body></html>"
+checkout2 = "<html><body>Head Researcher Sobling:<br>Excellent! You came back! Was it difficult to collect ancient pieces?<br>Hum... what is it? You have some ancient scrolls here, but those are of no use to me until you translate its contents, i have no time to do it on my own and that's why i gave you the dictionary. Anyway i can check any other ancient item you may have...<br><a action=\"bypass -h Quest 376_GiantsExploration1 show\">Show him the scrolls you collected</a><br><a action=\"bypass -h Quest 376_GiantsExploration1 myst\">Show him another items you've found</a></body></html>"
+no_items  = "<html><body>Head Researcher Sobling:<br>Hum... I see no valuable items here, you should continue your research. I'm pretty sure you can do it better if you put more effort... what you think?<br><a action=\"bypass -h Quest 376_GiantsExploration1 Starting.htm\">I will continue</a><br><a action=\"bypass -h Quest 376_GiantsExploration1 0\">I will quit</a></body></html>"
+tnx4items = "<html><body>Head Researcher Sobling:<br>Amazing! These are the sort of items i was looking for... Take this rare recipes as a proof of my gratitude. Anyhow, I'm sure there are more ancient relics guarded by those monsters, would you like to search some more?<br><a action=\"bypass -h Quest 376_GiantsExploration1 Starting.htm\">I will continue</a><br><a action=\"bypass -h Quest 376_GiantsExploration1 0\">I will quit</a></body></html>"
+go_part2  = "<html><body>Head Researcher Sobling:<br>Interesting. What could this mysterious book be? I'm afraid we will not be able to figure out it's contents without assistance. But don't worry, i know who can help us, go now and talk with <font color=\"LEVEL\">Warehouse Freightman Cliff in Oren Castle Town</font>, show him the tome and he will probably know what to do with it.</body></html>"
+no_part2  = "<html><body>Head Researcher Sobling:<br>I don't find anything useful here... I'm aware already about some discoveries related to giant's living, but there is no archeological value in vane letters or drawings you may find. As i told you, we are in desperate search for <font color=\"LEVEL\">Plans for the construction of Golems, Basis of the Giant's Magic, Construction Technology and Giant's Medical Theory.</font> You must bring any of those books complete. Few we can do only with fragments.</body></html>"
+ok_part2  = "<html><body>Warehouse Freightman Cliff:<br>What is that book? Sobling told you to bring it to me? Well... It's written in a very ancient language.. yes.. Humm.. Take this \"Ancient Language Dictionary: Intermediate Level\" and meet <font color=\"LEVEL\">Sobling</font> again. With this he will be able to translate it. Leave now.</body></html>"
+gogogo_2  = "<html><body>Head Researcher Sobling:<br>Are you still there with the book? There is no way to read it's contents with our current knowledge. Take the book to <font color=\"LEVEL\">Warehouse Freightman Cliff in Oren Castle Town</font>.</body></html>"
 ext_msg   = "Quest aborted"
 
 #NPCs
@@ -65,7 +63,7 @@ class Quest (JQuest) :
      self.questItemIds = [DICT1, MST_BK]
 
  def onEvent (self,event,st) :
-    id = st.getState() 
+    id = st.getState()
     htmltext = event
     if event == "yes" :
        htmltext = starting
@@ -148,18 +146,19 @@ class Quest (JQuest) :
            st.giveItems(MST_BK,1)
            st.unset("awaitBook")
            st.playSound("ItemSound.quest_middle")
+
      # In addition, drops go to one party member among those who are either in
      # progress PART1 or in PART2
      partyMember = self.getRandomPartyMemberState(player, State.STARTED)
      if not partyMember : return
-     st = partyMember.getQuestState(qn)  
+     st = partyMember.getQuestState(qn)
      numItems, chance = divmod(DROP_RATE,MAX)
      if st.getRandom(MAX) < chance :
         numItems = numItems + 1
      if int(numItems) != 0 :
         st.giveItems(ANC_SCROLL,int(numItems))
         st.playSound("ItemSound.quest_itemget")
-     return  
+     return
 
 # Quest class and state definition
 QUEST       = Quest(QUEST_NUMBER, str(QUEST_NUMBER)+"_"+QUEST_NAME, QUEST_DESCRIPTION)

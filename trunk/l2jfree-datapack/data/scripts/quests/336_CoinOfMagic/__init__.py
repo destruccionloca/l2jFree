@@ -5,6 +5,7 @@ qn = "336_CoinOfMagic"
 QUEST_NUMBER      = 336
 QUEST_NAME        = "CoinOfMagic"
 QUEST_DESCRIPTION = "Coins of Magic"
+
 #Messages
 default = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
 
@@ -79,7 +80,7 @@ TRADE_LIST={
     233:  [[BELETHS_GOLD,1],[BLOOD_DRAGON,1],[SILVER_DRYAD,1],[GOLD_GIANT,1]],        # Dark Screamer
     303:  [[BELETHS_SILVER,1],[GOLD_DRAGON,1],[BLOOD_SUCCUBUS,1],[BLOOD_BASILISK,2]], # Widow Maker
     132:  [[GOLD_DRAGON,1],[SILVER_DRAGON,1],[BLOOD_DRAGON,1],[SILVER_UNDINE,1]],     # Sword of Limit
-    
+
     2435: [[MANAKS_GOLD_GIANT,1]],                                                    # Demon's Boots
     472:  [[MANAKS_SILVER_DRYAD,1],[SILVER_DRYAD,1]],                                 # Demon's Stockings
     2459: [[MANAKS_GOLD_GIANT,1]],                                                    # Demon's Gloves
@@ -92,7 +93,6 @@ TRADE_LIST={
     }
 
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -358,7 +358,7 @@ class Quest (JQuest) :
    
    cond=st.getInt("cond")
    grade=st.getInt("grade")
-   chance=int((npc.getLevel() - grade * 3 - 20)*Config.RATE_DROP_QUEST)
+   chance=int(npc.getLevel() - grade * 3 - 20)
    item=DROP_LIST[npcId][0]
    random = st.getRandom(100)
    if item == KALDIS_COIN :

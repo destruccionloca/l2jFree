@@ -1,7 +1,6 @@
 # Fix by Cromir & Black Night for Kilah
 # Quest: Influx of Machines
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -10,13 +9,13 @@ qn = "647_InfluxOfMachines"
 
 #Settings: drop chance in %
 DROP_CHANCE=30
+
 #Set this to non-zero to use 100% recipes as reward instead of default 60%
 ALT_RP_100=0
 
 DESTROYED_GOLEM_SHARD = 8100
 RECIPES_60= [4963,4964,4965,4966,4967,4968,4969,4970,4971,4972,5000,5001,5002,5003,5004,5005,5006,5007]+[8298, 8306, 8310, 8312, 8322, 8324]
 RECIPES_100= range(4181,4200)+[8297, 8305, 8309, 8311, 8321, 8323]
-
 
 class Quest (JQuest) :
 
@@ -74,7 +73,7 @@ class Quest (JQuest) :
             cond = st.getInt("cond")
             count = st.getQuestItemsCount(DESTROYED_GOLEM_SHARD)
             if cond == 1 and count < 500:
-                chance = DROP_CHANCE*Config.RATE_DROP_QUEST
+                chance = DROP_CHANCE
                 numItems, chance = divmod(chance,100)
                 if st.getRandom(100) < chance : 
                     numItems += 1

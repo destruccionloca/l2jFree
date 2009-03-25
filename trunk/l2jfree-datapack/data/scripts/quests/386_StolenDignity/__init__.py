@@ -1,7 +1,6 @@
 # Stolen Dignity version 0.1 
 # by DrLecter
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -11,8 +10,8 @@ QUEST_NUMBER,QUEST_NAME,QUEST_DESCRIPTION = 386,"StolenDignity","Stolen Dignity"
 qn = "386_StolenDignity"
 
 #Variables
-DROP_RATE=15*Config.RATE_DROP_QUEST
-REQUIRED_ORE=100 #how many items will be paid for a game (affects onkill sounds too)
+DROP_RATE = 15
+REQUIRED_ORE = 100 #how many items will be paid for a game (affects onkill sounds too)
 
 #Quest items
 SI_ORE = 6363
@@ -36,6 +35,7 @@ WK_ROMP = 30843
 
 #Mobs
 MOBS = [ 20670,20671,20954,20956,20958,20959,20960,20964,20969,20967,20970,20971,20974,20975,21001,21003,21005,21020,21021,21089,21108,21110,21113,21114,21116 ]
+
 MOB={
     20670:14,
     20671:14,
@@ -61,7 +61,7 @@ MOB={
     21110:18,
     21113:25,
     21114:23,
-    21116:25    
+    21116:25
 }
 MAX = 100
 
@@ -105,7 +105,6 @@ def result(st) :
         html +="</tr>"
     html += footer
     return html
-
 
 class Quest (JQuest) :
 
@@ -199,11 +198,11 @@ class Quest (JQuest) :
      partyMember = self.getRandomPartyMemberState(player, State.STARTED)
      if not partyMember : return
      st = partyMember.getQuestState(qn)
-     numItems,chance = divmod(MOB[npc.getNpcId()]*Config.RATE_DROP_QUEST,MAX)
+     numItems,chance = divmod(MOB[npc.getNpcId()],MAX)
      prevItems = st.getQuestItemsCount(SI_ORE)
      if st.getRandom(MAX) < chance :
         numItems = numItems + 1
-     if numItems != 0 :   
+     if numItems != 0 :
         st.giveItems(SI_ORE,int(numItems))
         if int(prevItems+numItems)/REQUIRED_ORE > int(prevItems)/REQUIRED_ORE :
            st.playSound("ItemSound.quest_middle")

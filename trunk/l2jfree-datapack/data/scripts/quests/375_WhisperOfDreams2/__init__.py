@@ -1,7 +1,6 @@
 # Whisper of Dreams, part 2 version 0.1 
 # by DrLecter
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -12,17 +11,17 @@ qn = "375_WhisperOfDreams2"
 
 #Variables
 #Alternative rewards. Set this to a non-zero value and recipes will be 100% instead of 60%
-ALT_RP_100=0
- 
+ALT_RP_100 = 0
+
 #Quest items
 MSTONE,K_HORN,CH_SKULL=range(5887,5890)
- 
+
 #Quest collections
 REWARDS = [5348,5350,5352]
- 
+
 #Messages
-default   = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
- 
+default = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
+
 #NPCs
 MANAKIA = 30515
  

@@ -1,6 +1,5 @@
 # Created by Gigiikun
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -73,7 +72,7 @@ class Quest (JQuest) :
           cond = st.getInt("cond")
           count = st.getQuestItemsCount(DINOSAUR_FANG_NECKLACE)
           if cond == 1 :
-             chance = DROP_CHANCE*Config.RATE_DROP_QUEST
+             chance = DROP_CHANCE
              numItems, chance = divmod(chance,100)
              if st.getRandom(100) < chance :
                 numItems += 1
