@@ -66,9 +66,7 @@
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="2308" levels="36" name="Event Item">
-    <!--
-      Description(s): Lvl 1-36 Name - Event Item
-    -->
+    <!-- Description(s): Lvl 1-36 Name - Event Item -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -243,7 +241,7 @@
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="2323" levels="1" name="Red Sage's Stone">
-e="target" val="TARGET_NONE"/>
+    <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
@@ -542,10 +540,12 @@ e="target" val="TARGET_NONE"/>
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="2361" levels="1" name="Evolving Wolf's Food">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="FEED_PET"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="feed" val="1000"/>
     <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
   </skill>
   <skill id="2362" levels="1" name="Prison Gate Key">
     <set name="target" val="TARGET_NONE"/>
@@ -605,9 +605,7 @@ e="target" val="TARGET_NONE"/>
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="2370" levels="1" name="Scroll of Transformation - Pig">
-    <!--
-      Done by Skatershi Description: Transform into a cute pig.
-    -->
+    <!-- Done by Skatershi Description: Transform into a cute pig. -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -622,9 +620,7 @@ e="target" val="TARGET_NONE"/>
     </for>
   </skill>
   <skill id="2371" levels="1" name="Transform Sealbook - Onyx Beast">
-    <!--
-      Done by Skatershi Description: Transform into an Onyx Beast.
-    -->
+    <!-- Done by Skatershi Description: Transform into an Onyx Beast. -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -639,9 +635,7 @@ e="target" val="TARGET_NONE"/>
     </for>
   </skill>
   <skill id="2372" levels="1" name="Transform Sealbook - Death Blader">
-    <!--
-      Done by Skatershi Description: Transform into a Death Blader.
-    -->
+    <!-- Done by Skatershi Description: Transform into a Death Blader. -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -656,9 +650,7 @@ e="target" val="TARGET_NONE"/>
     </for>
   </skill>
   <skill id="2373" levels="1" name="Transform Sealbook - Grail Apostle">
-    <!--
-      Done by Skatershi Description: Transform into an apostle Grail.
-    -->
+    <!-- Done by Skatershi Description: Transform into an apostle Grail. -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -673,9 +665,7 @@ e="target" val="TARGET_NONE"/>
     </for>
   </skill>
   <skill id="2374" levels="1" name="Transform Sealbook - Unicorn">
-    <!--
-      Done by Skatershi Description: Transform into a Unicorn.
-    -->
+    <!-- Done by Skatershi Description: Transform into a Unicorn. -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -690,9 +680,7 @@ e="target" val="TARGET_NONE"/>
     </for>
   </skill>
   <skill id="2375" levels="1" name="Transform Sealbook - Lilim Knight">
-    <!--
-      Done by Skatershi Description: Transform into a Lilim Knight.
-    -->
+    <!-- Done by Skatershi Description: Transform into a Lilim Knight. -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -707,9 +695,7 @@ e="target" val="TARGET_NONE"/>
     </for>
   </skill>
   <skill id="2376" levels="1" name="Transform Sealbook - Golem Guardian">
-    <!--
-      Done by Skatershi Description: Transform into a Golem Guardian.
-    -->
+    <!-- Done by Skatershi Description: Transform into a Golem Guardian. -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -724,9 +710,7 @@ e="target" val="TARGET_NONE"/>
     </for>
   </skill>
   <skill id="2377" levels="1" name="Transform Sealbook - Inferno Drake">
-    <!--
-      Done by Skatershi Description: Transform into an Inferno Drake.
-    -->
+    <!-- Done by Skatershi Description: Transform into an Inferno Drake. -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -741,9 +725,7 @@ e="target" val="TARGET_NONE"/>
     </for>
   </skill>
   <skill id="2378" levels="1" name="Transform Sealbook - Dragon Bomber">
-    <!--
-      Done by Skatershi Description: Transform into a Dragon Bomber.
-    -->
+    <!-- Done by Skatershi Description: Transform into a Dragon Bomber. -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>

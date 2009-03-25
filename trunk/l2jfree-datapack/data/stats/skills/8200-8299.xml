@@ -756,12 +756,7 @@
   <skill id="8244" levels="1" name="Transform Gatekeeper">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
-    <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="hitTime" val="2500"/>
-    <set name="reuseDelay" val="3600000"/>
-    <set name="staticReuse" val="true"/>
-    <set name="staticHitTime" val="true"/>
     <set name="transformId" val="107"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -782,12 +777,7 @@
   <skill id="8246" levels="1" name="Transform Pumpkin Ghost">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
-    <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="hitTime" val="2500"/>
-    <set name="reuseDelay" val="3600000"/>
-    <set name="staticReuse" val="true"/>
-    <set name="staticHitTime" val="true"/>
     <set name="transformId" val="108"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -797,12 +787,13 @@
   </skill>
   <skill id="8247" levels="1" name="Mount Light Purple Maned Horse">
     <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="MOUNT"/>
-    <set name="npcId" val="13130"/>
-    <set name="itemId" val="20029"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="transformId" val="106"/>
     <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
+    <for>
+      <effect count="1" name="Transformation" time="1800" val="0" /> <!-- duration guessed -->
+    </for>
   </skill>
   <skill id="8248" levels="1" name="Cancel Gatekeeper Transformation">
     <set name="target" val="TARGET_SELF"/>
@@ -811,7 +802,6 @@
     <set name="hitTime" val="2500"/>
     <set name="staticHitTime" val="true"/>
     <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
   </skill>
   <skill id="8249" levels="1" name="Cancel Critical Hit">
     <set name="target" val="TARGET_NONE"/>

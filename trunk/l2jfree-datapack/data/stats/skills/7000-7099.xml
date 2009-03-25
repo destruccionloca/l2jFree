@@ -358,8 +358,7 @@
   </skill>
   <!-- Admin / Game Masters skills -->
   <!--
-    Done by SqueezeD Edit by Shaka for L2J Project -
-    01/28/2008
+    Done by SqueezeD Edit by Shaka for L2J Project - 01/28/2008
   -->
   <skill id="7041" levels="1" name="Master's Blessing - Focus">
     <!--
@@ -702,8 +701,7 @@
   </skill>
   <skill id="7058" levels="1" name="Master's Blessing - Greater Shield">
     <!--
-      A GM is always by your side. Temporarily increases the
-      target's P. Def. Effect 3.
+      A GM is always by your side. Temporarily increases the target's P. Def. Effect 3.
     -->
     <set name="mpConsume" val="2"/>
     <set name="magicLvl" val="1"/>
@@ -753,9 +751,9 @@
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
-    <set name="effectRange" val="900"/>
+    <set name="effectRange" val="400"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0" stackOrder="2" stackType="MPrate">
+      <effect count="1" name="Buff" time="300" val="0" stackOrder="3" stackType="MPrate">
         <mul order="0x30" stat="MagicalMpConsumeRate" val="0.9"/>
         <mul order="0x30" stat="PhysicalMpConsumeRate" val="0.9"/>
       </effect>

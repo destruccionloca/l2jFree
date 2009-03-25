@@ -35,9 +35,8 @@
     </for>
   </skill>
   <skill id="401" levels="10" name="Judgment" enchantLevels1="30" enchantLevels2="30">
-    <table name="#ench1Power"> 1769 1785 1801 1817 1833 1848 1864
-      1880 1896 1912 1927 1943 1959 1975 1991 2006 2022 2038
-      2054 2070 2085 2101 2117 2133 2149 2164 2180 2196 2212 2228 </table>
+    <table name="#ench1Power"> 1769 1785 1801 1817 1833 1848 1864 1880 1896 1912 1927 1943 1959
+      1975 1991 2006 2022 2038 2054 2070 2085 2101 2117 2133 2149 2164 2180 2196 2212 2228 </table>
     <table name="#ench2MpConsume"> 70 69 68 67 66 64 63 62 61 60 58 57
       56 55 54 52 51 50 49 48 46 45 44 43 42 40 39 38 37 36 </table>
     <table name="#mpConsume"> 52 56 58 60 62 64 66 68 70 72 </table>
@@ -245,9 +244,8 @@
     </for>
   </skill>
   <skill id="409" levels="10" name="Critical Blow" enchantLevels1="30" enchantLevels2="30">
-    <table name="#ench1Power"> 3685 3718 3751 3784 3817 3850 3883
-      3916 3949 3982 4014 4047 4080 4113 4146 4179 4212 4245
-      4278 4311 4343 4376 4409 4442 4475 4508 4541 4574 4607 4640 </table>
+    <table name="#ench1Power"> 3685 3718 3751 3784 3817 3850 3883 3916 3949 3982 4014 4047 4080
+      4113 4146 4179 4212 4245 4278 4311 4343 4376 4409 4442 4475 4508 4541 4574 4607 4640 </table>
     <table name="#ench2MpConsume"> 70 69 68 67 66 64 63 62 61 60 58 57
       56 55 54 52 51 50 49 48 46 45 44 43 42 40 39 38 37 36 </table>
     <table name="#mpConsume"> 52 56 58 60 62 64 66 68 70 72 </table>
@@ -290,6 +288,7 @@
     <for>
       <effect count="1" name="Buff" time="120" val="0">
         <mul order="0x30" stat="blowRate" val="1.2"/>
+        <mul order="0x30" stat="lethalRate" val="#lethalRate"/>
       </effect>
     </for>
   </skill>

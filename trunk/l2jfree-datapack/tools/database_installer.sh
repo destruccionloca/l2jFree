@@ -177,21 +177,23 @@ full_install()
 	$MYG < ../sql/auction.sql &> /dev/null
 	$MYG < ../sql/auction_bid.sql &> /dev/null
 	$MYG < ../sql/auction_watch.sql &> /dev/null
+	$MYG < ../sql/auto_announcements.sql &> /dev/null
 	$MYG < ../sql/auto_chat.sql &> /dev/null
 	$MYG < ../sql/auto_chat_text.sql &> /dev/null
 	$MYG < ../sql/castle.sql &> /dev/null
-	$MYG < ../sql/castle_functions.sql &> /dev/null
 	$MYG < ../sql/castle_door.sql &> /dev/null
 	$MYG < ../sql/castle_doorupgrade.sql &> /dev/null
+	$MYG < ../sql/castle_functions.sql &> /dev/null
 	$MYG < ../sql/castle_manor_procure.sql &> /dev/null
 	$MYG < ../sql/castle_manor_production.sql &> /dev/null
 	$MYG < ../sql/castle_siege_guards.sql &> /dev/null
-	$MYG < ../sql/char_creation_items.sql &> /dev/null
 	$MYG < ../sql/char_templates.sql &> /dev/null
+	$MYG < ../sql/char_creation_items.sql &> /dev/null
 	$MYG < ../sql/character_friends.sql &> /dev/null
 	$MYG < ../sql/character_hennas.sql &> /dev/null
 	$MYG < ../sql/character_macroses.sql &> /dev/null
 	$MYG < ../sql/character_quests.sql &> /dev/null
+	$MYG < ../sql/character_raid_points.sql &> /dev/null
 	$MYG < ../sql/character_recipebook.sql &> /dev/null
 	$MYG < ../sql/character_recommends.sql &> /dev/null
 	$MYG < ../sql/character_shortcuts.sql &> /dev/null
@@ -222,14 +224,15 @@ full_install()
 	$MYG < ../sql/fort_staticobjects.sql &> /dev/null
 	$MYG < ../sql/fort.sql &> /dev/null
 	$MYG < ../sql/fortsiege_clans.sql &> /dev/null
+	$MYG < ../sql/four_sepulchers_spawnlist.sql &> /dev/null
 	$MYG < ../sql/games.sql &> /dev/null
 	$MYG < ../sql/global_tasks.sql &> /dev/null
 	$MYG < ../sql/gm_audit.sql &> /dev/null
 	$MYG < ../sql/henna.sql &> /dev/null
 	$MYG < ../sql/henna_trees.sql &> /dev/null
 	$MYG < ../sql/heroes.sql &> /dev/null
-	$MYG < ../sql/items.sql &> /dev/null
 	$MYG < ../sql/item_attributes.sql &> /dev/null
+	$MYG < ../sql/items.sql &> /dev/null
 	$MYG < ../sql/items_on_ground.sql &> /dev/null
 	$MYG < ../sql/lvlupgain.sql &> /dev/null
 	$MYG < ../sql/merchant_buylists.sql &> /dev/null
@@ -242,6 +245,7 @@ full_install()
 	$MYG < ../sql/olympiad_nobles_eom.sql&> /dev/null
 	$MYG < ../sql/petitions.sql &> /dev/null
 	$MYG < ../sql/pets.sql &> /dev/null
+	$MYG < ../sql/pets_skills.sql &> /dev/null
 	$MYG < ../sql/pets_stats.sql &> /dev/null
 	$MYG < ../sql/pledge_skill_trees.sql &> /dev/null
 	$MYG < ../sql/posts.sql &> /dev/null
@@ -265,7 +269,6 @@ full_install()
 	$MYG < ../sql/weapon.sql &> /dev/null
 	# L2JFree tables
 	$MYG < ../sql/buff_templates.sql &> /dev/null
-	$MYG < ../sql/character_raid_points.sql &> /dev/null
 	$MYG < ../sql/couples.sql &> /dev/null
 	$MYG < ../sql/ctf.sql &> /dev/null
 	$MYG < ../sql/ctf_teams.sql &> /dev/null
@@ -279,7 +282,6 @@ full_install()
 	$MYG < ../sql/custom/custom_spawnlist.sql &> /dev/null
 	$MYG < ../sql/custom/custom_weapon.sql &> /dev/null
 	$MYG < ../sql/dm.sql &> /dev/null
-	$MYG < ../sql/four_sepulchers_spawnlist.sql &> /dev/null 
 	$MYG < ../sql/lastimperialtomb_spawnlist.sql &> /dev/null 
 	$MYG < ../sql/grandboss_intervallist.sql &> /dev/null 
 	$MYG < ../sql/grandboss_spawnlist.sql &> /dev/null 

@@ -75,7 +75,7 @@ order = [
          [5,4,3,1,6,2]
         ]
 
-#Second room - golem spawn locatons - random    
+#Second room - golem spawn locatons - random
 golems = [
           [CCG[0],148060,181389],
           [CCG[1],147910,181173],

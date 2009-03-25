@@ -94,7 +94,7 @@
   <skill id="5413" levels="1" name="Performing Agathion - Beast Farm">
     <!-- Needs to be verified -->
     <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="UNLOCK"/> <!-- havent found any matching skilltype, this one working fine :) -->
+    <set name="skillType" val="DUMMY"/>
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -107,7 +107,7 @@
   <skill id="5414" levels="1" name="Performing Agathion - Rainbow Clan Hall">
     <!-- Needs to be verified -->
     <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="UNLOCK"/> <!-- havent found any matching skilltype, this one working fine :) -->
+    <set name="skillType" val="DUMMY"/>
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -120,7 +120,7 @@
   <skill id="5415" levels="1" name="Performing Agathion - Castle">
     <!-- Needs to be verified -->
     <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="UNLOCK"/> <!-- havent found any matching skilltype, this one working fine :) -->
+    <set name="skillType" val="DUMMY"/>
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -138,8 +138,7 @@
   </skill>
   <skill id="5417" levels="1" name="Invincible">
     <!--
-      Description(s): Invincible against general attack and
-      skill, buff/de-buff.
+      Description(s): Invincible against general attack and skill, buff/de-buff.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -148,8 +147,7 @@
   </skill>
   <skill id="5418" levels="1" name="Invincible">
     <!--
-      Description(s): Invincible against general attack and
-      skill, buff/de-buff.
+      Description(s): Invincible against general attack and skill, buff/de-buff.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -165,8 +163,7 @@
   </skill>
   <skill id="5420" levels="1" name="Invincible">
     <!--
-      Description(s): Invincible against general attack and
-      skill, buff/de-buff.
+      Description(s): Invincible against general attack and skill, buff/de-buff.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -471,8 +468,7 @@
   </skill>
   <skill id="5449" levels="1" name="Weak Constitution">
     <!--
-      Description(s): Temporarily gets thrown into a state
-      of shock and immobilized.
+      Description(s): Temporarily gets thrown into a state of shock and immobilized.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -481,8 +477,7 @@
   </skill>
   <skill id="5450" levels="7" name="Thin Skin">
     <!--
-      Description(s): Instantly decreases HP due to Bleed
-      Attack. Effect 4-8.
+      Description(s): Instantly decreases HP due to Bleed Attack. Effect 4-8.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -544,7 +539,7 @@
   <skill id="5458" levels="1" name="Performing Agathion - Fortress">
     <!-- Needs to be verified -->
     <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="UNLOCK"/> <!-- havent found any matching skilltype, this one working fine :) -->
+    <set name="skillType" val="DUMMY"/>
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -565,8 +560,7 @@
   </skill>
   <skill id="5460" levels="1" name="Fear">
     <!--
-      Description(s): Causes a temporary fear so strong that
-      a target flees mindlessly.
+      Description(s): Causes a temporary fear so strong that a target flees mindlessly.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -749,8 +743,7 @@
   </skill>
   <skill id="5481" levels="1" name="Transform Penalty">
     <!--
-      Description(s): You cannot be transformed while under
-      this effect.
+      Description(s): You cannot be transformed while under this effect.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -759,8 +752,7 @@
   </skill>
   <skill id="5482" levels="1" name="Transform Penalty">
     <!--
-      Description(s): You cannot be transformed while under
-      this effect.
+      Description(s): You cannot be transformed while under this effect.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -808,8 +800,7 @@
   </skill>
   <skill id="5488" levels="1" name="Counter Critical Power Up">
     <!--
-      Description(s): Increases critical attack power.
-      Effect 1.
+      Description(s): Increases critical attack power. Effect 1.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -818,8 +809,7 @@
   </skill>
   <skill id="5489" levels="1" name="Counter Critical Rate Up">
     <!--
-      Description(s): Increases critical attack rate. Effect
-      1.
+      Description(s): Increases critical attack rate. Effect 1.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -828,8 +818,7 @@
   </skill>
   <skill id="5490" levels="1" name="Weakened Life">
     <!--
-      Description(s): You have been infected by a fatal
-      poison.
+      Description(s): You have been infected by a fatal poison.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -872,8 +861,7 @@
   </skill>
   <skill id="5495" levels="1" name="Bleed">
     <!--
-      Description(s): HP decreases temporarily by bleeding.
-      Effect 10.
+      Description(s): HP decreases temporarily by bleeding. Effect 10.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
