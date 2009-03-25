@@ -14,7 +14,9 @@
  */
 package com.l2jfree.gameserver.ai;
 
-import static com.l2jfree.gameserver.ai.CtrlIntention.*;
+import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_ACTIVE;
+import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_ATTACK;
+import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
 
 import java.util.concurrent.Future;
 
@@ -34,6 +36,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeGuardInstance;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
+import com.l2jfree.gameserver.threadmanager.FIFORunnableQueue;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.random.Rnd;
 
@@ -363,22 +366,17 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 		factionNotifyAndSupport();
 		attackPrepare();
 	}
-
+	
+	private static final FIFORunnableQueue<Runnable> FACTION_NOTIFY = new FIFORunnableQueue<Runnable>() { };
+	
 	private final void factionNotifyAndSupport()
 	{
-		L2Character target = getAttackTarget();
+		final L2Character target = getAttackTarget();
+		final String faction_id = ((L2NpcInstance)_actor).getFactionId();
 		// Call all L2Object of its Faction inside the Faction Range
-		if (((L2NpcInstance) _actor).getFactionId() == null || target == null)
+		if (faction_id == null || target == null || target.isInvul())
 			return;
-
-		if (target.isInvul())
-			return; // speeding it up for siege guards
-
-		if (Rnd.get(10) > 4)
-			return; // test for reducing CPU load
-
-		String faction_id = ((L2NpcInstance) _actor).getFactionId();
-
+		
 		// Go through all L2Character that belong to its faction
 		//for (L2Character cha : _actor.getKnownList().getKnownCharactersInRadius(((L2NpcInstance) _actor).getFactionRange()+_actor.getTemplate().getCollisionRadius()))
 		for (L2Character cha : _actor.getKnownList().getKnownCharactersInRadius(1000))
@@ -422,12 +420,12 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 				}
 				continue;
 			}
-
-			L2NpcInstance npc = (L2NpcInstance) cha;
-
+			
+			final L2NpcInstance npc = (L2NpcInstance)cha;
+			
 			if (!faction_id.equals(npc.getFactionId()))
 				continue;
-
+			
 			if (npc.getAI() != null) // TODO: possibly check not needed
 			{
 				if (!npc.isDead() && Math.abs(target.getZ() - npc.getZ()) < 600
@@ -436,8 +434,14 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 						//limiting aggro for siege guards
 						&& target.isInsideRadius(npc, 1500, true, false) && GeoData.getInstance().canSeeTarget(npc, target))
 				{
-					// Notify the L2Object AI with EVT_AGGRESSION
-					npc.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, getAttackTarget(), 1);
+					FACTION_NOTIFY.execute(new Runnable () {
+						@Override
+						public void run()
+						{
+							// Notify the L2Object AI with EVT_AGGRESSION
+							npc.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, target, 1);
+						}
+					});
 				}
 				// heal friends
 				if (_selfAnalysis.hasHealOrResurrect && !_actor.isAttackingDisabled() && npc.getStatus().getCurrentHp() < npc.getMaxHp() * 0.6
