@@ -486,4 +486,9 @@ public class Instance
 			InstanceManager.getInstance().destroyInstance(getId());
 		}
 	}
+
+	public void cancelTimer()
+	{
+		_checkTimeUpTask.cancel(false);
+	}
 }

@@ -69,7 +69,7 @@ public final class EffectWarp extends L2Effect
 
 		int _radius = getSkill().getFlyRadius();
 
-		double angle = Util.convertHeadingToDegree(_actor.getClientHeading());
+		double angle = Util.convertHeadingToDegree(_actor.getHeading());
 		double radian = Math.toRadians(angle);
 		double course = Math.toRadians(getSkill().getFlyCourse());
 

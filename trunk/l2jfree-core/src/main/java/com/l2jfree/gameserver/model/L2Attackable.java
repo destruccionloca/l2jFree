@@ -1982,21 +1982,29 @@ public class L2Attackable extends L2NpcInstance
 			//FIXME: temp hack, do something nicer when we have geodatas
 			int newZ = Math.max(getZ(), lastAttacker.getZ()) + 20;
 
-			// Init the dropped L2ItemInstance and add it in the world as a visible object at the position where mob was last
-			ditem = ItemTable.getInstance().createItem("Loot", item.getItemId(), item.getCount(), lastAttacker, this);
-			ditem.dropMe(this, newX, newY, newZ);
-
-			// Add drop to auto destroy item task
-			if (!Config.LIST_PROTECTED_ITEMS.contains(item.getItemId()))
+			if (ItemTable.getInstance().getTemplate(item.getItemId()) != null)
 			{
-				if ((Config.AUTODESTROY_ITEM_AFTER > 0 && ditem.getItemType() != L2EtcItemType.HERB)
-						|| (Config.HERB_AUTO_DESTROY_TIME > 0 && ditem.getItemType() == L2EtcItemType.HERB))
-					ItemsAutoDestroy.getInstance().addItem(ditem);
+				// Init the dropped L2ItemInstance and add it in the world as a visible object at the position where mob was last
+				ditem = ItemTable.getInstance().createItem("Loot", item.getItemId(), item.getCount(), lastAttacker, this);
+				ditem.dropMe(this, newX, newY, newZ);
+
+				// Add drop to auto destroy item task
+				if (!Config.LIST_PROTECTED_ITEMS.contains(item.getItemId()))
+				{
+					if ((Config.AUTODESTROY_ITEM_AFTER > 0 && ditem.getItemType() != L2EtcItemType.HERB)
+							|| (Config.HERB_AUTO_DESTROY_TIME > 0 && ditem.getItemType() == L2EtcItemType.HERB))
+						ItemsAutoDestroy.getInstance().addItem(ditem);
+				}
+				ditem.setProtected(false);
+				// If stackable, end loop as entire count is included in 1 instance of item  
+				if (ditem.isStackable() || !Config.MULTIPLE_ITEM_DROP)
+					break;
 			}
-			ditem.setProtected(false);
-			// If stackable, end loop as entire count is included in 1 instance of item  
-			if (ditem.isStackable() || !Config.MULTIPLE_ITEM_DROP)
-				break;
+			//if item doesn't exist....
+			else
+			{
+				_log.error("Item doesn't exist so cannot be dropped. Item ID: " + item.getItemId());
+			}
 		}
 		return ditem;
 	}
