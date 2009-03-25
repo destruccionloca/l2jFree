@@ -642,8 +642,7 @@
     <set name="target" val="TARGET_SELF"/>
   </skill>
   <skill id="4551" levels="10" name="Hot Springs Rheumatism">
-    <table name="#pDef"> 1 0.96 0.96 0.96 0.92 0.92 0.92 0.88
-      0.88 0.85 </table>
+    <table name="#pDef"> 1 0.96 0.96 0.96 0.92 0.92 0.92 0.88 0.88 0.85 </table>
     <table name="#rCrit">3 5 8 10 5 0 0 0 0 0</table>
     <set name="mpInitialConsume" val="14"/>
     <set name="mpConsume" val="55"/>
@@ -690,8 +689,7 @@
   </skill>
   <skill id="4553" levels="10" name="Hot Springs Flu">
     <table name="#pAtkSpd"> 1.04 1.08 1.12 1.16 1.08 1 1 1 1 1 </table>
-    <table name="#pAtk"> 1 0.96 0.96 0.96 0.92 0.92 0.92 0.88
-      0.88 0.85 </table>
+    <table name="#pAtk"> 1 0.96 0.96 0.96 0.92 0.92 0.92 0.88 0.88 0.85 </table>
     <set name="mpInitialConsume" val="14"/>
     <set name="mpConsume" val="55"/>
     <set name="power" val="100"/>
@@ -1026,8 +1024,7 @@
     <!-- Done by DJ MELERIX -->
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
     <table name="#mpConsume"> 13 20 28 38 50 61 71 76 80 83 84 85 </table>
-    <table name="#power"> 46 105 219 417 722 1136 1626 1876
-      2112 2320 2487 2617 </table>
+    <table name="#power"> 46 105 219 417 722 1136 1626 1876 2112 2320 2487 2617 </table>
     <set name="baseCritRate" val="15"/>
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
@@ -1044,8 +1041,7 @@
     <!-- Done by DJ MELERIX -->
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
     <table name="#mpConsume"> 9 14 19 26 33 41 48 51 53 55 56 57 </table>
-    <table name="#power"> 31 70 146 278 481 758 1084 1251 1408
-      1547 1658 1745 </table>
+    <table name="#power"> 31 70 146 278 481 758 1084 1251 1408 1547 1658 1745 </table>
     <set name="baseCritRate" val="15"/>
     <set name="castRange" val="500"/>
     <set name="effectRange" val="1000"/>

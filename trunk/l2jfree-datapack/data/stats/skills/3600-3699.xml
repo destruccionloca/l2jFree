@@ -596,7 +596,7 @@
       <mul order="0x30" stat="PhysicalMpConsumeRate" val="0.94"/> <!-- Decreases MP consumption by 6% for active skills -->
     </for>
   </skill>
-  <skill id="3640" levels="1" name="Dynasty Jewel Leather Mail Dagger Master">
+  <skill id="3640" levels="1" name="Dynasty Jewel Leather Mail - Dagger Master">
     <!-- Done by DJ MELERIX -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -613,7 +613,7 @@
       <mul order="0x30" stat="pAtkSpd" val="1.0324"/> <!-- Atk. Spd. +3.24% -->
     </for>
   </skill>
-  <skill id="3641" levels="1" name="Dynasty Jewel Leather Mail Bow Master">
+  <skill id="3641" levels="1" name="Dynasty Jewel Leather Mail - Bow Master">
     <!-- Done by DJ MELERIX -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -630,7 +630,7 @@
       <add order="0x40" stat="regMp" val="1.066"/> <!-- MP Recovery +6.6% -->
     </for>
   </skill>
-  <skill id="3642" levels="1" name="Dynasty Jeweled Leather Armor Force Master">
+  <skill id="3642" levels="1" name="Dynasty Jeweled Leather Armor - Force Master">
     <!-- Done by DJ MELERIX -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -647,7 +647,7 @@
       <mul order="0x30" stat="PhysicalMpConsumeRate" val="0.94"/> <!-- MP Consumption -6% -->
     </for>
   </skill>
-  <skill id="3643" levels="1" name="Dynasty Jeweled Leather Armor Weapon Master">
+  <skill id="3643" levels="1" name="Dynasty Jeweled Leather Armor - Weapon Master">
     <!-- Done by DJ MELERIX -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -665,7 +665,7 @@
       <basemul order="0x30" stat="rCrit" val="0.0295"/> <!-- Critical Rate +2.95% Increase -->
     </for>
   </skill>
-  <skill id="3644" levels="1" name="Dynasty Jeweled Leather Armor Summoner">
+  <skill id="3644" levels="1" name="Dynasty Jeweled Leather Armor - Summoner">
     <!-- Done by DJ MELERIX -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -682,7 +682,7 @@
       <mul order="0x30" stat="pDef" val="1.0266"/> <!-- P. Def. +2.66% -->
     </for>
   </skill>
-  <skill id="3645" levels="1" name="Dynasty Silver Satin Tunic Healer">
+  <skill id="3645" levels="1" name="Dynasty Silver Satin Tunic - Healer">
     <!-- Done by DJ MELERIX -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -699,7 +699,7 @@
       <sub order="0x40" stat="cancel" val="15"/> <!-- Magic Cancel Rate -15 -->
     </for>
   </skill>
-  <skill id="3646" levels="1" name="Dynasty Silver Satin Tunic Enchanter">
+  <skill id="3646" levels="1" name="Dynasty Silver Satin Tunic - Enchanter">
     <!-- Done by DJ MELERIX -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -716,7 +716,7 @@
       <sub order="0x40" stat="cancel" val="15"/> <!-- Magic Cancel Rate -15 -->
     </for>
   </skill>
-  <skill id="3647" levels="1" name="Dynasty Silver Satin Tunic Summoner">
+  <skill id="3647" levels="1" name="Dynasty Silver Satin Tunic - Summoner">
     <!-- Done by DJ MELERIX -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -733,7 +733,7 @@
       <mul order="0x30" stat="pDef" val="1.033"/> <!-- P. Def. +3.3% -->
     </for>
   </skill>
-  <skill id="3648" levels="1" name="Dynasty Silver Satin Tunic Human Wizard">
+  <skill id="3648" levels="1" name="Dynasty Silver Satin Tunic - Human Wizard">
     <!-- Done by DJ MELERIX -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>

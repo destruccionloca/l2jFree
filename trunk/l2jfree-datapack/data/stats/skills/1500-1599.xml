@@ -62,6 +62,7 @@
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="1510" levels="1" name="Soul Cleanse">
+    <!-- CT2.2 retail confirmed -->
     <set name="mpInitialConsume" val="10"/>
     <set name="mpConsume" val="22"/>
     <set name="hitTime" val="2000"/>
@@ -78,10 +79,24 @@
     </cond>
   </skill>
   <skill id="1511" levels="8" name="Curse of Life Flow">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="castRange" val="-1"/>
+    <!-- CT2.2 retail partially confirmed -->
+    <table name="#mpConsume"> 34 35 37 38 39 39 40 42 </table>
+    <set name="mpConsume" val="#mpConsume"/>
+    <set name="hitTime" val="3000"/>
+    <set name="coolTime" val="200"/>
+    <set name="reuseDelay" val="60000"/>
+    <set name="power" val="80"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="DEBUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="600"/>
+    <set name="effectRange" val="1200"/>
+    <set name="isMagic" val="true"/>
+    <for>
+      <effect count="25" name="Debuff" time="1" val="0" abnormal="poison" stackOrder="8" stackType="poison">
+         <!-- effect values yet unknown -->
+      </effect>
+    </for>
   </skill>
   <skill id="1512" levels="1" name="Soul Vortex">
     <!-- Done By Akira35 -->
@@ -240,15 +255,13 @@
   </skill>
   <skill id="1523" levels="42" name="Divine Punishment">
     <!-- Inquisitor Stance Skill -->
-    <table name="#mpConsume"> 35 37 38 38 39 40 42 42 43 44 45 45
-      47 48 49 49 50 52 53 53 54 55 55 57 58 58 59 60 60 62
-      62 63 63 64 64 65 65 67 67 67 68 68 </table>
-    <table name="#magicLvl"> 44 45 46 47 48 49 50 51 52 53 54 55
-      56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73
-      74 75 76 77 78 79 80 81 82 83 84 85 </table>
-    <table name="#power"> 51 52 54 55 57 58 60 61 63 64 66 68
-      69 71 72 74 75 77 78 80 81 83 85 86 88 89 90 92 93 95
-      96 97 99 100 101 102 103 105 106 107 108 109 </table> <!-- Guess - need retail confirmation -->
+    <table name="#mpConsume"> 35 37 38 38 39 40 42 42 43 44 45 45 47 48 49 49 50 52
+      53 53 54 55 55 57 58 58 59 60 60 62 62 63 63 64 64 65 65 67 67 67 68 68 </table>
+    <table name="#magicLvl"> 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62
+      63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 </table>
+    <table name="#power"> 51 52 54 55 57 58 60 61 63 64 66 68 69 71 72 74 75 77 78 80
+      81 83 85 86 88 89 90 92 93 95 96 97 99 100 101 102 103 105 106 107 108 109 </table>
+    <!-- Guess - need retail confirmation -->
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
@@ -265,12 +278,10 @@
   <skill id="1524" levels="42" name="Surrender to the Holy">
     <!-- Inquisitor Stance Skill -->
     <!-- Done by caramon81 -->
-    <table name="#mpConsume"> 39 39 41 42 43 44 44 46 47 48 49 49
-      51 52 53 54 55 56 57 58 59 60 61 62 63 64 64 66 67 67
-      68 69 69 70 71 72 73 73 73 74 74 75 </table>
-    <table name="#magicLvl"> 44 45 46 47 48 49 50 51 52 53 54 55
-      56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73
-      74 75 76 77 78 79 80 81 82 83 84 85 </table> <!-- Guesssing -->
+    <table name="#mpConsume"> 39 39 41 42 43 44 44 46 47 48 49 49 51 52 53 54 55 56 57 
+      58 59 60 61 62 63 64 64 66 67 67 68 69 69 70 71 72 73 73 73 74 74 75 </table>
+    <table name="#magicLvl"> 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62
+      63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 </table> <!-- Guesssing -->
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="80"/>
@@ -346,15 +357,12 @@
   </skill>
   <skill id="1528" levels="42" name="Divine Flash">
     <!-- Inquisitor Stance Skill -->
-    <table name="#mpConsume"> 57 59 60 62 63 65 67 68 69 70 73 74
-      75 77 79 80 82 83 85 87 88 89 90 93 94 95 97 98 99 100
-      102 103 104 105 105 107 108 109 109 110 112 112</table>
-    <table name="#magicLvl"> 44 45 46 47 48 49 50 51 52 53 54 55
-      56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73
-      74 75 76 77 78 79 80 81 82 83 84 85 </table>
-    <table name="#power"> 29 29 30 31 32 33 33 34 35 36 37 38
-      39 39 40 41 42 43 44 45 45 46 47 48 49 50 50 51 52 53
-      54 54 55 56 56 57 58 58 59 60 60 61</table>
+    <table name="#mpConsume"> 57 59 60 62 63 65 67 68 69 70 73 74 75 77 79 80 82 83 85 87
+      88 89 90 93 94 95 97 98 99 100 102 103 104 105 105 107 108 109 109 110 112 112</table>
+    <table name="#magicLvl"> 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61
+      62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 </table>
+    <table name="#power"> 29 29 30 31 32 33 33 34 35 36 37 38 39 39 40 41 42 43 44
+      45 45 46 47 48 49 50 50 51 52 53 54 54 55 56 56 57 58 58 59 60 60 61</table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
@@ -370,10 +378,24 @@
     <set name="effectRange" val="1000"/>
   </skill>
   <skill id="1529" levels="7" name="Soul Web">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="castRange" val="-1"/>
+    <!-- CT2.2 retail confirmed -->
+    <table name="#mpConsume"> 52 60 62 64 65 67 69 </table>
+    <set name="mpConsume" val="#mpConsume"/>
+    <set name="hitTime" val="2500"/>
+    <set name="coolTime" val="200"/>
+    <set name="reuseDelay" val="60000"/>
+    <set name="power" val="80"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="DEBUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="600"/>
+    <set name="effectRange" val="1200"/>
+    <set name="isMagic" val="true"/>
+    <for>
+      <effect name="Debuff" time="55" count="1" val="0" stackOrder="0.7" stackType="RunSpeedDown">
+         <mul order="0x30" stat="runSpd" val="0.7"/>
+      </effect>
+    </for>
   </skill>
   <skill id="1530" levels="13" name="Death Spike">
     <table name="#mpConsume_Init"> 4 5 6 7 7 7 8 8 8 9 9 9 10 </table>

@@ -283,7 +283,7 @@
       </effect>
     </for>
   </skill>
-  <skill id="4322" levels="1" name="Wind Walk for Beginners">
+  <skill id="4322" levels="1" name="Adventurer's Wind Walk">
     <!-- Newbie Guide Buff -->
     <set name="magicLvl" val="60"/>
     <set name="target" val="TARGET_ONE"/>
@@ -298,7 +298,7 @@
       </effect>
     </for>
   </skill>
-  <skill id="4323" levels="1" name="Shield for Beginners">
+  <skill id="4323" levels="1" name="Adventurer's Shield">
     <!-- Newbie Guide Buff -->
     <set name="magicLvl" val="60"/>
     <set name="target" val="TARGET_ONE"/>
@@ -313,7 +313,7 @@
       </effect>
     </for>
   </skill>
-  <skill id="4324" levels="1" name="Bless the Body for Beginners">
+  <skill id="4324" levels="1" name="Adventurer's Bless the Body">
     <!-- Newbie Guide Buff -->
     <set name="magicLvl" val="60"/>
     <set name="target" val="TARGET_ONE"/>
@@ -328,7 +328,7 @@
       </effect>
     </for>
   </skill>
-  <skill id="4325" levels="1" name="Vampiric Rage for Beginners">
+  <skill id="4325" levels="1" name="Adventurer's Vampiric Rage">
     <!-- Newbie Guide Buff -->
     <set name="magicLvl" val="60"/>
     <set name="target" val="TARGET_ONE"/>
@@ -343,7 +343,7 @@
       </effect>
     </for>
   </skill>
-  <skill id="4326" levels="1" name="Regeneration for Beginners">
+  <skill id="4326" levels="1" name="Adventurer's Regeneration">
     <!-- Newbie Guide Buff -->
     <set name="magicLvl" val="60"/>
     <set name="target" val="TARGET_ONE"/>
@@ -358,7 +358,7 @@
       </effect>
     </for>
   </skill>
-  <skill id="4327" levels="1" name="Haste for Beginners">
+  <skill id="4327" levels="1" name="Adventurer's Haste">
     <!-- Newbie Guide Buff -->
     <set name="magicLvl" val="60"/>
     <set name="target" val="TARGET_ONE"/>
@@ -373,7 +373,7 @@
       </effect>
     </for>
   </skill>
-  <skill id="4328" levels="1" name="Bless the Soul for Beginners">
+  <skill id="4328" levels="1" name="Adventurer's Bless the Soul">
     <!-- Newbie Guide Buff -->
     <set name="magicLvl" val="60"/>
     <set name="target" val="TARGET_ONE"/>
@@ -388,7 +388,7 @@
       </effect>
     </for>
   </skill>
-  <skill id="4329" levels="1" name="Acumen for Beginners">
+  <skill id="4329" levels="1" name="Adventurer's Acumen">
     <!-- Newbie Guide Buff -->
     <set name="magicLvl" val="60"/>
     <set name="target" val="TARGET_ONE"/>
@@ -403,7 +403,7 @@
       </effect>
     </for>
   </skill>
-  <skill id="4330" levels="1" name="Concentration for Beginners">
+  <skill id="4330" levels="1" name="Adventurer's Concentration">
     <!-- Newbie Guide Buff -->
     <set name="magicLvl" val="60"/>
     <set name="target" val="TARGET_ONE"/>
@@ -418,7 +418,7 @@
       </effect>
     </for>
   </skill>
-  <skill id="4331" levels="1" name="Empower for Beginners">
+  <skill id="4331" levels="1" name="Adventurer's Empower">
     <!-- Newbie Guide Buff -->
     <set name="magicLvl" val="60"/>
     <set name="target" val="TARGET_ONE"/>
@@ -554,7 +554,7 @@
   <skill id="4342" levels="2" name="Clan Hall: Wind Walk">
     <!-- done by roxaz -->
     <table name="#Tab-runSpd">20 33</table>
-    <table name="#mpConsume">50 100</table>
+    <table name="#mpConsume">20 30</table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
@@ -570,7 +570,7 @@
   </skill>
   <skill id="4343" levels="3" name="Clan Hall: Decrease Weight">
     <!-- done by roxaz -->
-    <table name="#mpConsume">50 0 100</table>
+    <table name="#mpConsume">20 30 40</table>
     <table name="#Weight">3000 6000 9000</table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_ONE"/>
@@ -587,7 +587,7 @@
   </skill>
   <skill id="4344" levels="3" name="Clan Hall: Shield">
     <table name="#rate">1.08 1.12 1.15</table>
-    <table name="#mpConsume">50 0 100</table>
+    <table name="#mpConsume">20 30 40</table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
@@ -603,7 +603,7 @@
   </skill>
   <skill id="4345" levels="3" name="Clan Hall: Might">
     <table name="#rate">1.08 1.12 1.15</table>
-    <table name="#mpConsume">50 0 100</table>
+    <table name="#mpConsume">20 30 40</table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
@@ -618,7 +618,7 @@
     </for>
   </skill>
   <skill id="4346" levels="4" name="Clan Hall: Mental Shield">
-    <table name="#mpConsume">50 0 0 100</table>
+    <table name="#mpConsume">20 30 40 50</table>
     <table name="#vuln">0.5 0.4 0.3 0.2</table>
     <table name="#stack">50 60 70 80</table>
     <set name="mpConsume" val="#mpConsume"/>
@@ -639,7 +639,7 @@
   </skill>
   <skill id="4347" levels="6" name="Clan Hall: Blessed Body">
     <table name="#Tab-maxHp"> 1.1 1.15 1.2 1.25 1.3 1.35 </table>
-    <table name="#mpConsume">0 150 0 0 0 300</table>
+    <table name="#mpConsume">20 30 40 50 60 70</table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
@@ -655,7 +655,7 @@
   </skill>
   <skill id="4348" levels="6" name="Clan Hall: Blessed Soul">
     <table name="#Tab-maxMp"> 1.1 1.15 1.2 1.25 1.3 1.35 </table>
-    <table name="#mpConsume">0 150 0 0 0 300</table>
+    <table name="#mpConsume">20 30 40 50 60 70</table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
@@ -671,7 +671,7 @@
   </skill>
   <skill id="4349" levels="2" name="Clan Hall: Magic Barrier">
     <table name="#Tab-mDef">1.23 1.3</table>
-    <table name="#mpConsume">150 300</table>
+    <table name="#mpConsume">20 30</table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
@@ -686,7 +686,7 @@
     </for>
   </skill>
   <skill id="4350" levels="4" name="Clan Hall: Resist Shock">
-    <table name="#mpConsume">150 0 0 300</table>
+    <table name="#mpConsume">20 30 40 50</table>
     <table name="#vuln">0.85 0.8 0.7 0.6</table>
     <table name="#stack">15 20 30 40</table>
     <set name="mpConsume" val="#mpConsume"/>
@@ -703,7 +703,7 @@
     </for>
   </skill>
   <skill id="4351" levels="6" name="Clan Hall: Concentration">
-    <table name="#mpConsume">0 200 0 0 0 400</table>
+    <table name="#mpConsume">20 30 40 50 60 70</table>
     <table name="#cancel">18 25 36 42 48 53</table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_ONE"/>
@@ -727,7 +727,7 @@
     <table name="#Tab-pAtkSpd">1.05 1.08</table>
     <table name="#Tab-runSpd">5 8</table>
     <table name="#Tab-rEvas">2 4</table>
-    <table name="#mpConsume">200 400</table>
+    <table name="#mpConsume">20 40</table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
@@ -750,7 +750,7 @@
   </skill>
   <skill id="4353" levels="6" name="Clan Hall: Bless Shield">
     <table name="#Tab-rShld">1.3 1.4 1.5 1.6 1.7 1.8</table>
-    <table name="#mpConsume">0 200 0 0 0 400</table>
+    <table name="#mpConsume">20 30 40 50 60 70</table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
@@ -765,7 +765,7 @@
     </for>
   </skill>
   <skill id="4354" levels="4" name="Clan Hall: Vampiric Rage">
-    <table name="#mpConsume">200 0 0 400</table>
+    <table name="#mpConsume">20 30 40 50</table>
     <table name="#Tab-absorbDam">6 7 8 9</table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_ONE"/>
@@ -782,7 +782,7 @@
   </skill>
   <skill id="4355" levels="3" name="Clan Hall: Acumen">
     <table name="#Tab-mAtkSpd">1.15 1.23 1.3</table>
-    <table name="#mpConsume">300 0 600</table>
+    <table name="#mpConsume">30 45 60</table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
@@ -798,7 +798,7 @@
   </skill>
   <skill id="4356" levels="3" name="Clan Hall: Empower">
     <table name="#Tab-mAtk">1.55 1.65 1.75</table>
-    <table name="#mpConsume">300 0 600</table>
+    <table name="#mpConsume">30 45 60</table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
@@ -814,7 +814,7 @@
   </skill>
   <skill id="4357" levels="2" name="Clan Hall: Haste">
     <table name="#Tab-pAtkSpd">1.15 1.33</table>
-    <table name="#mpConsume">300 600</table>
+    <table name="#mpConsume">30 60</table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
@@ -829,7 +829,7 @@
     </for>
   </skill>
   <skill id="4358" levels="3" name="Clan Hall: Guidance">
-    <table name="#mpConsume">200 0 400</table>
+    <table name="#mpConsume">20 30 40</table>
     <table name="#Tab-accCombat">2 3 4</table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_ONE"/>
@@ -846,7 +846,7 @@
   </skill>
   <skill id="4359" levels="3" name="Clan Hall: Focus">
     <table name="#Tab-rCrit">0.2 0.25 0.3</table>
-    <table name="#mpConsume">300 0 600</table>
+    <table name="#mpConsume">30 45 60</table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
@@ -862,7 +862,7 @@
   </skill>
   <skill id="4360" levels="3" name="Clan Hall: Death Whisper">
     <table name="#Tab-cAtk">1.3 1.32 1.35</table>
-    <table name="#mpConsume">300 0 600</table>
+    <table name="#mpConsume">30 45 60</table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
@@ -1213,7 +1213,7 @@
     <set name="target" val="TARGET_AURA"/>
     <for>
       <effect count="1" name="Petrify" time="10" val="0" stackOrder="10" stackType="turn_stone"/>
-      <effect count="1" name="TargetMe" time="1" val="0"/>
+      <effect count="1" name="TargetMe" time="1" val="0" noicon="1"/>
     </for>
   </skill>
   <skill id="4384" levels="1" name="Scapegoat's Grace">

@@ -923,8 +923,7 @@
     <!--
       Description(s): 1:Increases critical attack success
       rate and damage inflicted during PvP. none 2:Increases
-      critical attack success rate. Increases damage
-      inflicted during PvP.
+      critical attack success rate. Increases damage inflicted during PvP.
     -->
     <table name="#pvpBonus">1.05 1.05</table>
     <set name="target" val="TARGET_SELF"/>
@@ -1029,8 +1028,8 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <for>
-      <effect count="1" name="Buff" time="30" val="0" stackOrder="0.50" stackType="RunSpeedDown">
-        <mul order="0x30" stat="runSpd" val="0.50"/>
+      <effect count="1" name="Buff" time="30" val="0" stackOrder="0.5" stackType="RunSpeedDown">
+        <mul order="0x30" stat="runSpd" val="0.5"/>
       </effect>
     </for>
   </skill>

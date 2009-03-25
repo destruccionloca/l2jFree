@@ -92,7 +92,7 @@ class Quest (JQuest) :
         #given an item instance, get the item template to check what type it is
         itemTemplate = Item.getItem()
         weaponType = itemTemplate.getItemType().toString()
-        if TopBGradeWeaponData.has_key(weaponType) and not Item.isEquipped() and itemTemplate.getCrystalType() == 0x03 and itemTemplate.getDuration() == -1 :
+        if TopBGradeWeaponData.has_key(weaponType) and not Item.isEquipped() and itemTemplate.getCrystalType() == 0x03 and (not itemTemplate.isCommonItem()) and itemTemplate.getDuration() == -1 :
           # for acceptable types, check if they fit the description of topB from that type.
           pDam, mDam = itemTemplate.getPDamage(), itemTemplate.getMDamage()
           if pDam >= TopBGradeWeaponData[weaponType][0] or mDam >= TopBGradeWeaponData[weaponType][1] :
@@ -150,7 +150,6 @@ class Quest (JQuest) :
     # if quest is already State.COMPLETED
     elif id == State.COMPLETED:
       return "<html><body>This quest has already been completed.</body></html>"
-
     # if quest is accepted and in progress
     elif id == State.STARTED:
       cond =st.getInt("cond")

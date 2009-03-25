@@ -191,10 +191,7 @@
     </for>
   </skill>
   <skill id="5117" levels="1" name="Stun">
-    <!--
-      Description(s): Temporarily Immobilized and in a state
-      of shock.
-    -->
+    <!-- Description(s): Temporarily Immobilized and in a state of shock. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>

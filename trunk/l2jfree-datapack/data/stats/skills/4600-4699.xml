@@ -1529,7 +1529,6 @@
   <skill id="4687" levels="1" name="Valakas Tail Stomp">
     <!-- Valakas Skills - Valakas Tail Stomp Visual -->
     <set name="magicLvl" val="75"/>
-    <set name="power" val="0"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="hitTime" val="3000"/>
     <set name="skillType" val="BUFF"/>
