@@ -456,8 +456,12 @@ public class L2FortSiegeGuardAI extends L2CharacterAI implements Runnable
 						@Override
 						public void run()
 						{
-							// Notify the L2Object AI with EVT_AGGRESSION
-							npc.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, target, 1);
+							if (npc.getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE ||
+								npc.getAI().getIntention() == CtrlIntention.AI_INTENTION_ACTIVE)
+							{
+								// Notify the L2Object AI with EVT_AGGRESSION
+								npc.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, target, 1);
+							}
 						}
 					});
 				}
