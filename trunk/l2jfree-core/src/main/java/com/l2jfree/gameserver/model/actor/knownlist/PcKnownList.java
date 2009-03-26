@@ -87,16 +87,12 @@ public class PcKnownList extends PlayableKnownList
      * @param object The L2Object to add to _knownObjects and _knownPlayer
      */
     @Override
-    public boolean addKnownObject(L2Object object) { return addKnownObject(object, null); }
-
-    @SuppressWarnings("cast")
-    @Override
     public boolean addKnownObject(L2Object object, L2Character dropper)
     {
+		if (object instanceof L2PcInstance && ((L2PcInstance)object).inObserverMode())
+			return false;
+		
         if (!super.addKnownObject(object, dropper)) return false;
-
-        if(object instanceof L2PcInstance && ((L2PcInstance)object).inObserverMode())
-        	return false;
 
         if (object.getPoly().isMorphed() && object.getPoly().getPolyType().equals("item"))
         {

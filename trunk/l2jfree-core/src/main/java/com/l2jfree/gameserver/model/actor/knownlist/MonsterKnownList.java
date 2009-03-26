@@ -36,8 +36,6 @@ public class MonsterKnownList extends AttackableKnownList
     // =========================================================
     // Method - Public
     @Override
-    public boolean addKnownObject(L2Object object) { return addKnownObject(object, null); }
-    @Override
     public boolean addKnownObject(L2Object object, L2Character dropper)
     {
         if (!super.addKnownObject(object, dropper)) return false;

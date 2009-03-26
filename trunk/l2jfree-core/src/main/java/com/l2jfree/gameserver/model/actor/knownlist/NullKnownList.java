@@ -38,15 +38,6 @@ public class NullKnownList extends ObjectKnownList
     }
 
     /* (non-Javadoc)
-     * @see com.l2jfree.gameserver.model.actor.knownlist.ObjectKnownList#addKnownObject(com.l2jfree.gameserver.model.L2Object)
-     */
-    @Override
-    public boolean addKnownObject(L2Object object)
-    {
-        return false;
-    }
-
-    /* (non-Javadoc)
      * @see com.l2jfree.gameserver.model.actor.knownlist.ObjectKnownList#getDistanceToForgetObject(com.l2jfree.gameserver.model.L2Object)
      */
     @Override

@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.model.actor.knownlist;
 
 import com.l2jfree.gameserver.MonsterRace;
-import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2RaceManagerInstance;
@@ -35,23 +34,6 @@ public class RaceManagerKnownList extends NpcKnownList
 
     // =========================================================
     // Method - Public
-    @Override
-    public boolean addKnownObject(L2Object object) { return addKnownObject(object, null); }
-    @Override
-    public boolean addKnownObject(L2Object object, L2Character dropper)
-    {
-        if (!super.addKnownObject(object, dropper)) return false;
-
-        /* DONT KNOW WHY WE NEED THIS WHEN RACE MANAGER HAS A METHOD THAT BROADCAST TO ITS KNOW PLAYERS
-        if (object instanceof L2PcInstance) {
-            if (packet != null)
-                ((L2PcInstance) object).sendPacket(packet);
-        }
-        */
-
-        return true;
-    }
-
     @Override
     public boolean removeKnownObject(L2Object object)
     {
