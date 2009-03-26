@@ -57,7 +57,7 @@ public class ZoneManager
 		{
 			for (int y = 0; y < worldRegions[x].length; y++)
 			{
-				worldRegions[x][y].getZones().clear();
+				worldRegions[x][y].clearZones();
 			}
 		}
 

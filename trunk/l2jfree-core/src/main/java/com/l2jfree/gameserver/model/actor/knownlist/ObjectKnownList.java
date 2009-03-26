@@ -18,95 +18,85 @@ import java.util.Map;
 
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
-import com.l2jfree.gameserver.model.L2World;
+import com.l2jfree.gameserver.model.L2WorldRegion;
 import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.util.SingletonMap;
 
-/**
- * Class that hold the known list of a specific L2Object.<br>
- * 
- * If you want to add some treatment for a specific subclass of L2Object, you need
- * to inherit from ObjectKnownList and override modify L2Object.getKnownList in the new subclass 
- * of L2Object.
- *
- */
 public class ObjectKnownList
 {
-    /**
-     * Reference to the L2Object
-     */
-    protected final L2Object _activeObject;
-    
-    /**
-     * Map of all L2Object known by the active char
-     */
-    private Map<Integer, L2Object> _knownObjects;
-    
-    /**
-     * Constructor with the reference of an activeObject
-     * @param activeObject
-     */
-    public ObjectKnownList(L2Object activeObject)
-    {
-        _activeObject = activeObject;
-    }
-
-    /**
-     * Add a object in the known object of activeObject
-     * @param object
-     * @return true if the add was successfull, false otherwise
-     */
-    public boolean addKnownObject(L2Object object)
-    {
-        return addKnownObject(object, null);
-    }
-    
-    /**
-     * Add a object in the known object of activeObject
-     * @param object
-     * @param dropper
-     * @return true if the add was successfull, false otherwise
-     */
-    public boolean addKnownObject(L2Object object, L2Character dropper)
-    {
-        if (object == null) return false;
-
-        // instance -1 for gms can see everything on all instances 
-        if(getActiveObject().getInstanceId() != -1 && (object.getInstanceId() != getActiveObject().getInstanceId()))
-            return false;
-        
-        // check if the object is i a l2pcinstance in ghost mode
-        if(object instanceof L2PcInstance && ((L2PcInstance)object).getAppearance().isGhost())
-        	return false;
-        	
-        
-        // Check if already know object
-        if (knowsObject(object))
-        {
-            return false;
-        }
-
-        // Check if object is not inside distance to watch object
-        if (!Util.checkIfInShortRadius(getDistanceToWatchObject(object), getActiveObject(), object, true))
-            return false;
-
-        return (getKnownObjects().put(object.getObjectId(), object) == null);
-    }
-    
-    /**
-     * Check if active object knows this object
-     * @param object
-     * @return true if the active object know this object, false otherwise
-     */
-    public final boolean knowsObject(L2Object object)
-    {
-        return getActiveObject() == object || getKnownObjects().containsKey(object.getObjectId());
-    }
-
-	/** 
-	 * Remove all L2Object from _knownObjects 
+	/**
+	 * Reference to the L2Object
+	 */
+	protected final L2Object _activeObject;
+	
+	/**
+	 * Map of all L2Object known by the active char
+	 */
+	private Map<Integer, L2Object> _knownObjects;
+	
+	/**
+	 * Constructor with the reference of an activeObject
+	 * 
+	 * @param activeObject
+	 */
+	public ObjectKnownList(L2Object activeObject)
+	{
+		_activeObject = activeObject;
+	}
+	
+	/**
+	 * Add a object in the known object of activeObject
+	 * 
+	 * @param object
+	 * @return true if the add was successfull, false otherwise
+	 */
+	public final boolean addKnownObject(L2Object object)
+	{
+		return addKnownObject(object, null);
+	}
+	
+	/**
+	 * Add a object in the known object of activeObject
+	 * 
+	 * @param object
+	 * @param dropper
+	 * @return true if the add was successfull, false otherwise
+	 */
+	public boolean addKnownObject(L2Object object, L2Character dropper)
+	{
+		if (object == null || object == getActiveObject())
+			return false;
+		
+		// Check if object is not inside distance to watch object
+		if (!Util.checkIfInShortRadius(getDistanceToWatchObject(object), getActiveObject(), object, true))
+			return false;
+		
+		// instance -1 for gms can see everything on all instances
+		if (getActiveObject().getInstanceId() != -1 && getActiveObject().getInstanceId() != object.getInstanceId())
+			return false;
+		
+		// check if the object is i a l2pcinstance in ghost mode
+		if (object instanceof L2PcInstance && ((L2PcInstance)object).getAppearance().isGhost())
+			return false;
+		
+		return getKnownObjects().put(object.getObjectId(), object) == null;
+	}
+	
+	/**
+	 * Check if active object knows this object
+	 * 
+	 * @param object
+	 * @return true if the active object know this object, false otherwise
+	 */
+	public final boolean knowsObject(L2Object object)
+	{
+		return getActiveObject() == object || getKnownObjects().containsKey(object.getObjectId());
+	}
+	
+	/**
+	 * Remove all L2Object from _knownObjects
 	 */
 	public void removeAllKnownObjects()
 	{
@@ -121,6 +111,7 @@ public class ObjectKnownList
 	
 	/**
 	 * Remove a specific object of the known object for this active object
+	 * 
 	 * @param object
 	 * @return
 	 */
@@ -128,9 +119,10 @@ public class ObjectKnownList
 	{
 		if (object == null)
 			return false;
-		return (getKnownObjects().remove(object.getObjectId()) != null);
+		
+		return getKnownObjects().remove(object.getObjectId()) != null;
 	}
-
+	
 	/**
 	 * @return the active object
 	 */
@@ -138,9 +130,10 @@ public class ObjectKnownList
 	{
 		return _activeObject;
 	}
-
+	
 	/**
 	 * Return the distance to forget object
+	 * 
 	 * @param object
 	 * @return 0
 	 */
@@ -148,9 +141,10 @@ public class ObjectKnownList
 	{
 		return 0;
 	}
-
+	
 	/**
 	 * Return the distance to watch object
+	 * 
 	 * @param object
 	 * @return 0
 	 */
@@ -158,7 +152,7 @@ public class ObjectKnownList
 	{
 		return 0;
 	}
-
+	
 	/**
 	 * @return the _knownObjects containing all L2Object known by the active L2Object
 	 */
@@ -169,25 +163,35 @@ public class ObjectKnownList
 		
 		return _knownObjects;
 	}
-
+	
 	public final L2Object getKnownObject(int objectId)
 	{
 		return getKnownObjects().get(objectId);
 	}
 	
-	public final void tryAddObjects(L2Object[] addList)
+	public final void tryAddObjects(L2Object[][] surroundingObjects)
 	{
 		if (getActiveObject() instanceof L2Character)
 		{
-			if (addList == null)
-				addList = L2World.getInstance().getVisibleObjects(getActiveObject());
-			
-			for (L2Object object : addList)
+			if (surroundingObjects == null)
 			{
-				addKnownObject(object);
+				final L2WorldRegion reg = getActiveObject().getWorldRegion();
 				
-				if (object instanceof L2Character)
-					object.getKnownList().addKnownObject(getActiveObject());
+				if (reg == null)
+					return;
+				
+				surroundingObjects = reg.getAllSurroundingObjects2DArray();
+			}
+			
+			for (L2Object[] regionObjects : surroundingObjects)
+			{
+				for (L2Object object : regionObjects)
+				{
+					addKnownObject(object);
+					
+					if (object instanceof L2Character)
+						object.getKnownList().addKnownObject(getActiveObject());
+				}
 			}
 		}
 	}
