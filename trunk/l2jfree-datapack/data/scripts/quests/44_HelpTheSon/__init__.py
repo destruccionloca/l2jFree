@@ -93,7 +93,7 @@ class Quest (JQuest) :
     npcId = npc.getNpcId()
     cond=st.getInt("cond")
     if cond==2:
-      numItems,chance = divmod(100*Config.RATE_QUESTS_REWARD,100)
+      numItems,chance = divmod(100*Config.RATE_QUESTS_REWARD_ITEMS,100)
       if st.getRandom(100) < chance :
         numItems = numItems +1  
       pieces=st.getQuestItemsCount(GEMSTONE_FRAGMENT)
