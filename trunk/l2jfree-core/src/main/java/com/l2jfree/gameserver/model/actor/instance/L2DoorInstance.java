@@ -14,14 +14,12 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import java.util.Collection;
 import java.util.concurrent.ScheduledFuture;
 
 import javolution.text.TextBuilder;
-import javolution.util.FastList;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
@@ -783,35 +781,6 @@ public class L2DoorInstance extends L2Character
 	public void setMapRegion(L2MapRegion region)
 	{
 		_mapRegion = region;
-	}
-
-	public Collection<L2SiegeGuardInstance> getKnownSiegeGuards()
-	{
-		FastList<L2SiegeGuardInstance> result = new FastList<L2SiegeGuardInstance>();
-
-		for (L2Object obj : getKnownList().getKnownObjects().values())
-		{
-			if (obj instanceof L2SiegeGuardInstance)
-				result.add((L2SiegeGuardInstance) obj);
-		}
-
-		return result;
-	}
-
-	public Collection<L2FortSiegeGuardInstance> getKnownFortSiegeGuards()
-	{
-		FastList<L2FortSiegeGuardInstance> result = new FastList<L2FortSiegeGuardInstance>();
-		
-		Collection<L2Object> objs = getKnownList().getKnownObjects().values();
-		//synchronized (getKnownList().getKnownObjects())
-		{
-			for (L2Object obj : objs)
-			{
-				if (obj instanceof L2FortSiegeGuardInstance)
-					result.add((L2FortSiegeGuardInstance) obj);
-			}
-		}
-		return result;
 	}
 
 	public int getA()

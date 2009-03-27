@@ -14,14 +14,13 @@
  */
 package com.l2jfree.gameserver.ai;
 
-import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
+import com.l2jfree.gameserver.model.L2SiegeGuard;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2FortSiegeGuardInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2SiegeGuardInstance;
+import com.l2jfree.gameserver.threadmanager.FIFORunnableQueue;
 
 /**
  * @author mkizub
@@ -85,10 +84,15 @@ public class L2DoorAI extends L2CharacterAI
 	{
 	}
 	
+	private FIFORunnableQueue<OnEventAttackedDoorTask> _guardNotifyTasks;
+	
 	@Override
 	protected void onEvtAttacked(L2Character attacker)
 	{
-		ThreadPoolManager.getInstance().executeTask(new OnEventAttackedDoorTask(attacker));
+		if (_guardNotifyTasks == null)
+			_guardNotifyTasks = new FIFORunnableQueue<OnEventAttackedDoorTask>() { };
+		
+		_guardNotifyTasks.execute(new OnEventAttackedDoorTask(attacker));
 	}
 	
 	@Override
@@ -164,13 +168,17 @@ public class L2DoorAI extends L2CharacterAI
 		{
 			getActor().getKnownList().updateKnownObjects();
 			
-			for (L2SiegeGuardInstance guard : ((L2DoorInstance)getActor()).getKnownSiegeGuards())
-				if (getActor().isInsideRadius(guard, guard.getFactionRange(), false, true) && Math.abs(_attacker.getZ() - guard.getZ()) < 200)
-					guard.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, _attacker, 15);
-
-			for (L2FortSiegeGuardInstance guard : ((L2DoorInstance)getActor()).getKnownFortSiegeGuards())
-				if (_actor.isInsideRadius(guard, guard.getFactionRange(), false, true) && Math.abs(_attacker.getZ() - guard.getZ()) < 200)
-					guard.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, _attacker, 15);
+			for (L2Object obj : getActor().getKnownList().getKnownObjects().values())
+			{
+				if (obj instanceof L2SiegeGuard)
+				{
+					L2SiegeGuard guard = (L2SiegeGuard)obj;
+					
+					if (Math.abs(_attacker.getZ() - guard.getZ()) < 200)
+						if (getActor().isInsideRadius(guard, guard.getFactionRange(), false, true))
+							guard.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, _attacker, 15);
+				}
+			}
 		}
 	}
 }

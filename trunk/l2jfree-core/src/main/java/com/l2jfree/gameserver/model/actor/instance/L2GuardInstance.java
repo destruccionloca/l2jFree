@@ -19,9 +19,9 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
-import com.l2jfree.gameserver.model.L2Attackable;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.L2Guard;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.L2WorldRegion;
 import com.l2jfree.gameserver.model.actor.knownlist.GuardKnownList;
@@ -41,7 +41,7 @@ import com.l2jfree.tools.random.Rnd;
  * 
  * @version $Revision: 1.11.2.1.2.7 $ $Date: 2005/04/06 16:13:40 $
  */
-public final class L2GuardInstance extends L2Attackable
+public final class L2GuardInstance extends L2Guard
 {
 	private final static Log	_log			= LogFactory.getLog(L2GuardInstance.class.getName());
 

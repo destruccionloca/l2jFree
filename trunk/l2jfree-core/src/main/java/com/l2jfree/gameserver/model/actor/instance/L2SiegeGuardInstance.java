@@ -22,13 +22,13 @@ import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.ai.L2SiegeGuardAI;
 import com.l2jfree.gameserver.datatables.ClanTable;
-import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
-import com.l2jfree.gameserver.model.L2Attackable;
+import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2SiegeClan;
+import com.l2jfree.gameserver.model.L2SiegeGuard;
 import com.l2jfree.gameserver.model.actor.knownlist.SiegeGuardKnownList;
 import com.l2jfree.gameserver.model.entity.FortSiege;
 import com.l2jfree.gameserver.model.entity.Siege;
@@ -44,7 +44,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  * 
  * @version $Revision: 1.11.2.1.2.7 $ $Date: 2005/04/06 16:13:40 $
  */
-public class L2SiegeGuardInstance extends L2Attackable
+public class L2SiegeGuardInstance extends L2SiegeGuard
 {
 	protected final static Log	_log	= LogFactory.getLog(L2SiegeGuardInstance.class.getName());
 

@@ -20,9 +20,9 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.ai.L2FortSiegeGuardAI;
-import com.l2jfree.gameserver.model.L2Attackable;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.L2SiegeGuard;
 import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.actor.knownlist.FortSiegeGuardKnownList;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
@@ -31,7 +31,7 @@ import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
-public class L2FortSiegeGuardInstance extends L2Attackable
+public class L2FortSiegeGuardInstance extends L2SiegeGuard
 {
 	private final static Log	_log	= LogFactory.getLog(L2FortSiegeGuardInstance.class.getName());
 
