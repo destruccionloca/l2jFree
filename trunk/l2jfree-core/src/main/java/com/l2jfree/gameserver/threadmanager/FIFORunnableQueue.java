@@ -90,7 +90,7 @@ public abstract class FIFORunnableQueue<T extends Runnable> implements Runnable
 				}
 				
 				while (!isEmpty())
-					ExecuteWrapper.execute(removeFirst());
+					ExecuteWrapper.execute(removeFirst(), ThreadPoolManager.MAXIMUM_RUNTIME_IN_MILLISEC_WITHOUT_WARNING);
 			}
 			finally
 			{

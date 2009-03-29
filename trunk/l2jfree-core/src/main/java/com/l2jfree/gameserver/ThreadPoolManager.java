@@ -37,6 +37,8 @@ public final class ThreadPoolManager
 {
 	private static final Log _log = LogFactory.getLog(ThreadPoolManager.class);
 	
+	public static final long MAXIMUM_RUNTIME_IN_MILLISEC_WITHOUT_WARNING = 5000;
+	
 	private static final long MAX_DELAY = TimeUnit.NANOSECONDS.toMillis(Long.MAX_VALUE - System.nanoTime()) / 2;
 	
 	private static ThreadPoolManager _instance;
@@ -73,12 +75,26 @@ public final class ThreadPoolManager
 		return Math.max(0, Math.min(MAX_DELAY, delay));
 	}
 	
+	private static final class ThreadPoolExecuteWrapper extends ExecuteWrapper
+	{
+		private ThreadPoolExecuteWrapper(Runnable runnable)
+		{
+			super(runnable);
+		}
+		
+		@Override
+		protected long getMaximumRuntimeInMillisecWithoutWarning()
+		{
+			return MAXIMUM_RUNTIME_IN_MILLISEC_WITHOUT_WARNING;
+		}
+	}
+	
 	// ===========================================================================================
 	
 	public final ScheduledFuture<?> schedule(Runnable r, long delay)
 	{
 		return new ScheduledFutureWrapper(_pool.schedule(
-			new ExecuteWrapper(r), validate(delay), TimeUnit.MILLISECONDS));
+			new ThreadPoolExecuteWrapper(r), validate(delay), TimeUnit.MILLISECONDS));
 	}
 	
 	public final ScheduledFuture<?> scheduleEffect(Runnable r, long delay)
@@ -101,7 +117,7 @@ public final class ThreadPoolManager
 	public final ScheduledFuture<?> scheduleAtFixedRate(Runnable r, long delay, long period)
 	{
 		return new ScheduledFutureWrapper(_pool.scheduleAtFixedRate(
-			new ExecuteWrapper(r), validate(delay), validate(period), TimeUnit.MILLISECONDS));
+			new ThreadPoolExecuteWrapper(r), validate(delay), validate(period), TimeUnit.MILLISECONDS));
 	}
 	
 	public final ScheduledFuture<?> scheduleEffectAtFixedRate(Runnable r, long delay, long period)
@@ -123,7 +139,7 @@ public final class ThreadPoolManager
 	
 	public final void execute(Runnable r)
 	{
-		_pool.execute(new ExecuteWrapper(r));
+		_pool.execute(new ThreadPoolExecuteWrapper(r));
 	}
 	
 	public final void executePacket(ReceivablePacket<L2GameClient> pkt)

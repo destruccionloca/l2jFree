@@ -6,25 +6,6 @@
 	<classpathentry kind="src" output="target/test-classes" path="src/test/java"/>
 	<classpathentry excluding="**/*.java" kind="src" output="target/test-classes" path="src/test/resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="var" path="M2_REPO/org/apache/bsf/bsf/2.0/bsf-2.0.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/beanshell/bsh/2.0b5/bsh-2.0b5.jar"/>
-	<classpathentry kind="var" path="M2_REPO/l2jfree/bsh-engine/1.0.1/bsh-engine-1.0.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/c3p0/c3p0/0.9.1.2/c3p0-0.9.1.2.jar"/>
-	<classpathentry kind="var" path="M2_REPO/commons-io/commons-io/1.2/commons-io-1.2.jar"/>
-	<classpathentry kind="var" path="M2_REPO/commons-lang/commons-lang/2.1/commons-lang-2.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/commons-logging/commons-logging/1.1/commons-logging-1.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/eclipse/jdt/core/3.3.0/core-3.3.0.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/schwering/irclib/1.10/irclib-1.10.jar"/>
-	<classpathentry kind="var" path="M2_REPO/sshtools/j2ssh-daemon/0.2.2/j2ssh-daemon-0.2.2.jar"/>
-	<classpathentry kind="var" path="M2_REPO/l2jfree/java-engine/1.0.1/java-engine-1.0.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/javolution/javolution/1.5.5.2.6/javolution-1.5.5.2.6.jar"/>
-	<classpathentry kind="var" path="M2_REPO/junit/junit/3.8.1/junit-3.8.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/jython/jython/2.2.1/jython-2.2.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/l2jfree/jython-engine/1.0.1/jython-engine-1.0.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/l2jfree/l2j-commons/1.1.8/l2j-commons-1.1.8.jar"/>
-	<classpathentry kind="var" path="M2_REPO/l2jfree/l2j-mmocore/1.1.0/l2j-mmocore-1.1.0.jar"/>
-	<classpathentry kind="var" path="M2_REPO/log4j/log4j/1.2.14/log4j-1.2.14.jar"/>
-	<classpathentry kind="var" path="M2_REPO/mysql/mysql-connector-java/5.1.5/mysql-connector-java-5.1.5.jar"/>
 	<classpathentry kind="con" path="org.maven.ide.eclipse.MAVEN2_CLASSPATH_CONTAINER/workspace"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

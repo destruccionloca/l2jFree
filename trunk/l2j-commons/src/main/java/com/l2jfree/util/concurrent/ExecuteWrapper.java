@@ -14,14 +14,17 @@
  */
 package com.l2jfree.util.concurrent;
 
+import java.util.concurrent.TimeUnit;
+
+import javolution.text.TextBuilder;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 
 /**
  * @author NB4L1
  */
-public final class ExecuteWrapper implements Runnable
+public class ExecuteWrapper implements Runnable
 {
 	private static final Log _log = LogFactory.getLog(ExecuteWrapper.class);
 	
@@ -32,24 +35,55 @@ public final class ExecuteWrapper implements Runnable
 		_runnable = runnable;
 	}
 	
-	public void run()
+	public final void run()
 	{
-		ExecuteWrapper.execute(_runnable);
+		ExecuteWrapper.execute(_runnable, getMaximumRuntimeInMillisecWithoutWarning());
+	}
+	
+	protected long getMaximumRuntimeInMillisecWithoutWarning()
+	{
+		return Long.MAX_VALUE;
 	}
 	
 	public static void execute(Runnable runnable)
+	{
+		execute(runnable, Long.MAX_VALUE);
+	}
+	
+	public static void execute(Runnable runnable, long maximumRuntimeInMillisecWithoutWarning)
 	{
 		long begin = System.nanoTime();
 		
 		try
 		{
 			runnable.run();
-			
-			RunnableStatsManager.getInstance().handleStats(runnable.getClass(), System.nanoTime() - begin);
 		}
 		catch (Exception e)
 		{
 			_log.warn("Exception in a Runnable execution:", e);
+		}
+		finally
+		{
+			long runtimeInNanosec = System.nanoTime() - begin;
+			Class<?> clazz = runnable.getClass();
+			
+			RunnableStatsManager.getInstance().handleStats(clazz, runtimeInNanosec);
+			
+			long runtimeInMillisec = TimeUnit.NANOSECONDS.toMillis(runtimeInNanosec);
+			
+			if (runtimeInMillisec > maximumRuntimeInMillisecWithoutWarning)
+			{
+				TextBuilder tb = TextBuilder.newInstance();
+				
+				tb.append(clazz);
+				tb.append(" - execution time: ");
+				tb.append(runtimeInMillisec);
+				tb.append("msec");
+				
+				_log.warn(tb);
+				
+				TextBuilder.recycle(tb);
+			}
 		}
 	}
 }

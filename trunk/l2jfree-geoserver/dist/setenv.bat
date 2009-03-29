@@ -2,7 +2,7 @@ SET CLASSPATH=%CLASSPATH%;commons-logging-1.1.jar
 SET CLASSPATH=%CLASSPATH%;log4j-1.2.14.jar
 SET CLASSPATH=%CLASSPATH%;commons-io-1.2.jar
 SET CLASSPATH=%CLASSPATH%;javolution-1.5.5.2.6.jar
-SET CLASSPATH=%CLASSPATH%;l2j-commons-1.1.11.jar
+SET CLASSPATH=%CLASSPATH%;l2j-commons-1.1.12.jar
 SET CLASSPATH=%CLASSPATH%;l2jfree-geoserver-1.2.0.jar
 REM for configuration
 SET CLASSPATH=%CLASSPATH%;./config/
