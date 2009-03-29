@@ -18,14 +18,13 @@
  */
 package com.l2jfree.gameserver.taskmanager;
 
-import javolution.util.FastSet;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.util.L2FastSet;
 
 /**
  * @author NB4L1
@@ -101,7 +100,7 @@ public final class PacketBroadcaster implements Runnable
 	
 	private static final BroadcastMode[] VALUES = BroadcastMode.values();
 	
-	private final FastSet<L2Character> _set = new FastSet<L2Character>();
+	private final L2FastSet<L2Character> _set = new L2FastSet<L2Character>();
 	
 	private PacketBroadcaster()
 	{
@@ -117,14 +116,7 @@ public final class PacketBroadcaster implements Runnable
 	
 	private synchronized L2Character removeFirst()
 	{
-		if (_set.isEmpty())
-			return null;
-		
-		L2Character cha = _set.valueOf(_set.head().getNext());
-		
-		_set.remove(cha);
-		
-		return cha;
+		return _set.removeFirst();
 	}
 	
 	public void run()
