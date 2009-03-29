@@ -59,10 +59,6 @@ class Quest (JQuest) :
       st.playSound("ItemSound.quest_accept")
       st.giveItems(LETTER_TO_ELF_ID,1)
       st.giveItems(LETTER_TO_DARKELF_ID,1)
-      player = st.getPlayer()
-      if not player.getQuestItem(217,7562) :
-         st.giveItems(7562,96)
-         player.setQuestItem(217,7562)
     elif event == "30154-03.htm" :
       st.takeItems(LETTER_TO_ELF_ID,1)
       st.giveItems(ORDER_OF_OZZY_ID,1)
