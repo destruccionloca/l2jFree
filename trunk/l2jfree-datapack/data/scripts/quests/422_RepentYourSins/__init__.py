@@ -46,7 +46,7 @@ class Quest (JQuest) :
  def __init__(self,id,name,descr):
      JQuest.__init__(self,id,name,descr)
      self.questItemIds = [SCAVENGER_WERERAT_SKULL, TUREK_WARHOUND_TAIL, TYRANT_KINGPIN_HEART, TRISALIM_TARANTULAS_VENOM_SAC, MANUAL_OF_MANACLES,
-                PENITENTS_MANACLES, PENITENTS_MANACLES1]
+                          PENITENTS_MANACLES, PENITENTS_MANACLES1]
 
  def onAdvEvent (self,event,npc,player) :
     htmltext = event
@@ -135,13 +135,15 @@ class Quest (JQuest) :
    id = st.getState()
    if npcId == 30981 : #Black Judge
        if id == State.CREATED :
-           if player.getPkKills() >= 1 and player.getLevel() < 80:
+           if player.getPkKills() >= 1 :
                htmltext = "30981-02.htm"
            else:
                htmltext = "30981-01.htm"
                st.exitQuest(1)
        elif condition <= 9 :
            htmltext = "30981-07.htm"
+       elif condition == 13 and st.getQuestItemsCount(PENITENTS_MANACLES2) :
+           htmltext = "30981-10.htm"
        elif condition <= 13 and condition > 9 and st.getQuestItemsCount(MANUAL_OF_MANACLES) == 0 :
            htmltext = "30981-08.htm"
            st.set("cond","14")
@@ -156,6 +158,10 @@ class Quest (JQuest) :
                level = player.getLevel()
                if st.getInt("level") > level :
                    level = st.getInt("level")
+               if st.getPlayer().isSubClassActive() :
+                   if level > 79 : level = 79
+               else:
+                   if level > 84 : level = 84
                if plevel :
                    if plevel > level:
                        htmltext = "30981-13.htm"
@@ -225,7 +231,7 @@ class Quest (JQuest) :
                    htmltext = "30300-02.htm"
                elif st.getQuestItemsCount(SILVER_NUGGET) >= 10 and st.getQuestItemsCount(STEEL) >= 5 and st.getQuestItemsCount(ADAMANTINE_NUGGET) >= 2 \
                     and st.getQuestItemsCount(COKES) >= 10 and st.getQuestItemsCount(BLACKSMITHS_FRAME) >= 1 :
-                   htmltext = "30300-02.htm"
+                   htmltext = "30300-04.htm"
                    st.set("cond","15")
                    st.takeItems(MANUAL_OF_MANACLES,1)
                    st.takeItems(SILVER_NUGGET,10)
@@ -238,7 +244,6 @@ class Quest (JQuest) :
            elif st.getQuestItemsCount(PENITENTS_MANACLES1) or st.getQuestItemsCount(PENITENTS_MANACLES) or st.getQuestItemsCount(PENITENTS_MANACLES2) :
                htmltext = "30300-03.htm"
    return htmltext
-
 
  def onKill(self,npc,player,isPet) :
    st = player.getQuestState(qn)

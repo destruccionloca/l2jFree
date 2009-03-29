@@ -171,9 +171,7 @@
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5422" levels="15" name="Flame">
-    <!--
-      Description(s): Body is on fire. HP continually decreases.
-    -->
+    <!-- Description(s): Body is on fire. HP continually decreases. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -727,9 +725,7 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="5479" levels="1" name="Boss Petrification Resistance">
-    <!--
-      Description(s): Resist against Petrification.
-    -->
+    <!-- Description(s): Resist against Petrification. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -742,18 +738,14 @@
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5481" levels="1" name="Transform Penalty">
-    <!--
-      Description(s): You cannot be transformed while under this effect.
-    -->
+    <!-- Description(s): You cannot be transformed while under this effect. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5482" levels="1" name="Transform Penalty">
-    <!--
-      Description(s): You cannot be transformed while under this effect.
-    -->
+    <!-- Description(s): You cannot be transformed while under this effect. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -766,27 +758,21 @@
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5484" levels="1" name="Endurance Defense Up">
-    <!--
-      Description(s): Increases P. Def. Effect 1.
-    -->
+    <!-- Description(s): Increases P. Def. Effect 1. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5485" levels="1" name="Endurance Defense Up">
-    <!--
-      Description(s): Increases P. Def. Effect 1.
-    -->
+    <!-- Description(s): Increases P. Def. Effect 1. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5486" levels="1" name="Endurance Offense Up">
-    <!--
-      Description(s): Increases P. Atk. Effect 1.
-    -->
+    <!-- Description(s): Increases P. Atk. Effect 1. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -799,27 +785,21 @@
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5488" levels="1" name="Counter Critical Power Up">
-    <!--
-      Description(s): Increases critical attack power. Effect 1.
-    -->
+    <!-- Description(s): Increases critical attack power. Effect 1. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5489" levels="1" name="Counter Critical Rate Up">
-    <!--
-      Description(s): Increases critical attack rate. Effect 1.
-    -->
+    <!-- Description(s): Increases critical attack rate. Effect 1. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5490" levels="1" name="Weakened Life">
-    <!--
-      Description(s): You have been infected by a fatal poison.
-    -->
+    <!-- Description(s): You have been infected by a fatal poison. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -860,9 +840,7 @@
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5495" levels="1" name="Bleed">
-    <!--
-      Description(s): HP decreases temporarily by bleeding. Effect 10.
-    -->
+    <!-- Description(s): HP decreases temporarily by bleeding. Effect 10. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>

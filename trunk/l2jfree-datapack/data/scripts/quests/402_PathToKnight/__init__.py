@@ -2,7 +2,6 @@
 # Shadow Weapon Coupons contributed by BiTi for the Official L2J Datapack Project
 # Visit http://forum.l2jdp.com for more details
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -59,7 +58,7 @@ class Quest (JQuest) :
           htmltext = "30417-03.htm"
           st.exitQuest(1)
     elif event == "30417-08.htm" :
-        if st.getInt("cond")== 0 and classid == 0x00 and level >= 19 :
+        if st.getInt("cond")== 0 and classid == 0x00 and level >= 18 :
            st.set("id","0")
            st.set("cond","1")
            st.setState(State.STARTED)
@@ -123,7 +122,6 @@ class Quest (JQuest) :
         else:
           htmltext=default
     return htmltext
-
 
  def onTalk (self,npc,player):
    htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
@@ -253,7 +251,7 @@ class Quest (JQuest) :
           st.playSound("ItemSound.quest_itemget")
    return
 
-QUEST       = Quest(402,qn,"Path To Knight")
+QUEST       = Quest(402,qn,"Path to Human Knight")
 
 QUEST.addStartNpc(30417)
 

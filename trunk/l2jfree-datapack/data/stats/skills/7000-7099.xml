@@ -265,7 +265,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <!-- Summon-specific -->
-    <set name="npcId" val="150"/>
+    <set name="npcId" val="20150"/>
     <set name="expPenalty" val="0"/>
   </skill>
   <skill id="7031" levels="1" name="Summon Skeleton Royal Guard">
@@ -285,7 +285,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <!-- Summon-specific -->
-    <set name="npcId" val="622"/>
+    <set name="npcId" val="20169"/>
     <set name="expPenalty" val="0"/>
   </skill>
   <skill id="7032" levels="1" name="Summon Hunter Gargoyle">
@@ -305,7 +305,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <!-- Summon-specific -->
-    <set name="npcId" val="241"/>
+    <set name="npcId" val="20241"/>
     <set name="expPenalty" val="0"/>
   </skill>
   <skill id="7033" levels="1" name="not_used">
@@ -357,13 +357,10 @@
     <set name="castRange" val="-1"/>
   </skill>
   <!-- Admin / Game Masters skills -->
-  <!--
-    Done by SqueezeD Edit by Shaka for L2J Project - 01/28/2008
-  -->
+  <!-- Done by SqueezeD Edit by Shaka for L2J Project - 01/28/2008 -->
   <skill id="7041" levels="1" name="Master's Blessing - Focus">
     <!--
-      A GM is always by your side. Increases critical attack
-      rate temporarily. Effect 3.
+      A GM is always by your side. Increases critical attack rate temporarily. Effect 3.
     -->
     <set name="mpConsume" val="2"/>
     <set name="magicLvl" val="1"/>
@@ -382,8 +379,7 @@
   </skill>
   <skill id="7042" levels="1" name="Master's Blessing - Death Whisper">
     <!--
-      A GM is always by your side. Increases critical attack
-      rate temporarily. Effect 3.
+      A GM is always by your side. Increases critical attack rate temporarily. Effect 3.
     -->
     <set name="mpConsume" val="2"/>
     <set name="magicLvl" val="1"/>
