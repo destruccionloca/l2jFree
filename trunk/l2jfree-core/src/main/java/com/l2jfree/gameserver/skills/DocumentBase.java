@@ -67,6 +67,7 @@ import com.l2jfree.gameserver.skills.conditions.ConditionTargetActiveSkillId;
 import com.l2jfree.gameserver.skills.conditions.ConditionTargetAggro;
 import com.l2jfree.gameserver.skills.conditions.ConditionTargetClassIdRestriction;
 import com.l2jfree.gameserver.skills.conditions.ConditionTargetLevel;
+import com.l2jfree.gameserver.skills.conditions.ConditionTargetNpcId;
 import com.l2jfree.gameserver.skills.conditions.ConditionTargetRaceId;
 import com.l2jfree.gameserver.skills.conditions.ConditionTargetUndead;
 import com.l2jfree.gameserver.skills.conditions.ConditionTargetUsesWeaponKind;
@@ -655,6 +656,11 @@ abstract class DocumentBase
 					}
 				}
 				cond = joinAnd(cond, new ConditionTargetUsesWeaponKind(mask));
+			}
+			else if ("npcId".equalsIgnoreCase(a.getNodeName()))
+			{
+				int npcId = Integer.decode(getValue(a.getNodeValue(), template));
+				cond = joinAnd(cond, new ConditionTargetNpcId(npcId));
 			}
 		}
 		if (cond == null)

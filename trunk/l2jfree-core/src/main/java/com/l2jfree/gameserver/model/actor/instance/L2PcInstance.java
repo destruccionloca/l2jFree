@@ -8670,7 +8670,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 
 		// Check if the skill is defensive
-		if (!skill.isOffensive() && target instanceof L2MonsterInstance && !forceUse)
+		if (!skill.isOffensive() && target instanceof L2MonsterInstance && !forceUse && !skill.isNeutral())
 		{
 			switch (sklTargetType)
 			{

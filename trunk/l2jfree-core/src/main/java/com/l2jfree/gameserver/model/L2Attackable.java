@@ -47,6 +47,8 @@ import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.model.actor.knownlist.AttackableKnownList;
 import com.l2jfree.gameserver.model.base.SoulCrystal;
 import com.l2jfree.gameserver.model.quest.Quest;
+import com.l2jfree.gameserver.model.quest.QuestState;
+import com.l2jfree.gameserver.model.quest.State;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
@@ -2332,6 +2334,12 @@ public class L2Attackable extends L2NpcInstance
 		{
 			if (player == null)
 				continue;
+			QuestState st = player.getQuestState("350_EnhanceYourWeapon");
+			if (st == null)
+				continue;
+			if (st.getState() != State.STARTED)
+				continue;
+
 			crystalQTY = 0;
 
 			L2ItemInstance[] inv = player.getInventory().getItems();

@@ -753,6 +753,9 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 				case 0x22:
 					// TODO implement me (just disabling warnings for this packet)
 					break;
+				case 0x23: 
+					msg = new RequestExRemoveItemAttribute(); 
+					break; 
 				case 0x24:
 					msg = new RequestSaveInventoryOrder();
 					break;

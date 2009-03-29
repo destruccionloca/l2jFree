@@ -360,6 +360,7 @@ public class L2Skill
 	private final FastList<ClassId>	_canLearn;									// which classes can learn
 	private final FastList<Integer>	_teachers;									// which NPC teaches
 	private final boolean			_isOffensive;
+	private final boolean			_isNeutral;
 
 	private final int				_needCharges;
 	private final int				_giveCharges;
@@ -371,7 +372,6 @@ public class L2Skill
 
 	private final boolean			_bestow;
 	private final boolean			_bestowed;
-	private final boolean			_triggerAnotherSkill;
 
 	private final int				_soulConsume;
 	private final int				_soulMaxConsume;
@@ -538,6 +538,7 @@ public class L2Skill
 		_mulCrossLearnRace = set.getFloat("mulCrossLearnRace", 2.f);
 		_mulCrossLearnProf = set.getFloat("mulCrossLearnProf", 3.f);
 		_isOffensive = set.getBool("offensive", isSkillTypeOffensive());
+		_isNeutral = set.getBool("neutral", false);
 
 		_needCharges = set.getInteger("needCharges", 0);
 		_giveCharges = set.getInteger("giveCharges", 0);
@@ -563,7 +564,6 @@ public class L2Skill
 
 		_bestow = set.getBool("bestowTriggered", false);
 		_bestowed = set.getBool("bestowed", false);
-		_triggerAnotherSkill = set.getBool("triggerAnotherSkill", false);
 
 		_numSouls = set.getInteger("num_souls", 0);
 		_soulConsume = set.getInteger("soulConsumeCount", 0);
@@ -818,7 +818,7 @@ public class L2Skill
 
 	public boolean triggerAnotherSkill()
 	{
-		return _triggerAnotherSkill;
+		return _triggeredId > 1;
 	}
 
 	public L2Skill getTriggeredSkill()
@@ -1333,6 +1333,11 @@ public class L2Skill
 	public final boolean isOffensive()
 	{
 		return _isOffensive;
+	}
+
+	public final boolean isNeutral()
+	{
+		return _isNeutral;
 	}
 
 	public final int getNeededCharges()

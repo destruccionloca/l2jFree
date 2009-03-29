@@ -192,8 +192,25 @@ public class PcInventory extends Inventory
 	{
 		LinkedBunch<L2ItemInstance> list = new LinkedBunch<L2ItemInstance>();
 		for (L2ItemInstance item : _items)
-			if (item != null && item.isAugmented()) list.add(item);
-	
+		{
+			if (item != null && item.isAugmented())
+				list.add(item);
+		}
+		return list.moveToArray(new L2ItemInstance[list.size()]);
+	}
+
+	/** 
+	 * Get all element items 
+	 * @return 
+	 */ 
+	public L2ItemInstance[] getElementItems() 
+	{
+		LinkedBunch<L2ItemInstance> list = new LinkedBunch<L2ItemInstance>();
+		for (L2ItemInstance item : _items)
+		{
+			if (item != null && item.getElementals() != null)
+				list.add(item);
+		}
 		return list.moveToArray(new L2ItemInstance[list.size()]);
 	}
 

@@ -81,6 +81,7 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.EtcStatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ExQuestInfo;
+import com.l2jfree.gameserver.network.serverpackets.ExShowBaseAttributeCancelWindow;
 import com.l2jfree.gameserver.network.serverpackets.ExShowVariationCancelWindow;
 import com.l2jfree.gameserver.network.serverpackets.ExShowVariationMakeWindow;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
@@ -1382,6 +1383,10 @@ public class L2NpcInstance extends L2Character
 				html.setFile("data/html/merchant/exchange.htm");
 				html.replace("%objectId%", String.valueOf(getObjectId()));
 				player.sendPacket(html);
+			}
+			else if (command.equals("ReleaseAttribute"))
+			{
+				player.sendPacket(new ExShowBaseAttributeCancelWindow(player));
 			}
 			// [L2J_JP ADD START]
 			else if (command.startsWith("open_gate"))

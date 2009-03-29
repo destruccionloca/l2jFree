@@ -5710,18 +5710,18 @@ public abstract class L2Character extends L2Object
 			sendDamageMessage(target, damage, false, crit, miss);
 
 			// If L2Character target is a L2PcInstance, send a system message
-			/*if (target instanceof L2PcInstance)
+			if (target instanceof L2PcInstance)
 			{
 				L2PcInstance enemy = (L2PcInstance) target;
 				enemy.getAI().clientStartAutoAttack();
 
 				// Check if shield is efficient
-				if (shld && 100 - Config.ALT_PERFECT_SHLD_BLOCK < Rnd.get(100))
+				/*if (shld && 100 - Config.ALT_PERFECT_SHLD_BLOCK < Rnd.get(100))
 					enemy.sendPacket(new SystemMessage(SystemMessageId.SHIELD_DEFENCE_SUCCESSFULL));
 				// else if (!miss && damage < 1)
-				// enemy.sendMessage("You hit the target's armor.");
+				// enemy.sendMessage("You hit the target's armor.");*/
 			}
-			else */if (target instanceof L2Summon)
+			else if (target instanceof L2Summon)
 			{
 				((L2Summon) target).getOwner().getAI().clientStartAutoAttack();
 			}
@@ -6436,7 +6436,7 @@ public abstract class L2Character extends L2Object
 				{
 					if ((!Util.checkIfInRange(escapeRange, this, element, true) || !GeoData.getInstance().canSeeTarget(this, element)))
 						continue;
-					if (skill.isOffensive())
+					if (skill.isOffensive() && !skill.isNeutral())
 					{
 						if (this instanceof L2PcInstance)
 						{
@@ -6704,8 +6704,10 @@ public abstract class L2Character extends L2Object
 			break;
 		}
 
-		if (skill.isOffensive() && skill.getSkillType() != L2SkillType.UNLOCK && skill.getSkillType() != L2SkillType.DELUXE_KEY_UNLOCK
-				&& skill.getSkillType() != L2SkillType.MAKE_KILLABLE && skill.getSkillType() != L2SkillType.MAKE_QUEST_DROPABLE)
+		if (skill.isOffensive() && !skill.isNeutral() && skill.getSkillType() != L2SkillType.UNLOCK
+				&& skill.getSkillType() != L2SkillType.DELUXE_KEY_UNLOCK
+				&& skill.getSkillType() != L2SkillType.MAKE_KILLABLE
+				&& skill.getSkillType() != L2SkillType.MAKE_QUEST_DROPABLE)
 			getAI().clientStartAutoAttack();
 
 		// Notify the AI of the L2Character with EVT_FINISH_CASTING
@@ -6967,7 +6969,11 @@ public abstract class L2Character extends L2Object
 					if (skill.getSkillType() != L2SkillType.AGGREMOVE && skill.getSkillType() != L2SkillType.AGGREDUCE
 							&& skill.getSkillType() != L2SkillType.AGGREDUCE_CHAR)
 					{
-						if (skill.isOffensive())
+						if (skill.isNeutral())
+						{
+							// no flags
+						}
+						else if (skill.isOffensive())
 						{
 							if (target instanceof L2PcInstance || target instanceof L2Summon || target instanceof L2Trap)
 							{

@@ -521,13 +521,8 @@ public final class Formulas
 		@Override
 		public void calc(Env env)
 		{
-			L2Character p = env.player;
-			if (p instanceof L2Summon)
-				env.value = 8;
-			else if (p instanceof L2PcInstance && p.getActiveWeaponInstance() == null)
-				env.value = 8;
-			else
-				env.value *= WITbonus[p.getStat().getWIT()];
+			if (env.player instanceof L2PcInstance && env.player.getActiveWeaponInstance() != null)
+				env.value *= WITbonus[env.player.getStat().getWIT()];
 		}
 	}
 
@@ -2262,7 +2257,7 @@ public final class Formulas
 		//FIXME: CHECK/FIX THIS FORMULA UP!!
 		double attack = 0;
 
-		if (skill.isActive() && skill.isOffensive())
+		if (skill.isActive() && skill.isOffensive()&& !skill.isNeutral())
 			defence = target.getMDef(actor, skill);
 
 		if (actor instanceof L2PcInstance)

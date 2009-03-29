@@ -56,6 +56,7 @@ public final class SkillHandler implements ISkillHandler
 		registerSkillHandler(new DeluxeKey());
 		registerSkillHandler(new Disablers());
 		registerSkillHandler(new DrainSoul());
+		registerSkillHandler(new Dummy());
 		registerSkillHandler(new Fishing());
 		registerSkillHandler(new FishingSkill());
 		registerSkillHandler(new GetPlayer());
