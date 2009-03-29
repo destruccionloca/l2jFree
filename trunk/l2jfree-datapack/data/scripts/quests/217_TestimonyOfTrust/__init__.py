@@ -3,6 +3,7 @@
 import sys
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
+from com.l2jfree.gameserver.network.serverpackets import SocialAction
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "217_TestimonyOfTrust"
@@ -25,18 +26,18 @@ DROPLIST={
 27120:[ORDER_OF_OZZY_ID,BREATH_OF_WINDS_ID,               1],
 27121:[ORDER_OF_OZZY_ID,SEED_OF_VERDURE_ID,               1],
 # For condition 6
-20550 :[ORDER_OF_CLAYTON_ID,BLOOD_OF_GUARDIAN_BASILISK_ID,10],
-20082 :[ORDER_OF_CLAYTON_ID,GIANT_APHID_ID,               10],
-20084 :[ORDER_OF_CLAYTON_ID,GIANT_APHID_ID,               10],
-20086 :[ORDER_OF_CLAYTON_ID,GIANT_APHID_ID,               10],
-20087 :[ORDER_OF_CLAYTON_ID,GIANT_APHID_ID,               10],
-20088 :[ORDER_OF_CLAYTON_ID,GIANT_APHID_ID,               10],
-20157 :[ORDER_OF_CLAYTON_ID,STAKATOS_FLUIDS_ID,           10],
-20230 :[ORDER_OF_CLAYTON_ID,STAKATOS_FLUIDS_ID,           10],
-20232 :[ORDER_OF_CLAYTON_ID,STAKATOS_FLUIDS_ID,           10],
-20234 :[ORDER_OF_CLAYTON_ID,STAKATOS_FLUIDS_ID,           10],
+20550 :[ORDER_OF_CLAYTON_ID,BLOOD_OF_GUARDIAN_BASILISK_ID,5],
+20082 :[ORDER_OF_CLAYTON_ID,GIANT_APHID_ID,               5],
+20084 :[ORDER_OF_CLAYTON_ID,GIANT_APHID_ID,               5],
+20086 :[ORDER_OF_CLAYTON_ID,GIANT_APHID_ID,               5],
+20087 :[ORDER_OF_CLAYTON_ID,GIANT_APHID_ID,               5],
+20088 :[ORDER_OF_CLAYTON_ID,GIANT_APHID_ID,               5],
+20157 :[ORDER_OF_CLAYTON_ID,STAKATOS_FLUIDS_ID,           5],
+20230 :[ORDER_OF_CLAYTON_ID,STAKATOS_FLUIDS_ID,           5],
+20232 :[ORDER_OF_CLAYTON_ID,STAKATOS_FLUIDS_ID,           5],
+20234 :[ORDER_OF_CLAYTON_ID,STAKATOS_FLUIDS_ID,           5],
 # For condition 19
-20213 :[ORDER_OF_NICHOLA_ID,HEART_OF_PORTA_ID,            1]
+20213 :[ORDER_OF_NICHOLA_ID,HEART_OF_PORTA_ID,            10]
 }
 
 
@@ -45,10 +46,10 @@ class Quest (JQuest) :
  def __init__(self,id,name,descr):
      JQuest.__init__(self,id,name,descr)
      self.questItemIds = [SCROLL_OF_DARKELF_TRUST_ID, SCROLL_OF_ELF_TRUST_ID, SCROLL_OF_DWARF_TRUST_ID, SCROLL_OF_ORC_TRUST_ID, BREATH_OF_WINDS_ID,
-                SEED_OF_VERDURE_ID, ORDER_OF_OZZY_ID, LETTER_TO_ELF_ID, ORDER_OF_CLAYTON_ID, BASILISK_PLASMA_ID, STAKATO_ICHOR_ID, HONEY_DEW_ID,
-                LETTER_TO_DARKELF_ID, LETTER_OF_THIFIELL_ID, LETTER_TO_SERESIN_ID, LETTER_TO_ORC_ID, LETTER_OF_MANAKIA_ID, LETTER_TO_MANAKIA_ID,
-                PARASITE_OF_LOTA_ID, LETTER_TO_DWARF_ID, LETTER_TO_NICHOLA_ID, HEART_OF_PORTA_ID, ORDER_OF_NICHOLA_ID, RECOMMENDATION_OF_HOLLIN_ID,
-                BLOOD_OF_GUARDIAN_BASILISK_ID, STAKATOS_FLUIDS_ID, GIANT_APHID_ID]
+                          SEED_OF_VERDURE_ID, ORDER_OF_OZZY_ID, LETTER_TO_ELF_ID, ORDER_OF_CLAYTON_ID, BASILISK_PLASMA_ID, STAKATO_ICHOR_ID, HONEY_DEW_ID,
+                          LETTER_TO_DARKELF_ID, LETTER_OF_THIFIELL_ID, LETTER_TO_SERESIN_ID, LETTER_TO_ORC_ID, LETTER_OF_MANAKIA_ID, LETTER_TO_MANAKIA_ID,
+                          PARASITE_OF_LOTA_ID, LETTER_TO_DWARF_ID, LETTER_TO_NICHOLA_ID, HEART_OF_PORTA_ID, ORDER_OF_NICHOLA_ID, RECOMMENDATION_OF_HOLLIN_ID,
+                          BLOOD_OF_GUARDIAN_BASILISK_ID, STAKATOS_FLUIDS_ID, GIANT_APHID_ID]
 
  def onEvent (self,event,st) :
     htmltext = event
@@ -58,6 +59,10 @@ class Quest (JQuest) :
       st.playSound("ItemSound.quest_accept")
       st.giveItems(LETTER_TO_ELF_ID,1)
       st.giveItems(LETTER_TO_DARKELF_ID,1)
+      player = st.getPlayer()
+      if not player.getQuestItem(217,7562) :
+         st.giveItems(7562,96)
+         player.setQuestItem(217,7562)
     elif event == "30154-03.htm" :
       st.takeItems(LETTER_TO_ELF_ID,1)
       st.giveItems(ORDER_OF_OZZY_ID,1)
@@ -224,7 +229,7 @@ class Quest (JQuest) :
      elif cond == 20 :                                     # Condition 20 bring the 1 Heart of Porta to Nichola
          if npcId == 30621 and st.getQuestItemsCount(ORDER_OF_NICHOLA_ID) and st.getQuestItemsCount(HEART_OF_PORTA_ID) :
            htmltext = "30621-04.htm"
-           st.takeItems(HEART_OF_PORTA_ID,1)
+           st.takeItems(HEART_OF_PORTA_ID,10)
            st.takeItems(ORDER_OF_NICHOLA_ID,1)
            st.set("cond","21")
      elif cond == 21 :                                     # Condition 21 take the letter to Lockirin
@@ -251,7 +256,8 @@ class Quest (JQuest) :
          elif npcId == 30031 and st.getQuestItemsCount(RECOMMENDATION_OF_HOLLIN_ID) :
            st.addExpAndSp(695149,46391)
            st.rewardItems(ADENA,126106)
-           st.giveItems(7562,96)
+           ObjectId=player.getObjectId()
+           player.broadcastPacket(SocialAction(ObjectId,3))
            htmltext = "30031-01.htm"
            st.takeItems(RECOMMENDATION_OF_HOLLIN_ID,1)
            st.giveItems(MARK_OF_TRUST_ID,1)
@@ -274,18 +280,12 @@ class Quest (JQuest) :
        st.set("id",str(st.getInt("id")+1))
        if st.getRandom(100)<(st.getInt("id")*33) :
          st.playSound("Itemsound.quest_before_battle")
-         st.addSpawn(27120,9410,50301,-3713,600000)   ### FIXME ### Temp fix for spawn
-         st.addRadar(9410,50301,-3713)
-         return "Luell Of Zephyr Winds has spawned at X=9410 Y=50301 Z=-3713"
-#         st.addSpawn(27120)                   # The original spawn code
+         st.addSpawn(27120,npc.getX(),npc.getY(),npc.getZ(),600000)
      elif npcId in [ 20013,20019 ] and st.getQuestItemsCount(SEED_OF_VERDURE_ID) == 0 :
        st.set("id",str(st.getInt("id")+1))
        if st.getRandom(100)<(st.getInt("id")*33) :
          st.playSound("Itemsound.quest_before_battle")
-         st.addSpawn(27121,16895,47210,-3673,600000)  ### FIXME ### Temp fix for spawn
-         st.addRadar(16895,47210,-3673)
-         return "Actea Of Verdant Wilds has spawned at X=16895 Y=47210 Z=-3673"
-#         st.addSpawn(27121)                   # The original spawn code
+         st.addSpawn(27121,npc.getX(),npc.getY(),npc.getZ(),600000)
    elif cond == 14 :                                       # Condition 14 get 10 Parasite of lota
      parasite = st.getQuestItemsCount(PARASITE_OF_LOTA_ID)
      if npcId == 20553 and parasite < 10 :
@@ -334,7 +334,7 @@ class Quest (JQuest) :
           st.playSound("Itemsound.quest_itemget")
    return
 
-QUEST       = Quest(217,qn,"Testimony Of Trust")
+QUEST       = Quest(217,qn,"Testimony of Trust")
 
 QUEST.addStartNpc(30191)
 
