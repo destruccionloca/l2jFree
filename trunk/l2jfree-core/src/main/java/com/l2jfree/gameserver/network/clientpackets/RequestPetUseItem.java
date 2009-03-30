@@ -24,7 +24,6 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.PetInfo;
 import com.l2jfree.gameserver.network.serverpackets.PetItemList;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.item.L2ArmorType;
@@ -81,15 +80,8 @@ public class RequestPetUseItem extends L2GameClientPacket
 
 		if (!item.isEquipped())
 		{
-			if (!item.getItem().checkCondition(activeChar, activeChar))
+			if (!item.getItem().checkCondition(pet, pet))
 				return;
-		}
-
-		// check if the food matches the pet
-		if (PetDataTable.getFoodItemId(pet.getNpcId()) == item.getItemId())
-		{
-			feed(pet, item);
-			return;
 		}
 
 		if (item.getItem().getBodyPart() == L2Item.SLOT_NECK)
@@ -106,12 +98,7 @@ public class RequestPetUseItem extends L2GameClientPacket
 				|| (PetDataTable.isHatchling(pet.getNpcId()) && item.getItem().isForHatchling())
 				|| (PetDataTable.isBaby(pet.getNpcId()) && item.getItem().isForBabyPet())
 				|| (PetDataTable.isStrider(pet.getNpcId()) && item.getItem().isForStrider())
-				|| (PetDataTable.isRedStrider(pet.getNpcId()) && item.getItem().isForStrider())
-				|| (PetDataTable.isGreatWolf(pet.getNpcId()) && (item.getItem().isForGreatWolf() || item.getItem().isForWolf()))
-				|| (PetDataTable.isWGreatWolf(pet.getNpcId()) && (item.getItem().isForGreatWolf() || item.getItem().isForWolf()))
-				|| (PetDataTable.isBlackWolf(pet.getNpcId()) && (item.getItem().isForGreatWolf() || item.getItem().isForWolf()))
-				|| (PetDataTable.isFenrirWolf(pet.getNpcId()) && (item.getItem().isForGreatWolf() || item.getItem().isForWolf()))
-				|| (PetDataTable.isWFenrirWolf(pet.getNpcId()) && (item.getItem().isForGreatWolf() || item.getItem().isForWolf()))
+				|| (PetDataTable.isEvolvedWolf(pet.getNpcId()) && item.getItem().isForEvolvedWolf())
 				|| (PetDataTable.isImprovedBaby(pet.getNpcId()) && item.getItem().isForBabyPet()))
 		{
 			useItem(pet, item, activeChar);
@@ -126,8 +113,7 @@ public class RequestPetUseItem extends L2GameClientPacket
 		}
 		else
 		{
-			SystemMessage sm = new SystemMessage(SystemMessageId.ITEM_NOT_FOR_PETS);
-			activeChar.sendPacket(sm);
+			activeChar.sendPacket(SystemMessageId.PET_CANNOT_USE_ITEM);
 		}
 	}
 
@@ -136,15 +122,42 @@ public class RequestPetUseItem extends L2GameClientPacket
 		if (item.isEquipable())
 		{
 			if (item.isEquipped())
+			{
 				pet.getInventory().unEquipItemInSlot(item.getLocationSlot());
+				switch (item.getItem().getBodyPart())
+				{
+					case L2Item.SLOT_R_HAND:
+						pet.setWeapon(0);
+						break;
+					case L2Item.SLOT_CHEST:
+						pet.setArmor(0);
+						break;
+					case L2Item.SLOT_NECK:
+						pet.setJewel(0);
+						break;
+				}
+			}
 			else
+			{
 				pet.getInventory().equipItem(item);
+				switch (item.getItem().getBodyPart())
+				{
+					case L2Item.SLOT_R_HAND:
+						pet.setWeapon(item.getItemId());
+						break;
+					case L2Item.SLOT_CHEST:
+						pet.setArmor(item.getItemId());
+						break;
+					case L2Item.SLOT_NECK:
+						pet.setJewel(item.getItemId());
+						break;
+				}
+			}
 
 			PetItemList pil = new PetItemList(pet);
 			activeChar.sendPacket(pil);
 
-			PetInfo pi = new PetInfo(pet);
-			activeChar.sendPacket(pi);
+			pet.updateAndBroadcastStatus(1);
 		}
 		else
 		{
@@ -152,23 +165,15 @@ public class RequestPetUseItem extends L2GameClientPacket
 			IItemHandler handler = ItemHandler.getInstance().getItemHandler(item.getItemId());
 
 			if (handler == null)
+			{
 				_log.warn("no itemhandler registered for itemId:" + item.getItemId());
+			}
 			else
+			{
 				handler.useItem(pet, item);
+				pet.updateAndBroadcastStatus(1);
+			}
 		}
-	}
-
-	/**
-	 * When fed by owner double click on food from pet inventory. <BR><BR>
-	 * 
-	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : 1 food = 100 points of currentFed</B></FONT><BR><BR>
-	 */
-	private void feed(L2PetInstance pet, L2ItemInstance item)
-	{
-		// if pet has food in inventory
-		if (pet.destroyItem("Feed", item.getObjectId(), 1, pet, false))
-			pet.setCurrentFed(pet.getCurrentFed() + 100);
-		pet.broadcastStatusUpdate();
 	}
 
 	/* (non-Javadoc)

@@ -44,11 +44,11 @@ public class Ride extends L2GameServerPacket
         _z = cha.getZ();
 
         // 1 for Strider ; 2 for wyvern
-        if (PetDataTable.isStrider(npcId) || PetDataTable.isRedStrider(npcId))
+        if (PetDataTable.isStrider(npcId))
             _rideType = 1;
         else if (PetDataTable.isWyvern(npcId))
             _rideType = 2;
-        else if (PetDataTable.isWGreatWolf(npcId) || PetDataTable.isFenrirWolf(npcId) || PetDataTable.isWFenrirWolf(npcId))
+        else if (PetDataTable.isEvolvedWolf(npcId))
             _rideType = 3;
         else if (PetDataTable.isHorse(npcId))
             _rideType = 4;

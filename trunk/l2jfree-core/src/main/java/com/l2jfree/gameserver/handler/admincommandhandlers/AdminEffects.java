@@ -25,7 +25,6 @@ import com.l2jfree.gameserver.instancemanager.grandbosses.FrintezzaManager;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2ChestInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
@@ -618,7 +617,7 @@ public class AdminEffects implements IAdminCommandHandler
 		{
 			if (target instanceof L2Character)
 			{
-				if ((target instanceof L2Summon) || (target instanceof L2ChestInstance))
+				if (target instanceof L2ChestInstance)
 				{
 					activeChar.sendPacket(SystemMessageId.NOTHING_HAPPENED);
 					return false;

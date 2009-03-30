@@ -88,6 +88,7 @@ public class ItemHandler
 		registerItemHandler(new Recipes());
 		registerItemHandler(new Remedy());
 		registerItemHandler(new RollingDice());
+		registerItemHandler(new PetFood());
 		registerItemHandler(new Potions());
 		registerItemHandler(new ScrollOfEscape());
 		registerItemHandler(new ScrollOfResurrection());

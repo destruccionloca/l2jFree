@@ -159,13 +159,13 @@ public class CharacterCreate extends L2GameClientPacket
 
 		L2ShortCut shortcut;
 		//add attack shortcut
-		shortcut = new L2ShortCut(0,0,3,2,-1,1);
+		shortcut = new L2ShortCut(0,0,3,2,0,1);
 		newChar.registerShortCut(shortcut);
 		//add take shortcut
-		shortcut = new L2ShortCut(3,0,3,5,-1,1);
+		shortcut = new L2ShortCut(3,0,3,5,0,1);
 		newChar.registerShortCut(shortcut);
 		//add sit shortcut
-		shortcut = new L2ShortCut(10,0,3,0,-1,1);
+		shortcut = new L2ShortCut(10,0,3,0,0,1);
 		newChar.registerShortCut(shortcut);
 
 		for (PcTemplateItem ia : template.getItems())
@@ -175,7 +175,7 @@ public class CharacterCreate extends L2GameClientPacket
 			// add tutbook shortcut
 			if (item.getItemId() == 5588)
 			{
-				shortcut = new L2ShortCut(11, 0, 1, item.getObjectId(), -1, 1);
+				shortcut = new L2ShortCut(11, 0, 1, item.getObjectId(), 0, 1);
 				newChar.registerShortCut(shortcut);
 			}
 
@@ -192,12 +192,12 @@ public class CharacterCreate extends L2GameClientPacket
 			newChar.addSkill(SkillTable.getInstance().getInfo(skill.getId(), skill.getLevel()), true);
 			if (skill.getId() == 1001 || skill.getId() == 1177)
 			{
-				shortcut = new L2ShortCut(1, 0, 2, skill.getId(), 1, 1);
+				shortcut = new L2ShortCut(1, 0, 2, skill.getId(), skill.getLevel(), 1);
 				newChar.registerShortCut(shortcut);
 			}
 			if (skill.getId() == 1216)
 			{
-				shortcut = new L2ShortCut(10, 0, 2, skill.getId(), 1, 1);
+				shortcut = new L2ShortCut(10, 0, 2, skill.getId(), skill.getLevel(), 1);
 				newChar.registerShortCut(shortcut);
 			}
 			if (_log.isDebugEnabled()) 

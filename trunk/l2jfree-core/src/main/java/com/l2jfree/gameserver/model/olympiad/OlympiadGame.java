@@ -221,6 +221,9 @@ public class OlympiadGame
 		{
 			try
 			{
+				// Remove Buffs
+				player.stopAllEffects();
+
 				// Remove Clan Skills
 				if (player.getClan() != null)
 				{
@@ -247,9 +250,6 @@ public class OlympiadGame
 				player.getStatus().setCurrentCp(player.getMaxCp());
 				player.getStatus().setCurrentHp(player.getMaxHp());
 				player.getStatus().setCurrentMp(player.getMaxMp());
-
-				// Remove Buffs
-				player.stopAllEffects();
 
 				// Remove Summon's Buffs
 				if (player.getPet() != null)

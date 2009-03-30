@@ -62,6 +62,7 @@ import com.l2jfree.gameserver.datatables.HeroSkillTable;
 import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.datatables.NobleSkillTable;
 import com.l2jfree.gameserver.datatables.NpcTable;
+import com.l2jfree.gameserver.datatables.PetDataTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
 import com.l2jfree.gameserver.geodata.GeoData;
@@ -106,6 +107,7 @@ import com.l2jfree.gameserver.model.L2Macro;
 import com.l2jfree.gameserver.model.L2ManufactureList;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Party;
+import com.l2jfree.gameserver.model.L2PetData;
 import com.l2jfree.gameserver.model.L2Radar;
 import com.l2jfree.gameserver.model.L2RecipeList;
 import com.l2jfree.gameserver.model.L2Request;
@@ -158,6 +160,7 @@ import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.model.quest.State;
+import com.l2jfree.gameserver.model.restriction.AvailableRestriction;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.L2GameClient;
@@ -195,7 +198,6 @@ import com.l2jfree.gameserver.network.serverpackets.ObservationMode;
 import com.l2jfree.gameserver.network.serverpackets.ObservationReturn;
 import com.l2jfree.gameserver.network.serverpackets.PartySmallWindowUpdate;
 import com.l2jfree.gameserver.network.serverpackets.PartySpelled;
-import com.l2jfree.gameserver.network.serverpackets.PetInfo;
 import com.l2jfree.gameserver.network.serverpackets.PetInventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.PlaySound;
 import com.l2jfree.gameserver.network.serverpackets.PledgeShowInfoUpdate;
@@ -246,6 +248,7 @@ import com.l2jfree.gameserver.templates.skills.L2EffectType;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.gameserver.util.Broadcast;
 import com.l2jfree.gameserver.util.FloodProtector;
+import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.tools.random.Rnd;
 import com.l2jfree.util.LinkedBunch;
@@ -700,6 +703,13 @@ public final class L2PcInstance extends L2PlayableInstance
 	protected int							_baseClass;
 	protected int							_activeClass;
 	protected int							_classIndex				= 0;
+
+	/** data for mounted pets */
+	private int								_controlItemId;
+	private L2PetData						_data;
+	private int								_curFeed;
+	protected Future<?>						_mountFeedTask;
+	private ScheduledFuture<?>				_dismountTask;
 
 	private long							_lastAccess;
 	private int								_boatId;
@@ -4809,6 +4819,15 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (!super.doDie(killer))
 			return false;
 
+		if (isMounted())
+			stopFeed();
+
+		synchronized (this)
+		{
+			if (isFakeDeath())
+				stopFakeDeath(null);
+		}
+
 		// Clear resurrect xp calculation
 		setExpBeforeDeath(0);
 
@@ -5717,7 +5736,11 @@ public final class L2PcInstance extends L2PlayableInstance
 		stopWarnUserTakeBreak();
 		stopAutoSaveTask();
 		stopWaterTask();
-		
+
+		stopFeed();
+		clearPetData();
+		storePetFood(_mountNpcId);
+
 		stopSoulTask();
 		stopChargeTask();
 		
@@ -6305,10 +6328,18 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (isTransformed())
 			return false;
 
+		for (L2Effect e : getAllEffects())
+		{
+			if (e != null && e.getSkill().isToggle())
+				e.exit();
+		}
+
 		Ride mount = new Ride(this, true, pet.getTemplate().getNpcId());
-        setMount(pet.getNpcId(), pet.getLevel(), mount.getMountType());
-        setMountObjectID(pet.getControlItemId());
-        broadcastPacket(mount);
+		setMount(pet.getNpcId(), pet.getLevel(), mount.getMountType());
+		setMountObjectID(pet.getControlItemId());
+		clearPetData();
+		startFeed(pet.getNpcId());
+		broadcastPacket(mount);
 
 		// Notify self and others about speed change
 		broadcastUserInfo();
@@ -6318,48 +6349,201 @@ public final class L2PcInstance extends L2PlayableInstance
 		return true;
 	}
 
-	public boolean remount(L2PcInstance player){
-    	
-    	  Ride dismount = new Ride(this, false, 0);
-    	  Ride mount = new Ride(this, true, this.getMountNpcId());    	        
-	   
-			player.sendPacket(dismount);
-			player.sendPacket(mount);
-		  	return true;
-        
-    }
-    
-  
-	public boolean mount(int npcId, int controlItemObjId)
+	public boolean remount(L2PcInstance player)
+	{
+		Ride dismount = new Ride(this, false, 0);
+		Ride mount = new Ride(this, true, this.getMountNpcId());
+
+		player.sendPacket(dismount);
+		player.sendPacket(mount);
+		return true;
+	}
+
+	public boolean mount(int npcId, int controlItemObjId, boolean useFood)
 	{
 		if (!disarmWeapons())
 			return false;
 		if (isTransformed())
 			return false;
 
-		Ride mount = new Ride(this, true, npcId);
-		if (setMount(npcId, Experience.MAX_LEVEL, mount.getMountType()))
+		for (L2Effect e : getAllEffects())
 		{
+			if (e != null && e.getSkill().isToggle())
+				e.exit();
+		}
+
+		Ride mount = new Ride(this, true, npcId);
+		if (setMount(npcId, getLevel(), mount.getMountType()))
+		{
+			clearPetData();
 			setMountObjectID(controlItemObjId);
 			broadcastPacket(mount);
 			// Notify self and others about speed change
 			broadcastUserInfo();
+			if (useFood)
+				startFeed(npcId);
 			return true;
 		}
 		return false;
+	}
+
+	public boolean mountPlayer(L2Summon pet)
+	{
+		if (pet != null && pet.isMountable() && !isMounted() && !isBetrayed() && !pet.isOutOfControl())
+		{
+			if (pet.getNpcId() == 16030 && pet.getLevel() < Config.GREAT_WOLF_MOUNT_LEVEL)
+			{
+				sendMessage("Your Wolf needs minimum level " + Config.GREAT_WOLF_MOUNT_LEVEL);
+				return false;
+			}
+			else if (_haveFlagCTF)
+			{
+				// You cannot mount a steed while holding a flag.
+				sendPacket(SystemMessageId.YOU_CANNOT_MOUNT_A_STEED_WHILE_HOLDING_A_FLAG);
+				return false;
+			}
+			else if (isParalyzed() || isPetrified())
+			{
+				// You cannot mount a steed while petrified.
+				sendPacket(SystemMessageId.YOU_CANNOT_MOUNT_A_STEED_WHILE_PETRIFIED);
+				return false;
+			}
+			else if (isDead())
+			{
+				//A strider cannot be ridden when dead
+				sendPacket(ActionFailed.STATIC_PACKET);
+				sendPacket(SystemMessageId.STRIDER_CANT_BE_RIDDEN_WHILE_DEAD);
+				return false;
+			}
+			else if (pet.isDead())
+			{
+				//A dead strider cannot be ridden.
+				sendPacket(ActionFailed.STATIC_PACKET);
+				sendPacket(SystemMessageId.DEAD_STRIDER_CANT_BE_RIDDEN);
+				return false;
+			}
+			else if (pet.isInCombat() || pet.isRooted() || pet.isParalyzed() || pet.isPetrified())
+			{
+				//A strider in battle cannot be ridden
+				sendPacket(ActionFailed.STATIC_PACKET);
+				sendPacket(SystemMessageId.STRIDER_IN_BATLLE_CANT_BE_RIDDEN);
+				return false;
+				
+			}
+			else if (isInCombat())
+			{
+				//A strider cannot be ridden while in battle
+				sendPacket(ActionFailed.STATIC_PACKET);
+				sendPacket(SystemMessageId.STRIDER_CANT_BE_RIDDEN_WHILE_IN_BATTLE);
+				return false;
+			}
+			else if (isSitting() || isInsideZone(L2Zone.FLAG_WATER))
+			{
+				//A strider can be ridden only when standing
+				sendPacket(ActionFailed.STATIC_PACKET);
+				sendPacket(SystemMessageId.STRIDER_CAN_BE_RIDDEN_ONLY_WHILE_STANDING);
+				return false;
+			}
+			else if (isFishing())
+			{
+				//You can't mount, dismount, break and drop items while fishing
+				sendPacket(ActionFailed.STATIC_PACKET);
+				sendPacket(SystemMessageId.CANNOT_DO_WHILE_FISHING_2);
+				return false;
+			}
+			else if (isInDuel())
+			{
+				// You cannot mount a steed while in a duel.
+				sendPacket(SystemMessageId.YOU_CANNOT_MOUNT_A_STEED_WHILE_IN_A_DUEL);
+				return false;
+			}
+			else if (isTransformed() || isCursedWeaponEquipped())
+			{
+				// no message needed, player while transformed doesn't have mount action
+				sendPacket(ActionFailed.STATIC_PACKET);
+				return false;
+			}
+			else if (getInventory().getItemByItemId(9819) != null)
+			{
+				sendPacket(ActionFailed.STATIC_PACKET);
+				sendPacket(SystemMessageId.YOU_CANNOT_MOUNT_A_STEED_WHILE_HOLDING_A_FLAG); // TODO: confirm this message
+				return false;
+			}
+			else if (isCastingNow())
+			{
+				// You cannot mount a steed while skill casting.
+				sendPacket(SystemMessageId.YOU_CANNOT_MOUNT_A_STEED_WHILE_SKILL_CASTING);
+				return false;
+			}
+			else if (pet.isHungry())
+			{
+				sendPacket(ActionFailed.STATIC_PACKET);
+				sendPacket(SystemMessageId.HUNGRY_STRIDER_NOT_MOUNT);
+				return false;
+			}
+			else if (!Util.checkIfInRange(200, this, pet, true))
+			{
+				sendPacket(ActionFailed.STATIC_PACKET);
+				sendPacket(SystemMessageId.TOO_FAR_AWAY_FROM_STRIDER_TO_MOUNT);
+				return false;
+			}
+			else if (!pet.isDead() && !isMounted())
+			{
+				mount(pet);
+			}
+		}
+		else if (isRentedPet())
+		{
+			stopRentPet();
+		}
+		else if (isMounted())
+		{
+			if (isInCombat())
+			{
+				sendPacket(ActionFailed.STATIC_PACKET);
+				return false;
+			}
+			else if (getMountType() == 2 && isInsideZone(L2Zone.FLAG_NOLANDING))
+			{
+				sendPacket(ActionFailed.STATIC_PACKET);
+				sendPacket(new SystemMessage(SystemMessageId.NO_DISMOUNT_HERE));
+				return false;
+			}
+			else if (isHungry())
+			{
+				sendPacket(ActionFailed.STATIC_PACKET);
+				sendPacket(new SystemMessage(SystemMessageId.HUNGRY_STRIDER_NOT_MOUNT));
+				return false;
+			}
+			else if (ObjectRestrictions.getInstance().checkRestriction(this, AvailableRestriction.PlayerUnmount))
+			{
+				sendPacket(ActionFailed.STATIC_PACKET);
+				sendMessage("You cannot dismount due to a restriction.");
+				return false;
+			}
+			else
+				dismount();
+		}
+		return true;
 	}
 
 	public boolean dismount()
 	{
 		boolean wasFlying = isFlying();
 
+		sendPacket(new SetupGauge(3, 0, 0));
+		int petId = _mountNpcId;
 		if (setMount(0, 0, 0 ))
 		{
-			if (wasFlying) 
+			stopFeed();
+			clearPetData();
+
+			if (wasFlying)
 				removeSkill(SkillTable.getInstance().getInfo(4289, 1));
 			Ride dismount = new Ride(this, false, 0);
 			broadcastPacket(dismount);
 			setMountObjectID(0);
+			storePetFood(petId);
 
 			// Notify self and others about speed change
 			this.broadcastUserInfo();
@@ -8934,9 +9118,6 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public boolean setMount(int npcId, int npcLevel, int mountType)
 	{
-		if (mountType == 0 && isFlying() && !checkCanLand())
-			return false;
-
 		switch (mountType)
 		{
 		case 0:
@@ -8966,7 +9147,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			break; // Flying Wyvern
 		case 4:
 			setIsRidingHorse(true);
-			break;	
+			break;
 		}
 
 		_mountType = mountType;
@@ -9967,6 +10148,8 @@ public final class L2PcInstance extends L2PlayableInstance
 	public void setTeam(int team)
 	{
 		_team = team;
+		if (getPet() != null)
+			getPet().broadcastStatusUpdate();
 	}
 
 	public int getTeam()
@@ -10064,6 +10247,215 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 		return false;
 	}
+
+	/** Section for mounted pets */
+	class FeedTask implements Runnable
+	{
+		public void run()
+		{
+			try
+			{
+				if (!isMounted())
+				{
+					stopFeed();
+					return;
+				}
+				
+				if (getCurrentFeed() > getFeedConsume())
+				{
+					// eat
+					setCurrentFeed(getCurrentFeed()-getFeedConsume());
+				}
+				else
+				{
+					// go back to pet control item, or simply said, unsummon it
+					setCurrentFeed(0);
+					stopFeed();
+					dismount();
+					sendPacket(new SystemMessage(SystemMessageId.OUT_OF_FEED_MOUNT_CANCELED));
+				}
+				
+				int[] foodIds = PetDataTable.getFoodItemId(getMountNpcId());
+				if (foodIds[0] == 0)
+					return;
+				L2ItemInstance food = null;
+				food = getInventory().getItemByItemId(foodIds[0]);
+
+				// use better strider food if exists
+				if (PetDataTable.isStrider(getMountNpcId()))
+				{
+					if (getInventory().getItemByItemId(foodIds[1]) != null)
+						food = getInventory().getItemByItemId(foodIds[1]);
+				}
+				if (food != null && isHungry())
+				{
+					IItemHandler handler = ItemHandler.getInstance().getItemHandler(food.getItemId());
+					if (handler != null)
+					{
+						handler.useItem(L2PcInstance.this, food);
+						SystemMessage sm = new SystemMessage(SystemMessageId.PET_TOOK_S1_BECAUSE_HE_WAS_HUNGRY);
+						sm.addItemName(food.getItemId());
+						sendPacket(sm);
+					}
+				}
+			}
+			catch (Exception e)
+			{
+				_log.fatal("Mounted Pet [NpcId: "+getMountNpcId()+"] a feed task error has occurred", e);
+			}
+		}
+	}
+
+	protected synchronized void startFeed(int npcId)
+	{
+		_canFeed = npcId > 0;
+		if (!isMounted())
+			return;
+		if (getPet() != null)
+		{
+			setCurrentFeed(((L2PetInstance) getPet()).getCurrentFed());
+			_controlItemId = getPet().getControlItemId();
+			sendPacket(new SetupGauge(3, getCurrentFeed()*10000/getFeedConsume(), getMaxFeed()*10000/getFeedConsume()));
+			if (!isDead())
+			{
+				_mountFeedTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new FeedTask(), 10000, 10000);
+			}
+		}
+		else if (_canFeed)
+		{
+			setCurrentFeed(getMaxFeed());
+			SetupGauge sg = new SetupGauge(3, getCurrentFeed()*10000/getFeedConsume(), getMaxFeed()*10000/getFeedConsume());
+			sendPacket(sg);
+			if (!isDead())
+			{
+				_mountFeedTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new FeedTask(), 10000, 10000);
+			}
+		}
+	}
+
+	protected synchronized void stopFeed()
+	{
+		if (_mountFeedTask != null)
+		{
+			_mountFeedTask.cancel(false);
+			_mountFeedTask = null;
+			if (_log.isDebugEnabled())
+				_log.info("Pet [#"+_mountNpcId+"] feed task stop");
+		}
+	}
+
+	protected final void clearPetData()
+	{
+		_data = null;
+	}
+
+	protected final L2PetData getPetData(int npcId)
+	{
+		if (_data == null && getPet() != null)
+		{
+			_data = PetDataTable.getInstance().getPetData(getPet().getNpcId(), getPet().getLevel());
+		}
+		else if (_data == null && npcId > 0)
+		{
+			_data = PetDataTable.getInstance().getPetData(npcId, getLevel());
+		}
+
+		return _data;
+	}
+
+	public int getCurrentFeed()
+	{
+		return _curFeed;
+	}
+
+	protected int getFeedConsume()
+	{
+		// if pet is attacking
+		if (isAttackingNow())
+			return getPetData(_mountNpcId).getPetFeedBattle();
+		else
+			return getPetData(_mountNpcId).getPetFeedNormal();
+	}
+
+	public void setCurrentFeed(int num)
+	{
+		_curFeed = num > getMaxFeed() ? getMaxFeed() : num;
+		SetupGauge sg = new SetupGauge(3, getCurrentFeed()*10000/getFeedConsume(), getMaxFeed()*10000/getFeedConsume());
+		sendPacket(sg);
+	}
+
+	protected int getMaxFeed()
+	{
+		return getPetData(_mountNpcId).getPetMaxFeed();
+	}
+
+	protected boolean isHungry()
+	{
+		return _canFeed ? (getCurrentFeed() < (0.55 * getPetData(getMountNpcId()).getPetMaxFeed())) : false;
+	}
+
+	public class dismount implements Runnable
+	{
+		public void run()
+		{
+			try
+			{
+				L2PcInstance.this.dismount();
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void enteredNoLanding()
+	{
+		_dismountTask = ThreadPoolManager.getInstance().scheduleGeneral(new L2PcInstance.dismount(), 5000);
+	}
+
+	public void exitedNoLanding()
+	{
+		if (_dismountTask != null)
+		{
+			_dismountTask.cancel(false);
+			_dismountTask = null;
+		}
+	}
+
+	public void storePetFood(int petId)
+	{
+		if (_controlItemId != 0 && petId != 0)
+		{
+			String req = "UPDATE pets SET fed=? WHERE item_obj_id = ?";
+			Connection con = null;
+			try
+			{
+				con = L2DatabaseFactory.getInstance().getConnection();
+				PreparedStatement statement = con.prepareStatement(req);
+				statement.setInt(1, getCurrentFeed());
+				statement.setInt(2, _controlItemId);
+				statement.executeUpdate();
+				statement.close();
+				_controlItemId = 0;
+			}
+			catch (Exception e)
+			{
+				_log.fatal("Failed to store Pet [NpcId: "+petId+"] data", e);
+			}
+			finally
+			{
+				try
+				{
+					con.close();
+				}
+				catch (Exception e)
+				{
+				}
+			}
+		}
+	}
+	/** End of section for mounted pets */
 
 	/**
 	 * 1. Add the specified class ID as a subclass (up to the maximum number of <b>three</b>)
@@ -10838,6 +11230,9 @@ public final class L2PcInstance extends L2PlayableInstance
 		_reviveRequested = false;
 		_revivePower = 0;
 
+		if (isMounted())
+			startFeed(_mountNpcId);
+
 		if (isInParty() && getParty().isInDimensionalRift())
 		{
 			if (!DimensionalRiftManager.getInstance().checkIfInPeaceZone(getX(), getY(), getZ()))
@@ -10993,23 +11388,21 @@ public final class L2PcInstance extends L2PlayableInstance
 		if ((Config.PLAYER_SPAWN_PROTECTION > 0) && !isInOlympiadMode())
 			setProtection(true);
 
-		// Modify the position of the tamed beast if necessary (normal pets are handled by super...though
-		// L2PcInstance is the only class that actually has pets!!! )
+		// Trained beast is after teleport lost
 		if (getTrainedBeast() != null)
 		{
-			getTrainedBeast().getAI().stopFollow();
-			getTrainedBeast().teleToLocation(getPosition().getX() + Rnd.get(-100, 100), getPosition().getY() + Rnd.get(-100, 100), getPosition().getZ(), false);
-			getTrainedBeast().getAI().startFollow(this);
+			getTrainedBeast().decayMe();
+			setTrainedBeast(null);
 		}
 		// Modify the position of the pet if necessary
 		L2Summon pet = getPet();
 		if (pet != null)
 		{
 			pet.setFollowStatus(false);
-			pet.teleToLocation(getPosition().getX() + Rnd.get(-100, 100), getPosition().getY() + Rnd.get(-100, 100), getPosition().getZ(), false);
+			getPet().teleToLocation(getPosition().getX(), getPosition().getY(), getPosition().getZ(), false);
 			((L2SummonAI)getPet().getAI()).setStartFollowController(true);
 			pet.setFollowStatus(true);
-			sendPacket(new PetInfo(pet));
+			getPet().updateAndBroadcastStatus(0);
 		}
 	}
 
@@ -11373,6 +11766,9 @@ public final class L2PcInstance extends L2PlayableInstance
 			try
 			{
 				getPet().unSummon(this);
+				// dead pet wasnt unsummoned, broadcast npcinfo changes (pet will be without owner name - means owner offline)
+				if (getPet() != null)
+					getPet().broadcastNpcInfo(0);
 			}
 			catch (Exception e)
 			{
@@ -12987,6 +13383,8 @@ public final class L2PcInstance extends L2PlayableInstance
 			addSkill(SkillTable.getInstance().getInfo(5076, getDeathPenaltyBuffLevel()), false);
 		}
 	}
+
+	private boolean _canFeed;
 
 	private FastMap<Integer, TimeStamp>	_reuseTimeStamps	= new FastMap<Integer, TimeStamp>().setShared(true);
 

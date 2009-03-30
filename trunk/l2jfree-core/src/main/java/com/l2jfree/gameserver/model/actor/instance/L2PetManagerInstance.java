@@ -250,7 +250,7 @@ public class L2PetManagerInstance extends L2MerchantInstance
 		player.sendPacket(SystemMessageId.SUMMON_A_PET);
 		L2World.getInstance().storeObject(petSummon);
 		petSummon.spawnMe(player.getX() + 50, player.getY() + 100, player.getZ());
-		petSummon.startFeed(false);
+		petSummon.startFeed();
 		item.setEnchantLevel(petSummon.getLevel());
 
 		ThreadPoolManager.getInstance().scheduleGeneral(new EvolveFinalizer(player, petSummon), 900);
@@ -258,7 +258,7 @@ public class L2PetManagerInstance extends L2MerchantInstance
 		if (petSummon.getCurrentFed() <= 0)
 			ThreadPoolManager.getInstance().scheduleGeneral(new EvolveFeedWait(player, petSummon), 60000);
 		else
-			petSummon.startFeed(false);
+			petSummon.startFeed();
 	}
 
 	static class EvolveFeedWait implements Runnable
@@ -279,7 +279,7 @@ public class L2PetManagerInstance extends L2MerchantInstance
 				if (_petSummon.getCurrentFed() <= 0)
 					_petSummon.unSummon(_activeChar);
 				else
-					_petSummon.startFeed(false);
+					_petSummon.startFeed();
 			}
 			catch (Exception e)
 			{

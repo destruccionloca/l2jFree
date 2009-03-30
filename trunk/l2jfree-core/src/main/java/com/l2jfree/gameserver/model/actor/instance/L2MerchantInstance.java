@@ -29,6 +29,7 @@ import com.l2jfree.gameserver.network.serverpackets.BuyList;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.SellList;
+import com.l2jfree.gameserver.network.serverpackets.SetupGauge;
 import com.l2jfree.gameserver.network.serverpackets.ShopPreviewList;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
@@ -218,37 +219,43 @@ public class L2MerchantInstance extends L2FolkInstance
 	
 	public void tryRentPet(L2PcInstance player, int val)
 	{
-	    if (player == null || player.getPet() != null || player.isMounted() || player.isRentedPet())
-	        return;
-	    if(!player.disarmWeapons()) return;
-	    
-	    int petId;
-	    double price = 1;
-	    int cost[] = {1800, 7200, 720000, 6480000};
-	    int ridetime[] = {30, 60, 600, 1800};
-	
-	    if (val > 10)
-	    {
-	        petId = 12526;
-	        val -= 10;
-	        price /= 2;
-	    }
-	    else
-	    {
-	        petId = 12621;
-	    }
-	
-	    if (val < 1 || val > 4) return;
-	
-	    price *= cost[val - 1];
-	    int time = ridetime[val - 1];
-	
-	    if (!player.reduceAdena("Rent", (int) price, player.getLastFolkNPC(), true)) return;
-	
-	    player.mount(petId, 0);
-	    player.startRentPet(time);
+		if (player == null || player.getPet() != null || player.isMounted() || player.isRentedPet() || player.isTransformed() || player.isCursedWeaponEquipped())
+			return;
+
+		if (!player.disarmWeapons())
+			return;
+
+		int petId;
+		double price = 1;
+		int cost[] = {1800, 7200, 720000, 6480000};
+		int ridetime[] = {30, 60, 600, 1800};
+
+		if (val > 10)
+		{
+			petId = 12526;
+			val -= 10;
+			price /= 2;
+		}
+		else
+		{
+			petId = 12621;
+		}
+
+		if (val < 1 || val > 4)
+			return;
+
+		price *= cost[val - 1];
+		int time = ridetime[val - 1];
+
+		if (!player.reduceAdena("Rent", (int) price, player.getLastFolkNPC(), true))
+			return;
+
+		player.mount(petId, 0, false);
+		SetupGauge sg = new SetupGauge(3, time * 1000);
+		player.sendPacket(sg);
+		player.startRentPet(time);
 	}
-	
+
     @Override
     public final void onActionShift(L2PcInstance player)
     {

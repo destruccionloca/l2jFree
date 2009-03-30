@@ -39,18 +39,18 @@ public class L2DefaultZone extends L2Zone
 	@Override
 	protected void onEnter(L2Character character)
 	{
-		if(_onEnterMsg != null && character instanceof L2PcInstance)
+		if (_onEnterMsg != null && character instanceof L2PcInstance)
 			character.sendPacket(_onEnterMsg);
 		
-		if(_abnormal > 0)
+		if (_abnormal > 0)
 			character.startAbnormalEffect(_abnormal);
 		
-		if(_applyEnter != null)
+		if (_applyEnter != null)
 		{
 			for (L2Skill sk : _applyEnter)
 				sk.getEffects(character, character);
 		}
-		if(_removeEnter != null)
+		if (_removeEnter != null)
 		{
 			for (L2Skill sk : _removeEnter)
 				character.stopSkillEffects(sk.getId());
@@ -74,9 +74,14 @@ public class L2DefaultZone extends L2Zone
 				character.setInsideZone(FLAG_PEACE, true);
 		}
 
-		if (_noLanding)
+		if (_noLanding && character instanceof L2PcInstance)
 		{
 			character.setInsideZone(FLAG_NOLANDING, true);
+			if (((L2PcInstance) character).getMountType() == 2)
+			{
+				character.sendPacket(SystemMessageId.AREA_CANNOT_BE_ENTERED_WHILE_MOUNTED_WYVERN);
+				((L2PcInstance) character).enteredNoLanding();
+			}
 		}
 		if (_noEscape)
 		{
@@ -188,9 +193,13 @@ public class L2DefaultZone extends L2Zone
 			character.setInsideZone(FLAG_PEACE, false);
 		}
 
-		if (_noLanding)
+		if (_noLanding && character instanceof L2PcInstance)
 		{
 			character.setInsideZone(FLAG_NOLANDING, false);
+			if (((L2PcInstance) character).getMountType() == 2)
+			{
+				((L2PcInstance) character).exitedNoLanding();
+			}
 		}
 		if (_noEscape)
 		{

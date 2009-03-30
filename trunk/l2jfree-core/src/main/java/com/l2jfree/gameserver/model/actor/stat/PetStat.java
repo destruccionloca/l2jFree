@@ -21,7 +21,6 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.base.Experience;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.PetInfo;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -44,10 +43,11 @@ public class PetStat extends SummonStat
     @Override
     public boolean addExp(long value)
     {
-        if (!super.addExp(value)) return false;
+        if (!super.addExp(value))
+            return false;
 
         // PetInfo packet is only for the pet owner
-        getActiveChar().getOwner().sendPacket(new PetInfo(getActiveChar()));
+        getActiveChar().updateAndBroadcastStatus(1);
 
         return true;
     }
@@ -55,12 +55,13 @@ public class PetStat extends SummonStat
     @Override
     public boolean addExpAndSp(long addToExp, int addToSp)
     {
-        if (!super.addExpAndSp(addToExp, addToSp)) return false;
+        if (!super.addExpAndSp(addToExp, addToSp))
+            return false;
 
         SystemMessage sm = new SystemMessage(SystemMessageId.PET_EARNED_S1_EXP);
         sm.addNumber((int)addToExp);
-                
         getActiveChar().getOwner().sendPacket(sm);
+        getActiveChar().updateAndBroadcastStatus(1);
 
         return true;
     }
@@ -68,7 +69,8 @@ public class PetStat extends SummonStat
     @Override
     public final boolean addLevel(byte value)
     {
-        if (getLevel() + value > (Experience.MAX_LEVEL - 1)) return false;
+        if (getLevel() + value > (Experience.MAX_LEVEL - 1))
+            return false;
 
         boolean levelIncreased = super.addLevel(value);
 
@@ -88,7 +90,7 @@ public class PetStat extends SummonStat
         getActiveChar().broadcastPacket(su);
 
         // Send a Server->Client packet PetInfo to the L2PcInstance
-        getActiveChar().getOwner().sendPacket(new PetInfo(getActiveChar()));
+        getActiveChar().updateAndBroadcastStatus(1);
         
         if (getActiveChar().getControlItem() != null)
             getActiveChar().getControlItem().setEnchantLevel(getLevel());
@@ -126,7 +128,7 @@ public class PetStat extends SummonStat
         super.setLevel(value);
 
         getActiveChar().setPetData(PetDataTable.getInstance().getPetData(getActiveChar().getTemplate().getNpcId(), getLevel()));
-        getActiveChar().startFeed( false );
+        getActiveChar().startFeed();
 
         if (getActiveChar().getControlItem() != null)
             getActiveChar().getControlItem().setEnchantLevel(getLevel());
@@ -186,12 +188,40 @@ public class PetStat extends SummonStat
     public int getCriticalHit(L2Character target, L2Skill skill) { return (int)calcStat(Stats.CRITICAL_RATE, getActiveChar().getPetData().getPetCritical(), target, null); }
     @Override
     public int getEvasionRate(L2Character target) { return (int)calcStat(Stats.EVASION_RATE, getActiveChar().getPetData().getPetEvasion(), target, null); }
-    @Override
-    public int getRunSpeed() { return (int)calcStat(Stats.RUN_SPEED, getActiveChar().getPetData().getPetSpeed(), null, null); }
+
     public int getRegenHp() { return (int)calcStat(Stats.REGENERATE_HP_RATE, getActiveChar().getPetData().getPetRegenHP(), null, null); }
     public int getRegenMp() { return (int)calcStat(Stats.REGENERATE_MP_RATE, getActiveChar().getPetData().getPetRegenMP(), null, null); }
+    public int getRunSpeed() { return (int)calcStat(Stats.RUN_SPEED, getActiveChar().getPetData().getPetSpeed(), null, null); }
+
     @Override
-    public int getPAtkSpd() { return (int)calcStat(Stats.POWER_ATTACK_SPEED, getActiveChar().getPetData().getPetAtkSpeed(), null, null); }
+    public int getWalkSpeed() { return  getRunSpeed()/2; }
+
     @Override
-    public int getMAtkSpd() { return  (int)calcStat(Stats.MAGIC_ATTACK_SPEED, getActiveChar().getPetData().getPetCastSpeed(), null, null); }
+    public float getMovementSpeedMultiplier()
+    {
+        if (getActiveChar() == null)
+            return 1;
+        float val = getRunSpeed() * 1f / getActiveChar().getPetData().getPetSpeed();
+        if (!getActiveChar().isRunning())
+            val = val/2;
+        return val;
+    }
+
+    @Override
+    public int getPAtkSpd()
+    {
+        int val = (int)calcStat(Stats.POWER_ATTACK_SPEED, getActiveChar().getPetData().getPetAtkSpeed(), null, null);
+        if (!getActiveChar().isRunning())
+            val = val/2;
+        return val;
+    }
+
+    @Override
+    public int getMAtkSpd()
+    {
+        int val = (int)calcStat(Stats.MAGIC_ATTACK_SPEED, getActiveChar().getPetData().getPetCastSpeed(), null, null);
+        if (!getActiveChar().isRunning())
+            val = val/2;
+        return val;
+    }
 }

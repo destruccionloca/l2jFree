@@ -25,47 +25,53 @@ public class L2ShortCut
 	public final static int TYPE_SKILL = 2;
 	public final static int TYPE_ACTION = 3;
 	public final static int TYPE_MACRO = 4;
-    public final static int TYPE_RECIPE = 5;
-	
+	public final static int TYPE_RECIPE = 5;
+
 	private final int _slot;
 	private final int _page;
 	private final int _type;
 	private final int _id;
 	private final int _level;
-	
+	private final int _characterType;
+
 	public L2ShortCut(int slotId, int pageId, int shortcutType, int shortcutId,
-	        int shortcutLevel, @SuppressWarnings("unused") int unknown) 
+				int shortcutLevel, int characterType)
 	{
 		_slot = slotId;
 		_page = pageId;
 		_type = shortcutType;
 		_id = shortcutId;
 		_level = shortcutLevel;
-        //_unk = unknown;
+		_characterType = characterType;
 	}
 
-    public int getId()
-    {
-        return _id;
-    }
+	public int getId()
+	{
+		return _id;
+	}
 
-    public int getLevel()
-    {
-        return _level;
-    }
+	public int getLevel()
+	{
+		return _level;
+	}
 
-    public int getPage()
-    {
-        return _page;
-    }
+	public int getPage()
+	{
+		return _page;
+	}
 
-    public int getSlot()
-    {
-        return _slot;
-    }
+	public int getSlot()
+	{
+		return _slot;
+	}
 
-    public int getType()
-    {
-        return _type;
-    }
+	public int getType()
+	{
+		return _type;
+	}
+
+	public int getCharacterType()
+	{
+		return _characterType;
+	}
 }

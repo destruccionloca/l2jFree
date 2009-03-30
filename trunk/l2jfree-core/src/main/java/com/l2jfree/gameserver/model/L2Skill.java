@@ -290,6 +290,8 @@ public class L2Skill
 	private final int				_itemConsumeTime;
 	private final boolean			_isCubic;
 
+	private final int				_feed;
+
 	// cubic AI
 	private final int				_activationtime;
 	private final int				_activationchance;
@@ -512,6 +514,7 @@ public class L2Skill
 
 		_isAdvanced = set.getBool("isAdvanced", false); // Used by siege flag summon skills
 		_isDebuff = set.getBool("isDebuff", false);
+		_feed = set.getInteger("feed", 0); // Used for pet food
 
 		_effectType = set.getEnum("effectType", L2SkillType.class, null);
 		_effectPower = set.getInteger("effectPower", 0);
@@ -1403,6 +1406,14 @@ public class L2Skill
 	public final boolean getDmgDirectlyToHP()
 	{
 		return _directHpDmg;
+	}
+
+	/**
+	 * @return pet food
+	 */
+	public final int getFeed()
+	{
+		return _feed;
 	}
 
 	public final String getFlyType()

@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.handler.itemhandlers;
 import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
@@ -55,15 +54,9 @@ public class CharChangePotions implements IItemHandler
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
 		int itemId = item.getItemId();
-
-		L2PcInstance activeChar;
-
-		if (playable instanceof L2PcInstance)
-			activeChar = (L2PcInstance) playable;
-		else if (playable instanceof L2PetInstance)
-			activeChar = ((L2PetInstance) playable).getOwner();
-		else
+		if (!(playable instanceof L2PcInstance))
 			return;
+		L2PcInstance activeChar = (L2PcInstance) playable;
 
 		if (activeChar.isAllSkillsDisabled() || activeChar.isCastingNow())
 		{

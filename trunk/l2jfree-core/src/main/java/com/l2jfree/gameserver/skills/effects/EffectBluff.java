@@ -20,6 +20,7 @@ import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.actor.instance.L2FolkInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeSummonInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
@@ -73,7 +74,8 @@ public final class EffectBluff extends L2Effect
 		getEffected().setTarget(null);
 		getEffected().abortAttack();
 		getEffected().abortCast();
-		getEffected().setRunning();
+		if (!(getEffected() instanceof L2PetInstance))
+			getEffected().setRunning();
 		getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(posX + (signx * 40), posY + (signy * 40), posZ, 0));
 		return true;
 	}

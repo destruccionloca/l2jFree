@@ -23,7 +23,6 @@ import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.model.L2Attackable.AggroInfo;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.model.actor.knownlist.SummonKnownList;
@@ -58,8 +57,6 @@ public abstract class L2Summon extends L2PlayableInstance
 	public static final int	HOG_CANNON_ID			= 14768;
 	public static final int	SWOOP_CANNON_ID			= 14839;
 
-	protected int			_pkKills;
-	private byte			_pvpFlag;
 	private L2PcInstance	_owner;
 	private int				_attackRange			= 36;		//Melee range
 	private boolean			_follow					= true;
@@ -117,7 +114,7 @@ public abstract class L2Summon extends L2PlayableInstance
 		setFollowStatus(true);
 		setShowSummonAnimation(false); // addVisibleObject created the info packets with summon animation
 		// if someone comes into range now, the animation shouldnt show any more
-		getOwner().sendPacket(new PetInfo(this));
+		updateAndBroadcastStatus(0);
 
 		getOwner().sendPacket(new RelationChanged(this, getOwner().getRelation(getOwner()), false));
 
@@ -187,18 +184,13 @@ public abstract class L2Summon extends L2PlayableInstance
 	public void updateAbnormalEffectImpl()
 	{
 		for (L2PcInstance player : getKnownList().getKnownPlayers().values())
-			player.sendPacket(new NpcInfo(this, player));
+			player.sendPacket(new NpcInfo(this, player, 1));
 	}
 
 	/**
 	 * @return Returns the mountable.
 	 */
 	public boolean isMountable()
-	{
-		return false;
-	}
-
-	public boolean isMountableOverTime()
 	{
 		return false;
 	}
@@ -291,26 +283,6 @@ public abstract class L2Summon extends L2PlayableInstance
 		return getTemplate().getNpcId();
 	}
 
-	public void setPvpFlag(byte pvpFlag)
-	{
-		_pvpFlag = pvpFlag;
-	}
-
-	public byte getPvpFlag()
-	{
-		return _pvpFlag;
-	}
-
-	public void setPkKills(int pkKills)
-	{
-		_pkKills = pkKills;
-	}
-
-	public final int getPkKills()
-	{
-		return _pkKills;
-	}
-
 	public final int getSoulShotsPerHit()
 	{
 		return _soulShotsPerHit;
@@ -391,16 +363,8 @@ public abstract class L2Summon extends L2PlayableInstance
 	@Override
 	public final void broadcastStatusUpdateImpl()
 	{
-		super.broadcastStatusUpdateImpl();
-
-		if (isVisible())
-		{
-			getOwner().sendPacket(new PetStatusUpdate(this));
-
-			L2Party party = getOwner().getParty();
-			if (party != null)
-				party.broadcastToPartyMembers(getOwner(), new ExPartyPetWindowUpdate(this));
-		}
+		//super.broadcastStatusUpdateImpl();
+		updateAndBroadcastStatus(1);
 	}
 
 	@Override
@@ -430,11 +394,6 @@ public abstract class L2Summon extends L2PlayableInstance
 			getOwner().sendPacket(ps);
 	}
 
-	public void onSummon()
-	{
-
-	}
-
 	public void deleteMe(L2PcInstance owner)
 	{
 		getAI().stopFollow();
@@ -443,7 +402,11 @@ public abstract class L2Summon extends L2PlayableInstance
 		if (party != null)
 			party.broadcastToPartyMembers(owner, new ExPartyPetWindowDelete(this));
 
-		giveAllToOwner();
+		//pet will be deleted along with all his items
+		if (getInventory() != null)
+		{
+			getInventory().destroyAllItems("pet deleted", getOwner(), this);
+		}
 
 		stopAllEffects();
 
@@ -455,15 +418,14 @@ public abstract class L2Summon extends L2PlayableInstance
 		getKnownList().removeAllKnownObjects();
 		owner.setPet(null);
 		setTarget(null);
-
-		if (this instanceof L2PetInstance)
-			((L2PetInstance) this).setIsMountableOverTime(false);
 	}
 
 	public void unSummon(L2PcInstance owner)
 	{
 		if (isVisible())
 		{
+			stopAllEffects();
+
 			getAI().stopFollow();
 			owner.sendPacket(new PetDelete(getObjectId(), 2));
 			L2Party party = owner.getParty();
@@ -946,13 +908,59 @@ public abstract class L2Summon extends L2PlayableInstance
 	@Override
 	public boolean isInCombat()
 	{
-		// summons/pets have shared combat mode with their masters
-		if (getOwner() != null)
+		return getOwner().isInCombat();
+	}
+
+	public void updateAndBroadcastStatus(int val)
+	{
+		getOwner().sendPacket(new PetInfo(this, val));
+		getOwner().sendPacket(new PetStatusUpdate(this));
+		if (isVisible())
 		{
-			return ((getOwner().getAI().getAttackTarget() != null) || getOwner().getAI().isAutoAttacking());
+			broadcastNpcInfo(val);
 		}
-		
-		// Should never get here, all pets SHOULD have owners.
+		L2Party party = this.getOwner().getParty();
+		if (party != null)
+		{
+			party.broadcastToPartyMembers(this.getOwner(), new ExPartyPetWindowUpdate(this));
+		}
+		updateEffectIcons();
+	}
+
+	public void broadcastNpcInfo(int val)
+	{
+		for (L2PcInstance player : getKnownList().getKnownPlayers().values())
+		{
+			try
+			{
+				if (player == getOwner())
+					continue;
+				player.sendPacket(new NpcInfo(this, player, val));
+			}
+			catch (NullPointerException e)
+			{
+				// ignore it
+			}
+		}
+	}
+
+	public int getWeapon()
+	{
+		return 0;
+	}
+
+	public int getArmor()
+	{
+		return 0;
+	}
+
+	public int getPetSpeed()
+	{
+		return getTemplate().getBaseRunSpd();
+	}
+
+	public boolean isHungry()
+	{
 		return false;
 	}
 }

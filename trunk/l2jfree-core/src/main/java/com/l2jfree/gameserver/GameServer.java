@@ -48,6 +48,7 @@ import com.l2jfree.gameserver.datatables.NobleSkillTable;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.NpcWalkerRoutesTable;
 import com.l2jfree.gameserver.datatables.PetDataTable;
+import com.l2jfree.gameserver.datatables.PetSkillsTable;
 import com.l2jfree.gameserver.datatables.SkillSpellbookTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
@@ -217,6 +218,7 @@ public class GameServer
 		SkillTreeTable.getInstance();
 		SkillsEngine.getInstance();
 		SkillTable.getInstance();
+		PetSkillsTable.getInstance();
 		NobleSkillTable.getInstance();
 		_log.info("NobleSkills initialized");
 		HeroSkillTable.getInstance();

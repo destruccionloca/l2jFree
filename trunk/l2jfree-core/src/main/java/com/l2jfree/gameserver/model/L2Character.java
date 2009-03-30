@@ -82,8 +82,8 @@ import com.l2jfree.gameserver.network.serverpackets.MagicSkillLaunched;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.MoveToLocation;
 import com.l2jfree.gameserver.network.serverpackets.NpcInfo;
-import com.l2jfree.gameserver.network.serverpackets.PetInfo;
 import com.l2jfree.gameserver.network.serverpackets.Revive;
+import com.l2jfree.gameserver.network.serverpackets.ServerObjectInfo;
 import com.l2jfree.gameserver.network.serverpackets.SetupGauge;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.StopMove;
@@ -98,6 +98,7 @@ import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillAgathion;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillChargeDmg;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillMount;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillSummon;
 import com.l2jfree.gameserver.taskmanager.PacketBroadcaster;
 import com.l2jfree.gameserver.taskmanager.PacketBroadcaster.BroadcastMode;
 import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
@@ -364,6 +365,14 @@ public abstract class L2Character extends L2Object
 
 	public void onTeleported()
 	{
+		if (!isTeleporting())
+			return;
+
+		if (this instanceof L2Summon)
+		{
+			((L2Summon)this).getOwner().sendPacket(new TeleportToLocation(this, getPosition().getX(), getPosition().getY(), getPosition().getZ()));
+		}
+
 		setIsTeleporting(false);
 		spawnMe(getPosition().getX(), getPosition().getY(), getPosition().getZ());
 		if (_isPendingRevive)
@@ -847,6 +856,12 @@ public abstract class L2Character extends L2Object
 
 		if (this instanceof L2PcInstance)
 		{
+			if (((L2PcInstance)this).isMounted() && ((L2PcInstance)this).getMountNpcId() == 12621)
+			{
+				sendPacket(ActionFailed.STATIC_PACKET);
+				return;
+			}
+
 			if (((L2PcInstance) this).inObserverMode())
 			{
 				sendPacket(new SystemMessage(SystemMessageId.OBSERVERS_CANNOT_PARTICIPATE));
@@ -1095,8 +1110,10 @@ public abstract class L2Character extends L2Object
 		// Flag the attacker if it's a L2PcInstance outside a PvP area
 		L2PcInstance player = getActingPlayer();
 
-		if (player != null)
+		if (player != null && player.getPet() != target)
+		{
 			player.updatePvPStatus(target);
+		}
 
 		// Check if hit isn't missed
 		if (!hitted)
@@ -2666,7 +2683,24 @@ public abstract class L2Character extends L2Object
 	public final void setIsRunning(boolean value)
 	{
 		_isRunning = value;
-		broadcastPacket(new ChangeMoveType(this));
+		if (getRunSpeed() != 0)
+			broadcastPacket(new ChangeMoveType(this));
+		if (this instanceof L2PcInstance)
+			((L2PcInstance)this).broadcastUserInfo();
+		else if (this instanceof L2Summon)
+		{
+			((L2Summon)this).broadcastStatusUpdate();
+		}
+		else if (this instanceof L2NpcInstance)
+		{
+			for (L2PcInstance player : getKnownList().getKnownPlayers().values())
+			{
+				if (getRunSpeed() == 0)
+					player.sendPacket(new ServerObjectInfo((L2NpcInstance) this, player));
+				else
+					player.sendPacket(new NpcInfo((L2NpcInstance) this, player));
+			}
+		}
 	}
 
 	/** Set the L2Character movement type to run and send Server->Client packet ChangeMoveType to all others L2PcInstance. */
@@ -3401,6 +3435,8 @@ public abstract class L2Character extends L2Object
 		_effects.stopAllEffects();
 		if (this instanceof L2PcInstance)
 			((L2PcInstance)this).updateAndBroadcastStatus(2);
+		if (this instanceof L2Summon)
+			((L2Summon)this).updateAndBroadcastStatus(1);
 	}
 
 	public final void stopAllEffectsExceptThoseThatLastThroughDeath()
@@ -3408,6 +3444,8 @@ public abstract class L2Character extends L2Object
 		_effects.stopAllEffectsExceptThoseThatLastThroughDeath();
 		if (this instanceof L2PcInstance)
 			((L2PcInstance)this).updateAndBroadcastStatus(2);
+		if (this instanceof L2Summon)
+			((L2Summon)this).updateAndBroadcastStatus(1);
 	}
 
 	/**
@@ -4328,7 +4366,12 @@ public abstract class L2Character extends L2Object
 		{
 			final Stats stat = func.stat;
 			
-			if (stat == Stats.POWER_ATTACK_SPEED)
+			if (this instanceof L2Summon)
+			{
+				((L2Summon) this).updateAndBroadcastStatus(1);
+				break;
+			}
+			else if (stat == Stats.POWER_ATTACK_SPEED) 
 			{
 				broadcastFull = true;
 			}
@@ -4390,19 +4433,15 @@ public abstract class L2Character extends L2Object
 			if (broadcastFull)
 			{
 				for (L2PcInstance player : getKnownList().getKnownPlayers().values())
+				{
 					if (player != null)
-						player.sendPacket(new NpcInfo((L2NpcInstance) this, player));
-			}
-			else if (su != null)
-				broadcastPacket(su);
-		}
-		else if (this instanceof L2Summon)
-		{
-			if (broadcastFull)
-			{
-				for (L2PcInstance player : getKnownList().getKnownPlayers().values())
-					if (player != null)
-						player.sendPacket(new NpcInfo((L2Summon) this, player));
+					{
+						if (getRunSpeed() == 0)
+							player.sendPacket(new ServerObjectInfo((L2NpcInstance)this, player));
+						else
+							player.sendPacket(new NpcInfo((L2NpcInstance)this, player));
+					}
+				}
 			}
 			else if (su != null)
 				broadcastPacket(su);
@@ -4566,7 +4605,7 @@ public abstract class L2Character extends L2Object
 	 * Return True if the L2Character is attacking.<BR>
 	 * <BR>
 	 */
-	public final boolean isAttackingNow()
+	public boolean isAttackingNow()
 	{
 		return getAttackEndTime() > L2System.milliTime();
 	}
@@ -5084,9 +5123,11 @@ public abstract class L2Character extends L2Object
 					// Temporary fix for character outside world region errors
 					_log.warn("Character "+this.getName()+" outside world area, in coordinates x:"+curX+" y:"+curY);
 					getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-					if (this instanceof L2PcInstance) ((L2PcInstance)this).deleteMe();
-					else this.onDecay();
-        			return;
+					if (this instanceof L2PcInstance)
+						((L2PcInstance)this).deleteMe();
+					else if (!(this instanceof L2Summon))
+						this.onDecay(); // preventation when summon get out of world coords, player will not loose it, unsummon handled from pcinstance
+					return;
 				}
 				Location destiny = GeoData.getInstance().moveCheck(curX, curY, curZ, x, y, z);
 				// location different if destination wasn't reached (or just z coord is different)
@@ -6280,12 +6321,18 @@ public abstract class L2Character extends L2Object
 				((L2PcInstance) this).broadcastUserInfo();
 			}
 
-			if (oldSkill instanceof L2SkillMount && this instanceof L2PcInstance && ((L2PcInstance)this).isMounted())
-				((L2PcInstance)this).dismount();
-			
 			if (oldSkill.isChance() && _chanceSkills != null)
 			{
 				removeChanceSkill(oldSkill.getId());
+			}
+
+			if (oldSkill instanceof L2SkillMount && this instanceof L2PcInstance && ((L2PcInstance)this).isMounted())
+			{
+				((L2PcInstance)this).dismount();
+			}
+			if (oldSkill instanceof L2SkillSummon && oldSkill.getId() == 710 && this instanceof L2PcInstance && ((L2PcInstance)this).getPet() != null && ((L2PcInstance)this).getPet().getNpcId() == 14870)
+			{
+				((L2PcInstance)this).getPet().unSummon(((L2PcInstance)this));
 			}
 		}
 
@@ -6559,8 +6606,7 @@ public abstract class L2Character extends L2Object
 
 					if (this instanceof L2PcInstance && target instanceof L2Summon)
 					{
-						((L2Summon) target).getOwner().sendPacket(new PetInfo((L2Summon) target));
-						sendPacket(new NpcInfo((L2Summon) target, this));
+						((L2Summon) target).updateAndBroadcastStatus(1);
 					}
 				}
 			}
@@ -6999,7 +7045,8 @@ public abstract class L2Character extends L2Object
 										}
 									}
 
-									player.updatePvPStatus(target.getActingPlayer());
+									if (!(target instanceof L2Summon) || player.getPet() != target)
+										player.updatePvPStatus(target.getActingPlayer());
 								}
 							}
 							else if (target instanceof L2Attackable)
@@ -7024,7 +7071,8 @@ public abstract class L2Character extends L2Object
 									&& !(skill.getSkillType() == L2SkillType.BEAST_FEED) && !(skill.getSkillType() == L2SkillType.UNLOCK)
 									&& !(skill.getSkillType() == L2SkillType.DELUXE_KEY_UNLOCK)
 									&& !(skill.getSkillType() == L2SkillType.HEAL_MOB) && !(skill.getSkillType() == L2SkillType.MAKE_KILLABLE)
-									&& !(skill.getSkillType() == L2SkillType.MAKE_QUEST_DROPABLE))
+									&& !(skill.getSkillType() == L2SkillType.MAKE_QUEST_DROPABLE)
+									&& (!(target instanceof L2Summon) || player.getPet() != target))
 								player.updatePvPStatus();
 						}
 					}

@@ -786,6 +786,6 @@ public class AdminAdmin implements IAdminCommandHandler
 		summon.setFollowStatus(true);
 		summon.setShowSummonAnimation(false); // addVisibleObject created the info packets with summon animation
 		// if someone comes into range now, the animation shouldnt show any more
-		activeChar.sendPacket(new PetInfo(summon));
+		activeChar.sendPacket(new PetInfo(summon, 0));
 	}
 }

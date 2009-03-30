@@ -925,7 +925,7 @@ public class L2CharacterAI extends AbstractAI
 			if (_actor.isMovementDisabled())
 				return true;
 
-			if (!_actor.isRunning() && !(this instanceof L2PlayerAI))
+			if (!_actor.isRunning() && !(this instanceof L2PlayerAI) && !(this instanceof L2SummonAI))
 				_actor.setRunning();
 
 			stopFollow();
@@ -1004,7 +1004,7 @@ public class L2CharacterAI extends AbstractAI
 				return true;
 
 			// If not running, set the L2Character movement type to run and send Server->Client packet ChangeMoveType to all others L2PcInstance
-			if (!_actor.isRunning() && !(this instanceof L2PlayerAI))
+			if (!_actor.isRunning() && !(this instanceof L2PlayerAI) && !(this instanceof L2SummonAI))
 				_actor.setRunning();
 
 			stopFollow();

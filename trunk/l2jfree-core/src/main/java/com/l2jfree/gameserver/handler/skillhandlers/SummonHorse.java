@@ -75,7 +75,7 @@ public final class SummonHorse implements ISkillHandler
 			return;
 		}
 
-		activeChar.mount(HORSE_ID, 0);
+		activeChar.mount(HORSE_ID, 0, false);
 	}
 
 	public L2SkillType[] getSkillIds()

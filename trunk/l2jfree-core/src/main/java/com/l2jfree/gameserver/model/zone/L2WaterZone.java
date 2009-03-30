@@ -18,6 +18,7 @@ import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.NpcInfo;
+import com.l2jfree.gameserver.network.serverpackets.ServerObjectInfo;
 
 public class L2WaterZone extends L2DefaultZone
 {
@@ -33,9 +34,6 @@ public class L2WaterZone extends L2DefaultZone
 
 		if (character instanceof L2PcInstance)
 		{
-			if (((L2PcInstance) character).isMounted())
-				((L2PcInstance) character).dismount();
-
 			if (((L2PcInstance) character).isTransformed()
 				&& !((L2PcInstance) character).isCursedWeaponEquipped())
 			{
@@ -48,8 +46,15 @@ public class L2WaterZone extends L2DefaultZone
 		else if (character instanceof L2NpcInstance)
 		{
 			for (L2PcInstance player : character.getKnownList().getKnownPlayers().values())
+			{
 				if (player != null)
-					player.sendPacket(new NpcInfo((L2NpcInstance)character, player));
+				{
+					if (character.getRunSpeed() == 0)
+						player.sendPacket(new ServerObjectInfo((L2NpcInstance)character, player));
+					else
+						player.sendPacket(new NpcInfo((L2NpcInstance) character, player));
+				}
+			}
 		}
 
 		super.onEnter(character);
@@ -68,8 +73,15 @@ public class L2WaterZone extends L2DefaultZone
 		else if (character instanceof L2NpcInstance)
 		{
 			for (L2PcInstance player : character.getKnownList().getKnownPlayers().values())
+			{
 				if (player != null)
-					player.sendPacket(new NpcInfo((L2NpcInstance)character, player));
+				{
+					if (character.getRunSpeed() == 0)
+						player.sendPacket(new ServerObjectInfo((L2NpcInstance)character, player));
+					else
+						player.sendPacket(new NpcInfo((L2NpcInstance) character, player));
+				}
+			}
 		}
 
 		super.onExit(character);

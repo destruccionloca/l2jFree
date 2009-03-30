@@ -449,10 +449,14 @@ public class CharStat
 		return (int) calcStat(Stats.STAT_MEN, _activeChar.getTemplate().getBaseMEN(), null, null);
 	}
 
-	public final float getMovementSpeedMultiplier()
+	public float getMovementSpeedMultiplier()
 	{
 		if (_activeChar == null)
 			return 1;
+
+		if (_activeChar instanceof L2PcInstance && ((L2PcInstance)_activeChar).isMounted())
+			return getRunSpeed() * 1f / PetDataTable.getInstance().getPetData(
+					((L2PcInstance)_activeChar).getMountNpcId(), ((L2PcInstance)_activeChar).getMountLevel()).getPetSpeed();
 
 		return getRunSpeed() * 1f / _activeChar.getTemplate().getBaseRunSpd();
 	}
@@ -700,7 +704,7 @@ public class CharStat
 	}
 
 	/** Return the WalkSpeed (base+modifier) of the L2Character. */
-	public final int getWalkSpeed()
+	public int getWalkSpeed()
 	{
 		if (_activeChar == null)
 			return 1;

@@ -79,6 +79,6 @@ public class L2SkillMount extends L2Skill
 			return;
 		}
 
-		activePlayer.mount(_npcId, _itemId);
+		activePlayer.mount(_npcId, _itemId, false);
 	}
 }

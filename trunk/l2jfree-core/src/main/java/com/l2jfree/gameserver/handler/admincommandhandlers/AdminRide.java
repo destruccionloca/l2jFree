@@ -73,7 +73,7 @@ public class AdminRide implements IAdminCommandHandler
 				activeChar.sendMessage("Command '" + command + "' not recognized");
 				return false;
 			}
-			activeChar.mount(_petRideId, 0);
+			activeChar.mount(_petRideId, 0, false);
 		}
 		else if (command.startsWith("admin_unride"))
 		{

@@ -67,15 +67,12 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
             else 
                 petItemId = player.getPet().getControlItemId(); 
 
-            if (petItemId == 0 || !player.isMounted() || 
-                 (!PetDataTable.isStrider(PetDataTable.getPetIdByItemId(petItemId)) &&
-                 !PetDataTable.isRedStrider(PetDataTable.getPetIdByItemId(petItemId))))
+            if (petItemId == 0 || !player.isMounted() || !PetDataTable.isStrider(PetDataTable.getPetIdByItemId(petItemId)))
             {
                 player.sendPacket(SystemMessageId.YOU_MAY_ONLY_RIDE_WYVERN_WHILE_RIDING_STRIDER);
                 return;
             }
-            else if (player.isMounted() && (PetDataTable.isStrider(PetDataTable.getPetIdByItemId(petItemId)) ||
-            			 PetDataTable.isRedStrider(PetDataTable.getPetIdByItemId(petItemId))) &&
+            else if (player.isMounted() && PetDataTable.isStrider(PetDataTable.getPetIdByItemId(petItemId)) &&
                          petItem != null && petItem.getEnchantLevel() < 55)
             {
                 player.sendMessage("Your Strider has not reached the required level.");
@@ -95,7 +92,7 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
                 if (player.getPet() != null)
                     player.getPet().unSummon(player);
 
-                if (player.mount(12621, 0))
+                if (player.mount(12621, 0, true))
                 {
                     player.getInventory().destroyItemByItemId("Wyvern", 1460, Config.ALT_MANAGER_CRYSTAL_COUNT, player, player.getTarget());
                     player.addSkill(SkillTable.getInstance().getInfo(4289, 1));

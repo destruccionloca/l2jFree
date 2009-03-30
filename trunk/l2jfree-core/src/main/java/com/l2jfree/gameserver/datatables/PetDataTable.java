@@ -59,14 +59,16 @@ public class PetDataTable
 
 	public final static int											SIN_EATER_ID				= 12564;
 
-	public final static int											GREAT_WOLF_ID				= 16030;
+	public final static int											BLACK_WOLF_ID				= 16030;
 	public final static int											WGREAT_WOLF_ID				= 16037;
-	public final static int											BLACK_WOLF_ID				= 16025;
+	public final static int											GREAT_WOLF_ID				= 16025;
 	public final static int											FENRIR_WOLF_ID				= 16041;
 	public final static int											WFENRIR_WOLF_ID				= 16042;
 	public final static int											PURPLE_HORSE_ID				= 13130;
 
 	private static FastMap<Integer, FastMap<Integer, L2PetData>>	petTable;
+
+	public final static int[]										EMPTY_INT					= { 0 };
 
 	public static PetDataTable getInstance()
 	{
@@ -185,19 +187,30 @@ public class PetDataTable
 		return 0;
 	}
 
-	public static int getFoodItemId(int npcId)
+	public static int[] getFoodItemId(int npcId)
 	{
 		for (L2Pet pet : L2Pet.values())
 			if (pet.getNpcId() == npcId)
-				return pet.getFoodId();
-		return 0;
+				return pet.getFoodIds();
+		return EMPTY_INT;
 	}
 
 	public static boolean isPet(int npcId)
 	{
 		for (L2Pet pet : L2Pet.values())
-            if (pet.getNpcId() == npcId)
-                return true;
+			if (pet.getNpcId() == npcId)
+				return true;
+
+		return false;
+	}
+
+	public static boolean isPetFood(int npcId, int itemId)
+	{
+		for (L2Pet pet : L2Pet.values())
+			if (pet.getNpcId() == npcId)
+				for (int id : pet.getFoodIds())
+					if (id == itemId)
+						return true;
 
 		return false;
 	}
@@ -205,18 +218,19 @@ public class PetDataTable
 	public static boolean isPetFood(int itemId)
 	{
 		for (L2Pet pet : L2Pet.values())
-            if (pet.getFoodId() == itemId)
-			    return true;
-        
+			for (int id : pet.getFoodIds())
+				if (id == itemId)
+					return true;
+
 		return false;
 	}
 
 	public static boolean isPetItem(int itemId)
 	{
 		for (L2Pet pet : L2Pet.values())
-            if (pet.getControlItemId() == itemId)
-			    return true;
-        
+			if (pet.getControlItemId() == itemId)
+				return true;
+
 		return false;
 	}
 
@@ -240,12 +254,17 @@ public class PetDataTable
 
 	public static boolean isStrider(int npcId)
 	{
-		return (STRIDER_WIND_ID == npcId || STRIDER_STAR_ID == npcId || STRIDER_TWILIGHT_ID == npcId);
-	}
-	
-	public static boolean isRedStrider(int npcId)
-	{
-		return (RED_STRIDER_WIND_ID == npcId || RED_STRIDER_STAR_ID == npcId || RED_STRIDER_TWILIGHT_ID == npcId);
+		switch (npcId)
+		{
+			case STRIDER_WIND_ID:
+			case STRIDER_STAR_ID:
+			case STRIDER_TWILIGHT_ID:
+			case RED_STRIDER_WIND_ID:
+			case RED_STRIDER_STAR_ID:
+			case RED_STRIDER_TWILIGHT_ID:
+				return true;
+		}
+		return false;
 	}
 
 	public static boolean isWyvern(int npcId)
@@ -253,31 +272,20 @@ public class PetDataTable
 		return (WYVERN_ID == npcId);
 	}
 
-	public static boolean isGreatWolf(int npcId)
+	public static boolean isEvolvedWolf(int npcId)
 	{
-		return (GREAT_WOLF_ID == npcId);
+		switch (npcId)
+		{
+			case GREAT_WOLF_ID:
+			case WGREAT_WOLF_ID:
+			case BLACK_WOLF_ID:
+			case FENRIR_WOLF_ID:
+			case WFENRIR_WOLF_ID:
+				return true;
+		}
+		return false;
 	}
 
-    public static boolean isWGreatWolf(int npcId)
-    {
-    	return (WGREAT_WOLF_ID == npcId);
-    }
-    
-    public static boolean isBlackWolf(int npcId)
-    {
-    	return (BLACK_WOLF_ID == npcId);
-    }
-    
-    public static boolean isFenrirWolf(int npcId)
-    {
-    	return (FENRIR_WOLF_ID == npcId);
-    }
-    
-    public static boolean isWFenrirWolf(int npcId)
-    {
-    	return (WFENRIR_WOLF_ID == npcId);
-    }
-	
 	public static boolean isBaby(int npcId)
 	{
 		return (BABY_BUFFALO_ID == npcId || BABY_KOOKABURRA_ID == npcId || BABY_COUGAR_ID == npcId);
@@ -304,48 +312,48 @@ public class PetDataTable
 	 */
 	private static enum L2Pet
 	{
-		WOLF(PET_WOLF_ID, 2375, 2515, false),
+		WOLF(PET_WOLF_ID, 2375, new int[] {2515}, false),
 		
-		HATCHLING_WIND(HATCHLING_WIND_ID, 3500, 4038, false),
-		HATCHLING_STAR(HATCHLING_STAR_ID, 3501, 4038, false),
-		HATCHLING_TWILIGHT(HATCHLING_TWILIGHT_ID, 3502, 4038, false),
+		HATCHLING_WIND(HATCHLING_WIND_ID, 3500, new int[] {4038}, false),
+		HATCHLING_STAR(HATCHLING_STAR_ID, 3501, new int[] {4038}, false),
+		HATCHLING_TWILIGHT(HATCHLING_TWILIGHT_ID, 3502, new int[] {4038}, false),
 		
-		STRIDER_WIND(STRIDER_WIND_ID, 4422, 5168, true),
-		STRIDER_STAR(STRIDER_STAR_ID, 4423, 5168, true),
-		STRIDER_TWILIGHT(STRIDER_TWILIGHT_ID, 4424, 5168, true),
+		STRIDER_WIND(STRIDER_WIND_ID, 4422, new int[] {5168,5169}, true),
+		STRIDER_STAR(STRIDER_STAR_ID, 4423, new int[] {5168,5169}, true),
+		STRIDER_TWILIGHT(STRIDER_TWILIGHT_ID, 4424, new int[] {5168,5169}, true),
 		
-		RED_STRIDER_WIND(RED_STRIDER_WIND_ID, 10308, 5168, true),
-		RED_STRIDER_STAR(RED_STRIDER_STAR_ID, 10309, 5168, true),
-		RED_STRIDER_TWILIGHT(RED_STRIDER_TWILIGHT_ID, 10310, 5168, true),
+		RED_STRIDER_WIND(RED_STRIDER_WIND_ID, 10308, new int[] {5168,5169}, true),
+		RED_STRIDER_STAR(RED_STRIDER_STAR_ID, 10309, new int[] {5168,5169}, true),
+		RED_STRIDER_TWILIGHT(RED_STRIDER_TWILIGHT_ID, 10310, new int[] {5168,5169}, true),
 		
-		WYVERN(WYVERN_ID, 5249, 6316, true),
+		WYVERN(WYVERN_ID, 5249, new int[] {6316}, true),
 
-		GREAT_WOLF(GREAT_WOLF_ID, 10163, 9668, true),
-		WGREAT_WOLF(WGREAT_WOLF_ID, 10307, 9668, true),
-		BLACK_WOLF(BLACK_WOLF_ID, 9882, 9668, true),
-		FENRIR_WOLF(FENRIR_WOLF_ID, 10426, 9668, true),
-		WFENRIR_WOLF(WFENRIR_WOLF_ID, 10611, 9668, true),
+		GREAT_WOLF(GREAT_WOLF_ID, 10163, new int[] {9668}, true),
+		WGREAT_WOLF(WGREAT_WOLF_ID, 10307, new int[] {9668}, true),
+		BLACK_WOLF(BLACK_WOLF_ID, 9882, new int[] {9668}, true),
+		FENRIR_WOLF(FENRIR_WOLF_ID, 10426, new int[] {9668}, true),
+		WFENRIR_WOLF(WFENRIR_WOLF_ID, 10611, new int[] {9668}, true),
 		
-		BABY_BUFFALO(BABY_BUFFALO_ID, 6648, 7582, false),
-		BABY_KOOKABURRA(BABY_KOOKABURRA_ID, 6649, 7582, false),
-		BABY_COUGAR(BABY_COUGAR_ID, 6650, 7582, false),
+		BABY_BUFFALO(BABY_BUFFALO_ID, 6648, new int[] {7582}, false),
+		BABY_KOOKABURRA(BABY_KOOKABURRA_ID, 6649, new int[] {7582}, false),
+		BABY_COUGAR(BABY_COUGAR_ID, 6650, new int[] {7582}, false),
 		
-		IMPROVED_BABY_BUFFALO(IMPROVED_BABY_BUFFALO_ID, 10311, 10425, false),
-		IMPROVED_BABY_KOOKABURRA(IMPROVED_BABY_KOOKABURRA_ID, 10312, 10425, false),
-		IMPROVED_BABY_COUGAR(IMPROVED_BABY_COUGAR_ID, 10313, 10425, false),
+		IMPROVED_BABY_BUFFALO(IMPROVED_BABY_BUFFALO_ID, 10311, new int[] {10425}, false),
+		IMPROVED_BABY_KOOKABURRA(IMPROVED_BABY_KOOKABURRA_ID, 10312, new int[] {10425}, false),
+		IMPROVED_BABY_COUGAR(IMPROVED_BABY_COUGAR_ID, 10313, new int[] {10425}, false),
 		
-		SIN_EATER(SIN_EATER_ID, 4425, 2515, false);
+		SIN_EATER(SIN_EATER_ID, 4425, new int[] {2515}, false);
 
 		private final int		_npcId;
 		private final int		_controlItemId;
-		private final int		_foodId;
+		private final int[]		_foodIds;
 		private final boolean	_isMountabe;
 
-		private L2Pet(int npcId, int controlItemId, int foodId, boolean isMountabe)
+		private L2Pet(int npcId, int controlItemId, int[] foodIds, boolean isMountabe)
 		{
 			_npcId = npcId;
 			_controlItemId = controlItemId;
-			_foodId = foodId;
+			_foodIds = foodIds;
 			_isMountabe = isMountabe;
 		}
 
@@ -359,9 +367,9 @@ public class PetDataTable
 			return _controlItemId;
 		}
 
-		public int getFoodId()
+		public int[] getFoodIds()
 		{
-			return _foodId;
+			return _foodIds;
 		}
 
 		public boolean isMountable()

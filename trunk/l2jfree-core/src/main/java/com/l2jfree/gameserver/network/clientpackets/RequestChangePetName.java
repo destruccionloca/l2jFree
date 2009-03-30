@@ -19,11 +19,11 @@ import com.l2jfree.gameserver.datatables.PetNameTable;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Summon;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.NpcInfo;
-import com.l2jfree.gameserver.network.serverpackets.PetInfo;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
@@ -77,8 +77,11 @@ public class RequestChangePetName extends L2GameClientPacket
 		}
 		
 		pet.setName(_name);
-		pet.broadcastPacket(new NpcInfo(pet, activeChar));
-		activeChar.sendPacket(new PetInfo(pet));
+		for (L2PcInstance player : pet.getKnownList().getKnownPlayers().values())
+		{
+			player.sendPacket(new NpcInfo(pet, player, 1));
+		}
+		pet.updateAndBroadcastStatus(1);
 		
 		// set the flag on the control item to say that the pet has a name
 		if (pet instanceof L2PetInstance)

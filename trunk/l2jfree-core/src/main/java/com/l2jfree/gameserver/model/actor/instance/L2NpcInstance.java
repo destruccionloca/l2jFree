@@ -91,6 +91,7 @@ import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.NpcInfo;
 import com.l2jfree.gameserver.network.serverpackets.RadarControl;
+import com.l2jfree.gameserver.network.serverpackets.ServerObjectInfo;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -421,7 +422,12 @@ public class L2NpcInstance extends L2Character
 	public void updateAbnormalEffectImpl()
 	{
 		for (L2PcInstance player : getKnownList().getKnownPlayers().values())
-			player.sendPacket(new NpcInfo(this, player));
+		{
+			if (getRunSpeed() == 0)
+				player.sendPacket(new ServerObjectInfo(this, player));
+			else
+				player.sendPacket(new NpcInfo(this, player));
+		}
 	}
 
 	/**

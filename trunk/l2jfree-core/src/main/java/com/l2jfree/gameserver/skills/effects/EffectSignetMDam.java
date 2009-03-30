@@ -34,8 +34,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillLaunched;
-import com.l2jfree.gameserver.network.serverpackets.NpcInfo;
-import com.l2jfree.gameserver.network.serverpackets.PetInfo;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Formulas;
@@ -148,8 +146,11 @@ public final class EffectSignetMDam extends L2Effect
 
 				caster.reduceCurrentMp(mpConsume);
 
-				if (cha instanceof L2PcInstance || cha instanceof L2Summon)
-					caster.updatePvPStatus(cha);
+				if (cha instanceof L2PlayableInstance)
+				{
+					if (!(cha instanceof L2Summon && ((L2Summon)cha).getOwner() == caster))
+						caster.updatePvPStatus(cha);
+				}
 
 				targets.add(cha);
 			}
@@ -164,13 +165,7 @@ public final class EffectSignetMDam extends L2Effect
 				byte shld = Formulas.getInstance().calcShldUse(caster, target);
 				int mdam = (int) Formulas.getInstance().calcMagicDam(caster, target, getSkill(), shld, ss, bss, mcrit);
 
-				if (target instanceof L2Summon)
-				{
-					if (caster.equals(((L2Summon) target).getOwner()))
-						caster.sendPacket(new PetInfo((L2Summon) target));
-					else
-						caster.sendPacket(new NpcInfo((L2Summon) target, caster));
-				}
+				target.broadcastStatusUpdate();
 
 				if (mdam > 0)
 				{

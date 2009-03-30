@@ -41,11 +41,11 @@ public class SetupGauge extends L2GameServerPacket
 		_time2 = time;
 	}
 
-	public SetupGauge(int color, int time1, int time2)
+	public SetupGauge(int color, int currentTime, int maxTime)
 	{
 		_color = color;
-		_time1 = time1;
-		_time2 = time2;
+		_time1 = currentTime;
+		_time2 = maxTime;
 	}
 
 	@Override
