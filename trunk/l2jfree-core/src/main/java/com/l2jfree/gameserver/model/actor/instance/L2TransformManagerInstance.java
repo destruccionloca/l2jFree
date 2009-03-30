@@ -77,15 +77,12 @@ public class L2TransformManagerInstance extends L2MerchantInstance
 		}
 	}
 
-    /**
-     * this displays TransformationSkillList to the player.
-     * @param player
-     */
+	/**
+	 * this displays TransformationSkillList to the player.
+	 * @param player
+	 */
 	public void showTransformSkillList(L2PcInstance player)
-	{        
-		if (player.isTransformed())
-			return;
-
+	{
 		L2TransformSkillLearn[] skills = SkillTreeTable.getInstance().getAvailableTransformSkills(player);
 		AcquireSkillList asl = new AcquireSkillList(AcquireSkillList.SkillType.Usual);
 		int counts = 0;
@@ -141,15 +138,13 @@ public class L2TransformManagerInstance extends L2MerchantInstance
 
 	public boolean testQuestTransformation(L2PcInstance player)
 	{
-		// Preventif NPE
 		if (player == null)
 			return false;
-		
+
 		String _questName = "136_MoreThanMeetsTheEye";
 		QuestState qs = player.getQuestState(_questName);
-    	
-		if (qs == null || State.getStateName(qs.getState()) != "Completed")
+		if (qs == null)
 			return false;
-		else return State.getStateName(qs.getState()) == "Completed";
+		return State.getStateName(qs.getState()) == "Completed";
 	}
 }

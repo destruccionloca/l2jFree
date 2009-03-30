@@ -923,6 +923,11 @@ public class L2Skill
 		return _cpConsume;
 	}
 
+	public final boolean allowOnTransform()
+	{
+		return isPassive() || isChance() || bestowed();
+	}
+
 	/**
 	 * @return Returns the id.
 	 */

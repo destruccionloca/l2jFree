@@ -66,9 +66,9 @@ public class Potions implements IItemHandler
 			6035,
 			6036,
 			6652,
-			6553,
-			6554,
-			6555,
+			6653,
+			6654,
+			6655,
 			8193,
 			8194,
 			8195,
@@ -373,7 +373,7 @@ public class Potions implements IItemHandler
 			res = usePotion(activeChar, 2231, 1);
 			break;
 		case 6653: // Amulet Flames of Valakas
-			res = usePotion(activeChar, 2223, 1);
+			res = usePotion(activeChar, 2233, 1);
 			break;
 		case 6654: // Amulet Flames of Valakas
 			res = usePotion(activeChar, 2233, 1);

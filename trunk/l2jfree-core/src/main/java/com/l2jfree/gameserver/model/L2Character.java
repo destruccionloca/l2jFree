@@ -90,6 +90,7 @@ import com.l2jfree.gameserver.network.serverpackets.StopMove;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.TeleportToLocation;
 import com.l2jfree.gameserver.network.serverpackets.FlyToLocation.FlyType;
+import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.skills.Calculator;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.skills.Stats;
@@ -7640,6 +7641,8 @@ public abstract class L2Character extends L2Object
 			{
 				FlyType _flyType = FlyType.valueOf(_skill.getFlyType());
 				broadcastPacket(new FlyToLocation(_actor, _target, _flyType));
+				getPosition().setXYZ(_target.getX(), _target.getY(), _target.getZ());
+				broadcastPacket(new ValidateLocation(_actor));
 			}
 			catch (Exception e)
 			{

@@ -262,7 +262,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 
 			// depending on config, do not allow mobs to attack _new_ players in peacezones, 
 			// unless they are already following those players from outside the peacezone. 
-			if (!Config.ALT_MOB_AGRO_IN_PEACEZONE && target.isInsideZone(L2Zone.FLAG_PEACE))
+			if (!Config.ALT_MOB_AGGRO_IN_PEACEZONE && target.isInsideZone(L2Zone.FLAG_PEACE))
 				return false;
 
 			if (me.isChampion() && Config.CHAMPION_PASSIVE)

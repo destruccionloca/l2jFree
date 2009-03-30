@@ -77,13 +77,6 @@ public class RequestAquireSkill extends L2GameClientPacket
         if (player == null)
             return;
 
-        if (player.isTransformed())
-        {
-            _log.warn("possible cheater: "+player.getName()+" attempting to learn a skill while he/she is transformed! < Ban him/her!");
-            Util.handleIllegalPlayerAction(player, "Player " + player.getName() + " attempting to learn a skill while he/she is transformed!", IllegalPlayerAction.PUNISH_KICK);
-            return;
-        }
-
         L2FolkInstance trainer = player.getLastFolkNPC();
         if (trainer == null)
         {
@@ -390,7 +383,8 @@ public class RequestAquireSkill extends L2GameClientPacket
                 }
             }
         }
-        
+
+        player.sendSkillList();
         if (trainer instanceof L2FishermanInstance)
             ((L2FishermanInstance)trainer).showSkillList(player);
         else if (trainer instanceof L2TransformManagerInstance)

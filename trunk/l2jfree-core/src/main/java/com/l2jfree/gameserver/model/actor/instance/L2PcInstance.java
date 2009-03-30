@@ -664,6 +664,8 @@ public final class L2PcInstance extends L2PlayableInstance
 	private int								_fishy					= 0;
 	private int								_fishz					= 0;
 
+	private int[]							_transformAllowedSkills = {};
+
 	private int								_team					= 0;
 	private int								_wantsPeace				= 0;
 
@@ -2561,7 +2563,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		// Auto-Learn skills if activated
 		if (Config.ALT_AUTO_LEARN_SKILLS)
 		{
-			if (this.isTransformed() || this.isCursedWeaponEquipped())
+			if (isCursedWeaponEquipped())
 				return;
 
 			giveAvailableSkills();
@@ -10024,6 +10026,10 @@ public final class L2PcInstance extends L2PlayableInstance
 				continue; // Fake skills to change base stats
 			if (s.bestowed())
 				continue;
+			// Hide skills when transformed if they are not passive
+			if ((!containsAllowedTransformSkill(s.getId()) && !s.allowOnTransform()) && isTransformed())
+				continue;
+
 			if (s.getSkillType() == L2SkillType.NOTDONE)
 			{
 				switch (Config.SEND_NOTDONE_SKILLS)
@@ -10040,6 +10046,23 @@ public final class L2PcInstance extends L2PlayableInstance
 			sl.addSkill(s.getDisplayId(), s.getLevel(), s.isPassive());
 		}
 		sendPacket(sl);  
+	}
+
+	public void setTransformAllowedSkills(int[] ids)
+	{
+		_transformAllowedSkills = ids;
+	}
+
+	public boolean containsAllowedTransformSkill(int id)
+	{
+		for (Integer i : _transformAllowedSkills)
+		{
+			if (i.intValue() == id)
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -13221,6 +13244,8 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 		_transformation = transformation;
 		transformation.onTransform(this);
+		sendSkillList();
+		sendPacket(new SkillCoolTime(this));
 		sendPacket(ExBasicActionList.TRANSFORMED_ACTION_LIST);
 		broadcastUserInfo();
 	}
@@ -13229,13 +13254,13 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		if (this.isTransformed())
 		{
-			restoreSkills();
-			regiveTemporarySkills();
+			setTransformAllowedSkills(new int[]{});
 			_transformation.onUntransform(this);
 			_transformation = null;
 			stopEffects(L2EffectType.TRANSFORMATION);
 			broadcastUserInfo();
 			sendPacket(ExBasicActionList.DEFAULT_ACTION_LIST);
+			sendSkillList();
 			sendPacket(new SkillCoolTime(this));
 		}
 	}

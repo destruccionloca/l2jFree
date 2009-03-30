@@ -41,12 +41,6 @@ public abstract class L2DefaultTransformation extends L2Transformation
 	@Override
 	public void onTransform(L2PcInstance player)
 	{
-		// Disable all character skills.
-		for (L2Skill sk : player.getAllSkills())
-		{
-			if (sk != null && !sk.isPassive())
-				player.removeSkill(sk, false);
-		}
 		// give transformation skills
 		transformedSkills(player);
 
@@ -54,8 +48,6 @@ public abstract class L2DefaultTransformation extends L2Transformation
 		addSkill(player, 619, 1);
 		// Decrease Bow/Crossbow Attack Speed
 		addSkill(player, 5491, 1);
-		// Send a Server->Client packet StatusUpdate to the L2PcInstance.
-		player.sendSkillList();
 	}
 
 	public abstract void transformedSkills(L2PcInstance player);
@@ -70,8 +62,6 @@ public abstract class L2DefaultTransformation extends L2Transformation
 		removeSkill(player, 619);
 		// Decrease Bow/Crossbow Attack Speed
 		removeSkill(player, 5491);
-		// Send a Server->Client packet StatusUpdate to the L2PcInstance.
-		player.sendSkillList();
 	}
 
 	public abstract void removeSkills(L2PcInstance player);

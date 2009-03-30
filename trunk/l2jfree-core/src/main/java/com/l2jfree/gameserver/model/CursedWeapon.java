@@ -289,7 +289,6 @@ public class CursedWeapon
 
     public void cursedOnLogin()
     {
-        disableAllSkills();
         transform();
         giveSkill();
 
@@ -321,6 +320,7 @@ public class CursedWeapon
         // Yesod:
         // To properly support subclasses this skill can not be stored.
         _player.addSkill(skill, false);
+        _player.setTransformAllowedSkills(new int[]{3630,3631});
 
         if (_log.isDebugEnabled())
             _log.debug("Player "+_player.getName() +" has been awarded with skill "+skill);
@@ -337,29 +337,7 @@ public class CursedWeapon
         {
             TransformationManager.getInstance().transformPlayer(_player.transformId(), _player);
         }
-        else
-        {
-            for (L2Skill sk : _player.getAllSkills())
-            {
-                if (sk != null && !sk.isPassive())
-                    _player.addSkill(sk, false);
-            }
-            
-            _player.regiveTemporarySkills();
-        }
-        
-        _player.sendSkillList();
-    }
 
-    public void disableAllSkills()
-    {
-        if (_player == null)
-            return;
-        for (L2Skill sk : _player.getAllSkills())
-        {
-            if (sk != null && !sk.isPassive())
-                _player.removeSkill(sk, false);
-        }
         _player.sendSkillList();
     }
 
@@ -403,11 +381,11 @@ public class CursedWeapon
             }
         }
 
-        if((player._inEventTvT && !Config.TVT_JOIN_CURSED) || (player._inEventCTF && !Config.CTF_JOIN_CURSED))
+        if ((player._inEventTvT && !Config.TVT_JOIN_CURSED) || (player._inEventCTF && !Config.CTF_JOIN_CURSED))
         {
-            if(player._inEventTvT)
+            if (player._inEventTvT)
                 TvT.removePlayer(player);
-            if(player._inEventCTF)
+            if (player._inEventCTF)
                 CTF.removePlayer(player);
         }
 
@@ -424,10 +402,7 @@ public class CursedWeapon
         _player.setKarma(9999999);
         _player.setPkKills(0);
         if (_player.isInParty())
-        	_player.getParty().removePartyMember(_player);
-
-        // Disable All Skills
-        disableAllSkills();
+            _player.getParty().removePartyMember(_player);
 
         // Add skill
         giveSkill();
