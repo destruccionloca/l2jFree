@@ -36,7 +36,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeGuardInstance;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
-import com.l2jfree.gameserver.threadmanager.FIFORunnableQueue;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.random.Rnd;
 
@@ -367,7 +366,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 		attackPrepare();
 	}
 	
-	private static final FIFORunnableQueue<Runnable> FACTION_NOTIFY = new FIFORunnableQueue<Runnable>() { };
+	private static final FactionAggressionNotificationQueue AGGRESSION_QUEUE = new FactionAggressionNotificationQueue();
 	
 	private final void factionNotifyAndSupport()
 	{
@@ -434,18 +433,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 						//limiting aggro for siege guards
 						&& target.isInsideRadius(npc, 1500, true, false) && GeoData.getInstance().canSeeTarget(npc, target))
 				{
-					FACTION_NOTIFY.execute(new Runnable () {
-						@Override
-						public void run()
-						{
-							if (npc.getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE ||
-								npc.getAI().getIntention() == CtrlIntention.AI_INTENTION_ACTIVE)
-							{
-								// Notify the L2Object AI with EVT_AGGRESSION
-								npc.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, target, 1);
-							}
-						}
-					});
+					AGGRESSION_QUEUE.add(npc, target);
 				}
 				// heal friends
 				if (_selfAnalysis.hasHealOrResurrect && !_actor.isAttackingDisabled() && npc.getStatus().getCurrentHp() < npc.getMaxHp() * 0.6

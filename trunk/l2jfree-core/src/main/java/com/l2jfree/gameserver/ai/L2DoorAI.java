@@ -14,13 +14,16 @@
  */
 package com.l2jfree.gameserver.ai;
 
+import javolution.util.FastMap;
+import javolution.util.FastMap.Entry;
+
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2SiegeGuard;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
-import com.l2jfree.gameserver.threadmanager.FIFORunnableQueue;
+import com.l2jfree.gameserver.threadmanager.FIFOExecutableQueue;
 
 /**
  * @author mkizub
@@ -84,15 +87,15 @@ public class L2DoorAI extends L2CharacterAI
 	{
 	}
 	
-	private FIFORunnableQueue<OnEventAttackedDoorTask> _guardNotifyTasks;
+	private GuardNotificationQueue _guardNotificationTasks;
 	
 	@Override
 	protected void onEvtAttacked(L2Character attacker)
 	{
-		if (_guardNotifyTasks == null)
-			_guardNotifyTasks = new FIFORunnableQueue<OnEventAttackedDoorTask>() { };
+		if (_guardNotificationTasks == null)
+			_guardNotificationTasks = new GuardNotificationQueue();
 		
-		_guardNotifyTasks.execute(new OnEventAttackedDoorTask(attacker));
+		_guardNotificationTasks.add(attacker);
 	}
 	
 	@Override
@@ -155,17 +158,50 @@ public class L2DoorAI extends L2CharacterAI
 	{
 	}
 	
-	private class OnEventAttackedDoorTask implements Runnable
+	private final class GuardNotificationQueue extends FIFOExecutableQueue
 	{
-		private final L2Character _attacker;
+		private final FastMap<L2Character, Integer> _map = new FastMap<L2Character, Integer>();
 		
-		public OnEventAttackedDoorTask(L2Character attacker)
+		private void add(L2Character attacker)
 		{
-			_attacker = attacker;
+			synchronized (_map)
+			{
+				Entry<L2Character, Integer> entry = _map.getEntry(attacker);
+				
+				if (entry != null)
+					entry.setValue(entry.getValue() + 15);
+				else
+					_map.put(attacker, 15);
+			}
+			
+			execute();
 		}
 		
-		public void run()
+		@Override
+		protected boolean isEmpty()
 		{
+			synchronized (_map)
+			{
+				return _map.isEmpty();
+			}
+		}
+		
+		@Override
+		protected void removeAndExecuteFirst()
+		{
+			L2Character attacker = null;
+			int aggro = 0;
+			
+			synchronized (_map)
+			{
+				Entry<L2Character, Integer> first = _map.head().getNext();
+				
+				attacker = first.getKey();
+				aggro = first.getValue();
+				
+				_map.remove(attacker);
+			}
+			
 			getActor().getKnownList().updateKnownObjects();
 			
 			for (L2Object obj : getActor().getKnownList().getKnownObjects().values())
@@ -174,9 +210,9 @@ public class L2DoorAI extends L2CharacterAI
 				{
 					L2SiegeGuard guard = (L2SiegeGuard)obj;
 					
-					if (Math.abs(_attacker.getZ() - guard.getZ()) < 200)
+					if (Math.abs(attacker.getZ() - guard.getZ()) < 200)
 						if (getActor().isInsideRadius(guard, guard.getFactionRange(), false, true))
-							guard.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, _attacker, 15);
+							guard.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, attacker, aggro);
 				}
 			}
 		}

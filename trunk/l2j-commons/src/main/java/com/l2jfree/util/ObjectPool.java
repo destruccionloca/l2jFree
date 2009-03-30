@@ -23,11 +23,30 @@ package com.l2jfree.util;
  */
 public abstract class ObjectPool<E>
 {
+	private final int _maximumSize;
+	
+	private volatile int _currentSize;
+	
 	private LinkedWrapper<E> _wrappers;
 	private LinkedWrapper<E> _values;
 	
+	public ObjectPool()
+	{
+		_maximumSize = Integer.MAX_VALUE;
+	}
+	
+	public ObjectPool(int maxSize)
+	{
+		_maximumSize = maxSize;
+	}
+	
 	public final synchronized void store(E e)
 	{
+		if (_currentSize >= _maximumSize)
+			return;
+		
+		_currentSize++;
+		
 		LinkedWrapper<E> wrapper = getWrapper();
 		wrapper.setValue(e);
 		wrapper.setNext(_values);
@@ -47,6 +66,8 @@ public abstract class ObjectPool<E>
 		final E e = wrapper.getValue();
 		
 		storeWrapper(wrapper);
+		
+		_currentSize--;
 		
 		return e == null ? create() : e;
 	}
