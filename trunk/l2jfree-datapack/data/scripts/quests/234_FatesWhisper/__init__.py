@@ -38,14 +38,14 @@ DROPLIST={
 # TopBGradeWeaponData{ weaponType: (max pdam, max mdam)}
 #(top weapon has at least one of pdam or mdam equal to the max for its type)
 TopBGradeWeaponData = { \
-"Big Sword":(213,91), \
+"Big Sword":(236,99), \
 "Blunt":(194,132), \
-"Bow":(400,100), \
-"Dagger":(170,122), \
+"Bow":(400,101), \
+"Dagger":(170,132), \
 "Dual Fist":(236,99), \
 "Etc":(170,143), \
 "Pole":(194,99), \
-"Sword":(194,122),\
+"Sword":(194,132),\
 "Big Blunt":(236,99), \
 "Dual Sword":(236,99)}
 

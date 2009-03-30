@@ -70,12 +70,14 @@
   <skill id="4103" levels="2" name="NPC Ultimate Evasion">
     <!-- Done by dc -->
     <table name="#rEvas">20 25</table>
+    <table name="#magicLvl"> 40 70 </table>
     <table name="#mpConsume">35 65</table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="1000"/>
     <set name="skillType" val="BUFF"/>
+    <set name="magicLvl" val="#magicLvl"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -125,9 +127,7 @@
     <set name="effectRange" val="1100"/>
   </skill>
   <skill id="4106" levels="1" name="Antharas Stun">
-    <!--
-     Antharas Skills "Antharas Jump" from Front
-    -->
+    <!-- Antharas Skills - "Antharas Jump" from Front -->
     <set name="magicLvl" val="70"/>
     <set name="power" val="11000"/>
     <set name="target" val="TARGET_FRONT_AURA"/>
@@ -147,9 +147,7 @@
     </for>
   </skill>
   <skill id="4107" levels="1" name="Antharas Stun">
-    <!-- 
-     Antharas Skills "Antharas Tail" from Behind
-    -->
+    <!-- Antharas Skills - "Antharas Tail" from Behind -->
     <set name="magicLvl" val="70"/>
     <set name="power" val="11000"/>
     <set name="target" val="TARGET_MULTIFACE"/>
@@ -314,6 +312,7 @@
     <table name="#Tab-mDef"> 1.05 1.11 1.17 1.25 1.33 1.43 1.67 2 3.33 10 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -593,6 +592,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="hitTime" val="20000"/>
     <set name="skillType" val="WEAKNESS"/>
+    <set name="magicLvl" val="75"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="700"/>
   </skill>
@@ -794,10 +794,10 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <set name="magicLvl" val="#magicLvl"/>
-    <set name="negateStats" val="BUFF DEBUFF HEAL_PERCENT"/>
+    <set name="negateStats" val="BUFF DEBUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillRadius" val="200"/> <!-- Guessing -->
-    <set name="skillType" val="CANCEL"/> <!-- Needs core support for CANCEL_ALL -->
+    <set name="skillType" val="NEGATE"/> <!-- Needs core support for "CANCEL_ALL" without exceptions -->
     <set name="target" val="TARGET_AURA"/>
   </skill>
   <skill id="4148" levels="12" name="Poison">
@@ -1041,6 +1041,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="hitTime" val="2000"/>
     <set name="skillType" val="GET_PLAYER"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
@@ -1322,12 +1323,12 @@
     <set name="target" val="TARGET_AURA"/>
     <set name="skillRadius" val="200"/>
     <set name="hitTime" val="1500"/>
-    <set name="skillType" val="CANCEL"/> <!-- Needs core support for CANCEL_ALL -->
+    <set name="skillType" val="NEGATE"/> <!-- Needs core support for "CANCEL_ALL" without exceptions -->
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <set name="negateStats" val="BUFF DEBUFF HEAL_PERCENT"/>
+    <set name="negateStats" val="BUFF DEBUFF"/>
   </skill>
   <skill id="4178" levels="12" name="BOSS Flame Strike">
     <table name="#mpConsume"> 23 32 44 58 74 79 102 107 112 114 116 118 </table>

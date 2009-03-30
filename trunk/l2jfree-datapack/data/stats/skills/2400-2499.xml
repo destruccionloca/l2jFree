@@ -893,7 +893,8 @@
     </for>
   </skill>
   <skill id="2498" levels="1" name="Bottle of Empty Soul">
-    <set name="soulConsumeCount" val="6"/>
+    <set name="hitTime" val="500"/>
+    <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="CREATE_ITEM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -905,9 +906,9 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <set name="coolTime" val="332"/>
+    <set name="soulConsumeCount" val="6"/>
   </skill>
-  <skill id="2499" levels="2" name="Bottle of Full Soul">
-    <table name="#souls">5 10</table>
+  <skill id="2499" levels="1" name="Bottle of Full Soul">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="CHARGESOUL"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -915,6 +916,6 @@
     <set name="reuseDelay" val="1000"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <set name="num_souls" val="#souls"/>
+    <set name="num_souls" val="5"/>
   </skill>
 </list>

@@ -5,6 +5,7 @@
     <!-- Race Giant -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
   </skill>
@@ -12,6 +13,7 @@
     <!-- Race Bug -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
   </skill>
@@ -19,12 +21,14 @@
     <!-- Race Fairy -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="4303" levels="1" name="Strong Type">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -35,6 +39,7 @@
   <skill id="4304" levels="1" name="Strong Type">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -45,6 +50,7 @@
   <skill id="4305" levels="1" name="Strong Type">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -55,6 +61,7 @@
   <skill id="4306" levels="1" name="Strong Type">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -65,6 +72,7 @@
   <skill id="4307" levels="1" name="Strong Type">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -75,6 +83,7 @@
   <skill id="4308" levels="1" name="Strong Type">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -85,6 +94,7 @@
   <skill id="4309" levels="1" name="Strong Type">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -95,6 +105,7 @@
   <skill id="4310" levels="1" name="Strong Type">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -105,6 +116,7 @@
   <skill id="4311" levels="1" name="Feeble Type">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -115,6 +127,7 @@
   <skill id="4312" levels="1" name="Heavy Armor">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -132,6 +145,7 @@
   <skill id="4313" levels="1" name="Light Armor">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <for>
@@ -308,7 +322,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect count="1" name="Buff" time="3600" val="0" stackOrder="4" stackType="pd_up">
+      <effect count="1" name="Buff" time="3600" val="0" stackOrder="1.15" stackType="pd_up">
         <mul order="0x30" stat="pDef" val="1.15"/>
       </effect>
     </for>
@@ -338,7 +352,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect count="1" name="Buff" time="3600" val="0" stackOrder="7" stackType="vampRage">
+      <effect count="1" name="Buff" time="3600" val="0" stackOrder="9" stackType="vampRage">
         <add order="0x40" stat="absorbDam" val="9"/>
       </effect>
     </for>
@@ -398,7 +412,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect count="1" name="Buff" time="3600" val="0" stackOrder="4" stackType="casting_time_down">
+      <effect count="1" name="Buff" time="3600" val="0" stackOrder="1.3" stackType="casting_time_down">
         <mul order="0x30" stat="mAtkSpd" val="1.3"/>
       </effect>
     </for>
@@ -436,6 +450,7 @@
   <skill id="4332" levels="1" name="Mental Aegis">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -449,6 +464,7 @@
     <table name="#Tab-darkVuln"> 0.85 0.7 0.5 0.3 0.1 0 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -461,16 +477,17 @@
     <set name="castRange" val="1000"/>
     <set name="effectRange" val="1500"/>
     <set name="magicLvl" val="99"/>
-    <set name="negateStats" val="BUFF DEBUFF HEAL_PERCENT"/>
+    <set name="negateStats" val="BUFF DEBUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillRadius" val="2000"/>
-    <set name="skillType" val="CANCEL"/> <!-- Needs core support for CANCEL_ALL -->
+    <set name="skillType" val="NEGATE"/> <!-- Needs core support for "CANCEL_ALL" without exceptions -->
     <set name="target" val="TARGET_AREA"/>
   </skill>
   <skill id="4335" levels="1" name="Sacred Attack">
     <!-- TODO -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="NOTDONE"/> <!-- pAtk attribute: holy - missing core support -->
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
   </skill>
@@ -478,6 +495,7 @@
     <table name="#Tab-darkVuln">1.1 1.15 1.2 1.3 1.5</table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -489,6 +507,7 @@
     <table name="#Tab-holyVuln"> 0.85 0.7 0.5 0.3 0.1 0 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -517,6 +536,7 @@
   <skill id="4339" levels="1" name="Mimir's Elixir">
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/> <!-- Just Broadcast -->
+    <set name="magicLvl" val="60"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
@@ -559,6 +579,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
@@ -576,6 +597,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
@@ -592,6 +614,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
@@ -608,6 +631,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
@@ -619,12 +643,13 @@
   </skill>
   <skill id="4346" levels="4" name="Clan Hall: Mental Shield">
     <table name="#mpConsume">20 30 40 50</table>
-    <table name="#vuln">0.5 0.4 0.3 0.2</table>
-    <table name="#stack">50 60 70 80</table>
+    <table name="#vuln">0.8 0.7 0.6 0.5</table>
+    <table name="#stack">20 30 40 50</table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
@@ -644,6 +669,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
@@ -660,6 +686,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
@@ -676,6 +703,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
@@ -693,6 +721,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
@@ -709,6 +738,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
@@ -721,8 +751,8 @@
   <skill id="4352" levels="2" name="Clan Hall: Berserker Spirit">
     <table name="#Tab-mAtk">1.1 1.16</table>
     <table name="#Tab-pAtk">1.05 1.08</table>
-    <table name="#Tab-mDef">0.88 0.85</table>
-    <table name="#Tab-pDef">0.88 0.85</table>
+    <table name="#Tab-mDef">0.90 0.84</table>
+    <table name="#Tab-pDef">0.95 0.92</table>
     <table name="#Tab-mAtkSpd">1.05 1.08</table>
     <table name="#Tab-pAtkSpd">1.05 1.08</table>
     <table name="#Tab-runSpd">5 8</table>
@@ -732,6 +762,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
@@ -755,6 +786,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
@@ -771,6 +803,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
@@ -787,6 +820,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
@@ -803,6 +837,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
@@ -819,6 +854,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
@@ -835,6 +871,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
@@ -851,6 +888,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
@@ -867,6 +905,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
@@ -1161,6 +1200,7 @@
     <table name="#Tab-poleVuln"> 0.85 0.7 0.5 0.3 0.1 0 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -1172,6 +1212,7 @@
     <set name="power" val="5000"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="COMBATPOINTHEAL"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
     <set name="castRange" val="600"/>
@@ -1276,6 +1317,7 @@
     <table name="#power">0.85 0.7 0.5 0.3 0.1 0</table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -1287,6 +1329,7 @@
     <table name="#power">0.85 0.7 0.5 0.3 0.1 0</table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -1314,6 +1357,7 @@
     <set name="hitTime" val="100"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
@@ -1330,6 +1374,7 @@
     <set name="hitTime" val="100"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
@@ -1341,10 +1386,10 @@
   </skill>
   <skill id="4393" levels="3" name="Might">
     <!-- by DrLecter -->
-    <set name="reuseDelay" val="100"/>
     <table name="#pAtk">1.08 1.12 1.15</table>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
     <set name="castRange" val="400"/>
@@ -1361,6 +1406,7 @@
     <set name="reuseDelay" val="100"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
@@ -1376,6 +1422,7 @@
     <set name="reuseDelay" val="100"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
@@ -1391,6 +1438,7 @@
     <set name="reuseDelay" val="100"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
@@ -1414,6 +1462,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
@@ -1436,6 +1485,7 @@
     <set name="reuseDelay" val="100"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
@@ -1452,6 +1502,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>

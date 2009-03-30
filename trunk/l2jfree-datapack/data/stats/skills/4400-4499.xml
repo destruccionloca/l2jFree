@@ -8,6 +8,7 @@
     <set name="reuseDelay" val="100"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
@@ -24,6 +25,7 @@
     <set name="reuseDelay" val="100"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
@@ -40,6 +42,7 @@
     <set name="reuseDelay" val="100"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
@@ -55,6 +58,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="1"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="BUFF"/>
@@ -72,6 +76,7 @@
     <set name="reuseDelay" val="100"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
@@ -88,6 +93,7 @@
     <set name="reuseDelay" val="100"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
@@ -331,7 +337,6 @@
   <skill id="4415" levels="20" name="Weapon Type">
     <!--
     Needs to be finished.
-    Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
     Description(s):
         Lvl 1 Name - Bare Hands
         Lvl 2 Name - Bare Hands
@@ -362,7 +367,6 @@
   <skill id="4416" levels="24" name="Races">
     <!--
     Needs to be finished.
-    Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
     Description(s):
         Lvl 1 Name - Undead
         Lvl 2 Name - Magic Creatures
@@ -397,7 +401,6 @@
   <skill id="4417" levels="38" name="Race Types">
     <!--
     Needs to be finished.
-    Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
     Description(s):
         Lvl 1 Name - Animals
         Lvl 2 Name - Beasts
@@ -1122,7 +1125,7 @@
   <skill id="4473" levels="12" name="Stun">
     <table name="#mpConsume"> 27 44 62 85 109 135 157 168 177 183 187 189 </table>
     <table name="#power"> 16 35 73 139 241 379 542 626 704 774 829 873 </table>
-    <set name="magicLvl" val="48"/>
+    <set name="magicLvl" val="48"/> <!-- Guessing -->
     <set name="lvlDepend" val="1"/> <!-- Guessing -->
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
@@ -1163,9 +1166,7 @@
     </for>
   </skill>
   <skill id="4476" levels="5" name="Silent Move">
-    <!--
-      Description(s): Blocks monsters' first strike.
-    -->
+    <!-- Description(s): Blocks monsters' first strike. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1196,10 +1197,7 @@
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="4479" levels="1" name="Ice Fairy Resist Cold">
-    <!--
-      Description(s): Increases resistance to cold attacks.
-      Effect 4.
-    -->
+    <!-- Description(s): Increases resistance to cold attacks. Effect 4. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1334,9 +1332,7 @@
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="4491" levels="12" name="Holy Weapon">
-    <!--
-      Description(s): Makes sacred attacks.
-    -->
+    <!-- Description(s): Makes sacred attacks. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1365,6 +1361,7 @@
   <skill id="4494" levels="1" name="Raid Boss">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
+    <set name="mpConsume" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -1408,6 +1405,7 @@
   <skill id="4497" levels="1" name="Treasure Chest - Level 21">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
+    <set name="mpConsume" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -1415,6 +1413,7 @@
   <skill id="4498" levels="1" name="Treasure Chest - Level 22">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
+    <set name="mpConsume" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -1422,6 +1421,7 @@
   <skill id="4499" levels="1" name="Treasure Chest - Level 25">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
