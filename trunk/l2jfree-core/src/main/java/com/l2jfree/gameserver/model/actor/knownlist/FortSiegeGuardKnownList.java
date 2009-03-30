@@ -20,6 +20,7 @@ import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2FortSiegeGuardInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.entity.Fort;
 
 public class FortSiegeGuardKnownList extends AttackableKnownList
 {
@@ -41,8 +42,9 @@ public class FortSiegeGuardKnownList extends AttackableKnownList
 		if (!super.addKnownObject(object, dropper))
 			return false;
 
+		Fort fort = getActiveChar().getFort();
 		// Check if siege is in progress 
-		if (getActiveChar().getCastle() != null && getActiveChar().getCastle().getSiege().getIsInProgress())
+		if (fort != null && fort.getSiege().getIsInProgress())
 		{
 			L2PcInstance player = null;
 			if (object instanceof L2PcInstance)
@@ -51,9 +53,8 @@ public class FortSiegeGuardKnownList extends AttackableKnownList
 				player = ((L2Summon)object).getOwner();
 
 			// Check if player is not the defender
-			if (player != null && (player.getClan() == null || getActiveChar().getCastle().getSiege().getAttackerClan(player.getClan()) != null))
+			if (player != null && (player.getClan() == null || fort.getSiege().getAttackerClan(player.getClan()) != null))
 			{
-				//if (_log.isDebugEnabled()) _log.debug(getObjectId()+": PK "+player.getObjectId()+" entered scan range");
 				if (getActiveChar().getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE)
 					getActiveChar().getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE, null);//(L2Character)object);
 			}
