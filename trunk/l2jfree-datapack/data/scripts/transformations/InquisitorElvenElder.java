@@ -6,7 +6,7 @@ import com.l2jfree.gameserver.model.L2Transformation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 
-public class InquisitorElvenElder extends L2Transformation
+public class InquisitorElvenElder extends L2DefaultTransformation
 {
 	public InquisitorElvenElder()
 	{
