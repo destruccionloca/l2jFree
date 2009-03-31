@@ -197,89 +197,85 @@ public class Wedding implements IVoicedCommandHandler
 		return true;
 	}
 
-	public boolean goToLove(L2PcInstance activeChar)
+	private static L2PcInstance checkGoToLoveState(L2PcInstance activeChar)
 	{
-		if (activeChar.isCastingNow() || activeChar.isMovementDisabled() || activeChar.isMuted() || activeChar.isAlikeDead())
-			return false;
-
 		Siege siege = SiegeManager.getInstance().getSiege(activeChar);
 
 		if (!activeChar.isMaried())
 		{
 			activeChar.sendMessage("You're not married.");
-			return false;
+			return null;
 		}
 		else if (activeChar.getPartnerId() == 0)
 		{
 			activeChar.sendMessage("Couldn't find your fiance in Database - Inform a Gamemaster.");
 			_log.error("Married but couldn't find partner for " + activeChar.getName());
-			return false;
+			return null;
 		}
 		// Check to see if the player is in olympiad.
 		else if (activeChar.isInOlympiadMode())
 		{
 			activeChar.sendMessage("You are in Olympiad!");
-			return false;
+			return null;
 		}
 		// Check to see if the player is in observer mode
 		else if (activeChar.inObserverMode())
 		{
 			activeChar.sendMessage("You are in observer mode.");
-			return false;
+			return null;
 		}
 		// Check to see if the player is in an event
 		else if (activeChar.isInFunEvent())
 		{
 			activeChar.sendMessage("You are in event now.");
-			return false;
+			return null;
 		}
 		// Check to see if the player is in a festival.
 		else if (activeChar.isFestivalParticipant())
 		{
 			activeChar.sendMessage("You can't escape from a festival.");
-			return false;
+			return null;
 		}
 		// Check to see if the player is in dimensional rift.
 		else if (activeChar.isInParty() && activeChar.getParty().isInDimensionalRift())
 		{
 			activeChar.sendMessage("You are in the dimensional rift.");
-			return false;
+			return null;
 		}
 		// Check to see if player is in jail
 		else if (activeChar.isInJail() || activeChar.isInsideZone(L2Zone.FLAG_JAIL))
 		{
 			activeChar.sendMessage("You can't escape from jail.");
-			return false;
+			return null;
 		}
 		// Check if player is in Siege
 		else if (siege != null && siege.getIsInProgress())
 		{
 			activeChar.sendMessage("You are in siege, you can't go to your partner.");
-			return false;
+			return null;
 		}
 		// Check if player is in Duel
 		else if (activeChar.isInDuel())
 		{
 			activeChar.sendMessage("You are in a duel!");
-			return false;
+			return null;
 		}
 		// Check if player is a Cursed Weapon owner
 		else if (activeChar.isCursedWeaponEquipped())
 		{
 			activeChar.sendMessage("You are currently holding a cursed weapon.");
-			return false;
+			return null;
 		}
 		// Check if player is in a Monster Derby Track
 		else if (activeChar.isInsideZone(L2Zone.FLAG_NOESCAPE))
 		{
 			activeChar.sendMessage("You cannot escape from here.");
-			return false;
+			return null;
 		}
-		else if (ObjectRestrictions.getInstance()
-				.checkRestriction(activeChar, AvailableRestriction.PlayerGotoLove))
+		else if (ObjectRestrictions.getInstance().checkRestriction(activeChar, AvailableRestriction.PlayerGotoLove))
 		{
 			activeChar.sendMessage("You cannot find your love due to a restriction.");
-			return false;
+			return null;
 		}
 
 		L2PcInstance partner = L2World.getInstance().getPlayer(activeChar.getPartnerId());
@@ -290,49 +286,49 @@ public class Wedding implements IVoicedCommandHandler
 		else
 		{
 			activeChar.sendMessage("Your partner is not online.");
-			return false;
+			return null;
 		}
 		
 		// Check to see if the player is in a instance.
 		if (activeChar.getInstanceId() != partner.getInstanceId())
 		{
 			activeChar.sendMessage("Your partner is in another World!");
-			return false;
+			return null;
 		}
 		else if (partner.isInJail() || partner.isInsideZone(L2Zone.FLAG_JAIL))
 		{
 			activeChar.sendMessage("Your partner is in jail.");
-			return false;
+			return null;
 		}
 		else if (partner.isInOlympiadMode())
 		{
 			activeChar.sendMessage("Your partner is in Olympiad now.");
-			return false;
+			return null;
 		}
 		else if (partner.inObserverMode())
 		{
 			activeChar.sendMessage("Your partner is in observer mode.");
-			return false;
+			return null;
 		}
 		else if (partner.isInDuel())
 		{
 			activeChar.sendMessage("Your partner is in a duel.");
-			return false;
+			return null;
 		}
 		else if (partner.isInFunEvent())
 		{
 			activeChar.sendMessage("Your partner is in an event.");
-			return false;
+			return null;
 		}
 		else if (DimensionalRiftManager.getInstance().checkIfInRiftZone(partner.getX(), partner.getY(), partner.getZ(), false))
 		{
 			activeChar.sendMessage("Your partner is in dimensional rift.");
-			return false;
+			return null;
 		}
 		else if (partner.isFestivalParticipant())
 		{
 			activeChar.sendMessage("Your partner is in a festival.");
-			return false;
+			return null;
 		}
 		else if (siege != null && siege.getIsInProgress())
 		{
@@ -340,17 +336,17 @@ public class Wedding implements IVoicedCommandHandler
 				activeChar.sendMessage("Your partner is in siege, you can't go to her.");
 			else
 				activeChar.sendMessage("Your partner is in siege, you can't go to him.");
-			return false;
+			return null;
 		}
 		else if (partner.isCursedWeaponEquipped())
 		{
 			activeChar.sendMessage("Your partner is currently holding a cursed weapon.");
-			return false;
+			return null;
 		}
 		else if (partner.isInsideZone(L2Zone.FLAG_NOESCAPE) || partner.isInsideZone(L2Zone.FLAG_SUNLIGHTROOM) || partner.isInsideZone(L2Zone.FLAG_NOSUMMON))
 		{
 			activeChar.sendMessage("Your partner is in a unsuitable area for teleporting.");
-			return false;
+			return null;
 		}
 		else if (partner.isIn7sDungeon() && !activeChar.isIn7sDungeon())
 		{
@@ -363,7 +359,7 @@ public class Wedding implements IVoicedCommandHandler
 				if (playerCabal != compWinner)
 				{
 					activeChar.sendMessage("Your Partner is in a Seven Signs Dungeon and you are not in the winner Cabal!");
-					return false;
+					return null;
 				}
 			}
 			else
@@ -371,10 +367,22 @@ public class Wedding implements IVoicedCommandHandler
 				if (playerCabal == SevenSigns.CABAL_NULL)
 				{
 					activeChar.sendMessage("Your Partner is in a Seven Signs Dungeon and you are not registered!");
-					return false;
+					return null;
 				}
 			}
 		}
+		
+		return partner;
+	}
+
+	public boolean goToLove(L2PcInstance activeChar)
+	{
+		if (activeChar.isCastingNow() || activeChar.isMovementDisabled() || activeChar.isMuted() || activeChar.isAlikeDead())
+			return false;
+
+		L2PcInstance partner = null;
+		if ((partner = checkGoToLoveState(activeChar)) == null)
+			return false;
 
 		int teleportTimer = Config.WEDDING_TELEPORT_INTERVAL * 1000;
 
@@ -421,12 +429,15 @@ public class Wedding implements IVoicedCommandHandler
 		{
 			if (_activeChar.isDead())
 				return;
-			_activeChar.setIsIn7sDungeon(_to7sDungeon);
 			_activeChar.enableAllSkills();
 			_activeChar.setIsCastingNow(false);
 
+			if (checkGoToLoveState(_activeChar) == null)
+				return;
+
 			try
 			{
+				_activeChar.setIsIn7sDungeon(_to7sDungeon);
 				_activeChar.teleToLocation(_partnerx, _partnery, _partnerz);
 			}
 			catch (Exception e)
