@@ -2064,6 +2064,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			setIsOverloaded(getCurrentLoad() > maxLoad && !_dietMode);
 			int weightproc = getCurrentLoad() * 1000 / maxLoad;
+			weightproc = (int)calcStat(Stats.WEIGHT_LIMIT, weightproc, this, null);
 
 			if (weightproc < 500 || _dietMode)
 				newWeightPenalty = 0;

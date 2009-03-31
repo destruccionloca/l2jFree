@@ -120,6 +120,27 @@ public class AutoChatHandler implements SpawnListener
 		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
     }
 
+	public void reload()
+	{
+		// unregister all registered spawns
+		for (AutoChatInstance aci : _registeredChats.values())
+		{
+			if (aci != null)
+			{
+				// clear timer
+				if (aci._chatTask != null)
+					aci._chatTask.cancel(true);
+				removeChat(aci);
+			}
+		}
+		
+		// create clean list
+		_registeredChats.clear();
+		
+		// load
+		restoreChatData();
+	}
+
     public static AutoChatHandler getInstance()
     {
         if (_instance == null) 

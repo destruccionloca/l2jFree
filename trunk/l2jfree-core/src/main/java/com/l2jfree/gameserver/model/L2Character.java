@@ -3282,9 +3282,7 @@ public abstract class L2Character extends L2Object
 		/* Aborts any attacks/casts if fake dead */
 		abortAttack();
 		abortCast();
-		getStatus().stopHpMpRegeneration();
-		StopMove sm = new StopMove(this);
-		broadcastPacket(sm);
+		stopMove(null);
 		sendPacket(ActionFailed.STATIC_PACKET);
 		getAI().notifyEvent(CtrlEvent.EVT_FAKE_DEATH, null);
 		broadcastPacket(new ChangeWaitType(this, ChangeWaitType.WT_START_FAKEDEATH));
@@ -3332,6 +3330,7 @@ public abstract class L2Character extends L2Object
 	public final void startRooted()
 	{
 		setIsRooted(true);
+		stopMove(null);
 		getAI().notifyEvent(CtrlEvent.EVT_ROOTED, null);
 		updateAbnormalEffect();
 	}
@@ -3346,6 +3345,7 @@ public abstract class L2Character extends L2Object
 		/* Aborts any attacks/casts if sleeped */
 		abortAttack();
 		abortCast();
+		stopMove(null);
 		getAI().notifyEvent(CtrlEvent.EVT_SLEEPING, null);
 		updateAbnormalEffect();
 	}
@@ -3355,6 +3355,7 @@ public abstract class L2Character extends L2Object
 		setIsImmobileUntilAttacked(true);
 		abortAttack();
 		abortCast();
+		stopMove(null);
 		getAI().notifyEvent(CtrlEvent.EVT_SLEEPING, null);
 		updateAbnormalEffect();
 	}
@@ -3388,6 +3389,7 @@ public abstract class L2Character extends L2Object
 		/* Aborts any attacks/casts if stunned */
 		abortAttack();
 		abortCast();
+		stopMove(null);
 		getAI().notifyEvent(CtrlEvent.EVT_STUNNED, null);
 		updateAbnormalEffect();
 	}
@@ -3398,6 +3400,7 @@ public abstract class L2Character extends L2Object
 		/* Aborts any attacks/casts if paralyzed */
 		abortAttack();
 		abortCast();
+		stopMove(null);
 		getAI().notifyEvent(CtrlEvent.EVT_PARALYZED, null);
 		updateAbnormalEffect();
 	}
