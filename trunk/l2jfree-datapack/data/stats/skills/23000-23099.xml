@@ -4,7 +4,7 @@
   <skill id="23000" levels="1" name="Majo Agathion Cute Trick">
     <!-- Needs to be verified -->
     <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="UNLOCK"/>
+    <set name="skillType" val="DUMMY"/>
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -17,7 +17,7 @@
   <skill id="23001" levels="1" name="Gold Majo Agathion Cute Trick">
     <!-- Needs to be verified -->
     <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="UNLOCK"/>
+    <set name="skillType" val="DUMMY"/>
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -30,7 +30,7 @@
   <skill id="23002" levels="1" name="Black Majo Agathion Cute Trick">
     <!-- Needs to be verified -->
     <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="UNLOCK"/>
+    <set name="skillType" val="DUMMY"/>
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -43,7 +43,7 @@
   <skill id="23003" levels="1" name="Plaipitak Agathion Cute Trick">
     <!-- Needs to be verified -->
     <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="UNLOCK"/>
+    <set name="skillType" val="DUMMY"/>
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -73,7 +73,7 @@
   <skill id="23005" levels="1" name="Gold Majo Agathion Special Skill - Power of Blessed Resurrection">
     <set name="power" val="100"/>
     <set name="target" val="TARGET_CORPSE_PLAYER"/>
-    <set name="hitTime" val="25000"/>
+    <set name="hitTime" val="3000"/>
     <set name="skillType" val="RESURRECT"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
@@ -130,7 +130,7 @@
   <skill id="23009" levels="1" name="Plaipitak Agathion Special Skill - Power of Blessed Resurrection">
     <set name="power" val="100"/>
     <set name="target" val="TARGET_CORPSE_PLAYER"/>
-    <set name="hitTime" val="25000"/>
+    <set name="hitTime" val="3000"/>
     <set name="skillType" val="RESURRECT"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
@@ -144,7 +144,7 @@
   <skill id="23010" levels="1" name="Baby Panda Agathion Cute Trick">
     <!-- Needs to be verified -->
     <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="UNLOCK"/>
+    <set name="skillType" val="DUMMY"/>
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -157,7 +157,7 @@
   <skill id="23011" levels="1" name="Bamboo Panda Agathion Cute Trick">
     <!-- Needs to be verified -->
     <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="UNLOCK"/>
+    <set name="skillType" val="DUMMY"/>
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -170,7 +170,7 @@
   <skill id="23012" levels="1" name="Sexy Panda Agathion Cute Trick">
     <!-- Needs to be verified -->
     <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="UNLOCK"/>
+    <set name="skillType" val="DUMMY"/>
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -200,7 +200,7 @@
   <skill id="23014" levels="1" name="Bamboo Panda Agathion Special Skill - Power of Blessed Resurrection">
     <set name="power" val="100"/>
     <set name="target" val="TARGET_CORPSE_PLAYER"/>
-    <set name="hitTime" val="25000"/>
+    <set name="hitTime" val="3000"/>
     <set name="skillType" val="RESURRECT"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
@@ -283,7 +283,7 @@
   <skill id="23024" levels="1" name="Agathion of Love Special Skill">
     <!-- Needs to be verified -->
     <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="UNLOCK"/>
+    <set name="skillType" val="DUMMY"/>
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -296,7 +296,7 @@
   <skill id="23025" levels="1" name="Charming Cupid Agathion Cute Trick">
     <!-- Needs to be verified -->
     <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="UNLOCK"/>
+    <set name="skillType" val="DUMMY"/>
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -309,7 +309,7 @@
   <skill id="23026" levels="1" name="Naughty Cupid Agathion Cute Trick">
     <!-- Needs to be verified -->
     <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="UNLOCK"/>
+    <set name="skillType" val="DUMMY"/>
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -322,7 +322,7 @@
   <skill id="23027" levels="1" name="White Maneki Neko Agathion Cute Trick I">
     <!-- Needs to be verified -->
     <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="UNLOCK"/>
+    <set name="skillType" val="DUMMY"/>
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -335,7 +335,7 @@
   <skill id="23028" levels="1" name="Black Maneki Neko Agathion Cute Trick I">
     <!-- Needs to be verified -->
     <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="UNLOCK"/>
+    <set name="skillType" val="DUMMY"/>
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -348,7 +348,7 @@
   <skill id="23029" levels="1" name="Brown Maneki Neko Agathion Cute Trick I">
     <!-- Needs to be verified -->
     <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="UNLOCK"/>
+    <set name="skillType" val="DUMMY"/>
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -361,7 +361,7 @@
   <skill id="23030" levels="1" name="White Maneki Neko Agathion Special Skill - Blessed Resurrection Ability">
     <set name="power" val="100"/>
     <set name="target" val="TARGET_CORPSE_PLAYER"/>
-    <set name="hitTime" val="25000"/>
+    <set name="hitTime" val="3000"/>
     <set name="skillType" val="RESURRECT"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
@@ -403,7 +403,7 @@
   <skill id="23033" levels="1" name="One-Eyed Bat Drove Agathion Cute Trick">
     <!-- Needs to be verified -->
     <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="UNLOCK"/>
+    <set name="skillType" val="DUMMY"/>
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -440,7 +440,7 @@
   <skill id="23036" levels="1" name="Pegasus Agathion Cute Trick">
     <!-- Needs to be verified -->
     <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="UNLOCK"/>
+    <set name="skillType" val="DUMMY"/>
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -484,7 +484,7 @@
   <skill id="23039" levels="1" name="Yellow-Robed Tojigong Agathion Cute Trick">
     <!-- Needs to be verified -->
     <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="UNLOCK"/>
+    <set name="skillType" val="DUMMY"/>
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -497,7 +497,7 @@
   <skill id="23040" levels="1" name="Blue-Robed Tojigong Agathion Cute Trick">
     <!-- Needs to be verified -->
     <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="UNLOCK"/>
+    <set name="skillType" val="DUMMY"/>
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -510,7 +510,7 @@
   <skill id="23041" levels="1" name="Green-Robed Tojigong Agathion Cute Trick">
     <!-- Needs to be verified -->
     <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="UNLOCK"/>
+    <set name="skillType" val="DUMMY"/>
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -550,7 +550,7 @@
   <skill id="23045" levels="1" name="Bugbear Agathion Cute Trick">
     <!-- Needs to be verified -->
     <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="UNLOCK"/>
+    <set name="skillType" val="DUMMY"/>
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -563,7 +563,7 @@
   <skill id="23046" levels="1" name="White Maneki Neko Agathion Cute Trick II">
     <!-- Needs to be verified -->
     <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="UNLOCK"/>
+    <set name="skillType" val="DUMMY"/>
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -576,7 +576,7 @@
   <skill id="23047" levels="1" name="Black Maneki Neko Agathion Cute Trick II">
     <!-- Needs to be verified -->
     <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="UNLOCK"/>
+    <set name="skillType" val="DUMMY"/>
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -589,7 +589,7 @@
   <skill id="23048" levels="1" name="Brown Maneki Neko Agathion Cute Trick II">
     <!-- Needs to be verified -->
     <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="UNLOCK"/>
+    <set name="skillType" val="DUMMY"/>
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>

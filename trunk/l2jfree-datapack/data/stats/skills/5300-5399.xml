@@ -7,6 +7,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="3200"/>
   </skill>
   <skill id="5301" levels="9" name="Stun">
     <!--
@@ -17,6 +18,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="830"/>
   </skill>
   <skill id="5302" levels="9" name="Poison">
     <!--
@@ -27,6 +29,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="830"/>
   </skill>
   <skill id="5303" levels="9" name="Bleed">
     <!--
@@ -37,16 +40,15 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="830"/>
   </skill>
   <skill id="5304" levels="9" name="Paralysis">
-    <!--
-      Description(s):
-      A temporary paralysis which prevents movement.
-    -->
+    <!-- Description(s): A temporary paralysis which prevents movement. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="830"/>
   </skill>
   <skill id="5305" levels="9" name="Poison">
     <!--
@@ -57,16 +59,15 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="1000"/>
   </skill>
   <skill id="5306" levels="9" name="Paralysis">
-    <!--
-      Description(s):
-      A temporary paralysis which prevents movement.
-    -->
+    <!-- Description(s): A temporary paralysis which prevents movement. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="1000"/>
   </skill>
   <skill id="5307" levels="9" name="Stun">
     <!--
@@ -77,6 +78,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4500"/>
   </skill>
   <skill id="5308" levels="9" name="Poison">
     <!--
@@ -87,6 +89,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4500"/>
   </skill>
   <skill id="5309" levels="9" name="Bleed">
     <!--
@@ -97,6 +100,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4500"/>
   </skill>
   <skill id="5310" levels="9" name="NPC(party) - Magic Close Range DD - less powerful">
     <table name="#mpConsume"> 35 45 55 65 69 73 75 77 78 </table>
@@ -125,7 +129,7 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="8000"/>
-    <set name="hitTime" val="1500"/>
+    <set name="hitTime" val="1000"/>
     <set name="skillType" val="MDAM"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -137,12 +141,14 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="5313" levels="9" name="NPC(party) -Magic Range Long Range DD - Fire">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="5000"/>
   </skill>
   <skill id="5314" levels="9" name="NPC(party) -Magic Range Close Range DD - Fire">
     <table name="#mpConsume"> 35 45 55 65 69 72 75 77 78 </table>
@@ -154,7 +160,7 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="hitTime" val="2500"/>
+    <set name="hitTime" val="4000"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="750"/>
@@ -171,24 +177,28 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="5317" levels="9" name="NPC(party) -Magic Range Long Range DD - Water">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="5318" levels="9" name="NPC(party) -Magic Range Close Range DD - Water">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="5319" levels="9" name="NPC(party) -Magic Single Long Range DD - Wind">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="5320" levels="9" name="NPC(party) -Magic Range Long Range DD - Wind">
     <table name="#mpConsume"> 35 45 55 65 69 72 75 77 78 </table>
@@ -200,7 +210,7 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="hitTime" val="2500"/>
+    <set name="hitTime" val="4000"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="750"/>
@@ -216,7 +226,7 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="hitTime" val="2500"/>
+    <set name="hitTime" val="4000"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="300"/>
@@ -227,18 +237,21 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="5323" levels="9" name="NPC(party) -Magic Range Long Range DD - Earth">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="5324" levels="9" name="NPC(party) -Magic Range Close Range DD - Earth">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="5325" levels="9" name="NPC(party) -Magic Single Long Range DD - Holy">
     <table name="#mpConsume"> 35 45 55 65 69 73 75 77 78 </table>
@@ -263,24 +276,28 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="5327" levels="9" name="NPC(party) -Magic Range Close Range DD - Holy">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="5328" levels="9" name="NPC(party) -Magic Single Long Range DD - Dark">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="5329" levels="9" name="NPC(party) -Magic Range Long Range DD - Holy">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="5330" levels="9" name="NPC(party) -Magic Range Close Range DD - Holy">
     <table name="#mpConsume"> 35 45 55 65 69 73 75 77 78 </table>
@@ -293,7 +310,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="5"/><!-- Holy -->
     <set name="reuseDelay" val="8000"/>
-    <set name="hitTime" val="1500"/>
+    <set name="hitTime" val="4000"/>
     <set name="skillType" val="MDAM"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -324,7 +341,7 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="reuseDelay" val="13000"/>
-    <set name="hitTime" val="2000"/>
+    <set name="hitTime" val="4000"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="MANADAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -341,6 +358,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="5334" levels="9" name="NPC(party) - Physical Single Close Range Attack">
     <table name="#mpConsume"> 13 20 28 38 50 61 71 76 80 83 84 85 </table>
@@ -353,7 +371,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="2"/><!-- Fire -->
     <set name="reuseDelay" val="6000"/>
-    <set name="hitTime" val="1000"/>
+    <set name="hitTime" val="830"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
@@ -364,30 +382,35 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4500"/>
   </skill>
   <skill id="5336" levels="9" name="NPC(party) - Physical Range Close Range Attack">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="1000"/>
   </skill>
   <skill id="5337" levels="9" name="NPC(party) - Physical Range Long Range Attack">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="3200"/>
   </skill>
   <skill id="5338" levels="9" name="NPC(party) - Physical Single Close Range Attack - Fire">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="830"/>
   </skill>
   <skill id="5339" levels="9" name="NPC(party) - Physical Single Long Range Attack - Fire">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4500"/>
   </skill>
   <skill id="5340" levels="9" name="NPC(party) - Physical Range Close Range Attack - Fire">
     <table name="#mpConsume"> 13 20 28 38 50 61 71 76 80 83 84 85 </table>
@@ -411,108 +434,126 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="3200"/>
   </skill>
   <skill id="5342" levels="9" name="NPC(party) - Physical Single Close Range Attack - Water">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="830"/>
   </skill>
   <skill id="5343" levels="9" name="NPC(party) - Physical Single Long Range Attack - Water">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4500"/>
   </skill>
   <skill id="5344" levels="9" name="NPC(party) - Physical Range Close Range Attack - Water">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="1000"/>
   </skill>
   <skill id="5345" levels="9" name="NPC(party) - Physical Range Long Range Attack - Water">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="3200"/>
   </skill>
   <skill id="5346" levels="9" name="NPC(party) - Physical Single Close Range Attack - Wind">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="830"/>
   </skill>
   <skill id="5347" levels="9" name="NPC(party) - Physical Single Long Range Attack - Wind">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4500"/>
   </skill>
   <skill id="5348" levels="9" name="NPC(party) - Physical Range Close Range Attack - Wind">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="1000"/>
   </skill>
   <skill id="5349" levels="9" name="NPC(party) - Physical Range Long Range Attack - Wind">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="3200"/>
   </skill>
   <skill id="5350" levels="9" name="NPC(party) - Physical Single Close Range Attack - Earth">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="3000"/>
   </skill>
   <skill id="5351" levels="9" name="NPC(party) - Physical Single Long Range Attack - Earth">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4500"/>
   </skill>
   <skill id="5352" levels="9" name="NPC(party) - Physical Range Close Range Attack - Earth">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="1000"/>
   </skill>
   <skill id="5353" levels="9" name="NPC(party) - Physical Range Long Range Attack - Earth">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="3200"/>
   </skill>
   <skill id="5354" levels="9" name="NPC(party) - Physical Single Close Range Attack - Holy">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="830"/>
   </skill>
   <skill id="5355" levels="9" name="NPC(party) - Physical Single Long Range Attack - Holy">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4500"/>
   </skill>
   <skill id="5356" levels="9" name="NPC(party) - Physical Range Close Range Attack - Holy">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="1000"/>
   </skill>
   <skill id="5357" levels="9" name="NPC(party) - Physical Range Long Range Attack - Holy">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="3200"/>
   </skill>
   <skill id="5358" levels="9" name="NPC(party) - Physical Single Close Range Attack - Dark">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="1000"/>
   </skill>
   <skill id="5359" levels="9" name="NPC(party) - Physical Single Long Range Attack - Dark">
     <table name="#mpConsume"> 13 20 28 38 50 61 71 76 80 83 84 85 </table>
@@ -525,7 +566,7 @@
     <set name="element" val="6"/><!-- Dark -->
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="6000"/>
-    <set name="hitTime" val="1000"/>
+    <set name="hitTime" val="2000"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="80"/>
@@ -553,6 +594,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="3200"/>
   </skill>
   <skill id="5362" levels="9" name="Stun">
     <table name="#mpConsume"> 32 45 63 83 106 129 150 158 164 168 170 173 </table>
@@ -563,7 +605,7 @@
     <set name="power" val="#power"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="hitTime" val="4500"/>
+    <set name="hitTime" val="830"/>
     <set name="isDebuff" val="true"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -594,16 +636,15 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="830"/>
   </skill>
   <skill id="5365" levels="9" name="Paralysis">
-    <!--
-      Description(s):
-      A temporary paralysis which prevents movement.
-    -->
+    <!-- Description(s): A temporary paralysis which prevents movement. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="830"/>
   </skill>
   <skill id="5366" levels="9" name="Poison">
     <!--
@@ -614,6 +655,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="1000"/>
   </skill>
   <skill id="5367" levels="9" name="Paralysis">
     <!--
@@ -624,6 +666,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="1000"/>
   </skill>
   <skill id="5368" levels="9" name="Stun">
     <!--
@@ -634,6 +677,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4500"/>
   </skill>
   <skill id="5369" levels="9" name="Poison">
     <!--
@@ -644,6 +688,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4500"/>
   </skill>
   <skill id="5370" levels="9" name="Bleed">
     <!--
@@ -654,36 +699,42 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4500"/>
   </skill>
   <skill id="5371" levels="9" name="NPC(party) - Magic Close Range DD - less powerful">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="1500"/>
   </skill>
   <skill id="5372" levels="9" name="NPC(party) - Magic Close Range Range DD - less powerful">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="1000"/>
   </skill>
   <skill id="5373" levels="9" name="NPC(party) -Magic Single Long Range DD - Fire">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="5374" levels="9" name="NPC(party) -Magic Range Long Range DD - Fire">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="5000"/>
   </skill>
   <skill id="5375" levels="9" name="NPC(party) -Magic Range Close Range DD - Fire">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="5376" levels="9" name="NPC(party) -Magic Range Close Range DD - Fire(Self-Destruction)">
     <set name="target" val="TARGET_NONE"/>
@@ -696,18 +747,21 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="5378" levels="9" name="NPC(party) -Magic Range Long Range DD - Water">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="5379" levels="9" name="NPC(party) -Magic Range Close Range DD - Water">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="5380" levels="9" name="NPC(party) -Magic Single Long Range DD - Wind">
     <table name="#mpConsume"> 35 45 55 65 69 72 75 77 78 </table>
@@ -719,7 +773,7 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="hitTime" val="2500"/>
+    <set name="hitTime" val="4000"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="300"/>
@@ -735,7 +789,7 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="hitTime" val="2500"/>
+    <set name="hitTime" val="4000"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="750"/>
@@ -751,7 +805,7 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="hitTime" val="2500"/>
+    <set name="hitTime" val="4000"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="900"/>
@@ -762,18 +816,21 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="5384" levels="9" name="NPC(party) -Magic Range Long Range DD - Earth">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="5385" levels="9" name="NPC(party) -Magic Range Close Range DD - Earth">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="5000"/>
   </skill>
   <skill id="5386" levels="9" name="NPC(party) -Magic Single Long Range DD - Holy">
     <table name="#mpConsume"> 35 45 55 65 69 73 75 77 78 </table>
@@ -798,30 +855,35 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="5388" levels="9" name="NPC(party) -Magic Range Close Range DD - Holy">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="5389" levels="9" name="NPC(party) -Magic Single Long Range DD - Dark">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="5390" levels="9" name="NPC(party) -Magic Range Long Range DD - Holy">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="5391" levels="9" name="NPC(party) -Magic Range Close Range DD - Holy">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="5392" levels="9" name="NPC HP Drain">
     <table name="#mpConsume"> 53 68 83 98 104 109 112 115 117 </table>
@@ -866,7 +928,7 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="8000"/>
-    <set name="hitTime" val="2000"/>
+    <set name="hitTime" val="4000"/>
     <set name="skillType" val="POISON"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -881,12 +943,14 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="2000"/>
   </skill>
   <skill id="5396" levels="1" name="NPC - Spell Stance">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="15000"/>
   </skill>
   <skill id="5397" levels="3" name="NPC - Spell Force">
     <set name="target" val="TARGET_NONE"/>
@@ -899,6 +963,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="5000"/>
   </skill>
   <skill id="5399" levels="1" name="Heat of Desert">
     <set name="target" val="TARGET_SELF"/>

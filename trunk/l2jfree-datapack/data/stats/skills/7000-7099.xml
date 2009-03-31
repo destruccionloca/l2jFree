@@ -841,8 +841,7 @@
   </skill>
   <skill id="7064" levels="1" name="Master's Blessing - Chant of Victory">
     <!--
-      A GM is always by your side. The spirit of an ancient
-      hero temporarily possesses the target.
+      A GM is always by your side. The spirit of an ancient hero temporarily possesses the target.
     -->
     <set name="mpConsume" val="2"/>
     <set name="magicLvl" val="1"/>
@@ -876,30 +875,35 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="800"/>
   </skill>
   <skill id="7066" levels="1" name="Test Stun Charge">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="800"/>
   </skill>
   <skill id="7067" levels="1" name="Test Range Charge">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="800"/>
   </skill>
   <skill id="7068" levels="1" name="Test Steal Abnormal State">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="2000"/>
   </skill>
   <skill id="7069" levels="1" name="Test Abnormal State DD">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="2000"/>
   </skill>
   <skill id="7070" levels="1" name="Test - Soul Eating Passive">
     <set name="target" val="TARGET_NONE"/>
@@ -912,36 +916,42 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="900"/>
   </skill>
   <skill id="7072" levels="1" name="Test - Basic Trap">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="3000"/>
   </skill>
   <skill id="7073" levels="1" name="Test - Find Trap">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="1000"/>
   </skill>
   <skill id="7074" levels="1" name="Test - Cancel Trap">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="7075" levels="1" name="Test - Distance DD">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="7076" levels="1" name="Test - Delay Debuff">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="1080"/>
   </skill>
   <skill id="7077" levels="1" name="Test - Delay Debuff - Call">
     <!-- Currently stunned. -->
@@ -1040,7 +1050,7 @@
     <set name="mpInitialConsume" val="19"/>
     <set name="mpConsume" val="76"/>
     <set name="target" val="TARGET_SELF"/>
-    <set name="hitTime" val="1000"/>
+    <set name="hitTime" val="4000"/>
     <set name="coolTime" val="666"/>
     <set name="isMagic" val="true"/>
     <set name="skillType" val="MDAM"/>
