@@ -37,6 +37,13 @@ public abstract class L2DefaultTransformation extends L2Transformation
 	{
 		super(id, graphicalId, collisionRadius, collisionHeight);
 	}
+	
+	@Override
+	public void addSkill(L2PcInstance player, int skillId, int skillLevel)
+	{
+		player.addTransformAllowedSkill(skillId);
+		super.addSkill(player, skillId, skillLevel);
+	}
 
 	@Override
 	public void onTransform(L2PcInstance player)

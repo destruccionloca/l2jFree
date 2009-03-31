@@ -667,7 +667,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	private int								_fishy					= 0;
 	private int								_fishz					= 0;
 
-	private int[]							_transformAllowedSkills = {};
+	private List<Integer>					_transformAllowedSkills				= new FastList<Integer>();
 
 	private int								_team					= 0;
 	private int								_wantsPeace				= 0;
@@ -10234,19 +10234,21 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	public void setTransformAllowedSkills(int[] ids)
 	{
-		_transformAllowedSkills = ids;
+		_transformAllowedSkills.clear();
+		for(int id:ids)
+		{
+			addTransformAllowedSkill(id);
+		}
+	}
+	
+	public void addTransformAllowedSkill(int id)
+	{
+		_transformAllowedSkills.add(id);
 	}
 
 	public boolean containsAllowedTransformSkill(int id)
 	{
-		for (Integer i : _transformAllowedSkills)
-		{
-			if (i.intValue() == id)
-			{
-				return true;
-			}
-		}
-		return false;
+		return _transformAllowedSkills.contains(id);
 	}
 
 	/** Section for mounted pets */
