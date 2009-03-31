@@ -10241,6 +10241,14 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 	}
 	
+	public void addTransformAllowedSkill(int[] ids)
+	{
+		for(int id:ids)
+		{
+			addTransformAllowedSkill(id);
+		}
+	}
+	
 	public void addTransformAllowedSkill(int id)
 	{
 		_transformAllowedSkills.add(id);
