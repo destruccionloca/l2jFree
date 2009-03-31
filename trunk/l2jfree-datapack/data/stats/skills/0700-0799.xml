@@ -6,12 +6,14 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="7000"/>
   </skill>
   <skill id="701" levels="1" name="Divine Healer Resurrection">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="6000"/>
   </skill>
   <skill id="702" levels="1" name="Divine Healer Clans">
     <set name="mpInitialConsume" val="11"/>
@@ -24,7 +26,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
     <set name="castRange" val="600"/>
-    <set name="effectRange" val="1100"/>
+    <set name="effectRange" val="1800"/>
     <set name="aggroPoints" val="624"/>
   </skill>
   <skill id="703" levels="1" name="Sacrifice Healer">
@@ -32,42 +34,49 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="704" levels="1" name="Divine Enchanter Water Spirit">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="705" levels="1" name="Divine Enchanter Fire Spirit">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="706" levels="1" name="Divine Enchanter Wind Spirit">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="707" levels="1" name="Divine Enchanter Hero Spirit">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="2500"/>
   </skill>
   <skill id="708" levels="1" name="Divine Enchanter Mass Binding">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="709" levels="1" name="Sacrifice Enchanter">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="2500"/>
   </skill>
   <skill id="710" levels="1" name="Divine Summoner Summon Divine Beast">
     <set name="mpInitialConsume" val="28"/>
@@ -103,18 +112,21 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="713" levels="1" name="Divine Summoner Servitor Hill">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="714" levels="1" name="Sacrifice Summoner">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="2500"/>
   </skill>
   <skill id="715" levels="4" name="Zaken Energy Drain">
     <table name="#mpConsume">60 65 69 72</table>
@@ -221,7 +233,7 @@
     <set name="skillRadius" val="150"/>
     <set name="element" val="5"/><!-- Holy -->
     <set name="reuseDelay" val="6000"/>
-    <set name="hitTime" val="3000"/>
+    <set name="hitTime" val="2000"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="700"/>
@@ -238,7 +250,7 @@
     <set name="skillRadius" val="150"/>
     <set name="element" val="5"/><!-- Holy -->
     <set name="reuseDelay" val="10000"/>
-    <set name="hitTime" val="3000"/>
+    <set name="hitTime" val="2000"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="700"/>
@@ -527,18 +539,21 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="1200"/>
   </skill>
   <skill id="743" levels="3" name="Vale Master Dark Explosion">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="1800"/>
   </skill>
   <skill id="744" levels="3" name="Vale Master Dark Flare">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="1800"/>
   </skill>
   <skill id="745" levels="3" name="Vale Master Dark Cure">
     <table name="#mpInitialConsume"> 5 6 7 </table>
@@ -666,18 +681,21 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="1080"/>
   </skill>
   <skill id="753" levels="3" name="Doll Blader Throwing Knife">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="3200"/>
   </skill>
   <skill id="754" levels="1" name="Doll Blader Clairvoyance">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="755" levels="1" name="Protection of Rune">
     <set name="target" val="TARGET_NONE"/>
@@ -985,6 +1003,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="1000"/>
   </skill>
   <skill id="775" levels="1" name="Weapon Blockade">
     <!-- by Sephiroth -->
@@ -1050,7 +1069,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="hitTime" val="1500"/>
+    <set name="hitTime" val="2500"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="transformId" val="259"/>
     <set name="castRange" val="-1"/>
@@ -1340,6 +1359,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="1200"/>
   </skill>
   <skill id="793" levels="1" name="Rush Impact">
     <set name="castRange" val="600"/>
@@ -1391,24 +1411,28 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="830"/>
   </skill>
   <skill id="796" levels="1" name="Divine Knight Explosion Attack">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="830"/>
   </skill>
   <skill id="797" levels="1" name="Divine Rogue Piercing Attack">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="830"/>
   </skill>
   <skill id="798" levels="1" name="Divine Warrior Assault Attack">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="1080"/>
   </skill>
   <skill id="799" levels="3" name="Master Ability - Defense">
     <set name="target" val="TARGET_NONE"/>

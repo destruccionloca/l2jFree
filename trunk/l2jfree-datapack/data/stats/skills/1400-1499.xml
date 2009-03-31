@@ -246,7 +246,7 @@
     <set name="mpConsume" val="25"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="120000"/>
-    <set name="hitTime" val="150"/>
+    <set name="hitTime" val="500"/>
     <set name="skillType" val="CANCEL"/>
     <set name="skill_landing_percent" val="100"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -405,7 +405,7 @@
     <set name="target" val="TARGET_GROUND"/>
     <set name="skillType" val="SIGNET_CASTTIME"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="hitTime" val="16000"/>
+    <set name="hitTime" val="15000"/>
     <set name="reuseDelay" val="300000"/>
     <set name="castRange" val="900"/>
     <set name="skillRadius" val="180"/>
@@ -432,7 +432,7 @@
     <set name="target" val="TARGET_GROUND"/>
     <set name="skillType" val="SIGNET_CASTTIME"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="hitTime" val="16000"/>
+    <set name="hitTime" val="15000"/>
     <set name="reuseDelay" val="300000"/>
     <set name="castRange" val="900"/>
     <set name="skillRadius" val="180"/>
@@ -459,7 +459,7 @@
     <set name="target" val="TARGET_GROUND"/>
     <set name="skillType" val="SIGNET_CASTTIME"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="hitTime" val="16000"/>
+    <set name="hitTime" val="15000"/>
     <set name="reuseDelay" val="300000"/>
     <set name="castRange" val="900"/>
     <set name="skillRadius" val="180"/>
@@ -520,7 +520,7 @@
     <set name="target" val="TARGET_GROUND"/>
     <set name="skillType" val="SIGNET_CASTTIME"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="hitTime" val="16000"/>
+    <set name="hitTime" val="15000"/>
     <set name="reuseDelay" val="300000"/>
     <set name="castRange" val="900"/>
     <set name="skillRadius" val="180"/>
@@ -582,7 +582,7 @@
     <set name="staticReuse" val="true"/>
     <set name="skillType" val="NEGATE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="hitTime" val="4000"/>
+    <set name="hitTime" val="5000"/>
     <set name="reuseDelay" val="1800000"/>
     <set name="isMagic" val="false"/>
     <set name="castRange" val="-1"/>
@@ -678,7 +678,7 @@
     <table name="#mpConsume">27 28 30 33 34</table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_SELF"/>
-    <set name="hitTime" val="1000"/>
+    <set name="hitTime" val="2000"/>
     <set name="reuseDelay" val="900000"/>
     <set name="skillType" val="BUFF"/>
     <set name="staticReuse" val="true"/>
@@ -1164,6 +1164,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="2500"/>
   </skill>
   <skill id="1450" levels="1" name="Chain Lightning">
     <!--
@@ -1175,6 +1176,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="soulMaxConsumeCount" val="5"/>
+    <set name="hitTime" val="5000"/>
   </skill>
   <skill id="1451" levels="1" name="Fire Vortex Buster">
     <set name="mpInitialConsume" val="28"/>
@@ -1402,7 +1404,7 @@
     <set name="effectPower" val="80"/> <!-- Base Land Rate -->
     <set name="effectRange" val="-1"/>
     <set name="effectType" val="MUTE"/>
-    <set name="hitTime" val="6000"/>
+    <set name="hitTime" val="4000"/>
     <set name="isDebuff" val="true"/>
     <set name="isMagic" val="true"/>
     <set name="lvlDepend" val="1"/>
@@ -1425,6 +1427,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="1464" levels="1" name="Ice Weapon">
     <!-- Description(s): Adds water damage to a physical attack. -->
@@ -1432,6 +1435,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="1465" levels="1" name="Wind Weapon">
     <!-- Description(s): Adds wind damage to a physical attack. -->
@@ -1439,6 +1443,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="1466" levels="1" name="Earth Weapon">
     <!-- Description(s): Bestows the earth elemental to a physical attack. -->
@@ -1446,6 +1451,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="1467" levels="1" name="Meteor">
     <!-- Done by DJ MELERIX -->
@@ -1455,7 +1461,7 @@
     <set name="isMagic" val="true"/>
     <set name="mpConsume" val="109"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="power" val="1000"/> <!-- Guessing -->
+    <set name="power" val="100"/> <!-- Guessing -->
     <set name="skillType" val="MDAM"/>
     <set name="target" val="TARGET_AREA"/>
   </skill>
@@ -1467,7 +1473,7 @@
     <set name="isMagic" val="true"/>
     <set name="mpConsume" val="109"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="power" val="1000"/> <!-- Guessing -->
+    <set name="power" val="100"/> <!-- Guessing -->
     <set name="skillType" val="MDAM"/>
     <set name="target" val="TARGET_AREA"/>
   </skill>
@@ -1522,12 +1528,11 @@
   </skill>
   <skill id="1472" levels="1" name="Soul Sucking">
     <!-- Needs core support similar to signets -->
-    <set name="target" val="TARGET_ONE"/>
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
-    <set name="hitTime" val="12000"/>
+    <set name="hitTime" val="15000"/>
     <set name="reuseDelay" val="80000"/>
     <set name="castRange" val="900"/>
   </skill>
@@ -1686,6 +1691,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="2500"/>
   </skill>
   <skill id="1481" levels="7" name="Obilivion">
     <!--
@@ -1697,6 +1703,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="3000"/>
   </skill>
   <skill id="1482" levels="4" name="Weak Constitution">
     <!--
@@ -1708,6 +1715,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="3000"/>
   </skill>
   <skill id="1483" levels="7" name="Thin Skin">
     <!--
@@ -1719,6 +1727,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="3000"/>
   </skill>
   <skill id="1484" levels="4" name="Enervation">
     <!--
@@ -1730,6 +1739,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="3000"/>
   </skill>
   <skill id="1485" levels="3" name="Spite">
     <!--
@@ -1741,6 +1751,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="3000"/>
   </skill>
   <skill id="1486" levels="4" name="Mental Impoverish">
     <!--
@@ -1752,6 +1763,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="3000"/>
   </skill>
   <skill id="1487" levels="8" name="Restoration">
     <table name="#mpConsume_Init"> 21 25 14 16 17 19 20 20 </table>
@@ -1821,30 +1833,35 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="1493" levels="1" name="Frost Armor">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="1494" levels="1" name="Hurricane Armor">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="1495" levels="1" name="Vampiric Mist">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="1496" levels="1" name="Servitor Barrier">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="2500"/>
   </skill>
   <skill id="1497" levels="1" name="Excessive Loyalty">
     <set name="target" val="TARGET_NONE"/>

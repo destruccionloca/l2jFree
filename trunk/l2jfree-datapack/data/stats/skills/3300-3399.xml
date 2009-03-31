@@ -160,6 +160,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="3322" levels="1" name="Brass Bracelet">
     <set name="target" val="TARGET_NONE"/>
@@ -209,6 +210,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
+    <set name="hitTime" val="1670"/>
   </skill>
   <skill id="3329" levels="1" name="Power Slash">
     <set name="target" val="TARGET_NONE"/>
@@ -216,6 +218,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
+    <set name="hitTime" val="1670"/>
   </skill>
   <skill id="3330" levels="1" name="Air Blade">
     <set name="target" val="TARGET_NONE"/>
@@ -223,6 +226,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
+    <set name="hitTime" val="1080"/>
   </skill>
   <skill id="3331" levels="1" name="Enslave">
     <set name="target" val="TARGET_NONE"/>
@@ -230,6 +234,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
+    <set name="hitTime" val="3000"/>
   </skill>
   <skill id="3332" levels="1" name="Orange Talisman - Hot Springs Recovery">
     <set name="target" val="TARGET_NONE"/>
@@ -237,6 +242,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
+    <set name="hitTime" val="20000"/>
   </skill>
   <skill id="3333" levels="1" name="Orange Talisman - A Grade Elixir of Life">
     <set name="target" val="TARGET_NONE"/>
@@ -244,6 +250,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
+    <set name="hitTime" val="20000"/>
   </skill>
   <skill id="3334" levels="1" name="Orange Talisman - A Grade Elixir of Mental Strength">
     <set name="target" val="TARGET_NONE"/>
@@ -251,6 +258,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
+    <set name="hitTime" val="20000"/>
   </skill>
   <skill id="3335" levels="1" name="Transform Yeti">
     <!-- Done by Skatershi - Description: Transforms into Yeti. -->

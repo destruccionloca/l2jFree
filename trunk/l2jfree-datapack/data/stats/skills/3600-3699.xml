@@ -47,10 +47,10 @@
   </skill>
   <skill id="3602" levels="9" name="Special Ability: Guidance">
     <!--
-      Description(s): Lvl 1: Increases Atk. Spd., and enables the character to attack multiple
-      opponents and inflicts additional damage during PvP. Lvl 2-6: Increases Accuracy, and enables
-      the character to attack multiple opponents. Lvl 7-9: Increases Accuracy, and enables the
-      character to attack multiple opponents and inflicts additional damage during PvP.
+      Lvl 1 - Increases Atk. Spd., and enables the character to attack multiple opponents
+              and inflicts additional damage during PvP.
+      Lvl 2-6 - Increases Accuracy, and enables the character to attack multiple opponents.
+      Lvl 7-9 - Increases Accuracy, and enables the character to attack multiple opponents and inflicts additional damage during PvP.
     -->
     <table name="#val"> 6.88 6.07 5.72 5.37 5.02 4.68 4.34 3.95 5.27 </table>
     <set name="target" val="TARGET_SELF"/>
@@ -383,13 +383,14 @@
   </skill>
   <skill id="3626" levels="1" name="Kabokula">
     <!--
-      Description(s):
-         Used when trapping a roaring Tyrannosaurus. Has no effect for other actions. Consumes 1 Trap Stone.
+      Description(s): Used when trapping a roaring Tyrannosaurus.
+        Has no effect for other actions. Consumes 1 Trap Stone.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="25000"/>
   </skill>
   <skill id="3627" levels="1" name="Tapirawa">
     <!--
@@ -400,6 +401,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="25000"/>
   </skill>
   <skill id="3628" levels="1" name="Shabonoba">
     <!--
@@ -410,6 +412,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="25000"/>
   </skill>
   <skill id="3629" levels="10" name="Blood Sword Akamanah">
     <!-- Needs to be finished - below is a copy of 3603 Demon Sword Zariche -->
@@ -470,6 +473,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="10000"/>
   </skill>
   <skill id="3633" levels="2" name="Residential Shock Immunity">
     <table name="#vuln">0.5 0</table>
@@ -859,12 +863,14 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="3665" levels="2" name="Red Talisman - CP Regeneration">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="3666" levels="1" name="Yellow Talisman - Increase Force">
     <set name="target" val="TARGET_NONE"/>

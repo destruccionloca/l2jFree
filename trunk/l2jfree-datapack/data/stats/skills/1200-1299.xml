@@ -2493,7 +2493,7 @@
     <set name="magicLvl" val="68"/>
     <set name="power" val="150"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="hitTime" val="7000"/>
+    <set name="hitTime" val="4000"/>
     <set name="skillType" val="MDAM"/>
     <set name="isMagic" val="true"/>
     <set name="reuseDelay" val="3600000"/>
@@ -2507,7 +2507,7 @@
     <set name="magicLvl" val="70"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="2"/><!-- Fire -->
-    <set name="hitTime" val="7000"/>
+    <set name="hitTime" val="4000"/>
     <set name="skillType" val="MDAM"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="isDebuff" val="true"/>
@@ -2530,7 +2530,7 @@
     <set name="power" val="150"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="3"/><!-- Water -->
-    <set name="hitTime" val="7000"/>
+    <set name="hitTime" val="4000"/>
     <set name="skillType" val="MDAM"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="isMagic" val="true"/>
@@ -2553,7 +2553,7 @@
     <set name="power" val="150"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="1"/><!-- Wind -->
-    <set name="hitTime" val="7000"/>
+    <set name="hitTime" val="4000"/>
     <set name="skillType" val="MDAM"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="isMagic" val="true"/>
@@ -2575,7 +2575,7 @@
     <set name="magicLvl" val="72"/>
     <set name="power" val="200"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="hitTime" val="7000"/>
+    <set name="hitTime" val="4000"/>
     <set name="skillType" val="MDAM"/>
     <set name="isMagic" val="true"/>
     <set name="overHit" val="true"/>
@@ -2590,7 +2590,7 @@
     <set name="magicLvl" val="72"/>
     <set name="power" val="200"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="hitTime" val="7000"/>
+    <set name="hitTime" val="4000"/>
     <set name="skillType" val="MDAM"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="isMagic" val="true"/>
@@ -2605,7 +2605,7 @@
     <set name="magicLvl" val="72"/>
     <set name="power" val="200"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="hitTime" val="7000"/>
+    <set name="hitTime" val="4000"/>
     <set name="skillType" val="MDAM"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="isMagic" val="true"/>
