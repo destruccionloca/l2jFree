@@ -48,6 +48,9 @@ public abstract class L2DefaultTransformation extends L2Transformation
 	@Override
 	public void onTransform(L2PcInstance player)
 	{
+		if (player.getTransformationId() != getId() || player.isCursedWeaponEquipped())
+			return;
+		
 		// give transformation skills
 		transformedSkills(player);
 
