@@ -199,7 +199,7 @@
     <set name="effectRange" val="1400"/>
     <set name="effectType" val="DEBUFF"/>
     <set name="effectPower" val="80"/>
-    <set name="soulMaxConsumeCount" val="5"/>
+    <set name="soulConsumeCount" val="5"/> <!-- Temp fix till "soulMaxConsumeCount" gets fixed -->
     <for>
       <effect count="5" name="ManaDamOverTime" time="2" val="40">
         <mul order="0x30" stat="runSpd" val="0.7"/>
@@ -227,7 +227,7 @@
     <set name="effectRange" val="1400"/>
     <set name="effectType" val="NEGATE"/>
     <set name="negateId" val="1512"/>
-    <set name="soulMaxConsumeCount" val="5"/>
+    <set name="soulConsumeCount" val="5"/> <!-- Temp fix till "soulMaxConsumeCount" gets fixed -->
     <cond msgId="109">
       <target active_effect_id="1512"/>
     </cond>
@@ -271,7 +271,7 @@
     <set name="power" val="166"/>
     <set name="reuseDelay" val="10000"/> <!-- Guessing -->
     <set name="skillType" val="MDAM"/>
-    <set name="soulMaxConsumeCount" val="5"/>
+    <set name="soulConsumeCount" val="5"/> <!-- Temp fix till "soulMaxConsumeCount" gets fixed -->
     <set name="target" val="TARGET_ONE"/>
   </skill>
   <skill id="1517" levels="1" name="Chant of Combat">

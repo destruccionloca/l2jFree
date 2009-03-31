@@ -14,7 +14,7 @@
     <set name="operateType" val="OP_TOGGLE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <set name="soulMaxConsumeCount" val="5"/>
+    <set name="soulConsumeCount" val="5"/> <!-- Temp fix till "soulMaxConsumeCount" gets fixed -->
     <for>
       <effect count="0x7fffffff" name="ManaDamOverTime" time="3" val="#dmg">
         <mul order="0x30" stat="pAtk" val="#pAtk"/>
@@ -106,7 +106,7 @@
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
     <set name="critChance" val="15"/>
-    <set name="soulMaxConsumeCount" val="5"/>
+    <set name="soulConsumeCount" val="5"/> <!-- Temp fix till "soulMaxConsumeCount" gets fixed -->
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant1 name="power" val="#ench1Power"/>
@@ -140,7 +140,7 @@
     <set name="overHit" val="true"/>
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
-    <set name="soulMaxConsumeCount" val="5"/>
+    <set name="soulConsumeCount" val="5"/> <!-- Temp fix till "soulMaxConsumeCount" gets fixed -->
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant1 name="power" val="#ench1Power"/>
@@ -168,7 +168,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
     <set name="effectRange" val="200"/>
-    <set name="soulMaxConsumeCount" val="5"/>
+    <set name="soulConsumeCount" val="5"/> <!-- Temp fix till "soulMaxConsumeCount" gets fixed -->
     <set name="critChance" val="15"/>
     <set name="overHit" val="true"/>
     <set name="SSBoost" val="2.0"/>
@@ -281,7 +281,7 @@
     <set name="effectRange" val="1400"/>
     <set name="effectType" val="BLEED"/>
     <set name="effectPower" val="40"/> <!-- Base Land Rate --> <!-- Guessing -->
-    <set name="soulMaxConsumeCount" val="5"/>
+    <set name="soulConsumeCount" val="5"/> <!-- Temp fix till "soulMaxConsumeCount" gets fixed -->
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant1 name="power" val="#ench1Power"/>
@@ -331,7 +331,7 @@
     <set name="reuseDelay" val="10000"/>
     <set name="skillType" val="AGGDAMAGE"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="soulMaxConsumeCount" val="5"/>
+    <set name="soulConsumeCount" val="5"/> <!-- Temp fix till "soulMaxConsumeCount" gets fixed -->
   </skill>
   <skill id="512" levels="10" name="Create Bio Potion">
     <set name="target" val="TARGET_NONE"/>
@@ -339,7 +339,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="hitTime" val="3000"/>
-    <set name="soulMaxConsumeCount" val="5"/>
+    <set name="soulConsumeCount" val="5"/> <!-- Temp fix till "soulMaxConsumeCount" gets fixed -->
   </skill>
   <skill id="513" levels="1" name="Create Dark Seed">
     <set name="mpConsume" val="58"/>
@@ -615,7 +615,7 @@
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
     <set name="reuseDelay" val="1800000"/>
-    <set name="soulMaxConsumeCount" val="5"/>
+    <set name="soulConsumeCount" val="5"/> <!-- Temp fix till "soulMaxConsumeCount" gets fixed -->
   </skill>
   <skill id="527" levels="1" name="Iron Shield">
     <!-- Needs to be verified -->
