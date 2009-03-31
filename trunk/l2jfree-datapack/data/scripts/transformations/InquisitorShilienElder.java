@@ -15,6 +15,9 @@ public class InquisitorShilienElder extends L2DefaultTransformation
 
 	public void onTransform(L2PcInstance player)
 	{
+		if (player.getTransformationId() != getId() || player.isCursedWeaponEquipped())
+			return;
+		
 		// Update transformation ID into database and player instance variables.
 		player.transformInsertInfo();
 
