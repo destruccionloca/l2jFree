@@ -21,7 +21,7 @@ public class DivineWizard extends L2DefaultTransformation
 		// id, colRadius, colHeight
 		super(256, 12.0, 24.0);
 	}
-
+	
 	public void transformedSkills(L2PcInstance player)
 	{
 		/* Commented till we get proper values for these skills

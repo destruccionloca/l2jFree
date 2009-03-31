@@ -21,7 +21,7 @@ public class DivineKnight extends L2DefaultTransformation
 		// id, colRadius, colHeight
 		super(252, 12.0, 30.0);
 	}
-
+	
 	public void transformedSkills(L2PcInstance player)
 	{
 		/* Commented till we get proper values for these skills

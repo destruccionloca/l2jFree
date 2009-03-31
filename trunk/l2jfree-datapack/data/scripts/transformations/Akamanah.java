@@ -10,7 +10,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  * @author durgus
  *
  */
-public class Akamanah extends L2Transformation
+public class Akamanah extends L2DefaultTransformation
 {
 	public Akamanah()
 	{

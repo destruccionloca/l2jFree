@@ -21,7 +21,7 @@ public class DivineEnchanter extends L2DefaultTransformation
 		// id, colRadius, colHeight
 		super(257, 12.0, 24.0);
 	}
-
+	
 	public void transformedSkills(L2PcInstance player)
 	{
 		/* Commented till we get proper values for these skills

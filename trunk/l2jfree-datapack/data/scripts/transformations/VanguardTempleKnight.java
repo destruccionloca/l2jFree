@@ -17,39 +17,26 @@ public class VanguardTempleKnight extends L2Transformation
 	{
 		// Update transformation ID into database and player instance variables.
 		player.transformInsertInfo();
-		if (player.transformId() > 0 && !player.isCursedWeaponEquipped())
-		{
-			// Disable all character skills.
-			for (L2Skill sk : player.getAllSkills())
-			{
-				if (sk != null && !sk.isPassive())
-				{
-					switch (sk.getId())
-					{
-						case 28:  // Aggression
-						case 18:  // Aura of Hate
-						case 10:  // Summon Storm Cubic
-						case 67:  // Summon Life Cubic
-						case 449: // Summon Attractive Cubic
-						case 400: // Tribunal
-						case 197: // Holy Armor
-						{
-							// Those Skills wont be removed.
-							break;
-						}
-						default:
-						{
-							player.removeSkill(sk, false);
-							break;
-						}
-					}
-				}
-			}
-			// give transformation skills
-			transformedSkills(player);
-			return;
-		}
+
+		// Switch Stance
+		addSkill(player, 838, 1);
+		// Decrease Bow/Crossbow Attack Speed
+		addSkill(player, 5491, 1);		
+		
+		// give transformation skills
+		transformedSkills(player);
 	}
+	
+	public void onUntransform(L2PcInstance player)
+	{
+		// Switch Stance
+		removeSkill(player, 838);
+		// Decrease Bow/Crossbow Attack Speed
+		removeSkill(player, 5491);
+		
+		// remove transformation skills
+		removeSkills(player);
+	}	
 
 	public void transformedSkills(L2PcInstance player)
 	{
@@ -58,25 +45,14 @@ public class VanguardTempleKnight extends L2Transformation
 			int level = player.getLevel() - 43;
 			addSkill(player, 814, level); // Full Swing
 			addSkill(player, 816, level); // Power Divide
-			addSkill(player, 838, 1); // Switch Stance
-			// Send a Server->Client packet StatusUpdate to the L2PcInstance.
-			player.sendSkillList();
 		}
-	}
-
-	public void onUntransform(L2PcInstance player)
-	{
-		// remove transformation skills
-		removeSkills(player);
+		player.addTransformAllowedSkill(new int[]{28,18,10,67,449,400,197})
 	}
 
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player, 814); // Full Swing
 		removeSkill(player, 816); // Power Divide
-		removeSkill(player, 838); // Switch Stance
-		// Send a Server->Client packet StatusUpdate to the L2PcInstance.
-		player.sendSkillList();
 	}
 
 	public static void main(String[] args)

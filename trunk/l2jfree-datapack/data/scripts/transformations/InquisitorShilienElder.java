@@ -17,35 +17,26 @@ public class InquisitorShilienElder extends L2Transformation
 	{
 		// Update transformation ID into database and player instance variables.
 		player.transformInsertInfo();
-		if (player.transformId() > 0 && !player.isCursedWeaponEquipped())
-		{
-			// Disable all character skills.
-			for (L2Skill sk : player.getAllSkills())
-			{
-				if (sk != null && !sk.isPassive())
-				{
-					switch (sk.getId())
-					{
-						case 1430: // Invocation
-						case 1303: // Wild Magic
-						case 1059: // Empower
-						{
-							// Those Skills wont be removed.
-							break;
-						}
-						default:
-						{
-							player.removeSkill(sk, false);
-							break;
-						}
-					}
-				}
-			}
-			// give transformation skills
-			transformedSkills(player);
-			return;
-		}
+
+		// Switch Stance
+		addSkill(player, 838, 1);
+		// Decrease Bow/Crossbow Attack Speed
+		addSkill(player, 5491, 1);		
+		
+		// give transformation skills
+		transformedSkills(player);
 	}
+	
+	public void onUntransform(L2PcInstance player)
+	{
+		// Switch Stance
+		removeSkill(player, 838);
+		// Decrease Bow/Crossbow Attack Speed
+		removeSkill(player, 5491);
+		
+		// remove transformation skills
+		removeSkills(player);
+	}	
 
 	public void transformedSkills(L2PcInstance player)
 	{
@@ -57,16 +48,8 @@ public class InquisitorShilienElder extends L2Transformation
 			addSkill(player, 1525, level); // Divine Curse
 			addSkill(player, 1528, level); // Divine Flash
 			addSkill(player, 1043, 1); // Holy Weapon
-			addSkill(player, 838, 1); // Switch Stance
-			// Send a Server->Client packet StatusUpdate to the L2PcInstance.
-			player.sendSkillList();
 		}
-	}
-
-	public void onUntransform(L2PcInstance player)
-	{
-		// remove transformation skills
-		removeSkills(player);
+		player.addTransformAllowedSkill(new int[]{1430,1303,1059})
 	}
 
 	public void removeSkills(L2PcInstance player)
@@ -76,9 +59,6 @@ public class InquisitorShilienElder extends L2Transformation
 		removeSkill(player, 1525); // Divine Curse
 		removeSkill(player, 1528); // Divine Flash
 		removeSkill(player, 1043); // Holy Weapon
-		removeSkill(player, 838); // Switch Stance
-		// Send a Server->Client packet StatusUpdate to the L2PcInstance.
-		player.sendSkillList();
 	}
 
 	public static void main(String[] args)
