@@ -52,7 +52,6 @@ public class RequestDispel extends L2GameClientPacket
 			{
 				if (!s.isDance() && !s.isSong() && !s.isDebuff() && e.getEffectType() != L2EffectType.TRANSFORMATION)
 					e.exit();
-				return;
 			}
 		}
 	}

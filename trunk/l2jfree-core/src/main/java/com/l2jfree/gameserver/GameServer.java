@@ -183,6 +183,7 @@ public class GameServer
 			_log.info("Telnet Server is currently disabled.");
 		MapRegionManager.getInstance();
 		Announcements.getInstance();
+		AutoAnnouncements.getInstance();
 		if (!IdFactory.getInstance().isInitialized())
 		{
 			_log.fatal("Could not read object IDs from DB. Please Check Your Data.");

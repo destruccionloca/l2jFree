@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.handler.admincommandhandlers;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Announcements;
+import com.l2jfree.gameserver.AutoAnnouncements;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -42,7 +43,8 @@ public class AdminAnnouncements implements IAdminCommandHandler
 			"admin_add_announcement",
 			"admin_del_announcement",
 			"admin_announce",
-			"admin_announce_menu"					};
+			"admin_announce_menu",
+			"admin_reload_autoannounce"				};
 	private static final int		REQUIRED_LEVEL	= Config.GM_ANNOUNCE;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
@@ -108,6 +110,11 @@ public class AdminAnnouncements implements IAdminCommandHandler
 			if (Config.GM_ANNOUNCER_NAME)
 				command += " [" + activeChar.getName() + "]";
 			Announcements.getInstance().handleAnnounce(command, 15);
+		}
+		else if (command.startsWith("admin_reload_autoannounce"))
+		{
+			activeChar.sendMessage("AutoAnnouncement Reloaded.");
+			AutoAnnouncements.getInstance().reload();
 		}
 
 		return true;
