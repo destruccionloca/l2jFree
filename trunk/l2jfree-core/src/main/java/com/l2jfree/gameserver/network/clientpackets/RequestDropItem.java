@@ -135,7 +135,7 @@ public class RequestDropItem extends L2GameClientPacket
             return;
         }
 
-        if(_count < 0)
+        if(_count <= 0)
         {
             Util.handleIllegalPlayerAction(activeChar,"[RequestDropItem] count <= 0! ban! oid: "+_objectId+" owner: "+activeChar.getName(),IllegalPlayerAction.PUNISH_KICK);
             return;
