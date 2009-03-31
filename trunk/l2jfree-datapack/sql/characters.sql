@@ -1,6 +1,6 @@
--- ------------------------------
+-- --------------------------------
 -- Table structure for characters
--- ------------------------------
+-- --------------------------------
 CREATE TABLE IF NOT EXISTS `characters` (
   `account_name` VARCHAR(45) DEFAULT NULL,
   `charId` INT UNSIGNED NOT NULL DEFAULT 0,
@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS `characters` (
   `expBeforeDeath` BIGINT UNSIGNED DEFAULT 0,
   `sp` INT UNSIGNED NOT NULL DEFAULT 0,
   `karma` INT UNSIGNED DEFAULT NULL,
+  `fame` MEDIUMINT UNSIGNED NOT NULL DEFAULT 0,
   `pvpkills` SMALLINT UNSIGNED DEFAULT NULL,
   `pkkills` SMALLINT UNSIGNED DEFAULT NULL,
   `clanid` INT UNSIGNED DEFAULT NULL,
