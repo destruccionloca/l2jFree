@@ -106,10 +106,7 @@ public class RequestAquireSkillInfo extends L2GameClientPacket
                 int requiredSp = 0;
                 AcquireSkillInfo asi = new AcquireSkillInfo(skill.getId(), skill.getLevel(), requiredSp,0);
 
-                if (Config.ALT_SP_BOOK_NEEDED)
-                {
-                    asi.addRequirement(99, itemId, 1, 50);
-                }
+                asi.addRequirement(1, itemId, 1, 0);
 
                 sendPacket(asi);
                 return;
