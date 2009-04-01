@@ -1,8 +1,7 @@
 package transformations;
 
 import com.l2jfree.gameserver.instancemanager.TransformationManager;
-import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Transformation;
+import com.l2jfree.gameserver.model.L2DefaultTransformation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class InquisitorBishop extends L2DefaultTransformation
@@ -15,8 +14,8 @@ public class InquisitorBishop extends L2DefaultTransformation
 
 	public void onTransform(L2PcInstance player)
 	{
-		if (player.getTransformationId() != getId() || player.isCursedWeaponEquipped())
-			return;
+		//if (player.getTransformationId() != getId() || player.isCursedWeaponEquipped())
+		//	return;
 		
 		// Update transformation ID into database and player instance variables.
 		player.transformInsertInfo();
@@ -51,7 +50,7 @@ public class InquisitorBishop extends L2DefaultTransformation
 			addSkill(player, 1525, level); // Divine Curse
 			addSkill(player, 1528, level); // Divine Flash
 		}
-		player.addTransformAllowedSkill(new int[]{1430,1043,1042,1400,1418})		
+		player.addTransformAllowedSkill(new int[]{1430,1043,1042,1400,1418});
 	}
 
 	public void removeSkills(L2PcInstance player)

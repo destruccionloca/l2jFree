@@ -1,8 +1,7 @@
 package transformations;
 
 import com.l2jfree.gameserver.instancemanager.TransformationManager;
-import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Transformation;
+import com.l2jfree.gameserver.model.L2DefaultTransformation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class VanguardTempleKnight extends L2DefaultTransformation
@@ -15,9 +14,6 @@ public class VanguardTempleKnight extends L2DefaultTransformation
 
 	public void onTransform(L2PcInstance player)
 	{
-		if (player.getTransformationId() != getId() || player.isCursedWeaponEquipped())
-			return;
-		
 		// Update transformation ID into database and player instance variables.
 		player.transformInsertInfo();
 
@@ -49,7 +45,7 @@ public class VanguardTempleKnight extends L2DefaultTransformation
 			addSkill(player, 814, level); // Full Swing
 			addSkill(player, 816, level); // Power Divide
 		}
-		player.addTransformAllowedSkill(new int[]{28,18,10,67,449,400,197})
+		player.addTransformAllowedSkill(new int[]{28,18,10,67,449,400,197});
 	}
 
 	public void removeSkills(L2PcInstance player)

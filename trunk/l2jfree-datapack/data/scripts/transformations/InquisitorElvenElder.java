@@ -1,10 +1,8 @@
 package transformations;
 
 import com.l2jfree.gameserver.instancemanager.TransformationManager;
-import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Transformation;
+import com.l2jfree.gameserver.model.L2DefaultTransformation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-
 
 public class InquisitorElvenElder extends L2DefaultTransformation
 {
@@ -52,7 +50,7 @@ public class InquisitorElvenElder extends L2DefaultTransformation
 			addSkill(player, 1525, level); // Divine Curse
 			addSkill(player, 1528, level); // Divine Flash
 		}
-		player.addTransformAllowedSkill(new int[]{1430,1043,1400,1303})		
+		player.addTransformAllowedSkill(new int[]{1430,1043,1400,1303});
 	}
 
 	public void removeSkills(L2PcInstance player)

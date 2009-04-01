@@ -1,8 +1,7 @@
 package transformations;
 
 import com.l2jfree.gameserver.instancemanager.TransformationManager;
-import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Transformation;
+import com.l2jfree.gameserver.model.L2DefaultTransformation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class VanguardShilienKnight extends L2DefaultTransformation
@@ -49,7 +48,7 @@ public class VanguardShilienKnight extends L2DefaultTransformation
 			addSkill(player, 815, level); // Blade Hurricane
 			addSkill(player, 817, level); // Double Strike
 		}
-		player.addTransformAllowedSkill(new int[]{28,18,22,33,401,278,289,279})		
+		player.addTransformAllowedSkill(new int[]{28,18,22,33,401,278,289,279});
 	}
 
 	public void removeSkills(L2PcInstance player)
