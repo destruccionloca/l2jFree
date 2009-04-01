@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.network.serverpackets;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.datatables.PetDataTable;
 import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Decoy;

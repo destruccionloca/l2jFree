@@ -15,19 +15,21 @@
 package com.l2jfree.gameserver.threadmanager;
 
 import java.lang.management.ManagementFactory;
-import java.lang.management.ThreadMXBean;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import javolution.util.FastList;
 import javolution.util.FastSet;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.Shutdown;
 import com.l2jfree.gameserver.ThreadPoolManager;
+import com.l2jfree.gameserver.Shutdown.ShutdownModeType;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.lang.L2Thread;
 
 public final class DeadlockDetector implements Runnable
 {
@@ -43,28 +45,23 @@ public final class DeadlockDetector implements Runnable
 		return _instance;
 	}
 	
-	private final ThreadMXBean _mbean = ManagementFactory.getThreadMXBean();
 	private final Set<Long> _logged = new FastSet<Long>();
 	
 	private DeadlockDetector()
 	{
 		ThreadPoolManager.getInstance().scheduleAtFixedRate(this, Config.DEADLOCKCHECK_INTERVAL,
 			Config.DEADLOCKCHECK_INTERVAL);
+		
+		_log.info("DeadlockDetector: Initialized.");
 	}
 	
-	@Override
 	public void run()
 	{
-		checkForDeadlocks();
-	}
-	
-	private void checkForDeadlocks()
-	{
-		long[] ids = findDeadlockedThreadIDs();
+		long[] ids = findDeadlockedThreadIds();
 		if (ids == null)
 			return;
 		
-		List<Thread> deadlocked = new FastList<Thread>();
+		List<Thread> deadlocked = new ArrayList<Thread>();
 		
 		for (long id : ids)
 			if (_logged.add(id))
@@ -75,20 +72,24 @@ public final class DeadlockDetector implements Runnable
 			Util.printSection("Deadlocked Thread(s)");
 			for (Thread thread : deadlocked)
 			{
-				_log.fatal(thread);
+				_log.fatal("");
 				
-				for (StackTraceElement trace : thread.getStackTrace())
-					_log.fatal("\tat " + trace);
+				for (String line : L2Thread.getStats(thread))
+					_log.fatal(line);
 			}
+			
+			new Halt().start();
+			
+			Shutdown.getInstance().startShutdown("DeadlockDetector", 1, ShutdownModeType.RESTART);
 		}
 	}
 	
-	private long[] findDeadlockedThreadIDs()
+	private long[] findDeadlockedThreadIds()
 	{
-		if (_mbean.isSynchronizerUsageSupported())
-			return _mbean.findDeadlockedThreads();
-		
-		return _mbean.findMonitorDeadlockedThreads();
+		if (ManagementFactory.getThreadMXBean().isSynchronizerUsageSupported())
+			return ManagementFactory.getThreadMXBean().findDeadlockedThreads();
+		else
+			return ManagementFactory.getThreadMXBean().findMonitorDeadlockedThreads();
 	}
 	
 	private Thread findThreadById(long id)
@@ -98,5 +99,25 @@ public final class DeadlockDetector implements Runnable
 				return thread;
 		
 		throw new IllegalStateException("Deadlocked Thread not found!");
+	}
+	
+	private static final class Halt extends Thread
+	{
+		@Override
+		public void run()
+		{
+			try
+			{
+				sleep(40000);
+			}
+			catch (InterruptedException e)
+			{
+				e.printStackTrace();
+			}
+			finally
+			{
+				Shutdown.getInstance().halt("DeadlockDetector");
+			}
+		}
 	}
 }

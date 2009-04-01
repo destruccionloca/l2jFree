@@ -1,20 +1,16 @@
 /*
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2, or (at your option)
- * any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
- * 02111-1307, USA.
- *
- * http://www.gnu.org/copyleft/gpl.html
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package com.l2jfree.util;
 
@@ -30,6 +26,7 @@ import java.util.Set;
 /**
  * @author NB4L1
  */
+@SuppressWarnings("unchecked")
 public final class L2Collections
 {
 	private static final Object[] EMPTY_ARRAY = new Object[0];
@@ -147,7 +144,6 @@ public final class L2Collections
 			return EMPTY_ARRAY;
 		}
 		
-		@SuppressWarnings("unchecked")
 		public <T> T[] toArray(T[] a)
 		{
 			return (T[])toArray();
@@ -278,7 +274,6 @@ public final class L2Collections
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
 	private static final class EmptyBunch implements Bunch<Object>
 	{
 		private static final Bunch<Object> INSTANCE = new EmptyBunch();
@@ -367,37 +362,31 @@ public final class L2Collections
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
 	private static <T> ListIterator<T> emptyListIterator()
 	{
 		return (ListIterator<T>)EmptyListIterator.INSTANCE;
 	}
 	
-	@SuppressWarnings("unchecked")
 	private static <T> Collection<T> emptyCollection()
 	{
 		return (Collection<T>)EmptyCollection.INSTANCE;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public static <T> Set<T> emptySet()
 	{
 		return (Set<T>)EmptySet.INSTANCE;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public static <T> List<T> emptyList()
 	{
 		return (List<T>)EmptyList.INSTANCE;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public static <K, V> Map<K, V> emptyMap()
 	{
 		return (Map<K, V>)EmptyMap.INSTANCE;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public static <T> Bunch<T> emptyBunch()
 	{
 		return (Bunch<T>)EmptyBunch.INSTANCE;
@@ -481,7 +470,6 @@ public final class L2Collections
 			return next;
 		}
 		
-		@SuppressWarnings("unchecked")
 		private void step()
 		{
 			while (_iterator.hasNext())
@@ -507,13 +495,11 @@ public final class L2Collections
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
 	public static <T> Iterable<T> concatenatedIterable(Iterable<? extends T> iterable1, Iterable<? extends T> iterable2)
 	{
 		return new ConcatenatedIterable<T>(iterable1, iterable2);
 	}
 	
-	@SuppressWarnings("unchecked")
 	public static <T> Iterable<T> concatenatedIterable(Iterable<? extends T> iterable1,
 		Iterable<? extends T> iterable2, Iterable<? extends T> iterable3)
 	{
@@ -525,13 +511,11 @@ public final class L2Collections
 		return new ConcatenatedIterable<T>(iterables);
 	}
 	
-	@SuppressWarnings("unchecked")
 	public static <T> Iterator<T> concatenatedIterator(Iterable<? extends T> iterable1, Iterable<? extends T> iterable2)
 	{
 		return new ConcatenatedIterator<T>(iterable1, iterable2);
 	}
 	
-	@SuppressWarnings("unchecked")
 	public static <T> Iterator<T> concatenatedIterator(Iterable<? extends T> iterable1,
 		Iterable<? extends T> iterable2, Iterable<? extends T> iterable3)
 	{

@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.gameserver.datatables.PetDataTable;
 import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 
@@ -109,7 +108,7 @@ public class PetInfo extends L2GameServerPacket
 		writeS(_summon.getName()); // summon name
 		writeS(_summon.getTitle()); // owner name
 		writeD(0x01);
-		writeD(_summon.getOwner() != null ? _summon.getOwner().getPvpFlag() : 0); //0 = white,2= purpleblink, if its greater then karma = purple 
+		writeD(_summon.getOwner() != null ? _summon.getOwner().getPvpFlag() : 0); //0 = white,2= purpleblink, if its greater then karma = purple
 		writeD(_summon.getOwner() != null ? _summon.getOwner().getKarma() : 0); // karma
 		writeD(_curFed); // how fed it is
 		writeD(_maxFed); //max fed it can be
@@ -118,12 +117,12 @@ public class PetInfo extends L2GameServerPacket
 		writeD((int) _summon.getStatus().getCurrentMp());//current mp
 		writeD(_maxMp);//max mp
 		writeD(_summon.getStat().getSp()); //sp
-		writeD(_summon.getLevel());// lvl 
+		writeD(_summon.getLevel());// lvl
 		writeQ(_summon.getStat().getExp());
 		if (_summon.getExpForThisLevel() > _summon.getStat().getExp())
 			writeQ(_summon.getStat().getExp());// 0%  absolute value
 		else
-			writeQ(_summon.getExpForThisLevel());// 0%  absolute value	
+			writeQ(_summon.getExpForThisLevel());// 0%  absolute value
 		writeQ(_summon.getExpForNextLevel());// 100% absoulte value
 		writeD(_summon instanceof L2PetInstance ? _summon.getInventory().getTotalWeight() : 0);//weight
 		writeD(_summon.getMaxLoad());//max weight it can carry
@@ -141,8 +140,6 @@ public class PetInfo extends L2GameServerPacket
 		writeD(_summon.getAbnormalEffect());//c2  abnormal visual effect... bleed=1; poison=2; poison & bleed=3; flame=4;
 		int npcId = _summon.getTemplate().getNpcId();
 
-		int canMount = 0;
-
 		writeH(_summon.isMountable() ? 1 : 0);//c2    ride button
 
 		writeC(0); // c2
@@ -158,7 +155,7 @@ public class PetInfo extends L2GameServerPacket
 		{
 			if (_summon.getLevel() > 84)
 				form = 3;
-			else if (_summon.getLevel() > 79) 
+			else if (_summon.getLevel() > 79)
 				form = 2;
 			else if (_summon.getLevel() > 74)
 				form = 1;
@@ -167,9 +164,9 @@ public class PetInfo extends L2GameServerPacket
 		{
 			if (_summon.getLevel() > 69)
 				form = 3;
-			else if (_summon.getLevel() > 64) 
+			else if (_summon.getLevel() > 64)
 				form = 2;
-			else if (_summon.getLevel() > 59) 
+			else if (_summon.getLevel() > 59)
 				form = 1;
 		}
 		writeD(form);//CT1.5 Pet form and skills

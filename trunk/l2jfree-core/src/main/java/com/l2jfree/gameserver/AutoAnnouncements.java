@@ -18,6 +18,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
+import java.util.concurrent.Future;
 
 import javolution.util.FastList;
 
@@ -25,144 +26,116 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.L2DatabaseFactory;
-import com.l2jfree.gameserver.util.Broadcast;
 
-
-
-public class AutoAnnouncements
+public final class AutoAnnouncements
 {
-	private final static Log _log = LogFactory.getLog(Announcements.class.getName());
-
+	private static final Log _log = LogFactory.getLog(Announcements.class);
+	
 	private static AutoAnnouncements _instance;
-
-	private List<AutoAnnounceThread> autothread = new FastList<AutoAnnounceThread>();
-
-	public AutoAnnouncements()
-	{
-		restore();
-		if (!autothread.isEmpty())
-			autoTask();
-	}
-
-	public void reload()
-	{
-		for (AutoAnnounceThread exec : autothread)
-		{
-			exec.stop();
-		}
-
-		autothread.clear();
-
-		restore();
-		if (!autothread.isEmpty())
-			autoTask();
-	}
-
-	public void autoTask()
-	{
-		for (AutoAnnounceThread exec : autothread)
-		{
-			exec.start();
-		}
-	}
-
-	public void announce(String text)
-	{
-		Announcements.getInstance().announceToAll(text);
-		_log.info("AutoAnnounce: "+text);
-	}
-
+	
 	public static AutoAnnouncements getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new AutoAnnouncements();
-		}
-
+		
 		return _instance;
 	}
-
+	
+	private final List<AutoAnnouncer> _announcers = new FastList<AutoAnnouncer>();
+	
+	private AutoAnnouncements()
+	{
+		restore();
+	}
+	
+	public void reload()
+	{
+		for (AutoAnnouncer exec : _announcers)
+			exec.cancel();
+		
+		_announcers.clear();
+		
+		restore();
+	}
+	
+	private void announce(String text)
+	{
+		Announcements.getInstance().announceToAll(text);
+		
+		_log.info("AutoAnnounce: " + text);
+	}
+	
 	private void restore()
 	{
 		Connection conn = null;
-		int count = 0;
 		try
 		{
 			conn = L2DatabaseFactory.getInstance().getConnection();
-			PreparedStatement statement = conn.prepareStatement("SELECT id, initial, delay, cycle, memo FROM auto_announcements");
+			
+			PreparedStatement statement =
+				conn.prepareStatement("SELECT initial, delay, cycle, memo FROM auto_announcements");
 			ResultSet data = statement.executeQuery();
+			
 			while (data.next())
 			{
-				int id = data.getInt("id");
-				long initial = data.getLong("initial");
-				long delay = data.getLong("delay");
-				int repeat = data.getInt("cycle");
-				String memo = data.getString("memo");
-				String[] text = memo.split("\n");
-				AutoAnnounceThread announces = new AutoAnnounceThread();
-				announces.id = id;
-				announces.initial = initial;
-				announces.delay = delay;
-
-				if (repeat > 0)
-					announces.repeat = repeat;
-				announces.memo = text;
-
-				autothread.add(announces);
-				count++;
+				final long initial = data.getLong("initial");
+				final long delay = data.getLong("delay");
+				final int repeat = data.getInt("cycle");
+				final String[] memo = data.getString("memo").split("\n");
+				
+				_announcers.add(new AutoAnnouncer(memo, repeat, initial, delay));
 			}
-
+			
+			data.close();
+			statement.close();
 		}
 		catch (Exception e)
 		{
 			_log.fatal("AutoAnnoucements: Fail to load announcements data.", e);
 		}
-		_log.info("AutoAnnoucements: Load "+count+" Auto Annoucement Data.");
-	}
-
-	public class AutoAnnounceThread extends Thread
-	{
-		int id;
-		long initial;
-		long delay;
-		int repeat = -1;
-		int stop = 0;
-		String[] memo;
-
-		public void run ()
+		finally
 		{
-			try
-			{
-				Thread.sleep(initial * 1000);
-			}
-			catch (InterruptedException e1)
-			{
-				_log.error("", e1);
-			}
-
-			while (true)
-			{
-				if (repeat > 0)
-					repeat--;
-				for (String text: memo)
-				{
-					announce(text);
-
-				}
-				if (repeat == 0)
-				{
-					break;
-				}
-
-				try
-				{
-					Thread.sleep(delay * 1000);
-				}
-				catch (InterruptedException e)
-				{
-					_log.fatal("AutoAnnoucements: ID ["+id+"] Auto Announcement thread stop", e);
-				}
-			}
+			L2DatabaseFactory.close(conn);
+		}
+		
+		_log.info("AutoAnnoucements: Load " + _announcers.size() + " Auto Annoucement Data.");
+	}
+	
+	private final class AutoAnnouncer implements Runnable
+	{
+		private final String[] memo;
+		private final Future<?> task;
+		
+		private int repeat;
+		
+		private AutoAnnouncer(String[] memo, int repeat, long initial, long delay)
+		{
+			this.memo = memo;
+			
+			if (repeat > 0)
+				this.repeat = repeat;
+			else
+				this.repeat = -1;
+			
+			task = ThreadPoolManager.getInstance().scheduleAtFixedRate(this, initial * 1000, delay * 1000);
+		}
+		
+		private void cancel()
+		{
+			task.cancel(false);
+		}
+		
+		@Override
+		public void run()
+		{
+			for (String text : memo)
+				announce(text);
+			
+			if (repeat > 0)
+				repeat--;
+			
+			if (repeat == 0)
+				cancel();
 		}
 	}
 }

@@ -12,40 +12,12 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.util;
-
-import java.util.Set;
+package com.l2jfree.util.concurrent;
 
 /**
  * @author NB4L1
  */
-public final class SingletonSet<E> extends SingletonCollection<E> implements Set<E>
+public interface Executable<T>
 {
-	private L2FastSet<E> _set;
-	private boolean _shared = false;
-	
-	@Override
-	protected Set<E> get(boolean init)
-	{
-		if (_set == null)
-		{
-			if (init)
-				_set = new L2FastSet<E>().setShared(_shared);
-			else
-				return L2Collections.emptySet();
-		}
-		
-		return _set;
-	}
-	
-	public SingletonSet<E> setShared()
-	{
-		_shared = true;
-		
-		if (_set != null)
-			_set.setShared(true);
-		
-		return this;
-	}
-	
+	public void execute(T element);
 }

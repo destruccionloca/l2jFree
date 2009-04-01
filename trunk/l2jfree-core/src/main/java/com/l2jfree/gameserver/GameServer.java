@@ -145,8 +145,10 @@ public class GameServer
 
 	public GameServer() throws Throwable
 	{
+		System.setProperty("line.separator", "\r\n");
+		
 		long serverLoadStart = System.currentTimeMillis();
-
+		
 		// Readded root check at server startup
 		// AND DON'T DELETE IT AGAIN CRION
 		// I CANNOT BELIEVE SOMEONE DELETES A SECURITY THINGGY

@@ -55,7 +55,6 @@ import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.PetInventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.PetItemList;
 import com.l2jfree.gameserver.network.serverpackets.PetStatusShow;
-import com.l2jfree.gameserver.network.serverpackets.SetSummonRemainTime;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.StopMove;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -1198,11 +1197,13 @@ public class L2PetInstance extends L2Summon
 		_jewel = id;
 	}
 
+	@Override
 	public final int getWeapon()
 	{
 		return _weapon;
 	}
 
+	@Override
 	public final int getArmor()
 	{
 		return _armor;

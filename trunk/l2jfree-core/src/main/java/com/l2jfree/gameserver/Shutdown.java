@@ -282,7 +282,19 @@ public class Shutdown extends Thread
 			_counterInstance = null;
 		}
 	}
-
+	
+	public void halt(String initiator)
+	{
+		try
+		{
+			System.out.println(initiator + " issued HALT command: " + _shutdownMode.getText().toLowerCase() + " has been stopped!");
+		}
+		finally
+		{
+			Runtime.getRuntime().halt(2);
+		}
+	}
+	
 	/**
 	 * get the current count down
 	 * 

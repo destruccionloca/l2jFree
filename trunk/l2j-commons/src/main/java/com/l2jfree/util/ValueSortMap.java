@@ -1,3 +1,17 @@
+/*
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.l2jfree.util;
 
 import java.util.ArrayList;
@@ -113,12 +127,12 @@ public class ValueSortMap
 		}
 		else if (ascendingOrder)
 		{
-			// If Boolean ascendingOrder is not null and is true, sort values in ascending order  
+			// If Boolean ascendingOrder is not null and is true, sort values in ascending order
 			Collections.sort(valueList);
 		}
 		else
 		{
-			// If Boolean ascendingOrder is not null and is false, sort values in descending order  
+			// If Boolean ascendingOrder is not null and is false, sort values in descending order
 			Collections.sort(valueList);
 			Collections.reverse(valueList);
 		}
@@ -198,7 +212,7 @@ public class ValueSortMap
 			{
 				sortedValue = valueList.get(i);
 				
-				// Search this value in temp HashMap and if found remove it 
+				// Search this value in temp HashMap and if found remove it
 				keySet = hmTmpMap.keySet();
 				itKeyList = keySet.iterator();
 				while (itKeyList.hasNext())

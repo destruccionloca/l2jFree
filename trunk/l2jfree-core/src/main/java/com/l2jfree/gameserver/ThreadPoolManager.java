@@ -28,6 +28,7 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.util.concurrent.ExecuteWrapper;
 import com.l2jfree.util.concurrent.L2RejectedExecutionHandler;
+import com.l2jfree.util.concurrent.RunnableStatsManager;
 import com.l2jfree.util.concurrent.ScheduledFutureWrapper;
 
 /**
@@ -211,6 +212,9 @@ public final class ThreadPoolManager
 		System.out.println("ThreadPoolManager: Done.");
 		System.out.println("\t... success: " + success);
 		System.out.println("\t... " + (_pool.getQueue().size() + _pool.getActiveCount()) + " tasks left.");
+		
+		if (TimeUnit.HOURS.toMillis(12) < (System.currentTimeMillis() - GameServer.getStartedTime().getTimeInMillis()))
+			RunnableStatsManager.getInstance().dumpClassStats();
 	}
 	
 	public void purge()

@@ -191,7 +191,8 @@ public class PetStat extends SummonStat
 
     public int getRegenHp() { return (int)calcStat(Stats.REGENERATE_HP_RATE, getActiveChar().getPetData().getPetRegenHP(), null, null); }
     public int getRegenMp() { return (int)calcStat(Stats.REGENERATE_MP_RATE, getActiveChar().getPetData().getPetRegenMP(), null, null); }
-    public int getRunSpeed() { return (int)calcStat(Stats.RUN_SPEED, getActiveChar().getPetData().getPetSpeed(), null, null); }
+    @Override
+	public int getRunSpeed() { return (int)calcStat(Stats.RUN_SPEED, getActiveChar().getPetData().getPetSpeed(), null, null); }
 
     @Override
     public int getWalkSpeed() { return  getRunSpeed()/2; }
