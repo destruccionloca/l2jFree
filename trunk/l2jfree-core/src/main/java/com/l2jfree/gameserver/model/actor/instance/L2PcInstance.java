@@ -6685,9 +6685,8 @@ public final class L2PcInstance extends L2PlayableInstance
 	public void setAccessLevel(int level)
 	{
 		_accessLevel = level;
-		if (_accessLevel >= Config.GM_MIN || Config.EVERYBODY_HAS_ADMIN_RIGHTS)
-			setIsGM((true));
-
+		if (_accessLevel >= Config.GM_MIN)
+			setIsGM(true);
 	}
 
 	public void setAccountAccesslevel(int level)
@@ -6700,8 +6699,6 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public int getAccessLevel()
 	{
-		if (Config.EVERYBODY_HAS_ADMIN_RIGHTS && _accessLevel <= 200)
-			return 200;
 		return _accessLevel;
 	}
 

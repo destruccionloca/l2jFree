@@ -20,7 +20,6 @@ package com.l2jfree.gameserver.handler.admincommandhandlers;
 
 import java.util.StringTokenizer;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -29,15 +28,8 @@ public class AdminBoat implements IAdminCommandHandler
 {
 	private static final String[] ADMIN_COMMANDS = { "admin_boat" };
 
-	private static final int REQUIRED_LEVEL = Config.GM_ACCESSLEVEL;
-
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-		{
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) return false;
-		}
-
 		L2BoatInstance boat = activeChar.getBoat();
 		if (boat == null)
 		{
@@ -93,10 +85,5 @@ public class AdminBoat implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 }

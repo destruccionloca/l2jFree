@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.handler.admincommandhandlers;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.SpawnTable;
@@ -40,18 +39,11 @@ public class AdminMammon implements IAdminCommandHandler
 
 	private static final String[]	ADMIN_COMMANDS		=
 														{ "admin_mammon_find", "admin_mammon_respawn", "admin_list_spawns", "admin_msg" };
-	private static final int		REQUIRED_LEVEL		= Config.GM_MENU;
 
 	private boolean					_isSealValidation	= SevenSigns.getInstance().isSealValidationPeriod();
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-		{
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-				return false;
-		}
-
 		int npcId = 0;
 		int teleportIndex = -1;
 		AutoSpawnInstance blackSpawnInst = AutoSpawnManager.getInstance().getAutoSpawnInstance(SevenSigns.MAMMON_BLACKSMITH_ID, false);
@@ -172,10 +164,5 @@ public class AdminMammon implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 }

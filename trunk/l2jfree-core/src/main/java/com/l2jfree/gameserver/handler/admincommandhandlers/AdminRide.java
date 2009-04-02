@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.handler.admincommandhandlers;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
@@ -35,18 +34,13 @@ public class AdminRide implements IAdminCommandHandler
 			"admin_ride_horse",
 			"admin_unride_horse",
 			"admin_unride",						};
-	private static final int		REQUIRED_LEVEL	= Config.GM_RIDER;
-	private int						_petRideId;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-				return false;
-
 		if (command.startsWith("admin_ride"))
 		{
+			int petRideId;
+			
 			if (activeChar.isMounted() || activeChar.getPet() != null)
 			{
 				activeChar.sendMessage("Already have a pet or mounted.");
@@ -54,26 +48,26 @@ public class AdminRide implements IAdminCommandHandler
 			}
 			if (command.startsWith("admin_ride_wyvern"))
 			{
-				_petRideId = 12621;
+				petRideId = 12621;
 			}
 			else if (command.startsWith("admin_ride_strider"))
 			{
-				_petRideId = 12526;
+				petRideId = 12526;
 			}
 			else if (command.startsWith("admin_ride_wolf"))
 			{
-				_petRideId = 16041;
+				petRideId = 16041;
 			}
 			else if (command.startsWith("admin_ride_horse"))
 			{
-				_petRideId = 13130;
+				petRideId = 13130;
 			}
 			else
 			{
 				activeChar.sendMessage("Command '" + command + "' not recognized");
 				return false;
 			}
-			activeChar.mount(_petRideId, 0, false);
+			activeChar.mount(petRideId, 0, false);
 		}
 		else if (command.startsWith("admin_unride"))
 		{
@@ -85,10 +79,5 @@ public class AdminRide implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 }

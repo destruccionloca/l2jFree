@@ -22,22 +22,20 @@ package com.l2jfree.gameserver.handler.admincommandhandlers;
 
 import java.util.StringTokenizer;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.GmListTable;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.MapRegionManager;
 import com.l2jfree.gameserver.instancemanager.TownManager;
 import com.l2jfree.gameserver.instancemanager.ZoneManager;
+import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.model.zone.L2Zone;
-import com.l2jfree.gameserver.model.Location;
 
 
 public class AdminZone implements IAdminCommandHandler
 {
-	private static final int		REQUIRED_LEVEL	= Config.GM_TEST;
 	private static final String[]	ADMIN_COMMANDS	=
 													{ "admin_zone_check", "admin_zone_reload" };
 
@@ -46,13 +44,6 @@ public class AdminZone implements IAdminCommandHandler
 	 */
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (activeChar == null)
-			return false;
-
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (activeChar.getAccessLevel() < REQUIRED_LEVEL)
-				return false;
-
 		StringTokenizer st = new StringTokenizer(command, " ");
 		String actualCommand = st.nextToken(); // Get actual command
 

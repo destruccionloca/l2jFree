@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.handler.admincommandhandlers;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
@@ -27,13 +26,8 @@ public class AdminSendHome implements IAdminCommandHandler
 {
 	private static final String[]	ADMIN_COMMANDS	=
 													{ "admin_sendhome" };
-	private static final int		REQUIRED_LEVEL	= Config.GM_TELEPORT;
-
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-			return false;
-
 		if (command.startsWith("admin_sendhome"))
 		{
 			if (command.split(" ").length > 1)
@@ -48,11 +42,6 @@ public class AdminSendHome implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 
 	private void handleSendhome(L2PcInstance activeChar)

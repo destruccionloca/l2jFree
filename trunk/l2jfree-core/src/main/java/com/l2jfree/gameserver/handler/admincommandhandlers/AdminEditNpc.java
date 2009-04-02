@@ -31,7 +31,6 @@ import javolution.util.FastMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.datatables.ItemTable;
@@ -46,9 +45,9 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2TradeList;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
-import com.l2jfree.gameserver.templates.item.L2Item;
-import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.StatsSet;
+import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
+import com.l2jfree.gameserver.templates.item.L2Item;
 
 /**
  * @author terry
@@ -85,15 +84,9 @@ public class AdminEditNpc implements IAdminCommandHandler
 			"admin_addCustomShopItem",
 			"admin_showCustomShop",
 			"admin_showCustomShopList"				};
-	private static final int		REQUIRED_LEVEL	= Config.GM_NPC_EDIT;
-	private static final int		REQUIRED_LEVEL2	= Config.GM_NPC_VIEW;
-
+	
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!((checkLevel(activeChar.getAccessLevel()) || checkLevel2(activeChar.getAccessLevel())) && activeChar.isGM()))
-				return false;
-
 		if (command.startsWith("admin_showShop "))
 		{
 			String[] args = command.split(" ");
@@ -183,8 +176,6 @@ public class AdminEditNpc implements IAdminCommandHandler
 				activeChar.sendMessage("Usage: //show_droplist <npc_id>");
 			}
 		}
-		else if (!Config.ALT_PRIVILEGES_ADMIN && !(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-			return false;
 		else if (command.startsWith("admin_addShopItem "))
 		{
 			String[] args = command.split(" ");
@@ -1206,16 +1197,6 @@ public class AdminEditNpc implements IAdminCommandHandler
 			}
 		}
 		return tradeLists;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
-	}
-
-	private boolean checkLevel2(int level)
-	{
-		return (level >= REQUIRED_LEVEL2);
 	}
 
 	public String[] getAdminCommandList()

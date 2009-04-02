@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.handler.admincommandhandlers;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2World;
@@ -31,14 +30,9 @@ public class AdminHeal implements IAdminCommandHandler
 	//private final static Log _log = LogFactory.getLog(AdminRes.class.getName());
 	private static final String[]	ADMIN_COMMANDS	=
 													{ "admin_heal" };
-	private static final int		REQUIRED_LEVEL	= Config.GM_HEAL;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-				return false;
-
 		if (command.equals("admin_heal"))
 		{
 			if (activeChar.getTarget() instanceof L2Character)
@@ -79,11 +73,6 @@ public class AdminHeal implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 
 	private void handleHeal(L2Character target)

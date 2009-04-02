@@ -20,7 +20,6 @@ import java.sql.SQLException;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
-import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.L2World;
@@ -37,13 +36,9 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public class AdminJail implements IAdminCommandHandler
 {
 	private static final String[]	ADMIN_COMMANDS	= { "admin_jail", "admin_unjail" };
-	private static final int		REQUIRED_LEVEL	= Config.GM_JAIL;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-				return false;
 		StringTokenizer st = new StringTokenizer(command);
 		st.nextToken();
 		String player = "";
@@ -173,10 +168,5 @@ public class AdminJail implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 }

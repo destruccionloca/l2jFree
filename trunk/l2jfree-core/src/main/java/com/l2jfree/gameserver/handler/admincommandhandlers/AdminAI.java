@@ -19,16 +19,16 @@
 package com.l2jfree.gameserver.handler.admincommandhandlers;
 
 import java.util.StringTokenizer;
+
 import javolution.text.TextBuilder;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.L2Attackable;
-import com.l2jfree.gameserver.model.L2Attackable.AggroInfo;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
+import com.l2jfree.gameserver.model.L2Attackable.AggroInfo;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -38,15 +38,8 @@ public class AdminAI implements IAdminCommandHandler
 {
 	private static final String[] ADMIN_COMMANDS = { "admin_show_ai" };
 
-	private static final int REQUIRED_LEVEL = Config.GM_ACCESSLEVEL;
-
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-		{
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) return false;
-		}
-
 		StringTokenizer st = new StringTokenizer(command);
 		st.nextToken();
 
@@ -100,10 +93,5 @@ public class AdminAI implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 }

@@ -18,9 +18,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import java.util.StringTokenizer;
-
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -61,14 +59,9 @@ public class AdminMenu implements IAdminCommandHandler
 			"admin_kill_menu",
 			"admin_ban_menu",
 			"admin_unban_menu"						};
-	private static final int		REQUIRED_LEVEL	= Config.GM_ACCESSLEVEL;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-				return false;
-
 		StringTokenizer st = new StringTokenizer(command);
 		st.nextToken();
 
@@ -214,11 +207,6 @@ public class AdminMenu implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 
 	private void handleKill(L2PcInstance activeChar)

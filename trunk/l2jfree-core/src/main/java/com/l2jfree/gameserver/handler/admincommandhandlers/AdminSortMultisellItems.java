@@ -64,8 +64,6 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 
 	private static final Log		_log										= LogFactory.getLog(AdminSortMultisellItems.class);
 
-	private static final int		REQUIRED_LEVEL								= Config.GM_GODMODE;
-
 	private static boolean			MULTISELL_GENERATE_OUTPUT_TEXT				= true;
 	private static boolean			MULTISELL_GENERATE_UNKNOWN					= true;
 	private static boolean			MULTISELL_BREAK_PROCESS						= false;
@@ -265,10 +263,6 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-				return false;
-
 		if (command.startsWith("admin_sortmulti"))
 		{
 			String param[] = command.split(" ");
@@ -316,11 +310,6 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 
 	private void init()

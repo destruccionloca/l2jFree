@@ -20,7 +20,6 @@ import java.sql.PreparedStatement;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.datatables.CharNameTable;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
@@ -37,16 +36,8 @@ public class AdminRepairChar implements IAdminCommandHandler
 	
 	private static final String[] ADMIN_COMMANDS = { "admin_restore", "admin_repair" };
 	
-	private static final int REQUIRED_LEVEL = Config.GM_CHAR_EDIT;
-	
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-		{
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-				return false;
-		}
-		
 		handleRepair(command, activeChar);
 		return true;
 	}
@@ -54,11 +45,6 @@ public class AdminRepairChar implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-	
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 	
 	private void handleRepair(String command, L2PcInstance activeChar)

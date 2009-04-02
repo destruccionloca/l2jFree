@@ -18,7 +18,6 @@ package com.l2jfree.gameserver.handler.admincommandhandlers;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
@@ -51,16 +50,11 @@ public class AdminEnchant implements IAdminCommandHandler
 			"admin_setun",//0
 			"admin_setba",//13
 			"admin_enchant"						};
-	private static final int		REQUIRED_LEVEL	= Config.GM_ENCHANT;
 
 	private final static Log		_log			= LogFactory.getLog(AdminEnchant.class);
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-				return false;
-
 		if (command.equals("admin_enchant"))
 		{
 			showMainPage(activeChar);
@@ -195,10 +189,5 @@ public class AdminEnchant implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 }

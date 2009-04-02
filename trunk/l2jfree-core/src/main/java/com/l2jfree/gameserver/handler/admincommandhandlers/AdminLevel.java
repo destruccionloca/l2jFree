@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.handler.admincommandhandlers;
 
 import java.util.StringTokenizer;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
@@ -24,8 +23,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 
 public class AdminLevel implements IAdminCommandHandler
 {
-	private static final int		REQUIRED_LEVEL	= Config.GM_CHAR_EDIT;
-
 	private static final String[][]	ADMIN_COMMANDS	=
 													{
 													{ "admin_remlevel", // remove level amount from your target
@@ -49,13 +46,6 @@ public class AdminLevel implements IAdminCommandHandler
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (activeChar == null)
-			return false;
-
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (activeChar.getAccessLevel() < REQUIRED_LEVEL)
-				return false;
-
 		StringTokenizer st = new StringTokenizer(command, " ");
 
 		String cmd = st.nextToken(); // get command

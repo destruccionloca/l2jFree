@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.handler.admincommandhandlers;
 
 import java.util.StringTokenizer;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.GmListTable;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.L2World;
@@ -36,14 +35,9 @@ public class AdminGmChat implements IAdminCommandHandler
 {
 	private static final String[]	ADMIN_COMMANDS	=
 													{ "admin_gmchat", "admin_snoop", "admin_gmchat_menu" };
-	private static final int		REQUIRED_LEVEL	= Config.GM_MIN;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-				return false;
-
 		if (command.startsWith("admin_gmchat"))
 			handleGmChat(command, activeChar);
 		else if (command.startsWith("admin_snoop"))
@@ -87,11 +81,6 @@ public class AdminGmChat implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 
 	/**

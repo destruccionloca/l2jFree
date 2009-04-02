@@ -15,10 +15,6 @@
 package com.l2jfree.gameserver.handler.admincommandhandlers;
 
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
@@ -42,22 +38,11 @@ import com.l2jfree.gameserver.model.restriction.RestrictionBindClassException;
  */
 public class AdminBanChat implements IAdminCommandHandler
 {
-	private final static Log		_log			= LogFactory.getLog(AdminBan.class.getName());
 	private static final String[]	ADMIN_COMMANDS	=
 													{ "admin_banchat", "admin_unbanchat" };
-	private static final int		REQUIRED_LEVEL	= Config.GM_BAN_CHAT;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-		{
-			if (!(checkLevel(activeChar.getAccessLevel())))
-			{
-				_log.info("Not required level for " + activeChar.getName());
-				return false;
-			}
-		}
-
 		String[] cmdParams = command.split(" ");
 		long banLength = -1;
 
@@ -143,10 +128,5 @@ public class AdminBanChat implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 }

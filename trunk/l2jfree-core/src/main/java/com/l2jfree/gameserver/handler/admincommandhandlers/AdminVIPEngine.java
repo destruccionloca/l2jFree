@@ -47,13 +47,8 @@ public class AdminVIPEngine implements IAdminCommandHandler
 			"admin_vip_notvipreward",
 			"admin_vip_notviprewardamount",		};
 
-	private static final int		REQUIRED_LEVEL	= 100;
-
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-			return false;
-
 		if (command.equals("admin_vip"))
 			showMainPage(activeChar);
 
@@ -371,11 +366,6 @@ public class AdminVIPEngine implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 
 	public void showMainPage(L2PcInstance activeChar)

@@ -1251,7 +1251,7 @@ public final class GameStatusThread extends Thread
 			
 			String IP = gm.getInetAddress().getHostAddress();
 			// log
-			GMAudit.auditGMAction(IP, "telnet-enchant", activeChar.getName(), itemInstance.getItem().getName() + "("
+			GMAudit.auditGMAction(IP, activeChar.getName(), "telnet-enchant", "telnet-enchant", itemInstance.getItem().getName() + "("
 				+ itemInstance.getObjectId() + ")" + " from " + curEnchant + " to " + ench);
 			return true;
 		}

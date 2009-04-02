@@ -22,16 +22,15 @@ package com.l2jfree.gameserver.handler.admincommandhandlers;
 
 import java.util.StringTokenizer;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.Announcements;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.instancemanager.MapRegionManager;
 import com.l2jfree.gameserver.instancemanager.TownManager;
+import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.mapregion.L2MapRegion;
 import com.l2jfree.gameserver.model.mapregion.L2MapRegionRestart;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
-import com.l2jfree.gameserver.model.Location;
 
 /**
  * @author Noctarius
@@ -39,22 +38,11 @@ import com.l2jfree.gameserver.model.Location;
  */
 public class AdminRegion implements IAdminCommandHandler
 {
-	private static final int		REQUIRED_LEVEL	= Config.GM_TEST;
 	private static final String[]	ADMIN_COMMANDS	=
 													{ "admin_region_check" };
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.handler.IAdminCommandHandler#useAdminCommand(java.lang.String, com.l2jfree.gameserver.model.L2PcInstance)
-	 */
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (activeChar == null)
-			return false;
-
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (activeChar.getAccessLevel() < REQUIRED_LEVEL)
-				return false;
-
 		StringTokenizer st = new StringTokenizer(command, " ");
 		String actualCommand = st.nextToken();
 

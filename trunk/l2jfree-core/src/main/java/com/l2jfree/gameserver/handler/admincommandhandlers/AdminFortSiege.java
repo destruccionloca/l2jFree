@@ -16,7 +16,8 @@ package com.l2jfree.gameserver.handler.admincommandhandlers;
 
 import java.util.StringTokenizer;
 
-import com.l2jfree.Config;
+import javolution.text.TextBuilder;
+
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.model.L2Clan;
@@ -25,8 +26,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
-
-import javolution.text.TextBuilder;
 
 /**
  * This class handles all siege commands:
@@ -47,16 +46,9 @@ public class AdminFortSiege implements IAdminCommandHandler
 			"admin_startfortsiege",
 			"admin_setfort",
 			"admin_removefort"						};
-	private static final int		REQUIRED_LEVEL	= Config.GM_NPC_EDIT;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (activeChar.getAccessLevel() < REQUIRED_LEVEL || !activeChar.isGM())
-			{
-				return false;
-			}
-
 		StringTokenizer st = new StringTokenizer(command, " ");
 		command = st.nextToken(); // Get actual command
 

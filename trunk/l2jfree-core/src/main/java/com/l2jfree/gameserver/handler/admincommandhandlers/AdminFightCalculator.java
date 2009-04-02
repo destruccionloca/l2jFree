@@ -16,7 +16,8 @@ package com.l2jfree.gameserver.handler.admincommandhandlers;
 
 import java.util.StringTokenizer;
 
-import com.l2jfree.Config;
+import javolution.text.TextBuilder;
+
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.idfactory.IdFactory;
@@ -29,8 +30,6 @@ import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.tools.random.Rnd;
 
-import javolution.text.TextBuilder;
-
 /**
  * This class handles following admin commands: - gm = turns gm mode on/off
  * 
@@ -40,17 +39,11 @@ public class AdminFightCalculator implements IAdminCommandHandler
 {
 	private static final String[]	ADMIN_COMMANDS	=
 													{ "admin_fight_calculator", "admin_fight_calculator_show", "admin_fcs", };
-	private static final int		REQUIRED_LEVEL	= Config.GM_MIN;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		try
 		{
-			// don't check for gm status ;)
-			if (!Config.ALT_PRIVILEGES_ADMIN)
-				if (!checkLevel(activeChar.getAccessLevel()))
-					return false;
-
 			if (command.startsWith("admin_fight_calculator_show"))
 				handleShow(command.substring("admin_fight_calculator_show".length()), activeChar);
 			else if (command.startsWith("admin_fcs"))
@@ -67,11 +60,6 @@ public class AdminFightCalculator implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 
 	private void handleStart(String params, L2PcInstance activeChar)

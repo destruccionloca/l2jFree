@@ -16,13 +16,12 @@ package com.l2jfree.gameserver.handler.admincommandhandlers;
 
 import java.util.StringTokenizer;
 
-import com.l2jfree.Config;
+import javolution.text.TextBuilder;
+
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.AdminForgePacket;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
-
-import javolution.text.TextBuilder;
 
 /**
  * This class handles commands for gm to forge packets
@@ -32,17 +31,11 @@ import javolution.text.TextBuilder;
  */
 public class AdminPForge implements IAdminCommandHandler
 {
-	//private final static Log _log = LogFactory.getLog(AdminPForge.class);
 	private static final String[]	ADMIN_COMMANDS	=
 													{ "admin_forge", "admin_forge2", "admin_forge3" };
-	private static final int		REQUIRED_LEVEL	= Config.GM_MIN;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-				return false;
-
 		if (command.equals("admin_forge"))
 		{
 			showMainPage(activeChar);
@@ -201,10 +194,5 @@ public class AdminPForge implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 }

@@ -39,17 +39,11 @@ public class AdminLogin implements IAdminCommandHandler
 			"admin_server_list_clock",
 			"admin_server_login"					};
 
-	private static final int		REQUIRED_LEVEL	= Config.GM_ACCESSLEVEL;
-
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.handler.IAdminCommandHandler#useAdminCommand(java.lang.String, com.l2jfree.gameserver.model.L2PcInstance)
 	 */
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (activeChar.getAccessLevel() < REQUIRED_LEVEL)
-				return false;
-
 		if (command.equals("admin_server_gm_only"))
 		{
 			gmOnly();

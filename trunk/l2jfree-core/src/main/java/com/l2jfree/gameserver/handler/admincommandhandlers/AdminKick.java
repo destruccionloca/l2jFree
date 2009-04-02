@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.handler.admincommandhandlers;
 
 import java.util.StringTokenizer;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -27,15 +26,9 @@ public class AdminKick implements IAdminCommandHandler
 {
 	private static final String[]	ADMIN_COMMANDS	=
 													{ "admin_kick", "admin_kick_non_gm" };
-	private static final int		REQUIRED_LEVEL	= Config.GM_KICK;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-				return false;
-
 		if (command.startsWith("admin_kick"))
 		{
 			StringTokenizer st = new StringTokenizer(command);
@@ -86,10 +79,5 @@ public class AdminKick implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 }

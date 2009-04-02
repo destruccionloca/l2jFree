@@ -60,17 +60,14 @@ public class AdminSummon implements IAdminCommandHandler
 		if (id < 1000000)
 		{
 			subCommand = "admin_create_item";
-			IAdminCommandHandler ach = AdminCommandHandler.getInstance().getAdminCommandHandler(subCommand);
-			ach.useAdminCommand(subCommand + " " + id + " " + count, activeChar);
+			AdminCommandHandler.getInstance().useAdminCommand(activeChar, subCommand + " " + id + " " + count);
 		}
 		else
 		{
 			subCommand = "admin_spawn";
-			IAdminCommandHandler ach = AdminCommandHandler.getInstance().getAdminCommandHandler(subCommand);
-
 			activeChar.sendMessage("This is only a temporary spawn.  The mob(s) will NOT respawn.");
 			id -= 1000000;
-			ach.useAdminCommand(subCommand + " " + id + " " + count, activeChar);
+			AdminCommandHandler.getInstance().useAdminCommand(activeChar, subCommand + " " + id + " " + count);
 		}
 		return true;
 	}

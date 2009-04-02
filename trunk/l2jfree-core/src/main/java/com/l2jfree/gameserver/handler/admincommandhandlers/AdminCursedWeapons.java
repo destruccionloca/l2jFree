@@ -16,7 +16,8 @@ package com.l2jfree.gameserver.handler.admincommandhandlers;
 
 import java.util.StringTokenizer;
 
-import com.l2jfree.Config;
+import javolution.text.TextBuilder;
+
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
 import com.l2jfree.gameserver.model.CursedWeapon;
@@ -24,8 +25,6 @@ import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
-
-import javolution.text.TextBuilder;
 
 /**
  * This class handles following admin commands:
@@ -46,15 +45,10 @@ public class AdminCursedWeapons implements IAdminCommandHandler
 			"admin_cw_reload",
 			"admin_cw_add",
 			"admin_cw_info_menu"					};
-	private static final int		REQUIRED_LEVEL	= Config.GM_MIN;
 	private int						itemId;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!(checkLevel(activeChar.getAccessLevel())))
-				return false;
-
 		CursedWeaponsManager cwm = CursedWeaponsManager.getInstance();
 		int id = 0;
 
@@ -208,10 +202,5 @@ public class AdminCursedWeapons implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 }

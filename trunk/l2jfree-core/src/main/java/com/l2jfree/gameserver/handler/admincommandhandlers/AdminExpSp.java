@@ -16,11 +16,9 @@ package com.l2jfree.gameserver.handler.admincommandhandlers;
 
 import java.util.StringTokenizer;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -40,15 +38,9 @@ public class AdminExpSp implements IAdminCommandHandler
 
 	private static final String[]	ADMIN_COMMANDS	=
 													{ "admin_add_exp_sp_to_character", "admin_add_exp_sp", "admin_remove_exp_sp" };
-	private static final int		REQUIRED_LEVEL	= Config.GM_CHAR_EDIT;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-				return false;
-
 		if (command.startsWith("admin_add_exp_sp"))
 		{
 			try
@@ -82,11 +74,6 @@ public class AdminExpSp implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 
 	private void addExpSp(L2PcInstance activeChar)

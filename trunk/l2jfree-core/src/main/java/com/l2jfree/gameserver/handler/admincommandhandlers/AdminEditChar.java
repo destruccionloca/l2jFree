@@ -93,15 +93,8 @@ public class AdminEditChar implements IAdminCommandHandler
 			"admin_sethero",
 			"admin_manualhero"							};
 
-	private static final int		REQUIRED_LEVEL		= Config.GM_CHAR_EDIT;
-	private static final int		REQUIRED_LEVEL2		= Config.GM_CHAR_EDIT_OTHER;
-	private static final int		REQUIRED_LEVEL_VIEW	= Config.GM_CHAR_VIEW;
-
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!((checkLevel(activeChar.getAccessLevel()) || checkLevel2(activeChar.getAccessLevel())) && activeChar.isGM()))
-			return false;
-
 		if (command.equals("admin_current_player"))
 		{
 			showCharacterInfo(activeChar, null);
@@ -215,8 +208,6 @@ public class AdminEditChar implements IAdminCommandHandler
 				int recVal = Integer.parseInt(val);
 				L2Object target = activeChar.getTarget();
 				L2PcInstance player = null;
-				if (activeChar != target && activeChar.getAccessLevel() < REQUIRED_LEVEL2)
-					return false;
 				if (target instanceof L2PcInstance)
 				{
 					player = (L2PcInstance) target;
@@ -242,8 +233,6 @@ public class AdminEditChar implements IAdminCommandHandler
 				int classidval = Integer.parseInt(val);
 				L2Object target = activeChar.getTarget();
 				L2PcInstance player = null;
-				if (activeChar != target && activeChar.getAccessLevel() < REQUIRED_LEVEL2)
-					return false;
 				if (target instanceof L2PcInstance)
 					player = (L2PcInstance) target;
 				else
@@ -280,9 +269,6 @@ public class AdminEditChar implements IAdminCommandHandler
 			L2Object target = activeChar.getTarget();
 			L2PcInstance player = null;
 			L2NpcInstance npc = null;
-
-			if (activeChar != target && activeChar.getAccessLevel() < REQUIRED_LEVEL2)
-				return false;
 
 			if (target == null)
 				player = activeChar;
@@ -369,8 +355,6 @@ public class AdminEditChar implements IAdminCommandHandler
 		{
 			L2Object target = activeChar.getTarget();
 			L2PcInstance player = null;
-			if (activeChar != target && activeChar.getAccessLevel() < REQUIRED_LEVEL2)
-				return false;
 			if (target instanceof L2PcInstance)
 			{
 				player = (L2PcInstance) target;
@@ -392,8 +376,6 @@ public class AdminEditChar implements IAdminCommandHandler
 				String val = command.substring(15);
 				L2Object target = activeChar.getTarget();
 				L2PcInstance player = null;
-				if (activeChar != target && activeChar.getAccessLevel() < REQUIRED_LEVEL2)
-					return false;
 				if (target instanceof L2PcInstance)
 					player = (L2PcInstance) target;
 				else
@@ -424,8 +406,6 @@ public class AdminEditChar implements IAdminCommandHandler
 		{
 			L2Object target = activeChar.getTarget();
 			L2PcInstance player = null;
-			if (activeChar != target && activeChar.getAccessLevel() < REQUIRED_LEVEL2)
-				return false;
 			if (target instanceof L2PcInstance)
 				player = (L2PcInstance) target;
 			else
@@ -441,8 +421,6 @@ public class AdminEditChar implements IAdminCommandHandler
 		{
 			L2Object target = activeChar.getTarget();
 			L2PcInstance player = null;
-			if (activeChar != target && activeChar.getAccessLevel() < REQUIRED_LEVEL2)
-				return false;
 			if (target instanceof L2PcInstance)
 			{
 				player = (L2PcInstance) target;
@@ -471,16 +449,6 @@ public class AdminEditChar implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
-	}
-
-	private boolean checkLevel2(int level)
-	{
-		return (level >= REQUIRED_LEVEL_VIEW);
 	}
 
 	private void listCharacters(L2PcInstance activeChar, int page)

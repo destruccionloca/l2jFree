@@ -1696,52 +1696,50 @@ public final class Config extends L2Config
 	// *******************************************************************************************
 	public static final String	GM_ACCESS_FILE	= "./config/GMAccess.properties";
 	// *******************************************************************************************
-	public static boolean		ALT_PRIVILEGES_ADMIN;
-	public static boolean		EVERYBODY_HAS_ADMIN_RIGHTS;						// For test servers - everybody has admin rights
 	public static int			GM_ACCESSLEVEL;
 	public static int			GM_MIN;											// General GM Minimal AccessLevel
 	public static int			GM_ALTG_MIN_LEVEL;									// Minimum privileges level for a GM to do Alt+G
-	public static int			GM_ANNOUNCE;										// General GM AccessLevel to change announcements
-	public static int			GM_BAN;											// General GM AccessLevel can /ban /unban
-	public static int			GM_JAIL;											// General GM AccessLevel can /jail /unjail
-	public static int			GM_BAN_CHAT;										// General GM AccessLevel can /ban /unban for chat
-	public static int			GM_CAMERA;
+//	public static int			GM_ANNOUNCE;										// General GM AccessLevel to change announcements
+//	public static int			GM_BAN;											// General GM AccessLevel can /ban /unban
+//	public static int			GM_JAIL;											// General GM AccessLevel can /jail /unjail
+//	public static int			GM_BAN_CHAT;										// General GM AccessLevel can /ban /unban for chat
+//	public static int			GM_CAMERA;
 	public static int			GM_CREATE_ITEM;									// General GM AccessLevel can /create_item and /gmshop
 	public static int			GM_FREE_SHOP;										// General GM AccessLevel can shop for free
-	public static int			GM_ENCHANT;										// General GM AccessLevel can enchant armor
-	public static int			GM_DELETE;											// General GM AccessLevel can /delete
-	public static int			GM_KICK;											// General GM AccessLevel can /kick /disconnect
-	public static int			GM_MENU;											// General GM AccessLevel for access to GMMenu
-	public static int			GM_GODMODE;										// General GM AccessLevel to use god mode command
-	public static int			GM_CHAR_EDIT;										// General GM AccessLevel with character edit rights
-	public static int			GM_CHAR_EDIT_OTHER;								// General GM AccessLevel with edit rights for other characters
-	public static int			GM_CHAR_VIEW;										// General GM AccessLevel with character view rights
+//	public static int			GM_ENCHANT;										// General GM AccessLevel can enchant armor
+//	public static int			GM_DELETE;											// General GM AccessLevel can /delete
+//	public static int			GM_KICK;											// General GM AccessLevel can /kick /disconnect
+//	public static int			GM_MENU;											// General GM AccessLevel for access to GMMenu
+//	public static int			GM_GODMODE;										// General GM AccessLevel to use god mode command
+//	public static int			GM_CHAR_EDIT;										// General GM AccessLevel with character edit rights
+//	public static int			GM_CHAR_EDIT_OTHER;								// General GM AccessLevel with edit rights for other characters
+//	public static int			GM_CHAR_VIEW;										// General GM AccessLevel with character view rights
 	public static int			GM_CHAR_VIEW_INFO;									// General GM AccessLevel with character view rights ALT+G
 	public static int			GM_CHAR_INVENTORY;									// General GM AccessLevel with character view inventory rights ALT+G
 	public static int			GM_CHAR_CLAN_VIEW;									// General GM AccessLevel with character view clan info rights ALT+G
 	public static int			GM_CHAR_VIEW_QUEST;								// General GM AccessLevel with character view quest rights ALT+G
 	public static int			GM_CHAR_VIEW_SKILL;								// General GM AccessLevel with character view skill rights ALT+G
 	public static int			GM_CHAR_VIEW_WAREHOUSE;							// General GM AccessLevel with character warehouse view rights ALT+G
-	public static int			GM_NPC_EDIT;										// General GM AccessLevel with NPC edit rights
-	public static int			GM_NPC_VIEW;
-	public static int			GM_TELEPORT;										// General GM AccessLevel to teleport to any location
-	public static int			GM_TELEPORT_OTHER;									// General GM AccessLevel to teleport character to any location
-	public static int			GM_RESTART;										// General GM AccessLevel to restart server
-	public static int			GM_MONSTERRACE;									// General GM AccessLevel for MonsterRace
-	public static int			GM_RIDER;											// General GM AccessLevel to ride Wyvern
+//	public static int			GM_NPC_EDIT;										// General GM AccessLevel with NPC edit rights
+//	public static int			GM_NPC_VIEW;
+//	public static int			GM_TELEPORT;										// General GM AccessLevel to teleport to any location
+//	public static int			GM_TELEPORT_OTHER;									// General GM AccessLevel to teleport character to any location
+//	public static int			GM_RESTART;										// General GM AccessLevel to restart server
+//	public static int			GM_MONSTERRACE;									// General GM AccessLevel for MonsterRace
+//	public static int			GM_RIDER;											// General GM AccessLevel to ride Wyvern
 	public static int			GM_ESCAPE;											// General GM AccessLevel to unstuck without 5min delay
 	public static int			GM_FIXED;											// General GM AccessLevel to resurect fixed after death
-	public static int			GM_CREATE_NODES;									// General GM AccessLevel to create Path Nodes
-	public static int			GM_DOOR;											// General GM AccessLevel to close/open Doors
-	public static int			GM_RES;											// General GM AccessLevel with Resurrection rights
+//	public static int			GM_CREATE_NODES;									// General GM AccessLevel to create Path Nodes
+//	public static int			GM_DOOR;											// General GM AccessLevel to close/open Doors
+//	public static int			GM_RES;											// General GM AccessLevel with Resurrection rights
 	public static int			GM_PEACEATTACK;									// General GM AccessLevel to attack in the peace zone
-	public static int			GM_HEAL;											// General GM AccessLevel to heal
-	public static int			GM_IRC;											// General GM AccessLevel to IRC commands
-	public static int			GM_UNBLOCK;										// General GM AccessLevel to unblock IPs detected as hack IPs
-	public static int			GM_CACHE;											// General GM AccessLevel to use Cache commands
-	public static int			GM_TALK_BLOCK;										// General GM AccessLevel to use test&st commands
-	public static int			GM_TEST;
-	public static int			GM_INSTANCE;
+//	public static int			GM_HEAL;											// General GM AccessLevel to heal
+//	public static int			GM_IRC;											// General GM AccessLevel to IRC commands
+//	public static int			GM_UNBLOCK;										// General GM AccessLevel to unblock IPs detected as hack IPs
+//	public static int			GM_CACHE;											// General GM AccessLevel to use Cache commands
+//	public static int			GM_TALK_BLOCK;										// General GM AccessLevel to use test&st commands
+//	public static int			GM_TEST;
+//	public static int			GM_INSTANCE;
 	public static boolean		GM_DISABLE_TRANSACTION;							// Disable transaction on AccessLevel
 	public static int			GM_TRANSACTION_MIN;
 	public static int			GM_TRANSACTION_MAX;
@@ -1755,7 +1753,7 @@ public final class Config extends L2Config
 	public static int			ADMIN_NAME_COLOR;
 	public static int			ADMIN_TITLE_COLOR;
 	public static boolean		SHOW_GM_LOGIN;										// GM Announce at login
-	public static boolean		HIDE_GM_STATUS;
+//	public static boolean		HIDE_GM_STATUS;
 	public static boolean		GM_STARTUP_INVISIBLE;
 	public static boolean		GM_STARTUP_SILENCE;
 	public static boolean		GM_STARTUP_AUTO_LIST;
@@ -1775,53 +1773,50 @@ public final class Config extends L2Config
 		{
 			Properties gmSettings = new L2Properties(GM_ACCESS_FILE);
 
-			ALT_PRIVILEGES_ADMIN = Boolean.parseBoolean(gmSettings.getProperty("AltPrivilegesAdmin", "False"));
-			EVERYBODY_HAS_ADMIN_RIGHTS = Boolean.parseBoolean(gmSettings.getProperty("EverybodyHasAdminRights", "false"));
-
 			GM_ACCESSLEVEL = Integer.parseInt(gmSettings.getProperty("GMAccessLevel", "100"));
 			GM_MIN = Integer.parseInt(gmSettings.getProperty("GMMinLevel", "100"));
 			GM_ALTG_MIN_LEVEL = Integer.parseInt(gmSettings.getProperty("GMCanAltG", "100"));
-			GM_ANNOUNCE = Integer.parseInt(gmSettings.getProperty("GMCanAnnounce", "100"));
-			GM_BAN = Integer.parseInt(gmSettings.getProperty("GMCanBan", "100"));
-			GM_JAIL = Integer.parseInt(gmSettings.getProperty("GMCanJail", "100"));
-			GM_BAN_CHAT = Integer.parseInt(gmSettings.getProperty("GMCanBanChat", "100"));
-			GM_CAMERA = Integer.parseInt(gmSettings.getProperty("GMCamera", "100"));
+//			GM_ANNOUNCE = Integer.parseInt(gmSettings.getProperty("GMCanAnnounce", "100"));
+//			GM_BAN = Integer.parseInt(gmSettings.getProperty("GMCanBan", "100"));
+//			GM_JAIL = Integer.parseInt(gmSettings.getProperty("GMCanJail", "100"));
+//			GM_BAN_CHAT = Integer.parseInt(gmSettings.getProperty("GMCanBanChat", "100"));
+//			GM_CAMERA = Integer.parseInt(gmSettings.getProperty("GMCamera", "100"));
 			GM_CREATE_ITEM = Integer.parseInt(gmSettings.getProperty("GMCanShop", "100"));
 			GM_FREE_SHOP = Integer.parseInt(gmSettings.getProperty("GMCanBuyFree", "100"));
-			GM_DELETE = Integer.parseInt(gmSettings.getProperty("GMCanDelete", "100"));
-			GM_KICK = Integer.parseInt(gmSettings.getProperty("GMCanKick", "100"));
-			GM_MENU = Integer.parseInt(gmSettings.getProperty("GMMenu", "100"));
-			GM_GODMODE = Integer.parseInt(gmSettings.getProperty("GMGodMode", "100"));
-			GM_CHAR_EDIT = Integer.parseInt(gmSettings.getProperty("GMCanEditChar", "100"));
-			GM_CHAR_EDIT_OTHER = Integer.parseInt(gmSettings.getProperty("GMCanEditCharOther", "100"));
-			GM_CHAR_VIEW = Integer.parseInt(gmSettings.getProperty("GMCanViewChar", "100"));
+//			GM_DELETE = Integer.parseInt(gmSettings.getProperty("GMCanDelete", "100"));
+//			GM_KICK = Integer.parseInt(gmSettings.getProperty("GMCanKick", "100"));
+//			GM_MENU = Integer.parseInt(gmSettings.getProperty("GMMenu", "100"));
+//			GM_GODMODE = Integer.parseInt(gmSettings.getProperty("GMGodMode", "100"));
+//			GM_CHAR_EDIT = Integer.parseInt(gmSettings.getProperty("GMCanEditChar", "100"));
+//			GM_CHAR_EDIT_OTHER = Integer.parseInt(gmSettings.getProperty("GMCanEditCharOther", "100"));
+//			GM_CHAR_VIEW = Integer.parseInt(gmSettings.getProperty("GMCanViewChar", "100"));
 			GM_CHAR_VIEW_INFO = Integer.parseInt(gmSettings.getProperty("GMViewCharacterInfo", "100"));
 			GM_CHAR_INVENTORY = Integer.parseInt(gmSettings.getProperty("GMViewItemList", "100"));
 			GM_CHAR_CLAN_VIEW = Integer.parseInt(gmSettings.getProperty("GMViewClanInfo", "100"));
 			GM_CHAR_VIEW_QUEST = Integer.parseInt(gmSettings.getProperty("GMViewQuestList", "100"));
 			GM_CHAR_VIEW_SKILL = Integer.parseInt(gmSettings.getProperty("GMViewSkillInfo", "100"));
 			GM_CHAR_VIEW_WAREHOUSE = Integer.parseInt(gmSettings.getProperty("GMViewWarehouseWithdrawList", "100"));
-			GM_NPC_EDIT = Integer.parseInt(gmSettings.getProperty("GMCanEditNPC", "100"));
-			GM_NPC_VIEW = Integer.parseInt(gmSettings.getProperty("GMCanViewNPC", "100"));
-			GM_TELEPORT = Integer.parseInt(gmSettings.getProperty("GMCanTeleport", "100"));
-			GM_TELEPORT_OTHER = Integer.parseInt(gmSettings.getProperty("GMCanTeleportOther", "100"));
-			GM_RESTART = Integer.parseInt(gmSettings.getProperty("GMCanRestart", "100"));
-			GM_MONSTERRACE = Integer.parseInt(gmSettings.getProperty("GMMonsterRace", "100"));
-			GM_RIDER = Integer.parseInt(gmSettings.getProperty("GMRider", "100"));
+//			GM_NPC_EDIT = Integer.parseInt(gmSettings.getProperty("GMCanEditNPC", "100"));
+//			GM_NPC_VIEW = Integer.parseInt(gmSettings.getProperty("GMCanViewNPC", "100"));
+//			GM_TELEPORT = Integer.parseInt(gmSettings.getProperty("GMCanTeleport", "100"));
+//			GM_TELEPORT_OTHER = Integer.parseInt(gmSettings.getProperty("GMCanTeleportOther", "100"));
+//			GM_RESTART = Integer.parseInt(gmSettings.getProperty("GMCanRestart", "100"));
+//			GM_MONSTERRACE = Integer.parseInt(gmSettings.getProperty("GMMonsterRace", "100"));
+//			GM_RIDER = Integer.parseInt(gmSettings.getProperty("GMRider", "100"));
 			GM_ESCAPE = Integer.parseInt(gmSettings.getProperty("GMFastUnstuck", "100"));
 			GM_FIXED = Integer.parseInt(gmSettings.getProperty("GMResurectFixed", "100"));
-			GM_CREATE_NODES = Integer.parseInt(gmSettings.getProperty("GMCreateNodes", "100"));
-			GM_DOOR = Integer.parseInt(gmSettings.getProperty("GMDoor", "100"));
-			GM_RES = Integer.parseInt(gmSettings.getProperty("GMRes", "100"));
+//			GM_CREATE_NODES = Integer.parseInt(gmSettings.getProperty("GMCreateNodes", "100"));
+//			GM_DOOR = Integer.parseInt(gmSettings.getProperty("GMDoor", "100"));
+//			GM_RES = Integer.parseInt(gmSettings.getProperty("GMRes", "100"));
 			GM_PEACEATTACK = Integer.parseInt(gmSettings.getProperty("GMPeaceAttack", "100"));
-			GM_HEAL = Integer.parseInt(gmSettings.getProperty("GMHeal", "100"));
-			GM_IRC = Integer.parseInt(gmSettings.getProperty("GMIRC", "100"));
-			GM_ENCHANT = Integer.parseInt(gmSettings.getProperty("GMEnchant", "100"));
-			GM_UNBLOCK = Integer.parseInt(gmSettings.getProperty("GMUnblock", "100"));
-			GM_CACHE = Integer.parseInt(gmSettings.getProperty("GMCache", "100"));
-			GM_TALK_BLOCK = Integer.parseInt(gmSettings.getProperty("GMTalkBlock", "100"));
-			GM_TEST = Integer.parseInt(gmSettings.getProperty("GMTest", "100"));
-			GM_INSTANCE = Integer.parseInt(gmSettings.getProperty("GMInstance", "100"));
+//			GM_HEAL = Integer.parseInt(gmSettings.getProperty("GMHeal", "100"));
+//			GM_IRC = Integer.parseInt(gmSettings.getProperty("GMIRC", "100"));
+//			GM_ENCHANT = Integer.parseInt(gmSettings.getProperty("GMEnchant", "100"));
+//			GM_UNBLOCK = Integer.parseInt(gmSettings.getProperty("GMUnblock", "100"));
+//			GM_CACHE = Integer.parseInt(gmSettings.getProperty("GMCache", "100"));
+//			GM_TALK_BLOCK = Integer.parseInt(gmSettings.getProperty("GMTalkBlock", "100"));
+//			GM_TEST = Integer.parseInt(gmSettings.getProperty("GMTest", "100"));
+//			GM_INSTANCE = Integer.parseInt(gmSettings.getProperty("GMInstance", "100"));
 			GM_STARTUP_AUTO_LIST = Boolean.parseBoolean(gmSettings.getProperty("GMStartupAutoList", "True"));
 			GM_ADMIN_MENU_STYLE = gmSettings.getProperty("GMAdminMenuStyle", "modern");
 			GM_HERO_AURA = Boolean.parseBoolean(gmSettings.getProperty("GMHeroAura", "True"));
@@ -1853,7 +1848,7 @@ public final class Config extends L2Config
 			ADMIN_NAME_COLOR = Integer.decode("0x" + gmSettings.getProperty("AdminNameColor", "00FF00"));
 			ADMIN_TITLE_COLOR = Integer.decode("0x" + gmSettings.getProperty("AdminTitleColor", "00FF00"));
 			SHOW_GM_LOGIN = Boolean.parseBoolean(gmSettings.getProperty("ShowGMLogin", "false"));
-			HIDE_GM_STATUS = Boolean.parseBoolean(gmSettings.getProperty("HideGMStatus", "false"));
+//			HIDE_GM_STATUS = Boolean.parseBoolean(gmSettings.getProperty("HideGMStatus", "false"));
 			GM_STARTUP_INVISIBLE = Boolean.parseBoolean(gmSettings.getProperty("GMStartupInvisible", "True"));
 			GM_STARTUP_SILENCE = Boolean.parseBoolean(gmSettings.getProperty("GMStartupSilence", "True"));
 			
@@ -3448,8 +3443,6 @@ public final class Config extends L2Config
 
 		else if (pName.equalsIgnoreCase("ShowGMLogin"))
 			SHOW_GM_LOGIN = Boolean.parseBoolean(pValue);
-		else if (pName.equalsIgnoreCase("HideGMStatus"))
-			HIDE_GM_STATUS = Boolean.parseBoolean(pValue);
 
 		// Other settings
 		else if (pName.equalsIgnoreCase("UseDeepBlueDropRules"))

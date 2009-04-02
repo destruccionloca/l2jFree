@@ -30,7 +30,6 @@ import javolution.text.TextBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.SpawnTable;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.L2Spawn;
@@ -77,7 +76,6 @@ public class AdminEventEngine implements IAdminCommandHandler
 			"admin_event_control_prize",
 			"admin_event_control_chatban",
 			"admin_event_control_finish"			};
-	private static final int		REQUIRED_LEVEL	= Config.GM_MENU;
 	private static String			tempBuffer		= "";
 	private static String			tempName		= "";
 	//private static String			tempName2		= "";
@@ -86,10 +84,6 @@ public class AdminEventEngine implements IAdminCommandHandler
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-				return false;
-
 		if (command.equals("admin_event"))
 			showMainPage(activeChar);
 
@@ -384,11 +378,6 @@ public class AdminEventEngine implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 
 	String showStoredEvents()

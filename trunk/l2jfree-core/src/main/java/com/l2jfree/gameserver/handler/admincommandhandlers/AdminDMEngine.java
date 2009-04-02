@@ -20,14 +20,13 @@ package com.l2jfree.gameserver.handler.admincommandhandlers;
  *
  */
 
-import com.l2jfree.Config;
+import javolution.text.TextBuilder;
+
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.events.DM;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.util.Util;
-
-import javolution.text.TextBuilder;
 
 public class AdminDMEngine implements IAdminCommandHandler
 {
@@ -55,14 +54,8 @@ public class AdminDMEngine implements IAdminCommandHandler
 			"admin_dmevent_save",
 			"admin_dmevent_load"					};
 
-	private static final int		REQUIRED_LEVEL	= 100;
-
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-				return false;
-
 		if (command.equals("admin_dmevent"))
 			showMainPage(activeChar);
 		else if (command.startsWith("admin_dmevent_name "))
@@ -174,11 +167,6 @@ public class AdminDMEngine implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 
 	public void showMainPage(L2PcInstance activeChar)

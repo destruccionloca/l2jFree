@@ -21,6 +21,8 @@ package com.l2jfree.gameserver.handler.admincommandhandlers;
  */
 import java.util.StringTokenizer;
 
+import javolution.text.TextBuilder;
+
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.L2World;
@@ -28,8 +30,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.events.TvT;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.util.Util;
-
-import javolution.text.TextBuilder;
 
 public class AdminTvTEngine implements IAdminCommandHandler
 {
@@ -66,14 +66,8 @@ public class AdminTvTEngine implements IAdminCommandHandler
 			"admin_tvt_maxplayers",
 			"admin_tvtkick"						};
 
-	private static final int		REQUIRED_LEVEL	= 100;
-
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-				return false;
-
 		if (command.equals("admin_tvt"))
 			showMainPage(activeChar);
 		else if (command.startsWith("admin_tvt_name "))
@@ -256,11 +250,6 @@ public class AdminTvTEngine implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 
 	public void showMainPage(L2PcInstance activeChar)

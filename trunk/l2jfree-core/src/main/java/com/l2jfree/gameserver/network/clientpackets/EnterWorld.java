@@ -146,22 +146,16 @@ public class EnterWorld extends L2GameClientPacket
 			}
 			else
 			{
-				if (Config.GM_STARTUP_INVISIBLE
-						&& (!Config.ALT_PRIVILEGES_ADMIN && activeChar.getAccessLevel() >= Config.GM_GODMODE || Config.ALT_PRIVILEGES_ADMIN
-								&& AdminCommandHandler.getInstance().checkPrivileges(activeChar, "admin_invisible")))
-					activeChar.getAppearance().setInvisible();
-
-				if (Config.GM_STARTUP_SILENCE
-						&& (!Config.ALT_PRIVILEGES_ADMIN && activeChar.getAccessLevel() >= Config.GM_MENU || Config.ALT_PRIVILEGES_ADMIN
-								&& AdminCommandHandler.getInstance().checkPrivileges(activeChar, "admin_silence")))
-					activeChar.setMessageRefusal(true);
+				if (Config.GM_STARTUP_INVISIBLE)
+					AdminCommandHandler.getInstance().useAdminCommand(activeChar, "admin_invisible");
+				
+				if (Config.GM_STARTUP_SILENCE)
+					AdminCommandHandler.getInstance().useAdminCommand(activeChar, "admin_silence");
 			}
-
-			if (Config.GM_STARTUP_INVULNERABLE
-					&& (!Config.ALT_PRIVILEGES_ADMIN && activeChar.getAccessLevel() >= Config.GM_GODMODE || Config.ALT_PRIVILEGES_ADMIN
-							&& AdminCommandHandler.getInstance().checkPrivileges(activeChar, "admin_invul")))
-				activeChar.setIsInvul(true);
-
+			
+			if (Config.GM_STARTUP_INVULNERABLE)
+				AdminCommandHandler.getInstance().useAdminCommand(activeChar, "admin_invul");
+			
 			if (Config.GM_NAME_COLOR_ENABLED)
 			{
 				if (activeChar.getAccessLevel() >= 100)

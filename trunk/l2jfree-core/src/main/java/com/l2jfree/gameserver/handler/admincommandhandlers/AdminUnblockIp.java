@@ -18,7 +18,6 @@ package com.l2jfree.gameserver.handler.admincommandhandlers;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
@@ -35,7 +34,6 @@ public class AdminUnblockIp implements IAdminCommandHandler
 
 	private static final Log		_log			= LogFactory.getLog(AdminTeleport.class.getName());
 
-	private static final int		REQUIRED_LEVEL	= Config.GM_UNBLOCK;
 	private static final String[]	ADMIN_COMMANDS	=
 													{ "admin_unblockip" };
 
@@ -44,10 +42,6 @@ public class AdminUnblockIp implements IAdminCommandHandler
 	 */
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-				return false;
-
 		if (command.startsWith("admin_unblockip "))
 		{
 			try
@@ -71,11 +65,6 @@ public class AdminUnblockIp implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 
 	/**

@@ -24,8 +24,6 @@ import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.communitybbs.CommunityBoard;
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.handler.AdminCommandHandler;
-import com.l2jfree.gameserver.handler.IAdminCommandHandler;
-import com.l2jfree.gameserver.model.GMAudit;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
@@ -72,38 +70,7 @@ public class RequestBypassToServer extends L2GameClientPacket
 		{
 			if (_command.startsWith("admin_"))
 			{
-				if (Config.ALT_PRIVILEGES_ADMIN && !AdminCommandHandler.getInstance().checkPrivileges(activeChar, _command))
-				{
-					_log.info("<GM>" + activeChar + " does not have sufficient privileges for command '" + _command + "'.");
-					activeChar.sendMessage("Unsufficient privileges.");
-					return;
-				}
-
-				IAdminCommandHandler ach = AdminCommandHandler.getInstance().getAdminCommandHandler(_command);
-
-				if (ach != null)
-				{
-					// DaDummy: this way we log _every_ admincommand with all related info
-					String command;
-					String params;
-
-					if (_command.indexOf(" ") != -1)
-					{
-						command = _command.substring(0, _command.indexOf(" "));
-						params = _command.substring(_command.indexOf(" "));
-					}
-					else
-					{
-						command = _command;
-						params = "";
-					}
-
-					GMAudit.auditGMAction(activeChar, "admincommand", command, params);
-
-					ach.useAdminCommand(_command, activeChar);
-				}
-				else
-					_log.warn("No handler registered for bypass '" + _command + "'");
+				AdminCommandHandler.getInstance().useAdminCommand(activeChar, _command);
 			}
 			else if (_command.equals("come_here") && activeChar.getAccessLevel() >= Config.GM_ACCESSLEVEL)
 				comeHere(activeChar);

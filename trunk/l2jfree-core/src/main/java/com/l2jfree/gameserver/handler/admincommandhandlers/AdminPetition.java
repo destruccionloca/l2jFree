@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.handler.admincommandhandlers;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.instancemanager.PetitionManager;
 import com.l2jfree.gameserver.model.L2Object;
@@ -37,14 +36,9 @@ public class AdminPetition implements IAdminCommandHandler
 			"admin_reject_petition",
 			"admin_reset_petitions",
 			"admin_force_peti"						};
-	private static final int		REQUIRED_LEVEL	= Config.GM_MIN;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-				return false;
-
 		L2Object targetChar = activeChar.getTarget();
 
 		int petitionId = -1;
@@ -120,10 +114,5 @@ public class AdminPetition implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 }

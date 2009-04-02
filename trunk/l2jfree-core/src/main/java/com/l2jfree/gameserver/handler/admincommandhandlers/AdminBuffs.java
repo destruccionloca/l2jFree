@@ -2,15 +2,14 @@ package com.l2jfree.gameserver.handler.admincommandhandlers;
 
 import java.util.StringTokenizer;
 
+import javolution.text.TextBuilder;
+
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.L2World;
-import com.l2jfree.gameserver.model.GMAudit;
 import com.l2jfree.gameserver.model.L2Effect;
+import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
-
-import javolution.text.TextBuilder;
 
 public class AdminBuffs implements IAdminCommandHandler
 {
@@ -25,9 +24,6 @@ public class AdminBuffs implements IAdminCommandHandler
 	
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		String target = (activeChar.getTarget() != null) ? activeChar.getTarget().getName() : "no-target";
-		GMAudit.auditGMAction(activeChar.getName(), command, target, "");
-		
 		if (command.startsWith("admin_getbuffs"))
 		{
 			StringTokenizer st = new StringTokenizer(command, " ");
@@ -171,8 +167,6 @@ public class AdminBuffs implements IAdminCommandHandler
 		ms.setHtml(html.toString());
 		
 		activeChar.sendPacket(ms);
-		
-		GMAudit.auditGMAction(activeChar.getName(), "get_buffs", player.getName(), "");
 	}
 	
 	private void removeBuff(L2PcInstance remover, String playername, int SkillId)
@@ -201,7 +195,6 @@ public class AdminBuffs implements IAdminCommandHandler
 				}
 			}
 			showBuffs(player, remover);
-			GMAudit.auditGMAction(remover.getName(), "stopbuffs", playername, "");
 		}
 	}
 	
@@ -220,7 +213,6 @@ public class AdminBuffs implements IAdminCommandHandler
 		{
 			player.stopAllEffects();
 			remover.sendMessage("Removed all effects from " + playername);
-			GMAudit.auditGMAction(remover.getName(), "stopallbuffs", playername, "");
 			showBuffs(player, remover);
 		}
 		else

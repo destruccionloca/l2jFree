@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.handler.admincommandhandlers;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.SpawnTable;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.instancemanager.GrandBossSpawnManager;
@@ -32,21 +31,11 @@ import com.l2jfree.gameserver.network.SystemMessageId;
  */
 public class AdminDelete implements IAdminCommandHandler
 {
-	//private final static Log _log = LogFactory.getLog(AdminDelete.class.getName());
-
 	private static final String[]	ADMIN_COMMANDS	=
 													{ "admin_delete" };
 
-	private static final int		REQUIRED_LEVEL	= Config.GM_NPC_EDIT;
-
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-		{
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-				return false;
-		}
-
 		if (command.equals("admin_delete"))
 			handleDelete(activeChar);
 
@@ -57,11 +46,6 @@ public class AdminDelete implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 
 	private void handleDelete(L2PcInstance activeChar)

@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.handler.admincommandhandlers;
 
 import java.util.StringTokenizer;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.communitybbs.Manager.RegionBBSManager;
 import com.l2jfree.gameserver.datatables.SkillTable;
@@ -103,14 +102,8 @@ public class AdminEffects implements IAdminCommandHandler
 			"admin_atmosphere_menu",
 			"admin_give_souls"						};
 
-	private static final int		REQUIRED_LEVEL	= Config.GM_GODMODE;
-
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-				return false;
-
 		StringTokenizer st = new StringTokenizer(command);
 		st.nextToken();
 
@@ -687,11 +680,6 @@ public class AdminEffects implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 
 	private void showMainPage(L2PcInstance activeChar, String command)

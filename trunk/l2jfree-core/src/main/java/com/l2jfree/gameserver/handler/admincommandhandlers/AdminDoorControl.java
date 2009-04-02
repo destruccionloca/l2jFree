@@ -18,7 +18,6 @@ package com.l2jfree.gameserver.handler.admincommandhandlers;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
@@ -47,26 +46,18 @@ import com.l2jfree.gameserver.model.entity.Castle;
 public class AdminDoorControl implements IAdminCommandHandler
 {
 	private static Log				_log			= LogFactory.getLog(AdminDoorControl.class.getName());
-	private static final int		REQUIRED_LEVEL	= Config.GM_DOOR;
-	private static DoorTable		_doorTable;
 	private static final String[]	ADMIN_COMMANDS	=
 													{ "admin_open", "admin_close", "admin_openall", "admin_closeall" };
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-				return false;
-
-		_doorTable = DoorTable.getInstance();
-
 		try
 		{
 			if (command.startsWith("admin_open "))
 			{
 				int doorId = Integer.parseInt(command.substring(11));
-				if (_doorTable.getDoor(doorId) != null)
-					_doorTable.getDoor(doorId).openMe();
+				if (DoorTable.getInstance().getDoor(doorId) != null)
+					DoorTable.getInstance().getDoor(doorId).openMe();
 				else
 				{
 					for (Castle castle : CastleManager.getInstance().getCastles().values())
@@ -81,8 +72,8 @@ public class AdminDoorControl implements IAdminCommandHandler
 			else if (command.startsWith("admin_close "))
 			{
 				int doorId = Integer.parseInt(command.substring(12));
-				if (_doorTable.getDoor(doorId) != null)
-					_doorTable.getDoor(doorId).closeMe();
+				if (DoorTable.getInstance().getDoor(doorId) != null)
+					DoorTable.getInstance().getDoor(doorId).closeMe();
 				else
 				{
 					for (Castle castle : CastleManager.getInstance().getCastles().values())
@@ -96,7 +87,7 @@ public class AdminDoorControl implements IAdminCommandHandler
 			}
 			if (command.equals("admin_closeall"))
 			{
-				for (L2DoorInstance door : _doorTable.getDoors())
+				for (L2DoorInstance door : DoorTable.getInstance().getDoors())
 					door.closeMe();
 				for (Castle castle : CastleManager.getInstance().getCastles().values())
 					for (L2DoorInstance door : castle.getDoors())
@@ -104,7 +95,7 @@ public class AdminDoorControl implements IAdminCommandHandler
 			}
 			if (command.equals("admin_openall"))
 			{
-				for (L2DoorInstance door : _doorTable.getDoors())
+				for (L2DoorInstance door : DoorTable.getInstance().getDoors())
 					door.openMe();
 				for (Castle castle : CastleManager.getInstance().getCastles().values())
 					for (L2DoorInstance door : castle.getDoors())
@@ -147,10 +138,5 @@ public class AdminDoorControl implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 }

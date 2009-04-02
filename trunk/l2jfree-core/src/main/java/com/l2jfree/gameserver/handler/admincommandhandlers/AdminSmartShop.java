@@ -23,11 +23,9 @@ import java.util.List;
 import javolution.text.TextBuilder;
 import javolution.util.FastList;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.datatables.NpcTable;
@@ -67,8 +65,6 @@ public class AdminSmartShop implements IAdminCommandHandler
 	private static final String[]	ADMIN_COMMANDS	=
 													{ "admin_smartshop" };
 
-	private static final int		REQUIRED_LEVEL	= Config.GM_NPC_EDIT;
-
 	private static List<Integer>	smartList;
 	private static List<Boolean>	questList;
 	private static List<Integer>	gradeList;
@@ -80,12 +76,6 @@ public class AdminSmartShop implements IAdminCommandHandler
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-		{
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-				return false;
-		}
-
 		if (!command.startsWith("admin_smartshop"))
 			return false;
 
@@ -145,11 +135,6 @@ public class AdminSmartShop implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 
 	/**
@@ -1517,7 +1502,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 					if (ItemTable.getInstance().getTemplate(itemId) != null)
 					{
 						// Prevent hlApex users from abusing this...
-						if (actor.getAccessLevel() < REQUIRED_LEVEL || !actor.isGM())
+						if (!actor.isGM())
 						{
 							actor.deleteMe();
 						}

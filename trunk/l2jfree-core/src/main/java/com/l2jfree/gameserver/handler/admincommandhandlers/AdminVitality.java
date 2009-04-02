@@ -31,8 +31,6 @@ public class AdminVitality implements IAdminCommandHandler
 	private static int				level			= 0;
 	private static double			vitality		= 0.0;
 	
-	private static final int		REQUIRED_LEVEL	= Config.GM_CHAR_EDIT;
-
 	private static final String[]	ADMIN_COMMANDS	=
 	{ 
 		"admin_set_vitality",
@@ -44,13 +42,6 @@ public class AdminVitality implements IAdminCommandHandler
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (activeChar == null)
-			return false;
-
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (activeChar.getAccessLevel() < REQUIRED_LEVEL)
-				return false;
-
 		if (!Config.ENABLE_VITALITY)
 			activeChar.sendMessage("Vitality is not enabled on the server!");
 

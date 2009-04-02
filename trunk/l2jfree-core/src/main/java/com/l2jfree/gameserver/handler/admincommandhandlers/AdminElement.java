@@ -18,7 +18,6 @@
  */
 package com.l2jfree.gameserver.handler.admincommandhandlers;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.Elementals;
 import com.l2jfree.gameserver.model.L2ItemInstance;
@@ -41,14 +40,8 @@ public class AdminElement implements IAdminCommandHandler
 		"admin_setls"
 	};
 
-	private static final int REQUIRED_LEVEL = Config.GM_ENCHANT;
-
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-				return false;
-
 		int armorType = -1;
 
 		if (command.startsWith("admin_setlh"))
@@ -95,11 +88,6 @@ public class AdminElement implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 
 	private void setElement(L2PcInstance activeChar, byte type, int value, int armorType)

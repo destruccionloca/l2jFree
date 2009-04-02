@@ -16,6 +16,9 @@ package com.l2jfree.gameserver.handler.admincommandhandlers;
 
 import java.util.StringTokenizer;
 
+import javolution.text.TextBuilder;
+import javolution.util.FastList;
+
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
@@ -25,9 +28,6 @@ import com.l2jfree.gameserver.instancemanager.CastleManorManager.SeedProduction;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
-
-import javolution.text.TextBuilder;
-import javolution.util.FastList;
 
 /**
  * Admin comand handler for Manor System
@@ -54,16 +54,8 @@ public class AdminManor implements IAdminCommandHandler
 			"admin_manor_save",
 			"admin_manor_disable"					};
 
-	private static final int		REQUIRED_LEVEL	= Config.GM_MENU;
-
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-		{
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-				return false;
-		}
-
 		StringTokenizer st = new StringTokenizer(command);
 		command = st.nextToken();
 
@@ -223,10 +215,5 @@ public class AdminManor implements IAdminCommandHandler
 
 		adminReply.setHtml(replyMSG.toString());
 		activeChar.sendPacket(adminReply);
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 }

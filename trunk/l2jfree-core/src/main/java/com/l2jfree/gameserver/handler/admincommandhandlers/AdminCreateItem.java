@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.handler.admincommandhandlers;
 
 import java.util.StringTokenizer;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.L2ItemInstance;
@@ -35,14 +34,9 @@ public class AdminCreateItem implements IAdminCommandHandler
 {
 	private static final String[]	ADMIN_COMMANDS	=
 													{ "admin_itemcreate", "admin_create_item", "admin_clear_inventory" };
-	private static final int		REQUIRED_LEVEL	= Config.GM_CREATE_ITEM;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-				return false;
-
 		if (command.equals("admin_itemcreate"))
 		{
 			AdminHelpPage.showHelpPage(activeChar, "itemcreation.htm");
@@ -89,11 +83,6 @@ public class AdminCreateItem implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 
 	private void createItem(L2PcInstance activeChar, int id, int num)

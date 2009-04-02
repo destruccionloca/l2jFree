@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.handler.admincommandhandlers;
 
 import java.util.StringTokenizer;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -30,14 +29,9 @@ public class AdminCamera implements IAdminCommandHandler
 
 	private static final String[]	ADMIN_COMMANDS	=
 													{ "admin_camera", "admin_camset", };
-	private static final int		REQUIRED_LEVEL	= Config.GM_CAMERA;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-				return false;
-
 		if (command.equals("admin_camera"))
 			AdminHelpPage.showHelpPage(activeChar, "camera_menu.htm");
 
@@ -81,10 +75,5 @@ public class AdminCamera implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 }
