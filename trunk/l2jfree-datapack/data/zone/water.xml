@@ -120,11 +120,11 @@
       <point x="-65536" y="65536"/>
       <point x="-55536" y="75536"/>
     </shape>
-    <shape type="Rect" zMin="-5438" zMax="-4862">
+    <shape type="Rect" zMin="-5438" zMax="-4795">
       <point x="-55360" y="78784"/>
       <point x="-53888" y="79424"/>
     </shape>
-    <shape type="Rect" zMin="-5438" zMax="-3118">
+    <shape type="Rect" zMin="-5438" zMax="-2230">
       <point x="-56000" y="78784"/>
       <point x="-55360" y="79424"/>
     </shape>
@@ -170,7 +170,7 @@
     </shape>
   </zone>
   <zone id="19" name="18_24_water" type="Water">
-    <shape type="Rect" zMin="-5784" zMax="-5207">
+    <shape type="Rect" zMin="-5784" zMax="-5143">
       <point x="-41888" y="206688"/>
       <point x="-41248" y="208160"/>
     </shape>
@@ -198,7 +198,7 @@
       <point x="-45280" y="212576"/>
       <point x="-41024" y="220976"/>
     </shape>
-    <shape type="Rect" zMin="-5784" zMax="-3464">
+    <shape type="Rect" zMin="-5784" zMax="-2660">
       <point x="-41888" y="206048"/>
       <point x="-41248" y="206688"/>
     </shape>
@@ -226,11 +226,11 @@
       <point x="-32768" y="0"/>
       <point x="-23424" y="32768"/>
     </shape>
-    <shape type="Rect" zMin="-5598" zMax="-3278">
+    <shape type="Rect" zMin="-5550" zMax="-2490">
       <point x="-23168" y="13184"/>
       <point x="-22528" y="13824"/>
     </shape>
-    <shape type="Rect" zMin="-5598" zMax="-4021">
+    <shape type="Rect" zMin="-5550" zMax="-4800">
       <point x="-22528" y="13184"/>
       <point x="-21056" y="13824"/>
     </shape>
@@ -254,11 +254,11 @@
       <point x="-24488" y="65536"/>
       <point x="0" y="98304"/>
     </shape>
-    <shape type="Rect" zMin="-5870" zMax="-3550">
+    <shape type="Rect" zMin="-5870" zMax="-2730">
       <point x="-25472" y="77056"/>
       <point x="-24832" y="77696"/>
     </shape>
-    <shape type="Rect" zMin="-5870" zMax="-5293">
+    <shape type="Rect" zMin="-5870" zMax="-5235">
       <point x="-24832" y="77056"/>
       <point x="-23360" y="77696"/>
     </shape>
@@ -384,11 +384,11 @@
       <point x="48000" y="115128"/>
       <point x="49172" y="116356"/>
     </shape>
-    <shape type="Rect" zMin="-6110" zMax="-3806">
+    <shape type="Rect" zMin="-6110" zMax="-2960">
       <point x="44928" y="126976"/>
       <point x="45568" y="127616"/>
     </shape>
-    <shape type="Rect" zMin="-6110" zMax="-5534">
+    <shape type="Rect" zMin="-6110" zMax="-5470">
       <point x="44928" y="125504"/>
       <point x="45568" y="126976"/>
     </shape>
@@ -398,11 +398,11 @@
       <point x="41916" y="139479"/>
       <point x="51916" y="152769"/>
     </shape>
-    <shape type="Rect" zMin="-6078" zMax="-3758">
+    <shape type="Rect" zMin="-6078" zMax="-2904">
       <point x="39296" y="143616"/>
       <point x="39936" y="144256"/>
     </shape>
-    <shape type="Rect" zMin="-6078" zMax="-5501">
+    <shape type="Rect" zMin="-6078" zMax="-5400">
       <point x="39936" y="143616"/>
       <point x="41408" y="144256"/>
     </shape>
@@ -420,11 +420,11 @@
       <point x="57472" y="175599"/>
       <point x="65536" y="181239"/>
     </shape>
-    <shape type="Rect" zMin="-5678" zMax="-3358">
+    <shape type="Rect" zMin="-5678" zMax="-2480">
       <point x="42496" y="169984"/>
       <point x="43136" y="170624"/>
     </shape>
-    <shape type="Rect" zMin="-5678" zMax="-5001">
+    <shape type="Rect" zMin="-5678" zMax="-4800">
       <point x="43136" y="169984"/>
       <point x="44608" y="170624"/>
     </shape>
@@ -460,11 +460,11 @@
       <point x="65536" y="71304"/>
       <point x="70536" y="91304"/>
     </shape>
-    <shape type="Rect" zMin="-5822" zMax="-3502">
+    <shape type="Rect" zMin="-5822" zMax="-2648">
       <point x="73984" y="78080"/>
       <point x="74624" y="78720"/>
     </shape>
-    <shape type="Rect" zMin="-5822" zMax="-5245">
+    <shape type="Rect" zMin="-5822" zMax="-5000">
       <point x="74624" y="78080"/>
       <point x="76096" y="78720"/>
     </shape>
@@ -546,11 +546,11 @@
       <point x="81856" y="196608"/>
       <point x="93056" y="201216"/>
     </shape>
-    <shape type="Rect" zMin="-6136" zMax="-3816">
+    <shape type="Rect" zMin="-6136" zMax="-3000">
       <point x="79360" y="208897"/>
       <point x="80000" y="209537"/>
     </shape>
-    <shape type="Rect" zMin="-6136" zMax="-5559">
+    <shape type="Rect" zMin="-6136" zMax="-5500">
       <point x="80000" y="208897"/>
       <point x="81472" y="209537"/>
     </shape>
@@ -626,11 +626,11 @@
     </shape>
   </zone>
   <zone id="55" name="23_20_water" type="Water">
-    <shape type="Rect" zMin="-7214" zMax="-4894">
+    <shape type="Rect" zMin="-7214" zMax="-4000">
       <point x="110208" y="84224"/>
       <point x="110848" y="84864"/>
     </shape>
-    <shape type="Rect" zMin="-7238" zMax="-6661">
+    <shape type="Rect" zMin="-7238" zMax="-6000">
       <point x="110848" y="84224"/>
       <point x="112320" y="84864"/>
     </shape>
@@ -656,11 +656,11 @@
       <point x="117509" y="136740"/>
       <point x="122009" y="138240"/>
     </shape>
-    <shape type="Rect" zMin="-5534" zMax="-3214">
+    <shape type="Rect" zMin="-5534" zMax="-2390">
       <point x="114560" y="132480"/>
       <point x="115200" y="133120"/>
     </shape>
-    <shape type="Rect" zMin="-5534" zMax="-4958">
+    <shape type="Rect" zMin="-5534" zMax="-4900">
       <point x="115200" y="132480"/>
       <point x="116672" y="133120"/>
     </shape>
@@ -694,11 +694,11 @@
       <point x="102304" y="168567"/>
       <point x="106804" y="173567"/>
     </shape>
-    <shape type="Rect" zMin="-6126" zMax="-3806">
+    <shape type="Rect" zMin="-6126" zMax="-2980">
       <point x="107520" y="173696"/>
       <point x="108160" y="174336"/>
     </shape>
-    <shape type="Rect" zMin="-6136" zMax="-5559">
+    <shape type="Rect" zMin="-6136" zMax="-5463">
       <point x="108160" y="173696"/>
       <point x="109632" y="174336"/>
     </shape>
@@ -740,11 +740,11 @@
     </shape>
   </zone>
   <zone id="64" name="24_20_water" type="Water">
-    <shape type="Rect" zMin="-6126" zMax="-3766">
+    <shape type="Rect" zMin="-6126" zMax="-2936">
       <point x="136648" y="79304"/>
       <point x="137400" y="80056"/>
     </shape>
-    <shape type="Rect" zMin="-6126" zMax="-5549">
+    <shape type="Rect" zMin="-6126" zMax="-5200">
       <point x="137400" y="79360"/>
       <point x="138816" y="80000"/>
     </shape>
@@ -796,11 +796,11 @@
     </shape>
   </zone>
   <zone id="70" name="25_17_water" type="Water">
-    <shape type="Rect" zMin="-5598" zMax="-3278">
+    <shape type="Rect" zMin="-5598" zMax="-2460">
       <point x="168576" y="-17920"/>
       <point x="169216" y="-17280"/>
     </shape>
-    <shape type="Rect" zMin="-5598" zMax="-5021">
+    <shape type="Rect" zMin="-5598" zMax="-4960">
       <point x="169216" y="-17920"/>
       <point x="170688" y="-17280"/>
     </shape>

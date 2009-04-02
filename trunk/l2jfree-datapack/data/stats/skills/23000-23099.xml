@@ -71,28 +71,28 @@
     </for>
   </skill>
   <skill id="23005" levels="1" name="Gold Majo Agathion Special Skill - Power of Blessed Resurrection">
-    <set name="power" val="100"/>
     <set name="target" val="TARGET_CORPSE_PLAYER"/>
-    <set name="hitTime" val="3000"/>
     <set name="skillType" val="RESURRECT"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="400"/>
-    <set name="effectRange" val="600"/>
+    <set name="power" val="100"/>
+    <set name="hitTime" val="3000"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="staticReuse" val="true"/>
+    <set name="castRange" val="400"/>
+    <set name="effectRange" val="600"/>
     <cond msg="This skill is only to be used with correct Agathion summoned.">
       <player agathionId="1502"/>
     </cond>
   </skill>
   <skill id="23006" levels="1" name="Black Majo Agathion Special Skill - Power of Blessed Return">
     <set name="target" val="TARGET_SELF"/>
-    <set name="hitTime" val="200"/>
     <set name="skillType" val="RECALL"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
+    <set name="hitTime" val="200"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="staticReuse" val="true"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
     <cond msg="This skill is only to be used with correct Agathion summoned.">
       <player agathionId="1503"/>
     </cond>
@@ -116,27 +116,27 @@
   </skill>
   <skill id="23008" levels="1" name="Plaipitak Agathion Special Skill - Power of Blessed Return">
     <set name="target" val="TARGET_SELF"/>
-    <set name="hitTime" val="200"/>
     <set name="skillType" val="RECALL"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
+    <set name="hitTime" val="200"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="staticReuse" val="true"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
     <cond msg="This skill is only to be used with correct Agathion summoned.">
       <player agathionId="1504"/>
     </cond>
   </skill>
   <skill id="23009" levels="1" name="Plaipitak Agathion Special Skill - Power of Blessed Resurrection">
-    <set name="power" val="100"/>
     <set name="target" val="TARGET_CORPSE_PLAYER"/>
-    <set name="hitTime" val="3000"/>
     <set name="skillType" val="RESURRECT"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="400"/>
-    <set name="effectRange" val="600"/>
+    <set name="power" val="100"/>
+    <set name="hitTime" val="3000"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="staticReuse" val="true"/>
+    <set name="castRange" val="400"/>
+    <set name="effectRange" val="600"/>
     <cond msg="This skill is only to be used with correct Agathion summoned.">
       <player agathionId="1504"/>
     </cond>
@@ -359,28 +359,28 @@
     </cond>
   </skill>
   <skill id="23030" levels="1" name="White Maneki Neko Agathion Special Skill - Blessed Resurrection Ability">
-    <set name="power" val="100"/>
     <set name="target" val="TARGET_CORPSE_PLAYER"/>
-    <set name="hitTime" val="3000"/>
     <set name="skillType" val="RESURRECT"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="400"/>
-    <set name="effectRange" val="600"/>
+    <set name="power" val="100"/>
+    <set name="hitTime" val="3000"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="staticReuse" val="true"/>
+    <set name="castRange" val="400"/>
+    <set name="effectRange" val="600"/>
     <cond msg="This skill is only to be used with correct Agathion summoned.">
       <player agathionId="1510"/>
     </cond>
   </skill>
   <skill id="23031" levels="1" name="Black Maneki Neko Agathion Special Skill - Ability of Blessed Return">
     <set name="target" val="TARGET_SELF"/>
-    <set name="hitTime" val="200"/>
     <set name="skillType" val="RECALL"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
+    <set name="hitTime" val="200"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="staticReuse" val="true"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
     <cond msg="This skill is only to be used with correct Agathion summoned.">
       <player agathionId="1511"/>
     </cond>
@@ -470,13 +470,13 @@
   </skill>
   <skill id="23038" levels="1" name="Pegasus Agathion Special Skill - Blessed Return Ability">
     <set name="target" val="TARGET_SELF"/>
-    <set name="hitTime" val="200"/>
     <set name="skillType" val="RECALL"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
+    <set name="hitTime" val="200"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="staticReuse" val="true"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
     <cond msg="This skill is only to be used with correct Agathion summoned.">
       <player agathionId="1514"/>
     </cond>
