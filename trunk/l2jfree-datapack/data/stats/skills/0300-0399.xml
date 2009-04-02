@@ -1434,11 +1434,9 @@
   </skill>
   <skill id="358" levels="1" name="Bluff">
     <!--
-      Description(s): Tricks the enemy to show its back.
-      Removes the enemy's desire to attack and cancels one's
-      own target status. Instantly throws the enemy into a
-      state of shock. An equipped dagger weapon is required
-      to use this skill.
+      Description(s): Tricks the enemy to show its back. Removes the enemy's desire to attack
+      and cancels one's own target status. Instantly throws the enemy into a state of shock.
+      An equipped dagger weapon is required to use this skill.
     -->
     <!-- Done by BoDiE -->
     <set name="weaponsAllowed" val="16"/> <!-- Dagger -->
