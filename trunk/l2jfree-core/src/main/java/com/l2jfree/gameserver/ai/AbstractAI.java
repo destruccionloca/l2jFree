@@ -18,14 +18,10 @@ import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_ATTACK;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_FOLLOW;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
 
-import java.util.concurrent.Future;
-
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.gameserver.GameTimeController;
-import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
@@ -42,186 +38,219 @@ import com.l2jfree.gameserver.network.serverpackets.MoveToPawn;
 import com.l2jfree.gameserver.network.serverpackets.StopMove;
 import com.l2jfree.gameserver.network.serverpackets.StopRotation;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
+import com.l2jfree.gameserver.taskmanager.FollowTaskManager;
 
 /**
- * Mother class of all objects AI in the world.<BR><BR>
- *
- * AbastractAI :<BR><BR>
- * <li>L2CharacterAI</li><BR><BR>
- *
+ * Mother class of all objects AI in the world.<BR>
  */
-abstract class AbstractAI implements Ctrl
+public abstract class AbstractAI implements Ctrl
 {
-
-	protected static final Log	_log	= LogFactory.getLog(AbstractAI.class.getName());
-
-	class FollowTask implements Runnable
+	protected static final Log _log = LogFactory.getLog(AbstractAI.class);
+	
+	private static final int FOLLOW_INTERVAL = 1000;
+	private static final int ATTACK_FOLLOW_INTERVAL = 500;
+	
+	private L2Character _followTarget;
+	
+	private int _followRange;
+	private long _followInterval;
+	private long _followRuntime;
+	
+	public synchronized final void followTarget()
 	{
-		protected int	_range	= 60;
-
-		public FollowTask()
+		try
 		{
-		}
-
-		public FollowTask(int range)
-		{
-			_range = range;
-		}
-
-		public void run()
-		{
-			try
+			if (System.currentTimeMillis() < _followRuntime)
+				return;
+			
+			if (_followTarget == null)
 			{
-				if (_followTask == null)
-					return;
-
-				L2Character followTarget = _followTarget; // copy to prevent NPE
-				if (followTarget == null)
+				if (_actor instanceof L2Summon)
+					((L2Summon)_actor).setFollowStatus(false);
+				
+				setIntention(AI_INTENTION_IDLE);
+				return;
+			}
+			
+			// TODO: fix Z axis follow support, moveToLocation needs improvements
+			// Does not allow targets to follow on infinite distance -> fix for "follow me bug".
+			if (_actor instanceof L2PcInstance && _followTarget instanceof L2PcInstance)
+			{
+				if (!_actor.isInsideRadius(_followTarget, 2000, true, false))
 				{
+					stopFollow();
+					return;
+				}
+			}
+			
+			_followRuntime += _followInterval;
+			
+			if (!_actor.isInsideRadius(_followTarget, _followRange, true, false))
+			{
+				if (!_actor.isInsideRadius(_followTarget, 3000, true, false))
+				{
+					// if the target is too far (maybe also teleported)
 					if (_actor instanceof L2Summon)
-						((L2Summon) _actor).setFollowStatus(false);
+						((L2Summon)_actor).setFollowStatus(false);
+					
 					setIntention(AI_INTENTION_IDLE);
 					return;
 				}
-
-				// TODO: fix Z axis follow support, moveToLocation needs improvements
-				// Does not allow targets to follow on infinite distance -> fix for "follow me bug".
-				if (_actor instanceof L2PcInstance && followTarget instanceof L2PcInstance)
-				{
-					if (!_actor.isInsideRadius(followTarget, 999, true, false))
-					{
-						stopFollow();
-						return;
-					}
-				}
-
-				if (!_actor.isInsideRadius(_followTarget, _range, true, false))
-				{
-					if (!_actor.isInsideRadius(_followTarget, 3000, true, false))
-					{
-						// if the target is too far (maybe also teleported)
-						if (_actor instanceof L2Summon)
-							((L2Summon) _actor).setFollowStatus(false);
-
-						setIntention(AI_INTENTION_IDLE);
-						return;
-					}
-
-					moveToPawn(followTarget, _range);
-				}
-			}
-			catch (Exception e)
-			{
-				_log.error(e.getMessage(), e);
+				
+				moveToPawn(_followTarget, _followRange);
 			}
 		}
+		catch (Exception e)
+		{
+			_log.warn("", e);
+		}
 	}
-
+	
+	public synchronized void startFollow(L2Character target)
+	{
+		if (target == null)
+		{
+			stopFollow();
+			return;
+		}
+		
+		_followTarget = target;
+		_followRange = 60;
+		_followInterval = FOLLOW_INTERVAL;
+		_followRuntime = System.currentTimeMillis();
+		
+		FollowTaskManager.getInstance().startFollowTask(this);
+		followTarget();
+	}
+	
+	public synchronized void startFollow(L2Character target, int range)
+	{
+		if (target == null)
+		{
+			stopFollow();
+			return;
+		}
+		
+		_followTarget = target;
+		_followRange = range;
+		_followInterval = ATTACK_FOLLOW_INTERVAL;
+		_followRuntime = System.currentTimeMillis();
+		
+		FollowTaskManager.getInstance().startFollowTask(this);
+		followTarget();
+	}
+	
+	public final synchronized void stopFollow()
+	{
+		FollowTaskManager.getInstance().stopFollowTask(this);
+		
+		_followTarget = null;
+	}
+	
 	/** The character that this AI manages */
-	protected final L2Character				_actor;
-
+	protected final L2Character _actor;
+	
 	/** An accessor for private methods of the actor */
-	protected final L2Character.AIAccessor	_accessor;
-
+	protected final L2Character.AIAccessor _accessor;
+	
 	/** Current long-term intention */
-	protected CtrlIntention					_intention				= AI_INTENTION_IDLE;
+	protected CtrlIntention _intention = AI_INTENTION_IDLE;
 	/** Current long-term intention parameter */
-	protected Object						_intentionArg0			= null;
+	protected Object _intentionArg0 = null;
 	/** Current long-term intention parameter */
-	protected Object						_intentionArg1			= null;
-
+	protected Object _intentionArg1 = null;
+	
 	/** Flags about client's state, in order to know which messages to send */
-	protected boolean						_clientMoving;
+	protected boolean _clientMoving;
 	/** Flags about client's state, in order to know which messages to send */
-	protected boolean						_clientAutoAttacking;
+	protected boolean _clientAutoAttacking;
 	/** Flags about client's state, in order to know which messages to send */
-	protected int							_clientMovingToPawnOffset;
-
+	protected int _clientMovingToPawnOffset;
+	
 	/** Different targets this AI maintains */
-	private L2Object						_target;
-	private L2Character						_castTarget;
-	protected L2Character					_attackTarget;
-	protected L2Character					_followTarget;
-
+	private L2Object _target;
+	private L2Character _castTarget;
+	protected L2Character _attackTarget;
+	
 	/** The skill we are currently casting by INTENTION_CAST */
-	L2Skill									_skill;
-
+	L2Skill _skill;
+	
 	/** Different internal state flags */
-	private int								_moveToPawnTimeout;
-
-	protected Future<?>						_followTask				= null;
-	private static final int				FOLLOW_INTERVAL			= 1000;
-	private static final int				ATTACK_FOLLOW_INTERVAL	= 500;
-
+	private int _moveToPawnTimeout;
+	
 	/**
-	 * Constructor of AbstractAI.<BR><BR>
-	 *
+	 * Constructor of AbstractAI.<BR>
+	 * <BR>
+	 * 
 	 * @param accessor The AI accessor of the L2Character
-	 *
 	 */
 	protected AbstractAI(L2Character.AIAccessor accessor)
 	{
 		_accessor = accessor;
-
+		
 		// Get the L2Character managed by this Accessor AI
 		_actor = accessor.getActor();
 	}
-
+	
 	/**
-	 * Return the L2Character managed by this Accessor AI.<BR><BR>
+	 * Return the L2Character managed by this Accessor AI.<BR>
+	 * <BR>
 	 */
 	public L2Character getActor()
 	{
 		return _actor;
 	}
-
+	
 	/**
-	 * Return the current Intention.<BR><BR>
+	 * Return the current Intention.<BR>
+	 * <BR>
 	 */
 	public CtrlIntention getIntention()
 	{
 		return _intention;
 	}
-
+	
 	protected synchronized void setCastTarget(L2Character target)
 	{
 		_castTarget = target;
 	}
-
+	
 	/**
-	 * Return the current cast target.<BR><BR>
+	 * Return the current cast target.<BR>
+	 * <BR>
 	 */
 	public L2Character getCastTarget()
 	{
 		return _castTarget;
 	}
-
+	
 	protected synchronized void setAttackTarget(L2Character target)
 	{
 		_attackTarget = target;
 	}
-
+	
 	/**
-	 * Return current attack target.<BR><BR>
+	 * Return current attack target.<BR>
+	 * <BR>
 	 */
 	public L2Character getAttackTarget()
 	{
 		return _attackTarget;
 	}
-
+	
 	/**
-	 * Set the Intention of this AbstractAI.<BR><BR>
-	 *
-	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method is USED by AI classes</B></FONT><BR><BR>
-	 *
+	 * Set the Intention of this AbstractAI.<BR>
+	 * <BR>
+	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method is USED by AI classes</B></FONT><BR>
+	 * <BR>
 	 * <B><U> Overridden in </U> : </B><BR>
 	 * <B>L2AttackableAI</B> : Create an AI Task executed every 1s (if necessary)<BR>
-	 * <B>L2PlayerAI</B> : Stores the current AI intention parameters to later restore it if necessary<BR><BR>
-	 *
+	 * <B>L2PlayerAI</B> : Stores the current AI intention parameters to later restore it if necessary<BR>
+	 * <BR>
+	 * 
 	 * @param intention The new Intention to set to the AI
 	 * @param arg0 The first parameter of the Intention
 	 * @param arg1 The second parameter of the Intention
-	 *
 	 */
 	synchronized void changeIntention(CtrlIntention intention, Object arg0, Object arg1)
 	{
@@ -234,53 +263,53 @@ abstract class AbstractAI implements Ctrl
 		_intentionArg0 = arg0;
 		_intentionArg1 = arg1;
 	}
-
+	
 	public Object getIntentionArg0()
 	{
 		return _intentionArg0;
 	}
-
+	
 	public Object getIntentionArg1()
 	{
 		return _intentionArg1;
 	}
-
+	
 	/**
-	 * Launch the L2CharacterAI onIntention method corresponding to the new Intention.<BR><BR>
-	 *
-	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : Stop the FOLLOW mode if necessary</B></FONT><BR><BR>
-	 *
+	 * Launch the L2CharacterAI onIntention method corresponding to the new Intention.<BR>
+	 * <BR>
+	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : Stop the FOLLOW mode if necessary</B></FONT><BR>
+	 * <BR>
+	 * 
 	 * @param intention The new Intention to set to the AI
-	 *
 	 */
 	public final void setIntention(CtrlIntention intention)
 	{
 		setIntention(intention, null, null);
 	}
-
+	
 	/**
-	 * Launch the L2CharacterAI onIntention method corresponding to the new Intention.<BR><BR>
-	 *
-	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : Stop the FOLLOW mode if necessary</B></FONT><BR><BR>
-	 *
+	 * Launch the L2CharacterAI onIntention method corresponding to the new Intention.<BR>
+	 * <BR>
+	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : Stop the FOLLOW mode if necessary</B></FONT><BR>
+	 * <BR>
+	 * 
 	 * @param intention The new Intention to set to the AI
 	 * @param arg0 The first parameter of the Intention (optional target)
-	 *
 	 */
 	public final void setIntention(CtrlIntention intention, Object arg0)
 	{
 		setIntention(intention, arg0, null);
 	}
-
+	
 	/**
-	 * Launch the L2CharacterAI onIntention method corresponding to the new Intention.<BR><BR>
-	 *
-	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : Stop the FOLLOW mode if necessary</B></FONT><BR><BR>
-	 *
+	 * Launch the L2CharacterAI onIntention method corresponding to the new Intention.<BR>
+	 * <BR>
+	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : Stop the FOLLOW mode if necessary</B></FONT><BR>
+	 * <BR>
+	 * 
 	 * @param intention The new Intention to set to the AI
 	 * @param arg0 The first parameter of the Intention (optional target)
 	 * @param arg1 The second parameter of the Intention (optional target)
-	 *
 	 */
 	public final void setIntention(CtrlIntention intention, Object arg0, Object arg1)
 	{
@@ -292,88 +321,88 @@ abstract class AbstractAI implements Ctrl
 		// Stop the follow mode if necessary
 		if (intention != AI_INTENTION_FOLLOW && intention != AI_INTENTION_ATTACK)
 			stopFollow();
-
+		
 		// Launch the onIntention method of the L2CharacterAI corresponding to the new Intention
 		switch (intention)
 		{
-		case AI_INTENTION_IDLE:
-			onIntentionIdle();
-			break;
-		case AI_INTENTION_ACTIVE:
-			onIntentionActive();
-			break;
-		case AI_INTENTION_REST:
-			onIntentionRest();
-			break;
-		case AI_INTENTION_ATTACK:
-			onIntentionAttack((L2Character) arg0);
-			break;
-		case AI_INTENTION_CAST:
-			onIntentionCast((L2Skill) arg0, (L2Object) arg1);
-			break;
-		case AI_INTENTION_MOVE_TO:
-			onIntentionMoveTo((L2CharPosition) arg0);
-			break;
-		case AI_INTENTION_MOVE_TO_IN_A_BOAT:
-			onIntentionMoveToInABoat((L2CharPosition) arg0, (L2CharPosition) arg1);
-			break;
-		case AI_INTENTION_FOLLOW:
-			onIntentionFollow((L2Character) arg0);
-			break;
-		case AI_INTENTION_PICK_UP:
-			onIntentionPickUp((L2Object) arg0);
-			break;
-		case AI_INTENTION_INTERACT:
-			onIntentionInteract((L2Object) arg0);
-			break;
+			case AI_INTENTION_IDLE:
+				onIntentionIdle();
+				break;
+			case AI_INTENTION_ACTIVE:
+				onIntentionActive();
+				break;
+			case AI_INTENTION_REST:
+				onIntentionRest();
+				break;
+			case AI_INTENTION_ATTACK:
+				onIntentionAttack((L2Character)arg0);
+				break;
+			case AI_INTENTION_CAST:
+				onIntentionCast((L2Skill)arg0, (L2Object)arg1);
+				break;
+			case AI_INTENTION_MOVE_TO:
+				onIntentionMoveTo((L2CharPosition)arg0);
+				break;
+			case AI_INTENTION_MOVE_TO_IN_A_BOAT:
+				onIntentionMoveToInABoat((L2CharPosition)arg0, (L2CharPosition)arg1);
+				break;
+			case AI_INTENTION_FOLLOW:
+				onIntentionFollow((L2Character)arg0);
+				break;
+			case AI_INTENTION_PICK_UP:
+				onIntentionPickUp((L2Object)arg0);
+				break;
+			case AI_INTENTION_INTERACT:
+				onIntentionInteract((L2Object)arg0);
+				break;
 		}
 	}
-
+	
 	/**
-	 * Launch the L2CharacterAI onEvt method corresponding to the Event.<BR><BR>
-	 *
-	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : The current general intention won't be change
-	 * (ex : If the character attack and is stunned, he will attack again after the stunned period)</B></FONT><BR><BR>
-	 *
+	 * Launch the L2CharacterAI onEvt method corresponding to the Event.<BR>
+	 * <BR>
+	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : The current general intention won't be change (ex : If the character
+	 * attack and is stunned, he will attack again after the stunned period)</B></FONT><BR>
+	 * <BR>
+	 * 
 	 * @param evt The event whose the AI must be notified
-	 *
 	 */
 	public final void notifyEvent(CtrlEvent evt)
 	{
 		notifyEvent(evt, null, null);
 	}
-
+	
 	/**
-	 * Launch the L2CharacterAI onEvt method corresponding to the Event.<BR><BR>
-	 *
-	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : The current general intention won't be change
-	 * (ex : If the character attack and is stunned, he will attack again after the stunned period)</B></FONT><BR><BR>
-	 *
+	 * Launch the L2CharacterAI onEvt method corresponding to the Event.<BR>
+	 * <BR>
+	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : The current general intention won't be change (ex : If the character
+	 * attack and is stunned, he will attack again after the stunned period)</B></FONT><BR>
+	 * <BR>
+	 * 
 	 * @param evt The event whose the AI must be notified
 	 * @param arg0 The first parameter of the Event (optional target)
-	 *
 	 */
 	public final void notifyEvent(CtrlEvent evt, Object arg0)
 	{
 		notifyEvent(evt, arg0, null);
 	}
-
+	
 	/**
-	 * Launch the L2CharacterAI onEvt method corresponding to the Event.<BR><BR>
-	 *
-	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : The current general intention won't be change
-	 * (ex : If the character attack and is stunned, he will attack again after the stunned period)</B></FONT><BR><BR>
-	 *
+	 * Launch the L2CharacterAI onEvt method corresponding to the Event.<BR>
+	 * <BR>
+	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : The current general intention won't be change (ex : If the character
+	 * attack and is stunned, he will attack again after the stunned period)</B></FONT><BR>
+	 * <BR>
+	 * 
 	 * @param evt The event whose the AI must be notified
 	 * @param arg0 The first parameter of the Event (optional target)
 	 * @param arg1 The second parameter of the Event (optional target)
-	 *
 	 */
 	public final void notifyEvent(CtrlEvent evt, Object arg0, Object arg1)
 	{
 		if (!_actor.isVisible() || !_actor.hasAI())
 			return;
-
+		
 		/*
 		 if (Config.DEBUG)
 		 _log.warning("AbstractAI: notifyEvent -> " + evt + " " + arg0 + " " + arg1);
@@ -381,146 +410,146 @@ abstract class AbstractAI implements Ctrl
 
 		switch (evt)
 		{
-		case EVT_THINK:
-			onEvtThink();
-			break;
-		case EVT_ATTACKED:
-			onEvtAttacked((L2Character) arg0);
-			break;
-		case EVT_AGGRESSION:
-			onEvtAggression((L2Character) arg0, ((Number) arg1).intValue());
-			break;
-		case EVT_STUNNED:
-			onEvtStunned((L2Character) arg0);
-			break;
-		case EVT_PARALYZED:
-			onEvtParalyzed((L2Character) arg0);
-			break;
-		case EVT_SLEEPING:
-			onEvtSleeping((L2Character) arg0);
-			break;
-		case EVT_ROOTED:
-			onEvtRooted((L2Character) arg0);
-			break;
-		case EVT_CONFUSED:
-			onEvtConfused((L2Character) arg0);
-			break;
-		case EVT_MUTED:
-			onEvtMuted((L2Character) arg0);
-			break;
-		case EVT_READY_TO_ACT:
-			if (!_actor.isCastingNow() && !_actor.isCastingSimultaneouslyNow())
-				onEvtReadyToAct();
-			break;
-		case EVT_USER_CMD:
-			onEvtUserCmd(arg0, arg1);
-			break;
-		case EVT_ARRIVED:
-			// happens e.g. from stopmove but we don't process it if we're casting
-			if (!_actor.isCastingNow() && !_actor.isCastingSimultaneouslyNow())
-				onEvtArrived();
-			break;
-		case EVT_ARRIVED_REVALIDATE:
-			// this is disregarded if the char is not moving any more
-			if (_actor.isMoving())
-				onEvtArrivedRevalidate();
-			break;
-		case EVT_ARRIVED_BLOCKED:
-			onEvtArrivedBlocked((L2CharPosition) arg0);
-			break;
-		case EVT_FORGET_OBJECT:
-			onEvtForgetObject((L2Object) arg0);
-			break;
-		case EVT_CANCEL:
-			onEvtCancel();
-			break;
-		case EVT_DEAD:
-			onEvtDead();
-			break;
-		case EVT_FAKE_DEATH:
-			onEvtFakeDeath();
-			break;
-		case EVT_FINISH_CASTING:
-			onEvtFinishCasting();
-			break;
+			case EVT_THINK:
+				onEvtThink();
+				break;
+			case EVT_ATTACKED:
+				onEvtAttacked((L2Character)arg0);
+				break;
+			case EVT_AGGRESSION:
+				onEvtAggression((L2Character)arg0, ((Number)arg1).intValue());
+				break;
+			case EVT_STUNNED:
+				onEvtStunned((L2Character)arg0);
+				break;
+			case EVT_PARALYZED:
+				onEvtParalyzed((L2Character)arg0);
+				break;
+			case EVT_SLEEPING:
+				onEvtSleeping((L2Character)arg0);
+				break;
+			case EVT_ROOTED:
+				onEvtRooted((L2Character)arg0);
+				break;
+			case EVT_CONFUSED:
+				onEvtConfused((L2Character)arg0);
+				break;
+			case EVT_MUTED:
+				onEvtMuted((L2Character)arg0);
+				break;
+			case EVT_READY_TO_ACT:
+				if (!_actor.isCastingNow() && !_actor.isCastingSimultaneouslyNow())
+					onEvtReadyToAct();
+				break;
+			case EVT_USER_CMD:
+				onEvtUserCmd(arg0, arg1);
+				break;
+			case EVT_ARRIVED:
+				// happens e.g. from stopmove but we don't process it if we're casting
+				if (!_actor.isCastingNow() && !_actor.isCastingSimultaneouslyNow())
+					onEvtArrived();
+				break;
+			case EVT_ARRIVED_REVALIDATE:
+				// this is disregarded if the char is not moving any more
+				if (_actor.isMoving())
+					onEvtArrivedRevalidate();
+				break;
+			case EVT_ARRIVED_BLOCKED:
+				onEvtArrivedBlocked((L2CharPosition)arg0);
+				break;
+			case EVT_FORGET_OBJECT:
+				onEvtForgetObject((L2Object)arg0);
+				break;
+			case EVT_CANCEL:
+				onEvtCancel();
+				break;
+			case EVT_DEAD:
+				onEvtDead();
+				break;
+			case EVT_FAKE_DEATH:
+				onEvtFakeDeath();
+				break;
+			case EVT_FINISH_CASTING:
+				onEvtFinishCasting();
+				break;
 		}
 	}
-
+	
 	protected abstract void onIntentionIdle();
-
+	
 	protected abstract void onIntentionActive();
-
+	
 	protected abstract void onIntentionRest();
-
+	
 	protected abstract void onIntentionAttack(L2Character target);
-
+	
 	protected abstract void onIntentionCast(L2Skill skill, L2Object target);
-
+	
 	protected abstract void onIntentionMoveTo(L2CharPosition destination);
-
+	
 	protected abstract void onIntentionMoveToInABoat(L2CharPosition destination, L2CharPosition origin);
-
+	
 	protected abstract void onIntentionFollow(L2Character target);
-
+	
 	protected abstract void onIntentionPickUp(L2Object item);
-
+	
 	protected abstract void onIntentionInteract(L2Object object);
-
+	
 	protected abstract void onEvtThink();
-
+	
 	protected abstract void onEvtAttacked(L2Character attacker);
-
+	
 	protected abstract void onEvtAggression(L2Character target, int aggro);
-
+	
 	protected abstract void onEvtStunned(L2Character attacker);
-
+	
 	protected abstract void onEvtParalyzed(L2Character attacker);
-
+	
 	protected abstract void onEvtSleeping(L2Character attacker);
-
+	
 	protected abstract void onEvtRooted(L2Character attacker);
-
+	
 	protected abstract void onEvtConfused(L2Character attacker);
-
+	
 	protected abstract void onEvtMuted(L2Character attacker);
-
+	
 	protected abstract void onEvtReadyToAct();
-
+	
 	protected abstract void onEvtUserCmd(Object arg0, Object arg1);
-
+	
 	protected abstract void onEvtArrived();
-
+	
 	protected abstract void onEvtArrivedRevalidate();
-
+	
 	protected abstract void onEvtArrivedBlocked(L2CharPosition blocked_at_pos);
-
+	
 	protected abstract void onEvtForgetObject(L2Object object);
-
+	
 	protected abstract void onEvtCancel();
-
+	
 	protected abstract void onEvtDead();
-
+	
 	protected abstract void onEvtFakeDeath();
-
+	
 	protected abstract void onEvtFinishCasting();
-
+	
 	/**
-	 * Cancel action client side by sending Server->Client packet ActionFailed to the L2PcInstance actor.<BR><BR>
-	 *
-	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : Low level function, used by AI subclasses</B></FONT><BR><BR>
-	 *
+	 * Cancel action client side by sending Server->Client packet ActionFailed to the L2PcInstance actor.<BR>
+	 * <BR>
+	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : Low level function, used by AI subclasses</B></FONT><BR>
+	 * <BR>
 	 */
 	protected void clientActionFailed()
 	{
 		if (_actor instanceof L2PcInstance)
 			_actor.sendPacket(ActionFailed.STATIC_PACKET);
 	}
-
+	
 	/**
-	 * Move the actor to Pawn server side AND client side by sending Server->Client packet MoveToPawn <I>(broadcast)</I>.<BR><BR>
-	 *
-	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : Low level function, used by AI subclasses</B></FONT><BR><BR>
-	 *
+	 * Move the actor to Pawn server side AND client side by sending Server->Client packet MoveToPawn <I>(broadcast)</I>.<BR>
+	 * <BR>
+	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : Low level function, used by AI subclasses</B></FONT><BR>
+	 * <BR>
 	 */
 	protected void moveToPawn(L2Object pawn, int offset)
 	{
@@ -529,7 +558,7 @@ abstract class AbstractAI implements Ctrl
 		{
 			if (offset < 10)
 				offset = 10;
-
+			
 			// prevent possible extra calls to this function (there is none?),
 			// also don't send movetopawn packets too often
 			boolean sendPacket = true;
@@ -548,26 +577,26 @@ abstract class AbstractAI implements Ctrl
 						return;
 				}
 			}
-
+			
 			// Set AI movement data
 			_clientMoving = true;
 			_clientMovingToPawnOffset = offset;
 			_target = pawn;
 			_moveToPawnTimeout = GameTimeController.getGameTicks();
 			_moveToPawnTimeout += 1000 / GameTimeController.MILLIS_IN_TICK;
-
+			
 			if (pawn == null || _accessor == null)
 				return;
-
+			
 			// Calculate movement data for a move to location action and add the actor to movingObjects of GameTimeController
 			_accessor.moveTo(pawn.getX(), pawn.getY(), pawn.getZ(), offset);
-
+			
 			if (!_actor.isMoving())
 			{
 				_actor.sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
-
+			
 			// Send a Server->Client packet MoveToPawn/MoveToLocation to the actor and all L2PcInstance in its _knownPlayers
 			if (pawn instanceof L2Character)
 			{
@@ -577,7 +606,7 @@ abstract class AbstractAI implements Ctrl
 					_clientMovingToPawnOffset = 0;
 				}
 				else if (sendPacket) // don't repeat unnecessarily
-					_actor.broadcastPacket(new MoveToPawn(_actor, (L2Character) pawn, offset));
+					_actor.broadcastPacket(new MoveToPawn(_actor, (L2Character)pawn, offset));
 			}
 			else
 				_actor.broadcastPacket(new MoveToLocation(_actor));
@@ -587,12 +616,13 @@ abstract class AbstractAI implements Ctrl
 			clientActionFailed();
 		}
 	}
-
+	
 	/**
-	 * Move the actor to Location (x,y,z) server side AND client side by sending Server->Client packet MoveToLocation <I>(broadcast)</I>.<BR><BR>
-	 *
-	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : Low level function, used by AI subclasses</B></FONT><BR><BR>
-	 *
+	 * Move the actor to Location (x,y,z) server side AND client side by sending Server->Client packet MoveToLocation
+	 * <I>(broadcast)</I>.<BR>
+	 * <BR>
+	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : Low level function, used by AI subclasses</B></FONT><BR>
+	 * <BR>
 	 */
 	protected void moveTo(int x, int y, int z)
 	{
@@ -602,21 +632,21 @@ abstract class AbstractAI implements Ctrl
 			// Set AI movement data
 			_clientMoving = true;
 			_clientMovingToPawnOffset = 0;
-
+			
 			// Calculate movement data for a move to location action and add the actor to movingObjects of GameTimeController
 			_accessor.moveTo(x, y, z);
-
+			
 			// Send a Server->Client packet MoveToLocation to the actor and all L2PcInstance in its _knownPlayers
 			MoveToLocation msg = new MoveToLocation(_actor);
 			_actor.broadcastPacket(msg);
-
+			
 		}
 		else
 		{
 			clientActionFailed();
 		}
 	}
-
+	
 	protected void moveToInABoat(L2CharPosition destination, L2CharPosition origin)
 	{
 		// Chek if actor can move
@@ -631,24 +661,25 @@ abstract class AbstractAI implements Ctrl
 			 */
 			// Send a Server->Client packet MoveToLocation to the actor and all L2PcInstance in its _knownPlayers
 			//CharMoveToLocation msg = new MoveToLocation(_actor);
-			if (((L2PcInstance) _actor).getBoat() != null)
+			if (((L2PcInstance)_actor).getBoat() != null)
 			{
 				MoveToLocationInVehicle msg = new MoveToLocationInVehicle(_actor, destination, origin);
 				_actor.broadcastPacket(msg);
 			}
-
+			
 		}
 		else
 		{
 			clientActionFailed();
 		}
 	}
-
+	
 	/**
-	 * Stop the actor movement server side AND client side by sending Server->Client packet StopMove/StopRotation <I>(broadcast)</I>.<BR><BR>
-	 *
-	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : Low level function, used by AI subclasses</B></FONT><BR><BR>
-	 *
+	 * Stop the actor movement server side AND client side by sending Server->Client packet StopMove/StopRotation
+	 * <I>(broadcast)</I>.<BR>
+	 * <BR>
+	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : Low level function, used by AI subclasses</B></FONT><BR>
+	 * <BR>
 	 */
 	protected void clientStopMoving(L2CharPosition pos)
 	{
@@ -660,17 +691,17 @@ abstract class AbstractAI implements Ctrl
 		// Stop movement of the L2Character
 		if (_actor.isMoving())
 			_accessor.stopMove(pos);
-
+		
 		_clientMovingToPawnOffset = 0;
-
+		
 		if (_clientMoving || pos != null)
 		{
 			_clientMoving = false;
-
+			
 			// Send a Server->Client packet StopMove to the actor and all L2PcInstance in its _knownPlayers
 			StopMove msg = new StopMove(_actor);
 			_actor.broadcastPacket(msg);
-
+			
 			if (pos != null)
 			{
 				// Send a Server->Client packet StopRotation to the actor and all L2PcInstance in its _knownPlayers
@@ -679,9 +710,9 @@ abstract class AbstractAI implements Ctrl
 				_actor.broadcastPacket(sr);
 			}
 		}
-
+		
 	}
-
+	
 	// Client has already arrived to target, no need to force StopMove packet
 	protected void clientStoppedMoving()
 	{
@@ -693,35 +724,35 @@ abstract class AbstractAI implements Ctrl
 		}
 		_clientMoving = false;
 	}
-
+	
 	public boolean isAutoAttacking()
 	{
 		return _clientAutoAttacking;
 	}
-
+	
 	public void setAutoAttacking(boolean isAutoAttacking)
 	{
 		_clientAutoAttacking = isAutoAttacking;
 		if (_actor instanceof L2Summon)
 		{
-			L2Summon summon = (L2Summon) _actor;
+			L2Summon summon = (L2Summon)_actor;
 			if (summon.getOwner() != null)
 				summon.getOwner().getAI().setAutoAttacking(isAutoAttacking);
 			return;
 		}
 	}
-
+	
 	/**
-	 * Start the actor Auto Attack client side by sending Server->Client packet AutoAttackStart <I>(broadcast)</I>.<BR><BR>
-	 *
-	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : Low level function, used by AI subclasses</B></FONT><BR><BR>
-	 *
+	 * Start the actor Auto Attack client side by sending Server->Client packet AutoAttackStart <I>(broadcast)</I>.<BR>
+	 * <BR>
+	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : Low level function, used by AI subclasses</B></FONT><BR>
+	 * <BR>
 	 */
 	public void clientStartAutoAttack()
 	{
 		if (_actor instanceof L2Summon)
 		{
-			L2Summon summon = (L2Summon) _actor;
+			L2Summon summon = (L2Summon)_actor;
 			if (summon.getOwner() != null)
 				summon.getOwner().getAI().clientStartAutoAttack();
 			return;
@@ -729,25 +760,26 @@ abstract class AbstractAI implements Ctrl
 		if (!isAutoAttacking())
 		{
 			if (_actor instanceof L2PcInstance && ((L2PcInstance)_actor).getPet() != null)
-				((L2PcInstance)_actor).getPet().broadcastPacket(new AutoAttackStart(((L2PcInstance)_actor).getPet().getObjectId()));
+				((L2PcInstance)_actor).getPet().broadcastPacket(
+					new AutoAttackStart(((L2PcInstance)_actor).getPet().getObjectId()));
 			// Send a Server->Client packet AutoAttackStart to the actor and all L2PcInstance in its _knownPlayers
 			_actor.broadcastPacket(new AutoAttackStart(_actor.getObjectId()));
 			setAutoAttacking(true);
 		}
 		AttackStanceTaskManager.getInstance().addAttackStanceTask(_actor);
 	}
-
+	
 	/**
-	 * Stop the actor auto-attack client side by sending Server->Client packet AutoAttackStop <I>(broadcast)</I>.<BR><BR>
-	 *
-	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : Low level function, used by AI subclasses</B></FONT><BR><BR>
-	 *
+	 * Stop the actor auto-attack client side by sending Server->Client packet AutoAttackStop <I>(broadcast)</I>.<BR>
+	 * <BR>
+	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : Low level function, used by AI subclasses</B></FONT><BR>
+	 * <BR>
 	 */
 	public void clientStopAutoAttack()
 	{
 		if (_actor instanceof L2Summon)
 		{
-			L2Summon summon = (L2Summon) _actor;
+			L2Summon summon = (L2Summon)_actor;
 			if (summon.getOwner() != null)
 				summon.getOwner().getAI().clientStopAutoAttack();
 			return;
@@ -763,36 +795,38 @@ abstract class AbstractAI implements Ctrl
 			setAutoAttacking(false);
 		}
 	}
-
+	
 	/**
-	 * Kill the actor client side by sending Server->Client packet AutoAttackStop, StopMove/StopRotation, Die <I>(broadcast)</I>.<BR><BR>
-	 *
-	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : Low level function, used by AI subclasses</B></FONT><BR><BR>
-	 *
+	 * Kill the actor client side by sending Server->Client packet AutoAttackStop, StopMove/StopRotation, Die
+	 * <I>(broadcast)</I>.<BR>
+	 * <BR>
+	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : Low level function, used by AI subclasses</B></FONT><BR>
+	 * <BR>
 	 */
 	protected void clientNotifyDead()
 	{
 		// Send a Server->Client packet Die to the actor and all L2PcInstance in its _knownPlayers
 		Die msg = new Die(_actor);
 		_actor.broadcastPacket(msg);
-
+		
 		// Init AI
 		_intention = AI_INTENTION_IDLE;
 		_target = null;
 		_castTarget = null;
 		setAttackTarget(null);
-
+		
 		// Cancel the follow task if necessary
 		stopFollow();
 	}
-
+	
 	/**
-	 * Update the state of this actor client side by sending Server->Client packet MoveToPawn/MoveToLocation and AutoAttackStart to the L2PcInstance player.<BR><BR>
-	 *
-	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : Low level function, used by AI subclasses</B></FONT><BR><BR>
-	 *
+	 * Update the state of this actor client side by sending Server->Client packet MoveToPawn/MoveToLocation and
+	 * AutoAttackStart to the L2PcInstance player.<BR>
+	 * <BR>
+	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : Low level function, used by AI subclasses</B></FONT><BR>
+	 * <BR>
+	 * 
 	 * @param player The L2PcIstance to notify with state of this L2Character
-	 *
 	 */
 	public void describeStateToPlayer(L2PcInstance player)
 	{
@@ -812,71 +846,20 @@ abstract class AbstractAI implements Ctrl
 			}
 		}
 	}
-
-	/**
-	 * Create and Launch an AI Follow Task to execute every 1s.<BR><BR>
-	 *
-	 * @param target The L2Character to follow
-	 *
-	 */
-	public synchronized void startFollow(L2Character target)
-	{
-		if (_followTask != null)
-		{
-			_followTask.cancel(false);
-			_followTask = null;
-		}
-
-		// Create and Launch an AI Follow Task to execute every 1s
-		_followTarget = target;
-		_followTask = ThreadPoolManager.getInstance().scheduleAiAtFixedRate(new FollowTask(), 5, FOLLOW_INTERVAL);
-	}
-
-	/**
-	 * Create and Launch an AI Follow Task to execute every 0.5s, following at specified range.<BR><BR>
-	 *
-	 * @param target The L2Character to follow
-	 *
-	 */
-	public synchronized void startFollow(L2Character target, int range)
-	{
-		if (_followTask != null)
-		{
-			_followTask.cancel(false);
-			_followTask = null;
-		}
-
-		_followTarget = target;
-		_followTask = ThreadPoolManager.getInstance().scheduleAiAtFixedRate(new FollowTask(range), 5, ATTACK_FOLLOW_INTERVAL);
-	}
-
-	/**
-	 * Stop an AI Follow Task.<BR><BR>
-	 */
-	public synchronized void stopFollow()
-	{
-		if (_followTask != null)
-		{
-			// Stop the Follow Task
-			_followTask.cancel(false);
-			_followTask = null;
-		}
-		_followTarget = null;
-	}
-
+	
 	protected L2Character getFollowTarget()
 	{
 		return _followTarget;
 	}
-
+	
 	protected L2Object getTarget()
 	{
 		return _target;
 	}
-
+	
 	protected synchronized void setTarget(L2Object target)
 	{
 		_target = target;
 	}
-
+	
 }
