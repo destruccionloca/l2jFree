@@ -26,7 +26,6 @@ import javolution.util.FastList;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
-import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.instancemanager.DimensionalRiftManager;
@@ -51,6 +50,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2RiftInvaderInstance;
 import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.model.zone.L2Zone;
+import com.l2jfree.gameserver.taskmanager.AiTaskManager;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.random.Rnd;
@@ -272,26 +272,18 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			return (me.isAggressive() && GeoData.getInstance().canSeeTarget(me, target));
 		}
 	}
-
+	
 	public void startAITask()
 	{
-		// If not idle - create an AI task (schedule onEvtThink repeatedly)
-		if (_aiTask == null)
-		{
-			_aiTask = ThreadPoolManager.getInstance().scheduleAiAtFixedRate(this, 1000, 1000);
-		}
+		AiTaskManager.getInstance().startAiTask(this);
 	}
-
+	
 	@Override
 	public void stopAITask()
 	{
-		if (_aiTask != null)
-		{
-			_aiTask.cancel(false);
-			_aiTask = null;
-		}
+		AiTaskManager.getInstance().stopAiTask(this);
 	}
-
+	
 	@Override
 	protected void onEvtDead()
 	{

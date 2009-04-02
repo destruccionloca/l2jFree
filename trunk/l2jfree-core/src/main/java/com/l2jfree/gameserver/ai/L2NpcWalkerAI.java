@@ -14,15 +14,15 @@
  */
 package com.l2jfree.gameserver.ai;
 
+import javolution.util.FastList;
+
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.NpcWalkerRoutesTable;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2NpcWalkerNode;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcWalkerInstance;
-
-import javolution.util.FastList;
+import com.l2jfree.gameserver.taskmanager.AiTaskManager;
 
 public class L2NpcWalkerAI extends L2CharacterAI implements Runnable
 {
@@ -67,9 +67,7 @@ public class L2NpcWalkerAI extends L2CharacterAI implements Runnable
 			return;
 		}
 		
-		// Here we need 1 second initial delay cause getActor().hasAI() will return null...
-		// Constructor of L2NpcWalkerAI is called faster then ai object is attached in L2NpcWalkerInstance
-		ThreadPoolManager.getInstance().scheduleAiAtFixedRate(this, 1000, 1000);
+		AiTaskManager.getInstance().startAiTask(this);
 	}
 
 	public void run()
