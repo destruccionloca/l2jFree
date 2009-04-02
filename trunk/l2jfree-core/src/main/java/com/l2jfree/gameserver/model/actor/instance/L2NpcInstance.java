@@ -700,7 +700,7 @@ public class L2NpcInstance extends L2Character
 						else if (_isEventMobCTF)
 							CTF.showEventHtml(player, String.valueOf(getObjectId()));
 						else if (_isCTF_Flag && player._inEventCTF)
-							CTF.showFlagHtml(player, String.valueOf(this.getObjectId()), _CTF_FlagTeamName);
+							CTF.showFlagHtml(player, String.valueOf(getObjectId()), _CTF_FlagTeamName);
 						else if (_isCTF_throneSpawn)
 							CTF.CheckRestoreFlags();
 						else if (_isEventVIPNPC)
@@ -793,7 +793,7 @@ public class L2NpcInstance extends L2Character
 			html1.append("<tr><td>Castle</td><td>" + getCastle().getCastleId() + "</td><td>Coords</td><td>" + getX() + "," + getY() + "," + getZ()
 					+ "</td></tr>");
 			html1.append("<tr><td>Level</td><td>" + getLevel() + "</td><td>Aggro</td><td>"
-					+ ((this instanceof L2Attackable) ? this.getAggroRange() : 0) + "</td></tr>");
+					+ ((this instanceof L2Attackable) ? getAggroRange() : 0) + "</td></tr>");
 			html1.append("</table><br>");
 
 			html1.append("<font color=\"LEVEL\">Combat</font>");
@@ -1676,31 +1676,20 @@ public class L2NpcInstance extends L2Character
 	 */
 	public String getHtmlPath(int npcId, int val)
 	{
-		String pom = "";
-
-		if (val == 0)
-			pom = "" + npcId;
-		else
-			pom = npcId + "-" + val;
-
+		String pom = String.valueOf(npcId);
+		
+		if (val != 0)
+			pom += "-" + val;
+		
 		String temp = "data/html/default/" + pom + ".htm";
-
-		if (!Config.LAZY_CACHE)
-		{
-			// If not running lazy cache the file must be in the cache or it doesnt exist
-			if (HtmCache.getInstance().contains(temp))
-				return temp;
-		}
-		else
-		{
-			if (HtmCache.getInstance().isLoadable(temp))
-				return temp;
-		}
-
+		
+		if (HtmCache.getInstance().pathExists(temp))
+			return temp;
+		
 		// If the file is not found, the standard message "I have nothing to say to you" is returned
 		return "data/html/npcdefault.htm";
 	}
-
+	
 	/**
 	 * Open a choose quest window on client with all quests available of the L2NpcInstance.<BR><BR>
 	 *
@@ -2220,29 +2209,29 @@ public class L2NpcInstance extends L2Character
 		makeBuffs(player, _newbieBuffsId);
 	}
 
-	public void giveBlessingSupport(L2PcInstance player) 
+	public void giveBlessingSupport(L2PcInstance player)
 	{
 		if (player == null)
 			return;
 
 		// Blessing of protection - author kerberos_20. Used codes from Rayan - L2Emu project.
 		// Prevent a cursed weapon weilder of being buffed - I think no need of that becouse karma check > 0
-		// if (player.isCursedWeaponEquiped()) 
-		//   return; 
+		// if (player.isCursedWeaponEquiped())
+		//   return;
 
-		int player_level = player.getLevel(); 
-		// Select the player 
-		setTarget(player); 
-		// If the player is too high level, display a message and return 
-		if (player_level > 39 || player.getClassId().level() >= 2) 
+		int player_level = player.getLevel();
+		// Select the player
+		setTarget(player);
+		// If the player is too high level, display a message and return
+		if (player_level > 39 || player.getClassId().level() >= 2)
 		{
-			String content = "<html><body>Newbie Guide:<br>I'm sorry, but you are not eligible to receive the protection blessing.<br1>It can only be bestowed on <font color=\"LEVEL\">characters below level 39 who have not made a seccond transfer.</font></body></html>"; 
-			insertObjectIdAndShowChatWindow(player, content); 
-			return; 
+			String content = "<html><body>Newbie Guide:<br>I'm sorry, but you are not eligible to receive the protection blessing.<br1>It can only be bestowed on <font color=\"LEVEL\">characters below level 39 who have not made a seccond transfer.</font></body></html>";
+			insertObjectIdAndShowChatWindow(player, content);
+			return;
 		}
-		L2Skill skill = SkillTable.getInstance().getInfo(5182,1); 
+		L2Skill skill = SkillTable.getInstance().getInfo(5182,1);
 		if (skill != null)
-			doCast(skill); 
+			doCast(skill);
 	}
 
 	public void showChatWindow(L2PcInstance player)
@@ -2627,8 +2616,8 @@ public class L2NpcInstance extends L2Character
 			if (getTemplate().getType() == "L2Teleporter" && val == 1 && player.getLevel() < 40) // Players below level 40 have free teleport
 			{
 				filename = "data/html/teleporter/free/" + npcId + ".htm";
-				if (!HtmCache.getInstance().isLoadable(filename))
-					filename = (getHtmlPath(npcId, val));
+				if (!HtmCache.getInstance().pathExists(filename))
+					filename = getHtmlPath(npcId, val);
 			}
 			else
 				filename = (getHtmlPath(npcId, val));
@@ -2906,7 +2895,7 @@ public class L2NpcInstance extends L2Character
 
 	public boolean rechargeAutoSoulShot(boolean physical, boolean magic)
 	{
-		if (this.getTemplate().getSSRate() == 0)
+		if (getTemplate().getSSRate() == 0)
 			return false;
 
 		L2Weapon weaponItem = getActiveWeaponItem();
@@ -2917,7 +2906,7 @@ public class L2NpcInstance extends L2Character
 		}
 		if (magic)
 		{
-			if (this.getTemplate().getSSRate() < Rnd.get(100))
+			if (getTemplate().getSSRate() < Rnd.get(100))
 			{
 				_inventory.bshotInUse = false;
 				return false;
@@ -2933,7 +2922,7 @@ public class L2NpcInstance extends L2Character
 		}
 		if (physical)
 		{
-			if (this.getTemplate().getSSRate() < Rnd.get(100))
+			if (getTemplate().getSSRate() < Rnd.get(100))
 			{
 				_inventory.sshotInUse = false;
 				return false;

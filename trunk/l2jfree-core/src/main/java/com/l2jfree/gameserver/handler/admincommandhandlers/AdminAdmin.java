@@ -54,14 +54,14 @@ import com.l2jfree.gameserver.util.Util;
 
 /**
  * This class handles following admin commands:
- * - admin|admin1/admin2/admin3/admin4/admin5 = slots for the 5 starting admin menus 
- * - gmliston/gmlistoff = includes/excludes active character from /gmlist results 
- * - silence = toggles private messages acceptance mode 
- * - diet = toggles weight penalty mode 
- * - tradeoff = toggles trade acceptance mode 
- * - reload = reloads specified component from multisell|skill|npc|htm|item|instancemanager 
+ * - admin|admin1/admin2/admin3/admin4/admin5 = slots for the 5 starting admin menus
+ * - gmliston/gmlistoff = includes/excludes active character from /gmlist results
+ * - silence = toggles private messages acceptance mode
+ * - diet = toggles weight penalty mode
+ * - tradeoff = toggles trade acceptance mode
+ * - reload = reloads specified component from multisell|skill|npc|htm|item|instancemanager
  * - set/set_menu/set_mod = alters specified server setting
- * - saveolymp = saves olympiad state manually 
+ * - saveolymp = saves olympiad state manually
  * @version $Revision: 1.3.2.1.2.4 $ $Date: 2007/07/28 10:06:06 $
  */
 public class AdminAdmin implements IAdminCommandHandler
@@ -476,19 +476,18 @@ public class AdminAdmin implements IAdminCommandHandler
 				else if (type.startsWith("htm"))
 				{
 					HtmCache.getInstance().reload();
-					activeChar.sendMessage("Cache[HTML]: " + HtmCache.getInstance().getMemoryUsage() + " megabytes on "
-							+ HtmCache.getInstance().getLoadedFiles() + " files loaded");
+					activeChar.sendMessage(HtmCache.getInstance().toString());
 				}
 				else if (type.startsWith("item"))
 				{
 					ItemTable.getInstance().reload();
 					activeChar.sendMessage("Item templates reloaded");
 				}
-                else if (type.startsWith("config")) 
-                { 
-                        Config.load(); 
-                        activeChar.sendMessage("All config settings have been reload"); 
-                } 				
+				else if (type.startsWith("config"))
+				{
+					Config.load();
+					activeChar.sendMessage("All config settings have been reload");
+				}
 				else if (type.startsWith("instancemanager"))
 				{
 					Manager.reloadAll();

@@ -21,6 +21,7 @@ import java.io.FileInputStream;
 
 import javolution.util.FastMap;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -29,88 +30,66 @@ import com.l2jfree.gameserver.util.Util;
 
 /**
  * @author Layane
- *
  */
-public class HtmCache
+
+public final class HtmCache
 {
-	protected static final Log			_log	= LogFactory.getLog(HtmCache.class.getName());
-	private static HtmCache				_instance;
-
-	private FastMap<Integer, String>	_cache;
-
-	private int							_loadedFiles;
-	private long						_bytesBuffLen;
-
+	private static final Log _log = LogFactory.getLog(HtmCache.class);
+	
+	private static final FileFilter HTM_FILTER = new FileFilter() {
+		public boolean accept(File file)
+		{
+			return file.isDirectory() || file.getName().endsWith(".htm") || file.getName().endsWith(".html");
+		}
+	};
+	
+	private static HtmCache _instance;
+	
 	public static HtmCache getInstance()
 	{
 		if (_instance == null)
 			_instance = new HtmCache();
-
+		
 		return _instance;
 	}
-
-	public HtmCache()
+	
+	private final FastMap<String, String> _cache = new FastMap<String, String>();
+	private int _loadedFiles;
+	private int _size;
+	
+	private HtmCache()
 	{
-		_cache = new FastMap<Integer, String>();
 		reload();
 	}
-
-	public void reload()
+	
+	public synchronized void reload()
 	{
-		reload(Config.DATAPACK_ROOT);
-	}
-
-	public void reload(File f)
-	{
+		_cache.clear();
+		_loadedFiles = 0;
+		_size = 0;
+		
 		if (!Config.LAZY_CACHE)
 		{
-			_log.info("Html cache start...");
-			parseDir(f);
-			_log.info("Cache[HTML]: " + String.format("%.3f", getMemoryUsage()) + " megabytes on " + getLoadedFiles() + " files loaded");
+			_log.info("Cache[HTML]: Caching started.");
+			
+			parseDir(Config.DATAPACK_ROOT);
 		}
 		else
-		{
-			_cache.clear();
-			_loadedFiles = 0;
-			_bytesBuffLen = 0;
-			_log.info("Cache[HTML]: Running lazy cache");
-		}
+			_log.info("Cache[HTML]: Running lazy cache.");
+		
+		_log.info(this);
 	}
-
+	
 	public void reloadPath(File f)
 	{
 		parseDir(f);
+		
 		_log.info("Cache[HTML]: Reloaded specified path.");
 	}
-
-	public double getMemoryUsage()
+	
+	public void parseDir(File dir)
 	{
-		return ((float) _bytesBuffLen / 1048576);
-	}
-
-	public int getLoadedFiles()
-	{
-		return _loadedFiles;
-	}
-
-	class HtmFilter implements FileFilter
-	{
-		public boolean accept(File file)
-		{
-			if (!file.isDirectory())
-			{
-				return (file.getName().endsWith(".htm") || file.getName().endsWith(".html"));
-			}
-			return true;
-		}
-	}
-
-	private void parseDir(File dir)
-	{
-		FileFilter filter = new HtmFilter();
-		File[] files = dir.listFiles(filter);
-
-		for (File file : files)
+		for (File file : dir.listFiles(HTM_FILTER))
 		{
 			if (!file.isDirectory())
 				loadFile(file);
@@ -118,94 +97,90 @@ public class HtmCache
 				parseDir(file);
 		}
 	}
-
+	
 	public String loadFile(File file)
 	{
-		HtmFilter filter = new HtmFilter();
-
-		if (file.exists() && filter.accept(file) && !file.isDirectory())
+		if (isLoadable(file))
 		{
-			String content;
-			FileInputStream fis = null;
-
+			BufferedInputStream bis = null;
 			try
 			{
-				fis = new FileInputStream(file);
-				BufferedInputStream bis = new BufferedInputStream(fis);
-				int bytes = bis.available();
-				byte[] raw = new byte[bytes];
-
+				bis = new BufferedInputStream(new FileInputStream(file));
+				byte[] raw = new byte[bis.available()];
 				bis.read(raw);
-				content = new String(raw, "UTF-8");
-				content = content.replaceAll("\r\n", "\n");
-
+				
+				String content = new String(raw, "UTF-8").replaceAll("\r\n", "\n");
 				String relpath = Util.getRelativePath(Config.DATAPACK_ROOT, file);
-				int hashcode = relpath.hashCode();
-
-				String oldContent = _cache.get(hashcode);
-
+				
+				_size += content.length();
+				
+				String oldContent = _cache.get(relpath);
 				if (oldContent == null)
-				{
-					_bytesBuffLen += bytes;
 					_loadedFiles++;
-				}
 				else
-				{
-					_bytesBuffLen = _bytesBuffLen - oldContent.length() + bytes;
-				}
-
-				_cache.put(hashcode, content);
-
+					_size -= oldContent.length();
+				
+				_cache.put(relpath, content);
+				
 				return content;
 			}
 			catch (Exception e)
 			{
-				_log.warn("problem with htm file " + e);
+				_log.warn("Problem with htm file:", e);
 			}
-			finally { try { if (fis != null) fis.close(); } catch (Exception e) { e.printStackTrace(); } }
+			finally
+			{
+				IOUtils.closeQuietly(bis);
+			}
 		}
-
+		
 		return null;
 	}
-
+	
 	public String getHtmForce(String path)
 	{
 		String content = getHtm(path);
-
+		
 		if (content == null)
 		{
 			content = "<html><body>My text is missing:<br>" + path + "</body></html>";
+			
 			_log.warn("Cache[HTML]: Missing HTML page: " + path);
 		}
-
+		
 		return content;
 	}
-
+	
 	public String getHtm(String path)
 	{
-		String content = _cache.get(path.hashCode());
-
-		if (Config.LAZY_CACHE && content == null)
+		String content = _cache.get(path);
+		
+		if (content == null && Config.LAZY_CACHE)
 			content = loadFile(new File(Config.DATAPACK_ROOT, path));
-
+		
 		return content;
 	}
-
-	public boolean contains(String path)
+	
+	public boolean isLoadable(File file)
 	{
-		return _cache.containsKey(path.hashCode());
+		return file.exists() && !file.isDirectory() && HTM_FILTER.accept(file);
 	}
-
-	/**
-	 * Check if an HTM exists and can be loaded
-	 * @param
-	 * path The path to the HTM
-	 * */
-	public boolean isLoadable(String path)
+	
+	public boolean pathExists(String path)
 	{
-		File file = new File(Config.DATAPACK_ROOT, path);
-		HtmFilter filter = new HtmFilter();
-
-        return file.exists() && filter.accept(file) && !file.isDirectory();
+		if (_cache.containsKey(path))
+			return true;
+		
+		if (Config.LAZY_CACHE && isLoadable(new File(Config.DATAPACK_ROOT, path)))
+			return true;
+		
+		return false;
+	}
+	
+	@Override
+	public String toString()
+	{
+		return new StringBuilder(64).append("Cache[HTML]: ").append(String.format("%.3f", (float)_size / 1048576))
+			.append(" megabytes on ").append(_loadedFiles).append(" file(s) loaded.").toString();
 	}
 }

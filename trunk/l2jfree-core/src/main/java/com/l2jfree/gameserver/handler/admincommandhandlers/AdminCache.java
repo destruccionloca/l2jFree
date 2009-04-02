@@ -52,18 +52,15 @@ public class AdminCache implements IAdminCommandHandler
 
 		if (command.startsWith("admin_cache_htm_rebuild") || command.equals("admin_cache_htm_reload"))
 		{
-			HtmCache.getInstance().reload(Config.DATAPACK_ROOT);
-			activeChar.sendMessage("Cache[HTML]: " + HtmCache.getInstance().getMemoryUsage() + " MB on " + HtmCache.getInstance().getLoadedFiles()
-					+ " file(s) loaded.");
+			HtmCache.getInstance().reload();
+			activeChar.sendMessage(HtmCache.getInstance().toString());
 		}
 		else if (command.startsWith("admin_cache_reload_path "))
 		{
 			try
 			{
-				String path = command.split(" ")[1];
-				HtmCache.getInstance().reloadPath(new File(Config.DATAPACK_ROOT, path));
-				activeChar.sendMessage("Cache[HTML]: " + HtmCache.getInstance().getMemoryUsage() + " MB in " + HtmCache.getInstance().getLoadedFiles()
-						+ " file(s) loaded.");
+				HtmCache.getInstance().reloadPath(new File(Config.DATAPACK_ROOT, command.split(" ")[1]));
+				activeChar.sendMessage(HtmCache.getInstance().toString());
 			}
 			catch (Exception e)
 			{

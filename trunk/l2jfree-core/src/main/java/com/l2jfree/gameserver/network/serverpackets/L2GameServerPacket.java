@@ -61,7 +61,10 @@ public abstract class L2GameServerPacket extends SendablePacket<L2GameClient>
 	/**
 	 * @return a String with this packet name for debuging purposes
 	 */
-	public abstract String getType();
+	public String getType()
+	{
+		return getClass().getSimpleName();
+	}
 	
 	/**
 	 * @see org.mmocore.network.SendablePacket#getHeaderSize()
@@ -78,6 +81,6 @@ public abstract class L2GameServerPacket extends SendablePacket<L2GameClient>
 	@Override
 	protected final void writeHeader(int dataSize)
 	{
-		writeH(dataSize + this.getHeaderSize());
+		writeH(dataSize + getHeaderSize());
 	}
 }
