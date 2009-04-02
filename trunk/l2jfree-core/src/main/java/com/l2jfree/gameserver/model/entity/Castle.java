@@ -21,6 +21,9 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Map;
 
+import javolution.util.FastList;
+import javolution.util.FastMap;
+
 import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.Announcements;
@@ -41,9 +44,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.PlaySound;
 import com.l2jfree.gameserver.network.serverpackets.PledgeShowInfoUpdate;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 public class Castle extends Siegeable
 {
@@ -489,7 +489,7 @@ public class Castle extends Siegeable
 			if (door.getStatus().getCurrentHp() <= 0)
 			{
 				door.decayMe(); // Kill current if not killed already
-				door = DoorTable.parseList(_doorDefault.get(i));
+				door = DoorTable.parseLine(_doorDefault.get(i));
 				if (isDoorWeak)
 					door.getStatus().setCurrentHp(door.getMaxHp() / 2);
 				door.spawnMe(door.getX(), door.getY(), door.getZ());
@@ -595,7 +595,7 @@ public class Castle extends Siegeable
 				_doorDefault.add(rs.getString("name") + ";" + rs.getInt("id") + ";" + rs.getInt("x") + ";" + rs.getInt("y") + ";" + rs.getInt("z") + ";" + rs.getInt("range_xmin") + ";" + rs.getInt("range_ymin") + ";"
 						+ rs.getInt("range_zmin") + ";" + rs.getInt("range_xmax") + ";" + rs.getInt("range_ymax") + ";" + rs.getInt("range_zmax") + ";" + rs.getInt("hp") + ";" + rs.getInt("pDef") + ";" + rs.getInt("mDef"));
 				
-				L2DoorInstance door = DoorTable.parseList(_doorDefault.get(_doorDefault.size() - 1));
+				L2DoorInstance door = DoorTable.parseLine(_doorDefault.get(_doorDefault.size() - 1));
 				door.spawnMe(door.getX(), door.getY(), door.getZ());
 				_doors.add(door);
 				DoorTable.getInstance().putDoor(door);

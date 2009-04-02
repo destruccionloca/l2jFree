@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.instancemanager;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -27,62 +28,56 @@ import com.l2jfree.gameserver.model.entity.Castle;
 /**
  * @author evill33t, NB4L1
  */
-public class CrownManager
+public final class CrownManager
 {
-	private static final Log	_log	= LogFactory.getLog(CrownManager.class.getName());
-	private static CrownManager	_instance;
-
-	public static final CrownManager getInstance()
+	private static final Log _log = LogFactory.getLog(CrownManager.class);
+	
+	private static CrownManager _instance;
+	
+	public static CrownManager getInstance()
 	{
 		if (_instance == null)
 			_instance = new CrownManager();
+		
 		return _instance;
 	}
-
-	public CrownManager()
+	
+	private CrownManager()
 	{
-		_log.info("CrownManager: initialized");
+		_log.info("CrownManager: Initialized.");
 	}
-
+	
 	public void checkCrowns(L2Clan clan)
 	{
 		if (clan == null)
 			return;
-
+		
 		for (L2ClanMember member : clan.getMembers())
-		{
-			if (member != null && member.isOnline() && member.getPlayerInstance() != null)
-			{
+			if (member != null && member.isOnline())
 				checkCrowns(member.getPlayerInstance());
-			}
-		}
 	}
-
+	
 	public void checkCrowns(L2PcInstance activeChar)
 	{
 		if (activeChar == null)
 			return;
-
-		boolean isLeader = false;
+		
 		int crownId = -1;
-
-		L2Clan activeCharClan = activeChar.getClan();
-
-		if (activeCharClan != null)
+		boolean isLeader = false;
+		
+		final L2Clan clan = activeChar.getClan();
+		
+		if (clan != null)
 		{
-			Castle activeCharCastle = CastleManager.getInstance().getCastleByOwner(activeCharClan);
-
-			if (activeCharCastle != null)
-			{
-				crownId = CrownTable.getCrownId(activeCharCastle.getCastleId());
-			}
-
-			if (activeCharClan.getLeader().getObjectId() == activeChar.getObjectId())
-			{
+			final Castle castle = CastleManager.getInstance().getCastleByOwner(clan);
+			
+			if (castle != null)
+				crownId = CrownTable.getCrownId(castle.getCastleId());
+			
+			if (clan.getLeaderId() == activeChar.getObjectId())
 				isLeader = true;
-			}
 		}
-
+		
 		if (crownId > 0)
 		{
 			if (isLeader && activeChar.getInventory().getItemByItemId(6841) == null)
@@ -90,19 +85,20 @@ public class CrownManager
 				activeChar.addItem("Crown", 6841, 1, activeChar, true, true);
 				activeChar.getInventory().updateDatabase();
 			}
-
+			
 			if (activeChar.getInventory().getItemByItemId(crownId) == null)
 			{
 				activeChar.addItem("Crown", crownId, 1, activeChar, true, true);
 				activeChar.getInventory().updateDatabase();
 			}
 		}
-
+		
 		boolean alreadyFoundCirclet = false;
 		boolean alreadyFoundCrown = false;
+		
 		for (L2ItemInstance item : activeChar.getInventory().getItems())
 		{
-			if (CrownTable.getCrownList().contains(item.getItemId()))
+			if (ArrayUtils.contains(CrownTable.getCrownIds(), item.getItemId()))
 			{
 				if (crownId > 0)
 				{
@@ -123,7 +119,7 @@ public class CrownManager
 						}
 					}
 				}
-
+				
 				activeChar.destroyItem("Removing Crown", item, activeChar, true);
 				activeChar.getInventory().updateDatabase();
 			}

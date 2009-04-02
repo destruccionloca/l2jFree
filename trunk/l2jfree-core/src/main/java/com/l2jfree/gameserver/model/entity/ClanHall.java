@@ -21,6 +21,9 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import javolution.util.FastList;
+import javolution.util.FastMap;
+
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.ClanTable;
@@ -33,9 +36,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.PledgeShowInfoUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 public class ClanHall extends Entity
 {
@@ -374,7 +374,7 @@ public class ClanHall extends Entity
 			if (door.getStatus().getCurrentHp() <= 0)
 			{
 				door.decayMe(); // Kill current if not killed already
-				door = DoorTable.parseList(_doorDefault.get(i));
+				door = DoorTable.parseLine(_doorDefault.get(i));
 				if (isDoorWeak)
 					door.getStatus().setCurrentHp(door.getMaxHp() / 2);
 				door.spawnMe(door.getX(), door.getY(), door.getZ());

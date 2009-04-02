@@ -605,7 +605,7 @@ public class Fort extends Siegeable
 				_doorDefault.add(rs.getString("name") + ";" + rs.getInt("id") + ";" + rs.getInt("x") + ";" + rs.getInt("y") + ";" + rs.getInt("z") + ";" + rs.getInt("range_xmin") + ";" + rs.getInt("range_ymin") + ";"
 						+ rs.getInt("range_zmin") + ";" + rs.getInt("range_xmax") + ";" + rs.getInt("range_ymax") + ";" + rs.getInt("range_zmax") + ";" + rs.getInt("hp") + ";" + rs.getInt("pDef") + ";" + rs.getInt("mDef")+ ";" + rs.getString("openType")+ ";" + rs.getString("commanderDoor"));
 				L2DoorInstance door;
-				_doors.add(door = DoorTable.parseList(_doorDefault.get(_doorDefault.size() - 1)));
+				_doors.add(door = DoorTable.parseLine(_doorDefault.get(_doorDefault.size() - 1)));
 				door.spawnMe(door.getX(), door.getY(), door.getZ());
 				DoorTable.getInstance().putDoor(door);
 			}

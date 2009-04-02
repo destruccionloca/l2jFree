@@ -16,13 +16,13 @@ package com.l2jfree.gameserver.datatables;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.LineNumberReader;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 import javolution.util.FastMap;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -37,112 +37,103 @@ import com.l2jfree.gameserver.model.mapregion.L2MapRegion;
 import com.l2jfree.gameserver.templates.StatsSet;
 import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
 
-public class DoorTable
+public final class DoorTable
 {
-	private final static Log					_log	= LogFactory.getLog(DoorTable.class.getName());
-
-	private FastMap<Integer, L2DoorInstance>	_staticItems;
-
-	private static DoorTable					_instance;
-
+	private static final Log _log = LogFactory.getLog(DoorTable.class);
+	
+	private static DoorTable _instance;
+	
 	public static DoorTable getInstance()
 	{
 		if (_instance == null)
 			_instance = new DoorTable();
-
+		
 		return _instance;
 	}
-
+	
+	private final Map<Integer, L2DoorInstance> _doors = new FastMap<Integer, L2DoorInstance>();
+	
 	private DoorTable()
 	{
-		_staticItems = new FastMap<Integer, L2DoorInstance>();
-		parseData();
-		checkAutoOpen();
+		reloadAll();
 	}
-
+	
 	public void reloadAll()
 	{
-		respawn();
-	}
-
-	public void respawn()
-	{
-		_staticItems = null;
-		_instance = new DoorTable();
-	}
-
-	private void parseData()
-	{
-
-		LineNumberReader lnr = null;
+		_doorArray = null;
+		_doors.clear();
+		
+		BufferedReader br = null;
 		try
 		{
-			File doorData = new File(Config.DATAPACK_ROOT, "data/door.csv");
-			lnr = new LineNumberReader(new BufferedReader(new FileReader(doorData)));
-
-			String line = null;
-
-			while ((line = lnr.readLine()) != null)
+			br = new BufferedReader(new FileReader(new File(Config.DATAPACK_ROOT, "data/door.csv")));
+			
+			for (String line; (line = br.readLine()) != null;)
 			{
 				if (line.trim().length() == 0 || line.startsWith("#"))
 					continue;
-
-				L2DoorInstance door = parseList(line);
-				_staticItems.put(door.getDoorId(), door);
+				
+				final L2DoorInstance door = parseLine(line);
+				
+				putDoor(door);
+				
 				door.spawnMe(door.getX(), door.getY(), door.getZ());
+				
+				// Garden of Eva (every 7 minutes)
+				if (door.getDoorName().startsWith("goe"))
+					door.setAutoActionDelay(420000);
+				
+				// Tower of Insolence (every 5 minutes)
+				else if (door.getDoorName().startsWith("aden_tower"))
+					door.setAutoActionDelay(300000);
+				
+				/* TODO: check which are automatic
+				// devils (every 5 minutes)
+				else if (door.getDoorName().startsWith("pirate_isle"))
+					door.setAutoActionDelay(300000);
+				// Cruma Tower (every 20 minutes) 
+				else if (door.getDoorName().startsWith("cruma"))
+					door.setAutoActionDelay(1200000);
+				// Coral Garden Gate (every 15 minutes) 
+				else if (door.getDoorName().startsWith("Coral_garden"))
+					door.setAutoActionDelay(900000);
+				// Normil's cave (every 5 minutes) 
+				else if (door.getDoorName().startsWith("Normils_cave"))
+					door.setAutoActionDelay(300000);
+				// Normil's Garden (every 15 minutes) 
+				else if (door.getDoorName().startsWith("Normils_garden"))
+					door.setAutoActionDelay(900000);
+				*/
 			}
-
-			_initialized = true;
-			_log.info("DoorTable: Loaded " + _staticItems.size() + " Door Templates.");
-		}
-		catch (FileNotFoundException e)
-		{
-			_initialized = false;
-			_log.warn("door.csv is missing in data folder", e);
+			
+			_log.info("DoorTable: Loaded " + _doors.size() + " Door Templates.");
 		}
 		catch (Exception e)
 		{
-			_initialized = false;
-			_log.warn("error while creating door table ", e);
+			_log.warn("", e);
 		}
 		finally
 		{
-			try
-			{
-				if (lnr != null)
-					lnr.close();
-			}
-			catch (Exception e)
-			{
-				e.printStackTrace();
-			}
+			IOUtils.closeQuietly(br);
 		}
 	}
-
+	
 	public void registerToClanHalls()
 	{
-		if (_staticItems == null)
-			return;
-
-		for (L2DoorInstance door : _staticItems.values())
+		for (L2DoorInstance door : getDoors())
 		{
 			ClanHall clanhall = ClanHallManager.getInstance().getNearbyClanHall(door.getX(), door.getY(), 700);
 			if (clanhall != null)
 			{
 				clanhall.getDoors().add(door);
 				door.setClanHall(clanhall);
-				if (_log.isDebugEnabled())
-					_log.debug("door " + door.getDoorName() + " attached to ch " + clanhall.getName());
 			}
 		}
 	}
-
+	
 	public void setCommanderDoors()
 	{
-		if (_staticItems == null)
-			return;
-
-		for (L2DoorInstance door : _staticItems.values())
+		for (L2DoorInstance door : getDoors())
 		{
 			if (door.getFort() != null && door.getOpen())
 			{
@@ -151,8 +142,8 @@ public class DoorTable
 			}
 		}
 	}
-
-	public static L2DoorInstance parseList(String line)
+	
+	public static L2DoorInstance parseLine(String line)
 	{
 		StringTokenizer st = new StringTokenizer(line, ";");
 		
@@ -178,33 +169,34 @@ public class DoorTable
 			startOpen = Boolean.parseBoolean(st.nextToken());
 		
 		if (rangeXMin > rangeXMax)
-			_log.fatal("Error in door data rangeX, ID:" + id + ", rangeXMin : " + rangeXMin + ", rangeXMax : " + rangeXMax);
+			_log.fatal("Error in door data rangeX, ID:" + id);
 		if (rangeYMin > rangeYMax)
-			_log.fatal("Error in door data rangeY, ID:" + id + ", rangeYMin : " + rangeYMin + ", rangeYMax : " + rangeYMax);
+			_log.fatal("Error in door data rangeY, ID:" + id);
 		if (rangeZMin > rangeZMax)
-			_log.fatal("Error in door data rangeZ, ID:" + id + ", rangeZMin : " + rangeZMin + ", rangeZMax : " + rangeZMax);
+			_log.fatal("Error in door data rangeZ, ID:" + id);
+		
 		int collisionRadius = 0; // (max) radius for movement checks
-		if ((rangeXMax - rangeXMin) > (rangeYMax - rangeYMin))
+		if (rangeXMax - rangeXMin > rangeYMax - rangeYMin)
 			collisionRadius = rangeYMax - rangeYMin;
 		
 		StatsSet npcDat = new StatsSet();
 		npcDat.set("npcId", id);
 		npcDat.set("level", 0);
 		npcDat.set("jClass", "door");
-
+		
 		npcDat.set("baseSTR", 0);
 		npcDat.set("baseCON", 0);
 		npcDat.set("baseDEX", 0);
 		npcDat.set("baseINT", 0);
 		npcDat.set("baseWIT", 0);
 		npcDat.set("baseMEN", 0);
-
+		
 		npcDat.set("baseShldDef", 0);
 		npcDat.set("baseShldRate", 0);
 		npcDat.set("baseAccCombat", 38);
 		npcDat.set("baseEvasRate", 38);
 		npcDat.set("baseCritRate", 38);
-
+		
 		//npcDat.set("name", "");
 		npcDat.set("collision_radius", collisionRadius);
 		npcDat.set("collision_height", rangeZMax - rangeZMin & 0xfff0);
@@ -233,84 +225,40 @@ public class DoorTable
 		npcDat.set("baseMpReg", 3.e-3f);
 		npcDat.set("basePDef", pdef);
 		npcDat.set("baseMDef", mdef);
-
+		
 		L2CharTemplate template = new L2CharTemplate(npcDat);
 		L2DoorInstance door = new L2DoorInstance(IdFactory.getInstance().getNextId(), template, id, name, unlockable);
 		door.setRange(rangeXMin, rangeYMin, rangeZMin, rangeXMax, rangeYMax, rangeZMax);
-		try
-		{
-			door.setMapRegion(MapRegionManager.getInstance().getRegion(x, y, z));
-		}
-		catch (Exception e)
-		{
-			_log.fatal("Error in door data, ID:" + id);
-		}
+		door.setMapRegion(MapRegionManager.getInstance().getRegion(x, y, z));
 		template.setCollisionRadius(Math.min(x - rangeXMin, y - rangeYMin));
 		door.getStatus().setCurrentHpMp(door.getMaxHp(), door.getMaxMp());
 		door.setOpen(startOpen);
 		door.getPosition().setXYZInvisible(x, y, z);
-
+		
 		return door;
 	}
-
-	public static boolean isInitialized()
-	{
-		return _initialized;
-	}
-
-	private static boolean	_initialized	= false;
-
+	
 	public L2DoorInstance getDoor(Integer id)
 	{
-		return _staticItems.get(id);
+		return _doors.get(id);
 	}
-
+	
 	public void putDoor(L2DoorInstance door)
 	{
-		_staticItems.put(door.getDoorId(), door);
+		_doorArray = null;
+		_doors.put(door.getDoorId(), door);
 	}
-
+	
+	private L2DoorInstance[] _doorArray;
+	
 	public L2DoorInstance[] getDoors()
 	{
-		L2DoorInstance[] _allTemplates = _staticItems.values().toArray(new L2DoorInstance[_staticItems.size()]);
-		return _allTemplates;
+		if (_doorArray == null)
+			_doorArray = _doors.values().toArray(new L2DoorInstance[_doors.size()]);
+		
+		return _doorArray;
 	}
-
-	/**
-	 * Performs a check and sets up a scheduled task for 
-	 * those doors that require auto opening/closing.
-	 */
-	public void checkAutoOpen()
-	{
-		for (L2DoorInstance doorInst : _staticItems.values())
-		{
-			// Garden of Eva (every 7 minutes)
-			if (doorInst.getDoorName().startsWith("goe"))
-				doorInst.setAutoActionDelay(420000);
-
-			// Tower of Insolence (every 5 minutes)
-			else if (doorInst.getDoorName().startsWith("aden_tower"))
-				doorInst.setAutoActionDelay(300000);
-
-		/* TODO: check which are automatic
-		// devils (every 5 minutes)
-		else if (doorInst.getDoorName().startsWith("pirate_isle"))
-		    doorInst.setAutoActionDelay(300000);
-		// Cruma Tower (every 20 minutes) 
-		else if (doorInst.getDoorName().startsWith("cruma")) 
-		    doorInst.setAutoActionDelay(1200000);
-		// Coral Garden Gate (every 15 minutes) 
-		else if (doorInst.getDoorName().startsWith("Coral_garden")) 
-		    doorInst.setAutoActionDelay(900000);
-		// Normil's cave (every 5 minutes) 
-		else if (doorInst.getDoorName().startsWith("Normils_cave")) 
-		    doorInst.setAutoActionDelay(300000);
-		// Normil's Garden (every 15 minutes) 
-		else if (doorInst.getDoorName().startsWith("Normils_garden")) 
-		    doorInst.setAutoActionDelay(900000);
-		*/
-		}
-	}
+	
 	public boolean checkIfDoorsBetween(AbstractNodeLoc start, AbstractNodeLoc end)
 	{
 		return checkIfDoorsBetween(start.getX(), start.getY(), start.getZ(), end.getX(), end.getY(), end.getZ());
@@ -318,21 +266,14 @@ public class DoorTable
 	
 	public boolean checkIfDoorsBetween(int x, int y, int z, int tx, int ty, int tz)
 	{
-		L2MapRegion region;
-		try
-		{
-			region = MapRegionManager.getInstance().getRegion(x, y, z);
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
+		L2MapRegion region = MapRegionManager.getInstance().getRegion(x, y, z);
 		
 		// there are quite many doors, maybe they should be splitted
-		for (L2DoorInstance doorInst : _staticItems.values())
+		for (L2DoorInstance doorInst : getDoors())
 		{
-			if (doorInst.getMapRegion() != region) 
+			if (doorInst.getMapRegion() != region)
 				continue;
+			
 			if (doorInst.getXMax() == 0)
 				continue;
 			
@@ -347,7 +288,7 @@ public class DoorTable
 					// phase 3, basically only z remains but now we calculate it with another formula (by rage)
 					// in some cases the direct line check (only) in the beginning isn't sufficient, 
 					// when char z changes a lot along the path
-					if (doorInst.getStatus().getCurrentHp() > 0 && !doorInst.getOpen()) 
+					if (doorInst.getStatus().getCurrentHp() > 0 && !doorInst.getOpen())
 					{
 						int px1 = doorInst.getXMin();
 						int py1 = doorInst.getYMin();
@@ -370,14 +311,14 @@ public class DoorTable
 						int fy = (int)(y - m * p);
 						int fz = (int)(z - n * p);
 						
-						if((Math.min(x,tx) <= fx && fx <= Math.max(x,tx)) &&
-								(Math.min(y,ty) <= fy && fy <= Math.max(y,ty)) &&
-								(Math.min(z,tz) <= fz && fz <= Math.max(z,tz)))
+						if ((Math.min(x, tx) <= fx && fx <= Math.max(x, tx))
+							&& (Math.min(y, ty) <= fy && fy <= Math.max(y, ty))
+							&& (Math.min(z, tz) <= fz && fz <= Math.max(z, tz)))
 						{
-
-							if (((fx >= px1 && fx <= px2) || (fx >= px2 && fx <= px1)) &&
-									((fy >= py1 && fy <= py2) || (fy >= py2 && fy <= py1)) &&
-									((fz >= pz1 && fz <= pz2) || (fz >= pz2 && fz <= pz1)))
+							
+							if (((fx >= px1 && fx <= px2) || (fx >= px2 && fx <= px1))
+								&& ((fy >= py1 && fy <= py2) || (fy >= py2 && fy <= py1))
+								&& ((fz >= pz1 && fz <= pz2) || (fz >= pz2 && fz <= pz1)))
 								return true; // Door between
 						}
 					}
@@ -386,5 +327,4 @@ public class DoorTable
 		}
 		return false;
 	}
-
 }

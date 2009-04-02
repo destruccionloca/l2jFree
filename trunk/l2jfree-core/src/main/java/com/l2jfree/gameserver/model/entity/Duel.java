@@ -23,7 +23,9 @@ import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.instancemanager.DuelManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
+import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Effect;
+import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -958,5 +960,39 @@ public class Duel
 				return;
 			}
 		}
+	}
+	
+	public static boolean isInvul(L2Character targetChar, L2Character attackerChar)
+	{
+		final L2PcInstance attacker = L2Object.getActingPlayer(attackerChar);
+		final L2PcInstance target = L2Object.getActingPlayer(targetChar);
+		
+		if (attacker == null && target == null)
+			return false;
+		
+		final boolean attackerIsInDuel = attacker != null && attacker.isInDuel();
+		final boolean targetIsInDuel = target != null && target.isInDuel();
+		
+		if (!attackerIsInDuel && !targetIsInDuel)
+			return false;
+		
+		if (attackerIsInDuel)
+			if (attacker.getDuelState() == Duel.DUELSTATE_DEAD || attacker.getDuelState() == Duel.DUELSTATE_WINNER)
+				return true;
+		
+		if (targetIsInDuel)
+			if (target.getDuelState() == Duel.DUELSTATE_DEAD || target.getDuelState() == Duel.DUELSTATE_WINNER)
+				return true;
+		
+		if (attackerIsInDuel && targetIsInDuel && attacker.getDuelId() == target.getDuelId())
+			return false;
+		
+		if (attackerIsInDuel)
+			attacker.setDuelState(Duel.DUELSTATE_INTERRUPTED);
+		
+		if (targetIsInDuel)
+			target.setDuelState(Duel.DUELSTATE_INTERRUPTED);
+		
+		return false;
 	}
 }
