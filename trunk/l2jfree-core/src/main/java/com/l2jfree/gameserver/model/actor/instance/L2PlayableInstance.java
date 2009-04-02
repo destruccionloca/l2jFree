@@ -20,8 +20,6 @@ import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.actor.knownlist.PlayableKnownList;
 import com.l2jfree.gameserver.model.actor.stat.PcStat;
 import com.l2jfree.gameserver.model.actor.stat.PlayableStat;
-import com.l2jfree.gameserver.model.actor.status.PcStatus;
-import com.l2jfree.gameserver.model.actor.status.PlayableStatus;
 import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
@@ -78,16 +76,7 @@ public abstract class L2PlayableInstance extends L2Character
 		
 		return (PcStat)_stat;
 	}
-
-	@Override
-	public PlayableStatus getStatus()
-	{
-		if (_status == null)
-			_status = new PlayableStatus(this);
-		
-		return (PcStatus)_status;
-	}
-
+	
 	@Override
 	public boolean doDie(L2Character killer)
 	{

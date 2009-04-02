@@ -39,7 +39,6 @@ import com.l2jfree.gameserver.model.L2SiegeClan;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.knownlist.DoorKnownList;
 import com.l2jfree.gameserver.model.actor.stat.DoorStat;
-import com.l2jfree.gameserver.model.actor.status.DoorStatus;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.ClanHall;
 import com.l2jfree.gameserver.model.entity.Fort;
@@ -235,15 +234,6 @@ public class L2DoorInstance extends L2Character
 			_stat = new DoorStat(this);
 
 		return (DoorStat) _stat;
-	}
-
-	@Override
-	public DoorStatus getStatus()
-	{
-		if (_status == null)
-			_status = new DoorStatus(this);
-
-		return (DoorStatus) _status;
 	}
 
 	public final boolean isUnlockable()
