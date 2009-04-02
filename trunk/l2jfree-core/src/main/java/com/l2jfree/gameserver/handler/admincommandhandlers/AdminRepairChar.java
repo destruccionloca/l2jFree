@@ -16,15 +16,13 @@ package com.l2jfree.gameserver.handler.admincommandhandlers;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
+import com.l2jfree.gameserver.datatables.CharNameTable;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
@@ -35,13 +33,12 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  */
 public class AdminRepairChar implements IAdminCommandHandler
 {
-	private final static Log		_log			= LogFactory.getLog(AdminRepairChar.class.getName());
-
-	private static final String[]	ADMIN_COMMANDS	=
-													{ "admin_restore", "admin_repair" };
-
-	private static final int		REQUIRED_LEVEL	= Config.GM_CHAR_EDIT;
-
+	private final static Log _log = LogFactory.getLog(AdminRepairChar.class.getName());
+	
+	private static final String[] ADMIN_COMMANDS = { "admin_restore", "admin_repair" };
+	
+	private static final int REQUIRED_LEVEL = Config.GM_CHAR_EDIT;
+	
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (!Config.ALT_PRIVILEGES_ADMIN)
@@ -49,61 +46,47 @@ public class AdminRepairChar implements IAdminCommandHandler
 			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
 				return false;
 		}
-
+		
 		handleRepair(command, activeChar);
 		return true;
 	}
-
+	
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
 	}
-
+	
 	private boolean checkLevel(int level)
 	{
 		return (level >= REQUIRED_LEVEL);
 	}
-
+	
 	private void handleRepair(String command, L2PcInstance activeChar)
 	{
 		String[] parts = command.split(" ");
 		if (parts.length != 2)
-		{
 			return;
-		}
-
+		
+		final Integer objId = CharNameTable.getInstance().getByName(parts[1]);
+		
+		if (objId == 0)
+			return;
+		
 		Connection con = null;
 		try
 		{
-			con = L2DatabaseFactory.getInstance().getConnection(con);
-
-			PreparedStatement statement = con.prepareStatement("SELECT charId FROM characters where char_name=?");
-			statement.setString(1, parts[1]);
-			ResultSet rset = statement.executeQuery();
-			int objId = 0;
-			if (rset.next())
-			{
-				objId = rset.getInt(1);
-			}
-			rset.close();
-			statement.close();
-
-			if (objId == 0)
-			{
-				con.close();
-				return;
-			}
-
-			statement = con.prepareStatement("UPDATE characters SET x=17867, y=170259, z=-3503 WHERE charId=?");
+			con = L2DatabaseFactory.getInstance().getConnection();
+			
+			PreparedStatement statement = con.prepareStatement("UPDATE characters SET x=17867, y=170259, z=-3503 WHERE charId=?");
 			statement.setInt(1, objId);
 			statement.execute();
 			statement.close();
-
+			
 			statement = con.prepareStatement("DELETE FROM character_shortcuts WHERE charId=?");
 			statement.setInt(1, objId);
 			statement.execute();
 			statement.close();
-
+			
 			statement = con.prepareStatement("UPDATE items SET loc=\"INVENTORY\" WHERE owner_id=? AND loc=\"PAPERDOLL\"");
 			statement.setInt(1, objId);
 			statement.execute();
@@ -113,8 +96,11 @@ public class AdminRepairChar implements IAdminCommandHandler
 		}
 		catch (Exception e)
 		{
-			_log.warn("could not repair char:", e);
+			_log.warn("", e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 }

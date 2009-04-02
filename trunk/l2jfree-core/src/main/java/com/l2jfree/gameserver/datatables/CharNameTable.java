@@ -18,81 +18,150 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Map;
 
+import javolution.util.FastMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.L2DatabaseFactory;
+import com.l2jfree.lang.L2Integer;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.3.2.2.2.1 $ $Date: 2005/03/27 15:29:18 $
- */
-public class CharNameTable
+public final class CharNameTable
 {
-	private final static Log		_log	= LogFactory.getLog(CharNameTable.class.getName());
-
-	private static CharNameTable	_instance;
-
+	private static final Log _log = LogFactory.getLog(CharNameTable.class);
+	
+	private static CharNameTable _instance;
+	
 	public static CharNameTable getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new CharNameTable();
-		}
+		
 		return _instance;
 	}
-
+	
+	private final Map<Integer, CharacterInfo> _mapByObjectId = new FastMap<Integer, CharacterInfo>();
+	private final Map<String, CharacterInfo> _mapByName = new FastMap<String, CharacterInfo>();
+	
+	private CharNameTable()
+	{
+		Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection();
+			
+			PreparedStatement statement = con.prepareStatement("SELECT charId, char_name FROM characters");
+			ResultSet rset = statement.executeQuery();
+			
+			while (rset.next())
+				update(rset.getInt("charId"), rset.getString("char_name"));
+			
+			rset.close();
+			statement.close();
+		}
+		catch (SQLException e)
+		{
+			_log.warn("", e);
+		}
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
+		
+		_log.info("CharNameTable: Loaded " + _mapByObjectId.size() + " character names.");
+	}
+	
+	public String getByObjectId(Integer objectId)
+	{
+		CharacterInfo characterInfo = _mapByObjectId.get(objectId);
+		
+		return characterInfo == null ? null : characterInfo._name;
+	}
+	
+	public Integer getByName(String name)
+	{
+		CharacterInfo characterInfo = _mapByName.get(name.toLowerCase());
+		
+		return characterInfo == null ? null : characterInfo._objectId;
+	}
+	
+	public void update(int objectId, String name)
+	{
+		CharacterInfo characterInfo = _mapByObjectId.get(objectId);
+		if (characterInfo == null)
+			characterInfo = new CharacterInfo(objectId);
+		
+		characterInfo.updateName(name);
+	}
+	
+	private class CharacterInfo
+	{
+		private final Integer _objectId;
+		private String _name;
+		
+		private CharacterInfo(int objectId)
+		{
+			_objectId = L2Integer.valueOf(objectId);
+			
+			CharacterInfo characterInfo = _mapByObjectId.put(_objectId, this);
+			if (characterInfo != null)
+				_log.warn("CharNameTable: Duplicated objectId: [" + this + "] - [" + characterInfo + "]");
+		}
+		
+		private void updateName(String name)
+		{
+			if (_name != null)
+				_mapByName.remove(_name.toLowerCase());
+			
+			_name = name.intern();
+			
+			CharacterInfo characterInfo = _mapByName.put(_name.toLowerCase(), this);
+			if (characterInfo != null)
+				_log.warn("CharNameTable: Duplicated hashName: [" + this + "] - [" + characterInfo + "]");
+		}
+		
+		@Override
+		public String toString()
+		{
+			return "objectId: " + _objectId + ", name: " + _name;
+		}
+	}
+	
 	public boolean doesCharNameExist(String name)
 	{
-		boolean result = true;
-		Connection con = null;
-
-		try
-		{
-			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con.prepareStatement("SELECT account_name FROM characters WHERE char_name=?");
-			statement.setString(1, name);
-			ResultSet rset = statement.executeQuery();
-			result = rset.next();
-			rset.close();
-			statement.close();
-		}
-		catch (SQLException e)
-		{
-			_log.warn("could not check existing charname:" + e.getMessage());
-		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
-
-		return result;
+		return getByName(name) != null;
 	}
-
+	
 	public int accountCharNumber(String account)
 	{
-		Connection con = null;
 		int number = 0;
-
+		
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con.prepareStatement("SELECT COUNT(char_name) FROM characters WHERE account_name=?");
+			
+			PreparedStatement statement = con.prepareStatement("SELECT COUNT(*) FROM characters WHERE account_name=?");
 			statement.setString(1, account);
 			ResultSet rset = statement.executeQuery();
-			while (rset.next())
-			{
+			
+			if (rset.next())
 				number = rset.getInt(1);
-			}
+			
 			rset.close();
 			statement.close();
 		}
 		catch (SQLException e)
 		{
-			_log.warn("could not check existing char number:" + e.getMessage());
+			_log.warn("", e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
-
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
+		
 		return number;
 	}
 }

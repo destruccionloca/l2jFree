@@ -91,19 +91,19 @@ public class CharacterCreate extends L2GameClientPacket
 		// Only 1 character creation at the same time to prevent multiple names
 		synchronized (_lock)
 		{
-			if (CharNameTable.getInstance().accountCharNumber(getClient().getAccountName()) >= Config.MAX_CHARACTERS_NUMBER_PER_ACCOUNT && Config.MAX_CHARACTERS_NUMBER_PER_ACCOUNT != 0)
-			{
-				if (_log.isDebugEnabled())
-					_log.debug("Max number of characters reached. Creation failed.");
-				CharCreateFail ccf = new CharCreateFail(CharCreateFail.REASON_TOO_MANY_CHARACTERS);
-				sendPacket(ccf);
-				return;
-			}
-			else if (CharNameTable.getInstance().doesCharNameExist(_name))
+			if (CharNameTable.getInstance().doesCharNameExist(_name))
 			{
 				if (_log.isDebugEnabled())
 					_log.debug("charname: "+ _name + " already exists. creation failed.");
 				CharCreateFail ccf = new CharCreateFail(CharCreateFail.REASON_NAME_ALREADY_EXISTS);
+				sendPacket(ccf);
+				return;
+			}
+			else if (CharNameTable.getInstance().accountCharNumber(getClient().getAccountName()) >= Config.MAX_CHARACTERS_NUMBER_PER_ACCOUNT && Config.MAX_CHARACTERS_NUMBER_PER_ACCOUNT != 0)
+			{
+				if (_log.isDebugEnabled())
+					_log.debug("Max number of characters reached. Creation failed.");
+				CharCreateFail ccf = new CharCreateFail(CharCreateFail.REASON_TOO_MANY_CHARACTERS);
 				sendPacket(ccf);
 				return;
 			}

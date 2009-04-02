@@ -52,6 +52,7 @@ import com.l2jfree.gameserver.cache.WarehouseCacheManager;
 import com.l2jfree.gameserver.communitybbs.Manager.ForumsBBSManager;
 import com.l2jfree.gameserver.communitybbs.Manager.RegionBBSManager;
 import com.l2jfree.gameserver.communitybbs.bb.Forum;
+import com.l2jfree.gameserver.datatables.CharNameTable;
 import com.l2jfree.gameserver.datatables.CharTemplateTable;
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.datatables.FishTable;
@@ -14296,4 +14297,12 @@ public final class L2PcInstance extends L2PlayableInstance
     		}
     	}
     }
+	
+	@Override
+	public void setName(String name)
+	{
+		super.setName(name);
+		
+		CharNameTable.getInstance().update(getObjectId(), getName());
+	}
 }

@@ -29,6 +29,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
+import com.l2jfree.gameserver.datatables.CharNameTable;
 import com.l2jfree.gameserver.model.BlockList;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -989,70 +990,16 @@ public class MailBBSManager extends BaseBBSManager
 	/** FIXME is there a better way? */
 	private String getCharName(int charId)
 	{
-		String charName = "No Name";
-
-		java.sql.Connection con = null;
-		try
-		{
-			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con.prepareStatement("SELECT char_name FROM characters WHERE charId = " + charId);
-			ResultSet result = statement.executeQuery();
-			result.next();
-			charName = result.getString("char_name");
-			result.close();
-			statement.close();
-		}
-		catch (Exception e)
-		{
-			_log.warn("couldnt get char name for " + charId, e);
-		}
-		finally
-		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
-		}
-		return charName;
+		String name = CharNameTable.getInstance().getByObjectId(charId);
+		
+		return name == null ? "No Name" : name;
 	}
 
 	private int getCharId(String charName)
 	{
-		int charId = 0;
-
-		java.sql.Connection con = null;
-		try
-		{
-			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con.prepareStatement("SELECT charId FROM characters WHERE char_name = ?");
-			statement.setString(1, charName);
-			ResultSet result = statement.executeQuery();
-			result.next();
-			charId = result.getInt(1);
-			result.close();
-			statement.close();
-		}
-		catch (Exception e)
-		{
-		}
-		finally
-		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
-		}
-		return charId;
+		Integer objId = CharNameTable.getInstance().getByName(charName);
+		
+		return objId == null ? 0 : objId;
 	}
 
 	private boolean isGM(int charId)

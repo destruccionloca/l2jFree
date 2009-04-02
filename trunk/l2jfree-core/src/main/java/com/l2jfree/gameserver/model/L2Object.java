@@ -467,9 +467,9 @@ public abstract class L2Object implements L2Entity<Integer>
 	/**
 	 * @param value the name to set
 	 */
-	public final void setName(String value)
+	public void setName(String name)
 	{
-		_name = (value == null ? null : value.intern());
+		_name = (name == null ? "" : name.intern());
 	}
 
 	/**

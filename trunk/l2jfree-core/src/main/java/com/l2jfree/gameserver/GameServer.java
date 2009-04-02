@@ -33,6 +33,7 @@ import com.l2jfree.gameserver.communitybbs.Manager.ForumsBBSManager;
 import com.l2jfree.gameserver.datatables.ArmorSetsTable;
 import com.l2jfree.gameserver.datatables.AugmentationData;
 import com.l2jfree.gameserver.datatables.BuffTemplateTable;
+import com.l2jfree.gameserver.datatables.CharNameTable;
 import com.l2jfree.gameserver.datatables.CharTemplateTable;
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.datatables.DoorTable;
@@ -253,6 +254,7 @@ public class GameServer
 			ItemsAutoDestroy.getInstance();
 		}
 		Util.printSection("Characters");
+		CharNameTable.getInstance();
 		CharTemplateTable.getInstance();
 		LevelUpData.getInstance();
 		HennaTable.getInstance();
