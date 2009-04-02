@@ -846,7 +846,7 @@ public final class GameStatusThread extends Thread
 						String dbg = st.nextToken();
 						
 						if (dbg.equals("decay"))
-							_print.print(DecayTaskManager.getInstance());
+							_print.print(DecayTaskManager.getInstance().getStats());
 					}
 					catch (Exception e)
 					{

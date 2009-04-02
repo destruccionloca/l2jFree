@@ -14,151 +14,134 @@
  */
 package com.l2jfree.gameserver.taskmanager;
 
-import java.util.NoSuchElementException;
-
-import com.l2jfree.gameserver.ThreadPoolManager;
-import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2RaidBossInstance;
+import java.util.Map;
 
 import javolution.util.FastMap;
 
-/**
- * @author la2
- * Lets drink to code!
- */
-public class DecayTaskManager
-{
-	protected FastMap<L2Character, Long>	_decayTasks	= new FastMap<L2Character, Long>().setShared(true);
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.gameserver.ThreadPoolManager;
+import com.l2jfree.gameserver.model.L2Boss;
+import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.L2Summon;
+import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
+import com.l2jfree.tools.random.Rnd;
+
+public final class DecayTaskManager implements Runnable
+{
+	private final static Log _log = LogFactory.getLog(DecayTaskManager.class);
+	
 	public static final int RAID_BOSS_DECAY_TIME = 30000;
 	public static final int ATTACKABLE_DECAY_TIME = 8500;
-
-	private static DecayTaskManager			_instance;
-
-	public DecayTaskManager()
-	{
-		ThreadPoolManager.getInstance().scheduleAiAtFixedRate(new DecayScheduler(), 10000, 5000);
-	}
-
+	
+	private static DecayTaskManager _instance;
+	
 	public static DecayTaskManager getInstance()
 	{
 		if (_instance == null)
 			_instance = new DecayTaskManager();
-
+		
 		return _instance;
 	}
-
-	public void addDecayTask(L2Character actor)
+	
+	private final FastMap<L2Character, Long> _decayTasks = new FastMap<L2Character, Long>();
+	
+	private DecayTaskManager()
 	{
-		_decayTasks.put(actor, System.currentTimeMillis());
+		ThreadPoolManager.getInstance().scheduleAtFixedRate(this, Rnd.get(1000), Rnd.get(990, 1010));
+		
+		_log.info("DecayTaskManager: Initialized.");
 	}
-
-	public void addDecayTask(L2Character actor, int interval)
+	
+	public synchronized boolean hasDecayTask(L2Character actor)
 	{
-		_decayTasks.put(actor, System.currentTimeMillis() + interval);
+		return _decayTasks.containsKey(actor);
 	}
-
-	public void cancelDecayTask(L2Character actor)
+	
+	public synchronized double getRemainingDecayTime(L2Character actor)
 	{
-		try
-		{
-			_decayTasks.remove(actor);
-		}
-		catch (NoSuchElementException e)
-		{
-		}
+		double remaining = _decayTasks.get(actor) - System.currentTimeMillis();
+		
+		return remaining / getDecayTime0(actor);
 	}
-
-	private class DecayScheduler implements Runnable
+	
+	public synchronized void addDecayTask(L2Character actor)
 	{
-		protected DecayScheduler()
+		_decayTasks.put(actor, System.currentTimeMillis() + getDecayTime0(actor));
+	}
+	
+	private int getDecayTime0(L2Character actor)
+	{
+		if (actor instanceof L2MonsterInstance)
 		{
-			// Do nothing
-		}
-
-		public void run()
-		{
-			Long current = System.currentTimeMillis();
-			long forDecay = 0;
-			if (_decayTasks.isEmpty())
-				return;
-			for (L2Character actor : _decayTasks.keySet())
+			switch (((L2MonsterInstance)actor).getNpcId())
 			{
-				// [L2J_JP ADD SANDMAN]
-				if (actor instanceof L2MonsterInstance)
-				{
-					if (actor instanceof L2RaidBossInstance)
-					{
-						forDecay = RAID_BOSS_DECAY_TIME;
-					}
-					else
-					{
-						L2MonsterInstance monster = (L2MonsterInstance) actor;
-						switch (monster.getNpcId())
-						{
-						case 29028: // Valakas
-							forDecay = 18000;
-							break;
-						case 29019: // Antharas
-						case 29066: // Antharas
-						case 29067: // Antharas
-						case 29068: // Antharas
-							forDecay = 12000;
-							break;
-						case 29014: // Orfen
-							forDecay = 150000;
-							break;
-						case 29001: // Queen Ant
-							forDecay = 150000;
-							break;
-						case 29046: // Scarlet Van Halisha lvl 85 -> Morphing
-							forDecay = 2000;
-							break;
-						case 29045: // Frintezza
-							forDecay = 9500;
-							break;
-						case 29047: // Scarlet Van Halisha lvl 90
-							forDecay = 7500;
-							break;
-						default:
-							forDecay = 8500;
-						}
-					}
-				}
-				else
-					forDecay = ATTACKABLE_DECAY_TIME; // [L2J_JP EDIT END]
-
-				if ((current - _decayTasks.get(actor)) > forDecay)
-				{
-					actor.onDecay();
-					_decayTasks.remove(actor);
-				}
+				case 29019: // Antharas
+				case 29066: // Antharas
+				case 29067: // Antharas
+				case 29068: // Antharas
+					return 12000;
+				case 29028: // Valakas
+					return 18000;
+				case 29014: // Orfen
+				case 29001: // Queen Ant
+					return 150000;
+				case 29045: // Frintezza
+					return 9500;
+				case 29046: // Scarlet Van Halisha lvl 85 -> Morphing
+					return 2000;
+				case 29047: // Scarlet Van Halisha lvl 90
+					return 7500;
+			}
+		}
+		
+		if (actor instanceof L2Boss)
+			return RAID_BOSS_DECAY_TIME;
+		
+		if (actor instanceof L2PetInstance)
+			return 86400000;
+		
+		if (actor instanceof L2Summon)
+			return 300000;
+		
+		return ATTACKABLE_DECAY_TIME;
+	}
+	
+	public synchronized void cancelDecayTask(L2Character actor)
+	{
+		_decayTasks.remove(actor);
+	}
+	
+	public synchronized void run()
+	{
+		for (Map.Entry<L2Character, Long> entry : _decayTasks.entrySet())
+		{
+			if (System.currentTimeMillis() > entry.getValue())
+			{
+				final L2Character actor = entry.getKey();
+				
+				actor.onDecay();
+				
+				_decayTasks.remove(actor);
 			}
 		}
 	}
-
-	/**
-	* <u><b><font color="FF0000">Read only</font></b></u>
-	*/
-	public FastMap<L2Character, Long> getTasks()
+	
+	public synchronized String getStats()
 	{
-		return _decayTasks;
-	}
-
-	@Override
-	public String toString()
-	{
-		String ret = "============= DecayTask Manager Report ============\r\n";
-		ret += "Tasks count: " + _decayTasks.size() + "\r\n";
-		ret += "Tasks dump:\r\n";
-
-		Long current = System.currentTimeMillis();
+		final StringBuilder sb = new StringBuilder();
+		sb.append("============= DecayTask Manager Report ============").append("\r\n");
+		sb.append("Tasks count: ").append(_decayTasks.size()).append("\r\n");
+		sb.append("Tasks dump:").append("\r\n");
+		
 		for (L2Character actor : _decayTasks.keySet())
 		{
-			ret += "Class/Name: " + actor.getClass().getSimpleName() + "/" + actor.getName() + " decay timer: " + (current - _decayTasks.get(actor)) + "\r\n";
+			sb.append("(").append(_decayTasks.get(actor) - System.currentTimeMillis()).append(") - ");
+			sb.append(actor.getClass().getSimpleName()).append("/").append(actor.getName()).append("\r\n");
 		}
-
-		return ret;
+		
+		return sb.toString();
 	}
 }

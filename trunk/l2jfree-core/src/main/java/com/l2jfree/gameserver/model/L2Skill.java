@@ -300,7 +300,7 @@ public class L2Skill
 	private final int				_effectRange;
 
 	// Abnormal levels for skills and their canceling, e.g. poison vs negate
-	private final int				_abnormalLvl;	// e.g. poison or bleed lvl 2 
+	private final int				_abnormalLvl;	// e.g. poison or bleed lvl 2
 													// Note: see also _effectAbnormalLvl
 	private final int				_negateLvl;		// abnormalLvl is negated with negateLvl
 	private final int				_negateId;		// cancels the effect of skill ID
@@ -499,10 +499,10 @@ public class L2Skill
 		_isSong = set.getBool("isSong", false);
 		if (_isDance || _isSong)
 			_timeMulti = Config.ALT_DANCE_TIME;
-		else if (_skillType == L2SkillType.BUFF) //This should correct the time effect that was caused on debuffs on AltBuffTime config  
+		else if (_skillType == L2SkillType.BUFF) //This should correct the time effect that was caused on debuffs on AltBuffTime config
 			_timeMulti = Config.ALT_BUFF_TIME;
 		else
-			_timeMulti = 1; //If the skills is not a DANCE type skill or BUFF type, the effect time is the normal, without any multiplier 
+			_timeMulti = 1; //If the skills is not a DANCE type skill or BUFF type, the effect time is the normal, without any multiplier
 
 		_skillRadius = set.getInteger("skillRadius", 80);
 
@@ -2796,7 +2796,7 @@ public class L2Skill
 						if (((TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (CTF._started && !Config.CTF_ALLOW_INTERFERENCE)
 								|| (DM._started && !Config.DM_ALLOW_INTERFERENCE)) && !player.isGM())
 						{
-							if ((newTarget._inEventTvT && !player._inEventTvT) || (!newTarget._inEventTvT && player._inEventTvT))					
+							if ((newTarget._inEventTvT && !player._inEventTvT) || (!newTarget._inEventTvT && player._inEventTvT))
 								continue;
 							if ((newTarget._inEventCTF && !player._inEventCTF) || (!newTarget._inEventCTF && player._inEventCTF))
 								continue;
@@ -2957,11 +2957,13 @@ public class L2Skill
 				case DRAIN:
 				case SUMMON:
 				{
-					if (DecayTaskManager.getInstance().getTasks().containsKey(target) 
-							&& (System.currentTimeMillis() - DecayTaskManager.getInstance().getTasks().get(target)) > DecayTaskManager.ATTACKABLE_DECAY_TIME / 2)
+					if (DecayTaskManager.getInstance().hasDecayTask(target))
 					{
-						activeChar.sendPacket(new SystemMessage(SystemMessageId.CORPSE_TOO_OLD_SKILL_NOT_USED));
-						return null;
+						if (DecayTaskManager.getInstance().getRemainingDecayTime(target) < 0.5)
+						{
+							activeChar.sendPacket(SystemMessageId.CORPSE_TOO_OLD_SKILL_NOT_USED);
+							return null;
+						}
 					}
 				}
 			}
@@ -3762,7 +3764,7 @@ public class L2Skill
 			return;
 
 		if ((isDebuff() || isOffensive()) && effector.getOwner() != effected &&
-				effector.getOwner().isGM() && 
+				effector.getOwner().isGM() &&
 				effector.getOwner().getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
 		{
 			return;
