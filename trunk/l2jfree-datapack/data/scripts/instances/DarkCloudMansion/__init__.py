@@ -127,10 +127,10 @@ def checkCondition(player):
 		return False
 	party = player.getParty()
 	if not party:
-		player.sendPacket(SystemMessage.sendString("You must be in a party with at least one other person."))
+		player.sendPacket(SystemMessage.sendString("You are not currently in a party, so you cannot enter."))
 		return False
 	if party and party.getMemberCount() > 2:
-		player.sendPacket(SystemMessage.sendString("Dark Cloud Mansion for max 2 players in party."))
+		player.sendPacket(SystemMessage.sendString("You cannot enter due to the party having exceeded the limit."))
 		return False
 	return True
 

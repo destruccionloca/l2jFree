@@ -1001,8 +1001,8 @@
   </skill>
   <skill id="5696" levels="1" name="Dizziness">
     <!--
-      "The after-effects of poisoning temporarily appear,
-      decreasing Speed and Atk. Spd." note: painkiller after skill
+      "The after-effects of poisoning temporarily appear, decreasing Speed and Atk. Spd."
+      note: painkiller after skill
     -->
     <set name="magicLvl" val="60"/>
     <set name="target" val="TARGET_SELF"/>
@@ -1026,6 +1026,12 @@
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5698" levels="7" name="Bless the Blood">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+  <skill id="5699" levels="7" name="Decrease P. Def">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
