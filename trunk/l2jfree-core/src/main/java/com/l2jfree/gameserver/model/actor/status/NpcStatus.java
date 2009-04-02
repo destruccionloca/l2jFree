@@ -14,49 +14,27 @@
  */
 package com.l2jfree.gameserver.model.actor.status;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class NpcStatus extends CharStatus
 {
-    // =========================================================
-    // Data Field
-    
-    // =========================================================
-    // Constructor
-    public NpcStatus(L2NpcInstance activeChar)
-    {
-        super(activeChar);
-    }
-
-    // =========================================================
-    // Method - Public
-    @Override
-    public void reduceHp(double value, L2Character attacker, boolean awake, boolean isDOT)
-    {
-        if (attacker == null || getActiveChar().isDead() || getActiveChar().isInvul() || getActiveChar().isPetrified())
-            return;
-
-        if (attacker instanceof L2PcInstance)
-        {
-            L2PcInstance pcInst = (L2PcInstance)attacker;
-            if (pcInst.isGM() && pcInst.getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
-                return;
-        }
-
-        // Add attackers to npc's attacker list
-        getActiveChar().addAttackerToAttackByList(attacker);
-
-        super.reduceHp(value, attacker, awake, isDOT);
-    }
-
-    // =========================================================
-    // Method - Private
-
-    // =========================================================
-    // Property - Public
-    @Override
-    public L2NpcInstance getActiveChar() { return (L2NpcInstance)_activeChar; }
+	public NpcStatus(L2NpcInstance activeChar)
+	{
+		super(activeChar);
+	}
+	
+	@Override
+	void reduceHp0(double value, L2Character attacker, boolean awake, boolean isDOT)
+	{
+		super.reduceHp(value, attacker, awake, isDOT);
+		
+		getActiveChar().addAttackerToAttackByList(attacker);
+	}
+	
+	@Override
+	public L2NpcInstance getActiveChar()
+	{
+		return (L2NpcInstance)_activeChar;
+	}
 }

@@ -22,6 +22,7 @@ import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Summon;
+import com.l2jfree.gameserver.model.actor.status.SummonStatus;
 import com.l2jfree.gameserver.network.serverpackets.SetSummonRemainTime;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
@@ -290,5 +291,14 @@ public class L2SummonInstance extends L2Summon
 			_log.warn("L2SummonInstance: " + getTemplate().getName() + " (" + getOwner().getName() + ") consume.");
 	
 		return getOwner().destroyItemByItemId(process, itemId, count, reference, sendMessage);
+	}
+	
+	@Override
+	public final SummonStatus getStatus()
+	{
+		if (_status == null)
+			_status = new SummonStatus(this);
+		
+		return (SummonStatus)_status;
 	}
 }

@@ -27,7 +27,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.model.actor.knownlist.SummonKnownList;
 import com.l2jfree.gameserver.model.actor.stat.SummonStat;
-import com.l2jfree.gameserver.model.actor.status.SummonStatus;
 import com.l2jfree.gameserver.model.base.Experience;
 import com.l2jfree.gameserver.model.itemcontainer.PetInventory;
 import com.l2jfree.gameserver.model.olympiad.Olympiad;
@@ -145,16 +144,7 @@ public abstract class L2Summon extends L2PlayableInstance
 
 		return (SummonStat) _stat;
 	}
-
-	@Override
-	public SummonStatus getStatus()
-	{
-		if (_status == null)
-			_status = new SummonStatus(this);
-
-		return (SummonStatus) _status;
-	}
-
+	
 	@Override
 	public L2CharacterAI getAI()
 	{

@@ -28,6 +28,7 @@ import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.cache.CrestCache;
 import com.l2jfree.gameserver.cache.HtmCache;
+import com.l2jfree.gameserver.cache.WarehouseCacheManager;
 import com.l2jfree.gameserver.communitybbs.Manager.ForumsBBSManager;
 import com.l2jfree.gameserver.datatables.ArmorSetsTable;
 import com.l2jfree.gameserver.datatables.AugmentationData;
@@ -122,9 +123,12 @@ import com.l2jfree.gameserver.script.faenor.FaenorScriptEngine;
 import com.l2jfree.gameserver.scripting.CompiledScriptCache;
 import com.l2jfree.gameserver.scripting.L2ScriptEngineManager;
 import com.l2jfree.gameserver.skills.SkillsEngine;
+import com.l2jfree.gameserver.taskmanager.AiTaskManager;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
+import com.l2jfree.gameserver.taskmanager.FollowTaskManager;
 import com.l2jfree.gameserver.taskmanager.KnownListUpdateTaskManager;
+import com.l2jfree.gameserver.taskmanager.LeakTaskManager;
 import com.l2jfree.gameserver.taskmanager.PacketBroadcaster;
 import com.l2jfree.gameserver.taskmanager.SQLQueue;
 import com.l2jfree.gameserver.taskmanager.TaskManager;
@@ -210,13 +214,16 @@ public class GameServer
 		TeleportLocationTable.getInstance();
 		BoatManager.getInstance();
 		InstanceManager.getInstance();
-
+		
 		Util.printSection("TaskManagers");
+		AiTaskManager.getInstance();
 		AttackStanceTaskManager.getInstance();
 		DecayTaskManager.getInstance();
+		FollowTaskManager.getInstance();
 		KnownListUpdateTaskManager.getInstance();
+		LeakTaskManager.getInstance();
 		PacketBroadcaster.getInstance();
-
+		
 		Util.printSection("Skills");
 		SkillTreeTable.getInstance();
 		SkillsEngine.getInstance();
@@ -257,6 +264,7 @@ public class GameServer
 		CursedWeaponsManager.getInstance();
 		ClanTable.getInstance();
 		CrestCache.getInstance();
+		WarehouseCacheManager.getInstance();
 		Hero.getInstance();
 		Util.printSection("NPCs");
 		NpcTable.getInstance();

@@ -14,9 +14,19 @@
  */
 package com.l2jfree.gameserver.ai;
 
-import static com.l2jfree.gameserver.ai.CtrlIntention.*;
+import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_ACTIVE;
+import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_ATTACK;
+import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_CAST;
+import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_FOLLOW;
+import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
+import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_INTERACT;
+import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_MOVE_TO;
+import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_PICK_UP;
+import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_REST;
 
 import java.util.List;
+
+import javolution.util.FastList;
 
 import com.l2jfree.gameserver.model.L2Attackable;
 import com.l2jfree.gameserver.model.L2CharPosition;
@@ -36,8 +46,6 @@ import com.l2jfree.gameserver.templates.item.L2Weapon;
 import com.l2jfree.gameserver.templates.item.L2WeaponType;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.tools.random.Rnd;
-
-import javolution.util.FastList;
 
 /**
  * This class manages AI of L2Character.<BR><BR>
@@ -1051,14 +1059,14 @@ public class L2CharacterAI extends AbstractAI
 	 *
 	 * @param target The targeted L2Object
 	 *
-	 * @return True if the target is lost or dead (false if fakedeath) 
+	 * @return True if the target is lost or dead (false if fakedeath)
 	 *
 	 */
 	protected boolean checkTargetLostOrDead(L2Character target)
 	{
 		if (target == null || target.isAlikeDead())
 		{
-			//check if player is fakedeath 
+			//check if player is fakedeath
 			if (target != null && target.isFakeDeath())
 			{
 				target.stopFakeDeath(null);
@@ -1090,10 +1098,10 @@ public class L2CharacterAI extends AbstractAI
 	 */
 	protected boolean checkTargetLost(L2Object target)
 	{
-		// check if player is fakedeath 
+		// check if player is fakedeath
 		if (target instanceof L2PcInstance)
 		{
-			L2PcInstance target2 = (L2PcInstance) target; //convert object to chara 
+			L2PcInstance target2 = (L2PcInstance) target; //convert object to chara
 
 			if (target2.isFakeDeath())
 			{
@@ -1193,7 +1201,7 @@ public class L2CharacterAI extends AbstractAI
 				case HOT:
 					healSkills.add(sk);
 					hasHealOrResurrect = true;
-					continue; // won't be considered something for fighting 
+					continue; // won't be considered something for fighting
 				case BUFF:
 					buffSkills.add(sk);
 					continue; // won't be considered something for fighting

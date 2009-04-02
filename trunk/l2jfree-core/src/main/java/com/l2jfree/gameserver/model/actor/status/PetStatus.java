@@ -14,54 +14,32 @@
  */
 package com.l2jfree.gameserver.model.actor.status;
 
-import com.l2jfree.gameserver.ai.CtrlEvent;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
-public class PetStatus extends SummonStatus
+public final class PetStatus extends CharStatus
 {
-    // =========================================================
-    // Data Field
-    private int _currentFed               = 0; //Current Fed of the L2PetInstance
-    
-    // =========================================================
-    // Constructor
-    public PetStatus(L2PetInstance activeChar)
-    {
-        super(activeChar);
-    }
-
-    // =========================================================
-    // Method - Public
-    @Override
-    public final void reduceHp(double value, L2Character attacker, boolean awake, boolean isDOT)
-    {
-        if (getActiveChar().isDead())
-            return;
-
-        super.reduceHp(value, attacker, awake, isDOT);
-
-        if (attacker != null)
-        {
-            SystemMessage sm = new SystemMessage(SystemMessageId.PET_RECEIVED_S2_DAMAGE_BY_S1);
-            sm.addCharName(attacker);
-            sm.addNumber((int)value);
-            getActiveChar().getOwner().sendPacket(sm);
-
-            getActiveChar().getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, attacker);
-        }
-    }
-
-    // =========================================================
-    // Method - Private
-
-    // =========================================================
-    // Property - Public
-    @Override
-    public L2PetInstance getActiveChar() { return (L2PetInstance)_activeChar; }
-
-    public int getCurrentFed() { return _currentFed; }
-    public void setCurrentFed(int value) { _currentFed = value; }
+	public PetStatus(L2PetInstance activeChar)
+	{
+		super(activeChar);
+	}
+	
+	@Override
+	void reduceHp0(double value, L2Character attacker, boolean awake, boolean isDOT)
+	{
+		super.reduceHp0(value, attacker, awake, isDOT);
+		
+		SystemMessage sm = new SystemMessage(SystemMessageId.PET_RECEIVED_S2_DAMAGE_BY_S1);
+		sm.addCharName(attacker);
+		sm.addNumber((int)value);
+		getActiveChar().getOwner().sendPacket(sm);
+	}
+	
+	@Override
+	public L2PetInstance getActiveChar()
+	{
+		return (L2PetInstance)_activeChar;
+	}
 }

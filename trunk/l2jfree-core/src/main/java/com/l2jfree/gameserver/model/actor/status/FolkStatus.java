@@ -18,30 +18,24 @@ import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2FolkInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 
-public class FolkStatus extends NpcStatus
+public final class FolkStatus extends NpcStatus
 {
-	// =========================================================
-	// Data Field
-
-	// =========================================================
-	// Constructor
 	public FolkStatus(L2NpcInstance activeChar)
 	{
 		super(activeChar);
 	}
-
-	// =========================================================
-	// Method - Public
+	
 	@Override
-	public final void reduceHp(double value, L2Character attacker, boolean awake, boolean isDOT)
+	boolean canReduceHp(double value, L2Character attacker, boolean awake, boolean isDOT)
+	{
+		return false;
+	}
+	
+	@Override
+	public void reduceMp(double value)
 	{
 	}
-
-	@Override
-	public final void reduceMp(double value)
-	{
-	}
-
+	
 	@Override
 	public L2FolkInstance getActiveChar()
 	{

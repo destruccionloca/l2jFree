@@ -39,7 +39,7 @@ public final class EffectHealCp extends L2Effect
 	@Override
 	public boolean onStart()
 	{
-		getEffected().getStatus().setCurrentCp(getEffected().getMaxCp(), true);
+		getEffected().getStatus().setCurrentCp(getEffected().getMaxCp());
 		return true;
 	}
 

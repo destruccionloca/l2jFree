@@ -14,28 +14,32 @@
  */
 package com.l2jfree.gameserver.model.actor.status;
 
-import com.l2jfree.gameserver.model.L2Summon;
+import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
+import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
-public class SummonStatus extends PlayableStatus
+public final class SummonStatus extends CharStatus
 {
-    // =========================================================
-    // Data Field
-    
-    // =========================================================
-    // Constructor
-    public SummonStatus(L2Summon activeChar)
-    {
-        super(activeChar);
-    }
-
-    // =========================================================
-    // Method - Public
-
-    // =========================================================
-    // Method - Private
-
-    // =========================================================
-    // Property - Public
-    @Override
-    public L2Summon getActiveChar() { return (L2Summon)_activeChar; }
+	public SummonStatus(L2SummonInstance activeChar)
+	{
+		super(activeChar);
+	}
+	
+	@Override
+	void reduceHp0(double value, L2Character attacker, boolean awake, boolean isDOT)
+	{
+		super.reduceHp0(value, attacker, awake, isDOT);
+		
+		SystemMessage sm = new SystemMessage(SystemMessageId.SUMMON_RECEIVED_DAMAGE_S2_BY_S1);
+		sm.addCharName(attacker);
+		sm.addNumber((int)value);
+		getActiveChar().getOwner().sendPacket(sm);
+	}
+	
+	@Override
+	public L2SummonInstance getActiveChar()
+	{
+		return (L2SummonInstance)super.getActiveChar();
+	}
 }

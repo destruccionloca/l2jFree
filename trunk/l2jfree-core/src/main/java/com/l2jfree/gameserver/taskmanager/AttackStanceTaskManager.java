@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.taskmanager;
 
+import java.util.Map;
+
 import javolution.util.FastMap;
 
 import org.apache.commons.logging.Log;
@@ -25,96 +27,81 @@ import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.AutoAttackStop;
+import com.l2jfree.tools.random.Rnd;
 
-/**
- * This class ...
- * 
- * @version $Revision: $ $Date: $
- * @author  Luca Baldi
- */
-public class AttackStanceTaskManager
+public final class AttackStanceTaskManager implements Runnable
 {
-	protected static Log					_log				= LogFactory.getLog(AttackStanceTaskManager.class.getName());
-
-	protected FastMap<L2Character, Long>	_attackStanceTasks	= new FastMap<L2Character, Long>().setShared(true);
-
-	private static AttackStanceTaskManager	_instance;
-
-	public AttackStanceTaskManager()
-	{
-		ThreadPoolManager.getInstance().scheduleAiAtFixedRate(new FightModeScheduler(), 0, 1000);
-	}
-
+	private final static Log _log = LogFactory.getLog(AttackStanceTaskManager.class);
+	
+	private static AttackStanceTaskManager _instance;
+	
 	public static AttackStanceTaskManager getInstance()
 	{
 		if (_instance == null)
 			_instance = new AttackStanceTaskManager();
-
+		
 		return _instance;
 	}
-
-	public void addAttackStanceTask(L2Character actor)
+	
+	private final Map<L2Character, Long> _attackStanceTasks = new FastMap<L2Character, Long>();
+	
+	private AttackStanceTaskManager()
 	{
-		if (actor instanceof L2Summon)
-		{
-			L2Summon summon = (L2Summon) actor;
-			actor = summon.getOwner();
-		}
-		if (actor instanceof L2PcInstance)
-		{
-			L2PcInstance player = (L2PcInstance) actor;
-			for (L2CubicInstance cubic : player.getCubics().values())
-				if (cubic.getId() != L2CubicInstance.LIFE_CUBIC)
-					cubic.doAction();
-		}
-		_attackStanceTasks.put(actor, System.currentTimeMillis());
+		ThreadPoolManager.getInstance().scheduleAtFixedRate(this, Rnd.get(1000), Rnd.get(990, 1010));
+		
+		_log.info("AttackStanceTaskManager: Initialized.");
 	}
-
-	public void removeAttackStanceTask(L2Character actor)
+	
+	public synchronized boolean getAttackStanceTask(L2Character actor)
 	{
 		if (actor instanceof L2Summon)
-		{
-			L2Summon summon = (L2Summon) actor;
-			actor = summon.getOwner();
-		}
-		_attackStanceTasks.remove(actor);
-	}
-
-	public boolean getAttackStanceTask(L2Character actor)
-	{
-		if (actor instanceof L2Summon)
-		{
-			L2Summon summon = (L2Summon) actor;
-			actor = summon.getOwner();
-		}
+			actor = ((L2Summon)actor).getOwner();
+		
 		return _attackStanceTasks.containsKey(actor);
 	}
-
-	private class FightModeScheduler implements Runnable
+	
+	public synchronized void addAttackStanceTask(L2Character actor)
 	{
-		protected FightModeScheduler()
+		if (actor instanceof L2Summon)
+			actor = ((L2Summon)actor).getOwner();
+		
+		if (actor instanceof L2PcInstance)
+			for (L2CubicInstance cubic : ((L2PcInstance)actor).getCubics().values())
+				if (cubic.getId() != L2CubicInstance.LIFE_CUBIC)
+					cubic.doAction();
+		
+		_attackStanceTasks.put(actor, System.currentTimeMillis() + 15000);
+	}
+	
+	public synchronized void removeAttackStanceTask(L2Character actor)
+	{
+		if (actor instanceof L2Summon)
+			actor = ((L2Summon)actor).getOwner();
+		
+		_attackStanceTasks.remove(actor);
+	}
+	
+	public synchronized void run()
+	{
+		for (Map.Entry<L2Character, Long> entry : _attackStanceTasks.entrySet())
 		{
-			// Do nothing
-		}
-
-		public void run()
-		{
-			Long current = System.currentTimeMillis();
-			if (_attackStanceTasks != null)
-				synchronized (this)
+			if (System.currentTimeMillis() > entry.getValue())
+			{
+				final L2Character actor = entry.getKey();
+				
+				actor.broadcastPacket(new AutoAttackStop(actor.getObjectId()));
+				
+				if (actor instanceof L2PcInstance)
 				{
-					for (L2Character actor : _attackStanceTasks.keySet())
-					{
-						if ((current - _attackStanceTasks.get(actor)) > 15000)
-						{
-							actor.broadcastPacket(new AutoAttackStop(actor.getObjectId()));
-							if (actor instanceof L2PcInstance && ((L2PcInstance)actor).getPet() != null)
-								((L2PcInstance)actor).getPet().broadcastPacket(new AutoAttackStop(((L2PcInstance)actor).getPet().getObjectId()));
-							actor.getAI().setAutoAttacking(false);
-							_attackStanceTasks.remove(actor);
-						}
-					}
+					final L2Summon pet = ((L2PcInstance)actor).getPet();
+					if (pet != null)
+						pet.broadcastPacket(new AutoAttackStop(pet.getObjectId()));
 				}
+				
+				actor.getAI().setAutoAttacking(false);
+				
+				_attackStanceTasks.remove(actor);
+			}
 		}
 	}
 }
