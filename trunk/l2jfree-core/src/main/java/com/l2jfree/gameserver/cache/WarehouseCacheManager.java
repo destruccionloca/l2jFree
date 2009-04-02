@@ -14,58 +14,64 @@
  */
 package com.l2jfree.gameserver.cache;
 
+import java.util.Map;
+
+import javolution.util.FastMap;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-import javolution.util.FastMap;
-
 /**
- *
  * @author -Nemesiss-
  */
-public class WarehouseCacheManager
+public final class WarehouseCacheManager implements Runnable
 {
-	private static WarehouseCacheManager		_instance;
-	protected final FastMap<L2PcInstance, Long>	_cachedWh;
-	protected final long						_cacheTime;
-
+	private static final Log _log = LogFactory.getLog(WarehouseCacheManager.class);
+	
+	private static WarehouseCacheManager _instance;
+	
 	public static WarehouseCacheManager getInstance()
 	{
 		if (_instance == null)
 			_instance = new WarehouseCacheManager();
+		
 		return _instance;
 	}
-
+	
+	private final Map<L2PcInstance, Long> _cache = new FastMap<L2PcInstance, Long>();
+	
 	private WarehouseCacheManager()
 	{
-		_cacheTime = Config.WAREHOUSE_CACHE_TIME * 60000L; // 60*1000 = 60000
-		_cachedWh = new FastMap<L2PcInstance, Long>().setShared(true);
-		ThreadPoolManager.getInstance().scheduleAiAtFixedRate(new CacheScheduler(), 120000, 60000);
+		ThreadPoolManager.getInstance().scheduleAtFixedRate(this, 60000, 60000);
+		
+		_log.info("WarehouseCacheManager: Initialized.");
 	}
-
-	public void addCacheTask(L2PcInstance pc)
+	
+	public synchronized void add(L2PcInstance player)
 	{
-		_cachedWh.put(pc, System.currentTimeMillis());
+		_cache.put(player, System.currentTimeMillis());
 	}
-
-	public void remCacheTask(L2PcInstance pc)
+	
+	public synchronized void remove(L2PcInstance player)
 	{
-		_cachedWh.remove(pc);
+		_cache.remove(player);
 	}
-
-	public class CacheScheduler implements Runnable
+	
+	public synchronized void run()
 	{
-		public void run()
+		for (Map.Entry<L2PcInstance, Long> entry : _cache.entrySet())
 		{
-			long cTime = System.currentTimeMillis();
-			for (L2PcInstance pc : _cachedWh.keySet())
+			if (System.currentTimeMillis() > entry.getValue() + Config.WAREHOUSE_CACHE_TIME * 60000L)
 			{
-				if (cTime - _cachedWh.get(pc) > _cacheTime)
-				{
-					pc.clearWarehouse();
-					_cachedWh.remove(pc);
-				}
+				final L2PcInstance player = entry.getKey();
+				
+				player.clearWarehouse();
+				
+				_cache.remove(player);
 			}
 		}
 	}
