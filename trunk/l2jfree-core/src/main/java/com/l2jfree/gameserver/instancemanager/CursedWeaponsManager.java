@@ -353,8 +353,6 @@ public class CursedWeaponsManager
 
 			player.sendPacket(sm);
 		}
-		if (_log.isDebugEnabled())
-			_log.info("MessageID: " + sm.getMessageID());
 	}
 
 	public void onEnter(L2PcInstance player)

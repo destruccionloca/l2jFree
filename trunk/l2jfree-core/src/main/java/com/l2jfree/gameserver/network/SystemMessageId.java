@@ -15250,32 +15250,57 @@ public enum SystemMessageId
 	 * enhanced.
 	 */
 	BECOME_LEVEL_40_INFORMATION(2617);
-
-	private final SystemMessage	_systemMessage;
-	private final int			_id;
-
+	
+	private final int _id;
+	private final int _size;
+	
+	private SystemMessage _systemMessage;
+	
 	private SystemMessageId(int id)
 	{
 		_id = id;
-		_systemMessage = new SystemMessage(id);
+		
+		if (name().contains("S4"))
+			_size = 4;
+		else if (name().contains("S3"))
+			_size = 3;
+		else if (name().contains("S2"))
+			_size = 2;
+		else if (name().contains("S1"))
+			_size = 1;
+		else
+			_size = 0;
 	}
-
+	
 	public final int getId()
 	{
 		return _id;
 	}
-
+	
+	public final int size()
+	{
+		return _size;
+	}
+	
 	public final SystemMessage getSystemMessage()
 	{
+		if (_systemMessage == null)
+			_systemMessage = new SystemMessage(this);
+		
 		return _systemMessage;
 	}
-
+	
 	public static final SystemMessageId getSystemMessageId(int id)
 	{
-		for (SystemMessageId sysmsgid : SystemMessageId.values())
-			if (sysmsgid.getId() == id)
-				return sysmsgid;
-
-		return SystemMessageId.S1;
+		return getSystemMessageId(id, true);
+	}
+	
+	public static final SystemMessageId getSystemMessageId(int id, boolean force)
+	{
+		for (SystemMessageId sm : SystemMessageId.values())
+			if (sm.getId() == id)
+				return sm;
+		
+		return force ? S1 : null;
 	}
 }
