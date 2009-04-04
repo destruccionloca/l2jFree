@@ -89,8 +89,9 @@ import com.l2jfree.gameserver.handler.admincommandhandlers.AdminZone;
 import com.l2jfree.gameserver.model.GMAudit;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.util.HandlerRegistry;
 
-public final class AdminCommandHandler extends Handler<String, IAdminCommandHandler>
+public final class AdminCommandHandler extends HandlerRegistry<String, IAdminCommandHandler>
 {
 	private static AdminCommandHandler _instance;
 	
@@ -187,7 +188,7 @@ public final class AdminCommandHandler extends Handler<String, IAdminCommandHand
 	
 	private void register(IAdminCommandHandler handler)
 	{
-		putAll(handler, handler.getAdminCommandList());
+		registerAll(handler, handler.getAdminCommandList());
 		
 		for (String element : handler.getAdminCommandList())
 			if (!Config.GM_COMMAND_PRIVILEGES.containsKey(element))

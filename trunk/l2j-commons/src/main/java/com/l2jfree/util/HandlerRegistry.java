@@ -12,25 +12,25 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.gameserver.handler;
+package com.l2jfree.util;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.lang.L2Integer;
-
 /**
  * @author NB4L1
  */
-public abstract class Handler<K, V>
+public class HandlerRegistry<K, V>
 {
-	protected static final Log _log = LogFactory.getLog(Handler.class);
+	protected static final Log _log = LogFactory.getLog(HandlerRegistry.class);
 	
 	private final HashMap<K, V> _map = new HashMap<K, V>();
 	
-	private final void put(K key, V handler)
+	public final void register(K key, V handler)
 	{
 		V old = _map.put(key, handler);
 		
@@ -38,26 +38,24 @@ public abstract class Handler<K, V>
 			_log.warn(getClass().getSimpleName() + ": Replaced type(" + key + "), " + old + " -> " + handler + ".");
 	}
 	
-	protected final void putAll(V handler, K... keys)
+	public final void registerAll(V handler, K... keys)
 	{
 		for (K key : keys)
-			put(key, handler);
+			register(key, handler);
 	}
 	
-	@SuppressWarnings("unchecked")
-	protected final void putAll(V handler, int... keys)
-	{
-		for (int key : keys)
-			put((K)L2Integer.valueOf(key), handler);
-	}
-	
-	protected final V get(K key)
+	public final V get(K key)
 	{
 		return _map.get(key);
 	}
 	
-	protected final int size()
+	public final int size()
 	{
 		return _map.size();
+	}
+	
+	public Map<K, V> getHandlers()
+	{
+		return Collections.unmodifiableMap(_map);
 	}
 }
