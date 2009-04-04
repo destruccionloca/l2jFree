@@ -30,8 +30,6 @@ public final class LoginStatusThread extends StatusThread
 	@Override
 	protected boolean login() throws IOException
 	{
-		println("Welcome to the l2j-free telnet server...");
-		
 		print("Account: ");
 		final String account = readLine();
 		print("Password: ");
@@ -43,8 +41,6 @@ public final class LoginStatusThread extends StatusThread
 			return false;
 		}
 		
-		println("Connection accepted... Welcome!");
-		println("[l2j-free telnet console]");
 		return true;
 	}
 	

@@ -111,7 +111,7 @@ public abstract class StatusServer extends Thread
 	{
 		try
 		{
-			while (!_socket.isClosed())
+			main_loop: while (!_socket.isClosed())
 			{
 				try
 				{
@@ -123,7 +123,7 @@ public abstract class StatusServer extends Thread
 						if (!filter.accept(host))
 						{
 							_log.warn("Telnet: Connection attempt from " + host + " rejected.");
-							continue;
+							continue main_loop;
 						}
 					}
 					

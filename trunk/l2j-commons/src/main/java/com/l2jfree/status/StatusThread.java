@@ -113,8 +113,16 @@ public abstract class StatusThread extends Thread
 	{
 		try
 		{
+			println("Welcome to the l2j-free telnet server...");
+			
 			if (!login())
+			{
+				println("Connection refused...");
 				return;
+			}
+			
+			println("Connection accepted...");
+			println("[l2j-free telnet console]");
 			
 			_server.addStatusThread(this);
 			
