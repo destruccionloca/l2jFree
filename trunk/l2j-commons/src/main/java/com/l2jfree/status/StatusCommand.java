@@ -16,14 +16,27 @@ package com.l2jfree.status;
 
 import java.io.IOException;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.l2jfree.lang.L2Thread;
+
 /**
  * @author NB4L1
  */
 public abstract class StatusCommand
 {
-	protected abstract void useCommand(String command, String line);
+	protected static final Log _log = LogFactory.getLog(StatusCommand.class);
+	
+	protected abstract void useCommand(String command, String params);
 	
 	protected abstract String[] getCommands();
+	
+	protected final String listCommands()
+	{
+		return StringUtils.join(getCommands(), "|");
+	}
 	
 	protected abstract String getDescription();
 	
@@ -61,5 +74,16 @@ public abstract class StatusCommand
 	protected final String readLine() throws IOException
 	{
 		return getStatusThread().readLine();
+	}
+	
+	protected String getHostAddress()
+	{
+		return getStatusThread().getSocket().getInetAddress().getHostAddress();
+	}
+	
+	protected final void printMemoryStatistics()
+	{
+		for (String line : L2Thread.getMemoryUsageStatistics())
+			println(line);
 	}
 }

@@ -54,7 +54,6 @@ public class L2LoginServer
 	/**the gameserver listener store all gameserver connected to the client*/
 	private GameServerListener				_gameServerListener;
 	private SelectorThread<L2LoginClient>	_selectorThread;
-	public static Status					statusServer;
 
 	/**
 	 * @return the instance of L2LoginServer
@@ -155,14 +154,10 @@ public class L2LoginServer
 	private void initTelnetServer() throws IOException
 	{
 		if (Config.IS_TELNET_ENABLED)
-		{
-			statusServer = new Status();
-			statusServer.start();
-		}
+			Status.initInstance();
+		
 		else
-		{
 			_log.info("Telnet server is currently disabled.");
-		}
 	}
 
 	/**
@@ -194,18 +189,8 @@ public class L2LoginServer
 		}
 	}
 
-	public Status getStatusServer()
-	{
-		return statusServer;
-	}
-
 	public GameServerListener getGameServerListener()
 	{
 		return _gameServerListener;
-	}
-
-	public void shutdown(boolean restart)
-	{
-		Runtime.getRuntime().exit(restart ? 2 : 0);
 	}
 }

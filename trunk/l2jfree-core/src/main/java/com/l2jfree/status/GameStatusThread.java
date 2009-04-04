@@ -472,12 +472,6 @@ public final class GameStatusThread extends Thread
 					}
 					_print.flush();
 				}
-				else if (_usrCommand.equals("class"))
-				{
-					RunnableStatsManager.getInstance().dumpClassStats();
-					_print.println("TPM-Classes dumped....");
-					_print.flush();
-				}
 				else if (_usrCommand.startsWith("announce"))
 				{
 					try

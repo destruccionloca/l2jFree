@@ -1,4 +1,4 @@
-/* 
+/*
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2, or (at your option)
@@ -34,12 +34,10 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @author mkizub
  */
-public final class Config
+public final class Config extends L2Config
 {
 
 	private static final Log	_log						= LogFactory.getLog(Config.class.getName());
-	/** Enable/disable code 'in progress' */
-	public static boolean		DEVELOPER;
 
 	/** Number of login tries before IP ban gets activated, default 10*/
 	public static int			LOGIN_TRY_BEFORE_BAN;
@@ -59,8 +57,6 @@ public final class Config
 	/** Configuration files */
 	/** Properties file for login server configurations */
 	public static final String	LOGIN_CONFIGURATION_FILE	= "./config/loginserver.properties";
-	/** Properties file for the ID factory */
-	public static final String	TELNET_FILE					= "./config/telnet.properties";
 
 	/** Client login port/host */
 	public static String		LOGIN_SERVER_HOSTNAME;
@@ -104,8 +100,6 @@ public final class Config
 			LOGIN_SERVER_PORT = Integer.parseInt(serverSettings.getProperty("LoginServerPort", "2106"));
 			LOGIN_HOSTNAME = serverSettings.getProperty("LoginHostname", "127.0.0.1");
 			LOGIN_PORT = Integer.parseInt(serverSettings.getProperty("LoginPort", "9014"));
-
-			DEVELOPER = Boolean.parseBoolean(serverSettings.getProperty("Developer", "false"));
 
 			ACCEPT_NEW_GAMESERVER = Boolean.parseBoolean(serverSettings.getProperty("AcceptNewGameServer", "True"));
 

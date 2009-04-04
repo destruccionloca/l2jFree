@@ -15,16 +15,21 @@
 package com.l2jfree.status;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.L2Config;
+import com.l2jfree.config.L2Properties;
 import com.l2jfree.tools.random.Rnd;
 import com.l2jfree.util.L2FastSet;
 
@@ -33,23 +38,76 @@ import com.l2jfree.util.L2FastSet;
  */
 public abstract class StatusServer extends Thread
 {
+	public interface Filter
+	{
+		public boolean accept(String host);
+	}
+	
+	private static final class FloodFilter implements Filter
+	{
+		private final Map<String, Long> _connectionTimes = new FastMap<String, Long>();
+		
+		@Override
+		public boolean accept(String host)
+		{
+			final Long lastConnectionTime = _connectionTimes.put(host, System.currentTimeMillis());
+			
+			return lastConnectionTime == null || lastConnectionTime < System.currentTimeMillis() - 1000;
+		}
+	}
+	
+	private static final class HostFilter implements Filter
+	{
+		@Override
+		public boolean accept(String host)
+		{
+			try
+			{
+				for (String tmp : new L2Properties(L2Config.TELNET_FILE).getProperty("ListOfHosts").split(","))
+					if (host.equals(InetAddress.getByName(tmp.trim()).getHostAddress()))
+						return true;
+			}
+			catch (IOException e)
+			{
+				_log.warn("", e);
+			}
+			
+			return false;
+		}
+	}
+	
 	protected static final Log _log = LogFactory.getLog(StatusServer.class);
 	
 	private final ServerSocket _socket;
-	private final Map<String, Long> _connectionTimes = new FastMap<String, Long>();
+	private final List<Filter> _filters = new FastList<Filter>();
 	private final Set<StatusThread> _threads = new L2FastSet<StatusThread>().setShared(true);
 	
-	protected StatusServer(int port) throws IOException
+	protected StatusServer() throws IOException
 	{
-		_socket = new ServerSocket(port);
+		_socket = new ServerSocket(Integer.parseInt(new L2Properties(L2Config.TELNET_FILE).getProperty("StatusPort")));
+		
+		addFilter(new FloodFilter());
+		addFilter(new HostFilter());
 		
 		setPriority(Thread.MAX_PRIORITY);
 		setDaemon(true);
 		start();
+		
+		_log.info("Telnet: Listening on port: " + getServerSocket().getLocalPort());
+	}
+	
+	protected final void addFilter(Filter filter)
+	{
+		_filters.add(filter);
+	}
+	
+	protected final ServerSocket getServerSocket()
+	{
+		return _socket;
 	}
 	
 	@Override
-	public void run()
+	public final void run()
 	{
 		try
 		{
@@ -60,10 +118,16 @@ public abstract class StatusServer extends Thread
 					final Socket socket = _socket.accept();
 					final String host = socket.getInetAddress().getHostAddress();
 					
-					final Long lastConnectionTime = _connectionTimes.put(host, System.currentTimeMillis());
+					for (Filter filter : _filters)
+					{
+						if (!filter.accept(host))
+						{
+							_log.warn("Telnet: Connection attempt from " + host + " rejected.");
+							continue;
+						}
+					}
 					
-					if (lastConnectionTime != null && System.currentTimeMillis() - 1000 < lastConnectionTime)
-						continue;
+					_log.warn("Telnet: Connection attempt from " + host + " accepted.");
 					
 					newStatusThread(socket).start();
 				}

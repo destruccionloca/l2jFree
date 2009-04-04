@@ -42,7 +42,6 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.Config;
 import com.l2jfree.L2Registry;
 import com.l2jfree.loginserver.L2LoginClient;
-import com.l2jfree.loginserver.L2LoginServer;
 import com.l2jfree.loginserver.beans.Accounts;
 import com.l2jfree.loginserver.beans.FailedLoginAttempt;
 import com.l2jfree.loginserver.beans.GameServerInfo;
@@ -54,6 +53,7 @@ import com.l2jfree.loginserver.services.exception.AccountModificationException;
 import com.l2jfree.loginserver.services.exception.AccountWrongPasswordException;
 import com.l2jfree.loginserver.services.exception.HackingException;
 import com.l2jfree.loginserver.thread.GameServerThread;
+import com.l2jfree.status.Status;
 import com.l2jfree.tools.codec.Base64;
 import com.l2jfree.tools.math.ScrambledKeyPair;
 import com.l2jfree.tools.random.Rnd;
@@ -437,9 +437,8 @@ public class LoginManager
 	 * @param user
 	 * @return true if a user is a GM account
 	 */
-	public boolean isGM(String user)
+	public boolean isGM(Accounts acc)
 	{
-		Accounts acc = _service.getAccountById(user);
 		if (acc != null)
 			return acc.getAccessLevel() >= Config.GM_MIN;
 		else
@@ -653,10 +652,9 @@ public class LoginManager
 				_service.addOrUpdateAccount(acc);
 
 				_logLogin.info("created new account for " + user);
-
-				if (L2LoginServer.statusServer != null)
-					L2LoginServer.statusServer.sendMessageToTelnets("Account created for player " + user);
-
+				
+				Status.tryBroadcast("Account created for player " + user);
+				
 				return true;
 
 			}

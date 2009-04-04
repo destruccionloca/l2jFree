@@ -19,14 +19,17 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.status.commands.ClassStats;
+import com.l2jfree.status.commands.GC;
+import com.l2jfree.status.commands.MemoryStatistics;
+import com.l2jfree.status.commands.Threads;
 import com.l2jfree.util.HandlerRegistry;
 
 /**
@@ -50,6 +53,15 @@ public abstract class StatusThread extends Thread
 		
 		register(new Quit());
 		register(new Help());
+		register(new ClassStats());
+		register(new GC());
+		register(new MemoryStatistics());
+		register(new Threads());
+	}
+	
+	protected final Socket getSocket()
+	{
+		return _socket;
 	}
 	
 	protected final StatusThread print(Object obj)
@@ -94,40 +106,57 @@ public abstract class StatusThread extends Thread
 		_handlers.registerAll(handler, handler.getCommands());
 	}
 	
-	protected abstract boolean login();
+	protected abstract boolean login() throws IOException;
 	
 	@Override
 	public final void run()
 	{
-		if (!login())
-			return;
-		
 		try
 		{
+			if (!login())
+				return;
+			
 			_server.addStatusThread(this);
 			
 			for (String line; !_socket.isClosed() && (line = readLine()) != null;)
 			{
+				line = line.trim();
+				
 				if (line.isEmpty())
 					continue;
 				
-				final String command = line.split(" ")[0];
+				String command = line;
+				String params = "";
+				
+				if (line.indexOf(" ") != -1)
+				{
+					command = line.substring(0, line.indexOf(" "));
+					params = line.substring(line.indexOf(" ") + 1);
+				}
+				
+				command = command.trim().toLowerCase();
+				params = params.trim();
 				
 				final StatusCommand handler = _handlers.get(command);
 				
 				if (handler == null)
 				{
-					unknownCommand(command);
+					unknownCommand(command, line);
 					continue;
 				}
 				
 				try
 				{
-					handler.useCommand(command, line);
+					handler.useCommand(command, params);
 				}
 				catch (RuntimeException e)
 				{
 					println(e);
+					print(handler.listCommands());
+					final String parameterUsage = handler.getParameterUsage();
+					if (parameterUsage != null)
+						print(" ").println(parameterUsage);
+					println();
 					
 					_log.warn("", e);
 				}
@@ -139,6 +168,8 @@ public abstract class StatusThread extends Thread
 		}
 		finally
 		{
+			_log.warn("Telnet: Connection from " + getSocket().getInetAddress().getHostAddress() + " closed.");
+			
 			_server.removeStatusThread(this);
 			
 			println("Bye-bye!");
@@ -146,12 +177,12 @@ public abstract class StatusThread extends Thread
 		}
 	}
 	
-	protected void unknownCommand(String command)
+	protected void unknownCommand(String command, String line)
 	{
 		println("No handler registered for '" + command + "'.");
 	}
 	
-	protected final void close()
+	public final void close()
 	{
 		IOUtils.closeQuietly(_in);
 		IOUtils.closeQuietly(_out);
@@ -168,7 +199,7 @@ public abstract class StatusThread extends Thread
 	private final class Quit extends StatusCommand
 	{
 		@Override
-		protected void useCommand(String command, String line)
+		protected void useCommand(String command, String params)
 		{
 			close();
 		}
@@ -191,14 +222,14 @@ public abstract class StatusThread extends Thread
 	private final class Help extends StatusCommand
 	{
 		@Override
-		protected void useCommand(String command, String line)
+		protected void useCommand(String command, String params)
 		{
-			final Map<String, StatusCommand> handlers = new HashMap<String, StatusCommand>();
+			final Map<String, StatusCommand> handlers = new TreeMap<String, StatusCommand>();
 			
 			int length = 20;
 			for (StatusCommand handler : _handlers.getHandlers().values())
 			{
-				final String commands = StringUtils.join(handler.getCommands(), "|");
+				final String commands = handler.listCommands();
 				
 				handlers.put(commands, handler);
 				
@@ -207,14 +238,16 @@ public abstract class StatusThread extends Thread
 			
 			final String format = "%" + length + "s";
 			
+			println("The following list contains all available commands:");
 			for (Map.Entry<String, StatusCommand> entry : handlers.entrySet())
 			{
 				print(String.format(format, entry.getKey())).print(" - ").println(entry.getValue().getDescription());
 				
 				final String parameterUsage = entry.getValue().getParameterUsage();
 				if (parameterUsage != null)
-					print("\t").println(parameterUsage);
+					print("\t").print(entry.getKey()).print(" ").println(parameterUsage);
 			}
+			println();
 		}
 		
 		private final String[] COMMANDS = { "help" };

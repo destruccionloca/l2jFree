@@ -24,6 +24,8 @@ public abstract class L2Config
 {
 	protected static final Log _log = LogFactory.getLog(L2Config.class);
 	
+	public static final String TELNET_FILE = "./config/telnet.properties";
+	
 	protected L2Config()
 	{
 		throw new InternalError();

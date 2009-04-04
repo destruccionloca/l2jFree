@@ -35,8 +35,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.l2jfree.Config;
 import com.l2jfree.L2Registry;
 import com.l2jfree.loginserver.beans.SessionKey;
-import com.l2jfree.loginserver.manager.BanManager;
-import com.l2jfree.loginserver.manager.LoginManager;
 import com.l2jfree.loginserver.services.exception.AccountBannedException;
 import com.l2jfree.loginserver.services.exception.AccountWrongPasswordException;
 
@@ -89,15 +87,6 @@ public class LoginManagerTest extends TestCase
 		assertTrue(!loginManager.isAccountInLoginServer("player1"));
 		assertNull(loginManager.getKeyForAccount("player1"));
 
-	}
-
-	public void testChangeAccountLevel()
-	{
-		Config.GM_MIN = 100;
-		// check that an account is a GM
-		assertTrue(loginManager.isGM("player1"));
-		loginManager.setAccountAccessLevel("player1", 1);
-		assertTrue(!loginManager.isGM("player1"));
 	}
 
 	public void testAccountBanned() throws Exception

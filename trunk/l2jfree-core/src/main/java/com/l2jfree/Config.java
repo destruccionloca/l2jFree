@@ -1892,8 +1892,6 @@ public final class Config extends L2Config
 	}
 
 	// *******************************************************************************************
-	public static final String	TELNET_FILE	= "./config/telnet.properties";
-	// *******************************************************************************************
 	public static boolean		IS_TELNET_ENABLED;							// Is telnet enabled ?
 	public static boolean		ALT_TELNET;								// Use alternative telnet ?
 	public static boolean		ALT_TELNET_GM_ANNOUNCER_NAME;				// Show GM's name behind his announcement ? (only works if AltTelnet = true)

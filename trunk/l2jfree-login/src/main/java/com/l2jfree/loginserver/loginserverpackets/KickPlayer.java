@@ -20,12 +20,11 @@ package com.l2jfree.loginserver.loginserverpackets;
 
 import java.io.IOException;
 
-import com.l2jfree.loginserver.L2LoginServer;
 import com.l2jfree.loginserver.serverpackets.ServerBasePacket;
+import com.l2jfree.status.Status;
 
 /**
  * @author -Wooden-
- *
  */
 public class KickPlayer extends ServerBasePacket
 {
@@ -33,10 +32,10 @@ public class KickPlayer extends ServerBasePacket
 	{
 		writeC(0x04);
 		writeS(account);
-		if (L2LoginServer.statusServer != null)
-			L2LoginServer.statusServer.sendMessageToTelnets("Player " + account + " was kicked.");
+		
+		Status.tryBroadcast("Player " + account + " was kicked.");
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see com.l2jfree.loginserver.serverpackets.ServerBasePacket#getContent()
 	 */
@@ -45,5 +44,5 @@ public class KickPlayer extends ServerBasePacket
 	{
 		return getBytes();
 	}
-
+	
 }

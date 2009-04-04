@@ -12,37 +12,32 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.status;
+package com.l2jfree.status.commands;
 
-import java.io.IOException;
-import java.net.Socket;
+import com.l2jfree.status.StatusCommand;
 
-public final class Status extends StatusServer
+/**
+ * @author NB4L1
+ */
+public final class MemoryStatistics extends StatusCommand
 {
-	private static Status _instance;
-	
-	public static void initInstance() throws IOException
+	@Override
+	protected void useCommand(String command, String params)
 	{
-		if (_instance == null)
-		{
-			_instance = new Status();
-			_instance.start();
-		}
+		printMemoryStatistics();
 	}
 	
-	public static void tryBroadcast(String message)
-	{
-		if (_instance != null)
-			_instance.broadcast(message);
-	}
+	private static final String[] COMMANDS = { "printmemusage" };
 	
-	private Status() throws IOException
+	@Override
+	protected String[] getCommands()
 	{
+		return COMMANDS;
 	}
 	
 	@Override
-	protected StatusThread newStatusThread(Socket socket) throws IOException
+	protected String getDescription()
 	{
-		return new LoginStatusThread(this, socket);
+		return "show memory stats";
 	}
 }
