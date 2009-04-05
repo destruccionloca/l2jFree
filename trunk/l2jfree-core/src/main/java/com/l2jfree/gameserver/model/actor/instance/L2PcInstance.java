@@ -18,6 +18,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -166,7 +167,6 @@ import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.AbnormalStatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.CameraMode;
 import com.l2jfree.gameserver.network.serverpackets.ChangeWaitType;
@@ -191,6 +191,7 @@ import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 import com.l2jfree.gameserver.network.serverpackets.LeaveWorld;
+import com.l2jfree.gameserver.network.serverpackets.MagicEffectIcons;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.NicknameChanged;
@@ -230,6 +231,7 @@ import com.l2jfree.gameserver.network.serverpackets.TradeDone;
 import com.l2jfree.gameserver.network.serverpackets.TradeStart;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
+import com.l2jfree.gameserver.network.serverpackets.EffectInfoPacket.EffectInfoPacketList;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.effects.EffectForce;
@@ -4084,14 +4086,18 @@ public final class L2PcInstance extends L2PlayableInstance
 				if (player.getOlympiadGameId() == getOlympiadGameId() && player.isOlympiadStart())
 					player.sendPacket(new ExOlympiadUserInfo(this, 1));
 			
-			if(Olympiad.getInstance().getSpectators(_olympiadGameId) != null && isOlympiadStart())
-            {
-                for(L2PcInstance spectator : Olympiad.getInstance().getSpectators(_olympiadGameId))
-                {
-                    if (spectator == null) continue;
-                    spectator.sendPacket(new ExOlympiadUserInfo(this, getOlympiadSide()));
-                }
-            }
+			if (isOlympiadStart())
+			{
+				final List<L2PcInstance> spectators = Olympiad.getInstance().getSpectators(getOlympiadGameId());
+				
+				if (spectators != null && !spectators.isEmpty())
+				{
+					final ExOlympiadUserInfo eoui = new ExOlympiadUserInfo(this);
+					
+					for (L2PcInstance spectator : spectators)
+						spectator.sendPacket(eoui);
+				}
+			}
 		}
 		
 		if (isInDuel())
@@ -4099,53 +4105,29 @@ public final class L2PcInstance extends L2PlayableInstance
 	}
 	
 	@Override
-	public final void updateEffectIconsImpl()
+	public void updateEffectIconsImpl()
 	{
-		AbnormalStatusUpdate mi = new AbnormalStatusUpdate();
-
-		PartySpelled ps = null;
+		final EffectInfoPacketList list = new EffectInfoPacketList(this);
+		
+		sendPacket(new MagicEffectIcons(list));
+		
 		if (isInParty())
-			ps = new PartySpelled(this);
+			getParty().broadcastToPartyMembers(this, new PartySpelled(list));
 		
-		ExOlympiadSpelledInfo os = null;
 		if (isInOlympiadMode() && isOlympiadStart())
-			os = new ExOlympiadSpelledInfo(this);
-		
-		for (L2Effect effect : getAllEffects())
 		{
-			if (!effect.getShowIcon())
-				continue;
+			final List<L2PcInstance> spectators = Olympiad.getInstance().getSpectators(getOlympiadGameId());
 			
-			switch (effect.getEffectType())
+			if (spectators != null && !spectators.isEmpty())
 			{
-				case SIGNET_GROUND:
-					continue;
-			}
-			
-			if (effect.getInUse())
-			{
-				if (mi != null)
-					effect.addIcon(mi);
-				if (ps != null)
-					effect.addPartySpelledIcon(ps);
-				if (os != null && !effect.getSkill().isToggle())
-					effect.addOlympiadSpelledIcon(os);
-			}
-		}
-		
-		sendPacket(mi);
-		
-		if (ps != null)
-			getParty().broadcastToPartyMembers(this, ps);
-		
-		if (os != null)
-		{
-			List<L2PcInstance> list = Olympiad.getInstance().getSpectators(getOlympiadGameId());
-			
-			if (list != null)
-				for (L2PcInstance spectator : list)
+				final ExOlympiadSpelledInfo os = new ExOlympiadSpelledInfo(list);
+				
+				for (L2PcInstance spectator : spectators)
 					spectator.sendPacket(os);
+			}
 		}
+		
+		sendPacket(new EtcStatusUpdate(this));
 	}
 
 	/**
@@ -10201,35 +10183,41 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	public void sendSkillList()
 	{
-		SkillList sl = new SkillList();
-		for (L2Skill s : getAllSkills())
+		L2Skill[] array = getAllSkills();
+		List<L2Skill> skills = new ArrayList<L2Skill>(array.length);
+		
+		for (L2Skill s : array)
 		{
 			if (s == null)
 				continue;
+			
 			if (s.getId() > 9000 && s.getId() < 9007)
 				continue; // Fake skills to change base stats
+			
 			if (s.bestowed())
 				continue;
+			
 			// Hide skills when transformed if they are not passive
 			if ((!containsAllowedTransformSkill(s.getId()) && !s.allowOnTransform()) && isTransformed())
 				continue;
-
+			
 			if (s.getSkillType() == L2SkillType.NOTDONE)
 			{
 				switch (Config.SEND_NOTDONE_SKILLS)
 				{
-					case 3:
-						break;
-					case 2:
-						if (isGM())
-							break;
-					default:
+					case 1:
 						continue;
+						
+					case 2:
+						if (!isGM())
+							continue;
 				}
 			}
-			sl.addSkill(s.getDisplayId(), s.getLevel(), s.isPassive());
+			
+			skills.add(s);
 		}
-		sendPacket(sl);
+		
+		sendPacket(new SkillList(skills));
 	}
 
 	public void setTransformAllowedSkills(int[] ids)

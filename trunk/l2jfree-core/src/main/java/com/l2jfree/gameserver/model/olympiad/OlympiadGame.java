@@ -39,7 +39,6 @@ import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.network.serverpackets.ExAutoSoulShot;
 import com.l2jfree.gameserver.network.serverpackets.ExOlympiadMatchEnd;
 import com.l2jfree.gameserver.network.serverpackets.ExOlympiadMode;
-import com.l2jfree.gameserver.network.serverpackets.ExOlympiadSpelledInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExOlympiadUserInfo;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -1177,14 +1176,15 @@ class OlympiadGameTask implements Runnable
 		}
 		_game._playerOne.sendPacket(new ExOlympiadUserInfo(_game._playerTwo, 1));
 		_game._playerTwo.sendPacket(new ExOlympiadUserInfo(_game._playerOne, 1));
+		
+		_game._playerOne.updateEffectIcons();
+		_game._playerTwo.updateEffectIcons();
 		if (OlympiadManager.STADIUMS[_game._stadiumID].getSpectators() != null)
 		{
 			for (L2PcInstance spec : OlympiadManager.STADIUMS[_game._stadiumID].getSpectators())
 			{
-				spec.sendPacket(new ExOlympiadUserInfo(_game._playerOne, 1));
-				spec.sendPacket(new ExOlympiadUserInfo(_game._playerTwo, 2));
-				spec.sendPacket(new ExOlympiadSpelledInfo(_game._playerOne));
-				spec.sendPacket(new ExOlympiadSpelledInfo(_game._playerTwo));
+				spec.sendPacket(new ExOlympiadUserInfo(_game._playerOne));
+				spec.sendPacket(new ExOlympiadUserInfo(_game._playerTwo));
 			}
 		}
 

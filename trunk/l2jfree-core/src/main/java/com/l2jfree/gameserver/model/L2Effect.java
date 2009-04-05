@@ -25,10 +25,8 @@ import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.AbnormalStatusUpdate;
-import com.l2jfree.gameserver.network.serverpackets.ExOlympiadSpelledInfo;
-import com.l2jfree.gameserver.network.serverpackets.PartySpelled;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.network.serverpackets.EffectInfoPacket.EffectInfoPacketList;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.effects.EffectTemplate;
 import com.l2jfree.gameserver.skills.funcs.Func;
@@ -89,7 +87,7 @@ public abstract class L2Effect
 	private final FuncTemplate[]	_funcTemplates;
 	
 	// initial count
-	private int						_totalCount;
+	private final int				_totalCount;
 	
 	// counter
 	private int						_count;
@@ -551,57 +549,49 @@ public abstract class L2Effect
 		return funcs.moveToArray(new Func[funcs.size()]);
 	}
 	
-	public final void addIcon(AbnormalStatusUpdate mi)
+	public final void addPacket(EffectInfoPacketList list)
 	{
-		EffectTask task = _currentTask;
-		ScheduledFuture<?> future = _currentFuture;
+		if (!_inUse || !_icon)
+			return;
+		
+		switch (_state)
+		{
+			case CREATED:
+			case FINISHING:
+				return;
+		}
+		
+		// FIXME: why?
+		switch (_skill.getId())
+		{
+			case 2031:
+			case 2032:
+			case 2037:
+				return;
+		}
+		
+		switch (getEffectType())
+		{
+			case SIGNET_GROUND:
+				return;
+		}
+		
+		final EffectTask task = _currentTask;
+		final ScheduledFuture<?> future = _currentFuture;
 		
 		if (task == null || future == null)
 			return;
 		
-		if (_state == EffectState.FINISHING || _state == EffectState.CREATED)
-			return;
+		int time;
 		
-		L2Skill sk = getSkill();
-		int time = -1;
 		if (task._rate > 0)
 			time = getRemainingTaskTime() * 1000;
-		// Why only potions? HOT skills should have this too.. maybe not retail, but more informative...
-		// if (sk.isPotion()) time = getRemainingTaskTime() * 1000;
 		else
-			time = (int) future.getDelay(TimeUnit.MILLISECONDS);
+			time = (int)future.getDelay(TimeUnit.MILLISECONDS);
 		
-		mi.addEffect(sk.getId(), sk.getLevel(), time);
-	}
-	
-	public final void addPartySpelledIcon(PartySpelled ps)
-	{
-		EffectTask task = _currentTask;
-		ScheduledFuture<?> future = _currentFuture;
+		time = (time < 0 ? -1 : time / 1000);
 		
-		if (task == null || future == null)
-			return;
-		
-		if (_state == EffectState.FINISHING || _state == EffectState.CREATED)
-			return;
-		
-		L2Skill sk = getSkill();
-		ps.addPartySpelledEffect(sk.getId(), getLevel(), (int) future.getDelay(TimeUnit.MILLISECONDS));
-	}
-	
-	public final void addOlympiadSpelledIcon(ExOlympiadSpelledInfo os)
-	{
-		EffectTask task = _currentTask;
-		ScheduledFuture<?> future = _currentFuture;
-		
-		if (task == null || future == null)
-			return;
-		
-		if (_state == EffectState.FINISHING || _state == EffectState.CREATED)
-			return;
-		
-		L2Skill sk = getSkill();
-		os.addEffect(sk.getId(), getLevel(), (int) future.getDelay(TimeUnit.MILLISECONDS));
+		list.addEffect(_skill.getDisplayId(), _skill.getLevel(), time);
 	}
 	
 	public int getLevel()

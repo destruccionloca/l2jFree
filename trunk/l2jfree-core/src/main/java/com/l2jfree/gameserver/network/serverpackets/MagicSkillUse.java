@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.network.serverpackets;
 
 import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.L2Skill;
 
 /**
  * 
@@ -44,7 +45,7 @@ public class MagicSkillUse extends L2GameServerPacket
 		_skillId = skillId;
 		_skillLevel = skillLevel;
 		_skillTime = skillTime;
-		_reuseDelay = reuseDelay; 
+		_reuseDelay = reuseDelay;
 		_x = cha.getX();
 		_y = cha.getY();
 		_z = cha.getZ();
@@ -52,15 +53,17 @@ public class MagicSkillUse extends L2GameServerPacket
 	
 	public MagicSkillUse(L2Character cha, int skillId, int skillLevel, int skillTime, int reuseDelay)
 	{
-		_charObjId = cha.getObjectId();
-		_targetId = cha.getTargetId();
-		_skillId = skillId;
-		_skillLevel = skillLevel;
-		_skillTime = skillTime;
-		_reuseDelay = reuseDelay; 
-		_x = cha.getX();
-		_y = cha.getY();
-		_z = cha.getZ();
+		this(cha, cha, skillId, skillLevel, skillTime, reuseDelay);
+	}
+	
+	public MagicSkillUse(L2Character cha, L2Character target, L2Skill skill, int skillTime, int reuseDelay)
+	{
+		this(cha, target, skill.getDisplayId(), skill.getLevel(), skillTime, reuseDelay);
+	}
+	
+	public MagicSkillUse(L2Character cha, L2Skill skill, int skillTime, int reuseDelay)
+	{
+		this(cha, cha, skill.getDisplayId(), skill.getLevel(), skillTime, reuseDelay);
 	}
 	
 	@Override

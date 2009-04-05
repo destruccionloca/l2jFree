@@ -21,6 +21,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.concurrent.ScheduledFuture;
+
 import javolution.text.TextBuilder;
 
 import org.apache.commons.logging.Log;
@@ -29,6 +30,7 @@ import org.mmocore.network.ISocket;
 import org.mmocore.network.MMOConnection;
 import org.mmocore.network.ReceivablePacket;
 import org.mmocore.network.SelectorThread;
+import org.mmocore.network.SendablePacket;
 
 import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
@@ -42,6 +44,7 @@ import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 import com.l2jfree.gameserver.threadmanager.FIFORunnableQueue;
 import com.l2jfree.tools.security.BlowFishKeygen;
 import com.l2jfree.tools.security.GameCrypt;
+import com.l2jfree.util.concurrent.RunnableStatsManager;
 
 /**
  * Represents a client connected on Game Server
@@ -164,15 +167,30 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 		return _sessionId;
 	}
 	
-	public void sendPacket(L2GameServerPacket gsp)
+	/**
+	 * {@link RunnableStatsManager} used here mostly for counting, since constructors - usually the longest
+	 * parts - are excluded.
+	 */
+	@Override
+	public void sendPacket(SendablePacket<L2GameClient> sp)
 	{
-		if (_isDetached)
-			return;
-		gsp.runImpl(this, getActiveChar());
+		final long begin = System.nanoTime();
 		
-		super.sendPacket(gsp);
+		try
+		{
+			if (_isDetached)
+				return;
+			
+			((L2GameServerPacket)sp).runImpl(this, getActiveChar());
+			
+			super.sendPacket(sp);
+		}
+		finally
+		{
+			RunnableStatsManager.getInstance().handleStats(sp.getClass(), System.nanoTime() - begin);
+		}
 	}
-
+	
 	@Override
 	public void closeNow()
 	{

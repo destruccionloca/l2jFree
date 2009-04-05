@@ -14,70 +14,29 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import java.util.List;
-
-import javolution.util.FastList;
-
-import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-
 /**
- * This class ...
- * 
- * @version $Revision: 1.4.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
  * @author godson
  */
-public class ExOlympiadSpelledInfo extends L2GameServerPacket
+public final class ExOlympiadSpelledInfo extends EffectInfoPacket
 {
 	// chdd(dhd)
-	private static final String	_S__FE_2A_OLYMPIADSPELLEDINFO	= "[S] FE:2A ExOlympiadSpelledInfo";
-	private L2PcInstance		_player;
-	private List<Effect>		_effects;
-
-	private class Effect
+	private static final String _S__FE_2A_OLYMPIADSPELLEDINFO = "[S] FE:2A ExOlympiadSpelledInfo";
+	
+	public ExOlympiadSpelledInfo(EffectInfoPacketList list)
 	{
-		protected int	_skillId;
-		protected int	_level;
-		protected int	_duration;
-
-		public Effect(int pSkillId, int pLevel, int pDuration)
-		{
-			_skillId = pSkillId;
-			_level = pLevel;
-			_duration = pDuration;
-		}
+		super(list);
 	}
-
-	public ExOlympiadSpelledInfo(L2PcInstance player)
-	{
-		_effects = new FastList<Effect>();
-		_player = player;
-	}
-
-	public void addEffect(int skillId, int level, int duration)
-	{
-		_effects.add(new Effect(skillId, level, duration));
-	}
-
+	
 	@Override
-	protected final void writeImpl()
+	protected void writeImpl()
 	{
-		if (_player == null)
-			return;
 		writeC(0xfe);
 		writeH(0x7b);
-		writeD(_player.getObjectId());
-		writeD(_effects.size());
-		for (Effect temp : _effects)
-		{
-			writeD(temp._skillId);
-			writeH(temp._level);
-			writeD(temp._duration / 1000);
-		}
+		writeD(getPlayable().getObjectId());
+		writeD(size());
+		writeEffectInfos();
 	}
-
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
-	 */
+	
 	@Override
 	public String getType()
 	{

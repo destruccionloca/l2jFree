@@ -45,6 +45,7 @@ import com.l2jfree.gameserver.network.serverpackets.PetStatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.RelationChanged;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.network.serverpackets.EffectInfoPacket.EffectInfoPacketList;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
 import com.l2jfree.gameserver.taskmanager.SQLQueue;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
@@ -360,28 +361,14 @@ public abstract class L2Summon extends L2PlayableInstance
 	@Override
 	public final void updateEffectIconsImpl()
 	{
-		PartySpelled ps = new PartySpelled(this);
-
-		for (L2Effect effect : getAllEffects())
-		{
-			if (!effect.getShowIcon())
-				continue;
-
-			switch (effect.getEffectType())
-			{
-			case SIGNET_GROUND:
-				continue;
-			}
-
-			if (effect.getInUse())
-				effect.addPartySpelledIcon(ps);
-		}
-
-		L2Party party = getOwner().getParty();
+		final EffectInfoPacketList list = new EffectInfoPacketList(this);
+		
+		final L2Party party = getParty();
+		
 		if (party != null)
-			party.broadcastToPartyMembers(ps);
+			party.broadcastToPartyMembers(new PartySpelled(list));
 		else
-			getOwner().sendPacket(ps);
+			getOwner().sendPacket(new PartySpelled(list));
 	}
 
 	public void deleteMe(L2PcInstance owner)
