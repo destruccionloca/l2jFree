@@ -239,9 +239,6 @@ public class L2Skill
 	public final static int			COND_GRADED				= 0x080000;
 	public final static int			COND_GRADES				= 0x100000;
 
-	private static final Func[]		_emptyFunctionSet		= new Func[0];
-	private static final L2Effect[]	_emptyEffectSet			= new L2Effect[0];
-
 	// these two build the primary key
 	private final Integer			_id;
 	private final int				_level;
@@ -3676,9 +3673,9 @@ public class L2Skill
 	L2Effect effect, L2Character player)
 	{
 		if (!(player instanceof L2PcInstance) && !(player instanceof L2Attackable) && !(player instanceof L2Summon))
-			return _emptyFunctionSet;
+			return Func.EMPTY_ARRAY;
 		if (_funcTemplates == null)
-			return _emptyFunctionSet;
+			return Func.EMPTY_ARRAY;
 		LinkedBunch<Func> funcs = new LinkedBunch<Func>();
 		for (FuncTemplate t : _funcTemplates)
 		{
@@ -3690,7 +3687,7 @@ public class L2Skill
 				funcs.add(f);
 		}
 		if (funcs.size() == 0)
-			return _emptyFunctionSet;
+			return Func.EMPTY_ARRAY;
 		return funcs.moveToArray(new Func[funcs.size()]);
 	}
 
@@ -3702,24 +3699,24 @@ public class L2Skill
 	public final L2Effect[] getEffects(L2Character effector, L2Character effected)
 	{
 		if (isPassive())
-			return _emptyEffectSet;
+			return L2Effect.EMPTY_ARRAY;
 
 		if (_effectTemplates == null)
-			return _emptyEffectSet;
+			return L2Effect.EMPTY_ARRAY;
 
 		// doors and siege flags cannot receive any effects
 		if (effected instanceof L2DoorInstance || effected instanceof L2SiegeFlagInstance)
-			return _emptyEffectSet;
+			return L2Effect.EMPTY_ARRAY;
 
 		if (effector != effected)
 		{
 			if (effected.isInvul())
-				return _emptyEffectSet;
+				return L2Effect.EMPTY_ARRAY;
 			
 			if ((isOffensive() || isDebuff()) && effector instanceof L2PcInstance && ((L2PcInstance)effector).isGM())
 			{
-				 if (((L2PcInstance)effector).getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
-					 return _emptyEffectSet;
+				if (((L2PcInstance)effector).getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
+					return L2Effect.EMPTY_ARRAY;
 			}
 		}
 
@@ -3743,7 +3740,7 @@ public class L2Skill
 		}
 
 		if (effects.size() == 0)
-			return _emptyEffectSet;
+			return L2Effect.EMPTY_ARRAY;
 
 		return effects.moveToArray(new L2Effect[effects.size()]);
 	}
@@ -3862,5 +3859,13 @@ public class L2Skill
 	public String toString()
 	{
 		return "" + _name + "[id=" + _id + ",lvl=" + _level + "]";
+	}
+	
+	public String generateUniqueStackType()
+	{
+		int count = _effectTemplates == null ? 0 : _effectTemplates.length;
+		count += _effectTemplatesSelf == null ? 0 : _effectTemplatesSelf.length;
+		
+		return _id + "-" + count;
 	}
 }

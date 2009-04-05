@@ -183,11 +183,7 @@ abstract class DocumentBase
 			//else if ("skill".equalsIgnoreCase(n.getNodeName()))
 			//attachSkill(n, template, condition);
 			else if ("effect".equalsIgnoreCase(n.getNodeName()))
-			{
-				if (template instanceof EffectTemplate)
-					throw new RuntimeException("Nested effects");
 				attachEffect(n, template, condition);
-			}
 		}
 	}
 
@@ -222,83 +218,104 @@ abstract class DocumentBase
 
 	protected void attachEffect(Node n, Object template, Condition attachCond)
 	{
+		if (template instanceof EffectTemplate)
+			throw new RuntimeException("Nested effects");
+		
+		if (!(template instanceof L2Skill))
+			throw new RuntimeException("Attaching an effect to a non-L2Skill template");
+		
 		NamedNodeMap attrs = n.getAttributes();
 		String name = attrs.getNamedItem("name").getNodeValue();
-		int time = 0, count = 1;
+		
+		int count = 1;
 		if (attrs.getNamedItem("count") != null)
 		{
 			count = Integer.decode(getValue(attrs.getNamedItem("count").getNodeValue(), template));
 		}
+		
+		int time = 0;
 		if (attrs.getNamedItem("time") != null)
 		{
 			time = Integer.decode(getValue(attrs.getNamedItem("time").getNodeValue(), template));
 		}
-
-		time *= ((L2Skill) template).getTimeMulti();
+		
+		time *= ((L2Skill)template).getTimeMulti();
+		
 		boolean self = false;
 		if (attrs.getNamedItem("self") != null)
 		{
 			if (Integer.decode(getValue(attrs.getNamedItem("self").getNodeValue(), template)) == 1)
 				self = true;
 		}
-		boolean icon = true;
+		
+		boolean showIcon = true;
 		if (attrs.getNamedItem("noicon") != null)
 		{
 			if (Integer.decode(getValue(attrs.getNamedItem("noicon").getNodeValue(), template)) == 1)
-				icon = false;
+				showIcon = false;
 		}
+		
 		Lambda lambda = getLambda(n, template);
-		Condition applayCond = parseCondition(n.getFirstChild(), template);
+		
 		int abnormal = 0;
 		if (attrs.getNamedItem("abnormal") != null)
 		{
 			String abn = attrs.getNamedItem("abnormal").getNodeValue();
-			if (abn.equals("bleeding"))
-				abnormal = L2Character.ABNORMAL_EFFECT_BLEEDING;
-			else if (abn.equals("poison"))
-				abnormal = L2Character.ABNORMAL_EFFECT_POISON;
-			else if (abn.equals("redcircle"))
-				abnormal = L2Character.ABNORMAL_EFFECT_REDCIRCLE;
-			else if (abn.equals("ice"))
-				abnormal = L2Character.ABNORMAL_EFFECT_ICE;
-			else if (abn.equals("wind"))
-				abnormal = L2Character.ABNORMAL_EFFECT_WIND;
-			else if (abn.equals("flame"))
-				abnormal = L2Character.ABNORMAL_EFFECT_FLAME;
-			else if (abn.equals("stun"))
-				abnormal = L2Character.ABNORMAL_EFFECT_STUN;
-			else if (abn.equals("mute"))
-				abnormal = L2Character.ABNORMAL_EFFECT_MUTED;
-			else if (abn.equals("root"))
-				abnormal = L2Character.ABNORMAL_EFFECT_ROOT;
-			else if (abn.equals("bighead"))
-				abnormal = L2Character.ABNORMAL_EFFECT_BIG_HEAD;
-			else if (abn.equals("stealth"))
-				abnormal = L2Character.ABNORMAL_EFFECT_STEALTH;
-			else if (abn.equals("earthquake"))
-				abnormal = L2Character.ABNORMAL_EFFECT_EARTHQUAKE;
-			else if (abn.equals("invul"))
-				abnormal = L2Character.ABNORMAL_EFFECT_INVULNERABLE;
+			
+			if (abn.contains("bleeding"))
+				abnormal |= L2Character.ABNORMAL_EFFECT_BLEEDING;
+			if (abn.contains("poison"))
+				abnormal |= L2Character.ABNORMAL_EFFECT_POISON;
+			if (abn.contains("redcircle"))
+				abnormal |= L2Character.ABNORMAL_EFFECT_REDCIRCLE;
+			if (abn.contains("ice"))
+				abnormal |= L2Character.ABNORMAL_EFFECT_ICE;
+			if (abn.contains("wind"))
+				abnormal |= L2Character.ABNORMAL_EFFECT_WIND;
+			if (abn.contains("flame"))
+				abnormal |= L2Character.ABNORMAL_EFFECT_FLAME;
+			if (abn.contains("stun"))
+				abnormal |= L2Character.ABNORMAL_EFFECT_STUN;
+			if (abn.contains("mute"))
+				abnormal |= L2Character.ABNORMAL_EFFECT_MUTED;
+			if (abn.contains("root"))
+				abnormal |= L2Character.ABNORMAL_EFFECT_ROOT;
+			if (abn.contains("bighead"))
+				abnormal |= L2Character.ABNORMAL_EFFECT_BIG_HEAD;
+			if (abn.contains("stealth"))
+				abnormal |= L2Character.ABNORMAL_EFFECT_STEALTH;
+			if (abn.contains("earthquake"))
+				abnormal |= L2Character.ABNORMAL_EFFECT_EARTHQUAKE;
+			if (abn.contains("invul"))
+				abnormal |= L2Character.ABNORMAL_EFFECT_INVULNERABLE;
 		}
-		float stackOrder = 0;
-		String stackType = "none";
+		
+		String stackType;
 		if (attrs.getNamedItem("stackType") != null)
 		{
 			stackType = attrs.getNamedItem("stackType").getNodeValue().intern();
 		}
+		else if (template instanceof L2Skill)
+		{
+			stackType = ((L2Skill)template).generateUniqueStackType();
+		}
+		else
+			throw new RuntimeException(template.toString());
+		
+		float stackOrder = 0;
 		if (attrs.getNamedItem("stackOrder") != null)
 		{
 			stackOrder = Float.parseFloat(getValue(attrs.getNamedItem("stackOrder").getNodeValue(), template));
 		}
-
-		EffectTemplate lt = new EffectTemplate(attachCond, applayCond, name, lambda, count, time, abnormal, stackType, stackOrder, icon);
+		
+		EffectTemplate lt = new EffectTemplate(attachCond, name, lambda, count, time, abnormal, stackType, stackOrder, showIcon);
+		
 		parseTemplate(n, lt);
-		if (template instanceof L2Equip)
-			((L2Equip) template).attach(lt);
-		else if (template instanceof L2Skill && !self)
-			((L2Skill) template).attach(lt);
-		else if (template instanceof L2Skill && self)
-			((L2Skill) template).attachSelf(lt);
+		
+		if (!self)
+			((L2Skill)template).attach(lt);
+		else
+			((L2Skill)template).attachSelf(lt);
 	}
 
 	protected void attachSkill(Node n, Object template, @SuppressWarnings("unused") Condition attachCond)

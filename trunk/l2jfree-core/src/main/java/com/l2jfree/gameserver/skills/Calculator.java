@@ -33,9 +33,6 @@ import com.l2jfree.util.LinkedBunch;
 
 public final class Calculator
 {
-	/** Empty Func table definition */
-	private static final Func[]	_emptyFuncs	= new Func[0];
-
 	/** Table of Func object */
 	private Func[]				_functions;
 
@@ -44,7 +41,7 @@ public final class Calculator
 	 */
 	public Calculator()
 	{
-		_functions = _emptyFuncs;
+		_functions = Func.EMPTY_ARRAY;
 	}
 
 	/**
@@ -136,7 +133,7 @@ public final class Calculator
 			tmp[i - 1] = funcs[i];
 
 		if (tmp.length == 0)
-			_functions = _emptyFuncs;
+			_functions = Func.EMPTY_ARRAY;
 		else
 			_functions = tmp;
 	}

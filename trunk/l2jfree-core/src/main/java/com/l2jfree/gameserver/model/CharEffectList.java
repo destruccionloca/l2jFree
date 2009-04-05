@@ -146,35 +146,6 @@ public class CharEffectList
 	}
 
 	/**
-	 * Checks if the given skill stacks with an existing one.
-	 *
-	 * @param checkSkill the skill to be checked
-	 *
-	 * @return Returns whether or not this skill will stack
-	 */
-	private boolean doesStack(L2Skill checkSkill)
-	{
-		if ((_buffs == null || _buffs.isEmpty()) && (_debuffs == null || _debuffs.isEmpty()) || checkSkill._effectTemplates == null
-				|| checkSkill._effectTemplates.length < 1 || checkSkill._effectTemplates[0].stackType == null
-				|| checkSkill._effectTemplates[0].stackType == "none")
-		{
-			return false;
-		}
-
-		String stackType = checkSkill._effectTemplates[0].stackType;
-
-		L2Effect[] effects = getAllEffects();
-		for (L2Effect e : effects)
-		{
-			if (e.getStackType() != null && e.getStackType() == stackType)
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-
-	/**
 	 * Return the number of buffs in this CharEffectList not counting Songs/Dances
 	 * @return
 	 */
@@ -362,60 +333,51 @@ public class CharEffectList
 
 		synchronized (effectList)
 		{
+			if (_stackedEffects == null)
+				return;
 
-			if (effect.getStackType() == "none")
+			// Get the list of all stacked effects corresponding to the stack type of the L2Effect to add
+			List<L2Effect> stackQueue = _stackedEffects.get(effect.getStackType());
+
+			if (stackQueue == null || stackQueue.size() < 1)
+				return;
+
+			// Get the identifier of the first stacked effect of the stack group selected
+			L2Effect frontEffect = stackQueue.get(0);
+
+			// Remove the effect from the stack group
+			boolean removed = stackQueue.remove(effect);
+
+			if (removed)
 			{
-				// Remove Func added by this effect from the L2Character Calculator
-				_owner.removeStatsOwner(effect);
-			}
-			else
-			{
-				if (_stackedEffects == null)
-					return;
-
-				// Get the list of all stacked effects corresponding to the stack type of the L2Effect to add
-				List<L2Effect> stackQueue = _stackedEffects.get(effect.getStackType());
-
-				if (stackQueue == null || stackQueue.size() < 1)
-					return;
-
-				// Get the identifier of the first stacked effect of the stack group selected
-				L2Effect frontEffect = stackQueue.get(0);
-
-				// Remove the effect from the stack group
-				boolean removed = stackQueue.remove(effect);
-
-				if (removed)
+				// Check if the first stacked effect was the effect to remove
+				if (frontEffect == effect)
 				{
-					// Check if the first stacked effect was the effect to remove
-					if (frontEffect == effect)
-					{
-						// Remove all its Func objects from the L2Character calculator set
-						_owner.removeStatsOwner(effect);
+					// Remove all its Func objects from the L2Character calculator set
+					_owner.removeStatsOwner(effect);
 
-						// Check if there's another effect in the Stack Group
-						if (stackQueue.size() > 0)
+					// Check if there's another effect in the Stack Group
+					if (stackQueue.size() > 0)
+					{
+						// Add its list of Funcs to the Calculator set of the L2Character
+						for (L2Effect e : effectList)
 						{
-							// Add its list of Funcs to the Calculator set of the L2Character
-							for (L2Effect e : effectList)
+							if (e == stackQueue.get(0))
 							{
-								if (e == stackQueue.get(0))
-								{
-									// Add its list of Funcs to the Calculator set of the L2Character
-									_owner.addStatFuncs(e.getStatFuncs());
-									// Set the effect to In Use
-									e.setInUse(true);
-									break;
-								}
+								// Add its list of Funcs to the Calculator set of the L2Character
+								_owner.addStatFuncs(e.getStatFuncs());
+								// Set the effect to In Use
+								e.setInUse(true);
+								break;
 							}
 						}
 					}
-					if (stackQueue.isEmpty())
-						_stackedEffects.remove(effect.getStackType());
-					else
-						// Update the Stack Group table _stackedEffects of the L2Character
-						_stackedEffects.put(effect.getStackType(), stackQueue);
 				}
+				if (stackQueue.isEmpty())
+					_stackedEffects.remove(effect.getStackType());
+				else
+					// Update the Stack Group table _stackedEffects of the L2Character
+					_stackedEffects.put(effect.getStackType(), stackQueue);
 			}
 
 			// Remove the active skill L2effect from _effects of the L2Character
@@ -493,7 +455,7 @@ public class CharEffectList
 
 		// Remove first buff when buff list is full
 		L2Skill tempSkill = newEffect.getSkill();
-		if (!doesStack(tempSkill) && !tempSkill.isDebuff() && !tempSkill.bestowed() && !(tempSkill.getId() > 4360 && tempSkill.getId() < 4367))
+		if (!_stackedEffects.containsKey(newEffect.getStackType()) && !tempSkill.isDebuff() && !tempSkill.bestowed() && !(tempSkill.getId() > 4360 && tempSkill.getId() < 4367))
 		{
 			removeFirstBuff(tempSkill);
 		}
@@ -519,20 +481,6 @@ public class CharEffectList
 			}
 			else
 				effectList.addLast(newEffect);
-		}
-
-		// Check if a stack group is defined for this effect
-		if (newEffect.getStackType() == "none")
-		{
-			// Set this L2Effect to In Use
-			newEffect.setInUse(true);
-
-			// Add Funcs of this effect to the Calculator set of the L2Character
-			_owner.addStatFuncs(newEffect.getStatFuncs());
-
-			// Update active skills in progress icons on player client
-			_owner.updateEffectIcons();
-			return;
 		}
 
 		// Get the list of all stacked effects corresponding to the stack type of the L2Effect to add

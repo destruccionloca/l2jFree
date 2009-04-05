@@ -15,8 +15,7 @@
 package com.l2jfree.gameserver.skills.effects;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-
+import java.util.Arrays;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -32,151 +31,84 @@ import com.l2jfree.gameserver.skills.funcs.Lambda;
  */
 public final class EffectTemplate
 {
-	private static Log				_log	= LogFactory.getLog(EffectTemplate.class.getName());
-
-	private final Class<?>			_func;
-	private final Constructor<?>	_constructor;
-
-	public final Condition			attachCond;
-	public final Condition			applayCond;
-	public final Lambda				lambda;
-	public final int				counter;
-	public final int				period;														// in seconds
-	public final int				abnormalEffect;
-	public FuncTemplate[]			funcTemplates;
-
-	public final String				stackType;
-	public final float				stackOrder;
-
-	public final boolean			icon;
-	public final String				funcName;
-
-	public EffectTemplate(Condition pAttachCond, Condition pApplayCond, String func, Lambda pLambda, int pCounter, int pPeriod, int pAbnormalEffect,
-			String pStackType, float pStackOrder, boolean showicon)
+	private static final Log _log = LogFactory.getLog(EffectTemplate.class);
+	
+	private final Constructor<?> _constructor;
+	private final Constructor<?> _stolenConstructor;
+	private final Condition _attachCond;
+	
+	public final Lambda lambda;
+	public final int count;
+	public final int period;
+	public final int abnormalEffect;
+	public final String stackType;
+	public final float stackOrder;
+	public final boolean showIcon;
+	
+	public FuncTemplate[] funcTemplates;
+	
+	public EffectTemplate(Condition pAttachCond, String name, Lambda pLambda, int pCount, int pPeriod,
+		int pAbnormalEffect, String pStackType, float pStackOrder, boolean pShowIcon)
 	{
-		attachCond = pAttachCond;
-		applayCond = pApplayCond;
+		_attachCond = pAttachCond;
+		
 		lambda = pLambda;
-		counter = pCounter;
+		count = pCount;
 		period = pPeriod;
 		abnormalEffect = pAbnormalEffect;
-		stackType = pStackType;
+		stackType = pStackType.intern();
 		stackOrder = pStackOrder;
-		icon = showicon;
-		funcName = func;
+		showIcon = pShowIcon;
+		
 		try
 		{
-			_func = Class.forName("com.l2jfree.gameserver.skills.effects.Effect" + func);
+			final Class<?> clazz = Class.forName("com.l2jfree.gameserver.skills.effects.Effect" + name);
+			
+			_constructor = clazz.getConstructor(Env.class, EffectTemplate.class);
+			_stolenConstructor = clazz.getConstructor(Env.class, L2Effect.class);
 		}
-		catch (ClassNotFoundException e)
-		{
-			throw new RuntimeException(e);
-		}
-		try
-		{
-			_constructor = _func.getConstructor(Env.class, EffectTemplate.class);
-		}
-		catch (NoSuchMethodException e)
+		catch (Exception e)
 		{
 			throw new RuntimeException(e);
 		}
 	}
-
+	
 	public L2Effect getEffect(Env env)
 	{
-		if (attachCond != null && !attachCond.test(env))
-			return null;
 		try
 		{
-			L2Effect effect = (L2Effect) _constructor.newInstance(env, this);
-			// if (_applayCond != null)
-			// effect.setCondition(_applayCond);
-			return effect;
+			if (_attachCond == null || _attachCond.test(env))
+				return (L2Effect)_constructor.newInstance(env, this);
 		}
-		catch (IllegalAccessException e)
+		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
-			return null;
+			_log.warn("", e);
 		}
-		catch (InstantiationException e)
-		{
-			_log.error(e.getMessage(), e);
-			return null;
-		}
-		catch (InvocationTargetException e)
-		{
-			_log.warn("Error creating new instance of Class " + _func + " Exception was:");
-			e.getTargetException().printStackTrace();
-			return null;
-		}
+		
+		return null;
 	}
-
-	/**
-	 * Creates an L2Effect instance from an existing one and an Env object.
-	 *
-	 * @param env
-	 * @param stolen
-	 * @return
-	 */
+	
 	public L2Effect getStolenEffect(Env env, L2Effect stolen)
 	{
-		Class<?> func;
-		Constructor<?> stolenCons;
 		try
 		{
-			func = Class.forName("com.l2jfree.gameserver.skills.effects.Effect"+stolen.getEffectTemplate().funcName);
+			return (L2Effect)_stolenConstructor.newInstance(env, stolen);
 		}
-		catch (ClassNotFoundException e)
+		catch (Exception e)
 		{
-			throw new RuntimeException(e);
+			_log.warn("", e);
 		}
-		try
-		{
-			stolenCons = func.getConstructor(Env.class, L2Effect.class);
-		}
-		catch (NoSuchMethodException e)
-		{
-			throw new RuntimeException(e);
-		}
-		try
-		{
-			L2Effect effect = (L2Effect)stolenCons.newInstance(env, stolen);
-			//if (_applayCond != null)
-			//	effect.setCondition(_applayCond);
-			return effect;
-		}
-		catch (IllegalAccessException e)
-		{
-			e.printStackTrace();
-			return null;
-		}
-		catch (InstantiationException e)
-		{
-			e.printStackTrace();
-			return null;
-		}
-		catch (InvocationTargetException e)
-		{
-			_log.warn("Error creating new instance of Class "+func+" Exception was:");
-			e.getTargetException().printStackTrace();
-			return null;
-		}
+		
+		return null;
 	}
-
+	
 	public void attach(FuncTemplate f)
 	{
 		if (funcTemplates == null)
-		{
-			funcTemplates = new FuncTemplate[]
-			{ f };
-		}
+			funcTemplates = new FuncTemplate[1];
 		else
-		{
-			int len = funcTemplates.length;
-			FuncTemplate[] tmp = new FuncTemplate[len + 1];
-			System.arraycopy(funcTemplates, 0, tmp, 0, len);
-			tmp[len] = f;
-			funcTemplates = tmp;
-		}
+			funcTemplates = Arrays.copyOf(funcTemplates, funcTemplates.length + 1);
+		
+		funcTemplates[funcTemplates.length - 1] = f;
 	}
 }

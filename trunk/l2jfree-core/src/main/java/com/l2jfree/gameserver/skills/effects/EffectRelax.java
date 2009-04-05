@@ -46,7 +46,7 @@ public final class EffectRelax extends L2Effect
 		}
 		else
 			getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_REST);
-		return super.onStart();
+		return true;
 	}
 
 	/*
@@ -58,7 +58,6 @@ public final class EffectRelax extends L2Effect
 	public void onExit()
 	{
 		setRelax(false);
-		super.onExit();
 	}
 
 	@Override

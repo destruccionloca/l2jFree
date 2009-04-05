@@ -31,7 +31,6 @@ import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.effects.EffectTemplate;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.funcs.FuncTemplate;
-import com.l2jfree.gameserver.skills.funcs.Lambda;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 import com.l2jfree.util.LinkedBunch;
 
@@ -44,14 +43,14 @@ public abstract class L2Effect
 {
 	static final Log	_log	= LogFactory.getLog(L2Effect.class.getName());
 	
+	public static final L2Effect[] EMPTY_ARRAY = new L2Effect[0];
+	
 	public static enum EffectState
 	{
 		CREATED,
 		ACTING,
 		FINISHING
 	}
-	
-	private static final Func[]		_emptyFunctionSet	= new Func[0];
 	
 	// member _effector is the instance of L2Character that cast/used the spell/skill that is
 	// causing this effect. Do not confuse with the instance of L2Character that
@@ -69,9 +68,6 @@ public abstract class L2Effect
 	// or the items that was used.
 	// private final L2Item _item;
 	
-	// the value of an update
-	private final Lambda			_lambda;
-	
 	// the current state
 	private EffectState				_state;
 	
@@ -83,20 +79,8 @@ public abstract class L2Effect
 	// Effect template
 	private EffectTemplate			_template;
 	
-	// function templates
-	private final FuncTemplate[]	_funcTemplates;
-	
-	// initial count
-	private final int				_totalCount;
-	
 	// counter
 	private int						_count;
-	
-	// abnormal effect mask
-	private int						_abnormalEffect;
-	
-	// show icon
-	private boolean					_icon;
 	
 	public boolean					preventExitUpdate;
 	
@@ -131,12 +115,6 @@ public abstract class L2Effect
 	private ScheduledFuture<?> _currentFuture;
 	private EffectTask         _currentTask;
 	
-	/** The Identifier of the stack group */
-	private final String	_stackType;
-	
-	/** The position of the effect in the stack group */
-	private final float		_stackOrder;
-	
 	private boolean			_inUse	= false;
 	private boolean			_startConditionsCorrect = true;
 	
@@ -148,10 +126,7 @@ public abstract class L2Effect
 		_template = template;
 		_effected = env.target;
 		_effector = env.player;
-		_lambda = template.lambda;
-		_funcTemplates = template.funcTemplates;
-		_count = template.counter;
-		_totalCount = _count;
+		_count = template.count;
 
 		// TODO DrHouse: This should be reworked, we need to be able to change effect time out of Effect Constructor
 		// maybe using a child class
@@ -172,12 +147,8 @@ public abstract class L2Effect
 		
 		_period = temp; 
 
-		_abnormalEffect = template.abnormalEffect;
-		_stackType = template.stackType;
-		_stackOrder = template.stackOrder;
 		_periodStartTicks = GameTimeController.getGameTicks();
 		_periodfirsttime = 0;
-		_icon = template.icon;
 		scheduleEffect();
 	}
 	
@@ -195,17 +166,10 @@ public abstract class L2Effect
 		_skill = env.skill;
 		_effected = env.target;
 		_effector = env.player;
-		_lambda = _template.lambda;
-		_funcTemplates = _template.funcTemplates;
 		_count = effect.getCount();
-		_totalCount = _template.counter;
 		_period = _template.period - effect.getTime();
-		_abnormalEffect = _template.abnormalEffect;
-		_stackType = _template.stackType;
-		_stackOrder = _template.stackOrder;
 		_periodStartTicks = effect.getPeriodStartTicks();
 		_periodfirsttime = effect.getPeriodfirsttime();
-		_icon = _template.icon;
 		scheduleEffect();
 	}
 
@@ -216,7 +180,7 @@ public abstract class L2Effect
 	
 	public int getTotalCount()
 	{
-		return _totalCount;
+		return _template.count;
 	}
 	
 	public void setCount(int newcount)
@@ -242,7 +206,7 @@ public abstract class L2Effect
 
 	public boolean getShowIcon()
 	{
-		return _icon;
+		return _template.showIcon;
 	}
 
 	public int getPeriod()
@@ -262,12 +226,12 @@ public abstract class L2Effect
 	 */
 	public int getElapsedTaskTime()
 	{
-		return (_totalCount - _count) * _period + getTime() + 1;
+		return (getTotalCount() - _count) * _period + getTime() + 1;
 	}
 	
 	public int getTotalTaskTime()
 	{
-		return _totalCount * _period;
+		return getTotalCount() * _period;
 	}
 	
 	public int getRemainingTaskTime()
@@ -295,28 +259,39 @@ public abstract class L2Effect
 		_periodStartTicks = periodStartTicks;
 	}
 	
-	public boolean getInUse()
+	public final boolean getInUse()
 	{
 		return _inUse;
 	}
 	
-	public void setInUse(boolean inUse)
+	public final void setInUse(boolean inUse)
 	{
 		_inUse = inUse;
 		if (_inUse)
+		{
 			_startConditionsCorrect = onStart();
+			
+			if (_template.abnormalEffect != 0)
+				getEffected().startAbnormalEffect(_template.abnormalEffect);
+		}
 		else
-			onExit();
+		{
+			if (_template.abnormalEffect != 0)
+				getEffected().stopAbnormalEffect(_template.abnormalEffect);
+			
+			if (_startConditionsCorrect)
+				onExit();
+		}
 	}
 	
 	public String getStackType()
 	{
-		return _stackType;
+		return _template.stackType;
 	}
 	
 	public float getStackOrder()
 	{
-		return _stackOrder;
+		return _template.stackOrder;
 	}
 	
 	public final L2Skill getSkill()
@@ -351,7 +326,7 @@ public abstract class L2Effect
 		env.target = _effected;
 		env.skill = _skill;
 		
-		return _lambda.calc(env);
+		return _template.lambda.calc(env);
 	}
 	
 	private synchronized void startEffectTask(int duration)
@@ -423,10 +398,8 @@ public abstract class L2Effect
 	public abstract L2EffectType getEffectType();
 	
 	/** Notify started */
-	public boolean onStart()
+	protected boolean onStart()
 	{
-		if (_abnormalEffect != 0)
-			getEffected().startAbnormalEffect(_abnormalEffect);
 		return true;
 	}
 	
@@ -434,10 +407,8 @@ public abstract class L2Effect
 	 * Cancel the effect in the the abnormal effect map of the effected L2Character.<BR>
 	 * <BR>
 	 */
-	public void onExit()
+	protected void onExit()
 	{
-		if (_abnormalEffect != 0)
-			getEffected().stopAbnormalEffect(_abnormalEffect);
 	}
 	
 	/** Return true for continueation of this effect */
@@ -510,8 +481,7 @@ public abstract class L2Effect
 		{
 			// Cancel the effect in the the abnormal effect map of the L2Character
 			if (getInUse() || !(_count > 1 || _period > 0))
-				if (_startConditionsCorrect)
-					setInUse(false);
+				setInUse(false);
 			
 			// If the time left is equal to zero, send the message
 			if (_count == 0)
@@ -528,11 +498,11 @@ public abstract class L2Effect
 	
 	public Func[] getStatFuncs()
 	{
-		if (_funcTemplates == null)
-			return _emptyFunctionSet;
+		if (_template.funcTemplates == null)
+			return Func.EMPTY_ARRAY;
 		
 		LinkedBunch<Func> funcs = new LinkedBunch<Func>();
-		for (FuncTemplate t : _funcTemplates)
+		for (FuncTemplate t : _template.funcTemplates)
 		{
 			Env env = new Env();
 			env.player = getEffector();
@@ -544,14 +514,14 @@ public abstract class L2Effect
 		}
 		
 		if (funcs.size() == 0)
-			return _emptyFunctionSet;
+			return Func.EMPTY_ARRAY;
 		
 		return funcs.moveToArray(new Func[funcs.size()]);
 	}
 	
 	public final void addPacket(EffectInfoPacketList list)
 	{
-		if (!_inUse || !_icon)
+		if (!_inUse || !getShowIcon())
 			return;
 		
 		switch (_state)
@@ -602,19 +572,5 @@ public abstract class L2Effect
 	public EffectTemplate getEffectTemplate()
 	{
 		return _template;
-	}
-	
-	public void destroy()
-	{
-		_effected.removeEffect(this, false);
-		
-		_state = null;
-		_currentTask = null;
-		
-		if (_currentFuture != null)
-		{
-			_currentFuture.cancel(true);
-			_currentFuture = null;
-		}
 	}
 }

@@ -32,6 +32,8 @@ import com.l2jfree.gameserver.skills.conditions.Condition;
 
 public abstract class Func
 {
+	public static final Func[] EMPTY_ARRAY = new Func[0];
+	
 	/** Statistics, that is affected by this function (See L2Character.CALCULATOR_XXX constants) */
 	public final Stats	stat;
 

@@ -21,7 +21,8 @@ import com.l2jfree.gameserver.skills.Env;
  */
 public abstract class Condition implements ConditionListener
 {
-
+	public static final Condition[] EMPTY_ARRAY = new Condition[0];
+	
 	//static final Log _log = LogFactory.getLog(Condition.class.getName());
 
 	private ConditionListener	_listener;

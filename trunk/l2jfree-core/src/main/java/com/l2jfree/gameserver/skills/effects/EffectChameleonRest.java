@@ -50,7 +50,7 @@ public final class EffectChameleonRest extends L2Effect
 		}
 		else
 			effected.getAI().setIntention(CtrlIntention.AI_INTENTION_REST);
-		return super.onStart();
+		return true;
 	}
 
 	/* (non-Javadoc)
@@ -64,8 +64,6 @@ public final class EffectChameleonRest extends L2Effect
 		L2Character effected = getEffected();
 		if (effected instanceof L2PcInstance)
 			((L2PcInstance) effected).setSilentMoving(false);
-
-		super.onExit();
 	}
 
 	@Override

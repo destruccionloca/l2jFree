@@ -34,7 +34,6 @@ public final class EffectSilentMove extends L2Effect
 	@Override
 	public boolean onStart()
 	{
-		super.onStart();
 		if (getEffected() instanceof L2PlayableInstance)
 			((L2PlayableInstance) getEffected()).setSilentMoving(true);
 		return true;
@@ -44,8 +43,6 @@ public final class EffectSilentMove extends L2Effect
 	@Override
 	public void onExit()
 	{
-		super.onExit();
-
 		L2Character effected = getEffected();
 		if (effected instanceof L2PlayableInstance)
 			((L2PlayableInstance) effected).setSilentMoving(false);
