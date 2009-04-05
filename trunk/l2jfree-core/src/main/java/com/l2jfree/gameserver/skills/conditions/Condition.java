@@ -19,64 +19,47 @@ import com.l2jfree.gameserver.skills.Env;
 /**
  * @author mkizub
  */
-public abstract class Condition implements ConditionListener
+public abstract class Condition
 {
 	public static final Condition[] EMPTY_ARRAY = new Condition[0];
 	
-	//static final Log _log = LogFactory.getLog(Condition.class.getName());
-
-	private ConditionListener	_listener;
-	private String				_msg;
-	private int					_msgId;
-	private boolean				_result;
-
+	private String _msg;
+	private int _msgId;
+	
 	public final void setMessage(String msg)
 	{
 		_msg = msg;
 	}
-
+	
 	public final String getMessage()
 	{
-		return _msg;
+		return _msg != null ? _msg : getDefaultMessage();
 	}
-
+	
 	public final void setMessageId(int msgId)
 	{
 		_msgId = msgId;
 	}
-
+	
 	public final int getMessageId()
 	{
-		return _msgId;
+		return _msgId != 0 ? _msgId : getDefaultMessageId();
 	}
-
-	void setListener(ConditionListener listener)
+	
+	String getDefaultMessage()
 	{
-		_listener = listener;
-		notifyChanged();
+		return null;
 	}
-
-	final ConditionListener getListener()
+	
+	int getDefaultMessageId()
 	{
-		return _listener;
+		return 0;
 	}
-
+	
 	public final boolean test(Env env)
 	{
-		boolean res = testImpl(env);
-		if (_listener != null && res != _result)
-		{
-			_result = res;
-			notifyChanged();
-		}
-		return res;
+		return testImpl(env);
 	}
-
+	
 	abstract boolean testImpl(Env env);
-
-	public void notifyChanged()
-	{
-		if (_listener != null)
-			_listener.notifyChanged();
-	}
 }

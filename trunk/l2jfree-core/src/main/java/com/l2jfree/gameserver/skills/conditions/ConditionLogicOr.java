@@ -19,47 +19,15 @@ import com.l2jfree.gameserver.skills.Env;
 /**
  * @author mkizub
  */
-public class ConditionLogicOr extends Condition
+public final class ConditionLogicOr extends ConditionLogic
 {
-	public Condition[]			conditions			= EMPTY_ARRAY;
-
-	public void add(Condition condition)
-	{
-		if (condition == null)
-			return;
-		if (getListener() != null)
-			condition.setListener(this);
-		final int len = conditions.length;
-		final Condition[] tmp = new Condition[len + 1];
-		System.arraycopy(conditions, 0, tmp, 0, len);
-		tmp[len] = condition;
-		conditions = tmp;
-	}
-
 	@Override
-	void setListener(ConditionListener listener)
+	boolean testImpl(Env env)
 	{
-		if (listener != null)
-		{
-			for (Condition c : conditions)
-				c.setListener(this);
-		}
-		else
-		{
-			for (Condition c : conditions)
-				c.setListener(null);
-		}
-		super.setListener(listener);
-	}
-
-	@Override
-	public boolean testImpl(Env env)
-	{
-		for (Condition c : conditions)
-		{
+		for (Condition c : getConditions())
 			if (c.test(env))
 				return true;
-		}
+		
 		return false;
 	}
 }

@@ -14,36 +14,51 @@
  */
 package com.l2jfree.gameserver.skills.conditions;
 
-import com.l2jfree.gameserver.skills.Env;
+import org.apache.commons.lang.ArrayUtils;
 
 /**
- * @author mkizub
+ * @author NB4L1
  */
-public final class ConditionLogicNot extends Condition
+public abstract class ConditionLogic extends Condition
 {
-	private final Condition _condition;
+	private Condition[] _conditions = EMPTY_ARRAY;
 	
-	public ConditionLogicNot(Condition condition)
+	public final Condition[] getConditions()
+	{
+		return _conditions;
+	}
+	
+	public final void add(Condition condition)
 	{
 		if (condition == null)
-			throw new NullPointerException();
+			return;
 		
-		_condition = condition;
+		_conditions = (Condition[])ArrayUtils.add(_conditions, condition);
 	}
 	
 	@Override
-	String getDefaultMessage()
+	final String getDefaultMessage()
 	{
-		String message = _condition.getMessage();
-		if (message != null)
-			return "You need to satisfy the opposite of: " + message;
+		for (Condition c : getConditions())
+		{
+			String message = c.getMessage();
+			if (message != null)
+				return message;
+		}
 		
-		return null;
+		return super.getDefaultMessage();
 	}
 	
 	@Override
-	boolean testImpl(Env env)
+	final int getDefaultMessageId()
 	{
-		return !_condition.test(env);
+		for (Condition c : getConditions())
+		{
+			int messageId = c.getMessageId();
+			if (messageId != 0)
+				return messageId;
+		}
+		
+		return super.getDefaultMessageId();
 	}
 }

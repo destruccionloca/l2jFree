@@ -35,9 +35,9 @@ import com.l2jfree.gameserver.skills.conditions.ConditionGameTime;
 import com.l2jfree.gameserver.skills.conditions.ConditionLogicAnd;
 import com.l2jfree.gameserver.skills.conditions.ConditionLogicNot;
 import com.l2jfree.gameserver.skills.conditions.ConditionLogicOr;
+import com.l2jfree.gameserver.skills.conditions.ConditionPlayerAttackStance;
 import com.l2jfree.gameserver.skills.conditions.ConditionPlayerCp;
 import com.l2jfree.gameserver.skills.conditions.ConditionPlayerHp;
-import com.l2jfree.gameserver.skills.conditions.ConditionPlayerHpPercentage;
 import com.l2jfree.gameserver.skills.conditions.ConditionPlayerLevel;
 import com.l2jfree.gameserver.skills.conditions.ConditionPlayerMp;
 import com.l2jfree.gameserver.skills.conditions.ConditionPlayerRace;
@@ -212,7 +212,7 @@ public class L2DynamicZone extends L2DefaultZone
 			if (n.getNodeType() == Node.ELEMENT_NODE)
 				cond.add(parseCondition(n, template));
 		}
-		if (cond.conditions == null || cond.conditions.length == 0)
+		if (cond.getConditions().length == 0)
 			_log.fatal("Empty <and> condition in zone " + _name);
 		return cond;
 	}
@@ -225,7 +225,7 @@ public class L2DynamicZone extends L2DefaultZone
 			if (n.getNodeType() == Node.ELEMENT_NODE)
 				cond.add(parseCondition(n, template));
 		}
-		if (cond.conditions == null || cond.conditions.length == 0)
+		if (cond.getConditions().length == 0)
 			_log.fatal("Empty <or> condition in zone " + _name);
 		return cond;
 	}
@@ -275,6 +275,31 @@ public class L2DynamicZone extends L2DefaultZone
 				boolean val = Boolean.valueOf(a.getNodeValue());
 				cond = joinAnd(cond, new ConditionPlayerState(PlayerState.RUNNING, val));
 			}
+			else if ("walking".equalsIgnoreCase(a.getNodeName()))
+			{
+				boolean val = Boolean.valueOf(a.getNodeValue());
+				cond = joinAnd(cond, new ConditionPlayerState(PlayerState.WALKING, val));
+			}
+			else if ("behind".equalsIgnoreCase(a.getNodeName()))
+			{
+				boolean val = Boolean.valueOf(a.getNodeValue());
+				cond = joinAnd(cond, new ConditionPlayerState(PlayerState.BEHIND, val));
+			}
+			else if ("front".equalsIgnoreCase(a.getNodeName()))
+			{
+				boolean val = Boolean.valueOf(a.getNodeValue());
+				cond = joinAnd(cond, new ConditionPlayerState(PlayerState.FRONT, val));
+			}
+			else if ("chaotic".equalsIgnoreCase(a.getNodeName()))
+			{
+				boolean val = Boolean.valueOf(a.getNodeValue());
+				cond = joinAnd(cond, new ConditionPlayerState(PlayerState.CHAOTIC, val));
+			}
+			else if ("olympiad".equalsIgnoreCase(a.getNodeName()))
+			{
+				boolean val = Boolean.valueOf(a.getNodeValue());
+				cond = joinAnd(cond, new ConditionPlayerState(PlayerState.OLYMPIAD, val));
+			}
 			else if ("flying".equalsIgnoreCase(a.getNodeName()))
 			{
 				boolean val = Boolean.valueOf(a.getNodeValue());
@@ -285,11 +310,6 @@ public class L2DynamicZone extends L2DefaultZone
 				int hp = Integer.decode(a.getNodeValue());
 				cond = joinAnd(cond, new ConditionPlayerHp(hp));
 			}
-			else if ("hprate".equalsIgnoreCase(a.getNodeName()))
-			{
-				double rate = Double.parseDouble(a.getNodeValue());
-				cond = joinAnd(cond, new ConditionPlayerHpPercentage(rate));
-			}
 			else if ("mp".equalsIgnoreCase(a.getNodeName()))
 			{
 				int mp = Integer.decode(a.getNodeValue());
@@ -299,6 +319,11 @@ public class L2DynamicZone extends L2DefaultZone
 			{
 				int cp = Integer.decode(a.getNodeValue());
 				cond = joinAnd(cond, new ConditionPlayerCp(cp));
+			}
+			else if ("attack_stance".equalsIgnoreCase(a.getNodeName()))
+			{
+				boolean val = Boolean.parseBoolean(a.getNodeValue());
+				cond = joinAnd(cond, new ConditionPlayerAttackStance(val));
 			}
 		}
 

@@ -19,17 +19,25 @@ import com.l2jfree.gameserver.skills.Env;
 /**
  * @author mr
  */
-public class ConditionPlayerHp extends Condition
+public final class ConditionPlayerHp extends Condition
 {
-	private final int	_hp;
-
+	private final int _hp;
+	private final String _msg;
+	
 	public ConditionPlayerHp(int hp)
 	{
 		_hp = hp;
+		_msg = "Can be only used when HP is " + _hp + "% or lower.".intern();
 	}
-
+	
 	@Override
-	public boolean testImpl(Env env)
+	String getDefaultMessage()
+	{
+		return _msg;
+	}
+	
+	@Override
+	boolean testImpl(Env env)
 	{
 		return env.player.getStatus().getCurrentHp() * 100 / env.player.getMaxHp() <= _hp;
 	}

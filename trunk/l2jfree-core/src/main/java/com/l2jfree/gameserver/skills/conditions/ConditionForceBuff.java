@@ -15,41 +15,51 @@
 package com.l2jfree.gameserver.skills.conditions;
 
 import com.l2jfree.gameserver.model.L2Effect;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.effects.EffectForce;
 
 /**
  * @author kombat, Forsaiken
- *
  */
 public final class ConditionForceBuff extends Condition
 {
-	private static final short	BATTLE_FORCE	= 5104;
-	private static final short	SPELL_FORCE		= 5105;
-
-	private final byte[]		_forces;
-
+	private static final short BATTLE_FORCE = 5104;
+	private static final short SPELL_FORCE = 5105;
+	
+	private final int _battleForces;
+	private final int _spellForces;
+	
 	public ConditionForceBuff(byte[] forces)
 	{
-		_forces = forces;
+		_battleForces = forces[0];
+		_spellForces = forces[1];
 	}
-
+	
 	@Override
-	public boolean testImpl(Env env)
+	boolean testImpl(Env env)
 	{
-		if (_forces[0] > 0)
+		L2PcInstance player = env.player.getActingPlayer();
+		
+		if (player.isGM() && player.getActiveClass() == player.getBaseClass())
+			return true;
+		
+		if (_battleForces > 0)
 		{
-			L2Effect force = env.player.getFirstEffect(BATTLE_FORCE);
-			if (force == null || ((EffectForce) force).forces < _forces[0])
+			L2Effect force = player.getFirstEffect(BATTLE_FORCE);
+			
+			if (!(force instanceof EffectForce) || ((EffectForce)force).forces < _battleForces)
 				return false;
 		}
-
-		if (_forces[1] > 0)
+		
+		if (_spellForces > 0)
 		{
 			L2Effect force = env.player.getFirstEffect(SPELL_FORCE);
-			if (force == null || ((EffectForce) force).forces < _forces[1])
+			
+			if (!(force instanceof EffectForce) || ((EffectForce)force).forces < _spellForces)
 				return false;
 		}
+		
 		return true;
 	}
 }

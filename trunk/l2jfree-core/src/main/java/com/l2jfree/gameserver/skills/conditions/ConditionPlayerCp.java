@@ -16,19 +16,26 @@ package com.l2jfree.gameserver.skills.conditions;
 
 import com.l2jfree.gameserver.skills.Env;
 
-public class ConditionPlayerCp extends Condition
+public final class ConditionPlayerCp extends Condition
 {
-
-	private final int	_cp;
-
+	private final int _cp;
+	private final String _msg;
+	
 	public ConditionPlayerCp(int cp)
 	{
 		_cp = cp;
+		_msg = "Can be only used when CP is " + _cp + "% or lower.".intern();
 	}
-
+	
 	@Override
-	public boolean testImpl(Env env)
+	String getDefaultMessage()
 	{
-		return env.player.getStatus().getCurrentCp() * 100 / env.player.getMaxCp() >= _cp;
+		return _msg;
+	}
+	
+	@Override
+	boolean testImpl(Env env)
+	{
+		return env.player.getStatus().getCurrentCp() * 100 / env.player.getMaxCp() <= _cp;
 	}
 }

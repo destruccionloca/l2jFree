@@ -15,19 +15,23 @@
 package com.l2jfree.gameserver.skills.conditions;
 
 import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 
-public class ConditionPlayerHpPercentage extends Condition
+/**
+ * @author NB4L1
+ */
+public final class ConditionPlayerAttackStance extends Condition
 {
-	private double	_p;
-
-	public ConditionPlayerHpPercentage(double p)
+	private final boolean _value;
+	
+	public ConditionPlayerAttackStance(boolean value)
 	{
-		_p = p;
+		_value = value;
 	}
-
+	
 	@Override
-	public boolean testImpl(Env env)
+	boolean testImpl(Env env)
 	{
-		return env.player.getStatus().getCurrentHp() <= env.player.getMaxHp() * _p;
+		return AttackStanceTaskManager.getInstance().getAttackStanceTask(env.player) == _value;
 	}
 }

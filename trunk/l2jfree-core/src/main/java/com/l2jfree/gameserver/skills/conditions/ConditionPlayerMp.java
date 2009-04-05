@@ -19,18 +19,25 @@ import com.l2jfree.gameserver.skills.Env;
 /**
  * @author DiezelMax
  */
-public class ConditionPlayerMp extends Condition
+public final class ConditionPlayerMp extends Condition
 {
-
-	final int	_mp;
-
+	private final int _mp;
+	private final String _msg;
+	
 	public ConditionPlayerMp(int mp)
 	{
 		_mp = mp;
+		_msg = "Can be only used when MP is " + _mp + "% or lower.".intern();
 	}
-
+	
 	@Override
-	public boolean testImpl(Env env)
+	String getDefaultMessage()
+	{
+		return _msg;
+	}
+	
+	@Override
+	boolean testImpl(Env env)
 	{
 		return env.player.getStatus().getCurrentMp() * 100 / env.player.getMaxMp() <= _mp;
 	}
