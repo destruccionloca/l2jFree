@@ -21,16 +21,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.ReentrantLock;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
@@ -165,6 +164,7 @@ import com.l2jfree.gameserver.model.quest.State;
 import com.l2jfree.gameserver.model.restriction.AvailableRestriction;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 import com.l2jfree.gameserver.model.zone.L2Zone;
+import com.l2jfree.gameserver.network.InvalidPacketException;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
@@ -255,6 +255,8 @@ import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.tools.random.Rnd;
 import com.l2jfree.util.LinkedBunch;
+import com.l2jfree.util.SingletonList;
+import com.l2jfree.util.SingletonMap;
 
 /**
  * This class represents all player characters in the world.
@@ -400,8 +402,6 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	private PcAppearance					_appearance;
 
-	public final ReentrantLock				soulShotLock			= new ReentrantLock();
-
 	/** Sitting down and Standing up fix */
 	protected boolean						_protectedSitStand		= false;
 
@@ -468,10 +468,8 @@ public final class L2PcInstance extends L2PlayableInstance
 	private int								_newbie;
 
 	/** The table containing all Quests began by the L2PcInstance */
-	private Map<String, QuestState>			_quests					= new FastMap<String, QuestState>();
+	private Map<String, QuestState>			_quests					= new SingletonMap<String, QuestState>();
 
-	/** All active Faction Quest */
-	//private FastMap<FactionQuestState> _factionquest = new FastMap<FactionQuestState>();
 	/** The list containing all shortCuts of this L2PcInstance */
 	private ShortCuts						_shortCuts				= new ShortCuts(this);
 
@@ -576,11 +574,11 @@ public final class L2PcInstance extends L2PlayableInstance
 	private long							_uptime;
 	private String							_accountName;
 
-	private final Map<Integer, String>		_chars					= new FastMap<Integer, String>();
+	private final Map<Integer, String>		_chars					= new SingletonMap<Integer, String>();
 
 	/** The table containing all L2RecipeList of the L2PcInstance */
-	private Map<Integer, L2RecipeList>		_dwarvenRecipeBook		= new FastMap<Integer, L2RecipeList>();
-	private Map<Integer, L2RecipeList>		_commonRecipeBook		= new FastMap<Integer, L2RecipeList>();
+	private Map<Integer, L2RecipeList>		_dwarvenRecipeBook		= new SingletonMap<Integer, L2RecipeList>();
+	private Map<Integer, L2RecipeList>		_commonRecipeBook		= new SingletonMap<Integer, L2RecipeList>();
 
 	private int								_mountType;
 	private int								_mountNpcId;
@@ -598,12 +596,12 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	protected boolean						_inventoryDisable		= false;
 
-	protected Map<Integer, L2CubicInstance>	_cubics					= new FastMap<Integer, L2CubicInstance>().setShared(true);
+	protected Map<Integer, L2CubicInstance>	_cubics					= new SingletonMap<Integer, L2CubicInstance>().setShared();
 
 	/** The L2FolkInstance corresponding to the last Folk wich one the player talked. */
 	private L2FolkInstance					_lastFolkNpc			= null;
 
-	protected final Map<Integer, Integer>			_activeSoulShots		= new FastMap<Integer, Integer>().setShared(true);
+	protected final Map<Integer, Integer>			_activeSoulShots		= new SingletonMap<Integer, Integer>().setShared();
 	private int								_clanPrivileges			= 0;
 
 	/** L2PcInstance's pledge class (knight, Baron, etc.)*/
@@ -670,7 +668,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	private int								_fishy					= 0;
 	private int								_fishz					= 0;
 
-	private List<Integer>					_transformAllowedSkills				= new FastList<Integer>();
+	private List<Integer>					_transformAllowedSkills				= new SingletonList<Integer>();
 
 	private int								_team					= 0;
 	private int								_wantsPeace				= 0;
@@ -724,8 +722,8 @@ public final class L2PcInstance extends L2PlayableInstance
 	private long							_timePreviousBroadcastStatusUpdate	= 0;
 
 	/** Bypass validations */
-	private List<String>					_validBypass			= new FastList<String>();
-	private List<String>					_validBypass2			= new FastList<String>();
+	private List<String> _validBypass;
+	private List<String> _validBypass2;
 
 	private Forum							_forumMail;
 	private Forum							_forumMemo;
@@ -748,7 +746,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	private long							_lastRecomUpdate;
 
 	/** List with the recommendations that I've given */
-	private List<Integer>					_recomChars				= new FastList<Integer>();
+	private List<Integer>					_recomChars				= new SingletonList<Integer>();
 
 	private boolean							_inCrystallize;
 
@@ -5190,12 +5188,9 @@ public final class L2PcInstance extends L2PlayableInstance
 			while (dropPercent > 0 && Rnd.get(100) < dropPercent && dropCount < dropLimit)
 			{
 				int itemDropPercent = 0;
-				List<Integer> nonDroppableList = new FastList<Integer>();
-				List<Integer> nonDroppableListPet = new FastList<Integer>();
-
-				nonDroppableList = Config.KARMA_LIST_NONDROPPABLE_ITEMS;
-				nonDroppableListPet = Config.KARMA_LIST_NONDROPPABLE_PET_ITEMS;
-
+				List<Integer> nonDroppableList = Config.KARMA_LIST_NONDROPPABLE_ITEMS;
+				List<Integer> nonDroppableListPet = Config.KARMA_LIST_NONDROPPABLE_PET_ITEMS;
+				
 				for (L2ItemInstance itemDrop : getInventory().getItems())
 				{
 					// Don't drop
@@ -7515,7 +7510,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
 			statement = con.prepareStatement(ADD_SKILL_SAVE);
 			
-			List<Integer> storedSkills = new FastList<Integer>();
+			Set<Integer> storedSkills = new HashSet<Integer>();
 			
 			// Store all effect data along with calulated remaining
 			// reuse delays for matching skills. 'restore_type'= 0.
@@ -7526,10 +7521,10 @@ public final class L2PcInstance extends L2PlayableInstance
 					if (effect instanceof EffectForce)
 						continue;
 					int skillId = effect.getSkill().getId();
-					if (storedSkills.contains(skillId))
+					
+					if (!storedSkills.add(skillId))
 						continue;
-					storedSkills.add(skillId);
-
+					
 					statement.setInt(1, getObjectId());
 					statement.setInt(2, skillId);
 					statement.setInt(3, effect.getSkill().getLevel());
@@ -7559,10 +7554,10 @@ public final class L2PcInstance extends L2PlayableInstance
 				if (t.hasNotPassed())
 				{
 					int skillId = t.getSkill();
-					if (storedSkills.contains(skillId))
+					
+					if (!storedSkills.add(skillId))
 						continue;
-					storedSkills.add(skillId);
-
+					
 					statement.setInt(1, getObjectId());
 					statement.setInt(2, skillId);
 					statement.setInt(3, -1);
@@ -10515,7 +10510,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (skillTree == null)
 			return true;
 
-		FastMap<Integer, L2Skill> prevSkillList = new FastMap<Integer, L2Skill>();
+		Map<Integer, L2Skill> prevSkillList = new HashMap<Integer, L2Skill>();
 
 		for (L2SkillLearn skillInfo : skillTree)
 		{
@@ -10618,7 +10613,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	public Map<Integer, SubClass> getSubClasses()
 	{
 		if (_subClasses == null)
-			_subClasses = new FastMap<Integer, SubClass>();
+			_subClasses = new SingletonMap<Integer, SubClass>();
 
 		return _subClasses;
 	}
@@ -11523,7 +11518,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	public void addSnooper(L2PcInstance pci)
 	{
 		if (_snoopListener == null)
-			_snoopListener = new FastList<L2PcInstance>();
+			_snoopListener = new SingletonList<L2PcInstance>();
 
 		if (!_snoopListener.contains(pci))
 			_snoopListener.add(pci); // GM list of "pci"s
@@ -11556,7 +11551,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	public void addSnooped(L2PcInstance pci)
 	{
 		if (_snoopedPlayer == null)
-			_snoopedPlayer = new FastList<L2PcInstance>();
+			_snoopedPlayer = new SingletonList<L2PcInstance>();
 
 		if (!_snoopedPlayer.contains(pci))
 		{
@@ -11565,58 +11560,59 @@ public final class L2PcInstance extends L2PlayableInstance
 			sendPacket(sn);
 		}
 	}
-
-	public synchronized void addBypass(String bypass)
+	
+	public synchronized void buildBypassCache(final StringBuilder builder)
 	{
-		if (bypass == null)
-			return;
-		_validBypass.add(bypass);
-		//_log.warn("[BypassAdd]"+getName()+" '"+bypass+"'");
-	}
-
-	public void addBypass2(String bypass)
-	{
-		if (bypass == null)
-			return;
-		_validBypass2.add(bypass);
-		//_log.warn("[BypassAdd]"+getName()+" '"+bypass+"'");
-	}
-
-	public synchronized boolean validateBypass(String cmd)
-	{
-		if (!Config.BYPASS_VALIDATION)
-			return true;
-
-		for (String bp : _validBypass)
+		if (_validBypass != null)
+			_validBypass.clear();
+		
+		if (_validBypass2 != null)
+			_validBypass2.clear();
+		
+		for (int i = 0; i < builder.length(); i++)
 		{
-			if (bp == null)
-				continue;
-
-			//_log.warn("[BypassValidation]"+getName()+" '"+bp+"'");
-			if (bp.equals(cmd))
-				return true;
+			int start = builder.indexOf("bypass -h", i);
+			int finish = builder.indexOf("\"", start);
+			
+			if (start < 0 || finish < 0)
+				break;
+			
+			start += 10;
+			i = start;
+			int finish2 = builder.indexOf("$", start);
+			
+			if (0 < finish2 && finish2 < finish)
+			{
+				if (_validBypass2 == null)
+					_validBypass2 = new ArrayList<String>();
+				
+				_validBypass2.add(builder.substring(start, finish2).trim());
+			}
+			else
+			{
+				if (_validBypass == null)
+					_validBypass = new ArrayList<String>();
+				
+				_validBypass.add(builder.substring(start, finish).trim());
+			}
 		}
-
-		for (String bp : _validBypass2)
-		{
-			if (bp == null)
-				continue;
-
-			//_log.warn("[BypassValidation]"+getName()+" '"+bp+"'");
-			if (cmd.startsWith(bp))
-				return true;
-		}
-
-		_log.warn("[L2PcInstance] player [" + getName() + "] sent invalid bypass '" + cmd + "', ban this player!");
-		return false;
 	}
-
-	public synchronized void clearBypass()
+	
+	public synchronized void validateBypass(String cmd) throws InvalidPacketException
 	{
-		_validBypass.clear();
-		_validBypass2.clear();
+		if (_validBypass != null)
+			for (String bp : _validBypass)
+				if (bp != null && cmd.equals(bp))
+					return;
+		
+		if (_validBypass2 != null)
+			for (String bp : _validBypass2)
+				if (bp != null && cmd.startsWith(bp))
+					return;
+		
+		throw new InvalidPacketException("[" + this + "] sent invalid bypass '" + cmd + "'!");
 	}
-
+	
 	public boolean validateItemManipulation(int objectId, String action)
 	{
 		L2ItemInstance item = getInventory().getItemByObjectId(objectId);
@@ -13386,9 +13382,9 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	private boolean _canFeed;
 
-	private FastMap<Integer, TimeStamp>	_reuseTimeStamps	= new FastMap<Integer, TimeStamp>().setShared(true);
+	private Map<Integer, TimeStamp>	_reuseTimeStamps	= new SingletonMap<Integer, TimeStamp>().setShared();
 
-	public FastMap<Integer, TimeStamp> getReuseTimeStamps()
+	public Map<Integer, TimeStamp> getReuseTimeStamps()
 	{
 		return _reuseTimeStamps;
 	}

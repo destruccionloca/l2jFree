@@ -22,8 +22,6 @@ import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_INTERACT;
 import java.util.List;
 import java.util.concurrent.Future;
 
-import javolution.util.FastList;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.datatables.SkillTable;
@@ -842,30 +840,26 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			return;
 
 		// Get 2 most hated chars
-		List<L2Character> hated = ((L2Attackable) _actor).get2MostHated();
+		L2Character[] hated = ((L2Attackable) _actor).get2MostHated();
 		if (_actor.isConfused())
 		{
 			if (hated != null)
-				hated.set(0, originalAttackTarget); // effect handles selection
+				hated[0] = originalAttackTarget; // effect handles selection
 			else
-			{
-				hated = new FastList<L2Character>();
-				hated.add(originalAttackTarget);
-				hated.add(null);
-			}
+				hated = new L2Character[] { originalAttackTarget, null };
 		}
 
-		if (hated == null || hated.get(0) == null)
+		if (hated == null || hated[0] == null)
 		{
 			setIntention(AI_INTENTION_ACTIVE);
 			return;
 		}
-		if (hated.get(0) != originalAttackTarget)
+		if (hated[0] != originalAttackTarget)
 		{
-			setAttackTarget(hated.get(0));
+			setAttackTarget(hated[0]);
 		}
-		_mostHatedAnalysis.update(hated.get(0));
-		_secondMostHatedAnalysis.update(hated.get(1));
+		_mostHatedAnalysis.update(hated[0]);
+		_secondMostHatedAnalysis.update(hated[1]);
 
 		// Get all information needed to choose between physical or magical attack
 		_actor.setTarget(_mostHatedAnalysis.character);
@@ -876,11 +870,10 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		// Reconsider target next round if _actor hasn't got hits in for last 14 seconds
 		if (!_actor.isMuted() && _attackTimeout - 160 < GameTimeController.getGameTicks() && _secondMostHatedAnalysis.character != null)
 		{
-			if (Util.checkIfInRange(900, _actor, hated.get(1), true))
+			if (Util.checkIfInRange(900, _actor, hated[1], true))
 			{
 				// take off 2* the amount the aggro is larger than second most
-				((L2Attackable) _actor).reduceHate(hated.get(0), 2 * (((L2Attackable) _actor).getHating(hated.get(0)) - ((L2Attackable) _actor).getHating(hated
-						.get(1))));
+				((L2Attackable) _actor).reduceHate(hated[0], 2 * (((L2Attackable) _actor).getHating(hated[0]) - ((L2Attackable) _actor).getHating(hated[1])));
 				// Calculate a new attack timeout
 				_attackTimeout = MAX_ATTACK_TIMEOUT + GameTimeController.getGameTicks();
 			}
@@ -894,14 +887,12 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 					&& _actor.getPlanDistanceSq(_secondMostHatedAnalysis.character.getX(), _secondMostHatedAnalysis.character.getY()) < _selfAnalysis.maxCastRange
 							* _selfAnalysis.maxCastRange)
 			{
-				((L2Attackable) _actor).reduceHate(hated.get(0), 1 + (((L2Attackable) _actor).getHating(hated.get(0)) - ((L2Attackable) _actor).getHating(hated
-						.get(1))));
+				((L2Attackable) _actor).reduceHate(hated[0], 1 + (((L2Attackable) _actor).getHating(hated[0]) - ((L2Attackable) _actor).getHating(hated[1])));
 			}
 			else if (dist2 > range * range
 					&& _actor.getPlanDistanceSq(_secondMostHatedAnalysis.character.getX(), _secondMostHatedAnalysis.character.getY()) < range * range)
 			{
-				((L2Attackable) _actor).reduceHate(hated.get(0), 1 + (((L2Attackable) _actor).getHating(hated.get(0)) - ((L2Attackable) _actor).getHating(hated
-						.get(1))));
+				((L2Attackable) _actor).reduceHate(hated[0], 1 + (((L2Attackable) _actor).getHating(hated[0]) - ((L2Attackable) _actor).getHating(hated[1])));
 			}
 		}
 

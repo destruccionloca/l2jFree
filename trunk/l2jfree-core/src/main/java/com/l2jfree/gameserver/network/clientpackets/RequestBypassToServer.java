@@ -16,9 +16,6 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import java.util.StringTokenizer;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.communitybbs.CommunityBoard;
@@ -35,6 +32,7 @@ import com.l2jfree.gameserver.model.entity.events.DM;
 import com.l2jfree.gameserver.model.entity.events.TvT;
 import com.l2jfree.gameserver.model.entity.events.VIP;
 import com.l2jfree.gameserver.model.olympiad.Olympiad;
+import com.l2jfree.gameserver.network.InvalidPacketException;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.GMViewPledgeInfo;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -47,7 +45,6 @@ import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 public class RequestBypassToServer extends L2GameClientPacket
 {
 	private static final String	_C__21_REQUESTBYPASSTOSERVER	= "[C] 21 RequestBypassToServer";
-	private final static Log	_log							= LogFactory.getLog(RequestBypassToServer.class.getName());
 
 	// S
 	private String				_command;
@@ -59,171 +56,161 @@ public class RequestBypassToServer extends L2GameClientPacket
 	}
 
 	@Override
-	protected void runImpl()
+	protected void runImpl() throws InvalidPacketException
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 
 		if (activeChar == null)
 			return;
 
-		try
+		if (_command.startsWith("admin_"))
 		{
-			if (_command.startsWith("admin_"))
-			{
-				AdminCommandHandler.getInstance().useAdminCommand(activeChar, _command);
-			}
-			else if (_command.equals("come_here") && activeChar.getAccessLevel() >= Config.GM_ACCESSLEVEL)
-				comeHere(activeChar);
-			else if (_command.startsWith("show_clan_info "))
-				activeChar.sendPacket(new GMViewPledgeInfo(ClanTable.getInstance().getClanByName(_command.substring(15)), activeChar));
-			else if (_command.startsWith("player_help "))
-				playerHelp(activeChar, _command.substring(12));
-			else if (_command.startsWith("npc_"))
-			{
-				if (!activeChar.validateBypass(_command))
-					return;
-
-				int endOfId = _command.indexOf('_', 5);
-				String id;
-				if (endOfId > 0)
-					id = _command.substring(4, endOfId);
-				else
-					id = _command.substring(4);
-				try
-				{
-					L2Object object = null;
-					int objectId = Integer.parseInt(id);
-
-					// Get object from target
-					if (activeChar.getTargetId() == objectId)
-						object = activeChar.getTarget();
-
-					// Get object from world
-					if (object == null)
-					{
-						object = L2World.getInstance().findObject(objectId);
-						//_log.warn("Player "+activeChar.getName()+" bypassed command to NPC outside of his knownlist.");
-					}
-
-					if (_command.substring(endOfId + 1).startsWith("event_participate"))
-						L2Event.inscribePlayer(activeChar);
-
-					else if (_command.substring(endOfId + 1).startsWith("vip_joinVIPTeam"))
-						VIP.addPlayerVIP(activeChar);
-
-					else if (_command.substring(endOfId + 1).startsWith("vip_joinNotVIPTeam"))
-						VIP.addPlayerNotVIP(activeChar);
-
-					else if (_command.substring(endOfId + 1).startsWith("vip_finishVIP"))
-						VIP.vipWin(activeChar);
-
-					else if (_command.substring(endOfId + 1).startsWith("tvt_player_join "))
-					{
-						String teamName = _command.substring(endOfId + 1).substring(16);
-
-						if (TvT._joining)
-							TvT.addPlayer(activeChar, teamName);
-						else
-							activeChar.sendMessage("The event is already started. You can not join now!");
-					}
-
-					else if (_command.substring(endOfId + 1).startsWith("tvt_player_leave"))
-					{
-						if (TvT._joining)
-							TvT.removePlayer(activeChar);
-						else
-							activeChar.sendMessage("The event is already started. You can not leave now!");
-					}
-
-					else if (_command.substring(endOfId + 1).startsWith("dmevent_player_join"))
-					{
-						if (DM._joining)
-							DM.addPlayer(activeChar);
-						else
-							activeChar.sendMessage("The event is already started. You can not join now!");
-					}
-
-					else if (_command.substring(endOfId + 1).startsWith("dmevent_player_leave"))
-					{
-						if (DM._joining)
-							DM.removePlayer(activeChar);
-						else
-							activeChar.sendMessage("The event is already started. You can not leave now!");
-					}
-
-					else if (_command.substring(endOfId + 1).startsWith("ctf_player_join "))
-					{
-						String teamName = _command.substring(endOfId + 1).substring(16);
-
-						if (CTF._joining)
-							CTF.addPlayer(activeChar, teamName);
-						else
-							activeChar.sendMessage("The event is already started. You can not join now!");
-					}
-
-					else if (_command.substring(endOfId + 1).startsWith("ctf_player_leave"))
-					{
-						if (CTF._joining)
-							CTF.removePlayer(activeChar);
-						else
-							activeChar.sendMessage("The event is already started. You can not leave now!");
-					}
-
-					else if (object instanceof L2NpcInstance && endOfId > 0
-							&& activeChar.isInsideRadius(object, L2NpcInstance.INTERACTION_DISTANCE, false, false))
-						((L2NpcInstance) object).onBypassFeedback(activeChar, _command.substring(endOfId + 1));
-					activeChar.sendPacket(ActionFailed.STATIC_PACKET);
-				}
-				catch (NumberFormatException nfe)
-				{
-				}
-			}
-			//  Draw a Symbol
-			else if (_command.equals("menu_select?ask=-16&reply=1"))
-			{
-				if (!activeChar.validateBypass(_command))
-					return;
-
-				L2Object object = activeChar.getTarget();
-				if (object instanceof L2NpcInstance)
-					((L2NpcInstance) object).onBypassFeedback(activeChar, _command);
-			}
-			else if (_command.equals("menu_select?ask=-16&reply=2"))
-			{
-				L2Object object = activeChar.getTarget();
-				if (object instanceof L2NpcInstance)
-					((L2NpcInstance) object).onBypassFeedback(activeChar, _command);
-			}
-			// Navigate throught Manor windows
-			else if (_command.startsWith("manor_menu_select?"))
-			{
-				L2Object object = activeChar.getTarget();
-				if (object instanceof L2NpcInstance)
-					((L2NpcInstance) object).onBypassFeedback(activeChar, _command);
-			}
-			else if (_command.startsWith("bbs_"))
-				CommunityBoard.getInstance().handleCommands(getClient(), _command);
-			else if (_command.startsWith("_bbs"))
-				CommunityBoard.getInstance().handleCommands(getClient(), _command);
-			else if (_command.startsWith("Quest "))
-			{
-				if (!activeChar.validateBypass(_command))
-					return;
-
-				String p = _command.substring(6).trim();
-				int idx = p.indexOf(' ');
-				if (idx < 0)
-					activeChar.processQuestEvent(p, "");
-				else
-					activeChar.processQuestEvent(p.substring(0, idx), p.substring(idx).trim());
-			}
-			else if (_command.startsWith("OlympiadArenaChange"))
-				Olympiad.bypassChangeArena(_command, activeChar);
+			AdminCommandHandler.getInstance().useAdminCommand(activeChar, _command);
 		}
-		catch (Exception e)
+		else if (_command.equals("come_here") && activeChar.getAccessLevel() >= Config.GM_ACCESSLEVEL)
+			comeHere(activeChar);
+		else if (_command.startsWith("show_clan_info "))
+			activeChar.sendPacket(new GMViewPledgeInfo(ClanTable.getInstance().getClanByName(_command.substring(15)), activeChar));
+		else if (_command.startsWith("player_help "))
+			playerHelp(activeChar, _command.substring(12));
+		else if (_command.startsWith("npc_"))
 		{
-			_log.warn("Bad RequestBypassToServer: ", e);
+			activeChar.validateBypass(_command);
+			
+			int endOfId = _command.indexOf('_', 5);
+			String id;
+			if (endOfId > 0)
+				id = _command.substring(4, endOfId);
+			else
+				id = _command.substring(4);
+			try
+			{
+				L2Object object = null;
+				int objectId = Integer.parseInt(id);
+
+				// Get object from target
+				if (activeChar.getTargetId() == objectId)
+					object = activeChar.getTarget();
+
+				// Get object from world
+				if (object == null)
+				{
+					object = L2World.getInstance().findObject(objectId);
+					//_log.warn("Player "+activeChar.getName()+" bypassed command to NPC outside of his knownlist.");
+				}
+
+				if (_command.substring(endOfId + 1).startsWith("event_participate"))
+					L2Event.inscribePlayer(activeChar);
+
+				else if (_command.substring(endOfId + 1).startsWith("vip_joinVIPTeam"))
+					VIP.addPlayerVIP(activeChar);
+
+				else if (_command.substring(endOfId + 1).startsWith("vip_joinNotVIPTeam"))
+					VIP.addPlayerNotVIP(activeChar);
+
+				else if (_command.substring(endOfId + 1).startsWith("vip_finishVIP"))
+					VIP.vipWin(activeChar);
+
+				else if (_command.substring(endOfId + 1).startsWith("tvt_player_join "))
+				{
+					String teamName = _command.substring(endOfId + 1).substring(16);
+
+					if (TvT._joining)
+						TvT.addPlayer(activeChar, teamName);
+					else
+						activeChar.sendMessage("The event is already started. You can not join now!");
+				}
+
+				else if (_command.substring(endOfId + 1).startsWith("tvt_player_leave"))
+				{
+					if (TvT._joining)
+						TvT.removePlayer(activeChar);
+					else
+						activeChar.sendMessage("The event is already started. You can not leave now!");
+				}
+
+				else if (_command.substring(endOfId + 1).startsWith("dmevent_player_join"))
+				{
+					if (DM._joining)
+						DM.addPlayer(activeChar);
+					else
+						activeChar.sendMessage("The event is already started. You can not join now!");
+				}
+
+				else if (_command.substring(endOfId + 1).startsWith("dmevent_player_leave"))
+				{
+					if (DM._joining)
+						DM.removePlayer(activeChar);
+					else
+						activeChar.sendMessage("The event is already started. You can not leave now!");
+				}
+
+				else if (_command.substring(endOfId + 1).startsWith("ctf_player_join "))
+				{
+					String teamName = _command.substring(endOfId + 1).substring(16);
+
+					if (CTF._joining)
+						CTF.addPlayer(activeChar, teamName);
+					else
+						activeChar.sendMessage("The event is already started. You can not join now!");
+				}
+
+				else if (_command.substring(endOfId + 1).startsWith("ctf_player_leave"))
+				{
+					if (CTF._joining)
+						CTF.removePlayer(activeChar);
+					else
+						activeChar.sendMessage("The event is already started. You can not leave now!");
+				}
+
+				else if (object instanceof L2NpcInstance && endOfId > 0
+						&& activeChar.isInsideRadius(object, L2NpcInstance.INTERACTION_DISTANCE, false, false))
+					((L2NpcInstance) object).onBypassFeedback(activeChar, _command.substring(endOfId + 1));
+				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			}
+			catch (NumberFormatException nfe)
+			{
+			}
 		}
+		//  Draw a Symbol
+		else if (_command.equals("menu_select?ask=-16&reply=1"))
+		{
+			activeChar.validateBypass(_command);
+			
+			L2Object object = activeChar.getTarget();
+			if (object instanceof L2NpcInstance)
+				((L2NpcInstance) object).onBypassFeedback(activeChar, _command);
+		}
+		else if (_command.equals("menu_select?ask=-16&reply=2"))
+		{
+			L2Object object = activeChar.getTarget();
+			if (object instanceof L2NpcInstance)
+				((L2NpcInstance) object).onBypassFeedback(activeChar, _command);
+		}
+		// Navigate throught Manor windows
+		else if (_command.startsWith("manor_menu_select?"))
+		{
+			L2Object object = activeChar.getTarget();
+			if (object instanceof L2NpcInstance)
+				((L2NpcInstance) object).onBypassFeedback(activeChar, _command);
+		}
+		else if (_command.startsWith("bbs_"))
+			CommunityBoard.getInstance().handleCommands(getClient(), _command);
+		else if (_command.startsWith("_bbs"))
+			CommunityBoard.getInstance().handleCommands(getClient(), _command);
+		else if (_command.startsWith("Quest "))
+		{
+			activeChar.validateBypass(_command);
+			
+			String p = _command.substring(6).trim();
+			int idx = p.indexOf(' ');
+			if (idx < 0)
+				activeChar.processQuestEvent(p, "");
+			else
+				activeChar.processQuestEvent(p.substring(0, idx), p.substring(idx).trim());
+		}
+		else if (_command.startsWith("OlympiadArenaChange"))
+			Olympiad.bypassChangeArena(_command, activeChar);
 	}
 
 	/**

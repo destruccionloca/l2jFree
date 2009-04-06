@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.model;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -1152,7 +1153,7 @@ public class L2Attackable extends L2NpcInstance
 	 * Return the 2 most hated L2Character of the L2Attackable _aggroList.<BR>
 	 * <BR>
 	 */
-	public List<L2Character> get2MostHated()
+	public L2Character[] get2MostHated()
 	{
 		if (getAggroListRP().isEmpty() || isAlikeDead())
 			return null;
@@ -1160,7 +1161,7 @@ public class L2Attackable extends L2NpcInstance
 		L2Character mostHated = null;
 		L2Character secondMostHated = null;
 		int maxHate = 0;
-		List<L2Character> result = new FastList<L2Character>();
+		L2Character[] result = new L2Character[2];
 
 		// While iterating over this map removing objects is not allowed
 		synchronized (getAggroList())
@@ -1180,11 +1181,10 @@ public class L2Attackable extends L2NpcInstance
 				}
 			}
 		}
-		result.add(mostHated);
+		result[0] = mostHated;
 		if (getAttackByList().contains(secondMostHated))
-			result.add(secondMostHated);
-		else
-			result.add(null);
+			result[1] = secondMostHated;
+		
 		return result;
 	}
 
@@ -2316,7 +2316,7 @@ public class L2Attackable extends L2NpcInstance
 		// 2- Everything is correct, but it failed. Nothing happens. (57.5%)
 		// 3- Everything is correct, the crystal level up. A sound event is played. (32.5%)
 
-		FastList<L2PcInstance> players = new FastList<L2PcInstance>();
+		List<L2PcInstance> players;
 
 		if (absorbType == L2NpcTemplate.AbsorbCrystalType.FULL_PARTY && killer.isInParty())
 			players = killer.getParty().getPartyMembers();
@@ -2325,10 +2325,10 @@ public class L2Attackable extends L2NpcInstance
 			// This is a naive method for selecting a random member.  It gets any random party member and
 			// then checks if the member has a valid crystal.  It does not select the random party member
 			// among those who have crystals, only.  However, this might actually be correct (same as retail).
-			players.add(killer.getParty().getPartyMembers().get(Rnd.get(killer.getParty().getMemberCount())));
+			players = Collections.singletonList(killer.getParty().getPartyMembers().get(Rnd.get(killer.getParty().getMemberCount())));
 		}
 		else
-			players.add(killer);
+			players = Collections.singletonList(killer);
 
 		for (L2PcInstance player : players)
 		{

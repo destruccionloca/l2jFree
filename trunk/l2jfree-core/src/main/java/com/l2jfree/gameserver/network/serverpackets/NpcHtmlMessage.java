@@ -14,114 +14,110 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.L2GameClient;
 
 /**
- *
- * the HTML parser in the client knowns these standard and non-standard tags and attributes 
- * VOLUMN
- * UNKNOWN
- * UL
- * U
- * TT
- * TR
- * TITLE
- * TEXTCODE
- * TEXTAREA
- * TD
- * TABLE
- * SUP
- * SUB
- * STRIKE
- * SPIN
- * SELECT
- * RIGHT
- * PRE
- * P
- * OPTION
- * OL
- * MULTIEDIT
- * LI
- * LEFT
- * INPUT
- * IMG
- * I
- * HTML
- * H7
- * H6
- * H5
- * H4
- * H3
- * H2
- * H1
- * FONT
- * EXTEND
- * EDIT
- * COMMENT
- * COMBOBOX
- * CENTER
- * BUTTON
- * BR
- * BODY
- * BAR
- * ADDRESS
- * A
- * SEL
- * LIST
- * VAR
- * FORE
- * READONL
- * ROWS
- * VALIGN
- * FIXWIDTH
- * BORDERCOLORLI
- * BORDERCOLORDA
- * BORDERCOLOR
- * BORDER
- * BGCOLOR
- * BACKGROUND
- * ALIGN
- * VALU
- * READONLY
- * MULTIPLE
- * SELECTED
- * TYP
- * TYPE
- * MAXLENGTH
- * CHECKED
- * SRC
- * Y
- * X
- * QUERYDELAY
- * NOSCROLLBAR
- * IMGSRC
- * B
- * FG
- * SIZE
- * FACE
- * COLOR
- * DEFFON
- * DEFFIXEDFONT
- * WIDTH
- * VALUE
- * TOOLTIP
- * NAME
- * MIN
- * MAX
- * HEIGHT
- * DISABLED
- * ALIGN
- * MSG
- * LINK
- * HREF
- * ACTION
- *	
- *
- * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
- */
+*
+* the HTML parser in the client knowns these standard and non-standard tags and attributes 
+* VOLUMN
+* UNKNOWN
+* UL
+* U
+* TT
+* TR
+* TITLE
+* TEXTCODE
+* TEXTAREA
+* TD
+* TABLE
+* SUP
+* SUB
+* STRIKE
+* SPIN
+* SELECT
+* RIGHT
+* PRE
+* P
+* OPTION
+* OL
+* MULTIEDIT
+* LI
+* LEFT
+* INPUT
+* IMG
+* I
+* HTML
+* H7
+* H6
+* H5
+* H4
+* H3
+* H2
+* H1
+* FONT
+* EXTEND
+* EDIT
+* COMMENT
+* COMBOBOX
+* CENTER
+* BUTTON
+* BR
+* BODY
+* BAR
+* ADDRESS
+* A
+* SEL
+* LIST
+* VAR
+* FORE
+* READONL
+* ROWS
+* VALIGN
+* FIXWIDTH
+* BORDERCOLORLI
+* BORDERCOLORDA
+* BORDERCOLOR
+* BORDER
+* BGCOLOR
+* BACKGROUND
+* ALIGN
+* VALU
+* READONLY
+* MULTIPLE
+* SELECTED
+* TYP
+* TYPE
+* MAXLENGTH
+* CHECKED
+* SRC
+* Y
+* X
+* QUERYDELAY
+* NOSCROLLBAR
+* IMGSRC
+* B
+* FG
+* SIZE
+* FACE
+* COLOR
+* DEFFON
+* DEFFIXEDFONT
+* WIDTH
+* VALUE
+* TOOLTIP
+* NAME
+* MIN
+* MAX
+* HEIGHT
+* DISABLED
+* ALIGN
+* MSG
+* LINK
+* HREF
+* ACTION
+*/
 public final class NpcHtmlMessage extends L2GameServerPacket
 {
 	private static final String _S__1B_NPCHTMLMESSAGE = "[S] 0f NpcHtmlMessage";
@@ -153,8 +149,8 @@ public final class NpcHtmlMessage extends L2GameServerPacket
 	@Override
 	public void runImpl(L2GameClient client, L2PcInstance activeChar)
 	{
-		if (Config.BYPASS_VALIDATION)
-			buildBypassCache(activeChar);
+		if (activeChar != null)
+			activeChar.buildBypassCache(_builder);
 	}
 	
 	public void setHtml(CharSequence text)
@@ -200,32 +196,6 @@ public final class NpcHtmlMessage extends L2GameServerPacket
 	public void replace(String pattern, Object value)
 	{
 		replace(pattern, String.valueOf(value));
-	}
-	
-	private void buildBypassCache(L2PcInstance activeChar)
-	{
-		if (activeChar == null)
-			return;
-		
-		activeChar.clearBypass();
-		
-		for (int i = 0; i < _builder.length(); i++)
-		{
-			int start = _builder.indexOf("bypass -h", i);
-			int finish = _builder.indexOf("\"", start);
-			
-			if (start < 0 || finish < 0)
-				break;
-			
-			start += 10;
-			i = start;
-			int finish2 = _builder.indexOf("$", start);
-			
-			if (0 < finish2 && finish2 < finish)
-				activeChar.addBypass2(_builder.substring(start, finish2).trim());
-			else
-				activeChar.addBypass(_builder.substring(start, finish).trim());
-		}
 	}
 	
 	@Override

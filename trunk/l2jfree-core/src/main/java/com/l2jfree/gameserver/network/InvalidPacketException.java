@@ -12,25 +12,34 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.gameserver.skills.conditions;
-
-import com.l2jfree.gameserver.skills.Env;
+package com.l2jfree.gameserver.network;
 
 /**
- * @author Steuf
+ * Exception thrown by L2GameClientPacket.runImpl() to trigger IOFloodManager.report().
+ * 
+ * @author NB4L1
  */
-public final class ConditionWithSkill extends Condition
+public class InvalidPacketException extends Exception
 {
-	private final boolean _withSkill;
+	private static final long serialVersionUID = -8023992556276431695L;
 	
-	public ConditionWithSkill(boolean withSkill)
+	public InvalidPacketException()
 	{
-		_withSkill = withSkill;
+		super();
 	}
 	
-	@Override
-	boolean testImpl(Env env)
+	public InvalidPacketException(String message)
 	{
-		return _withSkill == (env.skill != null);
+		super(message);
+	}
+	
+	public InvalidPacketException(String message, Throwable cause)
+	{
+		super(message, cause);
+	}
+	
+	public InvalidPacketException(Throwable cause)
+	{
+		super(cause);
 	}
 }

@@ -21,7 +21,7 @@ import com.l2jfree.gameserver.skills.Env;
 /**
  * @author mkizub
  */
-public class ConditionPlayerState extends Condition
+public final class ConditionPlayerState extends Condition
 {
 	private final PlayerState _check;
 	private final boolean _required;
@@ -33,23 +33,21 @@ public class ConditionPlayerState extends Condition
 	}
 	
 	@Override
-	public boolean testImpl(Env env)
+	boolean testImpl(Env env)
 	{
 		L2PcInstance player;
 		switch (_check)
 		{
 			case RESTING:
 				if (env.player instanceof L2PcInstance)
-				{
 					return ((L2PcInstance)env.player).isSitting() == _required;
-				}
-				return !_required;
+				break;
 			case MOVING:
 				return env.player.isMoving() == _required;
 			case RUNNING:
-				return env.player.isMoving() == _required && env.player.isRunning() == _required;
+				return (env.player.isMoving() && env.player.isRunning()) == _required;
 			case WALKING:
-				return env.player.isMoving() == _required && env.player.isRunning() != _required;
+				return (env.player.isMoving() && !env.player.isRunning()) == _required;
 			case BEHIND:
 				return env.player.isBehindTarget() == _required;
 			case FRONT:
@@ -58,16 +56,16 @@ public class ConditionPlayerState extends Condition
 				player = env.player.getActingPlayer();
 				if (player != null)
 					return player.getKarma() > 0 == _required;
-				return !_required;
+				break;
 			case OLYMPIAD:
 				player = env.player.getActingPlayer();
 				if (player != null)
 					return player.isInOlympiadMode() == _required;
-				return !_required;
-				
+				break;
 			case FLYING:
 				return env.player.isFlying() == _required;
 		}
+		
 		return !_required;
 	}
 }

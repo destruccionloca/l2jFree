@@ -22,6 +22,7 @@ import org.mmocore.network.ReceivablePacket;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.IOFloodManager;
+import com.l2jfree.gameserver.network.InvalidPacketException;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.IOFloodManager.ErrorMode;
@@ -54,7 +55,7 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 		{
 			IOFloodManager.getInstance().report(ErrorMode.BUFFER_UNDER_FLOW, getClient(), this, e);
 		}
-		catch (Exception e)
+		catch (RuntimeException e)
 		{
 			IOFloodManager.getInstance().report(ErrorMode.FAILED_READING, getClient(), this, e);
 		}
@@ -86,13 +87,17 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 			
 			runImpl();
 		}
-		catch (Exception e)
+		catch (InvalidPacketException e)
+		{
+			IOFloodManager.getInstance().report(ErrorMode.FAILED_RUNNING, getClient(), this, e);
+		}
+		catch (RuntimeException e)
 		{
 			IOFloodManager.getInstance().report(ErrorMode.FAILED_RUNNING, getClient(), this, e);
 		}
 	}
 	
-	protected abstract void runImpl();
+	protected abstract void runImpl() throws InvalidPacketException;
 	
 	protected final void sendPacket(L2GameServerPacket gsp)
 	{
@@ -104,10 +109,10 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 		getClient().sendPacket(sm.getSystemMessage());
 	}
 	
-	/**
-	 * @return a String with this packet name for debuging purposes
-	 */
-	public abstract String getType();
+	public String getType()
+	{
+		return getClass().getSimpleName();
+	}
 	
 	/**
 	 * Should be overriden.

@@ -1078,7 +1078,6 @@ public final class Config extends L2Config
 	public static int				MIN_MONSTER_ANIMATION;
 	public static int				MAX_MONSTER_ANIMATION;
 	public static boolean			SHOW_NPC_LVL;									// Show L2Monster level and aggro ?
-	public static boolean			BYPASS_VALIDATION;
 	public static boolean			GAMEGUARD_ENFORCE;
 	public static boolean			GAMEGUARD_PROHIBITACTION;
 	public static boolean			ONLINE_PLAYERS_AT_STARTUP;						// Show Online Players announce
@@ -1225,8 +1224,6 @@ public final class Config extends L2Config
 
 			DEFAULT_PUNISH = Integer.parseInt(optionsSettings.getProperty("DefaultPunish", "2"));
 			DEFAULT_PUNISH_PARAM = Integer.parseInt(optionsSettings.getProperty("DefaultPunishParam", "0"));
-
-			BYPASS_VALIDATION = Boolean.parseBoolean(optionsSettings.getProperty("BypassValidation", "True"));
 
 			GAMEGUARD_ENFORCE = Boolean.parseBoolean(optionsSettings.getProperty("GameGuardEnforce", "False"));
 			GAMEGUARD_PROHIBITACTION = Boolean.parseBoolean(optionsSettings.getProperty("GameGuardProhibitAction", "False"));
@@ -3410,8 +3407,6 @@ public final class Config extends L2Config
 			ALLOW_MANOR = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("AllowPetWalkers"))
 			ALLOW_PET_WALKERS = Boolean.parseBoolean(pValue);
-		else if (pName.equalsIgnoreCase("BypassValidation"))
-			BYPASS_VALIDATION = Boolean.parseBoolean(pValue);
 
 		else if (pName.equalsIgnoreCase("ShowLevelOnCommunityBoard"))
 			SHOW_LEVEL_COMMUNITYBOARD = Boolean.parseBoolean(pValue);

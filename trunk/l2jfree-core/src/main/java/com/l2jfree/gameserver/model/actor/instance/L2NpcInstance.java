@@ -1519,10 +1519,8 @@ public class L2NpcInstance extends L2Character
 		if (player == null)
 			return;
 
-		FastList<L2BuffTemplate> _templateBuffs = new FastList<L2BuffTemplate>();
-
-		_templateBuffs = BuffTemplateTable.getInstance().getBuffTemplate(_templateId);
-
+		FastList<L2BuffTemplate> _templateBuffs = BuffTemplateTable.getInstance().getBuffTemplate(_templateId);
+		
 		if (_templateBuffs == null || _templateBuffs.size() == 0)
 			return;
 
