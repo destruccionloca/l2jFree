@@ -21,7 +21,9 @@ package com.l2jfree.gameserver.util;
  */
 
 import java.io.File;
+import java.text.NumberFormat;
 import java.util.Collection;
+import java.util.Locale;
 import java.util.Map;
 
 import org.python.core.Py;
@@ -394,31 +396,17 @@ public final class Util
 		}
 		return result;
 	}
-
+	
 	/**
-	 * Return amount of adena formatted with "," delimiter
-	 * @param amount
-	 * @return String formatted adena amount
+	 * Returns a number formatted with "," delimiter
+	 * @param value
+	 * @return String formatted number
 	 */
-	public static String formatAdena(int amount)
+	public static String formatNumber(double value)
 	{
-		String s = "";
-		int rem = amount % 1000;
-		s = Integer.toString(rem);
-		amount = (amount - rem) / 1000;
-		while (amount > 0)
-		{
-			if (rem < 99)
-				s = '0' + s;
-			if (rem < 9)
-				s = '0' + s;
-			rem = amount % 1000;
-			s = Integer.toString(rem) + "," + s;
-			amount = (amount - rem) / 1000;
-		}
-		return s;
+		return NumberFormat.getInstance(Locale.ENGLISH).format(value);
 	}
-
+	
 	/**
 	 * 
 	 * @param s

@@ -14,7 +14,11 @@
  */
 package com.l2jfree.gameserver.handler;
 
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminAI;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminAdmin;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminAnnouncements;
@@ -105,23 +109,22 @@ public final class AdminCommandHandler extends HandlerRegistry<String, IAdminCom
 	
 	private AdminCommandHandler()
 	{
-		register(new AdminAdmin());
-		register(new AdminBuffs());
 		register(new AdminAI());
+		register(new AdminAdmin());
 		register(new AdminAnnouncements());
-		register(new AdminBan());
-		register(new AdminBoat());
-		register(new AdminJail());
-		register(new AdminBanChat());
 		register(new AdminBBS());
+		register(new AdminBan());
+		register(new AdminBanChat());
+		register(new AdminBoat());
+		register(new AdminBuffs());
+		register(new AdminCTFEngine());
 		register(new AdminCache());
 		register(new AdminCamera());
 		register(new AdminChangeAccessLevel());
 		register(new AdminCreateItem());
-		register(new AdminCTFEngine());
 		register(new AdminCursedWeapons());
-		register(new AdminDelete());
 		register(new AdminDMEngine());
+		register(new AdminDelete());
 		register(new AdminDoorControl());
 		register(new AdminEditChar());
 		register(new AdminEditNpc());
@@ -132,14 +135,15 @@ public final class AdminCommandHandler extends HandlerRegistry<String, IAdminCom
 		register(new AdminExpSp());
 		register(new AdminFightCalculator());
 		register(new AdminFortSiege());
-		register(new AdminGeodata());
 		register(new AdminGeoEditor());
+		register(new AdminGeodata());
 		register(new AdminGm());
 		register(new AdminGmChat());
 		register(new AdminHeal());
 		register(new AdminHelpPage());
-		register(new AdminInvul());
 		register(new AdminInstance());
+		register(new AdminInvul());
+		register(new AdminJail());
 		register(new AdminKick());
 		register(new AdminKill());
 		register(new AdminLevel());
@@ -149,8 +153,8 @@ public final class AdminCommandHandler extends HandlerRegistry<String, IAdminCom
 		register(new AdminMenu());
 		register(new AdminMobGroup());
 		register(new AdminMonsterRace());
-		register(new AdminPetition());
 		register(new AdminPForge());
+		register(new AdminPetition());
 		register(new AdminPledge());
 		register(new AdminPolymorph());
 		register(new AdminQuest());
@@ -160,21 +164,21 @@ public final class AdminCommandHandler extends HandlerRegistry<String, IAdminCom
 		register(new AdminRide());
 		register(new AdminSendHome());
 		register(new AdminShop());
-		register(new AdminSortMultisellItems());
 		register(new AdminShutdown());
 		register(new AdminSiege());
 		register(new AdminSkill());
 		register(new AdminSmartShop());
+		register(new AdminSortMultisellItems());
 		register(new AdminSpawn());
 		register(new AdminSummon());
 		register(new AdminTarget());
 		register(new AdminTeleport());
-		register(new AdminTvTEngine());
 		register(new AdminTest());
+		register(new AdminTvTEngine());
 		register(new AdminUnblockIp());
 		register(new AdminVIPEngine());
-		register(new AdminZone());
 		register(new AdminVitality());
+		register(new AdminZone());
 		
 		if (Config.IRC_ENABLED)
 			register(new AdminIRC());
@@ -195,9 +199,9 @@ public final class AdminCommandHandler extends HandlerRegistry<String, IAdminCom
 				_log.warn("Command \"" + element + "\" have no access level definition. Can't be used.");
 	}
 	
-	public void useAdminCommand(L2PcInstance activeChar, String message)
+	public void useAdminCommand(final L2PcInstance activeChar, String message0)
 	{
-		message = message.trim();
+		final String message = message0.trim();
 		
 		String command = message;
 		String params = "";
@@ -248,6 +252,43 @@ public final class AdminCommandHandler extends HandlerRegistry<String, IAdminCom
 		
 		GMAudit.auditGMAction(activeChar, "admincommand", command, params);
 		
-		handler.useAdminCommand(message, activeChar);
+		final Future<?> task = ThreadPoolManager.getInstance().schedule(new Runnable() {
+			@Override
+			public void run()
+			{
+				final long begin = System.currentTimeMillis();
+				try
+				{
+					handler.useAdminCommand(message, activeChar);
+				}
+				catch (RuntimeException e)
+				{
+					activeChar.sendMessage("Exception during execution of  '" + message + "': " + e.toString());
+					
+					throw e;
+				}
+				finally
+				{
+					final long runtime = System.currentTimeMillis() - begin;
+					
+					if (runtime < ThreadPoolManager.MAXIMUM_RUNTIME_IN_MILLISEC_WITHOUT_WARNING)
+						return;
+					
+					activeChar.sendMessage("The execution of '" + message + "' took " + Util.formatNumber(runtime)
+						+ " msec.");
+				}
+			}
+		}, 0);
+		
+		try
+		{
+			task.get(1000, TimeUnit.MILLISECONDS);
+			return;
+		}
+		catch (Exception e)
+		{
+			activeChar.sendMessage("The execution of '" + message
+				+ "' takes more time than 1000 msec, so execution done asynchronusly.");
+		}
 	}
 }

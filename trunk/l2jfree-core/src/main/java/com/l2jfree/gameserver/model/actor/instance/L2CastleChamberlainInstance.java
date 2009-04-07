@@ -329,8 +329,8 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 					html.setFile(filename);
 					html.replace("%objectId%", String.valueOf(getObjectId()));
 					html.replace("%npcname%", getName());
-					html.replace("%tax_income%", Util.formatAdena(getCastle().getTreasury()));
-					html.replace("%withdraw_amount%", Util.formatAdena(amount));
+					html.replace("%tax_income%", Util.formatNumber(getCastle().getTreasury()));
+					html.replace("%withdraw_amount%", Util.formatNumber(amount));
 					player.sendPacket(html);
 					return;
 				}
