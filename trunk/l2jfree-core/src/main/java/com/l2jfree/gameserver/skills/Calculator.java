@@ -162,6 +162,6 @@ public final class Calculator
 	public void calc(Env env)
 	{
 		for (Func element : _functions)
-			element.calc(env);
+			element.calcIfAllowed(env);
 	}
 }

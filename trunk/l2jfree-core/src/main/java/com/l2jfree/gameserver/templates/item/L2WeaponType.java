@@ -15,8 +15,8 @@
 package com.l2jfree.gameserver.templates.item;
 
 /**
- * @author mkizub
- * <BR>Description of Weapon Type
+ * @author mkizub <BR>
+ *         Description of Weapon Type
  */
 public enum L2WeaponType implements AbstractL2ItemType
 {
@@ -37,12 +37,13 @@ public enum L2WeaponType implements AbstractL2ItemType
 	ANCIENT_SWORD(15, "Ancient"),
 	CROSSBOW(16, "Crossbow"),
 	RAPIER(17, "Rapier");
-
-	private final int		_id;
-	private final String	_name;
-
+	
+	private final int _id;
+	private final String _name;
+	
 	/**
 	 * Constructor of the L2WeaponType.
+	 * 
 	 * @param id : int designating the ID of the WeaponType
 	 * @param name : String designating the name of the WeaponType
 	 */
@@ -51,18 +52,20 @@ public enum L2WeaponType implements AbstractL2ItemType
 		_id = id;
 		_name = name;
 	}
-
+	
 	/**
 	 * Returns the ID of the item after applying the mask.
+	 * 
 	 * @return int : ID of the item
 	 */
 	public int mask()
 	{
 		return 1 << _id;
 	}
-
+	
 	/**
 	 * Returns the name of the WeaponType
+	 * 
 	 * @return String
 	 */
 	@Override
@@ -70,5 +73,19 @@ public enum L2WeaponType implements AbstractL2ItemType
 	{
 		return _name;
 	}
-
+	
+	public boolean isBowType()
+	{
+		switch (this)
+		{
+			case BOW:
+			case CROSSBOW:
+				return true;
+				
+			default:
+				return false;
+		}
+	}
+	
+	public static final L2WeaponType[] VALUES = L2WeaponType.values();
 }

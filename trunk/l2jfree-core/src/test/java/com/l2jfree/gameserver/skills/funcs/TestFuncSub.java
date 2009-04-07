@@ -14,18 +14,16 @@
  */
 package com.l2jfree.gameserver.skills.funcs;
 
+import junit.framework.TestCase;
+
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Stats;
-import com.l2jfree.gameserver.skills.funcs.FuncSub;
-import com.l2jfree.gameserver.skills.funcs.LambdaConst;
-
-import junit.framework.TestCase;
 
 public class TestFuncSub extends TestCase
 {
     public void testFuncAddCalc()
     {
-        FuncSub fa = new FuncSub(Stats.MAX_HP, 1, null, new LambdaConst(2));
+        FuncSub fa = new FuncSub(Stats.MAX_HP, 1, null, new LambdaConst(2), null);
 
         Env env = new Env();
         env.value = 1;

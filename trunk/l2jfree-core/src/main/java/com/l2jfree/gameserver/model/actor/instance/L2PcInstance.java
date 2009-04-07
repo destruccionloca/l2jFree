@@ -2207,35 +2207,6 @@ public final class L2PcInstance extends L2PlayableInstance
 			rewardSkills();
 	}
 
-	public void checkIfWeaponIsAllowed()
-	{
-		// Override for Gamemasters
-		if (isGM())
-			return;
-
-		// Iterate through all effects currently on the character.
-		for (L2Effect currenteffect : getAllEffects())
-		{
-			L2Skill effectSkill = currenteffect.getSkill();
-
-			// Ignore all buff skills that are party related (ie. songs, dances) while still remaining weapon dependant on cast though.
-			if (!effectSkill.isOffensive() && !(effectSkill.getTargetType() == SkillTargetType.TARGET_PARTY && effectSkill.getSkillType() == L2SkillType.BUFF))
-			{
-				// Check to rest to assure current effect meets weapon requirements.
-				if (!effectSkill.getWeaponDependancy(this))
-				{
-					sendMessage(effectSkill.getName() + " cannot be used with this weapon.");
-
-					if (_log.isDebugEnabled())
-						_log.info("   | Skill " + effectSkill.getName() + " has been disabled for (" + getName() + "); Reason: Incompatible Weapon Type.");
-
-					currenteffect.exit();
-				}
-			}
-			continue;
-		}
-	}
-
 	public void checkSSMatch(L2ItemInstance equipped, L2ItemInstance unequipped)
 	{
 		if (unequipped == null)
@@ -2353,9 +2324,6 @@ public final class L2PcInstance extends L2PlayableInstance
 		sm = null;
 
 		refreshExpertisePenalty();
-
-		if (item.getItem().getType2() == L2Item.TYPE2_WEAPON)
-			checkIfWeaponIsAllowed();
 
 		InventoryUpdate iu = new InventoryUpdate();
 		iu.addEquipItems(items);
@@ -7968,8 +7936,6 @@ public final class L2PcInstance extends L2PlayableInstance
 			_log.error("Could not restore active effect data: ", e);
 		}
 		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
-
-		checkIfWeaponIsAllowed();
 	}
 
 	/**

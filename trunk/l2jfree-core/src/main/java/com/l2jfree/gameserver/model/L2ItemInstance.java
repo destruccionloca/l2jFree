@@ -41,6 +41,7 @@ import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.funcs.Func;
+import com.l2jfree.gameserver.skills.funcs.FuncOwner;
 import com.l2jfree.gameserver.taskmanager.SQLQueue;
 import com.l2jfree.gameserver.templates.item.AbstractL2ItemType;
 import com.l2jfree.gameserver.templates.item.L2Armor;
@@ -55,7 +56,7 @@ import com.l2jfree.sql.SQLQuery;
  * 
  * @version $Revision: 1.4.2.1.2.11 $ $Date: 2005/03/31 16:07:50 $
  */
-public final class L2ItemInstance extends L2Object
+public final class L2ItemInstance extends L2Object implements FuncOwner
 {
 	protected static final Log	_log		= LogFactory.getLog(L2ItemInstance.class.getName());
 
@@ -1717,5 +1718,17 @@ public final class L2ItemInstance extends L2Object
 	public boolean isOlyRestrictedItem()
 	{
 		return (Config.ALT_LIST_OLY_RESTRICTED_ITEMS.contains(_itemId));
+	}
+
+	@Override
+	public final String getFuncOwnerName()
+	{
+		return getItem().getFuncOwnerName();
+	}
+
+	@Override
+	public final L2Skill getFuncOwnerSkill()
+	{
+		return getItem().getFuncOwnerSkill();
 	}
 }

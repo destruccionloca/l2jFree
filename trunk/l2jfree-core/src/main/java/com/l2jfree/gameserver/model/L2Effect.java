@@ -30,6 +30,7 @@ import com.l2jfree.gameserver.network.serverpackets.EffectInfoPacket.EffectInfoP
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.effects.EffectTemplate;
 import com.l2jfree.gameserver.skills.funcs.Func;
+import com.l2jfree.gameserver.skills.funcs.FuncOwner;
 import com.l2jfree.gameserver.skills.funcs.FuncTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 import com.l2jfree.util.LinkedBunch;
@@ -39,7 +40,7 @@ import com.l2jfree.util.LinkedBunch;
  * 
  * @version $Revision: 1.1.2.1.2.12 $ $Date: 2005/04/11 10:06:07 $
  */
-public abstract class L2Effect
+public abstract class L2Effect implements FuncOwner
 {
 	static final Log	_log	= LogFactory.getLog(L2Effect.class.getName());
 	
@@ -572,5 +573,15 @@ public abstract class L2Effect
 	public EffectTemplate getEffectTemplate()
 	{
 		return _template;
+	}
+	
+	public final String getFuncOwnerName()
+	{
+		return _skill.getFuncOwnerName();
+	}
+	
+	public final L2Skill getFuncOwnerSkill()
+	{
+		return _skill.getFuncOwnerSkill();
 	}
 }

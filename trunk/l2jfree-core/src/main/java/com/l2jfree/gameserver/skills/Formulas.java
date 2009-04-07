@@ -185,8 +185,7 @@ public final class Formulas
 		 */
 		private FuncMultRegenResting(Stats pStat)
 		{
-			super(pStat, 0x20, null);
-			setCondition(new ConditionPlayerState(PlayerState.RESTING, true));
+			super(pStat, 0x20, null, new ConditionPlayerState(PlayerState.RESTING, true));
 		}
 
 		/**
@@ -195,9 +194,6 @@ public final class Formulas
 		@Override
 		public void calc(Env env)
 		{
-			if (!cond.test(env))
-				return;
-
 			env.value *= 1.45;
 		}
 	}
@@ -376,16 +372,13 @@ public final class Formulas
 
 		private FuncBowAtkRange()
 		{
-			super(Stats.POWER_ATTACK_RANGE, 0x10, null);
-			setCondition(new ConditionUsingItemType(L2WeaponType.BOW.mask()));
+			super(Stats.POWER_ATTACK_RANGE, 0x10, null, new ConditionUsingItemType(L2WeaponType.BOW.mask()));
 		}
 
 		@Override
 		public void calc(Env env)
 		{
 			// default is 40 and with bow should be 500
-			if (!cond.test(env))
-				return;
 			env.value += 460;
 		}
 	}
@@ -401,15 +394,12 @@ public final class Formulas
 
 		private FuncCrossBowAtkRange()
 		{
-			super(Stats.POWER_ATTACK_RANGE, 0x10, null);
-			setCondition(new ConditionUsingItemType(L2WeaponType.CROSSBOW.mask()));
+			super(Stats.POWER_ATTACK_RANGE, 0x10, null, new ConditionUsingItemType(L2WeaponType.CROSSBOW.mask()));
 		}
 
 		@Override
 		public void calc(Env env)
 		{
-			if (!cond.test(env))
-				return;
 			// default is 40 and with crossbow should be 400
 			env.value += 360;
 		}

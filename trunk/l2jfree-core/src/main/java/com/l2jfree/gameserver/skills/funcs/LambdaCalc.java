@@ -14,12 +14,13 @@
  */
 package com.l2jfree.gameserver.skills.funcs;
 
+import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.skills.Env;
 
 /**
  * @author mkizub
  */
-public final class LambdaCalc extends Lambda
+public final class LambdaCalc extends Lambda implements FuncOwner
 {
 
 	public Func[]	funcs;
@@ -37,7 +38,7 @@ public final class LambdaCalc extends Lambda
 		{
 			env.value = 0;
 			for (Func f : funcs)
-				f.calc(env);
+				f.calcIfAllowed(env);
 			return env.value;
 		}
 		finally
@@ -53,5 +54,17 @@ public final class LambdaCalc extends Lambda
         System.arraycopy(funcs, 0, tmp, 0, len);
 		tmp[len] = f;
 		funcs = tmp;
+	}
+	
+	@Override
+	public String getFuncOwnerName()
+	{
+		return null;
+	}
+	
+	@Override
+	public L2Skill getFuncOwnerSkill()
+	{
+		return null;
 	}
 }

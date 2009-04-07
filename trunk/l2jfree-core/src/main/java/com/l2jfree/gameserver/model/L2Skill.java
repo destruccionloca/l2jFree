@@ -57,16 +57,18 @@ import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.conditions.Condition;
 import com.l2jfree.gameserver.skills.effects.EffectTemplate;
 import com.l2jfree.gameserver.skills.funcs.Func;
+import com.l2jfree.gameserver.skills.funcs.FuncOwner;
 import com.l2jfree.gameserver.skills.funcs.FuncTemplate;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
 import com.l2jfree.gameserver.templates.StatsSet;
+import com.l2jfree.gameserver.templates.item.L2Weapon;
 import com.l2jfree.gameserver.templates.item.L2WeaponType;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.lang.L2Integer;
 import com.l2jfree.util.LinkedBunch;
 
-public class L2Skill
+public class L2Skill implements FuncOwner
 {
 	protected static Log	_log						= LogFactory.getLog(L2Skill.class.getName());
 
@@ -1529,94 +1531,93 @@ public class L2Skill
 	{
 		return (_skillType == L2SkillType.MDAM);
 	}
-
-	// int weapons[] = {L2Weapon.WEAPON_TYPE_ETC, L2Weapon.WEAPON_TYPE_BOW,
-	// L2Weapon.WEAPON_TYPE_POLE, L2Weapon.WEAPON_TYPE_DUALFIST,
-	// L2Weapon.WEAPON_TYPE_DUAL, L2Weapon.WEAPON_TYPE_BLUNT,
-	// L2Weapon.WEAPON_TYPE_SWORD, L2Weapon.WEAPON_TYPE_DAGGER};
-
-	public final boolean getWeaponDependancy(L2Character activeChar)
-	{
-		if (getWeaponDependancy(activeChar, false))
-		{
-			return true;
-		}
-
-		SystemMessage message = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
-		message.addSkillName(this);
-		activeChar.sendPacket(message);
-
-		return false;
-	}
-
-	public final boolean getWeaponDependancy(L2Character activeChar, @SuppressWarnings("unused") boolean chance)
+	
+	private String _weaponDependancyMessage;
+	
+	public final boolean getWeaponDependancy(L2Character activeChar, boolean message)
 	{
 		int weaponsAllowed = getWeaponsAllowed();
-		L2WeaponType playerWeapon;
-		int mask;
-		// check to see if skill has a weapon dependency.
 		if (weaponsAllowed == 0)
 			return true;
-		if (activeChar.getActiveWeaponItem() != null)
+		
+		L2Weapon weapon = activeChar.getActiveWeaponItem();
+		if (weapon != null && (weapon.getItemType().mask() & weaponsAllowed) != 0)
+			return true;
+		
+		L2Weapon weapon2 = activeChar.getSecondaryWeaponItem();
+		if (weapon2 != null && (weapon2.getItemType().mask() & weaponsAllowed) != 0)
+			return true;
+		
+		if (message)
 		{
-			playerWeapon = activeChar.getActiveWeaponItem().getItemType();
-			mask = playerWeapon.mask();
-			if ((mask & weaponsAllowed) != 0)
-				return true;
+			if (_weaponDependancyMessage == null)
+			{
+				StringBuilder sb = new StringBuilder();
+				for (L2WeaponType wt : L2WeaponType.VALUES)
+				{
+					if ((wt.mask() & weaponsAllowed) != 0)
+					{
+						if (sb.length() != 0)
+							sb.append('/');
+						
+						sb.append(wt);
+					}
+				}
+				sb.append(".");
+				
+				_weaponDependancyMessage = getName() + " can only be used with weapons of type " + sb.toString();
+				_weaponDependancyMessage = _weaponDependancyMessage.intern();
+			}
+			
+			activeChar.sendMessage(_weaponDependancyMessage);
 		}
-		// can be on the secondary weapon
-		if (activeChar.getSecondaryWeaponItem() != null)
-		{
-			playerWeapon = activeChar.getSecondaryWeaponItem().getItemType();
-			mask = playerWeapon.mask();
-			if ((mask & weaponsAllowed) != 0)
-				return true;
-		}
+		
 		return false;
 	}
-
+	
+	public final boolean ownedFuncShouldBeDisabled(L2Character activeChar)
+	{
+		if (isOffensive())
+			return false;
+		
+		if (!(isDance() || isSong()) && !getWeaponDependancy(activeChar, false))
+			return true;
+		
+		return false;
+	}
+	
 	public boolean checkCondition(L2Character activeChar, L2Object target, boolean itemOrWeapon)
 	{
-		if ((getCondition() & L2Skill.COND_SHIELD) != 0)
-		{
-            /*
-            L2Armor armorPiece;
-            L2ItemInstance dummy;
-            dummy = activeChar.getInventory().getPaperdollItem(Inventory.PAPERDOLL_RHAND);
-            armorPiece = (L2Armor) dummy.getItem();
-            */
-           //TODO add checks for shield here.
-		}
-
-		Condition preCondition = _preCondition;
-		if (itemOrWeapon)
-			preCondition = _itemPreCondition;
+		Condition preCondition = itemOrWeapon ? _itemPreCondition : _preCondition;
 		if (preCondition == null)
 			return true;
-
+		
 		Env env = new Env();
 		env.player = activeChar;
 		if (target instanceof L2Character)
-			env.target = (L2Character) target;
+			env.target = (L2Character)target;
 		env.skill = this;
-
-		if (!preCondition.test(env))
+		
+		if (preCondition.test(env))
+			return true;
+		
+		int msgId = preCondition.getMessageId();
+		if (msgId != 0)
 		{
-            String msg = preCondition.getMessage();
-            int msgId = preCondition.getMessageId();
-            if (msgId != 0)
-            {
-            	activeChar.sendPacket(new SystemMessage(msgId));
-            }
-            else if (msg != null)
-            {
-                activeChar.sendMessage(msg);
-            }
-            return false;
+			activeChar.sendPacket(SystemMessageId.getSystemMessageId(msgId));
+			return false;
 		}
-		return true;
+		
+		String msg = preCondition.getMessage();
+		if (msg != null)
+		{
+			activeChar.sendMessage(msg);
+			return false;
+		}
+		
+		return false;
 	}
-
+	
 	public final L2Character[] getTargetList(L2Character activeChar, boolean onlyFirst)
 	{
 		// Init to null the target of the skill
@@ -3867,5 +3868,17 @@ public class L2Skill
 		count += _effectTemplatesSelf == null ? 0 : _effectTemplatesSelf.length;
 		
 		return _id + "-" + count;
+	}
+	
+	@Override
+	public String getFuncOwnerName()
+	{
+		return getName();
+	}
+	
+	@Override
+	public final L2Skill getFuncOwnerSkill()
+	{
+		return this;
 	}
 }

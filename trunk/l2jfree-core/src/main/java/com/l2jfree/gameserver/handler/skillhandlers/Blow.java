@@ -131,7 +131,7 @@ public class Blow implements ISkillHandler
 							env.target = target;
 							env.skill = skill;
 							env.value = damage;
-							func.calc(env);
+							func.calcIfAllowed(env);
 							damage = (int) env.value;
 						}
 					}

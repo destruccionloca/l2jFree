@@ -114,7 +114,7 @@ public class ChanceSkillList extends FastMap<L2Skill, ChanceCondition>
 	{
 		try
 		{
-			if (skill.getWeaponDependancy(_owner, true))
+			if (skill.getWeaponDependancy(_owner, false))
 			{
 				if (skill.triggerAnotherSkill()) //should we use this skill or this skill is just referring to another one ...
 				{

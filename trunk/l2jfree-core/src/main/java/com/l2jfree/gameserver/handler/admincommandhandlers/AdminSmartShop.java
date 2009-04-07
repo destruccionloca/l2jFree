@@ -1944,7 +1944,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 							env.target = activeChar;
 							env.skill = null;
 							env.value = 1;
-							func.calc(env);
+							func.calcIfAllowed(env);
 							env.value = (param.equals("Add") || param.equals("Sub")) ? (env.value - 1) : env.value;
 							message += (param.equals("Enchant") && env.value == 1) ? "" : env.value;
 						}

@@ -14,19 +14,17 @@
  */
 package com.l2jfree.gameserver.skills.funcs;
 
+import junit.framework.TestCase;
+
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Stats;
-import com.l2jfree.gameserver.skills.funcs.FuncDiv;
-import com.l2jfree.gameserver.skills.funcs.LambdaConst;
-
-import junit.framework.TestCase;
 
 public class TestFuncDiv extends TestCase
 {
 
     public void testFuncDivCalc()
     {
-        FuncDiv fa = new FuncDiv(Stats.MAX_HP,1,null,new LambdaConst(2));
+        FuncDiv fa = new FuncDiv(Stats.MAX_HP,1,null,new LambdaConst(2), null);
         
         Env env = new Env();
         env.value=1;
@@ -36,7 +34,7 @@ public class TestFuncDiv extends TestCase
     
     public void testFuncDivCalcDivByZero()
     {
-        FuncDiv fa = new FuncDiv(Stats.MAX_HP,1,null,new LambdaConst(0));
+        FuncDiv fa = new FuncDiv(Stats.MAX_HP,1,null,new LambdaConst(0), null);
         
         Env env = new Env();
         env.value=1;

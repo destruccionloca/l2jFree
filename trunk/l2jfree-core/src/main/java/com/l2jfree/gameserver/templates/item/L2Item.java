@@ -22,6 +22,7 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
+import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -29,6 +30,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.conditions.Condition;
 import com.l2jfree.gameserver.skills.funcs.Func;
+import com.l2jfree.gameserver.skills.funcs.FuncOwner;
 import com.l2jfree.gameserver.skills.funcs.FuncTemplate;
 import com.l2jfree.gameserver.templates.StatsSet;
 import com.l2jfree.util.LinkedBunch;
@@ -41,7 +43,7 @@ import com.l2jfree.util.LinkedBunch;
  * <LI>L2Weapon</LI> 
  * @version $Revision: 1.7.2.2.2.5 $ $Date: 2005/04/06 18:25:18 $
  */
-public abstract class L2Item
+public abstract class L2Item implements FuncOwner
 {
 	public static final int				TYPE1_WEAPON_RING_EARRING_NECKLACE	= 0;
 	public static final int				TYPE1_SHIELD_ARMOR					= 1;
@@ -605,5 +607,15 @@ public abstract class L2Item
 	public String toString()
 	{
 		return _name;
+	}
+	
+	public final String getFuncOwnerName()
+	{
+		return getName();
+	}
+	
+	public final L2Skill getFuncOwnerSkill()
+	{
+		return null;
 	}
 }

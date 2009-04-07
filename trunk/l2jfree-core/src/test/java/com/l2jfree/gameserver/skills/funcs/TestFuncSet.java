@@ -14,18 +14,16 @@
  */
 package com.l2jfree.gameserver.skills.funcs;
 
+import junit.framework.TestCase;
+
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Stats;
-import com.l2jfree.gameserver.skills.funcs.FuncSet;
-import com.l2jfree.gameserver.skills.funcs.LambdaConst;
-
-import junit.framework.TestCase;
 
 public class TestFuncSet extends TestCase
 {
     public void testFuncDivCalc()
     {
-        FuncSet fa = new FuncSet(Stats.MAX_HP, 1, null, new LambdaConst(45));
+        FuncSet fa = new FuncSet(Stats.MAX_HP, 1, null, new LambdaConst(45), null);
 
         Env env = new Env();
         env.value = 1;

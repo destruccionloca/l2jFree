@@ -16,21 +16,18 @@ package com.l2jfree.gameserver.skills.funcs;
 
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Stats;
+import com.l2jfree.gameserver.skills.conditions.Condition;
 
-public class FuncSub extends Func
+public final class FuncSub extends FuncLambda
 {
-	private final Lambda	_lambda;
-
-	public FuncSub(Stats pStat, int pOrder, Object owner, Lambda lambda)
+	public FuncSub(Stats pStat, int pOrder, FuncOwner pFuncOwner, Lambda pLambda, Condition pCondition)
 	{
-		super(pStat, pOrder, owner);
-		_lambda = lambda;
+		super(pStat, pOrder, pFuncOwner, pLambda, pCondition);
 	}
-
+	
 	@Override
-	public void calc(Env env)
+	protected void calc(Env env)
 	{
-		if (cond == null || cond.test(env))
-			env.value -= _lambda.calc(env);
+		env.value -= _lambda.calc(env);
 	}
 }

@@ -14,20 +14,14 @@
  */
 package com.l2jfree.gameserver.skills.funcs;
 
-import com.l2jfree.gameserver.skills.Env;
-import com.l2jfree.gameserver.skills.Stats;
-import com.l2jfree.gameserver.skills.conditions.Condition;
+import com.l2jfree.gameserver.model.L2Skill;
 
-public final class FuncAdd extends FuncLambda
+/**
+ * @author NB4L1
+ */
+public interface FuncOwner
 {
-	public FuncAdd(Stats pStat, int pOrder, FuncOwner pFuncOwner, Lambda pLambda, Condition pCondition)
-	{
-		super(pStat, pOrder, pFuncOwner, pLambda, pCondition);
-	}
+	public String getFuncOwnerName();
 	
-	@Override
-	protected void calc(Env env)
-	{
-		env.value += _lambda.calc(env);
-	}
+	public L2Skill getFuncOwnerSkill();
 }

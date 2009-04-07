@@ -14,18 +14,16 @@
  */
 package com.l2jfree.gameserver.skills.funcs;
 
+import junit.framework.TestCase;
+
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Stats;
-import com.l2jfree.gameserver.skills.funcs.FuncMul;
-import com.l2jfree.gameserver.skills.funcs.LambdaConst;
-
-import junit.framework.TestCase;
 
 public class TestFuncMul extends TestCase
 {
     public void testFuncDivCalc()
     {
-        FuncMul fa = new FuncMul(Stats.MAX_HP, 1, null, new LambdaConst(2));
+        FuncMul fa = new FuncMul(Stats.MAX_HP, 1, null, new LambdaConst(2), null);
 
         Env env = new Env();
         env.value = 1;

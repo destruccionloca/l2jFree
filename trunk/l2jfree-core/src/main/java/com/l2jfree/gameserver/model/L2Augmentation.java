@@ -22,6 +22,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.SkillCoolTime;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.funcs.FuncAdd;
+import com.l2jfree.gameserver.skills.funcs.FuncOwner;
 import com.l2jfree.gameserver.skills.funcs.LambdaConst;
 
 /**
@@ -50,7 +51,7 @@ public final class L2Augmentation
 	// =========================================================
 	// Nested Class
 
-	public class AugmentationStatBoni
+	public final class AugmentationStatBoni implements FuncOwner
 	{
 		private Stats	_stats[];
 		private float	_values[];
@@ -80,7 +81,7 @@ public final class L2Augmentation
 				return;
 
 			for (int i = 0; i < _stats.length; i++)
-				player.addStatFunc(new FuncAdd(_stats[i], 0x40, this, new LambdaConst(_values[i])));
+				player.addStatFunc(new FuncAdd(_stats[i], 0x40, this, new LambdaConst(_values[i]), null));
 
 			_active = true;
 		}
@@ -94,6 +95,16 @@ public final class L2Augmentation
 			player.removeStatsOwner(this);
 
 			_active = false;
+		}
+		
+		public String getFuncOwnerName()
+		{
+			return null;
+		}
+		
+		public L2Skill getFuncOwnerSkill()
+		{
+			return null;
 		}
 	}
 

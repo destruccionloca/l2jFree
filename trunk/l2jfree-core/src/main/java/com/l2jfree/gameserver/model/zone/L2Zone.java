@@ -38,11 +38,12 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.funcs.Func;
+import com.l2jfree.gameserver.skills.funcs.FuncOwner;
 import com.l2jfree.gameserver.skills.funcs.FuncTemplate;
 import com.l2jfree.tools.random.Rnd;
 import com.l2jfree.util.LinkedBunch;
 
-public abstract class L2Zone
+public abstract class L2Zone implements FuncOwner
 {
 	protected static Log _log = LogFactory.getLog(L2Zone.class.getName());
 
@@ -880,5 +881,17 @@ public abstract class L2Zone
 		if (funcs.size() == 0)
 			return EMPTY_FUNC_SET;
 		return funcs.moveToArray(new Func[funcs.size()]);
+	}
+
+	@Override
+	public final String getFuncOwnerName()
+	{
+		return getName();
+	}
+
+	@Override
+	public final L2Skill getFuncOwnerSkill()
+	{
+		return null;
 	}
 }
