@@ -193,6 +193,10 @@ public class Auction
 	/** Load bidders **/
 	private void loadBid()
 	{
+		_highestBidderId = 0;
+		_highestBidderName = "";
+		_highestBidderMaxBid = 0;
+		
 		Connection con = null;
 		try
 		{
@@ -269,7 +273,7 @@ public class Auction
 	}
 
 	/** Set a bid */
-	public void setBid(L2PcInstance bidder, int bid)
+	public synchronized void setBid(L2PcInstance bidder, int bid)
 	{
 		int requiredAdena = bid;
 		if (getHighestBidderName().equals(bidder.getClan().getLeaderName()))
@@ -470,7 +474,7 @@ public class Auction
 	}
 
 	/** Cancel bid */
-	public void cancelBid(int bidder)
+	public synchronized void cancelBid(int bidder)
 	{
 		Connection con = null;
 		try
