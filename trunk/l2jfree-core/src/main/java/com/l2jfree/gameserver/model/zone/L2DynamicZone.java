@@ -212,11 +212,7 @@ public class L2DynamicZone extends L2DefaultZone
 			if (n.getNodeType() == Node.ELEMENT_NODE)
 				cond.add(parseCondition(n, template));
 		}
-		if (cond.getConditions().length == 0)
-			_log.fatal("Empty <and> condition in zone " + _name);
-		if (cond.getConditions().length == 1)
-			_log.warn("Single <and> condition in zone " + _name);
-		return cond;
+		return cond.getCanonicalCondition("zone " + _name);
 	}
 
 	private Condition parseLogicOr(Node n, Object template)
@@ -227,11 +223,7 @@ public class L2DynamicZone extends L2DefaultZone
 			if (n.getNodeType() == Node.ELEMENT_NODE)
 				cond.add(parseCondition(n, template));
 		}
-		if (cond.getConditions().length == 0)
-			_log.fatal("Empty <or> condition in zone " + _name);
-		if (cond.getConditions().length == 1)
-			_log.warn("Single <or> condition in zone " + _name);
-		return cond;
+		return cond.getCanonicalCondition("zone " + _name);
 	}
 
 	private Condition parseLogicNot(Node n, Object template)

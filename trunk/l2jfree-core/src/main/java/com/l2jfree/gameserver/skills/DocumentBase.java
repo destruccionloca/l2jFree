@@ -397,11 +397,7 @@ abstract class DocumentBase
 			if (n.getNodeType() == Node.ELEMENT_NODE)
 				cond.add(parseCondition(n, template));
 		}
-		if (cond.getConditions().length == 0)
-			_log.fatal("Empty <and> condition in " + _file);
-		if (cond.getConditions().length == 1)
-			_log.warn("Single <and> condition in " + _file);
-		return cond;
+		return cond.getCanonicalCondition(_file);
 	}
 
 	protected Condition parseLogicOr(Node n, Object template)
@@ -412,11 +408,7 @@ abstract class DocumentBase
 			if (n.getNodeType() == Node.ELEMENT_NODE)
 				cond.add(parseCondition(n, template));
 		}
-		if (cond.getConditions().length == 0)
-			_log.fatal("Empty <or> condition in " + _file);
-		if (cond.getConditions().length == 1)
-			_log.warn("Single <or> condition in " + _file);
-		return cond;
+		return cond.getCanonicalCondition(_file);
 	}
 
 	protected Condition parseLogicNot(Node n, Object template)
