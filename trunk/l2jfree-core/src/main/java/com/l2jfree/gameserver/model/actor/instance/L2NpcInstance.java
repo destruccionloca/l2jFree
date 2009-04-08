@@ -79,7 +79,6 @@ import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.model.quest.State;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.network.serverpackets.EtcStatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ExQuestInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExShowBaseAttributeCancelWindow;
 import com.l2jfree.gameserver.network.serverpackets.ExShowVariationCancelWindow;
@@ -413,21 +412,6 @@ public class L2NpcInstance extends L2Character
 	public boolean isUndead()
 	{
 		return getTemplate().isUndead();
-	}
-
-	/**
-	 * Send a packet NpcInfo with state of abnormal effect to all L2PcInstance in the _knownPlayers of the L2NpcInstance.<BR><BR>
-	 */
-	@Override
-	public void updateAbnormalEffectImpl()
-	{
-		for (L2PcInstance player : getKnownList().getKnownPlayers().values())
-		{
-			if (getRunSpeed() == 0)
-				player.sendPacket(new ServerObjectInfo(this, player));
-			else
-				player.sendPacket(new NpcInfo(this, player));
-		}
 	}
 
 	/**
@@ -1448,7 +1432,7 @@ public class L2NpcInstance extends L2Character
 									return;
 								player.setDeathPenaltyBuffLevel(player.getDeathPenaltyBuffLevel() - 1);
 								player.sendPacket(SystemMessageId.DEATH_PENALTY_LIFTED);
-								player.sendPacket(new EtcStatusUpdate(player));
+								player.sendEtcStatusUpdate();
 								return;
 							}
 
@@ -2958,5 +2942,11 @@ public class L2NpcInstance extends L2Character
 	private boolean cwCheck(L2PcInstance player)
 	{
 		return Config.CURSED_WEAPON_NPC_INTERACT || !player.isCursedWeaponEquipped();
+	}
+	
+	@Override
+	public void broadcastFullInfoImpl()
+	{
+		broadcastPacket(getRunSpeed() == 0 ? new ServerObjectInfo(this) : new NpcInfo(this));
 	}
 }

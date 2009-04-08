@@ -25,6 +25,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
+import com.l2jfree.gameserver.network.L2GameClient;
 
 /**
  * This class ...
@@ -40,7 +41,7 @@ public class NpcInfo extends L2GameServerPacket
 	private L2Character			_activeChar;
 	private int					_x, _y, _z, _heading;
 	private int					_idTemplate;
-	private boolean				_isAttackable, _isSummoned;
+	private boolean				_isSummoned;
 	private int					_mAtkSpd, _pAtkSpd;
 	private int					_runSpd, _walkSpd, _swimRunSpd, _swimWalkSpd, _flRunSpd, _flWalkSpd, _flyRunSpd, _flyWalkSpd;
 	private int					_rhand, _lhand, _chest, _val;
@@ -53,11 +54,10 @@ public class NpcInfo extends L2GameServerPacket
 	/**
 	 * @param _activeCharracters
 	 */
-	public NpcInfo(L2NpcInstance cha, L2Character attacker)
+	public NpcInfo(L2NpcInstance cha)
 	{
 		_activeChar = cha;
 		_idTemplate = cha.getTemplate().getIdTemplate();
-		_isAttackable = cha.isAutoAttackable(attacker);
 		_rhand = cha.getRightHandItem();
 		_lhand = cha.getLeftHandItem();
 		_isSummoned = cha.isShowSummonAnimation();
@@ -100,12 +100,11 @@ public class NpcInfo extends L2GameServerPacket
 		_swimWalkSpd = _flWalkSpd = _flyWalkSpd = _walkSpd;
 	}
 
-	public NpcInfo(L2Summon cha, L2Character attacker, int val)
+	public NpcInfo(L2Summon cha, int val)
 	{
 		_activeChar = cha;
 		_summon = cha;
 		_idTemplate = cha.getTemplate().getIdTemplate();
-		_isAttackable = cha.isAutoAttackable(attacker); //(cha.getKarma() > 0);
 		_rhand = cha.getWeapon();
 		_lhand = 0;
 		_chest = cha.getArmor();
@@ -147,11 +146,10 @@ public class NpcInfo extends L2GameServerPacket
 		_swimWalkSpd = _flWalkSpd = _flyWalkSpd = _walkSpd;
 	}
 
-	public NpcInfo(L2Trap cha, L2Character attacker)
+	public NpcInfo(L2Trap cha)
 	{
 		_activeChar = cha;
 		_idTemplate = cha.getTemplate().getIdTemplate();
-		_isAttackable = cha.isAutoAttackable(attacker);
 		_rhand = 0;
 		_lhand = 0;
 		_collisionHeight = _activeChar.getTemplate().getCollisionHeight();
@@ -186,7 +184,7 @@ public class NpcInfo extends L2GameServerPacket
 	}
 
 	@Override
-	protected final void writeImpl()
+	protected void writeImpl(L2GameClient client, L2PcInstance activeChar)
 	{
 		if (_idTemplate > 13070 && _idTemplate < 13077)
 		{
@@ -381,7 +379,7 @@ public class NpcInfo extends L2GameServerPacket
 			writeC(0x0c);
 			writeD(_activeChar.getObjectId());
 			writeD(_idTemplate + 1000000); // npctype id
-			writeD(_isAttackable ? 1 : 0);
+			writeD(_activeChar.isAutoAttackable(activeChar) ? 1 : 0);
 			writeD(_x);
 			writeD(_y);
 			writeD(_z);

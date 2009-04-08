@@ -27,6 +27,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Map.Entry;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
@@ -232,9 +233,12 @@ import com.l2jfree.gameserver.network.serverpackets.TradeStart;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.network.serverpackets.EffectInfoPacket.EffectInfoPacketList;
+import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.skills.Stats;
+import com.l2jfree.gameserver.skills.conditions.ConditionPlayerHp;
 import com.l2jfree.gameserver.skills.effects.EffectForce;
+import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jfree.gameserver.taskmanager.SQLQueue;
 import com.l2jfree.gameserver.taskmanager.PacketBroadcaster.BroadcastMode;
@@ -719,7 +723,6 @@ public final class L2PcInstance extends L2PlayableInstance
 	private ScheduledFuture<?>				_taskWater;
 	private L2BoatInstance					_boat;
 	private Point3D							_inBoatPosition;
-	private long							_timePreviousBroadcastStatusUpdate	= 0;
 
 	/** Bypass validations */
 	private List<String> _validBypass;
@@ -1717,6 +1720,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	public void setSiegeState(byte siegeState)
 	{
 		_siegeState = siegeState;
+		broadcastRelationChanged();
 	}
 
 	/**
@@ -1749,17 +1753,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		setPvpFlag(value);
 
 		sendPacket(new UserInfo(this));
-
-		// If this player has a pet update the pets pvp flag as well
-		if (getPet() != null)
-			sendPacket(new RelationChanged(getPet(), getRelation(this), false));
-
-		for (L2PcInstance target : getKnownList().getKnownPlayers().values())
-		{
-			target.sendPacket(new RelationChanged(this, getRelation(this), isAutoAttackable(target)));
-			if (getPet() != null)
-				target.sendPacket(new RelationChanged(getPet(), getRelation(this), isAutoAttackable(target)));
-		}
+		broadcastRelationChanged();
 	}
 
 	@Override
@@ -2086,10 +2080,8 @@ public final class L2PcInstance extends L2PlayableInstance
 				super.addSkill(SkillTable.getInstance().getInfo(4270, newWeightPenalty));
 			else
 				super.removeSkill(getKnownSkill(4270));
-
-			sendPacket(new EtcStatusUpdate(this));
-			StatusUpdate su = new StatusUpdate(getObjectId());
-			sendPacket(su);
+			
+			sendEtcStatusUpdate();
 			broadcastUserInfo();
 		}
 	}
@@ -2124,7 +2116,7 @@ public final class L2PcInstance extends L2PlayableInstance
 				else
 					super.removeSkill(getKnownSkill(4267));
 
-				sendPacket(new EtcStatusUpdate(this));
+				sendEtcStatusUpdate();
 			}
 		}
 	}
@@ -4092,8 +4084,6 @@ public final class L2PcInstance extends L2PlayableInstance
 					spectator.sendPacket(os);
 			}
 		}
-		
-		sendPacket(new EtcStatusUpdate(this));
 	}
 
 	/**
@@ -4113,25 +4103,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public final void broadcastUserInfo()
 	{
-		if (Config.NETWORK_TRAFFIC_OPTIMIZATION)
-		{
-			long currTimeMillis = System.currentTimeMillis();
-			if (currTimeMillis - _timePreviousBroadcastStatusUpdate < Config.NETWORK_TRAFFIC_OPTIMIZATION_BROADCAST_MS)
-			{
-				addPacketBroadcastMask(BroadcastMode.BROADCAST_USER_INFO);
-				return;
-			}
-			_timePreviousBroadcastStatusUpdate = currTimeMillis;
-		}
-		
-		broadcastUserInfoImpl();
-	}
-	
-	public final void broadcastUserInfoImpl()
-	{
-		sendPacket(new UserInfo(this));
-		
-		Broadcast.toKnownPlayers(this, new CharInfo(this));
+		broadcastFullInfo();
 	}
 	
 	public final void broadcastTitleInfo()
@@ -4144,62 +4116,6 @@ public final class L2PcInstance extends L2PlayableInstance
 			_log.debug("players to notify:" + getKnownList().getKnownPlayers().size() + " packet: [S] cc NicknameChanged");
 
 		Broadcast.toKnownPlayers(this, new NicknameChanged(this));
-	}
-
-	@Override
-	public final void broadcastPacket(L2GameServerPacket mov)
-	{
-		if (!(mov instanceof CharInfo))
-			sendPacket(mov);
-		
-		for (L2PcInstance player : getKnownList().getKnownPlayers().values())
-		{
-			if (!Broadcast.canReceivePacket(this, player))
-				continue;
-
-			player.sendPacket(mov);
-			
-			if (mov instanceof CharInfo)
-			{
-				int relation = getRelation(player);
-				if (getKnownList().getKnownRelations().get(player.getObjectId()) != null
-						&& getKnownList().getKnownRelations().get(player.getObjectId()) != relation)
-				{
-					player.sendPacket(new RelationChanged(this, relation, player.isAutoAttackable(this)));
-					if (getPet() != null)
-						player.sendPacket(new RelationChanged(getPet(), relation, player.isAutoAttackable(this)));
-				}
-			}
-		}
-	}
-
-	@Override
-	public final void broadcastPacket(L2GameServerPacket mov, int radiusInKnownlist)
-	{
-		if (!(mov instanceof CharInfo))
-			sendPacket(mov);
-
-		for (L2PcInstance player : getKnownList().getKnownPlayers().values())
-		{
-			if (!Broadcast.canReceivePacket(this, player))
-				continue;
-
-			if (isInsideRadius(player, radiusInKnownlist, false, false))
-			{
-				player.sendPacket(mov);
-				if (mov instanceof CharInfo)
-				{
-					int relation = getRelation(player);
-					if (getKnownList().getKnownRelations().get(player.getObjectId()) != null
-							&& getKnownList().getKnownRelations().get(player.getObjectId()) != relation)
-					{
-						player.sendPacket(new RelationChanged(this, relation, player.isAutoAttackable(this)));
-						if (getPet() != null)
-							player.sendPacket(new RelationChanged(getPet(), relation, player.isAutoAttackable(this)));
-					}
-				}
-			}
-		}
 	}
 
 	/**
@@ -6652,21 +6568,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		return (89 + getLevel()) / 100.0;
 	}
-
-	/**
-	 * Update Stats of the L2PcInstance client side by sending Server->Client packet UserInfo/StatusUpdate to this L2PcInstance and CharInfo/StatusUpdate to all L2PcInstance in its _knownPlayers (broadcast).<BR><BR>
-	 */
-	public void updateAndBroadcastStatus(int broadcastType)
-	{
-		refreshOverloaded();
-		refreshExpertisePenalty();
-		// Send a Server->Client packet UserInfo to this L2PcInstance and CharInfo to all L2PcInstance in its _knownPlayers (broadcast)
-		if (broadcastType == 1)
-			this.sendPacket(new UserInfo(this));
-		if (broadcastType == 2)
-			broadcastUserInfo();
-	}
-
+	
 	/**
 	 * Send a Server->Client StatusUpdate packet with Karma and PvP Flag to the L2PcInstance and all L2PcInstance to inform (broadcast).<BR><BR>
 	 * @param flag
@@ -6674,12 +6576,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	public void setKarmaFlag(int flag)
 	{
 		sendPacket(new UserInfo(this));
-		for (L2PcInstance player : getKnownList().getKnownPlayers().values())
-		{
-			player.sendPacket(new RelationChanged(this, getRelation(player), isAutoAttackable(player)));
-			if (getPet() != null)
-				player.sendPacket(new RelationChanged(getPet(), getRelation(player), isAutoAttackable(player)));
-		}
+		broadcastRelationChanged();
 	}
 
 	/**
@@ -6690,13 +6587,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		StatusUpdate su = new StatusUpdate(getObjectId());
 		su.addAttribute(StatusUpdate.KARMA, getKarma());
 		sendPacket(su);
-
-		for (L2PcInstance player : getKnownList().getKnownPlayers().values())
-		{
-			player.sendPacket(new RelationChanged(this, getRelation(player), isAutoAttackable(player)));
-			if (getPet() != null)
-				player.sendPacket(new RelationChanged(getPet(), getRelation(player), isAutoAttackable(player)));
-		}
+		broadcastRelationChanged();
 	}
 
 	/**
@@ -9110,27 +9001,6 @@ public final class L2PcInstance extends L2PlayableInstance
 	}
 
 	/**
-	 * Send a Server->Client packet UserInfo to this L2PcInstance and CharInfo to all L2PcInstance in its _knownPlayers.<BR><BR>
-	 *
-	 * <B><U> Concept</U> :</B><BR><BR>
-	 * Others L2PcInstance in the detection area of the L2PcInstance are identified in <B>_knownPlayers</B>.
-	 * In order to inform other players of this L2PcInstance state modifications, server just need to go through _knownPlayers to send Server->Client Packet<BR><BR>
-	 *
-	 * <B><U> Actions</U> :</B><BR><BR>
-	 * <li>Send a Server->Client packet UserInfo to this L2PcInstance (Public and Private Data)</li>
-	 * <li>Send a Server->Client packet CharInfo to all L2PcInstance in _knownPlayers of the L2PcInstance (Public data only)</li><BR><BR>
-	 *
-	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : DON'T SEND UserInfo packet to other players instead of CharInfo packet.
-	 * Indeed, UserInfo packet contains PRIVATE DATA as MaxHP, STR, DEX...</B></FONT><BR><BR>
-	 *
-	 */
-	@Override
-	public void updateAbnormalEffectImpl()
-	{
-		broadcastUserInfo();
-	}
-
-	/**
 	 * Disable the Inventory and create a new task to enable it after 1.5s.<BR><BR>
 	 */
 	public void tempInvetoryDisable()
@@ -9426,7 +9296,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		getPosition().setXYZ(x, y, z);
 
 		_observerMode = true;
-		broadcastPacket(new CharInfo(this));
+		broadcastUserInfo();
 	}
 
 	public void enterOlympiadObserverMode(int x, int y, int z, int id, boolean storeCoords)
@@ -9691,7 +9561,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			sendMessage("Your chat ban has been lifted.");
 			setBanChatTimer(0);
 		}
-		sendPacket(new EtcStatusUpdate(this));
+		sendEtcStatusUpdate();
 	}
 
 	public void setChatBannedForAnnounce(boolean isBanned)
@@ -9709,7 +9579,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			sendMessage("Your chat ban has been lifted.");
 			setBanChatTimer(0);
 		}
-		sendPacket(new EtcStatusUpdate(this));
+		sendEtcStatusUpdate();
 	}
 
 	public void setBanChatTimer(long timer)
@@ -9763,7 +9633,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	public void setMessageRefusal(boolean mode)
 	{
 		_messageRefusal = mode;
-		sendPacket(new EtcStatusUpdate(this));
+		sendEtcStatusUpdate();
 	}
 
 	public void setDietMode(boolean mode)
@@ -10766,7 +10636,6 @@ public final class L2PcInstance extends L2PlayableInstance
 			_disabledSkills.clear();
 		restoreEffects();
 		updateEffectIcons();
-		sendPacket(new EtcStatusUpdate(this));
 
 		// If player has quest "422: Repent Your Sins", remove it
 		QuestState st = getQuestState("422_RepentYourSins");
@@ -11186,7 +11055,6 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		super.doRevive();
 		updateEffectIcons();
-		sendPacket(new EtcStatusUpdate(this));
 		_reviveRequested = false;
 		_revivePower = 0;
 
@@ -11362,7 +11230,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			getPet().teleToLocation(getPosition().getX(), getPosition().getY(), getPosition().getZ(), false);
 			((L2SummonAI)getPet().getAI()).setStartFollowController(true);
 			pet.setFollowStatus(true);
-			getPet().updateAndBroadcastStatus(0);
+			getPet().broadcastFullInfoImpl(0);
 		}
 	}
 
@@ -11729,7 +11597,7 @@ public final class L2PcInstance extends L2PlayableInstance
 				getPet().unSummon(this);
 				// dead pet wasnt unsummoned, broadcast npcinfo changes (pet will be without owner name - means owner offline)
 				if (getPet() != null)
-					getPet().broadcastNpcInfo(0);
+					getPet().broadcastFullInfoImpl(0);
 			}
 			catch (Exception e)
 			{
@@ -12947,7 +12815,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	public void setCharmOfCourage(boolean val)
 	{
 		_charmOfCourage = val;
-		sendPacket(new EtcStatusUpdate(this));
+		sendEtcStatusUpdate();
 	}
 
 	/** Return True if the L2Character is riding. */
@@ -13036,7 +12904,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			sm = new SystemMessage(SystemMessageId.FORCE_MAXLEVEL_REACHED);
 		}
 		sendPacket(sm);
-		sendPacket(new EtcStatusUpdate(this));
+		sendEtcStatusUpdate();
 		restartChargeTask();
 	}
 
@@ -13048,7 +12916,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			_charges -= count;
 		else
 			_charges = 0;
-		sendPacket(new EtcStatusUpdate(this));
+		sendEtcStatusUpdate();
 		if (_charges == 0)
 			stopChargeTask();
 		else
@@ -13070,7 +12938,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		_charges = 0;
 		stopChargeTask();
-		sendPacket(new EtcStatusUpdate(this));
+		sendEtcStatusUpdate();
 	}
 
 	/**
@@ -13152,7 +13020,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		sm.addNumber(count);
 		sm.addNumber(_souls);
 		sendPacket(sm);
-		sendPacket(new EtcStatusUpdate(this));
+		sendEtcStatusUpdate();
 
 		restartSoulTask();
 	}
@@ -13187,7 +13055,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		else
 			restartSoulTask();
 
-		sendPacket(new EtcStatusUpdate(this));
+		sendEtcStatusUpdate();
 	}
 
 	public void setSouls(int count) // By GM command
@@ -13196,7 +13064,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (_souls > 0)
 			restartSoulTask();
 
-		sendPacket(new EtcStatusUpdate(this));
+		sendEtcStatusUpdate();
 	}
 
 	private class SoulTask implements Runnable
@@ -13221,7 +13089,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		_souls = 0;
 		stopSoulTask();
-		sendPacket(new EtcStatusUpdate(this));
+		sendEtcStatusUpdate();
 	}
 
 	/**
@@ -13300,7 +13168,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		_deathPenaltyBuffLevel++;
 
 		addSkill(SkillTable.getInstance().getInfo(5076, getDeathPenaltyBuffLevel()), false);
-		sendPacket(new EtcStatusUpdate(this));
+		sendEtcStatusUpdate();
 		SystemMessage sm = new SystemMessage(SystemMessageId.DEATH_PENALTY_LEVEL_S1_ADDED);
 		sm.addNumber(getDeathPenaltyBuffLevel());
 		sendPacket(sm);
@@ -13321,16 +13189,16 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (getDeathPenaltyBuffLevel() > 0)
 		{
 			addSkill(SkillTable.getInstance().getInfo(5076, getDeathPenaltyBuffLevel()), false);
-			sendPacket(new EtcStatusUpdate(this));
 			SystemMessage sm = new SystemMessage(SystemMessageId.DEATH_PENALTY_LEVEL_S1_ADDED);
 			sm.addNumber(getDeathPenaltyBuffLevel());
 			sendPacket(sm);
 		}
 		else
 		{
-			sendPacket(new EtcStatusUpdate(this));
 			sendPacket(SystemMessageId.DEATH_PENALTY_LIFTED);
 		}
+		
+		sendEtcStatusUpdate();
 	}
 
 	public void restoreDeathPenaltyBuffLevel()
@@ -14251,5 +14119,134 @@ public final class L2PcInstance extends L2PlayableInstance
 		super.setName(name);
 		
 		CharNameTable.getInstance().update(getObjectId(), getName());
+	}
+	
+	// =========================================================================================
+	// Condition listeners
+	// TODO: wrapper conditions - ConditionLogicAnd, ConditionLogicOr, etc
+	// TODO: make it more similar to conventional java listeners
+	// TODO: add every listener which makes sense - currently listens for hp percent only (Final Fortress, etc)
+	
+	public enum ConditionListenerDependency
+	{
+		CURRENT_HP;
+	}
+	
+	private abstract class ConditionListener
+	{
+		private final Map<Func, Boolean> _values = new SingletonMap<Func, Boolean>().setShared();
+		private final Env _env;
+		
+		protected ConditionListener()
+		{
+			_env = new Env();
+			_env.player = L2PcInstance.this;
+		}
+		
+		protected void refresh(ConditionListenerDependency dependency)
+		{
+			for (Entry<Func, Boolean> entry : _values.entrySet())
+			{
+				boolean newValue = entry.getKey().isAllowed(_env);
+				boolean oldValue = entry.setValue(newValue);
+				
+				if (newValue != oldValue)
+					onChange(entry.getKey(), newValue);
+			}
+		}
+		
+		protected void onChange(Func f, boolean newValue)
+		{
+			sendMessage(f.funcOwner.getFuncOwnerName() + (newValue ? " activated." : " deactivated."));
+		}
+		
+		protected void onFuncAddition(Func f)
+		{
+			_values.put(f, f.isAllowed(_env));
+		}
+		
+		protected void onFuncRemoval(Func f)
+		{
+			_values.remove(f);
+		}
+	}
+	
+	private final class ConditionPlayerHpListener extends ConditionListener
+	{
+		@Override
+		protected void onFuncAddition(Func f)
+		{
+			if (f.condition instanceof ConditionPlayerHp)
+				super.onFuncAddition(f);
+		}
+		
+		@Override
+		protected void refresh(ConditionListenerDependency dependency)
+		{
+			if (dependency == ConditionListenerDependency.CURRENT_HP)
+				super.refresh(dependency);
+		}
+		
+		@Override
+		protected void onChange(Func f, boolean newValue)
+		{
+			super.onChange(f, newValue);
+			
+			broadcastUserInfo();
+		}
+	}
+	
+	private final ConditionListener[] CONDITION_LISTENER = { new ConditionPlayerHpListener() };
+	
+	public void onFuncAddition(Func f)
+	{
+		for (ConditionListener listener : CONDITION_LISTENER)
+			listener.onFuncAddition(f);
+	}
+	
+	public void onFuncRemoval(Func f)
+	{
+		for (ConditionListener listener : CONDITION_LISTENER)
+			listener.onFuncRemoval(f);
+	}
+	
+	public void refreshConditionListeners(ConditionListenerDependency dependency)
+	{
+		for (ConditionListener listener : CONDITION_LISTENER)
+			listener.refresh(dependency);
+	}
+	
+	// =========================================================================================
+	
+	public void sendEtcStatusUpdate()
+	{
+		addPacketBroadcastMask(BroadcastMode.SEND_ETC_STATUS_UPDATE);
+	}
+	
+	public void sendEtcStatusUpdateImpl()
+	{
+		sendPacket(new EtcStatusUpdate(this));
+	}
+	
+	public void broadcastRelationChanged()
+	{
+		addPacketBroadcastMask(BroadcastMode.BROADCAST_RELATION_CHANGED);
+	}
+	
+	public void broadcastRelationChangedImpl()
+	{
+		for (L2PcInstance player : getKnownList().getKnownPlayers().values())
+			RelationChanged.sendRelationChanged(this, player);
+	}
+	
+	@Override
+	public void broadcastFullInfoImpl()
+	{
+		refreshOverloaded();
+		refreshExpertisePenalty();
+		
+		sendPacket(new UserInfo(this));
+		
+		Broadcast.toKnownPlayers(this, new CharInfo(this));
 	}
 }

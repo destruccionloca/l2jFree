@@ -157,7 +157,7 @@ public class RequestPetUseItem extends L2GameClientPacket
 			PetItemList pil = new PetItemList(pet);
 			activeChar.sendPacket(pil);
 
-			pet.updateAndBroadcastStatus(1);
+			pet.broadcastFullInfo();
 		}
 		else
 		{
@@ -171,7 +171,7 @@ public class RequestPetUseItem extends L2GameClientPacket
 			else
 			{
 				handler.useItem(pet, item);
-				pet.updateAndBroadcastStatus(1);
+				pet.broadcastFullInfo();
 			}
 		}
 	}

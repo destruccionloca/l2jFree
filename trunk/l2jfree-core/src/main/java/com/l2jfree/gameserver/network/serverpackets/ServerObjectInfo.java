@@ -14,8 +14,9 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.L2GameClient;
 
 /**
  *
@@ -27,14 +28,12 @@ public final class ServerObjectInfo extends L2GameServerPacket
 	private L2NpcInstance _activeChar;
 	private int _x, _y, _z, _heading;
 	private int _idTemplate;
-	private boolean _isAttackable;
 	private int _collisionHeight, _collisionRadius;
 
-	public ServerObjectInfo(L2NpcInstance activeChar, L2Character actor)
+	public ServerObjectInfo(L2NpcInstance activeChar)
 	{
 		_activeChar = activeChar;
 		_idTemplate = _activeChar.getTemplate().getIdTemplate();
-		_isAttackable = _activeChar.isAutoAttackable(actor);
 		_collisionHeight = _activeChar.getCollisionHeight();
 		_collisionRadius = _activeChar.getCollisionRadius();
 		_x = _activeChar.getX();
@@ -47,13 +46,15 @@ public final class ServerObjectInfo extends L2GameServerPacket
 	 * @see net.sf.l2j.gameserver.network.serverpackets.L2GameServerPacket#writeImpl()
 	 */
 	@Override
-	protected final void writeImpl()
+	protected final void writeImpl(L2GameClient client, L2PcInstance activeChar)
 	{
+		boolean isAttackable = _activeChar.isAutoAttackable(activeChar);
+		
 		writeC(0x92);
 		writeD(_activeChar.getObjectId());
 		writeD(_idTemplate + 1000000);
 		writeS(""); // name
-		writeD(_isAttackable ? 1 : 0);
+		writeD(isAttackable ? 1 : 0);
 		writeD(_x);
 		writeD(_y);
 		writeD(_z);
@@ -62,8 +63,8 @@ public final class ServerObjectInfo extends L2GameServerPacket
 		writeF(1.0); // attack speed multiplier
 		writeF(_collisionRadius);
 		writeF(_collisionHeight);
-		writeD((int) (_isAttackable ? _activeChar.getCurrentHp() : 0));
-		writeD(_isAttackable ? _activeChar.getMaxHp() : 0);
+		writeD((int)(isAttackable ? _activeChar.getCurrentHp() : 0));
+		writeD(isAttackable ? _activeChar.getMaxHp() : 0);
 		writeD(0x01); // object type
 		writeD(0x00); // special effects
 	}

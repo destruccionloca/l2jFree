@@ -83,8 +83,6 @@ public abstract class L2Effect implements FuncOwner
 	// counter
 	private int						_count;
 	
-	public boolean					preventExitUpdate;
-	
 	public final class EffectTask implements Runnable
 	{
 		protected final int	_delay;
@@ -350,11 +348,6 @@ public abstract class L2Effect implements FuncOwner
 			_effected.addEffect(this);
 	}
 	
-	public final void exit()
-	{
-		exit(false);
-	}
-	
 	/**
 	 * Stop the L2Effect task and send Server->Client update packet.<BR>
 	 * <BR>
@@ -365,9 +358,8 @@ public abstract class L2Effect implements FuncOwner
 	 * <BR>
 	 * <BR>
 	 */
-	public final void exit(boolean preventUpdate)
+	public final void exit()
 	{
-		preventExitUpdate = preventUpdate;
 		_state = EffectState.FINISHING;
 		scheduleEffect();
 	}

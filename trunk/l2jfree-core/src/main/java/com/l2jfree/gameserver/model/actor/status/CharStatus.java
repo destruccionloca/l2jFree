@@ -26,6 +26,7 @@ import com.l2jfree.gameserver.model.L2Attackable;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2FortBallistaInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance.ConditionListenerDependency;
 import com.l2jfree.gameserver.model.actor.stat.CharStat;
 import com.l2jfree.gameserver.model.entity.Duel;
 import com.l2jfree.gameserver.model.quest.QuestState;
@@ -126,6 +127,9 @@ public class CharStatus
 		}
 		
 		getActiveChar().broadcastStatusUpdate();
+		
+		if (getActiveChar() instanceof L2PcInstance)
+			((L2PcInstance)getActiveChar()).refreshConditionListeners(ConditionListenerDependency.CURRENT_HP);
 	}
 	
 	public final void setCurrentMp(double newMp)

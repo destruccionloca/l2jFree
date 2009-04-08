@@ -14,53 +14,60 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 
 /**
- *
- * @author  Luca Baldi
+ * @author Luca Baldi
  */
-public class RelationChanged extends L2GameServerPacket
+public final class RelationChanged extends L2GameServerPacket
 {
-	public static final int RELATION_PVP_FLAG     = 0x00002; // pvp ???
-	public static final int RELATION_HAS_KARMA    = 0x00004; // karma ???
-	public static final int RELATION_LEADER       = 0x00080; // leader
-	public static final int RELATION_INSIEGE      = 0x00200; // true if in siege
-	public static final int RELATION_ATTACKER     = 0x00400; // true when attacker
-	public static final int RELATION_ALLY         = 0x00800; // blue siege icon, cannot have if red
-	public static final int RELATION_ENEMY        = 0x01000; // true when red icon, doesn't matter with blue
-	public static final int RELATION_MUTUAL_WAR   = 0x08000; // double fist
-	public static final int RELATION_1SIDED_WAR   = 0x10000; // single fist
-
 	private static final String _S__CE_RELATIONCHANGED = "[S] CE RelationChanged";
-
-	private int _objId, _relation, _autoAttackable, _karma, _pvpFlag;
 	
-	public RelationChanged(L2PlayableInstance activeChar, int relation, boolean autoAttackable)
+	public static final int RELATION_PVP_FLAG = 0x00002; // pvp ???
+	public static final int RELATION_HAS_KARMA = 0x00004; // karma ???
+	public static final int RELATION_LEADER = 0x00080; // leader
+	public static final int RELATION_INSIEGE = 0x00200; // true if in siege
+	public static final int RELATION_ATTACKER = 0x00400; // true when attacker
+	public static final int RELATION_ALLY = 0x00800; // blue siege icon, cannot have if red
+	public static final int RELATION_ENEMY = 0x01000; // true when red icon, doesn't matter with blue
+	public static final int RELATION_MUTUAL_WAR = 0x08000; // double fist
+	public static final int RELATION_1SIDED_WAR = 0x10000; // single fist
+	
+	public static void sendRelationChanged(L2PcInstance target, L2PcInstance attacker)
 	{
-		_objId = activeChar.getObjectId();
-		_relation = relation;
-		_autoAttackable = autoAttackable ? 1 : 0;
-
-		if (activeChar instanceof L2PcInstance)
-		{
-			_karma = ((L2PcInstance)activeChar).getKarma();
-			_pvpFlag = ((L2PcInstance)activeChar).getPvpFlag();
-		}
-		else if (activeChar instanceof L2Summon)
-		{
-			_karma =  ((L2Summon)activeChar).getOwner().getKarma();
-			_pvpFlag = ((L2Summon)activeChar).getOwner().getPvpFlag();
-		}
+		if (target == null || attacker == null)
+			return;
+		
+		int currentRelation = target.getRelation(attacker);
+		
+		Integer oldRelation = attacker.getKnownList().getKnownRelations().put(target.getObjectId(), currentRelation);
+		
+		if (oldRelation != null && oldRelation == currentRelation)
+			return;
+		
+		attacker.sendPacket(new RelationChanged(target, currentRelation, attacker));
+		if (target.getPet() != null)
+			attacker.sendPacket(new RelationChanged(target.getPet(), currentRelation, attacker));
 	}
-
-	/**
-	 * @see com.l2jfree.gameserver.network.serverpackets.ServerBasePacket#writeImpl()
-	 */
+	
+	private final int _objId;
+	private final int _relation;
+	private final int _autoAttackable;
+	private final int _karma;
+	private final int _pvpFlag;
+	
+	public RelationChanged(L2PlayableInstance target, int relation, L2PcInstance attacker)
+	{
+		_objId = target.getObjectId();
+		_relation = relation;
+		_autoAttackable = target.isAutoAttackable(attacker) ? 1 : 0;
+		_karma = target.getActingPlayer().getKarma();
+		_pvpFlag = target.getActingPlayer().getPvpFlag();
+	}
+	
 	@Override
-	protected final void writeImpl()
+	protected void writeImpl()
 	{
 		writeC(0xce);
 		writeD(_objId);
@@ -69,10 +76,7 @@ public class RelationChanged extends L2GameServerPacket
 		writeD(_karma);
 		writeD(_pvpFlag);
 	}
-
-	/**
-	 * @see com.l2jfree.gameserver.BasePacket#getType()
-	 */
+	
 	@Override
 	public String getType()
 	{

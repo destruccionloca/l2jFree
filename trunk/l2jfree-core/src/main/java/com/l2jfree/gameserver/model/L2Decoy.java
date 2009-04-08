@@ -41,7 +41,7 @@ public abstract class L2Decoy extends L2Character
     public void onSpawn()
     {
         super.onSpawn();
-        this.getOwner().sendPacket(new NpcInfo(this));
+        broadcastFullInfo();
     }
     
     @Override
@@ -51,12 +51,6 @@ public abstract class L2Decoy extends L2Character
         MyTargetSelected my = new MyTargetSelected(getObjectId(), player.getLevel()
                 - getLevel());
         player.sendPacket(my);
-    }
-    
-    @Override
-    public final void updateAbnormalEffectImpl()
-    {
-        broadcastPacket(new NpcInfo(this));
     }
     
     public void stopDecay()
@@ -146,4 +140,10 @@ public abstract class L2Decoy extends L2Character
     {
         return (L2NpcTemplate) super.getTemplate();
     }
+	
+	@Override
+	public void broadcastFullInfoImpl()
+	{
+		broadcastPacket(new NpcInfo(this));
+	}
 }

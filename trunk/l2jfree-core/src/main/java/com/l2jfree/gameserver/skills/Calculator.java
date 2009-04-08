@@ -14,8 +14,10 @@
  */
 package com.l2jfree.gameserver.skills;
 
+import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.skills.funcs.Func;
-import com.l2jfree.util.LinkedBunch;
+import com.l2jfree.gameserver.skills.funcs.FuncOwner;
 
 /**
  * A calculator is created to manage and dynamically calculate the effect of a character property (ex : MAX_HP, REGENERATE_HP_RATE...). 
@@ -116,7 +118,7 @@ public final class Calculator
 	/**
 	 * Remove a Func from the Calculator.<BR><BR>
 	 */
-	public synchronized void removeFunc(Func f)
+	private synchronized void removeFunc(Func f)
 	{
 		Func[] funcs = _functions;
 		Func[] tmp = new Func[funcs.length - 1];
@@ -141,19 +143,18 @@ public final class Calculator
 	/**
 	 * Remove each Func with the specified owner of the Calculator.<BR><BR>
 	 */
-	public synchronized Func[] removeOwner(Object owner)
+	public synchronized void removeOwner(FuncOwner owner, L2Character cha)
 	{
-		LinkedBunch<Func> modified = new LinkedBunch<Func>();
-
 		for (Func element : _functions)
 		{
 			if (element.funcOwner == owner)
 			{
-				modified.add(element);
 				removeFunc(element);
+				
+				if (cha instanceof L2PcInstance)
+					((L2PcInstance)cha).onFuncRemoval(element);
 			}
 		}
-		return modified.moveToArray(new Func[modified.size()]);
 	}
 
 	/**

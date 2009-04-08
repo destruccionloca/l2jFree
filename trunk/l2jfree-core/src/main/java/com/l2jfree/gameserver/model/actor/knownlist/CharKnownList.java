@@ -32,7 +32,6 @@ public class CharKnownList extends ObjectKnownList
     // =========================================================
     // Data Field
     private Map<Integer, L2PcInstance> _knownPlayers;
-    private Map<Integer, Integer> _knownRelations;
     
     // =========================================================
     // Constructor
@@ -50,10 +49,8 @@ public class CharKnownList extends ObjectKnownList
             return false;
 
         if (object instanceof L2PcInstance)
-        {
             getKnownPlayers().put(object.getObjectId(), (L2PcInstance)object);
-            getKnownRelations().put(object.getObjectId(), -1);
-        }
+        
         return true;
     }
 
@@ -65,11 +62,10 @@ public class CharKnownList extends ObjectKnownList
     
     /** Remove all L2Object from _knownObjects and _knownPlayer of the L2Character then cancel Attak or Cast and notify AI. */
     @Override
-    public final void removeAllKnownObjects()
+    public void removeAllKnownObjects()
     {
         super.removeAllKnownObjects();
         getKnownPlayers().clear();
-        getKnownRelations().clear();
 
         // Set _target of the L2Character to null
         // Cancel Attack or Cast
@@ -87,10 +83,8 @@ public class CharKnownList extends ObjectKnownList
             return false;
 
         if (object instanceof L2PcInstance)
-        {
             getKnownPlayers().remove(object.getObjectId());
-            getKnownRelations().remove(object.getObjectId());
-        }
+        
         // If object is targeted by the L2Character, cancel Attack or Cast
         if (object == getActiveChar().getTarget())
             getActiveChar().setTarget(null);
@@ -134,12 +128,6 @@ public class CharKnownList extends ObjectKnownList
     {
         if (_knownPlayers == null) _knownPlayers = new SingletonMap<Integer, L2PcInstance>().setShared();
         return _knownPlayers;
-    }
-
-    public final Map<Integer, Integer> getKnownRelations()
-    {
-        if (_knownRelations == null) _knownRelations = new SingletonMap<Integer, Integer>().setShared();
-        return _knownRelations;
     }
 
 	public final Iterable<L2PcInstance> getKnownPlayersInRadius(final int radius)

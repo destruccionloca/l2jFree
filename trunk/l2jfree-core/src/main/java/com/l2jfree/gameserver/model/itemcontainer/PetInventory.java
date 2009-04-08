@@ -99,7 +99,7 @@ public class PetInventory extends Inventory
 	public void refreshWeight()
 	{
 		super.refreshWeight();
-		getOwner().updateAndBroadcastStatus(1);
+		getOwner().broadcastFullInfo();
 	}
 
 	@Override

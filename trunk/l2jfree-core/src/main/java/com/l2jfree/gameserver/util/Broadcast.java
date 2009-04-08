@@ -42,6 +42,11 @@ public final class Broadcast
 			toKnownPlayers(character, mov);
 			return;
 		}
+		else if (radius > 10000)
+		{
+			toKnownPlayersInRadius(character, mov, (long)radius);
+			return;
+		}
 		
 		for (L2PcInstance player : character.getKnownList().getKnownPlayers().values())
 			if (character.isInsideRadius(player, radius, false, false))
@@ -53,6 +58,11 @@ public final class Broadcast
 		if (radiusSq < 0)
 		{
 			toKnownPlayers(character, mov);
+			return;
+		}
+		else if (radiusSq < 10000)
+		{
+			toKnownPlayersInRadius(character, mov, (int)radiusSq);
 			return;
 		}
 		

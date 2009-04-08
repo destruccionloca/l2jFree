@@ -81,9 +81,7 @@ import com.l2jfree.gameserver.network.serverpackets.MagicSkillCanceled;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillLaunched;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.MoveToLocation;
-import com.l2jfree.gameserver.network.serverpackets.NpcInfo;
 import com.l2jfree.gameserver.network.serverpackets.Revive;
-import com.l2jfree.gameserver.network.serverpackets.ServerObjectInfo;
 import com.l2jfree.gameserver.network.serverpackets.SetupGauge;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.StopMove;
@@ -95,6 +93,7 @@ import com.l2jfree.gameserver.skills.Calculator;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.funcs.Func;
+import com.l2jfree.gameserver.skills.funcs.FuncOwner;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillAgathion;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillChargeDmg;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillMount;
@@ -112,7 +111,6 @@ import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.lang.L2System;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.tools.random.Rnd;
-import com.l2jfree.util.LinkedBunch;
 import com.l2jfree.util.SingletonList;
 import com.l2jfree.util.SingletonSet;
 
@@ -404,15 +402,9 @@ public abstract class L2Character extends L2Object
 	 * the L2Character, server just need to go through _knownPlayers to send Server->Client Packet<BR>
 	 * <BR>
 	 */
-	public void broadcastPacket(L2GameServerPacket mov)
+	public final void broadcastPacket(L2GameServerPacket mov)
 	{
-		for (L2PcInstance player : getKnownList().getKnownPlayers().values())
-		{
-			if (!Broadcast.canReceivePacket(this, player))
-				continue;
-
-			player.sendPacket(mov);
-		}
+		Broadcast.toSelfAndKnownPlayers(this, mov);
 	}
 
 	/**
@@ -424,16 +416,9 @@ public abstract class L2Character extends L2Object
 	 * the L2Character, server just need to go through _knownPlayers to send Server->Client Packet<BR>
 	 * <BR>
 	 */
-	public void broadcastPacket(L2GameServerPacket mov, int radiusInKnownlist)
+	public final void broadcastPacket(L2GameServerPacket mov, int radiusInKnownlist)
 	{
-		for (L2PcInstance player : getKnownList().getKnownPlayers().values())
-		{
-			if (!Broadcast.canReceivePacket(this, player))
-				continue;
-
-			if (isInsideRadius(player, radiusInKnownlist, false, false))
-				player.sendPacket(mov);
-		}
+		Broadcast.toSelfAndKnownPlayersInRadius(this, mov, radiusInKnownlist);
 	}
 
 	/**
@@ -2685,22 +2670,8 @@ public abstract class L2Character extends L2Object
 		_isRunning = value;
 		if (getRunSpeed() != 0)
 			broadcastPacket(new ChangeMoveType(this));
-		if (this instanceof L2PcInstance)
-			((L2PcInstance)this).broadcastUserInfo();
-		else if (this instanceof L2Summon)
-		{
-			((L2Summon)this).broadcastStatusUpdate();
-		}
-		else if (this instanceof L2NpcInstance)
-		{
-			for (L2PcInstance player : getKnownList().getKnownPlayers().values())
-			{
-				if (getRunSpeed() == 0)
-					player.sendPacket(new ServerObjectInfo((L2NpcInstance) this, player));
-				else
-					player.sendPacket(new NpcInfo((L2NpcInstance) this, player));
-			}
-		}
+		
+		broadcastFullInfo();
 	}
 
 	/** Set the L2Character movement type to run and send Server->Client packet ChangeMoveType to all others L2PcInstance. */
@@ -3171,20 +3142,14 @@ public abstract class L2Character extends L2Object
 	 * <li>Update active skills in progress icons on player client</li>
 	 * <BR>
 	 */
-	public final void removeEffect(L2Effect effect, boolean doStatusUpdate)
-	{
-		_effects.removeEffect(effect);
-
-		// Update active skills in progress (In Use and Not In Use because stacked) icons on client
-		if (doStatusUpdate)
-			updateEffectIcons();
-	}
-
 	public final void removeEffect(L2Effect effect)
 	{
-		removeEffect(effect, true);
+		_effects.removeEffect(effect);
+		
+		// Update active skills in progress (In Use and Not In Use because stacked) icons on client
+		updateEffectIcons();
 	}
-
+	
 	/**
 	 * Active abnormal effects flags in the binary mask and send Server->Client UserInfo/CharInfo packet.<BR>
 	 * <BR>
@@ -3436,21 +3401,17 @@ public abstract class L2Character extends L2Object
 	public final void stopAllEffects()
 	{
 		_effects.stopAllEffects();
-		if (this instanceof L2PcInstance)
-			((L2PcInstance)this).updateAndBroadcastStatus(2);
-		if (this instanceof L2Summon)
-			((L2Summon)this).updateAndBroadcastStatus(1);
+		
+		broadcastFullInfo();
 	}
-
+	
 	public final void stopAllEffectsExceptThoseThatLastThroughDeath()
 	{
 		_effects.stopAllEffectsExceptThoseThatLastThroughDeath();
-		if (this instanceof L2PcInstance)
-			((L2PcInstance)this).updateAndBroadcastStatus(2);
-		if (this instanceof L2Summon)
-			((L2Summon)this).updateAndBroadcastStatus(1);
+		
+		broadcastFullInfo();
 	}
-
+	
 	/**
 	 * Stop a specified/all Confused abnormal L2Effect.<BR>
 	 * <BR>
@@ -3776,11 +3737,7 @@ public abstract class L2Character extends L2Object
 	 */
 	public final void updateAbnormalEffect()
 	{
-		addPacketBroadcastMask(BroadcastMode.UPDATE_ABNORMAL_EFFECT);
-	}
-	
-	public void updateAbnormalEffectImpl()
-	{
+		broadcastFullInfo();
 	}
 	
 	/**
@@ -4117,34 +4074,12 @@ public abstract class L2Character extends L2Object
 
         return m.onGeodataPathIndex != m.geoPath.size() - 1;
     }
-
-	/**
-	 * Add a Func to the Calculator set of the L2Character.<BR>
-	 * <BR>
-	 * <B><U> Concept</U> :</B><BR>
-	 * <BR>
-	 * A L2Character owns a table of Calculators called <B>_calculators</B>. Each Calculator (a calculator per state) own a table of Func object. A Func object
-	 * is a mathematic function that permit to calculate the modifier of a state (ex : REGENERATE_HP_RATE...). To reduce cache memory use, L2NPCInstances who
-	 * don't have skills share the same Calculator set called <B>NPC_STD_CALCULATOR</B>.<BR>
-	 * <BR>
-	 * That's why, if a L2NPCInstance is under a skill/spell effect that modify one of its state, a copy of the NPC_STD_CALCULATOR must be create in its
-	 * _calculators before addind new Func object.<BR>
-	 * <BR>
-	 * <B><U> Actions</U> :</B><BR>
-	 * <BR>
-	 * <li>If _calculators is linked to NPC_STD_CALCULATOR, create a copy of NPC_STD_CALCULATOR in _calculators</li>
-	 * <li>Add the Func object to _calculators</li>
-	 * <BR>
-	 * <BR>
-	 *
-	 * @param f
-	 *            The Func object to add to the Calculator corresponding to the state affected
-	 */
+	
 	public final void addStatFunc(Func f)
 	{
 		if (f == null)
 			return;
-
+		
 		synchronized (_calculators)
 		{
 			// Check if Calculator set is linked to the standard Calculator set of NPC
@@ -4152,174 +4087,38 @@ public abstract class L2Character extends L2Object
 			{
 				// Create a copy of the standard NPC Calculator set
 				_calculators = new Calculator[Stats.NUM_STATS];
-
+				
 				for (int i = 0; i < Stats.NUM_STATS; i++)
 				{
 					if (NPC_STD_CALCULATOR[i] != null)
 						_calculators[i] = new Calculator(NPC_STD_CALCULATOR[i]);
 				}
 			}
-
+			
 			// Select the Calculator of the affected state in the Calculator set
 			int stat = f.stat.ordinal();
-
+			
 			if (_calculators[stat] == null)
 				_calculators[stat] = new Calculator();
-
+			
 			// Add the Func to the calculator corresponding to the state
 			_calculators[stat].addFunc(f);
+			
+			if (this instanceof L2PcInstance)
+				((L2PcInstance)this).onFuncAddition(f);
 		}
+		
+		broadcastFullInfo();
 	}
-
-	/**
-	 * Add a list of Funcs to the Calculator set of the L2Character.<BR>
-	 * <BR>
-	 * <B><U> Concept</U> :</B><BR>
-	 * <BR>
-	 * A L2Character owns a table of Calculators called <B>_calculators</B>. Each Calculator (a calculator per state) own a table of Func object. A Func object
-	 * is a mathematic function that permit to calculate the modifier of a state (ex : REGENERATE_HP_RATE...). <BR>
-	 * <BR>
-	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method is ONLY for L2PcInstance</B></FONT><BR>
-	 * <BR>
-	 * <B><U> Example of use </U> :</B><BR>
-	 * <BR>
-	 * <li> Equip an item from inventory</li>
-	 * <li> Learn a new passive skill</li>
-	 * <li> Use an active skill</li>
-	 * <BR>
-	 * <BR>
-	 *
-	 * @param funcs
-	 *            The list of Func objects to add to the Calculator corresponding to the state affected
-	 */
+	
 	public final void addStatFuncs(Func[] funcs)
 	{
 		for (Func f : funcs)
 			addStatFunc(f);
-		
-		broadcastModifiedStats(funcs);
 	}
-
-	/**
-	 * Remove a Func from the Calculator set of the L2Character.<BR>
-	 * <BR>
-	 * <B><U> Concept</U> :</B><BR>
-	 * <BR>
-	 * A L2Character owns a table of Calculators called <B>_calculators</B>. Each Calculator (a calculator per state) own a table of Func object. A Func object
-	 * is a mathematic function that permit to calculate the modifier of a state (ex : REGENERATE_HP_RATE...). To reduce cache memory use, L2NPCInstances who
-	 * don't have skills share the same Calculator set called <B>NPC_STD_CALCULATOR</B>.<BR>
-	 * <BR>
-	 * That's why, if a L2NPCInstance is under a skill/spell effect that modify one of its state, a copy of the NPC_STD_CALCULATOR must be create in its
-	 * _calculators before addind new Func object.<BR>
-	 * <BR>
-	 * <B><U> Actions</U> :</B><BR>
-	 * <BR>
-	 * <li>Remove the Func object from _calculators</li>
-	 * <BR>
-	 * <BR>
-	 * <li>If L2Character is a L2NPCInstance and _calculators is equal to NPC_STD_CALCULATOR, free cache memory and just create a link on NPC_STD_CALCULATOR in
-	 * _calculators</li>
-	 * <BR>
-	 * <BR>
-	 *
-	 * @param f
-	 *            The Func object to remove from the Calculator corresponding to the state affected
-	 */
-	public final void removeStatFunc(Func f)
+	
+	public final void removeStatsOwner(FuncOwner owner)
 	{
-		if (f == null)
-			return;
-
-		// Select the Calculator of the affected state in the Calculator set
-		int stat = f.stat.ordinal();
-
-		if (_calculators[stat] == null)
-			return;
-
-		// Remove the Func object from the Calculator
-		_calculators[stat].removeFunc(f);
-
-		if (_calculators[stat].size() == 0)
-			_calculators[stat] = null;
-
-		// If possible, free the memory and just create a link on NPC_STD_CALCULATOR
-		if (this instanceof L2NpcInstance)
-		{
-			int i = 0;
-			for (; i < Stats.NUM_STATS; i++)
-			{
-				if (!Calculator.equalsCals(_calculators[i], NPC_STD_CALCULATOR[i]))
-					break;
-			}
-
-			if (i >= Stats.NUM_STATS)
-				_calculators = NPC_STD_CALCULATOR;
-		}
-	}
-
-	/**
-	 * Remove a list of Funcs from the Calculator set of the L2PcInstance.<BR>
-	 * <BR>
-	 * <B><U> Concept</U> :</B><BR>
-	 * <BR>
-	 * A L2Character owns a table of Calculators called <B>_calculators</B>. Each Calculator (a calculator per state) own a table of Func object. A Func object
-	 * is a mathematic function that permit to calculate the modifier of a state (ex : REGENERATE_HP_RATE...). <BR>
-	 * <BR>
-	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method is ONLY for L2PcInstance</B></FONT><BR>
-	 * <BR>
-	 * <B><U> Example of use </U> :</B><BR>
-	 * <BR>
-	 * <li> Unequip an item from inventory</li>
-	 * <li> Stop an active skill</li>
-	 * <BR>
-	 * <BR>
-	 *
-	 * @param funcs
-	 *            The list of Func objects to add to the Calculator corresponding to the state affected
-	 */
-	public final void removeStatFuncs(Func[] funcs)
-	{
-		for (Func f : funcs)
-			removeStatFunc(f);
-		
-		broadcastModifiedStats(funcs);
-	}
-
-	/**
-	 * Remove all Func objects with the selected owner from the Calculator set of the L2Character.<BR>
-	 * <BR>
-	 * <B><U> Concept</U> :</B><BR>
-	 * <BR>
-	 * A L2Character owns a table of Calculators called <B>_calculators</B>. Each Calculator (a calculator per state) own a table of Func object. A Func object
-	 * is a mathematic function that permit to calculate the modifier of a state (ex : REGENERATE_HP_RATE...). To reduce cache memory use, L2NPCInstances who
-	 * don't have skills share the same Calculator set called <B>NPC_STD_CALCULATOR</B>.<BR>
-	 * <BR>
-	 * That's why, if a L2NPCInstance is under a skill/spell effect that modify one of its state, a copy of the NPC_STD_CALCULATOR must be create in its
-	 * _calculators before addind new Func object.<BR>
-	 * <BR>
-	 * <B><U> Actions</U> :</B><BR>
-	 * <BR>
-	 * <li>Remove all Func objects of the selected owner from _calculators</li>
-	 * <BR>
-	 * <BR>
-	 * <li>If L2Character is a L2NPCInstance and _calculators is equal to NPC_STD_CALCULATOR, free cache memory and just create a link on NPC_STD_CALCULATOR in
-	 * _calculators</li>
-	 * <BR>
-	 * <BR>
-	 * <B><U> Example of use </U> :</B><BR>
-	 * <BR>
-	 * <li> Unequip an item from inventory</li>
-	 * <li> Stop an active skill</li>
-	 * <BR>
-	 * <BR>
-	 *
-	 * @param owner
-	 *            The Object(Skill, Item...) that has created the effect
-	 */
-	public final void removeStatsOwner(Object owner)
-	{
-		LinkedBunch<Func> modified = new LinkedBunch<Func>();
-
 		// Go through the Calculator set
 		synchronized (_calculators)
 		{
@@ -4328,13 +4127,13 @@ public abstract class L2Character extends L2Object
 				if (_calculators[i] != null)
 				{
 					// Delete all Func objects of the selected owner
-					modified.addAll(_calculators[i].removeOwner(owner));
+					_calculators[i].removeOwner(owner, this);
 					
 					if (_calculators[i].size() == 0)
 						_calculators[i] = null;
 				}
 			}
-
+			
 			// If possible, free the memory and just create a link on NPC_STD_CALCULATOR
 			if (this instanceof L2NpcInstance)
 			{
@@ -4344,115 +4143,15 @@ public abstract class L2Character extends L2Object
 					if (!Calculator.equalsCals(_calculators[i], NPC_STD_CALCULATOR[i]))
 						break;
 				}
-
+				
 				if (i >= Stats.NUM_STATS)
 					_calculators = NPC_STD_CALCULATOR;
 			}
-
-			if (owner instanceof L2Effect && !((L2Effect) owner).preventExitUpdate)
-				broadcastModifiedStats(modified.moveToArray(new Func[modified.size()]));
-			else
-				modified.clear();
 		}
+		
+		broadcastFullInfo();
 	}
-
-	private void broadcastModifiedStats(Func[] funcs)
-	{
-		if (funcs == null || funcs.length == 0)
-			return;
-
-		boolean broadcastFull = false;
-		boolean otherStats = false;
-		StatusUpdate su = null;
-
-		for (Func func : funcs)
-		{
-			final Stats stat = func.stat;
-			
-			if (this instanceof L2Summon)
-			{
-				((L2Summon) this).updateAndBroadcastStatus(1);
-				break;
-			}
-			else if (stat == Stats.POWER_ATTACK_SPEED) 
-			{
-				broadcastFull = true;
-			}
-			else if (stat == Stats.MAGIC_ATTACK_SPEED)
-			{
-				broadcastFull = true;
-			}
-			// else if (stat==Stats.MAX_HP) // TODO: self only and add more stats...
-			// {
-			// if (su == null) su = new StatusUpdate(getObjectId());
-			// su.addAttribute(StatusUpdate.MAX_HP, getMaxHp());
-			// }
-			else if (stat == Stats.MAX_CP)
-			{
-				if (this instanceof L2PcInstance)
-				{
-					if (su == null)
-						su = new StatusUpdate(getObjectId());
-					su.addAttribute(StatusUpdate.MAX_CP, getMaxCp());
-				}
-			}
-			// else if (stat==Stats.MAX_MP)
-			// {
-			// if (su == null) su = new StatusUpdate(getObjectId());
-			// su.addAttribute(StatusUpdate.MAX_MP, getMaxMp());
-			// }
-			else if (stat == Stats.RUN_SPEED)
-			{
-				broadcastFull = true;
-			}
-			else
-				otherStats = true;
-		}
-
-		if (this instanceof L2PcInstance)
-		{
-			if (broadcastFull)
-				((L2PcInstance) this).updateAndBroadcastStatus(2);
-			else
-			{
-				if (otherStats)
-				{
-					((L2PcInstance) this).updateAndBroadcastStatus(1);
-					if (su != null)
-					{
-						for (L2PcInstance player : getKnownList().getKnownPlayers().values())
-						{
-							if (player != null)
-								player.sendPacket(su);
-						}
-					}
-				}
-				else if (su != null)
-					broadcastPacket(su);
-			}
-		}
-		else if (this instanceof L2NpcInstance)
-		{
-			if (broadcastFull)
-			{
-				for (L2PcInstance player : getKnownList().getKnownPlayers().values())
-				{
-					if (player != null)
-					{
-						if (getRunSpeed() == 0)
-							player.sendPacket(new ServerObjectInfo((L2NpcInstance)this, player));
-						else
-							player.sendPacket(new NpcInfo((L2NpcInstance)this, player));
-					}
-				}
-			}
-			else if (su != null)
-				broadcastPacket(su);
-		}
-		else if (su != null)
-			broadcastPacket(su);
-	}
-
+	
 	/**
 	 * Return the orientation of the L2Character.<BR>
 	 * <BR>
@@ -6609,7 +6308,7 @@ public abstract class L2Character extends L2Object
 
 					if (this instanceof L2PcInstance && target instanceof L2Summon)
 					{
-						((L2Summon) target).updateAndBroadcastStatus(1);
+						((L2Summon)target).broadcastFullInfo();
 					}
 				}
 			}
@@ -7770,4 +7469,11 @@ public abstract class L2Character extends L2Object
 			return mask;
 		}
 	}
+	
+	public final void broadcastFullInfo()
+	{
+		addPacketBroadcastMask(BroadcastMode.BROADCAST_FULL_INFO);
+	}
+	
+	public abstract void broadcastFullInfoImpl();
 }

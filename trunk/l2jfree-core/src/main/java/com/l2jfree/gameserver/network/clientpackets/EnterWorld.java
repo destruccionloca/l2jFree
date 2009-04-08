@@ -61,7 +61,6 @@ import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ClientSetTime;
 import com.l2jfree.gameserver.network.serverpackets.Die;
-import com.l2jfree.gameserver.network.serverpackets.EtcStatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ExBasicActionList;
 import com.l2jfree.gameserver.network.serverpackets.ExStorageMaxCount;
 import com.l2jfree.gameserver.network.serverpackets.FriendList;
@@ -269,8 +268,7 @@ public class EnterWorld extends L2GameClientPacket
 			L2Event.restoreAndTeleChar(activeChar);
 
 		activeChar.updateEffectIcons();
-
-		activeChar.sendPacket(new EtcStatusUpdate(activeChar));
+		activeChar.sendEtcStatusUpdate();
 
 		//Expand Skill
 		ExStorageMaxCount esmc = new ExStorageMaxCount(activeChar);

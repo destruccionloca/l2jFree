@@ -109,6 +109,11 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 		getClient().sendPacket(sm.getSystemMessage());
 	}
 	
+	protected final L2PcInstance getActiveChar()
+	{
+		return getClient().getActiveChar();
+	}
+	
 	public String getType()
 	{
 		return getClass().getSimpleName();

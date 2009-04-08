@@ -53,7 +53,6 @@ import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.model.zone.L2SiegeZone;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.RelationChanged;
 import com.l2jfree.gameserver.network.serverpackets.SiegeInfo;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
@@ -491,12 +490,6 @@ public class Siege
                 if (clear) member.setSiegeState((byte)0);
                 else member.setSiegeState((byte)1);
                 member.sendPacket(new UserInfo(member));
-                for (L2PcInstance player : member.getKnownList().getKnownPlayers().values())
-                {
-                    player.sendPacket(new RelationChanged(member, member.getRelation(player), member.isAutoAttackable(player)));
-                    if(member.getPet() != null)
-                        player.sendPacket(new RelationChanged(member.getPet(), member.getRelation(player), member.isAutoAttackable(player)));
-                }
                 member.revalidateZone(true);
             }
         }
@@ -508,12 +501,6 @@ public class Siege
                 if (clear) member.setSiegeState((byte)0);
                 else member.setSiegeState((byte)2);
                 member.sendPacket(new UserInfo(member));
-                for (L2PcInstance player : member.getKnownList().getKnownPlayers().values())
-                {
-                    player.sendPacket(new RelationChanged(member, member.getRelation(player), member.isAutoAttackable(player)));
-                    if(member.getPet() != null)
-                        player.sendPacket(new RelationChanged(member.getPet(), member.getRelation(player), member.isAutoAttackable(player)));
-                }
                 member.revalidateZone(true);
             }
         }

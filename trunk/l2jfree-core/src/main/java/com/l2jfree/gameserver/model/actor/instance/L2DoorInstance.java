@@ -548,8 +548,6 @@ public class L2DoorInstance extends L2Character
 			MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
 			player.sendPacket(my);
 
-			// send HP amount if doors are inside castle/fortress zone
-			// TODO: needed to be added here doors from conquerable clanhalls
 			player.sendPacket(new StaticObject(this));
 
 			// Send a Server->Client packet ValidateLocation to correct the
@@ -621,8 +619,6 @@ public class L2DoorInstance extends L2Character
 			MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
 			player.sendPacket(my);
 
-			// send HP amount if doors are inside castle/fortress zone
-			// TODO: needed to be added here doors from conquerable clanhalls
 			player.sendPacket(new StaticObject(this));
 
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
@@ -670,18 +666,9 @@ public class L2DoorInstance extends L2Character
 	@Override
 	public final void broadcastStatusUpdateImpl()
 	{
-		if (getKnownList().getKnownPlayers().values().isEmpty())
-			return;
-		
-		StaticObject su = new StaticObject(this);
-		DoorStatusUpdate dsu = new DoorStatusUpdate(this);
-		
-		for (L2PcInstance player : getKnownList().getKnownPlayers().values())
-		{
-			player.sendPacket(su);
-			player.sendPacket(dsu);
-		}
-}
+		broadcastPacket(new DoorStatusUpdate(this));
+	}
+	
 	public void onOpen()
 	{
 		ThreadPoolManager.getInstance().scheduleGeneral(new CloseTask(), 60000);
@@ -695,13 +682,13 @@ public class L2DoorInstance extends L2Character
 	public final void closeMe()
 	{
 		setOpen(false);
-		broadcastStatusUpdate();
+		broadcastFullInfo();
 	}
 
 	public final void openMe()
 	{
 		setOpen(true);
-		broadcastStatusUpdate();
+		broadcastFullInfo();
 	}
 
 	@Override
@@ -792,5 +779,10 @@ public class L2DoorInstance extends L2Character
 	{
 		return _D;
 	}
-
+	
+	@Override
+	public void broadcastFullInfoImpl()
+	{
+		broadcastPacket(new StaticObject(this));
+	}
 }

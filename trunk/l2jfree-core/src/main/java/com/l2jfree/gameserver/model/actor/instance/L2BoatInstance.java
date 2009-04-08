@@ -883,4 +883,9 @@ public class L2BoatInstance extends L2Character
 	{
 		_id = id;
 	}
+	
+	@Override
+	public void broadcastFullInfoImpl()
+	{
+	}
 }

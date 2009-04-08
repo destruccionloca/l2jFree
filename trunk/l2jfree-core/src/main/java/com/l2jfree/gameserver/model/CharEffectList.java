@@ -204,7 +204,7 @@ public class CharEffectList
 		{
 			if (e != null && e.getSkill().getId() != 5660)
 			{
-				e.exit(true);
+				e.exit();
 			}
 		}
 	}
@@ -224,7 +224,7 @@ public class CharEffectList
 			{
 				if (e instanceof EffectCharmOfCourage)
 					continue;
-				e.exit(true);
+				e.exit();
 			}
 		}
  	}

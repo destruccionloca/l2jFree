@@ -15,6 +15,8 @@
 package com.l2jfree.gameserver.model.actor.knownlist;
 
 
+import java.util.Map;
+
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Decoy;
@@ -41,17 +43,18 @@ import com.l2jfree.gameserver.network.serverpackets.PetItemList;
 import com.l2jfree.gameserver.network.serverpackets.PrivateStoreMsgBuy;
 import com.l2jfree.gameserver.network.serverpackets.PrivateStoreMsgSell;
 import com.l2jfree.gameserver.network.serverpackets.RecipeShopMsg;
-import com.l2jfree.gameserver.network.serverpackets.RelationChanged;
 import com.l2jfree.gameserver.network.serverpackets.Ride;
 import com.l2jfree.gameserver.network.serverpackets.ServerObjectInfo;
 import com.l2jfree.gameserver.network.serverpackets.SpawnItem;
 import com.l2jfree.gameserver.network.serverpackets.StaticObject;
 import com.l2jfree.gameserver.network.serverpackets.VehicleInfo;
+import com.l2jfree.util.SingletonMap;
 
 public class PcKnownList extends PlayableKnownList
 {
     // =========================================================
     // Data Field
+	private Map<Integer, Integer> _knownRelations;
     
     // =========================================================
     // Constructor
@@ -62,6 +65,14 @@ public class PcKnownList extends PlayableKnownList
 
     // =========================================================
     // Method - Public
+    
+	public final Map<Integer, Integer> getKnownRelations()
+	{
+		if (_knownRelations == null)
+			_knownRelations = new SingletonMap<Integer, Integer>().setShared();
+		return _knownRelations;
+	}
+    
     /**
      * Add a visible L2Object to L2PcInstance _knownObjects and _knownPlayer (if necessary) and send Server-Client Packets needed to inform the L2PcInstance of its state and actions in progress.<BR><BR>
      *
@@ -95,6 +106,9 @@ public class PcKnownList extends PlayableKnownList
 		
         if (!super.addKnownObject(object, dropper)) return false;
 
+		if (object instanceof L2PcInstance)
+			getKnownRelations().put(object.getObjectId(), -1);
+        
         if (object.getPoly().isMorphed() && object.getPoly().getPolyType().equals("item"))
         {
             //if (object.getPolytype().equals("item"))
@@ -114,7 +128,7 @@ public class PcKnownList extends PlayableKnownList
             }
             else if (object instanceof L2DoorInstance)
             {
-                getActiveChar().sendPacket(new StaticObject((L2DoorInstance) object, false));
+                getActiveChar().sendPacket(new StaticObject((L2DoorInstance)object));
             }
             else if (object instanceof L2BoatInstance)
             {
@@ -135,15 +149,15 @@ public class PcKnownList extends PlayableKnownList
             }
             else if (object instanceof L2Trap || object instanceof L2TrapInstance)
             {
-                getActiveChar().sendPacket(new NpcInfo((L2Trap) object, getActiveChar()));
+                getActiveChar().sendPacket(new NpcInfo((L2Trap)object));
             }
             else if (object instanceof L2NpcInstance)
             {
                 if (Config.TEST_KNOWNLIST && getActiveChar().isGM()) getActiveChar().sendMessage("Knownlist, added NPC: "+ object.getName());
                 if (((L2NpcInstance) object).getRunSpeed() == 0)
-                    getActiveChar().sendPacket(new ServerObjectInfo((L2NpcInstance) object, getActiveChar()));
+                    getActiveChar().sendPacket(new ServerObjectInfo((L2NpcInstance)object));
                 else
-                    getActiveChar().sendPacket(new NpcInfo((L2NpcInstance) object, getActiveChar()));
+                    getActiveChar().sendPacket(new NpcInfo((L2NpcInstance)object));
             }
             else if (object instanceof L2Summon)
             {
@@ -159,7 +173,7 @@ public class PcKnownList extends PlayableKnownList
                     }
                 }
                 else
-                    getActiveChar().sendPacket(new NpcInfo(summon, getActiveChar(), 0));
+                    getActiveChar().sendPacket(new NpcInfo(summon, 0));
             }
             else if (object instanceof L2PcInstance)
             {
@@ -168,36 +182,11 @@ public class PcKnownList extends PlayableKnownList
                 {
                     otherPlayer.getPosition().setWorldPosition(otherPlayer.getBoat().getPosition().getWorldPosition());
                     getActiveChar().sendPacket(new CharInfo(otherPlayer));
-                    int relation1 = otherPlayer.getRelation(getActiveChar());
-                    // int relation2 = getActiveChar().getRelation(otherPlayer);
-                    Integer relation = otherPlayer.getKnownList().getKnownRelations().get(getActiveChar().getObjectId());
-                    if (relation != null && relation != relation1)
-                    {
-                        getActiveChar().sendPacket(new RelationChanged(otherPlayer, relation1, getActiveChar().isAutoAttackable(otherPlayer)));
-                        if (otherPlayer.getPet() != null)
-                            getActiveChar().sendPacket(new RelationChanged(otherPlayer.getPet(), relation1, getActiveChar().isAutoAttackable(otherPlayer)));
-                    }
                     getActiveChar().sendPacket(new GetOnVehicle(otherPlayer, otherPlayer.getBoat(), otherPlayer.getInBoatPosition().getX(), otherPlayer.getInBoatPosition().getY(), otherPlayer.getInBoatPosition().getZ()));
                 }
                 else
                 {
                     getActiveChar().sendPacket(new CharInfo(otherPlayer));
-                    int relation1 = otherPlayer.getRelation(getActiveChar());
-                    int relation2 = getActiveChar().getRelation(otherPlayer);
-                    Integer relation = otherPlayer.getKnownList().getKnownRelations().get(getActiveChar().getObjectId());
-                    if (relation != null && relation != relation1)
-                    {
-                        getActiveChar().sendPacket(new RelationChanged(otherPlayer, relation1, getActiveChar().isAutoAttackable(otherPlayer)));
-                        if (otherPlayer.getPet() != null)
-                            getActiveChar().sendPacket(new RelationChanged(otherPlayer.getPet(), relation1, getActiveChar().isAutoAttackable(otherPlayer)));
-                    }
-                    relation = getActiveChar().getKnownList().getKnownRelations().get(otherPlayer.getObjectId());
-                    if (relation != null && relation != relation2)
-                    {
-                        otherPlayer.sendPacket(new RelationChanged(getActiveChar(), relation2, otherPlayer.isAutoAttackable(getActiveChar())));
-                        if (getActiveChar().getPet() != null)
-                            otherPlayer.sendPacket(new RelationChanged(getActiveChar().getPet(), relation2, otherPlayer.isAutoAttackable(getActiveChar())));
-                    }
                 }
 
                 if (otherPlayer.getMountType() == 4)
@@ -235,7 +224,15 @@ public class PcKnownList extends PlayableKnownList
 
         return true;
     }
-
+    
+	@Override
+	public final void removeAllKnownObjects()
+	{
+		super.removeAllKnownObjects();
+		
+		getKnownRelations().clear();
+	}
+    
     /**
      * Remove a L2Object from L2PcInstance _knownObjects and _knownPlayer (if necessary) and send Server-Client Packet DeleteObject to the L2PcInstance.<BR><BR>
      *
@@ -248,6 +245,10 @@ public class PcKnownList extends PlayableKnownList
             if (!super.removeKnownObject(object)) return false;
         // Send Server-Client Packet DeleteObject to the L2PcInstance
         getActiveChar().sendPacket(new DeleteObject(object));                  
+        
+		if (object instanceof L2PcInstance)
+			getKnownRelations().remove(object.getObjectId());
+        
        if (Config.TEST_KNOWNLIST && getActiveChar().isGM() && object instanceof L2NpcInstance) getActiveChar().sendMessage("Knownlist,removed NPC: "+ object.getName());
         return true;
     }

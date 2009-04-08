@@ -56,7 +56,13 @@ public class CharInfo extends L2GameServerPacket
 		_swimRunSpd = _flRunSpd = _flyRunSpd = _runSpd;
 		_swimWalkSpd = _flWalkSpd = _flyWalkSpd = _walkSpd;
 	}
-
+	
+	@Override
+	public void runImpl(L2GameClient client, L2PcInstance attacker)
+	{
+		RelationChanged.sendRelationChanged(_activeChar, attacker);
+	}
+	
 	@Override
 	protected final void writeImpl(L2GameClient client, L2PcInstance activeChar)
 	{

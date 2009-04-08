@@ -47,7 +47,11 @@ import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.funcs.Func;
+import com.l2jfree.gameserver.skills.funcs.FuncMul;
+import com.l2jfree.gameserver.skills.funcs.FuncOwner;
+import com.l2jfree.gameserver.skills.funcs.LambdaConst;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.tools.random.Rnd;
@@ -944,7 +948,7 @@ public class FrintezzaManager extends BossLair
 		target.addStatFunc(getDecreaseRegHpFunc());
 
 		// Set exit timer for these stats
-		ThreadPoolManager.getInstance().scheduleGeneral(new exitDecreaseRegHp(target, getDecreaseRegHpFunc()), getDebuffPeriod(skill, target));
+		ThreadPoolManager.getInstance().scheduleGeneral(new exitDecreaseRegHp(target), getDebuffPeriod(skill, target));
 	}
 
 	/**
@@ -986,62 +990,53 @@ public class FrintezzaManager extends BossLair
 	}
 
 	/**
-	 * This function simulates the functions of "Angelic Icon". Takes the 5th function which is gainHp*0.2 and adds it to the skill id 5007, level 4 to decrease
-	 * gainHP
+	 * 20% hp regeneration
 	 * 
 	 * @return <b>Func</b> the functions needed to decrease the Hp Regeneration from the targets
 	 */
 	private Func getDecreaseRegHpFunc()
 	{
-		// If the Func[] _DecreaseRegHp is null we initialize it.
 		if (_DecreaseRegHp == null)
-		{
-			L2Skill skill = SkillTable.getInstance().getInfo(406, 3);
-
-			for (L2Effect effect : skill.getEffects(frintezza, frintezza))
-			{
-				if (effect == null)
-					continue;
-
-				Func[] func = effect.getStatFuncs();
-
-				if (func.length > 5)
-					_DecreaseRegHp = func[5];
-
-				effect.exit(); // We don't want to leave the effect on frintezza
-			}
-		}
-		// Func _DecreaseRegHp is not null, so just return it ;]
+			_DecreaseRegHp = new FuncMul(Stats.REGENERATE_HP_RATE, 0x30, FUNC_OWNER, new LambdaConst(0.2), null);
+		
 		return _DecreaseRegHp;
 	}
-
+	
+	private final FuncOwner FUNC_OWNER = new FuncOwner() {
+		@Override
+		public String getFuncOwnerName()
+		{
+			return null;
+		}
+		
+		@Override
+		public L2Skill getFuncOwnerSkill()
+		{
+			return null;
+		}
+	};
+	
 	/**
 	 * Class made to exit the debuff effect of the DecreaseRegHp symphony
 	 * 
 	 * @author Darki699
 	 */
-
 	private class exitDecreaseRegHp implements Runnable
 	{
-		private Func		_func;
-
-		private L2Character	_char;
-
-		public exitDecreaseRegHp(L2Character character, Func func)
+		private L2Character _char;
+		
+		public exitDecreaseRegHp(L2Character character)
 		{
-			_func = func;
 			_char = character;
 		}
-
+		
 		public void run()
 		{
-			if (_func != null && _char != null)
-			{
-				_char.removeStatFunc(_func);
-			}
+			if (_char != null)
+				_char.removeStatsOwner(FUNC_OWNER);
 		}
 	}
-
+	
 	/**
 	 * Further implementation into the core is needed. But this will do for now ;] Class needed to implement the start Frintezza dance+stun effect on a target.
 	 * 

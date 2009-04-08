@@ -1278,13 +1278,6 @@ public class L2PetInstance extends L2Summon
 	}
 	
 	@Override
-	public void updateAndBroadcastStatus(int val)
-	{
-		refreshOverloaded();
-		super.updateAndBroadcastStatus(val);
-	}
-	
-	@Override
 	public final boolean isHungry()
 	{
 		return getCurrentFed() < (0.55 * getPetData().getPetMaxFeed());
@@ -1335,5 +1328,13 @@ public class L2PetInstance extends L2Summon
 			_status = new PetStatus(this);
 		
 		return (PetStatus)_status;
+	}
+	
+	@Override
+	public void broadcastFullInfoImpl()
+	{
+		refreshOverloaded();
+		
+		super.broadcastFullInfoImpl();
 	}
 }

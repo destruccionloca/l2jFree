@@ -35,11 +35,11 @@ public final class PacketBroadcaster implements Runnable
 	
 	public static enum BroadcastMode
 	{
-		UPDATE_ABNORMAL_EFFECT {
+		BROADCAST_FULL_INFO {
 			@Override
 			protected void sendPacket(L2Character cha)
 			{
-				cha.updateAbnormalEffectImpl();
+				cha.broadcastFullInfoImpl();
 			}
 		},
 		UPDATE_EFFECT_ICONS {
@@ -56,12 +56,18 @@ public final class PacketBroadcaster implements Runnable
 				cha.broadcastStatusUpdateImpl();
 			}
 		},
-		BROADCAST_USER_INFO {
+		BROADCAST_RELATION_CHANGED {
 			@Override
 			protected void sendPacket(L2Character cha)
 			{
-				if (cha instanceof L2PcInstance)
-					((L2PcInstance)cha).broadcastUserInfoImpl();
+				((L2PcInstance)cha).broadcastRelationChangedImpl();
+			}
+		},
+		SEND_ETC_STATUS_UPDATE {
+			@Override
+			protected void sendPacket(L2Character cha)
+			{
+				((L2PcInstance)cha).sendEtcStatusUpdateImpl();
 			}
 		},
 		// TODO: more packets

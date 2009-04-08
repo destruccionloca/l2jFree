@@ -17,8 +17,6 @@ package com.l2jfree.gameserver.model.zone;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.serverpackets.NpcInfo;
-import com.l2jfree.gameserver.network.serverpackets.ServerObjectInfo;
 
 public class L2WaterZone extends L2DefaultZone
 {
@@ -45,16 +43,7 @@ public class L2WaterZone extends L2DefaultZone
 		}
 		else if (character instanceof L2NpcInstance)
 		{
-			for (L2PcInstance player : character.getKnownList().getKnownPlayers().values())
-			{
-				if (player != null)
-				{
-					if (character.getRunSpeed() == 0)
-						player.sendPacket(new ServerObjectInfo((L2NpcInstance)character, player));
-					else
-						player.sendPacket(new NpcInfo((L2NpcInstance) character, player));
-				}
-			}
+			character.broadcastFullInfo();
 		}
 
 		super.onEnter(character);
@@ -72,16 +61,7 @@ public class L2WaterZone extends L2DefaultZone
 		}
 		else if (character instanceof L2NpcInstance)
 		{
-			for (L2PcInstance player : character.getKnownList().getKnownPlayers().values())
-			{
-				if (player != null)
-				{
-					if (character.getRunSpeed() == 0)
-						player.sendPacket(new ServerObjectInfo((L2NpcInstance)character, player));
-					else
-						player.sendPacket(new NpcInfo((L2NpcInstance) character, player));
-				}
-			}
+			character.broadcastFullInfo();
 		}
 
 		super.onExit(character);

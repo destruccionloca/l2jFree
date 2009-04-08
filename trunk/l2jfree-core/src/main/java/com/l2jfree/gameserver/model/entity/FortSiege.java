@@ -43,8 +43,8 @@ import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2SiegeClan;
-import com.l2jfree.gameserver.model.L2SiegeClan.SiegeClanType;
 import com.l2jfree.gameserver.model.L2Spawn;
+import com.l2jfree.gameserver.model.L2SiegeClan.SiegeClanType;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2FortCommanderInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
@@ -53,7 +53,6 @@ import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.model.zone.L2SiegeZone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.NpcSay;
-import com.l2jfree.gameserver.network.serverpackets.RelationChanged;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
@@ -389,12 +388,6 @@ public class FortSiege
 				else
 					member.setSiegeState((byte) 1);
 				member.sendPacket(new UserInfo(member));
-				for (L2PcInstance player : member.getKnownList().getKnownPlayers().values())
-				{
-					player.sendPacket(new RelationChanged(member, member.getRelation(player), member.isAutoAttackable(player)));
-					if(member.getPet() != null)
-						player.sendPacket(new RelationChanged(member.getPet(), member.getRelation(player), member.isAutoAttackable(player)));
-				}
 			}
 		}
 		if (getFort().getOwnerClan() != null)
@@ -407,12 +400,6 @@ public class FortSiege
 				else
 					member.setSiegeState((byte) 2);
 				member.sendPacket(new UserInfo(member));
-				for (L2PcInstance player : member.getKnownList().getKnownPlayers().values())
-				{
-					player.sendPacket(new RelationChanged(member, member.getRelation(player), member.isAutoAttackable(player)));
-					if(member.getPet() != null)
-						player.sendPacket(new RelationChanged(member.getPet(), member.getRelation(player), member.isAutoAttackable(player)));
-				}
 			}
 		}
 	}

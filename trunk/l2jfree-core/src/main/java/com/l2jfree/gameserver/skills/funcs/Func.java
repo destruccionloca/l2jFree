@@ -51,7 +51,7 @@ public abstract class Func
 	public final FuncOwner funcOwner;
 	
 	/** Function may be disabled by attached condition. */
-	private final Condition condition;
+	public final Condition condition;
 	
 	/**
 	 * Constructor of Func.<BR>
@@ -72,18 +72,24 @@ public abstract class Func
 	
 	public final void calcIfAllowed(Env env)
 	{
+		if (isAllowed(env))
+			calc(env);
+	}
+	
+	public final boolean isAllowed(Env env)
+	{
 		if (env.player != null && funcOwner != null)
 		{
 			final L2Skill skill = funcOwner.getFuncOwnerSkill();
 			
 			if (skill != null && skill.ownedFuncShouldBeDisabled(env.player))
-				return;
+				return false;
 		}
 		
 		if (condition != null && !condition.test(env))
-			return;
+			return false;
 		
-		calc(env);
+		return true;
 	}
 	
 	/**

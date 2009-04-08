@@ -221,4 +221,9 @@ public class L2Trap extends L2Character
 	{
 		// Do nothing
 	}
+	
+	@Override
+	public void broadcastFullInfoImpl()
+	{
+	}
 }
