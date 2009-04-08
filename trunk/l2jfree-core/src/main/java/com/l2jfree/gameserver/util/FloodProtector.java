@@ -30,7 +30,7 @@ public class FloodProtector
 {
 	// =========================================================
 	// Data Field
-	private static FastMap<Integer, Integer[]> _floodClient = new FastMap<Integer, Integer[]>(Config.FLOODPROTECTOR_INITIALSIZE).setShared(true);
+	private static final FastMap<Integer, Integer[]> _floodClient = new FastMap<Integer, Integer[]>().setShared(true);
 
 	// =========================================================
 
