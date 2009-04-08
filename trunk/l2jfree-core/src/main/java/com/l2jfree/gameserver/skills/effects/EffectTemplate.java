@@ -65,7 +65,16 @@ public final class EffectTemplate
 			final Class<?> clazz = Class.forName("com.l2jfree.gameserver.skills.effects.Effect" + name);
 			
 			_constructor = clazz.getConstructor(Env.class, EffectTemplate.class);
-			_stolenConstructor = clazz.getConstructor(Env.class, L2Effect.class);
+			
+			Constructor<?> stolenConstructor = null;
+			try
+			{
+				stolenConstructor = clazz.getConstructor(Env.class, L2Effect.class);
+			}
+			catch (NoSuchMethodException e)
+			{
+			}
+			_stolenConstructor = stolenConstructor;
 		}
 		catch (Exception e)
 		{
@@ -92,7 +101,8 @@ public final class EffectTemplate
 	{
 		try
 		{
-			return (L2Effect)_stolenConstructor.newInstance(env, stolen);
+			if (_stolenConstructor != null)
+				return (L2Effect)_stolenConstructor.newInstance(env, stolen);
 		}
 		catch (Exception e)
 		{
