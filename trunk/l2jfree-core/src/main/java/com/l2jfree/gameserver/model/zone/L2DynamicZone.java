@@ -214,6 +214,8 @@ public class L2DynamicZone extends L2DefaultZone
 		}
 		if (cond.getConditions().length == 0)
 			_log.fatal("Empty <and> condition in zone " + _name);
+		if (cond.getConditions().length == 1)
+			_log.warn("Single <and> condition in zone " + _name);
 		return cond;
 	}
 
@@ -227,6 +229,8 @@ public class L2DynamicZone extends L2DefaultZone
 		}
 		if (cond.getConditions().length == 0)
 			_log.fatal("Empty <or> condition in zone " + _name);
+		if (cond.getConditions().length == 1)
+			_log.warn("Single <or> condition in zone " + _name);
 		return cond;
 	}
 
