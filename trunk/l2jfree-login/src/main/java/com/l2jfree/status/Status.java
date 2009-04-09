@@ -24,10 +24,7 @@ public final class Status extends StatusServer
 	public static void initInstance() throws IOException
 	{
 		if (_instance == null)
-		{
 			_instance = new Status();
-			_instance.start();
-		}
 	}
 	
 	public static void tryBroadcast(String message)
