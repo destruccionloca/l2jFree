@@ -24,7 +24,6 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.L2Boss;
 import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.tools.random.Rnd;
@@ -102,9 +101,6 @@ public final class DecayTaskManager implements Runnable
 		
 		if (actor instanceof L2PetInstance)
 			return 86400000;
-		
-		if (actor instanceof L2Summon)
-			return 300000;
 		
 		return ATTACKABLE_DECAY_TIME;
 	}
