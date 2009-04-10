@@ -32,6 +32,7 @@ import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.Disconnection;
 import com.l2jfree.gameserver.network.SystemMessageId;
 
 /**
@@ -170,7 +171,7 @@ public class AdminMenu implements IAdminCommandHandler
 				L2PcInstance plyr = L2World.getInstance().getPlayer(player);
 				if (plyr != null)
 				{
-					plyr.logout();
+					new Disconnection(plyr).defaultSequence(false);
 					activeChar.sendMessage("You kicked " + plyr.getName() + " from the game.");
 				}
 				else
@@ -186,7 +187,7 @@ public class AdminMenu implements IAdminCommandHandler
 				L2PcInstance plyr = L2World.getInstance().getPlayer(player);
 				if (plyr != null)
 				{
-					plyr.logout();
+					new Disconnection(plyr).defaultSequence(false);
 				}
 				setAccountAccessLevel(player, activeChar, -100);
 			}

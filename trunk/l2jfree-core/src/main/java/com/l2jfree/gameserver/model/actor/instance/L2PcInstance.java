@@ -1248,93 +1248,6 @@ public final class L2PcInstance extends L2PlayableInstance
 	}
 
 	/**
-	 * Check if logout is possible
-	 *
-	 * @return logout is possible
-	 */
-	public boolean logout()
-	{
-    	// Pause restrictions
-        ObjectRestrictions.getInstance().pauseTasks(getObjectId());
-
-		// [L2J_JP ADD START]
-		if (isInsideZone(L2Zone.FLAG_NOESCAPE))
-		{
-			sendPacket(SystemMessageId.NO_LOGOUT_HERE);
-			sendPacket(ActionFailed.STATIC_PACKET);
-			return false;
-		}
-
-		if (isFlying())
-		{
-			sendMessage("You can not log out while flying.");
-			sendPacket(ActionFailed.STATIC_PACKET);
-			return false;
-		}
-		// [L2J_JP ADD END]
-
-		// Prevent player to disconnect when in combat
-		if (AttackStanceTaskManager.getInstance().getAttackStanceTask(this) && !isGM())
-		{
-			if (_log.isDebugEnabled())
-				_log.debug("Player " + getName() + " tried to logout while fighting.");
-
-			sendPacket(SystemMessageId.CANT_LOGOUT_WHILE_FIGHTING);
-			sendPacket(ActionFailed.STATIC_PACKET);
-			return false;
-		}
-
-		// Prevent player to disconnect when pet is in combat
-		if (getPet() != null && !getPet().isBetrayed() && (getPet() instanceof L2PetInstance))
-		{
-			L2PetInstance pet = (L2PetInstance) getPet();
-
-			if (pet.isAttackingNow())
-			{
-				pet.sendPacket(SystemMessageId.PET_CANNOT_SENT_BACK_DURING_BATTLE);
-				sendPacket(ActionFailed.STATIC_PACKET);
-				return false;
-			}
-		}
-
-		// Prevent from player disconnect when in Event
-		if (atEvent)
-		{
-			sendMessage("A superior power doesn't allow you to leave the event.");
-			sendPacket(ActionFailed.STATIC_PACKET);
-			return false;
-		}
-
-		// Prevent from player disconnect when in Olympiad mode
-		if (isInOlympiadMode())
-		{
-			if (_log.isDebugEnabled())
-				_log.debug("Player " + getName() + " tried to logout while in Olympiad.");
-			sendMessage("You can't disconnect when in Olympiad.");
-			sendPacket(ActionFailed.STATIC_PACKET);
-			return false;
-		}
-
-		// Prevent player from logging out if they are a festival participant
-		// and it is in progress
-		if (isFestivalParticipant() && SevenSignsFestival.getInstance().isFestivalInitialized())
-		{
-			sendMessage("You cannot log out while you are a participant in a festival.");
-			sendPacket(ActionFailed.STATIC_PACKET);
-			return false;
-		}
-
-		if (getPrivateStoreType() != 0)
-		{
-			sendMessage("Cannot log out while trading.");
-			sendPacket(ActionFailed.STATIC_PACKET);
-			return false;
-		}
-
-		return true;
-	}
-
-	/**
 	 * Return a table containing all Common L2Recipe of the L2PcInstance.<BR><BR>
 	 */
 	public L2RecipeList[] getCommonRecipeBook()
@@ -11543,6 +11456,9 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public void deleteMe()
 	{
+		// Pause restrictions
+		ObjectRestrictions.getInstance().pauseTasks(getObjectId());
+		
 		abortCast();
 		abortAttack();
 

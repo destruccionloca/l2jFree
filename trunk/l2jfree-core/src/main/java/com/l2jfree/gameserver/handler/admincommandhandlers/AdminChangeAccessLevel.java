@@ -22,6 +22,7 @@ import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.Disconnection;
 import com.l2jfree.gameserver.network.SystemMessageId;
 
 /**
@@ -119,7 +120,7 @@ public class AdminChangeAccessLevel implements IAdminCommandHandler
 		else
 		{
 			player.sendMessage("Your character has been banned. Bye.");
-			player.logout();
+			new Disconnection(player).defaultSequence(false);
 		}
 		activeChar.sendMessage("Character's access level is now set to " + lvl + ". Effects won't be noticeable until next session.");
 	}
