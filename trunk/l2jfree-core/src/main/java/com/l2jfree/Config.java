@@ -2022,7 +2022,7 @@ public final class Config extends L2Config
 		_log.info("loading " + FORTSIEGE_CONFIGURATION_FILE);
 		try
 		{
-			Properties fortSiegeSettings = new L2Properties(SIEGE_CONFIGURATION_FILE);
+			Properties fortSiegeSettings = new L2Properties(FORTSIEGE_CONFIGURATION_FILE);
 
 			FORTSIEGE_MAX_ATTACKER = Integer.parseInt(fortSiegeSettings.getProperty("AttackerMaxClans", "500"));
 			FORTSIEGE_FLAG_MAX_COUNT = Integer.parseInt(fortSiegeSettings.getProperty("MaxFlags", "1"));
