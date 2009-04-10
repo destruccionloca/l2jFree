@@ -349,6 +349,13 @@ public class LoginManager
 		}
 		return null;
 	}
+	
+	public String getHostForAccount(String account)
+	{
+		L2LoginClient client = getAuthedClient(account);
+		
+		return client != null ? client.getIp() : "-1";
+	}
 
 	/**
 	 * Login is possible if number of player < max player for this GS

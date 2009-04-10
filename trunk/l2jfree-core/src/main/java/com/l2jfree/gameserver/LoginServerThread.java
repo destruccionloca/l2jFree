@@ -333,6 +333,7 @@ public class LoginServerThread extends Thread
 								CharSelectionInfo cl = new CharSelectionInfo(wcToRemove.account, wcToRemove.gameClient.getSessionId().playOkID1);
 								wcToRemove.gameClient.sendPacket(cl);
 								wcToRemove.gameClient.setCharSelection(cl.getCharInfo());
+								wcToRemove.gameClient.setHostAddress(par.getHost());
 							}
 							else
 							{

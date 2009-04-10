@@ -23,6 +23,7 @@ public class PlayerAuthResponse extends LoginServerBasePacket
 
 	private String _account;
 	private boolean _authed;
+	private String _host;
 
 	/**
 	 * @param decrypt
@@ -33,6 +34,7 @@ public class PlayerAuthResponse extends LoginServerBasePacket
 		
 		_account = readS();
 		_authed = (readC() != 0);
+		_host = readS();
 	}
 
 	/**
@@ -51,4 +53,8 @@ public class PlayerAuthResponse extends LoginServerBasePacket
 		return _authed;
 	}
 	
+	public String getHost()
+	{
+		return _host;
+	}
 }

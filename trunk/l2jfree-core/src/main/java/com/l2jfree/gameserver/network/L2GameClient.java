@@ -73,6 +73,7 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 	private int[] _charSlotMapping;
 	private GameCrypt _crypt;
 	private boolean _disconnected;
+	private String _hostAddress;
 	private boolean _protocol;
 	
 	public L2GameClient(SelectorThread<L2GameClient> selectorThread, ISocket socket, SelectionKey key)
@@ -490,7 +491,15 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 	
 	public String getHostAddress()
 	{
-		return getSocket().getInetAddress().getHostAddress();
+		if (_hostAddress == null || _hostAddress.isEmpty())
+			return getSocket().getInetAddress().getHostAddress();
+		
+		return _hostAddress;
+	}
+	
+	public void setHostAddress(String hostAddress)
+	{
+		_hostAddress = hostAddress;
 	}
 	
 	synchronized boolean isDisconnected()

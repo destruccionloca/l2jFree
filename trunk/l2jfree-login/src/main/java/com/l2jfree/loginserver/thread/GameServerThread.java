@@ -321,6 +321,7 @@ public class GameServerThread extends Thread
 				_log.info("auth request received for Player " + par.getAccount());
 			}
 			SessionKey key = LoginManager.getInstance().getKeyForAccount(par.getAccount());
+			String host = LoginManager.getInstance().getHostForAccount(par.getAccount());
 			if (key != null && key.equals(par.getKey()))
 			{
 				if (_log.isDebugEnabled())
@@ -328,7 +329,7 @@ public class GameServerThread extends Thread
 					_log.info("auth request: OK");
 				}
 				LoginManager.getInstance().removeAuthedLoginClient(par.getAccount());
-				authResponse = new PlayerAuthResponse(par.getAccount(), true);
+				authResponse = new PlayerAuthResponse(par.getAccount(), true, host);
 			}
 			else
 			{
@@ -338,7 +339,7 @@ public class GameServerThread extends Thread
 					_log.info("session key from self: " + key);
 					_log.info("session key sent: " + par.getKey());
 				}
-				authResponse = new PlayerAuthResponse(par.getAccount(), false);
+				authResponse = new PlayerAuthResponse(par.getAccount(), false, host);
 			}
 			sendPacket(authResponse);
 		}

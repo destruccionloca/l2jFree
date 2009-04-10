@@ -28,11 +28,12 @@ import com.l2jfree.loginserver.serverpackets.ServerBasePacket;
  */
 public class PlayerAuthResponse extends ServerBasePacket
 {
-	public PlayerAuthResponse(String account, boolean response)
+	public PlayerAuthResponse(String account, boolean response, String host)
 	{
 		writeC(0x03);
 		writeS(account);
 		writeC(response ? 1 : 0);
+		writeS(host);
 	}
 
 	/* (non-Javadoc)
