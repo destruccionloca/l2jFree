@@ -239,5 +239,6 @@
     <module>l2jfree-core</module>
     <module>l2jfree-login</module>
     <module>l2jfree-datapack</module>
+    <module>l2jfree-geoserver</module>
   </modules>
 </project>
