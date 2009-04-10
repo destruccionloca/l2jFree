@@ -14,37 +14,50 @@
  */
 package com.l2jfree.gameserver.datatables;
 
+import java.util.ArrayList;
+
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.l2jfree.gameserver.model.L2Skill;
 
-import javolution.util.FastList;
-
 /**
- *
  * @author -Nemesiss-
  */
-public class NobleSkillTable
+public final class NobleSkillTable
 {
-	private static NobleSkillTable		_instance;
-	private static FastList<L2Skill>	_nobleSkills;
-	private static final int[]			_nobleSkillsIds	=
-														{ 325, 326, 327, 1323, 1324, 1325, 1326, 1327 };
-
-	private NobleSkillTable()
-	{
-		_nobleSkills = new FastList<L2Skill>();
-		for (int _skillId : _nobleSkillsIds)
-			_nobleSkills.add(SkillTable.getInstance().getInfo(_skillId, 1));
-	}
-
+	private static final Log _log = LogFactory.getLog(NobleSkillTable.class);
+	
+	private static final int[] NOBLE_SKILL_IDS = { 325, 326, 327, 1323, 1324, 1325, 1326, 1327 };
+	
+	private static NobleSkillTable _instance;
+	
 	public static NobleSkillTable getInstance()
 	{
 		if (_instance == null)
 			_instance = new NobleSkillTable();
+		
 		return _instance;
 	}
-
-	public FastList<L2Skill> getNobleSkills()
+	
+	private final ArrayList<L2Skill> _nobleSkills = new ArrayList<L2Skill>();
+	
+	private NobleSkillTable()
+	{
+		for (int skillId : NOBLE_SKILL_IDS)
+			_nobleSkills.add(SkillTable.getInstance().getInfo(skillId, 1));
+		
+		_log.info("NobleSkillTable: Initialized.");
+	}
+	
+	public Iterable<L2Skill> getNobleSkills()
 	{
 		return _nobleSkills;
+	}
+	
+	public static boolean isNobleSkill(int skillId)
+	{
+		return ArrayUtils.contains(NOBLE_SKILL_IDS, skillId);
 	}
 }

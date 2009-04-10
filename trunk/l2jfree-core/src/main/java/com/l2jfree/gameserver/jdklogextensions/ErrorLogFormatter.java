@@ -14,13 +14,9 @@
  */
 package com.l2jfree.gameserver.jdklogextensions;
 
-import java.util.logging.Filter;
-import java.util.logging.LogRecord;
-
-public class ErrorFilter implements Filter
+/**
+ * @author NB4L1
+ */
+public final class ErrorLogFormatter extends L2RuntimeLogFormatter
 {
-	public boolean isLoggable(LogRecord record)
-	{
-		return record.getThrown() != null;
-	}
 }

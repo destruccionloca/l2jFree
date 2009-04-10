@@ -14,20 +14,11 @@
  */
 package com.l2jfree.gameserver.jdklogextensions;
 
-import java.util.logging.LogRecord;
-
-import javolution.text.TextBuilder;
-
-/**
- * @author Advi
- */
-public final class ItemLogFormatter extends L2LogFormatter
+public final class IrcLogFilter extends L2LogFilter
 {
 	@Override
-	protected void format0(LogRecord record, TextBuilder tb)
+	protected String getLoggerName()
 	{
-		appendDate(record, tb);
-		appendMessage(record, tb);
-		appendParameters(record, tb, ", ", true);
+		return "irc";
 	}
 }

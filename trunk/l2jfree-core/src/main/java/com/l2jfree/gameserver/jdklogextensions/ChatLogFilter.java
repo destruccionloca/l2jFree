@@ -14,17 +14,11 @@
  */
 package com.l2jfree.gameserver.jdklogextensions;
 
-import java.util.logging.Filter;
-import java.util.logging.LogRecord;
-
-/**
- * @author zabbix
- * Lets drink to code!
- */
-public class AuditFilter implements Filter
+public final class ChatLogFilter extends L2LogFilter
 {
-	public boolean isLoggable(LogRecord record)
+	@Override
+	protected String getLoggerName()
 	{
-		return record.getLoggerName().equalsIgnoreCase("audit");
+		return "chat";
 	}
 }

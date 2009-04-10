@@ -14,39 +14,43 @@
  */
 package com.l2jfree.gameserver.jdklogextensions;
 
-import java.util.logging.Filter;
+import java.util.EnumSet;
 import java.util.logging.LogRecord;
 
 import com.l2jfree.gameserver.model.L2ItemInstance;
+import com.l2jfree.gameserver.templates.item.AbstractL2ItemType;
+import com.l2jfree.gameserver.templates.item.L2EtcItemType;
 
 /**
  * @author Advi
  */
-public class ItemFilter implements Filter
+public final class ItemLogFilter extends L2LogFilter
 {
-	// This is example how to exclude consuming of shots and arrows from logging
-	private String _excludeProcess = "Consume";
-	private String _excludeItemType = "Arrow, Shot, Herb"; 
-
+	private static final String EXCLUDED_PROCESSES = "Consume";
+	
+	private static final EnumSet<L2EtcItemType> EXCLUDED_ITEM_TYPES = EnumSet.of(L2EtcItemType.SHOT,
+		L2EtcItemType.ARROW, L2EtcItemType.BOLT, L2EtcItemType.HERB);
+	
+	@Override
 	public boolean isLoggable(LogRecord record)
 	{
-		if (record.getLoggerName() != "item")
+		if (!super.isLoggable(record))
 			return false;
-
-		if (_excludeProcess != null)
-		{
-			String[] messageList = record.getMessage().split(":");
-			if (messageList.length < 2 || !_excludeProcess.contains(messageList[1]))
-				return true;
-		}
-
-		if (_excludeItemType != null)
-		{
-			L2ItemInstance item = ((L2ItemInstance)record.getParameters()[0]);
-			if (!_excludeItemType.contains(item.getItemType().toString()))
-				return true;
-		}
-
-		return (_excludeProcess == null && _excludeItemType == null);
+		
+		AbstractL2ItemType type = ((L2ItemInstance)record.getParameters()[0]).getItemType();
+		if (EXCLUDED_ITEM_TYPES.contains(type))
+			return false;
+		
+		String[] messageList = record.getMessage().split(":");
+		if (messageList.length >= 2 && EXCLUDED_PROCESSES.contains(messageList[1]))
+			return false;
+		
+		return true;
+	}
+	
+	@Override
+	protected String getLoggerName()
+	{
+		return "item";
 	}
 }

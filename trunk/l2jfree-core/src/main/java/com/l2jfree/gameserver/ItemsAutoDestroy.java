@@ -27,7 +27,7 @@ import com.l2jfree.gameserver.templates.item.L2EtcItemType;
 
 public class ItemsAutoDestroy
 {
-	protected static Log				_log	= LogFactory.getLog("ItemsAutoDestroy");
+	protected static Log				_log	= LogFactory.getLog(ItemsAutoDestroy.class);
 	private static ItemsAutoDestroy		_instance;
 	protected FastList<L2ItemInstance>	_items	= null;
 	protected static long				_sleep;

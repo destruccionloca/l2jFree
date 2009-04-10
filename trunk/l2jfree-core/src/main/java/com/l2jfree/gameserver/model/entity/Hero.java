@@ -45,8 +45,8 @@ import com.l2jfree.gameserver.network.serverpackets.PledgeShowInfoUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
-import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.gameserver.templates.StatsSet;
+import com.l2jfree.gameserver.templates.item.L2Item;
 
 public class Hero
 {
@@ -380,7 +380,7 @@ public class Hero
 				}
 				player.broadcastUserInfo();
 
-				for (L2Skill skill : HeroSkillTable.getHeroSkills())
+				for (L2Skill skill : HeroSkillTable.getInstance().getHeroSkills())
 					player.addSkill(skill);
 			}
 			else

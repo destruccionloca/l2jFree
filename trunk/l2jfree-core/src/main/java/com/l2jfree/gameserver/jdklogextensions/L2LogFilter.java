@@ -17,10 +17,16 @@ package com.l2jfree.gameserver.jdklogextensions;
 import java.util.logging.Filter;
 import java.util.logging.LogRecord;
 
-public class IrcFilter implements Filter
+/**
+ * @author NB4L1
+ */
+public abstract class L2LogFilter implements Filter
 {
+	@Override
 	public boolean isLoggable(LogRecord record)
 	{
-		return record.getLoggerName() == "irc";
+		return getLoggerName().equals(record.getLoggerName());
 	}
+	
+	protected abstract String getLoggerName();
 }

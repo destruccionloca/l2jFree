@@ -7517,64 +7517,57 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public void checkAllowedSkills()
 	{
-		boolean foundskill = false;
-		if (!isGM())
+		if (isGM())
+			return;
+		
+		Collection<L2SkillLearn> skillTree = SkillTreeTable.getInstance().getAllowedSkills(getClassId());
+		
+		skill_loop: for (L2Skill skill : getAllSkills())
 		{
-			Collection<L2SkillLearn> skillTree = SkillTreeTable.getInstance().getAllowedSkills(getClassId());
-			// Loop through all skills of player
-			for (L2Skill skill : getAllSkills())
+			int skillid = skill.getId();
+			
+			// Loop through all skills in players skilltree
+			for (L2SkillLearn temp : skillTree)
 			{
-				int skillid = skill.getId();
-				//int skilllevel = skill.getLevel();
-
-				foundskill = false;
-				// Loop through all skills in players skilltree
-				for (L2SkillLearn temp : skillTree)
-				{
-					// If the skill was found and the level is possible to obtain for his class everything is ok
-					if (temp.getId() == skillid) // && temp.getLevel()>=skilllevel))
-						foundskill = true;
-				}
-
-				// Exclude noble skills
-				if (isNoble() && NobleSkillTable.getInstance().getNobleSkills().contains(skill))
-					foundskill = true;
-				// Exclude hero skills
-				if (isHero() && HeroSkillTable.getHeroSkills().contains(skill))
-					foundskill = true;
-				// Exclude cursed weapon skills
-				if (isCursedWeaponEquipped() && skillid == CursedWeaponsManager.getInstance().getCursedWeapon(_cursedWeaponEquippedId).getSkillId())
-					foundskill = true;
-				// Exclude clan skills
-				if (getClan() != null && (skillid >= 370 && skillid <= 391))
-					foundskill = true;
-				// Exclude seal of ruler / build siege hq
-				if (getClan() != null && (skillid == 246 || skillid == 247))
-					if (getClan().getLeaderId() == getObjectId())
-						foundskill = true;
-				// Exclude fishing skills and common skills + dwarfen craft
-				if (skillid >= 1312 && skillid <= 1322)
-					foundskill = true;
-				if (skillid >= 1368 && skillid <= 1373)
-					foundskill = true;
-				// Exclude sa / enchant bonus / penality etc. skills
-				if (skillid >= 3000 && skillid < 7000)
-					foundskill = true;
-				// Exclude Skills from AllowedSkills in options.properties
-				if (Config.ALLOWED_SKILLS_LIST.contains(skillid))
-					foundskill = true;
-				// Exclude VIP character
-				if (isCharViP() && Config.CHAR_VIP_SKIP_SKILLS_CHECK)
-					foundskill = true;
-				// Remove skill and do a lil log message
-				if (!foundskill)
-				{
-					removeSkill(skill);
-					sendMessage("Skill " + skill.getName() + " removed and gm informed!");
-					_log.fatal("Cheater! - Character " + getName() + " of Account " + getAccountName() + " VIP status :" + isCharViP() + " got skill "
-							+ skill.getName() + " removed!");
-				}
+				// If the skill was found and the level is possible to obtain for his class everything is ok
+				if (temp.getId() == skillid) // && temp.getLevel()>=skilllevel))
+					continue skill_loop;
 			}
+			
+			// Exclude noble skills
+			if (isNoble() && NobleSkillTable.isNobleSkill(skillid))
+				continue skill_loop;
+			// Exclude hero skills
+			if (isHero() && HeroSkillTable.isHeroSkill(skillid))
+				continue skill_loop;
+			// Exclude cursed weapon skills
+			if (isCursedWeaponEquipped() && skillid == CursedWeaponsManager.getInstance().getCursedWeapon(_cursedWeaponEquippedId).getSkillId())
+				continue skill_loop;
+			// Exclude clan skills
+			if (getClan() != null && (skillid >= 370 && skillid <= 391))
+				continue skill_loop;
+			// Exclude seal of ruler / build siege hq
+			if (getClan() != null && getClan().getLeaderId() == getObjectId() && (skillid == 246 || skillid == 247))
+				continue skill_loop;
+			// Exclude fishing skills and common skills + dwarfen craft
+			if (skillid >= 1312 && skillid <= 1322)
+				continue skill_loop;
+			if (skillid >= 1368 && skillid <= 1373)
+				continue skill_loop;
+			// Exclude sa / enchant bonus / penality etc. skills
+			if (skillid >= 3000 && skillid < 7000)
+				continue skill_loop;
+			// Exclude Skills from AllowedSkills in options.properties
+			if (Config.ALLOWED_SKILLS_LIST.contains(skillid))
+				continue skill_loop;
+			// Exclude VIP character
+			if (isCharViP() && Config.CHAR_VIP_SKIP_SKILLS_CHECK)
+				continue skill_loop;
+			// Remove skill and do a lil log message
+			removeSkill(skill);
+			sendMessage("Skill " + skill.getName() + " removed and gm informed!");
+			_log.fatal("Cheater! - Character " + getName() + " of Account " + getAccountName() + " VIP status :"
+				+ isCharViP() + " got skill " + skill.getName() + " removed!");
 		}
 	}
 
@@ -9580,10 +9573,10 @@ public final class L2PcInstance extends L2PlayableInstance
 	public void setHero(boolean hero)
 	{
 		if (hero && _baseClass == _activeClass)
-			for (L2Skill s : HeroSkillTable.getHeroSkills())
+			for (L2Skill s : HeroSkillTable.getInstance().getHeroSkills())
 				addSkill(s, false); // Dont Save Hero skills to Sql
 		else
-			for (L2Skill s : HeroSkillTable.getHeroSkills())
+			for (L2Skill s : HeroSkillTable.getInstance().getHeroSkills())
 				super.removeSkill(s); // Just Remove skills without deleting from Sql
 		_hero = hero;
 		sendSkillList();

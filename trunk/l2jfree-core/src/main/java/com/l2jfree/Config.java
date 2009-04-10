@@ -729,9 +729,6 @@ public final class Config extends L2Config
 	// *******************************************************************************************
 	public static final String	ID_CONFIG_FILE	= "./config/idfactory.properties";
 	// *******************************************************************************************
-	public static ObjectMapType	MAP_TYPE;											// Type of map object
-	public static ObjectSetType	SET_TYPE;											// Type of set object
-
 	public static enum IdFactoryType
 	{
 		Compaction, BitSet, Stack, Increment, Rebuild
@@ -748,8 +745,6 @@ public final class Config extends L2Config
 		{
 			Properties idSettings = new L2Properties(ID_CONFIG_FILE);
 
-			MAP_TYPE = ObjectMapType.valueOf(idSettings.getProperty("L2Map", "WorldObjectMap"));
-			SET_TYPE = ObjectSetType.valueOf(idSettings.getProperty("L2Set", "WorldObjectSet"));
 			IDFACTORY_TYPE = IdFactoryType.valueOf(idSettings.getProperty("IDFactory", "BitSet"));
 			BAD_ID_CHECKING = Boolean.parseBoolean(idSettings.getProperty("BadIdChecking", "True"));
 		}
@@ -2936,10 +2931,6 @@ public final class Config extends L2Config
 	// *******************************************************************************************
 	public static final String	LOG_FILE		= "./config/logging.properties";
 	// *******************************************************************************************
-	final static String			LOG_FOLDER		= "log";							// Name of folder for log file
-	final static String			LOG_FOLDER_GAME	= "game";
-
-	// *******************************************************************************************
 	public static void loadLogConfig()
 	{
 		try
@@ -2953,10 +2944,6 @@ public final class Config extends L2Config
 			throw new Error("Failed to Load logging.properties File.");
 		}
 		_log.info("logging initialized");
-		File logFolder = new File(Config.DATAPACK_ROOT, LOG_FOLDER);
-		logFolder.mkdir();
-		File logFolderGame = new File(logFolder, LOG_FOLDER_GAME);
-		logFolderGame.mkdir();
 	}
 
 	// *******************************************************************************************

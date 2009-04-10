@@ -12,29 +12,22 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.gameserver.util;
+package com.l2jfree.gameserver.jdklogextensions;
 
-import java.io.File;
+import java.util.logging.LogRecord;
 
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import com.l2jfree.Config;
+import javolution.text.TextBuilder;
 
 /**
- * @author Noctarius
- * 
+ * @author zabbix Lets drink to code!
  */
-public final class PathCreator
+public final class AuditLogFormatter extends L2LogFormatter
 {
-	private static final Log	_log	= LogFactory.getLog(PathCreator.class);
-
-	public PathCreator()
+	@Override
+	protected void format0(LogRecord record, TextBuilder tb)
 	{
-		new File(Config.DATAPACK_ROOT, "data/crests").mkdirs();
-		new File(Config.DATAPACK_ROOT, "data/pathnode").mkdirs();
-		new File(Config.DATAPACK_ROOT, "data/serial").mkdirs();
-		_log.info("Preparations: done");
+		appendDate(record, tb);
+		appendMessage(record, tb);
+		appendParameters(record, tb, ", ", true);
 	}
 }

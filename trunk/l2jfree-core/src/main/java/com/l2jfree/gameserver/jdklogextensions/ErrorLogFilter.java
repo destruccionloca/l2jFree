@@ -14,20 +14,14 @@
  */
 package com.l2jfree.gameserver.jdklogextensions;
 
+import java.util.logging.Filter;
+import java.util.logging.Level;
 import java.util.logging.LogRecord;
 
-import javolution.text.TextBuilder;
-
-/**
- * @author Advi
- */
-public final class ItemLogFormatter extends L2LogFormatter
+public final class ErrorLogFilter implements Filter
 {
-	@Override
-	protected void format0(LogRecord record, TextBuilder tb)
+	public boolean isLoggable(LogRecord record)
 	{
-		appendDate(record, tb);
-		appendMessage(record, tb);
-		appendParameters(record, tb, ", ", true);
+		return record.getLevel().intValue() > Level.INFO.intValue() || record.getThrown() != null;
 	}
 }

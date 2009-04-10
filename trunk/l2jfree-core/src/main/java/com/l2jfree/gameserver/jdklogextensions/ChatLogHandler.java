@@ -13,10 +13,11 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package com.l2jfree.gameserver.jdklogextensions;
+
 import java.io.IOException;
 import java.util.logging.FileHandler;
 
-public class ChatLogHandler extends FileHandler
+public final class ChatLogHandler extends FileHandler
 {
 	public ChatLogHandler() throws IOException, SecurityException
 	{

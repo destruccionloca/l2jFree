@@ -16,8 +16,6 @@ package com.l2jfree.gameserver;
 
 import com.l2jfree.Config;
 import com.l2jfree.Config.IdFactoryType;
-import com.l2jfree.Config.ObjectMapType;
-import com.l2jfree.Config.ObjectSetType;
 
 /**
  * This class is used to help creating a basic configuration by setting some default value
@@ -32,10 +30,6 @@ public class ConfigHelper
     {
         // Set a increment id factory for test purpose
         Config.IDFACTORY_TYPE = IdFactoryType.Increment;
-
-        Config.MAP_TYPE = ObjectMapType.WorldObjectMap;
-        Config.SET_TYPE = ObjectSetType.WorldObjectSet;
-
         Config.THREAD_POOL_SIZE = 50;
     }
 }

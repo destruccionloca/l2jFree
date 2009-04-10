@@ -17,7 +17,7 @@ package com.l2jfree.gameserver.jdklogextensions;
 import java.io.IOException;
 import java.util.logging.FileHandler;
 
-public class ErrorLogHandler extends FileHandler
+public final class ErrorLogHandler extends FileHandler
 {
 	public ErrorLogHandler() throws IOException, SecurityException
 	{

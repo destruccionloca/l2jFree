@@ -14,47 +14,17 @@
  */
 package com.l2jfree.gameserver.jdklogextensions;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.logging.Formatter;
 import java.util.logging.LogRecord;
 
 import javolution.text.TextBuilder;
 
-/**
- * This class ...
- *
- * @version $Revision: 1.1.4.1 $ $Date: 2005/02/06 16:14:46 $
- */
-
-public class ChatLogFormatter extends Formatter
+public final class ChatLogFormatter extends L2LogFormatter
 {
-	private static final String CRLF = "\r\n";
-	private SimpleDateFormat dateFmt = new SimpleDateFormat("dd MMM H:mm:ss");
-
 	@Override
-	public String format(LogRecord record)
+	protected void format0(LogRecord record, TextBuilder tb)
 	{
-		TextBuilder output = new TextBuilder();
-
-		output.append('[');
-		output.append(dateFmt.format(new Date(record.getMillis())));
-		output.append(']');
-		output.append(' ');
-
-		Object[] params = record.getParameters();
-
-		if (params != null)
-		{
-			for (Object p : params)
-			{
-				output.append(p);
-				output.append(' ');
-			}
-		}
-		output.append(record.getMessage());
-		output.append(CRLF);
-
-		return output.toString();
+		appendDate(record, tb);
+		appendParameters(record, tb, " ", false);
+		appendMessage(record, tb);
 	}
 }
