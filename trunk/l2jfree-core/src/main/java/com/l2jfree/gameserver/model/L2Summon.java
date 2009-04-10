@@ -911,11 +911,7 @@ public abstract class L2Summon extends L2PlayableInstance
 		getOwner().sendPacket(new PetInfo(this, val));
 		getOwner().sendPacket(new PetStatusUpdate(this));
 		
-		final NpcInfo info = new NpcInfo(this, val);
-		
-		for (L2PcInstance player : getKnownList().getKnownPlayers().values())
-			if (player != getOwner())
-				player.sendPacket(info);
+		broadcastPacket(new NpcInfo(this, val));
 		
 		final L2Party party = getOwner().getParty();
 		

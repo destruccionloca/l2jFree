@@ -83,4 +83,9 @@ public abstract class L2GameServerPacket extends SendablePacket<L2GameClient>
 	{
 		writeH(dataSize + getHeaderSize());
 	}
+	
+	public boolean canBeSentTo(L2GameClient client, L2PcInstance activeChar)
+	{
+		return true;
+	}
 }

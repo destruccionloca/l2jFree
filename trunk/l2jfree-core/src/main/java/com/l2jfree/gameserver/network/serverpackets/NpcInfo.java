@@ -48,7 +48,6 @@ public class NpcInfo extends L2GameServerPacket
 	private int					_collisionHeight, _collisionRadius;
 	private String				_name			= "";
 	private String				_title			= "";
-	private L2Summon			_summon;
 	private int					_form			= 0;
 
 	/**
@@ -103,7 +102,6 @@ public class NpcInfo extends L2GameServerPacket
 	public NpcInfo(L2Summon cha, int val)
 	{
 		_activeChar = cha;
-		_summon = cha;
 		_idTemplate = cha.getTemplate().getIdTemplate();
 		_rhand = cha.getWeapon();
 		_lhand = 0;
@@ -114,23 +112,23 @@ public class NpcInfo extends L2GameServerPacket
 
 		_name = cha.getName();
 		_title = cha.getOwner() != null ? (cha.getOwner().isOnline() == 0 ? "" : cha.getOwner().getName()) : ""; // when owner online, summon will show in title owner name
-		int npcId = _summon.getTemplate().getNpcId();
+		int npcId = cha.getTemplate().getNpcId();
 		if (npcId == 16041 || npcId == 16042)
 		{
-			if (_summon.getLevel() > 84)
+			if (cha.getLevel() > 84)
 				_form = 3;
-			else if (_summon.getLevel() > 79) 
+			else if (cha.getLevel() > 79) 
 				_form = 2;
-			else if (_summon.getLevel() > 74)
+			else if (cha.getLevel() > 74)
 				_form = 1;
 		}
 		else if (npcId == 16025 || npcId == 16037)
 		{
-			if (_summon.getLevel() > 69)
+			if (cha.getLevel() > 69)
 				_form = 3;
-			else if (_summon.getLevel() > 64) 
+			else if (cha.getLevel() > 64) 
 				_form = 2;
-			else if (_summon.getLevel() > 59) 
+			else if (cha.getLevel() > 59) 
 				_form = 1;
 		}
 
@@ -140,8 +138,8 @@ public class NpcInfo extends L2GameServerPacket
 		_heading = _activeChar.getHeading();
 		_mAtkSpd = _activeChar.getMAtkSpd();
 		_pAtkSpd = _activeChar.getPAtkSpd();
-		_runSpd = _summon.getPetSpeed();
-		_walkSpd = _summon.isMountable() ? 45 : 30;
+		_runSpd = cha.getPetSpeed();
+		_walkSpd = cha.isMountable() ? 45 : 30;
 		_swimRunSpd = _flRunSpd = _flyRunSpd = _runSpd;
 		_swimWalkSpd = _flWalkSpd = _flyWalkSpd = _walkSpd;
 	}
@@ -430,7 +428,7 @@ public class NpcInfo extends L2GameServerPacket
 
 			if (_activeChar instanceof L2Summon)
 			{
-				writeC(_summon.getOwner().getTeam());// Title color 0=client default
+				writeC(((L2Summon)_activeChar).getOwner().getTeam());// Title color 0=client default
 			}
 			else
 			{
@@ -453,5 +451,14 @@ public class NpcInfo extends L2GameServerPacket
 	public String getType()
 	{
 		return _S__22_NPCINFO;
+	}
+	
+	@Override
+	public boolean canBeSentTo(L2GameClient client, L2PcInstance activeChar)
+	{
+		if (_activeChar instanceof L2Summon && ((L2Summon)_activeChar).getOwner() == activeChar)
+			return false;
+		
+		return true;
 	}
 }

@@ -541,7 +541,12 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 			if (isDisconnected())
 				return;
 			
-			((L2GameServerPacket)sp).runImpl(this, getActiveChar());
+			final L2GameServerPacket gsp = (L2GameServerPacket)sp;
+			
+			if (!gsp.canBeSentTo(this, getActiveChar()))
+				return;
+			
+			gsp.runImpl(this, getActiveChar());
 			
 			super.sendPacket(sp);
 		}

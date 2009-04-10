@@ -385,4 +385,10 @@ public class CharInfo extends L2GameServerPacket
 	{
 		return _S__31_CHARINFO;
 	}
+	
+	@Override
+	public boolean canBeSentTo(L2GameClient client, L2PcInstance activeChar)
+	{
+		return _activeChar != activeChar;
+	}
 }
