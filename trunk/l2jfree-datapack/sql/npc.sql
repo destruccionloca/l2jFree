@@ -9016,6 +9016,8 @@ REPLACE INTO npc VALUES
 ('22322', 22322, 'Subjugated Native', 0, '', 0, 'LineageNPC.a_common_peopleC_Mhuman', '8.00', '23.50', '83', 'male', 'L2Monster', 50, '1515', '515', '36.86', '5.09', '60', '60', '60', '50', '50', '50', '8689', '622', '2207', '888', '1296', '988', '381', '0', '381', '0', '0', '0', '80', '120', '', '0', 0, '0', 'LAST_HIT', 50, 50, 75, 'balanced', 'false'),
 ('22323', 22323, 'Charmed Native', 0, '', 0, 'LineageNPC.a_common_peopleC_Mhuman', '8.00', '23.50', '83', 'male', 'L2Monster', 40, '1515', '531', '36.86', '5.09', '41', '48', '45', '61', '64', '62', '5872', '622', '2207', '888', '1296', '999', '371', '0', '371', '0', '0', '0', '80', '120', '', '0', 0, '0', 'LAST_HIT', 40, 40, 75, 'balanced', 'false'),
 ('22326', 22326, 'Hellinark', 0, 'Naia''s Guardian', 0, 'LineageMonster.karik', '19.00', '88.00', '84', 'male', 'L2Monster', 40, '530976', '4355', '202.02', '10.45', '64', '66', '68', '62', '61', '58', '905448', '13206', '6198', '2922', '3245', '2647', '382', '0', '3819', '0', '0', '0', '80', '307', '', '0', 0, '0', 'LAST_HIT', 0, 0, 0, 'balanced', 'false'),
+('22331', 22331, 'Remnant Diabolist', 0, '', 0, 'LineageMonster3.spectral_knight', '12.50', '33.50', '83', 'male', 'L2Monster', 40, '25899', '2465', '36.86', '15.09', '58', '54', '52', '55', '55', '55', '49501', '5345', '2554', '700', '1220', '620', '253', '300', '253', '0', '0', '0', '55', '182', 'REMNANT_CLAN', '400', 1, '0', 'LAST_HIT', 55, 150, 75, 'balanced', 'false'),
+('22332', 22332, 'Remnant Diviner', 0, '', 0, 'LineageMonster3.spectral_knight', '12.50', '33.50', '83', 'male', 'L2Monster', 40, '25900', '3444', '36.86', '5.09', '45', '58', '46', '57', '56', '57', '63716', '6880', '2558', '720', '2564', '620', '365', '300', '650', '0', '0', '0', '55', '120', 'REMNANT_CLAN', '400', 1, '0', 'LAST_HIT', 55, 150, 75, 'balanced', 'false'),
 ('22341', 22341, 'Keltas', 0, '', 0, 'LineageMonster3.Vampire_Troop_Leader', '19.00', '35.00', '84', 'male', 'L2Monster', 40, '61999', '2439', '36.86', '5.20', '56', '52', '54', '45', '43', '44', '89895', '9591', '2554', '650', '1864', '620', '333', '500', '450', '80', '0', '0', '34', '182', 'KELTAS_CLAN', '300', 0, '0', 'LAST_HIT', 55, 150, 1000, 'balanced', 'false'),
 ('22344', 22344, 'Quarry Supervior', 0, '', 0, 'LineageMonster2.vampire_warrior', '9.00', '32.00', '84', 'male', 'L2Monster', 40, '12934', '6467', '36.86', '5.09', '61', '64', '68', '59', '58', '53', '28213', '4719', '2559', '582', '1556', '506', '321', '500', '401', '6723', '0', '0', '50', '191', 'QUARRY_CLAN', '300', 0, '0', 'LAST_HIT', 50, 50, 30, 'balanced', 'false'),
 ('22346', 22346, 'Quarry Foreman', 0, '', 0, 'LineageMonster3.Vampire_Troop_Leader_120p', '22.00', '44.00', '84', 'male', 'L2Monster', 50, '20666', '2222', '42.34', '22.10', '62', '64', '65', '54', '55', '56', '52247', '4154', '2655', '620', '1854', '509', '333', '500', '301', '8686', '0', '0', '66', '196', 'QUARRY_CLAN', '700', 0, '0', 'LAST_HIT', 40, 90, 75, 'balanced', 'false'),
@@ -9058,14 +9060,14 @@ REPLACE INTO npc VALUES
 UPDATE `npc` SET `walkspd` = '0', `runspd` = '0' WHERE `id` = 22138;
 
 -- Moving Anais and minions differences here to make syncs easier
-DELETE FROM `npc` WHERE id IN (29096,29097,29098);
+DELETE FROM `npc` WHERE `id` IN (29096,29097,29098);
 INSERT INTO `npc` VALUES
 (29096, 29096, "Anais", 0, "Lord of Splendor", 0, "Monster3.solina_priest_120p", 16, 41.8, 87, "male", "L2RaidBoss", 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 0, 333, 0, 0, 0, 88, 132, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced", "false"),
 (29097, 29097, "Splendor Disciple", 0, "Raid Fighter", 0, "Monster3.apostle_grail", 13, 47, 86, "male", "L2Minion", 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 0, 333, 0, 0, 0, 88, 132, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced", "false"),
 (29098, 29098, "Splendor Worshiper", 0, "Raid Fighter", 0, "Monster3.apostle_grail_a", 13, 47, 86, "male", "L2Minion", 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 0, 333, 0, 0, 0, 88, 132, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced", "false");
 
 -- Four Sepulchers 
-UPDATE npc SET `type` = 'L2SepulcherNpc' WHERE id = 31928;
+UPDATE `npc` SET `type` = 'L2SepulcherNpc' WHERE id = 31928;
 
 -- DCM Updates
 REPLACE INTO `npc` VALUES ('32282', '32282', 'Yiyen', '0', 'Archaeologist', '0', 'LineageNPC.e_teleporter_FDwarf', '8.00', '21.30', '70', 'male', 'L2Npc', '40', '2444', '2444', '0.00', '0.00', '10', '10', '10', '10', '10', '10', '0', '0', '500', '500', '500', '500', '253', '0', '253', '0', '0', null, '80', '120', '', '0', '0', '0', 'LAST_HIT', '0', '0', '0', 'balanced', 'false');

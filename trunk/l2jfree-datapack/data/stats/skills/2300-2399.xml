@@ -639,8 +639,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="reuseDelay" val="14400000"/>
-    <!-- Retail Like 4Hours -->
+    <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
     <set name="transformId" val="104"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -654,8 +653,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="reuseDelay" val="14400000"/>
-    <!-- Retail Like 4Hours -->
+    <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
     <set name="transformId" val="1"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -669,8 +667,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="reuseDelay" val="14400000"/>
-    <!-- Retail Like 4Hours -->
+    <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
     <set name="transformId" val="2"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -684,8 +681,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="reuseDelay" val="14400000"/>
-    <!-- Retail Like 4Hours -->
+    <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
     <set name="transformId" val="201"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -699,8 +695,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="reuseDelay" val="14400000"/>
-    <!-- Retail Like 4Hours -->
+    <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
     <set name="transformId" val="204"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -714,8 +709,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="reuseDelay" val="14400000"/>
-    <!-- Retail Like 4Hours -->
+    <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
     <set name="transformId" val="207"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -729,8 +723,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="reuseDelay" val="14400000"/>
-    <!-- Retail Like 4Hours -->
+    <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
     <set name="transformId" val="210"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -744,8 +737,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="reuseDelay" val="14400000"/>
-    <!-- Retail Like 4Hours -->
+    <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
     <set name="transformId" val="213"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -759,8 +751,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="reuseDelay" val="14400000"/>
-    <!-- Retail Like 4Hours -->
+    <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
     <set name="transformId" val="216"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -866,8 +857,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="reuseDelay" val="14400000"/>
-    <!-- Retail Like 4Hours -->
+    <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
     <set name="transformId" val="304"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>

@@ -280,7 +280,7 @@
       <effect count="7" name="HealOverTime" time="2" val="16" stackOrder="8" stackType="HpRecover"/>
     </for>
   </skill>
-  <skill id="2032" levels="1" name="Healing potion">
+  <skill id="2032" levels="1" name="Healing Potion">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>

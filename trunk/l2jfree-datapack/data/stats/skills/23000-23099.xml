@@ -268,7 +268,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
   </skill>
-  <skill id="23022" levels="10" name="Win">
+  <skill id="23022" levels="10" name="First Wink">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -459,14 +459,14 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
+    <cond msg="This skill is only to be used with correct Agathion summoned.">
+      <player agathionId="1514"/>
+    </cond>
     <for>
       <effect count="1" name="Buff" time="1200" val="0" stackOrder="600" stackType="speed_up">
         <add order="0x40" stat="runSpd" val="33"/>
       </effect>
     </for>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
-      <player agathionId="1514"/>
-    </cond>
   </skill>
   <skill id="23038" levels="1" name="Pegasus Agathion Special Skill - Blessed Return Ability">
     <set name="target" val="TARGET_SELF"/>
