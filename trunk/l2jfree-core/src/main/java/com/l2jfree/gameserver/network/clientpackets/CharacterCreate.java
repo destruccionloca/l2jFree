@@ -29,6 +29,7 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.model.quest.QuestState;
+import com.l2jfree.gameserver.network.Disconnection;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.serverpackets.CharCreateFail;
 import com.l2jfree.gameserver.network.serverpackets.CharCreateOk;
@@ -204,11 +205,9 @@ public class CharacterCreate extends L2GameClientPacket
 				_log.debug("adding starter skill:" + skill.getId() + " / " + skill.getLevel());
 		}
 		startTutorialQuest(newChar);
-		L2GameClient.saveCharToDisk(newChar);
-		newChar.deleteMe(); // release the world of this character and it's inventory
-
+		new Disconnection(getClient(), newChar).defaultSequence(true);
+		
 		// send char list
-
 		CharSelectionInfo cl = new CharSelectionInfo(client.getAccountName(), client.getSessionId().playOkID1);
 		client.sendPacket(cl);
 		client.setCharSelection(cl.getCharInfo());

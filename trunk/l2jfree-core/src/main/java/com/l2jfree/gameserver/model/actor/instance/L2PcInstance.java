@@ -165,6 +165,7 @@ import com.l2jfree.gameserver.model.quest.State;
 import com.l2jfree.gameserver.model.restriction.AvailableRestriction;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 import com.l2jfree.gameserver.model.zone.L2Zone;
+import com.l2jfree.gameserver.network.Disconnection;
 import com.l2jfree.gameserver.network.InvalidPacketException;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -191,7 +192,6 @@ import com.l2jfree.gameserver.network.serverpackets.HennaInfo;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
-import com.l2jfree.gameserver.network.serverpackets.LeaveWorld;
 import com.l2jfree.gameserver.network.serverpackets.MagicEffectIcons;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
@@ -3681,26 +3681,6 @@ public final class L2PcInstance extends L2PlayableInstance
 		_client = client;
 	}
 
-	/**
-	 * Close the active connection with the client.<BR><BR>
-	 */
-	public void closeNetConnection()
-	{
-		final L2GameClient client = _client;
-		if (client != null)
-		{
-			if (client.isDetached())
-			{
-				client.cleanMe(true);
-			}
-			else
-			{
-				client.close(LeaveWorld.STATIC_PACKET);
-			}
-		}
-
-	}
-
 	public Point3D getCurrentSkillWorldPosition()
 	{
 		return _currentSkillWorldPosition;
@@ -4162,7 +4142,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			{
 				//GmListTable.broadcastMessageToGMs("Client "+client+" failed to reply GameGuard query and is being kicked!");
 				_log.info("Client " + client + " failed to reply GameGuard query and is being kicked!");
-				client.close(LeaveWorld.STATIC_PACKET);
+				new Disconnection(client, L2PcInstance.this).defaultSequence(false);
 			}
 		}
 	}
@@ -7217,6 +7197,11 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		_lastStore = System.currentTimeMillis();
 		
+		store(false);
+	}
+	
+	public synchronized void store(boolean items)
+	{
 		// Update client coords, if these look like true
 		if (isInsideRadius(getClientX(), getClientY(), 1000, true))
 			getPosition().setXYZ(getClientX(), getClientY(), getClientZ());
@@ -7226,6 +7211,9 @@ public final class L2PcInstance extends L2PlayableInstance
 		storeEffect();
 		storeRecipeBook();
 		transformInsertInfo();
+		
+		if (Config.UPDATE_ITEMS_ON_CHAR_STORE || items)
+			getInventory().updateDatabase();
 	}
 
 	private void storeCharBase()
@@ -11813,16 +11801,6 @@ public final class L2PcInstance extends L2PlayableInstance
 			_log.fatal(e.getMessage(), e);
 		}
 
-		// Close the connection with the client
-		try
-		{
-			closeNetConnection();
-		}
-		catch (Exception e)
-		{
-			_log.fatal(e.getMessage(), e);
-		}
-
 		untransform();
 
 		// Remove from flood protector
@@ -14076,7 +14054,14 @@ public final class L2PcInstance extends L2PlayableInstance
 				
 			if (delay <= 0)
 			{
-				L2GameClient.saveCharToDisk(L2PcInstance.this);
+				try
+				{
+					store();
+				}
+				catch (RuntimeException e)
+				{
+					_log.fatal("", e);
+				}
 				
 				delay = period;
 			}

@@ -20,6 +20,8 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
+import javolution.util.FastMap;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -39,11 +41,9 @@ import com.l2jfree.gameserver.instancemanager.RaidBossSpawnManager;
 import com.l2jfree.gameserver.model.L2Multisell;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.L2GameClient;
+import com.l2jfree.gameserver.network.Disconnection;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
-
-import javolution.util.FastMap;
 
 public class RemoteAdministrationImpl extends UnicastRemoteObject implements IRemoteAdministration
 {
@@ -157,10 +157,7 @@ public class RemoteAdministrationImpl extends UnicastRemoteObject implements IRe
 			if (player != null)
 			{
 				player.sendMessage("You are kicked out by a GM.");
-				L2GameClient client = player.getClient();
-				client.setActiveChar(null);
-				L2GameClient.saveCharToDisk(player, true); // Store character
-				player.deleteMe();
+				new Disconnection(player).defaultSequence(false);
 				return 1;
 			}
 			return 2;

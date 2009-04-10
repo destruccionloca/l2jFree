@@ -19,7 +19,7 @@ import java.util.StringTokenizer;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.L2GameClient;
+import com.l2jfree.gameserver.network.Disconnection;
 
 
 public class AdminKick implements IAdminCommandHandler
@@ -39,7 +39,7 @@ public class AdminKick implements IAdminCommandHandler
 				L2PcInstance player = L2World.getInstance().getPlayer(plyr);
 				if (player != null)
 				{
-					kickPlayer(player);
+					new Disconnection(player).defaultSequence(false);
 					activeChar.sendMessage("You kicked " + player.getName() + " from the game.");
 				}
 			}
@@ -52,28 +52,12 @@ public class AdminKick implements IAdminCommandHandler
 				if (!player.isGM())
 				{
 					counter++;
-					kickPlayer(player);
+					new Disconnection(player).defaultSequence(false);
 				}
 			}
 			activeChar.sendMessage("Kicked " + counter + " players");
 		}
 		return true;
-	}
-
-	private void kickPlayer(L2PcInstance player)
-	{
-		try
-		{
-			L2GameClient client = player.getClient();
-			L2GameClient.saveCharToDisk(player, true); // Store character
-			player.deleteMe();
-			// prevent deleteMe from being called a second time on disconnection
-			client.setActiveChar(null);
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
 	}
 
 	public String[] getAdminCommandList()

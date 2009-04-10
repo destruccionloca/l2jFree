@@ -33,10 +33,9 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
-import com.l2jfree.gameserver.network.L2GameClient;
+import com.l2jfree.gameserver.network.Disconnection;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.gameserverpackets.ServerStatus;
-import com.l2jfree.gameserver.network.serverpackets.ServerClose;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.taskmanager.SQLQueue;
 
@@ -468,17 +467,7 @@ public class Shutdown extends Thread
 		{
 			try
 			{
-				L2GameClient client = player.getClient();
-				
-				player.setClient(null);
-				client.setActiveChar(null);
-				
-				// save player's stats and effects
-				L2GameClient.saveCharToDisk(player, true);
-				player.deleteMe();
-				
-				// close server
-				client.close(ServerClose.STATIC_PACKET);
+				new Disconnection(player).defaultSequence(true);
 			}
 			catch (Throwable t)
 			{

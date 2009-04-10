@@ -516,7 +516,7 @@ public class AdminEditChar implements IAdminCommandHandler
 		try
 		{
 			account = player.getAccountName();
-			ip = player.getClient().getSocket().getInetAddress().getHostAddress();
+			ip = player.getClient().getHostAddress();
 		}
 		catch (Exception e)
 		{
@@ -719,18 +719,9 @@ public class AdminEditChar implements IAdminCommandHandler
 	 */
 	private void findCharactersPerIp(L2PcInstance activeChar, String IpAdress) throws IllegalArgumentException
 	{
-		boolean findDisconnected = false;
+		if (!IpAdress.matches("^(?:(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2(?:[0-4][0-9]|5[0-5]))\\.){3}(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2(?:[0-4][0-9]|5[0-5]))$"))
+			throw new IllegalArgumentException("Malformed IPv4 number");
 		
-		if (IpAdress.equals("disconnected"))
-		{
-			findDisconnected = true;
-		}
-		else
-		{
-			if (!IpAdress.matches("^(?:(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2(?:[0-4][0-9]|5[0-5]))\\.){3}(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2(?:[0-4][0-9]|5[0-5]))$"))
-				throw new IllegalArgumentException("Malformed IPv4 number");
-		}
-
 		Collection<L2PcInstance> allPlayers = L2World.getInstance().getAllPlayers();
 		L2PcInstance[] players = allPlayers.toArray(new L2PcInstance[allPlayers.size()]);
 		int CharactersFound = 0;
@@ -742,26 +733,13 @@ public class AdminEditChar implements IAdminCommandHandler
 		for (L2PcInstance player : players)
 		{
 			client = player.getClient();
-			if (client.isDetached())
-			{
-				if (!findDisconnected)
-				{
-					continue;
-				}
-			}
-			else
-			{
-				if (findDisconnected)
-				{
-					continue;
-				}
-				else
-				{
-					ip = client.getSocket().getInetAddress().getHostAddress();
-					if (!ip.equals(IpAdress))
-						continue;
-				}
-			}
+			
+			if (client == null)
+				continue;
+			
+			ip = client.getHostAddress();
+			if (!ip.equals(IpAdress))
+				continue;
 			
 			name = player.getName();
 			CharactersFound = CharactersFound + 1;

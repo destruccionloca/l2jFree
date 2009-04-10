@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.Disconnection;
 import com.l2jfree.gameserver.network.L2GameClient.GameClientState;
 import com.l2jfree.gameserver.network.serverpackets.CharSelected;
 
@@ -81,7 +82,7 @@ public class CharacterSelected extends L2GameClientPacket
 		
 		if (cha.getAccessLevel() < 0)
 		{
-			cha.deleteMe();
+			new Disconnection(getClient(), cha).defaultSequence(false);
 			return;
 		}
 		

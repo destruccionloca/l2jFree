@@ -26,7 +26,7 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
-import com.l2jfree.gameserver.network.L2GameClient;
+import com.l2jfree.gameserver.network.Disconnection;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.util.LinkedBunch;
 import com.l2jfree.util.concurrent.L2Collection;
@@ -345,17 +345,8 @@ public final class L2World
 			{
 				_log.warn("Duplicate character!? Closing both characters (" + player.getName() + ")");
 				
-				L2GameClient client1 = player.getClient();
-				L2GameClient.saveCharToDisk(player); // Store character
-				player.deleteMe();
-				client1.setActiveChar(null); // prevent deleteMe from being called a second time on disconnection
-				
-				L2GameClient client2 = old.getClient();
-				L2GameClient.saveCharToDisk(old, true); // Store character and items
-				old.deleteMe();
-				if (client2 != null)
-					client2.setActiveChar(null); // prevent deleteMe from being called a second time on disconnection
-					
+				new Disconnection(player).defaultSequence(true);
+				new Disconnection(old).defaultSequence(true);
 				return;
 			}
 			

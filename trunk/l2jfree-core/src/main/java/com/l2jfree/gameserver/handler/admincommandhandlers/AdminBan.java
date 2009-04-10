@@ -21,7 +21,7 @@ import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.L2GameClient;
+import com.l2jfree.gameserver.network.Disconnection;
 import com.l2jfree.gameserver.network.SystemMessageId;
 
 
@@ -74,11 +74,7 @@ public class AdminBan implements IAdminCommandHandler
 				account_name = plyr.getAccountName();
 				try
 				{
-					L2GameClient client = plyr.getClient();
-					L2GameClient.saveCharToDisk(plyr, true); // Store character
-					plyr.deleteMe();
-					// prevent deleteMe from being called a second time on disconnection
-					client.setActiveChar(null);
+					new Disconnection(plyr).defaultSequence(false);
 				}
 				catch (Exception e)
 				{

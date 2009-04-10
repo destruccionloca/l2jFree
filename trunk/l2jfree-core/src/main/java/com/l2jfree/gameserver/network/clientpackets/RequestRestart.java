@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.Disconnection;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.L2GameClient.GameClientState;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
@@ -48,13 +49,7 @@ public final class RequestRestart extends L2GameClientPacket
 			return;
 		}
 		
-		// detach the client from the char so the connection won't be closed in deleteMe()
-		activeChar.setClient(null);
-		// prevent deleteMe() from being called a second time onDisconnection()
-		client.setActiveChar(null);
-		
-		L2GameClient.saveCharToDisk(activeChar, true);
-		activeChar.deleteMe();
+		new Disconnection(client, activeChar).store().deleteMe();
 		
 		// return the client to the authed status
 		client.setState(GameClientState.AUTHED);

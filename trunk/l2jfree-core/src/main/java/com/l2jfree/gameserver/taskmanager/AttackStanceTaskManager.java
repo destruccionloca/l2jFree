@@ -33,6 +33,8 @@ public final class AttackStanceTaskManager implements Runnable
 {
 	private final static Log _log = LogFactory.getLog(AttackStanceTaskManager.class);
 	
+	public static final long COMBAT_TIME = 15000;
+	
 	private static AttackStanceTaskManager _instance;
 	
 	public static AttackStanceTaskManager getInstance()
@@ -70,7 +72,7 @@ public final class AttackStanceTaskManager implements Runnable
 				if (cubic.getId() != L2CubicInstance.LIFE_CUBIC)
 					cubic.doAction();
 		
-		_attackStanceTasks.put(actor, System.currentTimeMillis() + 15000);
+		_attackStanceTasks.put(actor, System.currentTimeMillis() + COMBAT_TIME);
 	}
 	
 	public synchronized void removeAttackStanceTask(L2Character actor)

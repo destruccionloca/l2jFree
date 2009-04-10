@@ -55,7 +55,7 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 	
 	public ReceivablePacket<L2GameClient> handlePacket(ByteBuffer buf, L2GameClient client)
 	{
-		if (client.isDetached())
+		if (client.isDisconnected())
 			return null;
 		
 		final int opcode = buf.get() & 0xFF;

@@ -15,48 +15,35 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.L2GameClient;
+import com.l2jfree.gameserver.network.Disconnection;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.network.serverpackets.LeaveWorld;
 
 public final class Logout extends L2GameClientPacket
 {
 	private static final String _C__09_LOGOUT = "[C] 09 Logout";
-
-	// c
-
+	
 	@Override
 	protected void readImpl()
 	{
 	}
-
+	
 	@Override
 	protected void runImpl()
 	{
 		final L2PcInstance activeChar = getClient().getActiveChar();
-
+		
 		if (activeChar == null)
 			return;
-
+		
 		if (!activeChar.canLogout())
 		{
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 		
-		// detach the client from the char so the connection won't be closed in deleteMe()
-		activeChar.setClient(null);
-		// prevent deleteMe() from being called a second time onDisconnection()
-		getClient().setActiveChar(null);
-
-		L2GameClient.saveCharToDisk(activeChar, true);
-		activeChar.deleteMe();
-
-		// normally the server would send several "delete object" before "leaveWorld"
-		// we skip that for now
-		sendPacket(LeaveWorld.STATIC_PACKET);
+		new Disconnection(getClient(), activeChar).defaultSequence(false);
 	}
-
+	
 	@Override
 	public String getType()
 	{

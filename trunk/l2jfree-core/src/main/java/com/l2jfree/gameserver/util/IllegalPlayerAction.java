@@ -14,25 +14,16 @@
  */
 package com.l2jfree.gameserver.util;
 
-/**
- * 
- * @author luisantonioa
- * 
- */
-
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.GmListTable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.L2GameClient;
+import com.l2jfree.gameserver.network.Disconnection;
 
 /**
- * This class ...
- * 
- * @version $Revision: 1.2 $ $Date: 2004/06/27 08:12:59 $
+ * @author luisantonioa
  */
 public final class IllegalPlayerAction implements Runnable
 {
@@ -73,23 +64,16 @@ public final class IllegalPlayerAction implements Runnable
 		_logAudit.info("AUDIT:" + _message + "," + _actor + " " + _punishment);
 
 		GmListTable.broadcastMessageToGMs(_message);
-		L2GameClient client = _actor.getClient();
-		L2GameClient.saveCharToDisk(_actor, true); // Store character
 
 		switch (_punishment)
 		{
 		case PUNISH_BROADCAST:
 			return;
-		case PUNISH_KICK:
-			_actor.deleteMe();
-			if (client != null)
-				client.setActiveChar(null);
-			break;
+			
 		case PUNISH_KICKBAN:
 			_actor.setAccountAccesslevel(-100);
-			_actor.deleteMe();
-			if (client != null)
-				client.setActiveChar(null);
+		case PUNISH_KICK:
+			new Disconnection(_actor).defaultSequence(false);
 			break;
 		case PUNISH_JAIL:
 			_actor.setInJail(true, Config.DEFAULT_PUNISH_PARAM);

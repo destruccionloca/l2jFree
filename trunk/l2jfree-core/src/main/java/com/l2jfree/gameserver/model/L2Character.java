@@ -70,6 +70,7 @@ import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.model.zone.L2Zone;
+import com.l2jfree.gameserver.network.Disconnection;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.Attack;
@@ -4826,7 +4827,7 @@ public abstract class L2Character extends L2Object
 					_log.warn("Character "+this.getName()+" outside world area, in coordinates x:"+curX+" y:"+curY);
 					getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 					if (this instanceof L2PcInstance)
-						((L2PcInstance)this).deleteMe();
+						new Disconnection((L2PcInstance)this).defaultSequence(true);
 					else if (!(this instanceof L2Summon))
 						this.onDecay(); // preventation when summon get out of world coords, player will not loose it, unsummon handled from pcinstance
 					return;

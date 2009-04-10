@@ -41,6 +41,7 @@ import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.base.ClassId;
 import com.l2jfree.gameserver.model.quest.Quest;
+import com.l2jfree.gameserver.network.Disconnection;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -1504,7 +1505,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 						// Prevent hlApex users from abusing this...
 						if (!actor.isGM())
 						{
-							actor.deleteMe();
+							new Disconnection(actor).defaultSequence(false);
 						}
 
 						if (!ItemTable.getInstance().getTemplate(itemId).isStackable() && count > 10)

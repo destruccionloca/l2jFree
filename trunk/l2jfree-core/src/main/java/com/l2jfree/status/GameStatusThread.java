@@ -67,12 +67,11 @@ import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
-import com.l2jfree.gameserver.network.L2GameClient;
+import com.l2jfree.gameserver.network.Disconnection;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
-import com.l2jfree.gameserver.network.serverpackets.LeaveWorld;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
 import com.l2jfree.gameserver.util.DynamicExtension;
@@ -555,16 +554,7 @@ public final class GameStatusThread extends Thread
 						L2PcInstance player = L2World.getInstance().getPlayer(_usrCommand);
 						if (player != null)
 						{
-							try
-							{
-								L2GameClient.saveCharToDisk(player);
-								player.sendPacket(LeaveWorld.STATIC_PACKET);
-								player.deleteMe();
-								player.logout();
-							}
-							catch (Throwable t)
-							{
-							}
+							new Disconnection(player).defaultSequence(false);
 							_print.println("Player kicked");
 						}
 					}

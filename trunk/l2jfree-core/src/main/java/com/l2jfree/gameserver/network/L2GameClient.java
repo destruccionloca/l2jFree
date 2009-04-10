@@ -14,13 +14,11 @@
  */
 package com.l2jfree.gameserver.network;
 
-import java.net.InetAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.concurrent.ScheduledFuture;
 
 import javolution.text.TextBuilder;
 
@@ -41,6 +39,8 @@ import com.l2jfree.gameserver.model.CharSelectInfoPackage;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
+import com.l2jfree.gameserver.network.serverpackets.LeaveWorld;
+import com.l2jfree.gameserver.network.serverpackets.ServerClose;
 import com.l2jfree.gameserver.threadmanager.FIFORunnableQueue;
 import com.l2jfree.tools.security.BlowFishKeygen;
 import com.l2jfree.tools.security.GameCrypt;
@@ -73,10 +73,7 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 	private int[] _charSlotMapping;
 	private GameCrypt _crypt;
 	private boolean _disconnected;
-	private boolean _isDetached = false;
 	private boolean _protocol;
-
-	protected ScheduledFuture<?> _cleanupTask = null;
 	
 	public L2GameClient(SelectorThread<L2GameClient> selectorThread, ISocket socket, SelectionKey key)
 	{
@@ -167,62 +164,6 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 		return _sessionId;
 	}
 	
-	/**
-	 * {@link RunnableStatsManager} used here mostly for counting, since constructors - usually the longest
-	 * parts - are excluded.
-	 */
-	@Override
-	public void sendPacket(SendablePacket<L2GameClient> sp)
-	{
-		final long begin = System.nanoTime();
-		
-		try
-		{
-			if (_isDetached)
-				return;
-			
-			((L2GameServerPacket)sp).runImpl(this, getActiveChar());
-			
-			super.sendPacket(sp);
-		}
-		finally
-		{
-			RunnableStatsManager.getInstance().handleStats(sp.getClass(), System.nanoTime() - begin);
-		}
-	}
-	
-	@Override
-	public void closeNow()
-	{
-		super.closeNow();
-		cleanMe(true);
-	}
-
-	public boolean isDetached()
-	{
-		return _isDetached;
-	}
-	
-	public void isDetached(boolean b)
-	{
-		_isDetached = b;
-	}
-
-	public void execute(ReceivablePacket<L2GameClient> rp)
-	{
-		getPacketQueue().execute(rp);
-	}
-	
-	private FIFORunnableQueue<ReceivablePacket<L2GameClient>> _packetQueue;
-	
-	private FIFORunnableQueue<ReceivablePacket<L2GameClient>> getPacketQueue()
-	{
-		if (_packetQueue == null)
-			_packetQueue = new FIFORunnableQueue<ReceivablePacket<L2GameClient>>() {};
-		
-		return _packetQueue;
-	}
-	
 	public L2PcInstance markToDeleteChar(int charslot) throws Exception
 	{
 		// have to make sure active character must be nulled
@@ -292,30 +233,6 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 		
 		deleteCharByObjId(objid);
 		return null;
-	}
-	
-	public static void saveCharToDisk(L2PcInstance cha)
-	{
-		saveCharToDisk(cha, false);
-	}
-	
-	/**
-	 * Save the L2PcInstance to the database.
-	 */
-	public static void saveCharToDisk(L2PcInstance cha, boolean storeItems)
-	{
-		try
-		{
-			cha.store();
-			if (Config.UPDATE_ITEMS_ON_CHAR_STORE || storeItems)
-			{
-				cha.getInventory().updateDatabase();
-			}
-		}
-		catch (Exception e)
-		{
-			_log.error("Error saving character.", e);
-		}
 	}
 	
 	public void markRestoredChar(int charslot) throws Exception
@@ -442,16 +359,14 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 			statement.execute();
 			statement.close();
 			
-			statement =
-				con
-					.prepareStatement("DELETE FROM pets WHERE item_obj_id IN (SELECT object_id FROM items WHERE items.owner_id=?)");
+			statement = con
+				.prepareStatement("DELETE FROM pets WHERE item_obj_id IN (SELECT object_id FROM items WHERE items.owner_id=?)");
 			statement.setInt(1, objid);
 			statement.execute();
 			statement.close();
 			
-			statement =
-				con
-					.prepareStatement("DELETE FROM item_attributes WHERE itemId IN (SELECT object_id FROM items WHERE items.owner_id=?)");
+			statement = con
+				.prepareStatement("DELETE FROM item_attributes WHERE itemId IN (SELECT object_id FROM items WHERE items.owner_id=?)");
 			statement.setInt(1, objid);
 			statement.execute();
 			statement.close();
@@ -536,30 +451,13 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 	}
 	
 	@Override
-	protected void onForcedDisconnection()
-	{
-		if (_log.isDebugEnabled())
-			_log.info("Client " + toString() + " disconnected abnormally.");
-	}
-	
-	@Override
-	protected void onDisconnection()
-	{
-		ThreadPoolManager.getInstance().execute(new DisconnectTask());
-	}
-	
-	@Override
 	public String toString()
 	{
 		TextBuilder tb = TextBuilder.newInstance();
 		
 		tb.append("[State: ").append(getState());
 		
-		String host = null;
-		InetAddress address =  getSocket().getInetAddress();
-		if (address != null)
-			host = address.getHostAddress();
-		
+		String host = getHostAddress();
 		if (host != null)
 			tb.append(" | IP: ").append(String.format("%-15s", host));
 		
@@ -579,87 +477,110 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 		
 		return toString;
 	}
-
+	
 	public boolean isProtocolOk()
 	{
 		return _protocol;
 	}
-
+	
 	public void setProtocolOk(boolean b)
 	{
 		_protocol = b;
 	}
 	
-	private final class DisconnectTask implements Runnable
+	public String getHostAddress()
 	{
-		/**
-		 * @see java.lang.Runnable#run()
-		 */
-		public void run()
-		{
-			boolean fast = true;
-
-			try
-			{
-				isDetached(true);
-				L2PcInstance player = L2GameClient.this.getActiveChar();
-				if (player != null && player.isInCombat())
-				{
-					fast = false;
-				}
-				cleanMe(fast);
-			}
-			catch (Exception e1)
-			{
-				_log.error("Error while disconnecting client.", e1);
-			}
-		}
+		return getSocket().getInetAddress().getHostAddress();
 	}
-
-	public void cleanMe(boolean fast)
+	
+	synchronized boolean isDisconnected()
 	{
+		return _disconnected;
+	}
+	
+	synchronized void setDisconnected()
+	{
+		_disconnected = true;
+	}
+	
+	void execute(ReceivablePacket<L2GameClient> rp)
+	{
+		getPacketQueue().execute(rp);
+	}
+	
+	private FIFORunnableQueue<ReceivablePacket<L2GameClient>> _packetQueue;
+	
+	private FIFORunnableQueue<ReceivablePacket<L2GameClient>> getPacketQueue()
+	{
+		if (_packetQueue == null)
+			_packetQueue = new FIFORunnableQueue<ReceivablePacket<L2GameClient>>() {};
+		
+		return _packetQueue;
+	}
+	
+	/**
+	 * {@link RunnableStatsManager} used here mostly for counting, since constructors - usually the longest parts - are
+	 * excluded.
+	 */
+	@Override
+	public synchronized void sendPacket(SendablePacket<L2GameClient> sp)
+	{
+		final long begin = System.nanoTime();
+		
 		try
 		{
-			synchronized(this)
-			{
-				if (_cleanupTask == null)
-				{
-					_cleanupTask = ThreadPoolManager.getInstance().scheduleGeneral(new CleanupTask(), fast ? 500 : 15000L);
-				}
-			}
+			if (isDisconnected())
+				return;
+			
+			((L2GameServerPacket)sp).runImpl(this, getActiveChar());
+			
+			super.sendPacket(sp);
 		}
-		catch (Exception e1)
+		finally
 		{
-			_log.error("Error during cleanup.", e1);
+			RunnableStatsManager.getInstance().handleStats(sp.getClass(), System.nanoTime() - begin);
 		}
 	}
-
-	public class CleanupTask implements Runnable
+	
+	synchronized void close(boolean toLoginScreen)
 	{
-		public void run()
-		{
-			synchronized (L2GameClient.this)
+		super.close(toLoginScreen ? ServerClose.STATIC_PACKET : LeaveWorld.STATIC_PACKET);
+		
+		setDisconnected();
+	}
+	
+	@Override
+	public synchronized void close(SendablePacket<L2GameClient> sp)
+	{
+		new Disconnection(this).defaultSequence(false);
+	}
+	
+	@Override
+	public synchronized void closeNow()
+	{
+		new Disconnection(this).defaultSequence(false);
+	}
+	
+	@Override
+	protected synchronized void onDisconnection()
+	{
+		ThreadPoolManager.getInstance().execute(new Runnable() {
+			@Override
+			public void run()
 			{
-				if (_disconnected)
-					return;
-				
-				_disconnected = true;
+				LoginServerThread.getInstance().sendLogout(getAccountName());
 			}
-			
-			// to prevent call cleanMe() again
-			isDetached(false);
-			
-			LoginServerThread.getInstance().sendLogout(getAccountName());
-			
-			L2PcInstance player = getActiveChar();
-			setActiveChar(null);
-			
-			if (player != null) // this should only happen on connection loss
-			{
-				player.setClient(null);
-				saveCharToDisk(player, true);
-				player.deleteMe();
-			}
-		}
+		});
+		
+		new Disconnection(this).onDisconnection();
+		
+		setDisconnected();
+	}
+	
+	@Override
+	protected synchronized void onForcedDisconnection()
+	{
+		if (_log.isDebugEnabled())
+			_log.info("Client " + toString() + " disconnected abnormally.");
 	}
 }

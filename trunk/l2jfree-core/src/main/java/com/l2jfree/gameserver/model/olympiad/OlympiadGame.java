@@ -114,8 +114,8 @@ public class OlympiadGame
 
 				if (!Config.ALT_OLY_SAME_IP)
 				{
-					String _playerOneIp = _playerOne.getClient().getSocket().getInetAddress().getHostAddress();
-					String _playerTwoIp = _playerTwo.getClient().getSocket().getInetAddress().getHostAddress();
+					String _playerOneIp = _playerOne.getClient().getHostAddress();
+					String _playerTwoIp = _playerTwo.getClient().getHostAddress();
 					if (_playerOneIp.equals(_playerTwoIp))
 					{
 						String classed = "no";
