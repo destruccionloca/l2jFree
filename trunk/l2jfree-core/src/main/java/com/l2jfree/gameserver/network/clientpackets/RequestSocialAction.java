@@ -26,6 +26,7 @@ import com.l2jfree.gameserver.network.serverpackets.SocialAction;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.util.FloodProtector;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.gameserver.util.FloodProtector.Protected;
 
 /**
  * This class ...
@@ -81,7 +82,7 @@ public class RequestSocialAction extends L2GameClientPacket
 				!activeChar.isCastingNow() && !activeChar.isCastingSimultaneouslyNow() &&
 				(!activeChar.isAllSkillsDisabled() || activeChar.isInDuel()) &&
 				activeChar.getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE
-				&& FloodProtector.tryPerformAction(activeChar.getObjectId(), FloodProtector.PROTECTED_SOCIAL))
+				&& FloodProtector.tryPerformAction(activeChar, Protected.SOCIAL))
 		{
 			activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), _actionId));
 		}

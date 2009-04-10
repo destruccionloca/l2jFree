@@ -32,6 +32,7 @@ import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.gameserver.util.FloodProtector;
 import com.l2jfree.gameserver.util.IllegalPlayerAction;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.gameserver.util.FloodProtector.Protected;
 
 /**
  * This class ...
@@ -81,7 +82,7 @@ public class RequestDropItem extends L2GameClientPacket
             return;
         
         // Flood protect drop to avoid packet lag
-        if (!FloodProtector.tryPerformAction(activeChar.getObjectId(), FloodProtector.PROTECTED_DROPITEM))
+        if (!FloodProtector.tryPerformAction(activeChar, Protected.DROPITEM))
             return;
         
         if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 

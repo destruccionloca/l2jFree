@@ -36,6 +36,7 @@ import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
 import com.l2jfree.gameserver.templates.item.L2WeaponType;
 import com.l2jfree.gameserver.util.FloodProtector;
+import com.l2jfree.gameserver.util.FloodProtector.Protected;
 import com.l2jfree.lang.L2System;
 
 /**
@@ -88,7 +89,7 @@ public final class UseItem extends L2GameClientPacket
 			return;
 
 		// Flood protect UseItem
-		if (!FloodProtector.tryPerformAction(activeChar.getObjectId(), FloodProtector.PROTECTED_USEITEM))
+		if (!FloodProtector.tryPerformAction(activeChar, Protected.USEITEM))
 			return;
 
 		if (activeChar.getPrivateStoreType() != 0)

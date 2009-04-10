@@ -24,6 +24,7 @@ import com.l2jfree.gameserver.network.serverpackets.Dice;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.util.Broadcast;
 import com.l2jfree.gameserver.util.FloodProtector;
+import com.l2jfree.gameserver.util.FloodProtector.Protected;
 import com.l2jfree.tools.random.Rnd;
 
 
@@ -80,7 +81,7 @@ public class RollingDice implements IItemHandler
 	private int rollDice(L2PcInstance player)
 	{
 		// Check if the dice is ready
-		if (!FloodProtector.tryPerformAction(player.getObjectId(), FloodProtector.PROTECTED_ROLLDICE))
+		if (!FloodProtector.tryPerformAction(player, Protected.ROLLDICE))
 			return 0;
 		return Rnd.get(1, 6);
 	}

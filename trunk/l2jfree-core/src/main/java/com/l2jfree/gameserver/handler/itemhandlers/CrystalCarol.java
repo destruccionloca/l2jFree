@@ -22,6 +22,7 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.util.FloodProtector;
+import com.l2jfree.gameserver.util.FloodProtector.Protected;
 
 /**
  * This class ...
@@ -66,7 +67,7 @@ public class CrystalCarol implements IItemHandler
 		int itemId = item.getItemId();
 		int skillId = -1;
 
-		if (!FloodProtector.tryPerformAction(activeChar.getObjectId(), FloodProtector.PROTECTED_FIREWORK))
+		if (!FloodProtector.tryPerformAction(activeChar, Protected.FIREWORK))
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
 			sm.addItemName(item);

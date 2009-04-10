@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.util;
 
 import javolution.util.FastMap;
-import javolution.util.FastMap.Entry;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
@@ -26,93 +25,60 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  * 
  * @author durgus
  */
-public class FloodProtector
+public final class FloodProtector
 {
-	// =========================================================
-	// Data Field
-	private static final FastMap<Integer, Integer[]> _floodClient = new FastMap<Integer, Integer[]>().setShared(true);
-
-	// =========================================================
-
-	// reuse delays for protected actions (in game ticks 1 tick = 100ms)
-	private static final int[]			REUSEDELAY				= new int[]
-																{ 4, 42, 42, Config.GLOBAL_CHAT_TIME, Config.TRADE_CHAT_TIME, 16, 100, Config.SOCIAL_TIME, 20, 10 };
-
-	// protected actions
-	public static final byte				PROTECTED_USEITEM		= 0;
-	public static final byte				PROTECTED_ROLLDICE		= 1;
-	public static final byte				PROTECTED_FIREWORK		= 2;
-	public static final byte				PROTECTED_GLOBAL_CHAT	= 3;
-	public static final byte				PROTECTED_TRADE_CHAT	= 4;
-	public static final byte				PROTECTED_ITEMPETSUMMON	= 5;
-	public static final byte				PROTECTED_HEROVOICE		= 6;
-	public static final byte				PROTECTED_SOCIAL		= 7;
-	public static final byte				PROTECTED_SUBCLASS		= 8;
-	public static final byte				PROTECTED_DROPITEM		= 9;
-
-	/**
-	 * Add a new player to the flood protector (should be done for all players
-	 * when they enter the world)
-	 * 
-	 * @param playerObjId
-	 */
-	public static void registerNewPlayer(int playerObjId)
+	private static final FastMap<Integer, long[]> ENTRIES = new FastMap<Integer, long[]>().setShared(true);
+	
+	public static enum Protected
 	{
-		// create a new array
-		Integer[] array = new Integer[REUSEDELAY.length];
-		for (int i = 0; i < array.length; i++)
-			array[i] = 0;
-
-		// register the player with an empty array
-		_floodClient.put(playerObjId, array);
-	}
-
-	/**
-	 * Remove a player from the flood protector (should be done if player loggs
-	 * off)
-	 * 
-	 * @param playerObjId
-	 */
-	public static void removePlayer(int playerObjId)
-	{
-		_floodClient.remove(playerObjId);
-	}
-
-	/**
-	 * Return the size of the flood protector
-	 * 
-	 * @return size
-	 */
-	public static int getSize()
-	{
-		return _floodClient.size();
-	}
-
-	/**
-	 * Try to perform the requested action
-	 * 
-	 * @param playerObjId
-	 * @param action
-	 * @return true if the action may be performed
-	 */
-	public static boolean tryPerformAction(int playerObjId, int action)
-	{
-		Entry<Integer, Integer[]> entry = _floodClient.getEntry(playerObjId);
-		if (entry == null)
-			return false;
-		Integer[] value = entry.getValue();
-
-		if (value[action] < GameTimeController.getGameTicks())
+		USEITEM(400),
+		ROLLDICE(4200),
+		FIREWORK(4200),
+		GLOBAL_CHAT(Config.GLOBAL_CHAT_TIME * GameTimeController.MILLIS_IN_TICK),
+		TRADE_CHAT(Config.TRADE_CHAT_TIME * GameTimeController.MILLIS_IN_TICK),
+		ITEMPETSUMMON(1600),
+		HEROVOICE(10000),
+		SOCIAL(Config.SOCIAL_TIME * GameTimeController.MILLIS_IN_TICK),
+		SUBCLASS(2000),
+		DROPITEM(1000), ;
+		
+		private final int _reuseDelay;
+		
+		private Protected(int reuseDelay)
 		{
-			value[action] = GameTimeController.getGameTicks() + REUSEDELAY[action];
-			entry.setValue(value);
-			return true;
+			_reuseDelay = reuseDelay;
 		}
-		return false;
+		
+		private int getReuseDelay()
+		{
+			return _reuseDelay;
+		}
 	}
 	
-	public static boolean tryPerformAction(L2PcInstance player, int action)
+	public static void registerNewPlayer(L2PcInstance player)
 	{
-		return tryPerformAction(player.getObjectId(), action);
+		ENTRIES.put(player.getObjectId(), new long[Protected.values().length]);
+	}
+	
+	public static void removePlayer(L2PcInstance player)
+	{
+		ENTRIES.remove(player.getObjectId());
+	}
+	
+	public static boolean tryPerformAction(L2PcInstance player, Protected action)
+	{
+		long[] value = ENTRIES.get(player.getObjectId());
+		
+		if (value == null)
+			return false;
+		
+		synchronized (value)
+		{
+			if (value[action.ordinal()] > System.currentTimeMillis())
+				return false;
+			
+			value[action.ordinal()] = System.currentTimeMillis() + action.getReuseDelay();
+			return true;
+		}
 	}
 }

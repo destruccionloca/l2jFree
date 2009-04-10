@@ -22,6 +22,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.util.FloodProtector;
+import com.l2jfree.gameserver.util.FloodProtector.Protected;
 
 /**
  *
@@ -51,7 +52,7 @@ public class ChatHero implements IChatHandler
 		{
 			if (activeChar.isHero())
 			{
-				if (FloodProtector.tryPerformAction(activeChar.getObjectId(), FloodProtector.PROTECTED_HEROVOICE))
+				if (FloodProtector.tryPerformAction(activeChar, Protected.HEROVOICE))
 				{
 					canSpeak = true;
 				}

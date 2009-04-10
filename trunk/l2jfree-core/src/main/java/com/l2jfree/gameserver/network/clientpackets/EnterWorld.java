@@ -133,7 +133,7 @@ public class EnterWorld extends L2GameClientPacket
 			activeChar.restoreVitality();
 
 		// Register in flood protector
-		FloodProtector.registerNewPlayer(activeChar.getObjectId());
+		FloodProtector.registerNewPlayer(activeChar);
 
 		if (activeChar.isGM())
 		{

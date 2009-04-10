@@ -21,6 +21,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.gameserver.util.FloodProtector;
+import com.l2jfree.gameserver.util.FloodProtector.Protected;
 
 /**
  * @author theonn
@@ -38,7 +39,7 @@ public final class SummonHorse implements ISkillHandler
 
 		L2PcInstance activeChar = (L2PcInstance)playable;
 
-		if (!FloodProtector.tryPerformAction(activeChar, FloodProtector.PROTECTED_ITEMPETSUMMON))
+		if (!FloodProtector.tryPerformAction(activeChar, Protected.ITEMPETSUMMON))
 			return;
 
 		if (activeChar.isSitting())

@@ -11804,7 +11804,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		untransform();
 
 		// Remove from flood protector
-		FloodProtector.removePlayer(getObjectId());
+		FloodProtector.removePlayer(this);
 
 		if (getClanId() > 0)
 			getClan().broadcastToOtherOnlineMembers(new PledgeShowMemberListUpdate(this), this);

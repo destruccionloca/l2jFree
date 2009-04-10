@@ -54,6 +54,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.util.FloodProtector;
+import com.l2jfree.gameserver.util.FloodProtector.Protected;
 
 /**
  * This class ...
@@ -290,7 +291,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 				 * classes then disallow them to change to their most recently added sub-class choice.
 				 */
 
-				if (!FloodProtector.tryPerformAction(player.getObjectId(), FloodProtector.PROTECTED_SUBCLASS))
+				if (!FloodProtector.tryPerformAction(player, Protected.SUBCLASS))
 				{
 					_log.warn("Player "+player.getName()+" has performed a subclass change too fast");
 					return;
@@ -403,7 +404,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 				 * on small servers. TODO: On retail, each village master doesn't offer any subclass that is not given by itself so player
 				 * always has to move to other location to change subclass after changing previously. Thanks Aikimaniac for this info.
 				 */
-				if (!FloodProtector.tryPerformAction(player.getObjectId(), FloodProtector.PROTECTED_SUBCLASS))
+				if (!FloodProtector.tryPerformAction(player, Protected.SUBCLASS))
 				{
 					_log.warn("Player "+player.getName()+" has performed a subclass change too fast");
 					return;
@@ -441,7 +442,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 				 * subclass list even if false!
 				 */
 
-				if (!FloodProtector.tryPerformAction(player.getObjectId(), FloodProtector.PROTECTED_SUBCLASS))
+				if (!FloodProtector.tryPerformAction(player, Protected.SUBCLASS))
 				{
 					_log.warn("Player "+player.getName()+" has performed a subclass change too fast");
 					return;

@@ -21,6 +21,7 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.StatsSet;
 import com.l2jfree.gameserver.util.FloodProtector;
+import com.l2jfree.gameserver.util.FloodProtector.Protected;
 
 public class L2SkillMount extends L2Skill
 {
@@ -42,7 +43,7 @@ public class L2SkillMount extends L2Skill
 
 		L2PcInstance activePlayer = (L2PcInstance) caster;
 
-		if (!FloodProtector.tryPerformAction(activePlayer.getObjectId(), FloodProtector.PROTECTED_ITEMPETSUMMON))
+		if (!FloodProtector.tryPerformAction(activePlayer, Protected.ITEMPETSUMMON))
 			return;
 
 		// Dismount Action
