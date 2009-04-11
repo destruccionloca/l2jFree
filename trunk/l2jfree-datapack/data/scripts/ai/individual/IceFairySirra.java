@@ -20,31 +20,33 @@ import java.util.logging.Logger;
 
 import javolution.util.FastList;
 
-import com.l2jfree.Config;
+import ai.group_template.L2AttackableAIScript;
+
 import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.SpawnTable;
-import com.l2jfree.gameserver.instancemanager.GrandBossManager;
+import com.l2jfree.gameserver.instancemanager.ZoneManager;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.quest.Quest;
-import com.l2jfree.gameserver.model.zone.type.L2BossZone;
+import com.l2jfree.gameserver.model.zone.L2BossZone;
+import com.l2jfree.gameserver.model.zone.L2Zone;
+import com.l2jfree.gameserver.model.zone.L2Zone.ZoneType;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExShowScreenMessage;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
-import ai.group_template.L2AttackableAIScript;
 
 /**
- * Ice Fairy Sirra AI
+ * Ice Fairy Sirra AI<br>
+ * TODO: review because of the differences between the two zone system
  * 
  * @author Kerberos
  */
-
 public class IceFairySirra extends L2AttackableAIScript
 {
 	protected static Logger				_log				= Logger.getLogger(IceFairySirra.class.getName());
@@ -59,22 +61,26 @@ public class IceFairySirra extends L2AttackableAIScript
 	{
 		super(id, name, descr);
 		int[] mob = { STEWARD, 22100, 22102, 22104 };
-		this.registerMobs(mob);
-		this.addEventId(STEWARD, Quest.QuestEventType.QUEST_START);
-		this.addEventId(STEWARD, Quest.QuestEventType.ON_TALK);
-		this.addEventId(STEWARD, Quest.QuestEventType.ON_FIRST_TALK);
-		init();
+		registerMobs(mob);
+		addEventId(STEWARD, Quest.QuestEventType.QUEST_START);
+		addEventId(STEWARD, Quest.QuestEventType.ON_TALK);
+		addEventId(STEWARD, Quest.QuestEventType.ON_FIRST_TALK);
+		init0();
 	}
 
-	public void init()
+	private void init0()
 	{
-		_freyasZone = GrandBossManager.getInstance().getZone(105546, -127892, -2768);
-		if (_freyasZone == null)
+		L2Zone zone = ZoneManager.getInstance().isInsideZone(ZoneType.Boss, 105546, 127892);
+		//_freyasZone = GrandBossManager.getInstance().getZone(105546, -127892, -2768);
+		//if (_freyasZone == null)
+		if (!(zone instanceof L2BossZone))
 		{
 			_log.warning("IceFairySirraManager: Failed to load zone");
 			return;
 		}
-		_freyasZone.setZoneEnabled(false);
+		_freyasZone = (L2BossZone)zone;
+		_freyasZone.setEnabled(false);
+		//_freyasZone.setZoneEnabled(false);
 		L2NpcInstance steward = findTemplate(STEWARD);
 		if (steward != null)
 			steward.setBusy(false);
@@ -83,7 +89,7 @@ public class IceFairySirra extends L2AttackableAIScript
 
 	public void cleanUp()
 	{
-		init();
+		init0();
 		cancelQuestTimer("30MinutesRemaining", null, _player);
 		cancelQuestTimer("20MinutesRemaining", null, _player);
 		cancelQuestTimer("10MinutesRemaining", null, _player);
@@ -208,7 +214,8 @@ public class IceFairySirra extends L2AttackableAIScript
 					cleanUp();
 					return;
 				}
-				_freyasZone.allowPlayerEntry(pc, 2103);
+				// what should be here instead?
+				//_freyasZone.allowPlayerEntry(pc, 2103);
 			}
 		}
 		else
@@ -278,17 +285,8 @@ public class IceFairySirra extends L2AttackableAIScript
 
 		String temp = "data/html/default/" + pom + ".htm";
 
-		if (!Config.LAZY_CACHE)
-		{
-			// If not running lazy cache the file must be in the cache or it doesnt exist
-			if (HtmCache.getInstance().contains(temp))
-				return temp;
-		}
-		else
-		{
-			if (HtmCache.getInstance().isLoadable(temp))
-				return temp;
-		}
+		if (HtmCache.getInstance().pathExists(temp))
+			return temp;
 
 		// If the file is not found, the standard message "I have nothing to say to you" is returned
 		return "data/html/npcdefault.htm";
@@ -303,6 +301,7 @@ public class IceFairySirra extends L2AttackableAIScript
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
+	@Override
 	public String onFirstTalk(L2NpcInstance npc, L2PcInstance player)
 	{
 		if (player.getQuestState("IceFairySirra") == null)
@@ -317,6 +316,7 @@ public class IceFairySirra extends L2AttackableAIScript
 		return null;
 	}
 
+	@Override
 	public String onAdvEvent(String event, L2NpcInstance npc, L2PcInstance player)
 	{
 		if (event.equalsIgnoreCase("check_condition"))
@@ -358,7 +358,8 @@ public class IceFairySirra extends L2AttackableAIScript
 				cleanUp();
 				return super.onAdvEvent(event, npc, player);
 			}
-			_freyasZone.setZoneEnabled(true);
+			_freyasZone.setEnabled(true);
+			//_freyasZone.setZoneEnabled(true);
 			closeGates();
 			doSpawns();
 			startQuestTimer("Party_Port", 2000, null, player);
