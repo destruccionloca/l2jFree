@@ -229,7 +229,15 @@ public class Announcements
 			player.sendPacket(gsp);
 		}
 	}
-
+	
+	public void announceToAll(SystemMessageId sm)
+	{
+		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+		{
+			player.sendPacket(sm);
+		}
+	}
+	
 	public void announceToInstance(L2GameServerPacket gsp, int instanceId)
 	{
 		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
