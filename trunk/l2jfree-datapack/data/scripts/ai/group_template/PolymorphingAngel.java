@@ -45,6 +45,7 @@ public class PolymorphingAngel extends L2AttackableAIScript
 		this.registerMobs(temp);
 	}
 
+	@Override
 	public String onKill (L2NpcInstance npc, L2PcInstance killer, boolean isPet)
 	{
 		int npcId = npc.getNpcId();

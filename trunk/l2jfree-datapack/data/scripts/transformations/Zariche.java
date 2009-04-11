@@ -18,6 +18,7 @@ public class Zariche extends L2DefaultTransformation
 		super(301, 9.0, 31.0);
 	}
 
+	@Override
 	public void onTransform(L2PcInstance player)
 	{
 		// Set charachter name to transformed name
@@ -25,6 +26,7 @@ public class Zariche extends L2DefaultTransformation
 		player.getAppearance().setVisibleTitle("");
 	}
 
+	@Override
 	public void onUntransform(L2PcInstance player)
 	{
 		// set character back to true name.
@@ -32,12 +34,14 @@ public class Zariche extends L2DefaultTransformation
 		player.getAppearance().setVisibleTitle(null);
 	}
 
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 		addSkill(player, 3630, 1); // Void Burst
 		addSkill(player, 3631, 1); // Void Flow
 	}
 
+	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player, 3630); // Void Burst

@@ -22,6 +22,7 @@ public class Zaken extends L2DefaultTransformation
 		super(305, 16.0, 32.0);
 	}
 
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 		addSkill(player, 715, 4); // Zaken Energy Drain
@@ -31,6 +32,7 @@ public class Zaken extends L2DefaultTransformation
 		addSkill(player, 719, 1); // Zaken Vampiric Rage
 	}
 
+	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player, 715); // Zaken Energy Drain

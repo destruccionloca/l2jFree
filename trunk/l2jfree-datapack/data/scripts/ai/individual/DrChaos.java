@@ -63,6 +63,7 @@ public class DrChaos extends Quest
 		return npcInstance;
 	}
 
+	@Override
 	public String onAdvEvent (String event, L2NpcInstance npc, L2PcInstance player)
 	{
 		if (event.equalsIgnoreCase("1"))
@@ -107,6 +108,7 @@ public class DrChaos extends Quest
 		return super.onAdvEvent(event, npc, player);
 	}
 
+	@Override
 	public String onFirstTalk (L2NpcInstance npc, L2PcInstance player)
 	{
 		if (npc.getNpcId() == DOCTER_CHAOS)

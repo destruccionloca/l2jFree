@@ -22,6 +22,7 @@ public class DragonBomberWeak extends L2DefaultTransformation
 		super(218, 8.0, 22.0);
 	}
 
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 		addSkill(player, 580, 2); // Death Blow
@@ -30,6 +31,7 @@ public class DragonBomberWeak extends L2DefaultTransformation
 		addSkill(player, 583, 2); // Assimilation
 	}
 
+	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player, 580); // Death Blow

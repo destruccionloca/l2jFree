@@ -22,10 +22,12 @@ public class Pig extends L2DefaultTransformation
 		super(104, 15.0, 18.3);
 	}
 
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 	}
 
+	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 	}

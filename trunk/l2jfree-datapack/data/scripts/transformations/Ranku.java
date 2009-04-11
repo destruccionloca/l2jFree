@@ -22,12 +22,14 @@ public class Ranku extends L2DefaultTransformation
 		super(309, 13.0, 29.0);
 	}
 
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 		addSkill(player, 731, 1); // Ranku Dark Explosion
 		addSkill(player, 732, 1); // Ranku Stun Attack
 	}
 
+	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player, 731); // Ranku Dark Explosion

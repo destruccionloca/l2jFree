@@ -56,6 +56,7 @@ public class Chests extends L2AttackableAIScript
 		this.registerMobs(NPC_IDS);
 	}
 
+	@Override
 	public String onSkillSee (L2NpcInstance npc, L2PcInstance caster, L2Skill skill, L2Object[] targets, boolean isPet) 
 	{
 		if (npc instanceof L2ChestInstance)
@@ -118,6 +119,7 @@ public class Chests extends L2AttackableAIScript
 		return super.onSkillSee(npc, caster, skill, targets, isPet);
 	}
 
+	@Override
 	public String onAttack (L2NpcInstance npc, L2PcInstance attacker, int damage, boolean isPet)
 	{
 		if (npc instanceof L2ChestInstance)

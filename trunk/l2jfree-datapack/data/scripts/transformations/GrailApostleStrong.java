@@ -22,6 +22,7 @@ public class GrailApostleStrong extends L2DefaultTransformation
 		super(201, 8.0, 30.0);
 	}
 
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 		addSkill(player, 559, 4); // Spear
@@ -30,6 +31,7 @@ public class GrailApostleStrong extends L2DefaultTransformation
 		addSkill(player, 562, 4); // Wind of Angel
 	}
 
+	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player, 559); // Spear

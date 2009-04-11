@@ -22,10 +22,12 @@ public class SaberToothTiger extends L2DefaultTransformation
 		super(5, 34.0, 28.0);
 	}
 
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 	}
 
+	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 	}

@@ -22,6 +22,7 @@ public class DivineSummoner extends L2DefaultTransformation
 		super(258, 12.0, 24.0);
 	}
 
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 		/* Commented till we get proper values for these skills
@@ -33,6 +34,7 @@ public class DivineSummoner extends L2DefaultTransformation
 		*/
 	}
 
+	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		/* Commented till we get proper values for these skills

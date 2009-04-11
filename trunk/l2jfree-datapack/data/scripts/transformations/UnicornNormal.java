@@ -22,6 +22,7 @@ public class UnicornNormal extends L2DefaultTransformation
 		super(205, 8.0, 25.5);
 	}
 
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 		addSkill(player, 563, 3); // Horn of Doom
@@ -30,6 +31,7 @@ public class UnicornNormal extends L2DefaultTransformation
 		addSkill(player, 567, 3); // Light of Heal
 	}
 
+	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player, 563); // Horn of Doom

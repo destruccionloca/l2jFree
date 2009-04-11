@@ -22,10 +22,12 @@ public class DollBlader extends L2DefaultTransformation
 		super(7, 6.0, 12.0);
 	}
 
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 	}
 
+	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 	}

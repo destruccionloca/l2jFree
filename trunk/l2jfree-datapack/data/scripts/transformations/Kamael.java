@@ -22,6 +22,7 @@ public class Kamael extends L2DefaultTransformation
 		super(251, 9.0, 30.0);
 	}
 
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 		addSkill(player, 539, 1); // Nail Attack
@@ -30,6 +31,7 @@ public class Kamael extends L2DefaultTransformation
 		addSkill(player, 1472, 1); // Death Beam
 	}
 
+	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player, 539); // Nail Attack

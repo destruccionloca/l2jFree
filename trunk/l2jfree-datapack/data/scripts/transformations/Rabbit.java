@@ -22,10 +22,12 @@ public class Rabbit extends L2DefaultTransformation
 		super(105, 5.0, 4.5);
 	}
 
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 	}
 
+	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 	}

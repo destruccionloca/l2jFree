@@ -57,6 +57,7 @@ public class Core extends L2AttackableAIScript
 		_isAlive = false;
 	}
 
+	@Override
 	public String onSpawn(L2NpcInstance npc)
 	{
 		if (npc.getNpcId() == CORE)
@@ -81,6 +82,7 @@ public class Core extends L2AttackableAIScript
 		return null;
 	}
 
+	@Override
 	public String onAdvEvent(String event, L2NpcInstance npc, L2PcInstance player)
 	{
 		if (event.equalsIgnoreCase("spawn_minion"))
@@ -99,6 +101,7 @@ public class Core extends L2AttackableAIScript
 		return super.onAdvEvent(event, npc, player);
 	}
 
+	@Override
 	public String onAttack(L2NpcInstance npc, L2PcInstance attacker, int damage, boolean isPet)
 	{
 		if (npc.getNpcId() == CORE)
@@ -118,6 +121,7 @@ public class Core extends L2AttackableAIScript
 		return super.onAttack(npc, attacker, damage, isPet);
 	}
 
+	@Override
 	public String onKill (L2NpcInstance npc, L2PcInstance killer, boolean isPet) 
 	{
 		int npcId = npc.getNpcId();

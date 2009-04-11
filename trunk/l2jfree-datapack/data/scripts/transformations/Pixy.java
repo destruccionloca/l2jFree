@@ -22,10 +22,12 @@ public class Pixy extends L2DefaultTransformation
 		super(304, 5.0, 25.0);
 	}
 
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 	}
 
+	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 	}

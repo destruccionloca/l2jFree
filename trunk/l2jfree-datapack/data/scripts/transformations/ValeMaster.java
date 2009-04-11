@@ -22,11 +22,13 @@ public class ValeMaster extends L2DefaultTransformation
 		super(4, 12.0, 40.0);
 	}
 
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 		addSkill(player, 745, 3); // Vale Master Dark Curse
 	}
 
+	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player, 745); // Vale Master Dark Curse

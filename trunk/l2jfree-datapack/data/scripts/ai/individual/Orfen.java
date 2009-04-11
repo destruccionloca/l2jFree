@@ -76,6 +76,7 @@ public class Orfen extends L2AttackableAIScript
 		npc.teleToLocation(Pos[index][0],Pos[index][1],Pos[index][2]);
 	}
 
+	@Override
 	public String onSpawn(L2NpcInstance npc)
 	{
 		if (npc.getNpcId() == ORFEN)
@@ -95,6 +96,7 @@ public class Orfen extends L2AttackableAIScript
 		return null;
 	}
 
+	@Override
 	public String onAdvEvent (String event, L2NpcInstance npc, L2PcInstance player)
 	{
 		if (event.equalsIgnoreCase("check_orfen_pos"))
@@ -131,6 +133,7 @@ public class Orfen extends L2AttackableAIScript
 		return super.onAdvEvent(event, npc, player);
 	}
 
+	@Override
 	public String onSkillSee (L2NpcInstance npc, L2PcInstance caster, L2Skill skill, L2Object[] targets, boolean isPet) 
 	{
 		if (npc.getNpcId() == ORFEN)
@@ -147,6 +150,7 @@ public class Orfen extends L2AttackableAIScript
 		return super.onSkillSee(npc, caster, skill, targets, isPet);
 	}
 
+	@Override
 	public String onFactionCall (L2NpcInstance npc, L2NpcInstance caller, L2PcInstance attacker, boolean isPet) 
 	{
 		if (caller == null || npc == null)
@@ -173,6 +177,7 @@ public class Orfen extends L2AttackableAIScript
 		return super.onFactionCall(npc, caller, attacker, isPet);
 	}
 
+	@Override
 	public String onAttack (L2NpcInstance npc, L2PcInstance attacker, int damage, boolean isPet)
 	{
 		int npcId = npc.getNpcId();
@@ -202,6 +207,7 @@ public class Orfen extends L2AttackableAIScript
 		return super.onAttack(npc, attacker, damage, isPet);
 	}
 
+	@Override
 	public String onKill (L2NpcInstance npc, L2PcInstance killer, boolean isPet) 
 	{
 		if (npc.getNpcId() == ORFEN)

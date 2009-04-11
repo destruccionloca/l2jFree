@@ -22,12 +22,14 @@ public class OnyxBeast extends L2DefaultTransformation
 		super(1, 14.0, 15.0);
 	}
 
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 		addSkill(player, 584, 1); // Power Claw
 		addSkill(player, 585, 1); // Fast Moving
 	}
 
+	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player, 584); // Power Claw

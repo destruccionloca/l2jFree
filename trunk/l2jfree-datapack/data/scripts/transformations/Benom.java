@@ -22,6 +22,7 @@ public class Benom extends L2DefaultTransformation
 		super(307, 10.0, 57.5);
 	}
 
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 		addSkill(player, 725, 2); // Venom Power Smash
@@ -29,6 +30,7 @@ public class Benom extends L2DefaultTransformation
 		addSkill(player, 727, 1); // Venom Disillusion
 	}
 
+	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player, 725); // Venom Power Smash

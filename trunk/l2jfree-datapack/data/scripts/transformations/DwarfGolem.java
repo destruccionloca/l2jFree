@@ -22,10 +22,12 @@ public class DwarfGolem extends L2DefaultTransformation
 		super(259, 35.0, 46.0);
 	}
 
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 	}
 
+	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 	}

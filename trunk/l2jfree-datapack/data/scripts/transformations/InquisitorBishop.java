@@ -12,6 +12,7 @@ public class InquisitorBishop extends L2DefaultTransformation
 		super(316, 8.0, 22.0);
 	}
 
+	@Override
 	public void onTransform(L2PcInstance player)
 	{
 		//if (player.getTransformationId() != getId() || player.isCursedWeaponEquipped())
@@ -29,6 +30,7 @@ public class InquisitorBishop extends L2DefaultTransformation
 		transformedSkills(player);
 	}
 	
+	@Override
 	public void onUntransform(L2PcInstance player)
 	{
 		// Switch Stance
@@ -40,6 +42,7 @@ public class InquisitorBishop extends L2DefaultTransformation
 		removeSkills(player);
 	}	
 
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 		if (player.getLevel() > 43)
@@ -53,6 +56,7 @@ public class InquisitorBishop extends L2DefaultTransformation
 		player.addTransformAllowedSkill(new int[]{1430,1043,1042,1400,1418});
 	}
 
+	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player, 1523); // Divine Punishment

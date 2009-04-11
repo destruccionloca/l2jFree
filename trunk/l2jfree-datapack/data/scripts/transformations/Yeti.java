@@ -22,10 +22,12 @@ public class Yeti extends L2DefaultTransformation
 		super(102, 18.0, 32.0);
 	}
 
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 	}
 
+	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 	}

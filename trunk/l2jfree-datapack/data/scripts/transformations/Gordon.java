@@ -22,6 +22,7 @@ public class Gordon extends L2DefaultTransformation
 		super(308, 43.0, 46.6);
 	}
 
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 		addSkill(player, 728, 1); // Gordon Beast Attack
@@ -29,6 +30,7 @@ public class Gordon extends L2DefaultTransformation
 		addSkill(player, 730, 1); // Gordon Press
 	}
 
+	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player, 728); // Gordon Beast Attack

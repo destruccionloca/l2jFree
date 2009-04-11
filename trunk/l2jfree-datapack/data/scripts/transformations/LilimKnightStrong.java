@@ -22,6 +22,7 @@ public class LilimKnightStrong extends L2DefaultTransformation
 		super(207, 8.0, 24.4);
 	}
 
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 		addSkill(player, 568, 4); // Attack Buster
@@ -32,6 +33,7 @@ public class LilimKnightStrong extends L2DefaultTransformation
 		player.clearCharges();
 	}
 
+	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player, 568); // Attack Buster

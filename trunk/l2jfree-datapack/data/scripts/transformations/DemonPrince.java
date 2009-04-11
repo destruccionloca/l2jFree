@@ -22,6 +22,7 @@ public class DemonPrince extends L2DefaultTransformation
 		super(311, 33.0, 49.0);
 	}
 
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 		addSkill(player, 735, 1); // Devil Spinning Weapon
@@ -29,6 +30,7 @@ public class DemonPrince extends L2DefaultTransformation
 		addSkill(player, 737, 1); // Devil Ultimate Defense
 	}
 
+	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player, 735); // Devil Spinning Weapon

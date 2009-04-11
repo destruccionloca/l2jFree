@@ -22,12 +22,14 @@ public class Kiyachi extends L2DefaultTransformation
 		super(310, 12.0, 29.0);
 	}
 
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 		addSkill(player, 733, 1); // Kechi Double Cutter
 		addSkill(player, 734, 1); // Kechi Air Blade
 	}
 
+	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player, 733); // Kechi Double Cutter

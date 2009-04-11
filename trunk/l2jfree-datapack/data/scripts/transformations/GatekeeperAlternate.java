@@ -22,11 +22,13 @@ public class GatekeeperAlternate extends L2DefaultTransformation
 		super(319, 8.0, 24.0);
 	}
 
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 		addSkill(player,8248, 1); // Cancel Gatekeeper Transformation
 	}
 
+	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player,8248); // Cancel Gatekeeper Transformation

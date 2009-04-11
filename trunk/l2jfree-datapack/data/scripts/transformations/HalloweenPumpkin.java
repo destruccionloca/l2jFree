@@ -22,12 +22,14 @@ public class HalloweenPumpkin extends L2DefaultTransformation
 		super(108, 15.5, 29.0);
 	}
 
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 		addSkill(player,619, 1); // Transfrom Dispel
 		addSkill(player,5491, 1); // Decrease Bow/Crossbow Atk. Spd
 	}
 
+	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player,619); // Transfrom Dispel

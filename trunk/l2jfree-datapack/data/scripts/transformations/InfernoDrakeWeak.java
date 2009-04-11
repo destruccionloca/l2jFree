@@ -22,6 +22,7 @@ public class InfernoDrakeWeak extends L2DefaultTransformation
 		super(215, 8.0, 22.0);
 	}
 
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 		addSkill(player, 576, 2); // Paw Strike
@@ -30,6 +31,7 @@ public class InfernoDrakeWeak extends L2DefaultTransformation
 		addSkill(player, 579, 2); // Fire Armor
 	}
 
+	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player, 576); // Paw Strike

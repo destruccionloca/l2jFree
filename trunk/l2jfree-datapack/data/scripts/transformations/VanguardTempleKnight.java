@@ -12,6 +12,7 @@ public class VanguardTempleKnight extends L2DefaultTransformation
 		super(314, 7.0, 24.0);
 	}
 
+	@Override
 	public void onTransform(L2PcInstance player)
 	{
 		// Update transformation ID into database and player instance variables.
@@ -26,6 +27,7 @@ public class VanguardTempleKnight extends L2DefaultTransformation
 		transformedSkills(player);
 	}
 	
+	@Override
 	public void onUntransform(L2PcInstance player)
 	{
 		// Switch Stance
@@ -37,6 +39,7 @@ public class VanguardTempleKnight extends L2DefaultTransformation
 		removeSkills(player);
 	}	
 
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 		if (player.getLevel() > 43)
@@ -48,6 +51,7 @@ public class VanguardTempleKnight extends L2DefaultTransformation
 		player.addTransformAllowedSkill(new int[]{28,18,10,67,449,400,197});
 	}
 
+	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player, 814); // Full Swing

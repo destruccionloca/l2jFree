@@ -22,6 +22,7 @@ public class GolemGuardianNormal extends L2DefaultTransformation
 		super(211, 8.0, 23.5);
 	}
 
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 		addSkill(player, 572, 3); // Double Slasher
@@ -30,6 +31,7 @@ public class GolemGuardianNormal extends L2DefaultTransformation
 		addSkill(player, 575, 3); // Steel Cutter
 	}
 
+	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player, 572); // Double Slasher

@@ -51,6 +51,7 @@ public class QueenAnt extends L2AttackableAIScript
 		registerMobs(mobs);
 	}
 
+	@Override
 	public String onSpawn(L2NpcInstance npc)
 	{
 		if (npc.getNpcId() == QUEEN)
@@ -80,6 +81,7 @@ public class QueenAnt extends L2AttackableAIScript
 		return null;
 	}
 
+	@Override
 	public String onAdvEvent (String event, L2NpcInstance npc, L2PcInstance player)
 	{
 		if (event.equalsIgnoreCase("action") && npc != null)
@@ -128,6 +130,7 @@ public class QueenAnt extends L2AttackableAIScript
 		return null;
 	}
 
+	@Override
 	public String onFactionCall (L2NpcInstance npc, L2NpcInstance caller, L2PcInstance attacker, boolean isPet) 
 	{
 		if (caller == null || npc == null)
@@ -160,6 +163,7 @@ public class QueenAnt extends L2AttackableAIScript
 		return super.onFactionCall(npc, caller, attacker, isPet);
 	}
 
+	@Override
 	public String onAttack (L2NpcInstance npc, L2PcInstance attacker, int damage, boolean isPet)
 	{
 		int npcId = npc.getNpcId();
@@ -171,6 +175,7 @@ public class QueenAnt extends L2AttackableAIScript
 		return super.onAttack(npc, attacker, damage, isPet);
 	}
 
+	@Override
 	public String onKill (L2NpcInstance npc, L2PcInstance killer, boolean isPet) 
 	{
 		int npcId = npc.getNpcId();

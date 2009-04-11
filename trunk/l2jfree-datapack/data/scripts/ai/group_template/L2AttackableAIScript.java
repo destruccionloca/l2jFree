@@ -84,41 +84,49 @@ public class L2AttackableAIScript extends QuestJython
 	{
 	}
 
+	@Override
 	public String onAdvEvent (String event, L2NpcInstance npc, L2PcInstance player)
 	{
 		return null;
 	}
 	
+	@Override
 	public String onSpellFinished(L2NpcInstance npc, L2PcInstance player, L2Skill skill)
 	{
 		return null;
 	}
 
+	@Override
 	public String onSkillSee (L2NpcInstance npc, L2PcInstance caster, L2Skill skill, L2Object[] targets, boolean isPet) 
 	{
 		return null;
 	}
 
+	@Override
 	public String onFactionCall (L2NpcInstance npc, L2NpcInstance caller, L2PcInstance attacker, boolean isPet) 
 	{
 		return null;
 	}
 
+	@Override
 	public String onAggroRangeEnter (L2NpcInstance npc, L2PcInstance player, boolean isPet) 
 	{
 		return null; 
 	}
 
+	@Override
 	public String onSpawn (L2NpcInstance npc) 
 	{
 		return null; 
 	}
 
+	@Override
 	public String onAttack (L2NpcInstance npc, L2PcInstance attacker, int damage, boolean isPet)
 	{
 		return null;
 	}
 
+	@Override
 	public String onKill (L2NpcInstance npc, L2PcInstance killer, boolean isPet) 
 	{
 		return null; 

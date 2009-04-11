@@ -22,10 +22,12 @@ public class OlMahum extends L2DefaultTransformation
 		super(6, 23.0, 61.0);
 	}
 
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 	}
 
+	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 	}

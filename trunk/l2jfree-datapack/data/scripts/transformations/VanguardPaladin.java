@@ -12,6 +12,7 @@ public class VanguardPaladin extends L2DefaultTransformation
 		super(312, 8.0, 23.0);
 	}
 
+	@Override
 	public void onTransform(L2PcInstance player)
 	{
 		if (player.getTransformationId() != getId() || player.isCursedWeaponEquipped())
@@ -29,6 +30,7 @@ public class VanguardPaladin extends L2DefaultTransformation
 		transformedSkills(player);
 	}
 	
+	@Override
 	public void onUntransform(L2PcInstance player)
 	{
 		// Switch Stance
@@ -40,6 +42,7 @@ public class VanguardPaladin extends L2DefaultTransformation
 		removeSkills(player);
 	}	
 
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 		if (player.getLevel() > 43)
@@ -51,6 +54,7 @@ public class VanguardPaladin extends L2DefaultTransformation
 		player.addTransformAllowedSkill(new int[]{28,18,406,400,196,197});
 	}
 
+	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player, 814); // Full Swing

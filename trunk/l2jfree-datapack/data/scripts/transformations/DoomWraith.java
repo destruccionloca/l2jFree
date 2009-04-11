@@ -22,6 +22,7 @@ public class DoomWraith extends L2DefaultTransformation
 		super(2, 8.0, 22.0);
 	}
 
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 		addSkill(player, 586, 2); // Rolling Attack
@@ -30,6 +31,7 @@ public class DoomWraith extends L2DefaultTransformation
 		addSkill(player, 589, 2); // Darkness Energy Drain
 	}
 
+	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player, 586); // Rolling Attack

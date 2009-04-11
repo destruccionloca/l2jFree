@@ -22,10 +22,12 @@ public class Buffalo extends L2DefaultTransformation
 		super(103, 22.0, 31.0);
 	}
 
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 	}
 
+	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 	}

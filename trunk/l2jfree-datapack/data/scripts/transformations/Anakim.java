@@ -22,6 +22,7 @@ public class Anakim extends L2DefaultTransformation
 		super(306, 15.5, 29.0);
 	}
 
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 		addSkill(player, 720, 2); // Anakim Holy Light Burst
@@ -31,6 +32,7 @@ public class Anakim extends L2DefaultTransformation
 		addSkill(player, 724, 1); // Anakim Clans
 	}
 
+	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player, 720); // Anakim Holy Light Burst

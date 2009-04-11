@@ -22,6 +22,7 @@ public class Gatekeeper extends L2DefaultTransformation
 		super(107, 8.0, 24.0);
 	}
 
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 		addSkill(player,619, 1); // Transfrom Dispel
@@ -32,6 +33,7 @@ public class Gatekeeper extends L2DefaultTransformation
 		addSkill(player,5659, 2); // Gatekeeper Berserker Spirit
 	}
 
+	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player,619); // Transfrom Dispel

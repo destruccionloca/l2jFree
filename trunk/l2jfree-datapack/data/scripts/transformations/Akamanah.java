@@ -18,6 +18,7 @@ public class Akamanah extends L2DefaultTransformation
 		super(302, 10.0, 32.73);
 	}
 
+	@Override
 	public void onTransform(L2PcInstance player)
 	{
 		// Set charachter name to transformed name
@@ -25,18 +26,21 @@ public class Akamanah extends L2DefaultTransformation
 		player.getAppearance().setVisibleTitle("");
 	}
 	
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 		addSkill(player, 3630, 1); // Void Burst
 		addSkill(player, 3631, 1); // Void Flow
 	}
 
+	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player, 3630); // Void Burst
 		removeSkill(player, 3631); // Void Flow
 	}	
 
+	@Override
 	public void onUntransform(L2PcInstance player)
 	{
 		// set character back to true name.

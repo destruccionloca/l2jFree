@@ -22,10 +22,12 @@ public class Native extends L2DefaultTransformation
 		super(101, 8.0, 23.5);
 	}
 
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 	}
 
+	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 	}

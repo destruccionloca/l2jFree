@@ -22,6 +22,7 @@ public class Heretic extends L2DefaultTransformation
 		super(3, 13.0, 29.0);
 	}
 
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 		addSkill(player, 738, 3); // Heretic Heal
@@ -29,6 +30,7 @@ public class Heretic extends L2DefaultTransformation
 		addSkill(player, 740, 3); // Heretic Resurrection
 	}
 
+	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player, 738); // Heretic Heal
