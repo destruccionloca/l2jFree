@@ -96,19 +96,19 @@ public final class L2ArmorSet
 
     public boolean containAll(int chest, int legs, int head, int gloves, int feet)
     {
-        if(_chest != 0 && (_chest != chest && chest != _mwork_chest))
+        if((_chest != 0 && _chest != chest) && (_mwork_chest == 0 || chest != _mwork_chest))
             return false;
 
-        if(_legs != 0 && (_legs != legs && legs != _mwork_legs))
+        if((_legs != 0 && _legs != legs) && (_mwork_legs == 0 || legs != _mwork_legs))
             return false;
 
-        if(_head != 0 && (_head != head && head != _mwork_head))
+        if((_head != 0 && _head != head) && (_mwork_head == 0 || head != _mwork_head))
             return false;
 
-        if(_gloves != 0 && (_gloves != gloves && gloves != _mwork_gloves))
+        if((_gloves != 0 && _gloves != gloves) && (_mwork_gloves ==0 || gloves != _mwork_gloves))
             return false;
 
-        return !(_feet != 0 && (_feet != feet && feet != _mwork_feet));
+        return !((_feet != 0 && _feet != feet) && (_mwork_feet == 0 || feet != _mwork_feet));
     }
 
     public boolean containItem(int slot, int itemId)
