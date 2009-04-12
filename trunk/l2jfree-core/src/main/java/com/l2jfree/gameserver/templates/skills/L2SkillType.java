@@ -138,7 +138,7 @@ public enum L2SkillType
 	SHIFT_TARGET,
 	INSTANT_JUMP,
 	BALLISTA,
-	MYSTERIOUS_CUBE,
+	EXTRACTABLE,
 
 	AGATHION(L2SkillAgathion.class),
 	MOUNT(L2SkillMount.class),

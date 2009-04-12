@@ -14,29 +14,33 @@
  */
 package com.l2jfree.gameserver.items.model;
 
+import com.l2jfree.gameserver.model.L2Skill;
+
 /**
  *
  * @author -Nemesiss-
  */
 public class L2ExtractableProductItem
 {
-    private final int       _id;
-    private final int  _ammount;
-    private final int   _chance;
+    private final int[]  _id;
+    private final int[]  _ammount;
+    private final int    _chance;
+    private L2Skill _skill;
 
-    public L2ExtractableProductItem(int id, int ammount, int chance)
+    public L2ExtractableProductItem(int[] id, int[] ammount, int chance, L2Skill skill)
     {
         _id = id;
         _ammount = ammount;
         _chance = chance;
+        _skill = skill;
     }
 
-    public int getId()
+    public int[] getId()
     {
         return _id;
     }
 
-    public int getAmmount()
+    public int[] getAmmount()
     { 
         return _ammount;
     }
@@ -44,5 +48,10 @@ public class L2ExtractableProductItem
     public int getChance()
     {
         return _chance;
+    }
+
+    public L2Skill getSkill()
+    {
+        return _skill;
     }
 }

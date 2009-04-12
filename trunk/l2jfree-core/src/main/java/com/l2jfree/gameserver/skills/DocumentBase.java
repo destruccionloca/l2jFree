@@ -52,6 +52,7 @@ import com.l2jfree.gameserver.skills.conditions.ConditionPlayerHasCastle;
 import com.l2jfree.gameserver.skills.conditions.ConditionPlayerHasClanHall;
 import com.l2jfree.gameserver.skills.conditions.ConditionPlayerHasFort;
 import com.l2jfree.gameserver.skills.conditions.ConditionPlayerHp;
+import com.l2jfree.gameserver.skills.conditions.ConditionPlayerInvSize;
 import com.l2jfree.gameserver.skills.conditions.ConditionPlayerLevel;
 import com.l2jfree.gameserver.skills.conditions.ConditionPlayerMp;
 import com.l2jfree.gameserver.skills.conditions.ConditionPlayerPledgeClass;
@@ -534,6 +535,11 @@ abstract class DocumentBase
 			{
 				int weight = Integer.decode(getValue(a.getNodeValue(), null));
 				cond = joinAnd(cond, new ConditionPlayerWeight(weight));
+			}
+			else if ("invSize".equalsIgnoreCase(a.getNodeName()))
+			{
+				int size = Integer.decode(getValue(a.getNodeValue(), null));
+				cond = joinAnd(cond, new ConditionPlayerInvSize(size));
 			}
 			else if ("pledgeClass".equalsIgnoreCase(a.getNodeName()))
 			{

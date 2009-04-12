@@ -255,6 +255,9 @@ public class L2Skill implements FuncOwner
 	// not needed, just for easier debug
 	private final String			_name;
 
+	// Reference ID for extractable items
+	private final int _refId;
+
 	private final SkillOpType		_operateType;
 	private final boolean			_magic;
 	private final boolean			_itemSkill;
@@ -462,6 +465,8 @@ public class L2Skill implements FuncOwner
 
 		_activationtime = set.getInteger("activationtime", 8);
 		_activationchance = set.getInteger("activationchance", 30);
+
+		_refId = set.getInteger("referenceId", set.getInteger("itemConsumeId", 0));
 
 		_iRate = set.getInteger("iRate", 0);
 		_iKill = set.getBool("iKill", false);
@@ -3880,5 +3885,14 @@ public class L2Skill implements FuncOwner
 	public final L2Skill getFuncOwnerSkill()
 	{
 		return this;
+	}
+
+	/**
+	 * used for extractable item skills
+	 * @return reference item id
+	 */
+	public int getReferenceItemId()
+	{
+		return _refId;
 	}
 }
