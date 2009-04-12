@@ -124,7 +124,8 @@
       <!-- SA: Cheap Shot -->
       <set val="1" order="0x08" stat="MpConsume">
         <and>
-          <game skill="false" chance="26"/>
+          <game chance="26"/>
+          <player skill="false"/>
         </and>
       </set>
       <!-- Enhances damage to target during PvP -->
@@ -440,7 +441,8 @@
       <!-- SA: Cheap Shot -->
       <sub val="1" order="0x40" stat="MpConsume">
         <and>
-          <game skill="false" chance="12"/>
+          <game chance="12"/>
+          <player skill="false"/>
         </and>
       </sub>
       <!-- Enhances damage to target during PvP -->

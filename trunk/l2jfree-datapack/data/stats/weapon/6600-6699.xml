@@ -308,7 +308,8 @@
       <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
       <set val="1" order="0x08" stat="MpConsume">
         <and>
-          <game skill="false" chance="26"/>
+          <game chance="26"/>
+          <player skill="false"/>
         </and>
       </set>
     </for>
