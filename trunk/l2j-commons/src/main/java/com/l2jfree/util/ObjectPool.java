@@ -20,6 +20,7 @@ package com.l2jfree.util;
 public abstract class ObjectPool<E>
 {
 	private final int _maximumSize;
+	private final boolean _shared;
 	
 	private volatile int _currentSize;
 	
@@ -28,18 +29,65 @@ public abstract class ObjectPool<E>
 	
 	public ObjectPool()
 	{
-		_maximumSize = Integer.MAX_VALUE;
+		this(Integer.MAX_VALUE, true);
 	}
 	
 	public ObjectPool(int maxSize)
 	{
-		_maximumSize = maxSize;
+		this(maxSize, true);
 	}
 	
-	public final synchronized void store(E e)
+	public ObjectPool(boolean shared)
+	{
+		this(Integer.MAX_VALUE, shared);
+	}
+	
+	public ObjectPool(int maxSize, boolean shared)
+	{
+		_maximumSize = maxSize;
+		_shared = shared;
+	}
+	
+	public final void clear()
+	{
+		if (_shared)
+		{
+			synchronized (this)
+			{
+				_currentSize = 0;
+				_wrappers = null;
+				_values = null;
+			}
+		}
+		else
+		{
+			_currentSize = 0;
+			_wrappers = null;
+			_values = null;
+		}
+	}
+	
+	public final void store(E e)
+	{
+		if (_shared)
+		{
+			synchronized (this)
+			{
+				store0(e);
+			}
+		}
+		else
+		{
+			store0(e);
+		}
+	}
+	
+	private void store0(E e)
 	{
 		if (_currentSize >= _maximumSize)
 			return;
+		
+		reset(e);
 		
 		_currentSize++;
 		
@@ -50,7 +98,26 @@ public abstract class ObjectPool<E>
 		_values = wrapper;
 	}
 	
-	public final synchronized E get()
+	protected void reset(E e)
+	{
+	}
+	
+	public final E get()
+	{
+		if (_shared)
+		{
+			synchronized (this)
+			{
+				return get0();
+			}
+		}
+		else
+		{
+			return get0();
+		}
+	}
+	
+	private E get0()
 	{
 		LinkedWrapper<E> wrapper = _values;
 		
