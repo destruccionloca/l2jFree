@@ -526,7 +526,7 @@ public final class Olympiad
 				result.add(classList);
 		}
 		
-		if (result.size() > 0)
+		if (!result.isEmpty())
 		{
 			return result;
 		}
@@ -924,7 +924,7 @@ public final class Olympiad
 		
 		int classCount = 0;
 		
-		if (_classBasedRegisters.size() != 0)
+		if (!_classBasedRegisters.isEmpty())
 		{
 			for (FastList<L2PcInstance> classed : _classBasedRegisters.values())
 				classCount += classed.size();

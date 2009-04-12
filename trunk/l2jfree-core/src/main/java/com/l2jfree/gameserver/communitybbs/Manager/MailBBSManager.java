@@ -754,7 +754,7 @@ public class MailBBSManager extends BaseBBSManager
 			int countRecips = 0;
 			int countTodaysLetters = 0;
 
-			if (subject.equals(""))
+			if (subject.isEmpty())
 				subject = "(no subject)";
 
 			for (UpdateMail letter : getMail(activeChar))

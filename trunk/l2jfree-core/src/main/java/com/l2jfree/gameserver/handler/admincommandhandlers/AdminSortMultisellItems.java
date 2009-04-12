@@ -1178,7 +1178,7 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 			FileWriter fstream = new FileWriter(fileName);
 			BufferedWriter out = new BufferedWriter(fstream);
 
-			if (!explanation.equals(""))
+			if (!explanation.isEmpty())
 				out.write("\n" + explanation + "\n\n");
 
 			out.write(xml.getXML());
@@ -1493,7 +1493,7 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 			}
 		}
 
-		return (spellItemList.contains(new Integer(itemId)));
+		return (spellItemList.contains(Integer.valueOf(itemId)));
 	}
 
 	private String[] sortArrayByTypeAndPrice(String[] array)

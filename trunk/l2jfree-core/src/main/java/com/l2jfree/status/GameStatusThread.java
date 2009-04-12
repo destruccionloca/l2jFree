@@ -543,7 +543,7 @@ public final class GameStatusThread extends Thread
 						igm++;
 					}
 					_print.println("There are currently " + igm + " GM(s) online...");
-					if (gmList != "")
+					if (!gmList.isEmpty())
 						_print.println(gmList);
 				}
 				else if (_usrCommand.startsWith("kick"))

@@ -1269,7 +1269,8 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
 
                 setTarget(player);
                 L2Skill skill;
-                if (val == "") return;
+                if (val.isEmpty())
+                    return;
 
                 try
                 {

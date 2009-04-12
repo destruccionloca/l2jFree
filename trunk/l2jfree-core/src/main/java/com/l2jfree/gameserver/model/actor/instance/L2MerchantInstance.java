@@ -56,8 +56,10 @@ public class L2MerchantInstance extends L2FolkInstance
     {
         String pom = "";
 
-        if (val == 0) pom = "" + npcId;
-        else pom = npcId + "-" + val;
+        if (val == 0)
+            pom = "" + npcId;
+        else
+            pom = npcId + "-" + val;
 
         return "data/html/merchant/" + pom + ".htm";
     }

@@ -429,7 +429,7 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
 	}
 	public void sayInShout(String msg)
 	{
-		if (msg == null || msg == "")
+		if (msg == null || msg.isEmpty())
 			return; //wrong usage
 
 		Collection<L2PcInstance> knownPlayers = L2World.getInstance().getAllPlayers();

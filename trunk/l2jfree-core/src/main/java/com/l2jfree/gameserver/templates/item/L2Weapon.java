@@ -121,11 +121,11 @@ public final class L2Weapon extends L2Equip
 			onCritSkills = parseChanceSkills(onCritSkillDefs, "onCrit", "weapon");
 		}
 
-		if (enchant4Skills != null && enchant4Skills.size() > 0)
+		if (enchant4Skills != null && !enchant4Skills.isEmpty())
 		{
 			_enchant4Skills = enchant4Skills.toArray(new L2Skill[enchant4Skills.size()]);
 		}
-		if (onCastSkills != null && onCastSkills.size() > 0)
+		if (onCastSkills != null && !onCastSkills.isEmpty())
 		{
 			_onCastSkills = new L2Skill[onCastSkills.size()];
 			_onCastConditions = new Condition[onCastSkills.size()];
@@ -137,7 +137,7 @@ public final class L2Weapon extends L2Equip
 				i++;
 			}
 		}
-		if (onCritSkills != null && onCritSkills.size() > 0)
+		if (onCritSkills != null && !onCritSkills.isEmpty())
 		{
 			_onCritSkills = new L2Skill[onCritSkills.size()];
 			_onCritConditions = new Condition[onCritSkills.size()];
@@ -397,8 +397,8 @@ public final class L2Weapon extends L2Equip
 			if (!_onCritConditions[i].test(env))
 				continue;
 
-			byte shld = Formulas.getInstance().calcShldUse(caster, target);
-			if (!Formulas.getInstance().calcSkillSuccess(caster, target, skill, shld, false, false, false))
+			byte shld = Formulas.calcShldUse(caster, target);
+			if (!Formulas.calcSkillSuccess(caster, target, skill, shld, false, false, false))
 				continue;
 
 			L2Effect effect = target.getFirstEffect(skill.getId());
@@ -445,8 +445,8 @@ public final class L2Weapon extends L2Equip
 			
 			if (skill.isOffensive())
 			{
-				byte shld = Formulas.getInstance().calcShldUse(caster, target);
-				if (!Formulas.getInstance().calcSkillSuccess(caster, target, skill, shld, false, false, false))
+				byte shld = Formulas.calcShldUse(caster, target);
+				if (!Formulas.calcSkillSuccess(caster, target, skill, shld, false, false, false))
 					continue;
 			}
 

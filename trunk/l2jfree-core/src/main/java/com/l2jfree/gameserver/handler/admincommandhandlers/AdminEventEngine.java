@@ -201,11 +201,11 @@ public class AdminEventEngine implements IAdminCommandHandler
 				}
 				int i = 0;
 
-				while (L2Event.participatingPlayers.size() > 0)
+				while (!L2Event.participatingPlayers.isEmpty())
 				{
 					String target = getMaxLeveledPlayer();
 
-					if (!target.equals(""))
+					if (!target.isEmpty())
 					{
 
 						L2Event.players.get(i + 1).add(target);
@@ -431,17 +431,17 @@ public class AdminEventEngine implements IAdminCommandHandler
 
 		replyMSG.append("<center><font color=\"LEVEL\">[ L2J EVENT ENGINE ]</font></center><br>");
 		replyMSG.append("<br><center>Event's Title <br><font color=\"LEVEL\">");
-		if (tempName.equals(""))
+		if (tempName.isEmpty())
 			replyMSG.append("Use //event_name text to insert a new title");
 		else
 			replyMSG.append(tempName);
 		replyMSG.append("</font></center><br><br>Event's description<br>");
-		if (tempBuffer.equals(""))
+		if (tempBuffer.isEmpty())
 			replyMSG.append("Use //add text o //delete_buffer to modify this text field");
 		else
 			replyMSG.append(tempBuffer);
 
-		if (!(tempName.equals("") && tempBuffer.equals("")))
+		if (!(tempName.isEmpty() && tempBuffer.isEmpty()))
 			replyMSG
 					.append("<br><button value=\"Crear\" action=\"bypass -h admin_event_store\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
 
@@ -581,7 +581,7 @@ public class AdminEventEngine implements IAdminCommandHandler
 	void destroyEventNpcs()
 	{
 		L2NpcInstance npc;
-		while (L2Event.npcs.size() > 0)
+		while (!L2Event.npcs.isEmpty())
 		{
 			try
 			{

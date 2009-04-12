@@ -96,7 +96,7 @@ public class AutoChatHandler implements SpawnListener
                 while (rs2.next())
                 	chatTexts.add(rs2.getString("chatText"));
  
-                if (chatTexts.size() > 0)
+                if (!chatTexts.isEmpty())
                 		 registerGlobalChat(npcId, 
                 							chatTexts.toArray(new String[chatTexts.size()]), 
                 							chatDelay, 
@@ -842,19 +842,19 @@ public class AutoChatHandler implements SpawnListener
                                 	L2PcInstance randomPlayer = nearbyPlayers.get(randomPlayerIndex);
                                 	text = text.replaceAll("%player_random%", randomPlayer.getName());
                                 }
-                                else if (text.indexOf("%player_killer%") > -1 && karmaPlayers.size() > 0)
+                                else if (text.indexOf("%player_killer%") > -1 && !karmaPlayers.isEmpty())
                                 {
                                 	int randomPlayerIndex = karmaPlayers.get(Rnd.nextInt(karmaPlayers.size()));
                                 	L2PcInstance randomPlayer = nearbyPlayers.get(randomPlayerIndex);
                                     text = text.replaceAll("%player_killer%", randomPlayer.getName());
                                 }
-                                else if (text.indexOf("%player_cabal_winner%") > -1 && winningCabals.size() > 0)
+                                else if (text.indexOf("%player_cabal_winner%") > -1 && !winningCabals.isEmpty())
                                 {
                                 	int randomPlayerIndex = winningCabals.get(Rnd.nextInt(winningCabals.size()));
                                 	L2PcInstance randomPlayer = nearbyPlayers.get(randomPlayerIndex);
                                     text = text.replaceAll("%player_cabal_winner%", randomPlayer.getName());
                                 }
-                                else if (text.indexOf("%player_cabal_loser%") > -1 && losingCabals.size() > 0)
+                                else if (text.indexOf("%player_cabal_loser%") > -1 && !losingCabals.isEmpty())
                                 {
                                 	int randomPlayerIndex = losingCabals.get(Rnd.nextInt(losingCabals.size()));
                                 	L2PcInstance randomPlayer = nearbyPlayers.get(randomPlayerIndex);

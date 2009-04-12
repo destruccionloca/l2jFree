@@ -2088,7 +2088,7 @@ public class SevenSignsFestival implements SpawnListener
 				_log.debug("SevenSignsFestival: Initializing festival for " + SevenSigns.getCabalShortName(_cabal) + " (" + getFestivalName(_levelRange) + ")");
 
 			// Teleport all players to arena and notify them.
-			if (_participants.size() > 0)
+			if (!_participants.isEmpty())
 			{
 				for (L2PcInstance participant : _participants)
 				{
@@ -2328,7 +2328,7 @@ public class SevenSignsFestival implements SpawnListener
 
 		public void sendMessageToParticipants(String message)
 		{
-			if (_participants.size() > 0)
+			if (!_participants.isEmpty())
 			{
 				CreatureSay cs = new CreatureSay(_witchInst.getObjectId(), SystemChatChannelId.Chat_Normal, "Festival Witch", message);
 
@@ -2345,7 +2345,7 @@ public class SevenSignsFestival implements SpawnListener
 			if (_log.isDebugEnabled())
 				_log.debug("SevenSignsFestival: Ending festival for " + SevenSigns.getCabalShortName(_cabal) + " (" + getFestivalName(_levelRange) + ")");
 
-			if (_participants.size() > 0)
+			if (!_participants.isEmpty())
 			{
 				for (L2PcInstance participant : _participants)
 				{

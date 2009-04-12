@@ -160,7 +160,7 @@ public final class L2DatabaseFactory
 		String result = "";
 		for (String word : whatToCheck)
 		{
-			if (result != "")
+			if (!result.isEmpty())
 				result += ", ";
 			
 			result += braceLeft + word + braceRight;

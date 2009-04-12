@@ -78,17 +78,17 @@ public class Resurrect implements ISkillHandler
 				else if (cha instanceof L2PetInstance)
 				{
 					if (((L2PetInstance) cha).getOwner() == activeChar)
-						cha.doRevive(Formulas.getInstance().calculateSkillResurrectRestorePercent(skill.getPower(), activeChar.getStat().getWIT()));
+						cha.doRevive(Formulas.calculateSkillResurrectRestorePercent(skill.getPower(), activeChar.getStat().getWIT()));
 					else
 						((L2PetInstance) cha).getOwner().revivePetRequest((L2PcInstance) activeChar, skill);
 				}
 				else
-					cha.doRevive(Formulas.getInstance().calculateSkillResurrectRestorePercent(skill.getPower(), activeChar.getStat().getWIT()));
+					cha.doRevive(Formulas.calculateSkillResurrectRestorePercent(skill.getPower(), activeChar.getStat().getWIT()));
 			}
 			else
 			{
 				DecayTaskManager.getInstance().cancelDecayTask(cha);
-				cha.doRevive(Formulas.getInstance().calculateSkillResurrectRestorePercent(skill.getPower(), activeChar.getStat().getWIT()));
+				cha.doRevive(Formulas.calculateSkillResurrectRestorePercent(skill.getPower(), activeChar.getStat().getWIT()));
 			}
 		}
 	}

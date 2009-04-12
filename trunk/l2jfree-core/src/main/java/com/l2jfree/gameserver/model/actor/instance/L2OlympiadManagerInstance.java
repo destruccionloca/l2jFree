@@ -240,7 +240,7 @@ public class L2OlympiadManagerInstance extends L2FolkInstance
 						replyMSG.append("<img src=\"L2UI.SquareWhite\" width=270 height=1><img src=\"L2UI.SquareBlank\" width=1 height=3>");
 
 						FastList<String> names = Olympiad.getInstance().getClassLeaderBoard(classId);
-						if (names.size() != 0)
+						if (!names.isEmpty())
 						{
 							replyMSG.append("<table width=270 border=0 bgcolor=\"000000\">");
 

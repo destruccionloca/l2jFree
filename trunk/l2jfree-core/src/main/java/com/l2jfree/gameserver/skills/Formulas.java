@@ -892,21 +892,10 @@ public final class Formulas
 		}
 	}
 
-	private static final Formulas	_instance	= new Formulas();
-
-	public static Formulas getInstance()
-	{
-		return _instance;
-	}
-
-	private Formulas()
-	{
-	}
-
 	/**
 	 * Return the period between 2 regenerations task (3s for L2Character, 5 min for L2DoorInstance).<BR><BR>
 	 */
-	public int getRegeneratePeriod(L2Character cha)
+	public static int getRegeneratePeriod(L2Character cha)
 	{
 		if (cha instanceof L2DoorInstance)
 			return HP_REGENERATE_PERIOD * 100; // 5 mins
@@ -926,7 +915,7 @@ public final class Formulas
 	 * To reduce cache memory use, L2NPCInstances who don't have skills share the same Calculator set called <B>NPC_STD_CALCULATOR</B>.<BR><BR>
 	 *
 	 */
-	public Calculator[] getStdNPCCalculators()
+	public static Calculator[] getStdNPCCalculators()
 	{
 		Calculator[] std = new Calculator[Stats.NUM_STATS];
 
@@ -941,7 +930,7 @@ public final class Formulas
 		return std;
 	}
 
-	public Calculator[] getStdDoorCalculators()
+	public static Calculator[] getStdDoorCalculators()
 	{
 		Calculator[] std = new Calculator[Stats.NUM_STATS];
 
@@ -973,7 +962,7 @@ public final class Formulas
 	 *
 	 * @param cha L2PcInstance or L2Summon that must obtain basic Func objects
 	 */
-	public void addFuncsToNewCharacter(L2Character cha)
+	public static void addFuncsToNewCharacter(L2Character cha)
 	{
 		if (cha instanceof L2PcInstance)
 		{
@@ -1035,7 +1024,7 @@ public final class Formulas
 	/**
 	 * Calculate the HP regen rate (base + modifiers).<BR><BR>
 	 */
-	public final double calcHpRegen(L2Character cha)
+	public static final double calcHpRegen(L2Character cha)
 	{
 		double init = cha.getTemplate().getBaseHpReg();
 		double hpRegenMultiplier;
@@ -1160,7 +1149,7 @@ public final class Formulas
 	/**
 	 * Calculate the MP regen rate (base + modifiers).<BR><BR>
 	 */
-	public final double calcMpRegen(L2Character cha)
+	public static final double calcMpRegen(L2Character cha)
 	{
 		double init = cha.getTemplate().getBaseMpReg();
 		double mpRegenMultiplier;
@@ -1262,7 +1251,7 @@ public final class Formulas
 	/**
 	 * Calculate the CP regen rate (base + modifiers).<BR><BR>
 	 */
-	public final double calcCpRegen(L2Character cha)
+	public static final double calcCpRegen(L2Character cha)
 	{
 		double init = cha.getTemplate().getBaseHpReg();
 		double cpRegenMultiplier = Config.PLAYER_CP_REGEN_MULTIPLIER;
@@ -1301,7 +1290,7 @@ public final class Formulas
 	}
 
 	@SuppressWarnings("deprecation")
-	public final double calcFestivalRegenModifier(L2PcInstance activeChar)
+	public static final double calcFestivalRegenModifier(L2PcInstance activeChar)
 	{
 		final int[] festivalInfo = SevenSignsFestival.getInstance().getFestivalForPlayer(activeChar);
 		final int oracle = festivalInfo[0];
@@ -1327,7 +1316,7 @@ public final class Formulas
 		return 1.0 - (distToCenter * 0.0005); // Maximum Decreased Regen of ~ -65%;
 	}
 
-	public final double calcSiegeRegenModifer(L2PcInstance activeChar)
+	public static final double calcSiegeRegenModifer(L2PcInstance activeChar)
 	{
 		if (activeChar == null || activeChar.getClan() == null)
 			return 0;
@@ -1345,7 +1334,7 @@ public final class Formulas
 	}
 
 	/** Calculate blow damage based on cAtk */
-	public double calcBlowDamage(L2Character attacker, L2Character target, L2Skill skill, byte shld, boolean ss)
+	public static double calcBlowDamage(L2Character attacker, L2Character target, L2Skill skill, byte shld, boolean ss)
 	{
 		double power = skill.getPower();
 		double damage = attacker.getPAtk(target);
@@ -1402,7 +1391,7 @@ public final class Formulas
 	 * @param ss if weapon item was charged by soulshot
 	 * @return damage points
 	 */
-	public final double calcPhysDam(L2Character attacker, L2Character target, L2Skill skill, byte shld, boolean crit, boolean dual, boolean ss)
+	public static final double calcPhysDam(L2Character attacker, L2Character target, L2Skill skill, byte shld, boolean crit, boolean dual, boolean ss)
 	{
 		boolean transformed = false;
 		if (attacker instanceof L2PcInstance)
@@ -1686,7 +1675,7 @@ public final class Formulas
 		return damage;
 	}
 
-	public final double calcMagicDam(L2CubicInstance attacker, L2Character target, L2Skill skill, boolean mcrit, byte shld)
+	public static final double calcMagicDam(L2CubicInstance attacker, L2Character target, L2Skill skill, boolean mcrit, byte shld)
 	{
 		if (target.isInvul())
 			return 0;
@@ -1748,7 +1737,7 @@ public final class Formulas
 		return damage;
 	}
 
-	public final double calcMagicDam(L2Character attacker, L2Character target, L2Skill skill, byte shld, boolean ss, boolean bss, boolean mcrit)
+	public static final double calcMagicDam(L2Character attacker, L2Character target, L2Skill skill, byte shld, boolean ss, boolean bss, boolean mcrit)
 	{
 		if (attacker instanceof L2PcInstance)
 		{
@@ -1870,19 +1859,19 @@ public final class Formulas
 	}
 
 	/** Returns true in case of critical hit */
-	public final boolean calcCrit(double rate)
+	public static final boolean calcCrit(double rate)
 	{
 		return rate > Rnd.get(1000);
 	}
 
 	/** Calculate value of blow success */
-	public final boolean calcBlow(L2Character activeChar, L2Character target, int chance)
+	public static final boolean calcBlow(L2Character activeChar, L2Character target, int chance)
 	{
 		return activeChar.calcStat(Stats.BLOW_RATE, chance * (1.0 + (activeChar.getStat().getDEX() - 20) / 100), target, null) > Rnd.get(100);
 	}
 
 	/** Calculate value of lethal chance */
-	public final double calcLethal(L2Character activeChar, L2Character target, int baseLethal, int magiclvl)
+	public static final double calcLethal(L2Character activeChar, L2Character target, int baseLethal, int magiclvl)
 	{
 		double chance = 0;
 		if (magiclvl > 0)
@@ -1915,7 +1904,7 @@ public final class Formulas
 		return 10 * activeChar.calcStat(Stats.LETHAL_RATE, chance, target, null);
 	}
 
-	public final boolean calcLethalHit(L2Character activeChar, L2Character target, L2Skill skill)
+	public static final boolean calcLethalHit(L2Character activeChar, L2Character target, L2Skill skill)
 	{
 		if (!target.isRaid() && !(target instanceof L2DoorInstance) && !(target instanceof L2NpcInstance && ((L2NpcInstance) target).getNpcId() == 35062))
 		{
@@ -1962,7 +1951,7 @@ public final class Formulas
 	}
 
 	/** Returns true in case of critical hit */
-	public final boolean calcCrit(L2Character attacker, L2Character target, double rate)
+	public static final boolean calcCrit(L2Character attacker, L2Character target, double rate)
 	{
 		int critHit = Rnd.get(1000);
 		if (attacker instanceof L2PcInstance)
@@ -1976,13 +1965,13 @@ public final class Formulas
 		return rate > critHit;
 	}
 
-	public final boolean calcMCrit(double mRate)
+	public static final boolean calcMCrit(double mRate)
 	{
 		return mRate > Rnd.get(1000);
 	}
 
 	/** Returns true in case when ATTACK is canceled due to hit */
-	public final boolean calcAtkBreak(L2Character target, double dmg)
+	public static final boolean calcAtkBreak(L2Character target, double dmg)
 	{
 		if (target.isRaid() || target.isInvul() || dmg <= 0)
 			return false; // No attack break
@@ -2026,7 +2015,7 @@ public final class Formulas
 	}
 
 	/** Calculate delay (in milliseconds) before next ATTACK */
-	public final int calcPAtkSpd(@SuppressWarnings("unused") L2Character attacker, @SuppressWarnings("unused") L2Character target, double atkSpd, double base)
+	public static final int calcPAtkSpd(@SuppressWarnings("unused") L2Character attacker, @SuppressWarnings("unused") L2Character target, double atkSpd, double base)
 	{
 		if (attacker instanceof L2PcInstance)
 			base *= Config.ALT_ATTACK_DELAY;
@@ -2038,7 +2027,7 @@ public final class Formulas
 	}
 
 	/** Calculate delay (in milliseconds) for skills cast */
-	public final int calcAtkSpd(L2Character attacker, L2Skill skill, double time)
+	public static final int calcAtkSpd(L2Character attacker, L2Skill skill, double time)
 	{
 		if (skill.isItemSkill() && Config.ALT_ITEM_SKILLS_NOT_INFLUENCED)
 			return (int) time;
@@ -2051,7 +2040,7 @@ public final class Formulas
 	/** Returns true if hit missed (target evaded)
 	*  Formula based on http://l2p.l2wh.com/nonskillattacks.html
 	*/
-	public boolean calcHitMiss(L2Character attacker, L2Character target)
+	public static boolean calcHitMiss(L2Character attacker, L2Character target)
 	{
 		int delta = attacker.getAccuracy() - target.getEvasionRate(attacker);
 		int chance;
@@ -2191,7 +2180,7 @@ public final class Formulas
 	 * @param sendSysMsg
 	 * @return
 	 */
-	public byte calcShldUse(L2Character attacker, L2Character target, boolean sendSysMsg)
+	public static byte calcShldUse(L2Character attacker, L2Character target, boolean sendSysMsg)
 	{
 		double shldRate = target.calcStat(Stats.SHIELD_RATE, 0, attacker, null) * DEXbonus[target.getStat().getDEX()];
 
@@ -2235,13 +2224,13 @@ public final class Formulas
 		return shldSuccess;
 	}
 
-	public byte calcShldUse(L2Character attacker, L2Character target)
+	public static byte calcShldUse(L2Character attacker, L2Character target)
 	{
 		return calcShldUse(attacker, target, true);
 	}
 
 	// This should be deprecated and calcSkillSuccess() should be used instead
-	public boolean calcMagicAffected(L2Character actor, L2Character target, L2Skill skill)
+	public static boolean calcMagicAffected(L2Character actor, L2Character target, L2Skill skill)
 	{
 		double defence = 0;
 		//FIXME: CHECK/FIX THIS FORMULA UP!!
@@ -2261,12 +2250,12 @@ public final class Formulas
 		return d > 0;
 	}
 
-	public double calcSkillVulnerability(L2Character target, L2Skill skill)
+	public static double calcSkillVulnerability(L2Character target, L2Skill skill)
 	{
 		return calcSkillVulnerability(target, skill, skill.getSkillType());
 	}
 
-	public double calcSkillVulnerability(L2Character target, L2Skill skill, L2SkillType type)
+	public static double calcSkillVulnerability(L2Character target, L2Skill skill, L2SkillType type)
 	{
 		double multiplier = 1; // initialize...
 
@@ -2397,7 +2386,7 @@ public final class Formulas
 		return multiplier;
 	}
 
-	public double calcSkillProficiency(L2Skill skill, L2Character attacker, L2Character target)
+	public static double calcSkillProficiency(L2Skill skill, L2Character attacker, L2Character target)
 	{
 		double multiplier = 1; // initialize...
 
@@ -2454,7 +2443,7 @@ public final class Formulas
 		return multiplier;
 	}
 
-	public double calcSkillStatModifier(L2SkillType type, L2Character target)
+	public static double calcSkillStatModifier(L2SkillType type, L2Character target)
 	{
 		double multiplier = 1;
 		if (type == null)
@@ -2496,7 +2485,7 @@ public final class Formulas
 		return multiplier;
 	}
 
-	public boolean calcSkillSuccess(L2Character attacker, L2Character target, L2Skill skill, byte shld, boolean ss, boolean sps, boolean bss)
+	public static boolean calcSkillSuccess(L2Character attacker, L2Character target, L2Skill skill, byte shld, boolean ss, boolean sps, boolean bss)
 	{
 		if (shld == 2) // perfect block
 		{
@@ -2628,7 +2617,7 @@ public final class Formulas
 		return (Rnd.get(100) <= rate);
 	}
 
-	public boolean calcCubicSkillSuccess(L2CubicInstance attacker, L2Character target, L2Skill skill, byte shld)
+	public static boolean calcCubicSkillSuccess(L2CubicInstance attacker, L2Character target, L2Skill skill, byte shld)
 	{
 		if (shld == 2) // perfect block
 		{
@@ -2725,7 +2714,7 @@ public final class Formulas
 		return (Rnd.get(100) < rate);
 	}
 
-	public boolean calcMagicSuccess(L2Character attacker, L2Character target, L2Skill skill)
+	public static boolean calcMagicSuccess(L2Character attacker, L2Character target, L2Skill skill)
 	{
 		double lvlDifference = (target.getLevel() - (skill.getMagicLevel() > 0 ? skill.getMagicLevel() : attacker.getLevel()));
 		int rate = Math.round((float) (Math.pow(1.3, lvlDifference) * 100));
@@ -2733,7 +2722,7 @@ public final class Formulas
 		return (Rnd.get(10000) > rate);
 	}
 
-	public boolean calculateUnlockChance(L2Skill skill)
+	public static boolean calculateUnlockChance(L2Skill skill)
 	{
 		int level = skill.getLevel();
 		int chance = 0;
@@ -2769,7 +2758,7 @@ public final class Formulas
 		return Rnd.get(120) <= chance;
 	}
 
-	public double calcManaDam(L2Character attacker, L2Character target, L2Skill skill, boolean ss, boolean bss)
+	public static double calcManaDam(L2Character attacker, L2Character target, L2Skill skill, boolean ss, boolean bss)
 	{
 		//Mana Burnt = (SQR(M.Atk)*Power*(Target Max MP/97))/M.Def
 		double mAtk = attacker.getMAtk(target, skill);
@@ -2787,7 +2776,7 @@ public final class Formulas
 		return damage;
 	}
 
-	public double calculateSkillResurrectRestorePercent(double baseRestorePercent, int casterWIT)
+	public static double calculateSkillResurrectRestorePercent(double baseRestorePercent, int casterWIT)
 	{
 		double restorePercent = baseRestorePercent;
 		double modifier = WITbonus[casterWIT];
@@ -2809,17 +2798,17 @@ public final class Formulas
 		return restorePercent;
 	}
 
-	public double getINTBonus(L2Character activeChar)
+	public static double getINTBonus(L2Character activeChar)
 	{
 		return INTbonus[activeChar.getStat().getINT()];
 	}
 
-	public double getSTRBonus(L2Character activeChar)
+	public static double getSTRBonus(L2Character activeChar)
 	{
 		return STRbonus[activeChar.getStat().getSTR()];
 	}
 
-	public boolean calcPhysicalSkillEvasion(L2Character target, L2Skill skill)
+	public static boolean calcPhysicalSkillEvasion(L2Character target, L2Skill skill)
 	{
 		if (skill.isMagic() && skill.getSkillType() != L2SkillType.BLOW)
 			return false;
@@ -2827,7 +2816,7 @@ public final class Formulas
 		return Rnd.get(100) < target.calcStat(Stats.P_SKILL_EVASION, 0, null, skill);
 	}
 
-	public boolean calcSkillMastery(L2Character actor, L2Skill skill)
+	public static boolean calcSkillMastery(L2Character actor, L2Skill skill)
 	{
 		if (skill.getSkillType() == L2SkillType.FISHING)
 			return false;

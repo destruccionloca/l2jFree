@@ -55,7 +55,7 @@ public class Spoil implements ISkillHandler
 			boolean spoil = false;
 			if (!target.isDead())
 			{
-				spoil = Formulas.getInstance().calcMagicSuccess(activeChar, target, skill);
+				spoil = Formulas.calcMagicSuccess(activeChar, target, skill);
 
 				if (spoil)
 				{

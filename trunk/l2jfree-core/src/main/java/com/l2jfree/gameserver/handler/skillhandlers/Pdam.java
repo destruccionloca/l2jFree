@@ -78,7 +78,6 @@ public class Pdam implements ISkillHandler
 				}
 			}
 
-			Formulas f = Formulas.getInstance();
 			L2ItemInstance weapon = activeChar.getActiveWeaponInstance();
 			if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance && target.isFakeDeath())
 			{
@@ -88,11 +87,11 @@ public class Pdam implements ISkillHandler
 				continue;
 
 			boolean dual = activeChar.isUsingDualWeapon();
-			byte shld = f.calcShldUse(activeChar, target);
+			byte shld = Formulas.calcShldUse(activeChar, target);
 			// PDAM critical chance not affected by buffs, only by STR. Only some skills are meant to crit.
 			boolean crit = false;
 			if (skill.getBaseCritRate() > 0)
-				crit = f.calcCrit(skill.getBaseCritRate() * 10 * f.getSTRBonus(activeChar));
+				crit = Formulas.calcCrit(skill.getBaseCritRate() * 10 * Formulas.getSTRBonus(activeChar));
 
 			boolean soul = (weapon != null && weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT && weapon.getItemType() != L2WeaponType.DAGGER);
 
@@ -102,7 +101,7 @@ public class Pdam implements ISkillHandler
 			if (!crit && (skill.getCondition() & L2Skill.COND_CRIT) != 0)
 				damage = 0;
 			else
-				damage = (int) f.calcPhysDam(activeChar, target, skill, shld, false, dual, soul);
+				damage = (int) Formulas.calcPhysDam(activeChar, target, skill, shld, false, dual, soul);
 
 			if (skill.getMaxSoulConsumeCount() > 0 && activeChar instanceof L2PcInstance)
 			{
@@ -133,7 +132,7 @@ public class Pdam implements ISkillHandler
 			if (soul && weapon != null)
 				weapon.setChargedSoulshot(L2ItemInstance.CHARGED_NONE);
 
-			boolean skillIsEvaded = f.calcPhysicalSkillEvasion(target, skill);
+			boolean skillIsEvaded = Formulas.calcPhysicalSkillEvasion(target, skill);
 			
 			if (!skillIsEvaded)
 			{
@@ -155,7 +154,7 @@ public class Pdam implements ISkillHandler
 						{
 							// Activate attacked effects, if any
 							target.stopSkillEffects(skill.getId());
-							if (f.calcSkillSuccess(activeChar, target, skill, shld, false, false, false))
+							if (Formulas.calcSkillSuccess(activeChar, target, skill, shld, false, false, false))
 							{
 								skill.getEffects(activeChar, target);
 									
@@ -188,7 +187,7 @@ public class Pdam implements ISkillHandler
 					}
 
 					// Possibility of a lethal strike
-					boolean lethal = Formulas.getInstance().calcLethalHit(activeChar, target, skill);
+					boolean lethal = Formulas.calcLethalHit(activeChar, target, skill);
 
 					// Make damage directly to HP
 					if (!lethal && skill.getDmgDirectlyToHP())
@@ -260,7 +259,7 @@ public class Pdam implements ISkillHandler
 				}
 
 				// Possibility of a lethal strike despite skill is evaded
-				Formulas.getInstance().calcLethalHit(activeChar, target, skill);
+				Formulas.calcLethalHit(activeChar, target, skill);
 			}
 
 			// Increase Charges

@@ -160,7 +160,7 @@ public class L2FortManagerInstance extends L2MerchantInstance
 			{
 				if ((player.getClanPrivileges() & L2Clan.CP_CS_OPEN_DOOR) == L2Clan.CP_CS_OPEN_DOOR)
 				{
-					if (val != "")
+					if (!val.isEmpty())
 					{
 						boolean open = (Integer.parseInt(val) == 1);
 						while (st.hasMoreTokens())
@@ -799,7 +799,7 @@ public class L2FortManagerInstance extends L2MerchantInstance
 			{
 				setTarget(player);
 				L2Skill skill;
-				if (val == "")
+				if (val.isEmpty())
 					return;
 
 				try

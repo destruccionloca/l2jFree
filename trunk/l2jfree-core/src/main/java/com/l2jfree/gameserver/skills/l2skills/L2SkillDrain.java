@@ -97,9 +97,9 @@ public class L2SkillDrain extends L2Skill
 				ss = ((L2NpcInstance) activeChar).isUsingShot(true);
 			}
 
-			boolean mcrit = Formulas.getInstance().calcMCrit(activeChar.getMCriticalHit(target, this));
-			byte shld = Formulas.getInstance().calcShldUse(activeChar, target);
-			int damage = (int) Formulas.getInstance().calcMagicDam(activeChar, target, this, shld, ss, bss, mcrit);
+			boolean mcrit = Formulas.calcMCrit(activeChar.getMCriticalHit(target, this));
+			byte shld = Formulas.calcShldUse(activeChar, target);
+			int damage = (int) Formulas.calcMagicDam(activeChar, target, this, shld, ss, bss, mcrit);
 
 			int _drain = 0;
 			int _cp = (int) target.getStatus().getCurrentCp();
@@ -141,7 +141,7 @@ public class L2SkillDrain extends L2Skill
 				}
 
 				// Manage attack or cast break of the target (calculating rate, sending message...)
-				if (Formulas.getInstance().calcAtkBreak(target, damage))
+				if (Formulas.calcAtkBreak(target, damage))
 				{
 					target.breakAttack();
 					target.breakCast();
@@ -163,7 +163,7 @@ public class L2SkillDrain extends L2Skill
 					{
 						// activate attacked effects, if any
 						target.stopSkillEffects(getId());
-						if (Formulas.getInstance().calcSkillSuccess(activeChar, target, this, shld, false, ss, bss))
+						if (Formulas.calcSkillSuccess(activeChar, target, this, shld, false, ss, bss))
 							getEffects(activeChar, target);
 						else
 						{
@@ -210,9 +210,9 @@ public class L2SkillDrain extends L2Skill
 			if (target.isAlikeDead() && getTargetType() != SkillTargetType.TARGET_CORPSE_MOB)
 				continue;
 
-			boolean mcrit = Formulas.getInstance().calcMCrit(activeCubic.getMCriticalHit(target, this));
-			byte shld = Formulas.getInstance().calcShldUse(activeCubic.getOwner(), target);
-			int damage = (int) Formulas.getInstance().calcMagicDam(activeCubic, target, this, mcrit, shld);
+			boolean mcrit = Formulas.calcMCrit(activeCubic.getMCriticalHit(target, this));
+			byte shld = Formulas.calcShldUse(activeCubic.getOwner(), target);
+			int damage = (int) Formulas.calcMagicDam(activeCubic, target, this, mcrit, shld);
 			if (_log.isDebugEnabled())
 				_log.info("L2SkillDrain: useCubicSkill() -> damage = " + damage);
 
@@ -232,7 +232,7 @@ public class L2SkillDrain extends L2Skill
 				target.reduceCurrentHp(damage, activeCubic.getOwner(), this);
 
 				// Manage attack or cast break of the target (calculating rate, sending message...)
-				if (!target.isRaid() && Formulas.getInstance().calcAtkBreak(target, damage))
+				if (!target.isRaid() && Formulas.calcAtkBreak(target, damage))
 				{
 					target.breakAttack();
 					target.breakCast();

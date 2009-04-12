@@ -431,7 +431,7 @@ public class ObjectRestrictions
 	public boolean containsPausedTask(int objId)
 	{
 		return (_pausedActions.get(objId)!= null &&
-				_pausedActions.get(objId).size() > 0);
+				!_pausedActions.get(objId).isEmpty());
 	}
 	/**
 	 * Checks if there are running tasks
@@ -441,7 +441,7 @@ public class ObjectRestrictions
 	public boolean containsRunningTask(int objId)
 	{
 		return (_runningActions.get(objId)!= null &&
-				_runningActions.get(objId).size() > 0);
+				!_runningActions.get(objId).isEmpty());
 	}
 	
 	/**

@@ -81,7 +81,7 @@ public class NpcInfo extends L2GameServerPacket
 		if (Config.SHOW_NPC_LVL && _activeChar instanceof L2MonsterInstance)
 		{
 			String t = "Lv " + cha.getLevel() + (cha.getAggroRange() > 0 ? "*" : "");
-			if (_title != null && !_title.equals(""))
+			if (_title != null && !_title.isEmpty())
 				t += " " + _title;
 
 			_title = t;

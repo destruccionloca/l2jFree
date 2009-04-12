@@ -670,7 +670,7 @@ public abstract class L2Zone implements FuncOwner
 			}
 		}
 		zone._shapes = shapes.toArray(new Shape[shapes.size()]);
-		if(exShapes.size() > 0)
+		if (!exShapes.isEmpty())
 			zone._exShapes = exShapes.toArray(new Shape[exShapes.size()]);
 		shapes.clear();
 		exShapes.clear();

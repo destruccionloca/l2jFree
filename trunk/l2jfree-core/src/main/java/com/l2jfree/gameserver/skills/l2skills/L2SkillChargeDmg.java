@@ -43,7 +43,6 @@ public class L2SkillChargeDmg extends L2Skill
 
 		double modifier = 0.8 + 0.201 * player.getCharges(); // thanks Diego Vargas of L2Guru: 70*((0.8+0.201*No.Charges) * (PATK+POWER)) / PDEF
 		player.decreaseCharges(getNeededCharges());
-		Formulas f = Formulas.getInstance();
 
 		for (L2Character target : targets)
 		{
@@ -51,15 +50,15 @@ public class L2SkillChargeDmg extends L2Skill
 			if (target.isAlikeDead())
 				continue;
 
-			byte shld = f.calcShldUse(activeChar, target);
+			byte shld = Formulas.calcShldUse(activeChar, target);
 			boolean crit = false;
 			if (getBaseCritRate() > 0)
-				crit = f.calcCrit(getBaseCritRate() * 10 * f.getSTRBonus(activeChar));
+				crit = Formulas.calcCrit(getBaseCritRate() * 10 * Formulas.getSTRBonus(activeChar));
 
 			boolean soul = (weapon != null && weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT && weapon.getItemType() != L2WeaponType.DAGGER);
 
 			// damage calculation, crit is static 2x
-			int damage = (int) f.calcPhysDam(activeChar, target, this, shld, false, false, soul);
+			int damage = (int) Formulas.calcPhysDam(activeChar, target, this, shld, false, false, soul);
 			if (crit)
 				damage *= 2;
 
@@ -71,7 +70,7 @@ public class L2SkillChargeDmg extends L2Skill
 					damage = 0;
 			}
 
-			boolean skillIsEvaded = f.calcPhysicalSkillEvasion(target, this);
+			boolean skillIsEvaded = Formulas.calcPhysicalSkillEvasion(target, this);
 			if (skillIsEvaded)
 			{
 				if (activeChar instanceof L2PcInstance)

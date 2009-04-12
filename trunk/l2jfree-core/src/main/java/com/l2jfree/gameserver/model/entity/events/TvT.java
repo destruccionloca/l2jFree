@@ -336,7 +336,7 @@ public class TvT
 
 	public static boolean startJoinOk()
 	{
-        return !(_started || _teleport || _joining || _teams.size() < 2 || _eventName.equals("") || _joiningLocationName.equals("") || _eventDesc.equals("")
+        return !(_started || _teleport || _joining || _teams.size() < 2 || _eventName.isEmpty() || _joiningLocationName.isEmpty() || _eventDesc.isEmpty()
                 || _npcId == 0 || _npcX == 0 || _npcY == 0 || _npcZ == 0 || _rewardId == 0 || _rewardAmount == 0 || _teamsX.contains(0) || _teamsY.contains(0)
                 || _teamsZ.contains(0));
     }
@@ -1287,21 +1287,17 @@ public class TvT
 	{
 		try
 		{
-			if (_playersShuffle == null)
+			if (_playersShuffle == null || _playersShuffle.isEmpty())
 				return;
-			else if (_playersShuffle.isEmpty())
-				return;
-			else if (_playersShuffle.size() > 0)
+
+			for (L2PcInstance player : _playersShuffle)
 			{
-				for (L2PcInstance player : _playersShuffle)
-				{
-					if (player == null)
-						_playersShuffle.remove(player);					
-					else if (player.isOnline() == 0 || player.isInJail())
-						removePlayer(player);
-					if (_playersShuffle.size() == 0 || _playersShuffle.isEmpty())
-						break;
-				}
+				if (player == null)
+					_playersShuffle.remove(player);
+				else if (player.isOnline() == 0 || player.isInJail())
+					removePlayer(player);
+				if (_playersShuffle.size() == 0 || _playersShuffle.isEmpty())
+					break;
 			}
 		}
 		catch (Exception e)

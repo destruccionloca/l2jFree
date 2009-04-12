@@ -102,7 +102,7 @@ public final class L2ClassMasterInstance extends L2FolkInstance
 									+ CharTemplateTable.getClassNameById(child.getId()) + "</a>");
 
 					if (Config.ALT_CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel) != null
-							&& Config.ALT_CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).size() > 0)
+							&& !Config.ALT_CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).isEmpty())
 					{
 						sb.append("<br><br>Item(s) required for class change:");
 						sb.append("<table width=270>");

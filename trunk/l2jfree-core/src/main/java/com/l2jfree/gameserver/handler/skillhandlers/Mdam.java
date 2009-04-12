@@ -107,9 +107,9 @@ public class Mdam implements ICubicSkillHandler
 				continue;
 			}
 
-			boolean mcrit = Formulas.getInstance().calcMCrit(activeChar.getMCriticalHit(target, skill));
-			byte shld = Formulas.getInstance().calcShldUse(activeChar, target);
-			int damage = (int) Formulas.getInstance().calcMagicDam(activeChar, target, skill, shld, ss, bss, mcrit);
+			boolean mcrit = Formulas.calcMCrit(activeChar.getMCriticalHit(target, skill));
+			byte shld = Formulas.calcShldUse(activeChar, target);
+			int damage = (int) Formulas.calcMagicDam(activeChar, target, skill, shld, ss, bss, mcrit);
 
 			if (skill.getMaxSoulConsumeCount() > 0 && activeChar instanceof L2PcInstance)
 			{
@@ -146,7 +146,7 @@ public class Mdam implements ICubicSkillHandler
 			if (damage > 0)
 			{
 				// Manage attack or cast break of the target (calculating rate, sending message...)
-				if (Formulas.getInstance().calcAtkBreak(target, damage))
+				if (Formulas.calcAtkBreak(target, damage))
 				{
 					target.breakAttack();
 					target.breakCast();
@@ -181,7 +181,7 @@ public class Mdam implements ICubicSkillHandler
 					{
 						// activate attacked effects, if any
 						target.stopSkillEffects(skill.getId());
-						if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, shld, false, ss, bss))
+						if (Formulas.calcSkillSuccess(activeChar, target, skill, shld, false, ss, bss))
 						{
 							skill.getEffects(activeChar, target);
 						}
@@ -211,7 +211,7 @@ public class Mdam implements ICubicSkillHandler
 				}
 			}
 			// Possibility of a lethal strike
-			Formulas.getInstance().calcLethalHit(activeChar, target, skill);
+			Formulas.calcLethalHit(activeChar, target, skill);
 		}
 		// Self Effect :]
 		L2Effect effect = activeChar.getFirstEffect(skill.getId());
@@ -243,9 +243,9 @@ public class Mdam implements ICubicSkillHandler
 			else if (target.isAlikeDead())
 				continue;
 
-			boolean mcrit = Formulas.getInstance().calcMCrit(activeCubic.getMCriticalHit(target, skill));
-			byte shld = Formulas.getInstance().calcShldUse(activeCubic.getOwner(), target);
-			int damage = (int) Formulas.getInstance().calcMagicDam(activeCubic, target, skill, mcrit, shld);
+			boolean mcrit = Formulas.calcMCrit(activeCubic.getMCriticalHit(target, skill));
+			byte shld = Formulas.calcShldUse(activeCubic.getOwner(), target);
+			int damage = (int) Formulas.calcMagicDam(activeCubic, target, skill, mcrit, shld);
 
 			// If target is reflecting the skill then no damage is done
 			if (target.reflectSkill(skill))
@@ -257,7 +257,7 @@ public class Mdam implements ICubicSkillHandler
 			if (damage > 0)
 			{
 				// Manage attack or cast break of the target (calculating rate, sending message...)
-				if (!target.isRaid() && Formulas.getInstance().calcAtkBreak(target, damage))
+				if (!target.isRaid() && Formulas.calcAtkBreak(target, damage))
 				{
 					target.breakAttack();
 					target.breakCast();
@@ -273,7 +273,7 @@ public class Mdam implements ICubicSkillHandler
 					{
 						target.removeEffect(target.getFirstEffect(skill));
 					}
-					if (Formulas.getInstance().calcCubicSkillSuccess(activeCubic, target, skill, shld))
+					if (Formulas.calcCubicSkillSuccess(activeCubic, target, skill, shld))
 					{
 						skill.getEffects(activeCubic, target);
 					}

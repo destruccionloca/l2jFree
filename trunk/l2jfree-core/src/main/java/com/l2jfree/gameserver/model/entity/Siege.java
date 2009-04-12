@@ -1250,7 +1250,7 @@ public class Siege
 
         // Register guard to the closest Control Tower
         // When CT dies, so do all the guards that it controls
-        if (getSiegeGuardManager().getSiegeGuardSpawn().size() > 0 && _controlTowers.size() > 0)
+        if (!getSiegeGuardManager().getSiegeGuardSpawn().isEmpty() && !_controlTowers.isEmpty())
         {
             L2ControlTowerInstance closestCt;
             double distance, x, y, z;

@@ -3725,7 +3725,7 @@ public class L2Skill implements FuncOwner
 
 		boolean skillMastery = false;
 
-		if (!isToggle() && effector.getActingPlayer() != null && Formulas.getInstance().calcSkillMastery(effector, this))
+		if (!isToggle() && effector.getActingPlayer() != null && Formulas.calcSkillMastery(effector, this))
 			skillMastery = true;
 
 		for (EffectTemplate et : _effectTemplates)

@@ -55,7 +55,7 @@ public class CharStatus
 	public CharStatus(L2Character activeChar)
 	{
 		_activeChar = activeChar;
-		_period = Formulas.getInstance().getRegeneratePeriod(_activeChar);
+		_period = Formulas.getRegeneratePeriod(_activeChar);
 	}
 	
 	// ========================================================================
@@ -393,7 +393,6 @@ public class CharStatus
 			_runTime += _period;
 			
 			CharStat cs = getActiveChar().getStat();
-			Formulas f = Formulas.getInstance();
 			
 			if (getCurrentHp() == cs.getMaxHp() && getCurrentMp() == cs.getMaxMp() && getCurrentCp() == cs.getMaxCp())
 			{
@@ -402,13 +401,13 @@ public class CharStatus
 			}
 			
 			if (getCurrentHp() < cs.getMaxHp())
-				setCurrentHp(getCurrentHp() + f.calcHpRegen(getActiveChar()));
+				setCurrentHp(getCurrentHp() + Formulas.calcHpRegen(getActiveChar()));
 			
 			if (getCurrentMp() < cs.getMaxMp())
-				setCurrentMp(getCurrentMp() + f.calcMpRegen(getActiveChar()));
+				setCurrentMp(getCurrentMp() + Formulas.calcMpRegen(getActiveChar()));
 			
 			if (getCurrentCp() < cs.getMaxCp())
-				setCurrentCp(getCurrentCp() + f.calcCpRegen(getActiveChar()));
+				setCurrentCp(getCurrentCp() + Formulas.calcCpRegen(getActiveChar()));
 		}
 		catch (Exception e)
 		{

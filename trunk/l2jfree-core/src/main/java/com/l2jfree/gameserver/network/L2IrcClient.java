@@ -160,7 +160,7 @@ public class L2IrcClient extends Thread
 			if (Config.IRC_LOG_CHAT)
 				_logChat.info("IRC: Connected");
 
-			if (!Config.IRC_LOGIN_COMMAND.trim().equals(""))
+			if (!Config.IRC_LOGIN_COMMAND.trim().isEmpty())
 				send(Config.IRC_LOGIN_COMMAND.trim());
 
 			if (Config.IRC_NICKSERV)

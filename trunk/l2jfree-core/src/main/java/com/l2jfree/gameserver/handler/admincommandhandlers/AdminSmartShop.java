@@ -503,19 +503,19 @@ public class AdminSmartShop implements IAdminCommandHandler
 			if (marks.contains("_idsShow"))
 			{
 				itemName1 += "<br1>" + Integer.toString(itemId[x]);
-				itemName2 += (!itemName2.equals("")) ? "<br1>" + Integer.toString(itemId[x + 1]) : "";
-				itemName3 += (!itemName3.equals("")) ? "<br1>" + Integer.toString(itemId[x + 2]) : "";
+				itemName2 += (!itemName2.isEmpty()) ? "<br1>" + Integer.toString(itemId[x + 1]) : "";
+				itemName3 += (!itemName3.isEmpty()) ? "<br1>" + Integer.toString(itemId[x + 2]) : "";
 			}
 			else if (marks.contains("_idsOnlyShow"))
 			{
 				itemName1 = (itemName1.startsWith("<font color")) ? ("<font color = \"FF0000\"><br1>" + Integer.toString(itemId[x]) + "<br1></font>") : ("<br1>"
 						+ Integer.toString(itemId[x]) + "<br1>");
-				itemName2 = (!itemName2.equals("")) ?
+				itemName2 = (!itemName2.isEmpty()) ?
 
 				(itemName2.startsWith("<font color")) ? ("<font color = \"FF0000\"><br1>" + Integer.toString(itemId[x + 1]) + "<br1></font>") : ("<br1>"
 						+ Integer.toString(itemId[x + 1]) + "<br1>") : "";
 
-				itemName3 = (!itemName3.equals("")) ?
+				itemName3 = (!itemName3.isEmpty()) ?
 
 				(itemName3.startsWith("<font color")) ? ("<font color = \"FF0000\"><br1>" + Integer.toString(itemId[x + 2]) + "<br1></font>") : ("<br1>"
 						+ Integer.toString(itemId[x + 2]) + "<br1>") : "";
@@ -525,16 +525,16 @@ public class AdminSmartShop implements IAdminCommandHandler
 			{
 
 				itemName1 += ("<br1>Grade-" + getGradeString(gradeList.get(smartList.indexOf(itemId[x]))) + "<br1>");
-				itemName2 += (!itemName2.equals("")) ? ("<br1>Grade-" + getGradeString(gradeList.get(smartList.indexOf(itemId[x + 1]))) + "<br1>") : "";
-				itemName3 += (!itemName3.equals("")) ? ("<br1>Grade-" + getGradeString(gradeList.get(smartList.indexOf(itemId[x + 2]))) + "<br1>") : "";
+				itemName2 += (!itemName2.isEmpty()) ? ("<br1>Grade-" + getGradeString(gradeList.get(smartList.indexOf(itemId[x + 1]))) + "<br1>") : "";
+				itemName3 += (!itemName3.isEmpty()) ? ("<br1>Grade-" + getGradeString(gradeList.get(smartList.indexOf(itemId[x + 2]))) + "<br1>") : "";
 
 			}
 
 			text += "<tr>" + "<td width=\"100\"><a action=\"bypass -h admin_smartshop &&" + marks + " &&_get=" + itemId[x]
 					+ " && $input1 && $input2\"><font color = \"11DD00\">" + itemName1 + "</font></a></td>";
-			text += (!itemName2.equals("")) ? "<td width=\"100\"><a action=\"bypass -h admin_smartshop &&" + marks + " &&_get=" + itemId[x + 1]
+			text += (!itemName2.isEmpty()) ? "<td width=\"100\"><a action=\"bypass -h admin_smartshop &&" + marks + " &&_get=" + itemId[x + 1]
 					+ " && $input1 && $input2\"><font color = \"00FF00\">" + itemName2 + "</font></a></td>" : "<td width=\"100\"></td>";
-			text += (!itemName3.equals("")) ? "<td width=\"100\"><a action=\"bypass -h admin_smartshop &&" + marks + " &&_get=" + itemId[x + 2]
+			text += (!itemName3.isEmpty()) ? "<td width=\"100\"><a action=\"bypass -h admin_smartshop &&" + marks + " &&_get=" + itemId[x + 2]
 					+ " && $input1 && $input2\"><font color = \"00EE11\">" + itemName3 + "</font></a></td>" : "<td width=\"100\"></td>";
 			text += "</tr><br>";
 		}
@@ -750,7 +750,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 	private String getTitle(String mark)
 	{
 		String message = "";
-		if (mark.equals(""))
+		if (mark.isEmpty())
 			return "Welcome to Smart Shop [by Darki699]";
 		if (mark.contains("_quest") && !mark.contains("_equip") && !mark.contains("_items") && !mark.contains("_armor") && !mark.contains("_weapn"))
 			message += "Quest Items";
@@ -767,12 +767,12 @@ public class AdminSmartShop implements IAdminCommandHandler
 
 		if (mark.contains("_idsShow"))
 		{
-			message += (message.equals("")) ? "" : ", ";
+			message += (message.isEmpty()) ? "" : ", ";
 			message += "Name&ID viewing";
 		}
 		else if (mark.contains("_idsOnlyShow"))
 		{
-			message += (message.equals("")) ? "" : ", ";
+			message += (message.isEmpty()) ? "" : ", ";
 			message += "ID viewing";
 		}
 
@@ -782,7 +782,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 			String[] pgNum = pg.split(" ");
 			if (pgNum.length > 1)
 				pg = pgNum[0];
-			message += (message.equals("")) ? "" : ", ";
+			message += (message.isEmpty()) ? "" : ", ";
 			message += "Page " + (Integer.valueOf(pg) + 1);
 		}
 		else if (mark.contains("_back="))
@@ -792,16 +792,16 @@ public class AdminSmartShop implements IAdminCommandHandler
 			if (pgNum.length > 1)
 				pg = pgNum[0];
 			String pages = (Integer.valueOf(pg) > 1) ? " Pages" : " Page";
-			message += (message.equals("")) ? "" : ", ";
+			message += (message.isEmpty()) ? "" : ", ";
 			message += "Back " + pg + pages;
 		}
 
-		return (message.equals("")) ? "Welcome to Smart Shop [by Darki699]" : message;
+		return (message.isEmpty()) ? "Welcome to Smart Shop [by Darki699]" : message;
 	}
 
 	private String getMessage(String mark)
 	{
-		if (mark == null || mark.equals(""))
+		if (mark == null || mark.isEmpty())
 			return "<center>General Search for All items</center><br1>";
 
 		String message = "";
@@ -915,7 +915,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 		if (marks == null)
 			marks = "";
 
-		if (marks.equals("") && newMark.equals(""))
+		if (marks.isEmpty() && newMark.isEmpty())
 			return "";
 
 		String newMarks = parseItemMarks(marks, newMark);
@@ -1042,7 +1042,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 	 */
 	private String analyzeSearchString(String search)
 	{
-		if (search == null || search.equals(""))
+		if (search == null || search.isEmpty())
 			return "";
 
 		String[] param = search.split("=");
@@ -1050,7 +1050,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 		if (param.length < 2)
 			return "";
 
-		if (param[1] == null || param[1].equals(""))
+		if (param[1] == null || param[1].isEmpty())
 			return "";
 
 		String[] value = param[1].split(",");
@@ -1077,7 +1077,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 		param[1] = "";
 		for (int i = 0; i < value.length; i++)
 		{
-			if (value[i] != null && !value[i].equals("") && !value[i].startsWith("-"))
+			if (value[i] != null && !value[i].isEmpty() && !value[i].startsWith("-"))
 			{
 				if (add)
 					param[1] += ",";
@@ -1087,7 +1087,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 			}
 		}
 
-		if (param[1].equals(""))
+		if (param[1].isEmpty())
 			return "";
 
 		return " " + param[0] + "=" + param[1];
@@ -1204,14 +1204,14 @@ public class AdminSmartShop implements IAdminCommandHandler
 			return marks;
 		}
 
-		if (marks.equals(""))
+		if (marks.isEmpty())
 			return newMark;
 
 		marks = mark[0];
 		for (int x = 1; x < mark.length; x++)
 			marks += " " + mark[x];
 
-		return marks + ((newMark.equals("")) ? "" : (" " + newMark));
+		return marks + ((newMark.isEmpty()) ? "" : (" " + newMark));
 	}
 
 	/**
@@ -1314,7 +1314,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 			}
 			else if (param.length > 1)
 			{
-				if (!getGrade(param[1]).equals(""))
+				if (!getGrade(param[1]).isEmpty())
 				{
 					marks = "_grade=" + getGrade(param[1]) + " " + marks;
 				}
@@ -1335,7 +1335,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 				marks = removeMark(marks, "_next=");
 				marks = removeMark(marks, "_back=");
 
-				if (!getGrade(param[1]).equals(""))
+				if (!getGrade(param[1]).isEmpty())
 				{
 					marks = "_grade=" + getGrade(param[1]) + " " + marks;
 				}
@@ -1531,7 +1531,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 		{
 			try
 			{
-				if (!getGrade(first.substring(1)).equals(""))
+				if (!getGrade(first.substring(1)).isEmpty())
 					return first;
 			}
 			catch (Exception e)
@@ -1553,7 +1553,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 			String[] param = first.split(" ");
 			for (String s : param)
 			{
-				if (s.equals(""))
+				if (s.isEmpty())
 					continue;
 				// Letters or Numbers?
 				try
@@ -1574,7 +1574,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 				for (int i = 0; i < list.length; i++)
 					for (int j = 0; j < list.length; j++)
 					{
-						if (i != j && !list[i].equals("") && !list[j].equals(""))
+						if (i != j && !list[i].isEmpty() && !list[j].isEmpty())
 						{
 							if (list[i].toLowerCase().contains(list[j].toLowerCase()) || list[i].toLowerCase().equals(list[j].toLowerCase()))
 								list[j] = "";
@@ -1585,7 +1585,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 				boolean add = false;
 				for (int i = 0; i < list.length; i++)
 				{
-					if (list[i] != null && !list[i].equals(""))
+					if (list[i] != null && !list[i].isEmpty())
 					{
 						if (add)
 							first += ",";
@@ -1646,7 +1646,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 
 		for (String s : param)
 		{
-			if (s != null && !s.equals(""))
+			if (s != null && !s.isEmpty())
 			{
 				if (add)
 					marks += parse;
@@ -1694,7 +1694,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 		boolean add = false;
 		for (int x = 0; x < param.length; x++)
 		{
-			if (param[x] != null && !param[x].equals(""))
+			if (param[x] != null && !param[x].isEmpty())
 			{
 				if (add)
 					marks += " ";
@@ -1892,7 +1892,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 		{
 			if (s.getItemConsumeId() == itemId)
 			{
-				message = (message.equals("")) ? "<br1><font color=\"00FF00\">Skills use this item:</font>" : message;
+				message = (message.isEmpty()) ? "<br1><font color=\"00FF00\">Skills use this item:</font>" : message;
 				message += "<br1>" + s.getName() + "(" + s.getId() + ") from level: " + s.getLevel();
 			}
 		}
@@ -1958,7 +1958,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 		{
 		}
 
-		return (message.equals("")) ? "<br1><center><font color=\"FF0000\">No Skills attached to this item.</font></center>" : message;
+		return (message.isEmpty()) ? "<br1><center><font color=\"FF0000\">No Skills attached to this item.</font></center>" : message;
 	}
 
 	private String getDetailItemText(int itemId)
@@ -2251,7 +2251,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 		{
 		}
 
-		return (message.equals("")) ? "<br1><center><font color=\"FF0000\">Details for this item are not available.</font></center>" : message;
+		return (message.isEmpty()) ? "<br1><center><font color=\"FF0000\">Details for this item are not available.</font></center>" : message;
 	}
 
 	String questItemText(int itemId)
@@ -2274,7 +2274,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 				{
 					if (id == itemId)
 					{
-						message = (message.equals("")) ? "<br1><font color=\"00FF00\">Item found in Event:</font>" : message;
+						message = (message.isEmpty()) ? "<br1><font color=\"00FF00\">Item found in Event:</font>" : message;
 						message += "<br1>" + quest.getName();
 						questItem = false;
 					}
@@ -2307,7 +2307,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 		{
 		}
 
-		return (message.equals("")) ? "<br1><center><font color=\"FF0000\">Quests for this item are not available.</font></center>" : message;
+		return (message.isEmpty()) ? "<br1><center><font color=\"FF0000\">Quests for this item are not available.</font></center>" : message;
 	}
 
 	private String buylistItemText(int itemId)
@@ -2373,7 +2373,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 		{
 		}
 
-		return (message.equals("")) ? "<br1><center><font color=\"FF0000\">No Buylists for this item.</font></center>" : message;
+		return (message.isEmpty()) ? "<br1><center><font color=\"FF0000\">No Buylists for this item.</font></center>" : message;
 	}
 
 	private List<Integer> getShopIds(int ItemId)
@@ -2495,7 +2495,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 		{
 		}
 
-		return (message.equals("")) ? "<center><font color=\"FF0000\">Invalid Edit Command</font></center>" : "";
+		return (message.isEmpty()) ? "<center><font color=\"FF0000\">Invalid Edit Command</font></center>" : "";
 	}
 
 	private String makeQuery(String query)

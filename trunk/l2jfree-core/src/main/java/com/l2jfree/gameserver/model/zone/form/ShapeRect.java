@@ -100,13 +100,13 @@ public class ShapeRect extends Shape
 	@Override
 	protected Shape prepare(int zoneId)
 	{
-		if(_points.size() != 2)
+		if (_points.size() != 2)
 		{
 			_log.error("Invalid point amount in zone"+zoneId+", must be 2");
 			return null;
 		}
 
-		if(_points.get(0).x < _points.get(1).x)
+		if (_points.get(0).x < _points.get(1).x)
 		{
 			_xMin = _points.get(0).x;
 			_xMax = _points.get(1).x;
@@ -116,7 +116,7 @@ public class ShapeRect extends Shape
 			_xMin = _points.get(1).x;
 			_xMax = _points.get(0).x;
 		}
-		if(_points.get(0).y < _points.get(1).y)
+		if (_points.get(0).y < _points.get(1).y)
 		{
 			_yMin = _points.get(0).y;
 			_yMax = _points.get(1).y;

@@ -106,7 +106,7 @@ public class DayNightSpawnManager
 	{
 		try
 		{
-			if (UnSpawnCreatures.size() != 0)
+			if (!UnSpawnCreatures.isEmpty())
 			{
 				int i = 0;
 				for (L2NpcInstance dayCreature : UnSpawnCreatures.values())

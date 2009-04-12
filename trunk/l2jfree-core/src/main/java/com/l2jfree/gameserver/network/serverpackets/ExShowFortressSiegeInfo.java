@@ -63,7 +63,7 @@ public class ExShowFortressSiegeInfo extends L2GameServerPacket
         writeD(_fortId); // Fortress Id
         writeD(_size); // Total Barracks Count
         FastList<SiegeSpawn> commanders = FortSiegeManager.getInstance().getCommanderSpawnList(_fortId);
-        if (commanders != null && commanders.size() != 0)
+        if (commanders != null && !commanders.isEmpty())
         {
         	switch (commanders.size())
         	{

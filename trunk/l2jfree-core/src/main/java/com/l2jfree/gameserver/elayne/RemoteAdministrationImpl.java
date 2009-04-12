@@ -85,7 +85,7 @@ public class RemoteAdministrationImpl extends UnicastRemoteObject implements IRe
 
 	public void startServer()
 	{
-		if (Config.ALLOW_RMI_SERVER && pass != null && !pass.equals("") && port != 0)
+		if (Config.ALLOW_RMI_SERVER && pass != null && !pass.isEmpty() && port != 0)
 		{
 			try
 			{

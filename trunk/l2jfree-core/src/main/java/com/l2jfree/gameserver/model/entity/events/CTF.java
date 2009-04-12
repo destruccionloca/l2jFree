@@ -845,7 +845,7 @@ public class CTF
 
 	public static boolean startJoinOk()
 	{
-		if (_started || _teleport || _joining || _teams.size() < 2 || _eventName.equals("") || _joiningLocationName.equals("") || _eventDesc.equals("")
+		if (_started || _teleport || _joining || _teams.size() < 2 || _eventName.isEmpty() || _joiningLocationName.isEmpty() || _eventDesc.isEmpty()
 				|| _npcId == 0 || _npcX == 0 || _npcY == 0 || _npcZ == 0 || _rewardId == 0 || _rewardAmount == 0 || _teamsX.contains(0) || _teamsY.contains(0)
 				|| _teamsZ.contains(0))
 			return false;
@@ -1821,9 +1821,7 @@ public class CTF
 	{
 		try
 		{
-            if (_playersShuffle != null &&
-                   !_playersShuffle.isEmpty() &&
-                    _playersShuffle.size() > 0)
+			if (_playersShuffle != null && !_playersShuffle.isEmpty())
 			{
 				for (L2PcInstance player : _playersShuffle)
 				{

@@ -254,7 +254,7 @@ public class FourSepulchersManager extends BossLair
 		_hallInUse.put(31923,false);
 		_hallInUse.put(31924,false);
 
-		if(_archonSpawned.size() != 0)
+		if (!_archonSpawned.isEmpty())
 		{
 			Set<Integer> npcIdSet = _archonSpawned.keySet();
 			for (int npcId : npcIdSet)

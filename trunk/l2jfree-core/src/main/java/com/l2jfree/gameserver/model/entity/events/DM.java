@@ -120,8 +120,8 @@ public class DM
 
 	private static boolean startJoinOk()
 	{
-        return !(_started || _teleport || _joining || _eventName.equals("") ||
-                _joiningLocationName.equals("") || _eventDesc.equals("") || _npcId == 0 ||
+        return !(_started || _teleport || _joining || _eventName.isEmpty() ||
+                _joiningLocationName.isEmpty() || _eventDesc.isEmpty() || _npcId == 0 ||
                 _npcX == 0 || _npcY == 0 || _npcZ == 0 || _rewardId == 0 || _rewardAmount == 0 ||
                 _playerX == 0 || _playerY == 0 || _playerZ == 0);
 	}

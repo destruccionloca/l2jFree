@@ -335,7 +335,7 @@ class OlympiadManager implements Runnable
 
 	protected OlympiadGame getOlympiadGame(int index)
 	{
-		if (_olympiadInstances != null && _olympiadInstances.size() > 0)
+		if (_olympiadInstances != null && !_olympiadInstances.isEmpty())
 		{
 			return _olympiadInstances.get(index);
 		}
@@ -344,7 +344,7 @@ class OlympiadManager implements Runnable
 
 	protected void removeGame(OlympiadGame game)
 	{
-		if (_olympiadInstances != null && _olympiadInstances.size() > 0)
+		if (_olympiadInstances != null && !_olympiadInstances.isEmpty())
 		{
 			for (int i = 0; i < _olympiadInstances.size(); i++)
 			{

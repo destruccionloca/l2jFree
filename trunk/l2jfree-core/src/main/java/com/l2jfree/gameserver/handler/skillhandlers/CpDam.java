@@ -98,13 +98,13 @@ public class CpDam implements ISkillHandler
 				continue;
 			}
 
-			byte shld = Formulas.getInstance().calcShldUse(activeChar, target);
-			if (!Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss))
+			byte shld = Formulas.calcShldUse(activeChar, target);
+			if (!Formulas.calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss))
 				return;
 			int damage = (int) (target.getStatus().getCurrentCp() * (1 - skill.getPower()));
 
 			// Manage attack or cast break of the target (calculating rate, sending message...)
-			if (Formulas.getInstance().calcAtkBreak(target, damage))
+			if (Formulas.calcAtkBreak(target, damage))
 			{
 				target.breakAttack();
 				target.breakCast();

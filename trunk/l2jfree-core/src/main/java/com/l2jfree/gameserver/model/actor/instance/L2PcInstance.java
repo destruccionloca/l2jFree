@@ -4854,7 +4854,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		//if (getPet() != null) getPet().unSummon(this);
 
 		// Unsummon Cubics
-		if (_cubics.size() > 0)
+		if (!_cubics.isEmpty())
 		{
 			for (L2CubicInstance cubic : _cubics.values())
 			{
@@ -9198,7 +9198,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (getPet() != null)
 			getPet().unSummon(this);
 
-		if (getCubics().size() > 0)
+		if (!getCubics().isEmpty())
 		{
 			for (L2CubicInstance cubic : getCubics().values())
 			{
@@ -10491,7 +10491,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (getPet() instanceof L2SummonInstance)
 			getPet().unSummon(this);
 
-		if (getCubics().size() > 0)
+		if (!getCubics().isEmpty())
 		{
 			for (L2CubicInstance cubic : getCubics().values())
 			{
@@ -10991,7 +10991,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			if (isPhoenixBlessed())
 				_revivePower = 100;
 			else if (skill != null)
-				_revivePower = Formulas.getInstance().calculateSkillResurrectRestorePercent(skill.getPower(), reviver.getStat().getWIT());
+				_revivePower = Formulas.calculateSkillResurrectRestorePercent(skill.getPower(), reviver.getStat().getWIT());
 			else
 				_revivePower = 0;
 
@@ -11014,7 +11014,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			_revivePetRequested = true;
 			if (skill != null)
-				_revivePetPower = Formulas.getInstance().calculateSkillResurrectRestorePercent(skill.getPower(), reviver.getStat().getWIT());
+				_revivePetPower = Formulas.calculateSkillResurrectRestorePercent(skill.getPower(), reviver.getStat().getWIT());
 			else
 				_revivePetPower = 0;
 

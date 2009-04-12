@@ -117,7 +117,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
 
 			if (actualCommand.equalsIgnoreCase("auction"))
 			{
-				if (val == "")
+				if (val.isEmpty())
 					return;
 
 				try
@@ -174,7 +174,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
 			}
 			else if (actualCommand.equalsIgnoreCase("bidding"))
 			{
-				if (val == "")
+				if (val.isEmpty())
 					return;
 				if(_log.isDebugEnabled())
 					_log.warn("bidding show successful");
@@ -222,7 +222,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
 			}
 			else if (actualCommand.equalsIgnoreCase("bid"))
 			{
-				if (val == "")
+				if (val.isEmpty())
 					return;
 
 				try
@@ -255,7 +255,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
 					return;
 				}
 
-				if (val == "")
+				if (val.isEmpty())
 					return;
 				if ((player.getClan().getAuctionBiddedAt() > 0 && player.getClan().getAuctionBiddedAt() != Integer.parseInt(val)) || player.getClan().getHasHideout() > 0)
 				{
@@ -294,7 +294,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
 				int start;
 				int i = 1;
 				double npage = Math.ceil((float)auctions.size() / limit);
-				if (val == "")
+				if (val.isEmpty())
 				{
 					start = 1;
 				}
@@ -346,7 +346,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
 			else if (actualCommand.equalsIgnoreCase("bidlist"))
 			{
 				int auctionId = 0;
-				if (val == "")
+				if (val.isEmpty())
 				{
 					if (player.getClan().getAuctionBiddedAt() <= 0)
 						return;

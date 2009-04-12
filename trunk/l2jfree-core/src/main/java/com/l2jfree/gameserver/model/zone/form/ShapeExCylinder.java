@@ -106,22 +106,22 @@ public class ShapeExCylinder extends Shape
 	@Override
 	protected Shape prepare(int zoneId)
 	{
-		if(_points.size() != 1)
+		if (_points.size() != 1)
 		{
 			_log.error("Invalid point amount in zone"+zoneId+", must be 1");
 			return null;
 		}
-		if(_innerRad <= 0)
+		if (_innerRad <= 0)
 		{
 			_log.error("Inner radius must be > 0 in zone "+zoneId);
 			return null;
 		}
-		if(_outerRad <= 0)
+		if (_outerRad <= 0)
 		{
 			_log.error("Outer radius must be > 0 in zone "+zoneId);
 			return null;
 		}
-		if(_outerRad <= _innerRad)
+		if (_outerRad <= _innerRad)
 		{
 			_log.error("Outer radius must be > inner radius in zone "+zoneId);
 			return null;

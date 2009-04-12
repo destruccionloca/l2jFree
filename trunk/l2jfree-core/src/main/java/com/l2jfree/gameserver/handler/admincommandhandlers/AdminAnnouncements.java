@@ -89,7 +89,7 @@ public class AdminAnnouncements implements IAdminCommandHandler
 		{
 			try
 			{
-				int val = new Integer(command.substring(23));
+				int val = Integer.valueOf(command.substring(23));
 				Announcements.getInstance().delAnnouncement(val);
 				Announcements.getInstance().listAnnouncements(activeChar);
 			}

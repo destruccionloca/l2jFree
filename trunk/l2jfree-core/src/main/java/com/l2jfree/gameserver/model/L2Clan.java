@@ -1420,7 +1420,7 @@ public class L2Clan
 
 	public boolean isAtWarWith(Integer id)
 	{
-		if ((_atWarWith != null) && (_atWarWith.size() > 0))
+		if (_atWarWith != null && !_atWarWith.isEmpty())
 			if (_atWarWith.contains(id))
 				return true;
 		return false;
@@ -1428,7 +1428,7 @@ public class L2Clan
 
 	public boolean isAtWarAttacker(Integer id)
 	{
-		if ((_atWarAttackers != null) && (_atWarAttackers.size() > 0))
+		if (_atWarAttackers != null && !_atWarAttackers.isEmpty())
 			if (_atWarAttackers.contains(id))
 				return true;
 		return false;
@@ -1480,8 +1480,8 @@ public class L2Clan
 
 	public boolean isAtWar()
 	{
-        return (_atWarWith != null) && (_atWarWith.size() > 0);
-    }
+		return _atWarWith != null && !_atWarWith.isEmpty();
+	}
 
 	public List<Integer> getWarList()
 	{

@@ -115,7 +115,7 @@ public class Entity
 	protected L2PcInstance getRandomPlayer()
 	{
 		List<L2PcInstance> lst = getPlayersInside();
-		if (lst.size() > 0)
+		if (!lst.isEmpty())
 		{
 			return lst.get(Rnd.get(lst.size()));
 		}

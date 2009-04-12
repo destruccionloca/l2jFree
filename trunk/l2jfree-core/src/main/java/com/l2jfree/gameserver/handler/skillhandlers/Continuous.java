@@ -192,8 +192,8 @@ public class Continuous implements ICubicSkillHandler
 					ss = ((L2NpcInstance) activeChar).isUsingShot(true);
 				}
 
-				byte shld = Formulas.getInstance().calcShldUse(activeChar, target);
-				acted = Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss);
+				byte shld = Formulas.calcShldUse(activeChar, target);
+				acted = Formulas.calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss);
 			}
 
 			if (acted)
@@ -253,7 +253,7 @@ public class Continuous implements ICubicSkillHandler
 				activeChar.sendPacket(sm);
 			}
 			// Possibility of a lethal strike
-			Formulas.getInstance().calcLethalHit(activeChar, target, skill);
+			Formulas.calcLethalHit(activeChar, target, skill);
 		}
 
 		// Increase Charges
@@ -281,8 +281,8 @@ public class Continuous implements ICubicSkillHandler
 			
 			if (skill.isOffensive())
 			{
-				byte shld = Formulas.getInstance().calcShldUse(activeCubic.getOwner(), target);
-				boolean acted = Formulas.getInstance().calcCubicSkillSuccess(activeCubic, target, skill, shld);
+				byte shld = Formulas.calcShldUse(activeCubic.getOwner(), target);
+				boolean acted = Formulas.calcCubicSkillSuccess(activeCubic, target, skill, shld);
 				if (!acted)
 				{
 					activeCubic.getOwner().sendPacket(SystemMessageId.ATTACK_FAILED);

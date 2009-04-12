@@ -97,7 +97,7 @@ public final class L2UrnInstance extends L2FolkInstance
         if (actualCommand.equalsIgnoreCase("make_low"))
         {
             player.sendPacket(ActionFailed.STATIC_PACKET);
-            if (val != "")
+            if (!val.isEmpty())
             {
                 String filename = "data/html/urn/low" +val+ ".htm";
                 NpcHtmlMessage html = new NpcHtmlMessage(1);
@@ -118,7 +118,7 @@ public final class L2UrnInstance extends L2FolkInstance
         else if (actualCommand.equalsIgnoreCase("make_high"))
         {
             player.sendPacket(ActionFailed.STATIC_PACKET);
-            if (val != "")
+            if (!val.isEmpty())
             {
                 String filename = "data/html/urn/high" +val+ ".htm";
                 NpcHtmlMessage html = new NpcHtmlMessage(1);
@@ -161,7 +161,7 @@ public final class L2UrnInstance extends L2FolkInstance
         }
         else if (actualCommand.equalsIgnoreCase("urn_mix"))
         {
-            if (val != "")
+            if (!val.isEmpty())
             {
                 String w1 = val;
                     int ingId1 = Integer.parseInt(w1);

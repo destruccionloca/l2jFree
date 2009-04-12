@@ -524,7 +524,7 @@ public class FortSiege
 	/** Commander was killed */
 	public void killedCommander(L2FortCommanderInstance instance)
 	{
-		if (_commanders != null && _commanders.get(getFort().getFortId()).size() != 0)
+		if (_commanders != null && !_commanders.get(getFort().getFortId()).isEmpty())
 		{
 			L2Spawn spawn = instance.getSpawn();
 			if (spawn != null)
@@ -550,7 +550,7 @@ public class FortSiege
 								text = "I feel so much grief that I can't even take care of myself. There isn't any reason for me to stay here any longer.";
 								break;
 						}
-						if (text != "")
+						if (!text.isEmpty())
 							instance.broadcastPacket(new NpcSay(instance.getObjectId(), 1, instance.getNpcId(), text));
 					}
 				}

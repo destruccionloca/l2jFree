@@ -97,12 +97,12 @@ public class ShapeCylinder extends Shape
 	@Override
 	protected Shape prepare(int zoneId)
 	{
-		if(_points.size() != 1)
+		if (_points.size() != 1)
 		{
 			_log.error("Invalid point amount in zone"+zoneId+", must be 1");
 			return null;
 		}
-		if(_radius <= 0)
+		if (_radius <= 0)
 		{
 			_log.error("Radius must be > 0 in zone "+zoneId);
 			return null;

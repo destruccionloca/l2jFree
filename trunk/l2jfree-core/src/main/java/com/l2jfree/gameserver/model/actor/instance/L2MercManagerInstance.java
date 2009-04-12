@@ -98,7 +98,8 @@ public final class L2MercManagerInstance extends L2MerchantInstance
 
             if (actualCommand.equalsIgnoreCase("hire"))
             {
-                if (val == "") return;
+                if (val.isEmpty())
+                    return;
 
                 showBuyWindow(player, Integer.parseInt(val));
                 return;

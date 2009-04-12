@@ -2074,7 +2074,7 @@ public class L2NpcInstance extends L2Character
 					message += "</a><br>";
 				}
 			}
-			if (message == "")
+			if (message.isEmpty())
 			{
 				message += "There is no winning lottery ticket...<br>";
 			}

@@ -45,8 +45,6 @@ public class InstantJump implements ISkillHandler
 			return;
 		
 		L2Character target = targets[0];
-
-		Formulas f = Formulas.getInstance();
 		
 		int x = 0, y = 0, z = 0;
 		
@@ -97,8 +95,8 @@ public class InstantJump implements ISkillHandler
 			{
 				// activate attacked effects, if any
 				target.stopSkillEffects(skill.getId());
-				byte shld = f.calcShldUse(activeChar, target);
-				if (f.calcSkillSuccess(activeChar, target, skill, shld, false, false, false))
+				byte shld = Formulas.calcShldUse(activeChar, target);
+				if (Formulas.calcSkillSuccess(activeChar, target, skill, shld, false, false, false))
 				{
 					skill.getEffects(activeChar, target);
 				

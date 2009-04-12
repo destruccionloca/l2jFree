@@ -133,20 +133,21 @@ public class L2CraftManagerInstance extends L2FolkInstance
 			int _itemsOnPage=ITEMS_PER_PAGE;
 			int _pages = _items.size()/_itemsOnPage;
 
-			if (_items.size()>_pages*_itemsOnPage) _pages++;
-			if (_pageId>_pages) _pageId=_pages;
+			if (_items.size() > _pages*_itemsOnPage)
+				_pages++;
+			if (_pageId>_pages)
+				_pageId=_pages;
 
-			int _itemStart=_pageId*_itemsOnPage;
+			int _itemStart=_pageId * _itemsOnPage;
 			int _itemEnd=_items.size();
 
 			if (_itemEnd - _itemStart > _itemsOnPage)
-
-			_itemEnd = _itemStart + _itemsOnPage;
+				_itemEnd = _itemStart + _itemsOnPage;
 
 			String _elementsSelected="";
 
-			for (int i=0;i<_itemsSelected.size();i++)
-				_elementsSelected+=" "+_itemsSelected.get(i);
+			for (int i = 0; i < _itemsSelected.size(); i++)
+				_elementsSelected += " " + _itemsSelected.get(i);
 
 			NpcHtmlMessage npcReply = new NpcHtmlMessage(1);
 
@@ -373,15 +374,16 @@ public class L2CraftManagerInstance extends L2FolkInstance
 			int _itemsOnPage=ITEMS_PER_PAGE;
 			int _pages = _recipes.size()/_itemsOnPage;
 
-			if (_recipes.size()>_pages*_itemsOnPage) _pages++;
-			if (_pageId>_pages) _pageId=_pages;
+			if (_recipes.size() > _pages * _itemsOnPage)
+				_pages++;
+			if (_pageId > _pages)
+				_pageId = _pages;
 
-			int _itemStart=_pageId*_itemsOnPage;
-			int _itemEnd=_recipes.size();
+			int _itemStart = _pageId * _itemsOnPage;
+			int _itemEnd = _recipes.size();
 
 			if (_itemEnd - _itemStart > _itemsOnPage)
-
-			_itemEnd = _itemStart + _itemsOnPage;
+				_itemEnd = _itemStart + _itemsOnPage;
 
 			NpcHtmlMessage npcReply = new NpcHtmlMessage(1);
 

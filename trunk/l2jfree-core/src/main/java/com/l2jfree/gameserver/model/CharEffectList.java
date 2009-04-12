@@ -357,7 +357,7 @@ public class CharEffectList
 					_owner.removeStatsOwner(effect);
 
 					// Check if there's another effect in the Stack Group
-					if (stackQueue.size() > 0)
+					if (!stackQueue.isEmpty())
 					{
 						// Add its list of Funcs to the Calculator set of the L2Character
 						for (L2Effect e : effectList)
@@ -491,7 +491,7 @@ public class CharEffectList
 		L2Effect[] allEffects = getAllEffects();
 
 		tempEffect = null;
-		if (stackQueue.size() > 0)
+		if (!stackQueue.isEmpty())
 		{
 			// Get the first stacked effect of the Stack group selected
 			for (L2Effect e : allEffects)
