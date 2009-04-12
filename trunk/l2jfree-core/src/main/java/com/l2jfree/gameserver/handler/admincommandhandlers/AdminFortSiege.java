@@ -56,11 +56,25 @@ public class AdminFortSiege implements IAdminCommandHandler
 		Fort fort = null;
 		int fortId = 0;
 		if (st.hasMoreTokens())
-			fort = FortManager.getInstance().getFort(st.nextToken());
+		{
+			String val = st.nextToken();
+			try
+			{
+				fortId = Integer.parseInt(val);
+				fort = FortManager.getInstance().getFortById(fortId);
+			}
+			catch (Exception e)
+			{
+				fort = FortManager.getInstance().getFort(val);
+			}
+		}
+
 		// Get fort
-		if (fort == null || fortId == 0)
-			// No fort specified
+		if (fort == null)
+		{
+			// No valid fort specified
 			showFortSelectPage(activeChar);
+		}
 		else
 		{
 			L2Object target = activeChar.getTarget();
