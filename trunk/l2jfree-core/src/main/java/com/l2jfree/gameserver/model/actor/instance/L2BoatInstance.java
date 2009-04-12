@@ -31,6 +31,7 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.ThreadPoolManager;
+import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2ItemInstance;
@@ -53,6 +54,8 @@ import com.l2jfree.gameserver.util.Util;
 public class L2BoatInstance extends L2Character
 {
 	private final static Log	_log	= LogFactory.getLog(L2BoatInstance.class.getName());
+
+	public float boatSpeed;
 
 	private class L2BoatTrajet
 	{
@@ -191,17 +194,18 @@ public class L2BoatInstance extends L2Character
 
 				_boat._vd = new VehicleDeparture(_boat, bp.speed1, bp.speed2, bp.x, bp.y, bp.z);
 				// _boat.getTemplate().baseRunSpd = bp.speed1;
+				boatSpeed = bp.speed1;
 				_boat.moveToLocation(bp.x, bp.y, bp.z, (float) bp.speed1);
+				if (bp.time == 0)
+					bp.time = 1;
+
 				Collection<L2PcInstance> knownPlayers = _boat.getKnownList().getKnownPlayers().values();
-				if (knownPlayers != null && !knownPlayers.isEmpty()) {
+				if (knownPlayers != null && !knownPlayers.isEmpty())
+				{
 					for (L2PcInstance player : knownPlayers)
 					{
 						player.sendPacket(_boat._vd);
 					}
-				}
-				if (bp.time == 0)
-				{
-					bp.time = 1;
 				}
 				return bp.time;
 			}
@@ -264,8 +268,7 @@ public class L2BoatInstance extends L2Character
 	{
 		super(objectId, template);
 		getKnownList();
-		//super.setStat(new DoorStat(new L2DoorInstance[] {this}));
-		//super.setStatus(new DoorStatus(new L2DoorInstance[] {this}));
+		setAI(new L2CharacterAI(new AIAccessor()));
 		_name = name;
 	}
 
@@ -874,6 +877,27 @@ public class L2BoatInstance extends L2Character
 	{
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	/*
+	 * Allow setup of the boat AI only once 
+	 */
+	@Override
+	public void setAI(L2CharacterAI newAI)
+	{
+		if (_ai == null)
+			_ai = newAI;
+	}
+
+	/*
+	 * boat AI can't be detached
+	 */
+	public class AIAccessor extends L2Character.AIAccessor
+	{
+		@Override
+		public void detachAI()
+		{
+		}
 	}
 
 	/**

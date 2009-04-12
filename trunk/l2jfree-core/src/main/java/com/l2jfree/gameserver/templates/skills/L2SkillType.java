@@ -138,7 +138,7 @@ public enum L2SkillType
 	SHIFT_TARGET,
 	INSTANT_JUMP,
 	BALLISTA,
-	DUMMY,
+	MYSTERIOUS_CUBE,
 
 	AGATHION(L2SkillAgathion.class),
 	MOUNT(L2SkillMount.class),
@@ -155,6 +155,8 @@ public enum L2SkillType
 	SUMMON(L2SkillSummon.class),
 	SUMMON_TRAP(L2SkillTrap.class),
 
+	// Skill that has no effect.
+	DUMMY,
 	// Skill is done within the core.
 	COREDONE,
 	// Unimplemented

@@ -4488,14 +4488,10 @@ public abstract class L2Character extends L2Object
 		if (distFraction > 1) // already there
 		{
 			// Set the position of the L2Character to the destination
+			super.getPosition().setXYZ(m._xDestination, m._yDestination, m._zDestination);
 			if (this instanceof L2BoatInstance)
 			{
-				super.getPosition().setXYZ(m._xDestination, m._yDestination, m._zDestination);
 				((L2BoatInstance) this).updatePeopleInTheBoat(m._xDestination, m._yDestination, m._zDestination);
-			}
-			else
-			{
-				super.getPosition().setXYZ(m._xDestination, m._yDestination, m._zDestination);
 			}
 		}
 		else
@@ -4504,14 +4500,13 @@ public abstract class L2Character extends L2Object
 			m._yAccurate += dy * distFraction;
 
 			// Set the position of the L2Character to estimated after parcial move
+			super.getPosition().setXYZ((int)(m._xAccurate), (int)(m._yAccurate), zPrev + (int)(dz * distFraction + 0.5));
 			if(this instanceof L2BoatInstance)
 			{
-				super.getPosition().setXYZ((int)(m._xAccurate), (int)(m._yAccurate), zPrev + (int)(dz * distFraction + 0.5));
 				((L2BoatInstance)this).updatePeopleInTheBoat((int)(m._xAccurate), (int)(m._yAccurate), zPrev + (int)(dz * distFraction + 0.5));
 			}
 			else
 			{
-				super.getPosition().setXYZ((int)(m._xAccurate), (int)(m._yAccurate), zPrev + (int)(dz * distFraction + 0.5));
 				revalidateZone(false);
 			}
 		}
@@ -6042,28 +6037,22 @@ public abstract class L2Character extends L2Object
 		return oldSkill;
 	}
 
-	public void addChanceSkill(L2Skill skill)
+	public synchronized void addChanceSkill(L2Skill skill)
 	{
-		synchronized (this)
-		{
-			if (_chanceSkills == null)
-				_chanceSkills = new ChanceSkillList(this);
-			_chanceSkills.put(skill, skill.getChanceCondition());
-		}
+		if (_chanceSkills == null)
+			_chanceSkills = new ChanceSkillList(this);
+		_chanceSkills.put(skill, skill.getChanceCondition());
 	}
 
-	public void removeChanceSkill(int id)
+	public synchronized void removeChanceSkill(int id)
 	{
-		synchronized (this)
+		for (L2Skill skill : _chanceSkills.keySet())
 		{
-			for (L2Skill skill : _chanceSkills.keySet())
-			{
-				if (skill.getId() == id)
-					_chanceSkills.remove(skill);
-			}
-			if (_chanceSkills.size() == 0)
-				_chanceSkills = null;
+			if (skill.getId() == id)
+				_chanceSkills.remove(skill);
 		}
+		if (_chanceSkills.size() == 0)
+			_chanceSkills = null;
 	}
 
 	/**

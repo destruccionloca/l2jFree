@@ -18,6 +18,7 @@ import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javolution.text.TextBuilder;
@@ -35,7 +36,9 @@ import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.LoginServerThread;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.LoginServerThread.SessionKey;
+import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.model.CharSelectInfoPackage;
+import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
@@ -165,38 +168,73 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 		return _sessionId;
 	}
 	
-	public L2PcInstance markToDeleteChar(int charslot) throws Exception
+	/**
+	 * Method to handle character deletion
+	 * 
+	 * @return a byte:
+	 * <li>-1: Error: No char was found for such charslot, caught exception, etc...
+	 * <li> 0: character is not member of any clan, proceed with deletion
+	 * <li> 1: character is member of a clan, but not clan leader
+	 * <li> 2: character is clan leader
+	 */
+	public byte markToDeleteChar(int charslot)
 	{
-		// have to make sure active character must be nulled
-		/*
-		 * if (getActiveChar() != null) { saveCharToDisk (getActiveChar()); if
-		 * (_log.isDebugEnabled()) _log.debug("active Char saved"); _activeChar =
-		 * null; }
-		 */
-
 		int objid = getObjectIdForSlot(charslot);
+		
 		if (objid < 0)
-			return null;
-		
-		L2PcInstance character = L2PcInstance.load(objid);
-		if (character.getClanId() != 0)
-			return character;
-		
-		character.deleteMe();
-		
+			return -1;
+
+		byte result = -1;
+
 		Connection con = null;
+
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con.prepareStatement("UPDATE characters SET deletetime=? WHERE charId=?");
-			statement.setLong(1, System.currentTimeMillis() + Config.DELETE_DAYS * 86400000L); // 24*60*60*1000
-			statement.setInt(2, objid);
-			statement.execute();
-			statement.close();
+			PreparedStatement statement = con.prepareStatement("SELECT clanId from characters WHERE charId=?");
+			statement.setInt(1, objid);
+			ResultSet rs = statement.executeQuery();
+			byte answer = -1;
+			if (rs.next())
+			{
+				int clanId = rs.getInt(1);
+				if (clanId != 0)
+				{
+					L2Clan clan = ClanTable.getInstance().getClan(clanId);
+					
+					if (clan == null)
+						answer = 0; // jeezes!
+					else if (clan.getLeaderId() == objid)
+						answer = 2;
+					else 
+						answer = 1;
+				}
+				else
+					answer = 0;
+
+				// Setting delete time
+				if (answer == 0)
+				{
+					if (Config.DELETE_DAYS == 0)
+					{
+						deleteCharByObjId(objid);
+					}
+					else
+					{
+						statement = con.prepareStatement("UPDATE characters SET deletetime=? WHERE charId=?");
+						statement.setLong(1, System.currentTimeMillis() + Config.DELETE_DAYS * 86400000L); // 24*60*60*1000 = 86400000
+						statement.setInt(2, objid);
+						statement.execute();
+						statement.close();
+					}
+				}
+			}
+			result = answer;
 		}
 		catch (Exception e)
 		{
 			_log.error("Error updating delete time of character.", e);
+			result = -1;
 		}
 		finally
 		{
@@ -211,31 +249,9 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 			}
 		}
 		
-		return null;
+		return result;
 	}
-	
-	public L2PcInstance deleteChar(int charslot) throws Exception
-	{
-		// have to make sure active character must be nulled
-		/*
-		 * if (getActiveChar() != null) { saveCharToDisk (getActiveChar()); if
-		 * (_log.isDebugEnabled()) _log.debug("active Char saved"); _activeChar =
-		 * null; }
-		 */
 
-		int objid = getObjectIdForSlot(charslot);
-		if (objid < 0)
-			return null;
-		
-		L2PcInstance character = L2PcInstance.load(objid);
-		if (character.getClanId() != 0)
-			return character;
-		character.deleteMe();
-		
-		deleteCharByObjId(objid);
-		return null;
-	}
-	
 	public void markRestoredChar(int charslot) throws Exception
 	{
 		// have to make sure active character must be nulled

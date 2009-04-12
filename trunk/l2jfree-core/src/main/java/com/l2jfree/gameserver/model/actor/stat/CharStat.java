@@ -21,6 +21,7 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.PetDataTable;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.skills.Calculator;
 import com.l2jfree.gameserver.skills.Env;
@@ -469,6 +470,9 @@ public class CharStat
 	{
 		if (_activeChar == null)
 			return 1;
+
+		if (_activeChar instanceof L2BoatInstance)
+			return ((L2BoatInstance) _activeChar).boatSpeed;
 
 		if (_activeChar.isRunning())
 			return getRunSpeed();
