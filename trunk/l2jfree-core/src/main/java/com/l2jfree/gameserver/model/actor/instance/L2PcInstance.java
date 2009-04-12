@@ -664,8 +664,8 @@ public final class L2PcInstance extends L2PlayableInstance
 	/** new race ticket **/
 	private int								_race[]					= new int[2];
 
-	private final BlockList					_blockList				= new BlockList();
-	private final L2FriendList				_friendList				= new L2FriendList(this);
+	private BlockList						_blockList				= new BlockList();
+	private L2FriendList					_friendList				= new L2FriendList(this);
 
 	private boolean							_fishing				= false;
 	private int								_fishx					= 0;
@@ -11770,7 +11770,13 @@ public final class L2PcInstance extends L2PlayableInstance
 			
 			L2World.getInstance().removeFromAllPlayers(this);
 		}
-		catch (Throwable t) { _log.fatal( "deleteMe()", t); }
+		catch (Throwable t)
+		{
+			_log.fatal( "deleteMe()", t);
+		}
+		
+		_friendList = null;
+		_blockList = null;
 		
 		RegionBBSManager.getInstance().changeCommunityBoard();
 		
