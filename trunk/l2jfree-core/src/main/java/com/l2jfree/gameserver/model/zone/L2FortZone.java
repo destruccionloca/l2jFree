@@ -14,8 +14,12 @@
  */
 package com.l2jfree.gameserver.model.zone;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.L2Clan;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.entity.Fort;
 
 public class L2FortZone extends EntityZone
 {
@@ -38,6 +42,19 @@ public class L2FortZone extends EntityZone
 	{
 		super.onEnter(character);
 		character.setInsideZone(FLAG_FORT, true);
+		if (character instanceof L2PcInstance)
+		{
+			L2PcInstance player = (L2PcInstance) character;
+			L2Clan clan = player.getClan();
+			if (clan != null)
+			{
+				Fort f = (Fort) _entity;
+				if (f.getSiege().getIsInProgress() && (f.getSiege().checkIsAttacker(clan) || f.getSiege().checkIsDefender(clan)))
+				{
+					player.startFameTask(Config.FORTRESS_ZONE_FAME_TASK_FREQUENCY * 1000, Config.FORTRESS_ZONE_FAME_AQUIRE_POINTS);
+				}
+			}
+		}
 	}
 	
 	@Override
@@ -45,5 +62,9 @@ public class L2FortZone extends EntityZone
 	{
 		super.onExit(character);
 		character.setInsideZone(FLAG_FORT, false);
+		if (character instanceof L2PcInstance)
+		{
+			((L2PcInstance) character).stopFameTask();
+		}
 	}
 }

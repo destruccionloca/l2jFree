@@ -1439,6 +1439,12 @@ public final class Config extends L2Config
 	public static boolean				ALT_SPECIAL_PETS_FOR_ALL;
 	public static int					ALT_INVENTORY_MAXIMUM_PET;
 
+	public static int					MAX_PERSONAL_FAME_POINTS;
+	public static int					FORTRESS_ZONE_FAME_TASK_FREQUENCY;
+	public static int					FORTRESS_ZONE_FAME_AQUIRE_POINTS;
+	public static int					CASTLE_ZONE_FAME_TASK_FREQUENCY;
+	public static int					CASTLE_ZONE_FAME_AQUIRE_POINTS;
+
 	// *******************************************************************************************
 	// *******************************************************************************************
 	// *******************************************************************************************
@@ -1653,6 +1659,12 @@ public final class Config extends L2Config
 			ALT_AUTOCHAT_DELAY = Integer.parseInt(altSettings.getProperty("AutoChatDelay", "30000"));
 			ALT_SPECIAL_PETS_FOR_ALL = Boolean.parseBoolean(altSettings.getProperty("EverybodyCanUseSpecPets", "false"));
 			ALT_INVENTORY_MAXIMUM_PET = Integer.parseInt(altSettings.getProperty("MaximumSlotsForPet", "12"));
+
+			MAX_PERSONAL_FAME_POINTS			= Integer.parseInt(altSettings.getProperty("MaxPersonalFamePoints", "65535"));
+			FORTRESS_ZONE_FAME_TASK_FREQUENCY	= Integer.parseInt(altSettings.getProperty("FortressZoneFameTaskFrequency", "300"));
+			FORTRESS_ZONE_FAME_AQUIRE_POINTS	= Integer.parseInt(altSettings.getProperty("FortressZoneFameAquirePoints", "31"));
+			CASTLE_ZONE_FAME_TASK_FREQUENCY	= Integer.parseInt(altSettings.getProperty("CastleZoneFameTaskFrequency", "300"));
+			CASTLE_ZONE_FAME_AQUIRE_POINTS	= Integer.parseInt(altSettings.getProperty("CastleZoneFameAquirePoints", "125"));
 		}
 		catch (Exception e)
 		{
@@ -3910,6 +3922,17 @@ public final class Config extends L2Config
 			IRC_ME_SUPPORT = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("IrcToGameMeDisplay"))
 			IRC_TO_GAME_ME_DISPLAY = pValue;
+
+		else if (pName.equalsIgnoreCase("MaxPersonalFamePoints"))
+			MAX_PERSONAL_FAME_POINTS = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("FortressZoneFameTaskFrequency"))
+			FORTRESS_ZONE_FAME_TASK_FREQUENCY = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("FortressZoneFameAquirePoints"))
+			FORTRESS_ZONE_FAME_AQUIRE_POINTS = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("CastleZoneFameTaskFrequency"))
+			CASTLE_ZONE_FAME_TASK_FREQUENCY = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("CastleZoneFameAquirePoints"))
+			CASTLE_ZONE_FAME_AQUIRE_POINTS = Integer.parseInt(pValue);
 
 		else
 			return false;

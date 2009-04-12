@@ -14,8 +14,12 @@
  */
 package com.l2jfree.gameserver.model.zone;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.L2Clan;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.entity.Castle;
 
 public class L2CastleZone extends EntityZone
 {
@@ -36,6 +40,19 @@ public class L2CastleZone extends EntityZone
 	{
 		character.setInsideZone(FLAG_CASTLE, true);
 		super.onEnter(character);
+		if (character instanceof L2PcInstance)
+		{
+			L2PcInstance player = (L2PcInstance) character;
+			L2Clan clan = player.getClan();
+			if (clan != null)
+			{
+				Castle c = (Castle) _entity;
+				if (c.getSiege().getIsInProgress() && (c.getSiege().checkIsAttacker(clan) || c.getSiege().checkIsDefender(clan)))
+				{
+					player.startFameTask(Config.CASTLE_ZONE_FAME_TASK_FREQUENCY * 1000, Config.CASTLE_ZONE_FAME_AQUIRE_POINTS);
+				}
+			}
+		}
 	}
 	
 	@Override
@@ -43,5 +60,9 @@ public class L2CastleZone extends EntityZone
 	{
 		character.setInsideZone(FLAG_CASTLE, false);
 		super.onExit(character);
+		if (character instanceof L2PcInstance)
+		{
+			((L2PcInstance) character).stopFameTask();
+		}
 	}
 }

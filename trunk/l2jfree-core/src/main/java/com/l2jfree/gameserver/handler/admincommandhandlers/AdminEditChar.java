@@ -41,6 +41,7 @@ import com.l2jfree.gameserver.network.serverpackets.SetSummonRemainTime;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 import com.l2jfree.gameserver.util.Util;
 
 /**
@@ -72,6 +73,7 @@ public class AdminEditChar implements IAdminCommandHandler
 	private static final String[]	ADMIN_COMMANDS		=
 														{ "admin_edit_character", "admin_current_player", "admin_nokarma", // this is to remove karma from selected char...
 			"admin_setkarma", // sets karma of target char to any amount. //setkarma <karma>
+			"admin_setfame", // sets fame of target char to any amount. //setfame <fame>
 			"admin_character_list", //same as character_info, kept for compatibility purposes
 			"admin_character_info", //given a player name, displays an information window
 			"admin_show_characters",//list of characters
@@ -187,6 +189,30 @@ public class AdminEditChar implements IAdminCommandHandler
 				activeChar.sendMessage("Usage: //setkarma <new_karma_value>");
 			}
 		}
+		else if (command.startsWith("admin_setfame"))
+		{
+			try
+			{
+				String val = command.substring(15);
+				int fame = Integer.parseInt(val);
+				L2Object target = activeChar.getTarget();
+				if (target instanceof L2PcInstance)
+				{
+					L2PcInstance player = (L2PcInstance) target;
+					player.setFame(fame);
+					player.sendPacket(new UserInfo(player));
+					player.sendMessage("A GM changed your Reputation points to " + fame);
+				}
+				else
+				{
+					activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+				}
+			}
+			catch (Exception e)
+			{
+				activeChar.sendMessage("Usage: //setfame <new_fame_value>");
+ 			}
+ 		}
 		else if (command.startsWith("admin_save_modifications"))
 		{
 			try

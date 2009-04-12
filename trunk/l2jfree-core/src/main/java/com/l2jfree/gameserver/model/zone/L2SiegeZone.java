@@ -153,8 +153,11 @@ public class L2SiegeZone extends EntityZone
 					character.setInsideZone(FLAG_NOSUMMON, false);
 
 					if (character instanceof L2PcInstance)
+					{
 						character.sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
-					if (character instanceof L2SiegeSummonInstance)
+						((L2PcInstance) character).stopFameTask();
+					}
+					else if (character instanceof L2SiegeSummonInstance)
 					{
 						((L2SiegeSummonInstance)character).unSummon(((L2SiegeSummonInstance)character).getOwner());
 					}
