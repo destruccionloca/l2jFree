@@ -27,13 +27,13 @@ public final class ConditionForceBuff extends Condition
 	private static final short BATTLE_FORCE = 5104;
 	private static final short SPELL_FORCE = 5105;
 	
-	private final int _battleForces;
-	private final int _spellForces;
+	private final byte _battleForces;
+	private final byte _spellForces;
 	
-	public ConditionForceBuff(byte[] forces)
+	public ConditionForceBuff(byte battleForces, byte spellForces)
 	{
-		_battleForces = forces[0];
-		_spellForces = forces[1];
+		_battleForces = battleForces;
+		_spellForces = spellForces;
 	}
 	
 	@Override

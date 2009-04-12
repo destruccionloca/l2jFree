@@ -24,7 +24,7 @@ public class TestFuncAdd extends TestCase
 
     public void testFuncAddCalc()
     {
-        FuncAdd fa = new FuncAdd(Stats.MAX_HP,1,null,new LambdaConst(2), null);
+        FuncAdd fa = new FuncAdd(Stats.MAX_HP,1,null,2, null);
         
         Env env = new Env();
         env.value=1;

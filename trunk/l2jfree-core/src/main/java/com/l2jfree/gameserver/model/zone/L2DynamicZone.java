@@ -212,7 +212,7 @@ public class L2DynamicZone extends L2DefaultZone
 			if (n.getNodeType() == Node.ELEMENT_NODE)
 				cond.add(parseCondition(n, template));
 		}
-		return cond.getCanonicalCondition("zone " + _name);
+		return cond.getCanonicalCondition();
 	}
 
 	private Condition parseLogicOr(Node n, Object template)
@@ -223,7 +223,7 @@ public class L2DynamicZone extends L2DefaultZone
 			if (n.getNodeType() == Node.ELEMENT_NODE)
 				cond.add(parseCondition(n, template));
 		}
-		return cond.getCanonicalCondition("zone " + _name);
+		return cond.getCanonicalCondition();
 	}
 
 	private Condition parseLogicNot(Node n, Object template)
@@ -329,8 +329,8 @@ public class L2DynamicZone extends L2DefaultZone
 	}
 
 	/**
-	 * @param n  
-	 * @param template  
+	 * @param n
+	 * @param template
 	 */
 	private Condition parseTargetCondition(Node n, Object template)
 	{

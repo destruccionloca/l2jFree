@@ -159,11 +159,11 @@ public final class Util
 	}
 
 	/**
-	 * @param x1  
-	 * @param y1  
-	 * @param z1  
-	 * @param x2  
-	 * @param y2  
+	 * @param x1
+	 * @param y1
+	 * @param z1
+	 * @param x2
+	 * @param y2
 	 */
 	public final static double calculateDistance(int x1, int y1, int z1, int x2, int y2)
 	{
@@ -282,7 +282,7 @@ public final class Util
 	}
 
 	/*
-	 *  Checks if object is within short (sqrt(int.max_value)) radius, 
+	 *  Checks if object is within short (sqrt(int.max_value)) radius,
 	 *  not using collisionRadius. Faster calculation than checkIfInRange
 	 *  if distance is short and collisionRadius isn't needed.
 	 *  Not for long distance checks (potential teleports, far away castles etc)
@@ -338,9 +338,9 @@ public final class Util
 	}
 
 	/**
-	 * Returns the rounded value of val to specified number of digits 
+	 * Returns the rounded value of val to specified number of digits
 	 * after the decimal point.<BR>
-	 * (Based on round() in PHP) 
+	 * (Based on round() in PHP)
 	 * 
 	 * @param float val
 	 * @param int numPlaces
@@ -412,17 +412,6 @@ public final class Util
 		for (i = 0; i < (maxlength - slen); i++)
 			s = "=" + s;
 		System.out.println(s);
-	}
-
-	public static int hash(int a)
-	{
-		a = ~a + (a << 15);
-		a = a ^ (a >>> 12);
-		a = a + (a << 2);
-		a = a ^ (a >>> 4);
-		a = (a + (a << 3)) + (a << 11);
-		a = a ^ (a >>> 16);
-		return a;
 	}
 
 	public static Map<Integer, Integer> sortMap(Map<Integer, Integer> map, boolean asc)

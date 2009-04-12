@@ -23,7 +23,7 @@ public class TestFuncMul extends TestCase
 {
     public void testFuncDivCalc()
     {
-        FuncMul fa = new FuncMul(Stats.MAX_HP, 1, null, new LambdaConst(2), null);
+        FuncMul fa = new FuncMul(Stats.MAX_HP, 1, null, 2, null);
 
         Env env = new Env();
         env.value = 1;

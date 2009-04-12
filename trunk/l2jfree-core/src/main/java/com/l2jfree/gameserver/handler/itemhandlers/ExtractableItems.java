@@ -14,9 +14,7 @@
  */
 package com.l2jfree.gameserver.handler.itemhandlers;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.ExtractableItemsData;
-import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.items.model.L2ExtractableItem;
 import com.l2jfree.gameserver.items.model.L2ExtractableProductItem;

@@ -102,7 +102,7 @@ public abstract class L2Effect implements FuncOwner
 					_periodStartTicks = GameTimeController.getGameTicks();
 				else
 					_periodfirsttime = 0;
-				L2Effect.this.scheduleEffect();
+				scheduleEffect();
 			}
 			catch (Exception e)
 			{
@@ -129,12 +129,12 @@ public abstract class L2Effect implements FuncOwner
 
 		// TODO DrHouse: This should be reworked, we need to be able to change effect time out of Effect Constructor
 		// maybe using a child class
-		// Support for retail herbs duration when _effected has a Summon 
+		// Support for retail herbs duration when _effected has a Summon
 		int id = _skill.getId();
 		int temp = template.period;
 		if ((id > 2277 && id < 2286) || (id >= 2512 && id <= 2514))
 		{
-			if (_effected instanceof L2SummonInstance 
+			if (_effected instanceof L2SummonInstance
 				|| (_effected instanceof L2PcInstance && _effected.getPet() instanceof L2SummonInstance))
 			{
 				temp /= 2;
@@ -144,7 +144,7 @@ public abstract class L2Effect implements FuncOwner
 		if (env.skillMastery)
 			temp *= 2;
 		
-		_period = temp; 
+		_period = temp;
 
 		_periodStartTicks = GameTimeController.getGameTicks();
 		_periodfirsttime = 0;
@@ -320,12 +320,7 @@ public abstract class L2Effect implements FuncOwner
 	
 	public final double calc()
 	{
-		Env env = new Env();
-		env.player = _effector;
-		env.target = _effected;
-		env.skill = _skill;
-		
-		return _template.lambda.calc(env);
+		return _template.lambda;
 	}
 	
 	private synchronized void startEffectTask(int duration)

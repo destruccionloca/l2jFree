@@ -123,7 +123,6 @@ import com.l2jfree.gameserver.network.L2GamePacketHandler;
 import com.l2jfree.gameserver.script.faenor.FaenorScriptEngine;
 import com.l2jfree.gameserver.scripting.CompiledScriptCache;
 import com.l2jfree.gameserver.scripting.L2ScriptEngineManager;
-import com.l2jfree.gameserver.skills.SkillsEngine;
 import com.l2jfree.gameserver.taskmanager.AiTaskManager;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
@@ -229,7 +228,6 @@ public class GameServer
 		
 		Util.printSection("Skills");
 		SkillTreeTable.getInstance();
-		SkillsEngine.getInstance();
 		SkillTable.getInstance();
 		PetSkillsTable.getInstance();
 		NobleSkillTable.getInstance();

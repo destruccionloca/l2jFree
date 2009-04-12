@@ -23,7 +23,6 @@ import com.l2jfree.gameserver.network.serverpackets.SkillCoolTime;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.funcs.FuncAdd;
 import com.l2jfree.gameserver.skills.funcs.FuncOwner;
-import com.l2jfree.gameserver.skills.funcs.LambdaConst;
 
 /**
  * Used to store an augmentation and its boni
@@ -81,7 +80,7 @@ public final class L2Augmentation
 				return;
 
 			for (int i = 0; i < _stats.length; i++)
-				player.addStatFunc(new FuncAdd(_stats[i], 0x40, this, new LambdaConst(_values[i]), null));
+				player.addStatFunc(new FuncAdd(_stats[i], 0x40, this, _values[i], null));
 
 			_active = true;
 		}

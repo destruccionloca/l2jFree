@@ -19,7 +19,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.concurrent.ScheduledFuture;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -80,7 +79,7 @@ public class CursedWeapon
         _name = name;
         _itemId = itemId;
         _skillId = skillId;
-        _skillMaxLevel = SkillTable.getInstance().getMaxLevel(_skillId, 0);
+        _skillMaxLevel = SkillTable.getInstance().getMaxLevel(_skillId);
     }
 
 
@@ -432,7 +431,7 @@ public class CursedWeapon
 
         // Save previous transformation
         if (_player.transformId() > 0)
-            _player.transformInsertInfo(); 
+            _player.transformInsertInfo();
         // Refresh player stats
         transform();
         _player.broadcastUserInfo();

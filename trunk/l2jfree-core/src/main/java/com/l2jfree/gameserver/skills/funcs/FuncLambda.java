@@ -22,9 +22,9 @@ import com.l2jfree.gameserver.skills.conditions.Condition;
  */
 abstract class FuncLambda extends Func
 {
-	final Lambda _lambda;
+	final double _lambda;
 	
-	protected FuncLambda(Stats pStat, int pOrder, FuncOwner pFuncOwner, Lambda pLambda, Condition pCondition)
+	protected FuncLambda(Stats pStat, int pOrder, FuncOwner pFuncOwner, double pLambda, Condition pCondition)
 	{
 		super(pStat, pOrder, pFuncOwner, pCondition);
 		

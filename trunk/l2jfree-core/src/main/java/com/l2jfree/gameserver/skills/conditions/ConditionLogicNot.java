@@ -26,7 +26,7 @@ public final class ConditionLogicNot extends Condition
 	public ConditionLogicNot(Condition condition)
 	{
 		if (condition == null)
-			throw new NullPointerException();
+			throw new IllegalStateException("Tried to add a 'null' condition to a <not> condition");
 		
 		_condition = condition;
 	}

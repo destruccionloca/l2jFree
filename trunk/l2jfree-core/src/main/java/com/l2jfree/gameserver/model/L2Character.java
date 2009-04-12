@@ -303,11 +303,11 @@ public abstract class L2Character extends L2Object
 	}
 
 	/**
-	 * @param process  
-	 * @param itemId 
-	 * @param count 
-	 * @param reference 
-	 * @param sendMessage 
+	 * @param process
+	 * @param itemId
+	 * @param count
+	 * @param reference
+	 * @param sendMessage
 	 */
 	public boolean destroyItemByItemId(String process, int itemId, int count, L2Object reference, boolean sendMessage)
 	{
@@ -317,11 +317,11 @@ public abstract class L2Character extends L2Object
 	}
 
 	/**
-	 * @param process  
-	 * @param objectId 
-	 * @param count 
-	 * @param reference 
-	 * @param sendMessage 
+	 * @param process
+	 * @param objectId
+	 * @param count
+	 * @param reference
+	 * @param sendMessage
 	 */
 	public boolean destroyItem(String process, int objectId, int count, L2Object reference, boolean sendMessage)
 	{
@@ -502,14 +502,14 @@ public abstract class L2Character extends L2Object
 	 * <li> L2PcInstance</li>
 	 * <BR>
 	 * <BR>
-	 * @param gsp 
+	 * @param gsp
 	 */
 	public void sendPacket(L2GameServerPacket gsp)
 	{
 	}
 
 	/**
-	 * @param sm  
+	 * @param sm
 	 */
 	public void sendPacket(SystemMessageId sm)
 	{
@@ -726,7 +726,7 @@ public abstract class L2Character extends L2Object
 	{
 		isFalling(false, 0);
 
-		if (isInvul() || (this instanceof L2PcInstance && this.isInFunEvent()))
+		if (isInvul() || (this instanceof L2PcInstance && isInFunEvent()))
 		{
 			setIsFallsdown(false);
 			return;
@@ -857,7 +857,7 @@ public abstract class L2Character extends L2Object
 
 			if (target instanceof L2PcInstance)
 			{
-				if (((L2PcInstance) target).isCursedWeaponEquipped() && this.getLevel() <= 20)
+				if (((L2PcInstance) target).isCursedWeaponEquipped() && getLevel() <= 20)
 				{
 					sendMessage("Can't attack a cursed player when under level 21.");
 					sendPacket(ActionFailed.STATIC_PACKET);
@@ -1895,7 +1895,7 @@ public abstract class L2Character extends L2Object
 				callSkill(skill, targets);
 		}
 
-		// To prevent area skill animation/packet arrive too late 
+		// To prevent area skill animation/packet arrive too late
 		broadcastPacket(new MagicSkillLaunched(this, magicId, level, targets));
 		// Send a Server->Client packet MagicSkillUse with target, displayId, level, skillTime, reuseDelay
 		// to the L2Character AND to all L2PcInstance in the _knownPlayers of the L2Character
@@ -1961,7 +1961,7 @@ public abstract class L2Character extends L2Object
 					_skillCast2 = null;
 				}
 				// Create a task MagicUseTask to launch the MagicSkill at the end of the casting time (hitTime)
-				// For client animation reasons (party buffs especially) 200 ms before! 
+				// For client animation reasons (party buffs especially) 200 ms before!
 				if (effectWhileCasting)
 					_skillCast2 = ThreadPoolManager.getInstance().scheduleEffect(new MagicUseTask(targets, skill, coolTime, 2, simultaneously), hitTime);
 				else
@@ -1975,7 +1975,7 @@ public abstract class L2Character extends L2Object
 					_skillCast = null;
 				}
 				// Create a task MagicUseTask to launch the MagicSkill at the end of the casting time (hitTime)
-				// For client animation reasons (party buffs especially) 200 ms before! 
+				// For client animation reasons (party buffs especially) 200 ms before!
 				if (effectWhileCasting)
 					_skillCast = ThreadPoolManager.getInstance().scheduleEffect(new MagicUseTask(targets, skill, coolTime, 2, simultaneously), hitTime);
 				else
@@ -2046,7 +2046,7 @@ public abstract class L2Character extends L2Object
 		}
 		case SUMMON:
 		{
-			if (!skill.isCubic() && this instanceof L2PcInstance && (this.getPet() != null || ((L2PcInstance) this).isMounted()))
+			if (!skill.isCubic() && this instanceof L2PcInstance && (getPet() != null || ((L2PcInstance) this).isMounted()))
 			{
 				if (_log.isDebugEnabled())
 					_log.info("player has a pet already. ignore summon skill");
@@ -2283,7 +2283,7 @@ public abstract class L2Character extends L2Object
 			qs.getQuest().notifyDeath((killer == null ? this : killer), this, qs);
 		}
 		getNotifyQuestOfDeath().clear();
-		// If character is PhoenixBlessed 
+		// If character is PhoenixBlessed
 		// or has charm of courage inside siege battlefield (exact operation to be confirmed)
 		// a resurrection popup will show up
 		if (this instanceof L2Summon)
@@ -2295,7 +2295,7 @@ public abstract class L2Character extends L2Object
 		{
 			if (((L2PlayableInstance)this).isPhoenixBlessed())
 				((L2PcInstance)this).reviveRequest(((L2PcInstance)this), null);
-			else if (((L2PcInstance)this).getCharmOfCourage() 
+			else if (((L2PcInstance)this).getCharmOfCourage()
 					&& isInsideZone(L2Zone.FLAG_SIEGE)
 					&& ((L2PcInstance)this).getSiegeState() != 0) // could check it more accurately too
 			{
@@ -2307,7 +2307,7 @@ public abstract class L2Character extends L2Object
 	}
 
 	/**
-	 * @param killer  
+	 * @param killer
 	 */
 	protected void calculateRewards(L2Character killer)
 	{
@@ -2333,7 +2333,7 @@ public abstract class L2Character extends L2Object
 
 			if(restorefull)
 			{
-				//_status.setCurrentCp(getMaxCp()); //this is not confirmed... 
+				//_status.setCurrentCp(getMaxCp()); //this is not confirmed...
 				_status.setCurrentHp(getMaxHp()); //confirmed
 				_status.setCurrentMp(getMaxMp()); //and also confirmed
 			}
@@ -2354,7 +2354,7 @@ public abstract class L2Character extends L2Object
 			setIsPendingRevive(true);
 	}
 
-	/** Revives the L2Character using skill. 
+	/** Revives the L2Character using skill.
 	 * @param revivePower */
 	public void doRevive(double revivePower)
 	{
@@ -2964,7 +2964,7 @@ public abstract class L2Character extends L2Object
 			catch (Exception e)
 			{
 				_log.error(e.getMessage(), e);
-				if (_simultaneously) 
+				if (_simultaneously)
 					setIsCastingSimultaneouslyNow(false);
 				else
 					setIsCastingNow(false);
@@ -3008,7 +3008,7 @@ public abstract class L2Character extends L2Object
 
 		NotifyAITask(CtrlEvent evt)
 		{
-			this._evt = evt;
+			_evt = evt;
 		}
 
 		public void run()
@@ -3886,7 +3886,7 @@ public abstract class L2Character extends L2Object
 		 */
 		public void moveTo(int x, int y, int z, int offset)
 		{
-			L2Character.this.moveToLocation(x, y, z, offset);
+			moveToLocation(x, y, z, offset);
 		}
 
 		/**
@@ -3895,7 +3895,7 @@ public abstract class L2Character extends L2Object
 		 */
 		public void moveTo(int x, int y, int z)
 		{
-			L2Character.this.moveToLocation(x, y, z, 0);
+			moveToLocation(x, y, z, 0);
 		}
 
 		/**
@@ -3941,7 +3941,7 @@ public abstract class L2Character extends L2Object
 		 */
 		public void detachAI()
 		{
-			L2Character.this._ai = null;
+			_ai = null;
 		}
 	}
 
@@ -4438,7 +4438,7 @@ public abstract class L2Character extends L2Object
 		int zPrev = getZ(); // the z coordinate may be modified by coordinate synchronizations
 
 		double dx, dy, dz, distFraction;
-		if (Config.COORD_SYNCHRONIZE == 1) 
+		if (Config.COORD_SYNCHRONIZE == 1)
 		// the only method that can modify x,y while moving (otherwise _move would/should be set null)
 		{
 			dx = m._xDestination - xPrev;
@@ -4450,7 +4450,7 @@ public abstract class L2Character extends L2Object
 			dy = m._yDestination - m._yAccurate;
 		}
 		// Z coordinate will follow geodata or client values
-		if (Config.GEODATA>0 && Config.COORD_SYNCHRONIZE == 2 
+		if (Config.GEODATA>0 && Config.COORD_SYNCHRONIZE == 2
 			&& !isFlying() && !isInsideZone(L2Zone.FLAG_WATER)
 			&& !m.disregardingGeodata
 			&& GameTimeController.getGameTicks() % 10 == 0
@@ -4459,18 +4459,18 @@ public abstract class L2Character extends L2Object
 			short geoHeight = GeoData.getInstance().getSpawnHeight(xPrev, yPrev, zPrev-30, zPrev+30, getObjectId());
 			dz = m._zDestination - geoHeight;
 			// quite a big difference, compare to validatePosition packet
-			if (this instanceof L2PcInstance && Math.abs(this.getClientZ() - geoHeight) > 200
-					&& Math.abs(this.getClientZ() - geoHeight) < 1500)
+			if (this instanceof L2PcInstance && Math.abs(getClientZ() - geoHeight) > 200
+					&& Math.abs(getClientZ() - geoHeight) < 1500)
 			{
-				dz = m._zDestination - zPrev; // allow diff 
+				dz = m._zDestination - zPrev; // allow diff
 			}
 			else if (isInCombat() && Math.abs(dz) > 200 && (dx*dx + dy*dy) < 40000) // allow mob to climb up to pcinstance
 			{
-				dz = m._zDestination - zPrev; // climbing 
+				dz = m._zDestination - zPrev; // climbing
 			}
 			else
-			{ 
-				zPrev = geoHeight; 
+			{
+				zPrev = geoHeight;
 			}
 		}
 		else
@@ -4576,16 +4576,16 @@ public abstract class L2Character extends L2Object
 			getKnownList().updateKnownObjects();
 	}
 
-	/** 
-	 * @return Returns the showSummonAnimation. 
+	/**
+	 * @return Returns the showSummonAnimation.
 	 */
 	public boolean isShowSummonAnimation()
 	{
 		return _showSummonAnimation;
 	}
 
-	/** 
-	 * @param showSummonAnimation The showSummonAnimation to set. 
+	/**
+	 * @param showSummonAnimation The showSummonAnimation to set.
 	 */
 	public void setShowSummonAnimation(boolean showSummonAnimation)
 	{
@@ -4712,7 +4712,7 @@ public abstract class L2Character extends L2Object
 		
 		// make water move short and use no geodata checks for swimming chars
 		// distance in a click can easily be over 3000
-		if (Config.GEODATA > 0 && isInsideZone(L2Zone.FLAG_WATER) && distance > 700) 
+		if (Config.GEODATA > 0 && isInsideZone(L2Zone.FLAG_WATER) && distance > 700)
         {
 			double divider = 700/distance;
         	x = curX + (int)(divider * dx);
@@ -4744,7 +4744,7 @@ public abstract class L2Character extends L2Object
 		{
 			// approximation for moving closer when z coordinates are different
 			// TODO: handle Z axis movement better
-			offset -= Math.abs(dz);  
+			offset -= Math.abs(dz);
 			if (offset < 5) offset = 5;
 
 			// If no distance to go through, the movement is canceled
@@ -4782,7 +4782,7 @@ public abstract class L2Character extends L2Object
 		m.onGeodataPathIndex = -1; // Initialize not on geodata path
 		m.disregardingGeodata = false;
 		
-		if (Config.GEODATA > 0 
+		if (Config.GEODATA > 0
 			&& !isFlying() // flying chars not checked - even canSeeTarget doesn't work yet
 			&& (!isInsideZone(L2Zone.FLAG_WATER) || isInsideZone(L2Zone.FLAG_SIEGE)) // swimming also not checked unless in siege zone - but distance is limited
 			&& !(this instanceof L2NpcWalkerInstance)) // npc walkers not checked
@@ -4797,9 +4797,9 @@ public abstract class L2Character extends L2Object
 			// Movement checks:
 			// when geodata == 2, for all characters except mobs returning home (could be changed later to teleport if pathfinding fails)
 			// when geodata == 1, for l2playableinstance and l2riftinstance only
-			if ((Config.GEODATA == 2 &&	!(this instanceof L2Attackable && ((L2Attackable)this).isReturningToSpawnPoint())) 
-					|| this instanceof L2PcInstance 
-					|| (this instanceof L2Summon && !(this.getAI().getIntention() == AI_INTENTION_FOLLOW)) // assuming intention_follow only when following owner
+			if ((Config.GEODATA == 2 &&	!(this instanceof L2Attackable && ((L2Attackable)this).isReturningToSpawnPoint()))
+					|| this instanceof L2PcInstance
+					|| (this instanceof L2Summon && !(getAI().getIntention() == AI_INTENTION_FOLLOW)) // assuming intention_follow only when following owner
 					|| isAfraid()
 					|| this instanceof L2RiftInvaderInstance)
 			{
@@ -4809,9 +4809,9 @@ public abstract class L2Character extends L2Object
 						if (gtx == _move.geoPathGtx && gty == _move.geoPathGty)
 							return;
 						else
-							_move.onGeodataPathIndex = -1; // Set not on geodata path	
-					} catch (NullPointerException e) 
-					{ 
+							_move.onGeodataPathIndex = -1; // Set not on geodata path
+					} catch (NullPointerException e)
+					{
 						// nothing
 					}
 				}
@@ -4819,12 +4819,12 @@ public abstract class L2Character extends L2Object
 				if (curX < L2World.MAP_MIN_X || curX > L2World.MAP_MAX_X || curY < L2World.MAP_MIN_Y  || curY > L2World.MAP_MAX_Y)
 				{
 					// Temporary fix for character outside world region errors
-					_log.warn("Character "+this.getName()+" outside world area, in coordinates x:"+curX+" y:"+curY);
+					_log.warn("Character "+getName()+" outside world area, in coordinates x:"+curX+" y:"+curY);
 					getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 					if (this instanceof L2PcInstance)
 						new Disconnection((L2PcInstance)this).defaultSequence(true);
 					else if (!(this instanceof L2Summon))
-						this.onDecay(); // preventation when summon get out of world coords, player will not loose it, unsummon handled from pcinstance
+						onDecay(); // preventation when summon get out of world coords, player will not loose it, unsummon handled from pcinstance
 					return;
 				}
 				Location destiny = GeoData.getInstance().moveCheck(curX, curY, curZ, x, y, z);
@@ -4838,29 +4838,29 @@ public abstract class L2Character extends L2Object
 			// Pathfinding checks. Only when geodata setting is 2, the LoS check gives shorter result
 			// than the original movement was and the LoS gives a shorter distance than 2000
 			// This way of detecting need for pathfinding could be changed.
-			if(Config.GEODATA == 2 && originalDistance-distance > 100 && distance < 2000 && !this.isAfraid())
+			if(Config.GEODATA == 2 && originalDistance-distance > 100 && distance < 2000 && !isAfraid())
 			{
 				// Path calculation
 				// Overrides previous movement check
-				if(this instanceof L2PlayableInstance || this.isInCombat() || this instanceof L2MinionInstance)
+				if(this instanceof L2PlayableInstance || isInCombat() || this instanceof L2MinionInstance)
 				{
 		
 					m.geoPath = PathFinding.getInstance().findPath(curX, curY, curZ, originalX, originalY, originalZ);
                 	if (m.geoPath == null || m.geoPath.size() < 2) // No path found
                 	{
-                		// * Even though there's no path found (remember geonodes aren't perfect), 
+                		// * Even though there's no path found (remember geonodes aren't perfect),
                 		// the mob is attacking and right now we set it so that the mob will go
-                		// after target anyway, is dz is small enough. 
+                		// after target anyway, is dz is small enough.
                 		// * With cellpathfinding this approach could be changed but would require taking
                 		// off the geonodes and some more checks.
                 		// * Summons will follow their masters no matter what.
                 		// * Currently minions also must move freely since L2AttackableAI commands
                 		// them to move along with their leader
-                		if (this instanceof L2PcInstance 
-                				|| (!(this instanceof L2PlayableInstance) 
+                		if (this instanceof L2PcInstance
+                				|| (!(this instanceof L2PlayableInstance)
                 						&& !(this instanceof L2MinionInstance)
                 						&& Math.abs(z - curZ) > 140)
-                				|| (this instanceof L2Summon && !((L2Summon)this).getFollowStatus())) 
+                				|| (this instanceof L2Summon && !((L2Summon)this).getFollowStatus()))
                 		{
                 			getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
                 			return;
@@ -4910,9 +4910,9 @@ public abstract class L2Character extends L2Object
 				}
 			}
 			// If no distance to go through, the movement is canceled
-			if (distance < 1 && (Config.GEODATA == 2 
+			if (distance < 1 && (Config.GEODATA == 2
 					|| this instanceof L2PlayableInstance
-					|| this.isAfraid()
+					|| isAfraid()
 					|| this instanceof L2RiftInvaderInstance))
 			{
 				if (this instanceof L2Summon)
@@ -4956,7 +4956,7 @@ public abstract class L2Character extends L2Object
 
 	public boolean moveToNextRoutePoint()
 	{
-		if (!this.isOnGeodataPath())
+		if (!isOnGeodataPath())
 		{
 			// Cancel the move action
 			_move = null;
@@ -5569,8 +5569,8 @@ public abstract class L2Character extends L2Object
 				// Launch weapon Special ability effect if available
 				L2Weapon activeWeapon = getActiveWeaponItem();
 
-				if (activeWeapon != null)
-					activeWeapon.getSkillEffects(this, target, crit);
+				if (activeWeapon != null && crit)
+					activeWeapon.getSkillEffectsByCrit(this, target);
 			}
 			return;
 		}
@@ -5628,7 +5628,7 @@ public abstract class L2Character extends L2Object
 	 * <li> L2PcInstance</li>
 	 * <BR>
 	 * <BR>
-	 * @param bolts 
+	 * @param bolts
 	 */
 	protected void reduceArrowCount(boolean bolts)
 	{
@@ -5785,8 +5785,8 @@ public abstract class L2Character extends L2Object
 	/**
 	 * Return the Attack Speed of the L2Character (delay (in milliseconds) before next attack).<BR>
 	 * <BR>
-	 * @param target 
-	 * @param weapon 
+	 * @param target
+	 * @param weapon
 	 */
 	public int calculateTimeBetweenAttacks(L2Character target, L2Weapon weapon)
 	{
@@ -5901,8 +5901,8 @@ public abstract class L2Character extends L2Object
 			if (!newSkill.isChance() && newSkill.getTriggeredId() > 0 && newSkill.bestowTriggered())
 			{
 				L2Skill bestowed = SkillTable.getInstance().getInfo(newSkill.getTriggeredId(), newSkill.getTriggeredLevel());
-				addSkill(bestowed); 
-				//bestowed skills are invisible for player. Visible for gm's looking thru gm window. 
+				addSkill(bestowed);
+				//bestowed skills are invisible for player. Visible for gm's looking thru gm window.
 				//those skills should always be chance or passive, to prevent hlapex.
 			}
 
@@ -6204,8 +6204,8 @@ public abstract class L2Character extends L2Object
 		// Ensure that a cast is in progress
 		// Check if player is using fake death.
 		// Potions can be used while faking death.
-		if ((simultaneously && !isCastingSimultaneouslyNow()) 
-				|| (!simultaneously && !isCastingNow()) 
+		if ((simultaneously && !isCastingSimultaneouslyNow())
+				|| (!simultaneously && !isCastingNow())
 				|| (isAlikeDead() && !skill.isPotion()))
 		{
 			// now cancels both, simultaneous and normal
@@ -6497,7 +6497,7 @@ public abstract class L2Character extends L2Object
 						quest.notifySpellFinished(((L2NpcInstance)this), player, skill);
 					}
 				}
-			} 
+			}
 			catch (Exception e)
 			{
 				_log.error(e.getMessage(), e);
@@ -6676,9 +6676,9 @@ public abstract class L2Character extends L2Object
 				// Launch weapon Special ability skill effect if available
 				if (activeWeapon != null && !target.isDead())
 				{
-					if (activeWeapon.getSkillEffects(this, target, skill) && this instanceof L2PcInstance)
+					if (activeWeapon.getSkillEffectsByCast(this, target, skill) && this instanceof L2PcInstance)
 					{
-						sendPacket(SystemMessage.sendString("Target affected by weapon special ability!"));
+						sendMessage("Target affected by weapon special ability!");
 					}
 				}
 
@@ -6803,9 +6803,9 @@ public abstract class L2Character extends L2Object
 	}
 
 	/**
-	 * @param caster  
-	 * @param target  
-	 * @param skill  
+	 * @param caster
+	 * @param target
+	 * @param skill
 	 */
 	public void seeSpell(L2PcInstance caster, L2Object target, L2Skill skill)
 	{
@@ -6839,7 +6839,7 @@ public abstract class L2Character extends L2Object
 			if (Math.abs(angleDiff) <= maxAngleDiff)
 			{
 				if (_log.isDebugEnabled())
-					_log.debug("Char " + this.getName() + " is behind " + target.getName());
+					_log.debug("Char " + getName() + " is behind " + target.getName());
 				return true;
 			}
 		}
@@ -6893,7 +6893,7 @@ public abstract class L2Character extends L2Object
 			return false;
 		maxAngleDiff = maxAngle / 2;
 		angleTarget = Util.calculateAngleFrom(this, target);
-		angleChar = Util.convertHeadingToDegree(this.getHeading());
+		angleChar = Util.convertHeadingToDegree(getHeading());
 		angleDiff = angleChar - angleTarget;
 		if (angleDiff <= -360 + maxAngleDiff)
 			angleDiff += 360;
@@ -6984,7 +6984,7 @@ public abstract class L2Character extends L2Object
 	}
 
 	/**
-	 * @param value  
+	 * @param value
 	 */
 	public void updatePvPFlag(int value)
 	{
@@ -7264,11 +7264,11 @@ public abstract class L2Character extends L2Object
 	 * <li> L2PetInstance</li>
 	 * <BR>
 	 * <BR>
-	 * @param target 
-	 * @param damage 
-	 * @param mcrit 
-	 * @param pcrit 
-	 * @param miss 
+	 * @param target
+	 * @param damage
+	 * @param mcrit
+	 * @param pcrit
+	 * @param miss
 	 */
 	public void sendDamageMessage(L2Character target, int damage, boolean mcrit, boolean pcrit, boolean miss)
 	{

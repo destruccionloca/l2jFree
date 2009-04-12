@@ -18,18 +18,15 @@ import junit.framework.TestCase;
 
 import com.l2jfree.gameserver.model.L2Skill.SkillOpType;
 import com.l2jfree.gameserver.model.L2Skill.SkillTargetType;
-import com.l2jfree.gameserver.templates.skills.L2SkillType;
-import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
-import com.l2jfree.gameserver.skills.conditions.ConditionItemId;
-import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
 import com.l2jfree.gameserver.templates.StatsSet;
+import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
 /**
  * Class for L2Skill testing
  * 
  */
 public class TestL2Skill extends TestCase
-{   
+{
     /**
      * StatsSet used for test
      */
@@ -44,7 +41,7 @@ public class TestL2Skill extends TestCase
     {
         super.setUp();
         
-        // Initialize stats set with mandatory value 
+        // Initialize stats set with mandatory value
         statsSetForTest = new StatsSet();
         statsSetForTest.set("skill_id",1);
         statsSetForTest.set("level",1);
@@ -79,28 +76,8 @@ public class TestL2Skill extends TestCase
         statsSetForTestNpc.set("baseRunSpd",1);
         statsSetForTestNpc.set("baseWalkSpd",1);
         statsSetForTestNpc.set("collision_radius",1);
-        statsSetForTestNpc.set("collision_height",1);        
+        statsSetForTestNpc.set("collision_height",1);
         statsSetForTestNpc.set("fcollision_radius",1);
         statsSetForTestNpc.set("fcollision_height",1);
     }
-    
-    
-	/**
-	 * Test for ticket #5 : http://www.l2jfree.com:8080/trac/l2j-free/ticket/5
-     * We check a condition but if condition are on itemOrWeapon, it crashed
-	 */
-	public final void testCheckCondition()
-	{
-            L2Skill l2skill = new L2Skill (statsSetForTest);
-            l2skill.attach(new ConditionItemId(57),true);
-            
-            L2Character activeChar = new L2BoatInstance(1,new L2CharTemplate(statsSetForTestNpc),"BoatPeople");
-
-            l2skill.checkCondition(activeChar,activeChar, true);
-	}
-    
-     
-
-	
-
 }

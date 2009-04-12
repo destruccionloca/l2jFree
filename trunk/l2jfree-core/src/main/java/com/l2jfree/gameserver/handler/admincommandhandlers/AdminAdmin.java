@@ -447,7 +447,7 @@ public class AdminAdmin implements IAdminCommandHandler
 				}
 				else if (type.startsWith("skill"))
 				{
-					SkillTable.getInstance().reload();
+					SkillTable.reload();
 					activeChar.sendMessage("Skills reloaded");
 				}
 				else if (type.startsWith("npcwalker"))
@@ -473,7 +473,7 @@ public class AdminAdmin implements IAdminCommandHandler
 				}
 				else if (type.startsWith("item"))
 				{
-					ItemTable.getInstance().reload();
+					ItemTable.reload();
 					activeChar.sendMessage("Item templates reloaded");
 				}
 				else if (type.startsWith("config"))

@@ -14,18 +14,15 @@
  */
 package com.l2jfree.gameserver.skills.funcs;
 
+import junit.framework.TestCase;
+
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.conditions.Condition;
 import com.l2jfree.gameserver.skills.conditions.ConditionLogicAnd;
 import com.l2jfree.gameserver.skills.conditions.ConditionLogicOr;
-import com.l2jfree.gameserver.skills.funcs.Func;
-import com.l2jfree.gameserver.skills.funcs.FuncTemplate;
-import com.l2jfree.gameserver.skills.funcs.LambdaConst;
 
-import junit.framework.TestCase;
-
-public class TestFuncTemplate extends TestCase 
+public class TestFuncTemplate extends TestCase
 {
     public void testInstantiateGoodFunc ()
     {
@@ -33,7 +30,7 @@ public class TestFuncTemplate extends TestCase
         Condition clo = new ConditionLogicOr();
         try
         {
-            new FuncTemplate(cla,clo,"Add",Stats.MAX_HP, 1, new LambdaConst(2));
+            new FuncTemplate(cla,clo,"Add",Stats.MAX_HP, 1, 2);
         }
         catch (RuntimeException e)
         {
@@ -47,14 +44,14 @@ public class TestFuncTemplate extends TestCase
         Condition clo = new ConditionLogicOr();
         try
         {
-            new FuncTemplate(cla,clo,"FuncNotExistant",Stats.MAX_HP, 1, new LambdaConst(2));
+            new FuncTemplate(cla,clo,"FuncNotExistant",Stats.MAX_HP, 1, 2);
             fail ("Function should be not found");
         }
         catch (RuntimeException e)
         {
             assertNotNull(e);
         }
-    }    
+    }
 	
     
     public void testExecuteFuncWithNoConditions ()
@@ -63,7 +60,7 @@ public class TestFuncTemplate extends TestCase
         Condition clo = null;
         try
         {
-            FuncTemplate fa = new FuncTemplate(cla,clo,"Add",Stats.MAX_HP, 1, new LambdaConst(2));
+            FuncTemplate fa = new FuncTemplate(cla,clo,"Add",Stats.MAX_HP, 1, 2);
             Env env = new Env();
             env.value=1;
             Func f = fa.getFunc(env, null);
@@ -74,6 +71,6 @@ public class TestFuncTemplate extends TestCase
         {
             fail (e.getMessage());
         }
-    }    
+    }
 
 }

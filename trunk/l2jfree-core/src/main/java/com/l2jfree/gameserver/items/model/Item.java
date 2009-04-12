@@ -14,23 +14,23 @@
  */
 package com.l2jfree.gameserver.items.model;
 
-import com.l2jfree.gameserver.templates.item.AbstractL2ItemType;
-import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.gameserver.templates.StatsSet;
+import com.l2jfree.gameserver.templates.item.AbstractL2ItemType;
 
 /**
- * This class ...
- * 
- * @version $Revision: 1.2 $ $Date: 2004/06/27 08:12:59 $
  * @author luisantonioa
  */
-public class Item
+public final class Item
 {
-    public int				id;
-    public int				displayid;
-    public AbstractL2ItemType		type;
-    public String			name;
-    public StatsSet			set;
-    public int				currentLevel;
-    public L2Item			item;
+	public int id;
+	public int displayid;
+	public AbstractL2ItemType type;
+	public String name;
+	public StatsSet set;
+	
+	@Override
+	public String toString()
+	{
+		return super.toString() + "[id=" + id + "]";
+	}
 }

@@ -20,7 +20,7 @@ import com.l2jfree.gameserver.skills.conditions.Condition;
 
 public final class FuncBaseMul extends FuncLambda
 {
-	public FuncBaseMul(Stats pStat, int pOrder, FuncOwner pFuncOwner, Lambda pLambda, Condition pCondition)
+	public FuncBaseMul(Stats pStat, int pOrder, FuncOwner pFuncOwner, double pLambda, Condition pCondition)
 	{
 		super(pStat, pOrder, pFuncOwner, pLambda, pCondition);
 	}
@@ -28,6 +28,6 @@ public final class FuncBaseMul extends FuncLambda
 	@Override
 	protected void calc(Env env)
 	{
-		env.value += env.baseValue * _lambda.calc(env);
+		env.value += env.baseValue * _lambda;
 	}
 }

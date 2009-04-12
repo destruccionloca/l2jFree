@@ -35,10 +35,10 @@ public final class FuncTemplate
 	
 	public final Stats stat;
 	public final int order;
-	public final Lambda lambda;
+	public final double lambda;
 	public final Condition applayCond;
 	
-	public FuncTemplate(Condition pAttachCond, Condition pApplayCond, String pFunc, Stats pStat, int pOrder, Lambda pLambda)
+	public FuncTemplate(Condition pAttachCond, Condition pApplayCond, String pFunc, Stats pStat, int pOrder, double pLambda)
 	{
 		_attachCond = pAttachCond;
 		
@@ -50,7 +50,7 @@ public final class FuncTemplate
 		try
 		{
 			_constructor = Class.forName("com.l2jfree.gameserver.skills.funcs.Func" + pFunc).getConstructor(
-				Stats.class, Integer.TYPE, FuncOwner.class, Lambda.class, Condition.class);
+				Stats.class, Integer.TYPE, FuncOwner.class, Double.TYPE, Condition.class);
 		}
 		catch (Exception e)
 		{

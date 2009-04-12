@@ -15,16 +15,12 @@
 package com.l2jfree.gameserver.skills.conditions;
 
 import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * @author NB4L1
  */
 public abstract class ConditionLogic extends Condition
 {
-	private static final Log _log = LogFactory.getLog(ConditionLogic.class);
-	
 	private Condition[] _conditions = EMPTY_ARRAY;
 	
 	public final Condition[] getConditions()
@@ -35,18 +31,17 @@ public abstract class ConditionLogic extends Condition
 	public final void add(Condition condition)
 	{
 		if (condition == null)
-			return;
+			throw new IllegalStateException("Tried to add a 'null' condition to an <"
+				+ getClass().getSimpleName().replace("ConditionLogic", "").toLowerCase() + "> condition");
 		
 		_conditions = (Condition[])ArrayUtils.add(_conditions, condition);
 	}
 	
-	public final Condition getCanonicalCondition(Object source)
+	public final Condition getCanonicalCondition()
 	{
 		if (_conditions.length == 0)
-		{
-			_log.fatal("Empty '" + getClass().getSimpleName() + "' in " + source);
-			return null;
-		}
+			throw new IllegalStateException("Empty <"
+				+ getClass().getSimpleName().replace("ConditionLogic", "").toLowerCase() + "> condition");
 		
 		if (_conditions.length == 1)
 			return _conditions[0];

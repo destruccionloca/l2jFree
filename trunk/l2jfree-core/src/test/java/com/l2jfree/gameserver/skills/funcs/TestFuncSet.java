@@ -23,7 +23,7 @@ public class TestFuncSet extends TestCase
 {
     public void testFuncDivCalc()
     {
-        FuncSet fa = new FuncSet(Stats.MAX_HP, 1, null, new LambdaConst(45), null);
+        FuncSet fa = new FuncSet(Stats.MAX_HP, 1, null, 45, null);
 
         Env env = new Env();
         env.value = 1;

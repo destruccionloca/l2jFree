@@ -51,7 +51,6 @@ import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.funcs.FuncMul;
 import com.l2jfree.gameserver.skills.funcs.FuncOwner;
-import com.l2jfree.gameserver.skills.funcs.LambdaConst;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.tools.random.Rnd;
@@ -997,7 +996,7 @@ public class FrintezzaManager extends BossLair
 	private Func getDecreaseRegHpFunc()
 	{
 		if (_DecreaseRegHp == null)
-			_DecreaseRegHp = new FuncMul(Stats.REGENERATE_HP_RATE, 0x30, FUNC_OWNER, new LambdaConst(0.2), null);
+			_DecreaseRegHp = new FuncMul(Stats.REGENERATE_HP_RATE, 0x30, FUNC_OWNER, 0.2, null);
 		
 		return _DecreaseRegHp;
 	}

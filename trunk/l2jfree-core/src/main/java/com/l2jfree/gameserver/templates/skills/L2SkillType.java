@@ -139,7 +139,7 @@ public enum L2SkillType
 	INSTANT_JUMP,
 	BALLISTA,
 	EXTRACTABLE,
-
+	
 	AGATHION(L2SkillAgathion.class),
 	MOUNT(L2SkillMount.class),
 	CHANGEWEAPON(L2SkillChangeWeapon.class),
@@ -154,37 +154,35 @@ public enum L2SkillType
 	SIGNET_CASTTIME(L2SkillSignetCasttime.class),
 	SUMMON(L2SkillSummon.class),
 	SUMMON_TRAP(L2SkillTrap.class),
-
+	
 	// Skill that has no effect.
 	DUMMY,
 	// Skill is done within the core.
 	COREDONE,
 	// Unimplemented
 	NOTDONE;
-
-	private final Class<? extends L2Skill>	_class;
-
-	public L2Skill makeSkill(StatsSet set)
+	
+	private final Constructor<? extends L2Skill> _constructor;
+	
+	private L2SkillType()
+	{
+		this(L2Skill.class);
+	}
+	
+	private L2SkillType(Class<? extends L2Skill> clazz)
 	{
 		try
 		{
-			Constructor<? extends L2Skill> c = _class.getConstructor(StatsSet.class);
-
-			return c.newInstance(set);
+			_constructor = clazz.getConstructor(StatsSet.class);
 		}
 		catch (Exception e)
 		{
 			throw new RuntimeException(e);
 		}
 	}
-
-	private L2SkillType()
+	
+	public L2Skill makeSkill(StatsSet set) throws Exception
 	{
-		_class = L2Skill.class;
-	}
-
-	private L2SkillType(Class<? extends L2Skill> classType)
-	{
-		_class = classType;
+		return _constructor.newInstance(set);
 	}
 }

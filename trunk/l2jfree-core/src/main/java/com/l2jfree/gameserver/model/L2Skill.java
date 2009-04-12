@@ -413,7 +413,6 @@ public class L2Skill implements FuncOwner
 	private final float				_pvpMulti;
 
 	protected Condition				_preCondition;
-	protected Condition				_itemPreCondition;
 	protected FuncTemplate[]		_funcTemplates;
 	protected EffectTemplate[]		_effectTemplates;
 	protected EffectTemplate[]		_effectTemplatesSelf;
@@ -1591,9 +1590,9 @@ public class L2Skill implements FuncOwner
 		return false;
 	}
 	
-	public boolean checkCondition(L2Character activeChar, L2Object target, boolean itemOrWeapon)
+	public boolean checkCondition(L2Character activeChar, L2Object target)
 	{
-		Condition preCondition = itemOrWeapon ? _itemPreCondition : _preCondition;
+		Condition preCondition = _preCondition;
 		if (preCondition == null)
 			return true;
 		
@@ -3853,18 +3852,20 @@ public class L2Skill implements FuncOwner
 		}
 	}
 
-	public final void attach(Condition c, boolean itemOrWeapon)
+	public final void attach(Condition c)
 	{
-		if (itemOrWeapon)
-			_itemPreCondition = c;
-		else
-			_preCondition = c;
+		Condition old = _preCondition;
+		
+		if (old != null)
+			_log.fatal("Replaced " + old + " condition with " + c + " condition at skill: " + this);
+		
+		_preCondition = c;
 	}
 
 	@Override
 	public String toString()
 	{
-		return "" + _name + "[id=" + _id + ",lvl=" + _level + "]";
+		return _name + "[id=" + _id + ",lvl=" + _level + "]";
 	}
 	
 	public String generateUniqueStackType()

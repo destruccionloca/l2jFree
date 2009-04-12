@@ -14,31 +14,34 @@
  */
 package com.l2jfree.gameserver.skills.conditions;
 
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import org.apache.commons.lang.ArrayUtils;
 
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.skills.Env;
 
-
 /**
  * @author nBd
  */
-
-public class ConditionTargetRaceId extends Condition
+public final class ConditionTargetRaceId extends Condition
 {
-	private final ArrayList<Integer>	_raceIds;
-
-	public ConditionTargetRaceId(ArrayList<Integer> raceId)
+	private final int[] _raceIds;
+	
+	public ConditionTargetRaceId(List<Integer> raceId)
 	{
-		_raceIds = raceId;
+		_raceIds = ArrayUtils.toPrimitive(raceId.toArray(new Integer[raceId.size()]), 0);
+		
+		Arrays.sort(_raceIds);
 	}
-
+	
 	@Override
 	public boolean testImpl(Env env)
 	{
-		if (!(env.target instanceof L2NpcInstance) || _raceIds == null || _raceIds.isEmpty())
+		if (!(env.target instanceof L2NpcInstance))
 			return false;
-
-		return (_raceIds.contains(((L2NpcInstance) env.target).getTemplate().getRace().ordinal()));
+		
+		return Arrays.binarySearch(_raceIds, ((L2NpcInstance)env.target).getTemplate().getRace().ordinal()) >= 0;
 	}
 }

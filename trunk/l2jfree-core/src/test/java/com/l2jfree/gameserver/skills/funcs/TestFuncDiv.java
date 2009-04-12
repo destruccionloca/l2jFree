@@ -24,22 +24,22 @@ public class TestFuncDiv extends TestCase
 
     public void testFuncDivCalc()
     {
-        FuncDiv fa = new FuncDiv(Stats.MAX_HP,1,null,new LambdaConst(2), null);
+        FuncDiv fa = new FuncDiv(Stats.MAX_HP,1,null,2, null);
         
         Env env = new Env();
         env.value=1;
         fa.calc(env);
         assertEquals(0.5,env.value);
-    }   
+    }
     
     public void testFuncDivCalcDivByZero()
     {
-        FuncDiv fa = new FuncDiv(Stats.MAX_HP,1,null,new LambdaConst(0), null);
+        FuncDiv fa = new FuncDiv(Stats.MAX_HP,1,null,0, null);
         
         Env env = new Env();
         env.value=1;
         fa.calc(env);
         assertEquals(Double.POSITIVE_INFINITY,env.value);
-    }    
+    }
 
 }

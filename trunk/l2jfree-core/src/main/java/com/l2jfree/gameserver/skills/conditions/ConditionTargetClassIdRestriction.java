@@ -14,25 +14,31 @@
  */
 package com.l2jfree.gameserver.skills.conditions;
 
+import java.util.Arrays;
+import java.util.List;
+
+import org.apache.commons.lang.ArrayUtils;
+
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.skills.Env;
 
-import javolution.util.FastList;
-
 public class ConditionTargetClassIdRestriction extends Condition
 {
-	private final FastList<Integer>	_classIds;
-
-	public ConditionTargetClassIdRestriction(FastList<Integer> classId)
+	private final int[] _classIds;
+	
+	public ConditionTargetClassIdRestriction(List<Integer> classId)
 	{
-		_classIds = classId;
+		_classIds = ArrayUtils.toPrimitive(classId.toArray(new Integer[classId.size()]), 0);
+		
+		Arrays.sort(_classIds);
 	}
-
+	
 	@Override
 	public boolean testImpl(Env env)
 	{
 		if (!(env.target instanceof L2PcInstance))
 			return false;
-		return (_classIds.contains(((L2PcInstance) env.target).getClassId().getId()));
+		
+		return Arrays.binarySearch(_classIds, ((L2PcInstance)env.target).getClassId().getId()) >= 0;
 	}
 }

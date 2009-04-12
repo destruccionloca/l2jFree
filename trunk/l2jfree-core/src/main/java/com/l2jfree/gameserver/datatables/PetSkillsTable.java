@@ -20,11 +20,11 @@ import java.sql.ResultSet;
 import java.util.Collection;
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import javolution.util.FastList;
 import javolution.util.FastMap;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.model.L2Summon;
@@ -145,9 +145,7 @@ public class PetSkillsTable
 					lvl = (7 + ((cha.getLevel() - 70) / 5));
 					
 				// formula usable for skill that have 10 or more skill levels
-				int maxLvl = SkillTable.getInstance().getMaxLevel(temp.getId(), 10);
-				if (lvl > maxLvl)
-					lvl = maxLvl;
+				lvl = Math.min(lvl, SkillTable.getInstance().getMaxLevel(temp.getId()));
 				break;
 			}
 			else if (temp.getMinLevel() <= cha.getLevel())

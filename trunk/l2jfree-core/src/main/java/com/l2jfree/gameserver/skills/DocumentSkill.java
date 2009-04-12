@@ -15,617 +15,400 @@
 package com.l2jfree.gameserver.skills;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
 
-import javolution.util.FastList;
-
-import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
+import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.skills.conditions.Condition;
+import com.l2jfree.gameserver.skills.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.StatsSet;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
+import com.l2jfree.util.ObjectPool;
 
 /**
  * @author mkizub
  */
 final class DocumentSkill extends DocumentBase
 {
-
-	public class Skill
+	private static final class StatsSetPool extends ObjectPool<StatsSet>
 	{
-		//public int count=0;
-		public int					id;
-		public String				name;
-		public StatsSet[]			sets;
-		public StatsSet[]			enchsets1;
-		public StatsSet[]			enchsets2;
-		public StatsSet[]			enchsets3;
-		public StatsSet[]			enchsets4;
-		public StatsSet[]			enchsets5;
-		public int					currentLevel;
-		public FastList<L2Skill>	skills			= new FastList<L2Skill>();
-		public FastList<L2Skill>	currentSkills	= new FastList<L2Skill>();
+		private StatsSetPool()
+		{
+			super(false);
+		}
+		
+		@Override
+		protected StatsSet create()
+		{
+			return new StatsSet();
+		}
+		
+		@Override
+		protected void reset(StatsSet set)
+		{
+			set.getSet().clear();
+		}
+		
+		private StatsSet getSkillSet(int level)
+		{
+			StatsSet set = get();
+			
+			set.set("skill_id", _currentSkillId);
+			set.set("level", level);
+			set.set("name", _currentSkillName);
+			
+			return set;
+		}
 	}
-
-	private Skill				_currentSkill;
-	private FastList<L2Skill>	_skillsInFile	= new FastList<L2Skill>();
-
+	
+	private static final StatsSetPool STATS_SET_POOL = new StatsSetPool();
+	
+	private static final String[] VALID_NODE_NAMES = { "set", "for", "cond", // ...
+		"enchant1", "enchant1for", "enchant1cond", // ...
+		"enchant2", "enchant2for", "enchant2cond", // ...
+		"enchant3", "enchant3for", "enchant3cond", // ...
+		"enchant4", "enchant4for", "enchant4cond", // ...
+		"enchant5", "enchant5for", "enchant5cond", // ...
+		
+	};
+	
+	private static int _currentSkillId;
+	private static int _currentSkillLevel;
+	private static String _currentSkillName;
+	
+	private static final Map<String, String[]> _tables = new HashMap<String, String[]>();
+	
+	private static final List<StatsSet> _sets = new ArrayList<StatsSet>();
+	private static final List<StatsSet> _enchsets1 = new ArrayList<StatsSet>();
+	private static final List<StatsSet> _enchsets2 = new ArrayList<StatsSet>();
+	private static final List<StatsSet> _enchsets3 = new ArrayList<StatsSet>();
+	private static final List<StatsSet> _enchsets4 = new ArrayList<StatsSet>();
+	private static final List<StatsSet> _enchsets5 = new ArrayList<StatsSet>();
+	
+	private static final List<L2Skill> _skills = new ArrayList<L2Skill>();
+	
+	private final List<L2Skill> _skillsInFile = new ArrayList<L2Skill>();
+	
 	DocumentSkill(File file)
 	{
 		super(file);
 	}
-
-	private void setCurrentSkill(Skill skill)
-	{
-		_currentSkill = skill;
-	}
-
-	@Override
-	protected StatsSet getStatsSet()
-	{
-		return _currentSkill.sets[_currentSkill.currentLevel];
-	}
-
-	protected FastList<L2Skill> getSkills()
+	
+	List<L2Skill> getSkills()
 	{
 		return _skillsInFile;
 	}
-
+	
 	@Override
-	protected String getTableValue(String name)
+	String getTableValue(String value, Object template)
+	{
+		if (template instanceof Integer)
+			return _tables.get(value)[(Integer)template - 1];
+		else
+			return _tables.get(value)[_currentSkillLevel];
+	}
+	
+	@Override
+	String getDefaultNodeName()
+	{
+		return "skill";
+	}
+	
+	@Override
+	void parseDefaultNode(Node n)
 	{
 		try
 		{
-			return _tables.get(name)[_currentSkill.currentLevel];
+			parseSkill(n);
+			
+			_skillsInFile.addAll(_skills);
 		}
 		catch (Exception e)
 		{
-			_log.fatal("Error in table: " + name + " of Skill Id " + _currentSkill.id + ": " + name, e);
-			return "";
+			_log.warn("Error while parsing skill id " + _currentSkillId + ", level " + (_currentSkillLevel + 1), e);
+		}
+		finally
+		{
+			_currentSkillId = 0;
+			_currentSkillLevel = 0;
+			_currentSkillName = null;
+			
+			_tables.clear();
+			
+			clear(_sets);
+			clear(_enchsets1);
+			clear(_enchsets2);
+			clear(_enchsets3);
+			clear(_enchsets4);
+			clear(_enchsets5);
+			
+			_skills.clear();
 		}
 	}
-
-	@Override
-	protected String getTableValue(String name, int idx)
+	
+	private void clear(List<StatsSet> statsSets)
 	{
-		try
-		{
-			return _tables.get(name)[idx - 1];
-		}
-		catch (Exception e)
-		{
-			_log.fatal("wrong level count in skill Id " + _currentSkill.id + " for table " + name, e);
-			return "";
-		}
+		for (StatsSet set : statsSets)
+			STATS_SET_POOL.store(set);
+		
+		statsSets.clear();
 	}
-
-	@Override
-	protected void parseDocument(Document doc)
+	
+	private void parseSkill(Node n) throws Exception
 	{
-		for (Node n = doc.getFirstChild(); n != null; n = n.getNextSibling())
-		{
-			if ("list".equalsIgnoreCase(n.getNodeName()))
-			{
-				for (Node d = n.getFirstChild(); d != null; d = d.getNextSibling())
-				{
-					if ("skill".equalsIgnoreCase(d.getNodeName()))
-					{
-						setCurrentSkill(new Skill());
-						parseSkill(d);
-						_skillsInFile.addAll(_currentSkill.skills);
-						resetTable();
-					}
-				}
-			}
-			else if ("skill".equalsIgnoreCase(n.getNodeName()))
-			{
-				setCurrentSkill(new Skill());
-				parseSkill(n);
-				_skillsInFile.addAll(_currentSkill.skills);
-			}
-		}
-	}
-
-	protected void parseSkill(Node n)
-	{
-		NamedNodeMap attrs = n.getAttributes();
-		int enchantLevels1 = 0;
-		int enchantLevels2 = 0;
-		int enchantLevels3 = 0;
-		int enchantLevels4 = 0;
-		int enchantLevels5 = 0;
-		int skillId = Integer.parseInt(attrs.getNamedItem("id").getNodeValue());
-		String skillName = attrs.getNamedItem("name").getNodeValue();
-		String levels = attrs.getNamedItem("levels").getNodeValue();
-		int lastLvl = Integer.parseInt(levels);
-		if (attrs.getNamedItem("enchantLevels1") != null)
-			enchantLevels1 = Integer.parseInt(attrs.getNamedItem("enchantLevels1").getNodeValue());
-		if (attrs.getNamedItem("enchantLevels2") != null)
-			enchantLevels2 = Integer.parseInt(attrs.getNamedItem("enchantLevels2").getNodeValue());
-		if (attrs.getNamedItem("enchantLevels3") != null)
-			enchantLevels3 = Integer.parseInt(attrs.getNamedItem("enchantLevels3").getNodeValue());
-		if (attrs.getNamedItem("enchantLevels4") != null)
-			enchantLevels4 = Integer.parseInt(attrs.getNamedItem("enchantLevels4").getNodeValue());
-		if (attrs.getNamedItem("enchantLevels5") != null)
-			enchantLevels5 = Integer.parseInt(attrs.getNamedItem("enchantLevels5").getNodeValue());
-
-		_currentSkill.id = skillId;
-		_currentSkill.name = skillName;
-		_currentSkill.sets = new StatsSet[lastLvl];
-		_currentSkill.enchsets1 = new StatsSet[enchantLevels1];
-		_currentSkill.enchsets2 = new StatsSet[enchantLevels2];
-		_currentSkill.enchsets3 = new StatsSet[enchantLevels3];
-		_currentSkill.enchsets4 = new StatsSet[enchantLevels4];
-		_currentSkill.enchsets5 = new StatsSet[enchantLevels5];
-
-		for (int i = 0; i < lastLvl; i++)
-		{
-			_currentSkill.sets[i] = new StatsSet();
-			_currentSkill.sets[i].set("skill_id", _currentSkill.id);
-			_currentSkill.sets[i].set("level", i + 1);
-			_currentSkill.sets[i].set("name", _currentSkill.name);
-		}
-
-		if (_currentSkill.sets.length != lastLvl)
-			throw new RuntimeException("Skill id=" + skillId + " number of levels missmatch, " + lastLvl + " levels expected");
-
-		Node first = n.getFirstChild();
-		for (n = first; n != null; n = n.getNextSibling())
+		final NamedNodeMap attrs = n.getAttributes();
+		
+		_currentSkillId = Integer.decode(attrs.getNamedItem("id").getNodeValue());
+		_currentSkillName = attrs.getNamedItem("name").getNodeValue();
+		
+		final int levels = getLevel(attrs, "levels", null);
+		final int enchantLevels1 = getLevel(attrs, "enchantLevels1", 0);
+		final int enchantLevels2 = getLevel(attrs, "enchantLevels2", 0);
+		final int enchantLevels3 = getLevel(attrs, "enchantLevels3", 0);
+		final int enchantLevels4 = getLevel(attrs, "enchantLevels4", 0);
+		final int enchantLevels5 = getLevel(attrs, "enchantLevels5", 0);
+		
+		final Node first = n.getFirstChild();
+		
+		node_loop: for (n = first; n != null; n = n.getNextSibling())
 		{
 			if ("table".equalsIgnoreCase(n.getNodeName()))
-				parseTable(n);
-		}
-		for (int i = 1; i <= lastLvl; i++)
-		{
-			for (n = first; n != null; n = n.getNextSibling())
 			{
-				if ("set".equalsIgnoreCase(n.getNodeName()))
-					parseBeanSet(n, _currentSkill.sets[i - 1], i);
+				String name = n.getAttributes().getNamedItem("name").getNodeValue().trim();
+				
+				if (name.charAt(0) != '#')
+					throw new IllegalStateException("Table name must start with '#'!");
+				
+				StringTokenizer st = new StringTokenizer(n.getFirstChild().getNodeValue());
+				
+				String[] table = new String[st.countTokens()];
+				
+				for (int i = 0; i < table.length; i++)
+					table[i] = st.nextToken();
+				
+				_tables.put(name, table);
+			}
+			else if (n.getNodeType() == Node.ELEMENT_NODE)
+			{
+				final String name = n.getNodeName();
+				
+				for (String validName : VALID_NODE_NAMES)
+					if (validName.equals(name))
+						continue node_loop;
+				
+				throw new IllegalStateException("Invalid tag <" + n.getNodeName() + ">");
 			}
 		}
-		for (int i = 0; i < enchantLevels1; i++)
-		{
-			_currentSkill.enchsets1[i] = new StatsSet();
-			_currentSkill.enchsets1[i].set("skill_id", _currentSkill.id);
-			_currentSkill.enchsets1[i].set("level", i + 101);
-			_currentSkill.enchsets1[i].set("name", _currentSkill.name);
-
-			for (n = first; n != null; n = n.getNextSibling())
-			{
-				if ("set".equalsIgnoreCase(n.getNodeName()))
-					parseBeanSet(n, _currentSkill.enchsets1[i], _currentSkill.sets.length);
-			}
-
-			for (n = first; n != null; n = n.getNextSibling())
-			{
-				if ("enchant1".equalsIgnoreCase(n.getNodeName()))
-					parseBeanSet(n, _currentSkill.enchsets1[i], i + 1);
-			}
-		}
-
-		if (_currentSkill.enchsets1.length != enchantLevels1)
-			throw new RuntimeException("Skill id=" + skillId + " number of levels missmatch, " + enchantLevels1 + " levels expected");
-
-		for (int i = 0; i < enchantLevels2; i++)
-		{
-			_currentSkill.enchsets2[i] = new StatsSet();
-			_currentSkill.enchsets2[i].set("skill_id", _currentSkill.id);
-			_currentSkill.enchsets2[i].set("level", i + 201);
-			_currentSkill.enchsets2[i].set("name", _currentSkill.name);
-
-			for (n = first; n != null; n = n.getNextSibling())
-			{
-				if ("set".equalsIgnoreCase(n.getNodeName()))
-					parseBeanSet(n, _currentSkill.enchsets2[i], _currentSkill.sets.length);
-			}
-
-			for (n = first; n != null; n = n.getNextSibling())
-			{
-				if ("enchant2".equalsIgnoreCase(n.getNodeName()))
-					parseBeanSet(n, _currentSkill.enchsets2[i], i + 1);
-			}
-		}
-
-		if (_currentSkill.enchsets2.length != enchantLevels2)
-			throw new RuntimeException("Skill id=" + skillId + " number of levels missmatch, " + enchantLevels2 + " levels expected");
-
-		for (int i = 0; i < enchantLevels3; i++)
-		{
-			_currentSkill.enchsets3[i] = new StatsSet();
-			_currentSkill.enchsets3[i].set("skill_id", _currentSkill.id);
-			_currentSkill.enchsets3[i].set("level", i + 301);
-			_currentSkill.enchsets3[i].set("name", _currentSkill.name);
-
-			for (n = first; n != null; n = n.getNextSibling())
-			{
-				if ("set".equalsIgnoreCase(n.getNodeName()))
-					parseBeanSet(n, _currentSkill.enchsets3[i], _currentSkill.sets.length);
-			}
-
-			for (n = first; n != null; n = n.getNextSibling())
-			{
-				if ("enchant3".equalsIgnoreCase(n.getNodeName()))
-					parseBeanSet(n, _currentSkill.enchsets3[i], i + 1);
-			}
-		}
-
-		if (_currentSkill.enchsets3.length != enchantLevels3)
-			throw new RuntimeException("Skill id=" + skillId + " number of levels missmatch, " + enchantLevels3 + " levels expected");
-
-		for (int i = 0; i < enchantLevels4; i++)
-		{
-			_currentSkill.enchsets4[i] = new StatsSet();
-			_currentSkill.enchsets4[i].set("skill_id", _currentSkill.id);
-			_currentSkill.enchsets4[i].set("level", i + 401);
-			_currentSkill.enchsets4[i].set("name", _currentSkill.name);
-
-			for (n = first; n != null; n = n.getNextSibling())
-			{
-				if ("set".equalsIgnoreCase(n.getNodeName()))
-					parseBeanSet(n, _currentSkill.enchsets4[i], _currentSkill.sets.length);
-			}
-
-			for (n = first; n != null; n = n.getNextSibling())
-			{
-				if ("enchant4".equalsIgnoreCase(n.getNodeName()))
-					parseBeanSet(n, _currentSkill.enchsets4[i], i + 1);
-			}
-		}
-
-		if (_currentSkill.enchsets4.length != enchantLevels4)
-			throw new RuntimeException("Skill id=" + skillId + " number of levels missmatch, " + enchantLevels4 + " levels expected");
-
-		for (int i = 0; i < enchantLevels5; i++)
-		{
-			_currentSkill.enchsets5[i] = new StatsSet();
-			_currentSkill.enchsets5[i].set("skill_id", _currentSkill.id);
-			_currentSkill.enchsets5[i].set("level", i + 501);
-			_currentSkill.enchsets5[i].set("name", _currentSkill.name);
-
-			for (n = first; n != null; n = n.getNextSibling())
-			{
-				if ("set".equalsIgnoreCase(n.getNodeName()))
-					parseBeanSet(n, _currentSkill.enchsets5[i], _currentSkill.sets.length);
-			}
-
-			for (n = first; n != null; n = n.getNextSibling())
-			{
-				if ("enchant5".equalsIgnoreCase(n.getNodeName()))
-					parseBeanSet(n, _currentSkill.enchsets5[i], i + 1);
-			}
-		}
-
-		if (_currentSkill.enchsets5.length != enchantLevels5)
-			throw new RuntimeException("Skill id=" + skillId + " number of levels missmatch, " + enchantLevels5 + " levels expected");
-
-		makeSkills();
-		for (int i = 0; i < lastLvl; i++)
-		{
-			_currentSkill.currentLevel = i;
-			for (n = first; n != null; n = n.getNextSibling())
-			{
-				if ("cond".equalsIgnoreCase(n.getNodeName()))
-				{
-					Condition condition = parseCondition(n.getFirstChild(), _currentSkill.currentSkills.get(i));
-					Node msg = n.getAttributes().getNamedItem("msg");
-					Node msgId = n.getAttributes().getNamedItem("msgId");
-					if (condition != null && msg != null)
-						condition.setMessage(msg.getNodeValue());
-					else if (condition != null && msgId != null)
-						condition.setMessageId(Integer.decode(getValue(msgId.getNodeValue(), null)));
-					_currentSkill.currentSkills.get(i).attach(condition, false);
-				}
-				if ("for".equalsIgnoreCase(n.getNodeName()))
-				{
-					try
-					{
-						parseTemplate(n, _currentSkill.currentSkills.get(i));
-					}
-					catch (Throwable t)
-					{
-						_log.error(skillName + " (id: " + skillId + ") has errors.");
-						t.printStackTrace();
-					}
-				}
-			}
-		}
-		for (int i = lastLvl; i < lastLvl + enchantLevels1; i++)
-		{
-			_currentSkill.currentLevel = i - lastLvl;
-			boolean found = false;
-			for (n = first; n != null; n = n.getNextSibling())
-			{
-				if ("enchant1cond".equalsIgnoreCase(n.getNodeName()))
-				{
-					found = true;
-					Condition condition = parseCondition(n.getFirstChild(), _currentSkill.currentSkills.get(i));
-					Node msg = n.getAttributes().getNamedItem("msg");
-					if (condition != null && msg != null)
-						condition.setMessage(msg.getNodeValue());
-					_currentSkill.currentSkills.get(i).attach(condition, false);
-				}
-				if ("enchant1for".equalsIgnoreCase(n.getNodeName()))
-				{
-					found = true;
-					parseTemplate(n, _currentSkill.currentSkills.get(i));
-				}
-			}
-			// If none found, the enchanted skill will take effects from maxLvL of norm skill
-			if (!found)
-			{
-				_currentSkill.currentLevel = lastLvl - 1;
-				for (n = first; n != null; n = n.getNextSibling())
-				{
-					if ("cond".equalsIgnoreCase(n.getNodeName()))
-					{
-						Condition condition = parseCondition(n.getFirstChild(), _currentSkill.currentSkills.get(i));
-						Node msg = n.getAttributes().getNamedItem("msg");
-						if (condition != null && msg != null)
-							condition.setMessage(msg.getNodeValue());
-						_currentSkill.currentSkills.get(i).attach(condition, false);
-					}
-					if ("for".equalsIgnoreCase(n.getNodeName()))
-					{
-						parseTemplate(n, _currentSkill.currentSkills.get(i));
-					}
-				}
-			}
-		}
-		for (int i = lastLvl + enchantLevels1; i < lastLvl + enchantLevels1 + enchantLevels2; i++)
-		{
-			boolean found = false;
-			_currentSkill.currentLevel = i - lastLvl - enchantLevels1;
-			for (n = first; n != null; n = n.getNextSibling())
-			{
-				if ("enchant2cond".equalsIgnoreCase(n.getNodeName()))
-				{
-					found = true;
-					Condition condition = parseCondition(n.getFirstChild(), _currentSkill.currentSkills.get(i));
-					Node msg = n.getAttributes().getNamedItem("msg");
-					if (condition != null && msg != null)
-						condition.setMessage(msg.getNodeValue());
-					_currentSkill.currentSkills.get(i).attach(condition, false);
-				}
-				if ("enchant2for".equalsIgnoreCase(n.getNodeName()))
-				{
-					found = true;
-					parseTemplate(n, _currentSkill.currentSkills.get(i));
-				}
-			}
-			// If none found, the enchanted skill will take effects from maxLvL of norm skill
-			if (!found)
-			{
-				_currentSkill.currentLevel = lastLvl - 1;
-				for (n = first; n != null; n = n.getNextSibling())
-				{
-					if ("cond".equalsIgnoreCase(n.getNodeName()))
-					{
-						Condition condition = parseCondition(n.getFirstChild(), _currentSkill.currentSkills.get(i));
-						Node msg = n.getAttributes().getNamedItem("msg");
-						if (condition != null && msg != null)
-							condition.setMessage(msg.getNodeValue());
-						_currentSkill.currentSkills.get(i).attach(condition, false);
-					}
-					if ("for".equalsIgnoreCase(n.getNodeName()))
-					{
-						parseTemplate(n, _currentSkill.currentSkills.get(i));
-					}
-				}
-			}
-		}
-		for (int i = lastLvl + enchantLevels1 + enchantLevels2; i < lastLvl + enchantLevels1 + enchantLevels2 + enchantLevels3; i++)
-		{
-			boolean found = false;
-			_currentSkill.currentLevel = i - lastLvl - enchantLevels1 - enchantLevels2;
-			for (n = first; n != null; n = n.getNextSibling())
-			{
-				if ("enchant3cond".equalsIgnoreCase(n.getNodeName()))
-				{
-					found = true;
-					Condition condition = parseCondition(n.getFirstChild(), _currentSkill.currentSkills.get(i));
-					Node msg = n.getAttributes().getNamedItem("msg");
-					if (condition != null && msg != null)
-						condition.setMessage(msg.getNodeValue());
-					_currentSkill.currentSkills.get(i).attach(condition, false);
-				}
-				if ("enchant3for".equalsIgnoreCase(n.getNodeName()))
-				{
-					found = true;
-					parseTemplate(n, _currentSkill.currentSkills.get(i));
-				}
-			}
-			// If none found, the enchanted skill will take effects from maxLvL of norm skill
-			if (!found)
-			{
-				_currentSkill.currentLevel = lastLvl - 1;
-				for (n = first; n != null; n = n.getNextSibling())
-				{
-					if ("cond".equalsIgnoreCase(n.getNodeName()))
-					{
-						Condition condition = parseCondition(n.getFirstChild(), _currentSkill.currentSkills.get(i));
-						Node msg = n.getAttributes().getNamedItem("msg");
-						if (condition != null && msg != null)
-							condition.setMessage(msg.getNodeValue());
-						_currentSkill.currentSkills.get(i).attach(condition, false);
-					}
-					if ("for".equalsIgnoreCase(n.getNodeName()))
-					{
-						parseTemplate(n, _currentSkill.currentSkills.get(i));
-					}
-				}
-			}
-		}
-		for (int i = lastLvl + enchantLevels1 + enchantLevels2 + enchantLevels3; i < lastLvl + enchantLevels1 + enchantLevels2 + enchantLevels3
-				+ enchantLevels4; i++)
-		{
-			boolean found = false;
-			_currentSkill.currentLevel = i - lastLvl - enchantLevels1 - enchantLevels2 - enchantLevels3;
-			for (n = first; n != null; n = n.getNextSibling())
-			{
-				if ("enchant4cond".equalsIgnoreCase(n.getNodeName()))
-				{
-					found = true;
-					Condition condition = parseCondition(n.getFirstChild(), _currentSkill.currentSkills.get(i));
-					Node msg = n.getAttributes().getNamedItem("msg");
-					if (condition != null && msg != null)
-						condition.setMessage(msg.getNodeValue());
-					_currentSkill.currentSkills.get(i).attach(condition, false);
-				}
-				if ("enchant4for".equalsIgnoreCase(n.getNodeName()))
-				{
-					found = true;
-					parseTemplate(n, _currentSkill.currentSkills.get(i));
-				}
-			}
-			// If none found, the enchanted skill will take effects from maxLvL of norm skill
-			if (!found)
-			{
-				_currentSkill.currentLevel = lastLvl - 1;
-				for (n = first; n != null; n = n.getNextSibling())
-				{
-					if ("cond".equalsIgnoreCase(n.getNodeName()))
-					{
-						Condition condition = parseCondition(n.getFirstChild(), _currentSkill.currentSkills.get(i));
-						Node msg = n.getAttributes().getNamedItem("msg");
-						if (condition != null && msg != null)
-							condition.setMessage(msg.getNodeValue());
-						_currentSkill.currentSkills.get(i).attach(condition, false);
-					}
-					if ("for".equalsIgnoreCase(n.getNodeName()))
-					{
-						parseTemplate(n, _currentSkill.currentSkills.get(i));
-					}
-				}
-			}
-		}
-		for (int i = lastLvl + enchantLevels1 + enchantLevels2 + enchantLevels3 + enchantLevels4; i < lastLvl + enchantLevels1 + enchantLevels2
-				+ enchantLevels3 + enchantLevels4 + enchantLevels5; i++)
-		{
-			boolean found = false;
-			_currentSkill.currentLevel = i - lastLvl - enchantLevels1 - enchantLevels2 - enchantLevels3 - enchantLevels4;
-			for (n = first; n != null; n = n.getNextSibling())
-			{
-				if ("enchant5cond".equalsIgnoreCase(n.getNodeName()))
-				{
-					found = true;
-					Condition condition = parseCondition(n.getFirstChild(), _currentSkill.currentSkills.get(i));
-					Node msg = n.getAttributes().getNamedItem("msg");
-					if (condition != null && msg != null)
-						condition.setMessage(msg.getNodeValue());
-					_currentSkill.currentSkills.get(i).attach(condition, false);
-				}
-				if ("enchant5for".equalsIgnoreCase(n.getNodeName()))
-				{
-					found = true;
-					parseTemplate(n, _currentSkill.currentSkills.get(i));
-				}
-			}
-			// If none found, the enchanted skill will take effects from maxLvL of norm skill
-			if (!found)
-			{
-				_currentSkill.currentLevel = lastLvl - 1;
-				for (n = first; n != null; n = n.getNextSibling())
-				{
-					if ("cond".equalsIgnoreCase(n.getNodeName()))
-					{
-						Condition condition = parseCondition(n.getFirstChild(), _currentSkill.currentSkills.get(i));
-						Node msg = n.getAttributes().getNamedItem("msg");
-						if (condition != null && msg != null)
-							condition.setMessage(msg.getNodeValue());
-						_currentSkill.currentSkills.get(i).attach(condition, false);
-					}
-					if ("for".equalsIgnoreCase(n.getNodeName()))
-					{
-						parseTemplate(n, _currentSkill.currentSkills.get(i));
-					}
-				}
-			}
-		}
-		_currentSkill.skills.addAll(_currentSkill.currentSkills);
+		
+		parseBeanSets(first, levels, 1, _sets, "set");
+		parseBeanSets(first, enchantLevels1, 101, _enchsets1, "enchant1");
+		parseBeanSets(first, enchantLevels2, 201, _enchsets2, "enchant2");
+		parseBeanSets(first, enchantLevels3, 301, _enchsets3, "enchant3");
+		parseBeanSets(first, enchantLevels4, 401, _enchsets4, "enchant4");
+		parseBeanSets(first, enchantLevels5, 501, _enchsets5, "enchant5");
+		
+		makeSkills(_sets);
+		makeSkills(_enchsets1);
+		makeSkills(_enchsets2);
+		makeSkills(_enchsets3);
+		makeSkills(_enchsets4);
+		makeSkills(_enchsets5);
+		
+		int startLvl = 0;
+		
+		attach(first, startLvl += 0, levels, "cond", "for");
+		attach(first, startLvl += levels, enchantLevels1, "enchant1cond", "enchant1for");
+		attach(first, startLvl += enchantLevels1, enchantLevels2, "enchant2cond", "enchant2for");
+		attach(first, startLvl += enchantLevels2, enchantLevels3, "enchant3cond", "enchant3for");
+		attach(first, startLvl += enchantLevels3, enchantLevels4, "enchant4cond", "enchant4for");
+		attach(first, startLvl += enchantLevels4, enchantLevels5, "enchant5cond", "enchant5for");
 	}
-
-	private void makeSkills()
+	
+	private int getLevel(NamedNodeMap attrs, String nodeName, Integer defaultValue)
 	{
-		int count = 0;
-		_currentSkill.currentSkills = new FastList<L2Skill>(_currentSkill.sets.length + _currentSkill.enchsets1.length + _currentSkill.enchsets2.length
-				+ _currentSkill.enchsets3.length + _currentSkill.enchsets4.length + _currentSkill.enchsets5.length);
-		for (int i = 0; i < _currentSkill.sets.length; i++)
+		if (attrs.getNamedItem(nodeName) != null)
+			return Integer.decode(attrs.getNamedItem(nodeName).getNodeValue());
+		
+		return defaultValue.intValue();
+	}
+	
+	private void parseBeanSets(Node first, int length, int startLvl, List<StatsSet> statsSets, String setName)
+	{
+		for (int i = 0; i < length; i++)
 		{
-			try
+			StatsSet set = STATS_SET_POOL.getSkillSet(i + startLvl);
+			
+			statsSets.add(set);
+			
+			if (startLvl >= 100)
 			{
-				_currentSkill.currentSkills.add(i, _currentSkill.sets[i].getEnum("skillType", L2SkillType.class).makeSkill(_currentSkill.sets[i]));
-				count++;
+				for (Node n = first; n != null; n = n.getNextSibling())
+				{
+					if ("set".equalsIgnoreCase(n.getNodeName()))
+						parseBeanSet(n, set, _sets.size());
+				}
 			}
-			catch (Exception e)
+			
+			for (Node n = first; n != null; n = n.getNextSibling())
 			{
+				if (setName.equalsIgnoreCase(n.getNodeName()))
+					parseBeanSet(n, set, i + 1);
 			}
 		}
-		int _count = count;
-		for (int i = 0; i < _currentSkill.enchsets1.length; i++)
+	}
+	
+	private void parseBeanSet(Node n, StatsSet set, int level)
+	{
+		String name = n.getAttributes().getNamedItem("name").getNodeValue().trim();
+		String value = n.getAttributes().getNamedItem("val").getNodeValue().trim();
+		
+		set.set(name, getValue(value, level));
+	}
+	
+	private void makeSkills(List<StatsSet> statsSets) throws Exception
+	{
+		for (StatsSet set : statsSets)
+			_skills.add(set.getEnum("skillType", L2SkillType.class).makeSkill(set));
+	}
+	
+	private void attach(final Node first, final int startLvl, final int length, String condName, String forName)
+	{
+		for (int i = 0; i < length; i++)
 		{
-			try
+			final L2Skill skill = _skills.get(startLvl + i);
+			
+			_currentSkillLevel = i;
+			
+			boolean found = false;
+			for (Node n = first; n != null; n = n.getNextSibling())
 			{
-				_currentSkill.currentSkills.add(_count + i, _currentSkill.enchsets1[i].getEnum("skillType", L2SkillType.class).makeSkill(
-						_currentSkill.enchsets1[i]));
-				count++;
+				if (condName.equalsIgnoreCase(n.getNodeName()))
+				{
+					found = true;
+					skill.attach(parseConditionWithMessage(n, skill));
+				}
+				else if (forName.equalsIgnoreCase(n.getNodeName()))
+				{
+					found = true;
+					parseTemplate(n, skill);
+				}
 			}
-			catch (Exception e)
+			
+			if (!found && startLvl > 0)
 			{
+				_currentSkillLevel = _sets.size() - 1;
+				
+				for (Node n = first; n != null; n = n.getNextSibling())
+				{
+					if ("cond".equalsIgnoreCase(n.getNodeName()))
+					{
+						skill.attach(parseConditionWithMessage(n, skill));
+					}
+					else if ("for".equalsIgnoreCase(n.getNodeName()))
+					{
+						parseTemplate(n, skill);
+					}
+				}
 			}
 		}
-		_count = count;
-		for (int i = 0; i < _currentSkill.enchsets2.length; i++)
+	}
+	
+	@Override
+	void parseTemplateNode(Node n, Object template, Condition condition)
+	{
+		if ("effect".equalsIgnoreCase(n.getNodeName()))
+			attachEffect(n, template, condition);
+		else
+			super.parseTemplateNode(n, template, condition);
+	}
+	
+	final void attachEffect(Node n, Object template, Condition attachCond)
+	{
+		if (!(template instanceof L2Skill))
+			throw new IllegalStateException("Attaching an effect to a non-L2Skill template");
+		
+		final L2Skill skill = (L2Skill)template;
+		final NamedNodeMap attrs = n.getAttributes();
+		
+		final String name = attrs.getNamedItem("name").getNodeValue();
+		
+		int count = 1;
+		if (attrs.getNamedItem("count") != null)
+			count = Integer.decode(getValue(attrs.getNamedItem("count").getNodeValue(), template));
+		
+		count = Math.max(1, count);
+		
+		final int time = Integer.decode(getValue(attrs.getNamedItem("time").getNodeValue(), template))
+			* skill.getTimeMulti();
+		
+		boolean self = false;
+		if (attrs.getNamedItem("self") != null)
+			self = (Integer.decode(getValue(attrs.getNamedItem("self").getNodeValue(), template)) == 1);
+		
+		boolean showIcon = true;
+		if (attrs.getNamedItem("noicon") != null)
+			showIcon = !(Integer.decode(getValue(attrs.getNamedItem("noicon").getNodeValue(), template)) == 1);
+		
+		final double lambda = getLambda(n, template);
+		
+		int abnormal = 0;
+		if (attrs.getNamedItem("abnormal") != null)
 		{
-			try
-			{
-				_currentSkill.currentSkills.add(_count + i, _currentSkill.enchsets2[i].getEnum("skillType", L2SkillType.class).makeSkill(
-						_currentSkill.enchsets2[i]));
-				count++;
-			}
-			catch (Exception e)
-			{
-			}
+			String abn = attrs.getNamedItem("abnormal").getNodeValue();
+			
+			if (abn.contains("bleeding"))
+				abnormal |= L2Character.ABNORMAL_EFFECT_BLEEDING;
+			if (abn.contains("poison"))
+				abnormal |= L2Character.ABNORMAL_EFFECT_POISON;
+			if (abn.contains("redcircle"))
+				abnormal |= L2Character.ABNORMAL_EFFECT_REDCIRCLE;
+			if (abn.contains("ice"))
+				abnormal |= L2Character.ABNORMAL_EFFECT_ICE;
+			if (abn.contains("wind"))
+				abnormal |= L2Character.ABNORMAL_EFFECT_WIND;
+			if (abn.contains("flame"))
+				abnormal |= L2Character.ABNORMAL_EFFECT_FLAME;
+			if (abn.contains("stun"))
+				abnormal |= L2Character.ABNORMAL_EFFECT_STUN;
+			if (abn.contains("mute"))
+				abnormal |= L2Character.ABNORMAL_EFFECT_MUTED;
+			if (abn.contains("root"))
+				abnormal |= L2Character.ABNORMAL_EFFECT_ROOT;
+			if (abn.contains("bighead"))
+				abnormal |= L2Character.ABNORMAL_EFFECT_BIG_HEAD;
+			if (abn.contains("stealth"))
+				abnormal |= L2Character.ABNORMAL_EFFECT_STEALTH;
+			if (abn.contains("earthquake"))
+				abnormal |= L2Character.ABNORMAL_EFFECT_EARTHQUAKE;
+			if (abn.contains("invul"))
+				abnormal |= L2Character.ABNORMAL_EFFECT_INVULNERABLE;
 		}
-		_count = count;
-		for (int i = 0; i < _currentSkill.enchsets3.length; i++)
-		{
-			try
-			{
-				_currentSkill.currentSkills.add(_count + i, _currentSkill.enchsets3[i].getEnum("skillType", L2SkillType.class).makeSkill(
-						_currentSkill.enchsets3[i]));
-				count++;
-			}
-			catch (Exception e)
-			{
-			}
-		}
-		_count = count;
-		for (int i = 0; i < _currentSkill.enchsets4.length; i++)
-		{
-			try
-			{
-				_currentSkill.currentSkills.add(_count + i, _currentSkill.enchsets4[i].getEnum("skillType", L2SkillType.class).makeSkill(
-						_currentSkill.enchsets4[i]));
-				count++;
-			}
-			catch (Exception e)
-			{
-			}
-		}
-		_count = count;
-		for (int i = 0; i < _currentSkill.enchsets5.length; i++)
-		{
-			try
-			{
-				_currentSkill.currentSkills.add(_count + i, _currentSkill.enchsets5[i].getEnum("skillType", L2SkillType.class).makeSkill(
-						_currentSkill.enchsets5[i]));
-				count++;
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		
+		final String stackType;
+		if (attrs.getNamedItem("stackType") != null)
+			stackType = attrs.getNamedItem("stackType").getNodeValue();
+		else
+			stackType = skill.generateUniqueStackType();
+		
+		float stackOrder = 0;
+		if (attrs.getNamedItem("stackOrder") != null)
+			stackOrder = Float.parseFloat(getValue(attrs.getNamedItem("stackOrder").getNodeValue(), template));
+		
+		EffectTemplate effectTemplate = new EffectTemplate(attachCond, name, lambda, count, time, abnormal, stackType,
+			stackOrder, showIcon);
+		
+		parseTemplate(n, effectTemplate);
+		
+		if (!self)
+			skill.attach(effectTemplate);
+		else
+			skill.attachSelf(effectTemplate);
 	}
 }

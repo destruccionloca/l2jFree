@@ -24,7 +24,6 @@ import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.conditions.Condition;
 import com.l2jfree.gameserver.skills.funcs.FuncTemplate;
-import com.l2jfree.gameserver.skills.funcs.Lambda;
 
 /**
  * @author mkizub
@@ -37,7 +36,7 @@ public final class EffectTemplate
 	private final Constructor<?> _stolenConstructor;
 	private final Condition _attachCond;
 	
-	public final Lambda lambda;
+	public final double lambda;
 	public final int count;
 	public final int period;
 	public final int abnormalEffect;
@@ -47,7 +46,7 @@ public final class EffectTemplate
 	
 	public FuncTemplate[] funcTemplates;
 	
-	public EffectTemplate(Condition pAttachCond, String name, Lambda pLambda, int pCount, int pPeriod,
+	public EffectTemplate(Condition pAttachCond, String name, double pLambda, int pCount, int pPeriod,
 		int pAbnormalEffect, String pStackType, float pStackOrder, boolean pShowIcon)
 	{
 		_attachCond = pAttachCond;

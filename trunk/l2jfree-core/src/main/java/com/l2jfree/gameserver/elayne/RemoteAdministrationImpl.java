@@ -79,8 +79,8 @@ public class RemoteAdministrationImpl extends UnicastRemoteObject implements IRe
 	public RemoteAdministrationImpl() throws RemoteException
 	{
 		super();
-		this.pass = Config.RMI_SERVER_PASSWORD.toLowerCase();
-		this.port = Config.RMI_SERVER_PORT;
+		pass = Config.RMI_SERVER_PASSWORD.toLowerCase();
+		port = Config.RMI_SERVER_PORT;
 	}
 
 	public void startServer()
@@ -179,7 +179,7 @@ public class RemoteAdministrationImpl extends UnicastRemoteObject implements IRe
 				L2Multisell.getInstance().reload();
 				break;
 			case 2:
-				SkillTable.getInstance().reload();
+				SkillTable.reload();
 				break;
 			case 3:
 				NpcTable.getInstance().reloadAll();
@@ -188,7 +188,7 @@ public class RemoteAdministrationImpl extends UnicastRemoteObject implements IRe
 				HtmCache.getInstance().reload();
 				break;
 			case 5:
-				ItemTable.getInstance().reload();
+				ItemTable.reload();
 				break;
 			case 6:
 				Manager.reloadAll();

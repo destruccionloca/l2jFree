@@ -79,11 +79,8 @@ public class L2BuffTemplate
 		_templateId = set.getInteger("id");
 		_templateName = set.getString("name");
 		_skillId = set.getInteger("skillId");
-		_skillLevel = set.getInteger("skillLevel");
+		_skillLevel = Math.min(set.getInteger("skillLevel"), SkillTable.getInstance().getMaxLevel(_skillId));
 		_skillOrder = set.getInteger("skillOrder");
-
-		if (_skillLevel == 0)
-			_skillLevel = SkillTable.getInstance().getMaxLevel(_skillId, _skillLevel);
 
 		_skill = SkillTable.getInstance().getInfo(_skillId, _skillLevel);
 
@@ -231,7 +228,7 @@ public class L2BuffTemplate
 	}
 
 	/**
-	 * @param player 
+	 * @param player
 	 * @return Returns the result of faction check
 	 */
 	public boolean checkFaction(L2PcInstance player)

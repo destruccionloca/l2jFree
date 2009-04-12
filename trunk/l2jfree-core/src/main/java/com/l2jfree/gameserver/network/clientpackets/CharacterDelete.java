@@ -18,7 +18,6 @@ package com.l2jfree.gameserver.network.clientpackets;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.network.serverpackets.CharDeleteFail;
 import com.l2jfree.gameserver.network.serverpackets.CharDeleteSuccess;
 import com.l2jfree.gameserver.network.serverpackets.CharSelectionInfo;

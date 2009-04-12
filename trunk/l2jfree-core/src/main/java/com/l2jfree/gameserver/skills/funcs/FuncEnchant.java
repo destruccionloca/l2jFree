@@ -25,7 +25,7 @@ import com.l2jfree.gameserver.templates.item.L2WeaponType;
 
 public final class FuncEnchant extends Func
 {
-	public FuncEnchant(Stats pStat, int pOrder, FuncOwner pFuncOwner, Lambda pLambda, Condition pCondition)
+	public FuncEnchant(Stats pStat, int pOrder, FuncOwner pFuncOwner, double pLambda, Condition pCondition)
 	{
 		super(pStat, pOrder, pFuncOwner, pCondition);
 	}

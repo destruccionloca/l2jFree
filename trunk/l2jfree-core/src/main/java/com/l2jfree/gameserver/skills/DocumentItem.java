@@ -15,16 +15,14 @@
 package com.l2jfree.gameserver.skills;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
-import javolution.util.FastList;
-import javolution.util.FastMap;
-
-import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 import com.l2jfree.gameserver.items.model.Item;
 import com.l2jfree.gameserver.skills.conditions.Condition;
-import com.l2jfree.gameserver.templates.StatsSet;
 import com.l2jfree.gameserver.templates.item.L2Armor;
 import com.l2jfree.gameserver.templates.item.L2ArmorType;
 import com.l2jfree.gameserver.templates.item.L2EtcItem;
@@ -38,152 +36,86 @@ import com.l2jfree.gameserver.templates.item.L2WeaponType;
  */
 final class DocumentItem extends DocumentBase
 {
-	private Item					_currentItem	= null;
-	private FastList<L2Item>		_itemsInFile	= new FastList<L2Item>();
-	private FastMap<Integer, Item>	_itemData		= new FastMap<Integer, Item>();
-
-	/**
-	 * @param armorData
-	 * @param f
-	 */
-	public DocumentItem(FastMap<Integer, Item> pItemData, File file)
+	private final Map<Integer, Item> _itemData;
+	
+	private final List<L2Item> _itemsInFile = new ArrayList<L2Item>();
+	
+	DocumentItem(Map<Integer, Item> itemData, File file)
 	{
 		super(file);
-		_itemData = pItemData;
+		
+		_itemData = itemData;
 	}
-
-	/**
-	 * @param item
-	 */
-	private void setCurrentItem(Item item)
-	{
-		_currentItem = item;
-	}
-
-	@Override
-	protected StatsSet getStatsSet()
-	{
-		return _currentItem.set;
-	}
-
-	@Override
-	protected String getTableValue(String name)
-	{
-		return _tables.get(name)[_currentItem.currentLevel];
-	}
-
-	@Override
-	protected String getTableValue(String name, int idx)
-	{
-		return _tables.get(name)[idx - 1];
-	}
-
-	@Override
-	protected void parseDocument(Document doc)
-	{
-		for (Node n = doc.getFirstChild(); n != null; n = n.getNextSibling())
-		{
-			if ("list".equalsIgnoreCase(n.getNodeName()))
-			{
-
-				for (Node d = n.getFirstChild(); d != null; d = d.getNextSibling())
-				{
-					if ("item".equalsIgnoreCase(d.getNodeName()))
-					{
-						setCurrentItem(new Item());
-						parseItem(d);
-						if (_currentItem.item != null)
-							_itemsInFile.add(_currentItem.item);
-						resetTable();
-					}
-				}
-			}
-			else if ("item".equalsIgnoreCase(n.getNodeName()))
-			{
-				setCurrentItem(new Item());
-				parseItem(n);
-				if (_currentItem.item != null)
-					_itemsInFile.add(_currentItem.item);
-			}
-		}
-	}
-
-	protected void parseItem(Node n)
-	{
-		int itemId = Integer.parseInt(n.getAttributes().getNamedItem("id").getNodeValue());
-		String itemName = n.getAttributes().getNamedItem("name").getNodeValue();
-
-		if (!_itemData.containsKey(itemId))
-		{
-			_log.fatal("Stats for item id " + itemId + " ignored !");
-			return;
-		}
-		_currentItem.id = itemId;
-		_currentItem.name = itemName;
-		_currentItem.set = _itemData.get(_currentItem.id).set;
-		_currentItem.type = _itemData.get(_currentItem.id).type;
-
-		Node first = n.getFirstChild();
-		for (n = first; n != null; n = n.getNextSibling())
-		{
-			if ("table".equalsIgnoreCase(n.getNodeName()))
-				parseTable(n);
-		}
-		for (n = first; n != null; n = n.getNextSibling())
-		{
-			if ("set".equalsIgnoreCase(n.getNodeName()))
-				parseBeanSet(n, _itemData.get(_currentItem.id).set, 1);
-		}
-		for (n = first; n != null; n = n.getNextSibling())
-		{
-			if ("for".equalsIgnoreCase(n.getNodeName()))
-			{
-				makeItem();
-				parseTemplate(n, _currentItem.item);
-			}
-		}
-		for (n = first; n != null; n = n.getNextSibling())
-		{
-			if ("cond".equalsIgnoreCase(n.getNodeName()))
-			{
-				Condition condition = parseCondition(n.getFirstChild(), _currentItem.item);
-				Node msg = n.getAttributes().getNamedItem("msg");
-				Node msgId = n.getAttributes().getNamedItem("msgId");
-				if (condition != null && msg != null)
-					condition.setMessage(msg.getNodeValue());
-				else if (condition != null && msgId != null)
-					condition.setMessageId(Integer.decode(getValue(msgId.getNodeValue(), null)));
-				_currentItem.item.attach(condition);
-			}
-		}
-		for (n = first; n != null; n = n.getNextSibling())
-		{
-			if ("skill".equalsIgnoreCase(n.getNodeName()))
-			{
-				attachSkill(n, _currentItem.item, null);
-			}
-		}
-	}
-
-	private void makeItem()
-	{
-		if (_currentItem.item != null)
-			return;
-		if (_currentItem.type instanceof L2ArmorType)
-			_currentItem.item = new L2Armor((L2ArmorType) _currentItem.type, _currentItem.set);
-		else if (_currentItem.type instanceof L2WeaponType)
-			_currentItem.item = new L2Weapon((L2WeaponType) _currentItem.type, _currentItem.set);
-		else if (_currentItem.type instanceof L2EtcItemType)
-			_currentItem.item = new L2EtcItem((L2EtcItemType) _currentItem.type, _currentItem.set);
-		else
-			throw new Error("Unknown item type " + _currentItem.type);
-	}
-
-	/**
-	 * @return
-	 */
-	public FastList<L2Item> getItemList()
+	
+	List<L2Item> getItemList()
 	{
 		return _itemsInFile;
+	}
+	
+	@Override
+	String getDefaultNodeName()
+	{
+		return "item";
+	}
+	
+	@Override
+	void parseDefaultNode(Node n)
+	{
+		int itemId = 0;
+		
+		try
+		{
+			itemId = Integer.parseInt(n.getAttributes().getNamedItem("id").getNodeValue());
+			
+			final Item currentItem = _itemData.get(itemId);
+			
+			if (currentItem == null)
+				throw new IllegalStateException("Missing sql side");
+			
+			L2Item item;
+			
+			if (currentItem.type instanceof L2ArmorType)
+				item = new L2Armor((L2ArmorType)currentItem.type, currentItem.set);
+			
+			else if (currentItem.type instanceof L2WeaponType)
+				item = new L2Weapon((L2WeaponType)currentItem.type, currentItem.set);
+			
+			else if (currentItem.type instanceof L2EtcItemType)
+				item = new L2EtcItem((L2EtcItemType)currentItem.type, currentItem.set);
+			
+			else
+				throw new IllegalStateException("Unknown item type " + currentItem.type);
+			
+			for (n = n.getFirstChild(); n != null; n = n.getNextSibling())
+			{
+				if ("cond".equalsIgnoreCase(n.getNodeName()))
+				{
+					item.attach(parseConditionWithMessage(n, item));
+				}
+				else if ("for".equalsIgnoreCase(n.getNodeName()))
+				{
+					parseTemplate(n, item);
+				}
+				else if (n.getNodeType() == Node.ELEMENT_NODE)
+				{
+					throw new IllegalStateException("Invalid tag <" + n.getNodeName() + ">");
+				}
+			}
+			
+			_itemsInFile.add(item);
+		}
+		catch (RuntimeException e)
+		{
+			_log.warn("Error while parsing item id " + itemId + " in file " + _file, e);
+		}
+	}
+	
+	@Override
+	void parseTemplateNode(Node n, Object template, Condition condition)
+	{
+		if ("enchant".equalsIgnoreCase(n.getNodeName()))
+			attachFunc(n, template, "Enchant", condition);
+		else
+			super.parseTemplateNode(n, template, condition);
 	}
 }

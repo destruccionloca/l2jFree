@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.skills.l2skills;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
@@ -42,7 +43,8 @@ public class L2SkillSummon extends L2Skill
 		_expPenalty = set.getFloat("expPenalty", 0.f);
 	}
 
-	public boolean checkCondition(L2Character activeChar, boolean itemOrWeapons)
+	@Override
+	public boolean checkCondition(L2Character activeChar, L2Object target)
 	{
 		if (activeChar instanceof L2PcInstance)
 		{
@@ -79,7 +81,8 @@ public class L2SkillSummon extends L2Skill
 				}
 			}
 		}
-		return super.checkCondition(activeChar, null, itemOrWeapons);
+		
+		return super.checkCondition(activeChar, target);
 	}
 
 	@Override
@@ -166,7 +169,7 @@ public class L2SkillSummon extends L2Skill
 
 		L2SummonInstance summon;
 		L2NpcTemplate summonTemplate = NpcTable.getInstance().getTemplate(_npcId);
-		if (summonTemplate == null) 
+		if (summonTemplate == null)
 		{
 			_log.warn("Summon attempt for nonexisting NPC ID:"+_npcId+", skill ID:"+getId());
 			return; // npcID doesn't exist

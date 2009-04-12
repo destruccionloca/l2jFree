@@ -34,6 +34,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
+import com.l2jfree.L2Config;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.config.L2Properties;
 import com.l2jfree.gameserver.Announcements;
@@ -130,7 +131,7 @@ public final class GameStatusThread extends Thread
 		
 		try
 		{
-			Properties telnetSettings = new L2Properties(Config.TELNET_FILE);
+			Properties telnetSettings = new L2Properties(L2Config.TELNET_FILE);
 			
 			String HostList = telnetSettings.getProperty("ListOfHosts", "127.0.0.1,localhost");
 			
@@ -984,7 +985,7 @@ public final class GameStatusThread extends Thread
 						else if (type.equals("skill"))
 						{
 							_print.print("Reloading skills... ");
-							SkillTable.getInstance().reload();
+							SkillTable.reload();
 							_print.print("done\n");
 						}
 						else if (type.equals("npc"))
@@ -1003,7 +1004,7 @@ public final class GameStatusThread extends Thread
 						else if (type.equals("item"))
 						{
 							_print.print("Reloading item templates... ");
-							ItemTable.getInstance().reload();
+							ItemTable.reload();
 							_print.print("done\n");
 						}
 						else if (type.equals("instancemanager"))

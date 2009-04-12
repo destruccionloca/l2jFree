@@ -21,10 +21,9 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.ExtractableItemsData;
 import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.handler.ISkillHandler;
-import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.items.model.L2ExtractableItem;
 import com.l2jfree.gameserver.items.model.L2ExtractableProductItem;
-import com.l2jfree.gameserver.model.L2Object;
+import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -75,9 +74,9 @@ public class Extractable implements ISkillHandler
 				{
 					createItemID[i] = expi.getId()[i];
 
-					if ((itemID >= 6411 && itemID <= 6518) || (itemID >= 7726 && itemID <= 7860) || (itemID >= 8403 && itemID <= 8483)) 
-						createAmount[i] = (int)(expi.getAmmount()[i] * Config.RATE_EXTR_FISH);
-					else 
+					if ((itemID >= 6411 && itemID <= 6518) || (itemID >= 7726 && itemID <= 7860) || (itemID >= 8403 && itemID <= 8483))
+						createAmount[i] = (expi.getAmmount()[i] * Config.RATE_EXTR_FISH);
+					else
 						createAmount[i] = expi.getAmmount()[i];
 				}
 				break;
@@ -118,8 +117,8 @@ public class Extractable implements ISkillHandler
 					for (int j = 0; j < createAmount[i]; j++)
 						player.addItem("Extract", createItemID[i], 1, targets[0], false);
 				}
-				SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);;
-				SystemMessage sm2 = new SystemMessage(SystemMessageId.EARNED_ADENA);;
+				SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
+				SystemMessage sm2 = new SystemMessage(SystemMessageId.EARNED_ADENA);
 				if (createItemID[i] == 57)
 				{
 					sm2.addNumber(createAmount[i]);

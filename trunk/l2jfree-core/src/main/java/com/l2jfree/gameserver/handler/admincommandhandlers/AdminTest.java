@@ -153,7 +153,7 @@ public class AdminTest implements IAdminCommandHandler
 
 			if (skillId > 0)
 			{
-				int skillLvlMax = SkillTable.getInstance().getMaxLevel(skillId, 1);
+				int skillLvlMax = SkillTable.getInstance().getMaxLevel(skillId);
 
 				if (skillLvl > skillLvlMax)
 					skillLvl = skillLvlMax;
@@ -243,7 +243,7 @@ public class AdminTest implements IAdminCommandHandler
 	}
 
 	/**
-	 * Show tips about command usage and syntax. 
+	 * Show tips about command usage and syntax.
 	 * @param command admin command name
 	 */
 	private void showAdminCommandHelp(L2PcInstance activeChar, String command)

@@ -20,7 +20,7 @@ import com.l2jfree.gameserver.skills.conditions.Condition;
 
 public final class FuncDiv extends FuncLambda
 {
-	public FuncDiv(Stats pStat, int pOrder, FuncOwner pFuncOwner, Lambda pLambda, Condition pCondition)
+	public FuncDiv(Stats pStat, int pOrder, FuncOwner pFuncOwner, double pLambda, Condition pCondition)
 	{
 		super(pStat, pOrder, pFuncOwner, pLambda, pCondition);
 	}
@@ -28,6 +28,6 @@ public final class FuncDiv extends FuncLambda
 	@Override
 	protected void calc(Env env)
 	{
-		env.value /= _lambda.calc(env);
+		env.value /= _lambda;
 	}
 }

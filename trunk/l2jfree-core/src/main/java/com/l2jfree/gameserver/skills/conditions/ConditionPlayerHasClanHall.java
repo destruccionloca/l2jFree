@@ -14,7 +14,10 @@
  */
 package com.l2jfree.gameserver.skills.conditions;
 
-import javolution.util.FastList;
+import java.util.Arrays;
+import java.util.List;
+
+import org.apache.commons.lang.ArrayUtils;
 
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -22,36 +25,32 @@ import com.l2jfree.gameserver.skills.Env;
 
 /**
  * @author MrPoke
- *
  */
 public final class ConditionPlayerHasClanHall extends Condition
 {
-
-	private final FastList<Integer>	_clanHall;
-
-	public ConditionPlayerHasClanHall(FastList<Integer> clanHall)
+	private final int[] _clanHall;
+	
+	public ConditionPlayerHasClanHall(List<Integer> clanHall)
 	{
-		_clanHall = clanHall;
+		_clanHall = ArrayUtils.toPrimitive(clanHall.toArray(new Integer[clanHall.size()]), 0);
+		
+		Arrays.sort(_clanHall);
 	}
-
-	/**
-	 * 
-	 * @see com.l2jfree.gameserver.skills.conditions.Condition#testImpl(com.l2jfree.gameserver.skills.Env)
-	 */
+	
 	@Override
 	public boolean testImpl(Env env)
 	{
 		if (!(env.player instanceof L2PcInstance))
 			return false;
-
-		L2Clan clan = ((L2PcInstance) env.player).getClan();
+		
+		L2Clan clan = ((L2PcInstance)env.player).getClan();
 		if (clan == null)
-			return (_clanHall.size() == 1 && _clanHall.getFirst() == 0);
-
+			return _clanHall.length == 1 && _clanHall[0] == 0;
+		
 		// All Clan Hall
-		if (_clanHall.size() == 1 && _clanHall.getFirst() == -1)
+		if (_clanHall.length == 1 && _clanHall[0] == -1)
 			return clan.getHasHideout() > 0;
-
-		return _clanHall.contains(clan.getHasHideout());
+		
+		return Arrays.binarySearch(_clanHall, clan.getHasHideout()) >= 0;
 	}
 }
