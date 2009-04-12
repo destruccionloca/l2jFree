@@ -17,20 +17,18 @@ package com.l2jfree.gameserver.skills.conditions;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.tools.random.Rnd;
 
-
 /**
  * @author Advi
- * 
  */
-public class ConditionGameChance extends Condition
+class ConditionGameChance extends Condition
 {
-	private final int	_chance;
-
+	private final int _chance;
+	
 	public ConditionGameChance(int chance)
 	{
 		_chance = chance;
 	}
-
+	
 	@Override
 	public boolean testImpl(Env env)
 	{

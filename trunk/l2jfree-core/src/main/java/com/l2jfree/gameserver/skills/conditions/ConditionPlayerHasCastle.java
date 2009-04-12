@@ -20,9 +20,8 @@ import com.l2jfree.gameserver.skills.Env;
 
 /**
  * @author MrPoke
- *
  */
-public final class ConditionPlayerHasCastle extends Condition
+final class ConditionPlayerHasCastle extends Condition
 {
 	
 	private final int _castle;
@@ -33,7 +32,6 @@ public final class ConditionPlayerHasCastle extends Condition
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.skills.conditions.Condition#testImpl(com.l2jfree.gameserver.skills.Env)
 	 */
 	@Override
@@ -47,7 +45,8 @@ public final class ConditionPlayerHasCastle extends Condition
 			return _castle == 0;
 		
 		// Any castle
-		if (_castle == -1) return clan.getHasCastle() > 0;
+		if (_castle == -1)
+			return clan.getHasCastle() > 0;
 		
 		return clan.getHasCastle() == _castle;
 	}

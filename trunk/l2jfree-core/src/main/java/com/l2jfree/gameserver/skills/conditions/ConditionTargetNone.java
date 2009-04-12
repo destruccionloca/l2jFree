@@ -19,15 +19,15 @@ import com.l2jfree.gameserver.skills.Env;
 /**
  * @author mkizub
  */
-public class ConditionTargetNone extends Condition
+class ConditionTargetNone extends Condition
 {
 	public ConditionTargetNone()
 	{
 	}
-
+	
 	@Override
 	public boolean testImpl(Env env)
 	{
-		return (env.target == null);
+		return env.target == null;
 	}
 }

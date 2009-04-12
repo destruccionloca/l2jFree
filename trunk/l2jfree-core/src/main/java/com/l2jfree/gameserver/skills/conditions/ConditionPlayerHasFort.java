@@ -20,9 +20,8 @@ import com.l2jfree.gameserver.skills.Env;
 
 /**
  * @author MrPoke
- *
  */
-public final class ConditionPlayerHasFort extends Condition
+final class ConditionPlayerHasFort extends Condition
 {
 	
 	private final int _fort;
@@ -33,7 +32,6 @@ public final class ConditionPlayerHasFort extends Condition
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.skills.conditions.Condition#testImpl(com.l2jfree.gameserver.skills.Env)
 	 */
 	@Override

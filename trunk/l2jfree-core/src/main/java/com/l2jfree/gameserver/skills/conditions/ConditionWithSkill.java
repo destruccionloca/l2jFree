@@ -19,7 +19,7 @@ import com.l2jfree.gameserver.skills.Env;
 /**
  * @author Steuf
  */
-public final class ConditionWithSkill extends Condition
+final class ConditionWithSkill extends Condition
 {
 	private final boolean _withSkill;
 	

@@ -20,15 +20,15 @@ import com.l2jfree.gameserver.skills.Env;
 /**
  * @author Psychokiller1888
  */
-public class ConditionAgathionSummoned extends Condition
+class ConditionAgathionSummoned extends Condition
 {
-	private final int	_agathionId;
-
+	private final int _agathionId;
+	
 	public ConditionAgathionSummoned(int agathionId)
 	{
 		_agathionId = agathionId;
 	}
-
+	
 	@Override
 	public boolean testImpl(Env env)
 	{

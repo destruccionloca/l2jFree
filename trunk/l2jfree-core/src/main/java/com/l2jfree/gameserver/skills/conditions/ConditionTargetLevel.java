@@ -19,15 +19,15 @@ import com.l2jfree.gameserver.skills.Env;
 /**
  * @author mkizub
  */
-public class ConditionTargetLevel extends Condition
+class ConditionTargetLevel extends Condition
 {
-	private final int	_level;
-
+	private final int _level;
+	
 	public ConditionTargetLevel(int level)
 	{
 		_level = level;
 	}
-
+	
 	@Override
 	public boolean testImpl(Env env)
 	{

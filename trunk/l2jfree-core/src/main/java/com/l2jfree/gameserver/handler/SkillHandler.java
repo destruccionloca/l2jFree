@@ -14,45 +14,77 @@
  */
 package com.l2jfree.gameserver.handler;
 
-import java.util.Map;
-
-import javolution.util.FastMap;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import com.l2jfree.gameserver.handler.skillhandlers.*;
+import com.l2jfree.gameserver.handler.skillhandlers.BalanceLife;
+import com.l2jfree.gameserver.handler.skillhandlers.BallistaBomb;
+import com.l2jfree.gameserver.handler.skillhandlers.BeastFeed;
+import com.l2jfree.gameserver.handler.skillhandlers.Blow;
+import com.l2jfree.gameserver.handler.skillhandlers.CPperHeal;
+import com.l2jfree.gameserver.handler.skillhandlers.CombatPointHeal;
+import com.l2jfree.gameserver.handler.skillhandlers.Continuous;
+import com.l2jfree.gameserver.handler.skillhandlers.CpDam;
+import com.l2jfree.gameserver.handler.skillhandlers.Craft;
+import com.l2jfree.gameserver.handler.skillhandlers.DeluxeKey;
+import com.l2jfree.gameserver.handler.skillhandlers.Disablers;
+import com.l2jfree.gameserver.handler.skillhandlers.DrainSoul;
+import com.l2jfree.gameserver.handler.skillhandlers.Dummy;
+import com.l2jfree.gameserver.handler.skillhandlers.Extractable;
+import com.l2jfree.gameserver.handler.skillhandlers.Fishing;
+import com.l2jfree.gameserver.handler.skillhandlers.FishingSkill;
+import com.l2jfree.gameserver.handler.skillhandlers.GetPlayer;
+import com.l2jfree.gameserver.handler.skillhandlers.GiveSp;
+import com.l2jfree.gameserver.handler.skillhandlers.Harvest;
+import com.l2jfree.gameserver.handler.skillhandlers.Heal;
+import com.l2jfree.gameserver.handler.skillhandlers.InstantJump;
+import com.l2jfree.gameserver.handler.skillhandlers.MakeKillable;
+import com.l2jfree.gameserver.handler.skillhandlers.ManaHeal;
+import com.l2jfree.gameserver.handler.skillhandlers.Manadam;
+import com.l2jfree.gameserver.handler.skillhandlers.Mdam;
+import com.l2jfree.gameserver.handler.skillhandlers.Pdam;
+import com.l2jfree.gameserver.handler.skillhandlers.Recall;
+import com.l2jfree.gameserver.handler.skillhandlers.Resurrect;
+import com.l2jfree.gameserver.handler.skillhandlers.ShiftTarget;
+import com.l2jfree.gameserver.handler.skillhandlers.SiegeFlag;
+import com.l2jfree.gameserver.handler.skillhandlers.Soul;
+import com.l2jfree.gameserver.handler.skillhandlers.Sow;
+import com.l2jfree.gameserver.handler.skillhandlers.Spoil;
+import com.l2jfree.gameserver.handler.skillhandlers.StrSiegeAssault;
+import com.l2jfree.gameserver.handler.skillhandlers.SummonFriend;
+import com.l2jfree.gameserver.handler.skillhandlers.SummonHorse;
+import com.l2jfree.gameserver.handler.skillhandlers.SummonTreasureKey;
+import com.l2jfree.gameserver.handler.skillhandlers.Sweep;
+import com.l2jfree.gameserver.handler.skillhandlers.TakeCastle;
+import com.l2jfree.gameserver.handler.skillhandlers.TakeFort;
+import com.l2jfree.gameserver.handler.skillhandlers.TransformDispel;
+import com.l2jfree.gameserver.handler.skillhandlers.Trap;
+import com.l2jfree.gameserver.handler.skillhandlers.Unlock;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
+import com.l2jfree.util.HandlerRegistry;
 
-public final class SkillHandler implements ISkillHandler
+public final class SkillHandler extends HandlerRegistry<L2SkillType, ISkillHandler> implements ISkillHandler
 {
-	private static final Log	_log	= LogFactory.getLog(SkillHandler.class);
-
-	private static SkillHandler	_instance;
-
+	private static SkillHandler _instance;
+	
 	public static SkillHandler getInstance()
 	{
 		if (_instance == null)
 			_instance = new SkillHandler();
-
+		
 		return _instance;
 	}
-
-	private final Map<L2SkillType, ISkillHandler>	_handlers	= new FastMap<L2SkillType, ISkillHandler>();
-
+	
 	private SkillHandler()
 	{
 		registerSkillHandler(new BalanceLife());
 		registerSkillHandler(new BallistaBomb());
 		registerSkillHandler(new BeastFeed());
 		registerSkillHandler(new Blow());
+		registerSkillHandler(new CPperHeal());
 		registerSkillHandler(new CombatPointHeal());
 		registerSkillHandler(new Continuous());
-		registerSkillHandler(new Craft());
 		registerSkillHandler(new CpDam());
-		registerSkillHandler(new CPperHeal());
+		registerSkillHandler(new Craft());
 		registerSkillHandler(new DeluxeKey());
 		registerSkillHandler(new Disablers());
 		registerSkillHandler(new DrainSoul());
@@ -66,8 +98,8 @@ public final class SkillHandler implements ISkillHandler
 		registerSkillHandler(new Heal());
 		registerSkillHandler(new InstantJump());
 		registerSkillHandler(new MakeKillable());
-		registerSkillHandler(new Manadam());
 		registerSkillHandler(new ManaHeal());
+		registerSkillHandler(new Manadam());
 		registerSkillHandler(new Mdam());
 		registerSkillHandler(new Pdam());
 		registerSkillHandler(new Recall());
@@ -79,37 +111,35 @@ public final class SkillHandler implements ISkillHandler
 		registerSkillHandler(new Spoil());
 		registerSkillHandler(new StrSiegeAssault());
 		registerSkillHandler(new SummonFriend());
+		registerSkillHandler(new SummonHorse());
 		registerSkillHandler(new SummonTreasureKey());
 		registerSkillHandler(new Sweep());
 		registerSkillHandler(new TakeCastle());
 		registerSkillHandler(new TakeFort());
 		registerSkillHandler(new TransformDispel());
 		registerSkillHandler(new Trap());
-		registerSkillHandler(new SummonHorse());
 		registerSkillHandler(new Unlock());
-
-		_log.info("SkillHandler: Loaded " + _handlers.size() + " handlers.");
+		
+		HandlerRegistry._log.info("SkillHandler: Loaded " + size() + " handlers.");
 	}
-
+	
 	public void registerSkillHandler(ISkillHandler handler)
 	{
-		for (L2SkillType t : handler.getSkillIds())
-			if (_handlers.put(t, handler) != null)
-				_log.warn("SkillHandler: Already handled SkillType." + t + " " + handler);
+		registerAll(handler, handler.getSkillIds());
 	}
-
+	
 	public ISkillHandler getSkillHandler(L2SkillType skillType)
 	{
-		ISkillHandler handler = _handlers.get(skillType);
-
+		ISkillHandler handler = get(skillType);
+		
 		return handler == null ? this : handler;
 	}
-
+	
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
 		skill.useSkill(activeChar, targets);
 	}
-
+	
 	public L2SkillType[] getSkillIds()
 	{
 		return null;

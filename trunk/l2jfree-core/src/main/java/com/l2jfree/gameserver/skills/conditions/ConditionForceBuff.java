@@ -22,7 +22,7 @@ import com.l2jfree.gameserver.skills.effects.EffectForce;
 /**
  * @author kombat, Forsaiken
  */
-public final class ConditionForceBuff extends Condition
+final class ConditionForceBuff extends Condition
 {
 	private static final short BATTLE_FORCE = 5104;
 	private static final short SPELL_FORCE = 5105;

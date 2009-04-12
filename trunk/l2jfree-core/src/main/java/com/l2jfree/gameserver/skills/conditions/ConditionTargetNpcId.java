@@ -17,16 +17,15 @@ package com.l2jfree.gameserver.skills.conditions;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.skills.Env;
 
-
-public class ConditionTargetNpcId extends Condition
+class ConditionTargetNpcId extends Condition
 {
 	private final int _npcId;
-
+	
 	public ConditionTargetNpcId(int id)
 	{
 		_npcId = id;
 	}
-
+	
 	@Override
 	public boolean testImpl(Env env)
 	{

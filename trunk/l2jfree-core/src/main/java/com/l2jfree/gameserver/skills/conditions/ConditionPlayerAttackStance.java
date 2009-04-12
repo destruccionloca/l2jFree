@@ -20,7 +20,7 @@ import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 /**
  * @author NB4L1
  */
-public final class ConditionPlayerAttackStance extends Condition
+final class ConditionPlayerAttackStance extends Condition
 {
 	private final boolean _value;
 	

@@ -19,9 +19,8 @@ import com.l2jfree.gameserver.skills.Env;
 
 /**
  * @author MrPoke
- *
  */
-public final class ConditionPlayerPledgeClass extends Condition
+final class ConditionPlayerPledgeClass extends Condition
 {
 	private final int _pledgeClass;
 	
@@ -31,7 +30,6 @@ public final class ConditionPlayerPledgeClass extends Condition
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.skills.conditions.Condition#testImpl(com.l2jfree.gameserver.skills.Env)
 	 */
 	@Override
@@ -46,6 +44,6 @@ public final class ConditionPlayerPledgeClass extends Condition
 		if (_pledgeClass == -1)
 			return ((L2PcInstance)env.player).isClanLeader();
 		
-		return (((L2PcInstance)env.player).getPledgeClass() >= _pledgeClass);
+		return ((L2PcInstance)env.player).getPledgeClass() >= _pledgeClass;
 	}
 }

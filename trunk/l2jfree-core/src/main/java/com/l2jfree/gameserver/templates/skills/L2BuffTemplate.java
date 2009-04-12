@@ -79,9 +79,12 @@ public class L2BuffTemplate
 		_templateId = set.getInteger("id");
 		_templateName = set.getString("name");
 		_skillId = set.getInteger("skillId");
-		_skillLevel = Math.min(set.getInteger("skillLevel"), SkillTable.getInstance().getMaxLevel(_skillId));
+		_skillLevel = set.getInteger("skillLevel");
 		_skillOrder = set.getInteger("skillOrder");
 
+		if (_skillLevel == 0)
+			_skillLevel = SkillTable.getInstance().getMaxLevel(_skillId);
+		
 		_skill = SkillTable.getInstance().getInfo(_skillId, _skillLevel);
 
 		_forceCast = (set.getInteger("forceCast") == 1);

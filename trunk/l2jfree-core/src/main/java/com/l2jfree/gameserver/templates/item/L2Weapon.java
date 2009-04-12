@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.templates.item;
 
 import javolution.util.FastList;
 
-import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Effect;
@@ -25,11 +24,9 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.quest.Quest;
-import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Formulas;
-import com.l2jfree.gameserver.skills.conditions.Condition;
-import com.l2jfree.gameserver.skills.conditions.ConditionGameChance;
 import com.l2jfree.gameserver.templates.StatsSet;
+import com.l2jfree.tools.random.Rnd;
 
 /**
  * This class is dedicated to the management of weapons.
@@ -54,11 +51,11 @@ public final class L2Weapon extends L2Equip
 	private final int		_changeWeaponId;
 
 	// Attached skills (e.g. Special Abilities)
-	private L2Skill[]		_onCastSkills	= null;
-	private Condition[]		_onCastConditions = null;
-	private L2Skill[]		_onCritSkills	= null;
-	private Condition[]		_onCritConditions = null;
-	private L2Skill[]		_enchant4Skills	= null; // skill that activates when item is enchanted +4 (for duals)
+	private L2Skill[]		_onCastSkills;
+	private int[]			_onCastChances;
+	private L2Skill[]		_onCritSkills;
+	private int[]			_onCritChances;
+	private L2Skill[]		_enchant4Skills; // skill that activates when item is enchanted +4 (for duals)
 
 	/**
 	 * Constructor for Weapon.<BR><BR>
@@ -128,24 +125,24 @@ public final class L2Weapon extends L2Equip
 		if (onCastSkills != null && !onCastSkills.isEmpty())
 		{
 			_onCastSkills = new L2Skill[onCastSkills.size()];
-			_onCastConditions = new Condition[onCastSkills.size()];
+			_onCastChances = new int[onCastSkills.size()];
 			int i = 0;
 			for (WeaponSkill ws : onCastSkills)
 			{
 				_onCastSkills[i] = ws.skill;
-				_onCastConditions[i] = new ConditionGameChance(ws.chance);
+				_onCastChances[i] = ws.chance;
 				i++;
 			}
 		}
 		if (onCritSkills != null && !onCritSkills.isEmpty())
 		{
 			_onCritSkills = new L2Skill[onCritSkills.size()];
-			_onCritConditions = new Condition[onCritSkills.size()];
+			_onCritChances = new int[onCritSkills.size()];
 			int i = 0;
 			for (WeaponSkill ws : onCritSkills)
 			{
 				_onCritSkills[i] = ws.skill;
-				_onCritConditions[i] = new ConditionGameChance(ws.chance);
+				_onCritChances[i] = ws.chance;
 				i++;
 			}
 		}
@@ -339,16 +336,11 @@ public final class L2Weapon extends L2Equip
 		if (_onCritSkills == null)
 			return;
 
-		Env env = new Env();
-		env.player = caster;
-		env.target = target;
-
 		for (int i = 0; i < _onCritSkills.length; i++)
 		{
 			L2Skill skill = _onCritSkills[i];
 
-			env.skill = skill;
-			if (!_onCritConditions[i].test(env))
+			if (!(Rnd.get(100) < _onCritChances[i]))
 				continue;
 
 			byte shld = Formulas.calcShldUse(caster, target);
@@ -374,10 +366,6 @@ public final class L2Weapon extends L2Equip
 		if (_onCastSkills == null)
 			return false;
 		
-		Env env = new Env();
-		env.player = caster;
-		env.target = target;
-
 		boolean affected = false;
 		for (int i = 0; i < _onCastSkills.length; i++)
 		{
@@ -392,8 +380,7 @@ public final class L2Weapon extends L2Equip
 			if (trigger.getId() >= 1320 && trigger.getId() <= 1322)
 				continue; // No buffing with Common and Dwarven Craft
 
-			env.skill = skill;
-			if (!_onCastConditions[i].test(env))
+			if (!(Rnd.get(100) < _onCastChances[i]))
 				continue;
 
 			
@@ -409,12 +396,8 @@ public final class L2Weapon extends L2Equip
 			try
 			{
 				// Launch the magic skill and calculate its effects
-				ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(skill.getSkillType());
+				SkillHandler.getInstance().getSkillHandler(skill.getSkillType()).useSkill(caster, skill, targets);
 				
-				if (handler == null)
-					continue;
-				
-				handler.useSkill(caster, skill, targets);
 				affected = true;
 				
 				// notify quests of a skill use

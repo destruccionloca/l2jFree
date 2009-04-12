@@ -19,15 +19,15 @@ import com.l2jfree.gameserver.skills.Env;
 /**
  * @author mkizub
  */
-public class ConditionUsingSkill extends Condition
+class ConditionUsingSkill extends Condition
 {
-	private final int	_skillId;
-
+	private final int _skillId;
+	
 	public ConditionUsingSkill(int skillId)
 	{
 		_skillId = skillId;
 	}
-
+	
 	@Override
 	public boolean testImpl(Env env)
 	{

@@ -26,7 +26,7 @@ import com.l2jfree.gameserver.skills.Env;
 /**
  * @author MrPoke
  */
-public final class ConditionPlayerHasClanHall extends Condition
+final class ConditionPlayerHasClanHall extends Condition
 {
 	private final int[] _clanHall;
 	

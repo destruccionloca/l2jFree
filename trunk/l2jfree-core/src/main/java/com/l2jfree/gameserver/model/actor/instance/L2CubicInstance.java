@@ -588,14 +588,13 @@ public class L2CubicInstance
 							}
 
 							ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(skill.getSkillType());
-							L2Character[] targets = { _target };
 
 							if (handler instanceof ICubicSkillHandler)
-								((ICubicSkillHandler) handler).useCubicSkill(L2CubicInstance.this, skill, targets);
+								((ICubicSkillHandler) handler).useCubicSkill(L2CubicInstance.this, skill, _target);
 							else if (skill instanceof L2SkillDrain)
-								((L2SkillDrain) skill).useCubicSkill(L2CubicInstance.this, targets);
-							else if (handler != null)
-								handler.useSkill(_owner, skill, targets);
+								((L2SkillDrain) skill).useCubicSkill(L2CubicInstance.this, _target);
+							else
+								handler.useSkill(_owner, skill, _target);
 							
 							MagicSkillUse msu = new MagicSkillUse(_owner, _target, skill.getId(), skill.getLevel(), 0, 0);
 							_owner.broadcastPacket(msu);
@@ -739,13 +738,7 @@ public class L2CubicInstance
 					{
 						if (target.getMaxHp() - target.getStatus().getCurrentHp() > skill.getPower())
 						{
-							L2Character[] targets = { target };
-							ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(skill.getSkillType());
-							
-							if (handler == null)
-								return;
-							
-							handler.useSkill(_owner, skill, targets);
+							SkillHandler.getInstance().getSkillHandler(skill.getSkillType()).useSkill(_owner, skill, target);
 							
 							MagicSkillUse msu = new MagicSkillUse(_owner, target, skill.getId(), skill.getLevel(), 0, 0);
 							_owner.broadcastPacket(msu);

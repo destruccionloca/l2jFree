@@ -17,16 +17,16 @@ package com.l2jfree.gameserver.skills.conditions;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.skills.Env;
 
-public class ConditionTargetActiveSkillId extends Condition
+class ConditionTargetActiveSkillId extends Condition
 {
-
-	private final int	_skillId;
-
+	
+	private final int _skillId;
+	
 	public ConditionTargetActiveSkillId(int skillId)
 	{
 		_skillId = skillId;
 	}
-
+	
 	@Override
 	public boolean testImpl(Env env)
 	{

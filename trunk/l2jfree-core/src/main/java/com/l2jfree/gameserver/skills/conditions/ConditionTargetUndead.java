@@ -19,27 +19,27 @@ import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.skills.Env;
 
-public class ConditionTargetUndead extends Condition
+class ConditionTargetUndead extends Condition
 {
-	final boolean	_isUndead;
-
+	final boolean _isUndead;
+	
 	public ConditionTargetUndead(boolean isUndead)
 	{
 		_isUndead = isUndead;
 	}
-
+	
 	@Override
 	public boolean testImpl(Env env)
 	{
-		L2Character target = (L2Character) env.player.getTarget();
-
+		L2Character target = (L2Character)env.player.getTarget();
+		
 		if (target == null)
 			return false;
 		if (target instanceof L2MonsterInstance)
 			return target.isUndead() == _isUndead;
 		if (target instanceof L2SummonInstance)
 			return target.isUndead() == _isUndead;
-
+		
 		return false;
 	}
 }

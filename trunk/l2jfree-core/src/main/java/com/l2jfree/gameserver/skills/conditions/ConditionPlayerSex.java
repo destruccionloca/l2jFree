@@ -17,19 +17,19 @@ package com.l2jfree.gameserver.skills.conditions;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.skills.Env;
 
-public class ConditionPlayerSex extends Condition
+class ConditionPlayerSex extends Condition
 {
 	//male 0 fmale 1
-	private final int	_sex;
-
+	private final int _sex;
+	
 	public ConditionPlayerSex(int sex)
 	{
 		_sex = sex;
 	}
-
+	
 	@Override
 	public boolean testImpl(Env env)
 	{
-		return (((L2PcInstance) env.player).getAppearance().getSex() ? 1 : 0) == _sex;
+		return (((L2PcInstance)env.player).getAppearance().getSex() ? 1 : 0) == _sex;
 	}
 }

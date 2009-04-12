@@ -15,6 +15,8 @@
 package com.l2jfree.gameserver.model.zone;
 
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import javolution.util.FastList;
@@ -41,7 +43,7 @@ import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.funcs.FuncOwner;
 import com.l2jfree.gameserver.skills.funcs.FuncTemplate;
 import com.l2jfree.tools.random.Rnd;
-import com.l2jfree.util.LinkedBunch;
+import com.l2jfree.util.L2Collections;
 
 public abstract class L2Zone implements FuncOwner
 {
@@ -197,8 +199,7 @@ public abstract class L2Zone implements FuncOwner
 
 	public String getClassName()
 	{
-		String[] parts = this.getClass().toString().split("\\.");
-		return parts[parts.length-1];
+		return getClass().getSimpleName();
 	}
 
 	public int getCastleId()
@@ -413,7 +414,7 @@ public abstract class L2Zone implements FuncOwner
 	{
 		if (_shapes.length == 0)
 		{
-			_log.error(getClassName()+" \""+getName()+"\" "+getId()+" has no shapes defined");
+			_log.error(this + " has no shapes defined");
 			return 0;
 		}
 
@@ -429,7 +430,7 @@ public abstract class L2Zone implements FuncOwner
 	{
 		if (_shapes.length == 0)
 		{
-			_log.error(getClassName()+" \""+getName()+"\" "+getId()+" has no shapes defined");
+			_log.error(this + " has no shapes defined");
 			return 0;
 		}
 
@@ -485,7 +486,7 @@ public abstract class L2Zone implements FuncOwner
 	{
 		if (_shapes.length == 0)
 		{
-			_log.error(getClassName()+" \""+getName()+"\" "+getId()+" has no shapes defined");
+			_log.error(this + " has no shapes defined");
 			return new Location(0, 0, 0);
 		}
 		
@@ -856,19 +857,23 @@ public abstract class L2Zone implements FuncOwner
 		}
 	}
 
-	/**
-	 * @param n  
-	 */
-	protected void parseCondition(Node n) throws Exception
+	@Override
+	public String toString()
 	{
+		return getClassName() + "[id='" + getId() + "',name='" + getName() + "']";
 	}
 
-	protected Func[] getStatFuncs(L2Character player)
+	protected void parseCondition(Node n) throws Exception
+	{
+		throw new IllegalStateException("This zone shouldn't have conditions!");
+	}
+
+	protected List<Func> getStatFuncs(L2Character player)
 	{
 		if (_funcTemplates == null)
-			return EMPTY_FUNC_SET;
+			return L2Collections.emptyList();
 		
-		LinkedBunch<Func> funcs = new LinkedBunch<Func>();
+		List<Func> funcs = new ArrayList<Func>(_funcTemplates.length);
 		for (FuncTemplate t : _funcTemplates)
 		{
 			Env env = new Env();
@@ -878,9 +883,8 @@ public abstract class L2Zone implements FuncOwner
 			if (f != null)
 				funcs.add(f);
 		}
-		if (funcs.size() == 0)
-			return EMPTY_FUNC_SET;
-		return funcs.moveToArray(new Func[funcs.size()]);
+		
+		return funcs;
 	}
 
 	@Override

@@ -42,7 +42,6 @@ import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.geodata.pathfinding.AbstractNodeLoc;
 import com.l2jfree.gameserver.geodata.pathfinding.PathFinding;
-import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.instancemanager.FactionManager;
 import com.l2jfree.gameserver.instancemanager.MapRegionManager;
@@ -4118,6 +4117,12 @@ public abstract class L2Character extends L2Object
 			addStatFunc(f);
 	}
 	
+	public final void addStatFuncs(Iterable<Func> funcs)
+	{
+		for (Func f : funcs)
+			addStatFunc(f);
+	}
+	
 	public final void removeStatsOwner(FuncOwner owner)
 	{
 		// Go through the Calculator set
@@ -6692,11 +6697,7 @@ public abstract class L2Character extends L2Object
 		}
 
 		// Launch the magic skill and calculate its effects
-		ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(skill.getSkillType());
-		if (handler == null)
-			return;
-			
-		handler.useSkill(this, skill, targets);
+		SkillHandler.getInstance().getSkillHandler(skill.getSkillType()).useSkill(this, skill, targets);
 
 		if (player != null)
 		{

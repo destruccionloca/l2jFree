@@ -16,7 +16,7 @@ package com.l2jfree.gameserver.skills.conditions;
 
 import com.l2jfree.gameserver.skills.Env;
 
-public final class ConditionPlayerCp extends Condition
+final class ConditionPlayerCp extends Condition
 {
 	private final int _cp;
 	private final String _msg;

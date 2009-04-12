@@ -18,7 +18,6 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2ItemInstance;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
@@ -194,18 +193,15 @@ public class L2SkillDrain extends L2Skill
 		getEffectsSelf(activeChar);
 	}
 
-	public void useCubicSkill(L2CubicInstance activeCubic, L2Object[] targets)
+	public void useCubicSkill(L2CubicInstance activeCubic, L2Character... targets)
 	{
 		if (_log.isDebugEnabled())
 			_log.info("L2SkillDrain: useCubicSkill()");
 
-		for (L2Object element :  targets)
+		for (L2Character target :  targets)
 		{
-			if (element == null || 
-					!(element instanceof L2Character))
+			if (target == null)
 				continue;
-			
-			L2Character target = (L2Character) element;
 			
 			if (target.isAlikeDead() && getTargetType() != SkillTargetType.TARGET_CORPSE_MOB)
 				continue;

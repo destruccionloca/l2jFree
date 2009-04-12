@@ -22,7 +22,7 @@ import org.apache.commons.lang.ArrayUtils;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.skills.Env;
 
-public class ConditionTargetClassIdRestriction extends Condition
+class ConditionTargetClassIdRestriction extends Condition
 {
 	private final int[] _classIds;
 	

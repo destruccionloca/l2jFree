@@ -26,9 +26,7 @@ import org.w3c.dom.Node;
 
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.skills.conditions.Condition;
-import com.l2jfree.gameserver.skills.conditions.ConditionLogicAnd;
-import com.l2jfree.gameserver.skills.conditions.ConditionLogicNot;
-import com.l2jfree.gameserver.skills.conditions.ConditionLogicOr;
+import com.l2jfree.gameserver.skills.conditions.ConditionParser;
 import com.l2jfree.gameserver.skills.effects.EffectTemplate;
 import com.l2jfree.gameserver.skills.funcs.FuncTemplate;
 import com.l2jfree.gameserver.templates.item.L2Equip;
@@ -150,7 +148,7 @@ abstract class DocumentBase
 		final int ord = Integer.decode(attrs.getNamedItem("order").getNodeValue());
 		final double lambda = getLambda(n, template);
 		
-		final Condition applayCond = parseCondition(n.getFirstChild(), template, false, false);
+		final Condition applayCond = parseConditionIfExists(n.getFirstChild(), template);
 		
 		final FuncTemplate ft = new FuncTemplate(attachCond, applayCond, name, stat, ord, lambda);
 		
@@ -165,198 +163,6 @@ abstract class DocumentBase
 		
 		else
 			throw new IllegalStateException("Invalid template for a Func");
-	}
-	
-	final Condition parseCondition(Node n, Object template, boolean force, boolean onlyFirst)
-	{
-		Condition cond = null;
-		for (; n != null; n = n.getNextSibling())
-		{
-			if (n.getNodeType() == Node.ELEMENT_NODE)
-			{
-				if (cond != null)
-					throw new IllegalStateException("Full condition");
-				
-				else if ("and".equalsIgnoreCase(n.getNodeName()))
-					cond = parseLogicAnd(n, template);
-				
-				else if ("or".equalsIgnoreCase(n.getNodeName()))
-					cond = parseLogicOr(n, template);
-				
-				else if ("not".equalsIgnoreCase(n.getNodeName()))
-					cond = parseLogicNot(n, template);
-				
-				else if ("player".equalsIgnoreCase(n.getNodeName()))
-					cond = parsePlayerCondition(n, template);
-				
-				else if ("target".equalsIgnoreCase(n.getNodeName()))
-					cond = parseTargetCondition(n, template);
-				
-				else if ("skill".equalsIgnoreCase(n.getNodeName()))
-					cond = parseSkillCondition(n, template);
-				
-				else if ("using".equalsIgnoreCase(n.getNodeName()))
-					cond = parseUsingCondition(n, template);
-				
-				else if ("game".equalsIgnoreCase(n.getNodeName()))
-					cond = parseGameCondition(n, template);
-				
-				else
-					throw new IllegalStateException("Unrecognized condition <" + n.getNodeName() + ">");
-				
-				if (onlyFirst)
-					return cond;
-			}
-		}
-		
-		if (force && cond == null)
-			throw new IndexOutOfBoundsException("Empty condition");
-		
-		return cond;
-	}
-	
-	final Condition parseConditionWithMessage(Node n, Object template)
-	{
-		Condition cond = parseCondition(n.getFirstChild(), template, true, false);
-		
-		Node msg = n.getAttributes().getNamedItem("msg");
-		if (msg != null)
-			cond.setMessage(msg.getNodeValue());
-		
-		Node msgId = n.getAttributes().getNamedItem("msgId");
-		if (msgId != null)
-			cond.setMessageId(Integer.decode(msgId.getNodeValue()));
-		
-		return cond;
-	}
-	
-	final Condition parseLogicAnd(Node n, Object template)
-	{
-		ConditionLogicAnd cond = new ConditionLogicAnd();
-		for (n = n.getFirstChild(); n != null; n = n.getNextSibling())
-		{
-			if (n.getNodeType() == Node.ELEMENT_NODE)
-				cond.add(parseCondition(n, template, true, true));
-		}
-		
-		return cond.getCanonicalCondition();
-	}
-	
-	final Condition parseLogicOr(Node n, Object template)
-	{
-		ConditionLogicOr cond = new ConditionLogicOr();
-		for (n = n.getFirstChild(); n != null; n = n.getNextSibling())
-		{
-			if (n.getNodeType() == Node.ELEMENT_NODE)
-				cond.add(parseCondition(n, template, true, true));
-		}
-		
-		return cond.getCanonicalCondition();
-	}
-	
-	final Condition parseLogicNot(Node n, Object template)
-	{
-		Condition cond = null;
-		for (n = n.getFirstChild(); n != null; n = n.getNextSibling())
-		{
-			if (n.getNodeType() == Node.ELEMENT_NODE)
-			{
-				if (cond != null)
-					throw new IllegalStateException("Full <not> condition");
-				
-				cond = parseCondition(n, template, true, true);
-			}
-		}
-		
-		if (cond == null)
-			throw new IllegalStateException("Empty <not> condition");
-		
-		return new ConditionLogicNot(cond);
-	}
-	
-	final Condition parsePlayerCondition(Node n, Object template)
-	{
-		Condition cond = null;
-		
-		NamedNodeMap attrs = n.getAttributes();
-		for (int i = 0; i < attrs.getLength(); i++)
-		{
-			Node a = attrs.item(i);
-			cond = joinAnd(cond, Condition.parsePlayerCondition(a.getNodeName(), getValue(a.getNodeValue(), template)));
-		}
-		
-		if (cond == null)
-			throw new IllegalStateException("Empty <player> condition");
-		
-		return cond;
-	}
-	
-	final Condition parseTargetCondition(Node n, Object template)
-	{
-		Condition cond = null;
-		
-		NamedNodeMap attrs = n.getAttributes();
-		for (int i = 0; i < attrs.getLength(); i++)
-		{
-			Node a = attrs.item(i);
-			cond = joinAnd(cond, Condition.parseTargetCondition(a.getNodeName(), getValue(a.getNodeValue(), template)));
-		}
-		
-		if (cond == null)
-			throw new IllegalStateException("Empty <target> condition");
-		
-		return cond;
-	}
-	
-	final Condition parseSkillCondition(Node n, Object template)
-	{
-		Condition cond = null;
-		
-		NamedNodeMap attrs = n.getAttributes();
-		for (int i = 0; i < attrs.getLength(); i++)
-		{
-			Node a = attrs.item(i);
-			cond = joinAnd(cond, Condition.parseSkillCondition(a.getNodeName(), getValue(a.getNodeValue(), template)));
-		}
-		
-		if (cond == null)
-			throw new IllegalStateException("Empty <skill> condition");
-		
-		return cond;
-	}
-	
-	final Condition parseUsingCondition(Node n, Object template)
-	{
-		Condition cond = null;
-		
-		NamedNodeMap attrs = n.getAttributes();
-		for (int i = 0; i < attrs.getLength(); i++)
-		{
-			Node a = attrs.item(i);
-			cond = joinAnd(cond, Condition.parseUsingCondition(a.getNodeName(), getValue(a.getNodeValue(), template)));
-		}
-		
-		if (cond == null)
-			throw new IllegalStateException("Empty <using> condition");
-		
-		return cond;
-	}
-	
-	final Condition parseGameCondition(Node n, Object template)
-	{
-		Condition cond = null;
-		
-		NamedNodeMap attrs = n.getAttributes();
-		for (int i = 0; i < attrs.getLength(); i++)
-		{
-			Node a = attrs.item(i);
-			cond = joinAnd(cond, Condition.parseGameCondition(a.getNodeName(), getValue(a.getNodeValue(), template)));
-		}
-		
-		if (cond == null)
-			throw new IllegalStateException("Empty <game> condition");
-		
-		return cond;
 	}
 	
 	final double getLambda(Node n, Object template)
@@ -377,20 +183,21 @@ abstract class DocumentBase
 		throw new IllegalStateException();
 	}
 	
-	final Condition joinAnd(Condition cond, Condition c)
-	{
-		if (cond == null)
-			return c;
-		
-		if (cond instanceof ConditionLogicAnd)
+	private final ConditionParser _conditionParser = new ConditionParser() {
+		@Override
+		protected String getNodeValue(String nodeValue, Object template)
 		{
-			((ConditionLogicAnd)cond).add(c);
-			return cond;
+			return getValue(nodeValue, template);
 		}
-		
-		ConditionLogicAnd and = new ConditionLogicAnd();
-		and.add(cond);
-		and.add(c);
-		return and;
+	};
+	
+	final Condition parseConditionWithMessage(Node n, Object template)
+	{
+		return _conditionParser.parseConditionWithMessage(n, template);
+	}
+	
+	final Condition parseConditionIfExists(Node n, Object template)
+	{
+		return _conditionParser.parseConditionIfExists(n, template);
 	}
 }

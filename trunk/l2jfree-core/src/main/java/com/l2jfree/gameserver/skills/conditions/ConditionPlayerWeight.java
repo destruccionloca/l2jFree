@@ -20,27 +20,27 @@ import com.l2jfree.gameserver.skills.Stats;
 
 /**
  * @author Kerberos
- *
- **/
-public class ConditionPlayerWeight extends Condition
+ */
+class ConditionPlayerWeight extends Condition
 {
 	private final int _weight;
-
+	
 	public ConditionPlayerWeight(int weight)
 	{
 		_weight = weight;
 	}
-
+	
 	@Override
 	public boolean testImpl(Env env)
 	{
 		if (env.player instanceof L2PcInstance)
 		{
-			if (((L2PcInstance) env.player).getMaxLoad() > 0)
+			if (((L2PcInstance)env.player).getMaxLoad() > 0)
 			{
-				int weightproc = ((L2PcInstance) env.player).getCurrentLoad() * 100 / ((L2PcInstance) env.player).getMaxLoad();
-				weightproc *= (int)((L2PcInstance) env.player).calcStat(Stats.WEIGHT_LIMIT, 1, env.player, null);
-				return weightproc < _weight || ((L2PcInstance) env.player).getDietMode();
+				int weightproc = ((L2PcInstance)env.player).getCurrentLoad() * 100
+					/ ((L2PcInstance)env.player).getMaxLoad();
+				weightproc *= (int)((L2PcInstance)env.player).calcStat(Stats.WEIGHT_LIMIT, 1, env.player, null);
+				return weightproc < _weight || ((L2PcInstance)env.player).getDietMode();
 			}
 		}
 		return true;

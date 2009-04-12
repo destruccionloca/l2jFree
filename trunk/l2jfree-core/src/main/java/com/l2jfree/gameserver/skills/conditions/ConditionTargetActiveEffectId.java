@@ -17,16 +17,16 @@ package com.l2jfree.gameserver.skills.conditions;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.skills.Env;
 
-public class ConditionTargetActiveEffectId extends Condition
+class ConditionTargetActiveEffectId extends Condition
 {
-
-	private final int	_effectId;
-
+	
+	private final int _effectId;
+	
 	public ConditionTargetActiveEffectId(int effectId)
 	{
 		_effectId = effectId;
 	}
-
+	
 	@Override
 	public boolean testImpl(Env env)
 	{

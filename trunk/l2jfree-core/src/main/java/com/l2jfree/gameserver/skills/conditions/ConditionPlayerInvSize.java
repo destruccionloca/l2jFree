@@ -17,26 +17,23 @@ package com.l2jfree.gameserver.skills.conditions;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.skills.Env;
 
-
-
 /**
  * @author Kerberos
- *
- **/
-public class ConditionPlayerInvSize extends Condition
+ */
+class ConditionPlayerInvSize extends Condition
 {
 	private final int _size;
-
+	
 	public ConditionPlayerInvSize(int size)
 	{
 		_size = size;
 	}
-
+	
 	@Override
 	public boolean testImpl(Env env)
 	{
 		if (env.player instanceof L2PcInstance)
-			return env.player.getInventory().getSize() <= (((L2PcInstance) env.player).getInventoryLimit() - _size);
+			return env.player.getInventory().getSize() <= ((L2PcInstance)env.player).getInventoryLimit() - _size;
 		return true;
 	}
 }

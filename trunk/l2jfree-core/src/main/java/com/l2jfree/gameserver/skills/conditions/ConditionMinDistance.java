@@ -17,10 +17,9 @@ package com.l2jfree.gameserver.skills.conditions;
 import com.l2jfree.gameserver.skills.Env;
 
 /**
- *
- * @author  Didldak
+ * @author Didldak
  */
-public class ConditionMinDistance extends Condition
+class ConditionMinDistance extends Condition
 {
 	private final int _sqDistance;
 	
@@ -28,7 +27,7 @@ public class ConditionMinDistance extends Condition
 	{
 		_sqDistance = sqDistance;
 	}
-
+	
 	@Override
 	public boolean testImpl(Env env)
 	{

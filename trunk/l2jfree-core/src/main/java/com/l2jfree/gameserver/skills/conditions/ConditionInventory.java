@@ -19,7 +19,7 @@ import com.l2jfree.gameserver.skills.Env;
 /**
  * @author mkizub
  */
-public abstract class ConditionInventory extends Condition
+abstract class ConditionInventory extends Condition
 {
 	protected final int _slot;
 	

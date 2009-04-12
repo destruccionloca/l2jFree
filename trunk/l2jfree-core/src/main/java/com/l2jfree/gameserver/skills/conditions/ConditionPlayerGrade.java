@@ -21,33 +21,33 @@ import com.l2jfree.gameserver.skills.Env;
  * @author Gigiikun
  */
 
-public final class ConditionPlayerGrade extends Condition
+final class ConditionPlayerGrade extends Condition
 {
 	//	conditional values
-    public final static int COND_NO_GRADE = 0x0001;
-    public final static int COND_D_GRADE = 0x0002;
-    public final static int COND_C_GRADE = 0x0004;
-    public final static int COND_B_GRADE = 0x0008;
-    public final static int COND_A_GRADE = 0x0010;
-    public final static int COND_S_GRADE = 0x0020;
-    public final static int COND_S80_GRADE = 0x0040;
-    
-    private final int _value;
-
-    public ConditionPlayerGrade(int value)
-    {
-        _value = value;
-    }
-
-    @Override
-    public boolean testImpl(Env env)
-    {
-    	if (env.player instanceof L2PcInstance) 
-    	{
-    		byte expIndex = (byte)((L2PcInstance)env.player).getExpertiseIndex();
-
-    		return _value == expIndex;
-    	}
-    	return false;	
-    }
+	public final static int COND_NO_GRADE = 0x0001;
+	public final static int COND_D_GRADE = 0x0002;
+	public final static int COND_C_GRADE = 0x0004;
+	public final static int COND_B_GRADE = 0x0008;
+	public final static int COND_A_GRADE = 0x0010;
+	public final static int COND_S_GRADE = 0x0020;
+	public final static int COND_S80_GRADE = 0x0040;
+	
+	private final int _value;
+	
+	public ConditionPlayerGrade(int value)
+	{
+		_value = value;
+	}
+	
+	@Override
+	public boolean testImpl(Env env)
+	{
+		if (env.player instanceof L2PcInstance)
+		{
+			byte expIndex = (byte)((L2PcInstance)env.player).getExpertiseIndex();
+			
+			return _value == expIndex;
+		}
+		return false;
+	}
 }

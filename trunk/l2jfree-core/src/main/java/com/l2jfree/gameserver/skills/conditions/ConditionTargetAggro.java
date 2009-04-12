@@ -19,15 +19,14 @@ import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.skills.Env;
 
-
 /**
  * @author mkizub
  */
-public class ConditionTargetAggro extends Condition
+class ConditionTargetAggro extends Condition
 {
 	private final boolean _isAggro;
 	
-    public ConditionTargetAggro(boolean isAggro)
+	public ConditionTargetAggro(boolean isAggro)
 	{
 		_isAggro = isAggro;
 	}
@@ -37,13 +36,9 @@ public class ConditionTargetAggro extends Condition
 	{
 		L2Character target = env.target;
 		if (target instanceof L2MonsterInstance)
-		{
 			return ((L2MonsterInstance)target).isAggressive() == _isAggro;
-		}
 		if (target instanceof L2PcInstance)
-		{
 			return ((L2PcInstance)target).getKarma() > 0;
-		}
 		return false;
 	}
 }

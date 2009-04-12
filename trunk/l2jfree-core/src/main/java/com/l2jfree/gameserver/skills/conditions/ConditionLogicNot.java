@@ -19,7 +19,7 @@ import com.l2jfree.gameserver.skills.Env;
 /**
  * @author mkizub
  */
-public final class ConditionLogicNot extends Condition
+final class ConditionLogicNot extends Condition
 {
 	private final Condition _condition;
 	

@@ -25,7 +25,7 @@ import com.l2jfree.gameserver.skills.Env;
 /**
  * @author nBd
  */
-public final class ConditionTargetRaceId extends Condition
+final class ConditionTargetRaceId extends Condition
 {
 	private final int[] _raceIds;
 	

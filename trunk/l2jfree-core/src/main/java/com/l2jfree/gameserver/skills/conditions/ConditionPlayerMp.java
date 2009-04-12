@@ -19,7 +19,7 @@ import com.l2jfree.gameserver.skills.Env;
 /**
  * @author DiezelMax
  */
-public final class ConditionPlayerMp extends Condition
+final class ConditionPlayerMp extends Condition
 {
 	private final int _mp;
 	private final String _msg;

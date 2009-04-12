@@ -22,16 +22,16 @@ import com.l2jfree.gameserver.templates.item.L2Item;
 /**
  * @author mkizub
  */
-public class ConditionTargetBodyPart extends Condition
+class ConditionTargetBodyPart extends Condition
 {
-
-	L2Armor	_armor;
-
+	
+	L2Armor _armor;
+	
 	public ConditionTargetBodyPart(L2Armor pArmor)
 	{
 		_armor = pArmor;
 	}
-
+	
 	@Override
 	public boolean testImpl(Env env)
 	{
@@ -42,18 +42,18 @@ public class ConditionTargetBodyPart extends Condition
 		int armor_part = _armor.getBodyPart();
 		switch (bodypart)
 		{
-		case Inventory.PAPERDOLL_CHEST:
-			return (armor_part & (L2Item.SLOT_CHEST | L2Item.SLOT_FULL_ARMOR | L2Item.SLOT_UNDERWEAR)) != 0;
-		case Inventory.PAPERDOLL_LEGS:
-			return (armor_part & (L2Item.SLOT_LEGS | L2Item.SLOT_FULL_ARMOR)) != 0;
-		case Inventory.PAPERDOLL_HEAD:
-			return (armor_part & L2Item.SLOT_HEAD) != 0;
-		case Inventory.PAPERDOLL_FEET:
-			return (armor_part & L2Item.SLOT_FEET) != 0;
-		case Inventory.PAPERDOLL_GLOVES:
-			return (armor_part & L2Item.SLOT_GLOVES) != 0;
-		default:
-			return true;
+			case Inventory.PAPERDOLL_CHEST:
+				return (armor_part & (L2Item.SLOT_CHEST | L2Item.SLOT_FULL_ARMOR | L2Item.SLOT_UNDERWEAR)) != 0;
+			case Inventory.PAPERDOLL_LEGS:
+				return (armor_part & (L2Item.SLOT_LEGS | L2Item.SLOT_FULL_ARMOR)) != 0;
+			case Inventory.PAPERDOLL_HEAD:
+				return (armor_part & L2Item.SLOT_HEAD) != 0;
+			case Inventory.PAPERDOLL_FEET:
+				return (armor_part & L2Item.SLOT_FEET) != 0;
+			case Inventory.PAPERDOLL_GLOVES:
+				return (armor_part & L2Item.SLOT_GLOVES) != 0;
+			default:
+				return true;
 		}
 	}
 }

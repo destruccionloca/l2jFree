@@ -19,7 +19,7 @@ import org.apache.commons.lang.ArrayUtils;
 /**
  * @author NB4L1
  */
-public abstract class ConditionLogic extends Condition
+abstract class ConditionLogic extends Condition
 {
 	private Condition[] _conditions = EMPTY_ARRAY;
 	

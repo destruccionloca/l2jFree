@@ -40,7 +40,7 @@ import com.l2jfree.util.LinkedBunch;
  * Mother class of :
  * <LI>L2Armor</LI>
  * <LI>L2EtcItem</LI>
- * <LI>L2Weapon</LI> 
+ * <LI>L2Weapon</LI>
  * @version $Revision: 1.7.2.2.2.5 $ $Date: 2005/04/06 18:25:18 $
  */
 public abstract class L2Item implements FuncOwner
@@ -406,7 +406,7 @@ public abstract class L2Item implements FuncOwner
 	
 	public boolean isEquipable()
 	{
-		return this.getBodyPart() != 0 && !(this.getItemType() instanceof L2EtcItemType);
+		return getBodyPart() != 0 && !(getItemType() instanceof L2EtcItemType);
 	}
 
 	/**

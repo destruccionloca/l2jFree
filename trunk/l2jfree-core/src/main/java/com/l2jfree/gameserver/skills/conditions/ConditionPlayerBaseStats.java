@@ -23,9 +23,9 @@ import com.l2jfree.gameserver.skills.Env;
  */
 class ConditionPlayerBaseStats extends Condition
 {
-	private final BaseStat	_stat;
-	private final int		_value;
-
+	private final BaseStat _stat;
+	private final int _value;
+	
 	public ConditionPlayerBaseStats(@SuppressWarnings("unused")
 	L2Character player, BaseStat stat, int value)
 	{
@@ -33,27 +33,27 @@ class ConditionPlayerBaseStats extends Condition
 		_stat = stat;
 		_value = value;
 	}
-
+	
 	@Override
 	public boolean testImpl(Env env)
 	{
 		if (!(env.player instanceof L2PcInstance))
 			return false;
-		L2PcInstance player = (L2PcInstance) env.player;
+		L2PcInstance player = (L2PcInstance)env.player;
 		switch (_stat)
 		{
-		case Int:
-			return player.getINT() >= _value;
-		case Str:
-			return player.getStat().getSTR() >= _value;
-		case Con:
-			return player.getStat().getCON() >= _value;
-		case Dex:
-			return player.getStat().getDEX() >= _value;
-		case Men:
-			return player.getStat().getMEN() >= _value;
-		case Wit:
-			return player.getStat().getWIT() >= _value;
+			case Int:
+				return player.getINT() >= _value;
+			case Str:
+				return player.getStat().getSTR() >= _value;
+			case Con:
+				return player.getStat().getCON() >= _value;
+			case Dex:
+				return player.getStat().getDEX() >= _value;
+			case Men:
+				return player.getStat().getMEN() >= _value;
+			case Wit:
+				return player.getStat().getWIT() >= _value;
 		}
 		return false;
 	}
@@ -61,5 +61,10 @@ class ConditionPlayerBaseStats extends Condition
 
 enum BaseStat
 {
-	Int, Str, Con, Dex, Men, Wit
+	Int,
+	Str,
+	Con,
+	Dex,
+	Men,
+	Wit
 }

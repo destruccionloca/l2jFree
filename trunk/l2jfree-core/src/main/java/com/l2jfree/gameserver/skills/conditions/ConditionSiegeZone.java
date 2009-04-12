@@ -26,34 +26,34 @@ import com.l2jfree.gameserver.skills.Env;
  * @author Gigiikun
  */
 
-public final class ConditionSiegeZone extends Condition
+final class ConditionSiegeZone extends Condition
 {
 	//	conditional values
-	public final static int	COND_NOT_ZONE		= 0x0001;
-	public final static int	COND_CAST_ATTACK	= 0x0002;
-	public final static int	COND_CAST_DEFEND	= 0x0004;
-	public final static int	COND_CAST_NEUTRAL	= 0x0008;
-	public final static int	COND_FORT_ATTACK	= 0x0010;
-	public final static int	COND_FORT_DEFEND	= 0x0020;
-	public final static int	COND_FORT_NEUTRAL	= 0x0040;
-
-	private final int		_value;
-	private final boolean	_self;
-
+	public final static int COND_NOT_ZONE = 0x0001;
+	public final static int COND_CAST_ATTACK = 0x0002;
+	public final static int COND_CAST_DEFEND = 0x0004;
+	public final static int COND_CAST_NEUTRAL = 0x0008;
+	public final static int COND_FORT_ATTACK = 0x0010;
+	public final static int COND_FORT_DEFEND = 0x0020;
+	public final static int COND_FORT_NEUTRAL = 0x0040;
+	
+	private final int _value;
+	private final boolean _self;
+	
 	public ConditionSiegeZone(int value, boolean self)
 	{
 		_value = value;
 		_self = self;
 	}
-
+	
 	@Override
 	public boolean testImpl(Env env)
 	{
 		L2Character target = _self ? env.player : env.target;
 		Castle castle = CastleManager.getInstance().getCastle(target);
 		Fort fort = FortManager.getInstance().getFort(target);
-
-		if ((castle == null) && (fort == null))
+		
+		if (castle == null && fort == null)
 		{
 			if ((_value & COND_NOT_ZONE) != 0)
 				return true;
@@ -65,15 +65,15 @@ public final class ConditionSiegeZone extends Condition
 		else
 			return checkIfOk(target, fort, _value);
 	}
-
+	
 	public static boolean checkIfOk(L2Character activeChar, Castle castle, int value)
 	{
 		if (activeChar == null || !(activeChar instanceof L2PcInstance))
 			return false;
-
-		L2PcInstance player = (L2PcInstance) activeChar;
-
-		if ((castle == null || castle.getCastleId() <= 0))
+		
+		L2PcInstance player = (L2PcInstance)activeChar;
+		
+		if (castle == null || castle.getCastleId() <= 0)
 		{
 			if ((value & COND_NOT_ZONE) != 0)
 				return true;
@@ -83,25 +83,25 @@ public final class ConditionSiegeZone extends Condition
 			if ((value & COND_NOT_ZONE) != 0)
 				return true;
 		}
-		else if ((castle.getSiege().getAttackerClan(player.getClan()) != null) && (value & COND_CAST_ATTACK) != 0)
+		else if (castle.getSiege().getAttackerClan(player.getClan()) != null && (value & COND_CAST_ATTACK) != 0)
 			return true;
-		else if ((castle.getSiege().getDefenderClan(player.getClan()) != null) && (value & COND_CAST_DEFEND) != 0)
+		else if (castle.getSiege().getDefenderClan(player.getClan()) != null && (value & COND_CAST_DEFEND) != 0)
 			return true;
-		else if ((castle.getSiege().getAttackerClan(player.getClan()) == null) && (castle.getSiege().getDefenderClan(player.getClan()) == null)
-				&& (value & COND_CAST_NEUTRAL) != 0)
+		else if (castle.getSiege().getAttackerClan(player.getClan()) == null
+			&& castle.getSiege().getDefenderClan(player.getClan()) == null && (value & COND_CAST_NEUTRAL) != 0)
 			return true;
-
+		
 		return false;
 	}
-
+	
 	public static boolean checkIfOk(L2Character activeChar, Fort fort, int value)
 	{
 		if (activeChar == null || !(activeChar instanceof L2PcInstance))
 			return false;
-
-		L2PcInstance player = (L2PcInstance) activeChar;
-
-		if ((fort == null || fort.getFortId() <= 0))
+		
+		L2PcInstance player = (L2PcInstance)activeChar;
+		
+		if (fort == null || fort.getFortId() <= 0)
 		{
 			if ((value & COND_NOT_ZONE) != 0)
 				return true;
@@ -111,14 +111,15 @@ public final class ConditionSiegeZone extends Condition
 			if ((value & COND_NOT_ZONE) != 0)
 				return true;
 		}
-		else if ((fort.getSiege().getAttackerClan(player.getClan()) != null) && (value & COND_FORT_ATTACK) != 0)
+		else if (fort.getSiege().getAttackerClan(player.getClan()) != null && (value & COND_FORT_ATTACK) != 0)
 			return true;
-		else if ((fort.getOwnerClan() == player.getClan()) && (value & COND_FORT_DEFEND) != 0)
+		else if (fort.getOwnerClan() == player.getClan() && (value & COND_FORT_DEFEND) != 0)
 			return true;
-		else if ((fort.getSiege().getAttackerClan(player.getClan()) == null) && (fort.getOwnerClan() != player.getClan()) && (value & COND_FORT_NEUTRAL) != 0)
+		else if (fort.getSiege().getAttackerClan(player.getClan()) == null && fort.getOwnerClan() != player.getClan()
+			&& (value & COND_FORT_NEUTRAL) != 0)
 			return true;
-
+		
 		return false;
 	}
-
+	
 }

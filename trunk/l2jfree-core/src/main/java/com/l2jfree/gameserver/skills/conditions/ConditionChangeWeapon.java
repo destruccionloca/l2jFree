@@ -21,10 +21,10 @@ import com.l2jfree.gameserver.templates.item.L2Weapon;
 /**
  * @author nBd
  */
-public class ConditionChangeWeapon extends Condition
+class ConditionChangeWeapon extends Condition
 {
-	private final boolean	_required;
-
+	private final boolean _required;
+	
 	/**
 	 * 
 	 */
@@ -32,7 +32,7 @@ public class ConditionChangeWeapon extends Condition
 	{
 		_required = required;
 	}
-
+	
 	/**
 	 * @see com.l2jfree.gameserver.skills.conditions.Condition#testImpl(com.l2jfree.gameserver.skills.Env)
 	 */
@@ -41,18 +41,18 @@ public class ConditionChangeWeapon extends Condition
 	{
 		if (!(env.player instanceof L2PcInstance))
 			return false;
-
+		
 		if (_required)
 		{
 			L2Weapon weaponItem = env.player.getActiveWeaponItem();
-
+			
 			if (weaponItem == null)
 				return false;
-
+			
 			if (weaponItem.getChangeWeaponId() == 0)
 				return false;
 		}
 		return true;
 	}
-
+	
 }
