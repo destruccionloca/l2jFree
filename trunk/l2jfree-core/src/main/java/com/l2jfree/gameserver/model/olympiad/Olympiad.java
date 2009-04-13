@@ -20,11 +20,9 @@
 package com.l2jfree.gameserver.model.olympiad;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -45,6 +43,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
+import com.l2jfree.config.L2Properties;
 import com.l2jfree.gameserver.Announcements;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -164,34 +163,22 @@ public final class Olympiad
 	{
 		_nobles = new FastMap<Integer, StatsSet>();
 		
-		Properties OlympiadProperties = new Properties();
-		InputStream is = null;
+		Properties properties;
 		try
 		{
-			is = new FileInputStream(new File("./" + OLYMPIAD_DATA_FILE));
-			OlympiadProperties.load(is);
+			properties = new L2Properties("./" + OLYMPIAD_DATA_FILE);
 		}
 		catch (Exception e)
 		{
 			_log.fatal("Olympiad System: Error loading olympiad properties: ", e);
 			return;
 		}
-		finally
-		{
-			try
-			{
-				is.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
 		
-		_currentCycle = Integer.parseInt(OlympiadProperties.getProperty("CurrentCycle", "1"));
-		_period = Integer.parseInt(OlympiadProperties.getProperty("Period", "0"));
-		_olympiadEnd = Long.parseLong(OlympiadProperties.getProperty("OlympiadEnd", "0"));
-		_validationEnd = Long.parseLong(OlympiadProperties.getProperty("ValdationEnd", "0"));
-		_nextWeeklyChange = Long.parseLong(OlympiadProperties.getProperty("NextWeeklyChange", "0"));
+		_currentCycle = Integer.parseInt(properties.getProperty("CurrentCycle", "1"));
+		_period = Integer.parseInt(properties.getProperty("Period", "0"));
+		_olympiadEnd = Long.parseLong(properties.getProperty("OlympiadEnd", "0"));
+		_validationEnd = Long.parseLong(properties.getProperty("ValdationEnd", "0"));
+		_nextWeeklyChange = Long.parseLong(properties.getProperty("NextWeeklyChange", "0"));
 		
 		switch (_period)
 		{
@@ -1019,19 +1006,19 @@ public final class Olympiad
 	{
 		saveNobleData();
 		
-		Properties OlympiadProperties = new Properties();
 		FileOutputStream fos = null;
 		try
 		{
 			fos = new FileOutputStream(new File("./" + OLYMPIAD_DATA_FILE));
 			
-			OlympiadProperties.setProperty("CurrentCycle", String.valueOf(_currentCycle));
-			OlympiadProperties.setProperty("Period", String.valueOf(_period));
-			OlympiadProperties.setProperty("OlympiadEnd", String.valueOf(_olympiadEnd));
-			OlympiadProperties.setProperty("ValdationEnd", String.valueOf(_validationEnd));
-			OlympiadProperties.setProperty("NextWeeklyChange", String.valueOf(_nextWeeklyChange));
+			Properties properties = new L2Properties();
+			properties.setProperty("CurrentCycle", String.valueOf(_currentCycle));
+			properties.setProperty("Period", String.valueOf(_period));
+			properties.setProperty("OlympiadEnd", String.valueOf(_olympiadEnd));
+			properties.setProperty("ValdationEnd", String.valueOf(_validationEnd));
+			properties.setProperty("NextWeeklyChange", String.valueOf(_nextWeeklyChange));
 			
-			OlympiadProperties.store(fos, "Olympiad Properties");
+			properties.store(fos, "Olympiad Properties");
 		}
 		catch (Exception e)
 		{
