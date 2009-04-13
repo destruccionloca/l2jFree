@@ -22,6 +22,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.items.model.Item;
 import com.l2jfree.gameserver.model.L2Skill;
@@ -34,6 +37,8 @@ import com.l2jfree.gameserver.templates.item.L2Item;
  */
 public final class SkillsEngine
 {
+	private static final Log _log = LogFactory.getLog(SkillsEngine.class);
+	
 	private SkillsEngine()
 	{
 	}
@@ -67,12 +72,34 @@ public final class SkillsEngine
 	
 	public static List<L2Item> loadArmors(Map<Integer, Item> armorData)
 	{
-		return loadData(armorData, listFiles("data/stats/armor"));
+		final List<L2Item> list = loadData(armorData, listFiles("data/stats/armor"));
+		
+		Set<Integer> xmlItem = new HashSet<Integer>();
+		
+		for (L2Item item : list)
+			xmlItem.add(item.getItemId());
+		
+		for (Item item : armorData.values())
+			if (!xmlItem.contains(item.id))
+				_log.warn("SkillsEngine: Missing XML side for L2Armor - id: " + item.id);
+		
+		return list;
 	}
 	
 	public static List<L2Item> loadWeapons(Map<Integer, Item> weaponData)
 	{
-		return loadData(weaponData, listFiles("data/stats/weapon"));
+		final List<L2Item> list = loadData(weaponData, listFiles("data/stats/weapon"));
+		
+		Set<Integer> xmlItem = new HashSet<Integer>();
+		
+		for (L2Item item : list)
+			xmlItem.add(item.getItemId());
+		
+		for (Item item : weaponData.values())
+			if (!xmlItem.contains(item.id))
+				_log.warn("SkillsEngine: Missing XML side for L2Weapon - id: " + item.id);
+		
+		return list;
 	}
 	
 	public static List<L2Item> loadItems(Map<Integer, Item> itemData)

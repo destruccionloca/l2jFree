@@ -8462,3 +8462,6 @@ UPDATE `etcitem` SET `sellable` = 'false', `tradeable` = 'false',`dropable` = 'f
 UPDATE `etcitem` SET `tradeable` = 'true' WHERE `item_id` IN (8064,8067);
 -- Small fix for quests items
 UPDATE `etcitem` SET `item_type` = 'quest' WHERE `item_id` IN (8085,8098);
+
+-- Already added at armors
+DELETE FROM `etcitem` WHERE `item_id` = 10607;
