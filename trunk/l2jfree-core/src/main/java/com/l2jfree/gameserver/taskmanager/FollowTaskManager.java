@@ -14,24 +14,13 @@
  */
 package com.l2jfree.gameserver.taskmanager;
 
-import java.util.Set;
-
-import javolution.util.FastSet;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.AbstractAI;
-import com.l2jfree.tools.random.Rnd;
 
 /**
  * @author NB4L1
  */
-public final class FollowTaskManager implements Runnable
+public final class FollowTaskManager extends AbstractIterativePeriodicTaskManager<AbstractAI>
 {
-	private static final Log _log = LogFactory.getLog(FollowTaskManager.class);
-	
 	private static FollowTaskManager _instance;
 	
 	public static FollowTaskManager getInstance()
@@ -42,44 +31,24 @@ public final class FollowTaskManager implements Runnable
 		return _instance;
 	}
 	
-	private final Set<AbstractAI> _startList = new FastSet<AbstractAI>();
-	private final Set<AbstractAI> _stopList = new FastSet<AbstractAI>();
-	
-	private final Set<AbstractAI> _followTasks = new FastSet<AbstractAI>();
-	
 	private FollowTaskManager()
 	{
-		ThreadPoolManager.getInstance().scheduleAiAtFixedRate(this, Rnd.get(500), Rnd.get(490, 510));
-		
-		_log.info("FollowTaskManager: Initialized.");
+		super(500);
 	}
 	
 	public synchronized void startFollowTask(AbstractAI followTask)
 	{
-		_startList.add(followTask);
-		
-		_stopList.remove(followTask);
+		startTask(followTask);
 	}
 	
 	public synchronized void stopFollowTask(AbstractAI followTask)
 	{
-		_stopList.add(followTask);
-		
-		_startList.remove(followTask);
+		stopTask(followTask);
 	}
 	
-	public void run()
+	@Override
+	void callTask(AbstractAI task)
 	{
-		synchronized (this)
-		{
-			_followTasks.addAll(_startList);
-			_followTasks.removeAll(_stopList);
-			
-			_startList.clear();
-			_stopList.clear();
-		}
-		
-		for (AbstractAI followTask : _followTasks)
-			followTask.followTarget();
+		task.followTarget();
 	}
 }

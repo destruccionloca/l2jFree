@@ -20,6 +20,7 @@ import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.actor.knownlist.PlayableKnownList;
 import com.l2jfree.gameserver.model.actor.stat.PcStat;
 import com.l2jfree.gameserver.model.actor.stat.PlayableStat;
+import com.l2jfree.gameserver.taskmanager.PacketBroadcaster.BroadcastMode;
 import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
@@ -43,7 +44,7 @@ public abstract class L2PlayableInstance extends L2Character
 
 	/**
 	 * Constructor of L2PlayableInstance (use L2Character constructor).<BR><BR>
-	 *  
+	 * 
 	 * <B><U> Actions</U> :</B><BR><BR>
 	 * <li>Call the L2Character constructor to create an empty _skills slot and link copy basic Calculator set to this L2PlayableInstance </li><BR><BR>
 	 * 
@@ -207,7 +208,7 @@ public abstract class L2PlayableInstance extends L2Character
 		return _isSilentMoving;
 	}
 
-	// For Newbie Protection Blessing skill, keeps you safe from an attack by a chaotic character >= 10 levels apart from you 
+	// For Newbie Protection Blessing skill, keeps you safe from an attack by a chaotic character >= 10 levels apart from you
 	public final boolean getProtectionBlessing()
 	{
 		return _protectionBlessing;
@@ -224,9 +225,9 @@ public abstract class L2PlayableInstance extends L2Character
 		updateAbnormalEffect();
 	}
 
-	 /** 
-	 * @param effect 
-	 */ 
+	 /**
+	 * @param effect
+	 */
 	public void stopProtectionBlessing(L2Effect effect)
 	{
 		if (effect == null)
@@ -264,5 +265,28 @@ public abstract class L2PlayableInstance extends L2Character
 
 		setCharmOfLuck(false);
 		updateAbnormalEffect();
+	}
+	
+	public final void updateEffectIcons()
+	{
+		addPacketBroadcastMask(BroadcastMode.UPDATE_EFFECT_ICONS);
+	}
+	
+	public abstract void updateEffectIconsImpl();
+	
+	@Override
+	public final void addEffect(L2Effect newEffect)
+	{
+		super.addEffect(newEffect);
+		
+		updateEffectIcons();
+	}
+	
+	@Override
+	public final void removeEffect(L2Effect effect)
+	{
+		super.removeEffect(effect);
+		
+		updateEffectIcons();
 	}
 }

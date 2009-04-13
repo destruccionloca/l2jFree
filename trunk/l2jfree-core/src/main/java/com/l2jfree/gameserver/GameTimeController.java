@@ -24,22 +24,20 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Set;
 
-import javolution.util.FastList;
 import javolution.util.FastSet;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.ai.CtrlEvent;
 import com.l2jfree.gameserver.calendar.L2Calendar;
 import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.instancemanager.DayNightSpawnManager;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2World;
-import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.ClientSetTime;
+import com.l2jfree.gameserver.taskmanager.ArrivedCharacterManager;
 
 public final class GameTimeController extends Thread
 {
@@ -49,7 +47,6 @@ public final class GameTimeController extends Thread
 	private static final Log				_log				= LogFactory.getLog(GameTimeController.class);
 	private static L2Calendar				_calendar;
 	private final Set<L2Character>			_movingChars		= new FastSet<L2Character>();
-	private final FastList<L2Character>		_endedChars			= new FastList<L2Character>();
 	private static final GameTimeController	_instance			= new GameTimeController();
 	public long								_startMoveTime;
 
@@ -113,32 +110,6 @@ public final class GameTimeController extends Thread
 		}
 	}
 
-	private class MovingObjectArrived implements Runnable
-	{
-		public void run()
-		{
-			for (L2Character cha; (cha = getNextEndedChar()) != null;)
-			{
-				try
-				{
-					cha.getKnownList().updateKnownObjects();
-					if (cha instanceof L2BoatInstance)
-					{
-						((L2BoatInstance) cha).evtArrived();
-					}
-					if (cha.hasAI())
-					{
-						cha.getAI().notifyEvent(CtrlEvent.EVT_ARRIVED);
-					}
-				}
-				catch (Exception e)
-				{
-					_log.warn("", e);
-				}
-			}
-		}
-	}
-
 	public GregorianCalendar getDate()
 	{
 		return _calendar.getDate();
@@ -172,12 +143,11 @@ public final class GameTimeController extends Thread
 		}
 		start();
 
-		ThreadPoolManager.getInstance().scheduleAtFixedRate(new MovingObjectArrived(), MILLIS_IN_TICK, MILLIS_IN_TICK);
 		ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new MinuteCounter(), 0, 1000 * Config.DATETIME_MULTI);
 
 		_log.info("GameTimeController: Initialized.");
 	}
-
+	
 	public static int getGameTicks()
 	{
 		return _calendar.gameTicks;
@@ -193,14 +163,6 @@ public final class GameTimeController extends Thread
 		synchronized (_movingChars)
 		{
 			return _movingChars.toArray(new L2Character[_movingChars.size()]);
-		}
-	}
-
-	private L2Character getNextEndedChar()
-	{
-		synchronized (_endedChars)
-		{
-			return _endedChars.isEmpty() ? null : _endedChars.removeFirst();
 		}
 	}
 
@@ -242,11 +204,8 @@ public final class GameTimeController extends Thread
 			{
 				_movingChars.remove(cha);
 			}
-
-			synchronized (_endedChars)
-			{
-				_endedChars.add(cha);
-			}
+			
+			ArrivedCharacterManager.getInstance().add(cha);
 		}
 	}
 

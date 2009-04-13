@@ -18,21 +18,15 @@
  */
 package com.l2jfree.gameserver.taskmanager;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.util.L2FastSet;
+import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 
 /**
  * @author NB4L1
  */
-public final class PacketBroadcaster implements Runnable
+public final class PacketBroadcaster extends AbstractFIFOPeriodicTaskManager<L2Character>
 {
-	private static final Log _log = LogFactory.getLog(PacketBroadcaster.class);
-	
 	public static enum BroadcastMode
 	{
 		BROADCAST_FULL_INFO {
@@ -46,7 +40,7 @@ public final class PacketBroadcaster implements Runnable
 			@Override
 			protected void sendPacket(L2Character cha)
 			{
-				cha.updateEffectIconsImpl();
+				((L2PlayableInstance)cha).updateEffectIconsImpl();
 			}
 		},
 		BROADCAST_STATUS_UPDATE {
@@ -106,30 +100,16 @@ public final class PacketBroadcaster implements Runnable
 	
 	private static final BroadcastMode[] VALUES = BroadcastMode.values();
 	
-	private final L2FastSet<L2Character> _set = new L2FastSet<L2Character>();
-	
 	private PacketBroadcaster()
 	{
-		ThreadPoolManager.getInstance().scheduleAtFixedRate(this, 100, 100);
-		
-		_log.info("PacketBroadcaster: Initialized.");
+		super(100);
 	}
 	
-	public synchronized void add(L2Character cha)
+	@Override
+	void callTask(L2Character cha)
 	{
-		_set.add(cha);
-	}
-	
-	private synchronized L2Character removeFirst()
-	{
-		return _set.removeFirst();
-	}
-	
-	public void run()
-	{
-		for (L2Character cha; (cha = removeFirst()) != null;)
-			for (byte mask; (mask = cha.clearPacketBroadcastMask()) != 0;)
-				for (BroadcastMode mode : VALUES)
-					mode.trySendPacket(cha, mask);
+		for (byte mask; (mask = cha.clearPacketBroadcastMask()) != 0;)
+			for (BroadcastMode mode : VALUES)
+				mode.trySendPacket(cha, mask);
 	}
 }

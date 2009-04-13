@@ -24,7 +24,7 @@ import javolution.text.TextBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.Config;
+import com.l2jfree.L2Config;
 import com.l2jfree.config.L2Properties;
 import com.l2jfree.tools.random.Rnd;
 
@@ -34,7 +34,7 @@ public class Status extends Thread
 
 	private ServerSocket		statusServerSocket;
 
-	private int					_uptime;
+	private long				_uptime;
 	private int					_statusPort;
 	private String				_statusPw;
 
@@ -83,7 +83,7 @@ public class Status extends Thread
 	public Status() throws IOException
 	{
 		super("Status");
-		Properties telnetSettings = new L2Properties(Config.TELNET_FILE);
+		Properties telnetSettings = new L2Properties(L2Config.TELNET_FILE);
 
 		_statusPort = Integer.parseInt(telnetSettings.getProperty("StatusPort", "12345"));
 		_statusPw = telnetSettings.getProperty("StatusPW");
@@ -96,7 +96,7 @@ public class Status extends Thread
 		}
 		_log.info("Telnet StatusServer started successfully, listening on Port: " + _statusPort);
 		statusServerSocket = new ServerSocket(_statusPort);
-		_uptime = (int) System.currentTimeMillis();
+		_uptime = System.currentTimeMillis();
 	}
 
 	private String generateRandomPassword(int length)

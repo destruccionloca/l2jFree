@@ -14,32 +14,29 @@
  */
 package com.l2jfree.gameserver.taskmanager;
 
-import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
 
 /**
  * It removes accidently leaked objects from knownlists :)
  */
-public final class KnownListUpdateTaskManager implements Runnable
+public final class KnownListUpdateTaskManager extends AbstractPeriodicTaskManager
 {
 	private static KnownListUpdateTaskManager _instance;
-
+	
 	public static KnownListUpdateTaskManager getInstance()
 	{
 		if (_instance == null)
 			_instance = new KnownListUpdateTaskManager();
-
+		
 		return _instance;
 	}
-
+	
 	public KnownListUpdateTaskManager()
 	{
-		long delay = 10*60*1000; // 10 min
-
-		ThreadPoolManager.getInstance().scheduleAtFixedRate(this, delay, delay);
+		super(10 * 60 * 1000);
 	}
-
+	
 	@Override
 	public void run()
 	{

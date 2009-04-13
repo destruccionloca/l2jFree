@@ -296,7 +296,6 @@ public final class GameStatusThread extends Thread
 					_print.println("performance			- shows server performance statistics.");
 					_print.println("threads				- dumps thread infos.");
 					_print.println("purge				- purges TPM.");
-					_print.println("class				- dumps TPM-class stats.");
 					_print.println("gc					- forced garbage collection.");
 					_print.println("class				- dumps TPM-class stats.");
 					_print.println("announce <text>		- announces <text> in game.");

@@ -3117,9 +3117,6 @@ public abstract class L2Character extends L2Object
 	public void addEffect(L2Effect newEffect)
 	{
 		_effects.addEffect(newEffect);
-
-		// Update active skills in progress (In Use and Not In Use because stacked) icons on client
-		updateEffectIcons();
 	}
 
 	/**
@@ -3142,12 +3139,9 @@ public abstract class L2Character extends L2Object
 	 * <li>Update active skills in progress icons on player client</li>
 	 * <BR>
 	 */
-	public final void removeEffect(L2Effect effect)
+	public void removeEffect(L2Effect effect)
 	{
 		_effects.removeEffect(effect);
-		
-		// Update active skills in progress (In Use and Not In Use because stacked) icons on client
-		updateEffectIcons();
 	}
 	
 	/**
@@ -3740,25 +3734,6 @@ public abstract class L2Character extends L2Object
 		broadcastFullInfo();
 	}
 	
-	/**
-	 * Update active skills in progress (In Use and Not In Use because stacked) icons on client.<BR>
-	 * <BR>
-	 * <B><U> Concept</U> :</B><BR>
-	 * <BR>
-	 * All active skills effects in progress (In Use and Not In Use because stacked) are represented by an icon on the client.<BR>
-	 * <BR>
-	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method ONLY UPDATE the client of the player and not clients of all players in the party.</B></FONT><BR>
-	 * <BR>
-	 */
-	public final void updateEffectIcons()
-	{
-		addPacketBroadcastMask(BroadcastMode.UPDATE_EFFECT_ICONS);
-	}
-	
-	public void updateEffectIconsImpl()
-	{
-	}
-
 	// Property - Public
 	/**
 	 * Return a map of 16 bits (0x0000) containing all abnormal effect in progress for this L2Character.<BR>
@@ -7441,6 +7416,9 @@ public abstract class L2Character extends L2Object
 	
 	public final void addPacketBroadcastMask(BroadcastMode mode)
 	{
+		if (!(this instanceof L2PlayableInstance) && getKnownList().getKnownPlayers().isEmpty())
+			return;
+		
 		synchronized (PacketBroadcaster.getInstance())
 		{
 			_packetBroadcastMask |= mode.mask();

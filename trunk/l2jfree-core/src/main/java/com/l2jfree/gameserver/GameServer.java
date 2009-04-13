@@ -18,6 +18,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -124,12 +126,14 @@ import com.l2jfree.gameserver.script.faenor.FaenorScriptEngine;
 import com.l2jfree.gameserver.scripting.CompiledScriptCache;
 import com.l2jfree.gameserver.scripting.L2ScriptEngineManager;
 import com.l2jfree.gameserver.taskmanager.AiTaskManager;
+import com.l2jfree.gameserver.taskmanager.ArrivedCharacterManager;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
 import com.l2jfree.gameserver.taskmanager.FollowTaskManager;
 import com.l2jfree.gameserver.taskmanager.KnownListUpdateTaskManager;
 import com.l2jfree.gameserver.taskmanager.LeakTaskManager;
 import com.l2jfree.gameserver.taskmanager.PacketBroadcaster;
+import com.l2jfree.gameserver.taskmanager.RegenTaskManager;
 import com.l2jfree.gameserver.taskmanager.SQLQueue;
 import com.l2jfree.gameserver.taskmanager.TaskManager;
 import com.l2jfree.gameserver.threadmanager.DeadlockDetector;
@@ -219,12 +223,14 @@ public class GameServer
 		
 		Util.printSection("TaskManagers");
 		AiTaskManager.getInstance();
+		ArrivedCharacterManager.getInstance();
 		AttackStanceTaskManager.getInstance();
 		DecayTaskManager.getInstance();
 		FollowTaskManager.getInstance();
 		KnownListUpdateTaskManager.getInstance();
 		LeakTaskManager.getInstance();
 		PacketBroadcaster.getInstance();
+		RegenTaskManager.getInstance();
 		
 		Util.printSection("Skills");
 		SkillTreeTable.getInstance();
@@ -443,6 +449,21 @@ public class GameServer
 			Util.printSection("JythonShell");
 			Util.JythonShell();
 		}
+		
+		for (StartupHook hook : _startupHooks)
+			hook.onStartup();
+	}
+	
+	private static final Set<StartupHook> _startupHooks = new HashSet<StartupHook>();
+	
+	public static void addStartupHook(StartupHook hook)
+	{
+		_startupHooks.add(hook);
+	}
+	
+	public interface StartupHook
+	{
+		public void onStartup();
 	}
 	
 	public static String getVersionNumber()

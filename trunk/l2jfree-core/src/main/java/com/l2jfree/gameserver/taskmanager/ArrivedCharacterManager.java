@@ -14,39 +14,40 @@
  */
 package com.l2jfree.gameserver.taskmanager;
 
+import com.l2jfree.gameserver.GameTimeController;
+import com.l2jfree.gameserver.ai.CtrlEvent;
+import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
+
 /**
  * @author NB4L1
  */
-public final class AiTaskManager extends AbstractIterativePeriodicTaskManager<Runnable>
+public final class ArrivedCharacterManager extends AbstractFIFOPeriodicTaskManager<L2Character>
 {
-	private static AiTaskManager _instance;
+	private static ArrivedCharacterManager _instance;
 	
-	public static AiTaskManager getInstance()
+	public static ArrivedCharacterManager getInstance()
 	{
 		if (_instance == null)
-			_instance = new AiTaskManager();
+			_instance = new ArrivedCharacterManager();
 		
 		return _instance;
 	}
 	
-	private AiTaskManager()
+	private ArrivedCharacterManager()
 	{
-		super(1000);
-	}
-	
-	public synchronized void startAiTask(Runnable runnable)
-	{
-		startTask(runnable);
-	}
-	
-	public synchronized void stopAiTask(Runnable runnable)
-	{
-		stopTask(runnable);
+		super(GameTimeController.MILLIS_IN_TICK);
 	}
 	
 	@Override
-	void callTask(Runnable task)
+	void callTask(L2Character cha)
 	{
-		task.run();
+		cha.getKnownList().updateKnownObjects();
+		
+		if (cha instanceof L2BoatInstance)
+			((L2BoatInstance)cha).evtArrived();
+		
+		if (cha.hasAI())
+			cha.getAI().notifyEvent(CtrlEvent.EVT_ARRIVED);
 	}
 }

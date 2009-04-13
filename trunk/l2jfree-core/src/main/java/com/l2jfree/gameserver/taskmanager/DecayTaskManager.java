@@ -18,20 +18,13 @@ import java.util.Map;
 
 import javolution.util.FastMap;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.L2Boss;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
-import com.l2jfree.tools.random.Rnd;
 
-public final class DecayTaskManager implements Runnable
+public final class DecayTaskManager extends AbstractPeriodicTaskManager
 {
-	private final static Log _log = LogFactory.getLog(DecayTaskManager.class);
-	
 	public static final int RAID_BOSS_DECAY_TIME = 30000;
 	public static final int ATTACKABLE_DECAY_TIME = 8500;
 	
@@ -49,9 +42,7 @@ public final class DecayTaskManager implements Runnable
 	
 	private DecayTaskManager()
 	{
-		ThreadPoolManager.getInstance().scheduleAtFixedRate(this, Rnd.get(1000), Rnd.get(990, 1010));
-		
-		_log.info("DecayTaskManager: Initialized.");
+		super(1000);
 	}
 	
 	public synchronized boolean hasDecayTask(L2Character actor)
@@ -110,6 +101,7 @@ public final class DecayTaskManager implements Runnable
 		_decayTasks.remove(actor);
 	}
 	
+	@Override
 	public synchronized void run()
 	{
 		for (Map.Entry<L2Character, Long> entry : _decayTasks.entrySet())

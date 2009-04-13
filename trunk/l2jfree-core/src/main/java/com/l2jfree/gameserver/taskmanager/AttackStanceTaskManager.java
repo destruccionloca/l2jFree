@@ -18,21 +18,14 @@ import java.util.Map;
 
 import javolution.util.FastMap;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.AutoAttackStop;
-import com.l2jfree.tools.random.Rnd;
 
-public final class AttackStanceTaskManager implements Runnable
+public final class AttackStanceTaskManager extends AbstractPeriodicTaskManager
 {
-	private final static Log _log = LogFactory.getLog(AttackStanceTaskManager.class);
-	
 	public static final long COMBAT_TIME = 15000;
 	
 	private static AttackStanceTaskManager _instance;
@@ -49,9 +42,7 @@ public final class AttackStanceTaskManager implements Runnable
 	
 	private AttackStanceTaskManager()
 	{
-		ThreadPoolManager.getInstance().scheduleAtFixedRate(this, Rnd.get(1000), Rnd.get(990, 1010));
-		
-		_log.info("AttackStanceTaskManager: Initialized.");
+		super(1000);
 	}
 	
 	public synchronized boolean getAttackStanceTask(L2Character actor)
@@ -83,6 +74,7 @@ public final class AttackStanceTaskManager implements Runnable
 		_attackStanceTasks.remove(actor);
 	}
 	
+	@Override
 	public synchronized void run()
 	{
 		for (Map.Entry<L2Character, Long> entry : _attackStanceTasks.entrySet())

@@ -14,20 +14,10 @@
  */
 package com.l2jfree.gameserver.taskmanager;
 
-import java.util.Set;
-
-import javolution.util.FastSet;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.actor.status.CharStatus;
 
-public final class RegenTaskManager implements Runnable
+public final class RegenTaskManager extends AbstractIterativePeriodicTaskManager<CharStatus>
 {
-	private static final Log _log = LogFactory.getLog(RegenTaskManager.class);
-	
 	private static RegenTaskManager _instance;
 	
 	public static RegenTaskManager getInstance()
@@ -38,49 +28,29 @@ public final class RegenTaskManager implements Runnable
 		return _instance;
 	}
 	
-	private final Set<CharStatus> _startList = new FastSet<CharStatus>();
-	private final Set<CharStatus> _stopList = new FastSet<CharStatus>();
-	
-	private final Set<CharStatus> _regenTasks = new FastSet<CharStatus>();
-	
 	private RegenTaskManager()
 	{
-		ThreadPoolManager.getInstance().scheduleAiAtFixedRate(this, 100, 1000);
-		
-		_log.info("RegenTaskManager: Initialized.");
+		super(1000);
 	}
 	
 	public synchronized boolean hasRegenTask(CharStatus status)
 	{
-		return _regenTasks.contains(status) || _startList.contains(status);
+		return hasTask(status);
 	}
 	
 	public synchronized void startRegenTask(CharStatus status)
 	{
-		_startList.add(status);
-		
-		_stopList.remove(status);
+		startTask(status);
 	}
 	
 	public synchronized void stopRegenTask(CharStatus status)
 	{
-		_stopList.add(status);
-		
-		_startList.remove(status);
+		stopTask(status);
 	}
 	
-	public void run()
+	@Override
+	void callTask(CharStatus task)
 	{
-		synchronized (this)
-		{
-			_regenTasks.addAll(_startList);
-			_regenTasks.removeAll(_stopList);
-			
-			_startList.clear();
-			_stopList.clear();
-		}
-		
-		for (CharStatus status : _regenTasks)
-			status.regenTask();
+		task.regenTask();
 	}
 }
