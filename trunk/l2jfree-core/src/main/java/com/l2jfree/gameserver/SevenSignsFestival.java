@@ -20,7 +20,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -51,9 +50,10 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
-import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.StatsSet;
+import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.lang.L2Thread;
 import com.l2jfree.tools.random.Rnd;
 
 /**
@@ -714,8 +714,8 @@ public class SevenSignsFestival implements SpawnListener
 
 	// ////////////////////// \\\\\\\\\\\\\\\\\\\\\\\\\\
 
-	protected FestivalManager						_managerInstance;
-	protected ScheduledFuture<?>					_managerScheduledTask;
+	protected FestivalManager _managerInstance;
+	protected L2Thread _managerScheduledTask;
 
 	protected int									_signsCycle						= SevenSigns.getInstance().getCurrentCycle();
 	protected int									_festivalCycle;
@@ -869,33 +869,35 @@ public class SevenSignsFestival implements SpawnListener
     }
 
 	/**
-	 * Primarily used to terminate the Festival Manager, when the Seven Signs period changes.
-	 * 
-	 * @return ScheduledFuture festManagerScheduler
-	 */
-	protected final ScheduledFuture<?> getFestivalManagerSchedule()
-	{
-		if (_managerScheduledTask == null)
-			startFestivalManager();
-
-		return _managerScheduledTask;
-	}
-
-	/**
 	 * Used to start the Festival Manager, if the current period is not Seal Validation.
 	 */
 	protected void startFestivalManager()
 	{
+		stopFestivalManager();
+		
+		if (SevenSigns.getInstance().isSealValidationPeriod())
+			return;
+		
 		// Start the Festival Manager for the first time after the server has started
 		// at the specified time, then invoke it automatically after every cycle.
 		FestivalManager fm = new FestivalManager();
 		setNextFestivalStart(Config.ALT_FESTIVAL_MANAGER_START + FESTIVAL_SIGNUP_TIME);
-		_managerScheduledTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(fm, Config.ALT_FESTIVAL_MANAGER_START,
-				Config.ALT_FESTIVAL_CYCLE_LENGTH);
-
+		
+		_managerScheduledTask = new L2Thread("FestivalManager").scheduleAtFixedRate(fm,
+			Config.ALT_FESTIVAL_MANAGER_START, Config.ALT_FESTIVAL_CYCLE_LENGTH);
+		
 		_log.info("SevenSignsFestival: first Festival of Darkness cycle begins in " + (Config.ALT_FESTIVAL_MANAGER_START / 60000) + " minutes.");
 	}
-
+	
+	public void stopFestivalManager()
+	{
+		if (_managerScheduledTask != null)
+		{
+			_managerScheduledTask.cancel();
+			_managerScheduledTask = null;
+		}
+	}
+	
 	/**
 	 * Restores saved festival data, basic settings from the properties file and past high score data from the database.
 	 * 
@@ -1782,8 +1784,11 @@ public class SevenSignsFestival implements SpawnListener
 			setNextFestivalStart(Config.ALT_FESTIVAL_CYCLE_LENGTH - FESTIVAL_SIGNUP_TIME);
 		}
 
-		public synchronized void run()
+		public void run()
 		{
+			synchronized (FestivalManager.class)
+			{
+			
 			// The manager shouldn't be running if Seal Validation is in effect.
 			if (SevenSigns.getInstance().isSealValidationPeriod())
 				return;
@@ -1802,7 +1807,7 @@ public class SevenSignsFestival implements SpawnListener
 			// Stand by until the allowed signup period has elapsed.
 			try
 			{
-				wait(FESTIVAL_SIGNUP_TIME);
+				Thread.sleep(FESTIVAL_SIGNUP_TIME);
 			}
 			catch (InterruptedException e)
 			{
@@ -1823,21 +1828,23 @@ public class SevenSignsFestival implements SpawnListener
 			{
 				if ((_duskFestivalParticipants.isEmpty() && _dawnFestivalParticipants.isEmpty()))
 				{
+					setNextCycleStart();
+					setNextFestivalStart(Config.ALT_FESTIVAL_CYCLE_LENGTH - FESTIVAL_SIGNUP_TIME);
+					
 					try
 					{
-						setNextCycleStart();
-						setNextFestivalStart(Config.ALT_FESTIVAL_CYCLE_LENGTH - FESTIVAL_SIGNUP_TIME);
-						wait(Config.ALT_FESTIVAL_CYCLE_LENGTH - FESTIVAL_SIGNUP_TIME);
-						for (L2DarknessFestival festivalInst : _festivalInstances.values())
-						{
-							if (!festivalInst._npcInsts.isEmpty())
-							{
-								festivalInst.unspawnMobs();
-							}
-						}
+						Thread.sleep(Config.ALT_FESTIVAL_CYCLE_LENGTH - FESTIVAL_SIGNUP_TIME);
 					}
 					catch (InterruptedException e)
 					{
+					}
+					
+					for (L2DarknessFestival festivalInst : _festivalInstances.values())
+					{
+						if (!festivalInst._npcInsts.isEmpty())
+						{
+							festivalInst.unspawnMobs();
+						}
 					}
 				}
 				else
@@ -1873,7 +1880,7 @@ public class SevenSignsFestival implements SpawnListener
 			// Stand by for a short length of time before starting the festival.
 			try
 			{
-				wait(Config.ALT_FESTIVAL_FIRST_SPAWN);
+				Thread.sleep(Config.ALT_FESTIVAL_FIRST_SPAWN);
 			}
 			catch (InterruptedException e)
 			{
@@ -1899,7 +1906,7 @@ public class SevenSignsFestival implements SpawnListener
 			// After a short time period, move all idle spawns to the center of the arena.
 			try
 			{
-				wait(Config.ALT_FESTIVAL_FIRST_SWARM - Config.ALT_FESTIVAL_FIRST_SPAWN);
+				Thread.sleep(Config.ALT_FESTIVAL_FIRST_SWARM - Config.ALT_FESTIVAL_FIRST_SPAWN);
 			}
 			catch (InterruptedException e)
 			{
@@ -1913,7 +1920,7 @@ public class SevenSignsFestival implements SpawnListener
 			// Stand by until the time comes for the second spawn.
 			try
 			{
-				wait(Config.ALT_FESTIVAL_SECOND_SPAWN - Config.ALT_FESTIVAL_FIRST_SWARM);
+				Thread.sleep(Config.ALT_FESTIVAL_SECOND_SPAWN - Config.ALT_FESTIVAL_FIRST_SWARM);
 			}
 			catch (InterruptedException e)
 			{
@@ -1933,7 +1940,7 @@ public class SevenSignsFestival implements SpawnListener
 			// After another short time period, again move all idle spawns to the center of the arena.
 			try
 			{
-				wait(Config.ALT_FESTIVAL_SECOND_SWARM - Config.ALT_FESTIVAL_SECOND_SPAWN);
+				Thread.sleep(Config.ALT_FESTIVAL_SECOND_SWARM - Config.ALT_FESTIVAL_SECOND_SPAWN);
 			}
 			catch (InterruptedException e)
 			{
@@ -1947,7 +1954,7 @@ public class SevenSignsFestival implements SpawnListener
 			// Stand by until the time comes for the chests to be spawned.
 			try
 			{
-				wait(Config.ALT_FESTIVAL_CHEST_SPAWN - Config.ALT_FESTIVAL_SECOND_SWARM);
+				Thread.sleep(Config.ALT_FESTIVAL_CHEST_SPAWN - Config.ALT_FESTIVAL_SECOND_SWARM);
 			}
 			catch (InterruptedException e)
 			{
@@ -1966,7 +1973,7 @@ public class SevenSignsFestival implements SpawnListener
 			// Stand by and wait until it's time to end the festival.
 			try
 			{
-				wait(Config.ALT_FESTIVAL_LENGTH - elapsedTime);
+				Thread.sleep(Config.ALT_FESTIVAL_LENGTH - elapsedTime);
 			}
 			catch (InterruptedException e)
 			{
@@ -1995,7 +2002,8 @@ public class SevenSignsFestival implements SpawnListener
 
 			if (_log.isDebugEnabled())
 				_log.debug("SevenSignsFestival: The next set of festivals begin in " + getMinsToNextFestival() + " minute(s).");
-
+			
+			}
 		}
 
 		/**

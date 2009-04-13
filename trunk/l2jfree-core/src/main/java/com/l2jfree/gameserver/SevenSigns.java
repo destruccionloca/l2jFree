@@ -483,7 +483,7 @@ public class SevenSigns
 	}
 
 	/**
-	 * returns true if the given date is in Seal Validation or in Quest Event Results period 
+	 * returns true if the given date is in Seal Validation or in Quest Event Results period
 	 * @param date
 	 */
 	public boolean isDateInSealValidPeriod(Calendar date)
@@ -1333,7 +1333,7 @@ public class SevenSigns
 				int compWinner = getCabalHighestScore();
 
 				// Schedule a stop of the festival engine.
-				SevenSignsFestival.getInstance().getFestivalManagerSchedule().cancel(false);
+				SevenSignsFestival.getInstance().stopFestivalManager();
 
 				calcNewSealOwners();
 
@@ -1450,7 +1450,7 @@ public class SevenSigns
 			if (getPlayerCabal(character) != CABAL_NULL)
 			{
 				if (getPlayerCabal(character) == StrifeOwner)
-					//Gives "Victor of War" passive skill to all online characters with Cabal, which controls Seal of Strife 
+					//Gives "Victor of War" passive skill to all online characters with Cabal, which controls Seal of Strife
 					character.addSkill(SkillTable.getInstance().getInfo(5074,1));
 				else
 					//Gives "The Vanquished of War" passive skill to all online characters with Cabal, which does not control Seal of Strife
