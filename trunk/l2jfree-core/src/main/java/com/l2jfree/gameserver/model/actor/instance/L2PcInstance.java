@@ -6671,6 +6671,7 @@ public final class L2PcInstance extends L2PlayableInstance
 				player.setHeading(rset.getInt("heading"));
 
 				player.setKarma(rset.getInt("karma"));
+				player.setFame(rset.getInt("fame"));
 				player.setPvpKills(rset.getInt("pvpkills"));
 				player.setPkKills(rset.getInt("pkkills"));
 
