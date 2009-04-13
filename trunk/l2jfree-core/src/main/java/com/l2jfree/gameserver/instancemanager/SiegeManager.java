@@ -246,7 +246,7 @@ public class SiegeManager
 	{
 		try
 		{
-			Properties siegeSettings = new L2Properties(Config.SIEGE_CONFIGURATION_FILE);
+			Properties siegeSettings = new L2Properties(Config.SIEGE_CONFIGURATION_FILE).setLog(false);
 
 			// Siege spawns settings
 			_controlTowerSpawnList = new FastMap<Integer, FastList<SiegeSpawn>>();
