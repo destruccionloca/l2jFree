@@ -27,7 +27,6 @@ import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Node;
 
 import com.l2jfree.gameserver.datatables.SkillTable;
-import com.l2jfree.gameserver.instancemanager.ZoneManager;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
@@ -677,7 +676,6 @@ public abstract class L2Zone implements FuncOwner
 		exShapes.clear();
 
 		zone.register();
-		ZoneManager.getInstance().getZones(zone.getType()).put(zone.getName(), zone);
 
 		return zone;
 	}

@@ -84,6 +84,7 @@ public class ForumsBBSManager extends BaseBBSManager
 			{
 
 				Forum f = new Forum(Integer.parseInt(result.getString("forum_id")), null);
+				addForum(f);
 				_root.put(Integer.parseInt(result.getString("forum_id")), f);
 			}
 			result.close();

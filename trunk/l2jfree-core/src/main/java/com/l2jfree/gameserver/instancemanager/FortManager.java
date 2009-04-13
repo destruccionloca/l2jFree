@@ -139,10 +139,6 @@ public class FortManager
 			statement.close();
 
 			_log.info("Loaded: " + getForts().size() + " fortress");
-			for (Fort fort : getForts())
-			{
-				fort.getSiege().getSiegeGuardManager().loadSiegeGuard();
-			}
 		}
 		catch (Exception e)
 		{

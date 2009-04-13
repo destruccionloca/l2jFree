@@ -71,8 +71,6 @@ public class Forum
 
 		/*load();
 		getChildren();	*/
-		ForumsBBSManager.getInstance().addForum(this);
-
 	}
 
 	/**
@@ -174,8 +172,9 @@ public class Forum
 
 			while (result.next())
 			{
-
-				_children.add(new Forum(Integer.parseInt(result.getString("forum_id")), this));
+				Forum forum = new Forum(Integer.parseInt(result.getString("forum_id")), this);
+				ForumsBBSManager.getInstance().addForum(forum);
+				_children.add(forum);
 			}
 			result.close();
 			statement.close();

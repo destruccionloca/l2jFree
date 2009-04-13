@@ -242,7 +242,6 @@ public class FortSiege
 		//_siegeGuardManager = new SiegeGuardManager(getFort());
 
 		checkAutoTask();
-		FortSiegeManager.getInstance().addSiege(this);
 	}
 
 	// =========================================================
@@ -573,7 +572,7 @@ public class FortSiege
 					}
 					getFort().getSiege().announceToPlayer(new SystemMessage(SystemMessageId.ALL_BARRACKS_OCCUPIED), 0, false);
 				}
-				// schedule restoring doors/commanders respawn 
+				// schedule restoring doors/commanders respawn
 				else if (_siegeRestore == null)
 				{
 					getFort().getSiege().announceToPlayer(new SystemMessage(SystemMessageId.SEIZED_BARRACKS), 0, false);
@@ -807,7 +806,7 @@ public class FortSiege
 		{
 			if (siege == this)
 				continue;
-			if (siege.getSiegeDate().get(Calendar.DAY_OF_WEEK) == this.getSiegeDate().get(Calendar.DAY_OF_WEEK))
+			if (siege.getSiegeDate().get(Calendar.DAY_OF_WEEK) == getSiegeDate().get(Calendar.DAY_OF_WEEK))
 			{
 				if (siege.checkIsAttacker(clan))
 					return true;
@@ -1066,18 +1065,18 @@ public class FortSiege
 		return null;
 	}
 	
-	public L2NpcInstance getClosestFlag(L2Object obj)  
-	{  
-		if (( obj != null) && (obj instanceof L2PcInstance))  
-		{  
-			if (((L2PcInstance)obj).getClan() != null)  
-			{  
-				L2SiegeClan sc = getAttackerClan(((L2PcInstance)obj).getClan());  
-				if (sc != null) return sc.getClosestFlag(obj);  
-			}  
-		}  
-		return null;  
-	}  
+	public L2NpcInstance getClosestFlag(L2Object obj)
+	{
+		if (( obj != null) && (obj instanceof L2PcInstance))
+		{
+			if (((L2PcInstance)obj).getClan() != null)
+			{
+				L2SiegeClan sc = getAttackerClan(((L2PcInstance)obj).getClan());
+				if (sc != null) return sc.getClosestFlag(obj);
+			}
+		}
+		return null;
+	}
 
 	public final FortSiegeGuardManager getSiegeGuardManager()
 	{

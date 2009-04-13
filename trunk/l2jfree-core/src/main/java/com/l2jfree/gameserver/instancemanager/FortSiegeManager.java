@@ -72,6 +72,12 @@ public class FortSiegeManager
 	{
 		_log.info("Initializing FortSiegeManager");
 		loadCommandersFlags();
+		
+		for (Fort fort : FortManager.getInstance().getForts())
+		{
+			addSiege(fort.getSiege());
+			fort.getSiege().getSiegeGuardManager().loadSiegeGuard();
+		}
 	}
 
 	// =========================================================

@@ -117,7 +117,9 @@ public class ZoneManager
 						L2Zone zone = L2Zone.parseZone(d);
 						if (zone == null)
 							continue;
-
+						
+						getZones(zone.getType()).put(zone.getName(), zone);
+						
 						// Register the zone to any intersecting world region
 						int ax, ay, bx, by;
 						for (int x = 0; x < worldRegions.length; x++)
