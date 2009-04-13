@@ -365,9 +365,9 @@ public class MultiSellChoose extends L2GameClientPacket
 			}
 			else
 			{
-				if (maintainEnchantment && e.getEnchantmentLevel() > 0) 
+				if (maintainEnchantment && e.getEnchantmentLevel() > 0)
 				{
-					sm = new SystemMessage(SystemMessageId.ACQUIRED);
+					sm = new SystemMessage(SystemMessageId.ACQUIRED_S1_S2);
 					sm.addNumber(e.getEnchantmentLevel());
 					sm.addItemName(e.getItemId());
 				}
@@ -406,7 +406,7 @@ public class MultiSellChoose extends L2GameClientPacket
 		MultiSellEntry newEntry = L2Multisell.getInstance().new MultiSellEntry();
 		newEntry.setEntryId(templateEntry.getEntryId());
 		int totalAdenaCount = 0;
-		boolean hasIngredient = false; 
+		boolean hasIngredient = false;
 
 		for (MultiSellIngredient ing : templateEntry.getIngredients())
 		{
@@ -438,7 +438,7 @@ public class MultiSellChoose extends L2GameClientPacket
 				if ((tempItem instanceof L2Armor) || (tempItem instanceof L2Weapon))
 				{
 					newIngredient.setEnchantmentLevel(enchantLevel);
-					hasIngredient = true; 
+					hasIngredient = true;
 				}
 			}
 

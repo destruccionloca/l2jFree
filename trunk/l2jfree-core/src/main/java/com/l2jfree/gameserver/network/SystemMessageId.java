@@ -2216,7 +2216,7 @@ public enum SystemMessageId
 	 * ID: 371<br>
 	 * Message: Acquired +$s1 $s2.
 	 */
-	ACQUIRED(371),
+	ACQUIRED_S1_S2(371),
 
 	/**
 	 * ID: 372<br>
@@ -4968,25 +4968,25 @@ public enum SystemMessageId
 	 * ID: 819<br>
 	 * Message: Tickets sales are closed for Monster Race $s1. Odds are posted.
 	 */
-	MONSRACE_TICKET_SALES_CLOSED(819),
+	MONSRACE_S1_TICKET_SALES_CLOSED(819),
 
 	/**
 	 * ID: 820<br>
 	 * Message: Monster Race $s2 will begin in $s1 minute(s)!
 	 */
-	MONSRACE_BEGINS_IN_S1_MINUTES(820),
+	MONSRACE_S2_BEGINS_IN_S1_MINUTES(820),
 
 	/**
 	 * ID: 821<br>
 	 * Message: Monster Race $s1 will begin in 30 seconds!
 	 */
-	MONSRACE_BEGINS_IN_30_SECONDS(821),
+	MONSRACE_S1_BEGINS_IN_30_SECONDS(821),
 
 	/**
 	 * ID: 822<br>
 	 * Message: Monster Race $s1 is about to begin! Countdown in five seconds!
 	 */
-	MONSRACE_COUNTDOWN_IN_FIVE_SECONDS(822),
+	MONSRACE_S1_COUNTDOWN_IN_FIVE_SECONDS(822),
 
 	/**
 	 * ID: 823<br>
@@ -5004,7 +5004,7 @@ public enum SystemMessageId
 	 * ID: 825<br>
 	 * Message: Monster Race $s1 is finished!
 	 */
-	MONSRACE_RACE_END(825),
+	MONSRACE_S1_END(825),
 
 	/**
 	 * ID: 826<br>
@@ -5036,13 +5036,13 @@ public enum SystemMessageId
 	 * Message: You have recommended $s1. You are authorized to make $s2 more
 	 * recommendations.
 	 */
-	YOU_HAVE_RECOMMENDED(830),
+	YOU_HAVE_RECOMMENDED_S1_YOU_ARE_AUTHORIZED_TO_MAKE_S2_MORE_RECOMMENDATIONS(830),
 
 	/**
 	 * ID: 831<br>
 	 * Message: You have been recommended by $s1.
 	 */
-	YOU_HAVE_BEEN_RECOMMENDED(831),
+	YOU_HAVE_BEEN_RECOMMENDED_BY_S1(831),
 
 	/**
 	 * ID: 832<br>
