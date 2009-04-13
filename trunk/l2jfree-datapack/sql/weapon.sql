@@ -1016,7 +1016,7 @@ INSERT INTO `weapon` VALUES
 (7578,'Draconic Bow - Critical Slow','lrhand','true',1650,1,1,'adamantaite','s',581,5,'bow',12,-3,0,0,0,293,11,132,-1,48800000,2052,'true','true','true','true','','','','3574-1-10',9375),
 (7701,'Stick of Faith - Mana Up','rhand','true',1160,2,2,'wood','c',85,20,'blunt',4,4,0,0,0,379,0,81,-1,2290000,705,'true','true','true','true','3014-1','','','',0),
 (7702,'Stick of Faith - Magic Hold','rhand','true',1160,2,2,'wood','c',85,20,'blunt',4,4,0,0,0,379,0,81,-1,2290000,705,'true','true','true','true','','','3577-1-10','',0),
-(7703,'Stick of Faith - Magic Shield','rhand','true',1160,2,2,'wood','c',85,20,'blunt',4,4,0,0,0,379,0,81,-1,2290000,705,'true','true','true','true','','','','',0),
+(7703,'Stick of Faith - Magic Shield','rhand','true',1160,2,2,'wood','c',85,20,'blunt',4,4,0,0,0,379,0,81,-1,2290000,705,'true','true','true','true','','','1035-2-50','',0),
 (7704,'Stick of Eternity - Empower','rhand','true',1130,3,3,'wood','c',111,20,'blunt',4,4,0,0,0,379,0,101,-1,4300000,1322,'true','true','true','true','','','','',0),
 (7705,'Stick of Eternity - Rsk. Evasion','rhand','true',1130,3,3,'wood','c',111,20,'blunt',4,4,0,0,0,379,0,101,-1,4300000,1322,'true','true','true','true','','','','',0),
 (7706,'Stick of Eternity - Blessed Body','rhand','true',1130,3,3,'wood','c',111,20,'blunt',4,4,0,0,0,379,0,101,-1,4300000,1322,'true','true','true','true','','','1045-3-20','',0),
