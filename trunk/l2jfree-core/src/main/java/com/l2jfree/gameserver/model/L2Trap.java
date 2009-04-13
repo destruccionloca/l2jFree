@@ -27,7 +27,7 @@ import com.l2jfree.gameserver.templates.item.L2Weapon;
  */
 public class L2Trap extends L2Character
 {
-	private L2PcInstance _owner;
+	private final L2PcInstance _owner;
 	/**
 	 * @param objectId
 	 * @param template

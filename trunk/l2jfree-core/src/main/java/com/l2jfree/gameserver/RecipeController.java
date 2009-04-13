@@ -81,7 +81,7 @@ public class RecipeController
 
 		try
 		{
-			this.loadFromXML();
+			loadFromXML();
 			_log.info("RecipeController: Loaded " + _lists.size() + " recipes.");
 		}
 		catch (Exception e)
@@ -581,18 +581,14 @@ public class RecipeController
 				{
 					// for alt mode, sleep delay msec before finishing
 					_player.sendPacket(new SetupGauge(0, _delay));
-
-					try
-					{
-						Thread.sleep(_delay);
-					}
-					catch (InterruptedException e)
-					{
-					}
-					finally
-					{
-						finishCrafting();
-					}
+					
+					ThreadPoolManager.getInstance().schedule(new Runnable() {
+						@Override
+						public void run()
+						{
+							finishCrafting();
+						}
+					}, _delay);
 				}
 			} // for old craft mode just finish
 			else

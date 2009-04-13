@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Announcements;
+import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.instancemanager.CoupleManager;
@@ -88,7 +89,7 @@ public class L2WeddingManagerInstance extends L2NpcInstance
     }
     
     @Override
-    public synchronized void onBypassFeedback(L2PcInstance player, String command)
+    public synchronized void onBypassFeedback(final L2PcInstance player, String command)
     {
         // Standard msg
         String filename = "data/html/wedding/start.htm";
@@ -103,7 +104,7 @@ public class L2WeddingManagerInstance extends L2NpcInstance
         }
 
         L2Object obj = L2World.getInstance().findObject(player.getPartnerId());
-        L2PcInstance ptarget = obj instanceof L2PcInstance ? (L2PcInstance) obj : null;
+        final L2PcInstance ptarget = obj instanceof L2PcInstance ? (L2PcInstance) obj : null;
         // Partner online ?
         if(ptarget == null || ptarget.isOnline() == 0)
         {
@@ -136,7 +137,7 @@ public class L2WeddingManagerInstance extends L2NpcInstance
             player.sendMessage("Congratulations, you are married!");
             player.setMaried(true);
             player.setMaryRequest(false);
-            ptarget.sendMessage("Congratulations, you are married!"); 
+            ptarget.sendMessage("Congratulations, you are married!");
             ptarget.setMaried(true);
             ptarget.setMaryRequest(false);
             
@@ -160,7 +161,7 @@ public class L2WeddingManagerInstance extends L2NpcInstance
             
             // Fireworks
             L2Skill skill = SkillTable.getInstance().getInfo(2025,1);
-            if (skill != null) 
+            if (skill != null)
             {
                 MSU = new MagicSkillUse(player, player, 2025, 1, 1, 0);
                 player.sendPacket(MSU);
@@ -180,22 +181,22 @@ public class L2WeddingManagerInstance extends L2NpcInstance
             filename = "data/html/wedding/accepted.htm";
             replace = ptarget.getName();
             sendHtmlMessage(ptarget, filename, replace);
-
-            if(Config.WEDDING_HONEYMOON_PORT)
-            {
-            	try
-            	{
-            		// Wait a little for all effects, and then go on honeymoon
-            		wait(10000);
-            	}
-            	catch (InterruptedException e){}
-            	// Port both players to Fantasy Isle for happy time
-            	player.teleToLocation(-56641, -56345, -2005);
-            	ptarget.teleToLocation(-56641, -56345, -2005);
-            }
-
-            return;
-        }                
+			
+			if (Config.WEDDING_HONEYMOON_PORT)
+			{
+				// Wait a little for all effects, and then go on honeymoon
+				ThreadPoolManager.getInstance().schedule(new Runnable() {
+					@Override
+					public void run()
+					{
+						// Port both players to Fantasy Isle for happy time
+						player.teleToLocation(-56641, -56345, -2005);
+						ptarget.teleToLocation(-56641, -56345, -2005);
+					}
+				}, 10000);
+			}
+			return;
+		}
         else if (command.startsWith("DeclineWedding"))
         {
             player.setMaryRequest(false);
@@ -224,7 +225,7 @@ public class L2WeddingManagerInstance extends L2NpcInstance
             replace = ptarget.getName();
             sendHtmlMessage(player, filename, replace);
             return;
-        }  
+        }
         else if (command.startsWith("AskWedding"))
         {
             // Check for formalwear
@@ -247,14 +248,14 @@ public class L2WeddingManagerInstance extends L2NpcInstance
                 ptarget.setMaryRequest(true);
                 replace = ptarget.getName();
                 filename = "data/html/wedding/requested.htm";
-                player.getInventory().reduceAdena("Wedding", Config.WEDDING_PRICE, player, player.getLastFolkNPC());                       
+                player.getInventory().reduceAdena("Wedding", Config.WEDDING_PRICE, player, player.getLastFolkNPC());
                 sendHtmlMessage(player, filename, replace);
                 return;
             }
-        } 
+        }
 
         sendHtmlMessage(player, filename, replace);
-    } 
+    }
 
     private void sendHtmlMessage(L2PcInstance player, String filename, String replace)
     {

@@ -14144,23 +14144,31 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 	}
 	
-	private final ConditionListener[] CONDITION_LISTENER = { new ConditionPlayerHpListener() };
+	private ConditionListener[] _conditionListeners;
+	
+	private ConditionListener[] getConditionListeners()
+	{
+		if (_conditionListeners == null)
+			_conditionListeners = new ConditionListener[] { new ConditionPlayerHpListener() };
+		
+		return _conditionListeners;
+	}
 	
 	public void onFuncAddition(Func f)
 	{
-		for (ConditionListener listener : CONDITION_LISTENER)
+		for (ConditionListener listener : getConditionListeners())
 			listener.onFuncAddition(f);
 	}
 	
 	public void onFuncRemoval(Func f)
 	{
-		for (ConditionListener listener : CONDITION_LISTENER)
+		for (ConditionListener listener : getConditionListeners())
 			listener.onFuncRemoval(f);
 	}
 	
 	public void refreshConditionListeners(ConditionListenerDependency dependency)
 	{
-		for (ConditionListener listener : CONDITION_LISTENER)
+		for (ConditionListener listener : getConditionListeners())
 			listener.refresh(dependency);
 	}
 	

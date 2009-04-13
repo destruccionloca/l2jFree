@@ -14,70 +14,49 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
-import java.util.concurrent.Future;
-
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.L2Attackable;
 import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Trap;
 import com.l2jfree.gameserver.model.actor.knownlist.TrapKnownList;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
+import com.l2jfree.gameserver.taskmanager.AiTaskManager;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
 import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
 
-public class L2TrapInstance extends L2Trap
+public final class L2TrapInstance extends L2Trap implements Runnable
 {
+	private final L2Skill _skill;
+	
 	private int _totalLifeTime;
 	private int _timeRemaining;
-	private Future<?> _trapTask;
-	protected L2Skill _skill;
-	protected boolean _isDetected;
-	protected L2Character target;
-
-	/**
-	 * @param objectId
-	 * @param template
-	 * @param owner
-	 */
+	private boolean _isDetected;
+	
 	public L2TrapInstance(int objectId, L2CharTemplate template, L2PcInstance owner, int lifeTime, L2Skill skill)
 	{
 		super(objectId, template, owner);
-		if (lifeTime != 0)
-		{
-			_totalLifeTime = lifeTime;
-		}
-		else
-		{
-			_totalLifeTime = 30000;
-		}
-		_timeRemaining = _totalLifeTime;
+		
 		_skill = skill;
-		int delay = 1000;
-		_trapTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new TrapTask(getOwner(), this, _skill), delay, delay);
+		
+		_totalLifeTime = lifeTime == 0 ? 30000 : lifeTime;
+		_timeRemaining = _totalLifeTime;
+		
+		AiTaskManager.getInstance().startAiTask(this);
 	}
-
-	/**
-	 *
-	 * @see com.l2jfree.gameserver.model.L2Character#doDie(com.l2jfree.gameserver.model.L2Character)
-	 */
+	
 	@Override
 	public boolean doDie(L2Character killer)
 	{
 		if (!super.doDie(killer))
 			return false;
-
+		
 		_totalLifeTime = 0;
 		DecayTaskManager.getInstance().addDecayTask(this);
 		return true;
 	}
-
-	/**
-	 *
-	 * @see com.l2jfree.gameserver.model.L2Character#getKnownList()
-	 */
+	
 	@Override
 	public TrapKnownList getKnownList()
 	{
@@ -86,175 +65,87 @@ public class L2TrapInstance extends L2Trap
 		
 		return (TrapKnownList)_knownList;
 	}
-
-	static class TrapTask implements Runnable
+	
+	public void run()
 	{
-		private L2PcInstance _activeChar;
-		private L2TrapInstance _trap;
-		private L2Skill _tskill;
-
-		TrapTask(L2PcInstance activeChar, L2TrapInstance trap, L2Skill skill)
+		_timeRemaining -= 1000;
+		
+		if (_timeRemaining < _totalLifeTime - 15000)
+			broadcastPacket(new SocialAction(getObjectId(), 2));
+		
+		if (_timeRemaining < 0)
 		{
-			_activeChar = activeChar;
-			_trap = trap;
-			_tskill = skill;
-		}
-
-		public void run()
-		{
-			try
+			L2Character trg;
+			
+			switch (_skill.getTargetType())
 			{
-				double newTimeRemaining;
-				_trap.decTimeRemaining(1000);
-				newTimeRemaining = _trap.getTimeRemaining();
-				if (newTimeRemaining < _trap.getTotalLifeTime() - 15000)
-				{
-					SocialAction sa = new SocialAction(_trap.getObjectId(), 2);
-					_trap.broadcastPacket(sa);
-				}
-				if (newTimeRemaining < 0)
-				{
-					L2Character trg = _trap.setTarget();
-					switch (_tskill.getTargetType())
-					{
-						case TARGET_AURA:
-						case TARGET_FRONT_AURA:
-						case TARGET_BEHIND_AURA:
-							trg = _trap;
-							break;
-					}
-
-					if (trg != null)
-					{
-						_trap.activate(trg);
-					}
-					else
-					{
-						_trap.unSummon(_activeChar);
-					}
-				}
+				case TARGET_AURA:
+				case TARGET_FRONT_AURA:
+				case TARGET_BEHIND_AURA:
+					trg = L2TrapInstance.this;
+					break;
+				default:
+					trg = getRandomTarget();
+					break;
 			}
-			catch (Exception e)
+			
+			if (trg != null)
 			{
-				_log.error(e.getMessage(), e);
+				setTarget(trg);
+				doCast(_skill);
+				
+				ThreadPoolManager.getInstance().schedule(new Runnable() {
+					@Override
+					public void run()
+					{
+						unSummon(getOwner());
+						
+						final L2Character[] targetList = _skill.getTargetList(L2TrapInstance.this);
+						
+						if (targetList != null)
+							for (L2Character attacked : targetList)
+								if (attacked instanceof L2Attackable)
+									((L2Attackable)attacked).addDamage(getOwner(), 1);
+					}
+				}, _skill.getHitTime() + 2000);
+			}
+			else
+			{
+				unSummon(getOwner());
 			}
 		}
 	}
-
-	/**
-	 * Returns the Target of this Trap
-	 * @return
-	 */
-	protected L2Character setTarget()
+	
+	private L2Character getRandomTarget()
 	{
-		for (L2Character trg : this.getKnownList().getKnownCharactersInRadius(_skill.getSkillRadius()))
+		for (L2Character trg : getKnownList().getKnownCharactersInRadius(_skill.getSkillRadius()))
 		{
-			if (trg == getOwner())
+			if (trg == getOwner() || trg.isInsideZone(L2Zone.FLAG_PEACE))
 				continue;
-
-			if ((getOwner().getParty() != null && trg.getParty() != null)
-					&& getOwner().getParty().getPartyLeaderOID() == trg.getParty().getPartyLeaderOID())
+			
+			if (trg.getParty() != null && trg.getParty() == getOwner().getParty())
 				continue;
-
-			if (trg.isInsideZone(L2Zone.FLAG_PEACE))
-				continue;
-
+			
 			return trg;
 		}
+		
 		return null;
 	}
-
-	/**
-	 *
-	 * @param trg
-	 */
-	public void activate(L2Character trg)
-	{
-		setTarget(trg);
-		doCast(_skill);
-		try
-		{
-			wait(_skill.getHitTime() + 2000);
-		}
-		catch (Exception e)
-		{
-
-		}
-		unSummon(getOwner());
-
-		L2Object[] targetList = _skill.getTargetList(this);
-		if (targetList == null)
-			return;
-
-		for (L2Object atked : targetList)
-		{
-			if (atked == getOwner())
-				continue;
-
-			if (atked instanceof L2PcInstance)
-				continue;
-
-			if (atked instanceof L2Attackable)
-				((L2Attackable)atked).addDamage(getOwner(), 1);
-		}
-	}
-
-	/**
-	 *
-	 * @see com.l2jfree.gameserver.model.L2Trap#unSummon(com.l2jfree.gameserver.model.actor.instance.L2PcInstance)
-	 */
+	
 	@Override
 	public void unSummon(L2PcInstance owner)
 	{
-		if (_trapTask != null)
-		{
-			_trapTask.cancel(true);
-			_trapTask = null;
-		}
+		AiTaskManager.getInstance().stopAiTask(this);
+		
 		super.unSummon(owner);
 	}
-
-	/**
-	 *
-	 * @param value
-	 */
-	public void decTimeRemaining(int value)
-	{
-		_timeRemaining -= value;
-	}
-
-	/**
-	 *
-	 * @return
-	 */
-	public int getTimeRemaining()
-	{
-		return _timeRemaining;
-	}
-
-	/**
-	 *
-	 * @return
-	 */
-	public int getTotalLifeTime()
-	{
-		return _totalLifeTime;
-	}
-
-	/**
-	 *
-	 * @see com.l2jfree.gameserver.model.L2Trap#setDetected()
-	 */
+	
 	@Override
 	public void setDetected()
 	{
 		_isDetected = true;
 	}
-
-	/**
-	 *
-	 * @see com.l2jfree.gameserver.model.L2Trap#isDetected()
-	 */
+	
 	@Override
 	public boolean isDetected()
 	{

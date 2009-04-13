@@ -1831,22 +1831,13 @@ public class FrintezzaManager extends BossLair
 				}
 				return;
 			}
-			_mob.setTarget(null);
-
-			while (_mob.getTarget() == null)
-			{
-				try
-				{
-					Thread.sleep(1000);
-					_mob.setTarget(getRandomPlayer());
-				}
-				catch (Throwable t)
-				{
-					_mob.setTarget(null);
-				}
-			}
-
-			ThreadPoolManager.getInstance().scheduleGeneral(new ReTarget(_mob), _intervalOfRetarget);
+			
+			_mob.setTarget(getRandomPlayer());
+			
+			if (_mob.getTarget() == null)
+				ThreadPoolManager.getInstance().scheduleGeneral(new ReTarget(_mob), 1000);
+			else
+				ThreadPoolManager.getInstance().scheduleGeneral(new ReTarget(_mob), _intervalOfRetarget);
 		}
 	}
 

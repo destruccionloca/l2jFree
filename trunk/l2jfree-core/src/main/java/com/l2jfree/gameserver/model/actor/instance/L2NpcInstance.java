@@ -1547,15 +1547,6 @@ public class L2NpcInstance extends L2Character
 							broadcastPacket(msu);
 							_buff.getSkill().getEffects(this, player);
 						}
-
-						//  Pause between buffs
-						try
-						{
-							Thread.sleep(1000);
-						}
-						catch (Exception e)
-						{
-						}
 					}
 				}
 			}
