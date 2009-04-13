@@ -18,6 +18,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javolution.util.FastList;
 
@@ -98,9 +99,9 @@ public class NpcWalkerRoutesTable
         finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
-	public FastList<L2NpcWalkerNode> getRouteForNpc(int id)
+	public ArrayList<L2NpcWalkerNode> getRouteForNpc(int id)
 	{
-		FastList<L2NpcWalkerNode> _return = new FastList<L2NpcWalkerNode>();
+		ArrayList<L2NpcWalkerNode> _return = new ArrayList<L2NpcWalkerNode>();
 
 		for (FastList.Node<L2NpcWalkerNode> n = _routes.head(), end = _routes.tail(); (n = n.getNext()) != end;)
 		{

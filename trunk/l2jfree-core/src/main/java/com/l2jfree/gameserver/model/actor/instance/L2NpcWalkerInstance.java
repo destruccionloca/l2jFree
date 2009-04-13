@@ -14,9 +14,6 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
-import java.util.Map;
-
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.ai.L2NpcWalkerAI;
 import com.l2jfree.gameserver.model.L2Character;
@@ -69,24 +66,9 @@ public class L2NpcWalkerInstance extends L2NpcInstance
 	 */
 	public void broadcastChat(String chat)
 	{
-		Map<Integer, L2PcInstance> _knownPlayers = getKnownList().getKnownPlayers();
-
-		if (_knownPlayers == null)
+		if (!getKnownList().getKnownPlayers().isEmpty())
 		{
-			if(Config.DEVELOPER)
-				_log.info("broadcastChat _players == null");
-			return;
-		}
-
-		// We send message to known players only!
-		if (!_knownPlayers.isEmpty())
-		{
-			CreatureSay cs = new CreatureSay(getObjectId(), SystemChatChannelId.Chat_Normal, getName(), chat);
-
-			// We interact and list players here
-			for (L2PcInstance players : _knownPlayers.values())
-				//finally send packet :D
-				players.sendPacket(cs);
+			broadcastPacket(new CreatureSay(getObjectId(), SystemChatChannelId.Chat_Normal, getName(), chat));
 		}
 	}
 

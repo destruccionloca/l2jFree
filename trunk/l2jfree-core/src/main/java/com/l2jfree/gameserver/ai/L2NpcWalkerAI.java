@@ -14,7 +14,7 @@
  */
 package com.l2jfree.gameserver.ai;
 
-import javolution.util.FastList;
+import java.util.ArrayList;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.NpcWalkerRoutesTable;
@@ -26,30 +26,31 @@ import com.l2jfree.gameserver.taskmanager.AiTaskManager;
 
 public class L2NpcWalkerAI extends L2CharacterAI implements Runnable
 {
-	private static final int			DEFAULT_MOVE_DELAY	= 0;
-
-	private long						_nextMoveTime;
-
-	private boolean						_walkingToNextPoint	= false;
-
+	private static final int DEFAULT_MOVE_DELAY = 0;
+	
+	private long _nextMoveTime;
+	
+	private boolean _walkingToNextPoint = false;
+	
 	/**
 	 * home points for xyz
 	 */
-	int									_homeX, _homeY, _homeZ;
-
+	private int _homeX, _homeY, _homeZ;
+	
 	/**
 	 * route of the current npc
 	 */
-	private FastList<L2NpcWalkerNode>	_route;
-
+	private final L2NpcWalkerNode[] _route;
+	
 	/**
 	 * current node
 	 */
-	private int							_currentPos;
-
+	private int _currentPos;
+	
 	/**
-	 * Constructor of L2CharacterAI.<BR><BR>
-	 *
+	 * Constructor of L2CharacterAI.<BR>
+	 * <BR>
+	 * 
 	 * @param accessor The AI accessor of the L2Character
 	 */
 	public L2NpcWalkerAI(L2Character.AIAccessor accessor)
@@ -57,165 +58,166 @@ public class L2NpcWalkerAI extends L2CharacterAI implements Runnable
 		super(accessor);
 		
 		if (!Config.ALLOW_NPC_WALKERS)
-			return;
-		
-		_route = NpcWalkerRoutesTable.getInstance().getRouteForNpc(getActor().getNpcId());
-		
-		if (_route.isEmpty())
 		{
-			_log.warn("L2NpcWalker(ID: "+getActor().getNpcId()+") without defined route!");
+			_route = null;
+			return;
+		}
+		
+		ArrayList<L2NpcWalkerNode> route = NpcWalkerRoutesTable.getInstance().getRouteForNpc(getActor().getNpcId());
+		
+		_route = route.toArray(new L2NpcWalkerNode[route.size()]);
+		
+		if (_route.length == 0)
+		{
+			_log.warn("L2NpcWalker(ID: " + getActor().getNpcId() + ") without defined route!");
 			return;
 		}
 		
 		AiTaskManager.getInstance().startAiTask(this);
 	}
-
+	
+	private L2NpcWalkerNode getCurrentNode()
+	{
+		return _route[_currentPos];
+	}
+	
 	public void run()
 	{
 		onEvtThink();
 	}
-
+	
 	@Override
 	protected void onEvtThink()
 	{
-		if (!Config.ALLOW_NPC_WALKERS || _route.isEmpty())
+		if (!Config.ALLOW_NPC_WALKERS || _route.length == 0 || getActor().getKnownList().getKnownPlayers().isEmpty())
 			return;
-
+		
 		if (isWalkingToNextPoint())
 		{
 			checkArrived();
 			return;
 		}
-
+		
 		if (_nextMoveTime < System.currentTimeMillis())
 			walkToLocation();
 	}
-
+	
 	/**
 	 * If npc can't walk to it's target then just teleport to next point
+	 * 
 	 * @param blocked_at_pos ignoring it
 	 */
 	@Override
 	protected void onEvtArrivedBlocked(L2CharPosition blocked_at_pos)
 	{
-		_log.warn("NpcWalker ID: " + getActor().getNpcId() + ": Blocked at rote position [" + _currentPos + "], coords: " + blocked_at_pos.x + ", "
-				+ blocked_at_pos.y + ", " + blocked_at_pos.z + ". Teleporting to next point");
-
-		int destinationX = _route.get(_currentPos).getMoveX();
-		int destinationY = _route.get(_currentPos).getMoveY();
-		int destinationZ = _route.get(_currentPos).getMoveZ();
-
+		_log.warn("NpcWalker ID: " + getActor().getNpcId() + ": Blocked at rote position [" + _currentPos
+			+ "], coords: " + blocked_at_pos.x + ", " + blocked_at_pos.y + ", " + blocked_at_pos.z
+			+ ". Teleporting to next point");
+		
+		L2NpcWalkerNode node = getCurrentNode();
+		
+		int destinationX = node.getMoveX();
+		int destinationY = node.getMoveY();
+		int destinationZ = node.getMoveZ();
+		
 		getActor().teleToLocation(destinationX, destinationY, destinationZ, false);
 		super.onEvtArrivedBlocked(blocked_at_pos);
 	}
-
+	
 	private void checkArrived()
 	{
-		int destinationX = _route.get(_currentPos).getMoveX();
-		int destinationY = _route.get(_currentPos).getMoveY();
-		int destinationZ = _route.get(_currentPos).getMoveZ();
-
-		if (getActor().getX() == destinationX && getActor().getY() == destinationY && getActor().getZ() == destinationZ)
+		L2NpcWalkerNode node = getCurrentNode();
+		
+		int destX = node.getMoveX();
+		int destY = node.getMoveY();
+		int destZ = node.getMoveZ();
+		
+		if (getActor().getX() == destX && getActor().getY() == destY && getActor().getZ() == destZ)
 		{
-			String chat = _route.get(_currentPos).getChatText();
+			String chat = node.getChatText();
 			if (chat != null && !chat.isEmpty())
 			{
-				try
-				{
-					getActor().broadcastChat(chat);
-				}
-				catch (ArrayIndexOutOfBoundsException e)
-				{
-					_log.info("L2NpcWalkerInstance: Error, " + e);
-				}
+				getActor().broadcastChat(chat);
 			}
-
+			
 			//time in millis
-			long delay = _route.get(_currentPos).getDelay() * 1000;
-
-			//sleeps between each move
-			if (delay <= 0)
+			long delay = node.getDelay() * 1000;
+			
+			if (delay < 0)
 			{
+				_log.warn("L2NpcWalkerAI: negative delay(" + delay + "), using default instead.");
 				delay = DEFAULT_MOVE_DELAY;
-				if (Config.DEVELOPER)
-					_log.warn("Wrong Delay Set in Npc Walker Functions = " + delay + " secs, using default delay: " + DEFAULT_MOVE_DELAY + " secs instead.");
 			}
-
+			
 			_nextMoveTime = System.currentTimeMillis() + delay;
+			
 			setWalkingToNextPoint(false);
 		}
 	}
-
+	
 	private void walkToLocation()
 	{
-		if (_currentPos < (_route.size() - 1))
-			_currentPos++;
-		else
-			_currentPos = 0;
-
-		boolean moveType = _route.get(_currentPos).getRunning();
-
-		/**
-		 * false - walking
-		 * true - Running
-		 */
-		if (moveType)
+		_currentPos = (_currentPos + 1) % _route.length;
+		
+		L2NpcWalkerNode node = getCurrentNode();
+		
+		if (node.getRunning())
 			getActor().setRunning();
 		else
 			getActor().setWalking();
-
+		
 		//now we define destination
-		int destinationX = _route.get(_currentPos).getMoveX();
-		int destinationY = _route.get(_currentPos).getMoveY();
-		int destinationZ = _route.get(_currentPos).getMoveZ();
-
+		int destX = node.getMoveX();
+		int destY = node.getMoveY();
+		int destZ = node.getMoveZ();
+		
 		//notify AI of MOVE_TO
 		setWalkingToNextPoint(true);
-
-		setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(destinationX, destinationY, destinationZ, 0));
+		
+		setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(destX, destY, destZ, 0));
 	}
-
+	
 	@Override
 	public L2NpcWalkerInstance getActor()
 	{
-		return (L2NpcWalkerInstance) super.getActor();
+		return (L2NpcWalkerInstance)_actor;
 	}
-
+	
 	public int getHomeX()
 	{
 		return _homeX;
 	}
-
+	
 	public int getHomeY()
 	{
 		return _homeY;
 	}
-
+	
 	public int getHomeZ()
 	{
 		return _homeZ;
 	}
-
+	
 	public void setHomeX(int homeX)
 	{
 		_homeX = homeX;
 	}
-
+	
 	public void setHomeY(int homeY)
 	{
 		_homeY = homeY;
 	}
-
+	
 	public void setHomeZ(int homeZ)
 	{
 		_homeZ = homeZ;
 	}
-
+	
 	public boolean isWalkingToNextPoint()
 	{
 		return _walkingToNextPoint;
 	}
-
+	
 	public void setWalkingToNextPoint(boolean value)
 	{
 		_walkingToNextPoint = value;
