@@ -16148,3 +16148,10 @@ INSERT INTO skill_trees VALUES
 (124,1405,2,'Divine Inspiration',0,61),
 (124,1405,3,'Divine Inspiration',0,76),
 (124,1405,4,'Divine Inspiration',0,76);
+
+
+--
+-- L2J-Free Add-ons
+--
+
+UPDATE `skill_trees` SET `sp` = 95000 WHERE `class_id` = 41 AND `skill_id` = 213 AND `level` = 5;
