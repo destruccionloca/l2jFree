@@ -40,7 +40,7 @@ public class ExtractableItemsData
 {
 	private final static Log					_log		= LogFactory.getLog(ExtractableItemsData.class.getName());
 	//          Map<itemid, L2ExtractableItem>
-	private FastMap<Integer, L2ExtractableItem>	_items;
+	private FastMap<Integer, L2ExtractableItem>	_items  = new FastMap<Integer, L2ExtractableItem>();
 
 	private static ExtractableItemsData			_instance	= null;
 
