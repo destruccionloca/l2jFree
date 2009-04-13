@@ -2214,7 +2214,7 @@ UPDATE `armor` SET `skills_item` = '3269-1;3267-1' WHERE `item_id` = 10139;
 
 -- According to client and xml this line should be here (Needs confirmation on skills part)
 INSERT INTO `armor` (`item_id`, `name`, `bodypart`, `crystallizable`, `armor_type`, `weight`, `material`, `crystal_type`, `avoid_modify`, `duration`, `p_def`, `m_def`, `mp_bonus`, `price`, `crystal_count`, `sellable`, `dropable`, `destroyable`, `tradeable`, `skills_item`) VALUES
-(10607, 'Agathion Seal Bracelet - Rudolph', 'lbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '3425-1;3267-1');
+(10607,'Agathion Seal Bracelet - Rudolph','lbracelet','false','none',150,'wood','none',0,-1,0,0,0,0,0,'false','false','true','false','3425-1;3267-1');
 
 INSERT INTO `armor` VALUES
 (20224, 'Agathion Seal Bracelet - White Maneki Neko Resurrection', 'lbracelet', 'false', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '21033-1;3267-1'),

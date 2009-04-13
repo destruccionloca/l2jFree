@@ -32,8 +32,6 @@
       <set val="379" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Mental Shield -->
-      <skill onCast="1" id="1035" lvl="2" chance="50"/>
     </for>
   </item>
   <item id="7704" name="Stick of Eternity - Empower">
