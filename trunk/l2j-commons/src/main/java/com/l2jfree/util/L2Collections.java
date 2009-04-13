@@ -146,7 +146,10 @@ public final class L2Collections
 		
 		public <T> T[] toArray(T[] a)
 		{
-			return (T[])toArray();
+			if (a.length != 0)
+				a = (T[])Array.newInstance(a.getClass().getComponentType(), 0);
+			
+			return a;
 		}
 	}
 	
