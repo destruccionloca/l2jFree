@@ -30,8 +30,8 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
-import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
 import com.l2jfree.gameserver.templates.StatsSet;
+import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
 
 public class BoatManager
 {
@@ -41,11 +41,8 @@ public class BoatManager
 	public static final BoatManager getInstance()
 	{
 		if (_instance == null)
-		{
-			_log.info("Initializing BoatManager");
 			_instance = new BoatManager();
-			_instance.load();
-		}
+		
 		return _instance;
 	}
 
@@ -59,6 +56,8 @@ public class BoatManager
 	// Constructor
 	public BoatManager()
 	{
+		_log.info("Initializing BoatManager");
+		load();
 	}
 
 	// =========================================================

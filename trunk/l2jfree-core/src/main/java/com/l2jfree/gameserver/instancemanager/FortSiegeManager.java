@@ -55,11 +55,8 @@ public class FortSiegeManager
 	public static final FortSiegeManager getInstance()
 	{
 		if (_instance == null)
-		{
-			_log.info("Initializing FortSiegeManager");
 			_instance = new FortSiegeManager();
-			_instance.loadCommandersFlags();
-		}
+		
 		return _instance;
 	}
 
@@ -73,6 +70,8 @@ public class FortSiegeManager
 	// Constructor
 	private FortSiegeManager()
 	{
+		_log.info("Initializing FortSiegeManager");
+		loadCommandersFlags();
 	}
 
 	// =========================================================

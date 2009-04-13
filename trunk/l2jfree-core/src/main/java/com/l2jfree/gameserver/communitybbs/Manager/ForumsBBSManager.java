@@ -44,10 +44,8 @@ public class ForumsBBSManager extends BaseBBSManager
 	public static ForumsBBSManager getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new ForumsBBSManager();
-			_instance.load();
-		}
+		
 		return _instance;
 	}
 
@@ -55,6 +53,7 @@ public class ForumsBBSManager extends BaseBBSManager
 	{
 		_root = new FastMap<Integer, Forum>();
 		_table = new FastList<Forum>();
+		load();
 	}
 
 	public void addForum(Forum ff)

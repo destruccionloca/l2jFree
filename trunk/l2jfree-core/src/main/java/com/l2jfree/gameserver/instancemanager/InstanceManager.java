@@ -21,7 +21,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.gameserver.model.entity.Instance;
 
-/** 
+/**
  * @author evill33t
  * 
  */
@@ -35,12 +35,15 @@ public class InstanceManager
 	public static final InstanceManager getInstance()
 	{
 		if (_instance == null)
-		{
-			_log.info("Initializing InstanceManager");
 			_instance = new InstanceManager();
-			_instance.createWorld();
-		}
+		
 		return _instance;
+	}
+	
+	private InstanceManager()
+	{
+		_log.info("Initializing InstanceManager");
+		createWorld();
 	}
 
 	private void createWorld()

@@ -65,10 +65,8 @@ public class CursedWeaponsManager
 	public static final CursedWeaponsManager getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new CursedWeaponsManager();
-			_instance.load();
-		}
+		
 		return _instance;
 	}
 
@@ -77,6 +75,7 @@ public class CursedWeaponsManager
 	public CursedWeaponsManager()
 	{
 		_cursedWeapons = new FastMap<Integer, CursedWeapon>();
+		load();
 	}
 
 	public final void reload()

@@ -43,10 +43,8 @@ public class CastleManager
 	public static final CastleManager getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new CastleManager();
-			_instance.load();
-		}
+		
 		return _instance;
 	}
 
@@ -55,6 +53,7 @@ public class CastleManager
 
 	public CastleManager()
 	{
+		load();
 	}
 
 	public final Castle getClosestCastle(L2Object activeObject)

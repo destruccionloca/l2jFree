@@ -20,7 +20,7 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.network.L2IrcClient;
 
-/** 
+/**
  * @author evill33t
  * 
  */
@@ -33,14 +33,17 @@ public class IrcManager
 	public static final IrcManager getInstance()
 	{
 		if (_instance == null)
-		{
-			_log.info("Initializing IrcManager");
 			_instance = new IrcManager();
-			_instance.load();
-		}
+		
 		return _instance;
 	}
-
+	
+	private IrcManager()
+	{
+		_log.info("Initializing IrcManager");
+		load();
+	}
+	
 	// =========================================================
 	// Method - Public
 	public void reload()

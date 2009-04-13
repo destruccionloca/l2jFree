@@ -42,13 +42,16 @@ public class ZoneManager
 	public static final ZoneManager getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new ZoneManager();
-			_instance.load();
-		}
+		
 		return _instance;
 	}
 
+	private ZoneManager()
+	{
+		load();
+	}
+	
 	public void reload()
 	{
 		// Get the world regions

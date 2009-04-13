@@ -39,17 +39,17 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 /**
  * @author yellowperil & Fulminus
  * This class is similar to the SiegeGuardManager, except it handles
- * the loading of the mercenary tickets that are dropped on castle floors 
+ * the loading of the mercenary tickets that are dropped on castle floors
  * by the castle lords.
  * These tickets (aka badges) need to be readded after each server reboot
  * except when the server crashed in the middle of an ongoig siege.
- * In addition, this class keeps track of the added tickets, in order to 
- * properly limit the number of mercenaries in each castle and the 
+ * In addition, this class keeps track of the added tickets, in order to
+ * properly limit the number of mercenaries in each castle and the
  * number of mercenaries from each mercenary type.
- * Finally, we provide auxilary functions to identify the castle in 
- * which each item (and its corresponding NPC) belong to, in order to 
+ * Finally, we provide auxilary functions to identify the castle in
+ * which each item (and its corresponding NPC) belong to, in order to
  * help avoid mixing them up.
- *  
+ * 
  */
 public class MercTicketManager
 {
@@ -60,10 +60,8 @@ public class MercTicketManager
 	{
 		//CastleManager.getInstance();
 		if (_instance == null)
-		{
 			_instance = new MercTicketManager();
-			_instance.load();
-		}
+		
 		return _instance;
 	}
 
@@ -1508,6 +1506,7 @@ public class MercTicketManager
 	// Constructor
 	public MercTicketManager()
 	{
+		load();
 	}
 
 	// =========================================================
@@ -1552,9 +1551,9 @@ public class MercTicketManager
 			int itemId;
 			int x, y, z;
 			int mercPlaced[] = new int[20];
-			// Start index to begin the search for the itemId corresponding to this NPCthis will help with: 
+			// Start index to begin the search for the itemId corresponding to this NPCthis will help with:
 			//    a) Skip unnecessary iterations in the search loop
-			//    b) Avoid finding the wrong itemId whenever tickets of different spawn the same npc!  
+			//    b) Avoid finding the wrong itemId whenever tickets of different spawn the same npc!
 			int startindex = 0;
 
 			while (rs.next())
@@ -1574,7 +1573,7 @@ public class MercTicketManager
 						break;
 				}
 
-				// Find the FIRST ticket itemId with spawns the saved NPC in the saved location 
+				// Find the FIRST ticket itemId with spawns the saved NPC in the saved location
 				for (int i = startindex; i < startindex + GUARDIAN_TYPES_COUNT; i++)
 				{
 					if (NPC_IDS[i] == npcId) // Find the index of the item used
@@ -1627,7 +1626,7 @@ public class MercTicketManager
 	public boolean isAtTypeLimit(int itemId)
 	{
 		int limit = -1;
-		// Find the max value for this item 
+		// Find the max value for this item
 		for (int i = 0; i < ITEM_IDS.length; i++)
 			if (ITEM_IDS[i] == itemId) // Find the index of the item used
 			{
@@ -1648,7 +1647,7 @@ public class MercTicketManager
 	}
 
 	/**
-	 * Checks if the passed item belongs to a castle which has reached its limit 
+	 * Checks if the passed item belongs to a castle which has reached its limit
 	 * of number of dropped tickets.
 	 */
 	public boolean isAtCasleLimit(int itemId)
@@ -1695,7 +1694,7 @@ public class MercTicketManager
 	}
 
 	/**
-	 * addTicket actions 
+	 * addTicket actions
 	 * 1) find the npc that needs to be saved in the mercenary spawns, given this item
 	 * 2) Use the passed character's location info to add the spawn
 	 * 3) create a copy of the item to drop in the world
@@ -1764,8 +1763,8 @@ public class MercTicketManager
 	}
 
 	/**
-	 * Delete all tickets from a castle; 
-	 * remove the items from the world and remove references to them from this class  
+	 * Delete all tickets from a castle;
+	 * remove the items from the world and remove references to them from this class
 	 */
 	public void deleteTickets(int castleId)
 	{
@@ -1784,14 +1783,14 @@ public class MercTicketManager
 
 	/**
 	 * remove a single ticket and its associated spawn from the world
-	 * (used when the castle lord picks up a ticket, for example) 
+	 * (used when the castle lord picks up a ticket, for example)
 	 */
 	public void removeTicket(L2ItemInstance item)
 	{
 		int itemId = item.getItemId();
 		int npcId = -1;
 
-		// Find the FIRST ticket itemId with spawns the saved NPC in the saved location 
+		// Find the FIRST ticket itemId with spawns the saved NPC in the saved location
 		for (int i = 0; i < ITEM_IDS.length; i++)
 			if (ITEM_IDS[i] == itemId) // Find the index of the item used
 			{

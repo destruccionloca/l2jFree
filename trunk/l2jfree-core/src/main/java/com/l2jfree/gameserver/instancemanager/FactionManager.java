@@ -28,7 +28,7 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.model.entity.faction.Faction;
 
-/** 
+/**
  * @author evill33t
  * 
  */
@@ -40,12 +40,15 @@ public class FactionManager
 	public static final FactionManager getInstance()
 	{
 		if (_instance == null)
-		{
-			_log.info("Initializing FactionManager");
 			_instance = new FactionManager();
-			_instance.load();
-		}
+		
 		return _instance;
+	}
+	
+	private FactionManager()
+	{
+		_log.info("Initializing FactionManager");
+		load();
 	}
 
 	// =========================================================

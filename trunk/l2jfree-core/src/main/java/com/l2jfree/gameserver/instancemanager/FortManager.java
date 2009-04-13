@@ -55,11 +55,8 @@ public class FortManager
 	public static final FortManager getInstance()
 	{
 		if (_instance == null)
-		{
-			_log.info("Initializing FortManager");
 			_instance = new FortManager();
-			_instance.load();
-		}
+		
 		return _instance;
 	}
 
@@ -72,6 +69,8 @@ public class FortManager
 	// Constructor
 	public FortManager()
 	{
+		_log.info("Initializing FortManager");
+		load();
 	}
 
 	public FortManager(Fort fort)

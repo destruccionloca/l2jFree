@@ -30,7 +30,7 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Couple;
 
-/** 
+/**
  * @author evill33t
  * 
  */
@@ -42,11 +42,14 @@ public class CoupleManager
 	public static final CoupleManager getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new CoupleManager();
-			_instance.load();
-		}
+		
 		return _instance;
+	}
+	
+	private CoupleManager()
+	{
+		load();
 	}
 
 	// =========================================================

@@ -19,7 +19,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -40,21 +39,20 @@ public class RecordTable
 	private String				_strDateMaxPlayer	= null;
 
 	/**
-	* Not really useful to make an instance of recordtable because data is reloaded each time. 
+	* Not really useful to make an instance of recordtable because data is reloaded each time.
 	* But it's quite easy to use like this.
 	*/
 	public static RecordTable getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new RecordTable();
-		}
-		_instance.restoreRecordData();
+		
 		return _instance;
 	}
 
 	private RecordTable()
 	{
+		restoreRecordData();
 	}
 
 	/**

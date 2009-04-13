@@ -39,12 +39,8 @@ public class FactionQuestManager
 	public static final FactionQuestManager getInstance()
 	{
 		if (_instance == null)
-		{
-			if (_log.isDebugEnabled())
-				_log.debug("Initializing FactionQuestManager");
 			_instance = new FactionQuestManager();
-			_instance.load();
-		}
+		
 		return _instance;
 	}
 
@@ -56,6 +52,7 @@ public class FactionQuestManager
 	// Constructor
 	public FactionQuestManager()
 	{
+		load();
 	}
 
 	// =========================================================

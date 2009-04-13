@@ -59,7 +59,7 @@ public class L2SiegeZone extends EntityZone
 				_entity.registerSiegeZone(this);
 			}
 			else
-				_log.warn("Invalid fortId: "+_castleId);
+				_log.warn("Invalid fortId: "+_fortId);
 		}
 	}
 

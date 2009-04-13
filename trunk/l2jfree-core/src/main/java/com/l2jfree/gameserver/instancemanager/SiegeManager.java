@@ -51,10 +51,8 @@ public class SiegeManager
 	public static final SiegeManager getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new SiegeManager();
-			_instance.loadTowerArtefacts();
-		}
+		
 		return _instance;
 	}
 
@@ -64,6 +62,7 @@ public class SiegeManager
 
 	private SiegeManager()
 	{
+		loadTowerArtefacts();
 	}
 
 	public final void addSiegeSkills(L2PcInstance character)

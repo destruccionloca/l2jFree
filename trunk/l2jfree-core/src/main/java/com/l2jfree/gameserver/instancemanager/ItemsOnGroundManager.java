@@ -21,6 +21,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import javolution.util.FastList;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -52,18 +53,16 @@ public class ItemsOnGroundManager
 		if (!Config.SAVE_DROPPED_ITEM)
 			return;
 		_items = new FastList<L2ItemInstance>();
+		load();
 		if (Config.SAVE_DROPPED_ITEM_INTERVAL > 0)
 			ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new StoreInDb(), Config.SAVE_DROPPED_ITEM_INTERVAL, Config.SAVE_DROPPED_ITEM_INTERVAL);
 	}
 
 	public static final ItemsOnGroundManager getInstance()
 	{
-
 		if (_instance == null)
-		{
 			_instance = new ItemsOnGroundManager();
-			_instance.load();
-		}
+		
 		return _instance;
 	}
 
@@ -242,7 +241,7 @@ public class ItemsOnGroundManager
 					if (item.isProtected())
 						statement.setLong(8, -1); // Item will be protected
 					else
-						statement.setLong(8, item.getDropTime()); // Item will be added to ItemsAutoDestroy          
+						statement.setLong(8, item.getDropTime()); // Item will be added to ItemsAutoDestroy
 					if (item.isEquipable())
 						statement.setLong(9, 1); // Set equipable
 					else

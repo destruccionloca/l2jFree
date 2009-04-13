@@ -44,16 +44,14 @@ public class TeleportLocationTable
 	public static TeleportLocationTable getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new TeleportLocationTable();
-			_instance.reloadAll();
-		}
+		
 		return _instance;
 	}
 
 	private TeleportLocationTable()
 	{
-
+		reloadAll();
 	}
 
 	public void reloadAll()
