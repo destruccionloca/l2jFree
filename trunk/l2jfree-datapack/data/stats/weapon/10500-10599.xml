@@ -75,4 +75,12 @@
       <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
+  <item id="10548" name="Monster Only (Transparent Shield)">
+    <for>
+      <sub val="8" order="0x10" stat="rEvas"/>
+      <set val="47" order="0x08" stat="sDef"/>
+      <set val="20" order="0x08" stat="rShld"/>
+      <enchant val="0" order="0x0C" stat="sDef"/>
+    </for>
+  </item>
 </list>
