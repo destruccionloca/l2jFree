@@ -65,7 +65,7 @@ public class ExecuteWrapper implements Runnable
 		finally
 		{
 			long runtimeInNanosec = System.nanoTime() - begin;
-			Class<?> clazz = runnable.getClass();
+			Class<? extends Runnable> clazz = runnable.getClass();
 			
 			RunnableStatsManager.getInstance().handleStats(clazz, runtimeInNanosec);
 			

@@ -14,25 +14,18 @@
  */
 package com.l2jfree.util.concurrent;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-
-import javolution.util.FastMap;
-
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 
 /**
  * @author NB4L1
@@ -51,21 +44,51 @@ public final class RunnableStatsManager
 		return _instance;
 	}
 	
-	private final Map<Class<?>, ClassStat> _classStats = new FastMap<Class<?>, ClassStat>().setShared(true);
+	private final Map<Class<?>, ClassStat> _classStats = new HashMap<Class<?>, ClassStat>();
 	
 	private final class ClassStat
 	{
 		private final String _name;
+		
+		private String[] _methodNames = new String[0];
+		private MethodStat[] _methodStats = new MethodStat[0];
+		
+		private ClassStat(Class<?> clazz)
+		{
+			_classStats.put(clazz, this);
+			
+			_name = clazz.getName().replace("com.l2jfree.gameserver.", "");
+		}
+		
+		private MethodStat getMethodStat(String methodName)
+		{
+			for (int i = 0; i < _methodNames.length; i++)
+				if (_methodNames[i].equals(methodName))
+					return _methodStats[i];
+			
+			methodName = methodName.intern();
+			
+			final MethodStat methodStat = new MethodStat(_name, methodName);
+			
+			_methodNames = (String[])ArrayUtils.add(_methodNames, methodName);
+			_methodStats = (MethodStat[])ArrayUtils.add(_methodStats, methodStat);
+			
+			return methodStat;
+		}
+	}
+	
+	private final class MethodStat
+	{
+		private final String _name;
+		
 		private long _count;
 		private long _total;
 		private long _min = Long.MAX_VALUE;
 		private long _max = Long.MIN_VALUE;
 		
-		private ClassStat(Class<?> cl)
+		private MethodStat(String className, String methodName)
 		{
-			_classStats.put(cl, this);
-			
-			_name = cl.getName().replace("com.l2jfree.gameserver.", "");
+			_name = className + "." + methodName;
 		}
 		
 		private void handleStats(long runTime)
@@ -75,72 +98,80 @@ public final class RunnableStatsManager
 			_min = Math.min(_min, runTime);
 			_max = Math.max(_max, runTime);
 		}
-		
-		private Element fill(Element cl)
-		{
-			cl.setAttribute("name", String.valueOf(_name));
-			cl.setAttribute("count", String.valueOf(_count));
-			cl.setAttribute("total", String.valueOf(_total));
-			cl.setAttribute("min", String.valueOf(_min));
-			cl.setAttribute("max", String.valueOf(_max));
-			cl.setAttribute("average", String.valueOf(_total / _count));
-			
-			return cl;
-		}
 	}
 	
-	public synchronized void handleStats(Class<?> cl, long runTime)
+	private ClassStat getClassStat(Class<?> clazz)
 	{
-		ClassStat stat = _classStats.get(cl);
+		ClassStat stat = _classStats.get(clazz);
 		
 		if (stat == null)
-			stat = new ClassStat(cl);
+			stat = new ClassStat(clazz);
 		
-		stat.handleStats(runTime);
+		return stat;
 	}
 	
+	public synchronized void handleStats(Class<? extends Runnable> clazz, long runTime)
+	{
+		handleStats(clazz, "run()", runTime);
+	}
+	
+	public synchronized void handleStats(Class<?> clazz, String methodName, long runTime)
+	{
+		getClassStat(clazz).getMethodStat(methodName).handleStats(runTime);
+	}
+	
+	@SuppressWarnings("unchecked")
 	public static enum SortBy
 	{
-		NAME,
-		COUNT,
-		TOTAL,
-		MIN,
-		MAX,
-		AVG;
+		AVG("average"),
+		COUNT("count"),
+		TOTAL("total"),
+		NAME("name"),
+		MIN("min"),
+		MAX("max"), ;
 		
-		@SuppressWarnings("unchecked")
-		private final Comparator<ClassStat> _comparator = new Comparator<ClassStat>() {
-			private Comparable getComparableValueOf(ClassStat stat)
+		private final String _xmlName;
+		
+		private SortBy(String xmlName)
+		{
+			_xmlName = xmlName;
+		}
+		
+		private final Comparator<MethodStat> _comparator = new Comparator<MethodStat>() {
+			public int compare(MethodStat o1, MethodStat o2)
 			{
-				switch (SortBy.this)
-				{
-					case NAME:
-						return stat._name;
-					case COUNT:
-						return stat._count;
-					case TOTAL:
-						return stat._total;
-					case MIN:
-						return stat._min;
-					case MAX:
-						return stat._max;
-					case AVG:
-						return stat._total / stat._count;
-					default:
-						throw new InternalError();
-				}
-			}
-			
-			public int compare(ClassStat o1, ClassStat o2)
-			{
-				return getComparableValueOf(o1).compareTo(getComparableValueOf(o2));
+				final Comparable c1 = getComparableValueOf(o1);
+				final Comparable c2 = getComparableValueOf(o2);
+				
+				if (c1 instanceof Number)
+					return c2.compareTo(c1);
+				
+				return c1.compareTo(c2);
 			}
 		};
 		
-		private Comparator<ClassStat> getComparator()
+		private Comparable getComparableValueOf(MethodStat stat)
 		{
-			return _comparator;
+			switch (SortBy.this)
+			{
+				case NAME:
+					return stat._name;
+				case COUNT:
+					return stat._count;
+				case TOTAL:
+					return stat._total;
+				case MIN:
+					return stat._min;
+				case MAX:
+					return stat._max;
+				case AVG:
+					return stat._total / stat._count;
+				default:
+					throw new InternalError();
+			}
 		}
+		
+		private static final SortBy[] VALUES = SortBy.values();
 	}
 	
 	public void dumpClassStats()
@@ -148,33 +179,92 @@ public final class RunnableStatsManager
 		dumpClassStats(null);
 	}
 	
-	public synchronized void dumpClassStats(SortBy sortBy)
+	@SuppressWarnings("unchecked")
+	public void dumpClassStats(final SortBy sortBy)
 	{
+		final List<MethodStat> methodStats = new ArrayList<MethodStat>();
+		
+		synchronized (this)
+		{
+			for (ClassStat classStat : _classStats.values())
+				for (MethodStat methodStat : classStat._methodStats)
+					methodStats.add(methodStat);
+		}
+		
+		if (sortBy != null)
+			Collections.sort(methodStats, sortBy._comparator);
+		
+		final List<String> lines = new ArrayList<String>();
+		
+		lines.add("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>");
+		lines.add("<methods>");
+		lines.add("\t<!-- This XML contains statistics about execution times. -->");
+		lines.add("\t<!-- Submitted results will help the developers to optimize the server. -->");
+		
+		final String[][] values = new String[SortBy.VALUES.length][methodStats.size()];
+		final int[] maxLength = new int[SortBy.VALUES.length];
+		
+		for (int i = 0; i < SortBy.VALUES.length; i++)
+		{
+			final SortBy sort = SortBy.VALUES[i];
+			
+			for (int k = 0; k < methodStats.size(); k++)
+			{
+				final String value = String.valueOf(sort.getComparableValueOf(methodStats.get(k)));
+				
+				values[i][k] = value;
+				
+				maxLength[i] = Math.max(maxLength[i], value.length());
+			}
+		}
+		
+		for (int k = 0; k < methodStats.size(); k++)
+		{
+			StringBuilder sb = new StringBuilder();
+			sb.append("\t<method ");
+			
+			if (sortBy != null)
+				appendAttribute(sb, sortBy, values[sortBy.ordinal()][k], maxLength[sortBy.ordinal()]);
+			
+			for (SortBy sort : SortBy.VALUES)
+				if (sort != sortBy)
+					appendAttribute(sb, sort, values[sort.ordinal()][k], maxLength[sort.ordinal()]);
+			
+			sb.append("/>");
+			
+			lines.add(sb.toString());
+		}
+		
+		lines.add("</methods>");
+		
+		PrintStream ps = null;
 		try
 		{
-			Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+			ps = new PrintStream("MethodStats-" + System.currentTimeMillis() + ".log");
 			
-			Node classes = doc.createElement("classes");
-			doc.appendChild(classes);
+			for (String line : lines)
+				ps.println(line);
 			
-			classes.appendChild(doc.createComment("This XML contains statistics about execution times."));
-			classes.appendChild(doc.createComment("Submitted results will help the developers to optimize the server."));
-			
-			List<ClassStat> list = new ArrayList<ClassStat>(_classStats.values());
-			if (sortBy != null)
-				Collections.sort(list, sortBy.getComparator());
-			
-			for (ClassStat stat : list)
-				classes.appendChild(stat.fill(doc.createElement("class")));
-			
-			Transformer serializer = TransformerFactory.newInstance().newTransformer();
-			serializer.setOutputProperty("indent", "yes");
-			serializer.setOutputProperty("{http://xml.apache.org/xalan}indent-amount", "4");
-			serializer.transform(new DOMSource(doc), new StreamResult("Class-" + System.currentTimeMillis() + ".log"));
+			ps.close();
 		}
 		catch (Exception e)
 		{
 			_log.warn("", e);
 		}
+		finally
+		{
+			IOUtils.closeQuietly(ps);
+		}
+	}
+	
+	private void appendAttribute(StringBuilder sb, SortBy sortBy, String value, int fillTo)
+	{
+		sb.append(sortBy._xmlName);
+		sb.append("=\"");
+		sb.append(value);
+		sb.append("\" ");
+		
+		for (int i = value.length(); i < fillTo; i++)
+			sb.append(" ");
 	}
 }
