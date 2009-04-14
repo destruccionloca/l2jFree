@@ -22,10 +22,37 @@ import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2NpcWalkerNode;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcWalkerInstance;
-import com.l2jfree.gameserver.taskmanager.AiTaskManager;
+import com.l2jfree.gameserver.taskmanager.AbstractIterativePeriodicTaskManager;
 
 public class L2NpcWalkerAI extends L2CharacterAI implements Runnable
 {
+	private static final class NpcWalkerAiTaskManager extends AbstractIterativePeriodicTaskManager<L2NpcWalkerAI>
+	{
+		private static final NpcWalkerAiTaskManager _instance = new NpcWalkerAiTaskManager();
+		
+		private static NpcWalkerAiTaskManager getInstance()
+		{
+			return _instance;
+		}
+		
+		private NpcWalkerAiTaskManager()
+		{
+			super(1000);
+		}
+		
+		@Override
+		protected void callTask(L2NpcWalkerAI task)
+		{
+			task.run();
+		}
+		
+		@Override
+		protected String getCalledMethodName()
+		{
+			return "run()";
+		}
+	}
+	
 	private static final int DEFAULT_MOVE_DELAY = 0;
 	
 	private long _nextMoveTime;
@@ -73,7 +100,7 @@ public class L2NpcWalkerAI extends L2CharacterAI implements Runnable
 			return;
 		}
 		
-		AiTaskManager.getInstance().startAiTask(this);
+		NpcWalkerAiTaskManager.getInstance().startTask(this);
 	}
 	
 	private L2NpcWalkerNode getCurrentNode()

@@ -22,12 +22,39 @@ import com.l2jfree.gameserver.model.L2Trap;
 import com.l2jfree.gameserver.model.actor.knownlist.TrapKnownList;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
-import com.l2jfree.gameserver.taskmanager.AiTaskManager;
+import com.l2jfree.gameserver.taskmanager.AbstractIterativePeriodicTaskManager;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
 import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
 
 public final class L2TrapInstance extends L2Trap implements Runnable
 {
+	private static final class TrapTaskManager extends AbstractIterativePeriodicTaskManager<L2TrapInstance>
+	{
+		private static final TrapTaskManager _instance = new TrapTaskManager();
+		
+		private static TrapTaskManager getInstance()
+		{
+			return _instance;
+		}
+		
+		private TrapTaskManager()
+		{
+			super(1000);
+		}
+		
+		@Override
+		protected void callTask(L2TrapInstance task)
+		{
+			task.run();
+		}
+		
+		@Override
+		protected String getCalledMethodName()
+		{
+			return "run()";
+		}
+	}
+	
 	private final L2Skill _skill;
 	
 	private int _totalLifeTime;
@@ -43,7 +70,7 @@ public final class L2TrapInstance extends L2Trap implements Runnable
 		_totalLifeTime = lifeTime == 0 ? 30000 : lifeTime;
 		_timeRemaining = _totalLifeTime;
 		
-		AiTaskManager.getInstance().startAiTask(this);
+		TrapTaskManager.getInstance().startTask(this);
 	}
 	
 	@Override
@@ -135,7 +162,7 @@ public final class L2TrapInstance extends L2Trap implements Runnable
 	@Override
 	public void unSummon(L2PcInstance owner)
 	{
-		AiTaskManager.getInstance().stopAiTask(this);
+		TrapTaskManager.getInstance().stopTask(this);
 		
 		super.unSummon(owner);
 	}

@@ -30,14 +30,16 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.ai.CtrlEvent;
 import com.l2jfree.gameserver.calendar.L2Calendar;
 import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.instancemanager.DayNightSpawnManager;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2World;
+import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.ClientSetTime;
-import com.l2jfree.gameserver.taskmanager.ArrivedCharacterManager;
+import com.l2jfree.gameserver.taskmanager.AbstractFIFOPeriodicTaskManager;
 
 public final class GameTimeController extends Thread
 {
@@ -190,7 +192,40 @@ public final class GameTimeController extends Thread
 		}
 		return null;
 	}
-
+	
+	private static final class ArrivedCharacterManager extends AbstractFIFOPeriodicTaskManager<L2Character>
+	{
+		private static final ArrivedCharacterManager _instance = new ArrivedCharacterManager();
+		
+		public static ArrivedCharacterManager getInstance()
+		{
+			return _instance;
+		}
+		
+		private ArrivedCharacterManager()
+		{
+			super(GameTimeController.MILLIS_IN_TICK);
+		}
+		
+		@Override
+		protected void callTask(L2Character cha)
+		{
+			cha.getKnownList().updateKnownObjects();
+			
+			if (cha instanceof L2BoatInstance)
+				((L2BoatInstance)cha).evtArrived();
+			
+			if (cha.hasAI())
+				cha.getAI().notifyEvent(CtrlEvent.EVT_ARRIVED);
+		}
+		
+		@Override
+		protected String getCalledMethodName()
+		{
+			return "getAI().notifyEvent(CtrlEvent.EVT_ARRIVED)";
+		}
+	}
+	
 	private void moveObjects()
 	{
 		for (L2Character cha : getMovingChars())
@@ -199,7 +234,7 @@ public final class GameTimeController extends Thread
 			{
 				continue;
 			}
-
+			
 			synchronized (_movingChars)
 			{
 				_movingChars.remove(cha);

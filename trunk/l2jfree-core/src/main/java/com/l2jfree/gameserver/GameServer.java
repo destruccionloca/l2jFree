@@ -125,15 +125,11 @@ import com.l2jfree.gameserver.network.L2GamePacketHandler;
 import com.l2jfree.gameserver.script.faenor.FaenorScriptEngine;
 import com.l2jfree.gameserver.scripting.CompiledScriptCache;
 import com.l2jfree.gameserver.scripting.L2ScriptEngineManager;
-import com.l2jfree.gameserver.taskmanager.AiTaskManager;
-import com.l2jfree.gameserver.taskmanager.ArrivedCharacterManager;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
-import com.l2jfree.gameserver.taskmanager.FollowTaskManager;
 import com.l2jfree.gameserver.taskmanager.KnownListUpdateTaskManager;
 import com.l2jfree.gameserver.taskmanager.LeakTaskManager;
 import com.l2jfree.gameserver.taskmanager.PacketBroadcaster;
-import com.l2jfree.gameserver.taskmanager.RegenTaskManager;
 import com.l2jfree.gameserver.taskmanager.SQLQueue;
 import com.l2jfree.gameserver.taskmanager.TaskManager;
 import com.l2jfree.gameserver.threadmanager.DeadlockDetector;
@@ -222,15 +218,11 @@ public class GameServer
 		InstanceManager.getInstance();
 		
 		Util.printSection("TaskManagers");
-		AiTaskManager.getInstance();
-		ArrivedCharacterManager.getInstance();
 		AttackStanceTaskManager.getInstance();
 		DecayTaskManager.getInstance();
-		FollowTaskManager.getInstance();
 		KnownListUpdateTaskManager.getInstance();
 		LeakTaskManager.getInstance();
 		PacketBroadcaster.getInstance();
-		RegenTaskManager.getInstance();
 		
 		Util.printSection("Skills");
 		SkillTreeTable.getInstance();
@@ -450,15 +442,27 @@ public class GameServer
 			Util.JythonShell();
 		}
 		
-		for (StartupHook hook : _startupHooks)
+		onStartup();
+	}
+	
+	private static Set<StartupHook> _startupHooks = new HashSet<StartupHook>();
+	
+	public synchronized static void addStartupHook(StartupHook hook)
+	{
+		if (_startupHooks != null)
+			_startupHooks.add(hook);
+		else
 			hook.onStartup();
 	}
 	
-	private static final Set<StartupHook> _startupHooks = new HashSet<StartupHook>();
-	
-	public static void addStartupHook(StartupHook hook)
+	private synchronized static void onStartup()
 	{
-		_startupHooks.add(hook);
+		final Set<StartupHook> startupHooks = _startupHooks;
+		
+		_startupHooks = null;
+		
+		for (StartupHook hook : startupHooks)
+			hook.onStartup();
 	}
 	
 	public interface StartupHook

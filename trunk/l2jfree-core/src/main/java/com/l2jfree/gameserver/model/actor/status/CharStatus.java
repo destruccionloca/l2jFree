@@ -32,7 +32,7 @@ import com.l2jfree.gameserver.model.entity.Duel;
 import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.skills.Formulas;
-import com.l2jfree.gameserver.taskmanager.RegenTaskManager;
+import com.l2jfree.gameserver.taskmanager.AbstractIterativePeriodicTaskManager;
 import com.l2jfree.tools.random.Rnd;
 import com.l2jfree.util.SingletonSet;
 
@@ -364,13 +364,40 @@ public class CharStatus
 	
 	// ========================================================================
 	
+	private static final class RegenTaskManager extends AbstractIterativePeriodicTaskManager<CharStatus>
+	{
+		private static final RegenTaskManager _instance = new RegenTaskManager();
+		
+		private static RegenTaskManager getInstance()
+		{
+			return _instance;
+		}
+		
+		private RegenTaskManager()
+		{
+			super(1000);
+		}
+		
+		@Override
+		protected void callTask(CharStatus task)
+		{
+			task.regenTask();
+		}
+		
+		@Override
+		protected String getCalledMethodName()
+		{
+			return "regenTask()";
+		}
+	}
+	
 	private long _runTime = System.currentTimeMillis();
 	
 	public synchronized final void startHpMpRegeneration()
 	{
-		if (!getActiveChar().isDead() && !RegenTaskManager.getInstance().hasRegenTask(this))
+		if (!getActiveChar().isDead() && !RegenTaskManager.getInstance().hasTask(this))
 		{
-			RegenTaskManager.getInstance().startRegenTask(this);
+			RegenTaskManager.getInstance().startTask(this);
 			
 			_runTime = System.currentTimeMillis();
 		}
@@ -380,39 +407,32 @@ public class CharStatus
 	{
 		_flagsRegenActive = 0;
 		
-		RegenTaskManager.getInstance().stopRegenTask(this);
+		RegenTaskManager.getInstance().stopTask(this);
 	}
 	
 	public final void regenTask()
 	{
-		try
+		if (System.currentTimeMillis() < _runTime)
+			return;
+		
+		_runTime += _period;
+		
+		CharStat cs = getActiveChar().getStat();
+		
+		if (getCurrentHp() == cs.getMaxHp() && getCurrentMp() == cs.getMaxMp() && getCurrentCp() == cs.getMaxCp())
 		{
-			if (System.currentTimeMillis() < _runTime)
-				return;
-			
-			_runTime += _period;
-			
-			CharStat cs = getActiveChar().getStat();
-			
-			if (getCurrentHp() == cs.getMaxHp() && getCurrentMp() == cs.getMaxMp() && getCurrentCp() == cs.getMaxCp())
-			{
-				stopHpMpRegeneration();
-				return;
-			}
-			
-			if (getCurrentHp() < cs.getMaxHp())
-				setCurrentHp(getCurrentHp() + Formulas.calcHpRegen(getActiveChar()));
-			
-			if (getCurrentMp() < cs.getMaxMp())
-				setCurrentMp(getCurrentMp() + Formulas.calcMpRegen(getActiveChar()));
-			
-			if (getCurrentCp() < cs.getMaxCp())
-				setCurrentCp(getCurrentCp() + Formulas.calcCpRegen(getActiveChar()));
+			stopHpMpRegeneration();
+			return;
 		}
-		catch (Exception e)
-		{
-			_log.fatal("", e);
-		}
+		
+		if (getCurrentHp() < cs.getMaxHp())
+			setCurrentHp(getCurrentHp() + Formulas.calcHpRegen(getActiveChar()));
+		
+		if (getCurrentMp() < cs.getMaxMp())
+			setCurrentMp(getCurrentMp() + Formulas.calcMpRegen(getActiveChar()));
+		
+		if (getCurrentCp() < cs.getMaxCp())
+			setCurrentCp(getCurrentCp() + Formulas.calcCpRegen(getActiveChar()));
 	}
 	
 	// ========================================================================

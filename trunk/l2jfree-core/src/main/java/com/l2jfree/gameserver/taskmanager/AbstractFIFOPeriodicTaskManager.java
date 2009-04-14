@@ -20,11 +20,11 @@ import com.l2jfree.util.concurrent.RunnableStatsManager;
 /**
  * @author NB4L1
  */
-abstract class AbstractFIFOPeriodicTaskManager<T> extends AbstractPeriodicTaskManager
+public abstract class AbstractFIFOPeriodicTaskManager<T> extends AbstractPeriodicTaskManager
 {
 	private final L2FastSet<T> _queue = new L2FastSet<T>();
 	
-	AbstractFIFOPeriodicTaskManager(int period)
+	protected AbstractFIFOPeriodicTaskManager(int period)
 	{
 		super(period);
 	}
@@ -56,10 +56,13 @@ abstract class AbstractFIFOPeriodicTaskManager<T> extends AbstractPeriodicTaskMa
 			}
 			finally
 			{
-				RunnableStatsManager.getInstance().handleStats(task.getClass(), System.nanoTime() - begin);
+				RunnableStatsManager.getInstance().handleStats(task.getClass(), getCalledMethodName(),
+					System.nanoTime() - begin);
 			}
 		}
 	}
 	
-	abstract void callTask(T task);
+	protected abstract void callTask(T task);
+	
+	protected abstract String getCalledMethodName();
 }

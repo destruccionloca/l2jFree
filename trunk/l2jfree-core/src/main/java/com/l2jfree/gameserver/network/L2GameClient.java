@@ -206,7 +206,7 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 						answer = 0; // jeezes!
 					else if (clan.getLeaderId() == objid)
 						answer = 2;
-					else 
+					else
 						answer = 1;
 				}
 				else
@@ -568,7 +568,7 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 		}
 		finally
 		{
-			RunnableStatsManager.getInstance().handleStats(sp.getClass(), System.nanoTime() - begin);
+			RunnableStatsManager.getInstance().handleStats(sp.getClass(), "runImpl()", System.nanoTime() - begin);
 		}
 	}
 	

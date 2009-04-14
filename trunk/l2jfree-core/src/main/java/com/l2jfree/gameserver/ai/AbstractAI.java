@@ -37,8 +37,9 @@ import com.l2jfree.gameserver.network.serverpackets.MoveToLocationInVehicle;
 import com.l2jfree.gameserver.network.serverpackets.MoveToPawn;
 import com.l2jfree.gameserver.network.serverpackets.StopMove;
 import com.l2jfree.gameserver.network.serverpackets.StopRotation;
+import com.l2jfree.gameserver.taskmanager.AbstractIterativePeriodicTaskManager;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
-import com.l2jfree.gameserver.taskmanager.FollowTaskManager;
+import com.l2jfree.gameserver.util.Util;
 
 /**
  * Mother class of all objects AI in the world.<BR>
@@ -50,63 +51,85 @@ public abstract class AbstractAI implements Ctrl
 	private static final int FOLLOW_INTERVAL = 1000;
 	private static final int ATTACK_FOLLOW_INTERVAL = 500;
 	
-	private L2Character _followTarget;
-	
-	private int _followRange;
-	private long _followInterval;
-	private long _followRuntime;
-	
-	public synchronized final void followTarget()
+	private static final class FollowTaskManager extends AbstractIterativePeriodicTaskManager<AbstractAI>
 	{
-		try
+		private static final FollowTaskManager _instance = new FollowTaskManager();
+		
+		private static FollowTaskManager getInstance()
 		{
-			if (System.currentTimeMillis() < _followRuntime)
-				return;
-			
-			if (_followTarget == null)
-			{
-				if (_actor instanceof L2Summon)
-					((L2Summon)_actor).setFollowStatus(false);
-				
-				setIntention(AI_INTENTION_IDLE);
-				return;
-			}
-			
-			// TODO: fix Z axis follow support, moveToLocation needs improvements
-			// Does not allow targets to follow on infinite distance -> fix for "follow me bug".
-			if (_actor instanceof L2PcInstance && _followTarget instanceof L2PcInstance)
-			{
-				if (!_actor.isInsideRadius(_followTarget, 2000, true, false))
-				{
-					stopFollow();
-					return;
-				}
-			}
-			
-			_followRuntime += _followInterval;
-			
-			if (!_actor.isInsideRadius(_followTarget, _followRange, true, false))
-			{
-				if (!_actor.isInsideRadius(_followTarget, 3000, true, false))
-				{
-					// if the target is too far (maybe also teleported)
-					if (_actor instanceof L2Summon)
-						((L2Summon)_actor).setFollowStatus(false);
-					
-					setIntention(AI_INTENTION_IDLE);
-					return;
-				}
-				
-				moveToPawn(_followTarget, _followRange);
-			}
+			return _instance;
 		}
-		catch (Exception e)
+		
+		private FollowTaskManager()
 		{
-			_log.warn("", e);
+			super(FOLLOW_INTERVAL);
+		}
+		
+		@Override
+		protected void callTask(AbstractAI task)
+		{
+			task.followTarget();
+		}
+		
+		@Override
+		protected String getCalledMethodName()
+		{
+			return "followTarget()";
 		}
 	}
 	
-	public synchronized void startFollow(L2Character target)
+	private static final class AttackFollowTaskManager extends AbstractIterativePeriodicTaskManager<AbstractAI>
+	{
+		private static final AttackFollowTaskManager _instance = new AttackFollowTaskManager();
+		
+		private static AttackFollowTaskManager getInstance()
+		{
+			return _instance;
+		}
+		
+		private AttackFollowTaskManager()
+		{
+			super(ATTACK_FOLLOW_INTERVAL);
+		}
+		
+		@Override
+		protected void callTask(AbstractAI task)
+		{
+			task.followTarget();
+		}
+		
+		@Override
+		protected String getCalledMethodName()
+		{
+			return "attackFollowTarget()";
+		}
+	}
+	
+	private L2Character _followTarget;
+	private int _followRange;
+	
+	public synchronized final void followTarget()
+	{
+		final double distance = Util.calculateDistance(_actor, _followTarget, true);
+		
+		// TODO: fix Z axis follow support, moveToLocation needs improvements
+		// Does not allow targets to follow on infinite distance -> fix for "follow me bug".
+		// if the target is too far (maybe also teleported)
+		if (distance > (_actor instanceof L2PcInstance && _followTarget instanceof L2PcInstance ? 2000 : 3000))
+		{
+			if (_actor instanceof L2Summon)
+				((L2Summon)_actor).setFollowStatus(false);
+			
+			setIntention(AI_INTENTION_IDLE);
+			return;
+		}
+		else if (distance > _followRange)
+		{
+			moveToPawn(_followTarget, _followRange);
+		}
+	}
+	
+	public final synchronized void startFollow(L2Character target)
 	{
 		if (target == null)
 		{
@@ -116,14 +139,12 @@ public abstract class AbstractAI implements Ctrl
 		
 		_followTarget = target;
 		_followRange = 60;
-		_followInterval = FOLLOW_INTERVAL;
-		_followRuntime = System.currentTimeMillis();
 		
-		FollowTaskManager.getInstance().startFollowTask(this);
+		FollowTaskManager.getInstance().startTask(this);
 		followTarget();
 	}
 	
-	public synchronized void startFollow(L2Character target, int range)
+	public final synchronized void startFollow(L2Character target, int range)
 	{
 		if (target == null)
 		{
@@ -133,16 +154,15 @@ public abstract class AbstractAI implements Ctrl
 		
 		_followTarget = target;
 		_followRange = range;
-		_followInterval = ATTACK_FOLLOW_INTERVAL;
-		_followRuntime = System.currentTimeMillis();
 		
-		FollowTaskManager.getInstance().startFollowTask(this);
+		AttackFollowTaskManager.getInstance().startTask(this);
 		followTarget();
 	}
 	
 	public final synchronized void stopFollow()
 	{
-		FollowTaskManager.getInstance().stopFollowTask(this);
+		FollowTaskManager.getInstance().stopTask(this);
+		AttackFollowTaskManager.getInstance().stopTask(this);
 		
 		_followTarget = null;
 	}

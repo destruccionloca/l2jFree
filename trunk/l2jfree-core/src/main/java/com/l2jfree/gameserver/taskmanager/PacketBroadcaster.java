@@ -106,10 +106,16 @@ public final class PacketBroadcaster extends AbstractFIFOPeriodicTaskManager<L2C
 	}
 	
 	@Override
-	void callTask(L2Character cha)
+	protected void callTask(L2Character cha)
 	{
 		for (byte mask; (mask = cha.clearPacketBroadcastMask()) != 0;)
 			for (BroadcastMode mode : VALUES)
 				mode.trySendPacket(cha, mask);
+	}
+
+	@Override
+	protected String getCalledMethodName()
+	{
+		return "packetBroadcast()";
 	}
 }

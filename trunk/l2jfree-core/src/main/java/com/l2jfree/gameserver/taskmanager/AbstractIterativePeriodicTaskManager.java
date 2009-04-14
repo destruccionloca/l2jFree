@@ -24,14 +24,14 @@ import com.l2jfree.util.concurrent.RunnableStatsManager;
 /**
  * @author NB4L1
  */
-abstract class AbstractIterativePeriodicTaskManager<T> extends AbstractPeriodicTaskManager
+public abstract class AbstractIterativePeriodicTaskManager<T> extends AbstractPeriodicTaskManager
 {
 	private final Set<T> _startList = new FastSet<T>();
 	private final Set<T> _stopList = new FastSet<T>();
 	
 	private final Set<T> _activeTasks = new FastSet<T>();
 	
-	AbstractIterativePeriodicTaskManager(int period)
+	protected AbstractIterativePeriodicTaskManager(int period)
 	{
 		super(period);
 	}
@@ -81,10 +81,13 @@ abstract class AbstractIterativePeriodicTaskManager<T> extends AbstractPeriodicT
 			}
 			finally
 			{
-				RunnableStatsManager.getInstance().handleStats(task.getClass(), System.nanoTime() - begin);
+				RunnableStatsManager.getInstance().handleStats(task.getClass(), getCalledMethodName(),
+					System.nanoTime() - begin);
 			}
 		}
 	}
 	
-	abstract void callTask(T task);
+	protected abstract void callTask(T task);
+	
+	protected abstract String getCalledMethodName();
 }

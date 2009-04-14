@@ -18,10 +18,7 @@ import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_ACTIVE;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_ATTACK;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
 
-import java.util.concurrent.Future;
-
 import com.l2jfree.gameserver.GameTimeController;
-import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.model.L2Attackable;
 import com.l2jfree.gameserver.model.L2Character;
@@ -37,6 +34,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2FortSiegeGuardInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
+import com.l2jfree.gameserver.taskmanager.AbstractIterativePeriodicTaskManager;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.random.Rnd;
@@ -48,10 +46,34 @@ import com.l2jfree.tools.random.Rnd;
  */
 public class L2FortSiegeGuardAI extends L2CharacterAI implements Runnable
 {
-	private static final int	MAX_ATTACK_TIMEOUT	= 300;					// int ticks, i.e. 30 seconds 
-
-	/** The L2Attackable AI task executed every 1s (call onEvtThink method)*/
-	private Future<?>			_aiTask;
+	private static final class FortSiegeGuardAiTaskManager extends AbstractIterativePeriodicTaskManager<L2FortSiegeGuardAI>
+	{
+		private static final FortSiegeGuardAiTaskManager _instance = new FortSiegeGuardAiTaskManager();
+		
+		private static FortSiegeGuardAiTaskManager getInstance()
+		{
+			return _instance;
+		}
+		
+		private FortSiegeGuardAiTaskManager()
+		{
+			super(1000);
+		}
+		
+		@Override
+		protected void callTask(L2FortSiegeGuardAI task)
+		{
+			task.run();
+		}
+		
+		@Override
+		protected String getCalledMethodName()
+		{
+			return "run()";
+		}
+	}
+	
+	private static final int	MAX_ATTACK_TIMEOUT	= 300;					// int ticks, i.e. 30 seconds
 
 	/** For attack AI, analysis of mob and its targets */
 	private SelfAnalysis		_selfAnalysis		= new SelfAnalysis();
@@ -207,11 +229,7 @@ public class L2FortSiegeGuardAI extends L2CharacterAI implements Runnable
 				super.changeIntention(AI_INTENTION_IDLE, null, null);
 
 				// Stop AI task and detach AI from NPC
-				if (_aiTask != null)
-				{
-					_aiTask.cancel(false);
-					_aiTask = null;
-				}
+				FortSiegeGuardAiTaskManager.getInstance().stopTask(this);
 
 				// Cancel the AI
 				_accessor.detachAI();
@@ -224,10 +242,7 @@ public class L2FortSiegeGuardAI extends L2CharacterAI implements Runnable
 		super.changeIntention(intention, arg0, arg1);
 
 		// If not idle - create an AI task (schedule onEvtThink repeatedly)
-		if (_aiTask == null)
-		{
-			_aiTask = ThreadPoolManager.getInstance().scheduleAiAtFixedRate(this, 1000, 1000);
-		}
+		FortSiegeGuardAiTaskManager.getInstance().startTask(this);
 	}
 
 	/**
@@ -822,7 +837,7 @@ public class L2FortSiegeGuardAI extends L2CharacterAI implements Runnable
 				double homeY = target.getY() - sGuard.getSpawn().getLocy();
 
 				// Check if the L2SiegeGuardInstance is not too far from its home location
-				if (homeX * homeX + homeY * homeY < 3240000) // 1800 * 1800 
+				if (homeX * homeX + homeY * homeY < 3240000) // 1800 * 1800
 					setIntention(CtrlIntention.AI_INTENTION_ATTACK, target, null);
 			}
 		}
@@ -861,11 +876,7 @@ public class L2FortSiegeGuardAI extends L2CharacterAI implements Runnable
 	@Override
 	public void stopAITask()
 	{
-		if (_aiTask != null)
-		{
-			_aiTask.cancel(false);
-			_aiTask = null;
-		}
+		FortSiegeGuardAiTaskManager.getInstance().stopTask(this);
 		_accessor.detachAI();
 	}
 

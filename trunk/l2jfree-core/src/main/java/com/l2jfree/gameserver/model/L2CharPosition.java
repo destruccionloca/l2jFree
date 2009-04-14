@@ -14,30 +14,39 @@
  */
 package com.l2jfree.gameserver.model;
 
-
 /**
- * This class permit to pass (x, y, z, heading) position data to method.<BR><BR>
+ * This class permit to pass (x, y, z, heading) position data to method.<BR>
+ * <BR>
  */
 public final class L2CharPosition
 {
-
-    public int x, y, z, heading;
-    public int objectId;
-
-    /**
-     * Constructor of L2CharPosition.<BR><BR>
-     */
-    public L2CharPosition(int pX, int pY, int pZ, int pHeading)
-    {
-        x = pX;
-        y = pY;
-        z = pZ;
-        heading = pHeading;
-        objectId = (int)System.currentTimeMillis();
-    }
-
-    public int getObjectId()
-    {
-        return objectId;
-    }
+	
+	public final int x;
+	public final int y;
+	public final int z;
+	public final int heading;
+	
+	public L2CharPosition(Location loc)
+	{
+		x = loc.getX();
+		y = loc.getY();
+		z = loc.getZ();
+		heading = loc.getHeading();
+	}
+	
+	public L2CharPosition(L2Spawn spawn)
+	{
+		x = spawn.getLocx();
+		y = spawn.getLocy();
+		z = spawn.getLocz();
+		heading = 0;
+	}
+	
+	public L2CharPosition(int pX, int pY, int pZ, int pHeading)
+	{
+		x = pX;
+		y = pY;
+		z = pZ;
+		heading = pHeading;
+	}
 }

@@ -48,7 +48,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2RiftInvaderInstance;
 import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.model.zone.L2Zone;
-import com.l2jfree.gameserver.taskmanager.AiTaskManager;
+import com.l2jfree.gameserver.taskmanager.AbstractIterativePeriodicTaskManager;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.random.Rnd;
@@ -59,12 +59,36 @@ import com.l2jfree.tools.random.Rnd;
  */
 public class L2AttackableAI extends L2CharacterAI implements Runnable
 {
-
-	//protected static final Logger _log = Logger.getLogger(L2AttackableAI.class.getName());
-
+	private static final class AttackableAiTaskManager extends AbstractIterativePeriodicTaskManager<L2AttackableAI>
+	{
+		private static final AttackableAiTaskManager _instance = new AttackableAiTaskManager();
+		
+		private static AttackableAiTaskManager getInstance()
+		{
+			return _instance;
+		}
+		
+		private AttackableAiTaskManager()
+		{
+			super(1000);
+		}
+		
+		@Override
+		protected void callTask(L2AttackableAI task)
+		{
+			task.run();
+		}
+		
+		@Override
+		protected String getCalledMethodName()
+		{
+			return "run()";
+		}
+	}
+	
 	private static final int	RANDOM_WALK_RATE			= 30;					// confirmed
 	// private static final int MAX_DRIFT_RANGE = 300;
-	private static final int	MAX_ATTACK_TIMEOUT			= 300;					// int ticks, i.e. 30 seconds 
+	private static final int	MAX_ATTACK_TIMEOUT			= 300;					// int ticks, i.e. 30 seconds
 
 	/** The L2Attackable AI task executed every 1s (call onEvtThink method)*/
 	private Future<?>			_aiTask;
@@ -258,8 +282,8 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			if (target instanceof L2NpcInstance)
 				return false;
 
-			// depending on config, do not allow mobs to attack _new_ players in peacezones, 
-			// unless they are already following those players from outside the peacezone. 
+			// depending on config, do not allow mobs to attack _new_ players in peacezones,
+			// unless they are already following those players from outside the peacezone.
 			if (!Config.ALT_MOB_AGGRO_IN_PEACEZONE && target.isInsideZone(L2Zone.FLAG_PEACE))
 				return false;
 
@@ -273,13 +297,13 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 	
 	public void startAITask()
 	{
-		AiTaskManager.getInstance().startAiTask(this);
+		AttackableAiTaskManager.getInstance().startTask(this);
 	}
 	
 	@Override
 	public void stopAITask()
 	{
-		AiTaskManager.getInstance().stopAiTask(this);
+		AttackableAiTaskManager.getInstance().stopTask(this);
 	}
 	
 	@Override
@@ -433,9 +457,9 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 				 * Temporarily adding this commented code as a concept to be used eventually.
 				 * However, the way it is written below will NOT work correctly.  The NPC
 				 * should only notify Aggro Range Enter when someone enters the range from outside.
-				 * Instead, the below code will keep notifying even while someone remains within 
+				 * Instead, the below code will keep notifying even while someone remains within
 				 * the range.  Perhaps we need a short knownlist of range = aggroRange for just
-				 * people who are actively within the npc's aggro range?...(Fulminus) 
+				 * people who are actively within the npc's aggro range?...(Fulminus)
 				// notify AI that a playable instance came within aggro range
 				if ((obj instanceof L2PcInstance) || (obj instanceof L2Summon))
 				{
@@ -708,8 +732,8 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 
 					// TODO: Unhardcode this by AI scripts (DrHouse)
 					//Catacomb mobs should assist lilim and nephilim other than dungeon
-					if ( (faction_id == "c_dungeon_clan") && 
-						((npcfaction == "c_dungeon_lilim") || npcfaction == "c_dungeon_nephi")) 
+					if ( (faction_id == "c_dungeon_clan") &&
+						((npcfaction == "c_dungeon_lilim") || npcfaction == "c_dungeon_nephi"))
 						sevenSignFaction = true;
 					//Lilim mobs should assist other Lilim and catacomb mobs
 					else if ( (faction_id == "c_dungeon_lilim") &&
@@ -717,7 +741,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 						sevenSignFaction = true;
 					//Nephilim mobs should assist other Nephilim and catacomb mobs
 					else if ( (faction_id == "c_dungeon_nephi") &&
-						(npcfaction == "c_dungeon_clan")) 
+						(npcfaction == "c_dungeon_clan"))
 						sevenSignFaction = true;
 					
 					if (faction_id != npc.getFactionId() && !sevenSignFaction)
@@ -897,11 +921,11 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		}
 
 		// Considering, if bigger range will be attempted
-		if ((dist2 < 10000 + combinedCollision * combinedCollision) 
-				&& !_selfAnalysis.isFighter && !_selfAnalysis.isBalanced 
+		if ((dist2 < 10000 + combinedCollision * combinedCollision)
+				&& !_selfAnalysis.isFighter && !_selfAnalysis.isBalanced
 				&& (_selfAnalysis.hasLongRangeSkills || _selfAnalysis.isArcher || _selfAnalysis.isHealer)
-				&& (_mostHatedAnalysis.isBalanced || _mostHatedAnalysis.isFighter) 
-				&& (_mostHatedAnalysis.character.isRooted() || _mostHatedAnalysis.isSlower) 
+				&& (_mostHatedAnalysis.isBalanced || _mostHatedAnalysis.isFighter)
+				&& (_mostHatedAnalysis.character.isRooted() || _mostHatedAnalysis.isSlower)
 				&& (Config.GEODATA==2 ? 20 : 12) >= Rnd.get(100) // chance
 		)
 		{
@@ -924,7 +948,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 
 		// Cannot see target, needs to go closer, currently just goes to range 300 if mage
 		if ((dist2 > 96100 + combinedCollision * combinedCollision) // 310
-				&& this._selfAnalysis.hasLongRangeSkills 
+				&& _selfAnalysis.hasLongRangeSkills
 				&& !GeoData.getInstance().canSeeTarget(_actor, _mostHatedAnalysis.character))
 		{
 			if (!(_selfAnalysis.isMage && _actor.isMuted()))
@@ -960,7 +984,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 						}
 					}
 				}
-				if (this._selfAnalysis.lastDebuffTick + 60 < GameTimeController.getGameTicks())
+				if (_selfAnalysis.lastDebuffTick + 60 < GameTimeController.getGameTicks())
 				{
 					for (L2Skill sk : _selfAnalysis.debuffSkills)
 					{
@@ -1203,7 +1227,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			}
 		}
 
-		// Calculate a new attack timeout. 
+		// Calculate a new attack timeout.
 		_attackTimeout = MAX_ATTACK_TIMEOUT + GameTimeController.getGameTicks();
 
 		// check for close combat skills && heal/buff skills
@@ -1227,7 +1251,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 				}
 			}
 		}
-		if (this._selfAnalysis.lastDebuffTick + 60 < GameTimeController.getGameTicks())
+		if (_selfAnalysis.lastDebuffTick + 60 < GameTimeController.getGameTicks())
 		{
 			for (L2Skill sk : _selfAnalysis.debuffSkills)
 			{
