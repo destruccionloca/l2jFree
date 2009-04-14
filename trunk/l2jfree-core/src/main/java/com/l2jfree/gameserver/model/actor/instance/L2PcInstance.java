@@ -2873,7 +2873,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
 			if (sendMessage)
 			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.DISAPPEARED_ADENA);
+				SystemMessage sm = new SystemMessage(SystemMessageId.S1_ADENA_DISAPPEARED);
 				sm.addNumber(count);
 				sendPacket(sm);
 			}

@@ -4053,7 +4053,7 @@ public enum SystemMessageId
 	 * ID: 672<br>
 	 * Message: $s1 adena disappeared.
 	 */
-	DISAPPEARED_ADENA(672),
+	S1_ADENA_DISAPPEARED(672),
 
 	/**
 	 * ID: 673<br>

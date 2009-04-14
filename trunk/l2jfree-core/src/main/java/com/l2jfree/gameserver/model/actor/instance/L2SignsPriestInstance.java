@@ -49,7 +49,7 @@ public class L2SignsPriestInstance extends L2FolkInstance
     @Override
     public void onBypassFeedback(L2PcInstance player, String command)
     {
-        if (player.getLastFolkNPC() == null || player.getLastFolkNPC().getObjectId() != this.getObjectId())
+        if (player.getLastFolkNPC() == null || player.getLastFolkNPC().getObjectId() != getObjectId())
 		return;
 
         if (command.startsWith("SevenSignsDesc"))
@@ -69,7 +69,7 @@ public class L2SignsPriestInstance extends L2FolkInstance
             int ancientAdenaAmount = ancientAdena == null ? 0 : ancientAdena.getCount();
             int val = Integer.parseInt(command.substring(11, 12).trim());
 
-            if (command.length() > 12) // SevenSigns x[x] x [x..x] 
+            if (command.length() > 12) // SevenSigns x[x] x [x..x]
                 val = Integer.parseInt(command.substring(11, 13).trim());
 
             if (command.length() > 13)
@@ -209,7 +209,7 @@ public class L2SignsPriestInstance extends L2FolkInstance
                             }
                             else if (player.reduceAdena("SevenSigns", Config.ALT_DAWN_JOIN_COST, this, false))
                             {
-                                sm = new SystemMessage(SystemMessageId.DISAPPEARED_ADENA);
+                                sm = new SystemMessage(SystemMessageId.S1_ADENA_DISAPPEARED);
                                 sm.addNumber(Config.ALT_DAWN_JOIN_COST);
                                 player.sendPacket(sm);
                             }

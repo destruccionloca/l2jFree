@@ -180,7 +180,7 @@ public final class SystemMessage extends L2GameServerPacket
 			}
 		}
 		
-		//_log.warn("SystemMessage: Too much parameter!", new ArrayIndexOutOfBoundsException());
+		_log.warn("SystemMessage: Too much parameter!", new ArrayIndexOutOfBoundsException());
 		
 		_elements = Arrays.copyOf(_elements, _elements.length + 1);
 		_elements[_elements.length - 1] = element;
@@ -204,7 +204,7 @@ public final class SystemMessage extends L2GameServerPacket
 		
 		_elements = Arrays.copyOf(_elements, count);
 		
-		//_log.warn("SystemMessage: Empty parameter!", new ArrayIndexOutOfBoundsException());
+		_log.warn("SystemMessage: Empty parameter!", new ArrayIndexOutOfBoundsException());
 	}
 	
 	public static SystemMessage sendString(String msg)

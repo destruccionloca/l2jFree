@@ -295,7 +295,7 @@ public class RequestProcureCropList extends L2GameClientPacket
 
 			if (fee > 0)
 			{
-				sm = new SystemMessage(SystemMessageId.DISAPPEARED_ADENA);
+				sm = new SystemMessage(SystemMessageId.S1_ADENA_DISAPPEARED);
 				sm.addNumber(fee);
 				player.sendPacket(sm);
 			}
