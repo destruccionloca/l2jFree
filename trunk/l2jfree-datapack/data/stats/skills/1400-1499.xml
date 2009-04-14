@@ -1054,7 +1054,7 @@
         <mul order="0x30" stat="pAtk" val="1.1">
           <using kind="Ancient,Crossbow,Rapier"/> <!-- when a Kamael-only weapon is used. -->
         </mul>
-        <mul order="0x30" stat="blowRate" val="1.05" /> <!-- CT1.5 Retail Values -->
+        <mul order="0x30" stat="blowRate" val="1.05"/> <!-- CT1.5 Retail Values -->
       </effect>
     </for>
   </skill>
