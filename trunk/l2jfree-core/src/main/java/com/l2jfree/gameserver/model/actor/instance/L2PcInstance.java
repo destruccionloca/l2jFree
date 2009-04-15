@@ -23,7 +23,6 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -404,7 +403,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	private L2GameClient					_client;
 
-	private PcAppearance					_appearance;
+	private final PcAppearance				_appearance;
 
 	/** Sitting down and Standing up fix */
 	protected boolean						_protectedSitStand		= false;
@@ -452,9 +451,9 @@ public final class L2PcInstance extends L2PlayableInstance
 	private int								_curWeightPenalty		= 0;
 
 	private long							_deleteTimer;
-	private PcInventory						_inventory				= new PcInventory(this);
+	private PcInventory						_inventory;
 	private PcWarehouse						_warehouse;
-	private PcFreight						_freight				= new PcFreight(this);
+	private PcFreight						_freight;
 
 	/** True if the L2PcInstance is sitting */
 	private boolean							_waitTypeSitting;
@@ -475,10 +474,10 @@ public final class L2PcInstance extends L2PlayableInstance
 	private Map<String, QuestState>			_quests					= new SingletonMap<String, QuestState>();
 
 	/** The list containing all shortCuts of this L2PcInstance */
-	private ShortCuts						_shortCuts				= new ShortCuts(this);
+	private ShortCuts						_shortCuts;
 
 	/** The list containing all macroses of this L2PcInstance */
-	private MacroList						_macroses				= new MacroList(this);
+	private MacroList						_macroses;
 
 	private TradeList						_activeTradeList;
 	private ItemContainer					_activeWarehouse;
@@ -562,7 +561,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	// There can only be one active party request at once
 	private L2PcInstance					_activeRequester;
 	private long							_requestExpireTime		= 0;
-	private L2Request						_request				= new L2Request(this);
+	private L2Request						_request;
 	private L2ItemInstance					_arrowItem;
 	private L2ItemInstance					_boltItem;
 
@@ -629,7 +628,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	public int								eventPvpKills;
 	public int								eventPkKills;
 	public String							eventTitle;
-	public List<String>						kills					= new LinkedList<String>();
+	public List<String>						kills					= new ArrayList<String>(0);
 	public boolean							eventSitForced			= false;
 	public boolean							atEvent					= false;
 
@@ -664,8 +663,8 @@ public final class L2PcInstance extends L2PlayableInstance
 	/** new race ticket **/
 	private int								_race[]					= new int[2];
 
-	private BlockList						_blockList				= new BlockList();
-	private L2FriendList					_friendList				= new L2FriendList(this);
+	private BlockList						_blockList;
+	private L2FriendList					_friendList;
 
 	private boolean							_fishing				= false;
 	private int								_fishx					= 0;
@@ -734,10 +733,10 @@ public final class L2PcInstance extends L2PlayableInstance
 	private L2Fishing						_fishCombat;
 
 	/** Stored from last ValidatePosition **/
-	private Point3D							_lastServerPosition		= new Point3D(0, 0, 0);
+	private Point3D							_lastServerPosition;
 
 	/** Previous coordinate sent to party in ValidatePosition **/
-	private Point3D							_lastPartyPosition		= new Point3D(0, 0, 0);
+	private Point3D							_lastPartyPosition;
 
 	/** The number of recommendation obtained by the L2PcInstance */
 	private int								_recomHave;																				// How much I was recommended by others
@@ -882,68 +881,15 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	/** ShortBuff clearing Task */
 	private ScheduledFuture<?>	_shortBuffTask	= null;
-
-	private class ShortBuffTask implements Runnable
+	
+	private final class ShortBuffTask implements Runnable
 	{
-		private L2PcInstance	_player	= null;
-
-		public ShortBuffTask(L2PcInstance activeChar)
-		{
-			_player = activeChar;
-		}
-
 		public void run()
 		{
-			if (_player == null)
-				return;
-
-			_player.sendPacket(new ShortBuffStatusUpdate(0, 0, 0));
+			sendPacket(new ShortBuffStatusUpdate(0, 0, 0));
 		}
 	}
-
-	// Summon friend
-	private SummonRequest _summonRequest = new SummonRequest();
-
-	public class SummonRequest
-	{
-		private L2PcInstance _target = null;
-		private L2Skill _skill = null;
-
-		public void setTarget(L2PcInstance destination, L2Skill skill)
-		{
-			_target = destination;
-			_skill = skill;
-		}
-
-		public L2PcInstance getTarget()
-		{
-			return _target;
-		}
-		
-		public L2Skill getSkill()
-		{
-			return _skill;
-		}
-	}
-
-	// Open/Close Gates
-	private GatesRequest _gatesRequest = new GatesRequest();
-
-	public class GatesRequest
-	{
-		private L2DoorInstance _target = null;
-
-		public void setTarget(L2DoorInstance door)
-		{
-			_target = door;
-		}
-
-		public L2DoorInstance getDoor()
-		{
-			return _target;
-		}
-	}
-
+	
 	/**
 	 * Create a new L2PcInstance and add it in the characters table of the database.<BR><BR>
 	 *
@@ -1103,9 +1049,6 @@ public final class L2PcInstance extends L2PlayableInstance
 		// Create an AI
 		_ai = new L2PlayerAI(new L2PcInstance.AIAccessor());
 
-		// Create a L2Radar object
-		_radar = new L2Radar(this);
-
 		// Retrieve from the database all items of this L2PcInstance and add them to _inventory
 		getInventory().restore();
 		if (!Config.WAREHOUSE_CACHE)
@@ -1124,6 +1067,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		getStatus(); // Init status
 		super.initCharStatusUpdateValues();
 		initPcStatusUpdateValues();
+		_appearance = null;
 	}
 
 	@Override
@@ -1567,12 +1511,20 @@ public final class L2PcInstance extends L2PlayableInstance
 		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
+	private ShortCuts getShortCuts()
+	{
+		if (_shortCuts == null)
+			_shortCuts = new ShortCuts(this);
+		
+		return _shortCuts;
+	}
+	
 	/**
 	 * Return a table containing all L2ShortCut of the L2PcInstance.<BR><BR>
 	 */
 	public L2ShortCut[] getAllShortCuts()
 	{
-		return _shortCuts.getAllShortCuts();
+		return getShortCuts().getAllShortCuts();
 	}
 
 	/**
@@ -1584,39 +1536,39 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public L2ShortCut getShortCut(int slot, int page)
 	{
-		return _shortCuts.getShortCut(slot, page);
+		return getShortCuts().getShortCut(slot, page);
 	}
 
 	/**
-	 * Add a L2shortCut to the L2PcInstance _shortCuts<BR><BR>
+	 * Add a L2shortCut to the L2PcInstance shortCuts<BR><BR>
 	 */
 	public void registerShortCut(L2ShortCut shortcut)
 	{
-		_shortCuts.registerShortCut(shortcut);
+		getShortCuts().registerShortCut(shortcut);
 	}
 
 	/**
-	 * Delete the L2ShortCut corresponding to the position (page-slot) from the L2PcInstance _shortCuts.<BR><BR>
+	 * Delete the L2ShortCut corresponding to the position (page-slot) from the L2PcInstance shortCuts.<BR><BR>
 	 */
 	public void deleteShortCut(int slot, int page)
 	{
-		_shortCuts.deleteShortCut(slot, page);
+		getShortCuts().deleteShortCut(slot, page);
 	}
 
 	/**
-	 * Add a L2Macro to the L2PcInstance _macroses<BR><BR>
+	 * Add a L2Macro to the L2PcInstance macroses<BR><BR>
 	 */
 	public void registerMacro(L2Macro macro)
 	{
-		_macroses.registerMacro(macro);
+		getMacroses().registerMacro(macro);
 	}
 
 	/**
-	 * Delete the L2Macro corresponding to the Identifier from the L2PcInstance _macroses.<BR><BR>
+	 * Delete the L2Macro corresponding to the Identifier from the L2PcInstance macroses.<BR><BR>
 	 */
 	public void deleteMacro(int id)
 	{
-		_macroses.deleteMacro(id);
+		getMacroses().deleteMacro(id);
 	}
 
 	/**
@@ -1624,6 +1576,9 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public MacroList getMacroses()
 	{
+		if (_macroses == null)
+			_macroses = new MacroList(this);
+		
 		return _macroses;
 	}
 
@@ -1799,7 +1754,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public int getCurrentLoad()
 	{
-		return _inventory.getTotalWeight();
+		return getInventory().getTotalWeight();
 	}
 
 	/**
@@ -2547,6 +2502,9 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	public L2Radar getRadar()
 	{
+		if (_radar == null)
+			_radar = new L2Radar(this);
+		
 		return _radar;
 	}
 
@@ -2644,15 +2602,18 @@ public final class L2PcInstance extends L2PlayableInstance
 	@Override
 	public PcInventory getInventory()
 	{
+		if (_inventory == null)
+			_inventory = new PcInventory(this);
+		
 		return _inventory;
 	}
 
 	/**
-	 * Delete a ShortCut of the L2PcInstance _shortCuts.<BR><BR>
+	 * Delete a ShortCut of the L2PcInstance shortCuts.<BR><BR>
 	 */
 	public void removeItemFromShortCut(int objectId)
 	{
-		_shortCuts.deleteShortCutByObjectId(objectId);
+		getShortCuts().deleteShortCutByObjectId(objectId);
 	}
 
 	/**
@@ -2774,6 +2735,9 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public PcFreight getFreight()
 	{
+		if (_freight == null)
+			_freight = new PcFreight(this);
+		
 		return _freight;
 	}
 
@@ -2798,7 +2762,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public int getAdena()
 	{
-		return _inventory.getAdena();
+		return getInventory().getAdena();
 	}
 
 	/**
@@ -2806,7 +2770,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public int getAncientAdena()
 	{
-		return _inventory.getAncientAdena();
+		return getInventory().getAncientAdena();
 	}
 
 	/**
@@ -2820,29 +2784,29 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		if (count > 0)
 		{
-			if (_inventory.getAdena() == Integer.MAX_VALUE)
+			if (getInventory().getAdena() == Integer.MAX_VALUE)
 			{
 				sendMessage("You have reached maximum amount of adena.");
 				return;
 			}
-			else if (_inventory.getAdena() >= (Integer.MAX_VALUE - count))
+			else if (getInventory().getAdena() >= (Integer.MAX_VALUE - count))
 			{
-				count = Integer.MAX_VALUE - _inventory.getAdena();
-				_inventory.addAdena(process, count, this, reference);
+				count = Integer.MAX_VALUE - getInventory().getAdena();
+				 getInventory().addAdena(process, count, this, reference);
 			}
-			else if (_inventory.getAdena() < (Integer.MAX_VALUE - count))
+			else if (getInventory().getAdena() < (Integer.MAX_VALUE - count))
 			{
-				_inventory.addAdena(process, count, this, reference);
+				 getInventory().addAdena(process, count, this, reference);
 			}
 			if (sendMessage)
 			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_ADENA);
+				SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S1_ADENA);
 				sm.addNumber(count);
 				sendPacket(sm);
 			}
 
 			// Send update packet
-			_inventory.updateInventory(_inventory.getAdenaInstance());
+			getInventory().updateInventory(getInventory().getAdenaInstance());
 		}
 	}
 
@@ -2865,11 +2829,11 @@ public final class L2PcInstance extends L2PlayableInstance
 
 		if (count > 0)
 		{
-			L2ItemInstance adenaItem = _inventory.getAdenaInstance();
-			_inventory.reduceAdena(process, count, this, reference);
+			L2ItemInstance adenaItem = getInventory().getAdenaInstance();
+			getInventory().reduceAdena(process, count, this, reference);
 
 			// Send update packet
-			_inventory.updateInventory(adenaItem);
+			getInventory().updateInventory(adenaItem);
 
 			if (sendMessage)
 			{
@@ -2902,8 +2866,8 @@ public final class L2PcInstance extends L2PlayableInstance
 
 		if (count > 0)
 		{
-			_inventory.addAncientAdena(process, count, this, reference);
-			_inventory.updateInventory(_inventory.getAncientAdenaInstance());
+			getInventory().addAncientAdena(process, count, this, reference);
+			getInventory().updateInventory(getInventory().getAncientAdenaInstance());
 		}
 	}
 
@@ -2927,8 +2891,8 @@ public final class L2PcInstance extends L2PlayableInstance
 
 		if (count > 0)
 		{
-			_inventory.reduceAncientAdena(process, count, this, reference);
-			_inventory.updateInventory(_inventory.getAncientAdenaInstance());
+			getInventory().reduceAncientAdena(process, count, this, reference);
+			getInventory().updateInventory(getInventory().getAncientAdenaInstance());
 			if (sendMessage)
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
@@ -2978,7 +2942,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			}
 
 			// Add the item to inventory
-			L2ItemInstance newitem = _inventory.addItem(process, item, this, reference);
+			L2ItemInstance newitem = getInventory().addItem(process, item, this, reference);
 
 			// Do treatments after adding this item
 			processAddItem(UpdateIL, newitem);
@@ -3000,7 +2964,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (count > 0)
 		{
 			// Add the item to inventory
-			L2ItemInstance newItem = _inventory.addItem(process, itemId, count, this, reference);
+			L2ItemInstance newItem = getInventory().addItem(process, itemId, count, this, reference);
 
 			// Sends message to client if requested
 			if (sendMessage)
@@ -3021,7 +2985,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	private void processAddItem(boolean UpdateIL, L2ItemInstance newitem)
 	{
 		// If over capacity, drop the item
-		if (!isGM() && !_inventory.validateCapacity(0))
+		if (!isGM() && !getInventory().validateCapacity(0))
 			dropItem("InvDrop", newitem, null, true);
 		// Cursed Weapon
 		else if (CursedWeaponsManager.getInstance().isCursed(newitem.getItemId()))
@@ -3142,7 +3106,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public boolean destroyItem(String process, L2ItemInstance item, int count, L2Object reference, boolean sendMessage)
 	{
-		item = _inventory.destroyItem(process, item, count, this, reference);
+		item = getInventory().destroyItem(process, item, count, this, reference);
 
 		if (item == null)
 		{
@@ -3196,7 +3160,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	@Override
 	public boolean destroyItem(String process, int objectId, int count, L2Object reference, boolean sendMessage)
 	{
-		L2ItemInstance item = _inventory.getItemByObjectId(objectId);
+		L2ItemInstance item = getInventory().getItemByObjectId(objectId);
 		if (item == null)
 		{
 			if (sendMessage)
@@ -3219,7 +3183,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public boolean destroyItemWithoutTrace(String process, int objectId, int count, L2Object reference, boolean sendMessage)
 	{
-		L2ItemInstance item = _inventory.getItemByObjectId(objectId);
+		L2ItemInstance item = getInventory().getItemByObjectId(objectId);
 
 		if (item == null || item.getCount() < count)
 		{
@@ -3243,8 +3207,8 @@ public final class L2PcInstance extends L2PlayableInstance
 	@Override
 	public boolean destroyItemByItemId(String process, int itemId, int count, L2Object reference, boolean sendMessage)
 	{
-		L2ItemInstance item = _inventory.getItemByItemId(itemId);
-		if (item == null || item.getCount() < count || _inventory.destroyItemByItemId(process, itemId, count, this, reference) == null)
+		L2ItemInstance item = getInventory().getItemByItemId(itemId);
+		if (item == null || item.getCount() < count || getInventory().destroyItemByItemId(process, itemId, count, this, reference) == null)
 		{
 			if (sendMessage)
 				sendPacket(SystemMessageId.NOT_ENOUGH_ITEMS);
@@ -3253,7 +3217,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 
 		// Send inventory update packet
-		_inventory.updateInventory(item);
+		getInventory().updateInventory(item);
 
 		// Sends message to client if requested
 		if (sendMessage)
@@ -3285,7 +3249,7 @@ public final class L2PcInstance extends L2PlayableInstance
 				if (item.isEquipped())
 					getInventory().unEquipItemInSlotAndRecord(item.getLocationSlot());
 
-				if (_inventory.destroyItem(process, item, this, reference) == null)
+				if (getInventory().destroyItem(process, item, this, reference) == null)
 				{
 					_log.warn("Player " + getName() + " can't destroy weared item: " + item.getName() + "[ " + item.getObjectId() + " ]");
 					continue;
@@ -3393,7 +3357,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public boolean dropItem(String process, L2ItemInstance item, L2Object reference, boolean sendMessage)
 	{
-		item = _inventory.dropItem(process, item, this, reference);
+		item = getInventory().dropItem(process, item, this, reference);
 
 		if (item == null)
 		{
@@ -3420,7 +3384,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			item.setProtected(true);
 
 		// Send inventory update packet
-		_inventory.updateInventory(item);
+		getInventory().updateInventory(item);
 
 		// Sends message to client if requested
 		if (sendMessage)
@@ -3447,8 +3411,8 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public L2ItemInstance dropItem(String process, int objectId, int count, int x, int y, int z, L2Object reference, boolean sendMessage)
 	{
-		L2ItemInstance olditem = _inventory.getItemByObjectId(objectId);
-		L2ItemInstance item = _inventory.dropItem(process, objectId, count, this, reference);
+		L2ItemInstance olditem = getInventory().getItemByObjectId(objectId);
+		L2ItemInstance item = getInventory().dropItem(process, objectId, count, this, reference);
 
 		if (item == null)
 		{
@@ -3487,7 +3451,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			item.setDropTime(0);
 
 		// Send inventory update packet
-		_inventory.updateInventory(olditem);
+		getInventory().updateInventory(olditem);
 
 		// Sends message to client if requested
 		if (sendMessage)
@@ -4192,7 +4156,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
 			}
 
-			if (((isInParty() && getParty().getLootDistribution() == L2Party.ITEM_LOOTER) || !isInParty()) && !_inventory.validateCapacity(target))
+			if (((isInParty() && getParty().getLootDistribution() == L2Party.ITEM_LOOTER) || !isInParty()) && !getInventory().validateCapacity(target))
 			{
 				sendPacket(SystemMessageId.SLOTS_FULL);
 				sendPacket(ActionFailed.STATIC_PACKET);
@@ -5582,6 +5546,9 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public L2Request getRequest()
 	{
+		if (_request == null)
+			_request = new L2Request(this);
+		
 		return _request;
 	}
 
@@ -5978,13 +5945,13 @@ public final class L2PcInstance extends L2PlayableInstance
 				// Could do also without saving, but let's save approx 1 of 10
 				if (GameTimeController.getGameTicks() % 10 == 0)
 					arrows.updateDatabase();
-				_inventory.refreshWeight();
+				getInventory().refreshWeight();
 			}
 		}
 		else
 		{
 			// Destroy entire item and save to database
-			_inventory.destroyItem("Consume", arrows, this, null);
+			getInventory().destroyItem("Consume", arrows, this, null);
 
 			getInventory().unEquipItemInSlot(Inventory.PAPERDOLL_LHAND);
 			if (bolts)
@@ -6025,7 +5992,7 @@ public final class L2PcInstance extends L2PlayableInstance
 				// Equip arrows needed in left hand
 				getInventory().setPaperdollItem(Inventory.PAPERDOLL_LHAND, _arrowItem);
 				// Send inventory update packet
-				_inventory.updateInventory(_arrowItem);
+				getInventory().updateInventory(_arrowItem);
 			}
 		}
 		else
@@ -6976,11 +6943,11 @@ public final class L2PcInstance extends L2PlayableInstance
 		// Retrieve from the database all skills of this L2PcInstance and add them to _skills.
 		restoreSkills();
 
-		// Retrieve from the database all macroses of this L2PcInstance and add them to _macroses.
-		_macroses.restore();
+		// Retrieve from the database all macroses of this L2PcInstance and add them to macroses.
+		getMacroses().restore();
 
-		// Retrieve from the database all shortCuts of this L2PcInstance and add them to _shortCuts.
-		_shortCuts.restore();
+		// Retrieve from the database all shortCuts of this L2PcInstance and add them to shortCuts.
+		getShortCuts().restore();
 
 		// Retrieve from the database all henna of this L2PcInstance and add them to _henna.
 		restoreHenna();
@@ -7831,7 +7798,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
 		// Add the recovered dyes to the player's inventory and notify them.
 		L2ItemInstance dye = getInventory().addItem("Henna", henna.getItemId(), henna.getAmount() / 2, this, null);
-		_inventory.updateInventory(dye);
+		getInventory().updateInventory(dye);
 		
 		SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
 		sm.addItemName(henna.getItemId());
@@ -9567,11 +9534,17 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	public BlockList getBlockList()
 	{
+		if (_blockList == null)
+			_blockList = new BlockList();
+		
 		return _blockList;
 	}
 
 	public L2FriendList getFriendList()
 	{
+		if (_friendList == null)
+			_friendList = new L2FriendList(this);
+		
 		return _friendList;
 	}
 
@@ -10565,9 +10538,9 @@ public final class L2PcInstance extends L2PlayableInstance
 		// Clear resurrect xp calculation
 		setExpBeforeDeath(0);
 
-		//_macroses.restore();
-		//_macroses.sendUpdate();
-		_shortCuts.restore();
+		//getMacroses().restore();
+		//getMacroses().sendUpdate();
+		getShortCuts().restore();
 		sendPacket(new ShortCutInit(this));
 
 		broadcastPacket(new SocialAction(getObjectId(), 15));
@@ -11132,41 +11105,52 @@ public final class L2PcInstance extends L2PlayableInstance
 			getPet().broadcastFullInfoImpl(0);
 		}
 	}
+	
+	private Point3D getLastPartyPosition()
+	{
+		if (_lastPartyPosition == null)
+			_lastPartyPosition =  new Point3D(0, 0, 0);
+		
+		return _lastPartyPosition;
+	}
 
 	public void setLastPartyPosition(int x, int y, int z)
 	{
-		_lastPartyPosition.setXYZ(x,y,z);
+		getLastPartyPosition().setXYZ(x,y,z);
 	}
 
 	public int getLastPartyPositionDistance(int x, int y, int z)
 	{
-		double dx = (x - _lastPartyPosition.getX());
-		double dy = (y - _lastPartyPosition.getY());
-		double dz = (z - _lastPartyPosition.getZ());
+		double dx = (x - getLastPartyPosition().getX());
+		double dy = (y - getLastPartyPosition().getY());
+		double dz = (z - getLastPartyPosition().getZ());
 
 		return (int) Math.sqrt(dx * dx + dy * dy + dz * dz);
 	}
 
 	public void setLastServerPosition(int x, int y, int z)
 	{
-		_lastServerPosition.setXYZ(x, y, z);
+		getLastServerPosition().setXYZ(x, y, z);
 	}
 
 	public Point3D getLastServerPosition()
 	{
+		if (_lastServerPosition == null)
+			_lastServerPosition =  new Point3D(0, 0, 0);
+		
 		return _lastServerPosition;
 	}
 
 	public boolean checkLastServerPosition(int x, int y, int z)
 	{
-		return _lastServerPosition.equals(x, y, z);
+		return getLastServerPosition().equals(x, y, z);
 	}
 
 	public int getLastServerDistance(int x, int y, int z)
 	{
-		double dx = (x - _lastServerPosition.getX());
-		double dy = (y - _lastServerPosition.getY());
-		double dz = (z - _lastServerPosition.getZ());
+		double dx = (x - getLastServerPosition().getX());
+		double dy = (y - getLastServerPosition().getY());
+		double dz = (z - getLastServerPosition().getZ());
 
 		return (int) Math.sqrt(dx * dx + dy * dy + dz * dz);
 	}
@@ -11775,9 +11759,6 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			_log.fatal( "deleteMe()", t);
 		}
-		
-		_friendList = null;
-		_blockList = null;
 		
 		RegionBBSManager.getInstance().changeCommunityBoard();
 		
@@ -13068,7 +13049,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			_shortBuffTask.cancel(false);
 			_shortBuffTask = null;
 		}
-		_shortBuffTask = ThreadPoolManager.getInstance().scheduleGeneral(new ShortBuffTask(this), 15000);
+		_shortBuffTask = ThreadPoolManager.getInstance().scheduleGeneral(new ShortBuffTask(), 15000);
 
 		sendPacket(new ShortBuffStatusUpdate(magicId, level, time));
 	}
@@ -13950,45 +13931,55 @@ public final class L2PcInstance extends L2PlayableInstance
 	/*
 	 * Function for skill Summon Friend or Gate Chant.
 	 */
+	// Summon friend
+	private L2PcInstance _summonRequestTarget;
+	private L2Skill _summonRequestSkill = null;
+	
 	/** Request Teleport **/
 	public boolean teleportRequest(L2PcInstance requester, L2Skill skill)
 	{
-		if (_summonRequest.getTarget() != null && requester != null)
+		if (_summonRequestTarget != null && requester != null)
 			return false;
-		_summonRequest.setTarget(requester, skill);
+		_summonRequestTarget = requester;
+		_summonRequestSkill = skill;
 		return true;
 	}
 
 	/** Action teleport **/
 	public void teleportAnswer(int answer, int requesterId)
 	{
-		if (_summonRequest.getTarget() == null)
+		if (_summonRequestTarget == null)
 			return;
-		if (answer == 1 && _summonRequest.getTarget().getCharId() == requesterId)
+		if (answer == 1 && _summonRequestTarget.getCharId() == requesterId)
 		{
-			SummonFriend.teleToTarget(this, _summonRequest.getTarget(), _summonRequest.getSkill());
+			SummonFriend.teleToTarget(this, _summonRequestTarget, _summonRequestSkill);
 		}
-		_summonRequest.setTarget(null, null);
+		_summonRequestTarget = null;
+		_summonRequestSkill = null;
 	}
 
+	// Open/Close Gates
+	private L2DoorInstance _gatesRequestTarget = null;
+	
 	public void gatesRequest(L2DoorInstance door)
 	{
-		_gatesRequest.setTarget(door);
+		_gatesRequestTarget = door;
 	}
-
+	
 	public void gatesAnswer(int answer, int type)
 	{
-		if (_gatesRequest.getDoor() == null)
+		if (_gatesRequestTarget == null)
 			return;
-		if (answer == 1 && getTarget() == _gatesRequest.getDoor() && type == 1)
+		if (answer == 1 && getTarget() == _gatesRequestTarget && type == 1)
 		{
-			_gatesRequest.getDoor().openMe();
+			_gatesRequestTarget.openMe();
 		}
-		else if (answer == 1 && getTarget() == _gatesRequest.getDoor() && type == 0)
+		else if (answer == 1 && getTarget() == _gatesRequestTarget && type == 0)
 		{
-			_gatesRequest.getDoor().closeMe();
+			_gatesRequestTarget.closeMe();
 		}
-		_gatesRequest.setTarget(null);
+		
+		_gatesRequestTarget = null;
 	}
 	
 	private ScheduledFuture<?> _autoSaveTask;

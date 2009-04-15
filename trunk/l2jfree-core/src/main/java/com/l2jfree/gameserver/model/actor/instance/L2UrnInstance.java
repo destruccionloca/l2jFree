@@ -192,7 +192,7 @@ public final class L2UrnInstance extends L2FolkInstance
         else if (actualCommand.equalsIgnoreCase("urn_main"))
         {
             showMessageWindow(player);
-        }  
+        }
     }
     
     protected void runUrnMix(L2PcInstance player, int ingId1, int ingCount1, int ingId2, int ingCount2, int prodId, int tempSet, boolean mixLvl, String prodName2)
@@ -236,7 +236,7 @@ public final class L2UrnInstance extends L2FolkInstance
         }
     }
     
-    public void takeUrnItems(L2PcInstance player, int itemId, int count) 
+    public void takeUrnItems(L2PcInstance player, int itemId, int count)
     {
         // Get object item from player's inventory list
         L2ItemInstance item = player.getInventory().getItemByItemId(itemId);
@@ -255,9 +255,9 @@ public final class L2UrnInstance extends L2FolkInstance
             player.destroyItemByItemId("Quest", itemId, count, player, true);
     }
     
-    public void giveUrnItems(L2PcInstance player, int itemId, int count, int enchantlevel) 
+    public void giveUrnItems(L2PcInstance player, int itemId, int count, int enchantlevel)
     {
-        if (count <= 0) 
+        if (count <= 0)
             return;
 
         // Set quantity of item
@@ -265,20 +265,20 @@ public final class L2UrnInstance extends L2FolkInstance
         // Add items to player's inventory
         L2ItemInstance item = player.getInventory().addItem("Quest", itemId, count, player, player.getTarget());
         
-        if (item == null) 
+        if (item == null)
             return;
-        if (enchantlevel > 0) 
+        if (enchantlevel > 0)
             item.setEnchantLevel(enchantlevel);
         
         // If item for reward is gold, send message of gold reward to client
-        if (itemId == 57) 
+        if (itemId == 57)
         {
-            SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_ADENA);
+            SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_S1_ADENA);
             smsg.addNumber(count);
             player.sendPacket(smsg);
-        } 
+        }
         // Otherwise, send message of object reward to client
-        else 
+        else
         {
             if (count > 1)
             {
@@ -296,12 +296,12 @@ public final class L2UrnInstance extends L2FolkInstance
         }
     }
     
-    public void playSound(L2PcInstance player, String sound) 
+    public void playSound(L2PcInstance player, String sound)
     {
         player.sendPacket(new PlaySound(0, sound));
     }
     
-    public int getUrnItemsCount(L2PcInstance player, int itemId) 
+    public int getUrnItemsCount(L2PcInstance player, int itemId)
     {
         int count = 0;
         

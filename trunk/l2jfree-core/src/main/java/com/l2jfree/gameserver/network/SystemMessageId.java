@@ -342,7 +342,7 @@ public enum SystemMessageId
 	 * ID: 52<br>
 	 * Message: You have earned $s1 adena.
 	 */
-	EARNED_ADENA(52),
+	EARNED_S1_ADENA(52),
 
 	/**
 	 * ID: 53<br>

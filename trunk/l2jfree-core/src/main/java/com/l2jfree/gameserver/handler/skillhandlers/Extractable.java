@@ -118,7 +118,7 @@ public class Extractable implements ISkillHandler
 						player.addItem("Extract", createItemID[i], 1, targets[0], false);
 				}
 				SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
-				SystemMessage sm2 = new SystemMessage(SystemMessageId.EARNED_ADENA);
+				SystemMessage sm2 = new SystemMessage(SystemMessageId.EARNED_S1_ADENA);
 				if (createItemID[i] == 57)
 				{
 					sm2.addNumber(createAmount[i]);
