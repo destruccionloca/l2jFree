@@ -16,14 +16,16 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import java.util.List;
 
+import javolution.text.TextBuilder;
+
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
-import com.l2jfree.gameserver.model.actor.status.FolkStatus;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2EnchantSkillLearn;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2SkillLearn;
+import com.l2jfree.gameserver.model.actor.status.FolkStatus;
 import com.l2jfree.gameserver.model.base.ClassId;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.AcquireSkillList;
@@ -35,8 +37,6 @@ import com.l2jfree.gameserver.network.serverpackets.ExEnchantSkillList.EnchantSk
 import com.l2jfree.gameserver.skills.effects.EffectBuff;
 import com.l2jfree.gameserver.skills.effects.EffectDebuff;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
-
-import javolution.text.TextBuilder;
 
 public class L2FolkInstance extends L2NpcInstance
 {
@@ -133,7 +133,7 @@ public class L2FolkInstance extends L2NpcInstance
 
 			if (minlevel > 0)
 			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.DO_NOT_HAVE_FURTHER_SKILLS_TO_LEARN);
+				SystemMessage sm = new SystemMessage(SystemMessageId.DO_NOT_HAVE_FURTHER_SKILLS_TO_LEARN_COME_BACK_WHEN_REACHED_S1);
 				sm.addNumber(minlevel);
 				player.sendPacket(sm);
 			}
@@ -477,19 +477,19 @@ public class L2FolkInstance extends L2NpcInstance
 		}
 		else if (command.startsWith("EnchantSkillList"))
 		{
-			this.showEnchantSkillList(player, false);
+			showEnchantSkillList(player, false);
 		}
 		else if (command.startsWith("SafeEnchantSkillList"))
 		{
-			this.showEnchantSkillList(player, true);
+			showEnchantSkillList(player, true);
 		}
 		else if (command.startsWith("ChangeEnchantSkillList"))
 		{
-			this.showEnchantChangeSkillList(player);
+			showEnchantChangeSkillList(player);
 		}
 		else if (command.startsWith("UntrainEnchantSkillList"))
 		{
-			this.showEnchantUntrainSkillList(player, player.getClassId());
+			showEnchantUntrainSkillList(player, player.getClassId());
 		}
 		else
 		{

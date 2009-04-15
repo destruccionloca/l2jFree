@@ -289,7 +289,7 @@ public final class L2UrnInstance extends L2FolkInstance
             }
             else
             {
-                SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_ITEM);
+                SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_S1);
                 smsg.addItemName(item);
                 player.sendPacket(smsg);
             }

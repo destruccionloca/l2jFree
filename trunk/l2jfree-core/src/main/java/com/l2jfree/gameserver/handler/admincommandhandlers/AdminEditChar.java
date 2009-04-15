@@ -51,17 +51,17 @@ import com.l2jfree.gameserver.util.Util;
  * - character_list
  * - show_characters
  * - find_character
- * - find_ip 
- * - find_account 
- * - rec 
- * - nokarma 
- * - setkarma 
- * - settitle 
+ * - find_ip
+ * - find_account
+ * - rec
+ * - nokarma
+ * - setkarma
+ * - settitle
  * - changename
  * - changename_menu
- * - setsex 
- * - setclass 
- * - fullfood 
+ * - setsex
+ * - setclass
+ * - fullfood
  * - save_modifications
  * 
  * @version $Revision: 1.3.2.1.2.10 $ $Date: 2005/04/11 10:06:06 $
@@ -86,7 +86,7 @@ public class AdminEditChar implements IAdminCommandHandler
 			"admin_changename", // changes char name
 			"admin_changename_menu",
 			"admin_setsex", // changes characters' sex
-			"admin_setcolor", // change charnames' color display 
+			"admin_setcolor", // change charnames' color display
 			"admin_setclass", // changes chars' classId
 			"admin_fullfood", // fulfills a pet's food bar
 
@@ -606,7 +606,7 @@ public class AdminEditChar implements IAdminCommandHandler
 			// update karma
 			player.setKarma(newKarma);
 			//Common character information
-			player.sendPacket(new SystemMessage(SystemMessageId.YOUR_KARMA_HAS_BEEN_CHANGED_TO).addString(String.valueOf(newKarma)));
+			player.sendPacket(new SystemMessage(SystemMessageId.YOUR_KARMA_HAS_BEEN_CHANGED_TO_S1).addString(String.valueOf(newKarma)));
 			//Admin information
 			if (player != activeChar)
 				activeChar.sendMessage("Successfully Changed karma for " + player.getName() + " from (" + oldKarma + ") to (" + newKarma + ").");
@@ -670,7 +670,7 @@ public class AdminEditChar implements IAdminCommandHandler
 		su.addAttribute(StatusUpdate.MAX_CP, player.getMaxCp());
 		player.sendPacket(su);
 
-		//Admin information	
+		//Admin information
 		player.sendMessage("Changed stats of " + player.getName() + "." + "  HP: " + hpval + "  MP: " + mpval + "  CP: " + cpval + "  PvP: " + pvpflagval
 				+ " / " + pvpkillsval);
 

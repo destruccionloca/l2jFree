@@ -471,7 +471,7 @@ public final class QuestState
 			}
 			else
 			{
-				SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_ITEM);
+				SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_S1);
 				smsg.addItemName(item);
 				getPlayer().sendPacket(smsg);
 			}
@@ -526,7 +526,7 @@ public final class QuestState
 			}
 			else
 			{
-				SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_ITEM);
+				SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_S1);
 				smsg.addItemName(item);
 				getPlayer().sendPacket(smsg);
 			}

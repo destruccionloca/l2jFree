@@ -26,7 +26,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
  * Format: (ch) S
  * @author chris_00
  *
- * D0 0D 00 5A 00 77 00 65 00 72 00 67 00 00 00 
+ * D0 0D 00 5A 00 77 00 65 00 72 00 67 00 00 00
  *
  */
 public class RequestExAskJoinMPCC extends L2GameClientPacket
@@ -176,7 +176,7 @@ public class RequestExAskJoinMPCC extends L2GameClientPacket
 		if (!target.isProcessingRequest())
 		{
 			requestor.onTransactionRequest(target);
-			SystemMessage sm = new SystemMessage(SystemMessageId.COMMAND_CHANNEL_CONFIRM);
+			SystemMessage sm = new SystemMessage(SystemMessageId.S1_INVITING_YOU_TO_COMMAND_CHANNEL_CONFIRM);
 			sm.addString(requestor.getName());
 			target.getParty().getLeader().sendPacket(sm);
 			target.getParty().getLeader().sendPacket(new ExAskJoinMPCC(requestor.getName()));

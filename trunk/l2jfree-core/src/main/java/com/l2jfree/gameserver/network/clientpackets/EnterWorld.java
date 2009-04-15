@@ -219,7 +219,7 @@ public class EnterWorld extends L2GameClientPacket
 		if (Hero.getInstance().getHeroes() != null && Hero.getInstance().getHeroes().containsKey(activeChar.getObjectId()))
 			activeChar.setHero(true);
 
-		//Updating Seal of Strife Buff/Debuff 
+		//Updating Seal of Strife Buff/Debuff
 		if (SevenSigns.getInstance().isSealValidationPeriod())
 		{
 			int owner = SevenSigns.getInstance().getSealOwner(SevenSigns.SEAL_STRIFE);
@@ -428,7 +428,7 @@ public class EnterWorld extends L2GameClientPacket
 			{
 				if (!clanHall.getPaid())
 					activeChar.sendPacket(new SystemMessage(
-							SystemMessageId.PAYMENT_FOR_YOUR_CLAN_HALL_HAS_NOT_BEEN_MADE_PLEASE_MAKE_PAYMENT_TO_YOUR_CLAN_WAREHOUSE_BY_S1_TOMORROW));
+							SystemMessageId.PAYMENT_FOR_YOUR_CLAN_HALL_HAS_NOT_BEEN_MADE_PLEASE_MAKE_PAYMENT_TO_YOUR_CLAN_WAREHOUSE_BY_TOMORROW));
 			}
 		}
 

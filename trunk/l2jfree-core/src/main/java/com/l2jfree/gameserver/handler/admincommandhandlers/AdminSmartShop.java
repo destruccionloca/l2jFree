@@ -72,7 +72,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 	private static List<L2Skill>	skillsWithItems;
 	private static int				itemsStart		= 0, itemsEnd = -1, weapnStart = -1, weapnEnd = -1, armorStart = -1, armorEnd = -1;
 
-	// Any number will do as long as it can be divided by 3, for viewing sake =P 
+	// Any number will do as long as it can be divided by 3, for viewing sake =P
 	private static int				_itemsPerView	= 9;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
@@ -80,7 +80,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 		if (!command.startsWith("admin_smartshop"))
 			return false;
 
-		//runs once to initialize the static queues 
+		//runs once to initialize the static queues
 		init();
 
 		if (command.equals("admin_smartshop"))
@@ -365,7 +365,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 	}
 
 	/**
-	 * Retreives all the items from the DB SQL, and sets them in the queues  
+	 * Retreives all the items from the DB SQL, and sets them in the queues
 	 * armors, weapons, etcitems, and smartList which contains all items.
 	 */
 	private void getAllItems()
@@ -1035,7 +1035,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 	}
 
 	/**
-	 * Receives a search string, e.g. "value=val1,-val2,-val4,val4...", 
+	 * Receives a search string, e.g. "value=val1,-val2,-val4,val4...",
 	 * and returns an organized string e.g. "value=val1"
 	 * @param search
 	 * @return
@@ -1096,7 +1096,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 
 	/**
 	 * Changes back/next values for the mark collection:
-	 * e.g. //smartshop _next=3 && _back && 4    ->    //smartshop _back=1   
+	 * e.g. //smartshop _next=3 && _back && 4    ->    //smartshop _back=1
 	 * 
 	 * @param marks - the mark collection
 	 * @param newMark - the new mark
@@ -1278,7 +1278,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 		// Id viewing on: both name and id will show
 		if (newMark.startsWith("_ids") && !marks.contains("_idsShow") && !marks.contains("_idsOnlyShow"))
 			marks = "_idsShow " + marks;
-		// Id ONLY viewing: only Id will show    	
+		// Id ONLY viewing: only Id will show
 		else if (newMark.startsWith("_ids") && marks.contains("_idsShow"))
 		{
 			marks = removeMark(marks, "_idsShow");
@@ -1352,7 +1352,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 
 	/**
 	 * Parse the Quest toggle option search, will show only quest items
-	 * @param marks String received list of current marks 
+	 * @param marks String received list of current marks
 	 * @param newMark String of the new mark
 	 * @return return the String mark collection with the _quest mark changes made
 	 */
@@ -1464,10 +1464,10 @@ public class AdminSmartShop implements IAdminCommandHandler
 	}
 
 	/**
-	 * @param opCommand  
-	 * @param first  
-	 * @param second  
-	 * @param actor  
+	 * @param opCommand
+	 * @param first
+	 * @param second
+	 * @param actor
 	 */
 	String parseParam(String opCommand, String first, String second, L2PcInstance actor)
 	{
@@ -1819,7 +1819,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 		String itemName = item.getName();
 
 		SystemMessage sm;
-		sm = new SystemMessage(SystemMessageId.EARNED_ITEM);
+		sm = new SystemMessage(SystemMessageId.EARNED_S1);
 		sm.addString(count + " " + itemName + " from Smart Shop..");
 		pc.sendPacket(sm);
 
@@ -2510,8 +2510,8 @@ public class AdminSmartShop implements IAdminCommandHandler
 	}
 
 	/**
-	 * @param s  
-	 * @param item  
+	 * @param s
+	 * @param item
 	 */
 	String editWeapon(String s, L2Weapon item)
 	{
@@ -2519,8 +2519,8 @@ public class AdminSmartShop implements IAdminCommandHandler
 	}
 
 	/**
-	 * @param s  
-	 * @param item  
+	 * @param s
+	 * @param item
 	 */
 	String editArmor(String s, L2Armor item)
 	{
@@ -2528,8 +2528,8 @@ public class AdminSmartShop implements IAdminCommandHandler
 	}
 
 	/**
-	 * @param s  
-	 * @param item  
+	 * @param s
+	 * @param item
 	 */
 	String editEtcItem(String s, L2EtcItem item)
 	{

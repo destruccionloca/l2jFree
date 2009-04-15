@@ -66,7 +66,7 @@ public class AllyInfo extends L2GameServerPacket
 				count += clan.getMembers().length;
 			}
 		}
-		//Connection 
+		//Connection
 		sm = new SystemMessage(SystemMessageId.CONNECTION_S1_TOTAL_S2);
 		sm.addNumber(online);
 		sm.addNumber(count);
@@ -87,15 +87,15 @@ public class AllyInfo extends L2GameServerPacket
 			if (clan.getAllyId() == _cha.getAllyId())
 			{
 				//clan name
-				sm = new SystemMessage(SystemMessageId.CLAN_INFO_NAME);
+				sm = new SystemMessage(SystemMessageId.CLAN_INFO_NAME_S1);
 				sm.addString(clan.getName());
 				_cha.sendPacket(sm);
 				//clan leader name
-				sm = new SystemMessage(SystemMessageId.CLAN_INFO_LEADER);
+				sm = new SystemMessage(SystemMessageId.CLAN_INFO_LEADER_S1);
 				sm.addString(clan.getLeaderName());
 				_cha.sendPacket(sm);
 				//clan level
-				sm = new SystemMessage(SystemMessageId.CLAN_INFO_LEVEL);
+				sm = new SystemMessage(SystemMessageId.CLAN_INFO_LEVEL_S1);
 				sm.addNumber(clan.getLevel());
 				_cha.sendPacket(sm);
 				//---------

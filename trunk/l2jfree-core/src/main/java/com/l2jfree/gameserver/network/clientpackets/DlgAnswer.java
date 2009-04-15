@@ -47,7 +47,7 @@ public class DlgAnswer extends L2GameClientPacket
 
         if(_log.isDebugEnabled())
             _log.debug(getType()+": Answer acepted. Message ID "+_messageId+", answer "+_answer+", Requester ID "+_requesterId);
-        if (_messageId == SystemMessageId.RESSURECTION_REQUEST.getId())
+        if (_messageId == SystemMessageId.S1_MAKING_RESSURECTION_REQUEST.getId())
             cha.reviveAnswer(_answer);
         else if (_messageId == SystemMessageId.S1_WISHES_TO_SUMMON_YOU_FROM_S2_DO_YOU_ACCEPT.getId())
             cha.teleportAnswer(_answer, _requesterId);

@@ -28,8 +28,8 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
-import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.StatsSet;
+import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 /**
  * Festival of Darkness Guide (Seven Signs)
@@ -281,7 +281,7 @@ public final class L2FestivalGuideInstance extends L2FolkInstance
                     // Check if the player collected any blood offerings during the festival.
                     if (bloodOfferings == null)
                     {
-                        player.sendMessage("You do not have any blood offerings to contribute.");                    
+                        player.sendMessage("You do not have any blood offerings to contribute.");
                         return;
                     }
                     
@@ -293,7 +293,7 @@ public final class L2FestivalGuideInstance extends L2FolkInstance
                     player.destroyItem("SevenSigns", bloodOfferings, this, false);
                     
                     // Send message that the contribution score has increased.
-                    SystemMessage sm = new SystemMessage(SystemMessageId.CONTRIB_SCORE_INCREASED);
+                    SystemMessage sm = new SystemMessage(SystemMessageId.CONTRIB_SCORE_INCREASED_BY_S1);
                     sm.addNumber(offeringScore);
                     player.sendPacket(sm);
                     
@@ -345,7 +345,7 @@ public final class L2FestivalGuideInstance extends L2FolkInstance
                     
                     strBuffer.append("<a action=\"bypass -h npc_" + getObjectId() + "_Chat 0\">Go back.</a></body></html>");
                    
-                    NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());               
+                    NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
                     html.setHtml(strBuffer.toString());
                     player.sendPacket(html);
                     break;
@@ -465,7 +465,7 @@ public final class L2FestivalGuideInstance extends L2FolkInstance
             else if (dawnScore == duskScore)
                 winningCabal = "None";
             
-            tableHtml.append("<tr><td width=\"100\" align=\"center\">" + festivalName + "</td><td align=\"center\" width=\"35\">" + 
+            tableHtml.append("<tr><td width=\"100\" align=\"center\">" + festivalName + "</td><td align=\"center\" width=\"35\">" +
                              duskScore + "</td><td align=\"center\" width=\"35\">" + dawnScore + "</td><td align=\"center\" width=\"130\">" + winningCabal + "</td></tr>");
         }
         

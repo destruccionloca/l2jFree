@@ -119,7 +119,7 @@ public class L2SignsPriestInstance extends L2FolkInstance
                     // Send inventory update packet
                     player.getInventory().updateInventory(recordSevenSigns);
 
-                    sm = new SystemMessage(SystemMessageId.EARNED_ITEM);
+                    sm = new SystemMessage(SystemMessageId.EARNED_S1);
                     sm.addItemName(SevenSigns.RECORD_SEVEN_SIGNS_ID);
                     player.sendPacket(sm);
                     break;
@@ -350,7 +350,7 @@ public class L2SignsPriestInstance extends L2FolkInstance
                     		greenContribCount,
                     		redContribCount);
 
-                    sm = new SystemMessage(SystemMessageId.CONTRIB_SCORE_INCREASED);
+                    sm = new SystemMessage(SystemMessageId.CONTRIB_SCORE_INCREASED_BY_S1);
                     sm.addNumber(contribScore);
                     player.sendPacket(sm);
 

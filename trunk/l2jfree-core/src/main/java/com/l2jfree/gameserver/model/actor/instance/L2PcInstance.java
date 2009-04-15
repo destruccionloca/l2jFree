@@ -3060,7 +3060,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			if (process.equalsIgnoreCase("sweep") || process.equalsIgnoreCase("Quest"))
 			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_ITEM);
+				SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S1);
 				sm.addItemName(item);
 				sendPacket(sm);
 			}
@@ -10975,7 +10975,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
 			int restoreExp = (int) Math.round((getExpBeforeDeath() - getExp()) * _revivePower / 100);
 
-			ConfirmDlg dlg = new ConfirmDlg(SystemMessageId.RESSURECTION_REQUEST.getId());
+			ConfirmDlg dlg = new ConfirmDlg(SystemMessageId.S1_MAKING_RESSURECTION_REQUEST.getId());
 			sendPacket(dlg.addPcName(reviver).addString("" + restoreExp));
 		}
 	}
@@ -10998,7 +10998,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
 			int restoreExp = (int) Math.round((((L2PetInstance)getPet()).getExpBeforeDeath() - getPet().getStat().getExp()) * _revivePetPower / 100);
 
-			ConfirmDlg dlg = new ConfirmDlg(SystemMessageId.RESSURECTION_REQUEST.getId());
+			ConfirmDlg dlg = new ConfirmDlg(SystemMessageId.S1_MAKING_RESSURECTION_REQUEST.getId());
 			sendPacket(dlg.addPcName(reviver).addString("" + restoreExp));
 		}
 	}

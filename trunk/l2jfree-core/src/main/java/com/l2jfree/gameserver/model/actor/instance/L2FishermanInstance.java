@@ -49,7 +49,7 @@ public class L2FishermanInstance extends L2MerchantInstance
         
         if (val == 0)
             pom = "" + npcId;
-        else 
+        else
             pom = npcId + "-" + val;
         
         return "data/html/fisherman/" + pom + ".htm";
@@ -77,14 +77,14 @@ public class L2FishermanInstance extends L2MerchantInstance
         {
             showSellWindow(player);
         }
-        else 
+        else
         {
             super.onBypassFeedback(player, command);
         }
-    }   
+    }
 
     public void showSkillList(L2PcInstance player)
-    {       
+    {
         L2SkillLearn[] skills = SkillTreeTable.getInstance().getAvailableSkills(player);
         AcquireSkillList asl = new AcquireSkillList(AcquireSkillList.SkillType.Fishing);
         
@@ -108,7 +108,7 @@ public class L2FishermanInstance extends L2MerchantInstance
             if (minlevel > 0)
             {
                 // No more skills to learn, come back when you level.
-                sm = new SystemMessage(SystemMessageId.DO_NOT_HAVE_FURTHER_SKILLS_TO_LEARN);
+                sm = new SystemMessage(SystemMessageId.DO_NOT_HAVE_FURTHER_SKILLS_TO_LEARN_COME_BACK_WHEN_REACHED_S1);
                 sm.addNumber(minlevel);
             }
             else
@@ -117,7 +117,7 @@ public class L2FishermanInstance extends L2MerchantInstance
             }
             player.sendPacket(sm);
         }
-        else 
+        else
         {
             player.sendPacket(asl);
         }

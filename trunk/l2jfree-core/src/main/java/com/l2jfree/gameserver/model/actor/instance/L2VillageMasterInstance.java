@@ -287,7 +287,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 			case 4: // Add Subclass - Action (Subclass 4 x[x])
 				boolean allowAddition = true;
 				/*
-				 * If the character is less than level 75 on any of their previously chosen 
+				 * If the character is less than level 75 on any of their previously chosen
 				 * classes then disallow them to change to their most recently added sub-class choice.
 				 */
 
@@ -327,8 +327,8 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 					}
 				}
 
-				/* 
-				 * If quest checking is enabled, verify if the character has completed the Mimir's Elixir (Path to Subclass) 
+				/*
+				 * If quest checking is enabled, verify if the character has completed the Mimir's Elixir (Path to Subclass)
 				 * and Fate's Whisper (A Grade Weapon) quests by checking for instances of their unique reward items.
 				 * 
 				 * If they both exist, remove both unique items and continue with adding the sub-class.
@@ -388,7 +388,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 				break;
 			case 5: // Change Class - Action
 				/*
-				 * If the character is less than level 75 on any of their previously chosen 
+				 * If the character is less than level 75 on any of their previously chosen
 				 * classes then disallow them to change to their most recently added sub-class choice.
 				 *
 				 * Note: paramOne = classIndex
@@ -437,8 +437,8 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 				}
 				break;
 			case 7: // Change Subclass - Action
-				/* 
-				 * Warning: the information about this subclass will be removed from the 
+				/*
+				 * Warning: the information about this subclass will be removed from the
 				 * subclass list even if false!
 				 */
 
@@ -510,8 +510,8 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 
 	//Private stuff
 	/**
-	 * @param player  
-	 * @param clanId  
+	 * @param player
+	 * @param clanId
 	 */
 	public void dissolveClan(L2PcInstance player, int clanId)
 	{
@@ -589,8 +589,8 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 	}
 
 	/**
-	 * @param player  
-	 * @param clanId  
+	 * @param player
+	 * @param clanId
 	 */
 	public void recoverClan(L2PcInstance player, int clanId)
 	{
@@ -623,7 +623,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 			return;
 		}
 
-		/* 
+		/*
 		 * Until proper clan leader change support is done, this is a little
 		 * exploit fix (leader, while fliying wyvern changes clan leader and the new leader
 		 * can ride the wyvern too)
@@ -966,7 +966,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 		PlayerClass baseClass = PlayerClass.values()[baseClassId];
 
 		/**
-		 * If the race of your main class is Elf or Dark Elf, 
+		 * If the race of your main class is Elf or Dark Elf,
 		 * you may not select each class as a subclass to the other class.
 		 *
 		 * If the race of your main class is Kamael, you may not subclass any other race
@@ -975,15 +975,15 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 		 * You may not select Overlord and Warsmith class as a subclass.
 		 *
 		 * 
-		 * You may not select a similar class as the subclass. 
+		 * You may not select a similar class as the subclass.
 		 * The occupations classified as similar classes are as follows:
-		 *  
-		 * Treasure Hunter, Plainswalker and Abyss Walker 
-		 * Hawkeye, Silver Ranger and Phantom Ranger 
-		 * Paladin, Dark Avenger, Temple Knight and Shillien Knight 
-		 * Warlocks, Elemental Summoner and Phantom Summoner 
-		 * Elder and Shillien Elder 
-		 * Swordsinger and Bladedancer 
+		 * 
+		 * Treasure Hunter, Plainswalker and Abyss Walker
+		 * Hawkeye, Silver Ranger and Phantom Ranger
+		 * Paladin, Dark Avenger, Temple Knight and Shillien Knight
+		 * Warlocks, Elemental Summoner and Phantom Summoner
+		 * Elder and Shillien Elder
+		 * Swordsinger and Bladedancer
 		 * Sorcerer, Spellsinger and Spellhowler
 		 * 
 		 * Also, Kamael have a special hidden subclass, the inspector, which can
@@ -1016,8 +1016,8 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 
 				if (npcRace == Race.Human || npcRace == Race.Elf)
 				{
-					// If the master is human or light elf, ensure that fighter-type 
-					// masters only teach fighter classes, and priest-type masters 
+					// If the master is human or light elf, ensure that fighter-type
+					// masters only teach fighter classes, and priest-type masters
 					// only teach priest classes etc.
 					if (!availSub.isOfType(npcTeachType))
 						availSubs.remove(availSub);
@@ -1028,7 +1028,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 				}
 				else
 				{
-					// If the master is not human and not light elf, 
+					// If the master is not human and not light elf,
 					// then remove any classes not of the same race as the master.
 					if (!availSub.isOfRace(npcRace))
 						availSubs.remove(availSub);
@@ -1076,7 +1076,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 		{
 			if (player.getClan().getLevel() < 8)
 			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.DO_NOT_HAVE_FURTHER_SKILLS_TO_LEARN);
+				SystemMessage sm = new SystemMessage(SystemMessageId.DO_NOT_HAVE_FURTHER_SKILLS_TO_LEARN_COME_BACK_WHEN_REACHED_S1);
 				if (player.getClan().getLevel() < 5)
 					sm.addNumber(5);
 				else

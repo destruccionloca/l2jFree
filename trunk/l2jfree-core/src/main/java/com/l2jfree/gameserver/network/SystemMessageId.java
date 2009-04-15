@@ -354,7 +354,7 @@ public enum SystemMessageId
 	 * ID: 54<br>
 	 * Message: You have earned $s1.
 	 */
-	EARNED_ITEM(54),
+	EARNED_S1(54),
 
 	/**
 	 * ID: 55<br>
@@ -848,7 +848,7 @@ public enum SystemMessageId
 	 * Message: You have not replied to $s1's invitation), the offer has been
 	 * canceled.
 	 */
-	YOU_DID_NOT_REPLY(136),
+	YOU_DID_NOT_REPLY_TO_S1(136),
 
 	/**
 	 * ID: 137<br>
@@ -1528,7 +1528,7 @@ public enum SystemMessageId
 	 * Message: You have already been at war with the $s1 clan: 5 days must pass
 	 * before you can challenge this clan again
 	 */
-	FIVE_DAYS_MUST_PASS_BEFORE_CHALLENGE_AGAIN(247),
+	FIVE_DAYS_MUST_PASS_BEFORE_YOU_CAN_CHALLENGE_S1_CLAN_AGAIN(247),
 
 	/**
 	 * ID: 248<br>
@@ -2162,7 +2162,7 @@ public enum SystemMessageId
 	 * Message: You have acquired $s1 bonus experience from a successful
 	 * over-hit.
 	 */
-	ACQUIRED_BONUS_EXPERIENCE_THROUGH_OVER_HIT(362),
+	ACQUIRED_S1_BONUS_EXPERIENCE_THROUGH_OVER_HIT(362),
 
 	/**
 	 * ID: 363<br>
@@ -2908,7 +2908,7 @@ public enum SystemMessageId
 	 * ID: 484<br>
 	 * Message: This player is already registered in your friends list.
 	 */
-	S1_ALREADY_IN_FRIENDS_LIST(484),
+	ALREADY_IN_FRIENDS_LIST(484),
 
 	/**
 	 * ID: 485<br>
@@ -2986,19 +2986,19 @@ public enum SystemMessageId
 	 * ID: 497<br>
 	 * Message: Clan Name: $s1
 	 */
-	CLAN_INFO_NAME(497),
+	CLAN_INFO_NAME_S1(497),
 
 	/**
 	 * ID: 498<br>
 	 * Message: Clan Leader: $s1
 	 */
-	CLAN_INFO_LEADER(498),
+	CLAN_INFO_LEADER_S1(498),
 
 	/**
 	 * ID: 499<br>
 	 * Message: Clan Level: $s1
 	 */
-	CLAN_INFO_LEVEL(499),
+	CLAN_INFO_LEVEL_S1(499),
 
 	/**
 	 * ID: 500<br>
@@ -3102,7 +3102,7 @@ public enum SystemMessageId
 	 * ID: 516<br>
 	 * Message: $s1 has invited you to be their friend.
 	 */
-	SI_INVITED_YOU_AS_FRIEND(516),
+	S1_INVITED_YOU_AS_FRIEND(516),
 
 	/**
 	 * ID: 517<br>
@@ -3666,7 +3666,7 @@ public enum SystemMessageId
 	 * Message: You do not have any further skills to learn. Come back when you
 	 * have reached Level $s1.
 	 */
-	DO_NOT_HAVE_FURTHER_SKILLS_TO_LEARN(607),
+	DO_NOT_HAVE_FURTHER_SKILLS_TO_LEARN_COME_BACK_WHEN_REACHED_S1(607),
 
 	/**
 	 * ID: 608<br>
@@ -3763,7 +3763,7 @@ public enum SystemMessageId
 	 * Message: Your opponent has exceeded the number of simultaneous alliance
 	 * battles alllowed.
 	 */
-	OPPONENT_TOO_MUCH_ALLY_BATTLES1(623),
+	OPPONENT_TOO_MUCH_ALLY_BATTLES_1(623),
 
 	/**
 	 * ID: 624<br>
@@ -3781,14 +3781,14 @@ public enum SystemMessageId
 	 * ID: 626<br>
 	 * Message: The $s1 clan did not respond: war proclamation has been refused.
 	 */
-	WAR_PROCLAMATION_HAS_BEEN_REFUSED(626),
+	S1_WAR_PROCLAMATION_HAS_BEEN_REFUSED(626),
 
 	/**
 	 * ID: 627<br>
 	 * Message: Clan battle has been refused because you did not respond to $s1
 	 * clan's war proclamation.
 	 */
-	YOU_REFUSED_CLAN_WAR_PROCLAMATION(627),
+	YOU_REFUSED_S1_CLAN_WAR_PROCLAMATION(627),
 
 	/**
 	 * ID: 628<br>
@@ -3802,7 +3802,7 @@ public enum SystemMessageId
 	 * Message: Your opponent has exceeded the number of simultaneous alliance
 	 * battles alllowed.
 	 */
-	OPPONENT_TOO_MUCH_ALLY_BATTLES2(629),
+	OPPONENT_TOO_MUCH_ALLY_BATTLES_2(629),
 
 	/**
 	 * ID: 630<br>
@@ -5159,7 +5159,7 @@ public enum SystemMessageId
 	 * ID: 850<br>
 	 * Message: $s1 already exists.
 	 */
-	S1_ALREADY_EXISTS2(850),
+	S1_ALREADY_EXISTS_2(850),
 
 	/**
 	 * ID: 851<br>
@@ -6381,7 +6381,7 @@ public enum SystemMessageId
 	 * Message: Payment for your clan hall has not been made please make payment
 	 * tomorrow.
 	 */
-	PAYMENT_FOR_YOUR_CLAN_HALL_HAS_NOT_BEEN_MADE_PLEASE_MAKE_PAYMENT_TO_YOUR_CLAN_WAREHOUSE_BY_S1_TOMORROW(1051),
+	PAYMENT_FOR_YOUR_CLAN_HALL_HAS_NOT_BEEN_MADE_PLEASE_MAKE_PAYMENT_TO_YOUR_CLAN_WAREHOUSE_BY_TOMORROW(1051),
 
 	/**
 	 * ID: 1052 <br>
@@ -6893,25 +6893,25 @@ public enum SystemMessageId
 	 * ID: 1131<br>
 	 * Message: It is now midnight and the effect of $s1 can be felt.
 	 */
-	NIGHT_EFFECT_APPLIES(1131),
+	S1_NIGHT_EFFECT_APPLIES(1131),
 
 	/**
 	 * ID: 1132<br>
 	 * Message: It is now dawn and the effect of $s1 will now disappear.
 	 */
-	DAY_EFFECT_DISAPPEARS(1132),
+	S1_NIGHT_EFFECT_DISAPPEARS(1132),
 
 	/**
 	 * ID: 1133<br>
 	 * Message: Since HP has decreased, the effect of $s1 can be felt.
 	 */
-	HP_DECREASED_EFFECT_APPLIES(1133),
+	S1_HP_DECREASED_EFFECT_APPLIES(1133),
 
 	/**
 	 * ID: 1134<br>
 	 * Message: Since HP has increased, the effect of $s1 will disappear.
 	 */
-	HP_INCREASED_EFFECT_DISAPPEARS(1134),
+	S1_HP_DECREASED_EFFECT_DISAPPEARS(1134),
 
 	/**
 	 * ID: 1135<br>
@@ -6926,7 +6926,7 @@ public enum SystemMessageId
 	 * log in illegally, this account is not allowed to connect to the game
 	 * server for $s1 minutes. Please use another game server.
 	 */
-	ACCOUNT_NOT_ALLOWED_TO_CONNECT(1136),
+	ACCOUNT_NOT_ALLOWED_TO_CONNECT_FOR_S1_MINUTES(1136),
 
 	/**
 	 * ID: 1137<br>
@@ -7365,7 +7365,7 @@ public enum SystemMessageId
 	 * ID: 1204<br>
 	 * Message: The screenshot has been saved. ($s1 $s2x$s3)
 	 */
-	SCREENSHOT(1204),
+	SCREENSHOT_S1_S2_S3(1204),
 
 	/**
 	 * ID: 1205<br>
@@ -7763,7 +7763,7 @@ public enum SystemMessageId
 	 * ID: 1267<br>
 	 * Message: Your contribution score is increased by $s1.
 	 */
-	CONTRIB_SCORE_INCREASED(1267),
+	CONTRIB_SCORE_INCREASED_BY_S1(1267),
 
 	/**
 	 * ID: 1268<br>
@@ -7860,7 +7860,7 @@ public enum SystemMessageId
 	 * ID: 1282<br>
 	 * Message: Your Karma has been changed to $s1
 	 */
-	YOUR_KARMA_HAS_BEEN_CHANGED_TO(1282),
+	YOUR_KARMA_HAS_BEEN_CHANGED_TO_S1(1282),
 
 	/**
 	 * ID: 1283<br>
@@ -8427,7 +8427,7 @@ public enum SystemMessageId
 	 * Message: Your message to $s1 did not reach its recipient. You cannot send
 	 * mail to the GM staff.
 	 */
-	CANNOT_MAIL_GM(1370),
+	CANNOT_MAIL_GM_S1(1370),
 
 	/**
 	 * ID: 1371<br>
@@ -8761,13 +8761,13 @@ public enum SystemMessageId
 	 * ID: 1423<br>
 	 * Message: Race setup file error - BuffID$s1 is not specified.
 	 */
-	RACE_SETUP_FILE3(1423),
+	RACE_SETUP_FILE3_ERROR_S1(1423),
 
 	/**
 	 * ID: 1424<br>
 	 * Message: Race setup file error - BuffLv$s1 is not specified.
 	 */
-	RACE_SETUP_FILE4(1424),
+	RACE_SETUP_FILE4_ERROR_S1(1424),
 
 	/**
 	 * ID: 1425<br>
@@ -8785,7 +8785,7 @@ public enum SystemMessageId
 	 * ID: 1427<br>
 	 * Message: Race setup file error - ExpSkillID$s1 is not specified.
 	 */
-	RACE_SETUP_FILE7(1427),
+	RACE_SETUP_FILE7_ERROR_S1(1427),
 
 	/**
 	 * ID: 1428<br>
@@ -8797,7 +8797,7 @@ public enum SystemMessageId
 	 * ID: 1429<br>
 	 * Message: Race setup file error - ExpItemID$s1 is not specified.
 	 */
-	RACE_SETUP_FILE9(1429),
+	RACE_SETUP_FILE9_ERROR_S1(1429),
 
 	/**
 	 * ID: 1430<br>
@@ -8873,7 +8873,7 @@ public enum SystemMessageId
 	 * ID: 1441<br>
 	 * Message: Skill enchant failed. The skill will be initialized.
 	 */
-	YOU_HAVE_FAILED_TO_ENCHANT_THE_SKILL_S1(1441),
+	YOU_HAVE_FAILED_TO_ENCHANT_THE_SKILL(1441),
 
 	/**
 	 * ID: 1443<br>
@@ -9295,7 +9295,7 @@ public enum SystemMessageId
 	 * Message: $s1 is making an attempt at resurrection. Do you want to
 	 * continue with this resurrection?
 	 */
-	RESSURECTION_REQUEST(1510),
+	S1_MAKING_RESSURECTION_REQUEST(1510),
 
 	/**
 	 * ID: 1511<br>
@@ -9416,7 +9416,7 @@ public enum SystemMessageId
 	 * ID: 1529<br>
 	 * Message: $s1 is inviting you to the command channel. Do you want accept?
 	 */
-	COMMAND_CHANNEL_CONFIRM(1529),
+	S1_INVITING_YOU_TO_COMMAND_CHANNEL_CONFIRM(1529),
 
 	/**
 	 * ID: 1530<br>
@@ -9624,7 +9624,7 @@ public enum SystemMessageId
 	 * Message: The clan, $s1, cannot declare a Clan War because their clan is
 	 * less than level three, or they do not have enough members.
 	 */
-	CANNOT_DECLARE_WAR_TOO_LOW_LEVEL_OR_NOT_ENOUGH_MEMBERS(1562),
+	S1_CANNOT_DECLARE_WAR_TOO_LOW_LEVEL_OR_NOT_ENOUGH_MEMBERS(1562),
 
 	/**
 	 * ID: 1564<br>
@@ -9793,7 +9793,7 @@ public enum SystemMessageId
 	 * ID: 1590<br>
 	 * Message: ===<Guild Info (Total Parties: $s1)>===
 	 */
-	GUILD_INFO_HEADER(1590),
+	GUILD_INFO_HEADER_S1(1590),
 
 	/**
 	 * ID: 1591<br>
@@ -10510,14 +10510,14 @@ public enum SystemMessageId
 	 * Message: PC Bang Points acquisition period. Points acquisition period
 	 * left $s1 hour.
 	 */
-	PCPOINT_ACQUISITION_PERIOD(1705),
+	PCPOINT_ACQUISITION_PERIOD_LEFT_S1_HOUR(1705),
 
 	/**
 	 * ID: 1706<br>
 	 * Message: PC Bang Points use period. Points acquisition period left $s1
 	 * hour.
 	 */
-	PCPOINT_USE_PERIOD(1706),
+	PCPOINT_USE_PERIOD_LEFT_S1_HOUR(1706),
 
 	/**
 	 * ID: 1707<br>
@@ -10780,7 +10780,7 @@ public enum SystemMessageId
 	 * Message: Clan Academy member $s1 has successfully completed the 2nd class
 	 * transfer and obtained $s2 Clan Reputation points.
 	 */
-	CLAN_MEMBER_GRADUATED_FROM_ACADEMY(1748),
+	CLAN_MEMBER_S1_GRADUATED_FROM_ACADEMY_AND_OBTAINED_S2_CLAN_REPU(1748),
 
 	/**
 	 * ID: 1749<br>
@@ -12055,7 +12055,7 @@ public enum SystemMessageId
 	 * ID: 1948<br>
 	 * Message: The duel will begin in $s1 second(s).
 	 */
-	THE_DUEL_WILL_BEGIN_IN_S1_SECONDS2(1948),
+	THE_DUEL_WILL_BEGIN_IN_S1_SECOND(1948),
 
 	/**
 	 * ID: 1949<br>
@@ -12660,7 +12660,7 @@ public enum SystemMessageId
 	 * Message: The shortcut in use conflicts with $s1. Do you wish to reset the
 	 * conflicting shortcuts and use the saved shortcut?
 	 */
-	CONFLICTING_SHORTCUT(2048),
+	CONFLICTING_SHORTCUT_WITH_S1(2048),
 
 	/**
 	 * ID: 2049<br>
@@ -13054,7 +13054,7 @@ public enum SystemMessageId
 	 * Message: The server has been integrated, and your character, $s1, has
 	 * overlapped with another name. Please enter a new name for your character
 	 */
-	CHARACTER_NAME_OVERLAPPING_RENAME_CHARACTER(2109),
+	CHARACTER_NAME_S1_OVERLAPPING_RENAME_CHARACTER(2109),
 
 	/**
 	 * ID: 2110<br>
@@ -13151,7 +13151,7 @@ public enum SystemMessageId
 	 * been overlapped with another name. Please enter the Clan name to be
 	 * changed.
 	 */
-	CLAN_NAME_OVERLAPPING_RENAME_CLAN(2124),
+	CLAN_NAME_S1_OVERLAPPING_RENAME_CLAN(2124),
 
 	/**
 	 * ID: 2125<br>

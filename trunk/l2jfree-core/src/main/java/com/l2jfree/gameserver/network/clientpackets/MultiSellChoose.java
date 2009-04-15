@@ -373,7 +373,7 @@ public class MultiSellChoose extends L2GameClientPacket
 				}
 				else
 				{
-					sm = new SystemMessage(SystemMessageId.EARNED_ITEM);
+					sm = new SystemMessage(SystemMessageId.EARNED_S1);
 					sm.addItemName(e.getItemId());
 				}
 				player.sendPacket(sm);

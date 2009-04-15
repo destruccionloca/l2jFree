@@ -89,7 +89,7 @@ public class L2SkillCreateItem extends L2Skill
 		}
 		else
 		{
-			SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_ITEM);
+			SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_S1);
 			smsg.addItemName(item);
 			activeChar.sendPacket(smsg);
 		}

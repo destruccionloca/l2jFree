@@ -85,7 +85,7 @@ public final class RequestExEnchantSkill extends L2GameClientPacket
         if (player.getClassId().level() < 3) // requires to have 3rd class quest completed
             return;
         
-        if (player.getLevel() < 76) 
+        if (player.getLevel() < 76)
             return;
         
         L2Skill skill = SkillTable.getInstance().getInfo(_skillId, _skillLvl);
@@ -100,7 +100,7 @@ public final class RequestExEnchantSkill extends L2GameClientPacket
             if (!Config.ALT_GAME_SKILL_LEARN)
             {
                 player.sendMessage("You are trying to learn skill that u can't..");
-                Util.handleIllegalPlayerAction(player, "Client "+this.getClient()+" tried to learn skill that he can't!!!", IllegalPlayerAction.PUNISH_KICK);
+                Util.handleIllegalPlayerAction(player, "Client "+getClient()+" tried to learn skill that he can't!!!", IllegalPlayerAction.PUNISH_KICK);
                 return;
             }
         }
@@ -133,7 +133,7 @@ public final class RequestExEnchantSkill extends L2GameClientPacket
                 // only first lvl requires book
                 boolean usesBook = _skillLvl % 100 == 1; // 101, 201, 301 ...
                 L2ItemInstance spb = player.getInventory().getItemByItemId(reqItemId);
-                if (Config.ALT_ES_SP_BOOK_NEEDED && usesBook) 
+                if (Config.ALT_ES_SP_BOOK_NEEDED && usesBook)
                 {
                     if (spb == null)// Haven't spellbook
                     {
@@ -175,12 +175,12 @@ public final class RequestExEnchantSkill extends L2GameClientPacket
                 else
                 {
                     player.addSkill(SkillTable.getInstance().getInfo(_skillId, s.getBaseLevel()), true);
-                    player.sendSkillList(); 
-                    player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_FAILED_TO_ENCHANT_THE_SKILL_S1).addSkillName(_skillId));
+                    player.sendSkillList();
+                    player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_FAILED_TO_ENCHANT_THE_SKILL));
                 }
                 trainer.showEnchantSkillList(player, false);
                 
-                this.updateSkillShortcuts(player);
+                updateSkillShortcuts(player);
             }
             else
             {

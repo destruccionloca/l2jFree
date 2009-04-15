@@ -118,7 +118,7 @@ public class ArenaManager
 	public void formRank()
 	{
 		Map<Integer, Integer> scores = new FastMap<Integer, Integer>();
-		for (int obj : this._ranks.keySet())
+		for (int obj : _ranks.keySet())
 		{
 			ArenaRank ar = _ranks.get(obj);
 			scores.put(obj, ar.kills - ar.death);
@@ -153,7 +153,7 @@ public class ArenaManager
 				winner.sendPacket(new SystemMessage(SystemMessageId.EARNED_S2_S1_S).addItemName(Config.ARENA_REWARD_ID)
 						.addNumber(Config.ARENA_REWARD_COUNT));
 			else
-				winner.sendPacket(new SystemMessage(SystemMessageId.EARNED_ITEM).addItemName(Config.ARENA_REWARD_ID));
+				winner.sendPacket(new SystemMessage(SystemMessageId.EARNED_S1).addItemName(Config.ARENA_REWARD_ID));
 			winner.sendPacket(new ItemList(winner, false));
 		}
 		_ranks.clear();
@@ -162,7 +162,7 @@ public class ArenaManager
 	public String showHtm(int owner)
 	{
 		Map<Integer, Integer> scores = new FastMap<Integer, Integer>();
-		for (int obj : this._ranks.keySet())
+		for (int obj : _ranks.keySet())
 		{
 			ArenaRank ar = _ranks.get(obj);
 			scores.put(obj, ar.kills - ar.death);
@@ -276,7 +276,7 @@ public class ArenaManager
 		}
 		finally { try { if (lnr != null) lnr.close(); } catch (Exception e) { e.printStackTrace(); } }
 
-		this.startSaveTask();
+		startSaveTask();
 		_log.info("ArenaManager: Loaded " + _ranks.size() + " player(s).");
 	}
 
@@ -284,7 +284,7 @@ public class ArenaManager
 	{
 		String pattern = "";
 
-		for (Iterator<Integer> iter = this._ranks.keySet().iterator(); iter.hasNext();)
+		for (Iterator<Integer> iter = _ranks.keySet().iterator(); iter.hasNext();)
 		{
 			Integer object = iter.next();
 			ArenaRank ar = _ranks.get(object);

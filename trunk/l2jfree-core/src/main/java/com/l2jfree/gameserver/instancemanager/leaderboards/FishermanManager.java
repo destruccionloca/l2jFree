@@ -118,7 +118,7 @@ public class FishermanManager
 	public void formRank()
 	{
 		Map<Integer, Integer> scores = new FastMap<Integer, Integer>();
-		for (int obj : this._ranks.keySet())
+		for (int obj : _ranks.keySet())
 		{
 			FishRank ar = _ranks.get(obj);
 			scores.put(obj, ar.cought - ar.escaped);
@@ -153,7 +153,7 @@ public class FishermanManager
 				winner.sendPacket(new SystemMessage(SystemMessageId.EARNED_S2_S1_S).addItemName(Config.FISHERMAN_REWARD_ID)
 						.addNumber(Config.FISHERMAN_REWARD_COUNT));
 			else
-				winner.sendPacket(new SystemMessage(SystemMessageId.EARNED_ITEM).addItemName(Config.FISHERMAN_REWARD_ID));
+				winner.sendPacket(new SystemMessage(SystemMessageId.EARNED_S1).addItemName(Config.FISHERMAN_REWARD_ID));
 			winner.sendPacket(new ItemList(winner, false));
 		}
 		_ranks.clear();
@@ -162,7 +162,7 @@ public class FishermanManager
 	public String showHtm(int owner)
 	{
 		Map<Integer, Integer> scores = new FastMap<Integer, Integer>();
-		for (int obj : this._ranks.keySet())
+		for (int obj : _ranks.keySet())
 		{
 			FishRank ar = _ranks.get(obj);
 			scores.put(obj, ar.cought - ar.escaped);
@@ -276,7 +276,7 @@ public class FishermanManager
 		}
 		finally { try { if (lnr != null) lnr.close(); } catch (Exception e) { e.printStackTrace(); } }
 
-		this.startSaveTask();
+		startSaveTask();
 		_log.info("FishManager: Loaded " + _ranks.size() + " player(s).");
 	}
 
@@ -284,7 +284,7 @@ public class FishermanManager
 	{
 		String pattern = "";
 
-		for (Iterator<Integer> iter = this._ranks.keySet().iterator(); iter.hasNext();)
+		for (Iterator<Integer> iter = _ranks.keySet().iterator(); iter.hasNext();)
 		{
 			Integer object = iter.next();
 			FishRank ar = _ranks.get(object);

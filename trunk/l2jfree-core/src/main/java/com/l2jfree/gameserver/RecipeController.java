@@ -972,7 +972,7 @@ public class RecipeController
 			}
 			else
 			{
-				msg = new SystemMessage(SystemMessageId.EARNED_ITEM);
+				msg = new SystemMessage(SystemMessageId.EARNED_S1);
 				msg.addItemName(template);
 				_target.sendPacket(msg);
 			}

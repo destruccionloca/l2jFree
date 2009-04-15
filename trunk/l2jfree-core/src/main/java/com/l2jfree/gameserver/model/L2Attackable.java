@@ -115,7 +115,7 @@ public class L2Attackable extends L2NpcInstance
 		 */
 		AggroInfo(L2Character pAttacker)
 		{
-			this._attacker = pAttacker;
+			_attacker = pAttacker;
 		}
 
 		public L2Character getAttacker()
@@ -154,7 +154,7 @@ public class L2Attackable extends L2NpcInstance
 		@Override
 		public int hashCode()
 		{
-			return this._attacker.getObjectId();
+			return _attacker.getObjectId();
 		}
 	}
 
@@ -175,13 +175,13 @@ public class L2Attackable extends L2NpcInstance
 
 		public RewardInfo(L2Character pAttacker, int pDmg)
 		{
-			this._attacker = pAttacker;
-			this._dmg = pDmg;
+			_attacker = pAttacker;
+			_dmg = pDmg;
 		}
 
 		public void addDamage(int pDmg)
 		{
-			this._dmg += pDmg;
+			_dmg += pDmg;
 		}
 
 		@Override
@@ -197,7 +197,7 @@ public class L2Attackable extends L2NpcInstance
 		@Override
 		public int hashCode()
 		{
-			return this._attacker.getObjectId();
+			return _attacker.getObjectId();
 		}
 	}
 
@@ -226,9 +226,9 @@ public class L2Attackable extends L2NpcInstance
 		 */
 		AbsorberInfo(L2PcInstance attacker, int pCrystalId, double pAbsorbedHP)
 		{
-			this._absorber = attacker;
-			this._crystalId = pCrystalId;
-			this._absorbedHP = pAbsorbedHP;
+			_absorber = attacker;
+			_crystalId = pCrystalId;
+			_absorbedHP = pAbsorbedHP;
 		}
 
 		/**
@@ -252,7 +252,7 @@ public class L2Attackable extends L2NpcInstance
 		@Override
 		public int hashCode()
 		{
-			return this._absorber.getObjectId();
+			return _absorber.getObjectId();
 		}
 	}
 
@@ -268,8 +268,8 @@ public class L2Attackable extends L2NpcInstance
 
 		public RewardItem(int itemId, int count)
 		{
-			this._itemId = itemId;
-			this._count = count;
+			_itemId = itemId;
+			_count = count;
 		}
 
 		public int getItemId()
@@ -556,7 +556,7 @@ public class L2Attackable extends L2NpcInstance
 
 				if (player != null)
 				{
-					//only 1 randomly choosen quest of all quests registered to this character can be applied 
+					//only 1 randomly choosen quest of all quests registered to this character can be applied
 					Quest[] allOnKillQuests = getTemplate().getEventQuests(Quest.QuestEventType.ON_KILL);
 					if (allOnKillQuests != null && allOnKillQuests.length > 0)
 					{
@@ -633,7 +633,7 @@ public class L2Attackable extends L2NpcInstance
 					if (info == null)
 						continue;
 
-					// Get the L2Character corresponding to this attacker 
+					// Get the L2Character corresponding to this attacker
 					attacker = info._attacker;
 
 					// Get damages done by this attacker
@@ -737,7 +737,7 @@ public class L2Attackable extends L2NpcInstance
 								if (isOverhit() && attacker == getOverhitAttacker())
 								{
 									int overHitExp = (int) calculateOverhitExp(exp);
-									SystemMessage sms = new SystemMessage(SystemMessageId.ACQUIRED_BONUS_EXPERIENCE_THROUGH_OVER_HIT);
+									SystemMessage sms = new SystemMessage(SystemMessageId.ACQUIRED_S1_BONUS_EXPERIENCE_THROUGH_OVER_HIT);
 									sms.addNumber(overHitExp);
 									player.sendPacket(sms);
 									exp += overHitExp;
@@ -773,7 +773,7 @@ public class L2Attackable extends L2NpcInstance
 								{
 									if (attacker instanceof L2PcInstance)
 									{
-										if (!isChampion() || (isChampion() && Config.ENABLE_VITALITY_CHAMPION)) 
+										if (!isChampion() || (isChampion() && Config.ENABLE_VITALITY_CHAMPION))
 										{
 											((L2PcInstance)attacker).addVitExpAndSp(addexp, addsp, this);
 											((L2PcInstance)attacker).calculateVitalityPoints(this, damage);
@@ -999,7 +999,7 @@ public class L2Attackable extends L2NpcInstance
 		// we will do some special treatments for _attacker but _attacker is not for sure a L2PlayableInstance...
 		if (attacker instanceof L2PlayableInstance)
 		{
-			// attacker L2PcInstance could be the the attacker or the owner of the attacker 
+			// attacker L2PcInstance could be the the attacker or the owner of the attacker
 			L2PcInstance _attacker = attacker instanceof L2PcInstance ? (L2PcInstance) attacker : ((L2Summon) attacker).getOwner();
 			AggroInfo damageContrib = getDamageContributors().get(_attacker);
 			if (damageContrib != null)
@@ -1059,7 +1059,7 @@ public class L2Attackable extends L2NpcInstance
 			getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE, null, null);
 			return;
 		}
-		if (target == null) // whole aggrolist 
+		if (target == null) // whole aggrolist
 		{
 			L2Character mostHated = getMostHated();
 			if (mostHated == null) // makes target passive for a moment more
@@ -1132,7 +1132,7 @@ public class L2Attackable extends L2NpcInstance
 		// While iterating over this map removing objects is not allowed
 		synchronized (getAggroList())
 		{
-			// Go through the aggroList of the L2Attackable        
+			// Go through the aggroList of the L2Attackable
 			for (AggroInfo ai : getAggroListRP().values())
 			{
 				if (ai == null)
@@ -1348,7 +1348,7 @@ public class L2Attackable extends L2NpcInstance
 		if (categoryDrops == null)
 			return null;
 
-		// Get default drop chance for the category (that's the sum of chances for all items in the category) 
+		// Get default drop chance for the category (that's the sum of chances for all items in the category)
 		// keep track of the base category chance as it'll be used later, if an item is drop from the category.
 		// for everything else, use the total "categoryDropChance"
 		int basecategoryDropChance = categoryDrops.getCategoryChance();
@@ -1390,12 +1390,12 @@ public class L2Attackable extends L2NpcInstance
 				return null;
 
 			// Now decide the quantity to drop based on the rates and penalties.  To get this value
-			// simply divide the modified categoryDropChance by the base category chance.  This 
+			// simply divide the modified categoryDropChance by the base category chance.  This
 			// results in a chance that will dictate the drops amounts: for each amount over 100
 			// that it is, it will give another chance to add to the min/max quantities.
 			//
-			// For example, If the final chance is 120%, then the item should drop between 
-			// its min and max one time, and then have 20% chance to drop again.  If the final 
+			// For example, If the final chance is 120%, then the item should drop between
+			// its min and max one time, and then have 20% chance to drop again.  If the final
 			// chance is 330%, it will similarly give 3 times the min and max, and have a 30%
 			// chance to give a 4th time.
 			// At least 1 item will be dropped for sure.  So the chance will be adjusted to 100%
@@ -1786,7 +1786,7 @@ public class L2Attackable extends L2NpcInstance
 			random = Rnd.get(1000); // note *10
 			if ((random < Config.RATE_DROP_SPECIAL_HERBS) && !_spec)
 			{
-				RewardItem item = new RewardItem(8614, 1); // Herb of Recovery       
+				RewardItem item = new RewardItem(8614, 1); // Herb of Recovery
 				if (Config.ALT_AUTO_LOOT && Config.ALT_AUTO_LOOT_HERBS)
 					player.addItem("Loot", item.getItemId(), item.getCount(), this, true);
 				else
@@ -1801,7 +1801,7 @@ public class L2Attackable extends L2NpcInstance
 				random = Rnd.get(100);
 				if (random < Config.RATE_DROP_MP_HP_HERBS)
 				{
-					RewardItem item = new RewardItem(8600, 1); // Herb of Life 
+					RewardItem item = new RewardItem(8600, 1); // Herb of Life
 					if (Config.ALT_AUTO_LOOT && Config.ALT_AUTO_LOOT_HERBS)
 						player.addItem("Loot", item.getItemId(), item.getCount(), this, true);
 					else
@@ -1866,7 +1866,7 @@ public class L2Attackable extends L2NpcInstance
 				random = Rnd.get(1000); // note *10
 				if (random < Config.RATE_DROP_SUPERIOR_HERBS)
 				{
-					RewardItem item = new RewardItem(8605, 1); // Superior Herb of Mana 
+					RewardItem item = new RewardItem(8605, 1); // Superior Herb of Mana
 					if (Config.ALT_AUTO_LOOT && Config.ALT_AUTO_LOOT_HERBS)
 						player.addItem("Loot", item.getItemId(), item.getCount(), this, true);
 					else
@@ -1977,7 +1977,7 @@ public class L2Attackable extends L2NpcInstance
 		L2ItemInstance ditem = null;
 		for (int i = 0; i < item.getCount(); i++)
 		{
-			// Randomize drop position  
+			// Randomize drop position
 			int newX = getX() + Rnd.get(randDropLim * 2 + 1) - randDropLim;
 			int newY = getY() + Rnd.get(randDropLim * 2 + 1) - randDropLim;
 
@@ -1998,7 +1998,7 @@ public class L2Attackable extends L2NpcInstance
 						ItemsAutoDestroy.getInstance().addItem(ditem);
 				}
 				ditem.setProtected(false);
-				// If stackable, end loop as entire count is included in 1 instance of item  
+				// If stackable, end loop as entire count is included in 1 instance of item
 				if (ditem.isStackable() || !Config.MULTIPLE_ITEM_DROP)
 					break;
 			}
@@ -2266,7 +2266,7 @@ public class L2Attackable extends L2NpcInstance
 		if (maxAbsorbLevel > 10)
 			minAbsorbLevel = maxAbsorbLevel > 12 ? 12 : 10;
 
-		//Init some useful vars  
+		//Init some useful vars
 		boolean isSuccess = true;
 		boolean doLevelup = true;
 		boolean isBossMob = maxAbsorbLevel > 10;
@@ -2275,7 +2275,7 @@ public class L2Attackable extends L2NpcInstance
 
 		L2PcInstance killer = (attacker instanceof L2Summon) ? ((L2Summon) attacker).getOwner() : (L2PcInstance) attacker;
 
-		// If this mob is a boss, then skip some checkings 
+		// If this mob is a boss, then skip some checkings
 		if (!isBossMob)
 		{
 			// Fail if this L2Attackable isn't absorbed or there's no one in its _absorbersList
@@ -2358,7 +2358,7 @@ public class L2Attackable extends L2NpcInstance
 							break;
 						}
 
-						// Validate if the crystal has already leveled 
+						// Validate if the crystal has already leveled
 						if (id != SoulCrystal.RED_NEW_CRYSTAL && id != SoulCrystal.GRN_NEW_CYRSTAL && id != SoulCrystal.BLU_NEW_CRYSTAL)
 						{
 							try
@@ -2444,8 +2444,8 @@ public class L2Attackable extends L2NpcInstance
 			}
 
 			/* TODO: Confirm boss chance for crystal level up and for crystal breaking.
-			 * It is known that bosses with FULL_PARTY crystal level ups have 100% success rate, but this is not 
-			 * the case for the other bosses (one-random or last-hit).  
+			 * It is known that bosses with FULL_PARTY crystal level ups have 100% success rate, but this is not
+			 * the case for the other bosses (one-random or last-hit).
 			 * While not confirmed, it is most reasonable that crystals leveled up at bosses will never break.
 			 * Also, the chance to level up is guessed as around 70% if not higher.
 			 */
@@ -2484,7 +2484,7 @@ public class L2Attackable extends L2NpcInstance
 				player.sendPacket(new SystemMessage(SystemMessageId.SOUL_CRYSTAL_ABSORBING_SUCCEEDED));
 
 			// Send system message
-			SystemMessage sms = new SystemMessage(SystemMessageId.EARNED_ITEM);
+			SystemMessage sms = new SystemMessage(SystemMessageId.EARNED_S1);
 			sms.addItemName(giveid);
 			player.sendPacket(sms);
 

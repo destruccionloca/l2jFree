@@ -51,10 +51,10 @@ public class RequestReplyStartPledgeWar extends L2GameClientPacket
         if (_answer == 1)
         {
             ClanTable.getInstance().storeclanswars(requestor.getClanId(), activeChar.getClanId());
-        } 
+        }
         else
         {
-            requestor.sendPacket(new SystemMessage(SystemMessageId.WAR_PROCLAMATION_HAS_BEEN_REFUSED));
+            requestor.sendPacket(new SystemMessage(SystemMessageId.S1_WAR_PROCLAMATION_HAS_BEEN_REFUSED).addString(activeChar.getClan().getName()));
         }
         activeChar.setActiveRequester(null);
         requestor.onTransactionResponse();
