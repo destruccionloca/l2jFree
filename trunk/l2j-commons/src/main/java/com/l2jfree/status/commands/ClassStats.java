@@ -14,6 +14,8 @@
  */
 package com.l2jfree.status.commands;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.l2jfree.status.StatusCommand;
 import com.l2jfree.util.concurrent.RunnableStatsManager;
 import com.l2jfree.util.concurrent.RunnableStatsManager.SortBy;
@@ -52,5 +54,11 @@ public final class ClassStats extends StatusCommand
 	protected String getDescription()
 	{
 		return "dump runnable stats";
+	}
+	
+	@Override
+	protected String getParameterUsage()
+	{
+		return StringUtils.join(SortBy.values(), "|").toLowerCase();
 	}
 }

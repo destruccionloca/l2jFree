@@ -15,11 +15,14 @@
 package com.l2jfree.util.concurrent;
 
 import java.io.PrintStream;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
@@ -30,6 +33,7 @@ import org.apache.commons.logging.LogFactory;
 /**
  * @author NB4L1
  */
+@SuppressWarnings("unchecked")
 public final class RunnableStatsManager
 {
 	private static final Log _log = LogFactory.getLog(RunnableStatsManager.class);
@@ -48,7 +52,7 @@ public final class RunnableStatsManager
 	
 	private final class ClassStat
 	{
-		private final String _name;
+		private final String _className;
 		
 		private String[] _methodNames = new String[0];
 		private MethodStat[] _methodStats = new MethodStat[0];
@@ -57,7 +61,7 @@ public final class RunnableStatsManager
 		{
 			_classStats.put(clazz, this);
 			
-			_name = clazz.getName().replace("com.l2jfree.gameserver.", "");
+			_className = clazz.getName().replace("com.l2jfree.gameserver.", "");
 		}
 		
 		private MethodStat getMethodStat(String methodName)
@@ -68,7 +72,7 @@ public final class RunnableStatsManager
 			
 			methodName = methodName.intern();
 			
-			final MethodStat methodStat = new MethodStat(_name, methodName);
+			final MethodStat methodStat = new MethodStat(_className, methodName);
 			
 			_methodNames = (String[])ArrayUtils.add(_methodNames, methodName);
 			_methodStats = (MethodStat[])ArrayUtils.add(_methodStats, methodStat);
@@ -79,7 +83,8 @@ public final class RunnableStatsManager
 	
 	private final class MethodStat
 	{
-		private final String _name;
+		private final String _className;
+		private final String _methodName;
 		
 		private long _count;
 		private long _total;
@@ -88,7 +93,8 @@ public final class RunnableStatsManager
 		
 		private MethodStat(String className, String methodName)
 		{
-			_name = className + "." + methodName;
+			_className = className;
+			_methodName = methodName;
 		}
 		
 		private void handleStats(long runTime)
@@ -102,12 +108,12 @@ public final class RunnableStatsManager
 	
 	private ClassStat getClassStat(Class<?> clazz)
 	{
-		ClassStat stat = _classStats.get(clazz);
+		ClassStat classStat = _classStats.get(clazz);
 		
-		if (stat == null)
-			stat = new ClassStat(clazz);
+		if (classStat == null)
+			classStat = new ClassStat(clazz);
 		
-		return stat;
+		return classStat;
 	}
 	
 	public synchronized void handleStats(Class<? extends Runnable> clazz, long runTime)
@@ -120,21 +126,21 @@ public final class RunnableStatsManager
 		getClassStat(clazz).getMethodStat(methodName).handleStats(runTime);
 	}
 	
-	@SuppressWarnings("unchecked")
 	public static enum SortBy
 	{
 		AVG("average"),
 		COUNT("count"),
 		TOTAL("total"),
-		NAME("name"),
+		NAME("class"),
+		METHOD("method"),
 		MIN("min"),
 		MAX("max"), ;
 		
-		private final String _xmlName;
+		private final String _xmlAttributeName;
 		
-		private SortBy(String xmlName)
+		private SortBy(String xmlAttributeName)
 		{
-			_xmlName = xmlName;
+			_xmlAttributeName = xmlAttributeName;
 		}
 		
 		private final Comparator<MethodStat> _comparator = new Comparator<MethodStat>() {
@@ -146,26 +152,60 @@ public final class RunnableStatsManager
 				if (c1 instanceof Number)
 					return c2.compareTo(c1);
 				
-				return c1.compareTo(c2);
+				final String s1 = (String)c1;
+				final String s2 = (String)c2;
+				
+				final int len1 = s1.length();
+				final int len2 = s2.length();
+				final int n = Math.min(len1, len2);
+				
+				for (int k = 0; k < n; k++)
+				{
+					char ch1 = s1.charAt(k);
+					char ch2 = s2.charAt(k);
+					
+					if (ch1 != ch2)
+					{
+						if (Character.isUpperCase(ch1) != Character.isUpperCase(ch2))
+							return ch2 - ch1;
+						else
+							return ch1 - ch2;
+					}
+				}
+				
+				final int result = len1 - len2;
+				
+				if (result != 0)
+					return result;
+				
+				switch (SortBy.this)
+				{
+					case METHOD:
+						return NAME._comparator.compare(o1, o2);
+					default:
+						return 0;
+				}
 			}
 		};
 		
 		private Comparable getComparableValueOf(MethodStat stat)
 		{
-			switch (SortBy.this)
+			switch (this)
 			{
-				case NAME:
-					return stat._name;
+				case AVG:
+					return stat._total / stat._count;
 				case COUNT:
 					return stat._count;
 				case TOTAL:
 					return stat._total;
+				case NAME:
+					return stat._className;
+				case METHOD:
+					return stat._methodName;
 				case MIN:
 					return stat._min;
 				case MAX:
 					return stat._max;
-				case AVG:
-					return stat._total / stat._count;
 				default:
 					throw new InternalError();
 			}
@@ -179,7 +219,6 @@ public final class RunnableStatsManager
 		dumpClassStats(null);
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void dumpClassStats(final SortBy sortBy)
 	{
 		final List<MethodStat> methodStats = new ArrayList<MethodStat>();
@@ -197,7 +236,7 @@ public final class RunnableStatsManager
 		final List<String> lines = new ArrayList<String>();
 		
 		lines.add("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>");
-		lines.add("<methods>");
+		lines.add("<entries>");
 		lines.add("\t<!-- This XML contains statistics about execution times. -->");
 		lines.add("\t<!-- Submitted results will help the developers to optimize the server. -->");
 		
@@ -210,7 +249,14 @@ public final class RunnableStatsManager
 			
 			for (int k = 0; k < methodStats.size(); k++)
 			{
-				final String value = String.valueOf(sort.getComparableValueOf(methodStats.get(k)));
+				final Comparable c = sort.getComparableValueOf(methodStats.get(k));
+				
+				final String value;
+				
+				if (c instanceof Number)
+					value = NumberFormat.getInstance(Locale.ENGLISH).format(((Number)c).longValue());
+				else
+					value = String.valueOf(c);
 				
 				values[i][k] = value;
 				
@@ -221,13 +267,31 @@ public final class RunnableStatsManager
 		for (int k = 0; k < methodStats.size(); k++)
 		{
 			StringBuilder sb = new StringBuilder();
-			sb.append("\t<method ");
+			sb.append("\t<entry ");
+			
+			EnumSet<SortBy> set = EnumSet.allOf(SortBy.class);
 			
 			if (sortBy != null)
-				appendAttribute(sb, sortBy, values[sortBy.ordinal()][k], maxLength[sortBy.ordinal()]);
+			{
+				switch (sortBy)
+				{
+					case NAME:
+					case METHOD:
+						appendAttribute(sb, SortBy.NAME, values[SortBy.NAME.ordinal()][k], maxLength[SortBy.NAME.ordinal()]);
+						set.remove(SortBy.NAME);
+						
+						appendAttribute(sb, SortBy.METHOD, values[SortBy.METHOD.ordinal()][k], maxLength[SortBy.METHOD.ordinal()]);
+						set.remove(SortBy.METHOD);
+						break;
+					default:
+						appendAttribute(sb, sortBy, values[sortBy.ordinal()][k], maxLength[sortBy.ordinal()]);
+						set.remove(sortBy);
+						break;
+				}
+			}
 			
 			for (SortBy sort : SortBy.VALUES)
-				if (sort != sortBy)
+				if (set.contains(sort))
 					appendAttribute(sb, sort, values[sort.ordinal()][k], maxLength[sort.ordinal()]);
 			
 			sb.append("/>");
@@ -235,7 +299,7 @@ public final class RunnableStatsManager
 			lines.add(sb.toString());
 		}
 		
-		lines.add("</methods>");
+		lines.add("</entries>");
 		
 		PrintStream ps = null;
 		try
@@ -244,8 +308,6 @@ public final class RunnableStatsManager
 			
 			for (String line : lines)
 				ps.println(line);
-			
-			ps.close();
 		}
 		catch (Exception e)
 		{
@@ -259,12 +321,19 @@ public final class RunnableStatsManager
 	
 	private void appendAttribute(StringBuilder sb, SortBy sortBy, String value, int fillTo)
 	{
-		sb.append(sortBy._xmlName);
-		sb.append("=\"");
+		sb.append(sortBy._xmlAttributeName);
+		sb.append("=");
+		
+		if (sortBy != SortBy.NAME && sortBy != SortBy.METHOD)
+			for (int i = value.length(); i < fillTo; i++)
+				sb.append(" ");
+		
+		sb.append("\"");
 		sb.append(value);
 		sb.append("\" ");
 		
-		for (int i = value.length(); i < fillTo; i++)
-			sb.append(" ");
+		if (sortBy == SortBy.NAME || sortBy == SortBy.METHOD)
+			for (int i = value.length(); i < fillTo; i++)
+				sb.append(" ");
 	}
 }
