@@ -23,6 +23,7 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2RaidBossInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -280,10 +281,18 @@ public class Pdam implements ISkillHandler
 
 		if (skill.isSuicideAttack())
 		{
-			if (targets.length > 0)
-				activeChar.doDie(targets[0]);
-			else
-				activeChar.doDie(null);
+			L2Character target = null;
+			
+			for (L2Character tmp : targets)
+			{
+				if (tmp != null && !(tmp instanceof L2PlayableInstance))
+				{
+					target = tmp;
+					break;
+				}
+			}
+			
+			activeChar.doDie(target);
 		}
 	}
 
