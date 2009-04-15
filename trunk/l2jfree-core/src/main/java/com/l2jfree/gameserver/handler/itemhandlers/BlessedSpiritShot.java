@@ -26,10 +26,10 @@ import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
 import com.l2jfree.gameserver.util.Broadcast;
 
-/** 
- * This class ... 
- *  
- * @version $Revision: 1.1.2.1.2.5 $ $Date: 2005/03/27 15:30:07 $ 
+/**
+ * This class ...
+ * 
+ * @version $Revision: 1.1.2.1.2.5 $ $Date: 2005/03/27 15:30:07 $
  */
 
 public class BlessedSpiritShot implements IItemHandler
@@ -40,8 +40,8 @@ public class BlessedSpiritShot implements IItemHandler
 	private static final int[]	SKILL_IDS	=
 											{ 2061, 2160, 2161, 2162, 2163, 2164, 2164 };
 
-	/* (non-Javadoc) 
-	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.L2PcInstance, com.l2jfree.gameserver.model.L2ItemInstance) 
+	/* (non-Javadoc)
+	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.L2PcInstance, com.l2jfree.gameserver.model.L2ItemInstance)
 	 */
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
@@ -55,10 +55,7 @@ public class BlessedSpiritShot implements IItemHandler
 
 		if (activeChar.isInOlympiadMode())
 		{
-			SystemMessage sm = new SystemMessage(SystemMessageId.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT);
-			sm.addString(item.getItemName());
-			activeChar.sendPacket(sm);
-			sm = null;
+			activeChar.sendPacket(SystemMessageId.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT);
 			return;
 		}
 
@@ -86,7 +83,7 @@ public class BlessedSpiritShot implements IItemHandler
 			return;
 		}
 
-		// Consume Blessed Spiritshot if player has enough of them 
+		// Consume Blessed Spiritshot if player has enough of them
 		if (!activeChar.destroyItemWithoutTrace("Consume", item.getObjectId(), weaponItem.getSpiritShotCount(), null, false))
 		{
 			if (activeChar.getAutoSoulShot().containsKey(itemId))

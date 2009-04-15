@@ -15260,13 +15260,13 @@ public enum SystemMessageId
 	{
 		_id = id;
 		
-		if (name().contains("S4"))
+		if (name().contains("S4") || name().contains("C4"))
 			_size = 4;
-		else if (name().contains("S3"))
+		else if (name().contains("S3") || name().contains("C3"))
 			_size = 3;
-		else if (name().contains("S2"))
+		else if (name().contains("S2") || name().contains("C2"))
 			_size = 2;
-		else if (name().contains("S1"))
+		else if (name().contains("S1") || name().contains("C1"))
 			_size = 1;
 		else
 			_size = 0;
