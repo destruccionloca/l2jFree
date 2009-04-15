@@ -65,7 +65,8 @@ class Quest (JQuest) :
  
  def __init__(self,id,name,descr): 
     JQuest.__init__(self,id,name,descr)
-    self.katenar = self.harkil = 0
+    self.katenar = 0
+    self.harkil = 0
     self.questItemId = [BLACK_ECHO_CRYSTAL, SHINING_MEDALLION]
  
  def onEvent (self,event,st) :
