@@ -235,6 +235,7 @@ import com.l2jfree.gameserver.network.serverpackets.EffectInfoPacket.EffectInfoP
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.skills.Stats;
+import com.l2jfree.gameserver.skills.conditions.ConditionGameTime;
 import com.l2jfree.gameserver.skills.conditions.ConditionPlayerHp;
 import com.l2jfree.gameserver.skills.effects.EffectForce;
 import com.l2jfree.gameserver.skills.funcs.Func;
@@ -14064,11 +14065,13 @@ public final class L2PcInstance extends L2PlayableInstance
 	// Condition listeners
 	// TODO: wrapper conditions - ConditionLogicAnd, ConditionLogicOr, etc
 	// TODO: make it more similar to conventional java listeners
-	// TODO: add every listener which makes sense - currently listens for hp percent only (Final Fortress, etc)
+	// TODO: add every listener which makes sense - currently listens for hp percent and game time only
 	
 	public enum ConditionListenerDependency
 	{
-		CURRENT_HP;
+		PLAYER_HP,
+		GAME_TIME,
+		;
 	}
 	
 	private abstract class ConditionListener
@@ -14101,7 +14104,12 @@ public final class L2PcInstance extends L2PlayableInstance
 		
 		protected void onFuncAddition(Func f)
 		{
-			_values.put(f, f.isAllowed(_env));
+			final boolean newValue = f.isAllowed(_env);
+			
+			_values.put(f, newValue);
+			
+			if (newValue)
+				onChange(f, true);
 		}
 		
 		protected void onFuncRemoval(Func f)
@@ -14122,14 +14130,63 @@ public final class L2PcInstance extends L2PlayableInstance
 		@Override
 		protected void refresh(ConditionListenerDependency dependency)
 		{
-			if (dependency == ConditionListenerDependency.CURRENT_HP)
+			if (dependency == ConditionListenerDependency.PLAYER_HP)
 				super.refresh(dependency);
 		}
 		
 		@Override
 		protected void onChange(Func f, boolean newValue)
 		{
-			super.onChange(f, newValue);
+			final SystemMessage sm;
+			
+			if (newValue)
+				sm = new SystemMessage(SystemMessageId.S1_HP_DECREASED_EFFECT_APPLIES);
+			else
+				sm = new SystemMessage(SystemMessageId.S1_HP_DECREASED_EFFECT_DISAPPEARS);
+			
+			if (f.funcOwner.getFuncOwnerSkill() != null)
+				sm.addSkillName(f.funcOwner.getFuncOwnerSkill());
+			else
+				sm.addString(f.funcOwner.getFuncOwnerName());
+			
+			sendPacket(sm);
+			
+			broadcastUserInfo();
+		}
+	}
+	
+	private final class ConditionGameTimeListener extends ConditionListener
+	{
+		@Override
+		protected void onFuncAddition(Func f)
+		{
+			if (f.condition instanceof ConditionGameTime)
+				super.onFuncAddition(f);
+		}
+		
+		@Override
+		protected void refresh(ConditionListenerDependency dependency)
+		{
+			if (dependency == ConditionListenerDependency.GAME_TIME)
+				super.refresh(dependency);
+		}
+		
+		@Override
+		protected void onChange(Func f, boolean newValue)
+		{
+			final SystemMessage sm;
+			
+			if (newValue)
+				sm = new SystemMessage(SystemMessageId.S1_NIGHT_EFFECT_APPLIES);
+			else
+				sm = new SystemMessage(SystemMessageId.S1_NIGHT_EFFECT_DISAPPEARS);
+			
+			if (f.funcOwner.getFuncOwnerSkill() != null)
+				sm.addSkillName(f.funcOwner.getFuncOwnerSkill());
+			else
+				sm.addString(f.funcOwner.getFuncOwnerName());
+			
+			sendPacket(sm);
 			
 			broadcastUserInfo();
 		}
@@ -14140,7 +14197,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	private ConditionListener[] getConditionListeners()
 	{
 		if (_conditionListeners == null)
-			_conditionListeners = new ConditionListener[] { new ConditionPlayerHpListener() };
+			_conditionListeners = new ConditionListener[] { new ConditionPlayerHpListener(), new ConditionGameTimeListener() };
 		
 		return _conditionListeners;
 	}

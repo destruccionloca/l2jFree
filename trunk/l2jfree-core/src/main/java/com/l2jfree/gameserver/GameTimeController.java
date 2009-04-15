@@ -38,6 +38,7 @@ import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance.ConditionListenerDependency;
 import com.l2jfree.gameserver.network.serverpackets.ClientSetTime;
 import com.l2jfree.gameserver.taskmanager.AbstractFIFOPeriodicTaskManager;
 
@@ -95,6 +96,9 @@ public final class GameTimeController extends Thread
 				if (isNight != isNowNight())
 				{
 					DayNightSpawnManager.getInstance().notifyChangeMode();
+					
+					for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+						player.refreshConditionListeners(ConditionListenerDependency.GAME_TIME);
 				}
 				//check if a whole day passed
 				if (oldDay != _calendar.getDate().get(Calendar.DAY_OF_YEAR))

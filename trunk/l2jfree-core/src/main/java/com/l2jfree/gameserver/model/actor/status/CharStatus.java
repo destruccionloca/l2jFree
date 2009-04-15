@@ -129,7 +129,7 @@ public class CharStatus
 		getActiveChar().broadcastStatusUpdate();
 		
 		if (getActiveChar() instanceof L2PcInstance)
-			((L2PcInstance)getActiveChar()).refreshConditionListeners(ConditionListenerDependency.CURRENT_HP);
+			((L2PcInstance)getActiveChar()).refreshConditionListeners(ConditionListenerDependency.PLAYER_HP);
 	}
 	
 	public final void setCurrentMp(double newMp)

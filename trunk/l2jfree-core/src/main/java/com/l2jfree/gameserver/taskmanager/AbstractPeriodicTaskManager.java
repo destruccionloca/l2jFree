@@ -43,7 +43,7 @@ abstract class AbstractPeriodicTaskManager implements Runnable, StartupHook
 	@Override
 	public final void onStartup()
 	{
-		ThreadPoolManager.getInstance().scheduleAtFixedRate(this, Rnd.get(_period), Rnd.get(_period - 5, _period + 5));
+		ThreadPoolManager.getInstance().scheduleAtFixedRate(this, 100 + Rnd.get(_period), Rnd.get(_period - 5, _period + 5));
 	}
 	
 	public abstract void run();
