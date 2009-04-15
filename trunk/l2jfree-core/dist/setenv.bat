@@ -29,7 +29,7 @@ REM for performance usage
 SET CLASSPATH=%CLASSPATH%;javolution-1.5.5.2.6.jar
 
 REM main jar
-SET CLASSPATH=%CLASSPATH%;l2j-commons-1.1.12.jar
+SET CLASSPATH=%CLASSPATH%;l2j-commons-1.1.13.jar
 SET CLASSPATH=%CLASSPATH%;l2jfree-core-1.2.11.jar
 
 REM For SQL use
