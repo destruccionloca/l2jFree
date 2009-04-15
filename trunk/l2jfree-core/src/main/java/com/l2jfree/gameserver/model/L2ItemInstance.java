@@ -34,9 +34,10 @@ import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.instancemanager.ItemsOnGroundManager;
 import com.l2jfree.gameserver.instancemanager.MercTicketManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.actor.knownlist.NullKnownList;
+import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
+import com.l2jfree.gameserver.network.serverpackets.GetItem;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -224,15 +225,6 @@ public final class L2ItemInstance extends L2Object implements FuncOwner
 		_mana = _item.getDuration();
 	}
 	
-	@Override
-	public NullKnownList getKnownList()
-	{
-		if (_knownList == null)
-			_knownList = new NullKnownList(this);
-		
-		return (NullKnownList)_knownList;
-	}
-	
 	/**
 	 * Sets the ownerID of the item
 	 * 
@@ -326,7 +318,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner
 	*/
 	public void setCount(int count)
 	{
-		if (getCount() == count) 
+		if (getCount() == count)
 		{
 			return;
 		}
@@ -346,7 +338,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner
 	// No logging (function designed for shots only)
 	public void changeCountWithoutTrace(int count, L2PcInstance creator, L2Object reference)
 	{
-		this.changeCount(null, count, creator, reference);
+		changeCount(null, count, creator, reference);
 	}
 	
 	/**
@@ -1240,18 +1232,6 @@ public final class L2ItemInstance extends L2Object implements FuncOwner
 	}
 	
 	/**
-	 * Returns false cause item can't be attacked
-	 * 
-	 * @return boolean false
-	 */
-	@Override
-	public boolean isAutoAttackable(@SuppressWarnings("unused")
-	L2Character attacker)
-	{
-		return false;
-	}
-	
-	/**
 	 * Returns the type of charge with SoulShot of the item.
 	 * 
 	 * @return int (CHARGED_NONE, CHARGED_SOULSHOT)
@@ -1520,10 +1500,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner
 
 		synchronized (this)
 		{
-			// Set the x,y,z position of the L2ItemInstance dropped and update its _worldregion
-			setIsVisible(true);
-			getPosition().setWorldPosition(x, y, z);
-			getPosition().setWorldRegion(L2World.getInstance().getRegion(getPosition().getWorldPosition()));
+			getPosition().setXYZ(x, y, z);
 		}
 
 		// Add the L2ItemInstance dropped to _visibleObjects of its L2WorldRegion
@@ -1534,7 +1511,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner
 		// this can synchronize on others instancies, so it's out of
 		// synchronized, to avoid deadlocks
 		// Add the L2ItemInstance dropped in the world as a visible object
-		L2World.getInstance().addVisibleObject(this, getPosition().getWorldRegion(), dropper);
+		L2World.getInstance().addVisibleObject(this, dropper);
 		if (Config.SAVE_DROPPED_ITEM)
 			ItemsOnGroundManager.getInstance().save(this);
 	}
@@ -1730,5 +1707,75 @@ public final class L2ItemInstance extends L2Object implements FuncOwner
 	public final L2Skill getFuncOwnerSkill()
 	{
 		return getItem().getFuncOwnerSkill();
+	}
+	
+	/**
+	 * Remove a L2ItemInstance from the world and send server->client GetItem packets.<BR>
+	 * <BR>
+	 * <B><U> Actions</U> :</B><BR>
+	 * <BR>
+	 * <li>Send a Server->Client Packet GetItem to player that pick up and its _knowPlayers member </li>
+	 * <li>Remove the L2Object from the world</li>
+	 * <BR>
+	 * <BR>
+	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T REMOVE the object from _allObjects of L2World </B></FONT><BR>
+	 * <BR>
+	 * <B><U> Assert </U> :</B><BR>
+	 * <BR>
+	 * <li> this instanceof L2ItemInstance</li>
+	 * <li> _worldRegion != null <I>(L2Object is visible at the beginning)</I></li>
+	 * <BR>
+	 * <BR>
+	 * <B><U> Example of use </U> :</B><BR>
+	 * <BR>
+	 * <li> Do Pickup Item : PCInstance and Pet</li>
+	 * <BR>
+	 * <BR>
+	 * 
+	 * @param player Player that pick up the item
+	 */
+	public final void pickupMe(L2Character player) // NOTE: Should move this function into L2ItemInstance because it does not apply to L2Character
+	{
+		//if (Config.ASSERT)
+		//	assert this instanceof L2ItemInstance;
+		//if (Config.ASSERT)
+		//	assert getPosition().getWorldRegion() != null;
+		
+		L2WorldRegion oldregion = getPosition().getWorldRegion();
+		
+		// Create a server->client GetItem packet to pick up the L2ItemInstance
+		player.broadcastPacket(new GetItem(this, player.getObjectId()));
+		
+		synchronized (this)
+		{
+			getPosition().clearWorldRegion();
+		}
+		
+		// if this item is a mercenary ticket, remove the spawns!
+		ItemsOnGroundManager.getInstance().removeObject(this);
+		
+		final int itemId = getItemId();
+		
+		if (MercTicketManager.getInstance().getTicketCastleId(itemId) > 0)
+		{
+			MercTicketManager.getInstance().removeTicket(this);
+		}
+		else if (itemId == 57 || itemId == 6353)
+		{
+			L2PcInstance pc = player.getActingPlayer();
+			if (pc != null)
+			{
+				QuestState qs = pc.getQuestState("255_Tutorial");
+				if (qs != null)
+					qs.getQuest().notifyEvent("CE" + itemId + "", null, pc);
+			}
+		}
+		
+		ItemsOnGroundManager.getInstance().removeObject(this);
+		
+		// this can synchronize on others instancies, so it's out of
+		// synchronized, to avoid deadlocks
+		// Remove the L2ItemInstance from the world
+		L2World.getInstance().removeVisibleObject(this, oldregion);
 	}
 }

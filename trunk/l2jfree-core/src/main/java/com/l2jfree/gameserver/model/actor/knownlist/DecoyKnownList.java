@@ -27,7 +27,7 @@ public class DecoyKnownList extends CharKnownList
     @Override
     public final L2Decoy getActiveChar()
     {
-        return (L2Decoy)_activeObject;
+        return (L2Decoy)_activeChar;
     }
     
     @Override

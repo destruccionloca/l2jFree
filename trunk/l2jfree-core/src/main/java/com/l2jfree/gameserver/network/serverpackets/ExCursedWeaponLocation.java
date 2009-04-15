@@ -16,7 +16,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 import java.util.List;
 
-import com.l2jfree.tools.geometry.Point3D;
+import com.l2jfree.gameserver.model.Location;
 
 
 /**
@@ -49,16 +49,16 @@ public class ExCursedWeaponLocation extends L2GameServerPacket
 				writeD(w.id);
 				writeD(w.activated);
 			
-				writeD(w.pos.getX());
-				writeD(w.pos.getY());
-				writeD(w.pos.getZ());
+				writeD(w.loc.getX());
+				writeD(w.loc.getY());
+				writeD(w.loc.getZ());
 			}
 		}
 		else
 		{
 			writeD(0);
 			writeD(0);
-		} 
+		}
 	}
 
 	/**
@@ -72,13 +72,13 @@ public class ExCursedWeaponLocation extends L2GameServerPacket
 	
 	public static class CursedWeaponInfo
 	{
-		public Point3D pos;
-		public int id;
-		public int activated; //0 - not activated ? 1 - activated
+		public final Location loc;
+		public final int id;
+		public final int activated; //0 - not activated ? 1 - activated
 		
-		public CursedWeaponInfo(Point3D p, int ID, int status)
+		public CursedWeaponInfo(Location pLoc, int ID, int status)
 		{
-			pos = p;
+			loc = pLoc;
 			id = ID;
 			activated = status;
 		}

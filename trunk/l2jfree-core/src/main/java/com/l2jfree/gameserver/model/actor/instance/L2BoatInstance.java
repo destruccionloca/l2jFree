@@ -863,21 +863,9 @@ public class L2BoatInstance extends L2Character
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	
 	/*
-	 * (non-Javadoc)
-	 *
-	 * @see com.l2jfree.gameserver.model.L2Object#isAutoAttackable(com.l2jfree.gameserver.model.L2Character)
-	 */
-	@Override
-	public boolean isAutoAttackable(L2Character attacker)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/*
-	 * Allow setup of the boat AI only once 
+	 * Allow setup of the boat AI only once
 	 */
 	@Override
 	public void setAI(L2CharacterAI newAI)

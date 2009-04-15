@@ -48,7 +48,7 @@ public class GuardKnownList extends AttackableKnownList
     {
         if (!super.addKnownObject(object, dropper)) return false;
 
-        if (object instanceof L2PcInstance) 
+        if (object instanceof L2PcInstance)
         {
             // Check if the object added is a L2PcInstance that owns Karma
             L2PcInstance player = (L2PcInstance) object;
@@ -86,7 +86,7 @@ public class GuardKnownList extends AttackableKnownList
         if (!super.removeKnownObject(object)) return false;
 
         // Check if the _aggroList of the L2GuardInstance is Empty
-        if (getActiveChar().noTarget()) 
+        if (getActiveChar().noTarget())
         {
             //removeAllKnownObjects();
             
@@ -104,5 +104,5 @@ public class GuardKnownList extends AttackableKnownList
     // =========================================================
     // Property - Public
     @Override
-    public final L2GuardInstance getActiveChar() { return (L2GuardInstance)_activeObject; }
+    public final L2GuardInstance getActiveChar() { return (L2GuardInstance)_activeChar; }
 }

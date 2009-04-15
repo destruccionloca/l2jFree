@@ -16,10 +16,9 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import javolution.text.TextBuilder;
 
-import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.network.serverpackets.HennaEquipList;
-import com.l2jfree.gameserver.templates.item.L2Henna;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
+import com.l2jfree.gameserver.templates.item.L2Henna;
 
 /**
  * This class ...
@@ -44,7 +43,7 @@ public class L2SymbolMakerInstance extends L2FolkInstance
 			int slot = Integer.parseInt(command.substring(7));
 			player.removeHenna(slot);
 		}
-		else 
+		else
 		{
 			super.onBypassFeedback(player, command);
 		}
@@ -84,14 +83,5 @@ public class L2SymbolMakerInstance extends L2FolkInstance
 	public String getHtmlPath(int npcId, int val)
 	{
 		return "data/html/symbolmaker/SymbolMaker.htm";
-	}
-
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.model.L2Object#isAttackable()
-	 */
-	@Override
-	public boolean isAutoAttackable(@SuppressWarnings("unused") L2Character attacker)
-	{
-		return false;
 	}
 }

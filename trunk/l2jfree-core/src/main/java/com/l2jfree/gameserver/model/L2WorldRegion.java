@@ -214,8 +214,7 @@ public final class L2WorldRegion
 				else if (obj instanceof L2NpcInstance)
 					((L2NpcInstance)obj).startRandomAnimationTimer();
 				
-				if (obj.isVisible())
-					obj.getKnownList().tryAddObjects(surroundingObjects);
+				obj.getKnownList().tryAddObjects(surroundingObjects);
 			}
 		}
 	}
@@ -226,7 +225,7 @@ public final class L2WorldRegion
 	}
 	
 	// check if all 9 neighbors (including self) are inactive or active but with no players.
-	// returns true if the above condition is met. 
+	// returns true if the above condition is met.
 	public boolean areNeighborsEmpty()
 	{
 		// if this region is occupied, return false.

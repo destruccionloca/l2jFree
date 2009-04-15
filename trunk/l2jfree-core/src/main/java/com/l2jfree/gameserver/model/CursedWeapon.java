@@ -38,7 +38,6 @@ import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.item.L2Item;
-import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.tools.random.Rnd;
 
 public class CursedWeapon
@@ -709,13 +708,13 @@ public class CursedWeapon
         }
     }
 
-    public Point3D getWorldPosition()
+    public Location getCurrentLocation()
     {
         if (_isActivated && _player != null)
-            return _player.getPosition().getWorldPosition();
+            return _player.getPosition().getCurrentLocation();
 
         if (_isDropped && _item != null)
-                return _item.getPosition().getWorldPosition();
+                return _item.getPosition().getCurrentLocation();
 
         return null;
     }

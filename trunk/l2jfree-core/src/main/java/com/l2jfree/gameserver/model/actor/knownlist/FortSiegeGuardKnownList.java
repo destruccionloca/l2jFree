@@ -43,7 +43,7 @@ public class FortSiegeGuardKnownList extends AttackableKnownList
 			return false;
 
 		Fort fort = getActiveChar().getFort();
-		// Check if siege is in progress 
+		// Check if siege is in progress
 		if (fort != null && fort.getSiege().getIsInProgress())
 		{
 			L2PcInstance player = null;
@@ -70,6 +70,6 @@ public class FortSiegeGuardKnownList extends AttackableKnownList
 	@Override
 	public final L2FortSiegeGuardInstance getActiveChar()
 	{
-		return (L2FortSiegeGuardInstance)_activeObject;
+		return (L2FortSiegeGuardInstance)_activeChar;
 	}
 }

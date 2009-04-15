@@ -38,7 +38,7 @@ public class SummonKnownList extends PlayableKnownList
     // =========================================================
     // Property - Public
     @Override
-    public final L2Summon getActiveChar() { return (L2Summon)_activeObject; }
+    public final L2Summon getActiveChar() { return (L2Summon)_activeChar; }
 
     @Override
     public int getDistanceToForgetObject(L2Object object)

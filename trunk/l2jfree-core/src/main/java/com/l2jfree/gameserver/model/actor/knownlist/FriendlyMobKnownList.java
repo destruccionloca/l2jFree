@@ -40,7 +40,7 @@ public class FriendlyMobKnownList extends AttackableKnownList
     {
         if (!super.addKnownObject(object, dropper)) return false;
 
-        if (object instanceof L2PcInstance && getActiveChar().getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE) 
+        if (object instanceof L2PcInstance && getActiveChar().getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE)
             getActiveChar().getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE, null);
 
         return true;
@@ -57,7 +57,7 @@ public class FriendlyMobKnownList extends AttackableKnownList
             L2Character temp = (L2Character)object;
             getActiveChar().getAI().notifyEvent(CtrlEvent.EVT_FORGET_OBJECT, object);
             if (getActiveChar().getTarget() == temp) getActiveChar().setTarget(null);
-        }   
+        }
     
         if (getActiveChar().isVisible() && getKnownPlayers().isEmpty())
         {
@@ -75,5 +75,5 @@ public class FriendlyMobKnownList extends AttackableKnownList
     // =========================================================
     // Property - Public
     @Override
-    public final L2FriendlyMobInstance getActiveChar() { return (L2FriendlyMobInstance)_activeObject; }
+    public final L2FriendlyMobInstance getActiveChar() { return (L2FriendlyMobInstance)_activeChar; }
 }

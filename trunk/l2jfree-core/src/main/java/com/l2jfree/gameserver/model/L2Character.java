@@ -205,6 +205,11 @@ public abstract class L2Character extends L2Object
 
 	private boolean					_isRaid								= false;
 
+	/**
+	 * Objects known by this object
+	 */
+	protected CharKnownList _knownList;
+	
 	// =========================================================
 	// Constructor
 	/**
@@ -2781,8 +2786,8 @@ public abstract class L2Character extends L2Object
 	{
 		if (_knownList == null)
 			_knownList = new CharKnownList(this);
-
-		return (CharKnownList) _knownList;
+		
+		return _knownList;
 	}
 
 	public CharStat getStat()

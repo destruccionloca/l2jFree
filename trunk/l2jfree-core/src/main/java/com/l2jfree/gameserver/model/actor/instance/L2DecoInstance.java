@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.model.actor.instance;
 
 import com.l2jfree.gameserver.ai.CtrlIntention;
-import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
@@ -39,22 +38,6 @@ public final class L2DecoInstance extends L2NpcInstance
     public L2DecoInstance(int objectId, L2NpcTemplate template)
     {
         super(objectId, template);
-    }
-
-    /**
-     * Return False.<BR><BR>
-     */
-    @Override
-    @SuppressWarnings("unused")
-    public boolean isAutoAttackable(L2Character attacker) 
-    {
-        return false;
-    }
-
-    @Override
-    public boolean isAttackable()
-    {
-        return false;
     }
 
     /**

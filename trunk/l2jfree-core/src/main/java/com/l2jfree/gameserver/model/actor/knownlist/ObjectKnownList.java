@@ -14,226 +14,68 @@
  */
 package com.l2jfree.gameserver.model.actor.knownlist;
 
-import java.util.Map;
-
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
-import com.l2jfree.gameserver.model.L2WorldRegion;
-import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.util.Util;
-import com.l2jfree.util.SingletonMap;
 
-public class ObjectKnownList
+public abstract class ObjectKnownList
 {
-	/**
-	 * Reference to the L2Object
-	 */
-	protected final L2Object _activeObject;
+	private static final ObjectKnownList _instance = new ObjectKnownList() {
+		@Override
+		public boolean addKnownObject(L2Object object, L2Character dropper)
+		{
+			return false;
+		}
+		
+		@Override
+		public void removeAllKnownObjects()
+		{
+		}
+		
+		@Override
+		public boolean removeKnownObject(L2Object object)
+		{
+			return false;
+		}
+		
+		@Override
+		public void tryAddObjects(L2Object[][] surroundingObjects)
+		{
+		}
+		
+		@Override
+		public void tryRemoveObject(L2Object obj)
+		{
+		}
+		
+		@Override
+		public void tryRemoveObjects()
+		{
+		}
+	};
 	
-	/**
-	 * Map of all L2Object known by the active char
-	 */
-	private Map<Integer, L2Object> _knownObjects;
-	
-	/**
-	 * Constructor with the reference of an activeObject
-	 * 
-	 * @param activeObject
-	 */
-	public ObjectKnownList(L2Object activeObject)
+	public static ObjectKnownList getInstance()
 	{
-		_activeObject = activeObject;
+		return _instance;
 	}
 	
-	/**
-	 * Add a object in the known object of activeObject
-	 * 
-	 * @param object
-	 * @return true if the add was successfull, false otherwise
-	 */
+	ObjectKnownList()
+	{
+	}
+	
 	public final boolean addKnownObject(L2Object object)
 	{
 		return addKnownObject(object, null);
 	}
 	
-	/**
-	 * Add a object in the known object of activeObject
-	 * 
-	 * @param object
-	 * @param dropper
-	 * @return true if the add was successfull, false otherwise
-	 */
-	public boolean addKnownObject(L2Object object, L2Character dropper)
-	{
-		if (object == null || object == getActiveObject())
-			return false;
-		
-		// Check if object is not inside distance to watch object
-		if (!Util.checkIfInShortRadius(getDistanceToWatchObject(object), getActiveObject(), object, true))
-			return false;
-		
-		// instance -1 for gms can see everything on all instances
-		if (getActiveObject().getInstanceId() != -1 && getActiveObject().getInstanceId() != object.getInstanceId())
-			return false;
-		
-		// check if the object is i a l2pcinstance in ghost mode
-		if (object instanceof L2PcInstance && ((L2PcInstance)object).getAppearance().isGhost())
-			return false;
-		
-		return getKnownObjects().put(object.getObjectId(), object) == null;
-	}
+	public abstract boolean addKnownObject(L2Object object, L2Character dropper);
 	
-	/**
-	 * Check if active object knows this object
-	 * 
-	 * @param object
-	 * @return true if the active object know this object, false otherwise
-	 */
-	public final boolean knowsObject(L2Object object)
-	{
-		return getActiveObject() == object || getKnownObjects().containsKey(object.getObjectId());
-	}
+	public abstract void removeAllKnownObjects();
 	
-	/**
-	 * Remove all L2Object from _knownObjects
-	 */
-	public void removeAllKnownObjects()
-	{
-		for (L2Object object : getKnownObjects().values())
-		{
-			removeKnownObject(object);
-			object.getKnownList().removeKnownObject(getActiveObject());
-		}
-		
-		getKnownObjects().clear();
-	}
+	public abstract boolean removeKnownObject(L2Object object);
 	
-	/**
-	 * Remove a specific object of the known object for this active object
-	 * 
-	 * @param object
-	 * @return
-	 */
-	public boolean removeKnownObject(L2Object object)
-	{
-		if (object == null)
-			return false;
-		
-		return getKnownObjects().remove(object.getObjectId()) != null;
-	}
+	public abstract void tryAddObjects(L2Object[][] surroundingObjects);
 	
-	/**
-	 * @return the active object
-	 */
-	public final L2Object getActiveObject()
-	{
-		return _activeObject;
-	}
+	public abstract void tryRemoveObjects();
 	
-	/**
-	 * Return the distance to forget object
-	 * 
-	 * @param object
-	 * @return 0
-	 */
-	public int getDistanceToForgetObject(L2Object object)
-	{
-		return 0;
-	}
-	
-	/**
-	 * Return the distance to watch object
-	 * 
-	 * @param object
-	 * @return 0
-	 */
-	public int getDistanceToWatchObject(L2Object object)
-	{
-		return 0;
-	}
-	
-	/**
-	 * @return the _knownObjects containing all L2Object known by the active L2Object
-	 */
-	public final Map<Integer, L2Object> getKnownObjects()
-	{
-		if (_knownObjects == null)
-			_knownObjects = new SingletonMap<Integer, L2Object>().setShared();
-		
-		return _knownObjects;
-	}
-	
-	public final L2Object getKnownObject(int objectId)
-	{
-		return getKnownObjects().get(objectId);
-	}
-	
-	public final void tryAddObjects(L2Object[][] surroundingObjects)
-	{
-		if (getActiveObject() instanceof L2Character)
-		{
-			if (surroundingObjects == null)
-			{
-				final L2WorldRegion reg = getActiveObject().getWorldRegion();
-				
-				if (reg == null)
-					return;
-				
-				surroundingObjects = reg.getAllSurroundingObjects2DArray();
-			}
-			
-			for (L2Object[] regionObjects : surroundingObjects)
-			{
-				for (L2Object object : regionObjects)
-				{
-					addKnownObject(object);
-					
-					if (object instanceof L2Character)
-						object.getKnownList().addKnownObject(getActiveObject());
-				}
-			}
-		}
-	}
-	
-	public final void tryRemoveObjects()
-	{
-		for (L2Object object : getKnownObjects().values())
-		{
-			tryRemoveObject(object);
-			object.getKnownList().tryRemoveObject(getActiveObject());
-		}
-	}
-	
-	private final void tryRemoveObject(L2Object obj)
-	{
-		if (obj.isVisible() && Util.checkIfInShortRadius(getDistanceToForgetObject(obj), getActiveObject(), obj, true))
-			return;
-		
-		if (obj instanceof L2BoatInstance && getActiveObject() instanceof L2PcInstance)
-		{
-			if (((L2BoatInstance)obj).getVehicleDeparture() == null)
-				return;
-			
-			L2PcInstance pc = (L2PcInstance)getActiveObject();
-			
-			if (pc.isInBoat() && pc.getBoat() == obj)
-				return;
-		}
-		
-		removeKnownObject(obj);
-	}
-	
-	private long _lastUpdate;
-	
-	public synchronized final void updateKnownObjects()
-	{
-		if (System.currentTimeMillis() - _lastUpdate < 100)
-			return;
-		
-		tryRemoveObjects();
-		tryAddObjects(null);
-		
-		_lastUpdate = System.currentTimeMillis();
-	}
+	public abstract void tryRemoveObject(L2Object obj);
 }

@@ -20,7 +20,6 @@ import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.SkillTable;
-import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -206,11 +205,5 @@ public class L2CabaleBufferInstance extends L2NpcInstance
     public int getDistanceToWatchObject(L2Object object)
     {
         return 900;
-    }
-
-    @Override
-    public boolean isAutoAttackable(L2Character attacker)
-    {
-        return false;
     }
 }

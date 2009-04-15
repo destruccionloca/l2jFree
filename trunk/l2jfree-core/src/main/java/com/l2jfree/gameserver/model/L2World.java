@@ -333,7 +333,7 @@ public final class L2World
 	 * @param newRegion L2WorldRegion in wich the object will be add (not used)
 	 * @param dropper L2Character who has dropped the object (if necessary)
 	 */
-	public void addVisibleObject(L2Object object, L2WorldRegion newRegion, L2Character dropper)
+	public void addVisibleObject(L2Object object, L2Character dropper)
 	{
 		//FIXME: this code should be obsoleted by protection in putObject func...
 		if (object instanceof L2PcInstance)
@@ -353,7 +353,7 @@ public final class L2World
 			addToAllPlayers(player);
 		}
 		
-		if (!newRegion.isActive())
+		if (!object.getPosition().getWorldRegion().isActive())
 			return;
 		
 		for (L2Object element : getVisibleObjects(object, 2000))

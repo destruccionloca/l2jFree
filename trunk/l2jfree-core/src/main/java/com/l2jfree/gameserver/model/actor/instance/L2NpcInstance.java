@@ -464,19 +464,6 @@ public class L2NpcInstance extends L2Character
 	}
 
 	/**
-	 * Return False.<BR><BR>
-	 *
-	 * <B><U> Overridden in </U> :</B><BR><BR>
-	 * <li> L2MonsterInstance : Check if the attacker is not another L2MonsterInstance</li>
-	 * <li> L2PcInstance</li><BR><BR>
-	 */
-	@Override
-	public boolean isAutoAttackable(L2Character attacker)
-	{
-		return false;
-	}
-
-	/**
 	 * Return the Identifier of the item in the left hand of this L2NpcInstance contained in the L2NpcTemplate.<BR><BR>
 	 */
 	public int getLeftHandItem()

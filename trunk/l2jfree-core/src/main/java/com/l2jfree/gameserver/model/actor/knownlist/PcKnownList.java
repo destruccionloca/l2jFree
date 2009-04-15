@@ -180,7 +180,7 @@ public class PcKnownList extends PlayableKnownList
                 L2PcInstance otherPlayer = (L2PcInstance) object;
                 if(otherPlayer.isInBoat())
                 {
-                    otherPlayer.getPosition().setWorldPosition(otherPlayer.getBoat().getPosition().getWorldPosition());
+                    otherPlayer.getPosition().setWorldPosition(otherPlayer.getBoat().getPosition());
                     getActiveChar().sendPacket(new CharInfo(otherPlayer));
                     getActiveChar().sendPacket(new GetOnVehicle(otherPlayer, otherPlayer.getBoat(), otherPlayer.getInBoatPosition().getX(), otherPlayer.getInBoatPosition().getY(), otherPlayer.getInBoatPosition().getZ()));
                 }
@@ -244,7 +244,7 @@ public class PcKnownList extends PlayableKnownList
     {
             if (!super.removeKnownObject(object)) return false;
         // Send Server-Client Packet DeleteObject to the L2PcInstance
-        getActiveChar().sendPacket(new DeleteObject(object));                  
+        getActiveChar().sendPacket(new DeleteObject(object));
         
 		if (object instanceof L2PcInstance)
 			getKnownRelations().remove(object.getObjectId());
@@ -259,15 +259,15 @@ public class PcKnownList extends PlayableKnownList
     // =========================================================
     // Property - Public
     @Override
-    public final L2PcInstance getActiveChar() { return (L2PcInstance)_activeObject; }
+    public final L2PcInstance getActiveChar() { return (L2PcInstance)_activeChar; }
 
     @Override
-    public int getDistanceToForgetObject(L2Object object) 
-    { 
-        // when knownlist grows, the distance to forget should be at least  
+    public int getDistanceToForgetObject(L2Object object)
+    {
+        // when knownlist grows, the distance to forget should be at least
         // the same as the previous watch range, or it becomes possible that
         // extra charinfo packets are being sent (watch-forget-watch-forget)
-        int knownlistSize = getKnownObjects().size(); 
+        int knownlistSize = getKnownObjects().size();
         if (knownlistSize <= 25)
         	return 4000;
         
@@ -281,9 +281,9 @@ public class PcKnownList extends PlayableKnownList
     }
  
     @Override
-    public int getDistanceToWatchObject(L2Object object) 
-    { 
-        int knownlistSize = getKnownObjects().size(); 
+    public int getDistanceToWatchObject(L2Object object)
+    {
+        int knownlistSize = getKnownObjects().size();
  
         if (knownlistSize <= 25)
         	return 3400; // empty field

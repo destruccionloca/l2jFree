@@ -360,16 +360,6 @@ public class L2StaticObjectInstance extends L2Character
 		return true;
 	}
 	
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.model.L2Object#isAttackable()
-	 */
-	@Override
-	@SuppressWarnings("unused")
-	public boolean isAutoAttackable(L2Character attacker)
-	{
-		return false;
-	}
-	
 	/**
 	 * Set the meshIndex of the object<BR>
 	 * <BR>

@@ -14,14 +14,14 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import javolution.util.FastList;
+
 import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
 import com.l2jfree.gameserver.model.CursedWeapon;
 import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.network.serverpackets.ExCursedWeaponLocation;
 import com.l2jfree.gameserver.network.serverpackets.ExCursedWeaponLocation.CursedWeaponInfo;
-import com.l2jfree.tools.geometry.Point3D;
-
-import javolution.util.FastList;
 
 /**
  * Format: (ch)
@@ -52,10 +52,10 @@ public class RequestCursedWeaponLocation extends L2GameClientPacket
         {
             if (!cw.isActive()) continue;
             
-            Point3D pos = cw.getWorldPosition();
+            Location loc = cw.getCurrentLocation();
             
-            if (pos != null)
-                list.add(new CursedWeaponInfo(pos, cw.getItemId(), cw.isActivated() ? 1 : 0));
+            if (loc != null)
+                list.add(new CursedWeaponInfo(loc, cw.getItemId(), cw.isActivated() ? 1 : 0));
         }
         
 

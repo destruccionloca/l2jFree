@@ -45,16 +45,6 @@ public final class L2ArtefactInstance extends L2NpcInstance
         super(objectId, template);
     }
 
-	/**
-	 * Return False.<BR><BR>
-	 */
-    @Override
-    @SuppressWarnings("unused")
-    public boolean isAutoAttackable(L2Character attacker)
-	{
-        return false;
-    }
-
     @Override
     public boolean isAttackable()
     {

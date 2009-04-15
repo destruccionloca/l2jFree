@@ -43,7 +43,7 @@ public class NpcKnownList extends CharKnownList
     // =========================================================
     // Property - Public
     @Override
-    public L2NpcInstance getActiveChar() { return (L2NpcInstance)_activeObject; }
+    public L2NpcInstance getActiveChar() { return (L2NpcInstance)_activeChar; }
 
     @Override
     public int getDistanceToForgetObject(L2Object object) { return 2 * getDistanceToWatchObject(object); }
@@ -60,7 +60,7 @@ public class NpcKnownList extends CharKnownList
         if (object instanceof L2CabaleBufferInstance)
             return 900;
         
-        if (object instanceof L2PlayableInstance) 
+        if (object instanceof L2PlayableInstance)
             return 1500;
         
         return 500;
