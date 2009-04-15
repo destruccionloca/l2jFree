@@ -241,7 +241,7 @@ public class CharStatus
 		if (!canReduceHp(value, attacker, awake, isDOT))
 			return;
 		
-		reduceHp(value, attacker, awake, isDOT);
+		reduceHp0(value, attacker, awake, isDOT);
 	}
 	
 	void reduceHp0(double value, L2Character attacker, boolean awake, boolean isDOT)
