@@ -1998,7 +1998,7 @@ INSERT INTO `weapon` VALUES
 (11044,'Elemental Sword - Hail - Empower','rhand','true',830,1,1,'fine_steel','a',170,10,'sword',8,0,0,0,0,379,0,143,-1,18300000,1128,'true','true','true','true','','','','',0),
 (11045,'Spiritual Eye - Hail','rhand','true',1550,1,1,'fine_steel','a',170,20,'blunt',4,4,0,0,0,379,0,143,-1,18300000,1128,'true','true','true','true','','','','',0),
 (11046,'Spiritual Eye - Hail - Mana Up','rhand','true',1550,1,1,'fine_steel','a',170,20,'blunt',4,4,0,0,0,379,0,143,-1,18300000,1128,'true','true','true','true','3014-2','','','',0),
-(11047,'Spiritual Eye - Hail - Magic Poison','rhand','true',1550,1,1,'fine_steel','a',170,20,'blunt',4,4,0,0,0,379,0,143,-1,18300000,1128,'true','true','true','true','','','1068-6-10','',0),
+(11047,'Spiritual Eye - Hail - Magic Poison','rhand','true',1550,1,1,'fine_steel','a',170,20,'blunt',4,4,0,0,0,379,0,143,-1,18300000,1128,'true','true','true','true','','','1168-6-10','',0),
 (11048,'Spiritual Eye - Hail - Acumen','rhand','true',1550,1,1,'fine_steel','a',170,20,'blunt',4,4,0,0,0,379,0,143,-1,18300000,1128,'true','true','true','true','3047-2','','','',0),
 (11049,'Infernal Master - Concentration','lrhand','true',1900,1,1,'fine_steel','a',259,10,'bigsword',8,0,0,0,0,325,0,107,-1,18300000,1128,'true','true','true','true','','','','',0),
 (11050,'Infernal Master - Concentration - Haste','lrhand','true',1900,1,1,'fine_steel','a',259,10,'bigsword',8,0,0,0,0,325,0,107,-1,18300000,1128,'true','true','true','true','3068-2','','','',0),
