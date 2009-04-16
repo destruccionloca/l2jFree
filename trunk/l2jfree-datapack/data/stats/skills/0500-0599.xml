@@ -1832,7 +1832,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <mul stat="maxCp" val="1.12" order="0x30"/>
+      <mul stat="maxCp" val="1.06" order="0x30"/>
     </for>
   </skill>
   <skill id="592" levels="1" name="Residence Soul">
@@ -1928,7 +1928,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <mul stat="mDef" val="1.12" order="0x30"/>
+      <mul stat="mDef" val="1.06" order="0x30"/>
     </for>
   </skill>
 </list>

@@ -58,8 +58,8 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <mul stat="windVuln" val="0.94" order="0x30"/>
-      <mul stat="waterVuln" val="0.94" order="0x30"/>
+      <mul stat="windVuln" val="0.9" order="0x30"/>
+      <mul stat="waterVuln" val="0.9" order="0x30"/>
     </for>
   </skill>
   <skill id="605" levels="1" name="Residence Resist Lava">
@@ -71,8 +71,8 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <mul stat="fireVuln" val="0.94" order="0x30"/>
-      <mul stat="earthVuln" val="0.94" order="0x30"/>
+      <mul stat="fireVuln" val="0.9" order="0x30"/>
+      <mul stat="earthVuln" val="0.9" order="0x30"/>
     </for>
   </skill>
   <skill id="606" levels="1" name="Residence Fortitude">
@@ -84,7 +84,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <mul stat="stunVuln" val="0.94" order="0x30"/>
+      <mul stat="stunVuln" val="0.9" order="0x30"/>
     </for>
   </skill>
   <skill id="607" levels="1" name="Residence Freedom">
@@ -96,7 +96,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <mul stat="rootVuln" val="0.94" order="0x30"/>
+      <mul stat="rootVuln" val="0.9" order="0x30"/>
     </for>
   </skill>
   <skill id="608" levels="1" name="Residence Vigilance">
@@ -108,7 +108,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <mul stat="sleepVuln" val="0.94" order="0x30"/>
+      <mul stat="sleepVuln" val="0.9" order="0x30"/>
     </for>
   </skill>
   <skill id="609" levels="1" name="Residence Movement">
