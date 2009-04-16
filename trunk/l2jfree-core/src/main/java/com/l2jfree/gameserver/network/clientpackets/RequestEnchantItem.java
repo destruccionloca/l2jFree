@@ -56,14 +56,7 @@ public class RequestEnchantItem extends L2GameClientPacket
 	@Override
 	protected void readImpl()
 	{
-		_objectId = 0;
-		try
-		{
-			_objectId = readD();
-		}
-		catch (Exception e)
-		{
-		}
+		_objectId = readD();
 	}
 
 	@Override
@@ -266,7 +259,7 @@ public class RequestEnchantItem extends L2GameClientPacket
 					break;
 				}
 		}
-		else if (item.getItem().getType2() == L2Item.TYPE2_ACCESSORY) // its jewelry 
+		else if (item.getItem().getType2() == L2Item.TYPE2_ACCESSORY) // its jewelry
 		{
 			maxEnchantLevel = Config.ENCHANT_MAX_JEWELRY;
 
@@ -293,7 +286,7 @@ public class RequestEnchantItem extends L2GameClientPacket
 				}
 		}
 		else
-		// its an armor 
+		// its an armor
 		{
 			maxEnchantLevel = Config.ENCHANT_MAX_ARMOR;
 

@@ -19,7 +19,6 @@ import java.nio.channels.SelectionKey;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import javolution.text.TextBuilder;
 
@@ -238,15 +237,7 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			L2DatabaseFactory.close(con);
 		}
 		
 		return result;
@@ -280,15 +271,7 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 	
@@ -404,15 +387,7 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 	

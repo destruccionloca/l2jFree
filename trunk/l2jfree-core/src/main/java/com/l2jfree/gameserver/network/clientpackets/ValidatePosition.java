@@ -22,7 +22,6 @@ import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.serverpackets.PartyMemberPosition;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocationInVehicle;
-import com.l2jfree.tools.random.Rnd;
 
 /**
  * This class ...
@@ -47,28 +46,29 @@ public class ValidatePosition extends L2GameClientPacket
     @Override
     protected void readImpl()
     {
-        try
-        {
+//        try
+//        {
             _x  = readD();
             _y  = readD();
             _z  = readD();
             _heading  = readD();
             _data  = readD();
-        }
-        catch(Throwable t)
-        {
-            int location[][] = {
-                { 46934,51467,-2977 },        { 9745,15606,-4574 },        { -80826,149775,-3043 },
-                { 15670,142983,-2705 },        { -44836,-112524,-235 },    { 115113,-178212,-901 },
-                { -84318,244579,-3730 },    { 46934,51467,-2977 },        { 9745,15606,-4574 },
-                { -12672,122776,-3116 }},
-                i = Rnd.get(10);
-            _x = location[i][0];
-            _y = location[i][1];
-            _z = location[i][2];
-            _heading = 0;
-            getClient().getActiveChar().teleToLocation(_x, _y, _z);
-        }
+//        }
+//        catch(Throwable t)
+//        {
+//            _log.warn("", t);
+//            int location[][] = {
+//                { 46934,51467,-2977 },        { 9745,15606,-4574 },        { -80826,149775,-3043 },
+//                { 15670,142983,-2705 },        { -44836,-112524,-235 },    { 115113,-178212,-901 },
+//                { -84318,244579,-3730 },    { 46934,51467,-2977 },        { 9745,15606,-4574 },
+//                { -12672,122776,-3116 }},
+//                i = Rnd.get(10);
+//            _x = location[i][0];
+//            _y = location[i][1];
+//            _z = location[i][2];
+//            _heading = 0;
+//            getClient().getActiveChar().teleToLocation(_x, _y, _z);
+//        }
     }
 
     @Override
@@ -81,7 +81,7 @@ public class ValidatePosition extends L2GameClientPacket
         int realY = activeChar.getY();
         int realZ = activeChar.getZ();
 
-        if (_x == 0 && _y == 0) 
+        if (_x == 0 && _y == 0)
         {
             if (realX != 0) // in this case this seems like a client error
                 return;
@@ -104,8 +104,8 @@ public class ValidatePosition extends L2GameClientPacket
             _log.info("server pos: "+ realX + " "+realY+ " "+realZ +" head "+activeChar.getHeading());
         }
         if (Config.ACCEPT_GEOEDITOR_CONN)
-            if (GeoEditorListener.getInstance().getThread() != null  
-                    && GeoEditorListener.getInstance().getThread().isWorking()  
+            if (GeoEditorListener.getInstance().getThread() != null
+                    && GeoEditorListener.getInstance().getThread().isWorking()
                     && GeoEditorListener.getInstance().getThread().isSend(activeChar))
                 GeoEditorListener.getInstance().getThread().sendGmPosition(_x,_y,(short)_z);
 
@@ -133,7 +133,7 @@ public class ValidatePosition extends L2GameClientPacket
             }
             if (Config.COORD_SYNCHRONIZE == 1) // Trusting also client x,y coordinates (should not be used with geodata)
             {
-                if (!activeChar.isMoving() 
+                if (!activeChar.isMoving()
                         || !activeChar.validateMovementHeading(_heading)) // Heading changed on client = possible obstacle
                 {
                     // character is not moving, take coordinates from client
@@ -149,8 +149,8 @@ public class ValidatePosition extends L2GameClientPacket
                 activeChar.setHeading(_heading);
                 return;
             }
-            // Sync 2 (or other), 
-            // intended for geodata. Sends a validation packet to client 
+            // Sync 2 (or other),
+            // intended for geodata. Sends a validation packet to client
             // when too far from server calculated true coordinate.
             // Due to geodata/zone errors, some Z axis checks are made. (maybe a temporary solution)
             // Important: this code part must work together with L2Character.updatePosition

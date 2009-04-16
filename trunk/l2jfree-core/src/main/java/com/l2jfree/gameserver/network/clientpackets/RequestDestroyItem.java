@@ -18,7 +18,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -62,15 +61,8 @@ public class RequestDestroyItem extends L2GameClientPacket
     @Override
     protected void readImpl()
     {
-		_objectId = 0;
-		_count = 0;
-
-	    try {
 		_objectId = readD();
 		_count = readD();
-	    } catch (Exception e) {
-	    	e.printStackTrace();
-	    }
 	}
 
     @Override

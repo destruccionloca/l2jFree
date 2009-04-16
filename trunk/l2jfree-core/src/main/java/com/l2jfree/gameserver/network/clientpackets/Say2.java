@@ -14,8 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import java.nio.BufferUnderflowException;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -55,16 +53,8 @@ public class Say2 extends L2GameClientPacket
 	@Override
 	protected void readImpl()
 	{
-		_text = readS();
-		_text = _text.replaceAll("\\\\n", "");
-		try
-		{
-			_type = SystemChatChannelId.getChatType(readD());
-		}
-		catch (BufferUnderflowException e)
-		{
-			_type = SystemChatChannelId.Chat_None;
-		}
+		_text = readS().replaceAll("\\\\n", "");
+		_type = SystemChatChannelId.getChatType(readD());
 		_target = _type == SystemChatChannelId.Chat_Tell ? readS() : null;
 	}
 
@@ -167,7 +157,7 @@ public class Say2 extends L2GameClientPacket
 		//		_type == SystemChatChannelId.Chat_Normal)
 		//{
 		//	_type = SystemChatChannelId.Chat_System;
-		//	
+		//
 		//	_text = _text.substring(1);
 		//	_text = "*" + _text + "*";
 		//}
