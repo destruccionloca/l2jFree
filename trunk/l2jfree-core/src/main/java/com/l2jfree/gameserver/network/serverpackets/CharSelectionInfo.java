@@ -18,9 +18,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
-
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -31,6 +30,7 @@ import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
 import com.l2jfree.gameserver.model.CharSelectInfoPackage;
 import com.l2jfree.gameserver.model.CursedWeapon;
 import com.l2jfree.gameserver.model.L2Clan;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.network.L2GameClient;
 
@@ -106,7 +106,7 @@ public class CharSelectionInfo extends L2GameServerPacket
 
 			if (charInfoPackage.getClassId() == charInfoPackage.getBaseClassId())
 				writeD(charInfoPackage.getClassId());
-			else 
+			else
 				writeD(charInfoPackage.getBaseClassId());
 
 			writeD(0x01); // active ??
@@ -176,7 +176,7 @@ public class CharSelectionInfo extends L2GameServerPacket
 			// delete .. if != 0
 			// then char is inactive
 			writeD(charInfoPackage.getClassId());
-			writeD(i != _activeId ? 0 : 1); 
+			writeD(i != _activeId ? 0 : 1);
 			writeC(charInfoPackage.getEnchantEffect() > 127 ? 127 : charInfoPackage.getEnchantEffect());
 			writeD(charInfoPackage.getAugmentationId());
 
@@ -213,7 +213,7 @@ public class CharSelectionInfo extends L2GameServerPacket
 		catch (Exception e)
 		{
 			_log.warn("Could not restore char info: " + e);
-		} 
+		}
 		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 
 		return new CharSelectInfoPackage[0];
@@ -245,21 +245,24 @@ public class CharSelectionInfo extends L2GameServerPacket
 		catch (Exception e)
 		{
 			_log.warn("Could not restore char subclass info: " + e);
-		} 
+		}
 		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
-	} 
+	}
 
 
 	private CharSelectInfoPackage restoreChar(ResultSet chardata) throws Exception
 	{
 		int objectId = chardata.getInt("charId");
+		
+		L2PcInstance.disconnectIfOnline(objectId);
+		
 		String name = chardata.getString("char_name");
 
 		// See if the char must be deleted
 		long deletetime = chardata.getLong("deletetime");
 		if (deletetime > 0)
 		{
-			if (System.currentTimeMillis() > deletetime) 
+			if (System.currentTimeMillis() > deletetime)
 			{
 				L2Clan clan = ClanTable.getInstance().getClan(chardata.getInt("clanid"));
 				if(clan != null)
@@ -293,7 +296,7 @@ public class CharSelectionInfo extends L2GameServerPacket
 		final int activeClassId = chardata.getInt("classid");
 
 		// if is in subclass, load subclass exp, sp, lvl info
-		if(baseClassId != activeClassId)        
+		if(baseClassId != activeClassId)
 			loadCharacterSubclassInfo(charInfopackage, objectId, activeClassId);
 
 		charInfopackage.setClassId(activeClassId);
@@ -348,14 +351,14 @@ public class CharSelectionInfo extends L2GameServerPacket
 			catch (Exception e)
 			{
 				_log.warn("Could not restore augmentation info: " + e);
-			} 
+			}
 			finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 		}
 		/*
 		 * Check if the base class is set to zero and alse doesn't match
 		 * with the current active class, otherwise send the base class ID.
 		 * 
-		 * This prevents chars created before base class was introduced 
+		 * This prevents chars created before base class was introduced
 		 * from being displayed incorrectly.
 		 */
 		if (baseClassId == 0 && activeClassId > 0)

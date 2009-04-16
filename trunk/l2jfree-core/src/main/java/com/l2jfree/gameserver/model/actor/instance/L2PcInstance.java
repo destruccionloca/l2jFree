@@ -935,15 +935,6 @@ public final class L2PcInstance extends L2PlayableInstance
 		return player;
 	}
 
-	public static L2PcInstance createDummyPlayer(int objectId, String name)
-	{
-		// Create a new L2PcInstance with an account name
-		L2PcInstance player = new L2PcInstance(objectId);
-		player.setName(name);
-
-		return player;
-	}
-
 	public String getAccountName()
 	{
 		return getClient().getAccountName();
@@ -989,25 +980,6 @@ public final class L2PcInstance extends L2PlayableInstance
 	public Map<Integer, String> getAccountChars()
 	{
 		return _chars;
-	}
-
-	/**
-	 * Retrieve a L2PcInstance from the characters table of the database and add it in _allObjects of the L2world (call restore method).<BR><BR>
-	 *
-	 * <B><U> Actions</U> :</B><BR><BR>
-	 * <li>Retrieve the L2PcInstance from the characters table of the database </li>
-	 * <li>Add the L2PcInstance object in _allObjects </li>
-	 * <li>Set the x,y,z position of the L2PcInstance and make it invisible</li>
-	 * <li>Update the overloaded status of the L2PcInstance</li><BR><BR>
-	 *
-	 * @param objectId Identifier of the object to initialized
-	 *
-	 * @return The L2PcInstance loaded from the database
-	 *
-	 */
-	public static L2PcInstance load(int objectId)
-	{
-		return restore(objectId);
 	}
 
 	private void initPcStatusUpdateValues()
@@ -1058,17 +1030,6 @@ public final class L2PcInstance extends L2PlayableInstance
 
 		if (Config.ENABLE_VITALITY)
 			startVitalityTask();
-	}
-
-	private L2PcInstance(int objectId)
-	{
-		super(objectId, null);
-		getKnownList(); // Init knownlist
-		getStat(); // Init stats
-		getStatus(); // Init status
-		super.initCharStatusUpdateValues();
-		initPcStatusUpdateValues();
-		_appearance = null;
 	}
 
 	@Override
@@ -6588,7 +6549,18 @@ public final class L2PcInstance extends L2PlayableInstance
 
 		return true;
 	}
-
+	
+	public static void disconnectIfOnline(int objectId)
+	{
+		L2PcInstance onlinePlayer = L2World.getInstance().findPlayer(objectId);
+		if (onlinePlayer == null)
+			return;
+		
+		_log.warn("Avoiding duplicate character! Disconnecting online character (" + onlinePlayer.getName() + ")");
+		
+		new Disconnection(onlinePlayer).defaultSequence(true);
+	}
+	
 	/**
 	 * Retrieve a L2PcInstance from the characters table of the database and add it in _allObjects of the L2world.<BR><BR>
 	 *
@@ -6603,8 +6575,10 @@ public final class L2PcInstance extends L2PlayableInstance
 	 * @return The L2PcInstance loaded from the database
 	 *
 	 */
-	private static L2PcInstance restore(int objectId)
+	public static L2PcInstance load(int objectId)
 	{
+		disconnectIfOnline(objectId);
+		
 		L2PcInstance player = null;
 		Connection con = null;
 
@@ -7087,6 +7061,9 @@ public final class L2PcInstance extends L2PlayableInstance
 	
 	public synchronized void store(boolean items)
 	{
+		if (isOnline() == 0)
+			return;
+		
 		// Update client coords, if these look like true
 		if (isInsideRadius(getClientX(), getClientY(), 1000, true))
 			getPosition().setXYZ(getClientX(), getClientY(), getClientZ());
@@ -11439,6 +11416,9 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public void deleteMe()
 	{
+		if (isOnline() == 0)
+			return;
+		
 		// Pause restrictions
 		ObjectRestrictions.getInstance().pauseTasks(getObjectId());
 		
