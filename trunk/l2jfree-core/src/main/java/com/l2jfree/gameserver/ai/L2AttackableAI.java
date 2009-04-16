@@ -20,7 +20,6 @@ import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_INTERACT;
 
 import java.util.List;
-import java.util.concurrent.Future;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
@@ -89,9 +88,6 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 	private static final int	RANDOM_WALK_RATE			= 30;					// confirmed
 	// private static final int MAX_DRIFT_RANGE = 300;
 	private static final int	MAX_ATTACK_TIMEOUT			= 300;					// int ticks, i.e. 30 seconds
-
-	/** The L2Attackable AI task executed every 1s (call onEvtThink method)*/
-	private Future<?>			_aiTask;
 
 	/** The delay after which the attacked is stopped */
 	private int					_attackTimeout;
@@ -304,6 +300,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 	public void stopAITask()
 	{
 		AttackableAiTaskManager.getInstance().stopTask(this);
+		_accessor.detachAI();
 	}
 	
 	@Override
@@ -344,15 +341,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 				super.changeIntention(AI_INTENTION_IDLE, null, null);
 
 				// Stop AI task and detach AI from NPC
-				if (_aiTask != null)
-				{
-					_aiTask.cancel(true);
-					_aiTask = null;
-				}
-
-				// Cancel the AI
-				_accessor.detachAI();
-
+				stopAITask();
 				return;
 			}
 		}

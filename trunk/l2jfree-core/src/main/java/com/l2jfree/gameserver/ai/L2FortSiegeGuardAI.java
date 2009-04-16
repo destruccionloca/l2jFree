@@ -229,10 +229,7 @@ public class L2FortSiegeGuardAI extends L2CharacterAI implements Runnable
 				super.changeIntention(AI_INTENTION_IDLE, null, null);
 
 				// Stop AI task and detach AI from NPC
-				FortSiegeGuardAiTaskManager.getInstance().stopTask(this);
-
-				// Cancel the AI
-				_accessor.detachAI();
+				stopAITask();
 
 				return;
 			}
