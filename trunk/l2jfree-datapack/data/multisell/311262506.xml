@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
   <!-- Seven Signs - Blacksmith of Mammon - Unseal A-Grade Armor -->
 <list maintainEnchantment="true">
-
   <!-- Dark Crystal breastplate -->
   <item id="1">
     <production id="365" count="1"/>
