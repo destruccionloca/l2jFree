@@ -595,9 +595,13 @@ public final class L2PcInstance extends L2PlayableInstance
 	private boolean							_isEnchanting			= false;
 	private L2ItemInstance					_activeEnchantItem		= null;
 	private L2ItemInstance					_activeEnchantAttrItem	= null;
-
-	private boolean							_isOnline				= false;
-
+	
+	public static final byte ONLINE_STATE_LOADED = 0;
+	public static final byte ONLINE_STATE_ONLINE = 1;
+	public static final byte ONLINE_STATE_DELETED = 2;
+	
+	private byte _isOnline = ONLINE_STATE_LOADED;
+	
 	protected boolean						_inventoryDisable		= false;
 
 	protected Map<Integer, L2CubicInstance>	_cubics					= new SingletonMap<Integer, L2CubicInstance>().setShared();
@@ -6419,11 +6423,15 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public void setOnlineStatus(boolean isOnline)
 	{
-		if (_isOnline != isOnline)
-			_isOnline = isOnline;
-
-		// Update the characters table of the database with online status and lastAccess (called when login and logout)
-		updateOnlineStatus();
+		final byte value = isOnline ? ONLINE_STATE_ONLINE : ONLINE_STATE_DELETED;
+		
+		if (_isOnline != value)
+		{
+			_isOnline = value;
+			
+			// Update the characters table of the database with online status and lastAccess (called when login and logout)
+			updateOnlineStatus();
+		}
 	}
 
 	public void setIsIn7sDungeon(boolean isIn7sDungeon)
@@ -7061,7 +7069,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	
 	public synchronized void store(boolean items)
 	{
-		if (isOnline() == 0)
+		if (getOnlineState() == ONLINE_STATE_DELETED)
 			return;
 		
 		// Update client coords, if these look like true
@@ -7295,9 +7303,14 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public int isOnline()
 	{
-		return (_isOnline ? 1 : 0);
+		return (getOnlineState() == ONLINE_STATE_ONLINE) ? 1 : 0;
 	}
-
+	
+	public byte getOnlineState()
+	{
+		return _isOnline;
+	}
+	
 	public boolean isIn7sDungeon()
 	{
 		return _isIn7sDungeon;
@@ -9036,12 +9049,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		public void run()
 		{
-			if (isOnline() == 1)
-			{
-				sendPacket(SystemMessageId.PLAYING_FOR_LONG_TIME);
-			}
-			else
-				stopWarnUserTakeBreak();
+			sendPacket(SystemMessageId.PLAYING_FOR_LONG_TIME);
 		}
 	}
 
@@ -11416,7 +11424,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public void deleteMe()
 	{
-		if (isOnline() == 0)
+		if (getOnlineState() == ONLINE_STATE_DELETED)
 			return;
 		
 		// Pause restrictions
