@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!--Done by Nitrozik -->
+<!--Done by Nitrozik -->
 <list>
+  <!--Class: 52 Warcryer-->
+  <scroll itemid="10610" skillid="1519" class="52"/> <!--Chant of Blood Awakening -->
+  <scroll itemid="10609" skillid="1518" class="52"/> <!--Chant of Critical Attack -->
+  <scroll itemid="10608" skillid="1517" class="52"/> <!--Chant of Combat -->
   <!--Class: 88 Duelist-->
   <scroll itemid="10553" skillid="759" class="88"/><!--Archer's Will -->
   <scroll itemid="10552" skillid="758" class="88"/><!--Fighters Will -->
@@ -113,24 +117,19 @@
   <scroll itemid="10551" skillid="757" class="103"/><!--Protection of Alignment -->
   <scroll itemid="10550" skillid="756" class="103"/><!--Protection of Elemental -->
   <scroll itemid="10549" skillid="755" class="103"/><!--Protection of Rune -->
-  <scroll itemid="10573" skillid="1493" class="103"/>
-  <!--Frost Armor -->
+  <scroll itemid="10573" skillid="1493" class="103"/><!--Frost Armor -->
   <!--Class: 104 Elemental Master-->
   <scroll itemid="10551" skillid="757" class="104"/><!--Protection of Alignment -->
   <scroll itemid="10550" skillid="756" class="104"/><!--Protection of Elemental -->
   <scroll itemid="10549" skillid="755" class="104"/><!--Protection of Rune -->
-  <scroll itemid="10576" skillid="1496" class="104"/>
-  <!--Servitor Barrier -->
-  <scroll itemid="10577" skillid="1497" class="104"/>
-  <!--Excessive Loyalty -->
-  <scroll itemid="10578" skillid="1498" class="104"/>
-  <!--Mutual Response -->
+  <scroll itemid="10576" skillid="1496" class="104"/><!--Servitor Barrier -->
+  <scroll itemid="10577" skillid="1497" class="104"/><!--Excessive Loyalty -->
+  <scroll itemid="10578" skillid="1498" class="104"/><!--Mutual Response -->
   <!--Class: 105 Evas Saint-->
   <scroll itemid="10551" skillid="757" class="105"/><!--Protection of Alignment -->
   <scroll itemid="10550" skillid="756" class="105"/><!--Protection of Elemental -->
   <scroll itemid="10549" skillid="755" class="105"/><!--Protection of Rune -->
-  <scroll itemid="10586" skillid="1506" class="105"/>
-  <!--Blessing of Eva -->
+  <scroll itemid="10586" skillid="1506" class="105"/><!--Blessing of Eva -->
   <!--Class: 106 Shillien Templar-->
   <!-- TODO: Touch of Shilen, missing Skill Book? -->
   <scroll itemid="10551" skillid="757" class="106"/><!--Protection of Alignment -->
@@ -165,26 +164,20 @@
   <scroll itemid="10551" skillid="757" class="110"/><!--Protection of Alignment -->
   <scroll itemid="10550" skillid="756" class="110"/><!--Protection of Elemental -->
   <scroll itemid="10549" skillid="755" class="110"/><!--Protection of Rune -->
-  <scroll itemid="10574" skillid="1494" class="110"/>
-  <!--Hurricane Armor -->
+  <scroll itemid="10574" skillid="1494" class="110"/><!--Hurricane Armor -->
   <!--Class: 111 Spectral Master-->
   <scroll itemid="10551" skillid="757" class="111"/><!--Protection of Alignment -->
   <scroll itemid="10550" skillid="756" class="111"/><!--Protection of Elemental -->
   <scroll itemid="10549" skillid="755" class="111"/><!--Protection of Rune -->
-  <scroll itemid="10576" skillid="1496" class="111"/>
-  <!--Servitor Barrier -->
-  <scroll itemid="10577" skillid="1497" class="111"/>
-  <!--Excessive Loyalty -->
-  <scroll itemid="10578" skillid="1498" class="111"/>
-  <!--Mutual Response -->
+  <scroll itemid="10576" skillid="1496" class="111"/><!--Servitor Barrier -->
+  <scroll itemid="10577" skillid="1497" class="111"/><!--Excessive Loyalty -->
+  <scroll itemid="10578" skillid="1498" class="111"/><!--Mutual Response -->
   <!--Class: 112 Shillien Saint-->
   <scroll itemid="10551" skillid="757" class="112"/><!--Protection of Alignment -->
   <scroll itemid="10550" skillid="756" class="112"/><!--Protection of Elemental -->
   <scroll itemid="10549" skillid="755" class="112"/><!--Protection of Rune -->
-  <scroll itemid="10587" skillid="1507" class="112"/>
-  <!--Lord of Vampire -->
-  <scroll itemid="10588" skillid="1508" class="112"/>
-  <!--Throne Root -->
+  <scroll itemid="10587" skillid="1507" class="112"/><!--Lord of Vampire -->
+  <scroll itemid="10588" skillid="1508" class="112"/><!--Throne Root -->
   <!--Class: 113 Titan-->
   <scroll itemid="10553" skillid="759" class="113"/><!--Archer's Will -->
   <scroll itemid="10552" skillid="758" class="113"/><!--Fighters Will -->
@@ -203,8 +196,7 @@
   <scroll itemid="10551" skillid="757" class="115"/><!--Protection of Alignment -->
   <scroll itemid="10550" skillid="756" class="115"/><!--Protection of Elemental -->
   <scroll itemid="10549" skillid="755" class="115"/><!--Protection of Rune -->
-  <scroll itemid="10589" skillid="1509" class="115"/>
-  <!--Seal of Limit -->
+  <scroll itemid="10589" skillid="1509" class="115"/><!--Seal of Limit -->
   <!--Class: 116 Doomcryer-->
   <scroll itemid="10551" skillid="757" class="116"/><!--Protection of Alignment -->
   <scroll itemid="10550" skillid="756" class="116"/><!--Protection of Elemental -->
