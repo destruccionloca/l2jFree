@@ -30,12 +30,12 @@ public final class ObjectPosition
 	
 	private final L2Object _activeObject;
 	
-	private L2WorldRegion _worldRegion;
+	private volatile L2WorldRegion _worldRegion;
 	
-	private int _x;
-	private int _y;
-	private int _z;
-	private int _heading = 0;
+	private volatile int _x;
+	private volatile int _y;
+	private volatile int _z;
+	private volatile int _heading;
 	
 	public ObjectPosition(L2Object activeObject)
 	{
@@ -44,32 +44,32 @@ public final class ObjectPosition
 		updateWorldRegion();
 	}
 	
-	public synchronized L2WorldRegion getWorldRegion()
+	public L2WorldRegion getWorldRegion()
 	{
 		return _worldRegion;
 	}
 	
-	public synchronized Location getCurrentLocation()
+	public Location getCurrentLocation()
 	{
 		return new Location(_x, _y, _z, _heading);
 	}
 	
-	public synchronized int getX()
+	public int getX()
 	{
 		return _x;
 	}
 	
-	public synchronized int getY()
+	public int getY()
 	{
 		return _y;
 	}
 	
-	public synchronized int getZ()
+	public int getZ()
 	{
 		return _z;
 	}
 	
-	public synchronized int getHeading()
+	public int getHeading()
 	{
 		return _heading;
 	}
