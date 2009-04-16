@@ -1,4 +1,4 @@
-﻿package transformations;
+package transformations;
 
 import com.l2jfree.gameserver.instancemanager.TransformationManager;
 import com.l2jfree.gameserver.model.L2DefaultTransformation;
@@ -12,10 +12,12 @@ public class LightPurpleManedHorse extends L2DefaultTransformation
 		super(106, 1800, 12.0, 32.0);
 	}
 
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 	}
 
+	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 	}
