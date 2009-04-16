@@ -128,6 +128,9 @@ of this directory a little bit.
 32326002.xml -> Yang - Elemental stones
 
 323780001.xml -> Fantasy Isle Paddies: Exchange Fantasy Isle coins for goodies
+356551001.xml -> Castle Merchant: Magic related products (hear/face gear)
+356551002.xml -> Castle Merchant: Bracelets
+356551003.xml -> Castle Merchant: T-Shirts
 364790001.xml -> Reputation Manager: PvP weapons, armors enhancement
 364790002.xml -> Reputation Manager: Removal of PvP enhancement
 364790003.xml -> Reputation Manager: Consumables
