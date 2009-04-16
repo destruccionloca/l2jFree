@@ -27,7 +27,7 @@ public class EnchantScrolls implements IItemHandler
 {
 	// All the item IDs that this handler knows.
 	private static final int[]	ITEM_IDS	=
-											{ 
+											{
 			// A grade
 			729,
 			730,
@@ -78,6 +78,12 @@ public class EnchantScrolls implements IItemHandler
 				&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
 		{
 			activeChar.sendMessage("Enchanting items is not allowed during restart/shutdown.");
+			return;
+		}
+
+		if (activeChar.getActiveEnchantItem() != null)
+		{
+			_log.warn(activeChar + " has got already an active enchant item");
 			return;
 		}
 
