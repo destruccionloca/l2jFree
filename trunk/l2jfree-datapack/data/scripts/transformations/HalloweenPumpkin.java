@@ -26,14 +26,14 @@ public class HalloweenPumpkin extends L2DefaultTransformation
 	public void transformedSkills(L2PcInstance player)
 	{
 		addSkill(player,619, 1); // Transfrom Dispel
-		addSkill(player,5491, 1); // Decrease Bow/Crossbow Atk. Spd
+		addSkill(player,5437, 2); // Dissonance
 	}
 
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player,619); // Transfrom Dispel
-		removeSkill(player,5491); // Decrease Bow/Crossbow Atk. Spd
+		removeSkill(player,5437); // Dissonance
 	}
 
 	public static void main(String[] args)
