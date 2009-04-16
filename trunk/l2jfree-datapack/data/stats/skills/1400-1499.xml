@@ -1804,6 +1804,8 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1200"/>
     <set name="reuseDelay" val="600000"/> <!-- CT1.5 Retail -->
+    <set name="effectType" val="NEGATE"/> <!-- Possibly require core-side improvement to allow NEGATE inside a HEAL_PERCENT skill -->
+    <set name="negateId" val="1487"/>
     <cond msg="Target does not have an active Restoration skill."><!-- Need retail msg if there is one. -->
       <target active_effect_id="1487"/>
     </cond>
