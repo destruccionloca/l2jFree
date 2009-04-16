@@ -186,7 +186,6 @@ public abstract class L2Character extends L2Object
 	// L2Character type (ex : Max HP,
 	// Speed...)
 	private String					_title;
-	private String					_aiClass							= "default";
 	private boolean					_champion							= false;
 	private double					_hpUpdateIncCheck					= .0;
 	private double					_hpUpdateDecCheck					= .0;
@@ -7169,16 +7168,6 @@ public abstract class L2Character extends L2Object
 	public void sendMessage(String message)
 	{
 		sendPacket(SystemMessage.sendString(message));
-	}
-
-	public void setAiClass(String aiClass)
-	{
-		_aiClass = aiClass;
-	}
-
-	public String getAiClass()
-	{
-		return _aiClass;
 	}
 
 	public int getLastHealAmount()
