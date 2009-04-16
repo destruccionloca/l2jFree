@@ -2264,7 +2264,7 @@ public class L2NpcInstance extends L2Character
 			}
 		}
 
-		if (getTemplate().getType() == "L2Auctioneer" && val == 0)
+		if (this instanceof L2AuctioneerInstance && val == 0)
 			return;
 
 		int npcId = getTemplate().getNpcId();
@@ -2573,7 +2573,7 @@ public class L2NpcInstance extends L2Character
 			if ((npcId >= 31093 && npcId <= 31094) || (npcId >= 31172 && npcId <= 31201) || (npcId >= 31239 && npcId <= 31254))
 				return;
 			// Get the text of the selected HTML file in function of the npcId and of the page number
-			if (getTemplate().getType() == "L2Teleporter" && val == 1 && player.getLevel() < 40) // Players below level 40 have free teleport
+			if (this instanceof L2TeleporterInstance && val == 1 && player.getLevel() < 40) // Players below level 40 have free teleport
 			{
 				filename = "data/html/teleporter/free/" + npcId + ".htm";
 				if (!HtmCache.getInstance().pathExists(filename))
