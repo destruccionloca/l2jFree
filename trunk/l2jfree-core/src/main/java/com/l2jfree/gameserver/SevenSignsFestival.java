@@ -53,8 +53,8 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.StatsSet;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.util.Util;
-import com.l2jfree.lang.L2Thread;
 import com.l2jfree.tools.random.Rnd;
+import com.l2jfree.util.L2Timer;
 
 /**
  * Seven Signs Festival of Darkness Engine - ADDED 29 Sep: Players that leave a party during the Seven Signs Festival will now take damage and cannot be healed.
@@ -715,7 +715,7 @@ public class SevenSignsFestival implements SpawnListener
 	// ////////////////////// \\\\\\\\\\\\\\\\\\\\\\\\\\
 
 	protected FestivalManager _managerInstance;
-	protected L2Thread _managerScheduledTask;
+	protected L2Timer _managerScheduledTask;
 
 	protected int									_signsCycle						= SevenSigns.getInstance().getCurrentCycle();
 	protected int									_festivalCycle;
@@ -883,7 +883,7 @@ public class SevenSignsFestival implements SpawnListener
 		FestivalManager fm = new FestivalManager();
 		setNextFestivalStart(Config.ALT_FESTIVAL_MANAGER_START + FESTIVAL_SIGNUP_TIME);
 		
-		_managerScheduledTask = new L2Thread("FestivalManager").scheduleAtFixedRate(fm,
+		_managerScheduledTask = new L2Timer("FestivalManager").scheduleAtFixedRate(fm,
 			Config.ALT_FESTIVAL_MANAGER_START, Config.ALT_FESTIVAL_CYCLE_LENGTH);
 		
 		_log.info("SevenSignsFestival: first Festival of Darkness cycle begins in " + (Config.ALT_FESTIVAL_MANAGER_START / 60000) + " minutes.");
