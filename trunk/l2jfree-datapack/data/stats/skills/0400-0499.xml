@@ -1651,6 +1651,7 @@
     <set name="operateType" val="OP_TOGGLE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
+    <set name="mpConsume" val="10"/>
     <for>
       <effect count="0x7fffffff" name="Buff" time="1" val="0">
         <!-- add order="0x40" stat="darkPower" val="10" Needs Core Support -->
@@ -1667,6 +1668,7 @@
     <set name="operateType" val="OP_TOGGLE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
+    <set name="mpConsume" val="10"/>
     <for>
       <effect count="0x7fffffff" name="Buff" time="1" val="0">
         <mul order="0x30" stat="darkVuln" val="#darkVuln"/>
