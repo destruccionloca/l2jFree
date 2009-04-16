@@ -14,9 +14,9 @@
  */
 package com.l2jfree.lang;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.lang.management.LockInfo;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MonitorInfo;
@@ -26,78 +26,63 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import javolution.util.FastList;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import com.l2jfree.util.concurrent.ExecuteWrapper;
 
 /**
  * @author NB4L1
  */
-public final class L2Thread extends Timer
+public abstract class L2Thread extends Thread
 {
 	private static final Log _log = LogFactory.getLog(L2Thread.class);
 	
-	private Thread _thread;
+	protected L2Thread()
+	{
+		super();
+	}
 	
-	public L2Thread(String name)
+	protected L2Thread(String name)
 	{
 		super(name);
-		
-		schedule(new Runnable() {
-			public void run()
-			{
-				_thread = Thread.currentThread();
-			}
-		}, 0);
 	}
 	
-	public L2Thread schedule(Runnable runnable, long delay)
+	private volatile boolean _isAlive = true;
+	
+	public final void shutdown()
 	{
-		schedule(new L2TimerTask(runnable), delay);
+		onShutdown();
 		
-		return this;
+		_isAlive = false;
 	}
 	
-	public L2Thread scheduleAtFixedRate(Runnable runnable, long delay, long period)
+	protected void onShutdown()
 	{
-		scheduleAtFixedRate(new L2TimerTask(runnable), delay, period);
-		
-		return this;
-	}
-	
-	public void interrupt()
-	{
-		cancel();
-		
-		_thread.interrupt();
-	}
-	
-	private class L2TimerTask extends TimerTask
-	{
-		private final Runnable _runnable;
-		
-		private L2TimerTask(Runnable runnable)
-		{
-			_runnable = runnable;
-		}
-		
-		@Override
-		public void run()
-		{
-			ExecuteWrapper.execute(_runnable);
-		}
 	}
 	
 	@Override
-	public String toString()
+	public final void run()
 	{
-		return "L2" + super.toString();
+		try
+		{
+			while (_isAlive)
+			{
+				runTurn();
+			}
+		}
+		finally
+		{
+			onFinally();
+		}
+	}
+	
+	protected abstract void runTurn();
+	
+	protected void onFinally()
+	{
 	}
 	
 	public static List<String> getStats(Thread t)
@@ -183,21 +168,21 @@ public final class L2Thread extends Timer
 	
 	public static void dumpThreads()
 	{
+		PrintWriter pw = null;
 		try
 		{
-			BufferedWriter out = new BufferedWriter(new FileWriter("Thread-" + System.currentTimeMillis() + ".log"));
+			pw = new PrintWriter(new FileWriter("Thread-" + System.currentTimeMillis() + ".log"), true);
 			
 			for (String line : getStats())
-			{
-				out.write(line);
-				out.newLine();
-			}
-			
-			out.close();
+				pw.println(line);
 		}
 		catch (Exception e)
 		{
 			_log.warn("", e);
+		}
+		finally
+		{
+			IOUtils.closeQuietly(pw);
 		}
 	}
 	
@@ -214,14 +199,13 @@ public final class L2Thread extends Timer
 		DecimalFormat df = new DecimalFormat(" (0.0000'%')");
 		DecimalFormat df2 = new DecimalFormat(" # 'KB'");
 		
-		return new String[] { "==========================================================================",
-			"Global Memory Informations at " + sdf.format(new Date()) + ":", "", "Allowed Memory:" + df2.format(max),
-			"   |= Allocated Memory:" + df2.format(allocated) + df.format(allocated / max * 100),
-			"   |= Non-Allocated Memory:" + df2.format(nonAllocated) + df.format(nonAllocated / max * 100),
-			"Allocated Memory:" + df2.format(allocated),
-			"   |= Used Memory:" + df2.format(used) + df.format(used / max * 100),
-			"   |= Unused (cached) Memory:" + df2.format(cached) + df.format(cached / max * 100),
-			"Useable Memory:" + df2.format(useable) + df.format(useable / max * 100),
-			"==========================================================================" };
+		return new String[] { "+----", "| Global Memory Informations at " + sdf.format(new Date()) + ":", "",
+			"Allowed Memory:" + df2.format(max),
+			"|    |= Allocated Memory:" + df2.format(allocated) + df.format(allocated / max * 100),
+			"|    |= Non-Allocated Memory:" + df2.format(nonAllocated) + df.format(nonAllocated / max * 100),
+			"| Allocated Memory:" + df2.format(allocated),
+			"|    |= Used Memory:" + df2.format(used) + df.format(used / max * 100),
+			"|    |= Unused (cached) Memory:" + df2.format(cached) + df.format(cached / max * 100),
+			"| Useable Memory:" + df2.format(useable) + df.format(useable / max * 100), "+----" };
 	}
 }
