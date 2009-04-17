@@ -14,35 +14,16 @@
  */
 package com.l2jfree.gameserver.taskmanager.tasks;
 
-import com.l2jfree.gameserver.Shutdown;
-import com.l2jfree.gameserver.taskmanager.Task;
-import com.l2jfree.gameserver.taskmanager.TaskManager.ExecutedTask;
-
 /**
  * @author Layane
- *
  */
-public class TaskShutdown extends Task
+enum TaskTypes
 {
-	public static final String	NAME	= "shutdown";
-
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.taskmanager.Task#getName()
-	 */
-	@Override
-	public String getName()
-	{
-		return NAME;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.taskmanager.Task#onTimeElapsed(com.l2jfree.gameserver.taskmanager.TaskManager.ExecutedTask)
-	 */
-	@Override
-	public void onTimeElapsed(ExecutedTask task)
-	{
-		Shutdown handler = new Shutdown(Integer.valueOf(task.getParams()[2]), Shutdown.ShutdownModeType.SHUTDOWN);
-		handler.start();
-	}
-
+	TYPE_NONE,
+	TYPE_TIME,
+	TYPE_SHEDULED,
+	TYPE_FIXED_SHEDULED,
+	TYPE_GLOBAL_TASK,
+	TYPE_STARTUP,
+	TYPE_SPECIAL
 }

@@ -14,43 +14,25 @@
  */
 package com.l2jfree.gameserver.taskmanager.tasks;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.python.util.PythonInterpreter;
 
-import com.l2jfree.gameserver.taskmanager.Task;
-import com.l2jfree.gameserver.taskmanager.TaskManager.ExecutedTask;
+import com.l2jfree.gameserver.taskmanager.tasks.TaskManager.ExecutedTask;
 
 /**
  * @author Layane
- *
  */
-public class TaskJython extends Task
+class TaskJython extends TaskHandler
 {
-	public static final String		NAME	= "jython";
-	protected static final Log		_log	= LogFactory.getLog(TaskJython.class.getName());
-
-	private final PythonInterpreter	_python	= new PythonInterpreter();
-
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.taskmanager.Task#getName()
-	 */
+	private final PythonInterpreter _python = new PythonInterpreter();
+	
 	@Override
-	public String getName()
+	void onTimeElapsed(ExecutedTask task, String[] params)
 	{
-		return NAME;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.taskmanager.Task#onTimeElapsed(com.l2jfree.gameserver.taskmanager.TaskManager.ExecutedTask)
-	 */
-	@Override
-	public void onTimeElapsed(ExecutedTask task)
-	{
-		_log.info("executing cron: data/scripts/cron/" + task.getParams()[2]);
+		_log.info("executing cron: data/scripts/cron/" + params[2]);
+		
 		_python.cleanup();
 		_python.exec("import sys");
-		_python.execfile("data/scripts/cron/" + task.getParams()[2]);
+		_python.execfile("data/scripts/cron/" + params[2]);
 	}
-
+	
 }

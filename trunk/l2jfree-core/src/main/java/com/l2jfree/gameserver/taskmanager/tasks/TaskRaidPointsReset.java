@@ -17,99 +17,82 @@ package com.l2jfree.gameserver.taskmanager.tasks;
 import java.util.Calendar;
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.instancemanager.RaidPointsManager;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.network.serverpackets.PledgeShowInfoUpdate;
-import com.l2jfree.gameserver.taskmanager.Task;
-import com.l2jfree.gameserver.taskmanager.TaskManager;
-import com.l2jfree.gameserver.taskmanager.TaskTypes;
-import com.l2jfree.gameserver.taskmanager.TaskManager.ExecutedTask;
+import com.l2jfree.gameserver.taskmanager.tasks.TaskManager.ExecutedTask;
 
-public class TaskRaidPointsReset extends Task
+final class TaskRaidPointsReset extends TaskHandler
 {
-	protected static final Log	_log	= LogFactory.getLog(TaskRaidPointsReset.class);
-
-	public static final String	NAME	= "raid_points_reset";
-
-	@Override
-	public String getName()
+	TaskRaidPointsReset()
 	{
-		return NAME;
+		TaskManager.addUniqueTask(getName(), TaskTypes.TYPE_GLOBAL_TASK, "1", "00:10:00", "");
 	}
-
+	
 	@Override
-	public void onTimeElapsed(ExecutedTask task)
+	void onTimeElapsed(ExecutedTask task, String[] params)
 	{
-		Calendar cal = Calendar.getInstance();
-
-		if (cal.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY)
+		if (Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY)
 		{
 			// reward clan reputation points
-			Map<Integer, Integer> rankList = RaidPointsManager.getRankList();
 			for (L2Clan c : ClanTable.getInstance().getClans())
 			{
-				for (Map.Entry<Integer, Integer> entry : rankList.entrySet())
+				for (Map.Entry<Integer, Integer> entry : RaidPointsManager.getRankList().entrySet())
 				{
 					if (entry.getValue() <= 100 && c.isMember(entry.getKey()))
 					{
-						int reputation = 0;
+						final int reputation;
+						
 						switch (entry.getValue())
 						{
-						case 1:
-							reputation = 1250;
-							break;
-						case 2:
-							reputation = 900;
-							break;
-						case 3:
-							reputation = 700;
-							break;
-						case 4:
-							reputation = 600;
-							break;
-						case 5:
-							reputation = 450;
-							break;
-						case 6:
-							reputation = 350;
-							break;
-						case 7:
-							reputation = 300;
-							break;
-						case 8:
-							reputation = 200;
-							break;
-						case 9:
-							reputation = 150;
-							break;
-						case 10:
-							reputation = 100;
-							break;
-						default:
-							if (entry.getValue() <= 50)
-								reputation = 25;
-							else
-								reputation = 12;
-							break;
+							case 1:
+								reputation = 1250;
+								break;
+							case 2:
+								reputation = 900;
+								break;
+							case 3:
+								reputation = 700;
+								break;
+							case 4:
+								reputation = 600;
+								break;
+							case 5:
+								reputation = 450;
+								break;
+							case 6:
+								reputation = 350;
+								break;
+							case 7:
+								reputation = 300;
+								break;
+							case 8:
+								reputation = 200;
+								break;
+							case 9:
+								reputation = 150;
+								break;
+							case 10:
+								reputation = 100;
+								break;
+							default:
+								if (entry.getValue() <= 50)
+									reputation = 25;
+								else
+									reputation = 12;
+								break;
 						}
+						
 						c.setReputationScore(c.getReputationScore() + reputation, true);
 						c.broadcastToOnlineMembers(new PledgeShowInfoUpdate(c));
 					}
 				}
 			}
+			
 			RaidPointsManager.cleanUp();
+			
 			_log.info("Raid Points Reset Global Task: launched.");
 		}
-	}
-
-	@Override
-	public void initializate()
-	{
-		super.initializate();
-		TaskManager.addUniqueTask(NAME, TaskTypes.TYPE_GLOBAL_TASK, "1", "00:10:00", "");
 	}
 }

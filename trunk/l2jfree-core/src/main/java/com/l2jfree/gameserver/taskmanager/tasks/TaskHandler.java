@@ -14,33 +14,33 @@
  */
 package com.l2jfree.gameserver.taskmanager.tasks;
 
+import java.util.concurrent.ScheduledFuture;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.gameserver.taskmanager.Task;
-import com.l2jfree.gameserver.taskmanager.TaskManager.ExecutedTask;
+import com.l2jfree.gameserver.taskmanager.tasks.TaskManager.ExecutedTask;
 
 /**
- * @author Tempy
- *
+ * @author Layane
  */
-public final class TaskCleanUp extends Task
+abstract class TaskHandler
 {
-	public static final String	NAME	= "clean_up";
-	protected static final Log	_log	= LogFactory.getLog(TaskCleanUp.class.getName());
-
-	@Override
-	public String getName()
+	static final Log _log = LogFactory.getLog(TaskHandler.class);
+	
+	final String getName()
 	{
-		return NAME;
+		return getClass().getSimpleName().replace("Task", "");
 	}
-
-	@Override
-	public void onTimeElapsed(ExecutedTask task)
+	
+	ScheduledFuture<?> launchSpecial(ExecutedTask task)
 	{
-		_log.info("executing clean up task");
-		System.gc();
-		System.runFinalization();
-		_log.info("RAM Used: " + ((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576));
+		return null;
+	}
+	
+	abstract void onTimeElapsed(ExecutedTask task, String[] params);
+	
+	void onDestroy(ExecutedTask task)
+	{
 	}
 }

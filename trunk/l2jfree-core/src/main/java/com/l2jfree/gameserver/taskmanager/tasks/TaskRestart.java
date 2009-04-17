@@ -15,34 +15,17 @@
 package com.l2jfree.gameserver.taskmanager.tasks;
 
 import com.l2jfree.gameserver.Shutdown;
-import com.l2jfree.gameserver.taskmanager.Task;
-import com.l2jfree.gameserver.taskmanager.TaskManager.ExecutedTask;
+import com.l2jfree.gameserver.Shutdown.ShutdownMode;
+import com.l2jfree.gameserver.taskmanager.tasks.TaskManager.ExecutedTask;
 
 /**
  * @author Layane
- *
  */
-public final class TaskRestart extends Task
+final class TaskRestart extends TaskHandler
 {
-	public static final String	NAME	= "restart";
-
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.tasks.Task#getName()
-	 */
 	@Override
-	public String getName()
+	void onTimeElapsed(ExecutedTask task, String[] params)
 	{
-		return NAME;
+		Shutdown.start("Auto-Restart", Integer.parseInt(params[2]), ShutdownMode.RESTART);
 	}
-
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.tasks.Task#onTimeElapsed(com.l2jfree.gameserver.tasks.TaskManager.ExecutedTask)
-	 */
-	@Override
-	public void onTimeElapsed(ExecutedTask task)
-	{
-		Shutdown handler = new Shutdown(Integer.valueOf(task.getParams()[2]), Shutdown.ShutdownModeType.RESTART);
-		handler.start();
-	}
-
 }

@@ -14,57 +14,30 @@
  */
 package com.l2jfree.gameserver.taskmanager.tasks;
 
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.SevenSignsFestival;
-import com.l2jfree.gameserver.taskmanager.Task;
-import com.l2jfree.gameserver.taskmanager.TaskManager;
-import com.l2jfree.gameserver.taskmanager.TaskTypes;
-import com.l2jfree.gameserver.taskmanager.TaskManager.ExecutedTask;
+import com.l2jfree.gameserver.taskmanager.tasks.TaskManager.ExecutedTask;
 
 /**
- * Updates all data for the Seven Signs and Festival of Darkness engines,
- * when time is elapsed.
+ * Updates all data for the Seven Signs and Festival of Darkness engines, when time is elapsed.
  * 
  * @author Tempy
  */
-public class TaskSevenSignsUpdate extends Task
+final class TaskSevenSignsUpdate extends TaskHandler
 {
-	private static final Log	_log	= LogFactory.getLog(TaskSevenSignsUpdate.class);
-
-	public static final String	NAME	= "seven_signs_update";
-
-	@Override
-	public String getName()
+	TaskSevenSignsUpdate()
 	{
-		return NAME;
+		TaskManager.addUniqueTask(getName(), TaskTypes.TYPE_FIXED_SHEDULED, "1800000", "1800000", "");
 	}
-
+	
 	@Override
-	public void onTimeElapsed(ExecutedTask task)
+	void onTimeElapsed(ExecutedTask task, String[] params)
 	{
-		try
-		{
-			SevenSigns.getInstance().saveSevenSignsData(null, true);
-
-			if (!SevenSigns.getInstance().isSealValidationPeriod())
-				SevenSignsFestival.getInstance().saveFestivalData(false);
-
-			_log.info("SevenSigns: Data updated successfully.");
-		}
-		catch (Exception e)
-		{
-			_log.error("SevenSigns: Failed to save Seven Signs configuration: " + e, e);
-		}
-	}
-
-	@Override
-	public void initializate()
-	{
-		super.initializate();
-		TaskManager.addUniqueTask(NAME, TaskTypes.TYPE_FIXED_SHEDULED, "1800000", "1800000", "");
+		SevenSigns.getInstance().saveSevenSignsData(null, true);
+		
+		if (!SevenSigns.getInstance().isSealValidationPeriod())
+			SevenSignsFestival.getInstance().saveFestivalData(false);
+		
+		_log.info("SevenSigns: Data updated successfully.");
 	}
 }

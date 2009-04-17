@@ -14,45 +14,28 @@
  */
 package com.l2jfree.gameserver.taskmanager.tasks;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.model.olympiad.Olympiad;
-import com.l2jfree.gameserver.taskmanager.Task;
-import com.l2jfree.gameserver.taskmanager.TaskManager;
-import com.l2jfree.gameserver.taskmanager.TaskTypes;
-import com.l2jfree.gameserver.taskmanager.TaskManager.ExecutedTask;
+import com.l2jfree.gameserver.taskmanager.tasks.TaskManager.ExecutedTask;
 
 /**
  * Updates all data of Olympiad nobles in db
  * 
  * @author godson
  */
-public class TaskOlympiadSave extends Task
+final class TaskOlympiadSave extends TaskHandler
 {
-	private static final Log	_log	= LogFactory.getLog(TaskOlympiadSave.class.getName());
-	public static final String	NAME	= "olympiad_save";
-
-	@Override
-	public String getName()
+	TaskOlympiadSave()
 	{
-		return NAME;
+		TaskManager.addUniqueTask(getName(), TaskTypes.TYPE_FIXED_SHEDULED, "900000", "1800000", "");
 	}
-
+	
 	@Override
-	public void onTimeElapsed(ExecutedTask task)
+	void onTimeElapsed(ExecutedTask task, String[] params)
 	{
 		if (Olympiad.getInstance().inCompPeriod())
 		{
 			Olympiad.getInstance().saveOlympiadStatus();
 			_log.info("Olympiad System: Data updated.");
 		}
-	}
-
-	@Override
-	public void initializate()
-	{
-		super.initializate();
-		TaskManager.addUniqueTask(NAME, TaskTypes.TYPE_FIXED_SHEDULED, "900000", "1800000", "");
 	}
 }
