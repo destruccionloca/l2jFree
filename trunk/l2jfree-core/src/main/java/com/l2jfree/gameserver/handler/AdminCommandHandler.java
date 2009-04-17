@@ -252,7 +252,7 @@ public final class AdminCommandHandler extends HandlerRegistry<String, IAdminCom
 		
 		GMAudit.auditGMAction(activeChar, "admincommand", command, params);
 		
-		final Future<?> task = ThreadPoolManager.getInstance().schedule(new Runnable() {
+		final Future<?> task = ThreadPoolManager.getInstance().submitLongRunning(new Runnable() {
 			@Override
 			public void run()
 			{
@@ -274,11 +274,10 @@ public final class AdminCommandHandler extends HandlerRegistry<String, IAdminCom
 					if (runtime < ThreadPoolManager.MAXIMUM_RUNTIME_IN_MILLISEC_WITHOUT_WARNING)
 						return;
 					
-					activeChar.sendMessage("The execution of '" + message + "' took " + Util.formatNumber(runtime)
-						+ " msec.");
+					activeChar.sendMessage("The execution of '" + message + "' took " + Util.formatNumber(runtime) + " msec.");
 				}
 			}
-		}, 0);
+		});
 		
 		try
 		{
@@ -287,8 +286,7 @@ public final class AdminCommandHandler extends HandlerRegistry<String, IAdminCom
 		}
 		catch (Exception e)
 		{
-			activeChar.sendMessage("The execution of '" + message
-				+ "' takes more time than 1000 msec, so execution done asynchronusly.");
+			activeChar.sendMessage("The execution of '" + message + "' takes more time than 1000 msec, so execution done asynchronusly.");
 		}
 	}
 }

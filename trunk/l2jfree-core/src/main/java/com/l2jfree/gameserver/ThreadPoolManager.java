@@ -16,16 +16,17 @@ package com.l2jfree.gameserver;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.mmocore.network.ReceivablePacket;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.util.concurrent.ExecuteWrapper;
 import com.l2jfree.util.concurrent.L2RejectedExecutionHandler;
 import com.l2jfree.util.concurrent.RunnableStatsManager;
@@ -53,12 +54,18 @@ public final class ThreadPoolManager
 	}
 	
 	private final ScheduledThreadPoolExecutor _pool;
+	private final ThreadPoolExecutor _longRunningPool;
 	
 	private ThreadPoolManager()
 	{
 		_pool = new ScheduledThreadPoolExecutor(Config.THREAD_POOL_SIZE);
 		_pool.setRejectedExecutionHandler(new L2RejectedExecutionHandler());
 		_pool.prestartAllCoreThreads();
+		
+		_longRunningPool = new ThreadPoolExecutor(0, Integer.MAX_VALUE, 60L, TimeUnit.SECONDS,
+			new SynchronousQueue<Runnable>());
+		_longRunningPool.setRejectedExecutionHandler(new L2RejectedExecutionHandler());
+		_longRunningPool.prestartAllCoreThreads();
 		
 		scheduleAtFixedRate(new Runnable() {
 			@Override
@@ -143,33 +150,36 @@ public final class ThreadPoolManager
 		_pool.execute(new ThreadPoolExecuteWrapper(r));
 	}
 	
-	public final void executePacket(ReceivablePacket<L2GameClient> pkt)
-	{
-		execute(pkt);
-	}
-	
-	public final void executeIOPacket(ReceivablePacket<L2GameClient> pkt)
-	{
-		execute(pkt);
-	}
-	
 	public final void executeTask(Runnable r)
 	{
 		execute(r);
 	}
 	
-	public final void executeAi(Runnable r)
+	public final void executeLongRunning(Runnable r)
 	{
-		execute(r);
+		_longRunningPool.execute(new ExecuteWrapper(r));
+	}
+	
+	// ===========================================================================================
+	
+	public final Future<?> submit(Runnable r)
+	{
+		return _pool.submit(new ThreadPoolExecuteWrapper(r));
+	}
+	
+	public final Future<?> submitLongRunning(Runnable r)
+	{
+		return _longRunningPool.submit(new ExecuteWrapper(r));
 	}
 	
 	// ===========================================================================================
 	
 	public List<String> getStats()
 	{
-		List<String> list = new ArrayList<String>(11);
+		List<String> list = new ArrayList<String>(25);
 		
-		list.add("ThreadPool:");
+		list.add("");
+		list.add("Normal scheduler:");
 		list.add("=================================================");
 		list.add("\tgetActiveCount: ...... " + _pool.getActiveCount());
 		list.add("\tgetCorePoolSize: ..... " + _pool.getCorePoolSize());
@@ -180,6 +190,17 @@ public final class ThreadPoolManager
 		list.add("\tgetQueuedTaskCount: .. " + _pool.getQueue().size());
 		list.add("\tgetTaskCount: ........ " + _pool.getTaskCount());
 		list.add("");
+		list.add("Long-running executor:");
+		list.add("=================================================");
+		list.add("\tgetActiveCount: ...... " + _longRunningPool.getActiveCount());
+		list.add("\tgetCorePoolSize: ..... " + _longRunningPool.getCorePoolSize());
+		list.add("\tgetPoolSize: ......... " + _longRunningPool.getPoolSize());
+		list.add("\tgetLargestPoolSize: .. " + _longRunningPool.getLargestPoolSize());
+		list.add("\tgetMaximumPoolSize: .. " + _longRunningPool.getMaximumPoolSize());
+		list.add("\tgetCompletedTaskCount: " + _longRunningPool.getCompletedTaskCount());
+		list.add("\tgetQueuedTaskCount: .. " + _longRunningPool.getQueue().size());
+		list.add("\tgetTaskCount: ........ " + _longRunningPool.getTaskCount());
+		list.add("");
 		
 		return list;
 	}
@@ -187,21 +208,41 @@ public final class ThreadPoolManager
 	public void shutdown()
 	{
 		System.out.println("ThreadPoolManager: Shutting down.");
-		System.out.println("\t... executing " + (_pool.getQueue().size() + _pool.getActiveCount()) + " tasks.");
+		System.out.println("\t... executing "
+			+ (_pool.getQueue().size() + _pool.getActiveCount()) + " tasks.");
+		System.out.println("\t... executing"
+			+ (_longRunningPool.getQueue().size() + _longRunningPool.getActiveCount()) + " long running tasks.");
 		
 		_pool.shutdown();
+		_longRunningPool.shutdown();
 		
 		boolean success = false;
 		try
 		{
-			success = _pool.awaitTermination(3, TimeUnit.SECONDS);
+			final long begin = System.currentTimeMillis();
+			while (!success && (System.currentTimeMillis() - begin < 5000))
+			{
+				boolean result = true;
+				result &= _pool.awaitTermination(100, TimeUnit.MILLISECONDS);
+				result &= _longRunningPool.awaitTermination(100, TimeUnit.MILLISECONDS);
+				
+				success |= result;
+			}
 			
 			if (!success)
 			{
 				_pool.setExecuteExistingDelayedTasksAfterShutdownPolicy(false);
 				_pool.setContinueExistingPeriodicTasksAfterShutdownPolicy(false);
 				
-				success = _pool.awaitTermination(3, TimeUnit.SECONDS);
+				final long begin2 = System.currentTimeMillis();
+				while (!success && (System.currentTimeMillis() - begin2 < 5000))
+				{
+					boolean result = true;
+					result &= _pool.awaitTermination(100, TimeUnit.MILLISECONDS);
+					result &= _longRunningPool.awaitTermination(100, TimeUnit.MILLISECONDS);
+					
+					success |= result;
+				}
 			}
 		}
 		catch (InterruptedException e)
@@ -211,7 +252,10 @@ public final class ThreadPoolManager
 		
 		System.out.println("ThreadPoolManager: Done.");
 		System.out.println("\t... success: " + success);
-		System.out.println("\t... " + (_pool.getQueue().size() + _pool.getActiveCount()) + " tasks left.");
+		System.out.println("\t... " +
+			(_pool.getQueue().size() + _pool.getActiveCount()) + " tasks left.");
+		System.out.println("\t... " +
+			(_longRunningPool.getQueue().size() + _longRunningPool.getActiveCount()) + " long running tasks left.");
 		
 		if (TimeUnit.HOURS.toMillis(12) < (System.currentTimeMillis() - GameServer.getStartedTime().getTimeInMillis()))
 			RunnableStatsManager.getInstance().dumpClassStats();
@@ -220,5 +264,6 @@ public final class ThreadPoolManager
 	public void purge()
 	{
 		_pool.purge();
+		_longRunningPool.purge();
 	}
 }
