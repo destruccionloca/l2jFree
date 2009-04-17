@@ -468,7 +468,7 @@
       <effect count="1" name="ImmobileBuff" time="30" val="0" stackOrder="1" stackType="pd_up_special">
         <add order="0x40" stat="pDef" val="3600"/>
         <add order="0x40" stat="mDef" val="2700"/>
-        <mul order="0x30" stat="cancelVuln" val="0.9"/> <!-- value to be confirmed -->
+        <mul order="0x30" stat="cancelVuln" val="0.2"/>
       </effect>
     </for>
   </skill>
@@ -676,7 +676,7 @@
       <effect count="1" name="ImmobileBuff" time="30" val="0" stackOrder="1" stackType="pd_up_special">
         <add order="0x40" stat="pDef" val="3600"/>
         <add order="0x40" stat="mDef" val="2700"/>
-        <mul order="0x30" stat="cancelVuln" val="0.9"/> <!-- value to be confirmed -->
+        <mul order="0x30" stat="cancelVuln" val="0.2"/>
       </effect>
     </for>
   </skill>
