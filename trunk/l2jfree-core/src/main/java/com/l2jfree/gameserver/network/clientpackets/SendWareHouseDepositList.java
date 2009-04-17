@@ -20,6 +20,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Shutdown;
+import com.l2jfree.gameserver.Shutdown.DisableType;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2FolkInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
@@ -40,7 +41,7 @@ import com.l2jfree.gameserver.util.Util;
  * This class ...
  *
  * 31  SendWareHouseDepositList  cd (dd)
- *  
+ * 
  * @version $Revision: 1.3.4.5 $ $Date: 2005/04/11 10:06:09 $
  */
 public class SendWareHouseDepositList extends L2GameClientPacket
@@ -67,7 +68,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 		{
 			int objectId = readD();
 			_items[(i * 2)] = objectId;
-			long cnt = readD(); 
+			long cnt = readD();
 			if (cnt >= Integer.MAX_VALUE || cnt < 0)
 			{
 				_count = 0;
@@ -87,8 +88,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 		if (warehouse == null) return;
 		L2FolkInstance manager = player.getLastFolkNPC();
 		
-		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
-				&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
+		if (Shutdown.isActionDisabled(DisableType.TRANSACTION))
 		{
 			player.sendMessage("Transactions are not allowed during restart/shutdown.");
 			player.sendPacket(ActionFailed.STATIC_PACKET);
@@ -119,7 +119,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 		
 		// Freight price from config or normal price per item slot (30)
 		int fee = _count * 30;
-		int currentAdena = player.getAdena(); 
+		int currentAdena = player.getAdena();
 		int slots = 0;
 
 		for (int i = 0; i < _count; i++)
@@ -154,7 +154,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 			else if (warehouse.getItemByItemId(item.getItemId()) == null) slots++;
 		}
 		
-		// Item Max Limit Check 
+		// Item Max Limit Check
 		if (!warehouse.validateCapacity(slots))
 		{
 			sendPacket(new SystemMessage(SystemMessageId.WAREHOUSE_FULL));

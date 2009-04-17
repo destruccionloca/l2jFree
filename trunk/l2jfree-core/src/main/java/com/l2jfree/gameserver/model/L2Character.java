@@ -33,6 +33,7 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.Shutdown;
 import com.l2jfree.gameserver.ThreadPoolManager;
+import com.l2jfree.gameserver.Shutdown.DisableType;
 import com.l2jfree.gameserver.ai.CtrlEvent;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2AttackableAI;
@@ -533,8 +534,7 @@ public abstract class L2Character extends L2Object
 	public void teleToLocation(int x, int y, int z, boolean allowRandomOffset)
 	{
 		// Restrict teleport during restart/shutdown
-		if (this instanceof L2PcInstance && Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TELEPORT && Shutdown.getCounterInstance() != null
-				&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
+		if (Shutdown.isActionDisabled(DisableType.TELEPORT))
 		{
 			sendMessage("Teleport is not allowed during restart/shutdown.");
 			return;

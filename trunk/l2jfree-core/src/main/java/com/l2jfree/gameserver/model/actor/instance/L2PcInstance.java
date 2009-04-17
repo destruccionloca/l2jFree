@@ -43,6 +43,7 @@ import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.SevenSignsFestival;
 import com.l2jfree.gameserver.Shutdown;
 import com.l2jfree.gameserver.ThreadPoolManager;
+import com.l2jfree.gameserver.Shutdown.DisableType;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.ai.L2PlayerAI;
@@ -3624,8 +3625,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (player == null)
 			return;
 		// Restrict interactions during restart/shutdown
-		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_PC_ITERACTION && Shutdown.getCounterInstance() != null
-				&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
+		if (Shutdown.isActionDisabled(DisableType.PC_ITERACTION))
 		{
 			sendMessage("Player interaction disabled during restart/shutdown.");
 			sendPacket(ActionFailed.STATIC_PACKET);

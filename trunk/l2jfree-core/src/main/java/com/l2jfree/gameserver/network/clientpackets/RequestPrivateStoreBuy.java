@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Shutdown;
+import com.l2jfree.gameserver.Shutdown.DisableType;
 import com.l2jfree.gameserver.model.ItemRequest;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
@@ -51,10 +52,10 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
 
         for (int i = 0; i < _count ; i++)
         {
-            int objectId = readD(); 
-            long count   = readD(); 
+            int objectId = readD();
+            long count   = readD();
             if (count >= Integer.MAX_VALUE) count = Integer.MAX_VALUE;
-            int price    = readD(); 
+            int price    = readD();
             
             _items[i] = new ItemRequest(objectId, (int)count, price);
         }
@@ -67,8 +68,7 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
         if (player == null || player.isCursedWeaponEquipped())
             return;
 
-        if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
-           && Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
+        if (Shutdown.isActionDisabled(DisableType.TRANSACTION))
         {
             player.sendMessage("Transactions are not allowed during restart/shutdown.");
             player.sendPacket(ActionFailed.STATIC_PACKET);

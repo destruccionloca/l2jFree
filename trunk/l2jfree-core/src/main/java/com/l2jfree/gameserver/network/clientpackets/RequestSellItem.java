@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Shutdown;
+import com.l2jfree.gameserver.Shutdown.DisableType;
 import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
@@ -79,7 +80,7 @@ public class RequestSellItem extends L2GameClientPacket
         {
             int objectId = readD(); _items[(i * 3)] = objectId;
             int itemId   = readD(); _items[i * 3 + 1] = itemId;
-            long cnt      = readD(); 
+            long cnt      = readD();
             if (cnt >= Integer.MAX_VALUE || cnt <= 0)
             {
                 _count = 0; _items = null;
@@ -92,7 +93,7 @@ public class RequestSellItem extends L2GameClientPacket
     @Override
     protected void runImpl()
     {
-        this.processSell();
+        processSell();
     }
     
 	protected void processSell()
@@ -101,8 +102,7 @@ public class RequestSellItem extends L2GameClientPacket
 		if (player == null)
 			return;
 
-		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
-				&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
+		if (Shutdown.isActionDisabled(DisableType.TRANSACTION))
 		{
 			player.sendMessage("Transactions are not allowed during restart/shutdown.");
 			player.sendPacket(ActionFailed.STATIC_PACKET);

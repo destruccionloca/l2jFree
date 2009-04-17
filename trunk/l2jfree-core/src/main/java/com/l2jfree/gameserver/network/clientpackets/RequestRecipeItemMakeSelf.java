@@ -14,9 +14,9 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.RecipeController;
 import com.l2jfree.gameserver.Shutdown;
+import com.l2jfree.gameserver.Shutdown.DisableType;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
@@ -26,7 +26,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 /**
  * @author Administrator
  */
-public class RequestRecipeItemMakeSelf extends L2GameClientPacket 
+public class RequestRecipeItemMakeSelf extends L2GameClientPacket
 {
 	private static final String _C__AF_REQUESTRECIPEITEMMAKESELF = "[C] AF RequestRecipeItemMakeSelf";
 
@@ -49,8 +49,7 @@ public class RequestRecipeItemMakeSelf extends L2GameClientPacket
 		if (activeChar == null)
 			return;
 
-		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_CREATEITEM && Shutdown.getCounterInstance() != null 
-				&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
+		if (Shutdown.isActionDisabled(DisableType.CREATEITEM))
 		{
 			activeChar.sendMessage("Item creation is not allowed during restart/shutdown.");
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
@@ -76,7 +75,7 @@ public class RequestRecipeItemMakeSelf extends L2GameClientPacket
 	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
 	@Override
-	public String getType() 
+	public String getType()
 	{
 		return _C__AF_REQUESTRECIPEITEMMAKESELF;
 	}

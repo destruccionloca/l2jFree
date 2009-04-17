@@ -28,6 +28,7 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Announcements;
 import com.l2jfree.gameserver.Shutdown;
+import com.l2jfree.gameserver.Shutdown.ShutdownMode;
 import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.datatables.GmListTable;
 import com.l2jfree.gameserver.datatables.ItemTable;
@@ -143,7 +144,7 @@ public class RemoteAdministrationImpl extends UnicastRemoteObject implements IRe
 	public void abortServerRestart(String password) throws RemoteException
 	{
 		if (password.equals(pass))
-			Shutdown.getInstance().abort("127.0.0.1");
+			Shutdown.abort("127.0.0.1");
 	}
 
 	/**
@@ -216,7 +217,7 @@ public class RemoteAdministrationImpl extends UnicastRemoteObject implements IRe
 	public void scheduleServerRestart(String password, int secondsUntilRestart) throws RemoteException
 	{
 		if (password.equals(pass))
-			Shutdown.getInstance().startShutdown("127.0.0.1", secondsUntilRestart, Shutdown.ShutdownModeType.SHUTDOWN);
+			Shutdown.start("127.0.0.1", secondsUntilRestart, ShutdownMode.SHUTDOWN);
 	}
 
 	/**
@@ -225,7 +226,7 @@ public class RemoteAdministrationImpl extends UnicastRemoteObject implements IRe
 	public void scheduleServerShutDown(String password, int secondsUntilShutDown) throws RemoteException
 	{
 		if (password.equals(pass))
-			Shutdown.getInstance().startShutdown("127.0.0.1", secondsUntilShutDown, Shutdown.ShutdownModeType.RESTART);
+			Shutdown.start("127.0.0.1", secondsUntilShutDown, ShutdownMode.RESTART);
 
 	}
 

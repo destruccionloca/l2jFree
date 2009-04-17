@@ -14,8 +14,8 @@
  */
 package com.l2jfree.gameserver.handler.itemhandlers;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.Shutdown;
+import com.l2jfree.gameserver.Shutdown.DisableType;
 import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -63,8 +63,7 @@ public class EnchantAttr implements IItemHandler
 			return;
 
 		// Restrict enchant during restart/shutdown (because of an existing exploit)
-		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_ENCHANT && Shutdown.getCounterInstance() != null
-				&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
+		if (Shutdown.isActionDisabled(DisableType.ENCHANT))
 		{
 			activeChar.sendMessage("Enchanting items is not allowed during restart/shutdown.");
 			return;

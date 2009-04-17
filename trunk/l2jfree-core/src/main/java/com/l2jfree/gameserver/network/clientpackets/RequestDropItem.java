@@ -20,6 +20,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Shutdown;
+import com.l2jfree.gameserver.Shutdown.DisableType;
 import com.l2jfree.gameserver.datatables.GmListTable;
 import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
 import com.l2jfree.gameserver.model.L2ItemInstance;
@@ -54,14 +55,14 @@ public class RequestDropItem extends L2GameClientPacket
      * 
      * sample
      * 
-     * 12 
+     * 12
      * 09 00 00 40         // object id
      * 01 00 00 00         // count ??
      * fd e7 fe ff         // x
      * e5 eb 03 00         // y
-     * bb f3 ff ff         // z 
+     * bb f3 ff ff         // z
      * 
-     * format:        cdd ddd 
+     * format:        cdd ddd
      * @param decrypt
      */
     @Override
@@ -85,8 +86,7 @@ public class RequestDropItem extends L2GameClientPacket
         if (!FloodProtector.tryPerformAction(activeChar, Protected.DROPITEM))
             return;
         
-        if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
-            && Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
+        if (Shutdown.isActionDisabled(DisableType.TRANSACTION))
         {
             activeChar.sendMessage("Transactions are not allowed during restart/shutdown.");
             activeChar.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
@@ -95,7 +95,7 @@ public class RequestDropItem extends L2GameClientPacket
         
         L2ItemInstance item = activeChar.checkItemManipulation(_objectId, _count, "Drop");
         
-        if (item == null) 
+        if (item == null)
         {
             _log.warn("Error while droping item for char "+activeChar.getName()+" (validity check).");
             activeChar.sendPacket(ActionFailed.STATIC_PACKET);
@@ -124,7 +124,7 @@ public class RequestDropItem extends L2GameClientPacket
             return;
         }
        
-        if(_count > item.getCount()) 
+        if(_count > item.getCount())
         {
             activeChar.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
             return;
@@ -195,7 +195,7 @@ public class RequestDropItem extends L2GameClientPacket
         }
         
         if (!activeChar.isInsideRadius(_x, _y, 150, false) || Math.abs(_z - activeChar.getZ()) > 50)
-        { 
+        {
             if (_log.isDebugEnabled()) _log.debug(activeChar.getObjectId()+": trying to drop too far away");
             activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_DISCARD_DISTANCE_TOO_FAR));
             return;

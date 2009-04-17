@@ -27,7 +27,7 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Shutdown;
 import com.l2jfree.gameserver.ThreadPoolManager;
-import com.l2jfree.gameserver.Shutdown.ShutdownModeType;
+import com.l2jfree.gameserver.Shutdown.ShutdownMode;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.lang.L2Thread;
 
@@ -80,7 +80,7 @@ public final class DeadlockDetector implements Runnable
 			
 			new Halt().start();
 			
-			Shutdown.getInstance().startShutdown("DeadlockDetector", 1, ShutdownModeType.RESTART);
+			Shutdown.start("DeadlockDetector", 1, ShutdownMode.RESTART);
 		}
 	}
 	
@@ -116,7 +116,7 @@ public final class DeadlockDetector implements Runnable
 			}
 			finally
 			{
-				Shutdown.getInstance().halt("DeadlockDetector");
+				Shutdown.halt("DeadlockDetector");
 			}
 		}
 	}

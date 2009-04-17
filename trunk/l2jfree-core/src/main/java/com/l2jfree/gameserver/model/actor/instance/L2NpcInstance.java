@@ -27,6 +27,7 @@ import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.SevenSignsFestival;
 import com.l2jfree.gameserver.Shutdown;
 import com.l2jfree.gameserver.ThreadPoolManager;
+import com.l2jfree.gameserver.Shutdown.DisableType;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.datatables.BuffTemplateTable;
@@ -545,8 +546,7 @@ public class L2NpcInstance extends L2Character
 			return false;
 		}
 		// Restrict interactions during restart/shutdown
-		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_NPC_ITERACTION && Shutdown.getCounterInstance() != null
-				&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
+		if (Shutdown.isActionDisabled(DisableType.NPC_ITERACTION))
 		{
 			sendMessage("NPC interaction disabled during restart/shutdown.");
 			player.sendPacket(ActionFailed.STATIC_PACKET);

@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Shutdown;
+import com.l2jfree.gameserver.Shutdown.DisableType;
 import com.l2jfree.gameserver.model.TradeList;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -44,7 +45,7 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
         _count = readD();
         if (_count <= 0  || _count * 12 > getByteBuffer().remaining() || _count > Config.MAX_ITEM_IN_PACKET)
         {
-            _count = 0; 
+            _count = 0;
             _items = null;
             return;
         }
@@ -53,16 +54,16 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
         {
             int objectId = readD();
             _items[(x * 3)] = objectId;
-            long cnt      = readD(); 
+            long cnt      = readD();
             if (cnt >= Integer.MAX_VALUE || cnt < 0)
             {
-                _count = 0; 
+                _count = 0;
                 _items = null;
                 return;
             }
-            _items[x * 3 + 1] = (int)cnt; 
-            int price    = readD(); 
-            _items[x * 3 + 2] = price; 
+            _items[x * 3 + 1] = (int)cnt;
+            int price    = readD();
+            _items[x * 3 + 2] = price;
         }
     }
 
@@ -72,8 +73,7 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
         L2PcInstance player = getClient().getActiveChar();
         if (player == null) return;
         
-		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
-        		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
+        if (Shutdown.isActionDisabled(DisableType.TRANSACTION))
         {
 			player.sendMessage("Transactions are not allowed during restart/shutdown.");
 			player.sendPacket(ActionFailed.STATIC_PACKET);

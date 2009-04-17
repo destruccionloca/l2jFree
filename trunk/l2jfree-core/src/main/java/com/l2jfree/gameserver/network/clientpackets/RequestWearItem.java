@@ -23,6 +23,7 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Shutdown;
 import com.l2jfree.gameserver.ThreadPoolManager;
+import com.l2jfree.gameserver.Shutdown.DisableType;
 import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.datatables.TradeListTable;
 import com.l2jfree.gameserver.model.L2ItemInstance;
@@ -105,7 +106,7 @@ public class RequestWearItem extends L2GameClientPacket
         // Fill _items table with all ItemID to Wear
         for (int i = 0; i < _count; i++)
         {
-            int itemId = readD(); 
+            int itemId = readD();
             _items[i] = itemId;
         }
     }
@@ -121,8 +122,7 @@ public class RequestWearItem extends L2GameClientPacket
 		// Get the current player and return if null
         if (_activeChar == null) return;
 
-		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
-        		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
+        if (Shutdown.isActionDisabled(DisableType.TRANSACTION))
         {
 			_activeChar.sendMessage("Transactions are not allowed during restart/shutdown.");
 			_activeChar.sendPacket(ActionFailed.STATIC_PACKET);

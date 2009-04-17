@@ -131,7 +131,7 @@ import com.l2jfree.gameserver.taskmanager.KnownListUpdateTaskManager;
 import com.l2jfree.gameserver.taskmanager.LeakTaskManager;
 import com.l2jfree.gameserver.taskmanager.PacketBroadcaster;
 import com.l2jfree.gameserver.taskmanager.SQLQueue;
-import com.l2jfree.gameserver.taskmanager.TaskManager;
+import com.l2jfree.gameserver.taskmanager.tasks.TaskManager;
 import com.l2jfree.gameserver.threadmanager.DeadlockDetector;
 import com.l2jfree.gameserver.util.DynamicExtension;
 import com.l2jfree.gameserver.util.Util;

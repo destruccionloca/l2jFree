@@ -40,6 +40,7 @@ import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.LoginServerThread;
 import com.l2jfree.gameserver.Shutdown;
 import com.l2jfree.gameserver.ThreadPoolManager;
+import com.l2jfree.gameserver.Shutdown.ShutdownMode;
 import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.datatables.GmListTable;
@@ -300,10 +301,12 @@ public final class GameStatusThread extends Thread
 					_print.println("msg <nick> <text>	- Sends a whisper to char <nick> with <text>.");
 					_print.println("gmchat <text>		- Sends a message to all GMs with <text>.");
 					_print.println("gmlist				- lists all gms online.");
+					_print.println("ip					- gets IP of player <name>.");
 					_print.println("kick				- kick player <name> from server.");
 					_print.println("shutdown <time>		- shuts down server in <time> seconds.");
 					_print.println("restart <time>		- restarts down server in <time> seconds.");
 					_print.println("abort				- aborts shutdown/restart.");
+					_print.println("halt				- halts server.");
 					_print.println("give <player> <itemid> <amount>");
 					_print
 						.println("enchant <player> <itemType> <enchant> (itemType: 1 - Helmet, 2 - Chest, 3 - Gloves, 4 - Feet, "
@@ -544,6 +547,33 @@ public final class GameStatusThread extends Thread
 					if (!gmList.isEmpty())
 						_print.println(gmList);
 				}
+				else if (_usrCommand.startsWith("ip"))
+				{
+					try
+					{
+						_usrCommand = _usrCommand.substring(3);
+						L2PcInstance player = L2World.getInstance().getPlayer(_usrCommand);
+						if (player != null)
+						{
+							try
+							{
+								_print.println("IP of " + player + ": " + player.getClient().getHostAddress());
+							}
+							catch (RuntimeException e)
+							{
+								_print.println(e.toString());
+							}
+						}
+						else
+						{
+							_print.println("No player online with that name!");
+						}
+					}
+					catch (StringIndexOutOfBoundsException e)
+					{
+						_print.println("Please enter player name to get IP");
+					}
+				}
 				else if (_usrCommand.startsWith("kick"))
 				{
 					try
@@ -566,8 +596,7 @@ public final class GameStatusThread extends Thread
 					try
 					{
 						int val = Integer.parseInt(_usrCommand.substring(9));
-						Shutdown.getInstance().startShutdown(_cSocket.getInetAddress().getHostAddress(), val,
-							Shutdown.ShutdownModeType.SHUTDOWN);
+						Shutdown.start(_cSocket.getInetAddress().getHostAddress(), val, ShutdownMode.SHUTDOWN);
 						_print.println("Server Will Shutdown In " + val + " Seconds!");
 						_print.println("Type \"abort\" To Abort Shutdown!");
 					}
@@ -585,8 +614,7 @@ public final class GameStatusThread extends Thread
 					try
 					{
 						int val = Integer.parseInt(_usrCommand.substring(8));
-						Shutdown.getInstance().startShutdown(_cSocket.getInetAddress().getHostAddress(), val,
-							Shutdown.ShutdownModeType.RESTART);
+						Shutdown.start(_cSocket.getInetAddress().getHostAddress(), val, ShutdownMode.RESTART);
 						_print.println("Server Will Restart In " + val + " Seconds!");
 						_print.println("Type \"abort\" To Abort Restart!");
 					}
@@ -601,8 +629,20 @@ public final class GameStatusThread extends Thread
 				}
 				else if (_usrCommand.startsWith("abort"))
 				{
-					Shutdown.getInstance().abort(_cSocket.getInetAddress().getHostAddress());
+					Shutdown.abort(_cSocket.getInetAddress().getHostAddress());
 					_print.println("OK! - Shutdown/Restart Aborted.");
+				}
+				else if (_usrCommand.startsWith("halt"))
+				{
+					try
+					{
+						_print.print("Halting...");
+						Shutdown.halt(_cSocket.getInetAddress().getHostAddress());
+					}
+					finally
+					{
+						_print.println("\t\t[OK]");
+					}
 				}
 				else if (_usrCommand.equals("quit"))
 				{

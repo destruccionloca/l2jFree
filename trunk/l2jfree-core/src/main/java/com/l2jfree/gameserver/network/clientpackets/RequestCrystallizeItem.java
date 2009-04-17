@@ -20,6 +20,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Shutdown;
+import com.l2jfree.gameserver.Shutdown.DisableType;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2World;
@@ -69,8 +70,7 @@ public class RequestCrystallizeItem extends L2GameClientPacket
             return;
         }
         
-		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_CREATEITEM && Shutdown.getCounterInstance() != null 
-        		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
+        if (Shutdown.isActionDisabled(DisableType.CREATEITEM))
         {
 			activeChar.sendMessage("Item creation is not allowed during restart/shutdown.");
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
@@ -187,7 +187,7 @@ public class RequestCrystallizeItem extends L2GameClientPacket
             return;
         }
 
-		activeChar.setInCrystallize(true); 
+		activeChar.setInCrystallize(true);
 		
 		//unequip if needed
 		if (itemToRemove.isEquipped())
@@ -252,7 +252,7 @@ public class RequestCrystallizeItem extends L2GameClientPacket
 		L2World world = L2World.getInstance();
 		world.removeObject(removedItem);
 
-		activeChar.setInCrystallize(false); 
+		activeChar.setInCrystallize(false);
 	}
 
 	/*

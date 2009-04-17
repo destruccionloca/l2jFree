@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Shutdown;
+import com.l2jfree.gameserver.Shutdown.DisableType;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.TradeList;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -53,8 +54,7 @@ public class AddTradeItem extends L2GameClientPacket
         L2PcInstance player = getClient().getActiveChar();
         if (player == null) return;
 
-        if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
-                && Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
+        if (Shutdown.isActionDisabled(DisableType.TRANSACTION))
         {
             player.sendMessage("Transactions are not allowed during restart/shutdown.");
             player.sendPacket(ActionFailed.STATIC_PACKET);
@@ -73,7 +73,7 @@ public class AddTradeItem extends L2GameClientPacket
         {
             // Trade partner not found, cancel trade
             if (trade.getPartner() != null)
-                _log.warn("Character:" + player.getName() + " requested invalid trade object: " + _objectId); 
+                _log.warn("Character:" + player.getName() + " requested invalid trade object: " + _objectId);
             SystemMessage msg = new SystemMessage(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME);
             player.sendPacket(msg);
             player.cancelActiveTrade();

@@ -20,6 +20,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Shutdown;
+import com.l2jfree.gameserver.Shutdown.DisableType;
 import com.l2jfree.gameserver.model.ItemRequest;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
@@ -57,18 +58,18 @@ public class RequestPrivateStoreSell extends L2GameClientPacket
         long priceTotal = 0;
         for (int i = 0; i < _count; i++)
         {
-            int objectId = readD(); 
-            int itemId = readD(); 
+            int objectId = readD();
+            int itemId = readD();
             readH(); //TODO: analyse this
             readH(); //TODO: analyse this
-            long count   = readD(); 
-            int price    = readD(); 
+            long count   = readD();
+            int price    = readD();
             
             if (count >= Integer.MAX_VALUE || count < 0)
             {
                 String msgErr = "[RequestPrivateStoreSell] player "+getClient().getActiveChar().getName()+" tried an overflow exploit, ban this player!";
                 Util.handleIllegalPlayerAction(getClient().getActiveChar(),msgErr,Config.DEFAULT_PUNISH);
-                _count = 0; 
+                _count = 0;
                 _items = null;
                 return;
             }
@@ -80,7 +81,7 @@ public class RequestPrivateStoreSell extends L2GameClientPacket
         {
             String msgErr = "[RequestPrivateStoreSell] player "+getClient().getActiveChar().getName()+" tried an overflow exploit, ban this player!";
             Util.handleIllegalPlayerAction(getClient().getActiveChar(),msgErr,Config.DEFAULT_PUNISH);
-            _count = 0; 
+            _count = 0;
             _items = null;
             return;
         }
@@ -95,8 +96,7 @@ public class RequestPrivateStoreSell extends L2GameClientPacket
         if (player == null || player.isCursedWeaponEquipped())
             return;
 
-        if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
-            && Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
+        if (Shutdown.isActionDisabled(DisableType.TRANSACTION))
         {
             player.sendMessage("Transactions are not allowed during restart/shutdown.");
             player.sendPacket(ActionFailed.STATIC_PACKET);

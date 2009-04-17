@@ -19,6 +19,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Shutdown;
+import com.l2jfree.gameserver.Shutdown.DisableType;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
@@ -53,8 +54,7 @@ public class RequestGiveItemToPet extends L2GameClientPacket
 		if (player == null || !(player.getPet() instanceof L2PetInstance))
 			return;
 
-		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null
-				&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
+		if (Shutdown.isActionDisabled(DisableType.TRANSACTION))
 		{
 			player.sendMessage("Transactions are not allowed during restart/shutdown.");
 			player.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
