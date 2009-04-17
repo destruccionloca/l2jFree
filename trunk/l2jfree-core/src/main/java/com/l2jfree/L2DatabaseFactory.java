@@ -75,7 +75,7 @@ public final class L2DatabaseFactory
 			
 			_source.setInitialPoolSize(10);
 			_source.setMinPoolSize(10);
-			_source.setMaxPoolSize(Config.DATABASE_MAX_CONNECTIONS);
+			_source.setMaxPoolSize(Math.max(10, Config.DATABASE_MAX_CONNECTIONS));
 			
 			_source.setAcquireRetryAttempts(0); // try to obtain connections indefinitely (0 = never quit)
 			_source.setAcquireRetryDelay(500); // 500 miliseconds wait before try to acquire connection again
@@ -93,7 +93,7 @@ public final class L2DatabaseFactory
 			// testing OnCheckin used with IdleConnectionTestPeriod is faster than testing on checkout
 			
 			_source.setIdleConnectionTestPeriod(3600); // test idle connection every 60 sec
-			_source.setMaxIdleTime(0); // 0 = idle connections never expire
+			_source.setMaxIdleTime(1800); // 0 = idle connections never expire
 			// *THANKS* to connection testing configured above
 			// but I prefer to disconnect all connections not used
 			// for more than 1 hour
@@ -143,7 +143,8 @@ public final class L2DatabaseFactory
 				mySqlTop1 = " Limit 1 ";
 		}
 		
-		return "SELECT " + msSqlTop1 + safetyString(fields) + " FROM " + tableName + " WHERE " + whereClause + mySqlTop1;
+		return "SELECT " + msSqlTop1 + safetyString(fields) + " FROM " + tableName + " WHERE " + whereClause
+			+ mySqlTop1;
 	}
 	
 	public String safetyString(String... whatToCheck)
