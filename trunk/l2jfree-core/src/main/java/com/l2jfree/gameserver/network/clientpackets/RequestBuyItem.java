@@ -328,7 +328,13 @@ public class RequestBuyItem extends L2GameClientPacket
 			}
 
 			if (list.countDecrease(itemId))
-				list.decreaseCount(itemId, count);
+			{
+				if (!list.decreaseCount(itemId, count))
+				{
+					Util.handleIllegalPlayerAction(player, "Tried overbuying from a limited shop!", Config.DEFAULT_PUNISH);
+					return;
+				}
+			}
 
 			// Add item to Inventory and adjust update packet
 			player.getInventory().addItem(list.isGm() ? "GMShop" : "Buy", itemId, count, player, merchant);

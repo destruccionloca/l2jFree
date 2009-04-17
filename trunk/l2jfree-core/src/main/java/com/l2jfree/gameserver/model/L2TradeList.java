@@ -22,8 +22,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.gameserver.datatables.ItemTable;
-import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -104,16 +104,23 @@ public class L2TradeList
         }
     }
 
-    public void decreaseCount(int itemID, int count)
+    public boolean decreaseCount(int itemID, int count)
     {
         for (int i = 0; i < _items.size(); i++)
         {
             L2ItemInstance item = _items.get(i);
             if (item.getItemId() == itemID)
             {
-                item.setCount(item.getCount()-count);
+                int newCount = item.getCount() - count;
+                if (newCount < 0)
+                    continue;
+                
+                item.setCount(newCount);
+                return true;
             }
         }
+        
+        return false;
     }
     public void restoreCount(int time)
     {
@@ -269,7 +276,7 @@ public class L2TradeList
 	
 	public boolean validateTrade(L2PcInstance player)
 	{
-		Inventory playersInv = player.getInventory();	
+		Inventory playersInv = player.getInventory();
 		L2ItemInstance playerItem,temp;
 		
 		for (int y = 0 ; y < _items.size(); y++)
@@ -295,7 +302,7 @@ public class L2TradeList
 		{
 			temp = list.get(count);
 			temp2 =playersInv.getItemByItemId(temp.getItemId());
-			if (temp2 == null) 
+			if (temp2 == null)
 			{
 				list.remove(count);
 				count = count-1;
@@ -322,7 +329,7 @@ public class L2TradeList
 		{
 			temp = list.get(count);
 			temp2 =playersInv.getItemByObjectId(temp.getObjectId());
-			if (temp2 == null) 
+			if (temp2 == null)
 			{
 				list.remove(count);
 				count = count-1;
@@ -336,7 +343,7 @@ public class L2TradeList
 				
 			}
 			count++;
-		} 
+		}
 		
 	}
 	
@@ -437,7 +444,7 @@ public class L2TradeList
 		        else
 		        {
 		            if (buyerItem.getCount()< temp2.getCount())
-		            {	
+		            {
 		                temp2.setCount(temp2.getCount()-buyerItem.getCount());
 		            }
 		            else
