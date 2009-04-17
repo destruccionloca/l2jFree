@@ -14,25 +14,27 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
 
 public class ClientSetTime extends L2GameServerPacket
 {
 	private static final String _S__F2_CLIENTSETTIME = "[S] f2 ClientSetTime [dd]";
+	
 	public static final ClientSetTime STATIC_PACKET = new ClientSetTime();
-
+	
 	private ClientSetTime()
 	{
 	}
-
+	
 	@Override
 	protected final void writeImpl()
 	{
 		writeC(0xf2);
 		writeD(GameTimeController.getInstance().getGameTime()); // time in client minutes
-		writeD(6); //constant to match the server time( this determines the speed of the client clock)
+		writeD(Config.DATETIME_MULTI); //constant to match the server time( this determines the speed of the client clock)
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
 	 */

@@ -33,6 +33,8 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.util.concurrent.RunnableStatsManager;
+
 /**
  * @author NB4L1
  */
@@ -52,11 +54,13 @@ public abstract class L2Thread extends Thread
 	
 	private volatile boolean _isAlive = true;
 	
-	public final void shutdown()
+	public final void shutdown() throws InterruptedException
 	{
 		onShutdown();
 		
 		_isAlive = false;
+		
+		join();
 	}
 	
 	protected void onShutdown()
@@ -70,7 +74,25 @@ public abstract class L2Thread extends Thread
 		{
 			while (_isAlive)
 			{
-				runTurn();
+				final long begin = System.nanoTime();
+				
+				try
+				{
+					runTurn();
+				}
+				finally
+				{
+					RunnableStatsManager.getInstance().handleStats(getClass(), System.nanoTime() - begin);
+				}
+				
+				try
+				{
+					sleepTurn();
+				}
+				catch (InterruptedException e)
+				{
+					e.printStackTrace();
+				}
 			}
 		}
 		finally
@@ -80,6 +102,8 @@ public abstract class L2Thread extends Thread
 	}
 	
 	protected abstract void runTurn();
+	
+	protected abstract void sleepTurn() throws InterruptedException;
 	
 	protected void onFinally()
 	{
@@ -199,13 +223,17 @@ public abstract class L2Thread extends Thread
 		DecimalFormat df = new DecimalFormat(" (0.0000'%')");
 		DecimalFormat df2 = new DecimalFormat(" # 'KB'");
 		
-		return new String[] { "+----", "| Global Memory Informations at " + sdf.format(new Date()) + ":", "",
-			"Allowed Memory:" + df2.format(max),
+		return new String[] {
+			"+----",// ...
+			"| Global Memory Informations at " + sdf.format(new Date()) + ":", // ...
+			"|    |", // ...
+			"| Allowed Memory:" + df2.format(max),
 			"|    |= Allocated Memory:" + df2.format(allocated) + df.format(allocated / max * 100),
 			"|    |= Non-Allocated Memory:" + df2.format(nonAllocated) + df.format(nonAllocated / max * 100),
 			"| Allocated Memory:" + df2.format(allocated),
 			"|    |= Used Memory:" + df2.format(used) + df.format(used / max * 100),
 			"|    |= Unused (cached) Memory:" + df2.format(cached) + df.format(cached / max * 100),
-			"| Useable Memory:" + df2.format(useable) + df.format(useable / max * 100), "+----" };
+			"| Useable Memory:" + df2.format(useable) + df.format(useable / max * 100), // ...
+			"+----" };
 	}
 }

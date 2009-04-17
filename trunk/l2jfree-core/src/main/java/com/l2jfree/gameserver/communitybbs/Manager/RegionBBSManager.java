@@ -15,10 +15,10 @@
 package com.l2jfree.gameserver.communitybbs.Manager;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
@@ -365,9 +365,8 @@ public class RegionBBSManager extends BaseBBSManager
 		{
 			FastMap<String, String> communityPage = new FastMap<String, String>();
 			TextBuilder htmlCode = new TextBuilder("<html><body><br>");
-			Calendar cal = Calendar.getInstance();
 			SimpleDateFormat format = new SimpleDateFormat("H:mm");
-			int t = GameTimeController.getInstance().getGameTime();
+			String gameTime = GameTimeController.getInstance().getFormattedGameTime();
 
 			String tdClose = "</td>";
 			String tdOpen = "<td align=left valign=top>";
@@ -376,10 +375,8 @@ public class RegionBBSManager extends BaseBBSManager
 			String colSpacer = "<td FIXWIDTH=15></td>";
 
 			htmlCode.append("<table>");
-			htmlCode.append(trOpen + tdOpen + "Server Time: " + format.format(cal.getTime()) + tdClose + colSpacer);
-			cal.set(Calendar.HOUR_OF_DAY, t / 60);
-			cal.set(Calendar.MINUTE, t % 60);
-			htmlCode.append(tdOpen + "Game Time: " + format.format(cal.getTime()) + tdClose + colSpacer);
+			htmlCode.append(trOpen + tdOpen + "Server Time: " + format.format(new Date()) + tdClose + colSpacer);
+			htmlCode.append(tdOpen + "Game Time: " + gameTime + tdClose + colSpacer);
 			htmlCode.append(tdOpen + "Server Restarted: " + GameServer.getStartedTime().getTime() + tdClose + trClose);
 			htmlCode.append("</table>");
 

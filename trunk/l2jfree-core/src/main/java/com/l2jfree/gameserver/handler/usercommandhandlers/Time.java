@@ -20,18 +20,14 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class Time implements IUserCommandHandler
 {
-	private static final int[]	COMMAND_IDS	=
-											{ 77 };
-
+	private static final int[] COMMAND_IDS = { 77 };
+	
 	public boolean useUserCommand(int id, L2PcInstance activeChar)
 	{
-		if (COMMAND_IDS[0] != id)
-			return false;
-
-		activeChar.sendMessage("The current date is " + GameTimeController.getInstance().getFormatedDate());
+		activeChar.sendMessage("The current date is " + GameTimeController.getInstance().getFormattedGameTime());
 		return true;
 	}
-
+	
 	public int[] getUserCommandList()
 	{
 		return COMMAND_IDS;

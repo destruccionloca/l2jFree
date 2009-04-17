@@ -400,17 +400,11 @@ public final class Util
 	 */
 	public static void printSection(String s)
 	{
-		int maxlength = 79;
-		s = "-[ " + s + " ]";
-		int slen = s.length();
-		if (slen > maxlength)
-		{
-			System.out.println(s);
-			return;
-		}
-		int i;
-		for (i = 0; i < (maxlength - slen); i++)
-			s = "=" + s;
+		s = "={ " + s + " }";
+		
+		while (s.length() < 160)
+			s = "-" + s;
+		
 		System.out.println(s);
 	}
 

@@ -26,12 +26,12 @@ import java.util.Set;
 
 import javolution.util.FastSet;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlEvent;
-import com.l2jfree.gameserver.calendar.L2Calendar;
 import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.instancemanager.DayNightSpawnManager;
 import com.l2jfree.gameserver.model.L2Character;
@@ -40,58 +40,148 @@ import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance.ConditionListenerDependency;
 import com.l2jfree.gameserver.network.serverpackets.ClientSetTime;
-import com.l2jfree.gameserver.taskmanager.AbstractFIFOPeriodicTaskManager;
+import com.l2jfree.gameserver.util.Broadcast;
+import com.l2jfree.lang.L2Thread;
 
-public final class GameTimeController extends Thread
+public final class GameTimeController
 {
-	public static final int					TICKS_PER_SECOND	= 10;
-	public static final int					MILLIS_IN_TICK		= 1000 / TICKS_PER_SECOND;
-
-	private static final Log				_log				= LogFactory.getLog(GameTimeController.class);
-	private static L2Calendar				_calendar;
-	private final Set<L2Character>			_movingChars		= new FastSet<L2Character>();
-	private static final GameTimeController	_instance			= new GameTimeController();
-	public long								_startMoveTime;
-
+	private static final Log _log = LogFactory.getLog(GameTimeController.class);
+	
+	public static final int TICKS_PER_SECOND = 10;
+	public static final int MILLIS_IN_TICK = 1000 / TICKS_PER_SECOND;
+	
+	private static final GameTimeController _instance = new GameTimeController();
+	
 	public static GameTimeController getInstance()
 	{
 		return _instance;
 	}
 	
-	// Close door of pirate's room.
-	private class ClosePiratesRoom implements Runnable
+	private final Calendar _calendar = new GregorianCalendar();
+	
+	private GameTimeController()
 	{
-		public void run()
+		final Calendar cal = loadData();
+		
+		if (cal != null)
 		{
-			DoorTable.getInstance().getDoor(21240006).closeMe();
+			_calendar.setTimeInMillis(cal.getTimeInMillis());
+		}
+		else
+		{
+			_calendar.set(Calendar.YEAR, 1281);
+			_calendar.set(Calendar.MONTH, 5);
+			_calendar.set(Calendar.DAY_OF_MONTH, 5);
+			_calendar.set(Calendar.HOUR_OF_DAY, 23);
+			_calendar.set(Calendar.MINUTE, 45);
+			
+			saveData();
+		}
+		
+		ThreadPoolManager.getInstance().scheduleAtFixedRate(new MinuteCounter(), 0, 60000 / Config.DATETIME_MULTI);
+		
+		_log.info("GameTimeController: Initialized.");
+	}
+	
+	private GregorianCalendar loadData()
+	{
+		if (!Config.DATETIME_SAVECAL)
+			return null;
+		
+		ObjectInputStream is = null;
+		try
+		{
+			is = new ObjectInputStream(new FileInputStream("data/serial/clock.dat"));
+			
+			return (GregorianCalendar)is.readObject();
+		}
+		catch (Exception e)
+		{
+			_log.warn("", e);
+			
+			return null;
+		}
+		finally
+		{
+			IOUtils.closeQuietly(is);
 		}
 	}
-
-	private class MinuteCounter implements Runnable
+	
+	private void saveData()
+	{
+		if (!Config.DATETIME_SAVECAL)
+			return;
+		
+		ObjectOutputStream os = null;
+		try
+		{
+			os = new ObjectOutputStream(new FileOutputStream("data/serial/clock.dat"));
+			
+			os.writeObject(_calendar);
+		}
+		catch (IOException e)
+		{
+			_log.warn("", e);
+		}
+		finally
+		{
+			IOUtils.closeQuietly(os);
+		}
+	}
+	
+	private static final SimpleDateFormat FORMAT1 = new SimpleDateFormat("hh:mm a");
+	private static final SimpleDateFormat FORMAT2 = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
+	
+	public String getFormattedGameTime()
+	{
+		return (Config.DATETIME_SAVECAL ? FORMAT1 : FORMAT2).format(_calendar.getTime());
+	}
+	
+	public int getGameTime()
+	{
+		return _calendar.get(Calendar.HOUR_OF_DAY) * 60 + _calendar.get(Calendar.MINUTE);
+	}
+	
+	public boolean isNowNight()
+	{
+		final int hour = _calendar.get(Calendar.HOUR_OF_DAY);
+		
+		return hour < Config.DATETIME_SUNRISE || Config.DATETIME_SUNSET <= hour;
+	}
+	
+	private final class MinuteCounter implements Runnable
 	{
 		public void run()
 		{
-			boolean isNight = isNowNight();
-			int oldHour = _calendar.getDate().get(Calendar.HOUR_OF_DAY);
-			int oldDay = _calendar.getDate().get(Calendar.DAY_OF_YEAR);
-			int oldYear = _calendar.getDate().get(Calendar.YEAR);
-			_calendar.getDate().add(Calendar.MINUTE, 1);
-
+			final boolean isNight = isNowNight();
+			
+			final int oldHour = _calendar.get(Calendar.HOUR_OF_DAY);
+			final int oldDay = _calendar.get(Calendar.DAY_OF_YEAR);
+			final int oldYear = _calendar.get(Calendar.YEAR);
+			
+			_calendar.add(Calendar.MINUTE, 1);
+			
+			final int newHour = _calendar.get(Calendar.HOUR_OF_DAY);
+			
 			//check if one hour passed
-			int newHour = _calendar.getDate().get(Calendar.HOUR_OF_DAY);
-			if (newHour != oldHour)
+			if (oldHour != newHour)
 			{
 				//update time for all players
-				for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-				{
-					player.sendPacket(ClientSetTime.STATIC_PACKET);
-				}
+				Broadcast.toAllOnlinePlayers(ClientSetTime.STATIC_PACKET);
+				
 				//check for zaken door
 				if (newHour == Config.ALT_TIME_IN_A_DAY_OF_OPEN_A_DOOR)
 				{
 					DoorTable.getInstance().getDoor(21240006).openMe();
-					ThreadPoolManager.getInstance().schedule(new ClosePiratesRoom(), Config.ALT_TIME_OF_OPENING_A_DOOR * 60 * 1000);
+					
+					ThreadPoolManager.getInstance().schedule(new Runnable() {
+						public void run()
+						{
+							DoorTable.getInstance().getDoor(21240006).closeMe();
+						}
+					}, Config.ALT_TIME_OF_OPENING_A_DOOR * 60 * 1000);
 				}
+				
 				//check if night state changed
 				if (isNight != isNowNight())
 				{
@@ -100,209 +190,159 @@ public final class GameTimeController extends Thread
 					for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 						player.refreshConditionListeners(ConditionListenerDependency.GAME_TIME);
 				}
+				
+				final int newDay = _calendar.get(Calendar.DAY_OF_YEAR);
+				
 				//check if a whole day passed
-				if (oldDay != _calendar.getDate().get(Calendar.DAY_OF_YEAR))
+				if (oldDay != newDay)
 				{
-					_log.info("A day passed its now: " + getFormatedDate());
-					int newYear = _calendar.getDate().get(Calendar.YEAR);
+					_log.info("An in-game day passed - it's now: " + getFormattedGameTime());
+					
+					final int newYear = _calendar.get(Calendar.YEAR);
+					
 					if (oldYear != newYear)
 					{
-						Announcements.getInstance().announceToAll("A new year has begun, good luck to all in the year " + newYear);
+						Announcements.getInstance().announceToAll(
+							"A new year has begun, good luck to all in the year " + newYear);
 					}
 				}
-			}
-			if (Config.DATETIME_SAVECAL)
+				
 				saveData();
+			}
 		}
-	}
-
-	public GregorianCalendar getDate()
-	{
-		return _calendar.getDate();
-	}
-
-	public String getFormatedDate()
-	{
-		SimpleDateFormat format = new SimpleDateFormat("hh:mm a");
-		if(Config.DATETIME_SAVECAL)
-			format = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
-		return format.format(getDate().getTime());
-	}
-
-	private GameTimeController()
-	{
-		super("GameTimeController");
-		setDaemon(true);
-		setPriority(MAX_PRIORITY);
-		if (Config.DATETIME_SAVECAL)
-			_calendar = (L2Calendar) loadData();
-		if (_calendar == null)
-		{
-			_calendar = new L2Calendar();
-			_calendar.getDate().set(Calendar.YEAR, 1281);
-			_calendar.getDate().set(Calendar.MONTH, 5);
-			_calendar.getDate().set(Calendar.DAY_OF_MONTH, 5);
-			_calendar.getDate().set(Calendar.HOUR_OF_DAY, 23);
-			_calendar.getDate().set(Calendar.MINUTE, 45);
-			_calendar.setGameStarted(System.currentTimeMillis());
-			saveData();
-		}
-		start();
-
-		ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new MinuteCounter(), 0, 1000 * Config.DATETIME_MULTI);
-
-		_log.info("GameTimeController: Initialized.");
 	}
 	
-	public static int getGameTicks()
-	{
-		return _calendar.gameTicks;
-	}
-
-	public int getGameTime()
-	{
-		return _calendar.getGameTime();
-	}
-
-	private L2Character[] getMovingChars()
-	{
-		synchronized (_movingChars)
-		{
-			return _movingChars.toArray(new L2Character[_movingChars.size()]);
-		}
-	}
-
-	public boolean isNowNight()
-	{
-		int hour = _calendar.getDate().get(Calendar.HOUR_OF_DAY);
-		if (hour < Config.DATETIME_SUNRISE || hour > Config.DATETIME_SUNSET)
-			return true;
-		return false;
-	}
-
-	private Object loadData()
+	public static void stopTimer()
 	{
 		try
 		{
-			String filename = "data/serial/clock.dat";
-			ObjectInputStream objstream = new ObjectInputStream(new FileInputStream(filename));
-			Object object = objstream.readObject();
-			objstream.close();
-			return object;
+			_timingThread.shutdown();
 		}
-		catch (Exception e)
+		catch (InterruptedException e)
 		{
 			e.printStackTrace();
 		}
-		return null;
-	}
-	
-	private static final class ArrivedCharacterManager extends AbstractFIFOPeriodicTaskManager<L2Character>
-	{
-		private static final ArrivedCharacterManager _instance = new ArrivedCharacterManager();
 		
-		public static ArrivedCharacterManager getInstance()
+		try
 		{
-			return _instance;
+			_movingThread.shutdown();
 		}
-		
-		private ArrivedCharacterManager()
+		catch (InterruptedException e)
 		{
-			super(GameTimeController.MILLIS_IN_TICK);
-		}
-		
-		@Override
-		protected void callTask(L2Character cha)
-		{
-			cha.getKnownList().updateKnownObjects();
-			
-			if (cha instanceof L2BoatInstance)
-				((L2BoatInstance)cha).evtArrived();
-			
-			if (cha.hasAI())
-				cha.getAI().notifyEvent(CtrlEvent.EVT_ARRIVED);
-		}
-		
-		@Override
-		protected String getCalledMethodName()
-		{
-			return "getAI().notifyEvent(CtrlEvent.EVT_ARRIVED)";
+			e.printStackTrace();
 		}
 	}
 	
-	private void moveObjects()
-	{
-		for (L2Character cha : getMovingChars())
-		{
-			if (!cha.updatePosition(_calendar.gameTicks))
-			{
-				continue;
-			}
-			
-			synchronized (_movingChars)
-			{
-				_movingChars.remove(cha);
-			}
-			
-			ArrivedCharacterManager.getInstance().add(cha);
-		}
-	}
-
-	public void registerMovingChar(L2Character cha)
+	private static final Set<L2Character> _movingChars = new FastSet<L2Character>();
+	
+	public static void registerMovingChar(L2Character cha)
 	{
 		synchronized (_movingChars)
 		{
 			_movingChars.add(cha);
 		}
 	}
-
-	@Override
-	public void run()
+	
+	private static L2Character[] getMovingChars()
 	{
-		for (;;)
+		synchronized (_movingChars)
 		{
-			long currentTime = System.currentTimeMillis();
-			_startMoveTime = currentTime;
-			_calendar.gameTicks = (int) ((currentTime - _calendar.getGameStarted()) / MILLIS_IN_TICK);
-			moveObjects();
-			currentTime = System.currentTimeMillis();
-			_calendar.gameTicks = (int) ((currentTime - _calendar.getGameStarted()) / MILLIS_IN_TICK);
-			//move delay
-			long sleepTime = Config.DATETIME_MOVE_DELAY - (currentTime - _startMoveTime);
-			if (sleepTime > 0)
+			return _movingChars.toArray(new L2Character[_movingChars.size()]);
+		}
+	}
+	
+	private static final ArrivedCharacterThread _movingThread = new ArrivedCharacterThread();
+	
+	private static final class ArrivedCharacterThread extends L2Thread
+	{
+		private ArrivedCharacterThread()
+		{
+			super("ArrivedCharacterThread");
+			setPriority(Thread.MAX_PRIORITY);
+			setDaemon(true);
+			
+			start();
+		}
+		
+		private int _lastMovedTick;
+		
+		@Override
+		protected void runTurn()
+		{
+			while (_lastMovedTick + Config.DATETIME_MOVE_DELAY <= _gameTicks)
 			{
-				try
+				_lastMovedTick = _gameTicks;
+				
+				for (L2Character cha : getMovingChars())
 				{
-					sleep(sleepTime);
-				}
-				catch (InterruptedException e)
-				{
-					e.printStackTrace();
+					if (!cha.updatePosition(_lastMovedTick))
+						continue;
+					
+					synchronized (_movingChars)
+					{
+						_movingChars.remove(cha);
+					}
+					
+					cha.getKnownList().updateKnownObjects();
+					
+					if (cha instanceof L2BoatInstance)
+						((L2BoatInstance)cha).evtArrived();
+					
+					if (cha.hasAI())
+						cha.getAI().notifyEvent(CtrlEvent.EVT_ARRIVED);
 				}
 			}
 		}
-	}
-
-	public void saveData()
-	{
-		if (Config.DATETIME_SAVECAL)
+		
+		@Override
+		protected synchronized void sleepTurn() throws InterruptedException
 		{
-			try
-			{
-				String filename = "data/serial/clock.dat";
-				ObjectOutputStream objstream = new ObjectOutputStream(new FileOutputStream(filename));
-				objstream.writeObject(_calendar);
-				objstream.close();
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
+			wait(Math.max(0, getDelayTillGameTick(_lastMovedTick + Config.DATETIME_MOVE_DELAY)));
 		}
 	}
-
-	public void stopTimer()
+	
+	private static final long _gameStarted = System.currentTimeMillis();
+	private static volatile int _gameTicks;
+	
+	public static int getGameTicks()
 	{
-		interrupt();
+		return _gameTicks;
+	}
+	
+	private static long getDelayTillGameTick(int gameTick)
+	{
+		return _gameStarted + gameTick * MILLIS_IN_TICK - System.currentTimeMillis();
+	}
+	
+	private static final TimingThread _timingThread = new TimingThread();
+	
+	private static final class TimingThread extends L2Thread
+	{
+		private TimingThread()
+		{
+			super("TimingThread");
+			setPriority(Thread.MAX_PRIORITY);
+			setDaemon(true);
+			
+			start();
+		}
+		
+		@Override
+		protected void runTurn()
+		{
+			while (_gameTicks != (_gameTicks = (int)((System.currentTimeMillis() - _gameStarted) / MILLIS_IN_TICK)))
+			{
+				synchronized (_movingThread)
+				{
+					_movingThread.notifyAll();
+				}
+			}
+		}
+		
+		@Override
+		protected void sleepTurn() throws InterruptedException
+		{
+			Thread.sleep(Math.max(0, getDelayTillGameTick(_gameTicks + 1)));
+		}
 	}
 }

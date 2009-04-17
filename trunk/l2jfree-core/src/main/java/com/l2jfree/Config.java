@@ -1849,7 +1849,7 @@ public final class Config extends L2Config
 	public static int			DATETIME_SUNSET;
 	public static int			DATETIME_MULTI;
 	public static int			DATETIME_MOVE_DELAY;
-
+	
 	// *******************************************************************************************
 	public static void loadDateTimeConfig()
 	{
@@ -1857,12 +1857,12 @@ public final class Config extends L2Config
 		try
 		{
 			Properties datetimeSettings = new L2Properties(DATETIME_FILE);
-
+			
 			DATETIME_SAVECAL = Boolean.parseBoolean(datetimeSettings.getProperty("SaveDate", "false"));
-			DATETIME_MULTI = Integer.parseInt(datetimeSettings.getProperty("TimeMulti", "10"));
-			DATETIME_SUNSET = Integer.parseInt(datetimeSettings.getProperty("SunSet", "18"));
+			DATETIME_SUNSET = Integer.parseInt(datetimeSettings.getProperty("SunSet", "24"));
 			DATETIME_SUNRISE = Integer.parseInt(datetimeSettings.getProperty("SunRise", "6"));
-			DATETIME_MOVE_DELAY = Integer.parseInt(datetimeSettings.getProperty("MoveDelay", "200"));
+			DATETIME_MULTI = Integer.parseInt(datetimeSettings.getProperty("TimeMulti", "6"));
+			DATETIME_MOVE_DELAY = Integer.parseInt(datetimeSettings.getProperty("MoveDelay", "2"));
 		}
 		catch (Exception e)
 		{
@@ -1870,7 +1870,7 @@ public final class Config extends L2Config
 			throw new Error("Failed to Load " + DATETIME_FILE + " File.");
 		}
 	}
-
+	
 	// *******************************************************************************************
 	public static boolean		IS_TELNET_ENABLED;							// Is telnet enabled ?
 	public static boolean		ALT_TELNET;								// Use alternative telnet ?

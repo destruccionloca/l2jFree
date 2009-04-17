@@ -205,12 +205,32 @@ public final class ThreadPoolManager
 		return list;
 	}
 	
+	private boolean awaitTermination(long timeoutInMillisec) throws InterruptedException
+	{
+		final long begin = System.currentTimeMillis();
+		
+		while (System.currentTimeMillis() - begin < timeoutInMillisec)
+		{
+			if (!_pool.awaitTermination(1, TimeUnit.MILLISECONDS))
+				continue;
+			
+			if (!_longRunningPool.awaitTermination(1, TimeUnit.MILLISECONDS))
+				continue;
+			
+			return true;
+		}
+		
+		return false;
+	}
+	
 	public void shutdown()
 	{
+		final long begin = System.currentTimeMillis();
+		
 		System.out.println("ThreadPoolManager: Shutting down.");
 		System.out.println("\t... executing "
 			+ (_pool.getQueue().size() + _pool.getActiveCount()) + " tasks.");
-		System.out.println("\t... executing"
+		System.out.println("\t... executing "
 			+ (_longRunningPool.getQueue().size() + _longRunningPool.getActiveCount()) + " long running tasks.");
 		
 		_pool.shutdown();
@@ -219,30 +239,14 @@ public final class ThreadPoolManager
 		boolean success = false;
 		try
 		{
-			final long begin = System.currentTimeMillis();
-			while (!success && (System.currentTimeMillis() - begin < 5000))
-			{
-				boolean result = true;
-				result &= _pool.awaitTermination(100, TimeUnit.MILLISECONDS);
-				result &= _longRunningPool.awaitTermination(100, TimeUnit.MILLISECONDS);
-				
-				success |= result;
-			}
+			success |= awaitTermination(5000);
 			
 			if (!success)
 			{
 				_pool.setExecuteExistingDelayedTasksAfterShutdownPolicy(false);
 				_pool.setContinueExistingPeriodicTasksAfterShutdownPolicy(false);
 				
-				final long begin2 = System.currentTimeMillis();
-				while (!success && (System.currentTimeMillis() - begin2 < 5000))
-				{
-					boolean result = true;
-					result &= _pool.awaitTermination(100, TimeUnit.MILLISECONDS);
-					result &= _longRunningPool.awaitTermination(100, TimeUnit.MILLISECONDS);
-					
-					success |= result;
-				}
+				success |= awaitTermination(10000);
 			}
 		}
 		catch (InterruptedException e)
@@ -250,8 +254,7 @@ public final class ThreadPoolManager
 			e.printStackTrace();
 		}
 		
-		System.out.println("ThreadPoolManager: Done.");
-		System.out.println("\t... success: " + success);
+		System.out.println("\t... success: " + success + " in " + (System.currentTimeMillis() - begin) + " msec.");
 		System.out.println("\t... " +
 			(_pool.getQueue().size() + _pool.getActiveCount()) + " tasks left.");
 		System.out.println("\t... " +

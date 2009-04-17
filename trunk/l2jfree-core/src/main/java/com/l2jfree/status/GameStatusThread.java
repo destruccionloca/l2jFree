@@ -24,8 +24,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.NoSuchElementException;
 import java.util.Properties;
 import java.util.StringTokenizer;
@@ -393,7 +391,7 @@ public final class GameStatusThread extends Thread
 					_print.println("  +............ L2Pc: " + pcCount);
 					_print.println("  +........ L2Summon: " + summonCount);
 					_print.println("  +.......... L2Door: " + doorCount);
-					_print.println("  --->   Ingame Time: " + gameTime());
+					_print.println("  --->   Ingame Time: " + GameTimeController.getInstance().getFormattedGameTime());
 					_print.println("  ---> Server Uptime: " + getUptime(_uptime));
 					_print.println("  --->	  GM Count: " + getOnlineGMS());
 					_print.println("  --->	   Threads: " + Thread.activeCount());
@@ -1329,17 +1327,5 @@ public final class GameStatusThread extends Thread
 		long m = (uptime - (h * 3600)) / 60;
 		long s = ((uptime - (h * 3600)) - (m * 60));
 		return h + "hrs " + m + "mins " + s + "secs";
-	}
-	
-	private String gameTime()
-	{
-		int t = GameTimeController.getInstance().getGameTime();
-		int h = t / 60;
-		int m = t % 60;
-		SimpleDateFormat format = new SimpleDateFormat("H:mm");
-		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.HOUR_OF_DAY, h);
-		cal.set(Calendar.MINUTE, m);
-		return format.format(cal.getTime());
 	}
 }

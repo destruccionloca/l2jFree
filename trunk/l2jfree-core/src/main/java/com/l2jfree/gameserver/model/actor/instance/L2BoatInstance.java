@@ -343,7 +343,7 @@ public class L2BoatInstance extends L2Character
 
 		// Add the L2Character to movingObjects of the GameTimeController
 		// The GameTimeController manage objects movement
-		GameTimeController.getInstance().registerMovingChar(this);
+		GameTimeController.registerMovingChar(this);
 	}
 
 	private class BoatCaptain implements Runnable

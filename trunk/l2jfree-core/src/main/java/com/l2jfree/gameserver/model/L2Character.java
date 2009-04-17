@@ -4928,7 +4928,7 @@ public abstract class L2Character extends L2Object
 
 		// Add the L2Character to movingObjects of the GameTimeController
 		// The GameTimeController manage objects movement
-		GameTimeController.getInstance().registerMovingChar(this);
+		GameTimeController.registerMovingChar(this);
 
 		// Create a task to notify the AI that L2Character arrives at a check point of the movement
 		if (ticksToMove*GameTimeController.MILLIS_IN_TICK > 3000)
@@ -5009,7 +5009,7 @@ public abstract class L2Character extends L2Object
 
 		// Add the L2Character to movingObjects of the GameTimeController
 		// The GameTimeController manage objects movement
-		GameTimeController.getInstance().registerMovingChar(this);
+		GameTimeController.registerMovingChar(this);
 
 		// Create a task to notify the AI that L2Character arrives at a check point of the movement
 		if (ticksToMove * GameTimeController.MILLIS_IN_TICK > 3000)

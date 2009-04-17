@@ -14,9 +14,6 @@
  */
 package com.l2jfree.gameserver.handler.admincommandhandlers;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.Shutdown;
@@ -78,15 +75,6 @@ public class AdminShutdown implements IAdminCommandHandler
 	private void sendHtmlForm(L2PcInstance activeChar)
 	{
 		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
-
-		int t = GameTimeController.getInstance().getGameTime();
-		int h = t / 60;
-		int m = t % 60;
-		SimpleDateFormat format = new SimpleDateFormat("h:mm a");
-		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.HOUR_OF_DAY, h);
-		cal.set(Calendar.MINUTE, m);
-
 		adminReply.setFile("data/html/admin/shutdown.htm");
 		adminReply.replace("%count%", String.valueOf(L2World.getInstance().getAllPlayersCount()));
 		adminReply.replace("%used%", String.valueOf(Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()));
@@ -94,7 +82,7 @@ public class AdminShutdown implements IAdminCommandHandler
 		adminReply.replace("%sp%", String.valueOf(Config.RATE_SP));
 		adminReply.replace("%adena%", String.valueOf(Config.RATE_DROP_ADENA));
 		adminReply.replace("%drop%", String.valueOf(Config.RATE_DROP_ITEMS));
-		adminReply.replace("%time%", String.valueOf(format.format(cal.getTime())));
+		adminReply.replace("%time%", String.valueOf(GameTimeController.getInstance().getFormattedGameTime()));
 		activeChar.sendPacket(adminReply);
 	}
 
