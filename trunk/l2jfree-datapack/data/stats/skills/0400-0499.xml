@@ -854,7 +854,6 @@
   </skill>
   <skill id="441" levels="1" name="Force Meditation">
     <!-- Done by Ritsu -->
-    <!-- Needs to be verified -->
     <set name="negateId" val="441"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -868,8 +867,8 @@
       <effect count="1" name="ImmobileUntilAttacked" time="120" val="0">
         <mul order="0x30" stat="pDef" val="0.2"/>
       </effect>
-      <effect count="40" name="HealOverTime" time="3" noicon="1" val="100"/>
-      <effect count="40" name="ManaHealOverTime" time="3" noicon="1" val="20"/>
+      <effect count="40" name="HealOverTime" time="3" noicon="1" val="60"/>
+      <effect count="40" name="ManaHealOverTime" time="3" noicon="1" val="10"/>
     </for>
   </skill>
   <skill id="442" levels="1" name="Sonic Barrier">

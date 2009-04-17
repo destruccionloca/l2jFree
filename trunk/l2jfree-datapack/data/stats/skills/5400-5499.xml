@@ -9,9 +9,7 @@
     <set name="hitTime" val="5000"/>
   </skill>
   <skill id="5401" levels="1" name="Stun">
-    <!--
-      Description(s): Temporarily gets thrown into a state of shock and immobilized.
-    -->
+    <!-- Description(s): Temporarily gets thrown into a state of shock and immobilized. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -149,18 +147,14 @@
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5417" levels="1" name="Invincible">
-    <!--
-      Description(s): Invincible against general attack and skill, buff/de-buff.
-    -->
+    <!-- Description(s): Invincible against general attack and skill, buff/de-buff. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5418" levels="1" name="Invincible">
-    <!--
-      Description(s): Invincible against general attack and skill, buff/de-buff.
-    -->
+    <!-- Description(s): Invincible against general attack and skill, buff/de-buff. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -175,9 +169,7 @@
     <set name="hitTime" val="4000"/>
   </skill>
   <skill id="5420" levels="1" name="Invincible">
-    <!--
-      Description(s): Invincible against general attack and skill, buff/de-buff.
-    -->
+    <!-- Description(s): Invincible against general attack and skill, buff/de-buff. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -258,10 +250,10 @@
     <set name="bestowed" val="true"/>
     <for>
       <effect count="1" name="Buff" time="60" val="0">
-        <mul order="0x30" stat="pReuse" val="0.9"> <!-- Guessing -->
+        <mul order="0x30" stat="pReuse" val="0.85">
           <using kind="Bow"/>
         </mul>
-        <mul order="0x30" stat="PhysicalMpConsumeRate" val="0.97"> <!-- Guessing -->
+        <mul order="0x30" stat="PhysicalMpConsumeRate" val="0.95">
           <using kind="Bow"/>
         </mul>
       </effect>
@@ -320,8 +312,7 @@
   </skill>
   <skill id="5431" levels="1" name="Slow">
     <!--
-      Description(s): Condition causing target to
-      temporarily decrease attack speed and casting speed.
+      Description(s): Condition causing target to temporarily decrease attack speed and casting speed.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -358,9 +349,7 @@
     <set name="hitTime" val="1080"/>
   </skill>
   <skill id="5436" levels="1" name="Increase Recovery Rate">
-    <!-- 
-      Description(s): Condition causing target to increase recovery rate of HP and MP.
-    -->
+    <!-- Description(s): Condition causing target to increase recovery rate of HP and MP. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -474,8 +463,7 @@
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5447" levels="7" name="Paralysis">
-    <!-- Needs to be verified -->
-    <table name="#dmg">5 10 15 20 25 30 35</table> <!-- guess -->
+    <table name="#dmg">76 76 76 76 83 83 83</table>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="6"/><!-- Dark -->
     <set name="skillType" val="PARALYZE"/>
@@ -495,18 +483,14 @@
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5449" levels="1" name="Weak Constitution">
-    <!--
-      Description(s): Temporarily gets thrown into a state of shock and immobilized.
-    -->
+    <!-- Description(s): Temporarily gets thrown into a state of shock and immobilized. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5450" levels="7" name="Thin Skin">
-    <!--
-      Description(s): Instantly decreases HP due to Bleed Attack. Effect 4-8.
-    -->
+    <!-- Description(s): Instantly decreases HP due to Bleed Attack. Effect 4-8. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -520,9 +504,7 @@
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5452" levels="3" name="Spite">
-    <!--
-      Description(s): Greatly increases the amount of critical damage received
-    -->
+    <!-- Description(s): Greatly increases the amount of critical damage received -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -550,8 +532,8 @@
   </skill>
   <skill id="5456" levels="1" name="Stubborn Resistance">
     <!--
-      Description(s): Condition causing target to instantly
-      slow down Atk. Speed and Speed due to stubborn resistance.
+      Description(s): Condition causing target to instantly slow down Atk.
+        Speed and Speed due to stubborn resistance.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -585,9 +567,7 @@
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5460" levels="1" name="Fear">
-    <!--
-      Description(s): Causes a temporary fear so strong that a target flees mindlessly.
-    -->
+    <!-- Description(s): Causes a temporary fear so strong that a target flees mindlessly. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
