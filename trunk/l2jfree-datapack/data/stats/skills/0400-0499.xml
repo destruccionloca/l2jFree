@@ -633,16 +633,14 @@
     <set name="isMagic" val="true"/>
   </skill>
   <skill id="428" levels="1" name="Inner Rhythm">
-    <!--
-      By Darki699 Description(s): MP consumption for singing and dancing is decreased.
-    -->
+    <!-- By Darki699 - Description(s): MP consumption for singing and dancing is decreased. -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <mul order="0x30" stat="DanceMpConsumeRate" val="0.95"/>
+      <mul order="0x30" stat="DanceMpConsumeRate" val="0.90"/>
     </for>
   </skill>
   <skill id="429" levels="1" name="Knighthood">
@@ -1989,7 +1987,7 @@
     </cond>
     <for>
       <effect count="1" name="EnemyCharge" time="1" val="0" noicon="1"/>
-      <!-- retail value: 13 17 22 27 31 34/sec; stat update every 5 units (3 1/3 sec) -->
+      <!-- retail value: 13 17 22 27 31 34/sec; stat update every 3 sec -->
       <effect count="7" name="DamOverTime" time="3" val="#dmg" abnormal="bleeding">
         <sub order="0x40" stat="runSpd" val="25"/>
       </effect>
