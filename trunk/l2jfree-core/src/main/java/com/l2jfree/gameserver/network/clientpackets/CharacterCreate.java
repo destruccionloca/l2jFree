@@ -110,7 +110,7 @@ public class CharacterCreate extends L2GameClientPacket
 			}
 			else if (!Config.CNAME_PATTERN.matcher(_name).matches())
 			{
-				if (_log.isDebugEnabled()) 
+				if (_log.isDebugEnabled())
 					_log.debug("charname: " + _name + " is invalid. creation failed.");
 				CharCreateFail ccf = new CharCreateFail(CharCreateFail.REASON_16_ENG_CHARS);
 				sendPacket(ccf);
@@ -121,7 +121,7 @@ public class CharacterCreate extends L2GameClientPacket
 				_log.debug("charname: " + _name + " classId: " + _classId);
 
 			L2PcTemplate template = CharTemplateTable.getInstance().getTemplate(_classId);
-			if(template == null || template.getClassBaseLevel() > 1) 
+			if(template == null || template.getClassBaseLevel() > 1)
 			{
 				CharCreateFail ccf = new CharCreateFail(CharCreateFail.REASON_CREATION_FAILED);
 				sendPacket(ccf);
@@ -201,11 +201,11 @@ public class CharacterCreate extends L2GameClientPacket
 				shortcut = new L2ShortCut(10, 0, 2, skill.getId(), skill.getLevel(), 1);
 				newChar.registerShortCut(shortcut);
 			}
-			if (_log.isDebugEnabled()) 
+			if (_log.isDebugEnabled())
 				_log.debug("adding starter skill:" + skill.getId() + " / " + skill.getLevel());
 		}
 		startTutorialQuest(newChar);
-		new Disconnection(getClient(), newChar).defaultSequence(true);
+		new Disconnection(getClient(), newChar).store().deleteMe();
 		
 		// send char list
 		CharSelectionInfo cl = new CharSelectionInfo(client.getAccountName(), client.getSessionId().playOkID1);
