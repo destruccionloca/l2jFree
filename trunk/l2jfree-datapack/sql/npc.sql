@@ -9311,3 +9311,6 @@ REPLACE INTO `npc` VALUES
 (1516, 1516, 'Blue-Robed Tojigong Agathion', 0, '', 0, 'LineageNPC2.Agathion_CL', 32.00, 23.56, 70, 'male', 'L2Npc', 40, 2444, 2444, 0.00, 0.00, 10, 10, 10, 10, 10, 10, 0, 0, 500, 500, 500, 500, 253, 0, 253, 0, 0, NULL, 80, 120, 'NULL', 0, 0, 0, 'LAST_HIT', 0, 0, 0, 'balanced', 'false'),
 (1517, 1517, 'Green-Robed Tojigong Agathion', 0, '', 0, 'LineageNPC2.Agathion_CL', 32.00, 23.56, 70, 'male', 'L2Npc', 40, 2444, 2444, 0.00, 0.00, 10, 10, 10, 10, 10, 10, 0, 0, 500, 500, 500, 500, 253, 0, 253, 0, 0, NULL, 80, 120, 'NULL', 0, 0, 0, 'LAST_HIT', 0, 0, 0, 'balanced', 'false'),
 (1518, 1518, 'Bugbear Agathion', 0, '', 0, 'LineageNPC2.Agathion_CL', 32.00, 23.56, 70, 'male', 'L2Npc', 40, 2444, 2444, 0.00, 0.00, 10, 10, 10, 10, 10, 10, 0, 0, 500, 500, 500, 500, 253, 0, 253, 0, 0, NULL, 80, 120, 'NULL', 0, 0, 0, 'LAST_HIT', 0, 0, 0, 'balanced', 'false');
+
+-- Set Tyrannosaurus to L2GrandBoss
+UPDATE `npc` SET `type` = 'L2GrandBoss' WHERE id IN (22215,22216,22217);

@@ -598,7 +598,7 @@
     <for>
       <effect count="0x7fffffff" name="ManaDamOverTime" time="3" val="0">
         <mul order="0x30" stat="sDef" val="0.6"/>
-        <set order="0x10" stat="shldAngle" val="360">
+        <set order="0x10" stat="shldAngle" val="360"/>
       </effect>
     </for>
     <enchant1for>
