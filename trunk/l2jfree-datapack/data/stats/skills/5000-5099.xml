@@ -93,17 +93,17 @@
     <for>
       <effect count="5" name="DamOverTime" time="#time" val="#Plague"/>
       <effect count="1" name="Confusion" time="#time" val="0">
-        <div stat="pAtkSpd" val="#Psycho" order="0x40"/>
-        <div stat="mAtkSpd" val="#Psycho" order="0x40"/>
-        <div stat="runSpd" val="#Psycho" order="0x40"/>
-        <div stat="accCombat" val="#Psycho" order="0x40"/>
-        <div stat="rEvas" val="#Psycho" order="0x40"/>
-        <div stat="pDef" val="#Psycho" order="0x40"/>
+        <div stat="pAtkSpd" val="#Psycho" order="0x30"/>
+        <div stat="mAtkSpd" val="#Psycho" order="0x30"/>
+        <div stat="runSpd" val="#Psycho" order="0x30"/>
+        <div stat="accCombat" val="#Psycho" order="0x30"/>
+        <div stat="rEvas" val="#Psycho" order="0x30"/>
+        <div stat="pDef" val="#Psycho" order="0x30"/>
       </effect>
       <effect count="1" name="Buff" time="#time" val="0">
-        <div stat="pAtkSpd" val="#Power" order="0x40"/>
-        <div stat="runSpd" val="#Power" order="0x40"/>
-        <div stat="regHp" val="#Heal" order="0x40"/>
+        <div stat="pAtkSpd" val="#Power" order="0x30"/>
+        <div stat="runSpd" val="#Power" order="0x30"/>
+        <div stat="regHp" val="#Heal" order="0x30"/>
       </effect>
     </for>
   </skill>
@@ -133,7 +133,6 @@
     -->
     <set name="power" val="250"/>
     <set name="mpConsume" val="140"/>
-    <set name="save" val="4"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillTime" val="4500"/>
     <set name="skillType" val="PDAM"/>
@@ -154,7 +153,6 @@
       that can make magical attacks.
     -->
     <set name="mpConsume" val="20"/>
-    <set name="save" val="3"/>
     <set name="power" val="250"/>
     <set name="lvlDepend" val="1"/>
     <set name="target" val="TARGET_ONE"/>
@@ -203,7 +201,6 @@
       Needs to be finished. Description(s): Instantly Immobilizes.
     -->
     <set name="mpConsume" val="200"/>
-    <set name="save" val="5"/>
     <set name="power" val="100"/>
     <set name="lvlDepend" val="2"/>
     <set name="target" val="TARGET_AREA"/>
@@ -247,7 +244,6 @@
     <set name="mpConsume" val="300"/>
     <set name="power" val="60000"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="conditionValue" val="2"/>
     <set name="reuseDelay" val="100000"/>
     <set name="hitTime" val="2030"/>
     <set name="condition" val="128"/>
@@ -290,7 +286,6 @@
       Description(s): Instantly Immobilizes.
     -->
     <set name="mpConsume" val="200"/>
-    <set name="save" val="5"/>
     <set name="power" val="100"/>
     <set name="lvlDepend" val="2"/>
     <set name="target" val="TARGET_AREA"/>

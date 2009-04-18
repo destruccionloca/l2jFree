@@ -551,9 +551,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <set order="0x30" stat="shldAngle" val="180">
-        <using kind="Shield"/> <!-- when a shield is equipped. -->
-      </set>
+      <set order="0x99" stat="shldAngle" val="360"/>
     </for>
   </skill>
   <skill id="317" levels="5" name="Focus Attack">
@@ -598,13 +596,13 @@
     <for>
       <effect count="0x7fffffff" name="ManaDamOverTime" time="3" val="0">
         <mul order="0x30" stat="sDef" val="0.6"/>
-        <set order="0x10" stat="shldAngle" val="360"/>
+        <set order="0x99" stat="shldAngle" val="360"/>
       </effect>
     </for>
     <enchant1for>
       <effect count="0x7fffffff" name="ManaDamOverTime" time="2" val="0">
         <mul order="0x30" stat="sDef" val="#ench1sDef"/>
-        <set order="0x10" stat="shldAngle" val="360"/>
+        <set order="0x99" stat="shldAngle" val="360"/>
       </effect>
     </enchant1for>
   </skill>
@@ -773,7 +771,7 @@
     <set name="castRange" val="40"/>
     <set name="effectRange" val="500"/>
     <cond msgId="1518">
-      <player SiegeZone="126"/>
+      <player siegezone="126"/>
     </cond>
   </skill>
   <skill id="326" levels="1" name="Build Advanced Headquarters">
@@ -1319,13 +1317,13 @@
         <mul order="0x30" stat="blowRate" val="1.6"/> <!-- Blow land rate +60% -->
         <mul order="0x30" stat="cAtk" val="0.7"> <!-- Critical Damage from front -30% -->
           <and>
-            <player front="True"/>
+            <player front="true"/>
               <using kind="Dagger"/>
           </and>
         </mul>
         <mul order="0x30" stat="cAtk" val="1.9"> <!-- Critical Damage from back +90% -->
           <and>
-            <player behind="True"/>
+            <player behind="true"/>
               <using kind="Dagger"/>
           </and>
         </mul>
@@ -1347,37 +1345,37 @@
       <effect count="1" name="Buff" time="120" val="0" stackOrder="1" stackType="focus">
         <basemul order="0x30" stat="rCrit" val="-0.3"> <!-- Critical Chance from front -30% -->
           <and>
-            <player front="True"/>
+            <player front="true"/>
               <using kind="Dagger"/>
           </and>
         </basemul>
         <mul order="0x30" stat="blowRate" val="0.7"> <!-- Blow land rate from front -30% -->
           <and>
-            <player front="True"/>
+            <player front="true"/>
           </and>
         </mul>
         <basemul order="0x30" stat="rCrit" val="0.3"> <!-- Critical Chance from side +30% -->
           <and>
-            <player front="False"/>
-            <player behind="False"/>
+            <player front="false"/>
+            <player behind="false"/>
             <using kind="Dagger"/>
           </and>
         </basemul>
         <mul order="0x30" stat="blowRate" val="1.3"> <!-- Blow land rate from side +30% -->
           <and>
-            <player front="False"/>
-            <player behind="False"/>
+            <player front="false"/>
+            <player behind="false"/>
           </and>
         </mul>
         <basemul order="0x30" stat="rCrit" val="0.6"> <!-- Critical Chance from back +60% -->
           <and>
-            <player behind="True"/>
+            <player behind="true"/>
             <using kind="Dagger"/>
           </and>
         </basemul>
         <mul order="0x30" stat="blowRate" val="1.6"> <!-- Blow land rate from back +60% -->
           <and>
-            <player behind="True"/>
+            <player behind="true"/>
           </and>
         </mul>
       </effect>
@@ -1398,20 +1396,20 @@
       <effect count="1" name="Buff" time="120" val="0" stackOrder="1" stackType="focus">
         <mul order="0x30" stat="cAtk" val="0.7"> <!-- Critical Damage from front -30% -->
           <and>
-            <player front="True"/>
+            <player front="true"/>
             <using kind="Dagger"/>
           </and>
         </mul>
         <mul order="0x30" stat="cAtk" val="1.3"> <!-- Critical Damage from side +30% -->
           <and>
-            <player front="False"/>
-            <player behind="False"/>
+            <player front="false"/>
+            <player behind="false"/>
             <using kind="Dagger"/>
           </and>
         </mul>
         <mul order="0x30" stat="cAtk" val="1.6"> <!-- Critical Damage from back +60% -->
           <and>
-            <player behind="True"/>
+            <player behind="true"/>
             <using kind="Dagger"/>
           </and>
         </mul>

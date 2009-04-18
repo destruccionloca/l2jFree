@@ -1015,7 +1015,6 @@
   </skill>
   <skill id="3574" levels="1" name="Special Ability: Crt. Slow">
     <!-- Done by SarutrA - SqueezeD -->
-    <set name="save" val="5"/>
     <set name="magicLvl" val="74"/>
     <set name="power" val="80"/>
     <set name="lvlDepend" val="2"/>
@@ -1307,7 +1306,7 @@
       <mul order="0x30" stat="pAtkSpd" val="1.03"/> <!-- Atk. Spd. +3% -->
       <add order="0x40" stat="regMp" val="0.51"/> <!-- MP regen per tick +0.51 -->
       <add order="0x40" stat="rCrit" val="220"> <!-- Critical +220 from behind target -->
-        <player behind="True"/>
+        <player behind="true"/>
       </add>
       <mul order="0x30" stat="pvpPhysDmg" val="1.05"/> <!-- PVP Damage Bonus +5% -->
       <mul order="0x30" stat="pvpMagicalDmg" val="1.05"/> <!-- PVP Damage Bonus +5% -->

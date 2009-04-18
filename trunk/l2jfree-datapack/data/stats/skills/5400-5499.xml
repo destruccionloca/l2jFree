@@ -218,7 +218,7 @@
     <set name="castRange" val="500"/>
     <set name="effectRange" val="1000"/>
     <for>
-      <effect count="7" name="DamOverTime" time="3" val="#dmg" abnormal="bleed"/>
+      <effect count="7" name="DamOverTime" time="3" val="#dmg" abnormal="bleeding"/>
     </for>
   </skill>
   <skill id="5425" levels="1" name="Iron Shield">

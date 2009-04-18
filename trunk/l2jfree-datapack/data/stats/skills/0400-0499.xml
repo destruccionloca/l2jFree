@@ -709,16 +709,16 @@
         <using kind="Dagger"/>
       </add>
       <mul order="0x30" stat="blowRate" val="1.2"> <!-- Blow land rate +20% from front -->
-        <player front="True"/>
+        <player front="true"/>
       </mul>
       <mul order="0x30" stat="blowRate" val="1.2"> <!-- Blow land rate +20% from side -->
         <and>
-          <player front="False"/>
-          <player behind="False"/>
+          <player front="false"/>
+          <player behind="false"/>
         </and>
       </mul>
       <mul order="0x30" stat="blowRate" val="1.3"> <!-- Blow land rate +30% from back -->
-        <player behind="True"/>
+        <player behind="true"/>
       </mul>
     </for>
   </skill>
@@ -1130,7 +1130,7 @@
     <set name="staticReuse" val="true"/>
     <set name="magicLvl" val="80"/>
     <set name="effectNpcId" val="13025"/>
-    <set name="offensive" val="True"/>
+    <set name="offensive" val="true"/>
     <set name="effectId" val="5124"/>
     <set name="element" val="2"/>
     <set name="isMagic" val="true"/>
@@ -1295,11 +1295,11 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
+    <!-- charge values -->
+    <set name="needCharges" val="#numcharge"/>
     <cond msg="An equipped hand-to-hand combat weapon is required to use this skill.">
       <using kind="Fist,Dual Fist"/>
     </cond>
-    <!-- charge values -->
-    <set name="needCharges" val="#numcharge"/>
   </skill>
   <skill id="462" levels="1" name="Guilted Body">
     <set name="target" val="TARGET_SELF"/>
@@ -1582,13 +1582,13 @@
     <set name="effectRange" val="400"/>
     <set name="soulConsumeCount" val="5"/> <!-- Temp fix till "soulMaxConsumeCount" gets fixed -->
     <set name="SSBoost" val="2.0"/>
-    <cond msg="An ancient sword weapon has to be equipped to use this skill">
-      <using kind="Ancient"/>
-    </cond>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant1 name="power" val="#ench1Power"/>
     <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <cond msg="An ancient sword weapon has to be equipped to use this skill">
+      <using kind="Ancient"/>
+    </cond>
   </skill>
   <skill id="478" levels="15" name="Double Thrust">
     <!-- CT2.2 retail confirmed -->
@@ -1899,13 +1899,13 @@
     <set name="SSBoost" val="2.0"/>
     <set name="target" val="TARGET_FRONT_AREA"/>
     <set name="weaponsAllowed" val="32768"/> <!-- Ancient -->
-    <cond msgId="113">
-      <target mindistance="200"/>
-    </cond>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant1 name="power" val="#ench1Power"/>
     <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <cond msgId="113">
+      <target mindistance="200"/>
+    </cond>
   </skill>
   <skill id="494" levels="37" name="Shoulder Charge">
     <table name="#mpConsume"> 25 26 27 27 28 29 30 30 31 32 33 34 35 35 36 37 38 38 39 40 41 42 43 43 44 45 45 46 47 48 48 49 50 51 51 52 53 </table>

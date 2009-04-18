@@ -412,7 +412,7 @@
     <set name="staticReuse" val="true"/>
     <set name="magicLvl" val="80"/>
     <set name="effectNpcId" val="13025"/>
-    <set name="offensive" val="True"/>
+    <set name="offensive" val="true"/>
     <set name="effectId" val="5130"/>
     <set name="element" val="2"/>
     <set name="isMagic" val="true"/>
@@ -438,7 +438,7 @@
     <set name="skillRadius" val="180"/>
     <set name="staticReuse" val="true"/>
     <set name="magicLvl" val="80"/>
-    <set name="offensive" val="True"/>
+    <set name="offensive" val="true"/>
     <set name="element" val="1"/>
     <set name="effectNpcId" val="13025"/>
     <set name="effectId" val="5132"/>
@@ -466,7 +466,7 @@
     <set name="staticReuse" val="true"/>
     <set name="magicLvl" val="80"/>
     <set name="effectNpcId" val="13025"/>
-    <set name="offensive" val="True"/>
+    <set name="offensive" val="true"/>
     <set name="effectId" val="5131"/>
     <set name="element" val="3"/>
     <set name="isMagic" val="true"/>
@@ -527,7 +527,7 @@
     <set name="staticReuse" val="true"/>
     <set name="magicLvl" val="80"/>
     <set name="effectNpcId" val="13025"/>
-    <set name="offensive" val="True"/>
+    <set name="offensive" val="true"/>
     <set name="effectId" val="5133"/>
     <set name="element" val="6"/> <!-- Dark -->
     <set name="isMagic" val="true"/>
@@ -555,7 +555,7 @@
     <set name="magicLvl" val="80"/>
     <set name="effectNpcId" val="13020"/>
     <set name="effectId" val="5134"/>
-    <set name="offensive" val="True"/>
+    <set name="offensive" val="true"/>
     <set name="isMagic" val="true"/>
     <set name="power" val="200"/>
     <set name="itemConsumeId" val="8876"/>
@@ -1017,17 +1017,17 @@
     <enchant2 name="buffDuration" val="#ench2Time"/>
     <for>
       <effect count="1" name="Buff" time="1200" val="0" stackOrder="1" stackType="ElementPwr">
-        <set order="0x30" stat="dark" val="100"/>
+        <!-- <set order="0x30" stat="dark" val="100"/> requires core support -->
       </effect>
     </for>
     <enchant1for>
       <effect name="Buff" count="1" val="0" time="500" stackOrder="1" stackType="ElementPwr">
-        <set order="0x30" stat="dark" val="#ench1Power"/>
+        <!-- <set order="0x30" stat="dark" val="#ench1Power"/> requires core support -->
       </effect>
     </enchant1for>
     <enchant2for>
       <effect name="Buff" count="1" val="0" time="#ench2Time" stackOrder="1" stackType="ElementPwr">
-        <set order="0x30" stat="dark" val="100"/>
+        <!-- <set order="0x30" stat="dark" val="100"/> requires core support -->
       </effect>
     </enchant2for>
   </skill>
@@ -1107,7 +1107,7 @@
     <set name="skillType" val="ROOT"/>
     <set name="target" val="TARGET_ONE"/>
     <for>
-      <effect count="1" name="Root" time="15" val="0" stackOrder="1" stackType="Root" abnormal="Root"/>
+      <effect count="1" name="Root" time="15" val="0" stackOrder="1" stackType="Root" abnormal="root"/>
     </for>
   </skill>
   <skill id="1447" levels="9" name="Voice Bind">
@@ -1126,7 +1126,7 @@
     <set name="skillType" val="MUTE"/>
     <set name="target" val="TARGET_ONE"/>
     <for>
-      <effect count="1" name="Mute" time="20" val="0" stackOrder="1" stackType="Silence" abnormal="Mute"/>
+      <effect count="1" name="Mute" time="20" val="0" stackOrder="1" stackType="Silence" abnormal="mute"/>
     </for>
   </skill>
   <skill id="1448" levels="1" name="Blink">

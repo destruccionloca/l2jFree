@@ -572,7 +572,7 @@
     <set name="isPotion" val="true"/>
     <set name="buffDuration" val="300000"/>
     <for>
-      <effect name="Buff" time="300" val="0" abnormal="vitality"/>
+      <effect name="Buff" time="300" val="0"/> <!-- TODO: abnormal="vitality" needs core support -->
     </for>
   </skill>
   <skill id="2581" levels="1" name="not_used">

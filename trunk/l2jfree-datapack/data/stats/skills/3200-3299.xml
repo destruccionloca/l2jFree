@@ -814,9 +814,10 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="750"/>
     <for>
-      <effect count="15" name="HealOverTime" time="1" val="#hotValue" stackOrder="#hotValue" stackType="LifeForce"/>
-      <div order="0x30" stat="pDef" val="#pDef"/>
-      <div order="0x30" stat="mDef" val="#mDef"/>
+      <effect count="15" name="HealOverTime" time="1" val="#hotValue" stackOrder="#hotValue" stackType="LifeForce">
+        <div order="0x30" stat="pDef" val="#pDef"/>
+        <div order="0x30" stat="mDef" val="#mDef"/>
+      </effect>
     </for>
   </skill>
   <skill id="3263" levels="1" name="Blessed Resurrection">
@@ -905,7 +906,7 @@
     <set name="effectRange" val="-1"/>
     <set name="hitTime" val="4000"/>
     <for>
-      <add order="0x30" stat="pAtk" val="10"/> <!-- increase P. Atk. +10 -->
+      <add order="0x40" stat="pAtk" val="10"/> <!-- increase P. Atk. +10 -->
     </for>
   </skill>
   <skill id="3272" levels="1" name="Blue Talisman of Defense">
@@ -917,7 +918,7 @@
     <set name="effectRange" val="-1"/>
     <set name="hitTime" val="4000"/>
     <for>
-      <add order="0x30" stat="pDef" val="18"/> <!-- increase P. Def. +18 -->
+      <add order="0x40" stat="pDef" val="18"/> <!-- increase P. Def. +18 -->
     </for>
   </skill>
   <skill id="3273" levels="1" name="Red Talisman of Recovery">
@@ -1082,7 +1083,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add order="0x30" stat="mAtk" val="12"/> <!-- increase M. Atk. +12 -->
+      <add order="0x40" stat="mAtk" val="12"/> <!-- increase M. Atk. +12 -->
     </for>
   </skill>
   <skill id="3295" levels="1" name="Yellow Talisman of Defense">
@@ -1093,7 +1094,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add order="0x30" stat="pDef" val="18"/> <!-- increase P. Def. +18 -->
+      <add order="0x40" stat="pDef" val="18"/> <!-- increase P. Def. +18 -->
     </for>
   </skill>
   <skill id="3296" levels="1" name="Yellow Talisman of Arcane Defense">

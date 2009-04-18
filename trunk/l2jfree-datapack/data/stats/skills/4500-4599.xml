@@ -239,7 +239,7 @@
     <for>
       <effect name="Buff" time="600" count="1" val="0">
         <basemul order="0x30" stat="rCrit" val="1">
-          <player behind="True"/>
+          <player behind="true"/>
         </basemul>
         <!-- Missing bonus for Rapier -->
       </effect>

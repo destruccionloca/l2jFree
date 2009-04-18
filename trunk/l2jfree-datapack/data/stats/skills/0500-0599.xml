@@ -166,13 +166,13 @@
     <set name="overHit" val="true"/>
     <set name="SSBoost" val="2.0"/>
     <set name="baseCritRate" val="15"/>
-    <cond msgId="113">
-      <target active_effect_id="5264"/>
-    </cond>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant1 name="power" val="#ench1Power"/>
     <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <cond msgId="113">
+      <target active_effect_id="5264"/>
+    </cond>
   </skill>
   <skill id="507" levels="37" name="Twin Shot" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
@@ -1584,7 +1584,7 @@
     <set name="effectType" val="DOT"/>
     <set name="effectLevel" val="#effectLevel"/>
     <for>
-      <effect count="11" name="DamOverTime" time="3" val="#dmg" abnormal="bleed"/>
+      <effect count="11" name="DamOverTime" time="3" val="#dmg" abnormal="bleeding"/>
     </for>
   </skill>
   <skill id="579" levels="4" name="Fire Armor">

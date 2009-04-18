@@ -418,7 +418,6 @@
     <set name="magicLvl" val="116"/>
     <set name="lvlDepend" val="1"/>
     <set name="mpConsume" val="99"/>
-    <set name="save" val="4"/>
     <set name="power" val="30"/>
     <set name="target" val="TARGET_AURA"/>
     <set name="skillRadius" val="200"/>
@@ -547,7 +546,7 @@
     <set name="castRange" val="500"/>
     <set name="effectRange" val="1000"/>
     <for>
-      <effect count="10" name="DamOverTime" time="3" val="#dmg" abnormal="bleed"/>
+      <effect count="10" name="DamOverTime" time="3" val="#dmg" abnormal="bleeding"/>
     </for>
   </skill>
   <skill id="5254" levels="12" name="Invasion of Spirit">
