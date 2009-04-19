@@ -363,32 +363,34 @@ final class DocumentSkill extends DocumentBase
 		{
 			String abn = attrs.getNamedItem("abnormal").getNodeValue();
 			
-			if (abn.contains("bleeding"))
+			if (abn.equalsIgnoreCase("bleeding"))
 				abnormal |= L2Character.ABNORMAL_EFFECT_BLEEDING;
-			if (abn.contains("poison"))
+			else if (abn.equalsIgnoreCase("poison"))
 				abnormal |= L2Character.ABNORMAL_EFFECT_POISON;
-			if (abn.contains("redcircle"))
+			else if (abn.equalsIgnoreCase("redcircle"))
 				abnormal |= L2Character.ABNORMAL_EFFECT_REDCIRCLE;
-			if (abn.contains("ice"))
+			else if (abn.equalsIgnoreCase("ice"))
 				abnormal |= L2Character.ABNORMAL_EFFECT_ICE;
-			if (abn.contains("wind"))
+			else if (abn.equalsIgnoreCase("wind"))
 				abnormal |= L2Character.ABNORMAL_EFFECT_WIND;
-			if (abn.contains("flame"))
+			else if (abn.equalsIgnoreCase("flame"))
 				abnormal |= L2Character.ABNORMAL_EFFECT_FLAME;
-			if (abn.contains("stun"))
+			else if (abn.equalsIgnoreCase("stun"))
 				abnormal |= L2Character.ABNORMAL_EFFECT_STUN;
-			if (abn.contains("mute"))
+			else if (abn.equalsIgnoreCase("mute"))
 				abnormal |= L2Character.ABNORMAL_EFFECT_MUTED;
-			if (abn.contains("root"))
+			else if (abn.equalsIgnoreCase("root"))
 				abnormal |= L2Character.ABNORMAL_EFFECT_ROOT;
-			if (abn.contains("bighead"))
+			else if (abn.equalsIgnoreCase("bighead"))
 				abnormal |= L2Character.ABNORMAL_EFFECT_BIG_HEAD;
-			if (abn.contains("stealth"))
+			else if (abn.equalsIgnoreCase("stealth"))
 				abnormal |= L2Character.ABNORMAL_EFFECT_STEALTH;
-			if (abn.contains("earthquake"))
+			else if (abn.equalsIgnoreCase("earthquake"))
 				abnormal |= L2Character.ABNORMAL_EFFECT_EARTHQUAKE;
-			if (abn.contains("invul"))
+			else if (abn.equalsIgnoreCase("invul"))
 				abnormal |= L2Character.ABNORMAL_EFFECT_INVULNERABLE;
+			else
+				throw new IllegalStateException("Invalid abnormal value: '" + abn + "'!");
 		}
 		
 		final String stackType;

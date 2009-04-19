@@ -89,7 +89,7 @@ public final class Formulas
 	protected static final double[]	sqrtMENbonus			= new double[MAX_STAT_VALUE];
 	protected static final double[]	sqrtCONbonus			= new double[MAX_STAT_VALUE];
 
-	// These values are 100% matching retail tables, no need to change and no need add 
+	// These values are 100% matching retail tables, no need to change and no need add
 	// calculation into the stat bonus when accessing (not efficient),
 	// better to have everything precalculated and use values directly (saves CPU)
 	static
@@ -1369,8 +1369,8 @@ public final class Formulas
 		// Dmg bonusses in PvP fight
 		if ((attacker instanceof L2PlayableInstance) && (target instanceof L2PlayableInstance))
 		{
-			// Removed skill == null check since it cannot be null at this 
-			// position or method throws NullPOinterException a way before 
+			// Removed skill == null check since it cannot be null at this
+			// position or method throws NullPOinterException a way before
 			damage *= attacker.calcStat(Stats.PVP_PHYS_SKILL_DMG, 1, null, null);
 		}
 
@@ -1496,7 +1496,7 @@ public final class Formulas
 		{
 			defence += target.getStat().getShldDef();
 		}*/
-		//if (!(attacker instanceof L2RaidBossInstance) && 
+		//if (!(attacker instanceof L2RaidBossInstance) &&
 		/*
 		if ((attacker instanceof L2NpcInstance || attacker instanceof L2SiegeGuardInstance))
 		{
@@ -1513,10 +1513,10 @@ public final class Formulas
 		//if (skill == null)
 		if (crit)
 		{
-			//Finally retail like formula 
+			//Finally retail like formula
 			damage = 2 * attacker.calcStat(Stats.CRITICAL_DAMAGE, 1, target, skill)
 					* target.calcStat(Stats.CRIT_VULN, target.getTemplate().baseCritVuln, target, null) * (70 * damage / defence);
-			//Crit dmg add is almost useless in normal hits... 
+			//Crit dmg add is almost useless in normal hits...
 			damage += (attacker.calcStat(Stats.CRITICAL_DAMAGE_ADD, 0, target, skill) * 70 / defence);
 		}
 		else
@@ -1887,7 +1887,7 @@ public final class Formulas
 			else if (delta < -3 && delta >= -9)
 			{
 				//               baseLethal
-				// chance = -1 * ----------- 
+				// chance = -1 * -----------
 				//               (delta / 3)
 				chance = (-3) * (baseLethal / (delta));
 			}
@@ -2264,6 +2264,7 @@ public final class Formulas
 		if (skill != null)
 		{
 			// first, get the natural template vulnerability values for the target
+			/*
 			Stats stat = skill.getStat();
 			if (stat != null)
 			{
@@ -2316,6 +2317,7 @@ public final class Formulas
 					break;
 				}
 			}
+			*/
 
 			// Next, calculate the elemental vulnerabilities
 			switch (skill.getElement())

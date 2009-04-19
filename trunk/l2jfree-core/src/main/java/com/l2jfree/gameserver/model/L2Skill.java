@@ -53,7 +53,6 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Formulas;
-import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.conditions.Condition;
 import com.l2jfree.gameserver.skills.effects.EffectTemplate;
 import com.l2jfree.gameserver.skills.funcs.Func;
@@ -245,12 +244,8 @@ public class L2Skill implements FuncOwner
 	private final Integer			_id;
 	private final int				_level;
 
-	/** Instant Kill Rate (iRate) * */
-	private final int				_iRate;
-	private final boolean			_iKill;
-
 	/** Identifier for a skill that client can't display */
-	private int						_displayId;
+	private final int				_displayId;
 
 	// not needed, just for easier debug
 	private final String			_name;
@@ -341,18 +336,12 @@ public class L2Skill implements FuncOwner
 
 	private final boolean			_ispotion;
 	private final int				_element;
-	private final int				_savevs;
 	private final boolean			_isSuicideAttack;
 	private final int				_activateRate;
-	private final int				_levelModifier;
 	private final int				_magicLevel;
 
-	private final Stats				_stat;
-
 	private final int				_condition;
-	private final int				_conditionValue;
 	private final boolean			_overhit;
-	private final boolean			_critical;
 	private final boolean			_ignoreShld;
 	private final int				_weaponsAllowed;
 	private final int				_armorsAllowed;
@@ -405,7 +394,6 @@ public class L2Skill implements FuncOwner
 
 	private final boolean			_isAdvanced;								// Used by siege flag summon skills
 
-	private final float				_successRate;
 	private final int				_minPledgeClass;
 
 	private final int				_aggroPoints;
@@ -437,9 +425,11 @@ public class L2Skill implements FuncOwner
 		_level = set.getInteger("level");
 
 		_displayId = set.getInteger("displayId", _id);
-		_name = set.getString("name");
+		_name = set.getString("name").intern();
+		_skillType = set.getEnum("skillType", L2SkillType.class);
 		_operateType = set.getEnum("operateType", SkillOpType.class);
-		_magic = set.getBool("isMagic", false);
+		_targetType = set.getEnum("target", SkillTargetType.class);
+		_magic = set.getBool("isMagic", isSkillTypeMagic());
 		_itemSkill = set.getBool("isItem", false);
 		_physic = set.getBool("isPhysic", false);
 		_ispotion = set.getBool("isPotion", false);
@@ -465,10 +455,8 @@ public class L2Skill implements FuncOwner
 		_activationtime = set.getInteger("activationtime", 8);
 		_activationchance = set.getInteger("activationchance", 30);
 
-		_refId = set.getInteger("referenceId", set.getInteger("itemConsumeId", 0));
+		_refId = set.getInteger("referenceId", _itemConsumeId);
 
-		_iRate = set.getInteger("iRate", 0);
-		_iKill = set.getBool("iKill", false);
 		_castRange = set.getInteger("castRange", 0);
 		_effectRange = set.getInteger("effectRange", -1);
 
@@ -492,12 +480,11 @@ public class L2Skill implements FuncOwner
 
 		_hitTime = set.getInteger("hitTime", 0);
 		_coolTime = set.getInteger("coolTime", 0);
-		_skillInterruptTime = (_hitTime / 2);
+		_skillInterruptTime = isMagic() ? getHitTime() / 2 : 0;
 		_reuseDelay = set.getInteger("reuseDelay", 0);
 		_equipDelay = set.getInteger("equipDelay", 0);
 		
 
-		_skillType = set.getEnum("skillType", L2SkillType.class);
 		_isDance = set.getBool("isDance", false);
 		_isSong = set.getBool("isSong", false);
 		if (_isDance || _isSong)
@@ -509,11 +496,9 @@ public class L2Skill implements FuncOwner
 
 		_skillRadius = set.getInteger("skillRadius", 80);
 
-		_targetType = set.getEnum("target", SkillTargetType.class);
 		_power = set.getFloat("power", 0.f);
 
 		_levelDepend = set.getInteger("lvlDepend", 0);
-		_stat = set.getEnum("stat", Stats.class, null);
 
 		_isAdvanced = set.getBool("isAdvanced", false); // Used by siege flag summon skills
 		_isDebuff = set.getBool("isDebuff", false);
@@ -525,15 +510,11 @@ public class L2Skill implements FuncOwner
 		_effectLvl = set.getFloat("effectLevel", 0.f);
 		_skill_landing_percent = set.getInteger("skill_landing_percent", 0);
 		_element = set.getInteger("element", 0);
-		_savevs = set.getInteger("save", 0);
 		_activateRate = set.getInteger("activateRate", -1);
-		_levelModifier = set.getInteger("levelModifier", 1);
 		_magicLevel = set.getInteger("magicLvl", SkillTreeTable.getInstance().getMinSkillLevel(_id, _level));
 
 		_ignoreShld = set.getBool("ignoreShld", false);
-		_critical = set.getBool("critcal", false);
 		_condition = set.getInteger("condition", 0);
-		_conditionValue = set.getInteger("conditionValue", 0);
 		_overhit = set.getBool("overHit", false);
 		_isSuicideAttack = set.getBool("isSuicideAttack", false);
 		_weaponsAllowed = set.getInteger("weaponsAllowed", 0);
@@ -550,7 +531,6 @@ public class L2Skill implements FuncOwner
 		_giveCharges = set.getInteger("giveCharges", 0);
 		_maxCharges = set.getInteger("maxCharges", 0);
 
-		_successRate = set.getFloat("rate", 1);
 		_minPledgeClass = set.getInteger("minPledgeClass", 0);
 
 		_triggeredId = set.getInteger("triggeredId", 0);
@@ -587,7 +567,7 @@ public class L2Skill implements FuncOwner
 		_lethalEffect2 = set.getInteger("lethal2", 0);
 		_directHpDmg = set.getBool("dmgDirectlyToHp", false);
 		_nextDanceCost = set.getInteger("nextDanceCost", 0);
-		_sSBoost = set.getFloat("SSBoost", 0.f);
+		_sSBoost = set.getFloat("SSBoost", 1.f);
 
 		_aggroPoints = set.getInteger("aggroPoints", 0);
 
@@ -662,29 +642,14 @@ public class L2Skill implements FuncOwner
 		return _armorsAllowed;
 	}
 
-	public final int getConditionValue()
-	{
-		return _conditionValue;
-	}
-
 	public final L2SkillType getSkillType()
 	{
 		return _skillType;
 	}
 
-	public final int getSavevs()
-	{
-		return _savevs;
-	}
-
 	public final int getActivateRate()
 	{
 		return _activateRate;
-	}
-
-	public final int getLevelModifier()
-	{
-		return _levelModifier;
 	}
 
 	public final int getMagicLevel()
@@ -711,11 +676,6 @@ public class L2Skill implements FuncOwner
 		return _condition;
 	}
 
-	public final boolean isCritical()
-	{
-		return _critical;
-	}
-
 	public final boolean ignoreShld()
 	{
 		return _ignoreShld;
@@ -734,18 +694,6 @@ public class L2Skill implements FuncOwner
 	public final boolean isSuicideAttack()
 	{
 		return _isSuicideAttack;
-	}
-
-	/** INSTANT KILL * */
-	public final boolean isInstantKill()
-	{
-		return _iKill;
-	}
-
-	/** Return the rate in Perecent% of chance to InstantKill* */
-	public final int getInstantKillRate()
-	{
-		return _iRate;
 	}
 
 	/**
@@ -947,28 +895,9 @@ public class L2Skill implements FuncOwner
 		return _displayId;
 	}
 
-	public void setDisplayId(int id)
-	{
-		_displayId = id;
-	}
-
-	public float getSuccessRate()
-	{
-		return _successRate;
-	}
-
 	public int getMinPledgeClass()
 	{
 		return _minPledgeClass;
-	}
-
-	/**
-	 * Return the skill type (ex : BLEED, SLEEP, WATER...).<BR>
-	 * <BR>
-	 */
-	public final Stats getStat()
-	{
-		return _stat;
 	}
 
 	/**
@@ -1453,7 +1382,22 @@ public class L2Skill implements FuncOwner
 	{
 		return SkillTable.getInstance().getInfo(skillId, level) != null;
 	}
-
+	
+	public final boolean isSkillTypeMagic()
+	{
+		switch (getSkillType())
+		{
+			// TODO: other skillTypes
+			case MDAM:
+			case HEAL:
+			case SUMMON_FRIEND:
+			case BALANCE_LIFE:
+				return true;
+			default:
+				return false;
+		}
+	}
+	
 	public final boolean isSkillTypeOffensive()
 	{
 		switch (_skillType)

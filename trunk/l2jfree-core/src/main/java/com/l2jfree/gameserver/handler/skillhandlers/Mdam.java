@@ -136,9 +136,7 @@ public class Mdam implements ICubicSkillHandler
 				}
 			}
 
-			if (skill.isCritical() && !mcrit)
-				damage = 0;
-			else if (mcrit)
+			if (mcrit)
 				activeChar.sendPacket(SystemMessageId.CRITICAL_HIT);
 
 			if (damage < 1)

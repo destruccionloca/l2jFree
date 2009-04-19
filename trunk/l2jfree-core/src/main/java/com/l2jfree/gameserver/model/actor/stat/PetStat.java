@@ -99,7 +99,7 @@ public class PetStat extends SummonStat
     }
 
     @Override
-    public final long getExpForLevel(int level) 
+    public final long getExpForLevel(int level)
     {
     	L2PetData data = PetDataTable.getInstance().getPetData(getActiveChar().getNpcId(), level);
         if (data != null)
@@ -146,6 +146,7 @@ public class PetStat extends SummonStat
     public int getMAtk(L2Character target, L2Skill skill)
     {
         double attack = getActiveChar().getPetData().getPetMAtk();
+        /*
         Stats stat = skill == null? null : skill.getStat();
         if (stat != null)
         {
@@ -167,6 +168,7 @@ public class PetStat extends SummonStat
             case DARK:       attack += getActiveChar().getTemplate().getBaseDark();       break;
             }
         }
+        */
         if (skill != null) attack += skill.getPower();
         return (int)calcStat(Stats.MAGIC_ATTACK, attack, target, skill);
     }

@@ -23,7 +23,6 @@ import org.w3c.dom.Node;
 
 import com.l2jfree.gameserver.model.base.PlayerState;
 import com.l2jfree.gameserver.model.base.Race;
-import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.conditions.ConditionGameTime.CheckGameTime;
 import com.l2jfree.gameserver.templates.item.L2ArmorType;
 import com.l2jfree.gameserver.templates.item.L2WeaponType;
@@ -97,9 +96,6 @@ public abstract class ConditionParser
 				
 				else if ("target".equalsIgnoreCase(n.getNodeName()))
 					cond = parseTargetCondition(n, template);
-				
-				else if ("skill".equalsIgnoreCase(n.getNodeName()))
-					cond = parseSkillCondition(n, template);
 				
 				else if ("using".equalsIgnoreCase(n.getNodeName()))
 					cond = parseUsingCondition(n, template);
@@ -422,7 +418,7 @@ public abstract class ConditionParser
 				String item = st.nextToken().trim();
 				for (L2WeaponType wt : L2WeaponType.values())
 				{
-					if (wt.toString().equals(item))
+					if (wt.toString().equalsIgnoreCase(item))
 					{
 						mask |= wt.mask();
 						break;
@@ -430,7 +426,7 @@ public abstract class ConditionParser
 				}
 				for (L2ArmorType at : L2ArmorType.values())
 				{
-					if (at.toString().equals(item))
+					if (at.toString().equalsIgnoreCase(item))
 					{
 						mask |= at.mask();
 						break;
@@ -446,34 +442,6 @@ public abstract class ConditionParser
 		}
 		
 		throw new IllegalStateException("Invalid attribute at <target>: " + nodeName + "='" + nodeValue + "'");
-	}
-	
-	private Condition parseSkillCondition(Node n, Object template)
-	{
-		Condition cond = null;
-		
-		NamedNodeMap attrs = n.getAttributes();
-		for (int i = 0; i < attrs.getLength(); i++)
-		{
-			Node a = attrs.item(i);
-			cond = joinAnd(cond, parseSkillCondition(a.getNodeName(), getNodeValue(a.getNodeValue(), template)));
-		}
-		
-		if (cond == null)
-			throw new IllegalStateException("Empty <skill> condition");
-		
-		return cond;
-	}
-	
-	private Condition parseSkillCondition(String nodeName, String nodeValue)
-	{
-		if ("stat".equalsIgnoreCase(nodeName))
-		{
-			Stats stat = Stats.valueOfXml(nodeValue);
-			return new ConditionSkillStats(stat);
-		}
-		
-		throw new IllegalStateException("Invalid attribute at <skill>: " + nodeName + "='" + nodeValue + "'");
 	}
 	
 	private Condition parseUsingCondition(Node n, Object template)
@@ -504,7 +472,7 @@ public abstract class ConditionParser
 				String item = st.nextToken().trim();
 				for (L2WeaponType wt : L2WeaponType.values())
 				{
-					if (wt.toString().equals(item))
+					if (wt.toString().equalsIgnoreCase(item))
 					{
 						mask |= wt.mask();
 						break;
@@ -512,7 +480,7 @@ public abstract class ConditionParser
 				}
 				for (L2ArmorType at : L2ArmorType.values())
 				{
-					if (at.toString().equals(item))
+					if (at.toString().equalsIgnoreCase(item))
 					{
 						mask |= at.mask();
 						break;

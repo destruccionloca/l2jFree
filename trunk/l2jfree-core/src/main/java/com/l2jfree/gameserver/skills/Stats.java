@@ -18,7 +18,7 @@ import java.util.NoSuchElementException;
 
 /**
  * Enum of basic stats.
- *
+ * 
  * @author mkizub
  */
 public enum Stats
@@ -26,7 +26,7 @@ public enum Stats
 	//
 	// Base stats, for each in Calculator a slot is allocated
 	//
-
+	
 	// HP & MP
 	MAX_HP("maxHp"),
 	MAX_MP("maxMp"),
@@ -38,7 +38,7 @@ public enum Stats
 	HEAL_EFFECTIVNESS("gainHp"),
 	HEAL_PROFICIENCY("giveHp"),
 	HEAL_STATIC_BONUS("bonusHp"),
-
+	
 	// Atk & Def
 	POWER_DEFENCE("pDef"),
 	MAGIC_DEFENCE("mDef"),
@@ -54,7 +54,7 @@ public enum Stats
 	PVP_PHYS_SKILL_DMG("pvpPhysSkillsDmg"),
 	// Atk & Def rates
 	EVASION_RATE("rEvas"),
-	P_SKILL_EVASION	("pSkillEvas"),
+	P_SKILL_EVASION("pSkillEvas"),
 	SHIELD_RATE("rShld"),
 	SHIELD_ANGLE("shldAngle"),
 	CRITICAL_RATE("rCrit"),
@@ -70,13 +70,13 @@ public enum Stats
 	POWER_ATTACK_ANGLE("pAtkAngle"),
 	ATTACK_COUNT_MAX("atkCountMax"),
 	POLE_ATTACK_ANGLE("poleAngle"),
-
+	
 	// Run speed,
 	// walk & escape speed are calculated proportionally,
 	// magic speed is a buff
 	RUN_SPEED("runSpd"),
 	WALK_SPEED("walkSpd"),
-
+	
 	//
 	// Player-only stats
 	//
@@ -86,14 +86,14 @@ public enum Stats
 	STAT_INT("INT"),
 	STAT_WIT("WIT"),
 	STAT_MEN("MEN"),
-
+	
 	// Unused until DP is updated
 	LOST_EXP("lostExp"),
 	LOST_EXP_PVP("lostExpPvp"),
 	//
 	// Special stats, share one slot in Calculator
 	//
-
+	
 	// stats of various abilities
 	BREATH("breath"),
 	//
@@ -134,7 +134,7 @@ public enum Stats
 	DEBUFF_VULN("debuffVuln"),
 	FALL_VULN("fallVuln"),
 	CRIT_VULN("critVuln"), // Resistence to Crit DMG.
-
+	
 	AGGRESSION_PROF("aggressionProf"),
 	BLEED_PROF("bleedProf"),
 	POISON_PROF("poisonProf"),
@@ -154,7 +154,7 @@ public enum Stats
 	DERANGEMENT_PROF("derangementProf"),
 	DEBUFF_PROF("debuffProf"),
 	CRIT_PROF("critProf"),
-
+	
 	NONE_WPN_VULN("noneWpnVuln"), // Shields!!!
 	SWORD_WPN_VULN("swordWpnVuln"),
 	BLUNT_WPN_VULN("bluntWpnVuln"),
@@ -167,7 +167,7 @@ public enum Stats
 	DUAL_WPN_VULN("dualWpnVuln"),
 	DUALFIST_WPN_VULN("dualFistWpnVuln"),
 	BIGSWORD_WPN_VULN("bigSwordWpnVuln"),
-
+	
 	REFLECT_DAMAGE_PERCENT("reflectDam"),
 	REFLECT_SKILL_MAGIC("reflectSkillMagic"),
 	REFLECT_SKILL_PHYSIC("reflectSkillPhysic"),
@@ -176,10 +176,10 @@ public enum Stats
 	TRANSFER_DAMAGE_PERCENT("transDam"),
 	ABSORB_CP_PERCENT("absorbCpPercent"),
 	SKILL_MASTERY("skillMastery"),
-
+	
 	MAX_LOAD("maxLoad"),
 	WEIGHT_LIMIT("weightLimit"),
-
+	
 	PATK_PLANTS("pAtk-plants"),
 	PATK_INSECTS("pAtk-insects"),
 	PATK_ANIMALS("pAtk-animals"),
@@ -188,7 +188,7 @@ public enum Stats
 	PATK_GIANTS("pAtk-giants"),
 	PATK_UNDEAD("pAtk-undead"),
 	PATK_MAGIC("pAtk-magic"),
-
+	
 	PDEF_PLANTS("pDef-plants"),
 	PDEF_INSECTS("pDef-insects"),
 	PDEF_ANIMALS("pDef-animals"),
@@ -197,15 +197,15 @@ public enum Stats
 	PDEF_UNDEAD("pDef-undead"),
 	PDEF_GIANTS("pDef-giants"),
 	PDEF_MAGIC("pDef-magic"),
-
+	
 	PATK_VALAKAS("pAtk-valakas"),
 	PDEF_VALAKAS("pDef-valakas"),
-
+	
 	//ATK_REUSE        ("atkReuse"),
 	PHYS_REUSE_RATE("pReuse"),
 	MAGIC_REUSE_RATE("mReuse"),
 	BOW_REUSE("bowReuse"),
-
+	
 	//ExSkill :)
 	INV_LIM("inventoryLimit"),
 	WH_LIM("whLimit"),
@@ -214,7 +214,7 @@ public enum Stats
 	P_BUY_LIM("PrivateBuyLimit"),
 	REC_D_LIM("DwarfRecipeLimit"),
 	REC_C_LIM("CommonRecipeLimit"),
-
+	
 	//C4 Stats
 	PHYSICAL_CONSUME_RATE("PhysicalMpConsumeRate"),
 	MAGIC_CONSUME_RATE("MagicalMpConsumeRate"),
@@ -222,32 +222,31 @@ public enum Stats
 	HP_CONSUME_RATE("HpConsumeRate"),
 	MP_CONSUME("MpConsume"),
 	SOULSHOT_COUNT("soulShotCount"),
-
+	
 	transformId("transformId"),
 	TALISMAN_SLOTS("talisman");
-
-	public static final int	NUM_STATS	= values().length;
-
-	private String			_value;
-
+	
+	private final String _value;
+	
+	private Stats(String value)
+	{
+		_value = value;
+	}
+	
 	public String getValue()
 	{
 		return _value;
 	}
-
-	private Stats(String s)
-	{
-		_value = s;
-	}
-
+	
+	public static final Stats[] VALUES = values();
+	public static final int NUM_STATS = VALUES.length;
+	
 	public static Stats valueOfXml(String name)
 	{
-		name = name.intern();
-		for (Stats s : values())
-		{
+		for (Stats s : VALUES)
 			if (s.getValue().equals(name))
 				return s;
-		}
+		
 		throw new NoSuchElementException("Unknown name '" + name + "' for enum BaseStats");
 	}
 }

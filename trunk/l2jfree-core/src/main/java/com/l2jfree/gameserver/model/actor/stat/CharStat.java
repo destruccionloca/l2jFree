@@ -317,6 +317,7 @@ public class CharStat
 
 		// Get the skill type to calculate its effect in function of base stats
 		// of the L2Character target
+		/*
 		Stats stat = skill == null ? null : skill.getStat();
 
 		if (stat != null)
@@ -367,6 +368,7 @@ public class CharStat
 				break;
 			}
 		}
+		*/
 
 		// Add the power of the skill to the attack effect
 		if (skill != null)
@@ -652,7 +654,7 @@ public class CharStat
 			return 1;
 
 		// Polearm handled here for now. Basically L2PcInstance could have a function
-		// similar to FuncBowAtkRange and NPC are defined in DP. 
+		// similar to FuncBowAtkRange and NPC are defined in DP.
 		L2Weapon weaponItem = _activeChar.getActiveWeaponItem();
 		if (weaponItem != null && weaponItem.getItemType() == L2WeaponType.POLE)
 			return (int) calcStat(Stats.POWER_ATTACK_RANGE, 66, null, null);
