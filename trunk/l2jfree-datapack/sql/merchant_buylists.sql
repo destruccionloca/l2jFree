@@ -20987,6 +20987,19 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`,`count`,tim
 (7012,29000,335586,32,1,1),
 (7013,29000,335586,33,1,1);
 --
+-- Castle Lord's Certificates
+--
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`,`count`) VALUES
+(6388, -1, 63881, 1, 300),
+(6388, -1, 63882, 1, 300),
+(6388, -1, 63883, 1, 300),
+(6388, -1, 63884, 1, 300),
+(6388, -1, 63885, 1, 300),
+(6388, -1, 63886, 1, 300),
+(6388, -1, 63887, 1, 300),
+(6388, -1, 63888, 1, 300),
+(6388, -1, 63889, 1, 300);
+--
 -- Castles Item Creation
 --
 INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 

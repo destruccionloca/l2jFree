@@ -2230,3 +2230,6 @@ INSERT INTO `armor` VALUES
 (20275, 'Gold Afro', 'dhair', 'false', 'none', 10, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', ''),
 (20276, 'Pink Afro', 'dhair', 'false', 'none', 10, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '');
 
+-- We have the retail cost, let's have the retail stats
+UPDATE `armor` SET `sellable` = 'true' WHERE `item_id` BETWEEN 6834 AND 6840;
+UPDATE `armor` SET `sellable` = 'true' WHERE `item_id` IN (8182, 8183);

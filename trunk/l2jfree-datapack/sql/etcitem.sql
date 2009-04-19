@@ -8465,3 +8465,6 @@ UPDATE `etcitem` SET `item_type` = 'quest' WHERE `item_id` IN (8085,8098);
 
 -- Already added at armors
 DELETE FROM `etcitem` WHERE `item_id` = 10607;
+
+-- Lord of the Manor's Certificate
+UPDATE `etcitem` SET `price` = 10000 WHERE `item_id` = 6388;
