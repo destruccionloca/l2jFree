@@ -4533,6 +4533,13 @@ public final class L2PcInstance extends L2PlayableInstance
 			FortSiegeManager.getInstance().dropCombatFlag(this);
 		}
 
+		Castle castle = null;
+		if (getClan() != null) {
+			castle = CastleManager.getInstance().getCastleByOwner(getClan());
+			if (castle != null)
+				castle.destroyClanGate();
+		}
+
 		if (killer != null)
 		{
 			L2PcInstance pk = killer.getActingPlayer();
@@ -10135,7 +10142,8 @@ public final class L2PcInstance extends L2PlayableInstance
 			{
 				try
 				{
-					con.close();
+					if (con != null)
+						con.close();
 				}
 				catch (Exception e)
 				{
@@ -11495,6 +11503,13 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (inObserverMode())
 			getPosition().setXYZ(_obsX, _obsY, _obsZ);
 
+		Castle castle = null;
+		if (getClan() != null) {
+			castle = CastleManager.getInstance().getCastleByOwner(getClan());
+			if (castle != null)
+				castle.destroyClanGate();
+		}
+
 		// Set the online Flag to True or False and update the characters table of the database with online status and lastAccess (called when login and logout)
 		try
 		{
@@ -11566,7 +11581,10 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			_log.fatal(e.getMessage(), e);
 		}
-
+	
+		//it always solves problems. once it solved losing buffs when a client critical occured
+		//now it solves logout char->mark to delete->undelete->use long reuse skill
+		storeEffect();
 		stopAllEffects();
 
 		// Remove from world regions zones

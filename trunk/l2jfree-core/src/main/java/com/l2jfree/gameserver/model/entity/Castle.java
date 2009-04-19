@@ -72,6 +72,7 @@ public class Castle extends Siegeable
 	private int							_treasury								= 0;
 	private int							_nbArtifact								= 1;
 	private Map<Integer, Integer>		_engrave								= new FastMap<Integer, Integer>();
+	private final int[]					_gate									= { Integer.MIN_VALUE, 0, 0 };
     private Map<Integer,CastleFunction> _function;
 
 	/** Castle Functions */
@@ -1286,5 +1287,37 @@ public class Castle extends Siegeable
 			}
 		}
 		return true;
- 	}	
+ 	}
+
+	public void createClanGate(int x, int y, int z) {
+		_gate[0] = x;
+		_gate[1] = y;
+		_gate[2] = z;
+	}
+
+	/** Optimized as much as possible. */
+	public void destroyClanGate() {
+		_gate[0] = Integer.MIN_VALUE;
+	}
+
+	/**
+	 * This method must always be called before using gate coordinate retrieval methods!
+	 * Optimized as much as possible.
+	 * @return is a Clan Gate available
+	 */
+	public boolean isGateOpen() {
+		return _gate[0] != Integer.MIN_VALUE;
+	}
+
+	public int getGateX() {
+		return _gate[0];
+	}
+
+	public int getGateY() {
+		return _gate[1];
+	}
+
+	public int getGateZ() {
+		return _gate[2];
+	}
 }

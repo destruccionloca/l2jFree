@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
+import com.l2jfree.gameserver.model.L2CharPosition;
+import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
@@ -65,7 +67,22 @@ public class L2CastleMagicianInstance extends L2FolkInstance
 	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
-		if (command.startsWith("Chat"))
+		if (command.equals("clan_gate")) {
+			Castle castle = getCastle();
+			if (!castle.isGateOpen()) {
+				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+				html.setFile("data/html/castlemagician/magician-nogate.htm");
+				//not necessary
+				//html.replace("%objectId%", String.valueOf(getObjectId()));
+				html.replace("%npcname%", getName());
+				player.sendPacket(html); html = null;
+				return;
+			}
+			player.teleToLocation(castle.getGateX(), castle.getGateY(), castle.getGateZ());
+			player.stopMove(new L2CharPosition(castle.getGateX(), castle.getGateY(), castle.getGateZ(), player.getHeading()));
+			player.sendPacket(ActionFailed.STATIC_PACKET);
+		}
+		else if (command.startsWith("Chat"))
 		{
 			int val = 0;
 			try

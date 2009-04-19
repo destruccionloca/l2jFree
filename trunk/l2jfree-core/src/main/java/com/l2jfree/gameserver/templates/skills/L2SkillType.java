@@ -139,6 +139,7 @@ public enum L2SkillType
 	INSTANT_JUMP,
 	BALLISTA,
 	EXTRACTABLE,
+	CLAN_GATE,
 	
 	AGATHION(L2SkillAgathion.class),
 	MOUNT(L2SkillMount.class),

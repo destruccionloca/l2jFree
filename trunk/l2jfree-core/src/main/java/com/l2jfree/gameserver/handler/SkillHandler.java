@@ -18,6 +18,7 @@ import com.l2jfree.gameserver.handler.skillhandlers.BalanceLife;
 import com.l2jfree.gameserver.handler.skillhandlers.BallistaBomb;
 import com.l2jfree.gameserver.handler.skillhandlers.BeastFeed;
 import com.l2jfree.gameserver.handler.skillhandlers.Blow;
+import com.l2jfree.gameserver.handler.skillhandlers.ClanGate;
 import com.l2jfree.gameserver.handler.skillhandlers.CPperHeal;
 import com.l2jfree.gameserver.handler.skillhandlers.CombatPointHeal;
 import com.l2jfree.gameserver.handler.skillhandlers.Continuous;
@@ -64,22 +65,23 @@ import com.l2jfree.util.HandlerRegistry;
 
 public final class SkillHandler extends HandlerRegistry<L2SkillType, ISkillHandler> implements ISkillHandler
 {
-	private static SkillHandler _instance;
-	
+	private static SkillHandler	_instance;
+
 	public static SkillHandler getInstance()
 	{
 		if (_instance == null)
 			_instance = new SkillHandler();
-		
+
 		return _instance;
 	}
-	
+
 	private SkillHandler()
 	{
 		registerSkillHandler(new BalanceLife());
 		registerSkillHandler(new BallistaBomb());
 		registerSkillHandler(new BeastFeed());
 		registerSkillHandler(new Blow());
+		registerSkillHandler(new ClanGate());
 		registerSkillHandler(new CPperHeal());
 		registerSkillHandler(new CombatPointHeal());
 		registerSkillHandler(new Continuous());
@@ -119,27 +121,27 @@ public final class SkillHandler extends HandlerRegistry<L2SkillType, ISkillHandl
 		registerSkillHandler(new TransformDispel());
 		registerSkillHandler(new Trap());
 		registerSkillHandler(new Unlock());
-		
+
 		HandlerRegistry._log.info("SkillHandler: Loaded " + size() + " handlers.");
 	}
-	
+
 	public void registerSkillHandler(ISkillHandler handler)
 	{
 		registerAll(handler, handler.getSkillIds());
 	}
-	
+
 	public ISkillHandler getSkillHandler(L2SkillType skillType)
 	{
 		ISkillHandler handler = get(skillType);
-		
+
 		return handler == null ? this : handler;
 	}
-	
+
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
 		skill.useSkill(activeChar, targets);
 	}
-	
+
 	public L2SkillType[] getSkillIds()
 	{
 		return null;
