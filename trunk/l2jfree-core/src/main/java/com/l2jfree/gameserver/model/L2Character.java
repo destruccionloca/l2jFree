@@ -21,10 +21,8 @@ import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_FOLLOW;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Future;
 
-import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.apache.commons.logging.Log;
@@ -112,7 +110,7 @@ import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.lang.L2System;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.tools.random.Rnd;
-import com.l2jfree.util.L2Collections;
+import com.l2jfree.util.L2Arrays;
 import com.l2jfree.util.SingletonList;
 import com.l2jfree.util.SingletonSet;
 
@@ -2898,49 +2896,7 @@ public abstract class L2Character extends L2Object
 				throw new NullPointerException();
 			
 			_skill = skill;
-			
-			if (targets == null)
-				_targets = L2Collections.emptyList();
-			else
-			{
-				int nullCount = 0;
-				
-				for (L2Character target : targets)
-					if (target == null)
-						nullCount++;
-				
-				if (targets.length - nullCount <= 8)
-				{
-					if (nullCount == 0)
-					{
-						_targets = new CopyOnWriteArrayList<L2Character>(targets);
-					}
-					else if (targets.length + nullCount <= 8)
-					{
-						_targets = new CopyOnWriteArrayList<L2Character>(targets);
-						
-						for (int index; (index = _targets.indexOf(null)) >= 0;)
-							_targets.remove(index);
-					}
-					else
-					{
-						_targets = new CopyOnWriteArrayList<L2Character>();
-						
-						for (L2Character target : targets)
-							if (target != null)
-								_targets.add(target);
-					}
-				}
-				else
-				{
-					_targets = new FastList<L2Character>(targets.length - nullCount);
-					
-					for (L2Character target : targets)
-						if (target != null)
-							_targets.add(target);
-				}
-			}
-			
+			_targets = L2Arrays.foreachSafeList(targets);
 			_originalTarget = L2Object.getActingCharacter(originalTarget);
 			_originalSkillTarget = originalSkillTarget;
 			_coolTime = coolTime;
