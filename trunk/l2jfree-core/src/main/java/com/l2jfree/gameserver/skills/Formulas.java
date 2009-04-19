@@ -53,6 +53,7 @@ import com.l2jfree.gameserver.templates.item.L2Weapon;
 import com.l2jfree.gameserver.templates.item.L2WeaponType;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.lang.L2Math;
 import com.l2jfree.tools.random.Rnd;
 
 /**
@@ -1771,7 +1772,7 @@ public final class Formulas
 				power *= (-0.45 * Math.log(part) + 1.);
 			else
 				power *= (-0.45 * Math.log(0.005) + 1.);*/
-			power *= (Math.pow(1.7165 - part, 2) * 0.577);
+			power *= (L2Math.pow(1.7165 - part, 2) * 0.577);
 		}
 
 		double damage = 91 * Math.sqrt(mAtk) / mDef * power * calcSkillVulnerability(target, skill);
@@ -2027,14 +2028,18 @@ public final class Formulas
 	}
 
 	/** Calculate delay (in milliseconds) for skills cast */
-	public static final int calcAtkSpd(L2Character attacker, L2Skill skill, double time)
+	public static final int calcCastingRelatedTime(L2Character attacker, L2Skill skill, double time)
 	{
+		if (time <= 0)
+			return 0;
+		
 		if (skill.isItemSkill() && Config.ALT_ITEM_SKILLS_NOT_INFLUENCED)
-			return (int) time;
-		else if (skill.isMagic())
-			return (int) (time * 333 / attacker.getMAtkSpd());
+			return (int)time;
+		
+		if (skill.isMagic())
+			return (int)(time * 333.3 / attacker.getMAtkSpd());
 		else
-			return (int) (time * 333 / attacker.getPAtkSpd());
+			return (int)(time * 333.3 / attacker.getPAtkSpd());
 	}
 
 	/** Returns true if hit missed (target evaded)
@@ -2718,8 +2723,8 @@ public final class Formulas
 
 	public static boolean calcMagicSuccess(L2Character attacker, L2Character target, L2Skill skill)
 	{
-		double lvlDifference = (target.getLevel() - (skill.getMagicLevel() > 0 ? skill.getMagicLevel() : attacker.getLevel()));
-		int rate = Math.round((float) (Math.pow(1.3, lvlDifference) * 100));
+		int lvlDifference = (target.getLevel() - (skill.getMagicLevel() > 0 ? skill.getMagicLevel() : attacker.getLevel()));
+		int rate = Math.round((float) (L2Math.pow(1.3, lvlDifference) * 100));
 
 		return (Rnd.get(10000) > rate);
 	}

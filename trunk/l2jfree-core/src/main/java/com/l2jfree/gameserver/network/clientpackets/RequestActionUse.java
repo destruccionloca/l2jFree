@@ -19,13 +19,12 @@ import java.util.Arrays;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2SummonAI;
 import com.l2jfree.gameserver.datatables.PetSkillsTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
-import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2CharPosition;
+import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2ManufactureList;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
@@ -167,13 +166,10 @@ public class RequestActionUse extends L2GameClientPacket
 					return;
 				}
 
-				if (activeChar.getAccessLevel() < Config.GM_PEACEATTACK && L2Character.isInsidePeaceZone(pet, target))
+				if (L2Character.isInsidePeaceZone(pet, target))
 				{
-					if (!activeChar.isInFunEvent() || !target.isInFunEvent())
-					{
-						activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IN_PEACEZONE));
-						return;
-					}
+					activeChar.sendPacket(SystemMessageId.TARGET_IN_PEACEZONE);
+					return;
 				}
 
 				if (pet.getNpcId() == 12564 || pet.getNpcId() == 12621)
@@ -190,7 +186,7 @@ public class RequestActionUse extends L2GameClientPacket
 						if (((L2DoorInstance) target).isAttackable(activeChar) && pet.getNpcId() != L2SiegeSummonInstance.SWOOP_CANNON_ID)
 							pet.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, target);
 					}
-					// siege golem AI doesn't support attacking other than doors at the moment 
+					// siege golem AI doesn't support attacking other than doors at the moment
 					else if (pet.getNpcId() != L2SiegeSummonInstance.SIEGE_GOLEM_ID)
 						pet.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, target);
 				}
@@ -515,8 +511,8 @@ public class RequestActionUse extends L2GameClientPacket
 
 	/*
 	 * Cast a skill for active pet/servitor.
-	 * Target is specified as a parameter but can be 
-	 * overwrited or ignored depending on skill type.  
+	 * Target is specified as a parameter but can be
+	 * overwrited or ignored depending on skill type.
 	 */
 	private void useSkill(int skillId, L2Object target)
 	{
@@ -555,8 +551,8 @@ public class RequestActionUse extends L2GameClientPacket
 
 	/*
 	 * Cast a skill for active pet/servitor.
-	 * Target is retrieved from owner' target, 
-	 * then validated by overloaded method useSkill(int, L2Character).  
+	 * Target is retrieved from owner' target,
+	 * then validated by overloaded method useSkill(int, L2Character).
 	 */
 	private void useSkill(int skillId)
 	{

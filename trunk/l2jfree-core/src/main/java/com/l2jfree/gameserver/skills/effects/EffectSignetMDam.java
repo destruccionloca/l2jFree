@@ -19,6 +19,8 @@
 
 package com.l2jfree.gameserver.skills.effects;
 
+import javolution.util.FastList;
+
 import com.l2jfree.gameserver.ai.CtrlEvent;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.idfactory.IdFactory;
@@ -38,11 +40,9 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSignetCasttime;
-import com.l2jfree.gameserver.templates.skills.L2EffectType;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
+import com.l2jfree.gameserver.templates.skills.L2EffectType;
 import com.l2jfree.tools.geometry.Point3D;
-
-import javolution.util.FastList;
 
 public final class EffectSignetMDam extends L2Effect
 {
@@ -158,7 +158,7 @@ public final class EffectSignetMDam extends L2Effect
 
 		if (!targets.isEmpty())
 		{
-			caster.broadcastPacket(new MagicSkillLaunched(caster, getSkill().getId(), getSkill().getLevel(), targets.toArray(new L2Character[targets.size()])));
+			caster.broadcastPacket(new MagicSkillLaunched(caster, getSkill(), targets.toArray(new L2Character[targets.size()])));
 			for (L2Character target : targets)
 			{
 				boolean mcrit = Formulas.calcMCrit(caster.getMCriticalHit(target, getSkill()));

@@ -489,6 +489,16 @@ public abstract class L2Object implements L2Entity<Integer>
 		}
 	}
 	
+	public L2Character getActingCharacter()
+	{
+		return null;
+	}
+	
+	public final static L2Character getActingCharacter(L2Object obj)
+	{
+		return (obj == null ? null : obj.getActingCharacter());
+	}
+	
 	public L2PcInstance getActingPlayer()
 	{
 		return null;

@@ -81,7 +81,7 @@ public abstract class L2Summon extends L2PlayableInstance
 
 		public boolean isAutoFollow()
 		{
-			return L2Summon.this.getFollowStatus();
+			return getFollowStatus();
 		}
 
 		public void doPickupItem(L2Object object)
@@ -116,10 +116,10 @@ public abstract class L2Summon extends L2PlayableInstance
 		broadcastFullInfoImpl(0);
 		getOwner().broadcastRelationChanged();
 		
-		L2Party party = this.getOwner().getParty();
+		L2Party party = getOwner().getParty();
 		if (party != null)
 		{
-			party.broadcastToPartyMembers(this.getOwner(), new ExPartyPetWindowAdd(this));
+			party.broadcastToPartyMembers(getOwner(), new ExPartyPetWindowAdd(this));
 		}
 	}
 
@@ -682,14 +682,11 @@ public abstract class L2Summon extends L2PlayableInstance
 		// Check if this is offensive magic skill
 		if (skill.isOffensive())
 		{
-			if (isInsidePeaceZone(this, target) && getOwner() != null && (getOwner().getAccessLevel() < Config.GM_PEACEATTACK))
+			if (isInsidePeaceZone(this, target))
 			{
-				if (!isInFunEvent() || !target.isInFunEvent())
-				{
-					// If summon or target is in a peace zone, send a system message TARGET_IN_PEACEZONE
-					sendPacket(new SystemMessage(SystemMessageId.TARGET_IN_PEACEZONE));
-					return;
-				}
+				// If summon or target is in a peace zone, send a system message TARGET_IN_PEACEZONE
+				sendPacket(new SystemMessage(SystemMessageId.TARGET_IN_PEACEZONE));
+				return;
 			}
 
 			if (getOwner() != null && getOwner().isInOlympiadMode() && !getOwner().isOlympiadStart())
@@ -817,8 +814,8 @@ public abstract class L2Summon extends L2PlayableInstance
 
 	/**
 	 * Servitors' skills automatically change their level based on the servitor's level.
-	 * Until level 70, the servitor gets 1 lv of skill per 10 levels. After that, it is 1 
-	 * skill level per 5 servitor levels.  If the resulting skill level doesn't exist use 
+	 * Until level 70, the servitor gets 1 lv of skill per 10 levels. After that, it is 1
+	 * skill level per 5 servitor levels.  If the resulting skill level doesn't exist use
 	 * the max that does exist!
 	 * 
 	 * @see com.l2jfree.gameserver.model.L2Character#doCast(com.l2jfree.gameserver.model.L2Skill)

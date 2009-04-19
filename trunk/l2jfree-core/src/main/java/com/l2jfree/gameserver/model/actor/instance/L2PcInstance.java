@@ -8448,15 +8448,12 @@ public final class L2PcInstance extends L2PlayableInstance
 		// Check if this is offensive magic skill
 		if (skill.isOffensive())
 		{
-			if (isInsidePeaceZone(this, target) && (getAccessLevel() < Config.GM_PEACEATTACK))
+			if (L2Character.isInsidePeaceZone(this, target))
 			{
-				if (!isInFunEvent() || !target.isInFunEvent())
-				{
-					// If L2Character or target is in a peace zone, send a system message TARGET_IN_PEACEZONE a Server->Client packet ActionFailed
-					sendPacket(SystemMessageId.TARGET_IN_PEACEZONE);
-					sendPacket(ActionFailed.STATIC_PACKET);
-					return false;
-				}
+				// If L2Character or target is in a peace zone, send a system message TARGET_IN_PEACEZONE a Server->Client packet ActionFailed
+				sendPacket(SystemMessageId.TARGET_IN_PEACEZONE);
+				sendPacket(ActionFailed.STATIC_PACKET);
+				return false;
 			}
 
 			if (isInOlympiadMode() && !isOlympiadStart())

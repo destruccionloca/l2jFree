@@ -20,6 +20,7 @@ import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.actor.knownlist.PlayableKnownList;
 import com.l2jfree.gameserver.model.actor.stat.PcStat;
 import com.l2jfree.gameserver.model.actor.stat.PlayableStat;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.taskmanager.PacketBroadcaster.BroadcastMode;
 import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
@@ -288,5 +289,28 @@ public abstract class L2PlayableInstance extends L2Character
 		super.removeEffect(effect);
 		
 		updateEffectIcons();
+	}
+	
+	@Override
+	public final void onForcedAttack(L2PcInstance player)
+	{
+		final L2PcInstance targetPlayer = getActingPlayer();
+		
+		if (player.getOlympiadGameId() != targetPlayer.getOlympiadGameId())
+		{
+			player.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+		
+		if (player.isInOlympiadMode() && targetPlayer.isInOlympiadMode())
+		{
+			if (!player.isOlympiadStart())
+			{
+				player.sendPacket(ActionFailed.STATIC_PACKET);
+				return;
+			}
+		}
+		
+		super.onForcedAttack(player);
 	}
 }

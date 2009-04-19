@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
+import com.l2jfree.gameserver.model.L2Skill;
 
 public final class MagicSkillLaunched extends L2GameServerPacket
 {
@@ -26,12 +27,17 @@ public final class MagicSkillLaunched extends L2GameServerPacket
 	private final int _skillLevel;
 	private final L2Object[] _targets;
 	
-	public MagicSkillLaunched(L2Character cha, int skillId, int skillLevel, L2Object... targets)
+	private MagicSkillLaunched(L2Character cha, int skillId, int skillLevel, L2Object... targets)
 	{
 		_charObjId = cha.getObjectId();
 		_skillId = skillId;
 		_skillLevel = skillLevel;
 		_targets = targets;
+	}
+	
+	public MagicSkillLaunched(L2Character cha, L2Skill skill, L2Object... targets)
+	{
+		this(cha, skill.getDisplayId(), skill.getLevel(), targets);
 	}
 	
 	public MagicSkillLaunched(L2Character cha, int skillId, int skillLevel)

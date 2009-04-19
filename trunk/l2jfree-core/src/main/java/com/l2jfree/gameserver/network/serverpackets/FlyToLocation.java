@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.network.serverpackets;
 
 import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.L2Object;
 
 /**
  *
@@ -44,7 +43,7 @@ public final class FlyToLocation extends L2GameServerPacket
         _type = type;
     }
 
-    public FlyToLocation(L2Character cha, L2Object dest, FlyType type)
+    public FlyToLocation(L2Character cha, L2Character dest, FlyType type)
     {
         this(cha, dest.getX(), dest.getY(), dest.getZ(), type);
     }

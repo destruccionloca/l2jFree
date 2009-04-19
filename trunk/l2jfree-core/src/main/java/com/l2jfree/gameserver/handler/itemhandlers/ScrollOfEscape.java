@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.handler.itemhandlers;
 
-import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.SkillTable;
@@ -27,9 +26,9 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
-import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.model.restriction.AvailableRestriction;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
+import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
@@ -200,7 +199,7 @@ public class ScrollOfEscape implements IItemHandler
 		activeChar.disableAllSkills();
 		
 		L2Skill skill = SkillTable.getInstance().getInfo(escapeSkill, 1);
-		MagicSkillUse msu = new MagicSkillUse(activeChar, activeChar, escapeSkill, 1, skill.getHitTime(), 0); 
+		MagicSkillUse msu = new MagicSkillUse(activeChar, activeChar, escapeSkill, 1, skill.getHitTime(), 0);
 		activeChar.broadcastPacket(msu);
 		SetupGauge sg = new SetupGauge(0, skill.getHitTime());
 		activeChar.sendPacket(sg);
@@ -213,7 +212,7 @@ public class ScrollOfEscape implements IItemHandler
 		EscapeFinalizer ef = new EscapeFinalizer(activeChar, itemId);
 		// Continue execution later
 		activeChar.setSkillCast(ThreadPoolManager.getInstance().scheduleEffect(ef, skill.getHitTime()));
-		activeChar.forceIsCasting(GameTimeController.getGameTicks() + skill.getHitTime() / GameTimeController.MILLIS_IN_TICK);
+		activeChar.forceIsCastingForDuration(skill.getHitTime());
 	}
 	
 	static class EscapeFinalizer implements Runnable
@@ -244,21 +243,21 @@ public class ScrollOfEscape implements IItemHandler
 					case 5859:
 						if (_activeChar.getClan() != null && CastleManager.getInstance().getCastleByOwner(_activeChar.getClan()) != null)
 							_activeChar.teleToLocation(TeleportWhereType.Castle);
-						else 
+						else
 							_activeChar.teleToLocation(TeleportWhereType.Town);
 						break;
 					case 10129:
 					case 10130:
 						if (_activeChar.getClan() != null && FortManager.getInstance().getFortByOwner(_activeChar.getClan()) != null)
 							_activeChar.teleToLocation(TeleportWhereType.Fortress);
-						else 
+						else
 							_activeChar.teleToLocation(TeleportWhereType.Town);
 						break;
 					case 1829:
 					case 5858:
 						if (_activeChar.getClan() != null && ClanHallManager.getInstance().getClanHallByOwner(_activeChar.getClan()) != null)
 							_activeChar.teleToLocation(TeleportWhereType.ClanHall);
-						else 
+						else
 							_activeChar.teleToLocation(TeleportWhereType.Town);
 						break;
 					case 7117:

@@ -51,6 +51,7 @@ import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.network.serverpackets.FlyToLocation.FlyType;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.skills.conditions.Condition;
@@ -413,7 +414,7 @@ public class L2Skill implements FuncOwner
 	protected ChanceCondition _chanceCondition;
 
 	// Flying support
-	private final String			_flyType;
+	private final FlyType			_flyType;
 	private final int				_flyRadius;
 	private final float				_flyCourse;
 
@@ -430,7 +431,7 @@ public class L2Skill implements FuncOwner
 		_operateType = set.getEnum("operateType", SkillOpType.class);
 		_targetType = set.getEnum("target", SkillTargetType.class);
 		_magic = set.getBool("isMagic", isSkillTypeMagic());
-		_itemSkill = set.getBool("isItem", false);
+		_itemSkill = set.getBool("isItem", 3080 <= getId() && getId() <= 3259);
 		_physic = set.getBool("isPhysic", false);
 		_ispotion = set.getBool("isPotion", false);
 		_staticReuse = set.getBool("staticReuse", false);
@@ -573,7 +574,7 @@ public class L2Skill implements FuncOwner
 
 		_pvpMulti = set.getFloat("pvpMulti", 1.f);
 
-		_flyType = set.getString("flyType", null);
+		_flyType = set.getEnum("flyType", FlyType.class, null);
 		_flyRadius = set.getInteger("flyRadius", 200);
 		_flyCourse = set.getFloat("flyCourse", 0);
 
@@ -1348,7 +1349,7 @@ public class L2Skill implements FuncOwner
 		return _feed;
 	}
 
-	public final String getFlyType()
+	public final FlyType getFlyType()
 	{
 		return _flyType;
 	}

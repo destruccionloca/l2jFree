@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.handler.usercommandhandlers;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.SkillTable;
@@ -99,7 +98,7 @@ public class Escape implements IUserCommandHandler
 
 		int unstuckTimer = (activeChar.getAccessLevel() >= Config.GM_ESCAPE ? 1000 : Config.UNSTUCK_INTERVAL * 1000);
 
-		activeChar.forceIsCasting(GameTimeController.getGameTicks() + unstuckTimer / GameTimeController.MILLIS_IN_TICK);
+		activeChar.forceIsCastingForDuration(unstuckTimer);
 
 		L2Skill GM_escape = SkillTable.getInstance().getInfo(2100, 1); // 1 second escape
 		L2Skill escape = SkillTable.getInstance().getInfo(2099, 1); // 5 minutes escape
