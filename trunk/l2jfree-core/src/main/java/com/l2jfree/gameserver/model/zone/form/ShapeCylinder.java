@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.model.zone.form;
 
 import com.l2jfree.gameserver.model.Location;
+import com.l2jfree.lang.L2Math;
 import com.l2jfree.tools.random.Rnd;
 
 
@@ -24,13 +25,13 @@ import com.l2jfree.tools.random.Rnd;
 public class ShapeCylinder extends Shape
 {
 	private int _radius;
-	private long _radiusSq;
+	private int _radiusSq;
 	private int _x, _y;
 
 	@Override
 	public boolean contains(int x, int y)
 	{
-		return (Math.pow(_x - x, 2) + Math.pow(_y - y, 2)) <= _radiusSq;
+		return L2Math.isDistanceLessThanSq(_x, _y, x, y, _radiusSq);
 	}
 
 	@Override
@@ -52,10 +53,10 @@ public class ShapeCylinder extends Shape
 		if (_x > ax1 && _x < ax2 && _y > ay1 && _y < ay2) return true;
 		
 		// Any point of the rectangle intersecting the Circle?
-		if ( (Math.pow(ax1-_x, 2) + Math.pow(ay1-_y, 2)) < _radiusSq) return true;
-		if ( (Math.pow(ax1-_x, 2) + Math.pow(ay2-_y, 2)) < _radiusSq) return true;
-		if ( (Math.pow(ax2-_x, 2) + Math.pow(ay1-_y, 2)) < _radiusSq) return true;
-		if ( (Math.pow(ax2-_x, 2) + Math.pow(ay2-_y, 2)) < _radiusSq) return true;
+		if ( (L2Math.pow(ax1-_x, 2) + L2Math.pow(ay1-_y, 2)) < _radiusSq) return true;
+		if ( (L2Math.pow(ax1-_x, 2) + L2Math.pow(ay2-_y, 2)) < _radiusSq) return true;
+		if ( (L2Math.pow(ax2-_x, 2) + L2Math.pow(ay1-_y, 2)) < _radiusSq) return true;
+		if ( (L2Math.pow(ax2-_x, 2) + L2Math.pow(ay2-_y, 2)) < _radiusSq) return true;
 		
 		// Collision on any side of the rectangle?
 		if (_x > ax1 && _x < ax2)
@@ -75,7 +76,7 @@ public class ShapeCylinder extends Shape
 	@Override
 	public double getDistanceToZone(int x, int y)
 	{
-		return (Math.sqrt(Math.pow(_x - x, 2) + Math.pow(_y - y, 2)) - _radius);
+		return L2Math.calculateDistance(_x, _y, x, y) - _radius;
 	}
 
 	@Override

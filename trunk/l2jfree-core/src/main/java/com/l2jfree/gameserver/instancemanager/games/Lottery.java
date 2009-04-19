@@ -30,6 +30,7 @@ import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.lang.L2Math;
 import com.l2jfree.tools.random.Rnd;
 
 public class Lottery
@@ -310,9 +311,9 @@ public class Lottery
 			for (int i = 0; i < 5; i++)
 			{
 				if (luckynums[i] < 17)
-					enchant += Math.pow(2, luckynums[i] - 1);
+					enchant += L2Math.pow(2, luckynums[i] - 1);
 				else
-					type2 += Math.pow(2, luckynums[i] - 17);
+					type2 += L2Math.pow(2, luckynums[i] - 17);
 			}
 
 			if (_log.isDebugEnabled())

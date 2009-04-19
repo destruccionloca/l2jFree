@@ -45,7 +45,7 @@ public class L2SiegeClan
 		return _numFlagsAdded;
 	}
 
-	public void addFlag(L2NpcInstance flag) 
+	public void addFlag(L2NpcInstance flag)
 	{
 		_numFlagsAdded++;
 		getFlag().add(flag);
@@ -92,7 +92,7 @@ public class L2SiegeClan
 		{
 			if (flag  == null)
 				continue;
-			distance = Util.calculateDistance(obj.getX(), obj.getY(), obj.getZ(), flag.getX(), flag.getX(), flag.getZ(), true);
+			distance = Util.calculateDistance(obj, flag, true);
 			if (closestDistance > distance)
 			{
 				closestDistance = distance;
@@ -104,5 +104,5 @@ public class L2SiegeClan
 	
 	public SiegeClanType getType() { return _type; }
     
-    public void setType(SiegeClanType setType) { _type = setType; } 
+    public void setType(SiegeClanType setType) { _type = setType; }
 }

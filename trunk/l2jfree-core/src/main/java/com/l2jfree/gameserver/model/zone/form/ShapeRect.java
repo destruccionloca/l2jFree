@@ -75,18 +75,10 @@ public class ShapeRect extends Shape
 	@Override
 	public double getDistanceToZone(int x, int y)
 	{
-		double test, shortestDist = Math.pow(_xMin-x, 2) + Math.pow(_yMin-y, 2);
+		double diffX = (_xMin > x ? _xMin - x : (x > _xMax ? x - _xMax : 0));
+		double diffY = (_yMin > y ? _yMin - y : (y > _yMax ? y - _yMax : 0));
 		
-		test = Math.pow(_xMin-x, 2) + Math.pow(_yMax-y, 2);
-		if (test < shortestDist) shortestDist = test;
-		
-		test = Math.pow(_xMax-x, 2) + Math.pow(_yMin-y, 2);
-		if (test < shortestDist) shortestDist = test;
-		
-		test = Math.pow(_xMax-x, 2) + Math.pow(_yMax-y, 2);
-		if (test < shortestDist) shortestDist = test;
-		
-		return Math.sqrt(shortestDist);
+		return Math.sqrt(diffX * diffX + diffY * diffY);
 	}
 
 	@Override

@@ -103,6 +103,7 @@ import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
 import com.l2jfree.gameserver.templates.skills.L2BuffTemplate;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
+import com.l2jfree.lang.L2Math;
 import com.l2jfree.tools.random.Rnd;
 
 /**
@@ -1970,9 +1971,9 @@ public class L2NpcInstance extends L2Character
 					return;
 
 				if (player.getLoto(i) < 17)
-					enchant += Math.pow(2, player.getLoto(i) - 1);
+					enchant += L2Math.pow(2, player.getLoto(i) - 1);
 				else
-					type2 += Math.pow(2, player.getLoto(i) - 17);
+					type2 += L2Math.pow(2, player.getLoto(i) - 17);
 			}
 			if (player.getAdena() < price)
 			{

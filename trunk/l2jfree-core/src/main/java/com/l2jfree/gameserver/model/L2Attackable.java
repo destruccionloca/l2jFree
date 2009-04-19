@@ -59,6 +59,7 @@ import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.item.L2EtcItemType;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.lang.L2Math;
 import com.l2jfree.tools.random.Rnd;
 import com.l2jfree.util.LinkedBunch;
 import com.l2jfree.util.SingletonMap;
@@ -2528,7 +2529,7 @@ public class L2Attackable extends L2NpcInstance
 		{
 			if (diff > 5) // formula revised May 07
 			{
-				double pow = Math.pow((double) 5 / 6, diff - 5);
+				double pow = L2Math.pow((double) 5 / 6, diff - 5);
 				xp = xp * pow;
 				sp = sp * pow;
 			}

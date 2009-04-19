@@ -100,12 +100,29 @@ public final class L2Math
 		return Math.sqrt(diffX * diffX + diffY * diffY + diffZ * diffZ);
 	}
 	
+	public static int calculateDistanceSq(int x1, int y1, int x2, int y2)
+	{
+		final int diffX = x1 - x2;
+		final int diffY = y1 - y2;
+		
+		return diffX * diffX + diffY * diffY;
+	}
+	
+	public static int calculateDistanceSq(int x1, int y1, int z1, int x2, int y2, int z2)
+	{
+		final int diffX = x1 - x2;
+		final int diffY = y1 - y2;
+		final int diffZ = z1 - z2;
+		
+		return diffX * diffX + diffY * diffY + diffZ * diffZ;
+	}
+	
 	public static boolean isDistanceLessThan(int x1, int y1, int x2, int y2, int limit)
 	{
 		final int diffX = x1 - x2;
 		final int diffY = y1 - y2;
 		
-		return diffX * diffX + diffY * diffY < limit * limit;
+		return diffX * diffX + diffY * diffY <= limit * limit;
 	}
 	
 	public static boolean isDistanceLessThan(int x1, int y1, int z1, int x2, int y2, int z2, int limit)
@@ -114,7 +131,24 @@ public final class L2Math
 		final int diffY = y1 - y2;
 		final int diffZ = z1 - z2;
 		
-		return diffX * diffX + diffY * diffY + diffZ * diffZ < limit * limit;
+		return diffX * diffX + diffY * diffY + diffZ * diffZ <= limit * limit;
+	}
+	
+	public static boolean isDistanceLessThanSq(int x1, int y1, int x2, int y2, int limitSq)
+	{
+		final int diffX = x1 - x2;
+		final int diffY = y1 - y2;
+		
+		return diffX * diffX + diffY * diffY <= limitSq;
+	}
+	
+	public static boolean isDistanceLessThanSq(int x1, int y1, int z1, int x2, int y2, int z2, int limitSq)
+	{
+		final int diffX = x1 - x2;
+		final int diffY = y1 - y2;
+		final int diffZ = z1 - z2;
+		
+		return diffX * diffX + diffY * diffY + diffZ * diffZ <= limitSq;
 	}
 	
 	/**

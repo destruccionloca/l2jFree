@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.model.zone.form;
 
 import com.l2jfree.gameserver.model.Location;
+import com.l2jfree.lang.L2Math;
 import com.l2jfree.tools.random.Rnd;
 
 
@@ -90,14 +91,13 @@ public class ShapePoly extends Shape
 	@Override
 	public double getDistanceToZone(int x, int y)
 	{
-		double test, shortestDist = Math.pow(_x[0]-x, 2) + Math.pow(_y[0]-y, 2);
+		double shortestDist = L2Math.calculateDistanceSq(_x[0], _y[0], x, y);
 		
 		for (int i = 1; i < _y.length; i++)
 		{
-			test = Math.pow(_x[i]-x, 2) + Math.pow(_y[i]-y, 2);
-			if (test < shortestDist) shortestDist = test;
+			shortestDist = Math.min(shortestDist, L2Math.calculateDistanceSq(_x[i], _y[i], x, y));
 		}
-
+		
 		return Math.sqrt(shortestDist);
 	}
 
