@@ -435,14 +435,14 @@ public class GameServer
 		_log.info("Maximum Numbers of Connected Players: " + Config.MAXIMUM_ONLINE_USERS);
 		_log.info("Server Loaded in " + ((System.currentTimeMillis() - serverLoadStart) / 1000) + " seconds");
 		
+		onStartup();
+		
 		Util.printSection("GameServerLog");
 		if (Config.ENABLE_JYTHON_SHELL)
 		{
 			Util.printSection("JythonShell");
 			Util.JythonShell();
 		}
-		
-		onStartup();
 	}
 	
 	private static Set<StartupHook> _startupHooks = new HashSet<StartupHook>();
