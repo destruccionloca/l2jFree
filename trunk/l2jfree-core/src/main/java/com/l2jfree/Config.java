@@ -1910,6 +1910,7 @@ public final class Config extends L2Config
 	public static int				SIEGE_LENGTH_MINUTES;
 
 	public static boolean			SIEGE_ONLY_REGISTERED;
+	public static boolean			SIEGE_GATE_CONTROL;
 
 	public static FastList<String>	CL_SET_SIEGE_TIME_LIST;
 	public static FastList<Integer>	SIEGE_HOUR_LIST_MORNING;
@@ -1933,6 +1934,7 @@ public final class Config extends L2Config
 			SIEGE_LENGTH_MINUTES = Integer.parseInt(siegeSettings.getProperty("SiegeLength", "120"));
 
 			SIEGE_ONLY_REGISTERED = Boolean.parseBoolean(siegeSettings.getProperty("OnlyRegistered", "true"));
+			SIEGE_GATE_CONTROL = Boolean.parseBoolean(siegeSettings.getProperty("AllowGateControl", "true"));
 
 			CL_SET_SIEGE_TIME_LIST = new FastList<String>();
 			SIEGE_HOUR_LIST_MORNING = new FastList<Integer>();

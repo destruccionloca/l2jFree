@@ -31,17 +31,21 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.config.L2Properties;
+import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.datatables.SkillTable;
+import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.Location;
+import com.l2jfree.gameserver.model.actor.instance.L2ArtefactInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.util.Util;
 
 public class SiegeManager
 {
@@ -99,18 +103,17 @@ public class SiegeManager
 		Siege siege = SiegeManager.getInstance().getSiege(player);
 		Castle castle = (siege == null) ? null : siege.getCastle();
 
-		SystemMessage sm = new SystemMessage(SystemMessageId.S1);
+		SystemMessageId sm = null;
 
-		if (clan == null || clan.getLeaderId() != player.getObjectId())
-			sm.addString("You must be a clan leader to place a flag.");
-		else if (siege == null || !siege.getIsInProgress())
-			sm.addString("You can only place a flag during a siege.");
+		if (siege == null || !siege.getIsInProgress())
+			sm = SystemMessageId.ONLY_DURING_SIEGE;
+		else if (clan == null || clan.getLeaderId() != player.getObjectId() ||
+				siege.getAttackerClan(clan) == null)
+			sm = SystemMessageId.CANNOT_USE_ON_YOURSELF;
 		else if (castle == null || !castle.checkIfInZoneHeadQuarters(player))
-			sm.addString("You must be on castle ground to place a flag.");
-		else if (siege.getAttackerClan(clan) == null)
-			sm.addString("You must be an attacker to place a flag.");
+			sm = SystemMessageId.ONLY_DURING_SIEGE;
 		else if (castle.getSiege().getAttackerClan(clan).getNumFlags() >= Config.SIEGE_FLAG_MAX_COUNT)
-			sm.addString("You have already placed the maximum number of flags possible.");
+			sm = SystemMessageId.NOT_ANOTHER_HEADQUARTERS;
 		else
 			return true;
 
@@ -130,14 +133,17 @@ public class SiegeManager
 		// Get siege battleground
 		Siege siege = SiegeManager.getInstance().getSiege(player);
 
-		SystemMessage sm = new SystemMessage(SystemMessageId.S1);
+		SystemMessageId sm = null;
 
 		if (siege == null)
-			sm.addString("You must be on castle ground to summon this.");
+			sm = SystemMessageId.YOU_ARE_NOT_IN_SIEGE;
 		else if (!siege.getIsInProgress())
-			sm.addString("You can only summon this during a siege.");
+			sm = SystemMessageId.ONLY_DURING_SIEGE;
 		else if (player.getClanId() != 0 && siege.getAttackerClan(player.getClanId()) == null)
-			sm.addString("You can only summon this as a registered attacker.");
+			sm = SystemMessageId.CANNOT_USE_ON_YOURSELF;
+		else if (SevenSigns.getInstance().getSealOwner(SevenSigns.SEAL_STRIFE) == SevenSigns.CABAL_DAWN
+				&& siege.getCastle().getOwnerId() > 0)
+			sm = SystemMessageId.SEAL_OF_STRIFE_FORBIDS_SUMMONING;
 		else
 			return true;
 
@@ -160,23 +166,50 @@ public class SiegeManager
 		// Get siege battleground
 		Siege siege = SiegeManager.getInstance().getSiege(player);
 
-		SystemMessage sm = new SystemMessage(SystemMessageId.S1);
+		SystemMessageId sm = null;
 
 		if (siege == null)
-			sm.addString("You must be on castle ground to use strider siege assault.");
+			sm = SystemMessageId.YOU_ARE_NOT_IN_SIEGE;
 		else if (!siege.getIsInProgress())
-			sm.addString("You can only use strider siege assault during a siege.");
+			sm = SystemMessageId.ONLY_DURING_SIEGE;
 		else if (!(player.getTarget() instanceof L2DoorInstance))
-			sm.addString("You can only use strider siege assault on doors and walls.");
+			sm = SystemMessageId.TARGET_IS_INCORRECT;
 		else if (!player.isRidingStrider() && !player.isRidingRedStrider())
-			sm.addString("You can only use strider siege assault when on strider.");
+			sm = SystemMessageId.CANNOT_USE_ON_YOURSELF;
 		else
 			return true;
 
 		if (!isCheckOnly)
-		{
 			player.sendPacket(sm);
+		return false;
+	}
+
+	public boolean checkIfOkToCastSealOfRule(L2Character activeChar, Castle castle, boolean isCheckOnly)
+	{
+		if (activeChar == null || !(activeChar instanceof L2PcInstance))
+			return false;
+
+		SystemMessageId sm = null;
+		L2PcInstance player = (L2PcInstance) activeChar;
+
+		if (castle == null || castle.getCastleId() <= 0 || castle.getSiege().getAttackerClan(player.getClan()) == null)
+			sm = SystemMessageId.YOU_ARE_NOT_IN_SIEGE;
+		else if (player.getTarget() == null && !(player.getTarget() instanceof L2ArtefactInstance))
+			sm = SystemMessageId.TARGET_IS_INCORRECT;
+		else if (!castle.getSiege().getIsInProgress())
+			sm = SystemMessageId.ONLY_DURING_SIEGE;
+		else if (!Util.checkIfInRange(200, player, player.getTarget(), true))
+			sm = SystemMessageId.TARGET_TOO_FAR;
+		else
+		{
+			if (!isCheckOnly)
+				castle.getSiege().announceToOpponent(new SystemMessage(SystemMessageId.OPPONENT_STARTED_ENGRAVING), player.getClan());
+			return true;
 		}
+
+		if (!isCheckOnly)
+			player.sendPacket(sm);
+
 		return false;
 	}
 

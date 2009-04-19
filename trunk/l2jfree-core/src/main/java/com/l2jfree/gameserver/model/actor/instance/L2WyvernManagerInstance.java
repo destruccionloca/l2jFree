@@ -42,13 +42,13 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
         {
             if (!player.isClanLeader())
             {
-                player.sendMessage("Only clan leaders are allowed.");
+                player.sendPacket(SystemMessageId.ONLY_THE_CLAN_LEADER_IS_ENABLED);
                 return;
             }
 
             if ((SevenSigns.getInstance().getSealOwner(SevenSigns.SEAL_STRIFE) == SevenSigns.CABAL_DUSK) && SevenSigns.getInstance().isSealValidationPeriod())
             {
-                player.sendMessage("You cannot ride wyvern while the Seal of Strife is controlled by Dusk.");
+            	player.sendPacket(SystemMessageId.SEAL_OF_STRIFE_FORBIDS_SUMMONING);
                 return;
             }
 

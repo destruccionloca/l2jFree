@@ -16,11 +16,13 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import java.util.StringTokenizer;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.instancemanager.ClanHallManager;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.entity.ClanHall;
+import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -85,6 +87,11 @@ public class L2DoormenInstance extends L2FolkInstance
 				}
 				else if (condition == COND_CASTLE_OWNER)
 				{
+					if (!validatePrivileges(player, L2Clan.CP_CS_OPEN_DOOR)) return;
+					if (!Config.SIEGE_GATE_CONTROL && getCastle().getSiege().getIsInProgress()) {
+						player.sendPacket(SystemMessageId.GATES_NOT_OPENED_CLOSED_DURING_SIEGE);
+						return;
+					}
 					StringTokenizer st = new StringTokenizer(command.substring(10), ", ");
 					st.nextToken(); // Bypass first value since its castleid/hallid/fortid
 
@@ -118,6 +125,11 @@ public class L2DoormenInstance extends L2FolkInstance
 				}
 				else if (condition == COND_CASTLE_OWNER)
 				{
+					if (!validatePrivileges(player, L2Clan.CP_CS_OPEN_DOOR)) return;
+					if (!Config.SIEGE_GATE_CONTROL && getCastle().getSiege().getIsInProgress()) {
+						player.sendPacket(SystemMessageId.GATES_NOT_OPENED_CLOSED_DURING_SIEGE);
+						return;
+					}
 					StringTokenizer st = new StringTokenizer(command.substring(10), ", ");
 					st.nextToken(); // Bypass first value since its castleid/hallid/fortid
 
@@ -233,6 +245,14 @@ public class L2DoormenInstance extends L2FolkInstance
 
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		player.sendPacket(html);
+	}
+
+	private boolean validatePrivileges(L2PcInstance player, int privilege) {
+		if ((player.getClanPrivileges() & privilege) != privilege) {
+			player.sendPacket(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
+			return false;
+		}
+		return true;
 	}
 
 	private int validateCondition(L2PcInstance player)

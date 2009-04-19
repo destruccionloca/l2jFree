@@ -14,11 +14,13 @@
  */
 package com.l2jfree.gameserver.handler.voicedcommandhandlers;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.handler.IVoicedCommandHandler;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Castle;
+import com.l2jfree.gameserver.network.SystemMessageId;
 
 public class CastleDoors implements IVoicedCommandHandler
 {
@@ -37,7 +39,10 @@ public class CastleDoors implements IVoicedCommandHandler
 					return false;
 				if (castle.checkIfInZone(door.getX(), door.getY(), door.getZ()))
 				{
-					door.openMe();
+					if (Config.SIEGE_GATE_CONTROL || !castle.getSiege().getIsInProgress())
+						door.openMe();
+					else
+						activeChar.sendPacket(SystemMessageId.GATES_NOT_OPENED_CLOSED_DURING_SIEGE);
 				}
 			}
 			else
@@ -53,7 +58,10 @@ public class CastleDoors implements IVoicedCommandHandler
 					return false;
 				if (castle.checkIfInZone(door.getX(), door.getY(), door.getZ()))
 				{
-					door.closeMe();
+					if (Config.SIEGE_GATE_CONTROL || !castle.getSiege().getIsInProgress())
+						door.closeMe();
+					else
+						activeChar.sendPacket(SystemMessageId.GATES_NOT_OPENED_CLOSED_DURING_SIEGE);
 				}
 			}
 			else

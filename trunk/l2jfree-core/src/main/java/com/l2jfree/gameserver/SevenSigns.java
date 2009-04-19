@@ -110,6 +110,7 @@ public class SevenSigns
 	public static final int							RED_CONTRIB_POINTS			= 10;
 
 	private final Calendar							_calendar					= Calendar.getInstance();
+	private final String							RESET_CERTIFICATE_SHOPS		= "UPDATE merchant_buylists SET count = 300 WHERE shop_id BETWEEN 63881 AND 63889";
 
 	protected int									_activePeriod;
 	protected int									_currentCycle;
@@ -1322,6 +1323,9 @@ public class SevenSigns
 				// Start the Festival of Darkness cycle.
 				SevenSignsFestival.getInstance().startFestivalManager();
 
+				//A new period - castle lords may buy a new set of certificates
+				renewCertificateShops();
+
 				// Send message that Competition has begun.
 				sendMessageToAll(SystemMessageId.QUEST_EVENT_PERIOD_BEGUN);
 				break;
@@ -1484,5 +1488,23 @@ public class SevenSigns
 			}
 		}
 		return false;
+	}
+
+	private void renewCertificateShops() {
+		Connection con = null;
+		try {
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement = con.prepareStatement(RESET_CERTIFICATE_SHOPS);
+			statement.executeUpdate();
+			statement.close();
+			con.close();
+
+			if (_log.isDebugEnabled())
+				_log.info("SevenSigns: Updated Castle certificate shops!");
+		}
+		catch (SQLException e) {
+			_log.fatal("SevenSigns: Failed to update certificate shops: " + e);
+		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 }
