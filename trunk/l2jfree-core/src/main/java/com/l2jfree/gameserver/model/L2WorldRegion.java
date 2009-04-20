@@ -295,7 +295,7 @@ public final class L2WorldRegion
 	 * L2PcInstance of all player in game in this L2WorldRegion <BR>
 	 * Assert : object.getCurrentWorldRegion() == this
 	 */
-	public void addVisibleObject(L2Object object)
+	public void addVisibleObject(L2Object object, boolean addToKnownLists, L2Character dropper)
 	{
 		if (Config.ASSERT)
 			assert object.getWorldRegion() == this;
@@ -313,6 +313,18 @@ public final class L2WorldRegion
 			if (!Config.GRIDS_ALWAYS_ON && _playables.size() == 1)
 				startActivation();
 		}
+		
+		if (addToKnownLists)
+		{
+			for (L2WorldRegion reg : getSurroundingRegions())
+			{
+				for (L2Object element : reg.getVisibleObjects())
+				{
+					element.getKnownList().addKnownObject(object, dropper);
+					object.getKnownList().addKnownObject(element, dropper);
+				}
+			}
+		}
 	}
 	
 	/**
@@ -322,7 +334,7 @@ public final class L2WorldRegion
 	 * L2WorldRegion <BR>
 	 * Assert : object.getCurrentWorldRegion() == this || object.getCurrentWorldRegion() == null
 	 */
-	public void removeVisibleObject(L2Object object)
+	public void removeVisibleObject(L2Object object, boolean removeFromKnownlist)
 	{
 		if (Config.ASSERT)
 			assert object.getWorldRegion() == this || object.getWorldRegion() == null;
@@ -338,6 +350,18 @@ public final class L2WorldRegion
 			
 			if (!Config.GRIDS_ALWAYS_ON && _playables.isEmpty())
 				startDeactivation();
+		}
+		
+		if (removeFromKnownlist)
+		{
+			for (L2WorldRegion reg : getSurroundingRegions())
+			{
+				for (L2Object element : reg.getVisibleObjects())
+				{
+					element.getKnownList().removeKnownObject(object);
+					object.getKnownList().removeKnownObject(element);
+				}
+			}
 		}
 	}
 	

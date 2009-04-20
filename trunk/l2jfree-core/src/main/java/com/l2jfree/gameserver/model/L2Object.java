@@ -241,10 +241,6 @@ public abstract class L2Object implements L2Entity<Integer>
 			getPosition().updateWorldRegion();
 		}
 		
-		L2World.getInstance().storeObject(this);
-		
-		getPosition().getWorldRegion().addVisibleObject(this);
-		
 		L2World.getInstance().addVisibleObject(this, null);
 		
 		if (firstspawn)

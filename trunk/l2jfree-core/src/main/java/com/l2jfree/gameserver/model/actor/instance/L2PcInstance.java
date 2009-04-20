@@ -11757,7 +11757,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			// To delete the player from L2World on crit during teleport ;)
 			setIsTeleporting(false);
 			
-			L2World.getInstance().removeFromAllPlayers(this);
+			L2World.getInstance().removeOnlinePlayer(this);
 		}
 		catch (Throwable t)
 		{

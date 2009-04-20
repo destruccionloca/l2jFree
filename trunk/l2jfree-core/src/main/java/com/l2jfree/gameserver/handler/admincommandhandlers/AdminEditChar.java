@@ -26,6 +26,7 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.communitybbs.Manager.RegionBBSManager;
+import com.l2jfree.gameserver.datatables.CharNameTable;
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.L2Object;
@@ -327,6 +328,7 @@ public class AdminEditChar implements IAdminCommandHandler
 		{
 			try
 			{
+				
 				StringTokenizer st = new StringTokenizer(command);
 				st.nextToken();
 				String val = st.nextToken();
@@ -339,11 +341,17 @@ public class AdminEditChar implements IAdminCommandHandler
 				{
 					player = (L2PcInstance)target;
 					oldName = player.getName();
-
-					L2World.getInstance().removeFromAllPlayers(player);
+					
+					if (CharNameTable.getInstance().getByName(val) != null)
+					{
+						activeChar.sendMessage("Player with name already exists!");
+						return false;
+					}
+					
+					L2World.getInstance().removeOnlinePlayer(player);
 					player.setName(val);
 					player.store();
-					L2World.getInstance().addToAllPlayers(player);
+					L2World.getInstance().addOnlinePlayer(player);
 
 					player.sendMessage("Your name has been changed by a GM.");
 					player.broadcastUserInfo();

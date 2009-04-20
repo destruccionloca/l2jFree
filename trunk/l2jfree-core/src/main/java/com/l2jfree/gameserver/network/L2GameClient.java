@@ -38,7 +38,6 @@ import com.l2jfree.gameserver.LoginServerThread.SessionKey;
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.model.CharSelectInfoPackage;
 import com.l2jfree.gameserver.model.L2Clan;
-import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 import com.l2jfree.gameserver.network.serverpackets.LeaveWorld;
@@ -131,10 +130,6 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 	public void setActiveChar(L2PcInstance pActiveChar)
 	{
 		_activeChar = pActiveChar;
-		if (_activeChar != null)
-		{
-			L2World.getInstance().storeObject(getActiveChar());
-		}
 	}
 	
 	public void setGameGuardOk(boolean val)
@@ -393,25 +388,7 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 	
 	public L2PcInstance loadCharFromDisk(int charslot)
 	{
-		L2PcInstance character = L2PcInstance.load(getObjectIdForSlot(charslot));
-		
-		if (character != null)
-		{
-			// preinit some values for each login
-			character.setRunning(); // running is default
-			character.standUp(); // standing is default
-			
-			character.refreshOverloaded();
-			character.refreshExpertisePenalty();
-			character.setOnlineStatus(true);
-		}
-		else
-		{
-			_log.fatal("could not restore in slot: " + charslot);
-		}
-		
-		// setCharacter(character);
-		return character;
+		return L2PcInstance.load(getObjectIdForSlot(charslot));
 	}
 	
 	/**

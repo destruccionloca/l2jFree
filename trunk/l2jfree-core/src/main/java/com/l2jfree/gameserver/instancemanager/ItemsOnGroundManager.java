@@ -119,7 +119,6 @@ public class ItemsOnGroundManager
 					if (result.getInt(4) > 0) // This, are really necessary?
 						item.setEnchantLevel(result.getInt(4));
 					item.getPosition().setXYZ(result.getInt(5), result.getInt(6), result.getInt(7));
-					item.getPosition().getWorldRegion().addVisibleObject(item);
 					item.setDropTime(result.getLong(8));
 					if (result.getLong(8) == -1)
 						item.setProtected(true);

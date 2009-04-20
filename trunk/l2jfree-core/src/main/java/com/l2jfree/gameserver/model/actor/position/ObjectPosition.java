@@ -151,7 +151,7 @@ public final class ObjectPosition
 		
 		if (oldRegion != null)
 		{
-			oldRegion.removeVisibleObject(_activeObject);
+			oldRegion.removeVisibleObject(_activeObject, false);
 			
 			if (_activeObject instanceof L2Character) // confirm revalidation of old region's zones
 			{
@@ -165,6 +165,6 @@ public final class ObjectPosition
 		_worldRegion = newRegion;
 		
 		if (newRegion != null)
-			newRegion.addVisibleObject(_activeObject);
+			newRegion.addVisibleObject(_activeObject, false, null);
 	}
 }

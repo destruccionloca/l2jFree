@@ -26,7 +26,6 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
-import com.l2jfree.gameserver.network.Disconnection;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.util.LinkedBunch;
 import com.l2jfree.util.concurrent.L2Collection;
@@ -102,39 +101,17 @@ public final class L2World
 		_log.info("L2World: (" + REGIONS_X + " by " + REGIONS_Y + ") World Region Grid set up.");
 	}
 	
-	/**
-	 * Add L2Object object in _objects.<BR>
-	 * <BR>
-	 * <B><U> Example of use </U> :</B><BR>
-	 * <BR>
-	 * <li> Withdraw an item from the warehouse, create an item</li>
-	 * <li> Spawn a L2Character (PC, NPC, Pet)</li>
-	 * <BR>
-	 */
 	public void storeObject(L2Object object)
 	{
-		if (_objects.get(object.getObjectId()) != null)
-		{
-			if (_log.isDebugEnabled())
-				_log.warn("[L2World] objectId " + object.getObjectId() + " already exist in OID map!");
-			return;
-		}
+		final Integer objectId = object.getObjectId();
+		final L2Object oldObject = findObject(objectId);
+		
+		if (oldObject != null && oldObject != object)
+			_log.warn("L2World.objects: " + oldObject + " replaced with " + object + " - objId: " + objectId + "!");
 		
 		_objects.add(object);
 	}
 	
-	/**
-	 * Remove L2Object object from _objects of L2World.<BR>
-	 * <BR>
-	 * <B><U> Example of use </U> :</B><BR>
-	 * <BR>
-	 * <li> Delete item from inventory, tranfer Item from inventory to warehouse</li>
-	 * <li> Crystallize item</li>
-	 * <li> Remove NPC/PC/Pet from the world</li>
-	 * <BR>
-	 * 
-	 * @param object L2Object to remove from _objects of L2World
-	 */
 	public void removeObject(L2Object object)
 	{
 		_objects.remove(object); // suggestion by whatev
@@ -150,6 +127,16 @@ public final class L2World
 	{
 		for (L2Object o : objects)
 			removeObject(o); // suggestion by whatev
+	}
+	
+	public void addOnlinePlayer(L2PcInstance player)
+	{
+		_players.put(player.getName().toLowerCase(), player);
+	}
+	
+	public void removeOnlinePlayer(L2PcInstance player)
+	{
+		_players.remove(player.getName().toLowerCase());
 	}
 	
 	public L2Object findObject(int objectId)
@@ -294,155 +281,25 @@ public final class L2World
 		_pets.values().remove(pet);
 	}
 	
-	/**
-	 * Add a L2Object in the world.<BR>
-	 * <BR>
-	 * <B><U> Concept</U> :</B><BR>
-	 * <BR>
-	 * L2Object (including L2PcInstance) are identified in <B>_visibleObjects</B> of his current L2WorldRegion and in
-	 * <B>_knownObjects</B> of other surrounding L2Characters <BR>
-	 * L2PcInstance are identified in <B>_players</B> of L2World, in <B>_players</B> of his current
-	 * L2WorldRegion and in <B>_knownPlayer</B> of other surrounding L2Characters <BR>
-	 * <BR>
-	 * <B><U> Actions</U> :</B><BR>
-	 * <BR>
-	 * <li>Add the L2Object object in _players* of L2World </li>
-	 * <li>Add the L2Object object in _gmList** of GmListTable </li>
-	 * <li>Add object in _knownObjects and _knownPlayer* of all surrounding L2WorldRegion L2Characters </li>
-	 * <BR>
-	 * <li>If object is a L2Character, add all surrounding L2Object in its _knownObjects and all surrounding
-	 * L2PcInstance in its _knownPlayer </li>
-	 * <BR>
-	 * <I>* only if object is a L2PcInstance</I><BR>
-	 * <I>** only if object is a GM L2PcInstance</I><BR>
-	 * <BR>
-	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T ADD the object in _visibleObjects and _players*
-	 * of L2WorldRegion (need synchronisation)</B></FONT><BR>
-	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T ADD the object to _objects and _players* of
-	 * L2World (need synchronisation)</B></FONT><BR>
-	 * <BR>
-	 * <B><U> Example of use </U> :</B><BR>
-	 * <BR>
-	 * <li> Drop an Item </li>
-	 * <li> Spawn a L2Character</li>
-	 * <li> Apply Death Penalty of a L2PcInstance </li>
-	 * <BR>
-	 * <BR>
-	 * 
-	 * @param object L2object to add in the world
-	 * @param newRegion L2WorldRegion in wich the object will be add (not used)
-	 * @param dropper L2Character who has dropped the object (if necessary)
-	 */
 	public void addVisibleObject(L2Object object, L2Character dropper)
 	{
-		//FIXME: this code should be obsoleted by protection in putObject func...
-		if (object instanceof L2PcInstance)
-		{
-			L2PcInstance player = (L2PcInstance)object;
-			L2PcInstance old = getPlayer(player.getName());
-			
-			if (old != null && old != player)
-			{
-				_log.warn("Duplicate character!? Closing both characters (" + player.getName() + ")");
-				
-				new Disconnection(player).defaultSequence(true);
-				new Disconnection(old).defaultSequence(true);
-				return;
-			}
-			
-			addToAllPlayers(player);
-		}
-		
-		if (!object.getPosition().getWorldRegion().isActive())
+		if (object == null)
 			return;
 		
-		for (L2Object element : getVisibleObjects(object, 2000))
-		{
-			element.getKnownList().addKnownObject(object, dropper);
-			object.getKnownList().addKnownObject(element, dropper);
-		}
+		storeObject(object);
+		
+		object.getPosition().getWorldRegion().addVisibleObject(object, true, dropper);
 	}
 	
-	/**
-	 * Add the L2PcInstance to _players of L2World.<BR>
-	 * <BR>
-	 */
-	public void addToAllPlayers(L2PcInstance cha)
-	{
-		_players.put(cha.getName().toLowerCase(), cha);
-	}
-	
-	/**
-	 * Remove the L2PcInstance from _players of L2World.<BR>
-	 * <BR>
-	 * <B><U> Example of use </U> :</B><BR>
-	 * <BR>
-	 * <li> Remove a player fom the visible objects </li>
-	 * <BR>
-	 */
-	public void removeFromAllPlayers(L2PcInstance cha)
-	{
-		if (cha != null && !cha.isTeleporting())
-			_players.remove(cha.getName().toLowerCase());
-	}
-	
-	/**
-	 * Remove a L2Object from the world.<BR>
-	 * <BR>
-	 * <B><U> Concept</U> :</B><BR>
-	 * <BR>
-	 * L2Object (including L2PcInstance) are identified in <B>_visibleObjects</B> of his current L2WorldRegion and in
-	 * <B>_knownObjects</B> of other surrounding L2Characters <BR>
-	 * L2PcInstance are identified in <B>_players</B> of L2World, in <B>_players</B> of his current
-	 * L2WorldRegion and in <B>_knownPlayer</B> of other surrounding L2Characters <BR>
-	 * <BR>
-	 * <B><U> Actions</U> :</B><BR>
-	 * <BR>
-	 * <li>Remove the L2Object object from _players* of L2World </li>
-	 * <li>Remove the L2Object object from _visibleObjects and _players* of L2WorldRegion </li>
-	 * <li>Remove the L2Object object from _gmList** of GmListTable </li>
-	 * <li>Remove object from _knownObjects and _knownPlayer* of all surrounding L2WorldRegion L2Characters </li>
-	 * <BR>
-	 * <li>If object is a L2Character, remove all L2Object from its _knownObjects and all L2PcInstance from its
-	 * _knownPlayer </li>
-	 * <BR>
-	 * <BR>
-	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T REMOVE the object from _objects of L2World</B></FONT><BR>
-	 * <BR>
-	 * <I>* only if object is a L2PcInstance</I><BR>
-	 * <I>** only if object is a GM L2PcInstance</I><BR>
-	 * <BR>
-	 * <B><U> Example of use </U> :</B><BR>
-	 * <BR>
-	 * <li> Pickup an Item </li>
-	 * <li> Decay a L2Character</li>
-	 * <BR>
-	 * <BR>
-	 * 
-	 * @param object L2object to remove from the world
-	 * @param oldRegion L2WorldRegion in wich the object was before removing
-	 */
 	public void removeVisibleObject(L2Object object, L2WorldRegion oldRegion)
 	{
-		if (object == null || oldRegion == null)
+		if (object == null)
 			return;
 		
-		oldRegion.removeVisibleObject(object);
-		
-		// Go through all surrounding L2WorldRegion L2Characters
-		for (L2WorldRegion reg : oldRegion.getSurroundingRegions())
-		{
-			for (L2Object obj : reg.getVisibleObjects())
-			{
-				obj.getKnownList().removeKnownObject(object);
-				object.getKnownList().removeKnownObject(obj);
-			}
-		}
+		if (oldRegion != null)
+			oldRegion.removeVisibleObject(object, true);
 		
 		object.getKnownList().removeAllKnownObjects();
-		
-		if (object instanceof L2PcInstance)
-			removeFromAllPlayers((L2PcInstance)object);
 	}
 	
 	/**

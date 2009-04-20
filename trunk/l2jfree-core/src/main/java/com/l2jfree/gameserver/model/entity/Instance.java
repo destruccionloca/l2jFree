@@ -24,7 +24,6 @@ import com.l2jfree.gameserver.instancemanager.InstanceManager;
 import com.l2jfree.gameserver.instancemanager.MapRegionManager;
 import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.L2World;
-import com.l2jfree.gameserver.model.L2WorldRegion;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -35,7 +34,7 @@ import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
-/** 
+/**
  * @author evill33t
  * 
  */
@@ -129,7 +128,7 @@ public class Instance
 	public void ejectPlayer(int objectId)
 	{
 		L2PcInstance player = L2World.getInstance().findPlayer(objectId);
-		if (player != null && player.getInstanceId() == this.getId())
+		if (player != null && player.getInstanceId() == getId())
 		{
 			player.setInstanceId(0);
 			player.sendMessage("You were removed from the instance");
@@ -153,7 +152,7 @@ public class Instance
 	/**
 	 * Adds a door into the instance
 	 * @param doorId - from doors.csv
-	 * @param open - initial state of the door 
+	 * @param open - initial state of the door
 	 */
 	public void addDoor(int doorId, boolean open)
 	{
@@ -161,7 +160,7 @@ public class Instance
 		{
 			if (door.getDoorId() == doorId)
 			{
-				_log.warn("Door ID " + doorId + " already exists in instance " + this.getId());
+				_log.warn("Door ID " + doorId + " already exists in instance " + getId());
 				return;
 			}
 		}
@@ -249,16 +248,7 @@ public class Instance
 		for (L2DoorInstance door: _doors)
 		{
 			if (door != null)
-			{
-				L2WorldRegion region = door.getWorldRegion();
 				door.decayMe();
-				
-				if (region != null)
-					region.removeVisibleObject(door);
-				
-				door.getKnownList().removeAllKnownObjects();
-				L2World.getInstance().removeObject(door);
-			}
 		}
 		_doors.clear();
 	}

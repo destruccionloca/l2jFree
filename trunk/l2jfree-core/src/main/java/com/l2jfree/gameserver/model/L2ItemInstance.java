@@ -1503,9 +1503,6 @@ public final class L2ItemInstance extends L2Object implements FuncOwner
 			getPosition().setXYZ(x, y, z);
 		}
 
-		// Add the L2ItemInstance dropped to _visibleObjects of its L2WorldRegion
-		getPosition().getWorldRegion().addVisibleObject(this);
-
 		setDropTime(System.currentTimeMillis());
 		
 		// this can synchronize on others instancies, so it's out of
