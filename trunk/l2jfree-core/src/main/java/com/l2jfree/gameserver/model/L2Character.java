@@ -282,7 +282,7 @@ public abstract class L2Character extends L2Object
 			setIsInvul(true);
 	}
 
-	private byte[]	_currentZones	= new byte[17];
+	private byte[]	_currentZones	= new byte[21];
 
 	public boolean isInsideZone(byte zone)
 	{
@@ -1959,7 +1959,7 @@ public abstract class L2Character extends L2Object
 			if (this instanceof L2PcInstance)
 			{
 				// Send a System Message to the caster
-				sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_MP));
+				sendPacket(SystemMessageId.NOT_ENOUGH_MP);
 
 				// Send a Server->Client packet ActionFailed to the L2PcInstance
 				sendPacket(ActionFailed.STATIC_PACKET);
@@ -1973,7 +1973,7 @@ public abstract class L2Character extends L2Object
 			if (this instanceof L2PcInstance)
 			{
 				// Send a System Message to the caster
-				sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_HP));
+				sendPacket(SystemMessageId.NOT_ENOUGH_HP);
 
 				// Send a Server->Client packet ActionFailed to the L2PcInstance
 				sendPacket(ActionFailed.STATIC_PACKET);
@@ -2007,9 +2007,16 @@ public abstract class L2Character extends L2Object
 				if (_log.isDebugEnabled())
 					_log.info("player has a pet already. ignore summon skill");
 
-				sendPacket(new SystemMessage(SystemMessageId.YOU_ALREADY_HAVE_A_PET));
+				sendPacket(SystemMessageId.YOU_ALREADY_HAVE_A_PET);
 				return false;
 			}
+			break;
+		}
+		case HEAL:
+		{
+			if (isInsideZone(L2Zone.FLAG_NOHEAL))
+				sendPacket(new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED).addSkillName(skill));
+			break;
 		}
 		}
 
@@ -2096,7 +2103,7 @@ public abstract class L2Character extends L2Object
 				}
 
 				// Send a System Message to the caster
-				sendPacket(new SystemMessage(SystemMessageId.THERE_ARE_NOT_ENOUGH_NECESSARY_ITEMS_TO_USE_THE_SKILL));
+				sendPacket(SystemMessageId.THERE_ARE_NOT_ENOUGH_NECESSARY_ITEMS_TO_USE_THE_SKILL);
 				return false;
 			}
 		}

@@ -15,16 +15,20 @@
 package com.l2jfree.gameserver.model.zone;
 
 import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
-public class L2DamageZone extends L2DangerZone
-{
+/**
+ * Taken from L2EP, adapted to current revision
+ * @author Savormix
+ * @since 2009.04.19
+ */
+public final class L2CoreBarrierZone extends L2DamageZone {
 	@Override
 	protected void checkForDamage(L2Character character)
 	{
+		super.checkForDamage(character);
 		if (_hpDamage > 0)
-			//do never use null as the second argument!
-			character.reduceCurrentHp(_hpDamage, character);
-		if (_mpDamage > 0)
-			character.reduceCurrentMp(_mpDamage);
+			character.sendPacket(new SystemMessage(SystemMessageId.S1_DAMAGE_BY_CORE_BARRIER).addNumber(_hpDamage));
 	}
 }

@@ -40,7 +40,7 @@ public class L2DynamicZone extends L2DefaultZone
 		if (_cond == null)
 			return true;
 		
-		// Works with ConditionPlayer* and Con ditionTarget* and some other
+		// Works with ConditionPlayer* and ConditionTarget* and some other
 		Env env = new Env();
 		env.player = character;
 		env.target = character;
@@ -105,7 +105,8 @@ public class L2DynamicZone extends L2DefaultZone
 	private synchronized void startZoneTask(L2Character character)
 	{
 		if (_task == null)
-			_task = ThreadPoolManager.getInstance().scheduleAtFixedRate(new ZoneTask(), 0, 3300);
+			//one abnormal effect animation cycle = 3000ms
+			_task = ThreadPoolManager.getInstance().scheduleAtFixedRate(new ZoneTask(), 0, 3000);
 	}
 	
 	private synchronized void stopZoneTask(L2Character character)

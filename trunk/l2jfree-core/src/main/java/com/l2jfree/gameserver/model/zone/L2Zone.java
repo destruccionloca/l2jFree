@@ -55,7 +55,9 @@ public abstract class L2Zone implements FuncOwner
 		Castle,
 		CastleTeleport,
 		Clanhall,
+		CoreBarrier,
 		Damage,
+		Danger,
 		Dynamic,
 		Default,
 		DefenderSpawn,
@@ -64,6 +66,7 @@ public abstract class L2Zone implements FuncOwner
 		HeadQuarters,
 		Jail,
 		Mothertree,
+		Regeneration,
 		Siege,
 		Stadium,
 		Town,
@@ -127,6 +130,19 @@ public abstract class L2Zone implements FuncOwner
 	public static final byte FLAG_CASTLE		= 14;
 	public static final byte FLAG_NOSUMMON		= 15;
 	public static final byte FLAG_FORT			= 16;
+	public static final byte FLAG_SWAMP			= 17;
+	public static final byte FLAG_NOHEAL		= 18;
+	public static final byte FLAG_P_ATK_DOWN	= 19;
+	public static final byte FLAG_P_DEF_DOWN	= 20;
+
+	/** Tested on CT1 and CT1.5 NA retail */
+	public static final double WATER_MOVE_SPEED_BONUS = 0.55;
+	/** UNK */
+	public static final double SWAMP_MOVE_SPEED_BONUS = 0.85;
+	/** UNK */
+	public static final double PADOWN_POWER_ATTACK_BONUS = 0.85;
+	/** UNK */
+	public static final double PDDOWN_POWER_DEFENSE_BONUS = 0.85;
 
 	protected int _id;
 	protected String _name;
@@ -149,7 +165,8 @@ public abstract class L2Zone implements FuncOwner
 	protected Boss _boss;
 	protected Affected _affected = Affected.ALL;
 	
-	protected boolean _noEscape, _noLanding, _noPrivateStore, _noSummon;
+	protected boolean _noEscape, _noLanding, _noPrivateStore, _noSummon, _envSlow, _noHeal,
+	_padown, _pddown;
 
 	protected SystemMessage _onEnterMsg, _onExitMsg;
 
@@ -736,6 +753,10 @@ public abstract class L2Zone implements FuncOwner
 		Node exitOnDeath = n.getAttributes().getNamedItem("exitOnDeath");
 		Node hpDamage = n.getAttributes().getNamedItem("hpDamage");
 		Node mpDamage = n.getAttributes().getNamedItem("mpDamage");
+		Node envSlow = n.getAttributes().getNamedItem("slow");
+		Node noHeal = n.getAttributes().getNamedItem("noHeal");
+		Node padown = n.getAttributes().getNamedItem("pAtkDown");
+		Node pddown = n.getAttributes().getNamedItem("pDefDown");
 
 		_pvp = (pvp != null) ? PvpSettings.valueOf(pvp.getNodeValue().toUpperCase()) : PvpSettings.GENERAL;
 		_noLanding = (noLanding != null) && Boolean.parseBoolean(noLanding.getNodeValue());
@@ -747,6 +768,10 @@ public abstract class L2Zone implements FuncOwner
 		_hpDamage = (hpDamage != null) ? Integer.parseInt(hpDamage.getNodeValue()) : 0;
 		_mpDamage = (mpDamage != null) ? Integer.parseInt(mpDamage.getNodeValue()) : 0;
 		_buffRepeat = (buffRepeat != null) && Boolean.parseBoolean(buffRepeat.getNodeValue());
+		_envSlow = (envSlow != null) && Boolean.parseBoolean(envSlow.getNodeValue());
+		_noHeal = (noHeal != null) && Boolean.parseBoolean(noHeal.getNodeValue());
+		_padown = (padown != null) && Boolean.parseBoolean(padown.getNodeValue());
+		_pddown = (pddown != null) && Boolean.parseBoolean(pddown.getNodeValue());
 		if (boss != null)
 			_boss = Boss.valueOf(boss.getNodeValue().toUpperCase());
 		if (affected != null)

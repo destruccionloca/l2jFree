@@ -65,8 +65,7 @@ public class L2DefaultZone extends L2Zone
 		{
 			character.setInsideZone(FLAG_NOSUMMON, true);
 			character.setInsideZone(FLAG_PVP, true);
-			if (character instanceof L2PcInstance)
-				character.sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));
+			character.sendPacket(SystemMessageId.ENTERED_COMBAT_ZONE);
 		}
 		else if (_pvp == PvpSettings.PEACE)
 		{
@@ -95,6 +94,14 @@ public class L2DefaultZone extends L2Zone
 		{
 			character.setInsideZone(FLAG_NOSUMMON, true);
 		}
+		if (_envSlow)
+			character.setInsideZone(FLAG_SWAMP, true);
+		if (_noHeal)
+			character.setInsideZone(FLAG_NOHEAL, true);
+		if (_padown)
+			character.setInsideZone(FLAG_P_ATK_DOWN, true);
+		if (_pddown)
+			character.setInsideZone(FLAG_P_DEF_DOWN, true);
 
 		if (_instanceName != null && _instanceGroup != null && character instanceof L2PcInstance)
 		{
@@ -213,6 +220,14 @@ public class L2DefaultZone extends L2Zone
 		{
 			character.setInsideZone(FLAG_NOSUMMON, false);
 		}
+		if (_envSlow)
+			character.setInsideZone(FLAG_SWAMP, false);
+		if (_noHeal)
+			character.setInsideZone(FLAG_NOHEAL, false);
+		if (_padown)
+			character.setInsideZone(FLAG_P_ATK_DOWN, false);
+		if (_pddown)
+			character.setInsideZone(FLAG_P_DEF_DOWN, false);
 
 		if (character instanceof L2PcInstance && _instanceName != null && character.getInstanceId() > 0)
 		{

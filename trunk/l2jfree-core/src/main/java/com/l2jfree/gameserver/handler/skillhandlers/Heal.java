@@ -24,6 +24,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeFlagInstance;
+import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -64,6 +65,9 @@ public class Heal implements ISkillHandler
 						
 			// We should not heal if char is dead
 			if (target.isDead())
+				continue;
+
+			if (target.isInsideZone(L2Zone.FLAG_NOHEAL))
 				continue;
 
 			// Player holding a cursed weapon can't be healed and can't heal
