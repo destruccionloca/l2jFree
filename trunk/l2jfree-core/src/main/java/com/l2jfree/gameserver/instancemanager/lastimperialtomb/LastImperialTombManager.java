@@ -191,7 +191,7 @@ public class LastImperialTombManager extends BossLair
 			return false;
 		}
 
-		if (_commander != null)
+		if (_commander == null)
 		{
 			if (pc.getParty() != null)
 			{
@@ -204,10 +204,14 @@ public class LastImperialTombManager extends BossLair
 						return true;
 				}
 			}
+			pc.sendMessage("You must be the commander of a party channel and possess a \"Frintezza's Magic Force Field Removal Scroll\"."); // Retail messages?
+			return false;
 		}
-
-		pc.sendMessage("You must be the commander of a party channel and possess a \"Frintezza's Magic Force Field Removal Scroll\".");
-		return false;
+		else
+		{
+			pc.sendMessage("There can only one command channel register at the same time."); // Retail messages?
+			return false;
+		}
 	}
 
 	// RegistrationMode = party.
@@ -215,13 +219,13 @@ public class LastImperialTombManager extends BossLair
 	{
 		if (!FrintezzaManager.getInstance().isEnableEnterToLair())
 		{
-			pc.sendMessage("Currently no entry possible.");
+			pc.sendMessage("Currently no entry possible."); // Retail messages?
 			return false;
 		}
 
 		if (isInvaded())
 		{
-			pc.sendMessage("Another group is already fighting inside the imperial tomb.");
+			pc.sendMessage("Another group is already fighting inside the imperial tomb."); // Retail messages?
 			return false;
 		}
 
@@ -234,7 +238,7 @@ public class LastImperialTombManager extends BossLair
 			}
 		}
 
-		pc.sendMessage("You must be the leader of a party and possess a \"Frintezza's Magic Force Field Removal Scroll\".");
+		pc.sendMessage("You must be the leader of a party and possess a \"Frintezza's Magic Force Field Removal Scroll\"."); // Retail messages?
 		return false;
 	}
 
@@ -243,7 +247,7 @@ public class LastImperialTombManager extends BossLair
 		if (_partyLeaders.contains(pt.getLeader()))
 		{
 			_partyLeaders.remove(pt.getLeader());
-			pt.getLeader().sendMessage("Warning: Unregistered from last imperial tomb invasion.");
+			pt.getLeader().sendMessage("Warning: Unregistered from last imperial tomb invasion."); // Retail messages?
 		}
 	}
 
@@ -252,7 +256,7 @@ public class LastImperialTombManager extends BossLair
 		if (_registedPlayers.contains(pc))
 		{
 			_registedPlayers.remove(pc);
-			pc.sendMessage("Warning: Unregistered from last imperial tomb invasion.");
+			pc.sendMessage("Warning: Unregistered from last imperial tomb invasion."); // Retail messages?
 		}
 	}
 
@@ -261,19 +265,19 @@ public class LastImperialTombManager extends BossLair
 	{
 		if (!FrintezzaManager.getInstance().isEnableEnterToLair())
 		{
-			pc.sendMessage("Currently no entry possible.");
+			pc.sendMessage("Currently no entry possible."); // Retail messages?
 			return false;
 		}
 
 		if (_registedPlayers.contains(pc))
 		{
-			pc.sendMessage("You are already registered.");
+			pc.sendMessage("You are already registered."); // Retail messages?
 			return false;
 		}
 
 		if (isInvaded())
 		{
-			pc.sendMessage("Another group is already fighting inside the imperial tomb.");
+			pc.sendMessage("Another group is already fighting inside the imperial tomb."); // Retail messages?
 			return false;
 		}
 
@@ -281,7 +285,7 @@ public class LastImperialTombManager extends BossLair
 			if (pc.getInventory().getInventoryItemCount(SCROLL, -1) >= 1)
 				return true;
 
-		pc.sendMessage("You have to possess a \"Frintezza's Magic Force Field Removal Scroll\".");
+		pc.sendMessage("You have to possess a \"Frintezza's Magic Force Field Removal Scroll\"."); // Retail messages?
 		return false;
 	}
 
