@@ -869,7 +869,7 @@ public class MailBBSManager extends BaseBBSManager
 	{
 		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 			if (player.getObjectId().equals(recipId))
-				if (BlockList.isInBlockList(player, activeChar) || BlockList.isBlockAll(player))
+				if (BlockList.isBlocked(player, activeChar))
 					return true;
 		return false;
 	}
