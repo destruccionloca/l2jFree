@@ -9525,7 +9525,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	public BlockList getBlockList()
 	{
 		if (_blockList == null)
-			_blockList = new BlockList();
+			_blockList = new BlockList(this);
 		
 		return _blockList;
 	}

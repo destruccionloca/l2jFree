@@ -74,6 +74,7 @@ import com.l2jfree.gameserver.handler.VoicedCommandHandler;
 import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.instancemanager.AuctionManager;
 import com.l2jfree.gameserver.instancemanager.AutoSpawnManager;
+import com.l2jfree.gameserver.instancemanager.BlockListManager;
 import com.l2jfree.gameserver.instancemanager.BoatManager;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.CastleManorManager;
@@ -264,6 +265,7 @@ public class GameServer
 		CrestCache.getInstance();
 		WarehouseCacheManager.getInstance();
 		Hero.getInstance();
+		BlockListManager.getInstance();
 		Util.printSection("NPCs");
 		NpcTable.getInstance();
 		HtmCache.getInstance();

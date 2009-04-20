@@ -14,115 +14,70 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import com.l2jfree.gameserver.model.BlockList;
-import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
-public class RequestBlock extends L2GameClientPacket
+public final class RequestBlock extends L2GameClientPacket
 {
-    private static final String _C__A0_REQUESTBLOCK = "[C] A0 RequestBlock";
-    private final static Log _log = LogFactory.getLog(L2PcInstance.class.getName());
-
-    private final static int BLOCK = 0;
-    private final static int UNBLOCK = 1;
-    private final static int BLOCKLIST = 2;
-    private final static int ALLBLOCK = 3;
-    private final static int ALLUNBLOCK = 4;
-
-    private String _name;
-    private Integer _type;
-    private L2PcInstance _target;
-
-    @Override
-    protected void readImpl()
-    {
-        _type = readD(); //0x00 - block, 0x01 - unblock, 0x03 - allblock, 0x04 - allunblock
-
-        if( _type == BLOCK || _type == UNBLOCK )
-        {
-            _name = readS();
-            _target = L2World.getInstance().getPlayer(_name);
-        }
-    }
-
-    @Override
-    protected void runImpl()
-    {
-        L2PcInstance activeChar = getClient().getActiveChar();
-
-        if (activeChar == null)
-            return;
-
-        SystemMessage sm;
-
-        switch (_type)
-        {
-            case BLOCK:
-            {
-                if (_target == null)
-                {
-                    // Incorrect player name.
-                    sm = new SystemMessage(SystemMessageId.FAILED_TO_REGISTER_TO_IGNORE_LIST);
-                    activeChar.sendPacket(sm);
-                    return;
-                }
-
-                if (_target.isGM())
-                {
-                    // Cannot block a GM character.
-                    sm = new SystemMessage(SystemMessageId.YOU_MAY_NOT_IMPOSE_A_BLOCK_ON_GM);
-                    activeChar.sendPacket(sm);
-                    return;
-                }
-
-                BlockList.addToBlockList(activeChar, _target);
-
-                break;
-            }
-            case UNBLOCK:
-            {
-                if (_target == null)
-                {
-	                if (BlockList.isInBlockList(activeChar, _target))
-	                {
-                        BlockList.removeFromBlockList(activeChar, _target);
-                    }
-                }
-                break;
-            }
-            case BLOCKLIST:
-            {
-                BlockList.sendListToOwner(activeChar);
-                break;
-            }
-            case ALLBLOCK:
-            {
-                sm = new SystemMessage(SystemMessageId.MESSAGE_REFUSAL_MODE);
-                activeChar.sendPacket(sm);
-                BlockList.setBlockAll(activeChar, true);
-                break;
-            }
-            case ALLUNBLOCK:
-            {
-                sm = new SystemMessage(SystemMessageId.MESSAGE_ACCEPTANCE_MODE);
-                activeChar.sendPacket(sm);
-                BlockList.setBlockAll(activeChar, false);
-                break;
-            }
-            default:
-                _log.info("Unknown 0x0a block type: " + _type);
-        }
-    }
-
-    @Override
-    public String getType()
-    {
-        return _C__A0_REQUESTBLOCK;
-    }
+	private static final String _C__A0_REQUESTBLOCK = "[C] A0 RequestBlock";
+	
+	private final static int BLOCK = 0;
+	private final static int UNBLOCK = 1;
+	private final static int BLOCKLIST = 2;
+	private final static int ALLBLOCK = 3;
+	private final static int ALLUNBLOCK = 4;
+	
+	private int _type;
+	private String _name;
+	
+	@Override
+	protected void readImpl()
+	{
+		_type = readD();
+		
+		if (_type == BLOCK || _type == UNBLOCK)
+			_name = readS();
+	}
+	
+	@Override
+	protected void runImpl()
+	{
+		L2PcInstance activeChar = getActiveChar();
+		if (activeChar == null)
+			return;
+		
+		switch (_type)
+		{
+			case BLOCK:
+			{
+				activeChar.getBlockList().add(_name);
+				break;
+			}
+			case UNBLOCK:
+			{
+				activeChar.getBlockList().remove(_name);
+				break;
+			}
+			case BLOCKLIST:
+			{
+				activeChar.getBlockList().sendListToOwner();
+				break;
+			}
+			case ALLBLOCK:
+			{
+				activeChar.getBlockList().setBlockingAll(true);
+				break;
+			}
+			case ALLUNBLOCK:
+			{
+				activeChar.getBlockList().setBlockingAll(false);
+				break;
+			}
+		}
+	}
+	
+	@Override
+	public String getType()
+	{
+		return _C__A0_REQUESTBLOCK;
+	}
 }
