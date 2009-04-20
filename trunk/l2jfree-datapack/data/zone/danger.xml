@@ -1,0 +1,397 @@
+<list>
+  <!-- All these zones taken from retail. By Savormix -->
+  <!-- Blazing swamp in Aden area -->
+  <zone id="1" name="fireswamp_1" type="Damage">
+  <settings abnormal="4000" hpDamage="50" slow="true" affected="playable"/> <!-- Flame -->
+    <shape type="Poly" zMin="-4752" zMax="-4352">
+      <point x="141408" y="-9676"/>
+      <point x="142248" y="-9284"/>
+      <point x="142428" y="-8732"/>
+      <point x="142344" y="-8256"/>
+      <point x="142096" y="-8136"/>
+      <point x="141600" y="-8444"/>
+      <point x="141264" y="-9352"/>
+    </shape>
+  </zone>
+  <zone id="2" name="fireswamp_2" type="Damage">
+  <settings abnormal="4000" hpDamage="50" slow="true" affected="playable"/> <!-- Flame -->
+    <shape type="Poly" zMin="-4908" zMax="-4508">
+      <point x="143780" y="-8144"/>
+      <point x="144504" y="-8484"/>
+      <point x="145000" y="-8064"/>
+      <point x="144948" y="-7372"/>
+      <point x="144552" y="-6872"/>
+      <point x="144120" y="-7076"/>
+      <point x="143716" y="-7672"/>
+    </shape>
+  </zone>
+  <zone id="3" name="fireswamp_3" type="Damage">
+  <settings abnormal="4000" hpDamage="50" slow="true" affected="playable"/> <!-- Flame -->
+    <shape type="Poly" zMin="-4776" zMax="-4376">
+      <point x="144144" y="-7020"/>
+      <point x="144552" y="-6838"/>
+      <point x="144564" y="-6324"/>
+      <point x="144072" y="-6280"/>
+    </shape>
+  </zone>
+  <zone id="4" name="fireswamp_4" type="Damage">
+  <settings abnormal="4000" hpDamage="50" slow="true" affected="playable"/> <!-- Flame -->
+    <shape type="Poly" zMin="-4888" zMax="-4288">
+      <point x="144060" y="-6240"/>
+      <point x="144548" y="-6276"/>
+      <point x="145416" y="-5772"/>
+      <point x="145292" y="-4940"/>
+      <point x="144208" y="-5076"/>
+      <point x="143920" y="-5540"/>
+    </shape>
+  </zone>
+  <zone id="5" name="fireswamp_5" type="Damage">
+  <settings abnormal="4000" hpDamage="50" slow="true" affected="playable"/> <!-- Flame -->
+    <shape type="Poly" zMin="-4672" zMax="-4272">
+      <point x="148616" y="-9208"/>
+      <point x="149200" y="-9492"/>
+      <point x="149992" y="-9472"/>
+      <point x="149880" y="-8348"/>
+      <point x="148452" y="-8308"/>
+      <point x="148340" y="-8600"/>
+    </shape>
+  </zone>
+  <zone id="6" name="fireswamp_6" type="Damage">
+  <settings abnormal="4000" hpDamage="50" slow="true" affected="playable"/> <!-- Flame -->
+    <shape type="Poly" zMin="-4676" zMax="-4276">
+      <point x="151636" y="-8512"/>
+      <point x="151592" y="-8196"/>
+      <point x="150644" y="-7904"/>
+      <point x="149912" y="-8420"/>
+      <point x="150040" y="-9404"/>
+    </shape>
+  </zone>
+  <zone id="7" name="fireswamp_7" type="Damage">
+  <settings abnormal="4000" hpDamage="50" slow="true" affected="playable"/> <!-- Flame -->
+    <shape type="Poly" zMin="-4728" zMax="-4328">
+      <point x="150728" y="-10176"/>
+      <point x="151352" y="-10536"/>
+      <point x="150404" y="-9264"/>
+      <point x="150072" y="-9444"/>
+    </shape>
+  </zone>
+  <zone id="8" name="fireswamp_8" type="Damage">
+  <settings abnormal="4000" hpDamage="50" slow="true" affected="playable"/> <!-- Flame -->
+    <shape type="Poly" zMin="-4636" zMax="-4036">
+      <point x="151192" y="-12588"/>
+      <point x="151612" y="-11884"/>
+      <point x="151772" y="-11248"/>
+      <point x="151572" y="-10860"/>
+    </shape>
+  </zone>
+  <zone id="9" name="fireswamp_9" type="Damage">
+  <settings abnormal="4000" hpDamage="50" slow="true" affected="playable"/> <!-- Flame -->
+    <shape type="Poly" zMin="-4700" zMax="-4300">
+      <point x="150456" y="-15148"/>
+      <point x="151760" y="-15072"/>
+      <point x="151556" y="-13400"/>
+      <point x="151148" y="-12856"/>
+      <point x="150384" y="-13904"/>
+    </shape>
+  </zone>
+  <zone id="10" name="fireswamp_10" type="Damage">
+  <settings abnormal="4000" hpDamage="50" slow="true" affected="playable"/> <!-- Flame -->
+    <shape type="Poly" zMin="-4572" zMax="-3972">
+      <point x="145032" y="-15132"/>
+      <point x="146108" y="-15008"/>
+      <point x="148212" y="-11784"/>
+      <point x="147528" y="-10992"/>
+      <point x="146000" y="-11072"/>
+    </shape>
+  </zone>
+  <zone id="11" name="fireswamp_11" type="Damage">
+  <settings abnormal="4000" hpDamage="50" slow="true" affected="playable"/> <!-- Flame -->
+    <shape type="Poly" zMin="-4572" zMax="-4172">
+      <point x="148288" y="-14420"/>
+      <point x="148432" y="-14428"/>
+      <point x="147984" y="-12448"/>
+      <point x="147228" y="-13572"/>
+    </shape>
+  </zone>
+  <zone id="12" name="fireswamp_12" type="Damage">
+  <settings abnormal="4000" hpDamage="50" slow="true" affected="playable"/> <!-- Flame -->
+    <shape type="Poly" zMin="-4476" zMax="-2976">
+      <point x="146120" y="-18720"/>
+      <point x="146276" y="-18884"/>
+      <point x="145976" y="-15072"/>
+      <point x="145056" y="-15200"/>
+    </shape>
+  </zone>
+  <zone id="13" name="fireswamp_13" type="Damage">
+  <settings abnormal="4000" hpDamage="50" slow="true" affected="playable"/> <!-- Flame -->
+    <shape type="Poly" zMin="-4604" zMax="-4204">
+      <point x="140616" y="-16808"/>
+      <point x="143708" y="-17160"/>
+      <point x="143152" y="-16000"/>
+      <point x="141268" y="-15872"/>
+    </shape>
+  </zone>
+  <zone id="14" name="fireswamp_14" type="Damage">
+  <settings abnormal="4000" hpDamage="50" slow="true" affected="playable"/> <!-- Flame -->
+    <shape type="Poly" zMin="-3476" zMax="-3076">
+      <point x="148892" y="-23044"/>
+      <point x="149160" y="-22280"/>
+      <point x="148292" y="-21148"/>
+      <point x="148080" y="-21508"/>
+      <point x="147584" y="-24204"/>
+      <point x="147948" y="-24056"/>
+    </shape>
+  </zone>
+  <zone id="15" name="fireswamp_15" type="Damage">
+  <settings abnormal="4000" hpDamage="50" slow="true" affected="playable"/> <!-- Flame -->
+    <shape type="Poly" zMin="-3208" zMax="-1608">
+      <point x="143804" y="-27456"/>
+      <point x="147168" y="-25768"/>
+      <point x="147164" y="-25372"/>
+      <point x="143308" y="-26812"/>
+    </shape>
+  </zone>
+
+  <!-- Unknown area -->
+  <!-- All devil damage and devil poison need retail damage info! -->
+  <zone id="16" name="devil_damage_001" type="Damage">
+  <settings abnormal="1" hpDamage="200" affected="playable"/> <!-- Bleed? -->
+    <shape type="Poly" zMin="-4048" zMax="-3848">
+      <point x="51296" y="205421"/>
+      <point x="51788" y="205266"/>
+      <point x="51496" y="205621"/>
+      <point x="51072" y="205896"/>
+    </shape>
+  </zone>
+  <zone id="17" name="devil_damage_002" type="Damage">
+  <settings abnormal="1" hpDamage="200" affected="playable"/> <!-- Bleed? -->
+    <shape type="Poly" zMin="-4032" zMax="-3732">
+      <point x="51820" y="205340"/>
+      <point x="52535" y="205305"/>
+      <point x="52535" y="205436"/>
+      <point x="51705" y="205528"/>
+    </shape>
+  </zone>
+  <zone id="18" name="devil_damage_003" type="Damage">
+  <settings abnormal="1" hpDamage="200" affected="playable"/> <!-- Bleed? -->
+    <shape type="Poly" zMin="-3776" zMax="-3626">
+      <point x="43439" y="213259"/>
+      <point x="43589" y="213249"/>
+      <point x="43750" y="213760"/>
+      <point x="43680" y="214092"/>
+    </shape>
+  </zone>  
+  <zone id="19" name="devil_damage_004" type="Damage">
+  <settings abnormal="1" hpDamage="200" affected="playable"/> <!-- Bleed? -->
+    <shape type="Poly" zMin="-3764" zMax="-3564">
+      <point x="42805" y="214266"/>
+      <point x="43627" y="214195"/>
+      <point x="43386" y="214355"/>
+      <point x="42805" y="214405"/>
+    </shape>
+  </zone>
+  <zone id="20" name="devil_damage_005" type="Damage">
+  <settings abnormal="1" hpDamage="200" affected="playable"/> <!-- Bleed? -->
+    <shape type="Poly" zMin="-3856" zMax="-3656">
+      <point x="43511" y="218426"/>
+      <point x="43711" y="218426"/>
+      <point x="43711" y="218759"/>
+      <point x="43511" y="218759"/>
+    </shape>
+  </zone>
+  <zone id="21" name="devil_damage_006" type="Damage">
+  <settings abnormal="1" hpDamage="200" affected="playable"/> <!-- Bleed? -->
+    <shape type="Poly" zMin="-3940" zMax="-3740">
+      <point x="43012" y="218850"/>
+      <point x="43708" y="218850"/>
+      <point x="43719" y="219260"/>
+      <point x="43001" y="219260"/>
+    </shape>
+  </zone>
+  <zone id="22" name="devil_damage_007" type="Damage">
+  <settings abnormal="1" hpDamage="200" affected="playable"/> <!-- Bleed? -->
+    <shape type="Poly" zMin="-3060" zMax="-2860">
+      <point x="50630" y="211383"/>
+      <point x="51129" y="211383"/>
+      <point x="51129" y="211858"/>
+      <point x="50642" y="211858"/>
+    </shape>
+  </zone>
+  <zone id="23" name="devil_damage_008" type="Damage">
+  <settings abnormal="1" hpDamage="200" affected="playable"/> <!-- Bleed? -->
+    <shape type="Poly" zMin="-4008" zMax="-3608">
+      <point x="51820" y="206520"/>
+      <point x="52792" y="206500"/>
+      <point x="52812" y="207128"/>
+      <point x="51844" y="207060"/>
+    </shape>
+  </zone>
+  <zone id="24" name="devil_damage_009" type="Damage">
+  <settings abnormal="1" hpDamage="200" affected="playable"/> <!-- Bleed? -->
+    <shape type="Poly" zMin="-3056" zMax="-2706">
+      <point x="50673" y="210566"/>
+      <point x="51054" y="210572"/>
+      <point x="51054" y="211317"/>
+      <point x="50667" y="211311"/>
+    </shape>
+  </zone>
+  <zone id="25" name="devil_damage_010" type="Damage">
+  <settings abnormal="1" hpDamage="200" affected="playable"/> <!-- Bleed? -->
+    <shape type="Poly" zMin="-2736" zMax="-2536">
+      <point x="50608" y="209718"/>
+      <point x="51145" y="209718"/>
+      <point x="51150" y="210201"/>
+      <point x="50614" y="210201"/>
+    </shape>
+  </zone>
+  <zone id="26" name="devil_poison_001" type="Damage">
+  <settings abnormal="2" hpDamage="50" affected="playable"/> <!-- Poison -->
+    <shape type="Poly" zMin="-3752" zMax="-3552">
+      <point x="41707" y="211982"/>
+      <point x="42025" y="211917"/>
+      <point x="42463" y="212012"/>
+      <point x="42702" y="212346"/>
+      <point x="42593" y="212977"/>
+      <point x="42301" y="213144"/>
+      <point x="41821" y="213081"/>
+      <point x="41600" y="212602"/>
+    </shape>
+  </zone>
+  <zone id="27" name="devil_poison_002" type="Damage">
+  <settings abnormal="2" hpDamage="50" affected="playable"/> <!-- Poison -->
+    <shape type="Poly" zMin="-3800" zMax="-3600">
+      <point x="45296" y="213219"/>
+      <point x="46136" y="213081"/>
+      <point x="46289" y="213374"/>
+      <point x="46158" y="213669"/>
+      <point x="45105" y="213668"/>
+    </shape>
+  </zone>
+  <zone id="28" name="devil_poison_003" type="Damage">
+  <settings abnormal="2" hpDamage="50" affected="playable"/> <!-- Poison -->
+    <shape type="Poly" zMin="-3628" zMax="-3428">
+      <point x="47790" y="220792"/>
+      <point x="48632" y="220818"/>
+      <point x="48683" y="220992"/>
+      <point x="47828" y="220980"/>
+    </shape>
+  </zone>
+  <!-- Retail has only this 8th zone :D -->
+  <zone id="29" name="devil_slow_8" type="Danger">
+  <settings slow="true" affected="playable"/>
+    <shape type="Poly" zMin="-3964" zMax="-3364">
+      <point x="55250" y="210873"/>
+      <point x="55762" y="211217"/>
+      <point x="55934" y="212274"/>
+      <point x="55686" y="212533"/>
+      <point x="54639" y="212740"/>
+      <point x="54276" y="212407"/>
+      <point x="54160" y="211696"/>
+      <point x="54332" y="211108"/>
+    </shape>
+  </zone>
+  <!-- Need retail healing info -->
+  <zone id="30" name="devil_healing_zone" type="Regeneration">
+  <settings hpDamage="500" affected="npc"/>
+    <shape type="Poly" zMin="-3913" zMax="-3413">
+      <point x="41520" y="205163"/>
+      <point x="44448" y="205623"/>
+      <point x="44352" y="208957"/>
+      <point x="42813" y="208983"/>
+      <point x="41473" y="207893"/>
+    </shape>
+  </zone>
+
+  <!-- Unknown area -->
+  <!-- Need retail damage info -->
+  <zone id="31" name="conquerors_weakness_pddown_poison_nonheal" type="Damage">
+  <!-- Poison -->
+  <settings abnormal="2" hpDamage="50" pAtkDown="true" pDefDown="true" noHeal="true" affected="playable"/>
+    <shape type="Poly" zMin="-7260" zMax="-7010">
+      <point x="186739" y="-86322"/>
+      <point x="190108" y="-86335"/>
+      <point x="190110" y="-84794"/>
+      <point x="186736" y="-84786"/>
+    </shape>
+  </zone>
+
+  <!-- Unknown area -->
+  <!-- Need retail damage info -->
+  <zone id="32" name="lords_weakness_pddown_poison_nonheal" type="Damage">
+  <!-- Poison -->
+  <settings abnormal="2" hpDamage="50" pAtkDown="true" pDefDown="true" noHeal="true" affected="playable"/>
+    <shape type="Poly" zMin="-7265" zMax="-7015">
+      <point x="185028" y="-89729"/>
+      <point x="188398" y="-89741"/>
+      <point x="188400" y="-88200"/>
+      <point x="185026" y="-88192"/>
+    </shape>
+  </zone>
+
+  <!-- Unknown area -->
+  <!-- Need retail damage info -->
+  <zone id="33" name="savants_weakness_pddown_poison_nonheal" type="Damage">
+  <!-- Poison -->
+  <settings abnormal="2" hpDamage="50" pAtkDown="true" pDefDown="true" noHeal="true" affected="playable"/>
+    <shape type="Poly" zMin="-7262" zMax="-7012">
+      <point x="172411" y="-81083"/>
+      <point x="173942" y="-81073"/>
+      <point x="173931" y="-77639"/>
+      <point x="172418" y="-77644"/>
+    </shape>
+  </zone>
+
+  <!-- Unknown area -->
+  <!-- Need retail damage info -->
+  <zone id="34" name="magistrates_weakness_pddown_poison_nonheal" type="Damage">
+  <!-- Poison -->
+  <settings abnormal="2" hpDamage="50" pAtkDown="true" pDefDown="true" noHeal="true" affected="playable"/>
+    <shape type="Poly" zMin="-7262" zMax="-7012">
+      <point x="174822" y="-77261"/>
+      <point x="176354" y="-77251"/>
+      <point x="176342" y="-73817"/>
+      <point x="174829" y="-73822"/>
+    </shape>
+  </zone>
+
+  <!-- Forge of Gods, Hall of Flames, Lair of Valakas -->
+  <!-- Need retail damage info -->
+  <zone id="35" name="godad_fire_zone1" type="Damage"> <!-- Hall of Flames -->
+  <settings abnormal="4000" hpDamage="50" affected="playable"/> <!-- Flame -->
+    <shape type="Poly" zMin="-1896" zMax="-1696">
+      <point x="192073" y="-118243"/>
+      <point x="192185" y="-116883"/>
+      <point x="191921" y="-116651"/>
+      <point x="191330" y="-116793"/>
+      <point x="190997" y="-118195"/>
+    </shape>
+  </zone>
+  <zone id="36" name="godad_fire_zone2" type="Damage">
+  <settings abnormal="4000" hpDamage="50" affected="playable"/> <!-- Flame -->
+    <shape type="Poly" zMin="-3384" zMax="-3184">
+      <point x="183700" y="-114976"/>
+      <point x="183996" y="-115008"/>
+      <point x="183988" y="-114940"/>
+      <point x="183892" y="-114896"/>
+      <point x="183768" y="-114912"/>
+    </shape>
+  </zone>
+  <zone id="37" name="godad_fire_zone3" type="Damage">
+  <settings abnormal="4000" hpDamage="50" affected="playable"/> <!-- Flame -->
+    <shape type="Poly" zMin="-4728" zMax="-4028">
+      <point x="170882" y="-116919"/>
+      <point x="173775" y="-116885"/>
+      <point x="173761" y="-113989"/>
+      <point x="170896" y="-113924"/>
+    </shape>
+  </zone>
+  <zone id="38" name="godad_fire_zone4" type="Damage">
+  <settings abnormal="4000" hpDamage="50" affected="playable"/> <!-- Flame -->
+    <shape type="Poly" zMin="-6160" zMax="-5260">
+      <point x="170947" y="-113900"/>
+      <point x="173759" y="-113954"/>
+      <point x="173776" y="-111044"/>
+      <point x="170920" y="-111048"/>
+    </shape>
+  </zone>
+</list>
