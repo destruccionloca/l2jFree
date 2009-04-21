@@ -48,7 +48,7 @@ public abstract class StatusThread extends Thread
 	{
 		_server = server;
 		_socket = socket;
-		_out = new PrintWriter(_socket.getOutputStream(), true);
+		_out = new PrintWriter(_socket.getOutputStream());
 		_in = new BufferedReader(new InputStreamReader(_socket.getInputStream()));
 		
 		register(new Quit());
@@ -67,6 +67,7 @@ public abstract class StatusThread extends Thread
 	protected final StatusThread print(Object obj)
 	{
 		_out.print(obj);
+		_out.flush();
 		
 		return this;
 	}
@@ -74,6 +75,7 @@ public abstract class StatusThread extends Thread
 	protected final StatusThread println(Object obj)
 	{
 		_out.println(obj);
+		_out.flush();
 		
 		return this;
 	}
@@ -81,6 +83,7 @@ public abstract class StatusThread extends Thread
 	protected final StatusThread println()
 	{
 		_out.println();
+		_out.flush();
 		
 		return this;
 	}
