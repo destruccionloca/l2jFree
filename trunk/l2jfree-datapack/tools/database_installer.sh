@@ -200,6 +200,7 @@ full_install()
 	$MYG < ../sql/character_skills.sql &> /dev/null
 	$MYG < ../sql/character_skills_save.sql &> /dev/null
 	$MYG < ../sql/character_subclasses.sql &> /dev/null
+	$MYG < ../sql/character_blocks.sql &> /dev/null
 	$MYG < ../sql/characters.sql &> /dev/null
 	$MYG < ../sql/clan_data.sql &> /dev/null
 	$MYG < ../sql/clan_notice.sql &> /dev/null
