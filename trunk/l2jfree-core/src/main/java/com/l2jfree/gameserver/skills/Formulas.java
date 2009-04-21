@@ -2724,7 +2724,7 @@ public final class Formulas
 	public static boolean calcMagicSuccess(L2Character attacker, L2Character target, L2Skill skill)
 	{
 		int lvlDifference = (target.getLevel() - (skill.getMagicLevel() > 0 ? skill.getMagicLevel() : attacker.getLevel()));
-		int rate = Math.round((float) (L2Math.pow(1.3, lvlDifference) * 100));
+		int rate = Math.round((float) (Math.pow(1.3, lvlDifference) * 100));
 
 		return (Rnd.get(10000) > rate);
 	}
