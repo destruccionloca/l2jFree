@@ -21,7 +21,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.zone.L2SiegeZone;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 
-public class Siegeable extends Entity
+public abstract class Siegeable<T extends AbstractSiege> extends Entity
 {
 	protected String _name;
 	protected int _ownerId = 0;
@@ -64,7 +64,7 @@ public class Siegeable extends Entity
 
 	public void oustAllPlayers()
 	{
-		for (L2Character player : _zoneTP.getCharactersInside().values())
+		for (L2Character player : _zoneTP.getCharactersInside())
 		{
 			// To random spot in defender spawn zone
 			if (player instanceof L2PcInstance)
@@ -129,4 +129,6 @@ public class Siegeable extends Entity
 	{
 		return _zoneTP;
 	}
+	
+	public abstract T getSiege();
 }

@@ -20,17 +20,17 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.ClanHall;
 import com.l2jfree.gameserver.network.serverpackets.AgitDecoInfo;
 
-public class L2ClanhallZone extends L2DefaultZone
+public class L2ClanhallZone extends L2Zone
 {
-	protected ClanHall _clanhall;
-
+	private ClanHall _clanhall;
+	
 	@Override
 	protected void register()
 	{
-		_clanhall = ClanHallManager.getInstance().getClanHallById(_clanhallId);
+		_clanhall = ClanHallManager.getInstance().getClanHallById(getClanhallId());
 		_clanhall.registerZone(this);
 	}
-
+	
 	@Override
 	protected void onEnter(L2Character character)
 	{
@@ -38,12 +38,12 @@ public class L2ClanhallZone extends L2DefaultZone
 		{
 			// Set as in clan hall
 			character.setInsideZone(FLAG_CLANHALL, true);
-
+			
 			// Send decoration packet
 			AgitDecoInfo deco = new AgitDecoInfo(_clanhall);
 			character.sendPacket(deco);
 		}
-
+		
 		super.onEnter(character);
 	}
 	
@@ -55,7 +55,7 @@ public class L2ClanhallZone extends L2DefaultZone
 			// Unset clanhall zone
 			character.setInsideZone(FLAG_CLANHALL, false);
 		}
-
+		
 		super.onExit(character);
 	}
 }

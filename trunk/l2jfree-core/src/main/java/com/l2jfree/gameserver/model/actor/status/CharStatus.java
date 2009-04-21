@@ -352,6 +352,11 @@ public class CharStatus
 		return;
 	}
 	
+	public final void increaseMp(double value)
+	{
+		setCurrentMp(getCurrentMp() + value);
+	}
+	
 	public void reduceMp(double value)
 	{
 		setCurrentMp(getCurrentMp() - value);

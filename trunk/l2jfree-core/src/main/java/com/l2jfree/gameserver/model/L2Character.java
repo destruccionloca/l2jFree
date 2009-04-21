@@ -289,7 +289,7 @@ public abstract class L2Character extends L2Object
 		return (zone == L2Zone.FLAG_PVP) ? (_currentZones[L2Zone.FLAG_PVP] > 0 && _currentZones[L2Zone.FLAG_PEACE] == 0) : (_currentZones[zone] > 0);
 	}
 
-	public void setInsideZone(int zone, boolean state)
+	public final void setInsideZone(int zone, boolean state)
 	{
 		if (state)
 			_currentZones[zone]++;
@@ -2236,7 +2236,7 @@ public abstract class L2Character extends L2Object
 		broadcastStatusUpdate();
 
 		if (getWorldRegion() != null)
-			getWorldRegion().onDeath(this);
+			getWorldRegion().onDie(this);
 
 		// Notify L2Character AI
 		getAI().notifyEvent(CtrlEvent.EVT_DEAD, null);
@@ -3806,9 +3806,9 @@ public abstract class L2Character extends L2Object
 	 *            The L2Skill Identifier of the L2Effect to return from the _effects
 	 * @return The L2Effect corresponding to the L2Skill Identifier
 	 */
-	public final L2Effect getFirstEffect(int index)
+	public final L2Effect getFirstEffect(int skillId)
 	{
-		return _effects.getFirstEffect(index);
+		return _effects.getFirstEffect(skillId);
 	}
 
 	/**
@@ -4507,8 +4507,11 @@ public abstract class L2Character extends L2Object
 		return (distFraction > 1);
 	}
 
-	public void revalidateZone(boolean force)
+	public boolean revalidateZone(boolean force)
 	{
+		if (getWorldRegion() == null)
+			return false;
+		
 		// This function is called very often from movement code
 		if (force)
 			_zoneValidateCounter = 4;
@@ -4518,12 +4521,11 @@ public abstract class L2Character extends L2Object
 			if (_zoneValidateCounter < 0)
 				_zoneValidateCounter = 4;
 			else
-				return;
+				return false;
 		}
-
-		if (getWorldRegion() == null)
-			return;
+		
 		getWorldRegion().revalidateZones(this);
+		return true;
 	}
 
 	/**

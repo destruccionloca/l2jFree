@@ -15,55 +15,43 @@
 package com.l2jfree.gameserver.model.zone;
 
 import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-public class L2WaterZone extends L2DefaultZone
+public class L2WaterZone extends L2Zone
 {
 	@Override
 	protected void onEnter(L2Character character)
 	{
-		if (character instanceof L2PcInstance && ((L2PcInstance)character).isInBoat())
-		{
-			return;
-		}
-
 		character.setInsideZone(FLAG_WATER, true);
-
+		
 		if (character instanceof L2PcInstance)
 		{
-			if (((L2PcInstance) character).isTransformed()
-				&& !((L2PcInstance) character).isCursedWeaponEquipped())
-			{
+			L2PcInstance player = (L2PcInstance)character;
+			if (player.isTransformed() && !player.isCursedWeaponEquipped())
 				character.stopTransformation(null);
-			}
-			// TODO: update to only send speed status when that packet is known
-			else
-				((L2PcInstance) character).broadcastUserInfo();
 		}
-		else if (character instanceof L2NpcInstance)
-		{
-			character.broadcastFullInfo();
-		}
-
+		
 		super.onEnter(character);
+		
+		character.broadcastFullInfo();
 	}
 	
 	@Override
 	protected void onExit(L2Character character)
 	{
 		character.setInsideZone(FLAG_WATER, false);
-
-		// TODO: update to only send speed status when that packet is known
-		if (character instanceof L2PcInstance)
-		{
-			((L2PcInstance) character).broadcastUserInfo();
-		}
-		else if (character instanceof L2NpcInstance)
-		{
-			character.broadcastFullInfo();
-		}
-
+		
 		super.onExit(character);
+		
+		character.broadcastFullInfo();
+	}
+	
+	@Override
+	protected boolean checkDynamicConditions(L2Character character)
+	{
+		if (character instanceof L2PcInstance && ((L2PcInstance)character).isInBoat())
+			return false;
+		
+		return super.checkDynamicConditions(character);
 	}
 }

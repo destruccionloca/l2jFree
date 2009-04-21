@@ -88,7 +88,7 @@ public final class L2WorldRegion
 	public void removeFromZones(L2Character character)
 	{
 		for (L2Zone z : _zones)
-			z.removeCharacter(character);
+			z.removeFromZone(character);
 	}
 	
 	public boolean containsZone(int zoneId)
@@ -100,16 +100,16 @@ public final class L2WorldRegion
 		return false;
 	}
 	
-	public void onDeath(L2Character character)
+	public void onDie(L2Character character)
 	{
 		for (L2Zone z : _zones)
-			z.onDieInside(character);
+			z.onDie(character);
 	}
 	
 	public void onRevive(L2Character character)
 	{
 		for (L2Zone z : _zones)
-			z.onReviveInside(character);
+			z.onRevive(character);
 	}
 	
 	public boolean checkEffectRangeInsidePeaceZone(L2Skill skill, final int x, final int y, final int z)
@@ -124,6 +124,9 @@ public final class L2WorldRegion
 		{
 			if (e.isPeace())
 			{
+				if (e.isCloserThan(x, y, range))
+					return true;
+				
 				if (e.isInsideZone(x, up, z))
 					return false;
 				

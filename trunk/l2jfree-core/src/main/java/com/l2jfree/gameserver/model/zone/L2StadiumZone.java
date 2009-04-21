@@ -16,7 +16,7 @@ package com.l2jfree.gameserver.model.zone;
 
 import com.l2jfree.gameserver.model.L2Character;
 
-public class L2StadiumZone extends L2DefaultZone
+public class L2StadiumZone extends L2Zone
 {
 	@Override
 	protected void onEnter(L2Character character)
@@ -24,7 +24,7 @@ public class L2StadiumZone extends L2DefaultZone
 		character.setInsideZone(FLAG_STADIUM, true);
 		character.setInsideZone(FLAG_PVP, true);
 		character.setInsideZone(FLAG_NOLANDING, true);
-
+		
 		super.onEnter(character);
 	}
 	
@@ -34,7 +34,7 @@ public class L2StadiumZone extends L2DefaultZone
 		character.setInsideZone(FLAG_STADIUM, false);
 		character.setInsideZone(FLAG_PVP, false);
 		character.setInsideZone(FLAG_NOLANDING, false);
-
+		
 		super.onEnter(character);
 	}
 }

@@ -25,15 +25,10 @@ import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.conditions.Condition;
 import com.l2jfree.gameserver.skills.conditions.ConditionParser;
 
-public class L2DynamicZone extends L2DefaultZone
+public class L2DynamicZone extends L2Zone
 {
 	private ScheduledFuture<?> _task;
 	private Condition _cond;
-	
-	public L2DynamicZone()
-	{
-		super();
-	}
 	
 	private boolean checkCondition(L2Character character)
 	{
@@ -47,69 +42,32 @@ public class L2DynamicZone extends L2DefaultZone
 		return _cond.test(env);
 	}
 	
-	// Called on movement
 	@Override
-	public void revalidateInZone(L2Character character)
+	protected boolean checkDynamicConditions(L2Character character)
 	{
-		if (_enabled && checkCondition(character) && isCorrectType(character) && isInsideZone(character))
-		{
-			if (!_characterList.containsKey(character.getObjectId()))
-			{
-				_characterList.put(character.getObjectId(), character);
-				onEnter(character);
-				// Timer turns on if characters are in zone
-				if (_task == null)
-					startZoneTask(character);
-			}
-		}
-		else
-		{
-			if (_characterList.containsKey(character.getObjectId()))
-			{
-				_characterList.remove(character.getObjectId());
-				onExit(character);
-				// Timer turns off if zone is empty
-				if (_characterList.size() == 0)
-					stopZoneTask(character);
-			}
-		}
-	}
-	
-	// Called by timer
-	protected boolean revalidateCondition(L2Character character)
-	{
-		if (checkCondition(character))
-		{
-			if (!_characterList.containsKey(character.getObjectId()))
-			{
-				_characterList.put(character.getObjectId(), character);
-				onEnter(character);
-				// Timer turns on if characters are in zone
-				if (_task == null)
-					startZoneTask(character);
-			}
-			return true;
-		}
+		if (!checkCondition(character))
+			return false;
 		
-		if (_characterList.containsKey(character.getObjectId()))
-		{
-			_characterList.remove(character.getObjectId());
-			onExit(character);
-			// Timer turns off if zone is empty
-			if (_characterList.size() == 0)
-				stopZoneTask(character);
-		}
-		return false;
+		return super.checkDynamicConditions(character);
 	}
 	
-	private synchronized void startZoneTask(L2Character character)
+	@Override
+	protected void onEnter(L2Character character)
+	{
+		super.onEnter(character);
+		
+		// Timer turns on if characters are in zone
+		startZoneTask();
+	}
+	
+	private synchronized void startZoneTask()
 	{
 		if (_task == null)
 			//one abnormal effect animation cycle = 3000ms
 			_task = ThreadPoolManager.getInstance().scheduleAtFixedRate(new ZoneTask(), 0, 3000);
 	}
 	
-	private synchronized void stopZoneTask(L2Character character)
+	private synchronized void stopZoneTask()
 	{
 		if (_task != null)
 		{
@@ -118,18 +76,24 @@ public class L2DynamicZone extends L2DefaultZone
 		}
 	}
 	
-	private class ZoneTask implements Runnable
+	private final class ZoneTask implements Runnable
 	{
 		public void run()
 		{
-			for (L2Character character : getCharactersInside().values())
+			// Timer turns off if zone is empty
+			if (getCharactersInside().isEmpty())
 			{
-				if (revalidateCondition(character))
-				{
-					checkForDamage(character);
-					if (_buffRepeat)
-						checkForEffects(character);
-				}
+				stopZoneTask();
+				return;
+			}
+			
+			revalidateAllInZone();
+			
+			for (L2Character character : getCharactersInsideActivated())
+			{
+				checkForDamage(character);
+				if (isRepeatingBuff())
+					checkForEffects(character);
 			}
 		}
 	}
@@ -140,15 +104,17 @@ public class L2DynamicZone extends L2DefaultZone
 	
 	protected void checkForEffects(L2Character character)
 	{
-		if (_applyEnter != null)
-		{
-			for (L2Skill sk : _applyEnter)
-			{
+		if (getApplyEnter() != null)
+			for (L2Skill sk : getApplyEnter())
 				if (character.getFirstEffect(sk.getId()) == null)
 					sk.getEffects(character, character);
-			}
-		}
+		
+		if (getRemoveEnter() != null)
+			for (int id : getRemoveEnter())
+				character.stopSkillEffects(id);
 	}
+	
+	// Zone parser
 	
 	@Override
 	protected void parseCondition(Node n) throws Exception

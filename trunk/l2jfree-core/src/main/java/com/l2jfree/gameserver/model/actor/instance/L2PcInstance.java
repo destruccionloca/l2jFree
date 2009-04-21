@@ -164,6 +164,7 @@ import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.model.quest.State;
 import com.l2jfree.gameserver.model.restriction.AvailableRestriction;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
+import com.l2jfree.gameserver.model.zone.L2JailZone;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.Disconnection;
 import com.l2jfree.gameserver.network.InvalidPacketException;
@@ -1578,71 +1579,50 @@ public final class L2PcInstance extends L2PlayableInstance
 		sendPacket(new UserInfo(this));
 		broadcastRelationChanged();
 	}
-
+	
 	@Override
-	public void revalidateZone(boolean force)
+	public boolean revalidateZone(boolean force)
 	{
-		// This function is called very often from movement code
-		if (force)
-			_zoneValidateCounter = 4;
-		else
-		{
-			_zoneValidateCounter--;
-			if (_zoneValidateCounter < 0)
-				_zoneValidateCounter = 4;
-			else
-				return;
-		}
-
-		if (getWorldRegion() == null)
-			return;
-		getWorldRegion().revalidateZones(this);
-
+		if (!super.revalidateZone(force))
+			return false;
+		
 		if (Config.ALLOW_WATER)
 			checkWaterState();
-
+		
 		if (isInsideZone(L2Zone.FLAG_SIEGE))
 		{
-			if (_lastCompassZone == ExSetCompassZoneCode.SIEGEWARZONE2)
-				return;
-			_lastCompassZone = ExSetCompassZoneCode.SIEGEWARZONE2;
-			ExSetCompassZoneCode cz = new ExSetCompassZoneCode(ExSetCompassZoneCode.SIEGEWARZONE2);
-			sendPacket(cz);
+			setLastCompassZone(ExSetCompassZoneCode.SIEGEWARZONE2);
 		}
 		else if (isInsideZone(L2Zone.FLAG_PVP))
 		{
-			if (_lastCompassZone == ExSetCompassZoneCode.PVPZONE)
-				return;
-			_lastCompassZone = ExSetCompassZoneCode.PVPZONE;
-			ExSetCompassZoneCode cz = new ExSetCompassZoneCode(ExSetCompassZoneCode.PVPZONE);
-			sendPacket(cz);
+			setLastCompassZone(ExSetCompassZoneCode.PVPZONE);
 		}
 		else if (isIn7sDungeon())
 		{
-			if (_lastCompassZone == ExSetCompassZoneCode.SEVENSIGNSZONE)
-				return;
-			_lastCompassZone = ExSetCompassZoneCode.SEVENSIGNSZONE;
-			ExSetCompassZoneCode cz = new ExSetCompassZoneCode(ExSetCompassZoneCode.SEVENSIGNSZONE);
-			sendPacket(cz);
+			setLastCompassZone(ExSetCompassZoneCode.SEVENSIGNSZONE);
 		}
 		else if (isInsideZone(L2Zone.FLAG_PEACE))
 		{
-			if (_lastCompassZone == ExSetCompassZoneCode.PEACEZONE)
-				return;
-			_lastCompassZone = ExSetCompassZoneCode.PEACEZONE;
-			ExSetCompassZoneCode cz = new ExSetCompassZoneCode(ExSetCompassZoneCode.PEACEZONE);
-			sendPacket(cz);
+			setLastCompassZone(ExSetCompassZoneCode.PEACEZONE);
 		}
 		else
 		{
-			if (_lastCompassZone == ExSetCompassZoneCode.GENERALZONE)
-				return;
 			if (_lastCompassZone == ExSetCompassZoneCode.SIEGEWARZONE2)
 				updatePvPStatus();
-			_lastCompassZone = ExSetCompassZoneCode.GENERALZONE;
-			ExSetCompassZoneCode cz = new ExSetCompassZoneCode(ExSetCompassZoneCode.GENERALZONE);
-			sendPacket(cz);
+			
+			setLastCompassZone(ExSetCompassZoneCode.GENERALZONE);
 		}
+		
+		return true;
+	}
+	
+	private void setLastCompassZone(int newCompassZone)
+	{
+		if (_lastCompassZone == newCompassZone)
+			return;
+		
+		_lastCompassZone = newCompassZone;
+		sendPacket(new ExSetCompassZoneCode(newCompassZone));
 	}
 
 	/**
@@ -10017,6 +9997,8 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	public void enteredNoLanding()
 	{
+		sendPacket(SystemMessageId.AREA_CANNOT_BE_ENTERED_WHILE_MOUNTED_WYVERN);
+		
 		_dismountTask = ThreadPoolManager.getInstance().scheduleGeneral(new L2PcInstance.dismount(), 5000);
 	}
 
@@ -12398,7 +12380,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
 			// If player escaped, put him back in jail
 			if (!isInsideZone(L2Zone.FLAG_JAIL))
-				teleToLocation(-114356, -249645, -2984);
+				teleToLocation(L2JailZone.JAIL_LOCATION, false);
 		}
 	}
 

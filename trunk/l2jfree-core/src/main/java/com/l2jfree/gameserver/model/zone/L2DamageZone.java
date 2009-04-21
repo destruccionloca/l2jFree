@@ -21,10 +21,12 @@ public class L2DamageZone extends L2DangerZone
 	@Override
 	protected void checkForDamage(L2Character character)
 	{
-		if (_hpDamage > 0)
-			//do never use null as the second argument!
-			character.reduceCurrentHp(_hpDamage, character);
-		if (_mpDamage > 0)
-			character.reduceCurrentMp(_mpDamage);
+		super.checkForDamage(character);
+		
+		if (getHPDamagePerSecond() > 0)
+			character.reduceCurrentHp(getHPDamagePerSecond(), character); // do never use null as the second argument!
+			
+		if (getMPDamagePerSecond() > 0)
+			character.reduceCurrentMp(getMPDamagePerSecond());
 	}
 }

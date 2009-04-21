@@ -45,7 +45,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.PlaySound;
 import com.l2jfree.gameserver.network.serverpackets.PledgeShowInfoUpdate;
 
-public class Castle extends Siegeable
+public class Castle extends Siegeable<Siege>
 {
 	private FastList<CropProcure>		_procure								= new FastList<CropProcure>();
 	private FastList<SeedProduction>	_production								= new FastList<SeedProduction>();
@@ -197,7 +197,7 @@ public class Castle extends Siegeable
 			}
 			finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
 		}
-	}	
+	}
 
 	public Castle(int castleId)
 	{
@@ -352,7 +352,7 @@ public class Castle extends Siegeable
 		removeDoorUpgrade();
         for (Map.Entry<Integer, CastleFunction> fc : _function.entrySet())
         	removeFunction(fc.getKey());
-        _function.clear();		
+        _function.clear();
 	}
 
 	public void removeOwner(L2Clan clan)
@@ -376,7 +376,7 @@ public class Castle extends Siegeable
 		updateClansReputation();
         for (Map.Entry<Integer, CastleFunction> fc : _function.entrySet())
         	removeFunction(fc.getKey());
-        _function.clear();		
+        _function.clear();
 	}
 
 	// This method updates the castle owner
@@ -385,7 +385,7 @@ public class Castle extends Siegeable
 		// Remove old owner
 		if (getOwnerId() > 0 && (clan == null || clan.getClanId() != getOwnerId()))
 		{
-			L2Clan oldOwner = ClanTable.getInstance().getClan(getOwnerId()); // Try to find clan instance 
+			L2Clan oldOwner = ClanTable.getInstance().getClan(getOwnerId()); // Try to find clan instance
 			if (oldOwner != null)
 			{
 
@@ -565,8 +565,8 @@ public class Castle extends Siegeable
 
 			if (getOwnerId() > 0)
 			{
-				L2Clan clan = ClanTable.getInstance().getClan(getOwnerId()); // Try to find clan instance 
-				ThreadPoolManager.getInstance().scheduleGeneral(new CastleUpdater(clan, 1), 3600000); // Schedule owner tasks to start running 
+				L2Clan clan = ClanTable.getInstance().getClan(getOwnerId()); // Try to find clan instance
+				ThreadPoolManager.getInstance().scheduleGeneral(new CastleUpdater(clan, 1), 3600000); // Schedule owner tasks to start running
 			}
 
 			rs.close();
@@ -719,7 +719,7 @@ public class Castle extends Siegeable
 				// give crowns
 				CrownManager.getInstance().checkCrowns(clan);
 
-				ThreadPoolManager.getInstance().scheduleGeneral(new CastleUpdater(clan, 1), 3600000); // Schedule owner tasks to start running 
+				ThreadPoolManager.getInstance().scheduleGeneral(new CastleUpdater(clan, 1), 3600000); // Schedule owner tasks to start running
 			}
 		}
 		catch (Exception e)
@@ -753,6 +753,7 @@ public class Castle extends Siegeable
 		return _doors;
 	}
 
+	@Override
 	public final Siege getSiege()
 	{
 		if (_siege == null)
@@ -1253,7 +1254,7 @@ public class Castle extends Siegeable
 
 	public boolean updateFunctions(L2PcInstance player,int type, int lvl, int lease, long rate, boolean addNew)
 	{
-		if (player == null) 
+		if (player == null)
 			return false;
 		if (_log.isDebugEnabled())
 			_log.warn("Called Castle.updateFunctions(int type, int lvl, int lease, long rate, boolean addNew) Owner : "+getOwnerId());

@@ -75,6 +75,11 @@ public abstract class Shape
 
 	public abstract boolean intersectsRectangle(int ax1, int ax2, int ay1, int ay2);
 
+	public final boolean isCloserThan(int x, int y, int distance)
+	{
+		return getDistanceToZone(x, y) <= distance;
+	}
+	
 	public abstract double getDistanceToZone(int x, int y);
 
 	public abstract Location getRandomLocation();

@@ -16,13 +16,13 @@ package com.l2jfree.gameserver.model.zone;
 
 import com.l2jfree.gameserver.model.L2Character;
 
-public class L2FishingZone extends L2DefaultZone
+public class L2FishingZone extends L2Zone
 {
 	@Override
 	protected void onEnter(L2Character character)
 	{
 		character.setInsideZone(FLAG_FISHING, true);
-
+		
 		super.onEnter(character);
 	}
 	
@@ -30,7 +30,7 @@ public class L2FishingZone extends L2DefaultZone
 	protected void onExit(L2Character character)
 	{
 		character.setInsideZone(FLAG_FISHING, false);
-
+		
 		super.onExit(character);
 	}
 }

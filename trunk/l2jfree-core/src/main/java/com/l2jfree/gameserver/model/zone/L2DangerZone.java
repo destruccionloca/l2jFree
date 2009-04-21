@@ -19,23 +19,31 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * When a player is in this zone, the danger effect icon is shown.
+ * 
  * @author Savormix
  * @since 2009.04.19
  */
-public class L2DangerZone extends L2DynamicZone {
+public class L2DangerZone extends L2DynamicZone
+{
 	@Override
-	protected void onEnter(L2Character character) {
+	protected void onEnter(L2Character character)
+	{
 		character.setInsideZone(FLAG_DANGER, true);
-		if (character instanceof L2PcInstance)
-			((L2PcInstance) character).sendEtcStatusUpdate();
+		
 		super.onEnter(character);
-	}
-
-	@Override
-	protected void onExit(L2Character character) {
-		character.setInsideZone(FLAG_DANGER, false);
+		
 		if (character instanceof L2PcInstance)
-			((L2PcInstance) character).sendEtcStatusUpdate();
+			((L2PcInstance)character).sendEtcStatusUpdate();
+	}
+	
+	@Override
+	protected void onExit(L2Character character)
+	{
+		character.setInsideZone(FLAG_DANGER, false);
+		
 		super.onExit(character);
+		
+		if (character instanceof L2PcInstance)
+			((L2PcInstance)character).sendEtcStatusUpdate();
 	}
 }

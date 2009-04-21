@@ -45,7 +45,7 @@ import com.l2jfree.gameserver.network.serverpackets.PlaySound;
 import com.l2jfree.gameserver.network.serverpackets.PledgeShowInfoUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
-public class Fort extends Siegeable
+public class Fort extends Siegeable<FortSiege>
 {
 	protected static final Log		_log			= LogFactory.getLog(Fort.class.getName());
 
@@ -297,8 +297,8 @@ public class Fort extends Siegeable
 	}
 
 	/**
-	 * @param clan  
-	 * @param objId  
+	 * @param clan
+	 * @param objId
 	 */
 	public void Engrave(L2Clan clan)
 	{
@@ -832,6 +832,7 @@ public class Fort extends Siegeable
 		return _flagPole;
 	}
 
+	@Override
 	public final FortSiege getSiege()
 	{
 		if (_siege == null)

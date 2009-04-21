@@ -498,6 +498,97 @@ public final class L2Collections
 		}
 	}
 	
+	public static <S, T> Iterable<T> convertingIterable(Iterable<? extends S> iterable, Converter<S, T> converter)
+	{
+		return new ConvertingIterable<S, T>(iterable, converter);
+	}
+	
+	public static <S, T> Iterator<T> convertingIterator(Iterable<? extends S> iterable, Converter<S, T> converter)
+	{
+		return new ConvertingIterator<S, T>(iterable, converter);
+	}
+	
+	public interface Converter<S, T>
+	{
+		public T convert(S src);
+	}
+	
+	private static final class ConvertingIterable<S, T> implements Iterable<T>
+	{
+		private final Iterable<? extends S> _iterable;
+		private final Converter<S, T> _converter;
+		
+		private ConvertingIterable(Iterable<? extends S> iterable, Converter<S, T> converter)
+		{
+			_iterable = iterable;
+			_converter = converter;
+		}
+		
+		public Iterator<T> iterator()
+		{
+			return convertingIterator(_iterable, _converter);
+		}
+	}
+	
+	private static final class ConvertingIterator<S, T> implements Iterator<T>
+	{
+		private final Iterator<? extends S> _iterator;
+		private final Converter<S, T> _converter;
+		
+		private T _next;
+		
+		private ConvertingIterator(Iterable<? extends S> iterable, Converter<S, T> converter)
+		{
+			_iterator = iterable.iterator();
+			_converter = converter;
+			
+			step();
+		}
+		
+		public boolean hasNext()
+		{
+			return _next != null;
+		}
+		
+		public T next()
+		{
+			if (!hasNext())
+				throw new NoSuchElementException();
+			
+			T next = _next;
+			
+			step();
+			
+			return next;
+		}
+		
+		private void step()
+		{
+			while (_iterator.hasNext())
+			{
+				S src = _iterator.next();
+				
+				if (src == null)
+					continue;
+				
+				T next = _converter.convert(src);
+				
+				if (next != null)
+				{
+					_next = next;
+					return;
+				}
+			}
+			
+			_next = null;
+		}
+		
+		public void remove()
+		{
+			throw new UnsupportedOperationException();
+		}
+	}
+	
 	public static <T> Iterable<T> concatenatedIterable(Iterable<? extends T> iterable1, Iterable<? extends T> iterable2)
 	{
 		return new ConcatenatedIterable<T>(iterable1, iterable2);

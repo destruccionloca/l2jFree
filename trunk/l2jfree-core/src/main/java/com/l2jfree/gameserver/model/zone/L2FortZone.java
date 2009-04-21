@@ -15,41 +15,37 @@
 package com.l2jfree.gameserver.model.zone;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.entity.Fort;
+import com.l2jfree.gameserver.model.entity.FortSiege;
 
-public class L2FortZone extends EntityZone
+public class L2FortZone extends SiegeableEntityZone
 {
 	@Override
-	protected void register()
+	protected void register() throws Exception
 	{
-		_entity = FortManager.getInstance().getFortById(_fortId);
-		if (_entity != null)
-		{
-			// Forts: One zone for multiple purposes (could expand this later and add defender spawn areas)
-			_entity.registerZone(this);
-			_entity.registerHeadquartersZone(this);
-		}
-		else
-			_log.warn("Invalid fortId: "+_fortId);
+		_entity = initFort();
+		// Forts: One zone for multiple purposes (could expand this later and add defender spawn areas)
+		_entity.registerZone(this);
+		_entity.registerHeadquartersZone(this);
 	}
-
+	
 	@Override
 	protected void onEnter(L2Character character)
 	{
 		super.onEnter(character);
+		
 		character.setInsideZone(FLAG_FORT, true);
+		
 		if (character instanceof L2PcInstance)
 		{
-			L2PcInstance player = (L2PcInstance) character;
+			L2PcInstance player = (L2PcInstance)character;
 			L2Clan clan = player.getClan();
 			if (clan != null)
 			{
-				Fort f = (Fort) _entity;
-				if (f.getSiege().getIsInProgress() && (f.getSiege().checkIsAttacker(clan) || f.getSiege().checkIsDefender(clan)))
+				FortSiege s = getSiege();
+				if (s.getIsInProgress() && (s.checkIsAttacker(clan) || s.checkIsDefender(clan)))
 				{
 					player.startFameTask(Config.FORTRESS_ZONE_FAME_TASK_FREQUENCY * 1000, Config.FORTRESS_ZONE_FAME_AQUIRE_POINTS);
 				}
@@ -61,10 +57,10 @@ public class L2FortZone extends EntityZone
 	protected void onExit(L2Character character)
 	{
 		super.onExit(character);
+		
 		character.setInsideZone(FLAG_FORT, false);
+		
 		if (character instanceof L2PcInstance)
-		{
-			((L2PcInstance) character).stopFameTask();
-		}
+			((L2PcInstance)character).stopFameTask();
 	}
 }

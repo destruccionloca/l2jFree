@@ -14,25 +14,12 @@
  */
 package com.l2jfree.gameserver.model.zone;
 
-import com.l2jfree.gameserver.instancemanager.CastleManager;
-import com.l2jfree.gameserver.model.L2Character;
-
-public class L2DefenderSpawnZone extends EntityZone
+public class L2DefenderSpawnZone extends SiegeableEntityZone
 {
 	@Override
-	protected void register()
+	protected void register() throws Exception
 	{
-		_entity = CastleManager.getInstance().getCastleById(_castleId);
-		if (_entity != null)
-			_entity.registerDefenderSpawn(this);
-		else
-			_log.warn("Invalid castleId: "+_castleId);
+		_entity = initCastle();
+		_entity.registerDefenderSpawn(this);
 	}
-
-	// They just define a respawn area
-	@Override
-	protected void onEnter(L2Character character){}
-	
-	@Override
-	protected void onExit(L2Character character){}
 }

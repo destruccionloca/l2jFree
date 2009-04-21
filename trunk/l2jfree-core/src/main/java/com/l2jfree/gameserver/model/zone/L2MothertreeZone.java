@@ -18,43 +18,60 @@ import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.base.Race;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
-public class L2MothertreeZone extends L2DefaultZone
+public class L2MothertreeZone extends L2Zone
 {
 	@Override
 	protected void onEnter(L2Character character)
 	{
 		if (character instanceof L2PcInstance)
 		{
-			L2PcInstance player = (L2PcInstance)character;
-
-			if (player.getRace() != Race.Elf)
-				return;
-
-			if (player.isInParty())
-			{
-				for (L2PcInstance member : player.getParty().getPartyMembers())
-					if (member.getRace() != Race.Elf)
-						return;
-			}
-
-			player.setInsideZone(FLAG_MOTHERTREE, true);
-			player.sendPacket(new SystemMessage(SystemMessageId.ENTER_SHADOW_MOTHER_TREE));
+			character.setInsideZone(FLAG_MOTHERTREE, true);
+			character.sendPacket(SystemMessageId.ENTER_SHADOW_MOTHER_TREE);
 		}
-
+		
 		super.onEnter(character);
 	}
-
+	
 	@Override
 	protected void onExit(L2Character character)
 	{
-		if (character instanceof L2PcInstance && character.isInsideZone(L2Zone.FLAG_MOTHERTREE))
+		if (character instanceof L2PcInstance)
 		{
 			character.setInsideZone(FLAG_MOTHERTREE, false);
-			character.sendPacket(new SystemMessage(SystemMessageId.EXIT_SHADOW_MOTHER_TREE));
+			character.sendPacket(SystemMessageId.EXIT_SHADOW_MOTHER_TREE);
 		}
-
+		
 		super.onExit(character);
+	}
+	
+	@Override
+	protected boolean checkConstantConditions(L2Character character)
+	{
+		if (character instanceof L2PcInstance)
+		{
+			L2PcInstance player = (L2PcInstance)character;
+			
+			if (player.getRace() != Race.Elf)
+				return false;
+		}
+		
+		return super.checkConstantConditions(character);
+	}
+	
+	@Override
+	protected boolean checkDynamicConditions(L2Character character)
+	{
+		if (character instanceof L2PcInstance)
+		{
+			L2PcInstance player = (L2PcInstance)character;
+			
+			if (player.isInParty())
+				for (L2PcInstance member : player.getParty().getPartyMembers())
+					if (member.getRace() != Race.Elf)
+						return false;
+		}
+		
+		return super.checkDynamicConditions(character);
 	}
 }

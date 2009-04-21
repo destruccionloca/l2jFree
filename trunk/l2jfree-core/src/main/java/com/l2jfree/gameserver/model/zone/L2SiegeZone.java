@@ -14,98 +14,64 @@
  */
 package com.l2jfree.gameserver.model.zone;
 
-import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
-import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2SiegeClan;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeSummonInstance;
-import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
-public class L2SiegeZone extends EntityZone
+public class L2SiegeZone extends SiegeableEntityZone
 {
 	@Override
-	protected void register()
+	protected void register() throws Exception
 	{
-		if (_castleId > 0)
-		{
-			_entity = CastleManager.getInstance().getCastleById(_castleId);
-			if (_entity != null)
-			{
-				// Init siege task
-				((Castle)_entity).getSiege();
-				_entity.registerSiegeZone(this);
-			}
-			else
-				_log.warn("Invalid castleId: "+_castleId);
-		}
-		else if (_fortId > 0)
-		{
-			_entity = FortManager.getInstance().getFortById(_fortId);
-			if (_entity != null)
-			{
-				// Init siege task
-				((Fort)_entity).getSiege();
-				_entity.registerSiegeZone(this);
-			}
-			else
-				_log.warn("Invalid fortId: "+_fortId);
-		}
+		_entity = initSiegeableEntity();
+		// Init siege task
+		_entity.getSiege();
+		_entity.registerSiegeZone(this);
 	}
-
+	
 	@Override
 	protected void onEnter(L2Character character)
 	{
-		if ((_entity instanceof Castle && ((Castle)_entity).getSiege().getIsInProgress())
-			|| (_entity instanceof Fort && ((Fort)_entity).getSiege().getIsInProgress()))
-		{
-			character.setInsideZone(FLAG_PVP, true);
-			character.setInsideZone(FLAG_SIEGE, true);
-			character.setInsideZone(FLAG_NOSUMMON, true);
-
-			if (character instanceof L2PcInstance)
-				character.sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));
-		}
-
+		character.setInsideZone(FLAG_PVP, true);
+		character.setInsideZone(FLAG_SIEGE, true);
+		character.setInsideZone(FLAG_NOSUMMON, true);
+		
+		character.sendPacket(SystemMessageId.ENTERED_COMBAT_ZONE);
+		
 		super.onEnter(character);
 	}
 	
 	@Override
 	protected void onExit(L2Character character)
 	{
-		if ((_entity instanceof Castle && ((Castle)_entity).getSiege().getIsInProgress())
-			|| (_entity instanceof Fort && ((Fort)_entity).getSiege().getIsInProgress()))
-		{
-			character.setInsideZone(FLAG_PVP, false);
-			character.setInsideZone(FLAG_SIEGE, false);
-			character.setInsideZone(FLAG_NOSUMMON, false);
-
-			if (character instanceof L2PcInstance)
-			{
-				character.sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
-
-				// Set pvp flag
-				if (((L2PcInstance)character).getPvpFlag() == 0)
-					character.startPvPFlag();
-			}
-		}
+		character.setInsideZone(FLAG_PVP, false);
+		character.setInsideZone(FLAG_SIEGE, false);
+		character.setInsideZone(FLAG_NOSUMMON, false);
+		
+		character.sendPacket(SystemMessageId.LEFT_COMBAT_ZONE);
+		
 		if (character instanceof L2SiegeSummonInstance)
+			((L2SiegeSummonInstance)character).unSummon();
+		
+		else if (character instanceof L2PcInstance)
 		{
-			((L2SiegeSummonInstance)character).unSummon(((L2SiegeSummonInstance)character).getOwner());
-		}
-		if (character instanceof L2PcInstance)
-		{
-			L2PcInstance activeChar = (L2PcInstance) character;
+			final L2PcInstance activeChar = (L2PcInstance)character;
+			
+			// Set pvp flag
+			if (activeChar.getPvpFlag() == 0)
+				activeChar.startPvPFlag();
+			
+			activeChar.stopFameTask();
+			
 			L2ItemInstance item = activeChar.getInventory().getItemByItemId(9819);
 			if (item != null)
 			{
@@ -122,106 +88,66 @@ public class L2SiegeZone extends EntityZone
 				}
 			}
 		}
-
+		
 		super.onExit(character);
 	}
-
+	
+	@Override
+	protected boolean checkDynamicConditions(L2Character character)
+	{
+		if (!isSiegeInProgress())
+			return false;
+		
+		return super.checkDynamicConditions(character);
+	}
+	
 	public void updateSiegeStatus()
 	{
-		if ((_entity instanceof Castle && ((Castle)_entity).getSiege().getIsInProgress())
-			|| (_entity instanceof Fort && ((Fort)_entity).getSiege().getIsInProgress()))
-		{
-			for (L2Character character : _characterList.values())
-			{
-				try
-				{
-					onEnter(character);
-				}
-				catch(Exception e)
-				{
-				}
-			}
-		}
-		else
-		{
-			for (L2Character character : _characterList.values())
-			{
-				try
-				{
-					character.setInsideZone(FLAG_PVP, false);
-					character.setInsideZone(FLAG_SIEGE, false);
-					character.setInsideZone(FLAG_NOSUMMON, false);
-
-					if (character instanceof L2PcInstance)
-					{
-						character.sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
-						((L2PcInstance) character).stopFameTask();
-					}
-					else if (character instanceof L2SiegeSummonInstance)
-					{
-						((L2SiegeSummonInstance)character).unSummon(((L2SiegeSummonInstance)character).getOwner());
-					}
-				}
-				catch(Exception e)
-				{
-				}
-			}
-		}
+		revalidateAllInZone();
 	}
-
+	
 	@Override
-	public void onDieInside(L2Character character)
+	protected void onDieInside(L2Character character)
 	{
 		if (_entity instanceof Fort)
 		{
-			Fort fort = (Fort) _entity;
-			if (fort.getSiege().getIsInProgress())
+			Fort fort = (Fort)_entity;
+			
+			// debuff participants only if they die inside siege zone
+			if (character instanceof L2PcInstance && ((L2PcInstance)character).getClan() != null)
 			{
-				// debuff participants only if they die inside siege zone
-				if (character instanceof L2PcInstance && ((L2PcInstance) character).getClan() != null)
+				int lvl;
+				
+				L2Effect effect = character.getFirstEffect(5660);
+				if (effect != null)
+					lvl = Math.min(effect.getLevel() + 1, SkillTable.getInstance().getMaxLevel(5660));
+				else
+					lvl = 1;
+				
+				if (fort.getOwnerClan() == ((L2PcInstance)character).getClan())
 				{
-					int lvl = 1;
-					for (L2Effect effect: character.getAllEffects())
+					L2Skill skill = SkillTable.getInstance().getInfo(5660, lvl);
+					if (skill != null)
+						skill.getEffects(character, character);
+				}
+				else
+				{
+					for (L2SiegeClan siegeclan : fort.getSiege().getAttackerClans())
 					{
-						if (effect != null && effect.getSkill().getId() == 5660)
+						if (siegeclan == null)
+							continue;
+						if (((L2PcInstance)character).getClanId() == siegeclan.getClanId())
 						{
-							lvl = lvl + effect.getLevel();
-							if (lvl > 5)
-								lvl = 5;
+							L2Skill skill = SkillTable.getInstance().getInfo(5660, lvl);
+							if (skill != null)
+								skill.getEffects(character, character);
 							break;
-						}
-					}
-					L2Clan clan;
-					L2Skill skill;
-					if (fort.getOwnerClan() == ((L2PcInstance)character).getClan())
-					{
-						skill = SkillTable.getInstance().getInfo(5660, lvl);
-						if (skill != null)
-							skill.getEffects(character, character);
-					}
-					else
-					{
-						for (L2SiegeClan siegeclan : fort.getSiege().getAttackerClans())
-						{
-							if (siegeclan == null)
-								continue;
-							clan = ClanTable.getInstance().getClan(siegeclan.getClanId());
-							if (((L2PcInstance) character).getClan() == clan)
-							{
-								skill = SkillTable.getInstance().getInfo(5660, lvl);
-								if (skill != null)
-									skill.getEffects(character, character);
-								break;
-							}
 						}
 					}
 				}
 			}
 		}
-	}
-
-	@Override
-	public void onReviveInside(L2Character character)
-	{
+		
+		super.onDieInside(character);
 	}
 }

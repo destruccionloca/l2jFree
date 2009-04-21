@@ -26,64 +26,80 @@ import com.l2jfree.gameserver.instancemanager.lastimperialtomb.LastImperialTombM
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-public class L2BossZone extends L2DefaultZone
+public class L2BossZone extends L2Zone
 {
 	@Override
 	protected void register()
 	{
-		switch (_boss)
+		switch (getBoss())
 		{
-		case ANTHARAS:
-			AntharasManager.getInstance().registerZone(this);
-			break;
-		case BAIUM:
-			BaiumManager.getInstance().registerZone(this);
-			break;
-		case BAYLOR:
-			BaylorManager.getInstance().registerZone(this);
-			break;
-		case FRINTEZZA:
-			FrintezzaManager.getInstance().registerZone(this);
-			break;
-		case FOURSEPULCHERS:
-			FourSepulchersManager.getInstance().registerZone(this);
-			break;
-		case LASTIMPERIALTOMB:
-			LastImperialTombManager.getInstance().registerZone(this);
-			break;
-		case SAILREN:
-			SailrenManager.getInstance().registerZone(this);
-			break;
-		case VALAKAS:
-			ValakasManager.getInstance().registerZone(this);
-			break;
-		case VANHALTER:
-			VanHalterManager.getInstance().registerZone(this);
-			break;
+			case ANTHARAS:
+				AntharasManager.getInstance().registerZone(this);
+				break;
+			case BAIUM:
+				BaiumManager.getInstance().registerZone(this);
+				break;
+			case BAYLOR:
+				BaylorManager.getInstance().registerZone(this);
+				break;
+			case FRINTEZZA:
+				FrintezzaManager.getInstance().registerZone(this);
+				break;
+			case FOURSEPULCHERS:
+				FourSepulchersManager.getInstance().registerZone(this);
+				break;
+			case LASTIMPERIALTOMB:
+				LastImperialTombManager.getInstance().registerZone(this);
+				break;
+			case SAILREN:
+				SailrenManager.getInstance().registerZone(this);
+				break;
+			case VALAKAS:
+				ValakasManager.getInstance().registerZone(this);
+				break;
+			case VANHALTER:
+				VanHalterManager.getInstance().registerZone(this);
+				break;
 		}
 	}
-
+	
 	@Override
 	protected void onEnter(L2Character character)
 	{
-		if (_boss == Boss.SUNLIGHTROOM)
+		switch (getBoss())
 		{
-			character.setInsideZone(FLAG_SUNLIGHTROOM, true);
+			case SUNLIGHTROOM:
+			{
+				character.setInsideZone(FLAG_SUNLIGHTROOM, true);
+				break;
+			}
+			case FRINTEZZA:
+			{
+				if (character instanceof L2PcInstance)
+					FrintezzaManager.getInstance().setScarletSpawnTask();
+				break;
+			}
 		}
-		else if (_boss == Boss.FRINTEZZA && character instanceof L2PcInstance)
-		{
-			FrintezzaManager.getInstance().setScarletSpawnTask();
-		}
+		
 		character.setInsideZone(FLAG_NOSUMMON, true);
+		
 		super.onEnter(character);
 	}
-
+	
 	@Override
 	protected void onExit(L2Character character)
 	{
-		if (_boss == Boss.SUNLIGHTROOM)
-			character.setInsideZone(FLAG_SUNLIGHTROOM, false);
+		switch (getBoss())
+		{
+			case SUNLIGHTROOM:
+			{
+				character.setInsideZone(FLAG_SUNLIGHTROOM, false);
+				break;
+			}
+		}
+		
 		character.setInsideZone(FLAG_NOSUMMON, false);
+		
 		super.onExit(character);
 	}
 }

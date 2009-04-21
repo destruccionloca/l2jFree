@@ -12,24 +12,12 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.gameserver.model.zone;
+package com.l2jfree.gameserver.model.entity;
 
-import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.entity.Siegeable;
-
-public abstract class EntityZone extends L2DefaultZone
+/**
+ * @author NB4L1
+ */
+public abstract class AbstractSiege
 {
-	protected Siegeable _entity;
-
-	@Override
-	protected void onEnter(L2Character character)
-	{
-		super.onEnter(character);
-	}
-
-	@Override
-	protected void onExit(L2Character character)
-	{
-		super.onExit(character);
-	}
+	public abstract boolean getIsInProgress();
 }

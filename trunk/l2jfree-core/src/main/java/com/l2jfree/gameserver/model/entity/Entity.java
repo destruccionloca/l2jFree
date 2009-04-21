@@ -15,8 +15,8 @@
 package com.l2jfree.gameserver.model.entity;
 
 import java.util.List;
-import javolution.util.FastList;
 
+import javolution.util.FastList;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -93,7 +93,7 @@ public class Entity
 		return false;
 	}
 
-	public double getDistanceToZone(int x, int y) 
+	public double getDistanceToZone(int x, int y)
 	{
 		if (_zone != null) return _zone.getDistanceToZone(x, y);
 
@@ -104,7 +104,7 @@ public class Entity
 	protected List<L2PcInstance> getPlayersInside()
 	{
 		List<L2PcInstance> lst = new FastList<L2PcInstance>();
-		for (L2Character cha : getZone().getCharactersInside().values())
+		for (L2Character cha : getZone().getCharactersInside())
 		{
 			if (cha instanceof L2PcInstance)
 				lst.add((L2PcInstance)cha);
@@ -123,7 +123,7 @@ public class Entity
 	}
 
 	/**
-	 * @param cha  
+	 * @param cha
 	 */
 	protected boolean checkBanish(L2PcInstance cha)
 	{
@@ -152,7 +152,7 @@ public class Entity
 	{
 		for (L2PcInstance player : getPlayersInside())
 		{
-			player.sendPacket(gsp); 
+			player.sendPacket(gsp);
 		}
 	}
 

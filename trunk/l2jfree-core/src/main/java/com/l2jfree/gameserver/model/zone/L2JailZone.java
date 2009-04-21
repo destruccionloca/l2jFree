@@ -17,12 +17,14 @@ package com.l2jfree.gameserver.model.zone;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.GmListTable;
 import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
-public class L2JailZone extends L2DefaultZone
+public class L2JailZone extends L2Zone
 {
+	public static final Location JAIL_LOCATION = new Location(-114356, -249645, -2984);
+	
 	@Override
 	protected void onEnter(L2Character character)
 	{
@@ -30,16 +32,17 @@ public class L2JailZone extends L2DefaultZone
 		{
 			character.setInsideZone(FLAG_JAIL, true);
 			character.setInsideZone(FLAG_NOSUMMON, true);
+			
 			if (Config.JAIL_IS_PVP)
 			{
 				character.setInsideZone(FLAG_PVP, true);
-				character.sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));
+				character.sendPacket(SystemMessageId.ENTERED_COMBAT_ZONE);
 			}
 		}
-
+		
 		super.onEnter(character);
 	}
-
+	
 	@Override
 	protected void onExit(L2Character character)
 	{
@@ -47,21 +50,28 @@ public class L2JailZone extends L2DefaultZone
 		{
 			character.setInsideZone(FLAG_JAIL, false);
 			character.setInsideZone(FLAG_NOSUMMON, false);
+			
 			if (Config.JAIL_IS_PVP)
 			{
 				character.setInsideZone(FLAG_PVP, false);
-				character.sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
+				character.sendPacket(SystemMessageId.LEFT_COMBAT_ZONE);
 			}
-			if (((L2PcInstance) character).isInJail())
-			{// This is for when a player tries to bug his way out of jail
-				character.teleToLocation(-114356, -249645, -2984, false); // Jail
+		}
+		
+		super.onExit(character);
+		
+		if (character instanceof L2PcInstance)
+		{
+			// This is for when a player tries to bug his way out of jail
+			if (((L2PcInstance)character).isInJail())
+			{
+				character.teleToLocation(JAIL_LOCATION, false);
 				character.sendMessage("You dare try and escape from jail before your time is up? Think again!");
+				
 				String msg = "Player: " + character.getName() + " tried to escape from jail.";
 				_log.warn(msg);
 				GmListTable.broadcastMessageToGMs(msg);
 			}
 		}
-
-		super.onExit(character);
 	}
 }

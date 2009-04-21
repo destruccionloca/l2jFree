@@ -14,19 +14,6 @@
  */
 package com.l2jfree.gameserver.model.zone;
 
-import com.l2jfree.gameserver.model.L2Character;
-
-public class L2ArenaZone extends L2DefaultZone
+public class L2ArenaZone extends L2Zone
 {
-	@Override
-	protected void onEnter(L2Character character)
-	{
-		super.onEnter(character);
-	}
-
-	@Override
-	protected void onExit(L2Character character)
-	{
-		super.onExit(character);
-	}
 }

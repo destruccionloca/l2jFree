@@ -57,7 +57,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
-public class FortSiege
+public class FortSiege extends AbstractSiege
 {
 	protected static final Log	_log	= LogFactory.getLog(FortSiege.class.getName());
 
@@ -483,7 +483,7 @@ public class FortSiege
 	public List<L2PcInstance> getPlayersInZone()
 	{
 		List<L2PcInstance> lst = new FastList<L2PcInstance>();
-		for (L2Character cha : getZone().getCharactersInside().values())
+		for (L2Character cha : getZone().getCharactersInside())
 		{
 			if (cha instanceof L2PcInstance)
 				lst.add((L2PcInstance) cha);
@@ -495,7 +495,7 @@ public class FortSiege
 	public List<L2PcInstance> getOwnersInZone()
 	{
 		List<L2PcInstance> lst = new FastList<L2PcInstance>();
-		for (L2Character cha : getZone().getCharactersInside().values())
+		for (L2Character cha : getZone().getCharactersInside())
 		{
 			if (cha instanceof L2PcInstance && ((L2PcInstance) cha).getClan() != null && ((L2PcInstance) cha).getClan() == getFort().getOwnerClan())
 				lst.add((L2PcInstance) cha);
@@ -1044,6 +1044,7 @@ public class FortSiege
 		return _fort[0];
 	}
 
+	@Override
 	public final boolean getIsInProgress()
 	{
 		return _isInProgress;

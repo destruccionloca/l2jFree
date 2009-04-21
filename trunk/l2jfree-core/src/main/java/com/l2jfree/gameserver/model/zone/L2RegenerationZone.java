@@ -18,14 +18,19 @@ import com.l2jfree.gameserver.model.L2Character;
 
 /**
  * Inside this zone HP and/or MP are regenerated.
+ * 
  * @author Savormix
  * @since 2009.04.19
  */
-public class L2RegenerationZone extends L2DangerZone {
+public class L2RegenerationZone extends L2DangerZone
+{
 	@Override
 	protected void checkForDamage(L2Character character)
 	{
-		if (_hpDamage > 0 || _mpDamage > 0)
-			character.getStatus().setCurrentHpMp(character.getCurrentHp() + _hpDamage, character.getCurrentMp() + _mpDamage);
+		if (getHPDamagePerSecond() > 0)
+			character.getStatus().increaseHp(getHPDamagePerSecond());
+		
+		if (getMPDamagePerSecond() > 0)
+			character.getStatus().increaseMp(getMPDamagePerSecond());
 	}
 }

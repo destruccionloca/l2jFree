@@ -15,39 +15,35 @@
 package com.l2jfree.gameserver.model.zone;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.entity.Castle;
+import com.l2jfree.gameserver.model.entity.Siege;
 
-public class L2CastleZone extends EntityZone
+public class L2CastleZone extends SiegeableEntityZone
 {
 	@Override
-	protected void register()
+	protected void register() throws Exception
 	{
-		_entity = CastleManager.getInstance().getCastleById(_castleId);
-		if (_entity != null)
-		{
-			_entity.registerZone(this);
-		}
-		else
-			_log.warn("Invalid castleId: "+_castleId);
+		_entity = initCastle();
+		_entity.registerZone(this);
 	}
-
+	
 	@Override
 	protected void onEnter(L2Character character)
 	{
 		character.setInsideZone(FLAG_CASTLE, true);
+		
 		super.onEnter(character);
+		
 		if (character instanceof L2PcInstance)
 		{
-			L2PcInstance player = (L2PcInstance) character;
+			L2PcInstance player = (L2PcInstance)character;
 			L2Clan clan = player.getClan();
 			if (clan != null)
 			{
-				Castle c = (Castle) _entity;
-				if (c.getSiege().getIsInProgress() && (c.getSiege().checkIsAttacker(clan) || c.getSiege().checkIsDefender(clan)))
+				Siege s = getSiege();
+				if (s.getIsInProgress() && (s.checkIsAttacker(clan) || s.checkIsDefender(clan)))
 				{
 					player.startFameTask(Config.CASTLE_ZONE_FAME_TASK_FREQUENCY * 1000, Config.CASTLE_ZONE_FAME_AQUIRE_POINTS);
 				}
@@ -59,10 +55,10 @@ public class L2CastleZone extends EntityZone
 	protected void onExit(L2Character character)
 	{
 		character.setInsideZone(FLAG_CASTLE, false);
+		
 		super.onExit(character);
+		
 		if (character instanceof L2PcInstance)
-		{
-			((L2PcInstance) character).stopFameTask();
-		}
+			((L2PcInstance)character).stopFameTask();
 	}
 }

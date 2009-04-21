@@ -389,6 +389,11 @@ public abstract class L2Summon extends L2PlayableInstance
 		setTarget(null);
 	}
 
+	public final void unSummon()
+	{
+		unSummon(getOwner());
+	}
+	
 	public void unSummon(L2PcInstance owner)
 	{
 		if (isVisible())

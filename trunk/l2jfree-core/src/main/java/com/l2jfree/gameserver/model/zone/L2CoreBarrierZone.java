@@ -20,15 +20,18 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * Taken from L2EP, adapted to current revision
+ * 
  * @author Savormix
  * @since 2009.04.19
  */
-public final class L2CoreBarrierZone extends L2DamageZone {
+public class L2CoreBarrierZone extends L2DamageZone
+{
 	@Override
 	protected void checkForDamage(L2Character character)
 	{
 		super.checkForDamage(character);
-		if (_hpDamage > 0)
-			character.sendPacket(new SystemMessage(SystemMessageId.S1_DAMAGE_BY_CORE_BARRIER).addNumber(_hpDamage));
+		
+		if (getHPDamagePerSecond() > 0)
+			character.sendPacket(new SystemMessage(SystemMessageId.S1_DAMAGE_BY_CORE_BARRIER).addNumber(getHPDamagePerSecond()));
 	}
 }
