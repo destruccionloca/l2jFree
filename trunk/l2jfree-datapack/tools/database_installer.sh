@@ -195,6 +195,7 @@ full_install()
 	$MYG < ../sql/character_quests.sql &> /dev/null
 	$MYG < ../sql/character_raid_points.sql &> /dev/null
 	$MYG < ../sql/character_recipebook.sql &> /dev/null
+	$MYG < ../sql/character_recommend_data.sql &> /dev/null
 	$MYG < ../sql/character_recommends.sql &> /dev/null
 	$MYG < ../sql/character_shortcuts.sql &> /dev/null
 	$MYG < ../sql/character_skills.sql &> /dev/null
@@ -402,6 +403,14 @@ update_db()
 			$MYG < ../sql/updates/20080917update.sql
 			$MYG < ../sql/updates/20080920update.sql
 			$MYG < ../sql/updates/20081004update.sql
+			$MYG < ../sql/updates/20081227update.sql
+			$MYG < ../sql/updates/20090107update.sql
+			$MYG < ../sql/updates/20090108update.sql
+			$MYG < ../sql/updates/20090131update.sql
+			$MYG < ../sql/updates/20090208update.sql
+			$MYG < ../sql/updates/20090331update.sql
+			$MYG < ../sql/updates/20090403update.sql
+			$MYG < ../sql/updates/20090421update.sql
 			echo "Update completed"
 		# Bad argument O_o
 		else
