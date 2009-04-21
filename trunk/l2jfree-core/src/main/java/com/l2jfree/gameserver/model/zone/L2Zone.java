@@ -49,7 +49,7 @@ import com.l2jfree.gameserver.skills.funcs.FuncOwner;
 import com.l2jfree.tools.random.Rnd;
 import com.l2jfree.util.L2Collections;
 
-public abstract class L2Zone implements FuncOwner
+public class L2Zone implements FuncOwner
 {
 	protected static final Log _log = LogFactory.getLog(L2Zone.class);
 	
@@ -75,7 +75,18 @@ public abstract class L2Zone implements FuncOwner
 		Siege,
 		Stadium,
 		Town,
-		Water
+		Water;
+		
+		private String getZoneClassName()
+		{
+			switch (this)
+			{
+				case Default:
+					return "L2Zone";
+				default:
+					return "L2" + name() + "Zone";
+			}
+		}
 	}
 	
 	// Overridden by siege zones, jail zone and town zones
@@ -916,11 +927,11 @@ public abstract class L2Zone implements FuncOwner
 			Node nn = zn.getAttributes().getNamedItem("name");
 			Node en = zn.getAttributes().getNamedItem("enabled");
 			
-			type = (tn != null) ? ZoneType.valueOf(tn.getNodeValue()) : null;
+			type = (tn != null) ? ZoneType.valueOf(tn.getNodeValue()) : ZoneType.Default;
 			name = (nn != null) ? nn.getNodeValue() : id.toString();
 			enabled = (en != null) ? Boolean.parseBoolean(en.getNodeValue()) : true;
 			
-			Class<?> clazz = Class.forName("com.l2jfree.gameserver.model.zone.L2" + type + "Zone");
+			Class<?> clazz = Class.forName("com.l2jfree.gameserver.model.zone." + type.getZoneClassName());
 			Constructor<?> constructor = clazz.getConstructor();
 			zone = (L2Zone)constructor.newInstance();
 		}
