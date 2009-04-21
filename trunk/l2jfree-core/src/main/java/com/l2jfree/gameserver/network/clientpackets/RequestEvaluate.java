@@ -14,10 +14,10 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.gameserver.instancemanager.RecommendationManager;
+import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
-import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 
 public class RequestEvaluate extends L2GameClientPacket
 {
@@ -37,70 +37,12 @@ public class RequestEvaluate extends L2GameClientPacket
     @Override
     protected void runImpl()
     {
-        SystemMessage sm;
-        L2PcInstance activeChar = getClient().getActiveChar();
-        if (activeChar == null)
-            return;
-        
-        
-        if (!(activeChar.getTarget() instanceof L2PcInstance))
-        {
-            sm = new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT);
-            activeChar.sendPacket(sm);
-            sm =null;
-            return;
-        }
-        
-        if (activeChar.getLevel() < 10)
-        {
-            sm = new SystemMessage(SystemMessageId.ONLY_LEVEL_SUP_10_CAN_RECOMMEND);
-            activeChar.sendPacket(sm);
-            return;
-        }
-        
-        if (activeChar.getTarget() == activeChar)
-        {
-            sm = new SystemMessage(SystemMessageId.YOU_CANNOT_RECOMMEND_YOURSELF);
-            activeChar.sendPacket(sm);
-            return;
-        }
-        
-        if (activeChar.getRecomLeft() <= 0)
-        {
-            sm = new SystemMessage(SystemMessageId.NO_MORE_RECOMMENDATIONS_TO_HAVE);
-            activeChar.sendPacket(sm);
-            return;
-        }
-        
-        L2PcInstance target = (L2PcInstance)activeChar.getTarget();
-        
-        if (target.getRecomHave() >= 255)
-        {
-            sm = new SystemMessage(SystemMessageId.YOUR_TARGET_NO_LONGER_RECEIVE_A_RECOMMENDATION);
-            activeChar.sendPacket(sm);
-            return;
-        }
-        
-        if (!activeChar.canRecom(target))
-        {
-            sm = new SystemMessage(SystemMessageId.THAT_CHARACTER_IS_RECOMMENDED);
-            activeChar.sendPacket(sm);
-            return;
-        }
-        
-        activeChar.giveRecom(target);
-
-        sm = new SystemMessage(SystemMessageId.YOU_HAVE_RECOMMENDED_S1_YOU_ARE_AUTHORIZED_TO_MAKE_S2_MORE_RECOMMENDATIONS);
-        sm.addPcName(target);
-        sm.addNumber(activeChar.getRecomLeft());
-        activeChar.sendPacket(sm);
-        
-        sm = new SystemMessage(SystemMessageId.YOU_HAVE_BEEN_RECOMMENDED_BY_S1);
-        sm.addPcName(activeChar);
-        target.sendPacket(sm);
-        
-        activeChar.sendPacket(new UserInfo(activeChar));
-        target.broadcastUserInfo();
+    	L2PcInstance activeChar = getClient().getActiveChar();
+    	L2Object target = activeChar.getTarget();
+    	if (target instanceof L2PcInstance)
+    		RecommendationManager.getInstance().recommend(activeChar, (L2PcInstance) target);
+    	else
+    		activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
     }
     
     /* (non-Javadoc)

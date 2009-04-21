@@ -36,6 +36,7 @@ import com.l2jfree.gameserver.LoginServerThread;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.LoginServerThread.SessionKey;
 import com.l2jfree.gameserver.datatables.ClanTable;
+import com.l2jfree.gameserver.instancemanager.RecommendationManager;
 import com.l2jfree.gameserver.model.CharSelectInfoPackage;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -333,11 +334,7 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 			statement.execute();
 			statement.close();
 			
-			statement = con.prepareStatement("DELETE FROM character_recommends WHERE charId=? OR target_id=?");
-			statement.setInt(1, objid);
-			statement.setInt(2, objid);
-			statement.execute();
-			statement.close();
+			RecommendationManager.getInstance().onDelete(objid, con, statement);
 			
 			statement = con.prepareStatement("DELETE FROM heroes WHERE charId=?");
 			statement.setInt(1, objid);

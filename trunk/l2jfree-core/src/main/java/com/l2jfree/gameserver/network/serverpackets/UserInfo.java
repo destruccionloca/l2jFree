@@ -309,8 +309,8 @@ public class UserInfo extends L2GameServerPacket
 
 		writeD(_activeChar.getClanPrivileges());
 
-		writeH(_activeChar.getRecomLeft()); //c2  recommendations remaining
-		writeH(_activeChar.getRecomHave()); //c2  recommendations received
+		writeH(_activeChar.getEvaluations()); //c2  recommendations remaining
+		writeH(_activeChar.getEvalPoints()); //c2  recommendations received
 		writeD(_activeChar.getMountNpcId() + 1000000);
 		writeH(_activeChar.getInventoryLimit());
 

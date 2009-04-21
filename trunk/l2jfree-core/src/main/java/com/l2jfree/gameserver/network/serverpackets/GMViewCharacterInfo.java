@@ -220,8 +220,8 @@ public class GMViewCharacterInfo extends L2GameServerPacket
 		writeD(_activeChar.getPkKills());
 		writeD(_activeChar.getPvpKills());
 
-		writeH(_activeChar.getRecomLeft());
-		writeH(_activeChar.getRecomHave()); //Blue value for name (0 = white, 255 = pure blue)
+		writeH(_activeChar.getEvaluations());
+		writeH(_activeChar.getEvalPoints()); //Blue value for name (0 = white, 255 = pure blue)
 		writeD(_activeChar.getClassId().getId());
 		writeD(0x00); // special effects? circles around player...
 		writeD(_activeChar.getMaxCp());

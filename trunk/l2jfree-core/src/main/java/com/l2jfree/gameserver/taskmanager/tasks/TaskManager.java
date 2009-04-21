@@ -206,7 +206,6 @@ public final class TaskManager extends HandlerRegistry<String, TaskHandler>
 	{
 		registerTaskHandler(new TaskJython());
 		registerTaskHandler(new TaskOlympiadSave());
-		registerTaskHandler(new TaskRecom());
 		registerTaskHandler(new TaskRaidPointsReset());
 		registerTaskHandler(new TaskRestart());
 		registerTaskHandler(new TaskSevenSignsUpdate());

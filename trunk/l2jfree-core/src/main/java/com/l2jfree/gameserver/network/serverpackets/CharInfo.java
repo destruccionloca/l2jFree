@@ -327,8 +327,8 @@ public class CharInfo extends L2GameServerPacket
 				writeD(_activeChar.getAbnormalEffect());
 			}
 
-			writeC(_activeChar.getRecomLeft()); //Changed by Thorgrim
-			writeH(_activeChar.getRecomHave()); //Blue value for name (0 = white, 255 = pure blue)
+			writeC(_activeChar.getEvaluations()); //Changed by Thorgrim
+			writeH(_activeChar.getEvalPoints()); //Blue value for name (0 = white, 255 = pure blue)
 			writeD(_activeChar.getMountNpcId() + 1000000);
 
 			writeD(_activeChar.getClassId().getId());

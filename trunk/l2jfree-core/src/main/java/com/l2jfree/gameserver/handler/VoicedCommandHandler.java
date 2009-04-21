@@ -45,15 +45,13 @@ public class VoicedCommandHandler
 	private VoicedCommandHandler()
 	{
 		_datatable = new FastMap<String, IVoicedCommandHandler>();
+		if (Config.BANKING_SYSTEM_ENABLED)
+			registerVoicedCommandHandler(new Banking());
 		registerVoicedCommandHandler(new CastleDoors());
 		registerVoicedCommandHandler(new Hellbound());
-		registerVoicedCommandHandler(new Banking());
 		registerVoicedCommandHandler(new VersionInfo());
 		if (Config.ALLOW_WEDDING)
-		{
 			registerVoicedCommandHandler(new Wedding());
-
-		}
 		_log.info("VoicedCommandHandler: Loaded " + _datatable.size() + " handlers.");
 	}
 

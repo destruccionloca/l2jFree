@@ -321,8 +321,8 @@ public class NpcInfo extends L2GameServerPacket
 
 			writeD(owner.getAbnormalEffect());
 
-			writeC(owner.getRecomLeft()); //Changed by Thorgrim
-			writeH(owner.getRecomHave()); //Blue value for name (0 = white, 255 = pure blue)
+			writeC(owner.getEvaluations()); //Changed by Thorgrim
+			writeH(owner.getEvalPoints()); //Blue value for name (0 = white, 255 = pure blue)
 			writeD(owner.getMountNpcId() + 1000000);
 
 			writeD(owner.getClassId().getId());

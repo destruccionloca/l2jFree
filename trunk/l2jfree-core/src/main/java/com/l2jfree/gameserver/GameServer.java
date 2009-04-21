@@ -99,6 +99,7 @@ import com.l2jfree.gameserver.instancemanager.PetitionManager;
 import com.l2jfree.gameserver.instancemanager.QuestManager;
 import com.l2jfree.gameserver.instancemanager.RaidBossSpawnManager;
 import com.l2jfree.gameserver.instancemanager.RaidPointsManager;
+import com.l2jfree.gameserver.instancemanager.RecommendationManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.instancemanager.TownManager;
 import com.l2jfree.gameserver.instancemanager.TransformationManager;
@@ -266,6 +267,7 @@ public class GameServer
 		WarehouseCacheManager.getInstance();
 		Hero.getInstance();
 		BlockListManager.getInstance();
+		RecommendationManager.getInstance();
 		Util.printSection("NPCs");
 		NpcTable.getInstance();
 		HtmCache.getInstance();

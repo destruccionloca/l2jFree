@@ -22,6 +22,7 @@ import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
 import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.instancemanager.QuestManager;
+import com.l2jfree.gameserver.instancemanager.RecommendationManager;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2ShortCut;
 import com.l2jfree.gameserver.model.L2SkillLearn;
@@ -86,35 +87,31 @@ public class CharacterCreate extends L2GameClientPacket
 		_face      = (byte)readD();
 	}
 
+	@SuppressWarnings("null")
 	@Override
 	protected void runImpl()
 	{
 		// Only 1 character creation at the same time to prevent multiple names
 		synchronized (_lock)
 		{
+			int reason = -1;
 			if (CharNameTable.getInstance().doesCharNameExist(_name))
 			{
 				if (_log.isDebugEnabled())
 					_log.debug("charname: "+ _name + " already exists. creation failed.");
-				CharCreateFail ccf = new CharCreateFail(CharCreateFail.REASON_NAME_ALREADY_EXISTS);
-				sendPacket(ccf);
-				return;
+				reason = CharCreateFail.REASON_NAME_ALREADY_EXISTS;
 			}
 			else if (CharNameTable.getInstance().accountCharNumber(getClient().getAccountName()) >= Config.MAX_CHARACTERS_NUMBER_PER_ACCOUNT && Config.MAX_CHARACTERS_NUMBER_PER_ACCOUNT != 0)
 			{
 				if (_log.isDebugEnabled())
 					_log.debug("Max number of characters reached. Creation failed.");
-				CharCreateFail ccf = new CharCreateFail(CharCreateFail.REASON_TOO_MANY_CHARACTERS);
-				sendPacket(ccf);
-				return;
+				reason = CharCreateFail.REASON_TOO_MANY_CHARACTERS;
 			}
 			else if (!Config.CNAME_PATTERN.matcher(_name).matches())
 			{
 				if (_log.isDebugEnabled())
 					_log.debug("charname: " + _name + " is invalid. creation failed.");
-				CharCreateFail ccf = new CharCreateFail(CharCreateFail.REASON_16_ENG_CHARS);
-				sendPacket(ccf);
-				return;
+				reason = CharCreateFail.REASON_16_ENG_CHARS;
 			}
 
 			if (_log.isDebugEnabled())
@@ -122,9 +119,10 @@ public class CharacterCreate extends L2GameClientPacket
 
 			L2PcTemplate template = CharTemplateTable.getInstance().getTemplate(_classId);
 			if(template == null || template.getClassBaseLevel() > 1)
-			{
-				CharCreateFail ccf = new CharCreateFail(CharCreateFail.REASON_CREATION_FAILED);
-				sendPacket(ccf);
+				reason = CharCreateFail.REASON_CREATION_FAILED;
+
+			if (reason != -1) {
+				sendPacket(new CharCreateFail(reason));
 				return;
 			}
 
@@ -137,8 +135,7 @@ public class CharacterCreate extends L2GameClientPacket
 
 
 			// send acknowledgement
-			CharCreateOk cco = new CharCreateOk();
-			sendPacket(cco);
+			sendPacket(new CharCreateOk());
 
 			initNewChar(getClient(), newChar);
 		}
@@ -205,6 +202,7 @@ public class CharacterCreate extends L2GameClientPacket
 				_log.debug("adding starter skill:" + skill.getId() + " / " + skill.getLevel());
 		}
 		startTutorialQuest(newChar);
+		RecommendationManager.getInstance().onCreate(newChar);
 		new Disconnection(getClient(), newChar).store().deleteMe();
 		
 		// send char list

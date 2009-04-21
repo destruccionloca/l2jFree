@@ -19,7 +19,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -83,6 +82,7 @@ import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.instancemanager.FourSepulchersManager;
 import com.l2jfree.gameserver.instancemanager.QuestManager;
+import com.l2jfree.gameserver.instancemanager.RecommendationManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.instancemanager.grandbosses.AntharasManager;
 import com.l2jfree.gameserver.instancemanager.grandbosses.BaiumManager;
@@ -284,8 +284,8 @@ public final class L2PcInstance extends L2PlayableInstance
 	private static final String	DELETE_SKILL_SAVE				= "DELETE FROM character_skills_save WHERE charId=? AND class_index=?";
 
 	// Character Character SQL String Definitions:
-	private static final String	UPDATE_CHARACTER				= "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,face=?,hairStyle=?,hairColor=?,heading=?,x=?,y=?,z=?,exp=?,expBeforeDeath=?,sp=?,karma=?,fame=?,pvpkills=?,pkkills=?,rec_have=?,rec_left=?,clanid=?,race=?,classid=?,deletetime=?,title=?,accesslevel=?,online=?,isin7sdungeon=?,clan_privs=?,wantspeace=?,base_class=?,onlinetime=?,in_jail=?,jail_timer=?,newbie=?,nobless=?,pledge_rank=?,subpledge=?,last_recom_date=?,lvl_joined_academy=?,apprentice=?,sponsor=?,varka_ketra_ally=?,clan_join_expiry_time=?,clan_create_expiry_time=?,banchat_timer=?,char_name=?,death_penalty_level=?,trust_level=?,vitality_points=? WHERE charId=?";
-	private static final String	RESTORE_CHARACTER				= "SELECT account_name, charId, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, face, hairStyle, hairColor, sex, heading, x, y, z, exp, expBeforeDeath, sp, karma, fame, pvpkills, pkkills, clanid, race, classid, deletetime, cancraft, title, rec_have, rec_left, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, banchat_timer, newbie, nobless, pledge_rank, subpledge, last_recom_date, lvl_joined_academy, apprentice, sponsor, varka_ketra_ally, clan_join_expiry_time,clan_create_expiry_time,charViP,death_penalty_level,trust_level,vitality_points FROM characters WHERE charId=?";
+	private static final String	UPDATE_CHARACTER				= "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,face=?,hairStyle=?,hairColor=?,heading=?,x=?,y=?,z=?,exp=?,expBeforeDeath=?,sp=?,karma=?,fame=?,pvpkills=?,pkkills=?,clanid=?,race=?,classid=?,deletetime=?,title=?,accesslevel=?,online=?,isin7sdungeon=?,clan_privs=?,wantspeace=?,base_class=?,onlinetime=?,in_jail=?,jail_timer=?,newbie=?,nobless=?,pledge_rank=?,subpledge=?,lvl_joined_academy=?,apprentice=?,sponsor=?,varka_ketra_ally=?,clan_join_expiry_time=?,clan_create_expiry_time=?,banchat_timer=?,char_name=?,death_penalty_level=?,trust_level=?,vitality_points=? WHERE charId=?";
+	private static final String	RESTORE_CHARACTER				= "SELECT account_name, charId, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, face, hairStyle, hairColor, sex, heading, x, y, z, exp, expBeforeDeath, sp, karma, fame, pvpkills, pkkills, clanid, race, classid, deletetime, cancraft, title, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, banchat_timer, newbie, nobless, pledge_rank, subpledge, lvl_joined_academy, apprentice, sponsor, varka_ketra_ally, clan_join_expiry_time,clan_create_expiry_time,charViP,death_penalty_level,trust_level,vitality_points FROM characters WHERE charId=?";
 
 	// Character Subclass SQL String Definitions:
 	private static final String	RESTORE_CHAR_SUBCLASSES			= "SELECT class_id,exp,sp,level,class_index FROM character_subclasses WHERE charId=? ORDER BY class_index ASC";
@@ -301,11 +301,6 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	// Character Shortcut SQL String Definitions:
 	private static final String	DELETE_CHAR_SHORTCUTS			= "DELETE FROM character_shortcuts WHERE charId=? AND class_index=?";
-
-	// Character Recommendation SQL String Definitions:
-	private static final String	RESTORE_CHAR_RECOMS				= "SELECT charId,target_id FROM character_recommends WHERE charId=?";
-	private static final String	ADD_CHAR_RECOM					= "INSERT INTO character_recommends (charId,target_id) VALUES (?,?)";
-	private static final String	DELETE_CHAR_RECOMS				= "DELETE FROM character_recommends WHERE charId=?";
 
 	// Character Transformation SQL String Definitions:
 	private static final String	SELECT_CHAR_TRANSFORM			= "SELECT transform_id FROM characters WHERE charId=?";
@@ -442,11 +437,6 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	/** Level at which the player joined the clan as an accedemy member*/
 	private int								_lvlJoinedAcademy		= 0;
-
-	/**
-	 * Char recommendation status (how many recom I have, how many I can give etc...
-	 * WARNING : Use the getter to retrieve it, if not you risk to have a null pointer exception
-	 */
 
 	/** The random number of the L2PcInstance */
 	//private static final Random _rnd = new Random();
@@ -744,17 +734,14 @@ public final class L2PcInstance extends L2PlayableInstance
 	/** Previous coordinate sent to party in ValidatePosition **/
 	private Point3D							_lastPartyPosition;
 
-	/** The number of recommendation obtained by the L2PcInstance */
-	private int								_recomHave;																				// How much I was recommended by others
+	/** The number of evaluation points obtained by this player */
+	private int								_evalPoints;
 
-	/** The number of recommendation that the L2PcInstance can give */
-	private int								_recomLeft;																				// How many recommendations I can give to others
+	/** The number of evaluations this player can give */
+	private int								_evaluations;
 
-	/** Date when recommendation points were updated last time */
-	private long							_lastRecomUpdate;
-
-	/** List with the recommendations that I've given */
-	private List<Integer>					_recomChars				= new SingletonList<Integer>();
+	/** List of players this player already evaluated */
+	private List<Integer>					_evaluated				= new SingletonList<Integer>();
 
 	private boolean							_inCrystallize;
 
@@ -1724,94 +1711,58 @@ public final class L2PcInstance extends L2PlayableInstance
 		return getInventory().getTotalWeight();
 	}
 
-	/**
-	 * Return date of las update of recomPoints
-	 */
-	public long getLastRecomUpdate()
+	/** @return the number of evaluation points obtained by player. */
+	public int getEvalPoints()
 	{
-		return _lastRecomUpdate;
-	}
-
-	public void setLastRecomUpdate(long date)
-	{
-		_lastRecomUpdate = date;
+		return _evalPoints;
 	}
 
 	/**
-	 * Return the number of recommandation obtained by the L2PcInstance.<BR><BR>
+	 * Set the number of evaluation points obtained by player.
+	 * @param value Evaluation point count
 	 */
-	public int getRecomHave()
+	public void setEvalPoints(int value)
 	{
-		return _recomHave;
+		_evalPoints = value;
+	}
+
+	/** @return the number of evaluations this player can give away. */
+	public int getEvaluations()
+	{
+		return _evaluations;
 	}
 
 	/**
-	 * Increment the number of recommandation obtained by the L2PcInstance (Max : 255).<BR><BR>
+	 * Set the number of available evaluations.
+	 * @param value New available evaluation count
 	 */
-	protected void incRecomHave()
+	public void setEvaluationCount(int value)
 	{
-		if (_recomHave < 255)
-			_recomHave++;
+		_evaluations = value;
 	}
 
 	/**
-	 * Set the number of recommandation obtained by the L2PcInstance (Max : 255).<BR><BR>
+	 * Add a player that has been evaluated by this player.
+	 * @param charId evaluated player's ID
 	 */
-	public void setRecomHave(int value)
+	public void addEvalRestriction(int charId)
 	{
-		if (value > 255)
-			_recomHave = 255;
-		else if (value < 0)
-			_recomHave = 0;
-		else
-			_recomHave = value;
+		_evaluated.add(charId);
+	}
+
+	/**	Removes all session evaluation restrictions for this player. */
+	public void cleanEvalRestrictions()
+	{
+		_evaluated.clear();
 	}
 
 	/**
-	 * Return the number of recommandation that the L2PcInstance can give.<BR><BR>
+	 * @param target Player being evaluated
+	 * @return whether this player hasn't evaluated the given player
 	 */
-	public int getRecomLeft()
+	public boolean canEvaluate(L2PcInstance target)
 	{
-		return _recomLeft;
-	}
-
-	/**
-	 * Increment the number of recommandation that the L2PcInstance can give.<BR><BR>
-	 */
-	protected void decRecomLeft()
-	{
-		if (_recomLeft > 0)
-			_recomLeft--;
-	}
-
-	public void giveRecom(L2PcInstance target)
-	{
-		if (Config.ALT_RECOMMEND)
-		{
-			Connection con = null;
-			try
-			{
-				con = L2DatabaseFactory.getInstance().getConnection(con);
-				PreparedStatement statement = con.prepareStatement(ADD_CHAR_RECOM);
-				statement.setInt(1, getObjectId());
-				statement.setInt(2, target.getObjectId());
-				statement.execute();
-				statement.close();
-			}
-			catch (Exception e)
-			{
-				_log.error("Failed updating character recommendations.", e);
-			}
-			finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
-		}
-		target.incRecomHave();
-		decRecomLeft();
-		_recomChars.add(target.getObjectId());
-	}
-
-	public boolean canRecom(L2PcInstance target)
-	{
-		return !_recomChars.contains(target.getObjectId());
+		return !_evaluated.contains(target.getObjectId());
 	}
 
 	/**
@@ -6513,8 +6464,8 @@ public final class L2PcInstance extends L2PlayableInstance
 					+ "(account_name,charId,char_name,level,maxHp,curHp,maxCp,curCp,maxMp,curMp,"
 					+ "face,hairStyle,hairColor,sex,exp,sp,karma,fame,pvpkills,pkkills,clanid,race,"
 					+ "classid,deletetime,cancraft,title,accesslevel,online,isin7sdungeon,clan_privs,"
-					+ "wantspeace,base_class,newbie,nobless,pledge_rank,last_recom_date) "
-					+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+					+ "wantspeace,base_class,newbie,nobless,pledge_rank) "
+					+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			statement.setString(1, _accountName);
 			statement.setInt(2, getObjectId());
 			statement.setString(3, getName());
@@ -6550,7 +6501,6 @@ public final class L2PcInstance extends L2PlayableInstance
 			statement.setInt(33, getNewbie());
 			statement.setInt(34, isNoble() ? 1 : 0);
 			statement.setLong(35, 0);
-			statement.setLong(36, System.currentTimeMillis());
 
 			statement.executeUpdate();
 			statement.close();
@@ -6665,9 +6615,6 @@ public final class L2PcInstance extends L2PlayableInstance
 				currentMp = rset.getDouble("curMp");
 				currentCp = rset.getDouble("curCp");
 
-				// Check recs
-				player.checkRecom(rset.getInt("rec_have"), rset.getInt("rec_left"));
-
 				player._classIndex = 0;
 				try
 				{
@@ -6716,7 +6663,6 @@ public final class L2PcInstance extends L2PlayableInstance
 				player.setCharViP((rset.getInt("charViP") == 1));
 				player.setSubPledgeType(rset.getInt("subpledge"));
 				player.setPledgeRank(rset.getInt("pledge_rank"));
-				player.setLastRecomUpdate(rset.getLong("last_recom_date"));
 				player.setApprentice(rset.getInt("apprentice"));
 				player.setSponsor(rset.getInt("sponsor"));
 				if (player.getClan() != null)
@@ -6943,40 +6889,11 @@ public final class L2PcInstance extends L2PlayableInstance
 		restoreHenna();
 
 		// Retrieve from the database all recom data of this L2PcInstance and add to _recomChars.
-		if (Config.ALT_RECOMMEND)
-			restoreRecom();
+		RecommendationManager.getInstance().onJoin(this);
 
 		// Retrieve from the database the recipe book of this L2PcInstance.
 		//if (!isSubClassActive())
 		restoreRecipeBook();
-	}
-
-	/**
-	 * Retrieve from the database all Recommendation data of this L2PcInstance, add to _recomChars and calculate stats of the L2PcInstance.<BR><BR>
-	 */
-	private void restoreRecom()
-	{
-		Connection con = null;
-
-		try
-		{
-			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con.prepareStatement(RESTORE_CHAR_RECOMS);
-			statement.setInt(1, getObjectId());
-			ResultSet rset = statement.executeQuery();
-			while (rset.next())
-			{
-				_recomChars.add(rset.getInt("target_id"));
-			}
-
-			rset.close();
-			statement.close();
-		}
-		catch (Exception e)
-		{
-			_log.error("could not restore recommendations: ", e);
-		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	/**
@@ -7136,40 +7053,37 @@ public final class L2PcInstance extends L2PlayableInstance
 			statement.setInt(19, getKarma());
 			statement.setInt(20, getPvpKills());
 			statement.setInt(21, getPkKills());
-			statement.setInt(22, getRecomHave());
-			statement.setInt(23, getRecomLeft());
-			statement.setInt(24, getClanId());
-			statement.setInt(25, getRace().ordinal());
-			statement.setInt(26, getClassId().getId());
-			statement.setLong(27, getDeleteTimer());
-			statement.setString(28, getTitle());
-			statement.setInt(29, getAccessLevel());
-			statement.setInt(30, isOnline());
-			statement.setInt(31, isIn7sDungeon() ? 1 : 0);
-			statement.setInt(32, getClanPrivileges());
-			statement.setInt(33, getWantsPeace());
-			statement.setInt(34, getBaseClass());
+			statement.setInt(22, getClanId());
+			statement.setInt(23, getRace().ordinal());
+			statement.setInt(24, getClassId().getId());
+			statement.setLong(25, getDeleteTimer());
+			statement.setString(26, getTitle());
+			statement.setInt(27, getAccessLevel());
+			statement.setInt(28, isOnline());
+			statement.setInt(29, isIn7sDungeon() ? 1 : 0);
+			statement.setInt(30, getClanPrivileges());
+			statement.setInt(31, getWantsPeace());
+			statement.setInt(32, getBaseClass());
 
-			statement.setLong(35, totalOnlineTime);
-			statement.setInt(36, isInJail() ? 1 : 0);
-			statement.setLong(37, getJailTimer());
-			statement.setInt(38, getNewbie());
-			statement.setInt(39, isNoble() ? 1 : 0);
-			statement.setLong(40, getPledgeRank());
-			statement.setInt(41, getSubPledgeType());
-			statement.setLong(42, getLastRecomUpdate());
-			statement.setInt(43, getLvlJoinedAcademy());
-			statement.setLong(44, getApprentice());
-			statement.setLong(45, getSponsor());
-			statement.setInt(46, getAllianceWithVarkaKetra());
-			statement.setLong(47, getClanJoinExpiryTime());
-			statement.setLong(48, getClanCreateExpiryTime());
-			statement.setLong(49, getBanChatTimer());
-			statement.setString(50, getName());
-			statement.setLong(51, getDeathPenaltyBuffLevel());
-			statement.setLong(52, getTrustLevel());
-			statement.setDouble(53, getVitalityPoints());
-		    statement.setInt(54, getObjectId());
+			statement.setLong(33, totalOnlineTime);
+			statement.setInt(34, isInJail() ? 1 : 0);
+			statement.setLong(35, getJailTimer());
+			statement.setInt(36, getNewbie());
+			statement.setInt(37, isNoble() ? 1 : 0);
+			statement.setLong(38, getPledgeRank());
+			statement.setInt(39, getSubPledgeType());
+			statement.setInt(40, getLvlJoinedAcademy());
+			statement.setLong(41, getApprentice());
+			statement.setLong(42, getSponsor());
+			statement.setInt(43, getAllianceWithVarkaKetra());
+			statement.setLong(44, getClanJoinExpiryTime());
+			statement.setLong(45, getClanCreateExpiryTime());
+			statement.setLong(46, getBanChatTimer());
+			statement.setString(47, getName());
+			statement.setLong(48, getDeathPenaltyBuffLevel());
+			statement.setLong(49, getTrustLevel());
+			statement.setDouble(50, getVitalityPoints());
+		    statement.setInt(51, getObjectId());
 			statement.execute();
 			statement.close();
 		}
@@ -10845,72 +10759,6 @@ public final class L2PcInstance extends L2PlayableInstance
 	public void setBoatId(int boatId)
 	{
 		_boatId = boatId;
-	}
-
-	private void checkRecom(int recsHave, int recsLeft)
-	{
-		Calendar check = Calendar.getInstance();
-		check.setTimeInMillis(_lastRecomUpdate);
-		check.add(Calendar.DAY_OF_MONTH, 1);
-
-		Calendar min = Calendar.getInstance();
-
-		_recomHave = recsHave;
-		_recomLeft = recsLeft;
-
-		if (getStat().getLevel() < 10 || check.after(min))
-			return;
-
-		restartRecom();
-	}
-
-	public void restartRecom()
-	{
-		if (Config.ALT_RECOMMEND)
-		{
-			Connection con = null;
-			try
-			{
-				con = L2DatabaseFactory.getInstance().getConnection(con);
-				PreparedStatement statement = con.prepareStatement(DELETE_CHAR_RECOMS);
-				statement.setInt(1, getObjectId());
-
-				statement.execute();
-				statement.close();
-
-				_recomChars.clear();
-			}
-			catch (Exception e)
-			{
-				_log.error("Error clearing char recommendations.", e);
-			}
-			finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
-		}
-
-		if (getStat().getLevel() < 20)
-		{
-			_recomLeft = 3;
-			_recomHave--;
-		}
-		else if (getStat().getLevel() < 40)
-		{
-			_recomLeft = 6;
-			_recomHave -= 2;
-		}
-		else
-		{
-			_recomLeft = 9;
-			_recomHave -= 3;
-		}
-		if (_recomHave < 0)
-			_recomHave = 0;
-
-		// If we have to update last update time, but it's now before 13, we should set it to yesterday
-		Calendar update = Calendar.getInstance();
-		if (update.get(Calendar.HOUR_OF_DAY) < 13)
-			update.add(Calendar.DAY_OF_MONTH, -1);
-		update.set(Calendar.HOUR_OF_DAY, 13);
-		_lastRecomUpdate = update.getTimeInMillis();
 	}
 
 	@Override

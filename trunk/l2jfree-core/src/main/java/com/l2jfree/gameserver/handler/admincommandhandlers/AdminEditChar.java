@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.handler.admincommandhandlers;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
 import javolution.text.TextBuilder;
@@ -29,6 +30,7 @@ import com.l2jfree.gameserver.communitybbs.Manager.RegionBBSManager;
 import com.l2jfree.gameserver.datatables.CharNameTable;
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
+import com.l2jfree.gameserver.instancemanager.RecommendationManager;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
@@ -231,25 +233,30 @@ public class AdminEditChar implements IAdminCommandHandler
 		{
 			try
 			{
-				String val = command.substring(10);
-				int recVal = Integer.parseInt(val);
+				StringTokenizer st = new StringTokenizer(command, " ");
+				st.nextToken();
+				int recVal = Integer.parseInt(st.nextToken());
+				boolean temp = true;
+				try {
+					temp = !st.nextToken().equals("y");
+				}
+				catch (NoSuchElementException nsee) {}
 				L2Object target = activeChar.getTarget();
 				L2PcInstance player = null;
 				if (target instanceof L2PcInstance)
-				{
 					player = (L2PcInstance) target;
-				}
 				else
-				{
 					return false;
-				}
-				player.setRecomHave(recVal);
-				player.sendMessage("You have been recommended by a GM");
+				if (temp)
+					player.setEvalPoints(recVal);
+				else
+					RecommendationManager.getInstance().onGmEvaluation(player, recVal);
+				player.sendMessage("You have been evaluated by a GM!" + (temp ? " (temporarily)" : ""));
 				player.broadcastUserInfo();
 			}
 			catch (Exception e)
 			{
-				activeChar.sendMessage("Usage: //rec number");
+				activeChar.sendMessage("Usage: //rec number [save? y/n]");
 			}
 		}
 		else if (command.startsWith("admin_setclass"))

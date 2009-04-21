@@ -2014,9 +2014,10 @@ public abstract class L2Character extends L2Object
 		}
 		case HEAL:
 		{
-			if (isInsideZone(L2Zone.FLAG_NOHEAL))
+			if (isInsideZone(L2Zone.FLAG_NOHEAL)) {
 				sendPacket(new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED).addSkillName(skill));
-			break;
+				return false;
+			}
 		}
 		}
 
