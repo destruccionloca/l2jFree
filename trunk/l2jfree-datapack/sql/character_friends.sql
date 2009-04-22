@@ -2,8 +2,7 @@
 -- Table structure for `character_friends`
 -- ----------------------------
 CREATE TABLE IF NOT EXISTS `character_friends` (
-  `charId` INT UNSIGNED NOT NULL DEFAULT 0,
-  `friendId` INT UNSIGNED NOT NULL DEFAULT 0,
-  `friend_name` VARCHAR(35) NOT NULL DEFAULT '',
-  PRIMARY KEY (`charId`,`friend_name`)
+  `charId1` INT UNSIGNED NOT NULL,
+  `charId2` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`charId1`,`charId2`)
 ) DEFAULT CHARSET=utf8;

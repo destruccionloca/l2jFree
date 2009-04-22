@@ -187,8 +187,8 @@ full_install()
 	$MYG < ../sql/castle_manor_procure.sql &> /dev/null
 	$MYG < ../sql/castle_manor_production.sql &> /dev/null
 	$MYG < ../sql/castle_siege_guards.sql &> /dev/null
-	$MYG < ../sql/char_templates.sql &> /dev/null
 	$MYG < ../sql/char_creation_items.sql &> /dev/null
+	$MYG < ../sql/char_templates.sql &> /dev/null
 	$MYG < ../sql/character_friends.sql &> /dev/null
 	$MYG < ../sql/character_hennas.sql &> /dev/null
 	$MYG < ../sql/character_macroses.sql &> /dev/null
@@ -201,7 +201,6 @@ full_install()
 	$MYG < ../sql/character_skills.sql &> /dev/null
 	$MYG < ../sql/character_skills_save.sql &> /dev/null
 	$MYG < ../sql/character_subclasses.sql &> /dev/null
-	$MYG < ../sql/character_blocks.sql &> /dev/null
 	$MYG < ../sql/characters.sql &> /dev/null
 	$MYG < ../sql/clan_data.sql &> /dev/null
 	$MYG < ../sql/clan_notice.sql &> /dev/null
@@ -271,6 +270,7 @@ full_install()
 	$MYG < ../sql/weapon.sql &> /dev/null
 	# L2JFree tables
 	$MYG < ../sql/buff_templates.sql &> /dev/null
+	$MYG < ../sql/character_blocks.sql &> /dev/null
 	$MYG < ../sql/couples.sql &> /dev/null
 	$MYG < ../sql/ctf.sql &> /dev/null
 	$MYG < ../sql/ctf_teams.sql &> /dev/null
@@ -411,6 +411,7 @@ update_db()
 			$MYG < ../sql/updates/20090331update.sql
 			$MYG < ../sql/updates/20090403update.sql
 			$MYG < ../sql/updates/20090421update.sql
+			$MYG < ../sql/updates/20090422update.sql
 			echo "Update completed"
 		# Bad argument O_o
 		else
