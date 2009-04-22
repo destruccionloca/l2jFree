@@ -14,335 +14,82 @@
  */
 package com.l2jfree.gameserver.model;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Map;
+import java.util.Set;
 
-import javolution.util.FastMap;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import com.l2jfree.L2DatabaseFactory;
+import com.l2jfree.gameserver.datatables.CharNameTable;
+import com.l2jfree.gameserver.instancemanager.FriendListManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.FriendList;
+import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
- * This class represent all character's friend list operations:
- *  - load list from DB
- *  - add friend list record and save in DB
- *  - del friend list record and save in DB
- *
  * @author G1ta0
- * 
  */
-public class L2FriendList
+public final class L2FriendList
 {
-	private final static Log _log = LogFactory.getLog(L2FriendList.class.getName());
-
-	private static final String RESTORE_FRIENDLIST = "SELECT friendId,friend_name FROM character_friends WHERE charId=?";
-	private static final String RESTORE_FRIEND_ID = "SELECT friendId FROM character_friends WHERE charId=? AND friend_name=?";
-	private static final String DELETE_FROM_FRIENDLIST = "DELETE FROM character_friends WHERE (charId=? AND friendId=?) OR (charId=? AND friendId=?)";
-	private static final String ADD_TO_FRIENDLIST = "INSERT INTO character_friends (charId, friendId, friend_name) VALUES (?, ?, ?),(?, ?, ?)";
-
-	private final Map<Integer,String> friendlist;
-	private final L2PcInstance listOwner;
-
-	public L2FriendList(L2PcInstance character)
+	private final L2PcInstance _owner;
+	private final Set<Integer> _set;
+	
+	public L2FriendList(L2PcInstance owner)
 	{
-		friendlist = new FastMap<Integer,String>();
-		listOwner = character;
-		loadFriendList();
+		_owner = owner;
+		_set = FriendListManager.getInstance().getFriendList(owner.getObjectId());
 	}
-
-	/**
-	 * Restore frien list from DB
-	 */
-	private void loadFriendList()
+	
+	public boolean contains(L2PcInstance player)
 	{
-		if(listOwner != null)
+		return player != null && _set.contains(player.getObjectId());
+	}
+	
+	public Iterable<Integer> getFriendIds()
+	{
+		return _set;
+	}
+	
+	public void add(L2PcInstance friend)
+	{
+		if (_owner == friend)
 		{
-			Connection con = null;
+			_owner.sendPacket(SystemMessageId.YOU_CANNOT_ADD_YOURSELF_TO_YOUR_OWN_FRIENDS_LIST);
+			return;
+		}
+		
+		if (FriendListManager.getInstance().insert(_owner.getObjectId(), friend.getObjectId()))
+		{
+			_owner.sendPacket(SystemMessageId.YOU_HAVE_SUCCEEDED_INVITING_FRIEND);
 			
-			try
+			_owner.sendPacket(new SystemMessage(SystemMessageId.S1_ADDED_TO_FRIENDS).addPcName(friend));
+			_owner.sendPacket(new FriendList(_owner));
+			
+			friend.sendPacket(new SystemMessage(SystemMessageId.S1_JOINED_AS_FRIEND).addPcName(_owner));
+			friend.sendPacket(new FriendList(friend));
+		}
+		else
+			_owner.sendPacket(new SystemMessage(SystemMessageId.S1_ALREADY_ON_LIST).addPcName(friend));
+	}
+	
+	public void remove(String name)
+	{
+		Integer objId = CharNameTable.getInstance().getByName(name);
+		
+		if (objId != null && FriendListManager.getInstance().remove(_owner.getObjectId(), objId))
+		{
+			name = CharNameTable.getInstance().getByObjectId(objId);
+			
+			_owner.sendPacket(new SystemMessage(SystemMessageId.S1_HAS_BEEN_DELETED_FROM_YOUR_FRIENDS_LIST)
+				.addString(name));
+			_owner.sendPacket(new FriendList(_owner));
+			
+			L2PcInstance friend = L2World.getInstance().findPlayer(objId);
+			if (friend != null)
 			{
-				
-				con = L2DatabaseFactory.getInstance().getConnection(con);
-				PreparedStatement statement;
-				statement = con.prepareStatement(RESTORE_FRIENDLIST);
-				statement.setInt(1, listOwner.getObjectId());
-				ResultSet rset = statement.executeQuery();
-
-				while (rset.next())
-					friendlist.put(rset.getInt("friendId"),rset.getString("friend_name"));
-					
-				statement.close();
+				friend.sendPacket(new SystemMessage(SystemMessageId.S1_HAS_BEEN_DELETED_FROM_YOUR_FRIENDS_LIST)
+					.addPcName(_owner));
+				friend.sendPacket(new FriendList(friend));
 			}
-			catch (Exception e)
-			{
-				_log.error("Error restoring friend data.", e);
-			} 
-			finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 		}
-	}
-
-	/**
-	 * Add friend list record in DB
-	 * 
-	 * @param character - friend instance
-	 */
-	private void addToFriendList(L2PcInstance character)
-	{
-		if(character != null && !isInFriendList(character))
-		{
-			Connection con = null;
-			
-			try {
-				
-				con = L2DatabaseFactory.getInstance().getConnection(con);
-				PreparedStatement statement;
-				statement = con.prepareStatement(ADD_TO_FRIENDLIST);
-				statement.setInt(1, listOwner.getObjectId());
-				statement.setInt(2, character.getObjectId());
-				statement.setString(3, character.getName());
-				statement.setInt(4, character.getObjectId());
-				statement.setInt(5, listOwner.getObjectId());
-				statement.setString(6, listOwner.getName());
-				statement.execute();
-				statement.close();
-			} 
-			catch (Exception e) {
-				_log.warn("Could not insert friend data:"+e);
-			} 
-            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
-
-            friendlist.put(character.getObjectId(),character.getName());
-			character.getFriendList().getFriendList().put(listOwner.getObjectId(), listOwner.getName());
-		}
-	}
-	
-	/**
-	 * Remove friend list record from DB
-	 * 
-	 * @param _character - friend name
-	 */
-	private void removeFromFriendList(String _character)
-	{
-		if (isInFriendList(_character))
-		{
-			Connection con = null;
-			
-			int _friendId = restoreFriendId(_character);
-			
-			try {
-				con = L2DatabaseFactory.getInstance().getConnection(con);
-				PreparedStatement statement;
-				statement = con.prepareStatement(DELETE_FROM_FRIENDLIST);
-				statement.setInt(1, listOwner.getObjectId());
-				statement.setInt(2, _friendId);
-				statement.setInt(3, _friendId);
-				statement.setInt(4, listOwner.getObjectId());
-				statement.execute();
-				statement.close();
-			} 
-			catch (Exception e) {
-				_log.warn("Could not delete friend data:"+e);
-			} 
-            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
-			
-			 friendlist.remove(_friendId);
-		}
-	}
-	
-	/**
-	 * Remove friend list record from DB
-	 * 
-	 * @param character - friend instance
-	 */
-	private void removeFromFriendList(L2PcInstance character)
-	{
-		Connection con = null;
-		
-		try {
-			
-			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement;
-			statement = con.prepareStatement(DELETE_FROM_FRIENDLIST);
-			statement.setInt(1, listOwner.getObjectId());
-			statement.setInt(2, character.getObjectId());
-			statement.setInt(3, character.getObjectId());
-			statement.setInt(4, listOwner.getObjectId());
-			statement.execute();
-			statement.close();
-		} 
-		catch (Exception e) {
-			_log.warn("Could not delete friend data:"+e);
-		} 
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
-		
-		friendlist.remove(character.getObjectId());
-		character.getFriendList().getFriendList().remove(listOwner.getObjectId());
-	}
-	
-	/**
-	 * Get friend ID
-	 * 
-	 * @param _character - friend name
-	 * @return - character ID
-	 */
-	private int restoreFriendId(String _character)
-	{
-		int _friendId = 0;
-		
-		Connection con = null;
-		
-		try {
-			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement;
-			statement = con.prepareStatement(RESTORE_FRIEND_ID);
-			statement.setInt(1, listOwner.getObjectId());
-			statement.setString(2, _character);
-			ResultSet rset = statement.executeQuery();
-  			if (rset.next())
-  				_friendId = rset.getInt("friendId");
-			statement.close();
-		} 
-		catch (Exception e) {
-			_log.warn("Could not get friend id:"+e);
-		} 
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
-		
-		return _friendId;
-	}
-	
-	/**
-	 * Check is character in friend list
-	 * 
-	 * @param character
-	 * @return
-	 */
-	private boolean isInFriendList(L2PcInstance character)
-	{
-		return friendlist.containsKey(character.getObjectId());
-	}
-	
-	/**
-	 * Check is character in friend list
-	 * 
-	 * @param _character - character name
-	 * @return
-	 */
-	private boolean isInFriendList(String _character)
-	{
-		return friendlist.containsValue(_character);
-	}
-
-	/**
-	 * Get all friend names from friend list
-	 * 
-	 * @return List of friends names
-	 */
-	private String[] getFriendListNames()
-	{
-		return friendlist.values().toArray(new String[friendlist.size()]);
-	}
-	
-	/**
-	 * Get friend list
-	 * 
-	 * @return Friend list
-	 */
-	private Map<Integer,String> getFriendList()
-	{
-		return friendlist;
-	}
-	
-	/**
-	 * Add character to friend list
-	 * 
-	 * @param requestor
-	 * @param character
-	 */
-	public static void addToFriendList(L2PcInstance requestor, L2PcInstance character)
-	{
-		requestor.getFriendList().addToFriendList(character);
-		
-		requestor.sendPacket(new FriendList(requestor));
-		character.sendPacket(new FriendList(character));
-	}
-	
-	/**
-	 * Remove offline character from friend list by character's name
-	 * 
-	 * @param requestor
-	 * @param character
-	 */
-	public static void removeFromFriendList(L2PcInstance requestor, String character)
-	{
-		requestor.getFriendList().removeFromFriendList(character);
-		
-		requestor.sendPacket(new FriendList(requestor));
-	}
-	
-	/**
-	 * Remove online character from friend list
-	 * 
-	 * @param requestor
-	 * @param character
-	 */
-	public static void removeFromFriendList(L2PcInstance requestor, L2PcInstance character)
-	{
-		requestor.getFriendList().removeFromFriendList(character);
-		
-		requestor.sendPacket(new FriendList(requestor));
-		character.sendPacket(new FriendList(character));
-	}
-	
-	/**
-	 * Check character is in friend list
-	 * 
-	 * @param requestor
-	 * @param _character
-	 * @return is character with name _character is in requestor's friend list
-	 */
-	public static boolean isInFriendList(L2PcInstance requestor, String _character)
-	{
-		return requestor.getFriendList().isInFriendList(_character);
-	}
-	
-	/**
-	 * Check character is in friend list
-	 * 
-	 * @param requestor
-	 * @param character
-	 * @return is character with is in requestor's friend list
-	 */
-	public static boolean isInFriendList(L2PcInstance requestor, L2PcInstance character)
-	{
-		return requestor.getFriendList().isInFriendList(character);
-	}
-	
-	/**
-	 * Get all friend names from friend list
-	 * 
-	 * @param requestor
-	 * @return List of friends names
-	 */
-	public static String[] getFriendListNames(L2PcInstance requestor)
-	{
-		return requestor.getFriendList().getFriendListNames();
-	}
-	
-	/**
-	 * Get friend list
-	 * 
-	 * @param requestor
-	 * @return Friend list
-	 */
-	public static Map<Integer,String> getFriendList(L2PcInstance requestor)
-	{
-		return requestor.getFriendList().getFriendList();
+		else
+			_owner.sendPacket(new SystemMessage(SystemMessageId.S1_NOT_ON_YOUR_FRIENDS_LIST).addString(name));
 	}
 }

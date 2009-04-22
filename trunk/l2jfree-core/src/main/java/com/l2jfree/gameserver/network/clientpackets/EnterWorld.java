@@ -37,7 +37,6 @@ import com.l2jfree.gameserver.instancemanager.PetitionManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2ClanMember;
-import com.l2jfree.gameserver.model.L2FriendList;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2ShortCut;
 import com.l2jfree.gameserver.model.L2World;
@@ -542,19 +541,17 @@ public class EnterWorld extends L2GameClientPacket
 	private void notifyFriends(L2PcInstance cha)
 	{
 		SystemMessage sm = new SystemMessage(SystemMessageId.FRIEND_S1_HAS_LOGGED_IN);
-		sm.addString(cha.getName());
-
-		for (String friendName : L2FriendList.getFriendListNames(cha))
+		sm.addPcName(cha);
+		
+		for (Integer objId : cha.getFriendList().getFriendIds())
 		{
-			L2PcInstance friend = L2World.getInstance().getPlayer(friendName);
-			if (friend != null) //friend logged in.
+			L2PcInstance friend = L2World.getInstance().findPlayer(objId);
+			if (friend != null)
 			{
 				friend.sendPacket(new FriendList(friend));
 				friend.sendPacket(sm);
 			}
 		}
-
-		sm = null;
 	}
 
 	/**

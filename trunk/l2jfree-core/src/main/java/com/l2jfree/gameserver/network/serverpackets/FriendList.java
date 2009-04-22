@@ -14,162 +14,72 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
-import javolution.util.FastList;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import com.l2jfree.L2DatabaseFactory;
+import com.l2jfree.gameserver.datatables.CharNameTable;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
- * Support for "Chat with Friends" dialog. 
- * 
- * Format: ch (hdSdh)
- * h: Total Friend Count
- * 
- * h: Unknown
- * d: Player Object ID
- * S: Friend Name
- * d: Online/Offline
- * h: Unknown
- * 
  * @author Tempy
- *
  */
-public class FriendList extends L2GameServerPacket
+public final class FriendList extends L2GameServerPacket
 {
-	private static final String	_S__FA_FRIENDLIST	= "[S] 75 FriendList";
-	public final static Log		_log				= LogFactory.getLog(FriendList.class.getName());
-	private List<FriendStatus>	_friends			= new FastList<FriendStatus>();
-	private L2PcInstance		_activeChar;
-
-	public FriendList(L2PcInstance character)
+	private static final String _S__FA_FRIENDLIST = "[S] 75 FriendList";
+	
+	private final List<FriendStatus> _friends = new ArrayList<FriendStatus>();
+	
+	public FriendList(L2PcInstance owner)
 	{
-		_activeChar = character;
-		getFriendList();
+		for (Integer objId : owner.getFriendList().getFriendIds())
+			_friends.add(new FriendStatus(objId));
 	}
-
-	private static class FriendStatus
+	
+	private static final class FriendStatus
 	{
-		private final int		_charId;
-		private final int		_id;
-		private final String	_name;
-		private final boolean	_online;
-
-		public FriendStatus(int charId, int id, String name, boolean online)
+		private final int _objId;
+		private final String _name;
+		private final boolean _online;
+		
+		private FriendStatus(int objId)
 		{
-			_charId = charId;
-			_id = id;
-			_name = name;
-			_online = online;
+			_objId = objId;
+			_name = CharNameTable.getInstance().getByObjectId(objId);
+			_online = L2World.getInstance().findPlayer(objId) != null;
 		}
-
-		/**
-		 * @return Returns the Char id. (first created player in-game will have id 1 and so on)
-		 */
-		public int getCharId()
+		
+		private int getObjId()
 		{
-			return _charId;
+			return _objId;
 		}
-
-		/**
-		 * @return Returns the id.
-		 */
-		public int getId()
-		{
-			return _id;
-		}
-
-		/**
-		 * @return Returns the name.
-		 */
-		public String getName()
+		
+		private String getName()
 		{
 			return _name;
 		}
-
-		/**
-		 * @return Returns the online.
-		 */
-		public boolean isOnline()
+		
+		private boolean isOnline()
 		{
 			return _online;
 		}
 	}
-
-	private void getFriendList()
-	{
-		Connection con = null;
-
-		try
-		{
-			String sqlQuery = "SELECT friendId, friend_name FROM character_friends WHERE " + "charId=" + _activeChar.getObjectId()
-					+ " ORDER BY friend_name ASC";
-
-			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con.prepareStatement(sqlQuery);
-			ResultSet rset = statement.executeQuery(sqlQuery);
-
-			int friendId;
-			String friendName;
-			FriendStatus fs;
-			while (rset.next())
-			{
-				friendId = rset.getInt("friendId");
-				friendName = rset.getString("friend_name");
-
-				if (friendId == _activeChar.getObjectId())
-					continue;
-
-				L2PcInstance friend = L2World.getInstance().getPlayer(friendName);
-
-				fs = new FriendStatus(0x00030b7a, friendId, friendName, friend != null);
-				_friends.add(fs);
-			}
-
-			rset.close();
-			statement.close();
-		}
-		catch (Exception e)
-		{
-			_log.warn("Error found in " + _activeChar.getName() + "'s FriendList: " + e);
-		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
-	}
-
+	
 	@Override
-	protected final void writeImpl()
+	protected void writeImpl()
 	{
 		writeC(0x75);
 		writeD(_friends.size());
+		
 		for (FriendStatus fs : _friends)
 		{
-			writeD(fs.getCharId()); // character id
+			writeD(0x00030b7a); // character id
 			writeS(fs.getName());
 			writeD(fs.isOnline() ? 0x01 : 0x00); // online
-			writeD(fs.isOnline() ? fs.getId() : 0x00); // object id if online
+			writeD(fs.isOnline() ? fs.getObjId() : 0x00); // object id if online
 		}
 	}
-
-	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
-	 */
+	
 	@Override
 	public String getType()
 	{

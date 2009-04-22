@@ -14,70 +14,58 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import com.l2jfree.gameserver.model.L2FriendList;
+import com.l2jfree.gameserver.datatables.CharNameTable;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.3.4.3 $ $Date: 2005/03/27 15:29:30 $
- */
-public class RequestFriendList extends L2GameClientPacket
+public final class RequestFriendList extends L2GameClientPacket
 {
 	private static final String _C__60_REQUESTFRIENDLIST = "[C] 60 RequestFriendList";
 	
 	/**
-	 * packet type id 0x60
-	 * format:		c
-	 * @param rawPacket
+	 * packet type id 0x60 format: c
 	 */
 	
-    @Override
-    protected void readImpl()
-    {
-        // trigger
-    }
-	
-    @Override
-    protected void runImpl()
+	@Override
+	protected void readImpl()
 	{
-		L2PcInstance activeChar = getClient().getActiveChar();
-		
-		if (activeChar == null)  
+	}
+	
+	@Override
+	protected void runImpl()
+	{
+		L2PcInstance activeChar = getActiveChar();
+		if (activeChar == null)
 			return;
 		
-		SystemMessage sm;
+		activeChar.sendPacket(SystemMessageId.FRIEND_LIST_HEADER);
 		
-		sm = new SystemMessage(SystemMessageId.FRIEND_LIST_HEADER);
-		activeChar.sendPacket(sm);
-		
-		for (String friendName : L2FriendList.getFriendListNames(activeChar))
+		for (Integer objId : activeChar.getFriendList().getFriendIds())
 		{
-			L2PcInstance friend = L2World.getInstance().getPlayer(friendName);
+			SystemMessage sm;
 			
+			L2PcInstance friend = L2World.getInstance().findPlayer(objId);
 			if (friend == null)
 			{
 				sm = new SystemMessage(SystemMessageId.S1_OFFLINE);
-				sm.addString(friendName);
-			}else
+				sm.addString(CharNameTable.getInstance().getByObjectId(objId));
+			}
+			else
 			{
 				sm = new SystemMessage(SystemMessageId.S1_ONLINE);
-				sm.addString(friendName);
+				sm.addPcName(friend);
 			}
 			
 			activeChar.sendPacket(sm);
 		}
 		
-		sm = new SystemMessage(SystemMessageId.FRIEND_LIST_FOOTER);
-		activeChar.sendPacket(sm);
-		sm = null;
+		activeChar.sendPacket(SystemMessageId.FRIEND_LIST_FOOTER);
 	}
 	
 	@Override
-    public String getType()
+	public String getType()
 	{
 		return _C__60_REQUESTFRIENDLIST;
 	}

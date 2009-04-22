@@ -11558,11 +11558,14 @@ public final class L2PcInstance extends L2PlayableInstance
 			_snoopListener = null;
 		}
 
-		for (String friendName : L2FriendList.getFriendListNames(this))
+		for (Integer objId : getFriendList().getFriendIds())
 		{
-			L2PcInstance friend = L2World.getInstance().getPlayer(friendName);
-			if (friend != null) // Friend online.
+			L2PcInstance friend = L2World.getInstance().findPlayer(objId);
+			if (friend != null)
+			{
 				friend.sendPacket(new FriendList(friend));
+				friend.sendMessage("Friend: " + getName() + " has logged off.");
+			}
 		}
 
 		if (_chanceSkills != null)

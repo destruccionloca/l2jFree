@@ -91,7 +91,7 @@ public final class BlockListManager
 		_log.info("BlockListManager: Loaded " + size + " character block(s).");
 	}
 	
-	public Set<String> getBlockList(Integer objectId)
+	public synchronized Set<String> getBlockList(Integer objectId)
 	{
 		Set<String> set = _blocks.get(objectId);
 		
@@ -101,7 +101,7 @@ public final class BlockListManager
 		return set;
 	}
 	
-	public void insert(L2PcInstance listOwner, L2PcInstance blocked)
+	public synchronized void insert(L2PcInstance listOwner, L2PcInstance blocked)
 	{
 		Connection con = null;
 		try
@@ -126,7 +126,7 @@ public final class BlockListManager
 		}
 	}
 	
-	public void remove(L2PcInstance listOwner, String name)
+	public synchronized void remove(L2PcInstance listOwner, String name)
 	{
 		Connection con = null;
 		try

@@ -89,6 +89,7 @@ import com.l2jfree.gameserver.instancemanager.FactionQuestManager;
 import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.instancemanager.FourSepulchersManager;
+import com.l2jfree.gameserver.instancemanager.FriendListManager;
 import com.l2jfree.gameserver.instancemanager.GrandBossSpawnManager;
 import com.l2jfree.gameserver.instancemanager.InstanceManager;
 import com.l2jfree.gameserver.instancemanager.IrcManager;
@@ -268,6 +269,8 @@ public class GameServer
 		Hero.getInstance();
 		BlockListManager.getInstance();
 		RecommendationManager.getInstance();
+		FriendListManager.getInstance();
+		
 		Util.printSection("NPCs");
 		NpcTable.getInstance();
 		HtmCache.getInstance();

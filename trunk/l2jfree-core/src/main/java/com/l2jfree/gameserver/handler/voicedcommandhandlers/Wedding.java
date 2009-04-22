@@ -24,7 +24,6 @@ import com.l2jfree.gameserver.instancemanager.CoupleManager;
 import com.l2jfree.gameserver.instancemanager.DimensionalRiftManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.L2FriendList;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -183,7 +182,7 @@ public class Wedding implements IVoicedCommandHandler
 			return false;
 		}
 
-		if (!L2FriendList.isInFriendList(activeChar, ptarget))
+		if (!activeChar.getFriendList().contains(ptarget))
 		{
 			activeChar
 					.sendMessage("The player you want to ask is not on your friends list, you must first be on each others friends list before you choose to engage.");
