@@ -34012,6 +34012,8 @@ INSERT INTO `npcskills` (`npcid`,`skillid`,`level`) VALUES
 --
 
 DELETE FROM `npcskills` WHERE `skillid` IN (5104, 5105);
--- Following six skills are 100% for danger zones
+
+-- Following eight skills are 100% for danger zones
 -- They don't have anything defined client side (optype = target_self, castrange = -1)
 DELETE FROM `npcskills` WHERE `skillid` BETWEEN 4145 AND 4150;
+DELETE FROM `npcskills` WHERE `skillid` IN (4624, 4625);
