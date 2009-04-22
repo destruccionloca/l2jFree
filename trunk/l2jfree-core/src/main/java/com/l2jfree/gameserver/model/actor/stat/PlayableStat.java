@@ -192,8 +192,6 @@ public class PlayableStat extends CharStat
 		// TODO: check if sharks/fish should be affected ;)
 		if (_activeChar.isInsideZone(L2Zone.FLAG_WATER))
     		val *= L2Zone.WATER_MOVE_SPEED_BONUS;
-		else if (_activeChar.isInsideZone(L2Zone.FLAG_SWAMP))
-    		val *= L2Zone.SWAMP_MOVE_SPEED_BONUS;
 
 		return val;
 	}

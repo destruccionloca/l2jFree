@@ -146,19 +146,13 @@ public class L2Zone implements FuncOwner
 	public static final byte FLAG_CASTLE = 14;
 	public static final byte FLAG_NOSUMMON = 15;
 	public static final byte FLAG_FORT = 16;
-	public static final byte FLAG_SWAMP = 17;
-	public static final byte FLAG_NOHEAL = 18;
-	public static final byte FLAG_P_ATK_DOWN = 19;
-	public static final byte FLAG_P_DEF_DOWN = 20;
+	public static final byte FLAG_NOHEAL = 17;
 	
-	/** Tested on CT1 and CT1.5 NA retail */
+	/** 
+	 * Move speed multiplier applied when character is in water (swimming).<BR>
+	 * Tested on CT1 and CT1.5 NA retail
+	 */
 	public static final double WATER_MOVE_SPEED_BONUS = 0.55;
-	/** UNK */
-	public static final double SWAMP_MOVE_SPEED_BONUS = 0.85;
-	/** UNK */
-	public static final double PADOWN_POWER_ATTACK_BONUS = 0.85;
-	/** UNK */
-	public static final double PDDOWN_POWER_DEFENSE_BONUS = 0.85;
 	
 	private int _id;
 	private String _name;
@@ -183,10 +177,8 @@ public class L2Zone implements FuncOwner
 	private boolean _noLanding;
 	private boolean _noPrivateStore;
 	private boolean _noSummon;
-	private boolean _envSlow;
+	/** Can't cast heal if caster is in zone; can't receive healing if target is in zone */
 	private boolean _noHeal;
-	private boolean _padown;
-	private boolean _pddown;
 	
 	private SystemMessage _onEnterMsg;
 	private SystemMessage _onExitMsg;
@@ -265,11 +257,25 @@ public class L2Zone implements FuncOwner
 		return _boss;
 	}
 	
+	/**
+	 * <B>Get HP damage over time</B> (<I>per cycle</I>)<BR><BR>
+	 * <U>The interval is not necessarily one second</U>.
+	 * Default interval is 3000 ms.
+	 * @return HP amount to be subtracted
+	 * @see #getMPDamagePerSecond()
+	 */
 	public final int getHPDamagePerSecond()
 	{
 		return _hpDamage;
 	}
 	
+	/**
+	 * <B>Get MP damage over time</B> (<I>per cycle</I>)<BR><BR>
+	 * <U>The interval is not necessarily one second</U>.
+	 * Default interval is 3000 ms.
+	 * @return HP amount to be subtracted
+	 * @see #getHPDamagePerSecond()
+	 */
 	public final int getMPDamagePerSecond()
 	{
 		return _mpDamage;
@@ -477,14 +483,8 @@ public class L2Zone implements FuncOwner
 			character.setInsideZone(FLAG_NOSTORE, true);
 		if (_noSummon)
 			character.setInsideZone(FLAG_NOSUMMON, true);
-		if (_envSlow)
-			character.setInsideZone(FLAG_SWAMP, true);
 		if (_noHeal)
 			character.setInsideZone(FLAG_NOHEAL, true);
-		if (_padown)
-			character.setInsideZone(FLAG_P_ATK_DOWN, true);
-		if (_pddown)
-			character.setInsideZone(FLAG_P_DEF_DOWN, true);
 		
 		if (_instanceName != null && _instanceGroup != null && character instanceof L2PcInstance)
 			tryPortIntoInstance((L2PcInstance)character);
@@ -535,14 +535,8 @@ public class L2Zone implements FuncOwner
 			character.setInsideZone(FLAG_NOSTORE, false);
 		if (_noSummon)
 			character.setInsideZone(FLAG_NOSUMMON, false);
-		if (_envSlow)
-			character.setInsideZone(FLAG_SWAMP, false);
 		if (_noHeal)
 			character.setInsideZone(FLAG_NOHEAL, false);
-		if (_padown)
-			character.setInsideZone(FLAG_P_ATK_DOWN, false);
-		if (_pddown)
-			character.setInsideZone(FLAG_P_DEF_DOWN, false);
 		
 		if (_instanceName != null && character instanceof L2PcInstance && character.getInstanceId() > 0)
 			portIntoInstance((L2PcInstance)character, 0);
@@ -1135,10 +1129,7 @@ public class L2Zone implements FuncOwner
 		Node exitOnDeath = n.getAttributes().getNamedItem("exitOnDeath");
 		Node hpDamage = n.getAttributes().getNamedItem("hpDamage");
 		Node mpDamage = n.getAttributes().getNamedItem("mpDamage");
-		Node envSlow = n.getAttributes().getNamedItem("slow");
 		Node noHeal = n.getAttributes().getNamedItem("noHeal");
-		Node padown = n.getAttributes().getNamedItem("pAtkDown");
-		Node pddown = n.getAttributes().getNamedItem("pDefDown");
 		
 		_pvp = (pvp != null) ? PvpSettings.valueOf(pvp.getNodeValue().toUpperCase()) : PvpSettings.GENERAL;
 		_noLanding = (noLanding != null) && Boolean.parseBoolean(noLanding.getNodeValue());
@@ -1152,10 +1143,7 @@ public class L2Zone implements FuncOwner
 		_exitOnDeath = (exitOnDeath != null) && Boolean.parseBoolean(exitOnDeath.getNodeValue());
 		_hpDamage = (hpDamage != null) ? Integer.parseInt(hpDamage.getNodeValue()) : 0;
 		_mpDamage = (mpDamage != null) ? Integer.parseInt(mpDamage.getNodeValue()) : 0;
-		_envSlow = (envSlow != null) && Boolean.parseBoolean(envSlow.getNodeValue());
 		_noHeal = (noHeal != null) && Boolean.parseBoolean(noHeal.getNodeValue());
-		_padown = (padown != null) && Boolean.parseBoolean(padown.getNodeValue());
-		_pddown = (pddown != null) && Boolean.parseBoolean(pddown.getNodeValue());
 	}
 	
 	private void parseMessages(Node n) throws Exception

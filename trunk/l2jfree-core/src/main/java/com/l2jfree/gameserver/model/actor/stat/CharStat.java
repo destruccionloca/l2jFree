@@ -23,7 +23,6 @@ import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.skills.Calculator;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Stats;
@@ -509,11 +508,8 @@ public class CharStat
 		float bonusAtk = 1;
 		if (_activeChar.isChampion())
 			bonusAtk = Config.CHAMPION_ATK;
-		double val = calcStat(Stats.POWER_ATTACK, _activeChar.getTemplate().getBasePAtk() * bonusAtk, target, null);
-		if (_activeChar.isInsideZone(L2Zone.FLAG_P_ATK_DOWN))
-			val *= L2Zone.PADOWN_POWER_ATTACK_BONUS;
 
-		return (int) val;
+		return (int) calcStat(Stats.POWER_ATTACK, _activeChar.getTemplate().getBasePAtk() * bonusAtk, target, null);
 	}
 
 	/** Return the PAtk Modifier against animals. */
@@ -646,13 +642,9 @@ public class CharStat
 		if (_activeChar == null)
 			return 1;
 
-		double val = calcStat(Stats.POWER_DEFENCE,
+		return (int) calcStat(Stats.POWER_DEFENCE,
 				(_activeChar.isRaid()) ? _activeChar.getTemplate().getBasePDef() * Config.RAID_PDEFENCE_MULTIPLIER : _activeChar.getTemplate().getBasePDef(),
 						target, null);
-		if (_activeChar.isInsideZone(L2Zone.FLAG_P_DEF_DOWN))
-			val *= L2Zone.PDDOWN_POWER_DEFENSE_BONUS;
-
-		return (int) val;
 	}
 
 	/** Return the Physical Attack range (base+modifier) of the L2Character. */
