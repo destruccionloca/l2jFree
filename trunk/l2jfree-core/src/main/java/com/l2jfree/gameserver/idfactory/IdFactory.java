@@ -39,8 +39,9 @@ public abstract class IdFactory
 			"UPDATE items                 SET owner_id = ?    WHERE owner_id = ?",
 			"UPDATE items                 SET object_id = ?   WHERE object_id = ?",
 			"UPDATE character_quests      SET charId = ?      WHERE charId = ?",
-			"UPDATE character_friends     SET charId = ?      WHERE charId = ?",
-			"UPDATE character_friends     SET friendId = ?    WHERE friendId = ?",
+			"UPDATE character_blocks      SET charId = ?      WHERE charId = ?",
+			"UPDATE character_friends     SET charId1 = ?     WHERE charId1 = ?",
+			"UPDATE character_friends     SET charId2 = ?     WHERE charId2 = ?",
 			"UPDATE character_hennas      SET charId = ?      WHERE charId = ?",
 			"UPDATE character_recipebook  SET charId = ?      WHERE charId = ?",
 			"UPDATE character_shortcuts   SET charId = ?      WHERE charId = ?",
@@ -88,8 +89,9 @@ public abstract class IdFactory
 			"SELECT owner_id    FROM items                 WHERE object_id >= ?   AND object_id < ?",
 			"SELECT object_id   FROM items                 WHERE object_id >= ?   AND object_id < ?",
 			"SELECT charId      FROM character_quests      WHERE charId >= ?      AND charId < ?",
-			"SELECT charId      FROM character_friends     WHERE charId >= ?      AND charId < ?",
-			"SELECT charId      FROM character_friends     WHERE friendId >= ?    AND friendId < ?",
+			"SELECT charId      FROM character_blocks      WHERE charId >= ?      AND charId < ?",
+			"SELECT charId1     FROM character_friends     WHERE charId1 >= ?     AND charId1 < ?",
+			"SELECT charId2     FROM character_friends     WHERE charId2 >= ?     AND charId2 < ?",
 			"SELECT charId      FROM character_hennas      WHERE charId >= ?      AND charId < ?",
 			"SELECT charId      FROM character_recipebook  WHERE charId >= ?      AND charId < ?",
 			"SELECT charId      FROM character_shortcuts   WHERE charId >= ?      AND charId < ?",
@@ -105,7 +107,6 @@ public abstract class IdFactory
 			"SELECT leader_id   FROM clan_data             WHERE leader_id >= ?   AND leader_id < ?",
 			"SELECT item_obj_id FROM pets                  WHERE item_obj_id >= ? AND item_obj_id < ?",
 			// Added by DaDummy
-			"SELECT friendId    FROM character_friends     WHERE friendId >= ?    AND friendId < ?",
 			"SELECT charId      FROM seven_signs           WHERE charId >= ?      AND charId < ?",
 			"SELECT object_id   FROM itemsonground         WHERE object_id >= ?   AND object_id < ?" };
 
@@ -180,8 +181,9 @@ public abstract class IdFactory
 			Statement stmt = con.createStatement();
 
 			// If a character not exists
-			cleanCount += stmt.executeUpdate("DELETE FROM character_friends WHERE character_friends.charId NOT IN (SELECT charId FROM characters);");
-			cleanCount += stmt.executeUpdate("DELETE FROM character_friends WHERE character_friends.friendId NOT IN (SELECT charId FROM characters);");
+			cleanCount += stmt.executeUpdate("DELETE FROM character_blocks WHERE character_blocks.charId NOT IN (SELECT charId FROM characters);");
+			cleanCount += stmt.executeUpdate("DELETE FROM character_friends WHERE character_friends.charId1 NOT IN (SELECT charId FROM characters);");
+			cleanCount += stmt.executeUpdate("DELETE FROM character_friends WHERE character_friends.charId2 NOT IN (SELECT charId FROM characters);");
 			cleanCount += stmt.executeUpdate("DELETE FROM character_hennas WHERE character_hennas.charId NOT IN (SELECT charId FROM characters);");
 			cleanCount += stmt.executeUpdate("DELETE FROM character_macroses WHERE character_macroses.charId NOT IN (SELECT charId FROM characters);");
 			cleanCount += stmt.executeUpdate("DELETE FROM character_quests WHERE character_quests.charId NOT IN (SELECT charId FROM characters);");

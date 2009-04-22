@@ -37,9 +37,9 @@ public final class FriendListManager
 {
 	private static final Log _log = LogFactory.getLog(FriendListManager.class);
 	
-	private static final String SELECT_QUERY = "SELECT char_id1, char_id2 FROM character_friends WHERE char_id1=? or char_id2=?";
-	private static final String INSERT_QUERY = "INSERT INTO character_friends (char_id1, char_id2) VALUES (?,?)";
-	private static final String DELETE_QUERY = "DELETE FROM character_friends WHERE (char_id1=? AND char_id2=?) OR (char_id1=? AND char_id2=?)";
+	private static final String SELECT_QUERY = "SELECT charId1, charId2 FROM character_friends WHERE charId1=? or charId2=?";
+	private static final String INSERT_QUERY = "INSERT INTO character_friends (charId1, charId2) VALUES (?,?)";
+	private static final String DELETE_QUERY = "DELETE FROM character_friends WHERE (charId1=? AND charId2=?) OR (charId1=? AND charId2=?)";
 	
 	private static FriendListManager _instance;
 	
@@ -79,8 +79,8 @@ public final class FriendListManager
 				
 				while (rset.next())
 				{
-					Integer objId1 = L2Integer.valueOf(rset.getInt("char_id1"));
-					Integer objId2 = L2Integer.valueOf(rset.getInt("char_id2"));
+					Integer objId1 = L2Integer.valueOf(rset.getInt("charId1"));
+					Integer objId2 = L2Integer.valueOf(rset.getInt("charId2"));
 					
 					Set<Integer> set1 = _friends.get(objId1);
 					if (set1 != null)
