@@ -54,7 +54,7 @@ final class ConditionForceBuff extends Condition
 		
 		if (_spellForces > 0)
 		{
-			L2Effect force = env.player.getFirstEffect(SPELL_FORCE);
+			L2Effect force = player.getFirstEffect(SPELL_FORCE);
 			
 			if (!(force instanceof EffectForce) || ((EffectForce)force).forces < _spellForces)
 				return false;

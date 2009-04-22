@@ -49,9 +49,13 @@ public final class ConditionPlayerState extends Condition
 			case WALKING:
 				return (env.player.isMoving() && !env.player.isRunning()) == _required;
 			case BEHIND:
-				return env.player.isBehindTarget() == _required;
+				if (env.target == null)
+					return false;
+				return env.player.isBehind(env.target) == _required;
 			case FRONT:
-				return env.player.isInFrontOfTarget() == _required;
+				if (env.target == null)
+					return false;
+				return env.player.isInFrontOf(env.target) == _required;
 			case CHAOTIC:
 				player = env.player.getActingPlayer();
 				if (player != null)
