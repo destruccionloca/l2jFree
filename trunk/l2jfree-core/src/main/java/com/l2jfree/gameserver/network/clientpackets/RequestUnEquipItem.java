@@ -89,7 +89,7 @@ public class RequestUnEquipItem extends L2GameClientPacket
 			return;
 		}
 
-		if (activeChar.isAttackingNow() || activeChar.isCastingNow() || activeChar.isCastingSimultaneouslyNow())
+		if (activeChar.isCastingNow() || activeChar.isCastingSimultaneouslyNow())
 			return;
 
 		L2ItemInstance[] unequiped = activeChar.getInventory().unEquipItemInBodySlotAndRecord(_slot); 

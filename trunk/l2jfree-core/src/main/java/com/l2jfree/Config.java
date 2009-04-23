@@ -61,6 +61,7 @@ public final class Config extends L2Config
 	public static String		INTERNAL_NETWORKS;
 	public static String		EXTERNAL_HOSTNAME;
 	public static String		OPTIONAL_NETWORKS;
+	public static boolean		PACKET_HANDLER_DEBUG;
 	public static int			REQUEST_ID;																		// ID for request to the server
 	public static boolean		RESERVE_HOST_ON_LOGIN				= false;
 	public static boolean		ACCEPT_ALTERNATE_ID;																// Accept alternate ID for server ?
@@ -162,6 +163,7 @@ public final class Config extends L2Config
 			INTERNAL_NETWORKS = serverSettings.getProperty("InternalNetworks", "");
 			EXTERNAL_HOSTNAME = serverSettings.getProperty("ExternalHostname", "127.0.0.1");
 			OPTIONAL_NETWORKS = serverSettings.getProperty("OptionalNetworks", "");
+			PACKET_HANDLER_DEBUG = Boolean.parseBoolean(serverSettings.getProperty("PacketHandlerDebug", "false"));
 			MAXIMUM_ONLINE_USERS = Integer.parseInt(serverSettings.getProperty("MaximumOnlineUsers", "100"));
 			DATABASE_DRIVER = serverSettings.getProperty("Driver", "com.mysql.jdbc.Driver");
 			DATABASE_URL = serverSettings.getProperty("URL", "jdbc:mysql://localhost/l2jdb");

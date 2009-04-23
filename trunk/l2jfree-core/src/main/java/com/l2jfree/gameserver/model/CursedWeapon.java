@@ -37,6 +37,7 @@ import com.l2jfree.gameserver.network.serverpackets.ExRedSky;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.tools.random.Rnd;
 
@@ -515,7 +516,7 @@ public class CursedWeapon
 		if (_player != null && _player.isOnline() > 0)
 		{
 			_player.setPkKills(_nbKills);
-			_player.broadcastUserInfo();
+			_player.sendPacket(new UserInfo(_player));
 
 			if (_nbKills % _stageKills == 0 && _nbKills <= _stageKills*(_skillMaxLevel-1))
 			{

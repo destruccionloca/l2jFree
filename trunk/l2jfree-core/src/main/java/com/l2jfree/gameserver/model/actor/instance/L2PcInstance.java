@@ -2313,8 +2313,6 @@ public final class L2PcInstance extends L2PlayableInstance
 
 			giveAvailableSkills();
 		}
-		refreshOverloaded();
-		refreshExpertisePenalty();
 		sendSkillList();
 	}
 
@@ -10428,9 +10426,9 @@ public final class L2PcInstance extends L2PlayableInstance
 			getStatus().setCurrentCp(getMaxCp());
 		getInventory().restoreEquipedItemsPassiveSkill();
 		getInventory().restoreArmorSetPassiveSkill();
-		broadcastUserInfo();
 		refreshOverloaded();
 		refreshExpertisePenalty();
+		broadcastUserInfo();
 
 		// Clear resurrect xp calculation
 		setExpBeforeDeath(0);
@@ -11670,6 +11668,17 @@ public final class L2PcInstance extends L2PlayableInstance
 			return false;
 		}
 		
+		if (getActiveEnchantItem() != null)
+		{
+			sendMessage("You can't logout while enchanting.");
+			return;
+		}
+		if (getActiveEnchantAttrItem() != null)
+		{
+			sendMessage("You can't logout while enchanting.");
+			return;
+		}
+
 		return true;
 	}
 

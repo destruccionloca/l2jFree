@@ -65,9 +65,6 @@ public final class UseItem extends L2GameClientPacket
 
 		public void run()
 		{
-			//If character is still engaged in strike we should not change weapon
-			if (activeChar.isAttackingNow())
-				return;
 			// Equip or unEquip
 			activeChar.useEquippableItem(item, false);
 		}
@@ -339,12 +336,14 @@ public final class UseItem extends L2GameClientPacket
 			{
 				return;
 			}
+			/*
 			if (activeChar.isAttackingNow())
 			{
 				ThreadPoolManager.getInstance().scheduleGeneral(new WeaponEquipTask(item, activeChar),
 					activeChar.getAttackEndTime() - L2System.milliTime());
 				return;
 			}
+			*/
 			// Equip or unEquip
 			if (FortSiegeManager.getInstance().isCombat(item.getItemId()))
 				return; //no message
