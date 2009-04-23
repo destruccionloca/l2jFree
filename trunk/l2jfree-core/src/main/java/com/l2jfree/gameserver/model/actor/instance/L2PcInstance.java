@@ -427,6 +427,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	/** The Siege state of the L2PcInstance */
 	private byte							_siegeState				= 0;
+	private boolean							_isInSiege				= false;
 
 	private int								_lastCompassZone;																	// The last compass zone update send to the client
 
@@ -1922,11 +1923,11 @@ public final class L2PcInstance extends L2PlayableInstance
 		if ((getSubPledgeType() == -1 || getLvlJoinedAcademy() != 0) && _clan != null && PlayerClass.values()[Id].getLevel() == ClassLevel.Third)
 		{
 			if (getLvlJoinedAcademy() <= 16)
-				_clan.setReputationScore(_clan.getReputationScore() + 650, true);
+				_clan.setReputationScore(_clan.getReputationScore() + Config.JOIN_ACADEMY_MAX_REP_SCORE, true);
 			else if (getLvlJoinedAcademy() >= 39)
-				_clan.setReputationScore(_clan.getReputationScore() + 190, true);
+				_clan.setReputationScore(_clan.getReputationScore() + Config.JOIN_ACADEMY_MIN_REP_SCORE, true);
 			else
-				_clan.setReputationScore(_clan.getReputationScore() + (650 - (getLvlJoinedAcademy() - 16) * 20), true);
+				_clan.setReputationScore(_clan.getReputationScore() + (Config.JOIN_ACADEMY_MAX_REP_SCORE - (getLvlJoinedAcademy() - 16) * 20), true);
 			_clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(_clan));
 			setLvlJoinedAcademy(0);
 
@@ -4632,7 +4633,9 @@ public final class L2PcInstance extends L2PlayableInstance
 			}
 			else if (pk != null)
 			{
-				clanWarKill = (pk.getClan() != null && getClan() != null && !isAcademyMember() && !pk.isAcademyMember() && _clan.isAtWarWith(pk.getClanId()) && pk.getClan().isAtWarWith(getClanId()));
+				clanWarKill = pk.getClan() != null && getClan() != null && !isAcademyMember() && !pk.isAcademyMember() &&
+							((_clan.isAtWarWith(pk.getClanId()) && pk.getClan().isAtWarWith(getClanId()))
+						|| (isInSiege() && pk.isInSiege() && isInsideZone(L2Zone.FLAG_SIEGE) && pk.isInsideZone(L2Zone.FLAG_SIEGE)));
 				playerKill = true;
 			}
 
@@ -4643,13 +4646,29 @@ public final class L2PcInstance extends L2PlayableInstance
 
 			boolean srcInPvP = isInsideZone(L2Zone.FLAG_PVP) && !isInsideZone(L2Zone.FLAG_SIEGE);
 			
-			if(killer instanceof L2PcInstance && srcInPvP && Config.ARENA_ENABLED)
+			if (killer instanceof L2PcInstance && srcInPvP && Config.ARENA_ENABLED)
 			{
 				ArenaManager.getInstance().onKill(killer.getObjectId(), killer.getName());
 				ArenaManager.getInstance().onDeath(getObjectId(), getName());
 			}
 
-			if(!srcInPvP)
+			if (clanWarKill && pk != null)
+			{
+				if (getClan().getReputationScore() > 0) // When your reputation score is 0 or below, the other clan cannot acquire any reputation points
+				{
+					pk.getClan().setReputationScore(pk.getClan().getReputationScore() + Config.REPUTATION_SCORE_PER_KILL, true);
+					getClan().broadcastToOnlineMembers(new PledgeShowInfoUpdate(_clan));
+					pk.getClan().broadcastToOnlineMembers(new PledgeShowInfoUpdate(pk.getClan()));
+				}
+				if (pk.getClan().getReputationScore() > 0) // When the opposing sides reputation score is 0 or below, your clans reputation score does not decrease
+				{
+					_clan.setReputationScore(_clan.getReputationScore() - Config.REPUTATION_SCORE_PER_KILL, true);
+					getClan().broadcastToOnlineMembers(new PledgeShowInfoUpdate(_clan));
+					pk.getClan().broadcastToOnlineMembers(new PledgeShowInfoUpdate(pk.getClan()));
+				}
+			}
+
+			if (!srcInPvP)
 			{
 				if (pk == null || !pk.isCursedWeaponEquipped())
 				{
@@ -4688,21 +4707,6 @@ public final class L2PcInstance extends L2PlayableInstance
 							Announcements.getInstance().announceToPlayers(announcetext);
 						else
 							Announcements.getInstance().announceToAll(announcetext);
-					}
-					if (clanWarKill)
-					{
-						if (getClan().getReputationScore() > 0) // When your reputation score is 0 or below, the other clan cannot acquire any reputation points
-						{
-							pk.getClan().setReputationScore(pk.getClan().getReputationScore() + Config.ALT_REPUTATION_SCORE_PER_KILL, true);
-							getClan().broadcastToOnlineMembers(new PledgeShowInfoUpdate(_clan));
-							pk.getClan().broadcastToOnlineMembers(new PledgeShowInfoUpdate(pk.getClan()));
-						}
-						if (pk.getClan().getReputationScore() > 0) // When the opposing sides reputation score is 0 or below, your clans reputation score does not decrease
-						{
-							_clan.setReputationScore(_clan.getReputationScore() - Config.ALT_REPUTATION_SCORE_PER_KILL, true);
-							getClan().broadcastToOnlineMembers(new PledgeShowInfoUpdate(_clan));
-							pk.getClan().broadcastToOnlineMembers(new PledgeShowInfoUpdate(pk.getClan()));
-						}
 					}
 				}
 			}
@@ -14176,5 +14180,15 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		_afroId = id;
 		broadcastUserInfo();
+	}
+
+	public void setIsInSiege(boolean b)
+	{
+		_isInSiege = b;
+	}
+
+	public boolean isInSiege()
+	{
+		return _isInSiege;
 	}
 }

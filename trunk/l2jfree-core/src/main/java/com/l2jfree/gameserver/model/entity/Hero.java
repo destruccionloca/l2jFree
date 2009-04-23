@@ -30,6 +30,7 @@ import javolution.util.FastMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.datatables.HeroSkillTable;
@@ -324,11 +325,11 @@ public class Hero
 				L2Clan clan = player.getClan();
 				if (clan != null)
 				{
-					clan.setReputationScore(clan.getReputationScore() + 1000, true);
+					clan.setReputationScore(clan.getReputationScore() + Config.HERO_POINTS, true);
 					clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan));
 					SystemMessage sm = new SystemMessage(SystemMessageId.CLAN_MEMBER_S1_BECAME_HERO_AND_GAINED_S2_REPUTATION_POINTS);
 					sm.addString(name);
-					sm.addNumber(1000);
+					sm.addNumber(Config.HERO_POINTS);
 					clan.broadcastToOnlineMembers(sm);
 				}
 				player.broadcastUserInfo();
@@ -354,11 +355,11 @@ public class Hero
 							L2Clan clan = ClanTable.getInstance().getClanByName(clanName);
 							if (clan != null)
 							{
-								clan.setReputationScore(clan.getReputationScore() + 1000, true);
+								clan.setReputationScore(clan.getReputationScore() + Config.HERO_POINTS, true);
 								clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan));
 								SystemMessage sm = new SystemMessage(SystemMessageId.CLAN_MEMBER_S1_BECAME_HERO_AND_GAINED_S2_REPUTATION_POINTS);
 								sm.addString(name);
-								sm.addNumber(1000);
+								sm.addNumber(Config.HERO_POINTS);
 								clan.broadcastToOnlineMembers(sm);
 							}
 						}

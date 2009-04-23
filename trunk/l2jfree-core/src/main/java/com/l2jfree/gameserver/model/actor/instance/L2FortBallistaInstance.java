@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -51,7 +52,7 @@ public class L2FortBallistaInstance extends L2NpcInstance
 				L2PcInstance player = ((L2PcInstance)killer);
 				if (player.getClan() != null && player.getClan().getLevel() >= 5)
 				{
-					player.getClan().setReputationScore(player.getClan().getReputationScore() + 30, true);
+					player.getClan().setReputationScore(player.getClan().getReputationScore() + Config.BALLISTA_POINTS, true);
 					player.getClan().broadcastToOnlineMembers(new PledgeShowInfoUpdate(player.getClan()));
 				}
 				player.sendPacket(new SystemMessage(SystemMessageId.BALLISTA_DESTROYED_CLAN_REPU_INCREASED));

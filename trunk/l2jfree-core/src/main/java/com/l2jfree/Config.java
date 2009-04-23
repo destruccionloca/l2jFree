@@ -235,7 +235,6 @@ public final class Config extends L2Config
 	public static int			ALT_CLAN_DISSOLVE_DAYS;					// Number of days it takes to dissolve a clan
 	public static int			ALT_ALLY_JOIN_DAYS_WHEN_LEAVED;			// Number of days before joining a new alliance when clan voluntarily leave an alliance
 	public static int			ALT_ALLY_JOIN_DAYS_WHEN_DISMISSED;			// Number of days before joining a new alliance when clan was dismissed from an
-	public static int			ALT_REPUTATION_SCORE_PER_KILL;				// Number of reputation points gained per Kill in Clanwar.
 	// alliance
 	public static int			ALT_ACCEPT_CLAN_DAYS_WHEN_DISMISSED;		// Number of days before accepting a new clan for alliance when clan was dismissed
 	// from an alliance
@@ -257,6 +256,39 @@ public final class Config extends L2Config
 	public static int				MEMBER_FOR_LEVEL_NINE;			// Number of members to level up a clan to lvl 9
 	public static int				MEMBER_FOR_LEVEL_TEN;			// Number of members to level up a clan to lvl 10
 
+	// Clan Fame
+	public static int				TAKE_FORT_POINTS;
+	public static int				LOOSE_FORT_POINTS;
+	public static int				TAKE_CASTLE_POINTS;
+	public static int				LOOSE_CASTLE_POINTS;
+	public static int				CASTLE_DEFENDED_POINTS;
+	public static int				FESTIVAL_WIN_POINTS;
+	public static int				HERO_POINTS;
+	public static int				ROYAL_GUARD_COST;
+	public static int				KNIGHT_UNIT_COST;
+	public static int				KNIGHT_REINFORCE_COST;
+	public static int				BALLISTA_POINTS;
+	public static int				REPUTATION_SCORE_PER_KILL;
+	public static int				JOIN_ACADEMY_MIN_REP_SCORE;
+	public static int				JOIN_ACADEMY_MAX_REP_SCORE;
+	public static int				RAID_RANKING_1ST;
+	public static int				RAID_RANKING_2ND;
+	public static int				RAID_RANKING_3RD;
+	public static int				RAID_RANKING_4TH;
+	public static int				RAID_RANKING_5TH; 
+	public static int				RAID_RANKING_6TH;
+	public static int				RAID_RANKING_7TH;
+	public static int				RAID_RANKING_8TH;
+	public static int				RAID_RANKING_9TH;
+	public static int				RAID_RANKING_10TH;
+	public static int				RAID_RANKING_UP_TO_50TH;
+	public static int				RAID_RANKING_UP_TO_100TH;
+	public static int				CLAN_LEVEL_6_COST;
+	public static int				CLAN_LEVEL_7_COST;
+	public static int				CLAN_LEVEL_8_COST;
+	public static int				CLAN_LEVEL_9_COST;
+	public static int				CLAN_LEVEL_10_COST;
+
 	// *******************************************************************************************
 	public static void loadClansConfig()
 	{
@@ -273,7 +305,6 @@ public final class Config extends L2Config
 			ALT_ALLY_JOIN_DAYS_WHEN_DISMISSED = Integer.parseInt(clansSettings.getProperty("DaysBeforeJoinAllyWhenDismissed", "1"));
 			ALT_ACCEPT_CLAN_DAYS_WHEN_DISMISSED = Integer.parseInt(clansSettings.getProperty("DaysBeforeAcceptNewClanWhenDismissed", "1"));
 			ALT_CREATE_ALLY_DAYS_WHEN_DISSOLVED = Integer.parseInt(clansSettings.getProperty("DaysBeforeCreateNewAllyWhenDissolved", "10"));
-			ALT_REPUTATION_SCORE_PER_KILL = Integer.parseInt(clansSettings.getProperty("ReputationScorePerKill", "1"));
 			ALT_MAX_NUM_OF_CLANS_IN_ALLY = Integer.parseInt(clansSettings.getProperty("AltMaxNumOfClansInAlly", "3"));
 			CLAN_LEADER_COLOR_ENABLED = Boolean.parseBoolean(clansSettings.getProperty("ClanLeaderNameColorEnabled", "True"));
 			CLAN_LEADER_COLORED = ClanLeaderColored.valueOf(clansSettings.getProperty("ClanLeaderColored", "name"));
@@ -284,6 +315,39 @@ public final class Config extends L2Config
 			MEMBER_FOR_LEVEL_EIGHT = Integer.parseInt(clansSettings.getProperty("MemberForLevel8", "120"));
 			MEMBER_FOR_LEVEL_NINE = Integer.parseInt(clansSettings.getProperty("MemberForLevel9", "120"));
 			MEMBER_FOR_LEVEL_TEN = Integer.parseInt(clansSettings.getProperty("MemberForLevel10", "140"));
+
+			// Clan Fame
+			TAKE_FORT_POINTS			= Integer.parseInt(clansSettings.getProperty("TakeFortPoints", "200"));
+			LOOSE_FORT_POINTS			= Integer.parseInt(clansSettings.getProperty("LooseFortPoints", "400"));
+			TAKE_CASTLE_POINTS			= Integer.parseInt(clansSettings.getProperty("TakeCastlePoints", "1500"));
+			LOOSE_CASTLE_POINTS			= Integer.parseInt(clansSettings.getProperty("LooseCastlePoints", "3000"));
+			CASTLE_DEFENDED_POINTS		= Integer.parseInt(clansSettings.getProperty("CastleDefendedPoints", "750"));
+			FESTIVAL_WIN_POINTS			= Integer.parseInt(clansSettings.getProperty("FestivalOfDarknessWin", "200"));
+			HERO_POINTS					= Integer.parseInt(clansSettings.getProperty("HeroPoints", "1000"));
+			ROYAL_GUARD_COST			= Integer.parseInt(clansSettings.getProperty("CreateRoyalGuardCost", "5000"));
+			KNIGHT_UNIT_COST			= Integer.parseInt(clansSettings.getProperty("CreateKnightUnitCost", "10000"));
+			KNIGHT_REINFORCE_COST		= Integer.parseInt(clansSettings.getProperty("ReinforceKnightUnitCost", "5000"));
+			BALLISTA_POINTS				= Integer.parseInt(clansSettings.getProperty("KillBallistaPoints", "30"));
+			REPUTATION_SCORE_PER_KILL	= Integer.parseInt(clansSettings.getProperty("ReputationScorePerKill", "1"));
+			JOIN_ACADEMY_MIN_REP_SCORE	= Integer.parseInt(clansSettings.getProperty("CompleteAcademyMinPoints", "190"));
+			JOIN_ACADEMY_MAX_REP_SCORE	= Integer.parseInt(clansSettings.getProperty("CompleteAcademyMaxPoints", "650"));
+			RAID_RANKING_1ST			= Integer.parseInt(clansSettings.getProperty("1stRaidRankingPoints", "1250"));
+			RAID_RANKING_2ND			= Integer.parseInt(clansSettings.getProperty("2ndRaidRankingPoints", "900"));
+			RAID_RANKING_3RD			= Integer.parseInt(clansSettings.getProperty("3rdRaidRankingPoints", "700"));
+			RAID_RANKING_4TH			= Integer.parseInt(clansSettings.getProperty("4thRaidRankingPoints", "600"));
+			RAID_RANKING_5TH			= Integer.parseInt(clansSettings.getProperty("5thRaidRankingPoints", "450"));
+			RAID_RANKING_6TH			= Integer.parseInt(clansSettings.getProperty("6thRaidRankingPoints", "350"));
+			RAID_RANKING_7TH			= Integer.parseInt(clansSettings.getProperty("7thRaidRankingPoints", "300"));
+			RAID_RANKING_8TH			= Integer.parseInt(clansSettings.getProperty("8thRaidRankingPoints", "200"));
+			RAID_RANKING_9TH			= Integer.parseInt(clansSettings.getProperty("9thRaidRankingPoints", "150"));
+			RAID_RANKING_10TH			= Integer.parseInt(clansSettings.getProperty("10thRaidRankingPoints", "100"));
+			RAID_RANKING_UP_TO_50TH		= Integer.parseInt(clansSettings.getProperty("UpTo50thRaidRankingPoints", "25"));
+			RAID_RANKING_UP_TO_100TH	= Integer.parseInt(clansSettings.getProperty("UpTo100thRaidRankingPoints", "12"));
+			CLAN_LEVEL_6_COST			= Integer.parseInt(clansSettings.getProperty("ClanLevel6Cost", "10000"));
+			CLAN_LEVEL_7_COST			= Integer.parseInt(clansSettings.getProperty("ClanLevel7Cost", "20000"));
+			CLAN_LEVEL_8_COST			= Integer.parseInt(clansSettings.getProperty("ClanLevel8Cost", "40000"));
+			CLAN_LEVEL_9_COST			= Integer.parseInt(clansSettings.getProperty("ClanLevel9Cost", "40000"));
+			CLAN_LEVEL_10_COST			= Integer.parseInt(clansSettings.getProperty("ClanLevel10Cost", "40000"));
 		}
 		catch (Exception e)
 		{

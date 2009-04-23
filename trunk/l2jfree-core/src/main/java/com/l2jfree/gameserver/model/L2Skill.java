@@ -120,7 +120,6 @@ public class L2Skill implements FuncOwner
 		TARGET_AREA_CORPSES,
 		TARGET_MULTIFACE,
 		TARGET_AREA_UNDEAD,
-		TARGET_ITEM,
 		TARGET_UNLOCKABLE,
 		TARGET_HOLY,
 		TARGET_FLAGPOLE,
@@ -3072,11 +3071,6 @@ public class L2Skill implements FuncOwner
 			return new L2Character[] { target };
 
 		}
-		case TARGET_ITEM:
-		{
-			activeChar.sendMessage("Target type of skill is not currently handled.");
-			return null;
-		}
 		case TARGET_ENEMY_SUMMON:
 		{
 			if (target instanceof L2Summon)
@@ -3837,7 +3831,7 @@ public class L2Skill implements FuncOwner
 	}
 
 	/**
-	 * used for extractable item skills
+	 * used for tracking item id in case that item consume cannot be used
 	 * @return reference item id
 	 */
 	public final int getReferenceItemId()

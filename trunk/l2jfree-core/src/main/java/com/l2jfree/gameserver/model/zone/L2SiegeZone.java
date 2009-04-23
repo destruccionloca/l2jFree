@@ -47,6 +47,17 @@ public class L2SiegeZone extends SiegeableEntityZone
 		
 		character.sendPacket(SystemMessageId.ENTERED_COMBAT_ZONE);
 		
+		if (character instanceof L2PcInstance)
+		{
+			L2PcInstance pc = (L2PcInstance) character;
+			if (pc.getClan() != null 
+				&& (_entity.getSiege().checkIsAttacker(pc.getClan())
+				|| _entity.getSiege().checkIsDefender(pc.getClan())))
+			{
+				pc.setIsInSiege(true);
+			}
+		}
+		
 		super.onEnter(character);
 	}
 	
@@ -71,6 +82,7 @@ public class L2SiegeZone extends SiegeableEntityZone
 				activeChar.startPvPFlag();
 			
 			activeChar.stopFameTask();
+			activeChar.setIsInSiege(false);
 			
 			L2ItemInstance item = activeChar.getInventory().getItemByItemId(9819);
 			if (item != null)

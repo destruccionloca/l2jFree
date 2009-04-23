@@ -28,6 +28,7 @@ import javolution.util.FastMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.FortUpdater;
 import com.l2jfree.gameserver.ThreadPoolManager;
@@ -339,12 +340,13 @@ public class Fort extends Siegeable<FortSiege>
 		if (updateClansReputation)
 		{
 			// update reputation first
-			updateClansReputation(clan);
+			updateClansReputation(clan, false);
 		}
 
 		// Remove old owner
 		if (getOwnerClan() != null && (clan != null && clan != getOwnerClan()))
 		{
+			updateClansReputation(clan, true);
 			removeOwner(true);
 		}
 		setFortState(0, 0); // initialize fort state
@@ -841,11 +843,14 @@ public class Fort extends Siegeable<FortSiege>
 		return (int) ((System.currentTimeMillis() - _lastOwnedTime) / 1000);
 	}
 
-	public void updateClansReputation(L2Clan owner)
+	public void updateClansReputation(L2Clan owner, boolean removePoints)
 	{
 		if (owner != null)
 		{
-			owner.setReputationScore(owner.getReputationScore() + 200, true);
+			if (removePoints)
+				owner.setReputationScore(owner.getReputationScore() - Config.LOOSE_FORT_POINTS, true);
+			else
+				owner.setReputationScore(owner.getReputationScore() + Config.TAKE_FORT_POINTS, true);
 			owner.broadcastToOnlineMembers(new PledgeShowInfoUpdate(owner));
 		}
 	}

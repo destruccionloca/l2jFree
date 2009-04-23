@@ -26,6 +26,7 @@ import com.l2jfree.gameserver.model.base.Race;
 import com.l2jfree.gameserver.skills.conditions.ConditionGameTime.CheckGameTime;
 import com.l2jfree.gameserver.templates.item.L2ArmorType;
 import com.l2jfree.gameserver.templates.item.L2WeaponType;
+import com.l2jfree.gameserver.util.Util;
 
 /**
  * @author NB4L1
@@ -437,8 +438,13 @@ public abstract class ConditionParser
 		}
 		else if ("npcId".equalsIgnoreCase(nodeName))
 		{
-			int npcId = Integer.decode(nodeValue);
-			return new ConditionTargetNpcId(npcId);
+			int[] npcIds = Util.toIntArray(nodeValue.trim(), " ");
+			return new ConditionTargetNpcId(npcIds);
+		}
+		else if ("npcType".equalsIgnoreCase(nodeName))
+		{
+			String[] npcTypes = nodeValue.trim().split(" ");
+			return new ConditionTargetNpcType(npcTypes);
 		}
 		
 		throw new IllegalStateException("Invalid attribute at <target>: " + nodeName + "='" + nodeValue + "'");

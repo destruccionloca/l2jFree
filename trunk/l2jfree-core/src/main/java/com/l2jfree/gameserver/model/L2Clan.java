@@ -1650,13 +1650,15 @@ public class L2Clan
 			return null;
 		}
 
+		//TODO: clan lvl9 or more can reinforce knights cheaper if first knight unit already created, use Config.KNIGHT_REINFORCE_COST
+
 		int neededRepu = 0;
 		if (subPledgeType != -1)
 		{
 			if (subPledgeType < L2Clan.SUBUNIT_KNIGHT1)
-				neededRepu = 5000;
+				neededRepu = Config.ROYAL_GUARD_COST;
 			else if (subPledgeType > L2Clan.SUBUNIT_ROYAL2)
-				neededRepu = 10000;
+				neededRepu = Config.KNIGHT_UNIT_COST;
 		}
 
 		// Royal Guard 5000 points per each
@@ -2463,11 +2465,11 @@ public class L2Clan
 		case 5:
 		{
 			// Upgrade to 6
-			if (getReputationScore() >= 10000 && getMembersCount() >= Config.MEMBER_FOR_LEVEL_SIX)
+			if (getReputationScore() >= Config.CLAN_LEVEL_6_COST && getMembersCount() >= Config.MEMBER_FOR_LEVEL_SIX)
 			{
-				setReputationScore(getReputationScore() - 10000, true);
+				setReputationScore(getReputationScore() - Config.CLAN_LEVEL_6_COST, true);
 				SystemMessage cr = new SystemMessage(SystemMessageId.S1_DEDUCTED_FROM_CLAN_REP);
-				cr.addNumber(10000);
+				cr.addNumber(Config.CLAN_LEVEL_6_COST);
 				player.sendPacket(cr);
 				cr = null;
 				increaseClanLevel = true;
@@ -2477,11 +2479,11 @@ public class L2Clan
 		case 6:
 		{
 			// Upgrade to 7
-			if (getReputationScore() >= 20000 && getMembersCount() >= Config.MEMBER_FOR_LEVEL_SEVEN)
+			if (getReputationScore() >= Config.CLAN_LEVEL_7_COST && getMembersCount() >= Config.MEMBER_FOR_LEVEL_SEVEN)
 			{
-				setReputationScore(getReputationScore() - 20000, true);
+				setReputationScore(getReputationScore() - Config.CLAN_LEVEL_7_COST, true);
 				SystemMessage cr = new SystemMessage(SystemMessageId.S1_DEDUCTED_FROM_CLAN_REP);
-				cr.addNumber(20000);
+				cr.addNumber(Config.CLAN_LEVEL_7_COST);
 				player.sendPacket(cr);
 				cr = null;
 				increaseClanLevel = true;
@@ -2491,11 +2493,11 @@ public class L2Clan
 		case 7:
 		{
 			// Upgrade to 8
-			if (getReputationScore() >= 40000 && getMembersCount() >= Config.MEMBER_FOR_LEVEL_EIGHT)
+			if (getReputationScore() >= Config.CLAN_LEVEL_8_COST && getMembersCount() >= Config.MEMBER_FOR_LEVEL_EIGHT)
 			{
-				setReputationScore(getReputationScore() - 40000, true);
+				setReputationScore(getReputationScore() - Config.CLAN_LEVEL_8_COST, true);
 				SystemMessage cr = new SystemMessage(SystemMessageId.S1_DEDUCTED_FROM_CLAN_REP);
-				cr.addNumber(40000);
+				cr.addNumber(Config.CLAN_LEVEL_8_COST);
 				player.sendPacket(cr);
 				cr = null;
 				increaseClanLevel = true;
@@ -2505,14 +2507,14 @@ public class L2Clan
 		case 8:
 		{
 			// Upgrade to 9
-			if (getReputationScore() >= 40000 && player.getInventory().getItemByItemId(9910) != null && getMembersCount() >= Config.MEMBER_FOR_LEVEL_NINE)
+			if (getReputationScore() >= Config.CLAN_LEVEL_9_COST && player.getInventory().getItemByItemId(9910) != null && getMembersCount() >= Config.MEMBER_FOR_LEVEL_NINE)
 			{
 				// itemId 9910 == Blood Oath
 				if (player.destroyItemByItemId("ClanLvl", 9910, 150, player.getTarget(), false))
 				{
-					setReputationScore(getReputationScore() - 40000, true);
+					setReputationScore(getReputationScore() - Config.CLAN_LEVEL_9_COST, true);
 					SystemMessage cr = new SystemMessage(SystemMessageId.S1_DEDUCTED_FROM_CLAN_REP);
-					cr.addNumber(40000);
+					cr.addNumber(Config.CLAN_LEVEL_9_COST);
 					player.sendPacket(cr);
 					cr = null;
 					SystemMessage sm = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
@@ -2527,14 +2529,14 @@ public class L2Clan
 		case 9:
 		{
 			// Upgrade to 10
-			if (getReputationScore() >= 40000 && player.getInventory().getItemByItemId(9911) != null && getMembersCount() >= Config.MEMBER_FOR_LEVEL_TEN)
+			if (getReputationScore() >= Config.CLAN_LEVEL_10_COST && player.getInventory().getItemByItemId(9911) != null && getMembersCount() >= Config.MEMBER_FOR_LEVEL_TEN)
 			{
 				// itemId 9911 == Blood Alliance
 				if (player.destroyItemByItemId("ClanLvl", 9911, 5, player.getTarget(), false))
 				{
-					setReputationScore(getReputationScore() - 40000, true);
+					setReputationScore(getReputationScore() - Config.CLAN_LEVEL_10_COST, true);
 					SystemMessage cr = new SystemMessage(SystemMessageId.S1_DEDUCTED_FROM_CLAN_REP);
-					cr.addNumber(40000);
+					cr.addNumber(Config.CLAN_LEVEL_10_COST);
 					player.sendPacket(cr);
 					cr = null;
 					SystemMessage sm = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);

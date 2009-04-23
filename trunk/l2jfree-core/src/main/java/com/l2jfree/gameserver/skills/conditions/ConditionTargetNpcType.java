@@ -12,18 +12,32 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.gameserver.model.entity;
+package com.l2jfree.gameserver.skills.conditions;
 
-import com.l2jfree.gameserver.model.L2Clan;
+import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.skills.Env;
 
-/**
- * @author NB4L1
- */
-public abstract class AbstractSiege
+class ConditionTargetNpcType extends Condition
 {
-	public abstract boolean getIsInProgress();
+	private final String[] _npcTypes;
+	
+	public ConditionTargetNpcType(String[] npcTypes)
+	{
+		_npcTypes = npcTypes;
+	}
+	
+	@Override
+	public boolean testImpl(Env env)
+	{
+		if (!(env.target instanceof L2NpcInstance))
+			return false;
 
-	public abstract boolean checkIsAttacker(L2Clan clan);
+		for (String type : _npcTypes)
+		{
+			if (((L2NpcInstance) env.target).getTemplate().getType() == type)
+				return true;
+		}
 
-	public abstract boolean checkIsDefender(L2Clan clan);
+		return false;
+	}
 }

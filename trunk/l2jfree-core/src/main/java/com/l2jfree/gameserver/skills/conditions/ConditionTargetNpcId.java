@@ -19,16 +19,25 @@ import com.l2jfree.gameserver.skills.Env;
 
 class ConditionTargetNpcId extends Condition
 {
-	private final int _npcId;
+	private final int[] _npcIds;
 	
-	public ConditionTargetNpcId(int id)
+	public ConditionTargetNpcId(int[] id)
 	{
-		_npcId = id;
+		_npcIds = id;
 	}
 	
 	@Override
 	public boolean testImpl(Env env)
 	{
-		return env.target instanceof L2NpcInstance && ((L2NpcInstance)env.target).getNpcId() == _npcId;
+		if (!(env.target instanceof L2NpcInstance))
+			return false;
+
+		for (int id : _npcIds)
+		{
+			if (((L2NpcInstance) env.target).getNpcId() == id)
+				return true;
+		}
+
+		return false;
 	}
 }

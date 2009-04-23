@@ -386,4 +386,52 @@ public final class Util
 		ValueSortMap vsm = new ValueSortMap();
 		return vsm.sortThis(map, asc);
 	}
+
+	public static int[] toIntArray(String string)
+	{
+		return toIntArray(string, ",");
+	}
+
+	public static float[] toFloatArray(String string)
+	{
+		return toFloatArray(string, ",");
+	}
+
+	public static boolean[] toBooleanArray(String string)
+	{
+		return toBooleanArray(string, ",");
+	}
+
+	public static int[] toIntArray(String string, String delimiter)
+	{
+		String[] strings = string.split(delimiter);
+		int[] ints = new int[strings.length];
+		for (int i = 0; i < strings.length; i++)
+		{
+			ints[i] = Integer.parseInt(strings[i]);
+		}
+		return ints;
+	}
+
+	public static float[] toFloatArray(String string, String delimiter)
+	{
+		String[] strings = string.split(delimiter);
+		float[] floats = new float[strings.length];
+		for (int i = 0; i < strings.length; i++)
+		{
+			floats[i] = Float.parseFloat(strings[i]);
+		}
+		return floats;
+	}
+
+	public static boolean[] toBooleanArray(String string, String delimiter)
+	{
+		String[] strings = string.split(delimiter);
+		boolean[] bools = new boolean[strings.length];
+		for (int i = 0; i < strings.length; i++)
+		{
+			bools[i] = Boolean.parseBoolean(strings[i]);
+		}
+		return bools;
+	}
 }
