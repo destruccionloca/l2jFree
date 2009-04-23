@@ -178,6 +178,7 @@ import com.l2jfree.gameserver.network.serverpackets.ConfirmDlg;
 import com.l2jfree.gameserver.network.serverpackets.EtcStatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ExAutoSoulShot;
 import com.l2jfree.gameserver.network.serverpackets.ExBasicActionList;
+import com.l2jfree.gameserver.network.serverpackets.ExBrExtraUserInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExDuelUpdateUserInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExFishingEnd;
 import com.l2jfree.gameserver.network.serverpackets.ExFishingStart;
@@ -803,6 +804,9 @@ public final class L2PcInstance extends L2PlayableInstance
 	private double 							_vitalityPoints = 1.0;
 	private int								_vitalityLevel = 0;
 	private ScheduledFuture<?>				_vitalityTask;
+
+	// Id of the afro hair cut
+	private int								_afroId					= 0;
 
 	private class VitalityTask implements Runnable
 	{
@@ -1577,6 +1581,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		setPvpFlag(value);
 
 		sendPacket(new UserInfo(this));
+		sendPacket(new ExBrExtraUserInfo(this));
 		broadcastRelationChanged();
 	}
 	
@@ -2096,6 +2101,7 @@ public final class L2PcInstance extends L2PlayableInstance
 				||(bodyPart & L2Item.SLOT_DECO) > 0)
 		{
 			sendPacket(new UserInfo(this));
+			sendPacket(new ExBrExtraUserInfo(this));
 		}
 		else
 		{
@@ -3865,6 +3871,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		// Send a Server->Client packet UserInfo to this L2PcInstance
 		sendPacket(new UserInfo(this));
+		sendPacket(new ExBrExtraUserInfo(this));
 
 		// Send a Server->Client packet NicknameChanged to all L2PcInstance in _KnownPlayers of the L2PcInstance
 		if (_log.isDebugEnabled())
@@ -5041,6 +5048,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
 		// Send a Server->Client UserInfo packet to attacker with its Karma and PK Counter
 		sendPacket(new UserInfo(this));
+		sendPacket(new ExBrExtraUserInfo(this));
 	}
 
 	/**
@@ -5098,6 +5106,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
 		// Send a Server->Client UserInfo packet to attacker with its Karma and PK Counter
 		sendPacket(new UserInfo(this));
+		sendPacket(new ExBrExtraUserInfo(this));
 	}
 
 	public int calculateKarmaLost(long exp)
@@ -6342,6 +6351,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	public void setKarmaFlag(int flag)
 	{
 		sendPacket(new UserInfo(this));
+		sendPacket(new ExBrExtraUserInfo(this));
 		broadcastRelationChanged();
 	}
 
@@ -7687,6 +7697,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
 		// Send Server->Client UserInfo packet to this L2PcInstance
 		sendPacket(new UserInfo(this));
+		sendPacket(new ExBrExtraUserInfo(this));
 
 		// Add the recovered dyes to the player's inventory and notify them.
 		L2ItemInstance dye = getInventory().addItem("Henna", henna.getItemId(), henna.getAmount() / 2, this, null);
@@ -7756,12 +7767,11 @@ public final class L2PcInstance extends L2PlayableInstance
 				finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 
 				// Send Server->Client HennaInfo packet to this L2PcInstance
-				HennaInfo hi = new HennaInfo(this);
-				sendPacket(hi);
+				sendPacket(new HennaInfo(this));
 
 				// Send Server->Client UserInfo packet to this L2PcInstance
-				UserInfo ui = new UserInfo(this);
-				sendPacket(ui);
+				sendPacket(new UserInfo(this));
+				sendPacket(new ExBrExtraUserInfo(this));
 
 				return true;
 			}
@@ -13464,6 +13474,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		_vitalityLevel = level;
 
 		sendPacket(new UserInfo(this));
+		sendPacket(new ExBrExtraUserInfo(this));
 	}
 
 	/** Calcules points to add/remove on this PcInstance - no party **/
@@ -14086,7 +14097,22 @@ public final class L2PcInstance extends L2PlayableInstance
 		refreshExpertisePenalty();
 		
 		sendPacket(new UserInfo(this));
-		
+		sendPacket(new ExBrExtraUserInfo(this));
 		Broadcast.toKnownPlayers(this, new CharInfo(this));
+		Broadcast.toKnownPlayers(this, new ExBrExtraUserInfo(this));
+	}
+
+	/**
+	 * @return afro haircut id
+	 */
+	public int getAfroHaircutId()
+	{
+		return _afroId ;
+	}
+
+	public void setAfroHaircutId(int id)
+	{
+		_afroId = id;
+		broadcastUserInfo();
 	}
 }

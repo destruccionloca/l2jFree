@@ -16,8 +16,9 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.TaskPriority;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.serverpackets.UserInfo;
+import com.l2jfree.gameserver.network.serverpackets.ExBrExtraUserInfo;
 import com.l2jfree.gameserver.network.serverpackets.PartyMemberPosition;
+import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 
 /**
  * Appearing Packet Handler<p>
@@ -44,10 +45,13 @@ public class Appearing extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if(activeChar == null) return;
-		if (activeChar.isTeleporting()) activeChar.onTeleported();
+		if (activeChar == null)
+			return;
+		if (activeChar.isTeleporting())
+			activeChar.onTeleported();
 
 		sendPacket(new UserInfo(activeChar));
+		sendPacket(new ExBrExtraUserInfo(activeChar));
 		if(activeChar.getParty() != null)
 			activeChar.getParty().broadcastToPartyMembers(activeChar,new PartyMemberPosition(activeChar));
 	}

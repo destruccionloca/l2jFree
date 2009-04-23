@@ -31,6 +31,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.base.Experience;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.ExBrExtraUserInfo;
 import com.l2jfree.gameserver.network.serverpackets.ShortCutRegister;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
@@ -156,8 +157,9 @@ public final class RequestExEnchantSkillSafe extends L2GameClientPacket
                     {
                         _log.info("Learned skill ID: "+_skillId+" Level: "+_skillLvl+" for "+requiredSp+" SP, "+requiredExp+" EXP.");
                     }
-                    
+
                     player.sendPacket(new UserInfo(player));
+                    player.sendPacket(new ExBrExtraUserInfo(player));
 
                     SystemMessage sm = new SystemMessage(SystemMessageId.YOU_HAVE_SUCCEEDED_IN_ENCHANTING_THE_SKILL_S1);
                     sm.addSkillName(_skillId);

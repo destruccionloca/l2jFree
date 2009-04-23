@@ -53,7 +53,6 @@ import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SiegeInfo;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
-import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.threadmanager.ExclusiveTask;
 import com.l2jfree.gameserver.util.Broadcast;
@@ -529,26 +528,30 @@ public class Siege extends AbstractSiege
     public void updatePlayerSiegeStateFlags(boolean clear)
     {
         L2Clan clan;
-        for(L2SiegeClan siegeclan : getAttackerClans())
+        for (L2SiegeClan siegeclan : getAttackerClans())
         {
             clan = ClanTable.getInstance().getClan(siegeclan.getClanId());
             for (L2PcInstance member : clan.getOnlineMembers(0))
             {
-                if (clear) member.setSiegeState((byte)0);
-                else member.setSiegeState((byte)1);
-                member.sendPacket(new UserInfo(member));
+                if (clear)
+                    member.setSiegeState((byte)0);
+                else
+                    member.setSiegeState((byte)1);
                 member.revalidateZone(true);
+                member.broadcastUserInfo();
             }
         }
-        for(L2SiegeClan siegeclan : getDefenderClans())
+        for (L2SiegeClan siegeclan : getDefenderClans())
         {
             clan = ClanTable.getInstance().getClan(siegeclan.getClanId());
             for (L2PcInstance member : clan.getOnlineMembers(0))
             {
-                if (clear) member.setSiegeState((byte)0);
-                else member.setSiegeState((byte)2);
-                member.sendPacket(new UserInfo(member));
+                if (clear)
+                    member.setSiegeState((byte)0);
+                else
+                    member.setSiegeState((byte)2);
                 member.revalidateZone(true);
+                member.broadcastUserInfo();
             }
         }
     }

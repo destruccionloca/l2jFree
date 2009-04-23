@@ -60,12 +60,12 @@ public class ItemList extends L2GameServerPacket
 	{
 		_items = cha.getInventory().getItems();
 		_showWindow = showWindow;
-		cha.sendPacket(new UserInfo(cha));
+		// cha.sendPacket(new UserInfo(cha)); ?
 		if (_log.isDebugEnabled())
 		{
 			showDebug();
 		}
-	}	
+	}
 
 	public ItemList(L2ItemInstance[] items, boolean showWindow)
 	{
@@ -75,7 +75,7 @@ public class ItemList extends L2GameServerPacket
 		{
 			showDebug();
 		}
-	}	
+	}
 	
 	private void showDebug()
 	{

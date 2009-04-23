@@ -40,6 +40,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.itemcontainer.ClanWarehouse;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
+import com.l2jfree.gameserver.network.serverpackets.ExBrExtraUserInfo;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 import com.l2jfree.gameserver.network.serverpackets.PledgeReceiveSubPledgeCreated;
@@ -511,7 +512,10 @@ public class L2Clan
 		player.setClan(this);
 		player.setPledgeClass(L2ClanMember.getCurrentPledgeClass(player));
 		player.sendPacket(new PledgeShowMemberListUpdate(player));
-		player.sendPacket(new UserInfo(player));
+		
+		//player.sendPacket(new UserInfo(player));
+		// Crest update
+		player.broadcastUserInfo();
 	}
 
 	public void updateClanMember(L2PcInstance player)
@@ -1936,15 +1940,21 @@ public class L2Clan
 				}
 			}
 
+			L2PcInstance mem;
 			for (L2ClanMember cm : getMembers())
 			{
 				if (cm.isOnline())
+				{
 					if (cm.getPledgeRank() == rank)
-						if (cm.getPlayerInstance() != null)
+					{
+						if ((mem = cm.getPlayerInstance()) != null)
 						{
-							cm.getPlayerInstance().setClanPrivileges(privs);
-							cm.getPlayerInstance().sendPacket(new UserInfo(cm.getPlayerInstance()));
+							mem.setClanPrivileges(privs);
+							mem.sendPacket(new UserInfo(mem));
+							mem.sendPacket(new ExBrExtraUserInfo(mem));
 						}
+					}
+				}
 			}
 			broadcastClanStatus();
 		}
@@ -2383,6 +2393,7 @@ public class L2Clan
 		updateClanInDB();
 
 		player.sendPacket(new UserInfo(player));
+		player.sendPacket(new ExBrExtraUserInfo(player));
 
 		player.sendMessage("Alliance " + allyName + " has been created.");
 	}

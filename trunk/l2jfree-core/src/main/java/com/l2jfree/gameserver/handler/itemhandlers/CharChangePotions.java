@@ -20,7 +20,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
-import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 
 /**
  * ItemHandler for Character Appearance Change Potions
@@ -123,8 +122,7 @@ public class CharChangePotions implements IItemHandler
 		activeChar.destroyItem("Consume", item.getObjectId(), 1, null, false);
 
 		// Broadcast the changes to the char and all those nearby.
-		UserInfo ui = new UserInfo(activeChar);
-		activeChar.broadcastPacket(ui);
+		activeChar.broadcastUserInfo();
 	}
 
 	public int[] getItemIds()

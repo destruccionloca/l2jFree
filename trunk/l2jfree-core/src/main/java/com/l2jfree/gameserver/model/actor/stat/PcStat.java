@@ -25,6 +25,7 @@ import com.l2jfree.gameserver.model.entity.events.TvT;
 import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.ExBrExtraUserInfo;
 import com.l2jfree.gameserver.network.serverpackets.PledgeShowMemberListUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
@@ -75,6 +76,7 @@ public class PcStat extends PlayableStat
 		//su.addAttribute(StatusUpdate.EXP, getExp());
 		//activeChar.sendPacket(su);
 		activeChar.sendPacket(new UserInfo(activeChar));
+		activeChar.sendPacket(new ExBrExtraUserInfo(activeChar));
 
 		return true;
 	}
@@ -212,6 +214,7 @@ public class PcStat extends PlayableStat
 
 		// Send a Server->Client packet UserInfo to the L2PcInstance
 		getActiveChar().sendPacket(new UserInfo(getActiveChar()));
+		getActiveChar().sendPacket(new ExBrExtraUserInfo(getActiveChar()));
 
 		return levelIncreased;
 	}
@@ -227,6 +230,7 @@ public class PcStat extends PlayableStat
 		getActiveChar().sendPacket(su);
 		*/
 		getActiveChar().sendPacket(new UserInfo(getActiveChar()));
+		getActiveChar().sendPacket(new ExBrExtraUserInfo(getActiveChar()));
 		return true;
 	}
 

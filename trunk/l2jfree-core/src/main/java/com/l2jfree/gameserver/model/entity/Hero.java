@@ -307,7 +307,6 @@ public class Hero
 						player.sendPacket(iu);
 					}
 
-					player.sendPacket(new UserInfo(player));
 					player.broadcastUserInfo();
 				}
 				catch (NullPointerException e)

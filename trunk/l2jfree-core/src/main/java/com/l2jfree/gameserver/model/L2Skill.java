@@ -420,6 +420,8 @@ public class L2Skill implements FuncOwner
 
 	private final boolean			_isDebuff;
 
+	private final int				_afroId;
+
 	public L2Skill(StatsSet set)
 	{
 		_id = L2Integer.valueOf(set.getInteger("skill_id"));
@@ -457,6 +459,7 @@ public class L2Skill implements FuncOwner
 		_activationchance = set.getInteger("activationchance", 30);
 
 		_refId = set.getInteger("referenceId", _itemConsumeId);
+		_afroId = set.getInteger("afroId", 0);
 
 		_castRange = set.getInteger("castRange", 0);
 		_effectRange = set.getInteger("effectRange", -1);
@@ -3837,8 +3840,17 @@ public class L2Skill implements FuncOwner
 	 * used for extractable item skills
 	 * @return reference item id
 	 */
-	public int getReferenceItemId()
+	public final int getReferenceItemId()
 	{
 		return _refId;
 	}
+
+	/**
+	 * @return
+	 */
+	public final int getAfroColor()
+	{
+		return _afroId;
+	}
+
 }

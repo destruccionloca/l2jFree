@@ -19,6 +19,7 @@ import java.util.StringTokenizer;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
+import com.l2jfree.gameserver.network.serverpackets.ExBrExtraUserInfo;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.PledgeShowInfoUpdate;
@@ -93,6 +94,7 @@ public class L2FameManagerInstance extends L2NpcInstance
 					player.setFame(player.getFame()-5000);
 					player.setPkKills(player.getPkKills()-1);
 					player.sendPacket(new UserInfo(player));
+					player.sendPacket(new ExBrExtraUserInfo(player));
 					html.setFile("data/html/famemanager/"+getNpcId()+"-3.htm");
 				}
 				else

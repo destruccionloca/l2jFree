@@ -48,6 +48,7 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.AcquireSkillDone;
 import com.l2jfree.gameserver.network.serverpackets.AcquireSkillList;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
+import com.l2jfree.gameserver.network.serverpackets.ExBrExtraUserInfo;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.PledgeReceiveSubPledgeCreated;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -752,10 +753,12 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 		if (pledgeType != L2Clan.SUBUNIT_ACADEMY)
 		{
 			L2ClanMember leaderSubPledge = clan.getClanMember(leaderName);
-			if (leaderSubPledge.getPlayerInstance() == null)
+			L2PcInstance subLeader = leaderSubPledge.getPlayerInstance();
+			if (subLeader == null)
 				return;
-			leaderSubPledge.getPlayerInstance().setPledgeClass(L2ClanMember.getCurrentPledgeClass(leaderSubPledge.getPlayerInstance()));
-			leaderSubPledge.getPlayerInstance().sendPacket(new UserInfo(leaderSubPledge.getPlayerInstance()));
+			subLeader.setPledgeClass(L2ClanMember.getCurrentPledgeClass(subLeader));
+			subLeader.sendPacket(new UserInfo(subLeader));
+			subLeader.sendPacket(new ExBrExtraUserInfo(subLeader));
 			try
 			{
 				clan.getClanMember(leaderName).updateSubPledgeType();
@@ -944,8 +947,12 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 		subPledge.setLeaderId(leaderId);
 		clan.updateSubPledgeInDB(subPledge.getId());
 		L2ClanMember leaderSubPledge = clan.getClanMember(leaderName);
-		leaderSubPledge.getPlayerInstance().setPledgeClass(L2ClanMember.getCurrentPledgeClass(leaderSubPledge.getPlayerInstance()));
-		leaderSubPledge.getPlayerInstance().sendPacket(new UserInfo(leaderSubPledge.getPlayerInstance()));
+		L2PcInstance subLeader = leaderSubPledge.getPlayerInstance();
+		if (subLeader != null)
+		{
+			subLeader.setPledgeClass(L2ClanMember.getCurrentPledgeClass(subLeader));
+			subLeader.sendPacket(new UserInfo(subLeader));
+		}
 		clan.broadcastClanStatus();
 		SystemMessage sm = new SystemMessage(SystemMessageId.S1_HAS_BEEN_SELECTED_AS_CAPTAIN_OF_S2);
 		sm.addString(leaderName);

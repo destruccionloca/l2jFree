@@ -30,13 +30,13 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
-import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 
 /**
  * @author Savormix
  * @since 2009-04-20
  */
-public final class RecommendationManager {
+public final class RecommendationManager
+{
 	private static final String ADD_RECOMMENDATION_INFO = "INSERT INTO character_recommend_data (charId,lastUpdate) VALUES (?,?)";
 	private static final String UPDATE_RECOMMENDATION_INFO = "UPDATE character_recommend_data SET evaluationAble = ?,evaluationPoints = ?,lastUpdate=? WHERE charId=?";
 	private static final String REMOVE_RECOMMENDATION_INFO = "DELETE FROM character_recommend_data WHERE charId = ?";
@@ -45,20 +45,24 @@ public final class RecommendationManager {
 	private static final String REMOVE_RECOMMENDATION_RESTRICTIONS = "TRUNCATE TABLE character_recommends";
 	private static final String REMOVE_RECOMMENDATION_RESTRICTIONS_PLAYER = "DELETE FROM character_recommends WHERE charId=? OR target_id=?";
 	private static final String RESTORE_RECOMMENDATION_RESTRICTIONS = "SELECT target_id FROM character_recommends WHERE charId=?";
+
 	private static final Log _log = LogFactory.getLog(RecommendationManager.class.getName());
 	private static final long DAY = 24 * 3600 * 1000;
+
 	private long nextUpdate;
 
 	public static RecommendationManager _instance = null;
 
 	/** @return the only instance of this manager */
-	public static RecommendationManager getInstance() {
+	public static RecommendationManager getInstance()
+	{
 		if (_instance == null)
 			_instance = new RecommendationManager();
 		return _instance;
 	}
 
-	private RecommendationManager() {
+	private RecommendationManager()
+	{
 		Calendar update = Calendar.getInstance();
 		if (update.get(Calendar.HOUR_OF_DAY) >= 13)
 			update.add(Calendar.DAY_OF_MONTH, 1);
@@ -75,30 +79,34 @@ public final class RecommendationManager {
 	 * @param evaluator Player giving the evaluation
 	 * @param evaluated Player being evaluated
 	 */
-	public void recommend(L2PcInstance evaluator, L2PcInstance evaluated) {
+	public void recommend(L2PcInstance evaluator, L2PcInstance evaluated)
+	{
 		if (evaluator == null)
 			return;
 
 		SystemMessageId smi = null;
 		if (evaluator.getLevel() < 10)
-            smi = SystemMessageId.ONLY_LEVEL_SUP_10_CAN_RECOMMEND;
+			smi = SystemMessageId.ONLY_LEVEL_SUP_10_CAN_RECOMMEND;
 		else if (evaluator == evaluated)
-            smi = SystemMessageId.YOU_CANNOT_RECOMMEND_YOURSELF;
+			smi = SystemMessageId.YOU_CANNOT_RECOMMEND_YOURSELF;
 		else if (evaluator.getEvaluations() <= 0)
-            smi = SystemMessageId.NO_MORE_RECOMMENDATIONS_TO_HAVE;
+			smi = SystemMessageId.NO_MORE_RECOMMENDATIONS_TO_HAVE;
 		else if (evaluated.getEvalPoints() >= 255)
 			smi = SystemMessageId.YOUR_TARGET_NO_LONGER_RECEIVE_A_RECOMMENDATION;
 		else if (!evaluator.canEvaluate(evaluated))
 			smi = SystemMessageId.THAT_CHARACTER_IS_RECOMMENDED;
-		if (smi != null) {
+		if (smi != null)
+		{
 			evaluator.sendPacket(smi);
 			return;
 		}
 
 		Connection con = null;
 		PreparedStatement ps = null;
-		try {
-			if (Config.ALT_RECOMMEND) {
+		try
+		{
+			if (Config.ALT_RECOMMEND)
+			{
 				con = L2DatabaseFactory.getInstance().getConnection(con);
 				ps = con.prepareStatement(ADD_RECOMMENDATION_RESTRICTION);
 				ps.setInt(1, evaluator.getObjectId());
@@ -110,21 +118,30 @@ public final class RecommendationManager {
 			evaluator.addEvalRestriction(evaluated.getObjectId());
 			update(evaluator, evaluator.getEvaluations() - 1, evaluator.getEvalPoints());
 			update(evaluated, evaluated.getEvaluations(), evaluated.getEvalPoints() + 1);
-	        SystemMessage sm = new SystemMessage(SystemMessageId.YOU_HAVE_RECOMMENDED_S1_YOU_ARE_AUTHORIZED_TO_MAKE_S2_MORE_RECOMMENDATIONS);
-	        sm.addPcName(evaluated);
-	        sm.addNumber(evaluator.getEvaluations());
-	        evaluator.sendPacket(sm);
-	        sm = new SystemMessage(SystemMessageId.YOU_HAVE_BEEN_RECOMMENDED_BY_S1);
-	        sm.addPcName(evaluator);
-	        evaluated.sendPacket(sm);
-	        evaluator.sendPacket(new UserInfo(evaluator));
-	        evaluated.broadcastUserInfo();
-		} catch (SQLException e) {
+			SystemMessage sm = new SystemMessage(SystemMessageId.YOU_HAVE_RECOMMENDED_S1_YOU_ARE_AUTHORIZED_TO_MAKE_S2_MORE_RECOMMENDATIONS);
+			sm.addPcName(evaluated);
+			sm.addNumber(evaluator.getEvaluations());
+			evaluator.sendPacket(sm);
+			sm = new SystemMessage(SystemMessageId.YOU_HAVE_BEEN_RECOMMENDED_BY_S1);
+			sm.addPcName(evaluator);
+			evaluated.sendPacket(sm);
+			evaluated.broadcastUserInfo();
+		}
+		catch (SQLException e)
+		{
 			_log.error(evaluator.getName() + " failed evaluating player " + evaluated.getName() + "!", e);
 		}
-		finally {
-			try { if (con != null) con.close(); }
-			catch (SQLException e) { e.printStackTrace(); }
+		finally
+		{
+			try
+			{
+				if (con != null)
+					con.close();
+			}
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -134,9 +151,11 @@ public final class RecommendationManager {
 	 * evaluation data and the entry is missing.
 	 * @param player The newly created player
 	 */
-	public void onCreate(L2PcInstance player) {
+	public void onCreate(L2PcInstance player)
+	{
 		Connection con = null;
-		try {
+		try
+		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement ps = con.prepareStatement(ADD_RECOMMENDATION_INFO);
 			ps.setInt(1, player.getObjectId());
@@ -144,12 +163,21 @@ public final class RecommendationManager {
 			ps.executeUpdate();
 			ps.close();
 		}
-		catch (SQLException e) {
+		catch (SQLException e)
+		{
 			_log.error("Failed creating recommendation data for " + player.getName() + "!", e);
 		}
-		finally {
-			try { if (con != null) con.close(); }
-			catch (SQLException e) { e.printStackTrace(); }
+		finally
+		{
+			try
+			{
+				if (con != null)
+					con.close();
+			}
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -162,29 +190,34 @@ public final class RecommendationManager {
 	 * player loses 1-3 points</I> 
 	 * @param player The loaded L2PcInstance
 	 */
-	public void onJoin(L2PcInstance player) {
+	public void onJoin(L2PcInstance player)
+	{
 		Connection con = null;
 		PreparedStatement ps = null;
-		try {
+		try
+		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			ps = con.prepareStatement(RESTORE_RECOMMENDATION_INFO);
 			ps.setInt(1, player.getObjectId());
 			ResultSet rs = ps.executeQuery();
-			if (!rs.next()) {
+			if (!rs.next())
+			{
 				_log.warn("Player " + player.getName() + " did not have recommendation data, creating default entry!");
 				onCreate(player);
 				rs = ps.executeQuery();
 			}
 			int points = rs.getInt("evaluationPoints");
 			long lastUpdate = rs.getLong("lastUpdate");
-			while (lastUpdate < (nextUpdate - DAY)) {
+			while (lastUpdate < (nextUpdate - DAY))
+			{
 				points = getNewEvalPointsQuick(points, getDailyLostPoints(player.getLevel()));
 				lastUpdate += DAY;
 			}
 			update(player, rs.getInt("evaluationAble"), points);
 			rs.close();
 			ps.close();
-			if (Config.ALT_RECOMMEND) {
+			if (Config.ALT_RECOMMEND)
+			{
 				ps = con.prepareStatement(RESTORE_RECOMMENDATION_RESTRICTIONS);
 				ps.setInt(1, player.getObjectId());
 				rs = ps.executeQuery();
@@ -193,12 +226,22 @@ public final class RecommendationManager {
 				rs.close();
 				ps.close();
 			}
-		} catch (SQLException e) {
+		}
+		catch (SQLException e)
+		{
 			_log.error("Failed loading recommendation data for player " + player.getName() + "!", e);
 		}
-		finally {
-			try { if (con != null) con.close(); }
-			catch (SQLException e) { e.printStackTrace(); }
+		finally
+		{
+			try
+			{
+				if (con != null)
+					con.close();
+			}
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -208,8 +251,10 @@ public final class RecommendationManager {
 	 * @param con An open SQL connection
 	 * @param ps Reference
 	 */
-	public void onDelete(int charId, Connection con, PreparedStatement ps) {
-		try {
+	public void onDelete(int charId, Connection con, PreparedStatement ps)
+	{
+		try
+		{
 			ps = con.prepareStatement(REMOVE_RECOMMENDATION_INFO);
 			ps.setInt(1, charId);
 			ps.executeUpdate();
@@ -219,12 +264,22 @@ public final class RecommendationManager {
 			ps.setInt(2, charId);
 			ps.executeUpdate();
 			ps.close();
-		} catch (SQLException e) {
+		}
+		catch (SQLException e)
+		{
 			_log.error("Failed deleting recommendation data for player " + charId + "!", e);
 		}
-		finally {
-			try { if (con != null) con.close(); }
-			catch (SQLException e) { e.printStackTrace(); }
+		finally
+		{
+			try
+			{
+				if (con != null)
+					con.close();
+			}
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -233,14 +288,17 @@ public final class RecommendationManager {
 	 * @param player Player being evaluated
 	 * @param evalPoints Evaluation point count
 	 */
-	public void onGmEvaluation(L2PcInstance player, int evalPoints) {
+	public void onGmEvaluation(L2PcInstance player, int evalPoints)
+	{
 		update(player, player.getEvaluations(), evalPoints);
 	}
 
-	private void update(L2PcInstance player, int recomLeft, int evalPoints) {
+	private void update(L2PcInstance player, int recomLeft, int evalPoints)
+	{
 		Connection con = null;
 		PreparedStatement ps = null;
-		try {
+		try
+		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			ps = con.prepareStatement(UPDATE_RECOMMENDATION_INFO);
 			ps.setInt(1, recomLeft);
@@ -251,16 +309,27 @@ public final class RecommendationManager {
 			ps.close();
 			player.setEvaluationCount(recomLeft);
 			player.setEvalPoints(evalPoints);
-		} catch (SQLException e) {
+		}
+		catch (SQLException e)
+		{
 			_log.error("Failed updating player's (" + player.getName() +  ") recommendations!", e);
 		}
-		finally {
-			try { if (con != null) con.close(); }
-			catch (SQLException e) { e.printStackTrace(); }
+		finally
+		{
+			try
+			{
+				if (con != null)
+					con.close();
+			}
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
 		}
 	}
 
-	private int getDailyRecommendations(int level) {
+	private int getDailyRecommendations(int level)
+	{
 		if (level >= 40)
 			return 9;
 		else if (level >= 20)
@@ -269,15 +338,18 @@ public final class RecommendationManager {
 			return 3;
 	}
 
-	private int getDailyLostPoints(int level) {
+	private int getDailyLostPoints(int level)
+	{
 		return getDailyRecommendations(level) / 3;
 	}
 
-	private int getNewEvalPoints(L2PcInstance player) {
+	private int getNewEvalPoints(L2PcInstance player)
+	{
 		return getNewEvalPointsQuick(player.getEvalPoints(), getDailyLostPoints(player.getLevel()));
 	}
 
-	private int getNewEvalPointsQuick(int current, int lost) {
+	private int getNewEvalPointsQuick(int current, int lost)
+	{
 		if ((lost = (current - lost)) > 0)
 			return lost;
 		else
@@ -289,15 +361,19 @@ public final class RecommendationManager {
 	 * Deletes all evaluation restrictions from the database.
 	 * @author Savormix
 	 */
-	class RecommendationUpdater implements Runnable {
+	protected class RecommendationUpdater implements Runnable
+	{
 		@Override
-		public void run() {
+		public void run()
+		{
 			Connection con = null;
 			PreparedStatement ps = null;
 			int rec, pts;
-			try {
+			try
+			{
 				con = L2DatabaseFactory.getInstance().getConnection(con);
-				for (L2PcInstance player : L2World.getInstance().getAllPlayers()) {
+				for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+				{
 					ps = con.prepareStatement(UPDATE_RECOMMENDATION_INFO);
 					rec = getDailyRecommendations(player.getLevel());
 					pts = getNewEvalPoints(player);
@@ -314,12 +390,22 @@ public final class RecommendationManager {
 				ps = con.prepareStatement(REMOVE_RECOMMENDATION_RESTRICTIONS);
 				ps.executeUpdate();
 				ps.close();
-			} catch (SQLException e) {
+			}
+			catch (SQLException e)
+			{
 				_log.error("Failed updating recommendations!", e);
 			}
-			finally {
-				try { if (con != null) con.close(); }
-				catch (SQLException e) { e.printStackTrace(); }
+			finally
+			{
+				try
+				{
+					if (con != null)
+						con.close();
+				}
+				catch (SQLException e)
+				{
+					e.printStackTrace();
+				}
 			}
 			Calendar update = Calendar.getInstance();
 			if (update.get(Calendar.HOUR_OF_DAY) >= 13)

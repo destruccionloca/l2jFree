@@ -54,7 +54,6 @@ import com.l2jfree.gameserver.model.zone.L2SiegeZone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.NpcSay;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
-import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public class FortSiege extends AbstractSiege
@@ -386,7 +385,7 @@ public class FortSiege extends AbstractSiege
 					member.setSiegeState((byte) 0);
 				else
 					member.setSiegeState((byte) 1);
-				member.sendPacket(new UserInfo(member));
+				member.broadcastUserInfo();
 			}
 		}
 		if (getFort().getOwnerClan() != null)
@@ -398,7 +397,7 @@ public class FortSiege extends AbstractSiege
 					member.setSiegeState((byte) 0);
 				else
 					member.setSiegeState((byte) 2);
-				member.sendPacket(new UserInfo(member));
+				member.broadcastUserInfo();
 			}
 		}
 	}

@@ -417,10 +417,25 @@ public class NpcInfo extends L2GameServerPacket
 			}
 
 			writeD(0);
-			writeD(0000); // hmm karma ??
+			if (_activeChar instanceof L2Summon)
+			{
+				writeD(((L2Summon) _activeChar).getOwner().getPvpFlag());
+			}
+			else
+			{
+				writeD(0x00);  
+			}
+
 
 			writeD(_activeChar.getAbnormalEffect()); // C2
-			writeD(0000); // C2
+			if (_activeChar instanceof L2Summon)
+			{
+				writeD(0x01);
+			}
+			else
+			{
+				writeD(0x00);
+			}
 			writeD(0000); // C2
 			writeD(0000); // C2
 			writeD(0000); // C2

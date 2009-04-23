@@ -61,6 +61,7 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ClientSetTime;
 import com.l2jfree.gameserver.network.serverpackets.Die;
 import com.l2jfree.gameserver.network.serverpackets.ExBasicActionList;
+import com.l2jfree.gameserver.network.serverpackets.ExBrExtraUserInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExStorageMaxCount;
 import com.l2jfree.gameserver.network.serverpackets.FriendList;
 import com.l2jfree.gameserver.network.serverpackets.GameGuardQuery;
@@ -233,6 +234,7 @@ public class EnterWorld extends L2GameClientPacket
 		}
 
 		sendPacket(new UserInfo(activeChar));
+		sendPacket(new ExBrExtraUserInfo(activeChar));
 
 		// Send Macro List
 		activeChar.getMacroses().sendUpdate();

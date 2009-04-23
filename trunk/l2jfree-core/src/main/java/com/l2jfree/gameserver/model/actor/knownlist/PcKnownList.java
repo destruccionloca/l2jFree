@@ -35,6 +35,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2TrapInstance;
 import com.l2jfree.gameserver.network.serverpackets.CharInfo;
 import com.l2jfree.gameserver.network.serverpackets.DeleteObject;
 import com.l2jfree.gameserver.network.serverpackets.DropItem;
+import com.l2jfree.gameserver.network.serverpackets.ExBrExtraUserInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExPrivateStoreSetWholeMsg;
 import com.l2jfree.gameserver.network.serverpackets.GetOnVehicle;
 import com.l2jfree.gameserver.network.serverpackets.NpcInfo;
@@ -178,15 +179,17 @@ public class PcKnownList extends PlayableKnownList
             else if (object instanceof L2PcInstance)
             {
                 L2PcInstance otherPlayer = (L2PcInstance) object;
-                if(otherPlayer.isInBoat())
+                if (otherPlayer.isInBoat())
                 {
                     otherPlayer.getPosition().setWorldPosition(otherPlayer.getBoat().getPosition());
                     getActiveChar().sendPacket(new CharInfo(otherPlayer));
+                    getActiveChar().sendPacket(new ExBrExtraUserInfo(otherPlayer));
                     getActiveChar().sendPacket(new GetOnVehicle(otherPlayer, otherPlayer.getBoat(), otherPlayer.getInBoatPosition().getX(), otherPlayer.getInBoatPosition().getY(), otherPlayer.getInBoatPosition().getZ()));
                 }
                 else
                 {
                     getActiveChar().sendPacket(new CharInfo(otherPlayer));
+                    getActiveChar().sendPacket(new ExBrExtraUserInfo(otherPlayer));
                 }
 
                 if (otherPlayer.getMountType() == 4)
