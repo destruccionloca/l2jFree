@@ -31,13 +31,13 @@ class ConditionTargetNpcType extends Condition
 	{
 		if (!(env.target instanceof L2NpcInstance))
 			return false;
-
-		for (String type : _npcTypes)
-		{
-			if (((L2NpcInstance) env.target).getTemplate().getType() == type)
+		
+		String type = ((L2NpcInstance)env.target).getTemplate().getType();
+		
+		for (String npcType : _npcTypes)
+			if (npcType.equalsIgnoreCase(type))
 				return true;
-		}
-
+		
 		return false;
 	}
 }
