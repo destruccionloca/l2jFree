@@ -230,13 +230,7 @@ public class Fort extends Siegeable<FortSiege>
 			}
 			finally
 			{
-				try
-				{
-					con.close();
-				}
-				catch (Exception e)
-				{
-				}
+				L2DatabaseFactory.close(con);
 			}
 		}
 	}
@@ -481,7 +475,10 @@ public class Fort extends Siegeable<FortSiege>
 		{
 			_log.warn("Exception: loadFortData(): " + e.getMessage(), e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/** Load All Functions */
@@ -508,13 +505,7 @@ public class Fort extends Siegeable<FortSiege>
 		}
 		finally
 		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
@@ -539,13 +530,7 @@ public class Fort extends Siegeable<FortSiege>
 		}
 		finally
 		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
@@ -617,7 +602,10 @@ public class Fort extends Siegeable<FortSiege>
 		{
 			_log.warn("Exception: loadFortDoor(): " + e.getMessage(), e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	// This method loads fort door upgrade data from database
@@ -643,7 +631,10 @@ public class Fort extends Siegeable<FortSiege>
 		{
 			_log.warn("Exception: loadFortDoorUpgrade(): " + e.getMessage(), e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	private void removeDoorUpgrade()
@@ -662,7 +653,10 @@ public class Fort extends Siegeable<FortSiege>
 		{
 			_log.warn("Exception: removeDoorUpgrade(): " + e.getMessage(), e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	private void saveDoorUpgrade(int doorId, int hp, int pDef, int mDef)
@@ -683,7 +677,10 @@ public class Fort extends Siegeable<FortSiege>
 		{
 			_log.warn("Exception: saveDoorUpgrade(int doorId, int hp, int pDef, int mDef): " + e.getMessage(), e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	// This method loads fort flagpoles data from database
@@ -714,15 +711,7 @@ public class Fort extends Siegeable<FortSiege>
 		}
 		finally
 		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-				_log.warn(""+e.getMessage());
-				e.printStackTrace();
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
@@ -780,15 +769,7 @@ public class Fort extends Siegeable<FortSiege>
 		}
 		finally
 		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-				_log.warn(""+e.getMessage());
-				e.printStackTrace();
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
@@ -935,7 +916,10 @@ public class Fort extends Siegeable<FortSiege>
 		{
 			_log.warn("Exception: updateOwnerInDB(L2Clan clan): " + e.getMessage(), e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/**

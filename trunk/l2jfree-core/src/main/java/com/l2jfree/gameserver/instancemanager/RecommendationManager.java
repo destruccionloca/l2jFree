@@ -133,15 +133,7 @@ public final class RecommendationManager
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
@@ -169,15 +161,7 @@ public final class RecommendationManager
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
@@ -233,15 +217,7 @@ public final class RecommendationManager
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
@@ -271,15 +247,7 @@ public final class RecommendationManager
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
@@ -316,15 +284,7 @@ public final class RecommendationManager
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
@@ -397,16 +357,9 @@ public final class RecommendationManager
 			}
 			finally
 			{
-				try
-				{
-					if (con != null)
-						con.close();
-				}
-				catch (SQLException e)
-				{
-					e.printStackTrace();
-				}
+				L2DatabaseFactory.close(con);
 			}
+
 			Calendar update = Calendar.getInstance();
 			if (update.get(Calendar.HOUR_OF_DAY) >= 13)
 				update.add(Calendar.DAY_OF_MONTH, 1);

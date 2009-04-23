@@ -97,7 +97,10 @@ public class HennaTreeTable
 		{
 			_log.warn("Error while creating henna tree for classId "+classId+" "+e, e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 	
 	public List<L2Henna> getAvailableHenna(L2PcInstance player)

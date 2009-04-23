@@ -187,7 +187,10 @@ public class Auction
 		{
 			_log.error("Exception: Auction.load(): ", e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/** Load bidders **/
@@ -226,7 +229,10 @@ public class Auction
 		{
 			_log.error("Exception: Auction.loadBid(): ", e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/** Task Manage */
@@ -269,7 +275,10 @@ public class Auction
 		{
 			_log.fatal("Exception: saveAuctionDate(): " + e.getMessage(),e);
 		} 
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/** Set a bid */
@@ -376,7 +385,10 @@ public class Auction
 		{
 			_log.fatal("Exception: Auction.updateInDB(L2PcInstance bidder, int bid): ", e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/** Remove bids */
@@ -398,7 +410,10 @@ public class Auction
 		{
 			_log.fatal("Exception: Auction.deleteFromDB(): " + e.getMessage(),e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 
 		for (Bidder b : _bidders.values())
 		{
@@ -433,7 +448,10 @@ public class Auction
 		{
 			_log.fatal("Exception: Auction.deleteFromDB(): " + e.getMessage(),e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/** End of auction */
@@ -493,7 +511,10 @@ public class Auction
 		{
 			_log.fatal("Exception: Auction.cancelBid(String bidder): " + e.getMessage(),e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 
 		returnItem(_bidders.get(bidder).getClanName(), 57, _bidders.get(bidder).getBid(), true);
 		ClanTable.getInstance().getClanByName(_bidders.get(bidder).getClanName()).setAuctionBiddedAt(0, true);
@@ -539,7 +560,10 @@ public class Auction
 		{
 			_log.fatal("Exception: Auction.load(): " + e.getMessage(),e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/** Get var auction */

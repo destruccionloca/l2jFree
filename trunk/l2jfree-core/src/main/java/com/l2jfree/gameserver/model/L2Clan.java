@@ -184,7 +184,7 @@ public class L2Clan
 	// at the end of the file, before the last '}' that ends the L2Clan class, add the following codes:
 	public void insertNotice()
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -194,14 +194,16 @@ public class L2Clan
 			statement.setString(3, "false");
 			statement.execute();
 			statement.close();
-			con.close();
-
 		}
 		catch (Exception e)
 		{
 			System.out.println("BBS: Error while creating clan notice for clan " + this.getClanId() + "");
 			if (e.getMessage() != null)
 				System.out.println("BBS: Exception = " + e.getMessage() + "");
+		}
+		finally
+		{
+			L2DatabaseFactory.close(con);
 		}
 	}
 
@@ -210,7 +212,7 @@ public class L2Clan
 	 */
 	public String getNotice()
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -225,14 +227,16 @@ public class L2Clan
 
 			rset.close();
 			statement.close();
-			con.close();
-
 		}
 		catch (Exception e)
 		{
 			System.out.println("BBS: Error while getting notice from DB for clan " + this.getClanId() + "");
 			if (e.getMessage() != null)
 				System.out.println("BBS: Exception = " + e.getMessage() + "");
+		}
+		finally
+		{
+			L2DatabaseFactory.close(con);
 		}
 
 		return _notice;
@@ -241,7 +245,7 @@ public class L2Clan
 	public String getNoticeForBBS()
 	{
 		String notice = "";
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -256,14 +260,16 @@ public class L2Clan
 
 			rset.close();
 			statement.close();
-			con.close();
-
 		}
 		catch (Exception e)
 		{
 			System.out.println("BBS: Error while getting notice from DB for clan " + this.getClanId() + "");
 			if (e.getMessage() != null)
 				System.out.println("BBS: Exception = " + e.getMessage() + "");
+		}
+		finally
+		{
+			L2DatabaseFactory.close(con);
 		}
 		return notice.replaceAll("<br>", "\n");
 	}
@@ -276,7 +282,7 @@ public class L2Clan
 
 		notice = notice.replaceAll("\n", "<br>");
 
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -288,7 +294,6 @@ public class L2Clan
 			statement.setInt(2, this.getClanId());
 			statement.execute();
 			statement.close();
-			con.close();
 
 			_notice = notice;
 		}
@@ -298,6 +303,10 @@ public class L2Clan
 			if (e.getMessage() != null)
 				System.out.println("BBS: Exception = " + e.getMessage() + "");
 		}
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/**
@@ -306,7 +315,7 @@ public class L2Clan
 	public boolean isNoticeEnabled()
 	{
 		String result = "";
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 
@@ -322,8 +331,6 @@ public class L2Clan
 
 			rset.close();
 			statement.close();
-			con.close();
-
 		}
 		catch (Exception e)
 		{
@@ -331,12 +338,17 @@ public class L2Clan
 			if (e.getMessage() != null)
 				System.out.println("BBS: Exception = " + e.getMessage() + "");
 		}
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 		if (result.isEmpty())
 		{
 			insertNotice();
 			return false;
 		}
-		else return result.compareToIgnoreCase("true") == 0;
+		else
+			return result.compareToIgnoreCase("true") == 0;
 	}
 
 	/**
@@ -344,8 +356,7 @@ public class L2Clan
 	 */
 	public void setNoticeEnabled(boolean noticeEnabled)
 	{
-
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -357,14 +368,16 @@ public class L2Clan
 			statement.setInt(2, this.getClanId());
 			statement.execute();
 			statement.close();
-			con.close();
-
 		}
 		catch (Exception e)
 		{
 			System.out.println("BBS: Error while updating notice status for clan " + this.getClanId() + "");
 			if (e.getMessage() != null)
 				System.out.println("BBS: Exception = " + e.getMessage() + "");
+		}
+		finally
+		{
+			L2DatabaseFactory.close(con);
 		}
 
 		_noticeEnabled = noticeEnabled;
@@ -918,15 +931,7 @@ public class L2Clan
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
@@ -959,15 +964,7 @@ public class L2Clan
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
@@ -1004,15 +1001,7 @@ public class L2Clan
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
@@ -1037,15 +1026,7 @@ public class L2Clan
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
@@ -1136,15 +1117,7 @@ public class L2Clan
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
@@ -1181,15 +1154,7 @@ public class L2Clan
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
@@ -1259,15 +1224,7 @@ public class L2Clan
 			}
 			finally
 			{
-				try
-				{
-					if (con != null)
-						con.close();
-				}
-				catch (SQLException e)
-				{
-					e.printStackTrace();
-				}
+				L2DatabaseFactory.close(con);
 			}
 
 			// notify clan members 
@@ -1637,15 +1594,7 @@ public class L2Clan
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
@@ -1751,15 +1700,7 @@ public class L2Clan
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			L2DatabaseFactory.close(con);
 		}
 
 		broadcastToOnlineMembers(new PledgeShowInfoUpdate(_leader.getClan()));
@@ -1823,15 +1764,7 @@ public class L2Clan
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
@@ -1869,15 +1802,7 @@ public class L2Clan
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
@@ -1929,15 +1854,7 @@ public class L2Clan
 			}
 			finally
 			{
-				try
-				{
-					if (con != null)
-						con.close();
-				}
-				catch (SQLException e)
-				{
-					e.printStackTrace();
-				}
+				L2DatabaseFactory.close(con);
 			}
 
 			L2PcInstance mem;
@@ -1983,15 +1900,7 @@ public class L2Clan
 			}
 			finally
 			{
-				try
-				{
-					if (con != null)
-						con.close();
-				}
-				catch (SQLException e)
-				{
-					e.printStackTrace();
-				}
+				L2DatabaseFactory.close(con);
 			}
 		}
 	}
@@ -2104,15 +2013,7 @@ public class L2Clan
 			}
 			finally
 			{
-				try
-				{
-					if (con != null)
-						con.close();
-				}
-				catch (SQLException e)
-				{
-					e.printStackTrace();
-				}
+				L2DatabaseFactory.close(con);
 			}
 		}
 	}
@@ -2680,8 +2581,6 @@ public class L2Clan
 			statement.setInt(2, getClanId());
 			statement.execute();
 			statement.close();
-
-			con.close();
 		}
 		catch (Exception e)
 		{
@@ -2689,15 +2588,7 @@ public class L2Clan
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			L2DatabaseFactory.close(con);
 		}
 
 		setLevel(level);

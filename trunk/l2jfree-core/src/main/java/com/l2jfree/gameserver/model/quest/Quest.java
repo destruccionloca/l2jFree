@@ -731,7 +731,10 @@ public class Quest extends ManagedScript
 		{
 			_log.warn("could not insert char quest:", e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 
 		// events
 		for (String name : _allEventsS.keySet())
@@ -766,7 +769,10 @@ public class Quest extends ManagedScript
 		{
 			_log.warn("could not insert global quest variable:", e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/**
@@ -799,9 +805,12 @@ public class Quest extends ManagedScript
 		{
 			_log.warn("could not load global quest variable:", e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 
-        return result;
+		return result;
 	}
 
 	/**
@@ -825,7 +834,10 @@ public class Quest extends ManagedScript
 		{
 			_log.warn("could not delete global quest variable:", e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/**
@@ -847,7 +859,10 @@ public class Quest extends ManagedScript
 		{
 			_log.warn("could not delete global quest variables:", e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/**
@@ -875,7 +890,10 @@ public class Quest extends ManagedScript
 		{
 			_log.fatal("could not insert char quest:", e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/**
@@ -911,7 +929,10 @@ public class Quest extends ManagedScript
 		{
 			_log.fatal("could not update char quest:", e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/**
@@ -937,7 +958,10 @@ public class Quest extends ManagedScript
 		{
 			_log.warn("could not delete char quest:", e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/**
@@ -961,7 +985,10 @@ public class Quest extends ManagedScript
 		{
 			_log.fatal("could not delete char quest:", e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/**

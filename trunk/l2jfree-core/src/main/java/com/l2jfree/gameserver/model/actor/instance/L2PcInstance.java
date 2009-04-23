@@ -6436,7 +6436,10 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			_log.error("Failed updating character online status.", e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/**
@@ -6498,7 +6501,10 @@ public final class L2PcInstance extends L2PlayableInstance
 			_log.error("Could not insert char data: ", e);
 			return false;
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 
 		return true;
 	}
@@ -6758,7 +6764,10 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			_log.error("Failed loading character.", e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 
 		return player;
 	}
@@ -6854,7 +6863,10 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			_log.error("Could not restore classes for " + player.getName() + ": ", e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 
 		return true;
 	}
@@ -6929,7 +6941,10 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			_log.error("Could not store recipe book data: ", e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/**
@@ -6964,7 +6979,10 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			_log.error("Could not restore recipe book data:", e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/**
@@ -7079,7 +7097,10 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			_log.error("Could not store char base data: ", e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	private void storeCharSub()
@@ -7112,7 +7133,10 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			_log.error("Could not store sub class data for " + getName() + ": ", e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	private void storeEffect()
@@ -7204,7 +7228,10 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			_log.error("Could not store char effect data: ", e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/**
@@ -7318,7 +7345,10 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			_log.error("Error could not delete skill: ", e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 
 		if (transformId() > 0 || isCursedWeaponEquipped())
 			return oldSkill;
@@ -7381,7 +7411,10 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			_log.error("Error could not store char skills: ", e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/**
@@ -7486,7 +7519,10 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			_log.error("Could not restore character skills: ", e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/**
@@ -7592,7 +7628,10 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			_log.error("Could not restore active effect data: ", e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/**
@@ -7630,7 +7669,10 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			_log.error("Failed restoing character hennas.", e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 
 		// Calculate Henna modifiers of this L2PcInstance
 		recalcHennaStats();
@@ -7685,7 +7727,10 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			_log.error("Failed removing character henna.", e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 
 		// Calculate Henna modifiers of this L2PcInstance
 		recalcHennaStats();
@@ -7762,7 +7807,10 @@ public final class L2PcInstance extends L2PlayableInstance
 				{
 					_log.error("Failed saving character henna.", e);
 				}
-				finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+				finally
+				{
+					L2DatabaseFactory.close(con);
+				}
 
 				// Send Server->Client HennaInfo packet to this L2PcInstance
 				sendPacket(new HennaInfo(this));
@@ -10041,14 +10089,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			}
 			finally
 			{
-				try
-				{
-					if (con != null)
-						con.close();
-				}
-				catch (Exception e)
-				{
-				}
+				L2DatabaseFactory.close(con);
 			}
 		}
 	}
@@ -10099,7 +10140,10 @@ public final class L2PcInstance extends L2PlayableInstance
 			_log.warn("WARNING: Could not add character sub class for " + getName() + ": " + e);
 			return false;
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 
 		// Commit after database INSERT incase exception is thrown.
 		getSubClasses().put(newClass.getClassIndex(), newClass);
@@ -10202,7 +10246,10 @@ public final class L2PcInstance extends L2PlayableInstance
 			getSubClasses().remove(classIndex);
 			return false;
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 
 		getSubClasses().remove(classIndex);
 		return addSubClass(newClassId, classIndex);
@@ -13324,7 +13371,10 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			_log.fatal("Transformation insert info: " + e, e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/**
@@ -13351,9 +13401,12 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			_log.fatal("Transformation select info error:" + e.getMessage(), e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 
-        return _transformationId;
+		return _transformationId;
 	}
 
 	@Override

@@ -139,7 +139,10 @@ public class LastImperialTombSpawnlist
         {
             _log.warn("LastImperialTombSpawnlist: Spawn could not be initialized: " + e);
         }
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+        finally
+        {
+            L2DatabaseFactory.close(con);
+        }
 
         _log.info("LastImperialTombSpawnlist: Loaded " + _Room1SpawnList1st.size() + " Room1 1st Npc Spawn Locations.");
         _log.info("LastImperialTombSpawnlist: Loaded " + _Room1SpawnList2nd.size() + " Room1 2nd Npc Spawn Locations.");

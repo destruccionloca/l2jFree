@@ -76,7 +76,10 @@ public class Couple
         {
             _log.error("Exception: Couple.load(): " + e.getMessage(),e);
         }
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+        finally
+        {
+            L2DatabaseFactory.close(con);
+        }
     }
     
     public Couple(L2PcInstance player1,L2PcInstance player2)
@@ -110,7 +113,10 @@ public class Couple
         {
             _log.error("",e);
         }
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+        finally
+        {
+            L2DatabaseFactory.close(con);
+        }
     }
     
     public void marry()
@@ -134,7 +140,10 @@ public class Couple
         {
             _log.error("",e);
         }
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+        finally
+        {
+            L2DatabaseFactory.close(con);
+        }
     }
     
     public void divorce()
@@ -154,7 +163,10 @@ public class Couple
         {
             _log.error("Exception: Couple.divorce(): " + e.getMessage(),e);
         }
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+        finally
+        {
+            L2DatabaseFactory.close(con);
+        }
     }
     
     public final int getId() { return _id; }

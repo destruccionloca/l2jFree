@@ -140,9 +140,12 @@ public class PetDataTable
 		{
 			_log.warn("Could not load pets stats: " + e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 
-        _log.info("PetDataTable: loaded " + petTable.size() + " pets.");
+		_log.info("PetDataTable: loaded " + petTable.size() + " pets.");
 	}
 
 	public void addPetData(L2PetData petData)

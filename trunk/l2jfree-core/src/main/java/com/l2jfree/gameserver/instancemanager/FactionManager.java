@@ -97,7 +97,10 @@ public class FactionManager
 		{
 			_log.warn("Exception: FactionsManager.load(): " + e.getMessage(), e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	// =========================================================

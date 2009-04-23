@@ -637,7 +637,10 @@ public class Siege extends AbstractSiege
         {
             _log.error("Exception: clearSiegeClan(): " + e.getMessage(),e);
         }
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+        finally
+        {
+            L2DatabaseFactory.close(con);
+        }
     }
 
     /** Clear all siege clans waiting for approval from database for castle */
@@ -658,7 +661,10 @@ public class Siege extends AbstractSiege
         {
             _log.error("Exception: clearSiegeWaitingClan(): " + e.getMessage(),e);
         }
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+        finally
+        {
+            L2DatabaseFactory.close(con);
+        }
     }
 
     /** Return list of L2PcInstance registered as attacker in the zone. */
@@ -856,7 +862,10 @@ public class Siege extends AbstractSiege
         {
             _log.error(e.getMessage(), e);
         }
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+        finally
+        {
+            L2DatabaseFactory.close(con);
+        }
     }
 
     /**
@@ -1122,7 +1131,10 @@ public class Siege extends AbstractSiege
         {
             _log.error("Exception: loadSiegeClan(): " + e.getMessage(),e);
         }
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+        finally
+        {
+            L2DatabaseFactory.close(con);
+        }
     }
 
     /** Remove all control tower spawned. */
@@ -1198,7 +1210,10 @@ public class Siege extends AbstractSiege
         {
             _log.error("Exception: saveSiegeDate(): " + e.getMessage(),e);
         }
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+        finally
+        {
+            L2DatabaseFactory.close(con);
+        }
     }
 
     /**
@@ -1255,7 +1270,10 @@ public class Siege extends AbstractSiege
             _log.error("Exception: saveSiegeClan(L2Clan clan, int typeId, boolean isUpdateRegistration): "
                 + e.getMessage(),e);
         }
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+        finally
+        {
+            L2DatabaseFactory.close(con);
+        }
     }
 
     /** Set the date for the next siege. */

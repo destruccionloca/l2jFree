@@ -219,7 +219,10 @@ public class ClanHall extends Entity
 			{
 				_log.fatal("Exception: ClanHall.updateFunctions(int type, int lvl, int lease, long rate, long time, boolean addNew): " + e.getMessage(), e);
 			}
-			finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+			finally
+			{
+				L2DatabaseFactory.close(con);
+			}
 		}
 	}
 
@@ -457,7 +460,10 @@ public class ClanHall extends Entity
 		{
 			_log.fatal("Exception: ClanHall.loadFunctions(): " + e.getMessage(), e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/** Remove function In List and in DB */
@@ -479,7 +485,10 @@ public class ClanHall extends Entity
 		{
 			_log.fatal("Exception: ClanHall.removeFunctions(int functionType): " + e.getMessage(), e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	public boolean updateFunctions(L2PcInstance player, int type, int lvl, int lease, long rate, boolean addNew)
@@ -546,7 +555,10 @@ public class ClanHall extends Entity
 		{
 			_log.error("Exception: updateOwnerInDB(L2Clan clan): " + e.getMessage(), e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/** Initialyze Fee Task */

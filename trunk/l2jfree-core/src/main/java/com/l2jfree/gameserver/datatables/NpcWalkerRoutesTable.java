@@ -96,7 +96,10 @@ public class NpcWalkerRoutesTable
 		{
 			_log.fatal("WalkerRoutesTable: Error while loading Npc Walkers Routes: " + e.getMessage());
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	public ArrayList<L2NpcWalkerNode> getRouteForNpc(int id)

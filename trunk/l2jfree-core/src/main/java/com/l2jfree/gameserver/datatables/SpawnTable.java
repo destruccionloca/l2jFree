@@ -229,9 +229,12 @@ public class SpawnTable
 			// problem with initializing spawn, go to next one
 			_log.warn("SpawnTable: Custom spawn could not be initialized: " + e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 
-        _cSpawnCount = _spawntable.size() - _cSpawnCount;
+		_cSpawnCount = _spawntable.size() - _cSpawnCount;
 		if (_cSpawnCount > 0)
 			_log.info("SpawnTable: Loaded " + _cSpawnCount + " Custom Spawn Locations.");
 
@@ -289,7 +292,10 @@ public class SpawnTable
 				// problem with storing spawn
 				_log.warn("SpawnTable: Could not store spawn in the DB:" + e);
 			}
-            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+			finally
+			{
+				L2DatabaseFactory.close(con);
+			}
 		}
 	}
 
@@ -320,7 +326,10 @@ public class SpawnTable
 			// problem with storing spawn
 			_log.warn("SpawnTable: Could not update spawn in the DB:" + e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	public void deleteSpawn(L2Spawn spawn, boolean updateDb)
@@ -345,7 +354,10 @@ public class SpawnTable
 				// problem with deleting spawn
 				_log.warn("SpawnTable: Spawn " + spawn.getDbId() + " could not be removed from DB: " + e);
 			}
-            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+			finally
+			{
+				L2DatabaseFactory.close(con);
+			}
 		}
 	}
 

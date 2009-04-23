@@ -103,7 +103,10 @@ public class LevelUpData
 		{
 			_log.error("error while creating Lvl up data table ", e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/**

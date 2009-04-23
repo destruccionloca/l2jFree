@@ -403,7 +403,10 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 		{
 			e.printStackTrace();
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 
 		if (MULTISELL_BREAK_PROCESS)
 		{
@@ -452,8 +455,10 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 			{
 				e.printStackTrace();
 			}
-			finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
-
+			finally
+			{
+				L2DatabaseFactory.close(con);
+			}
 		}
 		return ((priceGm == price) ? (price * DEFAULT_GM_SHOP_PRICE_MULTIPLIER) : priceGm);
 	}

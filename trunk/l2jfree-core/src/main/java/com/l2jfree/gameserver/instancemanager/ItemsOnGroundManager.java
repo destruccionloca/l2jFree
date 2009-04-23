@@ -96,7 +96,10 @@ public class ItemsOnGroundManager
 			{
 				_log.fatal("error while updating table ItemsOnGround " + e, e);
 			}
-            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+			finally
+			{
+				L2DatabaseFactory.close(con);
+			}
 		}
 
 		// Add items to world
@@ -150,9 +153,12 @@ public class ItemsOnGroundManager
 				_log.fatal("error while loading ItemsOnGround " + e, e);
 			}
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 
-        if (Config.EMPTY_DROPPED_ITEM_TABLE_AFTER_LOAD)
+		if (Config.EMPTY_DROPPED_ITEM_TABLE_AFTER_LOAD)
 			emptyTable();
 	}
 
@@ -194,7 +200,10 @@ public class ItemsOnGroundManager
 		{
 			_log.fatal("error while cleaning table ItemsOnGround " + e1, e1);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	protected class StoreInDb extends Thread
@@ -250,7 +259,10 @@ public class ItemsOnGroundManager
 				{
 					_log.fatal("error while inserting into table ItemsOnGround " + e, e);
 				}
-	            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+				finally
+				{
+					L2DatabaseFactory.close(con);
+				}
 			}
 			if (_log.isDebugEnabled())
 				_log.warn("ItemsOnGroundManager: " + _items.size() + " items on ground saved");

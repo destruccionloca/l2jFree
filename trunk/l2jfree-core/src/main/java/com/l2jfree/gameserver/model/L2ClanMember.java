@@ -240,7 +240,10 @@ public class L2ClanMember
 		{
 			//_log.warning("could not set char power_grade:"+e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	public int getPledgeRank()
@@ -287,7 +290,10 @@ public class L2ClanMember
 		{
 			//_log.warning("could not set char power_grade:"+e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	public void initApprenticeAndSponsor(int apprenticeID, int sponsorID)
@@ -616,6 +622,9 @@ public class L2ClanMember
 		{
 			//_log.warning("could not set apprentice/sponsor:"+e.getMessage());
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 }

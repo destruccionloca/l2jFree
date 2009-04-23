@@ -1088,7 +1088,10 @@ public class TvT
 		{
 			_log.error("Exception: TvT.loadData(): " + e.getMessage());
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	public static void saveData()
@@ -1150,7 +1153,10 @@ public class TvT
 		{
 			_log.error("Exception: TvT.saveData(): " + e.getMessage());
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	public static void showEventHtml(L2PcInstance eventPlayer, String objectId)
@@ -1585,7 +1591,10 @@ public class TvT
 							{
 								_log.error(se.getMessage(), se);
 							}
-				            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+							finally
+							{
+								L2DatabaseFactory.close(con);
+							}
 						}
 					}
 				}

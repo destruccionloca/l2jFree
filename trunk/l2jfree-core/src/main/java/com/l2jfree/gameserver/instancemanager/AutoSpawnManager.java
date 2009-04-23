@@ -176,7 +176,10 @@ public class AutoSpawnManager
 		{
 			_log.warn("AutoSpawnHandler: Could not restore spawn data: " + e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/**

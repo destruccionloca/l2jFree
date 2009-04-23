@@ -79,7 +79,10 @@ public class SqlUtils
 		{
 			_log.warn("Error in query '" + query + "':" + e, e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 
 		_log.debug("Get all rows in query '" + query + "' in " + (System.currentTimeMillis() - start) + "ms");
 		return res;

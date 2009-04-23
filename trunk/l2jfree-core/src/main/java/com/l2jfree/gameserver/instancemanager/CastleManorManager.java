@@ -272,7 +272,10 @@ public class CastleManorManager
 		{
 			_log.info("Error restoring manor data: " + e.getMessage());
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	protected void init()

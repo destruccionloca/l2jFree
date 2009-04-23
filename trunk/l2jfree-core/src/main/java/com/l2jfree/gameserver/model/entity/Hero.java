@@ -169,17 +169,8 @@ public class Hero
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-				
-				if (con2 != null)
-					con2.close();
-			}
-			catch (Exception e)
-			{
-			}
+			L2DatabaseFactory.close(con);
+			L2DatabaseFactory.close(con2);
 		}
 
 		_log.info("HeroSystem: Loaded " + _heroes.size() + " Heroes.");
@@ -382,7 +373,10 @@ public class Hero
 					if (_log.isDebugEnabled())
 						_log.debug("", e);
 				}
-	            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+				finally
+				{
+					L2DatabaseFactory.close(con);
+				}
 			}
 		}
 	}
@@ -409,14 +403,7 @@ public class Hero
 				}
 				finally
 				{
-					try
-					{
-						con.close();
-					}
-					catch (Exception e)
-					{
-						_log.error("", e);
-					}
+					L2DatabaseFactory.close(con);
 				}
 			}
 			else
@@ -464,7 +451,6 @@ public class Hero
 							if (_log.isDebugEnabled())
 								_log.debug("", e);
 						}
-
 					}
 					else
 					{
@@ -486,19 +472,15 @@ public class Hero
 
 					}
 				}
-				try
-				{
-					con.close();
-				}
-				catch (Exception e)
-				{
-					_log.error("", e);
-				}
 			}
 		}
 		catch (Exception e)
 		{
 			_log.error("", e);
+		}
+		finally
+		{
+			L2DatabaseFactory.close(con);
 		}
 	}
 
@@ -517,7 +499,10 @@ public class Hero
 		{
 			_log.error("", e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	private void deleteSkillsInDb()
@@ -535,6 +520,9 @@ public class Hero
 		{
 			_log.error(e.getMessage(), e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 }

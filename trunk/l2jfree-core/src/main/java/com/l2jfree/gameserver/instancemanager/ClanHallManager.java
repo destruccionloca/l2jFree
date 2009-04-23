@@ -133,7 +133,10 @@ public class ClanHallManager
 		{
 			_log.fatal("Exception: ClanHallManager.load(): " + e.getMessage());
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/** Get Map with all FreeClanHalls */

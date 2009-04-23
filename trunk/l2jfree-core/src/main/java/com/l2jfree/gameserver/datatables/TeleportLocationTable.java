@@ -92,8 +92,11 @@ public class TeleportLocationTable
 		{
 			_log.error("error while creating teleport table ", e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
- 	}
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
+	}
 
 	/**
 	 * @param template id

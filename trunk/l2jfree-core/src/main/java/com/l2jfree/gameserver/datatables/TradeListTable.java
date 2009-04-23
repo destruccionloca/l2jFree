@@ -197,7 +197,10 @@ public class TradeListTable
 			// problem with initializing buylists, go to next one
 			_log.warn("TradeListTable:" + (custom ? " custom " : " ") + "Buylists could not be initialized.", e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	public void load()
@@ -262,7 +265,10 @@ public class TradeListTable
 		{
 			_log.fatal("TradeController: Could not update Timer save in Buylist");
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	public void dataCountStore()
@@ -302,6 +308,9 @@ public class TradeListTable
 		{
 			_log.fatal("TradeController: Could not store Count Item");
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 }

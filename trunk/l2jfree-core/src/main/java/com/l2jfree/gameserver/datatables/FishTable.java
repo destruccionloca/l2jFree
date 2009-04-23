@@ -96,9 +96,12 @@ public class FishTable
 		{
 			_log.fatal("error while creating fishes table" + e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 
-        _log.info("FishTable: Loaded " + count + " Fishes.");
+		_log.info("FishTable: Loaded " + count + " Fishes.");
 	}
 
 	/**

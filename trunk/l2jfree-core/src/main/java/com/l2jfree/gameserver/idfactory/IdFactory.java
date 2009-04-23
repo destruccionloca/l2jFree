@@ -161,7 +161,10 @@ public abstract class IdFactory
 		catch (SQLException e)
 		{
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/**
@@ -234,7 +237,10 @@ public abstract class IdFactory
 		{
 			_log.error(e.getMessage(), e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/**
@@ -287,7 +293,10 @@ public abstract class IdFactory
 
 			return tmp_obj_ids;
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	public boolean isInitialized()

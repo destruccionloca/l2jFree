@@ -118,7 +118,10 @@ public class AutoChatHandler implements SpawnListener
         {
             _log.warn("AutoSpawnHandler: Could not restore chat data: " + e);
         }
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+        finally
+        {
+            L2DatabaseFactory.close(con);
+        }
     }
 
 	public void reload()

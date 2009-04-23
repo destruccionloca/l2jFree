@@ -624,7 +624,11 @@ public abstract class ItemContainer
         catch (Exception e)
         {
             _log.warn( "could not restore container:", e);
-        } finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+        }
+        finally
+        {
+            L2DatabaseFactory.close(con);
+        }
     }
     
     /**

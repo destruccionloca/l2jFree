@@ -108,7 +108,10 @@ public class Lottery
 		{
 			_log.warn("Lottery: Could not increase current lottery prize: " + e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	public boolean isSellableTickets()
@@ -195,9 +198,12 @@ public class Lottery
 			{
 				_log.warn("Lottery: Could not restore lottery data: " + e);
 			}
-            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+			finally
+			{
+				L2DatabaseFactory.close(con);
+			}
 
-            return true;
+			return true;
 		}
 
 		private void announceLottery()
@@ -248,7 +254,10 @@ public class Lottery
 			{
 				_log.warn("Lottery: Could not store new lottery data: " + e);
 			}
-            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+			finally
+			{
+				L2DatabaseFactory.close(con);
+			}
 		}
 	}
 
@@ -375,7 +384,10 @@ public class Lottery
 			{
 				_log.warn("Lottery: Could restore lottery data: " + e);
 			}
-            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+			finally
+			{
+				L2DatabaseFactory.close(con);
+			}
 
 			int prize4 = count4 * Config.ALT_LOTTERY_2_AND_1_NUMBER_PRIZE;
 			int prize1 = 0;
@@ -442,7 +454,10 @@ public class Lottery
 			{
 				_log.warn("Lottery: Could not store finished lottery data: " + e);
 			}
-            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+			finally
+			{
+				L2DatabaseFactory.close(con);
+			}
 
 			ThreadPoolManager.getInstance().scheduleGeneral(new startLottery(), 1 * MINUTE);
 			_number++;
@@ -562,8 +577,11 @@ public class Lottery
 		{
 			_log.warn("Lottery: Could not check lottery ticket #" + id + ": " + e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 
-        return res;
+		return res;
 	}
 }

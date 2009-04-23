@@ -100,9 +100,12 @@ public class ShortCuts
         }
         catch (Exception e)
         {
-			_log.warn("Could not store character shortcut: " + e);
+            _log.warn("Could not store character shortcut: " + e);
         } 
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+        finally
+        {
+            L2DatabaseFactory.close(con);
+        }
     }
     
     /**
@@ -171,7 +174,10 @@ public class ShortCuts
         {
             _log.warn("Could not delete character shortcut: " + e);
         } 
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+        finally
+        {
+            L2DatabaseFactory.close(con);
+        }
     }
     
     public void restore()
@@ -207,7 +213,10 @@ public class ShortCuts
         {
             _log.warn("Could not restore character shortcuts: " + e);
         } 
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+        finally
+        {
+            L2DatabaseFactory.close(con);
+        }
 
         // verify shortcuts
         for (L2ShortCut sc : getAllShortCuts()) 

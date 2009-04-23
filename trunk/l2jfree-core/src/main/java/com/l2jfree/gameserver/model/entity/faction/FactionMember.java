@@ -80,7 +80,10 @@ public class FactionMember
         {
             _log.warn("Exception: FactionMember.load(): " + e.getMessage(),e);
         }
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+        finally
+        {
+            L2DatabaseFactory.close(con);
+        }
     }
     
     public FactionMember(int playerId, int factionId)
@@ -106,7 +109,10 @@ public class FactionMember
         {
             _log.warn("",e);
         }
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+        finally
+        {
+            L2DatabaseFactory.close(con);
+        }
     }
     
     public void quitFaction()
@@ -129,7 +135,10 @@ public class FactionMember
         {
             _log.warn("Exception: FactionMember.quitFaction(): " + e.getMessage(),e);
         }
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+        finally
+        {
+            L2DatabaseFactory.close(con);
+        }
     }
     
     private void updateDb()
@@ -152,7 +161,10 @@ public class FactionMember
         {
             _log.warn("Exception: FactionMember.updateDb(): " + e.getMessage(),e);
         }
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+        finally
+        {
+            L2DatabaseFactory.close(con);
+        }
     }
     
     public void addFactionPoints(int amount)

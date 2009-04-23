@@ -444,7 +444,10 @@ public class FourSepulchersManager extends BossLair
 			// Problem with initializing spawn, go to next one
 			_log.error("FourSepulchersManager.LoadMysteriousBox: Spawn could not be initialized: ", e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	private void initKeyBoxSpawns()
@@ -545,7 +548,10 @@ public class FourSepulchersManager extends BossLair
 			// Problem with initializing spawn, go to next one
 			_log.error("FourSepulchersManager.LoadPhysicalMonsters: Spawn could not be initialized: ", e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	private void loadMagicalMonsters()
@@ -612,7 +618,10 @@ public class FourSepulchersManager extends BossLair
 			// Problem with initializing spawn, go to next one
 			_log.error("FourSepulchersManager.LoadMagicalMonsters: Spawn could not be initialized: ", e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	private void loadDukeMonsters()
@@ -681,7 +690,10 @@ public class FourSepulchersManager extends BossLair
 			// Problem with initializing spawn, go to next one
 			_log.error("FourSepulchersManager.LoadDukeMonsters: Spawn could not be initialized: ", e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	private void loadEmperorsGraveMonsters()
@@ -748,7 +760,10 @@ public class FourSepulchersManager extends BossLair
 			// Problem with initializing spawn, go to next one
 			_log.error("FourSepulchersManager.LoadEmperorsGraveMonsters: Spawn could not be initialized: ", e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	protected void initLocationShadowSpawns()

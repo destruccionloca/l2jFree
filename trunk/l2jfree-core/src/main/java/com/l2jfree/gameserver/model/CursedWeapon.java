@@ -151,7 +151,10 @@ public class CursedWeapon
                 {
                     _log.warn("Could not delete : " + e);
                 }
-                finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+                finally
+                {
+                    L2DatabaseFactory.close(con);
+                }
             }
         }
         else
@@ -474,13 +477,15 @@ public class CursedWeapon
             }
 
             statement.close();
-            con.close();
         }
         catch (SQLException e)
         {
             _log.error("CursedWeapon: Failed to save data: ", e);
         }
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+        finally
+        {
+            L2DatabaseFactory.close(con);
+        }
     }
 
     public void dropIt(L2Character killer)

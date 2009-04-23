@@ -76,9 +76,15 @@ public class FactionQuest
             statement.setInt (2, factionQuestId);
             statement.executeUpdate();
             statement.close();
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             _log.warn( "could not insert char faction quest:", e);
-        } finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+        }
+        finally
+        {
+            L2DatabaseFactory.close(con);
+        }
     }
 
     public static void endFactionQuest(L2PcInstance player,int factionQuestId)
@@ -98,12 +104,16 @@ public class FactionQuest
             statement = con.prepareStatement("DELETE FROM character_faction_quests WHERE char_id=? AND faction_quest_id=?");
             statement.setInt (1, player.getObjectId());
             statement.setInt (2, factionQuestId);
-        statement.executeUpdate();
+            statement.executeUpdate();
             statement.close();
-        } 
+        }
         catch (Exception e) 
         {
             _log.warn( "could not delete char faction quest:", e);
-        } finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+        }
+        finally
+        {
+            L2DatabaseFactory.close(con);
+        }
     }
 }

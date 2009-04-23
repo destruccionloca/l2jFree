@@ -163,7 +163,7 @@ public class Castle extends Siegeable<Siege>
 
 		public void dbSave(boolean newFunction)
 		{
-			java.sql.Connection con = null;
+			Connection con = null;
 			try
 			{
 				PreparedStatement statement;
@@ -195,7 +195,10 @@ public class Castle extends Siegeable<Siege>
 			{
 				_log.fatal("Exception: Castle.updateFunctions(int type, int lvl, int lease, long rate, long time, boolean addNew): " + e.getMessage(),e);
 			}
-			finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
+			finally
+			{
+				L2DatabaseFactory.close(con);
+			}
 		}
 	}
 
@@ -317,7 +320,9 @@ public class Castle extends Siegeable<Siege>
 			_log.error(e.getMessage(), e);
 		}
 		finally
-		{ try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		{
+			L2DatabaseFactory.close(con);
+		}
 		return true;
 	}
 
@@ -468,7 +473,10 @@ public class Castle extends Siegeable<Siege>
 		{
 			_log.error(e.getMessage(), e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/**
@@ -576,7 +584,10 @@ public class Castle extends Siegeable<Siege>
 		{
 			_log.error("Exception: loadCastleData(): " + e.getMessage(), e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	// This method loads castle door data from database
@@ -610,7 +621,10 @@ public class Castle extends Siegeable<Siege>
 		{
 			_log.error("Exception: loadCastleDoor(): " + e.getMessage(), e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	// This method loads castle door upgrade data from database
@@ -637,7 +651,10 @@ public class Castle extends Siegeable<Siege>
 		{
 			_log.error("Exception: loadCastleDoorUpgrade(): " + e.getMessage(), e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	private void removeDoorUpgrade()
@@ -656,7 +673,10 @@ public class Castle extends Siegeable<Siege>
 		{
 			_log.error("Exception: removeDoorUpgrade(): " + e.getMessage(), e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	private void saveDoorUpgrade(int doorId, int hp, int pDef, int mDef)
@@ -677,7 +697,10 @@ public class Castle extends Siegeable<Siege>
 		{
 			_log.error("Exception: saveDoorUpgrade(int doorId, int hp, int pDef, int mDef): " + e.getMessage(), e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	private void updateOwnerInDB(L2Clan clan)
@@ -726,7 +749,10 @@ public class Castle extends Siegeable<Siege>
 		{
 			_log.error("Exception: updateOwnerInDB(L2Clan clan): " + e.getMessage(), e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	@Override
@@ -952,7 +978,10 @@ public class Castle extends Siegeable<Siege>
 		{
 			_log.info("Error adding seed production data for castle " + getName() + ": " + e.getMessage());
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	//save manor production data for specified period
@@ -1001,7 +1030,10 @@ public class Castle extends Siegeable<Siege>
 		{
 			_log.info("Error adding seed production data for castle " + getName() + ": " + e.getMessage());
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	//save crop procure data
@@ -1066,7 +1098,10 @@ public class Castle extends Siegeable<Siege>
 		{
 			_log.info("Error adding crop data for castle " + getName() + ": " + e.getMessage());
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	//	save crop procure data for specified period
@@ -1115,7 +1150,10 @@ public class Castle extends Siegeable<Siege>
 		{
 			_log.info("Error adding crop data for castle " + getName() + ": " + e.getMessage());
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	public void updateCrop(int cropId, int amount, int period)
@@ -1138,7 +1176,10 @@ public class Castle extends Siegeable<Siege>
 		{
 			_log.info("Error adding crop data for castle " + getName() + ": " + e.getMessage());
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	public void updateSeed(int seedId, int amount, int period)
@@ -1161,7 +1202,10 @@ public class Castle extends Siegeable<Siege>
 		{
 			_log.info("Error adding seed production data for castle " + getName() + ": " + e.getMessage());
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	public boolean isNextPeriodApproved()
@@ -1208,7 +1252,7 @@ public class Castle extends Siegeable<Siege>
 	/** Load All Functions */
 	private void loadFunctions()
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			PreparedStatement statement;
@@ -1227,14 +1271,17 @@ public class Castle extends Siegeable<Siege>
 		{
 			_log.fatal("Exception: Castle.loadFunctions(): " + e.getMessage(),e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/** Remove function In List and in DB */
 	public void removeFunction(int functionType)
 	{
 		_function.remove(functionType);
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			PreparedStatement statement;
@@ -1249,7 +1296,10 @@ public class Castle extends Siegeable<Siege>
 		{
 			_log.fatal("Exception: Castle.removeFunctions(int functionType): " + e.getMessage(),e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	public boolean updateFunctions(L2PcInstance player,int type, int lvl, int lease, long rate, boolean addNew)

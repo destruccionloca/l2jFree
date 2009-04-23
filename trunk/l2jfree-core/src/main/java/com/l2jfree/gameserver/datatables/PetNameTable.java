@@ -60,8 +60,11 @@ public class PetNameTable
 		{
 			_log.warn("could not check existing petname:" + e.getMessage());
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 
-        return result;
+		return result;
 	}
 }

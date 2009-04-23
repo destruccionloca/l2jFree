@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.communitybbs.bb;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -101,7 +102,7 @@ public class Forum
 	 */
 	private void load()
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -125,9 +126,12 @@ public class Forum
 		{
 			_log.warn("data error on Forum " + _forumId + " : ", e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 
-        con = null;
+		con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -154,7 +158,10 @@ public class Forum
 		{
 			_log.warn("data error on Forum " + _forumId + " : ", e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/**
@@ -162,7 +169,7 @@ public class Forum
 	 */
 	private void getChildren()
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -183,7 +190,10 @@ public class Forum
 		{
 			_log.warn("data error on Forum (children): ", e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	public int getTopicSize()
@@ -255,7 +265,7 @@ public class Forum
 	 */
 	public void insertindb()
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -276,7 +286,10 @@ public class Forum
 		{
 			_log.warn("error while saving new Forum to db ", e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/**

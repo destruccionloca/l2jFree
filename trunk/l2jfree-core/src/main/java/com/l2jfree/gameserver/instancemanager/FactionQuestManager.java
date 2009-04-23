@@ -92,7 +92,10 @@ public class FactionQuestManager
 		{
 			_log.warn("Exception: FactionQuestManager.load(): " + e.getMessage(), e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	// =========================================================

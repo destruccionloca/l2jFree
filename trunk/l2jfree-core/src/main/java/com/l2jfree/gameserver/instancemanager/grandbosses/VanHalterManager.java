@@ -294,7 +294,10 @@ public class VanHalterManager extends BossLair
 			// Problem with initializing spawn, go to next one
 			_log.warn("VanHalterManager.loadRoyalGuard: Spawn could not be initialized: " + e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	protected void spawnRoyalGuard()
@@ -369,7 +372,10 @@ public class VanHalterManager extends BossLair
 			// Problem with initializing spawn, go to next one
 			_log.warn("VanHalterManager.loadTriolRevelation: Spawn could not be initialized: " + e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	protected void spawnTriolRevelation()
@@ -445,7 +451,10 @@ public class VanHalterManager extends BossLair
 			// Problem with initializing spawn, go to next one
 			_log.warn("VanHalterManager.loadRoyalGuardCaptain: Spawn could not be initialized: " + e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	protected void spawnRoyalGuardCaptain()
@@ -520,7 +529,10 @@ public class VanHalterManager extends BossLair
 			// Problem with initializing spawn, go to next one
 			_log.warn("VanHalterManager.loadRoyalGuardHelper: Spawn could not be initialized: " + e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	protected void spawnRoyalGuardHepler()
@@ -590,8 +602,10 @@ public class VanHalterManager extends BossLair
 			// Problem with initializing spawn, go to next one
 			_log.warn("VanHalterManager.loadGuardOfAltar: Spawn could not be initialized: " + e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
-
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	protected void spawnGuardOfAltar()
@@ -665,7 +679,10 @@ public class VanHalterManager extends BossLair
 			// Problem with initializing spawn, go to next one
 			_log.warn("VanHalterManager.loadVanHalter: Spawn could not be initialized: " + e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	protected void spawnVanHalter()
@@ -732,7 +749,10 @@ public class VanHalterManager extends BossLair
 			// Problem with initializing spawn, go to next one
 			_log.warn("VanHalterManager.loadRitualOffering: Spawn could not be initialized: " + e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	protected void spawnRitualOffering()
@@ -800,7 +820,10 @@ public class VanHalterManager extends BossLair
 			// Problem with initializing spawn, go to next one
 			_log.warn("VanHalterManager.loadRitualSacrifice: Spawn could not be initialized: " + e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	protected void spawnRitualSacrifice()

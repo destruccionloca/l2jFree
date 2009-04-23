@@ -1619,7 +1619,10 @@ public class CTF
 		{
 			_log.error("Exception: CTF.loadData(): " + e.getMessage());
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	public static void saveData()
@@ -1685,7 +1688,10 @@ public class CTF
 		{
 			_log.error("Exception: CTF.saveData(): " + e.getMessage());
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	public static void showEventHtml(L2PcInstance eventPlayer, String objectId)
@@ -2135,7 +2141,10 @@ public class CTF
 							{
 								_log.error(se.getMessage(), se);
 							}
-							finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+							finally
+							{
+								L2DatabaseFactory.close(con);
+							}
 						}
 					}
 				}

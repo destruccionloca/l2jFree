@@ -96,7 +96,10 @@ public class Faction
         {
             _log.warn("Exception: Faction load: " + e.getMessage(),e);
         }
-        finally { try { if (con != null) con.close(); } catch (Exception e) {} }
+        finally
+        {
+            L2DatabaseFactory.close(con);
+        }
     }
     
     private void updateDB()
@@ -118,7 +121,10 @@ public class Faction
         {
             _log.warn("Exception: Faction.load(): " + e.getMessage(),e);
         }
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+        finally
+        {
+            L2DatabaseFactory.close(con);
+        }
     }
     
     public void addPoints(int points) 

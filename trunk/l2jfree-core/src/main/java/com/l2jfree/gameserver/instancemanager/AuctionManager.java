@@ -152,7 +152,10 @@ public class AuctionManager
 		{
 			_log.fatal("Exception: AuctionManager.load(): " + e.getMessage());
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	public final Auction getAuction(int auctionId)
@@ -212,6 +215,9 @@ public class AuctionManager
 		{
 			_log.fatal("Exception: Auction.initNPC(): " + e.getMessage(), e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 }

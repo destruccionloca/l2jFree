@@ -411,7 +411,10 @@ public class AdminSmartShop implements IAdminCommandHandler
 		{
 			_log.warn("data error on item: ", e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 
 		for (Integer x : smartList)
 		{
@@ -2409,7 +2412,10 @@ public class AdminSmartShop implements IAdminCommandHandler
 		catch (Exception e)
 		{
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 
 		return shopIds;
 
@@ -2451,7 +2457,10 @@ public class AdminSmartShop implements IAdminCommandHandler
 		catch (Exception e)
 		{
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 
 		return NpcIds;
 

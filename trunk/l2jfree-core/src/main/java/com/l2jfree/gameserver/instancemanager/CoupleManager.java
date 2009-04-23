@@ -92,7 +92,10 @@ public class CoupleManager
 		{
 			_log.error("Exception: CoupleManager.load(): " + e.getMessage(), e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	// =========================================================
@@ -162,7 +165,10 @@ public class CoupleManager
 					{
 						e.printStackTrace();
 					}
-		            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+					finally
+					{
+						L2DatabaseFactory.close(con);
+					}
 				}
 			}
 			if (player2 != null)
@@ -194,7 +200,10 @@ public class CoupleManager
 					{
 						e.printStackTrace();
 					}
-		            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+					finally
+					{
+						L2DatabaseFactory.close(con);
+					}
 				}
 			}
 			couple.divorce();

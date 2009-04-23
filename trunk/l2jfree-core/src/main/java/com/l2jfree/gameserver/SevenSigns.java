@@ -744,13 +744,15 @@ public class SevenSigns
 			statement.execute();
 
 			statement.close();
-			con.close();
 		}
 		catch (SQLException e)
 		{
 			_log.fatal("SevenSigns: Unable to load Seven Signs data from database: " + e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 
 		// Festival data is loaded now after the Seven Signs engine data.
 	}
@@ -837,18 +839,18 @@ public class SevenSigns
 				statement.execute();
 
 				statement.close();
-				con.close();
-
 				if (_log.isDebugEnabled())
 					_log.info("SevenSigns: Updated data in database.");
-
 			}
 		}
 		catch (SQLException e)
 		{
 			_log.fatal("SevenSigns: Unable to save data to database: " + e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/**
@@ -935,7 +937,6 @@ public class SevenSigns
 				statement.execute();
 
 				statement.close();
-				con.close();
 
 				if (_log.isDebugEnabled())
 					_log.info("SevenSigns: Inserted data in DB for char ID " + currPlayerData.getInteger("charId") + " (" + currPlayerData.getString("cabal")
@@ -945,7 +946,10 @@ public class SevenSigns
 			{
 				_log.fatal("SevenSigns: Failed to save data: " + e);
 			}
-            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+			finally
+			{
+				L2DatabaseFactory.close(con);
+			}
 		}
 
 		// Increasing Seal total score for the player chosen Seal.
@@ -1490,21 +1494,26 @@ public class SevenSigns
 		return false;
 	}
 
-	private void renewCertificateShops() {
+	private void renewCertificateShops()
+	{
 		Connection con = null;
-		try {
+		try
+		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement = con.prepareStatement(RESET_CERTIFICATE_SHOPS);
 			statement.executeUpdate();
 			statement.close();
-			con.close();
 
 			if (_log.isDebugEnabled())
 				_log.info("SevenSigns: Updated Castle certificate shops!");
 		}
-		catch (SQLException e) {
+		catch (SQLException e)
+		{
 			_log.fatal("SevenSigns: Failed to update certificate shops: " + e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 }

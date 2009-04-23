@@ -375,7 +375,10 @@ public class SkillTreeTable
 		{
 			_log.fatal("Error while creating Transformation skill table " + e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 
 		_log.info("FishingSkillTreeTable:   Loaded " + count2 + " general skills.");
 		_log.info("FishingSkillTreeTable:   Loaded " + count3 + " dwarven skills.");

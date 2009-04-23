@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.communitybbs.Manager;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -74,7 +75,7 @@ public class ForumsBBSManager extends BaseBBSManager
 	 */
 	private void load()
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -94,7 +95,10 @@ public class ForumsBBSManager extends BaseBBSManager
 		{
 			_log.warn("data error on Forum (root): ", e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/* (non-Javadoc)

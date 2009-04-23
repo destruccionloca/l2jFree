@@ -177,9 +177,12 @@ public class RequestDestroyItem extends L2GameClientPacket
 			}
 			catch (Exception e)
 			{
-                _log.warn( "could not delete pet objectid: ", e);
+				_log.warn( "could not delete pet objectid: ", e);
 			}
-            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+			finally
+			{
+				L2DatabaseFactory.close(con);
+			}
 		}
 		
 		L2ItemInstance removedItem = activeChar.getInventory().destroyItem("Destroy", _objectId, count, activeChar, null);

@@ -65,7 +65,10 @@ public class SkillSpellbookTable
 		{
 			_log.warn("Error while loading spellbook data: " + e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	public int getBookForSkill(int skillId, int level)

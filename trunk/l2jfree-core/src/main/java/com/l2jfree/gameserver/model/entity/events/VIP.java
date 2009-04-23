@@ -190,7 +190,10 @@ public class VIP {
 		{
 			_log.error("Could not check End & Start LOC for team" + _team + " got: " + e.getMessage());
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	public static void endNPC(int npcId, L2PcInstance activeChar)

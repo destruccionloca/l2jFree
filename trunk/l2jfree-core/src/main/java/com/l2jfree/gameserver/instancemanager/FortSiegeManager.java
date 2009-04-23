@@ -148,9 +148,12 @@ public class FortSiegeManager
 		{
 			_log.warn("Exception: checkIsRegistered(): " + e.getMessage());
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 
-        return register;
+		return register;
 	}
 
 	public final void removeSiegeSkills(L2PcInstance character)

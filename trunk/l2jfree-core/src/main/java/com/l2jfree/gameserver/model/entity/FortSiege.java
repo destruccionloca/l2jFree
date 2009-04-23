@@ -469,7 +469,10 @@ public class FortSiege extends AbstractSiege
 		{
 			_log.warn("Exception: clearSiegeClan(): " + e.getMessage(), e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/** Set the date for the next siege. */
@@ -660,7 +663,10 @@ public class FortSiege extends AbstractSiege
 		{
 			_log.error(e.getMessage(), e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/**
@@ -853,7 +859,10 @@ public class FortSiege extends AbstractSiege
 		{
 			_log.warn("Exception: loadSiegeClan(): " + e.getMessage(), e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/** Remove commanders. */
@@ -908,7 +917,10 @@ public class FortSiege extends AbstractSiege
 		{
 			_log.warn("Exception: saveSiegeDate(): " + e.getMessage(), e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/**
@@ -938,7 +950,10 @@ public class FortSiege extends AbstractSiege
 		{
 			_log.warn("Exception: saveSiegeClan(L2Clan clan, int typeId, boolean isUpdateRegistration): " + e.getMessage(), e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/** Spawn commanders. */

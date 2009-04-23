@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.communitybbs.Manager;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -114,7 +115,7 @@ public class MailBBSManager extends BaseBBSManager
 	public FastList<UpdateMail> getMail(L2PcInstance activeChar)
 	{
 		FastList<UpdateMail> _letters = new FastList<UpdateMail>();
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -147,15 +148,7 @@ public class MailBBSManager extends BaseBBSManager
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			L2DatabaseFactory.close(con);
 		}
 		return _letters;
 	}
@@ -743,7 +736,7 @@ public class MailBBSManager extends BaseBBSManager
 
 	private void sendLetter(String recipients, String subject, String message, L2PcInstance activeChar)
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -844,15 +837,7 @@ public class MailBBSManager extends BaseBBSManager
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
@@ -876,7 +861,7 @@ public class MailBBSManager extends BaseBBSManager
 
 	public void storeLetter(int letterId)
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			int ownerId, senderId;
@@ -916,21 +901,13 @@ public class MailBBSManager extends BaseBBSManager
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
 	public void deleteLetter(int letterId)
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -945,21 +922,13 @@ public class MailBBSManager extends BaseBBSManager
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
 	private void setLetterToRead(int letterId)
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -975,15 +944,7 @@ public class MailBBSManager extends BaseBBSManager
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
@@ -1006,7 +967,7 @@ public class MailBBSManager extends BaseBBSManager
 	{
 		boolean isGM = false;
 
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -1023,15 +984,7 @@ public class MailBBSManager extends BaseBBSManager
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			L2DatabaseFactory.close(con);
 		}
 		return isGM;
 	}
@@ -1040,7 +993,7 @@ public class MailBBSManager extends BaseBBSManager
 	{
 		boolean isFull = false;
 
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -1058,15 +1011,7 @@ public class MailBBSManager extends BaseBBSManager
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			L2DatabaseFactory.close(con);
 		}
 		return isFull;
 	}
@@ -1076,7 +1021,7 @@ public class MailBBSManager extends BaseBBSManager
 	{
 		boolean hasUnreadMail = false;
 
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -1095,15 +1040,7 @@ public class MailBBSManager extends BaseBBSManager
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			L2DatabaseFactory.close(con);
 		}
 		return hasUnreadMail;
 	}
@@ -1120,6 +1057,5 @@ public class MailBBSManager extends BaseBBSManager
 			sendLetter(ar3, ar4, ar5, activeChar);
 			showSentbox(activeChar, 0);
 		}
-
 	}
 }

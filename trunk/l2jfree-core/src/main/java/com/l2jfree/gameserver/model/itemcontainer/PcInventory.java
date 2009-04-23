@@ -592,10 +592,14 @@ public class PcInventory extends Inventory
             invdata.close();
             statement2.close();
         } 
-        catch (Exception e) {
+        catch (Exception e)
+        {
             _log.warn( "could not restore inventory:", e);
         } 
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+        finally
+        {
+            L2DatabaseFactory.close(con);
+        }
         
         return paperdoll;
     }

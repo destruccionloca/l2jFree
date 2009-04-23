@@ -79,7 +79,10 @@ public class HennaTable
 				_log.error("error while creating henna table " + e, e);
 			}
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	private void fillHennaTable(ResultSet hennaData) throws Exception

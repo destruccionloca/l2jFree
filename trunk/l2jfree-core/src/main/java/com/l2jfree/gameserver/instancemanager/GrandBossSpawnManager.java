@@ -93,7 +93,10 @@ public class GrandBossSpawnManager extends BossSpawnManager
 		{
 			_log.error(e.getMessage(), e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	@Override
@@ -121,7 +124,10 @@ public class GrandBossSpawnManager extends BossSpawnManager
 			// Problem with storing spawn
 			_log.warn("GrandBossSpawnManager: Could not store grand boss #" + spawnDat.getNpcId() + " in the DB:" + e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	@Override
@@ -145,7 +151,10 @@ public class GrandBossSpawnManager extends BossSpawnManager
 		{
 			_log.warn("GrandBossSpawnManager: Could not update raidboss #" + bossId + " in DB: " + e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	@Override
@@ -167,7 +176,10 @@ public class GrandBossSpawnManager extends BossSpawnManager
 			// Problem with deleting spawn
 			_log.warn("GrandBossSpawnManager: Could not remove grand boss #" + bossId + " from DB: " + e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	@Override
@@ -208,7 +220,10 @@ public class GrandBossSpawnManager extends BossSpawnManager
 			{
 				_log.error("GrandBossSpawnManager: Couldnt update grandboss_spawnlist table", e);
 			}
-            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+			finally
+			{
+				L2DatabaseFactory.close(con);
+			}
 		}
 	}
 

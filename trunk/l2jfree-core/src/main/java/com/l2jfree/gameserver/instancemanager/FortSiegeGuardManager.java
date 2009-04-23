@@ -145,7 +145,10 @@ public class FortSiegeGuardManager
 			_log.warn("Error loading siege guard for fort " + getFort().getName() + ":" + e1);
 			e1.printStackTrace();
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	public final Fort getFort()

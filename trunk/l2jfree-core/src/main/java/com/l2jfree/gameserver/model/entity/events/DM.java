@@ -488,7 +488,10 @@ public class DM
 		{
 			_log.error("Exception: DM.loadData(): " + e.getMessage());
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	public static void saveData()
@@ -526,7 +529,10 @@ public class DM
 		{
 			_log.error("Exception: DM.saveData(): " + e.getMessage());
 		}		
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	public static void showEventHtml(L2PcInstance eventPlayer, String objectId)

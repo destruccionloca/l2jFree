@@ -73,7 +73,10 @@ public class StackIDFactory extends IdFactory
 		{
 			_log.fatal("ID Factory could not be initialized correctly:" + e1, e1);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	private int insertUntil(int[] tmp_obj_ids, int idx, int N, Connection con) throws SQLException

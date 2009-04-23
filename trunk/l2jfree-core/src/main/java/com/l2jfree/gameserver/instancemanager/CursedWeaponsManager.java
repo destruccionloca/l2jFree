@@ -201,10 +201,11 @@ public class CursedWeaponsManager
 				rset.close();
 				statement.close();
 			}
-			con.close();
+
+			//L2DatabaseFactory.close(con);
 
 			// Retrieve the L2PcInstance from the characters table of the database
-			con = L2DatabaseFactory.getInstance().getConnection(con);
+			//con = L2DatabaseFactory.getInstance().getConnection(con);
 
 			for (CursedWeapon cw : _cursedWeapons.values())
 			{
@@ -261,13 +262,15 @@ public class CursedWeaponsManager
 				catch (SQLException sqlE)
 				{
 				}
-				// Close the statement to avoid multiply prepared statement errors in following iterations.
-				try
+				finally
 				{
-					con.close();
-				}
-				catch (Exception e)
-				{
+					try
+					{
+						statement.close();
+					}
+					catch (Exception e)
+					{
+					}
 				}
 			}
 		}
@@ -275,7 +278,10 @@ public class CursedWeaponsManager
 		{
 			_log.warn("Could not load CursedWeapons data: " + e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 
 		_log.info("CursedWeaponsManager: loaded " + _cursedWeapons.size() + " cursed weapon(s).");
 	}
@@ -405,13 +411,15 @@ public class CursedWeaponsManager
 			statement.executeUpdate();
 
 			statement.close();
-			con.close();
 		}
 		catch (SQLException e)
 		{
 			_log.fatal("CursedWeaponsManager: Failed to remove data: " + e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	public void saveData()

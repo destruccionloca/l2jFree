@@ -93,7 +93,10 @@ public class RaidBossSpawnManager extends BossSpawnManager
 		{
 			_log.error(e.getMessage(), e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	@Override
@@ -122,7 +125,10 @@ public class RaidBossSpawnManager extends BossSpawnManager
 			// Problem with storing spawn
 			_log.warn("RaidBossSpawnManager: Could not store raidboss #" + spawnDat.getNpcId() + " in the DB:" + e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	@Override
@@ -146,7 +152,10 @@ public class RaidBossSpawnManager extends BossSpawnManager
 		{
 			_log.warn("RaidBossSpawnManager: Could not update raidboss #" + bossId + " in DB: " + e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	@Override
@@ -167,7 +176,10 @@ public class RaidBossSpawnManager extends BossSpawnManager
 			// Problem with deleting spawn
 			_log.warn("RaidBossSpawnManager: Could not remove raidboss #" + bossId + " from DB: " + e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	@Override
@@ -202,7 +214,10 @@ public class RaidBossSpawnManager extends BossSpawnManager
 			{
 				_log.error("RaidBossSpawnManager: Couldnt update raidboss_spawnlist table", e);
 			}
-            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+			finally
+			{
+				L2DatabaseFactory.close(con);
+			}
 		}
 	}
 

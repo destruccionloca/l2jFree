@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.communitybbs.bb;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -71,7 +72,7 @@ public class Post
 
 	public void insertindb(CPost cp)
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -91,8 +92,10 @@ public class Post
 		{
 			_log.warn("error while saving new Post to db ", e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
-
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	public Post(Topic t)
@@ -117,7 +120,7 @@ public class Post
 	public void deleteme(Topic t)
 	{
 		PostBBSManager.getInstance().delPostByTopic(t);
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -131,7 +134,10 @@ public class Post
 		{
 			_log.error(e.getMessage(), e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/**
@@ -139,7 +145,7 @@ public class Post
 	 */
 	private void load(Topic t)
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -166,7 +172,10 @@ public class Post
 		{
 			_log.warn("data error on Post " + t.getForumID() + "/" + t.getID() + " : ", e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/**
@@ -174,7 +183,7 @@ public class Post
 	 */
 	public void updatetxt(int i)
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			CPost cp = getCPost(i);
@@ -191,6 +200,9 @@ public class Post
 		{
 			_log.warn("error while saving new Post to db ", e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 }

@@ -131,7 +131,10 @@ public class GrandBossState
 		{
 			_log.error(e.getMessage(), e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	public void save()
@@ -152,7 +155,10 @@ public class GrandBossState
 		{
 			_log.error(e.getMessage(), e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	public void update()
@@ -174,7 +180,10 @@ public class GrandBossState
 		{
 			_log.warn("Exeption on update GrandBossState : ID-" + _bossId + ",RespawnDate-" + _respawnDate + ",State-" + _state.toString(), e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	public void setNextRespawnDate(long newRespawnDate)

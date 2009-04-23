@@ -317,15 +317,7 @@ public class CharTemplateTable
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (Exception e)
-			{
-				// nothing
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 

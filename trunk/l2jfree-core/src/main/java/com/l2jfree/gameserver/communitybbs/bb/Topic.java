@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.communitybbs.bb;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -76,7 +77,7 @@ public class Topic
 	 */
 	public void insertindb()
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -98,7 +99,10 @@ public class Topic
 		{
 			_log.warn("error while saving new Topic to db ", e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	public enum ConstructorType
@@ -141,7 +145,7 @@ public class Topic
 	{
 		TopicBBSManager.getInstance().delTopic(this);
 		f.rmTopicByID(getID());
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -155,7 +159,10 @@ public class Topic
 		{
 			_log.error(e.getMessage(), e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/**

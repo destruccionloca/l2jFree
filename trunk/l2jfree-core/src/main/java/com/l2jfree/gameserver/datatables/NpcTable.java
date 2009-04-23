@@ -426,15 +426,7 @@ public class NpcTable
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close(); 
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			L2DatabaseFactory.close(con);
 		}
 
 		_initialized = true;
@@ -704,9 +696,12 @@ public class NpcTable
 		catch (Exception e)
 		{
 			_log.warn("NPCTable: Could not reload data for NPC " + id + ": " + e, e);
-			return false;
+			loaded = false;
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 
 		return loaded;
 	}
@@ -777,7 +772,10 @@ public class NpcTable
 		{
 			_log.warn("NPCTable: Could not store new NPC data in database: ", e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	public boolean isInitialized()

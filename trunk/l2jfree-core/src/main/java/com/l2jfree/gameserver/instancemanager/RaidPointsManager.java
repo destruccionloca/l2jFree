@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.instancemanager;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -46,7 +47,7 @@ public class RaidPointsManager
 	{
 		_list = new FastMap<Integer, Map<Integer, Integer>>();
 		FastList<Integer> _chars = new FastList<Integer>();
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
@@ -84,20 +85,13 @@ public class RaidPointsManager
 		}
 		finally
 		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-				_log.warn(e.getMessage());
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
 	public final static void updatePointsInDB(L2PcInstance player, int raidId, int points)
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
@@ -115,13 +109,7 @@ public class RaidPointsManager
 		}
 		finally
 		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
@@ -174,7 +162,7 @@ public class RaidPointsManager
 
 	public final static void cleanUp()
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
@@ -191,13 +179,7 @@ public class RaidPointsManager
 		}
 		finally
 		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 

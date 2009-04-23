@@ -112,7 +112,10 @@ public class CastleManager
 		{
 			_log.warn("Exception: loadCastleData(): " + e.getMessage());
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	public final Castle getCastleById(int castleId)
@@ -251,7 +254,10 @@ public class CastleManager
 			{
 				_log.error("Failed to remove castle circlets offline for player " + member.getName(), e);
 			}
-			finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+			finally
+			{
+				L2DatabaseFactory.close(con);
+			}
 		}
 	}
 }

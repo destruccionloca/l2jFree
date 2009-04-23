@@ -128,7 +128,10 @@ public class RequestExSetPledgeCrestLarge extends L2GameClientPacket
             {
                 _log.warn("could not update the large crest id:"+e.getMessage());
             }
-            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+            finally
+            {
+                L2DatabaseFactory.close(con);
+            }
             
             clan.setCrestLargeId(newId);
             clan.setHasCrestLarge(true);

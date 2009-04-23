@@ -972,7 +972,6 @@ public class SevenSignsFestival implements SpawnListener
 
 			rset.close();
 			statement.close();
-			con.close();
 
 			if (_log.isDebugEnabled())
 				_log.debug("SevenSignsFestival: Loaded data from database.");
@@ -983,27 +982,7 @@ public class SevenSignsFestival implements SpawnListener
 		}
 		finally
 		{
-			try
-			{
-				if (rset != null)
-				{
-					rset.close();
-					rset = null;
-				}
-				if (statement != null)
-				{
-					statement.close();
-					statement = null;
-				}
-				if (con != null)
-				{
-					con.close();
-					con = null;
-				}
-			}
-			catch (SQLException e)
-			{
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
@@ -1073,8 +1052,6 @@ public class SevenSignsFestival implements SpawnListener
 				}
 			}
 
-			con.close();
-
 			// Updates Seven Signs DB data also, so call only if really necessary.
 			if (updateSettings)
 				SevenSigns.getInstance().saveSevenSignsData(null, true);
@@ -1085,22 +1062,7 @@ public class SevenSignsFestival implements SpawnListener
 		}
 		finally
 		{
-			try
-			{
-				if (statement != null)
-				{
-					statement.close();
-					statement = null;
-				}
-				if (con != null)
-				{
-					con.close();
-					con = null;
-				}
-			}
-			catch (Exception e)
-			{
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
@@ -1205,17 +1167,7 @@ public class SevenSignsFestival implements SpawnListener
 			}
 			finally
 			{
-				try
-				{
-					if (con != null)
-					{
-						con.close();
-						con = null;
-					}
-				}
-				catch (Exception e)
-				{
-				}
+				L2DatabaseFactory.close(con);
 			}
 		}
 	}

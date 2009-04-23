@@ -214,7 +214,10 @@ public class CharSelectionInfo extends L2GameServerPacket
 		{
 			_log.warn("Could not restore char info: " + e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 
 		return new CharSelectInfoPackage[0];
 	}
@@ -246,7 +249,11 @@ public class CharSelectionInfo extends L2GameServerPacket
 		{
 			_log.warn("Could not restore char subclass info: " + e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
+
 	}
 
 
@@ -352,7 +359,10 @@ public class CharSelectionInfo extends L2GameServerPacket
 			{
 				_log.warn("Could not restore augmentation info: " + e);
 			}
-			finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+			finally
+			{
+				L2DatabaseFactory.close(con);
+			}
 		}
 		/*
 		 * Check if the base class is set to zero and alse doesn't match
