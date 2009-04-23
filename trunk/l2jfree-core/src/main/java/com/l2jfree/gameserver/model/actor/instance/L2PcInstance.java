@@ -11671,12 +11671,12 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (getActiveEnchantItem() != null)
 		{
 			sendMessage("You can't logout while enchanting.");
-			return;
+			return false;
 		}
 		if (getActiveEnchantAttrItem() != null)
 		{
 			sendMessage("You can't logout while enchanting.");
-			return;
+			return false;
 		}
 
 		return true;
