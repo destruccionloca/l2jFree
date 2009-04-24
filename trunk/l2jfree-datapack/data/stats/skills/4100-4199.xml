@@ -762,7 +762,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <effect name="Buff" time="60" count="0x7fffffff" val="0" stackOrder="#Tab-pAtk" stackType="area_weakness">
+      <effect name="HealOverTime" time="60" count="0x7fffffff" val="0" stackOrder="#Tab-pAtk" stackType="area_weakness">
         <mul order="0x30" stat="pAtk" val="#Tab-pAtk"/>
       </effect>
     </for>
@@ -775,7 +775,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <effect name="Buff" time="60" count="0x7fffffff" val="0" stackOrder="#Tab-pDef" stackType="area_pddown">
+      <effect name="HealOverTime" time="60" count="0x7fffffff" val="0" stackOrder="#Tab-pDef" stackType="area_pddown">
         <mul order="0x30" stat="pDef" val="#Tab-pDef"/>
       </effect>
     </for>

@@ -187,6 +187,7 @@ full_install()
 	$MYG < ../sql/castle_manor_procure.sql &> /dev/null
 	$MYG < ../sql/castle_manor_production.sql &> /dev/null
 	$MYG < ../sql/castle_siege_guards.sql &> /dev/null
+	$MYG < ../sql/castle_zoneupgrade.sql &> /dev/null
 	$MYG < ../sql/char_creation_items.sql &> /dev/null
 	$MYG < ../sql/char_templates.sql &> /dev/null
 	$MYG < ../sql/character_friends.sql &> /dev/null
@@ -412,6 +413,7 @@ update_db()
 			$MYG < ../sql/updates/20090403update.sql
 			$MYG < ../sql/updates/20090421update.sql
 			$MYG < ../sql/updates/20090422update.sql
+			$MYG < ../sql/updates/20090424update.sql
 			echo "Update completed"
 		# Bad argument O_o
 		else
