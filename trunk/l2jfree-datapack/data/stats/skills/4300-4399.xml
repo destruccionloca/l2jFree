@@ -751,7 +751,7 @@
   <skill id="4352" levels="2" name="Clan Hall: Berserker Spirit">
     <table name="#mAtk">1.1 1.16</table>
     <table name="#pAtk">1.05 1.08</table>
-    <table name="#mDef">0.90 0.84</table>
+    <table name="#mDef">0.9 0.84</table>
     <table name="#pDef">0.95 0.92</table>
     <table name="#mAtkSpd">1.05 1.08</table>
     <table name="#pAtkSpd">1.05 1.08</table>

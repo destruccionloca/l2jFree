@@ -648,7 +648,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <mul order="0x30" stat="DanceMpConsumeRate" val="0.90"/>
+      <mul order="0x30" stat="DanceMpConsumeRate" val="0.9"/>
     </for>
   </skill>
   <skill id="429" levels="1" name="Knighthood">
@@ -752,7 +752,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <mul order="0x30" stat="darkVuln" val="0.90"/>
+      <mul order="0x30" stat="darkVuln" val="0.9"/>
       <mul order="0x30" stat="mAtk" val="1.03"/>
     </for>
   </skill>
@@ -1681,7 +1681,7 @@
       <effect count="1" name="Buff" time="90" val="0">
         <mul order="0x30" stat="rCrit" val="#amount"/>
         <mul order="0x30" stat="cAtkAdd" val="#amount"/>
-        <mul order="0x30" stat="pDef" val="0.80"/>
+        <mul order="0x30" stat="pDef" val="0.8"/>
       </effect>
     </for>
   </skill>
