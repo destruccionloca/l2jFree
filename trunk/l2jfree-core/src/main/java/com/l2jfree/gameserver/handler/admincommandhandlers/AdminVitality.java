@@ -83,19 +83,19 @@ public class AdminVitality implements IAdminCommandHandler
 					switch (level)
 					{
 					case 0:
-						vitality = 1.0;
+						vitality = 0.0;
 						break;
 					case 1:
-						vitality = 3601.0;
+						vitality = 240.0;
 						break;
 					case 2:
-						vitality = 27001.0;
+						vitality = 1800.0;
 						break;
 					case 3:
-						vitality = 219001.0;
+						vitality = 14600.0;
 						break;
 					case 4:
-						vitality = 273001.0;
+						vitality = 18200.0;
 						break;
 					}
 					target.setVitalityPoints(vitality, true);
@@ -106,7 +106,7 @@ public class AdminVitality implements IAdminCommandHandler
 			}
 			else if (cmd.equals("admin_full_vitality"))
 			{
-				target.setVitalityPoints(300000.0, true);
+				target.setVitalityPoints(20000.0, true);
 				target.sendMessage("Admin completly recharged your Vitality");
 			}
 			else if (cmd.equals("admin_empty_vitality"))

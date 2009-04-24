@@ -153,7 +153,7 @@ public class CharacterCreate extends L2GameClientPacket
 		newChar.getPosition().setXYZInvisible(template.getSpawnX(), template.getSpawnY(), template.getSpawnZ());
 		newChar.setTitle("");
 
-		newChar.setVitalityPoints(300000.0, false);
+		newChar.setVitalityPoints(20000.0, false);
 
 		L2ShortCut shortcut;
 		//add attack shortcut

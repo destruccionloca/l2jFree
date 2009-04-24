@@ -3164,10 +3164,10 @@ public final class Config extends L2Config
 			RATE_VITALITY_LEVEL_3 = Float.parseFloat(vitalitySettings.getProperty("RateVitalityLevel3", "2.5"));
 			RATE_VITALITY_LEVEL_4 = Float.parseFloat(vitalitySettings.getProperty("RateVitalityLevel4", "3."));
 			RATE_DROP_VITALITY_HERBS = Float.parseFloat(vitalitySettings.getProperty("RateVitalityHerbs", "2."));
-			RATE_RECOVERY_VITALITY_PEACE_ZONE = Float.parseFloat(vitalitySettings.getProperty("RateRecoveryPeaceZone", "0.25"));
+			RATE_RECOVERY_VITALITY_PEACE_ZONE = Float.parseFloat(vitalitySettings.getProperty("RateRecoveryPeaceZone", "1."));
 			RATE_VITALITY_LOST = Float.parseFloat(vitalitySettings.getProperty("RateVitalityLost", "1."));
 			RATE_VITALITY_GAIN = Float.parseFloat(vitalitySettings.getProperty("RateVitalityGain", "1."));
-			RATE_RECOVERY_ON_RECONNECT = Float.parseFloat(vitalitySettings.getProperty("RateRecoveryOnReconnect", "1."));
+			RATE_RECOVERY_ON_RECONNECT = Float.parseFloat(vitalitySettings.getProperty("RateRecoveryOnReconnect", "4."));
 
 		}
 		catch (Exception e)

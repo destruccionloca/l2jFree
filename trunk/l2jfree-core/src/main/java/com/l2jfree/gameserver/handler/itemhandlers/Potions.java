@@ -461,7 +461,7 @@ public class Potions implements IItemHandler
 			break;
 		case 20034: //Revita-Pop
 			activeChar.destroyItem("Consume", item.getObjectId(), 1, null, false);
-			activeChar.setVitalityPoints(300000.0, true);
+			activeChar.setVitalityPoints(20000.0, true);
 			activeChar.updateVitalityLevel(false);
 			activeChar.sendMessage("Your Vitality Level is set to 4");
 			break;
