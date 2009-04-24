@@ -17,9 +17,7 @@ package com.l2jfree.gameserver.skills.l2skills;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Effect;
-import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -58,44 +56,18 @@ public class L2SkillDrain extends L2Skill
 
 			if (activeChar != target && (target.isInvul() || target.isPetrified()))
 				continue; // No effect on invulnerable chars unless they cast it themselves.
-
-			L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
-
-			if (weaponInst != null)
+			
+			if (activeChar.isBlessedSpiritshotCharged())
 			{
-				if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
-				{
-					bss = true;
-					weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
-				}
-				else if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_SPIRITSHOT)
-				{
-					ss = true;
-					weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
-				}
+				bss = true;
+				activeChar.useBlessedSpiritshotCharge();
 			}
-			// If there is no weapon equipped, check for an active summon.
-			else if (activeChar instanceof L2Summon)
+			else if (activeChar.isSpiritshotCharged())
 			{
-				L2Summon activeSummon = (L2Summon) activeChar;
-
-				if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
-				{
-					bss = true;
-					activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
-				}
-				else if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_SPIRITSHOT)
-				{
-					ss = true;
-					activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
-				}
+				ss = true;
+				activeChar.useSpiritshotCharge();
 			}
-			else if (activeChar instanceof L2NpcInstance)
-			{
-				bss = ((L2NpcInstance) activeChar).isUsingShot(false);
-				ss = ((L2NpcInstance) activeChar).isUsingShot(true);
-			}
-
+			
 			boolean mcrit = Formulas.calcMCrit(activeChar.getMCriticalHit(target, this));
 			byte shld = Formulas.calcShldUse(activeChar, target);
 			int damage = (int) Formulas.calcMagicDam(activeChar, target, this, shld, ss, bss, mcrit);

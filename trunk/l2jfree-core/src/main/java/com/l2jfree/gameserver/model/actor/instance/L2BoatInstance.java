@@ -45,7 +45,6 @@ import com.l2jfree.gameserver.network.serverpackets.VehicleDeparture;
 import com.l2jfree.gameserver.network.serverpackets.VehicleInfo;
 import com.l2jfree.gameserver.network.serverpackets.VehicleStarted;
 import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
-import com.l2jfree.gameserver.templates.item.L2Weapon;
 import com.l2jfree.gameserver.util.Util;
 
 /**
@@ -802,54 +801,6 @@ public class L2BoatInstance extends L2Character
 			String sysmess1_1, String sysmess0_1, String sysmessb_1)
 	{
 		_t2 = new L2BoatTrajet(idWaypoint1, idWTicket1, ntx1, nty1, ntz1, idnpc1, sysmess10_1, sysmess5_1, sysmess1_1, sysmess0_1, sysmessb_1, _name);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see com.l2jfree.gameserver.model.L2Character#getActiveWeaponInstance()
-	 */
-	@Override
-	public L2ItemInstance getActiveWeaponInstance()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see com.l2jfree.gameserver.model.L2Character#getActiveWeaponItem()
-	 */
-	@Override
-	public L2Weapon getActiveWeaponItem()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see com.l2jfree.gameserver.model.L2Character#getSecondaryWeaponInstance()
-	 */
-	@Override
-	public L2ItemInstance getSecondaryWeaponInstance()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see com.l2jfree.gameserver.model.L2Character#getSecondaryWeaponItem()
-	 */
-	@Override
-	public L2Weapon getSecondaryWeaponItem()
-	{
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	/*

@@ -87,7 +87,7 @@ public class Blow implements ISkillHandler
 			else if (activeChar.isInFrontOfTarget())
 				_successChance = FRONT;
 
-			// If skill requires Crit or skill requires behind, 
+			// If skill requires Crit or skill requires behind,
 			// Calculate chance based on DEX, Position and on self BUFF
 			boolean success = true;
 			if ((skill.getCondition() & L2Skill.COND_BEHIND) != 0)
@@ -108,7 +108,7 @@ public class Blow implements ISkillHandler
 					}
 				}
 				L2ItemInstance weapon = activeChar.getActiveWeaponInstance();
-				boolean soul = (weapon != null && weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT && weapon.getItemType() == L2WeaponType.DAGGER);
+				boolean soul = (weapon != null && weapon.isSoulshotCharged() && weapon.getItemType() == L2WeaponType.DAGGER);
 				byte shld = Formulas.calcShldUse(activeChar, target);
 
 				// Crit rate base crit rate for skill, modified with STR bonus
@@ -138,7 +138,7 @@ public class Blow implements ISkillHandler
 				}
 
 				if (soul && weapon != null)
-					weapon.setChargedSoulshot(L2ItemInstance.CHARGED_NONE);
+					weapon.useSoulshotCharge();
 
 				if (skill.getDmgDirectlyToHP() && target instanceof L2PcInstance)
 				{
@@ -212,7 +212,7 @@ public class Blow implements ISkillHandler
 
 				if (activeChar instanceof L2PcInstance)
 				{
-					L2PcInstance activePlayer = (L2PcInstance) activeChar; 
+					L2PcInstance activePlayer = (L2PcInstance) activeChar;
 					
 					activeChar.sendPacket(SystemMessageId.CRITICAL_HIT);
 					if (target instanceof L2PcInstance)

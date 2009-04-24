@@ -63,6 +63,7 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.L2WorldRegion;
 import com.l2jfree.gameserver.model.MobGroupTable;
 import com.l2jfree.gameserver.model.actor.knownlist.NpcKnownList;
+import com.l2jfree.gameserver.model.actor.shot.NpcShots;
 import com.l2jfree.gameserver.model.actor.stat.NpcStat;
 import com.l2jfree.gameserver.model.actor.status.NpcStatus;
 import com.l2jfree.gameserver.model.entity.Castle;
@@ -2853,65 +2854,16 @@ public class L2NpcInstance extends L2Character
 	{
 		return _currentCollisionRadius;
 	}
-
-	public boolean rechargeAutoSoulShot(boolean physical, boolean magic)
+	
+	@Override
+	public NpcShots getShots()
 	{
-		if (getTemplate().getSSRate() == 0)
-			return false;
-
-		L2Weapon weaponItem = getActiveWeaponItem();
-		if (weaponItem == null)
-		{
-			//_log.warn("NpcId "+getNpcId()+" missing weaponItem definition in DP - or wrong use of shots.");
-			return false;
-		}
-		if (magic)
-		{
-			if (getTemplate().getSSRate() < Rnd.get(100))
-			{
-				_inventory.bshotInUse = false;
-				return false;
-			}
-			if (null != _inventory.destroyItemByItemId("Consume", 3947, weaponItem.getSpiritShotCount(), null, null))
-			{
-				_inventory.bshotInUse = true;
-				broadcastPacket(new MagicSkillUse(this, this, 2061, 1, 0, 0), 360000); // No Grade
-				return true;
-			}
-
-			_inventory.bshotInUse = false;
-		}
-		if (physical)
-		{
-			if (getTemplate().getSSRate() < Rnd.get(100))
-			{
-				_inventory.sshotInUse = false;
-				return false;
-			}
-
-			if (null != _inventory.destroyItemByItemId("Consume", 1835, weaponItem.getSoulShotCount(), null, null))
-			{
-				_inventory.sshotInUse = true;
-				broadcastPacket(new MagicSkillUse(this, this, 2039, 1, 0, 0), 360000); // No Grade
-				return true;
-			}
-
-			_inventory.sshotInUse = false;
-		}
-		return false;
+		if (_shots == null)
+			_shots = new NpcShots(this);
+		
+		return (NpcShots)_shots;
 	}
-
-	public boolean isUsingShot(boolean physical)
-	{
-		if (_inventory == null)
-			return false;
-
-		if (physical && _inventory.sshotInUse)
-			return true;
-
-        return !physical && _inventory.bshotInUse;
-    }
-
+	
 	@Override
 	public NpcInventory getInventory()
 	{

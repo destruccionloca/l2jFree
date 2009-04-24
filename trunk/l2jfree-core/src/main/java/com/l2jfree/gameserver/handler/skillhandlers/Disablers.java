@@ -50,9 +50,9 @@ import com.l2jfree.gameserver.templates.skills.L2EffectType;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.tools.random.Rnd;
 
-/** 
+/**
  * This Handles Disabler skills
- * @author _drunk_ 
+ * @author _drunk_
  */
 public class Disablers implements ICubicSkillHandler
 {
@@ -101,61 +101,26 @@ public class Disablers implements ICubicSkillHandler
 				return;
 			}
 		}
-
-		if (weaponInst != null)
+		
+		if (skill.useSpiritShot())
 		{
-			if (skill.isMagic())
+			if (activeChar.isBlessedSpiritshotCharged())
 			{
-				if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
-				{
-					bss = true;
-					if (skill.getId() != 1020) // vitalize
-						weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
-				}
-				else if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_SPIRITSHOT)
-				{
-					sps = true;
-					if (skill.getId() != 1020) // vitalize
-						weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
-				}
+				bss = true;
+				activeChar.useBlessedSpiritshotCharge();
 			}
-			else if (weaponInst.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT)
+			else if (activeChar.isSpiritshotCharged())
 			{
-				ss = true;
-				if (skill.getId() != 1020) // vitalize
-					weaponInst.setChargedSoulshot(L2ItemInstance.CHARGED_NONE);
+				sps = true;
+				activeChar.useSpiritshotCharge();
 			}
 		}
-		// If there is no weapon equipped, check for an active summon.
-		else if (activeChar instanceof L2Summon)
+		else if (activeChar.isSoulshotCharged())
 		{
-			L2Summon activeSummon = (L2Summon) activeChar;
-
-			if (skill.isMagic())
-			{
-				if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
-				{
-					bss = true;
-					activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
-				}
-				else if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_SPIRITSHOT)
-				{
-					sps = true;
-					activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
-				}
-			}
-			else if (activeSummon.getChargedSoulShot() == L2ItemInstance.CHARGED_SOULSHOT)
-			{
-				ss = true;
-				activeSummon.setChargedSoulShot(L2ItemInstance.CHARGED_NONE);
-			}
+			ss = true;
+			activeChar.useSoulshotCharge();
 		}
-		else if (activeChar instanceof L2NpcInstance)
-		{
-			bss = ((L2NpcInstance) activeChar).isUsingShot(false);
-			ss = ((L2NpcInstance) activeChar).isUsingShot(true);
-		}
-
+		
 		for (L2Character target : targets)
 		{
 			if (target == null)
@@ -942,7 +907,7 @@ public class Disablers implements ICubicSkillHandler
 					}
 				}
 			}
-			else 
+			else
 			{
 				boolean cancel = false;
 				if (e.getSkill().getEffectType() != null && e.getSkill().getEffectAbnormalLvl() >= 0)

@@ -34,6 +34,7 @@ import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.instancemanager.ItemsOnGroundManager;
 import com.l2jfree.gameserver.instancemanager.MercTicketManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.actor.shot.ShotState;
 import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
@@ -122,19 +123,6 @@ public final class L2ItemInstance extends L2Object implements FuncOwner
 	private int					_type2;
 	
 	private long				_dropTime;
-	
-	public static final int		CHARGED_NONE				= 0;
-	public static final int		CHARGED_SOULSHOT			= 1;
-	public static final int		CHARGED_SPIRITSHOT			= 1;
-	public static final int		CHARGED_BLESSED_SOULSHOT	= 2;			// It's a really exists? ;-)
-	public static final int		CHARGED_BLESSED_SPIRITSHOT	= 2;
-	
-	/** Item charged with SoulShot (type of SoulShot) */
-	private int					_chargedSoulshot			= CHARGED_NONE;
-	/** Item charged with SpiritShot (type of SpiritShot) */
-	private int					_chargedSpiritshot			= CHARGED_NONE;
-	
-	private boolean				_chargedFishtshot			= false;
 	
 	private boolean				_protected;
 	
@@ -1210,58 +1198,6 @@ public final class L2ItemInstance extends L2Object implements FuncOwner
 	}
 	
 	/**
-	 * Returns the type of charge with SoulShot of the item.
-	 * 
-	 * @return int (CHARGED_NONE, CHARGED_SOULSHOT)
-	 */
-	public int getChargedSoulshot()
-	{
-		return _chargedSoulshot;
-	}
-	
-	/**
-	 * Returns the type of charge with SpiritShot of the item
-	 * 
-	 * @return int (CHARGED_NONE, CHARGED_SPIRITSHOT, CHARGED_BLESSED_SPIRITSHOT)
-	 */
-	public int getChargedSpiritshot()
-	{
-		return _chargedSpiritshot;
-	}
-	
-	public boolean getChargedFishshot()
-	{
-		return _chargedFishtshot;
-	}
-	
-	/**
-	 * Sets the type of charge with SoulShot of the item
-	 * 
-	 * @param type :
-	 *            int (CHARGED_NONE, CHARGED_SOULSHOT)
-	 */
-	public void setChargedSoulshot(int type)
-	{
-		_chargedSoulshot = type;
-	}
-	
-	/**
-	 * Sets the type of charge with SpiritShot of the item
-	 * 
-	 * @param type :
-	 *            int (CHARGED_NONE, CHARGED_SPIRITSHOT, CHARGED_BLESSED_SPIRITSHOT)
-	 */
-	public void setChargedSpiritshot(int type)
-	{
-		_chargedSpiritshot = type;
-	}
-	
-	public void setChargedFishshot(boolean type)
-	{
-		_chargedFishtshot = type;
-	}
-	
-	/**
 	 * This function basically returns a set of functions from L2Armor/L2Weapon, but may add additional functions, if this particular item instance is
 	 * enhanched for a particular player.
 	 * 
@@ -1752,5 +1688,57 @@ public final class L2ItemInstance extends L2Object implements FuncOwner
 		// synchronized, to avoid deadlocks
 		// Remove the L2ItemInstance from the world
 		L2World.getInstance().removeVisibleObject(this, oldregion);
+	}
+	
+	private final ShotState _shotState = new ShotState();
+	
+	public ShotState getShotState()
+	{
+		return _shotState;
+	}
+	
+	public boolean isSoulshotCharged()
+	{
+		return getShotState().isSoulshotCharged();
+	}
+	
+	public boolean isSpiritshotCharged()
+	{
+		return getShotState().isSpiritshotCharged();
+	}
+	
+	public boolean isBlessedSpiritshotCharged()
+	{
+		return getShotState().isBlessedSpiritshotCharged();
+	}
+	
+	public boolean isAnySpiritshotCharged()
+	{
+		return getShotState().isAnySpiritshotCharged();
+	}
+	
+	public boolean isFishshotCharged()
+	{
+		return getShotState().isFishshotCharged();
+	}
+	
+	public void useSoulshotCharge()
+	{
+		getShotState().useSoulshotCharge();
+	}
+	
+	public void useSpiritshotCharge()
+	{
+		getShotState().useSpiritshotCharge();
+	}
+	
+	public void useBlessedSpiritshotCharge()
+	{
+		getShotState().useBlessedSpiritshotCharge();
+	}
+	
+	public void useFishshotCharge()
+	{
+		getShotState().useFishshotCharge();
 	}
 }

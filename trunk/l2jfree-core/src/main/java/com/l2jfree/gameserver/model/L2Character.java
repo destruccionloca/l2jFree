@@ -61,6 +61,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2RiftInvaderInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeFlagInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance.SkillDat;
 import com.l2jfree.gameserver.model.actor.knownlist.CharKnownList;
+import com.l2jfree.gameserver.model.actor.shot.CharShots;
 import com.l2jfree.gameserver.model.actor.stat.CharStat;
 import com.l2jfree.gameserver.model.actor.status.CharStatus;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
@@ -1027,22 +1028,12 @@ public abstract class L2Character extends L2Object
 		// Reduce the current CP if TIREDNESS configuration is activated
 		if (Config.ALT_GAME_TIREDNESS)
 			getStatus().setCurrentCp(getStatus().getCurrentCp() - 10);
-
-		// Recharge any active auto soulshot tasks for player (or player's summon if one exists).
-		if (this instanceof L2PcInstance)
-			((L2PcInstance) this).rechargeAutoSoulShot(true, false, false);
-		else if (this instanceof L2Summon)
-			((L2Summon) this).getOwner().rechargeAutoSoulShot(true, false, true);
-
+		
+		rechargeShot();
+		
 		// Verify if soulshots are charged.
-		boolean wasSSCharged;
-
-		if (this instanceof L2NpcInstance)
-			wasSSCharged = ((L2NpcInstance) this).rechargeAutoSoulShot(true, false);
-		else if (this instanceof L2Summon && !(this instanceof L2PetInstance))
-			wasSSCharged = (((L2Summon) this).getChargedSoulShot() != L2ItemInstance.CHARGED_NONE);
-		else
-			wasSSCharged = (weaponInst != null && weaponInst.getChargedSoulshot() != L2ItemInstance.CHARGED_NONE);
+		final boolean wasSSCharged = isSoulshotCharged();
+		
 		// Get the Attack Speed of the L2Character (delay (in milliseconds) before next attack)
 		int timeAtk = calculateTimeBetweenAttacks(target, weaponItem);
 		// the hit is calculated to happen halfway to the animation - might need further tuning e.g. in bow, dual case
@@ -1109,12 +1100,22 @@ public abstract class L2Character extends L2Object
 			 *
 			 * As soon as we know that our hit landed, we must discharge any active soulshots. This must be done so to avoid unwanted soulshot consumption.
 			 */
-
+			
 			// If we didn't miss the hit, discharge the shoulshots, if any
-			if (this instanceof L2Summon && !(this instanceof L2PetInstance))
-				((L2Summon) this).setChargedSoulShot(L2ItemInstance.CHARGED_NONE);
-			else if (weaponInst != null)
-				weaponInst.setChargedSoulshot(L2ItemInstance.CHARGED_NONE);
+			if (wasSSCharged)
+			{
+				useSoulshotCharge();
+				
+				double shotTime = 0.4 * timeAtk;
+				
+				if (weaponItem != null && weaponItem.getItemType() == L2WeaponType.BOW)
+					shotTime = 0.7 * timeAtk;
+				else if (isUsingDualWeapon())
+					shotTime = 0.5 * timeAtk;
+				
+				scheduleShotRecharge((int)shotTime);
+			}
+			
 			if (player != null)
 			{
 				if (player.isCursedWeaponEquipped())
@@ -1576,24 +1577,6 @@ public abstract class L2Character extends L2Object
 			return;
 		}
 		
-		// Recharge AutoSoulShot
-		if (skill.useSoulShot())
-		{
-			if (this instanceof L2NpcInstance)
-				((L2NpcInstance)this).rechargeAutoSoulShot(true, false);
-			else if (this instanceof L2PcInstance)
-				((L2PcInstance)this).rechargeAutoSoulShot(true, false, false);
-			else if (this instanceof L2Summon)
-				((L2Summon)this).getOwner().rechargeAutoSoulShot(true, false, true);
-		}
-		else if (skill.useSpiritShot())
-		{
-			if (this instanceof L2PcInstance)
-				((L2PcInstance)this).rechargeAutoSoulShot(false, true, false);
-			else if (this instanceof L2Summon)
-				((L2Summon)this).getOwner().rechargeAutoSoulShot(false, true, true);
-		}
-		
 		// Set the target of the skill in function of Skill Type and Target Type
 		L2Character target = null;
 		
@@ -1701,41 +1684,16 @@ public abstract class L2Character extends L2Object
 			coolTime = Formulas.calcCastingRelatedTime(this, skill, coolTime);
 			skillInterruptTime = Formulas.calcCastingRelatedTime(this, skill, skillInterruptTime);
 			
-			// Calculate altered Cast Speed due to BSpS/SpS
-			L2ItemInstance weaponInst = getActiveWeaponInstance();
+			rechargeShot();
 			
-			// FIXME: why is TARGET_SELF excluded?
-			if (weaponInst != null && skill.isMagic() && skill.getTargetType() != SkillTargetType.TARGET_SELF)
+			// Calculate altered Cast Speed due to BSpS/SpS
+			if (skill.useSpiritShot())
 			{
-				if ((weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
-					|| (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_SPIRITSHOT))
+				if (isAnySpiritshotCharged())
 				{
-					// Only takes 70% of the time to cast a BSpS/SpS cast
-					hitTime *= 0.70;
-					coolTime *= 0.70;
-					skillInterruptTime *= 0.70;
-					
-					// Because the following are magic skills that do not actively 'eat' BSpS/SpS,
-					// I must 'eat' them here so players don't take advantage of infinite speed increase
-					switch (skill.getSkillType())
-					{
-						case BUFF:
-						case MANAHEAL:
-						case RESURRECT:
-						case RECALL:
-						case DOT:
-							weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
-							break;
-					}
-				}
-			}
-			else if (this instanceof L2NpcInstance && skill.useSpiritShot())
-			{
-				if (((L2NpcInstance)this).rechargeAutoSoulShot(false, true))
-				{
-					hitTime *= 0.70;
-					coolTime *= 0.70;
-					skillInterruptTime *= 0.70;
+					hitTime *= 0.7;
+					coolTime *= 0.7;
+					skillInterruptTime *= 0.7;
 				}
 			}
 		}
@@ -5301,57 +5259,43 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <BR>
 	 */
-	public void addExpAndSp(@SuppressWarnings("unused")
-	long addToExp, @SuppressWarnings("unused")
-	int addToSp)
+	public void addExpAndSp(long addToExp, int addToSp)
 	{
 		// Dummy method (overridden by players and pets)
 	}
-
+	
 	/**
 	 * Return the active weapon instance (always equipped in the right hand).<BR>
-	 * <BR>
-	 * <B><U> Overridden in </U> :</B><BR>
-	 * <BR>
-	 * <li> L2PcInstance</li>
-	 * <BR>
-	 * <BR>
 	 */
-	public abstract L2ItemInstance getActiveWeaponInstance();
-
+	public L2ItemInstance getActiveWeaponInstance()
+	{
+		return null;
+	}
+	
 	/**
 	 * Return the active weapon item (always equipped in the right hand).<BR>
-	 * <BR>
-	 * <B><U> Overridden in </U> :</B><BR>
-	 * <BR>
-	 * <li> L2PcInstance</li>
-	 * <BR>
-	 * <BR>
 	 */
-	public abstract L2Weapon getActiveWeaponItem();
-
+	public L2Weapon getActiveWeaponItem()
+	{
+		return null;
+	}
+	
 	/**
 	 * Return the secondary weapon instance (always equipped in the left hand).<BR>
-	 * <BR>
-	 * <B><U> Overridden in </U> :</B><BR>
-	 * <BR>
-	 * <li> L2PcInstance</li>
-	 * <BR>
-	 * <BR>
 	 */
-	public abstract L2ItemInstance getSecondaryWeaponInstance();
-
+	public L2ItemInstance getSecondaryWeaponInstance()
+	{
+		return null;
+	}
+	
 	/**
 	 * Return the secondary weapon item (always equipped in the left hand).<BR>
-	 * <BR>
-	 * <B><U> Overridden in </U> :</B><BR>
-	 * <BR>
-	 * <li> L2PcInstance</li>
-	 * <BR>
-	 * <BR>
 	 */
-	public abstract L2Weapon getSecondaryWeaponItem();
-
+	public L2Weapon getSecondaryWeaponItem()
+	{
+		return null;
+	}
+	
 	/**
 	 * Manage hit process (called by Hit Task).<BR>
 	 * <BR>
@@ -6641,10 +6585,15 @@ public abstract class L2Character extends L2Object
 					target.getChanceSkills().onSkillHit(this, true, skill.isMagic(), skill.isOffensive());
 			}
 		}
-
+		
 		// Launch the magic skill and calculate its effects
 		SkillHandler.getInstance().getSkillHandler(skill.getSkillType()).useSkill(this, skill, targets);
-
+		
+		if (skill.useSpiritShot() && !skill.hasEffectWhileCasting())
+			useSpiritshotCharge();
+		
+		rechargeShot();
+		
 		if (player != null)
 		{
 			for (L2Object target : targets)
@@ -7022,20 +6971,6 @@ public abstract class L2Character extends L2Object
 		return getStat().getMAtk(target, skill);
 	}
 
-	public final int getMAtkSps(L2Character target, L2Skill skill)
-	{
-		int matk = (int) calcStat(Stats.MAGIC_ATTACK, _template.getBaseMAtk(), target, skill);
-		L2ItemInstance weaponInst = getActiveWeaponInstance();
-		if (weaponInst != null)
-		{
-			if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
-				matk *= 4;
-			else if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_SPIRITSHOT)
-				matk *= 2;
-		}
-		return matk;
-	}
-
 	public int getMAtkSpd()
 	{
 		return getStat().getMAtkSpd();
@@ -7392,5 +7327,72 @@ public abstract class L2Character extends L2Object
 	public final L2Character getActingCharacter()
 	{
 		return this;
+	}
+	
+	protected CharShots _shots;
+	
+	public CharShots getShots()
+	{
+		return CharShots.getEmptyInstance();
+	}
+	
+	public final void rechargeShot()
+	{
+		getShots().rechargeShots();
+	}
+	
+	public final void scheduleShotRecharge(int delay)
+	{
+		getShots().scheduleShotRecharge(delay);
+	}
+	
+	public final boolean isSoulshotCharged()
+	{
+		return getShots().isSoulshotCharged();
+	}
+	
+	public final boolean isSpiritshotCharged()
+	{
+		return getShots().isSpiritshotCharged();
+	}
+	
+	public final boolean isBlessedSpiritshotCharged()
+	{
+		return getShots().isBlessedSpiritshotCharged();
+	}
+	
+	public final boolean isAnySpiritshotCharged()
+	{
+		return getShots().isAnySpiritshotCharged();
+	}
+	
+	public final boolean isFishshotCharged()
+	{
+		return getShots().isFishshotCharged();
+	}
+	
+	public final void useSoulshotCharge()
+	{
+		getShots().useSoulshotCharge();
+	}
+	
+	public final void useSpiritshotCharge()
+	{
+		getShots().useSpiritshotCharge();
+	}
+	
+	public final void useBlessedSpiritshotCharge()
+	{
+		getShots().useBlessedSpiritshotCharge();
+	}
+	
+	public final void useFishshotCharge()
+	{
+		getShots().useFishshotCharge();
+	}
+	
+	public final void clearShotCharges()
+	{
+		getShots().clearShotCharges();
 	}
 }

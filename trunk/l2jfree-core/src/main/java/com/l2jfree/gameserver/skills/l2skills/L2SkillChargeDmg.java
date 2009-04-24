@@ -55,7 +55,7 @@ public class L2SkillChargeDmg extends L2Skill
 			if (getBaseCritRate() > 0)
 				crit = Formulas.calcCrit(getBaseCritRate() * 10 * Formulas.getSTRBonus(activeChar));
 
-			boolean soul = (weapon != null && weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT && weapon.getItemType() != L2WeaponType.DAGGER);
+			boolean soul = (weapon != null && weapon.isSoulshotCharged() && weapon.getItemType() != L2WeaponType.DAGGER);
 
 			// damage calculation, crit is static 2x
 			int damage = (int) Formulas.calcPhysDam(activeChar, target, this, shld, false, false, soul);
@@ -94,7 +94,7 @@ public class L2SkillChargeDmg extends L2Skill
 				activeChar.sendDamageMessage(target, (int) finalDamage, false, crit, false);
 
 				if (soul && weapon != null)
-					weapon.setChargedSoulshot(L2ItemInstance.CHARGED_NONE);
+					weapon.useSoulshotCharge();
 			}
 			else
 			{

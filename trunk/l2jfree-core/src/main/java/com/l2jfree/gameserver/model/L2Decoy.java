@@ -21,7 +21,6 @@ import com.l2jfree.gameserver.network.serverpackets.NpcInfo;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
 import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
-import com.l2jfree.gameserver.templates.item.L2Weapon;
 
 public abstract class L2Decoy extends L2Character
 {
@@ -70,30 +69,6 @@ public abstract class L2Decoy extends L2Character
         return _owner.isAutoAttackable(attacker);
     }
 
-    @Override
-    public L2ItemInstance getActiveWeaponInstance()
-    {
-        return null;
-    }
-    
-    @Override
-    public L2Weapon getActiveWeaponItem()
-    {
-        return null;
-    }
-    
-    @Override
-    public L2ItemInstance getSecondaryWeaponInstance()
-    {
-        return null;
-    }
-    
-    @Override
-    public L2Weapon getSecondaryWeaponItem()
-    {
-        return null;
-    }
-    
     public final int getNpcId()
     {
         return getTemplate().getNpcId();

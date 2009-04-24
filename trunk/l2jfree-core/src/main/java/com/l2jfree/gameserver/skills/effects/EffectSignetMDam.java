@@ -27,7 +27,6 @@ import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.model.L2Attackable;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Effect;
-import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.L2World;
@@ -107,20 +106,15 @@ public final class EffectSignetMDam extends L2Effect
 		boolean ss = false;
 		boolean bss = false;
 
-		L2ItemInstance weaponInst = caster.getActiveWeaponInstance();
-		if (weaponInst != null)
+		if (caster.isBlessedSpiritshotCharged())
 		{
-			switch (weaponInst.getChargedSpiritshot())
-			{
-			case L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT:
-				weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
-				bss = true;
-				break;
-			case L2ItemInstance.CHARGED_SPIRITSHOT:
-				weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
-				ss = true;
-				break;
-			}
+			bss = true;
+			caster.useBlessedSpiritshotCharge();
+		}
+		else if (caster.isSpiritshotCharged())
+		{
+			ss = true;
+			caster.useSpiritshotCharge();
 		}
 
 		// if (!bss && !ss)

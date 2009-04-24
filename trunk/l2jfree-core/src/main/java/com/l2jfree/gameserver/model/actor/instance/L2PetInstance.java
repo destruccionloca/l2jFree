@@ -43,6 +43,7 @@ import com.l2jfree.gameserver.model.L2PetData;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.L2World;
+import com.l2jfree.gameserver.model.L2ItemInstance.ItemLocation;
 import com.l2jfree.gameserver.model.actor.stat.PetStat;
 import com.l2jfree.gameserver.model.actor.status.PetStatus;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
@@ -386,8 +387,7 @@ public class L2PetInstance extends L2Summon
 	public L2ItemInstance getActiveWeaponInstance()
 	{
 		for (L2ItemInstance item : getInventory().getItems())
-			if (item.getLocation() == L2ItemInstance.ItemLocation.PET_EQUIP
-				&& item.getItem().getBodyPart() == L2Item.SLOT_R_HAND)
+			if (item.getLocation() == ItemLocation.PET_EQUIP && item.getItem().getBodyPart() == L2Item.SLOT_R_HAND)
 				return item;
 		
 		return null;
@@ -405,20 +405,6 @@ public class L2PetInstance extends L2Summon
 			return null;
 		
 		return (L2Weapon)weapon.getItem();
-	}
-	
-	@Override
-	public L2ItemInstance getSecondaryWeaponInstance()
-	{
-		// Temporary? unavailable
-		return null;
-	}
-	
-	@Override
-	public L2Weapon getSecondaryWeaponItem()
-	{
-		// Temporary? unavailable
-		return null;
 	}
 	
 	@Override

@@ -64,6 +64,7 @@ import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.datatables.NobleSkillTable;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.PetDataTable;
+import com.l2jfree.gameserver.datatables.ShotTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
 import com.l2jfree.gameserver.geodata.GeoData;
@@ -130,6 +131,7 @@ import com.l2jfree.gameserver.model.actor.appearance.PcAppearance;
 import com.l2jfree.gameserver.model.actor.knownlist.PcKnownList;
 import com.l2jfree.gameserver.model.actor.reference.ClearableReference;
 import com.l2jfree.gameserver.model.actor.reference.ImmutableReference;
+import com.l2jfree.gameserver.model.actor.shot.PcShots;
 import com.l2jfree.gameserver.model.actor.stat.PcStat;
 import com.l2jfree.gameserver.model.actor.status.PcStatus;
 import com.l2jfree.gameserver.model.base.ClassId;
@@ -176,7 +178,6 @@ import com.l2jfree.gameserver.network.serverpackets.ChangeWaitType;
 import com.l2jfree.gameserver.network.serverpackets.CharInfo;
 import com.l2jfree.gameserver.network.serverpackets.ConfirmDlg;
 import com.l2jfree.gameserver.network.serverpackets.EtcStatusUpdate;
-import com.l2jfree.gameserver.network.serverpackets.ExAutoSoulShot;
 import com.l2jfree.gameserver.network.serverpackets.ExBasicActionList;
 import com.l2jfree.gameserver.network.serverpackets.ExBrExtraUserInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExDuelUpdateUserInfo;
@@ -603,7 +604,6 @@ public final class L2PcInstance extends L2PlayableInstance
 	/** The L2FolkInstance corresponding to the last Folk wich one the player talked. */
 	private L2FolkInstance					_lastFolkNpc			= null;
 
-	protected final Map<Integer, Integer>			_activeSoulShots		= new SingletonMap<Integer, Integer>().setShared();
 	private int								_clanPrivileges			= 0;
 
 	/** L2PcInstance's pledge class (knight, Baron, etc.)*/
@@ -1488,18 +1488,6 @@ public final class L2PcInstance extends L2PlayableInstance
 	}
 
 	/**
-	 * Return the L2ShortCut of the L2PcInstance corresponding to the position (page-slot).<BR><BR>
-	 *
-	 * @param slot The slot in wich the shortCuts is equipped
-	 * @param page The page of shortCuts containing the slot
-	 *
-	 */
-	public L2ShortCut getShortCut(int slot, int page)
-	{
-		return getShortCuts().getShortCut(slot, page);
-	}
-
-	/**
 	 * Add a L2shortCut to the L2PcInstance shortCuts<BR><BR>
 	 */
 	public void registerShortCut(L2ShortCut shortcut)
@@ -1971,33 +1959,21 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (Config.ALT_AUTO_LEARN_SKILLS)
 			rewardSkills();
 	}
-
+	
 	public void checkSSMatch(L2ItemInstance equipped, L2ItemInstance unequipped)
 	{
-		if (unequipped == null)
+		if (unequipped == null || unequipped.getItem().getType2() != L2Item.TYPE2_WEAPON)
 			return;
-
-		if (unequipped.getItem().getType2() == L2Item.TYPE2_WEAPON
-				&& (equipped == null || equipped.getItem().getCrystalType() != unequipped.getItem().getCrystalType()))
-		{
-			for (L2ItemInstance ss : getInventory().getItems())
-			{
-				int _itemId = ss.getItemId();
-
-				if (((_itemId >= 2509 && _itemId <= 2514) || (_itemId >= 3947 && _itemId <= 3952) || (_itemId <= 1804 && _itemId >= 1808) || _itemId == 5789
-						|| _itemId == 5790 || _itemId == 1835)
-						&& ss.getItem().getCrystalType() == unequipped.getItem().getCrystalType())
-				{
-					sendPacket(new ExAutoSoulShot(_itemId, 0));
-
-					SystemMessage sm = new SystemMessage(SystemMessageId.AUTO_USE_OF_S1_CANCELLED);
-					sm.addString(ss.getItemName());
-					sendPacket(sm);
-				}
-			}
-		}
+		
+		if (equipped != null && equipped.getItem().getCrystalType() == unequipped.getItem().getCrystalType())
+			return;
+		
+		for (L2ItemInstance item : getInventory().getItems())
+			if (ShotTable.getInstance().isPcShot(item.getItemId()))
+				if (item.getItem().getCrystalType() == unequipped.getItem().getCrystalType())
+					getShots().removeAutoSoulShot(item.getItemId());
 	}
-
+	
 	public void useEquippableItem(L2ItemInstance item, boolean abortAttack)
 	{
 		// Equip or unEquip
@@ -4266,7 +4242,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		super.setTarget(newTarget);
 
 	}
-
+	
 	/**
 	 * Return the active weapon instance (always equipped in the right hand).<BR><BR>
 	 */
@@ -4275,7 +4251,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		return getInventory().getPaperdollItem(Inventory.PAPERDOLL_RHAND);
 	}
-
+	
 	/**
 	 * Return the active weapon item (always equipped in the right hand).<BR><BR>
 	 */
@@ -4283,13 +4259,13 @@ public final class L2PcInstance extends L2PlayableInstance
 	public L2Weapon getActiveWeaponItem()
 	{
 		L2ItemInstance weapon = getActiveWeaponInstance();
-
+		
 		if (weapon == null)
 			return getFistsWeaponItem();
-
-		return (L2Weapon) weapon.getItem();
+		
+		return (L2Weapon)weapon.getItem();
 	}
-
+	
 	public L2ItemInstance getChestArmorInstance()
 	{
 		return getInventory().getPaperdollItem(Inventory.PAPERDOLL_CHEST);
@@ -4392,7 +4368,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		_IsWearingFormalWear = value;
 	}
-
+	
 	/**
 	 * Return the secondary weapon instance (always equipped in the left hand).<BR><BR>
 	 */
@@ -4401,7 +4377,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		return getInventory().getPaperdollItem(Inventory.PAPERDOLL_LHAND);
 	}
-
+	
 	/**
 	 * Return the secondary weapon item (always equipped in the left hand) or the fists weapon.<BR><BR>
 	 */
@@ -4409,15 +4385,15 @@ public final class L2PcInstance extends L2PlayableInstance
 	public L2Weapon getSecondaryWeaponItem()
 	{
 		L2ItemInstance weapon = getSecondaryWeaponInstance();
-
+		
 		if (weapon == null)
 			return getFistsWeaponItem();
-
+		
 		L2Item item = weapon.getItem();
-
+		
 		if (item instanceof L2Weapon)
-			return (L2Weapon) item;
-
+			return (L2Weapon)item;
+		
 		return null;
 	}
 
@@ -8915,92 +8891,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		return SevenSignsFestival.getInstance().isParticipant(this);
 	}
-
-	public void addAutoSoulShot(int itemId)
-	{
-		_activeSoulShots.put(itemId, itemId);
-	}
-
-	public void removeAutoSoulShot(int itemId)
-	{
-		_activeSoulShots.remove(itemId);
-	}
-
-	public Map<Integer, Integer> getAutoSoulShot()
-	{
-		return _activeSoulShots;
-	}
-
-	public void rechargeAutoSoulShot(boolean physical, boolean magic, boolean summon)
-	{
-		L2ItemInstance item;
-		IItemHandler handler;
-
-		if (_activeSoulShots == null || _activeSoulShots.size() == 0)
-			return;
-
-		Collection<Integer> vals = _activeSoulShots.values();
-
-		synchronized (_activeSoulShots)
-		{
-			for (int itemId : vals)
-			{
-				item = getInventory().getItemByItemId(itemId);
-
-				if (item != null)
-				{
-					if (magic)
-					{
-						if (!summon)
-						{
-							if ((itemId >= 2509 && itemId <= 2514) || (itemId >= 3947 && itemId <= 3952) || itemId == 5790)
-							{
-								handler = ItemHandler.getInstance().getItemHandler(itemId);
-								if (handler != null)
-									handler.useItem(this, item);
-							}
-						}
-						else
-						{
-							if (itemId == 6646 || itemId == 6647)
-							{
-								handler = ItemHandler.getInstance().getItemHandler(itemId);
-								if (handler != null)
-									handler.useItem(this, item);
-							}
-						}
-					}
-
-					if (physical)
-					{
-						if (!summon)
-						{
-							if ((itemId >= 1463 && itemId <= 1467) || itemId == 1835 || itemId == 5789)
-							{
-								handler = ItemHandler.getInstance().getItemHandler(itemId);
-								if (handler != null)
-									handler.useItem(this, item);
-							}
-						}
-						else
-						{
-							if (itemId == 6645)
-							{
-								handler = ItemHandler.getInstance().getItemHandler(itemId);
-								if (handler != null)
-									handler.useItem(this, item);
-							}
-						}
-					}
-				}
-				else
-				{
-					removeAutoSoulShot(itemId);
-				}
-			}
-		}
-	}
-
+	
 	private ScheduledFuture<?>	_taskWarnUserTakeBreak;
 
 	class WarnUserTakeBreak implements Runnable
@@ -14167,7 +14058,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		Broadcast.toKnownPlayers(this, new CharInfo(this));
 		Broadcast.toKnownPlayers(this, new ExBrExtraUserInfo(this));
 	}
-
+	
 	/**
 	 * @return afro haircut id
 	 */
@@ -14175,20 +14066,29 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		return _afroId ;
 	}
-
+	
 	public void setAfroHaircutId(int id)
 	{
 		_afroId = id;
 		broadcastUserInfo();
 	}
-
+	
 	public void setIsInSiege(boolean b)
 	{
 		_isInSiege = b;
 	}
-
+	
 	public boolean isInSiege()
 	{
 		return _isInSiege;
+	}
+	
+	@Override
+	public PcShots getShots()
+	{
+		if (_shots == null)
+			_shots = new PcShots(this);
+		
+		return (PcShots)_shots;
 	}
 }

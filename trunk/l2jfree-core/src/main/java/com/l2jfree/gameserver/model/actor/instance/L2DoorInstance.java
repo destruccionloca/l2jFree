@@ -33,7 +33,6 @@ import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Clan;
-import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2SiegeClan;
 import com.l2jfree.gameserver.model.L2Skill;
@@ -52,7 +51,6 @@ import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.StaticObject;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
-import com.l2jfree.gameserver.templates.item.L2Weapon;
 
 /**
  * This class ...
@@ -462,34 +460,6 @@ public class L2DoorInstance extends L2Character
 			return 0;
 
 		return 4000;
-	}
-
-	/**
-	 * Return null.<BR>
-	 * <BR>
-	 */
-	@Override
-	public L2ItemInstance getActiveWeaponInstance()
-	{
-		return null;
-	}
-
-	@Override
-	public L2Weapon getActiveWeaponItem()
-	{
-		return null;
-	}
-
-	@Override
-	public L2ItemInstance getSecondaryWeaponInstance()
-	{
-		return null;
-	}
-
-	@Override
-	public L2Weapon getSecondaryWeaponItem()
-	{
-		return null;
 	}
 
 	@Override

@@ -17,11 +17,8 @@ package com.l2jfree.gameserver.handler.skillhandlers;
 import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeFlagInstance;
 import com.l2jfree.gameserver.model.zone.L2Zone;
@@ -52,12 +49,9 @@ public class Heal implements ISkillHandler
 	{
 		SkillHandler.getInstance().getSkillHandler(L2SkillType.BUFF).useSkill(activeChar, skill, targets);
 
-		L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
 		L2PcInstance player = null;
 		if (activeChar instanceof L2PcInstance)
 			player = (L2PcInstance) activeChar;
-		boolean clearSpiritShot = false;
-
 		for (L2Character target : targets)
 		{
 			if (target == null)
@@ -87,43 +81,18 @@ public class Heal implements ISkillHandler
 			}
 			else
 			{
-				// Added effect of SpS and Bsps
-				if (weaponInst != null)
+				if (activeChar.isBlessedSpiritshotCharged())
 				{
-					if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
-					{
-						hp *= 1.5;
-						clearSpiritShot = true;
-					}
-					else if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_SPIRITSHOT)
-					{
-						hp *= 1.3;
-						clearSpiritShot = true;
-					}
+					hp *= 1.5;
+					activeChar.useBlessedSpiritshotCharge();
 				}
-
-				else if (activeChar instanceof L2Summon)
+				else if (activeChar.isSpiritshotCharged())
 				{
-					L2Summon activeSummon = (L2Summon) activeChar;
-
-					if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
-					{
-						hp *= 1.5;
-						clearSpiritShot = true;
-					}
-					else if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_SPIRITSHOT)
-					{
-						hp *= 1.3;
-						clearSpiritShot = true;
-					}
-				}
-				else if (activeChar instanceof L2NpcInstance)
-				{
-					if (((L2NpcInstance) activeChar).isUsingShot(false))
-						hp *= 1.5;
+					hp *= 1.3;
+					activeChar.useSpiritshotCharge();
 				}
 			}
-
+			
 			if (target instanceof L2DoorInstance || target instanceof L2SiegeFlagInstance)
 			{
 				hp = 0;
@@ -179,20 +148,6 @@ public class Heal implements ISkillHandler
 						target.sendPacket(sm);
 					}
 				}
-			}
-		}
-
-		if (clearSpiritShot)
-		{
-			if (activeChar instanceof L2Summon)
-			{
-				L2Summon activeSummon = (L2Summon) activeChar;
-				activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
-			}
-			else
-			{
-				if (weaponInst != null)
-					weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
 			}
 		}
 	}

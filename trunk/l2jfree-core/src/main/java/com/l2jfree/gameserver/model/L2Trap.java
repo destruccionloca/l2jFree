@@ -19,7 +19,6 @@ import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
 import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
-import com.l2jfree.gameserver.templates.item.L2Weapon;
 
 /**
  *
@@ -131,26 +130,6 @@ public class L2Trap extends L2Character
 
 	/**
 	 *
-	 * @see com.l2jfree.gameserver.model.L2Character#getActiveWeaponInstance()
-	 */
-	@Override
-	public L2ItemInstance getActiveWeaponInstance()
-	{
-		return null;
-	}
-
-	/**
-	 *
-	 * @see com.l2jfree.gameserver.model.L2Character#getActiveWeaponItem()
-	 */
-	@Override
-	public L2Weapon getActiveWeaponItem()
-	{
-		return null;
-	}
-
-	/**
-	 *
 	 * @see com.l2jfree.gameserver.model.L2Character#getLevel()
 	 */
 	@Override
@@ -182,26 +161,6 @@ public class L2Trap extends L2Character
 	public L2NpcTemplate getTemplate()
 	{
 		return (L2NpcTemplate) super.getTemplate();
-	}
-
-	/**
-	 *
-	 * @see com.l2jfree.gameserver.model.L2Character#getSecondaryWeaponInstance()
-	 */
-	@Override
-	public L2ItemInstance getSecondaryWeaponInstance()
-	{
-		return null;
-	}
-
-	/**
-	 *
-	 * @see com.l2jfree.gameserver.model.L2Character#getSecondaryWeaponItem()
-	 */
-	@Override
-	public L2Weapon getSecondaryWeaponItem()
-	{
-		return null;
 	}
 
 	/**

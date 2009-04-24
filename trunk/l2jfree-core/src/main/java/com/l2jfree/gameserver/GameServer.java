@@ -53,6 +53,7 @@ import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.NpcWalkerRoutesTable;
 import com.l2jfree.gameserver.datatables.PetDataTable;
 import com.l2jfree.gameserver.datatables.PetSkillsTable;
+import com.l2jfree.gameserver.datatables.ShotTable;
 import com.l2jfree.gameserver.datatables.SkillSpellbookTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
@@ -234,6 +235,7 @@ public class GameServer
 		NobleSkillTable.getInstance();
 		HeroSkillTable.getInstance();
 		Util.printSection("Items");
+		ShotTable.getInstance();
 		ItemTable.getInstance();
 		ArmorSetsTable.getInstance();
 		AugmentationData.getInstance();

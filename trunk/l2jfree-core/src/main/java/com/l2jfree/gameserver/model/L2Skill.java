@@ -650,7 +650,12 @@ public class L2Skill implements FuncOwner
 	{
 		return _skillType;
 	}
-
+	
+	public final boolean hasEffectWhileCasting()
+	{
+		return getSkillType() == L2SkillType.FORCE_BUFF || getSkillType() == L2SkillType.SIGNET_CASTTIME;
+	}
+	
 	public final int getActivateRate()
 	{
 		return _activateRate;

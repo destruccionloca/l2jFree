@@ -26,7 +26,6 @@ import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.knownlist.StaticObjectKnownList;
@@ -38,7 +37,6 @@ import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.ShowTownMap;
 import com.l2jfree.gameserver.network.serverpackets.StaticObject;
 import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
-import com.l2jfree.gameserver.templates.item.L2Weapon;
 
 /**
  * @author godson
@@ -182,34 +180,6 @@ public class L2StaticObjectInstance extends L2Character
 	public final int getLevel()
 	{
 		return 1;
-	}
-	
-	/**
-	 * Return null.<BR>
-	 * <BR>
-	 */
-	@Override
-	public L2ItemInstance getActiveWeaponInstance()
-	{
-		return null;
-	}
-	
-	@Override
-	public L2Weapon getActiveWeaponItem()
-	{
-		return null;
-	}
-	
-	@Override
-	public L2ItemInstance getSecondaryWeaponInstance()
-	{
-		return null;
-	}
-	
-	@Override
-	public L2Weapon getSecondaryWeaponItem()
-	{
-		return null;
 	}
 	
 	/**

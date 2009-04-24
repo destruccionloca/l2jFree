@@ -16,10 +16,7 @@ package com.l2jfree.gameserver.handler.skillhandlers;
 
 import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Summon;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
@@ -41,47 +38,24 @@ public class CpDam implements ISkillHandler
 		boolean ss = false;
 		boolean sps = false;
 		boolean bss = false;
-
-		L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
-
-		if (weaponInst != null)
+		
+		if (skill.useSpiritShot())
 		{
-			if (skill.isMagic())
-			{
-				if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
-				{
-					bss = true;
-				}
-				else if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_SPIRITSHOT)
-				{
-					sps = true;
-				}
-			}
-			else if (weaponInst.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT)
-			{
-				ss = true;
-			}
-		}
-		// If there is no weapon equipped, check for an active summon.
-		else if (activeChar instanceof L2Summon)
-		{
-			L2Summon activeSummon = (L2Summon) activeChar;
-
-			if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
+			if (activeChar.isBlessedSpiritshotCharged())
 			{
 				bss = true;
-				activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
+				activeChar.useBlessedSpiritshotCharge();
 			}
-			else if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_SPIRITSHOT)
+			else if (activeChar.isSpiritshotCharged())
 			{
-				ss = true;
-				activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
+				sps = true;
+				activeChar.useSpiritshotCharge();
 			}
 		}
-		else if (activeChar instanceof L2NpcInstance)
+		else if (activeChar.isSoulshotCharged())
 		{
-			bss = ((L2NpcInstance) activeChar).isUsingShot(false);
-			ss = ((L2NpcInstance) activeChar).isUsingShot(true);
+			ss = true;
+			activeChar.useSoulshotCharge();
 		}
 
 		for (L2Character target : targets)

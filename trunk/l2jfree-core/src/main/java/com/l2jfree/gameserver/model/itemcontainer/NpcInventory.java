@@ -19,11 +19,11 @@ package com.l2jfree.gameserver.model.itemcontainer;
 
 import java.util.List;
 
+import javolution.util.FastList;
+
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2ItemInstance.ItemLocation;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
-
-import javolution.util.FastList;
 
 public class NpcInventory extends Inventory
 {
@@ -31,9 +31,6 @@ public class NpcInventory extends Inventory
 	public static final int ANCIENT_ADENA_ID = 5575;
 
 	private final L2NpcInstance _owner;
-
-	public boolean sshotInUse = false;
-	public boolean bshotInUse = false;
 
 	public NpcInventory(L2NpcInstance owner)
 	{

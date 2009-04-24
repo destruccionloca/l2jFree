@@ -16,10 +16,7 @@ package com.l2jfree.gameserver.handler.skillhandlers;
 
 import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Summon;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
@@ -45,44 +42,18 @@ public class Manadam implements ISkillHandler
 
 		boolean ss = false;
 		boolean bss = false;
-
-		L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
-
-		if (weaponInst != null)
+		
+		if (activeChar.isBlessedSpiritshotCharged())
 		{
-			if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
-			{
-				bss = true;
-				weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
-			}
-			else if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_SPIRITSHOT)
-			{
-				ss = true;
-				weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
-			}
+			bss = true;
+			activeChar.useBlessedSpiritshotCharge();
 		}
-		// If there is no weapon equipped, check for an active summon.
-		else if (activeChar instanceof L2Summon)
+		else if (activeChar.isSpiritshotCharged())
 		{
-			L2Summon activeSummon = (L2Summon) activeChar;
-
-			if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
-			{
-				bss = true;
-				activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
-			}
-			else if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_SPIRITSHOT)
-			{
-				ss = true;
-				activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
-			}
+			ss = true;
+			activeChar.useSpiritshotCharge();
 		}
-		else if (activeChar instanceof L2NpcInstance)
-		{
-			bss = ((L2NpcInstance) activeChar).isUsingShot(false);
-			ss = ((L2NpcInstance) activeChar).isUsingShot(true);
-		}
-
+		
 		for (L2Character target : targets)
 		{
 			if (target == null)

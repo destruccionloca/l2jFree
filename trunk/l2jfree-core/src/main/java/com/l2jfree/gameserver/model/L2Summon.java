@@ -61,9 +61,6 @@ public abstract class L2Summon extends L2PlayableInstance
 	private boolean			_follow					= true;
 	private boolean			_previousFollowStatus	= true;
 
-	private int				_chargedSoulShot;
-	private int				_chargedSpiritShot;
-
 	// TODO: currently, all servitors use 1 shot.  However, this value should vary depending on the servitor template (id and level)!
 	private int				_soulShotsPerHit		= 1;
 	private int				_spiritShotsPerHit		= 1;
@@ -272,16 +269,6 @@ public abstract class L2Summon extends L2PlayableInstance
 		return _spiritShotsPerHit;
 	}
 
-	public void setChargedSoulShot(int shotType)
-	{
-		_chargedSoulShot = shotType;
-	}
-
-	public void setChargedSpiritShot(int shotType)
-	{
-		_chargedSpiritShot = shotType;
-	}
-
 	public void followOwner()
 	{
 		setFollowStatus(true);
@@ -456,16 +443,6 @@ public abstract class L2Summon extends L2PlayableInstance
 		return _owner.isAutoAttackable(attacker);
 	}
 
-	public int getChargedSoulShot()
-	{
-		return _chargedSoulShot;
-	}
-
-	public int getChargedSpiritShot()
-	{
-		return _chargedSpiritShot;
-	}
-
 	public int getControlItemId()
 	{
 		return 0;
@@ -505,30 +482,6 @@ public abstract class L2Summon extends L2PlayableInstance
 
 	public void store()
 	{
-	}
-
-	@Override
-	public L2ItemInstance getActiveWeaponInstance()
-	{
-		return null;
-	}
-
-	@Override
-	public L2Weapon getActiveWeaponItem()
-	{
-		return null;
-	}
-
-	@Override
-	public L2ItemInstance getSecondaryWeaponInstance()
-	{
-		return null;
-	}
-
-	@Override
-	public L2Weapon getSecondaryWeaponItem()
-	{
-		return null;
 	}
 
 	/**

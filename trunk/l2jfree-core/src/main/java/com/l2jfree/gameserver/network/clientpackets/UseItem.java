@@ -19,6 +19,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
+import com.l2jfree.gameserver.datatables.ShotTable;
 import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.handler.ItemHandler;
 import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
@@ -172,12 +173,10 @@ public final class UseItem extends L2GameClientPacket
 		if (itemId == 57)
 			return;
 
-		if (activeChar.isFishing() && (itemId < 6535 || itemId > 6540))
+		if (activeChar.isFishing() && !ShotTable.getInstance().isFishingShot(itemId))
 		{
 			// You cannot do anything else while fishing
-			SystemMessage sm = new SystemMessage(SystemMessageId.CANNOT_DO_WHILE_FISHING_3);
-			getClient().getActiveChar().sendPacket(sm);
-			sm = null;
+			activeChar.sendPacket(SystemMessageId.CANNOT_DO_WHILE_FISHING_3);
 			return;
 		}
 

@@ -22,8 +22,8 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
+import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
 public class FishingSkill implements ISkillHandler
 {
@@ -61,11 +61,11 @@ public class FishingSkill implements ISkillHandler
 			return;
 		int SS = 1;
 		int pen = 0;
-		if (weaponInst.getChargedFishshot())
+		if (weaponInst.isFishshotCharged())
 			SS = 2;
 		double gradebonus = 1 + weaponItem.getCrystalType() * 0.1;
 		int dmg = (int) (skill.getPower() * gradebonus * SS);
-		if (player.getSkillLevel(1315) <= skill.getLevel() - 2) //1315 - Fish Expertise 
+		if (player.getSkillLevel(1315) <= skill.getLevel() - 2) //1315 - Fish Expertise
 		{ //Penalty
 			player.sendPacket(SystemMessageId.REELING_PUMPING_3_LEVELS_HIGHER_THAN_FISHING_PENALTY);
 			pen = 50;
@@ -76,7 +76,7 @@ public class FishingSkill implements ISkillHandler
 		}
 		if (SS > 1)
 		{
-			weaponInst.setChargedFishshot(false);
+			weaponInst.useFishshotCharge();
 		}
 		if (skill.getSkillType() == L2SkillType.REELING)//Realing
 		{

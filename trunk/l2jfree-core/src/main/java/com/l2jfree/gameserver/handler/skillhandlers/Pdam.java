@@ -94,7 +94,7 @@ public class Pdam implements ISkillHandler
 			if (skill.getBaseCritRate() > 0)
 				crit = Formulas.calcCrit(skill.getBaseCritRate() * 10 * Formulas.getSTRBonus(activeChar));
 
-			boolean soul = (weapon != null && weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT && weapon.getItemType() != L2WeaponType.DAGGER);
+			boolean soul = (weapon != null && weapon.isSoulshotCharged() && weapon.getItemType() != L2WeaponType.DAGGER);
 
 			if (skill.ignoreShld())
 				shld = 0;
@@ -131,7 +131,7 @@ public class Pdam implements ISkillHandler
 				damage *= 2; // PDAM Critical damage always 2x and not affected by buffs
 
 			if (soul && weapon != null)
-				weapon.setChargedSoulshot(L2ItemInstance.CHARGED_NONE);
+				weapon.useSoulshotCharge();
 
 			boolean skillIsEvaded = Formulas.calcPhysicalSkillEvasion(target, skill);
 			

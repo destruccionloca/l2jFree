@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.model.olympiad;
 
-import java.util.Map;
 import java.util.logging.Logger;
 
 import javolution.util.FastList;
@@ -36,7 +35,6 @@ import com.l2jfree.gameserver.model.olympiad.Olympiad.COMP_TYPE;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
-import com.l2jfree.gameserver.network.serverpackets.ExAutoSoulShot;
 import com.l2jfree.gameserver.network.serverpackets.ExOlympiadMatchEnd;
 import com.l2jfree.gameserver.network.serverpackets.ExOlympiadMode;
 import com.l2jfree.gameserver.network.serverpackets.ExOlympiadUserInfo;
@@ -293,24 +291,16 @@ public class OlympiadGame
 				}
 
 				player.checkItemRestriction();
-
+				
 				// Remove shot automation
-				Map<Integer, Integer> activeSoulShots = player.getAutoSoulShot();
-				for (int itemId : activeSoulShots.values())
-				{
-					player.removeAutoSoulShot(itemId);
-					ExAutoSoulShot atk = new ExAutoSoulShot(itemId, 0);
-					player.sendPacket(atk);
-				}
-
-				// Discharge any active shots
-				L2ItemInstance weap = player.getActiveWeaponInstance();
-				if (weap != null)
-				{
-					weap.setChargedSoulshot(L2ItemInstance.CHARGED_NONE);
-					weap.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
-				}
-
+				for (int itemId : player.getShots().getAutoSoulShots())
+					player.getShots().removeAutoSoulShot(itemId);
+				
+				player.clearShotCharges();
+				
+				if (player.getPet() != null)
+					player.getPet().clearShotCharges();
+				
 				player.sendSkillList();
 			}
 			catch (Exception e)
@@ -624,7 +614,7 @@ public class OlympiadGame
 
 					/*
 					if (Config.DEBUG)
-						_log.info("Olympia Result: " + _playerTwoName + " vs " + _playerOneName + " ... " 
+						_log.info("Olympia Result: " + _playerTwoName + " vs " + _playerOneName + " ... "
 								+ _playerTwoName + " lost " + pointDiff + " points for crash");
 					*/
 
@@ -664,7 +654,7 @@ public class OlympiadGame
 
 					/*
 					if (Config.DEBUG)
-						_log.info("Olympia Result: " + _playerOneName + " vs " + _playerTwoName + " ... " 
+						_log.info("Olympia Result: " + _playerOneName + " vs " + _playerTwoName + " ... "
 								+ " both lost " + pointDiff + " points for crash");
 					*/
 
