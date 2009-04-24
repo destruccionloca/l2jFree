@@ -6688,7 +6688,7 @@ INSERT INTO `npc` VALUES
 (31925, 31925, "Baron's Hall Gatekeeper", 0, "", 0, "NPC.rift_keeper_25_sm", 9.5, 29, 70, "male", "L2SepulcherNpc", 40, 3862, 1493, 11.85, 2.78, 40, 43, 30, 21, 20, 10, 0, 0, 1314, 470, 780, 382, 278, 0, 333, 0, 0, 0, 55, 0, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "fighter", "false"),
 (31926, 31926, "Viscount's Hall Gatekeeper", 0, "", 0, "NPC.rift_keeper_25_sm", 9.5, 29, 70, "male", "L2SepulcherNpc", 40, 3862, 1493, 11.85, 2.78, 40, 43, 30, 21, 20, 10, 0, 0, 1314, 470, 780, 382, 278, 0, 333, 0, 0, 0, 55, 0, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "fighter", "false"),
 (31927, 31927, "Count's Hall Gatekeeper", 0, "", 0, "NPC.rift_keeper_25_sm", 9.5, 29, 70, "male", "L2SepulcherNpc", 40, 3862, 1493, 11.85, 2.78, 40, 43, 30, 21, 20, 10, 0, 0, 1314, 470, 780, 382, 278, 0, 333, 0, 0, 0, 55, 0, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "fighter", "false"),
-(31928, 31928, "Marquis' Hall Gatekeeper", 0, "", 0, "NPC.rift_keeper_25_sm", 9.5, 29, 70, "male", "L2Npc", 40, 3862, 1493, 11.85, 2.78, 40, 43, 30, 21, 20, 10, 0, 0, 1314, 470, 780, 382, 278, 0, 333, 0, 0, 0, 55, 0, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "fighter", "false"),
+(31928, 31928, "Marquis' Hall Gatekeeper", 0, "", 0, "NPC.rift_keeper_25_sm", 9.5, 29, 70, "male", "L2SepulcherNpc", 40, 3862, 1493, 11.85, 2.78, 40, 43, 30, 21, 20, 10, 0, 0, 1314, 470, 780, 382, 278, 0, 333, 0, 0, 0, 55, 0, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "fighter", "false"),
 (31929, 31929, "Duke's Hall Gatekeeper", 0, "", 0, "NPC.rift_keeper_25_sm", 9.5, 29, 70, "male", "L2SepulcherNpc", 40, 3862, 1493, 11.85, 2.78, 40, 43, 30, 21, 20, 10, 0, 0, 1314, 470, 780, 382, 278, 0, 333, 0, 0, 0, 55, 0, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "fighter", "false"),
 (31930, 31930, "Baron's Hall Gatekeeper", 0, "", 0, "NPC.rift_keeper_25_sm", 9.5, 29, 70, "male", "L2SepulcherNpc", 40, 3862, 1493, 11.85, 2.78, 40, 43, 30, 21, 20, 10, 0, 0, 1314, 470, 780, 382, 278, 0, 333, 0, 0, 0, 55, 0, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "fighter", "false"),
 (31931, 31931, "Viscount's Hall Gatekeeper", 0, "", 0, "NPC.rift_keeper_25_sm", 9.5, 29, 70, "male", "L2SepulcherNpc", 40, 3862, 1493, 11.85, 2.78, 40, 43, 30, 21, 20, 10, 0, 0, 1314, 470, 780, 382, 278, 0, 333, 0, 0, 0, 55, 0, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "fighter", "false"),
@@ -9255,9 +9255,6 @@ INSERT INTO `npc` VALUES
 (29096, 29096, "Anais", 0, "Lord of Splendor", 0, "Monster3.solina_priest_120p", 16, 41.8, 87, "male", "L2RaidBoss", 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 0, 333, 0, 0, 0, 88, 132, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced", "false"),
 (29097, 29097, "Splendor Disciple", 0, "Raid Fighter", 0, "Monster3.apostle_grail", 13, 47, 86, "male", "L2Minion", 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 0, 333, 0, 0, 0, 88, 132, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced", "false"),
 (29098, 29098, "Splendor Worshiper", 0, "Raid Fighter", 0, "Monster3.apostle_grail_a", 13, 47, 86, "male", "L2Minion", 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 0, 333, 0, 0, 0, 88, 132, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced", "false");
-
--- Four Sepulchers 
-UPDATE `npc` SET `type` = 'L2SepulcherNpc' WHERE id = 31928;
 
 -- DCM Updates
 REPLACE INTO `npc` VALUES ('32282', '32282', 'Yiyen', '0', 'Archaeologist', '0', 'LineageNPC.e_teleporter_FDwarf', '8.00', '21.30', '70', 'male', 'L2Npc', '40', '2444', '2444', '0.00', '0.00', '10', '10', '10', '10', '10', '10', '0', '0', '500', '500', '500', '500', '253', '0', '253', '0', '0', null, '80', '120', '', '0', '0', '0', 'LAST_HIT', '0', '0', '0', 'balanced', 'false');
