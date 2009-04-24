@@ -417,6 +417,7 @@ public class FortSiege extends AbstractSiege
 	 * Return true if clan is attacker<BR><BR>
 	 * @param clan The L2Clan of the player
 	 */
+	@Override
 	public boolean checkIsAttacker(L2Clan clan)
 	{
 		return (getAttackerClan(clan) != null);
@@ -426,6 +427,7 @@ public class FortSiege extends AbstractSiege
 	 * Return true if clan is defender<BR><BR>
 	 * @param clan The L2Clan of the player
 	 */
+	@Override
 	public boolean checkIsDefender(L2Clan clan)
 	{
 		return getFort().getOwnerClan() == clan;

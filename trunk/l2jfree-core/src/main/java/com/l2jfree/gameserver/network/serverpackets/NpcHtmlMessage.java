@@ -20,7 +20,7 @@ import com.l2jfree.gameserver.network.L2GameClient;
 
 /**
 *
-* the HTML parser in the client knowns these standard and non-standard tags and attributes 
+* the HTML parser in the client knowns these standard and non-standard tags and attributes
 * VOLUMN
 * UNKNOWN
 * UL
@@ -147,7 +147,7 @@ public final class NpcHtmlMessage extends L2GameServerPacket
 	}
 	
 	@Override
-	public void runImpl(L2GameClient client, L2PcInstance activeChar)
+	public void prepareToSend(L2GameClient client, L2PcInstance activeChar)
 	{
 		if (activeChar != null)
 			activeChar.buildBypassCache(_builder);

@@ -137,12 +137,12 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 				}
 				else
 				{
-					this.printDebugDoubleOpcode(opcode, id2, buf, state, client);
+					printDebugDoubleOpcode(opcode, id2, buf, state, client);
 				}
 
 				break;
 			default:
-				this.printDebug(opcode, buf, state, client);
+				printDebug(opcode, buf, state, client);
 				break;
 			}
 			break;
@@ -758,9 +758,9 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 				case 0x22:
 					// TODO implement me (just disabling warnings for this packet)
 					break;
-				case 0x23: 
-					msg = new RequestExRemoveItemAttribute(); 
-					break; 
+				case 0x23:
+					msg = new RequestExRemoveItemAttribute();
+					break;
 				case 0x24:
 					msg = new RequestSaveInventoryOrder();
 					break;
@@ -882,7 +882,7 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 					// TODO: implement me (just disabling warnings for this packet)
 					break;
 				default:
-					this.printDebugDoubleOpcode(opcode, id2, buf, state, client);
+					printDebugDoubleOpcode(opcode, id2, buf, state, client);
 					break;
 				}
 				break;
@@ -890,7 +890,7 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 				msg = new RequestChangePartyLeader(data, _client);
 				break;*/
 			default:
-				this.printDebug(opcode, buf, state, client);
+				printDebug(opcode, buf, state, client);
 				break;
 			}
 			break;
@@ -900,6 +900,8 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 	
 	private void printDebug(int opcode, ByteBuffer buf, GameClientState state, L2GameClient client)
 	{
+		IOFloodManager.getInstance().report(ErrorMode.INVALID_OPCODE, client, null, null);
+		
 		if (!Config.PACKET_HANDLER_DEBUG)
 			return;
 		
@@ -909,12 +911,12 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 		byte[] array = new byte[size];
 		buf.get(array);
 		_log.warn(HexUtil.printData(array, size));
-		
-		IOFloodManager.getInstance().report(ErrorMode.INVALID_OPCODE, client, null, null);
 	}
 	
 	private void printDebugDoubleOpcode(int opcode, int id2, ByteBuffer buf, GameClientState state, L2GameClient client)
 	{
+		IOFloodManager.getInstance().report(ErrorMode.INVALID_OPCODE, client, null, null);
+		
 		if (!Config.PACKET_HANDLER_DEBUG)
 			return;
 		
@@ -924,8 +926,6 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 		byte[] array = new byte[size];
 		buf.get(array);
 		_log.warn(HexUtil.printData(array, size));
-		
-		IOFloodManager.getInstance().report(ErrorMode.INVALID_OPCODE, client, null, null);
 	}
 	
 	public L2GameClient create(SelectorThread<L2GameClient> selectorThread, ISocket socket, SelectionKey key)
@@ -944,9 +944,9 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 		if (buf.remaining() >= 2)
 		{
 			int dataPending = (buf.getShort() & 0xffff) - 2;
-			return this.getHeaderInfoReturn().set(0, dataPending, false, (L2GameClient)key.attachment());
+			return getHeaderInfoReturn().set(0, dataPending, false, (L2GameClient)key.attachment());
 		}
 		
-		return this.getHeaderInfoReturn().set(2 - buf.remaining(), 0, false, (L2GameClient)key.attachment());
+		return getHeaderInfoReturn().set(2 - buf.remaining(), 0, false, (L2GameClient)key.attachment());
 	}
 }

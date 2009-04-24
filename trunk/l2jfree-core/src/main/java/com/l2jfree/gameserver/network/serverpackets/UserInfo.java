@@ -23,6 +23,7 @@ import com.l2jfree.gameserver.model.L2Transformation;
 import com.l2jfree.gameserver.model.actor.appearance.PcAppearance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
+import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 /**
@@ -92,6 +93,18 @@ public class UserInfo extends L2GameServerPacket
 			_relation |= 0x80;
 	}
 
+	@Override
+	public void packetSent(L2GameClient client, L2PcInstance activeChar)
+	{
+		_activeChar.sendPacket(new ExBrExtraUserInfo(_activeChar));
+	}
+	
+	@Override
+	public boolean canBeSentTo(L2GameClient client, L2PcInstance activeChar)
+	{
+		return _activeChar == activeChar;
+	}
+	
 	@Override
 	protected final void writeImpl()
 	{
@@ -330,17 +343,17 @@ public class UserInfo extends L2GameServerPacket
 			writeC(0x00); //team circle around feet 1= Blue, 2 = red
 
 		writeD(_activeChar.getClanCrestLargeId());
-		writeC(_activeChar.isNoble() ? 1 : 0); //0x01: symbol on char menu ctrl+I  
+		writeC(_activeChar.isNoble() ? 1 : 0); //0x01: symbol on char menu ctrl+I
 		writeC((_activeChar.isHero() || (_activeChar.isGM() && Config.GM_HERO_AURA)) ? 1 : 0); //0x01: Hero Aura
 
 		writeC(_activeChar.isFishing() ? 1 : 0); //Fishing Mode
-		writeD(_activeChar.getFishx()); //fishing x  
+		writeD(_activeChar.getFishx()); //fishing x
 		writeD(_activeChar.getFishy()); //fishing y
 		writeD(_activeChar.getFishz()); //fishing z
 		writeD(_appearance.getNameColor());
 
-		//new c5 
-		writeC(_activeChar.isRunning() ? 0x01 : 0x00); //changes the Speed display on Status Window 
+		//new c5
+		writeC(_activeChar.isRunning() ? 0x01 : 0x00); //changes the Speed display on Status Window
 
 		writeD(_activeChar.getPledgeClass()); //changes the text above CP on Status Window
 		writeD(_activeChar.getSubPledgeType());

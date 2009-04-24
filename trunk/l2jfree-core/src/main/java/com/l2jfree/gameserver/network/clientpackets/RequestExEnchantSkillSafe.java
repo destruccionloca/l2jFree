@@ -31,7 +31,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.base.Experience;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ExBrExtraUserInfo;
 import com.l2jfree.gameserver.network.serverpackets.ShortCutRegister;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
@@ -84,7 +83,7 @@ public final class RequestExEnchantSkillSafe extends L2GameClientPacket
         if (player.getClassId().level() < 3) // requires to have 3rd class quest completed
             return;
         
-        if (player.getLevel() < 76) 
+        if (player.getLevel() < 76)
             return;
         
         L2Skill skill = SkillTable.getInstance().getInfo(_skillId, _skillLvl);
@@ -99,7 +98,7 @@ public final class RequestExEnchantSkillSafe extends L2GameClientPacket
             if (!Config.ALT_GAME_SKILL_LEARN)
             {
                 player.sendMessage("You are trying to learn skill that u can't..");
-                Util.handleIllegalPlayerAction(player, "Client "+this.getClient()+" tried to learn skill that he can't!!!", IllegalPlayerAction.PUNISH_KICK);
+                Util.handleIllegalPlayerAction(player, "Client "+getClient()+" tried to learn skill that he can't!!!", IllegalPlayerAction.PUNISH_KICK);
                 return;
             }
         }
@@ -159,7 +158,6 @@ public final class RequestExEnchantSkillSafe extends L2GameClientPacket
                     }
 
                     player.sendPacket(new UserInfo(player));
-                    player.sendPacket(new ExBrExtraUserInfo(player));
 
                     SystemMessage sm = new SystemMessage(SystemMessageId.YOU_HAVE_SUCCEEDED_IN_ENCHANTING_THE_SKILL_S1);
                     sm.addSkillName(_skillId);

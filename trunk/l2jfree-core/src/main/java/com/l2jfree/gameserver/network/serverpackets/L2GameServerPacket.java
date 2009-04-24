@@ -46,7 +46,11 @@ public abstract class L2GameServerPacket extends SendablePacket<L2GameClient>
 		}
 	}
 	
-	public void runImpl(L2GameClient client, L2PcInstance activeChar)
+	public void prepareToSend(L2GameClient client, L2PcInstance activeChar)
+	{
+	}
+	
+	public void packetSent(L2GameClient client, L2PcInstance activeChar)
 	{
 	}
 	

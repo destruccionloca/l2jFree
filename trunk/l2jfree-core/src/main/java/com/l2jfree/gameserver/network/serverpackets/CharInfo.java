@@ -58,7 +58,7 @@ public class CharInfo extends L2GameServerPacket
 	}
 	
 	@Override
-	public void runImpl(L2GameClient client, L2PcInstance attacker)
+	public void packetSent(L2GameClient client, L2PcInstance attacker)
 	{
 		RelationChanged.sendRelationChanged(_activeChar, attacker);
 	}
@@ -343,7 +343,7 @@ public class CharInfo extends L2GameServerPacket
 				writeC(0x00); //team circle around feet 1= Blue, 2 = red
 
 			writeD(_activeChar.getClanCrestLargeId());
-			writeC(_activeChar.isNoble() ? 1 : 0); // Symbol on char menu ctrl+I  
+			writeC(_activeChar.isNoble() ? 1 : 0); // Symbol on char menu ctrl+I
 			writeC((_activeChar.isHero() || (_activeChar.isGM() && Config.GM_HERO_AURA)) ? 1 : 0); // Hero Aura
 
 			writeC(_activeChar.isFishing() ? 1 : 0); //0x01: Fishing Mode (Cant be undone by setting back to 0)

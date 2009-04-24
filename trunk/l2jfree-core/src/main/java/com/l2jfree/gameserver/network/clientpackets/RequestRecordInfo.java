@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.serverpackets.ExBrExtraUserInfo;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 
 public final class RequestRecordInfo extends L2GameClientPacket
@@ -37,7 +36,6 @@ public final class RequestRecordInfo extends L2GameClientPacket
 		
 		activeChar.getKnownList().updateKnownObjects();
 		activeChar.sendPacket(new UserInfo(activeChar));
-		activeChar.sendPacket(new ExBrExtraUserInfo(activeChar));
 	}
 	
 	@Override

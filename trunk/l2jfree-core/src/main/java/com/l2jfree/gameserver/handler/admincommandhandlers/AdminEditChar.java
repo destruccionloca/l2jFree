@@ -39,7 +39,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.base.ClassId;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ExBrExtraUserInfo;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.SetSummonRemainTime;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
@@ -205,7 +204,6 @@ public class AdminEditChar implements IAdminCommandHandler
 					L2PcInstance player = (L2PcInstance) target;
 					player.setFame(fame);
 					player.sendPacket(new UserInfo(player));
-					player.sendPacket(new ExBrExtraUserInfo(player));
 					player.sendMessage("A GM changed your Reputation points to " + fame);
 				}
 				else

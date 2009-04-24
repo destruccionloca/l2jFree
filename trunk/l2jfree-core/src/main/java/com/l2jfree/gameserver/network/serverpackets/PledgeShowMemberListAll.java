@@ -18,83 +18,42 @@ import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2ClanMember;
 import com.l2jfree.gameserver.model.L2Clan.SubPledge;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.L2GameClient;
 
-/**
- * 
- *
- * sample
- * 0000: 68 
- * b1010000 
- * 48 00 61 00 6d 00 62 00 75 00 72 00 67 00 00 00   H.a.m.b.u.r.g...
- * 43 00 61 00 6c 00 61 00 64 00 6f 00 6e 00 00 00   C.a.l.a.d.o.n...
- * 00000000  crestid | not used (nuocnam)
- * 00000000 00000000 00000000 00000000 
- * 22000000 00000000 00000000 
- * 00000000 ally id
- * 00 00	ally name
- * 00000000 ally crrest id 
- * 
- * 02000000
- *  
- * 6c 00 69 00 74 00 68 00 69 00 75 00 6d 00 31 00 00 00  l.i.t.h.i.u.m...
- * 0d000000		level 
- * 12000000 	class id
- * 00000000 	
- * 01000000 	offline 1=true
- * 00000000
- *  
- * 45 00 6c 00 61 00 6e 00 61 00 00 00   E.l.a.n.a...
- * 08000000 
- * 19000000 
- * 01000000 
- * 01000000 
- * 00000000
- * 
- *  
- * format   dSS dddddddddSdd d (Sddddd)
- *          dddSS dddddddddSdd d (Sdddddd)
- *          
- * @version $Revision: 1.6.2.2.2.3 $ $Date: 2005/03/27 15:29:57 $
- */
-public class PledgeShowMemberListAll extends L2GameServerPacket
+public final class PledgeShowMemberListAll extends L2GameServerPacket
 {
 	private static final String _S__68_PLEDGESHOWMEMBERLISTALL = "[S] 53 PledgeShowMemberListAll";
-	private L2Clan _clan;
-	private L2PcInstance _activeChar;
-	private L2ClanMember[] _members;
-	private int _pledgeType;
-
-	public PledgeShowMemberListAll(L2Clan clan, L2PcInstance activeChar)
+	
+	private static final int _pledgeType = 0;
+	
+	private final L2Clan _clan;
+	private final L2ClanMember[] _members;
+	
+	public PledgeShowMemberListAll(L2Clan clan)
 	{
 		_clan = clan;
-		_activeChar = activeChar;
 		_members = _clan.getMembers();
 	}
 	
 	@Override
-	protected final void writeImpl()
+	public void packetSent(L2GameClient client, L2PcInstance activeChar)
 	{
+		for (SubPledge element : _clan.getAllSubPledges())
+			activeChar.sendPacket(new PledgeReceiveSubPledgeCreated(element, _clan));
 		
-		_pledgeType = 0;
-		writePledge(0);
+		for (L2ClanMember cm : _members)
+			if (cm.getSubPledgeType() != _pledgeType)
+				activeChar.sendPacket(new PledgeShowMemberListAdd(cm));
 		
-		SubPledge[] subPledge = _clan.getAllSubPledges();
-		for (SubPledge element : subPledge)
-			_activeChar.sendPacket(new PledgeReceiveSubPledgeCreated(element, _clan));
-		
-		for (L2ClanMember m : _members)
-		{
-			if (m.getSubPledgeType() == 0) continue;
-			_activeChar.sendPacket(new PledgeShowMemberListAdd(m));
-		}
-
 		// unless this is sent sometimes, the client doesn't recognise the player as the leader
-		_activeChar.sendPacket(new UserInfo(_activeChar));
-		_activeChar.sendPacket(new ExBrExtraUserInfo(_activeChar));
+		activeChar.sendPacket(new UserInfo(activeChar));
 	}
 	
-	void writePledge(int mainOrSubpledge)
+	@Override
+	protected void writeImpl()
 	{
+		int mainOrSubpledge = 0;
+		
 		writeC(0x5a);
 		
 		writeD(mainOrSubpledge);
@@ -117,23 +76,21 @@ public class PledgeShowMemberListAll extends L2GameServerPacket
 		writeD(_clan.getAllyCrestId());
 		writeD(_clan.isAtWar() ? 1 : 0);// new c3
 		writeD(_clan.getSubPledgeMembersCount(_pledgeType));
-
+		
 		for (L2ClanMember m : _members)
 		{
-			if(m.getSubPledgeType() != _pledgeType) continue;
+			if (m.getSubPledgeType() != _pledgeType)
+				continue;
 			writeS(m.getName());
 			writeD(m.getLevel());
 			writeD(m.getClassId());
 			writeD(m.getSex());
 			writeD(m.getRace());
-			writeD(m.isOnline() ? m.getObjectId() : 0);  // objectId=online 0=offline
-			writeD(m.getSponsor() != 0 ? 1 : 0); 
+			writeD(m.isOnline() ? m.getObjectId() : 0); // objectId=online 0=offline
+			writeD(m.getSponsor() != 0 ? 1 : 0);
 		}
 	}
-
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
-	 */
+	
 	@Override
 	public String getType()
 	{

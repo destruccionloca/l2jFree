@@ -376,7 +376,7 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 			statement.execute();
 			statement.close();
 			
-			//this function can't be on the middle due it's closing opened connection 
+			//this function can't be on the middle due it's closing opened connection
 			RecommendationManager.getInstance().onDelete(objid, con, statement);
 		}
 		catch (Exception e)
@@ -517,9 +517,11 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 			if (!gsp.canBeSentTo(this, getActiveChar()))
 				return;
 			
-			gsp.runImpl(this, getActiveChar());
+			gsp.prepareToSend(this, getActiveChar());
 			
 			super.sendPacket(sp);
+			
+			gsp.packetSent(this, getActiveChar());
 		}
 		finally
 		{

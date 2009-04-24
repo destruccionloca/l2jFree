@@ -39,7 +39,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.itemcontainer.ClanWarehouse;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
-import com.l2jfree.gameserver.network.serverpackets.ExBrExtraUserInfo;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 import com.l2jfree.gameserver.network.serverpackets.PledgeReceiveSubPledgeCreated;
@@ -104,18 +103,18 @@ public class L2Clan
 
 	private List<L2Skill>					_skillList					= new FastList<L2Skill>();
 
-	//  Clan Privileges  
+	//  Clan Privileges
 	public static final int					CP_NOTHING					= 0;
-	public static final int					CP_CL_JOIN_CLAN				= 2;											// Join clan  
-	public static final int					CP_CL_GIVE_TITLE			= 4;											// Give a title  
-	public static final int					CP_CL_VIEW_WAREHOUSE		= 8;											// View warehouse content 
-	public static final int					CP_CL_MANAGE_RANKS			= 16;											// Manage clan ranks 
+	public static final int					CP_CL_JOIN_CLAN				= 2;											// Join clan
+	public static final int					CP_CL_GIVE_TITLE			= 4;											// Give a title
+	public static final int					CP_CL_VIEW_WAREHOUSE		= 8;											// View warehouse content
+	public static final int					CP_CL_MANAGE_RANKS			= 16;											// Manage clan ranks
 	public static final int					CP_CL_PLEDGE_WAR			= 32;
 	public static final int					CP_CL_DISMISS				= 64;
 	public static final int					CP_CL_REGISTER_CREST		= 128;											// Register clan crest
 	public static final int					CP_CL_MASTER_RIGHTS			= 256;
 	public static final int					CP_CL_MANAGE_LEVELS			= 512;
-	public static final int					CP_CH_OPEN_DOOR				= 1024;										// open a door  
+	public static final int					CP_CH_OPEN_DOOR				= 1024;										// open a door
 	public static final int					CP_CH_OTHER_RIGHTS			= 2048;
 	public static final int					CP_CH_AUCTION				= 4096;
 	public static final int					CP_CH_DISMISS				= 8192;
@@ -188,7 +187,7 @@ public class L2Clan
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement = con.prepareStatement("INSERT INTO clan_notices (clanID, notice, enabled) values (?,?,?)");
-			statement.setInt(1, this.getClanId());
+			statement.setInt(1, getClanId());
 			statement.setString(2, "Change me");
 			statement.setString(3, "false");
 			statement.execute();
@@ -196,7 +195,7 @@ public class L2Clan
 		}
 		catch (Exception e)
 		{
-			System.out.println("BBS: Error while creating clan notice for clan " + this.getClanId() + "");
+			System.out.println("BBS: Error while creating clan notice for clan " + getClanId() + "");
 			if (e.getMessage() != null)
 				System.out.println("BBS: Exception = " + e.getMessage() + "");
 		}
@@ -229,7 +228,7 @@ public class L2Clan
 		}
 		catch (Exception e)
 		{
-			System.out.println("BBS: Error while getting notice from DB for clan " + this.getClanId() + "");
+			System.out.println("BBS: Error while getting notice from DB for clan " + getClanId() + "");
 			if (e.getMessage() != null)
 				System.out.println("BBS: Exception = " + e.getMessage() + "");
 		}
@@ -262,7 +261,7 @@ public class L2Clan
 		}
 		catch (Exception e)
 		{
-			System.out.println("BBS: Error while getting notice from DB for clan " + this.getClanId() + "");
+			System.out.println("BBS: Error while getting notice from DB for clan " + getClanId() + "");
 			if (e.getMessage() != null)
 				System.out.println("BBS: Exception = " + e.getMessage() + "");
 		}
@@ -290,7 +289,7 @@ public class L2Clan
 			PreparedStatement statement = con.prepareStatement("UPDATE clan_notices SET notice=? WHERE clanID=?");
 
 			statement.setString(1, notice);
-			statement.setInt(2, this.getClanId());
+			statement.setInt(2, getClanId());
 			statement.execute();
 			statement.close();
 
@@ -298,7 +297,7 @@ public class L2Clan
 		}
 		catch (Exception e)
 		{
-			System.out.println("BBS: Error while saving notice for clan " + this.getClanId() + "");
+			System.out.println("BBS: Error while saving notice for clan " + getClanId() + "");
 			if (e.getMessage() != null)
 				System.out.println("BBS: Exception = " + e.getMessage() + "");
 		}
@@ -333,7 +332,7 @@ public class L2Clan
 		}
 		catch (Exception e)
 		{
-			System.out.println("BBS: Error while reading _noticeEnabled for clan " + this.getClanId() + "");
+			System.out.println("BBS: Error while reading _noticeEnabled for clan " + getClanId() + "");
 			if (e.getMessage() != null)
 				System.out.println("BBS: Exception = " + e.getMessage() + "");
 		}
@@ -364,13 +363,13 @@ public class L2Clan
 				statement.setString(1, "true");
 			else
 				statement.setString(1, "false");
-			statement.setInt(2, this.getClanId());
+			statement.setInt(2, getClanId());
 			statement.execute();
 			statement.close();
 		}
 		catch (Exception e)
 		{
-			System.out.println("BBS: Error while updating notice status for clan " + this.getClanId() + "");
+			System.out.println("BBS: Error while updating notice status for clan " + getClanId() + "");
 			if (e.getMessage() != null)
 				System.out.println("BBS: Exception = " + e.getMessage() + "");
 		}
@@ -1226,7 +1225,7 @@ public class L2Clan
 				L2DatabaseFactory.close(con);
 			}
 
-			// notify clan members 
+			// notify clan members
 			addSkillEffects(true);
 		}
 
@@ -1327,7 +1326,7 @@ public class L2Clan
 		{
 			if (member.isOnline() &&
 					member.getPlayerInstance() != null &&
-					!(Config.REGION_CHAT_ALSO_BLOCKED && 
+					!(Config.REGION_CHAT_ALSO_BLOCKED &&
 							BlockList.isBlocked(member.getPlayerInstance(), broadcaster)))
 				member.getPlayerInstance().sendPacket(packet);
 		}
@@ -1337,8 +1336,8 @@ public class L2Clan
 	{
 		for (L2ClanMember member : _members.values())
 		{
-			if (member.isOnline() && 
-					member.getPlayerInstance() != null && 
+			if (member.isOnline() &&
+					member.getPlayerInstance() != null &&
 					member.getPlayerInstance() != player)
 				member.getPlayerInstance().sendPacket(packet);
 		}
@@ -1455,13 +1454,10 @@ public class L2Clan
 
 	public void broadcastClanStatus()
 	{
-		for (L2PcInstance member : getOnlineMembers(0))
-		{
-			member.sendPacket(new PledgeShowMemberListDeleteAll());
-			member.sendPacket(new PledgeShowMemberListAll(this, member));
-		}
+		broadcastToOnlineMembers(new PledgeShowMemberListDeleteAll());
+		broadcastToOnlineMembers(new PledgeShowMemberListAll(this));
 	}
-
+	
 	public void removeSkill(int id)
 	{
 		L2Skill deleteSkill = null;
@@ -1869,7 +1865,6 @@ public class L2Clan
 						{
 							mem.setClanPrivileges(privs);
 							mem.sendPacket(new UserInfo(mem));
-							mem.sendPacket(new ExBrExtraUserInfo(mem));
 						}
 					}
 				}
@@ -2295,7 +2290,6 @@ public class L2Clan
 		updateClanInDB();
 
 		player.sendPacket(new UserInfo(player));
-		player.sendPacket(new ExBrExtraUserInfo(player));
 
 		player.sendMessage("Alliance " + allyName + " has been created.");
 	}

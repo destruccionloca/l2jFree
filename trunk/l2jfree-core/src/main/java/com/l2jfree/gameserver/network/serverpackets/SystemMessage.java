@@ -187,7 +187,7 @@ public final class SystemMessage extends L2GameServerPacket
 	}
 	
 	@Override
-	public void runImpl(L2GameClient client, L2PcInstance activeChar)
+	public void prepareToSend(L2GameClient client, L2PcInstance activeChar)
 	{
 		int count = 0;
 		

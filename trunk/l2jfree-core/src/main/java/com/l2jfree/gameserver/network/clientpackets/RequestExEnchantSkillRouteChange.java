@@ -31,7 +31,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.base.Experience;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ExBrExtraUserInfo;
 import com.l2jfree.gameserver.network.serverpackets.ShortCutRegister;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
@@ -84,7 +83,7 @@ public final class RequestExEnchantSkillRouteChange extends L2GameClientPacket
         if (player.getClassId().level() < 3) // requires to have 3rd class quest completed
             return;
         
-        if (player.getLevel() < 76) 
+        if (player.getLevel() < 76)
             return;
         
         L2Skill skill = SkillTable.getInstance().getInfo(_skillId, _skillLvl);
@@ -98,7 +97,7 @@ public final class RequestExEnchantSkillRouteChange extends L2GameClientPacket
             if (!Config.ALT_GAME_SKILL_LEARN)
             {
                 player.sendMessage("You are trying to learn skill that u can't..");
-                Util.handleIllegalPlayerAction(player, "Client "+this.getClient()+" tried to learn skill that he can't!!!", IllegalPlayerAction.PUNISH_KICK);
+                Util.handleIllegalPlayerAction(player, "Client "+getClient()+" tried to learn skill that he can't!!!", IllegalPlayerAction.PUNISH_KICK);
                 return;
             }
         }
@@ -136,7 +135,7 @@ public final class RequestExEnchantSkillRouteChange extends L2GameClientPacket
             {
                 // only first lvl requires book
                 L2ItemInstance spb = player.getInventory().getItemByItemId(reqItemId);
-                if (Config.ALT_ES_SP_BOOK_NEEDED) 
+                if (Config.ALT_ES_SP_BOOK_NEEDED)
                 {
                     if (spb == null)// Haven't spellbook
                     {
@@ -147,7 +146,7 @@ public final class RequestExEnchantSkillRouteChange extends L2GameClientPacket
                 
                 boolean check;
                 check = player.getStat().removeExpAndSp(requiredExp, requiredSp);
-                if (Config.ALT_ES_SP_BOOK_NEEDED) 
+                if (Config.ALT_ES_SP_BOOK_NEEDED)
                 {
                     check &= player.destroyItem("Consume", spb.getObjectId(), 1, trainer, true);
                 }
@@ -179,7 +178,6 @@ public final class RequestExEnchantSkillRouteChange extends L2GameClientPacket
                 
 
                 player.sendPacket(new UserInfo(player));
-                player.sendPacket(new ExBrExtraUserInfo(player));
 
                 if (levelPenalty == 0)
                 {
@@ -197,7 +195,7 @@ public final class RequestExEnchantSkillRouteChange extends L2GameClientPacket
                 
                 trainer.showEnchantChangeSkillList(player);
                 
-                this.updateSkillShortcuts(player);
+                updateSkillShortcuts(player);
             }
             else
             {

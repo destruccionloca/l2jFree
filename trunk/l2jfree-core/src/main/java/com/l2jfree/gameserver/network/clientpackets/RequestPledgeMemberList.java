@@ -48,7 +48,7 @@ public class RequestPledgeMemberList extends L2GameClientPacket
 		L2Clan clan = activeChar.getClan();
 		if (clan != null)
 		{
-			PledgeShowMemberListAll pm = new PledgeShowMemberListAll(clan, activeChar);
+			PledgeShowMemberListAll pm = new PledgeShowMemberListAll(clan);
 			activeChar.sendPacket(pm);
 		}
 	}

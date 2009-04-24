@@ -48,7 +48,6 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.AcquireSkillDone;
 import com.l2jfree.gameserver.network.serverpackets.AcquireSkillList;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.network.serverpackets.ExBrExtraUserInfo;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.PledgeReceiveSubPledgeCreated;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -758,7 +757,6 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 				return;
 			subLeader.setPledgeClass(L2ClanMember.getCurrentPledgeClass(subLeader));
 			subLeader.sendPacket(new UserInfo(subLeader));
-			subLeader.sendPacket(new ExBrExtraUserInfo(subLeader));
 			try
 			{
 				clan.getClanMember(leaderName).updateSubPledgeType();

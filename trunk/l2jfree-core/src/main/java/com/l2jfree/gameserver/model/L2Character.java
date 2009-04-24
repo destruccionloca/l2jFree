@@ -6323,10 +6323,21 @@ public abstract class L2Character extends L2Object
 				final L2Character originalSkillTarget = magicEnv._originalSkillTarget;
 				final L2Object currentTarget = L2Object.getActingCharacter(getTarget());
 				
+				L2Object newTarget = null;
+				
 				if (originalSkillTarget != null && originalSkillTarget != this && originalSkillTarget == currentTarget)
-					getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, originalSkillTarget);
+					newTarget = originalSkillTarget;
 				else if (originalTarget != null && originalTarget != this && originalTarget == currentTarget)
-					getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, originalTarget);
+					newTarget = originalTarget;
+				
+				if (newTarget != null)
+				{
+					double distance = Util.calculateDistance(this, newTarget, false);
+					
+					// if the skill is melee, or almost in the range of a normal attack
+					if (getMagicalAttackRange(skill) < 200 || getPhysicalAttackRange() + 200 > distance)
+						getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, newTarget);
+				}
 				break;
 		}
 		

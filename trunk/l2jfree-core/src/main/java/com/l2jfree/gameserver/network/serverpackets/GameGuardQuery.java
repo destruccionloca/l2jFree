@@ -32,7 +32,7 @@ public class GameGuardQuery extends L2GameServerPacket
     }
     
     @Override
-    public void runImpl(final L2GameClient client, final L2PcInstance activeChar)
+    public void prepareToSend(final L2GameClient client, final L2PcInstance activeChar)
     {
         // Lets make user as gg-unauthorized
         // We will set him as ggOK after reply fromclient

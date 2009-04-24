@@ -16,35 +16,24 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.network.serverpackets.AllyInfo;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1479 $ $Date: 2005-11-09 00:47:42 +0100 (mer., 09 nov. 2005) $
- */
-public class RequestAllyInfo extends L2GameClientPacket
+public final class RequestAllyInfo extends L2GameClientPacket
 {
 	private static final String _C__8E_REQUESTALLYINFO = "[C] 8E RequestAllyInfo";
+	
 	/**
-	 * packet type id 0x8E
-	 * format:		c
-	 * @param rawPacket
+	 * packet type id 0x8E format: c
 	 */
-    @Override
-    public void readImpl()
-    {
-        
-    }
-
-    @Override
-    protected void runImpl()
+	@Override
+	protected void readImpl()
 	{
-		AllyInfo ai = new AllyInfo(getClient().getActiveChar());
-		sendPacket(ai);
 	}
-
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
+	
+	@Override
+	protected void runImpl()
+	{
+		AllyInfo.sendAllyInfo(getActiveChar());
+	}
+	
 	@Override
 	public String getType()
 	{
