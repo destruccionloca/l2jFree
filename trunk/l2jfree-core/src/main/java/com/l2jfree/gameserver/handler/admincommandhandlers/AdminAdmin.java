@@ -334,7 +334,7 @@ public class AdminAdmin implements IAdminCommandHandler
 				activeChar.sendMessage("Usage: //summon <npcid/itemid>");
 			}
 		}*/
-		else if (command.startsWith("admin_memsuage"))
+		else if (command.startsWith("admin_memusage"))
 		{
 			for (String line : Util.getMemUsage())
 			{
@@ -505,12 +505,12 @@ public class AdminAdmin implements IAdminCommandHandler
 				{
 					SiegeManager.getInstance().reload();
 					FortSiegeManager.getInstance().reload();
-					activeChar.sendMessage("Castle/Fortress Siege config reloaded");
+					activeChar.sendMessage("Castle/Fortress Siege configs reloaded");
 				}
 				else if (type.startsWith("fortsiege"))
 				{
 					FortSiegeManager.getInstance().reload();
-					activeChar.sendMessage("Castle/Fortress Siege config reloaded");
+					activeChar.sendMessage("Castle/Fortress Siege configs reloaded");
 				}
 				else if (type.startsWith("quests"))
 				{
@@ -769,7 +769,7 @@ public class AdminAdmin implements IAdminCommandHandler
 
 		summon.setFollowStatus(true);
 		summon.setShowSummonAnimation(false); // addVisibleObject created the info packets with summon animation
-		// if someone comes into range now, the animation shouldnt show any more
+		// if someone comes into range now, the animation shouldn't show any more
 		activeChar.sendPacket(new PetInfo(summon, 0));
 	}
 }
