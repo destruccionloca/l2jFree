@@ -18,7 +18,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.ShotTable;
 import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.handler.ItemHandler;
@@ -38,7 +37,6 @@ import com.l2jfree.gameserver.templates.item.L2Weapon;
 import com.l2jfree.gameserver.templates.item.L2WeaponType;
 import com.l2jfree.gameserver.util.FloodProtector;
 import com.l2jfree.gameserver.util.FloodProtector.Protected;
-import com.l2jfree.lang.L2System;
 
 /**
  * This class ...

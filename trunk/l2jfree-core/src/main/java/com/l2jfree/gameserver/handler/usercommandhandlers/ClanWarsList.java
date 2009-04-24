@@ -17,8 +17,6 @@ package com.l2jfree.gameserver.handler.usercommandhandlers;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.handler.IUserCommandHandler;
 import com.l2jfree.gameserver.model.L2Clan;

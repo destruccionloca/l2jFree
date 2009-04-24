@@ -20,7 +20,6 @@ package com.l2jfree.gameserver.instancemanager.lastimperialtomb;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 import javolution.util.FastList;

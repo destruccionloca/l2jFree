@@ -17,8 +17,6 @@ package com.l2jfree.gameserver.model.entity.faction;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import javolution.util.FastList;
 import javolution.util.FastMap;
 

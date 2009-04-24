@@ -16,9 +16,6 @@ package com.l2jfree.gameserver.communitybbs.bb;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
-
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
