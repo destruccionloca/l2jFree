@@ -146,23 +146,20 @@ public abstract class L2PlayableInstance extends L2Character
 	public final void setIsNoblesseBlessed(boolean value)
 	{
 		_isNoblesseBlessed = value;
+		updateAbnormalEffect();
 	}
 
 	public final void startNoblesseBlessing()
 	{
 		setIsNoblesseBlessed(true);
-		updateAbnormalEffect();
 	}
 
-	public final void stopNoblesseBlessing(L2Effect effect)
+	public final void stopNoblesseBlessing(boolean all)
 	{
-		if (effect == null)
+		if (all)
 			stopEffects(L2EffectType.NOBLESSE_BLESSING);
-		else
-			removeEffect(effect);
 
 		setIsNoblesseBlessed(false);
-		updateAbnormalEffect();
 	}
 
 	// Support for Soul of the Phoenix and Salvation skills
@@ -174,23 +171,20 @@ public abstract class L2PlayableInstance extends L2Character
 	public final void setIsPhoenixBlessed(boolean value)
 	{
 		_isPhoenixBlessed = value;
+		updateAbnormalEffect();
 	}
 
 	public final void startPhoenixBlessing()
 	{
 		setIsPhoenixBlessed(true);
-		updateAbnormalEffect();
 	}
 
-	public final void stopPhoenixBlessing(L2Effect effect)
+	public final void stopPhoenixBlessing(boolean all)
 	{
-		if (effect == null)
+		if (all)
 			stopEffects(L2EffectType.PHOENIX_BLESSING);
-		else
-			removeEffect(effect);
 
 		setIsPhoenixBlessed(false);
-		updateAbnormalEffect();
 	}
 
 	/**
@@ -218,26 +212,23 @@ public abstract class L2PlayableInstance extends L2Character
 	public final void setProtectionBlessing(boolean value)
 	{
 		_protectionBlessing = value;
+		updateAbnormalEffect();
 	}
 
 	public void startProtectionBlessing()
 	{
 		setProtectionBlessing(true);
-		updateAbnormalEffect();
 	}
 
 	 /**
 	 * @param effect
 	 */
-	public void stopProtectionBlessing(L2Effect effect)
+	public void stopProtectionBlessing(boolean all)
 	{
-		if (effect == null)
+		if (all)
 			stopEffects(L2EffectType.PROTECTION_BLESSING);
-		else
-			removeEffect(effect);
 
 		setProtectionBlessing(false);
-		updateAbnormalEffect();
 	}
 
 	// Charm of Luck - During a Raid/Boss war, decreased chance for death penalty
@@ -249,23 +240,20 @@ public abstract class L2PlayableInstance extends L2Character
 	public final void setCharmOfLuck(boolean value)
 	{
 		_getCharmOfLuck = value;
+		updateAbnormalEffect();
 	}
 
 	public final void startCharmOfLuck()
 	{
 		setCharmOfLuck(true);
-		updateAbnormalEffect();
 	}
 
-	public final void stopCharmOfLuck(L2Effect effect)
+	public final void stopCharmOfLuck(boolean all)
 	{
-		if (effect == null)
+		if (all)
 			stopEffects(L2EffectType.CHARM_OF_LUCK);
-		else
-			removeEffect(effect);
 
 		setCharmOfLuck(false);
-		updateAbnormalEffect();
 	}
 	
 	public final void updateEffectIcons()

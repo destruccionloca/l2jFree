@@ -33,7 +33,7 @@ import com.l2jfree.tools.random.Rnd;
 
 /**
  * This class manages the spawn and respawn of a group of L2NpcInstance that are in the same are and have the same type.
- *  
+ * 
  * <B><U> Concept</U> :</B><BR><BR>
  * L2NpcInstance can be spawned either in a random position into a location area (if Lox=0 and Locy=0), either at an exact position.
  * The heading of the L2NpcInstance can be a random heading if not defined (value= -1) or an exact heading (ex : merchant...).<BR><BR>
@@ -138,15 +138,15 @@ public class L2Spawn
 
 	/**
 	 * Constructor of L2Spawn.<BR><BR>
-	 *  
+	 * 
 	 * <B><U> Concept</U> :</B><BR><BR>
-	 * Each L2Spawn owns generic and static properties (ex : RewardExp, RewardSP, AggroRange...). 
+	 * Each L2Spawn owns generic and static properties (ex : RewardExp, RewardSP, AggroRange...).
 	 * All of those properties are stored in a different L2NpcTemplate for each type of L2Spawn.
 	 * Each template is loaded once in the server cache memory (reduce memory use).
 	 * When a new instance of L2Spawn is created, server just create a link between the instance and the template.
 	 * This link is stored in <B>_template</B><BR><BR>
 	 * 
-	 * Each L2NpcInstance is linked to a L2Spawn that manages its spawn and respawn (delay, location...). 
+	 * Each L2NpcInstance is linked to a L2Spawn that manages its spawn and respawn (delay, location...).
 	 * This link is stored in <B>_spawn</B> of the L2NpcInstance<BR><BR>
 	 * 
 	 * <B><U> Actions</U> :</B><BR><BR>
@@ -272,7 +272,7 @@ public class L2Spawn
 		return _respawnDelay;
 	}
 
-	/** 
+	/**
 	 * Return Min <Boss Spawn delay.<BR><BR>
 	*/
 	public int getRespawnMinDelay()
@@ -280,7 +280,7 @@ public class L2Spawn
 		return _respawnMinDelay;
 	}
 
-	/** 
+	/**
 	 * Return Max RaidBoss Spawn delay.<BR><BR>
 	*/
 	public int getRespawnMaxDelay()
@@ -417,7 +417,7 @@ public class L2Spawn
 	}
 
 	/**
-	 * Create the initial spawning and set _doRespawn to True.<BR><BR> 
+	 * Create the initial spawning and set _doRespawn to True.<BR><BR>
 	 *
 	 * @return The number of L2NpcInstance that were spawned
 	 */
@@ -509,7 +509,7 @@ public class L2Spawn
 			Object[] parameters =
 			{ IdFactory.getInstance().getNextId(), _template };
 
-			// Call the constructor of the L2NpcInstance 
+			// Call the constructor of the L2NpcInstance
 			// (can be a L2ArtefactInstance, L2FriendlyMobInstance, L2GuardInstance, L2MonsterInstance, L2SiegeGuardInstance or L2FolkInstance)
 			L2Object tmp = (L2Object) _constructor.newInstance(parameters);
 			// Must be done before object is spawned into visible world
@@ -564,11 +564,7 @@ public class L2Spawn
 		newlocy = getLocy();
 		newlocz = doCorrect ? GeoData.getInstance().getSpawnHeight(newlocx, newlocy, getLocz(), getLocz(), _id) : getLocz();
 
-		for (L2Effect f : mob.getAllEffects())
-		{
-			if (f != null)
-				mob.removeEffect(f);
-		}
+		mob.stopAllEffects();
 
 		// setting up champion mobs
 		if (((mob instanceof L2MonsterInstance && !(mob instanceof L2Boss)) || (mob instanceof L2Boss && Config.CHAMPION_BOSS))
@@ -614,7 +610,7 @@ public class L2Spawn
 		if (_log.isDebugEnabled())
 			_log.debug("spawned Mob ID: " + _template.getNpcId() + " ,at: " + mob.getX() + " x, " + mob.getY() + " y, " + mob.getZ() + " z");
 
-		// Increase the current number of L2NpcInstance managed by this L2Spawn 
+		// Increase the current number of L2NpcInstance managed by this L2Spawn
 		_currentCount++;
 		return mob;
 	}

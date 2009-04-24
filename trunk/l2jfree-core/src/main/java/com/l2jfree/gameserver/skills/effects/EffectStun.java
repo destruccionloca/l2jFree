@@ -47,7 +47,7 @@ public final class EffectStun extends L2Effect
 	@Override
 	public void onExit()
 	{
-		getEffected().stopStunning(this);
+		getEffected().stopStunning(false);
 	}
 
 	@Override

@@ -63,7 +63,7 @@ public final class EffectConfusion extends L2Effect
 	@Override
 	public void onExit()
 	{
-		getEffected().stopConfused(this);
+		getEffected().stopConfused(false);
 	}
 
 	@Override

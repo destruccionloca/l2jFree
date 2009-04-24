@@ -251,18 +251,18 @@ public class CharStatus
 			if (awake)
 			{
 				if (getActiveChar().isSleeping())
-					getActiveChar().stopSleeping(null);
+					getActiveChar().stopSleeping(true);
 				if (getActiveChar().isImmobileUntilAttacked())
-					getActiveChar().stopImmobileUntilAttacked(null);
+					getActiveChar().stopImmobileUntilAttacked(true);
 			}
 			
 			if (getActiveChar().isStunned() && Rnd.get(10) == 0)
-				getActiveChar().stopStunning(null);
+				getActiveChar().stopStunning(true);
 		}
 		else if (awake && getActiveChar() instanceof L2PcInstance)
 		{
 			if (getActiveChar().isSleeping())
-				getActiveChar().stopSleeping(null);
+				getActiveChar().stopSleeping(true);
 		}
 		
 		final L2PcInstance player = getActiveChar().getActingPlayer();

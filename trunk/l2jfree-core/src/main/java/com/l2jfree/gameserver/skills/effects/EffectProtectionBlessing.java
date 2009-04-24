@@ -55,7 +55,7 @@ public class EffectProtectionBlessing extends L2Effect
 	@Override
 	public void onExit()
 	{
-		((L2PlayableInstance)getEffected()).stopProtectionBlessing(this);
+		((L2PlayableInstance)getEffected()).stopProtectionBlessing(false);
 	}
 
 	@Override

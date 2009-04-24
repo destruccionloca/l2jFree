@@ -49,7 +49,7 @@ public final class EffectFakeDeath extends L2Effect
 	@Override
 	public void onExit()
 	{
-		getEffected().stopFakeDeath(this);
+		getEffected().stopFakeDeath(false);
 	}
 
 	@Override

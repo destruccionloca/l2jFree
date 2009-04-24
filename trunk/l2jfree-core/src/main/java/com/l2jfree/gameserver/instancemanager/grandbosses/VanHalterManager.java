@@ -759,14 +759,14 @@ public class VanHalterManager extends BossLair
 		_ritualOffering = _ritualOfferingSpawn.doSpawn();
 		_ritualOffering.setIsImmobilized(true);
 		_ritualOffering.setIsInvul(true);
-		_ritualOffering.setIsParalyzed(true);
+		_ritualOffering.startParalyze();
 	}
 
 	protected void deleteRitualOffering()
 	{
 		_ritualOffering.setIsImmobilized(false);
 		_ritualOffering.setIsInvul(false);
-		_ritualOffering.setIsParalyzed(false);
+		_ritualOffering.stopParalyze(false);
 		_ritualOffering.getSpawn().stopRespawn();
 		_ritualOffering.deleteMe();
 	}
@@ -868,7 +868,7 @@ public class VanHalterManager extends BossLair
 
 	// Door control.
 	/**
-	 * @param intruder  
+	 * @param intruder
 	 */
 	public void intruderDetection(L2PcInstance intruder)
 	{
@@ -1093,7 +1093,7 @@ public class VanHalterManager extends BossLair
 			{
 				if (_vanHalter.isAfraid())
 				{
-					_vanHalter.stopFear(null);
+					_vanHalter.stopFear(true);
 				}
 				else
 				{
@@ -1103,7 +1103,7 @@ public class VanHalterManager extends BossLair
 						L2CharPosition pos = new L2CharPosition(-16397, -53308, -10448, 0);
 						if (_vanHalter.getX() == pos.x && _vanHalter.getY() == pos.y)
 						{
-							_vanHalter.stopFear(null);
+							_vanHalter.stopFear(true);
 						}
 						else
 						{
@@ -1127,7 +1127,7 @@ public class VanHalterManager extends BossLair
 			}
 			else
 			{
-				_vanHalter.stopFear(null);
+				_vanHalter.stopFear(true);
 				if (_halterEscapeTask != null)
 					_halterEscapeTask.cancel(false);
 				_halterEscapeTask = null;

@@ -1069,7 +1069,7 @@ public class L2CharacterAI extends AbstractAI
 			//check if player is fakedeath
 			if (target != null && target.isFakeDeath())
 			{
-				target.stopFakeDeath(null);
+				target.stopFakeDeath(true);
 				return false;
 			}
 
@@ -1105,7 +1105,7 @@ public class L2CharacterAI extends AbstractAI
 
 			if (target2.isFakeDeath())
 			{
-				target2.stopFakeDeath(null);
+				target2.stopFakeDeath(true);
 				return false;
 			}
 		}

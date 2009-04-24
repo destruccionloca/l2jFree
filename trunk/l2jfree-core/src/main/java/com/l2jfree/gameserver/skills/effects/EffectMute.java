@@ -48,6 +48,6 @@ public final class EffectMute extends L2Effect
 	@Override
 	public void onExit()
 	{
-		getEffected().stopMuted(this);
+		getEffected().stopMuted(false);
 	}
 }

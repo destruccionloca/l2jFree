@@ -78,7 +78,7 @@ public final class PcStatus extends CharStatus
 			getActiveChar().standUp();
 		
 		if (getActiveChar().isFakeDeath())
-			getActiveChar().stopFakeDeath(null);
+			getActiveChar().stopFakeDeath(true);
 		
 		if (attacker != getActiveChar() && realValue > 0)
 		{

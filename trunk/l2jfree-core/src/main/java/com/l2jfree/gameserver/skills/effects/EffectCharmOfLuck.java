@@ -52,7 +52,7 @@ public final class EffectCharmOfLuck extends L2Effect
 	@Override
 	public void onExit()
 	{
-		((L2PlayableInstance) getEffected()).stopCharmOfLuck(this);
+		((L2PlayableInstance) getEffected()).stopCharmOfLuck(false);
 	}
 
 	@Override

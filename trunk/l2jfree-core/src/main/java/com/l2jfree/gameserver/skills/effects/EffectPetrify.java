@@ -46,7 +46,7 @@ public final class EffectPetrify extends L2Effect
 
 	{
 		getEffected().stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_2);
-		getEffected().stopParalyze(this);
+		getEffected().stopParalyze(false);
 		getEffected().setIsPetrified(false);
 	}
 

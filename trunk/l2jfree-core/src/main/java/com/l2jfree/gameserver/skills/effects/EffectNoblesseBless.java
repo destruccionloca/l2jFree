@@ -52,7 +52,7 @@ public final class EffectNoblesseBless extends L2Effect
 	@Override
 	public void onExit()
 	{
-		((L2PlayableInstance) getEffected()).stopNoblesseBlessing(this);
+		((L2PlayableInstance) getEffected()).stopNoblesseBlessing(false);
 	}
 
 	@Override

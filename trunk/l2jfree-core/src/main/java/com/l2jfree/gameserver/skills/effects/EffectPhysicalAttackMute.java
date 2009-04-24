@@ -52,6 +52,6 @@ public final class EffectPhysicalAttackMute extends L2Effect
 	@Override
 	public void onExit()
 	{
-		getEffected().stopPhysicalAttackMuted(this);
+		getEffected().stopPhysicalAttackMuted(false);
 	}
 }

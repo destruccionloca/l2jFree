@@ -2132,7 +2132,7 @@ public abstract class L2Character extends L2Object
 			// now reset currentHp to zero
 			getStatus().setCurrentHp(0);
 			if (isFakeDeath())
-				stopFakeDeath(null);
+				stopFakeDeath(true);
 			setIsDead(true);
 		}
 		// Set target to null and cancel Attack or Cast
@@ -2152,16 +2152,16 @@ public abstract class L2Character extends L2Object
 			if (pl.isPhoenixBlessed())
 			{
 				if (pl.getCharmOfLuck()) //remove Lucky Charm if player has SoulOfThePhoenix/Salvation buff
-					pl.stopCharmOfLuck(null);
+					pl.stopCharmOfLuck(true);
 				if (pl.isNoblesseBlessed())
-					pl.stopNoblesseBlessing(null);
+					pl.stopNoblesseBlessing(true);
 			}
 			// Same thing if the Character isn't a Noblesse Blessed L2PlayableInstance
 			else if (pl.isNoblesseBlessed())
 			{
-				pl.stopNoblesseBlessing(null);
+				pl.stopNoblesseBlessing(true);
 				if (pl.getCharmOfLuck()) // remove Lucky Charm if player have Nobless blessing buff
-					pl.stopCharmOfLuck(null);
+					pl.stopCharmOfLuck(true);
 
 				// Delete transformation effects, even if you have noblesse blessing
 				L2Effect[] effects = getAllEffects();
@@ -2242,7 +2242,7 @@ public abstract class L2Character extends L2Object
 			if (this instanceof L2PlayableInstance && ((L2PlayableInstance) this).isPhoenixBlessed())
 			{
 				restorefull = true;
-				((L2PlayableInstance) this).stopPhoenixBlessing(null);
+				((L2PlayableInstance) this).stopPhoenixBlessing(true);
 			}
 
 			if(restorefull)
@@ -2371,6 +2371,7 @@ public abstract class L2Character extends L2Object
 	public final void setIsAfraid(boolean value)
 	{
 		_isAfraid = value;
+		updateAbnormalEffect();
 	}
 
 	/** Return True if the L2Character can't use its skills (ex : stun, sleep...). */
@@ -2399,6 +2400,7 @@ public abstract class L2Character extends L2Object
 	public final void setIsConfused(boolean value)
 	{
 		_isConfused = value;
+		updateAbnormalEffect();
 	}
 
 	public final boolean isDead()
@@ -2463,6 +2465,7 @@ public abstract class L2Character extends L2Object
 	public final void setIsMuted(boolean value)
 	{
 		_isMuted = value;
+		updateAbnormalEffect();
 	}
 
 	public final boolean isPhysicalMuted()
@@ -2473,6 +2476,7 @@ public abstract class L2Character extends L2Object
 	public final void setIsPhysicalMuted(boolean value)
 	{
 		_isPhysicalMuted = value;
+		updateAbnormalEffect();
 	}
 
 	public final boolean isPhysicalAttackMuted()
@@ -2528,6 +2532,7 @@ public abstract class L2Character extends L2Object
 	public final void setIsParalyzed(boolean value)
 	{
 		_isParalyzed = value;
+		updateAbnormalEffect();
 	}
 
 	public final boolean isPendingRevive()
@@ -2572,6 +2577,7 @@ public abstract class L2Character extends L2Object
 	public final void setIsRooted(boolean value)
 	{
 		_isRooted = value;
+		updateAbnormalEffect();
 	}
 
 	/** Return True if the L2Character is running. */
@@ -2604,6 +2610,7 @@ public abstract class L2Character extends L2Object
 	public final void setIsImmobileUntilAttacked(boolean value)
 	{
 		_isImmobileUntilAttacked = value;
+		updateAbnormalEffect();
 	}
 
 	public final boolean isImmobileUntilAttacked()
@@ -2614,6 +2621,7 @@ public abstract class L2Character extends L2Object
 	public final void setIsSleeping(boolean value)
 	{
 		_isSleeping = value;
+		updateAbnormalEffect();
 	}
 
 	public final boolean isBlessedByNoblesse()
@@ -2644,6 +2652,7 @@ public abstract class L2Character extends L2Object
 	public final void setIsStunned(boolean value)
 	{
 		_isStunned = value;
+		updateAbnormalEffect();
 	}
 
 	public final boolean isPetrified()
@@ -3122,7 +3131,6 @@ public abstract class L2Character extends L2Object
 	{
 		setIsConfused(true);
 		getAI().notifyEvent(CtrlEvent.EVT_CONFUSED);
-		updateAbnormalEffect();
 	}
 
 	/**
@@ -3215,7 +3223,6 @@ public abstract class L2Character extends L2Object
 	{
 		setIsAfraid(true);
 		getAI().notifyEvent(CtrlEvent.EVT_AFRAID);
-		updateAbnormalEffect();
 	}
 
 	/**
@@ -3228,7 +3235,6 @@ public abstract class L2Character extends L2Object
 		/* Aborts any casts if muted */
 		abortCast();
 		getAI().notifyEvent(CtrlEvent.EVT_MUTED);
-		updateAbnormalEffect();
 	}
 
 	/**
@@ -3239,7 +3245,6 @@ public abstract class L2Character extends L2Object
 	{
 		setIsPhysicalMuted(true);
 		getAI().notifyEvent(CtrlEvent.EVT_MUTED);
-		updateAbnormalEffect();
 	}
 
 	/**
@@ -3251,7 +3256,6 @@ public abstract class L2Character extends L2Object
 		setIsRooted(true);
 		stopMove(null);
 		getAI().notifyEvent(CtrlEvent.EVT_ROOTED, null);
-		updateAbnormalEffect();
 	}
 
 	/**
@@ -3266,7 +3270,6 @@ public abstract class L2Character extends L2Object
 		abortCast();
 		stopMove(null);
 		getAI().notifyEvent(CtrlEvent.EVT_SLEEPING, null);
-		updateAbnormalEffect();
 	}
 
 	public final void startImmobileUntilAttacked()
@@ -3276,7 +3279,6 @@ public abstract class L2Character extends L2Object
 		abortCast();
 		stopMove(null);
 		getAI().notifyEvent(CtrlEvent.EVT_SLEEPING, null);
-		updateAbnormalEffect();
 	}
 
 	public final void startLuckNoblesse()
@@ -3310,7 +3312,6 @@ public abstract class L2Character extends L2Object
 		abortCast();
 		stopMove(null);
 		getAI().notifyEvent(CtrlEvent.EVT_STUNNED, null);
-		updateAbnormalEffect();
 	}
 
 	public final void startParalyze()
@@ -3321,7 +3322,6 @@ public abstract class L2Character extends L2Object
 		abortCast();
 		stopMove(null);
 		getAI().notifyEvent(CtrlEvent.EVT_PARALYZED, null);
-		updateAbnormalEffect();
 	}
 
 	public final void startBetray()
@@ -3378,16 +3378,13 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <BR>
 	 */
-	public final void stopConfused(L2Effect effect)
+	public final void stopConfused(boolean all)
 	{
-		if (effect == null)
+		if (all)
 			stopEffects(L2EffectType.CONFUSION);
-		else
-			removeEffect(effect);
 
 		setIsConfused(false);
 		getAI().notifyEvent(CtrlEvent.EVT_THINK, null);
-		updateAbnormalEffect();
 	}
 
 	public final void startPhysicalAttackMuted()
@@ -3396,12 +3393,11 @@ public abstract class L2Character extends L2Object
 		abortAttack();
 	}
 
-	public final void stopPhysicalAttackMuted(L2Effect effect)
+	public final void stopPhysicalAttackMuted(boolean all)
 	{
-		if (effect == null)
+		if (all)
 			stopEffects(L2EffectType.PHYSICAL_ATTACK_MUTE);
-		else
-			removeEffect(effect);
+		
 		setIsPhysicalAttackMuted(false);
 	}
 
@@ -3457,12 +3453,10 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <BR>
 	 */
-	public final void stopFakeDeath(L2Effect effect)
+	public final void stopFakeDeath(boolean all)
 	{
-		if (effect == null)
+		if (all)
 			stopEffects(L2EffectType.FAKE_DEATH);
-		else
-			removeEffect(effect);
 
 		setIsFakeDeath(false);
 		setIsFallsdown(false); // [L2J_JP_ADD]
@@ -3491,15 +3485,12 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <BR>
 	 */
-	public final void stopFear(L2Effect effect)
+	public final void stopFear(boolean all)
 	{
-		if (effect == null)
+		if (all)
 			stopEffects(L2EffectType.FEAR);
-		else
-			removeEffect(effect);
 
 		setIsAfraid(false);
-		updateAbnormalEffect();
 	}
 
 	/**
@@ -3514,26 +3505,20 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <BR>
 	 */
-	public final void stopMuted(L2Effect effect)
+	public final void stopMuted(boolean all)
 	{
-		if (effect == null)
+		if (all)
 			stopEffects(L2EffectType.MUTE);
-		else
-			removeEffect(effect);
 
 		setIsMuted(false);
-		updateAbnormalEffect();
 	}
 
-	public final void stopPhysicalMuted(L2Effect effect)
+	public final void stopPhysicalMuted(boolean all)
 	{
-		if (effect == null)
+		if (all)
 			stopEffects(L2EffectType.PHYSICAL_MUTE);
-		else
-			removeEffect(effect);
 
 		setIsPhysicalMuted(false);
-		updateAbnormalEffect();
 	}
 
 	/**
@@ -3548,16 +3533,13 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <BR>
 	 */
-	public final void stopRooting(L2Effect effect)
+	public final void stopRooting(boolean all)
 	{
-		if (effect == null)
+		if (all)
 			stopEffects(L2EffectType.ROOT);
-		else
-			removeEffect(effect);
 
 		setIsRooted(false);
 		getAI().notifyEvent(CtrlEvent.EVT_THINK, null);
-		updateAbnormalEffect();
 	}
 
 	/**
@@ -3572,31 +3554,22 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <BR>
 	 */
-	public final void stopSleeping(L2Effect effect)
+	public final void stopSleeping(boolean all)
 	{
-		if (effect == null)
+		if (all)
 			stopEffects(L2EffectType.SLEEP);
-		else
-			removeEffect(effect);
 
 		setIsSleeping(false);
 		getAI().notifyEvent(CtrlEvent.EVT_THINK, null);
-		updateAbnormalEffect();
 	}
 
-	public final void stopImmobileUntilAttacked(L2Effect effect)
+	public final void stopImmobileUntilAttacked(boolean all)
 	{
-		if (effect == null)
+		if (all)
 			stopEffects(L2EffectType.IMMOBILEUNTILATTACKED);
-		else
-		{
-			removeEffect(effect);
-			stopSkillEffects(effect.getSkill().getNegateId());
-		}
 
 		setIsImmobileUntilAttacked(false);
 		getAI().notifyEvent(CtrlEvent.EVT_THINK, null);
-		updateAbnormalEffect();
 	}
 
 	public final void stopNoblesse()
@@ -3620,28 +3593,22 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <BR>
 	 */
-	public final void stopStunning(L2Effect effect)
+	public final void stopStunning(boolean all)
 	{
-		if (effect == null)
+		if (all)
 			stopEffects(L2EffectType.STUN);
-		else
-			removeEffect(effect);
 
 		setIsStunned(false);
 		getAI().notifyEvent(CtrlEvent.EVT_THINK, null);
-		updateAbnormalEffect();
 	}
 
-	public final void stopParalyze(L2Effect effect)
+	public final void stopParalyze(boolean all)
 	{
-		if (effect == null)
+		if (all)
 			stopEffects(L2EffectType.PARALYZE);
-		else
-			removeEffect(effect);
 
 		setIsParalyzed(false);
 		getAI().notifyEvent(CtrlEvent.EVT_THINK, null);
-		updateAbnormalEffect();
 	}
 
 	/**
@@ -3653,16 +3620,10 @@ public abstract class L2Character extends L2Object
 	* <li>Send Server->Client UserInfo/CharInfo packet</li><BR><BR>
 	*
 	*/
-	public final void stopTransformation(L2Effect effect)
+	public final void stopTransformation(boolean all)
 	{
-		if (effect == null)
-		{
+		if (all)
 			stopEffects(L2EffectType.TRANSFORMATION);
-		}
-		else
-		{
-			removeEffect(effect);
-		}
 
 		// if this is a player instance, then untransform, also set the transform_id column equal to 0 if not cursed.
 		if (this instanceof L2PcInstance)

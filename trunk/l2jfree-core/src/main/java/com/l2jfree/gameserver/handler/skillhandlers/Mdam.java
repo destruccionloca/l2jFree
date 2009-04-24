@@ -73,7 +73,7 @@ public class Mdam implements ICubicSkillHandler
 			
 			if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance && target.isFakeDeath())
 			{
-				target.stopFakeDeath(null);
+				target.stopFakeDeath(true);
 			}
 			else if (target.isDead())
 			{
@@ -218,7 +218,7 @@ public class Mdam implements ICubicSkillHandler
 				continue;
 			
 			if (target instanceof L2PcInstance && target.isAlikeDead() && target.isFakeDeath())
-				target.stopFakeDeath(null);
+				target.stopFakeDeath(true);
 			else if (target.isAlikeDead())
 				continue;
 
@@ -248,10 +248,6 @@ public class Mdam implements ICubicSkillHandler
 				{
 					// activate attacked effects, if any
 					target.stopSkillEffects(skill.getId());
-					if (target.getFirstEffect(skill) != null)
-					{
-						target.removeEffect(target.getFirstEffect(skill));
-					}
 					if (Formulas.calcCubicSkillSuccess(activeCubic, target, skill, shld))
 					{
 						skill.getEffects(activeCubic, target);

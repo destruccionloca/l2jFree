@@ -18,6 +18,7 @@ import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Effect;
+import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.instance.L2FolkInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2FortCommanderInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2FortSiegeGuardInstance;
@@ -28,7 +29,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2SiegeGuardInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeSummonInstance;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
-import com.l2jfree.gameserver.model.Location;
 
 /**
  * @author littlecrow
@@ -100,7 +100,7 @@ public final class EffectFear extends L2Effect
 	@Override
 	public void onExit()
 	{
-		getEffected().stopFear(this);
+		getEffected().stopFear(false);
 	}
 
 	@Override

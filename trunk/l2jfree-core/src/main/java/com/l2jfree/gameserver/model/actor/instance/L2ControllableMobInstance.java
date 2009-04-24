@@ -105,9 +105,9 @@ public class L2ControllableMobInstance extends L2MonsterInstance
 		if (awake)
 		{
 			if(isSleeping())
-				stopSleeping(null);
+				stopSleeping(true);
 			if(isImmobileUntilAttacked())
-				stopImmobileUntilAttacked(null);
+				stopImmobileUntilAttacked(true);
 		}
 
 		i = getStatus().getCurrentHp() - i;

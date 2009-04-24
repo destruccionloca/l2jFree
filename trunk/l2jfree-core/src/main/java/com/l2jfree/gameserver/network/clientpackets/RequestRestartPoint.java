@@ -26,6 +26,7 @@ import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.instancemanager.MapRegionManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.model.L2SiegeClan;
+import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.ClanHall;
@@ -34,7 +35,6 @@ import com.l2jfree.gameserver.model.entity.FortSiege;
 import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.model.zone.L2Zone;
-import com.l2jfree.gameserver.model.Location;
 
 public class RequestRestartPoint extends L2GameClientPacket
 {
@@ -221,7 +221,7 @@ public class RequestRestartPoint extends L2GameClientPacket
 
 		if (activeChar.isFakeDeath())
 		{
-			activeChar.stopFakeDeath(null);
+			activeChar.stopFakeDeath(true);
 			return;
 		}
 		else if (!activeChar.isDead())

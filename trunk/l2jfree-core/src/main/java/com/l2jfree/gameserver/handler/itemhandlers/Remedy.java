@@ -128,7 +128,7 @@ public class Remedy implements IItemHandler
 			}
 			activeChar.setIsImmobilized(false);
 			if (activeChar.getFirstEffect(L2EffectType.ROOT) == null)
-				activeChar.stopRooting(null);
+				activeChar.stopRooting(true);
 			MagicSkillUse MSU = new MagicSkillUse(playable, playable, 2042, 1, 0, 0);
 			activeChar.sendPacket(MSU);
 			activeChar.broadcastPacket(MSU);

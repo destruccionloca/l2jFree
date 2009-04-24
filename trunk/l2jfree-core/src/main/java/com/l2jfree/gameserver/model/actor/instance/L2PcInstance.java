@@ -4424,7 +4424,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		synchronized (this)
 		{
 			if (isFakeDeath())
-				stopFakeDeath(null);
+				stopFakeDeath(true);
 		}
 
 		// Clear resurrect xp calculation
@@ -6692,24 +6692,10 @@ public final class L2PcInstance extends L2PlayableInstance
 			// Buff and status icons
 			if (Config.STORE_SKILL_COOLTIME)
 				player.restoreEffects();
-
-			if (player.getAllEffects() != null)
-			{
-				for (L2Effect e : player.getAllEffects())
-				{
-					if (e.getEffectType() == L2EffectType.HEAL_OVER_TIME)
-					{
-						player.stopEffects(L2EffectType.HEAL_OVER_TIME);
-						player.removeEffect(e);
-					}
-					else if (e.getEffectType() == L2EffectType.COMBAT_POINT_HEAL_OVER_TIME)
-					{
-						player.stopEffects(L2EffectType.COMBAT_POINT_HEAL_OVER_TIME);
-						player.removeEffect(e);
-					}
-				}
-			}
-
+			
+			player.stopEffects(L2EffectType.HEAL_OVER_TIME);
+			player.stopEffects(L2EffectType.COMBAT_POINT_HEAL_OVER_TIME);
+			
 			// Restore current Cp, HP and MP values
 			player.getStatus().setCurrentCp(currentCp);
 			player.getStatus().setCurrentHp(currentHp);
@@ -8978,7 +8964,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
 		setTarget(null);
 		stopMove(null);
-		setIsParalyzed(true);
+		startParalyze();
 		setIsInvul(true);
 		getAppearance().setInvisible();
 		sendPacket(new GMHide(1));
@@ -9062,7 +9048,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		setTarget(null);
 		getPosition().setXYZ(_obsX, _obsY, _obsZ);
 		sendPacket(new GMHide(0));
-		setIsParalyzed(false);
+		stopParalyze(false);
 		
 		if (!isGM())
 		{
@@ -10770,7 +10756,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		// If character refuses a PhoenixBless autoress, cancel all buffs he had
 		if (answer == 0 && isPhoenixBlessed() && isDead() && _reviveRequested)
 		{
-			stopPhoenixBlessing(null);
+			stopPhoenixBlessing(true);
 			stopAllEffectsExceptThoseThatLastThroughDeath();
 		}
 

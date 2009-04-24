@@ -51,7 +51,7 @@ public final class EffectPhoenixBless extends L2Effect
 	@Override
 	public void onExit()
 	{
-		((L2PlayableInstance) getEffected()).stopPhoenixBlessing(this);
+		((L2PlayableInstance) getEffected()).stopPhoenixBlessing(false);
 	}
 
 	@Override

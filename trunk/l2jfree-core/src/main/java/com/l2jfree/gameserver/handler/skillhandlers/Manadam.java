@@ -79,9 +79,9 @@ public class Manadam implements ISkillHandler
 				if (damage > 0)
 				{
 					if (target.isSleeping())
-						target.stopSleeping(null);
+						target.stopSleeping(true);
 					if (target.isImmobileUntilAttacked())
-						target.stopImmobileUntilAttacked(null);
+						target.stopImmobileUntilAttacked(true);
 				}
 
 				if (target instanceof L2PcInstance)

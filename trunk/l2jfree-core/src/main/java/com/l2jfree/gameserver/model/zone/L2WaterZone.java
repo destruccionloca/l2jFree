@@ -28,7 +28,7 @@ public class L2WaterZone extends L2Zone
 		{
 			L2PcInstance player = (L2PcInstance)character;
 			if (player.isTransformed() && !player.isCursedWeaponEquipped())
-				character.stopTransformation(null);
+				character.stopTransformation(true);
 		}
 		
 		super.onEnter(character);

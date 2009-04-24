@@ -43,19 +43,19 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 
 /**
- * This class handles following admin commands: 
- *   <li> invis/invisible/vis/visible = makes yourself invisible or visible 
- *   <li> earthquake = causes an earthquake of a given intensity and duration around you 
- *   <li> bighead/shrinkhead = changes head size 
- *   <li> gmspeed = temporary Super Haste effect. 
- *   <li> para/unpara = paralyze/remove paralysis from target 
- *   <li> para_all/unpara_all = same as para/unpara, affects the whole world. 
- *   <li> polyself/unpolyself = makes you look as a specified mob. 
- *   <li> clearteams/setteam_close/setteam = team related commands 
+ * This class handles following admin commands:
+ *   <li> invis/invisible/vis/visible = makes yourself invisible or visible
+ *   <li> earthquake = causes an earthquake of a given intensity and duration around you
+ *   <li> bighead/shrinkhead = changes head size
+ *   <li> gmspeed = temporary Super Haste effect.
+ *   <li> para/unpara = paralyze/remove paralysis from target
+ *   <li> para_all/unpara_all = same as para/unpara, affects the whole world.
+ *   <li> polyself/unpolyself = makes you look as a specified mob.
+ *   <li> clearteams/setteam_close/setteam = team related commands
  *   <li> social = forces an L2Character instance to broadcast social action packets.
  *   <li> effect = forces an L2Character instance to broadcast MSU packets.
  *   <li> abnormal = force changes over an L2Character instance's abnormal state.
- *   <li> play_sound/play_sounds = Music broadcasting related commands 
+ *   <li> play_sound/play_sounds = Music broadcasting related commands
  *   <li> atmosphere = sky change related commands.
  */
 
@@ -212,7 +212,7 @@ public class AdminEffects implements IAdminCommandHandler
 						player.startAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_1);
 					else
 						player.startAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_2);
-					player.setIsParalyzed(true);
+					player.startParalyze();
 					StopMove sm = new StopMove(player);
 					player.sendPacket(sm);
 					player.broadcastPacket(sm);
@@ -238,7 +238,7 @@ public class AdminEffects implements IAdminCommandHandler
 					player = (L2Character) target;
 					player.stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_1);
 					player.stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_2);
-					player.setIsParalyzed(false);
+					player.stopParalyze(false);
 				}
 			}
 			catch (Exception e)
@@ -254,7 +254,7 @@ public class AdminEffects implements IAdminCommandHandler
 					if (!player.isGM())
 					{
 						player.startAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_1);
-						player.setIsParalyzed(true);
+						player.startParalyze();
 						StopMove sm = new StopMove(player);
 						player.sendPacket(sm);
 						player.broadcastPacket(sm);
@@ -272,7 +272,7 @@ public class AdminEffects implements IAdminCommandHandler
 				for (L2PcInstance player : activeChar.getKnownList().getKnownPlayers().values())
 				{
 					player.stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_1);
-					player.setIsParalyzed(false);
+					player.stopParalyze(false);
 				}
 			}
 			catch (Exception e)
@@ -587,8 +587,8 @@ public class AdminEffects implements IAdminCommandHandler
 
 	/**
 	 * @param action bitmask that should be applied over target's abnormal
-	 * @param target 
-	 * @return <i>true</i> if target's abnormal state was affected , <i>false</i> otherwise. 
+	 * @param target
+	 * @return <i>true</i> if target's abnormal state was affected , <i>false</i> otherwise.
 	 */
 	private boolean performAbnormal(int action, L2Object target)
 	{
