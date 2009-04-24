@@ -22,6 +22,7 @@ import java.util.Set;
 
 import javolution.util.FastList;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -32,6 +33,7 @@ import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.idfactory.IdFactory;
+import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.MercTicketManager;
 import com.l2jfree.gameserver.instancemanager.SiegeGuardManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
@@ -47,6 +49,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2ControlTowerInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
+import com.l2jfree.gameserver.model.zone.L2SiegeDangerZone;
 import com.l2jfree.gameserver.model.zone.L2SiegeZone;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -103,6 +106,9 @@ public class Siege extends AbstractSiege
 
     private int _controlTowerCount;
     private int _controlTowerMaxCount;
+
+    public L2SiegeDangerZone[] _dangerZonesE = null;
+    public L2SiegeDangerZone[] _dangerZonesW = null;
 
     // ===============================================================
     // Schedule task
@@ -297,6 +303,7 @@ public class Siege extends AbstractSiege
             saveCastleSiege(); // Save castle specific data
             clearSiegeClan(); // Clear siege clan from db
             removeControlTower(); // Remove all control tower from this castle
+            deactivateZones(); // Control towers removed - bye to danger zone effects
             _siegeGuardManager.unspawnSiegeGuard(); // Remove all spawned siege guard from this castle
             if (getCastle().getOwnerId() > 0) _siegeGuardManager.removeMercs();
             getCastle().spawnDoor(); // Respawn door to castle
@@ -1501,5 +1508,66 @@ public class Siege extends AbstractSiege
 	public int getControlTowerCount()
 	{
 		return _controlTowerCount;
+	}
+
+	public boolean getIsDangerZoneOn()
+	{
+		//until Flame Control Tower coordinates are known
+		return true;
+	}
+
+	public L2SiegeDangerZone[] getDangerZones(boolean side)
+	{
+		if (side)
+			return _dangerZonesE;
+		else
+			return _dangerZonesW;
+	}
+
+	private void registerWest(L2SiegeDangerZone sdz)
+	{
+		_dangerZonesW = (L2SiegeDangerZone[])ArrayUtils.add(_dangerZonesW, sdz);
+	}
+
+	private void registerEast(L2SiegeDangerZone sdz)
+	{
+		_dangerZonesE = (L2SiegeDangerZone[])ArrayUtils.add(_dangerZonesE, sdz);
+	}
+
+	public void registerZone(L2SiegeDangerZone sdz, boolean east)
+	{
+		if (east)
+			registerEast(sdz);
+		else
+			registerWest(sdz);
+	}
+
+	public int getZoneLevel(boolean east)
+	{
+		L2SiegeDangerZone[] list = getDangerZones(east);
+		if (list == null) //no zones registered
+			return 0;
+		else
+			return getDangerZones(east)[0].getUpgradeLevel();
+	}
+
+	public void activateZone(boolean east, int level)
+	{
+		L2SiegeDangerZone[] list = getDangerZones(east);
+		if (list != null)
+			for (L2SiegeDangerZone sdz : list)
+				sdz.upgrade(level);
+	}
+
+	private void deactivateZones()
+	{
+		CastleManager.getInstance().removeDangerZones(_castle.getCastleId());
+		L2SiegeDangerZone[] list;
+		if ((list = getDangerZones(true)) != null)
+			for (L2SiegeDangerZone sdz : list)
+				sdz.upgrade(0);
+		if ((list = getDangerZones(false)) != null)
+			for (L2SiegeDangerZone sdz : list)
+				sdz.upgrade(0);
 	}
 }

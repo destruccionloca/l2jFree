@@ -49,6 +49,7 @@ import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
+import com.l2jfree.gameserver.util.IllegalPlayerAction;
 import com.l2jfree.gameserver.util.Util;
 
 /**
@@ -65,15 +66,14 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 	private int _preDay;
 	private int _preHour;
 
-	private final NpcHtmlMessage IN_SIEGE;
+	private final NpcHtmlMessage NO_AUTH;
 
 	public L2CastleChamberlainInstance(int objectId, L2NpcTemplate template)
 	{
 		super(objectId, template);
-		IN_SIEGE = new NpcHtmlMessage(getObjectId());
-		IN_SIEGE.setFile("data/html/chamberlain/chamberlain-busy.htm");
-		IN_SIEGE.replace("%objectId%", String.valueOf(getObjectId()));
-		IN_SIEGE.replace("%npcname%", String.valueOf(getName()));
+		NO_AUTH = new NpcHtmlMessage(getObjectId());
+		NO_AUTH.setFile("data/html/chamberlain/chamberlain-noprivs.htm");
+		NO_AUTH.replace("%objectId%", String.valueOf(getObjectId()));
 	}
 
 	private void sendHtmlMessage(L2PcInstance player, NpcHtmlMessage html)
@@ -98,8 +98,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 			player.setTarget(this);
 
 			// Send a Server->Client packet MyTargetSelected to the L2PcInstance player
-			MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
-			player.sendPacket(my);
+			player.sendPacket(new MyTargetSelected(getObjectId(), 0));
 
 			// Send a Server->Client packet ValidateLocation to correct the zL2NpcInstance position and heading on the client
 			player.sendPacket(new ValidateLocation(this));
@@ -154,7 +153,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 				html.setFile("data/html/chamberlain/chamberlain-banishafter.htm");
 				html.replace("%objectId%", String.valueOf(getObjectId()));
-				player.sendPacket(html);
+				player.sendPacket(html); html = null;
 				return;
 			}
 			else if (actualCommand.equals("banish_foreigner_show"))
@@ -164,7 +163,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 				html.setFile("data/html/chamberlain/chamberlain-banishfore.htm");
 				html.replace("%objectId%", String.valueOf(getObjectId()));
-				player.sendPacket(html);
+				player.sendPacket(html); html = null;
 				return;
 			}
 			else if (actualCommand.equals("list_siege_clans"))
@@ -177,34 +176,44 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 						else
 							player.sendPacket(SystemMessageId.ONLY_NOBLESSE_LEADER_CAN_VIEW_SIEGE_STATUS_WINDOW);
 					}
-					else
-						player.sendPacket(IN_SIEGE);
+					else {
+						NpcHtmlMessage siege = new NpcHtmlMessage(getObjectId());
+						siege.setFile("data/html/chamberlain/chamberlain-siege.htm");
+						siege.replace("%objectId%", String.valueOf(getObjectId()));
+						player.sendPacket(siege); siege = null;
+					}
 				}
+				else
+					getCastle().getSiege().listRegisterClan(player);
 				return;
 			}
 			else if (actualCommand.equals("receive_report"))
 			{
 				if (!validatePrivileges(player, L2Clan.CP_CS_USE_FUNCTIONS)) return;
 				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-				html.setFile("data/html/chamberlain/chamberlain-report.htm");
+				if (!getCastle().getSiege().getIsInProgress()) {
+					html.setFile("data/html/chamberlain/chamberlain-report.htm");
+					html.replace("%castlename%", getCastle().getName());
+					L2Clan clan = ClanTable.getInstance().getClan(getCastle().getOwnerId());
+					if (clan != null)
+					{
+						html.replace("%clanname%", clan.getName());
+						html.replace("%clanleadername%", clan.getLeaderName());
+					}
+					else //avoid NPE in GM view when castle belongs to NPCs!
+					{
+						html.replace("%clanname%", "NPC");
+						html.replace("%clanleadername%", "");
+					}
+					html.replace("%ss_event%", SevenSigns.getInstance().getCurrentPeriodName());
+					html.replace("%ss_avarice%", SevenSigns.getCabalName(SevenSigns.getInstance().getSealOwner(SevenSigns.SEAL_AVARICE)));
+					html.replace("%ss_gnosis%", SevenSigns.getCabalName(SevenSigns.getInstance().getSealOwner(SevenSigns.SEAL_GNOSIS)));
+					html.replace("%ss_strife%", SevenSigns.getCabalName(SevenSigns.getInstance().getSealOwner(SevenSigns.SEAL_STRIFE)));
+				}
+				else
+					html.setFile("data/html/chamberlain/chamberlain-report-siege.htm");
 				html.replace("%objectId%", String.valueOf(getObjectId()));
-				html.replace("%castlename%", getCastle().getName());
-				L2Clan clan = ClanTable.getInstance().getClan(getCastle().getOwnerId());
-				if (clan != null)
-				{
-					html.replace("%clanname%", clan.getName());
-					html.replace("%clanleadername%", clan.getLeaderName());
-				}
-				else //avoid NPE in GM view when castle belongs to NPCs!
-				{
-					html.replace("%clanname%", "NPC");
-					html.replace("%clanleadername%", "");
-				}
-				html.replace("%ss_event%", SevenSigns.getInstance().getCurrentPeriodName());
-				html.replace("%ss_avarice%", SevenSigns.getCabalName(SevenSigns.getInstance().getSealOwner(SevenSigns.SEAL_AVARICE)));
-				html.replace("%ss_gnosis%", SevenSigns.getCabalName(SevenSigns.getInstance().getSealOwner(SevenSigns.SEAL_GNOSIS)));
-				html.replace("%ss_strife%", SevenSigns.getCabalName(SevenSigns.getInstance().getSealOwner(SevenSigns.SEAL_STRIFE)));
-				player.sendPacket(html);
+				player.sendPacket(html); html = null;
 				return;
 			}
 			else if (actualCommand.equals("items"))
@@ -224,7 +233,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 			 	NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 				html.setFile("data/html/chamberlain/chamberlain-defender.htm");
 				html.replace("%objectId%", String.valueOf(getObjectId()));
-				player.sendPacket(html);
+				player.sendPacket(html); html = null;
 				return;
 			}
 			else if (actualCommand.equals("manage_vault"))
@@ -276,7 +285,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 				html.replace("%npcname%", getName());
 				html.replace("%tax_income%", Util.formatNumber(getCastle().getTreasury()));
 				html.replace("%withdraw_amount%", Util.formatNumber(amount));
-				player.sendPacket(html);
+				player.sendPacket(html); html = null;
 				return;
 			}
 			else if (actualCommand.equals("manor"))
@@ -308,8 +317,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 					html.setFile(filename);
 					html.replace("%objectId%", String.valueOf(getObjectId()));
-					html.replace("%npcname%", getName());
-					player.sendPacket(html);
+					player.sendPacket(html); html = null;
 				}
 				return;
 			}
@@ -427,6 +435,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 						html.replace("%objectId%", String.valueOf(getObjectId()));
 						html.replace("%maxTax%", String.valueOf(getMaxTaxRate()));
 						player.sendPacket(html);
+						return;
 					}
 					else
 						getCastle().setTaxPercent(player, tax);
@@ -1148,19 +1157,20 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 				if (siegeBlocksFunction(player)) return;
 				if (Config.CL_SET_SIEGE_TIME_LIST.isEmpty())
 				{
-					NpcHtmlMessage html = new NpcHtmlMessage(1);
-					html.setFile("data/html/chamberlain/chamberlain-noadmin.htm");
-					sendHtmlMessage(player, html);
+					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+					html.setFile("data/html/chamberlain/chamberlain-disabled.htm");
+					//nothing needs to be replaced
+					player.sendPacket(html);
 				}
 				else if (getCastle().getSiege().getTimeRegistrationOverDate().getTimeInMillis() < Calendar.getInstance().getTimeInMillis())
 				{
-					NpcHtmlMessage html = new NpcHtmlMessage(1);
+					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 					html.setFile("data/html/chamberlain/siegetime1.htm");
 					sendHtmlMessage(player, html);
 				}
 				else if (getCastle().getSiege().getIsTimeRegistrationOver())
 				{
-					NpcHtmlMessage html = new NpcHtmlMessage(1);
+					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 					html.setFile("data/html/chamberlain/siegetime2.htm");
 					sendHtmlMessage(player, html);
 				}
@@ -1216,19 +1226,26 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 			else if (actualCommand.equals("give_crown"))
 			{
 				if (siegeBlocksFunction(player)) return;
-				if (player.isClanLeader() && player.getInventory().getItemByItemId(6841) == null)
+				if (player.isClanLeader())
 				{
-					player.addItem("Chamberlain - Crown", 6841, 1, this, true, true);
-					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-					html.setFile("data/html/chamberlain/chamberlain-gavecrown.htm");
-					html.replace("%CharName%", String.valueOf(player.getName()));
-					html.replace("%FeudName%", String.valueOf(getCastle().getName()));
-					player.sendPacket(html);
-					return;
+					if (player.getInventory().getItemByItemId(6841) == null)
+					{
+						player.addItem("Chamberlain - Crown", 6841, 1, this, true, true);
+						NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+						html.setFile("data/html/chamberlain/chamberlain-gavecrown.htm");
+						html.replace("%CharName%", String.valueOf(player.getName()));
+						html.replace("%FeudName%", String.valueOf(getCastle().getName()));
+						player.sendPacket(html);
+					}
+					else
+					{
+						NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+						html.setFile("data/html/chamberlain/chamberlain-hascrown.htm");
+						player.sendPacket(html);
+					}
 				}
-				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-				html.setFile("data/html/chamberlain/chamberlain-hascrown.htm");
-				player.sendPacket(html);
+				else
+					player.sendPacket(NO_AUTH);
 				return;
 			}
 			else if (actualCommand.equals("give_LotMCoA"))
@@ -1238,6 +1255,152 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 				int valbuy = 63880 + getCastle().getCastleId();
 				showBuyWindow(player, valbuy);
 				return;
+			}
+			else if (actualCommand.equals("trap"))
+			{
+				if (!validatePrivileges(player, L2Clan.CP_CS_MANAGE_SIEGE)) return;
+				if (siegeBlocksFunction(player)) return;
+				try
+				{
+					int[] request = new int[st.countTokens() + 1];
+					request[0] = Integer.parseInt(val);
+					for (int i = 1; i < request.length; i++)
+						request[i] = Integer.parseInt(st.nextToken());
+					NpcHtmlMessage html;
+					switch (request[0])
+					{
+					case 0: //show trap location selection
+						String file = "data/html/chamberlain/chamberlain-trap-select";
+						switch (getCastle().getCastleId())
+						{
+						case 1:
+						case 2:
+						case 3:
+						case 4:
+						case 6:
+							file += "-inout"; break;
+						case 5:
+							file += "-eastwest"; break;
+						case 7:
+							file += "-2nd"; break;
+						default:
+							file += "-eastwest";
+							break;
+						}
+						html = new NpcHtmlMessage(getObjectId());
+						html.setFile(file + ".htm");
+						html.replace("%objectId%", String.valueOf(getObjectId()));
+						player.sendPacket(html);
+						break;
+					case 1: //show trap level selection
+						if (request[1] > 2 || request[1] < 1)
+						{
+							Util.handleIllegalPlayerAction(player, "Tried to exploit the castle trap setup!", IllegalPlayerAction.PUNISH_KICKBAN);
+							return;
+						}
+						html = new NpcHtmlMessage(getObjectId());
+						html.setFile("data/html/chamberlain/chamberlain-trap-level.htm");
+						html.replace("%objectId%", String.valueOf(getObjectId()));
+						html.replace("%trapId%", String.valueOf(request[1]));
+						player.sendPacket(html);
+						break;
+					case 2: //if the level is valid, confirm deploy
+						html = new NpcHtmlMessage(getObjectId());
+						if (request[1] > 2 || request[1] < 1 ||
+								request[2] > 4 || request[2] < 0)
+						{
+							Util.handleIllegalPlayerAction(player, "Tried to exploit the castle trap setup!", IllegalPlayerAction.PUNISH_KICKBAN);
+							return;
+						}
+						boolean side = request[1] == 1;
+						int trapLevel = getCastle().getSiege().getZoneLevel(side);
+						if (request[2] <= trapLevel) //a [better] trap already deployed
+						{
+							html = new NpcHtmlMessage(getObjectId());
+							html.setFile("data/html/chamberlain/chamberlain-trap-already.htm");
+							html.replace("%objectId%", String.valueOf(getObjectId()));
+							html.replace("%dmglevel%", String.valueOf(trapLevel));
+							player.sendPacket(html);
+						}
+						else //show confirmation
+						{
+							html = new NpcHtmlMessage(getObjectId());
+							html.setFile("data/html/chamberlain/chamberlain-trap-deploy.htm");
+							html.replace("%objectId%", String.valueOf(getObjectId()));
+							html.replace("%trapId%", String.valueOf(request[1]));
+							html.replace("%trapLvl%", String.valueOf(request[2]));
+							int price = 0;
+							switch (request[2])
+							{
+							case 1: price = Config.CS_TRAP1_FEE; break;
+							case 2: price = Config.CS_TRAP2_FEE; break;
+							case 3: price = Config.CS_TRAP3_FEE; break;
+							case 4: price = Config.CS_TRAP4_FEE; break;
+							}
+							html.replace("%dmgzone_price%", String.valueOf(price));
+							player.sendPacket(html);
+						}
+						break;
+					case 3: //if the level is valid, deploy trap
+						boolean east = request[1] == 1;
+						if (getCastle().getSiege().getDangerZones(east) == null)
+						{
+							//missing zone(s), let's hide that
+							html = new NpcHtmlMessage(getObjectId());
+							html.setFile("data/html/chamberlain/chamberlain-disabled.htm");
+							player.sendPacket(html); html = null;
+							return;
+						}
+						int dmglevel = getCastle().getSiege().getZoneLevel(east);
+						if (request[1] > 2 || request[1] < 1 ||
+								request[2] > 4 || request[2] < 0 || request[2] <= dmglevel)
+						{
+							Util.handleIllegalPlayerAction(player, "Tried to exploit the castle trap setup!", IllegalPlayerAction.PUNISH_KICKBAN);
+							return;
+						}
+						int price = 0;
+						switch (request[2])
+						{
+						case 1: price = Config.CS_TRAP1_FEE; break;
+						case 2: price = Config.CS_TRAP2_FEE; break;
+						case 3: price = Config.CS_TRAP3_FEE; break;
+						case 4: price = Config.CS_TRAP4_FEE; break;
+						}
+						if (!player.reduceAdena("Castle - Trap Deployment", price, this, false))
+						{
+							html = new NpcHtmlMessage(getObjectId());
+							html.setFile("data/html/chamberlain/low_adena.htm");
+							html.replace("%objectId%", String.valueOf(getObjectId()));
+							player.sendPacket(html); html = null;
+							return;
+						}
+						CastleManager.getInstance().upgradeDangerZones(getCastle(), east, dmglevel, request[2]);
+						html = new NpcHtmlMessage(getObjectId());
+						html.setFile("data/html/chamberlain/chamberlain-trap-deployed.htm");
+						html.replace("%objectId%", String.valueOf(getObjectId()));
+						player.sendPacket(html);
+						break;
+					}
+					html = null;
+					return;
+				}
+				catch (NumberFormatException nfe)
+				{
+					_log.warn("Error while parsing castle trap setup bypass!", nfe);
+				}
+				catch (ArrayIndexOutOfBoundsException aob)
+				{
+					_log.warn("Missing castle trap setup bypass parameters ("+getCastle().getName()+")!");
+				}
+				Util.handleIllegalPlayerAction(player, "Messing with castle trap setup bypass!", Config.DEFAULT_PUNISH);
+			}
+			else if (actualCommand.equals("reinforce"))
+			{
+				if (!validatePrivileges(player, L2Clan.CP_CS_MANAGE_SIEGE)) return;
+				if (siegeBlocksFunction(player)) return;
+				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+				html.setFile("data/html/chamberlain/chamberlain-disabled.htm");
+				player.sendPacket(html); html = null;
 			}
 			super.onBypassFeedback(player, command);
 		}
@@ -1249,19 +1412,13 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 		String filename = "data/html/chamberlain/chamberlain-no.htm";
 
 		int condition = validateCondition(player);
-		if (condition > COND_ALL_FALSE)
-		{
-			if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
-				filename = "data/html/chamberlain/chamberlain-busy.htm"; // Busy because of siege
-			else if (condition == COND_OWNER) // Clan owns castle
-				filename = "data/html/chamberlain/chamberlain.htm"; // Owner message window
-		}
+		if (condition == COND_OWNER) // Clan owns castle
+			filename = "data/html/chamberlain/chamberlain.htm"; // Owner message window
 
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 		html.setFile(filename);
 		html.replace("%objectId%", String.valueOf(getObjectId()));
-		html.replace("%npcname%", getName());
-		player.sendPacket(html);
+		player.sendPacket(html); html = null;
 	}
 
 	private NpcHtmlMessage getNextSiegeTimePage(int now, boolean isAfternoon)
@@ -1347,7 +1504,10 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 	private boolean siegeBlocksFunction(L2PcInstance player)
 	{
 		if (getCastle().getSiege().getIsInProgress()) {
-			player.sendPacket(IN_SIEGE);
+			NpcHtmlMessage siege = new NpcHtmlMessage(getObjectId());
+			siege.setFile("data/html/chamberlain/chamberlain-siege.htm");
+			siege.replace("%objectId%", String.valueOf(getObjectId()));
+			player.sendPacket(siege); siege = null;
 			return true;
 		}
 		return false;
@@ -1355,7 +1515,8 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 
 	private boolean validatePrivileges(L2PcInstance player, int privilege) {
 		if ((player.getClanPrivileges() & privilege) != privilege) {
-			player.sendPacket(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
+			player.sendPacket(NO_AUTH);
+			//player.sendPacket(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
 			return false;
 		}
 		return true;
@@ -1379,9 +1540,9 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 	protected int validateCondition(L2PcInstance player)
 	{
 		if (getCastle() != null && getCastle().getCastleId() > 0 && player.getClan() != null
-				&& getCastle().getOwnerId() == player.getClanId() &&
-				validatePrivileges(player, L2Clan.CP_CS_USE_FUNCTIONS))
-					return COND_OWNER; // Owner
+				&& getCastle().getOwnerId() == player.getClanId())
+				//&& validatePrivileges(player, L2Clan.CP_CS_USE_FUNCTIONS))
+					return COND_OWNER; // Owner clan member
 		return COND_ALL_FALSE;
 	}
 }

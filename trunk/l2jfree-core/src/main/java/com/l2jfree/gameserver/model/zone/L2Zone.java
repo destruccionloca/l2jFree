@@ -73,6 +73,7 @@ public class L2Zone implements FuncOwner
 		Mothertree,
 		Regeneration,
 		Siege,
+		SiegeDanger,
 		Stadium,
 		Town,
 		Water;
@@ -172,8 +173,10 @@ public class L2Zone implements FuncOwner
 	private PvpSettings _pvp;
 	private Boss _boss;
 	private Affected _affected = Affected.ALL;
-	
+
+	/** Can't logout (including back to character selection menu); can't use SoE? */
 	private boolean _noEscape;
+	/** Can't dismount */
 	private boolean _noLanding;
 	private boolean _noPrivateStore;
 	private boolean _noSummon;
@@ -190,10 +193,10 @@ public class L2Zone implements FuncOwner
 	private boolean _exitOnDeath;
 	private boolean _buffRepeat; // Used for buffs and debuffs
 	
-	private L2Skill[] _applyEnter;
+	protected L2Skill[] _applyEnter;
 	private L2Skill[] _applyExit;
 	private int[] _removeEnter;
-	private int[] _removeExit;
+	protected int[] _removeExit;
 	
 	// Instances
 	private String _instanceName;

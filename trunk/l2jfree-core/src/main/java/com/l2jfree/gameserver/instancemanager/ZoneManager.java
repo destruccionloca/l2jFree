@@ -27,6 +27,7 @@ import org.w3c.dom.Node;
 
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.L2WorldRegion;
+import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.model.zone.L2Zone.ZoneType;
 import com.l2jfree.gameserver.util.Util;
@@ -62,6 +63,12 @@ public class ZoneManager
 			{
 				worldRegions[x][y].clearZones();
 			}
+		}
+		//remove registered siege danger zones
+		for (Castle c : CastleManager.getInstance().getCastles().values())
+		{
+			c.getSiege()._dangerZonesE = null;
+			c.getSiege()._dangerZonesW = null;
 		}
 
 		// Load the zones
