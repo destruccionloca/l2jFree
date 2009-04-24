@@ -22,17 +22,23 @@ import com.l2jfree.gameserver.skills.Env;
 class ConditionUsingSkill extends Condition
 {
 	private final int _skillId;
+	private final int _minSkillLvl;
+	private final int _maxSkillLvl;
 	
-	public ConditionUsingSkill(int skillId)
+	ConditionUsingSkill(int skillId, int minSkillLvl, int maxSkillLvl)
 	{
 		_skillId = skillId;
+		_minSkillLvl = minSkillLvl;
+		_maxSkillLvl = maxSkillLvl;
 	}
 	
 	@Override
-	public boolean testImpl(Env env)
+	boolean testImpl(Env env)
 	{
-		if (env.skill == null)
-			return false;
-		return env.skill.getId() == _skillId;
+		if (env.skill != null && env.skill.getId() == _skillId)
+			if (_minSkillLvl == -1 || _minSkillLvl <= env.skill.getLevel() && env.skill.getLevel() <= _maxSkillLvl)
+				return true;
+		
+		return false;
 	}
 }

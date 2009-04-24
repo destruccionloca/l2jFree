@@ -19,25 +19,26 @@ import com.l2jfree.gameserver.skills.Env;
 
 class ConditionTargetActiveEffectId extends Condition
 {
-	
 	private final int _effectId;
+	private final int _minEffectLvl;
+	private final int _maxEffectLvl;
 	
-	public ConditionTargetActiveEffectId(int effectId)
+	ConditionTargetActiveEffectId(int effectId, int minEffectLvl, int maxEffectLvl)
 	{
 		_effectId = effectId;
+		_minEffectLvl = minEffectLvl;
+		_maxEffectLvl = maxEffectLvl;
 	}
 	
 	@Override
-	public boolean testImpl(Env env)
+	boolean testImpl(Env env)
 	{
-		for (L2Effect e : env.target.getAllEffects())
-		{
-			if (e != null)
-			{
-				if (e.getSkill().getId() == _effectId)
-					return true;
-			}
-		}
+		if (env.target != null)
+			for (L2Effect e : env.target.getAllEffects())
+				if (e != null && e.getId() == _effectId)
+					if (_minEffectLvl == -1 || _minEffectLvl <= e.getLevel() && e.getLevel() <= _maxEffectLvl)
+						return true;
+		
 		return false;
 	}
 }

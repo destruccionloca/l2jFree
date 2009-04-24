@@ -552,7 +552,12 @@ public abstract class L2Effect implements FuncOwner
 		list.addEffect(_skill.getDisplayId(), _skill.getLevel(), time);
 	}
 	
-	public int getLevel()
+	public final int getId()
+	{
+		return getSkill().getId();
+	}
+	
+	public final int getLevel()
 	{
 		return getSkill().getLevel();
 	}

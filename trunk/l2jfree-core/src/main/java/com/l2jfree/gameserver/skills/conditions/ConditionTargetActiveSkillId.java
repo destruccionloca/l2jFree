@@ -19,25 +19,26 @@ import com.l2jfree.gameserver.skills.Env;
 
 class ConditionTargetActiveSkillId extends Condition
 {
-	
 	private final int _skillId;
+	private final int _minSkillLvl;
+	private final int _maxSkillLvl;
 	
-	public ConditionTargetActiveSkillId(int skillId)
+	ConditionTargetActiveSkillId(int skillId, int minSkillLvl, int maxSkillLvl)
 	{
 		_skillId = skillId;
+		_minSkillLvl = minSkillLvl;
+		_maxSkillLvl = maxSkillLvl;
 	}
 	
 	@Override
-	public boolean testImpl(Env env)
+	boolean testImpl(Env env)
 	{
-		for (L2Skill sk : env.target.getAllSkills())
-		{
-			if (sk != null)
-			{
-				if (sk.getId() == _skillId)
-					return true;
-			}
-		}
+		if (env.target != null)
+			for (L2Skill sk : env.target.getAllSkills())
+				if (sk != null && sk.getId() == _skillId)
+					if (_minSkillLvl == -1 || _minSkillLvl <= sk.getLevel() && sk.getLevel() <= _maxSkillLvl)
+						return true;
+		
 		return false;
 	}
 }

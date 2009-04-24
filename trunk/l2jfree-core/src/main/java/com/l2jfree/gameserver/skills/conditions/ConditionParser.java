@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
@@ -175,7 +176,13 @@ public abstract class ConditionParser
 		for (int i = 0; i < attrs.getLength(); i++)
 		{
 			Node a = attrs.item(i);
-			cond = joinAnd(cond, parsePlayerCondition(a.getNodeName(), getNodeValue(a.getNodeValue(), template)));
+			
+			Condition condOr = null;
+			
+			for (String nodeValue : StringUtils.split(getNodeValue(a.getNodeValue(), template), "|"))
+				condOr = joinOr(condOr, parsePlayerCondition(a.getNodeName(), nodeValue));
+			
+			cond = joinAnd(cond, condOr);
 		}
 		
 		if (cond == null)
@@ -343,7 +350,13 @@ public abstract class ConditionParser
 		for (int i = 0; i < attrs.getLength(); i++)
 		{
 			Node a = attrs.item(i);
-			cond = joinAnd(cond, parseTargetCondition(a.getNodeName(), getNodeValue(a.getNodeValue(), template)));
+			
+			Condition condOr = null;
+			
+			for (String nodeValue : StringUtils.split(getNodeValue(a.getNodeValue(), template), "|"))
+				condOr = joinOr(condOr, parseTargetCondition(a.getNodeName(), nodeValue));
+			
+			cond = joinAnd(cond, condOr);
 		}
 		
 		if (cond == null)
@@ -381,13 +394,19 @@ public abstract class ConditionParser
 		}
 		else if ("active_effect_id".equalsIgnoreCase(nodeName))
 		{
-			int effect_id = Integer.decode(nodeValue);
-			return new ConditionTargetActiveEffectId(effect_id);
+			StringTokenizer st = new StringTokenizer(nodeValue, ",");
+			int effectId = Integer.decode(st.nextToken());
+			int minEffectLvl = st.hasMoreTokens() ? Integer.decode(st.nextToken()) : -1;
+			int maxEffectLvl = st.hasMoreTokens() ? Integer.decode(st.nextToken()) : minEffectLvl;
+			return new ConditionTargetActiveEffectId(effectId, minEffectLvl, maxEffectLvl);
 		}
 		else if ("active_skill_id".equalsIgnoreCase(nodeName))
 		{
-			int skill_id = Integer.decode(nodeValue);
-			return new ConditionTargetActiveSkillId(skill_id);
+			StringTokenizer st = new StringTokenizer(nodeValue, ",");
+			int skillId = Integer.decode(st.nextToken());
+			int minSkillLvl = st.hasMoreTokens() ? Integer.decode(st.nextToken()) : -1;
+			int maxSkillLvl = st.hasMoreTokens() ? Integer.decode(st.nextToken()) : minSkillLvl;
+			return new ConditionTargetActiveSkillId(skillId, minSkillLvl, maxSkillLvl);
 		}
 		else if ("mindistance".equalsIgnoreCase(nodeName))
 		{
@@ -458,7 +477,13 @@ public abstract class ConditionParser
 		for (int i = 0; i < attrs.getLength(); i++)
 		{
 			Node a = attrs.item(i);
-			cond = joinAnd(cond, parseUsingCondition(a.getNodeName(), getNodeValue(a.getNodeValue(), template)));
+			
+			Condition condOr = null;
+			
+			for (String nodeValue : StringUtils.split(getNodeValue(a.getNodeValue(), template), "|"))
+				condOr = joinOr(condOr, parseUsingCondition(a.getNodeName(), nodeValue));
+			
+			cond = joinAnd(cond, condOr);
 		}
 		
 		if (cond == null)
@@ -497,8 +522,11 @@ public abstract class ConditionParser
 		}
 		else if ("skill".equalsIgnoreCase(nodeName))
 		{
-			int id = Integer.decode(nodeValue);
-			return new ConditionUsingSkill(id);
+			StringTokenizer st = new StringTokenizer(nodeValue, ",");
+			int skillId = Integer.decode(st.nextToken());
+			int minSkillLvl = st.hasMoreTokens() ? Integer.decode(st.nextToken()) : -1;
+			int maxSkillLvl = st.hasMoreTokens() ? Integer.decode(st.nextToken()) : minSkillLvl;
+			return new ConditionUsingSkill(skillId, minSkillLvl, maxSkillLvl);
 		}
 		else if ("slotitem".equalsIgnoreCase(nodeName))
 		{
@@ -527,7 +555,13 @@ public abstract class ConditionParser
 		for (int i = 0; i < attrs.getLength(); i++)
 		{
 			Node a = attrs.item(i);
-			cond = joinAnd(cond, parseGameCondition(a.getNodeName(), getNodeValue(a.getNodeValue(), template)));
+			
+			Condition condOr = null;
+			
+			for (String nodeValue : StringUtils.split(getNodeValue(a.getNodeValue(), template), "|"))
+				condOr = joinOr(condOr, parseGameCondition(a.getNodeName(), nodeValue));
+			
+			cond = joinAnd(cond, condOr);
 		}
 		
 		if (cond == null)
@@ -564,6 +598,23 @@ public abstract class ConditionParser
 		}
 		
 		ConditionLogicAnd and = new ConditionLogicAnd();
+		and.add(cond);
+		and.add(c);
+		return and;
+	}
+	
+	private Condition joinOr(Condition cond, Condition c)
+	{
+		if (cond == null)
+			return c;
+		
+		if (cond instanceof ConditionLogicOr)
+		{
+			((ConditionLogicOr)cond).add(c);
+			return cond;
+		}
+		
+		ConditionLogicOr and = new ConditionLogicOr();
 		and.add(cond);
 		and.add(c);
 		return and;
