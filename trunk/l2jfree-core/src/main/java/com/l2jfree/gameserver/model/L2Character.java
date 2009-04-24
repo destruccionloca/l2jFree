@@ -1173,8 +1173,6 @@ public abstract class L2Character extends L2Object
 
 		// Calculate if hit is missed or not
 		boolean miss1 = Formulas.calcHitMiss(this, target);
-		if (miss1)
-			sendPacket(new SystemMessage(SystemMessageId.MISSED_TARGET)); // msg miss the target
 
 		// Consume arrows
 		reduceArrowCount(false);
@@ -1322,10 +1320,6 @@ public abstract class L2Character extends L2Object
 		// Calculate if hits are missed or not
 		boolean miss1 = Formulas.calcHitMiss(this, target);
 		boolean miss2 = Formulas.calcHitMiss(this, target);
-		if (miss1)
-			sendPacket(new SystemMessage(SystemMessageId.MISSED_TARGET)); // msg miss
-		if (miss2)
-			sendPacket(new SystemMessage(SystemMessageId.MISSED_TARGET)); // msg miss
 
 		// Check if hit 1 isn't missed
 		if (!miss1)
@@ -1507,8 +1501,6 @@ public abstract class L2Character extends L2Object
 
 		// Calculate if hit is missed or not
 		boolean miss1 = Formulas.calcHitMiss(this, target);
-		if (miss1)
-			sendPacket(new SystemMessage(SystemMessageId.MISSED_TARGET)); // msg miss
 
 		// Check if hit isn't missed
 		if (!miss1)
@@ -7155,8 +7147,14 @@ public abstract class L2Character extends L2Object
 	 */
 	public void sendDamageMessage(L2Character target, int damage, boolean mcrit, boolean pcrit, boolean miss)
 	{
+		if (miss)
+			target.sendAvoidMessage(this);
 	}
-
+	
+	public void sendAvoidMessage(L2Character attacker)
+	{
+	}
+	
 	public ForceBuff getForceBuff()
 	{
 		return _forceBuff;

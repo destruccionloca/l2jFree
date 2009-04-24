@@ -719,33 +719,51 @@ public abstract class L2Summon extends L2PlayableInstance
 	public final void sendDamageMessage(L2Character target, int damage, boolean mcrit, boolean pcrit, boolean miss)
 	{
 		if (miss)
+		{
+			if (this instanceof L2SummonInstance)
+				getOwner().sendMessage("The summoned monster has missed.");
+			else
+				getOwner().sendMessage("Your pet has missed.");
+			target.sendAvoidMessage(this);
 			return;
-
-		// Prevents the double spam of system messages, if the target is the owning player.
+		}
+		
+		if (pcrit || mcrit)
+		{
+			if (this instanceof L2SummonInstance)
+				getOwner().sendPacket(SystemMessageId.CRITICAL_HIT_BY_SUMMONED_MOB);
+			else
+				getOwner().sendPacket(SystemMessageId.CRITICAL_HIT_BY_PET);
+		}
+		
 		if (target.getObjectId() != getOwner().getObjectId())
 		{
-			if (pcrit || mcrit)
-				if (this instanceof L2SummonInstance)
-					getOwner().sendPacket(new SystemMessage(SystemMessageId.CRITICAL_HIT_BY_SUMMONED_MOB));
-				else
-					getOwner().sendPacket(new SystemMessage(SystemMessageId.CRITICAL_HIT_BY_PET));
-
-			if (getOwner().isInOlympiadMode() && target instanceof L2PcInstance && ((L2PcInstance) target).isInOlympiadMode()
-					&& ((L2PcInstance) target).getOlympiadGameId() == getOwner().getOlympiadGameId())
+			if (getOwner().isInOlympiadMode() && target instanceof L2PcInstance
+				&& ((L2PcInstance)target).isInOlympiadMode()
+				&& ((L2PcInstance)target).getOlympiadGameId() == getOwner().getOlympiadGameId())
 			{
 				Olympiad.getInstance().notifyCompetitorDamage(getOwner(), damage, getOwner().getOlympiadGameId());
 			}
-
-			SystemMessage sm;
-			if (this instanceof L2SummonInstance)
-				sm = new SystemMessage(SystemMessageId.SUMMON_GAVE_DAMAGE_S1);
-			else
-				sm = new SystemMessage(SystemMessageId.PET_HIT_FOR_S1_DAMAGE);
-			sm.addNumber(damage);
-			getOwner().sendPacket(sm);
 		}
+		
+		SystemMessage sm;
+		if (this instanceof L2SummonInstance)
+			sm = new SystemMessage(SystemMessageId.SUMMON_GAVE_DAMAGE_S1);
+		else
+			sm = new SystemMessage(SystemMessageId.PET_HIT_FOR_S1_DAMAGE);
+		sm.addNumber(damage);
+		getOwner().sendPacket(sm);
 	}
-
+	
+	@Override
+	public final void sendAvoidMessage(L2Character attacker)
+	{
+		if (this instanceof L2SummonInstance)
+			getOwner().sendMessage("The summoned monster has avoided " + attacker.getName() + "'s attack.");
+		else
+			getOwner().sendMessage("Your pet has avoided " + attacker.getName() + "'s attack.");
+	}
+	
 	public void reduceCurrentHp(int damage, L2Character attacker, boolean awake, boolean isDOT, L2Skill skill)
 	{
 		super.reduceCurrentHp(damage, attacker, awake, isDOT, skill);

@@ -13019,54 +13019,51 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		_reuseTimeStamps.remove(s);
 	}
-
+	
 	@Override
 	public final void sendDamageMessage(L2Character target, int damage, boolean mcrit, boolean pcrit, boolean miss)
 	{
-		// Check if hit is missed
 		if (miss)
 		{
-			sendPacket(new SystemMessage(SystemMessageId.S1_ATTACK_WENT_ASTRAY).addString(getName()));
+			sendPacket(SystemMessageId.MISSED_TARGET);
+			target.sendAvoidMessage(this);
 			return;
 		}
-
-		// Check if hit is critical
+		
 		if (pcrit)
 		{
 			sendPacket(SystemMessageId.CRITICAL_HIT);
-
-			if (target instanceof L2PcInstance)
-				target.sendPacket(new SystemMessage(SystemMessageId.S1_HAD_CRITICAL_HIT).addPcName(this));
-
-			int soulMasteryLevel = getSkillLevel(L2Skill.SKILL_SOUL_MASTERY);
-			// Soul Mastery skill
-			if (soulMasteryLevel > 0 && target instanceof L2NpcInstance)
+			
+			if (target instanceof L2NpcInstance)
 			{
-				L2Skill skill = SkillTable.getInstance().getInfo(L2Skill.SKILL_SOUL_MASTERY, soulMasteryLevel);
-				if (Rnd.get(100) < skill.getCritChance())
-				{
+				// Soul Mastery skill
+				final L2Skill skill = getKnownSkill(L2Skill.SKILL_SOUL_MASTERY);
+				
+				if (skill != null && Rnd.get(100) < skill.getCritChance())
 					absorbSoulFromNpc(skill, target);
-				}
 			}
 		}
+		
 		if (mcrit)
 			sendPacket(SystemMessageId.CRITICAL_HIT_MAGIC);
-
-		if (isInOlympiadMode() &&
-        		target instanceof L2PcInstance &&
-        		((L2PcInstance)target).isInOlympiadMode() &&
-        		((L2PcInstance)target).getOlympiadGameId() == getOlympiadGameId())
-        {
-        	Olympiad.getInstance().notifyCompetitorDamage(this, damage, getOlympiadGameId());
-        }
 		
-		SystemMessage sm = new SystemMessage(SystemMessageId.S1_GAVE_S2_DAMAGE_OF_S3);
-		sm.addPcName(this);
-		sm.addCharName(target);
+		if (isInOlympiadMode() && target instanceof L2PcInstance && ((L2PcInstance)target).isInOlympiadMode()
+			&& ((L2PcInstance)target).getOlympiadGameId() == getOlympiadGameId())
+		{
+			Olympiad.getInstance().notifyCompetitorDamage(this, damage, getOlympiadGameId());
+		}
+		
+		SystemMessage sm = new SystemMessage(SystemMessageId.YOU_DID_S1_DMG);
 		sm.addNumber(damage);
 		sendPacket(sm);
 	}
-
+	
+	@Override
+	public final void sendAvoidMessage(L2Character attacker)
+	{
+		sendPacket(new SystemMessage(SystemMessageId.AVOIDED_S1S_ATTACK).addCharName(attacker));
+	}
+	
 	public void saveEventStats()
 	{
 		_originalNameColor = getAppearance().getNameColor();
