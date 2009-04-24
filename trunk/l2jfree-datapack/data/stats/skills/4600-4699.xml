@@ -497,7 +497,7 @@
     <set name="effectRange" val="-1"/>
     <for>
       <!-- Perhaps someone has a better idea? -->
-      <effect name="HealOverTime" time="60" count="0x7fffffff" val="0" stackOrder="1" stackType="area_nonheal">
+      <effect name="DamOverTime" time="60" count="0x7fffffff" val="0" stackOrder="1" stackType="area_nonheal">
         <mul order="0x30" stat="gainHp" val="0"/>
       </effect>
     </for>
@@ -511,7 +511,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <effect name="HealOverTime" time="60" count="0x7fffffff" val="0" stackOrder="#effect" stackType="area_swamp">
+      <effect name="DamOverTime" time="60" count="0x7fffffff" val="0" stackOrder="#effect" stackType="area_swamp">
         <mul order="0x30" stat="runSpd" val="#runSpd"/>
       </effect>
     </for>

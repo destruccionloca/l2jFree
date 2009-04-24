@@ -968,7 +968,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <effect count="0x7fffffff" name="ManaDamOverTime" time="3" val="0"/>
+      <effect count="0x7fffffff" name="DamOverTime" time="3" val="0"/>
     </for>
   </skill>
 </list>
