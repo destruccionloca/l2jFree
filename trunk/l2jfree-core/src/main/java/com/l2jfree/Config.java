@@ -1010,10 +1010,14 @@ public final class Config extends L2Config
 	public static boolean			DEVELOPER;													// Enable/disable DEVELOPER TREATMENT
 	public static boolean			TEST_KNOWNLIST			= false;							// Internal properties for developers tests only
 	public static boolean			ALLOW_WEDDING;
-	public static boolean			SERVER_LIST_BRACKET;										// Displays [] in front of server name ?
-	public static boolean			SERVER_LIST_CLOCK;											// Displays a clock next to the server name ?
-	public static boolean			SERVER_LIST_TESTSERVER;									// Display test server in the list of servers ?
-	public static boolean			SERVER_GMONLY;												// Set the server as gm only at startup ?
+	public static boolean			SERVER_PVP;												// Is PvP combat enabled? [NO CORE SUPPORT]
+	public static int				SERVER_AGE_LIM;											// Server age limitation
+	public static boolean			SERVER_GMONLY;											// Set the server as GM only at startup?
+	public static boolean			SERVER_BIT_1;											// UNK
+	public static boolean			SERVER_BIT_2;											// UNK/Clock
+	public static boolean			SERVER_BIT_3;											// UNK/HideName
+	public static boolean			SERVER_BIT_4;											// UNK/TestServer
+	public static boolean			SERVER_LIST_BRACKET;									// Display [] in front of server name
 
 	public static int				THREAD_POOL_SIZE;
 
@@ -1148,11 +1152,15 @@ public final class Config extends L2Config
 
 			ASSERT = Boolean.parseBoolean(optionsSettings.getProperty("Assert", "false"));
 			DEVELOPER = Boolean.parseBoolean(optionsSettings.getProperty("Developer", "false"));
-			SERVER_LIST_TESTSERVER = Boolean.parseBoolean(optionsSettings.getProperty("TestServer", "false"));
+			SERVER_BIT_4 = Boolean.parseBoolean(optionsSettings.getProperty("TestServer", "false"));
 
 			SERVER_LIST_BRACKET = Boolean.parseBoolean(optionsSettings.getProperty("ServerListBrackets", "false"));
-			SERVER_LIST_CLOCK = Boolean.parseBoolean(optionsSettings.getProperty("ServerListClock", "false"));
+			SERVER_BIT_1 = Boolean.parseBoolean(optionsSettings.getProperty("ServerB1UNK", "false"));
+			SERVER_BIT_2 = Boolean.parseBoolean(optionsSettings.getProperty("ServerListClock", "false"));
+			SERVER_BIT_3 = !Boolean.parseBoolean(optionsSettings.getProperty("ServerShowName", "true"));
 			SERVER_GMONLY = Boolean.parseBoolean(optionsSettings.getProperty("ServerGMOnly", "false"));
+			SERVER_PVP = Boolean.parseBoolean(optionsSettings.getProperty("ServerPvPEnabled", "true"));
+			SERVER_AGE_LIM = Integer.parseInt(optionsSettings.getProperty("ServerAgeLimitation", "15"));
 
 			AUTODESTROY_ITEM_AFTER = Integer.parseInt(optionsSettings.getProperty("AutoDestroyDroppedItemAfter", "0"));
 			HERB_AUTO_DESTROY_TIME = Integer.parseInt(optionsSettings.getProperty("AutoDestroyHerbTime", "15")) * 1000;
@@ -1511,6 +1519,8 @@ public final class Config extends L2Config
 	public static int					CASTLE_ZONE_FAME_TASK_FREQUENCY;
 	public static int					CASTLE_ZONE_FAME_AQUIRE_POINTS;
 
+	public static boolean				ALT_TAX_CHANGE_DELAYED;
+
 	// *******************************************************************************************
 	// *******************************************************************************************
 	// *******************************************************************************************
@@ -1731,6 +1741,8 @@ public final class Config extends L2Config
 			FORTRESS_ZONE_FAME_AQUIRE_POINTS	= Integer.parseInt(altSettings.getProperty("FortressZoneFameAquirePoints", "31"));
 			CASTLE_ZONE_FAME_TASK_FREQUENCY	= Integer.parseInt(altSettings.getProperty("CastleZoneFameTaskFrequency", "300"));
 			CASTLE_ZONE_FAME_AQUIRE_POINTS	= Integer.parseInt(altSettings.getProperty("CastleZoneFameAquirePoints", "125"));
+
+			ALT_TAX_CHANGE_DELAYED = Boolean.parseBoolean(altSettings.getProperty("CastleTaxChangeDelayed", "true"));
 		}
 		catch (Exception e)
 		{

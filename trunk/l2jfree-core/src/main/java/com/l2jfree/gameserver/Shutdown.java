@@ -349,4 +349,9 @@ public final class Shutdown extends Thread
 			}
 		}
 	}
+
+	public static boolean isInProgress()
+	{
+		return _counterInstance != null;
+	}
 }

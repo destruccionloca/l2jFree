@@ -1509,12 +1509,18 @@ public class Siege extends AbstractSiege
 		return _controlTowerCount;
 	}
 
+	/** @return if the <B>Flame Control Tower</B>(s) are alive */
 	public boolean getAreTrapsOn()
 	{
 		//until Flame Control Tower coordinates are known
 		return true;
 	}
 
+	/**
+	 * Returns all zones in the given castle side
+	 * @param side Inner/Eastern = true, Outer/Western = false
+	 * @return Danger Zone Array
+	 */
 	public L2SiegeDangerZone[] getDangerZones(boolean side)
 	{
 		if (side)
@@ -1523,6 +1529,11 @@ public class Siege extends AbstractSiege
 			return _dangerZonesW;
 	}
 
+	/**
+	 * Adds the given zone to the managed zone array. Called when loading zones.
+	 * @param sdz Siege danger zone
+	 * @param east Side of the castle
+	 */
 	public void registerZone(L2SiegeDangerZone sdz, boolean east)
 	{
 		if (east)
@@ -1531,6 +1542,10 @@ public class Siege extends AbstractSiege
 			_dangerZonesW = (L2SiegeDangerZone[])ArrayUtils.add(_dangerZonesW, sdz);
 	}
 
+	/**
+	 * @param east Side of the castle
+	 * @return How many danger zones are activated
+	 */
 	public int getZoneAreaLevel(boolean east)
 	{
 		L2SiegeDangerZone[] list = getDangerZones(east);
@@ -1548,6 +1563,26 @@ public class Siege extends AbstractSiege
 			return (list[0].isUpgraded() ? 1 : 0);
 	}
 
+	/**
+	 * Enforces only level/list.length zones to be active.
+	 * @param east
+	 * @param level
+	 */
+	public void activateOnLoad(boolean east, int level)
+	{
+		L2SiegeDangerZone[] list = getDangerZones(east);
+		if (list != null)
+			for (L2SiegeDangerZone sdz : list)
+				sdz.upgrade(0, 0);
+		activateZones(east, 0, level);
+	}
+
+	/**
+	 * Activates siege danger zones.
+	 * @param east Which side of the castle?
+	 * @param oldLevel First zone activated in the array
+	 * @param newLevel Last zone activated in the array
+	 */
 	public void activateZones(boolean east, int oldLevel, int newLevel)
 	{
 		L2SiegeDangerZone[] list = getDangerZones(east);
@@ -1556,18 +1591,20 @@ public class Siege extends AbstractSiege
 				list[i].upgrade(Config.CS_TRAP_POWER_DAMAGE, Config.CS_TRAP_POWER_SLOW);
 	}
 
+	/** Downgrades all managed zones and deletes their upgrade data from the database */
 	public void deactivateZones()
 	{
 		L2SiegeDangerZone[] list;
 		if ((list = getDangerZones(true)) != null)
 			for (L2SiegeDangerZone sdz : list)
-				sdz.upgrade(0);
+				sdz.upgrade(0, 0);
 		if ((list = getDangerZones(false)) != null)
 			for (L2SiegeDangerZone sdz : list)
-				sdz.upgrade(0);
+				sdz.upgrade(0, 0);
 		_castle.resetDangerZones();
 	}
 
+	/** Clears the managed zone arrays */
 	public void onZoneReload()
 	{
 		_dangerZonesE = null;

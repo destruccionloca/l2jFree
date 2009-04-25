@@ -76,7 +76,7 @@ public abstract class GameServerBasePacket
 		{
 			if (text != null)
 			{	
-				_bao.write(text.getBytes("UTF-16LE"));
+				_bao.write(text.getBytes("UTF-8"));
 			}
 		}
 		catch (Exception e)

@@ -19,29 +19,27 @@ import java.util.Vector;
 
 /**
  * @author -Wooden-
- *
+ * @reworked by savormix
  */
 public class ServerStatus extends GameServerBasePacket
 {
     private Vector<Attribute> _attributes;
 
-    public static final String[] STATUS_STRING = {"Auto", "Good", "Normal", "Full", "Down", "Gm Only"};
+    public static final String[] STATUS_STRING = { "Auto", "Maintenance", "Down" };
 
-    public static final int SERVER_LIST_STATUS = 0x01;
-    public static final int SERVER_LIST_CLOCK = 0x02;
-    public static final int SERVER_LIST_SQUARE_BRACKET = 0x03;
-    public static final int MAX_PLAYERS = 0x04;
-    public static final int TEST_SERVER = 0x05;
+    public static final int SERVER_LIST_PVP			= 0x01;
+    public static final int SERVER_LIST_MAX_PLAYERS = 0x02;
+    public static final int SERVER_LIST_STATUS		= 0x03;
+    public static final int SERVER_LIST_UNK			= 0x04;
+    public static final int SERVER_LIST_CLOCK		= 0x05;
+    public static final int SERVER_LIST_HIDE_NAME	= 0x06;
+    public static final int TEST_SERVER				= 0x07;
+    public static final int SERVER_LIST_BRACKETS	= 0x08;
+    public static final int SERVER_AGE_LIMIT		= 0x09;
 
-    public static final int STATUS_AUTO = 0x00;
-    public static final int STATUS_GOOD = 0x01;
-    public static final int STATUS_NORMAL = 0x02;
-    public static final int STATUS_FULL = 0x03;
-    public static final int STATUS_DOWN = 0x04;
-    public static final int STATUS_GM_ONLY = 0x05;
-
-    public static final int ON = 0x01;
-    public static final int OFF = 0x00;
+    public static final int STATUS_AUTO				= 0x00;
+    public static final int STATUS_GM_ONLY			= 0x01;
+    public static final int STATUS_DOWN				= 0x02;
 
     class Attribute
     {
@@ -60,9 +58,24 @@ public class ServerStatus extends GameServerBasePacket
         _attributes = new Vector<Attribute>();
     }
 
-    public void addAttribute(int id, int value)
+    public void addAttribute(int id, boolean on)
     {
-        _attributes.add(new Attribute(id, value));
+        _attributes.add(new Attribute(id, on ? 1 : 0));
+    }
+
+    public void addMaxPlayerAttribute(int count)
+    {
+    	_attributes.add(new Attribute(SERVER_LIST_MAX_PLAYERS, count));
+    }
+
+    public void addMinAgeAttribute(int age)
+    {
+    	_attributes.add(new Attribute(SERVER_AGE_LIMIT, age));
+    }
+
+    public void addServerDownAttribute()
+    {
+        _attributes.add(new Attribute(SERVER_LIST_STATUS, STATUS_DOWN));
     }
 
     /* (non-Javadoc)

@@ -440,9 +440,9 @@ public class Castle extends Siegeable<Siege>
 	}
 
 	/**
-	 * Sets the tax rate for current castle.
+	 * Sets the tax rate for current castle and updates data in the database.
 	 * @param taxPercent Tax percentage
-	 * @param check Validate if the specified percentage can be set as tax
+	 * @param check Validate if the specified percentage can be set as tax?
 	 * @param delayed Is a player changing the tax rate?
 	 */
 	public boolean setTaxPercent(int taxPercent, boolean check, boolean delayed)
@@ -451,6 +451,7 @@ public class Castle extends Siegeable<Siege>
 			return false;
 
 		stopUpdateTask();
+		if (delayed) delayed = Config.ALT_TAX_CHANGE_DELAYED;
 		Connection con = null;
 		try
 		{
@@ -834,12 +835,13 @@ public class Castle extends Siegeable<Siege>
 		return _siegeTimeRegistrationEndDate;
  	}
 
-
+	/** @return current tax percentage to be applied at midnight */
 	public final int getTaxPercent()
 	{
 		return _taxPercent;
 	}
 
+	/** @return tax percentage to be applied at midnight */
 	public final int getTaxPercentNew()
 	{
 		return _taxPercentNew;
@@ -1370,6 +1372,12 @@ public class Castle extends Siegeable<Siege>
 		return true;
  	}
 
+	/**
+	 * Sets the portal's coordinates
+	 * @param x
+	 * @param y
+	 * @param z
+	 */
 	public void createClanGate(int x, int y, int z)
 	{
 		_gate[0] = x;
@@ -1377,15 +1385,15 @@ public class Castle extends Siegeable<Siege>
 		_gate[2] = z;
 	}
 
-	/** Optimized as much as possible. */
+	/** Removes the lord's portal. Optimized as much as possible. */
 	public void destroyClanGate()
 	{
 		_gate[0] = Integer.MIN_VALUE;
 	}
 
 	/**
-	 * This method must always be called before using gate coordinate retrieval methods!
-	 * Optimized as much as possible.
+	 * <B>This method must always be called before using gate coordinate retrieval methods!</B>
+	 * <BR>Optimized as much as possible.
 	 * @return is a Clan Gate available
 	 */
 	public boolean isGateOpen()
@@ -1393,32 +1401,55 @@ public class Castle extends Siegeable<Siege>
 		return _gate[0] != Integer.MIN_VALUE;
 	}
 
+	/**
+	 * @see #getGateY()
+	 * @see #getGateZ()
+	 * @return Clan gate location - <B>X</B>
+	 */
 	public int getGateX()
 	{
 		return _gate[0];
 	}
 
+	/**
+	 * @see #getGateX()
+	 * @see #getGateZ()
+	 * @return Clan gate location - <B>Y</B>
+	 */
 	public int getGateY()
 	{
 		return _gate[1];
 	}
 
+	/**
+	 * @see #getGateX()
+	 * @see #getGateY()
+	 * @return Clan gate location - <B>Z</B>
+	 */
 	public int getGateZ()
 	{
 		return _gate[2];
 	}
 
+	/** Checks the tax rate and decreases if invalid. Saves data to the database. */
 	public void revalidateTax()
 	{
 		if (getTaxPercent() > getMaxTax())
 			setTaxPercent(getMaxTax(), false, false);
+		_taxPercentNew = _taxPercent;
 	}
 
+	/**
+	 * Validates if the given number is higher than 0 and lower than {@link #getMaxTax()}
+	 * @return whether the tax percentage is valid
+	 * @see #getMaxTax()
+	 */
 	public static boolean validateTax(int percent)
 	{
 		return (percent >= 0 && percent < getMaxTax());
 	}
 
+	/** @return maximum tax percentage allowed by Seven Signs */
 	public static int getMaxTax()
 	{
 		switch (SevenSigns.getInstance().getSealOwner(SevenSigns.SEAL_STRIFE))
@@ -1451,6 +1482,11 @@ public class Castle extends Siegeable<Siege>
 			_taxUpdate.cancel(false);
 	}
 
+	/**
+	 * Called when zones are being [re]loaded. Adds the zone to the danger zone array,
+	 * then loads the upgrade data from the database and upgrades it if needed.
+	 * @param sdz The newly created danger zone
+	 */
 	public void loadDangerZone(L2SiegeDangerZone sdz)
 	{
 		boolean east = (sdz.getName().endsWith("e") || sdz.getName().endsWith("i"));
@@ -1464,7 +1500,7 @@ public class Castle extends Siegeable<Siege>
 			statement.setInt(2, east ? 1 : 2);
 			ResultSet rs = statement.executeQuery();
 			if (rs.next())
-				getSiege().activateZones(east, 0, rs.getInt(1));
+				getSiege().activateOnLoad(east, rs.getInt(1));
 			statement.close();
 		}
 		catch (SQLException e)
@@ -1474,6 +1510,16 @@ public class Castle extends Siegeable<Siege>
 		finally { L2DatabaseFactory.close(con); }
 	}
 
+	/**
+	 * <B>Upgrades the danger zones and saves data to the database.</B><BR>
+	 * <B>level</B> indicates the first cell in the zone array to be upgraded.<BR>
+	 * <B>newLevel</B> decides the last cell in the zone array to be upgraded.<BR><BR>
+	 * Only the Aden castle has more than one zone/side.
+	 * Level also decides which SQL statement will be used (INSERT/UPDATE). 
+	 * @param east Inner/Eastern zones? Otherwise Outer/Western
+	 * @param level Previous upgrade level
+	 * @param newLevel New upgrade level
+	 */
 	public void upgradeDangerZones(boolean east, int level, int newLevel)
 	{
 		Connection con = null;
@@ -1498,6 +1544,7 @@ public class Castle extends Siegeable<Siege>
 		finally { L2DatabaseFactory.close(con); }
 	}
 
+	/**	Remove danger zone data from the database. Doesn't downgrade the loaded zones. */
 	public void resetDangerZones()
 	{
 		Connection con = null;

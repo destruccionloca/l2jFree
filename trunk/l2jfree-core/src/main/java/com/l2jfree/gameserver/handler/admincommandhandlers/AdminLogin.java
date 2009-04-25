@@ -23,131 +23,108 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.gameserverpackets.ServerStatus;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 
-
 /**
- * This class handles the admin commands that acts on the login
- * 
+ * This class handles admin commands that manage the loginserver
+ * @reworked by savormix
  * @version $Revision: 1.2.2.1.2.4 $ $Date: 2007/07/31 10:05:56 $
  */
 public class AdminLogin implements IAdminCommandHandler
 {
-	private static final String[]	ADMIN_COMMANDS	=
-													{
-			"admin_server_gm_only",
-			"admin_server_all",
-			"admin_server_max_player",
-			"admin_server_list_clock",
-			"admin_server_login"					};
+	private static final String[] LOGIN_COMMANDS = {
+		"admin_login", "admin_login_conn", "admin_login_status", "admin_login_toggle",
+		"admin_login_age"
+	};
+
+	private static final String HTML_ROOT = "data/html/admin/";
+
+	private static final String ON = "ON";
+	private static final String OFF = "OFF";
+	private static final String ENABLE = "1";
+	private static final String DISABLE = "0";
 
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.handler.IAdminCommandHandler#useAdminCommand(java.lang.String, com.l2jfree.gameserver.model.L2PcInstance)
 	 */
-	public boolean useAdminCommand(String command, L2PcInstance activeChar)
+	public boolean useAdminCommand(String command, L2PcInstance GM)
 	{
-		if (command.equals("admin_server_gm_only"))
+		StringTokenizer st;
+
+		if (command.equalsIgnoreCase(LOGIN_COMMANDS[0]))
+			showMenu(GM);
+		else if (command.startsWith(LOGIN_COMMANDS[1]))
 		{
-			gmOnly();
-			activeChar.sendMessage("Server is now GM only");
-			showMainPage(activeChar);
+			st = new StringTokenizer(command, " "); st.nextToken();
+			int connCount;
+			try { connCount = Integer.parseInt(st.nextToken()); }
+			catch (Exception e) { showMenu(GM); return false; }
+			LoginServerThread.getInstance().setMaxPlayer(connCount);
 		}
-		else if (command.equals("admin_server_all"))
+		else if (command.startsWith(LOGIN_COMMANDS[2]))
 		{
-			allowToAll();
-			activeChar.sendMessage("Server is not GM only anymore");
-			showMainPage(activeChar);
+			st = new StringTokenizer(command, " "); st.nextToken();
+			int newStatus;
+			try { newStatus = Integer.parseInt(st.nextToken()); }
+			catch (Exception e) { showMenu(GM); return false; }
+			LoginServerThread.getInstance().setServerStatus(newStatus);
 		}
-		else if (command.startsWith("admin_server_max_player"))
+		else if (command.startsWith(LOGIN_COMMANDS[3]))
 		{
-			StringTokenizer st = new StringTokenizer(command);
-			if (st.countTokens() > 1)
+			st = new StringTokenizer(command, " "); st.nextToken();
+			int attrib; int value;
+			try
 			{
-				st.nextToken();
-				String number = st.nextToken();
-				try
-				{
-					LoginServerThread.getInstance().setMaxPlayer(Integer.valueOf(number));
-					activeChar.sendMessage("maxPlayer set to " + Integer.valueOf(number));
-					showMainPage(activeChar);
-				}
-				catch (NumberFormatException e)
-				{
-					activeChar.sendMessage("Max players must be a number.");
-				}
+				attrib = Integer.parseInt(st.nextToken());
+				value = Integer.parseInt(st.nextToken());
 			}
-			else
-			{
-				activeChar.sendMessage("Format is server_max_player <max>");
-			}
+			catch (Exception e) { showMenu(GM); return false; }
+			LoginServerThread.getInstance().toggleServerAttribute(attrib, value > 0);
 		}
-		else if (command.startsWith("admin_server_list_clock"))
+		else if (command.startsWith(LOGIN_COMMANDS[4]))
 		{
-			StringTokenizer st = new StringTokenizer(command);
-			if (st.countTokens() > 1)
-			{
-				st.nextToken();
-				String mode = st.nextToken();
-				if (mode.equals("on"))
-				{
-					LoginServerThread.getInstance().sendServerStatus(ServerStatus.SERVER_LIST_CLOCK, ServerStatus.ON);
-					activeChar.sendMessage("A clock will now be displayed next to the server name");
-					Config.SERVER_LIST_CLOCK = true;
-					showMainPage(activeChar);
-				}
-				else if (mode.equals("off"))
-				{
-					LoginServerThread.getInstance().sendServerStatus(ServerStatus.SERVER_LIST_CLOCK, ServerStatus.OFF);
-					Config.SERVER_LIST_CLOCK = false;
-					activeChar.sendMessage("The clock will not be displayed");
-					showMainPage(activeChar);
-				}
-				else
-				{
-					activeChar.sendMessage("Format is server_list_clock <on/off>");
-				}
-			}
-			else
-			{
-				activeChar.sendMessage("Format is server_list_clock <on/off>");
-			}
+			st = new StringTokenizer(command, " "); st.nextToken();
+			int age;
+			try { age = Integer.parseInt(st.nextToken()); }
+			catch (Exception e) { showMenu(GM); return false; }
+			LoginServerThread.getInstance().setMinAge(age);
 		}
-		else if (command.equals("admin_server_login"))
-		{
-			showMainPage(activeChar);
-		}
+		else
+			return false;
+
+		showMenu(GM);
 		return true;
 	}
 
-	/**
-	 * 
-	 */
-	private void showMainPage(L2PcInstance activeChar)
+	private void showMenu(L2PcInstance GM)
 	{
 		NpcHtmlMessage html = new NpcHtmlMessage(1);
-		html.setFile("data/html/admin/login.htm");
-		html.replace("%server_name%", LoginServerThread.getInstance().getServerName());
-		html.replace("%status%", LoginServerThread.getInstance().getStatusString());
-		html.replace("%clock%", String.valueOf(Config.SERVER_LIST_CLOCK));
-		html.replace("%brackets%", String.valueOf(Config.SERVER_LIST_BRACKET));
-		html.replace("%max_players%", String.valueOf(LoginServerThread.getInstance().getMaxPlayer()));
-		activeChar.sendPacket(html);
-	}
-
-	/**
-	 * 
-	 */
-	private void allowToAll()
-	{
-		LoginServerThread.getInstance().setServerStatus(ServerStatus.STATUS_AUTO);
-		Config.SERVER_GMONLY = false;
-	}
-
-	/**
-	 * 
-	 */
-	private void gmOnly()
-	{
-		LoginServerThread.getInstance().setServerStatus(ServerStatus.STATUS_GM_ONLY);
-		Config.SERVER_GMONLY = true;
+		html.setFile(HTML_ROOT + "LoginMenu.html");
+		switch (LoginServerThread.getInstance().getGSStatus())
+		{
+		case ServerStatus.STATUS_DOWN:
+			html.replace("%statusCol%", "EE0000");
+			html.replace("%statusStr%", OFF);
+			break;
+		case ServerStatus.STATUS_GM_ONLY:
+			html.replace("%statusCol%", "EEEE00");
+			html.replace("%statusStr%", "MAINTENANCE");
+			break;
+		default:
+			html.replace("%statusCol%", "00EE00");
+			html.replace("%statusStr%", ON);
+			break;
+		}
+		html.replace("%statusB1%", Config.SERVER_BIT_1 ? ON : OFF);
+		html.replace("%statusB2%", Config.SERVER_BIT_2 ? ON : OFF);
+		html.replace("%statusB3%", Config.SERVER_BIT_3 ? ON : OFF);
+		html.replace("%statusB4%", Config.SERVER_BIT_4 ? ON : OFF);
+		html.replace("%b1%", Config.SERVER_BIT_1 ? DISABLE : ENABLE);
+		html.replace("%b2%", Config.SERVER_BIT_2 ? DISABLE : ENABLE);
+		html.replace("%b3%", Config.SERVER_BIT_3 ? DISABLE : ENABLE);
+		html.replace("%b4%", Config.SERVER_BIT_4 ? DISABLE : ENABLE);
+		html.replace("%statusBr%", Config.SERVER_LIST_BRACKET ? ON : OFF);
+		html.replace("%br%", Config.SERVER_LIST_BRACKET ? DISABLE : ENABLE);
+		html.replace("%maxConn%", String.valueOf(LoginServerThread.getInstance().getMaxPlayer()));
+		GM.sendPacket(html); html = null;
 	}
 
 	/* (non-Javadoc)
@@ -155,6 +132,6 @@ public class AdminLogin implements IAdminCommandHandler
 	 */
 	public String[] getAdminCommandList()
 	{
-		return ADMIN_COMMANDS;
+		return LOGIN_COMMANDS;
 	}
 }
