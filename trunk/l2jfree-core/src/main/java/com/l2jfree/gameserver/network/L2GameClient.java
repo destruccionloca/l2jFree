@@ -74,7 +74,7 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 	private boolean _isAuthedGG;
 	private int[] _charSlotMapping;
 	private GameCrypt _crypt;
-	private boolean _disconnected;
+	private volatile boolean _disconnected;
 	private String _hostAddress;
 	private boolean _protocol;
 	
@@ -473,12 +473,12 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 		_hostAddress = hostAddress;
 	}
 	
-	synchronized boolean isDisconnected()
+	boolean isDisconnected()
 	{
 		return _disconnected;
 	}
 	
-	synchronized void setDisconnected()
+	void setDisconnected()
 	{
 		_disconnected = true;
 	}
@@ -503,7 +503,7 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 	 * excluded.
 	 */
 	@Override
-	public synchronized void sendPacket(SendablePacket<L2GameClient> sp)
+	public void sendPacket(SendablePacket<L2GameClient> sp)
 	{
 		final long begin = System.nanoTime();
 		
@@ -529,7 +529,7 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 		}
 	}
 	
-	synchronized void close(boolean toLoginScreen)
+	void close(boolean toLoginScreen)
 	{
 		super.close(toLoginScreen ? ServerClose.STATIC_PACKET : LeaveWorld.STATIC_PACKET);
 		
@@ -537,19 +537,19 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 	}
 	
 	@Override
-	public synchronized void close(SendablePacket<L2GameClient> sp)
+	public void close(SendablePacket<L2GameClient> sp)
 	{
 		new Disconnection(this).defaultSequence(false);
 	}
 	
 	@Override
-	public synchronized void closeNow()
+	public void closeNow()
 	{
 		new Disconnection(this).defaultSequence(false);
 	}
 	
 	@Override
-	protected synchronized void onDisconnection()
+	protected void onDisconnection()
 	{
 		ThreadPoolManager.getInstance().execute(new Runnable() {
 			@Override
@@ -565,7 +565,7 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 	}
 	
 	@Override
-	protected synchronized void onForcedDisconnection()
+	protected void onForcedDisconnection()
 	{
 		if (_log.isDebugEnabled())
 			_log.info("Client " + toString() + " disconnected abnormally.");
