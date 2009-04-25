@@ -2448,13 +2448,21 @@ public final class Config extends L2Config
 	public static int			CS_SUPPORT2_FEE;
 	public static int			CS_SUPPORT3_FEE;
 	public static int			CS_SUPPORT4_FEE;
+	public static int			CS_TRAP_POWER_SLOW;
+	public static int			CS_TRAP_POWER_DAMAGE;
 	public static int			CS_TRAP1_FEE;
 	public static int			CS_TRAP2_FEE;
 	public static int			CS_TRAP3_FEE;
 	public static int			CS_TRAP4_FEE;
-	public static int			CS_REINFORCE1_FEE;
-	public static int			CS_REINFORCE2_FEE;
-	public static int			CS_REINFORCE3_FEE;
+	public static int			CS_REINFORCE_OUTER1_FEE;
+	public static int			CS_REINFORCE_OUTER2_FEE;
+	public static int			CS_REINFORCE_OUTER3_FEE;
+	public static int			CS_REINFORCE_INNER1_FEE;
+	public static int			CS_REINFORCE_INNER2_FEE;
+	public static int			CS_REINFORCE_INNER3_FEE;
+	public static int			CS_REINFORCE_WALL1_FEE;
+	public static int			CS_REINFORCE_WALL2_FEE;
+	public static int			CS_REINFORCE_WALL3_FEE;
 
 	// *******************************************************************************************
 	public static void loadCastleConfig()
@@ -2488,13 +2496,21 @@ public final class Config extends L2Config
 			CS_EXPREG2_FEE = Integer.parseInt(castleSettings.getProperty("CastleExpRegenerationFeeLvl2", "15000"));
 			CS_EXPREG3_FEE = Integer.parseInt(castleSettings.getProperty("CastleExpRegenerationFeeLvl3", "21000"));
 			CS_EXPREG4_FEE = Integer.parseInt(castleSettings.getProperty("CastleExpRegenerationFeeLvl4", "30000"));
-			CS_TRAP1_FEE = Integer.parseInt(castleSettings.getProperty("CastleTrapFeeLvl1", "500000"));
-			CS_TRAP2_FEE = Integer.parseInt(castleSettings.getProperty("CastleTrapFeeLvl2", "1000000"));
-			CS_TRAP3_FEE = Integer.parseInt(castleSettings.getProperty("CastleTrapFeeLvl3", "2000000"));
-			CS_TRAP4_FEE = Integer.parseInt(castleSettings.getProperty("CastleTrapFeeLvl4", "3000000"));
-			CS_REINFORCE1_FEE = Integer.parseInt(castleSettings.getProperty("CastleReinforcementFeeLvl1", "1000000"));
-			CS_REINFORCE2_FEE = Integer.parseInt(castleSettings.getProperty("CastleReinforcementFeeLvl2", "3000000"));
-			CS_REINFORCE3_FEE = Integer.parseInt(castleSettings.getProperty("CastleReinforcementFeeLvl3", "5000000"));
+			CS_TRAP_POWER_SLOW = Integer.parseInt(castleSettings.getProperty("CastleTrapSlow", "4"));
+			CS_TRAP_POWER_DAMAGE = Integer.parseInt(castleSettings.getProperty("CastleTrapDamage", "12"));
+			CS_TRAP1_FEE = Integer.parseInt(castleSettings.getProperty("CastleTrapFeeLvl1", "3000000"));
+			CS_TRAP2_FEE = Integer.parseInt(castleSettings.getProperty("CastleTrapFeeLvl2", "6000000"));
+			CS_TRAP3_FEE = Integer.parseInt(castleSettings.getProperty("CastleTrapFeeLvl3", "9000000"));
+			CS_TRAP4_FEE = Integer.parseInt(castleSettings.getProperty("CastleTrapFeeLvl4", "12000000"));
+			CS_REINFORCE_OUTER1_FEE = Integer.parseInt(castleSettings.getProperty("CastleReinforceOuterFeeLvl1", "750000"));
+			CS_REINFORCE_OUTER2_FEE = Integer.parseInt(castleSettings.getProperty("CastleReinforceOuterFeeLvl2", "4000000"));
+			CS_REINFORCE_OUTER3_FEE = Integer.parseInt(castleSettings.getProperty("CastleReinforceOuterFeeLvl3", "5000000"));
+			CS_REINFORCE_INNER1_FEE = Integer.parseInt(castleSettings.getProperty("CastleReinforceInnerFeeLvl1", "1600000"));
+			CS_REINFORCE_INNER2_FEE = Integer.parseInt(castleSettings.getProperty("CastleReinforceInnerFeeLvl2", "1800000"));
+			CS_REINFORCE_INNER3_FEE = Integer.parseInt(castleSettings.getProperty("CastleReinforceInnerFeeLvl3", "3000000"));
+			CS_REINFORCE_WALL1_FEE = Integer.parseInt(castleSettings.getProperty("CastleReinforceWallsFeeLvl1", "1600000"));
+			CS_REINFORCE_WALL2_FEE = Integer.parseInt(castleSettings.getProperty("CastleReinforceWallsFeeLvl2", "1800000"));
+			CS_REINFORCE_WALL3_FEE = Integer.parseInt(castleSettings.getProperty("CastleReinforceWallsFeeLvl3", "3000000"));
 		}
 		catch (Exception e)
 		{

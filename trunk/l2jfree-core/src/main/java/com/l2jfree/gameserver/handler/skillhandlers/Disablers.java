@@ -97,7 +97,7 @@ public class Disablers implements ICubicSkillHandler
 		{
 			if (weaponInst == null && skill.isOffensive())
 			{
-				activeChar.sendMessage("You must equip a weapon before casting a spell.");
+				activeChar.sendPacket(SystemMessageId.WEAPON_CAN_USE_ONLY_WEAPON_SKILL);
 				return;
 			}
 		}
@@ -523,7 +523,10 @@ public class Disablers implements ICubicSkillHandler
 					if (e.getSkill().isDebuff() && count < skill.getMaxNegatedEffects())
 					{
 						//Do not remove raid curse skills
-						if (e.getSkill().getId() != 4215 && e.getSkill().getId() != 4515 && e.getSkill().getId() != 4082 && e.getSkill().getId() != 5660)
+						if (e.getSkill().getId() != 4215 && e.getSkill().getId() != 4515
+								&& e.getSkill().getId() != 4082
+								&& e.getSkill().getId() != 5660
+								&& e.getEffectType() != L2EffectType.ENVIRONMENT)
 						{
 							e.exit();
 							if (count > -1)
@@ -561,7 +564,8 @@ public class Disablers implements ICubicSkillHandler
 							|| e.getSkill().isDebuff()
 							|| HeroSkillTable.isHeroSkill(e.getSkill().getId())
 							|| e.getSkill().isPotion()
-							|| e.isHerbEffect())
+							|| e.isHerbEffect()
+							|| e.getEffectType() == L2EffectType.ENVIRONMENT)
 						continue;
 					
 					if (e.getSkill().getId() == lastSkill)
@@ -620,6 +624,10 @@ public class Disablers implements ICubicSkillHandler
 						{
 							continue;
 						}
+
+						//Such effects cannot be removed by player
+						if (e.getEffectType() == L2EffectType.ENVIRONMENT)
+							continue;
 						
 						switch (e.getSkill().getSkillType())
 						{
@@ -666,6 +674,8 @@ public class Disablers implements ICubicSkillHandler
 					L2Effect[] effects = target.getAllEffects();
 					for (L2Effect e : effects)
 					{
+						//if someone is dumb enough to set a skill to negate an ENVIRONMENT skill,
+						//it will be applied again in less than 3 seconds. No check here.
 						if (e.getSkill().getId() == skill.getNegateId())
 							e.exit();
 					}
@@ -685,6 +695,8 @@ public class Disablers implements ICubicSkillHandler
 						int maxfive = skill.getMaxNegatedEffects();
 						for (L2Effect e : effects)
 						{
+							if (e.getEffectType() == L2EffectType.ENVIRONMENT)
+								continue;
 							if (e.getSkill().getSkillType() == L2SkillType.BUFF || e.getSkill().getSkillType() == L2SkillType.CONT
 									|| e.getSkill().getSkillType() == L2SkillType.DEATHLINK_PET)
 							{
@@ -847,7 +859,11 @@ public class Disablers implements ICubicSkillHandler
 						if (e.getSkill().isDebuff() && count < skill.getMaxNegatedEffects())
 						{
 							//Do not remove raid curse skills
-							if (e.getSkill().getId() != 4215 && e.getSkill().getId() != 4515 && e.getSkill().getId() != 4082 && e.getSkill().getId() != 5660)
+							if (e.getSkill().getId() != 4215 &&
+									e.getSkill().getId() != 4515 &&
+									e.getSkill().getId() != 4082 &&
+									e.getSkill().getId() != 5660 &&
+									e.getEffectType() != L2EffectType.ENVIRONMENT)
 							{
 								e.exit();
 								if (count > -1)
@@ -886,6 +902,9 @@ public class Disablers implements ICubicSkillHandler
 		int count = (maxRemoved <= 0 )? -2 : 0;
 		for (L2Effect e : effects)
 		{
+			//players may not remove these effects under any circumstances
+			if (e.getEffectType() == L2EffectType.ENVIRONMENT)
+				continue;
 			if (negateLvl == -1) // If power is -1 the effect is always removed without power/lvl check ^^
 			{
 				if (e.getSkill().getSkillType() == type || (e.getSkill().getEffectType() != null && e.getSkill().getEffectType() == type))

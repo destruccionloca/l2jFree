@@ -33,7 +33,6 @@ import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.idfactory.IdFactory;
-import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.MercTicketManager;
 import com.l2jfree.gameserver.instancemanager.SiegeGuardManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
@@ -107,8 +106,8 @@ public class Siege extends AbstractSiege
     private int _controlTowerCount;
     private int _controlTowerMaxCount;
 
-    public L2SiegeDangerZone[] _dangerZonesE = null;
-    public L2SiegeDangerZone[] _dangerZonesW = null;
+    private L2SiegeDangerZone[] _dangerZonesE = null;
+    private L2SiegeDangerZone[] _dangerZonesW = null;
 
     // ===============================================================
     // Schedule task
@@ -1510,7 +1509,7 @@ public class Siege extends AbstractSiege
 		return _controlTowerCount;
 	}
 
-	public boolean getIsDangerZoneOn()
+	public boolean getAreTrapsOn()
 	{
 		//until Flame Control Tower coordinates are known
 		return true;
@@ -1524,44 +1523,41 @@ public class Siege extends AbstractSiege
 			return _dangerZonesW;
 	}
 
-	private void registerWest(L2SiegeDangerZone sdz)
-	{
-		_dangerZonesW = (L2SiegeDangerZone[])ArrayUtils.add(_dangerZonesW, sdz);
-	}
-
-	private void registerEast(L2SiegeDangerZone sdz)
-	{
-		_dangerZonesE = (L2SiegeDangerZone[])ArrayUtils.add(_dangerZonesE, sdz);
-	}
-
 	public void registerZone(L2SiegeDangerZone sdz, boolean east)
 	{
 		if (east)
-			registerEast(sdz);
+			_dangerZonesE = (L2SiegeDangerZone[])ArrayUtils.add(_dangerZonesE, sdz);
 		else
-			registerWest(sdz);
+			_dangerZonesW = (L2SiegeDangerZone[])ArrayUtils.add(_dangerZonesW, sdz);
 	}
 
-	public int getZoneLevel(boolean east)
+	public int getZoneAreaLevel(boolean east)
 	{
 		L2SiegeDangerZone[] list = getDangerZones(east);
 		if (list == null) //no zones registered
 			return 0;
+		else if (_castle.getCastleId() == 5)
+		{
+			int level = 0;
+			for (int i = 0; i < list.length; i++)
+				if (list[i].isUpgraded())
+					level++;
+			return level;
+		}
 		else
-			return getDangerZones(east)[0].getUpgradeLevel();
+			return (list[0].isUpgraded() ? 1 : 0);
 	}
 
-	public void activateZone(boolean east, int level)
+	public void activateZones(boolean east, int oldLevel, int newLevel)
 	{
 		L2SiegeDangerZone[] list = getDangerZones(east);
 		if (list != null)
-			for (L2SiegeDangerZone sdz : list)
-				sdz.upgrade(level);
+			for (int i = oldLevel; i < newLevel; i++)
+				list[i].upgrade(Config.CS_TRAP_POWER_DAMAGE, Config.CS_TRAP_POWER_SLOW);
 	}
 
-	private void deactivateZones()
+	public void deactivateZones()
 	{
-		CastleManager.getInstance().removeDangerZones(_castle.getCastleId());
 		L2SiegeDangerZone[] list;
 		if ((list = getDangerZones(true)) != null)
 			for (L2SiegeDangerZone sdz : list)
@@ -1569,5 +1565,12 @@ public class Siege extends AbstractSiege
 		if ((list = getDangerZones(false)) != null)
 			for (L2SiegeDangerZone sdz : list)
 				sdz.upgrade(0);
+		_castle.resetDangerZones();
+	}
+
+	public void onZoneReload()
+	{
+		_dangerZonesE = null;
+		_dangerZonesW = null;
 	}
 }

@@ -66,10 +66,7 @@ public class ZoneManager
 		}
 		//remove registered siege danger zones
 		for (Castle c : CastleManager.getInstance().getCastles().values())
-		{
-			c.getSiege()._dangerZonesE = null;
-			c.getSiege()._dangerZonesW = null;
-		}
+			c.getSiege().onZoneReload();
 
 		// Load the zones
 		load();

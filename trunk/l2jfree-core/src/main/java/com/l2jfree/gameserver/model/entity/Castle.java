@@ -17,8 +17,10 @@ package com.l2jfree.gameserver.model.entity;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Map;
+import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -41,6 +43,7 @@ import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2Manor;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.zone.L2SiegeDangerZone;
 import com.l2jfree.gameserver.network.serverpackets.PlaySound;
 import com.l2jfree.gameserver.network.serverpackets.PledgeShowInfoUpdate;
 
@@ -59,6 +62,14 @@ public class Castle extends Siegeable<Siege>
 	private static final String			CASTLE_UPDATE_CROP						= "UPDATE castle_manor_procure SET can_buy=? WHERE crop_id=? AND castle_id=? AND period=?";
 	private static final String			CASTLE_UPDATE_SEED						= "UPDATE castle_manor_production SET can_produce=? WHERE seed_id=? AND castle_id=? AND period=?";
 
+	private static final String			CASTLE_TAX_UPDATE_INSTANT				= "UPDATE castle SET taxPercent=?, taxSetDate=0 WHERE id=?";
+	private static final String			CASTLE_TAX_UPDATE_DELAYED				= "UPDATE castle SET newTax=?, taxSetDate=? WHERE id=?";
+
+	private static final String			CASTLE_TRAP_ADD							= "INSERT INTO castle_zoneupgrade (level,castleId,side) VALUES (?,?,?)";
+    private static final String			CASTLE_TRAP_UPGRADE						= "UPDATE castle_zoneupgrade SET level=? WHERE castleId=? AND side=?";
+    private static final String			CASTLE_TRAP_LOAD						= "SELECT level FROM castle_zoneupgrade WHERE castleId=? AND side=?";
+    private static final String			CASTLE_TRAPS_REMOVE						= "DELETE FROM castle_zoneupgrade WHERE castleId=?";
+
 	private FastList<L2DoorInstance>	_doors									= new FastList<L2DoorInstance>();
 	private FastList<String>			_doorDefault							= new FastList<String>();
 	private int							_castleId								= 0;
@@ -67,12 +78,14 @@ public class Castle extends Siegeable<Siege>
 	private boolean						_isTimeRegistrationOver					= true; // true if Castle Lords set the time, false if 24h are elapsed after the siege
 	private Calendar					_siegeTimeRegistrationEndDate;					// last siege end date + 1 day
 	private int							_taxPercent								= 0;
+	private int							_taxPercentNew							= 0;
 	private double						_taxRate								= 1.0;
 	private int							_treasury								= 0;
 	private int							_nbArtifact								= 1;
 	private Map<Integer, Integer>		_engrave								= new FastMap<Integer, Integer>();
 	private final int[]					_gate									= { Integer.MIN_VALUE, 0, 0 };
     private Map<Integer,CastleFunction> _function;
+    private ScheduledFuture<?>			_taxUpdate								= null;
 
 	/** Castle Functions */
 	public static final int FUNC_TELEPORT = 1;
@@ -426,47 +439,43 @@ public class Castle extends Siegeable<Siege>
 		updateClansReputation();
 	}
 
-	// This method updates the castle tax rate
-	public void setTaxPercent(L2PcInstance activeChar, int taxPercent)
+	/**
+	 * Sets the tax rate for current castle.
+	 * @param taxPercent Tax percentage
+	 * @param check Validate if the specified percentage can be set as tax
+	 * @param delayed Is a player changing the tax rate?
+	 */
+	public boolean setTaxPercent(int taxPercent, boolean check, boolean delayed)
 	{
-		int maxTax;
-		switch (SevenSigns.getInstance().getSealOwner(SevenSigns.SEAL_STRIFE))
-		{
-		case SevenSigns.CABAL_DAWN:
-			maxTax = 25;
-			break;
-		case SevenSigns.CABAL_DUSK:
-			maxTax = 5;
-			break;
-		default: // no owner
-			maxTax = 15;
-			break;
-		}
+		if (check && !validateTax(taxPercent))
+			return false;
 
-		if (taxPercent < 0 || taxPercent > maxTax)
-		{
-			activeChar.sendMessage("Tax value must be between 0 and " + maxTax + ".");
-			return;
-		}
-
-		setTaxPercent(taxPercent);
-		activeChar.sendMessage(getName() + " castle tax changed to " + taxPercent + "%.");
-	}
-
-	public void setTaxPercent(int taxPercent)
-	{
-		_taxPercent = taxPercent;
-		_taxRate = (_taxPercent + 100) / 100.0;
-
+		stopUpdateTask();
 		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con.prepareStatement("UPDATE castle SET taxPercent = ? WHERE id = ?");
-			statement.setInt(1, taxPercent);
-			statement.setInt(2, getCastleId());
-			statement.execute();
+			PreparedStatement statement = null;
+			_taxPercentNew = taxPercent;
+			if (delayed && taxPercent != _taxPercent)
+			{
+				statement = con.prepareStatement(CASTLE_TAX_UPDATE_DELAYED);
+				statement.setInt(1, taxPercent);
+				statement.setLong(2, System.currentTimeMillis());
+				statement.setInt(3, getCastleId());
+				startUpdateTask();
+			}
+			else
+			{
+				statement = con.prepareStatement(CASTLE_TAX_UPDATE_INSTANT);
+				statement.setInt(1, taxPercent);
+				statement.setInt(2, getCastleId());
+				_taxPercent = taxPercent;
+				_taxRate = (_taxPercent + 100) / 100.0;
+			}
+			statement.executeUpdate();
 			statement.close();
+			return true;
 		}
 		catch (Exception e)
 		{
@@ -476,6 +485,7 @@ public class Castle extends Siegeable<Siege>
 		{
 			L2DatabaseFactory.close(con);
 		}
+		return false;
 	}
 
 	/**
@@ -551,9 +561,23 @@ public class Castle extends Siegeable<Siege>
 				_siegeTimeRegistrationEndDate.setTimeInMillis(rs.getLong("regTimeEnd"));
 				_isTimeRegistrationOver = rs.getBoolean("regTimeOver");
 
-
-				_taxPercent = rs.getInt("taxPercent");
 				_treasury = rs.getInt("treasury");
+				_taxPercent = rs.getInt("taxPercent");
+				_taxPercentNew = rs.getInt("newTax");
+				if (_taxPercentNew != 0)
+				{
+					Calendar update = Calendar.getInstance();
+					update.setTimeInMillis(rs.getLong("taxSetDate"));
+					if (update.get(Calendar.HOUR_OF_DAY) >= 0)
+						update.add(Calendar.DAY_OF_MONTH, 1);
+					update.set(Calendar.HOUR_OF_DAY, 0);
+					if (update.getTimeInMillis() < System.currentTimeMillis())
+						setTaxPercent(_taxPercentNew, true, false);
+					else
+						startUpdateTask();
+				}
+				else
+					_taxPercentNew = _taxPercent;
 			}
 
 			rs.close();
@@ -629,6 +653,7 @@ public class Castle extends Siegeable<Siege>
 	// This method loads castle door upgrade data from database
 	private void loadDoorUpgrade()
 	{
+		/* TODO: outdated method, doors would lose the additional HP on first hit
 		Connection con = null;
 		try
 		{
@@ -654,6 +679,7 @@ public class Castle extends Siegeable<Siege>
 		{
 			L2DatabaseFactory.close(con);
 		}
+		*/
 	}
 
 	private void removeDoorUpgrade()
@@ -812,6 +838,11 @@ public class Castle extends Siegeable<Siege>
 	public final int getTaxPercent()
 	{
 		return _taxPercent;
+	}
+
+	public final int getTaxPercentNew()
+	{
+		return _taxPercentNew;
 	}
 
 	public final double getTaxRate()
@@ -1339,14 +1370,16 @@ public class Castle extends Siegeable<Siege>
 		return true;
  	}
 
-	public void createClanGate(int x, int y, int z) {
+	public void createClanGate(int x, int y, int z)
+	{
 		_gate[0] = x;
 		_gate[1] = y;
 		_gate[2] = z;
 	}
 
 	/** Optimized as much as possible. */
-	public void destroyClanGate() {
+	public void destroyClanGate()
+	{
 		_gate[0] = Integer.MIN_VALUE;
 	}
 
@@ -1355,19 +1388,131 @@ public class Castle extends Siegeable<Siege>
 	 * Optimized as much as possible.
 	 * @return is a Clan Gate available
 	 */
-	public boolean isGateOpen() {
+	public boolean isGateOpen()
+	{
 		return _gate[0] != Integer.MIN_VALUE;
 	}
 
-	public int getGateX() {
+	public int getGateX()
+	{
 		return _gate[0];
 	}
 
-	public int getGateY() {
+	public int getGateY()
+	{
 		return _gate[1];
 	}
 
-	public int getGateZ() {
+	public int getGateZ()
+	{
 		return _gate[2];
+	}
+
+	public void revalidateTax()
+	{
+		if (getTaxPercent() > getMaxTax())
+			setTaxPercent(getMaxTax(), false, false);
+	}
+
+	public static boolean validateTax(int percent)
+	{
+		return (percent >= 0 && percent < getMaxTax());
+	}
+
+	public static int getMaxTax()
+	{
+		switch (SevenSigns.getInstance().getSealOwner(SevenSigns.SEAL_STRIFE))
+		{
+		case SevenSigns.CABAL_DAWN: return 25;
+		case SevenSigns.CABAL_DUSK: return 5;
+		default: return 15;
+		}
+	}
+
+	private class TaxUpdater implements Runnable
+	{
+		@Override
+		public void run() { setTaxPercent(_taxPercentNew, true, false); }
+	}
+
+	private void startUpdateTask()
+	{
+		stopUpdateTask();
+		Calendar update = Calendar.getInstance();
+		if (update.get(Calendar.HOUR_OF_DAY) >= 0)
+			update.add(Calendar.DAY_OF_MONTH, 1);
+		update.set(Calendar.HOUR_OF_DAY, 0);
+		_taxUpdate = ThreadPoolManager.getInstance().schedule(new TaxUpdater(), update.getTimeInMillis() - System.currentTimeMillis());
+	}
+
+	private void stopUpdateTask()
+	{
+		if (_taxUpdate != null)
+			_taxUpdate.cancel(false);
+	}
+
+	public void loadDangerZone(L2SiegeDangerZone sdz)
+	{
+		boolean east = (sdz.getName().endsWith("e") || sdz.getName().endsWith("i"));
+		getSiege().registerZone(sdz, east);
+		Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection();
+			PreparedStatement statement = con.prepareStatement(CASTLE_TRAP_LOAD);
+			statement.setInt(1, getCastleId());
+			statement.setInt(2, east ? 1 : 2);
+			ResultSet rs = statement.executeQuery();
+			if (rs.next())
+				getSiege().activateZones(east, 0, rs.getInt(1));
+			statement.close();
+		}
+		catch (SQLException e)
+		{
+			_log.error("Failed to load siege danger zone [" + sdz.getName() + "] data!", e);
+		}
+		finally { L2DatabaseFactory.close(con); }
+	}
+
+	public void upgradeDangerZones(boolean east, int level, int newLevel)
+	{
+		Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection();
+			String sql = CASTLE_TRAP_ADD;
+			if (level > 0)
+				sql = CASTLE_TRAP_UPGRADE;
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setInt(1, newLevel);
+			statement.setInt(2, getCastleId());
+			statement.setInt(3, east ? 1 : 2);
+			statement.executeUpdate();
+			statement.close();
+			getSiege().activateZones(east, level, newLevel);
+		}
+		catch (SQLException e)
+		{
+			_log.error("Failed to upgrade siege danger zone data!", e);
+		}
+		finally { L2DatabaseFactory.close(con); }
+	}
+
+	public void resetDangerZones()
+	{
+		Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection();
+			PreparedStatement statement = con.prepareStatement(CASTLE_TRAPS_REMOVE);
+			statement.setInt(1, getCastleId());
+			statement.executeUpdate();
+			statement.close();
+		}
+		catch (SQLException e)
+		{
+			_log.error("Failed to delete siege danger zone data!", e);
+		}
+		finally { L2DatabaseFactory.close(con); }
 	}
 }

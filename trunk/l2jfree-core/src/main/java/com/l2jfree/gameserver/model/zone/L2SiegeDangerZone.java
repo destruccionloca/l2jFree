@@ -21,10 +21,10 @@ import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
+import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.Siege;
 
 /**
- * A generic implementation; just that the zones would be loaded without errors
  * @author Savormix
  * @since 2009-04-22
  */
@@ -37,7 +37,7 @@ public class L2SiegeDangerZone extends L2DamageZone
 	protected boolean checkDynamicConditions(L2Character character)
 	{
 		if (_siege == null || !_siege.getIsInProgress() || !(character instanceof L2PlayableInstance)
-				|| !_siege.getIsDangerZoneOn())
+				|| !_siege.getAreTrapsOn())
 				//|| _siege.checkIsDefender(((L2PlayableInstance) character).getActingPlayer().getClan()))
 			return false;
 
@@ -47,20 +47,22 @@ public class L2SiegeDangerZone extends L2DamageZone
 	@Override
 	protected void register() throws Exception
 	{
-		_siege = CastleManager.getInstance().getCastleById(getCastleId()).getSiege();
-		CastleManager.getInstance().loadDangerZone(getCastleId(), this);
+		Castle c = CastleManager.getInstance().getCastleById(getCastleId());
+		_siege = c.getSiege();
+		c.loadDangerZone(this);
 	}
 
-	public void upgrade(int level)
+	public void upgrade(int... level)
 	{
 		L2Skill s;
-		for (int id : ZONE_EFFECTS)
+		for (int i = 0; i < 2; i++)
 		{
-			if (level > 0) {
-				s = SkillTable.getInstance().getInfo(id, level);
+			if (level[0] > 0 || level[1] > 0)
+			{
+				s = SkillTable.getInstance().getInfo(ZONE_EFFECTS[i], level[i]);
 				if (s != null) {
 					_applyEnter = (L2Skill[])ArrayUtils.add(_applyEnter, s);
-					_removeExit = ArrayUtils.add(_removeExit, id);
+					_removeExit = ArrayUtils.add(_removeExit, ZONE_EFFECTS[i]);
 				}
 				else
 					_log.warn("Upgrading siege danger zone: no such skill level - " + level);
@@ -74,9 +76,9 @@ public class L2SiegeDangerZone extends L2DamageZone
 		}
 	}
 
-	public int getUpgradeLevel()
+	public boolean isUpgraded()
 	{
-		try { return _applyEnter[0].getLevel(); }
-		catch (NullPointerException npe) { return 0; }
+		try { return _applyEnter[0].getLevel() > 0; }
+		catch (NullPointerException npe) { return false; }
 	}
 }

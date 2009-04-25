@@ -413,40 +413,38 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 			{
 				if (!validatePrivileges(player, L2Clan.CP_CS_TAXES)) return;
 				if (siegeBlocksFunction(player)) return;
+				Castle c = getCastle();
 				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 				html.setFile("data/html/chamberlain/chamberlain-settaxrate.htm");
 				html.replace("%objectId%", String.valueOf(getObjectId()));
-				html.replace("%currTax%", String.valueOf(getCastle().getTaxPercent()));
-				//TODO: tax may be set only for the following day (this was never implemented)
-				html.replace("%nextTax%", String.valueOf(getCastle().getTaxPercent()));
-				html.replace("%maxTax%", String.valueOf(getMaxTaxRate()));
+				html.replace("%currTax%", String.valueOf(c.getTaxPercent()));
+				html.replace("%nextTax%", String.valueOf(c.getTaxPercentNew()));
+				html.replace("%maxTax%", String.valueOf(Castle.getMaxTax()));
 				player.sendPacket(html);
 			}
-			else if (actualCommand.equals("tax_set")) // tax rates
-			// Control
+			else if (actualCommand.equals("tax_set")) // tax rate control
 			{
 				if (!validatePrivileges(player, L2Clan.CP_CS_TAXES)) return;
 				if (siegeBlocksFunction(player)) return;
-				if (!val.isEmpty()) {
-					int tax = Integer.parseInt(val);
-					if (tax > getMaxTaxRate()) {
+				if (!val.isEmpty())
+				{
+					if (!getCastle().setTaxPercent(Integer.parseInt(val), true, true))
+					{
 						NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-						html.setFile("data/html/chamberlain/chamberlain-toohightaxrate.htm");
+						html.setFile("data/html/chamberlain/chamberlain-invalidtaxrate.htm");
 						html.replace("%objectId%", String.valueOf(getObjectId()));
-						html.replace("%maxTax%", String.valueOf(getMaxTaxRate()));
-						player.sendPacket(html);
+						html.replace("%maxTax%", String.valueOf(Castle.getMaxTax()));
+						player.sendPacket(html); html = null;
 						return;
 					}
-					else
-						getCastle().setTaxPercent(player, tax);
 				}
 				else
 					//player deliberately didn't press "cancel"
-					getCastle().setTaxPercent(player, 0);
+					getCastle().setTaxPercent(0, false, true);
 				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 				html.setFile("data/html/chamberlain/chamberlain-aftersettaxrate.htm");
 				html.replace("%objectId%", String.valueOf(getObjectId()));
-				html.replace("%nextTax%", String.valueOf(getCastle().getTaxPercent()));
+				html.replace("%nextTax%", String.valueOf(getCastle().getTaxPercentNew()));
 				player.sendPacket(html);
 				return;
 			}
@@ -696,7 +694,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 								if (!getCastle().updateFunctions(player, Castle.FUNC_RESTORE_HP, percent, fee, Config.CS_HPREG_FEE_RATIO,
 										(getCastle().getFunction(Castle.FUNC_RESTORE_HP) == null)))
 								{
-									html.setFile("data/html/chamberlain/low_adena.htm");
+									html.setFile("data/html/chamberlain/chamberlain-noadena.htm");
 									sendHtmlMessage(player, html);
 								}
 								sendHtmlMessage(player, html);
@@ -746,7 +744,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 								if (!getCastle().updateFunctions(player, Castle.FUNC_RESTORE_MP, percent, fee, Config.CS_MPREG_FEE_RATIO,
 										(getCastle().getFunction(Castle.FUNC_RESTORE_MP) == null)))
 								{
-									html.setFile("data/html/chamberlain/low_adena.htm");
+									html.setFile("data/html/chamberlain/chamberlain-noadena.htm");
 									sendHtmlMessage(player, html);
 								}
 								sendHtmlMessage(player, html);
@@ -796,7 +794,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 								if (!getCastle().updateFunctions(player, Castle.FUNC_RESTORE_EXP, percent, fee, Config.CS_EXPREG_FEE_RATIO,
 										(getCastle().getFunction(Castle.FUNC_RESTORE_EXP) == null)))
 								{
-									html.setFile("data/html/chamberlain/low_adena.htm");
+									html.setFile("data/html/chamberlain/chamberlain-noadena.htm");
 									sendHtmlMessage(player, html);
 								}
 								sendHtmlMessage(player, html);
@@ -974,7 +972,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 									if (!getCastle().updateFunctions(player, Castle.FUNC_TELEPORT, lvl, fee, Config.CS_TELE_FEE_RATIO,
 											(getCastle().getFunction(Castle.FUNC_TELEPORT) == null)))
 									{
-										html.setFile("data/html/chamberlain/low_adena.htm");
+										html.setFile("data/html/chamberlain/chamberlain-noadena.htm");
 										sendHtmlMessage(player, html);
 									}
 									sendHtmlMessage(player, html);
@@ -1024,7 +1022,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 									if (!getCastle().updateFunctions(player, Castle.FUNC_SUPPORT, lvl, fee, Config.CS_SUPPORT_FEE_RATIO,
 											(getCastle().getFunction(Castle.FUNC_SUPPORT) == null)))
 									{
-										html.setFile("data/html/chamberlain/low_adena.htm");
+										html.setFile("data/html/chamberlain/chamberlain-noadena.htm");
 										sendHtmlMessage(player, html);
 									}
 									else
@@ -1299,32 +1297,34 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 							return;
 						}
 						html = new NpcHtmlMessage(getObjectId());
-						html.setFile("data/html/chamberlain/chamberlain-trap-level.htm");
+						if (getCastle().getCastleId() == 5)
+							html.setFile("data/html/chamberlain/chamberlain-trap-level.htm");
+						else
+							html.setFile("data/html/chamberlain/chamberlain-trap-activation.htm");
 						html.replace("%objectId%", String.valueOf(getObjectId()));
 						html.replace("%trapId%", String.valueOf(request[1]));
 						player.sendPacket(html);
 						break;
 					case 2: //if the level is valid, confirm deploy
-						html = new NpcHtmlMessage(getObjectId());
+						Castle c = getCastle();
 						if (request[1] > 2 || request[1] < 1 ||
-								request[2] > 4 || request[2] < 0)
+								request[2] > 4 || request[2] < 0 ||
+								(c.getCastleId() != 5 && request[2] > 1))
 						{
 							Util.handleIllegalPlayerAction(player, "Tried to exploit the castle trap setup!", IllegalPlayerAction.PUNISH_KICKBAN);
 							return;
 						}
 						boolean side = request[1] == 1;
-						int trapLevel = getCastle().getSiege().getZoneLevel(side);
+						int trapLevel = c.getSiege().getZoneAreaLevel(side);
+						html = new NpcHtmlMessage(getObjectId());
 						if (request[2] <= trapLevel) //a [better] trap already deployed
 						{
-							html = new NpcHtmlMessage(getObjectId());
 							html.setFile("data/html/chamberlain/chamberlain-trap-already.htm");
 							html.replace("%objectId%", String.valueOf(getObjectId()));
 							html.replace("%dmglevel%", String.valueOf(trapLevel));
-							player.sendPacket(html);
 						}
 						else //show confirmation
 						{
-							html = new NpcHtmlMessage(getObjectId());
 							html.setFile("data/html/chamberlain/chamberlain-trap-deploy.htm");
 							html.replace("%objectId%", String.valueOf(getObjectId()));
 							html.replace("%trapId%", String.valueOf(request[1]));
@@ -1338,22 +1338,24 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 							case 4: price = Config.CS_TRAP4_FEE; break;
 							}
 							html.replace("%dmgzone_price%", String.valueOf(price));
-							player.sendPacket(html);
 						}
+						player.sendPacket(html);
 						break;
 					case 3: //if the level is valid, deploy trap
 						boolean east = request[1] == 1;
-						if (getCastle().getSiege().getDangerZones(east) == null)
+						c = getCastle();
+						if (c.getSiege().getDangerZones(east) == null)
 						{
-							//missing zone(s), let's hide that
+							//missing zone(s), let's blame the big bad admin
 							html = new NpcHtmlMessage(getObjectId());
 							html.setFile("data/html/chamberlain/chamberlain-disabled.htm");
 							player.sendPacket(html); html = null;
 							return;
 						}
-						int dmglevel = getCastle().getSiege().getZoneLevel(east);
+						int dmglevel = c.getSiege().getZoneAreaLevel(east);
 						if (request[1] > 2 || request[1] < 1 ||
-								request[2] > 4 || request[2] < 0 || request[2] <= dmglevel)
+								request[2] > 4 || request[2] < 0 || request[2] <= dmglevel
+								|| (c.getCastleId() != 5 && request[2] > 1))
 						{
 							Util.handleIllegalPlayerAction(player, "Tried to exploit the castle trap setup!", IllegalPlayerAction.PUNISH_KICKBAN);
 							return;
@@ -1369,12 +1371,12 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 						if (!player.reduceAdena("Castle - Trap Deployment", price, this, false))
 						{
 							html = new NpcHtmlMessage(getObjectId());
-							html.setFile("data/html/chamberlain/low_adena.htm");
+							html.setFile("data/html/chamberlain/chamberlain-noadena.htm");
 							html.replace("%objectId%", String.valueOf(getObjectId()));
 							player.sendPacket(html); html = null;
 							return;
 						}
-						CastleManager.getInstance().upgradeDangerZones(getCastle(), east, dmglevel, request[2]);
+						c.upgradeDangerZones(east, dmglevel, request[2]);
 						html = new NpcHtmlMessage(getObjectId());
 						html.setFile("data/html/chamberlain/chamberlain-trap-deployed.htm");
 						html.replace("%objectId%", String.valueOf(getObjectId()));
@@ -1520,21 +1522,6 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 			return false;
 		}
 		return true;
-	}
-
-	private int getMaxTaxRate()
-	{
-		int maxTax = 15;
-		switch (SevenSigns.getInstance().getSealOwner(SevenSigns.SEAL_STRIFE))
-		{
-		case SevenSigns.CABAL_DAWN:
-			maxTax = 25;
-			break;
-		case SevenSigns.CABAL_DUSK:
-			maxTax = 5;
-			break;
-		}
-		return maxTax;
 	}
 
 	protected int validateCondition(L2PcInstance player)

@@ -321,7 +321,7 @@ public final class RecommendationManager
 	 * Deletes all evaluation restrictions from the database.
 	 * @author Savormix
 	 */
-	protected class RecommendationUpdater implements Runnable
+	private class RecommendationUpdater implements Runnable
 	{
 		@Override
 		public void run()
@@ -331,7 +331,7 @@ public final class RecommendationManager
 			int rec, pts;
 			try
 			{
-				con = L2DatabaseFactory.getInstance().getConnection(con);
+				con = L2DatabaseFactory.getInstance().getConnection();
 				for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 				{
 					ps = con.prepareStatement(UPDATE_RECOMMENDATION_INFO);
