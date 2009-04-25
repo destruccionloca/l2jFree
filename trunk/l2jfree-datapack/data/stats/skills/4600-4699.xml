@@ -1834,7 +1834,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <effect count="1" name="Debuff" time="5" val="0" stackOrder="#regHp" stackType="heal_effect_down">
+      <effect count="0x7fffffff" name="Environment" time="3600" val="0" stackOrder="#regHp" stackType="heal_effect_down">
         <mul order="0x30" stat="regHp" val="#regHp"/>
       </effect>
     </for>
