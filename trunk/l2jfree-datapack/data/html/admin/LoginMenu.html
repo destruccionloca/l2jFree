@@ -1,0 +1,44 @@
+<HTML>
+<HEAD><TITLE>Login Server Management Menu [L2JFree]</TITLE></HEAD>
+<BODY>
+<CENTER>Login Management Menu</CENTER>
+<BR><BR>
+<TABLE WIDTH = 270>
+<TR><TD>Server Status:</TD><TD><CENTER><FONT COLOR="%statusCol%">%statusStr%</FONT></CENTER></TD></TR>
+<TR>
+<TD><BUTTON VALUE="ON" ACTION="bypass -h admin_login_status 0" WIDTH="90" HEIGHT="25" BACK="L2UI_ct1.button_df" FORE="L2UI_ct1.button_df"></TD>
+<TD><BUTTON VALUE="MAINTENANCE" ACTION="bypass -h admin_login_status 1" WIDTH="90" HEIGHT="25" BACK="L2UI_ct1.button_df" FORE="L2UI_ct1.button_df"></TD>
+<TD><BUTTON VALUE="OFF" ACTION="bypass -h admin_login_status 2" WIDTH="90" HEIGHT="25" BACK="L2UI_ct1.button_df" FORE="L2UI_ct1.button_df"></TD>
+</TR>
+</TABLE>
+<BR>
+<TABLE WIDTH = 270>
+<TR><TD>Bits Status:</TD></TR>
+<TR>
+<TD><CENTER>%statusB1%</CENTER></TD><TD><CENTER>%statusB2%</CENTER></TD>
+<TD><CENTER>%statusB3%</CENTER></TD><TD><CENTER>%statusB4%</CENTER></TD>
+</TR>
+<TR>
+<TD><BUTTON VALUE="BIT 1" ACTION="bypass -h admin_login_toggle 4 %b1%" WIDTH="66" HEIGHT="25" BACK="L2UI_ct1.button_df" FORE="L2UI_ct1.button_df"></TD>
+<TD><BUTTON VALUE="BIT 2" ACTION="bypass -h admin_login_toggle 5 %b2%" WIDTH="66" HEIGHT="25" BACK="L2UI_ct1.button_df" FORE="L2UI_ct1.button_df"></TD>
+<TD><BUTTON VALUE="BIT 3" ACTION="bypass -h admin_login_toggle 6 %b3%" WIDTH="66" HEIGHT="25" BACK="L2UI_ct1.button_df" FORE="L2UI_ct1.button_df"></TD>
+<TD><BUTTON VALUE="BIT 4" ACTION="bypass -h admin_login_toggle 7 %b4%" WIDTH="66" HEIGHT="25" BACK="L2UI_ct1.button_df" FORE="L2UI_ct1.button_df"></TD>
+</TR>
+</TABLE>
+<BR>
+<TABLE WIDTH = 270>
+<TR>
+<TD>Connection Limit: %maxConn%</TD>
+<TD><EDIT VAR="count"></TD>
+<TD><BUTTON VALUE="LOGIN LIMIT" ACTION="bypass -h admin_login_conn $count" WIDTH="85" HEIGHT="25" BACK="L2UI_ct1.button_df" FORE="L2UI_ct1.button_df"></TD>
+</TR>
+</TABLE>
+<BR>
+<TABLE WIDTH = 270>
+<TR>
+<TD>Bracket Status: %statusBr%</TD>
+<TD><BUTTON VALUE="BRACKETS" ACTION="bypass -h admin_login_toggle 8 %br%" WIDTH="110" HEIGHT="25" BACK="L2UI_ct1.button_df" FORE="L2UI_ct1.button_df"></TD>
+</TR>
+</TABLE>
+</BODY>
+</HTML>
