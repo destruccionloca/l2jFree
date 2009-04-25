@@ -405,7 +405,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	private final PcAppearance				_appearance;
 
 	/** Sitting down and Standing up fix */
-	protected boolean						_protectedSitStand		= false;
+	private long							_lastSitStandRequest	= 0;
 
 	/** The Identifier of the L2PcInstance */
 	private int								_charId					= 0x00030b7a;
@@ -866,13 +866,13 @@ public final class L2PcInstance extends L2PlayableInstance
 	@Override
 	public final boolean isAllSkillsDisabled()
 	{
-		return super.isAllSkillsDisabled() || _protectedSitStand;
+		return super.isAllSkillsDisabled() || isTryingToSitOrStandup();
 	}
 
 	@Override
 	public final boolean isAttackingDisabled()
 	{
-		return super.isAttackingDisabled() || _protectedSitStand;
+		return super.isAttackingDisabled() || isTryingToSitOrStandup();
 	}
 
 	/** ShortBuff clearing Task */
@@ -2498,18 +2498,6 @@ public final class L2PcInstance extends L2PlayableInstance
 		return _waitTypeSitting;
 	}
 
-	/**
-	 * While animation is shown, you may NOT move/use skills/sit/stand again in retail.<BR><BR>
-	 * @author SaveGame
-	 */
-	private class ProtectSitDownStandUp implements Runnable
-	{
-		public void run()
-		{
-			_protectedSitStand = false;
-		}
-	}
-
 	public void sitDown()
 	{
 		sitDown(true);
@@ -2525,15 +2513,12 @@ public final class L2PcInstance extends L2PlayableInstance
 			sendMessage("Cannot sit while casting");
 			return;
 		}
-		if (!(_waitTypeSitting || super.isAttackingDisabled() || isOutOfControl() || isImmobilized() || (!force && _protectedSitStand)))
+		if (!(_waitTypeSitting || super.isAttackingDisabled() || isOutOfControl() || isImmobilized() || (!force && isTryingToSitOrStandup())))
 		{
 			breakAttack();
 			_waitTypeSitting = true;
 			getAI().setIntention(CtrlIntention.AI_INTENTION_REST);
 			broadcastPacket(new ChangeWaitType(this, ChangeWaitType.WT_SITTING));
-			// Fix by SaveGame
-			_protectedSitStand = true;
-			ThreadPoolManager.getInstance().scheduleGeneral(new ProtectSitDownStandUp(), 2333);
 		}
 	}
 
@@ -2553,7 +2538,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 		else if (TvT._sitForced && _inEventTvT || CTF._sitForced && _inEventCTF || DM._sitForced && _inEventDM || VIP._sitForced && _inEventVIP)
 			sendMessage("The Admin/GM handle if you sit or stand in this match!");
-		else if (_waitTypeSitting && !isInStoreMode() && !isAlikeDead() && (!_protectedSitStand || force))
+		else if (_waitTypeSitting && !isInStoreMode() && !isAlikeDead() && (!isTryingToSitOrStandup() || force))
 		{
 			if (_relax)
 			{
@@ -2563,9 +2548,6 @@ public final class L2PcInstance extends L2PlayableInstance
 			_waitTypeSitting = false;
 			getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 			broadcastPacket(new ChangeWaitType(this, ChangeWaitType.WT_STANDING));
-			// Fix by SaveGame
-			_protectedSitStand = true;
-			ThreadPoolManager.getInstance().scheduleGeneral(new ProtectSitDownStandUp(), 2333);
 		}
 	}
 
@@ -14038,5 +14020,10 @@ public final class L2PcInstance extends L2PlayableInstance
 			_shots = new PcShots(this);
 		
 		return (PcShots)_shots;
+	}
+
+	public boolean isTryingToSitOrStandup()
+	{
+		return ((_lastSitStandRequest + 2333) > System.currentTimeMillis());
 	}
 }

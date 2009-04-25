@@ -6264,34 +6264,40 @@ public abstract class L2Character extends L2Object
 		// then just leave it that way, otherwise switch back to STATE_IDLE.
 		// if(isCastingNow())
 		// getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE, null);
-		
-		switch (skill.getSkillType())
+
+		//As far as I remember, you can move away after launching a skill without hitting
+		//And you will not auto-attack a non-flagged player after launching a skill
+		if (getAI().getIntention() != CtrlIntention.AI_INTENTION_MOVE_TO &&
+				magicEnv._originalSkillTarget.isAutoAttackable(this))
 		{
-			case PDAM:
-			case BLOW:
-			case CHARGEDAM:
-			case SPOIL:
-			case STUN:
-				final L2Character originalTarget = magicEnv._originalTarget;
-				final L2Character originalSkillTarget = magicEnv._originalSkillTarget;
-				final L2Object currentTarget = L2Object.getActingCharacter(getTarget());
-				
-				L2Object newTarget = null;
-				
-				if (originalSkillTarget != null && originalSkillTarget != this && originalSkillTarget == currentTarget)
-					newTarget = originalSkillTarget;
-				else if (originalTarget != null && originalTarget != this && originalTarget == currentTarget)
-					newTarget = originalTarget;
-				
-				if (newTarget != null)
-				{
-					double distance = Util.calculateDistance(this, newTarget, false);
+			switch (skill.getSkillType())
+			{
+				case PDAM:
+				case BLOW:
+				case CHARGEDAM:
+				case SPOIL:
+				case STUN:
+					final L2Character originalTarget = magicEnv._originalTarget;
+					final L2Character originalSkillTarget = magicEnv._originalSkillTarget;
+					final L2Object currentTarget = L2Object.getActingCharacter(getTarget());
 					
-					// if the skill is melee, or almost in the range of a normal attack
-					if (getMagicalAttackRange(skill) < 200 || getPhysicalAttackRange() + 200 > distance)
-						getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, newTarget);
-				}
-				break;
+					L2Object newTarget = null;
+					
+					if (originalSkillTarget != null && originalSkillTarget != this && originalSkillTarget == currentTarget)
+						newTarget = originalSkillTarget;
+					else if (originalTarget != null && originalTarget != this && originalTarget == currentTarget)
+						newTarget = originalTarget;
+					
+					if (newTarget != null)
+					{
+						double distance = Util.calculateDistance(this, newTarget, false);
+						
+						// if the skill is melee, or almost in the range of a normal attack
+						if (getMagicalAttackRange(skill) < 200 || getPhysicalAttackRange() + 200 > distance)
+							getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, newTarget);
+					}
+					break;
+			}
 		}
 		
 		switch (skill.getSkillType())
