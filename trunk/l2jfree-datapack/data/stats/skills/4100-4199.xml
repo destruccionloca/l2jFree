@@ -752,9 +752,12 @@
     <set name="skillType" val="PDAM"/>
     <set name="target" val="TARGET_ONE"/>
   </skill>
-  <!-- Following six skills are 100% for danger zones -->
-  <!-- They don't have anything defined client side (optype = target_self, castrange = -1) -->
+<!-- 
+  Following six skills are for danger zones:
+  They don't have anything defined client side (optype = target_self, castrange = -1)
+-->
   <skill id="4145" levels="3" name="Decrease P. Atk.">
+    <table name="#effect"> 1 2 3 </table>
     <table name="#Tab-pAtk">0.83 0.8 0.77</table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -762,12 +765,13 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <effect name="DamOverTime" time="60" count="0x7fffffff" val="0" stackOrder="#Tab-pAtk" stackType="area_weakness">
+      <effect name="Environment" time="3600" count="0x7fffffff" val="0" stackOrder="#effect" stackType="area_weakness">
         <mul order="0x30" stat="pAtk" val="#Tab-pAtk"/>
       </effect>
     </for>
   </skill>
   <skill id="4146" levels="3" name="Decrease P.Def">
+    <table name="#effect"> 1 2 3 </table>
     <table name="#Tab-pDef">0.83 0.8 0.77</table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -775,7 +779,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <effect name="DamOverTime" time="60" count="0x7fffffff" val="0" stackOrder="#Tab-pDef" stackType="area_pddown">
+      <effect name="Environment" time="3600" count="0x7fffffff" val="0" stackOrder="#effect" stackType="area_pddown">
         <mul order="0x30" stat="pDef" val="#Tab-pDef"/>
       </effect>
     </for>
