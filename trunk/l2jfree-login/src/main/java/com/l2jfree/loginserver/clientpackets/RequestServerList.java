@@ -18,7 +18,7 @@
  */
 package com.l2jfree.loginserver.clientpackets;
 
-import com.l2jfree.loginserver.serverpackets.LoginFailReason;
+import com.l2jfree.loginserver.serverpackets.LoginFail;
 import com.l2jfree.loginserver.serverpackets.ServerList;
 
 /**
@@ -84,7 +84,7 @@ public class RequestServerList extends L2LoginClientPacket
 		}
 		else
 		{
-			this.getClient().close(LoginFailReason.REASON_ACCESS_FAILED);
+			this.getClient().closeLogin(LoginFail.REASON_ACCESS_FAILED_TRY_AGAIN);
 		}
 	}
 }

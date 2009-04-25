@@ -33,7 +33,6 @@ import org.mmocore.network.ReceivablePacket;
 import org.mmocore.network.SelectorThread;
 import org.mmocore.network.TCPHeaderHandler;
 
-import com.l2jfree.loginserver.manager.BanManager;
 import com.l2jfree.loginserver.serverpackets.Init;
 
 /**
@@ -73,7 +72,8 @@ public class SelectorHelper extends TCPHeaderHandler<L2LoginClient> implements I
 	 */
 	public boolean accept(SocketChannel sc)
 	{
-		return !BanManager.getInstance().isBannedAddress(sc.socket().getInetAddress());
+		return true;
+		//return !BanManager.getInstance().isBannedAddress(sc.socket().getInetAddress());
 	}
 	
 	/**

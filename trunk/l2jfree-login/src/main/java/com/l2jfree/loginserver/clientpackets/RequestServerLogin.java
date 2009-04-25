@@ -21,9 +21,10 @@ package com.l2jfree.loginserver.clientpackets;
 import com.l2jfree.Config;
 import com.l2jfree.loginserver.beans.SessionKey;
 import com.l2jfree.loginserver.manager.LoginManager;
-import com.l2jfree.loginserver.serverpackets.LoginFailReason;
-import com.l2jfree.loginserver.serverpackets.PlayFailReason;
+import com.l2jfree.loginserver.serverpackets.LoginFail;
 import com.l2jfree.loginserver.serverpackets.PlayOk;
+import com.l2jfree.loginserver.services.exception.MaintenanceException;
+import com.l2jfree.loginserver.services.exception.MaturityException;
 
 /**
  * Fromat is ddc
@@ -85,23 +86,34 @@ public class RequestServerLogin extends L2LoginClientPacket
 	{
 		SessionKey sk = this.getClient().getSessionKey();
 
-		// if we didnt showed the license we cant check these values
+		// if we didn't show the license we can't check these values
 		if (!Config.SHOW_LICENCE || sk.checkLoginPair(_skey1, _skey2))
 		{
-			if (LoginManager.getInstance().isLoginPossible(this.getClient().getAccessLevel(), _serverId))
+			try
 			{
-				this.getClient().setJoinedGS(true);
-				this.getClient().sendPacket(new PlayOk(sk));
-				LoginManager.getInstance().setAccountLastServerId(this.getClient().getAccount(), _serverId);
+				if (LoginManager.getInstance().isLoginPossible(getClient().getAge(), getClient().getAccessLevel(), _serverId))
+				{
+					this.getClient().setJoinedGS(true);
+					this.getClient().sendPacket(new PlayOk(sk));
+					LoginManager.getInstance().setAccountLastServerId(getClient().getAccount(), _serverId);
+				}
+				else
+				{
+					this.getClient().closeLoginGame(LoginFail.REASON_TOO_HIGH_TRAFFIC);
+				}
 			}
-			else
+			catch (MaintenanceException e)
 			{
-				this.getClient().close(PlayFailReason.REASON_TOO_MANY_PLAYERS);
+				this.getClient().closeLoginGame(LoginFail.REASON_MAINTENANCE_UNDERGOING);
+			}
+			catch (MaturityException e)
+			{
+				this.getClient().closeLoginGame(LoginFail.REASON_AGE_LIMITATION);
 			}
 		}
 		else
 		{
-			this.getClient().close(LoginFailReason.REASON_ACCESS_FAILED);
+			this.getClient().closeLogin(LoginFail.REASON_ACCESS_FAILED_TRY_AGAIN);
 		}
 	}
 }

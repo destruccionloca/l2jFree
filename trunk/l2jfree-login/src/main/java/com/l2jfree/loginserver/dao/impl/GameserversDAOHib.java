@@ -83,7 +83,6 @@ public class GameserversDAOHib extends BaseRootDAOHib implements GameserversDAO
 	/**
 	 * @see com.l2jfree.loginserver.dao.GameserversDAO#getAllGameservers()
 	 */
-	@SuppressWarnings("unchecked")
 	public List<Gameservers> getAllGameservers()
 	{
 		return findAllOrderById(Gameservers.class);

@@ -123,7 +123,8 @@ public class GameserversDAOXml implements GameserversDAO
 		{
 			try
 			{
-				in.close();
+				if (in != null)
+					in.close();
 			}
 			catch (Exception e)
 			{

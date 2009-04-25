@@ -63,7 +63,7 @@ public class BanManagerTest extends TestCase
 	public void testLoadBanList() throws UnknownHostException
 	{
 		BanManager bm = BanManager.getInstance();
-		assertEquals(4, bm.getNbOfBannedIp());
+		assertEquals(4, bm.getEternalBanCount() + bm.getTempBanCount());
 		InetAddress netAddress = InetAddress.getByName("127.0.0.1");
 		assertTrue(bm.isBannedAddress(netAddress));
 	}

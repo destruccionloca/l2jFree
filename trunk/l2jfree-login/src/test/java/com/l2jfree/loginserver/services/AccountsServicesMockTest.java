@@ -148,6 +148,7 @@ public class AccountsServicesMockTest extends TestCase
 		catch (AccountModificationException e1)
 		{
 			fail(e1.getMessage());
+			return;
 		}
 
 		assertEquals(acc.getLogin(), "player1");

@@ -1,11 +1,4 @@
 /*
- * $HeadURL: $
- *
- * $Author: $
- * $Date: $
- * $Revision: $
- *
- * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2, or (at your option)
@@ -47,11 +40,14 @@ public class GameServerInfo
 	private int					_port;
 
 	// config
-	private boolean				_isPvp	= true;
-	private boolean				_isTestServer;
-	private boolean				_isShowingClock;
-	private boolean				_isShowingBrackets;
+	private boolean				_isPvp;
+    private boolean				_clock;
+    private boolean				_hideName;
+    private boolean				_unk1;
+    private boolean				_testServer;
+    private boolean				_brackets;
 	private int					_maxPlayers;
+	private int					_age;
 
 	public GameServerInfo(int id, byte[] hexId, GameServerThread gst)
 	{
@@ -148,40 +144,82 @@ public class GameServerInfo
 		return _maxPlayers;
 	}
 
-	public boolean isPvp()
+    public void setPvp(boolean val)
+    {
+        _isPvp = val;
+    }
+
+    public boolean isPvp()
+    {
+        return _isPvp;
+    }
+
+    public boolean isOnline() {
+    	return getStatus() != ServerStatus.STATUS_DOWN;
+    }
+
+    public void setAgeLimitation(int age)
+    {
+        _age = age;
+    }
+
+    public int getAgeLimitation()
+    {
+    	if (isOnline())
+    		return 0;
+    	return _age;
+    }
+
+    public void setShowingClock(boolean clock)
+    {
+        _clock = clock;
+    }
+
+    public boolean showClock()
+    {
+        return _clock;
+    }
+
+    public void setHideName(boolean hide)
+    {
+		_hideName = hide;
+	}
+
+	public boolean hideName()
 	{
-		return _isPvp;
+		return _hideName;
+	}
+
+	public void setUnk1(boolean _unk1)
+	{
+		this._unk1 = _unk1;
+	}
+
+	public boolean isUnk1()
+	{
+		return _unk1;
 	}
 
 	public void setTestServer(boolean val)
-	{
-		_isTestServer = val;
-	}
+    {
+        _testServer = val;
+    }
 
-	public boolean isTestServer()
-	{
-		return _isTestServer;
-	}
+    public boolean testServer()
+    {
+        return _testServer;
+    }
 
-	public void setShowingClock(boolean clock)
-	{
-		_isShowingClock = clock;
-	}
+    public void setShowingBrackets(boolean val)
+    {
+        _brackets = val;
+    }
 
-	public boolean isShowingClock()
-	{
-		return _isShowingClock;
-	}
+    public boolean showBrackets()
+    {
+        return _brackets;
+    }
 
-	public void setShowingBrackets(boolean val)
-	{
-		_isShowingBrackets = val;
-	}
-
-	public boolean isShowingBrackets()
-	{
-		return _isShowingBrackets;
-	}
 
 	public void setDown()
 	{

@@ -10,7 +10,7 @@ import com.l2jfree.tools.network.SubNet;
 public class BanInfo
 {
 	/**
-	 * The ip adress banned
+	 * The IP address banned
 	 */
 	private SubNet	_net;
 
@@ -51,5 +51,9 @@ public class BanInfo
 	public boolean hasExpired()
 	{
 		return System.currentTimeMillis() > _expiration;
+	}
+
+	public long getExpiry() {
+		return _expiration;
 	}
 }

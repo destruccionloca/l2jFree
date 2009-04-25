@@ -28,11 +28,12 @@ import com.l2jfree.loginserver.L2LoginClient.LoginClientState;
 import com.l2jfree.loginserver.beans.GameServerInfo;
 import com.l2jfree.loginserver.manager.LoginManager;
 import com.l2jfree.loginserver.manager.LoginManager.AuthLoginResult;
-import com.l2jfree.loginserver.serverpackets.LoginFailReason;
+import com.l2jfree.loginserver.serverpackets.LoginFail;
 import com.l2jfree.loginserver.serverpackets.LoginOk;
 import com.l2jfree.loginserver.serverpackets.ServerList;
 import com.l2jfree.loginserver.services.exception.AccountBannedException;
 import com.l2jfree.loginserver.services.exception.AccountWrongPasswordException;
+import com.l2jfree.loginserver.services.exception.IPRestrictedException;
 
 /**
  * Format: x 0 (a leading null) x: the rsa encrypted block with the login an
@@ -120,17 +121,17 @@ public class RequestAuthLogin extends L2LoginClientPacket
 					if ((oldClient = lc.getAuthedClient(_user)) != null)
 					{
 						// kick the other client
-						oldClient.close(LoginFailReason.REASON_ACCOUNT_IN_USE);
+						oldClient.closeLogin(LoginFail.REASON_ALREADY_IN_USE);
 						lc.removeAuthedLoginClient(_user);
 					}
 					// kick also current client
-					client.close(LoginFailReason.REASON_ACCOUNT_IN_USE);
+					client.closeLogin(LoginFail.REASON_ALREADY_IN_USE);
 					break;
 				case ALREADY_ON_GS:
 					GameServerInfo gsi;
 					if ((gsi = lc.getAccountOnGameServer(_user)) != null)
 					{
-						client.close(LoginFailReason.REASON_ACCOUNT_IN_USE);
+						client.closeLogin(LoginFail.REASON_ALREADY_IN_USE);
 
 						// kick from there
 						if (gsi.isAuthed())
@@ -139,7 +140,7 @@ public class RequestAuthLogin extends L2LoginClientPacket
 					break;
 				case SYSTEM_ERROR:
 				default:
-					client.close(LoginFailReason.REASON_SYSTEM_ERROR);
+					client.closeLogin(LoginFail.REASON_THERE_IS_A_SYSTEM_ERROR);
 
 			}
 		}
@@ -151,11 +152,16 @@ public class RequestAuthLogin extends L2LoginClientPacket
 		// }
 		catch (AccountBannedException e)
 		{
-			client.close(LoginFailReason.REASON_ACCOUNT_BANNED);
+			client.closeBanned();
 		}
 		catch (AccountWrongPasswordException e)
 		{
-			client.close(LoginFailReason.REASON_USER_OR_PASS_WRONG);
+			client.closeLogin(LoginFail.REASON_PASSWORD_INCORRECT);
+		}
+        catch (IPRestrictedException e)
+        {
+        	//client.closeBanned(e.getMinutesLeft());
+        	client.closeBanned(-1);
 		}
 	}
 }

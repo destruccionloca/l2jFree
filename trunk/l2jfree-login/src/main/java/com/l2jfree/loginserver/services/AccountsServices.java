@@ -64,7 +64,7 @@ public class AccountsServices
 	 * @return the new account
 	 * @throws AccountModificationException 
 	 */
-	public Accounts addOrUpdateAccount(String account, String password, String level) throws AccountModificationException
+	public Accounts addOrUpdateAccount(String account, String password, String level, int by, int bm, int bd) throws AccountModificationException
 	{
 		// o initialization
 		// ---------------
@@ -98,6 +98,9 @@ public class AccountsServices
 			acc.setLogin(account);
 			acc.setAccessLevel(iLevel);
 			acc.setPassword(Base64.encodeBytes(newpass));
+			acc.setBirthYear(Integer.valueOf(by));
+			acc.setBirthMonth(Integer.valueOf(bm));
+			acc.setBirthDay(Integer.valueOf(bd));
 			__accDAO.createOrUpdate(acc);
 			if (_log.isDebugEnabled())
 				_log.info("Account " + account + " has been updated.");
@@ -107,6 +110,11 @@ public class AccountsServices
 			throw new AccountModificationException("Error : level (" + level + ") should be an integer.", e);
 		}
 		return acc;
+	}
+
+	public Accounts addOrUpdateAccount(String account, String password, String level) throws AccountModificationException
+	{
+		return addOrUpdateAccount(account, password, level, 1900, 1, 1);
 	}
 
 	/**
@@ -231,14 +239,23 @@ public class AccountsServices
 		}
 		catch (ObjectRetrievalFailureException e)
 		{
-			_log.warn(e.getMessage());
+			_log.warn("The account [" + id + "] was not found in account table." + e.getMessage());
 			return null;
 		}
 		catch (Exception e)
 		{
-			_log.warn("The account [" + id + "] was not found in account table." + e.getMessage());
+			_log.warn(e.getMessage());
 			return null;
 		}
 	}
 
+	public boolean exists(String accountName) {
+		try {
+			__accDAO.getAccountById(accountName);
+			return true;
+		}
+		catch (ObjectRetrievalFailureException e) {
+			return false;
+		}
+	}
 }

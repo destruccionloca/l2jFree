@@ -9,10 +9,6 @@ import java.math.BigDecimal;
  */
 public class Accounts implements java.io.Serializable
 {
-
-	/**
-	 * 
-	 */
 	private static final long	serialVersionUID	= 6410734961032035356L;
 	// Fields    
 	private String				login;
@@ -20,6 +16,9 @@ public class Accounts implements java.io.Serializable
 	private BigDecimal			lastactive;
 	private Integer				accessLevel;
 	private Integer				lastServerId;
+	private Integer				birthYear;
+	private Integer				birthMonth;
+	private Integer				birthDay;
 	private String				lastIp;
 
 	// Constructors
@@ -36,13 +35,16 @@ public class Accounts implements java.io.Serializable
 	}
 
 	/** full constructor */
-	public Accounts(String _login, String _password, BigDecimal _lastactive, Integer _accessLevel, Integer _lastServerId, String _lastIp)
+	public Accounts(String _login, String _password, BigDecimal _lastactive, Integer _accessLevel, Integer _lastServerId, Integer _birthYear, Integer _birthMonth, Integer _birthDay, String _lastIp)
 	{
 		this.login = _login;
 		this.password = _password;
 		this.lastactive = _lastactive;
 		this.accessLevel = _accessLevel;
 		this.lastServerId = _lastServerId;
+		this.birthYear = _birthYear;
+		this.birthMonth = _birthMonth;
+		this.birthDay = _birthDay;
 		this.lastIp = _lastIp;
 	}
 
@@ -105,5 +107,29 @@ public class Accounts implements java.io.Serializable
 	public void setLastIp(String _lastIp)
 	{
 		this.lastIp = _lastIp;
+	}
+
+	public void setBirthYear(Integer birthYear) {
+		this.birthYear = birthYear;
+	}
+
+	public Integer getBirthYear() {
+		return birthYear;
+	}
+
+	public void setBirthMonth(Integer birthMonth) {
+		this.birthMonth = birthMonth;
+	}
+
+	public Integer getBirthMonth() {
+		return birthMonth;
+	}
+
+	public void setBirthDay(Integer birthDay) {
+		this.birthDay = birthDay;
+	}
+
+	public Integer getBirthDay() {
+		return birthDay;
 	}
 }

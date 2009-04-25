@@ -20,7 +20,7 @@ package com.l2jfree.loginserver.clientpackets;
 
 import com.l2jfree.loginserver.L2LoginClient.LoginClientState;
 import com.l2jfree.loginserver.serverpackets.GGAuth;
-import com.l2jfree.loginserver.serverpackets.LoginFailReason;
+import com.l2jfree.loginserver.serverpackets.LoginFail;
 
 /**
  * @author -Wooden-
@@ -94,7 +94,8 @@ public class AuthGameGuard extends L2LoginClientPacket
 		}
 		else
 		{
-			this.getClient().close(LoginFailReason.REASON_ACCESS_FAILED);
+			//this.getClient().closeLogin(LoginFail.REASON_ACCESS_FAILED_TRY_AGAIN);
+			this.getClient().closeLogin(LoginFail.REASON_IGNORE);
 		}
 	}
 }

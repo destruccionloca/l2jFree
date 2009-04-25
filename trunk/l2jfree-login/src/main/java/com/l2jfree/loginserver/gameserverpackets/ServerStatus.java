@@ -27,30 +27,27 @@ import com.l2jfree.loginserver.manager.GameServerManager;
 
 /**
  * @author -Wooden-
- *
+ * @reworked by savormix
  */
 public class ServerStatus extends ClientBasePacket
 {
-	private static final Log		_log						= LogFactory.getLog(ServerStatus.class.getName());
+	private static final Log		_log			= LogFactory.getLog(ServerStatus.class.getName());
 
-	public static final String[]	STATUS_STRING				=
-																{ "Auto", "Good", "Normal", "Full", "Down", "Gm Only" };
+	public static final int SERVER_LIST_PVP			= 0x01;
+    public static final int SERVER_LIST_MAX_PLAYERS = 0x02;
+    public static final int SERVER_LIST_STATUS		= 0x03;
+    public static final int SERVER_LIST_UNK			= 0x04;
+    public static final int SERVER_LIST_CLOCK		= 0x05;
+    public static final int SERVER_LIST_HIDE_NAME	= 0x06;
+    public static final int TEST_SERVER				= 0x07;
+    public static final int SERVER_LIST_BRACKETS	= 0x08;
+    public static final int SERVER_AGE_LIMITATION	= 0x09;
 
-	public static final int			SERVER_LIST_STATUS			= 0x01;
-	public static final int			SERVER_LIST_CLOCK			= 0x02;
-	public static final int			SERVER_LIST_SQUARE_BRACKET	= 0x03;
-	public static final int			MAX_PLAYERS					= 0x04;
-	public static final int			TEST_SERVER					= 0x05;
+    public static final int STATUS_AUTO		= 0x00;
+    public static final int STATUS_GM_ONLY	= 0x01;
+    public static final int STATUS_DOWN		= 0x02;
 
-	public static final int			STATUS_AUTO					= 0x00;
-	public static final int			STATUS_GOOD					= 0x01;
-	public static final int			STATUS_NORMAL				= 0x02;
-	public static final int			STATUS_FULL					= 0x03;
-	public static final int			STATUS_DOWN					= 0x04;
-	public static final int			STATUS_GM_ONLY				= 0x05;
-
-	public static final int			ON							= 0x01;
-	public static final int			OFF							= 0x00;
+	private static final int OFF = 0x00;
 
 	/**
 	 * @param decrypt
@@ -68,31 +65,27 @@ public class ServerStatus extends ClientBasePacket
 			{
 				int type = readD();
 				int value = readD();
-				switch (type)
+				if (_log.isDebugEnabled()) _log.debug("ServerStatus: "+type+" = "+value);
+				switch(type)
 				{
+				case SERVER_LIST_PVP:
+					gsi.setPvp(value > OFF); break;
+				case SERVER_LIST_MAX_PLAYERS:
+					gsi.setMaxPlayers(value); break;
 				case SERVER_LIST_STATUS:
-					gsi.setStatus(value);
-					break;
+					gsi.setStatus(value); break;
 				case SERVER_LIST_CLOCK:
-					gsi.setShowingClock(value == ON);
-					if (_log.isDebugEnabled())
-						_log.debug("ServerList Clock (" + value + ")");
-					break;
-				case SERVER_LIST_SQUARE_BRACKET:
-					gsi.setShowingBrackets(value == ON);
-					if (_log.isDebugEnabled())
-						_log.debug("ServerList Bracket (" + value + ")");
-					break;
+					gsi.setShowingClock(value > OFF); break;
+				case SERVER_LIST_HIDE_NAME:
+					gsi.setHideName(value > OFF); break;
+				case SERVER_LIST_UNK:
+					gsi.setUnk1(value > OFF); break;
 				case TEST_SERVER:
-					gsi.setTestServer(value == ON);
-					if (_log.isDebugEnabled())
-						_log.debug("ServerList test server (" + value + ")");
-					break;
-				case MAX_PLAYERS:
-					gsi.setMaxPlayers(value);
-					if (_log.isDebugEnabled())
-						_log.debug("ServerMaxPlayer (" + value + ")");
-					break;
+					gsi.setTestServer(value > OFF); break;
+				case SERVER_LIST_BRACKETS:
+					gsi.setShowingBrackets(value > OFF); break;
+				case SERVER_AGE_LIMITATION:
+					gsi.setAgeLimitation(value);
 				}
 			}
 		}

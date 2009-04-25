@@ -35,6 +35,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.l2jfree.Config;
 import com.l2jfree.L2Registry;
 import com.l2jfree.loginserver.beans.SessionKey;
+import com.l2jfree.loginserver.manager.BanManager;
 import com.l2jfree.loginserver.services.exception.AccountBannedException;
 import com.l2jfree.loginserver.services.exception.AccountWrongPasswordException;
 

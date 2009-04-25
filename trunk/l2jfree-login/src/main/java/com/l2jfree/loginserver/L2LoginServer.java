@@ -45,7 +45,7 @@ import com.l2jfree.status.Status;
 public class L2LoginServer
 {
 	/** Protocol revision */
-	public static final int					PROTOCOL_REV	= 0x0102;
+	public static final int					PROTOCOL_REV	= 0x0103;
 
 	/**instance */
 	private static L2LoginServer			_instance;
@@ -124,6 +124,8 @@ public class L2LoginServer
 		// o Start status telnet server
 		// --------------------------
 		initTelnetServer();
+
+		System.gc();
 
 		// o Start the server
 		// ------------------

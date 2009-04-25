@@ -1,11 +1,4 @@
 /*
- * $HeadURL: $
- *
- * $Author: $
- * $Date: $
- * $Revision: $
- *
- * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2, or (at your option)
@@ -47,9 +40,9 @@ public class AccountBannedException extends Exception
 	/**
 	 * constructor with reason
 	 */
-	public AccountBannedException(String reason)
+	public AccountBannedException(String accountName)
 	{
-		super("Account " + reason + " is banned");
+		super("Account " + accountName + " is banned.");
 	}
 
 	/**
@@ -63,9 +56,9 @@ public class AccountBannedException extends Exception
 	/**
 	 * Copy constructor
 	 */
-	public AccountBannedException(String reason, Throwable e)
+	public AccountBannedException(String accountName, Throwable e)
 	{
-		super("Account " + reason + " is banned", e);
+		super("Account " + accountName + " is banned.", e);
 	}
 
 }

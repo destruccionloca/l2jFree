@@ -16,33 +16,19 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package com.l2jfree.loginserver.serverpackets;
-
-import com.l2jfree.loginserver.L2LoginClient;
+package com.l2jfree.loginserver.services.exception;
 
 /**
- * This class represents a packet sent to the client when it fails to login to a GameServer.
- * @version $Revision: 1.2.4.1 $ $Date: 2005/03/27 15:30:11 $
+ * Thrown if someone that isn't a GM tries to connect to the server while maintenance
+ * is enabled.
+ * @author Savormix
  */
-public final class PlayFail extends L2LoginServerPacket
-{
-	private final int _reason;
+public final class MaintenanceException extends Exception {
 
-	/**
-	 * @param reason Taken from LoginFail (the messages are always the same)
-	 */
-	public PlayFail(int reason)
-	{
-		_reason = reason;
-	}
+	public static final MaintenanceException MAINTENANCE = new MaintenanceException();
+	private static final long serialVersionUID = -2061909568064316803L;
 
-	/**
-	 * @see com.l2jserver.mmocore.network.SendablePacket#write()
-	 */
-	@Override
-	protected void write(L2LoginClient client)
-	{
-		writeC(0x06);
-		writeC(_reason);
+	private MaintenanceException() {
+		super("Undergoing server maintenance.");
 	}
 }

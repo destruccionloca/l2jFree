@@ -51,7 +51,9 @@ import com.l2jfree.loginserver.services.AccountsServices;
 import com.l2jfree.loginserver.services.exception.AccountBannedException;
 import com.l2jfree.loginserver.services.exception.AccountModificationException;
 import com.l2jfree.loginserver.services.exception.AccountWrongPasswordException;
-import com.l2jfree.loginserver.services.exception.HackingException;
+import com.l2jfree.loginserver.services.exception.MaintenanceException;
+import com.l2jfree.loginserver.services.exception.MaturityException;
+import com.l2jfree.loginserver.services.exception.IPRestrictedException;
 import com.l2jfree.loginserver.thread.GameServerThread;
 import com.l2jfree.status.Status;
 import com.l2jfree.tools.codec.Base64;
@@ -143,6 +145,7 @@ public class LoginManager
 				_log.fatal("Error in RSA setup:" + e);
 				_log.info("Server shutting down now");
 				System.exit(1);
+				return;
 			}
 
 			//generate the initial set of keys
@@ -285,14 +288,14 @@ public class LoginManager
 	 * @throws AccountWrongPasswordException if the password was wrong
 	 */
 	public AuthLoginResult tryAuthLogin(String account, String password, L2LoginClient client) throws AccountBannedException,
-			AccountWrongPasswordException
+			AccountWrongPasswordException, IPRestrictedException
 	{
 		AuthLoginResult ret = AuthLoginResult.INVALID_PASSWORD;
 
 		try
 		{
 			// check auth
-			if (this.loginValid(account, password, client))
+			if (loginValid(account, password, client))
 			{
 				// login was successful, verify presence on Gameservers
 				ret = AuthLoginResult.ALREADY_ON_GS;
@@ -300,7 +303,7 @@ public class LoginManager
 				{
 					// account isnt on any GS, verify LS itself
 					ret = AuthLoginResult.ALREADY_ON_LS;
-					// dont allow 2 simultaneous login
+					// don't allow 2 simultaneous login
 					synchronized (_loginServerClients)
 					{
 						if (!_loginServerClients.containsKey(account))
@@ -314,6 +317,7 @@ public class LoginManager
 					client.setAccessLevel(acc.getAccessLevel());
 					// keep last server choice
 					client.setLastServerId(acc.getLastServerId());
+					client.setAge(acc.getBirthYear(), acc.getBirthMonth(), acc.getBirthDay());
 				}
 			}
 		}
@@ -363,14 +367,20 @@ public class LoginManager
 	 * All those conditions are not applied if the player is a GM
 	 * @return
 	 */
-	public boolean isLoginPossible(int access, int serverId)
+	public boolean isLoginPossible(int age, int access, int serverId) throws MaintenanceException, MaturityException
 	{
 		GameServerInfo gsi = GameServerManager.getInstance().getRegisteredGameServerById(serverId);
 		if (gsi != null && gsi.isAuthed())
 		{
-			return ((gsi.getCurrentPlayerCount() < gsi.getMaxPlayers() && gsi.getStatus() != ServerStatus.STATUS_GM_ONLY) || access >= Config.GM_MIN);
+			if (gsi.getStatus() == ServerStatus.STATUS_GM_ONLY && access < Config.GM_MIN)
+				throw MaintenanceException.MAINTENANCE;
+			//Some accounts, like GM ones, can always connect
+			if (age < gsi.getAgeLimitation())
+				throw new MaturityException(age, gsi.getAgeLimitation());
+            return (gsi.getCurrentPlayerCount() < gsi.getMaxPlayers() || access >= Config.GM_MIN);
 		}
-		return false;
+		else
+			throw MaintenanceException.MAINTENANCE;
 	}
 
 	/**
@@ -416,7 +426,7 @@ public class LoginManager
 		}
 		catch (AccountModificationException e)
 		{
-			_log.error("Could not set accessLevl for user : " + account, e);
+			_log.error("Could not set accessLevel for user: " + account, e);
 		}
 	}
 
@@ -435,7 +445,7 @@ public class LoginManager
 		}
 		catch (AccountModificationException e)
 		{
-			_log.error("Could not set accessLevl for user : " + account, e);
+			_log.error("Could not set last server for user: " + account, e);
 		}
 	}
 
@@ -450,7 +460,6 @@ public class LoginManager
 			return acc.getAccessLevel() >= Config.GM_MIN;
 		else
 			return false;
-
 	}
 
 	/**
@@ -465,7 +474,7 @@ public class LoginManager
 
 	/**
 	 * <p>This method returns one of the 10 {@link ScrambledKeyPair}.</p>
-	 * <p>One of them the re-newed asynchronously using a {@link UpdateKeyPairTask} if necessary.</p>
+	 * <p>One of them the renewed asynchronously using a {@link UpdateKeyPairTask} if necessary.</p>
 	 * @return a scrambled keypair
 	 */
 	public ScrambledKeyPair getScrambledRSAKeyPair()
@@ -486,14 +495,16 @@ public class LoginManager
 	 * @throws AccountWrongPasswordException if the password is wrong
 	 */
 	public boolean loginValid(String user, String password, L2LoginClient client) throws NoSuchAlgorithmException, UnsupportedEncodingException,
-			AccountModificationException, AccountBannedException, AccountWrongPasswordException
+			AccountModificationException, AccountBannedException, AccountWrongPasswordException, IPRestrictedException
 	{
 		InetAddress address = client.getInetAddress();
+		if(BanManager.getInstance().isRestrictedAddress(address))
+			throw new IPRestrictedException();
+		else if (BanManager.getInstance().isBannedAddress(address))
+			throw new IPRestrictedException(BanManager.getInstance().getBanExpiry(address));
 		// player disconnected meanwhile
 		if (address == null)
-		{
 			return false;
-		}
 		return loginValid(user, password, address);
 	}
 
@@ -510,7 +521,7 @@ public class LoginManager
 	 * @throws AccountWrongPasswordException if the password is wrong
 	 */
 	public boolean loginValid(String user, String password, InetAddress address) throws NoSuchAlgorithmException, UnsupportedEncodingException,
-			AccountModificationException, AccountBannedException, AccountWrongPasswordException
+			AccountModificationException, AccountBannedException, AccountWrongPasswordException, IPRestrictedException
 	{
 		_logLoginTries.info("User trying to connect  '" + user + "' " + (address == null ? "null" : address.getHostAddress()));
 
@@ -612,8 +623,7 @@ public class LoginManager
 
 			if (failedCount >= Config.LOGIN_TRY_BEFORE_BAN)
 			{
-				_log.info("Banning '" + address.getHostAddress() + "' for " + Config.LOGIN_BLOCK_AFTER_BAN + " seconds due to " + failedCount
-						+ " invalid user/pass attempts");
+				_log.info("Temporary auto-ban for "+address.getHostAddress()+" ("+Config.LOGIN_BLOCK_AFTER_BAN+" seconds, "+failedCount+" login tries)");
 				BanManager.getInstance().addBanForAddress(address, Config.LOGIN_BLOCK_AFTER_BAN * 1000);
 			}
 		}
@@ -654,21 +664,21 @@ public class LoginManager
 		{
 			if ((user.length() >= 2) && (user.length() <= 14))
 			{
-				acc = new Accounts(user, Base64.encodeBytes(hash), new BigDecimal(System.currentTimeMillis()), 0, 0, (address == null ? "null" : address
+				acc = new Accounts(user, Base64.encodeBytes(hash), new BigDecimal(System.currentTimeMillis()), 0, 0, 1900, 1, 1, (address == null ? "null" : address
 						.getHostAddress()));
 				_service.addOrUpdateAccount(acc);
 
-				_logLogin.info("created new account for " + user);
-				
+				_logLogin.info("Account created: " + user);
+
 				Status.tryBroadcast("Account created for player " + user);
-				
+
 				return true;
 
 			}
 			_logLogin.warn("Invalid username creation/use attempt: " + user);
 			return false;
 		}
-		_logLogin.warn("account missing for user " + user);
+		_logLogin.warn("No such account exists: " + user);
 		return false;
 	}
 }

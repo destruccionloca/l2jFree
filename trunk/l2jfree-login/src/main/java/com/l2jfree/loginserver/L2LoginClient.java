@@ -22,6 +22,8 @@ import java.net.InetAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.security.interfaces.RSAPrivateKey;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -33,9 +35,7 @@ import com.l2jfree.loginserver.beans.SessionKey;
 import com.l2jfree.loginserver.crypt.LoginCrypt;
 import com.l2jfree.loginserver.manager.LoginManager;
 import com.l2jfree.loginserver.serverpackets.LoginFail;
-import com.l2jfree.loginserver.serverpackets.LoginFailReason;
 import com.l2jfree.loginserver.serverpackets.PlayFail;
-import com.l2jfree.loginserver.serverpackets.PlayFailReason;
 import com.l2jfree.tools.math.ScrambledKeyPair;
 import com.l2jfree.tools.random.Rnd;
 
@@ -65,6 +65,7 @@ public class L2LoginClient extends MMOConnection<L2LoginClient>
 	private String _account;
 	private int _accessLevel;
 	private int _lastServerId;
+	private int _age;
 	private SessionKey _sessionKey;
 	private final int _sessionId = Rnd.nextInt(Integer.MAX_VALUE);
 	private boolean _joinedGS;
@@ -200,6 +201,21 @@ public class L2LoginClient extends MMOConnection<L2LoginClient>
 	{
 		return _lastServerId;
 	}
+
+	public void setAge(int year, int month, int day) {
+	    Calendar dateOfBirth = new GregorianCalendar(year, month-1, day);
+	    Calendar today = Calendar.getInstance();
+	    int age = today.get(Calendar.YEAR) - dateOfBirth.get(Calendar.YEAR);
+	    dateOfBirth.add(Calendar.YEAR, age);
+	    if (today.before(dateOfBirth))
+	        age--;
+
+		_age = age;
+	}
+
+	public int getAge() {
+		return _age;
+	}
 	
 	public int getSessionId()
 	{
@@ -225,17 +241,39 @@ public class L2LoginClient extends MMOConnection<L2LoginClient>
 	{
 		return _sessionKey;
 	}
-	
-	public void close(LoginFailReason reason)
+
+	public void closeLogin(int reason)
 	{
 		close(new LoginFail(reason));
 	}
-	
-	public void close(PlayFailReason reason)
+
+	public void closeLoginGame(int reason)
 	{
 		close(new PlayFail(reason));
 	}
-	
+
+	public void closeBanned()
+	{
+		close(new LoginFail(getAccessLevel(), true));
+	}
+
+	//public static int failcode = 100;
+
+	public void closeBanned(int timeLeft)
+	{
+		//if (timeLeft == -1) {
+			closeLogin(LoginFail.REASON_IP_RESTRICTED);
+			//-45 to 200 = nothing
+			//closeLogin(failcode);
+			//failcode++;
+			//_log.info(failcode);
+		/*}
+		else {
+			close(new LoginFail(LoginFail.REASON_TEMP_BAN));
+			close(new SystemMessage(LoginFail.REASON_TEMP_BAN).addNumber(timeLeft));
+		}*/
+	}
+
 	public InetAddress getInetAddress()
 	{
 		return getSocket().getInetAddress();
