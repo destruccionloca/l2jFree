@@ -51,9 +51,10 @@ import com.l2jfree.loginserver.services.AccountsServices;
 import com.l2jfree.loginserver.services.exception.AccountBannedException;
 import com.l2jfree.loginserver.services.exception.AccountModificationException;
 import com.l2jfree.loginserver.services.exception.AccountWrongPasswordException;
+import com.l2jfree.loginserver.services.exception.HackingException;
+import com.l2jfree.loginserver.services.exception.IPRestrictedException;
 import com.l2jfree.loginserver.services.exception.MaintenanceException;
 import com.l2jfree.loginserver.services.exception.MaturityException;
-import com.l2jfree.loginserver.services.exception.IPRestrictedException;
 import com.l2jfree.loginserver.thread.GameServerThread;
 import com.l2jfree.status.Status;
 import com.l2jfree.tools.codec.Base64;
@@ -521,7 +522,7 @@ public class LoginManager
 	 * @throws AccountWrongPasswordException if the password is wrong
 	 */
 	public boolean loginValid(String user, String password, InetAddress address) throws NoSuchAlgorithmException, UnsupportedEncodingException,
-			AccountModificationException, AccountBannedException, AccountWrongPasswordException, IPRestrictedException
+			AccountModificationException, AccountBannedException, AccountWrongPasswordException
 	{
 		_logLoginTries.info("User trying to connect  '" + user + "' " + (address == null ? "null" : address.getHostAddress()));
 
