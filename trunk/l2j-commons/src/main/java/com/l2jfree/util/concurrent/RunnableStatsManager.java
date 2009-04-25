@@ -64,11 +64,19 @@ public final class RunnableStatsManager
 			_className = clazz.getName().replace("com.l2jfree.gameserver.", "");
 		}
 		
-		private MethodStat getMethodStat(String methodName)
+		private MethodStat getMethodStat(String methodName, boolean synchronizedAlready)
 		{
 			for (int i = 0; i < _methodNames.length; i++)
 				if (_methodNames[i].equals(methodName))
 					return _methodStats[i];
+			
+			if (!synchronizedAlready)
+			{
+				synchronized (this)
+				{
+					return getMethodStat(methodName, true);
+				}
+			}
 			
 			methodName = methodName.intern();
 			
@@ -97,7 +105,7 @@ public final class RunnableStatsManager
 			_methodName = methodName;
 		}
 		
-		private void handleStats(long runTime)
+		private synchronized void handleStats(long runTime)
 		{
 			_count++;
 			_total += runTime;
@@ -106,24 +114,32 @@ public final class RunnableStatsManager
 		}
 	}
 	
-	private ClassStat getClassStat(Class<?> clazz)
+	private ClassStat getClassStat(Class<?> clazz, boolean synchronizedAlready)
 	{
 		ClassStat classStat = _classStats.get(clazz);
 		
-		if (classStat == null)
-			classStat = new ClassStat(clazz);
+		if (classStat != null)
+			return classStat;
 		
-		return classStat;
+		if (!synchronizedAlready)
+		{
+			synchronized (this)
+			{
+				return getClassStat(clazz, true);
+			}
+		}
+		
+		return new ClassStat(clazz);
 	}
 	
-	public synchronized void handleStats(Class<? extends Runnable> clazz, long runTime)
+	public void handleStats(Class<? extends Runnable> clazz, long runTime)
 	{
 		handleStats(clazz, "run()", runTime);
 	}
 	
-	public synchronized void handleStats(Class<?> clazz, String methodName, long runTime)
+	public void handleStats(Class<?> clazz, String methodName, long runTime)
 	{
-		getClassStat(clazz).getMethodStat(methodName).handleStats(runTime);
+		getClassStat(clazz, false).getMethodStat(methodName, false).handleStats(runTime);
 	}
 	
 	public static enum SortBy
