@@ -8302,9 +8302,9 @@ public final class L2PcInstance extends L2PlayableInstance
 		//************************************* Check Consumables *******************************************
 
 		// Check if spell consumes a Soul
-		if (skill.getSoulConsumeCount() > 0)
+		if (skill.getSoulConsumeCount() > 0 || skill.getMaxSoulConsumeCount() > 0)
 		{
-			if (getSouls() < skill.getSoulConsumeCount())
+			if (getSouls() < Math.max(skill.getSoulConsumeCount(), 1))
 			{
 				sendPacket(SystemMessageId.THERE_IS_NOT_ENOUGH_SOUL);
 				sendPacket(ActionFailed.STATIC_PACKET);
