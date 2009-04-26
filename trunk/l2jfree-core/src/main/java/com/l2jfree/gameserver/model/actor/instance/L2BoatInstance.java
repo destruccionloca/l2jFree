@@ -44,6 +44,7 @@ import com.l2jfree.gameserver.network.serverpackets.VehicleCheckLocation;
 import com.l2jfree.gameserver.network.serverpackets.VehicleDeparture;
 import com.l2jfree.gameserver.network.serverpackets.VehicleInfo;
 import com.l2jfree.gameserver.network.serverpackets.VehicleStarted;
+import com.l2jfree.gameserver.taskmanager.MovementController;
 import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
 import com.l2jfree.gameserver.util.Util;
 
@@ -340,9 +341,7 @@ public class L2BoatInstance extends L2Character
 		// Set the L2Character _move object to MoveData object
 		_move = m;
 
-		// Add the L2Character to movingObjects of the GameTimeController
-		// The GameTimeController manage objects movement
-		GameTimeController.registerMovingChar(this);
+		MovementController.getInstance().add(this, ticksToMove);
 	}
 
 	private class BoatCaptain implements Runnable

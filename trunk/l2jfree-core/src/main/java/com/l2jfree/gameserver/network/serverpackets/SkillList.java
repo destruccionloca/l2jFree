@@ -14,26 +14,25 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import java.util.List;
-
 import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public final class SkillList extends L2GameServerPacket
 {
 	private static final String _S__6D_SKILLLIST = "[S] 58 SkillList";
 	
-	private final List<L2Skill> _skills;
+	private final L2Skill[] _skills;
 	
-	public SkillList(List<L2Skill> list)
+	public SkillList(L2PcInstance activeChar)
 	{
-		_skills = list;
+		_skills = activeChar.getSortedAllSkills(activeChar.isGM() && !activeChar.isSubClassActive());
 	}
 	
 	@Override
 	protected void writeImpl()
 	{
 		writeC(0x5f);
-		writeD(_skills.size());
+		writeD(_skills.length);
 		
 		for (L2Skill s : _skills)
 		{

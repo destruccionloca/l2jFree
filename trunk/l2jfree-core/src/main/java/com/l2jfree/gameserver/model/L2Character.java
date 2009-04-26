@@ -98,6 +98,7 @@ import com.l2jfree.gameserver.skills.l2skills.L2SkillAgathion;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillChargeDmg;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillMount;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSummon;
+import com.l2jfree.gameserver.taskmanager.MovementController;
 import com.l2jfree.gameserver.taskmanager.PacketBroadcaster;
 import com.l2jfree.gameserver.taskmanager.PacketBroadcaster.BroadcastMode;
 import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
@@ -4845,16 +4846,7 @@ public abstract class L2Character extends L2Object
 		// Set the L2Character _move object to MoveData object
 		_move = m;
 
-		// Add the L2Character to movingObjects of the GameTimeController
-		// The GameTimeController manage objects movement
-		GameTimeController.registerMovingChar(this);
-
-		// Create a task to notify the AI that L2Character arrives at a check point of the movement
-		if (ticksToMove*GameTimeController.MILLIS_IN_TICK > 3000)
-			ThreadPoolManager.getInstance().scheduleAi( new NotifyAITask(CtrlEvent.EVT_ARRIVED_REVALIDATE), 2000);
-
-		// the CtrlEvent.EVT_ARRIVED will be sent when the character will actually arrive
-		// to destination by GameTimeController
+		MovementController.getInstance().add(this, ticksToMove);
 	}
 
 	public boolean moveToNextRoutePoint()
@@ -4926,16 +4918,7 @@ public abstract class L2Character extends L2Object
 		// Set the L2Character _move object to MoveData object
 		_move = m;
 
-		// Add the L2Character to movingObjects of the GameTimeController
-		// The GameTimeController manage objects movement
-		GameTimeController.registerMovingChar(this);
-
-		// Create a task to notify the AI that L2Character arrives at a check point of the movement
-		if (ticksToMove * GameTimeController.MILLIS_IN_TICK > 3000)
-			ThreadPoolManager.getInstance().scheduleAi(new NotifyAITask(CtrlEvent.EVT_ARRIVED_REVALIDATE), 2000);
-
-		// the CtrlEvent.EVT_ARRIVED will be sent when the character will actually arrive
-		// to destination by GameTimeController
+		MovementController.getInstance().add(this, ticksToMove);
 
 		// Send a Server->Client packet MoveToLocation to the actor and all L2PcInstance in its _knownPlayers
 		MoveToLocation msg = new MoveToLocation(this);
@@ -6265,39 +6248,36 @@ public abstract class L2Character extends L2Object
 		// if(isCastingNow())
 		// getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE, null);
 
-		//As far as I remember, you can move away after launching a skill without hitting
-		//And you will not auto-attack a non-flagged player after launching a skill
-		if (getAI().getIntention() != CtrlIntention.AI_INTENTION_MOVE_TO &&
-				magicEnv._originalSkillTarget.isAutoAttackable(this))
+		switch (skill.getSkillType())
 		{
-			switch (skill.getSkillType())
-			{
-				case PDAM:
-				case BLOW:
-				case CHARGEDAM:
-				case SPOIL:
-				case STUN:
-					final L2Character originalTarget = magicEnv._originalTarget;
-					final L2Character originalSkillTarget = magicEnv._originalSkillTarget;
-					final L2Object currentTarget = L2Object.getActingCharacter(getTarget());
+			case PDAM:
+			case BLOW:
+			case CHARGEDAM:
+			case SPOIL:
+			case STUN:
+				final L2Character originalTarget = magicEnv._originalTarget;
+				final L2Character originalSkillTarget = magicEnv._originalSkillTarget;
+				final L2Object currentTarget = L2Object.getActingCharacter(getTarget());
+				
+				L2Object newTarget = null;
+				
+				if (originalSkillTarget != null && originalSkillTarget != this && originalSkillTarget == currentTarget)
+					newTarget = originalSkillTarget;
+				else if (originalTarget != null && originalTarget != this && originalTarget == currentTarget)
+					newTarget = originalTarget;
+				
+				if (//As far as I remember, you can move away after launching a skill without hitting
+					getAI().getIntention() != CtrlIntention.AI_INTENTION_MOVE_TO
+					//And you will not auto-attack a non-flagged player after launching a skill
+					&& newTarget != null && newTarget.isAutoAttackable(this))
+				{
+					double distance = Util.calculateDistance(this, newTarget, false);
 					
-					L2Object newTarget = null;
-					
-					if (originalSkillTarget != null && originalSkillTarget != this && originalSkillTarget == currentTarget)
-						newTarget = originalSkillTarget;
-					else if (originalTarget != null && originalTarget != this && originalTarget == currentTarget)
-						newTarget = originalTarget;
-					
-					if (newTarget != null)
-					{
-						double distance = Util.calculateDistance(this, newTarget, false);
-						
-						// if the skill is melee, or almost in the range of a normal attack
-						if (getMagicalAttackRange(skill) < 200 || getPhysicalAttackRange() + 200 > distance)
-							getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, newTarget);
-					}
-					break;
-			}
+					// if the skill is melee, or almost in the range of a normal attack
+					if (getMagicalAttackRange(skill) < 200 || getPhysicalAttackRange() + 200 > distance)
+						getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, newTarget);
+				}
+				break;
 		}
 		
 		switch (skill.getSkillType())

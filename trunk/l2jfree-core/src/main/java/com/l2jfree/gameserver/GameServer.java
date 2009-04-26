@@ -133,6 +133,7 @@ import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
 import com.l2jfree.gameserver.taskmanager.KnownListUpdateTaskManager;
 import com.l2jfree.gameserver.taskmanager.LeakTaskManager;
+import com.l2jfree.gameserver.taskmanager.MovementController;
 import com.l2jfree.gameserver.taskmanager.PacketBroadcaster;
 import com.l2jfree.gameserver.taskmanager.SQLQueue;
 import com.l2jfree.gameserver.taskmanager.tasks.TaskManager;
@@ -226,6 +227,7 @@ public class GameServer
 		DecayTaskManager.getInstance();
 		KnownListUpdateTaskManager.getInstance();
 		LeakTaskManager.getInstance();
+		MovementController.getInstance();
 		PacketBroadcaster.getInstance();
 		
 		Util.printSection("Skills");

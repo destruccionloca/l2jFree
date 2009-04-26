@@ -17,22 +17,21 @@ package com.l2jfree.gameserver.network.serverpackets;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-public class GMViewSkillInfo extends L2GameServerPacket
+public final class GMViewSkillInfo extends L2GameServerPacket
 {
 	private static final String _S__91_GMViewSkillInfo = "[S] 91 GMViewSkillInfo";
-	private L2PcInstance _activeChar;
-	private L2Skill[] _skills;
 	
-	public GMViewSkillInfo (L2PcInstance character)
+	private final L2PcInstance _activeChar;
+	private final L2Skill[] _skills;
+	
+	public GMViewSkillInfo(L2PcInstance activeChar, L2PcInstance gm)
 	{
-		_activeChar = character;
-		_skills = _activeChar.getAllSkills();
-		if (_skills.length == 0)
-			_skills = new L2Skill[0];
+		_activeChar = activeChar;
+		_skills = activeChar.getSortedAllSkills(true);
 	}
-
+	
 	@Override
-	protected final void writeImpl()
+	protected void writeImpl()
 	{
 		writeC(0x97);
 		writeS(_activeChar.getName());
@@ -47,9 +46,6 @@ public class GMViewSkillInfo extends L2GameServerPacket
 		}
 	}
 	
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

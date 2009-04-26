@@ -22,21 +22,15 @@ import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Set;
-
-import javolution.util.FastSet;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.ai.CtrlEvent;
 import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.instancemanager.DayNightSpawnManager;
-import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2World;
-import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance.ConditionListenerDependency;
 import com.l2jfree.gameserver.network.serverpackets.ClientSetTime;
@@ -222,83 +216,6 @@ public final class GameTimeController
 		{
 			e.printStackTrace();
 		}
-		
-		try
-		{
-			_movingThread.shutdown();
-		}
-		catch (InterruptedException e)
-		{
-			e.printStackTrace();
-		}
-	}
-	
-	private static final Set<L2Character> _movingChars = new FastSet<L2Character>();
-	
-	public static void registerMovingChar(L2Character cha)
-	{
-		synchronized (_movingChars)
-		{
-			_movingChars.add(cha);
-		}
-	}
-	
-	private static L2Character[] getMovingChars()
-	{
-		synchronized (_movingChars)
-		{
-			return _movingChars.toArray(new L2Character[_movingChars.size()]);
-		}
-	}
-	
-	private static final ArrivedCharacterThread _movingThread = new ArrivedCharacterThread();
-	
-	private static final class ArrivedCharacterThread extends L2Thread
-	{
-		private ArrivedCharacterThread()
-		{
-			super("ArrivedCharacterThread");
-			setPriority(Thread.MAX_PRIORITY);
-			setDaemon(true);
-			
-			start();
-		}
-		
-		private int _lastMovedTick;
-		
-		@Override
-		protected void runTurn()
-		{
-			while (_lastMovedTick + Config.DATETIME_MOVE_DELAY <= _gameTicks)
-			{
-				_lastMovedTick = _gameTicks;
-				
-				for (L2Character cha : getMovingChars())
-				{
-					if (!cha.updatePosition(_lastMovedTick))
-						continue;
-					
-					synchronized (_movingChars)
-					{
-						_movingChars.remove(cha);
-					}
-					
-					cha.getKnownList().updateKnownObjects();
-					
-					if (cha instanceof L2BoatInstance)
-						((L2BoatInstance)cha).evtArrived();
-					
-					if (cha.hasAI())
-						cha.getAI().notifyEvent(CtrlEvent.EVT_ARRIVED);
-				}
-			}
-		}
-		
-		@Override
-		protected synchronized void sleepTurn() throws InterruptedException
-		{
-			wait(Math.max(0, getDelayTillGameTick(_lastMovedTick + Config.DATETIME_MOVE_DELAY)));
-		}
 	}
 	
 	private static final long _gameStarted = System.currentTimeMillis();
@@ -307,11 +224,6 @@ public final class GameTimeController
 	public static int getGameTicks()
 	{
 		return _gameTicks;
-	}
-	
-	private static long getDelayTillGameTick(int gameTick)
-	{
-		return _gameStarted + gameTick * MILLIS_IN_TICK - System.currentTimeMillis();
 	}
 	
 	private static final TimingThread _timingThread = new TimingThread();
@@ -330,19 +242,16 @@ public final class GameTimeController
 		@Override
 		protected void runTurn()
 		{
-			while (_gameTicks != (_gameTicks = (int)((System.currentTimeMillis() - _gameStarted) / MILLIS_IN_TICK)))
-			{
-				synchronized (_movingThread)
-				{
-					_movingThread.notifyAll();
-				}
-			}
+			_gameTicks = (int)((System.currentTimeMillis() - _gameStarted) / MILLIS_IN_TICK);
 		}
 		
 		@Override
 		protected void sleepTurn() throws InterruptedException
 		{
-			Thread.sleep(Math.max(0, getDelayTillGameTick(_gameTicks + 1)));
+			long delay = _gameStarted + (_gameTicks + 1) * MILLIS_IN_TICK - System.currentTimeMillis();
+			
+			if (delay > 0)
+				Thread.sleep(delay);
 		}
 	}
 }

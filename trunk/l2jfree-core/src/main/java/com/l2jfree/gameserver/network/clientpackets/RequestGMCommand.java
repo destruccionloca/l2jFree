@@ -46,7 +46,7 @@ public class RequestGMCommand extends L2GameClientPacket
 	/**
 	 * packet type id 0x00
 	 * format:	cd
-	 *  
+	 * 
 	 * @param rawPacket
 	 */
 	@Override
@@ -87,7 +87,7 @@ public class RequestGMCommand extends L2GameClientPacket
 			case 3: // player skills
 			{
 				if (activeChar.getAccessLevel() >= Config.GM_CHAR_VIEW_SKILL)
-					sendPacket(new GMViewSkillInfo(player));
+					sendPacket(new GMViewSkillInfo(player, activeChar));
 				break;
 			}
 			case 4: // player quests

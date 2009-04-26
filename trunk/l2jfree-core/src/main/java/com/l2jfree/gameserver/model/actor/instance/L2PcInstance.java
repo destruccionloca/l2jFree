@@ -18,7 +18,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -261,6 +263,7 @@ import com.l2jfree.gameserver.util.FloodProtector;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.tools.random.Rnd;
+import com.l2jfree.util.L2Arrays;
 import com.l2jfree.util.LinkedBunch;
 import com.l2jfree.util.SingletonList;
 import com.l2jfree.util.SingletonMap;
@@ -7420,39 +7423,38 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	private void restoreSkills()
 	{
+		List<L2Skill> tmp = new ArrayList<L2Skill>();
+		
 		Connection con = null;
-
 		try
 		{
 			// Retrieve all skills of this L2PcInstance from the database
-			con = L2DatabaseFactory.getInstance().getConnection(con);
+			con = L2DatabaseFactory.getInstance().getConnection();
 			PreparedStatement statement = con.prepareStatement(RESTORE_SKILLS_FOR_CHAR);
 			statement.setInt(1, getObjectId());
 			statement.setInt(2, getClassIndex());
 			ResultSet rset = statement.executeQuery();
-
+			
 			// Go though the recordset of this SQL query
 			while (rset.next())
 			{
 				int id = rset.getInt("skill_id");
 				int level = rset.getInt("skill_level");
-
+				
 				if (id > 9000 && id < 9007)
 					continue; // Fake skills for base stats
-
+					
 				// Create a L2Skill object for each record
 				L2Skill skill = SkillTable.getInstance().getInfo(id, level);
-
-				// Add the L2Skill object to the L2Character _skills and its Func objects to the calculator set of the L2Character
-				super.addSkill(skill);
+				
+				if (skill == null)
+					continue;
+				
+				tmp.add(skill);
 			}
-
+			
 			rset.close();
 			statement.close();
-
-			// Restore clan skills
-			if (_clan != null)
-				_clan.addSkillEffects(this, false);
 		}
 		catch (Exception e)
 		{
@@ -7462,8 +7464,20 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			L2DatabaseFactory.close(con);
 		}
+		
+		L2Skill[] skills = tmp.toArray(new L2Skill[tmp.size()]);
+		
+		Arrays.sort(skills, SKILL_LIST_COMPARATOR);
+		
+		// Add the L2Skill object to the L2Character _skills and its Func objects to the calculator set of the L2Character
+		for (L2Skill skill : skills)
+			super.addSkill(skill);
+		
+		// Restore clan skills
+		if (_clan != null)
+			_clan.addSkillEffects(this, false);
 	}
-
+	
 	/**
 	 * Retrieve from the database all skill effects of this L2PcInstance and add them to the player.<BR><BR>
 	 */
@@ -9675,46 +9689,106 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		return (_alliedVarkaKetra > 0);
 	}
-
-	public void sendSkillList()
+	
+	private final Comparator<L2Skill> SKILL_LIST_COMPARATOR = new Comparator<L2Skill>() {
+		@Override
+		public int compare(L2Skill s1, L2Skill s2)
+		{
+			int o1 = getOrder(s1);
+			int o2 = getOrder(s2);
+			
+			if (o1 == o2)
+				return s1.getId().compareTo(s2.getId());
+			
+			return (o1 < o2) ? -1 : 1;
+		}
+		
+		private int getOrder(L2Skill s)
+		{
+			if (s.getSkillType() == L2SkillType.NOTDONE)
+				return 10;
+			
+			if (!containsAllowedTransformSkill(s.getId()) && !s.allowOnTransform() && isTransformed())
+				return 9;
+			
+			if (s.bestowed())
+				return 8;
+			
+			if (s.getId() > 9000 && s.getId() < 9007)
+				return 7;
+			
+			// TODO: add other ordering conditions, if there is any other useful :)
+			
+			return 0;
+		}
+	};
+	
+	public L2Skill[] getSortedAllSkills(boolean isGM)
 	{
 		L2Skill[] array = getAllSkills();
-		List<L2Skill> skills = new ArrayList<L2Skill>(array.length);
 		
-		for (L2Skill s : array)
+		for (int i = 0; i < array.length; i++)
 		{
+			L2Skill s = array[i];
+			
 			if (s == null)
 				continue;
 			
-			if (s.getId() > 9000 && s.getId() < 9007)
-				continue; // Fake skills to change base stats
-			
-			if (s.bestowed())
-				continue;
-			
-			// Hide skills when transformed if they are not passive
-			if ((!containsAllowedTransformSkill(s.getId()) && !s.allowOnTransform()) && isTransformed())
-				continue;
+			if (!isGM)
+			{
+				if (s.getId() > 9000 && s.getId() < 9007)
+				{
+					array[i] = null;
+					continue; // Fake skills to change base stats
+				}
+				
+				if (s.bestowed())
+				{
+					array[i] = null;
+					continue;
+				}
+				
+				// Hide skills when transformed if they are not passive
+				if (!containsAllowedTransformSkill(s.getId()) && !s.allowOnTransform() && isTransformed())
+				{
+					array[i] = null;
+					continue;
+				}
+			}
 			
 			if (s.getSkillType() == L2SkillType.NOTDONE)
 			{
 				switch (Config.SEND_NOTDONE_SKILLS)
 				{
 					case 1:
+					{
+						array[i] = null;
 						continue;
-						
+					}
 					case 2:
-						if (!isGM())
+					{
+						if (!isGM)
+						{
+							array[i] = null;
 							continue;
+						}
+					}
 				}
 			}
-			
-			skills.add(s);
 		}
 		
-		sendPacket(new SkillList(skills));
+		array = L2Arrays.compact(array);
+		
+		Arrays.sort(array, SKILL_LIST_COMPARATOR);
+		
+		return array;
 	}
-
+	
+	public void sendSkillList()
+	{
+		sendPacket(new SkillList(this));
+	}
+	
 	public void setTransformAllowedSkills(int[] ids)
 	{
 		_transformAllowedSkills.clear();

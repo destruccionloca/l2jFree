@@ -16,6 +16,7 @@ package com.l2jfree.gameserver;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -53,14 +54,22 @@ public final class ThreadPoolManager
 		return _instance;
 	}
 	
-	private final ScheduledThreadPoolExecutor _pool;
+	private final ScheduledThreadPoolExecutor _scheduledPool;
+	private final ThreadPoolExecutor _instantPool;
 	private final ThreadPoolExecutor _longRunningPool;
 	
 	private ThreadPoolManager()
 	{
-		_pool = new ScheduledThreadPoolExecutor(Config.THREAD_POOL_SIZE);
-		_pool.setRejectedExecutionHandler(new L2RejectedExecutionHandler());
-		_pool.prestartAllCoreThreads();
+		final int instantPoolSize = Math.max(1, Config.THREAD_POOL_SIZE / 3);
+		
+		_scheduledPool = new ScheduledThreadPoolExecutor(Config.THREAD_POOL_SIZE - instantPoolSize);
+		_scheduledPool.setRejectedExecutionHandler(new L2RejectedExecutionHandler());
+		_scheduledPool.prestartAllCoreThreads();
+		
+		_instantPool = new ThreadPoolExecutor(instantPoolSize, instantPoolSize, 0, TimeUnit.SECONDS,
+			new ArrayBlockingQueue<Runnable>(100000));
+		_instantPool.setRejectedExecutionHandler(new L2RejectedExecutionHandler());
+		_instantPool.prestartAllCoreThreads();
 		
 		_longRunningPool = new ThreadPoolExecutor(0, Integer.MAX_VALUE, 60L, TimeUnit.SECONDS,
 			new SynchronousQueue<Runnable>());
@@ -75,7 +84,8 @@ public final class ThreadPoolManager
 			}
 		}, 600000, 600000);
 		
-		_log.info("ThreadPoolManager: Initialized with " + Config.THREAD_POOL_SIZE + " threads.");
+		_log.info("ThreadPoolManager: Initialized with " + _scheduledPool.getPoolSize() + " scheduler, "
+			+ _instantPool.getPoolSize() + " instant, " + _longRunningPool.getPoolSize() + " long running thread(s).");
 	}
 	
 	private final long validate(long delay)
@@ -101,8 +111,10 @@ public final class ThreadPoolManager
 	
 	public final ScheduledFuture<?> schedule(Runnable r, long delay)
 	{
-		return new ScheduledFutureWrapper(_pool.schedule(
-			new ThreadPoolExecuteWrapper(r), validate(delay), TimeUnit.MILLISECONDS));
+		r = new ThreadPoolExecuteWrapper(r);
+		delay = validate(delay);
+		
+		return new ScheduledFutureWrapper(_scheduledPool.schedule(r, delay, TimeUnit.MILLISECONDS));
 	}
 	
 	public final ScheduledFuture<?> scheduleEffect(Runnable r, long delay)
@@ -124,8 +136,11 @@ public final class ThreadPoolManager
 	
 	public final ScheduledFuture<?> scheduleAtFixedRate(Runnable r, long delay, long period)
 	{
-		return new ScheduledFutureWrapper(_pool.scheduleAtFixedRate(
-			new ThreadPoolExecuteWrapper(r), validate(delay), validate(period), TimeUnit.MILLISECONDS));
+		r = new ThreadPoolExecuteWrapper(r);
+		delay = validate(delay);
+		period = validate(period);
+		
+		return new ScheduledFutureWrapper(_scheduledPool.scheduleAtFixedRate(r, delay, period, TimeUnit.MILLISECONDS));
 	}
 	
 	public final ScheduledFuture<?> scheduleEffectAtFixedRate(Runnable r, long delay, long period)
@@ -147,7 +162,9 @@ public final class ThreadPoolManager
 	
 	public final void execute(Runnable r)
 	{
-		_pool.execute(new ThreadPoolExecuteWrapper(r));
+		r = new ThreadPoolExecuteWrapper(r);
+		
+		_instantPool.execute(r);
 	}
 	
 	public final void executeTask(Runnable r)
@@ -157,40 +174,57 @@ public final class ThreadPoolManager
 	
 	public final void executeLongRunning(Runnable r)
 	{
-		_longRunningPool.execute(new ExecuteWrapper(r));
+		r = new ExecuteWrapper(r);
+		
+		_longRunningPool.execute(r);
 	}
 	
 	// ===========================================================================================
 	
 	public final Future<?> submit(Runnable r)
 	{
-		return _pool.submit(new ThreadPoolExecuteWrapper(r));
+		r = new ThreadPoolExecuteWrapper(r);
+		
+		return _instantPool.submit(r);
 	}
 	
 	public final Future<?> submitLongRunning(Runnable r)
 	{
-		return _longRunningPool.submit(new ExecuteWrapper(r));
+		r = new ExecuteWrapper(r);
+		
+		return _longRunningPool.submit(r);
 	}
 	
 	// ===========================================================================================
 	
 	public List<String> getStats()
 	{
-		List<String> list = new ArrayList<String>(25);
+		List<String> list = new ArrayList<String>();
 		
 		list.add("");
-		list.add("Normal scheduler:");
+		list.add("Scheduled pool:");
 		list.add("=================================================");
-		list.add("\tgetActiveCount: ...... " + _pool.getActiveCount());
-		list.add("\tgetCorePoolSize: ..... " + _pool.getCorePoolSize());
-		list.add("\tgetPoolSize: ......... " + _pool.getPoolSize());
-		list.add("\tgetLargestPoolSize: .. " + _pool.getLargestPoolSize());
-		list.add("\tgetMaximumPoolSize: .. " + _pool.getMaximumPoolSize());
-		list.add("\tgetCompletedTaskCount: " + _pool.getCompletedTaskCount());
-		list.add("\tgetQueuedTaskCount: .. " + _pool.getQueue().size());
-		list.add("\tgetTaskCount: ........ " + _pool.getTaskCount());
+		list.add("\tgetActiveCount: ...... " + _scheduledPool.getActiveCount());
+		list.add("\tgetCorePoolSize: ..... " + _scheduledPool.getCorePoolSize());
+		list.add("\tgetPoolSize: ......... " + _scheduledPool.getPoolSize());
+		list.add("\tgetLargestPoolSize: .. " + _scheduledPool.getLargestPoolSize());
+		list.add("\tgetMaximumPoolSize: .. " + _scheduledPool.getMaximumPoolSize());
+		list.add("\tgetCompletedTaskCount: " + _scheduledPool.getCompletedTaskCount());
+		list.add("\tgetQueuedTaskCount: .. " + _scheduledPool.getQueue().size());
+		list.add("\tgetTaskCount: ........ " + _scheduledPool.getTaskCount());
 		list.add("");
-		list.add("Long-running executor:");
+		list.add("Instant pool:");
+		list.add("=================================================");
+		list.add("\tgetActiveCount: ...... " + _instantPool.getActiveCount());
+		list.add("\tgetCorePoolSize: ..... " + _instantPool.getCorePoolSize());
+		list.add("\tgetPoolSize: ......... " + _instantPool.getPoolSize());
+		list.add("\tgetLargestPoolSize: .. " + _instantPool.getLargestPoolSize());
+		list.add("\tgetMaximumPoolSize: .. " + _instantPool.getMaximumPoolSize());
+		list.add("\tgetCompletedTaskCount: " + _instantPool.getCompletedTaskCount());
+		list.add("\tgetQueuedTaskCount: .. " + _instantPool.getQueue().size());
+		list.add("\tgetTaskCount: ........ " + _instantPool.getTaskCount());
+		list.add("");
+		list.add("Long running pool:");
 		list.add("=================================================");
 		list.add("\tgetActiveCount: ...... " + _longRunningPool.getActiveCount());
 		list.add("\tgetCorePoolSize: ..... " + _longRunningPool.getCorePoolSize());
@@ -211,10 +245,13 @@ public final class ThreadPoolManager
 		
 		while (System.currentTimeMillis() - begin < timeoutInMillisec)
 		{
-			if (!_pool.awaitTermination(1, TimeUnit.MILLISECONDS))
+			if (!_scheduledPool.awaitTermination(10, TimeUnit.MILLISECONDS) && _scheduledPool.getActiveCount() > 0)
 				continue;
 			
-			if (!_longRunningPool.awaitTermination(1, TimeUnit.MILLISECONDS))
+			if (!_instantPool.awaitTermination(10, TimeUnit.MILLISECONDS) && _instantPool.getActiveCount() > 0)
+				continue;
+			
+			if (!_longRunningPool.awaitTermination(10, TimeUnit.MILLISECONDS) && _longRunningPool.getActiveCount() > 0)
 				continue;
 			
 			return true;
@@ -223,17 +260,22 @@ public final class ThreadPoolManager
 		return false;
 	}
 	
+	private int getTaskCount(ThreadPoolExecutor tp)
+	{
+		return tp.getQueue().size() + tp.getActiveCount();
+	}
+	
 	public void shutdown()
 	{
 		final long begin = System.currentTimeMillis();
 		
 		System.out.println("ThreadPoolManager: Shutting down.");
-		System.out.println("\t... executing "
-			+ (_pool.getQueue().size() + _pool.getActiveCount()) + " tasks.");
-		System.out.println("\t... executing "
-			+ (_longRunningPool.getQueue().size() + _longRunningPool.getActiveCount()) + " long running tasks.");
+		System.out.println("\t... executing " + getTaskCount(_scheduledPool) + " scheduled tasks.");
+		System.out.println("\t... executing " + getTaskCount(_instantPool) + " instant tasks.");
+		System.out.println("\t... executing " + getTaskCount(_longRunningPool) + " long running tasks.");
 		
-		_pool.shutdown();
+		_scheduledPool.shutdown();
+		_instantPool.shutdown();
 		_longRunningPool.shutdown();
 		
 		boolean success = false;
@@ -241,13 +283,10 @@ public final class ThreadPoolManager
 		{
 			success |= awaitTermination(5000);
 			
-			if (!success)
-			{
-				_pool.setExecuteExistingDelayedTasksAfterShutdownPolicy(false);
-				_pool.setContinueExistingPeriodicTasksAfterShutdownPolicy(false);
-				
-				success |= awaitTermination(10000);
-			}
+			_scheduledPool.setExecuteExistingDelayedTasksAfterShutdownPolicy(false);
+			_scheduledPool.setContinueExistingPeriodicTasksAfterShutdownPolicy(false);
+			
+			success |= awaitTermination(10000);
 		}
 		catch (InterruptedException e)
 		{
@@ -255,10 +294,9 @@ public final class ThreadPoolManager
 		}
 		
 		System.out.println("\t... success: " + success + " in " + (System.currentTimeMillis() - begin) + " msec.");
-		System.out.println("\t... " +
-			(_pool.getQueue().size() + _pool.getActiveCount()) + " tasks left.");
-		System.out.println("\t... " +
-			(_longRunningPool.getQueue().size() + _longRunningPool.getActiveCount()) + " long running tasks left.");
+		System.out.println("\t... " + getTaskCount(_scheduledPool) + " scheduled tasks left.");
+		System.out.println("\t... " + getTaskCount(_instantPool) + " instant tasks left.");
+		System.out.println("\t... " + getTaskCount(_longRunningPool) + " long running tasks left.");
 		
 		if (TimeUnit.HOURS.toMillis(12) < (System.currentTimeMillis() - GameServer.getStartedTime().getTimeInMillis()))
 			RunnableStatsManager.getInstance().dumpClassStats();
@@ -266,7 +304,8 @@ public final class ThreadPoolManager
 	
 	public void purge()
 	{
-		_pool.purge();
+		_scheduledPool.purge();
+		_instantPool.purge();
 		_longRunningPool.purge();
 	}
 }
