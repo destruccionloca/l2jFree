@@ -1418,7 +1418,7 @@
     <set name="power" val="4040"/>
     <set name="skillRadius" val="600"/>
     <set name="skillType" val="PDAM"/>
-    <set name="soulConsumeCount" val="5"/> <!-- Temp fix till "soulMaxConsumeCount" gets fixed -->
+    <set name="soulMaxConsumeCount" val="5"/>
     <set name="SSBoost" val="2.0"/>
     <set name="target" val="TARGET_FRONT_AREA"/>
     <set name="weaponsAllowed" val="32768"/> <!-- Ancient -->

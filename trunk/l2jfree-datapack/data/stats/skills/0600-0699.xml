@@ -400,7 +400,7 @@
     <set name="hitTime" val="1500"/>
     <set name="reuseDelay" val="60000"/>
     <set name="isDebuff" val="true"/>
-    <set name="soulConsumeCount" val="5"/> <!-- Temp fix till "soulMaxConsumeCount" gets fixed -->
+    <set name="soulMaxConsumeCount" val="5"/>
     <set name="effectRange" val="200"/>
     <set name="effectType" val="FEAR"/>
     <set name="effectPower" val="15"/>

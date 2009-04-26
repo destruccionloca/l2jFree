@@ -1437,7 +1437,7 @@
     <set name="hitTime" val="2000"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <set name="soulConsumeCount" val="1"/> <!-- Temp fix till "soulMaxConsumeCount" gets fixed -->
+    <set name="soulMaxConsumeCount" val="1"/>
     <for>
       <effect count="1" name="Buff" time="1200" val="0" stackOrder="1.15" stackType="attack_time_down">
         <mul order="0x30" stat="pAtkSpd" val="1.15"/>
@@ -1550,7 +1550,7 @@
     <set name="castRange" val="40"/>
     <set name="overHit" val="true"/>
     <set name="effectRange" val="400"/>
-    <set name="soulConsumeCount" val="5"/> <!-- Temp fix till "soulMaxConsumeCount" gets fixed -->
+    <set name="soulMaxConsumeCount" val="5"/>
     <set name="SSBoost" val="2.0"/>
     <cond msg="A sword, blunt, or ancient sword weapon has to be equipped to use this skill">
       <using kind="Sword,Blunt,Ancient"/>
@@ -1583,7 +1583,7 @@
     <set name="coolTime" val="720"/>
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
-    <set name="soulConsumeCount" val="5"/> <!-- Temp fix till "soulMaxConsumeCount" gets fixed -->
+    <set name="soulMaxConsumeCount" val="5"/>
     <set name="SSBoost" val="2.0"/>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -1612,7 +1612,7 @@
     <set name="overHit" val="true"/>
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
-    <set name="soulConsumeCount" val="5"/> <!-- Temp fix till "soulMaxConsumeCount" gets fixed -->
+    <set name="soulMaxConsumeCount" val="5"/>
   </skill>
   <skill id="479" levels="1" name="Hard March">
     <!-- CT2.2 retail confirmed -->
@@ -1776,7 +1776,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
     <set name="effectRange" val="900"/>
-    <set name="soulConsumeCount" val="5"/> <!-- Temp fix till "soulMaxConsumeCount" gets fixed -->
+    <set name="soulMaxConsumeCount" val="5"/>
   </skill>
   <skill id="489" levels="1" name="Shift Target">
     <!-- by Sephiroth -->
@@ -1928,7 +1928,7 @@
     <set name="power" val="80"/> <!-- Base Land Rate -->
     <set name="reuseDelay" val="36000"/>
     <set name="skillType" val="STUN"/>
-    <set name="soulConsumeCount" val="5"/> <!-- Temp fix till "soulMaxConsumeCount" gets fixed -->
+    <set name="soulMaxConsumeCount" val="5"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="weaponsAllowed" val="32768"/> <!-- Ancient -->
     <cond msgId="113">
@@ -1961,7 +1961,7 @@
     <set name="reuseDelay" val="36000"/>
     <set name="skillRadius" val="#castRange"/>
     <set name="skillType" val="BLEED"/>
-    <set name="soulConsumeCount" val="5"/> <!-- Temp fix till "soulMaxConsumeCount" gets fixed -->
+    <set name="soulMaxConsumeCount" val="5"/>
     <set name="target" val="TARGET_FRONT_AREA"/>
     <set name="weaponsAllowed" val="32768"/> <!-- Ancient -->
     <cond msgId="113">
@@ -2006,7 +2006,7 @@
     <!-- Corrected to match with skills effect, verified -->
     <set name="effectRange" val="400"/>
     <!-- Corrected to match with skills effect, verified -->
-    <set name="soulConsumeCount" val="5"/> <!-- Temp fix till "soulMaxConsumeCount" gets fixed -->
+    <set name="soulMaxConsumeCount" val="5"/>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant1 name="power" val="#ench1Power"/>
@@ -2038,7 +2038,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
-    <set name="soulConsumeCount" val="5"/> <!-- Temp fix till "soulMaxConsumeCount" gets fixed -->
+    <set name="soulMaxConsumeCount" val="5"/>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant1 name="power" val="#ench1Power"/>
@@ -2072,7 +2072,7 @@
     <set name="effectType" val="BLEED"/>
     <set name="effectPower" val="40"/> <!-- Base Land Rate --> <!-- Guessing -->
     <set name="isDebuff" val="true"/>
-    <set name="soulConsumeCount" val="5"/> <!-- Temp fix till "soulMaxConsumeCount" gets fixed -->
+    <set name="soulMaxConsumeCount" val="5"/>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant1 name="power" val="#ench1Power"/>

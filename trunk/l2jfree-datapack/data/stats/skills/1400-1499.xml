@@ -728,7 +728,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="600"/>
     <set name="effectRange" val="900"/>
-    <set name="soulConsumeCount" val="5"/> <!-- Temp fix till "soulMaxConsumeCount" gets fixed -->
+    <set name="soulMaxConsumeCount" val="5"/>
   </skill>
   <skill id="1432" levels="2" name="Increase Power">
     <table name="#rate">1.08 1.12</table>
@@ -768,7 +768,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="750"/>
     <set name="effectRange" val="900"/>
-    <set name="soulConsumeCount" val="5"/> <!-- Temp fix till "soulMaxConsumeCount" gets fixed -->
+    <set name="soulMaxConsumeCount" val="5"/>
   </skill>
   <skill id="1434" levels="4" name="Dark Explosion">
     <!-- CT2.2 retail confirmed -->
@@ -790,7 +790,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
     <set name="effectRange" val="900"/>
-    <set name="soulConsumeCount" val="5"/> <!-- Temp fix till "soulMaxConsumeCount" gets fixed -->
+    <set name="soulMaxConsumeCount" val="5"/>
   </skill>
   <skill id="1435" levels="10" name="Death Mark" enchantLevels1="30" enchantLevels2="30">
     <!-- CT2.2 retail confirmed -->
@@ -848,7 +848,7 @@
     <set name="effectPower" val="5"/>
     <set name="effectRange" val="1100"/>
     <set name="effectType" val="DEBUFF"/>
-    <set name="soulConsumeCount" val="5"/> <!-- Temp fix till "soulMaxConsumeCount" gets fixed -->
+    <set name="soulMaxConsumeCount" val="5"/>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant1 name="power" val="#ench1Power"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -888,7 +888,7 @@
     <set name="effectRange" val="400"/>
     <set name="reuseDelay" val="60000"/>
     <set name="isDebuff" val="true"/>
-    <set name="soulConsumeCount" val="5"/> <!-- Temp fix till "soulMaxConsumeCount" gets fixed -->
+    <set name="soulMaxConsumeCount" val="5"/>
     <set name="effectType" val="FEAR"/>
     <set name="effectPower" val="#effectPower"/>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
@@ -924,7 +924,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
     <set name="effectRange" val="900"/>
-    <set name="soulConsumeCount" val="5"/> <!-- Temp fix till "soulMaxConsumeCount" gets fixed -->
+    <set name="soulMaxConsumeCount" val="5"/>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant1 name="power" val="#ench1Power"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -1164,7 +1164,7 @@
     <set name="reuseDelay" val="60000"/>
     <set name="skillRadius" val="150"/>
     <set name="skillType" val="PDAM"/>
-    <set name="soulConsumeCount" val="5"/> <!-- Temp fix till "soulMaxConsumeCount" gets fixed -->
+    <set name="soulMaxConsumeCount" val="5"/>
     <set name="target" val="TARGET_AURA"/>
     <for>
       <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
@@ -1191,7 +1191,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
-    <set name="soulConsumeCount" val="5"/> <!-- Temp fix till "soulMaxConsumeCount" gets fixed -->
+    <set name="soulMaxConsumeCount" val="5"/>
     <set name="hitTime" val="5000"/>
   </skill>
   <skill id="1451" levels="1" name="Fire Vortex Buster">
@@ -1504,7 +1504,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="600"/>
     <set name="effectRange" val="900"/>
-    <set name="soulConsumeCount" val="5"/> <!-- Temp fix till "soulMaxConsumeCount" gets fixed -->
+    <set name="soulMaxConsumeCount" val="5"/>
   </skill>
   <skill id="1470" levels="1" name="Prahnah">
     <!-- Needs retail value checks -->
