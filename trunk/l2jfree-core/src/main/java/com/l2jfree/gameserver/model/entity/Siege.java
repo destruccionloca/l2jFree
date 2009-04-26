@@ -1530,7 +1530,9 @@ public class Siege extends AbstractSiege
 	}
 
 	/**
-	 * Adds the given zone to the managed zone array. Called when loading zones.
+	 * <B>Adds the given zone to the managed zone array.</B><BR><BR>
+	 * Called when loading zones.<BR>
+	 * <U>The first zone registered will <I>always</I> be at the 0th cell.</U>
 	 * @param sdz Siege danger zone
 	 * @param east Side of the castle
 	 */
@@ -1564,17 +1566,15 @@ public class Siege extends AbstractSiege
 	}
 
 	/**
-	 * Enforces only level/list.length zones to be active.
-	 * @param east
-	 * @param level
+	 * Enforces only (area level)/(list.length) zones to be active.
+	 * @param east Which side of the castle?
+	 * @param level Area level
 	 */
 	public void activateOnLoad(boolean east, int level)
 	{
 		L2SiegeDangerZone[] list = getDangerZones(east);
-		if (list != null)
-			for (L2SiegeDangerZone sdz : list)
-				sdz.upgrade(0, 0);
-		activateZones(east, 0, level);
+		if (list != null && level <= list.length) //if enough zones are loaded
+			activateZones(east, 0, level);
 	}
 
 	/**

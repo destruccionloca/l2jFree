@@ -30,6 +30,7 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 
 /**
  * @author Savormix
@@ -118,6 +119,9 @@ public final class RecommendationManager
 			evaluator.addEvalRestriction(evaluated.getObjectId());
 			update(evaluator, evaluator.getEvaluations() - 1, evaluator.getEvalPoints());
 			update(evaluated, evaluated.getEvaluations(), evaluated.getEvalPoints() + 1);
+			//changed available evaluation count, notify ONLY the evaluator
+			//don't remove this again!
+			evaluator.sendPacket(new UserInfo(evaluator));
 			SystemMessage sm = new SystemMessage(SystemMessageId.YOU_HAVE_RECOMMENDED_S1_YOU_ARE_AUTHORIZED_TO_MAKE_S2_MORE_RECOMMENDATIONS);
 			sm.addPcName(evaluated);
 			sm.addNumber(evaluator.getEvaluations());

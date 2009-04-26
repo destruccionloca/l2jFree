@@ -47,44 +47,36 @@ public class ChangeWaitType2 extends L2GameClientPacket
 		_typeStand = (readD() == 1);
 	}
 
-	@SuppressWarnings("null")
 	@Override
 	protected void runImpl()
 	{
+		//WARNING: not used in CT2?
 		L2PcInstance player = getClient().getActiveChar();
-		L2Object target = player.getTarget();
-		if(player != null)
+		if (player == null) return;
+
+		if (player.isOutOfControl() || player.isTryingToSitOrStandup()
+				|| player.getMountType() != 0)
 		{
-			if (player.isOutOfControl())
-			{
-				player.sendPacket(ActionFailed.STATIC_PACKET);
-				return;
-			}
-			
-			if (player.getMountType() != 0) //prevent sit/stand if you riding
-				return;
-
-			if (target != null &&
-					target instanceof L2StaticObjectInstance &&
-					!player.isSitting()) {
-				if (!((L2StaticObjectInstance) target).useThrone(player))
-					player.sendMessage("Sitting on throne has failed.");
-				
-				return;
-			}
-
-			if (_typeStand)
-			{
-				if(player.getObjectSittingOn() != null)
-				{
-					player.getObjectSittingOn().setBusyStatus(null);
-					player.setObjectSittingOn(null);
-				}
-				player.standUp(false); // false - No forced standup but user requested - Checks if animation already running.
-			}
-			else
-				player.sitDown(false); // false - No forced sitdown but user requested - Checks if animation already running.
+			player.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
 		}
+
+		L2Object target = player.getTarget();
+		if (target instanceof L2StaticObjectInstance && !player.isSitting())
+		{
+			if (!((L2StaticObjectInstance) target).onSit(player))
+				player.sendMessage("Sitting on throne has failed.");
+			else
+				return;
+		}
+
+		if (_typeStand)
+		{
+			player.resetThrone();
+			player.standUp(false); // User requested - Checks if animation already running.
+		}
+		else
+			player.sitDown(false); // User requested - Checks if animation already running.
 	}
 
 	/* (non-Javadoc)

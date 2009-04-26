@@ -786,7 +786,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	private int								_transformationId		= 0;
 
-	private L2StaticObjectInstance			_objectSittingOn;
+	private L2StaticObjectInstance			_throne;
 
 	// Absorbed Souls
 	private int								_souls					= 0;
@@ -2518,6 +2518,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 		if (!(_waitTypeSitting || super.isAttackingDisabled() || isOutOfControl() || isImmobilized() || (!force && isTryingToSitOrStandup())))
 		{
+			_lastSitStandRequest = System.currentTimeMillis();
 			breakAttack();
 			_waitTypeSitting = true;
 			getAI().setIntention(CtrlIntention.AI_INTENTION_REST);
@@ -2543,6 +2544,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			sendMessage("The Admin/GM handle if you sit or stand in this match!");
 		else if (_waitTypeSitting && !isInStoreMode() && !isAlikeDead() && (!isTryingToSitOrStandup() || force))
 		{
+			_lastSitStandRequest = System.currentTimeMillis();
 			if (_relax)
 			{
 				setRelax(false);
@@ -11371,9 +11373,9 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (isCursedWeaponEquipped())
 			CursedWeaponsManager.getInstance().onExit(this);
 
-		if (_objectSittingOn != null)
-			_objectSittingOn.setBusyStatus(null);
-		_objectSittingOn = null;
+		if (_throne != null)
+			_throne.setOccupier(null);
+		_throne = null;
 
 		try
 		{
@@ -13627,12 +13629,23 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	public L2StaticObjectInstance getObjectSittingOn()
 	{
-		return _objectSittingOn;
+		return _throne;
 	}
 
-	public void setObjectSittingOn(L2StaticObjectInstance id)
+	public void setObjectSittingOn(L2StaticObjectInstance throne)
 	{
-		_objectSittingOn = id;
+		//prevent misuse
+		if (throne == null)
+			resetThrone();
+		else
+			_throne = throne;
+	}
+
+	public void resetThrone()
+	{
+		if (_throne == null) return;
+		_throne.setOccupier(null);
+		_throne = null;
 	}
 
 	public int getOlympiadOpponentId()

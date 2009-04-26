@@ -26,10 +26,12 @@ import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.knownlist.StaticObjectKnownList;
 import com.l2jfree.gameserver.model.actor.stat.StaticObjStat;
+import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ChairSit;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
@@ -55,7 +57,7 @@ public class L2StaticObjectInstance extends L2Character
 	private int _y;
 	private String _texture;
 	
-	private L2PcInstance actualPersonToSitOn = null;
+	private volatile L2PcInstance _occupier = null;
 	
 	/** This class may be created only by L2Character and only for AI */
 	public class AIAccessor extends L2Character.AIAccessor
@@ -139,14 +141,14 @@ public class L2StaticObjectInstance extends L2Character
 		return (StaticObjStat)_stat;
 	}
 	
-	public boolean isBusy()
+	public boolean isOccupied()
 	{
-		return (actualPersonToSitOn != null);
+		return (_occupier != null);
 	}
 	
-	public void setBusyStatus(L2PcInstance actualPersonToSitOn)
+	public void setOccupier(L2PcInstance actualPersonToSitOn)
 	{
-		this.actualPersonToSitOn = actualPersonToSitOn;
+		_occupier = actualPersonToSitOn;
 	}
 	
 	public int getType()
@@ -280,49 +282,44 @@ public class L2StaticObjectInstance extends L2Character
 		
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
-	
+
 	/**
-	 * Tries to use the StaticObjectInstance as a throne with the given player to assign to
-	 * 
-	 * @param player The actual person who wants to sit on the throne
-	 * @return Sitting was possible or not
+	 * <B>Check if the given player can sit on this throne</B> (<I>= if a CharSit packet can be
+	 * broadcast</I>)<BR>
+	 * Things done on check:
+	 * <LI>Occupier cleanup</LI>
+	 * <LI>Distance between player and throne</LI>
+	 * <LI>Object's type</LI>
+	 * <LI>Player's clan's castle status</LI>
+	 * <LI>Throne's castle status and equality to player's clan's castle</LI>
+	 * <LI>If configured, checked if a player is a clan's leader</LI>
+	 * @param player Player who changes wait type
+	 * @return whether the ChairSit was broadcasted
 	 */
-	public boolean useThrone(L2PcInstance player)
+	public boolean onSit(L2PcInstance player)
 	{
-		// This check is added if char that sits on the chair had
-		// a critical game error and throne wasn't release in a
-		// clean way to avoid that "isBusy" will be true all the
-		// way until server restarts.
-		if (actualPersonToSitOn != null && L2World.getInstance().findPlayer( // If the actual user isn't
-			actualPersonToSitOn.getObjectId()) == null) // found in the world anymore
-			setBusyStatus(null); // release me
-			
-		if (player.getTarget() != this || // Player's target isn't me or
-			getType() != 1 || // I'm no throne or
-			isBusy()) // I'm already in use
+		// This check is added if player that sits on the chair was not
+		// removed from the world properly
+		if (_occupier != null && L2World.getInstance().findPlayer( // If the actual user isn't
+				_occupier.getObjectId()) == null) // found in the world anymore
+				_occupier = null; // release me
+
+		if (player == null) return false;
+		if (!player.isInsideRadius(this, INTERACTION_DISTANCE, false, false))
 			return false;
-		
-		if (player.getClan() == null || // Player has no clan or
-			CastleManager.getInstance().getCastle(this) == null || // I got no castle assigned or
-			CastleManager.getInstance().getCastleById(player.getClan().getHasCastle()) == null) // Player's clan has no castle
+
+		Castle throneCastle = CastleManager.getInstance().getCastle(this);
+		if (getType() != 1 || isOccupied() || throneCastle == null)
 			return false;
-		
-		if (!player.isInsideRadius(this, // Player is not in radius
-			INTERACTION_DISTANCE, false, false)) // to interact with me
+		L2Clan c = player.getClan();
+		if (c == null) return false;
+		if (c.getHasCastle() != throneCastle.getCastleId())
 			return false;
-		
-		if (CastleManager.getInstance().getCastle(this) != // Player's clan castle isn't
-		CastleManager.getInstance().getCastleById( // the same as mine
-			player.getClan().getHasCastle()))
+		if (Config.ALT_ONLY_CLANLEADER_CAN_SIT_ON_THRONE && !player.isClanLeader())
 			return false;
-		
-		if (Config.ALT_ONLY_CLANLEADER_CAN_SIT_ON_THRONE && // Only clan leader can use throne is set and
-			player.getObjectId() != player.getClan().getLeaderId()) // Player is not the clan leader
-			return false;
-		
-		setBusyStatus(player);
+
+		setOccupier(player);
 		player.setObjectSittingOn(this);
-		
 		ChairSit cs = new ChairSit(player, getStaticObjectId());
 		player.sitDown();
 		player.broadcastPacket(cs);

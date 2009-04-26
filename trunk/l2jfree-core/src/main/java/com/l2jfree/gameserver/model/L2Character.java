@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.model;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_ACTIVE;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_ATTACK;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_FOLLOW;
+import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_MOVE_TO;
 
 import java.util.List;
 import java.util.Map;
@@ -317,7 +318,11 @@ public abstract class L2Character extends L2Object
 	public boolean destroyItemByItemId(String process, int itemId, int count, L2Object reference, boolean sendMessage)
 	{
 		// Default: NPCs consume virtual items for their skills
-		// TODO: should be logged if even happens.. should be false
+		if (_log.isDebugEnabled())
+		{
+			_log.warn("destroyItem called for L2Character!");
+			Thread.dumpStack();
+		}
 		return true;
 	}
 
@@ -331,7 +336,11 @@ public abstract class L2Character extends L2Object
 	public boolean destroyItem(String process, int objectId, int count, L2Object reference, boolean sendMessage)
 	{
 		// Default: NPCs consume virtual items for their skills
-		// TODO: should be logged if even happens.. should be false
+		if (_log.isDebugEnabled())
+		{
+			_log.warn("destroyItem called for L2Character!");
+			Thread.dumpStack();
+		}
 		return true;
 	}
 
@@ -906,7 +915,7 @@ public abstract class L2Character extends L2Object
 		// TODO: unhardcode this to support boolean if with that weapon u can attack or not (for ex transform weapons)
 		if (weaponInst != null && weaponInst.getItemId() == 9819)
 		{
-			sendPacket(new SystemMessage(SystemMessageId.THAT_WEAPON_CANT_ATTACK));
+			sendPacket(SystemMessageId.THAT_WEAPON_CANT_ATTACK);
 			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
@@ -5779,7 +5788,7 @@ public abstract class L2Character extends L2Object
 		return removeSkill(skill.getId(), true);
 	}
 
-	public L2Skill removeSkill(L2Skill skill, @SuppressWarnings("unused") boolean cancelEffect)
+	public L2Skill removeSkill(L2Skill skill, boolean cancelEffect)
 	{
 		if (skill == null)
 			return null;
@@ -6042,8 +6051,9 @@ public abstract class L2Character extends L2Object
 		onMagicHitTimer(magicEnv);
 	}
 	
-	/*
+	/**
 	 * Runs in the end of skill casting
+	 * @param magicEnv
 	 */
 	private final void onMagicHitTimer(MagicEnv magicEnv)
 	{
@@ -6222,8 +6232,9 @@ public abstract class L2Character extends L2Object
 		}
 	}
 	
-	/*
+	/**
 	 * Runs after skill hitTime+coolTime
+	 * @param magicEnv
 	 */
 	private final void onMagicFinalizer(MagicEnv magicEnv)
 	{
@@ -6248,37 +6259,37 @@ public abstract class L2Character extends L2Object
 		// if(isCastingNow())
 		// getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE, null);
 
-		switch (skill.getSkillType())
-		{
-			case PDAM:
-			case BLOW:
-			case CHARGEDAM:
-			case SPOIL:
-			case STUN:
-				final L2Character originalTarget = magicEnv._originalTarget;
-				final L2Character originalSkillTarget = magicEnv._originalSkillTarget;
-				final L2Object currentTarget = L2Object.getActingCharacter(getTarget());
-				
-				L2Object newTarget = null;
-				
-				if (originalSkillTarget != null && originalSkillTarget != this && originalSkillTarget == currentTarget)
-					newTarget = originalSkillTarget;
-				else if (originalTarget != null && originalTarget != this && originalTarget == currentTarget)
-					newTarget = originalTarget;
-				
+			switch (skill.getSkillType())
+			{
+				case PDAM:
+				case BLOW:
+				case CHARGEDAM:
+				case SPOIL:
+				case STUN:
+					final L2Character originalTarget = magicEnv._originalTarget;
+					final L2Character originalSkillTarget = magicEnv._originalSkillTarget;
+					final L2Object currentTarget = L2Object.getActingCharacter(getTarget());
+					
+					L2Object newTarget = null;
+					
+					if (originalSkillTarget != null && originalSkillTarget != this && originalSkillTarget == currentTarget)
+						newTarget = originalSkillTarget;
+					else if (originalTarget != null && originalTarget != this && originalTarget == currentTarget)
+						newTarget = originalTarget;
+					
 				if (//As far as I remember, you can move away after launching a skill without hitting
-					getAI().getIntention() != CtrlIntention.AI_INTENTION_MOVE_TO
+					getAI().getIntention() != AI_INTENTION_MOVE_TO
 					//And you will not auto-attack a non-flagged player after launching a skill
 					&& newTarget != null && newTarget.isAutoAttackable(this))
-				{
-					double distance = Util.calculateDistance(this, newTarget, false);
-					
-					// if the skill is melee, or almost in the range of a normal attack
-					if (getMagicalAttackRange(skill) < 200 || getPhysicalAttackRange() + 200 > distance)
-						getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, newTarget);
-				}
-				break;
-		}
+					{
+						double distance = Util.calculateDistance(this, newTarget, false);
+						
+						// if the skill is melee, or almost in the range of a normal attack
+						if (getMagicalAttackRange(skill) < 200 || getPhysicalAttackRange() + 200 > distance)
+							getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, newTarget);
+					}
+					break;
+			}
 		
 		switch (skill.getSkillType())
 		{
@@ -6841,8 +6852,7 @@ public abstract class L2Character extends L2Object
 	 * Return a Random Damage in function of the weapon.<BR>
 	 * <BR>
 	 */
-	public final int getRandomDamage(@SuppressWarnings("unused")
-	L2Character target)
+	public final int getRandomDamage(L2Character target)
 	{
 		L2Weapon weaponItem = getActiveWeaponItem();
 

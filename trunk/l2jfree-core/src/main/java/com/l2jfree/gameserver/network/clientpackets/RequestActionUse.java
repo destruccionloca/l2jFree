@@ -78,7 +78,8 @@ public class RequestActionUse extends L2GameClientPacket
 		if (_log.isDebugEnabled())
 			_log.debug(activeChar.getName() + " request Action use: id " + _actionId + " 2:" + _ctrlPressed + " 3:" + _shiftPressed);
 
-		if (activeChar.isAlikeDead() || activeChar.isOutOfControl())
+		if (activeChar.isAlikeDead() || activeChar.isOutOfControl() ||
+				activeChar.isTryingToSitOrStandup())
 		{
 			getClient().sendPacket(ActionFailed.STATIC_PACKET);
 			return;
@@ -107,26 +108,21 @@ public class RequestActionUse extends L2GameClientPacket
 			if (activeChar.getMountType() != 0)
 				break;
 
-			if (target != null &&
-					target instanceof L2StaticObjectInstance &&
-					!activeChar.isSitting()) {
-				if (!((L2StaticObjectInstance) target).useThrone(activeChar))
+			if (target instanceof L2StaticObjectInstance && !activeChar.isSitting())
+			{
+				if (!((L2StaticObjectInstance) target).onSit(activeChar))
 					activeChar.sendMessage("Sitting on throne has failed.");
-				
-				break;
+				else
+					return;
 			}
 
 			if (activeChar.isSitting())
 			{
-				activeChar.standUp(false); // false - No forced standup but user requested - Checks if animation already running.
-				if (activeChar.getObjectSittingOn() != null)
-				{
-					activeChar.getObjectSittingOn().setBusyStatus(null);
-					activeChar.setObjectSittingOn(null);
-				}
+				activeChar.resetThrone();
+				activeChar.standUp(false); // User requested - Checks if animation already running.
 			}
 			else
-				activeChar.sitDown(false); // false - No forced sitdown but user requested - Checks if animation already running.
+				activeChar.sitDown(false); // User requested - Checks if animation already running.
 
 			if (_log.isDebugEnabled())
 				_log.debug("new wait type: " + (activeChar.isSitting() ? "STANDING" : "SITTING"));
