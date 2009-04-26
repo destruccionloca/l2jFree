@@ -118,21 +118,21 @@ while larger have _e (east) and _w (west),
   </zone>
   <zone id="14" name="aden_slow_damage_2e" type="SiegeDanger">
     <entity castleId="5"/>
-    <shape type="Poly" zMin="-528" zMax="-328">
+    <shape type="Rect" zMin="-528" zMax="-328">
       <point x="149084" y="6813"/>
       <point x="149349" y="6948"/>
     </shape>
   </zone>
   <zone id="15" name="aden_slow_damage_3e" type="SiegeDanger">
     <entity castleId="5"/>
-    <shape type="Poly" zMin="-528" zMax="-328">
+    <shape type="Rect" zMin="-528" zMax="-328">
       <point x="149084" y="6941"/>
       <point x="149349" y="7076"/>
     </shape>
   </zone>
   <zone id="16" name="aden_slow_damage_4e" type="SiegeDanger">
     <entity castleId="5"/>
-    <shape type="Poly" zMin="-560" zMax="-360">
+    <shape type="Rect" zMin="-560" zMax="-360">
       <point x="149084" y="7069"/>
       <point x="149349" y="7204"/>
     </shape>
