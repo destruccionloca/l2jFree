@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE list SYSTEM "zones.dtd">
 <!-- TODO: Schuttgart, Primeval Isle Wharf -->
 <list>
   <zone id="1" name="Talking Island" type="Town">
-    <!--<settings pvp="Peace"/> Overriden -->
+    <!--<settings pvp="Peace"/> Overridden -->
     <entity townId="0" castleId="1"/>
     <shape type="Poly" zMin="-3966" zMax="-3466">
       <point x="-84028" y="239722"/>
@@ -159,14 +160,14 @@
       <point x="-97476" y="261419"/>
     </shape>
     <shape type="Poly" zMin="-3670" zMax="-3470">
-      <point x="-97237" y="259333" z="-3670"/>
-      <point x="-96923" y="259333" z="-3670"/>
-      <point x="-96923" y="259637" z="-3670"/>
-      <point x="-97237" y="259637" z="-3470"/>
+      <point x="-97237" y="259333"/>
+      <point x="-96923" y="259333"/>
+      <point x="-96923" y="259637"/>
+      <point x="-97237" y="259637"/>
     </shape>
   </zone>
   <zone id="5" name="DE Village" type="Town">
-    <!--<settings pvp="Peace"/> Overriden -->
+    <!--<settings pvp="Peace"/> Overridden -->
     <entity townId="2" castleId="4"/>
     <shape type="Poly" zMin="-8507" zMax="-1507">
       <point x="15719" y="16735"/>
@@ -203,7 +204,7 @@
     </shape>
   </zone>
   <zone id="7" name="Elven Village" type="Town">
-    <!--<settings pvp="Peace"/> Overriden -->
+    <!--<settings pvp="Peace"/> Overridden -->
     <entity townId="1" castleId="4"/>
     <shape type="Poly" zMin="-3511" zMax="-2011">
       <point x="47758" y="51443"/>
@@ -271,7 +272,7 @@
     </shape>
   </zone>
   <zone id="9" name="Gludio Castle Town" type="Town">
-    <!--<settings pvp="Peace"/> Overriden -->
+    <!--<settings pvp="Peace"/> Overridden -->
     <entity townId="5" castleId="1"/>
     <shape type="Poly" zMin="-3245" zMax="-2745">
       <point x="-11998" y="123905"/>
@@ -295,7 +296,7 @@
     </shape>
   </zone>
   <zone id="10" name="Gludin Village" type="Town">
-    <!--<settings pvp="Peace"/> Overriden -->
+    <!--<settings pvp="Peace"/> Overridden -->
     <entity townId="6" castleId="1"/>
     <shape type="Poly" zMin="-3244" zMax="-2744">
       <point x="-79283" y="149148"/>
@@ -309,16 +310,16 @@
       <point x="-81337" y="152419"/>
     </shape>
     <shape type="Poly" zMin="-3276" zMax="-2776">
-      <point x="-84884" y="152261" z="-3276"/>
-      <point x="-78803" y="152218" z="-3276"/>
-      <point x="-78803" y="156106" z="-3276"/>
-      <point x="-84884" y="156113" z="-2776"/>
+      <point x="-84884" y="152261"/>
+      <point x="-78803" y="152218"/>
+      <point x="-78803" y="156106"/>
+      <point x="-84884" y="156113"/>
     </shape>
     <shape type="Poly" zMin="-3291" zMax="-2791">
-      <point x="-80701" y="155963" z="-3291"/>
-      <point x="-79097" y="154122" z="-3291"/>
-      <point x="-77125" y="155447" z="-3291"/>
-      <point x="-77977" y="156512" z="-2791"/>
+      <point x="-80701" y="155963"/>
+      <point x="-79097" y="154122"/>
+      <point x="-77125" y="155447"/>
+      <point x="-77977" y="156512"/>
     </shape>
   </zone>
   <zone id="11" name="Gludin Harbor">
@@ -341,7 +342,7 @@
     </shape>
   </zone>
   <zone id="12" name="Dion Castle Town" type="Town">
-    <!--<settings pvp="Peace"/> Overriden -->
+    <!--<settings pvp="Peace"/> Overridden -->
     <entity townId="7" castleId="2"/>
     <shape type="Poly" zMin="-3157" zMax="-2157">
       <point x="14290" y="141403"/>
@@ -383,7 +384,7 @@
     </shape>
   </zone>
   <zone id="13" name="Floran Village" type="Town">
-    <!--<settings pvp="Peace"/> Overriden -->
+    <!--<settings pvp="Peace"/> Overridden -->
     <entity townId="19" castleId="1"/>
     <shape type="Poly" zMin="-3957" zMax="-3357">
       <point x="18134" y="169527"/>
@@ -420,7 +421,7 @@
     </shape>
   </zone>
   <zone id="14" name="Giran Castle Town" type="Town">
-    <!--<settings pvp="Peace"/> Overriden -->
+    <!--<settings pvp="Peace"/> Overridden -->
     <entity townId="8" castleId="3"/>
     <shape type="Poly" zMin="-3464" zMax="-3264">
       <point x="85048" y="145756"/>
@@ -520,7 +521,7 @@
     </shape>
   </zone>
   <zone id="15" name="Giran Harbor" type="Town">
-    <!--<settings pvp="Peace"/> Overriden -->
+    <!--<settings pvp="Peace"/> Overridden -->
     <entity townId="12" castleId="8"/>
     <shape type="Poly" zMin="-3911" zMax="-3411">
       <point x="47189" y="185982"/>
@@ -529,22 +530,22 @@
       <point x="49719" y="190044"/>
     </shape>
     <shape type="Poly" zMin="-3811" zMax="-3311">
-      <point x="45288" y="186705" z="-3811"/>
-      <point x="47947" y="185316" z="-3811"/>
-      <point x="50535" y="189487" z="-3811"/>
-      <point x="47639" y="191052" z="-3311"/>
+      <point x="45288" y="186705"/>
+      <point x="47947" y="185316"/>
+      <point x="50535" y="189487"/>
+      <point x="47639" y="191052"/>
     </shape>
     <shape type="Poly" zMin="-3606" zMax="-3106">
-      <point x="43935" y="187891" z="-3606"/>
-      <point x="45949" y="186815" z="-3606"/>
-      <point x="46215" y="187346" z="-3606"/>
-      <point x="44226" y="188420" z="-3106"/>
+      <point x="43935" y="187891"/>
+      <point x="45949" y="186815"/>
+      <point x="46215" y="187346"/>
+      <point x="44226" y="188420"/>
     </shape>
     <shape type="Poly" zMin="-3814" zMax="-3314">
-      <point x="41861" y="188551" z="-3814"/>
-      <point x="44221" y="187269" z="-3814"/>
-      <point x="46275" y="191156" z="-3814"/>
-      <point x="44031" y="192413" z="-3314"/>
+      <point x="41861" y="188551"/>
+      <point x="44221" y="187269"/>
+      <point x="46275" y="191156"/>
+      <point x="44031" y="192413"/>
     </shape>
   </zone>
   <zone id="16" name="Hardin's Academy">
@@ -570,7 +571,7 @@
     </shape>
   </zone>
   <zone id="18" name="Orc Village" type="Town">
-    <!--<settings pvp="Peace"/> Overriden -->
+    <!--<settings pvp="Peace"/> Overridden -->
     <entity townId="3" castleId="9"/>
     <shape type="Poly" zMin="-397" zMax="603">
       <point x="-42044" y="-113585"/>
@@ -611,7 +612,7 @@
     </shape>
   </zone>
   <zone id="20" name="Dwarven Village" type="Town">
-    <!--<settings pvp="Peace"/> Overriden -->
+    <!--<settings pvp="Peace"/> Overridden -->
     <entity townId="4" castleId="9"/>
     <shape type="Poly" zMin="-1600" zMax="-400">
       <point x="117520" y="-181718"/>
@@ -667,7 +668,7 @@
     </shape>
   </zone>
   <zone id="21" name="Town of Oren" type="Town">
-    <!--<settings pvp="Peace"/> Overriden -->
+    <!--<settings pvp="Peace"/> Overridden -->
     <entity townId="9" castleId="4"/>
     <shape type="Poly" zMin="-1822" zMax="-1022">
       <point x="78900" y="52076"/>
@@ -694,7 +695,7 @@
     </shape>
   </zone>
   <zone id="23" name="Hunters Village" type="Town">
-    <!--<settings pvp="Peace"/> Overriden -->
+    <!--<settings pvp="Peace"/> Overridden -->
     <entity townId="11" castleId="5"/>
     <shape type="Poly" zMin="-2769" zMax="-1249">
       <point x="120837" y="78996"/>
@@ -710,7 +711,7 @@
     </shape>
   </zone>
   <zone id="24" name="Town of Aden" type="Town">
-    <!--<settings pvp="Peace"/> Overriden -->
+    <!--<settings pvp="Peace"/> Overridden -->
     <entity townId="10" castleId="5"/>
     <shape type="Poly" zMin="-2532" zMax="-1032">
       <point x="150222" y="20224"/>
@@ -748,7 +749,7 @@
     </shape>
   </zone>
   <zone id="25" name="Heine" type="Town">
-    <!--<settings pvp="Peace"/> Overriden -->
+    <!--<settings pvp="Peace"/> Overridden -->
     <entity townId="13" castleId="6"/>
     <shape type="Poly" zMin="-4287" zMax="-3287">
       <point x="106085" y="216119"/>
@@ -770,7 +771,7 @@
     </shape>
   </zone>
   <zone id="26" name="Town of Goddard" type="Town">
-    <!--<settings pvp="Peace"/> Overriden -->
+    <!--<settings pvp="Peace"/> Overridden -->
     <entity townId="15" castleId="7"/>
     <shape type="Poly" zMin="-4928" zMax="1027">
       <point x="146517" y="-59854"/>
@@ -786,7 +787,7 @@
     </shape>
   </zone>
   <zone id="27" name="Rune Township" type="Town">
-    <!--<settings pvp="Peace"/> Overriden -->
+    <!--<settings pvp="Peace"/> Overridden -->
     <entity townId="14" castleId="8"/>
     <shape type="Poly" zMin="-1516" zMax="484">
       <point x="39503" y="-52761"/>
@@ -810,9 +811,9 @@
       <point x="46334" y="-46534"/>
     </shape>
   </zone>
-  <!-- TODO -->
+  <!-- TODO: must fix zMin and zMax -->
   <zone id="28" name="Schuttgart" type="Town">
-    <!--<settings pvp="Peace"/> Overriden -->
+    <!--<settings pvp="Peace"/> Overridden -->
     <entity townId="16" castleId="9"/>
     <shape type="Rect">
       <point x="83881" y="-146500"/>
@@ -820,7 +821,7 @@
     </shape>
   </zone>
   <zone id="29" name="Dimensional Gap" type="Town">
-    <!--<settings pvp="Peace"/> Overriden -->
+    <!--<settings pvp="Peace"/> Overridden -->
     <entity townId="17" castleId="9"/>
     <shape type="Poly" zMin="-6964" zMax="-6064">
       <point x="-115441" y="-182134"/>
@@ -829,12 +830,23 @@
       <point x="-115476" y="-178021"/>
     </shape>
   </zone>
-  <!-- TODO -->
-  <zone id="30" name="Primeval Isle Wharf">
+  <!-- Retail zone - done by Savormix -->
+  <zone id="30" name="Primeval Isle Wharf" type="Town">
     <entity townId="18" castleId="8"/>
-    <shape type="Rect">
-      <point x="9458" y="-24206"/>
-      <point x="10773" y="-22441"/>
+    <shape type="Poly" zMin="-3000" zMax="2424">
+      <point x="12246" y="-27002"/>
+      <point x="12488" y="-24046"/>
+      <point x="12379" y="-23444"/>
+      <point x="11652" y="-22784"/>
+      <point x="10734" y="-22309"/>
+      <point x="9823" y="-22553"/>
+      <point x="8616" y="-22449"/>
+      <point x="8050" y="-22291"/>
+      <point x="7330" y="-22290"/>
+      <point x="6733" y="-22426"/>
+      <point x="5310" y="-23186"/>
+      <point x="4180" y="-23239"/>
+      <point x="5706" y="-26952"/>
     </shape>
   </zone>
   <zone id="31" name="ssq_peace_1720_01">
@@ -892,7 +904,7 @@
     </shape>
   </zone>
   <zone id="37" name="Kamael Village" type="Town">
-    <!--<settings pvp="Peace"/> Overriden -->
+    <!--<settings pvp="Peace"/> Overridden -->
     <entity townId="19" castleId="5"/>
     <shape type="Poly" zMin="250" zMax="2250">
       <point x="-121743" y="44424"/>
@@ -930,7 +942,7 @@
     </shape>
   </zone>
   <zone id="38" name="Fantasy Isle" type="Town">
-    <!--<settings pvp="Peace"/> Overriden -->
+    <!--<settings pvp="Peace"/> Overridden -->
     <entity townId="20" castleId="5"/>
     <shape type="Rect" zMin="-4324" zMax="3097">
       <point x="-88871" y="-43491"/>

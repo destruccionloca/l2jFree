@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE list SYSTEM "zones.dtd">
 <list>
   <zone id="1" name="ToI">
     <settings noLanding="true"/>
-    <shape type="Rect">
+    <shape type="Rect"> <!-- TODO: must specify zMin and zMax -->
       <point x="109448" y="10233"/>
       <point x="118547" y="21446"/>
     </shape>

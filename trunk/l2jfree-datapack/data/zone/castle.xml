@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE list SYSTEM "zones.dtd">
 <!-- TODO: Rune, Schuttgart -->
 <list>
   <zone id="1" name="Gludio" type="Castle">
@@ -551,10 +552,10 @@
   </zone>
   <zone id="41" name="Schuttgart" type="Castle">
     <entity castleId="9"/>
+    <restart_chaotic x="142656" y="-55008" z="-3024"/>
     <restart_owner x="77536" y="-153295" z="-389"/>
     <!--<restart_owner x="77524" y="-152709" z="-545"/>-->
-    <restart_chaotic x="142656" y="-55008" z="-3024"/>
-    <shape type="Rect">
+    <shape type="Rect" zMin="-700" zMax="1750">
       <point x="73694" y="-156000"/>
       <point x="81286" y="-149400"/>
     </shape>
@@ -584,7 +585,7 @@
   </zone>
   <zone id="45" name="Schuttgart Siege" type="Siege">
     <entity castleId="9"/>
-    <shape type="Rect">
+    <shape type="Rect" zMin="-700" zMax="1750">
       <point x="73000" y="-156600"/>
       <point x="82560" y="-145920"/>
     </shape>

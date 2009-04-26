@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE list SYSTEM "zones.dtd">
 <list>
   <zone id="1" name="Stadia 1" type="Stadium">
     <shape type="Rect" zMin="-3400" zMax="-3000">

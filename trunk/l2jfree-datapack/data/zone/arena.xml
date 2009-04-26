@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE list SYSTEM "zones.dtd">
 <list>
   <zone id="1" name="Gludin Arena" type="Arena">
     <settings pvp="Arena"/>

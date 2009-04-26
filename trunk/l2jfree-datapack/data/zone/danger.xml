@@ -1,9 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE list SYSTEM "zones.dtd">
 <!-- All these zones taken from retail. Done by Savormix -->
 <list>
   <!-- Blazing swamp in Aden area -->
   <!-- Anyone can check retail which level? -->
   <zone id="1" name="fireswamp_1" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
     <skill applyEnter="4150,6;4625,3" removeExit="4150;4625"/><!-- Flame, Swamp -->
     <shape type="Poly" zMin="-4752" zMax="-4352">
       <point x="141408" y="-9676"/>
@@ -16,7 +18,7 @@
     </shape>
   </zone>
   <zone id="2" name="fireswamp_2" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
     <skill applyEnter="4150,6;4625,3" removeExit="4150;4625"/><!-- Flame, Swamp -->
     <shape type="Poly" zMin="-4908" zMax="-4508">
       <point x="143780" y="-8144"/>
@@ -29,7 +31,7 @@
     </shape>
   </zone>
   <zone id="3" name="fireswamp_3" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
     <skill applyEnter="4150,6;4625,3" removeExit="4150;4625"/><!-- Flame, Swamp -->
     <shape type="Poly" zMin="-4776" zMax="-4376">
       <point x="144144" y="-7020"/>
@@ -39,7 +41,7 @@
     </shape>
   </zone>
   <zone id="4" name="fireswamp_4" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
     <skill applyEnter="4150,6;4625,3" removeExit="4150;4625"/><!-- Flame, Swamp -->
     <shape type="Poly" zMin="-4888" zMax="-4288">
       <point x="144060" y="-6240"/>
@@ -51,7 +53,7 @@
     </shape>
   </zone>
   <zone id="5" name="fireswamp_5" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
     <skill applyEnter="4150,6;4625,3" removeExit="4150;4625"/><!-- Flame, Swamp -->
     <shape type="Poly" zMin="-4672" zMax="-4272">
       <point x="148616" y="-9208"/>
@@ -63,7 +65,7 @@
     </shape>
   </zone>
   <zone id="6" name="fireswamp_6" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
     <skill applyEnter="4150,6;4625,3" removeExit="4150;4625"/><!-- Flame, Swamp -->
     <shape type="Poly" zMin="-4676" zMax="-4276">
       <point x="151636" y="-8512"/>
@@ -74,7 +76,7 @@
     </shape>
   </zone>
   <zone id="7" name="fireswamp_7" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
     <skill applyEnter="4150,6;4625,3" removeExit="4150;4625"/><!-- Flame, Swamp -->
     <shape type="Poly" zMin="-4728" zMax="-4328">
       <point x="150728" y="-10176"/>
@@ -84,7 +86,7 @@
     </shape>
   </zone>
   <zone id="8" name="fireswamp_8" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
     <skill applyEnter="4150,6;4625,3" removeExit="4150;4625"/><!-- Flame, Swamp -->
     <shape type="Poly" zMin="-4636" zMax="-4036">
       <point x="151192" y="-12588"/>
@@ -94,7 +96,7 @@
     </shape>
   </zone>
   <zone id="9" name="fireswamp_9" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
     <skill applyEnter="4150,6;4625,3" removeExit="4150;4625"/><!-- Flame, Swamp -->
     <shape type="Poly" zMin="-4700" zMax="-4300">
       <point x="150456" y="-15148"/>
@@ -105,7 +107,7 @@
     </shape>
   </zone>
   <zone id="10" name="fireswamp_10" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
     <skill applyEnter="4150,6;4625,3" removeExit="4150;4625"/><!-- Flame, Swamp -->
     <shape type="Poly" zMin="-4572" zMax="-3972">
       <point x="145032" y="-15132"/>
@@ -116,7 +118,7 @@
     </shape>
   </zone>
   <zone id="11" name="fireswamp_11" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
     <skill applyEnter="4150,6;4625,3" removeExit="4150;4625"/><!-- Flame, Swamp -->
     <shape type="Poly" zMin="-4572" zMax="-4172">
       <point x="148288" y="-14420"/>
@@ -126,7 +128,7 @@
     </shape>
   </zone>
   <zone id="12" name="fireswamp_12" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
     <skill applyEnter="4150,6;4625,3" removeExit="4150;4625"/><!-- Flame, Swamp -->
     <shape type="Poly" zMin="-4476" zMax="-2976">
       <point x="146120" y="-18720"/>
@@ -136,7 +138,7 @@
     </shape>
   </zone>
   <zone id="13" name="fireswamp_13" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
     <skill applyEnter="4150,6;4625,3" removeExit="4150;4625"/><!-- Flame, Swamp -->
     <shape type="Poly" zMin="-4604" zMax="-4204">
       <point x="140616" y="-16808"/>
@@ -146,7 +148,7 @@
     </shape>
   </zone>
   <zone id="14" name="fireswamp_14" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
     <skill applyEnter="4150,6;4625,3" removeExit="4150;4625"/><!-- Flame, Swamp -->
     <shape type="Poly" zMin="-3476" zMax="-3076">
       <point x="148892" y="-23044"/>
@@ -158,7 +160,7 @@
     </shape>
   </zone>
   <zone id="15" name="fireswamp_15" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
     <skill applyEnter="4150,6;4625,3" removeExit="4150;4625"/><!-- Flame, Swamp -->
     <shape type="Poly" zMin="-3208" zMax="-1608">
       <point x="143804" y="-27456"/>
@@ -171,7 +173,7 @@
   <!-- Devil's Isle -->
   <!-- Anyone can check retail which skill & level? -->
   <zone id="16" name="devil_damage_001" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
     <skill applyEnter="4149,12" removeExit="4149"/><!-- Bleed? -->
     <shape type="Poly" zMin="-4048" zMax="-3848">
       <point x="51296" y="205421"/>
@@ -181,7 +183,7 @@
     </shape>
   </zone>
   <zone id="17" name="devil_damage_002" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
     <skill applyEnter="4149,12" removeExit="4149"/><!-- Bleed? -->
     <shape type="Poly" zMin="-4032" zMax="-3732">
       <point x="51820" y="205340"/>
@@ -191,7 +193,7 @@
     </shape>
   </zone>
   <zone id="18" name="devil_damage_003" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
     <skill applyEnter="4149,12" removeExit="4149"/><!-- Bleed? -->
     <shape type="Poly" zMin="-3776" zMax="-3626">
       <point x="43439" y="213259"/>
@@ -201,7 +203,7 @@
     </shape>
   </zone>  
   <zone id="19" name="devil_damage_004" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
     <skill applyEnter="4149,12" removeExit="4149"/><!-- Bleed? -->
     <shape type="Poly" zMin="-3764" zMax="-3564">
       <point x="42805" y="214266"/>
@@ -211,7 +213,7 @@
     </shape>
   </zone>
   <zone id="20" name="devil_damage_005" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
     <skill applyEnter="4149,12" removeExit="4149"/><!-- Bleed? -->
     <shape type="Poly" zMin="-3856" zMax="-3656">
       <point x="43511" y="218426"/>
@@ -221,7 +223,7 @@
     </shape>
   </zone>
   <zone id="21" name="devil_damage_006" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
     <skill applyEnter="4149,12" removeExit="4149"/><!-- Bleed? -->
     <shape type="Poly" zMin="-3940" zMax="-3740">
       <point x="43012" y="218850"/>
@@ -231,7 +233,7 @@
     </shape>
   </zone>
   <zone id="22" name="devil_damage_007" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
     <skill applyEnter="4149,12" removeExit="4149"/><!-- Bleed? -->
     <shape type="Poly" zMin="-3060" zMax="-2860">
       <point x="50630" y="211383"/>
@@ -241,7 +243,7 @@
     </shape>
   </zone>
   <zone id="23" name="devil_damage_008" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
     <skill applyEnter="4149,12" removeExit="4149"/><!-- Bleed? -->
     <shape type="Poly" zMin="-4008" zMax="-3608">
       <point x="51820" y="206520"/>
@@ -251,7 +253,7 @@
     </shape>
   </zone>
   <zone id="24" name="devil_damage_009" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
     <skill applyEnter="4149,12" removeExit="4149"/><!-- Bleed? -->
     <shape type="Poly" zMin="-3056" zMax="-2706">
       <point x="50673" y="210566"/>
@@ -261,7 +263,7 @@
     </shape>
   </zone>
   <zone id="25" name="devil_damage_010" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
     <skill applyEnter="4149,12" removeExit="4149"/><!-- Bleed? -->
     <shape type="Poly" zMin="-2736" zMax="-2536">
       <point x="50608" y="209718"/>
@@ -271,7 +273,7 @@
     </shape>
   </zone>
   <zone id="26" name="devil_poison_001" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
     <skill applyEnter="4148,12" removeExit="4148"/><!-- Poison -->
     <shape type="Poly" zMin="-3752" zMax="-3552">
       <point x="41707" y="211982"/>
@@ -285,7 +287,7 @@
     </shape>
   </zone>
   <zone id="27" name="devil_poison_002" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
     <skill applyEnter="4148,12" removeExit="4148"/><!-- Poison -->
     <shape type="Poly" zMin="-3800" zMax="-3600">
       <point x="45296" y="213219"/>
@@ -296,7 +298,7 @@
     </shape>
   </zone>
   <zone id="28" name="devil_poison_003" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
     <skill applyEnter="4148,12" removeExit="4148"/><!-- Poison -->
     <shape type="Poly" zMin="-3628" zMax="-3428">
       <point x="47790" y="220792"/>
@@ -307,7 +309,7 @@
   </zone>
   <!-- Retail has only this 8th zone :D -->
   <zone id="29" name="devil_slow_8" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
     <skill applyEnter="4625,12" removeExit="4625"/><!-- Swamp -->
     <shape type="Poly" zMin="-3964" zMax="-3364">
       <point x="55250" y="210873"/>
@@ -322,7 +324,7 @@
   </zone>
   <!-- Raidboss: Zaken's Butcher Krantz -->
   <zone id="30" name="devil_healing_zone" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="npc"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="npc"/>
   <skill applyEnter="4698,12" removeExit="4698"/><!-- Area Buff - HP Regeneration -->
     <shape type="Poly" zMin="-3913" zMax="-3413">
       <point x="41520" y="205163"/>
@@ -335,7 +337,7 @@
 
   <!-- Four sepulchers -->
   <zone id="31" name="conquerors_weakness_pddown_poison_nonheal" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
     <!-- Weakness, P. Def. Down, Poison, Nonheal -->
     <skill applyEnter="4145,3;4146,3;4148,12;4624,12" removeExit="4145;4146;4148;4624"/>
     <shape type="Poly" zMin="-7260" zMax="-7010">
@@ -346,7 +348,7 @@
     </shape>
   </zone>
   <zone id="32" name="lords_weakness_pddown_poison_nonheal" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" noHeal="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" noHeal="true" affected="playable"/>
     <!-- Weakness, P. Def. Down, Poison, Nonheal -->
     <skill applyEnter="4145,3;4146,3;4148,12;4624,12" removeExit="4145;4146;4148;4624"/>
     <shape type="Poly" zMin="-7265" zMax="-7015">
@@ -357,7 +359,7 @@
     </shape>
   </zone>
   <zone id="33" name="savants_weakness_pddown_poison_nonheal" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" noHeal="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" noHeal="true" affected="playable"/>
     <!-- Weakness, P. Def. Down, Poison, Nonheal -->
     <skill applyEnter="4145,3;4146,3;4148,12;4624,12" removeExit="4145;4146;4148;4624"/>
     <shape type="Poly" zMin="-7262" zMax="-7012">
@@ -368,7 +370,7 @@
     </shape>
   </zone>
   <zone id="34" name="magistrates_weakness_pddown_poison_nonheal" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" noHeal="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" noHeal="true" affected="playable"/>
     <!-- Weakness, P. Def. Down, Poison, Nonheal -->
     <skill applyEnter="4145,3;4146,3;4148,12;4624,12" removeExit="4145;4146;4148;4624"/>
     <shape type="Poly" zMin="-7262" zMax="-7012">
@@ -381,7 +383,7 @@
 
   <!-- Forge of Gods & Hall of Flames -->
   <zone id="35" name="godad_fire_zone1" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
     <skill applyEnter="4150,6" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1896" zMax="-1696">
       <point x="192073" y="-118243"/>
@@ -392,7 +394,7 @@
     </shape>
   </zone>
   <zone id="36" name="godad_fire_zone2" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
     <skill applyEnter="4150,6" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-3384" zMax="-3184">
       <point x="183700" y="-114976"/>
@@ -403,7 +405,7 @@
     </shape>
   </zone>
   <zone id="37" name="godad_fire_zone3" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
     <skill applyEnter="4150,6" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-4728" zMax="-4028">
       <point x="170882" y="-116919"/>
@@ -413,7 +415,7 @@
     </shape>
   </zone>
   <zone id="38" name="godad_fire_zone4" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
     <skill applyEnter="4150,6" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-6160" zMax="-5260">
       <point x="170947" y="-113900"/>
@@ -426,7 +428,7 @@
   <!-- Definitely not player's HP are regenerated in the fire -->
   <!-- Need retail info -->
   <zone id="39" name="fire_pot_god_hp_regen1" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="npc"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="npc"/>
   <skill applyEnter="4698,6" removeExit="4698"/><!-- Area Buff - HP Regeneration -->
     <shape type="Poly" zMin="-3359" zMax="-2959">
       <point x="185241" y="-118610"/>
@@ -436,7 +438,7 @@
     </shape>
   </zone>
   <zone id="40" name="fire_pot_god_hp_regen2" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="npc"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="npc"/>
   <skill applyEnter="4698,6" removeExit="4698"/><!-- Area Buff - HP Regeneration -->
     <shape type="Poly" zMin="-3246" zMax="-2846">
       <point x="182713" y="-119880"/>
@@ -446,7 +448,7 @@
     </shape>
   </zone>
   <zone id="41" name="fire_pot_god_hp_regen3" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="npc"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="npc"/>
   <skill applyEnter="4698,6" removeExit="4698"/><!-- Area Buff - HP Regeneration -->
     <shape type="Poly" zMin="-3180" zMax="-2780">
       <point x="184021" y="-121547"/>
@@ -456,7 +458,7 @@
     </shape>
   </zone>
   <zone id="42" name="fire_pot_god_hp_regen4" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="npc"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="npc"/>
   <skill applyEnter="4698,6" removeExit="4698"/><!-- Area Buff - HP Regeneration -->
     <shape type="Poly" zMin="-3164" zMax="-2764">
       <point x="186868" y="-121700"/>
@@ -466,7 +468,7 @@
     </shape>
   </zone>
   <zone id="43" name="fire_pot_god_hp_regen5" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="npc"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="npc"/>
   <skill applyEnter="4698,6" removeExit="4698"/><!-- Area Buff - HP Regeneration -->
     <shape type="Poly" zMin="-3152" zMax="-2752">
       <point x="189116" y="-121636"/>
@@ -476,7 +478,7 @@
     </shape>
   </zone>
   <zone id="44" name="fire_pot_god_hp_regen6" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="npc"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="npc"/>
   <skill applyEnter="4698,6" removeExit="4698"/><!-- Area Buff - HP Regeneration -->
     <shape type="Poly" zMin="-3388" zMax="-2988">
       <point x="187636" y="-120012"/>
@@ -486,7 +488,7 @@
     </shape>
   </zone>
   <zone id="45" name="fire_pot_god_hp_regen7" type="Danger">
-  <settings exitOnDeath="true" buffRepeat="true" affected="npc"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="npc"/>
   <skill applyEnter="4698,6" removeExit="4698"/><!-- Area Buff - HP Regeneration -->
     <shape type="Poly" zMin="-3356" zMax="-2956">
       <point x="188888" y="-118252"/>
@@ -498,7 +500,7 @@
 
   <!-- Swamp of Screams & Swamp Fortress -->
   <zone id="46" name="godad_swamp_monster_pc1" type="Danger">
-  <settings exitOnDeath="true" affected="all"/>
+    <settings exitOnDeath="true" affected="all"/>
     <skill applyEnter="4625,1" removeExit="4625"/><!-- Swamp -->
     <shape type="Poly" zMin="-3375" zMax="-2975">
       <point x="71030" y="-60113"/>
@@ -511,7 +513,7 @@
     </shape>
   </zone>
   <zone id="47" name="godad_swamp_monster_pc2" type="Danger">
-  <settings exitOnDeath="true" affected="all"/>
+    <settings exitOnDeath="true" affected="all"/>
     <skill applyEnter="4625,1" removeExit="4625"/><!-- Swamp -->
     <shape type="Poly" zMin="-3191" zMax="-2991">
       <point x="73522" y="-59473"/>
@@ -526,7 +528,7 @@
     </shape>
   </zone>
   <zone id="48" name="godad_swamp_monster_pc3" type="Danger">
-  <settings exitOnDeath="true" affected="all"/>
+    <settings exitOnDeath="true" affected="all"/>
     <skill applyEnter="4625,1" removeExit="4625"/><!-- Swamp -->
     <shape type="Poly" zMin="-3335" zMax="-2935">
       <point x="72376" y="-55558"/>
@@ -541,7 +543,7 @@
     </shape>
   </zone>
   <zone id="49" name="godad_swamp_monster_pc4" type="Danger">
-  <settings exitOnDeath="true" affected="all"/>
+    <settings exitOnDeath="true" affected="all"/>
     <skill applyEnter="4625,1" removeExit="4625"/><!-- Swamp -->
     <shape type="Poly" zMin="-3179" zMax="-2979">
       <point x="76091" y="-53873"/>
@@ -555,7 +557,7 @@
     </shape>
   </zone>
   <zone id="50" name="godad_swamp_monster_pc5" type="Danger">
-  <settings exitOnDeath="true" affected="all"/>
+    <settings exitOnDeath="true" affected="all"/>
     <skill applyEnter="4625,1" removeExit="4625"/><!-- Swamp -->
     <shape type="Poly" zMin="-3255" zMax="-2955">
       <point x="74415" y="-51769"/>
@@ -569,7 +571,7 @@
     </shape>
   </zone>
   <zone id="51" name="godad_swamp_monster_pc6" type="Danger">
-  <settings exitOnDeath="true" affected="all"/>
+    <settings exitOnDeath="true" affected="all"/>
     <skill applyEnter="4625,1" removeExit="4625"/><!-- Swamp -->
     <shape type="Poly" zMin="-3458" zMax="-3158">
       <point x="73198" y="-44860"/>
@@ -584,7 +586,7 @@
     </shape>
   </zone>
   <zone id="52" name="godad_swamp_monster_pc7" type="Danger">
-  <settings exitOnDeath="true" affected="all"/>
+    <settings exitOnDeath="true" affected="all"/>
     <skill applyEnter="4625,1" removeExit="4625"/><!-- Swamp -->
     <shape type="Poly" zMin="-3418" zMax="-3118">
       <point x="74049" y="-42558"/>
@@ -598,7 +600,7 @@
     </shape>
   </zone>
   <zone id="53" name="godad_swamp_monster_pc8" type="Danger">
-  <settings exitOnDeath="true" affected="all"/>
+    <settings exitOnDeath="true" affected="all"/>
     <skill applyEnter="4625,1" removeExit="4625"/><!-- Swamp -->
     <shape type="Poly" zMin="-3410" zMax="-3110">
       <point x="77309" y="-42410"/>
@@ -613,7 +615,7 @@
     </shape>
   </zone>
   <zone id="54" name="godad_swamp_monster_pc9" type="Danger">
-  <settings exitOnDeath="true" affected="all"/>
+    <settings exitOnDeath="true" affected="all"/>
     <skill applyEnter="4625,1" removeExit="4625"/><!-- Swamp -->
     <shape type="Poly" zMin="-3422" zMax="-3122">
       <point x="80214" y="-42670"/>
@@ -628,7 +630,7 @@
     </shape>
   </zone>
   <zone id="55" name="godad_swamp_monster_pc10" type="Danger">
-  <settings exitOnDeath="true" affected="all"/>
+    <settings exitOnDeath="true" affected="all"/>
     <skill applyEnter="4625,1" removeExit="4625"/><!-- Swamp -->
     <shape type="Poly" zMin="-3370" zMax="-3070">
       <point x="83118" y="-41483"/>
@@ -644,7 +646,7 @@
     </shape>
   </zone>
   <zone id="56" name="godad_swamp_monster_pc11" type="Danger">
-  <settings exitOnDeath="true" affected="all"/>
+    <settings exitOnDeath="true" affected="all"/>
     <skill applyEnter="4625,1" removeExit="4625"/><!-- Swamp -->
     <shape type="Poly" zMin="-3366" zMax="-3066">
       <point x="81654" y="-45503"/>
@@ -659,7 +661,7 @@
     </shape>
   </zone>
   <zone id="57" name="godad_swamp_monster_pc12" type="Danger">
-  <settings exitOnDeath="true" affected="all"/>
+    <settings exitOnDeath="true" affected="all"/>
     <skill applyEnter="4625,1" removeExit="4625"/><!-- Swamp -->
     <shape type="Poly" zMin="-2522" zMax="-2222">
       <point x="79526" y="-51746"/>
@@ -672,7 +674,7 @@
     </shape>
   </zone>
   <zone id="58" name="godad_swamp_monster_pc13" type="Danger">
-  <settings exitOnDeath="true" affected="all"/>
+    <settings exitOnDeath="true" affected="all"/>
     <skill applyEnter="4625,1" removeExit="4625"/><!-- Swamp -->
     <shape type="Poly" zMin="-2470" zMax="-2170">
       <point x="83615" y="-50828"/>
@@ -686,7 +688,7 @@
     </shape>
   </zone>
   <zone id="59" name="godad_swamp_monster_pc14" type="Danger">
-  <settings exitOnDeath="true" affected="all"/>
+    <settings exitOnDeath="true" affected="all"/>
     <skill applyEnter="4625,1" removeExit="4625"/><!-- Swamp -->
     <shape type="Poly" zMin="-2458" zMax="-2158">
       <point x="81946" y="-53719"/>
@@ -702,7 +704,7 @@
     </shape>
   </zone>
   <zone id="60" name="godad_swamp_monster_pc15" type="Danger">
-  <settings exitOnDeath="true" affected="all"/>
+    <settings exitOnDeath="true" affected="all"/>
     <skill applyEnter="4625,1" removeExit="4625"/><!-- Swamp -->
     <shape type="Poly" zMin="-2542" zMax="-2242">
       <point x="78226" y="-58454"/>
@@ -715,7 +717,7 @@
     </shape>
   </zone>
   <zone id="61" name="godad_swamp_monster_pc16" type="Danger">
-  <settings exitOnDeath="true" affected="all"/>
+    <settings exitOnDeath="true" affected="all"/>
     <skill applyEnter="4625,1" removeExit="4625"/><!-- Swamp -->
     <shape type="Poly" zMin="-2558" zMax="-2258">
       <point x="77796" y="-61961"/>
@@ -728,7 +730,7 @@
     </shape>
   </zone>
   <zone id="62" name="godad_swamp_monster_pc17" type="Danger">
-  <settings exitOnDeath="true" affected="all"/>
+    <settings exitOnDeath="true" affected="all"/>
     <skill applyEnter="4625,1" removeExit="4625"/><!-- Swamp -->
     <shape type="Poly" zMin="-2414" zMax="-2114">
       <point x="82052" y="-59979"/>
@@ -741,7 +743,7 @@
     </shape>
   </zone>
   <zone id="63" name="godad_swamp_monster_pc18" type="Danger">
-  <settings exitOnDeath="true" affected="all"/>
+    <settings exitOnDeath="true" affected="all"/>
     <skill applyEnter="4625,1" removeExit="4625"/><!-- Swamp -->
     <shape type="Poly" zMin="-2522" zMax="-2222">
       <point x="85533" y="-63207"/>
@@ -753,7 +755,7 @@
     </shape>
   </zone>
   <zone id="64" name="godad_swamp_monster_pc19" type="Danger">
-  <settings exitOnDeath="true" affected="all"/>
+    <settings exitOnDeath="true" affected="all"/>
     <skill applyEnter="4625,1" removeExit="4625"/><!-- Swamp -->
     <shape type="Poly" zMin="-2462" zMax="-2162">
       <point x="89512" y="-60985"/>
@@ -766,7 +768,7 @@
     </shape>
   </zone>
   <zone id="65" name="godad_swamp_monster_pc20" type="Danger">
-  <settings exitOnDeath="true" affected="all"/>
+    <settings exitOnDeath="true" affected="all"/>
     <skill applyEnter="4625,1" removeExit="4625"/><!-- Swamp -->
     <shape type="Poly" zMin="-2574" zMax="-2274">
       <point x="86034" y="-54576"/>
@@ -779,7 +781,7 @@
     </shape>
   </zone>
   <zone id="66" name="godad_swamp_monster_pc21" type="Danger">
-  <settings exitOnDeath="true" affected="all"/>
+    <settings exitOnDeath="true" affected="all"/>
     <skill applyEnter="4625,1" removeExit="4625"/><!-- Swamp -->
     <shape type="Poly" zMin="-2727" zMax="-2427">
       <point x="90080" y="-52443"/>
@@ -792,7 +794,7 @@
     </shape>
   </zone>
   <zone id="67" name="godad_swamp_monster_pc22" type="Danger">
-  <settings exitOnDeath="true" affected="all"/>
+    <settings exitOnDeath="true" affected="all"/>
     <skill applyEnter="4625,1" removeExit="4625"/><!-- Swamp -->
     <shape type="Poly" zMin="-2767" zMax="-2467">
       <point x="92777" y="-52363"/>
@@ -805,7 +807,7 @@
     </shape>
   </zone>
   <zone id="68" name="godad_swamp_monster_pc23" type="Danger">
-  <settings exitOnDeath="true" affected="all"/>
+    <settings exitOnDeath="true" affected="all"/>
     <skill applyEnter="4625,1" removeExit="4625"/><!-- Swamp -->
     <shape type="Poly" zMin="-2763" zMax="-2463">
       <point x="95179" y="-52286"/>
@@ -819,7 +821,7 @@
     </shape>
   </zone>
   <zone id="69" name="godad_swamp_monster_pc24" type="Danger">
-  <settings exitOnDeath="true" affected="all"/>
+    <settings exitOnDeath="true" affected="all"/>
     <skill applyEnter="4625,1" removeExit="4625"/><!-- Swamp -->
     <shape type="Poly" zMin="-2550" zMax="-2150">
       <point x="85757" y="-59957"/>
@@ -832,7 +834,7 @@
     </shape>
   </zone>
   <zone id="70" name="godad_swamp_monster_pc25" type="Danger">
-  <settings exitOnDeath="true" affected="all"/>
+    <settings exitOnDeath="true" affected="all"/>
     <skill applyEnter="4625,1" removeExit="4625"/><!-- Swamp -->
     <shape type="Poly" zMin="-2486" zMax="-2286">
       <point x="81382" y="-63921"/>
@@ -845,7 +847,7 @@
     </shape>
   </zone>
   <zone id="71" name="godad_swamp_monster_pc26" type="Danger">
-  <settings exitOnDeath="true" affected="all"/>
+    <settings exitOnDeath="true" affected="all"/>
     <skill applyEnter="4625,1" removeExit="4625"/><!-- Swamp -->
     <shape type="Poly" zMin="-2819" zMax="-2619">
       <point x="93421" y="-55220"/>
@@ -860,7 +862,7 @@
 
   <!-- Lair of Valakas -->
   <zone id="72" name="balakas_lava_1" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1700" zMax="-1500">
       <point x="212916" y="-117204"/>
@@ -871,7 +873,7 @@
     </shape>
   </zone>
   <zone id="73" name="balakas_lava_2" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1800" zMax="-1600">
       <point x="212304" y="-116608"/>
@@ -882,7 +884,7 @@
     </shape>
   </zone>
   <zone id="74" name="balakas_lava_3" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1772" zMax="-1572">
       <point x="214032" y="-116748"/>
@@ -892,7 +894,7 @@
     </shape>
   </zone>
   <zone id="75" name="balakas_lava_4" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1800" zMax="-1600">
       <point x="214424" y="-115452"/>
@@ -904,7 +906,7 @@
     </shape>
   </zone>
   <zone id="76" name="balakas_lava_5" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1820" zMax="-1620">
       <point x="214668" y="-114276"/>
@@ -915,7 +917,7 @@
     </shape>
   </zone>
   <zone id="77" name="balakas_lava_6" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1768" zMax="-1568">
       <point x="213916" y="-115660"/>
@@ -930,7 +932,7 @@
     </shape>
   </zone>
   <zone id="78" name="balakas_lava_7" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1764" zMax="-1564">
       <point x="210524" y="-114376"/>
@@ -940,7 +942,7 @@
     </shape>
   </zone>
   <zone id="79" name="balakas_lava_8" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1716" zMax="-1516">
       <point x="212276" y="-113016"/>
@@ -952,7 +954,7 @@
     </shape>
   </zone>
   <zone id="80" name="balakas_lava_9" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1720" zMax="-1520">
       <point x="211608" y="-113560"/>
@@ -963,7 +965,7 @@
     </shape>
   </zone>
   <zone id="81" name="balakas_lava_10" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1732" zMax="-1532">
       <point x="210596" y="-116292"/>
@@ -974,7 +976,7 @@
     </shape>
   </zone>
   <zone id="82" name="balakas_lava_11" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1736" zMax="-1536">
       <point x="211272" y="-117352"/>
@@ -990,7 +992,7 @@
     </shape>
   </zone>
   <zone id="83" name="balakas_lava_12" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1748" zMax="-1548">
       <point x="211528" y="-117312"/>
@@ -1002,7 +1004,7 @@
     </shape>
   </zone>
   <zone id="84" name="balakas_lava_13" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1792" zMax="-1592">
       <point x="213224" y="-117956"/>
@@ -1013,7 +1015,7 @@
     </shape>
   </zone>
   <zone id="85" name="balakas_lava_14" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1812" zMax="-1612">
       <point x="213440" y="-118004"/>
@@ -1023,7 +1025,7 @@
     </shape>
   </zone>
   <zone id="86" name="balakas_lava_15" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1764" zMax="-1564">
       <point x="213988" y="-117184"/>
@@ -1036,7 +1038,7 @@
     </shape>
   </zone>
   <zone id="87" name="balakas_lava_16" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1716" zMax="-1516">
       <point x="214564" y="-117840"/>
@@ -1047,7 +1049,7 @@
     </shape>
   </zone>
   <zone id="88" name="balakas_lava_17" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1700" zMax="-1500">
       <point x="215148" y="-117144"/>
@@ -1057,7 +1059,7 @@
     </shape>
   </zone>
   <zone id="89" name="balakas_lava_18" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1684" zMax="-1484">
       <point x="215356" y="-116304"/>
@@ -1074,7 +1076,7 @@
     </shape>
   </zone>
   <zone id="90" name="balakas_lava_19" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1740" zMax="-1540">
       <point x="214888" y="-114200"/>
@@ -1086,7 +1088,7 @@
     </shape>
   </zone>
   <zone id="91" name="balakas_lava_20" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1792" zMax="-1592">
       <point x="213792" y="-112592"/>
@@ -1096,7 +1098,7 @@
     </shape>
   </zone>
   <zone id="92" name="balakas_lava_21" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1772" zMax="-1572">
       <point x="212408" y="-112372"/>
@@ -1109,7 +1111,7 @@
     </shape>
   </zone>
   <zone id="93" name="balakas_lava_22" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1744" zMax="-1544">
       <point x="211120" y="-112784"/>
@@ -1124,7 +1126,7 @@
     </shape>
   </zone>
   <zone id="94" name="balakas_lava_23" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1600" zMax="-1400">
       <point x="209504" y="-113076"/>
@@ -1134,7 +1136,7 @@
     </shape>
   </zone>
   <zone id="95" name="balakas_lava_24" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1528" zMax="-1328">
       <point x="210400" y="-112656"/>
@@ -1149,7 +1151,7 @@
     </shape>
   </zone>
   <zone id="96" name="balakas_lava_25" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1564" zMax="-1364">
       <point x="210032" y="-112148"/>
@@ -1159,7 +1161,7 @@
     </shape>
   </zone>
   <zone id="97" name="balakas_lava_26" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1572" zMax="-1372">
       <point x="211096" y="-112400"/>
@@ -1170,7 +1172,7 @@
     </shape>
   </zone>
   <zone id="98" name="balakas_lava_27" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1488" zMax="-1288">
       <point x="210552" y="-111368"/>
@@ -1182,7 +1184,7 @@
     </shape>
   </zone>
   <zone id="99" name="balakas_lava_28" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1492" zMax="-1292">
       <point x="212136" y="-110836"/>
@@ -1193,7 +1195,7 @@
     </shape>
   </zone>
   <zone id="100" name="balakas_lava_29" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1476" zMax="-1276">
       <point x="212620" y="-111604"/>
@@ -1203,7 +1205,7 @@
     </shape>
   </zone>
   <zone id="101" name="balakas_lava_30" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1452" zMax="-1252">
       <point x="213416" y="-110968"/>
@@ -1214,7 +1216,7 @@
     </shape>
   </zone>
   <zone id="102" name="balakas_lava_31" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1548" zMax="-1348">
       <point x="214228" y="-111556"/>
@@ -1224,7 +1226,7 @@
     </shape>
   </zone>
   <zone id="103" name="balakas_lava_32" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1484" zMax="-1284">
       <point x="215120" y="-112132"/>
@@ -1235,7 +1237,7 @@
     </shape>
   </zone>
   <zone id="104" name="balakas_lava_33" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1456" zMax="-1256">
       <point x="215564" y="-111380"/>
@@ -1245,7 +1247,7 @@
     </shape>
   </zone>
   <zone id="105" name="balakas_lava_34" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1616" zMax="-1416">
       <point x="215776" y="-112812"/>
@@ -1255,7 +1257,7 @@
     </shape>
   </zone>
   <zone id="106" name="balakas_lava_35" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1480" zMax="-1280">
       <point x="216040" y="-114340"/>
@@ -1266,7 +1268,7 @@
     </shape>
   </zone>
   <zone id="107" name="balakas_lava_36" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1520" zMax="-1320">
       <point x="216136" y="-115280"/>
@@ -1279,7 +1281,7 @@
     </shape>
   </zone>
   <zone id="108" name="balakas_lava_37" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1568" zMax="-1368">
       <point x="215964" y="-115796"/>
@@ -1289,7 +1291,7 @@
     </shape>
   </zone>
   <zone id="109" name="balakas_lava_38" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1444" zMax="-1244">
       <point x="216040" y="-117792"/>
@@ -1301,7 +1303,7 @@
     </shape>
   </zone>
   <zone id="110" name="balakas_lava_39" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1448" zMax="-1248">
       <point x="214896" y="-117908"/>
@@ -1312,7 +1314,7 @@
     </shape>
   </zone>
   <zone id="111" name="balakas_lava_40" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1516" zMax="-1316">
       <point x="214468" y="-118700"/>
@@ -1322,7 +1324,7 @@
     </shape>
   </zone>
   <zone id="112" name="balakas_lava_41" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1508" zMax="-1308">
       <point x="213396" y="-118452"/>
@@ -1333,7 +1335,7 @@
     </shape>
   </zone>
   <zone id="113" name="balakas_lava_42" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1480" zMax="-1280">
       <point x="212684" y="-118456"/>
@@ -1344,7 +1346,7 @@
     </shape>
   </zone>
   <zone id="114" name="balakas_lava_43" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1500" zMax="-1300">
       <point x="212156" y="-118020"/>
@@ -1356,7 +1358,7 @@
     </shape>
   </zone>
   <zone id="115" name="balakas_lava_44" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1576" zMax="-1376">
       <point x="210792" y="-117952"/>
@@ -1366,7 +1368,7 @@
     </shape>
   </zone>
   <zone id="116" name="balakas_lava_45" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1556" zMax="-1356">
       <point x="209932" y="-116124"/>
@@ -1376,7 +1378,7 @@
     </shape>
   </zone>
   <zone id="117" name="balakas_lava_46" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1508" zMax="-1308">
       <point x="209604" y="-115832"/>
@@ -1387,7 +1389,7 @@
     </shape>
   </zone>
   <zone id="118" name="balakas_lava_47" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1544" zMax="-1344">
       <point x="209596" y="-114804"/>
@@ -1397,7 +1399,7 @@
     </shape>
   </zone>
   <zone id="119" name="balakas_lava_48" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1656" zMax="-1456">
       <point x="209452" y="-113908"/>
@@ -1407,7 +1409,7 @@
     </shape>
   </zone>
   <zone id="120" name="balakas_lava_49" type="Danger">
-  <settings exitOnDeath="true" affected="playable"/>
+    <settings exitOnDeath="true" affected="playable"/>
     <skill applyEnter="4150,12" removeExit="4150"/><!-- Flame -->
     <shape type="Poly" zMin="-1608" zMax="-1408">
       <point x="211652" y="-111708"/>
@@ -1419,7 +1421,7 @@
 
   <!-- Zaken, Devil's Isle -->
   <zone id="121" name="zaken_no_restart" type="Danger">
-  <settings exitOnDeath="true" noEscape="true" affected="playable"/>
+    <settings exitOnDeath="true" noEscape="true" affected="playable"/>
     <shape type="Poly" zMin="-4815" zMax="-315">
       <point x="50797" y="213515"/>
       <point x="57617" y="213510"/>
@@ -1430,7 +1432,7 @@
 
   <!-- Lair of Antharas -->
   <zone id="122" name="antaras_no_restart" type="Danger">
-  <settings exitOnDeath="true" noEscape="true" affected="playable"/>
+    <settings exitOnDeath="true" noEscape="true" affected="playable"/>
     <shape type="Poly" zMin="-8380" zMax="-4880">
       <point x="173469" y="110431"/>
       <point x="188081" y="110284"/>
@@ -1441,7 +1443,7 @@
 
   <!-- Baium, top Tower of Insolence floor -->
   <zone id="123" name="baium_no_restart" type="Danger">
-  <settings exitOnDeath="true" noEscape="true" affected="playable"/>
+    <settings exitOnDeath="true" noEscape="true" affected="playable"/>
     <shape type="Poly" zMin="10021" zMax="11061">
       <point x="111022" y="16177"/>
       <point x="114510" y="12623"/>
@@ -1452,7 +1454,7 @@
 
   <!-- Anakim and Lilith Raid Bosses -->
   <zone id="124" name="anakimNlilith" type="Danger">
-  <settings exitOnDeath="true" noEscape="true" affected="playable"/>
+    <settings exitOnDeath="true" noEscape="true" affected="playable"/>
     <shape type="Poly" zMin="-5504" zMax="-5104">
       <point x="183938" y="-13697"/>
       <point x="186190" y="-13692"/>
@@ -1463,7 +1465,7 @@
 
   <!-- Unknown area -->
   <zone id="125" name="fire_no_restart1" type="Danger">
-  <settings exitOnDeath="true" noEscape="true" affected="playable"/>
+    <settings exitOnDeath="true" noEscape="true" affected="playable"/>
     <shape type="Poly" zMin="-3326" zMax="-1326">
       <point x="183373" y="-117179"/>
       <point x="184098" y="-116718"/>
@@ -1475,7 +1477,7 @@
     </shape>
   </zone>
   <zone id="126" name="fire_no_restart2" type="Danger">
-  <settings exitOnDeath="true" noEscape="true" affected="playable"/>
+    <settings exitOnDeath="true" noEscape="true" affected="playable"/>
     <shape type="Poly" zMin="-2208" zMax="792">
       <point x="183432" y="-117590"/>
       <point x="196325" y="-119107"/>
@@ -1486,7 +1488,7 @@
 
   <!-- Unknown area -->
   <zone id="127" name="royal_rush_no_restart1" type="Danger">
-  <settings exitOnDeath="true" noEscape="true" affected="playable"/>
+    <settings exitOnDeath="true" noEscape="true" affected="playable"/>
     <shape type="Poly" zMin="-7263" zMax="-7063">
       <point x="181198" y="-86516"/>
       <point x="192394" y="-86521"/>
@@ -1495,7 +1497,7 @@
     </shape>
   </zone>
   <zone id="128" name="royal_rush_no_restart2" type="Danger">
-  <settings exitOnDeath="true" noEscape="true" affected="playable"/>
+    <settings exitOnDeath="true" noEscape="true" affected="playable"/>
     <shape type="Poly" zMin="-7263" zMax="-7063">
       <point x="179511" y="-89903"/>
       <point x="190707" y="-89908"/>
@@ -1504,7 +1506,7 @@
     </shape>
   </zone>
   <zone id="129" name="royal_rush_no_restart3" type="Danger">
-  <settings exitOnDeath="true" noEscape="true" affected="playable"/>
+    <settings exitOnDeath="true" noEscape="true" affected="playable"/>
     <shape type="Poly" zMin="-7263" zMax="-7063">
       <point x="174498" y="-82751"/>
       <point x="176622" y="-82751"/>
@@ -1513,7 +1515,7 @@
     </shape>
   </zone>
   <zone id="130" name="royal_rush_no_restart4" type="Danger">
-  <settings exitOnDeath="true" noEscape="true" affected="playable"/>
+    <settings exitOnDeath="true" noEscape="true" affected="playable"/>
     <shape type="Poly" zMin="-7263" zMax="-7063">
       <point x="172183" y="-86660"/>
       <point x="174307" y="-86661"/>
@@ -1524,7 +1526,7 @@
 
   <!-- Dimensional rift -->
   <zone id="131" name="space_of_dimension_no_restart1" type="Danger">
-  <settings exitOnDeath="true" noEscape="true" affected="playable"/>
+    <settings exitOnDeath="true" noEscape="true" affected="playable"/>
     <shape type="Poly" zMin="-6964" zMax="-6064">
       <point x="-120682" y="-182923"/>
       <point x="-115515" y="-182923"/>
@@ -1533,7 +1535,7 @@
     </shape>
   </zone>
   <zone id="132" name="space_of_dimension_no_restart2" type="Danger">
-  <settings exitOnDeath="true" noEscape="true" affected="playable"/>
+    <settings exitOnDeath="true" noEscape="true" affected="playable"/>
     <shape type="Poly" zMin="-6964" zMax="-6064">
       <point x="-120677" y="-180093"/>
       <point x="-115510" y="-180093"/>
@@ -1542,7 +1544,7 @@
     </shape>
   </zone>
   <zone id="133" name="space_of_dimension_no_restart3" type="Danger">
-  <settings exitOnDeath="true" noEscape="true" affected="playable"/>
+    <settings exitOnDeath="true" noEscape="true" affected="playable"/>
     <shape type="Poly" zMin="-6964" zMax="-6064">
       <point x="-114045" y="-182907"/>
       <point x="-108878" y="-182907"/>
@@ -1551,7 +1553,7 @@
     </shape>
   </zone>
   <zone id="134" name="space_of_dimension_no_restart4" type="Danger">
-  <settings exitOnDeath="true" noEscape="true" affected="playable"/>
+    <settings exitOnDeath="true" noEscape="true" affected="playable"/>
     <shape type="Poly" zMin="-6964" zMax="-6064">
       <point x="-114040" y="-180077"/>
       <point x="-108873" y="-180077"/>
@@ -1560,7 +1562,7 @@
     </shape>
   </zone>
   <zone id="135" name="space_of_dimension_no_restart5" type="Danger">
-  <settings exitOnDeath="true" noEscape="true" affected="playable"/>
+    <settings exitOnDeath="true" noEscape="true" affected="playable"/>
     <shape type="Poly" zMin="-6964" zMax="-6064">
       <point x="-116267" y="-177955"/>
       <point x="-113344" y="-177955"/>
@@ -1569,7 +1571,7 @@
     </shape>
   </zone>
   <zone id="136" name="space_of_dimension_no_restart6" type="Danger">
-  <settings exitOnDeath="true" noEscape="true" affected="playable"/>
+    <settings exitOnDeath="true" noEscape="true" affected="playable"/>
     <shape type="Poly" zMin="-6964" zMax="-6064">
       <point x="-116217" y="-187430"/>
       <point x="-113293" y="-187430"/>
@@ -1580,7 +1582,7 @@
 
   <!-- Lair of Valakas -->
   <zone id="137" name="balakas_no_restart" type="Danger">
-  <settings exitOnDeath="true" noEscape="true" affected="playable"/>
+    <settings exitOnDeath="true" noEscape="true" affected="playable"/>
     <shape type="Poly" zMin="-2572" zMax="5428">
       <point x="196866" y="-130845"/>
       <point x="229289" y="-130860"/>
@@ -1588,27 +1590,26 @@
       <point x="196880" y="-98498"/>
     </shape>
   </zone>
-  
-  <zone id="138" name="Steam Corridor" type="Damage">
-  <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+
+  <!-- Steam Corridor -->
+  <zone id="138" name="Steam Corridor" type="Danger">
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
     <skill applyEnter="4150,6;4625,3" removeExit="4150;4625"/>
     <shape type="Rect" zMin="-12400" zMax="-11500">
       <point x="144722" y="152000"/>
       <point x="152600" y="153020"/>
     </shape>
   </zone>
-
-  <zone id="139" name="Steam Corridor 2" type="Damage">
-  <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+  <zone id="139" name="Steam Corridor 2" type="Danger">
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
     <skill applyEnter="4150,6;4625,3" removeExit="4150;4625"/>
     <shape type="Rect" zMin="-12400" zMax="-11500">
       <point x="152148" y="150241"/>
       <point x="149814" y="149719"/>
     </shape>
   </zone>
-
-  <zone id="140" name="Steam Corridor - Kechi" type="Damage">
-  <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+  <zone id="140" name="Steam Corridor - Kechi" type="Danger">
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
     <skill applyEnter="4150,6;4625,3" removeExit="4150;4625"/>
     <shape type="Cylinder" radius="700" zMin="-12400" zMax="-11500">
       <point x="154079" y="149537"/>
