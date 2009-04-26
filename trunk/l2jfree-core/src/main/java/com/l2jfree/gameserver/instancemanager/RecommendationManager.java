@@ -194,14 +194,16 @@ public final class RecommendationManager
 				onCreate(player);
 				rs = ps.executeQuery();
 			}
+			int evaluations = rs.getInt("evaluationAble");
 			int points = rs.getInt("evaluationPoints");
 			long lastUpdate = rs.getLong("lastUpdate");
 			while (lastUpdate < (nextUpdate - DAY))
 			{
+				evaluations = getDailyRecommendations(player.getLevel());
 				points = getNewEvalPointsQuick(points, getDailyLostPoints(player.getLevel()));
 				lastUpdate += DAY;
 			}
-			update(player, rs.getInt("evaluationAble"), points);
+			update(player, evaluations, points);
 			rs.close();
 			ps.close();
 			if (Config.ALT_RECOMMEND)
