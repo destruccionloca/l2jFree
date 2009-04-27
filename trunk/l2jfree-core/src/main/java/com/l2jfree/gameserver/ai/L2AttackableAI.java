@@ -34,6 +34,7 @@ import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Summon;
+import com.l2jfree.gameserver.model.actor.instance.L2ChestInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2FestivalMonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2FolkInstance;
@@ -606,7 +607,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			}
 		}
 		// Order to the L2MonsterInstance to random walk (1/100)
-		else if (npc.getSpawn() != null && Rnd.nextInt(RANDOM_WALK_RATE) == 0 && !(_actor instanceof L2Boss || _actor instanceof L2MinionInstance))
+		else if (npc.getSpawn() != null && Rnd.nextInt(RANDOM_WALK_RATE) == 0 && !(_actor instanceof L2Boss || _actor instanceof L2MinionInstance || _actor instanceof L2ChestInstance))
 		{
 			// [L2J_JP ADD SANDMAN]
 			// Instant move of zaken
