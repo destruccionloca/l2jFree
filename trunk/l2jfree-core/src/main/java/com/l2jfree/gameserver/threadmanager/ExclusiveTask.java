@@ -25,7 +25,7 @@ import com.l2jfree.gameserver.ThreadPoolManager;
 /**
  * @author NB4L1
  */
-public abstract class ExclusiveTask
+public abstract class ExclusiveTask implements Runnable
 {
 	private final boolean _returnIfAlreadyRunning;
 	
@@ -61,33 +61,30 @@ public abstract class ExclusiveTask
 	{
 		cancel();
 		
-		_future = ThreadPoolManager.getInstance().schedule(_runnable, delay);
+		_future = ThreadPoolManager.getInstance().schedule(this, delay);
 	}
 	
 	public synchronized final void scheduleAtFixedRate(long delay, long period)
 	{
 		cancel();
 		
-		_future = ThreadPoolManager.getInstance().scheduleAtFixedRate(_runnable, delay, period);
+		_future = ThreadPoolManager.getInstance().scheduleAtFixedRate(this, delay, period);
 	}
 	
-	private final Runnable _runnable = new Runnable() {
-		@Override
-		public void run()
+	public void run()
+	{
+		if (tryLock())
 		{
-			if (tryLock())
+			try
 			{
-				try
-				{
-					onElapsed();
-				}
-				finally
-				{
-					unlock();
-				}
+				onElapsed();
+			}
+			finally
+			{
+				unlock();
 			}
 		}
-	};
+	}
 	
 	protected abstract void onElapsed();
 	

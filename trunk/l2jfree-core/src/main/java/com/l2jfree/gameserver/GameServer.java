@@ -421,8 +421,8 @@ public class GameServer
 		
 		L2GamePacketHandler gph = new L2GamePacketHandler();
 		SelectorConfig<L2GameClient> sc = new SelectorConfig<L2GameClient>(null, null, gph, gph);
-		sc.setMaxSendPerPass(12);
-		sc.setSelectorSleepTime(20);
+		sc.setMaxSendPerPass(25);
+		sc.setSelectorSleepTime(5);
 		_selectorThread = new SelectorThread<L2GameClient>(sc, gph, gph, IOFloodManager.getInstance());
 		_selectorThread.openServerSocket(InetAddress.getByName(Config.GAMESERVER_HOSTNAME), Config.PORT_GAME);
 		_selectorThread.start();

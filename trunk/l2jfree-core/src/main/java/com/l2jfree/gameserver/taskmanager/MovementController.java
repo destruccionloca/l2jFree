@@ -85,7 +85,7 @@ public final class MovementController extends AbstractPeriodicTaskManager
 	{
 		private EvtArrivedManager()
 		{
-			super(GameTimeController.MILLIS_IN_TICK * Config.DATETIME_MOVE_DELAY);
+			super(GameTimeController.MILLIS_IN_TICK);
 		}
 		
 		@Override

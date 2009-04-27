@@ -8319,7 +8319,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 
 		// Check if spell adds charges
-		if (skill.getGiveCharges() > 0 && _charges >= skill.getMaxCharges())
+		if (!skill.isOffensive() && skill.getGiveCharges() > 0 && _charges >= skill.getMaxCharges())
 		{
 			sendPacket(SystemMessageId.FORCE_MAXLEVEL_REACHED);
 			sendPacket(ActionFailed.STATIC_PACKET);

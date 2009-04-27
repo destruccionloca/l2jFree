@@ -59,9 +59,8 @@ public final class RunnableStatsManager
 		
 		private ClassStat(Class<?> clazz)
 		{
-			_classStats.put(clazz, this);
-			
 			_className = clazz.getName().replace("com.l2jfree.gameserver.", "");
+			_classStats.put(clazz, this);
 		}
 		
 		private MethodStat getMethodStat(String methodName, boolean synchronizedAlready)
