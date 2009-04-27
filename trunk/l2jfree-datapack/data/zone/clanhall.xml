@@ -232,7 +232,6 @@
       <point x="79196" y="-13584"/>
     </shape>
   </zone>
-
   <zone id="16" name="Aden The Golden Chamber Hall" type="Clanhall">
     <entity castleId="5" clanhallId="36"/>
     <restart_owner x="149134" y="23140" z="-2160"/>
@@ -431,7 +430,7 @@
   <zone id="36" name="Rune Luna Chamber Hall" type="Clanhall">
     <entity castleId="8" clanhallId="56"/>
     <restart_owner x="38729" y="-46040" z="904"/>
-    <shape type="Rect" zMin="896" zMax="1096">
+    <shape type="Poly" zMin="896" zMax="1096">
       <point x="38904" y="-46376"/>
       <point x="39240" y="-46040"/>
       <point x="38600" y="-45656"/>
