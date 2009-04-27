@@ -115,18 +115,21 @@ public abstract class AbstractAI implements Ctrl
 		// TODO: fix Z axis follow support, moveToLocation needs improvements
 		// Does not allow targets to follow on infinite distance -> fix for "follow me bug".
 		// if the target is too far (maybe also teleported)
-		if (distance > (_actor instanceof L2PcInstance && _followTarget instanceof L2PcInstance ? 2000 : 3000))
+		
+		if (distance > 3000)
 		{
-			if (_actor instanceof L2Summon)
-				((L2Summon)_actor).setFollowStatus(false);
-			
-			setIntention(AI_INTENTION_IDLE);
-			return;
+			if (distance > 6000 || !_actor.getKnownList().knowsObject(_followTarget))
+			{
+				if (_actor instanceof L2Summon)
+					((L2Summon)_actor).setFollowStatus(false);
+				
+				setIntention(AI_INTENTION_IDLE);
+				return;
+			}
 		}
-		else if (distance > _followRange)
-		{
+		
+		if (distance > _followRange)
 			moveToPawn(_followTarget, _followRange);
-		}
 	}
 	
 	public final synchronized void startFollow(L2Character target)

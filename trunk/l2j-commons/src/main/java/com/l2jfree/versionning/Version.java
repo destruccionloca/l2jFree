@@ -8,12 +8,18 @@ import java.util.jar.JarFile;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.lang.L2System;
+
 public class Version {
 	private String _revisionNumber = "exported";
 	private String _versionNumber = "-1";
 	private String _buildJdk = "";
 
 	private static final Log _log = LogFactory.getLog(Version.class);
+
+	static {
+		L2System.milliTime();
+	}
 
 	public Version() {
 	}

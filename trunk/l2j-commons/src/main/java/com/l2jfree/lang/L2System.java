@@ -32,10 +32,12 @@ public final class L2System
 	}
 	
 	private static final MilliTime systemCurrentTimeMillisBased = new MilliTime() {
+		private final long ZERO = System.currentTimeMillis();
+		
 		@Override
 		public long milliTime()
 		{
-			return System.currentTimeMillis();
+			return System.currentTimeMillis() - ZERO;
 		}
 	};
 	
