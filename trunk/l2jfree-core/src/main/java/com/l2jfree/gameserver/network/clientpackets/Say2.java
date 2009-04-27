@@ -28,7 +28,8 @@ import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.util.IllegalPlayerAction;
+import com.l2jfree.gameserver.util.Util;
 
 /**
  * This class ...
@@ -62,6 +63,11 @@ public class Say2 extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
+		if (activeChar == null)
+		{
+			_log.warn("[Say2.java] Active Character is null.");
+			return;
+		}
 
 		// If no or wrong channel is used - return
 		if (_type == SystemChatChannelId.Chat_None ||
@@ -75,19 +81,13 @@ public class Say2 extends L2GameClientPacket
 			return;
 		}
 
-		if (activeChar == null)
-		{
-			_log.warn("[Say2.java] Active Character is null.");
-			return;
-		}
-
 		// If player is chat banned
 		if (ObjectRestrictions.getInstance().checkRestriction(activeChar, AvailableRestriction.PlayerChat))
 		{
 			if (_type != SystemChatChannelId.Chat_User_Pet && _type != SystemChatChannelId.Chat_Tell)
 			{
 				// [L2J_JP EDIT]
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.CHATTING_IS_CURRENTLY_PROHIBITED));
+				activeChar.sendPacket(SystemMessageId.CHATTING_IS_CURRENTLY_PROHIBITED);
 				return;
 			}
 		}
@@ -98,8 +98,7 @@ public class Say2 extends L2GameClientPacket
 			{
 			case Chat_Shout:
 			case Chat_Market:
-				SystemMessage sm = new SystemMessage(SystemMessageId.SHOUT_AND_TRADE_CHAT_CANNOT_BE_USED_WHILE_POSSESSING_CURSED_WEAPON);
-				activeChar.sendPacket(sm);
+				activeChar.sendPacket(SystemMessageId.SHOUT_AND_TRADE_CHAT_CANNOT_BE_USED_WHILE_POSSESSING_CURSED_WEAPON);
 				return;
 			}
 		}
@@ -117,6 +116,20 @@ public class Say2 extends L2GameClientPacket
 		// If Petition and GM use GM_Petition Channel
 		if (_type == SystemChatChannelId.Chat_User_Pet && activeChar.isGM())
 			_type = SystemChatChannelId.Chat_GM_Pet;
+
+		if (_text.length() > 105) //Verified on Gracia P2 & Final official client
+		{
+			if (Config.BAN_CLIENT_EMULATORS)
+			{
+				Util.handleIllegalPlayerAction(activeChar, "Bot usage for chatting by " + activeChar,
+						IllegalPlayerAction.PUNISH_KICKBAN);
+			}
+			else
+				activeChar.sendPacket(SystemMessageId.DONT_SPAM);
+			return;
+			//Even though client allows more characters to be received as chat,
+			//but an overflow (critical error) happens if you pass a huge (1000+) message
+		}
 
 		// Say Filter implementation
 		if (Config.USE_SAY_FILTER)

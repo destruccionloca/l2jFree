@@ -1141,6 +1141,7 @@ public final class Config extends L2Config
 	public static boolean			ALLOW_MASTERWORK;
 	public static boolean			ALLOW_CRITICAL_CRAFT;
 	public static boolean			MAIL_STORE_DELETED_LETTERS;
+	public static boolean			BAN_CLIENT_EMULATORS;
 
 	// *******************************************************************************************
 	public static void loadOptionsConfig()
@@ -1313,6 +1314,7 @@ public final class Config extends L2Config
 			DEADLOCKCHECK_INTERVAL = Integer.parseInt(optionsSettings.getProperty("DeadLockCheck", "10000"));
 			ALLOW_MASTERWORK = Boolean.parseBoolean(optionsSettings.getProperty("AllowMasterwork", "False"));
 			ALLOW_CRITICAL_CRAFT = Boolean.parseBoolean(optionsSettings.getProperty("AllowCriticalCraft", "False"));
+			BAN_CLIENT_EMULATORS = Boolean.parseBoolean(optionsSettings.getProperty("AutoBanClientEmulators", "True"));
 		}
 		catch (Exception e)
 		{

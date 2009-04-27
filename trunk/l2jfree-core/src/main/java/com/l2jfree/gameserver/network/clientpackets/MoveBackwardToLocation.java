@@ -60,7 +60,7 @@ public final class MoveBackwardToLocation extends L2GameClientPacket
 		if (activeChar == null)
 			return;
 		
-		if (_moveMovement == null)
+		if (_moveMovement == null && Config.BAN_CLIENT_EMULATORS)
 		{
 			Util.handleIllegalPlayerAction(activeChar, "Bot usage for movement by " + activeChar,
 				IllegalPlayerAction.PUNISH_KICKBAN);
