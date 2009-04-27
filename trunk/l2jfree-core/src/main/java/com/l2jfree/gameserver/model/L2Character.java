@@ -108,6 +108,7 @@ import com.l2jfree.gameserver.templates.item.L2Weapon;
 import com.l2jfree.gameserver.templates.item.L2WeaponType;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
+import com.l2jfree.gameserver.threadmanager.ExclusiveTask;
 import com.l2jfree.gameserver.util.Broadcast;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.lang.L2System;
@@ -319,10 +320,8 @@ public abstract class L2Character extends L2Object
 	{
 		// Default: NPCs consume virtual items for their skills
 		if (_log.isDebugEnabled())
-		{
-			_log.warn("destroyItem called for L2Character!");
-			Thread.dumpStack();
-		}
+			_log.warn("destroyItem called for L2Character!", new IllegalStateException());
+		
 		return true;
 	}
 
@@ -337,10 +336,8 @@ public abstract class L2Character extends L2Object
 	{
 		// Default: NPCs consume virtual items for their skills
 		if (_log.isDebugEnabled())
-		{
-			_log.warn("destroyItem called for L2Character!");
-			Thread.dumpStack();
-		}
+			_log.warn("destroyItem called for L2Character!", new IllegalStateException());
+		
 		return true;
 	}
 
@@ -932,7 +929,7 @@ public abstract class L2Character extends L2Object
 			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
-
+		
 		// BOW and CROSSBOW checks
 		if (weaponItem != null && !transformed)
 		{
@@ -942,12 +939,12 @@ public abstract class L2Character extends L2Object
 				if (this instanceof L2PcInstance)
 				{
 					// Verify if the bow can be use
-					if (_disableBowAttackEndTime <= GameTimeController.getGameTicks())
+					if (!_evtReadyToAct.isScheduled())
 					{
 						// Verify if L2PcInstance owns enough MP
-						int saMpConsume = (int) getStat().calcStat(Stats.MP_CONSUME, 0, null, null);
+						int saMpConsume = (int)getStat().calcStat(Stats.MP_CONSUME, 0, null, null);
 						int mpConsume = saMpConsume == 0 ? weaponItem.getMpConsume() : saMpConsume;
-
+						
 						if (getStatus().getCurrentMp() < mpConsume)
 						{
 							// If L2PcInstance doesn't have enough MP, stop the attack
@@ -958,15 +955,9 @@ public abstract class L2Character extends L2Object
 						}
 						// If L2PcInstance have enough MP, the bow consumes it
 						getStatus().reduceMp(mpConsume);
-
-						// Set the period of bow no re-use
-						_disableBowAttackEndTime = 5 * GameTimeController.TICKS_PER_SECOND + GameTimeController.getGameTicks();
 					}
 					else
 					{
-						// Cancel the action because the bow can't be re-use at this moment
-						ThreadPoolManager.getInstance().scheduleAi(new NotifyAITask(CtrlEvent.EVT_READY_TO_ACT), 1000);
-
 						sendPacket(ActionFailed.STATIC_PACKET);
 						return;
 					}
@@ -976,13 +967,13 @@ public abstract class L2Character extends L2Object
 						// Cancel the action because the L2PcInstance have no arrow
 						getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 						sendPacket(ActionFailed.STATIC_PACKET);
-						sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_ARROWS));
+						sendPacket(SystemMessageId.NOT_ENOUGH_ARROWS);
 						return;
 					}
 				}
 				else if (this instanceof L2NpcInstance)
 				{
-					if (_disableBowAttackEndTime > GameTimeController.getGameTicks())
+					if (_evtReadyToAct.isScheduled())
 						return;
 				}
 			}
@@ -999,39 +990,33 @@ public abstract class L2Character extends L2Object
 						sendPacket(ActionFailed.STATIC_PACKET);
 						return;
 					}
-
+					
 					// Verify if the crossbow can be use
-					if (_disableCrossBowAttackEndTime <= GameTimeController.getGameTicks())
-					{
-						// Set the period of crossbow no re-use
-						_disableCrossBowAttackEndTime = 5 * GameTimeController.TICKS_PER_SECOND + GameTimeController.getGameTicks();
-					}
-					else
+					if (_evtReadyToAct.isScheduled())
 					{
 						// Cancel the action because the crossbow can't be re-use at this moment
-						ThreadPoolManager.getInstance().scheduleAi(new NotifyAITask(CtrlEvent.EVT_READY_TO_ACT), 1000);
 						sendPacket(ActionFailed.STATIC_PACKET);
 						return;
 					}
-
+					
 					// Equip bolts needed in left hand and send a Server->Client packet ItemList to the L2PcINstance then return True
 					if (!checkAndEquipBolts())
 					{
 						// Cancel the action because the L2PcInstance have no arrow
 						getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 						sendPacket(ActionFailed.STATIC_PACKET);
-						sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_BOLTS));
+						sendPacket(SystemMessageId.NOT_ENOUGH_BOLTS);
 						return;
 					}
 				}
 				else if (this instanceof L2NpcInstance)
 				{
-					if (_disableCrossBowAttackEndTime > GameTimeController.getGameTicks())
+					if (_evtReadyToAct.isScheduled())
 						return;
 				}
 			}
 		}
-
+		
 		// Add the L2PcInstance to _knownObjects and _knownPlayer of the target
 		target.getKnownList().addKnownObject(this);
 
@@ -1145,11 +1130,22 @@ public abstract class L2Character extends L2Object
 		// to the L2Character AND to all L2PcInstance in the _knownPlayers of the L2Character
 		if (attack.hasHits())
 			broadcastPacket(attack);
-
+		
 		// Notify AI with EVT_READY_TO_ACT
-		ThreadPoolManager.getInstance().scheduleAi(new NotifyAITask(CtrlEvent.EVT_READY_TO_ACT), timeAtk + reuse);
+		_evtReadyToAct.schedule(timeAtk + reuse);
 	}
-
+	
+	private final ExclusiveTask _evtReadyToAct = new ExclusiveTask() {
+		@Override
+		protected void onElapsed()
+		{
+			_attackEndTime= 0;
+			_evtReadyToAct.cancel();
+			
+			getAI().notifyEvent(CtrlEvent.EVT_READY_TO_ACT);
+		}
+	};
+	
 	/**
 	 * Launch a Bow attack.<BR>
 	 * <BR>
@@ -1215,9 +1211,6 @@ public abstract class L2Character extends L2Object
 
 		// Create a new hit task with Medium priority
 		ThreadPoolManager.getInstance().scheduleAi(new HitTask(target, damage1, crit1, miss1, attack.soulshot, shld1), sAtk);
-
-		// Calculate and set the disable delay of the bow in function of the Attack Speed
-		_disableBowAttackEndTime = (sAtk + reuse) / GameTimeController.MILLIS_IN_TICK + GameTimeController.getGameTicks();
 
 		// Add this hit to the Server-Client packet Attack
 		attack.addHit(target, damage1, miss1, crit1, shld1);
@@ -1287,9 +1280,6 @@ public abstract class L2Character extends L2Object
 
 		// Create a new hit task with Medium priority
 		ThreadPoolManager.getInstance().scheduleAi(new HitTask(target, damage1, crit1, miss1, attack.soulshot, shld1), sAtk);
-
-		// Calculate and set the disable delay of the bow in function of the Attack Speed
-		_disableCrossBowAttackEndTime = (sAtk + reuse) / GameTimeController.MILLIS_IN_TICK + GameTimeController.getGameTicks();
 
 		// Add this hit to the Server-Client packet Attack
 		attack.addHit(target, damage1, miss1, crit1, shld1);
@@ -1580,10 +1570,10 @@ public abstract class L2Character extends L2Object
 		}
 		
 		// Set the target of the skill in function of Skill Type and Target Type
-		L2Character target = null;
+		final L2Character target;
 		
 		// Get all possible targets of the skill in a table in function of the skill target type
-		L2Character[] targets = skill.getTargetList(this);
+		final L2Character[] targets = skill.getTargetList(this);
 		
 		// AURA skills should always be using caster as target
 		switch (skill.getTargetType())
@@ -1600,17 +1590,8 @@ public abstract class L2Character extends L2Object
 			{
 				if (targets == null || targets.length == 0)
 				{
-					if (simultaneously)
-						setIsCastingSimultaneouslyNow(false);
-					else
-						setIsCastingNow(false);
-					// Send a Server->Client packet ActionFailed to the L2PcInstance
-					if (this instanceof L2PcInstance)
-					{
-						sendPacket(ActionFailed.STATIC_PACKET);
-						getAI().setIntention(AI_INTENTION_ACTIVE);
-					}
-					return;
+					target = null;
+					break;
 				}
 				
 				switch (skill.getSkillType())
@@ -1620,8 +1601,10 @@ public abstract class L2Character extends L2Object
 					case COMBATPOINTHEAL:
 					case MANAHEAL:
 					case REFLECT:
+					{
 						target = targets[0];
 						break;
+					}
 					default:
 					{
 						switch (skill.getTargetType())
@@ -1633,14 +1616,18 @@ public abstract class L2Character extends L2Object
 							case TARGET_CLAN:
 							case TARGET_ALLY:
 							case TARGET_ENEMY_ALLY:
+							{
 								target = targets[0];
 								break;
+							}
 							case TARGET_OWNER_PET:
+							{
 								if (this instanceof L2PetInstance)
-								{
 									target = ((L2PetInstance)this).getOwner();
-								}
+								else
+									target = null;
 								break;
+							}
 							default:
 							{
 								target = (L2Character)getTarget();
@@ -1675,8 +1662,7 @@ public abstract class L2Character extends L2Object
 		int coolTime = skill.getCoolTime();
 		int skillInterruptTime = skill.getSkillInterruptTime();
 		
-		final boolean effectWhileCasting = skill.getSkillType() == L2SkillType.FORCE_BUFF
-			|| skill.getSkillType() == L2SkillType.SIGNET_CASTTIME;
+		final boolean effectWhileCasting = skill.hasEffectWhileCasting();
 		
 		// Calculate the casting time of the skill (base + modifier of MAtkSpd)
 		// Don't modify the skill time for FORCE_BUFF skills. The skill time for those skills represent the buff time.
@@ -1836,24 +1822,24 @@ public abstract class L2Character extends L2Object
 			sendPacket(sm);
 		}
 		
-		switch (skill.getTargetType())
-		{
-			case TARGET_AURA:
-			case TARGET_FRONT_AURA:
-			case TARGET_BEHIND_AURA:
-			case TARGET_GROUND:
-			{
-				if (targets.length == 0)
-				{
-					// now cancels both, simultaneous and normal
-					getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
-					return;
-				}
-				break;
-			}
-			default:
-				break;
-		}
+//		switch (skill.getTargetType())
+//		{
+//			case TARGET_AURA:
+//			case TARGET_FRONT_AURA:
+//			case TARGET_BEHIND_AURA:
+//			case TARGET_GROUND:
+//			{
+//				if (targets.length == 0)
+//				{
+//					// now cancels both, simultaneous and normal
+//					getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
+//					return;
+//				}
+//				break;
+//			}
+//			default:
+//				break;
+//		}
 		
 		// Before start AI Cast Broadcast Fly Effect is Need
 		if (skill.getFlyType() != null && this instanceof L2PcInstance)
@@ -3832,15 +3818,6 @@ public abstract class L2Character extends L2Object
 		}
 
 		/**
-		 * Create a NotifyAITask.<BR>
-		 * <BR>
-		 */
-		public NotifyAITask newNotifyTask(CtrlEvent evt)
-		{
-			return new NotifyAITask(evt);
-		}
-
-		/**
 		 * Cancel the AI.<BR>
 		 * <BR>
 		 */
@@ -3911,8 +3888,6 @@ public abstract class L2Character extends L2Object
 	// set by the start of attack, in game ticks
 	private long						_attackEndTime;
 	private int							_attacking;
-	private int							_disableBowAttackEndTime;
-	private int							_disableCrossBowAttackEndTime;
 
 	private long						_castInterruptTime;
 
@@ -5992,12 +5967,12 @@ public abstract class L2Character extends L2Object
 		final List<L2Character> targets = magicEnv._targets;
 		final boolean simultaneously = magicEnv._simultaneously;
 		
-		if (targets.isEmpty())
-		{
-			abortCast();
-			setAttackingChar(null);
-			return;
-		}
+//		if (targets.isEmpty())
+//		{
+//			abortCast();
+//			setAttackingChar(null);
+//			return;
+//		}
 		
 		// Escaping from under skill's radius and peace zone check. First version, not perfect in AoE skills.
 		int escapeRange = 0;
@@ -6026,11 +6001,11 @@ public abstract class L2Character extends L2Object
 				}
 			}
 			
-			if (targets.isEmpty())
-			{
-				abortCast();
-				return;
-			}
+//			if (targets.isEmpty())
+//			{
+//				abortCast();
+//				return;
+//			}
 		}
 		
 		if (simultaneously && !isCastingSimultaneouslyNow() // Ensure that a cast is in progress
@@ -6061,12 +6036,12 @@ public abstract class L2Character extends L2Object
 		final List<L2Character> targets = magicEnv._targets;
 		final boolean simultaneously = magicEnv._simultaneously;
 		
-		if (targets.isEmpty())
-		{
-			abortCast();
-			setAttackingChar(null);
-			return;
-		}
+//		if (targets.isEmpty())
+//		{
+//			abortCast();
+//			setAttackingChar(null);
+//			return;
+//		}
 		
 		if (getForceBuff() != null)
 		{
