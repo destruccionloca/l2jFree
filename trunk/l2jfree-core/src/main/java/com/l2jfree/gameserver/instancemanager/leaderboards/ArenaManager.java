@@ -130,9 +130,8 @@ public class ArenaManager
 		for (int id : scores.keySet())
 		{
 			arTop = _ranks.get(id);
-
-		    if (id > idTop)
-			    idTop = id;
+			idTop = id;
+			break;
 		}
 
 		if (arTop == null)
