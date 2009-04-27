@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE list SYSTEM "mapregion.dtd">
 <mapregion>
   <restartpoints>
     <restartpoint id="0" name="talking_island_town" bbs="1" locname="910">
@@ -997,6 +999,29 @@
       <chaospoint X="181491" Y="-80868" Z="-2728"/>
     </restartpoint>
     <restartpoint id="34" name="schuttgart_town" bbs="16" locname="1714">
+<!--
+Schuttgart Spawn	1	84720	-141936	-1536	-1436
+Schuttgart Spawn	2	85056	-141328	-1536	-1436
+Schuttgart Spawn	3	85472	-140752	-1536	-1436
+Schuttgart Spawn	4	85968	-142384	-1336	-1436
+Schuttgart Spawn	5	86400	-142672	-1336	-1436
+Schuttgart Spawn	6	87184	-140256	-1536	-1436
+Schuttgart Spawn	7	87344	-141696	-1336	-1436
+Schuttgart Spawn	8	87776	-140384	-1536	-1436
+Schuttgart Spawn	9	88240	-142736	-1336	-1436
+Schuttgart Spawn	10	88448	-140512	-1536	-1436
+Schuttgart Spawn	11	88624	-142480	-1336	-1436
+Schuttgart Spawn	12	89360	-140944	-1536	-1436
+Schuttgart Spawn	13	89712	-141472	-1536	-1436
+Schuttgart PK Spawn	1	85210	-137791	-2339	-2239
+Schuttgart PK Spawn	2	83824	-138063	-2292	-2190
+Schuttgart PK Spawn	3	80994	-139829	-2287	-2187
+Schuttgart PK Spawn	4	82470	-142492	-2208	-2108
+Schuttgart PK Spawn	5	89756	-137288	-2435	-2335
+Schuttgart PK Spawn	6	92877	-138769	-2395	-2295
+Schuttgart PK Spawn	7	93255	-140516	-2269	-2169
+Schuttgart PK Spawn	8	92548	-142635	-2243	-2243
+-->
       <point X="87331" Y="-142842" Z="-1317"/>
       <point X="87346" Y="-142374" Z="-1340"/>
       <point X="86685" Y="-143016" Z="-1340"/>
@@ -1034,7 +1059,7 @@
   </restartpoints>
   <regions>
     <region id="1000">
-      <zheight min="-3596" max="-3396"/>
+      <zHeight min="-3596" max="-3396"/>
       <point X="11712" Y="181566"/>
       <point X="14407" Y="181566"/>
       <point X="14407" Y="182676"/>
@@ -1047,7 +1072,7 @@
       <restart race="Kamael" restartId="28"/>
     </region>
     <region id="1001">
-      <zheight min="-3615" max="-3415"/>
+      <zHeight min="-3615" max="-3415"/>
       <point X="13308" Y="181324"/>
       <point X="14058" Y="181324"/>
       <point X="14059" Y="181567"/>
@@ -1060,7 +1085,7 @@
       <restart race="Kamael" restartId="28"/>
     </region>
     <region id="1002">
-      <zheight min="-3610" max="-3410"/>
+      <zHeight min="-3610" max="-3410"/>
       <point X="13560" Y="182677"/>
       <point X="14071" Y="182677"/>
       <point X="14071" Y="182918"/>
@@ -1073,7 +1098,7 @@
       <restart race="Kamael" restartId="28"/>
     </region>
     <region id="1003">
-      <zheight min="-3612" max="-3412"/>
+      <zHeight min="-3612" max="-3412"/>
       <point X="11699" Y="182677"/>
       <point X="13197" Y="182677"/>
       <point X="13197" Y="184265"/>
@@ -1086,7 +1111,7 @@
       <restart race="Kamael" restartId="29"/>
     </region>
     <region id="1004">
-      <zheight min="-5709" max="-4009"/>
+      <zHeight min="-5709" max="-4009"/>
       <point X="-80523" Y="108356"/>
       <point X="-72583" Y="108389"/>
       <point X="-72539" Y="115049"/>
@@ -1099,7 +1124,7 @@
       <restart race="Kamael" restartId="26"/>
     </region>
     <region id="1005">
-      <zheight min="-5835" max="-4135"/>
+      <zHeight min="-5835" max="-4135"/>
       <point X="-81548" Y="83569"/>
       <point X="-73649" Y="83619"/>
       <point X="-73685" Y="90050"/>
@@ -1112,7 +1137,7 @@
       <restart race="Kamael" restartId="27"/>
     </region>
     <region id="1006">
-      <zheight min="-3049" max="-2849"/>
+      <zHeight min="-3049" max="-2849"/>
       <point X="-116299" Y="-251426"/>
       <point X="-115745" Y="-251426"/>
       <point X="-115745" Y="-250840"/>
@@ -1125,7 +1150,7 @@
       <restart race="Kamael" restartId="24"/>
     </region>
     <region id="1007">
-      <zheight min="-3053" max="-2853"/>
+      <zHeight min="-3053" max="-2853"/>
       <point X="-113350" Y="-251408"/>
       <point X="-112797" Y="-251407"/>
       <point X="-112798" Y="-250855"/>
@@ -1138,7 +1163,7 @@
       <restart race="Kamael" restartId="25"/>
     </region>
     <region id="1008">
-      <zheight min="-3050" max="-2850"/>
+      <zHeight min="-3050" max="-2850"/>
       <point X="-115727" Y="-251652"/>
       <point X="-113365" Y="-251655"/>
       <point X="-113365" Y="-248191"/>
@@ -1151,7 +1176,7 @@
       <restart race="Kamael" restartId="23"/>
     </region>
     <region id="1009">
-      <zheight min="-4500" max="-597"/>
+      <zHeight min="-4500" max="-597"/>
       <point X="116830" Y="-12269"/>
       <point X="131272" Y="-19475"/>
       <point X="131238" Y="195"/>
@@ -1165,7 +1190,7 @@
       <restart race="Kamael" restartId="14"/>
     </region>
     <region id="1010">
-      <zheight min="-3908" max="-2408"/>
+      <zHeight min="-3908" max="-2408"/>
       <point X="98126" Y="18787"/>
       <point X="102283" Y="18620"/>
       <point X="105152" Y="24613"/>
@@ -1179,7 +1204,7 @@
       <restart race="Kamael" restartId="12"/>
     </region>
     <region id="1011">
-      <zheight min="-4099" max="-2599"/>
+      <zHeight min="-4099" max="-2599"/>
       <point X="98122" Y="-125"/>
       <point X="104157" Y="-125"/>
       <point X="104780" Y="5964"/>
@@ -1194,7 +1219,7 @@
       <restart race="Kamael" restartId="12"/>
     </region>
     <region id="1012">
-      <zheight min="-3966" max="-2466"/>
+      <zHeight min="-3966" max="-2466"/>
       <point X="65560" Y="72724"/>
       <point X="66998" Y="75856"/>
       <point X="67000" Y="91140"/>
@@ -1207,7 +1232,7 @@
       <restart race="Kamael" restartId="8"/>
     </region>
     <region id="1013">
-      <zheight min="-3979" max="-2479"/>
+      <zHeight min="-3979" max="-2479"/>
       <point X="65541" Y="89966"/>
       <point X="72218" Y="92923"/>
       <point X="81223" Y="98341"/>
@@ -1220,7 +1245,7 @@
       <restart race="Kamael" restartId="8"/>
     </region>
     <region id="1014">
-      <zheight min="-3953" max="-2453"/>
+      <zHeight min="-3953" max="-2453"/>
       <point X="73291" Y="96517"/>
       <point X="81049" Y="95737"/>
       <point X="90505" Y="98448"/>
@@ -1233,7 +1258,7 @@
       <restart race="Kamael" restartId="8"/>
     </region>
     <region id="1015">
-      <zheight min="-3976" max="-2476"/>
+      <zHeight min="-3976" max="-2476"/>
       <point X="91486" Y="94741"/>
       <point X="98321" Y="96310"/>
       <point X="98342" Y="98409"/>
@@ -1246,7 +1271,7 @@
       <restart race="Kamael" restartId="8"/>
     </region>
     <region id="1016">
-      <zheight min="-3671" max="3829"/>
+      <zHeight min="-3671" max="3829"/>
       <point X="127915" Y="59088"/>
       <point X="128711" Y="55378"/>
       <point X="131199" Y="51613"/>
@@ -1260,7 +1285,7 @@
       <restart race="Kamael" restartId="14"/>
     </region>
     <region id="1017">
-      <zheight min="-3826" max="-1326"/>
+      <zHeight min="-3826" max="-1326"/>
       <point X="127605" Y="32531"/>
       <point X="131035" Y="32562"/>
       <point X="131199" Y="54562"/>
@@ -1273,7 +1298,7 @@
       <restart race="Kamael" restartId="14"/>
     </region>
     <region id="1018">
-      <zheight min="-4089" max="-1589"/>
+      <zHeight min="-4089" max="-1589"/>
       <point X="98303" Y="32680"/>
       <point X="130873" Y="32701"/>
       <point X="130135" Y="34492"/>
@@ -1286,7 +1311,7 @@
       <restart race="Kamael" restartId="14"/>
     </region>
     <region id="1019">
-      <zheight min="-3758" max="1242"/>
+      <zHeight min="-3758" max="1242"/>
       <point X="98169" Y="65360"/>
       <point X="104540" Y="74468"/>
       <point X="100546" Y="88083"/>
@@ -1299,7 +1324,7 @@
       <restart race="Kamael" restartId="12"/>
     </region>
     <region id="1020">
-      <zheight min="-3744" max="1256"/>
+      <zHeight min="-3744" max="1256"/>
       <point X="101128" Y="88045"/>
       <point X="103560" Y="91109"/>
       <point X="104597" Y="95332"/>
@@ -1313,7 +1338,7 @@
       <restart race="Kamael" restartId="12"/>
     </region>
     <region id="1021">
-      <zheight min="-4053" max="1947"/>
+      <zHeight min="-4053" max="1947"/>
       <point X="115811" Y="95756"/>
       <point X="119344" Y="97057"/>
       <point X="119684" Y="98434"/>
@@ -1328,7 +1353,7 @@
       <restart race="Kamael" restartId="8"/>
     </region>
     <region id="1022">
-      <zheight min="-2972" max="28"/>
+      <zHeight min="-2972" max="28"/>
       <point X="119393" Y="97040"/>
       <point X="131160" Y="94553"/>
       <point X="131170" Y="98399"/>
@@ -1341,7 +1366,7 @@
       <restart race="Kamael" restartId="8"/>
     </region>
     <region id="1023">
-      <zheight min="-4572" max="-2072"/>
+      <zHeight min="-4572" max="-2072"/>
       <point X="123367" Y="145103"/>
       <point X="131151" Y="141459"/>
       <point X="131237" Y="164129"/>
@@ -1355,7 +1380,7 @@
       <restart race="Kamael" restartId="16"/>
     </region>
     <region id="1024">
-      <zheight min="-4578" max="-2078"/>
+      <zHeight min="-4578" max="-2078"/>
       <point X="108429" Y="151108"/>
       <point X="119577" Y="151332"/>
       <point X="119582" Y="164120"/>
@@ -1370,7 +1395,7 @@
       <restart race="Kamael" restartId="16"/>
     </region>
     <region id="1025">
-      <zheight min="-4331" max="-1831"/>
+      <zHeight min="-4331" max="-1831"/>
       <point X="93549" Y="155049"/>
       <point X="98410" Y="156923"/>
       <point X="98436" Y="163903"/>
@@ -1384,7 +1409,7 @@
       <restart race="Kamael" restartId="16"/>
     </region>
     <region id="1026">
-      <zheight min="-5068" max="2932"/>
+      <zHeight min="-5068" max="2932"/>
       <point X="56950" Y="199547"/>
       <point X="60975" Y="202588"/>
       <point X="62108" Y="216922"/>
@@ -1403,7 +1428,7 @@
       <restart race="Kamael" restartId="8"/>
     </region>
     <region id="1027">
-      <zheight min="-3779" max="-1279"/>
+      <zHeight min="-3779" max="-1279"/>
       <point X="43888" Y="163713"/>
       <point X="59933" Y="163750"/>
       <point X="46300" Y="169538"/>
@@ -1416,7 +1441,7 @@
       <restart race="Kamael" restartId="6"/>
     </region>
     <region id="1028">
-      <zheight min="-3807" max="-1807"/>
+      <zHeight min="-3807" max="-1807"/>
       <point X="32568" Y="171064"/>
       <point X="32537" Y="163466"/>
       <point X="37814" Y="167482"/>
@@ -1428,7 +1453,7 @@
       <restart race="Kamael" restartId="6"/>
     </region>
     <region id="1029">
-      <zheight min="-3774" max="-1274"/>
+      <zHeight min="-3774" max="-1274"/>
       <point X="32803" Y="163712"/>
       <point X="43975" Y="163696"/>
       <point X="43957" Y="167583"/>
@@ -1441,7 +1466,7 @@
       <restart race="Kamael" restartId="6"/>
     </region>
     <region id="1030">
-      <zheight min="-4656" max="-2656"/>
+      <zHeight min="-4656" max="-2656"/>
       <point X="-65" Y="158365"/>
       <point X="2775" Y="158666"/>
       <point X="5097" Y="163843"/>
@@ -1454,7 +1479,7 @@
       <restart race="Kamael" restartId="2"/>
     </region>
     <region id="1031">
-      <zheight min="-4340" max="-1740"/>
+      <zHeight min="-4340" max="-1740"/>
       <point X="-232" Y="159206"/>
       <point X="-214" Y="129294"/>
       <point X="2312" Y="130658"/>
@@ -1470,7 +1495,7 @@
       <restart race="Kamael" restartId="2"/>
     </region>
     <region id="1032">
-      <zheight min="-4255" max="-2755"/>
+      <zHeight min="-4255" max="-2755"/>
       <point X="-3165" Y="119934"/>
       <point X="-14" Y="116025"/>
       <point X="-32" Y="129912"/>
@@ -1483,7 +1508,7 @@
       <restart race="Kamael" restartId="6"/>
     </region>
     <region id="1033">
-      <zheight min="-4426" max="-1176"/>
+      <zHeight min="-4426" max="-1176"/>
       <point X="2167" Y="95956"/>
       <point X="32848" Y="96009"/>
       <point X="32854" Y="98489"/>
@@ -1496,7 +1521,7 @@
       <restart race="Kamael" restartId="6"/>
     </region>
     <region id="1034">
-      <zheight min="-4677" max="-3077"/>
+      <zHeight min="-4677" max="-3077"/>
       <point X="-17049" Y="204942"/>
       <point X="-5035" Y="196530"/>
       <point X="-31401" Y="196507"/>
@@ -1509,7 +1534,7 @@
       <restart race="Kamael" restartId="2"/>
     </region>
     <region id="1035">
-      <zheight min="-4399" max="-2899"/>
+      <zHeight min="-4399" max="-2899"/>
       <point X="-41226" Y="187772"/>
       <point X="-32594" Y="182909"/>
       <point X="-32931" Y="194798"/>
@@ -1522,7 +1547,7 @@
       <restart race="Kamael" restartId="2"/>
     </region>
     <region id="1036">
-      <zheight min="-4458" max="-2958"/>
+      <zHeight min="-4458" max="-2958"/>
       <point X="-40885" Y="176647"/>
       <point X="-32588" Y="179213"/>
       <point X="-32722" Y="183489"/>
@@ -1536,7 +1561,7 @@
       <restart race="Kamael" restartId="2"/>
     </region>
     <region id="1037">
-      <zheight min="-4570" max="-3070"/>
+      <zHeight min="-4570" max="-3070"/>
       <point X="-38529" Y="173004"/>
       <point X="-32775" Y="176283"/>
       <point X="-32819" Y="179383"/>
@@ -1549,7 +1574,7 @@
       <restart race="Kamael" restartId="2"/>
     </region>
     <region id="1038">
-      <zheight min="-4566" max="-3066"/>
+      <zHeight min="-4566" max="-3066"/>
       <point X="-38501" Y="173045"/>
       <point X="-37525" Y="168739"/>
       <point X="-32679" Y="166859"/>
@@ -1562,7 +1587,7 @@
       <restart race="Kamael" restartId="2"/>
     </region>
     <region id="1039">
-      <zheight min="-5552" max="-552"/>
+      <zHeight min="-5552" max="-552"/>
       <point X="-42492" Y="158681"/>
       <point X="-37596" Y="130952"/>
       <point X="-32467" Y="130795"/>
@@ -1575,7 +1600,7 @@
       <restart race="Kamael" restartId="2"/>
     </region>
     <region id="1040">
-      <zheight min="-3376" max="-576"/>
+      <zHeight min="-3376" max="-576"/>
       <point X="-41822" Y="125676"/>
       <point X="-37841" Y="127845"/>
       <point X="-38261" Y="131102"/>
@@ -1590,7 +1615,7 @@
       <restart race="Kamael" restartId="1"/>
     </region>
     <region id="1041">
-      <zheight min="-3253" max="-1753"/>
+      <zHeight min="-3253" max="-1753"/>
       <point X="-49822" Y="129200"/>
       <point X="-47530" Y="129044"/>
       <point X="-47537" Y="131070"/>
@@ -1605,7 +1630,7 @@
       <restart race="Kamael" restartId="1"/>
     </region>
     <region id="1042">
-      <zheight min="-4184" max="-1184"/>
+      <zHeight min="-4184" max="-1184"/>
       <point X="-65686" Y="115819"/>
       <point X="-62217" Y="116733"/>
       <point X="-57806" Y="131186"/>
@@ -1618,7 +1643,7 @@
       <restart race="Kamael" restartId="1"/>
     </region>
     <region id="1043">
-      <zheight min="-3777" max="-1277"/>
+      <zHeight min="-3777" max="-1277"/>
       <point X="-33804" Y="86223"/>
       <point X="-26832" Y="88453"/>
       <point X="-32248" Y="88884"/>
@@ -1630,7 +1655,7 @@
       <restart race="Kamael" restartId="5"/>
     </region>
     <region id="1044">
-      <zheight min="-3772" max="-1272"/>
+      <zHeight min="-3772" max="-1272"/>
       <point X="-66100" Y="96130"/>
       <point X="-65743" Y="93025"/>
       <point X="-61912" Y="93677"/>
@@ -1642,7 +1667,7 @@
       <restart race="Kamael" restartId="2"/>
     </region>
     <region id="1045">
-      <zheight min="-3680" max="1320"/>
+      <zHeight min="-3680" max="1320"/>
       <point X="-200" Y="32455"/>
       <point X="7581" Y="32533"/>
       <point X="5808" Y="44237"/>
@@ -1655,7 +1680,7 @@
       <restart race="Kamael" restartId="5"/>
     </region>
     <region id="1046">
-      <zheight min="-3698" max="302"/>
+      <zHeight min="-3698" max="302"/>
       <point X="34867" Y="29737"/>
       <point X="49579" Y="29983"/>
       <point X="51919" Y="32784"/>
@@ -1669,7 +1694,7 @@
       <restart race="Kamael" restartId="4"/>
     </region>
     <region id="1047">
-      <zheight min="-4871" max="129"/>
+      <zHeight min="-4871" max="129"/>
       <point X="35073" Y="22896"/>
       <point X="42560" Y="12837"/>
       <point X="45060" Y="6876"/>
@@ -1684,7 +1709,7 @@
       <restart race="Kamael" restartId="5"/>
     </region>
     <region id="1048">
-      <zheight min="-4866" max="134"/>
+      <zHeight min="-4866" max="134"/>
       <point X="45334" Y="-134"/>
       <point X="65470" Y="-112"/>
       <point X="62362" Y="5017"/>
@@ -1698,7 +1723,7 @@
       <restart race="Kamael" restartId="5"/>
     </region>
     <region id="1049">
-      <zheight min="-5137" max="-137"/>
+      <zHeight min="-5137" max="-137"/>
       <point X="32716" Y="96377"/>
       <point X="63495" Y="96374"/>
       <point X="63469" Y="98620"/>
@@ -1711,7 +1736,7 @@
       <restart race="Kamael" restartId="6"/>
     </region>
     <region id="1050">
-      <zheight min="-4376" max="124"/>
+      <zHeight min="-4376" max="124"/>
       <point X="49993" Y="31658"/>
       <point X="66788" Y="31695"/>
       <point X="66820" Y="36162"/>
@@ -1724,7 +1749,7 @@
       <restart race="Kamael" restartId="12"/>
     </region>
     <region id="1051">
-      <zheight min="-4384" max="116"/>
+      <zHeight min="-4384" max="116"/>
       <point X="62307" Y="35180"/>
       <point X="66552" Y="35203"/>
       <point X="66663" Y="52754"/>
@@ -1738,7 +1763,7 @@
       <restart race="Kamael" restartId="12"/>
     </region>
     <region id="1052">
-      <zheight min="-4325" max="175"/>
+      <zHeight min="-4325" max="175"/>
       <point X="61496" Y="52325"/>
       <point X="66528" Y="52406"/>
       <point X="66707" Y="65500"/>
@@ -1751,7 +1776,7 @@
       <restart race="Kamael" restartId="12"/>
     </region>
     <region id="1053">
-      <zheight min="-4000" max="-2000"/>
+      <zHeight min="-4000" max="-2000"/>
       <point X="63480" Y="64066"/>
       <point X="66572" Y="64059"/>
       <point X="66572" Y="74028"/>
@@ -1764,7 +1789,7 @@
       <restart race="Kamael" restartId="12"/>
     </region>
     <region id="1054">
-      <zheight min="-4000" max="-2000"/>
+      <zHeight min="-4000" max="-2000"/>
       <point X="63480" Y="74029"/>
       <point X="66572" Y="74029"/>
       <point X="66572" Y="98294"/>
@@ -1777,7 +1802,7 @@
       <restart race="Kamael" restartId="8"/>
     </region>
     <region id="1055">
-      <zheight min="-3931" max="-1931"/>
+      <zHeight min="-3931" max="-1931"/>
       <point X="63477" Y="98288"/>
       <point X="66559" Y="98305"/>
       <point X="66558" Y="101836"/>
@@ -1790,7 +1815,7 @@
       <restart race="Kamael" restartId="8"/>
     </region>
     <region id="1056">
-      <zheight min="-4188" max="-1588"/>
+      <zHeight min="-4188" max="-1588"/>
       <point X="62610" Y="100826"/>
       <point X="66262" Y="101390"/>
       <point X="66577" Y="131029"/>
@@ -1804,7 +1829,7 @@
       <restart race="Kamael" restartId="8"/>
     </region>
     <region id="1057">
-      <zheight min="-4735" max="-3235"/>
+      <zHeight min="-4735" max="-3235"/>
       <point X="42947" Y="190296"/>
       <point X="59746" Y="181026"/>
       <point X="65984" Y="186045"/>
@@ -1818,7 +1843,7 @@
       <restart race="Kamael" restartId="9"/>
     </region>
     <region id="1058">
-      <zheight min="-3498" max="-3298"/>
+      <zHeight min="-3498" max="-3298"/>
       <point X="151252" Y="45918"/>
       <point X="151253" Y="47550"/>
       <point X="150767" Y="48129"/>
@@ -1835,7 +1860,7 @@
       <restart race="Kamael" restartId="15"/>
     </region>
     <region id="1059">
-      <zheight min="-3468" max="-3268"/>
+      <zHeight min="-3468" max="-3268"/>
       <point X="147779" Y="46196"/>
       <point X="148045" Y="46481"/>
       <point X="148047" Y="46958"/>
@@ -1850,7 +1875,7 @@
       <restart race="Kamael" restartId="15"/>
     </region>
     <region id="1060">
-      <zheight min="-3472" max="-3272"/>
+      <zHeight min="-3472" max="-3272"/>
       <point X="151221" Y="46184"/>
       <point X="151928" Y="46183"/>
       <point X="151925" Y="47248"/>
@@ -1865,7 +1890,7 @@
       <restart race="Kamael" restartId="15"/>
     </region>
     <region id="1061">
-      <zheight min="-4088" max="-2088"/>
+      <zHeight min="-4088" max="-2088"/>
       <point X="-71038" Y="69341"/>
       <point X="-64952" Y="69392"/>
       <point X="-64988" Y="88249"/>
@@ -1879,7 +1904,7 @@
       <restart race="Kamael" restartId="5"/>
     </region>
     <region id="1062">
-      <zheight min="-3992" max="-1992"/>
+      <zHeight min="-3992" max="-1992"/>
       <point X="-72378" Y="87505"/>
       <point X="-65145" Y="87772"/>
       <point X="-65156" Y="93195"/>
@@ -1892,7 +1917,7 @@
       <restart race="Kamael" restartId="5"/>
     </region>
     <region id="1063">
-      <zheight min="-3968" max="-1968"/>
+      <zHeight min="-3968" max="-1968"/>
       <point X="-76789" Y="65422"/>
       <point X="-64977" Y="65400"/>
       <point X="-64998" Y="73322"/>
@@ -1905,7 +1930,7 @@
       <restart race="Kamael" restartId="5"/>
     </region>
     <region id="1064">
-      <zheight min="-3767" max="-1767"/>
+      <zHeight min="-3767" max="-1767"/>
       <point X="-39037" Y="88126"/>
       <point X="-32254" Y="88906"/>
       <point X="-32415" Y="98751"/>
@@ -1920,7 +1945,7 @@
       <restart race="Kamael" restartId="2"/>
     </region>
     <region id="1065">
-      <zheight min="-4100" max="-3100"/>
+      <zHeight min="-4100" max="-3100"/>
       <point X="-33765" Y="83315"/>
       <point X="-21239" Y="78502"/>
       <point X="-21864" Y="90121"/>
@@ -1933,7 +1958,7 @@
       <restart race="Kamael" restartId="5"/>
     </region>
     <region id="1066">
-      <zheight min="-4235" max="-3235"/>
+      <zHeight min="-4235" max="-3235"/>
       <point X="-33767" Y="72902"/>
       <point X="-17495" Y="73285"/>
       <point X="-22631" Y="81481"/>
@@ -1946,7 +1971,7 @@
       <restart race="Kamael" restartId="5"/>
     </region>
     <region id="1067">
-      <zheight min="-3932" max="-2932"/>
+      <zHeight min="-3932" max="-2932"/>
       <point X="-33367" Y="73183"/>
       <point X="-12563" Y="70545"/>
       <point X="-19250" Y="74975"/>
@@ -1958,7 +1983,7 @@
       <restart race="Kamael" restartId="5"/>
     </region>
     <region id="1068">
-      <zheight min="-4017" max="-3017"/>
+      <zHeight min="-4017" max="-3017"/>
       <point X="-33647" Y="65118"/>
       <point X="-10654" Y="65187"/>
       <point X="-10651" Y="70698"/>
@@ -1971,7 +1996,7 @@
       <restart race="Kamael" restartId="5"/>
     </region>
     <region id="1069">
-      <zheight min="-4281" max="-3281"/>
+      <zHeight min="-4281" max="-3281"/>
       <point X="-10631" Y="65484"/>
       <point X="147" Y="65487"/>
       <point X="153" Y="75746"/>
@@ -1984,7 +2009,7 @@
       <restart race="Kamael" restartId="4"/>
     </region>
     <region id="1070">
-      <zheight min="-4215" max="-3215"/>
+      <zHeight min="-4215" max="-3215"/>
       <point X="-6043" Y="72650"/>
       <point X="172" Y="73048"/>
       <point X="153" Y="79538"/>
@@ -1996,7 +2021,7 @@
       <restart race="Kamael" restartId="4"/>
     </region>
     <region id="1071">
-      <zheight min="-4245" max="-3245"/>
+      <zHeight min="-4245" max="-3245"/>
       <point X="1367" Y="79808"/>
       <point X="2153" Y="88057"/>
       <point X="2111" Y="98621"/>
@@ -2010,7 +2035,7 @@
       <restart race="Kamael" restartId="3"/>
     </region>
     <region id="1072">
-      <zheight min="-4483" max="-2483"/>
+      <zHeight min="-4483" max="-2483"/>
       <point X="65089" Y="177671"/>
       <point X="72528" Y="175700"/>
       <point X="69292" Y="181077"/>
@@ -2024,7 +2049,7 @@
       <restart race="Kamael" restartId="8"/>
     </region>
     <region id="1073">
-      <zheight min="-4390" max="-2000"/>
+      <zHeight min="-4390" max="-2000"/>
       <point X="65066" Y="163463"/>
       <point X="80879" Y="163501"/>
       <point X="76230" Y="172053"/>
@@ -2038,7 +2063,7 @@
       <restart race="Kamael" restartId="8"/>
     </region>
     <region id="1074">
-      <zheight min="-6874" max="-4874"/>
+      <zHeight min="-6874" max="-4874"/>
       <point X="41090" Y="242210"/>
       <point X="49934" Y="242210"/>
       <point X="49985" Y="250489"/>
@@ -2051,7 +2076,7 @@
       <restart race="Kamael" restartId="0"/>
     </region>
     <region id="1075">
-      <zheight min="-3148" max="-2948"/>
+      <zHeight min="-3148" max="-2948"/>
       <point X="-71944" Y="258332"/>
       <point X="-71316" Y="257772"/>
       <point X="-70728" Y="258468"/>
@@ -2064,7 +2089,7 @@
       <restart race="Kamael" restartId="17"/>
     </region>
     <region id="1076">
-      <zheight min="-3606" max="-3406"/>
+      <zHeight min="-3606" max="-3406"/>
       <point X="-90831" Y="247813"/>
       <point X="-90011" Y="248306"/>
       <point X="-90341" Y="248870"/>
@@ -2077,7 +2102,7 @@
       <restart race="Kamael" restartId="18"/>
     </region>
     <region id="1077">
-      <zheight min="-3555" max="-3355"/>
+      <zHeight min="-3555" max="-3355"/>
       <point X="44096" Y="40595"/>
       <point X="47903" Y="41035"/>
       <point X="46459" Y="42066"/>
@@ -2090,7 +2115,7 @@
       <restart race="Kamael" restartId="19"/>
     </region>
     <region id="1078">
-      <zheight min="-4276" max="-4076"/>
+      <zHeight min="-4276" max="-4076"/>
       <point X="27704" Y="10253"/>
       <point X="29165" Y="10298"/>
       <point X="29165" Y="11811"/>
@@ -2103,7 +2128,7 @@
       <restart race="Kamael" restartId="20"/>
     </region>
     <region id="1079">
-      <zheight min="-718" max="-518"/>
+      <zHeight min="-718" max="-518"/>
       <point X="-56890" Y="-114033"/>
       <point X="-55620" Y="-114048"/>
       <point X="-55632" Y="-113165"/>
@@ -2116,7 +2141,7 @@
       <restart race="Kamael" restartId="21"/>
     </region>
     <region id="1080">
-      <zheight min="-623" max="-423"/>
+      <zHeight min="-623" max="-423"/>
       <point X="108734" Y="-175480"/>
       <point X="109960" Y="-174283"/>
       <point X="108767" Y="-172526"/>
@@ -2129,7 +2154,7 @@
       <restart race="Kamael" restartId="22"/>
     </region>
     <region id="1081">
-      <zheight min="-4624" max="2376"/>
+      <zHeight min="-4624" max="2376"/>
       <point X="97820" Y="-33007"/>
       <point X="130600" Y="-33101"/>
       <point X="131029" Y="-19205"/>
@@ -2144,7 +2169,7 @@
       <restart race="Kamael" restartId="31"/>
     </region>
     <region id="1082">
-      <zheight min="-3272" max="2272"/>
+      <zHeight min="-3272" max="2272"/>
       <point X="152215" Y="-33320"/>
       <point X="164125" Y="-33133"/>
       <point X="163975" Y="-26899"/>
@@ -2157,7 +2182,7 @@
       <restart race="Kamael" restartId="31"/>
     </region>
     <region id="1083">
-      <zheight min="-3600" max="1900"/>
+      <zHeight min="-3600" max="1900"/>
       <point X="126132" Y="-77416"/>
       <point X="131337" Y="-73320"/>
       <point X="131831" Y="-64941"/>
@@ -2172,7 +2197,7 @@
       <restart race="Kamael" restartId="31"/>
     </region>
     <region id="1084">
-      <zheight min="-3500" max="2508"/>
+      <zHeight min="-3500" max="2508"/>
       <point X="103811" Y="-71203"/>
       <point X="116328" Y="-72794"/>
       <point X="116273" Y="-64852"/>
@@ -2186,7 +2211,7 @@
       <restart race="Kamael" restartId="31"/>
     </region>
     <region id="1085">
-      <zheight min="-7263" max="-7063"/>
+      <zHeight min="-7263" max="-7063"/>
       <point X="181198" Y="-86516"/>
       <point X="192394" Y="-86521"/>
       <point X="192391" Y="-84626"/>
@@ -2199,7 +2224,7 @@
       <restart race="Kamael" restartId="33"/>
     </region>
     <region id="1086">
-      <zheight min="-7263" max="-7063"/>
+      <zHeight min="-7263" max="-7063"/>
       <point X="179511" Y="-89903"/>
       <point X="190707" Y="-89908"/>
       <point X="190704" Y="-88013"/>
@@ -2212,7 +2237,7 @@
       <restart race="Kamael" restartId="33"/>
     </region>
     <region id="1087">
-      <zheight min="-7263" max="-7063"/>
+      <zHeight min="-7263" max="-7063"/>
       <point X="174498" Y="-82751"/>
       <point X="176622" Y="-82751"/>
       <point X="176616" Y="-71304"/>
@@ -2225,7 +2250,7 @@
       <restart race="Kamael" restartId="33"/>
     </region>
     <region id="1088">
-      <zheight min="-7263" max="-7063"/>
+      <zHeight min="-7263" max="-7063"/>
       <point X="172183" Y="-86660"/>
       <point X="174307" Y="-86661"/>
       <point X="174301" Y="-75214"/>

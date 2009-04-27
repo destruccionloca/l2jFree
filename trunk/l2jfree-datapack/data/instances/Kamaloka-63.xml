@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE list SYSTEM "instances.dtd">
 <instance name="Kamaloka-63">
   <activityTime val="30"/>
   <timeDelay val="24"/>
-  <canSummonFriend val="false"/>
+  <allowSummon val="false"/>
   <returnteleport x="85945" y="-142176" z="-1341"/>
   <spawnlist>
     <spawn npcId="18571" x="-56282" y="-219863" z="-8117" heading="0" respawn="0"/>

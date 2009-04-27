@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE list SYSTEM "instances.dtd">
 <instance name="Dark Cloud Mansion">
   <activityTime val="30"/>
   <timeDelay val="24"/>
-  <canSummonFriend val="false"/>
+  <allowSummon val="false"/>
   <returnteleport x="139408" y="150805" z="-3108"/>
   <doorlist>
     <door doorId="24230001"/>

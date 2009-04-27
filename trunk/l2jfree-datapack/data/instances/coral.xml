@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE list SYSTEM "instances.dtd">
 <instance name="CoralGarden">
   <activityTime val="90"/>
-  <canSummonFriend val="false"/>
   <timeDelay val="24"/>
+  <allowSummon val="false"/>
   <doorlist>
     <door doorId="24220026"/>
     <door doorId="24220025"/>

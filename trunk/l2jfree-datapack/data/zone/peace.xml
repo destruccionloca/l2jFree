@@ -811,13 +811,24 @@
       <point x="46334" y="-46534"/>
     </shape>
   </zone>
-  <!-- TODO: must fix zMin and zMax -->
   <zone id="28" name="Schuttgart" type="Town">
     <!--<settings pvp="Peace"/> Overridden -->
     <entity townId="16" castleId="9"/>
-    <shape type="Rect">
+    <shape type="Rect" zMin="-6000" zMax="8000"> <!-- TODO: unknown z -->
       <point x="83881" y="-146500"/>
       <point x="90908" y="-139486"/>
+    </shape>
+    <shape type="Poly" zMin="-4928" zMax="6248">
+      <point x="84544" y="-146432"/>
+      <point x="83455" y="-144255"/>
+      <point x="83135" y="-142655"/>
+      <point x="83710" y="-140800"/>
+      <point x="85825" y="-138960"/>
+      <point x="88880" y="-138880"/>
+      <point x="90960" y="-140640"/>
+      <point x="91600" y="-142544"/>
+      <point x="91200" y="-144768"/>
+      <point x="89120" y="-146944"/>
     </shape>
   </zone>
   <zone id="29" name="Dimensional Gap" type="Town">
