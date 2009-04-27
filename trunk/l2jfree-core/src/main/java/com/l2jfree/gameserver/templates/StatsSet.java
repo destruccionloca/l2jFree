@@ -38,6 +38,11 @@ public final class StatsSet
 		return _set;
 	}
 
+	public boolean contains(String name)
+	{
+		return _set.containsKey(name);
+	}
+
 	/**
 	 * Add a set of couple values in the current set
 	 * @param newSet : StatsSet pointing out the list of couples to add in the current set

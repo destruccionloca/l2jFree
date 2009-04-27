@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -138,7 +139,14 @@ public class L2Skill implements FuncOwner
 		TARGET_GROUND
 		// TARGET_BOSS
 	}
-
+	
+	private static enum OffensiveState
+	{
+		OFFENSIVE,
+		NEUTRAL,
+		POSITIVE;
+	}
+	
 	// elements
 	public final static int			ELEMENT_WIND			= 1;
 	public final static int			ELEMENT_FIRE			= 2;
@@ -277,8 +285,7 @@ public class L2Skill implements FuncOwner
 	private final float				_mulCrossLearnProf;						// multiplay for fighter/mage missmatch, default 3
 	private final FastList<ClassId>	_canLearn;									// which classes can learn
 	private final FastList<Integer>	_teachers;									// which NPC teaches
-	private final boolean			_isOffensive;
-	private final boolean			_isNeutral;
+	private final OffensiveState	_offensiveState;
 
 	private final int				_needCharges;
 	private final int				_giveCharges;
@@ -452,8 +459,7 @@ public class L2Skill implements FuncOwner
 		_mulCrossLearn = set.getFloat("mulCrossLearn", 2.f);
 		_mulCrossLearnRace = set.getFloat("mulCrossLearnRace", 2.f);
 		_mulCrossLearnProf = set.getFloat("mulCrossLearnProf", 3.f);
-		_isOffensive = set.getBool("offensive", isSkillTypeOffensive());
-		_isNeutral = set.getBool("neutral", false);
+		_offensiveState = getOffensiveState(set);
 
 		_needCharges = set.getInteger("needCharges", 0);
 		_giveCharges = set.getInteger("giveCharges", 0);
@@ -549,6 +555,52 @@ public class L2Skill implements FuncOwner
 					_log.fatal("Bad teacher id " + npcid + " to teach skill", e);
 				}
 			}
+		}
+	}
+	
+	private OffensiveState getOffensiveState(StatsSet set)
+	{
+		final OffensiveState defaultState = getDefaultOffensiveState();
+		
+		final Boolean isOffensive = set.contains("offensive") ? set.getBool("offensive") : null;
+		final Boolean isNeutral = set.contains("neutral") ? set.getBool("neutral") :  null;
+		
+		if (isOffensive == null && isNeutral == null)
+			return defaultState;
+		
+		if (isPassive() || isToggle())
+			throw new IllegalStateException(this + " shouldn't have 'offensive'/'neutral' property specified!");
+		
+		final List<OffensiveState> denied = new ArrayList<OffensiveState>(2);
+		final List<OffensiveState> requested = new ArrayList<OffensiveState>(2);
+		
+		if (isOffensive != null)
+		{
+			if (isOffensive.booleanValue())
+				requested.add(OffensiveState.OFFENSIVE);
+			else
+				denied.add(OffensiveState.OFFENSIVE);
+		}
+		
+		if (isNeutral != null)
+		{
+			if (isNeutral.booleanValue())
+				requested.add(OffensiveState.NEUTRAL);
+			else
+				denied.add(OffensiveState.NEUTRAL);
+		}
+		
+		switch (requested.size())
+		{
+			case 2:
+				throw new IllegalStateException("Both 'neutral' and 'offensive' property requested for " + this);
+			case 1:
+				return requested.get(0);
+			case 0:
+				if (!denied.contains(defaultState))
+					return defaultState;
+			default:
+				throw new IllegalStateException("Requested 'neutral'/'offensive' value rules out default for " + this);
 		}
 	}
 	
@@ -1188,7 +1240,6 @@ public class L2Skill implements FuncOwner
 		case CANCEL:
 		case MAGE_BANE:
 		case WARRIOR_BANE:
-		case CANCEL_TARGET:
 		case BETRAY:
 		case DISARM:
 		case STEAL_BUFF:
@@ -1202,22 +1253,27 @@ public class L2Skill implements FuncOwner
 			return false;
 		}
 	}
-
+	
 	public final boolean isOffensive()
 	{
-		return _isOffensive;
+		return _offensiveState == OffensiveState.OFFENSIVE;
 	}
-
+	
 	public final boolean isNeutral()
 	{
-		return _isNeutral;
+		return _offensiveState == OffensiveState.NEUTRAL;
 	}
-
+	
+	public final boolean isPositive()
+	{
+		return _offensiveState == OffensiveState.POSITIVE;
+	}
+	
 	public final int getNeededCharges()
 	{
 		return _needCharges;
 	}
-
+	
 	public final int getGiveCharges()
 	{
 		return _giveCharges;
@@ -1331,83 +1387,132 @@ public class L2Skill implements FuncOwner
 		}
 	}
 	
-	public final boolean isSkillTypeOffensive()
+	private OffensiveState getDefaultOffensiveState()
 	{
+		if (isPassive() || isToggle())
+			return OffensiveState.POSITIVE;
+		
 		switch (_skillType)
 		{
-		case PDAM:
-		case MDAM:
-		case CPDAM:
-		case DOT:
-		case BLEED:
-		case POISON:
-		case AGGDAMAGE:
-		case DEBUFF:
-		case AGGDEBUFF:
-		case STUN:
-		case ROOT:
-		case CONFUSION:
-		case ERASE:
-		case BLOW:
-		case FEAR:
-		case DRAIN:
-		case SLEEP:
-		case CHARGEDAM:
-		case CONFUSE_MOB_ONLY:
-		case DEATHLINK:
-		case FATALCOUNTER:
-		case DETECT_WEAKNESS:
-		case MDOT:
-		case MANADAM:
-		case MUTE:
-		case SOULSHOT:
-		case SPIRITSHOT:
-		case SPOIL:
-		case WEAKNESS:
-		case MANA_BY_LEVEL:
-		case SWEEP:
-		case PARALYZE:
-		case DRAIN_SOUL:
-		case AGGREDUCE:
-		case CANCEL:
-		case MAGE_BANE:
-		case WARRIOR_BANE:
-		case AGGREMOVE:
-		case AGGREDUCE_CHAR:
-		case UNSUMMON_ENEMY_PET:
-		case CANCEL_TARGET:
-		case BETRAY:
-		case SOW:
-		case HARVEST:
-		case DISARM:
-		case STEAL_BUFF:
-		case INSTANT_JUMP:
-			return true;
-		default:
-			return false;
+			case PDAM:
+			case MDAM:
+			case CPDAM:
+			case DOT:
+			case BLEED:
+			case POISON:
+			case AGGDAMAGE:
+			case DEBUFF:
+			case AGGDEBUFF:
+			case STUN:
+			case ROOT:
+			case CONFUSION:
+			case ERASE:
+			case BLOW:
+			case FEAR:
+			case DRAIN:
+			case SLEEP:
+			case CHARGEDAM:
+			case STRSIEGEASSAULT:
+			case CONFUSE_MOB_ONLY:
+			case DEATHLINK:
+			case FATALCOUNTER:
+			case DETECT_WEAKNESS:
+			case MDOT:
+			case MANADAM:
+			case MUTE:
+			case SPOIL:
+			case WEAKNESS:
+			case SWEEP:
+			case PARALYZE:
+			case CANCEL:
+			case MAGE_BANE:
+			case WARRIOR_BANE:
+			case AGGREDUCE_CHAR:
+			case UNSUMMON_ENEMY_PET:
+			case BETRAY:
+			case GET_PLAYER:
+			case DISARM:
+			case STEAL_BUFF:
+			case INSTANT_JUMP:
+			case SIGNET_CASTTIME:
+			case BALLISTA:
+				return OffensiveState.OFFENSIVE;
+			case BUFF:
+			case CONT:
+			case HEAL:
+			case HEAL_STATIC:
+			case HEAL_PERCENT:
+			case BALANCE_LIFE:
+			case HOT:
+			case MPHOT:
+			case CPHOT:
+			case MANAHEAL:
+			case MANAHEAL_PERCENT:
+			case MANARECHARGE:
+			case COMBATPOINTHEAL:
+			case COMBATPOINTPERCENTHEAL:
+			case REFLECT:
+			case LUCK:
+			case PASSIVE:
+			case WEAPON_SA:
+			case RESURRECT:
+			case CANCEL_DEBUFF:
+			case FORCE_BUFF:
+			case CHARGE_NEGATE:
+			case CHARGESOUL:
+				return OffensiveState.POSITIVE;
+			case DRAIN_SOUL:
+			case HEAL_MOB:
+			case AGGREDUCE:
+			case AGGREMOVE:
+			case SHIFT_TARGET:
+			case SOULSHOT:
+			case SPIRITSHOT:
+			case ENCHANT_ARMOR:
+			case ENCHANT_WEAPON:
+			case MOUNT:
+			case DECOY:
+			case SUMMON:
+			case AGATHION:
+			case SUMMON_TRAP:
+			case SUMMON_TREASURE_KEY:
+			case CREATE_ITEM:
+			case EXTRACTABLE:
+			case UNLOCK:
+			case DELUXE_KEY_UNLOCK:
+			case DETECT_TRAP:
+			case REMOVE_TRAP:
+			case COMMON_CRAFT:
+			case DWARVEN_CRAFT:
+			case SIEGEFLAG:
+			case TAKECASTLE:
+			case TAKEFORT:
+			case RECALL:
+			case SUMMON_FRIEND:
+			case CLAN_GATE:
+			case GIVE_SP:
+			case FEED_PET:
+			case BEAST_FEED:
+			case NEGATE: // should be divided, since can be positive, and negative skill too
+			case MAKE_KILLABLE:
+			case MAKE_QUEST_DROPABLE:
+			case FAKE_DEATH:
+			case SOW:
+			case HARVEST:
+			case FISHING:
+			case PUMPING:
+			case REELING:
+			case TRANSFORMDISPEL:
+			case CHANGEWEAPON:
+			case SIGNET:
+			case DUMMY:
+			case COREDONE:
+			case NOTDONE:
+			default:
+				return OffensiveState.NEUTRAL;
 		}
 	}
-
-	public final boolean isPositive()
-	{
-		switch (_skillType)
-		{
-		case BUFF:
-		case HEAL:
-		case HEAL_PERCENT:
-		case HOT:
-		case MANAHEAL:
-		case MANARECHARGE:
-		case COMBATPOINTHEAL:
-		case COMBATPOINTPERCENTHEAL:
-		case REFLECT:
-		case SHIFT_TARGET:
-			return true;
-		default:
-			return false;
-		}
-	}
-
+	
 	public final boolean isNeedWeapon()
 	{
 		return (_skillType == L2SkillType.MDAM);
@@ -2592,7 +2697,7 @@ public class L2Skill implements FuncOwner
 			else
 				newTarget = activeChar;
 
-			if (newTarget != activeChar || isSkillTypeOffensive())
+			if (newTarget != activeChar || isOffensive())
 				targetList.add(newTarget);
 
 			for (L2Character obj : activeChar.getKnownList().getKnownCharactersInRadius(radius))

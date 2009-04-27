@@ -23,7 +23,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.mmocore.network.IAcceptFilter;
 
-import com.l2jfree.gameserver.GameServer;
+import com.l2jfree.gameserver.L2JfreeInfo;
 import com.l2jfree.gameserver.network.clientpackets.L2GameClientPacket;
 import com.l2jfree.lang.L2System;
 
@@ -85,7 +85,7 @@ public final class IOFloodManager implements IAcceptFilter
 			sb.append(packet.getType());
 		}
 		sb.append(" - ");
-		sb.append(GameServer.getVersionNumber());
+		sb.append(L2JfreeInfo.getVersionInfo());
 		
 		if (throwable != null)
 			_log.fatal(sb, throwable);

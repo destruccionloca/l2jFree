@@ -55,4 +55,10 @@ public class EffectEnvironment extends L2Effect
 	{
 		return true;
 	}
+	
+	@Override
+	public final boolean canBeStoredInDb()
+	{
+		return false;
+	}
 }

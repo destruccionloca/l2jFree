@@ -242,7 +242,6 @@ import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.conditions.ConditionGameTime;
 import com.l2jfree.gameserver.skills.conditions.ConditionPlayerHp;
-import com.l2jfree.gameserver.skills.effects.EffectForce;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jfree.gameserver.taskmanager.SQLQueue;
@@ -7111,10 +7110,8 @@ public final class L2PcInstance extends L2PlayableInstance
 			// reuse delays for matching skills. 'restore_type'= 0.
 			for (L2Effect effect : getAllEffects())
 			{
-				if (effect != null && !effect.isHerbEffect() && effect.getInUse() && !effect.getSkill().isToggle())
+				if (effect != null && effect.canBeStoredInDb())
 				{
-					if (effect instanceof EffectForce)
-						continue;
 					int skillId = effect.getSkill().getId();
 					
 					if (!storedSkills.add(skillId))
@@ -7573,11 +7570,13 @@ public final class L2PcInstance extends L2PlayableInstance
 			rset.close();
 			statement.close();
 
-			statement = con.prepareStatement(DELETE_SKILL_SAVE);
-			statement.setInt(1, getObjectId());
-			statement.setInt(2, getClassIndex());
-			statement.executeUpdate();
-			statement.close();
+			// No reason to delete it here, since it will be before it's stored again,
+			// and character infos get saved on every disconnection
+//			statement = con.prepareStatement(DELETE_SKILL_SAVE);
+//			statement.setInt(1, getObjectId());
+//			statement.setInt(2, getClassIndex());
+//			statement.executeUpdate();
+//			statement.close();
 		}
 		catch (Exception e)
 		{
@@ -9699,10 +9698,16 @@ public final class L2PcInstance extends L2PlayableInstance
 			int o1 = getOrder(s1);
 			int o2 = getOrder(s2);
 			
-			if (o1 == o2)
-				return s1.getId().compareTo(s2.getId());
+			if (o1 != o2)
+				return (o1 < o2) ? -1 : 1;
 			
-			return (o1 < o2) ? -1 : 1;
+			int so1 = getSubOrder(s1);
+			int so2 = getSubOrder(s2);
+			
+			if (so1 != so2)
+				return (so1 < so2) ? -1 : 1;
+			
+			return s1.getId().compareTo(s2.getId());
 		}
 		
 		private int getOrder(L2Skill s)
@@ -9722,6 +9727,16 @@ public final class L2PcInstance extends L2PlayableInstance
 			// TODO: add other ordering conditions, if there is any other useful :)
 			
 			return 0;
+		}
+		
+		private int getSubOrder(L2Skill s)
+		{
+			if (s.isPositive())
+				return 1;
+			else if (s.isNeutral())
+				return 0;
+			else // s.isOffensive()
+				return -1;
 		}
 	};
 	

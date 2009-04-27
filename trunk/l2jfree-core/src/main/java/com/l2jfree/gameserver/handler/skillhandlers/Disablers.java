@@ -75,7 +75,6 @@ public class Disablers implements ICubicSkillHandler
 			L2SkillType.PARALYZE,
 			L2SkillType.UNSUMMON_ENEMY_PET,
 			L2SkillType.BETRAY,
-			L2SkillType.CANCEL_TARGET,
 			L2SkillType.ERASE,
 			L2SkillType.MAGE_BANE,
 			L2SkillType.WARRIOR_BANE,
@@ -137,33 +136,6 @@ public class Disablers implements ICubicSkillHandler
 
 			switch (type)
 			{
-			case CANCEL_TARGET:
-			{
-				if (target instanceof L2NpcInstance)
-					target.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, activeChar, 50);
-
-				target.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-				target.setTarget(null);
-				target.breakAttack();
-				target.breakCast();
-				target.abortAttack();
-				target.abortCast();
-				if (activeChar instanceof L2PcInstance && Rnd.get(100) < skill.getLandingPercent())
-				{
-					skill.getEffects(activeChar, target);
-					SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
-					sm.addSkillName(skill);
-					target.sendPacket(sm);
-				}
-				else
-				{
-					SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
-					sm.addCharName(target);
-					sm.addSkillName(skill);
-					activeChar.sendPacket(sm);
-				}
-				break;
-			}
 			case BETRAY:
 			{
 				if (Formulas.calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss))
@@ -697,8 +669,7 @@ public class Disablers implements ICubicSkillHandler
 						{
 							if (e.getEffectType() == L2EffectType.ENVIRONMENT)
 								continue;
-							if (e.getSkill().getSkillType() == L2SkillType.BUFF || e.getSkill().getSkillType() == L2SkillType.CONT
-									|| e.getSkill().getSkillType() == L2SkillType.DEATHLINK_PET)
+							if (e.getSkill().getSkillType() == L2SkillType.BUFF || e.getSkill().getSkillType() == L2SkillType.CONT)
 							{
 								int skillrate = 100;
 								int level = e.getLevel();
@@ -777,8 +748,6 @@ public class Disablers implements ICubicSkillHandler
 							removedBuffs += negateEffect(target,L2SkillType.PARALYZE,-1, skill.getMaxNegatedEffects());
 						else if (stat == "root" && removedBuffs < skill.getMaxNegatedEffects())
 							removedBuffs += negateEffect(target,L2SkillType.ROOT,-1, skill.getMaxNegatedEffects());
-						else if (stat == "death_mark" && removedBuffs < skill.getMaxNegatedEffects())
-							removedBuffs += negateEffect(target, L2SkillType.DEATH_MARK,  skill.getNegateLvl(), skill.getMaxNegatedEffects());
 						else if (stat == "heal" && removedBuffs < skill.getMaxNegatedEffects())
 							SkillHandler.getInstance().getSkillHandler(L2SkillType.HEAL).useSkill(activeChar, skill, target);
 					}

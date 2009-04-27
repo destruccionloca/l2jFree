@@ -142,13 +142,11 @@ import com.l2jfree.gameserver.util.DynamicExtension;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.status.Status;
 import com.l2jfree.util.concurrent.RunnableStatsManager;
-import com.l2jfree.versionning.Version;
 
 public class GameServer
 {
 	private static final Log _log = LogFactory.getLog(GameServer.class);
 	private static final Calendar _serverStarted = Calendar.getInstance();
-	private static final Version version = new Version();
 	private static SelectorThread<L2GameClient> _selectorThread;
 	
 	public static void main(String[] args) throws Throwable
@@ -416,6 +414,7 @@ public class GameServer
 		Runtime.getRuntime().addShutdownHook(Shutdown.getInstance());
 		
 		System.gc();
+		System.runFinalization();
 		
 		Util.printSection("ServerThreads");
 		LoginServerThread.getInstance().start();
@@ -435,16 +434,17 @@ public class GameServer
 			GeoEditorListener.getInstance();
 		
 		Util.printSection("l2jfree");
-		version.loadInformation(GameServer.class);
-		_log.info("Revision: " + version.getVersionNumber());
-		// _log.info("Build date: "+version.getBuildDate());
-		_log.info("Compiler version: " + version.getBuildJdk());
+		for (String line : L2JfreeInfo.getFullVersionInfo())
+			_log.info(line);
 		_log.info("Operating System: " + Util.getOSName() + " " + Util.getOSVersion() + " " + Util.getOSArch());
 		_log.info("Available CPUs: " + Util.getAvailableProcessors());
 		
-		printMemUsage();
-		_log.info("Maximum Numbers of Connected Players: " + Config.MAXIMUM_ONLINE_USERS);
-		_log.info("Server Loaded in " + ((System.currentTimeMillis() - serverLoadStart) / 1000) + " seconds");
+		Util.printSection("Memory");
+		for (String line : Util.getMemUsage())
+			_log.info(line);
+		
+		_log.info("Maximum number of connected players: " + Config.MAXIMUM_ONLINE_USERS);
+		_log.info("Server loaded in " + ((System.currentTimeMillis() - serverLoadStart) / 1000) + " seconds.");
 		
 		onStartup();
 		
@@ -479,18 +479,6 @@ public class GameServer
 	public interface StartupHook
 	{
 		public void onStartup();
-	}
-	
-	public static String getVersionNumber()
-	{
-		return version.getVersionNumber();
-	}
-	
-	public static void printMemUsage()
-	{
-		Util.printSection("Memory");
-		for (String line : Util.getMemUsage())
-			_log.info(line);
 	}
 	
 	public static SelectorThread<L2GameClient> getSelectorThread()

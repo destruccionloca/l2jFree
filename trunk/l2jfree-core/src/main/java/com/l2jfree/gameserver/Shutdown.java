@@ -216,6 +216,15 @@ public final class Shutdown extends Thread
 		
 		try
 		{
+			Thread.sleep(1000);
+		}
+		catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
+		
+		try
+		{
 			GameTimeController.stopTimer();
 		}
 		catch (Throwable t)

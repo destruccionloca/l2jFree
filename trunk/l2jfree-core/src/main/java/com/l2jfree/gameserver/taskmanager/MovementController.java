@@ -126,10 +126,10 @@ public final class MovementController extends AbstractPeriodicTaskManager
 				if (minDelay < 0)
 					continue;
 				
-				if (GameTimeController.getGameTicks() > range.end - minDelay)
+				if (GameTimeController.getGameTicks() >= range.end - minDelay)
 					continue;
 				
-				if (GameTimeController.getGameTicks() < range.begin + minDelay)
+				if (GameTimeController.getGameTicks() <= range.begin + minDelay)
 					continue;
 				
 				cha.getAI().notifyEvent(CtrlEvent.EVT_ARRIVED_REVALIDATE);

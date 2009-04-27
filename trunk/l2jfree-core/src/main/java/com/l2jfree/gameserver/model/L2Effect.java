@@ -576,4 +576,15 @@ public abstract class L2Effect implements FuncOwner
 	{
 		return _skill.getFuncOwnerSkill();
 	}
+	
+	public boolean canBeStoredInDb()
+	{
+		if (getSkill().isToggle())
+			return false;
+		
+		if (isHerbEffect())
+			return false;
+		
+		return true;
+	}
 }

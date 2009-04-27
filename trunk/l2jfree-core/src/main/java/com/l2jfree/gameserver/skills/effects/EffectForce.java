@@ -67,4 +67,10 @@ public final class EffectForce extends L2Effect
 		exit();
 		SkillTable.getInstance().getInfo(getSkill().getId(), forces).getEffects(getEffector(), getEffected());
 	}
+	
+	@Override
+	public boolean canBeStoredInDb()
+	{
+		return false;
+	}
 }

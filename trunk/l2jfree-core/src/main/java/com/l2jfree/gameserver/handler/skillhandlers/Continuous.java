@@ -55,10 +55,8 @@ public class Continuous implements ICubicSkillHandler
 			L2SkillType.CONT,
 			L2SkillType.WEAKNESS,
 			L2SkillType.REFLECT,
-			L2SkillType.UNDEAD_DEFENSE,
 			L2SkillType.AGGDEBUFF,
 			L2SkillType.FORCE_BUFF			};
-	private L2Skill						_skill;
 
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.L2PcInstance, com.l2jfree.gameserver.model.L2ItemInstance)
@@ -75,18 +73,19 @@ public class Continuous implements ICubicSkillHandler
 		{
 			int skillLevel = (int)skill.getEffectLvl();
 			int skillEffectId = skill.getEffectId();
-
+			
+			L2Skill skill2;
 			if (skillLevel == 0)
 			{
-				_skill = SkillTable.getInstance().getInfo(skillEffectId, 1);
+				skill2 = SkillTable.getInstance().getInfo(skillEffectId, 1);
 			}
 			else
 			{
-				_skill = SkillTable.getInstance().getInfo(skillEffectId, skillLevel);
+				skill2 = SkillTable.getInstance().getInfo(skillEffectId, skillLevel);
 			}
 
-			if (_skill != null)
-				skill = _skill;
+			if (skill2 != null)
+				skill = skill2;
 		}
 
 		for (L2Character target : targets)
@@ -102,7 +101,6 @@ public class Continuous implements ICubicSkillHandler
 			case MPHOT:
 			case AGGDEBUFF:
 			case CONT:
-			case UNDEAD_DEFENSE:
 				// No reflect possible
 				break;
 			default:

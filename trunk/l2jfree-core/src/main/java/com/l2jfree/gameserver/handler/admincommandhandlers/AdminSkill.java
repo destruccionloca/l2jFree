@@ -239,6 +239,7 @@ public class AdminSkill implements IAdminCommandHandler
 			activeChar.addSkill(SkillTable.getInstance().getInfo(i, SkillTable.getInstance().getMaxLevel(i)), true);
 		
 		activeChar.sendMessage((activeChar.getAllSkills().length - length) + " new skill added.");
+		activeChar.sendSkillList();
 	}
 	
 	public String[] getAdminCommandList()
