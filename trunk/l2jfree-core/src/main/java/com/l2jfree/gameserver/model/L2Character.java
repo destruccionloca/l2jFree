@@ -178,7 +178,6 @@ public abstract class L2Character extends L2Object
 	protected boolean				_isInvul							= false;
 	protected boolean				_isDisarmed							= false;
 	protected boolean				_isMarked							= false;
-	private int						_lastHealAmount						= 0;
 	private int[]					lastPosition						=
 																		{ 0, 0, 0 };
 	protected CharStat				_stat;
@@ -7007,16 +7006,6 @@ public abstract class L2Character extends L2Object
 		sendPacket(SystemMessage.sendString(message));
 	}
 
-	public int getLastHealAmount()
-	{
-		return _lastHealAmount;
-	}
-
-	public void setLastHealAmount(int hp)
-	{
-		_lastHealAmount = hp;
-	}
-
 	/**
 	 * Check if character reflected skill
 	 *
@@ -7026,16 +7015,25 @@ public abstract class L2Character extends L2Object
 	public boolean reflectSkill(L2Skill skill)
 	{
 		double reflect = calcStat(skill.isMagic() ? Stats.REFLECT_SKILL_MAGIC : Stats.REFLECT_SKILL_PHYSIC, 0, null, null);
-
+		
 		if (!skill.isMagic() && skill.getCastRange() < 100) // is 100 maximum range for melee skills?
 		{
 			double reflectMeleeSkill = calcStat(Stats.REFLECT_SKILL_MELEE_PHYSIC, 0, null, null);
 			reflect = (reflectMeleeSkill > reflect) ? reflectMeleeSkill : reflect;
 		}
-
-		return (Rnd.get(100) < reflect);
+		
+		if (Rnd.get(100) < reflect)
+		{
+			if (this instanceof L2PcInstance)
+				((L2PcInstance)this).sendMessage("You reflected " + skill.getName() + "!");
+			else if (this instanceof L2Summon)
+				((L2Summon)this).getOwner().sendMessage("Your summon reflected " + skill.getName() + "!");
+			return true;
+		}
+		
+		return false;
 	}
-
+	
 	protected void refreshSkills()
 	{
 		_calculators = NPC_STD_CALCULATOR;

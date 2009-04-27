@@ -79,7 +79,7 @@ public class Heal implements ISkillHandler
 			{
 				hp = target.getMaxHp() * hp / 100.0;
 			}
-			else
+			else if (!skill.isPotion())
 			{
 				if (activeChar.isBlessedSpiritshotCharged())
 				{
@@ -120,7 +120,6 @@ public class Heal implements ISkillHandler
 			if (hp > 0)
 			{
 				target.getStatus().increaseHp(hp);
-				target.setLastHealAmount((int) hp);
 				StatusUpdate su = new StatusUpdate(target.getObjectId());
 				su.addAttribute(StatusUpdate.CUR_HP, (int) target.getStatus().getCurrentHp());
 				target.sendPacket(su);

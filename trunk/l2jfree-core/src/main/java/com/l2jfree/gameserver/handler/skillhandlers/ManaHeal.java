@@ -60,18 +60,28 @@ public class ManaHeal implements ISkillHandler
 				mp = (skill.getSkillType() == L2SkillType.MANARECHARGE) ? target.calcStat(Stats.RECHARGE_MP_RATE, mp, null, null) : mp;
 			}
 
-			if (actChar.getLevel() != target.getLevel())
+			final int levelDiff = target.getLevel() - actChar.getLevel();
+			
+			if (3 < levelDiff)
 			{
-				if (actChar.getLevel() + 3 >= target.getLevel())
-					mp = mp * 1;
-				else if (actChar.getLevel() + 5 <= target.getLevel())
-					mp = mp * 0.6;
-				else if (actChar.getLevel() + 7 <= target.getLevel())
-					mp = mp * 0.4;
-				else if (actChar.getLevel() + 9 <= target.getLevel())
-					mp = mp * 0.3;
-				else if (actChar.getLevel() + 10 <= target.getLevel())
-					mp = mp * 0.1;
+				switch (levelDiff)
+				{
+					case 4:
+					case 5:
+						mp *= 0.6;
+						break;
+					case 6:
+					case 7:
+						mp *= 0.4;
+						break;
+					case 8:
+					case 9:
+						mp *= 0.3;
+						break;
+					default:
+						mp *= 0.1;
+						break;
+				}
 			}
 
 			// From CT2 you will receive exact MP, you can't go over it, if you have full MP and you get MP buff, you will receive 0MP restored message
@@ -80,7 +90,6 @@ public class ManaHeal implements ISkillHandler
 				mp = target.getMaxMp() - target.getStatus().getCurrentMp();
 			}
 
-			target.setLastHealAmount((int) mp);
 			target.getStatus().setCurrentMp(mp + target.getStatus().getCurrentMp());
 			StatusUpdate sump = new StatusUpdate(target.getObjectId());
 			sump.addAttribute(StatusUpdate.CUR_MP, (int) target.getStatus().getCurrentMp());
