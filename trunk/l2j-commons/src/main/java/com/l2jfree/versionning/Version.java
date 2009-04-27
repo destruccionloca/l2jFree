@@ -11,10 +11,16 @@ import org.apache.commons.logging.LogFactory;
 public class Version {
 	private String _revisionNumber = "exported";
 	private String _versionNumber = "-1";
-	private String _buildDate = "";
 	private String _buildJdk = "";
 
 	private static final Log _log = LogFactory.getLog(Version.class);
+
+	public Version() {
+	}
+
+	public Version(Class<?> c) {
+		loadInformation(c);
+	}
 
 	public void loadInformation(Class<?> c) {
 		File jarName = null;
@@ -87,10 +93,6 @@ public class Version {
 
 	public String getVersionNumber() {
 		return _versionNumber;
-	}
-
-	public String getBuildDate() {
-		return _buildDate;
 	}
 
 	public String getBuildJdk() {

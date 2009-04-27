@@ -21,14 +21,69 @@ import java.util.concurrent.TimeUnit;
  */
 public final class L2System
 {
-	private static final long ZERO = System.nanoTime();
 	
 	private L2System()
 	{
 	}
 	
+	private interface MilliTime
+	{
+		long milliTime();
+	}
+	
+	private static final MilliTime systemCurrentTimeMillisBased = new MilliTime() {
+		@Override
+		public long milliTime()
+		{
+			return System.currentTimeMillis();
+		}
+	};
+	
+	private static final MilliTime systemNanoTimeBased = new MilliTime() {
+		private final long ZERO = System.nanoTime();
+		
+		@Override
+		public long milliTime()
+		{
+			return TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - ZERO);
+		}
+	};
+	
+	/**
+	 * Ugly as hell, but unfortunately nanoTime is influenced by the cpu clock speed, so if it's changed, it shouldn't
+	 * be used at all.
+	 */
+	static
+	{
+		new Thread() {
+			@Override
+			public void run()
+			{
+				long begin1 = systemCurrentTimeMillisBased.milliTime();
+				long begin2 = systemNanoTimeBased.milliTime();
+				
+				try
+				{
+					Thread.sleep(10000);
+				}
+				catch (InterruptedException e)
+				{
+					e.printStackTrace();
+				}
+				
+				double diff1 = systemCurrentTimeMillisBased.milliTime() - begin1;
+				double diff2 = systemNanoTimeBased.milliTime() - begin2;
+				
+				if (Math.abs((diff1 / diff2) - 1.0) < 0.005)
+					milliTime = systemNanoTimeBased;
+			}
+		}.start();
+	}
+	
+	private static MilliTime milliTime = systemCurrentTimeMillisBased;
+	
 	public static long milliTime()
 	{
-		return TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - ZERO);
+		return milliTime.milliTime();
 	}
 }
