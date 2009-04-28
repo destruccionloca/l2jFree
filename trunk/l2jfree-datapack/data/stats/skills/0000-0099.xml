@@ -1697,17 +1697,17 @@
     </for>
     <enchant3for>
       <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun">
-        <mul stat="fireVuln" val="#Vuln" order="0x30"/>
+        <mul order="0x30" stat="fireVuln" val="#Vuln"/>
       </effect>
     </enchant3for>
     <enchant4for>
       <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun">
-        <mul stat="waterVuln" val="#Vuln" order="0x30"/>
+        <mul order="0x30" stat="waterVuln" val="#Vuln"/>
       </effect>
     </enchant4for>
     <enchant5for>
       <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun">
-        <mul stat="windVuln" val="#Vuln" order="0x30"/>
+        <mul order="0x30" stat="windVuln" val="#Vuln"/>
       </effect>
     </enchant5for>
   </skill>

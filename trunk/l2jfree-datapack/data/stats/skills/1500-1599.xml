@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
-  <skill id="1500" levels="1" name="Improve Magic">
+  <skill id="1500" levels="1" name="Improved Magic">
     <set name="mpConsume" val="28"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
@@ -22,7 +22,7 @@
       </effect>
     </for>
   </skill>
-  <skill id="1501" levels="1" name="Improve Condition">
+  <skill id="1501" levels="1" name="Improved Condition">
     <set name="mpConsume" val="28"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
@@ -43,7 +43,7 @@
       </effect>
     </for>
   </skill>
-  <skill id="1502" levels="1" name="Improve Critical Attack">
+  <skill id="1502" levels="1" name="Improved Critical Attack">
     <set name="mpConsume" val="28"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
@@ -64,7 +64,7 @@
       </effect>
     </for>
   </skill>
-  <skill id="1503" levels="1" name="Improve Shield Defense">
+  <skill id="1503" levels="1" name="Improved Shield Defense">
     <set name="mpConsume" val="27"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
@@ -85,7 +85,7 @@
       </effect>
     </for>
   </skill>
-  <skill id="1504" levels="1" name="Improve Movement">
+  <skill id="1504" levels="1" name="Improved Movement">
     <set name="mpConsume" val="28"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
@@ -294,7 +294,7 @@
       </effect>
     </for>
   </skill>
-  <skill id="1518" levels="1" name="Chant of Critical">
+  <skill id="1518" levels="1" name="Chant of Critical Attack">
     <set name="mpConsume" val="67"/>
     <set name="target" val="TARGET_PARTY"/>
     <set name="skillType" val="BUFF"/>

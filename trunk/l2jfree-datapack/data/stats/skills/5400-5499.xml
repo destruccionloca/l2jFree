@@ -417,12 +417,12 @@
   </skill>
   <skill id="5443" levels="4" name="Cry of the Wolf">
     <!--
-      Description(s): Dominate nearby enemies with a mighty
-      roar. Information Note : (If the Wolf evolve into
-      Great Wolf before) Cry of the Wolf level 1 - Wolf
-      level 60 Cry of the Wolf level 2 - Wolf level 61 Cry
-      of the Wolf level 3 - Wolf level 62 Cry of the Wolf
-      level 4 - Wolf level 63
+      Description(s): Dominate nearby enemies with a mighty roar. 
+      Information Note : (If the Wolf evolve into Great Wolf before)
+      Cry of the Wolf level 1 - Wolf level 60
+      Cry of the Wolf level 2 - Wolf level 61
+      Cry of the Wolf level 3 - Wolf level 62
+      Cry of the Wolf level 4 - Wolf level 63
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -432,10 +432,10 @@
   </skill>
   <skill id="5444" levels="2" name="Maul">
     <!--
-      Description(s): Attacks with fore-claws to create
-      wound. Power 1. Effect 3. Information Note : (If the
-      Wolf evolve into Great Wolf before) Maul level 1 -
-      Wolf level 65 Maul level 2 - Wolf level unknown
+      Description(s): Attacks with fore-claws to create wound. Power 1. Effect 3.
+      Information Note : (If the Wolf evolve into Great Wolf before)
+      Maul level 1 - Wolf level 65
+      Maul level 2 - Wolf level unknown
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -446,8 +446,8 @@
   <skill id="5445" levels="1" name="Awakening">
     <!--
       Description(s): Brings out the instinct of the wolf.
-      Information Note : (If the Wolf evolve into Great Wolf
-      before) Awakening level 1 - Wolf level 70
+      Information Note : (If the Wolf evolve into Great Wolf before)
+      Awakening level 1 - Wolf level 70
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -489,7 +489,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
   </skill>
-  <skill id="5450" levels="7" name="Thin Skin">
+  <skill id="5450" levels="7" name="Tin Skin">
     <!-- Description(s): Instantly decreases HP due to Bleed Attack. Effect 4-8. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -815,10 +815,7 @@
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5491" levels="1" name="Decrease Bow/Crossbow Atk. Spd.">
-    <!--
-      Description(s): Decreases attack speed when equipped
-      with bow/crossbow while transformed.
-    -->
+    <!-- Description(s): Decreases attack speed when equipped with bow/crossbow while transformed. -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -867,8 +864,7 @@
   </skill>
   <skill id="5497" levels="1" name="Horn of Rising Darkness">
     <!--
-      Description(s): Cannot move and HP decreases
-      temporarily due to the stun and bleeding. Effect 1.
+      Description(s): Cannot move and HP decreases temporarily due to the stun and bleeding. Effect 1.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>

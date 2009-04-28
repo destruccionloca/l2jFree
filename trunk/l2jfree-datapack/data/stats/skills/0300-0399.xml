@@ -816,9 +816,9 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <mul stat="rootVuln" val="0.8" order="0x30"/>
-      <mul stat="sleepVuln" val="0.8" order="0x30"/>
-      <mul stat="derangementVuln" val="0.8" order="0x30"/>
+      <mul order="0x30" stat="rootVuln" val="0.8"/>
+      <mul order="0x30" stat="sleepVuln" val="0.8"/>
+      <mul order="0x30" stat="derangementVuln" val="0.8"/>
     </for>
   </skill>
   <skill id="329" levels="1" name="Health">
@@ -828,8 +828,8 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <mul stat="bleedVuln" order="0x30" val="0.8"/>
-      <mul stat="poisonVuln" order="0x30" val="0.8"/>
+      <mul order="0x30" stat="bleedVuln" val="0.8"/>
+      <mul order="0x30" stat="poisonVuln" val="0.8"/>
     </for>
   </skill>
   <skill id="330" levels="1" name="Skill Mastery">
@@ -1688,7 +1688,7 @@
     <set name="effectRange" val="-1"/>
     <set name="minPledgeClass" val="2"/>
     <for>
-      <mul stat="maxHp" val="#maxHp" order="0x30"/>
+      <mul order="0x30" stat="maxHp" val="#maxHp"/>
     </for>
   </skill>
   <skill id="371" levels="3" name="Clan Spirituality">
@@ -1702,7 +1702,7 @@
     <set name="effectRange" val="-1"/>
     <set name="minPledgeClass" val="5"/>
     <for>
-      <mul stat="maxCp" val="#maxCp" order="0x30"/>
+      <mul order="0x30" stat="maxCp" val="#maxCp"/>
     </for>
   </skill>
   <skill id="372" levels="3" name="Clan Essence">
@@ -1716,7 +1716,7 @@
     <set name="effectRange" val="-1"/>
     <set name="minPledgeClass" val="6"/>
     <for>
-      <mul stat="maxMp" val="#maxMp" order="0x30"/>
+      <mul order="0x30" stat="maxMp" val="#maxMp"/>
     </for>
   </skill>
   <skill id="373" levels="3" name="Clan Lifeblood">
@@ -1730,7 +1730,7 @@
     <set name="effectRange" val="-1"/>
     <set name="minPledgeClass" val="2"/>
     <for>
-      <mul stat="regHp" val="#regHp" order="0x30"/>
+      <mul order="0x30" stat="regHp" val="#regHp"/>
     </for>
   </skill>
   <skill id="374" levels="3" name="Clan Morale">
@@ -1744,7 +1744,7 @@
     <set name="effectRange" val="-1"/>
     <set name="minPledgeClass" val="4"/>
     <for>
-      <mul stat="regCp" val="#regCp" order="0x30"/>
+      <mul order="0x30" stat="regCp" val="#regCp"/>
     </for>
   </skill>
   <skill id="375" levels="3" name="Clan Clarity">
@@ -1758,7 +1758,7 @@
     <set name="effectRange" val="-1"/>
     <set name="minPledgeClass" val="6"/>
     <for>
-      <mul stat="regMp" val="#regMp" order="0x30"/>
+      <mul order="0x30" stat="regMp" val="#regMp"/>
     </for>
   </skill>
   <skill id="376" levels="3" name="Clan Might">
@@ -1772,7 +1772,7 @@
     <set name="effectRange" val="-1"/>
     <set name="minPledgeClass" val="3"/>
     <for>
-      <mul stat="pAtk" val="#pAtk" order="0x30"/>
+      <mul order="0x30" stat="pAtk" val="#pAtk"/>
     </for>
   </skill>
   <skill id="377" levels="3" name="Clan Aegis">
@@ -1786,7 +1786,7 @@
     <set name="effectRange" val="-1"/>
     <set name="minPledgeClass" val="3"/>
     <for>
-      <mul stat="pDef" val="#pDef" order="0x30"/>
+      <mul order="0x30" stat="pDef" val="#pDef"/>
     </for>
   </skill>
   <skill id="378" levels="3" name="Clan Empowerment">
@@ -1800,7 +1800,7 @@
     <set name="effectRange" val="-1"/>
     <set name="minPledgeClass" val="6"/>
     <for>
-      <mul stat="mAtk" val="#mAtk" order="0x30"/>
+      <mul order="0x30" stat="mAtk" val="#mAtk"/>
     </for>
   </skill>
   <skill id="379" levels="3" name="Clan Magic Protection">
@@ -1814,7 +1814,7 @@
     <set name="effectRange" val="-1"/>
     <set name="minPledgeClass" val="2"/>
     <for>
-      <mul stat="mDef" val="#mDef" order="0x30"/>
+      <mul order="0x30" stat="mDef" val="#mDef"/>
     </for>
   </skill>
   <skill id="380" levels="3" name="Clan Guidance">
@@ -1828,7 +1828,7 @@
     <set name="effectRange" val="-1"/>
     <set name="minPledgeClass" val="5"/>
     <for>
-      <add stat="accCombat" val="#accCombat" order="0x40"/>
+      <add order="0x40" stat="accCombat" val="#accCombat"/>
     </for>
   </skill>
   <skill id="381" levels="3" name="Clan Agility">
@@ -1842,7 +1842,7 @@
     <set name="effectRange" val="-1"/>
     <set name="minPledgeClass" val="5"/>
     <for>
-      <add stat="rEvas" val="#rEvas" order="0x40"/>
+      <add order="0x40" stat="rEvas" val="#rEvas"/>
     </for>
   </skill>
   <skill id="382" levels="3" name="Clan Withstand-Attack">
@@ -1859,7 +1859,7 @@
     <set name="effectRange" val="-1"/>
     <set name="minPledgeClass" val="6"/>
     <for>
-      <mul stat="rShld" val="#rShld" order="0x30"/>
+      <mul order="0x30" stat="rShld" val="#rShld"/>
     </for>
   </skill>
   <skill id="383" levels="3" name="Clan Shield Boost">
@@ -1875,7 +1875,7 @@
     <set name="effectRange" val="-1"/>
     <set name="minPledgeClass" val="5"/>
     <for>
-      <mul stat="sDef" val="#sDef" order="0x30"/>
+      <mul order="0x30" stat="sDef" val="#sDef"/>
     </for>
   </skill>
   <skill id="384" levels="3" name="Clan Cyclonic Resistance">
@@ -1892,8 +1892,8 @@
     <set name="effectRange" val="-1"/>
     <set name="minPledgeClass" val="6"/>
     <for>
-      <mul stat="windVuln" val="#vuln" order="0x30"/>
-      <mul stat="waterVuln" val="#vuln" order="0x30"/>
+      <mul order="0x30" stat="windVuln" val="#vuln"/>
+      <mul order="0x30" stat="waterVuln" val="#vuln"/>
     </for>
   </skill>
   <skill id="385" levels="3" name="Clan Magmatic Resistance">
@@ -1910,8 +1910,8 @@
     <set name="effectRange" val="-1"/>
     <set name="minPledgeClass" val="6"/>
     <for>
-      <mul stat="fireVuln" val="#vuln" order="0x30"/>
-      <mul stat="earthVuln" val="#vuln" order="0x30"/>
+      <mul order="0x30" stat="fireVuln" val="#vuln"/>
+      <mul order="0x30" stat="earthVuln" val="#vuln"/>
     </for>
   </skill>
   <skill id="386" levels="3" name="Clan Fortitude">
@@ -1925,7 +1925,7 @@
     <set name="effectRange" val="-1"/>
     <set name="minPledgeClass" val="6"/>
     <for>
-      <mul stat="stunVuln" val="#vuln" order="0x30"/>
+      <mul order="0x30" stat="stunVuln" val="#vuln"/>
     </for>
   </skill>
   <skill id="387" levels="3" name="Clan Freedom">
@@ -1939,7 +1939,7 @@
     <set name="effectRange" val="-1"/>
     <set name="minPledgeClass" val="6"/>
     <for>
-      <mul stat="rootVuln" val="#vuln" order="0x30"/>
+      <mul order="0x30" stat="rootVuln" val="#vuln"/>
     </for>
   </skill>
   <skill id="388" levels="3" name="Clan Vigilance">
@@ -1953,7 +1953,7 @@
     <set name="effectRange" val="-1"/>
     <set name="minPledgeClass" val="6"/>
     <for>
-      <mul stat="sleepVuln" val="#vuln" order="0x30"/>
+      <mul order="0x30" stat="sleepVuln" val="#vuln"/>
     </for>
   </skill>
   <skill id="389" levels="3" name="Clan March">
@@ -1967,7 +1967,7 @@
     <set name="effectRange" val="-1"/>
     <set name="minPledgeClass" val="7"/>
     <for>
-      <add stat="runSpd" val="#runSpd" order="0x40"/>
+      <add order="0x40" stat="runSpd" val="#runSpd"/>
     </for>
   </skill>
   <skill id="390" levels="3" name="Clan Luck">
@@ -2005,7 +2005,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <effect name="Buff" time="30" count="1" val="0" stackOrder="1" stackType="hero">
+      <effect count="1" name="Buff" time="30" val="0" stackOrder="1" stackType="hero">
         <add order="0x40" stat="pDef" val="5400"/>
         <add order="0x40" stat="mDef" val="4050"/>
         <add order="0x40" stat="runSpd" val="5"/>
@@ -2026,7 +2026,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <effect name="Buff" time="120" count="1" val="0" stackOrder="1" stackType="hero">
+      <effect count="1" name="Buff" time="120" val="0" stackOrder="1" stackType="hero">
         <add order="0x40" stat="accCombat" val="8"/>
         <sub order="0x40" stat="rEvas" val="8"/>
         <add order="0x40" stat="pAtk" val="500"/>

@@ -55,7 +55,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add val="#val" order="0x40" stat="accCombat"/>
+      <add order="0x40" stat="accCombat" val="#val"/>
     </for>
   </skill>
   <skill id="3008" levels="6" name="Special Ability: Guidance">
@@ -67,7 +67,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add val="#val" order="0x40" stat="accCombat"/>
+      <add order="0x40" stat="accCombat" val="#val"/>
     </for>
   </skill>
   <skill id="3009" levels="6" name="Special Ability: Evasion">
@@ -79,7 +79,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add val="#val" order="0x40" stat="rEvas"/>
+      <add order="0x40" stat="rEvas" val="#val"/>
     </for>
   </skill>
   <skill id="3010" levels="6" name="Special Ability: Focus">
@@ -119,8 +119,8 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add val="#patk" order="0x40" stat="pAtk"/>
-      <mul val="0.85" order="0x30" stat="maxHp"/>
+      <add order="0x40" stat="pAtk" val="#patk"/>
+      <mul order="0x30" stat="maxHp" val="0.85"/>
     </for>
   </skill>
   <skill id="3013" levels="5" name="Special Ability: Health">
@@ -272,9 +272,7 @@
     <set name="absorbAbs" val="#HPget"/>
   </skill>
   <skill id="3023" levels="6" name="Special Ability: Critical Damage">
-    <!--
-      Descriptions: Causes additional damage when launching a critical attack.
-    -->
+    <!-- Descriptions: Causes additional damage when launching a critical attack. -->
     <table name="#val">174 194 213 231 247 262</table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -282,7 +280,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add val="#val" order="0x40" stat="cAtkAdd"/>
+      <add order="0x40" stat="cAtkAdd" val="#val"/>
     </for>
   </skill>
   <skill id="3024" levels="6" name="Special Ability: Critical Poison">
@@ -309,8 +307,7 @@
   </skill>
   <skill id="3026" levels="6" name="Special Ability: Critical Anger">
     <!--
-      Description:
-       Lvl 1-6: Causes additional damage during a critical attack while reducing one's own HP.
+      Description: Lvl 1-6: Causes additional damage during a critical attack while reducing one's own HP.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -318,9 +315,7 @@
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="3027" levels="6" name="Special Ability: Rsk. Focus">
-    <!--
-      Descriptions: When HP gets decreased, critical attack rate increases.
-    -->
+    <!-- Descriptions: When HP gets decreased, critical attack rate increases. -->
     <table name="#val">138 130 123 115 107 99</table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -564,7 +559,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add val="#val" order="0x40" stat="cAtkAdd"/>
+      <add order="0x40" stat="cAtkAdd" val="#val"/>
     </for>
   </skill>
   <skill id="3044" levels="20" name="Special Ability: Focus">
@@ -605,9 +600,9 @@
   </skill>
   <skill id="3047" levels="3" name="Special Ability: Acumen">
     <!--
-      Lvl 1: Increases Casting Spd. Lvl 2: Increases Casting
-      Spd. and damage inflicted during PvP. Lvl 3: Increases
-      Casting Spd. Increases damage inflicted during PvP.
+      Lvl 1: Increases Casting Spd.
+      Lvl 2: Increases Casting Spd. and damage inflicted during PvP.
+      Lvl 3: Increases Casting Spd. Increases damage inflicted during PvP.
     -->
     <table name="#pvpBonus"> 1 1.05 1.05 </table>
     <!-- Guessing Lvl 3 -->
@@ -625,11 +620,9 @@
   </skill>
   <skill id="3048" levels="3" name="Special Ability: Conversion">
     <!--
-      Lvl 1: Decreases Max HP and increases Max MP. Lvl 2:
-      Decreases Max HP and increases Max MP. Increases
-      damage inflicted during PvP. Lvl 3: Decreases Max HP
-      and increases maximum MP. Increases damage inflicted
-      during PvP.
+      Lvl 1: Decreases Max HP and increases Max MP.
+      Lvl 2: Decreases Max HP and increases Max MP. Increases damage inflicted during PvP.
+      Lvl 3: Decreases Max HP and increases maximum MP. Increases damage inflicted during PvP.
     -->
     <!-- Done by DJ MELERIX -->
     <!-- Guessing Lvl 3 -->
@@ -648,12 +641,6 @@
     </for>
   </skill>
   <skill id="3049" levels="2" name="Special Ability: Increase Critical">
-    <!--
-      Automatically generated from C3 client files. Need to
-      be checked/fixed. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability. created
-      2005-05-29 23:34:31
-    -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="isMagic" val="true"/>
@@ -663,47 +650,39 @@
   <skill id="3050" levels="2" name="Special Ability: Focus">
     <!--
       Need to be checked/fixed.
-    Descriptions:
-    1: Enhances critical attack. Increases damage inflicted during PvP.
+      Descriptions: Lvl 1: Enhances critical attack. Increases damage inflicted during PvP.
     -->
-    <table name="#pvpBonus">1.05 1.05</table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add val="61" order="0x40" stat="rCrit"/>
-      <mul val="#pvpBonus" order="0x30" stat="pvpPhysDmg"/>
-      <!--
-        Enhances damage to target during PvP
-      -->
-      <mul val="#pvpBonus" order="0x30" stat="pvpMagicalDmg"/>
+      <add order="0x40" stat="rCrit" val="61"/>
+      <mul order="0x30" stat="pvpPhysDmg" val="1.05"/>
+      <!-- Enhances damage to target during PvP -->
+      <mul order="0x30" stat="pvpMagicalDmg" val="1.05"/>
     </for>
   </skill>
   <skill id="3051" levels="2" name="Special Ability: Focus">
     <!--
-      Descriptions: 1: Increases critical attack success
-      rate and damage inflicted during PvP. 2: Increases
-      critical attack success rate. Increases damage
-      inflicted during PvP
+      Descriptions:
+        Lvl 1: Increases critical attack success rate and damage inflicted during PvP.
+        Lvl 2: Increases critical attack success rate. Increases damage inflicted during PvP
     -->
-    <table name="#pvpBonus">1.05 1.05</table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add val="67" order="0x40" stat="rCrit"/>
-      <mul val="#pvpBonus" order="0x30" stat="pvpPhysDmg"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="#pvpBonus" order="0x30" stat="pvpMagicalDmg"/>
+      <add order="0x40" stat="rCrit" val="67"/>
+      <mul order="0x30" stat="pvpPhysDmg" val="1.05"/> <!-- Enhances damage to target during PvP -->
+      <mul order="0x30" stat="pvpMagicalDmg" val="1.05"/>
     </for>
   </skill>
   <skill id="3052" levels="2" name="Special Ability: Critical Bleed">
     <!-- Blunts only -->
-    <table name="#dmg"> 93 93 </table>
     <set name="abnormalLvl" val="7"/>
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="WEAPON_SA"/>
@@ -714,21 +693,13 @@
     <set name="effectType" val="BLEED"/>
     <set name="effectPower" val="100"/>
     <for>
-      <effect count="7" name="DamOverTime" time="3" val="#dmg" abnormal="bleeding">
+      <effect count="7" name="DamOverTime" time="3" val="93" abnormal="bleeding">
         <mul order="0x30" stat="runSpd" val="0.8"/>
       </effect>
     </for>
   </skill>
   <skill id="3053" levels="2" name="Special Ability: Critical Bleed">
-    <!--
-      Automatically generated from C3 client files.
-      Need to be checked/fixed.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Descriptions:
-      1: A wound appears and HP falls. Effect 7.
-      2: A wound appears and HP falls. Effect 7.
-      created 2005-05-29 23:34:31
-    -->
+    <!-- Descriptions: Lvl 1-2: A wound appears and HP falls. Effect 7. -->
     <set name="abnormalLvl" val="7"/>
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -737,15 +708,7 @@
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="3054" levels="2" name="Special Ability: Critical Bleed">
-    <!--
-      Automatically generated from C3 client files.
-      Need to be checked/fixed.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Descriptions:
-      1: A wound appears and HP falls. Effect 7.
-      2: A wound appears and HP falls. Effect 7.
-      created 2005-05-29 23:34:31
-    -->
+    <!-- Descriptions: Lvl 1-2: A wound appears and HP falls. Effect 7. -->
     <set name="abnormalLvl" val="7"/>
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -755,7 +718,6 @@
   </skill>
   <skill id="3055" levels="2" name="Special Ability: Critical Bleed">
     <!-- Big Swords only -->
-    <table name="#dmg"> 93 93 </table>
     <set name="abnormalLvl" val="7"/>
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="WEAPON_SA"/>
@@ -766,7 +728,7 @@
     <set name="effectType" val="BLEED"/>
     <set name="effectPower" val="100"/>
     <for>
-      <effect count="7" name="DamOverTime" time="3" val="#dmg" abnormal="bleeding">
+      <effect count="7" name="DamOverTime" time="3" val="93" abnormal="bleeding">
         <mul order="0x30" stat="runSpd" val="0.8"/>
       </effect>
     </for>
@@ -795,12 +757,7 @@
   </skill>
   <skill id="3057" levels="4" name="Special Ability: Anger">
     <!--
-      Descriptions: 
-      1: Decreases Max HP and increases P. Atk. Increases damage inflicted during PvP.
-      2: Decreases Max HP and increases P. Atk. Increases damage inflicted during PvP.
-      3: Decreases Max HP and increases P. Atk. Increases damage inflicted during PvP.
-      4: Decreases Max HP and increases P. Atk. Increases damage inflicted during PvP.
-      (Descriptions Updated to CT2 Part 2)
+      Descriptions: Lvl 1-4: Decreases Max HP and increases P. Atk. Increases damage inflicted during PvP.
     -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -808,16 +765,14 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add val="32" order="0x40" stat="pAtk"/>
-      <mul val="0.85" order="0x30" stat="maxHp"/>
+      <add order="0x40" stat="pAtk" val="32"/>
+      <mul order="0x30" stat="maxHp" val="0.85"/>
     </for>
   </skill>
   <skill id="3058" levels="2" name="Special Ability: Anger">
     <!--
-      Descriptions: 1: Decreases maximum HP and increases P.
-      Atk. Increases damage inflicted during PvP. 2:
-      Decreases maximum HP and increases P. Atk. Increases
-      damage inflicted during PvP
+      Descriptions:
+        Lvl 1-2: Decreases maximum HP and increases P. Atk. Increases damage inflicted during PvP.
     -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -825,17 +780,12 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add val="38" order="0x40" stat="pAtk"/>
-      <mul val="0.85" order="0x30" stat="maxHp"/>
+      <add order="0x40" stat="pAtk" val="38"/>
+      <mul order="0x30" stat="maxHp" val="0.85"/>
     </for>
   </skill>
   <skill id="3059" levels="2" name="Special Ability: Critical Drain">
-    <!--
-      Automatically generated from C3 client files. Need to
-      be checked/fixed. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability. created
-      2005-05-29 23:34:31
-    -->
+
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="isMagic" val="true"/>
@@ -843,12 +793,6 @@
     <set name="castRange" val="600"/>
   </skill>
   <skill id="3060" levels="2" name="Special Ability: Critical Drain">
-    <!--
-      Automatically generated from C3 client files. Need to
-      be checked/fixed. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability. created
-      2005-05-29 23:34:31
-    -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="isMagic" val="true"/>
@@ -856,16 +800,7 @@
     <set name="castRange" val="600"/>
   </skill>
   <skill id="3061" levels="3" name="Special Ability: Critical Poison">
-    <!--
-      Automatically generated from C3 client files. Need to
-      be checked/fixed. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Descriptions:
-      1: Poisons target, temporarily reducing HP. Effect 7.
-      2: Poisons target, temporarily reducing HP. Effect 7.
-      3: A deadly toxin decreases your HP by the moment. Effect 7.
-      (Descriptions Updated to CT2 Part 2)
-    -->
+    <!-- Descriptions: Lvl 1-3: Poisons target, temporarily reducing HP. Effect 7. -->
     <table name="#power">7 7 7</table>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_NONE"/>
@@ -876,13 +811,7 @@
     <set name="castRange" val="600"/>
   </skill>
   <skill id="3062" levels="2" name="Special Ability: Critical Poison">
-    <!--
-      Automatically generated from C3 client files. Need to
-      be checked/fixed. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Descriptions: 1: Causes poisoning. Effect 7. 2: Causes
-      poisoning. Effect 7. created 2005-05-29 23:34:31
-    -->
+    <!-- Descriptions: Lvl 1-2: Causes poisoning. Effect 7. -->
     <table name="#power">7 7</table>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_NONE"/>
@@ -912,41 +841,32 @@
     </for>
   </skill>
   <skill id="3064" levels="1" name="Special Ability: Guidance">
-    <!--
-      Descriptions: 1: Increases Accuracy. Increases damage
-      inflicted during PvP.
-    -->
+    <!-- Descriptions: Increases Accuracy. Increases damage inflicted during PvP. -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add val="4" order="0x40" stat="accCombat"/>
+      <add order="0x40" stat="accCombat" val="4"/>
     </for>
   </skill>
   <skill id="3065" levels="1" name="Special Ability: Guidance">
-    <!--
-      Descriptions: 1: Increases Accuracy. Increases damage
-      inflicted during PvP.
-    -->
+    <!-- Descriptions: Increases Accuracy. Increases damage inflicted during PvP. -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add val="5.41" order="0x40" stat="accCombat"/>
+      <add order="0x40" stat="accCombat" val="5.41"/>
     </for>
   </skill>
   <skill id="3066" levels="4" name="Special Ability: Critical Damage">
     <!--
       Descriptions: 
-      1: Increases critical attack damage and damage inflicted during PvP.
-      2: Increases critical attack damage and damage inflicted during PvP.
-      3: Inflicts additional damage during a critical attack. Increases damage inflicted during PvP.
-      4: Inflicts additional damage during critical attacks. Increases damage inflicted during PvP.
-      (Descriptions Updated to CT2 Part 2)
+        Lvl 1-2: Increases critical attack damage and damage inflicted during PvP.
+        Lvl 3-4: Inflicts additional damage during a critical attack. Increases damage inflicted during PvP.
     -->
     <table name="#val">200 370 370 370</table> <!-- (Custom lvls 3 and 4. Needs to be fixed) -->
     <set name="target" val="TARGET_SELF"/>
@@ -955,15 +875,13 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add val="#val" order="0x40" stat="cAtkAdd"/>
+      <add order="0x40" stat="cAtkAdd" val="#val"/>
     </for>
   </skill>
   <skill id="3067" levels="2" name="Special Ability: Critical Damage">
     <!--
-      Descriptions: 1: Increases damage during a critical
-      attack. Increases damage inflicted during PvP. 2:
-      Increases damage during a critical attack. Increases
-      damage inflicted during PvP.
+      Descriptions: 
+        Lvl 1-2: Increases damage during a critical attack. Increases damage inflicted during PvP.
     -->
     <table name="#val">297 326</table>
     <set name="target" val="TARGET_SELF"/>
@@ -972,15 +890,14 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add val="#val" order="0x40" stat="cAtkAdd"/>
+      <add order="0x40" stat="cAtkAdd" val="#val"/>
     </for>
   </skill>
   <skill id="3068" levels="3" name="Special Ability: Haste">
     <!--
       Descriptions:
       Lvl 1: Increases ATK Spd.
-      Lvl 2: Increases Atk. Spd. Increases damage inflicted during PvP.
-      Lvl 3: Increases Atk. Spd. Increases damage inflicted during PvP.
+      Lvl 2-3: Increases Atk. Spd. Increases damage inflicted during PvP.
     -->
     <table name="#pvp">1 1.05 1.05</table> <!-- Guessing Lvl 3 -->
     <set name="castRange" val="-1"/>
@@ -996,9 +913,7 @@
     </for>
   </skill>
   <skill id="3069" levels="1" name="Special Ability: Risky Evasion">
-    <!--
-      Descriptions: 1: Evasion increases when HP falls.
-    -->
+    <!-- Descriptions: 1: Evasion increases when HP falls. -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1016,11 +931,8 @@
     <!--
       Done by SarutrA - SqueezeD
       Description(s):
-      1: Temporarily stuns and paralyzes target.
-      2: Temporarily stuns and paralyzes target.
-      3: Instantly throws enemy into a state of shock, immobilizing them.
-      4: Temporarily throws target into a state of shock, immobilizing them.
-      (Descriptions Updated to CT2 Part 2)
+        Lvl 1-2: Temporarily stuns and paralyzes target.
+        Lvl 3-4: Instantly throws enemy into a state of shock, immobilizing them.
     -->
     <set name="magicLvl" val="90"/>
     <set name="skillType" val="PDAM"/>
@@ -1040,9 +952,9 @@
   </skill>
   <skill id="3071" levels="2" name="Special Ability: Rsk. Focus">
     <!--
-      Descriptions: 1: Critical attack rate increases when
-      HP falls. 2: Critical attack rate increases when HP
-      falls. Increases damage inflicted during PvP.
+      Descriptions:
+        Lvl 1: Critical attack rate increases when HP falls.
+        Lvl 2: Critical attack rate increases when HP falls. Increases damage inflicted during PvP.
     -->
     <table name="#pvpBonus">1 1.05</table>
     <table name="#val">120 130</table>
@@ -1063,11 +975,7 @@
     </for>
   </skill>
   <skill id="3072" levels="2" name="Special Ability: Empower">
-    <!--
-      Descriptions: 1: Increases M. Atk. Increases damage
-      inflicted during PvP. 2: Increases M. Atk. Increases
-      damage inflicted during PvP.
-    -->
+    <!-- Descriptions: Lvl 1-2: Increases M. Atk. Increases damage inflicted during PvP. -->
     <table name="#val">24 30</table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1080,10 +988,8 @@
   </skill>
   <skill id="3073" levels="2" name="Special Ability: Magic Power">
     <!--
-      Descriptions: 1: Increases MP consumption rate and M.
-      Atk. Increases damage inflicted during PvP. 2:
-      Increases MP consumption rate and M. Atk. Increases
-      damage inflicted during PvP.
+      Descriptions: 
+        Lvl 1-2: Increases MP consumption rate and M. Atk. Increases damage inflicted during PvP.
     -->
     <table name="#val">153 167</table>
     <set name="target" val="TARGET_SELF"/>
@@ -1098,9 +1004,8 @@
   </skill>
   <skill id="3074" levels="2" name="Special Ability: Magic Silence">
     <!-- 
-    Done by SarutrA - SqueezeD
-    Descriptions:
-     Lvl 1-2: Disables the ability to use one's magic skills.
+      Done by SarutrA - SqueezeD
+      Descriptions: Lvl 1-2: Disables the ability to use one's magic skills.
      -->
     <set name="magicLvl" val="74"/>
     <set name="power" val="80"/>
@@ -1117,10 +1022,7 @@
     </for>
   </skill>
   <skill id="3075" levels="2" name="Special Ability: Magic Paralyze">
-    <!-- 
-    Done by SarutrA - SqueezeD
-    Descriptions: Lvl 1-2: Paralyzes target.
-    -->
+    <!-- Done by SarutrA - SqueezeD - Descriptions: Lvl 1-2: Paralyzes target. -->
     <set name="magicLvl" val="74"/>
     <set name="power" val="60"/>
     <set name="lvlDepend" val="1"/>
@@ -1147,10 +1049,7 @@
     </for>
   </skill>
   <skill id="3077" levels="6" name="Special Ability: Magic Power">
-    <!--
-    Descriptions:
-     Lvl 1-6: Increases MP consumption rate and M. Atk. capability.
-    -->
+    <!-- Descriptions: Lvl 1-6: Increases MP consumption rate and M. Atk. capability. -->
     <table name="#val">99 112 126 139 142 155</table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1164,8 +1063,8 @@
   </skill>
   <skill id="3078" levels="6" name="Special Ability: Magic Silence">
     <!-- 
-    Done by SarutrA - SqueezeD
-    Descriptions: Lvl 1-6: Disables the ability to use one's magic skills.
+      Done by SarutrA - SqueezeD
+      Descriptions: Lvl 1-6: Disables the ability to use one's magic skills.
     -->
     <set name="magicLvl" val="74"/>
     <set name="power" val="80"/>

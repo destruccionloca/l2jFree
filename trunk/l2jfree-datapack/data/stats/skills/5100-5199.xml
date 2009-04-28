@@ -105,9 +105,7 @@
     <set name="hitTime" val="10000"/>
   </skill>
   <skill id="5112" levels="12" name="Stun">
-    <!--
-    Description(s): Lvl 1-12 - Temporarily Immobilized and in a state of shock.
-    -->
+    <!-- Description(s): Lvl 1-12 - Temporarily Immobilized and in a state of shock. -->
     <table name="#mpConsume"> 7 10 14 19 25 31 36 38 40 42 42 43</table>
     <table name="#magicLvl"> 14 24 34 44 54 64 74 79 84 89 94 99 </table>
     <set name="magicLvl" val="#magicLvl"/>

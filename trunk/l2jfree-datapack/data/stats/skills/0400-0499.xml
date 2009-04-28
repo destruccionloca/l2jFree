@@ -1276,10 +1276,8 @@
   <skill id="461" levels="2" name="Break Duress">
     <!--
       By Darki699 Description(s):
-       Lvl 1 - Uses Focused Force to escape from an immobile state.
-        Level 2 Focused Force charge required.
-       Lvl 2 - Uses Focused Force to escape from a slow or immobile state.
-        Level 3 Focused Force charge required.
+       Lvl 1 - Uses Focused Force to escape from an immobile state. Level 2 Focused Force charge required.
+       Lvl 2 - Uses Focused Force to escape from a slow or immobile state. Level 3 Focused Force charge required.
     -->
     <table name="#mpConsume">33 37</table>
     <table name="#magicLvl">60 66</table>
@@ -1844,8 +1842,7 @@
   <skill id="492" levels="25" name="Spread Wing" enchantLevels1="30" enchantLevels2="30">
     <!--
       CT2.2 retail confirmed
-      Description(s): Use your wing to attack hostile
-      enemies behind you. Over-hit is possible. Power 722
+      Description(s): Use your wing to attack hostile enemies behind you. Over-hit is possible. Power 722
     -->
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>

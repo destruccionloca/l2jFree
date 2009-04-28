@@ -978,8 +978,8 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <mul stat="fireVuln" val="2" order="0x30"/>
-      <mul stat="bowWpnVuln" val="0.2" order="0x30"/>
+      <mul order="0x30" stat="fireVuln" val="2"/>
+      <mul order="0x30" stat="bowWpnVuln" val="0.2"/>
     </for>
   </skill>
   <skill id="4063" levels="1" name="Paralysis">

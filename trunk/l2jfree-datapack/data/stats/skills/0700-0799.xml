@@ -2,6 +2,9 @@
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
   <skill id="700" levels="1" name="Divine Healer Group Heal">
+    <!-- 
+      Description(s): Regenerate party member's HP and instantly increase HP regeneration. Power 400. Effect 5.
+    -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -9,6 +12,9 @@
     <set name="hitTime" val="7000"/>
   </skill>
   <skill id="701" levels="1" name="Divine Healer Resurrection">
+    <!-- 
+      Description(s): Resurrects a corpse. Restores the experience value about 70 percent additionally.
+    -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -30,6 +36,10 @@
     <set name="aggroPoints" val="624"/>
   </skill>
   <skill id="703" levels="1" name="Sacrifice Healer">
+    <!-- 
+      Description(s): Regenerate party member's HP and MP
+      by sacrificing yourself. Usable only when MP is under 10 percent.
+    -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -37,6 +47,10 @@
     <set name="hitTime" val="4000"/>
   </skill>
   <skill id="704" levels="1" name="Divine Enchanter Water Spirit">
+    <!-- 
+      Description(s): Temporarily causes the party member to be possessed
+      with the spirit of ancient wizard. Consumes 5 Spirit Ores.
+    -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -44,6 +58,10 @@
     <set name="hitTime" val="4000"/>
   </skill>
   <skill id="705" levels="1" name="Divine Enchanter Fire Spirit">
+    <!-- 
+      Description(s): Temporarily causes the party member to be possessed
+      with the spirit of ancient warrior. Consumes 5 Spirit Ores.
+    -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -51,6 +69,10 @@
     <set name="hitTime" val="4000"/>
   </skill>
   <skill id="706" levels="1" name="Divine Enchanter Wind Spirit">
+    <!-- 
+      Description(s): Temporarily causes the party member to be possessed
+      with the spirit of ancient assassin. Consumes 5 Spirit Ores.
+    -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -58,6 +80,10 @@
     <set name="hitTime" val="4000"/>
   </skill>
   <skill id="707" levels="1" name="Divine Enchanter Hero Spirit">
+    <!-- 
+      Description(s): Temporarily causes the party member to be possessed
+      with the spirit of ancient warrior. Consumes 40 Spirit Ores.
+    -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -65,6 +91,10 @@
     <set name="hitTime" val="2500"/>
   </skill>
   <skill id="708" levels="1" name="Divine Enchanter Mass Binding">
+    <!-- 
+      Description(s): Instantly apply Hold to surrounding enemies.
+      Additional Hold is not available while effects last.
+    -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -72,6 +102,10 @@
     <set name="hitTime" val="4000"/>
   </skill>
   <skill id="709" levels="1" name="Sacrifice Enchanter">
+    <!-- 
+      Description(s): Increase all the party member's abilities by sacrificing yourself.
+      Usable only when MP is under 10 percent.
+    -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -102,12 +136,19 @@
     <set name="expPenalty" val="0.15"/>
   </skill>
   <skill id="711" levels="1" name="Divine Summoner Transfer Pain">
+    <!-- 
+      Description(s): Transfers some of the player's damage to the summoner. Consumes MP continuously.
+    -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="712" levels="1" name="Divine Summoner Final Servitor">
+    <!-- 
+      Description(s): Temporarily causes the summoner to be possessed
+      with the spirit of ancient hero. Consumes 20 Spirit Ores.
+    -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -115,6 +156,7 @@
     <set name="hitTime" val="4000"/>
   </skill>
   <skill id="713" levels="1" name="Divine Summoner Servitor Hill">
+    <!-- Description(s): Regenerate the summoner's HP. Power 991. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -122,6 +164,10 @@
     <set name="hitTime" val="4000"/>
   </skill>
   <skill id="714" levels="1" name="Sacrifice Summoner">
+    <!-- 
+      Description(s): Increase the party member's critical abilities by sacrificing yourself.
+      Usable only when MP is under 10 percent.
+    -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -535,6 +581,12 @@
     </for>
   </skill>
   <skill id="742" levels="3" name="Vale Master Bursting Flame">
+    <!-- 
+      Description(s):
+        Attack the enemy by unleashing dark flames. Power 112.
+        Attack the enemy by unleashing dark flames. Power 117.
+        Attack the enemy by unleashing dark flames. Power 122
+    -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -542,6 +594,12 @@
     <set name="hitTime" val="1200"/>
   </skill>
   <skill id="743" levels="3" name="Vale Master Dark Explosion">
+    <!-- 
+      Description(s):
+        Detonate the soul to attack surrounding enemies. Power 56.	
+        Detonate the soul to attack surrounding enemies. Power 59.	
+        Detonate the soul to attack surrounding enemies. Power 61.
+    -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -549,6 +607,12 @@
     <set name="hitTime" val="1800"/>
   </skill>
   <skill id="744" levels="3" name="Vale Master Dark Flare">
+    <!-- 
+      Description(s):
+        Attack a large number of enemies by creating huge explosion. Power 112.
+        Attack a large number of enemies by creating huge explosion. Power 117.
+        Attack a large number of enemies by creating huge explosion. Power 122.
+    -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -706,6 +770,12 @@
     <set name="effectPower" val="50"/>
   </skill>
   <skill id="752" levels="3" name="Doll Blader Sting">
+    <!-- 
+      Description(s):
+        Causes injury by deadly attacks. Instantly causes the enemies to bleed. Over-hit is available. Power 1193. Effect 3.
+        Causes injury by deadly attacks. Instantly causes the enemies to bleed. Over-hit is available. Power 1303. Effect 3.
+        Causes injury by deadly attacks. Instantly causes the enemies to bleed. Over-hit is available. Power 1412. Effect 3.
+    -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -713,6 +783,12 @@
     <set name="hitTime" val="1080"/>
   </skill>
   <skill id="753" levels="3" name="Doll Blader Throwing Knife">
+    <!-- 
+      Description(s):
+       Throw a dagger to attack enemy in the distance. Over-hit is possible. Power 4769.
+       Throw a dagger to attack enemy in the distance. Over-hit is possible. Power 5211.
+       Throw a dagger to attack enemy in the distance. Over-hit is possible. Power 5645.
+    -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -720,6 +796,7 @@
     <set name="hitTime" val="3200"/>
   </skill>
   <skill id="754" levels="1" name="Doll Blader Clairvoyance">
+    <!-- Description(s): Temporarily increase the probability of Critical attack power. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1246,7 +1323,7 @@
       <target active_effect_id="5562,3"/>
     </cond>
     <for>
-      <effect name="Buff" count="1" time="60" val="0" stackOrder="1" stackType="icon_buff">
+      <effect count="1" name="Buff" time="60" val="0" stackOrder="1" stackType="icon_buff">
         <mul order="0x30" stat="debuffVuln" val="0.6"/>
         <mul order="0x30" stat="pDef" val="1.5"/>
         <mul order="0x30" stat="mDef" val="1.5"/>
@@ -1280,7 +1357,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <for>
-      <effect name="Buff" count="1" time="60" val="0"/>
+      <effect count="1" name="Buff" time="60" val="0"/>
         <!-- still need to know its effects -->
     </for>
   </skill>
@@ -1319,7 +1396,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <for>
-      <effect name="Buff" count="1" time="60" val="0"/>
+      <effect count="1" name="Buff" time="60" val="0"/>
         <!-- still need to know its effects -->
     </for>
   </skill>
@@ -1367,7 +1444,7 @@
     <set name="skillRadius" val="130"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="900"/>
-    <set name="soulConsumeCount" val="5"/>
+    <set name="soulMaxConsumeCount" val="5"/>
     <cond>
       <using kind="Crossbow"/>
     </cond>
@@ -1390,7 +1467,7 @@
     <set name="effectRange" val="900"/>
     <set name="effectType" val="PARALYZE"/>
     <set name="effectPower" val="20"/>
-    <set name="soulConsumeCount" val="5"/>
+    <set name="soulMaxConsumeCount" val="5"/>
     <for>
       <effect count="1" name="Paralyze" time="30" val="0"/>
     </for>

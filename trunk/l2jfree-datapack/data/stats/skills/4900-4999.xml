@@ -252,7 +252,7 @@
   <skill id="4931" levels="1" name="Raid Boss - Level 23">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
-  <set name="magicLvl" val="1"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -275,7 +275,7 @@
   </skill>
   <skill id="4934" levels="1" name="Raid Boss - Level 21">
     <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="BUFF"/>
+    <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
@@ -340,7 +340,7 @@
   <skill id="4942" levels="1" name="Raid Boss - Level 38">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
-  <set name="magicLvl" val="1"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -714,21 +714,18 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4989" levels="1" name="Npc - Hot Spring Nectar">
-    <!-- TODO -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="4990" levels="1" name="Npc - Hot Spring Mineral">
-    <!-- TODO -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="4991" levels="1" name="Hot Spring Sulfur">
-    <!-- TODO -->
     <!-- Decreases Atk. Spd. and Casting Spd. Effect 5. -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
@@ -736,7 +733,6 @@
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="4992" levels="1" name="Stun">
-    <!-- TODO -->
     <!-- Shocks and instantly Immobilizes. -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>

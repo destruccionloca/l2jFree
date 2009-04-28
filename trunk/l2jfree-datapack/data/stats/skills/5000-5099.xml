@@ -62,14 +62,13 @@
   </skill>
   <skill id="5007" levels="5" name="Frintezza's Songs">
     <!--
-      Needs to be finished. Description(s): Lvl 1 -
-      Frintezza's Healing Rhapsody Music to soothe the soul.
-      Lvl 2 - Frintezza's Rampaging Opus A Consecutive Dash
-      + Portrait Replay Performance Lvl 3 - Frintezza's
-      Power Concerto A powerful tune affecting Attack/Speed.
-      Lvl 4 - Frintezza's Plagued Concerto A triumphant
-      ballad of Heal Suppressing. Lvl 5 - Frintezza's Psycho
-      Symphony Two Can Dance + Cancel Performance.
+      Needs to be finished.
+      Description(s):
+        Lvl 1 - Frintezza's Healing Rhapsody Music to soothe the soul.
+        Lvl 2 - Frintezza's Rampaging Opus A Consecutive Dash + Portrait Replay Performance
+        Lvl 3 - Frintezza's Power Concerto A powerful tune affecting Attack/Speed.
+        Lvl 4 - Frintezza's Plagued Concerto A triumphant ballad of Heal Suppressing.
+        Lvl 5 - Frintezza's Psycho Symphony Two Can Dance + Cancel Performance.
     -->
     <table name="#skill_landing_percent">0 60 0 0 0</table>
     <table name="#skillRadius">0 100 0 100 100</table>
@@ -127,10 +126,7 @@
     </for>
   </skill>
   <skill id="5009" levels="1" name="Frintezza's Ghostly Fighter">
-    <!--
-      Needs to be finished. Description(s): A portrait ghost
-      that can make physical attacks.
-    -->
+    <!-- Needs to be finished. Description(s): A portrait ghost that can make physical attacks. -->
     <set name="power" val="250"/>
     <set name="mpConsume" val="140"/>
     <set name="target" val="TARGET_ONE"/>
@@ -148,10 +144,7 @@
     </for>
   </skill>
   <skill id="5010" levels="1" name="Frintezza's Ghostly Mage">
-    <!--
-      Needs to be finished. Description(s): A portrait ghost
-      that can make magical attacks.
-    -->
+    <!-- Needs to be finished. Description(s): A portrait ghost that can make magical attacks. -->
     <set name="mpConsume" val="20"/>
     <set name="power" val="250"/>
     <set name="lvlDepend" val="1"/>
@@ -171,10 +164,7 @@
     </for>
   </skill>
   <skill id="5011" levels="1" name="Frintezza's Bomber Ghost">
-    <!--
-      Needs to be finished. Description(s): A portrait ghost
-      who can create a suicide explosion.
-    -->
+    <!-- Needs to be finished. Description(s): A portrait ghost who can create a suicide explosion. -->
     <set name="hpConsume" val="28000"/>
     <set name="mpConsume" val="1"/>
     <set name="power" val="120000"/>
@@ -197,9 +187,7 @@
     </for>
   </skill>
   <skill id="5012" levels="1" name="Breath of Scarlet">
-    <!--
-      Needs to be finished. Description(s): Instantly Immobilizes.
-    -->
+    <!-- Needs to be finished. - Description(s): Instantly Immobilizes. -->
     <set name="mpConsume" val="200"/>
     <set name="power" val="100"/>
     <set name="lvlDepend" val="2"/>
@@ -218,9 +206,7 @@
     </for>
   </skill>
   <skill id="5013" levels="1" name="Frintezza Ghost Drain">
-    <!--
-      Needs to be finished. Description(s): Portrait ghost drains HP.
-    -->
+    <!-- Needs to be finished. - Description(s): Portrait ghost drains HP. -->
     <set name="element" val="6"/> <!-- Dark -->
     <set name="mpConsume" val="200"/>
     <set name="power" val="200"/>
@@ -237,9 +223,7 @@
   </skill>
   <skill id="5014" levels="3" name="Frintezza's Daemon Attack">
     <!--
-      Needs to be finished. Description(s): Lvl 1 - Demon 1
-      general attack. Lvl 2 - Demon 2 general attack. Lvl 3
-      - Demon 3 general attack.
+      Needs to be finished. - Description(s): Lvl 1-3: Demon 1-3 general attack.
     -->
     <set name="mpConsume" val="300"/>
     <set name="power" val="60000"/>
@@ -254,18 +238,14 @@
     <set name="effectRange" val="400"/>
     <!-- charge values ... should be done by AI -->
     <!--
-      <set name="num_charges" val="1"/> <set
-      name="charge_skill_id" val="5015"/>
+      <set name="num_charges" val="1"/>
+      <set name="charge_skill_id" val="5015"/>
     -->
   </skill>
   <skill id="5015" levels="6" name="Frintezza's Daemon Charge">
     <!--
-      Lvl 1: Demon 1 charge.
-      Lvl 2: Demon 2 charge.
-      Lvl 3: Demon 3 charge.
-      Lvl 4: Demon 1 slow charge.
-      Lvl 5: Demon 2 slow charge.
-      Lvl 6: Demon 3 slow charge.
+      Lvl 1-3: Demon 1-3 charge.
+      Lvl 4-6: Demon 1-3 slow charge.
     -->
     <table name="#power">3 5 10 15 20 30</table>
     <table name="#hitTime"> 1500 1450 1300 1200 1050 900 </table>
@@ -281,10 +261,7 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="5016" levels="1" name="Yoke of Scarlet">
-    <!--
-      Needs to be finished. 
-      Description(s): Instantly Immobilizes.
-    -->
+    <!-- Needs to be finished. - Description(s): Instantly Immobilizes. -->
     <set name="mpConsume" val="200"/>
     <set name="power" val="100"/>
     <set name="lvlDepend" val="2"/>
@@ -303,10 +280,7 @@
     </for>
   </skill>
   <skill id="5017" levels="1" name="Frintezza's Daemon Morph">
-    <!--
-      Needs to be finished. Description(s): Demon 1
-      metamorphosis.
-    -->
+    <!-- Needs to be finished. Description(s): Demon 1 metamorphosis. -->
     <set name="mpConsume" val="300"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="reuseDelay" val="1000000"/>
@@ -328,10 +302,7 @@
     </for>
   </skill>
   <skill id="5018" levels="2" name="Frintezza's Daemon Field">
-    <!--
-      Needs to be finished. Description(s): Lvl 1 - Demon 2
-      magic field. Lvl 2 - Demon 3 magic field.
-    -->
+    <!-- Needs to be finished. - Description(s): Lvl 1-2: Demon 2-3 magic field. -->
     <table name="#Tab-pDef">2.08 3.12</table>
     <set name="target" val="TARGET_SELF"/>
     <set name="hitTime" val="1000"/>
@@ -349,9 +320,7 @@
     </for>
   </skill>
   <skill id="5019" levels="1" name="Frintezza's Daemon Drain">
-    <!--
-      Needs to be finished. Description(s): Demon 3 HP drain range.
-    -->
+    <!-- Needs to be finished. - Description(s): Demon 3 HP drain range. -->
     <set name="mpConsume" val="200"/>
     <set name="power" val="2000"/>
     <set name="target" val="TARGET_ONE"/>
@@ -366,10 +335,7 @@
     <set name="absorbPart" val="0.8"/>
   </skill>
   <skill id="5020" levels="1" name="Forced Action">
-    <!--
-      Description(s): Crumples to the ground because of
-      unknown power.
-    -->
+    <!-- Description(s): Crumples to the ground because of unknown power. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -377,10 +343,7 @@
     <set name="hitTime" val="2000"/>
   </skill>
   <skill id="5021" levels="12" name="Inspiration of Einhasad">
-    <!--
-      Description(s):
-      Lvl 1-12: Makes sacred attacks.
-    -->
+    <!-- Description(s): Lvl 1-12: Makes sacred attacks. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -400,10 +363,7 @@
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5023" levels="12" name="Hold">
-    <!--
-      Description(s):
-      Lvl 1-12: Temporarily holds and Immobilizes target.
-    -->
+    <!-- Description(s): Lvl 1-12: Temporarily holds and Immobilizes target. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -506,12 +466,7 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="5037" levels="3" name="Decrease Casting Spd">
-    <!--
-      Description(s):
-        Lvl 1 - Instantly reduces Casting Speed. Effect 1.
-        Lvl 2 - Instantly reduces Casting Speed. Effect 2.
-	      Lvl 3 - Instantly reduces Casting Speed. Effect 3.
-    -->
+    <!-- Description(s): Lvl 1-3: Instantly reduces Casting Speed. Effect 1-3. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -762,10 +717,7 @@
     <set name="hitTime" val="4000"/>
   </skill>
   <skill id="5068" levels="12" name="Decrease Speed">
-    <!--
-      Description(s):
-        Lvl 1-12 - Instantly reduces Speed. Effect 3.
-    -->
+    <!-- Description(s): Lvl 1-12 - Instantly reduces Speed. Effect 3. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -773,10 +725,7 @@
     <set name="hitTime" val="4000"/>
   </skill>
   <skill id="5069" levels="12" name="Decrease Atk. Spd.">
-    <!--
-      Description(s):
-        Lvl 1-12 - Instantly reduces Atk. Spd. Effect 3.
-    -->
+    <!-- Description(s): Lvl 1-12 - Instantly reduces Atk. Spd. Effect 3. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -784,10 +733,7 @@
     <set name="hitTime" val="2000"/>
   </skill>
   <skill id="5070" levels="12" name="Decrease Casting Spd">
-    <!--
-      Description(s):
-        Lvl 1-12 - Instantly reduces Casting Spd. Effect 3.
-    -->
+    <!-- Description(s): Lvl 1-12 - Instantly reduces Casting Spd. Effect 3. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -795,10 +741,7 @@
     <set name="hitTime" val="2000"/>
   </skill>
   <skill id="5071" levels="12" name="Decrease P. Atk.">
-    <!--
-      Description(s):
-        Lvl 1-12 - Instantly reduces P. Atk. Effect 3.
-    -->
+    <!-- Description(s): Lvl 1-12 - Instantly reduces P. Atk. Effect 3. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -806,10 +749,7 @@
     <set name="hitTime" val="2000"/>
   </skill>
   <skill id="5072" levels="12" name="Decrease M. Atk.">
-    <!--
-      Description(s):
-        Lvl 1-12 - Instantly reduces M. Atk. Effect 3.
-    -->
+    <!-- Description(s): Lvl 1-12 - Instantly reduces M. Atk. Effect 3. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1005,8 +945,7 @@
   </skill>
   <skill id="5086" levels="1" name="Deadly Poison">
     <!--
-      Description(s): Infected with poison and gradually
-      losing HP. If HP falls to 0, death will ensue.
+      Description(s): Infected with poison and gradually losing HP. If HP falls to 0, death will ensue.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -1035,8 +974,7 @@
     <set name="hitTime" val="1000"/>
   </skill>
   <skill id="5090" levels="1" name="Sailren Production">
-    <!-- Needs more work -->
-    <!-- Only pre-implementation -->
+    <!-- Needs more work - Only pre-implementation -->
     <set name="target" val="TARGET_SELF"/> <!-- Needs to be checked -->
     <set name="skillType" val="BUFF"/>
     <set name="hitTime" val="1000"/>
@@ -1045,8 +983,7 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="5091" levels="1" name="Sailren Production 2">
-    <!-- Needs more work -->
-    <!-- Only pre-implementation -->
+    <!-- Needs more work - Only pre-implementation -->
     <set name="target" val="TARGET_SELF"/> <!-- Needs to be checked -->
     <set name="skillType" val="BUFF"/>
     <set name="hitTime" val="1000"/>

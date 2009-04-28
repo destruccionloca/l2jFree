@@ -10,7 +10,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add stat="accCombat" val="3" order="0x40"/>
+      <add order="0x40" stat="accCombat" val="3"/>
     </for>
   </skill>
   <skill id="601" levels="1" name="Residence Agility">
@@ -22,7 +22,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add stat="rEvas" val="3" order="0x40"/>
+      <add order="0x40" stat="rEvas" val="3"/>
     </for>
   </skill>
   <skill id="602" levels="1" name="Residence Shield Block">
@@ -34,7 +34,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <mul stat="rShld" val="1.06" order="0x30"/>
+      <mul order="0x30" stat="rShld" val="1.06"/>
     </for>
   </skill>
   <skill id="603" levels="1" name="Residence Shield Defense">
@@ -46,7 +46,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <mul stat="sDef" val="1.06" order="0x30"/>
+      <mul order="0x30" stat="sDef" val="1.06"/>
     </for>
   </skill>
   <skill id="604" levels="1" name="Residence Resist Typhoon">
@@ -58,8 +58,8 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <mul stat="windVuln" val="0.9" order="0x30"/>
-      <mul stat="waterVuln" val="0.9" order="0x30"/>
+      <mul order="0x30" stat="windVuln" val="0.9"/>
+      <mul order="0x30" stat="waterVuln" val="0.9"/>
     </for>
   </skill>
   <skill id="605" levels="1" name="Residence Resist Lava">
@@ -71,8 +71,8 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <mul stat="fireVuln" val="0.9" order="0x30"/>
-      <mul stat="earthVuln" val="0.9" order="0x30"/>
+      <mul order="0x30" stat="fireVuln" val="0.9"/>
+      <mul order="0x30" stat="earthVuln" val="0.9"/>
     </for>
   </skill>
   <skill id="606" levels="1" name="Residence Fortitude">
@@ -84,7 +84,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <mul stat="stunVuln" val="0.9" order="0x30"/>
+      <mul order="0x30" stat="stunVuln" val="0.9"/>
     </for>
   </skill>
   <skill id="607" levels="1" name="Residence Freedom">
@@ -96,7 +96,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <mul stat="rootVuln" val="0.9" order="0x30"/>
+      <mul order="0x30" stat="rootVuln" val="0.9"/>
     </for>
   </skill>
   <skill id="608" levels="1" name="Residence Vigilance">
@@ -108,7 +108,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <mul stat="sleepVuln" val="0.9" order="0x30"/>
+      <mul order="0x30" stat="sleepVuln" val="0.9"/>
     </for>
   </skill>
   <skill id="609" levels="1" name="Residence Movement">
@@ -121,7 +121,7 @@
     <set name="effectRange" val="-1"/>
     <set name="minPledgeClass" val="7"/>
     <for>
-      <add stat="runSpd" val="6" order="0x40"/>
+      <add order="0x40" stat="runSpd" val="6"/>
     </for>
   </skill>
   <skill id="610" levels="1" name="Residence Death Fortune">
@@ -133,7 +133,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <mul stat="lostExp" val="0.7" order="0x30"/>
+      <mul order="0x30" stat="lostExp" val="0.7"/>
     </for>
   </skill>
   <skill id="611" levels="3" name="Fire Squad">
@@ -1086,6 +1086,7 @@
     </for>
   </skill>
   <skill id="675" levels="1" name="Divine Warrior Cross Slash">
+    <!-- Description(s): Flourishes the sword strongly. Critical enabled. Power 2904. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1093,6 +1094,10 @@
     <set name="hitTime" val="1730"/>
   </skill>
   <skill id="676" levels="1" name="Divine Warrior Sonic Blaster">
+    <!--
+      Description(s):
+        Strikes the enemy a blow in a distance using sword energy. Critical enabled. Power 2323
+    -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1100,6 +1105,11 @@
     <set name="hitTime" val="1900"/>
   </skill>
   <skill id="677" levels="1" name="Divine Warrior Transfixion of Earth">
+    <!--
+      Description(s):
+        Attacks nearby enemies strongly by cutting with a downward blow.
+        Ignore shield defense. Over-hit is available. Power 2323.
+    -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1107,6 +1117,7 @@
     <set name="hitTime" val="1070"/>
   </skill>
   <skill id="678" levels="1" name="Divine Warrior War Cry">
+    <!-- Description(s): Temporarily increases P. Atk. Effect 2. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1121,6 +1132,7 @@
     <set name="hitTime" val="2500"/>
   </skill>
   <skill id="680" levels="1" name="Divine Knight Hate">
+    <!-- Description(s): Provokes your opponent into attacking. Power 6752. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1128,6 +1140,7 @@
     <set name="hitTime" val="700"/>
   </skill>
   <skill id="681" levels="1" name="Divine Knight Hate Aura">
+    <!-- Description(s): Stimulates the attacking desire of the enemies nearby. Power 6752. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1135,6 +1148,11 @@
     <set name="hitTime" val="1000"/>
   </skill>
   <skill id="682" levels="1" name="Divine Knight Stun Attack">
+    <!--
+      Description(s):
+        Cause damage and shock together at the same time. Make the enemies shocked momentarily.
+        Over-hit is available. Power 1162.
+    -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1142,6 +1160,11 @@
     <set name="hitTime" val="1080"/>
   </skill>
   <skill id="683" levels="1" name="Divine Knight Thunder Storm">
+    <!--
+      Description(s):
+        Inflicts shock and damage to the enemies nearby at the same time.
+        Instantly makes nearby enemies shocked. Ignore shield defense. Over-hit is available. Power 775.
+    -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1149,6 +1172,11 @@
     <set name="hitTime" val="1080"/>
   </skill>
   <skill id="684" levels="1" name="Divine Knight Ultimate Defense">
+    <!--
+      Description(s):
+        Instantly and drastically increases tolerance to P. Def./M. Def, buff cancel attacks.
+        The player cannot move while the effect lasts. Effect 2.
+    -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1163,6 +1191,11 @@
     <set name="hitTime" val="2500"/>
   </skill>
   <skill id="686" levels="1" name="Divine Rogue Stun Shot">
+    <!--
+      Description(s):
+       Shoots arrows that inflict both damage and shock to the enemy in order to cancel target state.
+       Puts an enemy into shock momentarily. Over-hit possible. Power 2323.
+    -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1170,6 +1203,7 @@
     <set name="hitTime" val="3000"/>
   </skill>
   <skill id="687" levels="1" name="Divine Rogue Double Shot">
+    <!-- Description(s): Shoots 2 arrows continuously. Critical enabled. Over-hit possible. Power 6195. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1177,6 +1211,11 @@
     <set name="hitTime" val="3000"/>
   </skill>
   <skill id="688" levels="1" name="Divine Rogue Bleed Attack">
+    <!--
+      Description(s):
+        Causes injury by deadly attacks. Instantly causes the enemies to bleed.
+        Over-hit is available. Power 1549. Effect 3.
+    -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1184,6 +1223,7 @@
     <set name="hitTime" val="1080"/>
   </skill>
   <skill id="689" levels="1" name="Divine Rogue Deadly Blow">
+    <!-- Description(s): Tries deadly attacks. Instant Kill available. Power 6969. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1191,6 +1231,7 @@
     <set name="hitTime" val="1080"/>
   </skill>
   <skill id="690" levels="1" name="Divine Rogue Agility">
+    <!-- Description(s): Temporarily increase Evasion. Effect 3 -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1205,6 +1246,11 @@
     <set name="hitTime" val="2500"/>
   </skill>
   <skill id="692" levels="1" name="Divine Wizard Holy Flare">
+    <!--
+      Description(s):
+        Attacks a contacted target with non-attribute attack.
+        Temporarily decreases your magic attack power during PvP. Power 102.
+    -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1212,6 +1258,7 @@
     <set name="hitTime" val="1500"/>
   </skill>
   <skill id="693" levels="1" name="Divine Wizard Holy Strike">
+    <!-- Description(s): Unleashes divine attack. Over-hit is available. Power 128. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1219,6 +1266,7 @@
     <set name="hitTime" val="5000"/>
   </skill>
   <skill id="694" levels="1" name="Divine Wizard Holy Curtain">
+    <!-- Description(s): Attack a large number of enemies with divine rainstorm. Power 64. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1226,6 +1274,11 @@
     <set name="hitTime" val="5000"/>
   </skill>
   <skill id="695" levels="1" name="Divine Wizard Holy Cloud">
+    <!--
+      Description(s):
+        Instantly bring divine clouds making nearby enemies sleep.
+        Decrease probability of additional sleep state while effects last.
+    -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1233,6 +1286,10 @@
     <set name="hitTime" val="5000"/>
   </skill>
   <skill id="696" levels="1" name="Divine Wizard Surrender to Holy">
+    <!--
+      Description(s):
+      Instantly decrease resistance to divine attacks, and increase resistance to darkness attacks. Effect 3.
+    -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1247,6 +1304,7 @@
     <set name="hitTime" val="2500"/>
   </skill>
   <skill id="698" levels="1" name="Divine Healer Major Heal">
+    <!-- Description(s): Regenerate the target's HP immediately. Power 946. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1254,6 +1312,7 @@
     <set name="hitTime" val="5000"/>
   </skill>
   <skill id="699" levels="1" name="Divine Healer Battle Heal">
+    <!-- Description(s): Quickly recovers HP. Power 826. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>

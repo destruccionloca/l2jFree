@@ -401,43 +401,18 @@
     Needs to be finished.
     Description(s):
         Lvl 1 Name - Animals
-        Lvl 2 Name - Beasts
-        Lvl 3 Name - Beasts
-        Lvl 4 Name - Beasts
-        Lvl 5 Name - Beasts
-        Lvl 6 Name - Bugs
-        Lvl 7 Name - Bugs
-        Lvl 8 Name - Bugs
-        Lvl 9 Name - Magic Creatures
-        Lvl 10 Name - Magic Creatures
-        Lvl 11 Name - Magic Creatures
-        Lvl 12 Name - Demons
-        Lvl 13 Name - Demons
-        Lvl 14 Name - Demons
-        Lvl 15 Name - Angels
-        Lvl 16 Name - Angels
-        Lvl 17 Name - Angels
+        Lvl 2-5 Name - Beasts
+        Lvl 6-8 Name - Bugs
+        Lvl 9-11 Name - Magic Creatures
+        Lvl 12-14 Name - Demons
+        Lvl 15-17 Name - Angels
         Lvl 18 Name - Dragons
-        Lvl 19 Name - Spirits
-        Lvl 20 Name - Spirits
-        Lvl 21 Name - Spirits
-        Lvl 22 Name - Spirits
-        Lvl 23 Name - Spirits
+        Lvl 19-23 Name - Spirits
         Lvl 24 Name - Fairies
         Lvl 25 Name - Giants
-        Lvl 26 Name - Humanoids
-        Lvl 27 Name - Humanoids
-        Lvl 28 Name - Humanoids
-        Lvl 29 Name - Humanoids
-        Lvl 30 Name - Humanoids
-        Lvl 31 Name - Humanoids
-        Lvl 32 Name - Humanoids
+        Lvl 26-32 Name - Humanoids
         Lvl 33 Name - Plants
-        Lvl 34 Name - Undead
-        Lvl 35 Name - Undead
-        Lvl 36 Name - Undead
-        Lvl 37 Name - Undead
-        Lvl 38 Name - Undead
+        Lvl 34-38 Name - Undead
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -1414,7 +1389,7 @@
   <skill id="4497" levels="1" name="Treasure Chest - Level 21">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
-    <set name="mpConsume" val="1"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -1422,7 +1397,7 @@
   <skill id="4498" levels="1" name="Treasure Chest - Level 22">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
-    <set name="mpConsume" val="1"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>

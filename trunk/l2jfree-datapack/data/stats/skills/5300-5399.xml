@@ -10,10 +10,7 @@
     <set name="hitTime" val="3200"/>
   </skill>
   <skill id="5301" levels="9" name="Stun">
-    <!--
-      Description(s):
-      Temporarily gets thrown into a state of shock and immobilized.
-    -->
+    <!-- Description(s): Temporarily gets thrown into a state of shock and immobilized. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -21,10 +18,7 @@
     <set name="hitTime" val="830"/>
   </skill>
   <skill id="5302" levels="9" name="Poison">
-    <!--
-      Description(s):
-      Condition causing target to instantly decrease HP by poison. Effect 8-10.
-    -->
+    <!-- Description(s): Condition causing target to instantly decrease HP by poison. Effect 8-10. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -32,10 +26,7 @@
     <set name="hitTime" val="830"/>
   </skill>
   <skill id="5303" levels="9" name="Bleed">
-    <!--
-      Description(s):
-      Condition causing target to instantly decrease HP by bleeding. Effect 8-10.
-    -->
+    <!-- Description(s): Condition causing target to instantly decrease HP by bleeding. Effect 8-10. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -51,10 +42,7 @@
     <set name="hitTime" val="830"/>
   </skill>
   <skill id="5305" levels="9" name="Poison">
-    <!--
-      Description(s):
-      Condition causing target to instantly decrease HP by poison. Effect 8-10.
-    -->
+    <!-- Description(s): Condition causing target to instantly decrease HP by poison. Effect 8-10. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -70,10 +58,7 @@
     <set name="hitTime" val="1000"/>
   </skill>
   <skill id="5307" levels="9" name="Stun">
-    <!--
-      Description(s):
-      Temporarily gets thrown into a state of shock and immobilized.
-    -->
+    <!-- Description(s): Temporarily gets thrown into a state of shock and immobilized. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -81,10 +66,7 @@
     <set name="hitTime" val="4500"/>
   </skill>
   <skill id="5308" levels="9" name="Poison">
-    <!--
-      Description(s):
-      Condition causing target to instantly decrease HP by poison. Effect 8-10.
-    -->
+    <!-- Description(s): Condition causing target to instantly decrease HP by poison. Effect 8-10. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -92,10 +74,7 @@
     <set name="hitTime" val="4500"/>
   </skill>
   <skill id="5309" levels="9" name="Bleed">
-    <!--
-      Description(s):
-      Condition causing target to instantly decrease HP by bleeding. Effect 8-10.
-    -->
+    <!-- Description(s): Condition causing target to instantly decrease HP by bleeding. Effect 8-10. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -346,10 +325,7 @@
     <set name="isMagic" val="true"/>
   </skill>
   <skill id="5333" levels="9" name="Poison">
-    <!--
-      Description(s):
-      Condition causing target to instantly decrease HP by poison. Effect 8-10.
-    -->
+    <!-- Description(s): Condition causing target to instantly decrease HP by poison. Effect 8-10. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -614,20 +590,14 @@
     </for>
   </skill>
   <skill id="5363" levels="9" name="Poison">
-    <!--
-      Description(s):
-      Condition causing target to instantly decrease HP by poison. Effect 8-10.
-    -->
+    <!-- Description(s): Condition causing target to instantly decrease HP by poison. Effect 8-10. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
   </skill>
   <skill id="5364" levels="9" name="Bleed">
-    <!--
-      Description(s):
-      Condition causing target to instantly decrease HP by bleeding. Effect 8-10.
-    -->
+    <!-- Description(s): Condition causing target to instantly decrease HP by bleeding. Effect 8-10. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -643,10 +613,7 @@
     <set name="hitTime" val="830"/>
   </skill>
   <skill id="5366" levels="9" name="Poison">
-    <!--
-      Description(s):
-      Condition causing target to instantly decrease HP by poison. Effect 8-10.
-    -->
+    <!-- Description(s): Condition causing target to instantly decrease HP by poison. Effect 8-10. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -654,10 +621,7 @@
     <set name="hitTime" val="1000"/>
   </skill>
   <skill id="5367" levels="9" name="Paralysis">
-    <!--
-      Description(s):
-      A temporary paralysis which prevents movement.
-    -->
+    <!-- Description(s): A temporary paralysis which prevents movement. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -665,10 +629,7 @@
     <set name="hitTime" val="1000"/>
   </skill>
   <skill id="5368" levels="9" name="Stun">
-    <!--
-      Description(s):
-      Temporarily gets thrown into a state of shock and immobilized.
-    -->
+    <!-- Description(s): Temporarily gets thrown into a state of shock and immobilized. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -676,10 +637,7 @@
     <set name="hitTime" val="4500"/>
   </skill>
   <skill id="5369" levels="9" name="Poison">
-    <!--
-      Description(s):
-      Condition causing target to instantly decrease HP by poison. Effect 8-10.
-    -->
+    <!-- Description(s): Condition causing target to instantly decrease HP by poison. Effect 8-10. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -687,10 +645,7 @@
     <set name="hitTime" val="4500"/>
   </skill>
   <skill id="5370" levels="9" name="Bleed">
-    <!--
-      Description(s):
-      Condition causing target to instantly decrease HP by bleeding. Effect 8-10.
-    -->
+    <!-- Description(s): Condition causing target to instantly decrease HP by bleeding. Effect 8-10. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>

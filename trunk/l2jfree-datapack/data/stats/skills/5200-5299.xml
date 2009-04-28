@@ -21,10 +21,7 @@
     <set name="hitTime" val="4000"/>
   </skill>
   <skill id="5202" levels="12" name="Stun">
-    <!--
-      Description(s): Lvl 1-12 - Temporarily gets thrown
-      into a state of shock and Immobilized.
-    -->
+    <!-- Description(s): Lvl 1-12 - Temporarily gets thrown into a state of shock and Immobilized. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -32,10 +29,7 @@
     <set name="hitTime" val="4000"/>
   </skill>
   <skill id="5203" levels="12" name="Fear">
-    <!--
-      Description(s): Lvl 1-12 - Temporarily becomes
-      overcome with fear and flees mindlessly.
-    -->
+    <!-- Description(s): Lvl 1-12 - Temporarily becomes overcome with fear and flees mindlessly. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>

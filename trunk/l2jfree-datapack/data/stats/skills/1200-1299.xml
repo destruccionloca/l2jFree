@@ -1991,7 +1991,7 @@
     <enchant2 name="mpConsume" val="#ench2MpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init"/>
     <for>
-      <effect name="Buff" time="1200" count="1" val="0" stackOrder="#absorbDam" stackType="vampRage">
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="#absorbDam" stackType="vampRage">
         <add order="0x40" stat="absorbDam" val="#absorbDam"/> <!-- absorb HP from damage inflicted on enemies -->
       </effect>
     </for>

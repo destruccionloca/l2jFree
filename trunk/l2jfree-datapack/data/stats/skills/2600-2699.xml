@@ -52,9 +52,9 @@
   </skill>
   <skill id="2608" levels="3" name="Crystal of Fantasy">
     <!--
-    Lvl 1: Blue Crystal of Fantasy
-    Lvl 2: Green Crystal of Fantasy
-    Lvl 3: Red Crystal of Fantasy
+      Lvl 1: Blue Crystal of Fantasy
+      Lvl 2: Green Crystal of Fantasy
+      Lvl 3: Red Crystal of Fantasy
     -->
     <table name="#power"> 50000 100000 200000 </table>
     <set name="castRange" val="-1"/>
@@ -70,26 +70,26 @@
   </skill>
   <skill id="2609" levels="20" name="Escape">
     <!--
-    Lvl 1: Escape - Talking Island Village
-    Lvl 2: Escape - Elven Village
-    Lvl 3: Escape - Dark Elven Village
-    Lvl 4: Escape - Orc Village
-    Lvl 5: Escape - Dwarven Village
-    Lvl 6: Escape - Gludin Village
-    Lvl 7: Escape - Town of Gludio
-    Lvl 8: Escape - Town of Dion
-    Lvl 9: Escape - Floran Village
-    Lvl 10: Escape - Town of Giran
-    Lvl 11: Escape - Hardin's Academy
-    Lvl 12: Escape - Heine
-    Lvl 13: Escape - Town of Oren
-    Lvl 14: Escape - Ivory Tower
-    Lvl 15: Escape - Hunters Village
-    Lvl 16: Escape - Town of Aden
-    Lvl 17: Escape - Town of Goddard
-    Lvl 18: Escape - Rune Township
-    Lvl 19: Escape - Town of Schuttgart
-    Lvl 20: Escape - Kamael Village
+      Lvl 1: Escape - Talking Island Village
+      Lvl 2: Escape - Elven Village
+      Lvl 3: Escape - Dark Elven Village
+      Lvl 4: Escape - Orc Village
+      Lvl 5: Escape - Dwarven Village
+      Lvl 6: Escape - Gludin Village
+      Lvl 7: Escape - Town of Gludio
+      Lvl 8: Escape - Town of Dion
+      Lvl 9: Escape - Floran Village
+      Lvl 10: Escape - Town of Giran
+      Lvl 11: Escape - Hardin's Academy
+      Lvl 12: Escape - Heine
+      Lvl 13: Escape - Town of Oren
+      Lvl 14: Escape - Ivory Tower
+      Lvl 15: Escape - Hunters Village
+      Lvl 16: Escape - Town of Aden
+      Lvl 17: Escape - Town of Goddard
+      Lvl 18: Escape - Rune Township
+      Lvl 19: Escape - Town of Schuttgart
+      Lvl 20: Escape - Kamael Village
     -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="RECALL"/>

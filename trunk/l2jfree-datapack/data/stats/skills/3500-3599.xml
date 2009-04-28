@@ -400,9 +400,7 @@
     <for>
       <mul order="0x30" stat="pAtkSpd" val="1.08"/> <!-- Atk. Spd. +8% -->
       <add order="0x40" stat="maxLoad" val="5759"/>
-      <!--
-        Weight increased plus the point at which a weight penalty is applied +5759
-      -->
+      <!-- Weight increased plus the point at which a weight penalty is applied +5759 -->
       <mul order="0x30" stat="poisonVuln" val="0.2"/> <!-- Poison Resistance +80% -->
       <mul order="0x30" stat="bleedVuln" val="0.2"/> <!-- Bleed Resistance +80% -->
       <add order="0x10" stat="STR" val="2"/> <!-- STR +2 -->
@@ -533,10 +531,7 @@
       </mul>
       <add order="0x40" stat="maxMp" val="240"/> <!-- MP +240 -->
       <add order="0x40" stat="maxLoad" val="5759"/>
-      <!--
-        Weight increased plus the point at which a weight
-        penalty is applied +5759
-      -->
+      <!-- Weight increased plus the point at which a weight penalty is applied +5759 -->
       <mul order="0x30" stat="stunVuln" val="0.5"/> <!-- Stun Resistance +50% -->
       <add order="0x10" stat="DEX" val="1"/> <!-- DEX +1 -->
       <sub order="0x10" stat="CON" val="1"/> <!-- CON -1 -->
@@ -575,10 +570,7 @@
     </for>
   </skill>
   <skill id="3542" levels="6" name="Special Ability: Critical Damage">
-    <!--
-      Description(s):
-        Lvl 1-6: Inflicts additional damage during critical attacks.
-    -->
+    <!-- Description(s): Lvl 1-6: Inflicts additional damage during critical attacks. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -886,10 +878,7 @@
     </for>
   </skill>
   <skill id="3565" levels="1" name="Special Ability: Focus">
-    <!--
-      Description(s): Increases critical attack success rate
-      and damage inflicted during PvP.
-    -->
+    <!-- Description(s): Increases critical attack success rate and damage inflicted during PvP. -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -903,10 +892,7 @@
     </for>
   </skill>
   <skill id="3566" levels="1" name="Special Ability: Focus">
-    <!--
-      Description(s): Increases critical attack success rate
-      and damage inflicted during PvP.
-    -->
+    <!-- Description(s): Increases critical attack success rate and damage inflicted during PvP. -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -914,16 +900,15 @@
     <set name="effectRange" val="-1"/>
     <for>
       <add val="84" order="0x40" stat="rCrit"/>
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <!-- Enhances damage to target during PvP -->
+      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/> <!-- Enhances damage to target during PvP -->
       <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </skill>
   <skill id="3567" levels="2" name="Special Ability: Focus">
     <!--
-      Description(s): 1:Increases critical attack success
-      rate and damage inflicted during PvP. none 2:Increases
-      critical attack success rate. Increases damage inflicted during PvP.
+      Description(s):
+        Lvl 1: Increases critical attack success rate and damage inflicted during PvP. none
+        Lvl 2: Increases critical attack success rate. Increases damage inflicted during PvP.
     -->
     <table name="#pvpBonus">1.05 1.05</table>
     <set name="target" val="TARGET_SELF"/>
@@ -962,10 +947,7 @@
     </for>
   </skill>
   <skill id="3570" levels="1" name="Special Ability: Robust Health">
-    <!--
-      Description(s): Increases MaxHP, MaxMP, MaxCP and
-      enhances damage to target during PvP.
-    -->
+    <!-- Description(s): Increases MaxHP, MaxMP, MaxCP and enhances damage to target during PvP. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -973,8 +955,8 @@
   </skill>
   <skill id="3571" levels="1" name="Special Ability: Crt. Stun">
     <!--
-      Done by SarutrA - SqueezeD Description(s): Instantly
-      throws enemy into a state of shock, immobilizing them.
+      Done by SarutrA - SqueezeD
+      Description(s): Instantly throws enemy into a state of shock, immobilizing them.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="WEAPON_SA"/>
@@ -997,20 +979,18 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add val="265" order="0x40" stat="cAtkAdd"/>
+      <add order="0x40" stat="cAtkAdd" val="265" />
     </for>
   </skill>
   <skill id="3573" levels="1" name="Special Ability: Guidance">
-    <!--
-      Descriptions: 1: Increases Accuracy. Increases damage inflicted during PvP.
-    -->
+    <!-- Descriptions: 1: Increases Accuracy. Increases damage inflicted during PvP. -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add val="5" order="0x40" stat="accCombat"/>
+      <add order="0x40" stat="accCombat" val="5"/>
     </for>
   </skill>
   <skill id="3574" levels="1" name="Special Ability: Crt. Slow">
@@ -1032,9 +1012,7 @@
     </for>
   </skill>
   <skill id="3575" levels="1" name="Special Ability: Empower Option">
-    <!--
-      Description(s): Increases M. Atk. Enhances damage to target during PvP.
-    -->
+    <!-- Description(s): Increases M. Atk. Enhances damage to target during PvP. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1207,7 +1185,7 @@
       <effect count="1" name="Stun" time="9" val="0" stackOrder="2" stackType="Stun"/>
     </for>
   </skill>
-  <skill id="3585" levels="1" name="Special Ability: Infinity Wing">
+  <skill id="3585" levels="1" name="Infinity Wing">
     <!-- Done by DJ MELERIX -->
     <set name="bestowTriggered" val="true"/>
     <set name="castRange" val="-1"/>

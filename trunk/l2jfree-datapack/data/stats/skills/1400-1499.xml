@@ -502,8 +502,7 @@
   <skill id="1422" levels="1" name="Day of Doom">
     <!--
       Done by BoDiE
-      Initial implementation, YET for testing proposes
-      (seems most retail like, need further testing)
+      Initial implementation, YET for testing proposes (seems most retail like, need further testing)
     -->
     <set name="mpConsume" val="89"/>
     <set name="target" val="TARGET_SELF"/>
@@ -527,9 +526,8 @@
     </cond>
     <for>
       <!--
-        Require Core support to generate a static effect
-        bassed on skill effect range, further information on
-        skill desc <effect count="1" name="Symbol" time="60" val="0"/>
+        Require Core support to generate a static effect bassed on skill effect range,
+	further information on skill desc <effect count="1" name="Symbol" time="60" val="0"/>
       -->
     </for>
   </skill>
@@ -588,8 +586,8 @@
   </skill>
   <skill id="1425" levels="1" name="Purification Field">
     <!--
-      Description(s): Cancels all debuff of nearby clan
-      members. Level 2 or higher Spell Force required. Consumes 1 Magic Symbol.
+      Description(s): Cancels all debuff of nearby clan members.
+      Level 2 or higher Spell Force required. Consumes 1 Magic Symbol.
     -->
     <set name="itemConsumeId" val="8876"/>
     <set name="itemConsumeCount" val="1"/>
@@ -1037,12 +1035,12 @@
       </effect>
     </for>
     <enchant1for>
-      <effect name="Buff" count="1" val="0" time="500" stackOrder="1" stackType="ElementPwr">
+      <effect count="1" name="Buff" val="0" time="500" stackOrder="1" stackType="ElementPwr">
         <!-- <set order="0x30" stat="dark" val="#ench1Power"/> requires core support -->
       </effect>
     </enchant1for>
     <enchant2for>
-      <effect name="Buff" count="1" val="0" time="#ench2Time" stackOrder="1" stackType="ElementPwr">
+      <effect count="1" name="Buff" val="0" time="#ench2Time" stackOrder="1" stackType="ElementPwr">
         <!-- <set order="0x30" stat="dark" val="100"/> requires core support -->
       </effect>
     </enchant2for>
@@ -1168,13 +1166,12 @@
     <set name="target" val="TARGET_AURA"/>
     <for>
       <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
-      <effect self="1" count="1" name="Warp" time="1" val="0"/>
+      <effect count="1" name="Warp" time="1" val="0" self="1" noicon="1"/>
     </for>
   </skill>
   <skill id="1449" levels="1" name="Transfer Soul">
     <!--
-      Description(s): Transfer a soul to the target. Only
-      possible when the target is a Kamael. Consumes 1 Soul.
+      Description(s): Transfer a soul to the target. Only possible when the target is a Kamael. Consumes 1 Soul.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>

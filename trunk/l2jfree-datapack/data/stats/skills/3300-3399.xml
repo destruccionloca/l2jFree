@@ -8,7 +8,7 @@
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <add stat="runSpd" val="3" order="0x40"/> <!-- increase Run Speed +3 -->
+      <add order="0x40" stat="runSpd" val="3"/> <!-- increase Run Speed +3 -->
     </for>
   </skill>
   <skill id="3301" levels="1" name="Yellow Talisman of Violent Haste">

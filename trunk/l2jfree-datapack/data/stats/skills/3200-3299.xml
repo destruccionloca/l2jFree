@@ -757,10 +757,7 @@
     </for>
   </skill>
   <skill id="3260" levels="1" name="Heart Shot">
-    <!--
-      Description(s): Gathers up your love and throws a
-      heart at the huge pig.
-    -->
+    <!-- Description(s): Gathers up your love and throws a heart at the huge pig. -->
     <table name="#hotValue">35</table>
     <table name="#mpConsume">1</table>
     <table name="#power">472</table>
