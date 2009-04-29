@@ -12,16 +12,15 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.gameserver;
-
+package com.l2jfree.gameserver.model.entity;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.model.L2Clan;
-import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.itemcontainer.ItemContainer;
 
 /**
@@ -29,17 +28,17 @@ import com.l2jfree.gameserver.model.itemcontainer.ItemContainer;
  */
 public class CastleUpdater implements Runnable
 {
-	private final static Log	_log		= LogFactory.getLog(CastleUpdater.class);
-
-	private L2Clan				_clan;
-	private int					_runCount	= 0;
-
+	private final static Log _log = LogFactory.getLog(CastleUpdater.class);
+	
+	private L2Clan _clan;
+	private int _runCount = 0;
+	
 	public CastleUpdater(L2Clan clan, int runCount)
 	{
 		_clan = clan;
 		_runCount = runCount;
 	}
-
+	
 	public void run()
 	{
 		try

@@ -12,8 +12,7 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.l2jfree.gameserver;
-
+package com.l2jfree.gameserver.model.entity;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -21,26 +20,23 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.gameserver.model.L2Clan;
 
 /**
- *
- * Vice - 2008
- * Class managing periodical events with castle
- *
+ * Vice - 2008 Class managing periodical events with castle
  */
 public class FortUpdater implements Runnable
 {
-	protected static Log	_log		= LogFactory.getLog(FortUpdater.class.getName());
-
+	protected static Log _log = LogFactory.getLog(FortUpdater.class.getName());
+	
 	@SuppressWarnings("unused")
-	private L2Clan			_clan;
+	private L2Clan _clan;
 	@SuppressWarnings("unused")
-	private int				_runCount	= 0;
-
+	private int _runCount = 0;
+	
 	public FortUpdater(L2Clan clan, int runCount)
 	{
 		_clan = clan;
 		_runCount = runCount;
 	}
-
+	
 	public void run()
 	{
 		try

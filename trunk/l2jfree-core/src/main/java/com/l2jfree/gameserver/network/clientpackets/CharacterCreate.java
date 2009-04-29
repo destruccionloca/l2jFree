@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.TaskPriority;
 import com.l2jfree.gameserver.datatables.CharNameTable;
 import com.l2jfree.gameserver.datatables.CharTemplateTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
@@ -65,8 +64,6 @@ public class CharacterCreate extends L2GameClientPacket
 	private byte _face;
 
 	private static final Object _lock = new Object();
-
-	public TaskPriority getPriority() { return TaskPriority.PR_HIGH; }
 
 	@Override
 	protected void readImpl()

@@ -17,11 +17,8 @@ package com.l2jfree.gameserver.network.gameserverpackets;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import com.l2jfree.gameserver.TaskPriority;
 
 /**
  * @author -Wooden-
@@ -40,7 +37,7 @@ public abstract class GameServerBasePacket
 	
 	protected void writeD(int value)
 	{
-		_bao.write(value &0xff);	
+		_bao.write(value &0xff);
 		_bao.write(value >> 8 &0xff);
 		_bao.write(value >> 16 &0xff);
 		_bao.write(value >> 24 &0xff);
@@ -48,23 +45,23 @@ public abstract class GameServerBasePacket
 
 	protected void writeH(int value)
 	{
-		_bao.write(value &0xff);	
+		_bao.write(value &0xff);
 		_bao.write(value >> 8 &0xff);
 	}
 
 	protected void writeC(int value)
 	{
-		_bao.write(value &0xff);	
+		_bao.write(value &0xff);
 	}
 
 	protected void writeF(double org)
 	{
 		long value = Double.doubleToRawLongBits(org);
-		_bao.write((int)(value &0xff));	
+		_bao.write((int)(value &0xff));
 		_bao.write((int)(value >> 8 &0xff));
 		_bao.write((int)(value >> 16 &0xff));
 		_bao.write((int)(value >> 24 &0xff));
-		_bao.write((int)(value >> 32 &0xff));	
+		_bao.write((int)(value >> 32 &0xff));
 		_bao.write((int)(value >> 40 &0xff));
 		_bao.write((int)(value >> 48 &0xff));
 		_bao.write((int)(value >> 56 &0xff));
@@ -75,7 +72,7 @@ public abstract class GameServerBasePacket
 		try
 		{
 			if (text != null)
-			{	
+			{
 				_bao.write(text.getBytes("UTF-8"));
 			}
 		}
@@ -121,6 +118,5 @@ public abstract class GameServerBasePacket
 		return _bao.toByteArray();
 	}
 	
-	public TaskPriority getPriority() { return TaskPriority.PR_HIGH; }
 	public abstract byte[] getContent() throws IOException;
 }

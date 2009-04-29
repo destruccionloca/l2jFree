@@ -18,7 +18,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.TaskPriority;
 import com.l2jfree.gameserver.network.serverpackets.KeyPacket;
 
 /**
@@ -42,12 +41,6 @@ public class ProtocolVersion extends L2GameClientPacket
 	protected void readImpl()
 	{
 		_version = readD();
-	}
-
-	/** urgent messages, execute immediatly */
-	public TaskPriority getPriority()
-	{
-		return TaskPriority.PR_HIGH;
 	}
 
 	@Override

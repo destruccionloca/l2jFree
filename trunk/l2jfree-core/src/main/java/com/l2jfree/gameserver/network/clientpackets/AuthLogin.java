@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.LoginServerThread;
-import com.l2jfree.gameserver.TaskPriority;
 import com.l2jfree.gameserver.LoginServerThread.SessionKey;
 import com.l2jfree.gameserver.network.L2GameClient;
 
@@ -28,7 +27,7 @@ public class AuthLogin extends L2GameClientPacket
 {
 	private static final String	_C__08_AUTHLOGIN	= "[C] 08 AuthLogin";
 
-	// loginName + keys must match what the loginserver used.  
+	// loginName + keys must match what the loginserver used.
 	private String				_loginName;
 	/*private final long _key1;
 	private final long _key2;
@@ -50,12 +49,6 @@ public class AuthLogin extends L2GameClientPacket
 		_playKey1 = readD();
 		_loginKey1 = readD();
 		_loginKey2 = readD();
-	}
-
-	/** urgent messages, execute immediatly */
-	public TaskPriority getPriority()
-	{
-		return TaskPriority.PR_HIGH;
 	}
 
 	@Override

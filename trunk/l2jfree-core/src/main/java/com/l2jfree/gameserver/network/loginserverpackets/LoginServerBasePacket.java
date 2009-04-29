@@ -18,8 +18,6 @@ package com.l2jfree.gameserver.network.loginserverpackets;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.gameserver.TaskPriority;
-
 /**
  * @author -Wooden-
  *
@@ -95,6 +93,4 @@ public abstract class LoginServerBasePacket
 		_off += length;
 		return result;
 	}
-	
-	public TaskPriority getPriority() { return TaskPriority.PR_HIGH; }
 }

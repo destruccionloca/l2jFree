@@ -20,7 +20,6 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.Announcements;
 import com.l2jfree.gameserver.L2JfreeInfo;
 import com.l2jfree.gameserver.SevenSigns;
-import com.l2jfree.gameserver.TaskPriority;
 import com.l2jfree.gameserver.communitybbs.Manager.RegionBBSManager;
 import com.l2jfree.gameserver.datatables.GmListTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
@@ -91,11 +90,6 @@ import com.l2jfree.gameserver.util.FloodProtector;
 public class EnterWorld extends L2GameClientPacket
 {
 	private static final String	_C__03_ENTERWORLD	= "[C] 03 EnterWorld";
-
-	public TaskPriority getPriority()
-	{
-		return TaskPriority.PR_URGENT;
-	}
 
 	/**
 	 * @param decrypt
