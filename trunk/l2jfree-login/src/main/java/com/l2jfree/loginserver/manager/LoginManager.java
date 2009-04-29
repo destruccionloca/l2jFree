@@ -51,7 +51,6 @@ import com.l2jfree.loginserver.services.AccountsServices;
 import com.l2jfree.loginserver.services.exception.AccountBannedException;
 import com.l2jfree.loginserver.services.exception.AccountModificationException;
 import com.l2jfree.loginserver.services.exception.AccountWrongPasswordException;
-import com.l2jfree.loginserver.services.exception.HackingException;
 import com.l2jfree.loginserver.services.exception.IPRestrictedException;
 import com.l2jfree.loginserver.services.exception.MaintenanceException;
 import com.l2jfree.loginserver.services.exception.MaturityException;
@@ -542,7 +541,10 @@ public class LoginManager
 		// ------------------------------------------------------
 		if (acc == null)
 		{
-			return handleAccountNotFound(user, address, hash);
+			if (handleAccountNotFound(user, address, hash))
+				return true;
+			else
+				throw new AccountWrongPasswordException(user);
 		}
 		// If account is found
 		// check ban state
