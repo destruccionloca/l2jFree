@@ -19,10 +19,8 @@ import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.base.Experience;
-import com.l2jfree.gameserver.model.entity.events.CTF;
-import com.l2jfree.gameserver.model.entity.events.DM;
-import com.l2jfree.gameserver.model.entity.events.TvT;
 import com.l2jfree.gameserver.model.quest.QuestState;
+import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.PledgeShowMemberListUpdate;
@@ -173,17 +171,8 @@ public class PcStat extends PlayableStat
 			getActiveChar().getStatus().setCurrentCp(getMaxCp());
 			getActiveChar().broadcastPacket(new SocialAction(getActiveChar().getObjectId(), 15));
 			getActiveChar().sendPacket(SystemMessageId.YOU_INCREASED_YOUR_LEVEL);
-
-			if (getActiveChar().isInFunEvent())
-			{
-				if (getActiveChar()._inEventTvT && TvT._maxlvl == getLevel() && !TvT._started)
-					TvT.removePlayer(getActiveChar());
-				if (getActiveChar()._inEventCTF && CTF._maxlvl == getLevel() && !CTF._started)
-					TvT.removePlayer(getActiveChar());
-				if (getActiveChar()._inEventDM && CTF._maxlvl == getLevel() && !DM._started)
-					DM.removePlayer(getActiveChar());
-				getActiveChar().sendMessage("Your event sign up was canceled.");
-			}
+			
+			GlobalRestrictions.levelChanged(getActiveChar());
 		}
 
 		getActiveChar().rewardSkills(); // Give Expertise skill of this level
