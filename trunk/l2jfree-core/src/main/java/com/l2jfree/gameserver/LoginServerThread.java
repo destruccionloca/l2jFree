@@ -130,8 +130,6 @@ public class LoginServerThread extends Thread
             _gameExternalHost = Config.SUBNETWORKS;
             _gameInternalHost = "";
         }
-
-
 	}
 
 	public static LoginServerThread getInstance()
@@ -265,6 +263,7 @@ public class LoginServerThread extends Thread
 						st.addAttribute(ServerStatus.SERVER_LIST_PVP, Config.SERVER_PVP);
 						//max players already sent with auth
 						st.addAttribute(ServerStatus.SERVER_LIST_STATUS, Config.SERVER_GMONLY);
+						_status = (Config.SERVER_GMONLY ? 1 : 0);
 						st.addAttribute(ServerStatus.SERVER_LIST_UNK, Config.SERVER_BIT_1);
 						st.addAttribute(ServerStatus.SERVER_LIST_CLOCK, Config.SERVER_BIT_2);
 						st.addAttribute(ServerStatus.SERVER_LIST_HIDE_NAME, Config.SERVER_BIT_3);

@@ -20,6 +20,7 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.PetDataTable;
 import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.L2PetData;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -677,7 +678,12 @@ public class CharStat
 		{
 			L2PcInstance player = (L2PcInstance)_activeChar;
 			if (player.isMounted())
-				baseRunSpd = PetDataTable.getInstance().getPetData(player.getMountNpcId(), player.getMountLevel()).getPetSpeed();
+			{
+				L2PetData petStats = PetDataTable.getInstance().getPetData(player.getMountNpcId(), player.getMountLevel());
+				//once we have all data should never happen, fixing a 100% NPE for now
+				if (petStats != null)
+					baseRunSpd = petStats.getPetSpeed();
+			}
 		}
 		int val = (int) (calcStat(Stats.RUN_SPEED, baseRunSpd, null, null) * Config.RATE_RUN_SPEED);
 
