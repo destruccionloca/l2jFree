@@ -665,11 +665,12 @@ public class Fort extends Siegeable<FortSiege>
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con.prepareStatement("INSERT INTO fort_doorupgrade (doorId, hp, pDef, mDef) values (?,?,?,?)");
+			PreparedStatement statement = con.prepareStatement("INSERT INTO fort_doorupgrade (doorId, fortId, hp, pDef, mDef) values (?,?,?,?,?)");
 			statement.setInt(1, doorId);
-			statement.setInt(2, hp);
-			statement.setInt(3, pDef);
-			statement.setInt(4, mDef);
+			statement.setInt(2, getFortId());
+			statement.setInt(3, hp);
+			statement.setInt(4, pDef);
+			statement.setInt(5, mDef);
 			statement.execute();
 			statement.close();
 		}
