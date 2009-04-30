@@ -383,7 +383,7 @@ public abstract class L2Character extends L2Object
 		}
 
 		setIsTeleporting(false);
-		spawnMe(getPosition().getX(), getPosition().getY(), getPosition().getZ());
+		spawnMe();
 		if (_isPendingRevive)
 			doRevive();
 	}
@@ -571,8 +571,8 @@ public abstract class L2Character extends L2Object
 		// Send a Server->Client packet TeleportToLocationt to the L2Character AND to all L2PcInstance in the _knownPlayers of the L2Character
 		broadcastPacket(new TeleportToLocation(this, x, y, z));
 
-		// Set the x,y,z position of the L2Object and if necessary modify its _worldRegion
-		getPosition().setXYZ(x, y, z);
+		// Set the x, y, z coords of the object, but do not update it's world region yet - onTeleported() will do it
+		getPosition().setWorldPosition(x, y, z);
 		isFalling(false, 0);
 
 		if (this instanceof L2PcInstance)

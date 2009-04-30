@@ -40,8 +40,6 @@ public final class ObjectPosition
 	public ObjectPosition(L2Object activeObject)
 	{
 		_activeObject = activeObject;
-		
-		updateWorldRegion();
 	}
 	
 	public L2WorldRegion getWorldRegion()
