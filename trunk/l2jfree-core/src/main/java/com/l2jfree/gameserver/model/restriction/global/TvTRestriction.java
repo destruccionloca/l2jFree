@@ -49,4 +49,11 @@ final class TvTRestriction extends AbstractRestriction
 			activeChar.sendMessage("Your event sign up was canceled.");
 		}
 	}
+	
+	@Override
+	public void playerLoggedIn(L2PcInstance activeChar)
+	{
+		if (TvT._savePlayers.contains(activeChar.getName()))
+			TvT.addDisconnectedPlayer(activeChar);
+	}
 }

@@ -49,4 +49,11 @@ final class DMRestriction extends AbstractRestriction
 			activeChar.sendMessage("Your event sign up was canceled.");
 		}
 	}
+	
+	@Override
+	public void playerLoggedIn(L2PcInstance activeChar)
+	{
+		if (DM._savePlayers.contains(activeChar.getName()))
+			DM.addDisconnectedPlayer(activeChar);
+	}
 }

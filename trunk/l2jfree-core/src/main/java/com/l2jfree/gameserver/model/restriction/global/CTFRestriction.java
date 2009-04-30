@@ -49,4 +49,11 @@ final class CTFRestriction extends AbstractRestriction
 			activeChar.sendMessage("Your event sign up was canceled.");
 		}
 	}
+	
+	@Override
+	public void playerLoggedIn(L2PcInstance activeChar)
+	{
+		if (CTF._savePlayers.contains(activeChar.getName()))
+			CTF.addDisconnectedPlayer(activeChar);
+	}
 }

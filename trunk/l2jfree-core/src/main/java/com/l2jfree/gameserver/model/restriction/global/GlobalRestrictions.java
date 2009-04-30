@@ -90,4 +90,16 @@ public final class GlobalRestrictions
 		for (GlobalRestriction restriction : _activeRestrictions)
 			restriction.effectCreated(effect);
 	}
+	
+	public static void playerLoggedIn(L2PcInstance activeChar)
+	{
+		for (GlobalRestriction restriction : _activeRestrictions)
+			restriction.playerLoggedIn(activeChar);
+	}
+	
+	public static void playerDisconnected(L2PcInstance activeChar)
+	{
+		for (GlobalRestriction restriction : _activeRestrictions)
+			restriction.playerDisconnected(activeChar);
+	}
 }

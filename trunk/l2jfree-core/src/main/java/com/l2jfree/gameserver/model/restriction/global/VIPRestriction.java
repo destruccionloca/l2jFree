@@ -38,4 +38,11 @@ final class VIPRestriction extends AbstractRestriction
 		
 		return true;
 	}
+	
+	@Override
+	public void playerLoggedIn(L2PcInstance activeChar)
+	{
+		if (VIP._savePlayers.contains(activeChar.getName()))
+			VIP.addDisconnectedPlayer(activeChar);
+	}
 }

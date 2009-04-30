@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.model.restriction.global;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.olympiad.Olympiad;
 
 /**
  * @author NB4L1
@@ -28,5 +29,16 @@ final class OlympiadRestriction extends AbstractRestriction
 			return false;
 		
 		return true;
+	}
+	
+	@Override
+	public void playerDisconnected(L2PcInstance activeChar)
+	{
+		if (activeChar.isInOlympiadMode())
+			Olympiad.getInstance().unRegisterNoble(activeChar);
+		
+		// handle removal from olympiad game
+		if (Olympiad.getInstance().isRegistered(activeChar) || activeChar.getOlympiadGameId() != -1)
+			Olympiad.getInstance().removeDisconnectedCompetitor(activeChar);
 	}
 }

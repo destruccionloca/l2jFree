@@ -167,6 +167,7 @@ import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.model.quest.State;
 import com.l2jfree.gameserver.model.restriction.AvailableRestriction;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
+import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.model.zone.L2JailZone;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.Disconnection;
@@ -11354,18 +11355,9 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			_log.fatal(e.getMessage(), e);
 		}
-
-		// Unregister from Olympiad games
-		try
-		{
-			if (isInOlympiadMode())
-				Olympiad.getInstance().unRegisterNoble(this);
-		}
-		catch (Exception e)
-		{
-			_log.fatal(e.getMessage(), e);
-		}
-
+		
+		GlobalRestrictions.playerDisconnected(this);
+		
 		// Stop crafting, if in progress
 		try
 		{
@@ -11384,9 +11376,6 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			_log.fatal(e.getMessage(), e);
 		}
-
-		if (isCursedWeaponEquipped())
-			CursedWeaponsManager.getInstance().onExit(this);
 
 		if (_throne != null)
 			_throne.setOccupier(null);
@@ -11450,9 +11439,6 @@ public final class L2PcInstance extends L2PlayableInstance
 				_log.fatal(e.getMessage(), e);
 			}
 		}
-
-		if (Olympiad.getInstance().isRegistered(this) || getOlympiadGameId() != -1) // handle removal from olympiad game
-			Olympiad.getInstance().removeDisconnectedCompetitor(this);
 
 		if (getClanId() != 0 && getClan() != null)
 		{

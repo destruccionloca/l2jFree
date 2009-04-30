@@ -27,7 +27,6 @@ import com.l2jfree.gameserver.handler.AdminCommandHandler;
 import com.l2jfree.gameserver.instancemanager.ClanHallManager;
 import com.l2jfree.gameserver.instancemanager.CoupleManager;
 import com.l2jfree.gameserver.instancemanager.CrownManager;
-import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
 import com.l2jfree.gameserver.instancemanager.DimensionalRiftManager;
 import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
@@ -47,15 +46,12 @@ import com.l2jfree.gameserver.model.entity.FortSiege;
 import com.l2jfree.gameserver.model.entity.Hero;
 import com.l2jfree.gameserver.model.entity.L2Event;
 import com.l2jfree.gameserver.model.entity.Siege;
-import com.l2jfree.gameserver.model.entity.events.CTF;
-import com.l2jfree.gameserver.model.entity.events.DM;
-import com.l2jfree.gameserver.model.entity.events.TvT;
-import com.l2jfree.gameserver.model.entity.events.VIP;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
+import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ClientSetTime;
 import com.l2jfree.gameserver.network.serverpackets.Die;
@@ -456,19 +452,7 @@ public class EnterWorld extends L2GameClientPacket
 		{
 			activeChar.sendPacket(GameGuardQuery.STATIC_PACKET);
 		}
-
-		if (TvT._savePlayers.contains(activeChar.getName()))
-			TvT.addDisconnectedPlayer(activeChar);
-
-		if (CTF._savePlayers.contains(activeChar.getName()))
-			CTF.addDisconnectedPlayer(activeChar);
-
-		if (DM._savePlayers.contains(activeChar.getName()))
-			DM.addDisconnectedPlayer(activeChar);
 		
-		if (VIP._savePlayers.contains(activeChar.getName()))
-			VIP.addDisconnectedPlayer(activeChar);
-
 		if (!activeChar.isTransformed())
 		{
 			activeChar.regiveTemporarySkills();
@@ -479,11 +463,8 @@ public class EnterWorld extends L2GameClientPacket
 		{
 			activeChar.sendPacket(ExBasicActionList.TRANSFORMED_ACTION_LIST);
 		}
-
-		if (activeChar.isCursedWeaponEquipped())
-		{
-			CursedWeaponsManager.getInstance().getCursedWeapon(activeChar.getCursedWeaponEquippedId()).cursedOnLogin();
-		}
+		
+		GlobalRestrictions.playerLoggedIn(activeChar);
 	}
 
 	/**

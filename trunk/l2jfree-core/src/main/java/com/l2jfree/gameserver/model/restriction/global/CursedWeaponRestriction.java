@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.model.restriction.global;
 
+import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 
@@ -32,5 +33,19 @@ final class CursedWeaponRestriction extends AbstractRestriction
 		}
 		
 		return true;
+	}
+	
+	@Override
+	public void playerLoggedIn(L2PcInstance activeChar)
+	{
+		if (activeChar.isCursedWeaponEquipped())
+			CursedWeaponsManager.getInstance().getCursedWeapon(activeChar.getCursedWeaponEquippedId()).cursedOnLogin();
+	}
+	
+	@Override
+	public void playerDisconnected(L2PcInstance activeChar)
+	{
+		if (activeChar.isCursedWeaponEquipped())
+			CursedWeaponsManager.getInstance().onExit(activeChar);
 	}
 }

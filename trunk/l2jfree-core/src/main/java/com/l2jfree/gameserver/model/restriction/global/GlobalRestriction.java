@@ -34,5 +34,9 @@ public interface GlobalRestriction
 	
 	public void effectCreated(L2Effect effect);
 	
+	public void playerLoggedIn(L2PcInstance activeChar);
+	
+	public void playerDisconnected(L2PcInstance activeChar);
+	
 	// TODO
 }

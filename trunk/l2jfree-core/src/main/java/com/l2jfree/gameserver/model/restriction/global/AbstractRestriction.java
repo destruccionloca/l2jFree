@@ -50,4 +50,13 @@ abstract class AbstractRestriction implements GlobalRestriction
 	public void effectCreated(L2Effect effect)
 	{
 	}
+	@Override
+	public void playerLoggedIn(L2PcInstance activeChar)
+	{
+	}
+	
+	@Override
+	public void playerDisconnected(L2PcInstance activeChar)
+	{
+	}
 }
