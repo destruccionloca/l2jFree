@@ -15,26 +15,23 @@
 package com.l2jfree.gameserver.skills;
 
 import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
 
 /**
- * 
  * An Env object is just a class to pass parameters to a calculator such as L2PcInstance, L2ItemInstance, Initial value.
- *
  */
-
 public final class Env
 {
 	public L2Character		player;
-	public L2CubicInstance	cubic;
+//	Disabled until it's really used...
+//	public L2CubicInstance	cubic;
 	public L2Character		target;
 	public L2ItemInstance	item;
 	public L2Skill			skill;
-	public L2Effect			effect;
+//	Disabled until it's really used...
+//	public L2Effect			effect;
 	public double			value;
 	public double			baseValue;
-	public boolean			skillMastery = false;
+	public boolean			skillMastery;
 }

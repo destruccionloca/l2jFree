@@ -39,7 +39,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2SiegeFlagInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.model.base.ClassId;
 import com.l2jfree.gameserver.model.entity.Couple;
@@ -48,6 +47,7 @@ import com.l2jfree.gameserver.model.entity.events.CTF;
 import com.l2jfree.gameserver.model.entity.events.DM;
 import com.l2jfree.gameserver.model.entity.events.TvT;
 import com.l2jfree.gameserver.model.entity.events.VIP;
+import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
@@ -3677,38 +3677,14 @@ public class L2Skill implements FuncOwner
 	{
 		return (_effectTemplates != null && _effectTemplates.length > 0);
 	}
-
-	public final L2Effect[] getEffects(L2Character effector, L2Character effected)
+	
+	public final void getEffects(L2Character effector, L2Character effected)
 	{
-		if (isPassive())
-			return L2Effect.EMPTY_ARRAY;
-
-		if (_effectTemplates == null)
-			return L2Effect.EMPTY_ARRAY;
-
-		// doors and siege flags cannot receive any effects
-		if (effected instanceof L2DoorInstance || effected instanceof L2SiegeFlagInstance)
-			return L2Effect.EMPTY_ARRAY;
-
-		if (effector != effected)
-		{
-			if (effected.isInvul())
-				return L2Effect.EMPTY_ARRAY;
-			
-			if ((isOffensive() || isDebuff()) && effector instanceof L2PcInstance && ((L2PcInstance)effector).isGM())
-			{
-				if (((L2PcInstance)effector).getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
-					return L2Effect.EMPTY_ARRAY;
-			}
-		}
-
-		LinkedBunch<L2Effect> effects = new LinkedBunch<L2Effect>();
-
-		boolean skillMastery = false;
-
-		if (!isToggle() && effector.getActingPlayer() != null && Formulas.calcSkillMastery(effector, this))
-			skillMastery = true;
-
+		if (!GlobalRestrictions.canCreateEffect(effector, effected, this))
+			return;
+		
+		boolean skillMastery = Formulas.calcSkillMastery(effector, this);
+		
 		for (EffectTemplate et : _effectTemplates)
 		{
 			Env env = new Env();
@@ -3716,58 +3692,32 @@ public class L2Skill implements FuncOwner
 			env.target = effected;
 			env.skill = this;
 			env.skillMastery = skillMastery;
-			L2Effect e = et.getEffect(env);
-			if (e != null)
-				effects.add(e);
+			et.getEffect(env);
 		}
-
-		if (effects.size() == 0)
-			return L2Effect.EMPTY_ARRAY;
-
-		return effects.moveToArray(new L2Effect[effects.size()]);
 	}
-
+	
 	public final void getEffects(L2CubicInstance effector, L2Character effected)
 	{
-		if (isPassive())
+		if (!GlobalRestrictions.canCreateEffect(effector.getOwner(), effected, this))
 			return;
-
-		if (_effectTemplates == null)
-			return;
-
-		// doors and siege flags cannot receive any effects
-		if (effected instanceof L2DoorInstance || effected instanceof L2SiegeFlagInstance)
-			return;
-
-		if ((!effector.equals(effected)) && effected.isInvul())
-			return;
-
-		if ((isDebuff() || isOffensive()) && effector.getOwner() != effected &&
-				effector.getOwner().isGM() &&
-				effector.getOwner().getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
-		{
-			return;
-		}
-
+		
 		for (EffectTemplate et : _effectTemplates)
 		{
 			Env env = new Env();
 			env.player = effector.getOwner();
-			env.cubic = effector;
+//			Disabled until it's really used...
+//			env.cubic = effectorCubic;
 			env.target = effected;
 			env.skill = this;
 			et.getEffect(env);
 		}
 	}
-
+	
 	public final void getEffectsSelf(L2Character effector)
 	{
-		if (isPassive())
+		if (!GlobalRestrictions.canCreateEffect(effector, effector, this))
 			return;
-
-		if (_effectTemplatesSelf == null)
-			return;
-
+		
 		for (EffectTemplate et : _effectTemplatesSelf)
 		{
 			Env env = new Env();
@@ -3777,7 +3727,7 @@ public class L2Skill implements FuncOwner
 			et.getEffect(env);
 		}
 	}
-
+	
 	public final void attach(FuncTemplate f)
 	{
 		if (_funcTemplates == null)

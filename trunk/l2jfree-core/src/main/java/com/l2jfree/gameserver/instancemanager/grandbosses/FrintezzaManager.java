@@ -31,7 +31,6 @@ import com.l2jfree.gameserver.datatables.SpawnTable;
 import com.l2jfree.gameserver.model.L2Attackable;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Spawn;
@@ -973,13 +972,13 @@ public class FrintezzaManager extends BossLair
 			return _debuffPeriod;
 		}
 
-		for (L2Effect effect : skill.getEffects(frintezza, target))
-		{
-			if (effect == null)
-				continue;
-
-			_debuffPeriod = effect.getPeriod() * 1000;
-		}
+//		for (L2Effect effect : skill.getEffects(frintezza, target, true))
+//		{
+//			if (effect == null)
+//				continue;
+//
+//			_debuffPeriod = effect.getPeriod() * 1000;
+//		}
 
 		if (_debuffPeriod == 0)
 			_debuffPeriod = 15000;

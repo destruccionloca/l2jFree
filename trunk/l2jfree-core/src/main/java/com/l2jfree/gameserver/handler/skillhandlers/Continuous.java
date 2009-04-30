@@ -18,7 +18,6 @@ import com.l2jfree.gameserver.ai.CtrlEvent;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.handler.ICubicSkillHandler;
-import com.l2jfree.gameserver.instancemanager.DuelManager;
 import com.l2jfree.gameserver.model.L2Attackable;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Effect;
@@ -175,20 +174,7 @@ public class Continuous implements ICubicSkillHandler
 					}
 				}
 
-				// If this is a debuff let the duel manager know about it
-				// so the debuff can be removed after the duel
-				// (player & target must be in the same duel)
-				if (target instanceof L2PcInstance && ((L2PcInstance) target).isInDuel()
-						&& (skill.getSkillType() == L2SkillType.DEBUFF || skill.getSkillType() == L2SkillType.BUFF) && player != null
-						&& player.getDuelId() == ((L2PcInstance) target).getDuelId())
-				{
-					DuelManager dm = DuelManager.getInstance();
-					for (L2Effect buff : skill.getEffects(activeChar, target))
-						if (buff != null)
-							dm.onBuff(((L2PcInstance) target), buff);
-				}
-				else
-					skill.getEffects(activeChar, target);
+				skill.getEffects(activeChar, target);
 
 				if (skill.getSkillType() == L2SkillType.AGGDEBUFF)
 				{
@@ -247,23 +233,8 @@ public class Continuous implements ICubicSkillHandler
 					continue;
 				}
 			}
-
-			// If this is a debuff let the duel manager know about it
-			// so the debuff can be removed after the duel
-			// (player & target must be in the same duel)
-			if (target instanceof L2PcInstance && ((L2PcInstance)target).isInDuel() &&
-					skill.getSkillType() == L2SkillType.DEBUFF &&
-					activeCubic.getOwner().getDuelId() == ((L2PcInstance)target).getDuelId())
-			{
-				DuelManager dm = DuelManager.getInstance();
-				for (L2Effect debuff : skill.getEffects(activeCubic.getOwner(), target))
-				{
-					if (debuff != null)
-						dm.onBuff(((L2PcInstance)target), debuff);
-				}
-			}
-			else
-				skill.getEffects(activeCubic, target);
+			
+			skill.getEffects(activeCubic, target);
 		}
 	}
 

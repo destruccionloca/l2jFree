@@ -14,6 +14,9 @@
  */
 package com.l2jfree.gameserver.model.restriction.global;
 
+import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.L2Effect;
+import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
@@ -23,9 +26,13 @@ public interface GlobalRestriction
 {
 	public boolean canInviteToParty(L2PcInstance activeChar, L2PcInstance target);
 	
+	public boolean canCreateEffect(L2Character activeChar, L2Character target, L2Skill skill);
+	
 	// TODO
 	
 	public void levelChanged(L2PcInstance activeChar);
+	
+	public void effectCreated(L2Effect effect);
 	
 	// TODO
 }

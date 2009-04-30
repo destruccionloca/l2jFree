@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.model.restriction.global;
 
+import com.l2jfree.gameserver.instancemanager.DuelManager;
+import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
@@ -28,5 +30,19 @@ final class DuelRestriction extends AbstractRestriction
 			return false;
 		
 		return true;
+	}
+	
+	@Override
+	public void effectCreated(L2Effect effect)
+	{
+		// Let the duel manager know about it, to remove it after the duel
+		// so the debuff can be removed after the duel
+		// (player & target must be in the same duel)
+		L2PcInstance effectedPlayer = effect.getEffected().getActingPlayer();
+		
+		if (effectedPlayer == null || !effectedPlayer.isInDuel() || !effect.getSkill().isOffensive())
+			return;
+		
+		DuelManager.getInstance().onBuff(effectedPlayer, effect);
 	}
 }

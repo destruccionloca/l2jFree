@@ -2822,17 +2822,21 @@ public final class Formulas
 
 		return Rnd.get(100) < target.calcStat(Stats.P_SKILL_EVASION, 0, null, skill);
 	}
-
+	
 	public static boolean calcSkillMastery(L2Character actor, L2Skill skill)
 	{
-		if (skill.getSkillType() == L2SkillType.FISHING)
+		if (skill.getSkillType() == L2SkillType.FISHING || skill.isToggle())
 			return false;
-
+		
+		if (!(actor instanceof L2PcInstance))
+			return false;
+		
 		double val = actor.getStat().calcStat(Stats.SKILL_MASTERY, 0, null, null);
-		if (actor instanceof L2PcInstance && ((L2PcInstance) actor).isMageClass())
+		if (((L2PcInstance)actor).isMageClass())
 			val *= getINTBonus(actor);
 		else
 			val *= getSTRBonus(actor);
+		
 		return Rnd.get(100) < val;
 	}
 }

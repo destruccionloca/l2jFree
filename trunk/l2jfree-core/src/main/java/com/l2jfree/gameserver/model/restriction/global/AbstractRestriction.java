@@ -17,6 +17,9 @@ package com.l2jfree.gameserver.model.restriction.global;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.L2Effect;
+import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
@@ -33,7 +36,18 @@ abstract class AbstractRestriction implements GlobalRestriction
 	}
 	
 	@Override
+	public boolean canCreateEffect(L2Character activeChar, L2Character target, L2Skill skill)
+	{
+		return true;
+	}
+	
+	@Override
 	public void levelChanged(L2PcInstance activeChar)
+	{
+	}
+	
+	@Override
+	public void effectCreated(L2Effect effect)
 	{
 	}
 }

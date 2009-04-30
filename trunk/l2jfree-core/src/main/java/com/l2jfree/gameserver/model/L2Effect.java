@@ -24,6 +24,7 @@ import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
+import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.EffectInfoPacket.EffectInfoPacketList;
@@ -434,6 +435,8 @@ public abstract class L2Effect implements FuncOwner
 				smsg.addSkillName(_skill);
 				getEffected().sendPacket(smsg);
 			}
+			
+			GlobalRestrictions.effectCreated(this);
 			
 			if (_count > 1)
 			{

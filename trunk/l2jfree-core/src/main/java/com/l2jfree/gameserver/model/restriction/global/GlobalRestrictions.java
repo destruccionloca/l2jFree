@@ -16,6 +16,9 @@ package com.l2jfree.gameserver.model.restriction.global;
 
 import org.apache.commons.lang.ArrayUtils;
 
+import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.L2Effect;
+import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
@@ -52,6 +55,7 @@ public final class GlobalRestrictions
 		activate(new VIPRestriction());
 		
 		activate(new CursedWeaponRestriction());
+		activate(new DefaultRestriction());
 		activate(new DuelRestriction());
 		activate(new JailRestriction());
 		activate(new OlympiadRestriction());
@@ -66,9 +70,24 @@ public final class GlobalRestrictions
 		return true;
 	}
 	
+	public static boolean canCreateEffect(L2Character activeChar, L2Character target, L2Skill skill)
+	{
+		for (GlobalRestriction restriction : _activeRestrictions)
+			if (!restriction.canCreateEffect(activeChar, target, skill))
+				return false;
+		
+		return true;
+	}
+	
 	public static void levelChanged(L2PcInstance activeChar)
 	{
 		for (GlobalRestriction restriction : _activeRestrictions)
 			restriction.levelChanged(activeChar);
+	}
+	
+	public static void effectCreated(L2Effect effect)
+	{
+		for (GlobalRestriction restriction : _activeRestrictions)
+			restriction.effectCreated(effect);
 	}
 }
