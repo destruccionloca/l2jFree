@@ -3680,6 +3680,9 @@ public class L2Skill implements FuncOwner
 	
 	public final void getEffects(L2Character effector, L2Character effected)
 	{
+		if (_effectTemplates == null)
+			return;
+		
 		if (!GlobalRestrictions.canCreateEffect(effector, effected, this))
 			return;
 		
@@ -3698,6 +3701,9 @@ public class L2Skill implements FuncOwner
 	
 	public final void getEffects(L2CubicInstance effector, L2Character effected)
 	{
+		if (_effectTemplates == null)
+			return;
+		
 		if (!GlobalRestrictions.canCreateEffect(effector.getOwner(), effected, this))
 			return;
 		
@@ -3715,6 +3721,9 @@ public class L2Skill implements FuncOwner
 	
 	public final void getEffectsSelf(L2Character effector)
 	{
+		if (_effectTemplatesSelf == null)
+			return;
+		
 		if (!GlobalRestrictions.canCreateEffect(effector, effector, this))
 			return;
 		
