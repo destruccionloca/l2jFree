@@ -15,8 +15,10 @@
 package com.l2jfree.gameserver.model.restriction.global;
 
 import com.l2jfree.gameserver.instancemanager.DuelManager;
+import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.entity.Duel;
 
 /**
  * @author NB4L1
@@ -30,6 +32,12 @@ final class DuelRestriction extends AbstractRestriction
 			return false;
 		
 		return true;
+	}
+	
+	@Override
+	public boolean isInvul(L2Character activeChar, L2Character target, boolean isOffensive)
+	{
+		return Duel.isInvul(target, activeChar);
 	}
 	
 	@Override

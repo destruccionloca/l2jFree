@@ -15,6 +15,8 @@
 package com.l2jfree.gameserver.model.restriction.global;
 
 import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
+import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 
@@ -33,6 +35,29 @@ final class CursedWeaponRestriction extends AbstractRestriction
 		}
 		
 		return true;
+	}
+	
+	@Override
+	public boolean isInvul(L2Character activeChar, L2Character target, boolean isOffensive)
+	{
+		L2PcInstance attacker_ = L2Object.getActingPlayer(activeChar);
+		L2PcInstance target_ = L2Object.getActingPlayer(target);
+		
+		if (attacker_ == null || target_ == null || attacker_ == target_)
+			return false;
+		
+		if (target_.isCursedWeaponEquipped() && attacker_.getLevel() < 21)
+		{
+			attacker_.sendMessage("You can't attack a cursed player while you are under level 21.");
+			return true;
+		}
+		else if (attacker_.isCursedWeaponEquipped() && target_.getLevel() < 21)
+		{
+			attacker_.sendMessage("You can't attack a newbie player while you are holding a cursed weapon.");
+			return true;
+		}
+		
+		return false;
 	}
 	
 	@Override

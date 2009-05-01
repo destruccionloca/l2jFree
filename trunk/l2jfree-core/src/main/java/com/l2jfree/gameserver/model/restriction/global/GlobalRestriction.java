@@ -28,6 +28,8 @@ public interface GlobalRestriction
 	
 	public boolean canCreateEffect(L2Character activeChar, L2Character target, L2Skill skill);
 	
+	public boolean isInvul(L2Character activeChar, L2Character target, boolean isOffensive);
+	
 	// TODO
 	
 	public void levelChanged(L2PcInstance activeChar);

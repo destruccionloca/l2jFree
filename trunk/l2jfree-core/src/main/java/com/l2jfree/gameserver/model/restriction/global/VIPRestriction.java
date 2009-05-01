@@ -15,6 +15,8 @@
 package com.l2jfree.gameserver.model.restriction.global;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.events.VIP;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -37,6 +39,21 @@ final class VIPRestriction extends AbstractRestriction
 		}
 		
 		return true;
+	}
+	
+	@Override
+	public boolean isInvul(L2Character activeChar, L2Character target, boolean isOffensive)
+	{
+		L2PcInstance attacker_ = L2Object.getActingPlayer(activeChar);
+		L2PcInstance target_ = L2Object.getActingPlayer(target);
+		
+		if (attacker_ == null || target_ == null || attacker_ == target_)
+			return false;
+		
+		if (attacker_._inEventVIP != target_._inEventVIP && !Config.VIP_ALLOW_INTERFERENCE)
+			return true;
+		
+		return false;
 	}
 	
 	@Override

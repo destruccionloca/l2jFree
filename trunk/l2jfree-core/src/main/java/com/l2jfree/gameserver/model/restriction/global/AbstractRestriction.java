@@ -42,6 +42,12 @@ abstract class AbstractRestriction implements GlobalRestriction
 	}
 	
 	@Override
+	public boolean isInvul(L2Character activeChar, L2Character target, boolean isOffensive)
+	{
+		return false;
+	}
+	
+	@Override
 	public void levelChanged(L2PcInstance activeChar)
 	{
 	}
@@ -50,6 +56,7 @@ abstract class AbstractRestriction implements GlobalRestriction
 	public void effectCreated(L2Effect effect)
 	{
 	}
+	
 	@Override
 	public void playerLoggedIn(L2PcInstance activeChar)
 	{
