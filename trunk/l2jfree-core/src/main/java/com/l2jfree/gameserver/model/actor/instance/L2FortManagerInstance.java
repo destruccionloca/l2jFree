@@ -169,31 +169,6 @@ public class L2FortManagerInstance extends L2MerchantInstance
                 }
                 return;
             }
-            else if(actualCommand.equalsIgnoreCase("manage_pvault"))
-            {
-                if ((player.getClanPrivileges() & L2Clan.CP_CL_VIEW_WAREHOUSE) == L2Clan.CP_CL_VIEW_WAREHOUSE)
-                {
-                    if (val.equalsIgnoreCase("deposit"))
-                    	showDepositWindow(player);
-                    else if (val.equalsIgnoreCase("withdraw"))
-                    	showRetrieveWindow(player);
-                    else
-                    {
-                    	NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-                        html.setFile("data/html/fortress/pvault.htm");
-                        sendHtmlMessage(player, html);
-                    }
-                }
-                else
-                {
-					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-					html.setFile("data/html/fortress/foreman-noprivs.htm");
-					html.replace("%objectId%", String.valueOf(getObjectId()));
-					player.sendPacket(html);
-					return;
-                }
-                return;
-            }  
 			else if (actualCommand.equalsIgnoreCase("receive_report"))
 			{
 				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
@@ -984,31 +959,6 @@ public class L2FortManagerInstance extends L2MerchantInstance
 			player.sendPacket(html);
 			return;
         }
-    }
-
-    private void showRetrieveWindow(L2PcInstance player)
-    {
-        player.sendPacket(ActionFailed.STATIC_PACKET);
-        player.setActiveWarehouse(player.getWarehouse());
-        
-        if (player.getActiveWarehouse().getSize() == 0)
-        {
-            player.sendPacket(new SystemMessage(SystemMessageId.NO_ITEM_DEPOSITED_IN_WH));
-            return;
-        }
-
-        if (_log.isDebugEnabled()) _log.debug("Showing stored items");
-        player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.PRIVATE));
-    }
-
-    private void showDepositWindow(L2PcInstance player)
-    {
-        player.sendPacket(ActionFailed.STATIC_PACKET);
-        player.setActiveWarehouse(player.getWarehouse());
-        player.tempInvetoryDisable();
-        if (_log.isDebugEnabled()) _log.debug("Showing items to deposit");
-
-        player.sendPacket(new WareHouseDepositList(player, WareHouseDepositList.PRIVATE));
     }
 
 	protected int validateCondition(L2PcInstance player)
