@@ -38,13 +38,16 @@ import com.l2jfree.gameserver.util.Util;
  */
 public class Say2 extends L2GameClientPacket
 {
-	private static final String	_C__38_SAY2	= "[C] 38 Say2";
-	private final static Log	_log		= LogFactory.getLog(Say2.class.getName());
-	private static Log			_logChat	= LogFactory.getLog("chat");
+	private static final String		_C__38_SAY2	= "[C] 38 Say2";
+	private final static Log		_log		= LogFactory.getLog(Say2.class.getName());
+	private static Log				_logChat	= LogFactory.getLog("chat");
 
-	private String				_text;
-	private SystemChatChannelId	_type;
-	private String				_target;
+	private String					_text;
+	private SystemChatChannelId		_type;
+	private String					_target;
+
+	private static final String[]	LINKED_ITEM	=
+	{ "Type=", "ID=", "Color=", "Underline=", "Title=" };
 
 	/**
 	 * packet type id 0x38
@@ -117,19 +120,21 @@ public class Say2 extends L2GameClientPacket
 		if (_type == SystemChatChannelId.Chat_User_Pet && activeChar.isGM())
 			_type = SystemChatChannelId.Chat_GM_Pet;
 
-		//if (_text.length() > 105) //Verified on Gracia P2 & Final official client
-		if (_text.length() > 400) //shift+click items should not give you a ban...
+		if (Config.BAN_CLIENT_EMULATORS)
 		{
-			if (Config.BAN_CLIENT_EMULATORS)
+			//Under no circumstances the official client will send a 400 character message
+			//If there are no linked items in the message, you can only input 105 characters
+			if (_text.length() > 400 || (_text.length() > 105 && !containsLinkedItems()))
 			{
 				Util.handleIllegalPlayerAction(activeChar, "Bot usage for chatting by " + activeChar,
 						IllegalPlayerAction.PUNISH_KICKBAN);
 			}
-			else
-				activeChar.sendPacket(SystemMessageId.DONT_SPAM);
+		}
+		else if (_text.length() > 400)
+		{
+			activeChar.sendPacket(SystemMessageId.DONT_SPAM);
+			//prevent crashing official clients
 			return;
-			//Even though client allows more characters to be received as chat,
-			//but an overflow (critical error) happens if you pass a huge (1000+) message
 		}
 
 		// Say Filter implementation
@@ -208,5 +213,13 @@ public class Say2 extends L2GameClientPacket
 	public String getSay()
 	{
 		return _text;
+	}
+
+	private boolean containsLinkedItems()
+	{
+		for (int i = 0; i < LINKED_ITEM.length; i++)
+			if (!_text.contains(LINKED_ITEM[i]))
+				return false;
+		return true;
 	}
 }
