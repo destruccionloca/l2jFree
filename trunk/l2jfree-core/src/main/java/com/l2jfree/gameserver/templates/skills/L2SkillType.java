@@ -49,7 +49,7 @@ public enum L2SkillType
 	ROOT,
 	CONT,
 	CONFUSION,
-	FORCE_BUFF,
+	FUSION,
 	PARALYZE,
 	FEAR,
 	SLEEP,

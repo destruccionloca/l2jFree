@@ -1340,8 +1340,9 @@ public class SevenSigns
 
 				int compWinner = getCabalHighestScore();
 
-				// Schedule a stop of the festival engine.
+				// Schedule a stop of the festival engine and reward highest ranking members from cycle
 				SevenSignsFestival.getInstance().stopFestivalManager();
+				SevenSignsFestival.getInstance().rewardHighestRanked();
 
 				calcNewSealOwners();
 
@@ -1371,8 +1372,6 @@ public class SevenSigns
 				break;
 			case PERIOD_SEAL_VALIDATION: // Reset for New Cycle
 
-				SevenSignsFestival.getInstance().rewardHighestRanked(); // reward highest ranking members from cycle
-
 				// Ensure a cycle restart when this period ends.
 				_activePeriod = PERIOD_COMP_RECRUITING;
 
@@ -1384,6 +1383,8 @@ public class SevenSigns
 				resetPlayerData();
 				resetSeals();
 
+				_currentCycle++;
+
 				// Reset all Festival-related data and remove any unused blood offerings.
 				// NOTE: A full update of Festival data in the database is also performed.
 				SevenSignsFestival.getInstance().resetFestivalData(false);
@@ -1393,8 +1394,6 @@ public class SevenSigns
 
 				_dawnFestivalScore = 0;
 				_duskFestivalScore = 0;
-
-				_currentCycle++;
 				break;
 			}
 

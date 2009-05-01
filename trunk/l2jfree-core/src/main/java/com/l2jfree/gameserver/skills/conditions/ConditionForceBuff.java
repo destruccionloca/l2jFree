@@ -17,7 +17,7 @@ package com.l2jfree.gameserver.skills.conditions;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.skills.Env;
-import com.l2jfree.gameserver.skills.effects.EffectForce;
+import com.l2jfree.gameserver.skills.effects.EffectFusion;
 
 /**
  * @author kombat, Forsaiken
@@ -48,7 +48,7 @@ final class ConditionForceBuff extends Condition
 		{
 			L2Effect force = player.getFirstEffect(BATTLE_FORCE);
 			
-			if (!(force instanceof EffectForce) || ((EffectForce)force).forces < _battleForces)
+			if (!(force instanceof EffectFusion) || ((EffectFusion) force)._effect < _battleForces)
 				return false;
 		}
 		
@@ -56,7 +56,7 @@ final class ConditionForceBuff extends Condition
 		{
 			L2Effect force = player.getFirstEffect(SPELL_FORCE);
 			
-			if (!(force instanceof EffectForce) || ((EffectForce)force).forces < _spellForces)
+			if (!(force instanceof EffectFusion) || ((EffectFusion) force)._effect < _spellForces)
 				return false;
 		}
 		

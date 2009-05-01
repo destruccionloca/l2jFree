@@ -22,14 +22,16 @@ import com.l2jfree.gameserver.templates.skills.L2EffectType;
 /**
  * @author kombat
  */
-public final class EffectForce extends L2Effect
+public final class EffectFusion extends L2Effect
 {
-	public int	forces;
+	public int _effect;
+	public int _maxEffect;
 
-	public EffectForce(Env env, EffectTemplate template)
+	public EffectFusion(Env env, EffectTemplate template)
 	{
 		super(env, template);
-		forces = getSkill().getLevel();
+		_effect = 1;
+		_maxEffect = SkillTable.getInstance().getMaxLevel(getSkill().getId());
 	}
 
 	@Override
@@ -41,31 +43,30 @@ public final class EffectForce extends L2Effect
 	@Override
 	public L2EffectType getEffectType()
 	{
-		return L2EffectType.BUFF;
+		return L2EffectType.FUSION;
 	}
 
-	public void increaseForce()
+	public void increaseEffect()
 	{
-		if (forces < 3)
+		if (_effect < _maxEffect)
 		{
-			forces++;
-			updateBuff();
+			exit();
+			_effect++;
+			renewBuff();
 		}
 	}
 
-	public void decreaseForce()
+	public void decreaseEffect()
 	{
-		forces--;
-		if (forces < 1)
-			exit();
-		else
-			updateBuff();
+		_effect--;
+		exit();
+		if (_effect >= 1)
+			renewBuff();
 	}
 
-	private void updateBuff()
+	private void renewBuff()
 	{
-		exit();
-		SkillTable.getInstance().getInfo(getSkill().getId(), forces).getEffects(getEffector(), getEffected());
+		SkillTable.getInstance().getInfo(getSkill().getId(), _effect).getEffects(getEffector(), getEffected());
 	}
 	
 	@Override

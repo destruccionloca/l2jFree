@@ -1977,11 +1977,8 @@ public final class Formulas
 		if (target.isRaid() || target.isInvul() || dmg <= 0)
 			return false; // No attack break
 
-		if (target instanceof L2PcInstance)
-		{
-			if (target.getForceBuff() != null)
-				return true;
-		}
+		if (target.getFusionSkill() != null)
+			return true;
 
 		double init = 0;
 

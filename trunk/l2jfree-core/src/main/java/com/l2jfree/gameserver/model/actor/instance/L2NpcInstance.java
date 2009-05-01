@@ -2759,6 +2759,20 @@ public class L2NpcInstance extends L2Character
 			_log.fatal("Failed decayMe().", e);
 		}
 
+		try
+		{
+			if (_fusionSkill != null)
+				abortCast();
+			
+			for (L2Character character : getKnownList().getKnownCharacters())
+				if (character.getFusionSkill() != null && character.getFusionSkill().getTarget() == this)
+					character.abortCast();
+		}
+		catch (Exception e)
+		{
+			_log.fatal("Failed deleteMe().", e);
+		}
+
 		if (oldRegion != null)
 			oldRegion.removeFromZones(this);
 

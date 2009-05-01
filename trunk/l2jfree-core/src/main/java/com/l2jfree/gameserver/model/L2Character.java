@@ -201,7 +201,7 @@ public abstract class L2Character extends L2Object
 	protected Map<Integer, L2Skill>	_skills;
 	protected ChanceSkillList		_chanceSkills;
 	/** Current force buff this caster is casting to a target */
-	protected ForceBuff				_forceBuff;
+	protected FusionSkill			_fusionSkill;
 
 	protected byte					_zoneValidateCounter				= 4;
 
@@ -1806,8 +1806,8 @@ public abstract class L2Character extends L2Object
 				}
 			}
 			
-			if (skill.getSkillType() == L2SkillType.FORCE_BUFF)
-				startForceBuff(target, skill);
+			if (skill.getSkillType() == L2SkillType.FUSION)
+				startFusionSkill(target, skill);
 			else
 				callSkill(skill, targets);
 		}
@@ -2095,13 +2095,13 @@ public abstract class L2Character extends L2Object
 		/***/
 	}
 
-	public void startForceBuff(L2Character target, L2Skill skill)
+	public void startFusionSkill(L2Character target, L2Skill skill)
 	{
-		if (skill.getSkillType() != L2SkillType.FORCE_BUFF)
+		if (skill.getSkillType() != L2SkillType.FUSION)
 			return;
 
-		if (_forceBuff == null)
-			_forceBuff = new ForceBuff(this, target, skill);
+		if (_fusionSkill == null)
+			_fusionSkill = new FusionSkill(this, target, skill);
 	}
 
 	/**
@@ -2222,6 +2222,21 @@ public abstract class L2Character extends L2Object
 				((L2PcInstance)this).reviveRequest(((L2PcInstance)this), null);
 			}
 		}
+
+		try
+		{
+			if (_fusionSkill != null)
+				abortCast();
+			
+			for (L2Character character : getKnownList().getKnownCharacters())
+				if (character.getFusionSkill() != null && character.getFusionSkill().getTarget() == this)
+					character.abortCast();
+		}
+		catch (Exception e)
+		{
+			_log.fatal("", e);
+		}
+
 		getAttackByList().clear();
 		return true;
 	}
@@ -4259,8 +4274,8 @@ public abstract class L2Character extends L2Object
 				_skillCast2 = null;
 			}
 
-			if (getForceBuff() != null)
-				getForceBuff().onCastAbort();
+			if (getFusionSkill() != null)
+				getFusionSkill().onCastAbort();
 
 			L2Effect mog = getFirstEffect(L2EffectType.SIGNET_GROUND);
 			if (mog != null)
@@ -6046,7 +6061,7 @@ public abstract class L2Character extends L2Object
 //			return;
 //		}
 		
-		if (getForceBuff() != null)
+		if (getFusionSkill() != null)
 		{
 			if (simultaneously)
 			{
@@ -6059,7 +6074,7 @@ public abstract class L2Character extends L2Object
 				setIsCastingNow(false);
 			}
 			notifyQuestEventSkillFinished(magicEnv);
-			getForceBuff().onCastAbort();
+			getFusionSkill().onCastAbort();
 			return;
 		}
 		
@@ -7089,14 +7104,14 @@ public abstract class L2Character extends L2Object
 	{
 	}
 	
-	public ForceBuff getForceBuff()
+	public FusionSkill getFusionSkill()
 	{
-		return _forceBuff;
+		return _fusionSkill;
 	}
 
-	public void setForceBuff(ForceBuff fb)
+	public void setFusionSkill(FusionSkill fs)
 	{
-		_forceBuff = fb;
+		_fusionSkill = fs;
 	}
 
 	public ChanceSkillList getChanceSkills()

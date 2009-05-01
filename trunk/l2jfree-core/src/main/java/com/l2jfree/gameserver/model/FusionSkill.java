@@ -20,9 +20,7 @@ import java.util.concurrent.Future;
 import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.SkillTable;
-import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.skills.effects.EffectForce;
+import com.l2jfree.gameserver.skills.effects.EffectFusion;
 import com.l2jfree.gameserver.util.Util;
 
 import org.apache.commons.logging.Log;
@@ -32,13 +30,13 @@ import org.apache.commons.logging.LogFactory;
  * @author kombat/crion
  *
  */
-public final class ForceBuff
+public final class FusionSkill
 {
-	protected static final Log _log = LogFactory.getLog(ForceBuff.class);
+	protected static final Log _log = LogFactory.getLog(FusionSkill.class);
 
 	protected int _skillCastRange;
-	protected int _forceId;
-	protected int _forceLevel;
+	protected int _fusionId;
+	protected int _fusionLevel;
 	protected L2Character _caster;
 	protected L2Character _target;
 	protected Future<?> _geoCheckTask;
@@ -53,36 +51,36 @@ public final class ForceBuff
 		return _target;
 	}
 
-	public ForceBuff(L2Character caster, L2Character target, L2Skill skill)
+	public FusionSkill(L2Character caster, L2Character target, L2Skill skill)
 	{
 		_skillCastRange = skill.getCastRange();
 		_caster = caster;
 		_target = target;
-		_forceId = skill.getTriggeredId();
-		_forceLevel = skill.getTriggeredLevel();
+		_fusionId = skill.getTriggeredId();
+		_fusionLevel = skill.getTriggeredLevel();
 
-		L2Effect effect = _target.getFirstEffect(_forceId);
+		L2Effect effect = _target.getFirstEffect(_fusionId);
 		if (effect != null)
 		{
-			((EffectForce)effect).increaseForce();
+			((EffectFusion) effect).increaseEffect();
 		}
 		else
 		{
-			L2Skill force = SkillTable.getInstance().getInfo(_forceId, _forceLevel);
+			L2Skill force = SkillTable.getInstance().getInfo(_fusionId, _fusionLevel);
 			if (force != null)
 				force.getEffects(_caster, _target);
 			else
-				_log.warn("Triggered skill ["+_forceId+";"+_forceLevel+"] not found!");
+				_log.warn("Triggered skill ["+_fusionId+";"+_fusionLevel+"] not found!");
 		}
 		_geoCheckTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new GeoCheckTask(), 1000, 1000);
 	}
 
 	public void onCastAbort()
 	{
-		_caster.setForceBuff(null);
-		L2Effect effect = _target.getFirstEffect(_forceId);
+		_caster.setFusionSkill(null);
+		L2Effect effect = _target.getFirstEffect(_fusionId);
 		if (effect != null)
-			((EffectForce)effect).decreaseForce();
+			((EffectFusion) effect).decreaseForce();
 
 		_geoCheckTask.cancel(true);
 	}

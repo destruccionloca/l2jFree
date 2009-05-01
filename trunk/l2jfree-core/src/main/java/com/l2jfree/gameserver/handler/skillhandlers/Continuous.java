@@ -55,7 +55,7 @@ public class Continuous implements ICubicSkillHandler
 			L2SkillType.WEAKNESS,
 			L2SkillType.REFLECT,
 			L2SkillType.AGGDEBUFF,
-			L2SkillType.FORCE_BUFF			};
+			L2SkillType.FUSION			};
 
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.L2PcInstance, com.l2jfree.gameserver.model.L2ItemInstance)

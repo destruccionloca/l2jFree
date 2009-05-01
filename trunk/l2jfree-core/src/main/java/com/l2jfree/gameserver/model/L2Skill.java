@@ -629,7 +629,7 @@ public class L2Skill implements FuncOwner
 	
 	public final boolean hasEffectWhileCasting()
 	{
-		return getSkillType() == L2SkillType.FORCE_BUFF || getSkillType() == L2SkillType.SIGNET_CASTTIME;
+		return getSkillType() == L2SkillType.FUSION || getSkillType() == L2SkillType.SIGNET_CASTTIME;
 	}
 	
 	public final int getActivateRate()
@@ -1457,7 +1457,7 @@ public class L2Skill implements FuncOwner
 			case WEAPON_SA:
 			case RESURRECT:
 			case CANCEL_DEBUFF:
-			case FORCE_BUFF:
+			case FUSION:
 			case CHARGE_NEGATE:
 			case CHARGESOUL:
 				return OffensiveState.POSITIVE;
@@ -1682,7 +1682,6 @@ public class L2Skill implements FuncOwner
 			case WARRIOR_BANE:
 			case BETRAY:
 			case BALANCE_LIFE:
-			case FORCE_BUFF:
 				canTargetSelf = true;
 				break;
 			}

@@ -332,6 +332,9 @@ public class L2Party
 		//update partySpelled 
 		updateEffectIcons();
 		
+		for (L2PcInstance member : getPartyMembers())
+			member.broadcastUserInfo();
+		
 		if (isInDimensionalRift())
 		{
 			_dr.partyMemberInvited();
@@ -395,11 +398,11 @@ public class L2Party
 
 			try
 			{
-				if (player.getForceBuff() != null)
+				if (player.getFusionSkill() != null)
 					player.abortCast();
 
 				for (L2Character character : player.getKnownList().getKnownCharacters())
-					if (character.getForceBuff() != null && character.getForceBuff().getTarget() == player)
+					if (character.getFusionSkill() != null && character.getFusionSkill().getTarget() == player)
 						character.abortCast();
 			}
 			catch (Exception e){
@@ -521,7 +524,10 @@ public class L2Party
 		broadcastToPartyMembers(leader, new PartySmallWindowAll(this));
 		
 		for (L2PcInstance member : getPartyMembersWithoutLeader())
+		{
 			leader.sendPacket(new PartySmallWindowAdd(member));
+			member.broadcastUserInfo();
+		}
 		
 		updateEffectIcons();
 	}

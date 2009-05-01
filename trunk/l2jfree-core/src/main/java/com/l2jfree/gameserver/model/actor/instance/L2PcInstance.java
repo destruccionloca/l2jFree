@@ -942,15 +942,51 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		int result = 0;
 
-		// Karma and pvp may not be required
-		if (getPvpFlag() != 0)
-			result |= RelationChanged.RELATION_PVP_FLAG;
-
-		if (getKarma() > 0)
-			result |= RelationChanged.RELATION_HAS_KARMA;
+		if (getClan() != null)
+			result |= RelationChanged.RELATION_CLAN_MEMBER;
 
 		if (isClanLeader())
 			result |= RelationChanged.RELATION_LEADER;
+
+		if (getParty() != null && getParty() == target.getParty())
+		{
+			result |= RelationChanged.RELATION_HAS_PARTY;
+			for (int i = 0; i < getParty().getPartyMembers().size(); i++)
+			{
+				if (getParty().getPartyMembers().get(i) != this)
+					continue;
+				switch (i)
+				{
+					case 0:
+						result |= RelationChanged.RELATION_PARTYLEADER; // 0x10
+						break;
+					case 1:
+						result |= RelationChanged.RELATION_PARTY4; // 0x8
+						break;
+					case 2:
+						result |= RelationChanged.RELATION_PARTY3+RelationChanged.RELATION_PARTY2+RelationChanged.RELATION_PARTY1; // 0x7
+						break;
+					case 3:
+						result |= RelationChanged.RELATION_PARTY3+RelationChanged.RELATION_PARTY2; // 0x6
+						break;
+					case 4:
+						result |= RelationChanged.RELATION_PARTY3+RelationChanged.RELATION_PARTY1; // 0x5
+						break;
+					case 5:
+						result |= RelationChanged.RELATION_PARTY3; // 0x4
+						break;
+					case 6:
+						result |= RelationChanged.RELATION_PARTY2+RelationChanged.RELATION_PARTY1; // 0x3
+						break;
+					case 7:
+						result |= RelationChanged.RELATION_PARTY2; // 0x2
+						break;
+					case 8:
+						result |= RelationChanged.RELATION_PARTY1; // 0x1
+						break;
+				}
+			}
+		}
 
 		if (getSiegeState() != 0)
 		{
@@ -4699,11 +4735,11 @@ public final class L2PcInstance extends L2PlayableInstance
 			_cubics.clear();
 		}
 
-		if (_forceBuff != null)
+		if (_fusionSkill != null)
 			abortCast();
 
 		for (L2Character character : getKnownList().getKnownCharacters())
-			if (character.getForceBuff() != null && character.getForceBuff().getTarget() == this)
+			if (character.getFusionSkill() != null && character.getFusionSkill().getTarget() == this)
 				character.abortCast();
 
 		if (isInParty() && getParty().isInDimensionalRift())
@@ -5748,6 +5784,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 
 		// Unequip the shield
+		/* Retail does not disarm shields
 		L2ItemInstance sld = getInventory().getPaperdollItem(Inventory.PAPERDOLL_LHAND);
 		if (sld != null)
 		{
@@ -5782,6 +5819,8 @@ public final class L2PcInstance extends L2PlayableInstance
 				sendPacket(sm);
 			}
 		}
+		*/
+		
 		return true;
 	}
 
@@ -10283,13 +10322,13 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 
 		// Delete a force buff upon class change.
-		if (_forceBuff != null)
+		if (_fusionSkill != null)
 			abortCast();
 
 		// Stop casting for any player that may be casting a force buff on this l2pcinstance.
 		for (L2Character character : getKnownList().getKnownCharacters())
 		{
-			if (character.getForceBuff() != null && character.getForceBuff().getTarget() == this)
+			if (character.getFusionSkill() != null && character.getFusionSkill().getTarget() == this)
 				character.abortCast();
 		}
 
@@ -11383,12 +11422,12 @@ public final class L2PcInstance extends L2PlayableInstance
 
 		try
 		{
-			if (_forceBuff != null)
+			if (_fusionSkill != null)
 			{
 				abortCast();
 			}
 			for (L2Character character : getKnownList().getKnownCharacters())
-				if (character.getForceBuff() != null && character.getForceBuff().getTarget() == this)
+				if (character.getFusionSkill() != null && character.getFusionSkill().getTarget() == this)
 					character.abortCast();
 		}
 		catch (Exception e)
