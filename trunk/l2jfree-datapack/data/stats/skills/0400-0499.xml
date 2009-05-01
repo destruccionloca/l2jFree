@@ -613,7 +613,7 @@
     <set name="triggeredLevel" val="1"/>
     <set name="target" val="TARGET_PARTY_OTHER"/>
     <set name="hitTime" val="15000"/>
-    <set name="skillType" val="FORCE_BUFF"/>
+    <set name="skillType" val="FUSION"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="1400"/>
@@ -627,7 +627,7 @@
     <set name="triggeredLevel" val="1"/>
     <set name="target" val="TARGET_PARTY_OTHER"/>
     <set name="hitTime" val="15000"/>
-    <set name="skillType" val="FORCE_BUFF"/>
+    <set name="skillType" val="FUSION"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="1400"/>

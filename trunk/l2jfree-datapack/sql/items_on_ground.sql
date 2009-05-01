@@ -4,7 +4,7 @@
 CREATE TABLE IF NOT EXISTS `itemsonground` (
   `object_id` int(11) NOT NULL DEFAULT '0',
   `item_id` int(11) DEFAULT NULL,
-  `count` int(11) DEFAULT NULL,
+  `count` BIGINT UNSIGNED NOT NULL DEFAULT 0,
   `enchant_level` int(11) DEFAULT NULL,
   `x` int(11) NOT NULL DEFAULT '0',
   `y` int(11) NOT NULL DEFAULT '0',

@@ -307,8 +307,8 @@
   </zone>
   <zone id="39" name="Demon Fortress" type="Fort">
     <entity fortId="120"/>
-    <restart_chaotic x="100698" y="-55334" z="-645"/>
-    <restart_owner x="100698" y="-55334" z="-645"/>
+    <restart_chaotic x="100707" y="-54938" z="-320"/>
+    <restart_owner x="100707" y="-54938" z="-320"/>
     <shape type="Rect" zMin="-3800" zMax="3200">
       <point x="98432" y="-56465"/>
       <point x="102912" y="-52288"/>
