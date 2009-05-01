@@ -18,9 +18,9 @@ import java.util.Map;
 import javolution.util.FastMap;
 
 import com.l2jfree.gameserver.ai.CtrlIntention;
-import com.l2jfree.gameserver.model.L2Attackable;
-import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.L2Attackable;
+import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
@@ -64,7 +64,7 @@ public class PolymorphingOnAttack extends L2AttackableAIScript
     }
 
     @Override
-	public String onAttack (L2NpcInstance npc, L2PcInstance attacker, int damage, boolean isPet)
+	public String onAttack (L2Npc npc, L2PcInstance attacker, int damage, boolean isPet)
     {
         if (MOBSPAWNS.containsKey(npc.getNpcId()))
         {

@@ -1,8 +1,8 @@
 # By Psychokiller1888
 
 from com.l2jfree.gameserver.instancemanager        import InstanceManager
+from com.l2jfree.gameserver.model.actor            import L2Summon
 from com.l2jfree.gameserver.model.entity           import Instance
-from com.l2jfree.gameserver.model                  import L2Summon
 from com.l2jfree.gameserver.model.quest            import State
 from com.l2jfree.gameserver.model.quest            import QuestState
 from com.l2jfree.gameserver.model.quest.jython     import QuestJython as JQuest

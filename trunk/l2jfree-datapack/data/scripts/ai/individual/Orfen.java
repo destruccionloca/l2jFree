@@ -19,12 +19,12 @@ import javolution.util.FastList;
 
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.SkillTable;
-import com.l2jfree.gameserver.model.L2Attackable;
-import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Spawn;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.L2Attackable;
+import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.NpcSay;
 import com.l2jfree.gameserver.network.serverpackets.PlaySound;
@@ -65,7 +65,7 @@ public class Orfen extends L2AttackableAIScript
 		_isAlive = false;
 	}
 
-	public void setSpawnPoint(L2NpcInstance npc,int index)
+	public void setSpawnPoint(L2Npc npc,int index)
 	{
 		((L2Attackable) npc).clearAggroList();
 		npc.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE, null, null);
@@ -77,7 +77,7 @@ public class Orfen extends L2AttackableAIScript
 	}
 
 	@Override
-	public String onSpawn(L2NpcInstance npc)
+	public String onSpawn(L2Npc npc)
 	{
 		if (npc.getNpcId() == ORFEN)
 		{
@@ -97,7 +97,7 @@ public class Orfen extends L2AttackableAIScript
 	}
 
 	@Override
-	public String onAdvEvent (String event, L2NpcInstance npc, L2PcInstance player)
+	public String onAdvEvent (String event, L2Npc npc, L2PcInstance player)
 	{
 		if (event.equalsIgnoreCase("check_orfen_pos"))
 		{
@@ -134,7 +134,7 @@ public class Orfen extends L2AttackableAIScript
 	}
 
 	@Override
-	public String onSkillSee (L2NpcInstance npc, L2PcInstance caster, L2Skill skill, L2Object[] targets, boolean isPet) 
+	public String onSkillSee (L2Npc npc, L2PcInstance caster, L2Skill skill, L2Object[] targets, boolean isPet) 
 	{
 		if (npc.getNpcId() == ORFEN)
 		{
@@ -151,7 +151,7 @@ public class Orfen extends L2AttackableAIScript
 	}
 
 	@Override
-	public String onFactionCall (L2NpcInstance npc, L2NpcInstance caller, L2PcInstance attacker, boolean isPet) 
+	public String onFactionCall (L2Npc npc, L2Npc caller, L2PcInstance attacker, boolean isPet) 
 	{
 		if (caller == null || npc == null)
 			return super.onFactionCall(npc, caller, attacker, isPet);
@@ -178,7 +178,7 @@ public class Orfen extends L2AttackableAIScript
 	}
 
 	@Override
-	public String onAttack (L2NpcInstance npc, L2PcInstance attacker, int damage, boolean isPet)
+	public String onAttack (L2Npc npc, L2PcInstance attacker, int damage, boolean isPet)
 	{
 		int npcId = npc.getNpcId();
 		if (npcId == ORFEN)
@@ -208,7 +208,7 @@ public class Orfen extends L2AttackableAIScript
 	}
 
 	@Override
-	public String onKill (L2NpcInstance npc, L2PcInstance killer, boolean isPet) 
+	public String onKill (L2Npc npc, L2PcInstance killer, boolean isPet) 
 	{
 		if (npc.getNpcId() == ORFEN)
 		{

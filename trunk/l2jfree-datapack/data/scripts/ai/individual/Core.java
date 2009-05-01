@@ -17,8 +17,8 @@ package ai.individual;
 import java.util.List;
 import javolution.util.FastList;
 
-import com.l2jfree.gameserver.model.L2Attackable;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.L2Attackable;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.NpcSay;
 import com.l2jfree.gameserver.network.serverpackets.PlaySound;
@@ -58,7 +58,7 @@ public class Core extends L2AttackableAIScript
 	}
 
 	@Override
-	public String onSpawn(L2NpcInstance npc)
+	public String onSpawn(L2Npc npc)
 	{
 		if (npc.getNpcId() == CORE)
 		{
@@ -83,7 +83,7 @@ public class Core extends L2AttackableAIScript
 	}
 
 	@Override
-	public String onAdvEvent(String event, L2NpcInstance npc, L2PcInstance player)
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
 		if (event.equalsIgnoreCase("spawn_minion"))
 		{
@@ -102,7 +102,7 @@ public class Core extends L2AttackableAIScript
 	}
 
 	@Override
-	public String onAttack(L2NpcInstance npc, L2PcInstance attacker, int damage, boolean isPet)
+	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isPet)
 	{
 		if (npc.getNpcId() == CORE)
 		{
@@ -122,7 +122,7 @@ public class Core extends L2AttackableAIScript
 	}
 
 	@Override
-	public String onKill (L2NpcInstance npc, L2PcInstance killer, boolean isPet) 
+	public String onKill (L2Npc npc, L2PcInstance killer, boolean isPet) 
 	{
 		int npcId = npc.getNpcId();
 		if (npcId == CORE)

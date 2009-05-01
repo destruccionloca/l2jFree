@@ -19,8 +19,8 @@ import javolution.util.FastList;
 
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.SkillTable;
-import com.l2jfree.gameserver.model.L2Attackable;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.L2Attackable;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.PlaySound;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
@@ -52,7 +52,7 @@ public class QueenAnt extends L2AttackableAIScript
 	}
 
 	@Override
-	public String onSpawn(L2NpcInstance npc)
+	public String onSpawn(L2Npc npc)
 	{
 		if (npc.getNpcId() == QUEEN)
 		{
@@ -82,7 +82,7 @@ public class QueenAnt extends L2AttackableAIScript
 	}
 
 	@Override
-	public String onAdvEvent (String event, L2NpcInstance npc, L2PcInstance player)
+	public String onAdvEvent (String event, L2Npc npc, L2PcInstance player)
 	{
 		if (event.equalsIgnoreCase("action") && npc != null)
 		{
@@ -131,7 +131,7 @@ public class QueenAnt extends L2AttackableAIScript
 	}
 
 	@Override
-	public String onFactionCall (L2NpcInstance npc, L2NpcInstance caller, L2PcInstance attacker, boolean isPet) 
+	public String onFactionCall (L2Npc npc, L2Npc caller, L2PcInstance attacker, boolean isPet) 
 	{
 		if (caller == null || npc == null)
 			return super.onFactionCall(npc, caller, attacker, isPet);
@@ -148,9 +148,9 @@ public class QueenAnt extends L2AttackableAIScript
 			}
 			else if (callerId == QUEEN)
 			{
-				if (npc.getTarget() != null && npc.getTarget() instanceof L2NpcInstance)
+				if (npc.getTarget() != null && npc.getTarget() instanceof L2Npc)
 				{
-					if (((L2NpcInstance) npc.getTarget()).getNpcId() == LARVA)
+					if (((L2Npc) npc.getTarget()).getNpcId() == LARVA)
 					{
 						return null;
 					}
@@ -164,7 +164,7 @@ public class QueenAnt extends L2AttackableAIScript
 	}
 
 	@Override
-	public String onAttack (L2NpcInstance npc, L2PcInstance attacker, int damage, boolean isPet)
+	public String onAttack (L2Npc npc, L2PcInstance attacker, int damage, boolean isPet)
 	{
 		int npcId = npc.getNpcId();
 		if (npcId == NURSE)
@@ -176,7 +176,7 @@ public class QueenAnt extends L2AttackableAIScript
 	}
 
 	@Override
-	public String onKill (L2NpcInstance npc, L2PcInstance killer, boolean isPet) 
+	public String onKill (L2Npc npc, L2PcInstance killer, boolean isPet) 
 	{
 		int npcId = npc.getNpcId();
 		if (npcId == QUEEN)

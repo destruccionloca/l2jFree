@@ -19,8 +19,8 @@ import javolution.util.FastMap;
 import javolution.util.FastSet;
 
 import com.l2jfree.gameserver.ai.CtrlIntention;
-import com.l2jfree.gameserver.model.L2Attackable;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.L2Attackable;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.NpcSay;
 import com.l2jfree.tools.random.Rnd;
@@ -64,7 +64,7 @@ public class SummonMinions extends L2AttackableAIScript
 	}
 
 	@Override
-	public String onAttack(L2NpcInstance npc, L2PcInstance attacker, int damage, boolean isPet)
+	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isPet)
 	{
 		int npcId = npc.getNpcId();
 		int npcObjId = npc.getObjectId();
@@ -189,7 +189,7 @@ public class SummonMinions extends L2AttackableAIScript
 	}
 
 	@Override
-	public String onKill(L2NpcInstance npc, L2PcInstance killer, boolean isPet)
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isPet)
 	{
 		int npcId = npc.getNpcId();
 		int npcObjId = npc.getObjectId();

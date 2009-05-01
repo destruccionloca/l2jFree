@@ -20,10 +20,10 @@ import javolution.util.FastMap;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.idfactory.IdFactory;
-import com.l2jfree.gameserver.model.L2Attackable;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.L2Attackable;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2TamedBeastInstance;
 import com.l2jfree.gameserver.model.quest.QuestState;
@@ -91,7 +91,7 @@ public class FeedableBeasts extends L2AttackableAIScript
 		{
 			"Destroy","Look what you have done!",
 			"Strange feeling...! Evil intentions grow in my heart...!",
-			"It is happening!","This is sad...Good is sad...!"
+			"It is happenning!","This is sad...Good is sad...!"
 		}
 	};
 
@@ -329,7 +329,7 @@ public class FeedableBeasts extends L2AttackableAIScript
 		_GrowthCapableMobs.put(21505, temp);        
 	}
 
-	public void spawnNext(L2NpcInstance npc, int growthLevel, L2PcInstance player, int food)
+	public void spawnNext(L2Npc npc, int growthLevel, L2PcInstance player, int food)
 	{
 		int npcId = npc.getNpcId();
 		int nextNpcId = 0;
@@ -456,7 +456,7 @@ public class FeedableBeasts extends L2AttackableAIScript
 	}
 
 	@Override
-	public String onAdvEvent (String event, L2NpcInstance npc, L2PcInstance player)
+	public String onAdvEvent (String event, L2Npc npc, L2PcInstance player)
 	{
 		if (event.equalsIgnoreCase("polymorph Mad Cow") && npc != null && player != null)
 		{
@@ -483,7 +483,7 @@ public class FeedableBeasts extends L2AttackableAIScript
 	}
 
 	@Override
-	public String onSkillSee (L2NpcInstance npc, L2PcInstance caster, L2Skill skill, L2Object[] targets, boolean isPet)
+	public String onSkillSee (L2Npc npc, L2PcInstance caster, L2Skill skill, L2Object[] targets, boolean isPet)
 	{
 		// this behavior is only run when the target of skill is the passed npc (chest)
 		// i.e. when the player is attempting to open the chest using a skill
@@ -573,7 +573,7 @@ public class FeedableBeasts extends L2AttackableAIScript
 	}
 
 	@Override
-	public String onKill (L2NpcInstance npc, L2PcInstance killer, boolean isPet)
+	public String onKill (L2Npc npc, L2PcInstance killer, boolean isPet)
 	{
 		// remove the feedinfo of the mob that got killed, if any
 		if (_FeedInfo.containsKey(npc.getObjectId()))
