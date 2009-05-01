@@ -26,49 +26,49 @@ public abstract class SendablePacket<T extends MMOConnection<T>> extends Abstrac
 	{
 	}
 	
-	protected void putShort(int value)
+	protected void writeC(boolean value)
 	{
-		getByteBuffer().putShort((short)value);
+		getByteBuffer().put((byte)(value ? 1 : 0));
 	}
 	
-	protected void putInt(int value)
+	protected void writeC(long value)
 	{
-		getByteBuffer().putInt(value);
+		getByteBuffer().put(value < Byte.MAX_VALUE ? (byte)value : Byte.MAX_VALUE);
 	}
 	
-	protected void putDouble(double value)
+	protected void writeH(boolean value)
 	{
-		getByteBuffer().putDouble(value);
+		getByteBuffer().putShort((short)(value ? 1 : 0));
 	}
 	
-	protected void putFloat(float value)
+	protected void writeH(long value)
 	{
-		getByteBuffer().putFloat(value);
+		getByteBuffer().putShort(value < Short.MAX_VALUE ? (short)value : Short.MAX_VALUE);
 	}
 	
-	protected void writeC(int data)
+	protected void writeD(boolean value)
 	{
-		getByteBuffer().put((byte)data);
+		getByteBuffer().putInt(value ? 1 : 0);
 	}
 	
-	protected void writeF(double value)
+	protected void writeD(long value)
 	{
-		getByteBuffer().putDouble(value);
+		getByteBuffer().putInt(value < Integer.MAX_VALUE ? (int)value : Integer.MAX_VALUE);
 	}
 	
-	protected void writeH(int value)
+	protected void writeQ(boolean value)
 	{
-		getByteBuffer().putShort((short)value);
-	}
-	
-	protected void writeD(int value)
-	{
-		getByteBuffer().putInt(value);
+		getByteBuffer().putLong(value ? 1 : 0);
 	}
 	
 	protected void writeQ(long value)
 	{
 		getByteBuffer().putLong(value);
+	}
+	
+	protected void writeF(double value)
+	{
+		getByteBuffer().putDouble(value);
 	}
 	
 	protected void writeB(byte[] data)

@@ -59,14 +59,14 @@ public abstract class ReceivablePacket<T extends MMOConnection<T>> extends Abstr
 		getByteBuffer().get(dst, offset, len);
 	}
 	
-	protected int readC()
+	protected byte readC()
 	{
-		return getByteBuffer().get() & 0xFF;
+		return getByteBuffer().get();
 	}
 	
-	protected int readH()
+	protected short readH()
 	{
-		return getByteBuffer().getShort() & 0xFFFF;
+		return getByteBuffer().getShort();
 	}
 	
 	protected int readD()
