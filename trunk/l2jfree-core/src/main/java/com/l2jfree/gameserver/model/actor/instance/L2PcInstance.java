@@ -11593,12 +11593,6 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		if (!isGM())
 		{
-			if (isInsideZone(L2Zone.FLAG_NOESCAPE))
-			{
-				sendPacket(SystemMessageId.NO_LOGOUT_HERE);
-				return false;
-			}
-			
 			if (AttackStanceTaskManager.getInstance().getAttackStanceTask(this))
 			{
 				sendPacket(SystemMessageId.CANT_LOGOUT_WHILE_FIGHTING);
@@ -11654,7 +11648,16 @@ public final class L2PcInstance extends L2PlayableInstance
 			sendMessage("You can't logout while enchanting.");
 			return false;
 		}
-
+		
+		if (!isGM())
+		{
+			if (isInsideZone(L2Zone.FLAG_NOESCAPE))
+			{
+				sendPacket(SystemMessageId.NO_LOGOUT_HERE);
+				teleToLocation(TeleportWhereType.Town);
+			}
+		}
+		
 		return true;
 	}
 
