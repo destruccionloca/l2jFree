@@ -27,6 +27,7 @@ import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.item.L2Item;
+import com.l2jfree.lang.L2Math;
 
 public final class SystemMessage extends L2GameServerPacket
 {
@@ -71,11 +72,11 @@ public final class SystemMessage extends L2GameServerPacket
 	{
 		private final int _number;
 		
-		private NumberElement(int type, int number)
+		private NumberElement(int type, long number)
 		{
 			super(type);
 			
-			_number = number;
+			_number = (int)L2Math.limit(Integer.MIN_VALUE, number, Integer.MAX_VALUE);
 		}
 		
 		@Override
@@ -237,14 +238,14 @@ public final class SystemMessage extends L2GameServerPacket
 		return this;
 	}
 	
-	public SystemMessage addNumber(int number)
+	public SystemMessage addNumber(long number)
 	{
 		addElement(new NumberElement(TYPE_NUMBER, number));
 		
 		return this;
 	}
 	
-	public SystemMessage add(int number)
+	public SystemMessage add(long number)
 	{
 		return addNumber(number);
 	}
