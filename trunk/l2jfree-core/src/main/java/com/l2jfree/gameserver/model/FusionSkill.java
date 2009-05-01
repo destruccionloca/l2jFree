@@ -17,14 +17,14 @@ package com.l2jfree.gameserver.model;
 
 import java.util.concurrent.Future;
 
-import com.l2jfree.gameserver.geodata.GeoData;
-import com.l2jfree.gameserver.ThreadPoolManager;
-import com.l2jfree.gameserver.datatables.SkillTable;
-import com.l2jfree.gameserver.skills.effects.EffectFusion;
-import com.l2jfree.gameserver.util.Util;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import com.l2jfree.gameserver.ThreadPoolManager;
+import com.l2jfree.gameserver.datatables.SkillTable;
+import com.l2jfree.gameserver.geodata.GeoData;
+import com.l2jfree.gameserver.skills.effects.EffectFusion;
+import com.l2jfree.gameserver.util.Util;
 
 /**
  * @author kombat/crion
@@ -80,7 +80,7 @@ public final class FusionSkill
 		_caster.setFusionSkill(null);
 		L2Effect effect = _target.getFirstEffect(_fusionId);
 		if (effect != null)
-			((EffectFusion) effect).decreaseForce();
+			((EffectFusion) effect).decreaseEffect();
 
 		_geoCheckTask.cancel(true);
 	}

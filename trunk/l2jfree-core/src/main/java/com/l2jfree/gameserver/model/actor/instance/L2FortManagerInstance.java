@@ -33,8 +33,6 @@ import com.l2jfree.gameserver.network.serverpackets.WareHouseDepositList;
 import com.l2jfree.gameserver.network.serverpackets.WareHouseWithdrawalList;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
-import com.l2jfree.gameserver.network.SystemMessageId;
 
 /**
  * Fortress Foreman implementation used for:

@@ -14,9 +14,7 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
-import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
