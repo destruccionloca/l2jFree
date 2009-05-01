@@ -37,9 +37,12 @@ public final class ItemLogFilter extends L2LogFilter
 		if (!super.isLoggable(record))
 			return false;
 		
-		AbstractL2ItemType type = ((L2ItemInstance)record.getParameters()[0]).getItemType();
-		if (EXCLUDED_ITEM_TYPES.contains(type))
-			return false;
+		if (record.getParameters() != null)
+		{
+			AbstractL2ItemType type = ((L2ItemInstance)record.getParameters()[0]).getItemType();
+			if (EXCLUDED_ITEM_TYPES.contains(type))
+				return false;
+		}
 		
 		String[] messageList = record.getMessage().split(":");
 		if (messageList.length >= 2 && EXCLUDED_PROCESSES.contains(messageList[1]))
