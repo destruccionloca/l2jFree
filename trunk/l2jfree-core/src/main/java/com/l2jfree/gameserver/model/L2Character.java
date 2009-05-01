@@ -938,7 +938,7 @@ public abstract class L2Character extends L2Object
 				if (this instanceof L2PcInstance)
 				{
 					// Verify if the bow can be use
-					if (!_evtReadyToAct.isScheduled())
+					if (!getEvtReadyToAct().isScheduled())
 					{
 						// Verify if L2PcInstance owns enough MP
 						int saMpConsume = (int)getStat().calcStat(Stats.MP_CONSUME, 0, null, null);
@@ -972,7 +972,7 @@ public abstract class L2Character extends L2Object
 				}
 				else if (this instanceof L2NpcInstance)
 				{
-					if (_evtReadyToAct.isScheduled())
+					if (getEvtReadyToAct().isScheduled())
 						return;
 				}
 			}
@@ -991,7 +991,7 @@ public abstract class L2Character extends L2Object
 					}
 					
 					// Verify if the crossbow can be use
-					if (_evtReadyToAct.isScheduled())
+					if (getEvtReadyToAct().isScheduled())
 					{
 						// Cancel the action because the crossbow can't be re-use at this moment
 						sendPacket(ActionFailed.STATIC_PACKET);
@@ -1010,7 +1010,7 @@ public abstract class L2Character extends L2Object
 				}
 				else if (this instanceof L2NpcInstance)
 				{
-					if (_evtReadyToAct.isScheduled())
+					if (getEvtReadyToAct().isScheduled())
 						return;
 				}
 			}
@@ -1131,19 +1131,30 @@ public abstract class L2Character extends L2Object
 			broadcastPacket(attack);
 		
 		// Notify AI with EVT_READY_TO_ACT
-		_evtReadyToAct.schedule(timeAtk + reuse);
+		getEvtReadyToAct().schedule(timeAtk + reuse);
 	}
 	
-	private final ExclusiveTask _evtReadyToAct = new ExclusiveTask() {
+	private EvtReadyToAct _evtReadyToAct;
+	
+	private EvtReadyToAct getEvtReadyToAct()
+	{
+		if (_evtReadyToAct == null)
+			_evtReadyToAct = new EvtReadyToAct();
+		
+		return _evtReadyToAct;
+	}
+	
+	private final class EvtReadyToAct extends ExclusiveTask
+	{
 		@Override
 		protected void onElapsed()
 		{
-			_attackEndTime= 0;
+			_attackEndTime = 0;
 			_evtReadyToAct.cancel();
 			
 			getAI().notifyEvent(CtrlEvent.EVT_READY_TO_ACT);
 		}
-	};
+	}
 	
 	/**
 	 * Launch a Bow attack.<BR>
