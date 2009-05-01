@@ -18,6 +18,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.CrownTable;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2ClanMember;
@@ -78,22 +79,7 @@ public final class CrownManager
 			if (clan.getLeaderId() == activeChar.getObjectId())
 				isLeader = true;
 		}
-/* Completely custom
-		if (crownId > 0)
-		{
-			if (isLeader && activeChar.getInventory().getItemByItemId(6841) == null)
-			{
-				activeChar.addItem("Crown", 6841, 1, activeChar, true, true);
-				activeChar.getInventory().updateDatabase();
-			}
-			
-			if (activeChar.getInventory().getItemByItemId(crownId) == null)
-			{
-				activeChar.addItem("Crown", crownId, 1, activeChar, true, true);
-				activeChar.getInventory().updateDatabase();
-			}
-		}
-*/
+
 		boolean alreadyFoundCirclet = false;
 		boolean alreadyFoundCrown = false;
 		
@@ -124,7 +110,7 @@ public final class CrownManager
 				//WRONG! The crown is not sellable/tradeable/dropable
 				//And the circlets are sellable!!!, but not tradeable or dropable
 				//Unequip is what happens
-				if (item.getItemId() == 6841)
+				if (item.getItemId() == 6841 || Config.ALT_REMOVE_CASTLE_CIRCLETS)
 					activeChar.destroyItem("Removing Crown", item, activeChar, true);
 				else if (item.isEquipped())
 					activeChar.getInventory().unEquipItemInSlot(Inventory.PAPERDOLL_HAIR2);

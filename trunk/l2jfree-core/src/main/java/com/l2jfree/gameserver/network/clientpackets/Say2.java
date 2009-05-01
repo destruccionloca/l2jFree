@@ -117,7 +117,8 @@ public class Say2 extends L2GameClientPacket
 		if (_type == SystemChatChannelId.Chat_User_Pet && activeChar.isGM())
 			_type = SystemChatChannelId.Chat_GM_Pet;
 
-		if (_text.length() > 105) //Verified on Gracia P2 & Final official client
+		//if (_text.length() > 105) //Verified on Gracia P2 & Final official client
+		if (_text.length() > 400) //shift+click items should not give you a ban...
 		{
 			if (Config.BAN_CLIENT_EMULATORS)
 			{
