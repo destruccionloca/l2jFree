@@ -18,10 +18,10 @@ import javolution.util.FastMap;
 import javolution.util.FastMap.Entry;
 
 import com.l2jfree.gameserver.model.L2CharPosition;
-import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
-import com.l2jfree.gameserver.model.L2SiegeGuard;
 import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2SiegeGuard;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.threadmanager.FIFOExecutableQueue;
 

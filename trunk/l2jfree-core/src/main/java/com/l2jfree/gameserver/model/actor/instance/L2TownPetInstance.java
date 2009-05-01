@@ -18,6 +18,7 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.model.L2CharPosition;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
@@ -27,7 +28,7 @@ import com.l2jfree.tools.random.Rnd;
 /**
  * @author Kerberos
  */
-public class L2TownPetInstance extends L2NpcInstance
+public class L2TownPetInstance extends L2Npc
 {
     private int _spawnX, _spawnY, _spawnZ;
 

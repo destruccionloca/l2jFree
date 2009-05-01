@@ -18,8 +18,8 @@ import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_ATTACK;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_FOLLOW;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
 
-import com.l2jfree.gameserver.model.L2Summon;
-import com.l2jfree.gameserver.model.L2Character.AIAccessor;
+import com.l2jfree.gameserver.model.actor.L2Summon;
+import com.l2jfree.gameserver.model.actor.L2Character.AIAccessor;
 
 public class L2SummonAI extends L2CharacterAI
 {

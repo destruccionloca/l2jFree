@@ -15,7 +15,7 @@
 package com.l2jfree.gameserver.model.actor.shot;
 
 import com.l2jfree.gameserver.model.L2ItemInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
 import com.l2jfree.tools.random.Rnd;
@@ -33,15 +33,15 @@ public final class NpcShots extends CharShots
 	private byte _soulshotRandom = 0;
 	private byte _blessedSpiritshotRandom = 0;
 	
-	public NpcShots(L2NpcInstance activeChar)
+	public NpcShots(L2Npc activeChar)
 	{
 		super(activeChar);
 	}
 	
 	@Override
-	protected L2NpcInstance getActiveChar()
+	protected L2Npc getActiveChar()
 	{
-		return (L2NpcInstance)_activeChar;
+		return (L2Npc)_activeChar;
 	}
 	
 	@Override

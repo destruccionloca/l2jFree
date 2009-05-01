@@ -14,12 +14,13 @@
  */
 package com.l2jfree.gameserver.model.actor.knownlist;
 
-import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
+import com.l2jfree.gameserver.model.actor.L2Character;
 
 public abstract class ObjectKnownList
 {
-	private static final ObjectKnownList _instance = new ObjectKnownList() {
+	private static final ObjectKnownList _instance = new ObjectKnownList()
+	{
 		@Override
 		public boolean addKnownObject(L2Object object, L2Character dropper)
 		{

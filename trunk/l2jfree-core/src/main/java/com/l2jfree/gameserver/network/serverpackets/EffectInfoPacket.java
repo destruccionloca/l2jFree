@@ -19,7 +19,7 @@ import java.util.List;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2Effect;
-import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
+import com.l2jfree.gameserver.model.actor.L2Playable;
 
 /**
  * @author NB4L1
@@ -33,7 +33,7 @@ public abstract class EffectInfoPacket extends L2GameServerPacket
 		_list = list;
 	}
 	
-	protected final L2PlayableInstance getPlayable()
+	protected final L2Playable getPlayable()
 	{
 		return _list._playable;
 	}
@@ -70,9 +70,9 @@ public abstract class EffectInfoPacket extends L2GameServerPacket
 	public static final class EffectInfoPacketList
 	{
 		private final List<Effect> _effects = new ArrayList<Effect>(Config.ALT_BUFFS_MAX_AMOUNT + 5);
-		private final L2PlayableInstance _playable;
+		private final L2Playable _playable;
 		
-		public EffectInfoPacketList(L2PlayableInstance playable)
+		public EffectInfoPacketList(L2Playable playable)
 		{
 			_playable = playable;
 			

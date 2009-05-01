@@ -39,7 +39,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  *
  * @version $Revision: 1.10.4.9 $ $Date: 2005/04/11 10:06:08 $
  */
-public class L2MerchantInstance extends L2FolkInstance
+public class L2MerchantInstance extends L2NpcInstance
 {
     private MerchantPriceConfig _mpc;
 

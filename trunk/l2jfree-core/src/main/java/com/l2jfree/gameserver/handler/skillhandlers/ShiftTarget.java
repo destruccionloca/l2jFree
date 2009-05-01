@@ -16,11 +16,11 @@ package com.l2jfree.gameserver.handler.skillhandlers;
 
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.handler.ISkillHandler;
-import com.l2jfree.gameserver.model.L2Attackable;
-import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.L2Attackable;
+import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
@@ -35,7 +35,7 @@ public class ShiftTarget implements ISkillHandler
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
 		L2Attackable attackerChar = null;
-		L2NpcInstance attacker = null;
+		L2Npc attacker = null;
 		L2PcInstance targetChar = null;
 
 		boolean targetShifted = false;

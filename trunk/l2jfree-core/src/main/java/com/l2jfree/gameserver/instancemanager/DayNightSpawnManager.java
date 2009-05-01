@@ -20,10 +20,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.gameserver.GameTimeController;
-import com.l2jfree.gameserver.model.L2Boss;
 import com.l2jfree.gameserver.model.L2Spawn;
+import com.l2jfree.gameserver.model.actor.L2Boss;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2GrandBossInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2RaidBossInstance;
 
 /**
@@ -38,8 +38,8 @@ public class DayNightSpawnManager
 
 	private final static Log						_log	= LogFactory.getLog(DayNightSpawnManager.class.getName());
 	private static DayNightSpawnManager				_instance;
-	private static FastMap<L2Spawn, L2NpcInstance>	_dayCreatures;
-	private static FastMap<L2Spawn, L2NpcInstance>	_nightCreatures;
+	private static FastMap<L2Spawn, L2Npc>	_dayCreatures;
+	private static FastMap<L2Spawn, L2Npc>	_nightCreatures;
 	private static FastMap<L2Spawn, L2Boss>			_bosses;
 
 	public static DayNightSpawnManager getInstance()
@@ -51,8 +51,8 @@ public class DayNightSpawnManager
 
 	private DayNightSpawnManager()
 	{
-		_dayCreatures = new FastMap<L2Spawn, L2NpcInstance>();
-		_nightCreatures = new FastMap<L2Spawn, L2NpcInstance>();
+		_dayCreatures = new FastMap<L2Spawn, L2Npc>();
+		_nightCreatures = new FastMap<L2Spawn, L2Npc>();
 		_bosses = new FastMap<L2Spawn, L2Boss>();
 
 		_log.info("DayNightSpawnManager: Day/Night handler initialized");
@@ -96,12 +96,12 @@ public class DayNightSpawnManager
 
 	/*
 	 * Manage Spawn/Respawn
-	 * Arg 1 : Map with L2NpcInstance must be unspawned
-	 * Arg 2 : Map with L2NpcInstance must be spawned
-	 * Arg 3 : String for log info for unspawned L2NpcInstance
-	 * Arg 4 : String for log info for spawned L2NpcInstance
+	 * Arg 1 : Map with L2Npc must be unspawned
+	 * Arg 2 : Map with L2Npc must be spawned
+	 * Arg 3 : String for log info for unspawned L2Npc
+	 * Arg 4 : String for log info for spawned L2Npc
 	 */
-	private void spawnCreatures(FastMap<L2Spawn, L2NpcInstance> UnSpawnCreatures, FastMap<L2Spawn, L2NpcInstance> SpawnCreatures, String UnspawnLogInfo,
+	private void spawnCreatures(FastMap<L2Spawn, L2Npc> UnSpawnCreatures, FastMap<L2Spawn, L2Npc> SpawnCreatures, String UnspawnLogInfo,
 			String SpawnLogInfo)
 	{
 		try
@@ -109,7 +109,7 @@ public class DayNightSpawnManager
 			if (!UnSpawnCreatures.isEmpty())
 			{
 				int i = 0;
-				for (L2NpcInstance dayCreature : UnSpawnCreatures.values())
+				for (L2Npc dayCreature : UnSpawnCreatures.values())
 				{
 					if (dayCreature == null)
 						continue;
@@ -123,7 +123,7 @@ public class DayNightSpawnManager
 			}
 
 			int i = 0;
-			L2NpcInstance creature = null;
+			L2Npc creature = null;
 			for (L2Spawn spawnDat : SpawnCreatures.keySet())
 			{
 				if (SpawnCreatures.get(spawnDat) == null)
@@ -222,7 +222,7 @@ public class DayNightSpawnManager
 
 				if (boss == null && mode == 1)
 				{
-					L2NpcInstance npc = spawn.doSpawn();
+					L2Npc npc = spawn.doSpawn();
 					if (npc instanceof L2RaidBossInstance)
 					{
 						boss = (L2Boss) npc;

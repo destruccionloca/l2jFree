@@ -42,7 +42,7 @@ import com.l2jfree.gameserver.util.Util;
  * 
  * @version $Revision: 1.3.4.10 $ $Date: 2005/04/06 16:13:41 $
  */
-public final class L2WarehouseInstance extends L2FolkInstance
+public final class L2WarehouseInstance extends L2NpcInstance
 {
 	private final static Log	_log			= LogFactory.getLog(L2WarehouseInstance.class.getName());
 

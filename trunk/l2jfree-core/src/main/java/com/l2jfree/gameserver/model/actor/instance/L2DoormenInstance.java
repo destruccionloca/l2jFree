@@ -34,7 +34,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  * 
  * @version $Revision$ $Date$
  */
-public class L2DoormenInstance extends L2FolkInstance
+public class L2DoormenInstance extends L2NpcInstance
 {
 	private ClanHall			_clanHall;
 	private static final int	COND_ALL_FALSE				= 0;

@@ -36,8 +36,8 @@ import com.l2jfree.gameserver.datatables.SpawnTable;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Spawn;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2RaidBossInstance;
 import com.l2jfree.gameserver.model.entity.GrandBossState;
@@ -76,17 +76,17 @@ public class VanHalterManager extends BossLair
 	protected L2Spawn						_vanHalterSpawn				= null;
 
 	// Instance of monsters.
-	protected List<L2NpcInstance>			_monsters					= new FastList<L2NpcInstance>();
-	protected List<L2NpcInstance>			_royalGuard					= new FastList<L2NpcInstance>();
-	protected List<L2NpcInstance>			_royalGuardCaptain			= new FastList<L2NpcInstance>();
-	protected List<L2NpcInstance>			_royalGuardHepler			= new FastList<L2NpcInstance>();
-	protected List<L2NpcInstance>			_triolRevelation			= new FastList<L2NpcInstance>();
-	protected List<L2NpcInstance>			_guardOfAltar				= new FastList<L2NpcInstance>();
-	protected Map<Integer, L2NpcInstance>	_cameraMarker				= new FastMap<Integer, L2NpcInstance>();
+	protected List<L2Npc>			_monsters					= new FastList<L2Npc>();
+	protected List<L2Npc>			_royalGuard					= new FastList<L2Npc>();
+	protected List<L2Npc>			_royalGuardCaptain			= new FastList<L2Npc>();
+	protected List<L2Npc>			_royalGuardHepler			= new FastList<L2Npc>();
+	protected List<L2Npc>			_triolRevelation			= new FastList<L2Npc>();
+	protected List<L2Npc>			_guardOfAltar				= new FastList<L2Npc>();
+	protected Map<Integer, L2Npc>	_cameraMarker				= new FastMap<Integer, L2Npc>();
 	protected List<L2DoorInstance>			_doorOfAltar				= new FastList<L2DoorInstance>();
 	protected List<L2DoorInstance>			_doorOfSacrifice			= new FastList<L2DoorInstance>();
-	protected L2NpcInstance					_ritualOffering				= null;
-	protected L2NpcInstance					_ritualSacrifice			= null;
+	protected L2Npc					_ritualOffering				= null;
+	protected L2Npc					_ritualSacrifice			= null;
 	protected L2RaidBossInstance			_vanHalter					= null;
 
 	// Task
@@ -313,7 +313,7 @@ public class VanHalterManager extends BossLair
 
 	protected void deleteRoyalGuard()
 	{
-		for (L2NpcInstance rg : _royalGuard)
+		for (L2Npc rg : _royalGuard)
 		{
 			rg.getSpawn().stopRespawn();
 			rg.deleteMe();
@@ -393,7 +393,7 @@ public class VanHalterManager extends BossLair
 
 	protected void deleteTriolRevelation()
 	{
-		for (L2NpcInstance tr : _triolRevelation)
+		for (L2Npc tr : _triolRevelation)
 		{
 			tr.getSpawn().stopRespawn();
 			tr.deleteMe();
@@ -471,7 +471,7 @@ public class VanHalterManager extends BossLair
 
 	protected void deleteRoyalGuardCaptain()
 	{
-		for (L2NpcInstance tr : _royalGuardCaptain)
+		for (L2Npc tr : _royalGuardCaptain)
 		{
 			tr.getSpawn().stopRespawn();
 			tr.deleteMe();
@@ -545,7 +545,7 @@ public class VanHalterManager extends BossLair
 
 	protected void deleteRoyalGuardHepler()
 	{
-		for (L2NpcInstance tr : _royalGuardHepler)
+		for (L2Npc tr : _royalGuardHepler)
 		{
 			tr.getSpawn().stopRespawn();
 			tr.deleteMe();
@@ -621,7 +621,7 @@ public class VanHalterManager extends BossLair
 
 	protected void deleteGuardOfAltar()
 	{
-		for (L2NpcInstance tr : _guardOfAltar)
+		for (L2Npc tr : _guardOfAltar)
 		{
 			tr.getSpawn().stopRespawn();
 			tr.deleteMe();
@@ -1140,7 +1140,7 @@ public class VanHalterManager extends BossLair
 	{
 		L2Skill bleed = SkillTable.getInstance().getInfo(4615, 12);
 
-		for (L2NpcInstance tr : _triolRevelation)
+		for (L2Npc tr : _triolRevelation)
 		{
 			if (!tr.getKnownList().getKnownPlayersInRadius(tr.getAggroRange()).iterator().hasNext() || tr.isDead())
 				continue;

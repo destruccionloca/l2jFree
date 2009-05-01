@@ -16,13 +16,13 @@ package com.l2jfree.gameserver.model.actor.knownlist;
 
 import java.util.Map;
 
-import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2WorldRegion;
+import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Npc;
+import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.util.L2Collections;
 import com.l2jfree.util.SingletonMap;
@@ -162,7 +162,7 @@ public class CharKnownList extends ObjectKnownList
 					if (!Util.checkIfInRange(radius, getActiveChar(), obj, true))
 						return false;
 					
-					return obj instanceof L2PlayableInstance || obj instanceof L2NpcInstance;
+					return obj instanceof L2Playable || obj instanceof L2Npc;
 				}
 			});
 	}

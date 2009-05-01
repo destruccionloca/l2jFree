@@ -36,7 +36,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  * 
  * @author godson
  */
-public class L2OlympiadManagerInstance extends L2FolkInstance
+public class L2OlympiadManagerInstance extends L2NpcInstance
 {
 	private final static Log	_log		= LogFactory.getLog(L2OlympiadManagerInstance.class.getName());
 

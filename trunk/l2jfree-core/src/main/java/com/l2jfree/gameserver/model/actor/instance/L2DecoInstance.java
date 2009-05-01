@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.model.actor.instance;
 
 import com.l2jfree.gameserver.ai.CtrlIntention;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
@@ -22,7 +23,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  /**
  * @author squeezed
  */
-public final class L2DecoInstance extends L2NpcInstance
+public final class L2DecoInstance extends L2Npc
 {
     /**
      * Constructor of L2DecoInstance (use L2Character and L2NpcInstance constructor).<BR><BR>

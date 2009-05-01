@@ -14,7 +14,7 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.gameserver.model.L2Summon;
+import com.l2jfree.gameserver.model.actor.L2Summon;
 
 /**
  * This class ...

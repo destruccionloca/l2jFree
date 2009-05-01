@@ -16,8 +16,8 @@ package com.l2jfree.gameserver.handler.itemhandlers;
 
 import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.model.L2ItemInstance;
+import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 
 /**
  * @author -Nemesiss-
@@ -26,7 +26,7 @@ public final class FishShots implements IItemHandler
 {
 	private static final int[] ITEM_IDS = { 6535, 6536, 6537, 6538, 6539, 6540 };
 	
-	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
+	public void useItem(L2Playable playable, L2ItemInstance item)
 	{
 		if (playable instanceof L2PcInstance)
 			playable.getShots().chargeFishshot(item);

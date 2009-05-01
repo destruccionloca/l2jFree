@@ -23,7 +23,7 @@ import com.l2jfree.gameserver.instancemanager.grandbosses.SailrenManager;
 import com.l2jfree.gameserver.instancemanager.grandbosses.ValakasManager;
 import com.l2jfree.gameserver.instancemanager.grandbosses.VanHalterManager;
 import com.l2jfree.gameserver.instancemanager.lastimperialtomb.LastImperialTombManager;
-import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class L2BossZone extends L2Zone

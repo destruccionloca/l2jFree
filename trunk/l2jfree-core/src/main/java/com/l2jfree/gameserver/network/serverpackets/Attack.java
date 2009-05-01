@@ -14,8 +14,8 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
+import com.l2jfree.gameserver.model.actor.L2Character;
 
 public class Attack extends L2GameServerPacket
 {

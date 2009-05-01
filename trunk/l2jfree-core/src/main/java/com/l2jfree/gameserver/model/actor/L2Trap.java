@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.gameserver.model;
+package com.l2jfree.gameserver.model.actor;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
@@ -43,7 +43,7 @@ public class L2Trap extends L2Character
 
 	/**
 	 *
-	 * @see com.l2jfree.gameserver.model.L2Character#onSpawn()
+	 * @see com.l2jfree.gameserver.model.actor.L2Character#onSpawn()
 	 */
 	@Override
 	public void onSpawn()
@@ -53,7 +53,7 @@ public class L2Trap extends L2Character
 
 	/**
 	 *
-	 * @see com.l2jfree.gameserver.model.L2Object#onAction(com.l2jfree.gameserver.model.actor.instance.L2PcInstance)
+	 * @see com.l2jfree.gameserver.model.actor.L2Object#onAction(com.l2jfree.gameserver.model.actor.instance.L2PcInstance)
 	 */
 	@Override
 	public void onAction(L2PcInstance player)
@@ -74,7 +74,7 @@ public class L2Trap extends L2Character
 
 	/**
 	 *
-	 * @see com.l2jfree.gameserver.model.L2Character#onDecay()
+	 * @see com.l2jfree.gameserver.model.actor.L2Character#onDecay()
 	 */
 	@Override
 	public void onDecay()
@@ -93,7 +93,7 @@ public class L2Trap extends L2Character
 
 	/**
 	 *
-	 * @see com.l2jfree.gameserver.model.L2Object#isAutoAttackable(com.l2jfree.gameserver.model.L2Character)
+	 * @see com.l2jfree.gameserver.model.L2Object#isAutoAttackable(com.l2jfree.gameserver.model.actor.L2Character)
 	 */
 	@Override
 	public boolean isAutoAttackable(L2Character attacker)
@@ -130,7 +130,7 @@ public class L2Trap extends L2Character
 
 	/**
 	 *
-	 * @see com.l2jfree.gameserver.model.L2Character#getLevel()
+	 * @see com.l2jfree.gameserver.model.actor.L2Character#getLevel()
 	 */
 	@Override
 	public int getLevel()
@@ -155,7 +155,7 @@ public class L2Trap extends L2Character
 
 	/**
 	 *
-	 * @see com.l2jfree.gameserver.model.L2Character#getTemplate()
+	 * @see com.l2jfree.gameserver.model.actor.L2Character#getTemplate()
 	 */
 	@Override
 	public L2NpcTemplate getTemplate()

@@ -23,9 +23,10 @@ import javolution.util.FastMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.util.LinkedBunch;
 import com.l2jfree.util.concurrent.L2Collection;
@@ -426,21 +427,21 @@ public final class L2World
 	 * 
 	 * @param object L2object that determine the current L2WorldRegion
 	 */
-	public L2PlayableInstance[] getVisiblePlayable(L2Object object)
+	public L2Playable[] getVisiblePlayable(L2Object object)
 	{
 		if (object == null)
-			return L2PlayableInstance.EMPTY_ARRAY;
+			return L2Playable.EMPTY_ARRAY;
 		
 		final L2WorldRegion selfRegion = object.getWorldRegion();
 		
 		if (selfRegion == null)
-			return L2PlayableInstance.EMPTY_ARRAY;
+			return L2Playable.EMPTY_ARRAY;
 		
-		LinkedBunch<L2PlayableInstance> result = new LinkedBunch<L2PlayableInstance>();
+		LinkedBunch<L2Playable> result = new LinkedBunch<L2Playable>();
 		
 		for (L2WorldRegion region : selfRegion.getSurroundingRegions())
 		{
-			for (L2PlayableInstance obj : region.getVisiblePlayables())
+			for (L2Playable obj : region.getVisiblePlayables())
 			{
 				if (obj == null || obj == object || !obj.isVisible())
 					continue;
@@ -449,7 +450,7 @@ public final class L2World
 			}
 		}
 		
-		return result.moveToArray(new L2PlayableInstance[result.size()]);
+		return result.moveToArray(new L2Playable[result.size()]);
 	}
 	
 	/**

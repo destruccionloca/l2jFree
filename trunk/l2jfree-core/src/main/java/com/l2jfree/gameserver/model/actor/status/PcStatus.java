@@ -14,10 +14,10 @@
  */
 package com.l2jfree.gameserver.model.actor.status;
 
-import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.L2Summon;
+import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Playable;
+import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -57,7 +57,7 @@ public final class PcStatus extends CharStatus
 				}
 			}
 			
-			if (attacker instanceof L2PlayableInstance)
+			if (attacker instanceof L2Playable)
 			{
 				if (getCurrentCp() >= value)
 				{

@@ -25,12 +25,12 @@ import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.datatables.TradeListTable;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2TradeList;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2CastleChamberlainInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2ClanHallManagerInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2FishermanInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MercManagerInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MerchantInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetManagerInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -113,7 +113,7 @@ public class RequestBuyItem extends L2GameClientPacket
 		if (!player.isGM() && // Player not GM
 				(!(target instanceof L2MerchantInstance || // Target not a merchant, fisherman or mercmanager
 						target instanceof L2FishermanInstance || target instanceof L2MercManagerInstance || target instanceof L2ClanHallManagerInstance || target instanceof L2CastleChamberlainInstance) || !player
-						.isInsideRadius(target, L2NpcInstance.INTERACTION_DISTANCE, false, false))) // Distance is too far
+						.isInsideRadius(target, L2Npc.INTERACTION_DISTANCE, false, false))) // Distance is too far
 			return;
 
 		String htmlFolder = "";
@@ -130,9 +130,9 @@ public class RequestBuyItem extends L2GameClientPacket
 				return;
 		}
 
-		L2NpcInstance merchant = null;
-		if (target instanceof L2NpcInstance)
-			merchant = (L2NpcInstance) target;
+		L2Npc merchant = null;
+		if (target instanceof L2Npc)
+			merchant = (L2Npc) target;
 
 		L2TradeList list = null;
 

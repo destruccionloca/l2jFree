@@ -102,7 +102,7 @@ public abstract class Shape
 			type = sn.getAttributes().getNamedItem("type").getNodeValue();
 			clazz = Class.forName("com.l2jfree.gameserver.model.zone.form.Shape"+type);
 			constructor = clazz.getConstructor();
-			shape = (Shape)constructor.newInstance();
+			shape = (Shape) constructor.newInstance();
 		}
 		catch (Exception e)
 		{
@@ -123,28 +123,28 @@ public abstract class Shape
 			}
 		}
 
-		if("Cylinder".equalsIgnoreCase(type))
+		if ("Cylinder".equalsIgnoreCase(type))
 		{
 			try
 			{
 				int rad = Integer.parseInt(sn.getAttributes().getNamedItem("radius").getNodeValue());
-				((ShapeCylinder)shape).setRadius(rad);
+				((ShapeCylinder) shape).setRadius(rad);
 			}
-			catch(Exception e)
+			catch (Exception e)
 			{
 				_log.warn("missing or wrong radius for cylinder in zone "+zoneId);
 				return null;
 			}
 		}
-		else if("ExCylinder".equalsIgnoreCase(type))
+		else if ("ExCylinder".equalsIgnoreCase(type))
 		{
 			try
 			{
 				int innerRad = Integer.parseInt(sn.getAttributes().getNamedItem("innerRadius").getNodeValue());
 				int outerRad = Integer.parseInt(sn.getAttributes().getNamedItem("outerRadius").getNodeValue());
-				((ShapeExCylinder)shape).setRadius(innerRad, outerRad);
+				((ShapeExCylinder) shape).setRadius(innerRad, outerRad);
 			}
-			catch(Exception e)
+			catch (Exception e)
 			{
 				_log.warn("missing or wrong radius for cylinder in zone "+zoneId);
 				return null;
@@ -153,7 +153,7 @@ public abstract class Shape
 
 		Node z1 = sn.getAttributes().getNamedItem("zMin");
 		Node z2 = sn.getAttributes().getNamedItem("zMax");
-		if(z1 != null && z2 != null)
+		if (z1 != null && z2 != null)
 		{
 			try
 			{
@@ -161,7 +161,7 @@ public abstract class Shape
 				shape._zMax  = Integer.parseInt(z2.getNodeValue());
 				shape._z = true;
 			}
-			catch(NumberFormatException nfe)
+			catch (NumberFormatException nfe)
 			{
 				_log.error("zMin or zMax value not a number in zone "+zoneId);
 				return null;

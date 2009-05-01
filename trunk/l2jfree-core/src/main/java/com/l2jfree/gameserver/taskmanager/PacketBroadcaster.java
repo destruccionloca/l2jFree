@@ -18,9 +18,9 @@
  */
 package com.l2jfree.gameserver.taskmanager;
 
-import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 
 /**
  * @author NB4L1
@@ -40,7 +40,7 @@ public final class PacketBroadcaster extends AbstractFIFOPeriodicTaskManager<L2C
 			@Override
 			protected void sendPacket(L2Character cha)
 			{
-				((L2PlayableInstance)cha).updateEffectIconsImpl();
+				((L2Playable)cha).updateEffectIconsImpl();
 			}
 		},
 		BROADCAST_STATUS_UPDATE {

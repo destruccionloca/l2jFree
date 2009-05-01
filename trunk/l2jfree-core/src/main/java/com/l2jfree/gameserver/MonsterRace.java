@@ -22,14 +22,14 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.idfactory.IdFactory;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.tools.random.Rnd;
 
 public class MonsterRace
 {
 	private final static Log	_log	= LogFactory.getLog(MonsterRace.class);
-	private L2NpcInstance[]		_monsters;
+	private L2Npc[]				_monsters;
 	private static MonsterRace	_instance;
 	private Constructor<?>		_constructor;
 	private int[][]				_speeds;
@@ -37,7 +37,7 @@ public class MonsterRace
 
 	private MonsterRace()
 	{
-		_monsters = new L2NpcInstance[8];
+		_monsters = new L2Npc[8];
 		_speeds = new int[8][20];
 		_first = new int[2];
 		_second = new int[2];
@@ -76,7 +76,7 @@ public class MonsterRace
 				L2NpcTemplate template = NpcTable.getInstance().getTemplate(id + random);
 				_constructor = Class.forName("com.l2jfree.gameserver.model.actor.instance." + template.getType() + "Instance").getConstructors()[0];
 				int objectId = IdFactory.getInstance().getNextId();
-				_monsters[i] = (L2NpcInstance) _constructor.newInstance(objectId, template);
+				_monsters[i] = (L2Npc) _constructor.newInstance(objectId, template);
 			}
 			catch (Exception e)
 			{
@@ -121,7 +121,7 @@ public class MonsterRace
 	/**
 	 * @return Returns the monsters.
 	 */
-	public L2NpcInstance[] getMonsters()
+	public L2Npc[] getMonsters()
 	{
 		return _monsters;
 	}

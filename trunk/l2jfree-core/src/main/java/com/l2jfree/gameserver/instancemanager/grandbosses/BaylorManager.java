@@ -28,7 +28,7 @@ import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.SpawnTable;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Spawn;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.GrandBossState;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
@@ -61,7 +61,7 @@ public class BaylorManager extends BossLair
 	};
 
 	protected List<L2Spawn>			_baylorCubeSpawn			= new FastList<L2Spawn>();
-	protected List<L2NpcInstance>	_baylorCube					= new FastList<L2NpcInstance>();
+	protected List<L2Npc>	_baylorCube					= new FastList<L2Npc>();
 
 	// Spawn data of monsters
 	protected L2Spawn				_crystalineSpawn1;												// Crystaline1
@@ -75,15 +75,15 @@ public class BaylorManager extends BossLair
 	protected L2Spawn				_baylorSapwn;													// Baylor
 
 	// Instance of monsters
-	protected L2NpcInstance			_crystaline1;													// Crystaline1
-	protected L2NpcInstance			_crystaline2;													// Crystaline2
-	protected L2NpcInstance			_crystaline3;													// Crystaline3
-	protected L2NpcInstance			_crystaline4;													// Crystaline4
-	protected L2NpcInstance			_crystaline5;													// Crystaline5
-	protected L2NpcInstance			_crystaline6;													// Crystaline6
-	protected L2NpcInstance			_crystaline7;													// Crystaline7
-	protected L2NpcInstance			_crystaline8;													// Crystaline8
-	protected L2NpcInstance			_baylor;														// Baylor
+	protected L2Npc			_crystaline1;													// Crystaline1
+	protected L2Npc			_crystaline2;													// Crystaline2
+	protected L2Npc			_crystaline3;													// Crystaline3
+	protected L2Npc			_crystaline4;													// Crystaline4
+	protected L2Npc			_crystaline5;													// Crystaline5
+	protected L2Npc			_crystaline6;													// Crystaline6
+	protected L2Npc			_crystaline7;													// Crystaline7
+	protected L2Npc			_crystaline8;													// Crystaline8
+	protected L2Npc			_baylor;														// Baylor
 
 	// Tasks
 	protected ScheduledFuture<?>	_cubeSpawnTask				= null;
@@ -359,7 +359,7 @@ public class BaylorManager extends BossLair
 		banishForeigners();
 
 		// Delete teleport cube.
-		for (L2NpcInstance cube : _baylorCube)
+		for (L2Npc cube : _baylorCube)
 		{
 			cube.getSpawn().stopRespawn();
 			cube.deleteMe();
@@ -537,9 +537,9 @@ public class BaylorManager extends BossLair
 	// Limit of time coming.
 	private class ActivityTimeEnd implements Runnable
 	{
-		private L2NpcInstance	_mob;
+		private L2Npc	_mob;
 
-		public ActivityTimeEnd(L2NpcInstance npc)
+		public ActivityTimeEnd(L2Npc npc)
 		{
 			_mob = npc;
 		}
@@ -571,9 +571,9 @@ public class BaylorManager extends BossLair
 	private class Social implements Runnable
 	{
 		private int				_action;
-		private L2NpcInstance	_npc;
+		private L2Npc	_npc;
 
-		public Social(L2NpcInstance npc, int actionId)
+		public Social(L2Npc npc, int actionId)
 		{
 			_npc = npc;
 			_action = actionId;

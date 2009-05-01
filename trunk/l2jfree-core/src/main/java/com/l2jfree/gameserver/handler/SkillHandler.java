@@ -57,8 +57,8 @@ import com.l2jfree.gameserver.handler.skillhandlers.TakeFort;
 import com.l2jfree.gameserver.handler.skillhandlers.TransformDispel;
 import com.l2jfree.gameserver.handler.skillhandlers.Trap;
 import com.l2jfree.gameserver.handler.skillhandlers.Unlock;
-import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.util.HandlerRegistry;
 

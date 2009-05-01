@@ -29,7 +29,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  * @version $Revision: $ $Date: $
  * @author  LBaldi
  */
-public class L2AdventurerInstance extends L2FolkInstance
+public class L2AdventurerInstance extends L2NpcInstance
 {
     private final static Log _log = LogFactory.getLog(L2AdventurerInstance.class.getName());
 

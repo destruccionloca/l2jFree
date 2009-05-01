@@ -14,7 +14,7 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.L2GameClient;
 
@@ -25,12 +25,12 @@ import com.l2jfree.gameserver.network.L2GameClient;
 public final class ServerObjectInfo extends L2GameServerPacket
 {
 	private static final String _S__92_SERVEROBJECTINFO = "[S] 92 ServerObjectInfo";
-	private L2NpcInstance _activeChar;
+	private L2Npc _activeChar;
 	private int _x, _y, _z, _heading;
 	private int _idTemplate;
 	private int _collisionHeight, _collisionRadius;
 
-	public ServerObjectInfo(L2NpcInstance activeChar)
+	public ServerObjectInfo(L2Npc activeChar)
 	{
 		_activeChar = activeChar;
 		_idTemplate = _activeChar.getTemplate().getIdTemplate();

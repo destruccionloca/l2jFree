@@ -37,7 +37,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  * 
  * @author Tempy
  */
-public class L2SignsPriestInstance extends L2FolkInstance
+public class L2SignsPriestInstance extends L2NpcInstance
 {
     private final static Log _log = LogFactory.getLog(L2SignsPriestInstance.class.getName());
     

@@ -23,10 +23,13 @@ import com.l2jfree.gameserver.SevenSignsFestival;
 import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.instancemanager.DuelManager;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.L2Attackable;
+import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Npc;
+import com.l2jfree.gameserver.model.actor.L2Playable;
+import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.model.entity.DimensionalRift;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -681,10 +684,10 @@ public class L2Party
 	 * @param rewardedMembers The list of L2PcInstance to reward
 	 * 
 	 */
-    public void distributeXpAndSp(long xpReward, int spReward, List<L2PlayableInstance> rewardedMembers, int topLvl, L2NpcInstance target, int partyDmg, boolean isChampion)
+    public void distributeXpAndSp(long xpReward, int spReward, List<L2Playable> rewardedMembers, int topLvl, L2Npc target, int partyDmg, boolean isChampion)
     {
         L2SummonInstance summon = null;
-        List<L2PlayableInstance> validMembers = getValidMembers(rewardedMembers, topLvl);
+        List<L2Playable> validMembers = getValidMembers(rewardedMembers, topLvl);
         
         float penalty;
         double sqLevel;
@@ -695,7 +698,7 @@ public class L2Party
 		spReward *= getSpBonus(validMembers.size());
 
         double sqLevelSum = 0;
-        for (L2PlayableInstance character : validMembers)
+        for (L2Playable character : validMembers)
             sqLevelSum += (character.getLevel() * character.getLevel());
         
         // Go through the L2PcInstances and L2PetInstances (not L2SummonInstances) that must be rewarded
@@ -803,14 +806,14 @@ public class L2Party
 		_partyLvl = newLevel;
 	}
 	
-	private List<L2PlayableInstance> getValidMembers(List<L2PlayableInstance> members, int topLvl)
+	private List<L2Playable> getValidMembers(List<L2Playable> members, int topLvl)
 	{
-		List<L2PlayableInstance> validMembers = new FastList<L2PlayableInstance>();
+		List<L2Playable> validMembers = new FastList<L2Playable>();
 		
 //      Fixed LevelDiff cutoff point
         if (Config.PARTY_XP_CUTOFF_METHOD.equalsIgnoreCase("level"))
         {
-        	for (L2PlayableInstance member : members)
+        	for (L2Playable member : members)
 			{
 				if (topLvl - member.getLevel() <= Config.PARTY_XP_CUTOFF_LEVEL)
 					validMembers.add(member);
@@ -820,12 +823,12 @@ public class L2Party
         else if (Config.PARTY_XP_CUTOFF_METHOD.equalsIgnoreCase("percentage")) 
         {
             int sqLevelSum = 0;
-            for (L2PlayableInstance member : members)
+            for (L2Playable member : members)
 			{
 				sqLevelSum += (member.getLevel() * member.getLevel());
 			}
 			
-            for (L2PlayableInstance member : members)
+            for (L2Playable member : members)
 			{
 				int sqLevel = member.getLevel() * member.getLevel();
 				if (sqLevel * 100 >= sqLevelSum * Config.PARTY_XP_CUTOFF_PERCENT)
@@ -836,7 +839,7 @@ public class L2Party
         else if (Config.PARTY_XP_CUTOFF_METHOD.equalsIgnoreCase("auto")) 
         {
             int sqLevelSum = 0;
-            for (L2PlayableInstance member : members)
+            for (L2Playable member : members)
 			{
 				sqLevelSum += (member.getLevel() * member.getLevel());
 			}
@@ -845,7 +848,7 @@ public class L2Party
 			if (i < 1 ) return members;
             if (i >= BONUS_EXP_SP.length) i = BONUS_EXP_SP.length -1;
 
-            for (L2PlayableInstance member : members)
+            for (L2Playable member : members)
 			{
 				int sqLevel = member.getLevel() * member.getLevel();
 				if (sqLevel >= sqLevelSum * (1-1/(1 +BONUS_EXP_SP[i] -BONUS_EXP_SP[i-1])))

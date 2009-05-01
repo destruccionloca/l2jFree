@@ -30,7 +30,8 @@ import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.ThreadPoolManager;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
@@ -184,19 +185,19 @@ public class AutoChatHandler implements SpawnListener
      * @param chatDelay (-1 = default delay)
      * @return AutoChatInstance chatInst
      */
-    public AutoChatInstance registerChat(L2NpcInstance npcInst, String[] chatTexts,
+    public AutoChatInstance registerChat(L2Npc npcInst, String[] chatTexts,
 			 long chatDelay)
     {
     	return registerChat(npcInst.getNpcId(), npcInst, chatTexts, chatDelay, DEFAULT_CHAT_RANGE, false);
     }
     
-    public AutoChatInstance registerChat(L2NpcInstance npcInst, String[] chatTexts,
+    public AutoChatInstance registerChat(L2Npc npcInst, String[] chatTexts,
     									 long chatDelay, int chatRange, boolean chatRandom)
     {
         return registerChat(npcInst.getNpcId(), npcInst, chatTexts, chatDelay, chatRange, chatRandom);
     }
 
-    private final AutoChatInstance registerChat(int npcId, L2NpcInstance npcInst, String[] chatTexts,
+    private final AutoChatInstance registerChat(int npcId, L2Npc npcInst, String[] chatTexts,
                                                 long chatDelay, int chatRange, boolean chatRandom)
     {
         AutoChatInstance chatInst = null;
@@ -300,7 +301,7 @@ public class AutoChatHandler implements SpawnListener
      * If an auto chat instance is set to be "global", all instances matching the registered
      * NPC ID will be added to that chat instance.
      */
-    public void npcSpawned(L2NpcInstance npc)
+    public void npcSpawned(L2Npc npc)
     {
         synchronized (_registeredChats)
         {
@@ -376,7 +377,7 @@ public class AutoChatHandler implements SpawnListener
          * @param npcInst
          * @return int objectId
          */
-        public int addChatDefinition(L2NpcInstance npcInst)
+        public int addChatDefinition(L2Npc npcInst)
         {
             return addChatDefinition(npcInst, null, 0);
         }
@@ -393,7 +394,7 @@ public class AutoChatHandler implements SpawnListener
          * @param chatDelay
          * @return int objectId
          */
-        public int addChatDefinition(L2NpcInstance npcInst, String[] chatTexts, long chatDelay)
+        public int addChatDefinition(L2Npc npcInst, String[] chatTexts, long chatDelay)
         {
             int objectId = npcInst.getObjectId();
             AutoChatDefinition chatDef = new AutoChatDefinition(this, npcInst, chatTexts, chatDelay);
@@ -486,16 +487,16 @@ public class AutoChatHandler implements SpawnListener
         /**
          * Returns a list of all NPC instances handled by this auto chat instance.
          * 
-         * @return L2NpcInstance[] npcInsts
+         * @return L2Npc[] npcInsts
          */
-        public L2NpcInstance[] getNPCInstanceList()
+        public L2Npc[] getNPCInstanceList()
         {
-            FastList<L2NpcInstance> npcInsts = new FastList<L2NpcInstance>();
+            FastList<L2Npc> npcInsts = new FastList<L2Npc>();
 
             for (AutoChatDefinition chatDefinition : _chatDefinitions.values())
                 npcInsts.add(chatDefinition._npcInstance);
 
-            return npcInsts.toArray(new L2NpcInstance[npcInsts.size()]);
+            return npcInsts.toArray(new L2Npc[npcInsts.size()]);
         }
 
         /**
@@ -632,7 +633,7 @@ public class AutoChatHandler implements SpawnListener
         private class AutoChatDefinition
         {
             protected int _chatIndex = 0;
-            protected L2NpcInstance _npcInstance;
+            protected L2Npc _npcInstance;
 
             protected AutoChatInstance _chatInstance;
 
@@ -642,7 +643,7 @@ public class AutoChatHandler implements SpawnListener
             private boolean _isActiveDefinition;
             private boolean _randomChat;
 
-            protected AutoChatDefinition(AutoChatInstance chatInst, L2NpcInstance npcInst,
+            protected AutoChatDefinition(AutoChatInstance chatInst, L2Npc npcInst,
                                          String[] chatTexts, long chatDelay)
             {
                 _npcInstance = npcInst;
@@ -663,7 +664,7 @@ public class AutoChatHandler implements SpawnListener
                 if (!chatInst.isGlobal()) setActive(true);
             }
 
-            protected AutoChatDefinition(AutoChatInstance chatInst, L2NpcInstance npcInst)
+            protected AutoChatDefinition(AutoChatInstance chatInst, L2Npc npcInst)
             {
                 this(chatInst, npcInst, null, -1);
             }
@@ -782,7 +783,7 @@ public class AutoChatHandler implements SpawnListener
                 {
                     try
                     {
-                        L2NpcInstance chatNpc = chatDef._npcInstance;
+                        L2Npc chatNpc = chatDef._npcInstance;
                         FastList<L2PcInstance> nearbyPlayers = new FastList<L2PcInstance>();
                         
                         for (L2Character player : chatNpc.getKnownList().getKnownCharactersInRadius(chatDef._chatRange))

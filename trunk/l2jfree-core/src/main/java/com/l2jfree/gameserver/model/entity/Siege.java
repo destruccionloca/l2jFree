@@ -44,8 +44,8 @@ import com.l2jfree.gameserver.model.L2SiegeClan;
 import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.L2SiegeClan.SiegeClanType;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2ControlTowerInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.model.zone.L2SiegeDangerZone;
@@ -757,7 +757,7 @@ public class Siege extends AbstractSiege
 
     /** Control Tower was skilled
      * @param ct */
-    public void killedCT(L2NpcInstance ct)
+    public void killedCT(L2Npc ct)
     {
         _controlTowerCount--;
         if (_controlTowerCount < 0)
@@ -765,7 +765,7 @@ public class Siege extends AbstractSiege
     }
 
     /** Remove the flag that was killed */
-    public void killedFlag(L2NpcInstance flag)
+    public void killedFlag(L2Npc flag)
     {
         if (flag == null)
             return;
@@ -1467,7 +1467,7 @@ public class Siege extends AbstractSiege
         }
     }
 
-    public Set<L2NpcInstance> getFlag(L2Clan clan)
+    public Set<L2Npc> getFlag(L2Clan clan)
     {
         if (clan != null)
         {
@@ -1477,7 +1477,7 @@ public class Siege extends AbstractSiege
         return null;
     }
 
-    public L2NpcInstance getClosestFlag(L2Object obj)
+    public L2Npc getClosestFlag(L2Object obj)
     {
     	if (( obj != null) && (obj instanceof L2PcInstance))
     	{

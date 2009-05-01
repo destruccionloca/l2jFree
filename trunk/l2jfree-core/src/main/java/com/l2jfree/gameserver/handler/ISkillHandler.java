@@ -17,8 +17,8 @@ package com.l2jfree.gameserver.handler;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
 public interface ISkillHandler

@@ -19,7 +19,7 @@ package com.l2jfree.gameserver.model;
   * 
   */
 
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 
 /**
  * This class ...
@@ -29,5 +29,5 @@ import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 
 public interface SpawnListener
 {
-    public void npcSpawned(L2NpcInstance npc);
+    public void npcSpawned(L2Npc npc);
 }

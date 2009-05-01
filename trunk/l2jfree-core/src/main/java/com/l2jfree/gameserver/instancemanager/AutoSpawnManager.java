@@ -33,7 +33,7 @@ import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.SpawnTable;
 import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.model.L2Spawn;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.entity.Town;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.model.Location;
@@ -498,7 +498,7 @@ public class AutoSpawnManager
 
 				// Add the new spawn information to the spawn table, but do not store it.
 				SpawnTable.getInstance().addNewSpawn(newSpawn, false);
-				L2NpcInstance npcInst = null;
+				L2Npc npcInst = null;
 
 				if (spawnInst._spawnCount == 1)
 				{
@@ -572,7 +572,7 @@ public class AutoSpawnManager
 			{
 				AutoSpawnInstance spawnInst = _registeredSpawns.get(_objectId);
 
-				for (L2NpcInstance npcInst : spawnInst.getNPCInstanceList())
+				for (L2Npc npcInst : spawnInst.getNPCInstanceList())
 				{
 					npcInst.deleteMe();
 					spawnInst.removeNpcInstance(npcInst);
@@ -607,7 +607,7 @@ public class AutoSpawnManager
 		protected int					_spawnCount				= 1;
 		protected int					_lastLocIndex			= -1;
 
-		private final FastList<L2NpcInstance>	_npcList				= new FastList<L2NpcInstance>();
+		private final FastList<L2Npc>	_npcList				= new FastList<L2Npc>();
 		private FastList<Location>		_locList				= new FastList<Location>();
 
 		private boolean					_spawnActive;
@@ -627,12 +627,12 @@ public class AutoSpawnManager
 			_spawnActive = activeValue;
 		}
 
-		protected boolean addNpcInstance(L2NpcInstance npcInst)
+		protected boolean addNpcInstance(L2Npc npcInst)
 		{
 			return _npcList.add(npcInst);
 		}
 
-		protected boolean removeNpcInstance(L2NpcInstance npcInst)
+		protected boolean removeNpcInstance(L2Npc npcInst)
 		{
 			return _npcList.remove(npcInst);
 		}
@@ -672,12 +672,12 @@ public class AutoSpawnManager
 			return _locList.toArray(new Location[_locList.size()]);
 		}
 
-		public L2NpcInstance[] getNPCInstanceList()
+		public L2Npc[] getNPCInstanceList()
 		{
-			L2NpcInstance[] ret;
+			L2Npc[] ret;
 			synchronized (_npcList)
 			{
-				ret = new L2NpcInstance[_npcList.size()];
+				ret = new L2Npc[_npcList.size()];
 				_npcList.toArray(ret);
 			}
 
@@ -688,7 +688,7 @@ public class AutoSpawnManager
 		{
 			FastList<L2Spawn> npcSpawns = new FastList<L2Spawn>();
 
-			for (L2NpcInstance npcInst : _npcList)
+			for (L2Npc npcInst : _npcList)
 				npcSpawns.add(npcInst.getSpawn());
 
 			return npcSpawns.toArray(new L2Spawn[npcSpawns.size()]);

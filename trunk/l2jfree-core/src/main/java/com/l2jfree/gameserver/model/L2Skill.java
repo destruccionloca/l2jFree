@@ -30,15 +30,18 @@ import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.instancemanager.CoupleManager;
 import com.l2jfree.gameserver.instancemanager.FourSepulchersManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
+import com.l2jfree.gameserver.model.actor.L2Attackable;
+import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Npc;
+import com.l2jfree.gameserver.model.actor.L2Playable;
+import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2ArtefactInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2ChestInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.model.base.ClassId;
 import com.l2jfree.gameserver.model.entity.Couple;
@@ -1807,7 +1810,7 @@ public class L2Skill implements FuncOwner
 			// Go through the L2Character _knownList
 			for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
 			{
-				if (obj instanceof L2Attackable || obj instanceof L2PlayableInstance)
+				if (obj instanceof L2Attackable || obj instanceof L2Playable)
 				{
 					L2Character cha = (L2Character) obj;
 					boolean targetInPvP = cha.isInsideZone(L2Zone.FLAG_PVP) && !cha.isInsideZone(L2Zone.FLAG_SIEGE);
@@ -1854,9 +1857,9 @@ public class L2Skill implements FuncOwner
 						}
 					}
 					else
-					// Skill user is not L2PlayableInstance
+					// Skill user is not L2Playable
 					{
-						if (!(obj instanceof L2PlayableInstance) // Target is not L2PlayableInstance
+						if (!(obj instanceof L2Playable) // Target is not L2Playable
 								&& !activeChar.isConfused()) // and caster not confused (?)
 							continue;
 					}
@@ -1891,7 +1894,7 @@ public class L2Skill implements FuncOwner
 			// Go through the L2Character _knownList
 			for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
 			{
-				if (obj instanceof L2Attackable || obj instanceof L2PlayableInstance)
+				if (obj instanceof L2Attackable || obj instanceof L2Playable)
 				{
 					L2Character cha = (L2Character) obj;
 
@@ -1942,9 +1945,9 @@ public class L2Skill implements FuncOwner
 						}
 					}
 					else
-					// Skill user is not L2PlayableInstance
+					// Skill user is not L2Playable
 					{
-						if (!(obj instanceof L2PlayableInstance) // Target is not L2PlayableInstance
+						if (!(obj instanceof L2Playable) // Target is not L2Playable
 								&& !activeChar.isConfused()) // and caster not confused (?)
 							continue;
 					}
@@ -1970,7 +1973,7 @@ public class L2Skill implements FuncOwner
 			// Go through the L2Character _knownList
 			for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
 			{
-				if (obj instanceof L2Attackable || obj instanceof L2PlayableInstance)
+				if (obj instanceof L2Attackable || obj instanceof L2Playable)
 				{
 					L2Character cha = (L2Character) obj;
 
@@ -2021,9 +2024,9 @@ public class L2Skill implements FuncOwner
 						}
 					}
 					else
-					// Skill user is not L2PlayableInstance
+					// Skill user is not L2Playable
 					{
-						if (!(obj instanceof L2PlayableInstance) // Target is not L2PlayableInstance
+						if (!(obj instanceof L2Playable) // Target is not L2Playable
 								&& !activeChar.isConfused()) // and caster not confused (?)
 							continue;
 					}
@@ -2041,7 +2044,7 @@ public class L2Skill implements FuncOwner
 		}
 		case TARGET_AREA:
 		{
-			if ((!(target instanceof L2Attackable || target instanceof L2PlayableInstance)) || // Target is not L2Attackable or L2PlayableInstance
+			if ((!(target instanceof L2Attackable || target instanceof L2Playable)) || // Target is not L2Attackable or L2Playable
 					(getCastRange() >= 0 && (target == activeChar || target.isAlikeDead()))) // target is null or self or dead/faking
 			{
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
@@ -2063,7 +2066,7 @@ public class L2Skill implements FuncOwner
 			else
 				cha = activeChar;
 
-			boolean effectOriginIsL2PlayableInstance = (cha instanceof L2PlayableInstance);
+			boolean effectOriginIsL2Playable = (cha instanceof L2Playable);
 			boolean srcIsSummon = (activeChar instanceof L2Summon);
 						
 			L2PcInstance src = activeChar.getActingPlayer();
@@ -2074,7 +2077,7 @@ public class L2Skill implements FuncOwner
 
 			for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
 			{
-				if (!(obj instanceof L2Attackable || obj instanceof L2PlayableInstance))
+				if (!(obj instanceof L2Attackable || obj instanceof L2Playable))
 					continue;
 				if (obj == cha)
 					continue;
@@ -2088,7 +2091,7 @@ public class L2Skill implements FuncOwner
 				{
 					if (!Util.checkIfInRange(radius, obj, cha, true))
 						continue;
-					if (src != null) // caster is l2playableinstance and exists
+					if (src != null) // caster is L2Playable and exists
 					{
 						if (obj instanceof L2PcInstance)
 						{
@@ -2145,10 +2148,10 @@ public class L2Skill implements FuncOwner
 						}
 					}
 					else
-					// Skill user is not L2PlayableInstance
+					// Skill user is not L2Playable
 					{
-						if (effectOriginIsL2PlayableInstance && // If effect starts at L2PlayableInstance and
-								!(obj instanceof L2PlayableInstance)) // Object is not L2PlayableInstance
+						if (effectOriginIsL2Playable && // If effect starts at L2Playable and
+								!(obj instanceof L2Playable)) // Object is not L2Playable
 							continue;
 					}
 
@@ -2163,7 +2166,7 @@ public class L2Skill implements FuncOwner
 		}
 		case TARGET_FRONT_AREA:
 		{
-			if ((!(target instanceof L2Attackable || target instanceof L2PlayableInstance)) || //   Target is not L2Attackable or L2PlayableInstance
+			if ((!(target instanceof L2Attackable || target instanceof L2Playable)) || //   Target is not L2Attackable or L2Playable
 					(getCastRange() >= 0 && (target == activeChar || target.isAlikeDead()))) //target is null or self or dead/faking
 			{
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
@@ -2185,7 +2188,7 @@ public class L2Skill implements FuncOwner
 			else
 				cha = activeChar;
 
-			boolean effectOriginIsL2PlayableInstance = (cha instanceof L2PlayableInstance);
+			boolean effectOriginIsL2Playable = (cha instanceof L2Playable);
 
 			L2PcInstance src = activeChar.getActingPlayer();
 
@@ -2198,7 +2201,7 @@ public class L2Skill implements FuncOwner
 				if (obj == cha)
 					continue;
 
-				if (!(obj instanceof L2Attackable || obj instanceof L2PlayableInstance))
+				if (!(obj instanceof L2Attackable || obj instanceof L2Playable))
 					continue;
 
 				target = (L2Character) obj;
@@ -2214,7 +2217,7 @@ public class L2Skill implements FuncOwner
 					if (!GeoData.getInstance().canSeeTarget(activeChar, target))
 						continue;
 
-					if (src != null) // caster is l2playableinstance and exists
+					if (src != null) // caster is L2Playable and exists
 					{
 						boolean targetInPvP = target.isInsideZone(L2Zone.FLAG_PVP) && !target.isInsideZone(L2Zone.FLAG_SIEGE);
 						if (obj instanceof L2PcInstance)
@@ -2272,10 +2275,10 @@ public class L2Skill implements FuncOwner
 						}
 					}
 					else
-					// Skill user is not L2PlayableInstance
+					// Skill user is not L2Playable
 					{
-						if (effectOriginIsL2PlayableInstance && // If effect starts at L2PlayableInstance and
-								!(obj instanceof L2PlayableInstance)) // Object is not L2PlayableInstance
+						if (effectOriginIsL2Playable && // If effect starts at L2Playable and
+								!(obj instanceof L2Playable)) // Object is not L2Playable
 							continue;
 					}
 
@@ -2290,7 +2293,7 @@ public class L2Skill implements FuncOwner
 		}
 		case TARGET_BEHIND_AREA:
 		{
-			if ((!(target instanceof L2Attackable || target instanceof L2PlayableInstance)) || //   Target is not L2Attackable or L2PlayableInstance
+			if ((!(target instanceof L2Attackable || target instanceof L2Playable)) || //   Target is not L2Attackable or L2Playable
 					(getCastRange() >= 0 && (target == activeChar || target.isAlikeDead()))) //target is null or self or dead/faking
 			{
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
@@ -2312,7 +2315,7 @@ public class L2Skill implements FuncOwner
 			else
 				cha = activeChar;
 
-			boolean effectOriginIsL2PlayableInstance = (cha instanceof L2PlayableInstance);
+			boolean effectOriginIsL2Playable = (cha instanceof L2Playable);
 
 			L2PcInstance src = activeChar.getActingPlayer();
 
@@ -2324,7 +2327,7 @@ public class L2Skill implements FuncOwner
 			{
 				if (obj == cha)
 					continue;
-				if (!(obj instanceof L2Attackable || obj instanceof L2PlayableInstance))
+				if (!(obj instanceof L2Attackable || obj instanceof L2Playable))
 					continue;
 				target = (L2Character) obj;
 
@@ -2339,7 +2342,7 @@ public class L2Skill implements FuncOwner
 					if (!GeoData.getInstance().canSeeTarget(activeChar, target))
 						continue;
 
-					if (src != null) // caster is l2playableinstance and exists
+					if (src != null) // caster is L2Playable and exists
 					{
 						boolean targetInPvP = target.isInsideZone(L2Zone.FLAG_PVP) && !target.isInsideZone(L2Zone.FLAG_SIEGE);
 						if (obj instanceof L2PcInstance)
@@ -2398,10 +2401,10 @@ public class L2Skill implements FuncOwner
 						}
 					}
 					else
-					// Skill user is not L2PlayableInstance
+					// Skill user is not L2Playable
 					{
-						// If effect starts at L2PlayableInstance and object is not L2PlayableInstance
-						if (effectOriginIsL2PlayableInstance && !(obj instanceof L2PlayableInstance))
+						// If effect starts at L2Playable and object is not L2Playable
+						if (effectOriginIsL2Playable && !(obj instanceof L2Playable))
 							continue;
 					}
 
@@ -2418,7 +2421,7 @@ public class L2Skill implements FuncOwner
 		{
 			L2Character cha;
 			int radius = getSkillRadius();
-			if (getCastRange() >= 0 && (target instanceof L2NpcInstance || target instanceof L2SummonInstance) && target.isUndead() && !target.isAlikeDead())
+			if (getCastRange() >= 0 && (target instanceof L2Npc || target instanceof L2SummonInstance) && target.isUndead() && !target.isAlikeDead())
 			{
 				cha = target;
 
@@ -2433,8 +2436,8 @@ public class L2Skill implements FuncOwner
 
 			for (L2Object obj : cha.getKnownList().getKnownObjects().values())
 			{
-				if (obj instanceof L2NpcInstance)
-					target = (L2NpcInstance) obj;
+				if (obj instanceof L2Npc)
+					target = (L2Npc) obj;
 				else if (obj instanceof L2SummonInstance)
 					target = (L2SummonInstance) obj;
 				else
@@ -2584,7 +2587,7 @@ public class L2Skill implements FuncOwner
 		case TARGET_CORPSE_ALLY:
 		case TARGET_ALLY:
 		{
-			if (activeChar instanceof L2PlayableInstance)
+			if (activeChar instanceof L2Playable)
 			{
 				int radius = getSkillRadius();
 				L2PcInstance player = activeChar.getActingPlayer();
@@ -2621,7 +2624,7 @@ public class L2Skill implements FuncOwner
 					// Get Clan Members
 					for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
 					{
-						if (obj == player || !(obj instanceof L2PlayableInstance) || obj.getActingPlayer() == null)
+						if (obj == player || !(obj instanceof L2Playable) || obj.getActingPlayer() == null)
 							continue;
 
 						L2PcInstance newTarget = obj.getActingPlayer();
@@ -2729,7 +2732,7 @@ public class L2Skill implements FuncOwner
 		case TARGET_CORPSE_CLAN:
 		case TARGET_CLAN:
 		{
-			if (activeChar instanceof L2PlayableInstance)
+			if (activeChar instanceof L2Playable)
 			{
 				int radius = getSkillRadius();
 				L2PcInstance player = activeChar.getActingPlayer();
@@ -2827,19 +2830,19 @@ public class L2Skill implements FuncOwner
 					}
 				}
 			}
-			else if (activeChar instanceof L2NpcInstance)
+			else if (activeChar instanceof L2Npc)
 			{
 				// for buff purposes, returns one unbuffed friendly mob nearby or mob itself?
-				L2NpcInstance npc = (L2NpcInstance) activeChar;
+				L2Npc npc = (L2Npc) activeChar;
 				for (L2Object newTarget : activeChar.getKnownList().getKnownObjects().values())
 				{
-					if (newTarget instanceof L2NpcInstance && ((L2NpcInstance) newTarget).getFactionId() == npc.getFactionId())
+					if (newTarget instanceof L2Npc && ((L2Npc) newTarget).getFactionId() == npc.getFactionId())
 					{
 						if (!Util.checkIfInRange(getCastRange(), activeChar, newTarget, true))
 							continue;
-						if (((L2NpcInstance) newTarget).getFirstEffect(this) != null)
+						if (((L2Npc) newTarget).getFirstEffect(this) != null)
 						{
-							targetList.add((L2NpcInstance) newTarget);
+							targetList.add((L2Npc) newTarget);
 							break;
 						}
 					}
@@ -2982,7 +2985,7 @@ public class L2Skill implements FuncOwner
 			int radius = getSkillRadius();
 			for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
 			{
-				if (!(obj instanceof L2Attackable || obj instanceof L2PlayableInstance) || ((L2Character) obj).isDead() || obj == activeChar)
+				if (!(obj instanceof L2Attackable || obj instanceof L2Playable) || ((L2Character) obj).isDead() || obj == activeChar)
 					continue;
 
 				boolean targetInPvP = ((L2Character) obj).isInsideZone(L2Zone.FLAG_PVP) && !((L2Character) obj).isInsideZone(L2Zone.FLAG_SIEGE);
@@ -3146,7 +3149,7 @@ public class L2Skill implements FuncOwner
 			if (target != null && target.getKnownList() != null)
 				for (L2Object obj : target.getKnownList().getKnownObjects().values())
 				{
-					if (obj instanceof L2Attackable || obj instanceof L2PlayableInstance)
+					if (obj instanceof L2Attackable || obj instanceof L2Playable)
 						return new L2Character[]
 						{ (L2Character) obj };
 				}
@@ -3198,11 +3201,11 @@ public class L2Skill implements FuncOwner
 			}
 		}
 
-		if (!(activeChar instanceof L2PlayableInstance))
+		if (!(activeChar instanceof L2Playable))
 		{
 			for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
 			{
-				if (obj instanceof L2PlayableInstance)
+				if (obj instanceof L2Playable)
 				{
 					if (!(Util.checkIfInRange(radius, target, obj, true)))
 						continue;
@@ -3395,11 +3398,11 @@ public class L2Skill implements FuncOwner
 			}
 		}
 
-		if (!(activeChar instanceof L2PlayableInstance))
+		if (!(activeChar instanceof L2Playable))
 		{
 			for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
 			{
-				if (obj instanceof L2PlayableInstance)
+				if (obj instanceof L2Playable)
 				{
 					if (!(Util.checkIfInRange(radius, target, obj, true)))
 						continue;
@@ -3427,7 +3430,7 @@ public class L2Skill implements FuncOwner
 		{
 			for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
 			{
-				if (!(obj instanceof L2PlayableInstance))
+				if (!(obj instanceof L2Playable))
 					continue;
 				if (!(Util.checkIfInRange(radius, target, obj, true)))
 					continue;
@@ -3497,7 +3500,7 @@ public class L2Skill implements FuncOwner
 		{
 			for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
 			{
-				if (!(obj instanceof L2PlayableInstance))
+				if (!(obj instanceof L2Playable))
 					continue;
 				if (!(Util.checkIfInRange(radius, target, obj, true)))
 					continue;
@@ -3545,7 +3548,7 @@ public class L2Skill implements FuncOwner
 		{
 			for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
 			{
-				if (!(obj instanceof L2PlayableInstance))
+				if (!(obj instanceof L2Playable))
 					continue;
 				if (!(Util.checkIfInRange(radius, target, obj, true)))
 					continue;

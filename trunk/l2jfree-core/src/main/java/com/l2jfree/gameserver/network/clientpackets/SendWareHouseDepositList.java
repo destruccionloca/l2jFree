@@ -22,7 +22,7 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.Shutdown;
 import com.l2jfree.gameserver.Shutdown.DisableType;
 import com.l2jfree.gameserver.model.L2ItemInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2FolkInstance;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.itemcontainer.ClanWarehouse;
@@ -86,7 +86,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 		if (player == null) return;
 		ItemContainer warehouse = player.getActiveWarehouse();
 		if (warehouse == null) return;
-		L2FolkInstance manager = player.getLastFolkNPC();
+		L2NpcInstance manager = player.getLastFolkNPC();
 		
 		if (Shutdown.isActionDisabled(DisableType.TRANSACTION))
 		{
@@ -95,7 +95,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 			return;
 		}
 		
-		if ((manager == null || !player.isInsideRadius(manager, L2NpcInstance.INTERACTION_DISTANCE, false, false)) && !player.isGM()) return;
+		if ((manager == null || !player.isInsideRadius(manager, L2Npc.INTERACTION_DISTANCE, false, false)) && !player.isGM()) return;
 		
 		if ((warehouse instanceof ClanWarehouse) && Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
 		{

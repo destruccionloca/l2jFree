@@ -20,6 +20,7 @@ import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.tools.random.Rnd;
@@ -27,7 +28,7 @@ import com.l2jfree.tools.random.Rnd;
 /**
  * @author Drunkard Zabb0x Lets drink2code!
  */
-public class L2XmassTreeInstance extends L2NpcInstance
+public class L2XmassTreeInstance extends L2Npc
 {
 	private ScheduledFuture<?>	_aiTask;
 

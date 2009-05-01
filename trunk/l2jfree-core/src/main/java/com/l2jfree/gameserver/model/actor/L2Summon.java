@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.gameserver.model;
+package com.l2jfree.gameserver.model.actor;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
@@ -20,10 +20,14 @@ import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.ai.L2SummonAI;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.geodata.GeoData;
-import com.l2jfree.gameserver.model.L2Attackable.AggroInfo;
+import com.l2jfree.gameserver.model.L2ItemInstance;
+import com.l2jfree.gameserver.model.L2Object;
+import com.l2jfree.gameserver.model.L2Party;
+import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.L2WorldRegion;
+import com.l2jfree.gameserver.model.actor.L2Attackable.AggroInfo;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.model.actor.knownlist.SummonKnownList;
 import com.l2jfree.gameserver.model.actor.stat.SummonStat;
@@ -50,7 +54,7 @@ import com.l2jfree.gameserver.taskmanager.SQLQueue;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
 
-public abstract class L2Summon extends L2PlayableInstance
+public abstract class L2Summon extends L2Playable
 {
 	public static final int	SIEGE_GOLEM_ID			= 14737;
 	public static final int	HOG_CANNON_ID			= 14768;
@@ -794,7 +798,7 @@ public abstract class L2Summon extends L2PlayableInstance
 	 * skill level per 5 servitor levels.  If the resulting skill level doesn't exist use
 	 * the max that does exist!
 	 * 
-	 * @see com.l2jfree.gameserver.model.L2Character#doCast(com.l2jfree.gameserver.model.L2Skill)
+	 * @see com.l2jfree.gameserver.model.actor.L2Character#doCast(com.l2jfree.gameserver.model.L2Skill)
 	 */
 	@Override
 	public void doCast(L2Skill skill)

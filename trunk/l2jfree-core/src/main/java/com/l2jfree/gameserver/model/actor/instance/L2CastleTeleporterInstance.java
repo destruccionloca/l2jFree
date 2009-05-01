@@ -34,7 +34,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  *
  */
 
-public final class L2CastleTeleporterInstance extends L2FolkInstance
+public final class L2CastleTeleporterInstance extends L2NpcInstance
 {
 	private boolean	_currentTask	= false;
 

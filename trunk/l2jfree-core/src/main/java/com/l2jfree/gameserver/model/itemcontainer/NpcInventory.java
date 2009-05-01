@@ -23,16 +23,16 @@ import javolution.util.FastList;
 
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2ItemInstance.ItemLocation;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 
 public class NpcInventory extends Inventory
 {
 	public static final int ADENA_ID = 57;
 	public static final int ANCIENT_ADENA_ID = 5575;
 
-	private final L2NpcInstance _owner;
+	private final L2Npc _owner;
 
-	public NpcInventory(L2NpcInstance owner)
+	public NpcInventory(L2Npc owner)
 	{
 		_owner = owner;
 	}
@@ -47,7 +47,7 @@ public class NpcInventory extends Inventory
 	}
 	
 	@Override
-	public L2NpcInstance getOwner() { return _owner; }
+	public L2Npc getOwner() { return _owner; }
 	@Override
 	protected ItemLocation getBaseLocation() { return ItemLocation.NPC; }
 	@Override

@@ -24,7 +24,7 @@ import com.l2jfree.gameserver.handler.AdminCommandHandler;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.L2Event;
 import com.l2jfree.gameserver.model.entity.events.CTF;
@@ -163,9 +163,9 @@ public class RequestBypassToServer extends L2GameClientPacket
 						activeChar.sendMessage("The event is already started. You can not leave now!");
 				}
 
-				else if (object instanceof L2NpcInstance && endOfId > 0
-						&& activeChar.isInsideRadius(object, L2NpcInstance.INTERACTION_DISTANCE, false, false))
-					((L2NpcInstance) object).onBypassFeedback(activeChar, _command.substring(endOfId + 1));
+				else if (object instanceof L2Npc && endOfId > 0
+						&& activeChar.isInsideRadius(object, L2Npc.INTERACTION_DISTANCE, false, false))
+					((L2Npc) object).onBypassFeedback(activeChar, _command.substring(endOfId + 1));
 				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			}
 			catch (NumberFormatException nfe)
@@ -178,21 +178,21 @@ public class RequestBypassToServer extends L2GameClientPacket
 			activeChar.validateBypass(_command);
 			
 			L2Object object = activeChar.getTarget();
-			if (object instanceof L2NpcInstance)
-				((L2NpcInstance) object).onBypassFeedback(activeChar, _command);
+			if (object instanceof L2Npc)
+				((L2Npc) object).onBypassFeedback(activeChar, _command);
 		}
 		else if (_command.equals("menu_select?ask=-16&reply=2"))
 		{
 			L2Object object = activeChar.getTarget();
-			if (object instanceof L2NpcInstance)
-				((L2NpcInstance) object).onBypassFeedback(activeChar, _command);
+			if (object instanceof L2Npc)
+				((L2Npc) object).onBypassFeedback(activeChar, _command);
 		}
 		// Navigate throught Manor windows
 		else if (_command.startsWith("manor_menu_select?"))
 		{
 			L2Object object = activeChar.getTarget();
-			if (object instanceof L2NpcInstance)
-				((L2NpcInstance) object).onBypassFeedback(activeChar, _command);
+			if (object instanceof L2Npc)
+				((L2Npc) object).onBypassFeedback(activeChar, _command);
 		}
 		else if (_command.startsWith("bbs_"))
 			CommunityBoard.getInstance().handleCommands(getClient(), _command);
@@ -219,9 +219,9 @@ public class RequestBypassToServer extends L2GameClientPacket
 	private void comeHere(L2PcInstance activeChar)
 	{
 		L2Object obj = activeChar.getTarget();
-		if (obj instanceof L2NpcInstance)
+		if (obj instanceof L2Npc)
 		{
-			L2NpcInstance temp = (L2NpcInstance) obj;
+			L2Npc temp = (L2Npc) obj;
 			temp.setTarget(activeChar);
 			temp.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(activeChar.getX(), activeChar.getY(), activeChar.getZ(), 0));
 		}

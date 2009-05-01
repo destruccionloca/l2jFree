@@ -14,8 +14,8 @@
  */
 package com.l2jfree.gameserver.model.actor.knownlist;
 
-import com.l2jfree.gameserver.model.L2Decoy;
 import com.l2jfree.gameserver.model.L2Object;
+import com.l2jfree.gameserver.model.actor.L2Decoy;
 
 public class DecoyKnownList extends CharKnownList
 {

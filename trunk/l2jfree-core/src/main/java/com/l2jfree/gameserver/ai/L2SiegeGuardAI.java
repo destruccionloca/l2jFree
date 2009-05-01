@@ -20,17 +20,17 @@ import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
 
 import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.geodata.GeoData;
-import com.l2jfree.gameserver.model.L2Attackable;
-import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Summon;
+import com.l2jfree.gameserver.model.actor.L2Attackable;
+import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Npc;
+import com.l2jfree.gameserver.model.actor.L2Playable;
+import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2FolkInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeGuardInstance;
 import com.l2jfree.gameserver.taskmanager.AbstractIterativePeriodicTaskManager;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
@@ -129,13 +129,13 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 	 * <li>The L2PcInstance target isn't a Defender</li><BR><BR>
 	 * 
 	 * <B><U> Actor is a L2FriendlyMobInstance</U> :</B><BR><BR>
-	 * <li>The target isn't a Folk, a Door or another L2NpcInstance</li>
+	 * <li>The target isn't a Folk, a Door or another L2Npc</li>
 	 * <li>The target isn't dead, isn't invulnerable, isn't in silent moving mode AND too far (>100)</li>
 	 * <li>The target is in the actor Aggro range and is at the same height</li>
 	 * <li>The L2PcInstance target has karma (=PK)</li><BR><BR>
 	 * 
 	 * <B><U> Actor is a L2MonsterInstance</U> :</B><BR><BR>
-	 * <li>The target isn't a Folk, a Door or another L2NpcInstance</li>
+	 * <li>The target isn't a Folk, a Door or another L2Npc</li>
 	 * <li>The target isn't dead, isn't invulnerable, isn't in silent moving mode AND too far (>100)</li>
 	 * <li>The target is in the actor Aggro range and is at the same height</li>
 	 * <li>The actor is Aggressive</li><BR><BR>
@@ -146,7 +146,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 	private boolean autoAttackCondition(L2Character target)
 	{
 		// Check if the target isn't another guard, folk or a door
-		if (target == null || target instanceof L2SiegeGuardInstance || target instanceof L2FolkInstance || target instanceof L2DoorInstance)
+		if (target == null || target instanceof L2SiegeGuardInstance || target instanceof L2NpcInstance || target instanceof L2DoorInstance)
 			return false;
 
 		// Check if the target isn't invulnerable
@@ -171,11 +171,11 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 				target = owner;
 		}
 
-		// Check if the target is a L2PlayableInstance
-		if (target instanceof L2PlayableInstance)
+		// Check if the target is a L2Playable
+		if (target instanceof L2Playable)
 		{
 			// Check if the target isn't in silent move mode AND too far (>100)
-			if (((L2PlayableInstance) target).isSilentMoving() && !_actor.isInsideRadius(target, 250, false, false))
+			if (((L2Playable) target).isSilentMoving() && !_actor.isInsideRadius(target, 250, false, false))
 				return false;
 		}
 		// Los Check Here
@@ -383,22 +383,22 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 	private final void factionNotifyAndSupport()
 	{
 		final L2Character target = getAttackTarget();
-		final String faction_id = ((L2NpcInstance)_actor).getFactionId();
+		final String faction_id = ((L2Npc)_actor).getFactionId();
 		// Call all L2Object of its Faction inside the Faction Range
 		if (faction_id == null || target == null || target.isInvul())
 			return;
 		
 		// Go through all L2Character that belong to its faction
-		//for (L2Character cha : _actor.getKnownList().getKnownCharactersInRadius(((L2NpcInstance) _actor).getFactionRange()+_actor.getTemplate().getCollisionRadius()))
+		//for (L2Character cha : _actor.getKnownList().getKnownCharactersInRadius(((L2Npc) _actor).getFactionRange()+_actor.getTemplate().getCollisionRadius()))
 		for (L2Character cha : _actor.getKnownList().getKnownCharactersInRadius(1000))
 		{
 			if (cha == null)
 				continue;
 
-			if (!(cha instanceof L2NpcInstance))
+			if (!(cha instanceof L2Npc))
 			{
 				if (_selfAnalysis.hasHealOrResurrect && cha instanceof L2PcInstance
-						&& ((L2NpcInstance) _actor).getCastle().getSiege().checkIsDefender(((L2PcInstance) cha).getClan()))
+						&& ((L2Npc) _actor).getCastle().getSiege().checkIsDefender(((L2PcInstance) cha).getClan()))
 				{
 					// heal friends
 					if (!_actor.isAttackingDisabled() && cha.getStatus().getCurrentHp() < cha.getMaxHp() * 0.6
@@ -432,7 +432,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 				continue;
 			}
 			
-			final L2NpcInstance npc = (L2NpcInstance)cha;
+			final L2Npc npc = (L2Npc)cha;
 			
 			if (!faction_id.equals(npc.getFactionId()))
 				continue;

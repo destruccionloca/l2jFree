@@ -17,7 +17,7 @@ package com.l2jfree.gameserver.model.quest;
 import java.util.concurrent.ScheduledFuture;
 
 import com.l2jfree.gameserver.ThreadPoolManager;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 import org.apache.commons.logging.Log;
@@ -53,14 +53,14 @@ public class QuestTimer
     private boolean _isActive = true;
     private String _name;
     private Quest _quest;
-    private L2NpcInstance _npc;
+    private L2Npc _npc;
     private L2PcInstance _player;
     private boolean _isRepeating;
     private ScheduledFuture<?> _scheduler;
 
     // =========================================================
     // Constructor
-    public QuestTimer(Quest quest, String name, long time, L2NpcInstance npc, L2PcInstance player, boolean repeating)
+    public QuestTimer(Quest quest, String name, long time, L2Npc npc, L2PcInstance player, boolean repeating)
     {
         _name = name;
         _quest = quest;
@@ -73,7 +73,7 @@ public class QuestTimer
             _scheduler = ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleTimerTask(), time); // Prepare auto end task
     }
 
-    public QuestTimer(Quest quest, String name, long time, L2NpcInstance npc, L2PcInstance player)
+    public QuestTimer(Quest quest, String name, long time, L2Npc npc, L2PcInstance player)
     {
         this(quest, name, time, npc, player, false);
     }
@@ -101,7 +101,7 @@ public class QuestTimer
      * @param npc : Npc instance attached to the desired timer (null if no npc attached)
      * @param player : Player instance attached to the desired timer (null if no player attached)
      */
-    public boolean isMatch(Quest quest, String name, L2NpcInstance npc, L2PcInstance player)
+    public boolean isMatch(Quest quest, String name, L2Npc npc, L2PcInstance player)
     {
         if (quest == null || name == null)
             return false;
@@ -132,7 +132,7 @@ public class QuestTimer
         return _name;
     }
     
-    public final L2NpcInstance getNpc()
+    public final L2Npc getNpc()
     {
     	return _npc;
     }

@@ -23,10 +23,10 @@ import javolution.util.FastMap;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.SkillTable;
-import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.network.serverpackets.StopMove;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
@@ -300,7 +300,7 @@ public final class L2TamedBeastInstance extends L2FeedableBeastInstance
      *   Next, call super.doCast(skill) in order to actually cast the spell
      *   Finally, return to auto-following the owner.
      * 
-     * @see com.l2jfree.gameserver.model.L2Character#doCast(com.l2jfree.gameserver.model.L2Skill)
+     * @see com.l2jfree.gameserver.model.actor.L2Character#doCast(com.l2jfree.gameserver.model.L2Skill)
      */
 	protected void sitCastAndFollow(L2Skill skill, L2Character target)
 	{

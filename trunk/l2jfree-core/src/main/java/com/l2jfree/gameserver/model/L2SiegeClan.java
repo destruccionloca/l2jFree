@@ -16,13 +16,13 @@ package com.l2jfree.gameserver.model;
 
 import javolution.util.FastSet;
 
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.util.Util;
 
 public class L2SiegeClan
 {
 	private int _clanId                = 0;
-	private FastSet<L2NpcInstance> _flags;
+	private FastSet<L2Npc> _flags;
 	private int _numFlagsAdded = 0;
 	private SiegeClanType _type;
 
@@ -45,13 +45,13 @@ public class L2SiegeClan
 		return _numFlagsAdded;
 	}
 
-	public void addFlag(L2NpcInstance flag)
+	public void addFlag(L2Npc flag)
 	{
 		_numFlagsAdded++;
 		getFlag().add(flag);
 	}
 
-	public boolean removeFlag(L2NpcInstance flag)
+	public boolean removeFlag(L2Npc flag)
 	{
 		if (flag == null)
 			return false;
@@ -69,26 +69,26 @@ public class L2SiegeClan
 
 	public void removeFlags()
 	{
-		for (L2NpcInstance flag: getFlag())
+		for (L2Npc flag: getFlag())
 			removeFlag(flag);
 	}
 
 	public final int getClanId() { return _clanId; }
 
-	public final FastSet<L2NpcInstance> getFlag()
+	public final FastSet<L2Npc> getFlag()
 	{
-		if (_flags == null) _flags = new FastSet<L2NpcInstance>();
+		if (_flags == null) _flags = new FastSet<L2Npc>();
 		return _flags;
 	}
 
 	/*** get nearest Flag to Object ***/
-	public final L2NpcInstance getClosestFlag(L2Object obj)
+	public final L2Npc getClosestFlag(L2Object obj)
 	{
 		double closestDistance = Double.MAX_VALUE;
 		double distance;
-		L2NpcInstance _flag = null;
+		L2Npc _flag = null;
 
-		for (L2NpcInstance flag: getFlag())
+		for (L2Npc flag: getFlag())
 		{
 			if (flag  == null)
 				continue;

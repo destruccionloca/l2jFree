@@ -18,9 +18,9 @@ import org.apache.commons.lang.ArrayUtils;
 
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
-import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
+import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.Siege;
 
@@ -36,9 +36,9 @@ public class L2SiegeDangerZone extends L2DamageZone
 	@Override
 	protected boolean checkDynamicConditions(L2Character character)
 	{
-		if (_siege == null || !_siege.getIsInProgress() || !(character instanceof L2PlayableInstance)
+		if (_siege == null || !_siege.getIsInProgress() || !(character instanceof L2Playable)
 				|| !_siege.getAreTrapsOn())
-				//|| _siege.checkIsDefender(((L2PlayableInstance) character).getActingPlayer().getClan()))
+				//|| _siege.checkIsDefender(((L2Playable) character).getActingPlayer().getClan()))
 			return false;
 
 		return super.checkDynamicConditions(character);

@@ -39,7 +39,7 @@ import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
-public final class L2AuctioneerInstance extends L2FolkInstance
+public final class L2AuctioneerInstance extends L2NpcInstance
 {
 	private final static Log _log = LogFactory.getLog(L2AuctioneerInstance.class.getName());
 	private static final int COND_ALL_FALSE = 0;

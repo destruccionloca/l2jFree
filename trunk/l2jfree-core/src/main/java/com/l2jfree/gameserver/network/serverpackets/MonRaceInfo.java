@@ -14,13 +14,13 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 
 
 /**
  * sample
  * 06 8f19904b 2522d04b 00000000 80 950c0000 4af50000 08f2ffff 0000    - 0 damage (missed 0x80)
- * 06 85071048 bc0e504b 32000000 10 fc41ffff fd240200 a6f5ffff 0100 bc0e504b 33000000 10                                     3....
+ * 06 85071048 bc0e504b 32000000 10 fc41ffff fd240200 a6f5ffff 0100 bc0e504b 33000000 103....
  
  * format
  * dddc dddh (ddc)
@@ -32,10 +32,10 @@ public class MonRaceInfo extends L2GameServerPacket
     private static final String _S__DD_MonRaceInfo = "[S] dd MonRaceInfo";
     private int _unknown1;
     private int _unknown2;
-    private L2NpcInstance[] _monsters;
+    private L2Npc[] _monsters;
     private int[][] _speeds;
     
-    public MonRaceInfo(int unknown1 , int unknown2, L2NpcInstance[] monsters, int[][] speeds)
+    public MonRaceInfo(int unknown1 , int unknown2, L2Npc[] monsters, int[][] speeds)
     {
         /*
          * -1 0 to initial the race

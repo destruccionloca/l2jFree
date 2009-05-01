@@ -25,7 +25,7 @@ import com.l2jfree.gameserver.templates.item.L2Henna;
  * 
  * @version $Revision$ $Date$
  */
-public class L2SymbolMakerInstance extends L2FolkInstance
+public class L2SymbolMakerInstance extends L2NpcInstance
 {
 	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)

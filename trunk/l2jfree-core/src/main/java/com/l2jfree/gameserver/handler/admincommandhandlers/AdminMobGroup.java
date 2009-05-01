@@ -16,10 +16,10 @@ package com.l2jfree.gameserver.handler.admincommandhandlers;
 
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
-import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.MobGroup;
 import com.l2jfree.gameserver.model.MobGroupTable;
+import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;

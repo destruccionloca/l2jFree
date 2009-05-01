@@ -29,7 +29,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  * 
  * @version $Revision$ $Date$
  */
-public class L2DooropenInstance extends L2FolkInstance
+public class L2DooropenInstance extends L2NpcInstance
 {
     /**
      * @param template

@@ -98,11 +98,8 @@ import com.l2jfree.gameserver.instancemanager.leaderboards.ArenaManager;
 import com.l2jfree.gameserver.model.BlockList;
 import com.l2jfree.gameserver.model.CursedWeapon;
 import com.l2jfree.gameserver.model.FishData;
-import com.l2jfree.gameserver.model.L2Attackable;
-import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2ClanMember;
-import com.l2jfree.gameserver.model.L2Decoy;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Fishing;
 import com.l2jfree.gameserver.model.L2FriendList;
@@ -119,15 +116,20 @@ import com.l2jfree.gameserver.model.L2ShortCut;
 import com.l2jfree.gameserver.model.L2SiegeClan;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2SkillLearn;
-import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.L2Transformation;
-import com.l2jfree.gameserver.model.L2Trap;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.L2WorldRegion;
 import com.l2jfree.gameserver.model.MacroList;
 import com.l2jfree.gameserver.model.ShortCuts;
 import com.l2jfree.gameserver.model.TradeList;
 import com.l2jfree.gameserver.model.L2Skill.SkillTargetType;
+import com.l2jfree.gameserver.model.actor.L2Attackable;
+import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Decoy;
+import com.l2jfree.gameserver.model.actor.L2Npc;
+import com.l2jfree.gameserver.model.actor.L2Playable;
+import com.l2jfree.gameserver.model.actor.L2Summon;
+import com.l2jfree.gameserver.model.actor.L2Trap;
 import com.l2jfree.gameserver.model.actor.appearance.PcAppearance;
 import com.l2jfree.gameserver.model.actor.knownlist.PcKnownList;
 import com.l2jfree.gameserver.model.actor.reference.ClearableReference;
@@ -274,7 +276,7 @@ import com.l2jfree.util.SingletonMap;
  *
  * @version $Revision: 1.66.2.41.2.33 $ $Date: 2005/04/11 10:06:09 $
  */
-public final class L2PcInstance extends L2PlayableInstance
+public final class L2PcInstance extends L2Playable
 {
 	// Character Skill SQL String Definitions:
 	private static final String	RESTORE_SKILLS_FOR_CHAR			= "SELECT skill_id,skill_level FROM character_skills WHERE charId=? AND class_index=?";
@@ -603,8 +605,8 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	protected Map<Integer, L2CubicInstance>	_cubics					= new SingletonMap<Integer, L2CubicInstance>().setShared();
 
-	/** The L2FolkInstance corresponding to the last Folk wich one the player talked. */
-	private L2FolkInstance					_lastFolkNpc			= null;
+	/** The L2NpcInstance corresponding to the last Folk wich one the player talked. */
+	private L2NpcInstance					_lastFolkNpc			= null;
 
 	private int								_clanPrivileges			= 0;
 
@@ -4916,7 +4918,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		if (target == null)
 			return;
-		if (!(target instanceof L2PlayableInstance))
+		if (!(target instanceof L2Playable))
 			return;
 		if (_inEventCTF || _inEventTvT || _inEventVIP || _inEventDM)
 			return;
@@ -7953,7 +7955,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (getClan() != null && attacker != null && getClan().isMember(attacker.getObjectId()))
 			return false;
 
-		if (attacker instanceof L2PlayableInstance && isInsideZone(L2Zone.FLAG_PEACE))
+		if (attacker instanceof L2Playable && isInsideZone(L2Zone.FLAG_PEACE))
 			return false;
 
 		// Check if the L2PcInstance has Karma
@@ -8883,7 +8885,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	/**
 	 * Set the _lastFolkNpc of the L2PcInstance corresponding to the last Folk wich one the player talked.<BR><BR>
 	 */
-	public void setLastFolkNPC(L2FolkInstance folkNpc)
+	public void setLastFolkNPC(L2NpcInstance folkNpc)
 	{
 		_lastFolkNpc = folkNpc;
 	}
@@ -8891,7 +8893,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	/**
 	 * Return the _lastFolkNpc of the L2PcInstance corresponding to the last Folk wich one the player talked.<BR><BR>
 	 */
-	public L2FolkInstance getLastFolkNPC()
+	public L2NpcInstance getLastFolkNPC()
 	{
 		return _lastFolkNpc;
 	}
@@ -11020,7 +11022,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		getStat().addExpAndSp(addToExp, addToSp);
 	}
 
-	public void addVitExpAndSp(long addToExp, int addToSp, L2NpcInstance target)
+	public void addVitExpAndSp(long addToExp, int addToSp, L2Npc target)
 	{
 		if (target == null)
 			return;
@@ -12940,7 +12942,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	public void calculateDeathPenaltyBuffLevel(L2Character killer)
 	{
-		if (!(killer instanceof L2PlayableInstance) && !isGM() && !(getCharmOfLuck() && killer.isRaid())
+		if (!(killer instanceof L2Playable) && !isGM() && !(getCharmOfLuck() && killer.isRaid())
 				&& !isPhoenixBlessed() && !isInFunEvent() && Rnd.get(100) <= Config.DEATH_PENALTY_CHANCE)
 			increaseDeathPenaltyBuffLevel();
 	}
@@ -13507,7 +13509,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	}
 
 	/** Calcules points to add/remove on this PcInstance - no party **/
-	public void calculateVitalityPoints(L2NpcInstance target, int damage)
+	public void calculateVitalityPoints(L2Npc target, int damage)
 	{
 		double points;
 
@@ -13581,7 +13583,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	}
 
 	/** Calcules points to add/remove on this PcInstance - in party **/
-	public void calculateVitalityPoints(L2NpcInstance target, int damage, int partyMembers, float partyExpRate)
+	public void calculateVitalityPoints(L2Npc target, int damage, int partyMembers, float partyExpRate)
 	{
 		double points;
 

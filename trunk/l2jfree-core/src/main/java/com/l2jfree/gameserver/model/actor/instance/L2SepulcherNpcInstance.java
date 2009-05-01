@@ -29,6 +29,7 @@ import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.instancemanager.FourSepulchersManager;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2World;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
@@ -46,7 +47,7 @@ import com.l2jfree.tools.random.Rnd;
  * 
  * @author sandman
  */
-public class L2SepulcherNpcInstance extends L2NpcInstance
+public class L2SepulcherNpcInstance extends L2Npc
 {
 	private final static Log				_log						= LogFactory.getLog(L2SepulcherNpcInstance.class.getName());
 

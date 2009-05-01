@@ -21,9 +21,9 @@ import javolution.util.FastMap;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.ai.CtrlEvent;
-import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 
 /**
  * @author NB4L1
@@ -147,7 +147,7 @@ public final class MovementController extends AbstractPeriodicTaskManager
 		
 		private int getMinDelayInTick(L2Character cha)
 		{
-			if (cha instanceof L2PlayableInstance)
+			if (cha instanceof L2Playable)
 				return Config.DATETIME_MOVE_DELAY * 2;
 			
 			if (cha instanceof L2BoatInstance)

@@ -20,10 +20,10 @@ import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Summon;
+import com.l2jfree.gameserver.model.actor.L2Summon;
+import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.model.entity.events.CTF;
 import com.l2jfree.gameserver.model.entity.events.DM;
@@ -154,7 +154,7 @@ public class Potions implements IItemHandler
 			// Bless of Eva
 			4679							};
 
-	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
+	public void useItem(L2Playable playable, L2ItemInstance item)
 	{
 		L2PcInstance activeChar; // use activeChar only for L2PcInstance checks where cannot be used PetInstance
 		boolean res = false;
@@ -739,7 +739,7 @@ public class Potions implements IItemHandler
 			playable.destroyItem("Consume", item.getObjectId(), 1, null, false);
 	}
 
-	private boolean isEffectReplaceable(L2PlayableInstance playable, L2EffectType effectType, L2ItemInstance item)
+	private boolean isEffectReplaceable(L2Playable playable, L2EffectType effectType, L2ItemInstance item)
 	{
 		L2Effect[] effects = playable.getAllEffects();
 
@@ -765,7 +765,7 @@ public class Potions implements IItemHandler
 		return true;
 	}
 
-	private boolean isUseable(L2PlayableInstance playable, L2ItemInstance item, int skillid)
+	private boolean isUseable(L2Playable playable, L2ItemInstance item, int skillid)
 	{
 		L2PcInstance activeChar =  ((playable instanceof L2PcInstance) ? ((L2PcInstance) playable) : ((L2Summon) playable).getOwner());
 		if (activeChar.isSkillDisabled(skillid))
@@ -778,12 +778,12 @@ public class Potions implements IItemHandler
 		return true;
 	}
 
-	private boolean isUseable(L2PlayableInstance playable, L2EffectType effectType, L2ItemInstance item, int skillid)
+	private boolean isUseable(L2Playable playable, L2EffectType effectType, L2ItemInstance item, int skillid)
 	{
 		return (isEffectReplaceable(playable, effectType, item) && isUseable(playable, item, skillid));
 	}
 
-	public boolean usePotion(L2PlayableInstance activeChar, int magicId, int level)
+	public boolean usePotion(L2Playable activeChar, int magicId, int level)
 	{
 		L2Skill skill = SkillTable.getInstance().getInfo(magicId, level);
 		if (skill != null)

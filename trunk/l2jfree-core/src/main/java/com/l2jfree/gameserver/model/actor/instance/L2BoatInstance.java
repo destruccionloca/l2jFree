@@ -33,8 +33,8 @@ import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.model.L2CharPosition;
-import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2ItemInstance;
+import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.knownlist.BoatKnownList;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
@@ -805,7 +805,7 @@ public class L2BoatInstance extends L2Character
 	/*
 	 * (non-Javadoc)
 	 *
-	 * @see com.l2jfree.gameserver.model.L2Character#getLevel()
+	 * @see com.l2jfree.gameserver.model.actor.L2Character#getLevel()
 	 */
 	@Override
 	public int getLevel()

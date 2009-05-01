@@ -18,16 +18,16 @@ package com.l2jfree.gameserver.model.actor.knownlist;
 import java.util.Map;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.L2Decoy;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
-import com.l2jfree.gameserver.model.L2Summon;
-import com.l2jfree.gameserver.model.L2Trap;
+import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Decoy;
+import com.l2jfree.gameserver.model.actor.L2Npc;
+import com.l2jfree.gameserver.model.actor.L2Summon;
+import com.l2jfree.gameserver.model.actor.L2Trap;
 import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2DecoyInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2StaticObjectInstance;
@@ -84,7 +84,7 @@ public class PcKnownList extends PlayableKnownList
      * <li> Send Server-Client Packets DoorInfo and DoorStatusUpdate to the L2PcInstance </li>
      * <li> Send Server->Client packet MoveToPawn/MoveToLocation and AutoAttackStart to the L2PcInstance </li><BR><BR>
      *
-     * <B><U> object is a L2NpcInstance </U> :</B><BR><BR>
+     * <B><U> object is a L2Npc </U> :</B><BR><BR>
      * <li> Send Server-Client Packet NpcInfo to the L2PcInstance </li>
      * <li> Send Server->Client packet MoveToPawn/MoveToLocation and AutoAttackStart to the L2PcInstance </li><BR><BR>
      *
@@ -152,13 +152,13 @@ public class PcKnownList extends PlayableKnownList
             {
                 getActiveChar().sendPacket(new NpcInfo((L2Trap)object));
             }
-            else if (object instanceof L2NpcInstance)
+            else if (object instanceof L2Npc)
             {
                 if (Config.TEST_KNOWNLIST && getActiveChar().isGM()) getActiveChar().sendMessage("Knownlist, added NPC: "+ object.getName());
-                if (((L2NpcInstance) object).getRunSpeed() == 0)
-                    getActiveChar().sendPacket(new ServerObjectInfo((L2NpcInstance)object));
+                if (((L2Npc) object).getRunSpeed() == 0)
+                    getActiveChar().sendPacket(new ServerObjectInfo((L2Npc)object));
                 else
-                    getActiveChar().sendPacket(new NpcInfo((L2NpcInstance)object));
+                    getActiveChar().sendPacket(new NpcInfo((L2Npc)object));
             }
             else if (object instanceof L2Summon)
             {
@@ -252,7 +252,7 @@ public class PcKnownList extends PlayableKnownList
 		if (object instanceof L2PcInstance)
 			getKnownRelations().remove(object.getObjectId());
         
-       if (Config.TEST_KNOWNLIST && getActiveChar().isGM() && object instanceof L2NpcInstance) getActiveChar().sendMessage("Knownlist,removed NPC: "+ object.getName());
+       if (Config.TEST_KNOWNLIST && getActiveChar().isGM() && object instanceof L2Npc) getActiveChar().sendMessage("Knownlist,removed NPC: "+ object.getName());
         return true;
     }
     

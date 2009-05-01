@@ -31,11 +31,13 @@ import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.model.L2CharPosition;
-import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2SiegeClan;
 import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Npc;
+import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.knownlist.DoorKnownList;
 import com.l2jfree.gameserver.model.actor.stat.DoorStat;
 import com.l2jfree.gameserver.model.entity.Castle;
@@ -388,7 +390,7 @@ public class L2DoorInstance extends L2Character
 			return true;
 
 		// Doors can't be attacked by NPCs
-		if (!(attacker instanceof L2PlayableInstance))
+		if (!(attacker instanceof L2Playable))
 			return false;
 
 		// Attackable only during siege by everyone (not owner)
@@ -538,7 +540,7 @@ public class L2DoorInstance extends L2Character
 			}
 			else if (player.getClan() != null && getClanHall() != null && player.getClanId() == getClanHall().getOwnerId())
 			{
-				if (!isInsideRadius(player, L2NpcInstance.INTERACTION_DISTANCE, false, false))
+				if (!isInsideRadius(player, L2Npc.INTERACTION_DISTANCE, false, false))
 				{
 					player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
 				}
@@ -557,7 +559,7 @@ public class L2DoorInstance extends L2Character
 			}
 			else if (player.getClan() != null && getFort() != null && player.getClanId() == getFort().getOwnerId() && isUnlockable() && !getFort().getSiege().getIsInProgress())
 			{
-				if (!isInsideRadius(player, L2NpcInstance.INTERACTION_DISTANCE, false, false))
+				if (!isInsideRadius(player, L2Npc.INTERACTION_DISTANCE, false, false))
 				{
 					player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
 				}

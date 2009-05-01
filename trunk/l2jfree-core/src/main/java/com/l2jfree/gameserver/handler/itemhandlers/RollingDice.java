@@ -17,8 +17,8 @@ package com.l2jfree.gameserver.handler.itemhandlers;
 import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.instancemanager.TownManager;
 import com.l2jfree.gameserver.model.L2ItemInstance;
+import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.Dice;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -40,7 +40,7 @@ public class RollingDice implements IItemHandler
 	private static final int[]	ITEM_IDS	=
 											{ 4625, 4626, 4627, 4628 };
 
-	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
+	public void useItem(L2Playable playable, L2ItemInstance item)
 	{
 		if (!(playable instanceof L2PcInstance))
 			return;

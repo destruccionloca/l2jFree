@@ -31,7 +31,7 @@ import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.tools.random.Rnd;
 
-public final class L2UrnInstance extends L2FolkInstance
+public final class L2UrnInstance extends L2NpcInstance
 {
     public L2UrnInstance(int objectId, L2NpcTemplate template)
     {

@@ -35,12 +35,15 @@ public class Tupel
 			return null;
 		}
 		
-		try {
+		try
+		{
 			Tupel t = new Tupel();
 			t.x = Integer.parseInt(n.getAttributes().getNamedItem("x").getNodeValue());
 			t.y = Integer.parseInt(n.getAttributes().getNamedItem("y").getNodeValue());
 			return t;
-		} catch(NumberFormatException nfe) {
+		}
+		catch(NumberFormatException nfe)
+		{
 			_log.error("x or y value not a number in zone "+zoneId);
 		}
 		return null;

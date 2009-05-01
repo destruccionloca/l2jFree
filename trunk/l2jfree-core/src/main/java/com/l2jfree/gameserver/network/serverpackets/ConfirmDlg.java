@@ -16,12 +16,12 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 import java.util.Vector;
 
-import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Summon;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Npc;
+import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
@@ -71,8 +71,8 @@ public class ConfirmDlg extends L2GameServerPacket
 
 	public ConfirmDlg addCharName(L2Character cha)
 	{
-		if (cha instanceof L2NpcInstance)
-			return addNpcName((L2NpcInstance)cha);
+		if (cha instanceof L2Npc)
+			return addNpcName((L2Npc)cha);
 		if (cha instanceof L2PcInstance)
 			return addPcName((L2PcInstance)cha);
 		if (cha instanceof L2Summon)
@@ -85,7 +85,7 @@ public class ConfirmDlg extends L2GameServerPacket
 		return addString(pc.getAppearance().getVisibleName());
 	}
 
-	public ConfirmDlg addNpcName(L2NpcInstance npc)
+	public ConfirmDlg addNpcName(L2Npc npc)
 	{
 		return addNpcName(npc.getTemplate());
 	}

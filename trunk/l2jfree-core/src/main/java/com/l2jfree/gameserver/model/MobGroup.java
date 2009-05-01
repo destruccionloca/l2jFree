@@ -19,6 +19,7 @@ import javolution.util.FastList;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2ControllableMobAI;
 import com.l2jfree.gameserver.datatables.SpawnTable;
+import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2ControllableMobInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;

@@ -20,8 +20,8 @@ import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.MercTicketManager;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2ItemInstance;
+import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.network.SystemMessageId;
 
@@ -42,7 +42,7 @@ public class MercTicket implements IItemHandler
 	 * 2) If allowed, call the MercTicketManager to add the item and spawn in the world
 	 * 3) Remove the item from the person's inventory  
 	 */
-	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
+	public void useItem(L2Playable playable, L2ItemInstance item)
 	{
 		int itemId = item.getItemId();
 		L2PcInstance activeChar = (L2PcInstance) playable;

@@ -3,8 +3,8 @@
  */
 package com.l2jfree.gameserver.ai;
 
-import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.threadmanager.FIFOExecutableQueue;
 import com.l2jfree.util.L2FastSet;
 
@@ -15,10 +15,10 @@ public final class FactionAggressionNotificationQueue extends FIFOExecutableQueu
 {
 	private static final class NotificationInfo
 	{
-		private final L2NpcInstance _npc;
+		private final L2Npc _npc;
 		private final L2Character _target;
 		
-		private NotificationInfo(L2NpcInstance npc, L2Character target)
+		private NotificationInfo(L2Npc npc, L2Character target)
 		{
 			_npc = npc;
 			_target = target;
@@ -44,7 +44,7 @@ public final class FactionAggressionNotificationQueue extends FIFOExecutableQueu
 	
 	private final L2FastSet<NotificationInfo> _set = new L2FastSet<NotificationInfo>();
 	
-	public void add(L2NpcInstance npc, L2Character target)
+	public void add(L2Npc npc, L2Character target)
 	{
 		synchronized (_set)
 		{

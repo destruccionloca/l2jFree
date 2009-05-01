@@ -14,8 +14,8 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 
 /**
  * @author Luca Baldi
@@ -62,7 +62,7 @@ public final class RelationChanged extends L2GameServerPacket
 	private final int _karma;
 	private final int _pvpFlag;
 	
-	public RelationChanged(L2PlayableInstance target, int relation, L2PcInstance attacker)
+	public RelationChanged(L2Playable target, int relation, L2PcInstance attacker)
 	{
 		_objId = target.getObjectId();
 		_relation = relation;

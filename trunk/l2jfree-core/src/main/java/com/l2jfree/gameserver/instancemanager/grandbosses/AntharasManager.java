@@ -31,8 +31,8 @@ import com.l2jfree.gameserver.datatables.SpawnTable;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Spawn;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2GrandBossInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.GrandBossState;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
@@ -57,13 +57,13 @@ public class AntharasManager extends BossLair
 																{ 177615, 114941, -7709, 0 } };
 
 	protected List<L2Spawn>			_teleportCubeSpawn			= new FastList<L2Spawn>();
-	protected List<L2NpcInstance>	_teleportCube				= new FastList<L2NpcInstance>();
+	protected List<L2Npc>	_teleportCube				= new FastList<L2Npc>();
 
 	// Spawn data of monsters.
 	protected Map<Integer, L2Spawn>	_monsterSpawn				= new FastMap<Integer, L2Spawn>();
 
 	// Instance of monsters.
-	protected List<L2NpcInstance>	_monsters					= new FastList<L2NpcInstance>();
+	protected List<L2Npc>	_monsters					= new FastList<L2Npc>();
 
 	// Tasks.
 	protected ScheduledFuture<?>	_cubeSpawnTask				= null;
@@ -537,7 +537,7 @@ public class AntharasManager extends BossLair
 			int npcId = Rnd.get(29070, 29076);
 			L2NpcTemplate template1;
 			L2Spawn tempSpawn;
-			L2NpcInstance bomber = null;
+			L2Npc bomber = null;
 
 			try
 			{
@@ -582,9 +582,9 @@ public class AntharasManager extends BossLair
 	// Do self destruction.
 	private class SelfDestructionOfBomber implements Runnable
 	{
-		private L2NpcInstance	_bomber;
+		private L2Npc	_bomber;
 
-		public SelfDestructionOfBomber(L2NpcInstance bomber)
+		public SelfDestructionOfBomber(L2Npc bomber)
 		{
 			_bomber = bomber;
 		}
@@ -628,7 +628,7 @@ public class AntharasManager extends BossLair
 		banishForeigners();
 
 		// Delete monsters.
-		for (L2NpcInstance mob : _monsters)
+		for (L2Npc mob : _monsters)
 		{
 			mob.getSpawn().stopRespawn();
 			mob.deleteMe();
@@ -636,7 +636,7 @@ public class AntharasManager extends BossLair
 		_monsters.clear();
 
 		// Delete teleport cube.
-		for (L2NpcInstance cube : _teleportCube)
+		for (L2Npc cube : _teleportCube)
 		{
 			cube.getSpawn().stopRespawn();
 			cube.deleteMe();
@@ -767,10 +767,10 @@ public class AntharasManager extends BossLair
 	// Move at random on after Antharas appears.
 	private class MoveAtRandom implements Runnable
 	{
-		private L2NpcInstance	_npc;
+		private L2Npc	_npc;
 		private L2CharPosition	_pos;
 
-		public MoveAtRandom(L2NpcInstance npc, L2CharPosition pos)
+		public MoveAtRandom(L2Npc npc, L2CharPosition pos)
 		{
 			_npc = npc;
 			_pos = pos;

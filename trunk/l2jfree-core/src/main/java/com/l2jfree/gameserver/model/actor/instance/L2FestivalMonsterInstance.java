@@ -16,9 +16,9 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.SevenSignsFestival;
-import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Party;
+import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 

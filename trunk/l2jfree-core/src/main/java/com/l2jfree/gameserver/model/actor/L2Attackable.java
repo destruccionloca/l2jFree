@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.gameserver.model;
+package com.l2jfree.gameserver.model.actor;
 
 import java.util.Collections;
 import java.util.List;
@@ -37,13 +37,19 @@ import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.EventDroplist.DateDrop;
 import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
+import com.l2jfree.gameserver.model.L2ItemInstance;
+import com.l2jfree.gameserver.model.L2CommandChannel;
+import com.l2jfree.gameserver.model.L2DropCategory;
+import com.l2jfree.gameserver.model.L2DropData;
+import com.l2jfree.gameserver.model.L2Manor;
+import com.l2jfree.gameserver.model.L2Party;
+import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2ChestInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MinionInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.model.actor.knownlist.AttackableKnownList;
 import com.l2jfree.gameserver.model.base.SoulCrystal;
@@ -74,7 +80,7 @@ import com.l2jfree.util.SingletonMap;
  * 
  * @version $Revision: 1.24.2.3.2.16 $ $Date: 2005/04/11 19:11:21 $
  */
-public class L2Attackable extends L2NpcInstance
+public class L2Attackable extends L2Npc
 {
 	protected final static Log	_log	= LogFactory.getLog(L2Attackable.class.getName());
 
@@ -798,7 +804,7 @@ public class L2Attackable extends L2NpcInstance
 						partyLvl = 0;
 
 						// Get all L2Character that can be rewarded in the party
-						FastList<L2PlayableInstance> rewardedMembers = new FastList<L2PlayableInstance>();
+						FastList<L2Playable> rewardedMembers = new FastList<L2Playable>();
 
 						// Go through all L2PcInstance in the party
 						List<L2PcInstance> groupMembers;
@@ -848,7 +854,7 @@ public class L2Attackable extends L2NpcInstance
 									}
 								}
 							}
-							L2PlayableInstance summon = pl.getPet();
+							L2Playable summon = pl.getPet();
 							if (summon != null && summon instanceof L2PetInstance)
 							{
 								reward2 = rewards.get(summon);
@@ -997,8 +1003,8 @@ public class L2Attackable extends L2NpcInstance
 		ai._damage += damage;
 		ai._hate += (aggro * 100) / (getLevel() + 7);
 
-		// we will do some special treatments for _attacker but _attacker is not for sure a L2PlayableInstance...
-		if (attacker instanceof L2PlayableInstance)
+		// we will do some special treatments for _attacker but _attacker is not for sure a L2Playable...
+		if (attacker instanceof L2Playable)
 		{
 			// attacker L2PcInstance could be the the attacker or the owner of the attacker
 			L2PcInstance _attacker = attacker instanceof L2PcInstance ? (L2PcInstance) attacker : ((L2Summon) attacker).getOwner();
@@ -2248,7 +2254,7 @@ public class L2Attackable extends L2NpcInstance
 	private void levelSoulCrystals(L2Character attacker)
 	{
 		// Only L2PcInstance can absorb a soul
-		if (!(attacker instanceof L2PlayableInstance))
+		if (!(attacker instanceof L2Playable))
 		{
 			resetAbsorbList();
 			return;

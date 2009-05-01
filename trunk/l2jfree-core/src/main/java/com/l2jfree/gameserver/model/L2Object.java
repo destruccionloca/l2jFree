@@ -18,6 +18,8 @@ import javolution.text.TextBuilder;
 
 import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.instancemanager.InstanceManager;
+import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.knownlist.ObjectKnownList;
 import com.l2jfree.gameserver.model.actor.poly.ObjectPoly;

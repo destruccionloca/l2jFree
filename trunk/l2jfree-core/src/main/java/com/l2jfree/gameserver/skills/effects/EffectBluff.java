@@ -17,7 +17,7 @@ package com.l2jfree.gameserver.skills.effects;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Effect;
-import com.l2jfree.gameserver.model.actor.instance.L2FolkInstance;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeSummonInstance;
@@ -47,12 +47,12 @@ public final class EffectBluff extends L2Effect
 	public boolean onStart()
 	{
 		getEffected().startFear();
-		if (getEffected() instanceof L2FolkInstance)
+		if (getEffected() instanceof L2NpcInstance)
 			return false;
 		// if(getEffected() instanceof L2SiegeGuardInstance) return;
 		// Cannot be used on Headquarters Flag.
 		// bluff now is a PVE PVP skill
-		if (getEffected() instanceof L2NpcInstance && ((L2NpcInstance) getEffected()).getNpcId() == 35062 || getSkill().getId() != 358)
+		if (getEffected() instanceof L2Npc && ((L2Npc) getEffected()).getNpcId() == 35062 || getSkill().getId() != 358)
 			return false;
 
 		if (getEffected() instanceof L2SiegeSummonInstance)

@@ -27,7 +27,7 @@ import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.SpawnTable;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Spawn;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.GrandBossState;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
@@ -51,7 +51,7 @@ public class SailrenManager extends BossLair
 																{
 																{ 27734, -6838, -1982, 0 } };
 	protected List<L2Spawn>			_sailrenCubeSpawn			= new FastList<L2Spawn>();
-	protected List<L2NpcInstance>	_sailrenCube				= new FastList<L2NpcInstance>();
+	protected List<L2Npc>	_sailrenCube				= new FastList<L2Npc>();
 
 	// Spawn data of monsters
 	protected L2Spawn				_velociraptorSpawn;											// Velociraptor
@@ -60,10 +60,10 @@ public class SailrenManager extends BossLair
 	protected L2Spawn				_sailrenSapwn;													// Sailren
 
 	// Instance of monsters
-	protected L2NpcInstance			_velociraptor;													// Velociraptor
-	protected L2NpcInstance			_pterosaur;													// Pterosaur
-	protected L2NpcInstance			_tyranno;														// Tyrannosaurus
-	protected L2NpcInstance			_sailren;														// Sailren
+	protected L2Npc			_velociraptor;													// Velociraptor
+	protected L2Npc			_pterosaur;													// Pterosaur
+	protected L2Npc			_tyranno;														// Tyrannosaurus
+	protected L2Npc			_sailren;														// Sailren
 
 	// Tasks
 	protected ScheduledFuture<?>	_cubeSpawnTask				= null;
@@ -271,7 +271,7 @@ public class SailrenManager extends BossLair
 		banishForeigners();
 
 		// Delete teleport cube.
-		for (L2NpcInstance cube : _sailrenCube)
+		for (L2Npc cube : _sailrenCube)
 		{
 			cube.getSpawn().stopRespawn();
 			cube.deleteMe();
@@ -455,9 +455,9 @@ public class SailrenManager extends BossLair
 	// Limit of time coming.
 	private class ActivityTimeEnd implements Runnable
 	{
-		private L2NpcInstance	_mob;
+		private L2Npc	_mob;
 
-		public ActivityTimeEnd(L2NpcInstance npc)
+		public ActivityTimeEnd(L2Npc npc)
 		{
 			_mob = npc;
 		}
@@ -489,9 +489,9 @@ public class SailrenManager extends BossLair
 	private class Social implements Runnable
 	{
 		private int				_action;
-		private L2NpcInstance	_npc;
+		private L2Npc	_npc;
 
-		public Social(L2NpcInstance npc, int actionId)
+		public Social(L2Npc npc, int actionId)
 		{
 			_npc = npc;
 			_action = actionId;

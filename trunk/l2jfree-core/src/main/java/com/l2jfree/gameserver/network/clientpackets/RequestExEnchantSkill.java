@@ -27,7 +27,7 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2ShortCut;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2EnchantSkillLearn.EnchantSkillDetail;
-import com.l2jfree.gameserver.model.actor.instance.L2FolkInstance;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.base.Experience;
@@ -73,13 +73,13 @@ public final class RequestExEnchantSkill extends L2GameClientPacket
         if (player == null)
             return;
         
-        L2FolkInstance trainer = player.getLastFolkNPC();
+        L2NpcInstance trainer = player.getLastFolkNPC();
         if (trainer == null)
             return;
         
         int npcid = trainer.getNpcId();
         
-        if (!player.isInsideRadius(trainer, L2NpcInstance.INTERACTION_DISTANCE, false, false) && !player.isGM())
+        if (!player.isInsideRadius(trainer, L2Npc.INTERACTION_DISTANCE, false, false) && !player.isGM())
             return;
         
         if (player.getClassId().level() < 3) // requires to have 3rd class quest completed

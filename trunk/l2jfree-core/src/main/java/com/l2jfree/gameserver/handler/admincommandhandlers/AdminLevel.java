@@ -17,8 +17,8 @@ package com.l2jfree.gameserver.handler.admincommandhandlers;
 import java.util.StringTokenizer;
 
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
+import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 
 
 public class AdminLevel implements IAdminCommandHandler
@@ -67,11 +67,11 @@ public class AdminLevel implements IAdminCommandHandler
 			{
 			}
 
-			L2PlayableInstance target;
+			L2Playable target;
 
-			if (activeChar.getTarget() instanceof L2PlayableInstance && lvl > 0)
+			if (activeChar.getTarget() instanceof L2Playable && lvl > 0)
 			{
-				target = (L2PlayableInstance) activeChar.getTarget();
+				target = (L2Playable) activeChar.getTarget();
 
 				curlevel = target.getLevel();
 

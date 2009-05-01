@@ -14,9 +14,9 @@
  */
 package com.l2jfree.gameserver.skills.effects;
 
-import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Effect;
-import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
+import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
@@ -34,8 +34,8 @@ public final class EffectSilentMove extends L2Effect
 	@Override
 	public boolean onStart()
 	{
-		if (getEffected() instanceof L2PlayableInstance)
-			((L2PlayableInstance) getEffected()).setSilentMoving(true);
+		if (getEffected() instanceof L2Playable)
+			((L2Playable) getEffected()).setSilentMoving(true);
 		return true;
 	}
 
@@ -44,8 +44,8 @@ public final class EffectSilentMove extends L2Effect
 	public void onExit()
 	{
 		L2Character effected = getEffected();
-		if (effected instanceof L2PlayableInstance)
-			((L2PlayableInstance) effected).setSilentMoving(false);
+		if (effected instanceof L2Playable)
+			((L2Playable) effected).setSilentMoving(false);
 	}
 
 	@Override

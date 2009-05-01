@@ -104,7 +104,7 @@ public class ShapePoly extends Shape
 	@Override
 	protected Shape prepare(int zoneId)
 	{
-		if(_points.size() < 3)
+		if (_points.size() < 3)
 		{
 			_log.error("Invalid point amount in zone"+zoneId+", must be >2");
 			return null;
@@ -136,7 +136,7 @@ public class ShapePoly extends Shape
 			x = Rnd.get(_xMin, _xMax);
 			y = Rnd.get(_yMin, _yMax);
 		}
-		while(!contains(x, y));
+		while (!contains(x, y));
 
 		return new Location(x, y, _zMin);
 	}

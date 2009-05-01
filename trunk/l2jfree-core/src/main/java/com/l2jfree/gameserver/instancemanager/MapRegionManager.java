@@ -28,9 +28,9 @@ import org.w3c.dom.Node;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.SevenSigns;
-import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Clan;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.ClanHall;
@@ -521,7 +521,7 @@ public class MapRegionManager
 							}
 						}
 						// get nearest flag
-						L2NpcInstance flag = siege.getClosestFlag(player);
+						L2Npc flag = siege.getClosestFlag(player);
 						// spawn to flag
 						if (flag != null)
 							return new Location(flag.getX(), flag.getY(), flag.getZ());
@@ -538,7 +538,7 @@ public class MapRegionManager
 							}
 						}
 						// Get nearest flag
-						L2NpcInstance flag = fsiege.getClosestFlag(player);
+						L2Npc flag = fsiege.getClosestFlag(player);
 						// Spawn to flag
 						if (flag != null)
 							return new Location(flag.getX(), flag.getY(), flag.getZ());

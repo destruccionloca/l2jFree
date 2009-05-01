@@ -31,8 +31,8 @@ import com.l2jfree.gameserver.datatables.SpawnTable;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Spawn;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2GrandBossInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.GrandBossState;
 import com.l2jfree.gameserver.network.serverpackets.Earthquake;
@@ -73,21 +73,21 @@ public class BaiumManager extends BossLair
 																{ 115391, 17593, 10076, 55346 },
 																{ 115245, 17558, 10076, 35536 } };
 	protected List<L2Spawn>					_angelSpawns				= new FastList<L2Spawn>();
-	protected List<L2NpcInstance>			_angels						= new FastList<L2NpcInstance>();
+	protected List<L2Npc>			_angels						= new FastList<L2Npc>();
 
 	// Location of teleport cube.
 	public final static int			CUBE_LOCATION[]				= { 115203, 16620, 10078, 0 };
 	protected L2Spawn				_teleportCubeSpawn			= null;
-	protected L2NpcInstance			_teleportCube				= null;
+	protected L2Npc			_teleportCube				= null;
 
 	// Instance of statue of Baium.
-	protected L2NpcInstance			_npcBaium;
+	protected L2Npc			_npcBaium;
 
 	// Spawn data of monsters.
 	protected Map<Integer, L2Spawn>	_monsterSpawn				= new FastMap<Integer, L2Spawn>();
 
 	// Instance of monsters.
-	protected List<L2NpcInstance>	_monsters					= new FastList<L2NpcInstance>();
+	protected List<L2Npc>	_monsters					= new FastList<L2Npc>();
 
 	// Tasks.
 	protected ScheduledFuture<?>	_cubeSpawnTask				= null;
@@ -240,7 +240,7 @@ public class BaiumManager extends BossLair
 	// Archangel ascension.
 	public void deleteArchangels()
 	{
-		for (L2NpcInstance angel : _angels)
+		for (L2Npc angel : _angels)
 		{
 			angel.getSpawn().stopRespawn();
 			angel.deleteMe();
@@ -249,7 +249,7 @@ public class BaiumManager extends BossLair
 	}
 
 	// Do spawn Baium.
-	public void spawnBaium(L2NpcInstance NpcBaium)
+	public void spawnBaium(L2Npc NpcBaium)
 	{
 		_npcBaium = NpcBaium;
 
@@ -341,7 +341,7 @@ public class BaiumManager extends BossLair
 
 		// Delete monsters.
 		deleteArchangels();
-		for (L2NpcInstance mob : _monsters)
+		for (L2Npc mob : _monsters)
 		{
 			mob.getSpawn().stopRespawn();
 			mob.deleteMe();
@@ -478,9 +478,9 @@ public class BaiumManager extends BossLair
 	private class Social implements Runnable
 	{
 		private int				_action;
-		private L2NpcInstance	_npc;
+		private L2Npc	_npc;
 
-		public Social(L2NpcInstance npc, int actionId)
+		public Social(L2Npc npc, int actionId)
 		{
 			_npc = npc;
 			_action = actionId;
@@ -520,10 +520,10 @@ public class BaiumManager extends BossLair
 	// Move at random on after Baium appears.
 	private class MoveAtRandom implements Runnable
 	{
-		private L2NpcInstance	_npc;
+		private L2Npc	_npc;
 		private L2CharPosition	_pos;
 
-		public MoveAtRandom(L2NpcInstance npc, L2CharPosition pos)
+		public MoveAtRandom(L2Npc npc, L2CharPosition pos)
 		{
 			_npc = npc;
 			_pos = pos;

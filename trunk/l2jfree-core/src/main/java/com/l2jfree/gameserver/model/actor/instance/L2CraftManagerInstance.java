@@ -40,7 +40,7 @@ import javolution.text.TextBuilder;
  * @author G1ta0
  * Made in USSR
  */
-public class L2CraftManagerInstance extends L2FolkInstance
+public class L2CraftManagerInstance extends L2NpcInstance
 {
 	public static final int ADENA_ID = 57;
 	public static final int ITEMS_PER_PAGE = 5;	// Items list size in craft and crystallize pages

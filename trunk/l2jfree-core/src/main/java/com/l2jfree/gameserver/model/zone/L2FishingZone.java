@@ -14,7 +14,7 @@
  */
 package com.l2jfree.gameserver.model.zone;
 
-import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Character;
 
 public class L2FishingZone extends L2Zone
 {

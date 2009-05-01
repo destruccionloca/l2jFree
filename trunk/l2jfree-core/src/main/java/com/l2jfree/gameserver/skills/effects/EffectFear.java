@@ -19,7 +19,7 @@ import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.Location;
-import com.l2jfree.gameserver.model.actor.instance.L2FolkInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2FortCommanderInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2FortSiegeGuardInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -77,7 +77,7 @@ public final class EffectFear extends L2Effect
 			}
 		}
 
-		if (getEffected() instanceof L2FolkInstance || getEffected() instanceof L2SiegeGuardInstance || getEffected() instanceof L2SiegeFlagInstance
+		if (getEffected() instanceof L2NpcInstance || getEffected() instanceof L2SiegeGuardInstance || getEffected() instanceof L2SiegeFlagInstance
 				|| getEffected() instanceof L2SiegeSummonInstance || getEffected() instanceof L2FortSiegeGuardInstance
 				|| getEffected() instanceof L2FortCommanderInstance)
 			return false;

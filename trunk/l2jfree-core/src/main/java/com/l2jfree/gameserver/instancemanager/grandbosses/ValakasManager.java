@@ -29,8 +29,8 @@ import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.SpawnTable;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Spawn;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2GrandBossInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.GrandBossState;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
@@ -70,13 +70,13 @@ public class ValakasManager extends BossLair
 
 																};
 	protected List<L2Spawn>			_teleportCubeSpawn			= new FastList<L2Spawn>();
-	protected List<L2NpcInstance>	_teleportCube				= new FastList<L2NpcInstance>();
+	protected List<L2Npc>	_teleportCube				= new FastList<L2Npc>();
 
 	// Spawn data of monsters.
 	protected Map<Integer, L2Spawn>	_monsterSpawn				= new FastMap<Integer, L2Spawn>();
 
 	// Instance of monsters.
-	protected List<L2NpcInstance>	_monsters					= new FastList<L2NpcInstance>();
+	protected List<L2Npc>	_monsters					= new FastList<L2Npc>();
 
 	// Tasks.
 	protected ScheduledFuture<?>	_cubeSpawnTask				= null;
@@ -543,7 +543,7 @@ public class ValakasManager extends BossLair
 		banishForeigners();
 
 		// Delete monsters.
-		for (L2NpcInstance mob : _monsters)
+		for (L2Npc mob : _monsters)
 		{
 			mob.getSpawn().stopRespawn();
 			mob.deleteMe();
@@ -551,7 +551,7 @@ public class ValakasManager extends BossLair
 		_monsters.clear();
 
 		// Delete teleport cube.
-		for (L2NpcInstance cube : _teleportCube)
+		for (L2Npc cube : _teleportCube)
 		{
 			cube.getSpawn().stopRespawn();
 			cube.deleteMe();
@@ -674,10 +674,10 @@ public class ValakasManager extends BossLair
 	// Move at random on after Valakas appears.
 	private class MoveAtRandom implements Runnable
 	{
-		private L2NpcInstance	_npc;
+		private L2Npc	_npc;
 		private L2CharPosition	_pos;
 
-		public MoveAtRandom(L2NpcInstance npc, L2CharPosition pos)
+		public MoveAtRandom(L2Npc npc, L2CharPosition pos)
 		{
 			_npc = npc;
 			_pos = pos;
@@ -693,7 +693,7 @@ public class ValakasManager extends BossLair
 	protected void restartValakas()
 	{
 		L2Spawn valakasSpawn = _monsterSpawn.get(32123);
-		L2NpcInstance valakas = valakasSpawn.doSpawn();
+		L2Npc valakas = valakasSpawn.doSpawn();
 		_monsters.add(valakas);
 
 		// Set next task.
@@ -707,9 +707,9 @@ public class ValakasManager extends BossLair
 
 	private class RestartValakas implements Runnable
 	{
-		private L2NpcInstance	_valakas;
+		private L2Npc	_valakas;
 
-		public RestartValakas(L2NpcInstance valakas)
+		public RestartValakas(L2Npc valakas)
 		{
 			_valakas = valakas;
 		}

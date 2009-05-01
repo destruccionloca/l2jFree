@@ -15,7 +15,7 @@
 package com.l2jfree.gameserver.model.actor.stat;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.skills.Stats;
 
 public class NpcStat extends CharStat
@@ -25,7 +25,7 @@ public class NpcStat extends CharStat
     
     // =========================================================
     // Constructor
-    public NpcStat(L2NpcInstance activeChar)
+    public NpcStat(L2Npc activeChar)
     {
         super(activeChar);
 
@@ -41,7 +41,7 @@ public class NpcStat extends CharStat
     // =========================================================
     // Property - Public
     @Override
-    public L2NpcInstance getActiveChar() { return (L2NpcInstance)_activeChar; }
+    public L2Npc getActiveChar() { return (L2Npc)_activeChar; }
 
     @Override
     public final int getMaxHp() { return (int)calcStat(Stats.MAX_HP, getActiveChar().getTemplate().getBaseHpMax() * (getActiveChar().isChampion()?Config.CHAMPION_HP:1) , null, null); }

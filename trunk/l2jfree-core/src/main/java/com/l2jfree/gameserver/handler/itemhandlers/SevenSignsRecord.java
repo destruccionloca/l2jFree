@@ -16,9 +16,9 @@ package com.l2jfree.gameserver.handler.itemhandlers;
 
 import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.model.L2ItemInstance;
+import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.network.serverpackets.SSQStatus;
 
 /**
@@ -32,7 +32,7 @@ public class SevenSignsRecord implements IItemHandler
 	private static final int[]	ITEM_IDS	=
 											{ 5707 };
 
-	public void useItem(L2PlayableInstance playable, @SuppressWarnings("unused")
+	public void useItem(L2Playable playable, @SuppressWarnings("unused")
 	L2ItemInstance item)
 	{
 		L2PcInstance activeChar;

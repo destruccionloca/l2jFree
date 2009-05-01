@@ -18,8 +18,8 @@ import javolution.util.FastList;
 
 import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
 import com.l2jfree.gameserver.model.CursedWeapon;
-import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.Location;
+import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.network.serverpackets.ExCursedWeaponLocation;
 import com.l2jfree.gameserver.network.serverpackets.ExCursedWeaponLocation.CursedWeaponInfo;
 

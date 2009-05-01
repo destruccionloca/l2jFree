@@ -14,7 +14,7 @@
  */
 package com.l2jfree.gameserver.skills.conditions;
 
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.skills.Env;
 
 class ConditionTargetNpcType extends Condition
@@ -29,10 +29,10 @@ class ConditionTargetNpcType extends Condition
 	@Override
 	public boolean testImpl(Env env)
 	{
-		if (!(env.target instanceof L2NpcInstance))
+		if (!(env.target instanceof L2Npc))
 			return false;
 		
-		String type = ((L2NpcInstance)env.target).getTemplate().getType();
+		String type = ((L2Npc)env.target).getTemplate().getType();
 		
 		for (String npcType : _npcTypes)
 			if (npcType.equalsIgnoreCase(type))

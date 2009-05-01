@@ -22,6 +22,7 @@ import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
@@ -34,7 +35,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  * @author Layane
  *
  */
-public class L2CabaleBufferInstance extends L2NpcInstance
+public class L2CabaleBufferInstance extends L2Npc
 {
 	@Override
 	public void onAction(L2PcInstance player)

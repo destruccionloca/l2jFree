@@ -40,8 +40,8 @@ import com.l2jfree.gameserver.model.L2Party;
 import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.SpawnListener;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2FestivalMonsterInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.base.Experience;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
@@ -726,8 +726,8 @@ public class SevenSignsFestival implements SpawnListener
 	protected List<Integer>							_accumulatedBonuses;																														// The
 
 	private boolean									_noPartyRegister;
-	private L2NpcInstance							_dawnChatGuide;
-	private L2NpcInstance							_duskChatGuide;
+	private L2Npc									_dawnChatGuide;
+	private L2Npc									_duskChatGuide;
 
 	protected Map<Integer, List<L2PcInstance>>		_dawnFestivalParticipants;
 	protected Map<Integer, List<L2PcInstance>>		_duskFestivalParticipants;
@@ -1689,7 +1689,7 @@ public class SevenSignsFestival implements SpawnListener
 	 * 
 	 * @param npc
 	 */
-	public void npcSpawned(L2NpcInstance npc)
+	public void npcSpawned(L2Npc npc)
 	{
 		if (npc == null)
 			return;
@@ -2007,7 +2007,7 @@ public class SevenSignsFestival implements SpawnListener
 		private FestivalSpawn						_startLocation;
 		private FestivalSpawn						_witchSpawn;
 
-		private L2NpcInstance						_witchInst;
+		private L2Npc								_witchInst;
 		private List<L2FestivalMonsterInstance>		_npcInsts;
 
 		private List<L2PcInstance>					_participants;

@@ -24,8 +24,10 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.SpawnTable;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
+import com.l2jfree.gameserver.model.actor.L2Attackable;
+import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Npc;
+import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.util.concurrent.L2Collection;
 import com.l2jfree.util.concurrent.L2SynchronizedCollection;
@@ -39,7 +41,7 @@ public final class L2WorldRegion
 	public static final int MAP_MIN_Y = -262144;
 	public static final int MAP_MAX_Y = 262144;
 	
-	private final L2Collection<L2PlayableInstance> _playables = new L2SynchronizedCollection<L2PlayableInstance>();
+	private final L2Collection<L2Playable> _playables = new L2SynchronizedCollection<L2Playable>();
 	private final L2Collection<L2Object> _objects = new L2SynchronizedCollection<L2Object>();
 	
 	private final int _tileX;
@@ -214,8 +216,8 @@ public final class L2WorldRegion
 				if (obj instanceof L2Attackable)
 					((L2Attackable)obj).getStatus().startHpMpRegeneration();
 				
-				else if (obj instanceof L2NpcInstance)
-					((L2NpcInstance)obj).startRandomAnimationTimer();
+				else if (obj instanceof L2Npc)
+					((L2Npc)obj).startRandomAnimationTimer();
 				
 				obj.getKnownList().tryAddObjects(surroundingObjects);
 			}
@@ -308,9 +310,9 @@ public final class L2WorldRegion
 		
 		_objects.add(object);
 		
-		if (object instanceof L2PlayableInstance)
+		if (object instanceof L2Playable)
 		{
-			_playables.add((L2PlayableInstance)object);
+			_playables.add((L2Playable)object);
 			
 			// if this is the first player to enter the region, activate self & neighbors
 			if (!Config.GRIDS_ALWAYS_ON && _playables.size() == 1)
@@ -347,9 +349,9 @@ public final class L2WorldRegion
 		
 		_objects.remove(object);
 		
-		if (object instanceof L2PlayableInstance)
+		if (object instanceof L2Playable)
 		{
-			_playables.remove((L2PlayableInstance)object);
+			_playables.remove((L2Playable)object);
 			
 			if (!Config.GRIDS_ALWAYS_ON && _playables.isEmpty())
 				startDeactivation();
@@ -384,9 +386,9 @@ public final class L2WorldRegion
 		return _objects.toArray(new L2Object[_objects.size()]);
 	}
 	
-	public L2PlayableInstance[] getVisiblePlayables()
+	public L2Playable[] getVisiblePlayables()
 	{
-		return _playables.toArray(new L2PlayableInstance[_playables.size()]);
+		return _playables.toArray(new L2Playable[_playables.size()]);
 	}
 	
 	public String getName()
@@ -401,9 +403,9 @@ public final class L2WorldRegion
 	{
 		for (L2Object obj : getVisibleObjects())
 		{
-			if (obj instanceof L2NpcInstance)
+			if (obj instanceof L2Npc)
 			{
-				L2NpcInstance npc = (L2NpcInstance)obj;
+				L2Npc npc = (L2Npc)obj;
 				npc.deleteMe();
 				
 				L2Spawn spawn = npc.getSpawn();

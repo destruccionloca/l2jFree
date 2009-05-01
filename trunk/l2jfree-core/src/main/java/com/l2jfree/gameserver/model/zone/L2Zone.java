@@ -32,14 +32,14 @@ import org.w3c.dom.Node;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.instancemanager.InstanceManager;
-import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.Location;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Summon;
+import com.l2jfree.gameserver.model.actor.L2Npc;
+import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.model.entity.Instance;
 import com.l2jfree.gameserver.model.zone.form.Shape;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -710,11 +710,11 @@ public class L2Zone implements FuncOwner
 		switch (_affected)
 		{
 			case PLAYABLE:
-				return character instanceof L2PlayableInstance;
+				return character instanceof L2Playable;
 			case PC:
 				return character instanceof L2PcInstance;
 			case NPC:
-				return character instanceof L2NpcInstance;
+				return character instanceof L2Npc;
 			case ALL:
 				return true;
 		}

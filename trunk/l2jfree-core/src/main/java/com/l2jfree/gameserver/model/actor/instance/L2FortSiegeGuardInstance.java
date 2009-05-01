@@ -21,9 +21,10 @@ import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.ai.L2FortSiegeGuardAI;
 import com.l2jfree.gameserver.model.L2CharPosition;
-import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.L2SiegeGuard;
-import com.l2jfree.gameserver.model.L2Summon;
+import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2SiegeGuard;
+import com.l2jfree.gameserver.model.actor.L2Playable;
+import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.knownlist.FortSiegeGuardKnownList;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
@@ -192,7 +193,7 @@ public class L2FortSiegeGuardInstance extends L2SiegeGuard
 
 		if (!(attacker instanceof L2FortSiegeGuardInstance))
 		{
-			if (attacker instanceof L2PlayableInstance)
+			if (attacker instanceof L2Playable)
 			{
 				L2PcInstance player = null;
 				if (attacker instanceof L2PcInstance)

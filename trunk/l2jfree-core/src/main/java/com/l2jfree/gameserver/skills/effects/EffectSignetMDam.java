@@ -24,15 +24,15 @@ import javolution.util.FastList;
 import com.l2jfree.gameserver.ai.CtrlEvent;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.idfactory.IdFactory;
-import com.l2jfree.gameserver.model.L2Attackable;
-import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.L2World;
+import com.l2jfree.gameserver.model.actor.L2Attackable;
+import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Playable;
+import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2EffectPointInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillLaunched;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -127,7 +127,7 @@ public final class EffectSignetMDam extends L2Effect
 			if (cha == null || cha == caster)
 				continue;
 
-			if (cha instanceof L2Attackable || cha instanceof L2PlayableInstance)
+			if (cha instanceof L2Attackable || cha instanceof L2Playable)
 			{
 				if (cha.isAlikeDead())
 					continue;
@@ -140,7 +140,7 @@ public final class EffectSignetMDam extends L2Effect
 
 				caster.reduceCurrentMp(mpConsume);
 
-				if (cha instanceof L2PlayableInstance)
+				if (cha instanceof L2Playable)
 				{
 					if (!(cha instanceof L2Summon && ((L2Summon)cha).getOwner() == caster))
 						caster.updatePvPStatus(cha);

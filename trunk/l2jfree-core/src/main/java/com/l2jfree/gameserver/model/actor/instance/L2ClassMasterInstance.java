@@ -37,7 +37,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  * Class Master implementation
  * ths npc is used for changing character occupation
  **/
-public final class L2ClassMasterInstance extends L2FolkInstance
+public final class L2ClassMasterInstance extends L2NpcInstance
 {
 	private final static Log	_log	= LogFactory.getLog(L2ClassMasterInstance.class.getName());
 

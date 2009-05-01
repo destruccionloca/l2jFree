@@ -19,9 +19,9 @@ import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -38,9 +38,9 @@ public class PetFood implements IItemHandler
 	
 	/**
 	 * 
-	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance, com.l2jfree.gameserver.model.L2ItemInstance)
+	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.actor.instance.L2Playable, com.l2jfree.gameserver.model.L2ItemInstance)
 	 */
-	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
+	public void useItem(L2Playable playable, L2ItemInstance item)
 	{
 		int itemId = item.getItemId();
 		switch (itemId)
@@ -72,7 +72,7 @@ public class PetFood implements IItemHandler
 		}
 	}
 
-	public boolean useFood(L2PlayableInstance activeChar, int magicId, L2ItemInstance item)
+	public boolean useFood(L2Playable activeChar, int magicId, L2ItemInstance item)
 	{
 		L2Skill skill = SkillTable.getInstance().getInfo(magicId, 1);
 		

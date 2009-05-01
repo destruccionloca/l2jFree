@@ -22,8 +22,8 @@ import com.l2jfree.gameserver.instancemanager.CastleManorManager.CropProcure;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Manor;
 import com.l2jfree.gameserver.model.L2Object;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2ManorManagerInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -93,7 +93,7 @@ public class RequestProcureCropList extends L2GameClientPacket
 
 		if (!player.isGM()
 				&& (target == null || !(target instanceof L2ManorManagerInstance)
-					|| !player.isInsideRadius(target, L2NpcInstance.INTERACTION_DISTANCE, false, false)))
+					|| !player.isInsideRadius(target, L2Npc.INTERACTION_DISTANCE, false, false)))
 			return;
 
 		if (_size < 1)

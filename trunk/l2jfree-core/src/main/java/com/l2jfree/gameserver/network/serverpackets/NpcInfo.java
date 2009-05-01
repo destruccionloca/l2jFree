@@ -16,13 +16,13 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
-import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.L2Decoy;
-import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.L2Transformation;
-import com.l2jfree.gameserver.model.L2Trap;
+import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Decoy;
+import com.l2jfree.gameserver.model.actor.L2Npc;
+import com.l2jfree.gameserver.model.actor.L2Summon;
+import com.l2jfree.gameserver.model.actor.L2Trap;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.network.L2GameClient;
@@ -53,7 +53,7 @@ public class NpcInfo extends L2GameServerPacket
 	/**
 	 * @param _activeCharracters
 	 */
-	public NpcInfo(L2NpcInstance cha)
+	public NpcInfo(L2Npc cha)
 	{
 		_activeChar = cha;
 		_idTemplate = cha.getTemplate().getIdTemplate();

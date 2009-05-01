@@ -15,7 +15,7 @@
 package com.l2jfree.gameserver.model.actor.knownlist;
 
 import com.l2jfree.gameserver.model.L2Object;
-import com.l2jfree.gameserver.model.L2Summon;
+import com.l2jfree.gameserver.model.actor.L2Summon;
 
 public class SummonKnownList extends PlayableKnownList
 {

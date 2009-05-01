@@ -14,11 +14,12 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
-import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
-public class L2EffectPointInstance extends L2NpcInstance
+public class L2EffectPointInstance extends L2Npc
 {
 	private L2Character _owner;
 

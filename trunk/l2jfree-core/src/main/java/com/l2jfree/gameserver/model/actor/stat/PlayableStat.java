@@ -14,8 +14,8 @@
  */
 package com.l2jfree.gameserver.model.actor.stat;
 
+import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.model.base.Experience;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 
@@ -26,7 +26,7 @@ public class PlayableStat extends CharStat
     
     // =========================================================
     // Constructor
-    public PlayableStat(L2PlayableInstance activeChar)
+    public PlayableStat(L2Playable activeChar)
     {
         super(activeChar);
     }
@@ -178,7 +178,7 @@ public class PlayableStat extends CharStat
     // =========================================================
     // Property - Public
     @Override
-    public L2PlayableInstance getActiveChar() { return (L2PlayableInstance)_activeChar; }
+    public L2Playable getActiveChar() { return (L2Playable)_activeChar; }
 
 	/**
 	 * Return the RunSpeed (base+modifier) of the L2Character in function of the

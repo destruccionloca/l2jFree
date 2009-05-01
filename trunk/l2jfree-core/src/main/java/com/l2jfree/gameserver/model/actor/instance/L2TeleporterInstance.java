@@ -38,7 +38,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  * @version $Revision: 1.3.2.2.2.5 $ $Date: 2005/03/27 15:29:32 $
  *
  */
-public final class L2TeleporterInstance extends L2FolkInstance
+public final class L2TeleporterInstance extends L2NpcInstance
 {
 	private final static Log	_log						= LogFactory.getLog(L2TeleporterInstance.class.getName());
 

@@ -26,7 +26,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  * 
  * @version $Revision$ $Date$
  */
-public class L2SiegeNpcInstance extends L2FolkInstance
+public class L2SiegeNpcInstance extends L2NpcInstance
 {
 	public L2SiegeNpcInstance(int objectID, L2NpcTemplate template)
 	{

@@ -16,12 +16,12 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 import java.util.Arrays;
 
-import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Summon;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Npc;
+import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -254,8 +254,8 @@ public final class SystemMessage extends L2GameServerPacket
 		if (checkNPE(cha))
 			return this;
 		
-		if (cha instanceof L2NpcInstance)
-			return addNpcName((L2NpcInstance)cha);
+		if (cha instanceof L2Npc)
+			return addNpcName((L2Npc)cha);
 		
 		if (cha instanceof L2PcInstance)
 			return addPcName((L2PcInstance)cha);
@@ -271,7 +271,7 @@ public final class SystemMessage extends L2GameServerPacket
 		return addString(pc.getAppearance().getVisibleName());
 	}
 	
-	public SystemMessage addNpcName(L2NpcInstance npc)
+	public SystemMessage addNpcName(L2Npc npc)
 	{
 		return addNpcName(npc.getTemplate());
 	}

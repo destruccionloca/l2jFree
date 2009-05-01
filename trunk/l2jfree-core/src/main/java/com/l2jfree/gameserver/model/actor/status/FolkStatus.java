@@ -14,13 +14,13 @@
  */
 package com.l2jfree.gameserver.model.actor.status;
 
-import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.actor.instance.L2FolkInstance;
+import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 
 public final class FolkStatus extends NpcStatus
 {
-	public FolkStatus(L2NpcInstance activeChar)
+	public FolkStatus(L2Npc activeChar)
 	{
 		super(activeChar);
 	}
@@ -37,8 +37,8 @@ public final class FolkStatus extends NpcStatus
 	}
 	
 	@Override
-	public L2FolkInstance getActiveChar()
+	public L2NpcInstance getActiveChar()
 	{
-		return (L2FolkInstance)_activeChar;
+		return (L2NpcInstance)_activeChar;
 	}
 }

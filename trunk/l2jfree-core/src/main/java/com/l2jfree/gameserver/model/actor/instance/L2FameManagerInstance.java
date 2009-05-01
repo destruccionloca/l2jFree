@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.model.actor.instance;
 import java.util.StringTokenizer;
 
 import com.l2jfree.gameserver.ai.CtrlIntention;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
@@ -31,7 +32,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  * Reputation score manager
  * @author Kerberos
  */
-public class L2FameManagerInstance extends L2NpcInstance
+public class L2FameManagerInstance extends L2Npc
 {
 	public L2FameManagerInstance(int objectId, L2NpcTemplate template)
 	{
@@ -48,7 +49,7 @@ public class L2FameManagerInstance extends L2NpcInstance
 		if (!canTarget(player))
 			return;
 		
-		// Check if the L2PcInstance already target the L2NpcInstance
+		// Check if the L2PcInstance already target the L2Npc
 		if (this != player.getTarget())
 		{
 			// Set the target of the L2PcInstance player
@@ -58,12 +59,12 @@ public class L2FameManagerInstance extends L2NpcInstance
 			MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
 			player.sendPacket(my);
 			
-			// Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client
+			// Send a Server->Client packet ValidateLocation to correct the L2Npc position and heading on the client
 			player.sendPacket(new ValidateLocation(this));
 		}
 		else
 		{
-			// Calculate the distance between the L2PcInstance and the L2NpcInstance
+			// Calculate the distance between the L2PcInstance and the L2Npc
 			if (!canInteract(player))
 			{
 				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT

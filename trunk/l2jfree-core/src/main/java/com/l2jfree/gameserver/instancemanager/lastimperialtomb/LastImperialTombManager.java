@@ -29,8 +29,8 @@ import com.l2jfree.gameserver.instancemanager.grandbosses.BossLair;
 import com.l2jfree.gameserver.instancemanager.grandbosses.FrintezzaManager;
 import com.l2jfree.gameserver.model.L2Party;
 import com.l2jfree.gameserver.model.L2Spawn;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -49,12 +49,12 @@ public class LastImperialTombManager extends BossLair
 	private static boolean					_isInvaded					= false;
 
 	// Instance list of monsters.
-	protected static List<L2NpcInstance>	_hallAlarmDevices			= new FastList<L2NpcInstance>();
-	protected static List<L2NpcInstance>	_darkChoirPlayers			= new FastList<L2NpcInstance>();
-	protected static List<L2NpcInstance>	_darkChoirCaptains			= new FastList<L2NpcInstance>();
-	protected static List<L2NpcInstance>	_room1Monsters				= new FastList<L2NpcInstance>();
-	protected static List<L2NpcInstance>	_room2InsideMonsters		= new FastList<L2NpcInstance>();
-	protected static List<L2NpcInstance>	_room2OutsideMonsters		= new FastList<L2NpcInstance>();
+	protected static List<L2Npc>	_hallAlarmDevices			= new FastList<L2Npc>();
+	protected static List<L2Npc>	_darkChoirPlayers			= new FastList<L2Npc>();
+	protected static List<L2Npc>	_darkChoirCaptains			= new FastList<L2Npc>();
+	protected static List<L2Npc>	_room1Monsters				= new FastList<L2Npc>();
+	protected static List<L2Npc>	_room2InsideMonsters		= new FastList<L2Npc>();
+	protected static List<L2Npc>	_room2OutsideMonsters		= new FastList<L2Npc>();
 
 	// Instance list of doors.
 	protected static List<L2DoorInstance>	_room1Doors					= new FastList<L2DoorInstance>();
@@ -290,7 +290,7 @@ public class LastImperialTombManager extends BossLair
 	}
 
 	// Registration to enter to tomb.
-	public synchronized void registration(L2PcInstance pc, L2NpcInstance npc)
+	public synchronized void registration(L2PcInstance pc, L2Npc npc)
 	{
 		switch (Config.LIT_REGISTRATION_MODE)
 		{
@@ -325,7 +325,7 @@ public class LastImperialTombManager extends BossLair
 	}
 
 	// Announcement of remaining time of registration to players.
-	protected void doAnnouncementRegstrationInfo(L2NpcInstance npc, int remaining)
+	protected void doAnnouncementRegstrationInfo(L2Npc npc, int remaining)
 	{
 		CreatureSay cs = null;
 
@@ -596,7 +596,7 @@ public class LastImperialTombManager extends BossLair
 	{
 		int killCnt = 0;
 
-		for (L2NpcInstance HallAlarmDevice : _hallAlarmDevices)
+		for (L2Npc HallAlarmDevice : _hallAlarmDevices)
 		{
 			if (HallAlarmDevice.isDead())
 				killCnt++;
@@ -664,7 +664,7 @@ public class LastImperialTombManager extends BossLair
 	{
 		int killCnt = 0;
 
-		for (L2NpcInstance DarkChoirPlayer : _room2InsideMonsters)
+		for (L2Npc DarkChoirPlayer : _room2InsideMonsters)
 		{
 			if (DarkChoirPlayer.isDead())
 				killCnt++;
@@ -687,7 +687,7 @@ public class LastImperialTombManager extends BossLair
 	{
 		int killCnt = 0;
 
-		for (L2NpcInstance DarkChoirCaptain : _darkChoirCaptains)
+		for (L2Npc DarkChoirCaptain : _darkChoirCaptains)
 		{
 			if (DarkChoirCaptain.isDead())
 				killCnt++;
@@ -697,13 +697,13 @@ public class LastImperialTombManager extends BossLair
 		{
 			openRoom2OutsideDoors();
 
-			for (L2NpcInstance mob : _room2OutsideMonsters)
+			for (L2Npc mob : _room2OutsideMonsters)
 			{
 				mob.deleteMe();
 				mob.getSpawn().stopRespawn();
 			}
 
-			for (L2NpcInstance DarkChoirCaptain : _darkChoirCaptains)
+			for (L2Npc DarkChoirCaptain : _darkChoirCaptains)
 			{
 				DarkChoirCaptain.deleteMe();
 				DarkChoirCaptain.getSpawn().stopRespawn();
@@ -713,13 +713,13 @@ public class LastImperialTombManager extends BossLair
 
 	private void openRoom1Doors()
 	{
-		for (L2NpcInstance npc : _hallAlarmDevices)
+		for (L2Npc npc : _hallAlarmDevices)
 		{
 			npc.deleteMe();
 			npc.getSpawn().stopRespawn();
 		}
 
-		for (L2NpcInstance npc : _room1Monsters)
+		for (L2Npc npc : _room1Monsters)
 		{
 			npc.deleteMe();
 			npc.getSpawn().stopRespawn();
@@ -759,7 +759,7 @@ public class LastImperialTombManager extends BossLair
 
 	private void spawnRoom2InsideMob()
 	{
-		L2NpcInstance mob;
+		L2Npc mob;
 		for (L2Spawn spawn : LastImperialTombSpawnlist.getInstance().getRoom2InsideSpawnList())
 		{
 			mob = spawn.doSpawn();
@@ -857,42 +857,42 @@ public class LastImperialTombManager extends BossLair
 	// Delete all mobs from tomb.
 	private void cleanUpMobs()
 	{
-		for (L2NpcInstance mob : _hallAlarmDevices)
+		for (L2Npc mob : _hallAlarmDevices)
 		{
 			mob.getSpawn().stopRespawn();
 			mob.deleteMe();
 		}
 		_hallAlarmDevices.clear();
 
-		for (L2NpcInstance mob : _darkChoirPlayers)
+		for (L2Npc mob : _darkChoirPlayers)
 		{
 			mob.getSpawn().stopRespawn();
 			mob.deleteMe();
 		}
 		_darkChoirPlayers.clear();
 
-		for (L2NpcInstance mob : _darkChoirCaptains)
+		for (L2Npc mob : _darkChoirCaptains)
 		{
 			mob.getSpawn().stopRespawn();
 			mob.deleteMe();
 		}
 		_darkChoirCaptains.clear();
 
-		for (L2NpcInstance mob : _room1Monsters)
+		for (L2Npc mob : _room1Monsters)
 		{
 			mob.getSpawn().stopRespawn();
 			mob.deleteMe();
 		}
 		_room1Monsters.clear();
 
-		for (L2NpcInstance mob : _room2InsideMonsters)
+		for (L2Npc mob : _room2InsideMonsters)
 		{
 			mob.getSpawn().stopRespawn();
 			mob.deleteMe();
 		}
 		_room2InsideMonsters.clear();
 
-		for (L2NpcInstance mob : _room2OutsideMonsters)
+		for (L2Npc mob : _room2OutsideMonsters)
 		{
 			mob.getSpawn().stopRespawn();
 			mob.deleteMe();
@@ -911,7 +911,7 @@ public class LastImperialTombManager extends BossLair
 	{
 		public void run()
 		{
-			L2NpcInstance mob;
+			L2Npc mob;
 			for (L2Spawn spawn : LastImperialTombSpawnlist.getInstance().getRoom1SpawnList1st())
 			{
 				if (spawn.getNpcid() == 18328)
@@ -934,7 +934,7 @@ public class LastImperialTombManager extends BossLair
 	{
 		public void run()
 		{
-			L2NpcInstance mob;
+			L2Npc mob;
 			for (L2Spawn spawn : LastImperialTombSpawnlist.getInstance().getRoom1SpawnList2nd())
 			{
 				mob = spawn.doSpawn();
@@ -948,7 +948,7 @@ public class LastImperialTombManager extends BossLair
 	{
 		public void run()
 		{
-			L2NpcInstance mob;
+			L2Npc mob;
 			for (L2Spawn spawn : LastImperialTombSpawnlist.getInstance().getRoom1SpawnList3rd())
 			{
 				mob = spawn.doSpawn();
@@ -962,7 +962,7 @@ public class LastImperialTombManager extends BossLair
 	{
 		public void run()
 		{
-			L2NpcInstance mob;
+			L2Npc mob;
 			for (L2Spawn spawn : LastImperialTombSpawnlist.getInstance().getRoom1SpawnList4th())
 			{
 				mob = spawn.doSpawn();
@@ -989,13 +989,13 @@ public class LastImperialTombManager extends BossLair
 			{
 				if (spawn.getNpcid() == 18334)
 				{
-					L2NpcInstance mob = spawn.doSpawn();
+					L2Npc mob = spawn.doSpawn();
 					mob.getSpawn().stopRespawn();
 					_darkChoirCaptains.add(mob);
 				}
 				else
 				{
-					L2NpcInstance mob = spawn.doSpawn();
+					L2Npc mob = spawn.doSpawn();
 					mob.getSpawn().startRespawn();
 					_room2OutsideMonsters.add(mob);
 				}
@@ -1005,10 +1005,10 @@ public class LastImperialTombManager extends BossLair
 
 	private class AnnouncementRegstrationInfo implements Runnable
 	{
-		private L2NpcInstance	_npc	= null;
+		private L2Npc	_npc	= null;
 		private int				_remaining;
 
-		public AnnouncementRegstrationInfo(L2NpcInstance npc, int remaining)
+		public AnnouncementRegstrationInfo(L2Npc npc, int remaining)
 		{
 			_npc = npc;
 			_remaining = remaining;

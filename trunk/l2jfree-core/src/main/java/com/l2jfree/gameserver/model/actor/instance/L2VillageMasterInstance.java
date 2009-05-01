@@ -61,7 +61,7 @@ import com.l2jfree.gameserver.util.FloodProtector.Protected;
  * 
  * @version $Revision: 1.4.2.3.2.8 $ $Date: 2005/03/29 23:15:15 $
  */
-public final class L2VillageMasterInstance extends L2FolkInstance
+public final class L2VillageMasterInstance extends L2NpcInstance
 {
 	private final static Log	_log	= LogFactory.getLog(L2VillageMasterInstance.class.getName());
 

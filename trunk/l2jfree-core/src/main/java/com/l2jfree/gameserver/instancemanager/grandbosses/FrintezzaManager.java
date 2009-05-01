@@ -28,15 +28,15 @@ import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SpawnTable;
-import com.l2jfree.gameserver.model.L2Attackable;
 import com.l2jfree.gameserver.model.L2CharPosition;
-import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Spawn;
+import com.l2jfree.gameserver.model.actor.L2Attackable;
+import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2GrandBossInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.GrandBossState;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -73,7 +73,7 @@ public class FrintezzaManager extends BossLair
 			demonSpawn1, demonSpawn2, demonSpawn3, demonSpawn4;
 
 	private L2GrandBossInstance		weakScarlet, strongScarlet, portrait1, portrait2, portrait3, portrait4;
-	private L2NpcInstance			frintezza;
+	private L2Npc			frintezza;
 
 	// The minions be used as L2MonsterInstance, instead of L2MinionInstance, since they
 	// have 3 Bosses: weak scarlet, strong scarlet, and frintezza. All 3 bosses control
@@ -265,7 +265,7 @@ public class FrintezzaManager extends BossLair
 	 * Shows a movie to the players in the lair.
 	 * 
 	 * @param target -
-	 *            L2NpcInstance target is the center of this movie
+	 *            L2Npc target is the center of this movie
 	 * @param dist -
 	 *            int distance from target
 	 * @param yaw -
@@ -280,7 +280,7 @@ public class FrintezzaManager extends BossLair
 	 *            1,2,3 social actions / other values do nothing
 	 */
 
-	private void showSocialActionMovie(L2NpcInstance target, int dist, int yaw, int pitch, int time, int duration, int socialAction)
+	private void showSocialActionMovie(L2Npc target, int dist, int yaw, int pitch, int time, int duration, int socialAction)
 	{
 		if (target == null)
 			return;
@@ -1271,7 +1271,7 @@ public class FrintezzaManager extends BossLair
 	 *            L2BossInstance that is (or is set as) dead.
 	 */
 
-	public void bossDeadCheck(L2NpcInstance mob)
+	public void bossDeadCheck(L2Npc mob)
 	{
 		if (mob == null)
 			return;
@@ -1621,7 +1621,7 @@ public class FrintezzaManager extends BossLair
 	{
 		int count = 0;
 
-		// Server->Client packet StatusUpdate of the L2NpcInstance to the L2PcInstance to update its HP bar
+		// Server->Client packet StatusUpdate of the L2Npc to the L2PcInstance to update its HP bar
 		StatusUpdate su = new StatusUpdate(target.getObjectId());
 		su.addAttribute(StatusUpdate.CUR_HP, (int) target.getStatus().getCurrentHp());
 		su.addAttribute(StatusUpdate.MAX_HP, target.getMaxHp());
@@ -1635,7 +1635,7 @@ public class FrintezzaManager extends BossLair
 				MyTargetSelected my = new MyTargetSelected(target.getObjectId(), pc.getLevel() - target.getLevel());
 				pc.sendPacket(my);
 
-				// Send a Server->Client packet StatusUpdate of the L2NpcInstance to the L2PcInstance to update its HP bar
+				// Send a Server->Client packet StatusUpdate of the L2Npc to the L2PcInstance to update its HP bar
 				pc.sendPacket(su);
 			}
 			count++;
@@ -1812,9 +1812,9 @@ public class FrintezzaManager extends BossLair
 
 	private class ReTarget implements Runnable
 	{
-		private L2NpcInstance	_mob;
+		private L2Npc	_mob;
 
-		public ReTarget(L2NpcInstance mob)
+		public ReTarget(L2Npc mob)
 		{
 			_mob = mob;
 		}
@@ -2033,9 +2033,9 @@ public class FrintezzaManager extends BossLair
 	 */
 	private class SetMobilised implements Runnable
 	{
-		private L2NpcInstance	_boss;
+		private L2Npc	_boss;
 
-		public SetMobilised(L2NpcInstance boss)
+		public SetMobilised(L2Npc boss)
 		{
 			_boss = boss;
 		}
@@ -2049,16 +2049,16 @@ public class FrintezzaManager extends BossLair
 	}
 
 	/**
-	 * Moves an L2NpcInstance to a new Position.
+	 * Moves an L2Npc to a new Position.
 	 * 
 	 * @author Darki699
 	 */
 	private class MoveToPos implements Runnable
 	{
-		private L2NpcInstance	_npc;
+		private L2Npc	_npc;
 		private L2CharPosition	_pos;
 
-		public MoveToPos(L2NpcInstance npc, L2CharPosition pos)
+		public MoveToPos(L2Npc npc, L2CharPosition pos)
 		{
 			_npc = npc;
 			_pos = pos;

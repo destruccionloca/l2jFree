@@ -19,8 +19,8 @@
 
 package com.l2jfree.gameserver.skills.l2skills;
 
-import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.templates.StatsSet;
 
 public final class L2SkillSignetCasttime extends L2Skill

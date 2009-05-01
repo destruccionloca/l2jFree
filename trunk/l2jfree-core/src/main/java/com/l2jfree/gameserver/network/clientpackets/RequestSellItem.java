@@ -20,9 +20,9 @@ import com.l2jfree.gameserver.Shutdown.DisableType;
 import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2FishermanInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MerchantInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetManagerInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -117,7 +117,7 @@ public class RequestSellItem extends L2GameClientPacket
         L2Object target = player.getTarget();
         if (!player.isGM() && (target == null								// No target (ie GM Shop)
         		|| !(target instanceof L2MerchantInstance)	// Target not a merchant and not mercmanager
-			    || !player.isInsideRadius(target, L2NpcInstance.INTERACTION_DISTANCE, false, false) 	// Distance is too far
+			    || !player.isInsideRadius(target, L2Npc.INTERACTION_DISTANCE, false, false) 	// Distance is too far
 			        )) return;
 
         boolean ok = true;
@@ -137,10 +137,10 @@ public class RequestSellItem extends L2GameClientPacket
         else
         	ok = false;
 
-        L2NpcInstance merchant = null;
+        L2Npc merchant = null;
 
         if (ok)
-        	merchant = (L2NpcInstance)target;
+        	merchant = (L2Npc)target;
 
 		if (merchant != null && _listId > 1000000) // lease
 		{

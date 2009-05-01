@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.gameserver.model;
+package com.l2jfree.gameserver.model.actor;
 
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_ACTIVE;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_ATTACK;
@@ -46,18 +46,29 @@ import com.l2jfree.gameserver.geodata.pathfinding.PathFinding;
 import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.instancemanager.FactionManager;
 import com.l2jfree.gameserver.instancemanager.MapRegionManager;
+import com.l2jfree.gameserver.model.CharEffectList;
+import com.l2jfree.gameserver.model.ChanceSkillList;
+import com.l2jfree.gameserver.model.FusionSkill;
+import com.l2jfree.gameserver.model.L2CharPosition;
+import com.l2jfree.gameserver.model.L2Effect;
+import com.l2jfree.gameserver.model.L2ItemInstance;
+import com.l2jfree.gameserver.model.L2Object;
+import com.l2jfree.gameserver.model.L2Party;
+import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Skill.SkillTargetType;
+import com.l2jfree.gameserver.model.L2World;
+import com.l2jfree.gameserver.model.L2WorldRegion;
+import com.l2jfree.gameserver.model.Location;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2ControlTowerInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2EffectPointInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2FolkInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MinionInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcWalkerInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2RiftInvaderInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeFlagInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance.SkillDat;
@@ -125,8 +136,8 @@ import com.l2jfree.util.SingletonSet;
  * <BR>
  * <li>L2CastleGuardInstance</li>
  * <li>L2DoorInstance</li>
- * <li>L2NpcInstance</li>
- * <li>L2PlayableInstance </li>
+ * <li>L2Npc</li>
+ * <li>L2Playable </li>
  * <BR>
  * <BR>
  * <B><U> Concept of L2CharTemplate</U> :</B><BR>
@@ -229,11 +240,11 @@ public abstract class L2Character extends L2Object
 	 * <li>Set _overloaded to false (the charcater can take more items)</li>
 	 * <BR>
 	 * <BR>
-	 * <li>If L2Character is a L2NPCInstance, copy skills from template to object</li>
-	 * <li>If L2Character is a L2NPCInstance, link _calculators to NPC_STD_CALCULATOR</li>
+	 * <li>If L2Character is a L2Npc, copy skills from template to object</li>
+	 * <li>If L2Character is a L2Npc, link _calculators to NPC_STD_CALCULATOR</li>
 	 * <BR>
 	 * <BR>
-	 * <li>If L2Character is NOT a L2NPCInstance, create an empty _skills slot</li>
+	 * <li>If L2Character is NOT a L2Npc, create an empty _skills slot</li>
 	 * <li>If L2Character is a L2PcInstance or L2Summon, copy basic Calculator set to object</li>
 	 * <BR>
 	 * <BR>
@@ -251,17 +262,17 @@ public abstract class L2Character extends L2Object
 		// Set its template to the new L2Character
 		_template = template;
 
-		if (template != null && this instanceof L2NpcInstance)
+		if (template != null && this instanceof L2Npc)
 		{
-			// Copy the Standard Calcultors of the L2NPCInstance in _calculators
+			// Copy the Standard Calcultors of the L2Npc in _calculators
 			if (this instanceof L2DoorInstance)
 				_calculators = Formulas.getStdDoorCalculators();
 			else
 				_calculators = NPC_STD_CALCULATOR;
 
-			// Copy the skills of the L2NPCInstance from its template to the L2Character Instance
+			// Copy the skills of the L2Npc from its template to the L2Character Instance
 			// The skills list can be affected by spell effects so it's necessary to make a copy
-			// to avoid that a spell affecting a L2NPCInstance, affects others L2NPCInstance of the same type too.
+			// to avoid that a spell affecting a L2Npc, affects others L2Npc of the same type too.
 			_skills = ((L2NpcTemplate) template).getSkills();
 			if (_skills != null)
 			{
@@ -279,9 +290,9 @@ public abstract class L2Character extends L2Object
 			Formulas.addFuncsToNewCharacter(this);
 		}
 
-		if (!(this instanceof L2PlayableInstance) && !(this instanceof L2Attackable) && !(this instanceof L2ControlTowerInstance)
+		if (!(this instanceof L2Playable) && !(this instanceof L2Attackable) && !(this instanceof L2ControlTowerInstance)
 				&& !(this instanceof L2DoorInstance) && !(this instanceof L2Trap) && !(this instanceof L2SiegeFlagInstance) && !(this instanceof L2Decoy)
-				&& !(this instanceof L2EffectPointInstance) && !(this instanceof L2FolkInstance))
+				&& !(this instanceof L2EffectPointInstance) && !(this instanceof L2NpcInstance))
 			setIsInvul(true);
 	}
 
@@ -301,7 +312,7 @@ public abstract class L2Character extends L2Object
 	}
 
 	/**
-	 * Returns character inventory, default null, overridden in L2Playable types and in L2NPcInstance
+	 * Returns character inventory, default null, overridden in L2Playable types and in L2Npc
 	 */
 	public Inventory getInventory()
 	{
@@ -825,7 +836,7 @@ public abstract class L2Character extends L2Object
 		if (_log.isDebugEnabled())
 			_log.debug(getName() + " doAttack: target=" + target);
 
-		if (isAlikeDead() || target == null || (this instanceof L2NpcInstance && target.isAlikeDead())
+		if (isAlikeDead() || target == null || (this instanceof L2Npc && target.isAlikeDead())
 				|| (this instanceof L2PcInstance && target.isDead() && !target.isFakeDeath()))
 		{
 			// If L2PcInstance is dead or the target is dead, the action is stoped
@@ -970,7 +981,7 @@ public abstract class L2Character extends L2Object
 						return;
 					}
 				}
-				else if (this instanceof L2NpcInstance)
+				else if (this instanceof L2Npc)
 				{
 					if (getEvtReadyToAct().isScheduled())
 						return;
@@ -1008,7 +1019,7 @@ public abstract class L2Character extends L2Object
 						return;
 					}
 				}
-				else if (this instanceof L2NpcInstance)
+				else if (this instanceof L2Npc)
 				{
 					if (getEvtReadyToAct().isScheduled())
 						return;
@@ -2119,7 +2130,7 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <B><U> Overridden in </U> :</B><BR>
 	 * <BR>
-	 * <li> L2NpcInstance : Create a DecayTask to remove the corpse of the L2NpcInstance after 7 seconds </li>
+	 * <li> L2Npc : Create a DecayTask to remove the corpse of the L2Npc after 7 seconds </li>
 	 * <li> L2Attackable : Distribute rewards (EXP, SP, Drops...) and notify Quest Engine </li>
 	 * <li> L2PcInstance : Apply Death Penalty, Manage gain/loss Karma and Item Drop </li>
 	 * <BR>
@@ -2152,9 +2163,9 @@ public abstract class L2Character extends L2Object
 
 		// Stop all active skills effects in progress on the L2Character,
 		// if the Character isn't affected by Soul of The Phoenix or Salvation
-		if (this instanceof L2PlayableInstance)
+		if (this instanceof L2Playable)
 		{
-			L2PlayableInstance pl = (L2PlayableInstance) this;
+			L2Playable pl = (L2Playable) this;
 			if (pl.isPhoenixBlessed())
 			{
 				if (pl.getCharmOfLuck()) //remove Lucky Charm if player has SoulOfThePhoenix/Salvation buff
@@ -2162,7 +2173,7 @@ public abstract class L2Character extends L2Object
 				if (pl.isNoblesseBlessed())
 					pl.stopNoblesseBlessing(true);
 			}
-			// Same thing if the Character isn't a Noblesse Blessed L2PlayableInstance
+			// Same thing if the Character isn't a Noblesse Blessed L2Playable
 			else if (pl.isNoblesseBlessed())
 			{
 				pl.stopNoblesseBlessing(true);
@@ -2213,7 +2224,7 @@ public abstract class L2Character extends L2Object
 		}
 		else if (this instanceof L2PcInstance)
 		{
-			if (((L2PlayableInstance)this).isPhoenixBlessed())
+			if (((L2Playable)this).isPhoenixBlessed())
 				((L2PcInstance)this).reviveRequest(((L2PcInstance)this), null);
 			else if (((L2PcInstance)this).getCharmOfCourage()
 					&& isInsideZone(L2Zone.FLAG_SIEGE)
@@ -2260,10 +2271,10 @@ public abstract class L2Character extends L2Object
 
 			boolean restorefull = false;
 
-			if (this instanceof L2PlayableInstance && ((L2PlayableInstance) this).isPhoenixBlessed())
+			if (this instanceof L2Playable && ((L2Playable) this).isPhoenixBlessed())
 			{
 				restorefull = true;
-				((L2PlayableInstance) this).stopPhoenixBlessing(true);
+				((L2Playable) this).stopPhoenixBlessing(true);
 			}
 
 			if(restorefull)
@@ -3664,7 +3675,7 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <B><U> Overridden in</U> :</B><BR>
 	 * <BR>
-	 * <li>L2NPCInstance</li>
+	 * <li>L2Npc</li>
 	 * <li>L2PcInstance</li>
 	 * <li>L2Summon</li>
 	 * <li>L2DoorInstance</li>
@@ -4047,7 +4058,7 @@ public abstract class L2Character extends L2Object
 			}
 			
 			// If possible, free the memory and just create a link on NPC_STD_CALCULATOR
-			if (this instanceof L2NpcInstance)
+			if (this instanceof L2Npc)
 			{
 				int i = 0;
 				for (; i < Stats.NUM_STATS; i++)
@@ -4709,7 +4720,7 @@ public abstract class L2Character extends L2Object
 
 			// Movement checks:
 			// when geodata == 2, for all characters except mobs returning home (could be changed later to teleport if pathfinding fails)
-			// when geodata == 1, for l2playableinstance and l2riftinstance only
+			// when geodata == 1, for L2Playable and l2riftinstance only
 			if ((Config.GEODATA == 2 &&	!(this instanceof L2Attackable && ((L2Attackable)this).isReturningToSpawnPoint()))
 					|| this instanceof L2PcInstance
 					|| (this instanceof L2Summon && !(getAI().getIntention() == AI_INTENTION_FOLLOW)) // assuming intention_follow only when following owner
@@ -4755,7 +4766,7 @@ public abstract class L2Character extends L2Object
 			{
 				// Path calculation
 				// Overrides previous movement check
-				if(this instanceof L2PlayableInstance || isInCombat() || this instanceof L2MinionInstance)
+				if(this instanceof L2Playable || isInCombat() || this instanceof L2MinionInstance)
 				{
 		
 					m.geoPath = PathFinding.getInstance().findPath(curX, curY, curZ, originalX, originalY, originalZ);
@@ -4770,7 +4781,7 @@ public abstract class L2Character extends L2Object
                 		// * Currently minions also must move freely since L2AttackableAI commands
                 		// them to move along with their leader
                 		if (this instanceof L2PcInstance
-                				|| (!(this instanceof L2PlayableInstance)
+                				|| (!(this instanceof L2Playable)
                 						&& !(this instanceof L2MinionInstance)
                 						&& Math.abs(z - curZ) > 140)
                 				|| (this instanceof L2Summon && !((L2Summon)this).getFollowStatus()))
@@ -4824,7 +4835,7 @@ public abstract class L2Character extends L2Object
 			}
 			// If no distance to go through, the movement is canceled
 			if (distance < 1 && (Config.GEODATA == 2
-					|| this instanceof L2PlayableInstance
+					|| this instanceof L2Playable
 					|| isAfraid()
 					|| this instanceof L2RiftInvaderInstance))
 			{
@@ -5271,13 +5282,13 @@ public abstract class L2Character extends L2Object
 	{
 		// If the attacker/target is dead or use fake death, notify the AI with EVT_CANCEL
 		// and send a Server->Client packet ActionFailed (if attacker is a L2PcInstance)
-		if (target == null || isAlikeDead() || (this instanceof L2NpcInstance && ((L2NpcInstance) this).isEventMob))
+		if (target == null || isAlikeDead() || (this instanceof L2Npc && ((L2Npc) this).isEventMob))
 		{
 			getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
 			return;
 		}
 
-		if ((this instanceof L2NpcInstance && target.isAlikeDead()) || target.isDead()
+		if ((this instanceof L2Npc && target.isAlikeDead()) || target.isDead()
 				|| (!getKnownList().knowsObject(target) && !(this instanceof L2DoorInstance)))
 		{
 			// getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE, null);
@@ -6100,7 +6111,7 @@ public abstract class L2Character extends L2Object
 		{
 			for (L2Character target : targets)
 			{
-				if (target instanceof L2PlayableInstance)
+				if (target instanceof L2Playable)
 				{
 					if (skill.getSkillType() == L2SkillType.BUFF)
 					{
@@ -6330,7 +6341,7 @@ public abstract class L2Character extends L2Object
 	// Quest event ON_SPELL_FNISHED
 	private void notifyQuestEventSkillFinished(MagicEnv magicEnv)
 	{
-		if (this instanceof L2NpcInstance)
+		if (this instanceof L2Npc)
 		{
 			for (L2Character target : magicEnv._targets)
 			{
@@ -6343,7 +6354,7 @@ public abstract class L2Character extends L2Object
 						final L2PcInstance player = target.getActingPlayer();
 						
 						for (Quest quest : quests)
-							quest.notifySpellFinished(((L2NpcInstance)this), player, magicEnv._skill);
+							quest.notifySpellFinished(((L2Npc)this), player, magicEnv._skill);
 					}
 				}
 				catch (Exception e)
@@ -6624,9 +6635,9 @@ public abstract class L2Character extends L2Object
 			// Mobs in range 1000 see spell
 			for (L2Object spMob : player.getKnownList().getKnownObjects().values())
 			{
-				if (spMob instanceof L2NpcInstance)
+				if (spMob instanceof L2Npc)
 				{
-					L2NpcInstance npcMob = (L2NpcInstance) spMob;
+					L2Npc npcMob = (L2Npc) spMob;
 
 					if ((npcMob.isInsideRadius(player, 1000, true, true))
 							&& (npcMob.getTemplate().getEventQuests(Quest.QuestEventType.ON_SKILL_SEE) != null))
@@ -7251,7 +7262,7 @@ public abstract class L2Character extends L2Object
 	
 	public final void addPacketBroadcastMask(BroadcastMode mode)
 	{
-		if (!(this instanceof L2PlayableInstance) && getKnownList().getKnownPlayers().isEmpty())
+		if (!(this instanceof L2Playable) && getKnownList().getKnownPlayers().isEmpty())
 			return;
 		
 		synchronized (PacketBroadcaster.getInstance())

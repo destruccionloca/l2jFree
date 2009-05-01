@@ -12,11 +12,10 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.gameserver.model.actor.instance;
+package com.l2jfree.gameserver.model.actor;
 
-import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Effect;
-import com.l2jfree.gameserver.model.L2Summon;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.knownlist.PlayableKnownList;
 import com.l2jfree.gameserver.model.actor.stat.PcStat;
 import com.l2jfree.gameserver.model.actor.stat.PlayableStat;
@@ -28,14 +27,14 @@ import com.l2jfree.gameserver.templates.skills.L2EffectType;
 /**
  * This class represents all Playable characters in the world.<BR><BR>
  * 
- * L2PlayableInstance :<BR><BR>
+ * L2Playable :<BR><BR>
  * <li>L2PcInstance</li>
  * <li>L2Summon</li><BR><BR>
  * 
  */
-public abstract class L2PlayableInstance extends L2Character
+public abstract class L2Playable extends L2Character
 {
-	public static final L2PlayableInstance[] EMPTY_ARRAY = new L2PlayableInstance[0];
+	public static final L2Playable[] EMPTY_ARRAY = new L2Playable[0];
 	
 	private boolean	_isNoblesseBlessed	= false;	// For Noblesse Blessing skill, restores buffs after death
 	private boolean	_getCharmOfLuck		= false;	// Charm of Luck - During a Raid/Boss war, decreased chance for death penalty
@@ -44,16 +43,16 @@ public abstract class L2PlayableInstance extends L2Character
 	private boolean	_protectionBlessing	= false;	// Blessed by Blessing of Protection
 
 	/**
-	 * Constructor of L2PlayableInstance (use L2Character constructor).<BR><BR>
+	 * Constructor of L2Playable (use L2Character constructor).<BR><BR>
 	 * 
 	 * <B><U> Actions</U> :</B><BR><BR>
-	 * <li>Call the L2Character constructor to create an empty _skills slot and link copy basic Calculator set to this L2PlayableInstance </li><BR><BR>
+	 * <li>Call the L2Character constructor to create an empty _skills slot and link copy basic Calculator set to this L2Playable </li><BR><BR>
 	 * 
 	 * @param objectId Identifier of the object to initialized
-	 * @param template The L2CharTemplate to apply to the L2PlayableInstance
+	 * @param template The L2CharTemplate to apply to the L2Playable
 	 * 
 	 */
-	public L2PlayableInstance(int objectId, L2CharTemplate template)
+	public L2Playable(int objectId, L2CharTemplate template)
 	{
 		super(objectId, template);
 		getKnownList(); // Init knownlist
@@ -99,8 +98,8 @@ public abstract class L2PlayableInstance extends L2Character
 			return false; // Target is null
 		if (target == this)
 			return false; // Target is self
-		if (!(target instanceof L2PlayableInstance))
-			return false; // Target is not a L2PlayableInstance
+		if (!(target instanceof L2Playable))
+			return false; // Target is not a L2Playable
 
 		L2PcInstance player = null;
 		if (this instanceof L2PcInstance)
