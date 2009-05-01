@@ -1,4 +1,4 @@
-# Made by Krunch, Psychokiller1888
+# Made by Psychokiller1888
 
 import sys
 from com.l2jfree.gameserver.model.quest        import State
@@ -15,25 +15,33 @@ class Quest (JQuest) :
     def __init__(self, id, name, descr): 
         JQuest.__init__(self, id, name, descr)
 
-    def onTalk(self, npc, player):
+    def onAdvEvent (self,event,npc,player):
         htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
+        st = player.getQuestState(qn)
+        if not st : return htmltext
+        htmltext = event
+        if event == "getTalisman":
+            if st.getQuestItemsCount(KNIGHT_EPAULETTES) >= 10 :
+                length = len(TALISMANS)
+                pos = st.getRandom(length)
+                talisman = TALISMANS[pos]
+                st.takeItems(KNIGHT_EPAULETTES, 10)
+                st.giveItems(talisman, 1)
+                htmltext = "<html><body>Very well. Here you go!</body></html>"
+            else :
+                npcId = npc.getNpcId()
+                if npcId >= 35648 and npcId <= 35656:
+                    htmltext = st.showHtmlFile("no-KE.htm").replace("%LINKBACK%", "castlemagician/magician.htm")
+                else:
+                    htmltext = "no-KE-fort.htm"
+            st.exitQuest(1)
+        return htmltext
+
+    def onTalk(self, npc, player):
         st = player.getQuestState(qn)
         if not st :
             st = self.newQuestState(player)
-        if st.getQuestItemsCount(KNIGHT_EPAULETTES) >= 10 :
-            length = len(TALISMANS)
-            pos = st.getRandom(length)
-            talisman = TALISMANS[pos]
-            st.takeItems(KNIGHT_EPAULETTES, 10)
-            st.giveItems(talisman, 1)
-            htmltext = "<html><body>Very well. Here you go!</body></html>"
-        else :
-            npcId = npc.getNpcId()
-            if npcId >= 35648 and npcId <= 35656:
-                htmltext = st.showHtmlFile("no-KE.htm").replace("LINKBACK", "castlemagician/magician.htm")
-            else:
-                htmltext = st.showHtmlFile("no-KE.htm").replace("LINKBACK", "fortress/support_unit_captain.htm")
-        st.exitQuest(1)
+        htmltext = "talismans.htm"
         return htmltext
 
 QUEST = Quest(8005, qn, "custom")
