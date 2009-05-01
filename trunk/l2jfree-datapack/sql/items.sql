@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS `items` (
   `time_of_use` INT,                  -- time of item use, for calculate of breackages
   `custom_type1` INT DEFAULT 0,
   `custom_type2` INT DEFAULT 0,
-  `mana_left` decimal(3,0) NOT NULL DEFAULT -1,
+  `mana_left` SMALLINT NOT NULL DEFAULT -1,
   `attributes` varchar(50) NOT NULL DEFAULT '',
   PRIMARY KEY (`object_id`),
   KEY `key_owner_id` (`owner_id`),
