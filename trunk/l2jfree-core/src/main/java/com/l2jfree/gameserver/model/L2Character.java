@@ -5266,15 +5266,10 @@ public abstract class L2Character extends L2Object
 			// ON_EVADED_HIT
 			if (target.getChanceSkills() != null)
 				target.getChanceSkills().onEvadedHit(this);
-
-			if (target instanceof L2PcInstance)
-			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.AVOIDED_S1S_ATTACK);
-				sm.addCharName(this);
-				target.sendPacket(sm);
-			}
 		}
-
+		
+		sendDamageMessage(target, damage, false, crit, miss);
+		
 		// If attack isn't aborted, send a message system (critical hit, missed...) to attacker/target if they are L2PcInstance
 		if (!isAttackAborted())
 		{
@@ -5301,8 +5296,6 @@ public abstract class L2Character extends L2Object
 					damage = 0; // prevents messing up drop calculation
 				}
 			}
-
-			sendDamageMessage(target, damage, false, crit, miss);
 
 			// If L2Character target is a L2PcInstance, send a system message
 			if (target instanceof L2PcInstance)
