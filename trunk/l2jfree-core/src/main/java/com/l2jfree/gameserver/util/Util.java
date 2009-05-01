@@ -163,9 +163,9 @@ public final class Util
 	public final static double calculateDistance(int x1, int y1, int z1, int x2, int y2, int z2, boolean includeZAxis)
 	{
 		if (includeZAxis)
-			return L2Math.calculateDistance(x1, y1, z1, x1, y2, z2);
+			return L2Math.calculateDistance(x1, y1, z1, x2, y2, z2);
 		else
-			return L2Math.calculateDistance(x1, y1, x1, y2);
+			return L2Math.calculateDistance(x1, y1, x2, y2);
 	}
 	
 	public final static double calculateDistance(L2Object obj1, L2Object obj2, boolean includeZAxis)
