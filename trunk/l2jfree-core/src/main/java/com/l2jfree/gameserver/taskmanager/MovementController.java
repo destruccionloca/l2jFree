@@ -60,7 +60,7 @@ public final class MovementController extends AbstractPeriodicTaskManager
 	
 	private MovementController()
 	{
-		super(GameTimeController.MILLIS_IN_TICK * Config.DATETIME_MOVE_DELAY);
+		super(GameTimeController.MILLIS_IN_TICK);
 	}
 	
 	public void add(L2Character cha, int ticks)
@@ -71,8 +71,15 @@ public final class MovementController extends AbstractPeriodicTaskManager
 	@Override
 	public void run()
 	{
-		for (L2Character cha : _movingChars.keySet())
+		for (Entry<L2Character, TickRange> entry : _movingChars.entrySet())
 		{
+			L2Character cha = entry.getKey();
+			TickRange range = entry.getValue();
+			int remaining = range.end - GameTimeController.getGameTicks();
+			
+			if (remaining > Config.DATETIME_MOVE_DELAY && remaining % Config.DATETIME_MOVE_DELAY != 0)
+				continue;
+			
 			if (!cha.updatePosition(GameTimeController.getGameTicks()))
 				continue;
 			
@@ -111,7 +118,7 @@ public final class MovementController extends AbstractPeriodicTaskManager
 	{
 		private EvtArrivedRevalidateManager()
 		{
-			super(GameTimeController.MILLIS_IN_TICK * Config.DATETIME_MOVE_DELAY);
+			super(GameTimeController.MILLIS_IN_TICK);
 		}
 		
 		@Override
