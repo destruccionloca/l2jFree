@@ -185,7 +185,7 @@ public enum PlayerClass {
 
             subclasses.remove(this);
 
-            switch (_race)
+            switch (player.getRace())
             {
                 case Elf:
                     subclasses.removeAll(getSet(Darkelf, Third));

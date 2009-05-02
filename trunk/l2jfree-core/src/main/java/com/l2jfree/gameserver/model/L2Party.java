@@ -61,7 +61,7 @@ public class L2Party
 	private static final double[] BONUS_EXP_SP = {1, 1.30, 1.39, 1.50, 1.54, 1.58, 1.63, 1.67, 1.71};
 
 	private FastList<L2PcInstance> _members = null;
-	private int _pendingInvitation = 0;       // Number of players that already have been invited (but not replied yet)
+	private boolean _pendingInvitation = false;
 	private int _partyLvl = 0;
 	private int _itemDistribution = 0;
 	private int _itemLastLoot = 0;
@@ -97,18 +97,12 @@ public class L2Party
      * returns number of players that already been invited, but not replied yet
      * @return
      */
-    public int getPendingInvitationNumber() { return _pendingInvitation; }
-    
-    /**
-     * decrease number of players that already been invited but not replied yet
-     * happens when: player join party or player decline to join
-     */
-    public void decreasePendingInvitationNumber() { _pendingInvitation--; }
+    public boolean getPendingInvitation() { return _pendingInvitation; }
     
     /**
      * increase number of players that already been invite but not replied yet
      */
-    public void increasePendingInvitationNumber() { _pendingInvitation++; }
+    public void setPendingInvitation(boolean val) { _pendingInvitation = val; }
     
 	/**
 	 * returns all party members

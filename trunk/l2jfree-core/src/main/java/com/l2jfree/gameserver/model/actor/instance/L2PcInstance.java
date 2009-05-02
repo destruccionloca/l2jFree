@@ -13263,6 +13263,11 @@ public final class L2PcInstance extends L2Playable
 			getPet().unSummon(this);
 		}
 		_transformation = transformation;
+		for (L2Effect e : getAllEffects())
+		{
+			if (e != null && e.getSkill().isToggle())
+				e.exit();
+		}
 		transformation.onTransform(this);
 		sendSkillList();
 		sendPacket(new SkillCoolTime(this));

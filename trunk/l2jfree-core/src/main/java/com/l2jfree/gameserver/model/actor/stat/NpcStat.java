@@ -45,4 +45,18 @@ public class NpcStat extends CharStat
 
     @Override
     public final int getMaxHp() { return (int)calcStat(Stats.MAX_HP, getActiveChar().getTemplate().getBaseHpMax() * (getActiveChar().isChampion()?Config.CHAMPION_HP:1) , null, null); }
+
+    @Override
+    public int getWalkSpeed() { return  getRunSpeed()/2; }
+
+    @Override
+    public float getMovementSpeedMultiplier()
+    {
+        if (getActiveChar() == null)
+            return 1;
+        float val = getRunSpeed() * 1f / getActiveChar().getTemplate().getBaseRunSpd();
+        if (!getActiveChar().isRunning())
+            val = val/2;
+        return val;
+    }
 }

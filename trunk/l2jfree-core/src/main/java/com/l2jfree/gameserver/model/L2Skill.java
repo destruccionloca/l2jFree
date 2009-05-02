@@ -1593,7 +1593,9 @@ public class L2Skill implements FuncOwner
 		int msgId = preCondition.getMessageId();
 		if (msgId != 0)
 		{
-			activeChar.sendPacket(SystemMessageId.getSystemMessageId(msgId));
+			SystemMessage sm = new SystemMessage(msgId);
+			sm.addSkillName(_id);
+			activeChar.sendPacket(sm);
 			return false;
 		}
 		

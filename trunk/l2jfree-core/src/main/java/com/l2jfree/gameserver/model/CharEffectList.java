@@ -274,10 +274,15 @@ public class CharEffectList
 		boolean danceBuff = false;
 		if (!checkSkill.isDance() && !checkSkill.isSong() && getBuffCount() >= _owner.getMaxBuffCount())
 		{
-			if (checkSkill.getSkillType() != L2SkillType.BUFF && checkSkill.getSkillType() != L2SkillType.REFLECT
-					&& checkSkill.getSkillType() != L2SkillType.HEAL_PERCENT && checkSkill.getSkillType() != L2SkillType.MANAHEAL_PERCENT)
+			switch (checkSkill.getSkillType())
 			{
-				return;
+				case BUFF:
+				case REFLECT:
+				case HEAL_PERCENT:
+				case MANAHEAL_PERCENT:
+					break;
+				default:
+					return;
 			}
 		}
 		else if ((checkSkill.isDance() || checkSkill.isSong()) && getDanceCount(true, true) >= Config.ALT_DANCES_SONGS_MAX_AMOUNT)
@@ -390,7 +395,11 @@ public class CharEffectList
 					effectList.remove(e);
 					if (_owner instanceof L2PcInstance)
 					{
-						SystemMessage sm = new SystemMessage(SystemMessageId.EFFECT_S1_DISAPPEARED);
+						SystemMessage sm;
+						if (effect.getSkill().isToggle())
+							sm = new SystemMessage(SystemMessageId.S1_HAS_BEEN_ABORTED);
+						else
+							sm = new SystemMessage(SystemMessageId.EFFECT_S1_DISAPPEARED);
 						sm.addSkillName(effect);
 						_owner.sendPacket(sm);
 					}

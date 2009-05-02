@@ -75,10 +75,11 @@ public class RequestAnswerJoinParty extends L2GameClientPacket
 				msg = null;
 
 				//activate garbage collection if there are no other members in party (happens when we were creating new one) 
-				if (requestor.getParty() != null && requestor.getParty().getMemberCount() == 1) requestor.setParty(null);
+				if (requestor.getParty() != null && requestor.getParty().getMemberCount() == 1)
+					requestor.setParty(null);
 			}
 			if (requestor.getParty() != null)
-				requestor.getParty().decreasePendingInvitationNumber(); // if party is null, there is no need of decreasing
+				requestor.getParty().setPendingInvitation(false); // if party is null, there is no need of decreasing
 
 			player.setActiveRequester(null);
 			requestor.onTransactionResponse();

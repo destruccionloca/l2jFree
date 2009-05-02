@@ -177,7 +177,7 @@ public final class Olympiad
 		_currentCycle = Integer.parseInt(properties.getProperty("CurrentCycle", "1"));
 		_period = Integer.parseInt(properties.getProperty("Period", "0"));
 		_olympiadEnd = Long.parseLong(properties.getProperty("OlympiadEnd", "0"));
-		_validationEnd = Long.parseLong(properties.getProperty("ValdationEnd", "0"));
+		_validationEnd = Long.parseLong(properties.getProperty("ValidationEnd", "0"));
 		_nextWeeklyChange = Long.parseLong(properties.getProperty("NextWeeklyChange", "0"));
 		
 		switch (_period)
