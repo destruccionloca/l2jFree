@@ -120,27 +120,28 @@ public class L2FortManagerInstance extends L2MerchantInstance
 
 			if (actualCommand.equalsIgnoreCase("banish_foreigner"))
 			{
+				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+
 				if ((player.getClanPrivileges() & L2Clan.CP_CS_DISMISS) == L2Clan.CP_CS_DISMISS)
 				{
+
+					html.setFile("data/html/fortress/foreman-expel.htm");
+
 					if (!val.isEmpty())
 					{
 						getFort().banishForeigners(); // Move non-clan members off fortress area
-						return;
+
+						html.setFile("data/html/fortress/foreman-expeled.htm");
 					}
-					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-					html.setFile("data/html/fortress/foreman-expel.htm");
-					html.replace("%objectId%", String.valueOf(getObjectId()));
-					player.sendPacket(html);
-					return;
 				}
 				else
 				{
-					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 					html.setFile("data/html/fortress/foreman-noprivs.htm");
-					html.replace("%objectId%", String.valueOf(getObjectId()));
-					player.sendPacket(html);
-					return;
 				}
+
+				html.replace("%objectId%", String.valueOf(getObjectId()));
+				player.sendPacket(html);
+				return;
 			}
             else if(actualCommand.equalsIgnoreCase("manage_vault"))
             {
