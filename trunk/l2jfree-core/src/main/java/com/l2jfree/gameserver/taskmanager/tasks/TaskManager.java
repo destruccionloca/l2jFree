@@ -58,7 +58,11 @@ public final class TaskManager extends HandlerRegistry<String, TaskHandler>
 		private ExecutedTask(ResultSet rset) throws SQLException
 		{
 			_id = rset.getInt("id");
-			_task = getTaskHandler(rset.getString("task"));
+			_task = get(rset.getString("task"));
+			
+			if (_task == null)
+				throw new NullPointerException("Handler not found for '" + rset.getString("task") + "' task!");
+			
 			_type = TaskTypes.valueOf(rset.getString("type").toUpperCase());
 			_params = new String[] { rset.getString("param1"), rset.getString("param2"), rset.getString("param3") };
 			
@@ -238,12 +242,13 @@ public final class TaskManager extends HandlerRegistry<String, TaskHandler>
 	
 	private void registerTaskHandler(TaskHandler taskHandler)
 	{
-		registerAll(taskHandler, taskHandler.getName().trim().toLowerCase());
+		registerAll(taskHandler, taskHandler.getName());
 	}
 	
-	private TaskHandler getTaskHandler(String name)
+	@Override
+	public String standardizeKey(String key)
 	{
-		return get(name.trim().toLowerCase());
+		return key.trim().toLowerCase();
 	}
 	
 	static boolean addUniqueTask(String task, TaskTypes type, String param1, String param2, String param3)
@@ -317,5 +322,4 @@ public final class TaskManager extends HandlerRegistry<String, TaskHandler>
 		
 		return false;
 	}
-	
 }

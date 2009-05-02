@@ -16,15 +16,14 @@ package com.l2jfree;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.Map;
 import java.util.Properties;
-import java.util.TreeMap;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.config.L2Properties;
+import com.l2jfree.util.HandlerRegistry;
 
 /**
  * @author evill33t
@@ -40,22 +39,28 @@ public abstract class L2Config
 		throw new InternalError();
 	}
 	
-	private static final Map<String, ConfigLoader> _loaders = new TreeMap<String, ConfigLoader>();
+	private static final HandlerRegistry<String, ConfigLoader> _loaders = new HandlerRegistry<String, ConfigLoader>(true) {
+		@Override
+		public String standardizeKey(String key)
+		{
+			return key.trim().toLowerCase();
+		}
+	};
 	
 	protected static void registerConfig(ConfigLoader loader)
 	{
-		_loaders.put(standardizeLoaderName(loader.getName()), loader);
+		_loaders.register(loader.getName(), loader);
 	}
 	
 	public static void loadConfigs() throws Exception
 	{
-		for (ConfigLoader loader : _loaders.values())
+		for (ConfigLoader loader : _loaders.getHandlers().values())
 			loader.load();
 	}
 	
 	public static String loadConfig(String name) throws Exception
 	{
-		final ConfigLoader loader = _loaders.get(standardizeLoaderName(name));
+		final ConfigLoader loader = _loaders.get(name);
 		
 		if (loader == null)
 			throw new Exception();
@@ -73,12 +78,7 @@ public abstract class L2Config
 	
 	public static String getLoaderNames()
 	{
-		return StringUtils.join(_loaders.keySet().iterator(), "|");
-	}
-	
-	private static String standardizeLoaderName(String name)
-	{
-		return name.toLowerCase().trim();
+		return StringUtils.join(_loaders.getHandlers().keySet().iterator(), "|");
 	}
 	
 	protected static abstract class ConfigLoader
@@ -87,7 +87,7 @@ public abstract class L2Config
 		
 		protected String getFileName()
 		{
-			return "./config/" + standardizeLoaderName(getName()) + ".properties";
+			return "./config/" + _loaders.standardizeKey(getName()) + ".properties";
 		}
 		
 		protected void load() throws Exception
@@ -113,6 +113,12 @@ public abstract class L2Config
 		
 		protected void loadImpl(Properties properties) throws Exception
 		{
+		}
+		
+		@Override
+		public boolean equals(Object obj)
+		{
+			return obj instanceof ConfigLoader && getClass().equals(obj.getClass());
 		}
 	}
 }

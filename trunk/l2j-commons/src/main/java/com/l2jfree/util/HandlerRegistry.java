@@ -17,6 +17,7 @@ package com.l2jfree.util;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -28,13 +29,29 @@ public class HandlerRegistry<K, V>
 {
 	protected static final Log _log = LogFactory.getLog(HandlerRegistry.class);
 	
-	private final HashMap<K, V> _map = new HashMap<K, V>();
+	private final Map<K, V> _map;
+	
+	public HandlerRegistry(boolean sorted)
+	{
+		_map = sorted ? new TreeMap<K, V>() : new HashMap<K, V>();
+	}
+	
+	public HandlerRegistry()
+	{
+		this(false);
+	}
+	
+	public K standardizeKey(K key)
+	{
+		return key;
+	}
 	
 	public final void register(K key, V handler)
 	{
+		key = standardizeKey(key);
 		V old = _map.put(key, handler);
 		
-		if (old != null)
+		if (old != null && !old.equals(handler))
 			_log.warn(getClass().getSimpleName() + ": Replaced type(" + key + "), " + old + " -> " + handler + ".");
 	}
 	
@@ -46,6 +63,7 @@ public class HandlerRegistry<K, V>
 	
 	public final V get(K key)
 	{
+		key = standardizeKey(key);
 		return _map.get(key);
 	}
 	
@@ -54,7 +72,7 @@ public class HandlerRegistry<K, V>
 		return _map.size();
 	}
 	
-	public Map<K, V> getHandlers()
+	public final Map<K, V> getHandlers()
 	{
 		return Collections.unmodifiableMap(_map);
 	}
