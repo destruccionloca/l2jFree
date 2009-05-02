@@ -326,7 +326,7 @@ public class Hero
 				{
 					clan.setReputationScore(clan.getReputationScore() + Config.HERO_POINTS, true);
 					clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan));
-					SystemMessage sm = new SystemMessage(SystemMessageId.CLAN_MEMBER_S1_BECAME_HERO_AND_GAINED_S2_REPUTATION_POINTS);
+					SystemMessage sm = new SystemMessage(SystemMessageId.CLAN_MEMBER_C1_BECAME_HERO_AND_GAINED_S2_REPUTATION_POINTS);
 					sm.addString(name);
 					sm.addNumber(Config.HERO_POINTS);
 					clan.broadcastToOnlineMembers(sm);
@@ -356,7 +356,7 @@ public class Hero
 							{
 								clan.setReputationScore(clan.getReputationScore() + Config.HERO_POINTS, true);
 								clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan));
-								SystemMessage sm = new SystemMessage(SystemMessageId.CLAN_MEMBER_S1_BECAME_HERO_AND_GAINED_S2_REPUTATION_POINTS);
+								SystemMessage sm = new SystemMessage(SystemMessageId.CLAN_MEMBER_C1_BECAME_HERO_AND_GAINED_S2_REPUTATION_POINTS);
 								sm.addString(name);
 								sm.addNumber(Config.HERO_POINTS);
 								clan.broadcastToOnlineMembers(sm);

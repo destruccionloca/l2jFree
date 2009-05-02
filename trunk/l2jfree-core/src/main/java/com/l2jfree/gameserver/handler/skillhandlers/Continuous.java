@@ -191,7 +191,7 @@ public class Continuous implements ICubicSkillHandler
 			}
 			else if (activeChar instanceof L2PcInstance)
 			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
+				SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
 				sm.addString(target.getName());
 				sm.addSkillName(skill.getId());
 				activeChar.sendPacket(sm);

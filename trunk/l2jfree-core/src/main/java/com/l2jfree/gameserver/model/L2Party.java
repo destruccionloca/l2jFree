@@ -305,11 +305,11 @@ public class L2Party
 			}
 		}
 
-		SystemMessage msg = new SystemMessage(SystemMessageId.YOU_JOINED_S1_PARTY);
+		SystemMessage msg = new SystemMessage(SystemMessageId.YOU_JOINED_C1_PARTY);
 		msg.addString(getLeader().getName());
 		player.sendPacket(msg);
 		
-		msg = new SystemMessage(SystemMessageId.S1_JOINED_PARTY);
+		msg = new SystemMessage(SystemMessageId.C1_JOINED_PARTY);
 		msg.addString(player.getName());
 		broadcastToPartyMembers(msg);
 		broadcastToPartyMembers(new PartySmallWindowAdd(player));
@@ -411,7 +411,7 @@ public class L2Party
 			player.sendPacket(PartySmallWindowDeleteAll.STATIC_PACKET);
 			player.setParty(null);
 			
-			msg = new SystemMessage(SystemMessageId.S1_LEFT_PARTY);
+			msg = new SystemMessage(SystemMessageId.C1_LEFT_PARTY);
 			msg.addString(player.getName());
 			broadcastToPartyMembers(msg);
 			broadcastToPartyMembers(new PartySmallWindowDelete(player));
@@ -440,7 +440,7 @@ public class L2Party
 					{
 						L2CommandChannel cmd = getCommandChannel();
 						getCommandChannel().removeParty(this);
-						cmd.broadcastToChannelMembers(new SystemMessage(SystemMessageId.S1_PARTY_LEFT_COMMAND_CHANNEL)
+						cmd.broadcastToChannelMembers(new SystemMessage(SystemMessageId.C1_PARTY_LEFT_COMMAND_CHANNEL)
 						.addString(getLeader().getName()));
 					}
 				}
@@ -496,7 +496,7 @@ public class L2Party
 					if (isInCommandChannel() && getCommandChannel().getChannelLeader() == leader)
 					{
 						_commandChannel.setChannelLeader(getLeader());
-						_commandChannel.broadcastToChannelMembers(new SystemMessage(SystemMessageId.COMMAND_CHANNEL_LEADER_NOW_S1)
+						_commandChannel.broadcastToChannelMembers(new SystemMessage(SystemMessageId.COMMAND_CHANNEL_LEADER_NOW_C1)
 							.addString(getLeader().getName()));
 					}
 				}
@@ -579,7 +579,7 @@ public class L2Party
 	    // Send messages to other party members about reward
 	    if (item.getCount() > 1) 
 	    {
-	    	SystemMessage msg = new SystemMessage(SystemMessageId.S1_PICKED_UP_S2_S3);
+	    	SystemMessage msg = new SystemMessage(SystemMessageId.C1_PICKED_UP_S2_S3);
 		    msg.addString(target.getName());
 		    msg.addItemName(item);
 	    	msg.addNumber(item.getCount());
@@ -587,7 +587,7 @@ public class L2Party
 	    }
 	    else
 	    {
-	    	SystemMessage msg = new SystemMessage(SystemMessageId.S1_PICKED_UP_S2);
+	    	SystemMessage msg = new SystemMessage(SystemMessageId.C1_PICKED_UP_S2);
 		    msg.addString(target.getName());
 		    msg.addItemName(item);
 		    broadcastToPartyMembers(target, msg);
@@ -617,8 +617,8 @@ public class L2Party
 	    // Send messages to other aprty members about reward
 	    if (item.getCount() > 1) 
 	    {
-	    	SystemMessage msg = spoil ?  new SystemMessage(SystemMessageId.S1_SWEEPED_UP_S2_S3) 
-	    	                          : new SystemMessage(SystemMessageId.S1_PICKED_UP_S2_S3);
+	    	SystemMessage msg = spoil ?  new SystemMessage(SystemMessageId.C1_SWEEPED_UP_S2_S3) 
+	    	                          : new SystemMessage(SystemMessageId.C1_PICKED_UP_S2_S3);
 		    msg.addString(looter.getName());
 		    msg.addItemName(item.getItemId());
 	    	msg.addNumber(item.getCount());
@@ -626,8 +626,8 @@ public class L2Party
 	    }
 	    else
 	    {
-	    	SystemMessage msg = spoil ?  new SystemMessage(SystemMessageId.S1_SWEEPED_UP_S2) 
-	    	                          : new SystemMessage(SystemMessageId.S1_PICKED_UP_S2);
+	    	SystemMessage msg = spoil ?  new SystemMessage(SystemMessageId.C1_SWEEPED_UP_S2) 
+	    	                          : new SystemMessage(SystemMessageId.C1_PICKED_UP_S2);
 		    msg.addString(looter.getName());
 		    msg.addItemName(item.getItemId());
             broadcastToPartyMembers(looter, msg);

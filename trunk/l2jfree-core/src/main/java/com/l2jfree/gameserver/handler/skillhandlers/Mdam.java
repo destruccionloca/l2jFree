@@ -158,7 +158,7 @@ public class Mdam implements ICubicSkillHandler
 						}
 						else
 						{
-							SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
+							SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
 							sm.addCharName(target);
 							sm.addSkillName(skill);
 							activeChar.sendPacket(sm);

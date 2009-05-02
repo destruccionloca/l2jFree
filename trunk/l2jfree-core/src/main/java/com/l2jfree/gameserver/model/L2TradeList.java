@@ -414,23 +414,23 @@ public class L2TradeList
                 temp = buyerInv.addItem("", newitem, null, null);
 		        if (amount == 1)//system msg stuff
 		        {
-		            msg = new SystemMessage(SystemMessageId.S1_PURCHASED_S2);
+		            msg = new SystemMessage(SystemMessageId.C1_PURCHASED_S2);
 		            msg.addString(buyer.getName());
 		            msg.addItemName(sellerItem);
 		            sysmsgs.add(msg);
-		            msg = new SystemMessage(SystemMessageId.S1_PURCHASED_S2);
+		            msg = new SystemMessage(SystemMessageId.C1_PURCHASED_S2);
 		            msg.addString("You");
 		            msg.addItemName(sellerItem);
 		            sysmsgs.add(msg);
 		        }
 		        else
 		        {
-		            msg = new SystemMessage(SystemMessageId.S1_PURCHASED_S3_S2_S);
+		            msg = new SystemMessage(SystemMessageId.C1_PURCHASED_S3_S2_S);
 		            msg.addString(buyer.getName());
 		            msg.addItemName(sellerItem);
 		            msg.addNumber(amount);
 		            sysmsgs.add(msg);
-		            msg = new SystemMessage(SystemMessageId.S1_PURCHASED_S3_S2_S);
+		            msg = new SystemMessage(SystemMessageId.C1_PURCHASED_S3_S2_S);
 		            msg.addString("You");
 		            msg.addItemName(sellerItem);
 		            msg.addNumber(amount);

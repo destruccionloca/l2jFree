@@ -76,7 +76,7 @@ public class RequestExAskJoinMPCC extends L2GameClientPacket
 						//targets party already in a CChannel?
 						if (player.getParty().isInCommandChannel())
 						{
-							sm = new SystemMessage(SystemMessageId.S1_ALREADY_MEMBER_OF_COMMAND_CHANNEL);
+							sm = new SystemMessage(SystemMessageId.C1_ALREADY_MEMBER_OF_COMMAND_CHANNEL);
 							sm.addString(player.getName());
 							activeChar.sendPacket(sm);
 						}
@@ -106,7 +106,7 @@ public class RequestExAskJoinMPCC extends L2GameClientPacket
 						//targets party already in a CChannel?
 						if (player.getParty().isInCommandChannel())
 						{
-							sm = new SystemMessage(SystemMessageId.S1_ALREADY_MEMBER_OF_COMMAND_CHANNEL);
+							sm = new SystemMessage(SystemMessageId.C1_ALREADY_MEMBER_OF_COMMAND_CHANNEL);
 							sm.addString(player.getName());
 							activeChar.sendPacket(sm);
 						}
@@ -176,7 +176,7 @@ public class RequestExAskJoinMPCC extends L2GameClientPacket
 		if (!target.isProcessingRequest())
 		{
 			requestor.onTransactionRequest(target);
-			SystemMessage sm = new SystemMessage(SystemMessageId.S1_INVITING_YOU_TO_COMMAND_CHANNEL_CONFIRM);
+			SystemMessage sm = new SystemMessage(SystemMessageId.C1_INVITING_YOU_TO_COMMAND_CHANNEL_CONFIRM);
 			sm.addString(requestor.getName());
 			target.getParty().getLeader().sendPacket(sm);
 			target.getParty().getLeader().sendPacket(new ExAskJoinMPCC(requestor.getName()));
@@ -185,7 +185,7 @@ public class RequestExAskJoinMPCC extends L2GameClientPacket
 		}
 		else
 		{
-			SystemMessage sm = new SystemMessage(SystemMessageId.S1_IS_BUSY_TRY_LATER);
+			SystemMessage sm = new SystemMessage(SystemMessageId.C1_IS_BUSY_TRY_LATER);
 			sm.addString(target.getName());
 			requestor.sendPacket(sm);
 		}

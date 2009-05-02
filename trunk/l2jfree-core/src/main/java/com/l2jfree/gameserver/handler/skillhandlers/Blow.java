@@ -194,7 +194,7 @@ public class Blow implements ISkillHandler
 								((L2Summon) activeChar).getOwner().addOlyDamage((int) damage);
 						}
 					}
-					SystemMessage smsg = new SystemMessage(SystemMessageId.S1_RECEIVED_DAMAGE_OF_S3_FROM_S2);
+					SystemMessage smsg = new SystemMessage(SystemMessageId.C1_RECEIVED_DAMAGE_OF_S3_FROM_S2);
 					smsg.addPcName(player);
 					smsg.addCharName(activeChar);
 					smsg.addNumber((int) damage);
@@ -216,7 +216,7 @@ public class Blow implements ISkillHandler
 					
 					activeChar.sendPacket(SystemMessageId.CRITICAL_HIT);
 					if (target instanceof L2PcInstance)
-						activeChar.sendPacket(new SystemMessage(SystemMessageId.S1_HAD_CRITICAL_HIT).addPcName((L2PcInstance) activeChar));
+						activeChar.sendPacket(new SystemMessage(SystemMessageId.C1_HAD_CRITICAL_HIT).addPcName((L2PcInstance) activeChar));
 				
 					if (activePlayer.isInOlympiadMode() &&
 			        		target instanceof L2PcInstance &&
@@ -237,13 +237,13 @@ public class Blow implements ISkillHandler
 			{
 				if (activeChar instanceof L2PcInstance)
 				{
-					SystemMessage sm = new SystemMessage(SystemMessageId.S1_DODGES_ATTACK);
+					SystemMessage sm = new SystemMessage(SystemMessageId.C1_DODGES_ATTACK);
 					sm.addCharName(target);
 					activeChar.sendPacket(sm);
 				}
 				if (target instanceof L2PcInstance)
 				{
-					SystemMessage sm = new SystemMessage(SystemMessageId.AVOIDED_S1_ATTACK);
+					SystemMessage sm = new SystemMessage(SystemMessageId.AVOIDED_C1_ATTACK);
 					sm.addCharName(activeChar);
 					target.sendPacket(sm);
 				}

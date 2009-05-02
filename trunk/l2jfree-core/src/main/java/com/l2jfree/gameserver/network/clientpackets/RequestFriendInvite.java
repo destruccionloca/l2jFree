@@ -48,16 +48,16 @@ public final class RequestFriendInvite extends L2GameClientPacket
 			activeChar.sendPacket(SystemMessageId.YOU_CANNOT_ADD_YOURSELF_TO_OWN_FRIEND_LIST);
 		
 		else if (activeChar.getFriendList().contains(friend))
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.S1_ALREADY_ON_LIST).addPcName(friend));
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.C1_ALREADY_ON_LIST).addPcName(friend));
 		
 		else if (friend.isProcessingRequest())
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.S1_IS_BUSY_TRY_LATER).addPcName(friend));
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.C1_IS_BUSY_TRY_LATER).addPcName(friend));
 		
 		else
 		{
 			activeChar.onTransactionRequest(friend);
 			
-			friend.sendPacket(new SystemMessage(SystemMessageId.S1_REQUESTED_TO_BECOME_FRIENDS).addPcName(activeChar));
+			friend.sendPacket(new SystemMessage(SystemMessageId.C1_REQUESTED_TO_BECOME_FRIENDS).addPcName(activeChar));
 			friend.sendPacket(new FriendAddRequest(activeChar.getName()));
 		}
 	}

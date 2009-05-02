@@ -2898,7 +2898,7 @@ public final class L2PcInstance extends L2Playable
 			{
 				Fort fort = FortManager.getInstance().getFort(this);
 				if (fort != null)
-					fort.getSiege().announceToPlayer(new SystemMessage(SystemMessageId.S1_ACQUIRED_THE_FLAG), getName());
+					fort.getSiege().announceToPlayer(new SystemMessage(SystemMessageId.C1_ACQUIRED_THE_FLAG), getName());
 			}
 		}
 
@@ -4151,7 +4151,7 @@ public final class L2PcInstance extends L2Playable
 			{
 				if (target.getEnchantLevel() > 0)
 				{
-					SystemMessage msg = new SystemMessage(SystemMessageId.ATTENTION_S1_PICKED_UP_S2_S3);
+					SystemMessage msg = new SystemMessage(SystemMessageId.ANNOUNCEMENT_C1_PICKED_UP_S2_S3);
 					msg.addPcName(this);
 					msg.addNumber(target.getEnchantLevel());
 					msg.addItemName(target);
@@ -4159,7 +4159,7 @@ public final class L2PcInstance extends L2Playable
 				}
 				else
 				{
-					SystemMessage msg = new SystemMessage(SystemMessageId.ATTENTION_S1_PICKED_UP_S2);
+					SystemMessage msg = new SystemMessage(SystemMessageId.ANNOUNCEMENT_C1_PICKED_UP_S2);
 					msg.addPcName(this);
 					msg.addItemName(target);
 					broadcastPacket(msg, 1400);
@@ -5555,7 +5555,7 @@ public final class L2PcInstance extends L2Playable
 		_activeTradeList = new TradeList(this);
 		_activeTradeList.setPartner(partner);
 
-		SystemMessage msg = new SystemMessage(SystemMessageId.BEGIN_TRADE_WITH_S1);
+		SystemMessage msg = new SystemMessage(SystemMessageId.BEGIN_TRADE_WITH_C1);
 		msg.addPcName(partner);
 		sendPacket(msg);
 		sendPacket(new TradeStart(this));
@@ -5563,7 +5563,7 @@ public final class L2PcInstance extends L2Playable
 
 	public void onTradeConfirm(L2PcInstance partner)
 	{
-		SystemMessage msg = new SystemMessage(SystemMessageId.S1_CONFIRMED_TRADE);
+		SystemMessage msg = new SystemMessage(SystemMessageId.C1_CONFIRMED_TRADE);
 		msg.addPcName(partner);
 		sendPacket(msg);
 	}
@@ -5576,7 +5576,7 @@ public final class L2PcInstance extends L2Playable
 		_activeTradeList.lock();
 		_activeTradeList = null;
 		sendPacket(new TradeDone(0));
-		SystemMessage msg = new SystemMessage(SystemMessageId.S1_CANCELED_TRADE);
+		SystemMessage msg = new SystemMessage(SystemMessageId.C1_CANCELED_TRADE);
 		msg.addPcName(partner);
 		sendPacket(msg);
 	}
@@ -9520,47 +9520,47 @@ public final class L2PcInstance extends L2Playable
 	{
 		if (isInCombat() || isInJail())
 		{
-			_noDuelReason = SystemMessageId.S1_CANNOT_DUEL_BECAUSE_S1_IS_CURRENTLY_ENGAGED_IN_BATTLE.getId();
+			_noDuelReason = SystemMessageId.C1_CANNOT_DUEL_BECAUSE_C1_IS_CURRENTLY_ENGAGED_IN_BATTLE.getId();
 			return false;
 		}
 		if (isDead() || isAlikeDead() || (getStatus().getCurrentHp() < getStat().getMaxHp() / 2 || getStatus().getCurrentMp() < getStat().getMaxMp() / 2))
 		{
-			_noDuelReason = SystemMessageId.S1_CANNOT_DUEL_BECAUSE_S1S_HP_OR_MP_IS_BELOW_50_PERCENT.getId();
+			_noDuelReason = SystemMessageId.C1_CANNOT_DUEL_BECAUSE_C1_HP_OR_MP_IS_BELOW_50_PERCENT.getId();
 			return false;
 		}
 		if (isInDuel())
 		{
-			_noDuelReason = SystemMessageId.S1_CANNOT_DUEL_BECAUSE_S1_IS_ALREADY_ENGAGED_IN_A_DUEL.getId();
+			_noDuelReason = SystemMessageId.C1_CANNOT_DUEL_BECAUSE_C1_IS_ALREADY_ENGAGED_IN_A_DUEL.getId();
 			return false;
 		}
 		if (isInOlympiadMode())
 		{
-			_noDuelReason = SystemMessageId.S1_CANNOT_DUEL_BECAUSE_S1_IS_PARTICIPATING_IN_THE_OLYMPIAD.getId();
+			_noDuelReason = SystemMessageId.C1_CANNOT_DUEL_BECAUSE_C1_IS_PARTICIPATING_IN_THE_OLYMPIAD.getId();
 			return false;
 		}
 		if (isCursedWeaponEquipped())
 		{
-			_noDuelReason = SystemMessageId.S1_CANNOT_DUEL_BECAUSE_S1_IS_IN_A_CHAOTIC_STATE.getId();
+			_noDuelReason = SystemMessageId.C1_CANNOT_DUEL_BECAUSE_C1_IS_IN_A_CHAOTIC_STATE.getId();
 			return false;
 		}
 		if (getPrivateStoreType() != STORE_PRIVATE_NONE)
 		{
-			_noDuelReason = SystemMessageId.S1_CANNOT_DUEL_BECAUSE_S1_IS_CURRENTLY_ENGAGED_IN_A_PRIVATE_STORE_OR_MANUFACTURE.getId();
+			_noDuelReason = SystemMessageId.C1_CANNOT_DUEL_BECAUSE_C1_IS_CURRENTLY_ENGAGED_IN_A_PRIVATE_STORE_OR_MANUFACTURE.getId();
 			return false;
 		}
 		if (isMounted() || isInBoat())
 		{
-			_noDuelReason = SystemMessageId.S1_CANNOT_DUEL_BECAUSE_S1_IS_CURRENTLY_RIDING_A_BOAT_WYVERN_OR_STRIDER.getId();
+			_noDuelReason = SystemMessageId.C1_CANNOT_DUEL_BECAUSE_C1_IS_CURRENTLY_RIDING_A_BOAT_WYVERN_OR_STRIDER.getId();
 			return false;
 		}
 		if (isFishing())
 		{
-			_noDuelReason = SystemMessageId.S1_CANNOT_DUEL_BECAUSE_S1_IS_CURRENTLY_FISHING.getId();
+			_noDuelReason = SystemMessageId.C1_CANNOT_DUEL_BECAUSE_C1_IS_CURRENTLY_FISHING.getId();
 			return false;
 		}
 		if (isInsideZone(L2Zone.FLAG_PVP) || isInsideZone(L2Zone.FLAG_PEACE) || SiegeManager.getInstance().checkIfInZone(this))
 		{
-			_noDuelReason = SystemMessageId.S1_CANNOT_MAKE_A_CHALLANGE_TO_A_DUEL_BECAUSE_S1_IS_CURRENTLY_IN_A_DUEL_PROHIBITED_AREA.getId();
+			_noDuelReason = SystemMessageId.C1_CANNOT_MAKE_A_CHALLANGE_TO_A_DUEL_BECAUSE_C1_IS_CURRENTLY_IN_A_DUEL_PROHIBITED_AREA.getId();
 			return false;
 		}
 		return true;
@@ -10836,7 +10836,7 @@ public final class L2PcInstance extends L2Playable
 
 			int restoreExp = (int) Math.round((getExpBeforeDeath() - getExp()) * _revivePower / 100);
 
-			ConfirmDlg dlg = new ConfirmDlg(SystemMessageId.S1_MAKING_RESSURECTION_REQUEST.getId());
+			ConfirmDlg dlg = new ConfirmDlg(SystemMessageId.RESSURECTION_REQUEST_BY_C1_FOR_S2_XP.getId());
 			sendPacket(dlg.addPcName(reviver).addString("" + restoreExp));
 		}
 	}
@@ -10859,7 +10859,7 @@ public final class L2PcInstance extends L2Playable
 
 			int restoreExp = (int) Math.round((((L2PetInstance)getPet()).getExpBeforeDeath() - getPet().getStat().getExp()) * _revivePetPower / 100);
 
-			ConfirmDlg dlg = new ConfirmDlg(SystemMessageId.S1_MAKING_RESSURECTION_REQUEST.getId());
+			ConfirmDlg dlg = new ConfirmDlg(SystemMessageId.RESSURECTION_REQUEST_BY_C1_FOR_S2_XP.getId());
 			sendPacket(dlg.addPcName(reviver).addString("" + restoreExp));
 		}
 	}
@@ -13148,7 +13148,7 @@ public final class L2PcInstance extends L2Playable
 	@Override
 	public final void sendAvoidMessage(L2Character attacker)
 	{
-		sendPacket(new SystemMessage(SystemMessageId.AVOIDED_S1S_ATTACK).addCharName(attacker));
+		sendPacket(new SystemMessage(SystemMessageId.AVOIDED_C1S_ATTACK).addCharName(attacker));
 	}
 	
 	public void saveEventStats()

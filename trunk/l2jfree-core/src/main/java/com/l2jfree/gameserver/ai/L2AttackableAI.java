@@ -641,12 +641,18 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 				}
 			}
 
-			x1 = npc.getSpawn().getLocx() + Rnd.nextInt(range * 2) - range;
-			y1 = npc.getSpawn().getLocy() + Rnd.nextInt(range * 2) - range;
-			z1 = npc.getZ();
+			x1 = npc.getSpawn().getLocx();
+			y1 = npc.getSpawn().getLocy();
+			z1 = npc.getSpawn().getLocz();
 			if (_actor.getPlanDistanceSq(x1, y1) > range * range)
 			{
 				npc.setisReturningToSpawnPoint(true);
+			}
+			else
+			{
+				x1 += Rnd.nextInt(range * 2) - range;
+				y1 += Rnd.nextInt(range * 2) - range;
+				z1 = npc.getZ();
 			}
 
 			//_log.config("Curent pos ("+getX()+", "+getY()+"), moving to ("+x1+", "+y1+").");

@@ -140,7 +140,7 @@ public class GmListTable
 
 			for (String name : getAllGmNames(player.isGM()))
 			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.GM_S1);
+				SystemMessage sm = new SystemMessage(SystemMessageId.GM_C1);
 				sm.addString(name);
 				player.sendPacket(sm);
 			}

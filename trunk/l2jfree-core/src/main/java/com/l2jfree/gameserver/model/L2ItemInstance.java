@@ -1646,13 +1646,8 @@ public final class L2ItemInstance extends L2Object implements FuncOwner
 	 * 
 	 * @param player Player that pick up the item
 	 */
-	public final void pickupMe(L2Character player) // NOTE: Should move this function into L2ItemInstance because it does not apply to L2Character
+	public final void pickupMe(L2Character player)
 	{
-		//if (Config.ASSERT)
-		//	assert this instanceof L2ItemInstance;
-		//if (Config.ASSERT)
-		//	assert getPosition().getWorldRegion() != null;
-		
 		L2WorldRegion oldregion = getPosition().getWorldRegion();
 		
 		// Create a server->client GetItem packet to pick up the L2ItemInstance

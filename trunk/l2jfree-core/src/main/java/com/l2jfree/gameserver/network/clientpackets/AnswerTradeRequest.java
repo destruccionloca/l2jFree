@@ -80,7 +80,7 @@ public class AnswerTradeRequest extends L2GameClientPacket
 		}
 		else
 		{
-			SystemMessage msg = new SystemMessage(SystemMessageId.S1_DENIED_TRADE_REQUEST);
+			SystemMessage msg = new SystemMessage(SystemMessageId.C1_DENIED_TRADE_REQUEST);
 			msg.addString(player.getName());
 			partner.sendPacket(msg);
 			player.sendPacket(ActionFailed.STATIC_PACKET);

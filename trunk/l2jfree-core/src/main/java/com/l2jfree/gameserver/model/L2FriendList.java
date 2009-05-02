@@ -59,14 +59,14 @@ public final class L2FriendList
 		{
 			_owner.sendPacket(SystemMessageId.YOU_HAVE_SUCCEEDED_INVITING_FRIEND);
 			
-			_owner.sendPacket(new SystemMessage(SystemMessageId.S1_ADDED_TO_FRIENDS).addPcName(friend));
+			_owner.sendPacket(new SystemMessage(SystemMessageId.C1_ADDED_TO_FRIENDS).addPcName(friend));
 			_owner.sendPacket(new FriendList(_owner));
 			
-			friend.sendPacket(new SystemMessage(SystemMessageId.S1_JOINED_AS_FRIEND).addPcName(_owner));
+			friend.sendPacket(new SystemMessage(SystemMessageId.C1_JOINED_AS_FRIEND).addPcName(_owner));
 			friend.sendPacket(new FriendList(friend));
 		}
 		else
-			_owner.sendPacket(new SystemMessage(SystemMessageId.S1_ALREADY_ON_LIST).addPcName(friend));
+			_owner.sendPacket(new SystemMessage(SystemMessageId.C1_ALREADY_ON_LIST).addPcName(friend));
 	}
 	
 	public void remove(String name)
@@ -77,19 +77,19 @@ public final class L2FriendList
 		{
 			name = CharNameTable.getInstance().getByObjectId(objId);
 			
-			_owner.sendPacket(new SystemMessage(SystemMessageId.S1_HAS_BEEN_DELETED_FROM_YOUR_FRIENDS_LIST)
+			_owner.sendPacket(new SystemMessage(SystemMessageId.C1_HAS_BEEN_DELETED_FROM_YOUR_FRIENDS_LIST)
 				.addString(name));
 			_owner.sendPacket(new FriendList(_owner));
 			
 			L2PcInstance friend = L2World.getInstance().findPlayer(objId);
 			if (friend != null)
 			{
-				friend.sendPacket(new SystemMessage(SystemMessageId.S1_HAS_BEEN_DELETED_FROM_YOUR_FRIENDS_LIST)
+				friend.sendPacket(new SystemMessage(SystemMessageId.C1_HAS_BEEN_DELETED_FROM_YOUR_FRIENDS_LIST)
 					.addPcName(_owner));
 				friend.sendPacket(new FriendList(friend));
 			}
 		}
 		else
-			_owner.sendPacket(new SystemMessage(SystemMessageId.S1_NOT_ON_YOUR_FRIENDS_LIST).addString(name));
+			_owner.sendPacket(new SystemMessage(SystemMessageId.C1_NOT_ON_YOUR_FRIENDS_LIST).addString(name));
 	}
 }

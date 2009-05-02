@@ -83,7 +83,7 @@ public class SummonFriend implements ISkillHandler
 
 		if (targetChar.isAlikeDead())
 		{
-			SystemMessage sm = new SystemMessage(SystemMessageId.S1_IS_DEAD_AT_THE_MOMENT_AND_CANNOT_BE_SUMMONED);
+			SystemMessage sm = new SystemMessage(SystemMessageId.C1_IS_DEAD_AT_THE_MOMENT_AND_CANNOT_BE_SUMMONED);
 			sm.addPcName(targetChar);
 			summonerChar.sendPacket(sm);
 			return false;
@@ -91,7 +91,7 @@ public class SummonFriend implements ISkillHandler
 
 		if (targetChar.isInStoreMode())
 		{
-			SystemMessage sm = new SystemMessage(SystemMessageId.S1_CURRENTLY_TRADING_OR_OPERATING_PRIVATE_STORE_AND_CANNOT_BE_SUMMONED);
+			SystemMessage sm = new SystemMessage(SystemMessageId.C1_CURRENTLY_TRADING_OR_OPERATING_PRIVATE_STORE_AND_CANNOT_BE_SUMMONED);
 			sm.addPcName(targetChar);
 			summonerChar.sendPacket(sm);
 			return false;
@@ -99,7 +99,7 @@ public class SummonFriend implements ISkillHandler
 
 		if (targetChar.isRooted() || targetChar.isInCombat())
 		{
-			SystemMessage sm = new SystemMessage(SystemMessageId.S1_IS_ENGAGED_IN_COMBAT_AND_CANNOT_BE_SUMMONED);
+			SystemMessage sm = new SystemMessage(SystemMessageId.C1_IS_ENGAGED_IN_COMBAT_AND_CANNOT_BE_SUMMONED);
 			sm.addPcName(targetChar);
 			summonerChar.sendPacket(sm);
 			return false;
@@ -125,7 +125,7 @@ public class SummonFriend implements ISkillHandler
 
 		if (targetChar.isInsideZone(L2Zone.FLAG_NOSUMMON))
 		{
-			SystemMessage sm = new SystemMessage(SystemMessageId.S1_IN_SUMMON_BLOCKING_AREA);
+			SystemMessage sm = new SystemMessage(SystemMessageId.C1_IN_SUMMON_BLOCKING_AREA);
 			sm.addString(targetChar.getName());
 			summonerChar.sendPacket(sm);
 			return false;
@@ -231,7 +231,7 @@ public class SummonFriend implements ISkillHandler
 			{
 				if (!target.teleportRequest(activePlayer, skill))
 				{
-					SystemMessage sm = new SystemMessage(SystemMessageId.S1_ALREADY_SUMMONED);
+					SystemMessage sm = new SystemMessage(SystemMessageId.C1_ALREADY_SUMMONED);
 					sm.addString(target.getName());
 					activePlayer.sendPacket(sm);
 					continue;
@@ -240,7 +240,7 @@ public class SummonFriend implements ISkillHandler
 				if (skill.getId() == 1403) //summon friend
 				{
 					// Send message
-					ConfirmDlg confirm = new ConfirmDlg(SystemMessageId.S1_WISHES_TO_SUMMON_YOU_FROM_S2_DO_YOU_ACCEPT.getId());
+					ConfirmDlg confirm = new ConfirmDlg(SystemMessageId.C1_WISHES_TO_SUMMON_YOU_FROM_S2_DO_YOU_ACCEPT.getId());
 					confirm.addCharName(activeChar);
 					confirm.addZoneName(activeChar.getX(), activeChar.getY(), activeChar.getZ());
 					confirm.addTime(30000);

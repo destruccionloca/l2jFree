@@ -75,13 +75,13 @@ public class L2SkillChargeDmg extends L2Skill
 			{
 				if (activeChar instanceof L2PcInstance)
 				{
-					SystemMessage sm = new SystemMessage(SystemMessageId.S1_DODGES_ATTACK);
+					SystemMessage sm = new SystemMessage(SystemMessageId.C1_DODGES_ATTACK);
 					sm.addCharName(target);
 					activeChar.sendPacket(sm);
 				}
 				if (target instanceof L2PcInstance)
 				{
-					SystemMessage sm = new SystemMessage(SystemMessageId.AVOIDED_S1_ATTACK);
+					SystemMessage sm = new SystemMessage(SystemMessageId.AVOIDED_C1_ATTACK);
 					sm.addCharName(activeChar);
 					target.sendPacket(sm);
 				}

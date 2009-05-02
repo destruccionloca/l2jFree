@@ -141,7 +141,7 @@ public class Disablers implements ICubicSkillHandler
 					skill.getEffects(activeChar, target);
 				else
 				{
-					SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
+					SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
 					sm.addCharName(target);
 					sm.addSkillName(skill);
 					activeChar.sendPacket(sm);
@@ -181,7 +181,7 @@ public class Disablers implements ICubicSkillHandler
 				{
 					if (activeChar instanceof L2PcInstance)
 					{
-						SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
+						SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
 						sm.addCharName(target);
 						sm.addSkillName(skill);
 						activeChar.sendPacket(sm);
@@ -207,7 +207,7 @@ public class Disablers implements ICubicSkillHandler
 				{
 					if (activeChar instanceof L2PcInstance)
 					{
-						SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
+						SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
 						sm.addCharName(target);
 						sm.addSkillName(skill);
 						activeChar.sendPacket(sm);
@@ -240,7 +240,7 @@ public class Disablers implements ICubicSkillHandler
 				{
 					if (activeChar instanceof L2PcInstance)
 					{
-						SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
+						SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
 						sm.addCharName(target);
 						sm.addSkillName(skill);
 						activeChar.sendPacket(sm);
@@ -267,7 +267,7 @@ public class Disablers implements ICubicSkillHandler
 					{
 						if (activeChar instanceof L2PcInstance)
 						{
-							SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
+							SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
 							sm.addCharName(target);
 							sm.addSkillName(skill);
 							activeChar.sendPacket(sm);
@@ -364,7 +364,7 @@ public class Disablers implements ICubicSkillHandler
 				{
 					if (activeChar instanceof L2PcInstance)
 					{
-						SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
+						SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
 						sm.addString(target.getName());
 						sm.addSkillName(skill.getId());
 						activeChar.sendPacket(sm);
@@ -387,7 +387,7 @@ public class Disablers implements ICubicSkillHandler
 					{
 						if (activeChar instanceof L2PcInstance)
 						{
-							SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
+							SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
 							sm.addCharName(target);
 							sm.addSkillName(skill);
 							activeChar.sendPacket(sm);
@@ -417,7 +417,7 @@ public class Disablers implements ICubicSkillHandler
 				{
 					if (activeChar instanceof L2PcInstance)
 					{
-						SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
+						SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
 						sm.addCharName(target);
 						sm.addSkillName(skill);
 						activeChar.sendPacket(sm);
@@ -435,7 +435,7 @@ public class Disablers implements ICubicSkillHandler
 				{
 					if (activeChar instanceof L2PcInstance)
 					{
-						SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
+						SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
 						sm.addCharName(target);
 						sm.addSkillName(skill);
 						activeChar.sendPacket(sm);
@@ -463,7 +463,7 @@ public class Disablers implements ICubicSkillHandler
 				{
 					if (activeChar instanceof L2PcInstance)
 					{
-						SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
+						SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
 						sm.addCharName(target);
 						sm.addSkillName(skill);
 						activeChar.sendPacket(sm);
@@ -627,7 +627,7 @@ public class Disablers implements ICubicSkillHandler
 				{
 					if (activeChar instanceof L2PcInstance)
 					{
-						SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
+						SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
 						sm.addCharName(target);
 						sm.addSkillName(skill);
 						activeChar.sendPacket(sm);
@@ -691,7 +691,7 @@ public class Disablers implements ICubicSkillHandler
 					}
 					else if (activeChar instanceof L2PcInstance)
 					{
-						SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
+						SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
 						sm.addCharName(target);
 						sm.addSkillName(skill);
 						activeChar.sendPacket(sm);

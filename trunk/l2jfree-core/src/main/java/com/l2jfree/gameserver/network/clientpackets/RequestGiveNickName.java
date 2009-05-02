@@ -99,7 +99,7 @@ public class RequestGiveNickName extends L2GameClientPacket
 						
 						if (member != activeChar)
 						{
-							sm = new SystemMessage(SystemMessageId.CLAN_MEMBER_S1_TITLE_CHANGED_TO_S2);
+							sm = new SystemMessage(SystemMessageId.CLAN_MEMBER_C1_TITLE_CHANGED_TO_S2);
 							sm.addString(member.getName());
 							sm.addString(member.getTitle());
 							member.sendPacket(sm);

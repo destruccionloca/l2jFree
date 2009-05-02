@@ -683,8 +683,8 @@ public class Duel
 			case Team1Win:
 				restorePlayerConditions(false);
 				// send SystemMessage
-				if (_partyDuel) sm = new SystemMessage(SystemMessageId.S1S_PARTY_HAS_WON_THE_DUEL);
-				else sm = new SystemMessage(SystemMessageId.S1_HAS_WON_THE_DUEL);
+				if (_partyDuel) sm = new SystemMessage(SystemMessageId.C1_PARTY_HAS_WON_THE_DUEL);
+				else sm = new SystemMessage(SystemMessageId.C1_HAS_WON_THE_DUEL);
 				sm.addString(_playerA.getName());
 
 				broadcastToTeam1(sm);
@@ -693,8 +693,8 @@ public class Duel
 			case Team2Win:
 				restorePlayerConditions(false);
 				// send SystemMessage
-				if (_partyDuel) sm = new SystemMessage(SystemMessageId.S1S_PARTY_HAS_WON_THE_DUEL);
-				else sm = new SystemMessage(SystemMessageId.S1_HAS_WON_THE_DUEL);
+				if (_partyDuel) sm = new SystemMessage(SystemMessageId.C1_PARTY_HAS_WON_THE_DUEL);
+				else sm = new SystemMessage(SystemMessageId.C1_HAS_WON_THE_DUEL);
 				sm.addString(_playerB.getName());
 
 				broadcastToTeam1(sm);
@@ -703,8 +703,8 @@ public class Duel
 			case Team1Surrender:
 				restorePlayerConditions(false);
 				// send SystemMessage
-				if (_partyDuel) sm = new SystemMessage(SystemMessageId.SINCE_S1S_PARTY_WITHDREW_FROM_THE_DUEL_S1S_PARTY_HAS_WON);
-				else sm = new SystemMessage(SystemMessageId.SINCE_S1_WITHDREW_FROM_THE_DUEL_S2_HAS_WON);
+				if (_partyDuel) sm = new SystemMessage(SystemMessageId.SINCE_C1_PARTY_WITHDREW_FROM_THE_DUEL_C2_PARTY_HAS_WON);
+				else sm = new SystemMessage(SystemMessageId.SINCE_C1_WITHDREW_FROM_THE_DUEL_C2_HAS_WON);
 				sm.addString(_playerA.getName());
 				sm.addString(_playerB.getName());
 
@@ -714,8 +714,8 @@ public class Duel
 			case Team2Surrender:
 				restorePlayerConditions(false);
 				// send SystemMessage
-				if (_partyDuel) sm = new SystemMessage(SystemMessageId.SINCE_S1S_PARTY_WITHDREW_FROM_THE_DUEL_S1S_PARTY_HAS_WON);
-				else sm = new SystemMessage(SystemMessageId.SINCE_S1_WITHDREW_FROM_THE_DUEL_S2_HAS_WON);
+				if (_partyDuel) sm = new SystemMessage(SystemMessageId.SINCE_C1_PARTY_WITHDREW_FROM_THE_DUEL_C2_PARTY_HAS_WON);
+				else sm = new SystemMessage(SystemMessageId.SINCE_C1_WITHDREW_FROM_THE_DUEL_C2_HAS_WON);
 				sm.addString(_playerB.getName());
 				sm.addString(_playerA.getName());
 

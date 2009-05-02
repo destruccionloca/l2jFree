@@ -54,9 +54,9 @@ public final class BlockList
 		
 		if (_set.add(player.getName()))
 		{
-			_owner.sendPacket(new SystemMessage(SystemMessageId.S1_WAS_ADDED_TO_YOUR_IGNORE_LIST).addPcName(player));
+			_owner.sendPacket(new SystemMessage(SystemMessageId.C1_WAS_ADDED_TO_YOUR_IGNORE_LIST).addPcName(player));
 			
-			player.sendPacket(new SystemMessage(SystemMessageId.S1_HAS_ADDED_YOU_TO_IGNORE_LIST).addPcName(_owner));
+			player.sendPacket(new SystemMessage(SystemMessageId.C1_HAS_ADDED_YOU_TO_IGNORE_LIST).addPcName(_owner));
 			
 			BlockListManager.getInstance().insert(_owner, player);
 		}
@@ -68,7 +68,7 @@ public final class BlockList
 	{
 		if (_set.remove(name))
 		{
-			_owner.sendPacket(new SystemMessage(SystemMessageId.S1_WAS_REMOVED_FROM_YOUR_IGNORE_LIST).addString(name));
+			_owner.sendPacket(new SystemMessage(SystemMessageId.C1_WAS_REMOVED_FROM_YOUR_IGNORE_LIST).addString(name));
 			
 			BlockListManager.getInstance().remove(_owner, name);
 		}

@@ -243,15 +243,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 36<br>
-	 * Message: $s1 hit you for $s2 damage.
+	 * Message: $c1 hit you for $s2 damage.
 	 */
-	S1_GAVE_YOU_S2_DMG(36),
+	C1_GAVE_YOU_S2_DMG(36),
 
 	/**
 	 * ID: 37<br>
-	 * Message: $s1 hit you for $s2 damage.
+	 * Message: $c1 hit you for $s2 damage.
 	 */
-	S1_GAVE_YOU_S2_DMG2(37),
+	C1_GAVE_YOU_S2_DMG2(37),
 
 	/**
 	 * ID: 38<br>
@@ -280,9 +280,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 42<br>
-	 * Message: You have avoided $s1's attack.
+	 * Message: You have avoided $c1's attack.
 	 */
-	AVOIDED_S1S_ATTACK(42),
+	AVOIDED_C1S_ATTACK(42),
 
 	/**
 	 * ID: 43<br>
@@ -424,34 +424,33 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 66<br>
-	 * Message: $s1 has invited you to his/her party. Do you accept the
-	 * invitation?
+	 * Message: $c1 is inviting you to join a party. Do you accept?
 	 */
-	S1_INVITED_YOU_TO_PARTY(66),
+	C1_INVITED_YOU_TO_PARTY(66),
 
 	/**
 	 * ID: 67<br>
-	 * Message: $s1 has invited you to the join the clan, $s2. Do you wish to
+	 * Message: $c1 has invited you to the join the clan, $s2. Do you wish to
 	 * join?
 	 */
-	S1_HAS_INVITED_YOU_TO_JOIN_THE_CLAN_S2(67),
+	C1_HAS_INVITED_YOU_TO_JOIN_THE_CLAN_S2(67),
 
 	/**
 	 * ID: 68<br>
-	 * Message: Would you like to withdraw from the $s1 clan? If you leave, you
+	 * Message: Would you like to withdraw from the $c1 clan? If you leave, you
 	 * will have to wait at least a day before joining another clan.
 	 */
 	WOULD_YOU_LIKE_TO_WITHDRAW_FROM_THE_S1_CLAN(68),
 
 	/**
 	 * ID: 69<br>
-	 * Message:"Would you like to dismiss $s1 from the clan? If you do so, you will have to wait at least a day before accepting a new member."
+	 * Message: Would you like to dismiss $s1 from the clan? If you do so, you will have to wait at least a day before accepting a new member.
 	 */
 	WOULD_YOU_LIKE_TO_DISMISS_S1_FROM_THE_CLAN(69),
 
 	/**
 	 * ID: 70<br>
-	 * Message: "Do you wish to disperse the clan, $s1?"
+	 * Message: Do you wish to disperse the clan, $s1?
 	 */
 	DO_YOU_WISH_TO_DISPERSE_THE_CLAN_S1(70),
 
@@ -634,9 +633,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 100<br>
-	 * Message: $s1 is requesting to trade. Do you wish to continue?
+	 * Message: $c1 is requesting to trade. Do you wish to continue?
 	 */
-	S1_REQUESTS_TRADE(100),
+	C1_REQUESTS_TRADE(100),
 
 	/**
 	 * ID: 101<br>
@@ -664,27 +663,27 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 105<br>
-	 * Message: You have invited $s1 to your party.
+	 * Message: You have invited $c1 to your party.
 	 */
-	YOU_INVITED_S1_TO_PARTY(105),
+	YOU_INVITED_C1_TO_PARTY(105),
 
 	/**
 	 * ID: 106<br>
-	 * Message: You have joined $s1's party.
+	 * Message: You have joined $c1's party.
 	 */
-	YOU_JOINED_S1_PARTY(106),
+	YOU_JOINED_C1_PARTY(106),
 
 	/**
 	 * ID: 107<br>
-	 * Message: $s1 has joined the party.
+	 * Message: $c1 has joined the party.
 	 */
-	S1_JOINED_PARTY(107),
+	C1_JOINED_PARTY(107),
 
 	/**
 	 * ID: 108<br>
-	 * Message: $s1 has left the party.
+	 * Message: $c1 has left the party.
 	 */
-	S1_LEFT_PARTY(108),
+	C1_LEFT_PARTY(108),
 
 	/**
 	 * ID: 109<br>
@@ -742,27 +741,33 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 118<br>
-	 * Message: You have requested a trade with $s1
+	 * Message: You have requested a trade with $c1
 	 */
-	REQUEST_S1_FOR_TRADE(118),
+	REQUEST_C1_FOR_TRADE(118),
 
 	/**
 	 * ID: 119<br>
-	 * Message: $s1 has denied your request to trade.
+	 * Message: $c1 has denied your request to trade.
 	 */
-	S1_DENIED_TRADE_REQUEST(119),
+	C1_DENIED_TRADE_REQUEST(119),
 
 	/**
 	 * ID: 120<br>
-	 * Message: You begin trading with $s1.
+	 * Message: You begin trading with $c1.
 	 */
-	BEGIN_TRADE_WITH_S1(120),
+	BEGIN_TRADE_WITH_C1(120),
 
 	/**
 	 * ID: 121<br>
-	 * Message: $s1 has confirmed the trade.
+	 * Message: $c1 has confirmed the trade.
 	 */
-	S1_CONFIRMED_TRADE(121),
+	C1_CONFIRMED_TRADE(121),
+
+	/**
+	 * ID: 122<br>
+	 * Message: You may no longer adjust items in the trade because the trade has been confirmed.
+	 */
+	CANNOT_ADJUST_ITEMS_AFTER_TRADE_CONFIRMED(122), 
 
 	/**
 	 * ID: 123<br>
@@ -772,9 +777,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 124<br>
-	 * Message: $s1 has canceled the trade.
+	 * Message: $c1 has cancelled the trade.
 	 */
-	S1_CANCELED_TRADE(124),
+	C1_CANCELED_TRADE(124),
 
 	/**
 	 * ID: 125<br>
@@ -822,13 +827,13 @@ public enum SystemMessageId
 	 * ID: 132<br>
 	 * Message: $s1 has been added to your friends list.
 	 */
-	S1_ADDED_TO_FRIENDS(132),
+	C1_ADDED_TO_FRIENDS(132),
 
 	/**
 	 * ID: 133<br>
 	 * Message: $s1 has been removed from your friends list.
 	 */
-	S1_REMOVED_FROM_YOUR_FRIENDS_LIST(133),
+	C1_REMOVED_FROM_YOUR_FRIENDS_LIST(133),
 
 	/**
 	 * ID: 134<br>
@@ -838,17 +843,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 135<br>
-	 * Message: $s1 did not reply to your invitation), your invite has been
-	 * canceled.
+	 * Message: $c1 did not reply to your invitation. Your invitation has been cancelled.
 	 */
-	S1_DID_NOT_REPLY(135),
+	C1_DID_NOT_REPLY_TO_YOUR_INVITE(135),
 
 	/**
 	 * ID: 136<br>
-	 * Message: You have not replied to $s1's invitation), the offer has been
-	 * canceled.
+	 * Message: You have not replied to $c1's invitation. The offer has been cancelled.
 	 */
-	YOU_DID_NOT_REPLY_TO_S1(136),
+	YOU_DID_NOT_REPLY_TO_C1_INVITE(136),
 
 	/**
 	 * ID: 137<br>
@@ -864,9 +867,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 139<br>
-	 * Message: $s1 has resisted your $s2.
+	 * Message: $c1 has resisted your $s2.
 	 */
-	S1_WAS_UNAFFECTED_BY_S2(139),
+	C1_RESISTED_YOUR_S2(139),
 
 	/**
 	 * ID: 140<br>
@@ -888,10 +891,10 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 143<br>
-	 * Message: $s1 is already trading with another person. Please try again
+	 * Message: $c1 is already trading with another person. Please try again
 	 * later.
 	 */
-	S1_ALREADY_TRADING(143),
+	C1_ALREADY_TRADING(143),
 
 	/**
 	 * ID: 144<br>
@@ -950,9 +953,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 153<br>
-	 * Message: $s1 is busy. Please try again later.
+	 * Message: $c1 is on another task. Please try again later.
 	 */
-	S1_IS_BUSY_TRY_LATER(153),
+	C1_IS_BUSY_TRY_LATER(153),
 
 	/**
 	 * ID: 154<br>
@@ -974,9 +977,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 157<br>
-	 * Message: You resisted $s1's drain.
+	 * Message: You resisted $c1's drain.
 	 */
-	RESISTED_S1_DRAIN(157),
+	RESISTED_C1_DRAIN(157),
 
 	/**
 	 * ID: 158<br>
@@ -986,15 +989,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 159<br>
-	 * Message: You have resisted $s1's magic.
+	 * Message: You resisted $c1's magic.
 	 */
-	RESISTED_S1_MAGIC(159),
+	RESISTED_C1_MAGIC(159),
 
 	/**
 	 * ID: 160<br>
-	 * Message: $s1 is a member of another party and cannot be invited.
+	 * Message: $c1 is a member of another party and cannot be invited.
 	 */
-	S1_IS_ALREADY_IN_PARTY(160),
+	C1_IS_ALREADY_IN_PARTY(160),
 
 	/**
 	 * ID: 161<br>
@@ -1034,15 +1037,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 167<br>
-	 * Message: $s1 is already on your friend list.
+	 * Message: $c1 is already on your friend list.
 	 */
-	S1_ALREADY_ON_LIST(167),
+	C1_ALREADY_ON_LIST(167),
 
 	/**
 	 * ID: 168<br>
-	 * Message: $s1 has requested to become friends.
+	 * Message: $c1 has sent a friend request.
 	 */
-	S1_REQUESTED_TO_BECOME_FRIENDS(168),
+	C1_REQUESTED_TO_BECOME_FRIENDS(168),
 
 	/**
 	 * ID: 169<br>
@@ -1059,9 +1062,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 171<br>
-	 * Message: $s1 is not on your friend list.
+	 * Message: $c1 is not on your friend list.
 	 */
-	S1_NOT_ON_YOUR_FRIENDS_LIST(171),
+	C1_NOT_ON_YOUR_FRIENDS_LIST(171),
 
 	/**
 	 * ID: 172<br>
@@ -1241,9 +1244,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 201<br>
-	 * Message: $s1 was expelled from the party.
+	 * Message: $c1 was expelled from the party.
 	 */
-	S1_WAS_EXPELLED_FROM_PARTY(201),
+	C1_WAS_EXPELLED_FROM_PARTY(201),
 
 	/**
 	 * ID: 202<br>
@@ -1848,15 +1851,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 299<br>
-	 * Message: $s1 has obtained $s3 $s2.
+	 * Message: $c1 has obtained $s3 $s2.
 	 */
-	S1_PICKED_UP_S2_S3(299),
+	C1_PICKED_UP_S2_S3(299),
 
 	/**
 	 * ID: 300<br>
-	 * Message: $s1 has obtained $s2.
+	 * Message: $c1 has obtained $s2.
 	 */
-	S1_PICKED_UP_S2(300),
+	C1_PICKED_UP_S2(300),
 
 	/**
 	 * ID: 301<br>
@@ -2245,9 +2248,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 376<br>
-	 * Message: $s1 has obtained +$s2 $s3.
+	 * Message: $c1 has obtained +$s2 $s3.
 	 */
-	S1_OBTAINED_S2_S3(376),
+	C1_OBTAINED_S2_S3(376),
 
 	/**
 	 * ID: 377<br>
@@ -2257,21 +2260,21 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 378<br>
-	 * Message: $s1 purchased $s2.
+	 * Message: $c1 purchased $s2.
 	 */
-	S1_PURCHASED_S2(378),
+	C1_PURCHASED_S2(378),
 
 	/**
 	 * ID: 379<br>
-	 * Message: $s1 purchased +$s2 $s3.
+	 * Message: $c1 purchased +$s2 $s3.
 	 */
-	S1_PURCHASED_S2_S3(379),
+	C1_PURCHASED_S2_S3(379),
 
 	/**
 	 * ID: 380<br>
-	 * Message: $s1 purchased $s3 $s2(s).
+	 * Message: $c1 purchased $s3 $s2(s).
 	 */
-	S1_PURCHASED_S3_S2_S(380),
+	C1_PURCHASED_S3_S2_S(380),
 
 	/**
 	 * ID: 381<br>
@@ -2357,15 +2360,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 394<br>
-	 * Message: Petition consultation with $s1, under way.
+	 * Message: Starting petition consultation with $c1.
 	 */
-	PETITION_WITH_S1_UNDER_WAY(394),
+	STARTING_PETITION_WITH_C1(394),
 
 	/**
 	 * ID: 395<br>
-	 * Message: Ending petition consultation with $s1.
+	 * Message: Ending petition consultation with $c1.
 	 */
-	PETITION_ENDED_WITH_S1(395),
+	PETITION_ENDED_WITH_C1(395),
 
 	/**
 	 * ID: 396<br>
@@ -2878,7 +2881,7 @@ public enum SystemMessageId
 	 * ID: 479<br>
 	 * Message: $s1 has joined as a friend.
 	 */
-	S1_JOINED_AS_FRIEND(479),
+	C1_JOINED_AS_FRIEND(479),
 
 	/**
 	 * ID: 480<br>
@@ -2890,7 +2893,7 @@ public enum SystemMessageId
 	 * ID: 481<br>
 	 * Message: $s1 has been deleted from your friends list.
 	 */
-	S1_HAS_BEEN_DELETED_FROM_YOUR_FRIENDS_LIST(481),
+	C1_HAS_BEEN_DELETED_FROM_YOUR_FRIENDS_LIST(481),
 
 	/**
 	 * ID: 482<br>
@@ -3365,21 +3368,21 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 559<br>
-	 * Message: You have purchased $s2 from $s1.
+	 * Message: You have purchased $s2 from $c1.
 	 */
-	PURCHASED_S2_FROM_S1(559),
+	PURCHASED_S2_FROM_C1(559),
 
 	/**
 	 * ID: 560<br>
-	 * Message: You have purchased +$s2 $s3 from $s1.
+	 * Message: You have purchased +$s2 $s3 from $c1.
 	 */
-	PURCHASED_S2_S3_FROM_S1(560),
+	PURCHASED_S2_S3_FROM_C1(560),
 
 	/**
 	 * ID: 561<br>
-	 * Message: You have purchased $s3 $s2(s) from $s1.
+	 * Message: You have purchased $s3 $s2(s) from $c1.
 	 */
-	PURCHASED_S3_S2_S_FROM_S1(561),
+	PURCHASED_S3_S2_S_FROM_C1(561),
 
 	/**
 	 * ID: 562<br>
@@ -3445,16 +3448,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 572<br>
-	 * Message: Do you wish to join $s1's party? (Item distribution: Finders
-	 * Keepers)
+	 * Message: Do you accept $c1's party invitation? (Item Distribution: Finders Keepers.)
 	 */
-	S1_INVITED_YOU_TO_PARTY_FINDER_KEEPER(572),
+	C1_INVITED_YOU_TO_PARTY_FINDERS_KEEPERS(572),
 
 	/**
 	 * ID: 573<br>
-	 * Message: Do you wish to join $s1's party? (Item distribution: Random)
+	 * Message: Do you accept $c1's party invitation? (Item Distribution: Random.)
 	 */
-	S1_INVITED_YOU_TO_PARTY_RANDOM(573),
+	C1_INVITED_YOU_TO_PARTY_RANDOM(573),
 
 	/**
 	 * ID: 574<br>
@@ -3670,15 +3672,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 608<br>
-	 * Message: $s1 has obtained $s3 $s2 by using Sweeper.
+	 * Message: $c1 has obtained $s3 $s2 by using Sweeper.
 	 */
-	S1_SWEEPED_UP_S2_S3(608),
+	C1_SWEEPED_UP_S2_S3(608),
 
 	/**
 	 * ID: 609<br>
-	 * Message: $s1 has obtained $s2 by using Sweeper.
+	 * Message: $c1 has obtained $s2 by using Sweeper.
 	 */
-	S1_SWEEPED_UP_S2(609),
+	C1_SWEEPED_UP_S2(609),
 
 	/**
 	 * ID: 610<br>
@@ -3688,7 +3690,7 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 611<br>
-	 * Message: You have succeeded in Confusing th enemy.
+	 * Message: You have succeeded in Confusing the enemy.
 	 */
 	CONFUSING_SUCCEEDED(611),
 
@@ -3706,9 +3708,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 614<br>
-	 * Message: $s1 : $s2<br>
+	 * Message: $c1 : $c2<br>
 	 */
-	S1_D_S2(614),
+	C1_D_C2(614),
 
 	/**
 	 * ID: 615<br>
@@ -3724,27 +3726,27 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 617<br>
-	 * Message: $s1 has been added to your Ignore List.
+	 * Message: $c1 has been added to your Ignore List.
 	 */
-	S1_WAS_ADDED_TO_YOUR_IGNORE_LIST(617),
+	C1_WAS_ADDED_TO_YOUR_IGNORE_LIST(617),
 
 	/**
 	 * ID: 618<br>
-	 * Message: $s1 has been removed from your Ignore List.
+	 * Message: $c1 has been removed from your Ignore List.
 	 */
-	S1_WAS_REMOVED_FROM_YOUR_IGNORE_LIST(618),
+	C1_WAS_REMOVED_FROM_YOUR_IGNORE_LIST(618),
 
 	/**
 	 * ID: 619<br>
-	 * Message: $s1 has placed you on his/her Ignore List.
+	 * Message: $c1 has placed you on his/her Ignore List.
 	 */
-	S1_HAS_ADDED_YOU_TO_IGNORE_LIST(619),
+	C1_HAS_ADDED_YOU_TO_IGNORE_LIST(619),
 
 	/**
 	 * ID: 620<br>
-	 * Message: $s1 has placed you on his/her Ignore List.
+	 * Message: $c1 has placed you on his/her Ignore List.
 	 */
-	S1_HAS_ADDED_YOU_TO_IGNORE_LIST2(620),
+	C1_HAS_ADDED_YOU_TO_IGNORE_LIST2(620),
 
 	/**
 	 * ID: 621<br>
@@ -4239,9 +4241,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 704<br>
-	 * Message: GM : $s1
+	 * Message: GM : $c1
 	 */
-	GM_S1(704),
+	GM_C1(704),
 
 	/**
 	 * ID: 705<br>
@@ -4414,9 +4416,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 732<br>
-	 * Message: $s1 has received a request for a consultation with the GM.
+	 * Message: $c1 has received a request for a consultation with the GM.
 	 */
-	S1_RECEIVED_CONSULTATION_REQUEST(732),
+	C1_RECEIVED_CONSULTATION_REQUEST(732),
 
 	/**
 	 * ID: 733<br>
@@ -4429,16 +4431,16 @@ public enum SystemMessageId
 	/**
 	 * ID: 734<br>
 	 * Message: You have failed at submitting a petition on behalf of someone
-	 * else. $s1 already submitted a petition.
+	 * else. $c1 already submitted a petition.
 	 */
-	PETITION_FAILED_S1_ALREADY_SUBMITTED(734),
+	PETITION_FAILED_C1_ALREADY_SUBMITTED(734),
 
 	/**
 	 * ID: 735<br>
-	 * Message: You have failed at submitting a petition on behalf of $s1. The
+	 * Message: You have failed at submitting a petition on behalf of $c1. The
 	 * error number is $s2.
 	 */
-	PETITION_FAILED_S1_ERROR_NUMBER_S2(735),
+	PETITION_FAILED_FOR_C1_ERROR_NUMBER_S2(735),
 
 	/**
 	 * ID: 736<br>
@@ -4449,9 +4451,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 737<br>
-	 * Message: You have cancelled submitting a petition on behalf of $s1.
+	 * Message: You have cancelled submitting a petition on behalf of $c1.
 	 */
-	CANCELED_PETITION_ON_S1(737),
+	CANCELED_PETITION_ON_C1(737),
 
 	/**
 	 * ID: 738<br>
@@ -4461,36 +4463,36 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 739<br>
-	 * Message: You have failed at cancelling a petition on behalf of $s1. The
+	 * Message: You have failed at cancelling a petition on behalf of $c1. The
 	 * error number is $s2.
 	 */
-	PETITION_CANCEL_FAILED_S1_ERROR_NUMBER_S2(739),
+	PETITION_CANCEL_FAILED_FOR_C1_ERROR_NUMBER_S2(739),
 
 	/**
 	 * ID: 740<br>
-	 * Message: $s1 is participated in a petition chat at the request of the GM.
+	 * Message: Message: $c1 participated in a petition chat at the request of the GM.
 	 */
-	S1_PARTICIPATE_PETITION(740),
+	C1_PARTICIPATE_PETITION(740),
 
 	/**
 	 * ID: 741<br>
-	 * Message: You have failed at adding $s1 to the petition chat. Petition has
+	 * Message: You have failed at adding $c1 to the petition chat. Petition has
 	 * already been submitted.
 	 */
-	FAILED_ADDING_S1_TO_PETITION(741),
+	FAILED_ADDING_C1_TO_PETITION(741),
 
 	/**
 	 * ID: 742<br>
-	 * Message: You have failed at adding $s1 to the petition chat. The error
+	 * Message: You have failed at adding $c1 to the petition chat. The error
 	 * code is $s2.
 	 */
-	PETITION_ADDING_S1_FAILED_ERROR_NUMBER_S2(742),
+	PETITION_ADDING_C1_FAILED_ERROR_NUMBER_S2(742),
 
 	/**
 	 * ID: 743<br>
-	 * Message: $s1 left the petition chat.
+	 * Message: $c1 left the petition chat.
 	 */
-	S1_LEFT_PETITION_CHAT(743),
+	C1_LEFT_PETITION_CHAT(743),
 
 	/**
 	 * ID: 744<br>
@@ -8561,9 +8563,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1392<br>
-	 * Message: $s1 has left the party room.
+	 * Message: $c1 has left the party room.
 	 */
-	S1_LEFT_PARTY_ROOM(1392),
+	C1_LEFT_PARTY_ROOM(1392),
 
 	/**
 	 * ID: 1393<br>
@@ -8573,9 +8575,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1394<br>
-	 * Message: $s1 has been kicked from the party room.
+	 * Message: $c1 has been kicked from the party room.
 	 */
-	S1_KICKED_FROM_PARTY_ROOM(1394),
+	C1_KICKED_FROM_PARTY_ROOM(1394),
 
 	/**
 	 * ID: 1395<br>
@@ -8650,9 +8652,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1406<br>
-	 * Message: $s2 CPs has been restored by $s1.
+	 * Message: $s2 CPs has been restored by $c1.
 	 */
-	S2_CP_WILL_BE_RESTORED_BY_S1(1406),
+	S2_CP_WILL_BE_RESTORED_BY_C1(1406),
 
 	/**
 	 * ID: 1407<br>
@@ -9207,7 +9209,7 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1497<br>
-	 * Message: Congratulations $C1, you win the match!
+	 * Message: Congratulations $c1, you win the match!
 	 */
 	C1_HAS_WON_THE_GAME(1497),
 
@@ -9290,10 +9292,10 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1510<br>
-	 * Message: $s1 is making an attempt at resurrection. Do you want to
-	 * continue with this resurrection?
+	 * Message: $c1 is making an attempt at resurrection with $s2 experience points.
+	 * Do you want to be resurrected?
 	 */
-	S1_MAKING_RESSURECTION_REQUEST(1510),
+	RESSURECTION_REQUEST_BY_C1_FOR_S2_XP(1510),
 
 	/**
 	 * ID: 1511<br>
@@ -9382,21 +9384,21 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1524<br>
-	 * Message: $s1's pet gained $s2.
+	 * Message: $c1's pet gained $s2.
 	 */
-	S1_PET_GAINED_S2(1524),
+	C1_PET_GAINED_S2(1524),
 
 	/**
 	 * ID: 1525<br>
-	 * Message: $s1's pet gained $s3 of $s2.
+	 * Message: $c1's pet gained $s3 of $s2.
 	 */
-	S1_PET_GAINED_S3_S2_S(1525),
+	C1_PET_GAINED_S3_S2_S(1525),
 
 	/**
 	 * ID: 1526<br>
-	 * Message: $s1's pet gained +$s2 $s3.
+	 * Message: $c1's pet gained +$s2 $s3.
 	 */
-	S1_PET_GAINED_S2_S3(1526),
+	C1_PET_GAINED_S2_S3(1526),
 
 	/**
 	 * ID: 1527<br>
@@ -9412,9 +9414,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1529<br>
-	 * Message: $s1 is inviting you to the command channel. Do you want accept?
+	 * Message: $c1 is inviting you to the command channel. Do you want accept?
 	 */
-	S1_INVITING_YOU_TO_COMMAND_CHANNEL_CONFIRM(1529),
+	C1_INVITING_YOU_TO_COMMAND_CHANNEL_CONFIRM(1529),
 
 	/**
 	 * ID: 1530<br>
@@ -9437,27 +9439,27 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1533<br>
-	 * Message: Attention: $s1 picked up $s2.
+	 * Message: Announcement: $c1 has picked up $s2.
 	 */
-	ATTENTION_S1_PICKED_UP_S2(1533),
+	ANNOUNCEMENT_C1_PICKED_UP_S2(1533),
 
 	/**
 	 * ID: 1534<br>
-	 * Message: Attention: $s1 picked up +$s2 $s3.
+	 * Message: Announcement: $c1 has picked up +$s2 $s3.
 	 */
-	ATTENTION_S1_PICKED_UP_S2_S3(1534),
+	ANNOUNCEMENT_C1_PICKED_UP_S2_S3(1534),
 
 	/**
 	 * ID: 1535<br>
-	 * Message: Attention: $s1's pet has picked up $s2.
+	 * Message: Announcement: $c1's pet has picked up $s2.
 	 */
-	ATTENTION_S1_PET_PICKED_UP_S2(1535),
+	ANNOUNCEMENT_C1_PET_PICKED_UP_S2(1535),
 
 	/**
 	 * ID: 1536<br>
-	 * Message: Attention: $s1's pet has picked up +$s2 $s3.
+	 * Message: Announcement: $c1's pet has picked up +$s2 $s3.
 	 */
-	ATTENTION_S1_PET_PICKED_UP_S2_S3(1536),
+	ANNOUNCEMENT_C1_PET_PICKED_UP_S2_S3(1536),
 
 	/**
 	 * ID: 1537<br>
@@ -9722,9 +9724,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1579<br>
-	 * Message: $s1's pet gained $s2 adena.
+	 * Message: $c1's pet gained $s2 adena.
 	 */
-	S1_PET_GAINED_S2_ADENA(1579),
+	C1_PET_GAINED_S2_ADENA(1579),
 
 	/**
 	 * ID: 1580<br>
@@ -9752,9 +9754,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1584<br>
-	 * Message: $s1's party has been dismissed from the Command Channel.
+	 * Message: $c1's party has been dismissed from the Command Channel.
 	 */
-	S1_PARTY_DISMISSED_FROM_COMMAND_CHANNEL(1584),
+	C1_PARTY_DISMISSED_FROM_COMMAND_CHANNEL(1584),
 
 	/**
 	 * ID: 1585<br>
@@ -9770,9 +9772,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1587<br>
-	 * Message: $s1's party has left the Command Channel.
+	 * Message: $c1's party has left the Command Channel.
 	 */
-	S1_PARTY_LEFT_COMMAND_CHANNEL(1587),
+	C1_PARTY_LEFT_COMMAND_CHANNEL(1587),
 
 	/**
 	 * ID: 1588<br>
@@ -9783,9 +9785,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1589<br>
-	 * Message: Command Channel authority has been transferred to $s1.
+	 * Message: Command Channel authority has been transferred to $c1.
 	 */
-	COMMAND_CHANNEL_LEADER_NOW_S1(1589),
+	COMMAND_CHANNEL_LEADER_NOW_C1(1589),
 
 	/**
 	 * ID: 1590<br>
@@ -9814,13 +9816,13 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1594<br>
-	 * Message: $s1's party is already a member of the Command Channel.
+	 * Message: $c1's party is already a member of the Command Channel.
 	 */
-	S1_ALREADY_MEMBER_OF_COMMAND_CHANNEL(1594),
+	C1_ALREADY_MEMBER_OF_COMMAND_CHANNEL(1594),
 
 	/**
 	 * ID: 1595<br>
-	 * Message: $1 has succeeded.
+	 * Message: $s1 has succeeded.
 	 */
 	S1_SUCCEEDED(1595),
 
@@ -9832,7 +9834,7 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1597<br>
-	 * Message: $1 has failed.
+	 * Message: $s1 has failed.
 	 */
 	S1_FAILED(1597),
 
@@ -9921,9 +9923,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1611<br>
-	 * Message: Leader: $s1
+	 * Message: Leader: $c1
 	 */
-	PARTY_LEADER_S1(1611),
+	PARTY_LEADER_C1(1611),
 
 	/**
 	 * ID: 1612<br>
@@ -10186,15 +10188,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1657<br>
-	 * Message: $s1 has earned $s2 points in the Grand Olympiad Games.
+	 * Message: $c1 has earned $s2 points in the Grand Olympiad Games.
 	 */
-	S1_HAS_GAINED_S2_OLYMPIAD_POINTS(1657),
+	C1_HAS_GAINED_S2_OLYMPIAD_POINTS(1657),
 
 	/**
 	 * ID: 1658<br>
-	 * Message: $s1 has lost $s2 points in the Grand Olympiad Games.
+	 * Message: $c1 has lost $s2 points in the Grand Olympiad Games.
 	 */
-	S1_HAS_LOST_S2_OLYMPIAD_POINTS(1658),
+	C1_HAS_LOST_S2_OLYMPIAD_POINTS(1658),
 
 	/**
 	 * ID: 1659<br>
@@ -10204,15 +10206,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1660<br>
-	 * Message: Channel Creator: $s1.
+	 * Message: Channel Creator: $c1.
 	 */
-	CHANNEL_CREATOR_S1(1660),
+	CHANNEL_CREATOR_C1(1660),
 
 	/**
 	 * ID: 1661<br>
-	 * Message: $s1 has obtained $s3 $s2s.
+	 * Message: $c1 has obtained $s3 $s2s.
 	 */
-	S1_OBTAINED_S3_S2_S(1661),
+	C1_OBTAINED_S3_S2_S(1661),
 
 	/**
 	 * ID: 1662<br>
@@ -10339,9 +10341,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1681<br>
-	 * Message: Since $s1 did not respond, your channel invitation has failed.
+	 * Message: Since $c1 did not respond, your channel invitation has failed.
 	 */
-	S1_DID_NOT_RESPOND_CHANNEL_INVITATION_FAILED(1681),
+	C1_DID_NOT_RESPOND_CHANNEL_INVITATION_FAILED(1681),
 
 	/**
 	 * ID: 1682<br>
@@ -10641,9 +10643,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1727<br>
-	 * Message: $s1 has invited you to a party room. Do you accept?
+	 * Message: $c1 has invited you to a party room. Do you accept?
 	 */
-	S1_INVITED_YOU_TO_PARTY_ROOM_CONFIRM(1727),
+	C1_INVITED_YOU_TO_PARTY_ROOM_CONFIRM(1727),
 
 	/**
 	 * ID: 1728<br>
@@ -10768,17 +10770,17 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1747<br>
-	 * Message: $s1 has sent you an invitation to join the Clan Academy
+	 * Message: $c1 has sent you an invitation to join the Clan Academy
 	 * belonging to the $s2 clan. Do you accept?
 	 */
-	JOIN_ACADEMY_REQUEST_BY_S1_FOR_CLAN_S2(1747),
+	JOIN_ACADEMY_REQUEST_BY_SC_FOR_CLAN_S2(1747),
 
 	/**
 	 * ID: 1748<br>
-	 * Message: Clan Academy member $s1 has successfully completed the 2nd class
+	 * Message: Clan Academy member $c1 has successfully completed the 2nd class
 	 * transfer and obtained $s2 Clan Reputation points.
 	 */
-	CLAN_MEMBER_S1_GRADUATED_FROM_ACADEMY_AND_OBTAINED_S2_CLAN_REPU(1748),
+	CLAN_MEMBER_C1_GRADUATED_FROM_ACADEMY_AND_OBTAINED_S2_CLAN_REPU(1748),
 
 	/**
 	 * ID: 1749<br>
@@ -10835,33 +10837,33 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1757<br>
-	 * Message: Your apprentice, $C1, has logged out.
+	 * Message: Your apprentice, $c1, has logged out.
 	 */
 	YOUR_APPRENTICE_C1_HAS_LOGGED_OUT(1757),
 
 	/**
 	 * ID: 1758<br>
-	 * Message: Your sponsor, $C1, has logged in.
+	 * Message: Your sponsor, $c1, has logged in.
 	 */
 	YOUR_SPONSOR_C1_HAS_LOGGED_IN(1758),
 
 	/**
 	 * ID: 1759<br>
-	 * Message: Your sponsor, $C1, has logged out.
+	 * Message: Your sponsor, $c1, has logged out.
 	 */
 	YOUR_SPONSOR_C1_HAS_LOGGED_OUT(1759),
 
 	/**
 	 * ID: 1760<br>
-	 * Message: Clan member $1's name title has been changed to $2.
+	 * Message: Clan member $c1's name title has been changed to $2.
 	 */
-	CLAN_MEMBER_S1_TITLE_CHANGED_TO_S2(1760),
+	CLAN_MEMBER_C1_TITLE_CHANGED_TO_S2(1760),
 
 	/**
 	 * ID: 1761<br>
-	 * Message: Clan member $1's privilege level has been changed to $s2.
+	 * Message: Clan member $c1's privilege level has been changed to $s2.
 	 */
-	CLAN_MEMBER_S1_PRIVILEGE_CHANGED_TO_S2(1761),
+	CLAN_MEMBER_C1_PRIVILEGE_CHANGED_TO_S2(1761),
 
 	/**
 	 * ID: 1762<br>
@@ -10871,9 +10873,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1763<br>
-	 * Message: $s2, clan member $s1's apprentice, has been removed.
+	 * Message: $s2, clan member $c1's apprentice, has been removed.
 	 */
-	S2_CLAN_MEMBER_S1_S_APPRENTICE_HAS_BEEN_REMOVED(1763),
+	S2_CLAN_MEMBER_C1_S_APPRENTICE_HAS_BEEN_REMOVED(1763),
 
 	/**
 	 * ID: 1764<br>
@@ -10890,29 +10892,29 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1766<br>
-	 * Message: An application to join the clan has been sent to $s1 in $s2.
+	 * Message: An application to join the clan has been sent to $c1 in $s2.
 	 */
-	CLAN_JOIN_APPLICATION_SENT_TO_S1_IN_S2(1766),
+	CLAN_JOIN_APPLICATION_SENT_TO_C1_IN_S2(1766),
 
 	/**
 	 * ID: 1767<br>
-	 * Message: An application to join the clan Academy has been sent to $s1.
+	 * Message: An application to join the clan Academy has been sent to $c1.
 	 */
-	ACADEMY_JOIN_APPLICATION_SENT_TO_S1(1767),
+	ACADEMY_JOIN_APPLICATION_SENT_TO_C1(1767),
 
 	/**
 	 * ID: 1768<br>
-	 * Message: $s1 has invited you to join the Clan Academy of $s2 clan. Would
+	 * Message: $c1 has invited you to join the Clan Academy of $s2 clan. Would
 	 * you like to join?
 	 */
-	JOIN_REQUEST_BY_S1_TO_CLAN_S2_ACADEMY(1768),
+	JOIN_REQUEST_BY_C1_TO_CLAN_S2_ACADEMY(1768),
 
 	/**
 	 * ID: 1769<br>
-	 * Message: $s1 has sent you an invitation to join the $s3 Order of Knights
+	 * Message: $c1 has sent you an invitation to join the $s3 Order of Knights
 	 * under the $s2 clan. Would you like to join?
 	 */
-	JOIN_REQUEST_BY_S1_TO_ORDER_OF_KNIGHTS_S3_UNDER_CLAN_S2(1769),
+	JOIN_REQUEST_BY_C1_TO_ORDER_OF_KNIGHTS_S3_UNDER_CLAN_S2(1769),
 
 	/**
 	 * ID: 1770<br>
@@ -10952,18 +10954,18 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1775<br>
-	 * Message: Clan member $s1 was an active member of the highest-ranked party
+	 * Message: Clan member $c1 was an active member of the highest-ranked party
 	 * in the Festival of Darkness. $s2 points have been added to your clan's
 	 * reputation score.
 	 */
-	CLAN_MEMBER_S1_WAS_IN_HIGHEST_RANKED_PARTY_IN_FESTIVAL_OF_DARKNESS_AND_GAINED_S2_REPUTATION(1775),
+	CLAN_MEMBER_C1_WAS_IN_HIGHEST_RANKED_PARTY_IN_FESTIVAL_OF_DARKNESS_AND_GAINED_S2_REPUTATION(1775),
 
 	/**
 	 * ID: 1776<br>
-	 * Message: Clan member $s1 was named a hero. $2s points have been added to
+	 * Message: Clan member $c1 was named a hero. $2s points have been added to
 	 * your clan's reputation score.
 	 */
-	CLAN_MEMBER_S1_BECAME_HERO_AND_GAINED_S2_REPUTATION_POINTS(1776),
+	CLAN_MEMBER_C1_BECAME_HERO_AND_GAINED_S2_REPUTATION_POINTS(1776),
 
 	/**
 	 * ID: 1777<br>
@@ -11001,11 +11003,11 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1782<br>
-	 * Message: Your clan member $s1 was killed. $s2 points have been deducted
+	 * Message: Your clan member $c1 was killed. $s2 points have been deducted
 	 * from your clan's reputation score and added to your opponent's clan
 	 * reputation score.
 	 */
-	CLAN_MEMBER_S1_WAS_KILLED_AND_S2_POINTS_DEDUCTED_FROM_REPUTATION(1782),
+	CLAN_MEMBER_C1_WAS_KILLED_AND_S2_POINTS_DEDUCTED_FROM_REPUTATION(1782),
 
 	/**
 	 * ID: 1783<br>
@@ -11076,9 +11078,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1793<br>
-	 * Message: The Royal Guard of $s1 have been created.
+	 * Message: $c1 has been selected as the captain of $s2.
 	 */
-	S1_HAS_BEEN_SELECTED_AS_CAPTAIN_OF_S2(1793),
+	C1_HAS_BEEN_SELECTED_AS_CAPTAIN_OF_S2(1793),
 
 	/**
 	 * ID: 1794<br>
@@ -11100,15 +11102,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1797<br>
-	 * Message: $s1 has been promoted to $s2.
+	 * Message: $c1 has been promoted to $s2.
 	 */
-	S1_PROMOTED_TO_S2(1797),
+	C1_PROMOTED_TO_S2(1797),
 
 	/**
 	 * ID: 1798<br>
-	 * Message: Clan lord privileges have been transferred to $s1.
+	 * Message: Clan lord privileges have been transferred to $c1.
 	 */
-	CLAN_LEADER_PRIVILEGES_HAVE_BEEN_TRANSFERRED_TO_S1(1798),
+	CLAN_LEADER_PRIVILEGES_HAVE_BEEN_TRANSFERRED_TO_C1(1798),
 
 	/**
 	 * ID: 1799<br>
@@ -11118,9 +11120,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1800<br>
-	 * Message: User $s1 has a history of using BOT.
+	 * Message: User $c1 has a history of using BOT.
 	 */
-	S1_HISTORY_USING_BOT(1800),
+	C1_HISTORY_USING_BOT(1800),
 
 	/**
 	 * ID: 1801<br>
@@ -11300,17 +11302,17 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1830<br>
-	 * Message: $s1 is not allowed to use the party room invite command. Please
+	 * Message: $c1 is not allowed to use the party room invite command. Please
 	 * update the waiting list.
 	 */
-	S1_NOT_ALLOWED_INVITE_TO_PARTY_ROOM(1830),
+	C1_NOT_ALLOWED_INVITE_TO_PARTY_ROOM(1830),
 
 	/**
 	 * ID: 1831<br>
-	 * Message: $s1 does not meet the conditions of the party room. Please
+	 * Message: $c1 does not meet the conditions of the party room. Please
 	 * update the waiting list.
 	 */
-	S1_NOT_MEET_CONDITIONS_FOR_PARTY_ROOM(1831),
+	C1_NOT_MEET_CONDITIONS_FOR_PARTY_ROOM(1831),
 
 	/**
 	 * ID: 1832<br>
@@ -11346,10 +11348,10 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1837<br>
-	 * Message: $s1 has sent you an invitation to join the $s3 Royal Guard under
+	 * Message: $c1 has sent you an invitation to join the $s3 Royal Guard under
 	 * the $s2 clan. Would you like to join?
 	 */
-	S1_SENT_INVITATION_TO_ROYAL_GUARD_S3_OF_CLAN_S2(1837),
+	C1_SENT_INVITATION_TO_ROYAL_GUARD_S3_OF_CLAN_S2(1837),
 
 	/**
 	 * ID: 1838<br>
@@ -11379,21 +11381,21 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1842<br>
-	 * Message: $s1 wishes to summon you from $s2. Do you accept?
+	 * Message: $c1 wishes to summon you from $s2. Do you accept?
 	 */
-	S1_WISHES_TO_SUMMON_YOU_FROM_S2_DO_YOU_ACCEPT(1842),
+	C1_WISHES_TO_SUMMON_YOU_FROM_S2_DO_YOU_ACCEPT(1842),
 
 	/**
 	 * ID: 1843<br>
-	 * Message: $s1 is engaged in combat and cannot be summoned.
+	 * Message: $c1 is engaged in combat and cannot be summoned.
 	 */
-	S1_IS_ENGAGED_IN_COMBAT_AND_CANNOT_BE_SUMMONED(1843),
+	C1_IS_ENGAGED_IN_COMBAT_AND_CANNOT_BE_SUMMONED(1843),
 
 	/**
 	 * ID: 1844<br>
-	 * Message: $s1 is dead at the moment and cannot be summoned.
+	 * Message: $c1 is dead at the moment and cannot be summoned.
 	 */
-	S1_IS_DEAD_AT_THE_MOMENT_AND_CANNOT_BE_SUMMONED(1844),
+	C1_IS_DEAD_AT_THE_MOMENT_AND_CANNOT_BE_SUMMONED(1844),
 
 	/**
 	 * ID: 1845<br>
@@ -11511,10 +11513,10 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1863<br>
-	 * Message: $s1 purchased a clan item, reducing the Clan Reputation by $s2
+	 * Message: $c1 purchased a clan item, reducing the Clan Reputation by $s2
 	 * points.
 	 */
-	S1_PURCHASED_CLAN_ITEM_REDUCING_S2_REPU_POINTS(1863),
+	C1_PURCHASED_CLAN_ITEM_REDUCING_S2_REPU_POINTS(1863),
 
 	/**
 	 * ID: 1864<br>
@@ -11548,10 +11550,10 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1869<br>
-	 * Message: $s1 has granted the Command Channel's master party the privilege
+	 * Message: $c1 has granted the Command Channel's master party the privilege
 	 * of item looting.
 	 */
-	S1_GRANTED_MASTER_PARTY_LOOTING_RIGHTS(1869),
+	C1_GRANTED_MASTER_PARTY_LOOTING_RIGHTS(1869),
 
 	/**
 	 * ID: 1870<br>
@@ -11561,9 +11563,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1871<br>
-	 * Message: Do you want to dismiss $s1 from the clan?
+	 * Message: Do you want to dismiss $c1 from the clan?
 	 */
-	CONFIRM_DISMISS_S1_FROM_CLAN(1871),
+	CONFIRM_DISMISS_C1_FROM_CLAN(1871),
 
 	/**
 	 * ID: 1872<br>
@@ -11715,15 +11717,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1895<br>
-	 * Message: $s1 is in an area which blocks summoning.
+	 * Message: $c1 is in an area which blocks summoning.
 	 */
-	S1_IN_SUMMON_BLOCKING_AREA(1895),
+	C1_IN_SUMMON_BLOCKING_AREA(1895),
 
 	/**
 	 * ID: 1896<br>
-	 * Message: $s1 has already been summoned.
+	 * Message: $c1 has already been summoned.
 	 */
-	S1_ALREADY_SUMMONED(1896),
+	C1_ALREADY_SUMMONED(1896),
 
 	/**
 	 * ID: 1897<br>
@@ -11733,10 +11735,10 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1898<br>
-	 * Message: $s1 is currently trading or operating a private store and cannot
+	 * Message: $c1 is currently trading or operating a private store and cannot
 	 * be summoned.
 	 */
-	S1_CURRENTLY_TRADING_OR_OPERATING_PRIVATE_STORE_AND_CANNOT_BE_SUMMONED(1898),
+	C1_CURRENTLY_TRADING_OR_OPERATING_PRIVATE_STORE_AND_CANNOT_BE_SUMMONED(1898),
 
 	/**
 	 * ID: 1899<br>
@@ -11746,15 +11748,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1900<br>
-	 * Message: $s1 has entered the party room.
+	 * Message: $c1 has entered the party room.
 	 */
-	S1_ENTERED_PARTY_ROOM(1900),
+	C1_ENTERED_PARTY_ROOM(1900),
 
 	/**
 	 * ID: 1901<br>
-	 * Message: $s1 has invited you to enter the party room.
+	 * Message: $c1 has invited you to enter the party room.
 	 */
-	S1_INVITED_YOU_TO_PARTY_ROOM(1901),
+	C1_INVITED_YOU_TO_PARTY_ROOM(1901),
 
 	/**
 	 * ID: 1902<br>
@@ -11796,9 +11798,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1908<br>
-	 * Message: $s1 in a state which prevents summoning.
+	 * Message: $c1 in a state which prevents summoning.
 	 */
-	S1_STATE_FORBIDS_SUMMONING(1908),
+	C1_STATE_FORBIDS_SUMMONING(1908),
 
 	/**
 	 * ID: 1909<br>
@@ -11808,9 +11810,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1910<br>
-	 * Message: Graduates: $s1.
+	 * Message: Graduates: $c1.
 	 */
-	GRADUATES_S1(1910),
+	GRADUATES_C1(1910),
 
 	/**
 	 * ID: 1911<br>
@@ -11915,61 +11917,61 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1927<br>
-	 * Message: $s1 has been challenged to a duel.
+	 * Message: $c1 has been challenged to a duel.
 	 */
-	S1_HAS_BEEN_CHALLENGED_TO_A_DUEL(1927),
+	C1_HAS_BEEN_CHALLENGED_TO_A_DUEL(1927),
 
 	/**
 	 * ID: 1928<br>
-	 * Message: $s1's party has been challenged to a duel.
+	 * Message: $c1's party has been challenged to a duel.
 	 */
-	S1S_PARTY_HAS_BEEN_CHALLENGED_TO_A_DUEL(1928),
+	C1_PARTY_HAS_BEEN_CHALLENGED_TO_A_DUEL(1928),
 
 	/**
 	 * ID: 1929<br>
-	 * Message: $s1 has accepted your challenge to a duel. The duel will begin
+	 * Message: $c1 has accepted your challenge to a duel. The duel will begin
 	 * in a few moments.
 	 */
-	S1_HAS_ACCEPTED_YOUR_CHALLENGE_TO_A_DUEL_THE_DUEL_WILL_BEGIN_IN_A_FEW_MOMENTS(1929),
+	C1_HAS_ACCEPTED_YOUR_CHALLENGE_TO_A_DUEL_THE_DUEL_WILL_BEGIN_IN_A_FEW_MOMENTS(1929),
 
 	/**
 	 * ID: 1930<br>
-	 * Message: You have accepted $s1's challenge to a duel. The duel will begin
+	 * Message: You have accepted $c1's challenge to a duel. The duel will begin
 	 * in a few moments.
 	 */
-	YOU_HAVE_ACCEPTED_S1S_CHALLENGE_TO_A_DUEL_THE_DUEL_WILL_BEGIN_IN_A_FEW_MOMENTS(1930),
+	YOU_HAVE_ACCEPTED_C1_CHALLENGE_TO_A_DUEL_THE_DUEL_WILL_BEGIN_IN_A_FEW_MOMENTS(1930),
 
 	/**
 	 * ID: 1931<br>
-	 * Message: $s1 has declined your challenge to a duel.
+	 * Message: $c1 has declined your challenge to a duel.
 	 */
-	S1_HAS_DECLINED_YOUR_CHALLENGE_TO_A_DUEL(1931),
+	C1_HAS_DECLINED_YOUR_CHALLENGE_TO_A_DUEL(1931),
 
 	/**
 	 * ID: 1932<br>
-	 * Message: $s1 has declined your challenge to a duel.
+	 * Message: $c1 has declined your challenge to a duel.
 	 */
-	S1_HAS_DECLINED_YOUR_CHALLENGE_TO_A_DUEL2(1932),
+	C1_HAS_DECLINED_YOUR_CHALLENGE_TO_A_DUEL2(1932),
 
 	/**
 	 * ID: 1933<br>
-	 * Message: You have accepted $s1's challenge to a party duel. The duel will
+	 * Message: You have accepted $c1's challenge to a party duel. The duel will
 	 * begin in a few moments.
 	 */
-	YOU_HAVE_ACCEPTED_S1S_CHALLENGE_TO_A_PARTY_DUEL_THE_DUEL_WILL_BEGIN_IN_A_FEW_MOMENTS(1933),
+	YOU_HAVE_ACCEPTED_C1_CHALLENGE_TO_A_PARTY_DUEL_THE_DUEL_WILL_BEGIN_IN_A_FEW_MOMENTS(1933),
 
 	/**
 	 * ID: 1934<br>
-	 * Message: $s1 has accepted your challenge to duel against their party. The
+	 * Message: $c1 has accepted your challenge to duel against their party. The
 	 * duel will begin in a few moments.
 	 */
-	S1_HAS_ACCEPTED_YOUR_CHALLENGE_TO_DUEL_AGAINST_THEIR_PARTY_THE_DUEL_WILL_BEGIN_IN_A_FEW_MOMENTS(1934),
+	C1_HAS_ACCEPTED_YOUR_CHALLENGE_TO_DUEL_AGAINST_THEIR_PARTY_THE_DUEL_WILL_BEGIN_IN_A_FEW_MOMENTS(1934),
 
 	/**
 	 * ID: 1935<br>
-	 * Message: $s1 has declined your challenge to a party duel.
+	 * Message: $c1 has declined your challenge to a party duel.
 	 */
-	S1_HAS_DECLINED_YOUR_CHALLENGE_TO_A_PARTY_DUEL(1935),
+	C1_HAS_DECLINED_YOUR_CHALLENGE_TO_A_PARTY_DUEL(1935),
 
 	/**
 	 * ID: 1936<br>
@@ -11986,15 +11988,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1938<br>
-	 * Message: $s1 has challenged you to a duel.
+	 * Message: $c1 has challenged you to a duel.
 	 */
-	S1_HAS_CHALLENGED_YOU_TO_A_DUEL(1938),
+	C1_HAS_CHALLENGED_YOU_TO_A_DUEL(1938),
 
 	/**
 	 * ID: 1939<br>
-	 * Message: $s1's party has challenged your party to a duel.
+	 * Message: $c1's party has challenged your party to a duel.
 	 */
-	S1S_PARTY_HAS_CHALLENGED_YOUR_PARTY_TO_A_DUEL(1939),
+	C1_PARTY_HAS_CHALLENGED_YOUR_PARTY_TO_A_DUEL(1939),
 
 	/**
 	 * ID: 1940<br>
@@ -12038,16 +12040,16 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1946<br>
-	 * Message: $s1 has challenged you to a duel. Will you accept?
+	 * Message: $c1 has challenged you to a duel. Will you accept?
 	 */
-	S1_CHALLENGED_YOU_TO_A_DUEL(1946),
+	C1_CHALLENGED_YOU_TO_A_DUEL(1946),
 
 	/**
 	 * ID: 1947<br>
-	 * Message: $s1's party has challenged your party to a duel. Will you
+	 * Message: $c1's party has challenged your party to a duel. Will you
 	 * accept?
 	 */
-	S1_CHALLENGED_YOU_TO_A_PARTY_DUEL(1947),
+	C1_CHALLENGED_YOU_TO_A_PARTY_DUEL(1947),
 
 	/**
 	 * ID: 1948<br>
@@ -12063,15 +12065,15 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1950<br>
-	 * Message: $s1 has won the duel.
+	 * Message: $c1 has won the duel.
 	 */
-	S1_HAS_WON_THE_DUEL(1950),
+	C1_HAS_WON_THE_DUEL(1950),
 
 	/**
 	 * ID: 1951<br>
-	 * Message: $s1's party has won the duel.
+	 * Message: $c1's party has won the duel.
 	 */
-	S1S_PARTY_HAS_WON_THE_DUEL(1951),
+	C1_PARTY_HAS_WON_THE_DUEL(1951),
 
 	/**
 	 * ID: 1952<br>
@@ -12080,16 +12082,28 @@ public enum SystemMessageId
 	THE_DUEL_HAS_ENDED_IN_A_TIE(1952),
 
 	/**
+	* ID: 1953<br>
+	* Message: Since $c1 was disqualified, $c2 has won.
+	*/
+	SINCE_C1_WAS_DISQUALIFIED_C2_HAS_WON(1953),
+
+	/**
+	* ID: 1954<br>
+	* Message: Since $c1's party was disqualified, $c2's party has won.
+	*/
+	SINCE_C1_PARTY_WAS_DISQUALIFIED_C2_PARTY_HAS_WON(1954),
+
+	/**
 	 * ID: 1955<br>
-	 * Message: Since $s1 withdrew from the duel, $s2 has won.
+	 * Message: Since $c1 withdrew from the duel, $c2 has won.
 	 */
-	SINCE_S1_WITHDREW_FROM_THE_DUEL_S2_HAS_WON(1955),
+	SINCE_C1_WITHDREW_FROM_THE_DUEL_C2_HAS_WON(1955),
 
 	/**
 	 * ID: 1956<br>
-	 * Message: Since $s1's party withdrew from the duel, $s2's party has won.
+	 * Message: Since $c1's party withdrew from the duel, $c2's party has won.
 	 */
-	SINCE_S1S_PARTY_WITHDREW_FROM_THE_DUEL_S1S_PARTY_HAS_WON(1956),
+	SINCE_C1_PARTY_WITHDREW_FROM_THE_DUEL_C2_PARTY_HAS_WON(1956),
 
 	/**
 	 * ID: 1957<br>
@@ -12336,27 +12350,27 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1997<br>
-	 * Message: $s1 is performing a counterattack.
+	 * Message: $c1 is performing a counterattack.
 	 */
-	S1_PERFORMING_COUNTERATTACK(1997),
+	C1_PERFORMING_COUNTERATTACK(1997),
 
 	/**
 	 * ID: 1998<br>
-	 * Message: You countered $s1's attack.
+	 * Message: You countered $c1's attack.
 	 */
-	COUNTERED_S1_ATTACK(1998),
+	COUNTERED_C1_ATTACK(1998),
 
 	/**
 	 * ID: 1999<br>
-	 * Message: $s1 dodges the attack.
+	 * Message: $c1 dodges the attack.
 	 */
-	S1_DODGES_ATTACK(1999),
+	C1_DODGES_ATTACK(1999),
 
 	/**
 	 * ID: 2000<br>
-	 * Message: You have avoided $s1's attack.
+	 * Message: You have avoided $c1's attack.
 	 */
-	AVOIDED_S1_ATTACK(2000),
+	AVOIDED_C1_ATTACK(2000),
 
 	/**
 	 * ID: 2001<br>
@@ -12458,79 +12472,79 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2017<br>
-	 * Message: $s1 cannot duel because $s1 is currently engaged in a private
+	 * Message: $c1 cannot duel because $c1 is currently engaged in a private
 	 * store or manufacture.
 	 */
-	S1_CANNOT_DUEL_BECAUSE_S1_IS_CURRENTLY_ENGAGED_IN_A_PRIVATE_STORE_OR_MANUFACTURE(2017),
+	C1_CANNOT_DUEL_BECAUSE_C1_IS_CURRENTLY_ENGAGED_IN_A_PRIVATE_STORE_OR_MANUFACTURE(2017),
 
 	/**
 	 * ID: 2018<br>
-	 * Message: $s1 cannot duel because $s1 is currently fishing.
+	 * Message: $c1 cannot duel because $c1 is currently fishing.
 	 */
-	S1_CANNOT_DUEL_BECAUSE_S1_IS_CURRENTLY_FISHING(2018),
+	C1_CANNOT_DUEL_BECAUSE_C1_IS_CURRENTLY_FISHING(2018),
 
 	/**
 	 * ID: 2019<br>
-	 * Message: $s1 cannot duel because $s1's HP or MP is below 50 percent.
+	 * Message: $c1 cannot duel because $c1's HP or MP is below 50 percent.
 	 */
-	S1_CANNOT_DUEL_BECAUSE_S1S_HP_OR_MP_IS_BELOW_50_PERCENT(2019),
+	C1_CANNOT_DUEL_BECAUSE_C1_HP_OR_MP_IS_BELOW_50_PERCENT(2019),
 
 	/**
 	 * ID: 2020<br>
-	 * Message: $s1 cannot make a challenge to a duel because $s1 is currently
+	 * Message: $c1 cannot make a challenge to a duel because $c1 is currently
 	 * in a duel-prohibited area (Peaceful Zone / Seven Signs Zone / Near Water
 	 * / Restart Prohibited Area).
 	 */
-	S1_CANNOT_MAKE_A_CHALLANGE_TO_A_DUEL_BECAUSE_S1_IS_CURRENTLY_IN_A_DUEL_PROHIBITED_AREA(2020),
+	C1_CANNOT_MAKE_A_CHALLANGE_TO_A_DUEL_BECAUSE_C1_IS_CURRENTLY_IN_A_DUEL_PROHIBITED_AREA(2020),
 
 	/**
 	 * ID: 2021<br>
-	 * Message: $s1 cannot duel because $s1 is currently engaged in battle.
+	 * Message: $c1 cannot duel because $c1 is currently engaged in battle.
 	 */
-	S1_CANNOT_DUEL_BECAUSE_S1_IS_CURRENTLY_ENGAGED_IN_BATTLE(2021),
+	C1_CANNOT_DUEL_BECAUSE_C1_IS_CURRENTLY_ENGAGED_IN_BATTLE(2021),
 
 	/**
 	 * ID: 2022<br>
-	 * Message: $s1 cannot duel because $s1 is already engaged in a duel.
+	 * Message: $c1 cannot duel because $c1 is already engaged in a duel.
 	 */
-	S1_CANNOT_DUEL_BECAUSE_S1_IS_ALREADY_ENGAGED_IN_A_DUEL(2022),
+	C1_CANNOT_DUEL_BECAUSE_C1_IS_ALREADY_ENGAGED_IN_A_DUEL(2022),
 
 	/**
 	 * ID: 2023<br>
-	 * Message: $s1 cannot duel because $s1 is in a chaotic state.
+	 * Message: $c1 cannot duel because $c1 is in a chaotic state.
 	 */
-	S1_CANNOT_DUEL_BECAUSE_S1_IS_IN_A_CHAOTIC_STATE(2023),
+	C1_CANNOT_DUEL_BECAUSE_C1_IS_IN_A_CHAOTIC_STATE(2023),
 
 	/**
 	 * ID: 2024<br>
-	 * Message: $s1 cannot duel because $s1 is participating in the Olympiad.
+	 * Message: $c1 cannot duel because $c1 is participating in the Olympiad.
 	 */
-	S1_CANNOT_DUEL_BECAUSE_S1_IS_PARTICIPATING_IN_THE_OLYMPIAD(2024),
+	C1_CANNOT_DUEL_BECAUSE_C1_IS_PARTICIPATING_IN_THE_OLYMPIAD(2024),
 
 	/**
 	 * ID: 2025<br>
-	 * Message: $s1 cannot duel because $s1 is participating in a clan hall war.
+	 * Message: $c1 cannot duel because $s1 is participating in a clan hall war.
 	 */
 	S1_CANNOT_DUEL_BECAUSE_S1_IS_PARTICIPATING_IN_A_CLAN_HALL_WAR(2025),
 
 	/**
 	 * ID: 2026<br>
-	 * Message: $s1 cannot duel because $s1 is participating in a siege war.
+	 * Message: $c1 cannot duel because $c1 is participating in a siege war.
 	 */
-	S1_CANNOT_DUEL_BECAUSE_S1_IS_PARTICIPATING_IN_A_SIEGE_WAR(2026),
+	C1_CANNOT_DUEL_BECAUSE_C1_IS_PARTICIPATING_IN_A_SIEGE_WAR(2026),
 
 	/**
 	 * ID: 2027<br>
-	 * Message: $s1 cannot duel because $s1 is currently riding a boat, wyvern,
+	 * Message: $c1 cannot duel because $c1 is currently riding a boat, wyvern,
 	 * or strider.
 	 */
-	S1_CANNOT_DUEL_BECAUSE_S1_IS_CURRENTLY_RIDING_A_BOAT_WYVERN_OR_STRIDER(2027),
+	C1_CANNOT_DUEL_BECAUSE_C1_IS_CURRENTLY_RIDING_A_BOAT_WYVERN_OR_STRIDER(2027),
 
 	/**
 	 * ID: 2028<br>
-	 * Message: $s1 cannot receive a duel challenge because $s1 is too far away.
+	 * Message: $c1 cannot receive a duel challenge because $c1 is too far away.
 	 */
-	S1_CANNOT_RECEIVE_A_DUEL_CHALLENGE_BECAUSE_S1_IS_TOO_FAR_AWAY(2028),
+	C1_CANNOT_RECEIVE_A_DUEL_CHALLENGE_BECAUSE_C1_IS_TOO_FAR_AWAY(2028),
 
 	/**
 	 * ID: 2029<br>
@@ -12715,9 +12729,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2057<br>
-	 * Message: You have blocked $s1.
+	 * Message: You have blocked $c1.
 	 */
-	BLOCKED_S1(2057),
+	BLOCKED_C1(2057),
 
 	/**
 	 * ID: 2058<br>
@@ -12964,35 +12978,34 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2096<br>
-	 * Message: $s1 is in a location which cannot be entered, therefore it
+	 * Message: $c1 is in a location which cannot be entered, therefore it
 	 * cannot be processed.
 	 */
-	S1_IS_IN_LOCATION_THAT_CANNOT_ENTERED_PROCESSED(2096),
+	C1_IS_IN_LOCATION_THAT_CANNOT_BE_ENTERED(2096),
 
 	/**
 	 * ID: 2097<br>
-	 * Message: $s1's level requirement is not sufficient and cannot be entered.
+	 * Message: $c1's level requirement is not sufficient and cannot be entered.
 	 */
-	S1_LEVEL_REQUIREMENT_NOT_SUFFICIENT(2097),
+	C1_LEVEL_REQUIREMENT_NOT_SUFFICIENT(2097),
 
 	/**
 	 * ID: 2098<br>
-	 * Message: $s1's quest requirement is not sufficient and cannot be entered.
+	 * Message: $c1's quest requirement is not sufficient and cannot be entered.
 	 */
-	S1_QUEST_REQUIREMENT_NOT_SUFFICIENT(2098),
+	C1_QUEST_REQUIREMENT_NOT_SUFFICIENT(2098),
 
 	/**
 	 * ID: 2099<br>
-	 * Message: $s1's item requirement is not sufficient and cannot be entered.
+	 * Message: $c1's item requirement is not sufficient and cannot be entered.
 	 */
-	S1_ITEM_REQUIREMENT_NOT_SUFFICIENT(2099),
+	C1_ITEM_REQUIREMENT_NOT_SUFFICIENT(2099),
 
 	/**
 	 * ID: 2100<br>
-	 * Message: It is not yet an available re-enter time for $s1 therefore $s1
-	 * cannot enter.
+	 * Message: $c1 may not re-enter yet.
 	 */
-	NO_RE_ENTER_TIME_FOR_S1(2100),
+	NO_RE_ENTER_TIME_FOR_C1(2100),
 
 	/**
 	 * ID: 2101<br>
@@ -13240,27 +13253,27 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2139<br>
-	 * Message: $s1's Pet.
+	 * Message: $c1's Pet.
 	 */
-	S1_PET(2139),
+	C1_PET(2139),
 
 	/**
 	 * ID: 2140<br>
-	 * Message: $s1's Servitor.
+	 * Message: $c1's Servitor.
 	 */
-	S1_SERVITOR(2140),
+	C1_SERVITOR(2140),
 
 	/**
 	 * ID: 2141<br>
-	 * Message: You slightly resisted $s1's magic.
+	 * Message: You slightly resisted $c1's magic.
 	 */
-	SLIGHTLY_RESISTED_S1_MAGIC(2141),
+	SLIGHTLY_RESISTED_C1_MAGIC(2141),
 
 	/**
 	 * ID: 2142<br>
-	 * Message: You cannot expel $s1 because $s1 is not a party member.
+	 * Message: You cannot expel $c1 because $c1 is not a party member.
 	 */
-	CANT_EXPEL_S1_NOT_A_PARTY_MEMBER(2142),
+	CANT_EXPEL_C1_NOT_A_PARTY_MEMBER(2142),
 
 	/**
 	 * ID: 2143<br>
@@ -13420,9 +13433,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2168<br>
-	 * Message: $s1 has acquired the flag.
+	 * Message: $c1 has acquired the flag.
 	 */
-	S1_ACQUIRED_THE_FLAG(2168),
+	C1_ACQUIRED_THE_FLAG(2168),
 
 	/**
 	 * ID: 2169<br>
@@ -13457,9 +13470,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2174<br>
-	 * Message: $s1 cannot duel because $s1 is currently polymorphed.
+	 * Message: $c1 cannot duel because $c1 is currently polymorphed.
 	 */
-	S1_CANNOT_DUEL_WHILE_POLYMORPHED(2174),
+	C1_CANNOT_DUEL_WHILE_POLYMORPHED(2174),
 
 	/**
 	 * ID: 2175<br>
@@ -14005,69 +14018,69 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2261<br>
-	 * Message: $s1% has given $s2 damage of $s3.
+	 * Message: $c1% has given $s2 damage of $s3.
 	 */
-	S1_GAVE_S2_DAMAGE_OF_S3(2261),
+	C1_GAVE_S2_DAMAGE_OF_S3(2261),
 
 	/**
 	 * ID: 2262<br>
-	 * Message: $s1% has received damage of $s3 from $s2.
+	 * Message: $c1% has received damage of $s3 from $s2.
 	 */
-	S1_RECEIVED_DAMAGE_OF_S3_FROM_S2(2262),
+	C1_RECEIVED_DAMAGE_OF_S3_FROM_S2(2262),
 
 	/**
 	 * ID: 2263<br>
-	 * Message: $s1% has received damage of $s3 through $s2.
+	 * Message: $c1% has received damage of $s3 through $s2.
 	 */
-	S1_RECEIVED_DAMAGE_OF_S3_THROUGH_S2(2263),
+	C1_RECEIVED_DAMAGE_OF_S3_THROUGH_S2(2263),
 
 	/**
 	 * ID: 2264<br>
-	 * Message: $s1% has evaded $s2's attack.
+	 * Message: $c1% has evaded $s2's attack.
 	 */
-	S1_EVADED_S2_ATTACK(2264),
+	C1_EVADED_S2_ATTACK(2264),
 
 	/**
 	 * ID: 2265<br>
-	 * Message: $s1's attack went astray.
+	 * Message: $c1's attack went astray.
 	 */
-	S1_ATTACK_WENT_ASTRAY(2265),
+	C1_ATTACK_WENT_ASTRAY(2265),
 
 	/**
 	 * ID: 2266<br>
-	 * Message: $s1 had a critical hit!
+	 * Message: $c1 had a critical hit!
 	 */
-	S1_HAD_CRITICAL_HIT(2266),
+	C1_HAD_CRITICAL_HIT(2266),
 
 	/**
 	 * ID: 2267<br>
-	 * Message: $s1% resisted $s2's drain.
+	 * Message: $c1% resisted $c2's drain.
 	 */
-	S1_RESISTED_S2_DRAIN(2267),
+	C1_RESISTED_C2_DRAIN(2267),
 
 	/**
 	 * ID: 2268<br>
-	 * Message: $s1%'s attack failed.
+	 * Message: $c1%'s attack failed.
 	 */
-	S1_ATTACK_FAILED(2268),
+	C1_ATTACK_FAILED(2268),
 
 	/**
 	 * ID: 2269<br>
-	 * Message: $s1% resisted $s2's magic.
+	 * Message: $c1% resisted $c2's magic.
 	 */
-	S1_RESISTED_S2_DRAIN2(2269),
+	C1_RESISTED_c2_MAGIC(2269),
 
 	/**
 	 * ID: 2270<br>
-	 * Message: $s1% has received damage from $s2 through the fire of magic
+	 * Message: $c1% has received damage from $s2 through the fire of magic
 	 */
-	S1_RECEIVED_DAMAGE_FROM_S2_THROUGH_FIRE_OF_MAGIC(2270),
+	C1_RECEIVED_DAMAGE_FROM_S2_THROUGH_FIRE_OF_MAGIC(2270),
 
 	/**
 	 * ID: 2271<br>
-	 * Message: $s1% weakly resisted $s2's magic.
+	 * Message: $c1% weakly resisted $c2's magic.
 	 */
-	S1_WEAKLY_RESISTED_S2_MAGIC(2271),
+	C1_WEAKLY_RESISTED_C2_MAGIC(2271),
 
 	/**
 	 * ID: 2272<br>
