@@ -729,8 +729,6 @@ public final class SelectorThread<T extends MMOConnection<T>> extends Thread
 		// check if no error happened
 		if (result >= 0)
 		{
-			boolean hasPendingWrite = true;
-			
 			// check if we writed everything
 			if (result == size)
 			{
@@ -749,24 +747,26 @@ public final class SelectorThread<T extends MMOConnection<T>> extends Thread
 					if (con.getSendQueue2().isEmpty() && !con.hasPendingWriteBuffer())
 					{
 						con.disableWriteInterest();
-						hasPendingWrite = false;
+						return false;
 					}
+					else
+						return true;
 				}
 			}
 			else
 			//incomplete write
 			{
 				con.createWriteBuffer(DIRECT_WRITE_BUFFER);
+				return false;
 				//System.err.println("DEBUG: INCOMPLETE WRITE - write size: "+size);
 				//System.err.flush();
 			}
 			
-			if (result == 0)
-			{
+			//if (result == 0)
+			//{
 				//System.err.println("DEBUG: write result: 0 - write size: "+size+" - DWB rem: "+DIRECT_WRITE_BUFFER.remaining());
 				//System.err.flush();
-			}
-			return hasPendingWrite;
+			//}
 		}
 		else
 		{
