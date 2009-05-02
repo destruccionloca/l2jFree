@@ -124,7 +124,7 @@ public class Continuous implements ICubicSkillHandler
 				}
 			}
 
-			if (skill.isOffensive())
+			if (skill.isOffensive() || skill.isDebuff())
 			{
 				boolean ss = false;
 				boolean sps = false;
