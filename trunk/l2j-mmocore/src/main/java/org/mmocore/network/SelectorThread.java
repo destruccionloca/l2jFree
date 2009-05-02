@@ -51,7 +51,7 @@ public final class SelectorThread<T extends MMOConnection<T>> extends Thread
 	private final UDPHeaderHandler<T> _udpHeaderHandler;
 	private final TCPHeaderHandler<T> _tcpHeaderHandler;
 	
-	private boolean _shutdown;
+	private volatile boolean _shutdown;
 	
 	// Pending Close
 	private final FastList<MMOConnection<T>> _pendingClose = new FastList<MMOConnection<T>>();
@@ -174,6 +174,8 @@ public final class SelectorThread<T extends MMOConnection<T>> extends Thread
 				break;
 			}
 			
+			boolean hasPendingWrite = false;
+			
 			try
 			{
 				if (getSelector().selectNow() > 0)
@@ -194,10 +196,10 @@ public final class SelectorThread<T extends MMOConnection<T>> extends Thread
 								readPacket(key);
 								break;
 							case SelectionKey.OP_WRITE:
-								writePacket2(key);
+								hasPendingWrite |= writePacket2(key);
 								break;
 							case SelectionKey.OP_READ | SelectionKey.OP_WRITE:
-								writePacket2(key);
+								hasPendingWrite |= writePacket2(key);
 								// key might have been invalidated on writePacket
 								if (key.isValid())
 									readPacket(key);
@@ -217,7 +219,8 @@ public final class SelectorThread<T extends MMOConnection<T>> extends Thread
 			
 			try
 			{
-				Thread.sleep(SLEEP_TIME);
+				if (!hasPendingWrite)
+					Thread.sleep(SLEEP_TIME);
 			}
 			catch (InterruptedException e)
 			{
@@ -245,7 +248,7 @@ public final class SelectorThread<T extends MMOConnection<T>> extends Thread
 						FastList.Node<MMOConnection<T>> temp = n.getPrevious();
 						getPendingClose().delete(n);
 						n = temp;
-						closeConnectionImpl(con);
+						closeConnectionImpl(con, false);
 					}
 				}
 			}
@@ -262,8 +265,7 @@ public final class SelectorThread<T extends MMOConnection<T>> extends Thread
 		{
 			@SuppressWarnings("unchecked")
 			T con = (T)key.attachment();
-			con.onForcedDisconnection();
-			closeConnectionImpl(con);
+			closeConnectionImpl(con, true);
 		}
 		
 		// key might have been invalidated on finishConnect()
@@ -370,16 +372,15 @@ public final class SelectorThread<T extends MMOConnection<T>> extends Thread
 		{
 			// read interest but nothing to read? wtf?
 			System.out.println("NOOBISH ERROR 2 THE MISSION");
-			System.exit(0);
+			//System.exit(0);
 		}
 		else if (result == -1)
 		{
-			closeConnectionImpl(con);
+			closeConnectionImpl(con, false);
 		}
 		else
 		{
-			con.onForcedDisconnection();
-			closeConnectionImpl(con);
+			closeConnectionImpl(con, true);
 		}
 	}
 	
@@ -542,7 +543,7 @@ public final class SelectorThread<T extends MMOConnection<T>> extends Thread
 			{
 				// null ret means critical error
 				// kill the connection
-				closeConnectionImpl(con);
+				closeConnectionImpl(con, true);
 				return false;
 			}
 		}
@@ -702,7 +703,7 @@ public final class SelectorThread<T extends MMOConnection<T>> extends Thread
 		}
 	}
 	
-	private void writePacket2(SelectionKey key)
+	private boolean writePacket2(SelectionKey key)
 	{
 		@SuppressWarnings("unchecked")
 		T con = (T)key.attachment();
@@ -722,12 +723,14 @@ public final class SelectorThread<T extends MMOConnection<T>> extends Thread
 		catch (IOException e)
 		{
 			// error handling goes on the if bellow
-			System.err.println("IOError: " + e.getMessage());
+			//System.err.println("IOError: " + e.getMessage());
 		}
 		
 		// check if no error happened
 		if (result >= 0)
 		{
+			boolean hasPendingWrite = true;
+			
 			// check if we writed everything
 			if (result == size)
 			{
@@ -746,6 +749,7 @@ public final class SelectorThread<T extends MMOConnection<T>> extends Thread
 					if (con.getSendQueue2().isEmpty() && !con.hasPendingWriteBuffer())
 					{
 						con.disableWriteInterest();
+						hasPendingWrite = false;
 					}
 				}
 			}
@@ -762,14 +766,14 @@ public final class SelectorThread<T extends MMOConnection<T>> extends Thread
 				//System.err.println("DEBUG: write result: 0 - write size: "+size+" - DWB rem: "+DIRECT_WRITE_BUFFER.remaining());
 				//System.err.flush();
 			}
-			
+			return hasPendingWrite;
 		}
 		else
 		{
 			//System.err.println("IOError: "+result);
 			//System.err.flush();
-			con.onForcedDisconnection();
-			closeConnectionImpl(con);
+			closeConnectionImpl(con, true);
+			return false;
 		}
 	}
 	
@@ -881,12 +885,26 @@ public final class SelectorThread<T extends MMOConnection<T>> extends Thread
 		}
 	}
 	
-	private void closeConnectionImpl(MMOConnection<T> con)
+	private void closeConnectionImpl(MMOConnection<T> con, boolean forced)
 	{
+		try
+		{
+			if (forced)
+				con.onForcedDisconnection();
+		}
+		catch (RuntimeException e)
+		{
+			e.printStackTrace();
+		}
+		
 		try
 		{
 			// notify connection
 			con.onDisconnection();
+		}
+		catch (RuntimeException e)
+		{
+			e.printStackTrace();
 		}
 		finally
 		{
