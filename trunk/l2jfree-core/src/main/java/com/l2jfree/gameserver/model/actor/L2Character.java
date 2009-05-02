@@ -5357,7 +5357,7 @@ public abstract class L2Character extends L2Object
 				boolean isRangeWeapon = (weapon != null && (weapon.getItemType() == L2WeaponType.BOW || weapon.getItemType() == L2WeaponType.CROSSBOW));
 
 				int reflectedDamage = 0;
-				if (!isRangeWeapon) // Do not reflect if weapon is of type bow
+				if (!isRangeWeapon && !target.isInvul()) // Do not reflect if weapon is of type bow/crossbow or target is invulnerable
 				{
 					// Reduce HP of the target and calculate reflection damage to reduce HP of attacker if necessary
 					double reflectPercent = target.getStat().calcStat(Stats.REFLECT_DAMAGE_PERCENT, 0, null, null);

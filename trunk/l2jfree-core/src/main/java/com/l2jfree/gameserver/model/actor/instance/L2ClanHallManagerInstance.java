@@ -21,6 +21,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.TeleportLocationTable;
 import com.l2jfree.gameserver.instancemanager.ClanHallManager;
@@ -34,9 +35,11 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.AgitDecoInfo;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
+import com.l2jfree.gameserver.network.serverpackets.SortedWareHouseWithdrawalList;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.network.serverpackets.WareHouseDepositList;
 import com.l2jfree.gameserver.network.serverpackets.WareHouseWithdrawalList;
+import com.l2jfree.gameserver.network.serverpackets.SortedWareHouseWithdrawalList.WarehouseListType;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
@@ -102,7 +105,26 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
                     if (val.equalsIgnoreCase("deposit"))
                         showVaultWindowDeposit(player);
                     else if (val.equalsIgnoreCase("withdraw"))
-                        showVaultWindowWithdraw(player);
+                    {
+                        if (Config.ENABLE_WAREHOUSESORTING_CLAN)
+                        {
+                            String htmFile = "data/html/custom/WhSortedC.htm";
+                            String htmContent = HtmCache.getInstance().getHtm(htmFile);
+                            if (htmContent != null)
+                            {
+                                NpcHtmlMessage npcHtmlMessage = new NpcHtmlMessage(getObjectId());
+                                npcHtmlMessage.setHtml(htmContent);
+                                npcHtmlMessage.replace("%objectId%", String.valueOf(getObjectId()));
+                                player.sendPacket(npcHtmlMessage);
+                            }
+                            else
+                            {
+                                _log.warn("Missing htm: " + htmFile + " !");
+                            }
+                        }
+                        else
+                            showVaultWindowWithdraw(player, null, (byte) 0);
+                    }
                     else
                     {
                         html.setFile("data/html/clanHallManager/vault.htm");
@@ -117,6 +139,16 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
                     sendHtmlMessage(player, html);
                 }
                 return;
+            }
+            else if (command.startsWith("WithdrawSortedC") && Config.ENABLE_WAREHOUSESORTING_CLAN)
+            {
+                String param[] = command.split("_");
+                if (param.length > 2)
+                    showVaultWindowWithdraw(player, WarehouseListType.valueOf(param[1]), SortedWareHouseWithdrawalList.getOrder(param[2]));
+                else if (param.length > 1)
+                    showVaultWindowWithdraw(player, WarehouseListType.valueOf(param[1]), SortedWareHouseWithdrawalList.A2Z);
+                else
+                    showVaultWindowWithdraw(player, WarehouseListType.ALL, SortedWareHouseWithdrawalList.A2Z);
             }
             else if (actualCommand.equalsIgnoreCase("door"))
             {
@@ -1342,12 +1374,12 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
             }
             else if (actualCommand.equalsIgnoreCase("goto"))
             {
-     			if (ObjectRestrictions.getInstance()
-    					.checkRestriction(player, AvailableRestriction.PlayerTeleport)) {
-    				player.sendMessage("You cannot teleport due to a restriction.");
-    				return;
-    			}
-    				
+                if (ObjectRestrictions.getInstance().checkRestriction(player, AvailableRestriction.PlayerTeleport))
+                {
+                    player.sendMessage("You cannot teleport due to a restriction.");
+                    return;
+                }
+
                 int whereTo = Integer.parseInt(val);
                 doTeleport(player, whereTo);
                 return;
@@ -1459,13 +1491,16 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
         player.sendPacket(new WareHouseDepositList(player, WareHouseDepositList.CLAN)); // Or Clan Hall??
     }
 
-    private void showVaultWindowWithdraw(L2PcInstance player)
+    private void showVaultWindowWithdraw(L2PcInstance player, WarehouseListType itemtype, byte sortorder)
     {
-        if (player.isClanLeader()||((player.getClanPrivileges() & L2Clan.CP_CL_VIEW_WAREHOUSE) == L2Clan.CP_CL_VIEW_WAREHOUSE))
+        if (player.isClanLeader() || ((player.getClanPrivileges() & L2Clan.CP_CL_VIEW_WAREHOUSE) == L2Clan.CP_CL_VIEW_WAREHOUSE))
         {
             player.sendPacket(ActionFailed.STATIC_PACKET);
             player.setActiveWarehouse(player.getClan().getWarehouse());
-            player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.CLAN));
+            if (itemtype != null)
+                player.sendPacket(new SortedWareHouseWithdrawalList(player, WareHouseWithdrawalList.CLAN, itemtype, sortorder));
+            else
+                player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.CLAN));
         }
         else
         {

@@ -81,23 +81,11 @@ public final class L2WarehouseInstance extends L2NpcInstance
 
 		if (_log.isDebugEnabled())
 			_log.debug("Showing stored items");
-		player.sendPacket(new SortedWareHouseWithdrawalList(player, WareHouseWithdrawalList.PRIVATE, itemtype, sortorder));
-	}
 
-	private void showRetrieveWindow(L2PcInstance player)
-	{
-		player.sendPacket(ActionFailed.STATIC_PACKET);
-		player.setActiveWarehouse(player.getWarehouse());
-
-		if (player.getActiveWarehouse().getSize() == 0)
-		{
-			player.sendPacket(SystemMessageId.NO_ITEM_DEPOSITED_IN_WH);
-			return;
-		}
-
-		if (_log.isDebugEnabled())
-			_log.debug("Showing stored items");
-		player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.PRIVATE));
+		if (itemtype != null)
+			player.sendPacket(new SortedWareHouseWithdrawalList(player, WareHouseWithdrawalList.PRIVATE, itemtype, sortorder));
+		else
+			player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.PRIVATE));
 	}
 
 	private void showDepositWindow(L2PcInstance player)
@@ -153,28 +141,11 @@ public final class L2WarehouseInstance extends L2NpcInstance
 			player.setActiveWarehouse(player.getClan().getWarehouse());
 			if (_log.isDebugEnabled())
 				_log.debug("Showing items to deposit - clan");
-			player.sendPacket(new SortedWareHouseWithdrawalList(player, WareHouseWithdrawalList.CLAN, itemtype, sortorder));
-		}
-		player.sendPacket(ActionFailed.STATIC_PACKET);
-	}
 
-	private void showWithdrawWindowClan(L2PcInstance player)
-	{
-		if (player.getClan() == null || player.getClan().getLevel() == 0)
-		{
-			player.sendPacket(SystemMessageId.ONLY_LEVEL_1_CLAN_OR_HIGHER_CAN_USE_WAREHOUSE);
-		}
-		else if ((player.getClanPrivileges() & L2Clan.CP_CL_VIEW_WAREHOUSE) != L2Clan.CP_CL_VIEW_WAREHOUSE)
-		{
-			player.sendPacket(SystemMessageId.YOU_DO_NOT_HAVE_THE_RIGHT_TO_USE_CLAN_WAREHOUSE);
-			return;
-		}
-		else
-		{
-			player.setActiveWarehouse(player.getClan().getWarehouse());
-			if (_log.isDebugEnabled())
-				_log.debug("Showing items to deposit - clan");
-			player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.CLAN));
+			if (itemtype != null)
+				player.sendPacket(new SortedWareHouseWithdrawalList(player, WareHouseWithdrawalList.CLAN, itemtype, sortorder));
+			else
+				player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.CLAN));
 		}
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
@@ -200,42 +171,11 @@ public final class L2WarehouseInstance extends L2NpcInstance
 					freight.setActiveLocation(getClosestTown());
 				}
 				player.setActiveWarehouse(freight);
-				player.sendPacket(new SortedWareHouseWithdrawalList(player, WareHouseWithdrawalList.FREIGHT, itemtype, sortorder));
-			}
-			else
-			{
-				player.sendPacket(SystemMessageId.NO_ITEM_DEPOSITED_IN_WH);
-			}
-		}
-		else
-		{
-			if (_log.isDebugEnabled())
-				_log.debug("no items freightened");
-		}
-	}
 
-	private void showWithdrawWindowFreight(L2PcInstance player)
-	{
-		player.sendPacket(ActionFailed.STATIC_PACKET);
-		if (_log.isDebugEnabled())
-			_log.debug("Showing freightened items");
-
-		PcFreight freight = player.getFreight();
-
-		if (freight != null)
-		{
-			if (freight.getSize() > 0)
-			{
-				if (Config.ALT_GAME_FREIGHTS)
-				{
-					freight.setActiveLocation(0);
-				}
+				if (itemtype != null)
+					player.sendPacket(new SortedWareHouseWithdrawalList(player, WareHouseWithdrawalList.FREIGHT, itemtype, sortorder));
 				else
-				{
-					freight.setActiveLocation(getClosestTown());
-				}
-				player.setActiveWarehouse(freight);
-				player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.FREIGHT));
+					player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.FREIGHT));
 			}
 			else
 			{
@@ -328,7 +268,7 @@ public final class L2WarehouseInstance extends L2NpcInstance
 				}
 			}
 			else
-				showRetrieveWindow(player);
+				showRetrieveWindow(player, null, (byte) 0);
 		}
 		else if (command.startsWith("WithdrawSortedP"))
 		{
@@ -362,7 +302,7 @@ public final class L2WarehouseInstance extends L2NpcInstance
 				}
 			}
 			else
-				showWithdrawWindowClan(player);
+				showWithdrawWindowClan(player, null, (byte) 0);
 		}
 		else if (command.startsWith("WithdrawSortedC"))
 		{
@@ -398,7 +338,7 @@ public final class L2WarehouseInstance extends L2NpcInstance
 					}
 				}
 				else
-					showWithdrawWindowFreight(player);
+					showWithdrawWindowFreight(player, null, (byte) 0);
 			}
 		}
 		else if (command.startsWith("WithdrawSortedF"))

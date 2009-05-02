@@ -94,6 +94,19 @@ public class L2PetManagerInstance extends L2MerchantInstance
 	}
 
 	@Override
+	public String getHtmlPath(int npcId, int val)
+	{
+		String pom = "";
+		
+		if (val == 0)
+			pom = "" + npcId;
+		else
+			pom = npcId + "-" + val;
+		
+		return "data/html/petmanager/" + pom + ".htm";
+	}
+
+	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
 		if (command.startsWith("exchange"))

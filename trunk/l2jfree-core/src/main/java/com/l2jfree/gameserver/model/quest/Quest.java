@@ -596,7 +596,7 @@ public class Quest extends ManagedScript
 	private boolean showError(L2PcInstance player, Throwable t)
 	{
 		_log.warn(getScriptFile().getAbsolutePath(), t);
-		if (player.getAccessLevel() > 0)
+		if (player != null && player.getAccessLevel() > 0)
 		{
 			StringWriter sw = new StringWriter();
 			PrintWriter pw = new PrintWriter(sw);
@@ -621,7 +621,7 @@ public class Quest extends ManagedScript
 	 */
 	private boolean showResult(L2PcInstance player, String res)
 	{
-		if (res == null)
+		if (res == null || player == null)
 			return true;
 		if (res.endsWith(".htm"))
 		{
