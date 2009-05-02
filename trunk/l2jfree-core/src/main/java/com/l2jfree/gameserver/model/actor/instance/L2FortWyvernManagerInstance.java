@@ -19,7 +19,6 @@ import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.PetDataTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.L2ItemInstance;
-import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
@@ -27,7 +26,7 @@ import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
-/** 
+/**
  * @author Psychokiller1888
  */
 
@@ -56,7 +55,7 @@ public class L2FortWyvernManagerInstance extends L2NpcInstance
             int petItemId = 0;
             L2ItemInstance petItem = null;
             
-            if (player.getPet() == null) 
+            if (player.getPet() == null)
             {
                 if (player.isMounted())
                 {
@@ -65,8 +64,8 @@ public class L2FortWyvernManagerInstance extends L2NpcInstance
                         petItemId = petItem.getItemId();
                 }
             }
-            else 
-                petItemId = player.getPet().getControlItemId(); 
+            else
+                petItemId = player.getPet().getControlItemId();
 
             if (petItemId == 0 || !player.isMounted() || !PetDataTable.isStrider(PetDataTable.getPetIdByItemId(petItemId)))
             {
@@ -84,7 +83,7 @@ public class L2FortWyvernManagerInstance extends L2NpcInstance
                 html.setFile("data/html/fortress/wyvernmanager-explain.htm");
                 html.replace("%count%", String.valueOf(Config.ALT_MANAGER_CRYSTAL_COUNT));
                 player.sendPacket(html);
-                return; 
+                return;
             }
             
             // Wyvern requires Config.MANAGER_CRYSTAL_COUNT crystal for ride...
