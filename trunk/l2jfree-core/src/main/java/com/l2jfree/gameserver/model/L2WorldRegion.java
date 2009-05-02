@@ -217,7 +217,7 @@ public final class L2WorldRegion
 					((L2Attackable)obj).getStatus().startHpMpRegeneration();
 				
 				else if (obj instanceof L2Npc)
-					((L2Npc)obj).startRandomAnimationTimer();
+					((L2Npc)obj).broadcastRandomAnimation(false);
 				
 				obj.getKnownList().tryAddObjects(surroundingObjects);
 			}

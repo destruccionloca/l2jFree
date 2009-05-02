@@ -64,8 +64,8 @@ import com.l2jfree.gameserver.model.actor.instance.L2ChestInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2ClanHallManagerInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2ControllableMobInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2DoormenInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2FishermanInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2FestivalGuideInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2FishermanInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MerchantInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -107,6 +107,7 @@ import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.skills.Stats;
+import com.l2jfree.gameserver.taskmanager.AbstractIterativePeriodicTaskManager;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.item.L2Item;
@@ -128,6 +129,33 @@ import com.l2jfree.tools.random.Rnd;
  */
 public class L2Npc extends L2Character
 {
+	private static final class RandomAnimationTaskManager extends AbstractIterativePeriodicTaskManager<L2Npc>
+	{
+		private static final RandomAnimationTaskManager _instance = new RandomAnimationTaskManager();
+		
+		private static RandomAnimationTaskManager getInstance()
+		{
+			return _instance;
+		}
+		
+		private RandomAnimationTaskManager()
+		{
+			super(1000);
+		}
+		
+		@Override
+		protected void callTask(L2Npc npc)
+		{
+			npc.broadcastRandomAnimation(false);
+		}
+		
+		@Override
+		protected String getCalledMethodName()
+		{
+			return "broadcastRandomAnimation()";
+		}
+	}
+	
 	/** The interaction distance of the L2Npc(is used as offset in MovetoLocation method) */
 	public static final int			INTERACTION_DISTANCE	= 150;
 
@@ -161,77 +189,48 @@ public class L2Npc extends L2Character
 	private boolean					_isInTown				= false;
 	private int						_isSpoiledBy			= 0;
 
-	protected RandomAnimationTask	_rAniTask				= null;
+	private long					_lastRandomAnimation;
+	private int						_randomAnimationDelay;
 	private int						_currentLHandId;															// normally this shouldn't change from the template, but there exist exceptions
 	private int						_currentRHandId;															// normally this shouldn't change from the template, but there exist exceptions
 
 	private int						_currentCollisionHeight;													// used for npc grow effect skills
 	private int						_currentCollisionRadius;													// used for npc grow effect skills
 
-	/** Task launching the function onRandomAnimation()
-	* Scheduled for L2MonsterInstance only if AllowRandomAnimation=true
-	*/
-	protected class RandomAnimationTask implements Runnable
+	public final void broadcastRandomAnimation(boolean force)
 	{
-		public void run()
+		if (!isInActiveRegion() || !hasRandomAnimation())
 		{
-			try
+			RandomAnimationTaskManager.getInstance().stopTask(this);
+			return;
+		}
+		
+		if (isMob() && getAI().getIntention() != AI_INTENTION_ACTIVE)
+		{
+			RandomAnimationTaskManager.getInstance().stopTask(this);
+			return;
+		}
+		
+		if (_lastRandomAnimation + 3000 < System.currentTimeMillis())
+		{
+			if (force || _lastRandomAnimation + _randomAnimationDelay < System.currentTimeMillis())
 			{
-				if (this != _rAniTask)
-					return; // Shouldn't happen, but who knows... just to make sure every active npc has only one timer.
-				if (isMob())
+				if (!isDead() && !isStunned() && !isSleeping() && !isParalyzed())
 				{
-					// Cancel further animation timers until intention is changed to ACTIVE again.
-					if (getAI().getIntention() != AI_INTENTION_ACTIVE)
-						return;
+					broadcastPacket(new SocialAction(getObjectId(), Rnd.get(2, 3)));
+					
+					int minWait = isMob() ? Config.MIN_MONSTER_ANIMATION : Config.MIN_NPC_ANIMATION;
+					int maxWait = isMob() ? Config.MAX_MONSTER_ANIMATION : Config.MAX_NPC_ANIMATION;
+					
+					_lastRandomAnimation = System.currentTimeMillis();
+					_randomAnimationDelay = Rnd.get(minWait, maxWait) * 1000;
 				}
-				else
-				{
-					if (!isInActiveRegion()) // NPCs in inactive region don't run this task
-						return;
-				}
-
-				if (!(isDead() || isStunned() || isSleeping() || isParalyzed()))
-					onRandomAnimation();
-
-				startRandomAnimationTimer();
-			}
-			catch (Exception e)
-			{
-				_log.error(e.getMessage(), e);
 			}
 		}
+		
+		RandomAnimationTaskManager.getInstance().startTask(this);
 	}
-
-	/**
-	 * Send a packet SocialAction to all L2PcInstance in the _KnownPlayers of the L2Npc and create a new RandomAnimation Task.<BR><BR>
-	 */
-	public void onRandomAnimation()
-	{
-		// Send a packet SocialAction to all L2PcInstance in the _KnownPlayers of the L2Npc
-		SocialAction sa = new SocialAction(getObjectId(), Rnd.get(2, 3));
-		broadcastPacket(sa);
-	}
-
-	/**
-	 * Create a RandomAnimation Task that will be launched after the calculated delay.<BR><BR>
-	 */
-	public void startRandomAnimationTimer()
-	{
-		if (!hasRandomAnimation())
-			return;
-
-		int minWait = isMob() ? Config.MIN_MONSTER_ANIMATION : Config.MIN_NPC_ANIMATION;
-		int maxWait = isMob() ? Config.MAX_MONSTER_ANIMATION : Config.MAX_NPC_ANIMATION;
-
-		// Calculate the delay before the next animation
-		int interval = Rnd.get(minWait, maxWait) * 1000;
-
-		// Create a RandomAnimation Task that will be launched after the calculated delay
-		_rAniTask = new RandomAnimationTask();
-		ThreadPoolManager.getInstance().scheduleGeneral(_rAniTask, interval);
-	}
-
+	
 	/**
 	 * Check if the server allows Random Animation.<BR><BR>
 	 */
@@ -670,8 +669,8 @@ public class L2Npc extends L2Character
 					{
 						// Send a Server->Client packet SocialAction to the all L2PcInstance on the _knownPlayer of the L2Npc
 						// to display a social action of the L2Npc on their client
-						onRandomAnimation();
-
+						broadcastRandomAnimation(true);
+						
 						// Open a chat window on client with the text of the L2Npc
 						if (isEventMob)
 							L2Event.showEventHtml(player, String.valueOf(getObjectId()));

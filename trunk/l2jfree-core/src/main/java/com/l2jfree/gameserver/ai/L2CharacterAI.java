@@ -157,8 +157,8 @@ public class L2CharacterAI extends AbstractAI
 			// Also enable random animations for this L2Character if allowed
 			// This is only for mobs - town npcs are handled in their constructor
 			if (_actor instanceof L2Attackable)
-				((L2Npc) _actor).startRandomAnimationTimer();
-
+				((L2Npc)_actor).broadcastRandomAnimation(false);
+			
 			// Launch the Think Event
 			onEvtThink();
 		}
