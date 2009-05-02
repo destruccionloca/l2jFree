@@ -31,7 +31,7 @@ public final class SummonStatus extends CharStatus
 	{
 		super.reduceHp0(value, attacker, awake, isDOT);
 		
-		SystemMessage sm = new SystemMessage(SystemMessageId.SUMMON_RECEIVED_DAMAGE_S2_BY_S1);
+		SystemMessage sm = new SystemMessage(SystemMessageId.SUMMON_RECEIVED_DAMAGE_S2_BY_C1);
 		sm.addCharName(attacker);
 		sm.addNumber((int)value);
 		getActiveChar().getOwner().sendPacket(sm);

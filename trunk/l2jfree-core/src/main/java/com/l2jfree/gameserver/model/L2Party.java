@@ -217,7 +217,7 @@ public class L2Party
 	
 	public void broadcastToPartyMembersNewLeader()
 	{
-		broadcastToPartyMembers(new SystemMessage(SystemMessageId.S1_HAS_BECOME_A_PARTY_LEADER).addString(getLeader().getName()));
+		broadcastToPartyMembers(new SystemMessage(SystemMessageId.C1_HAS_BECOME_A_PARTY_LEADER).addString(getLeader().getName()));
 		refreshPartyView();
 	}
 	

@@ -629,13 +629,13 @@ public class RecipeController
 			{
 				if (_target != _player)
 				{
-					SystemMessage msg = new SystemMessage(SystemMessageId.CREATION_OF_S2_FOR_S1_AT_S3_ADENA_FAILED);
-					msg.addString(_target.getName());
+					SystemMessage msg = new SystemMessage(SystemMessageId.CREATION_OF_S2_FOR_C1_AT_S3_ADENA_FAILED);
+					msg.addPcName(_target);
 					msg.addItemName(_recipeList.getItemId());
 					msg.addNumber(_price);
 					_player.sendPacket(msg);
-					msg = new SystemMessage(SystemMessageId.S1_FAILED_TO_CREATE_S2_FOR_S3_ADENA);
-					msg.addString(_player.getName());
+					msg = new SystemMessage(SystemMessageId.C1_FAILED_TO_CREATE_S2_FOR_S3_ADENA);
+					msg.addPcName(_player);
 					msg.addItemName(_recipeList.getItemId());
 					msg.addNumber(_price);
 					_target.sendPacket(msg);
@@ -934,27 +934,27 @@ public class RecipeController
 				// inform manufacturer of earned profit
 				if (itemCount == 1)
 				{
-					msg = new SystemMessage(SystemMessageId.S2_CREATED_FOR_S1_FOR_S3_ADENA);
-					msg.addString(_target.getName());
+					msg = new SystemMessage(SystemMessageId.S2_CREATED_FOR_C1_FOR_S3_ADENA);
+					msg.addPcName(_target);
 					msg.addItemName(template);
 					msg.addNumber(price);
 					_player.sendPacket(msg);
-					msg = new SystemMessage(SystemMessageId.S1_CREATED_S2_FOR_S3_ADENA);
-					msg.addString(_player.getName());
+					msg = new SystemMessage(SystemMessageId.C1_CREATED_S2_FOR_S3_ADENA);
+					msg.addPcName(_player);
 					msg.addItemName(template);
 					msg.addNumber(price);
 					_target.sendPacket(msg);
 				}
 				else
 				{
-					msg = new SystemMessage(SystemMessageId.S2_S3_S_CREATED_FOR_S1_FOR_S4_ADENA);
-					msg.addString(_target.getName());
+					msg = new SystemMessage(SystemMessageId.S2_S3_S_CREATED_FOR_C1_FOR_S4_ADENA);
+					msg.addPcName(_target);
 					msg.addNumber(itemCount);
 					msg.addItemName(template);
 					msg.addNumber(price);
 					_player.sendPacket(msg);
-					msg = new SystemMessage(SystemMessageId.S1_CREATED_S2_S3_S_FOR_S4_ADENA);
-					msg.addString(_player.getName());
+					msg = new SystemMessage(SystemMessageId.C1_CREATED_S2_S3_S_FOR_S4_ADENA);
+					msg.addPcName(_player);
 					msg.addNumber(itemCount);
 					msg.addItemName(template);
 					msg.addNumber(price);

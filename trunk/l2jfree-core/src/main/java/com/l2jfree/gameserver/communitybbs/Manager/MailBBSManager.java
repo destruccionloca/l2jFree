@@ -765,10 +765,10 @@ public class MailBBSManager extends BaseBBSManager
 				if (recipId == 0)
 					activeChar.sendMessage("Could not find " + recipient.trim() + ", Therefor will not get mail.");
 				else if (isGM(recipId) && !activeChar.isGM())
-					activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_MAIL_GM_S1).add("a GM"));
+					activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_MAIL_GM_C1).add("a GM"));
 				else if (isBlocked(activeChar, recipId) && !activeChar.isGM())
 				{
-					SystemMessage sm = new SystemMessage(SystemMessageId.S1_BLOCKED_YOU_CANNOT_MAIL);
+					SystemMessage sm = new SystemMessage(SystemMessageId.C1_BLOCKED_YOU_CANNOT_MAIL);
 					for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 						if (player.getObjectId().equals(recipId) && player.isOnline() == 1)
 							sm.addPcName(player);

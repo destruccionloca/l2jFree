@@ -97,7 +97,7 @@ public class Harvest implements ISkillHandler
 							activePlayer.sendPacket(smsg);
 							if (activePlayer.getParty() != null)
 							{
-								smsg = new SystemMessage(SystemMessageId.S1_HARVESTED_S3_S2S);
+								smsg = new SystemMessage(SystemMessageId.C1_HARVESTED_S3_S2S);
 								smsg.addString(activePlayer.getName());
 								smsg.addNumber(total);
 								smsg.addItemName(cropId);

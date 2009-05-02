@@ -122,11 +122,11 @@ public final class RecommendationManager
 			//changed available evaluation count, notify ONLY the evaluator
 			//don't remove this again!
 			evaluator.sendPacket(new UserInfo(evaluator));
-			SystemMessage sm = new SystemMessage(SystemMessageId.YOU_HAVE_RECOMMENDED_S1_YOU_ARE_AUTHORIZED_TO_MAKE_S2_MORE_RECOMMENDATIONS);
+			SystemMessage sm = new SystemMessage(SystemMessageId.YOU_HAVE_RECOMMENDED_C1_YOU_HAVE_S2_RECOMMENDATIONS_LEFT);
 			sm.addPcName(evaluated);
 			sm.addNumber(evaluator.getEvaluations());
 			evaluator.sendPacket(sm);
-			sm = new SystemMessage(SystemMessageId.YOU_HAVE_BEEN_RECOMMENDED_BY_S1);
+			sm = new SystemMessage(SystemMessageId.YOU_HAVE_BEEN_RECOMMENDED_BY_C1);
 			sm.addPcName(evaluator);
 			evaluated.sendPacket(sm);
 			evaluated.broadcastUserInfo();

@@ -90,7 +90,7 @@ public class Manadam implements ISkillHandler
 					sump.addAttribute(StatusUpdate.CUR_MP, (int) target.getStatus().getCurrentMp());
 					target.sendPacket(sump);
 
-					SystemMessage sm = new SystemMessage(SystemMessageId.S2_MP_HAS_BEEN_DRAINED_BY_S1);
+					SystemMessage sm = new SystemMessage(SystemMessageId.S2_MP_HAS_BEEN_DRAINED_BY_C1);
 					sm.addCharName(activeChar);
 					sm.addNumber((int) mp);
 					target.sendPacket(sm);

@@ -1681,7 +1681,7 @@ public class L2Attackable extends L2Npc
 						// Broadcast message if RaidBoss was defeated
 						if (this instanceof L2Boss)
 						{
-							SystemMessage sm = new SystemMessage(SystemMessageId.S1_DIED_DROPPED_S3_S2);
+							SystemMessage sm = new SystemMessage(SystemMessageId.C1_DIED_DROPPED_S3_S2);
 							sm.addCharName(this);
 							sm.addItemName(item.getItemId());
 							sm.addNumber(item.getCount());
