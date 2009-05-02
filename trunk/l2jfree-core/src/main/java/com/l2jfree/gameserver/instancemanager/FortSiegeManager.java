@@ -28,6 +28,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
+import com.l2jfree.L2Config;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.config.L2Properties;
 import com.l2jfree.gameserver.datatables.SkillTable;
@@ -242,7 +243,14 @@ public class FortSiegeManager
 	{
 		_flagList.clear();
 		_commanderSpawnList.clear();
-		Config.loadFortSiegeConfig();
+		try
+		{
+			L2Config.loadConfig("fortsiege");
+		}
+		catch (Exception e)
+		{
+			throw new RuntimeException(e);
+		}
 		loadCommandersFlags();
 	}
 

@@ -17,15 +17,12 @@ package com.l2jfree;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
 import java.io.OutputStream;
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.Properties;
 import java.util.StringTokenizer;
@@ -36,6 +33,8 @@ import java.util.regex.PatternSyntaxException;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -50,6 +49,34 @@ import com.l2jfree.gameserver.util.Util;
  */
 public final class Config extends L2Config
 {
+	static
+	{
+		registerConfig(new AltConfig());
+		registerConfig(new BossConfig());
+		registerConfig(new CastleConfig());
+		registerConfig(new ChampionsConfig());
+		registerConfig(new ClanHallConfig());
+		registerConfig(new ClansConfig());
+		registerConfig(new CommandPrivilegesConfig());
+		registerConfig(new ElayneConfig());
+		registerConfig(new EnchantConfig());
+		registerConfig(new FortSiegeConfig());
+		registerConfig(new FunEnginesConfig());
+		registerConfig(new GMAccessConfig());
+		registerConfig(new GeoConfig());
+		registerConfig(new IRCConfig());
+		registerConfig(new LotteryConfig());
+		registerConfig(new OptionsConfig());
+		registerConfig(new OtherConfig());
+		registerConfig(new PvPConfig());
+		registerConfig(new RatesConfig());
+		registerConfig(new SayFilterConfig());
+		registerConfig(new SevenSignsConfig());
+		registerConfig(new SiegeConfig());
+		registerConfig(new VitalityConfig());
+		registerConfig(new WeddingConfig());
+	}
+	
 	private final static Log	_log								= LogFactory.getLog(Config.class.getName());
 
 	// *******************************************************************************************
@@ -206,23 +233,23 @@ public final class Config extends L2Config
 	public static boolean			ACCEPT_GEOEDITOR_CONN;	// Accept connection from geodata editor
 
 	// *******************************************************************************************
-	public static void loadGeoConfig()
+	private static final class GeoConfig extends ConfigLoader
 	{
-		_log.info("loading " + GEO_FILE);
-		try
+		@Override
+		protected String getName()
 		{
-			Properties geoSettings = new L2Properties(GEO_FILE);
+			return "geodata";
+		}
+		
+		@Override
+		protected void loadImpl(Properties geoSettings) throws Exception
+		{
             GEODATA										= Integer.parseInt(geoSettings.getProperty("GeoData", "0"));
             GEODATA_CELLFINDING							= Boolean.parseBoolean(geoSettings.getProperty("CellPathFinding", "False"));
             FORCE_GEODATA								= Boolean.parseBoolean(geoSettings.getProperty("ForceGeoData", "True"));
 			String correctZ 							= geoSettings.getProperty("GeoCorrectZ", "ALL");
 			GEO_CORRECT_Z 								= CorrectSpawnsZ.valueOf(correctZ.toUpperCase());
 			ACCEPT_GEOEDITOR_CONN 						= Boolean.parseBoolean(geoSettings.getProperty("AcceptGeoeditorConn", "False"));
-		}
-		catch (Exception e)
-		{
-			_log.error(e.getMessage(), e);
-			throw new Error("Failed to Load " + GEO_FILE + " File.");
 		}
 	}
 
@@ -275,7 +302,7 @@ public final class Config extends L2Config
 	public static int				RAID_RANKING_2ND;
 	public static int				RAID_RANKING_3RD;
 	public static int				RAID_RANKING_4TH;
-	public static int				RAID_RANKING_5TH; 
+	public static int				RAID_RANKING_5TH;
 	public static int				RAID_RANKING_6TH;
 	public static int				RAID_RANKING_7TH;
 	public static int				RAID_RANKING_8TH;
@@ -290,13 +317,17 @@ public final class Config extends L2Config
 	public static int				CLAN_LEVEL_10_COST;
 
 	// *******************************************************************************************
-	public static void loadClansConfig()
+	private static final class ClansConfig extends ConfigLoader
 	{
-		_log.info("loading " + CLANS_FILE);
-		try
+		@Override
+		protected String getName()
 		{
-			Properties clansSettings = new L2Properties(CLANS_FILE);
-
+			return "clans";
+		}
+		
+		@Override
+		protected void loadImpl(Properties clansSettings) throws Exception
+		{
 			ALT_CLAN_MEMBERS_FOR_WAR = Integer.parseInt(clansSettings.getProperty("AltClanMembersForWar", "15"));
 			ALT_CLAN_JOIN_DAYS = Integer.parseInt(clansSettings.getProperty("DaysBeforeJoinAClan", "5"));
 			ALT_CLAN_CREATE_DAYS = Integer.parseInt(clansSettings.getProperty("DaysBeforeCreateAClan", "10"));
@@ -349,11 +380,6 @@ public final class Config extends L2Config
 			CLAN_LEVEL_9_COST			= Integer.parseInt(clansSettings.getProperty("ClanLevel9Cost", "40000"));
 			CLAN_LEVEL_10_COST			= Integer.parseInt(clansSettings.getProperty("ClanLevel10Cost", "40000"));
 		}
-		catch (Exception e)
-		{
-			_log.error(e.getMessage(), e);
-			throw new Error("Failed to Load " + CLANS_FILE + " File.");
-		}
 	}
 
 	// *******************************************************************************************
@@ -380,13 +406,17 @@ public final class Config extends L2Config
 	public static int			CHAMPION_SPCL_QTY;									// Amount of special champ drop items.
 
 	// *******************************************************************************************
-	public static void loadChampionsConfig()
+	private static final class ChampionsConfig extends ConfigLoader
 	{
-		_log.info("loading " + CHAMPIONS_FILE);
-		try
+		@Override
+		protected String getName()
 		{
-			Properties championsSettings = new L2Properties(CHAMPIONS_FILE);
-
+			return "champions";
+		}
+		
+		@Override
+		protected void loadImpl(Properties championsSettings) throws Exception
+		{
 			CHAMPION_FREQUENCY = Integer.parseInt(championsSettings.getProperty("ChampionFrequency", "0"));
 			CHAMPION_PASSIVE = Boolean.parseBoolean(championsSettings.getProperty("ChampionPassive", "false"));
 			CHAMPION_TITLE = championsSettings.getProperty("ChampionTitle", "Champion").trim();
@@ -406,11 +436,6 @@ public final class Config extends L2Config
 			CHAMPION_SPCL_ITEM = Integer.parseInt(championsSettings.getProperty("ChampionSpecialItemID", "6393"));
 			CHAMPION_SPCL_QTY = Integer.parseInt(championsSettings.getProperty("ChampionSpecialItemAmount", "1"));
 		}
-		catch (Exception e)
-		{
-			_log.error(e.getMessage(), e);
-			throw new Error("Failed to Load " + CHAMPIONS_FILE + " File.");
-		}
 	}
 
 	// *******************************************************************************************
@@ -429,24 +454,23 @@ public final class Config extends L2Config
 	// number
 
 	// *******************************************************************************************
-	public static void loadLotteryConfig()
+	private static final class LotteryConfig extends ConfigLoader
 	{
-		_log.info("loading " + LOTTERY_FILE);
-		try
+		@Override
+		protected String getName()
 		{
-			Properties lotterySettings = new L2Properties(LOTTERY_FILE);
-
+			return "lottery";
+		}
+		
+		@Override
+		protected void loadImpl(Properties lotterySettings) throws Exception
+		{
 			ALT_LOTTERY_PRIZE = Integer.parseInt(lotterySettings.getProperty("AltLotteryPrize", "50000"));
 			ALT_LOTTERY_TICKET_PRICE = Integer.parseInt(lotterySettings.getProperty("AltLotteryTicketPrice", "2000"));
 			ALT_LOTTERY_5_NUMBER_RATE = Float.parseFloat(lotterySettings.getProperty("AltLottery5NumberRate", "0.6"));
 			ALT_LOTTERY_4_NUMBER_RATE = Float.parseFloat(lotterySettings.getProperty("AltLottery4NumberRate", "0.2"));
 			ALT_LOTTERY_3_NUMBER_RATE = Float.parseFloat(lotterySettings.getProperty("AltLottery3NumberRate", "0.2"));
 			ALT_LOTTERY_2_AND_1_NUMBER_PRIZE = Integer.parseInt(lotterySettings.getProperty("AltLottery2and1NumberPrize", "200"));
-		}
-		catch (Exception e)
-		{
-			_log.error(e.getMessage(), e);
-			throw new Error("Failed to Load " + LOTTERY_FILE + " File.");
 		}
 	}
 
@@ -465,13 +489,17 @@ public final class Config extends L2Config
 	public static int			WEDDING_DIVORCE_COSTS;
 
 	// *******************************************************************************************
-	public static void loadWeddingConfig()
+	private static final class WeddingConfig extends ConfigLoader
 	{
-		_log.info("loading " + WEDDING_FILE);
-		try
+		@Override
+		protected String getName()
 		{
-			Properties weddingSettings = new L2Properties(WEDDING_FILE);
-
+			return "wedding";
+		}
+		
+		@Override
+		protected void loadImpl(Properties weddingSettings) throws Exception
+		{
 			WEDDING_PRICE = Integer.parseInt(weddingSettings.getProperty("WeddingPrice", "500000"));
 			WEDDING_PUNISH_INFIDELITY = Boolean.parseBoolean(weddingSettings.getProperty("WeddingPunishInfidelity", "true"));
 			WEDDING_TELEPORT = Boolean.parseBoolean(weddingSettings.getProperty("WeddingTeleport", "true"));
@@ -482,11 +510,6 @@ public final class Config extends L2Config
 			WEDDING_DIVORCE_COSTS = Integer.parseInt(weddingSettings.getProperty("WeddingDivorceCosts", "20"));
 			WEDDING_GIVE_CUPID_BOW = Boolean.parseBoolean(weddingSettings.getProperty("WeddingGiveBow", "true"));
 			WEDDING_HONEYMOON_PORT = Boolean.parseBoolean(weddingSettings.getProperty("WeddingHoneyMoon", "false"));
-		}
-		catch (Exception e)
-		{
-			_log.error(e.getMessage(), e);
-			throw new Error("Failed to Load " + WEDDING_FILE + " File.");
 		}
 	}
 
@@ -537,13 +560,17 @@ public final class Config extends L2Config
 	public static int			KARMA_RATE_DROP_EQUIP_WEAPON;
 
 	// *******************************************************************************************
-	public static void loadRatesConfig()
+	private static final class RatesConfig extends ConfigLoader
 	{
-		_log.info("loading " + RATES_CONFIG_FILE);
-		try
+		@Override
+		protected String getName()
 		{
-			Properties ratesSettings = new L2Properties(RATES_CONFIG_FILE);
-
+			return "rates";
+		}
+		
+		@Override
+		protected void loadImpl(Properties ratesSettings) throws Exception
+		{
 			RATE_XP = Float.parseFloat(ratesSettings.getProperty("RateXp", "1."));
 			RATE_SP = Float.parseFloat(ratesSettings.getProperty("RateSp", "1."));
 			RATE_PARTY_XP = Float.parseFloat(ratesSettings.getProperty("RatePartyXp", "1."));
@@ -589,11 +616,6 @@ public final class Config extends L2Config
 			KARMA_RATE_DROP_ITEM = Integer.parseInt(ratesSettings.getProperty("KarmaRateDropItem", "50"));
 			KARMA_RATE_DROP_EQUIP = Integer.parseInt(ratesSettings.getProperty("KarmaRateDropEquip", "40"));
 			KARMA_RATE_DROP_EQUIP_WEAPON = Integer.parseInt(ratesSettings.getProperty("KarmaRateDropEquipWeapon", "10"));
-		}
-		catch (Exception e)
-		{
-			_log.error(e);
-			throw new Error("Failed to Load " + RATES_CONFIG_FILE + " File.");
 		}
 	}
 
@@ -645,13 +667,17 @@ public final class Config extends L2Config
 	public static int			AUGMENTATION_BASESTAT_CHANCE; // Chance to get a BaseStatModifier in the augmentation process
 
 	// *******************************************************************************************
-	public static void loadEnchantConfig()
+	private static final class EnchantConfig extends ConfigLoader
 	{
-		_log.info("loading " + ENCHANT_CONFIG_FILE);
-		try
+		@Override
+		protected String getName()
 		{
-			Properties enchantSettings = new L2Properties(ENCHANT_CONFIG_FILE);
-
+			return "enchant";
+		}
+		
+		@Override
+		protected void loadImpl(Properties enchantSettings) throws Exception
+		{
 			/* chance to enchant an item normal scroll */
 			ENCHANT_CHANCE_WEAPON = Integer.parseInt(enchantSettings.getProperty("EnchantChanceWeapon", "65"));
 			ENCHANT_CHANCE_ARMOR = Integer.parseInt(enchantSettings.getProperty("EnchantChanceArmor", "65"));
@@ -708,11 +734,6 @@ public final class Config extends L2Config
 			AUGMENTATION_BASESTAT_CHANCE		= Integer.parseInt(enchantSettings.getProperty("AugmentationBaseStatChance", "1"));
 			
 		}
-		catch (Exception e)
-		{
-			_log.error(e.getMessage(), e);
-			throw new Error("Failed to Load " + ENCHANT_CONFIG_FILE + " File.");
-		}
 	}
 
 	// *******************************************************************************************
@@ -742,13 +763,17 @@ public final class Config extends L2Config
 	public static boolean			CURSED_WEAPON_NPC_INTERACT;
 
 	// *******************************************************************************************
-	public static void loadPvpConfig()
+	private static final class PvPConfig extends ConfigLoader
 	{
-		_log.info("loading " + PVP_CONFIG_FILE);
-		try
+		@Override
+		protected String getName()
 		{
-			Properties pvpSettings = new L2Properties(PVP_CONFIG_FILE);
-
+			return "pvp";
+		}
+		
+		@Override
+		protected void loadImpl(Properties pvpSettings) throws Exception
+		{
 			/* KARMA SYSTEM */
 			KARMA_MIN_KARMA = Integer.parseInt(pvpSettings.getProperty("MinKarma", "240"));
 			KARMA_MAX_KARMA = Integer.parseInt(pvpSettings.getProperty("MaxKarma", "10000"));
@@ -783,12 +808,6 @@ public final class Config extends L2Config
 			PVP_PVP_TIME = Integer.parseInt(pvpSettings.getProperty("PvPVsPvPTime", "60000"));
 			PVP_TIME = PVP_NORMAL_TIME;
 			CURSED_WEAPON_NPC_INTERACT = Boolean.parseBoolean(pvpSettings.getProperty("CursedWeaponNpcInteract", "false"));
-
-		}
-		catch (Exception e)
-		{
-			_log.error(e);
-			throw new Error("Failed to Load " + PVP_CONFIG_FILE + " File.");
 		}
 	}
 
@@ -896,13 +915,17 @@ public final class Config extends L2Config
 
 	// *******************************************************************************************
 	// *******************************************************************************************
-	public static void loadOtherConfig()
+	private static final class OtherConfig extends ConfigLoader
 	{
-		_log.info("loading " + OTHER_CONFIG_FILE);
-		try
+		@Override
+		protected String getName()
 		{
-			Properties otherSettings = new L2Properties(OTHER_CONFIG_FILE);
-
+			return "other";
+		}
+		
+		@Override
+		protected void loadImpl(Properties otherSettings) throws Exception
+		{
 			DEEPBLUE_DROP_RULES = Boolean.parseBoolean(otherSettings.getProperty("UseDeepBlueDropRules", "True"));
 			EFFECT_CANCELING = Boolean.parseBoolean(otherSettings.getProperty("CancelLesserEffect", "True"));
 
@@ -996,11 +1019,6 @@ public final class Config extends L2Config
             BANKING_SYSTEM_GOLDBARS	= Integer.parseInt(otherSettings.getProperty("BankingGoldbarCount", "1"));
             BANKING_SYSTEM_ADENA	= Integer.parseInt(otherSettings.getProperty("BankingAdenaCount", "500000000"));
 		}
-		catch (Exception e)
-		{
-			_log.error(e);
-			throw new Error("Failed to Load " + OTHER_CONFIG_FILE + " File.");
-		}
 	}
 
 	// *******************************************************************************************
@@ -1030,7 +1048,7 @@ public final class Config extends L2Config
 	public static boolean			SHOW_HTML_GM;
 	public static int				LEVEL_HTML_NEWBIE;											// Show newbie html when player's level is < to define level
 	public static boolean			USE_SAY_FILTER;											// Config for use chat filter
-	public static ArrayList<String>	FILTER_LIST				= new ArrayList<String>();
+	public static String[]			FILTER_LIST = new String[0];
 	public static int				AUTODESTROY_ITEM_AFTER;									// Time after which item will auto-destroy
 	public static int				HERB_AUTO_DESTROY_TIME;									// Auto destroy herb time
 	public static String			PROTECTED_ITEMS;
@@ -1144,13 +1162,17 @@ public final class Config extends L2Config
 	public static boolean			BAN_CLIENT_EMULATORS;
 
 	// *******************************************************************************************
-	public static void loadOptionsConfig()
+	private static final class OptionsConfig extends ConfigLoader
 	{
-		_log.info("loading " + OPTIONS_FILE);
-		try
+		@Override
+		protected String getName()
 		{
-			Properties optionsSettings = new L2Properties(OPTIONS_FILE);
-
+			return "options";
+		}
+		
+		@Override
+		protected void loadImpl(Properties optionsSettings) throws Exception
+		{
 			ASSERT = Boolean.parseBoolean(optionsSettings.getProperty("Assert", "false"));
 			DEVELOPER = Boolean.parseBoolean(optionsSettings.getProperty("Developer", "false"));
 			SERVER_BIT_4 = Boolean.parseBoolean(optionsSettings.getProperty("TestServer", "false"));
@@ -1315,11 +1337,6 @@ public final class Config extends L2Config
 			ALLOW_MASTERWORK = Boolean.parseBoolean(optionsSettings.getProperty("AllowMasterwork", "False"));
 			ALLOW_CRITICAL_CRAFT = Boolean.parseBoolean(optionsSettings.getProperty("AllowCriticalCraft", "False"));
 			BAN_CLIENT_EMULATORS = Boolean.parseBoolean(optionsSettings.getProperty("AutoBanClientEmulators", "True"));
-		}
-		catch (Exception e)
-		{
-			_log.error(e.getMessage(), e);
-			throw new Error("Failed to Load " + OPTIONS_FILE + " File.");
 		}
 	}
 
@@ -1526,13 +1543,17 @@ public final class Config extends L2Config
 	// *******************************************************************************************
 	// *******************************************************************************************
 	// *******************************************************************************************
-	public static void loadAltConfig()
+	private static final class AltConfig extends ConfigLoader
 	{
-		_log.info("loading " + ALT_SETTINGS_FILE);
-		try
+		@Override
+		protected String getName()
 		{
-			Properties altSettings = new L2Properties(ALT_SETTINGS_FILE);
-
+			return "altsettings";
+		}
+		
+		@Override
+		protected void loadImpl(Properties altSettings) throws Exception
+		{
 			ALT_DEFAULT_RESTARTTOWN = Integer.parseInt(altSettings.getProperty("AltDefaultRestartTown", "0"));
 			ALT_GAME_TIREDNESS = Boolean.parseBoolean(altSettings.getProperty("AltGameTiredness", "false"));
 			ALT_GAME_CREATION = Boolean.parseBoolean(altSettings.getProperty("AltGameCreation", "false"));
@@ -1746,11 +1767,6 @@ public final class Config extends L2Config
 
 			ALT_TAX_CHANGE_DELAYED = Boolean.parseBoolean(altSettings.getProperty("CastleTaxChangeDelayed", "true"));
 		}
-		catch (Exception e)
-		{
-			_log.error(e);
-			throw new Error("Failed to Load " + ALT_SETTINGS_FILE + " File.");
-		}
 	}
 
 	// *******************************************************************************************
@@ -1826,13 +1842,17 @@ public final class Config extends L2Config
 
 
 	// *******************************************************************************************
-	public static void loadGmAccess()
+	private static final class GMAccessConfig extends ConfigLoader
 	{
-		_log.info("loading " + GM_ACCESS_FILE);
-		try
+		@Override
+		protected String getName()
 		{
-			Properties gmSettings = new L2Properties(GM_ACCESS_FILE);
-
+			return "gmaccess";
+		}
+		
+		@Override
+		protected void loadImpl(Properties gmSettings) throws Exception
+		{
 			GM_ACCESSLEVEL = Integer.parseInt(gmSettings.getProperty("GMAccessLevel", "100"));
 			GM_MIN = Integer.parseInt(gmSettings.getProperty("GMMinLevel", "100"));
 			GM_ALTG_MIN_LEVEL = Integer.parseInt(gmSettings.getProperty("GMCanAltG", "100"));
@@ -1914,11 +1934,6 @@ public final class Config extends L2Config
 			
 			GM_ITEM_RESTRICTION	= Boolean.parseBoolean(gmSettings.getProperty("GmItemRestriction", "False"));
 		}
-		catch (Exception e)
-		{
-			_log.error(e);
-			throw new Error("Failed to Load " + GM_ACCESS_FILE + " File.");
-		}
 	}
 	
 	// *******************************************************************************************
@@ -1996,13 +2011,17 @@ public final class Config extends L2Config
 	public static FastList<Integer>	SIEGE_HOUR_LIST_MORNING;
 	public static FastList<Integer>	SIEGE_HOUR_LIST_AFTERNOON;
 
-	public static void loadSiegeConfig()
+	private static final class SiegeConfig extends ConfigLoader
 	{
-		_log.info("loading " + SIEGE_CONFIGURATION_FILE);
-		try
+		@Override
+		protected String getName()
 		{
-			Properties siegeSettings = new L2Properties(SIEGE_CONFIGURATION_FILE);
-
+			return "siege";
+		}
+		
+		@Override
+		protected void loadImpl(Properties siegeSettings) throws Exception
+		{
 			SIEGE_MAX_ATTACKER = Integer.parseInt(siegeSettings.getProperty("AttackerMaxClans", "500"));
 			SIEGE_MAX_DEFENDER = Integer.parseInt(siegeSettings.getProperty("DefenderMaxClans", "500"));
 			SIEGE_RESPAWN_DELAY_ATTACKER = Integer.parseInt(siegeSettings.getProperty("AttackerRespawn", "0"));
@@ -2063,11 +2082,6 @@ public final class Config extends L2Config
 				}
 			}
 		}
-		catch (Exception e)
-		{
-			_log.error(e);
-			throw new Error("Failed to Load " + SIEGE_CONFIGURATION_FILE + " File.");
-		}
 	}
 
 	// *******************************************************************************************
@@ -2097,13 +2111,17 @@ public final class Config extends L2Config
 	public static int			FS_SUPPORT1_FEE;
 	public static int			FS_SUPPORT2_FEE;
 
-	public static void loadFortSiegeConfig()
+	private static final class FortSiegeConfig extends ConfigLoader
 	{
-		_log.info("loading " + FORTSIEGE_CONFIGURATION_FILE);
-		try
+		@Override
+		protected String getName()
 		{
-			Properties fortSiegeSettings = new L2Properties(FORTSIEGE_CONFIGURATION_FILE);
-
+			return "fortsiege";
+		}
+		
+		@Override
+		protected void loadImpl(Properties fortSiegeSettings) throws Exception
+		{
 			FORTSIEGE_MAX_ATTACKER = Integer.parseInt(fortSiegeSettings.getProperty("AttackerMaxClans", "500"));
 			FORTSIEGE_FLAG_MAX_COUNT = Integer.parseInt(fortSiegeSettings.getProperty("MaxFlags", "1"));
 			FORTSIEGE_CLAN_MIN_LEVEL = Integer.parseInt(fortSiegeSettings.getProperty("SiegeClanMinLevel", "4"));
@@ -2127,11 +2145,6 @@ public final class Config extends L2Config
 			FS_EXPREG_FEE_RATIO         = Long.parseLong(fortSiegeSettings.getProperty("FortressExpRegenerationFunctionFeeRatio", "86400000"));
 			FS_EXPREG1_FEE              = Integer.parseInt(fortSiegeSettings.getProperty("FortressExpRegenerationFeeLvl1", "9000"));
 			FS_EXPREG2_FEE              = Integer.parseInt(fortSiegeSettings.getProperty("FortressExpRegenerationFeeLvl2", "10000"));
-		}
-		catch (Exception e)
-		{
-			_log.error(e);
-			throw new Error("Failed to Load " + FORTSIEGE_CONFIGURATION_FILE + " File.");
 		}
 	}
 
@@ -2218,14 +2231,18 @@ public final class Config extends L2Config
 	public static final Map<String, Integer>	GM_COMMAND_PRIVILEGES	= new FastMap<String, Integer>();
 
 	// *******************************************************************************************
-	public static void loadPrivilegesConfig()
+	private static final class CommandPrivilegesConfig extends ConfigLoader
 	{
-		_log.info("loading " + COMMAND_PRIVILEGES_FILE);
-		try
+		@Override
+		protected String getName()
 		{
-			Properties CommandPrivileges = new L2Properties(COMMAND_PRIVILEGES_FILE);
-
-			for (Map.Entry<Object, Object> _command : CommandPrivileges.entrySet())
+			return "command-privileges";
+		}
+		
+		@Override
+		protected void loadImpl(Properties commandPrivileges) throws Exception
+		{
+			for (Map.Entry<Object, Object> _command : commandPrivileges.entrySet())
 			{
 				String command = String.valueOf(_command.getKey());
 				String commandLevel = String.valueOf(_command.getValue()).trim();
@@ -2243,11 +2260,6 @@ public final class Config extends L2Config
 
 				GM_COMMAND_PRIVILEGES.put(command, accessLevel);
 			}
-		}
-		catch (Exception e)
-		{
-			_log.error(e);
-			throw new Error("Failed to Load " + COMMAND_PRIVILEGES_FILE + " File.");
 		}
 	}
 
@@ -2277,13 +2289,17 @@ public final class Config extends L2Config
 	public static double		ALT_SIEGE_DUSK_GATES_MDEF_MULT;
 
 	// *******************************************************************************************
-	public static void loadSevenSignsConfig()
+	private static final class SevenSignsConfig extends ConfigLoader
 	{
-		_log.info("loading " + SEVENSIGNS_FILE);
-		try
+		@Override
+		protected String getName()
 		{
-			Properties SevenSettings = new L2Properties(SEVENSIGNS_FILE);
-
+			return "sevensigns";
+		}
+		
+		@Override
+		protected void loadImpl(Properties SevenSettings) throws Exception
+		{
 			ALT_GAME_CASTLE_DAWN = Boolean.parseBoolean(SevenSettings.getProperty("AltCastleForDawn", "True"));
 			ALT_GAME_CASTLE_DUSK = Boolean.parseBoolean(SevenSettings.getProperty("AltCastleForDusk", "True"));
 			ALT_FESTIVAL_MIN_PLAYER = Integer.parseInt(SevenSettings.getProperty("AltFestivalMinPlayer", "5"));
@@ -2305,11 +2321,6 @@ public final class Config extends L2Config
 			ALT_SIEGE_DUSK_GATES_PDEF_MULT = Double.parseDouble(SevenSettings.getProperty("AltDuskGatesPdefMult", "0.8"));
 			ALT_SIEGE_DAWN_GATES_MDEF_MULT = Double.parseDouble(SevenSettings.getProperty("AltDawnGatesMdefMult", "1.1"));
 			ALT_SIEGE_DUSK_GATES_MDEF_MULT = Double.parseDouble(SevenSettings.getProperty("AltDuskGatesMdefMult", "0.8"));
-		}
-		catch (Exception e)
-		{
-			_log.error(e);
-			throw new Error("Failed to Load " + SEVENSIGNS_FILE + " File.");
 		}
 	}
 
@@ -2369,13 +2380,17 @@ public final class Config extends L2Config
 	public static int			CH_FRONT2_FEE;
 
 	// *******************************************************************************************
-	public static void loadClanHallConfig()
+	private static final class ClanHallConfig extends ConfigLoader
 	{
-		_log.info("loading " + CLANHALL_CONFIG_FILE);
-		try
+		@Override
+		protected String getName()
 		{
-			Properties clanhallSettings = new L2Properties(CLANHALL_CONFIG_FILE);
-
+			return "clanhall";
+		}
+		
+		@Override
+		protected void loadImpl(Properties clanhallSettings) throws Exception
+		{
 			CH_TELE_FEE_RATIO = Long.parseLong(clanhallSettings.getProperty("ClanHallTeleportFunctionFeeRatio", "604800000"));
 			CH_TELE1_FEE = Integer.parseInt(clanhallSettings.getProperty("ClanHallTeleportFunctionFeeLvl1", "7000"));
 			CH_TELE2_FEE = Integer.parseInt(clanhallSettings.getProperty("ClanHallTeleportFunctionFeeLvl2", "14000"));
@@ -2427,11 +2442,6 @@ public final class Config extends L2Config
 			CH_FRONT1_FEE = Integer.parseInt(clanhallSettings.getProperty("ClanHallFrontPlatformFunctionFeeLvl1", "1300"));
 			CH_FRONT2_FEE = Integer.parseInt(clanhallSettings.getProperty("ClanHallFrontPlatformFunctionFeeLvl2", "4000"));
 		}
-		catch (Exception e)
-		{
-			_log.error(e.getMessage(), e);
-			throw new Error("Failed to Load " + CLANHALL_CONFIG_FILE + " File.");
-		}
 	}
 
 	// *******************************************************************************************
@@ -2479,13 +2489,17 @@ public final class Config extends L2Config
 	public static int			CS_REINFORCE_WALL3_FEE;
 
 	// *******************************************************************************************
-	public static void loadCastleConfig()
+	private static final class CastleConfig extends ConfigLoader
 	{
-		_log.info("loading " + CASTLE_CONFIG_FILE);
-		try
+		@Override
+		protected String getName()
 		{
-			Properties castleSettings = new L2Properties(CASTLE_CONFIG_FILE);
-
+			return "castle";
+		}
+		
+		@Override
+		protected void loadImpl(Properties castleSettings) throws Exception
+		{
 			CS_TELE_FEE_RATIO = Long.parseLong(castleSettings.getProperty("CastleTeleportFunctionFeeRatio", "604800000"));
 			CS_TELE1_FEE = Integer.parseInt(castleSettings.getProperty("CastleTeleportFunctionFeeLvl1", "7000"));
 			CS_TELE2_FEE = Integer.parseInt(castleSettings.getProperty("CastleTeleportFunctionFeeLvl2", "14000"));
@@ -2525,11 +2539,6 @@ public final class Config extends L2Config
 			CS_REINFORCE_WALL1_FEE = Integer.parseInt(castleSettings.getProperty("CastleReinforceWallsFeeLvl1", "1600000"));
 			CS_REINFORCE_WALL2_FEE = Integer.parseInt(castleSettings.getProperty("CastleReinforceWallsFeeLvl2", "1800000"));
 			CS_REINFORCE_WALL3_FEE = Integer.parseInt(castleSettings.getProperty("CastleReinforceWallsFeeLvl3", "3000000"));
-		}
-		catch (Exception e)
-		{
-			_log.error(e.getMessage(), e);
-			throw new Error("Failed to Load " + CASTLE_CONFIG_FILE + " File.");
 		}
 	}
 
@@ -2585,13 +2594,17 @@ public final class Config extends L2Config
 
 	// *******************************************************************************************
 	// *******************************************************************************************
-	public static void loadFunEnginesConfig()
+	private static final class FunEnginesConfig extends ConfigLoader
 	{
-		_log.info("loading " + FUN_ENGINES_FILE);
-		try
+		@Override
+		protected String getName()
 		{
-			Properties funEnginesSettings = new L2Properties(FUN_ENGINES_FILE);
-
+			return "fun_engines";
+		}
+		
+		@Override
+		protected void loadImpl(Properties funEnginesSettings) throws Exception
+		{
 			CTF_EVEN_TEAMS = funEnginesSettings.getProperty("CTFEvenTeams", "BALANCE");
 			CTF_ALLOW_INTERFERENCE = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFAllowInterference", "false"));
 			CTF_ALLOW_POTIONS = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFAllowPotions", "false"));
@@ -2654,12 +2667,6 @@ public final class Config extends L2Config
 			FISHERMAN_INTERVAL = Integer.parseInt(funEnginesSettings.getProperty("FishermanInterval", "60"));
 			FISHERMAN_REWARD_ID = Integer.parseInt(funEnginesSettings.getProperty("FishermanRewardId", "57"));
 			FISHERMAN_REWARD_COUNT = Integer.parseInt(funEnginesSettings.getProperty("FishermanRewardCount", "100"));
-
-		}
-		catch (Exception e)
-		{
-			_log.error(e.getMessage(), e);
-			throw new Error("Failed to Load " + FUN_ENGINES_FILE + " File.");
 		}
 	}
 
@@ -2689,13 +2696,17 @@ public final class Config extends L2Config
 	public static String		IRC_TO_GAME_ME_DISPLAY;
 
 	// *******************************************************************************************
-	public static void loadIrcConfig()
+	private static final class IRCConfig extends ConfigLoader
 	{
-		_log.info("loading " + IRC_FILE);
-		try
+		@Override
+		protected String getName()
 		{
-			Properties ircSettings = new L2Properties(IRC_FILE);
-
+			return "irc";
+		}
+		
+		@Override
+		protected void loadImpl(Properties ircSettings) throws Exception
+		{
 			IRC_ENABLED = Boolean.parseBoolean(ircSettings.getProperty("Enable", "false"));
 			IRC_LOG_CHAT = Boolean.parseBoolean(ircSettings.getProperty("LogChat", "false"));
 			IRC_SSL = Boolean.parseBoolean(ircSettings.getProperty("SSL", "false"));
@@ -2717,11 +2728,6 @@ public final class Config extends L2Config
 			IRC_TO_GAME_DISPLAY = ircSettings.getProperty("IrcToGameDisplay", "trade");
 			IRC_ME_SUPPORT = Boolean.parseBoolean(ircSettings.getProperty("IrcMeSupport", "false"));
 			IRC_TO_GAME_ME_DISPLAY = ircSettings.getProperty("IrcToGameMeDisplay", "trade");
-		}
-		catch (Exception e)
-		{
-			_log.error(e.getMessage(), e);
-			throw new Error("Failed to Load " + IRC_FILE + " File.");
 		}
 	}
 
@@ -2815,13 +2821,17 @@ public final class Config extends L2Config
 	public static int			LIT_TIME_LIMIT;
 
 	// *******************************************************************************************
-	public static void loadBossConfig()
+	private static final class BossConfig extends ConfigLoader
 	{
-		_log.info("loading " + BOSS_FILE);
-		try
+		@Override
+		protected String getName()
 		{
-			Properties bossSettings = new L2Properties(BOSS_FILE);
-
+			return "boss";
+		}
+		
+		@Override
+		protected void loadImpl(Properties bossSettings) throws Exception
+		{
 			//antharas
 			FWA_FIXINTERVALOFANTHARAS = Integer.parseInt(bossSettings.getProperty("FixIntervalOfAntharas", "11520"));
 			if (FWA_FIXINTERVALOFANTHARAS < 5 || FWA_FIXINTERVALOFANTHARAS > 20160)
@@ -3045,11 +3055,6 @@ public final class Config extends L2Config
 			LIT_MAX_PLAYER_CNT = Integer.parseInt(bossSettings.getProperty("MaxPlayerCount", "45"));
 			LIT_TIME_LIMIT = Integer.parseInt(bossSettings.getProperty("TimeLimit", "35"));
 		}
-		catch (Exception e)
-		{
-			_log.error(e.getMessage(), e);
-			throw new Error("Failed to Load " + BOSS_FILE + " File.");
-		}
 	}
 
 	// *******************************************************************************************
@@ -3074,34 +3079,44 @@ public final class Config extends L2Config
 	public static final String	SAY_FILTER_FILE	= "./config/sayfilter.txt";
 
 	// *******************************************************************************************
-	public static void loadSayFilter()
+	private static final class SayFilterConfig extends ConfigLoader
 	{
-		_log.info("loading " + SAY_FILTER_FILE);
-		if (USE_SAY_FILTER)
+		@Override
+		protected String getFileName()
+		{
+			return SAY_FILTER_FILE;
+		}
+		
+		@Override
+		protected String getName()
+		{
+			return "sayfilter";
+		}
+		
+		@Override
+		protected void loadReader(BufferedReader reader) throws Exception
 		{
 			try
 			{
-				LineNumberReader lnr = null;
-				File say_filter = new File(SAY_FILTER_FILE);
-				lnr = new LineNumberReader(new BufferedReader(new FileReader(say_filter)));
-				String line = null;
-				while ((line = lnr.readLine()) != null)
+				FILTER_LIST = new String[0];
+				if (USE_SAY_FILTER)
 				{
-					if (line.trim().length() == 0 || line.startsWith("#"))
+					for (String line; (line = reader.readLine()) != null;)
 					{
-						continue;
+						line = line.trim();
+						
+						if (line.length() == 0 || line.startsWith("#"))
+							continue;
+						
+						FILTER_LIST = (String[])ArrayUtils.add(FILTER_LIST, line);
 					}
-					FILTER_LIST.add(line);
+					
+					_log.info("Say Filter: Loaded " + FILTER_LIST.length + " words");
 				}
-				_log.info("Say Filter: Loaded " + FILTER_LIST.size() + " words");
 			}
-			catch (FileNotFoundException e)
+			finally
 			{
-				_log.warn("sayfilter.txt is missing in config folder");
-			}
-			catch (Exception e)
-			{
-				_log.warn("error loading say filter: " + e);
+				IOUtils.closeQuietly(reader);
 			}
 		}
 	}
@@ -3115,47 +3130,20 @@ public final class Config extends L2Config
 
 	// *******************************************************************************************
 	// *******************************************************************************************
-	public static void loadElayneConfig()
+	private static final class ElayneConfig extends ConfigLoader
 	{
-		_log.info("loading " + ELAYNE_FILE);
-		try
+		@Override
+		protected String getName()
 		{
-			Properties elayneSettings = new L2Properties(ELAYNE_FILE);
-
+			return "elayne";
+		}
+		
+		@Override
+		protected void loadImpl(Properties elayneSettings) throws Exception
+		{
 			ALLOW_RMI_SERVER = Boolean.valueOf(elayneSettings.getProperty("AllowRMIServer", "False"));
 			RMI_SERVER_PASSWORD = elayneSettings.getProperty("RMIServerPassword", "******");
 			RMI_SERVER_PORT = Integer.parseInt(elayneSettings.getProperty("RMIServerPort", "1099"));
-		}
-		catch (Exception e)
-		{
-			_log.error(e);
-			throw new Error("Failed to Load " + ELAYNE_FILE + " File.");
-		}
-	}
-
-	// *******************************************************************************************
-
-	// *******************************************************************************************
-	public static final String	INFRACTIONS_FILE	= "./config/infractions.properties";
-	// *******************************************************************************************
-	public static int			INFRACTION_BAN_MODE;
-
-	// *******************************************************************************************
-	// *******************************************************************************************
-	public static void loadInfractionsConfig()
-	{
-		_log.info("loading " + INFRACTIONS_FILE);
-		try
-		{
-			Properties infractionsSettings = new L2Properties(INFRACTIONS_FILE);
-
-			INFRACTION_BAN_MODE = Integer.parseInt(infractionsSettings.getProperty("BanMode", "0"));
-
-		}
-		catch (Exception e)
-		{
-			_log.error(e);
-			throw new Error("Failed to Load " + INFRACTIONS_FILE + " File.");
 		}
 	}
 
@@ -3179,12 +3167,17 @@ public final class Config extends L2Config
 	public static float			RATE_RECOVERY_ON_RECONNECT;
 
 	// *******************************************************************************************
-	public static void loadVitalityConfig()
+	private static final class VitalityConfig extends ConfigLoader
 	{
-		_log.info("loading " + VITALITY_FILE);
-		try
+		@Override
+		protected String getName()
 		{
-			Properties vitalitySettings = new L2Properties(VITALITY_FILE);
+			return "vitality";
+		}
+		
+		@Override
+		protected void loadImpl(Properties vitalitySettings) throws Exception
+		{
 			ENABLE_VITALITY = Boolean.parseBoolean(vitalitySettings.getProperty("EnableVitality", "False"));
 			RECOVER_VITALITY_ON_RECONNECT = Boolean.parseBoolean(vitalitySettings.getProperty("RecoverVitalityOnReconnect", "True"));
 			ENABLE_VITALITY_CHAMPION = Boolean.parseBoolean(vitalitySettings.getProperty("EnableVitalityOnChampion", "False"));
@@ -3198,12 +3191,6 @@ public final class Config extends L2Config
 			RATE_VITALITY_LOST = Float.parseFloat(vitalitySettings.getProperty("RateVitalityLost", "1."));
 			RATE_VITALITY_GAIN = Float.parseFloat(vitalitySettings.getProperty("RateVitalityGain", "1."));
 			RATE_RECOVERY_ON_RECONNECT = Float.parseFloat(vitalitySettings.getProperty("RateRecoveryOnReconnect", "4."));
-
-		}
-		catch (Exception e)
-		{
-			_log.error(e.getMessage(), e);
-			throw new Error("Failed to Load " + VITALITY_FILE + " File.");
 		}
 	}
 
@@ -3299,61 +3286,43 @@ public final class Config extends L2Config
 
 	}
 
-	/** Enumeration for type of maps object */
-	public static enum ObjectMapType
-	{
-		L2ObjectHashMap, WorldObjectMap
-	}
-
-	/** Enumeration for type of set object */
-	public static enum ObjectSetType
-	{
-		L2ObjectHashSet, WorldObjectSet
-	}
-
 	public static boolean	FACTION_ENABLED		= false;
 	public static boolean	FACTION_KILL_REWARD	= false;
 	public static int		FACTION_KILL_RATE	= 1000;
 	public static int		FACTION_QUEST_RATE	= 1;
 
-	public static void load()
+	public static void load() throws Exception
 	{
 		loadLogConfig(); // must be loaded b4 first log output
 		Util.printSection("Configuration");
 		loadConfiguration();
 		loadHexId();
 		loadSubnets();
-		loadRatesConfig();
-		loadEnchantConfig();
-		loadPvpConfig();
 		loadTelnetConfig();
-		loadOptionsConfig();
-		loadOtherConfig();
-		loadGeoConfig();
-		loadAltConfig();
-		loadClansConfig();
-		loadChampionsConfig();
-		loadLotteryConfig();
-		loadWeddingConfig();
-		loadSiegeConfig();
-		loadFortSiegeConfig();
-		loadClanHallConfig();
-		loadCastleConfig();
 		loadIdFactoryConfig();
-		loadFunEnginesConfig();
-		loadSevenSignsConfig();
-		loadGmAccess();
-		loadPrivilegesConfig();
-		loadIrcConfig();
-		loadBossConfig();
-		loadSayFilter();
-		loadElayneConfig();
-		loadVitalityConfig();
 		loadDateTimeConfig();
-
 		initDBProperties();
+		
+		L2Config.loadConfigs();
+		
+		registerConfig(new AllConfig());
 	}
 
+	private static final class AllConfig extends ConfigLoader
+	{
+		@Override
+		protected String getName()
+		{
+			return "all";
+		}
+		
+		@Override
+		protected void load() throws Exception
+		{
+			load();
+		}
+	}
+	
 	/**
 	 * Set a new value to a game parameter from the admin console.
 	 * 

@@ -51,7 +51,6 @@ import com.l2jfree.gameserver.datatables.TeleportLocationTable;
 import com.l2jfree.gameserver.datatables.TradeListTable;
 import com.l2jfree.gameserver.instancemanager.IrcManager;
 import com.l2jfree.gameserver.instancemanager.Manager;
-import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.instancemanager.ZoneManager;
 import com.l2jfree.gameserver.model.GMAudit;
 import com.l2jfree.gameserver.model.L2ItemInstance;
@@ -881,122 +880,11 @@ public final class GameStatusThread extends Thread
 					
 					try
 					{
-						String type = st.nextToken();
-						if (type.equals("all"))
-						{
-							Config.load();
-							_print.println("All configs reloaded");
-						}
-						else if (type.equals("rates"))
-						{
-							Config.loadRatesConfig();
-							_print.println("Rates config reloaded");
-						}
-						else if (type.equals("enchant"))
-						{
-							Config.loadEnchantConfig();
-							_print.println("Enchant config reloaded");
-						}
-						else if (type.equals("pvp"))
-						{
-							Config.loadPvpConfig();
-							_print.println("Pvp config reloaded");
-						}
-						else if (type.equals("options"))
-						{
-							Config.loadOptionsConfig();
-							_print.println("Options config reloaded");
-						}
-						else if (type.equals("other"))
-						{
-							Config.loadOtherConfig();
-							_print.println("Other config reloaded");
-						}
-						else if (type.equals("alt"))
-						{
-							Config.loadAltConfig();
-							_print.println("Alt config reloaded");
-						}
-						else if (type.equals("clans"))
-						{
-							Config.loadClansConfig();
-							_print.println("Clans config reloaded");
-						}
-						else if (type.equals("champions"))
-						{
-							Config.loadChampionsConfig();
-							_print.println("Champions config reloaded");
-						}
-						else if (type.equals("lottery"))
-						{
-							Config.loadLotteryConfig();
-							_print.println("Lottery config reloaded");
-						}
-						else if (type.equals("clanhall"))
-						{
-							Config.loadClanHallConfig();
-							_print.println("Clanhall config reloaded");
-						}
-						else if (type.equals("funengines"))
-						{
-							Config.loadFunEnginesConfig();
-							_print.println("Fun egines config reloaded");
-						}
-						else if (type.equals("sevensigns"))
-						{
-							Config.loadSevenSignsConfig();
-							_print.println("Seven Signs config reloaded");
-						}
-						else if (type.equals("gmconf"))
-						{
-							Config.loadGmAccess();
-							_print.println("Gm config reloaded");
-						}
-						else if (type.equals("irc"))
-						{
-							Config.loadIrcConfig();
-							_print.println("Irc config reloaded");
-						}
-						else if (type.equals("boss"))
-						{
-							Config.loadBossConfig();
-							_print.println("Boss config reloaded");
-						}
-						else if (type.equals("sayfilter"))
-						{
-							Config.loadSayFilter();
-							_print.println("Sayfilter reloaded");
-						}
-						else if (type.equals("access"))
-						{
-							Config.loadPrivilegesConfig();
-							_print.println("Access config reloaded");
-						}
-						else if (type.equals("siege"))
-						{
-							SiegeManager.getInstance().reload();
-							_print.println("Siege config reloaded");
-						}
-						else if (type.equals("wedding"))
-						{
-							Config.loadWeddingConfig();
-							_print.println("Wedding config reloaded");
-						}
-						else if (type.equals("elayne"))
-						{
-							Config.loadElayneConfig();
-							_print.println("Elayne config reloaded");
-						}
-						else
-						{
-							_print
-								.println("Usage:  reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|wedding|elayne>");
-						}
+						_print.println(L2Config.loadConfig(st.nextToken()));
 					}
 					catch (Exception e)
 					{
-						_print
-							.println("Usage:  reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|wedding|elayne>");
+						_print.println("Usage:  reload_config <" + L2Config.getLoaderNames() + ">");
 					}
 				}
 				else if (_usrCommand.startsWith("reload"))

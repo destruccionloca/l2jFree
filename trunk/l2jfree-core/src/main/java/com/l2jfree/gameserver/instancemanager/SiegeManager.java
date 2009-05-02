@@ -28,6 +28,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
+import com.l2jfree.L2Config;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.config.L2Properties;
 import com.l2jfree.gameserver.SevenSigns;
@@ -347,7 +348,14 @@ public class SiegeManager
 	{
 		_artefactSpawnList.clear();
 		_controlTowerSpawnList.clear();
-		Config.loadSiegeConfig();
+		try
+		{
+			L2Config.loadConfig("siege");
+		}
+		catch (Exception e)
+		{
+			throw new RuntimeException(e);
+		}
 		loadTowerArtefacts();
 	}
 

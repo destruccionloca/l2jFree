@@ -14,8 +14,17 @@
  */
 package com.l2jfree;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.Map;
+import java.util.Properties;
+import java.util.TreeMap;
+
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import com.l2jfree.config.L2Properties;
 
 /**
  * @author evill33t
@@ -29,5 +38,81 @@ public abstract class L2Config
 	protected L2Config()
 	{
 		throw new InternalError();
+	}
+	
+	private static final Map<String, ConfigLoader> _loaders = new TreeMap<String, ConfigLoader>();
+	
+	protected static void registerConfig(ConfigLoader loader)
+	{
+		_loaders.put(standardizeLoaderName(loader.getName()), loader);
+	}
+	
+	public static void loadConfigs() throws Exception
+	{
+		for (ConfigLoader loader : _loaders.values())
+			loader.load();
+	}
+	
+	public static String loadConfig(String name) throws Exception
+	{
+		final ConfigLoader loader = _loaders.get(standardizeLoaderName(name));
+		
+		if (loader == null)
+			throw new Exception();
+		
+		try
+		{
+			loader.load();
+			return "'" + loader.getFileName() + "' reloaded!";
+		}
+		catch (Exception e)
+		{
+			return e.getMessage();
+		}
+	}
+	
+	public static String getLoaderNames()
+	{
+		return StringUtils.join(_loaders.keySet().iterator(), "|");
+	}
+	
+	private static String standardizeLoaderName(String name)
+	{
+		return name.toLowerCase().trim();
+	}
+	
+	protected static abstract class ConfigLoader
+	{
+		protected abstract String getName();
+		
+		protected String getFileName()
+		{
+			return "./config/" + standardizeLoaderName(getName()) + ".properties";
+		}
+		
+		protected void load() throws Exception
+		{
+			_log.info("loading '" + getFileName() + "'");
+			
+			try
+			{
+				loadReader(new BufferedReader(new FileReader(getFileName())));
+			}
+			catch (Exception e)
+			{
+				_log.fatal("Failed to load '" + getFileName() + "'!", e);
+				
+				throw new Exception("Failed to load '" + getFileName() + "'!");
+			}
+		}
+		
+		protected void loadReader(BufferedReader reader) throws Exception
+		{
+			loadImpl(new L2Properties(reader));
+		}
+		
+		protected void loadImpl(Properties properties) throws Exception
+		{
+		}
 	}
 }

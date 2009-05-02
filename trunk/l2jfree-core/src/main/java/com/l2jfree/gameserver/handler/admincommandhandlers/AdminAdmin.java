@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.handler.admincommandhandlers;
 
-import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
 import javolution.text.TextBuilder;
@@ -23,6 +22,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
+import com.l2jfree.L2Config;
 import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.datatables.GmListTable;
@@ -137,146 +137,14 @@ public class AdminAdmin implements IAdminCommandHandler
 		{
 			StringTokenizer st = new StringTokenizer(command);
 			st.nextToken();
-
+			
 			try
 			{
-				String type = st.nextToken();
-				if (type.equals("all"))
-				{
-					Config.load();
-					activeChar.sendMessage("All configs reloaded");
-				}
-				else if (type.equals("rates"))
-				{
-					Config.loadRatesConfig();
-					activeChar.sendMessage("Rates config reloaded");
-				}
-				else if (type.equals("enchant"))
-				{
-					Config.loadEnchantConfig();
-					activeChar.sendMessage("Enchant config reloaded");
-				}
-				else if (type.equals("pvp"))
-				{
-					Config.loadPvpConfig();
-					activeChar.sendMessage("Pvp config reloaded");
-				}
-				else if (type.equals("options"))
-				{
-					Config.loadOptionsConfig();
-					activeChar.sendMessage("Options config reloaded");
-				}
-				else if (type.equals("other"))
-				{
-					Config.loadOtherConfig();
-					activeChar.sendMessage("Other config reloaded");
-				}
-				else if (type.equals("alt"))
-				{
-					Config.loadAltConfig();
-					activeChar.sendMessage("Alt config reloaded");
-				}
-				else if (type.equals("clans"))
-				{
-					Config.loadClansConfig();
-					activeChar.sendMessage("Clans config reloaded");
-				}
-				else if (type.equals("champions"))
-				{
-					Config.loadChampionsConfig();
-					activeChar.sendMessage("Champions config reloaded");
-				}
-				else if (type.equals("lottery"))
-				{
-					Config.loadLotteryConfig();
-					activeChar.sendMessage("Lottery config reloaded");
-				}
-				else if (type.equals("clanhall"))
-				{
-					Config.loadClanHallConfig();
-					activeChar.sendMessage("Clanhall config reloaded");
-				}
-				else if (type.equals("funengines"))
-				{
-					Config.loadFunEnginesConfig();
-					activeChar.sendMessage("Fun engines config reloaded");
-				}
-				else if (type.equals("sevensigns"))
-				{
-					Config.loadSevenSignsConfig();
-					activeChar.sendMessage("Seven Signs config reloaded");
-				}
-				else if (type.equals("gmconf"))
-				{
-					Config.loadGmAccess();
-					activeChar.sendMessage("Gm config reloaded");
-				}
-				else if (type.equals("irc"))
-				{
-					Config.loadIrcConfig();
-					activeChar.sendMessage("Irc config reloaded");
-				}
-				else if (type.equals("boss"))
-				{
-					Config.loadBossConfig();
-					activeChar.sendMessage("Boss config reloaded");
-				}
-				else if (type.equals("sayfilter"))
-				{
-					Config.loadSayFilter();
-					activeChar.sendMessage("Sayfilter reloaded");
-				}
-				else if (type.equals("access"))
-				{
-					Config.loadPrivilegesConfig();
-					activeChar.sendMessage("Access config reloaded");
-				}
-				else if (type.equals("fortsiege"))
-				{
-					Config.loadFortSiegeConfig();
-					activeChar.sendMessage("FortSiege config reloaded");
-				}
-				else if (type.equals("siege"))
-				{
-					Config.loadSiegeConfig();
-					activeChar.sendMessage("Siege config reloaded");
-				}
-				else if (type.equals("wedding"))
-				{
-					Config.loadWeddingConfig();
-					activeChar.sendMessage("Wedding config reloaded");
-				}
-				else if (type.equals("elayne"))
-				{
-					Config.loadElayneConfig();
-					activeChar.sendMessage("Elayne config reloaded");
-				}
-				else if (type.equals("geodata"))
-				{
-					Config.loadGeoConfig();
-					activeChar.sendMessage("Geodata config reloaded");
-				}
-				else if (type.equals("vitality"))
-				{
-					Config.loadVitalityConfig();
-					activeChar.sendMessage("Vitality config reloaded");
-				}
-				else
-				{
-					activeChar
-						.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|fortsiege|wedding|elayne|geodata|vitality>");
-				}
-			}
-			catch (NoSuchElementException e)
-			{
-				// No args, reload all config
-				Config.load();
-				activeChar.sendMessage("All configs reloaded");
+				activeChar.sendMessage(L2Config.loadConfig(st.nextToken()));
 			}
 			catch (Exception e)
 			{
-				activeChar
-					.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|fortsiege|wedding|elayne|geodata|vitality>");
+				activeChar.sendMessage("Usage:  //reload_config <" + L2Config.getLoaderNames() + ">");
 			}
 		}
 		else if (command.startsWith("admin_summon_npc"))
