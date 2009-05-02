@@ -57,6 +57,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.threadmanager.ExclusiveTask;
 import com.l2jfree.gameserver.util.Broadcast;
+import com.l2jfree.util.L2FastSet;
 
 public class Siege extends AbstractSiege
 {
@@ -121,77 +122,76 @@ public class Siege extends AbstractSiege
 				cancel();
 				return;
 			}
-
+			
 			final long timeRemaining = _siegeEndDate.getTimeInMillis() - System.currentTimeMillis();
-
+			
 			if (timeRemaining <= 0)
-            {
+			{
 				endSiege();
 				cancel();
 				return;
-            }
+			}
 			
 			if (3600000 > timeRemaining)
-            {
+			{
 				if (timeRemaining > 120000)
 					announceToPlayer(new SystemMessage(SystemMessageId.S1_MINUTES_UNTIL_SIEGE_CONCLUSION).addNumber(Math.round(timeRemaining / 60000)), true);
 				else
 					announceToPlayer(new SystemMessage(SystemMessageId.CASTLE_SIEGE_S1_SECONDS_LEFT).addNumber(Math.round(timeRemaining / 1000)), true);
-            }
-
+			}
+			
 			int divider;
 			
 			if (timeRemaining > 3600000)
 				divider = 3600000; // 1 hour
-			
+				
 			else if (timeRemaining > 600000)
 				divider = 600000; // 10 min
-			
+				
 			else if (timeRemaining > 60000)
 				divider = 60000; // 1 min
-			
+				
 			else if (timeRemaining > 10000)
 				divider = 10000; // 10 sec
-			
+				
 			else
 				divider = 1000; // 1 sec
-
+				
 			schedule(timeRemaining % divider);
-        }
+		}
 	};
-
-	private final ExclusiveTask _startSiegeTask = new ExclusiveTask()
-	{
+	
+	private final ExclusiveTask _startSiegeTask = new ExclusiveTask() {
 		@Override
 		protected void onElapsed()
-        {
-            if (getIsInProgress())
+		{
+			if (getIsInProgress())
 			{
 				cancel();
-                return;
+				return;
 			}
-
-            if (!getIsTimeRegistrationOver())
-            {
+			
+			if (!getIsTimeRegistrationOver())
+			{
 				long regTimeRemaining = getTimeRegistrationOverDate().getTimeInMillis() - System.currentTimeMillis();
 				
-                if (regTimeRemaining > 0)
-                {
+				if (regTimeRemaining > 0)
+				{
 					schedule(regTimeRemaining);
-                    return;
-                }
-
-                endTimeRegistration(true);
-            }
-
+					return;
+				}
+				
+				endTimeRegistration(true);
+			}
+			
 			final long timeRemaining = getSiegeDate().getTimeInMillis() - System.currentTimeMillis();
 			
 			if (timeRemaining <= 0)
-            {
+			{
 				startSiege();
 				cancel();
 				return;
-            }
+			}
 			
 			if (86400000 > timeRemaining)
 			{
@@ -210,49 +210,48 @@ public class Siege extends AbstractSiege
 				
 				else
 					announceToPlayer(getCastle().getName() + " siege " + Math.round(timeRemaining / 1000.0) + " second(s) to start!", false);
-            }
+			}
 			
 			int divider;
 			
 			if (timeRemaining > 86400000)
 				divider = 86400000; // 1 day
-			
+				
 			else if (timeRemaining > 3600000)
 				divider = 3600000; // 1 hour
-			
+				
 			else if (timeRemaining > 600000)
 				divider = 600000; // 10 min
-			
+				
 			else if (timeRemaining > 60000)
 				divider = 60000; // 1 min
-			
+				
 			else if (timeRemaining > 10000)
 				divider = 10000; // 10 sec
-			
-            else
+				
+			else
 				divider = 1000; // 1 sec
-			
+				
 			schedule(timeRemaining % divider);
-        }
+		}
 	};
-
-    // =========================================================
-    // Data Field
-    // Attacker and Defender
-    private FastList<L2SiegeClan> _attackerClans = new FastList<L2SiegeClan>(); // L2SiegeClan
-
-    private FastList<L2SiegeClan> _defenderClans = new FastList<L2SiegeClan>(); // L2SiegeClan
-    private FastList<L2SiegeClan> _defenderWaitingClans = new FastList<L2SiegeClan>(); // L2SiegeClan
-
-    // Castle setting
-    private FastList<L2ControlTowerInstance> _controlTowers = new FastList<L2ControlTowerInstance>();
-    
-    private Castle _castle;
+	
+	// =========================================================
+	// Data Field
+	// Attacker and Defender
+	private final Set<L2SiegeClan> _attackerClans = new L2FastSet<L2SiegeClan>().setShared(true);
+	
+	private final Set<L2SiegeClan> _defenderClans = new L2FastSet<L2SiegeClan>().setShared(true);
+	private final Set<L2SiegeClan> _defenderWaitingClans = new L2FastSet<L2SiegeClan>().setShared(true);
+	
+	// Castle setting
+	private final Set<L2ControlTowerInstance> _controlTowers = new L2FastSet<L2ControlTowerInstance>().setShared(true);
+	
+    private final Castle _castle;
     private boolean _isInProgress = false;
-    private boolean _isNormalSide = true; // true = Atk is Atk, false = Atk is Def
     protected boolean _isRegistrationOver = false;
     protected Calendar _siegeEndDate;
-    private SiegeGuardManager _siegeGuardManager;
+    private final SiegeGuardManager _siegeGuardManager;
     private int oldOwner = 0; // 0 - NPC, > 0 - clan
     
     // =========================================================
@@ -447,7 +446,6 @@ public class Siege extends AbstractSiege
                 return;
             }
 
-            _isNormalSide = true; // Atk is now atk
             _isInProgress = true; // Flag so that same siege instance cannot be started again
             loadSiegeClan(); // Load siege clan from db
             updatePlayerSiegeStateFlags(false);
@@ -513,7 +511,7 @@ public class Siege extends AbstractSiege
     }
 
     public void announceToOpponent(SystemMessage sm, boolean toAtk) {
-    	FastList<L2SiegeClan> clans = (toAtk ? getAttackerClans() : getDefenderClans());
+    	Set<L2SiegeClan> clans = (toAtk ? getAttackerClans() : getDefenderClans());
     	for (L2SiegeClan siegeclan : clans)
     		ClanTable.getInstance().getClan(siegeclan.getClanId()).broadcastToOnlineMembers(sm);
     }
@@ -1151,16 +1149,13 @@ public class Siege extends AbstractSiege
     /** Remove all control tower spawned. */
     private void removeControlTower()
     {
-        if (_controlTowers != null)
+        // Remove all instance of control tower for this castle
+        for (L2ControlTowerInstance ct : _controlTowers)
         {
-            // Remove all instance of control tower for this castle
-            for (L2ControlTowerInstance ct : _controlTowers)
-            {
-                if (ct != null) ct.decayMe();
-            }
-
-            _controlTowers = null;
+            if (ct != null) ct.decayMe();
         }
+
+        _controlTowers.clear();
     }
 
     /** Remove all flags. */
@@ -1308,10 +1303,6 @@ public class Siege extends AbstractSiege
     /** Spawn control tower. */
     private void spawnControlTower(int Id)
     {
-        //Set control tower array size if one does not exist
-        if (_controlTowers == null)
-        	_controlTowers = new FastList<L2ControlTowerInstance>();
-
         for (SiegeSpawn _sp: SiegeManager.getInstance().getControlTowerSpawnList(Id))
         {
         	L2ControlTowerInstance ct;
@@ -1383,10 +1374,9 @@ public class Siege extends AbstractSiege
         return null;
     }
 
-    public final FastList<L2SiegeClan> getAttackerClans()
+    public final Set<L2SiegeClan> getAttackerClans()
     {
-        if (_isNormalSide) return _attackerClans;
-        return _defenderClans;
+        return _attackerClans;
     }
 
     public final int getAttackerRespawnDelay()
@@ -1412,10 +1402,9 @@ public class Siege extends AbstractSiege
         return null;
     }
 
-    public final FastList<L2SiegeClan> getDefenderClans()
+    public final Set<L2SiegeClan> getDefenderClans()
     {
-        if (_isNormalSide) return _defenderClans;
-        return _attackerClans;
+        return _defenderClans;
     }
 
     public final L2SiegeClan getDefenderWaitingClan(L2Clan clan)
@@ -1431,7 +1420,7 @@ public class Siege extends AbstractSiege
         return null;
     }
 
-    public final FastList<L2SiegeClan> getDefenderWaitingClans()
+    public final Set<L2SiegeClan> getDefenderWaitingClans()
     {
         return _defenderWaitingClans;
     }
@@ -1496,10 +1485,6 @@ public class Siege extends AbstractSiege
     
     public final SiegeGuardManager getSiegeGuardManager()
     {
-        if (_siegeGuardManager == null)
-        {
-            _siegeGuardManager = new SiegeGuardManager(getCastle());
-        }
         return _siegeGuardManager;
     }
 
