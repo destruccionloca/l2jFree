@@ -154,7 +154,7 @@ public class L2FortManagerInstance extends L2MerchantInstance
                     else
                     {
                     	NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-                        html.setFile("data/html/fortress/vault.htm");
+                        html.setFile("data/html/fortress/foreman-vault.htm");
                         sendHtmlMessage(player, html);
                     }
                 }
