@@ -1,4 +1,4 @@
-CLASSPATH=${CLASSPATH}:l2j-mmocore-1.1.1.jar
+CLASSPATH=${CLASSPATH}:l2j-mmocore-1.1.2.jar
 
 #jython
 CLASSPATH=${CLASSPATH}:jython-2.2.1.jar

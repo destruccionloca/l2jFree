@@ -129,7 +129,7 @@
     <dependency>
       <groupId>l2jfree</groupId>
       <artifactId>l2j-mmocore</artifactId>
-      <version>1.1.1</version>
+      <version>1.1.2</version>
     </dependency>
     <!-- override version of log4j -->
     <dependency>

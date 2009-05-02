@@ -1,6 +1,6 @@
 REM Hibernate and associated jars
 
-SET CLASSPATH=%CLASSPATH%;l2j-mmocore-1.1.1.jar
+SET CLASSPATH=%CLASSPATH%;l2j-mmocore-1.1.2.jar
 
 REM jython
 SET CLASSPATH=%CLASSPATH%;jython-2.2.1.jar
