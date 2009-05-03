@@ -786,7 +786,7 @@ public class TradeList
      * Sell items to this PrivateStore list
      * @return : boolean true if success
      */
-    public synchronized boolean privateStoreSell(L2PcInstance player, ItemRequest[] items, int price)
+    public synchronized boolean privateStoreSell(L2PcInstance player, ItemRequest[] items)
     {
         if (_locked) return false;
 
@@ -814,12 +814,31 @@ public class TradeList
         InventoryUpdate ownerIU = new InventoryUpdate();
         InventoryUpdate playerIU = new InventoryUpdate();
 
+        int totalprice = 0;
+
         // Transfer items
         for (ItemRequest item : items)
         {
             // Check if requested item is sill on the list and adjust its count 
             adjustItemRequestByItemId(item);
             if (item.getCount() == 0) continue;
+
+            int price = -1;
+
+            for (TradeItem ti : _items)
+            {
+                if (ti.getItem().getItemId() == item.getItemId())
+                {
+                    if (ti.getPrice() == item.getPrice())
+                        price = ti.getPrice();
+                    break;
+                }
+            }
+
+            if (price == -1)
+                continue;
+
+            totalprice += price*item.getCount();
 
             // Check if requested item is available for manipulation 
             L2ItemInstance oldItem = player.checkItemManipulation(item.getObjectId(), item.getCount(), "sell");
@@ -866,11 +885,11 @@ public class TradeList
         }
 
         // Transfer adena
-        if (price > ownerInventory.getAdena()) return false;
+        if (totalprice > ownerInventory.getAdena()) return false;
         L2ItemInstance adenaItem = ownerInventory.getAdenaInstance();
-        ownerInventory.reduceAdena("PrivateStore", price, _owner, player);
+        ownerInventory.reduceAdena("PrivateStore", totalprice, _owner, player);
         ownerIU.addItem(adenaItem);
-        playerInventory.addAdena("PrivateStore", price, player, _owner);
+        playerInventory.addAdena("PrivateStore", totalprice, player, _owner);
         playerIU.addItem(playerInventory.getAdenaInstance());
 
         // Send inventory update packet

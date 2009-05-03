@@ -566,7 +566,7 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			writeD(_summon.getOwner().getPvpFlag());
 
 			writeD(_summon.getAbnormalEffect());  // C2
-			writeD(0x01);
+			writeD(_summon.getOwner().getClanId());
 			writeD(0000);  // C2
 			writeD(0000);  // C2
 			writeD(0000);  // C2
