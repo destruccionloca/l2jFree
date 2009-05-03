@@ -35,9 +35,9 @@ public abstract class AbstractIterativePeriodicTaskManager<T> extends AbstractPe
 		super(period);
 	}
 	
-	public synchronized boolean hasTask(T status)
+	public synchronized boolean hasTask(T task)
 	{
-		return _activeTasks.contains(status) || _startList.contains(status);
+		return _activeTasks.contains(task) || _startList.contains(task);
 	}
 	
 	public final synchronized void startTask(T task)
