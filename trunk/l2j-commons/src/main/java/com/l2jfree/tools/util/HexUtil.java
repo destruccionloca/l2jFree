@@ -19,9 +19,9 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.math.BigInteger;
 import java.util.Properties;
-import java.util.Random;
 
 import com.l2jfree.config.L2Properties;
+import com.l2jfree.tools.random.Rnd;
 
 /**
  * This class provide tools functions for hex manipulations
@@ -31,9 +31,8 @@ public class HexUtil {
 
 	public static byte[] generateHex(int size) {
 		byte[] array = new byte[size];
-		Random rnd = new Random();
 		for (int i = 0; i < size; i++) {
-			array[i] = (byte) rnd.nextInt(256);
+			array[i] = (byte) Rnd.nextInt(256);
 		}
 		return array;
 	}

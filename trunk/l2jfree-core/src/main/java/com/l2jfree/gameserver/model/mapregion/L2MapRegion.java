@@ -14,9 +14,7 @@
  */
 package com.l2jfree.gameserver.model.mapregion;
 
-import java.util.Map;
-
-import javolution.util.FastMap;
+import java.util.Arrays;
 
 import org.w3c.dom.Node;
 
@@ -31,7 +29,7 @@ public class L2MapRegion
 {
 	private int _id = -1;
 	private L2Polygon _polygon = new L2Polygon();
-	private Map<Race, Integer> _restarts = new FastMap<Race, Integer>();
+	private int[] _restarts = new int[Race.values().length];
 	private int _zMin = -999999999;
 	private int _zMax = 999999999;
 	
@@ -59,12 +57,7 @@ public class L2MapRegion
 		_area = area;
 		
 		// add restartpoints by id
-		_restarts.put(Race.Human, restartId);
-		_restarts.put(Race.Darkelf , restartId);
-		_restarts.put(Race.Dwarf , restartId);
-		_restarts.put(Race.Elf , restartId);
-		_restarts.put(Race.Orc, restartId);
-		_restarts.put(Race.Kamael, restartId);
+		Arrays.fill(_restarts, restartId);
 		
 		// set to AreaMapRegion
 		_specialRegion = false;
@@ -112,8 +105,7 @@ public class L2MapRegion
     			if (d != null)
     				restartId = Integer.parseInt(d.getTextContent());
     			
-    			if (!_restarts.containsKey(race))
-    				_restarts.put(race, restartId);
+    			_restarts[race.ordinal()] = restartId;
 			}
 		}
 		
@@ -123,7 +115,7 @@ public class L2MapRegion
 	
 	public int getRestartId(Race race)
 	{
-		return _restarts.get(race);
+		return _restarts[race.ordinal()];
 	}
 	
 	public int getRestartId()
@@ -153,7 +145,7 @@ public class L2MapRegion
 		if (!_specialRegion)
 			return (_area.checkIfInRegion(x, y));
 		
-    	if (!quickIsInsideRegion(x, y, z)) 
+    	if (!quickIsInsideRegion(x, y, z))
     		return false;
     	
     	return _polygon.contains(x, y);
@@ -170,15 +162,15 @@ public class L2MapRegion
     	int yMin = yPoints[0];
     	
     	for (int in: xPoints)
-	        if(in > xMax) 
+	        if(in > xMax)
     			xMax = in;
-    		else if(in < xMin) 
+    		else if(in < xMin)
     			xMin = in;
     	
     	for (int in: yPoints)
-	        if(in > yMax) 
+	        if(in > yMax)
     			yMax = in;
-    		else if(in < yMin) 
+    		else if(in < yMin)
     			yMin = in;
     	
     	if (!(x > xMin && x < xMax && y > yMin && y < yMax))
@@ -187,7 +179,7 @@ public class L2MapRegion
     	if (z == -1)
     		return true;
     	
-    	if (_zMin == -999999999 && _zMax == 999999999) 
+    	if (_zMin == -999999999 && _zMax == 999999999)
     		return true;
 
    		return z > _zMin && z < _zMax;

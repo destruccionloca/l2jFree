@@ -14,17 +14,13 @@
  */
 package com.l2jfree.gameserver.model.mapregion;
 
-import java.util.List;
-import java.util.Random;
-
-import javolution.util.FastList;
-
-
+import org.apache.commons.lang.ArrayUtils;
 import org.w3c.dom.Node;
 
 import com.l2jfree.gameserver.instancemanager.MapRegionManager;
 import com.l2jfree.gameserver.model.base.Race;
 import com.l2jfree.tools.geometry.Point3D;
+import com.l2jfree.tools.random.Rnd;
 
 /**
  * @author Noctarius
@@ -37,8 +33,8 @@ public class L2MapRegionRestart
 	private int _bbsId = -1;
 	private int _locName = -1;
 	
-	private List<Point3D> _restartPoints = new FastList<Point3D>();
-	private List<Point3D> _chaosPoints = new FastList<Point3D>();
+	private Point3D[] _restartPoints = new Point3D[0];
+	private Point3D[] _chaosPoints = new Point3D[0];
 	
 	private Race _bannedRace = Race.Human;
 	private int _bannedRaceRestartId = -1;
@@ -71,12 +67,12 @@ public class L2MapRegionRestart
 			if ("point".equals(n.getNodeName()))
 			{
 				Point3D point = getPoint3D(n);
-				_restartPoints.add(point);
+				_restartPoints = (Point3D[])ArrayUtils.add(_restartPoints, point);
 			}
 			else if ("chaospoint".equalsIgnoreCase(n.getNodeName()))
 			{
 				Point3D point = getPoint3D(n);
-				_chaosPoints.add(point);
+				_chaosPoints = (Point3D[])ArrayUtils.add(_chaosPoints, point);
 			}
 			else if ("bannedrace".equalsIgnoreCase(n.getNodeName()))
 			{
@@ -144,9 +140,7 @@ public class L2MapRegionRestart
 	
 	public Point3D getRandomRestartPoint()
 	{
-		Random rnd = new Random();
-		int pointId = rnd.nextInt(_restartPoints.size());
-		return _restartPoints.get(pointId);
+		return _restartPoints[Rnd.get(_restartPoints.length)];
 	}
 	
 	public Point3D getRandomChaosRestartPoint(Race race)
@@ -159,9 +153,7 @@ public class L2MapRegionRestart
 	
 	public Point3D getRandomChaosRestartPoint()
 	{
-		Random rnd = new Random();
-		int pointId = rnd.nextInt(_chaosPoints.size());
-		return _chaosPoints.get(pointId);
+		return _chaosPoints[Rnd.get(_chaosPoints.length)];
 	}
 	
 	public Race getBannedRace()
