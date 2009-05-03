@@ -18,7 +18,6 @@ import java.util.Set;
 
 import javolution.util.FastSet;
 
-import com.l2jfree.gameserver.model.actor.status.CharStatus;
 import com.l2jfree.util.concurrent.RunnableStatsManager;
 
 /**
@@ -36,7 +35,7 @@ public abstract class AbstractIterativePeriodicTaskManager<T> extends AbstractPe
 		super(period);
 	}
 	
-	public synchronized boolean hasTask(CharStatus status)
+	public synchronized boolean hasTask(T status)
 	{
 		return _activeTasks.contains(status) || _startList.contains(status);
 	}
