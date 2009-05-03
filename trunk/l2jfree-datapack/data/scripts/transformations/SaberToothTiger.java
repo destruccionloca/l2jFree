@@ -42,9 +42,9 @@ public class SaberToothTiger extends L2DefaultTransformation
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
+		removeSkill(player, 748);
 		removeSkill(player, 746);
 		removeSkill(player, 747);
-		removeSkill(player, 748);
 	}
 
 	public static void main(String[] args)

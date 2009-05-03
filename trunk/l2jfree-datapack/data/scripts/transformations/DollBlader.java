@@ -35,16 +35,16 @@ public class DollBlader extends L2DefaultTransformation
 			level = 2;
 		}
 		addSkill(player, 752, 1);
-		addSkill(player, 752, level);
 		addSkill(player, 753, level);
+		addSkill(player, 754, level);
 	}
 
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
-		removeSkill(player, 754);
-		removeSkill(player, 752;
+		removeSkill(player, 752);
 		removeSkill(player, 753);
+		removeSkill(player, 754);
 	}
 
 	public static void main(String[] args)
