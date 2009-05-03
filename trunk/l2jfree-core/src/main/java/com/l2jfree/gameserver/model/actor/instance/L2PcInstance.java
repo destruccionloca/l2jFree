@@ -6885,8 +6885,8 @@ public final class L2PcInstance extends L2Playable
 			statement.setLong(15, exp);
 			statement.setLong(16, getExpBeforeDeath());
 			statement.setInt(17, sp);
-			statement.setInt(18, getFame());
-			statement.setInt(19, getKarma());
+			statement.setInt(18, getKarma());
+			statement.setInt(19, getFame());
 			statement.setInt(20, getPvpKills());
 			statement.setInt(21, getPkKills());
 			statement.setInt(22, getClanId());
