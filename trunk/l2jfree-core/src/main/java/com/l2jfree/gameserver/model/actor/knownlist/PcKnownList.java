@@ -32,13 +32,13 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2StaticObjectInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2TrapInstance;
+import com.l2jfree.gameserver.network.serverpackets.AbstractNpcInfo;
 import com.l2jfree.gameserver.network.serverpackets.CharInfo;
 import com.l2jfree.gameserver.network.serverpackets.DeleteObject;
 import com.l2jfree.gameserver.network.serverpackets.DropItem;
 import com.l2jfree.gameserver.network.serverpackets.ExBrExtraUserInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExPrivateStoreSetWholeMsg;
 import com.l2jfree.gameserver.network.serverpackets.GetOnVehicle;
-import com.l2jfree.gameserver.network.serverpackets.NpcInfo;
 import com.l2jfree.gameserver.network.serverpackets.PetInfo;
 import com.l2jfree.gameserver.network.serverpackets.PetItemList;
 import com.l2jfree.gameserver.network.serverpackets.PrivateStoreMsgBuy;
@@ -146,11 +146,11 @@ public class PcKnownList extends PlayableKnownList
             }
             else if (object instanceof L2Decoy || object instanceof L2DecoyInstance)
             {
-                getActiveChar().sendPacket(new NpcInfo((L2Decoy) object));
+                getActiveChar().sendPacket(new AbstractNpcInfo.DecoyInfo((L2Decoy) object));
             }
             else if (object instanceof L2Trap || object instanceof L2TrapInstance)
             {
-                getActiveChar().sendPacket(new NpcInfo((L2Trap)object));
+                getActiveChar().sendPacket(new AbstractNpcInfo.TrapInfo((L2Trap)object));
             }
             else if (object instanceof L2Npc)
             {
@@ -158,7 +158,7 @@ public class PcKnownList extends PlayableKnownList
                 if (((L2Npc) object).getRunSpeed() == 0)
                     getActiveChar().sendPacket(new ServerObjectInfo((L2Npc)object));
                 else
-                    getActiveChar().sendPacket(new NpcInfo((L2Npc)object));
+                    getActiveChar().sendPacket(new AbstractNpcInfo.NpcInfo((L2Npc)object));
             }
             else if (object instanceof L2Summon)
             {
@@ -174,7 +174,7 @@ public class PcKnownList extends PlayableKnownList
                     }
                 }
                 else
-                    getActiveChar().sendPacket(new NpcInfo(summon, 0));
+                    getActiveChar().sendPacket(new AbstractNpcInfo.SummonInfo(summon, 0));
             }
             else if (object instanceof L2PcInstance)
             {

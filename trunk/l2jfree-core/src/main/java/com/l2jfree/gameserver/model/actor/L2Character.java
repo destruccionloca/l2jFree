@@ -2613,7 +2613,7 @@ public abstract class L2Character extends L2Object
 	}
 
 	/** Return True if the L2Character is running. */
-	public final boolean isRunning()
+	public boolean isRunning()
 	{
 		return _isRunning;
 	}

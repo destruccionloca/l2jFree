@@ -20,43 +20,54 @@ import com.l2jfree.gameserver.skills.Stats;
 
 public class NpcStat extends CharStat
 {
-    // =========================================================
-    // Data Field
-    
-    // =========================================================
-    // Constructor
-    public NpcStat(L2Npc activeChar)
-    {
-        super(activeChar);
+	// =========================================================
+	// Data Field
+	
+	// =========================================================
+	// Constructor
+	public NpcStat(L2Npc activeChar)
+	{
+		super(activeChar);
 
-        setLevel(getActiveChar().getTemplate().getLevel());
-    }
+		setLevel(getActiveChar().getTemplate().getLevel());
+	}
 
-    // =========================================================
-    // Method - Public
+	// =========================================================
+	// Method - Public
 
-    // =========================================================
-    // Method - Private
+	// =========================================================
+	// Method - Private
 
-    // =========================================================
-    // Property - Public
-    @Override
-    public L2Npc getActiveChar() { return (L2Npc)_activeChar; }
+	// =========================================================
+	// Property - Public
+	@Override
+	public L2Npc getActiveChar()
+	{
+		return (L2Npc)_activeChar;
+	}
 
-    @Override
-    public final int getMaxHp() { return (int)calcStat(Stats.MAX_HP, getActiveChar().getTemplate().getBaseHpMax() * (getActiveChar().isChampion()?Config.CHAMPION_HP:1) , null, null); }
+	@Override
+	public final int getMaxHp()
+	{
+		return (int)calcStat(Stats.MAX_HP, getActiveChar().getTemplate().getBaseHpMax()
+			* (getActiveChar().isChampion()?Config.CHAMPION_HP:1) , null, null);
+	}
 
-    @Override
-    public int getWalkSpeed() { return  getRunSpeed()/2; }
+	@Override
+	public int getWalkSpeed()
+	{
+		return (int) calcStat(Stats.WALK_SPEED, getActiveChar().getTemplate().getBaseWalkSpd(), null, null);
+	}
 
-    @Override
-    public float getMovementSpeedMultiplier()
-    {
-        if (getActiveChar() == null)
-            return 1;
-        float val = getRunSpeed() * 1f / getActiveChar().getTemplate().getBaseRunSpd();
-        if (!getActiveChar().isRunning())
-            val = val/2;
-        return val;
-    }
+	@Override
+	public float getMovementSpeedMultiplier()
+	{
+		if (getActiveChar() == null)
+			return 1;
+
+		if (getActiveChar().isRunning())
+			return getRunSpeed() * 1f / getActiveChar().getTemplate().getBaseRunSpd();
+		else
+			return getWalkSpeed() * 1f / getActiveChar().getTemplate().getBaseWalkSpd();
+	}
 }

@@ -89,6 +89,7 @@ import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.model.quest.State;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.AbstractNpcInfo;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExQuestInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExShowBaseAttributeCancelWindow;
@@ -99,7 +100,6 @@ import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
-import com.l2jfree.gameserver.network.serverpackets.NpcInfo;
 import com.l2jfree.gameserver.network.serverpackets.RadarControl;
 import com.l2jfree.gameserver.network.serverpackets.ServerObjectInfo;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
@@ -2900,6 +2900,6 @@ public class L2Npc extends L2Character
 	@Override
 	public void broadcastFullInfoImpl()
 	{
-		broadcastPacket(getRunSpeed() == 0 ? new ServerObjectInfo(this) : new NpcInfo(this));
+		broadcastPacket(getRunSpeed() == 0 ? new ServerObjectInfo(this) : new AbstractNpcInfo.NpcInfo(this));
 	}
 }

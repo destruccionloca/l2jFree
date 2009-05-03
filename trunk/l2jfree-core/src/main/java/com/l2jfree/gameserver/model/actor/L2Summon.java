@@ -35,12 +35,12 @@ import com.l2jfree.gameserver.model.base.Experience;
 import com.l2jfree.gameserver.model.itemcontainer.PetInventory;
 import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.AbstractNpcInfo;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExPartyPetWindowAdd;
 import com.l2jfree.gameserver.network.serverpackets.ExPartyPetWindowDelete;
 import com.l2jfree.gameserver.network.serverpackets.ExPartyPetWindowUpdate;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
-import com.l2jfree.gameserver.network.serverpackets.NpcInfo;
 import com.l2jfree.gameserver.network.serverpackets.PartySpelled;
 import com.l2jfree.gameserver.network.serverpackets.PetDelete;
 import com.l2jfree.gameserver.network.serverpackets.PetInfo;
@@ -878,6 +878,12 @@ public abstract class L2Summon extends L2Playable
 	}
 	
 	@Override
+	public boolean isRunning()
+	{
+		return true; // summons always run
+	}
+	
+	@Override
 	public void broadcastFullInfoImpl()
 	{
 		broadcastFullInfoImpl(1);
@@ -888,7 +894,7 @@ public abstract class L2Summon extends L2Playable
 		getOwner().sendPacket(new PetInfo(this, val));
 		getOwner().sendPacket(new PetStatusUpdate(this));
 		
-		broadcastPacket(new NpcInfo(this, val));
+		broadcastPacket(new AbstractNpcInfo.SummonInfo(this, val));
 		
 		final L2Party party = getOwner().getParty();
 		

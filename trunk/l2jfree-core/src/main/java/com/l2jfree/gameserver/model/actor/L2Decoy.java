@@ -16,8 +16,8 @@
 package com.l2jfree.gameserver.model.actor;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.serverpackets.AbstractNpcInfo;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
-import com.l2jfree.gameserver.network.serverpackets.NpcInfo;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
 import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
@@ -119,6 +119,6 @@ public abstract class L2Decoy extends L2Character
 	@Override
 	public void broadcastFullInfoImpl()
 	{
-		broadcastPacket(new NpcInfo(this));
+		broadcastPacket(new AbstractNpcInfo.DecoyInfo(this));
 	}
 }
