@@ -6547,13 +6547,8 @@ public abstract class L2Character extends L2Object
 				}
 
 				// Launch weapon Special ability skill effect if available
-				if (activeWeapon != null && !target.isDead())
-				{
-					if (activeWeapon.getSkillEffectsByCast(this, target, skill) && this instanceof L2PcInstance)
-					{
-						sendMessage("Target affected by weapon special ability!");
-					}
-				}
+				if (activeWeapon != null)
+					activeWeapon.getSkillEffectsByCast(this, target, skill);
 
 				// Maybe launch chance skills on us
 				if (_chanceSkills != null)
@@ -6644,38 +6639,46 @@ public abstract class L2Character extends L2Object
 					}
 				}
 			}
-
-			// Mobs in range 1000 see spell
-			for (L2Object spMob : player.getKnownList().getKnownObjects().values())
-			{
-				if (spMob instanceof L2Npc)
-				{
-					L2Npc npcMob = (L2Npc) spMob;
-
-					if ((npcMob.isInsideRadius(player, 1000, true, true))
-							&& (npcMob.getTemplate().getEventQuests(Quest.QuestEventType.ON_SKILL_SEE) != null))
-						for (Quest quest : npcMob.getTemplate().getEventQuests(Quest.QuestEventType.ON_SKILL_SEE))
-							quest.notifySkillSee(npcMob, player, skill, targets, this instanceof L2Summon);
-
-					/**************** FULMINUS COMMENT START***************/
-					if (skill.getAggroPoints() > 0)
-					{
-						if (npcMob.isInsideRadius(player, 1000, true, true) && npcMob.hasAI() && npcMob.getAI().getIntention() == AI_INTENTION_ATTACK)
-						{
-							L2Object npcTarget = npcMob.getTarget();
-							for (L2Object target : targets)
-								if (npcTarget == target || npcMob == target)
-									npcMob.seeSpell(player, target, skill);
-						}
-					}
-					/**************** FULMINUS COMMENT END ***************/
-					// the section within "Fulminus Comment" should be deleted from core and placed
-					// within the mob's AI Script's onSkillSee, which is called by quest.notifySkillSee
-				}
-			}
+			
+			notifyMobsAboutSkillCast(skill, targets);
 		}
 	}
-
+	
+	public void notifyMobsAboutSkillCast(L2Skill skill, L2Character... targets)
+	{
+		L2PcInstance player = getActingPlayer();
+		
+		if (player == null)
+			return;
+		
+		// Mobs in range 1000 see spell
+		for (L2Object obj : player.getKnownList().getKnownObjects().values())
+		{
+			if (!(obj instanceof L2Npc))
+				continue;
+			
+			final L2Npc npc = (L2Npc)obj;
+			
+			if (!npc.isInsideRadius(player, 1000, true, true))
+				continue;
+			
+			final Quest[] quests = npc.getTemplate().getEventQuests(QuestEventType.ON_SKILL_SEE);
+			if (quests != null)
+				for (Quest quest : quests)
+					quest.notifySkillSee(npc, player, skill, targets, this instanceof L2Summon);
+			
+			/** ************** FULMINUS COMMENT START************** */
+			final L2Object npcTarget = npc.getTarget();
+			if (skill.getAggroPoints() > 0 && npc.hasAI() && npc.getAI().getIntention() == AI_INTENTION_ATTACK)
+				for (L2Object target : targets)
+					if (npcTarget == target || npc == target)
+						npc.seeSpell(player, target, skill);
+			/** ************** FULMINUS COMMENT END ************** */
+			// the section within "Fulminus Comment" should be deleted from core and placed
+			// within the mob's AI Script's onSkillSee, which is called by quest.notifySkillSee
+		}
+	}
+	
 	/**
 	 * @param caster
 	 * @param target
