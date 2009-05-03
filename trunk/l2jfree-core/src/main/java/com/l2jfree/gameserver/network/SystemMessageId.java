@@ -767,7 +767,7 @@ public enum SystemMessageId
 	 * ID: 122<br>
 	 * Message: You may no longer adjust items in the trade because the trade has been confirmed.
 	 */
-	CANNOT_ADJUST_ITEMS_AFTER_TRADE_CONFIRMED(122), 
+	CANNOT_ADJUST_ITEMS_AFTER_TRADE_CONFIRMED(122),
 
 	/**
 	 * ID: 123<br>

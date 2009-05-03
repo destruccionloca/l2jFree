@@ -120,21 +120,27 @@ public class PcStat extends PlayableStat
 
 		if (!super.addExpAndSp(addToExp, addToSp))
 			return false;
-
+		
 		if (addToExp == 0 && addToSp > 0)
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.ACQUIRED_S1_SP);
 			sm.addNumber(addToSp);
 			activeChar.sendPacket(sm);
 		}
-		else if (addToExp > 0)
+		else if (addToExp > 0 && addToSp == 0)
+		{
+			SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S1_EXPERIENCE);
+			sm.addNumber(addToExp);
+			activeChar.sendPacket(sm);
+		}
+		else
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.YOU_EARNED_S1_EXP_AND_S2_SP);
-			sm.addNumber((int) addToExp);
+			sm.addNumber(addToExp);
 			sm.addNumber(addToSp);
 			activeChar.sendPacket(sm);
 		}
-
+		
 		return true;
 	}
 
