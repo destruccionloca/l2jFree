@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.model.restriction.global;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -72,5 +73,31 @@ final class DMRestriction extends AbstractRestriction
 	{
 		if (DM._savePlayers.contains(activeChar.getName()))
 			DM.addDisconnectedPlayer(activeChar);
+	}
+	
+	@Override
+	public boolean playerKilled(L2Character activeChar, final L2PcInstance target)
+	{
+		if (!target._inEventDM)
+			return false;
+		
+		if (DM._teleport || DM._started)
+		{
+			if (activeChar instanceof L2PcInstance && ((L2PcInstance)activeChar)._inEventDM)
+				((L2PcInstance)activeChar)._countDMkills++;
+			
+			target.sendMessage("You will be revived and teleported to spot in " + Config.DM_REVIVE_DELAY / 1000
+				+ " seconds!");
+			
+			ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
+				public void run()
+				{
+					target.teleToLocation(DM._playerX, DM._playerY, DM._playerZ, false);
+					target.doRevive();
+				}
+			}, Config.DM_REVIVE_DELAY);
+		}
+		
+		return true;
 	}
 }

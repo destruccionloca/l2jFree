@@ -15,11 +15,13 @@
 package com.l2jfree.gameserver.model.restriction.global;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.events.TvT;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.PlaySound;
 
 /**
  * @author NB4L1
@@ -72,5 +74,60 @@ final class TvTRestriction extends AbstractRestriction
 	{
 		if (TvT._savePlayers.contains(activeChar.getName()))
 			TvT.addDisconnectedPlayer(activeChar);
+	}
+	
+	@Override
+	public boolean playerKilled(L2Character activeChar, final L2PcInstance target)
+	{
+		if (!target._inEventTvT)
+			return false;
+		
+		if (TvT._teleport || TvT._started)
+		{
+			L2PcInstance pk = activeChar.getActingPlayer();
+			
+			if (pk != null && pk._inEventTvT)
+			{
+				if (!(pk._teamNameTvT.equals(target._teamNameTvT)))
+				{
+					target._countTvTdies++;
+					pk._countTvTkills++;
+					//pk.setTitle("Kills: " + ((L2PcInstance) killer)._countTvTkills);
+					pk.sendPacket(new PlaySound(0, "ItemSound.quest_itemget", 1, target.getObjectId(), target.getX(), target.getY(), target.getZ()));
+					TvT.setTeamKillsCount(pk._teamNameTvT, TvT.teamKillsCount(pk._teamNameTvT) + 1);
+				}
+				else
+				{
+					pk.sendMessage("You are a teamkiller! Teamkills are not allowed, you will get death penalty and your team will lose one kill!");
+					
+					// Give Penalty for Team-Kill:
+					// 1. Death Penalty + 5
+					// 2. Team will lost 1 Kill
+					if (pk.getDeathPenaltyBuffLevel() < 10)
+					{
+						pk.setDeathPenaltyBuffLevel(pk.getDeathPenaltyBuffLevel() + 4);
+						pk.increaseDeathPenaltyBuffLevel();
+					}
+					TvT.setTeamKillsCount(target._teamNameTvT, TvT.teamKillsCount(target._teamNameTvT) - 1);
+				}
+			}
+			
+			target.sendMessage("You will be revived and teleported to team spot in " + Config.TVT_REVIVE_DELAY / 1000
+				+ " seconds!");
+			
+			ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
+				public void run()
+				{
+					int x = TvT._teamsX.get(TvT._teams.indexOf(target._teamNameTvT));
+					int y = TvT._teamsY.get(TvT._teams.indexOf(target._teamNameTvT));
+					int z = TvT._teamsZ.get(TvT._teams.indexOf(target._teamNameTvT));
+					
+					target.teleToLocation(x, y, z, false);
+					target.doRevive();
+				}
+			}, Config.TVT_REVIVE_DELAY);
+		}
+		
+		return true;
 	}
 }

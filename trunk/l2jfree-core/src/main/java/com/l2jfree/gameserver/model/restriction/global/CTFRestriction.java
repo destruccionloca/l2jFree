@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.model.restriction.global;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -72,5 +73,43 @@ final class CTFRestriction extends AbstractRestriction
 	{
 		if (CTF._savePlayers.contains(activeChar.getName()))
 			CTF.addDisconnectedPlayer(activeChar);
+	}
+	
+	@Override
+	public boolean playerKilled(L2Character activeChar, final L2PcInstance target)
+	{
+		if (!target._inEventCTF)
+			return false;
+		
+		if (CTF._teleport || CTF._started)
+		{
+			target.sendMessage("You will be revived and teleported to team flag in " + Config.CTF_REVIVE_DELAY / 1000
+				+ " seconds!");
+			
+			if (target._haveFlagCTF)
+			{
+				CTF._flagsTaken.set(CTF._teams.indexOf(target._teamNameHaveFlagCTF), false);
+				CTF.spawnFlag(target._teamNameHaveFlagCTF);
+				CTF.removeFlagFromPlayer(target);
+				target.broadcastUserInfo();
+				target._haveFlagCTF = false;
+				CTF.AnnounceToPlayers(false, CTF._eventName + "(CTF): " + target._teamNameHaveFlagCTF
+					+ "'s flag returned.");
+			}
+			
+			ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
+				public void run()
+				{
+					int x = CTF._teamsX.get(CTF._teams.indexOf(target._teamNameCTF));
+					int y = CTF._teamsY.get(CTF._teams.indexOf(target._teamNameCTF));
+					int z = CTF._teamsZ.get(CTF._teams.indexOf(target._teamNameCTF));
+					
+					target.teleToLocation(x, y, z, false);
+					target.doRevive();
+				}
+			}, Config.CTF_REVIVE_DELAY);
+		}
+		
+		return true;
 	}
 }

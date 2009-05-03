@@ -40,5 +40,7 @@ public interface GlobalRestriction
 	
 	public void playerDisconnected(L2PcInstance activeChar);
 	
+	public boolean playerKilled(L2Character activeChar, L2PcInstance target);
+	
 	// TODO
 }

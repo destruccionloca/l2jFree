@@ -47,6 +47,8 @@ public abstract class AbstractRestriction implements GlobalRestriction
 		return false;
 	}
 	
+	// TODO
+	
 	@Override
 	public void levelChanged(L2PcInstance activeChar)
 	{
@@ -66,4 +68,12 @@ public abstract class AbstractRestriction implements GlobalRestriction
 	public void playerDisconnected(L2PcInstance activeChar)
 	{
 	}
+	
+	@Override
+	public boolean playerKilled(L2Character activeChar, L2PcInstance target)
+	{
+		return false;
+	}
+	
+	// TODO
 }

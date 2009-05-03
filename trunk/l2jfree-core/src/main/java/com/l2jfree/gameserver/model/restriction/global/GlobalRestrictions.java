@@ -178,4 +178,13 @@ public final class GlobalRestrictions
 		for (GlobalRestriction restriction : _activeRestrictions)
 			restriction.playerDisconnected(activeChar);
 	}
+	
+	public static boolean  playerKilled(L2Character activeChar, L2PcInstance target)
+	{
+		for (GlobalRestriction restriction : _activeRestrictions)
+			if (restriction.playerKilled(activeChar, target))
+				return true;
+		
+		return false;
+	}
 }

@@ -15,6 +15,8 @@
 package com.l2jfree.gameserver.model.restriction.global;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.Announcements;
+import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -61,5 +63,55 @@ final class VIPRestriction extends AbstractRestriction
 	{
 		if (VIP._savePlayers.contains(activeChar.getName()))
 			VIP.addDisconnectedPlayer(activeChar);
+	}
+	
+	@Override
+	public boolean playerKilled(L2Character activeChar, final L2PcInstance target)
+	{
+		if (!target._inEventVIP)
+			return false;
+		
+		L2PcInstance pk = activeChar.getActingPlayer();
+		
+		if (pk != null)
+		{
+			if (VIP._started)
+			{
+				if (target._isTheVIP && pk._inEventVIP)
+				{
+					VIP.vipDied();
+				}
+				else if (target._isTheVIP && !pk._inEventVIP)
+				{
+					Announcements.getInstance().announceToAll("VIP Killed by non-event character. VIP going back to initial spawn.");
+					target.doRevive();
+					target.teleToLocation(VIP._startX, VIP._startY, VIP._startZ);
+				}
+				else if (target._isTheVIP && pk._isVIP)
+				{
+					Announcements.getInstance().announceToAll("VIP Killed by same team player. VIP going back to initial spawn.");
+					target.doRevive();
+					target.teleToLocation(VIP._startX, VIP._startY, VIP._startZ);
+				}
+				else
+				{
+					target.sendMessage("You will be revived and teleported to team spot in 20 seconds!");
+					ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
+						public void run()
+						{
+							target.doRevive();
+							if (target._isVIP)
+								target.teleToLocation(VIP._startX, VIP._startY, VIP._startZ);
+							else
+								target.teleToLocation(VIP._endX, VIP._endY, VIP._endZ);
+						}
+					}, 20000);
+				}
+			}
+			
+			return true;
+		}
+		
+		return false;
 	}
 }
