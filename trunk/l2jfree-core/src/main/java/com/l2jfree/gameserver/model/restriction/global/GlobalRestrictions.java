@@ -24,6 +24,7 @@ import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeFlagInstance;
+import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 
 /**
@@ -155,6 +156,33 @@ public final class GlobalRestrictions
 		return false;
 	}
 	
+	public static int isInsideZoneModifier(L2Character activeChar, byte zone)
+	{
+		int result = 0;
+		
+		for (GlobalRestriction restriction : _activeRestrictions)
+			result += restriction.isInsideZoneModifier(activeChar, zone);
+		
+		return result;
+	}
+	
+	public static void isInsideZoneStateChanged(L2Character activeChar, byte zone, boolean isInsideZone)
+	{
+		switch (zone)
+		{
+			case L2Zone.FLAG_PVP:
+			{
+				if (isInsideZone)
+					activeChar.sendPacket(SystemMessageId.ENTERED_COMBAT_ZONE);
+				else
+					activeChar.sendPacket(SystemMessageId.LEFT_COMBAT_ZONE);
+			}
+		}
+		
+		for (GlobalRestriction restriction : _activeRestrictions)
+			restriction.isInsideZoneStateChanged(activeChar, zone, isInsideZone);
+	}
+	
 	public static void levelChanged(L2PcInstance activeChar)
 	{
 		for (GlobalRestriction restriction : _activeRestrictions)
@@ -179,7 +207,7 @@ public final class GlobalRestrictions
 			restriction.playerDisconnected(activeChar);
 	}
 	
-	public static boolean  playerKilled(L2Character activeChar, L2PcInstance target)
+	public static boolean playerKilled(L2Character activeChar, L2PcInstance target)
 	{
 		for (GlobalRestriction restriction : _activeRestrictions)
 			if (restriction.playerKilled(activeChar, target))

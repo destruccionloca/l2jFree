@@ -46,8 +46,8 @@ import com.l2jfree.gameserver.geodata.pathfinding.PathFinding;
 import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.instancemanager.FactionManager;
 import com.l2jfree.gameserver.instancemanager.MapRegionManager;
-import com.l2jfree.gameserver.model.CharEffectList;
 import com.l2jfree.gameserver.model.ChanceSkillList;
+import com.l2jfree.gameserver.model.CharEffectList;
 import com.l2jfree.gameserver.model.FusionSkill;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Effect;
@@ -55,11 +55,10 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Party;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Skill.SkillTargetType;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.L2WorldRegion;
 import com.l2jfree.gameserver.model.Location;
-import com.l2jfree.gameserver.model.actor.L2Npc;
+import com.l2jfree.gameserver.model.L2Skill.SkillTargetType;
 import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2ControlTowerInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
@@ -81,6 +80,7 @@ import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.model.quest.Quest.QuestEventType;
+import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.Disconnection;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -295,22 +295,35 @@ public abstract class L2Character extends L2Object
 				&& !(this instanceof L2EffectPointInstance) && !(this instanceof L2NpcInstance))
 			setIsInvul(true);
 	}
-
-	private byte[]	_currentZones	= new byte[21];
-
-	public boolean isInsideZone(byte zone)
+	
+	private final byte[] _currentZones = new byte[21];
+	
+	public final boolean isInsideZone(byte zone)
 	{
-		return (zone == L2Zone.FLAG_PVP) ? (_currentZones[L2Zone.FLAG_PVP] > 0 && _currentZones[L2Zone.FLAG_PEACE] == 0) : (_currentZones[zone] > 0);
+		switch (zone)
+		{
+			case L2Zone.FLAG_PVP:
+			{
+				if (isInsideZone(L2Zone.FLAG_PEACE))
+					return false;
+			}
+		}
+		
+		return _currentZones[zone] + GlobalRestrictions.isInsideZoneModifier(this, zone) > 0;
 	}
-
-	public final void setInsideZone(int zone, boolean state)
+	
+	public final void setInsideZone(byte zone, boolean state)
 	{
-		if (state)
-			_currentZones[zone]++;
-		else if (_currentZones[zone] > 0)
-			_currentZones[zone]--;
+		final boolean oldState = isInsideZone(zone);
+		
+		_currentZones[zone] = (byte)Math.max(0, _currentZones[zone] + (state ? 1 : -1));
+		
+		final boolean newState = isInsideZone(zone);
+		
+		if (oldState != newState)
+			GlobalRestrictions.isInsideZoneStateChanged(this, zone, newState);
 	}
-
+	
 	/**
 	 * Returns character inventory, default null, overridden in L2Playable types and in L2Npc
 	 */

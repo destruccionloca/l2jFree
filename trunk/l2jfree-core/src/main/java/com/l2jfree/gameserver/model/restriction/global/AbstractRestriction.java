@@ -47,6 +47,15 @@ public abstract class AbstractRestriction implements GlobalRestriction
 		return false;
 	}
 	
+	public int isInsideZoneModifier(L2Character activeChar, byte zone)
+	{
+		return 0;
+	}
+	
+	public void isInsideZoneStateChanged(L2Character activeChar, byte zone, boolean isInsideZone)
+	{
+	}
+	
 	// TODO
 	
 	@Override

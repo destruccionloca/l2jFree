@@ -25,7 +25,6 @@ import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeSummonInstance;
 import com.l2jfree.gameserver.model.entity.Fort;
-import com.l2jfree.gameserver.network.SystemMessageId;
 
 public class L2SiegeZone extends SiegeableEntityZone
 {
@@ -45,12 +44,10 @@ public class L2SiegeZone extends SiegeableEntityZone
 		character.setInsideZone(FLAG_SIEGE, true);
 		character.setInsideZone(FLAG_NOSUMMON, true);
 		
-		character.sendPacket(SystemMessageId.ENTERED_COMBAT_ZONE);
-		
 		if (character instanceof L2PcInstance)
 		{
 			L2PcInstance pc = (L2PcInstance) character;
-			if (pc.getClan() != null 
+			if (pc.getClan() != null
 				&& (_entity.getSiege().checkIsAttacker(pc.getClan())
 				|| _entity.getSiege().checkIsDefender(pc.getClan())))
 			{
@@ -67,8 +64,6 @@ public class L2SiegeZone extends SiegeableEntityZone
 		character.setInsideZone(FLAG_PVP, false);
 		character.setInsideZone(FLAG_SIEGE, false);
 		character.setInsideZone(FLAG_NOSUMMON, false);
-		
-		character.sendPacket(SystemMessageId.LEFT_COMBAT_ZONE);
 		
 		if (character instanceof L2SiegeSummonInstance)
 			((L2SiegeSummonInstance)character).unSummon();

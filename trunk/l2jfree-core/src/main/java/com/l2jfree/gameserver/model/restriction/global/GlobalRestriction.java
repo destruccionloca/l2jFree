@@ -30,6 +30,10 @@ public interface GlobalRestriction
 	
 	public boolean isInvul(L2Character activeChar, L2Character target, boolean isOffensive);
 	
+	public int isInsideZoneModifier(L2Character activeChar, byte zone);
+	
+	public void isInsideZoneStateChanged(L2Character activeChar, byte zone, boolean isInsideZone);
+	
 	// TODO
 	
 	public void levelChanged(L2PcInstance activeChar);

@@ -19,7 +19,6 @@ import com.l2jfree.gameserver.datatables.GmListTable;
 import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.SystemMessageId;
 
 public class L2JailZone extends L2Zone
 {
@@ -34,10 +33,7 @@ public class L2JailZone extends L2Zone
 			character.setInsideZone(FLAG_NOSUMMON, true);
 			
 			if (Config.JAIL_IS_PVP)
-			{
 				character.setInsideZone(FLAG_PVP, true);
-				character.sendPacket(SystemMessageId.ENTERED_COMBAT_ZONE);
-			}
 		}
 		
 		super.onEnter(character);
@@ -52,10 +48,7 @@ public class L2JailZone extends L2Zone
 			character.setInsideZone(FLAG_NOSUMMON, false);
 			
 			if (Config.JAIL_IS_PVP)
-			{
 				character.setInsideZone(FLAG_PVP, false);
-				character.sendPacket(SystemMessageId.LEFT_COMBAT_ZONE);
-			}
 		}
 		
 		super.onExit(character);

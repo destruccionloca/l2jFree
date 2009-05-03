@@ -36,9 +36,9 @@ import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.L2Character;
-import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.L2Playable;
+import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Instance;
 import com.l2jfree.gameserver.model.zone.form.Shape;
@@ -149,7 +149,7 @@ public class L2Zone implements FuncOwner
 	public static final byte FLAG_FORT = 16;
 	public static final byte FLAG_NOHEAL = 17;
 	
-	/** 
+	/**
 	 * Move speed multiplier applied when character is in water (swimming).<BR>
 	 * Tested on CT1 and CT1.5 NA retail
 	 */
@@ -463,8 +463,6 @@ public class L2Zone implements FuncOwner
 		{
 			character.setInsideZone(FLAG_NOSUMMON, true);
 			character.setInsideZone(FLAG_PVP, true);
-			
-			character.sendPacket(SystemMessageId.ENTERED_COMBAT_ZONE);
 		}
 		else if (_pvp == PvpSettings.PEACE)
 		{
@@ -516,8 +514,6 @@ public class L2Zone implements FuncOwner
 		{
 			character.setInsideZone(FLAG_NOSUMMON, false);
 			character.setInsideZone(FLAG_PVP, false);
-			
-			character.sendPacket(SystemMessageId.LEFT_COMBAT_ZONE);
 		}
 		else if (_pvp == PvpSettings.PEACE)
 		{
