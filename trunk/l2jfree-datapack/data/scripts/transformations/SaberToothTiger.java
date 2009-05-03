@@ -25,11 +25,26 @@ public class SaberToothTiger extends L2DefaultTransformation
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
+		int level = 1;
+		if (player.getLevel() >= 76)
+		{
+			level = 3;
+		}
+		else if (player.getLevel() >= 73)
+		{
+			level = 2;
+		}
+		addSkill(player, 748, 1);
+		addSkill(player, 746, level);
+		addSkill(player, 747, level);
 	}
 
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
+		removeSkill(player, 746);
+		removeSkill(player, 747);
+		removeSkill(player, 748);
 	}
 
 	public static void main(String[] args)

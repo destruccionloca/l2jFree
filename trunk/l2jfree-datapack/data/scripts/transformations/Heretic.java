@@ -25,9 +25,19 @@ public class Heretic extends L2DefaultTransformation
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
-		addSkill(player, 738, 3); // Heretic Heal
-		addSkill(player, 739, 3); // Heretic Battle Heal
-		addSkill(player, 740, 3); // Heretic Resurrection
+		int level = 1;
+		if (player.getLevel() >= 76)
+		{
+			level = 3;
+		}
+		else if (player.getLevel() >= 73)
+		{
+			level = 2;
+		}
+		addSkill(player, 738, level); // Heretic Heal
+		addSkill(player, 739, level); // Heretic Battle Heal
+		addSkill(player, 740, level); // Heretic Resurrection
+		addSkill(player, 741, level); // Heretic Heal Side Effect
 	}
 
 	@Override
@@ -36,6 +46,7 @@ public class Heretic extends L2DefaultTransformation
 		removeSkill(player, 738); // Heretic Heal
 		removeSkill(player, 739); // Heretic Battle Heal
 		removeSkill(player, 740); // Heretic Resurrection
+		removeSkill(player, 741); // Heretic Heal Side Effect
 	}
 
 	public static void main(String[] args)

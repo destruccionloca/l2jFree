@@ -25,12 +25,27 @@ public class ValeMaster extends L2DefaultTransformation
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
-		addSkill(player, 745, 3); // Vale Master Dark Curse
+		int level = 1;
+		if (player.getLevel() >= 76)
+		{
+			level = 3;
+		}
+		else if (player.getLevel() >= 73)
+		{
+			level = 2;
+		}
+		addSkill(player, 742, level);
+		addSkill(player, 743, level);
+		addSkill(player, 744, level);
+		addSkill(player, 745, level); // Vale Master Dark Curse
 	}
 
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
+		removeSkill(player, 742);
+		removeSkill(player, 743);
+		removeSkill(player, 744);
 		removeSkill(player, 745); // Vale Master Dark Curse
 	}
 

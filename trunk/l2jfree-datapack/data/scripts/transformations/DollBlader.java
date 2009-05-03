@@ -25,11 +25,26 @@ public class DollBlader extends L2DefaultTransformation
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
+		int level = 1;
+		if (player.getLevel() >= 76)
+		{
+			level = 3;
+		}
+		else if (player.getLevel() >= 73)
+		{
+			level = 2;
+		}
+		addSkill(player, 752, 1);
+		addSkill(player, 752, level);
+		addSkill(player, 753, level);
 	}
 
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
+		removeSkill(player, 754);
+		removeSkill(player, 752;
+		removeSkill(player, 753);
 	}
 
 	public static void main(String[] args)

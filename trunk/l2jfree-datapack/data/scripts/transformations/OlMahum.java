@@ -25,11 +25,26 @@ public class OlMahum extends L2DefaultTransformation
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
+		int level = 1;
+		if (player.getLevel() >= 76)
+		{
+			level = 3;
+		}
+		else if (player.getLevel() >= 73)
+		{
+			level = 2;
+		}
+		addSkill(player, 749, 1);
+		addSkill(player, 750, level);
+		addSkill(player, 751, level);
 	}
 
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
+		removeSkill(player, 749);
+		removeSkill(player, 750);
+		removeSkill(player, 751);
 	}
 
 	public static void main(String[] args)

@@ -25,7 +25,7 @@ public class Gatekeeper extends L2DefaultTransformation
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
-		addSkill(player,619, 1); // Transfrom Dispel
+		addSkill(player,8248, 1); // Transfrom Dispel
 		addSkill(player,5655, 1); // Transform Alternative Gatekeeper
 		addSkill(player,5656, 85); // Gatekeeper Aura Flare
 		addSkill(player,5657, 85); // Gatekeeper Prominence
@@ -36,7 +36,7 @@ public class Gatekeeper extends L2DefaultTransformation
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
-		removeSkill(player,619); // Transfrom Dispel
+		removeSkill(player,8248); // Transfrom Dispel
 		removeSkill(player,5655); // Transform Alternative Gatekeeper
 		removeSkill(player,5656); // Gatekeeper Aura Flare
 		removeSkill(player,5657); // Gatekeeper Prominence
