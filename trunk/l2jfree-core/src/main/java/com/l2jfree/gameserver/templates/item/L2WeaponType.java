@@ -14,32 +14,35 @@
  */
 package com.l2jfree.gameserver.templates.item;
 
+import com.l2jfree.gameserver.skills.Stats;
+
 /**
  * @author mkizub <BR>
  *         Description of Weapon Type
  */
 public enum L2WeaponType implements AbstractL2ItemType
 {
-	NONE(1, "Shield"), // Shields!!!
-	SWORD(2, "Sword"),
-	BLUNT(3, "Blunt"),
-	DAGGER(4, "Dagger"),
-	BOW(5, "Bow"),
-	POLE(6, "Pole"),
-	ETC(7, "Etc"),
-	FIST(8, "Fist"),
-	DUAL(9, "Dual Sword"),
-	DUALFIST(10, "Dual Fist"),
-	BIGSWORD(11, "Big Sword"), // Two Handed Swords
-	PET(12, "Pet"),
-	ROD(13, "Rod"),
-	BIGBLUNT(14, "Big Blunt"),
-	ANCIENT_SWORD(15, "Ancient"),
-	CROSSBOW(16, "Crossbow"),
-	RAPIER(17, "Rapier");
+	NONE(1, "Shield", null),
+	SWORD(2, "Sword", Stats.SWORD_WPN_VULN),
+	BLUNT(3, "Blunt", Stats.BLUNT_WPN_VULN),
+	DAGGER(4, "Dagger", Stats.DAGGER_WPN_VULN),
+	BOW(5, "Bow", Stats.BOW_WPN_VULN),
+	POLE(6, "Pole", Stats.POLE_WPN_VULN),
+	ETC(7, "Etc", null),
+	FIST(8, "Fist", Stats.FIST_WPN_VULN),
+	DUAL(9, "Dual Sword", Stats.DUAL_WPN_VULN),
+	DUALFIST(10, "Dual Fist", Stats.DUALFIST_WPN_VULN),
+	BIGSWORD(11, "Big Sword", Stats.BIGSWORD_WPN_VULN),
+	PET(12, "Pet", null),
+	ROD(13, "Rod", null),
+	BIGBLUNT(14, "Big Blunt", Stats.BLUNT_WPN_VULN),
+	ANCIENT_SWORD(15, "Ancient", Stats.SWORD_WPN_VULN),
+	CROSSBOW(16, "Crossbow", Stats.CROSSBOW_WPN_VULN),
+	RAPIER(17, "Rapier", Stats.DAGGER_WPN_VULN);
 	
 	private final int _id;
 	private final String _name;
+	private final Stats _stat;
 	
 	/**
 	 * Constructor of the L2WeaponType.
@@ -47,10 +50,11 @@ public enum L2WeaponType implements AbstractL2ItemType
 	 * @param id : int designating the ID of the WeaponType
 	 * @param name : String designating the name of the WeaponType
 	 */
-	private L2WeaponType(int id, String name)
+	private L2WeaponType(int id, String name, Stats stat)
 	{
 		_id = id;
 		_name = name;
+		_stat = stat;
 	}
 	
 	/**
@@ -72,6 +76,11 @@ public enum L2WeaponType implements AbstractL2ItemType
 	public String toString()
 	{
 		return _name;
+	}
+	
+	public Stats getStat()
+	{
+		return _stat;
 	}
 	
 	public boolean isBowType()

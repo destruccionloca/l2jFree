@@ -155,14 +155,12 @@ public enum Stats
 	DEBUFF_PROF("debuffProf"),
 	CRIT_PROF("critProf"),
 	
-	NONE_WPN_VULN("noneWpnVuln"), // Shields!!!
 	SWORD_WPN_VULN("swordWpnVuln"),
 	BLUNT_WPN_VULN("bluntWpnVuln"),
 	DAGGER_WPN_VULN("daggerWpnVuln"),
 	BOW_WPN_VULN("bowWpnVuln"),
 	CROSSBOW_WPN_VULN("crossbowWpnVuln"),
 	POLE_WPN_VULN("poleWpnVuln"),
-	ETC_WPN_VULN("etcWpnVuln"),
 	FIST_WPN_VULN("fistWpnVuln"),
 	DUAL_WPN_VULN("dualWpnVuln"),
 	DUALFIST_WPN_VULN("dualFistWpnVuln"),

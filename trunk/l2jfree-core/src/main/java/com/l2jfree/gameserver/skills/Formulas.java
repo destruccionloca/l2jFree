@@ -1443,56 +1443,6 @@ public final class Formulas
 			}
 		}
 
-		// defence modifier depending of the attacker weapon
-		L2Weapon weapon = attacker.getActiveWeaponItem();
-		Stats stat = null;
-		if (weapon != null && !transformed)
-		{
-			switch (weapon.getItemType())
-			{
-			case BOW:
-				stat = Stats.BOW_WPN_VULN;
-				break;
-			case CROSSBOW:
-				stat = Stats.CROSSBOW_WPN_VULN;
-				break;
-			case BLUNT:
-			case BIGBLUNT:
-				stat = Stats.BLUNT_WPN_VULN;
-				break;
-			case DAGGER:
-				stat = Stats.DAGGER_WPN_VULN;
-				break;
-			case DUAL:
-				stat = Stats.DUAL_WPN_VULN;
-				break;
-			case DUALFIST:
-				stat = Stats.DUALFIST_WPN_VULN;
-				break;
-			case ETC:
-				stat = Stats.ETC_WPN_VULN;
-				break;
-			case FIST:
-				stat = Stats.FIST_WPN_VULN;
-				break;
-			case POLE:
-				stat = Stats.POLE_WPN_VULN;
-				break;
-			case SWORD:
-				stat = Stats.SWORD_WPN_VULN;
-				break;
-			case BIGSWORD:
-				stat = Stats.BIGSWORD_WPN_VULN;
-				break;
-			case ANCIENT_SWORD:
-				stat = Stats.SWORD_WPN_VULN;
-				break;
-			case RAPIER:
-				stat = Stats.DAGGER_WPN_VULN;
-				break;
-			}
-		}
-
 		/*if (shld && !Config.ALT_GAME_SHIELD_BLOCKS)
 		{
 			defence += target.getStat().getShldDef();
@@ -1527,6 +1477,10 @@ public final class Formulas
 		if (attacker instanceof L2Summon && target instanceof L2PcInstance)
 			damage *= 0.9;
 
+		// defence modifier depending of the attacker weapon
+		L2Weapon weapon = attacker.getActiveWeaponItem();
+		
+		Stats stat = weapon != null && !transformed ? weapon.getItemType().getStat() : null;
 		if (stat != null)
 		{
 			// get the vulnerability due to skills (buffs, passives, toggles, etc)
