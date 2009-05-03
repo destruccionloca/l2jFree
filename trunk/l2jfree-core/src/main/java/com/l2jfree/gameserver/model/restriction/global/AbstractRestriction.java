@@ -25,7 +25,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 /**
  * @author NB4L1
  */
-abstract class AbstractRestriction implements GlobalRestriction
+public abstract class AbstractRestriction implements GlobalRestriction
 {
 	static final Log _log = LogFactory.getLog(AbstractRestriction.class);
 	
