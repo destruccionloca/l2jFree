@@ -67,6 +67,18 @@ public final class L2GuardInstance extends L2Guard
 		}
 	}
 	
+	public void startReturnTask()
+	{
+		GuardReturnHomeManager.getInstance().startTask(this);
+	}
+	
+	public void stopReturnTask()
+	{
+		GuardReturnHomeManager.getInstance().callTask(this); // just to be sure it returned to home
+		
+		GuardReturnHomeManager.getInstance().stopTask(this);
+	}
+	
 	private static final int RETURN_INTERVAL = 60000;
 	
 	/**

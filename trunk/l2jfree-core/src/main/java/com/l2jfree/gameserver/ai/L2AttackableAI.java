@@ -295,11 +295,17 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 	public void startAITask()
 	{
 		AttackableAiTaskManager.getInstance().startTask(this);
+		
+		if (_actor instanceof L2GuardInstance)
+			((L2GuardInstance)_actor).startReturnTask();
 	}
 	
 	@Override
 	public void stopAITask()
 	{
+		if (_actor instanceof L2GuardInstance)
+			((L2GuardInstance)_actor).stopReturnTask();
+		
 		AttackableAiTaskManager.getInstance().stopTask(this);
 		_accessor.detachAI();
 	}
@@ -607,7 +613,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			}
 		}
 		// Order to the L2MonsterInstance to random walk (1/100)
-		else if (npc.getSpawn() != null && Rnd.nextInt(RANDOM_WALK_RATE) == 0 && !(_actor instanceof L2Boss || _actor instanceof L2MinionInstance || _actor instanceof L2ChestInstance))
+		else if (npc.getSpawn() != null && Rnd.nextInt(RANDOM_WALK_RATE) == 0)
 		{
 			// [L2J_JP ADD SANDMAN]
 			// Instant move of zaken
@@ -616,9 +622,6 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 				npc.doCast(SkillTable.getInstance().getInfo(4222, 1));
 				return;
 			}
-
-			int x1, y1, z1;
-			int range = Config.MAX_DRIFT_RANGE;
 
 			// self and clan buffs
 			for (L2Skill sk : _selfAnalysis.buffSkills)
@@ -640,10 +643,19 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 					return;
 				}
 			}
-
-			x1 = npc.getSpawn().getLocx();
-			y1 = npc.getSpawn().getLocy();
-			z1 = npc.getSpawn().getLocz();
+			
+			if (_actor instanceof L2Boss
+					|| _actor instanceof L2MinionInstance
+					|| _actor instanceof L2ChestInstance
+					|| _actor instanceof L2GuardInstance)
+				return;
+			
+			int range = Config.MAX_DRIFT_RANGE;
+			
+			int x1 = npc.getSpawn().getLocx();
+			int y1 = npc.getSpawn().getLocy();
+			int z1 = npc.getSpawn().getLocz();
+			
 			if (_actor.getPlanDistanceSq(x1, y1) > range * range)
 			{
 				npc.setisReturningToSpawnPoint(true);
@@ -654,7 +666,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 				y1 += Rnd.nextInt(range * 2) - range;
 				z1 = npc.getZ();
 			}
-
+			
 			//_log.config("Curent pos ("+getX()+", "+getY()+"), moving to ("+x1+", "+y1+").");
 			// Move the actor to Location (x,y,z) server side AND client side by sending Server->Client packet MoveToLocation (broadcast)
 			moveTo(x1, y1, z1);
@@ -670,7 +682,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			}
 		}
 	}
-
+	
 	/**
 	 * Manage AI attack thinks of a L2Attackable (called by onEvtThink).<BR><BR>
 	 * 
