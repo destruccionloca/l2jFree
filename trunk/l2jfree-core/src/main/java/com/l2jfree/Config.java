@@ -35,8 +35,6 @@ import javolution.util.FastMap;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.config.L2Properties;
 import com.l2jfree.gameserver.util.Util;
@@ -77,8 +75,6 @@ public final class Config extends L2Config
 		registerConfig(new WeddingConfig());
 	}
 	
-	private final static Log	_log								= LogFactory.getLog(Config.class.getName());
-
 	// *******************************************************************************************
 	public static final String	CONFIGURATION_FILE					= "./config/server.properties";
 	// *******************************************************************************************
@@ -1847,7 +1843,7 @@ public final class Config extends L2Config
 		@Override
 		protected String getName()
 		{
-			return "gmaccess";
+			return "GMAccess";
 		}
 		
 		@Override

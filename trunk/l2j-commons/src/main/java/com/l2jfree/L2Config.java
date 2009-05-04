@@ -87,7 +87,7 @@ public abstract class L2Config
 		
 		protected String getFileName()
 		{
-			return "./config/" + _loaders.standardizeKey(getName()) + ".properties";
+			return "./config/" + getName().trim() + ".properties";
 		}
 		
 		protected void load() throws Exception
