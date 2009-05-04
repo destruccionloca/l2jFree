@@ -3315,7 +3315,7 @@ public final class Config extends L2Config
 		@Override
 		protected void load() throws Exception
 		{
-			load();
+			Config.load();
 		}
 	}
 	
