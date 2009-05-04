@@ -3312,10 +3312,23 @@ public final class Config extends L2Config
 			return "all";
 		}
 		
+		private boolean _reloading = false;
+		
 		@Override
 		protected void load() throws Exception
 		{
-			Config.load();
+			if (_reloading)
+				return;
+			
+			_reloading = true;
+			try
+			{
+				Config.load();
+			}
+			finally
+			{
+				_reloading = false;
+			}
 		}
 	}
 	
