@@ -31,9 +31,9 @@ public abstract class SendablePacket<T extends MMOConnection<T>> extends Abstrac
 		getByteBuffer().put((byte)(value ? 1 : 0));
 	}
 	
-	protected void writeC(long value)
+	protected void writeC(int value)
 	{
-		getByteBuffer().put(value < Byte.MAX_VALUE ? (byte)value : Byte.MAX_VALUE);
+		getByteBuffer().put((byte)value);
 	}
 	
 	protected void writeH(boolean value)
@@ -41,14 +41,19 @@ public abstract class SendablePacket<T extends MMOConnection<T>> extends Abstrac
 		getByteBuffer().putShort((short)(value ? 1 : 0));
 	}
 	
-	protected void writeH(long value)
+	protected void writeH(int value)
 	{
-		getByteBuffer().putShort(value < Short.MAX_VALUE ? (short)value : Short.MAX_VALUE);
+		getByteBuffer().putShort((short)value);
 	}
 	
 	protected void writeD(boolean value)
 	{
 		getByteBuffer().putInt(value ? 1 : 0);
+	}
+	
+	protected void writeD(int value)
+	{
+		getByteBuffer().putInt(value);
 	}
 	
 	protected void writeD(long value)
