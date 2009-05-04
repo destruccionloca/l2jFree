@@ -1244,7 +1244,7 @@ public abstract class L2Character extends L2Object
 		}
 
 		// Create a new hit task with Medium priority
-		ThreadPoolManager.getInstance().scheduleAi(new HitTask(target, damage1, crit1, miss1, attack.soulshot, shld1), sAtk);
+		ThreadPoolManager.getInstance().scheduleAi(new HitTask(target, damage1, crit1, miss1), sAtk);
 
 		// Add this hit to the Server-Client packet Attack
 		attack.addHit(target, damage1, miss1, crit1, shld1);
@@ -1313,7 +1313,7 @@ public abstract class L2Character extends L2Object
 		}
 
 		// Create a new hit task with Medium priority
-		ThreadPoolManager.getInstance().scheduleAi(new HitTask(target, damage1, crit1, miss1, attack.soulshot, shld1), sAtk);
+		ThreadPoolManager.getInstance().scheduleAi(new HitTask(target, damage1, crit1, miss1), sAtk);
 
 		// Add this hit to the Server-Client packet Attack
 		attack.addHit(target, damage1, miss1, crit1, shld1);
@@ -1384,10 +1384,10 @@ public abstract class L2Character extends L2Object
 		}
 
 		// Create a new hit task with Medium priority for hit 1
-		ThreadPoolManager.getInstance().scheduleAi(new HitTask(target, damage1, crit1, miss1, attack.soulshot, shld1), sAtk / 2);
+		ThreadPoolManager.getInstance().scheduleAi(new HitTask(target, damage1, crit1, miss1), sAtk / 2);
 
 		// Create a new hit task with Medium priority for hit 2 with a higher delay
-		ThreadPoolManager.getInstance().scheduleAi(new HitTask(target, damage2, crit2, miss2, attack.soulshot, shld2), sAtk);
+		ThreadPoolManager.getInstance().scheduleAi(new HitTask(target, damage2, crit2, miss2), sAtk);
 
 		// Add those hits to the Server-Client packet Attack
 		attack.addHit(target, damage1, miss1, crit1, shld1);
@@ -1553,7 +1553,7 @@ public abstract class L2Character extends L2Object
 		}
 
 		// Create a new hit task with Medium priority
-		ThreadPoolManager.getInstance().scheduleAi(new HitTask(target, damage1, crit1, miss1, attack.soulshot, shld1), sAtk);
+		ThreadPoolManager.getInstance().scheduleAi(new HitTask(target, damage1, crit1, miss1), sAtk);
 
 		// Add this hit to the Server-Client packet Attack
 		attack.addHit(target, damage1, miss1, crit1, shld1);
@@ -2860,37 +2860,31 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <BR>
 	 */
-	class HitTask implements Runnable
+	private final class HitTask implements Runnable
 	{
-		L2Character	_hitTarget;
-		int			_damage;
-		boolean		_crit;
-		boolean		_miss;
-		byte		_shld;
-		boolean		_soulshot;
-
-		public HitTask(L2Character target, int damage, boolean crit, boolean miss, boolean soulshot, byte shld)
+		private final L2Character _hitTarget;
+		private final int _damage;
+		private final boolean _crit;
+		private final boolean _miss;
+		
+		public HitTask(L2Character target, int damage, boolean crit, boolean miss)
 		{
 			_hitTarget = target;
 			_damage = damage;
 			_crit = crit;
-			_shld = shld;
 			_miss = miss;
-			_soulshot = soulshot;
 		}
-
+		
 		public void run()
 		{
-			try
+			synchronized (_hitTimerLock)
 			{
-				onHitTimer(_hitTarget, _damage, _crit, _miss, _soulshot, _shld);
-			}
-			catch (Exception e)
-			{
-				_log.fatal(e.getMessage(), e);
+				onHitTimer(_hitTarget, _damage, _crit, _miss);
 			}
 		}
 	}
+	
+	private final Object _hitTimerLock = new Object();
 	
 	private static final class MagicEnv
 	{
@@ -5291,7 +5285,7 @@ public abstract class L2Character extends L2Object
 	 * @param shld
 	 *            True if shield is efficient
 	 */
-	protected void onHitTimer(L2Character target, int damage, boolean crit, boolean miss, boolean soulshot, byte shld)
+	protected void onHitTimer(L2Character target, int damage, boolean crit, boolean miss)
 	{
 		// If the attacker/target is dead or use fake death, notify the AI with EVT_CANCEL
 		// and send a Server->Client packet ActionFailed (if attacker is a L2PcInstance)
