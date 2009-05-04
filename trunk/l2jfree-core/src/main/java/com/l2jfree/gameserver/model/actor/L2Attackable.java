@@ -37,10 +37,10 @@ import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.EventDroplist.DateDrop;
 import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
-import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2CommandChannel;
 import com.l2jfree.gameserver.model.L2DropCategory;
 import com.l2jfree.gameserver.model.L2DropData;
+import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Manor;
 import com.l2jfree.gameserver.model.L2Party;
 import com.l2jfree.gameserver.model.L2Skill;
@@ -315,13 +315,6 @@ public class L2Attackable extends L2Npc
 	public final Map<L2Character, AggroInfo> getAggroList()
 	{
 		return _aggroList;
-	}
-
-	private final Map<L2Character, AggroInfo> _damageContributors = new SingletonMap<L2Character, AggroInfo>().setShared();
-
-	public final Map<L2Character, AggroInfo> getDamageContributors()
-	{
-		return _damageContributors;
 	}
 
 	private boolean	_isReturningToSpawnPoint	= false;
@@ -1001,26 +994,6 @@ public class L2Attackable extends L2Npc
 		// Add new damage and aggro (=damage) to the AggroInfo object
 		ai._damage += damage;
 		ai._hate += (aggro * 100) / (getLevel() + 7);
-
-		// we will do some special treatments for _attacker but _attacker is not for sure a L2Playable...
-		if (attacker instanceof L2Playable)
-		{
-			// attacker L2PcInstance could be the the attacker or the owner of the attacker
-			L2PcInstance _attacker = attacker instanceof L2PcInstance ? (L2PcInstance) attacker : ((L2Summon) attacker).getOwner();
-			AggroInfo damageContrib = getDamageContributors().get(_attacker);
-			if (damageContrib != null)
-			{
-				damageContrib._damage += damage;
-				damageContrib._hate += aggro;
-			}
-			else
-			{
-				damageContrib = new AggroInfo(_attacker);
-				damageContrib._damage = damage;
-				damageContrib._hate = aggro;
-				getDamageContributors().put(_attacker, damageContrib);
-			}
-		}
 
 		// Set the intention to the L2Attackable to AI_INTENTION_ACTIVE
 		if (aggro > 0 && getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE)
@@ -2063,15 +2036,6 @@ public class L2Attackable extends L2Npc
 	}
 
 	/**
-	 * Clear the _DamageContributors of the L2Attackable.<BR>
-	 * <BR>
-	 */
-	public void clearDamageContributors()
-	{
-		getDamageContributors().clear();
-	}
-
-	/**
 	 * Return True if a Dwarf use Sweep on the L2Attackable and if item can be
 	 * spoiled.<BR>
 	 * <BR>
@@ -2592,8 +2556,6 @@ public class L2Attackable extends L2Npc
 		setSpoil(false);
 		// Clear all aggro char from list
 		clearAggroList();
-		// Clear all damage dealers info from list
-		clearDamageContributors();
 		// Clear Harvester Rewrard List
 		_harvestItems = null;
 		// Clear mod Seeded stat

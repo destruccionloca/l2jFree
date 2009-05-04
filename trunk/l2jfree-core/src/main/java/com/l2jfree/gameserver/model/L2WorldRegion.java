@@ -196,7 +196,6 @@ public final class L2WorldRegion
 					mob.stopMove(null, false);
 					mob.stopAllEffects();
 					mob.clearAggroList();
-					mob.clearDamageContributors();
 					mob.resetAbsorbList();
 					mob.getKnownList().removeAllKnownObjects();
 					mob.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
