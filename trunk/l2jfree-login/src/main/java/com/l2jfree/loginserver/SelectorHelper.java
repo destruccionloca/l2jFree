@@ -34,6 +34,7 @@ import org.mmocore.network.SelectorThread;
 import org.mmocore.network.TCPHeaderHandler;
 
 import com.l2jfree.loginserver.serverpackets.Init;
+import com.l2jfree.util.concurrent.ExecuteWrapper;
 
 /**
  * @author KenM
@@ -54,7 +55,7 @@ public class SelectorHelper extends TCPHeaderHandler<L2LoginClient> implements I
 	 */
 	public void execute(ReceivablePacket<L2LoginClient> packet)
 	{
-		_generalPacketsThreadPool.execute(packet);
+		_generalPacketsThreadPool.execute(new ExecuteWrapper(packet));
 	}
 	
 	/**
