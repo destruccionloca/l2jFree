@@ -380,7 +380,7 @@ public class SkillTreeTable
 		}
 
 		_log.info("FishingSkillTreeTable:   Loaded " + count2 + " general skills.");
-		_log.info("FishingSkillTreeTable:   Loaded " + count3 + " dwarven skills.");
+		_log.info("DwarvenSkillTreeTable:   Loaded " + count3 + " dwarven skills.");
 		_log.info("EnchantSkillTreeTable:   Loaded " + count4 + " enchant skills.");
 		_log.info("PledgeSkillTreeTable:    Loaded " + count5 + " pledge skills.");
 		_log.info("TransformSkillTreeTable: Loaded " + count6 + " transform skills.");
