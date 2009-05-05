@@ -250,7 +250,7 @@ public class LoginServerThread extends Thread
 						break;
 					case 01:
 						LoginServerFail lsf = new LoginServerFail(decrypt);
-						_log.info("Damn! Registeration Failed: " + lsf.getReasonString());
+						_log.info("Damn! Registration Failed: " + lsf.getReasonString());
 						// login will close the connection here
 						break;
 					case 02:
@@ -332,7 +332,7 @@ public class LoginServerThread extends Thread
 			}
 			catch (IOException e)
 			{
-				_log.info("Deconnected from Login, Trying to reconnect:");
+				_log.info("Disconnected from Login, Trying to reconnect:");
 				_log.info(e.toString());
 			}
 			finally
