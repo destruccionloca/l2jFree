@@ -338,6 +338,14 @@ public abstract class ConditionParser
 			int agathionId = Integer.decode(nodeValue);
 			return new ConditionAgathionSummoned(agathionId);
 		}
+		else if ("active_effect_id".equalsIgnoreCase(nodeName))
+		{
+			StringTokenizer st = new StringTokenizer(nodeValue, ",");
+			int effectId = Integer.decode(st.nextToken());
+			int minEffectLvl = st.hasMoreTokens() ? Integer.decode(st.nextToken()) : -1;
+			int maxEffectLvl = st.hasMoreTokens() ? Integer.decode(st.nextToken()) : minEffectLvl;
+			return new ConditionPlayerActiveEffectId(effectId, minEffectLvl, maxEffectLvl);
+		}
 		
 		throw new IllegalStateException("Invalid attribute at <player>: " + nodeName + "='" + nodeValue + "'");
 	}

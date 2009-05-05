@@ -105,7 +105,18 @@ public class ChanceSkillList extends FastMap<L2Skill, ChanceCondition>
 		{
 			if (e.getValue() != null && e.getValue().trigger(event))
 			{
-				makeCast(e.getKey(), target);
+				L2Skill s = e.getKey();
+				if (e.getValue().improve())
+				{
+					//improve an active effect
+					L2Effect ef = target.getFirstEffect(s.getId());
+					if (ef != null) //effect exists, try level+1
+						s = SkillTable.getInstance().getInfo(ef.getId(), ef.getLevel()+1);
+					else //effect doesn't exist?
+						s = null;
+					if (s != null) //an improved effect exists
+						makeCast(s, target);
+				}
 			}
 		}
 	}

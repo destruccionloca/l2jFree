@@ -19,6 +19,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.PetDataTable;
+import com.l2jfree.gameserver.model.L2PetData;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
@@ -458,8 +459,12 @@ public class CharStat
 			return 1;
 
 		if (_activeChar instanceof L2PcInstance && ((L2PcInstance)_activeChar).isMounted())
-			return getRunSpeed() * 1f / PetDataTable.getInstance().getPetData(
-					((L2PcInstance)_activeChar).getMountNpcId(), ((L2PcInstance)_activeChar).getMountLevel()).getPetSpeed();
+		{
+			L2PetData stats = PetDataTable.getInstance().getPetData(
+					((L2PcInstance)_activeChar).getMountNpcId(), ((L2PcInstance)_activeChar).getMountLevel());
+			if (stats != null)
+				return getRunSpeed() * 1f / stats.getPetSpeed();
+		}
 
 		return getRunSpeed() * 1f / _activeChar.getTemplate().getBaseRunSpd();
 	}
@@ -678,11 +683,9 @@ public class CharStat
 			L2PcInstance player = (L2PcInstance)_activeChar;
 			if (player.isMounted())
 			{
-				try
-				{
-					baseRunSpd = PetDataTable.getInstance().getPetData(player.getMountNpcId(), player.getMountLevel()).getPetSpeed();
-				}
-				catch (NullPointerException npe) { /* Missing data in pet_stats table */ }
+				L2PetData stats = PetDataTable.getInstance().getPetData(player.getMountNpcId(), player.getMountLevel());
+				if (stats != null)
+					baseRunSpd = stats.getPetSpeed();
 			}
 		}
 		int val = (int) (calcStat(Stats.RUN_SPEED, baseRunSpd, null, null) * Config.RATE_RUN_SPEED);

@@ -169,7 +169,14 @@ public class PetDataTable
 
 	public L2PetData getPetData(int petID, int petLevel)
 	{
-		return petTable.get(petID).get(petLevel);
+		try
+		{
+			return petTable.get(petID).get(petLevel);
+		}
+		catch (NullPointerException npe)
+		{
+			return null;
+		}
 	}
 
 	public static int getPetIdByItemId(int itemId)
