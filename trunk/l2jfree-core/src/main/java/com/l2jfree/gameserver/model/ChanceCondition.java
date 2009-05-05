@@ -118,10 +118,12 @@ public final class ChanceCondition
 
 	public boolean improve()
 	{
-		if (_impChance == 0)
-			return false;
-		else
-			return Rnd.get(100) < _impChance;
+		return Rnd.get(100) < _impChance;
+	}
+
+	public boolean canImprove()
+	{
+		return _impChance > 0;
 	}
 
 	@Override
