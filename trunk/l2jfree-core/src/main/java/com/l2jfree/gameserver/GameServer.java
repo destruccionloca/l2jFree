@@ -151,8 +151,6 @@ public class GameServer
 	
 	public static void main(String[] args) throws Throwable
 	{
-		System.setProperty("line.separator", "\r\n");
-		System.setProperty("file.encoding", "UTF-8");
 		System.setProperty("python.home", ".");
 		
 		Util.printSection("Preparations");

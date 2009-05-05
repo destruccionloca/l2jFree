@@ -56,7 +56,7 @@ public final class UnblockIP extends StatusCommand
 	@Override
 	protected String getParameterUsage()
 	{
-		return "<ip>";
+		return "ip";
 	}
 	
 }

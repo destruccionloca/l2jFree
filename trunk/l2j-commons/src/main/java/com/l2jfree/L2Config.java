@@ -30,6 +30,12 @@ import com.l2jfree.util.HandlerRegistry;
  */
 public abstract class L2Config
 {
+	static
+	{
+		System.setProperty("line.separator", "\r\n");
+		System.setProperty("file.encoding", "UTF-8");
+	}
+	
 	protected static final Log _log = LogFactory.getLog(L2Config.class);
 	
 	public static final String TELNET_FILE = "./config/telnet.properties";
