@@ -107,39 +107,112 @@
     </for>
   </skill>
   <skill id="1505" levels="1" name="Sublime Self-Sacrifice">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="castRange" val="-1"/>
+    <!-- Done by L2CDP -->
+    <set name="power" val="0.0"/>
+    <set name="mpInitialConsume" val="43"/>
+    <set name="mpConsume" val="174"/>
+    <set name="hpConsume" val="4000"/>
+    <set name="target" val="TARGET_PARTY"/>
+    <set name="skillRadius" val="1000"/>
+    <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="4000"/>
+    <set name="coolTime" val="2666"/>
+    <set name="isMagic" val="true"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <effect count="1" name="Invincible" time="10" val="0" stackOrder="1" stackType="Instant_Shield"/>
+    </for>
   </skill>
   <skill id="1506" levels="1" name="Blessing of Eva">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="castRange" val="-1"/>
+    <!-- Done by L2CDP -->
+    <set name="power" val="50"/> <!-- Need retail value -->
+    <set name="restoreCP" val="800"/> <!-- Need retail value -->
+    <set name="restoreHP" val="500"/> <!-- Need retail value -->
+    <set name="restoreMP" val="150"/> <!-- Need retail value -->
+    <set name="mpInitialConsume" val="14"/>
+    <set name="mpConsume" val="58"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="4000"/>
+    <set name="coolTime" val="2666"/>
+    <set name="isMagic" val="true"/>
+    <set name="skillType" val="RECOVER"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="400"/>
+    <set name="effectRange" val="900"/>
+    <for>
+    </for>
   </skill>
   <skill id="1507" levels="1" name="Lord of Vampire">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="castRange" val="-1"/>
+    <!-- Done by L2CDP -->
+    <set name="power" val="0.0"/>
+    <set name="mpInitialConsume" val="7"/>
+    <set name="mpConsume" val="29"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="4000"/>
+    <set name="coolTime" val="2666"/>
+    <set name="isMagic" val="true"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="400"/>
+    <set name="effectRange" val="900"/>
+    <for>
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="10" stackType="vampRage">
+        <add order="0x40" stat="absorbDam" val="10"/>
+      </effect>
+    </for>
   </skill>
   <skill id="1508" levels="1" name="Throne Root">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="castRange" val="-1"/>
+    <!-- Done by L2CDP -->
+    <set name="magicLvl" val="81"/>
+    <set name="power" val="80"/>
+    <set name="lvlDepend" val="2"/>
+    <set name="mpInitialConsume" val="21"/>
+    <set name="mpConsume" val="87"/>
+    <set name="target" val="TARGET_AURA"/>
+    <set name="skillRadius" val="200"/>
+    <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="1500"/>
+    <set name="coolTime" val="1000"/>
+    <set name="skillType" val="ROOT"/>
+    <set name="isMagic" val="true"/>
+    <set name="isDebuff" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <effect count="1" name="Root" time="30" val="0" stackOrder="1" stackType="Root"/>
+    </for>
   </skill>
   <skill id="1509" levels="1" name="Seal of Limit">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="castRange" val="-1"/>
+    <!-- Done by L2CDP -->
+    <set name="magicLvl" val="81"/>
+    <set name="power" val="40"/>
+    <set name="lvlDepend" val="1"/>
+    <set name="mpInitialConsume" val="11"/>
+    <set name="mpConsume" val="44"/>
+    <set name="target" val="TARGET_AURA"/>
+    <set name="skillRadius" val="200"/>
+    <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="1500"/>
+    <set name="coolTime" val="1000"/>
+    <set name="isMagic" val="true"/>
+    <set name="isDebuff" val="true"/>
+    <set name="skillType" val="DEBUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <effect name="Debuff" time="120" count="1" val="0">
+        <!-- TODO: <mul order="0x30" stat="gainCp" val="0"/> -->
+        <mul order="0x30" stat="gainHp" val="0"/>
+        <mul order="0x30" stat="gainMp" val="0"/>
+      </effect>
+    </for>
   </skill>
   <skill id="1510" levels="1" name="Soul Cleanse">
     <!-- CT2.2 retail confirmed -->
@@ -545,10 +618,26 @@
     <set name="effectRange" val="1400"/>
   </skill>
   <skill id="1531" levels="7" name="Bless the Blood">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <table name="#mpInitialConsume"> 7 8 10 11 12 12 13 </table>
+    <set name="mpInitialConsume" val="#mpInitialConsume"/>
+    <table name="#mpConsume"> 28 35 41 44 48 51 53 </table>
+    <set name="mpConsume" val="#mpConsume"/>
+    <table name="#level"> 1 2 3 4 5 6 7 </table>
+    <set name="target" val="TARGET_PARTY"/>
+    <set name="skillRadius" val="1000"/>
+    <set name="reuseDelay" val="6000"/>
+    <set name="hitTime" val="4000"/>
+    <set name="coolTime" val="2666"/>
+    <set name="isMagic" val="true"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
-    <set name="hitTime" val="5000"/>
+    <set name="effectRange" val="-1"/>
+    <set name="bestowTriggered" val="true"/>
+    <set name="triggeredId" val="5698"/>
+    <set name="triggeredLevel" val="#level"/>
+    <for>
+      <effect count="1" name="Buff" time="60" val="0"/>
+    </for>
   </skill>
 </list>

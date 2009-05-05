@@ -803,36 +803,59 @@
     <set name="castRange" val="-1"/>
     <set name="hitTime" val="4000"/>
   </skill>
+  <!-- All the hard stuff done by L2CDP, consider using it -->
   <skill id="755" levels="1" name="Protection of Rune">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="bestowTriggered" val="true"/>
+    <set name="triggeredId" val="5556"/>
+    <set name="triggeredLevel" val="1"/>
+    <for>
+      <mul order="0x30" stat="mDef" val="1.2"/>
+    </for>
   </skill>
   <skill id="756" levels="1" name="Protection of Elemental">
-    <!-- by Sephiroth -->
-    <set name="isMagic" val="true"/>
-    <set name="hitTime" val="4000"/>
-    <set name="target" val="TARGET_ONE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <set name="operateType" val="OP_PASSIVE"/>
     <set name="skillType" val="BUFF"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="40"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="bestowTriggered" val="true"/>
+    <set name="triggeredId" val="5557"/>
+    <set name="triggeredLevel" val="1"/>
     <for>
-      <effect name="Buff" count="1" time="15" val="0"/>
+      <mul order="0x30" stat="fireVuln" val="0.95"/>
+      <mul order="0x30" stat="waterVuln" val="0.95"/>
+      <mul order="0x30" stat="earthVuln" val="0.95"/>
+      <mul order="0x30" stat="windVuln" val="0.95"/>
     </for>
   </skill>
   <skill id="757" levels="1" name="Protection of Alignment">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="bestowTriggered" val="true"/>
+    <set name="triggeredId" val="5558"/>
+    <set name="triggeredLevel" val="1"/>
+    <for>
+      <mul order="0x30" stat="darkVuln" val="0.95"/>
+      <mul order="0x30" stat="holyVuln" val="0.95"/>
+    </for>
   </skill>
   <skill id="758" levels="1" name="Fighter's Will">
-    <!-- by Sephiroth -->
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="castRange" val="-1"/>
+    <set name="bestowTriggered" val="true"/>
+    <set name="triggeredId" val="5559"/>
+    <set name="triggeredLevel" val="1"/>
     <for>
       <mul order="0x30" stat="pAtk" val="1.09">
         <using kind="Sword, Rapier, Ancient, Blunt, Fist, Dual Fist, Dual Sword, Two Handed Sword, Dagger, Pole"/>
@@ -843,11 +866,14 @@
     </for>
   </skill>
   <skill id="759" levels="1" name="Archer's Will">
-    <!-- by Sephiroth -->
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="castRange" val="-1"/>
+    <set name="bestowTriggered" val="true"/>
+    <set name="triggeredId" val="5560"/>
+    <set name="triggeredLevel" val="1"/>
     <for>
       <mul order="0x30" stat="pAtk" val="1.09">
         <using kind="Bow, Crossbow"/>
@@ -875,31 +901,46 @@
     </for>
   </skill>
   <skill id="761" levels="1" name="Seed of Revenge">
-    <set name="hitTime" val="2500"/>
+    <set name="power" val="0.0"/>
+    <set name="mpInitialConsume" val="7"/>
+    <set name="mpConsume" val="29"/>
     <set name="target" val="TARGET_SELF"/>
+    <set name="hitTime" val="2500"/>
+    <set name="coolTime" val="1666"/>
+    <set name="reuseDelay" val="95000"/>
+    <set name="isMagic" val="true"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <set name="bestowTriggered" val="true"/>
+    <set name="triggeredId" val="5561"/>
+    <set name="triggeredLevel" val="1"/>
     <for>
-      <effect name="Buff" count="1" time="60" val="0"/>
+      <effect count="1" name="Buff" time="60" val="0" stackOrder="1" stackType="inc_buff"/>
     </for>
   </skill>
   <skill id="762" levels="1" name="Insane Crusher">
-    <!-- by Sephiroth -->
-    <set name="hitTime" val="1300"/>
     <set name="magicLvl" val="81"/>
-    <set name="mpConsume" val="89"/>
+    <set name="mpInitialConsume" val="16"/>
+    <set name="mpConsume" val="64"/>
+    <set name="hitTime" val="1300"/>
+    <set name="coolTime" val="866"/>
     <set name="reuseDelay" val="21000"/>
-    <set name="power" val="9014"/>
+    <set name="power" val="4312.0"/>
     <set name="SSBoost" val="2.0"/>
     <set name="overHit" val="true"/>
     <set name="target" val="TARGET_AURA"/>
     <set name="skillType" val="PDAM"/>
-    <set name="skillRadius" val="130"/>
+    <set name="skillRadius" val="200"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
-    <cond>
-      <using kind="Sword,Blunt,Big Sword,Big Blunt"/>
+    <set name="effectRange" val="400"/>
+    <cond msg="Insane Crusher cannot be used due to unsuitable terms.">
+      <and>
+        <using kind="Sword,Blunt,Big Sword,Big Blunt"/>
+        <player active_effect_id="5561,3"/>
+      </and>
     </cond>
   </skill>
   <skill id="763" levels="1" name="Hell Scream">
@@ -982,13 +1023,15 @@
     </for>
   </skill>
   <skill id="767" levels="1" name="Expose Weak Point">
-    <!-- by Sephiroth -->
-    <set name="target" val="TARGET_ONE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="castRange" val="40"/>
+    <set name="bestowTriggered" val="true"/>
+    <set name="triggeredId" val="5565"/>
+    <set name="triggeredLevel" val="1"/>
     <for>
-      <mul order="0x30" stat="pDef" val="0.85"/>
       <add order="0x40" stat="rCrit" val="180"/>
     </for>
   </skill>
@@ -1101,12 +1144,26 @@
       <using kind="Bow"/>
     </cond>
   </skill>
-  <skill id="774" levels="1" name="Dread Pool">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="castRange" val="-1"/>
+  <skill id="774" name="Dread Pool" levels="1">
+    <set name="power" val="15"/> <!-- Guessing -->
+    <set name="mpInitialConsume" val="17"/>
+    <set name="mpConsume" val="69"/>
+    <set name="target" val="TARGET_AURA"/>
+    <set name="skillRadius" val="200"/>
+    <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="1000"/>
+    <set name="coolTime" val="666"/>
+    <set name="isDebuff" val="true"/>
+    <set name="isMagic" val="false"/>
+    <set name="skillType" val="FEAR"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <effect count="8" name="Fear" time="2" val="0">
+        <sub order="0x40" stat="runSpd" val="20"/>
+      </effect>
+    </for>
   </skill>
   <skill id="775" levels="1" name="Weapon Blockade">
     <!-- by Sephiroth -->
@@ -1297,30 +1354,39 @@
     <set name="isCubic" val="true"/>
   </skill>
   <skill id="784" levels="1" name="Spirit of Phoenix">
-    <!-- by Sephiroth -->
-    <set name="hitTime" val="2500"/>
-    <set name="mpConsume" val="37"/>
-    <set name="reuseDelay" val="95000"/>
+    <set name="power" val="0.0"/>
+    <set name="mpInitialConsume" val="7"/>
+    <set name="mpConsume" val="29"/>
     <set name="target" val="TARGET_SELF"/>
+    <set name="hitTime" val="2500"/>
+    <set name="coolTime" val="1666"/>
+    <set name="reuseDelay" val="95000"/>
+    <set name="isMagic" val="true"/>
     <set name="skillType" val="BUFF"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
-    <for>
-      <effect name="Buff" count="1" time="60" val="0"/> <!-- still need to know its effects -->
-    </for>
-  </skill>
-  <skill id="785" levels="1" name="Flame Icon">
-    <!-- by Sephiroth -->
-    <set name="hitTime" val="1800"/>
-    <set name="reuseDelay" val="300000"/>
-    <set name="target" val="TARGET_PARTY"/>
-    <set name="skillType" val="BUFF"/>
-    <set name="skillRadius" val="1000"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <cond msgId="113">
-      <target active_effect_id="5562,3"/>
+    <set name="bestowTriggered" val="true"/>
+    <set name="triggeredId" val="5562"/>
+    <set name="triggeredLevel" val="1"/>
+    <for>
+      <effect name="Buff" count="1" time="60" val="0" stackOrder="1" stackType="inc_buff"/>
+    </for>
+  </skill>
+  <skill id="785" levels="1" name="Flame Icon">
+    <set name="power" val="0.0"/>
+    <set name="hpConsume" val="1253"/>
+    <set name="target" val="TARGET_PARTY"/>
+    <set name="skillRadius" val="1000"/>
+    <set name="hitTime" val="1800"/>
+    <set name="coolTime" val="1200"/>
+    <set name="reuseDelay" val="300000"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <cond msg="Flame Gust cannot be used due to unsuitable terms.">
+      <player active_effect_id="5562,3"/>
     </cond>
     <for>
       <effect count="1" name="Buff" time="60" val="0" stackOrder="1" stackType="icon_buff">
@@ -1348,17 +1414,23 @@
     </for>
   </skill>
   <skill id="786" levels="1" name="Eva's Will">
-    <!-- by Sephiroth -->
-    <set name="hitTime" val="2500"/>
-    <set name="mpConsume" val="37"/>
-    <set name="reuseDelay" val="95000"/>
+    <set name="power" val="0.0"/>
+    <set name="mpInitialConsume" val="7"/>
+    <set name="mpConsume" val="29"/>
     <set name="target" val="TARGET_SELF"/>
+    <set name="hitTime" val="2500"/>
+    <set name="coolTime" val="1666"/>
+    <set name="reuseDelay" val="95000"/>
+    <set name="isMagic" val="true"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <set name="bestowTriggered" val="true"/>
+    <set name="triggeredId" val="5563"/>
+    <set name="triggeredLevel" val="1"/>
     <for>
-      <effect count="1" name="Buff" time="60" val="0"/>
-        <!-- still need to know its effects -->
+      <effect count="1" name="Buff" time="60" val="0" stackOrder="1" stackType="inc_buff"/>
     </for>
   </skill>
   <skill id="787" levels="1" name="Touch of Eva">
@@ -1376,7 +1448,7 @@
     <set name="skillType" val="HEAL_PERCENT"/>
     <set name="target" val="TARGET_PARTY"/>
     <cond msg="Touch of Eva cannot be used due to unsuitable terms.">
-      <target active_effect_id="5563,3"/>
+      <player active_effect_id="5563,3"/>
     </cond>
     <for>
       <effect count="20" name="HealOverTime" time="3" val="150">
@@ -1387,17 +1459,22 @@
     </for>
   </skill>
   <skill id="788" levels="1" name="Pain of Shilen">
-    <!-- by Sephiroth -->
-    <set name="hitTime" val="2500"/>
-    <set name="mpConsume" val="37"/>
-    <set name="reuseDelay" val="95000"/>
+    <set name="mpInitialConsume" val="7"/>
+    <set name="mpConsume" val="29"/>
     <set name="target" val="TARGET_SELF"/>
+    <set name="reuseDelay" val="95000"/>
+    <set name="hitTime" val="2500"/>
+    <set name="coolTime" val="1666"/>
+    <set name="isMagic" val="true"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <set name="bestowTriggered" val="true"/>
+    <set name="triggeredId" val="5564"/>
+    <set name="triggeredLevel" val="1"/>
     <for>
-      <effect count="1" name="Buff" time="60" val="0"/>
-        <!-- still need to know its effects -->
+      <effect count="1" name="Buff" time="60" val="0" stackOrder="1" stackType="inc_buff"/>
     </for>
   </skill>
   <skill id="789" levels="1" name="Touch of Shilen">
@@ -1419,8 +1496,8 @@
     <set name="skillRadius" val="250"/> <!-- Guessing -->
     <set name="skillType" val="DEBUFF"/>
     <set name="target" val="TARGET_AURA"/>
-    <cond msgId="113">
-      <target active_effect_id="5564,3"/>
+    <cond msg="Touch of Shilen cannot be used due to unsuitable terms.">
+      <player active_effect_id="5564,3"/>
     </cond>
     <for>
       <effect count="1" name="Debuff" time="120" val="0">
@@ -1499,7 +1576,7 @@
     <set name="SSBoost" val="2.0"/>
     <set name="target" val="TARGET_FRONT_AREA"/>
     <set name="weaponsAllowed" val="32768"/> <!-- Ancient -->
-    <cond msgId="113">
+    <cond msg="Rush Impact cannot be used due to unsuitable terms.">
       <target mindistance="200"/>
     </cond>
     <for>

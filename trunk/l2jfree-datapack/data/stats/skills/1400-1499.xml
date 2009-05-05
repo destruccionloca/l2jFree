@@ -1817,69 +1817,131 @@
     </cond>
   </skill>
   <skill id="1489" levels="1" name="Summoner Ability - Resist Attribute">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="power" val="0.0"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <mul order="0x30" stat="fireVuln" val="0.9"/>
+      <mul order="0x30" stat="waterVuln" val="0.9"/>
+      <mul order="0x30" stat="earthVuln" val="0.9"/>
+      <mul order="0x30" stat="windVuln" val="0.9"/>
+    </for>
   </skill>
   <skill id="1490" levels="1" name="Healer Ability - Heal">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="bestowTriggered" val="true"/>
+    <set name="triggeredId" val="5577"/>
+    <set name="triggeredLevel" val="1"/>
   </skill>
   <skill id="1491" levels="1" name="Summoner Ability - Spirit">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="bestowTriggered" val="true"/>
+    <set name="triggeredId" val="5578"/>
+    <set name="triggeredLevel" val="1"/>
   </skill>
   <skill id="1492" levels="1" name="Flame Armor">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
-    <set name="hitTime" val="4000"/>
+    <set name="effectRange" val="-1"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="bestowTriggered" val="true"/>
+    <set name="triggeredId" val="5567"/>
+    <set name="triggeredLevel" val="1"/>
+    <for>
+      <mul order="0x30" stat="fireVuln" val="0.7"/>
+    </for>
   </skill>
   <skill id="1493" levels="1" name="Frost Armor">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
-    <set name="hitTime" val="4000"/>
+    <set name="effectRange" val="-1"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="bestowTriggered" val="true"/>
+    <set name="triggeredId" val="5568"/>
+    <set name="triggeredLevel" val="1"/>
+    <for>
+      <mul order="0x30" stat="waterVuln" val="0.7"/>
+    </for>
   </skill>
   <skill id="1494" levels="1" name="Hurricane Armor">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
-    <set name="hitTime" val="4000"/>
+    <set name="effectRange" val="-1"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="bestowTriggered" val="true"/>
+    <set name="triggeredId" val="5569"/>
+    <set name="triggeredLevel" val="1"/>
+    <for>
+      <mul order="0x30" stat="windVuln" val="0.7"/>
+    </for>
   </skill>
   <skill id="1495" levels="1" name="Vampiric Mist">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="castRange" val="-1"/>
+    <set name="power" val="117.0"/>
+    <set name="mpInitialConsume" val="29"/>
+    <set name="mpConsume" val="116"/>
+    <set name="magicLvl" val="81"/>
+    <set name="target" val="TARGET_AREA"/>
+    <set name="skillRadius" val="200"/>
+    <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="4000"/>
+    <set name="coolTime" val="2666"/>
+    <set name="isMagic" val="true"/>
+    <set name="skillType" val="MDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="600"/>
+    <set name="effectRange" val="1100"/>
+    <set name="absorbPart" val="0.8"/> <!-- absorbs 80% of damage -->
   </skill>
   <skill id="1496" levels="1" name="Servitor Barrier">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="castRange" val="-1"/>
+    <set name="power" val="0.0"/>
+    <set name="mpInitialConsume" val="14"/>
+    <set name="mpConsume" val="58"/>
+    <set name="target" val="TARGET_PET"/>
+    <set name="reuseDelay" val="600000"/>
     <set name="hitTime" val="2500"/>
+    <set name="coolTime" val="1666"/>
+    <set name="isMagic" val="true"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="400"/>
+    <set name="effectRange" val="900"/>
+    <for>
+      <effect count="1" name="Invincible" time="10" val="0" stackOrder="1" stackType="Instant_Shield"/>
+    </for>
   </skill>
   <skill id="1497" levels="1" name="Excessive Loyalty">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="bestowTriggered" val="true"/>
+    <set name="triggeredId" val="5570"/>
+    <set name="triggeredLevel" val="1"/>
   </skill>
   <skill id="1498" levels="1" name="Mutual Response">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="bestowTriggered" val="true"/>
+    <set name="triggeredId" val="5571"/>
+    <set name="triggeredLevel" val="1"/>
   </skill>
   <skill id="1499" levels="1" name="Improve Combat">
     <set name="mpConsume" val="27"/>
