@@ -296,7 +296,6 @@ public class L2Skill implements FuncOwner
 
 	private final int				_triggeredId;
 	private final int				_triggeredLevel;
-	private final int				_triggeredCount;
 
 	private final boolean			_bestow;
 	private final boolean			_bestowed;
@@ -472,15 +471,6 @@ public class L2Skill implements FuncOwner
 
 		_triggeredId = set.getInteger("triggeredId", 0);
 		_triggeredLevel = set.getInteger("triggeredLevel", 1);
-		int triggeredCount = set.getInteger("triggeredCount", 1);
-
-		if (_triggeredId == 0) // no triggered skill
-			_triggeredCount = 0; // so set count to zero
-		else if (triggeredCount == 0) // there is a skill, but count is zero
-			_triggeredCount = 1; // then set it to one
-		else
-			// there is a skill, and the count is valid
-			_triggeredCount = triggeredCount; // so just set it
 
 		if (_operateType == SkillOpType.OP_CHANCE)
 			_chanceCondition = ChanceCondition.parse(set);
@@ -732,42 +722,27 @@ public class L2Skill implements FuncOwner
 	{
 		return _effectAbnormalLvl;
 	}
-
-	public int getTriggeredId()
+	
+	public final int getTriggeredSkillId()
 	{
 		return _triggeredId;
 	}
-
-	public int getTriggeredLevel()
-	{
-		return _triggeredLevel;
-	}
-
-	public int getTriggeredCount()
-	{
-		return _triggeredCount;
-	}
-
-	public boolean bestowTriggered()
+	
+	public final boolean bestowTriggeredSkill()
 	{
 		return _bestow;
 	}
-
-	public boolean bestowed()
+	
+	public final L2Skill getTriggeredSkill()
+	{
+		return SkillTable.getInstance().getInfo(_triggeredId, _triggeredLevel);
+	}
+	
+	public final boolean bestowed()
 	{
 		return _bestowed;
 	}
-
-	public boolean triggerAnotherSkill()
-	{
-		return _triggeredId > 1;
-	}
-
-	public L2Skill getTriggeredSkill()
-	{
-		return SkillTable.getInstance().getInfo(_triggeredId, _triggeredLevel); // is there any skill with bigger level than one?! :$
-	}
-
+	
 	public final int getLevelDepend()
 	{
 		return _levelDepend;

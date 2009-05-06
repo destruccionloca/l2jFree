@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.skills.effects;
 
-import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.skills.Env;
@@ -40,8 +39,7 @@ final class EffectBestowSkill extends L2Effect
 	@Override
 	public boolean onStart()
 	{
-		L2Skill tempSkill = SkillTable.getInstance().getInfo
-				(getSkill().getTriggeredId(), getSkill().getTriggeredLevel());
+		L2Skill tempSkill = getSkill().getTriggeredSkill();
 		if (tempSkill != null)
 		{
 			getEffected().addSkill(tempSkill);
@@ -53,7 +51,7 @@ final class EffectBestowSkill extends L2Effect
 	@Override
 	public void onExit()
 	{
-		getEffected().removeSkill(getSkill().getTriggeredId());
+		getEffected().removeSkill(getSkill().getTriggeredSkillId());
 	}
 
 	@Override

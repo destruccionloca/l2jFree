@@ -5680,7 +5680,7 @@ public abstract class L2Character extends L2Object
 	{
 		return false;
 	}
-
+	
 	/**
 	 * Add a skill to the L2Character _skills and its Func objects to the calculator set of the L2Character.<BR>
 	 * <BR>
@@ -5707,54 +5707,17 @@ public abstract class L2Character extends L2Object
 	 */
 	public L2Skill addSkill(L2Skill newSkill)
 	{
-		L2Skill oldSkill = null;
+		if (newSkill == null)
+			return null;
 		
-		if (newSkill != null)
-		{
-			// Replace oldSkill by newSkill or Add the newSkill
-			oldSkill = _skills.put(newSkill.getId(), newSkill);
-			
-			// If an old skill has been replaced, remove all its Func objects
-			if (oldSkill != null)
-			{
-				// if skill came with another one, we should delete the other one too.
-				if ((oldSkill.bestowTriggered() || oldSkill.triggerAnotherSkill()) && oldSkill.getTriggeredId() > 0)
-				{
-					removeSkill(oldSkill.getTriggeredId());
-				}
-				removeStatsOwner(oldSkill);
-			}
-			
-			// Add Func objects of newSkill to the calculator set of the L2Character
-			if (newSkill.getSkillType() != L2SkillType.NOTDONE)
-				addStatFuncs(newSkill.getStatFuncs(this));
-			
-			if (newSkill.getElement() != 0)
-				getStat().addElement(newSkill);
-			
-			if (oldSkill != null && _chanceSkills != null)
-			{
-				removeChanceSkill(oldSkill.getId());
-			}
-			if (newSkill.isChance())
-			{
-				addChanceSkill(newSkill);
-			}
-			
-			if (!newSkill.isChance() && newSkill.getTriggeredId() > 0 && newSkill.bestowTriggered())
-			{
-				L2Skill bestowed = SkillTable.getInstance().getInfo(newSkill.getTriggeredId(), newSkill.getTriggeredLevel());
-				addSkill(bestowed);
-				//bestowed skills are invisible for player. Visible for gm's looking thru gm window.
-				//those skills should always be chance or passive, to prevent hlapex.
-			}
-			
-			if (newSkill.isChance() && newSkill.getTriggeredId() > 0 && !newSkill.bestowTriggered() && newSkill.triggerAnotherSkill())
-			{
-				L2Skill triggeredSkill = SkillTable.getInstance().getInfo(newSkill.getTriggeredId(), newSkill.getTriggeredLevel());
-				addSkill(triggeredSkill);
-			}
-		}
+		// Replace oldSkill by newSkill or Add the newSkill
+		final L2Skill oldSkill = _skills.put(newSkill.getId(), newSkill);
+		
+		// If an old skill has been replaced, remove all its Func objects
+		if (oldSkill != null)
+			skillRemoved(oldSkill);
+		
+		skillAdded(newSkill);
 		
 		return oldSkill;
 	}
@@ -5793,85 +5756,122 @@ public abstract class L2Character extends L2Object
 			return null;
 		
 		// Remove the skill from the L2Character _skills
-		L2Skill oldSkill = _skills.remove(skill.getId());
+		final L2Skill oldSkill = _skills.remove(skill.getId());
 		
 		// Remove all its Func objects from the L2Character calculator set
 		if (oldSkill != null)
 		{
-			if (oldSkill.getElement() != 0)
-				getStat().removeElement(oldSkill);
+			skillRemoved(oldSkill);
 			
-			//this is just a fail-safe againts buggers and gm dummies...
-			if ((oldSkill.bestowTriggered() || oldSkill.triggerAnotherSkill()) && oldSkill.getTriggeredId() > 0)
-			{
-				removeSkill(oldSkill.getTriggeredId());
-			}
 			// Stop casting if this skill is used right now
-			if (this instanceof L2PcInstance)
+			if (isCastingNow() && this instanceof L2PcInstance)
 			{
-				if (((L2PcInstance)this).getCurrentSkill() != null && isCastingNow())
-				{
-					if (oldSkill.getId() == ((L2PcInstance)this).getCurrentSkill().getSkillId())
-						abortCast();
-				}
+				SkillDat currentSkill = ((L2PcInstance)this).getCurrentSkill();
+				if (currentSkill != null && currentSkill.getSkillId() == oldSkill.getId())
+					abortCast();
 			}
-			if (getLastSimultaneousSkillCast() != null && isCastingSimultaneouslyNow())
+			
+			if (isCastingSimultaneouslyNow())
 			{
-				if (oldSkill.getId() == getLastSimultaneousSkillCast().getId())
+				L2Skill lastSimultaneousSkillCast = getLastSimultaneousSkillCast();
+				if (lastSimultaneousSkillCast != null && lastSimultaneousSkillCast.getId() == oldSkill.getId())
 					abortCast();
 			}
 			
 			// for now, to support transformations, we have to let their
 			// effects stay when skill is removed
-			L2Effect e = getFirstEffect(oldSkill);
-			if (e == null || e.getEffectType() != L2EffectType.TRANSFORMATION)
+			for (L2Effect e : getAllEffects())
 			{
-				removeStatsOwner(oldSkill);
-				stopSkillEffects(oldSkill.getId());
+				if (e == null || e.getSkill().getId() != oldSkill.getId())
+					continue; // remove only effects with the same id
+				
+				if (e.getEffectType() == L2EffectType.TRANSFORMATION)
+					continue; // remove only non-transformation effects
+				
+				if (e.getSkill().getTargetType() == SkillTargetType.TARGET_SELF)
+					e.exit(); // remove self skills only - there is no reason to remove normal buffs
 			}
 			
-			if (oldSkill instanceof L2SkillAgathion && this instanceof L2PcInstance && ((L2PcInstance)this).getAgathionId() > 0)
+			if (this instanceof L2PcInstance)
 			{
-				((L2PcInstance)this).setAgathionId(0);
-				((L2PcInstance)this).broadcastUserInfo();
-			}
-			
-			if (oldSkill.isChance() && _chanceSkills != null)
-			{
-				removeChanceSkill(oldSkill.getId());
-			}
-			
-			if (oldSkill instanceof L2SkillMount && this instanceof L2PcInstance && ((L2PcInstance)this).isMounted())
-			{
-				((L2PcInstance)this).dismount();
-			}
-			if (oldSkill instanceof L2SkillSummon && oldSkill.getId() == 710 && this instanceof L2PcInstance && ((L2PcInstance)this).getPet() != null && ((L2PcInstance)this).getPet().getNpcId() == 14870)
-			{
-				((L2PcInstance)this).getPet().unSummon(((L2PcInstance)this));
+				L2PcInstance player = (L2PcInstance)this;
+				
+				if (oldSkill instanceof L2SkillAgathion && player.getAgathionId() > 0)
+				{
+					player.setAgathionId(0);
+					player.broadcastUserInfo();
+				}
+				
+				if (oldSkill instanceof L2SkillMount && player.isMounted())
+				{
+					player.dismount();
+				}
+				
+				if (oldSkill instanceof L2SkillSummon && oldSkill.getId() == 710)
+				{
+					L2Summon summon = player.getPet();
+					
+					if (summon != null && summon.getNpcId() == 14870)
+						summon.unSummon();
+				}
 			}
 		}
 		
 		return oldSkill;
 	}
 	
+	private void skillAdded(L2Skill skill)
+	{
+		if (skill.getSkillType() != L2SkillType.NOTDONE)
+			addStatFuncs(skill.getStatFuncs(this));
+		
+		if (skill.getElement() != 0)
+			getStat().addElement(skill);
+		
+		if (skill.isChance())
+			addChanceSkill(skill);
+		
+		if (skill.bestowTriggeredSkill())
+			addSkill(skill.getTriggeredSkill());
+	}
+	
+	private void skillRemoved(L2Skill skill)
+	{
+		removeStatsOwner(skill);
+		
+		if (skill.getElement() != 0)
+			getStat().removeElement(skill);
+		
+		if (skill.isChance())
+			removeChanceSkill(skill.getId());
+		
+		if (skill.bestowTriggeredSkill())
+			removeSkill(skill.getTriggeredSkillId());
+	}
+	
 	public synchronized void addChanceSkill(L2Skill skill)
 	{
 		if (_chanceSkills == null)
 			_chanceSkills = new ChanceSkillList(this);
+		
 		_chanceSkills.put(skill, skill.getChanceCondition());
 	}
 	
 	public synchronized void removeChanceSkill(int id)
 	{
+		if (_chanceSkills == null)
+			return;
+		
 		for (L2Skill skill : _chanceSkills.keySet())
 		{
 			if (skill.getId() == id)
 				_chanceSkills.remove(skill);
 		}
-		if (_chanceSkills.size() == 0)
+		
+		if (_chanceSkills.isEmpty())
 			_chanceSkills = null;
 	}
-
+	
 	/**
 	 * Return all skills own by the L2Character in a table of L2Skill.<BR>
 	 * <BR>
