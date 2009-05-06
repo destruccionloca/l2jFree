@@ -108,18 +108,25 @@ public class ChanceSkillList extends FastMap<L2Skill, ChanceCondition>
 				L2Skill s = e.getKey();
 				if (e.getValue().canImprove())
 				{
-					if (e.getValue().improve())
+					//Why _owner here, but later target?
+					L2Effect ef = _owner.getFirstEffect(s.getId());
+					if (ef == null) //activation, not improvement
+					{
+						makeCast(s, target);
+						//FIXME: should remove the original skill effect, because stackType
+						//doesn't work properly (once lvl 3 timer runs out, you do not need
+						//to recast, you auto get lvl 1-2-3 again, because <player active_effect_id="trigger_skill_id"/>
+						//will be "true" (until the timer runs out), even though a triggered skill should have stacked on that effect
+					}
+					else if (e.getValue().improve())
 					{
 						//improve an active effect
-						L2Effect ef = target.getFirstEffect(s.getId());
-						if (ef != null) //effect exists, try level+1
-							s = SkillTable.getInstance().getInfo(ef.getId(), ef.getLevel()+1);
-						else //effect doesn't exist?
-							s = null;
+						s = SkillTable.getInstance().getInfo(ef.getId(), ef.getLevel()+1);
 						if (s != null) //an improved effect exists
 							makeCast(s, target);
+						//nowhere to improve, let the timer run out
 					}
-					//do not re-cast otherwise
+					//failed to improve, do not recast
 				}
 				else
 					makeCast(s, target);

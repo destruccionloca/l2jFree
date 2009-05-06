@@ -20,7 +20,7 @@ import com.l2jfree.gameserver.instancemanager.GrandBossSpawnManager;
 import com.l2jfree.gameserver.instancemanager.RaidBossSpawnManager;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Spawn;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 
@@ -51,9 +51,9 @@ public class AdminDelete implements IAdminCommandHandler
 	private void handleDelete(L2PcInstance activeChar)
 	{
 		L2Object obj = activeChar.getTarget();
-		if ((obj != null) && (obj instanceof L2NpcInstance))
+		if ((obj != null) && (obj instanceof L2Npc))
 		{
-			L2NpcInstance target = (L2NpcInstance) obj;
+			L2Npc target = (L2Npc) obj;
 			target.deleteMe();
 
 			L2Spawn spawn = target.getSpawn();
