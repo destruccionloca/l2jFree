@@ -3647,10 +3647,9 @@ public class L2Skill implements FuncOwner
 		return targets[0];
 	}
 
-	public final Func[] getStatFuncs(@SuppressWarnings("unused")
-	L2Effect effect, L2Character player)
+	public final Func[] getStatFuncs(L2Character player)
 	{
-		if (!(player instanceof L2PcInstance) && !(player instanceof L2Attackable) && !(player instanceof L2Summon))
+		if (!(player instanceof L2Playable) && !(player instanceof L2Attackable))
 			return Func.EMPTY_ARRAY;
 		if (_funcTemplates == null)
 			return Func.EMPTY_ARRAY;

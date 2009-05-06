@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.model.itemcontainer;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
 import javolution.util.FastList;
 
 import com.l2jfree.Config;
@@ -252,7 +253,7 @@ public abstract class Inventory extends ItemContainer
 			if (itemSkills != null)
 			{
 				for (L2Skill itemSkill : itemSkills)
-					player.removeSkill(itemSkill, false, itemSkill.isPassive());
+					player.removeSkill(itemSkill, false);
 			}
 			if (enchant4Skills != null)
 			{
@@ -924,9 +925,9 @@ public abstract class Inventory extends ItemContainer
                 int mask = 0;
                 for (int i=0; i < PAPERDOLL_LRHAND; i++)
                 {
-                    L2ItemInstance pi = _paperdoll[i]; 
+                    L2ItemInstance pi = _paperdoll[i];
                     if (pi != null)
-                        mask |= pi.getItem().getItemMask(); 
+                        mask |= pi.getItem().getItemMask();
                 }
                 _wearedMask = mask;
 				// Notify all paperdoll listener in order to unequip old item in slot
@@ -1531,7 +1532,7 @@ public abstract class Inventory extends ItemContainer
 	/**
 	 * Re-notify to paperdoll listeners every equipped item
 	 */
-	public void reloadEquippedItems() 
+	public void reloadEquippedItems()
 	{
 		for (L2ItemInstance item: _paperdoll)
 		{
@@ -1561,7 +1562,7 @@ public abstract class Inventory extends ItemContainer
 		// find same (or incompatible) talisman type
 		for (int i = PAPERDOLL_DECO1; i < PAPERDOLL_DECO1 + getMaxTalismanCount(); i++)
 		{
-			if (_paperdoll[i] != null) 
+			if (_paperdoll[i] != null)
 			{
 				if (getPaperdollItemId(i) == item.getItemId())
 				{

@@ -7099,35 +7099,20 @@ public final class L2PcInstance extends L2Playable
 	public L2Skill addSkill(L2Skill newSkill, boolean save)
 	{
 		// Add a skill to the L2PcInstance _skills and its Func objects to the calculator set of the L2PcInstance
-		L2Skill oldSkill = super.addSkill(newSkill);
-
+		final L2Skill oldSkill = addSkill(newSkill);
+		
 		// Add or update a L2PcInstance skill in the character_skills table of the database
 		if (save)
 			storeSkill(newSkill, oldSkill, -1);
-
+		
 		return oldSkill;
 	}
-
-	@Override
-	public L2Skill addSkill(L2Skill newSkill)
-	{
-		return addSkill(newSkill, false);
-	}
-
-	@Override
+	
 	public L2Skill removeSkill(L2Skill skill, boolean store)
 	{
-		return (store) ? removeSkill(skill) : super.removeSkill(skill, true);
+		return store ? removeSkill(skill) : super.removeSkill(skill);
 	}
-
-	public L2Skill removeSkill(L2Skill skill, boolean store, boolean cancelEffect)
-	{
-		if (store)
-			return removeSkill(skill);
-
-		return super.removeSkill(skill, cancelEffect);
-	}
-
+	
 	/**
 	 * Remove a skill from the L2Character and its Func objects from calculator set of the L2Character and save update in the character_skills table of the database.<BR><BR>
 	 *
@@ -7151,43 +7136,38 @@ public final class L2PcInstance extends L2Playable
 	{
 		// Remove a skill from the L2Character and its Func objects from calculator set of the L2Character
 		L2Skill oldSkill = super.removeSkill(skill);
-
-		Connection con = null;
-
-		try
+		
+		if (oldSkill != null)
 		{
-			// Remove or update a L2PcInstance skill from the character_skills table of the database
-			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con.prepareStatement(DELETE_SKILL_FROM_CHAR);
-
-			if (oldSkill != null)
+			Connection con = null;
+			try
 			{
+				// Remove or update a L2PcInstance skill from the character_skills table of the database
+				con = L2DatabaseFactory.getInstance().getConnection(con);
+				PreparedStatement statement = con.prepareStatement(DELETE_SKILL_FROM_CHAR);
 				statement.setInt(1, oldSkill.getId());
 				statement.setInt(2, getObjectId());
 				statement.setInt(3, getClassIndex());
 				statement.execute();
+				statement.close();
 			}
-			statement.close();
+			catch (Exception e)
+			{
+				_log.error("Error could not delete skill: ", e);
+			}
+			finally
+			{
+				L2DatabaseFactory.close(con);
+			}
 		}
-		catch (Exception e)
-		{
-			_log.error("Error could not delete skill: ", e);
-		}
-		finally
-		{
-			L2DatabaseFactory.close(con);
-		}
-
+		
 		if (transformId() > 0 || isCursedWeaponEquipped())
 			return oldSkill;
-
-		L2ShortCut[] allShortCuts = getAllShortCuts();
-		for (L2ShortCut sc : allShortCuts)
-		{
+		
+		for (L2ShortCut sc : getAllShortCuts())
 			if (sc != null && skill != null && sc.getId() == skill.getId() && sc.getType() == L2ShortCut.TYPE_SKILL)
 				deleteShortCut(sc.getSlot(), sc.getPage());
-		}
-
+		
 		return oldSkill;
 	}
 
