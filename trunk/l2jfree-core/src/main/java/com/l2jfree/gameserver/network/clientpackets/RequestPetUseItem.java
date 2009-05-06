@@ -80,7 +80,7 @@ public class RequestPetUseItem extends L2GameClientPacket
 
 		if (!item.isEquipped())
 		{
-			if (!item.getItem().checkCondition(pet, pet))
+			if (!item.getItem().checkCondition(pet))
 				return;
 		}
 

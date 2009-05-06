@@ -7043,7 +7043,6 @@ public abstract class L2Character extends L2Object
 
 	public void sendMessage(String message)
 	{
-		sendPacket(SystemMessage.sendString(message));
 	}
 
 	/**

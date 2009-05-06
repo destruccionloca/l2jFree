@@ -42,41 +42,37 @@ public class L2SkillSummon extends L2Skill
 		_npcId = set.getInteger("npcId", 0); // default for undescribed skills
 		_expPenalty = set.getFloat("expPenalty", 0.f);
 	}
-
+	
 	@Override
 	public boolean checkCondition(L2Character activeChar, L2Object target)
 	{
 		if (activeChar instanceof L2PcInstance)
 		{
-			L2PcInstance player = (L2PcInstance) activeChar;
+			L2PcInstance player = (L2PcInstance)activeChar;
 			if (isCubic())
 			{
-				if (getTargetType() != L2Skill.SkillTargetType.TARGET_SELF)
+				// Player is always able to cast mass cubic skill
+				if (getTargetType() == L2Skill.SkillTargetType.TARGET_SELF)
 				{
-					return true; //Player is always able to cast mass cubic skill
-				}
-				int mastery = player.getSkillLevel(L2Skill.SKILL_CUBIC_MASTERY);
-				if (mastery < 0)
-					mastery = 0;
-				int count = player.getCubics().size();
-				if (count > mastery)
-				{
-					SystemMessage sm = new SystemMessage(SystemMessageId.CUBIC_SUMMONING_FAILED);
-					activeChar.sendPacket(sm);
-					sm = null;
-					return false;
+					int mastery = player.getSkillLevel(L2Skill.SKILL_CUBIC_MASTERY);
+					if (mastery < 0)
+						mastery = 0;
+					int count = player.getCubics().size();
+					if (count > mastery)
+					{
+						player.sendPacket(SystemMessageId.CUBIC_SUMMONING_FAILED);
+						return false;
+					}
 				}
 			}
 			else
 			{
 				if (player.inObserverMode())
 					return false;
-
+				
 				if (player.getPet() != null)
 				{
-					SystemMessage sm = new SystemMessage(SystemMessageId.SUMMON_ONLY_ONE);
-					activeChar.sendPacket(sm);
-					sm = null;
+					player.sendPacket(SystemMessageId.SUMMON_ONLY_ONE);
 					return false;
 				}
 			}

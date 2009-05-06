@@ -162,6 +162,11 @@ public final class SystemMessage extends L2GameServerPacket
 		_elements = new Element[smId == null ? 3 : smId.size()];
 	}
 	
+	public int length()
+	{
+		return _elements.length;
+	}
+	
 	private boolean checkNPE(Object obj)
 	{
 		if (obj == null)

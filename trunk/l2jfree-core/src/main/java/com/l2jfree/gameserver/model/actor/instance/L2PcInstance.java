@@ -13748,7 +13748,7 @@ public final class L2PcInstance extends L2Playable
     	for (int i = 0; i < Inventory.PAPERDOLL_TOTALSLOTS; i++)
     	{
     		L2ItemInstance equippedItem = getInventory().getPaperdollItem(i);
-    		if (equippedItem != null && !equippedItem.getItem().checkCondition(this, this))
+    		if (equippedItem != null && !equippedItem.getItem().checkCondition(this))
     		{
 				getInventory().unEquipItemInSlotAndRecord(i);
 				if (equippedItem.isWear())

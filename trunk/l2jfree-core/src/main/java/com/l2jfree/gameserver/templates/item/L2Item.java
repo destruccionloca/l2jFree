@@ -20,13 +20,12 @@ import org.apache.commons.lang.ArrayUtils;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ItemInstance;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.conditions.Condition;
 import com.l2jfree.gameserver.skills.funcs.Func;
@@ -560,39 +559,25 @@ public abstract class L2Item implements FuncOwner
 		_preConditions[_preConditions.length - 1] = c;
 	}
 
-	public boolean checkCondition(L2Character activeChar, L2Object target)
+	public boolean checkCondition(L2Playable activeChar)
 	{
 		if (activeChar instanceof L2PcInstance)
-		{
-			if (((L2PcInstance) activeChar).isGM() && !Config.GM_ITEM_RESTRICTION)
+			if (((L2PcInstance)activeChar).isGM() && !Config.GM_ITEM_RESTRICTION)
 				return true;
-		}
 		
 		for (Condition preCondition : _preConditions)
 		{
 			Env env = new Env();
 			env.player = activeChar;
-			if (target instanceof L2Character) // TODO: object or char?
-				env.target = (L2Character) target;
-
+			env.target = activeChar;
+			
 			if (!preCondition.test(env))
 			{
 				if (activeChar instanceof L2SummonInstance)
-				{
-					((L2SummonInstance) activeChar).getOwner().sendPacket(new SystemMessage(SystemMessageId.PET_CANNOT_USE_ITEM));
-					return false;
-				}
-				String msg = preCondition.getMessage();
-				int msgId = preCondition.getMessageId();
-
-				if (msg != null)
-				{
-					activeChar.sendMessage(msg);
-				}
-				else if (msgId != 0)
-				{
-					activeChar.sendPacket(new SystemMessage(msgId));
-				}
+					((L2SummonInstance)activeChar).getOwner().sendPacket(SystemMessageId.PET_CANNOT_USE_ITEM);
+				else if (activeChar instanceof L2PcInstance)
+					preCondition.sendMessage((L2PcInstance)activeChar, this);
+				
 				return false;
 			}
 		}

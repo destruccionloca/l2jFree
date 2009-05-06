@@ -54,7 +54,6 @@ import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.FlyToLocation.FlyType;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Formulas;
@@ -1592,22 +1591,8 @@ public class L2Skill implements FuncOwner
 		if (preCondition.test(env))
 			return true;
 		
-		int msgId = preCondition.getMessageId();
-		if (msgId != 0)
-		{
-			SystemMessage sm = new SystemMessage(msgId);
-			sm.addSkillName(_id);
-			activeChar.sendPacket(sm);
-			return false;
-		}
-		
-		String msg = preCondition.getMessage();
-		if (msg != null)
-		{
-			activeChar.sendMessage(msg);
-			return false;
-		}
-		
+		if (activeChar instanceof L2PcInstance)
+			preCondition.sendMessage((L2PcInstance)activeChar, this);
 		return false;
 	}
 	

@@ -204,7 +204,7 @@ public final class UseItem extends L2GameClientPacket
 
 		if (!item.isEquipped())
 		{
-			if (!item.getItem().checkCondition(activeChar, activeChar))
+			if (!item.getItem().checkCondition(activeChar))
 				return;
 		}
 

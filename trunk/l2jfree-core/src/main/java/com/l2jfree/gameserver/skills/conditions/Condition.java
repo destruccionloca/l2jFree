@@ -14,7 +14,10 @@
  */
 package com.l2jfree.gameserver.skills.conditions;
 
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.gameserver.skills.funcs.FuncOwner;
 
 /**
  * @author mkizub
@@ -54,6 +57,29 @@ public abstract class Condition
 	int getDefaultMessageId()
 	{
 		return 0;
+	}
+	
+	public void sendMessage(L2PcInstance player, FuncOwner funcOwner)
+	{
+		int msgId = getMessageId();
+		if (msgId != 0)
+		{
+			SystemMessage sm = new SystemMessage(msgId);
+			if (sm.length() > 0)
+			{
+				if (funcOwner.getFuncOwnerSkill() != null)
+					sm.addSkillName(funcOwner.getFuncOwnerSkill());
+				else if (funcOwner.getFuncOwnerName() != null)
+					sm.addString(funcOwner.getFuncOwnerName());
+			}
+			player.sendPacket(sm);
+		}
+		else
+		{
+			String msg = getMessage();
+			if (msg != null)
+				player.sendMessage(msg);
+		}
 	}
 	
 	public final boolean test(Env env)
