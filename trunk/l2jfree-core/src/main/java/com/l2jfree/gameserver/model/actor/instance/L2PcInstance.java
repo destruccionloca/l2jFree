@@ -8186,14 +8186,12 @@ public final class L2PcInstance extends L2Playable
 		//************************************* Check Consumables *******************************************
 
 		// Check if spell consumes a Soul
-		if (skill.getSoulConsumeCount() > 0 || skill.getMaxSoulConsumeCount() > 0)
+		// Most kamael skills have only optional soul consumption to empower skills!
+		if (getSouls() < skill.getSoulConsumeCount())
 		{
-			if (getSouls() < Math.max(skill.getSoulConsumeCount(), 1))
-			{
-				sendPacket(SystemMessageId.THERE_IS_NOT_ENOUGH_SOUL);
-				sendPacket(ActionFailed.STATIC_PACKET);
-				return false;
-			}
+			sendPacket(SystemMessageId.THERE_IS_NOT_ENOUGH_SOUL);
+			sendPacket(ActionFailed.STATIC_PACKET);
+			return false;
 		}
 
 		// Check if spell consumes charges
