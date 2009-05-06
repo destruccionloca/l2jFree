@@ -324,11 +324,21 @@
     </for>
   </skill>
   <skill id="1515" levels="1" name="Lightning Barrier">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="castRange" val="-1"/>
+    <set name="power" val="0.0"/>
+    <set name="mpInitialConsume" val="1"/>
+    <set name="mpConsume" val="5"/>
+    <set name="target" val="TARGET_SELF"/>
     <set name="hitTime" val="1500"/>
+    <set name="coolTime" val="1000"/>
+    <set name="reuseDelay" val="60000"/>
+    <set name="isMagic" val="true"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <effect count="1" name="Buff" time="30" val="0"/>
+    </for>
   </skill>
   <skill id="1516" levels="1" name="Soul Strike">
     <!-- Done by DJ MELERIX -->
@@ -637,7 +647,7 @@
     <set name="triggeredId" val="5698"/>
     <set name="triggeredLevel" val="#level"/>
     <for>
-      <effect count="1" name="Buff" time="60" val="0"/>
+      <effect count="1" name="Buff" time="60" val="0" stackOrder="#level" stackType="bless_blood"/>
     </for>
   </skill>
 </list>
