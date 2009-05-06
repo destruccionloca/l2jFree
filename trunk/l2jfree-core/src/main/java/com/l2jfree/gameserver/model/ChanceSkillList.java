@@ -99,7 +99,7 @@ public class ChanceSkillList extends FastMap<L2Skill, ChanceCondition>
 		onEvent(ChanceCondition.EVT_EVADED_HIT, attacker);
 	}
 
-	public void onEvent(int event, L2Character target)
+	public void onEvent(int event, L2Character evtInitiator)
 	{
 		for (FastMap.Entry<L2Skill, ChanceCondition> e = head(), end = tail(); (e = e.getNext()) != end;)
 		{
@@ -108,33 +108,24 @@ public class ChanceSkillList extends FastMap<L2Skill, ChanceCondition>
 				L2Skill s = e.getKey();
 				if (e.getValue().canImprove())
 				{
-					//Why _owner here, but later target?
 					L2Effect ef = _owner.getFirstEffect(s.getId());
-					if (ef == null) //activation, not improvement
-					{
-						makeCast(s, target);
-						//FIXME: should remove the original skill effect, because stackType
-						//doesn't work properly (once lvl 3 timer runs out, you do not need
-						//to recast, you auto get lvl 1-2-3 again, because <player active_effect_id="trigger_skill_id"/>
-						//will be "true" (until the timer runs out), even though a triggered skill should have stacked on that effect
-					}
+					if (ef == null)
+						makeCast(s, evtInitiator);
 					else if (e.getValue().improve())
 					{
-						//improve an active effect
-						s = SkillTable.getInstance().getInfo(ef.getId(), ef.getLevel()+1);
-						if (s != null) //an improved effect exists
-							makeCast(s, target);
+						s = SkillTable.getInstance().getInfo(s.getId(), ef.getLevel()+1);
+						if (s != null)
+							makeCast(s, evtInitiator);
 						//nowhere to improve, let the timer run out
 					}
-					//failed to improve, do not recast
 				}
 				else
-					makeCast(s, target);
+					makeCast(s, evtInitiator);
 			}
 		}
 	}
 
-	private void makeCast(L2Skill skill, L2Character target)
+	private void makeCast(L2Skill skill, L2Character evtInitiator)
 	{
 		try
 		{
@@ -147,11 +138,26 @@ public class ChanceSkillList extends FastMap<L2Skill, ChanceCondition>
 						return;
 				}
 				
-				L2Character[] targets = skill.getTargetList(_owner, false, target);
+				L2Character[] targets = skill.getTargetList(_owner, false, evtInitiator);
 				if (targets != null && targets.length > 0)
 				{
+					//anyone has a better idea?
+					int nulledValues = 0, validIndex = 0;
+					for (int i = 0; i < targets.length; i++)
+					{
+						if (!skill.checkCondition(_owner, targets[i]))
+						{
+							targets[i] = null;
+							nulledValues++;
+						}
+						else
+							validIndex = i;
+					}
+					if (nulledValues == targets.length)
+						return;
+
 					_owner.broadcastPacket(new MagicSkillLaunched(_owner, skill, targets));
-					_owner.broadcastPacket(new MagicSkillUse(_owner, targets[0], skill.getDisplayId(), skill.getLevel(), 0, 0));
+					_owner.broadcastPacket(new MagicSkillUse(_owner, targets[validIndex], skill.getDisplayId(), skill.getLevel(), 0, 0));
 
 					// Launch the magic skill and calculate its effects
 					SkillHandler.getInstance().getSkillHandler(skill.getSkillType()).useSkill(_owner, skill, targets);

@@ -139,7 +139,8 @@ public class L2Skill implements FuncOwner
 		TARGET_MOB,
 		TARGET_AREA_MOB,
 		TARGET_KNOWNLIST,
-		TARGET_GROUND
+		TARGET_GROUND,
+		TARGET_INITIATOR
 		// TARGET_BOSS
 	}
 	
@@ -688,7 +689,7 @@ public class L2Skill implements FuncOwner
 	 * Return the power of the skill.<BR>
 	 * <BR>
 	 */
-	public final double getPower(@SuppressWarnings("unused") L2Character activeChar)
+	public final double getPower(L2Character activeChar)
 	{
 		return _power;
 	}
@@ -1578,6 +1579,7 @@ public class L2Skill implements FuncOwner
 	public boolean checkCondition(L2Character activeChar, L2Object target)
 	{
 		Condition preCondition = _preCondition;
+
 		if (preCondition == null)
 			return true;
 		
@@ -1664,7 +1666,7 @@ public class L2Skill implements FuncOwner
 		// The skill can only be used on the L2Character targeted, or on the caster itself
 		case TARGET_ONE:
 		{
-			// automaticly selects caster if no target is selected (only positive skills)
+			// automatically selects caster if no target is selected (only positive skills)
 			if (isPositive() && target == null)
 				target = activeChar;
 
@@ -1694,7 +1696,7 @@ public class L2Skill implements FuncOwner
 			// Check for null target or any other invalid target
 			if (target == null || target.isDead() || (target == activeChar && !canTargetSelf))
 			{
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+				activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 				return null;
 			}
 			if (!GeoData.getInstance().canSeeTarget(activeChar, target))
@@ -2049,7 +2051,7 @@ public class L2Skill implements FuncOwner
 			if ((!(target instanceof L2Attackable || target instanceof L2Playable)) || // Target is not L2Attackable or L2Playable
 					(getCastRange() >= 0 && (target == activeChar || target.isAlikeDead()))) // target is null or self or dead/faking
 			{
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+				activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 				return null;
 			}
 
@@ -2171,7 +2173,7 @@ public class L2Skill implements FuncOwner
 			if ((!(target instanceof L2Attackable || target instanceof L2Playable)) || //   Target is not L2Attackable or L2Playable
 					(getCastRange() >= 0 && (target == activeChar || target.isAlikeDead()))) //target is null or self or dead/faking
 			{
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+				activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 				return null;
 			}
 
@@ -2298,7 +2300,7 @@ public class L2Skill implements FuncOwner
 			if ((!(target instanceof L2Attackable || target instanceof L2Playable)) || //   Target is not L2Attackable or L2Playable
 					(getCastRange() >= 0 && (target == activeChar || target.isAlikeDead()))) //target is null or self or dead/faking
 			{
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+				activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 				return null;
 			}
 
@@ -2546,7 +2548,7 @@ public class L2Skill implements FuncOwner
 				return null;
 			}
 
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+			activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 			return null;
 		}
 		case TARGET_PARTY_OTHER:
@@ -2583,7 +2585,7 @@ public class L2Skill implements FuncOwner
 				return null;
 			}
 
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+			activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 			return null;
 		}
 		case TARGET_CORPSE_ALLY:
@@ -2893,14 +2895,14 @@ public class L2Skill implements FuncOwner
 								(!targetPlayer.getCharmOfCourage() || player.getSiegeState() == 0))
 						{
 							condGood = false;
-							player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_BE_RESURRECTED_DURING_SIEGE));
+							player.sendPacket(SystemMessageId.CANNOT_BE_RESURRECTED_DURING_SIEGE);
 						}
 
 						if (targetPlayer != null)
 						{
 							if (targetPlayer.isReviveRequested())
 							{
-								player.sendPacket(new SystemMessage(SystemMessageId.RES_HAS_ALREADY_BEEN_PROPOSED)); // Resurrection is already been
+								player.sendPacket(SystemMessageId.RES_HAS_ALREADY_BEEN_PROPOSED); // Resurrection is already been
 								// proposed.
 								condGood = false;
 							}
@@ -2928,14 +2930,14 @@ public class L2Skill implements FuncOwner
 					}
 				}
 			}
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+			activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 			return null;
 		}
 		case TARGET_CORPSE_MOB:
 		{
 			if (!(target instanceof L2Attackable) || !target.isDead())
 			{
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+				activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 				return null;
 			}
 
@@ -2969,7 +2971,7 @@ public class L2Skill implements FuncOwner
 		{
 			if ((!(target instanceof L2Attackable)) || !target.isDead())
 			{
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+				activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 				return null;
 			}
 
@@ -3060,7 +3062,7 @@ public class L2Skill implements FuncOwner
 		{
 			if (!(target instanceof L2Attackable) || !target.isDead())
 			{
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+				activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 				return null;
 			}
 
@@ -3097,7 +3099,7 @@ public class L2Skill implements FuncOwner
 		{
 			if (!(target instanceof L2DoorInstance) && !(target instanceof L2ChestInstance))
 			{
-				// activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+				// activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 				return null;
 			}
 
@@ -3127,7 +3129,7 @@ public class L2Skill implements FuncOwner
 			// Check for null target or any other invalid target
 			if (target == null || target.isDead() || !(target instanceof L2DoorInstance))
 			{
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+				activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 				return null;
 			}
 			// If a target is found, return it in a table else send a system message TARGET_IS_INCORRECT
@@ -3139,7 +3141,7 @@ public class L2Skill implements FuncOwner
 			// Check for null target or any other invalid target
 			if (target == null || target.isDead() || !(target instanceof L2Attackable))
 			{
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+				activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 				return null;
 			}
 			// If a target is found, return it in a table else send a system message TARGET_IS_INCORRECT
@@ -3160,6 +3162,11 @@ public class L2Skill implements FuncOwner
 				return null;
 			return targetList.moveToArray(new L2Character[targetList.size()]);
 		}
+		case TARGET_INITIATOR:
+			if (target != null)
+				return new L2Character[] { target };
+			else
+				return null;
 		default:
 		{
 			if (activeChar instanceof L2PcInstance || _log.isDebugEnabled()) // normally log only player skills errors
@@ -3188,7 +3195,7 @@ public class L2Skill implements FuncOwner
 
 		if (target == null || !(target instanceof L2Character))
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+			activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 			return null;
 		}
 
@@ -3198,7 +3205,7 @@ public class L2Skill implements FuncOwner
 				targetList.add((L2Character) target);
 			else
 			{
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+				activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 				return null;
 			}
 		}
@@ -3226,7 +3233,7 @@ public class L2Skill implements FuncOwner
 			acClan = ((L2Summon) activeChar).getOwner().getClan();
 		else
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+			activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 			return null;
 		}
 
@@ -3357,7 +3364,7 @@ public class L2Skill implements FuncOwner
 
 		if (targetList.size() == 0)
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+			activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 			return null;
 		}
 
@@ -3383,7 +3390,7 @@ public class L2Skill implements FuncOwner
 
 		if (target == null || !(target instanceof L2Character))
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+			activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 			return null;
 		}
 
@@ -3395,7 +3402,7 @@ public class L2Skill implements FuncOwner
 				targetList.add((L2Character) target);
 			else
 			{
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+				activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 				return null;
 			}
 		}
@@ -3424,7 +3431,7 @@ public class L2Skill implements FuncOwner
 			acClan = activeChar.getActingPlayer().getClan();
 		else
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+			activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 			return null;
 		}
 
@@ -3567,7 +3574,7 @@ public class L2Skill implements FuncOwner
 
 		if (targetList.size() == 0)
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+			activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 			return null;
 		}
 
@@ -3844,5 +3851,4 @@ public class L2Skill implements FuncOwner
 	{
 		return _afroId;
 	}
-
 }
