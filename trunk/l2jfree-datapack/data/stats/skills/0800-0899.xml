@@ -248,9 +248,9 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
-    <set name="bestowTriggered" val="true"/>
-    <set name="triggeredId" val="5673"/>
-    <set name="triggeredLevel" val="1"/>
+    <set name="bestowSkillAutomatically" val="true"/>
+    <set name="bestowedSkillId" val="5673"/>
+    <set name="bestowedSkillLevel" val="1"/>
   </skill>
   <skill id="819" levels="1" name="Evasion Chance">
     <!-- Needs to be verified -->
@@ -259,9 +259,9 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
-    <set name="bestowTriggered" val="true"/>
-    <set name="triggeredId" val="5674"/>
-    <set name="triggeredLevel" val="1"/>
+    <set name="bestowSkillAutomatically" val="true"/>
+    <set name="bestowedSkillId" val="5674"/>
+    <set name="bestowedSkillLevel" val="1"/>
   </skill>
   <skill id="820" levels="1" name="Evasion Haste">
     <!-- Needs to be verified -->
@@ -270,9 +270,9 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
-    <set name="bestowTriggered" val="true"/>
-    <set name="triggeredId" val="5675"/>
-    <set name="triggeredLevel" val="1"/>
+    <set name="bestowSkillAutomatically" val="true"/>
+    <set name="bestowedSkillId" val="5675"/>
+    <set name="bestowedSkillLevel" val="1"/>
   </skill>
   <skill id="821" levels="1" name="Shadow Step">
     <set name="mpConsume" val="50"/>

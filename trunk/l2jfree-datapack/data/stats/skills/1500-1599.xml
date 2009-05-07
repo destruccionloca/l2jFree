@@ -542,15 +542,15 @@
     </for>
   </skill>
   <skill id="1526" levels="3" name="Steal Mana">
-    <table name="#triggeredId"> 5676 5677 5678 </table>
+    <table name="#bestowedSkillId"> 5676 5677 5678 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <set name="triggeredId" val="#triggeredId"/>
-    <set name="triggeredLevel" val="1"/>
-    <set name="bestowTriggered" val="true"/>
+    <set name="bestowedSkillId" val="#bestowedSkillId"/>
+    <set name="bestowedSkillLevel" val="1"/>
+    <set name="bestowSkillAutomatically" val="true"/>
   </skill>
   <skill id="1527" levels="1" name="Expert Casting">
     <!-- Done by Caramon81 -->

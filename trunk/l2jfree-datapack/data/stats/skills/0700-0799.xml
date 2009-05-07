@@ -810,9 +810,9 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
-    <set name="bestowTriggered" val="true"/>
-    <set name="triggeredId" val="5556"/>
-    <set name="triggeredLevel" val="1"/>
+    <set name="bestowSkillAutomatically" val="true"/>
+    <set name="bestowedSkillId" val="5556"/>
+    <set name="bestowedSkillLevel" val="1"/>
     <for>
       <mul order="0x30" stat="mDef" val="1.2"/>
     </for>
@@ -823,9 +823,9 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
-    <set name="bestowTriggered" val="true"/>
-    <set name="triggeredId" val="5557"/>
-    <set name="triggeredLevel" val="1"/>
+    <set name="bestowSkillAutomatically" val="true"/>
+    <set name="bestowedSkillId" val="5557"/>
+    <set name="bestowedSkillLevel" val="1"/>
     <for>
       <mul order="0x30" stat="fireVuln" val="0.95"/>
       <mul order="0x30" stat="waterVuln" val="0.95"/>
@@ -839,9 +839,9 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
-    <set name="bestowTriggered" val="true"/>
-    <set name="triggeredId" val="5558"/>
-    <set name="triggeredLevel" val="1"/>
+    <set name="bestowSkillAutomatically" val="true"/>
+    <set name="bestowedSkillId" val="5558"/>
+    <set name="bestowedSkillLevel" val="1"/>
     <for>
       <mul order="0x30" stat="darkVuln" val="0.95"/>
       <mul order="0x30" stat="holyVuln" val="0.95"/>
@@ -853,9 +853,9 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="bestowTriggered" val="true"/>
-    <set name="triggeredId" val="5559"/>
-    <set name="triggeredLevel" val="1"/>
+    <set name="bestowSkillAutomatically" val="true"/>
+    <set name="bestowedSkillId" val="5559"/>
+    <set name="bestowedSkillLevel" val="1"/>
     <for>
       <mul order="0x30" stat="pAtk" val="1.09">
         <using kind="Sword, Rapier, Ancient, Blunt, Fist, Dual Fist, Dual Sword, Two Handed Sword, Dagger, Pole"/>
@@ -871,9 +871,9 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="bestowTriggered" val="true"/>
-    <set name="triggeredId" val="5560"/>
-    <set name="triggeredLevel" val="1"/>
+    <set name="bestowSkillAutomatically" val="true"/>
+    <set name="bestowedSkillId" val="5560"/>
+    <set name="bestowedSkillLevel" val="1"/>
     <for>
       <mul order="0x30" stat="pAtk" val="1.09">
         <using kind="Bow, Crossbow"/>
@@ -1027,9 +1027,9 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="bestowTriggered" val="true"/>
-    <set name="triggeredId" val="5565"/>
-    <set name="triggeredLevel" val="1"/>
+    <set name="bestowSkillAutomatically" val="true"/>
+    <set name="bestowedSkillId" val="5565"/>
+    <set name="bestowedSkillLevel" val="1"/>
     <for>
       <add order="0x40" stat="rCrit" val="180"/>
     </for>
