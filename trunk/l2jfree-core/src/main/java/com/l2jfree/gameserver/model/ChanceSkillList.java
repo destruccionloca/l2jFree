@@ -21,34 +21,23 @@ import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillLaunched;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
+import com.l2jfree.util.L2Arrays;
 
 /**
- *
- * @author  kombat/crion
+ * @author kombat/crion
  */
 public class ChanceSkillList extends FastMap<L2Skill, ChanceCondition>
 {
 	private static final long serialVersionUID = -2542073222059976854L;
 	
-	private L2Character _owner;
-
+	private final L2Character _owner;
+	
 	public ChanceSkillList(L2Character owner)
 	{
-		super();
 		setShared(true);
 		_owner = owner;
 	}
-
-	public L2Character getOwner()
-	{
-		return _owner;
-	}
-
-	public void setOwner(L2Character owner)
-	{
-		_owner = owner;
-	}
-
+	
 	public void onHit(L2Character target, boolean ownerWasHit, boolean wasCrit)
 	{
 		int event;
@@ -64,10 +53,10 @@ public class ChanceSkillList extends FastMap<L2Skill, ChanceCondition>
 			if (wasCrit)
 				event |= ChanceCondition.EVT_CRIT;
 		}
-
+		
 		onEvent(event, target);
 	}
-
+	
 	public void onSkillHit(L2Character target, boolean ownerWasHit, boolean wasMagic, boolean wasOffensive)
 	{
 		int event;
@@ -90,15 +79,15 @@ public class ChanceSkillList extends FastMap<L2Skill, ChanceCondition>
 			event |= wasMagic ? ChanceCondition.EVT_MAGIC : ChanceCondition.EVT_PHYSICAL;
 			event |= wasOffensive ? ChanceCondition.EVT_MAGIC_OFFENSIVE : ChanceCondition.EVT_MAGIC_GOOD;
 		}
-
+		
 		onEvent(event, target);
 	}
-
+	
 	public void onEvadedHit(L2Character attacker)
 	{
 		onEvent(ChanceCondition.EVT_EVADED_HIT, attacker);
 	}
-
+	
 	public void onEvent(int event, L2Character evtInitiator)
 	{
 		for (FastMap.Entry<L2Skill, ChanceCondition> e = head(), end = tail(); (e = e.getNext()) != end;)
@@ -113,7 +102,7 @@ public class ChanceSkillList extends FastMap<L2Skill, ChanceCondition>
 						makeCast(s, evtInitiator);
 					else if (e.getValue().improve())
 					{
-						s = SkillTable.getInstance().getInfo(s.getId(), ef.getLevel()+1);
+						s = SkillTable.getInstance().getInfo(s.getId(), ef.getLevel() + 1);
 						if (s != null)
 							makeCast(s, evtInitiator);
 						//nowhere to improve, let the timer run out
@@ -124,14 +113,15 @@ public class ChanceSkillList extends FastMap<L2Skill, ChanceCondition>
 			}
 		}
 	}
-
+	
 	private void makeCast(L2Skill skill, L2Character evtInitiator)
 	{
 		try
 		{
 			if (skill.getWeaponDependancy(_owner, false))
 			{
-				if (skill.getTriggeredSkillId() > 0) //should we use this skill or this skill is just referring to another one ...
+				// Should we use this skill or this skill is just referring to another one...
+				if (skill.getTriggeredSkillId() > 0 && skill.getTriggeredSkillId() != skill.getId())
 				{
 					skill = skill.getTriggeredSkill();
 					if (skill == null)
@@ -139,32 +129,50 @@ public class ChanceSkillList extends FastMap<L2Skill, ChanceCondition>
 				}
 				
 				L2Character[] targets = skill.getTargetList(_owner, false, evtInitiator);
+				
 				if (targets != null && targets.length > 0)
 				{
 					//anyone has a better idea?
-					int nulledValues = 0, validIndex = 0;
+					boolean hasValidTarget = false;
 					for (int i = 0; i < targets.length; i++)
 					{
-						if (!skill.checkCondition(_owner, targets[i]))
+						final L2Character target = targets[i];
+						
+						if (target == null)
+							continue;
+						
+						final L2Effect effect = target.getFirstEffect(skill.getId());
+						
+						// if we already have a greater or equal effect of it
+						if (effect != null && effect.getSkill().getLevel() >= skill.getLevel())
 						{
 							targets[i] = null;
-							nulledValues++;
+							continue;
 						}
-						else
-							validIndex = i;
+						
+						else if (!skill.checkCondition(_owner, target))
+						{
+							targets[i] = null;
+							continue;
+						}
+						
+						hasValidTarget = true;
 					}
-					if (nulledValues == targets.length)
+					
+					if (!hasValidTarget)
 						return;
-
+					
+					targets = L2Arrays.compact(targets);
+					
+					_owner.broadcastPacket(new MagicSkillUse(_owner, skill, 0, 0));
 					_owner.broadcastPacket(new MagicSkillLaunched(_owner, skill, targets));
-					_owner.broadcastPacket(new MagicSkillUse(_owner, targets[validIndex], skill.getDisplayId(), skill.getLevel(), 0, 0));
-
+					
 					// Launch the magic skill and calculate its effects
 					SkillHandler.getInstance().getSkillHandler(skill.getSkillType()).useSkill(_owner, skill, targets);
 				}
 			}
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 		}

@@ -11415,12 +11415,8 @@ public final class L2PcInstance extends L2Playable
 				friend.sendMessage("Friend: " + getName() + " has logged off.");
 			}
 		}
-
-		if (_chanceSkills != null)
-		{
-			_chanceSkills.setOwner(null);
-			_chanceSkills = null;
-		}
+		
+		_chanceSkills = null;
 		
 		// we store all data from players who are disconnected while
 		// in an event in order to restore it in the next login
