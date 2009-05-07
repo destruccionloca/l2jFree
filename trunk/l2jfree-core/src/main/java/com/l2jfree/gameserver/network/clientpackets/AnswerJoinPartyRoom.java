@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.gameserver.network.SystemMessageId;
+
 /**
  * Format: (ch) d
  * @author -Wooden-
@@ -34,6 +36,7 @@ public class AnswerJoinPartyRoom extends L2GameClientPacket
     {
         // TODO: implementation missing
         System.out.println("C5:AnswerJoinPartyRoom: d: "+_requesterID);
+        requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
     }
 
     @Override

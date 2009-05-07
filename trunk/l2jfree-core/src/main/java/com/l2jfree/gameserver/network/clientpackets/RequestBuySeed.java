@@ -30,7 +30,6 @@ import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.item.L2Item;
-import com.l2jfree.gameserver.util.Util;
 
 /**
  * Format: cdd[dd]
@@ -45,27 +44,23 @@ import com.l2jfree.gameserver.util.Util;
  * @author l3x
  */ 
 
-
-
 public class RequestBuySeed extends L2GameClientPacket
 {
 	private static final String _C__C4_REQUESTBUYSEED = "[C] C4 RequestBuySeed";
 
 	private int _count;
-
 	private int _manorId;
-
 	private int[] _items; // size _count * 2
-	
+
     @Override
 	protected void readImpl()
 	{
 		_manorId = readD();
 		_count = readD();
-
-		if (_count > 500 || _count * 8 < getByteBuffer().remaining()) // check values
+		// check values
+		if (_count > 500 || _count * 8 < getByteBuffer().remaining() || _count < 1)
 		{
-			_count = 0;
+			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 
@@ -78,14 +73,14 @@ public class RequestBuySeed extends L2GameClientPacket
 			long cnt = readD();
 			if (cnt >= Integer.MAX_VALUE || cnt < 1)
 			{
-				_count = 0;
 				_items = null;
+				sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
 			_items[i * 2 + 1] = (int) cnt;
 		}
 	}
-    
+
 	@Override
 	protected void runImpl()
 	{
@@ -94,20 +89,11 @@ public class RequestBuySeed extends L2GameClientPacket
 		int totalWeight = 0;
 
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null)
-			return;
-
-		if (_count < 1) 
-		{
-			player.sendPacket(ActionFailed.STATIC_PACKET);
-			return;
-		}
+		if (player == null) return;
 
 		L2Object target = player.getTarget();
-
 		if (!(target instanceof L2ManorManagerInstance))
 			target = player.getLastFolkNPC();
-
 		if (!(target instanceof L2ManorManagerInstance))
 			return;
 		
@@ -120,15 +106,16 @@ public class RequestBuySeed extends L2GameClientPacket
 			int price = 0;
 			int residual = 0;
 
-			SeedProduction seed = castle.getSeed(seedId,CastleManorManager.PERIOD_CURRENT);
+			SeedProduction seed = castle.getSeed(seedId, CastleManorManager.PERIOD_CURRENT);
 			price = seed.getPrice();
 			residual = seed.getCanProduce();
 
-			if (price <= 0)
+			if (price <= 0 || residual < count)
+			{
+				//any message, or is it server's misconfiguration?
+				sendPacket(ActionFailed.STATIC_PACKET);
 				return;
-
-			if (residual < count)
-				return;
+			}
 
 			totalPrice += count * price;
 
@@ -139,36 +126,30 @@ public class RequestBuySeed extends L2GameClientPacket
 			else if (player.getInventory().getItemByItemId(seedId) == null)
 				slots++;
 		}
-		
+
 		if (totalPrice >= Integer.MAX_VALUE)
 		{
-			Util.handleIllegalPlayerAction(player, "Warning!! Character "
-					+ player.getName() + " of account "
-					+ player.getAccountName() + " tried to purchase over "
-					+ Integer.MAX_VALUE + " adena worth of goods.",
-					Config.DEFAULT_PUNISH);
+			requestFailed(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
 			return;
 		}
-		
-		if (!player.getInventory().validateWeight(totalWeight))
+		else if (!player.getInventory().validateWeight(totalWeight))
 		{
-			sendPacket(new SystemMessage(SystemMessageId.WEIGHT_LIMIT_EXCEEDED));
+			requestFailed(SystemMessageId.WEIGHT_LIMIT_EXCEEDED);
 			return;
 		}
-
-		if (!player.getInventory().validateCapacity(slots))
+		else if (!player.getInventory().validateCapacity(slots))
 		{
-			sendPacket(new SystemMessage(SystemMessageId.SLOTS_FULL));
+			requestFailed(SystemMessageId.SLOTS_FULL);
 			return;
 		}
 
 		// Charge buyer
 		if ((totalPrice < 0) || !player.reduceAdena("Buy", (int) totalPrice, target, false))
 		{
-			sendPacket(new SystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
+			requestFailed(SystemMessageId.YOU_NOT_ENOUGH_ADENA);
 			return;
 		}
-		
+
 		// Adding to treasury for Manor Castle
 		castle.addToTreasuryNoTax((int) totalPrice);
 
@@ -200,18 +181,21 @@ public class RequestBuySeed extends L2GameClientPacket
 				playerIU.addNewItem(item);
 
 			// Send Char Buy Messages
-			SystemMessage sm = null;
-			sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
+			SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
 			sm.addItemName(item);
 			sm.addNumber(count);
-			player.sendPacket(sm);
+			sendPacket(sm);
+			sm = null;
 		}
 		// Send update packets
-		player.sendPacket(playerIU);
+		sendPacket(playerIU);
 
 		StatusUpdate su = new StatusUpdate(player.getObjectId());
 		su.addAttribute(StatusUpdate.CUR_LOAD, player.getCurrentLoad());
-		player.sendPacket(su);
+		sendPacket(su);
+		su = null;
+
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	@Override

@@ -38,7 +38,8 @@ import com.l2jfree.gameserver.network.serverpackets.GMViewPledgeInfo;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 
 /**
- * This class ...
+ * This class represents a packet sent when player clicks a link in the chat dialog.
+ * In HTML files it is <a action="bypass -h command"/>
  * 
  * @version $Revision: 1.12.4.5 $ $Date: 2005/04/11 10:06:11 $
  */
@@ -59,14 +60,10 @@ public class RequestBypassToServer extends L2GameClientPacket
 	protected void runImpl() throws InvalidPacketException
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-
-		if (activeChar == null)
-			return;
+		if (activeChar == null) return;
 
 		if (_command.startsWith("admin_"))
-		{
 			AdminCommandHandler.getInstance().useAdminCommand(activeChar, _command);
-		}
 		else if (_command.equals("come_here") && activeChar.getAccessLevel() >= Config.GM_ACCESSLEVEL)
 			comeHere(activeChar);
 		else if (_command.startsWith("show_clan_info "))
@@ -76,7 +73,7 @@ public class RequestBypassToServer extends L2GameClientPacket
 		else if (_command.startsWith("npc_"))
 		{
 			activeChar.validateBypass(_command);
-			
+
 			int endOfId = _command.indexOf('_', 5);
 			String id;
 			if (endOfId > 0)
@@ -92,25 +89,18 @@ public class RequestBypassToServer extends L2GameClientPacket
 				if (activeChar.getTargetId() == objectId)
 					object = activeChar.getTarget();
 
-				// Get object from world
+				// Try to get the object from world
 				if (object == null)
-				{
 					object = L2World.getInstance().findObject(objectId);
-					//_log.warn("Player "+activeChar.getName()+" bypassed command to NPC outside of his knownlist.");
-				}
 
 				if (_command.substring(endOfId + 1).startsWith("event_participate"))
 					L2Event.inscribePlayer(activeChar);
-
 				else if (_command.substring(endOfId + 1).startsWith("vip_joinVIPTeam"))
 					VIP.addPlayerVIP(activeChar);
-
 				else if (_command.substring(endOfId + 1).startsWith("vip_joinNotVIPTeam"))
 					VIP.addPlayerNotVIP(activeChar);
-
 				else if (_command.substring(endOfId + 1).startsWith("vip_finishVIP"))
 					VIP.vipWin(activeChar);
-
 				else if (_command.substring(endOfId + 1).startsWith("tvt_player_join "))
 				{
 					String teamName = _command.substring(endOfId + 1).substring(16);
@@ -120,7 +110,6 @@ public class RequestBypassToServer extends L2GameClientPacket
 					else
 						activeChar.sendMessage("The event is already started. You can not join now!");
 				}
-
 				else if (_command.substring(endOfId + 1).startsWith("tvt_player_leave"))
 				{
 					if (TvT._joining)
@@ -128,7 +117,6 @@ public class RequestBypassToServer extends L2GameClientPacket
 					else
 						activeChar.sendMessage("The event is already started. You can not leave now!");
 				}
-
 				else if (_command.substring(endOfId + 1).startsWith("dmevent_player_join"))
 				{
 					if (DM._joining)
@@ -136,7 +124,6 @@ public class RequestBypassToServer extends L2GameClientPacket
 					else
 						activeChar.sendMessage("The event is already started. You can not join now!");
 				}
-
 				else if (_command.substring(endOfId + 1).startsWith("dmevent_player_leave"))
 				{
 					if (DM._joining)
@@ -144,7 +131,6 @@ public class RequestBypassToServer extends L2GameClientPacket
 					else
 						activeChar.sendMessage("The event is already started. You can not leave now!");
 				}
-
 				else if (_command.substring(endOfId + 1).startsWith("ctf_player_join "))
 				{
 					String teamName = _command.substring(endOfId + 1).substring(16);
@@ -154,7 +140,6 @@ public class RequestBypassToServer extends L2GameClientPacket
 					else
 						activeChar.sendMessage("The event is already started. You can not join now!");
 				}
-
 				else if (_command.substring(endOfId + 1).startsWith("ctf_player_leave"))
 				{
 					if (CTF._joining)
@@ -162,11 +147,10 @@ public class RequestBypassToServer extends L2GameClientPacket
 					else
 						activeChar.sendMessage("The event is already started. You can not leave now!");
 				}
-
 				else if (object instanceof L2Npc && endOfId > 0
 						&& activeChar.isInsideRadius(object, L2Npc.INTERACTION_DISTANCE, false, false))
 					((L2Npc) object).onBypassFeedback(activeChar, _command.substring(endOfId + 1));
-				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+				sendPacket(ActionFailed.STATIC_PACKET);
 			}
 			catch (NumberFormatException nfe)
 			{
@@ -176,7 +160,7 @@ public class RequestBypassToServer extends L2GameClientPacket
 		else if (_command.equals("menu_select?ask=-16&reply=1"))
 		{
 			activeChar.validateBypass(_command);
-			
+
 			L2Object object = activeChar.getTarget();
 			if (object instanceof L2Npc)
 				((L2Npc) object).onBypassFeedback(activeChar, _command);
@@ -201,7 +185,7 @@ public class RequestBypassToServer extends L2GameClientPacket
 		else if (_command.startsWith("Quest "))
 		{
 			activeChar.validateBypass(_command);
-			
+
 			String p = _command.substring(6).trim();
 			int idx = p.indexOf(' ');
 			if (idx < 0)
@@ -211,11 +195,10 @@ public class RequestBypassToServer extends L2GameClientPacket
 		}
 		else if (_command.startsWith("OlympiadArenaChange"))
 			Olympiad.bypassChangeArena(_command, activeChar);
+
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
-	/**
-	 * @param client
-	 */
 	private void comeHere(L2PcInstance activeChar)
 	{
 		L2Object obj = activeChar.getTarget();
@@ -253,9 +236,6 @@ public class RequestBypassToServer extends L2GameClientPacket
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

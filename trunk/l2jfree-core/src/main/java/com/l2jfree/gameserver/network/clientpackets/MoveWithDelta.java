@@ -14,6 +14,9 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
+
 /**
  * Format: (c) ddd
  * d: dx
@@ -39,7 +42,9 @@ public class MoveWithDelta extends L2GameClientPacket
     @Override
     protected void runImpl()
     {
-        // TODO: implement
+        // TODO: implement (no message since this packet is sent while moving?)
+        //requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+    	sendPacket(ActionFailed.STATIC_PACKET);
     }
 
     @Override

@@ -14,11 +14,11 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.gameserver.network.SystemMessageId;
 
 /**
  * Format: (ch) S
- * @author  -Wooden-
- * 
+ * @author -Wooden-
  */
 public class RequestAskJoinPartyRoom extends L2GameClientPacket
 {
@@ -31,19 +31,14 @@ public class RequestAskJoinPartyRoom extends L2GameClientPacket
         _player = readS();
     }
 
-    /**
-     * @see com.l2jfree.gameserver.network.clientpackets.ClientBasePacket#runImpl()
-     */
     @Override
     protected void runImpl()
     {
         //TODO: implementation missing
         System.out.println("C5:RequestAskJoinPartyRoom: S: "+_player);
+        requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
     }
 
-    /**
-     * @see com.l2jfree.gameserver.network.BasePacket#getType()
-     */
     @Override
     public String getType()
     {

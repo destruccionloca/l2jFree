@@ -21,8 +21,8 @@ import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * This class ...
@@ -32,10 +32,9 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 public class RequestChangePetName extends L2GameClientPacket
 {
 	private static final String REQUESTCHANGEPETNAME__C__89 = "[C] 89 RequestChangePetName";
-	//private final static Log _log = LogFactory.getLog(RequestChangePetName.class.getName());
-	
+
 	private String _name;
-	
+
     @Override
     protected void readImpl()
     {
@@ -46,37 +45,44 @@ public class RequestChangePetName extends L2GameClientPacket
     protected void runImpl()
 	{
 		L2Character activeChar = getClient().getActiveChar();
-		if (activeChar == null)
-			return;
+		if (activeChar == null) return;
 
 		final L2Summon pet = activeChar.getPet(); 
 		if (pet == null)
-			return;
-
-		if (pet.getName() != null && pet.getName().trim().length() != 0)
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.NAMING_YOU_CANNOT_SET_NAME_OF_THE_PET));
+			requestFailed(SystemMessageId.PETS_ARE_NOT_AVAILABLE_AT_THIS_TIME);
+			return;
+		}
+		else if (pet.getName() != null && pet.getName().trim().length() != 0)
+		{
+			requestFailed(SystemMessageId.NAMING_YOU_CANNOT_SET_NAME_OF_THE_PET);
 			return;
 		}
 		else if (PetNameTable.getInstance().doesPetNameExist(_name, pet.getTemplate().getNpcId()))
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.NAMING_ALREADY_IN_USE_BY_ANOTHER_PET));
+			requestFailed(SystemMessageId.NAMING_ALREADY_IN_USE_BY_ANOTHER_PET);
 			return;
 		}
-        else if (_name.length() < 3 || _name.length() > 16)
+        else if (_name.length() < 3 || _name.length() > 8)
 		{
-			activeChar.sendMessage("Your pet's name can be up to 16 characters.");
+        	requestFailed(SystemMessageId.NAMING_PETNAME_UP_TO_8CHARS);
 			return;
 		}
         else if (!Config.CLAN_ALLY_NAME_PATTERN.matcher(_name).matches())
 		{
-        	activeChar.sendPacket(new SystemMessage(SystemMessageId.NAMING_PETNAME_CONTAINS_INVALID_CHARS));
+        	requestFailed(SystemMessageId.NAMING_PETNAME_CONTAINS_INVALID_CHARS);
 			return;
 		}
-		
+		// the pattern might have been changed by the admin
+        else if (_name.contains(" "))
+        {
+        	requestFailed(SystemMessageId.NAMING_THERE_IS_A_SPACE);
+        	return;
+        }
+
 		pet.setName(_name);
 		pet.broadcastFullInfo();
-		
+
 		// set the flag on the control item to say that the pet has a name
 		if (pet instanceof L2PetInstance)
 		{
@@ -87,11 +93,13 @@ public class RequestChangePetName extends L2GameClientPacket
 				controlItem.updateDatabase();
 				InventoryUpdate iu = new InventoryUpdate();
 				iu.addModifiedItem(controlItem);
-				activeChar.sendPacket(iu);
+				sendPacket(iu); iu = null;
 			}
 		}
+
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
-	
+
 	@Override
 	public String getType()
 	{

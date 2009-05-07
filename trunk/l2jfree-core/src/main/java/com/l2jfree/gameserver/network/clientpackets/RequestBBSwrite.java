@@ -15,10 +15,11 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.communitybbs.CommunityBoard;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
+
 /**
  * Format SSSSSS
  * @author -Wooden-
- *
  */
 public class RequestBBSwrite extends L2GameClientPacket
 {
@@ -29,11 +30,9 @@ public class RequestBBSwrite extends L2GameClientPacket
 	private String _arg3;
 	private String _arg4;
 	private String _arg5;
-	
+
 	/**
 	 * Format SSSSSS
-	 * @param buf
-	 * @param client
 	 */
     @Override
     protected void readImpl()
@@ -46,18 +45,13 @@ public class RequestBBSwrite extends L2GameClientPacket
 		_arg5 = readS();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#runImpl()
-	 */
 	@Override
     protected void runImpl()
 	{
-		CommunityBoard.getInstance().handleWriteCommands(getClient(),_url,_arg1,_arg2, _arg3, _arg4, _arg5);
+		CommunityBoard.getInstance().handleWriteCommands(getClient(), _url, _arg1, _arg2, _arg3, _arg4, _arg5);
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.BasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{
