@@ -596,10 +596,10 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_CHANCE"/>
     <set name="bestowed" val="true"/>
-    <table name="#triggeredIds">5561 5561 0</table>
-    <table name="#triggeredLevels">2 3 0</table>
-    <set name="triggeredId" val="#triggeredIds"/>
-    <set name="triggeredLevel" val="#triggeredLevels"/>
+    <table name="#bestowedSkillIds">5561 5561 0</table>
+    <table name="#bestowedSkillLevels">2 3 0</table>
+    <set name="bestowedSkillId" val="#bestowedSkillIds"/>
+    <set name="bestowedSkillLevel" val="#bestowedSkillLevels"/>
     <cond>
       <or>
         <target active_effect_id="761"/>
@@ -629,10 +629,10 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_CHANCE"/>
     <set name="bestowed" val="true"/>
-    <table name="#triggeredIds">5562 5562 0</table>
-    <table name="#triggeredLevels">2 3 0</table>
-    <set name="triggeredId" val="#triggeredIds"/>
-    <set name="triggeredLevel" val="#triggeredLevels"/>
+    <table name="#bestowedSkillIds">5562 5562 0</table>
+    <table name="#bestowedSkillLevels">2 3 0</table>
+    <set name="bestowedSkillId" val="#bestowedSkillIds"/>
+    <set name="bestowedSkillLevel" val="#bestowedSkillLevels"/>
     <cond>
       <or>
         <target active_effect_id="784"/>
@@ -662,10 +662,10 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_CHANCE"/>
     <set name="bestowed" val="true"/>
-    <table name="#triggeredIds">5563 5563 0</table>
-    <table name="#triggeredLevels">2 3 0</table>
-    <set name="triggeredId" val="#triggeredIds"/>
-    <set name="triggeredLevel" val="#triggeredLevels"/>
+    <table name="#bestowedSkillIds">5563 5563 0</table>
+    <table name="#bestowedSkillLevels">2 3 0</table>
+    <set name="bestowedSkillId" val="#bestowedSkillIds"/>
+    <set name="bestowedSkillLevel" val="#bestowedSkillLevels"/>
     <cond>
       <or>
         <target active_effect_id="786"/>
@@ -694,10 +694,10 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_CHANCE"/>
     <set name="bestowed" val="true"/>
-    <table name="#triggeredIds">5564 5564 0</table>
-    <table name="#triggeredLevels">2 3 0</table>
-    <set name="triggeredId" val="#triggeredIds"/>
-    <set name="triggeredLevel" val="#triggeredLevels"/>
+    <table name="#bestowedSkillIds">5564 5564 0</table>
+    <table name="#bestowedSkillLevels">2 3 0</table>
+    <set name="bestowedSkillId" val="#bestowedSkillIds"/>
+    <set name="bestowedSkillLevel" val="#bestowedSkillLevels"/>
     <cond>
       <or>
         <target active_effect_id="788"/>

@@ -643,8 +643,8 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <set name="triggeredId" val="5698"/>
-    <set name="triggeredLevel" val="#level"/>
+    <set name="bestowedSkillId" val="5698"/>
+    <set name="bestowedSkillLevel" val="#level"/>
     <for>
       <effect count="1" name="BestowSkill" time="60" val="0"/>
     </for>

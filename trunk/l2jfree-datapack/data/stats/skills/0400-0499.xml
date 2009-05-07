@@ -920,8 +920,8 @@
     <set name="reuseDelay" val="60000"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
-    <set name="triggeredId" val="5144"/>
-    <set name="triggeredLevel" val="1"/>
+    <set name="bestowedSkillId" val="5144"/>
+    <set name="bestowedSkillLevel" val="1"/>
     <for>
       <effect count="1" name="BestowSkill" time="60" val="0"/>
     </for>
