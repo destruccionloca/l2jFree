@@ -110,7 +110,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="16026"/>
     </cond>
   </skill>
@@ -123,7 +123,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="16027"/>
     </cond>
   </skill>
@@ -136,7 +136,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="16028"/>
     </cond>
   </skill>
@@ -575,7 +575,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="16029"/>
     </cond>
   </skill>

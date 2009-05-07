@@ -10,7 +10,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1501"/>
     </cond>
   </skill>
@@ -23,7 +23,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1502"/>
     </cond>
   </skill>
@@ -36,7 +36,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1503"/>
     </cond>
   </skill>
@@ -49,7 +49,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1504"/>
     </cond>
   </skill>
@@ -63,7 +63,7 @@
     <set name="effectRange" val="1100"/>
     <set name="reuseDelay" val="1200000"/>
     <set name="staticReuse" val="true"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1501"/>
     </cond>
     <for>
@@ -80,7 +80,7 @@
     <set name="staticReuse" val="true"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="600"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1502"/>
     </cond>
   </skill>
@@ -93,7 +93,7 @@
     <set name="staticReuse" val="true"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1503"/>
     </cond>
   </skill>
@@ -107,7 +107,7 @@
     <set name="effectRange" val="1100"/>
     <set name="reuseDelay" val="1200000"/>
     <set name="staticReuse" val="true"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1504"/>
     </cond>
     <for>
@@ -123,7 +123,7 @@
     <set name="staticReuse" val="true"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1504"/>
     </cond>
   </skill>
@@ -137,7 +137,7 @@
     <set name="staticReuse" val="true"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="600"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1504"/>
     </cond>
   </skill>
@@ -150,7 +150,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1505"/>
     </cond>
   </skill>
@@ -163,7 +163,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1506"/>
     </cond>
   </skill>
@@ -176,7 +176,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1507"/>
     </cond>
   </skill>
@@ -190,7 +190,7 @@
     <set name="effectRange" val="1100"/>
     <set name="reuseDelay" val="1200000"/>
     <set name="staticReuse" val="true"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1505"/>
     </cond>
     <for>
@@ -207,7 +207,7 @@
     <set name="effectRange" val="600"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="staticReuse" val="true"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1506"/>
     </cond>
   </skill>
@@ -220,7 +220,7 @@
     <set name="effectRange" val="-1"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="staticReuse" val="true"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1507"/>
     </cond>
   </skill>
@@ -234,7 +234,7 @@
     <set name="effectRange" val="600"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="staticReuse" val="true"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1504"/>
     </cond>
   </skill>
@@ -289,7 +289,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="16049"/>
     </cond>
   </skill>
@@ -302,7 +302,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1508"/>
     </cond>
   </skill>
@@ -315,7 +315,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1509"/>
     </cond>
   </skill>
@@ -328,7 +328,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1510"/>
     </cond>
   </skill>
@@ -341,7 +341,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1511"/>
     </cond>
   </skill>
@@ -354,7 +354,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1512"/>
     </cond>
   </skill>
@@ -368,7 +368,7 @@
     <set name="staticReuse" val="true"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="600"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1510"/>
     </cond>
   </skill>
@@ -381,7 +381,7 @@
     <set name="staticReuse" val="true"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1511"/>
     </cond>
   </skill>
@@ -393,7 +393,7 @@
     <set name="castRange" val="-1"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="staticReuse" val="true"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1512"/>
     </cond>
     <for>
@@ -409,7 +409,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1513"/>
     </cond>
   </skill>
@@ -418,7 +418,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1513"/>
     </cond>
   </skill>
@@ -430,7 +430,7 @@
     <set name="castRange" val="-1"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="staticReuse" val="true"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1513"/>
     </cond>
     <for>
@@ -446,7 +446,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1514"/>
     </cond>
   </skill>
@@ -459,7 +459,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1514"/>
     </cond>
     <for>
@@ -477,7 +477,7 @@
     <set name="staticReuse" val="true"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1514"/>
     </cond>
   </skill>
@@ -490,7 +490,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1515"/>
     </cond>
   </skill>
@@ -503,7 +503,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1516"/>
     </cond>
   </skill>
@@ -516,7 +516,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1517"/>
     </cond>
   </skill>
@@ -525,7 +525,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1515"/>
     </cond>
   </skill>
@@ -534,7 +534,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1516"/>
     </cond>
   </skill>
@@ -543,7 +543,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1517"/>
     </cond>
   </skill>
@@ -556,7 +556,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1518"/>
     </cond>
   </skill>
@@ -569,7 +569,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1510"/>
     </cond>
   </skill>
@@ -582,7 +582,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1511"/>
     </cond>
   </skill>
@@ -595,7 +595,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <cond msg="This skill is only to be used with correct Agathion summoned.">
+    <cond msgId="2292">
       <player agathionId="1512"/>
     </cond>
   </skill>
