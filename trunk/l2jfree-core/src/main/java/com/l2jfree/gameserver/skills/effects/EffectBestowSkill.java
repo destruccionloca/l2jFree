@@ -42,27 +42,20 @@ final class EffectBestowSkill extends L2Effect
 		if (tempSkill == null)
 			return false;
 		
-		getEffected().addSkill(tempSkill);
-		
 		// Removing every other skill bestowing effect with the same stack type
 		for (L2Effect e : getEffected().getAllEffects())
 			if (e != null && e != this && e instanceof EffectBestowSkill)
 				if (e.getStackType().equals(getStackType()))
 					e.exit();
 		
+		getEffected().addSkill(tempSkill);
 		return true;
 	}
 	
 	@Override
 	protected void onExit()
 	{
-		final L2Skill tempSkill = getSkill().getTriggeredSkill();
-		if (tempSkill == null)
-			return;
-		
-		// Removing bestowed skill only if it was bestowed by this effect
-		if (getEffected().getSkillLevel(tempSkill.getId()) == tempSkill.getLevel())
-			getEffected().removeSkill(tempSkill);
+		getEffected().removeSkill(getSkill().getTriggeredSkillId());
 	}
 	
 	@Override
