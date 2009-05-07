@@ -19,16 +19,13 @@ package com.l2jfree.gameserver.network.clientpackets;
  * d: dx
  * d: dy
  * d: dz
- * @author  -Wooden-
- * 
+ * @author -Wooden-
  */
+@SuppressWarnings("unused")
 public class MoveWithDelta extends L2GameClientPacket
 {
-	@SuppressWarnings("unused")
     private int _dx;
-	@SuppressWarnings("unused")
     private int _dy;
-	@SuppressWarnings("unused")
     private int _dz;
 
     @Override
@@ -42,7 +39,7 @@ public class MoveWithDelta extends L2GameClientPacket
     @Override
     protected void runImpl()
     {
-        // TODO this
+        // TODO: implement
     }
 
     @Override

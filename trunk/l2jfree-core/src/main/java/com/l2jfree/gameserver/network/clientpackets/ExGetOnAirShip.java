@@ -20,8 +20,7 @@ package com.l2jfree.gameserver.network.clientpackets;
  * d: dy
  * d: dz
  * d: AirShip id ??
- * @author  -Wooden-
- * 
+ * @author -Wooden-
  */
 public class ExGetOnAirShip extends L2GameClientPacket
 {
@@ -42,6 +41,7 @@ public class ExGetOnAirShip extends L2GameClientPacket
     @Override
     protected void runImpl()
     {
+    	//TODO: implement
         System.out.println("[T1:ExGetOnAirShip] x: "+_x);
         System.out.println("[T1:ExGetOnAirShip] y: "+_y);
         System.out.println("[T1:ExGetOnAirShip] z: "+_z);
@@ -53,5 +53,4 @@ public class ExGetOnAirShip extends L2GameClientPacket
     {
         return "[C] 0xD0:0x35 ExGetOnAirShip";
     }
-
 }

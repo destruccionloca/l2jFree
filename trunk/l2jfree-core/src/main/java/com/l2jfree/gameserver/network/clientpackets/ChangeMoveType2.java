@@ -15,18 +15,22 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 
 /**
- * This class ...
+ * This class is no longer useful.<BR>
+ * Please verify with compatible client(s) and remove it completely!
  * 
  * @version $Revision: 1.1.4.3 $ $Date: 2005/03/27 15:29:30 $
+ * @deprecated see RequestActionUse
  */
+@Deprecated
 public class ChangeMoveType2 extends L2GameClientPacket
 {
 	private static final String _C__1C_CHANGEMOVETYPE2 = "[C] 1C ChangeMoveType2";
 
 	private boolean _typeRun;
-	
+
 	/**
 	 * packet type id 0x1c
 	 * 
@@ -36,29 +40,27 @@ public class ChangeMoveType2 extends L2GameClientPacket
 	 * 01 00 00 00 // type (0 = walk, 1 = run)
 	 * 
 	 * format:		cd
-	 * @param decrypt
 	 */
     @Override
     protected void readImpl()
     {
-        _typeRun = readD() == 1;
+        _typeRun = (readD() == 1);
     }
 
     @Override
     protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null)
-		    return;
+		if (player == null) return;
+
 		if (_typeRun)
 			player.setRunning();
 		else
 			player.setWalking();
+
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

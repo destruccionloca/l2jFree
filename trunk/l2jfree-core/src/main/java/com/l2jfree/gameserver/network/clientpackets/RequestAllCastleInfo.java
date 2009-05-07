@@ -14,44 +14,29 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import com.l2jfree.gameserver.network.L2GameClient;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExShowCastleInfo;
 
 /**
- *
- * @author  KenM
+ * @author KenM
  */
 public class RequestAllCastleInfo extends L2GameClientPacket
 {
+    @Override
+    protected void readImpl()
+    {
+    }
 
-    /**
-     * @see com.l2jfree.gameserver.clientpackets.L2GameClientPacket#getType()
-     */
+    @Override
+    protected void runImpl()
+    {
+        sendPacket(new ExShowCastleInfo());
+        sendPacket(ActionFailed.STATIC_PACKET);
+    }
+
     @Override
     public String getType()
     {
         return "[C] D0:3F RequestAllCastleInfo";
-    }
-
-    /**
-     * @see com.l2jfree.gameserver.clientpackets.L2GameClientPacket#readImpl()
-     */
-    @Override
-    protected void readImpl()
-    {
-        // trigger
-    }
-
-    /**
-     * @see com.l2jfree.gameserver.clientpackets.L2GameClientPacket#runImpl()
-     */
-    @Override
-    protected void runImpl()
-    {
-        L2GameClient client = this.getClient();
-        if (client != null)
-        {
-            client.sendPacket(new ExShowCastleInfo());
-        }
     }
 }

@@ -25,7 +25,8 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.TradeDone;
 
 /**
- * This class ...
+ * This class represents a packet sent by the client when a player clicks either "Yes"
+ * or "No" in the trade request dialog.
  * 
  * @version $Revision: 1.5.4.2 $ $Date: 2005/03/27 15:29:30 $
  */
@@ -49,51 +50,38 @@ public class AnswerTradeRequest extends L2GameClientPacket
 
         if (Shutdown.isActionDisabled(DisableType.TRANSACTION))
         {
-            player.sendMessage("Transactions are not allowed during restart/shutdown.");
-            player.sendPacket(ActionFailed.STATIC_PACKET);
+        	requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
             return;
         }
 
-        if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
-        {
-            player.sendMessage("Unsufficient privileges.");
-            player.sendPacket(ActionFailed.STATIC_PACKET);
-            return;
-        }
-
-        
         L2PcInstance partner = player.getActiveRequester();
         if (partner == null || L2World.getInstance().getPlayer(partner.getObjectId()) == null)
         {
             // Trade partner not found, cancel trade
             player.sendPacket(new TradeDone(0));
-            SystemMessage msg = new SystemMessage(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME);
-            player.sendPacket(msg);
             player.setActiveRequester(null);
-            player.sendPacket(ActionFailed.STATIC_PACKET);
+            requestFailed(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME);
+            return;
+        }
+
+        if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
+        {
+        	partner.sendPacket(SystemMessageId.CANT_TRADE_WITH_TARGET);
+        	requestFailed(SystemMessageId.ACCOUNT_CANT_TRADE_ITEMS);
             return;
         }
 
         if (_response == 1 && !partner.isRequestExpired())
-		{
 			player.startTrade(partner);
-		}
 		else
-		{
-			SystemMessage msg = new SystemMessage(SystemMessageId.C1_DENIED_TRADE_REQUEST);
-			msg.addString(player.getName());
-			partner.sendPacket(msg);
-			player.sendPacket(ActionFailed.STATIC_PACKET);
-		}
+			partner.sendPacket(new SystemMessage(SystemMessageId.C1_DENIED_TRADE_REQUEST).addString(player.getName()));
 
 		// Clears requesting status
 		player.setActiveRequester(null);
+		sendPacket(ActionFailed.STATIC_PACKET);
 		partner.onTransactionResponse();
 	}
-	
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
+
 	@Override
 	public String getType()
 	{

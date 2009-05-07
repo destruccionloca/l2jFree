@@ -15,9 +15,11 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 
 /**
- * This class ...
+ * This class represents a packet sent by the client when the "Return" button is clicked
+ * during an observation.
  * 
  * @version $Revision: 1.7.4.4 $ $Date: 2005/03/27 18:46:19 $
  */
@@ -25,9 +27,8 @@ public class ObserverReturn extends L2GameClientPacket
 {
 	private static final String OBSRETURN__C__04 = "[C] b8 ObserverReturn";
 	//private final static Log _log = LogFactory.getLog(Action.class.getName());
-	
-	// cddddc
 
+	// cddddc
 	@Override
 	protected void readImpl()
 	{
@@ -37,15 +38,14 @@ public class ObserverReturn extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
-			return;
-		if (activeChar.inObserverMode()) activeChar.leaveObserverMode();
+		if (activeChar == null) return;
+
+		if (activeChar.inObserverMode())
+			activeChar.leaveObserverMode();
 		//activeChar.teleToLocation(activeChar.getObsX(), activeChar.getObsY(), activeChar.getObsZ());
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

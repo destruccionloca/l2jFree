@@ -14,15 +14,11 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.CharSelectionInfo;
 
 public final class CharacterPrevState extends L2GameClientPacket
 {
-
-    public CharacterPrevState()
-    {
-    }
-
     @Override
 	protected void readImpl()
     {
@@ -31,8 +27,8 @@ public final class CharacterPrevState extends L2GameClientPacket
     @Override
 	protected void runImpl()
     {
-        CharSelectionInfo cl = new CharSelectionInfo(getClient().getAccountName(), getClient().getSessionId().playOkID1);
-        sendPacket(cl);
+        sendPacket(new CharSelectionInfo(getClient().getAccountName(), getClient().getSessionId().playOkID1));
+        sendPacket(ActionFailed.STATIC_PACKET);
     }
 
     @Override

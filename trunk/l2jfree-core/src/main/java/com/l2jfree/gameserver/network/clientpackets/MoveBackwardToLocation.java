@@ -26,16 +26,18 @@ import com.l2jfree.gameserver.util.Util;
 public final class MoveBackwardToLocation extends L2GameClientPacket
 {
 	private static final String _C__01_MOVEBACKWARDTOLOC = "[C] 01 MoveBackwardToLoc";
-	
+
 	private int _targetX;
 	private int _targetY;
 	private int _targetZ;
-	//private int _originX;
-	//private int _originY;
-	//private int _originZ;
-	
-	private Integer _moveMovement;
-	
+	/*
+	private int _originX;
+	private int _originY;
+	private int _originZ;
+	*/
+
+	private int _moveMovement;
+
 	@Override
 	protected void readImpl()
 	{
@@ -45,28 +47,34 @@ public final class MoveBackwardToLocation extends L2GameClientPacket
 		/*_originX = */readD();
 		/*_originY = */readD();
 		/*_originZ = */readD();
-		
-		// walker noob
+
+		// L2Walker is being used
 		if (getByteBuffer().remaining() < 4)
-			return;
-		
-		_moveMovement = readD(); // is 0 if cursor keys are used  1 if mouse is used
+			_moveMovement = -1;
+		else
+			_moveMovement = readD(); // is 0 if cursor keys are used  1 if mouse is used
 	}
-	
+
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
-			return;
-		
-		if (_moveMovement == null && Config.BAN_CLIENT_EMULATORS)
+		if (activeChar == null) return;
+
+		if (_moveMovement == -1)
 		{
-			Util.handleIllegalPlayerAction(activeChar, "Bot usage for movement by " + activeChar,
-				IllegalPlayerAction.PUNISH_KICKBAN);
-			return;
+			if (Config.BAN_CLIENT_EMULATORS)
+			{
+				Util.handleIllegalPlayerAction(activeChar,
+						"Bot usage for movement by " + activeChar,
+						IllegalPlayerAction.PUNISH_KICKBAN);
+				sendPacket(ActionFailed.STATIC_PACKET);
+				return;
+			}
+			else
+				_moveMovement = 1;
 		}
-		
+
 		// Correcting targetZ from floor level to head level (?)
 		// Client is giving floor level as targetZ but that floor level doesn't
 		// match our current geodata and teleport coords as good as head level! 
@@ -74,43 +82,38 @@ public final class MoveBackwardToLocation extends L2GameClientPacket
 		// sort of incompatibility fix.
 		// Validate position packets sends head level.
 		_targetZ += activeChar.getTemplate().getCollisionHeight();
-		
+
 		int curX = activeChar.getX();
 		int curY = activeChar.getY();
 		//int curZ = activeChar.getZ();
-		
+
 		if (activeChar.isInBoat())
-		{
 			activeChar.setInBoat(false);
-		}
-		
+
 		if (activeChar.getTeleMode() > 0)
 		{
 			if (activeChar.getTeleMode() == 1)
 				activeChar.setTeleMode(0);
-			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			sendPacket(ActionFailed.STATIC_PACKET);
 			activeChar.teleToLocation(_targetX, _targetY, _targetZ, false);
 			return;
 		}
-		
-		if (activeChar.isFakeDeath())
-			return;
-		
-		if (activeChar.isDead())
+
+		if (activeChar.isAlikeDead())
 		{
-			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
-		
+
 		if (_moveMovement == 0 && !Config.GEO_MOVE_PC) // cursor movement without geodata movement check is disabled
 		{
-			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			sendPacket(ActionFailed.STATIC_PACKET);
 		}
 		else
 		{
 			double dx = _targetX - curX;
 			double dy = _targetY - curY;
-			
+
 			// Can't move if character is confused, or trying to move a huge distance
 			if (activeChar.isOutOfControl() || ((dx * dx + dy * dy) > 98010000)) // 9900*9900
 			{
@@ -120,12 +123,13 @@ public final class MoveBackwardToLocation extends L2GameClientPacket
 			
 			activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO,
 				new L2CharPosition(_targetX, _targetY, _targetZ, 0));
-			
+			sendPacket(ActionFailed.STATIC_PACKET);
+
 			if (activeChar.getParty() != null)
 				activeChar.getParty().broadcastToPartyMembers(activeChar, new PartyMemberPosition(activeChar));
 		}
 	}
-	
+
 	@Override
 	public String getType()
 	{

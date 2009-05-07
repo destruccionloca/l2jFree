@@ -14,10 +14,12 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.CharSelectionInfo;
 
 /**
- * This class ...
+ * This class represents a packet sent by the client when a marked to delete character
+ * is being restored ("Yes" is clicked in the restore confirmation dialog)
  * 
  * @version $Revision: 1.4.2.1.2.2 $ $Date: 2005/03/27 15:29:29 $
  */
@@ -26,36 +28,32 @@ public class CharacterRestore extends L2GameClientPacket
 	private static final String _C__62_CHARACTERRESTORE = "[C] 62 CharacterRestore";
 
 	// cd
-	@SuppressWarnings("unused")
     private int _charSlot;
 
-	/**
-	 * @param decrypt
-	 */
     @Override
     protected void readImpl()
     {
         _charSlot = readD();
     }
 
-
     @Override
     protected void runImpl()
 	{
 	    try 
 	    {
-		getClient().markRestoredChar(_charSlot);
-	    } catch (Exception e){
+	    	getClient().markRestoredChar(_charSlot);
+	    }
+	    catch (Exception e)
+	    {
 	    	e.printStackTrace();
 	    }
 		CharSelectionInfo cl = new CharSelectionInfo(getClient().getAccountName(), getClient().getSessionId().playOkID1);
 		sendPacket(cl);
 		getClient().setCharSelection(cl.getCharInfo());
+		cl = null;
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

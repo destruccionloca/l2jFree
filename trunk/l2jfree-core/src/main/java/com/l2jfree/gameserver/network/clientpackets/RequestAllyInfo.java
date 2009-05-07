@@ -14,26 +14,29 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.AllyInfo;
 
 public final class RequestAllyInfo extends L2GameClientPacket
 {
 	private static final String _C__8E_REQUESTALLYINFO = "[C] 8E RequestAllyInfo";
-	
+
 	/**
-	 * packet type id 0x8E format: c
+	 * packet type id 0x8E
+	 * format: c
 	 */
 	@Override
 	protected void readImpl()
 	{
 	}
-	
+
 	@Override
 	protected void runImpl()
 	{
 		AllyInfo.sendAllyInfo(getActiveChar());
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
-	
+
 	@Override
 	public String getType()
 	{

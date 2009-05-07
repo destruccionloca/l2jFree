@@ -31,6 +31,7 @@ import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.network.Disconnection;
 import com.l2jfree.gameserver.network.L2GameClient;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.CharCreateFail;
 import com.l2jfree.gameserver.network.serverpackets.CharCreateOk;
 import com.l2jfree.gameserver.network.serverpackets.CharSelectionInfo;
@@ -39,57 +40,55 @@ import com.l2jfree.gameserver.templates.chars.L2PcTemplate;
 import com.l2jfree.gameserver.templates.chars.L2PcTemplate.PcTemplateItem;
 
 /**
- * This class ...
+ * This class represents a packet sent by the client when a new character is being created.
  *
  * @version $Revision: 1.9.2.3.2.8 $ $Date: 2005/03/27 15:29:30 $
  */
-@SuppressWarnings("unused")
 public class CharacterCreate extends L2GameClientPacket
 {
 	private static final String _C__0B_CHARACTERCREATE = "[C] 0B CharacterCreate";
+	private static final Object CREATION_LOCK = new Object();
 
 	// cSdddddddddddd
 	private String _name;
-	private int _race;
+	//private int _race;
 	private byte _sex;
 	private int _classId;
+	/*
 	private int _int;
 	private int _str;
 	private int _con;
 	private int _men;
 	private int _dex;
 	private int _wit;
+	*/
 	private byte _hairStyle;
 	private byte _hairColor;
 	private byte _face;
 
-	private static final Object _lock = new Object();
-
 	@Override
 	protected void readImpl()
 	{
-
 		_name      = readS();
-		_race      = readD();
-		_sex       = (byte)readD();
+		/*_race  = */readD();
+		_sex       = (byte) readD();
 		_classId   = readD();
-		_int       = readD();
-		_str       = readD();
-		_con       = readD();
-		_men       = readD();
-		_dex       = readD();
-		_wit       = readD();
-		_hairStyle = (byte)readD();
-		_hairColor = (byte)readD();
-		_face      = (byte)readD();
+		/*_int   = */readD();
+		/*_str   = */readD();
+		/*_con   = */readD();
+		/*_men   = */readD();
+		/*_dex   = */readD();
+		/*_wit   = */readD();
+		_hairStyle = (byte) readD();
+		_hairColor = (byte) readD();
+		_face      = (byte) readD();
 	}
 
-	@SuppressWarnings("null")
 	@Override
 	protected void runImpl()
 	{
-		// Only 1 character creation at the same time to prevent multiple names
-		synchronized (_lock)
+		// Only 1 packet may be executed at a time (prevent multiple names)
+		synchronized (CREATION_LOCK)
 		{
 			int reason = -1;
 			if (CharNameTable.getInstance().doesCharNameExist(_name))
@@ -115,10 +114,13 @@ public class CharacterCreate extends L2GameClientPacket
 				_log.debug("charname: " + _name + " classId: " + _classId);
 
 			L2PcTemplate template = CharTemplateTable.getInstance().getTemplate(_classId);
-			if(template == null || template.getClassBaseLevel() > 1)
-				reason = CharCreateFail.REASON_CREATION_FAILED;
-
-			if (reason != -1) {
+			if (template == null || template.getClassBaseLevel() > 1)
+			{
+				sendPacket(new CharCreateFail(CharCreateFail.REASON_CREATION_FAILED));
+				return;
+			}
+			else if (reason != -1)
+			{
 				sendPacket(new CharCreateFail(reason));
 				return;
 			}
@@ -130,11 +132,11 @@ public class CharacterCreate extends L2GameClientPacket
 			newChar.getStatus().setCurrentMp(template.getBaseMpMax());
 			//newChar.setMaxLoad(template.baseLoad);
 
-
 			// send acknowledgement
 			sendPacket(new CharCreateOk());
 
 			initNewChar(getClient(), newChar);
+			sendPacket(ActionFailed.STATIC_PACKET);
 		}
 	}
 
@@ -167,7 +169,7 @@ public class CharacterCreate extends L2GameClientPacket
 		{
 			L2ItemInstance item = newChar.getInventory().addItem("Init", ia.getItemId(), ia.getAmount(), newChar, null);
 
-			// add tutbook shortcut
+			// add tutorial guide shortcut
 			if (item.getItemId() == 5588)
 			{
 				shortcut = new L2ShortCut(11, 0, 1, item.getObjectId(), 0, 1);
@@ -175,11 +177,9 @@ public class CharacterCreate extends L2GameClientPacket
 			}
 
 			if (item.isEquipable() && ia.isEquipped())
-			{
 				newChar.getInventory().equipItemAndRecord(item);
-			}
 		}
-		
+
 		SQLQueue.getInstance().run();
 
 		for (L2SkillLearn skill: SkillTreeTable.getInstance().getAvailableSkills(newChar, newChar.getClassId()))
@@ -201,11 +201,12 @@ public class CharacterCreate extends L2GameClientPacket
 		startTutorialQuest(newChar);
 		RecommendationManager.getInstance().onCreate(newChar);
 		new Disconnection(getClient(), newChar).store().deleteMe();
-		
+
 		// send char list
 		CharSelectionInfo cl = new CharSelectionInfo(client.getAccountName(), client.getSessionId().playOkID1);
 		client.sendPacket(cl);
 		client.setCharSelection(cl.getCharInfo());
+		cl = null;
 		if (_log.isDebugEnabled()) _log.debug("Character init end");
 	}
 
@@ -219,10 +220,6 @@ public class CharacterCreate extends L2GameClientPacket
 			q.newQuestState(player);
 	}
 
-
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

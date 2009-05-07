@@ -14,7 +14,10 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.StopRotation;
+import com.l2jfree.gameserver.util.Broadcast;
 
 /**
  * This class ...
@@ -28,18 +31,17 @@ public class FinishRotating extends L2GameClientPacket
 	private int _degree;
 	@SuppressWarnings("unused")
     private int _unknown;
-	
+
 	/**
 	 * packet type id 0x4a
 	 * 
 	 * sample
 	 * 
 	 * 4b
-	 * d // unknown
+	 * d // degree
 	 * d // unknown
 	 * 
 	 * format:		cdd
-	 * @param decrypt
 	 */
     @Override
     protected void readImpl()
@@ -51,15 +53,15 @@ public class FinishRotating extends L2GameClientPacket
     @Override
     protected void runImpl()
 	{
-		if (getClient().getActiveChar() == null)
-		    return;
-		StopRotation sr = new StopRotation(getClient().getActiveChar(), _degree);
-		getClient().getActiveChar().broadcastPacket(sr);
+    	L2PcInstance player = getClient().getActiveChar();
+		if (player == null) return;
+
+		StopRotation sr = new StopRotation(player, _degree);
+		Broadcast.toSelfAndKnownPlayers(player, sr);
+		sr = null;
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

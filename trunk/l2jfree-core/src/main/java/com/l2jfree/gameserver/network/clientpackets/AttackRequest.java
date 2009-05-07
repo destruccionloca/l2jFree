@@ -20,7 +20,12 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 
 /**
- * This class ...
+ * This class represents a packet that is sent when an object is "selected"/targeted and
+ * <LI>Target is auto-attackable (sword icon when hovering)</LI>
+ * <LI>Target is attackable and CTRL key is hold</LI><BR>
+ * and a player clicks on that object or uses the attack action.<BR><BR>
+ * The coordinates sent are used to check Geodata, but to avoid any exploits
+ * the check is done using server-side character's coordinates.
  * 
  * @version $Revision: 1.7.2.1.2.2 $ $Date: 2005/03/27 15:29:30 $
  */
@@ -38,7 +43,7 @@ public class AttackRequest extends L2GameClientPacket
     private int _attackId;
 
     private static final String _C__0A_ATTACKREQUEST = "[C] 0A AttackRequest";
-    
+
     @Override
     protected void readImpl()
     {
@@ -53,8 +58,7 @@ public class AttackRequest extends L2GameClientPacket
     protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
-			return;
+		if (activeChar == null) return;
 
 		L2Object target = null;
 
@@ -62,40 +66,26 @@ public class AttackRequest extends L2GameClientPacket
 		if (activeChar.getTargetId() == _objectId)
 			target = activeChar.getTarget();
 
-		// Get object from world
+		//Try to get object from world if the player doesn't have a target anymore
 		if (target == null)
-		{
 			target = L2World.getInstance().findObject(_objectId);
-			//_log.warn("Player "+activeChar.getName()+" attacked object from outside of his knownlist.");
-		}
 
 		if (target == null)
+		{
+			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
+		}
 
 		if (activeChar.getTarget() != target)
-		{
 			target.onAction(activeChar);
-		}
-		else
-		{
-			if((target.getObjectId() != activeChar.getObjectId())
-					&& activeChar.getPrivateStoreType() ==0 
-					&& activeChar.getActiveRequester() ==null)
-			{
-				//_log.info("Starting ForcedAttack");
-				target.onForcedAttack(activeChar);
-				//_log.info("Ending ForcedAttack");
-			} 
-			else
-			{
-				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
-			}
-		}
+		else if ((target.getObjectId() != activeChar.getObjectId())
+				&& activeChar.getPrivateStoreType() == 0 
+				&& activeChar.getActiveRequester() == null)
+			target.onForcedAttack(activeChar);
+
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

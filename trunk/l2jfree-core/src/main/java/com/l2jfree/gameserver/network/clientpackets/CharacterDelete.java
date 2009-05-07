@@ -14,16 +14,17 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.CharDeleteFail;
 import com.l2jfree.gameserver.network.serverpackets.CharDeleteSuccess;
 import com.l2jfree.gameserver.network.serverpackets.CharSelectionInfo;
 
 /**
- * This class ...
+ * This class represents a packet sent by the client when a character is being marked for
+ * deletion ("Yes" is clicked in the deletion confirmation dialog)
  * 
  * @version $Revision: 1.8.2.1.2.3 $ $Date: 2005/03/27 15:29:30 $
  */
@@ -68,17 +69,16 @@ public class CharacterDelete extends L2GameClientPacket
 		}
 		catch (Exception e)
 		{
-			_log.fatal( "Error:", e);
+			_log.fatal("Error:", e);
 		}
 
 		CharSelectionInfo cl = new CharSelectionInfo(getClient().getAccountName(), getClient().getSessionId().playOkID1, 0);
 		sendPacket(cl);
 		getClient().setCharSelection(cl.getCharInfo());
+		cl = null;
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

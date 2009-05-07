@@ -22,12 +22,12 @@ import com.l2jfree.gameserver.model.TradeList;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.TradeOtherAdd;
 import com.l2jfree.gameserver.network.serverpackets.TradeOwnAdd;
 
 /**
- * This class ...
+ * This class represents a packet that is sent by the client when you are adding an item
+ * to the trade window.
  * 
  * @version $Revision: 1.5.2.2.2.5 $ $Date: 2005/03/27 15:29:29 $
  */
@@ -47,7 +47,6 @@ public class AddTradeItem extends L2GameClientPacket
         _count = readD();
     }
 
-
     @Override
     protected void runImpl()
     {
@@ -56,16 +55,16 @@ public class AddTradeItem extends L2GameClientPacket
 
         if (Shutdown.isActionDisabled(DisableType.TRANSACTION))
         {
-            player.sendMessage("Transactions are not allowed during restart/shutdown.");
-            player.sendPacket(ActionFailed.STATIC_PACKET);
-            player.cancelActiveTrade();
+        	requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+        	player.cancelActiveTrade();
             return;
         }
-        
+
         TradeList trade = player.getActiveTradeList();
         if (trade == null)
         {
             _log.warn("Character: " + player.getName() + " requested item:" + _objectId + " add without active tradelist:" + _tradeId);
+            requestFailed(SystemMessageId.TRADE_ATTEMPT_FAILED);
             return;
         }
 
@@ -74,38 +73,36 @@ public class AddTradeItem extends L2GameClientPacket
             // Trade partner not found, cancel trade
             if (trade.getPartner() != null)
                 _log.warn("Character:" + player.getName() + " requested invalid trade object: " + _objectId);
-            SystemMessage msg = new SystemMessage(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME);
-            player.sendPacket(msg);
-            player.cancelActiveTrade();
-            msg = null;
+            requestFailed(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME);
+        	player.cancelActiveTrade();
             return;
         }
 
         if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN
             && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
         {
-            player.sendMessage("Unsufficient privileges.");
-            player.cancelActiveTrade();
+        	trade.getPartner().sendPacket(SystemMessageId.CANT_TRADE_WITH_TARGET);
+        	requestFailed(SystemMessageId.ACCOUNT_CANT_TRADE_ITEMS);
+        	player.cancelActiveTrade();
             return;
         }
 
         if (!player.validateItemManipulation(_objectId, "trade") && !player.isGM())
         {
-            player.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
+        	requestFailed(SystemMessageId.TRADE_ATTEMPT_FAILED);
             return;
         }
 
         TradeList.TradeItem item = trade.addItem(_objectId, _count);
         if (item != null)
         {
-            player.sendPacket(new TradeOwnAdd(item));
+            sendPacket(new TradeOwnAdd(item));
             trade.getPartner().sendPacket(new TradeOtherAdd(item));
         }
+
+        sendPacket(ActionFailed.STATIC_PACKET);
     }
 
-    /* (non-Javadoc)
-     * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-     */
     @Override
     public String getType()
     {

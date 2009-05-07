@@ -17,7 +17,7 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 
 /**
  *  sample
@@ -32,7 +32,6 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 public class RequestAnswerJoinAlly extends L2GameClientPacket
 {
 	private static final String _C__83_REQUESTANSWERJOINALLY = "[C] 83 RequestAnswerJoinAlly";
-	//private static Logger _log = Logger.getLogger(RequestAnswerJoinAlly.class.getName());
 
 	private int _response;
 
@@ -46,26 +45,20 @@ public class RequestAnswerJoinAlly extends L2GameClientPacket
     protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
-		{
-		    return;
-		}
-
+		if (activeChar == null) return;
 		L2PcInstance requestor = activeChar.getRequest().getPartner();
-        if (requestor == null)
-        {
-        	return;
-        }
+        if (requestor == null) return;
 
 		if (_response == 0)
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_DID_NOT_RESPOND_TO_ALLY_INVITATION));
-			requestor.sendPacket(new SystemMessage(SystemMessageId.NO_RESPONSE_TO_ALLY_INVITATION));
+			sendPacket(SystemMessageId.YOU_DID_NOT_RESPOND_TO_ALLY_INVITATION);
+			requestor.sendPacket(SystemMessageId.NO_RESPONSE_TO_ALLY_INVITATION);
 		}
 		else
 		{
 	        if (!(requestor.getRequest().getRequestPacket() instanceof RequestJoinAlly))
 	        {
+	        	sendPacket(ActionFailed.STATIC_PACKET);
 	        	return; // hax
 	        }
 
@@ -73,9 +66,8 @@ public class RequestAnswerJoinAlly extends L2GameClientPacket
 			// we must double check this cause of hack
 			if (clan.checkAllyJoinCondition(requestor, activeChar))
 	        {
-				requestor.sendPacket(new SystemMessage(SystemMessageId.YOU_INVITED_FOR_ALLIANCE));
-
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_ACCEPTED_ALLIANCE));
+				requestor.sendPacket(SystemMessageId.YOU_INVITED_FOR_ALLIANCE);
+				sendPacket(SystemMessageId.YOU_ACCEPTED_ALLIANCE);
 
 				activeChar.getClan().setAllyId(clan.getAllyId());
 				activeChar.getClan().setAllyName(clan.getAllyName());
@@ -91,11 +83,9 @@ public class RequestAnswerJoinAlly extends L2GameClientPacket
 		}
 
 		activeChar.getRequest().onRequestResponse();
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

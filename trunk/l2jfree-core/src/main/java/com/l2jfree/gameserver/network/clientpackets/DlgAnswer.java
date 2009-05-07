@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 
 /**
  * @author Dezmond_snz
@@ -25,11 +26,11 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 public class DlgAnswer extends L2GameClientPacket
 {
     private static final String _C__C5_DLGANSWER = "[C] C5 DlgAnswer";
-    
+
     private int _messageId;
     private int _answer;
     private int _requesterId;
-    
+
     @Override
     protected void readImpl()
     {
@@ -42,11 +43,11 @@ public class DlgAnswer extends L2GameClientPacket
     public void runImpl()
     {
         L2PcInstance cha = getClient().getActiveChar();
-        if (cha == null)
-            return;
+        if (cha == null) return;
 
         if(_log.isDebugEnabled())
             _log.debug(getType()+": Answer acepted. Message ID "+_messageId+", answer "+_answer+", Requester ID "+_requesterId);
+
         if (_messageId == SystemMessageId.RESSURECTION_REQUEST_BY_C1_FOR_S2_XP.getId())
             cha.reviveAnswer(_answer);
         else if (_messageId == SystemMessageId.C1_WISHES_TO_SUMMON_YOU_FROM_S2_DO_YOU_ACCEPT.getId())
@@ -57,6 +58,8 @@ public class DlgAnswer extends L2GameClientPacket
             cha.gatesAnswer(_answer, 1);
         else if (_messageId == 1141)
             cha.gatesAnswer(_answer, 0);
+
+        sendPacket(ActionFailed.STATIC_PACKET);
     }
 
     @Override

@@ -20,13 +20,11 @@ import java.util.Arrays;
 
 import com.l2jfree.gameserver.network.L2GameClient;
 
-
 /**
  * Format: c dddd
  * 
  * @author  KenM
  */
-
 public class GameGuardReply extends L2GameClientPacket
 {
     private static final String _C__CA_GAMEGUARDREPLY = "[C] CA GameGuardReply";
@@ -37,9 +35,9 @@ public class GameGuardReply extends L2GameClientPacket
         0xFFFFFFEA , 0xFFFFFFAC , 0xFFFFFFB5 , 0xFFFFFF95 , 0x0 , 0x1A , 0xFFFFFFE7,
         0xFFFFFFB6 , 0x10 , 0xFFFFFFE3 , 0xFFFFFF84 , 0xFFFFFFB3
     };
-    
+
     private byte[] _reply = new byte[8];
-    
+
     @Override
     protected void readImpl()
     {
@@ -57,9 +55,7 @@ public class GameGuardReply extends L2GameClientPacket
             MessageDigest md = MessageDigest.getInstance( "SHA" );
             byte[] result = md.digest(_reply);
             if (Arrays.equals(result, VALID))
-            {
                 client.setGameGuardOk(true);
-            }
         }
         catch (NoSuchAlgorithmException e)
         {

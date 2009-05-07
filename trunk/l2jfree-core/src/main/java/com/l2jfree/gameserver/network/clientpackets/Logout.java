@@ -21,29 +21,28 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 public final class Logout extends L2GameClientPacket
 {
 	private static final String _C__09_LOGOUT = "[C] 09 Logout";
-	
+
 	@Override
 	protected void readImpl()
 	{
 	}
-	
+
 	@Override
 	protected void runImpl()
 	{
 		final L2PcInstance activeChar = getClient().getActiveChar();
-		
-		if (activeChar == null)
-			return;
-		
+		if (activeChar == null) return;
+
+		// this method sends an information message to the player
 		if (!activeChar.canLogout())
 		{
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
-		
+
 		new Disconnection(getClient(), activeChar).defaultSequence(false);
 	}
-	
+
 	@Override
 	public String getType()
 	{

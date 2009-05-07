@@ -14,17 +14,19 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.gameserver.datatables.CharTemplateTable;
 import com.l2jfree.gameserver.model.base.ClassId;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.NewCharacterSuccess;
 import com.l2jfree.gameserver.templates.chars.L2PcTemplate;
 
 /**
- * This class ...
+ * This class represents a packet sent by the client when the "Create [character]" button
+ * is pressed.<BR>
+ * <I>The packet sent by the client when character creation is confirmed is CharacterCreate</I>
  * 
  * @version $Revision: 1.3.4.5 $ $Date: 2005/03/27 15:29:30 $
  */
@@ -36,7 +38,6 @@ public class NewCharacter extends L2GameClientPacket
 	/**
 	 * packet type id 0x0e
 	 * format:		c
-	 * @param rawPacket
 	 */
     @Override
     protected void readImpl()
@@ -47,9 +48,9 @@ public class NewCharacter extends L2GameClientPacket
     protected void runImpl()
 	{
 		if (_log.isDebugEnabled()) _log.debug("CreateNewChar");
-		
+
 		NewCharacterSuccess ct = new NewCharacterSuccess();
-		
+
 		L2PcTemplate template = CharTemplateTable.getInstance().getTemplate(0);
 		ct.addChar(template);
 
@@ -73,7 +74,7 @@ public class NewCharacter extends L2GameClientPacket
 
 		template = CharTemplateTable.getInstance().getTemplate(ClassId.orcFighter); // orc fighter
 		ct.addChar(template);
-		
+
 		template = CharTemplateTable.getInstance().getTemplate(ClassId.orcMage); // orc mage
 		ct.addChar(template);
 
@@ -87,11 +88,9 @@ public class NewCharacter extends L2GameClientPacket
 		ct.addChar(template);
 
 		sendPacket(ct);
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

@@ -15,13 +15,15 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.StopMoveInVehicle;
+import com.l2jfree.gameserver.util.Broadcast;
 import com.l2jfree.tools.geometry.Point3D;
 
-
 /**
+ * Similarly to CannotMoveAnymore, this one is sent when a character is on a boat.
+ * 
  * @author Maktakien
- *
  */
 public class CannotMoveAnymoreInVehicle extends L2GameClientPacket
 {
@@ -41,36 +43,28 @@ public class CannotMoveAnymoreInVehicle extends L2GameClientPacket
         _heading = readD();
     }
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#runImpl()
-	 */
 	@Override
     protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null)
+		if (player == null) return;
+
+		if (player.isInBoat() && player.getBoat().getObjectId() == _boatId)
 		{
-			return;
+			player.setInBoatPosition(new Point3D(_x, _y, _z));
+			player.getPosition().setHeading(_heading);
+			StopMoveInVehicle stop = new StopMoveInVehicle(player, _boatId);
+			Broadcast.toSelfAndKnownPlayers(player, stop);
+			stop = null;
+			//XXX: is PartyMemberPosition necessary here or it's auto when on boat?
 		}
-		if(player.isInBoat())
-		{
-			if(player.getBoat().getObjectId() == _boatId)
-			{
-				player.setInBoatPosition(new Point3D(_x,_y,_z));
-				player.getPosition().setHeading(_heading);
-				StopMoveInVehicle msg = new StopMoveInVehicle(player,_boatId);
-				player.broadcastPacket(msg);
-			}
-		}
+
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.BasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{
 		return "[C] 5D CannotMoveAnymoreInVehicle";
 	}
-
 }

@@ -19,7 +19,8 @@ import com.l2jfree.gameserver.LoginServerThread.SessionKey;
 import com.l2jfree.gameserver.network.L2GameClient;
 
 /**
- * This class ...
+ * This class represents the packet that is sent by the client when the server
+ * selection is confirmed.
  * 
  * @version $Revision: 1.9.2.3.2.4 $ $Date: 2005/03/27 15:29:30 $
  */
@@ -27,20 +28,13 @@ public class AuthLogin extends L2GameClientPacket
 {
 	private static final String	_C__08_AUTHLOGIN	= "[C] 08 AuthLogin";
 
-	// loginName + keys must match what the loginserver used.
+	// loginName + keys must match what the login server used.
 	private String				_loginName;
-	/*private final long _key1;
-	private final long _key2;
-	private final long _key3;
-	private final long _key4;*/
 	private int					_playKey1;
 	private int					_playKey2;
 	private int					_loginKey1;
 	private int					_loginKey2;
 
-	/**
-	 * @param decrypt
-	 */
 	@Override
 	protected void readImpl()
 	{
@@ -74,9 +68,6 @@ public class AuthLogin extends L2GameClientPacket
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

@@ -18,19 +18,20 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.Disconnection;
 import com.l2jfree.gameserver.network.L2GameClient.GameClientState;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.CharSelected;
 
 public final class CharacterSelected extends L2GameClientPacket
 {
 	private static final String _C__0D_CHARACTERSELECTED = "[C] 0D CharacterSelected";
-	
+
 	private int _charSlot;
-	
+
 	//private int _unk1; // new in C4
 	//private int _unk2; // new in C4
 	//private int _unk3; // new in C4
 	//private int _unk4; // new in C4
-	
+
 	@Override
 	protected void readImpl()
 	{
@@ -40,7 +41,7 @@ public final class CharacterSelected extends L2GameClientPacket
 		/*_unk3 = */readD();
 		/*_unk4 = */readD();
 	}
-	
+
 	@Override
 	protected void runImpl()
 	{
@@ -48,39 +49,41 @@ public final class CharacterSelected extends L2GameClientPacket
 		// but if not then this is repeated packet and nothing should be done here
 		if (getClient().getActiveChar() != null)
 			return;
-		
+
 		final L2PcInstance cha = getClient().loadCharFromDisk(_charSlot);
-		
+
 		if (cha == null)
 		{
 			_log.fatal(getClient() + ": character couldn't be loaded (slot:" + _charSlot + ")");
+			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
-		
+
 		if (cha.getAccessLevel() < 0)
 		{
 			new Disconnection(getClient(), cha).defaultSequence(false);
 			return;
 		}
-		
-		// preinit some values for each login
+
+		// preinitialize some values for each login
 		cha.setRunning(); // running is default
 		cha.standUp(); // standing is default
-		
+
 		cha.refreshOverloaded();
 		cha.refreshExpertisePenalty();
 		cha.setOnlineStatus(true);
-		
+
 		L2World.getInstance().storeObject(cha);
 		L2World.getInstance().addOnlinePlayer(cha);
-		
+
 		cha.setClient(getClient());
 		getClient().setActiveChar(cha);
-		
+
 		getClient().setState(GameClientState.IN_GAME);
 		sendPacket(new CharSelected(cha, getClient().getSessionId().playOkID1));
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
-	
+
 	@Override
 	public String getType()
 	{

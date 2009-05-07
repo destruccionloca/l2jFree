@@ -21,7 +21,7 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.network.serverpackets.KeyPacket;
 
 /**
- * This class ...
+ * This class represents the first packet that is sent by the client to the game server.
  * 
  * @version $Revision: 1.5.2.8.2.8 $ $Date: 2005/04/02 10:43:04 $
  */
@@ -33,9 +33,8 @@ public class ProtocolVersion extends L2GameClientPacket
 	private long				_version;
 
 	/**
-	 * packet type id 0x00 format: cd
-	 * 
-	 * @param rawPacket
+	 * packet type id 0x00
+	 * format: cd
 	 */
 	@Override
 	protected void readImpl()
@@ -52,7 +51,7 @@ public class ProtocolVersion extends L2GameClientPacket
 		{
 			if (_log.isDebugEnabled())
 				_log.info("Ping received");
-			// this is just a ping attempt from the new C2 client
+			// this is just a ping attempt from the C2+ client
 			getClient().closeNow();
 		}
 		else if (_version < Config.MIN_PROTOCOL_REVISION)
@@ -81,11 +80,9 @@ public class ProtocolVersion extends L2GameClientPacket
 			sendPacket(kp);
 			getClient().setProtocolOk(true);
 		}
+		kp = null;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

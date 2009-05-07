@@ -38,10 +38,10 @@ import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.RecipeShopManageList;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
- * This class ...
+ * This class represents a packet sent by the client when a player uses one of the buttons
+ * in the action list (sit,attack,assist,social...)
  *
  * @version $Revision: 1.11.2.7.2.9 $ $Date: 2005/04/06 16:13:48 $
  */
@@ -57,7 +57,6 @@ public class RequestActionUse extends L2GameClientPacket
 	/**
 	 * packet type id 0x45
 	 * format:      cddc
-	 * @param rawPacket
 	 */
 	@Override
 	protected void readImpl()
@@ -71,9 +70,7 @@ public class RequestActionUse extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-
-		if (activeChar == null)
-			return;
+		if (activeChar == null) return;
 
 		if (_log.isDebugEnabled())
 			_log.debug(activeChar.getName() + " request Action use: id " + _actionId + " 2:" + _ctrlPressed + " 3:" + _shiftPressed);
@@ -81,7 +78,7 @@ public class RequestActionUse extends L2GameClientPacket
 		if (activeChar.isAlikeDead() || activeChar.isOutOfControl() ||
 				activeChar.isTryingToSitOrStandup())
 		{
-			getClient().sendPacket(ActionFailed.STATIC_PACKET);
+			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 
@@ -91,7 +88,7 @@ public class RequestActionUse extends L2GameClientPacket
 			int[] notAllowedActions = {0, 10, 28, 37, 51, 61};
 			if (Arrays.binarySearch(notAllowedActions, _actionId) >= 0)
 			{
-				getClient().sendPacket(ActionFailed.STATIC_PACKET);
+				sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
 		}
@@ -110,10 +107,11 @@ public class RequestActionUse extends L2GameClientPacket
 
 			if (target instanceof L2StaticObjectInstance && !activeChar.isSitting())
 			{
-				if (!((L2StaticObjectInstance) target).onSit(activeChar))
-					activeChar.sendMessage("Sitting on throne has failed.");
-				else
+				if (((L2StaticObjectInstance) target).onSit(activeChar))
+				{
+					sendPacket(ActionFailed.STATIC_PACKET);
 					return;
+				}
 			}
 
 			if (activeChar.isSitting())
@@ -144,7 +142,7 @@ public class RequestActionUse extends L2GameClientPacket
 		case 15:
 		case 21: // pet follow/stop
 			if (pet != null && !pet.isOutOfControl())
-				((L2SummonAI)pet.getAI()).notifyFollowStatusChange();
+				((L2SummonAI) pet.getAI()).notifyFollowStatusChange();
 			break;
 		case 16:
 		case 22: // pet attack
@@ -152,26 +150,26 @@ public class RequestActionUse extends L2GameClientPacket
 			{
 				if (pet instanceof L2PetInstance && (pet.getLevel() - activeChar.getLevel() > 20))
 				{
-					activeChar.sendPacket(new SystemMessage(SystemMessageId.PET_TOO_HIGH_TO_CONTROL));
+					requestFailed(SystemMessageId.PET_TOO_HIGH_TO_CONTROL);
 					return;
 				}
-				if (activeChar.isInOlympiadMode() && !activeChar.isOlympiadStart())
+				else if (activeChar.isInOlympiadMode() && !activeChar.isOlympiadStart())
 				{
-					// if L2PcInstance is in Olympia and the match isn't already start, send a Server->Client packet ActionFailed
-					activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+					// if L2PcInstance is in Olympiad and the match isn't already started, send a Server->Client packet ActionFailed
+					sendPacket(ActionFailed.STATIC_PACKET);
 					return;
 				}
 
 				if (L2Character.isInsidePeaceZone(pet, target))
 				{
-					activeChar.sendPacket(SystemMessageId.TARGET_IN_PEACEZONE);
+					requestFailed(SystemMessageId.TARGET_IN_PEACEZONE);
 					return;
 				}
 
 				if (pet.getNpcId() == 12564 || pet.getNpcId() == 12621)
 				{
 					// sin eater and wyvern can't attack with attack button
-					activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+					sendPacket(ActionFailed.STATIC_PACKET);
 					return;
 				}
 
@@ -197,37 +195,33 @@ public class RequestActionUse extends L2GameClientPacket
 		case 23: // pet - cancel action
 			if (pet != null && !pet.isMovementDisabled() && !pet.isOutOfControl())
 				pet.getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE, null);
-
 			break;
 		case 19: // pet unsummon
-			if (pet != null && !pet.isOutOfControl())
+			if (pet != null)
 			{
 				//returns pet to control item
-				if (pet.isDead())
+				SystemMessageId fail = null;
+				if (pet.isOutOfControl())
+					fail = SystemMessageId.PET_REFUSING_ORDER;
+				else if (pet.isDead())
+					fail = SystemMessageId.DEAD_PET_CANNOT_BE_RETURNED;
+				else if (pet.isAttackingNow() || pet.isInCombat() || pet.isRooted() ||
+						pet.isBetrayed())
+					fail = SystemMessageId.PET_CANNOT_SENT_BACK_DURING_BATTLE;
+				else if (pet instanceof L2PetInstance)
 				{
-					activeChar.sendPacket(SystemMessageId.DEAD_PET_CANNOT_BE_RETURNED);
+					if (pet.isHungry())
+						fail = SystemMessageId.YOU_CANNOT_RESTORE_HUNGRY_PETS;
+					else if (pet.isInCombat())
+						fail = SystemMessageId.PET_CANNOT_SENT_BACK_DURING_BATTLE;
 				}
-				else if (pet.isAttackingNow() || pet.isInCombat() || pet.isRooted() || pet.isBetrayed())
-				{
-					activeChar.sendPacket(SystemMessageId.PET_CANNOT_SENT_BACK_DURING_BATTLE);
-				}
+
+				if (fail == null)
+					pet.unSummon(activeChar);
 				else
-				{
-					// if it is a pet and not a summon
-					if (pet instanceof L2PetInstance)
-					{
-						if (!pet.isHungry())
-						{
-							if (pet.isInCombat())
-								activeChar.sendPacket(SystemMessageId.PET_CANNOT_SENT_BACK_DURING_BATTLE);
-							else
-								pet.unSummon(activeChar);
-						}
-						else
-							activeChar.sendPacket(SystemMessageId.YOU_CANNOT_RESTORE_HUNGRY_PETS);
-					}
-				}
+					sendPacket(fail);
 			}
+			//everything handled
 			break;
 		case 38: // pet mount
 			// mount
@@ -243,11 +237,6 @@ public class RequestActionUse extends L2GameClientPacket
 			useSkill(4259);
 			break;
 		case 37: // Manufacture - Dwarven
-			if (activeChar.isAlikeDead())
-			{
-				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
-				return;
-			}
 			if (activeChar.getPrivateStoreType() != 0)
 			{
 				activeChar.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
@@ -257,9 +246,7 @@ public class RequestActionUse extends L2GameClientPacket
 				activeChar.standUp();
 
 			if (activeChar.getCreateList() == null)
-			{
 				activeChar.setCreateList(new L2ManufactureList());
-			}
 
 			activeChar.sendPacket(new RecipeShopManageList(activeChar, true));
 			break;
@@ -290,13 +277,7 @@ public class RequestActionUse extends L2GameClientPacket
 		case 48: // Mechanic Golem - Mech. Cannon
 			useSkill(4068);
 			break;
-		case 51: // Manufacture -  non-dwarfen
-			// Player shouldn't be able to set stores if he/she is alike dead (dead or fake death)
-			if (activeChar.isAlikeDead())
-			{
-				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
-				return;
-			}
+		case 51: // Manufacture -  non-dwarven
 			if (activeChar.getPrivateStoreType() != 0)
 			{
 				activeChar.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
@@ -307,18 +288,17 @@ public class RequestActionUse extends L2GameClientPacket
 
 			if (activeChar.getCreateList() == null)
 				activeChar.setCreateList(new L2ManufactureList());
-
 			activeChar.sendPacket(new RecipeShopManageList(activeChar, false));
 			break;
 		case 52: // unsummon
 			if (pet != null && pet instanceof L2SummonInstance)
 			{
 				if (pet.isOutOfControl())
-					activeChar.sendPacket(SystemMessageId.PET_REFUSING_ORDER);
+					sendPacket(SystemMessageId.PET_REFUSING_ORDER);
 				else if (pet.isAttackingNow() || pet.isInCombat())
-					activeChar.sendPacket(new SystemMessage(SystemMessageId.PET_CANNOT_SENT_BACK_DURING_BATTLE));
+					sendPacket(SystemMessageId.PET_CANNOT_SENT_BACK_DURING_BATTLE);
 				else if (pet.isDead())
-					activeChar.sendPacket(SystemMessageId.DEAD_PET_CANNOT_BE_RETURNED);
+					sendPacket(SystemMessageId.DEAD_PET_CANNOT_BE_RETURNED);
 				else
 					pet.unSummon(activeChar);
 			}
@@ -345,7 +325,7 @@ public class RequestActionUse extends L2GameClientPacket
 			// Teleport bookmark button
 		case 65:
 			// Bot report Button.
-			activeChar.sendMessage("Not implemented yet.");
+			sendPacket(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
 			break;
 		case 96: // Quit Party Command Channel
 			_log.info("96 Accessed");
@@ -503,6 +483,7 @@ public class RequestActionUse extends L2GameClientPacket
 		default:
 			_log.warn(activeChar.getName() + ": unhandled action type " + _actionId);
 		}
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	/*
@@ -513,22 +494,18 @@ public class RequestActionUse extends L2GameClientPacket
 	private void useSkill(int skillId, L2Object target)
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
+		if (activeChar == null) return;
+
+		if (activeChar.getPrivateStoreType() != 0)
 			return;
 
 		L2Summon activeSummon = activeChar.getPet();
-
-		if (activeChar.getPrivateStoreType() != 0)
-		{
-			activeChar.sendMessage("Cannot use skills while trading");
-			return;
-		}
 
 		if (activeSummon != null && !activeSummon.isOutOfControl())
 		{
 			if (activeSummon instanceof L2PetInstance && (activeSummon.getLevel() - activeChar.getLevel() > 20))
 			{
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.PET_TOO_HIGH_TO_CONTROL));
+				sendPacket(SystemMessageId.PET_TOO_HIGH_TO_CONTROL);
 				return;
 			}
 
@@ -545,7 +522,7 @@ public class RequestActionUse extends L2GameClientPacket
 		}
 	}
 
-	/*
+	/**
 	 * Cast a skill for active pet/servitor.
 	 * Target is retrieved from owner' target,
 	 * then validated by overloaded method useSkill(int, L2Character).

@@ -14,26 +14,21 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-
 /**
  * Format: (ch) d
- * @author  -Wooden-
- * 
+ * @author -Wooden-
  */
 public class AnswerJoinPartyRoom extends L2GameClientPacket
 {
     private static final String _C__D0_15_ANSWERJOINPARTYROOM = "[C] D0:15 AnswerJoinPartyRoom";
     private int _requesterID; // not tested, just guessed
-    
+
     @Override
     protected void readImpl()
     {
         _requesterID = readD();
     }
 
-    /**
-     * @see com.l2jfree.gameserver.network.clientpackets.ClientBasePacket#runImpl()
-     */
     @Override
     protected void runImpl()
     {
@@ -41,9 +36,6 @@ public class AnswerJoinPartyRoom extends L2GameClientPacket
         System.out.println("C5:AnswerJoinPartyRoom: d: "+_requesterID);
     }
 
-    /**
-     * @see com.l2jfree.gameserver.network.BasePacket#getType()
-     */
     @Override
     public String getType()
     {

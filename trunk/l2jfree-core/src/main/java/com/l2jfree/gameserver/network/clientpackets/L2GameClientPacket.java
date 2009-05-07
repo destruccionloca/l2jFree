@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import static com.l2jfree.gameserver.network.serverpackets.ActionFailed.STATIC_PACKET;
+
 import java.nio.BufferUnderflowException;
 
 import org.apache.commons.logging.Log;
@@ -36,7 +38,7 @@ import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 {
 	protected static final Log _log = LogFactory.getLog(L2GameClientPacket.class);
-	
+
 	@Override
 	protected final boolean read()
 	{
@@ -45,7 +47,7 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 			IOFloodManager.getInstance().report(ErrorMode.BUFFER_UNDER_FLOW, getClient(), this, null);
 			return false;
 		}
-		
+
 		try
 		{
 			readImpl();
@@ -59,12 +61,12 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 		{
 			IOFloodManager.getInstance().report(ErrorMode.FAILED_READING, getClient(), this, e);
 		}
-		
+
 		return false;
 	}
-	
+
 	protected abstract void readImpl();
-	
+
 	@Override
 	public final void run()
 	{
@@ -96,32 +98,41 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 			IOFloodManager.getInstance().report(ErrorMode.FAILED_RUNNING, getClient(), this, e);
 		}
 	}
-	
+
 	protected abstract void runImpl() throws InvalidPacketException;
-	
+
 	protected final void sendPacket(L2GameServerPacket gsp)
 	{
 		getClient().sendPacket(gsp);
 	}
-	
+
 	protected final void sendPacket(SystemMessageId sm)
 	{
 		getClient().sendPacket(sm.getSystemMessage());
 	}
-	
+
 	protected final L2PcInstance getActiveChar()
 	{
 		return getClient().getActiveChar();
 	}
-	
+
 	public String getType()
 	{
 		return getClass().getSimpleName();
 	}
-	
-	/**
-	 * Should be overriden.
-	 */
+
+	protected final void requestFailed(SystemMessageId sm)
+	{
+		requestFailed(sm.getSystemMessage());
+	}
+
+	protected final void requestFailed(L2GameServerPacket gsp)
+	{
+		sendPacket(gsp);
+		sendPacket(STATIC_PACKET);
+	}
+
+	/** Should be overridden. */
 	protected int getMinimumLength()
 	{
 		return 0;

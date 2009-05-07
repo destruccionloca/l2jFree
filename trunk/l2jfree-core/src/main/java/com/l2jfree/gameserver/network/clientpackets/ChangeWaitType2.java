@@ -20,16 +20,19 @@ import com.l2jfree.gameserver.model.actor.instance.L2StaticObjectInstance;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 
 /**
- * This class ...
+ * This class is no longer useful.<BR>
+ * Please verify with compatible client(s) and remove it completely!
  * 
  * @version $Revision: 1.1.4.3 $ $Date: 2005/03/27 15:29:30 $
+ * @deprecated see RequestActionUse
  */
+@Deprecated
 public class ChangeWaitType2 extends L2GameClientPacket
 {
 	private static final String _C__1D_CHANGEWAITTYPE2 = "[C] 1D ChangeWaitType2";
 
 	private boolean _typeStand;
-	
+
 	/**
 	 * packet type id 0x1d
 	 * 
@@ -39,7 +42,6 @@ public class ChangeWaitType2 extends L2GameClientPacket
 	 * 01 00 00 00 // type (0 = sit, 1 = stand)
 	 * 
 	 * format:		cd
-	 * @param decrypt
 	 */
 	@Override
 	protected void readImpl()
@@ -50,24 +52,24 @@ public class ChangeWaitType2 extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		//WARNING: not used in CT2?
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null) return;
 
 		if (player.isOutOfControl() || player.isTryingToSitOrStandup()
 				|| player.getMountType() != 0)
 		{
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 
 		L2Object target = player.getTarget();
 		if (target instanceof L2StaticObjectInstance && !player.isSitting())
 		{
-			if (!((L2StaticObjectInstance) target).onSit(player))
-				player.sendMessage("Sitting on throne has failed.");
-			else
+			if (((L2StaticObjectInstance) target).onSit(player))
+			{
+				sendPacket(ActionFailed.STATIC_PACKET);
 				return;
+			}
 		}
 
 		if (_typeStand)
@@ -77,11 +79,10 @@ public class ChangeWaitType2 extends L2GameClientPacket
 		}
 		else
 			player.sitDown(false); // User requested - Checks if animation already running.
+
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

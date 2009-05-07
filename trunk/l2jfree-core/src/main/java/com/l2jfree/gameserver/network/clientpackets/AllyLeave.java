@@ -18,48 +18,45 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 
 public class AllyLeave extends L2GameClientPacket
 {
     private static final String _C__84_ALLYLEAVE = "[C] 84 AllyLeave";
-    
+
     @Override
     protected void readImpl()
     {
     }
-    
-    
+
     @Override
     protected void runImpl()
     {
         L2PcInstance player = getClient().getActiveChar();
-        if (player == null)
-        {
-            return;
-        }
+        if (player == null) return;
 		if (player.getClan() == null)
         {
-			player.sendPacket(new SystemMessage(SystemMessageId.YOU_ARE_NOT_A_CLAN_MEMBER));
+			requestFailed(SystemMessageId.YOU_ARE_NOT_A_CLAN_MEMBER);
             return;
         }
 		if (!player.isClanLeader())
 		{
-			player.sendPacket(new SystemMessage(SystemMessageId.ONLY_CLAN_LEADER_WITHDRAW_ALLY));
+			requestFailed(SystemMessageId.ONLY_CLAN_LEADER_WITHDRAW_ALLY);
 			return;
 		}
+
         L2Clan clan = player.getClan();
 		if (clan.getAllyId() == 0)
 		{
-			player.sendPacket(new SystemMessage(SystemMessageId.NO_CURRENT_ALLIANCES));
+			requestFailed(SystemMessageId.NO_CURRENT_ALLIANCES);
 			return;
 		}
 		if (clan.getClanId() == clan.getAllyId())
 		{
-			player.sendPacket(new SystemMessage(SystemMessageId.ALLIANCE_LEADER_CANT_WITHDRAW));
+			requestFailed(SystemMessageId.ALLIANCE_LEADER_CANT_WITHDRAW);
 			return;
 		}
-		
+
 		long currentTime = System.currentTimeMillis();
         clan.setAllyId(0);
         clan.setAllyName(null);
@@ -69,14 +66,15 @@ public class AllyLeave extends L2GameClientPacket
         		L2Clan.PENALTY_TYPE_CLAN_LEAVED); //24*60*60*1000 = 86400000
         clan.updateClanInDB();
         
-        player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_WITHDRAWN_FROM_ALLIANCE));
+        sendPacket(SystemMessageId.YOU_HAVE_WITHDRAWN_FROM_ALLIANCE);
 
         // Added to delete the Alliance Crest when a clan leaves an ally.
 		player.getClan().setAllyCrestId(0);
+		sendPacket(ActionFailed.STATIC_PACKET);
 		for (L2PcInstance member : player.getClan().getOnlineMembers(0))
 			member.broadcastUserInfo();
     }
-    
+
     @Override
     public String getType()
     {

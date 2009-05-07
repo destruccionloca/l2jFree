@@ -31,6 +31,7 @@ import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.network.serverpackets.PledgeShowInfoUpdate;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
@@ -68,22 +69,24 @@ public class MultiSellChoose extends L2GameClientPacket
 		if (_amount < 1 || _amount > 5000)
 			return;
 
-		MultiSellListContainer list = L2Multisell.getInstance().getList(_listId);
-		if (list == null)
-			return;
-
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null)
-			return;
+		if (player == null) return;
 
-		for (MultiSellEntry entry : list.getEntries())
+		MultiSellListContainer list = L2Multisell.getInstance().getList(_listId);
+		if (list != null)
 		{
-			if (entry.getEntryId() == _entryId)
+			for (MultiSellEntry entry : list.getEntries())
 			{
-				doExchange(player, entry, list.getApplyTaxes(), list.getMaintainEnchantment(), _enchantment);
-				return;
+				if (entry.getEntryId() == _entryId)
+				{
+					doExchange(player, entry, list.getApplyTaxes(), list.getMaintainEnchantment(), _enchantment);
+					break;
+				}
 			}
 		}
+
+		//will always be sent
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	private void doExchange(L2PcInstance player, MultiSellEntry templateEntry, boolean applyTaxes, boolean maintainEnchantment, int enchantment)
@@ -117,7 +120,7 @@ public class MultiSellChoose extends L2GameClientPacket
 				{
 					if ((long) ex.getItemCount() + e.getItemCount() >= Integer.MAX_VALUE)
 					{
-						player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED));
+						sendPacket(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
 						_ingredientsList.clear();
 						_ingredientsList = null;
 						return;
@@ -137,7 +140,7 @@ public class MultiSellChoose extends L2GameClientPacket
 		{
 			if ((double) e.getItemCount() * _amount >= Integer.MAX_VALUE)
 			{
-				player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED));
+				sendPacket(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
 				_ingredientsList.clear();
 				_ingredientsList = null;
 				return;
@@ -148,17 +151,17 @@ public class MultiSellChoose extends L2GameClientPacket
 			{
 				if (player.getClan() == null)
 				{
-					player.sendPacket(new SystemMessage(SystemMessageId.YOU_ARE_NOT_A_CLAN_MEMBER));
+					sendPacket(SystemMessageId.YOU_ARE_NOT_A_CLAN_MEMBER);
 					return;
 				}
-				if (!player.isClanLeader())
+				else if (!player.isClanLeader())
 				{
-					player.sendPacket(new SystemMessage(SystemMessageId.ONLY_THE_CLAN_LEADER_IS_ENABLED));
+					sendPacket(SystemMessageId.ONLY_THE_CLAN_LEADER_IS_ENABLED);
 					return;
 				}
-				if (player.getClan().getReputationScore() < e.getItemCount() * _amount)
+				else if (player.getClan().getReputationScore() < e.getItemCount() * _amount)
 				{
-					player.sendPacket(new SystemMessage(SystemMessageId.CLAN_REPUTATION_SCORE_IS_TOO_LOW));
+					sendPacket(SystemMessageId.CLAN_REPUTATION_SCORE_IS_TOO_LOW);
 					return;
 				}
 				break;
@@ -167,7 +170,7 @@ public class MultiSellChoose extends L2GameClientPacket
 			{
 				if (player.getFame() < e.getItemCount() * _amount)
 				{
-					player.sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_FAME_POINTS));
+					sendPacket(SystemMessageId.NOT_ENOUGH_FAME_POINTS);
 					return;
 				}
 				break;
@@ -179,7 +182,7 @@ public class MultiSellChoose extends L2GameClientPacket
 				if (inv.getInventoryItemCount(e.getItemId(), maintainEnchantment ? e.getEnchantmentLevel() : -1) < ((Config.ALT_BLACKSMITH_USE_RECIPES || !e
 						.getMantainIngredient()) ? (e.getItemCount() * _amount) : e.getItemCount()))
 				{
-					player.sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS));
+					sendPacket(SystemMessageId.NOT_ENOUGH_ITEMS);
 					_ingredientsList.clear();
 					_ingredientsList = null;
 					return;
@@ -202,19 +205,17 @@ public class MultiSellChoose extends L2GameClientPacket
 			{
 			case -200: // Clan Reputation Score
 			{
-				int repCost = player.getClan().getReputationScore() - (e.getItemCount() * _amount);
-				player.getClan().setReputationScore(repCost, true);
-				SystemMessage smsg = new SystemMessage(SystemMessageId.S1_DEDUCTED_FROM_CLAN_REP);
-				smsg.addNumber(e.getItemCount() * _amount);
-				player.sendPacket(smsg);
+				int repLeft = player.getClan().getReputationScore() - (e.getItemCount() * _amount);
+				player.getClan().setReputationScore(repLeft, true);
+				sendPacket(new SystemMessage(SystemMessageId.S1_DEDUCTED_FROM_CLAN_REP).addNumber(e.getItemCount() * _amount));
 				player.getClan().broadcastToOnlineMembers(new PledgeShowInfoUpdate(player.getClan()));
 				break;
 			}
 			case -300: // Player Fame
 			{
-				int fameCost = player.getFame() - (e.getItemCount() * _amount);
-				player.setFame(fameCost);
-				player.sendPacket(new UserInfo(player));
+				int fameLeft = player.getFame() - (e.getItemCount() * _amount);
+				player.setFame(fameLeft);
+				sendPacket(new UserInfo(player));
 				break;
 			}
 			default:
@@ -223,12 +224,14 @@ public class MultiSellChoose extends L2GameClientPacket
 				if (itemToTake == null)
 				{ //this is a cheat, transaction will be aborted and if any items already taken will not be returned back to inventory!
 					_log.fatal("Character: " + player.getName() + " is trying to cheat in multisell, merchant id:" + merchant.getNpcId());
+					sendPacket(SystemMessageId.NOT_ENOUGH_ITEMS);
 					return;
 				}
 
 				if (itemToTake.isWear())
 				{//Player trying to buy something from the Multisell store with an item that's just being used from the Wear option from merchants.
 					_log.fatal("Character: " + player.getName() + " is trying to cheat in multisell, merchant id:" + merchant.getNpcId());
+					sendPacket(SystemMessageId.NOT_ENOUGH_ITEMS);
 					return;
 				}
 
@@ -360,7 +363,7 @@ public class MultiSellChoose extends L2GameClientPacket
 				sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
 				sm.addItemName(e.getItemId());
 				sm.addNumber(e.getItemCount() * _amount);
-				player.sendPacket(sm);
+				sendPacket(sm);
 				sm = null;
 			}
 			else
@@ -376,15 +379,15 @@ public class MultiSellChoose extends L2GameClientPacket
 					sm = new SystemMessage(SystemMessageId.EARNED_S1);
 					sm.addItemName(e.getItemId());
 				}
-				player.sendPacket(sm);
+				sendPacket(sm);
 				sm = null;
 			}
 		}
-		player.sendPacket(new ItemList(player, false));
+		sendPacket(new ItemList(player, false));
 
 		StatusUpdate su = new StatusUpdate(player.getObjectId());
 		su.addAttribute(StatusUpdate.CUR_LOAD, player.getCurrentLoad());
-		player.sendPacket(su);
+		sendPacket(su);
 		su = null;
 
 		// finally, give the tax to the castle...

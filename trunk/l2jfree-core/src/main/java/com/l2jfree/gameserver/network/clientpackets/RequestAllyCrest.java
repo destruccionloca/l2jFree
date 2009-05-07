@@ -14,15 +14,16 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.gameserver.cache.CrestCache;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.AllyCrest;
 
 /**
- * This class ...
+ * This class represents a packet sent by the client when it needs to display an alliance
+ * crest.
  * 
  * @version $Revision: 1.3.4.4 $ $Date: 2005/03/27 15:29:30 $
  */
@@ -32,10 +33,10 @@ public class RequestAllyCrest extends L2GameClientPacket
 	private final static Log _log = LogFactory.getLog(RequestAllyCrest.class.getName());
 
 	private int _crestId;
+
 	/**
-	 * packet type id 0x88 format: cd
-	 * 
-	 * @param rawPacket
+	 * packet type id 0x88
+	 * format: cd
 	 */
     @Override
     protected void readImpl()
@@ -46,24 +47,19 @@ public class RequestAllyCrest extends L2GameClientPacket
     @Override
     protected void runImpl()
 	{
-		if (_log.isDebugEnabled()) _log.debug("allycrestid " + _crestId + " requested");
-        
+		if (_log.isDebugEnabled())
+			_log.debug("allycrestid " + _crestId + " requested");
+
         byte[] data = CrestCache.getInstance().getAllyCrest(_crestId);
 
 		if (data != null)
-		{
-			AllyCrest ac = new AllyCrest(_crestId,data);
-			sendPacket(ac);
-		}
-		else
-		{
-			if (_log.isDebugEnabled()) _log.debug("allycrest is missing:" + _crestId);
-		}
+			sendPacket(new AllyCrest(_crestId, data));
+		else if (_log.isDebugEnabled())
+			_log.debug("allycrest is missing:" + _crestId);
+
+        sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{
