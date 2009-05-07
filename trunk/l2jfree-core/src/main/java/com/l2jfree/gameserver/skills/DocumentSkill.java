@@ -399,9 +399,11 @@ final class DocumentSkill extends DocumentBase
 		else
 			stackType = skill.generateUniqueStackType();
 		
-		float stackOrder = 0;
+		float stackOrder;
 		if (attrs.getNamedItem("stackOrder") != null)
 			stackOrder = Float.parseFloat(getValue(attrs.getNamedItem("stackOrder").getNodeValue(), template));
+		else
+			stackOrder = skill.generateStackOrder();
 		
 		EffectTemplate effectTemplate = new EffectTemplate(attachCond, name, lambda, count, time, abnormal, stackType,
 			stackOrder, showIcon);

@@ -5834,8 +5834,7 @@ public abstract class L2Character extends L2Object
 		if (skill.isChance())
 			addChanceSkill(skill);
 		
-		if (skill.bestowTriggeredSkill())
-			addSkill(skill.getTriggeredSkill());
+		addSkill(skill.getAutomaticallyBestowedSkill());
 	}
 	
 	private void skillRemoved(L2Skill skill)
@@ -5848,8 +5847,7 @@ public abstract class L2Character extends L2Object
 		if (skill.isChance())
 			removeChanceSkill(skill.getId());
 		
-		if (skill.bestowTriggeredSkill())
-			removeSkill(skill.getTriggeredSkillId());
+		removeSkill(skill.getAutomaticallyBestowedSkill());
 	}
 	
 	public synchronized void addChanceSkill(L2Skill skill)

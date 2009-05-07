@@ -17,9 +17,6 @@ package com.l2jfree.gameserver.model;
 
 import java.util.concurrent.Future;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.model.actor.L2Character;
@@ -31,8 +28,6 @@ import com.l2jfree.gameserver.util.Util;
  */
 public final class FusionSkill implements Runnable
 {
-	private static final Log _log = LogFactory.getLog(FusionSkill.class);
-	
 	private final L2Character _caster;
 	private final L2Character _target;
 	private final L2Skill _skill;
@@ -54,22 +49,16 @@ public final class FusionSkill implements Runnable
 		
 		if (effect != null)
 			effect.increaseEffect();
+		
 		else
-		{
-			L2Skill triggered = skill.getTriggeredSkill();
-			
-			if (triggered != null)
-				triggered.getEffects(_caster, _target);
-			else
-				_log.warn("Triggered skill for " + skill + " not found!");
-		}
+			skill.getTriggeredSkill().getEffects(_caster, _target);
 		
 		_geoCheckTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(this, 1000, 1000);
 	}
 	
 	private EffectFusion getTriggeredEffect()
 	{
-		return (EffectFusion)_target.getFirstEffect(_skill.getTriggeredSkillId());
+		return (EffectFusion)_target.getFirstEffect(_skill.getTriggeredSkill().getId());
 	}
 	
 	public void onCastAbort()

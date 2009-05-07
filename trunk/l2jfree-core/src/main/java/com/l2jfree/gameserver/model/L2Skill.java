@@ -55,8 +55,11 @@ import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.FlyToLocation.FlyType;
+import com.l2jfree.gameserver.skills.BestowedSkill;
+import com.l2jfree.gameserver.skills.ChanceCondition;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Formulas;
+import com.l2jfree.gameserver.skills.TriggeredSkill;
 import com.l2jfree.gameserver.skills.conditions.Condition;
 import com.l2jfree.gameserver.skills.effects.EffectTemplate;
 import com.l2jfree.gameserver.skills.funcs.Func;
@@ -294,10 +297,10 @@ public class L2Skill implements FuncOwner
 	private final int				_giveCharges;
 	private final int				_maxCharges;
 
-	private final int				_triggeredId;
-	private final int				_triggeredLevel;
+	private final ChanceCondition _chanceCondition;
+	private final TriggeredSkill _triggeredSkill;
+	private final BestowedSkill _bestowedSkill;
 
-	private final boolean			_bestow;
 	private final boolean			_bestowed;
 
 	private final int				_soulConsume;
@@ -342,9 +345,6 @@ public class L2Skill implements FuncOwner
 	//Attached skills for Special Abilities
 	protected L2Skill[]				_skillsOnCast;
 	protected int[]					_skillsOnCastId, _skillsOnCastLvl;
-	protected int					timesTriggered			= 1;
-
-	protected ChanceCondition _chanceCondition;
 
 	// Flying support
 	private final FlyType			_flyType;
@@ -469,13 +469,14 @@ public class L2Skill implements FuncOwner
 
 		_minPledgeClass = set.getInteger("minPledgeClass", 0);
 
-		_triggeredId = set.getInteger("triggeredId", 0);
-		_triggeredLevel = set.getInteger("triggeredLevel", 1);
-
 		if (_operateType == SkillOpType.OP_CHANCE)
 			_chanceCondition = ChanceCondition.parse(set);
+		else
+			_chanceCondition = null;
+		
+		_triggeredSkill = TriggeredSkill.parse(set);
+		_bestowedSkill = BestowedSkill.parse(set);
 
-		_bestow = set.getBool("bestowTriggered", false);
 		_bestowed = set.getBool("bestowed", false);
 
 		_numSouls = set.getInteger("num_souls", 0);
@@ -723,19 +724,24 @@ public class L2Skill implements FuncOwner
 		return _effectAbnormalLvl;
 	}
 	
-	public final int getTriggeredSkillId()
+	public final boolean shouldTriggerSkill()
 	{
-		return _triggeredId;
-	}
-	
-	public final boolean bestowTriggeredSkill()
-	{
-		return _bestow;
+		return _triggeredSkill != null;
 	}
 	
 	public final L2Skill getTriggeredSkill()
 	{
-		return SkillTable.getInstance().getInfo(_triggeredId, _triggeredLevel);
+		return _triggeredSkill != null ? _triggeredSkill.getTriggeredSkill() : null;
+	}
+	
+	public final L2Skill getAutomaticallyBestowedSkill()
+	{
+		return _bestowedSkill != null ? _bestowedSkill.getAutomaticallyBestowedSkill() : null;
+	}
+	
+	public final L2Skill getEffectBestowedSkill()
+	{
+		return _bestowedSkill != null ? _bestowedSkill.getEffectBestowedSkill() : null;
 	}
 	
 	public final boolean bestowed()
@@ -3780,6 +3786,11 @@ public class L2Skill implements FuncOwner
 		count += _effectTemplatesSelf == null ? 0 : _effectTemplatesSelf.length;
 		
 		return _id + "-" + count;
+	}
+	
+	public float generateStackOrder()
+	{
+		return getLevel();
 	}
 	
 	@Override

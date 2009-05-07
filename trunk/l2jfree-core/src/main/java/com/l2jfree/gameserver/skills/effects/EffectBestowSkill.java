@@ -38,7 +38,7 @@ final class EffectBestowSkill extends L2Effect
 	@Override
 	protected boolean onStart()
 	{
-		final L2Skill tempSkill = getSkill().getTriggeredSkill();
+		final L2Skill tempSkill = getSkill().getEffectBestowedSkill();
 		if (tempSkill == null)
 			return false;
 		
@@ -55,7 +55,7 @@ final class EffectBestowSkill extends L2Effect
 	@Override
 	protected void onExit()
 	{
-		getEffected().removeSkill(getSkill().getTriggeredSkillId());
+		getEffected().removeSkill(getSkill().getEffectBestowedSkill());
 	}
 	
 	@Override

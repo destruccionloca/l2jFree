@@ -21,6 +21,7 @@ import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillLaunched;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
+import com.l2jfree.gameserver.skills.ChanceCondition;
 import com.l2jfree.util.L2Arrays;
 
 /**
@@ -121,7 +122,7 @@ public class ChanceSkillList extends FastMap<L2Skill, ChanceCondition>
 			if (skill.getWeaponDependancy(_owner, false))
 			{
 				// Should we use this skill or this skill is just referring to another one...
-				if (skill.getTriggeredSkillId() > 0 && skill.getTriggeredSkillId() != skill.getId())
+				if (skill.shouldTriggerSkill())
 				{
 					skill = skill.getTriggeredSkill();
 					if (skill == null)
