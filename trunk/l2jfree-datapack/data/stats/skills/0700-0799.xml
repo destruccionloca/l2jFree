@@ -913,11 +913,10 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <set name="bestowTriggered" val="true"/>
     <set name="triggeredId" val="5561"/>
     <set name="triggeredLevel" val="1"/>
     <for>
-      <effect count="1" name="Buff" time="60" val="0" stackOrder="1" stackType="inc_buff"/>
+      <effect count="1" name="BestowSkill" time="60" val="0" stackOrder="1" stackType="inc_buff"/>
     </for>
   </skill>
   <skill id="762" levels="1" name="Insane Crusher">
@@ -1366,11 +1365,10 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <set name="bestowTriggered" val="true"/>
     <set name="triggeredId" val="5562"/>
     <set name="triggeredLevel" val="1"/>
     <for>
-      <effect name="Buff" count="1" time="60" val="0" stackOrder="1" stackType="inc_buff"/>
+      <effect name="BestowSkill" count="1" time="60" val="0" stackOrder="1" stackType="inc_buff"/>
     </for>
   </skill>
   <skill id="785" levels="1" name="Flame Icon">
@@ -1426,11 +1424,10 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <set name="bestowTriggered" val="true"/>
     <set name="triggeredId" val="5563"/>
     <set name="triggeredLevel" val="1"/>
     <for>
-      <effect count="1" name="Buff" time="60" val="0" stackOrder="1" stackType="inc_buff"/>
+      <effect count="1" name="BestowSkill" time="60" val="0" stackOrder="1" stackType="inc_buff"/>
     </for>
   </skill>
   <skill id="787" levels="1" name="Touch of Eva">
@@ -1470,11 +1467,10 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <set name="bestowTriggered" val="true"/>
     <set name="triggeredId" val="5564"/>
     <set name="triggeredLevel" val="1"/>
     <for>
-      <effect count="1" name="Buff" time="60" val="0" stackOrder="1" stackType="inc_buff"/>
+      <effect count="1" name="BestowSkill" time="60" val="0" stackOrder="1" stackType="inc_buff"/>
     </for>
   </skill>
   <skill id="789" levels="1" name="Touch of Shilen">

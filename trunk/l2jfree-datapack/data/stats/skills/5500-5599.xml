@@ -587,8 +587,8 @@
     <table name="#rCrit">0 9 18</table>
     <table name="#cAtk">1.0 1.0 1.15</table>
     <table name="#time">60 30 12</table>
-    <set name="activationChance" val="10"/>
-    <set name="improveChance" val="50"/>
+    <table name="#activationChance">10 50 50</table>
+    <set name="activationChance" val="#activationChance"/>
     <set name="castRange" val="-1"/>
     <set name="chanceType" val="ON_ATTACKED"/>
     <set name="effectRange" val="-1"/>
@@ -596,14 +596,16 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_CHANCE"/>
     <set name="bestowed" val="true"/>
+    <set name="triggeredId" val="5561"/>
+    <set name="triggeredLevel" val="#stack"/>
     <cond>
       <or>
-      	<target active_effect_id="761"/>
-      	<target active_effect_id="5561,1,2"/>
+        <target active_effect_id="761"/>
+        <target active_effect_id="5561,1,2"/>
       </or>
     </cond>
     <for>
-      <effect count="1" name="Buff" time="#time" val="0" stackOrder="#stack" stackType="inc_buff">
+      <effect count="1" name="BestowSkill" time="#time" val="0" stackOrder="#stack" stackType="inc_buff">
         <mul order="0x30" stat="pAtk" val="#pAtk"/>
         <add order="0x40" stat="rCrit" val="#rCrit"/>
         <mul order="0x30" stat="cAtk" val="#cAtk"/>
@@ -616,8 +618,8 @@
     <table name="#vuln">1 0.9 0.8</table>
     <table name="#gain">1 1 1.5</table>
     <table name="#time">60 30 12</table>
-    <set name="activationChance" val="10"/>
-    <set name="improveChance" val="50"/>
+    <table name="#activationChance">10 50 50</table>
+    <set name="activationChance" val="#activationChance"/>
     <set name="castRange" val="-1"/>
     <set name="chanceType" val="ON_ATTACKED"/>
     <set name="effectRange" val="-1"/>
@@ -625,15 +627,17 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_CHANCE"/>
     <set name="bestowed" val="true"/>
+    <set name="triggeredId" val="5562"/>
+    <set name="triggeredLevel" val="#stack"/>
     <cond>
       <or>
-      	<target active_effect_id="784"/>
-      	<target active_effect_id="5562,1,2"/>
+        <target active_effect_id="784"/>
+        <target active_effect_id="5562,1,2"/>
       </or>
     </cond>
     <for>
       <!-- TODO: increase darkness atrib -->
-      <effect count="1" name="Buff" time="#time" val="0" stackOrder="#stack" stackType="inc_buff">
+      <effect count="1" name="BestowSkill" time="#time" val="0" stackOrder="#stack" stackType="inc_buff">
         <mul order="0x30" stat="pDef" val="#pDef"/>
         <mul order="0x30" stat="fireVuln" val="#vuln"/>
         <mul order="0x30" stat="gainHp" val="#gain"/>
@@ -645,8 +649,8 @@
     <table name="#mDef">1.03 1.06 1.10</table>
     <table name="#crit">0 0 18</table>
     <table name="#time">60 30 12</table>
-    <set name="activationChance" val="10"/>
-    <set name="improveChance" val="50"/>
+    <table name="#activationChance">10 50 50</table>
+    <set name="activationChance" val="#activationChance"/>
     <set name="castRange" val="-1"/>
     <set name="chanceType" val="ON_ATTACKED"/>
     <set name="effectRange" val="-1"/>
@@ -654,15 +658,17 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_CHANCE"/>
     <set name="bestowed" val="true"/>
+    <set name="triggeredId" val="5563"/>
+    <set name="triggeredLevel" val="#stack"/>
     <cond>
       <or>
-      	<target active_effect_id="786"/>
-      	<target active_effect_id="5563,1,2"/>
+        <target active_effect_id="786"/>
+        <target active_effect_id="5563,1,2"/>
       </or>
     </cond>
     <for>
       <!-- TODO: increase water atrib -->
-      <effect count="1" name="Buff" time="#time" val="0" stackOrder="#stack" stackType="inc_buff">
+      <effect count="1" name="BestowSkill" time="#time" val="0" stackOrder="#stack" stackType="inc_buff">
         <mul order="0x30" stat="mDef" val="#mDef"/>
         <add order="0x40" stat="rCrit" val="#crit"/>
       </effect>
@@ -673,8 +679,8 @@
     <table name="#cAtk">1.05 1.1 1.15</table>
     <table name="#abs">1 1 8</table>
     <table name="#time">60 30 12</table>
-    <set name="activationChance" val="10"/>
-    <set name="improveChance" val="50"/>
+    <table name="#activationChance">10 50 50</table>
+    <set name="activationChance" val="#activationChance"/>
     <set name="castRange" val="-1"/>
     <set name="chanceType" val="ON_ATTACKED"/>
     <set name="effectRange" val="-1"/>
@@ -682,6 +688,8 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_CHANCE"/>
     <set name="bestowed" val="true"/>
+    <set name="triggeredId" val="5564"/>
+    <set name="triggeredLevel" val="#stack"/>
     <cond>
       <or>
         <target active_effect_id="788"/>
@@ -690,7 +698,7 @@
     </cond>
     <for>
       <!-- TODO: increase wind atrib -->
-      <effect count="1" name="Buff" time="#time" val="0" stackOrder="#stack" stackType="inc_buff">
+      <effect count="1" name="BestowSkill" time="#time" val="0" stackOrder="#stack" stackType="inc_buff">
         <mul order="0x30" stat="cAtk" val="#cAtk"/>
         <add order="0x40" stat="absorbDam" val="#abs"/>
       </effect>
