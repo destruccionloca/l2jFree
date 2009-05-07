@@ -552,6 +552,79 @@ public class L2Skill implements FuncOwner
 		}
 	}
 	
+	public final void validate() throws Exception
+	{
+		validateBestowedSkill();
+		validateTriggeredSkill();
+	}
+	
+	private void validateBestowedSkill() throws Exception
+	{
+		// can have BestowSkill effect
+		if (isChance() || isActive() && getSkillType() != L2SkillType.FUSION)
+		{
+			// bestowed skills should always be chance or passive, to prevent hlapex
+			final L2Skill bestowedSkill = getEffectBestowedSkill();
+			if (bestowedSkill != null && !bestowedSkill.isChance() && !bestowedSkill.isPassive())
+				throw new IllegalStateException(toString());
+		}
+		// can't have BestowSkill effect
+		else
+		{
+			if (_effectTemplates != null)
+				for (EffectTemplate template : _effectTemplates)
+					if (template.name.equals("BestowSkill"))
+						throw new IllegalStateException(toString());
+			
+			if (getEffectBestowedSkill() != null)
+				throw new IllegalStateException(toString());
+		}
+		
+		// can have automatically bestowed skill
+		if (isPassive())
+		{
+			// bestowed skills should always be chance or passive, to prevent hlapex
+			final L2Skill bestowedSkill = getAutomaticallyBestowedSkill();
+			if (bestowedSkill != null && !bestowedSkill.isChance() && !bestowedSkill.isPassive())
+				throw new IllegalStateException(toString());
+		}
+		// can't have automatically bestowed skill
+		else
+		{
+			if (getAutomaticallyBestowedSkill() != null)
+				throw new IllegalStateException(toString());
+		}
+	}
+	
+	private void validateTriggeredSkill() throws Exception
+	{
+		final L2Skill triggeredSkill = getTriggeredSkill();
+		
+		// nonsense...
+		if (triggeredSkill == this)
+			throw new IllegalStateException(toString());
+		
+		// must have triggered skill, and can't have effects
+		if (isActive() && getSkillType() == L2SkillType.FUSION)
+		{
+			if (triggeredSkill == null)
+				throw new IllegalStateException(toString());
+			
+			if (_effectTemplates != null)
+				throw new IllegalStateException(toString());
+		}
+		// can have triggered skill
+		else if (isChance())
+		{
+		}
+		// can't have triggered skill
+		else
+		{
+			if (triggeredSkill != null)
+				throw new IllegalStateException(toString());
+		}
+	}
+	
 	private OffensiveState getOffensiveState(StatsSet set)
 	{
 		final OffensiveState defaultState = getDefaultOffensiveState();

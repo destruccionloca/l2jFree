@@ -25,22 +25,15 @@ public final class TriggeredSkill
 {
 	public static TriggeredSkill parse(StatsSet set)
 	{
-		try
+		final int triggeredId = set.getInteger("triggeredId", 0);
+		final int triggeredLevel = set.getInteger("triggeredLevel", 0);
+		
+		if (triggeredId > 0 || triggeredLevel > 0)
 		{
-			final int triggeredId = set.getInteger("triggeredId", 0);
-			final int triggeredLevel = set.getInteger("triggeredLevel", 0);
-			
-			if (triggeredId > 0 || triggeredLevel > 0)
-			{
-				if (triggeredId > 0 && triggeredLevel > 0)
-					return new TriggeredSkill(triggeredId, triggeredLevel);
-				else
-					throw new IllegalStateException();
-			}
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
+			if (triggeredId > 0 && triggeredLevel > 0)
+				return new TriggeredSkill(triggeredId, triggeredLevel);
+			else
+				throw new IllegalStateException();
 		}
 		
 		return null;

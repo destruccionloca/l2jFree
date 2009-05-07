@@ -80,6 +80,20 @@ public final class SkillTable
 			length += array.length;
 		
 		_log.info("SkillTable: Occupying arrays for " + length + ".");
+		
+		_instance = this;
+		
+		for (L2Skill skill : skills)
+		{
+			try
+			{
+				skill.validate();
+			}
+			catch (Exception e)
+			{
+				_log.warn("", e);
+			}
+		}
 	}
 	
 	public static int getSkillHashCode(L2Skill skill)

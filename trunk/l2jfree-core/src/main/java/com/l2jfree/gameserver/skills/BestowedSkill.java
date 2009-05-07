@@ -25,23 +25,17 @@ public final class BestowedSkill
 {
 	public static BestowedSkill parse(StatsSet set)
 	{
-		try
+		final int bestowedSkillId = set.getInteger("bestowedSkillId", 0);
+		
+		if (bestowedSkillId > 0)
 		{
-			final int bestowedSkillId = set.getInteger("bestowedSkillId", 0);
-			final int bestowedSkillLevel = set.getInteger("bestowedSkillLevel", 0);
+			final int bestowedSkillLevel = set.getInteger("bestowedSkillLevel");
 			final boolean bestowSkillOnAddition = set.getBool("bestowSkillAutomatically", false);
 			
-			if (bestowedSkillId > 0 || bestowedSkillLevel > 0)
-			{
-				if (bestowedSkillId > 0 && bestowedSkillLevel > 0)
-					return new BestowedSkill(bestowedSkillId, bestowedSkillLevel, bestowSkillOnAddition);
-				else
-					throw new IllegalStateException();
-			}
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
+			if (bestowedSkillLevel > 0)
+				return new BestowedSkill(bestowedSkillId, bestowedSkillLevel, bestowSkillOnAddition);
+			else
+				throw new IllegalStateException();
 		}
 		
 		return null;

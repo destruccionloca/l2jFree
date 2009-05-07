@@ -36,6 +36,7 @@ public final class EffectTemplate
 	private final Constructor<?> _stolenConstructor;
 	private final Condition _attachCond;
 	
+	public final String name;
 	public final double lambda;
 	public final int count;
 	public final int period;
@@ -46,11 +47,12 @@ public final class EffectTemplate
 	
 	public FuncTemplate[] funcTemplates;
 	
-	public EffectTemplate(Condition pAttachCond, String name, double pLambda, int pCount, int pPeriod,
+	public EffectTemplate(Condition pAttachCond, String pName, double pLambda, int pCount, int pPeriod,
 		int pAbnormalEffect, String pStackType, float pStackOrder, boolean pShowIcon)
 	{
 		_attachCond = pAttachCond;
 		
+		name = pName;
 		lambda = pLambda;
 		count = pCount;
 		period = pPeriod;

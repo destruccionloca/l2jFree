@@ -95,21 +95,14 @@ public final class ChanceCondition
 	
 	public static ChanceCondition parse(StatsSet set)
 	{
-		try
-		{
-			final TriggerType trigger = set.getEnum("chanceType", TriggerType.class);
-			final int chance = set.getInteger("activationChance");
-			final int impChance = set.getInteger("improveChance", 0);
-			
-			if (trigger != null && chance > 0)
-				return new ChanceCondition(trigger, chance, impChance);
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
+		final TriggerType trigger = set.getEnum("chanceType", TriggerType.class);
+		final int chance = set.getInteger("activationChance");
+		final int impChance = set.getInteger("improveChance", 0);
 		
-		return null;
+		if (trigger != null && chance > 0)
+			return new ChanceCondition(trigger, chance, impChance);
+		else
+			throw new IllegalStateException();
 	}
 	
 	public boolean trigger(int event)
