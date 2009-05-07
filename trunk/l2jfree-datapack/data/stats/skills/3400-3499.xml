@@ -260,7 +260,6 @@
        and decrease MP consumption during skill use, for you and your party members.
     -->
     <set name="activationChance" val="25"/> <!-- Guessing -->
-    <set name="bestowTriggered" val="true"/>
     <set name="castRange" val="-1"/>
     <set name="chanceType" val="ON_CRIT"/>
     <set name="effectRange" val="-1"/>

@@ -1041,7 +1041,7 @@
       <target active_effect_id="1531"/>
     </cond>
     <for>
-      <effect count="5" name="HealOverTime" time="1" val="#hp" stackOrder="#level" stackType="bless_blood"/>
+      <effect count="5" name="HealOverTime" time="1" val="#hp" stackOrder="#level" stackType="bless_blood" noicon="1"/>
     </for>
   </skill>
   <skill id="5699" levels="7" name="Decrease P. Def">

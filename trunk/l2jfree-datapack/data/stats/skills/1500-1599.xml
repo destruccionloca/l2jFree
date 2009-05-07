@@ -643,11 +643,10 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <set name="bestowTriggered" val="true"/>
     <set name="triggeredId" val="5698"/>
     <set name="triggeredLevel" val="#level"/>
     <for>
-      <effect count="1" name="Buff" time="60" val="0" stackOrder="#level" stackType="bless_blood"/>
+      <effect count="1" name="BestowSkill" time="60" val="0"/>
     </for>
   </skill>
 </list>

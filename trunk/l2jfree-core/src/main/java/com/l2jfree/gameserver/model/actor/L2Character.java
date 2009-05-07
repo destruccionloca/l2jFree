@@ -5788,6 +5788,9 @@ public abstract class L2Character extends L2Object
 				if (e.getEffectType() == L2EffectType.TRANSFORMATION)
 					continue; // remove only non-transformation effects
 				
+				if (e.getSkill().isChance())
+					continue; // don't remove triggered effects
+				
 				if (e.getSkill().getTargetType() == SkillTargetType.TARGET_SELF)
 					e.exit(); // remove self skills only - there is no reason to remove normal buffs
 			}
