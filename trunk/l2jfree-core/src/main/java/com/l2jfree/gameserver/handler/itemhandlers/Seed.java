@@ -26,7 +26,6 @@ import com.l2jfree.gameserver.model.actor.L2Boss;
 import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2ChestInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
@@ -310,16 +309,16 @@ public class Seed implements IItemHandler
 
 		if (!(obj instanceof L2MonsterInstance) || (obj instanceof L2ChestInstance) || (obj instanceof L2Boss))
 		{
-			activeChar.sendPacket(SystemMessageId.THEtarget_IS_UNAVAILABLE_FOR_SEEDING);
+			activeChar.sendPacket(SystemMessageId.THE_TARGET_IS_UNAVAILABLE_FOR_SEEDING);
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 
 		L2MonsterInstance target = (L2MonsterInstance) obj;
 
-		if (target == null || target.isDead())
+		if (target.isDead())
 		{
-			activeChar.sendPacket(SystemMessageId.INCORRECTtarget);
+			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
