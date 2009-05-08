@@ -25,7 +25,7 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 
 /**
- * This class ...
+ * This class represents a packet sent by the client when a pet's name is set.
  * 
  * @version $Revision: 1.3.4.4 $ $Date: 2005/04/06 16:13:48 $
  */

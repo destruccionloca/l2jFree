@@ -14,12 +14,14 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
+
 public class RequestDeleteMacro extends L2GameClientPacket
-{  
-	private int _id;
-	
+{
 	private static final String _C__C2_REQUESTDELETEMACRO = "[C] C2 RequestDeleteMacro";
-	
+
+	private int _id;
+
 	/**
 	 * packet type id 0xc2
 	 * 
@@ -36,19 +38,15 @@ public class RequestDeleteMacro extends L2GameClientPacket
     {
 		_id = readD();
 	}
-	
+
     @Override
     protected void runImpl()
 	{
-		if (getClient().getActiveChar() == null)
-		    return;
-		getClient().getActiveChar().deleteMacro(_id);
-		getClient().getActiveChar().sendMessage("Macro deleted.");
+		if (getClient().getActiveChar() != null)
+			getClient().getActiveChar().deleteMacro(_id);
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
-	
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
+
 	@Override
 	public String getType()
 	{

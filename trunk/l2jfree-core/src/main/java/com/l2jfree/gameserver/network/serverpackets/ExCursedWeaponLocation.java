@@ -14,44 +14,40 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import java.util.List;
+import javolution.util.FastList;
 
 import com.l2jfree.gameserver.model.Location;
 
-
 /**
- * @author  -Wooden-
+ * @author -Wooden-
  */
 public class ExCursedWeaponLocation extends L2GameServerPacket
 {
 	private static final String _S__FE_47_EXCURSEDWEAPONLOCATION = "[S] FE:47 ExCursedWeaponLocation [d(dd ddd)]";
-	private List<CursedWeaponInfo> _cursedWeaponInfo;
-	
-	public ExCursedWeaponLocation(List<CursedWeaponInfo> cursedWeaponInfo)
+	private FastList<CursedWeaponInfo> _cursedWeaponInfo;
+
+	public ExCursedWeaponLocation(FastList<CursedWeaponInfo> cursedWeaponInfo)
 	{
 		_cursedWeaponInfo = cursedWeaponInfo;
 	}
 
-	/**
-	 * @see com.l2jfree.gameserver.network.serverpackets.ServerBasePacket#writeImpl()
-	 */
 	@Override
 	protected void writeImpl()
 	{
 		writeC(0xfe);
-		writeH(0x47); // confirmed
-		
-		if(!_cursedWeaponInfo.isEmpty())
+		writeH(0x47);
+
+		if (!_cursedWeaponInfo.isEmpty())
 		{
 			writeD(_cursedWeaponInfo.size());
-			for (CursedWeaponInfo w : _cursedWeaponInfo)
+			for (FastList.Node<CursedWeaponInfo> n = _cursedWeaponInfo.head(), end = _cursedWeaponInfo.tail(); (n = n.getNext()) != end;)
 			{
-				writeD(w.id);
-				writeD(w.activated);
-			
-				writeD(w.loc.getX());
-				writeD(w.loc.getY());
-				writeD(w.loc.getZ());
+				writeD(n.getValue().id);
+				writeD(n.getValue().activated);
+
+				writeD(n.getValue().loc.getX());
+				writeD(n.getValue().loc.getY());
+				writeD(n.getValue().loc.getZ());
 			}
 		}
 		else
@@ -61,15 +57,12 @@ public class ExCursedWeaponLocation extends L2GameServerPacket
 		}
 	}
 
-	/**
-	 * @see com.l2jfree.gameserver.BasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{
 		return _S__FE_47_EXCURSEDWEAPONLOCATION;
 	}
-	
+
 	public static class CursedWeaponInfo
 	{
 		public final Location loc;

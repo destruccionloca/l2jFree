@@ -17,8 +17,8 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExPutItemResultForVariationMake;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.item.L2Item;
 
 /**
@@ -28,90 +28,68 @@ import com.l2jfree.gameserver.templates.item.L2Item;
 public final class RequestConfirmTargetItem extends L2GameClientPacket
 {
 	private static final String _C__D0_29_REQUESTCONFIRMTARGETITEM = "[C] D0:29 RequestConfirmTargetItem";
+
 	private int _itemObjId;
 
-	/**
-	 * @param buf
-	 * @param client
-	 */
 	@Override
 	protected void readImpl()
 	{
 		_itemObjId = readD();
 	}
 
-	/**
-	 * @see com.l2jfree.gameserver.network.clientpackets.ClientBasePacket#runImpl()
-	 */
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
+		if (activeChar == null) return;
 		L2ItemInstance item = activeChar.getInventory().getItemByObjectId(_itemObjId);
-		
-		if (item == null)
-			return;
-		
-		if (activeChar.getLevel() < 46)
+		if (item == null || activeChar.getLevel() < 46)
 		{
-			activeChar.sendMessage("You have to be level 46 in order to augment an item");
+			requestFailed(SystemMessageId.AUGMENTATION_FAILED_DUE_TO_INAPPROPRIATE_CONDITIONS);
 			return;
 		}
 
 		// check if the item is augmentable
 		int itemGrade = item.getItem().getItemGrade();
 		int itemType = item.getItem().getType2();
-		
+
+		SystemMessageId fail = null;
 		if (item.isAugmented())
-		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.ONCE_AN_ITEM_IS_AUGMENTED_IT_CANNOT_BE_AUGMENTED_AGAIN));
-			return;
-		}
-		else if (itemGrade < L2Item.CRYSTAL_C || itemType != L2Item.TYPE2_WEAPON || !item.isDestroyable()
-						|| item.isShadowItem() || item.getItem().isCommonItem())
-		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.THIS_IS_NOT_A_SUITABLE_ITEM));
-			return;
-		}
-		
+			fail = SystemMessageId.ONCE_AN_ITEM_IS_AUGMENTED_IT_CANNOT_BE_AUGMENTED_AGAIN;
+		else if (itemGrade < L2Item.CRYSTAL_C || itemType != L2Item.TYPE2_WEAPON ||
+				!item.isDestroyable() || item.isShadowItem() ||
+				item.getItem().isCommonItem())
+			fail = SystemMessageId.THIS_IS_NOT_A_SUITABLE_ITEM;
+
 		// check if the player can augment
-		if (activeChar.getPrivateStoreType() != L2PcInstance.STORE_PRIVATE_NONE)
+		else if (activeChar.getPrivateStoreType() != L2PcInstance.STORE_PRIVATE_NONE)
+			fail = SystemMessageId.YOU_CANNOT_AUGMENT_ITEMS_WHILE_A_PRIVATE_STORE_OR_PRIVATE_WORKSHOP_IS_IN_OPERATION;
+		else if (activeChar.getActiveTradeList() != null)
+			fail = SystemMessageId.YOU_CANNOT_AUGMENT_ITEMS_WHILE_TRADING;
+		else if (activeChar.isDead())
+			fail = SystemMessageId.YOU_CANNOT_AUGMENT_ITEMS_WHILE_DEAD;
+		else if (activeChar.isParalyzed() || activeChar.isPetrified())
+			fail = SystemMessageId.YOU_CANNOT_AUGMENT_ITEMS_WHILE_PARALYZED;
+		else if (activeChar.isFishing())
+			fail = SystemMessageId.YOU_CANNOT_AUGMENT_ITEMS_WHILE_FISHING;
+		else if (activeChar.isSitting())
+			fail = SystemMessageId.YOU_CANNOT_AUGMENT_ITEMS_WHILE_SITTING_DOWN;
+
+		if (fail != null)
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_CANNOT_AUGMENT_ITEMS_WHILE_A_PRIVATE_STORE_OR_PRIVATE_WORKSHOP_IS_IN_OPERATION));
-			return;
-		}
-		if (activeChar.isDead())
-		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_CANNOT_AUGMENT_ITEMS_WHILE_DEAD));
-			return;
-		}
-		if (activeChar.isParalyzed())
-		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_CANNOT_AUGMENT_ITEMS_WHILE_PARALYZED));
-			return;
-		}
-		if (activeChar.isFishing())
-		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_CANNOT_AUGMENT_ITEMS_WHILE_FISHING));
-			return;
-		}
-		if (activeChar.isSitting())
-		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_CANNOT_AUGMENT_ITEMS_WHILE_SITTING_DOWN));
+			requestFailed(fail);
+			fail = null;
 			return;
 		}
 
-		activeChar.sendPacket(new ExPutItemResultForVariationMake(_itemObjId));
-		activeChar.sendPacket(new SystemMessage(SystemMessageId.SELECT_THE_CATALYST_FOR_AUGMENTATION));
+		sendPacket(new ExPutItemResultForVariationMake(_itemObjId));
+		sendPacket(SystemMessageId.SELECT_THE_CATALYST_FOR_AUGMENTATION);
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
-	/**
-	 * @see com.l2jfree.gameserver.BasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{
 		return _C__D0_29_REQUESTCONFIRMTARGETITEM;
 	}
-
 }

@@ -64,6 +64,20 @@ public class AnswerTradeRequest extends L2GameClientPacket
             return;
         }
 
+        //possible exploit fix
+        if (player.getActiveTradeList() != null)
+        {
+        	partner.sendPacket(new SystemMessage(SystemMessageId.C1_ALREADY_TRADING).addString(player.getName()));
+        	requestFailed(SystemMessageId.ALREADY_TRADING);
+        	return;
+        }
+        else if (partner.getActiveTradeList() != null)
+        {
+        	partner.sendPacket(SystemMessageId.ALREADY_TRADING);
+        	requestFailed(new SystemMessage(SystemMessageId.C1_ALREADY_TRADING).addString(partner.getName()));
+        	return;
+        }
+
         if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
         {
         	partner.sendPacket(SystemMessageId.CANT_TRADE_WITH_TARGET);
@@ -78,8 +92,9 @@ public class AnswerTradeRequest extends L2GameClientPacket
 
 		// Clears requesting status
 		player.setActiveRequester(null);
-		sendPacket(ActionFailed.STATIC_PACKET);
 		partner.onTransactionResponse();
+
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	@Override

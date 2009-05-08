@@ -17,8 +17,8 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExPutItemResultForVariationCancel;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.item.L2Item;
 
 /**
@@ -28,39 +28,30 @@ import com.l2jfree.gameserver.templates.item.L2Item;
 public final class RequestConfirmCancelItem extends L2GameClientPacket
 {
 	private static final String _C__D0_2D_REQUESTCONFIRMCANCELITEM = "[C] D0:2D RequestConfirmCancelItem";
+
 	private int _itemId;
 
-	/**
-	 * @param buf
-	 * @param client
-	 */
 	@Override
 	protected void readImpl()
 	{
 		_itemId = readD();
 	}
 
-	/**
-	 * @see com.l2jfree.gameserver.network.clientpackets.ClientBasePacket#runImpl()
-	 */
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
-			return;
+		if (activeChar == null) return;
 
 		L2ItemInstance item = activeChar.getInventory().getItemByObjectId(_itemId);
-
-		if (item == null)
-			return;
+		if (item == null) return;
 
 		if (!item.isAugmented())
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.AUGMENTATION_REMOVAL_CAN_ONLY_BE_DONE_ON_AN_AUGMENTED_ITEM));
+			requestFailed(SystemMessageId.AUGMENTATION_REMOVAL_CAN_ONLY_BE_DONE_ON_AN_AUGMENTED_ITEM);
 			return;
 		}
-		
+
 		int price = 0;
 		switch (item.getItem().getItemGrade())
 		{
@@ -92,15 +83,14 @@ public final class RequestConfirmCancelItem extends L2GameClientPacket
 				break;
 			// any other item type is not augmentable
 			default:
+				requestFailed(SystemMessageId.THIS_IS_NOT_A_SUITABLE_ITEM);
 				return;
 		}
-		
-		activeChar.sendPacket(new ExPutItemResultForVariationCancel(_itemId, price));
+
+		sendPacket(new ExPutItemResultForVariationCancel(_itemId, price));
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
-	/**
-	 * @see com.l2jfree.gameserver.BasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

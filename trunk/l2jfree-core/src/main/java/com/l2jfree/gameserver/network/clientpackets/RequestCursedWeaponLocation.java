@@ -34,41 +34,28 @@ public class RequestCursedWeaponLocation extends L2GameClientPacket
     @Override
     protected void readImpl()
     {
-        //nothing to read it's just a trigger
     }
 
-    /**
-     * @see com.l2jfree.gameserver.network.clientpackets.ClientBasePacket#runImpl()
-     */
     @Override
     protected void runImpl()
     {
         L2Character activeChar = getClient().getActiveChar();
-        if (activeChar == null)
-            return;
-        
+        if (activeChar == null) return;
+
+        Location loc = null;
         FastList<CursedWeaponInfo> list = new FastList<CursedWeaponInfo>();
         for (CursedWeapon cw : CursedWeaponsManager.getInstance().getCursedWeapons())
         {
             if (!cw.isActive()) continue;
-            
-            Location loc = cw.getCurrentLocation();
-            
+            loc = cw.getCurrentLocation();
             if (loc != null)
                 list.add(new CursedWeaponInfo(loc, cw.getItemId(), cw.isActivated() ? 1 : 0));
         }
-        
+        loc = null;
 
-        //send the ExCursedWeaponLocation
-        if (!list.isEmpty())
-        {
-            activeChar.sendPacket(new ExCursedWeaponLocation(list));
-        }
+        sendPacket(new ExCursedWeaponLocation(list));
     }
 
-    /**
-     * @see com.l2jfree.gameserver.network.BasePacket#getType()
-     */
     @Override
     public String getType()
     {

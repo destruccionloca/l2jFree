@@ -27,12 +27,13 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.util.Util;
 
 /**
- * This class ...
+ * This class represents a packet sent by the client when a player drags an item over the
+ * recycle bin
  * 
  * @version $Revision: 1.7.2.4.2.6 $ $Date: 2005/03/27 15:29:30 $
  */
@@ -43,6 +44,7 @@ public class RequestDestroyItem extends L2GameClientPacket
 
 	private int _objectId;
 	private int _count;
+
 	/**
 	 * packet type id 0x1f
 	 * 
@@ -67,92 +69,84 @@ public class RequestDestroyItem extends L2GameClientPacket
     protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
-		    return;
-		
-		if(_count < 0)
+		if (activeChar == null) return;
+
+		if (_count < 1)
 		{
-			Util.handleIllegalPlayerAction(activeChar,"[RequestDestroyItem] count < 0! ban! oid: "+_objectId+" owner: "+activeChar.getName(),Config.DEFAULT_PUNISH);
+			requestFailed(SystemMessageId.NOT_ENOUGH_ITEMS);
 			return;
 		}
-		
-		int count = _count;
-		
+
         if (activeChar.getPrivateStoreType() != 0)
         {
-            activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_TRADE_DISCARD_DROP_ITEM_WHILE_IN_SHOPMODE));
+        	requestFailed(SystemMessageId.CANNOT_TRADE_DISCARD_DROP_ITEM_WHILE_IN_SHOPMODE);
             return;
         }
-        
+
 		L2ItemInstance itemToRemove = activeChar.getInventory().getItemByObjectId(_objectId);
 
 		// if we can't find the requested item, its actually a cheat
 		if (itemToRemove == null)
 		{
-			activeChar.sendPacket(SystemMessageId.CANNOT_DISCARD_THIS_ITEM);
+			requestFailed(SystemMessageId.CANNOT_DISCARD_THIS_ITEM);
 			return;
 		}
 
 		// Cannot discard item that the skill is consuming
-		if (activeChar.isCastingNow())
+		else if (activeChar.isCastingNow() &&
+				activeChar.getCurrentSkill() != null &&
+				activeChar.getCurrentSkill().getSkill().getItemConsumeId() == itemToRemove.getItemId())
 		{
-			if (activeChar.getCurrentSkill() != null && activeChar.getCurrentSkill().getSkill().getItemConsumeId() == itemToRemove.getItemId())
-			{
-	            activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_DISCARD_THIS_ITEM));
-	            return;
-			}
+			requestFailed(SystemMessageId.CANNOT_DISCARD_THIS_ITEM);
+	        return;
 		}
 
 		// Cannot discard item that the skill is consuming
-		if (activeChar.isCastingSimultaneouslyNow())
+		else if (activeChar.isCastingSimultaneouslyNow() &&
+				activeChar.getLastSimultaneousSkillCast() != null &&
+				activeChar.getLastSimultaneousSkillCast().getItemConsumeId() == itemToRemove.getItemId())
 		{
-			if (activeChar.getLastSimultaneousSkillCast() != null && activeChar.getLastSimultaneousSkillCast().getItemConsumeId() == itemToRemove.getItemId())
-			{
-	            activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_DISCARD_THIS_ITEM));
-	            return;
-			}
+			requestFailed(SystemMessageId.CANNOT_DISCARD_THIS_ITEM);
+	        return;
 		}
 
 		int itemId = itemToRemove.getItemId();
-        if (itemToRemove.isWear() || (!itemToRemove.isDestroyable() && !activeChar.isGM()) || (CursedWeaponsManager.getInstance().isCursed(itemId) &&  !activeChar.isGM()))
-		{
-			if (itemToRemove.isHeroItem())
-				activeChar.sendPacket(SystemMessageId.HERO_WEAPONS_CANT_DESTROYED);
-			else
-				activeChar.sendPacket(SystemMessageId.CANNOT_DISCARD_THIS_ITEM);
-		    return;
-		}
-        
-        if (Config.ALT_STRICT_HERO_SYSTEM)
-        {
-            if (itemToRemove.isHeroItem() && !activeChar.isGM())
-            {
-                activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_DISCARD_THIS_ITEM));
-                return;
-            }
-        }
 
-        if(!itemToRemove.isStackable() && count > 1)
+        if (Config.ALT_STRICT_HERO_SYSTEM && itemToRemove.isHeroItem() &&
+        		!activeChar.isGM())
         {
-            Util.handleIllegalPlayerAction(activeChar,"[RequestDestroyItem] count > 1 but item is not stackable! oid: "+_objectId+" owner: "+activeChar.getName(),Config.DEFAULT_PUNISH);
+            requestFailed(SystemMessageId.HERO_WEAPONS_CANT_DESTROYED);
             return;
         }
-        
+        else if (itemToRemove.isWear() || ((!itemToRemove.isDestroyable() ||
+        		CursedWeaponsManager.getInstance().isCursed(itemId)) &&
+        		!activeChar.isGM()))
+		{
+			requestFailed(SystemMessageId.CANNOT_DISCARD_THIS_ITEM);
+		    return;
+		}
+
+        if (!itemToRemove.isStackable() && _count > 1)
+        {
+        	sendPacket(ActionFailed.STATIC_PACKET);
+            Util.handleIllegalPlayerAction(activeChar, "[RequestDestroyItem] count > 1 but item is not stackable! oid: "+_objectId+" owner: "+activeChar.getName(),Config.DEFAULT_PUNISH);
+            return;
+        }
+
 		if (_count > itemToRemove.getCount())
-			count = itemToRemove.getCount();
-		
-		
+			_count = itemToRemove.getCount();
+
 		if (itemToRemove.isEquipped())
 		{
 			L2ItemInstance[] unequiped =
 				activeChar.getInventory().unEquipItemInSlotAndRecord(itemToRemove.getLocationSlot()); 
 			InventoryUpdate iu = new InventoryUpdate();
-			for (L2ItemInstance element : unequiped) {
+			for (L2ItemInstance element : unequiped)
+			{
 				activeChar.checkSSMatch(null, element);
-				
 				iu.addModifiedItem(element);
 			}
-			activeChar.sendPacket(iu);
+			sendPacket(iu); iu = null;
 			activeChar.broadcastUserInfo();
 		}
 
@@ -162,9 +156,7 @@ public class RequestDestroyItem extends L2GameClientPacket
 			try
 			{
 				if (activeChar.getPet() != null && activeChar.getPet().getControlItemId() == _objectId)
-				{
 					activeChar.getPet().unSummon(activeChar);
-				}
 
 				// if it's a pet control item, delete the pet
 				con = L2DatabaseFactory.getInstance().getConnection(con); 
@@ -182,21 +174,19 @@ public class RequestDestroyItem extends L2GameClientPacket
 				L2DatabaseFactory.close(con);
 			}
 		}
-		
-		L2ItemInstance removedItem = activeChar.getInventory().destroyItem("Destroy", _objectId, count, activeChar, null);
 
-		if(removedItem == null)
+		L2ItemInstance removedItem = activeChar.getInventory().destroyItem("Destroy", _objectId, _count, activeChar, null);
+		if (removedItem == null)
+		{
+			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
-		
+		}
 		activeChar.getInventory().updateInventory(removedItem);
 
-		L2World world = L2World.getInstance();
-		world.removeObject(removedItem);
+		L2World.getInstance().removeObject(removedItem);
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
     public String getType()
 	{

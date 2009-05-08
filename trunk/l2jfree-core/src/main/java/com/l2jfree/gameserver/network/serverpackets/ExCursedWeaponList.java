@@ -14,32 +14,24 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import java.util.List;
+import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
 
 /**
- * @author  -Wooden-
+ * @author -Wooden-
  */
 public class ExCursedWeaponList extends L2GameServerPacket
 {
 	private static final String _S__FE_46_EXCURSEDWEAPONLIST = "[S] FE:46 ExCursedWeaponList [d(d)]";
-	private List<Integer> _cursedWeaponIds;
-	
-	public ExCursedWeaponList(List<Integer> cursedWeaponIds)
-	{
-		_cursedWeaponIds = cursedWeaponIds;
-	}
 
 	@Override
 	protected void writeImpl()
 	{
 		writeC(0xfe);
 		writeH(0x46);
-		
-		writeD(_cursedWeaponIds.size());
-		for (Integer i : _cursedWeaponIds)
-		{
-			writeD(i);
-		}
+
+		writeD(CursedWeaponsManager.getInstance().getCursedWeaponsIds().size());
+		for (int id : CursedWeaponsManager.getInstance().getCursedWeaponsIds())
+			writeD(id);
 	}
 
 	@Override
