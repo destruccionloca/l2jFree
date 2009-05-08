@@ -193,7 +193,6 @@ public class CursedWeapon
 
         SystemMessage sm = new SystemMessage(SystemMessageId.S1_HAS_DISAPPEARED);
         sm.addString(_name);
-        sm.addItemName(_itemId);
         CursedWeaponsManager.announce(sm);
 
         // Reset  state

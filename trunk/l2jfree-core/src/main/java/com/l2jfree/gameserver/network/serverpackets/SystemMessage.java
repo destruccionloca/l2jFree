@@ -33,19 +33,14 @@ public final class SystemMessage extends L2GameServerPacket
 {
 	private static abstract class Element
 	{
-		private final int _type;
-		
-		private Element(int type)
-		{
-			_type = type;
-		}
-		
 		public final void write(SystemMessage sm)
 		{
-			sm.writeD(_type);
+			sm.writeD(getType());
 			
 			write2(sm);
 		}
+		
+		protected abstract int getType();
 		
 		protected abstract void write2(SystemMessage sm);
 	}
@@ -56,9 +51,13 @@ public final class SystemMessage extends L2GameServerPacket
 		
 		private TextElement(String text)
 		{
-			super(TYPE_TEXT);
-			
 			_text = text;
+		}
+		
+		@Override
+		protected int getType()
+		{
+			return TYPE_TEXT;
 		}
 		
 		@Override
@@ -70,13 +69,19 @@ public final class SystemMessage extends L2GameServerPacket
 	
 	private static final class NumberElement extends Element
 	{
+		private final int _type;
 		private final int _number;
 		
 		private NumberElement(int type, long number)
 		{
-			super(type);
-			
+			_type = type;
 			_number = (int)L2Math.limit(Integer.MIN_VALUE, number, Integer.MAX_VALUE);
+		}
+		
+		@Override
+		protected int getType()
+		{
+			return _type;
 		}
 		
 		@Override
@@ -93,10 +98,14 @@ public final class SystemMessage extends L2GameServerPacket
 		
 		private SkillElement(int skillId, int skillLvl)
 		{
-			super(TYPE_SKILL_NAME);
-			
 			_skillId = skillId;
 			_skillLvl = skillLvl;
+		}
+		
+		@Override
+		protected int getType()
+		{
+			return TYPE_SKILL_NAME;
 		}
 		
 		@Override
@@ -115,11 +124,15 @@ public final class SystemMessage extends L2GameServerPacket
 		
 		private LocElement(int x, int y, int z)
 		{
-			super(TYPE_ZONE_NAME);
-			
 			_x = x;
 			_y = y;
 			_z = z;
+		}
+		
+		@Override
+		protected int getType()
+		{
+			return TYPE_ZONE_NAME;
 		}
 		
 		@Override
@@ -186,7 +199,7 @@ public final class SystemMessage extends L2GameServerPacket
 			}
 		}
 		
-		_log.warn("SystemMessage: Too much parameter!", new ArrayIndexOutOfBoundsException());
+		_log.warn("SystemMessage: Too much parameter for ID: " + _messageId, new ArrayIndexOutOfBoundsException());
 		
 		_elements = Arrays.copyOf(_elements, _elements.length + 1);
 		_elements[_elements.length - 1] = element;
@@ -210,7 +223,7 @@ public final class SystemMessage extends L2GameServerPacket
 		
 		_elements = Arrays.copyOf(_elements, count);
 		
-		_log.warn("SystemMessage: Empty parameter!", new ArrayIndexOutOfBoundsException());
+		_log.warn("SystemMessage: Empty parameter for ID: " + _messageId, new ArrayIndexOutOfBoundsException());
 	}
 	
 	public static SystemMessage sendString(String msg)
