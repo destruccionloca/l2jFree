@@ -21,9 +21,8 @@ import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.handler.IUserCommandHandler;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance.TeleportMode;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
-import com.l2jfree.gameserver.model.zone.L2Zone;
-import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.SetupGauge;
@@ -39,63 +38,12 @@ public class Escape implements IUserCommandHandler
 	 */
 	public boolean useUserCommand(@SuppressWarnings("unused") int id, L2PcInstance activeChar)
 	{
-		// [L2J_JP ADD]
-		if (activeChar.isInsideZone(L2Zone.FLAG_NOESCAPE))
+		if (!activeChar.canTeleport(TeleportMode.UNSTUCK))
 		{
-			activeChar.sendMessage("You can not escape from here.");
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return false;
 		}
-
-		if (activeChar.isSitting())
-		{
-			activeChar.sendPacket(SystemMessageId.CANT_MOVE_SITTING);
-			return false;
-		}
-
-		if (activeChar.isInOlympiadMode())
-		{
-			activeChar.sendPacket(SystemMessageId.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT);
-			return false;
-		}
-
-		// Check to see if the current player is in TvT , CTF or ViP events.
-		if (activeChar.isInFunEvent())
-		{
-			activeChar.sendMessage("You may not escape from an Event.");
-			return false;
-		}
-
-		// Check to see if the player is in a festival.
-		if (activeChar.isFestivalParticipant())
-		{
-			activeChar.sendMessage("You may not use an escape command in a festival.");
-			return false;
-		}
-
-		// Check to see if player is in jail
-		if (activeChar.isInJail())
-		{
-			activeChar.sendMessage("You can not escape from jail.");
-			return false;
-		}
-
-		if (activeChar.inObserverMode())
-		{
-			activeChar.sendMessage("You cannot escape during Observation Mode.");
-			return false;
-		}
-
-		// Check to see if player is in a duel
-		if (activeChar.isInDuel())
-		{
-			activeChar.sendMessage("You cannot escape during a duel.");
-			return false;
-		}
-
-		if (activeChar.isCastingNow() || activeChar.isMovementDisabled() || activeChar.isMuted() || activeChar.isAlikeDead())
-			return false;
-
+		
 		int unstuckTimer = (activeChar.getAccessLevel() >= Config.GM_ESCAPE ? 1000 : Config.UNSTUCK_INTERVAL * 1000);
 
 		activeChar.forceIsCastingForDuration(unstuckTimer);

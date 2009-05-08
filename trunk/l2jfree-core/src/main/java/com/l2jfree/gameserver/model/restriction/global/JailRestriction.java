@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.model.restriction.global;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.zone.L2Zone;
 
 /**
  * @author NB4L1
@@ -27,6 +28,19 @@ final class JailRestriction extends AbstractRestriction
 		if (activeChar.isInJail() || target.isInJail())
 		{
 			activeChar.sendMessage("Player is in jail!");
+			return false;
+		}
+		
+		return true;
+	}
+	
+	@Override
+	public boolean canTeleport(L2PcInstance activeChar)
+	{
+		// Check to see if player is in jail
+		if (activeChar.isInJail() || activeChar.isInsideZone(L2Zone.FLAG_JAIL))
+		{
+			activeChar.sendMessage("You can't teleport in jail.");
 			return false;
 		}
 		

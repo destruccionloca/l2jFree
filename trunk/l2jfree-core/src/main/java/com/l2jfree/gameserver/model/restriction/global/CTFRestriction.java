@@ -16,45 +16,31 @@ package com.l2jfree.gameserver.model.restriction.global;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.events.CTF;
-import com.l2jfree.gameserver.network.SystemMessageId;
 
 /**
  * @author NB4L1
  */
-final class CTFRestriction extends AbstractRestriction
+final class CTFRestriction extends AbstractFunEventRestriction
 {
 	@Override
-	public boolean canInviteToParty(L2PcInstance activeChar, L2PcInstance target)
+	boolean started()
 	{
-		if (CTF._started && !Config.CTF_ALLOW_INTERFERENCE && !activeChar.isGM())
-		{
-			if (target._inEventCTF != activeChar._inEventCTF)
-			{
-				activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
-				return false;
-			}
-		}
-		
-		return true;
+		return CTF._started;
 	}
 	
 	@Override
-	public boolean isInvul(L2Character activeChar, L2Character target, boolean isOffensive)
+	boolean allowInterference()
 	{
-		L2PcInstance attacker_ = L2Object.getActingPlayer(activeChar);
-		L2PcInstance target_ = L2Object.getActingPlayer(target);
-		
-		if (attacker_ == null || target_ == null || attacker_ == target_)
-			return false;
-		
-		if (attacker_._inEventCTF != target_._inEventCTF && !Config.CTF_ALLOW_INTERFERENCE)
-			return true;
-		
-		return false;
+		return Config.CTF_ALLOW_INTERFERENCE;
+	}
+	
+	@Override
+	boolean isInFunEvent(L2PcInstance player)
+	{
+		return player._inEventCTF;
 	}
 	
 	@Override

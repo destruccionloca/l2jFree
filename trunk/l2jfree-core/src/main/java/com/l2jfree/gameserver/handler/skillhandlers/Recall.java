@@ -20,9 +20,8 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance.TeleportMode;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
-import com.l2jfree.gameserver.model.zone.L2Zone;
-import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.tools.random.Rnd;
@@ -32,9 +31,7 @@ public class Recall implements ISkillHandler
 	private static final L2SkillType[]	SKILL_IDS	=
 													{ L2SkillType.RECALL };
 
-	public void useSkill(@SuppressWarnings("unused")
-	L2Character activeChar, @SuppressWarnings("unused")
-	L2Skill skill, L2Character... targets)
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
 		// [L2J_JP ADD SANDMAN]
 		// <!--- Zaken skills - teleport PC --> or <!--- Zaken skills - teleport -->
@@ -49,13 +46,15 @@ public class Recall implements ISkillHandler
 
 		if (activeChar instanceof L2PcInstance)
 		{
-			if (((L2PcInstance) activeChar).isInOlympiadMode())
+			L2PcInstance player = (L2PcInstance)activeChar;
+			
+			if (!player.canTeleport(TeleportMode.RECALL))
 			{
-				activeChar.sendPacket(SystemMessageId.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT);
+				player.sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
 		}
-
+		
 		for (L2Character target : targets)
 		{
 			if (target == null)
@@ -63,46 +62,15 @@ public class Recall implements ISkillHandler
 			
 			if (target instanceof L2PcInstance)
 			{
-				L2PcInstance targetChar = (L2PcInstance) target;
-
-				// [L2J_JP ADD]
-				if (targetChar.isInsideZone(L2Zone.FLAG_NOESCAPE))
+				L2PcInstance targetChar = (L2PcInstance)target;
+				
+				if (!targetChar.canTeleport(TeleportMode.RECALL))
 				{
-					targetChar.sendMessage("You can not escape from here.");
 					targetChar.sendPacket(ActionFailed.STATIC_PACKET);
-					break;
-				}
-
-				// Check to see if the current player target is in a
-				// festival.
-				if (targetChar.isFestivalParticipant())
-				{
-					targetChar.sendMessage("You may not use an escape skill in a festival.");
-					continue;
-				}
-
-				// Check to see if the current player target is in TvT , CTF
-				// or ViP events.
-				if (targetChar._inEventCTF || targetChar._inEventTvT || targetChar._inEventVIP)
-				{
-					targetChar.sendMessage("You may not use an escape skill in a Event.");
-					continue;
-				}
-
-				// Check to see if player is in jail
-				if (targetChar.isInJail() || targetChar.isInsideZone(L2Zone.FLAG_JAIL))
-				{
-					targetChar.sendMessage("You can not escape from jail.");
-					continue;
-				}
-
-				// Check to see if player is in a duel
-				if (targetChar.isInDuel())
-				{
-					targetChar.sendMessage("You cannot use escape skills during a duel.");
 					continue;
 				}
 			}
+			
 			target.setInstanceId(0);
 			target.teleToLocation(TeleportWhereType.Town);
 		}

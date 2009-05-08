@@ -13983,4 +13983,66 @@ public final class L2PcInstance extends L2Playable
 	{
 		return ((_lastSitStandRequest + 2333) > System.currentTimeMillis());
 	}
+	
+	public static enum TeleportMode
+	{
+		SCROLL_OF_ESCAPE,
+		RECALL,
+		UNSTUCK,
+		GOTOLOVE,
+	}
+	
+	public boolean canTeleport(TeleportMode mode)
+	{
+		if (mode != TeleportMode.RECALL)
+		{
+			if (isCastingNow() || isMuted() || isAlikeDead() || isMovementDisabled() || isAllSkillsDisabled())
+				return false;
+		}
+		
+		if (mode == TeleportMode.SCROLL_OF_ESCAPE)
+		{
+			if (isSitting())
+			{
+				sendPacket(SystemMessageId.CANT_MOVE_SITTING);
+				return false;
+			}
+		}
+		
+		if (!GlobalRestrictions.canTeleport(this))
+			return false;
+		
+		// [L2J_JP ADD]
+		if (isInsideZone(L2Zone.FLAG_NOESCAPE))
+		{
+			sendMessage("You can't teleport from here.");
+			return false;
+		}
+		
+		if (isInOlympiadMode())
+		{
+			if (mode == TeleportMode.SCROLL_OF_ESCAPE)
+				sendPacket(SystemMessageId.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT);
+			else if (mode == TeleportMode.RECALL)
+				sendPacket(SystemMessageId.THIS_SKILL_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT);
+			else
+				sendMessage("You can't teleport during Olympiad.");
+			return false;
+		}
+		
+		// Check to see if the player is in a festival.
+		if (isFestivalParticipant())
+		{
+			sendMessage("You can't teleport in a festival.");
+			return false;
+		}
+		
+		if (inObserverMode())
+		{
+			sendMessage("You can't teleport during Observation Mode.");
+			return false;
+		}
+		
+		return true;
+	}
 }

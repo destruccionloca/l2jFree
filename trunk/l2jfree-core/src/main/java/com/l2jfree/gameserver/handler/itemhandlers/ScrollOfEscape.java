@@ -25,10 +25,10 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance.TeleportMode;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.model.restriction.AvailableRestriction;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
-import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
@@ -95,68 +95,18 @@ public class ScrollOfEscape implements IItemHandler
 	{
 		if (!(playable instanceof L2PcInstance))
 			return;
-		L2PcInstance activeChar = (L2PcInstance) playable;
-
-		if (ObjectRestrictions.getInstance()
-				.checkRestriction(activeChar, AvailableRestriction.PlayerScrollTeleport)) {
+		
+		final L2PcInstance activeChar = (L2PcInstance) playable;
+		
+		if (ObjectRestrictions.getInstance().checkRestriction(activeChar, AvailableRestriction.PlayerScrollTeleport))
+		{
 			activeChar.sendMessage("You cannot use this scroll due to a restriction.");
 			return;
 		}
 		
-		if (checkConditions(activeChar))
-			return;
-
-		// [L2J_JP ADD]
-		if (activeChar.isInsideZone(L2Zone.FLAG_NOESCAPE))
+		if (!activeChar.canTeleport(TeleportMode.SCROLL_OF_ESCAPE))
 		{
-			activeChar.sendMessage("You can not escape from here.");
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
-			return;
-		}
-
-		if (activeChar.isSitting())
-		{
-			activeChar.sendPacket(SystemMessageId.CANT_MOVE_SITTING);
-			return;
-		}
-
-		if (activeChar.isInOlympiadMode())
-		{
-			activeChar.sendPacket(SystemMessageId.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT);
-			return;
-		}
-
-		// Check to see if the player is in a festival.
-		if (activeChar.isFestivalParticipant())
-		{
-			activeChar.sendMessage("You may not use an escape skill in a festival.");
-			return;
-		}
-
-		// Check to see if the current player is in TvT , CTF or ViP events.
-		if (activeChar._inEventCTF || activeChar._inEventTvT || activeChar._inEventVIP)
-		{
-			activeChar.sendMessage("You may not use an escape skill in a Event.");
-			return;
-		}
-
-		// Check to see if player is in jail
-		if (activeChar.isInJail() || activeChar.isInsideZone(L2Zone.FLAG_JAIL))
-		{
-			activeChar.sendMessage("You can not escape from jail.");
-			return;
-		}
-
-		if (activeChar.inObserverMode())
-		{
-			activeChar.sendMessage("You can not use Scroll of Escape during Observation Mode.");
-			return;
-		}
-
-		// Check to see if player is in a duel
-		if (activeChar.isInDuel())
-		{
-			activeChar.sendMessage("You cannot use escape skills during a duel.");
 			return;
 		}
 		
@@ -165,15 +115,15 @@ public class ScrollOfEscape implements IItemHandler
 		switch(item.getItemId())
 		{
 			case 5859:
-				if (activeChar.getClan() != null && CastleManager.getInstance().getCastleByOwner(activeChar.getClan()) == null)
+				if (activeChar.getClan() == null || CastleManager.getInstance().getCastleByOwner(activeChar.getClan()) == null)
 					ret = true;
 				break;
 			case 10130:
-				if (activeChar.getClan() != null && FortManager.getInstance().getFortByOwner(activeChar.getClan()) == null)
+				if (activeChar.getClan() == null || FortManager.getInstance().getFortByOwner(activeChar.getClan()) == null)
 					ret = true;
 				break;
 			case 5858:
-				if (activeChar.getClan() != null && ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan()) == null)
+				if (activeChar.getClan() == null || ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan()) == null)
 					ret = true;
 				break;
 		}
@@ -354,12 +304,6 @@ public class ScrollOfEscape implements IItemHandler
 				_log.error(e.getMessage(), e);
 			}
 		}
-	}
-
-	private static boolean checkConditions(L2PcInstance actor)
-	{
-		 return actor.isStunned() || actor.isSleeping() || actor.isParalyzed() || actor.isFakeDeath() || actor.isTeleporting()
-		 || actor.isMuted() || actor.isAlikeDead() || actor.isAllSkillsDisabled() || actor.isCastingNow();
 	}
 
 	public int[] getItemIds()

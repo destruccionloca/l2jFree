@@ -16,46 +16,32 @@ package com.l2jfree.gameserver.model.restriction.global;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.events.TvT;
-import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.PlaySound;
 
 /**
  * @author NB4L1
  */
-final class TvTRestriction extends AbstractRestriction
+final class TvTRestriction extends AbstractFunEventRestriction
 {
 	@Override
-	public boolean canInviteToParty(L2PcInstance activeChar, L2PcInstance target)
+	boolean started()
 	{
-		if (TvT._started && !Config.TVT_ALLOW_INTERFERENCE && !activeChar.isGM())
-		{
-			if (target._inEventTvT != activeChar._inEventTvT)
-			{
-				activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
-				return false;
-			}
-		}
-		
-		return true;
+		return TvT._started;
 	}
 	
 	@Override
-	public boolean isInvul(L2Character activeChar, L2Character target, boolean isOffensive)
+	boolean allowInterference()
 	{
-		L2PcInstance attacker_ = L2Object.getActingPlayer(activeChar);
-		L2PcInstance target_ = L2Object.getActingPlayer(target);
-		
-		if (attacker_ == null || target_ == null || attacker_ == target_)
-			return false;
-		
-		if (attacker_._inEventTvT != target_._inEventTvT && !Config.TVT_ALLOW_INTERFERENCE)
-			return true;
-		
-		return false;
+		return Config.TVT_ALLOW_INTERFERENCE;
+	}
+	
+	@Override
+	boolean isInFunEvent(L2PcInstance player)
+	{
+		return player._inEventTvT;
 	}
 	
 	@Override

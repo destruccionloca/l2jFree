@@ -34,6 +34,8 @@ public interface GlobalRestriction
 	
 	public void isInsideZoneStateChanged(L2Character activeChar, byte zone, boolean isInsideZone);
 	
+	public boolean canTeleport(L2PcInstance activeChar);
+	
 	// TODO
 	
 	public void levelChanged(L2PcInstance activeChar);

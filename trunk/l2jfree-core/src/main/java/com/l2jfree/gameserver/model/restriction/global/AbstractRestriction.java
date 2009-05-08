@@ -56,6 +56,11 @@ public abstract class AbstractRestriction implements GlobalRestriction
 	{
 	}
 	
+	public boolean canTeleport(L2PcInstance activeChar)
+	{
+		return true;
+	}
+	
 	// TODO
 	
 	@Override

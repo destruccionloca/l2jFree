@@ -17,45 +17,31 @@ package com.l2jfree.gameserver.model.restriction.global;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Announcements;
 import com.l2jfree.gameserver.ThreadPoolManager;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.events.VIP;
-import com.l2jfree.gameserver.network.SystemMessageId;
 
 /**
  * @author NB4L1
  */
-final class VIPRestriction extends AbstractRestriction
+final class VIPRestriction extends AbstractFunEventRestriction
 {
 	@Override
-	public boolean canInviteToParty(L2PcInstance activeChar, L2PcInstance target)
+	boolean started()
 	{
-		if (VIP._started && !Config.VIP_ALLOW_INTERFERENCE && !activeChar.isGM())
-		{
-			if (target._inEventVIP != activeChar._inEventVIP)
-			{
-				activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
-				return false;
-			}
-		}
-		
-		return true;
+		return VIP._started;
 	}
 	
 	@Override
-	public boolean isInvul(L2Character activeChar, L2Character target, boolean isOffensive)
+	boolean allowInterference()
 	{
-		L2PcInstance attacker_ = L2Object.getActingPlayer(activeChar);
-		L2PcInstance target_ = L2Object.getActingPlayer(target);
-		
-		if (attacker_ == null || target_ == null || attacker_ == target_)
-			return false;
-		
-		if (attacker_._inEventVIP != target_._inEventVIP && !Config.VIP_ALLOW_INTERFERENCE)
-			return true;
-		
-		return false;
+		return Config.VIP_ALLOW_INTERFERENCE;
+	}
+	
+	@Override
+	boolean isInFunEvent(L2PcInstance player)
+	{
+		return player._inEventVIP;
 	}
 	
 	@Override

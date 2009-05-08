@@ -43,6 +43,19 @@ final class DuelRestriction extends AbstractRestriction
 	}
 	
 	@Override
+	public boolean canTeleport(L2PcInstance activeChar)
+	{
+		// Check to see if player is in a duel
+		if (activeChar.isInDuel())
+		{
+			activeChar.sendMessage("You can't teleport during a duel.");
+			return false;
+		}
+		
+		return true;
+	}
+	
+	@Override
 	public void effectCreated(L2Effect effect)
 	{
 		// Let the duel manager know about it, to remove it after the duel

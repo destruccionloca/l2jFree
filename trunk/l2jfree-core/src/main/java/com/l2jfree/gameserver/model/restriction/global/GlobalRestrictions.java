@@ -183,6 +183,15 @@ public final class GlobalRestrictions
 			restriction.isInsideZoneStateChanged(activeChar, zone, isInsideZone);
 	}
 	
+	public static boolean canTeleport(L2PcInstance activeChar)
+	{
+		for (GlobalRestriction restriction : _activeRestrictions)
+			if (!restriction.canTeleport(activeChar))
+				return false;
+		
+		return true;
+	}
+	
 	public static void levelChanged(L2PcInstance activeChar)
 	{
 		for (GlobalRestriction restriction : _activeRestrictions)
