@@ -325,7 +325,12 @@ public class L2Zone implements FuncOwner
 		return _removeEnter;
 	}
 	
-	private final Map<L2Character, Boolean> _charactersInside = new FastMap<L2Character, Boolean>().setShared(true);
+	private final FastMap<L2Character, Boolean> _charactersInside = new FastMap<L2Character, Boolean>().setShared(true);
+	
+	protected final FastMap<L2Character, Boolean> getCharactersInsideMap()
+	{
+		return _charactersInside;
+	}
 	
 	public final Set<L2Character> getCharactersInside()
 	{

@@ -211,7 +211,7 @@ public class L2Npc extends L2Character
 			return;
 		}
 		
-		if (_lastRandomAnimation + 3000 < System.currentTimeMillis())
+		if (_lastRandomAnimation + 3000 < System.currentTimeMillis() && !getKnownList().getKnownPlayers().isEmpty())
 		{
 			if (force || _lastRandomAnimation + _randomAnimationDelay < System.currentTimeMillis())
 			{

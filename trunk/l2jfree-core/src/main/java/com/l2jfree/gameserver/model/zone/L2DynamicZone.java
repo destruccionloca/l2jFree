@@ -16,6 +16,8 @@ package com.l2jfree.gameserver.model.zone;
 
 import java.util.concurrent.ScheduledFuture;
 
+import javolution.util.FastMap;
+
 import org.w3c.dom.Node;
 
 import com.l2jfree.gameserver.ThreadPoolManager;
@@ -81,7 +83,7 @@ public class L2DynamicZone extends L2Zone
 		public void run()
 		{
 			// Timer turns off if zone is empty
-			if (getCharactersInside().isEmpty())
+			if (!isActiveRegion())
 			{
 				stopZoneTask();
 				return;
@@ -95,6 +97,17 @@ public class L2DynamicZone extends L2Zone
 				if (isRepeatingBuff())
 					checkForEffects(character);
 			}
+		}
+		
+		private boolean isActiveRegion()
+		{
+			final FastMap<L2Character, Boolean> map = getCharactersInsideMap();
+			
+			for (FastMap.Entry<L2Character, Boolean> e = map.head(), end = map.tail(); (e = e.getNext()) != end;)
+				if (e.getKey().isInActiveRegion())
+					return true;
+			
+			return false;
 		}
 	}
 	

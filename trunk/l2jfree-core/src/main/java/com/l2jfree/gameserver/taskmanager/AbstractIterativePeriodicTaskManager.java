@@ -28,7 +28,7 @@ public abstract class AbstractIterativePeriodicTaskManager<T> extends AbstractPe
 	private final Set<T> _startList = new FastSet<T>();
 	private final Set<T> _stopList = new FastSet<T>();
 	
-	private final Set<T> _activeTasks = new FastSet<T>();
+	private final FastSet<T> _activeTasks = new FastSet<T>();
 	
 	protected AbstractIterativePeriodicTaskManager(int period)
 	{
@@ -66,8 +66,9 @@ public abstract class AbstractIterativePeriodicTaskManager<T> extends AbstractPe
 			_stopList.clear();
 		}
 		
-		for (T task : _activeTasks)
+		for (FastSet.Record r = _activeTasks.head(), end = _activeTasks.tail(); (r = r.getNext()) != end;)
 		{
+			final T task = _activeTasks.valueOf(r);
 			final long begin = System.nanoTime();
 			
 			try

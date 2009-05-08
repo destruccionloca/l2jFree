@@ -13930,8 +13930,9 @@ public final class L2PcInstance extends L2Playable
 	
 	public void broadcastRelationChangedImpl()
 	{
-		for (L2PcInstance player : getKnownList().getKnownPlayers().values())
-			RelationChanged.sendRelationChanged(this, player);
+		if (!getKnownList().getKnownPlayers().isEmpty())
+			for (L2PcInstance player : getKnownList().getKnownPlayers().values())
+				RelationChanged.sendRelationChanged(this, player);
 	}
 	
 	@Override

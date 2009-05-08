@@ -14,9 +14,8 @@
  */
 package com.l2jfree.gameserver.taskmanager;
 
-import java.util.Map.Entry;
-
 import javolution.util.FastMap;
+import javolution.util.FastMap.Entry;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
@@ -71,7 +70,8 @@ public final class MovementController extends AbstractPeriodicTaskManager
 	@Override
 	public void run()
 	{
-		for (Entry<L2Character, TickRange> entry : _movingChars.entrySet())
+		for (Entry<L2Character, TickRange> entry = _movingChars.head(), end = _movingChars.tail();
+				(entry = entry.getNext()) != end;)
 		{
 			L2Character cha = entry.getKey();
 			TickRange range = entry.getValue();
@@ -124,7 +124,8 @@ public final class MovementController extends AbstractPeriodicTaskManager
 		@Override
 		public void run()
 		{
-			for (Entry<L2Character, TickRange> entry : _movingChars.entrySet())
+			for (Entry<L2Character, TickRange> entry = _movingChars.head(), end = _movingChars.tail();
+					(entry = entry.getNext()) != end;)
 			{
 				L2Character cha = entry.getKey();
 				TickRange range = entry.getValue();
