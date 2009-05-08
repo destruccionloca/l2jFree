@@ -1,0 +1,162 @@
+/*
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+package com.l2jfree.gameserver.datatables;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.xml.sax.SAXException;
+
+import com.l2jfree.Config;
+import com.l2jfree.gameserver.util.Util;
+
+/**
+ * @author NB4L1
+ */
+public final class ForgottenScrollTable
+{
+	private static final Log _log = LogFactory.getLog(ForgottenScrollTable.class);
+	
+	private static ForgottenScrollTable _instance;
+	
+	public static ForgottenScrollTable getInstance()
+	{
+		if (_instance == null)
+			_instance = new ForgottenScrollTable();
+		
+		return _instance;
+	}
+	
+	public static final class ForgottenScrollData
+	{
+		private final int _itemId;
+		private final int _skillId;
+		private final int _minLevel;
+		private final int[] _classIds;
+		
+		public ForgottenScrollData(int itemId, int skillId, int minLevel, int[] classIds)
+		{
+			_itemId = itemId;
+			_skillId = skillId;
+			_minLevel = minLevel;
+			_classIds = classIds;
+		}
+		
+		public int getItemId()
+		{
+			return _itemId;
+		}
+		
+		public int getSkillId()
+		{
+			return _skillId;
+		}
+		
+		public int getMinLevel()
+		{
+			return _minLevel;
+		}
+		
+		public int[] getClassIds()
+		{
+			return _classIds;
+		}
+	}
+	
+	private final Map<Integer, ForgottenScrollData> _scrolls = new HashMap<Integer, ForgottenScrollData>();
+	private final Map<Integer, Set<Integer>> _allowedSkills = new HashMap<Integer, Set<Integer>>();
+	
+	private ForgottenScrollTable()
+	{
+		try
+		{
+			loadFromXML();
+		}
+		catch (Exception e)
+		{
+			_log.fatal("Failed loading forgotten scrolls", e);
+		}
+	}
+	
+	private void loadFromXML() throws SAXException, IOException, ParserConfigurationException
+	{
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		factory.setValidating(false);
+		factory.setIgnoringComments(true);
+		Document doc = factory.newDocumentBuilder().parse(new File(Config.DATAPACK_ROOT, "data/forgottenscrolls.xml"));
+		for (Node n = doc.getFirstChild(); n != null; n = n.getNextSibling())
+		{
+			if ("list".equalsIgnoreCase(n.getNodeName()))
+			{
+				for (Node d = n.getFirstChild(); d != null; d = d.getNextSibling())
+				{
+					if ("scroll".equalsIgnoreCase(d.getNodeName()))
+					{
+						NamedNodeMap attrs = d.getAttributes();
+						
+						int itemid = Integer.parseInt(attrs.getNamedItem("itemid").getNodeValue());
+						int skillid = Integer.parseInt(attrs.getNamedItem("skillid").getNodeValue());
+						int[] classIds = Util.toIntArray(attrs.getNamedItem("class").getNodeValue(), ";");
+						
+						Node att = attrs.getNamedItem("minlevel");
+						int minLevel = (att == null) ? 81 : Integer.parseInt(att.getNodeValue());
+						
+						ForgottenScrollData sd = new ForgottenScrollData(itemid, skillid, minLevel, classIds);
+						
+						_scrolls.put(sd.getItemId(), sd);
+						
+						for (int classId : sd.getClassIds())
+							getAllowedSkillIds(classId).add(sd.getSkillId());
+					}
+				}
+			}
+		}
+		
+		_log.info("ForgottenScrollsManager: Loaded " + _scrolls.size() + " forgotten scrolls.");
+	}
+	
+	public ForgottenScrollData getForgottenScrollByItemId(int itemId)
+	{
+		return _scrolls.get(itemId);
+	}
+	
+	public int[] getItemIds()
+	{
+		return ArrayUtils.toPrimitive(_scrolls.keySet().toArray(new Integer[_scrolls.size()]));
+	}
+	
+	public Set<Integer> getAllowedSkillIds(int classId)
+	{
+		Set<Integer> set = _allowedSkills.get(classId);
+		
+		if (set == null)
+			_allowedSkills.put(classId, set = new HashSet<Integer>());
+		
+		return set;
+	}
+}

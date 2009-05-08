@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--Done by Nitrozik -->
 <list>
+  <!--Class: 17 Prophet-->
+  <scroll itemid="10579" skillid="1499" class="17;98" minlevel="70"/><!-- Improve Combat --> 
+  <scroll itemid="10581" skillid="1501" class="17;98" minlevel="70"/><!-- Improve Condition --> 
+  <!--Class: 30 Elven Elder-->
+  <scroll itemid="10583" skillid="1503" class="30;105" minlevel="70"/><!-- Improve Shield Defense --> 
+  <scroll itemid="10584" skillid="1504" class="30;105" minlevel="70"/><!-- Improve Movement --> 
+  <!--Class: 43 Shillien Elder-->
+  <scroll itemid="10580" skillid="1500" class="43;112" minlevel="70"/><!-- Improve Magic --> 
+  <scroll itemid="10582" skillid="1502" class="43;112" minlevel="70"/><!-- Improve Critical Attack --> 
   <!--Class: 52 Warcryer-->
-  <scroll itemid="10610" skillid="1519" class="52"/> <!--Chant of Blood Awakening -->
-  <scroll itemid="10609" skillid="1518" class="52"/> <!--Chant of Critical Attack -->
-  <scroll itemid="10608" skillid="1517" class="52"/> <!--Chant of Combat -->
+  <scroll itemid="10608" skillid="1517" class="52;116" minlevel="70"/><!-- Chant of Combat -->
+  <scroll itemid="10609" skillid="1518" class="52;116" minlevel="72"/><!-- Chant of Critical Attack -->
+  <scroll itemid="10610" skillid="1519" class="52;116" minlevel="74"/><!-- Chant of Blood Awakening -->
   <!--Class: 88 Duelist-->
   <scroll itemid="10553" skillid="759" class="88"/><!--Archer's Will -->
   <scroll itemid="10552" skillid="758" class="88"/><!--Fighters Will -->

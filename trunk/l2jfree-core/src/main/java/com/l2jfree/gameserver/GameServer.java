@@ -42,6 +42,7 @@ import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.datatables.EventDroplist;
 import com.l2jfree.gameserver.datatables.ExtractableItemsData;
 import com.l2jfree.gameserver.datatables.FishTable;
+import com.l2jfree.gameserver.datatables.ForgottenScrollTable;
 import com.l2jfree.gameserver.datatables.GmListTable;
 import com.l2jfree.gameserver.datatables.HennaTable;
 import com.l2jfree.gameserver.datatables.HennaTreeTable;
@@ -232,6 +233,7 @@ public class GameServer
 		PetSkillsTable.getInstance();
 		NobleSkillTable.getInstance();
 		HeroSkillTable.getInstance();
+		ForgottenScrollTable.getInstance();
 		Util.printSection("Items");
 		ShotTable.getInstance();
 		ItemTable.getInstance();

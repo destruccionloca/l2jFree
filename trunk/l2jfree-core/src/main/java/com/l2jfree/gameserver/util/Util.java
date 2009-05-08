@@ -24,6 +24,7 @@ import java.util.Collection;
 import java.util.Locale;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.python.core.Py;
 import org.python.core.PyModule;
 import org.python.core.PySystemState;
@@ -386,25 +387,25 @@ public final class Util
 		ValueSortMap vsm = new ValueSortMap();
 		return vsm.sortThis(map, asc);
 	}
-
+	
 	public static int[] toIntArray(String string)
 	{
 		return toIntArray(string, ",");
 	}
-
+	
 	public static float[] toFloatArray(String string)
 	{
 		return toFloatArray(string, ",");
 	}
-
+	
 	public static boolean[] toBooleanArray(String string)
 	{
 		return toBooleanArray(string, ",");
 	}
-
+	
 	public static int[] toIntArray(String string, String delimiter)
 	{
-		String[] strings = string.split(delimiter);
+		String[] strings = StringUtils.split(string, delimiter);
 		int[] ints = new int[strings.length];
 		for (int i = 0; i < strings.length; i++)
 		{
@@ -412,10 +413,10 @@ public final class Util
 		}
 		return ints;
 	}
-
+	
 	public static float[] toFloatArray(String string, String delimiter)
 	{
-		String[] strings = string.split(delimiter);
+		String[] strings = StringUtils.split(string, delimiter);
 		float[] floats = new float[strings.length];
 		for (int i = 0; i < strings.length; i++)
 		{
@@ -423,10 +424,10 @@ public final class Util
 		}
 		return floats;
 	}
-
+	
 	public static boolean[] toBooleanArray(String string, String delimiter)
 	{
-		String[] strings = string.split(delimiter);
+		String[] strings = StringUtils.split(string, delimiter);
 		boolean[] bools = new boolean[strings.length];
 		for (int i = 0; i < strings.length; i++)
 		{

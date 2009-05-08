@@ -57,6 +57,7 @@ import com.l2jfree.gameserver.datatables.CharNameTable;
 import com.l2jfree.gameserver.datatables.CharTemplateTable;
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.datatables.FishTable;
+import com.l2jfree.gameserver.datatables.ForgottenScrollTable;
 import com.l2jfree.gameserver.datatables.GmListTable;
 import com.l2jfree.gameserver.datatables.HennaTable;
 import com.l2jfree.gameserver.datatables.HennaTreeTable;
@@ -7234,6 +7235,7 @@ public final class L2PcInstance extends L2Playable
 			return;
 		
 		Collection<L2SkillLearn> skillTree = SkillTreeTable.getInstance().getAllowedSkills(getClassId());
+		Set<Integer> forgottenIds = ForgottenScrollTable.getInstance().getAllowedSkillIds(getActiveClass());
 		
 		skill_loop: for (L2Skill skill : getAllSkills())
 		{
@@ -7247,6 +7249,8 @@ public final class L2PcInstance extends L2Playable
 					continue skill_loop;
 			}
 			
+			if (forgottenIds.contains(skillid))
+				continue skill_loop;
 			// Exclude noble skills
 			if (isNoble() && NobleSkillTable.isNobleSkill(skillid))
 				continue skill_loop;
