@@ -19,8 +19,8 @@ import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.L2Playable;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
@@ -45,9 +45,9 @@ public class SpiritLake implements IItemHandler
 		L2Skill skill = SkillTable.getInstance().getInfo(2368, 1);
 		L2Object target = activeChar.getTarget();
 
-		if (target instanceof L2NpcInstance)
+		if (target instanceof L2Npc)
 		{
-			if (((L2NpcInstance) target).getNpcId() == 18482) // kindred fafurion TODO: verify id since there are severall fafurions
+			if (((L2Npc)target).getNpcId() == 18482) // kindred fafurion TODO: verify id since there are severall fafurions
 			{
 				//activeChar.useMagic(skill, false, false);
 				activeChar.doCast(skill);

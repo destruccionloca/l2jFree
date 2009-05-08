@@ -4652,7 +4652,7 @@ public final class L2PcInstance extends L2Playable
 		if ((!isInsideZone(L2Zone.FLAG_PVP) || pk == null) && (!isGM() || Config.KARMA_DROP_GM))
 		{
 			boolean isKarmaDrop = false;
-			boolean isKillerNpc = (killer instanceof L2NpcInstance);
+			boolean isKillerNpc = (killer instanceof L2Npc);
 			int pkLimit = Config.KARMA_PK_LIMIT;
 
 			int dropEquip = 0;
@@ -12940,7 +12940,7 @@ public final class L2PcInstance extends L2Playable
 		{
 			sendPacket(SystemMessageId.CRITICAL_HIT);
 			
-			if (target instanceof L2NpcInstance)
+			if (target instanceof L2Npc)
 			{
 				// Soul Mastery skill
 				final L2Skill skill = getKnownSkill(L2Skill.SKILL_SOUL_MASTERY);

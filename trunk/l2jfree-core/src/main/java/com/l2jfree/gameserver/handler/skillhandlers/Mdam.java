@@ -18,10 +18,10 @@ import com.l2jfree.gameserver.handler.ICubicSkillHandler;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2RaidBossInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
@@ -171,8 +171,8 @@ public class Mdam implements ICubicSkillHandler
 					String name = "";
 					if (target instanceof L2RaidBossInstance)
 						name = "RaidBoss ";
-					if (target instanceof L2NpcInstance)
-						name += target.getName() + "(" + ((L2NpcInstance) target).getTemplate().getNpcId() + ")";
+					if (target instanceof L2Npc)
+						name += target.getName() + "(" + ((L2Npc)target).getTemplate().getNpcId() + ")";
 					if (target instanceof L2PcInstance)
 						name = target.getName() + "(" + target.getObjectId() + ") ";
 					name += target.getLevel() + " lvl";

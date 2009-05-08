@@ -23,8 +23,8 @@ import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.L2Summon;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
@@ -169,7 +169,7 @@ public class AdminTest implements IAdminCommandHandler
 
 						for (L2Object target : targetList)
 						{
-							if (target instanceof L2NpcInstance)
+							if (target instanceof L2Npc)
 								activeChar.sendMessage("NPC: " + target.getName());
 							if (target instanceof L2PcInstance)
 								activeChar.sendMessage("PC : " + target.getName());

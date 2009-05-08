@@ -66,16 +66,16 @@ public final class EffectFakeDeath extends L2Effect
 		 * instanceof L2SiegeGuardInstance || obj instanceof L2GuardInstance ))
 		 * continue;
 		 * 
-		 * if (((L2NpcInstance)obj).getTarget() == getEffected() &&
-		 * (!((L2NpcInstance)obj) instanceof L2DoorInstance) &&
-		 * ((L2NpcInstance)obj).getTarget() != null &&
-		 * !((L2NpcInstance)obj).isDead()) {
-		 * ((L2NpcInstance)obj).setTarget(null);
-		 * ((L2NpcInstance)obj).getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, //
+		 * if (((L2Npc)obj).getTarget() == getEffected() &&
+		 * (!((L2Npc)obj) instanceof L2DoorInstance) &&
+		 * ((L2Npc)obj).getTarget() != null &&
+		 * !((L2Npc)obj).isDead()) {
+		 * ((L2Npc)obj).setTarget(null);
+		 * ((L2Npc)obj).getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, //
 		 * Move Npc to Spawn Location new
-		 * L2CharPosition(((L2NpcInstance)obj).getSpawn().getLocx(),
-		 * ((L2NpcInstance)obj).getSpawn().getLocy(),
-		 * ((L2NpcInstance)obj).getSpawn().getLocz(),0)); } }
+		 * L2CharPosition(((L2Npc)obj).getSpawn().getLocx(),
+		 * ((L2Npc)obj).getSpawn().getLocy(),
+		 * ((L2Npc)obj).getSpawn().getLocz(),0)); } }
 		 * 
 		 * if (!((L2PcInstance)obj).isDead() && ((L2PcInstance)obj) != null &&
 		 * ((L2PcInstance)obj) != getEffected() &&

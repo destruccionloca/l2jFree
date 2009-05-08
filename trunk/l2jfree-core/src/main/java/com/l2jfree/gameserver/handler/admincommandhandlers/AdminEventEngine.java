@@ -34,7 +34,7 @@ import com.l2jfree.gameserver.datatables.SpawnTable;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.L2World;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.L2Event;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -565,12 +565,12 @@ public class AdminEventEngine implements IAdminCommandHandler
 				if (max < pc.getLevel())
 				{
 					max = pc.getLevel();
-					name = tempName2; 
+					name = tempName2;
 				}
 			}
 			catch (Exception e)
 			{
-				L2Event.participatingPlayers.remove(tempName2); 
+				L2Event.participatingPlayers.remove(tempName2);
 			}
 		}
 		L2Event.participatingPlayers.remove(name);
@@ -580,12 +580,12 @@ public class AdminEventEngine implements IAdminCommandHandler
 
 	void destroyEventNpcs()
 	{
-		L2NpcInstance npc;
+		L2Npc npc;
 		while (!L2Event.npcs.isEmpty())
 		{
 			try
 			{
-				npc = (L2NpcInstance) L2World.getInstance().findObject(Integer.parseInt(L2Event.npcs.getFirst()));
+				npc = (L2Npc)L2World.getInstance().findObject(Integer.parseInt(L2Event.npcs.getFirst()));
 
 				L2Spawn spawn = npc.getSpawn();
 
@@ -705,10 +705,10 @@ public class AdminEventEngine implements IAdminCommandHandler
 	}
 
 	/**
-	 * @param activeChar  
-	 * @param player  
-	 * @param id  
-	 * @param num  
+	 * @param activeChar
+	 * @param player
+	 * @param id
+	 * @param num
 	 */
 	private void createItem(L2PcInstance activeChar, L2PcInstance player, int id, int num)
 	{

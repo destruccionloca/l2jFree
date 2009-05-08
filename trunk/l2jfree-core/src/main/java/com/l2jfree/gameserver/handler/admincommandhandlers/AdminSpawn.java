@@ -36,7 +36,7 @@ import com.l2jfree.gameserver.model.AutoChatHandler;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.L2World;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -255,10 +255,10 @@ public class AdminSpawn implements IAdminCommandHandler
 		else if (cmd.equals("admin_delay"))
 		{
 			int delay = 0;
-			L2NpcInstance target = null;
+			L2Npc target = null;
 
-			if (activeChar.getTarget() instanceof L2NpcInstance)
-				target = ((L2NpcInstance) activeChar.getTarget());
+			if (activeChar.getTarget() instanceof L2Npc)
+				target = (L2Npc)activeChar.getTarget();
 
 			if (st.hasMoreTokens() && target != null)
 			{
@@ -386,9 +386,9 @@ public class AdminSpawn implements IAdminCommandHandler
 	}
 
 	/**
-	 * Spawn NPC. 
+	 * Spawn NPC.
 	 * @param npcId id of NPC Template
-	 * @param count count of NPCs to spawn 
+	 * @param count count of NPCs to spawn
 	 * @param radius radius of spawn
 	 * @param respawn if false spawn only once
 	 * @param custom if true then spawn will be custom
@@ -491,9 +491,9 @@ public class AdminSpawn implements IAdminCommandHandler
 	}
 
 	/**
-	 * Spawn NPC. 
+	 * Spawn NPC.
 	 * @param npcName name of NPC
-	 * @param count count of NPCs to spawn 
+	 * @param count count of NPCs to spawn
 	 * @param radius radius of spawn
 	 * @param respawn if false spawn only once
 	 * @param custom if true then spawn will be custom
@@ -509,9 +509,9 @@ public class AdminSpawn implements IAdminCommandHandler
 	}
 
 	/**
-	 * Search for NPC. 
+	 * Search for NPC.
 	 * @param mode search mode, by "level","name" or "namepart"
-	 * @param string parameter of search: level or part name 
+	 * @param string parameter of search: level or part name
 	 * @param page number of html page to show
 	 */
 	private void showNpcs(L2PcInstance activeChar, String mode, String string, int page)
@@ -610,7 +610,7 @@ public class AdminSpawn implements IAdminCommandHandler
 	}
 
 	/**
-	 * List all spawns of NPC. 
+	 * List all spawns of NPC.
 	 * @param npcId NPC template ID
 	 */
 	private void showSpawns(L2PcInstance activeChar, int npcId)
@@ -622,7 +622,7 @@ public class AdminSpawn implements IAdminCommandHandler
 	}
 
 	/**
-	 * Show all spawns of NPC. 
+	 * Show all spawns of NPC.
 	 * @param npc name
 	 * @param page html page number
 	 * @param html show spawns as html page, if false list spawns in chat
@@ -638,7 +638,7 @@ public class AdminSpawn implements IAdminCommandHandler
 	}
 
 	/**
-	 * Show all spawns of NPC. 
+	 * Show all spawns of NPC.
 	 * @param npcId NPC template ID
 	 * @param page html page number
 	 * @param html show spawns as html page, if false list spawns in chat
@@ -721,7 +721,7 @@ public class AdminSpawn implements IAdminCommandHandler
 	}
 
 	/**
-	 * Show tips about command usage and syntax. 
+	 * Show tips about command usage and syntax.
 	 * @param command admin command name
 	 */
 	private void showAdminCommandHelp(L2PcInstance activeChar, String command)
@@ -737,7 +737,7 @@ public class AdminSpawn implements IAdminCommandHandler
 	}
 
 	/**
-	 * Search for NPC ID by NPC name. 
+	 * Search for NPC ID by NPC name.
 	 * @param npcName (use underscope to separate words in npc name)
 	 * @return NPC ID or 0 if no template found
 	 */

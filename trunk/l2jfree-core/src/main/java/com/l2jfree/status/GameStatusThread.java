@@ -60,10 +60,10 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.TradeList;
 import com.l2jfree.gameserver.model.TradeList.TradeItem;
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.network.Disconnection;
@@ -371,7 +371,7 @@ public final class GameStatusThread extends Thread
 							minionCount += ((L2MonsterInstance)obj).getTotalSpawnedMinionsInstances();
 							minionsGroupCount += ((L2MonsterInstance)obj).getTotalSpawnedMinionsGroups();
 						}
-						else if (obj instanceof L2NpcInstance)
+						else if (obj instanceof L2Npc)
 							npcCount++;
 						else if (obj instanceof L2PcInstance)
 							pcCount++;

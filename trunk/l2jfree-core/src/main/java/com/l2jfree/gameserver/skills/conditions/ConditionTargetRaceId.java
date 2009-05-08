@@ -19,7 +19,7 @@ import java.util.List;
 
 import org.apache.commons.lang.ArrayUtils;
 
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.skills.Env;
 
 /**
@@ -39,9 +39,9 @@ final class ConditionTargetRaceId extends Condition
 	@Override
 	public boolean testImpl(Env env)
 	{
-		if (!(env.target instanceof L2NpcInstance))
+		if (!(env.target instanceof L2Npc))
 			return false;
 		
-		return Arrays.binarySearch(_raceIds, ((L2NpcInstance)env.target).getTemplate().getRace().ordinal()) >= 0;
+		return Arrays.binarySearch(_raceIds, ((L2Npc)env.target).getTemplate().getRace().ordinal()) >= 0;
 	}
 }

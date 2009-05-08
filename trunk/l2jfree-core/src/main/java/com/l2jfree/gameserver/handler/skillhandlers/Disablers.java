@@ -31,10 +31,10 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Attackable;
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeSummonInstance;
 import com.l2jfree.gameserver.model.base.Experience;
@@ -195,7 +195,7 @@ public class Disablers implements ICubicSkillHandler
 				if (target.reflectSkill(skill))
 					target = activeChar;
 
-				if (target instanceof L2NpcInstance)
+				if (target instanceof L2Npc)
 				{
 					target.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, activeChar, 50);
 				}
@@ -221,7 +221,7 @@ public class Disablers implements ICubicSkillHandler
 				if (target.reflectSkill(skill))
 					target = activeChar;
 
-				if (target instanceof L2NpcInstance)
+				if (target instanceof L2Npc)
 				{
 					target.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, activeChar, 50);
 				}

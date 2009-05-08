@@ -33,7 +33,7 @@ import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.instancemanager.RecommendationManager;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.base.ClassId;
@@ -302,14 +302,14 @@ public class AdminEditChar implements IAdminCommandHandler
 			st.nextToken();
 			L2Object target = activeChar.getTarget();
 			L2PcInstance player = null;
-			L2NpcInstance npc = null;
+			L2Npc npc = null;
 
 			if (target == null)
 				player = activeChar;
 			else if (target instanceof L2PcInstance)
 				player = (L2PcInstance) target;
-			else if (target instanceof L2NpcInstance)
-				npc = (L2NpcInstance) target;
+			else if (target instanceof L2Npc)
+				npc = (L2Npc)target;
 			else
 				return false;
 
@@ -375,9 +375,9 @@ public class AdminEditChar implements IAdminCommandHandler
 
 					RegionBBSManager.getInstance().changeCommunityBoard();
 				}
-				else if (target instanceof L2NpcInstance)
+				else if (target instanceof L2Npc)
 				{
-					L2NpcInstance npc = (L2NpcInstance)target;
+					L2Npc npc = (L2Npc)target;
 					oldName = npc.getName();
 					npc.setName(val);
 					npc.updateAbnormalEffect();

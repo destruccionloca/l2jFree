@@ -15,12 +15,11 @@
 package com.l2jfree.gameserver.model.actor.status;
 
 import com.l2jfree.gameserver.model.actor.L2Character;
-import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 
 public final class FolkStatus extends NpcStatus
 {
-	public FolkStatus(L2Npc activeChar)
+	public FolkStatus(L2NpcInstance activeChar)
 	{
 		super(activeChar);
 	}
