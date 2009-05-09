@@ -1152,6 +1152,7 @@ public final class Config extends L2Config
 	public static boolean			ENABLE_JYTHON_SHELL;							// JythonShell
 	public static boolean			ONLY_GM_ITEMS_FREE;							// Only GM buy items for free
 	public static int				DEADLOCKCHECK_INTERVAL;
+	public static boolean			ALT_MASTERWORK_CONFIG;
 	public static boolean			ALLOW_MASTERWORK;
 	public static boolean			ALLOW_CRITICAL_CRAFT;
 	public static boolean			MAIL_STORE_DELETED_LETTERS;
@@ -1330,6 +1331,7 @@ public final class Config extends L2Config
 			ALT_DEV_NO_SPAWNS = Boolean.parseBoolean(optionsSettings.getProperty("AltDevNoSpawns", "False"));
 			ENABLE_JYTHON_SHELL = Boolean.parseBoolean(optionsSettings.getProperty("EnableJythonShell", "False"));
 			DEADLOCKCHECK_INTERVAL = Integer.parseInt(optionsSettings.getProperty("DeadLockCheck", "10000"));
+			ALT_MASTERWORK_CONFIG = Boolean.parseBoolean(optionsSettings.getProperty("AltMasterworkConfig", "False"));
 			ALLOW_MASTERWORK = Boolean.parseBoolean(optionsSettings.getProperty("AllowMasterwork", "False"));
 			ALLOW_CRITICAL_CRAFT = Boolean.parseBoolean(optionsSettings.getProperty("AllowCriticalCraft", "False"));
 			BAN_CLIENT_EMULATORS = Boolean.parseBoolean(optionsSettings.getProperty("AutoBanClientEmulators", "True"));

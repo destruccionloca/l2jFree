@@ -14,7 +14,9 @@
  */
 package com.l2jfree.gameserver.model;
 
+import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.templates.StatsSet;
+import com.l2jfree.gameserver.templates.item.L2Item;
 
 /**
  * This class describes a Recipe used by Dwarf to craft Item. All L2RecipeList
@@ -165,7 +167,7 @@ public class L2RecipeList
 	}
 
 	/**
-	 * Return rue if the Item crafted with this L2RecipeList is consumable (shot, arrow,...).<BR><BR>
+	 * Return true if the Item crafted with this L2RecipeList is consumable (shot, arrow,...).<BR><BR>
 	 */
 	public boolean isConsumable()
 	{
@@ -173,6 +175,18 @@ public class L2RecipeList
 				|| (_itemId >= 2509 && _itemId <= 2514) // Spiritshots
 				|| (_itemId >= 3947 && _itemId <= 3952) // Blessed Spiritshots
 		|| (_itemId >= 1341 && _itemId <= 1345) // Arrows
+		);
+	}
+	
+	/**
+	 * Return true if the Item crafted with this L2RecipeList is affected by critical craft.<BR><BR>
+	 */
+	public boolean isCriticalAffected()
+	{
+		return ((ItemTable.getInstance().getTemplate(_itemId).getCrystalType() != L2Item.CRYSTAL_B)
+				&& (ItemTable.getInstance().getTemplate(_itemId).getCrystalType() != L2Item.CRYSTAL_A)
+				&& (ItemTable.getInstance().getTemplate(_itemId).getCrystalType() != L2Item.CRYSTAL_S)
+				&& (ItemTable.getInstance().getTemplate(_itemId).getCrystalType() != L2Item.CRYSTAL_S80)
 		);
 	}
 

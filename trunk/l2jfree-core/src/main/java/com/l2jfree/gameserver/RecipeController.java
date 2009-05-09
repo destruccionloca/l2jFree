@@ -337,10 +337,6 @@ public class RecipeController
 										continue recipesFile;
 									}
 								}
-								else if ("masterwork".equalsIgnoreCase(c.getNodeName()))
-								{
-									set.set("masterwork", Integer.parseInt(c.getAttributes().getNamedItem("id").getNodeValue()));
-								}
 								else if ("ingredient".equalsIgnoreCase(c.getNodeName()))
 								{
 									int ingId = Integer.parseInt(c.getAttributes().getNamedItem("id").getNodeValue());
@@ -914,15 +910,35 @@ public class RecipeController
 
 			L2Item template = ItemTable.getInstance().getTemplate(itemId);
 
-			// check that the current recipe has a rare production or not
-			if (rareProdId != -1 && Config.ALLOW_MASTERWORK)
+			if (Config.ALT_MASTERWORK_CONFIG)
 			{
-				if (Rnd.get(100) < _recipeList.getRarity())
+				if (Config.ALLOW_MASTERWORK)
 				{
-					itemId = rareProdId;
-					if (Config.ALLOW_CRITICAL_CRAFT)
+					if (rareProdId != -1 && Rnd.get(100) <= Config.RATE_MASTERWORK)
 					{
-						itemCount = _recipeList.getRareCount();
+						itemId = rareProdId;
+					}
+				}
+
+				if (Config.ALLOW_CRITICAL_CRAFT && _recipeList.isCriticalAffected())
+				{
+					if (Rnd.get(100) <= Config.RATE_CRITICAL_CRAFT_CHANCE)
+					{
+						itemCount = itemCount * Config.RATE_CRITICAL_CRAFT_MULTIPLIER;
+					}
+				}
+			}
+			else
+			{
+				if (rareProdId != -1 && Config.ALLOW_MASTERWORK)
+				{
+					if (Rnd.get(100) <= _recipeList.getRarity())
+					{
+						itemId = rareProdId;
+						if (Config.ALLOW_CRITICAL_CRAFT)
+						{
+							itemCount = _recipeList.getRareCount();
+						}
 					}
 				}
 			}
