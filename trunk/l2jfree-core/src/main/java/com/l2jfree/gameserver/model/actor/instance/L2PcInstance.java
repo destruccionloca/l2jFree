@@ -7850,6 +7850,28 @@ public final class L2PcInstance extends L2Playable
 	}
 
 	/**
+	 * Checks if the client was allowed to call that skill at all, or not.
+	 */
+	public boolean canUseMagic(L2Skill skill)
+	{
+		if (skill == null || skill.getSkillType() == L2SkillType.NOTDONE)
+			return false;
+		
+		// players mounted on pets cannot use any toggle skills
+		if (skill.isToggle() && isMounted())
+			return false;
+		
+		// Check if the skill is active
+		if (skill.isPassive() || skill.isChance() || skill.bestowed())
+			return false;
+		
+		if (isTransformed() && !containsAllowedTransformSkill(skill.getId()))
+			return false;
+		
+		return true;
+	}
+	
+	/**
 	 * Check if the active L2Skill can be casted.<BR><BR>
 	 *
 	 * <B><U> Actions</U> :</B><BR><BR>
@@ -7871,15 +7893,11 @@ public final class L2PcInstance extends L2Playable
 	 */
 	public void useMagic(L2Skill skill, boolean forceUse, boolean dontMove)
 	{
-		// Check if the skill is active
-		if (skill.isPassive() || skill.isChance() || skill.bestowed())
+		if (!canUseMagic(skill))
 		{
-			// Just ignore the passive skill request. why does the client send it anyway ??
-			// Send a Server->Client packet ActionFailed to the L2PcInstance
 			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
-
 		
 		//************************************* Check Casting in Progress *******************************************
 
@@ -7954,6 +7972,14 @@ public final class L2PcInstance extends L2Playable
 
 		// Abnormal effects(ex : Stun, Sleep...) are checked in L2Character useMagic()
 
+		// If Alternate rule Karma punishment is set to true, forbid skill Return to player with Karma
+		if (skill.getSkillType() == L2SkillType.RECALL && !Config.ALT_GAME_KARMA_PLAYER_CAN_TELEPORT && getKarma() > 0)
+		{
+			sendMessage("You can't teleport with karma!");
+			sendPacket(ActionFailed.STATIC_PACKET);
+			return false;
+		}
+		
 		if (isOutOfControl())
 		{
 			sendPacket(ActionFailed.STATIC_PACKET);

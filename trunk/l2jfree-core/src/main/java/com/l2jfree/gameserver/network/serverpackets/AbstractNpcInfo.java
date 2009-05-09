@@ -208,7 +208,7 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			writeD(_flWalkSpd);
 			writeD(_flyRunSpd);
 			writeD(_flyWalkSpd);
-			writeF(_trap.getStat().getMovementSpeedMultiplier());
+			writeF(1.1/*_trap.getStat().getMovementSpeedMultiplier()*/);
 			writeF(_trap.getStat().getAttackSpeedMultiplier());
 			writeF(_collisionRadius);
 			writeF(_collisionHeight);
@@ -235,7 +235,7 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			writeD(0000);  // C2
 			writeC(0000);  // C2
 
-			writeC(0x00);  // Title color 0=client default 
+			writeC(0x00);  // Title color 0=client default
 
 			writeF(_collisionRadius);
 			writeF(_collisionHeight);
@@ -335,7 +335,7 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_HAIR));
 			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_HAIR2));
 
-			// T1 new h's 
+			// T1 new h's
 			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_RBRACELET));
 			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_LBRACELET));
 			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_DECO1));
@@ -344,7 +344,7 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_DECO4));
 			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_DECO5));
 			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_DECO6));
-			// end of t1 new h's 
+			// end of t1 new h's
 
 			writeD(owner.getPvpFlag());
 			writeD(owner.getKarma());
@@ -459,7 +459,7 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			else
 				writeD(0x00);
 
-			// T1 
+			// T1
 			if (owner.getClan() != null)
 				writeD(owner.getClan().getReputationScore());
 			else
@@ -491,7 +491,7 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			{
 				if (cha.getLevel() > 84)
 					_form = 3;
-				else if (cha.getLevel() > 79) 
+				else if (cha.getLevel() > 79)
 					_form = 2;
 				else if (cha.getLevel() > 74)
 					_form = 1;
@@ -500,9 +500,9 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			{
 				if (cha.getLevel() > 69)
 					_form = 3;
-				else if (cha.getLevel() > 64) 
+				else if (cha.getLevel() > 64)
 					_form = 2;
-				else if (cha.getLevel() > 59) 
+				else if (cha.getLevel() > 59)
 					_form = 1;
 			}
 
