@@ -256,7 +256,8 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 		public DecoyInfo(L2Decoy cha)
 		{
 			super(cha);
-
+			_decoy = cha;
+			_idTemplate = cha.getTemplate().getIdTemplate();
 			if (_idTemplate <= 13070 || _idTemplate >= 13077)
 			{
 				if (Config.ASSERT)
@@ -264,9 +265,6 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 				else
 					throw new IllegalArgumentException("Using DecoyInfo packet with an unsupported decoy template");
 			}
-			
-			_decoy = cha;
-			_idTemplate = cha.getTemplate().getIdTemplate();
 			_heading = cha.getOwner().getHeading();
 			// _mAtkSpd = cha.getMAtkSpd(); on abstract constructor
 			_pAtkSpd = cha.getOwner().getPAtkSpd();
@@ -510,6 +508,8 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			_rhand = cha.getWeapon();
 			_lhand = 0;
 			_chest = cha.getArmor();
+			_collisionHeight = _summon.getTemplate().getCollisionHeight();
+			_collisionRadius = _summon.getTemplate().getCollisionRadius();
 			_name = cha.getName();
 			_title = cha.getOwner() != null ? (cha.getOwner().isOnline() == 0 ? "" : cha.getOwner().getName()) : ""; // when owner online, summon will show in title owner name
 			_idTemplate = cha.getTemplate().getIdTemplate();
