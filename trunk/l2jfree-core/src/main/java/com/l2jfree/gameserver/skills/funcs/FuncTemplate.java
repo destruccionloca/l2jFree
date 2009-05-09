@@ -42,6 +42,66 @@ public final class FuncTemplate
 	{
 		_attachCond = pAttachCond;
 		
+		Class<?> clazz;
+		try
+		{
+			clazz = Class.forName("com.l2jfree.gameserver.skills.funcs.Func" + pFunc);
+		}
+		catch (Exception e)
+		{
+			throw new RuntimeException(e);
+		}
+		
+		// Ugly fixes for DP errors
+		switch (pStat)
+		{
+			case CRITICAL_DAMAGE_ADD:
+			{
+				if (clazz != FuncAdd.class && clazz != FuncSub.class)
+				{
+					pStat = Stats.CRITICAL_DAMAGE;
+				}
+				break;
+			}
+			case CRITICAL_DAMAGE:
+			{
+				if (clazz == FuncAdd.class || clazz == FuncSub.class)
+				{
+					pStat = Stats.CRITICAL_DAMAGE_ADD;
+				}
+				break;
+			}
+			case CRITICAL_RATE:
+			{
+				if (clazz == FuncMul.class)
+				{
+					clazz = FuncBaseMul.class;
+					pLambda = (pLambda - 1.0);
+				}
+				else if (clazz == FuncDiv.class)
+				{
+					clazz = FuncBaseMul.class;
+					pLambda = ((1.0 / pLambda) - 1.0);
+				}
+				break;
+			}
+		}
+		
+		if ("Enchant".equalsIgnoreCase(pFunc))
+		{
+			switch (pStat)
+			{
+				case MAGIC_DEFENCE:
+				case POWER_DEFENCE:
+				case SHIELD_DEFENCE:
+				case MAGIC_ATTACK:
+				case POWER_ATTACK:
+					break;
+				default:
+					throw new IllegalStateException();
+			}
+		}
+		
 		stat = pStat;
 		order = pOrder;
 		lambda = pLambda;
@@ -49,8 +109,7 @@ public final class FuncTemplate
 		
 		try
 		{
-			_constructor = Class.forName("com.l2jfree.gameserver.skills.funcs.Func" + pFunc).getConstructor(
-				Stats.class, Integer.TYPE, FuncOwner.class, Double.TYPE, Condition.class);
+			_constructor = clazz.getConstructor(Stats.class, Integer.TYPE, FuncOwner.class, Double.TYPE,Condition.class);
 		}
 		catch (Exception e)
 		{

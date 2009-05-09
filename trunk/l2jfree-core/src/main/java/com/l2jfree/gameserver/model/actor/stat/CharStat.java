@@ -180,12 +180,6 @@ public class CharStat
 		return (int) calcStat(Stats.STAT_CON, _activeChar.getTemplate().getBaseCON(), null, null);
 	}
 
-	/** Return the Critical Damage rate (base+modifier) of the L2Character. */
-	public final double getCriticalDmg(L2Character target, double init)
-	{
-		return calcStat(Stats.CRITICAL_DAMAGE, init, target, null);
-	}
-
 	/** Return the Critical Hit rate (base+modifier) of the L2Character. */
 	public int getCriticalHit(L2Character target, L2Skill skill)
 	{

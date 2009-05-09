@@ -6875,12 +6875,6 @@ public abstract class L2Character extends L2Object
 		return getStat().getAccuracy();
 	}
 
-	// public final int getAtkCancel() { return getStat().getAtkCancel(); }
-	public final double getCriticalDmg(L2Character target, double init)
-	{
-		return getStat().getCriticalDmg(target, init);
-	}
-
 	public int getCriticalHit(L2Character target, L2Skill skill)
 	{
 		return getStat().getCriticalHit(target, skill);
