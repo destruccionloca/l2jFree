@@ -25,8 +25,8 @@ import com.l2jfree.gameserver.model.entity.Duel;
  */
 final class DuelRestriction extends AbstractRestriction
 {
-	/*
 	@Override
+	@DisabledRestriction
 	public boolean canInviteToParty(L2PcInstance activeChar, L2PcInstance target)
 	{
 		if (activeChar.isInDuel() || target.isInDuel())
@@ -34,7 +34,6 @@ final class DuelRestriction extends AbstractRestriction
 		
 		return true;
 	}
-	*/
 	
 	@Override
 	public boolean isInvul(L2Character activeChar, L2Character target, boolean isOffensive)

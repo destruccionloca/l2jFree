@@ -29,64 +29,80 @@ public abstract class AbstractRestriction implements GlobalRestriction
 {
 	static final Log _log = LogFactory.getLog(AbstractRestriction.class);
 	
-	@Override
+	@DisabledRestriction
 	public boolean canInviteToParty(L2PcInstance activeChar, L2PcInstance target)
 	{
-		return true;
+		throw new AbstractMethodError();
 	}
 	
-	@Override
+	@DisabledRestriction
 	public boolean canCreateEffect(L2Character activeChar, L2Character target, L2Skill skill)
 	{
-		return true;
+		throw new AbstractMethodError();
 	}
 	
-	@Override
+	@DisabledRestriction
 	public boolean isInvul(L2Character activeChar, L2Character target, boolean isOffensive)
 	{
-		return false;
+		throw new AbstractMethodError();
 	}
 	
-	public int isInsideZoneModifier(L2Character activeChar, byte zone)
-	{
-		return 0;
-	}
-	
-	public void isInsideZoneStateChanged(L2Character activeChar, byte zone, boolean isInsideZone)
-	{
-	}
-	
+	@DisabledRestriction
 	public boolean canTeleport(L2PcInstance activeChar)
 	{
-		return true;
+		throw new AbstractMethodError();
 	}
 	
 	// TODO
 	
-	@Override
+	@DisabledRestriction
+	public int isInsideZoneModifier(L2Character activeChar, byte zone)
+	{
+		throw new AbstractMethodError();
+	}
+	
+	@DisabledRestriction
+	public double calcDamage(L2Character activeChar, L2Character target, double damage, L2Skill skill)
+	{
+		throw new AbstractMethodError();
+	}
+	
+	// TODO
+	
+	@DisabledRestriction
 	public void levelChanged(L2PcInstance activeChar)
 	{
+		throw new AbstractMethodError();
 	}
 	
-	@Override
+	@DisabledRestriction
 	public void effectCreated(L2Effect effect)
 	{
+		throw new AbstractMethodError();
 	}
 	
-	@Override
+	@DisabledRestriction
 	public void playerLoggedIn(L2PcInstance activeChar)
 	{
+		throw new AbstractMethodError();
 	}
 	
-	@Override
+	@DisabledRestriction
 	public void playerDisconnected(L2PcInstance activeChar)
 	{
+		throw new AbstractMethodError();
 	}
 	
-	@Override
+	@DisabledRestriction
 	public boolean playerKilled(L2Character activeChar, L2PcInstance target)
 	{
-		return false;
+		throw new AbstractMethodError();
+	}
+	
+	@DisabledRestriction
+	public void isInsideZoneStateChanged(L2Character activeChar, byte zone, boolean isInsideZone)
+	{
+		throw new AbstractMethodError();
 	}
 	
 	// TODO

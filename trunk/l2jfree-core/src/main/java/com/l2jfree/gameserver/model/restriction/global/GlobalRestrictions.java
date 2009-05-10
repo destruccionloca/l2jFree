@@ -14,6 +14,9 @@
  */
 package com.l2jfree.gameserver.model.restriction.global;
 
+import java.lang.reflect.Method;
+import java.util.Arrays;
+
 import org.apache.commons.lang.ArrayUtils;
 
 import com.l2jfree.Config;
@@ -36,18 +39,100 @@ public final class GlobalRestrictions
 	{
 	}
 	
-	private static GlobalRestriction[] _activeRestrictions = new GlobalRestriction[0];
+	private static enum RestrictionMode
+	{
+		canInviteToParty,
+		canCreateEffect,
+		isInvul,
+		canTeleport,
+		// TODO
+		
+		isInsideZoneModifier,
+		calcDamage,
+		// TODO
+		
+		levelChanged,
+		effectCreated,
+		playerLoggedIn,
+		playerDisconnected,
+		playerKilled,
+		isInsideZoneStateChanged,
+		// TODO
+		;
+		
+		private final Method _method;
+		
+		private RestrictionMode()
+		{
+			for (Method method : GlobalRestriction.class.getMethods())
+			{
+				if (name().equals(method.getName()))
+				{
+					_method = method;
+					return;
+				}
+			}
+			
+			throw new InternalError();
+		}
+		
+		private boolean equalsMethod(Method method)
+		{
+			if (!_method.getName().equals(method.getName()))
+				return false;
+			
+			if (!_method.getReturnType().equals(method.getReturnType()))
+				return false;
+			
+			return Arrays.equals(_method.getParameterTypes(), method.getParameterTypes());
+		}
+		
+		private static final RestrictionMode[] VALUES = RestrictionMode.values();
+		
+		private static RestrictionMode parse(Method method)
+		{
+			for (RestrictionMode mode : VALUES)
+				if (mode.equalsMethod(method))
+					return mode;
+			
+			return null;
+		}
+	}
+	
+	private static final GlobalRestriction[][] _restrictions = new GlobalRestriction[RestrictionMode.VALUES.length][0];
 	
 	public synchronized static void activate(GlobalRestriction restriction)
 	{
-		if (!ArrayUtils.contains(_activeRestrictions, restriction))
-			_activeRestrictions = (GlobalRestriction[])ArrayUtils.add(_activeRestrictions, restriction);
+		for (Method method : restriction.getClass().getMethods())
+		{
+			RestrictionMode mode = RestrictionMode.parse(method);
+			
+			if (mode == null)
+				continue;
+			
+			if (method.getAnnotation(DisabledRestriction.class) != null)
+				continue;
+			
+			GlobalRestriction[] restrictions = _restrictions[mode.ordinal()];
+			
+			if (!ArrayUtils.contains(restrictions, restriction))
+				restrictions = (GlobalRestriction[])ArrayUtils.add(restrictions, restriction);
+			
+			_restrictions[mode.ordinal()] = restrictions;
+		}
 	}
 	
 	public synchronized static void deactivate(GlobalRestriction restriction)
 	{
-		while (ArrayUtils.contains(_activeRestrictions, restriction))
-			_activeRestrictions = (GlobalRestriction[])ArrayUtils.removeElement(_activeRestrictions, restriction);
+		for (RestrictionMode mode : RestrictionMode.VALUES)
+		{
+			GlobalRestriction[] restrictions = _restrictions[mode.ordinal()];
+			
+			for (int index; (index = ArrayUtils.indexOf(restrictions, restriction)) != -1;)
+				restrictions = (GlobalRestriction[])ArrayUtils.remove(restrictions, index);
+			
+			_restrictions[mode.ordinal()] = restrictions;
+		}
 	}
 	
 	static
@@ -68,7 +153,7 @@ public final class GlobalRestrictions
 	
 	public static boolean canInviteToParty(L2PcInstance activeChar, L2PcInstance target)
 	{
-		for (GlobalRestriction restriction : _activeRestrictions)
+		for (GlobalRestriction restriction : _restrictions[RestrictionMode.canInviteToParty.ordinal()])
 			if (!restriction.canInviteToParty(activeChar, target))
 				return false;
 		
@@ -102,7 +187,7 @@ public final class GlobalRestrictions
 					return false;
 		}
 		
-		for (GlobalRestriction restriction : _activeRestrictions)
+		for (GlobalRestriction restriction : _restrictions[RestrictionMode.canCreateEffect.ordinal()])
 			if (!restriction.canCreateEffect(activeChar, target, skill))
 				return false;
 		
@@ -149,21 +234,75 @@ public final class GlobalRestrictions
 			}
 		}
 		
-		for (GlobalRestriction restriction : _activeRestrictions)
+		for (GlobalRestriction restriction : _restrictions[RestrictionMode.isInvul.ordinal()])
 			if (restriction.isInvul(activeChar, target, isOffensive))
 				return true;
 		
 		return false;
 	}
 	
+	public static boolean canTeleport(L2PcInstance activeChar)
+	{
+		for (GlobalRestriction restriction : _restrictions[RestrictionMode.canTeleport.ordinal()])
+			if (!restriction.canTeleport(activeChar))
+				return false;
+		
+		return true;
+	}
+	
+	// TODO
+	
 	public static int isInsideZoneModifier(L2Character activeChar, byte zone)
 	{
 		int result = 0;
 		
-		for (GlobalRestriction restriction : _activeRestrictions)
+		for (GlobalRestriction restriction : _restrictions[RestrictionMode.isInsideZoneModifier.ordinal()])
 			result += restriction.isInsideZoneModifier(activeChar, zone);
 		
 		return result;
+	}
+	
+	public static double calcDamage(L2Character activeChar, L2Character target, double damage, L2Skill skill)
+	{
+		for (GlobalRestriction restriction : _restrictions[RestrictionMode.calcDamage.ordinal()])
+			damage = restriction.calcDamage(activeChar, target, damage, skill);
+		
+		return damage;
+	}
+	
+	// TODO
+	
+	public static void levelChanged(L2PcInstance activeChar)
+	{
+		for (GlobalRestriction restriction : _restrictions[RestrictionMode.levelChanged.ordinal()])
+			restriction.levelChanged(activeChar);
+	}
+	
+	public static void effectCreated(L2Effect effect)
+	{
+		for (GlobalRestriction restriction : _restrictions[RestrictionMode.effectCreated.ordinal()])
+			restriction.effectCreated(effect);
+	}
+	
+	public static void playerLoggedIn(L2PcInstance activeChar)
+	{
+		for (GlobalRestriction restriction : _restrictions[RestrictionMode.playerLoggedIn.ordinal()])
+			restriction.playerLoggedIn(activeChar);
+	}
+	
+	public static void playerDisconnected(L2PcInstance activeChar)
+	{
+		for (GlobalRestriction restriction : _restrictions[RestrictionMode.playerDisconnected.ordinal()])
+			restriction.playerDisconnected(activeChar);
+	}
+	
+	public static boolean playerKilled(L2Character activeChar, L2PcInstance target)
+	{
+		for (GlobalRestriction restriction : _restrictions[RestrictionMode.playerKilled.ordinal()])
+			if (restriction.playerKilled(activeChar, target))
+				return true;
+		
+		return false;
 	}
 	
 	public static void isInsideZoneStateChanged(L2Character activeChar, byte zone, boolean isInsideZone)
@@ -179,49 +318,9 @@ public final class GlobalRestrictions
 			}
 		}
 		
-		for (GlobalRestriction restriction : _activeRestrictions)
+		for (GlobalRestriction restriction : _restrictions[RestrictionMode.isInsideZoneStateChanged.ordinal()])
 			restriction.isInsideZoneStateChanged(activeChar, zone, isInsideZone);
 	}
 	
-	public static boolean canTeleport(L2PcInstance activeChar)
-	{
-		for (GlobalRestriction restriction : _activeRestrictions)
-			if (!restriction.canTeleport(activeChar))
-				return false;
-		
-		return true;
-	}
-	
-	public static void levelChanged(L2PcInstance activeChar)
-	{
-		for (GlobalRestriction restriction : _activeRestrictions)
-			restriction.levelChanged(activeChar);
-	}
-	
-	public static void effectCreated(L2Effect effect)
-	{
-		for (GlobalRestriction restriction : _activeRestrictions)
-			restriction.effectCreated(effect);
-	}
-	
-	public static void playerLoggedIn(L2PcInstance activeChar)
-	{
-		for (GlobalRestriction restriction : _activeRestrictions)
-			restriction.playerLoggedIn(activeChar);
-	}
-	
-	public static void playerDisconnected(L2PcInstance activeChar)
-	{
-		for (GlobalRestriction restriction : _activeRestrictions)
-			restriction.playerDisconnected(activeChar);
-	}
-	
-	public static boolean playerKilled(L2Character activeChar, L2PcInstance target)
-	{
-		for (GlobalRestriction restriction : _activeRestrictions)
-			if (restriction.playerKilled(activeChar, target))
-				return true;
-		
-		return false;
-	}
+	// TODO
 }

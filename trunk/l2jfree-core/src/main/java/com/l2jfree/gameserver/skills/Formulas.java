@@ -41,6 +41,7 @@ import com.l2jfree.gameserver.model.entity.ClanHall;
 import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
+import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -1627,7 +1628,7 @@ public final class Formulas
 		else if (attacker instanceof L2Npc)
 			damage *= Config.ALT_NPC_PHYSICAL_DAMAGE_MULTI;
 
-		return damage;
+		return GlobalRestrictions.calcDamage(attacker, target, damage, skill);
 	}
 
 	public static final double calcMagicDam(L2CubicInstance attacker, L2Character target, L2Skill skill, boolean mcrit, byte shld)
@@ -1810,7 +1811,7 @@ public final class Formulas
 		if (target instanceof L2Playable) //aura flare de-buff, etc
 			damage *= skill.getPvpMulti();
 
-		return damage;
+		return GlobalRestrictions.calcDamage(attacker, target, damage, skill);
 	}
 
 	/** Returns true in case of critical hit */
