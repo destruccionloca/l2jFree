@@ -36,7 +36,6 @@ import com.l2jfree.gameserver.network.serverpackets.AbstractNpcInfo;
 import com.l2jfree.gameserver.network.serverpackets.CharInfo;
 import com.l2jfree.gameserver.network.serverpackets.DeleteObject;
 import com.l2jfree.gameserver.network.serverpackets.DropItem;
-import com.l2jfree.gameserver.network.serverpackets.ExBrExtraUserInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExPrivateStoreSetWholeMsg;
 import com.l2jfree.gameserver.network.serverpackets.GetOnVehicle;
 import com.l2jfree.gameserver.network.serverpackets.PetInfo;

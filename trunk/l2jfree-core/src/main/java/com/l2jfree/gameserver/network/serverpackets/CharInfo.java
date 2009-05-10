@@ -175,8 +175,8 @@ public class CharInfo extends L2GameServerPacket
 		writeD(_flWalkSpd);
 		writeD(_flyRunSpd);
 		writeD(_flyWalkSpd);
-		writeF(_activeChar.getStat().getMovementSpeedMultiplier()); // _cha.getProperMultiplier()
-		writeF(_activeChar.getStat().getAttackSpeedMultiplier()); // _cha.getAttackSpeedMultiplier()
+		writeF(_moveMultiplier); // _cha.getProperMultiplier()
+		writeF(_attackSpeedMultiplier); // _cha.getAttackSpeedMultiplier()
 
 		writeF(_collisionRadius);
 		writeF(_collisionHeight);
