@@ -24,45 +24,51 @@ import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 
 public class NpcKnownList extends CharKnownList
 {
-    // =========================================================
-    // Data Field
-    
-    // =========================================================
-    // Constructor
-    public NpcKnownList(L2Npc activeChar)
-    {
-        super(activeChar);
-    }
+	// =========================================================
+	// Data Field
+	
+	// =========================================================
+	// Constructor
+	public NpcKnownList(L2Npc activeChar)
+	{
+		super(activeChar);
+	}
 
-    // =========================================================
-    // Method - Public
-    
-    // =========================================================
-    // Method - Private
+	// =========================================================
+	// Method - Public
+	
+	// =========================================================
+	// Method - Private
 
-    // =========================================================
-    // Property - Public
-    @Override
-    public L2Npc getActiveChar() { return (L2Npc)_activeChar; }
+	// =========================================================
+	// Property - Public
+	@Override
+	public L2Npc getActiveChar()
+	{
+		return (L2Npc) _activeChar;
+	}
 
-    @Override
-    public int getDistanceToForgetObject(L2Object object) { return 2 * getDistanceToWatchObject(object); }
+	@Override
+	public int getDistanceToForgetObject(L2Object object)
+	{
+		return 2 * getDistanceToWatchObject(object);
+	}
 
-    @Override
-    public int getDistanceToWatchObject(L2Object object)
-    {
-        if (object instanceof L2FestivalGuideInstance)
-            return 4000;
-        
-        if (object instanceof L2NpcInstance || !(object instanceof L2Character))
-            return 0;
-        
-        if (object instanceof L2CabaleBufferInstance)
-            return 900;
-        
-        if (object instanceof L2Playable)
-            return 1500;
-        
-        return 500;
-    }
+	@Override
+	public int getDistanceToWatchObject(L2Object object)
+	{
+		if (object instanceof L2FestivalGuideInstance)
+			return 4000;
+		
+		if (object instanceof L2NpcInstance || !(object instanceof L2Character))
+			return 0;
+		
+		if (object instanceof L2CabaleBufferInstance)
+			return 900;
+		
+		if (object instanceof L2Playable)
+			return 1500;
+		
+		return 500;
+	}
 }

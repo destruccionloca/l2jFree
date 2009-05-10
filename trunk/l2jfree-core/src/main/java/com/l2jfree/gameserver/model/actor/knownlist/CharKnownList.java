@@ -156,7 +156,8 @@ public class CharKnownList extends ObjectKnownList
 	public Iterable<L2Character> getKnownCharactersInRadius(final int radius)
 	{
 		return L2Collections.filteredIterable(L2Character.class, getKnownObjects().values(),
-			new L2Collections.Filter<L2Character>() {
+			new L2Collections.Filter<L2Character>()
+			{
 				public boolean accept(L2Character obj)
 				{
 					if (!Util.checkIfInRange(radius, getActiveChar(), obj, true))
@@ -185,7 +186,8 @@ public class CharKnownList extends ObjectKnownList
 	public final Iterable<L2PcInstance> getKnownPlayersInRadius(final int radius)
 	{
 		return L2Collections.filteredIterable(L2PcInstance.class, getKnownPlayers().values(),
-			new L2Collections.Filter<L2PcInstance>() {
+			new L2Collections.Filter<L2PcInstance>()
+			{
 				public boolean accept(L2PcInstance player)
 				{
 					return Util.checkIfInRange(radius, getActiveChar(), player, true);

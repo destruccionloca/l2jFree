@@ -70,6 +70,6 @@ public class FortSiegeGuardKnownList extends AttackableKnownList
 	@Override
 	public final L2FortSiegeGuardInstance getActiveChar()
 	{
-		return (L2FortSiegeGuardInstance)_activeChar;
+		return (L2FortSiegeGuardInstance) _activeChar;
 	}
 }

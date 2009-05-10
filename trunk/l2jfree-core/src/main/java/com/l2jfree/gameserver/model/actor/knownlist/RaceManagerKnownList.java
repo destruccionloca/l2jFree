@@ -22,42 +22,46 @@ import com.l2jfree.gameserver.network.serverpackets.DeleteObject;
 
 public class RaceManagerKnownList extends NpcKnownList
 {
-    // =========================================================
-    // Data Field
-    
-    // =========================================================
-    // Constructor
-    public RaceManagerKnownList(L2RaceManagerInstance activeChar)
-    {
-        super(activeChar);
-    }
+	// =========================================================
+	// Data Field
 
-    // =========================================================
-    // Method - Public
-    @Override
-    public boolean removeKnownObject(L2Object object)
-    {
-        if (!super.removeKnownObject(object)) return false;
+	// =========================================================
+	// Constructor
+	public RaceManagerKnownList(L2RaceManagerInstance activeChar)
+	{
+		super(activeChar);
+	}
 
-        if (object instanceof L2PcInstance)
-        {
-            //_log.debugr("Sending delete monsrac info.");
-            DeleteObject obj = null;
-            for (int i=0; i<8; i++)
-            {
-                obj = new DeleteObject(MonsterRace.getInstance().getMonsters()[i]);
-                ((L2PcInstance)object).sendPacket(obj);
-            }
-        }
+	// =========================================================
+	// Method - Public
+	@Override
+	public boolean removeKnownObject(L2Object object)
+	{
+		if (!super.removeKnownObject(object))
+			return false;
 
-        return true;
-    }
-    
-    // =========================================================
-    // Method - Private
+		if (object instanceof L2PcInstance)
+		{
+			//_log.debugr("Sending delete monsrac info.");
+			DeleteObject obj = null;
+			for (int i = 0; i < 8; i++)
+			{
+				obj = new DeleteObject(MonsterRace.getInstance().getMonsters()[i]);
+				((L2PcInstance) object).sendPacket(obj);
+			}
+		}
 
-    // =========================================================
-    // Property - Public
-    @Override
-    public L2RaceManagerInstance getActiveChar() { return (L2RaceManagerInstance)_activeChar; }
+		return true;
+	}
+
+	// =========================================================
+	// Method - Private
+
+	// =========================================================
+	// Property - Public
+	@Override
+	public L2RaceManagerInstance getActiveChar()
+	{
+		return (L2RaceManagerInstance) _activeChar;
+	}
 }

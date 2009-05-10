@@ -104,7 +104,8 @@ public class PcKnownList extends PlayableKnownList
 		if (object instanceof L2PcInstance && ((L2PcInstance)object).inObserverMode())
 			return false;
 		
-		if (!super.addKnownObject(object, dropper)) return false;
+		if (!super.addKnownObject(object, dropper))
+			return false;
 
 		if (object instanceof L2PcInstance)
 			getKnownRelations().put(object.getObjectId(), -1);
@@ -132,32 +133,36 @@ public class PcKnownList extends PlayableKnownList
 			}
 			else if (object instanceof L2BoatInstance)
 			{
-				if(!getActiveChar().isInBoat())
-				if(object != getActiveChar().getBoat())
+				if (!getActiveChar().isInBoat())
 				{
-					getActiveChar().sendPacket(new VehicleInfo((L2BoatInstance) object));
-					((L2BoatInstance) object).sendVehicleDeparture(getActiveChar());
+					if (object != getActiveChar().getBoat())
+					{
+						getActiveChar().sendPacket(new VehicleInfo((L2BoatInstance) object));
+						((L2BoatInstance) object).sendVehicleDeparture(getActiveChar());
+					}
 				}
 			}
 			else if (object instanceof L2StaticObjectInstance)
 			{
 				getActiveChar().sendPacket(new StaticObject((L2StaticObjectInstance) object));
 			}
-			else if (object instanceof L2Decoy || object instanceof L2DecoyInstance)
+			else if (object instanceof L2Decoy)
 			{
 				getActiveChar().sendPacket(new AbstractNpcInfo.DecoyInfo((L2Decoy) object));
 			}
-			else if (object instanceof L2Trap || object instanceof L2TrapInstance)
+			else if (object instanceof L2Trap)
 			{
 				getActiveChar().sendPacket(new AbstractNpcInfo.TrapInfo((L2Trap)object));
 			}
 			else if (object instanceof L2Npc)
 			{
-				if (Config.TEST_KNOWNLIST && getActiveChar().isGM()) getActiveChar().sendMessage("Knownlist, added NPC: "+ object.getName());
+				if (Config.TEST_KNOWNLIST && getActiveChar().isGM())
+					getActiveChar().sendMessage("Knownlist, added NPC: "+ object.getName());
+
 				if (((L2Npc) object).getRunSpeed() == 0)
-					getActiveChar().sendPacket(new ServerObjectInfo((L2Npc)object));
+					getActiveChar().sendPacket(new ServerObjectInfo((L2Npc) object));
 				else
-					getActiveChar().sendPacket(new AbstractNpcInfo.NpcInfo((L2Npc)object));
+					getActiveChar().sendPacket(new AbstractNpcInfo.NpcInfo((L2Npc) object));
 			}
 			else if (object instanceof L2Summon)
 			{
@@ -247,14 +252,17 @@ public class PcKnownList extends PlayableKnownList
 	@Override
 	public boolean removeKnownObject(L2Object object)
 	{
-			if (!super.removeKnownObject(object)) return false;
+		if (!super.removeKnownObject(object))
+			return false;
+		
 		// Send Server-Client Packet DeleteObject to the L2PcInstance
 		getActiveChar().sendPacket(new DeleteObject(object));
 		
 		if (object instanceof L2PcInstance)
 			getKnownRelations().remove(object.getObjectId());
 		
-	   if (Config.TEST_KNOWNLIST && getActiveChar().isGM() && object instanceof L2Npc) getActiveChar().sendMessage("Knownlist,removed NPC: "+ object.getName());
+		if (Config.TEST_KNOWNLIST && getActiveChar().isGM() && object instanceof L2Npc)
+			getActiveChar().sendMessage("Knownlist,removed NPC: "+ object.getName());
 		return true;
 	}
 	
@@ -264,7 +272,10 @@ public class PcKnownList extends PlayableKnownList
 	// =========================================================
 	// Property - Public
 	@Override
-	public final L2PcInstance getActiveChar() { return (L2PcInstance)_activeChar; }
+	public final L2PcInstance getActiveChar()
+	{
+		return (L2PcInstance) _activeChar;
+	}
 
 	@Override
 	public int getDistanceToForgetObject(L2Object object)

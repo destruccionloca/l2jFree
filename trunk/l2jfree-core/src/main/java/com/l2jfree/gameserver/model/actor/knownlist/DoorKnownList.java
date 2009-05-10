@@ -43,7 +43,7 @@ public class DoorKnownList extends CharKnownList
 	@Override
 	public final L2DoorInstance getActiveChar()
 	{
-		return (L2DoorInstance)_activeChar;
+		return (L2DoorInstance) _activeChar;
 	}
 
 	@Override
