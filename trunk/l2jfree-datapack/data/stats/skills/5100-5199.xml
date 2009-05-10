@@ -511,7 +511,7 @@
     <set name="chanceType" val="ON_ATTACKED"/>
     <set name="effectRange" val="1400"/>
     <set name="operateType" val="OP_CHANCE"/>
-    <set name="skillType" val="AGGDAMAGE"/>
+    <set name="skillType" val="AGGREDUCE_CHAR"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="bestowed" val="true"/>
     <for>

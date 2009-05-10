@@ -587,7 +587,7 @@
     <table name="#rCrit">0 9 18</table>
     <table name="#cAtk">1.0 1.0 1.15</table>
     <table name="#time">60 30 12</table>
-    <table name="#activationChance">10 50 50</table>
+    <table name="#activationChance">10 5 5</table>
     <set name="activationChance" val="#activationChance"/>
     <set name="castRange" val="-1"/>
     <set name="chanceType" val="ON_ATTACKED"/>
@@ -620,7 +620,7 @@
     <table name="#vuln">1 0.9 0.8</table>
     <table name="#gain">1 1 1.5</table>
     <table name="#time">60 30 12</table>
-    <table name="#activationChance">10 50 50</table>
+    <table name="#activationChance">10 5 5</table>
     <set name="activationChance" val="#activationChance"/>
     <set name="castRange" val="-1"/>
     <set name="chanceType" val="ON_ATTACKED"/>
@@ -653,7 +653,7 @@
     <table name="#mDef">1.03 1.06 1.10</table>
     <table name="#crit">0 0 18</table>
     <table name="#time">60 30 12</table>
-    <table name="#activationChance">10 50 50</table>
+    <table name="#activationChance">10 5 5</table>
     <set name="activationChance" val="#activationChance"/>
     <set name="castRange" val="-1"/>
     <set name="chanceType" val="ON_ATTACKED"/>
@@ -685,7 +685,7 @@
     <table name="#cAtk">1.05 1.1 1.15</table>
     <table name="#abs">1 1 8</table>
     <table name="#time">60 30 12</table>
-    <table name="#activationChance">10 50 50</table>
+    <table name="#activationChance">10 5 5</table>
     <set name="activationChance" val="#activationChance"/>
     <set name="castRange" val="-1"/>
     <set name="chanceType" val="ON_ATTACKED"/>

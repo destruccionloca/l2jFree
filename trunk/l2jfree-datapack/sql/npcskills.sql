@@ -34011,7 +34011,7 @@ INSERT INTO `npcskills` (`npcid`,`skillid`,`level`) VALUES
 -- L2J-Free Add-ons
 --
 
-DELETE FROM `npcskills` WHERE `skillid` IN (5104, 5105);
+DELETE FROM `npcskills` WHERE `skillid` IN (5104, 5105, 5106, 5107, 5108);
 
 -- Following eight skills are 100% for danger zones
 -- They don't have anything defined client side (optype = target_self, castrange = -1)
