@@ -114,7 +114,7 @@ public abstract class L2Effect implements FuncOwner
 	}
 	
 	private ScheduledFuture<?> _currentFuture;
-	private EffectTask         _currentTask;
+	private EffectTask		 _currentTask;
 	
 	private boolean			_inUse	= false;
 	private boolean			_startConditionsCorrect = true;
@@ -317,8 +317,8 @@ public abstract class L2Effect implements FuncOwner
 	
 	public boolean isHerbEffect()
 	{
-        return getSkill().getName().contains("Herb");
-    }
+		return getSkill().getName().contains("Herb");
+	}
 	
 	public final double calc()
 	{

@@ -125,7 +125,7 @@ public final class Elementals
 
 	public static String getElementName(byte element)
 	{
-		switch(element)
+		switch (element)
 		{
 			case FIRE:
 				return "Fire";
@@ -163,7 +163,7 @@ public final class Elementals
 
 	public static byte getOppositeElement(byte element)
 	{
-		return (byte)((element % 2 == 0) ? (element + 1) : (element - 1));
+		return (byte) ((element % 2 == 0) ? (element + 1) : (element - 1));
 	}
 
 	@Override

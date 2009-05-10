@@ -120,7 +120,7 @@ public abstract class L2Transformation
     }
 
     // Override if necessary
-    public void onLevelUp()
+    public void onLevelUp(L2PcInstance player)
     {
     }
 }

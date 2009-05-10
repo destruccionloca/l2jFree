@@ -85,11 +85,11 @@ public class L2Request
 	 */
 	public synchronized boolean setRequest(L2PcInstance partner, L2GameClientPacket packet)
 	{
-        if (partner == null)
-        {
-        	_player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_INVITED_THE_WRONG_TARGET));
-            return false;
-        }
+		if (partner == null)
+		{
+			_player.sendPacket(SystemMessageId.YOU_HAVE_INVITED_THE_WRONG_TARGET);
+			return false;
+		}
 		if (partner.getRequest().isProcessingRequest())
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.C1_IS_BUSY_TRY_LATER);
@@ -100,7 +100,7 @@ public class L2Request
 		}
 		if (isProcessingRequest())
 		{
-        	_player.sendPacket(new SystemMessage(SystemMessageId.WAITING_FOR_ANOTHER_REPLY));
+			_player.sendPacket(SystemMessageId.WAITING_FOR_ANOTHER_REPLY);
 			return false;
 		}
 
@@ -124,20 +124,19 @@ public class L2Request
 				clear();
 			}
 		}, REQUEST_TIMEOUT * 1000);
-
 	}
 
 	/**
 	 * Clears PC request state. Should be called after answer packet receive.<BR><BR>
 	 */
 	public void onRequestResponse()
-    {
+	{
 		if (_partner != null)
 		{
 			_partner.getRequest().clear();
 		}
 		clear();
-    }
+	}
 
 	/**
 	 * Return True if a transaction is in progress.<BR><BR>

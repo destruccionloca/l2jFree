@@ -28,164 +28,165 @@ import javolution.util.FastTable;
  */
 public final class L2EnchantSkillLearn
 {
-    private final int _id;
-    private final int _baseLvl;
-    
-    @SuppressWarnings("unchecked")
-    private List<EnchantSkillDetail>[] _enchantDetails = new FastTable[0];
+	private final int _id;
+	private final int _baseLvl;
 
-    public L2EnchantSkillLearn(int id, int baseLvl)
-    {
-        _id = id;
-        _baseLvl = baseLvl;
-    }
-    
-    /**
-     * @return Returns the id.
-     */
-    public int getId()
-    {
-        return _id;
-    }
+	@SuppressWarnings("unchecked")
+	private List<EnchantSkillDetail>[] _enchantDetails = new FastTable[0];
 
-    /**
-     * @return Returns the minLevel.
-     */
-    public int getBaseLevel()
-    {
-        return _baseLvl;
-    }
+	public L2EnchantSkillLearn(int id, int baseLvl)
+	{
+		_id = id;
+		_baseLvl = baseLvl;
+	}
 
-    @SuppressWarnings("unchecked")
-    public void addEnchantDetail(EnchantSkillDetail esd)
-    {
-        int enchantType = L2EnchantSkillLearn.getEnchantType(esd.getLevel());
-        
-        if (enchantType < 0)
-        {
-            throw new IllegalArgumentException("Skill enchantments should have level higher then 100");
-        }
+	/**
+	 * @return Returns the id.
+	 */
+	public int getId()
+	{
+		return _id;
+	}
 
-        if (enchantType >= _enchantDetails.length)
-        {
-        	List<EnchantSkillDetail>[] newArray = new FastTable[enchantType+1];
-            System.arraycopy(_enchantDetails, 0, newArray, 0, _enchantDetails.length);
-            _enchantDetails = newArray;
-            _enchantDetails[enchantType] = new FastTable<EnchantSkillDetail>();
-        }
-        int index = L2EnchantSkillLearn.getEnchantIndex(esd.getLevel());
-        _enchantDetails[enchantType].add(index, esd);
-    }
-    
-    public List<EnchantSkillDetail>[] getEnchantRoutes()
-    {
-        return _enchantDetails;
-    }
-    
-    public EnchantSkillDetail getEnchantSkillDetail(int level)
-    {
-        int enchantType = L2EnchantSkillLearn.getEnchantType(level);
-        if (enchantType < 0 || enchantType >= _enchantDetails.length)
-        {
-            return null;
-        }
-        int index = L2EnchantSkillLearn.getEnchantIndex(level);
-        if (index < 0 || index >= _enchantDetails[enchantType].size())
-        {
-            return null;
-        }
-        return _enchantDetails[enchantType].get(index);
-    }
-    
-    public static int getEnchantIndex(int level)
-    {
-        return (level % 100) - 1;
-    }
-    
-    public static int getEnchantType(int level)
-    {
-        return ((level - 1) / 100) - 1;
-    }
-    
-    public static class EnchantSkillDetail
-    {
-        // not needed, just for easier debug
-        private final String _name;
-        private final int _level;
-        private final int _spCost;
-        private final int _minSkillLevel;
-        private final int _exp;
-        private final byte _rate76;
-        private final byte _rate77;
-        private final byte _rate78;
-        
-        public EnchantSkillDetail(int lvl, int minSkillLvl, String name, int cost, int exp, byte rate76, byte rate77, byte rate78)
-        {
-            _level = lvl;
-            _minSkillLevel = minSkillLvl;
-            _name = name.intern();
-            _spCost = cost;
-            _exp = exp;
-            _rate76 = rate76;
-            _rate77 = rate77;
-            _rate78 = rate78;
-        }
-        
-        /**
-         * @return Returns the level.
-         */
-        public int getLevel()
-        {
-            return _level;
-        }
-        
-        /**
-         * @return Returns the minSkillLevel.
-         */
-        public int getMinSkillLevel()
-        {
-            return _minSkillLevel;
-        }
+	/**
+	 * @return Returns the minLevel.
+	 */
+	public int getBaseLevel()
+	{
+		return _baseLvl;
+	}
 
-        /**
-         * @return Returns the name.
-         */
-        public String getName()
-        {
-            return _name;
-        }
+	@SuppressWarnings("unchecked")
+	public void addEnchantDetail(EnchantSkillDetail esd)
+	{
+		int enchantType = L2EnchantSkillLearn.getEnchantType(esd.getLevel());
+		
+		if (enchantType < 0)
+		{
+			throw new IllegalArgumentException("Skill enchantments should have level higher then 100");
+		}
 
-        /**
-         * @return Returns the spCost.
-         */
-        public int getSpCost()
-        {
-            return _spCost;
-        }
-        public int getExp()
-        {
-            return _exp;
-        }
+		if (enchantType >= _enchantDetails.length)
+		{
+			List<EnchantSkillDetail>[] newArray = new FastTable[enchantType+1];
+			System.arraycopy(_enchantDetails, 0, newArray, 0, _enchantDetails.length);
+			_enchantDetails = newArray;
+			_enchantDetails[enchantType] = new FastTable<EnchantSkillDetail>();
+		}
+		int index = L2EnchantSkillLearn.getEnchantIndex(esd.getLevel());
+		_enchantDetails[enchantType].add(index, esd);
+	}
 
-        public byte getRate(L2PcInstance ply)
-        {
-            byte result;
-            switch (ply.getLevel())
-            {
-                case 76:
-                    result = _rate76;
-                    break;
-                case 77:
-                    result = _rate77;
-                    break;
-                case 78:
-                    result = _rate78;
-                    break;
-                default:
-                    result = _rate78;
-                    break;
-            }
-            return result;
-        }
-    }
+	public List<EnchantSkillDetail>[] getEnchantRoutes()
+	{
+		return _enchantDetails;
+	}
+
+	public EnchantSkillDetail getEnchantSkillDetail(int level)
+	{
+		int enchantType = L2EnchantSkillLearn.getEnchantType(level);
+		if (enchantType < 0 || enchantType >= _enchantDetails.length)
+		{
+			return null;
+		}
+		int index = L2EnchantSkillLearn.getEnchantIndex(level);
+		if (index < 0 || index >= _enchantDetails[enchantType].size())
+		{
+			return null;
+		}
+		return _enchantDetails[enchantType].get(index);
+	}
+
+	public static int getEnchantIndex(int level)
+	{
+		return (level % 100) - 1;
+	}
+
+	public static int getEnchantType(int level)
+	{
+		return ((level - 1) / 100) - 1;
+	}
+
+	public static class EnchantSkillDetail
+	{
+		// not needed, just for easier debug
+		private final String _name;
+		private final int _level;
+		private final int _spCost;
+		private final int _minSkillLevel;
+		private final int _exp;
+		private final byte _rate76;
+		private final byte _rate77;
+		private final byte _rate78;
+		
+		public EnchantSkillDetail(int lvl, int minSkillLvl, String name, int cost, int exp, byte rate76, byte rate77, byte rate78)
+		{
+			_level = lvl;
+			_minSkillLevel = minSkillLvl;
+			_name = name.intern();
+			_spCost = cost;
+			_exp = exp;
+			_rate76 = rate76;
+			_rate77 = rate77;
+			_rate78 = rate78;
+		}
+		
+		/**
+		 * @return Returns the level.
+		 */
+		public int getLevel()
+		{
+			return _level;
+		}
+		
+		/**
+		 * @return Returns the minSkillLevel.
+		 */
+		public int getMinSkillLevel()
+		{
+			return _minSkillLevel;
+		}
+
+		/**
+		 * @return Returns the name.
+		 */
+		public String getName()
+		{
+			return _name;
+		}
+
+		/**
+		 * @return Returns the spCost.
+		 */
+		public int getSpCost()
+		{
+			return _spCost;
+		}
+		
+		public int getExp()
+		{
+			return _exp;
+		}
+
+		public byte getRate(L2PcInstance ply)
+		{
+			byte result;
+			switch (ply.getLevel())
+			{
+				case 76:
+					result = _rate76;
+					break;
+				case 77:
+					result = _rate77;
+					break;
+				case 78:
+					result = _rate78;
+					break;
+				default:
+					result = _rate78;
+					break;
+			}
+			return result;
+		}
+	}
 }

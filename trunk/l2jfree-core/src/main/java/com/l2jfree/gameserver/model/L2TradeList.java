@@ -35,117 +35,118 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
  */
 public class L2TradeList
 {
-    private final static Log _log = LogFactory.getLog(L2TradeList.class.getName());
-    
+	private final static Log _log = LogFactory.getLog(L2TradeList.class.getName());
+
 	private FastList<L2ItemInstance> _items;
 	private int _listId;
 	private boolean _confirmed;
 	private boolean _gm;
 	private String _buystorename,_sellstorename;
 	private boolean _custom;
-    
-    private int _npcId;
-	
+
+	private int _npcId;
+
 	public L2TradeList(int listId)
 	{
 		_items = new FastList<L2ItemInstance>();
 		_listId = listId;
 		_confirmed = false;
 	}
-	
-    public void setNpcId(String id)
-    {
-    	try
-    	{
-    		_gm = false;
-    		_npcId = Integer.parseInt(id);
-    	}
-    	catch (Exception e)
-    	{
-    		if (id.equalsIgnoreCase("gm"))
-    			_gm = true;
-    	}
-    }
 
-    public void setCustom(boolean custom)
-    {
+	public void setNpcId(String id)
+	{
+		try
+		{
+			_gm = false;
+			_npcId = Integer.parseInt(id);
+		}
+		catch (Exception e)
+		{
+			if (id.equalsIgnoreCase("gm"))
+				_gm = true;
+		}
+	}
+
+	public void setCustom(boolean custom)
+	{
 	_custom = custom;
-    }
+	}
 
-    public boolean isCustom()
-    {
+	public boolean isCustom()
+	{
 	return _custom;
-    }
-    
-    public int getNpcId()
-    {
-        return _npcId;
-    }
-    
-    public boolean isGm()
-    {
-        return _gm;
-    }
-    
+	}
+
+	public int getNpcId()
+	{
+		return _npcId;
+	}
+
+	public boolean isGm()
+	{
+		return _gm;
+	}
+
 	public void addItem(L2ItemInstance item)
 	{
 		_items.add(item);
 	}
-	
-    public void replaceItem(int itemID, int price)
-    {
-        for (int i = 0; i < _items.size(); i++)
-        {
-            L2ItemInstance item = _items.get(i);
-            if (item.getItemId() == itemID)
-            {
-                item.setPriceToSell(price);
-            }
-        }
-    }
 
-    public boolean decreaseCount(int itemID, int count)
-    {
-        for (int i = 0; i < _items.size(); i++)
-        {
-            L2ItemInstance item = _items.get(i);
-            if (item.getItemId() == itemID)
-            {
-                int newCount = item.getCount() - count;
-                if (newCount < 0)
-                    continue;
-                
-                item.setCount(newCount);
-                return true;
-            }
-        }
-        
-        return false;
-    }
-    public void restoreCount(int time)
-    {
-        for (int i = 0; i < _items.size(); i++)
-        {
-            L2ItemInstance item = _items.get(i);
-            if (item.getCountDecrease() && item.getTime() == time)
-            {
-                item.restoreInitCount();
-            }
-        }
-    }
+	public void replaceItem(int itemID, int price)
+	{
+		for (int i = 0; i < _items.size(); i++)
+		{
+			L2ItemInstance item = _items.get(i);
+			if (item.getItemId() == itemID)
+			{
+				item.setPriceToSell(price);
+			}
+		}
+	}
 
-    public void removeItem(int itemID)
-    {
-        for (int i = 0; i < _items.size(); i++)
-        {
-            L2ItemInstance item = _items.get(i);
-            if (item.getItemId() == itemID)
-            {
-                _items.remove(i);
-            }
-        }
-    }
-	
+	public boolean decreaseCount(int itemID, int count)
+	{
+		for (int i = 0; i < _items.size(); i++)
+		{
+			L2ItemInstance item = _items.get(i);
+			if (item.getItemId() == itemID)
+			{
+				int newCount = item.getCount() - count;
+				if (newCount < 0)
+					continue;
+				
+				item.setCount(newCount);
+				return true;
+			}
+		}
+		
+		return false;
+	}
+
+	public void restoreCount(int time)
+	{
+		for (int i = 0; i < _items.size(); i++)
+		{
+			L2ItemInstance item = _items.get(i);
+			if (item.getCountDecrease() && item.getTime() == time)
+			{
+				item.restoreInitCount();
+			}
+		}
+	}
+
+	public void removeItem(int itemID)
+	{
+		for (int i = 0; i < _items.size(); i++)
+		{
+			L2ItemInstance item = _items.get(i);
+			if (item.getItemId() == itemID)
+			{
+				_items.remove(i);
+			}
+		}
+	}
+
 	/**
 	 * @return Returns the listId.
 	 */
@@ -169,7 +170,7 @@ public class L2TradeList
 	{
 		return _buystorename;
 	}
-	
+
 	/**
 	 * @return Returns the items.
 	 */
@@ -177,12 +178,12 @@ public class L2TradeList
 	{
 		return _items;
 	}
-	
-    public List<L2ItemInstance> getItems(int start, int end)
-    {
-        return _items.subList(start, end);
-    }
-	
+
+	public List<L2ItemInstance> getItems(int start, int end)
+	{
+		return _items.subList(start, end);
+	}
+
 	public int getPriceForItemId(int itemId)
 	{
 		for (int i = 0; i < _items.size(); i++)
@@ -231,37 +232,39 @@ public class L2TradeList
 		}
 		return null;
 	}
+	
 	public synchronized void setConfirmedTrade(boolean x)
 	{
 		_confirmed = x;
 	}
+	
 	public synchronized boolean hasConfirmed()
 	{
 		return _confirmed;
 	}
+	
 	public void removeItem(int objId,int count)
 	{
 		L2ItemInstance temp;
-		for (int y = 0 ; y < _items.size(); y++)
+		for (int y = 0; y < _items.size(); y++)
 		{
 			temp = _items.get(y);
-			if (temp.getObjectId()  == objId)
+			if (temp.getObjectId() == objId)
 			{
 				if (count == temp.getCount())
 				{
 					_items.remove(temp);
 				}
-				
 				break;
 			}
 		}
 	}
-	
+
 	public boolean contains(int objId)
 	{
 		boolean bool = false;
 		L2ItemInstance temp;
-		for (int y = 0 ; y < _items.size(); y++)
+		for (int y = 0; y < _items.size(); y++)
 		{
 			temp = _items.get(y);
 			if (temp.getObjectId()  == objId)
@@ -273,13 +276,13 @@ public class L2TradeList
 		
 		return bool;
 	}
-	
+
 	public boolean validateTrade(L2PcInstance player)
 	{
 		Inventory playersInv = player.getInventory();
 		L2ItemInstance playerItem,temp;
 		
-		for (int y = 0 ; y < _items.size(); y++)
+		for (int y = 0; y < _items.size(); y++)
 		{
 			temp = _items.get(y);
 			playerItem = playersInv.getItemByObjectId(temp.getObjectId());
@@ -288,47 +291,45 @@ public class L2TradeList
 		}
 		return true;
 	}
-	
-    public void updateBuyList(L2PcInstance player, FastList<TradeItem> list)
+
+	public void updateBuyList(L2PcInstance player, FastList<TradeItem> list)
 	{
-		
 		TradeItem temp;
-		int count;
+		int count = 0;
 		Inventory playersInv = player.getInventory();
 		L2ItemInstance temp2;
-		count =0;
 		
-		while(count!= list.size())
+		while (count!= list.size())
 		{
 			temp = list.get(count);
-			temp2 =playersInv.getItemByItemId(temp.getItemId());
+			temp2 = playersInv.getItemByItemId(temp.getItemId());
 			if (temp2 == null)
 			{
 				list.remove(count);
-				count = count-1;
+				count--;
 			}
 			else
 			{
-				if ( temp.getCount() ==0)
+				if (temp.getCount() == 0)
 				{
 					list.remove(count);
-					count =count-1;
+					count--;
 				}
 			}
 			count++;
 		}
-		
 	}
+	
 	public void updateSellList(L2PcInstance player, FastList<TradeItem> list)
 	{
 		Inventory playersInv = player.getInventory();
 		TradeItem temp;
 		L2ItemInstance temp2;
-		int count =0;
-		while(count != list.size())
+		int count = 0;
+		while (count != list.size())
 		{
 			temp = list.get(count);
-			temp2 =playersInv.getItemByObjectId(temp.getObjectId());
+			temp2 = playersInv.getItemByObjectId(temp.getObjectId());
 			if (temp2 == null)
 			{
 				list.remove(count);
@@ -344,145 +345,139 @@ public class L2TradeList
 			}
 			count++;
 		}
-		
 	}
-	
+
 	public synchronized void buySellItems(L2PcInstance buyer, FastList<TradeItem> buyerslist, L2PcInstance seller, FastList<TradeItem> sellerslist)
 	{
 		Inventory sellerInv         = seller.getInventory();
 		Inventory buyerInv          = buyer.getInventory();
-        
+		
 		//TradeItem buyerItem         = null;
-        TradeItem temp2             = null;
-        
+		TradeItem temp2             = null;
+		
 		L2ItemInstance sellerItem   = null;
-        L2ItemInstance temp         = null;
-        L2ItemInstance newitem      = null;
-        L2ItemInstance adena        = null;
-        int enchantLevel            = 0;
-        
+		L2ItemInstance temp         = null;
+		L2ItemInstance newitem      = null;
+		L2ItemInstance adena        = null;
+		int enchantLevel            = 0;
+		
 		InventoryUpdate buyerupdate     = new InventoryUpdate();
-        InventoryUpdate sellerupdate    = new InventoryUpdate();
-        
+		InventoryUpdate sellerupdate    = new InventoryUpdate();
+		
 		ItemTable itemTable = ItemTable.getInstance();
-        
+		
 		int amount = 0;
 		int x = 0;
 		int y = 0;
-        
+		
 		List<SystemMessage> sysmsgs = new FastList<SystemMessage>();
 		SystemMessage msg = null;
 		
 		for (TradeItem buyerItem : buyerslist)
 		{
-		    for (x=0 ; x < sellerslist.size(); x++)//find in sellerslist
-		    {
-		        temp2 = sellerslist.get(x);
-		        if (temp2.getItemId() == buyerItem.getItemId())
-		        {
-		        	sellerItem = sellerInv.getItemByItemId(buyerItem.getItemId());
-		            break;
-		        }
-		    }
-		    
-		    if (sellerItem !=null && temp2 != null)
-		    {
-		        if (buyerItem.getCount()> temp2.getCount())
-		        {
-		            amount = temp2.getCount();
-		        }
-		        if (buyerItem.getCount()> sellerItem.getCount())
-		        {
-		            amount = sellerItem.getCount();
-		        }
-		        else
-		        {
-		            amount = buyerItem.getCount();
-		        }
-                if (buyerItem.getCount() > Integer.MAX_VALUE / buyerItem.getOwnersPrice())
-                {
-                    _log.warn("Integer Overflow on Cost. Possible Exploit attempt between "+buyer.getName()+" and "+seller.getName()+".");
-                    return;
-                }
-                //int cost = amount * buyerItem.getOwnersPrice();
-                enchantLevel = sellerItem.getEnchantLevel();
-		        sellerItem = sellerInv.destroyItem("", sellerItem.getObjectId(),amount, null, null);
-//		        buyer.reduceAdena(cost);
-//		        seller.addAdena(cost);
-		        newitem = itemTable.createItem("L2TradeList", sellerItem.getItemId(), amount, buyer, seller);
-                newitem.setEnchantLevel(enchantLevel);
-                temp = buyerInv.addItem("", newitem, null, null);
-		        if (amount == 1)//system msg stuff
-		        {
-		            msg = new SystemMessage(SystemMessageId.C1_PURCHASED_S2);
-		            msg.addString(buyer.getName());
-		            msg.addItemName(sellerItem);
-		            sysmsgs.add(msg);
-		            msg = new SystemMessage(SystemMessageId.C1_PURCHASED_S2);
-		            msg.addString("You");
-		            msg.addItemName(sellerItem);
-		            sysmsgs.add(msg);
-		        }
-		        else
-		        {
-		            msg = new SystemMessage(SystemMessageId.C1_PURCHASED_S3_S2_S);
-		            msg.addString(buyer.getName());
-		            msg.addItemName(sellerItem);
-		            msg.addNumber(amount);
-		            sysmsgs.add(msg);
-		            msg = new SystemMessage(SystemMessageId.C1_PURCHASED_S3_S2_S);
-		            msg.addString("You");
-		            msg.addItemName(sellerItem);
-		            msg.addNumber(amount);
-		            sysmsgs.add(msg);
-		        }
-		        if(temp2.getCount() == buyerItem.getCount())
-		        {
-		            sellerslist.remove(temp2);
-		            buyerItem.setCount(0);
-		        }
-		        else
-		        {
-		            if (buyerItem.getCount()< temp2.getCount())
-		            {
-		                temp2.setCount(temp2.getCount()-buyerItem.getCount());
-		            }
-		            else
-		            {
-		                buyerItem.setCount(buyerItem.getCount()-temp2.getCount());
-		            }
-		        }
-		        
-		        
-		        if (sellerItem .getLastChange() == L2ItemInstance.MODIFIED)
-		        {
-		            sellerupdate.addModifiedItem(sellerItem);
-		            
-		        }
-		        else
-		        {
-		            L2World world = L2World.getInstance();
-		            world.removeObject(sellerItem );
-		            sellerupdate.addRemovedItem(sellerItem );
-		            
-		        }
-		        
-		        
-		        
-		        if (temp.getLastChange() == L2ItemInstance.MODIFIED)
-		        {
-		            buyerupdate.addModifiedItem(temp);
-		        }
-		        else
-		        {
-		            buyerupdate.addNewItem(temp);
-		        }
-		        
-		        
-		        //}
-		        
-		        sellerItem =  null;
-		    }
+			for (x = 0; x < sellerslist.size(); x++)//find in sellerslist
+			{
+				temp2 = sellerslist.get(x);
+				if (temp2.getItemId() == buyerItem.getItemId())
+				{
+					sellerItem = sellerInv.getItemByItemId(buyerItem.getItemId());
+					break;
+				}
+			}
+			
+			if (sellerItem !=null && temp2 != null)
+			{
+				if (buyerItem.getCount()> temp2.getCount())
+				{
+					amount = temp2.getCount();
+				}
+				if (buyerItem.getCount()> sellerItem.getCount())
+				{
+					amount = sellerItem.getCount();
+				}
+				else
+				{
+					amount = buyerItem.getCount();
+				}
+				if (buyerItem.getCount() > Integer.MAX_VALUE / buyerItem.getOwnersPrice())
+				{
+					_log.warn("Integer Overflow on Cost. Possible Exploit attempt between "+buyer.getName()+" and "+seller.getName()+".");
+					return;
+				}
+				//int cost = amount * buyerItem.getOwnersPrice();
+				enchantLevel = sellerItem.getEnchantLevel();
+				sellerItem = sellerInv.destroyItem("", sellerItem.getObjectId(),amount, null, null);
+	//		        buyer.reduceAdena(cost);
+	//		        seller.addAdena(cost);
+				newitem = itemTable.createItem("L2TradeList", sellerItem.getItemId(), amount, buyer, seller);
+				newitem.setEnchantLevel(enchantLevel);
+				temp = buyerInv.addItem("", newitem, null, null);
+				if (amount == 1)//system msg stuff
+				{
+					msg = new SystemMessage(SystemMessageId.C1_PURCHASED_S2);
+					msg.addString(buyer.getName());
+					msg.addItemName(sellerItem);
+					sysmsgs.add(msg);
+					msg = new SystemMessage(SystemMessageId.C1_PURCHASED_S2);
+					msg.addString("You");
+					msg.addItemName(sellerItem);
+					sysmsgs.add(msg);
+				}
+				else
+				{
+					msg = new SystemMessage(SystemMessageId.C1_PURCHASED_S3_S2_S);
+					msg.addString(buyer.getName());
+					msg.addItemName(sellerItem);
+					msg.addNumber(amount);
+					sysmsgs.add(msg);
+					msg = new SystemMessage(SystemMessageId.C1_PURCHASED_S3_S2_S);
+					msg.addString("You");
+					msg.addItemName(sellerItem);
+					msg.addNumber(amount);
+					sysmsgs.add(msg);
+				}
+				if (temp2.getCount() == buyerItem.getCount())
+				{
+					sellerslist.remove(temp2);
+					buyerItem.setCount(0);
+				}
+				else
+				{
+					if (buyerItem.getCount()< temp2.getCount())
+					{
+						temp2.setCount(temp2.getCount() - buyerItem.getCount());
+					}
+					else
+					{
+						buyerItem.setCount(buyerItem.getCount() - temp2.getCount());
+					}
+				}
+				
+				if (sellerItem .getLastChange() == L2ItemInstance.MODIFIED)
+				{
+					sellerupdate.addModifiedItem(sellerItem);
+				}
+				else
+				{
+					L2World world = L2World.getInstance();
+					world.removeObject(sellerItem );
+					sellerupdate.addRemovedItem(sellerItem );
+				}
+				
+				if (temp.getLastChange() == L2ItemInstance.MODIFIED)
+				{
+					buyerupdate.addModifiedItem(temp);
+				}
+				else
+				{
+					buyerupdate.addNewItem(temp);
+				}
+				
+				
+				//}
+				
+				sellerItem =  null;
+			}
 		}
 		if (newitem != null)
 		{
@@ -496,23 +491,22 @@ public class L2TradeList
 			
 			seller.sendPacket(sellerupdate);
 			buyer.sendPacket(buyerupdate );
-			y=0;
+			y = 0;
 			
-			for (x=0;x < sysmsgs.size();x++)
+			for (x = 0; x < sysmsgs.size(); x++)
 			{
 				
 				if (y == 0)
 				{
 					seller.sendPacket(sysmsgs.get(x));
-					y=1;
+					y = 1;
 				}
 				else
 				{
 					buyer.sendPacket(sysmsgs.get(x));
-					y=0;
+					y = 0;
 				}
 			}
 		}
 	}
 }
-

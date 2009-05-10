@@ -25,101 +25,98 @@ import com.l2jfree.gameserver.model.Location;
 
 public class CombatFlag
 {
-    //private static final Logger _log = Logger.getLogger(CombatFlag.class.getName());
+	//private static final Logger _log = Logger.getLogger(CombatFlag.class.getName());
 
-    protected L2PcInstance _player = null;
-    public int playerId = 0;
-    private L2ItemInstance _item = null;
+	protected L2PcInstance	_player		= null;
+	public int				playerId	= 0;
+	private L2ItemInstance	_item		= null;
 
+	private Location		_location;
+	public L2ItemInstance	itemInstance;
 
-    private Location _location;
-    public L2ItemInstance itemInstance;
-    
-    private int _itemId;
-    
-    @SuppressWarnings("unused")
-    private int _heading;
-    @SuppressWarnings("unused")
-    private int _fortId;
-    
-    // =========================================================
-    // Constructor
-    public CombatFlag(int fort_id, int x, int y, int z, int heading, int item_id)
-    {
-        _fortId = fort_id;
-        _location = new Location(x,y,z,heading);
-        _heading = heading;
-        _itemId = item_id;
-    }
+	private int				_itemId;
 
-    public synchronized void spawnMe()
-    {
-        L2ItemInstance i;
+	@SuppressWarnings("unused")
+	private int				_heading;
+	@SuppressWarnings("unused")
+	private int				_fortId;
 
-        // Init the dropped L2ItemInstance and add it in the world as a visible object at the position where mob was last
-        i = ItemTable.getInstance().createItem("Combat", _itemId, 1, null, null);
-        i.spawnMe(_location.getX(), _location.getY(),  _location.getZ());
-        itemInstance = i;    
-    }
+	// =========================================================
+	// Constructor
+	public CombatFlag(int fort_id, int x, int y, int z, int heading, int item_id)
+	{
+		_fortId = fort_id;
+		_location = new Location(x,y,z,heading);
+		_heading = heading;
+		_itemId = item_id;
+	}
 
-    public synchronized void unSpawnMe()
-    {
-        if ( _player != null )
-            dropIt();
-        
-        if ( itemInstance != null )
-        {
-            itemInstance.decayMe();
-        }
-    }
-    
-    public boolean activate(L2PcInstance player, L2ItemInstance item)
-    {
-        if (player.isMounted())
-        {
-            player.sendPacket(new SystemMessage(SystemMessageId.NO_CONDITION_TO_EQUIP));
-            return false;
-        }
+	public synchronized void spawnMe()
+	{
+		// Init the dropped L2ItemInstance and add it in the world as a visible object at the position where mob was last
+		L2ItemInstance i = ItemTable.getInstance().createItem("Combat", _itemId, 1, null, null);
+		i.spawnMe(_location.getX(), _location.getY(),  _location.getZ());
+		itemInstance = i;
+	}
 
-        // Player holding it data
-        _player = player;
-        playerId = _player.getObjectId();
-        itemInstance = null;
+	public synchronized void unSpawnMe()
+	{
+		if (_player != null)
+			dropIt();
+		
+		if (itemInstance != null)
+		{
+			itemInstance.decayMe();
+		}
+	}
 
-        // Equip with the weapon
-        _item = item;
-        _player.getInventory().equipItemAndRecord(_item);
-        SystemMessage sm = new SystemMessage(SystemMessageId.S1_EQUIPPED);
-        sm.addItemName(_item);
-        _player.sendPacket(sm);
+	public boolean activate(L2PcInstance player, L2ItemInstance item)
+	{
+		if (player.isMounted())
+		{
+			player.sendPacket(new SystemMessage(SystemMessageId.NO_CONDITION_TO_EQUIP));
+			return false;
+		}
 
-        // Refresh inventory
-        if (!Config.FORCE_INVENTORY_UPDATE)
-        {
-            InventoryUpdate iu = new InventoryUpdate();
-            iu.addItem(_item);
-            _player.sendPacket(iu);
-        }
-        else
-            _player.sendPacket(new ItemList(_player, false));
-        
-        // Refresh player stats
-        _player.broadcastUserInfo();
-        _player.setCombatFlagEquipped(true);
+		// Player holding it data
+		_player = player;
+		playerId = _player.getObjectId();
+		itemInstance = null;
 
-        return true;
-    }
+		// Equip with the weapon
+		_item = item;
+		_player.getInventory().equipItemAndRecord(_item);
+		SystemMessage sm = new SystemMessage(SystemMessageId.S1_EQUIPPED);
+		sm.addItemName(_item);
+		_player.sendPacket(sm);
 
-    public void dropIt()
-    {
-        // Reset player stats
-        _player.setCombatFlagEquipped(false);
-        int slot = _item.getItem().getBodyPart();
-        _player.getInventory().unEquipItemInBodySlotAndRecord(slot);
-        _player.destroyItem("CombatFlag", _item, null, true);
-        _item = null;
-        _player.broadcastUserInfo();
-        _player = null;
-        playerId = 0;
-    }
+		// Refresh inventory
+		if (!Config.FORCE_INVENTORY_UPDATE)
+		{
+			InventoryUpdate iu = new InventoryUpdate();
+			iu.addItem(_item);
+			_player.sendPacket(iu);
+		}
+		else
+			_player.sendPacket(new ItemList(_player, false));
+		
+		// Refresh player stats
+		_player.broadcastUserInfo();
+		_player.setCombatFlagEquipped(true);
+
+		return true;
+	}
+
+	public void dropIt()
+	{
+		// Reset player stats
+		_player.setCombatFlagEquipped(false);
+		int slot = _item.getItem().getBodyPart();
+		_player.getInventory().unEquipItemInBodySlotAndRecord(slot);
+		_player.destroyItem("CombatFlag", _item, null, true);
+		_item = null;
+		_player.broadcastUserInfo();
+		_player = null;
+		playerId = 0;
+	}
 }

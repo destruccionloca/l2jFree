@@ -113,7 +113,7 @@ public class L2Manor
 	public int getSeedBuyPrice (int seedId)
 	{
 		int buyPrice = getSeedBasicPrice(seedId) / 10;
-		return (buyPrice > 0?buyPrice:1); 
+		return (buyPrice > 0 ? buyPrice : 1); 
 	}
 
 	public int getSeedMinLevel(int seedId) 
@@ -306,7 +306,7 @@ public class L2Manor
 
 		public int getReward(int type)
 		{
-			return (type == 1?_type1:_type2);
+			return (type == 1 ? _type1 : _type2);
 		}
 
 		public int getLevel()
@@ -358,7 +358,18 @@ public class L2Manor
 		{
 			_log.info("error while loading seeds: " + e.getMessage());
 		}
-		finally { try { if (lnr != null) lnr.close(); } catch (Exception e) { e.printStackTrace(); } }
+		finally
+		{
+			try
+			{
+				if (lnr != null)
+					lnr.close();
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 
 	private SeedData parseList(String line)

@@ -91,14 +91,15 @@ public class MacroList
 	public void deleteMacro(int id)
 	{
 		L2Macro toRemove = _macroses.get(id);
-		if(toRemove != null)
+		if (toRemove != null)
 		{
 			deleteMacroFromDb(toRemove);
 		}
 		_macroses.remove(id);
 
 		L2ShortCut[] allShortCuts = _owner.getAllShortCuts();
-		for (L2ShortCut sc : allShortCuts) {
+		for (L2ShortCut sc : allShortCuts)
+		{
 			if (sc.getId() == id && sc.getType() == L2ShortCut.TYPE_MACRO)
 				_owner.deleteShortCut(sc.getSlot(), sc.getPage());
 		}

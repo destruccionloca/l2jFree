@@ -129,14 +129,15 @@ public class L2NpcWalkerNode
 	 */
 	
 	public L2NpcWalkerNode()
-	{}
+	{
+	}
 	
 	/**
 	 * Constructor of L2NpcWalker.<BR><BR>
 	 * @param set The StatsSet object to transfert data to the method
 	 */
 	public L2NpcWalkerNode(StatsSet set)
-	{		
+	{
 		_npcId       = set.getInteger("npc_id");
 		_movePoint   = set.getString("move_point");
 		_chatText    = set.getString("chatText");

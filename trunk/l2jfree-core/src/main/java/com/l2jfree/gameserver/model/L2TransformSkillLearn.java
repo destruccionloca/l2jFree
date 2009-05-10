@@ -83,10 +83,12 @@ public final class L2TransformSkillLearn
 	{
 		return _sp;
 	}
+	
 	public int getRace()
 	{
 		return _race_id;
 	}
+	
 	public int getItemId()
 	{
 		return _item_id;

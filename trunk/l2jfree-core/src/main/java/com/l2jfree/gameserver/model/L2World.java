@@ -150,7 +150,7 @@ public final class L2World
 		L2Object obj = _objects.get(objectId);
 		
 		if (obj instanceof L2Character)
-			return (L2Character)obj;
+			return (L2Character) obj;
 		
 		return null;
 	}
@@ -160,7 +160,7 @@ public final class L2World
 		L2Object obj = _objects.get(objectId);
 		
 		if (obj instanceof L2PcInstance)
-			return (L2PcInstance)obj;
+			return (L2PcInstance) obj;
 		
 		return null;
 	}
@@ -223,7 +223,7 @@ public final class L2World
 	public L2PcInstance getPlayer(int objectId)
 	{
 		L2Object object = _objects.get(objectId);
-		return object instanceof L2PcInstance ? (L2PcInstance)object : null;
+		return object instanceof L2PcInstance ? (L2PcInstance) object : null;
 	}
 	
 	/**

@@ -32,14 +32,14 @@ public class L2DropData
 	private int _minDrop;
 	private int _maxDrop;
 	private int _chance;
-    private String _questID = null;
-    private String[] _stateID = null;
-    private int _category;
-	
-    /**
-     * Returns the ID of the item dropped
-     * @return int
-     */
+	private String _questID = null;
+	private String[] _stateID = null;
+	private int _category;
+
+	/**
+	 * Returns the ID of the item dropped
+	 * @return int
+	 */
 	public int getItemId()
 	{
 		return _itemId;
@@ -53,7 +53,7 @@ public class L2DropData
 	{
 		_itemId = itemId;
 	}
-	
+
 	/**
 	 * Returns the minimum quantity of items dropped
 	 * @return int
@@ -62,7 +62,7 @@ public class L2DropData
 	{
 		return _minDrop;
 	}
-	
+
 	/**
 	 * Returns the maximum quantity of items dropped
 	 * @return int
@@ -71,7 +71,7 @@ public class L2DropData
 	{
 		return _maxDrop;
 	}
-	
+
 	/**
 	 * Returns the chance of having a drop
 	 * @return int
@@ -80,7 +80,7 @@ public class L2DropData
 	{
 		return _chance;
 	}
-	
+
 	/**
 	 * Sets the value for minimal quantity of dropped items
 	 * @param mindrop : int designating the quantity
@@ -89,7 +89,7 @@ public class L2DropData
 	{
 		_minDrop = minDrop;
 	}
-	
+
 	/**
 	 * Sets the value for maximal quantity of dopped items
 	 * @param maxdrop : int designating the quantity of dropped items
@@ -98,7 +98,7 @@ public class L2DropData
 	{
 		_maxDrop = maxDrop;
 	}
-	
+
 	/**
 	 * Sets the chance of having the item for a drop
 	 * @param chance : int designating the chance
@@ -107,91 +107,91 @@ public class L2DropData
 	{
 		_chance = chance;
 	}
-    /**
-     * Returns the stateID.
-     * @return String[]
-     */
-    public String[] getStateIDs()
-    {
-        return _stateID;
-    }
+	/**
+	 * Returns the stateID.
+	 * @return String[]
+	 */
+	public String[] getStateIDs()
+	{
+		return _stateID;
+	}
 
-    /**
-     * Adds states of the dropped item
-     * @param list : String[]
-     */
-    public void addStates(String[] list)
-    {
-        _stateID = list;
-    }
-    
-    /**
-     * Returns the questID.
-     * @return String designating the ID of the quest
-     */
-    public String getQuestID()
-    {
-        return _questID;
-    }
-    
-    /**
-     * Sets the questID
-     * @param String designating the questID to set.
-     */
-    public void setQuestID(String questID)
-    {
-        _questID = questID;
-    }
-    
-    /**
-     * Returns if the dropped item is requested for a quest
-     * @return boolean
-     */
-    public boolean isQuestDrop()
-    {
-        return _questID != null && _stateID != null;
-    }
-    
-    /**
-     * Returns a report of the object
-     * @return String
-     */
-    @Override
-    public String toString()
-    {
-        String out = "ItemID: " + getItemId() + " Min: " + getMinDrop() + 
-        	" Max: " + getMaxDrop() + " Chance: " + (getChance() / 10000.0) + "%";
-        if (isQuestDrop()) 
-        {
-            out += " QuestID: " + getQuestID() + " StateID's: " + Arrays.toString(getStateIDs());
-        }
-        
-        return out;
-    }
-    
-    /**
-     * Returns if parameter "o" is a L2DropData and has the same itemID that the current object
-     * @param Object to compare to the current one
-     * @return boolean 
-     */
-    @Override
-    public boolean equals(Object o)
-    {
-        if (o instanceof L2DropData)
-        {
-            L2DropData drop = (L2DropData)o;
-            return drop.getItemId() == getItemId();
-        }
-        return false;
-    }
+	/**
+	 * Adds states of the dropped item
+	 * @param list : String[]
+	 */
+	public void addStates(String[] list)
+	{
+		_stateID = list;
+	}
 
-    public void setCategory(int category)
-    {
-        _category = category;
-    }
-    
-    public int getCategory()
-    {
-        return _category;
-    }
+	/**
+	 * Returns the questID.
+	 * @return String designating the ID of the quest
+	 */
+	public String getQuestID()
+	{
+		return _questID;
+	}
+
+	/**
+	 * Sets the questID
+	 * @param String designating the questID to set.
+	 */
+	public void setQuestID(String questID)
+	{
+		_questID = questID;
+	}
+
+	/**
+	 * Returns if the dropped item is requested for a quest
+	 * @return boolean
+	 */
+	public boolean isQuestDrop()
+	{
+		return _questID != null && _stateID != null;
+	}
+
+	/**
+	 * Returns a report of the object
+	 * @return String
+	 */
+	@Override
+	public String toString()
+	{
+		String out = "ItemID: " + getItemId() + " Min: " + getMinDrop() + 
+			" Max: " + getMaxDrop() + " Chance: " + (getChance() / 10000.0) + "%";
+		if (isQuestDrop()) 
+		{
+			out += " QuestID: " + getQuestID() + " StateID's: " + Arrays.toString(getStateIDs());
+		}
+		
+		return out;
+	}
+
+	/**
+	 * Returns if parameter "o" is a L2DropData and has the same itemID that the current object
+	 * @param Object to compare to the current one
+	 * @return boolean 
+	 */
+	@Override
+	public boolean equals(Object o)
+	{
+		if (o instanceof L2DropData)
+		{
+			L2DropData drop = (L2DropData)o;
+			return drop.getItemId() == getItemId();
+		}
+		return false;
+	}
+
+	public void setCategory(int category)
+	{
+		_category = category;
+	}
+
+	public int getCategory()
+	{
+		return _category;
+	}
 }

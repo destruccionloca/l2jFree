@@ -110,5 +110,4 @@ public class L2MinionData
 
 		return _minionAmountMin;
 	}
-
 }

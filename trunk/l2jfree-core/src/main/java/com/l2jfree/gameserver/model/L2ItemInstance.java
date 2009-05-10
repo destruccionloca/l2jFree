@@ -349,7 +349,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner
 		if (count == 0)
 			return;
 		
-		if ( count > 0 && getCount() > Integer.MAX_VALUE - count)
+		if (count > 0 && getCount() > Integer.MAX_VALUE - count)
 			setCount(Integer.MAX_VALUE);
 		else
 			setCount(getCount() + count);
@@ -516,7 +516,8 @@ public final class L2ItemInstance extends L2Object implements FuncOwner
 	 */
 	public L2EtcItem getEtcItem()
 	{
-		if (_item instanceof L2EtcItem) { return (L2EtcItem) _item; }
+		if (_item instanceof L2EtcItem)
+			return (L2EtcItem) _item;
 		return null;
 	}
 	
@@ -527,7 +528,8 @@ public final class L2ItemInstance extends L2Object implements FuncOwner
 	 */
 	public L2Weapon getWeaponItem()
 	{
-		if (_item instanceof L2Weapon) { return (L2Weapon) _item; }
+		if (_item instanceof L2Weapon)
+			return (L2Weapon) _item;
 		return null;
 	}
 	
@@ -538,7 +540,8 @@ public final class L2ItemInstance extends L2Object implements FuncOwner
 	 */
 	public L2Armor getArmorItem()
 	{
-		if (_item instanceof L2Armor) { return (L2Armor) _item; }
+		if (_item instanceof L2Armor)
+			return (L2Armor) _item;
 		return null;
 	}
 	
@@ -1232,7 +1235,8 @@ public final class L2ItemInstance extends L2Object implements FuncOwner
 			SQLQueue.getInstance().add(UPDATE_DATABASE_QUERY);
 	}
 	
-	private final SQLQuery UPDATE_DATABASE_QUERY = new SQLQuery() {
+	private final SQLQuery UPDATE_DATABASE_QUERY = new SQLQuery()
+	{
 		public void execute(Connection con)
 		{
 			switch (getUpdateMode(true))
@@ -1408,7 +1412,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner
 			z = dropDest.getZ();
 		}
 
-		if(dropper != null)
+		if (dropper != null)
 			setInstanceId(dropper.getInstanceId()); // Inherit instancezone when dropped in visible world
 		else
 			setInstanceId(0); // No dropper? Make it a global item...
@@ -1565,7 +1569,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner
 	
 	public boolean isNightLure()
 	{
-		return ((_itemId >= 8505 && _itemId <= 8513) || _itemId == 8485);
+		return (_itemId >= 8505 && _itemId <= 8513) || _itemId == 8485;
 	}
 	
 	public void setCountDecrease(boolean decrease)

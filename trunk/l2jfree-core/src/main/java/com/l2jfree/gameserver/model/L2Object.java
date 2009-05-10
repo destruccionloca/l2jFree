@@ -440,8 +440,8 @@ public abstract class L2Object implements L2Entity<Integer>
 				if (inst != null)
 					inst.addPlayer(getObjectId());
 			}
-			if (((L2PcInstance)this).getPet() != null)
-				((L2PcInstance)this).getPet().setInstanceId(instanceId);
+			if (((L2PcInstance) this).getPet() != null)
+				((L2PcInstance) this).getPet().setInstanceId(instanceId);
 		}
 		
 		_instanceId = instanceId;
@@ -520,7 +520,6 @@ public abstract class L2Object implements L2Entity<Integer>
 	public boolean isInFunEvent()
 	{
 		L2PcInstance player = getActingPlayer();
-		
 		return (player != null && player.isInFunEvent());
 	}
 	

@@ -48,8 +48,7 @@ public class L2GroupSpawn extends L2Spawn
 			if (_template.getType().equalsIgnoreCase("L2Pet") || _template.getType().equalsIgnoreCase("L2Minion"))
 				return null;
 
-			Object[] parameters =
-			{ IdFactory.getInstance().getNextId(), _template };
+			Object[] parameters = { IdFactory.getInstance().getNextId(), _template };
 			Object tmp = _constructor.newInstance(parameters);
 
 			if (!(tmp instanceof L2Npc))

@@ -21,10 +21,10 @@ import com.l2jfree.gameserver.util.Util;
 
 public class L2SiegeClan
 {
-	private int _clanId                = 0;
-	private FastSet<L2Npc> _flags;
-	private int _numFlagsAdded = 0;
-	private SiegeClanType _type;
+	private int					_clanId			= 0;
+	private FastSet<L2Npc>		_flags;
+	private int					_numFlagsAdded	= 0;
+	private SiegeClanType		_type;
 
 	public enum SiegeClanType
 	{
@@ -73,11 +73,15 @@ public class L2SiegeClan
 			removeFlag(flag);
 	}
 
-	public final int getClanId() { return _clanId; }
+	public final int getClanId()
+	{
+		return _clanId;
+	}
 
 	public final FastSet<L2Npc> getFlag()
 	{
-		if (_flags == null) _flags = new FastSet<L2Npc>();
+		if (_flags == null)
+			_flags = new FastSet<L2Npc>();
 		return _flags;
 	}
 
@@ -102,7 +106,13 @@ public class L2SiegeClan
 		return _flag;
 	}
 	
-	public SiegeClanType getType() { return _type; }
-    
-    public void setType(SiegeClanType setType) { _type = setType; }
+	public SiegeClanType getType()
+	{
+		return _type;
+	}
+	
+	public void setType(SiegeClanType setType)
+	{
+		_type = setType;
+	}
 }

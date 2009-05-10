@@ -202,7 +202,10 @@ public class L2CommandChannel
 	 * 
 	 * @return Level of CC
 	 */
-	public int getLevel() { return _channelLvl; }
+	public int getLevel()
+	{
+		return _channelLvl;
+	}
 	
 	/**
 	 * @param sets the leader of the Command Channel 
@@ -235,23 +238,23 @@ public class L2CommandChannel
 		if (!(obj instanceof L2Boss))
 			return false;
 		int npcId = ((L2Attackable)obj).getNpcId();
-		switch(npcId)
+		switch (npcId)
 		{
-	    	case 29001: // Queen Ant
-	    	case 29006: // Core	
-	    	case 29014: // Orfen
-	    	case 29022: // Zaken
-	    		return (getMemberCount() > 36);
-	    	case 29020: // Baium
-	    		return (getMemberCount() > 56);
-	    	case 29019: // Antharas
-	    		return (getMemberCount() > 225);
-	    	case 29028: // Valakas
-	    		return (getMemberCount() > 99);
-	    	case 29045: // Frintezza
-	    		return (getMemberCount() > 35);
-	    	default: // normal Raidboss
-	    		return (getMemberCount() > 18);
+			case 29001: // Queen Ant
+			case 29006: // Core	
+			case 29014: // Orfen
+			case 29022: // Zaken
+				return (getMemberCount() > 36);
+			case 29020: // Baium
+				return (getMemberCount() > 56);
+			case 29019: // Antharas
+				return (getMemberCount() > 225);
+			case 29028: // Valakas
+				return (getMemberCount() > 99);
+			case 29045: // Frintezza
+				return (getMemberCount() > 35);
+			default: // normal Raidboss
+				return (getMemberCount() > 18);
 		}
 	}
 }

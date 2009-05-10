@@ -91,19 +91,28 @@ public class L2Party
 	 * returns number of party members
 	 * @return
 	 */
-	public int getMemberCount() { return getPartyMembers().size(); }
+	public int getMemberCount()
+	{
+		return getPartyMembers().size();
+	}
 
-    /**
-     * returns number of players that already been invited, but not replied yet
-     * @return
-     */
-    public boolean getPendingInvitation() { return _pendingInvitation; }
-    
-    /**
-     * increase number of players that already been invite but not replied yet
-     */
-    public void setPendingInvitation(boolean val) { _pendingInvitation = val; }
-    
+	/**
+	 * returns number of players that already been invited, but not replied yet
+	 * @return
+	 */
+	public boolean getPendingInvitation()
+	{
+		return _pendingInvitation;
+	}
+
+	/**
+	 * increase number of players that already been invite but not replied yet
+	 */
+	public void setPendingInvitation(boolean val)
+	{
+		_pendingInvitation = val;
+	}
+
 	/**
 	 * returns all party members
 	 * @return
@@ -125,7 +134,8 @@ public class L2Party
 		for (L2PcInstance member : getPartyMembers())
 		{
 			if (member.getInventory().validateCapacityByItemId(ItemId) &&
-				Util.checkIfInRange(Config.ALT_PARTY_RANGE2, target, member, true)) availableMembers.add(member);
+					Util.checkIfInRange(Config.ALT_PARTY_RANGE2, target, member, true))
+				availableMembers.add(member);
 		}
 		if (!availableMembers.isEmpty())
 			return availableMembers.get(Rnd.get(availableMembers.size()));
@@ -145,13 +155,13 @@ public class L2Party
 				_itemLastLoot = 0;
 			L2PcInstance member;
 			try 
-			{ 
+			{
 				member = getPartyMembers().get(_itemLastLoot); 
 				if (member.getInventory().validateCapacityByItemId(ItemId) &&
-					Util.checkIfInRange(Config.ALT_PARTY_RANGE2, target, member, true))
-									return member;
+						Util.checkIfInRange(Config.ALT_PARTY_RANGE2, target, member, true))
+					return member;
 				
-			} 
+			}
 			catch (Exception e)
 			{
 				// continue, take another member if this just logged off
@@ -168,25 +178,27 @@ public class L2Party
 	private L2PcInstance getActualLooter(L2PcInstance player, int ItemId, boolean spoil, L2Character target)
 	{
 		L2PcInstance looter = player;
-        
-        switch (_itemDistribution)
-        {
-            case ITEM_RANDOM:
-                if (!spoil) looter = getCheckedRandomMember(ItemId, target);
-                break;
-            case ITEM_RANDOM_SPOIL:
-                looter = getCheckedRandomMember(ItemId, target);
-                break;
-            case ITEM_ORDER:
-                if (!spoil) looter = getCheckedNextLooter(ItemId, target);
-                break;
-            case ITEM_ORDER_SPOIL:
-                looter = getCheckedNextLooter(ItemId, target);
-                break;
-        }
-        
-        if (looter == null) looter = player;
-        return looter;
+		switch (_itemDistribution)
+		{
+			case ITEM_RANDOM:
+				if (!spoil)
+					looter = getCheckedRandomMember(ItemId, target);
+				break;
+			case ITEM_RANDOM_SPOIL:
+				looter = getCheckedRandomMember(ItemId, target);
+				break;
+			case ITEM_ORDER:
+				if (!spoil)
+					looter = getCheckedNextLooter(ItemId, target);
+				break;
+			case ITEM_ORDER_SPOIL:
+				looter = getCheckedNextLooter(ItemId, target);
+				break;
+		}
+		
+		if (looter == null)
+			looter = player;
+		return looter;
 	}
 		
 	/**
@@ -194,14 +206,20 @@ public class L2Party
 	 * @param player
 	 * @return
 	 */
-	public boolean isLeader(L2PcInstance player) { return (getLeader().equals(player)); }
-    
-    /**
-     * Returns the Object ID for the party leader to be used as a unique identifier of this party
-     * @return int 
-     */
-    public int getPartyLeaderOID() { return getLeader().getObjectId(); }
-		
+	public boolean isLeader(L2PcInstance player)
+	{
+		return (getLeader().equals(player));
+	}
+
+	/**
+	 * Returns the Object ID for the party leader to be used as a unique identifier of this party
+	 * @return int 
+	 */
+	public int getPartyLeaderOID()
+	{
+		return getLeader().getObjectId();
+	}
+
 	/**
 	 * Broadcasts packet to every party member 
 	 * @param msg
@@ -274,14 +292,16 @@ public class L2Party
 			for (int i = 0; i < getMemberCount(); i++)
 			{
 				int _lvl = getPartyMembers().get(i).getLevel();
-				if (_lvl<_min) _min = _lvl;
-				if (_lvl>_max) _max = _lvl;
+				if (_lvl<_min)
+					_min = _lvl;
+				if (_lvl>_max)
+					_max = _lvl;
 			}
 			
-			if (player.getLevel()>_max)
-				invalidMember = (player.getLevel() - _min)>Config.MAX_PARTY_LEVEL_DIFFERENCE;
-			if (player.getLevel()<_min)
-				invalidMember = (_max - player.getLevel())>Config.MAX_PARTY_LEVEL_DIFFERENCE;
+			if (player.getLevel() > _max)
+				invalidMember = (player.getLevel() - _min) > Config.MAX_PARTY_LEVEL_DIFFERENCE;
+			if (player.getLevel() < _min)
+				invalidMember = (_max - player.getLevel()) > Config.MAX_PARTY_LEVEL_DIFFERENCE;
 
 			if (invalidMember)
 			{
@@ -390,7 +410,7 @@ public class L2Party
 			if (player.isFestivalParticipant())
 				SevenSignsFestival.getInstance().updateParticipants(player, this);
 
-			if(player.isInDuel())
+			if (player.isInDuel())
 				DuelManager.getInstance().onRemoveFromParty(player);
 
 			try
@@ -402,7 +422,8 @@ public class L2Party
 					if (character.getFusionSkill() != null && character.getFusionSkill().getTarget() == player)
 						character.abortCast();
 			}
-			catch (Exception e){
+			catch (Exception e)
+			{
 				e.printStackTrace();
 			}
 
@@ -441,10 +462,10 @@ public class L2Party
 						L2CommandChannel cmd = getCommandChannel();
 						getCommandChannel().removeParty(this);
 						cmd.broadcastToChannelMembers(new SystemMessage(SystemMessageId.C1_PARTY_LEFT_COMMAND_CHANNEL)
-						.addString(getLeader().getName()));
+								.addString(getLeader().getName()));
 					}
 				}
-								
+				
 				L2PcInstance leader = getLeader();
 				if (leader != null)
 				{
@@ -483,7 +504,7 @@ public class L2Party
 			{
 				if (leader == player)
 				{
-					player.sendPacket(new SystemMessage(SystemMessageId.YOU_CANNOT_TRANSFER_RIGHTS_TO_YOURSELF));
+					player.sendPacket(SystemMessageId.YOU_CANNOT_TRANSFER_RIGHTS_TO_YOURSELF);
 				}
 				else
 				{
@@ -503,7 +524,7 @@ public class L2Party
 			}
 			else
 			{
-				player.sendPacket(new SystemMessage(SystemMessageId.YOU_CAN_TRANSFER_RIGHTS_ONLY_TO_ANOTHER_PARTY_MEMBER));
+				player.sendPacket(SystemMessageId.YOU_CAN_TRANSFER_RIGHTS_ONLY_TO_ANOTHER_PARTY_MEMBER);
 			}
 		}
 		
@@ -575,23 +596,23 @@ public class L2Party
 
 		L2PcInstance target = getActualLooter(player, item.getItemId(), false, player);
 		target.addItem("Party", item, player, true);
-	    
-	    // Send messages to other party members about reward
-	    if (item.getCount() > 1) 
-	    {
-	    	SystemMessage msg = new SystemMessage(SystemMessageId.C1_PICKED_UP_S2_S3);
-		    msg.addString(target.getName());
-		    msg.addItemName(item);
-	    	msg.addNumber(item.getCount());
-		    broadcastToPartyMembers(target, msg);
-	    }
-	    else
-	    {
-	    	SystemMessage msg = new SystemMessage(SystemMessageId.C1_PICKED_UP_S2);
-		    msg.addString(target.getName());
-		    msg.addItemName(item);
-		    broadcastToPartyMembers(target, msg);
-	    }
+		
+		// Send messages to other party members about reward
+		if (item.getCount() > 1) 
+		{
+			SystemMessage msg = new SystemMessage(SystemMessageId.C1_PICKED_UP_S2_S3);
+			msg.addString(target.getName());
+			msg.addItemName(item);
+			msg.addNumber(item.getCount());
+			broadcastToPartyMembers(target, msg);
+		}
+		else
+		{
+			SystemMessage msg = new SystemMessage(SystemMessageId.C1_PICKED_UP_S2);
+			msg.addString(target.getName());
+			msg.addItemName(item);
+			broadcastToPartyMembers(target, msg);
+		}
 	}
 	
 	/**
@@ -612,56 +633,58 @@ public class L2Party
 
 		L2PcInstance looter = getActualLooter(player, item.getItemId(), spoil, target);
 		
-		looter.addItem(spoil?"Sweep":"Party", item.getItemId(), item.getCount(), player, true);
-		
-	    // Send messages to other aprty members about reward
-	    if (item.getCount() > 1) 
-	    {
-	    	SystemMessage msg = spoil ?  new SystemMessage(SystemMessageId.C1_SWEEPED_UP_S2_S3) 
-	    	                          : new SystemMessage(SystemMessageId.C1_PICKED_UP_S2_S3);
-		    msg.addString(looter.getName());
-		    msg.addItemName(item.getItemId());
-	    	msg.addNumber(item.getCount());
-            broadcastToPartyMembers(looter, msg);
-	    }
-	    else
-	    {
-	    	SystemMessage msg = spoil ?  new SystemMessage(SystemMessageId.C1_SWEEPED_UP_S2) 
-	    	                          : new SystemMessage(SystemMessageId.C1_PICKED_UP_S2);
-		    msg.addString(looter.getName());
-		    msg.addItemName(item.getItemId());
-            broadcastToPartyMembers(looter, msg);
-	    }
+		looter.addItem(spoil ? "Sweep" : "Party", item.getItemId(), item.getCount(), player, true);
+
+		// Send messages to other aprty members about reward
+		if (item.getCount() > 1) 
+		{
+			SystemMessage msg = spoil ?  new SystemMessage(SystemMessageId.C1_SWEEPED_UP_S2_S3) 
+									  : new SystemMessage(SystemMessageId.C1_PICKED_UP_S2_S3);
+			msg.addString(looter.getName());
+			msg.addItemName(item.getItemId());
+			msg.addNumber(item.getCount());
+			broadcastToPartyMembers(looter, msg);
+		}
+		else
+		{
+			SystemMessage msg = spoil ?  new SystemMessage(SystemMessageId.C1_SWEEPED_UP_S2) 
+									  : new SystemMessage(SystemMessageId.C1_PICKED_UP_S2);
+			msg.addString(looter.getName());
+			msg.addItemName(item.getItemId());
+			broadcastToPartyMembers(looter, msg);
+		}
 	}
 	
 	/**
 	 * distribute adena to party members
 	 * @param adena
 	 */
-    public void distributeAdena(L2PcInstance player, int adena, L2Character target) 
-    {
-        // Get all the party members
-        FastList<L2PcInstance> membersList = getPartyMembers();
-        
-        // Check the number of party members that must be rewarded
-        // (The party member must be in range to receive its reward)
-        FastList<L2PcInstance> ToReward = new FastList<L2PcInstance>();
-        for (L2PcInstance member : membersList)
-        {
-            if (!Util.checkIfInRange(Config.ALT_PARTY_RANGE2, target, member, true)) continue;
-            ToReward.add(member);
-        }
-        
-        // Avoid null exceptions, if any
-        if (ToReward.isEmpty()) return;
-        
-        // Now we can actually distribute the adena reward
-        // (Total adena splitted by the number of party members that are in range and must be rewarded)
-        int count = adena / ToReward.size();
-        for (L2PcInstance member : ToReward)
-            member.addAdena("Party", count, player, true);
-    }
-    
+	public void distributeAdena(L2PcInstance player, int adena, L2Character target) 
+	{
+		// Get all the party members
+		FastList<L2PcInstance> membersList = getPartyMembers();
+		
+		// Check the number of party members that must be rewarded
+		// (The party member must be in range to receive its reward)
+		FastList<L2PcInstance> toReward = new FastList<L2PcInstance>();
+		for (L2PcInstance member : membersList)
+		{
+			if (!Util.checkIfInRange(Config.ALT_PARTY_RANGE2, target, member, true))
+				continue;
+			toReward.add(member);
+		}
+		
+		// Avoid null exceptions, if any
+		if (toReward.isEmpty())
+			return;
+		
+		// Now we can actually distribute the adena reward
+		// (Total adena splitted by the number of party members that are in range and must be rewarded)
+		int count = adena / toReward.size();
+		for (L2PcInstance member : toReward)
+			member.addAdena("Party", count, player, true);
+	}
+
 	/**
 	 * Distribute Experience and SP rewards to L2PcInstance Party members in the known area of the last attacker.<BR><BR>
 	 * 
@@ -678,45 +701,46 @@ public class L2Party
 	 * @param rewardedMembers The list of L2PcInstance to reward
 	 * 
 	 */
-    public void distributeXpAndSp(long xpReward, int spReward, List<L2Playable> rewardedMembers, int topLvl, L2Npc target, int partyDmg, boolean isChampion)
-    {
-        L2SummonInstance summon = null;
-        List<L2Playable> validMembers = getValidMembers(rewardedMembers, topLvl);
-        
-        float penalty;
-        double sqLevel;
-        double preCalculationExp;
-        double preCalculationSp;
+	public void distributeXpAndSp(long xpReward, int spReward, List<L2Playable> rewardedMembers, int topLvl, L2Npc target, int partyDmg, boolean isChampion)
+	{
+		L2SummonInstance summon = null;
+		List<L2Playable> validMembers = getValidMembers(rewardedMembers, topLvl);
+		
+		float penalty;
+		double sqLevel;
+		double preCalculationExp;
+		double preCalculationSp;
 
 		xpReward *= getExpBonus(validMembers.size());
 		spReward *= getSpBonus(validMembers.size());
 
-        double sqLevelSum = 0;
-        for (L2Playable character : validMembers)
-            sqLevelSum += (character.getLevel() * character.getLevel());
-        
-        // Go through the L2PcInstances and L2PetInstances (not L2SummonInstances) that must be rewarded
-        synchronized(rewardedMembers)
-        {
-    		for (L2Character member : rewardedMembers)
-    		{
-    			if(member.isDead()) continue;
+		double sqLevelSum = 0;
+		for (L2Playable character : validMembers)
+			sqLevelSum += (character.getLevel() * character.getLevel());
+		
+		// Go through the L2PcInstances and L2PetInstances (not L2SummonInstances) that must be rewarded
+		synchronized(rewardedMembers)
+		{
+			for (L2Character member : rewardedMembers)
+			{
+				if (member.isDead())
+					continue;
 
 				penalty = 0;
 					
 				// The L2SummonInstance penalty
 				if (member.getPet() instanceof L2SummonInstance)
-    			{
-					summon     = (L2SummonInstance)member.getPet();
+				{
+					summon     = (L2SummonInstance) member.getPet();
 					penalty    = summon.getExpPenalty();
-    			}
+				}
 				// Pets that leech xp from the owner (like babypets) do not get rewarded directly
 				if (member instanceof L2PetInstance)
 				{
-					if (((L2PetInstance)member).getPetData().getOwnerExpTaken() > 0)
+					if (((L2PetInstance) member).getPetData().getOwnerExpTaken() > 0)
 						continue;
 
-					penalty = (float)0.85;
+					penalty = 0.85f;
 				}
 				
 				// Calculate and add the EXP and SP reward to the member
@@ -730,7 +754,7 @@ public class L2Party
 					if (!member.isDead())
 					{
 						long addexp = Math.round(member.calcStat(Stats.EXPSP_RATE, xpReward * preCalculationExp, null, null));
-						int addsp = (int)member.calcStat(Stats.EXPSP_RATE, spReward * preCalculationSp, null, null);
+						int addsp = (int) member.calcStat(Stats.EXPSP_RATE, spReward * preCalculationSp, null, null);
 						if (target != null && member instanceof L2PcInstance)
 						{
 							int soulMasteryLevel = member.getSkillLevel(L2Skill.SKILL_SOUL_MASTERY);
@@ -739,7 +763,7 @@ public class L2Party
 							{
 								L2Skill skill = SkillTable.getInstance().getInfo(L2Skill.SKILL_SOUL_MASTERY, soulMasteryLevel);
 								if (skill.getExpNeeded() <= addexp)
-									((L2PcInstance)member).absorbSoulFromNpc(skill,target);
+									((L2PcInstance) member).absorbSoulFromNpc(skill,target);
 							}
 						}
 						
@@ -765,27 +789,27 @@ public class L2Party
 				else
 				{
 					member.addExpAndSp(0, 0);
-    			}
-    		}
-        }
+				}
+			}
+		}
 	}
-	
-    /**
-     * Calculates and gives final XP and SP rewards to the party member.<BR>
-     * This method takes in consideration number of members, members' levels, rewarder's level and bonus modifier for the actual party.<BR><BR>
-     * 
-     * @param member is the L2Character to be rewarded
-     * @param xpReward is the total amount of XP to be "splited" and given to the member
-     * @param spReward is the total amount of SP to be "splited" and given to the member
-     * @param penalty is the penalty that must be applied to the XP rewards of the requested member
-     */
-    
+
+	/**
+	 * Calculates and gives final XP and SP rewards to the party member.<BR>
+	 * This method takes in consideration number of members, members' levels, rewarder's level and bonus modifier for the actual party.<BR><BR>
+	 * 
+	 * @param member is the L2Character to be rewarded
+	 * @param xpReward is the total amount of XP to be "splited" and given to the member
+	 * @param spReward is the total amount of SP to be "splited" and given to the member
+	 * @param penalty is the penalty that must be applied to the XP rewards of the requested member
+	 */
+
 	/**
 	 * refresh party level
 	 *
 	 */
 	public void recalculatePartyLevel() 
-    {
+	{
 		int newLevel = 0;
 		for (L2PcInstance member : getPartyMembers())
 		{
@@ -799,53 +823,53 @@ public class L2Party
 		}
 		_partyLvl = newLevel;
 	}
-	
+
 	private List<L2Playable> getValidMembers(List<L2Playable> members, int topLvl)
 	{
 		List<L2Playable> validMembers = new FastList<L2Playable>();
 		
-//      Fixed LevelDiff cutoff point
-        if (Config.PARTY_XP_CUTOFF_METHOD.equalsIgnoreCase("level"))
-        {
-        	for (L2Playable member : members)
+		//Fixed LevelDiff cutoff point
+		if (Config.PARTY_XP_CUTOFF_METHOD.equalsIgnoreCase("level"))
+		{
+			for (L2Playable member : members)
 			{
 				if (topLvl - member.getLevel() <= Config.PARTY_XP_CUTOFF_LEVEL)
 					validMembers.add(member);
 			}
-        }
-//      Fixed MinPercentage cutoff point
-        else if (Config.PARTY_XP_CUTOFF_METHOD.equalsIgnoreCase("percentage")) 
-        {
-            int sqLevelSum = 0;
-            for (L2Playable member : members)
+		}
+		//Fixed MinPercentage cutoff point
+		else if (Config.PARTY_XP_CUTOFF_METHOD.equalsIgnoreCase("percentage")) 
+		{
+			int sqLevelSum = 0;
+			for (L2Playable member : members)
 			{
 				sqLevelSum += (member.getLevel() * member.getLevel());
 			}
 			
-            for (L2Playable member : members)
+			for (L2Playable member : members)
 			{
 				int sqLevel = member.getLevel() * member.getLevel();
 				if (sqLevel * 100 >= sqLevelSum * Config.PARTY_XP_CUTOFF_PERCENT)
 					validMembers.add(member);
 			}
-        }
-//      Automatic cutoff method
-        else if (Config.PARTY_XP_CUTOFF_METHOD.equalsIgnoreCase("auto")) 
-        {
-            int sqLevelSum = 0;
-            for (L2Playable member : members)
+		}
+		//Automatic cutoff method
+		else if (Config.PARTY_XP_CUTOFF_METHOD.equalsIgnoreCase("auto")) 
+		{
+			int sqLevelSum = 0;
+			for (L2Playable member : members)
 			{
 				sqLevelSum += (member.getLevel() * member.getLevel());
 			}
 			
 			int i = members.size() - 1;
 			if (i < 1 ) return members;
-            if (i >= BONUS_EXP_SP.length) i = BONUS_EXP_SP.length -1;
+			if (i >= BONUS_EXP_SP.length) i = BONUS_EXP_SP.length -1;
 
-            for (L2Playable member : members)
+			for (L2Playable member : members)
 			{
 				int sqLevel = member.getLevel() * member.getLevel();
-				if (sqLevel >= sqLevelSum * (1-1/(1 +BONUS_EXP_SP[i] -BONUS_EXP_SP[i-1])))
+				if (sqLevel >= sqLevelSum * (1 - 1 / (1 +BONUS_EXP_SP[i] -BONUS_EXP_SP[i - 1])))
 					validMembers.add(member);
 			}
 		}
@@ -855,37 +879,44 @@ public class L2Party
 	private double getBaseExpSpBonus(int membersCount)
 	{
 		int i = membersCount -1;
-        if (i < 1 ) return 1;
-        if (i >= BONUS_EXP_SP.length) i = BONUS_EXP_SP.length -1;
+		if (i < 1 )
+			return 1;
+		if (i >= BONUS_EXP_SP.length)
+			i = BONUS_EXP_SP.length -1;
 
-        return BONUS_EXP_SP[i];
-    }
-    
+		return BONUS_EXP_SP[i];
+	}
+
 	private double getExpBonus(int membersCount) 
 	{
-		if(membersCount < 2)
+		if (membersCount < 2)
 		{
-			//not is a valid party		    
+			//not is a valid party
 			return getBaseExpSpBonus(membersCount); 
 		}
 
 		return getBaseExpSpBonus(membersCount) * Config.RATE_PARTY_XP;
 	}
-	
+
 	private double getSpBonus(int membersCount) 
 	{ 
-		if(membersCount < 2)
-		{	
+		if (membersCount < 2)
+		{
 			//not is a valid party
 			return getBaseExpSpBonus(membersCount);
-		}			    	 
-
+		}
 		return getBaseExpSpBonus(membersCount) * Config.RATE_PARTY_SP;
 	}
-	
-	public int getLevel() { return _partyLvl; }
 
-	public int getLootDistribution() { return _itemDistribution; }
+	public int getLevel()
+	{
+		return _partyLvl;
+	}
+
+	public int getLootDistribution()
+	{
+		return _itemDistribution;
+	}
 
 	public boolean isInCommandChannel()
 	{
@@ -902,11 +933,20 @@ public class L2Party
 		_commandChannel = channel;
 	}
 
-	public boolean isInDimensionalRift() { return _dr != null; }
+	public boolean isInDimensionalRift()
+	{
+		return _dr != null;
+	}
 
-	public void setDimensionalRift(DimensionalRift dr) { _dr = dr; }
+	public void setDimensionalRift(DimensionalRift dr)
+	{
+		_dr = dr;
+	}
 
-	public DimensionalRift getDimensionalRift() { return _dr; }
+	public DimensionalRift getDimensionalRift()
+	{
+		return _dr;
+	}
 
 	public synchronized L2PcInstance getLeader()
 	{

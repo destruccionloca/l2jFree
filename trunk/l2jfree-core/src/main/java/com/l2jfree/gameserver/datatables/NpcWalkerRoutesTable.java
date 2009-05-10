@@ -113,6 +113,5 @@ public class NpcWalkerRoutesTable
 			}
 		}
 		return _return;
-
 	}
 }
