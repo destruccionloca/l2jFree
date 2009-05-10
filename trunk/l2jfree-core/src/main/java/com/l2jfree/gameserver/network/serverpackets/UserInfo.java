@@ -96,7 +96,7 @@ public class UserInfo extends L2GameServerPacket
 	@Override
 	public void packetSent(L2GameClient client, L2PcInstance activeChar)
 	{
-		_activeChar.sendPacket(new ExBrExtraUserInfo(_activeChar));
+		//_activeChar.sendPacket(new ExBrExtraUserInfo(_activeChar));
 	}
 	
 	@Override
