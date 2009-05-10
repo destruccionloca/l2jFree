@@ -18,24 +18,27 @@ import com.l2jfree.gameserver.model.actor.L2Summon;
 
 public class SummonStat extends PlayableStat
 {
-    // =========================================================
-    // Data Field
-    
-    // =========================================================
-    // Constructor
-    public SummonStat(L2Summon activeChar)
-    {
-        super(activeChar);
-    }
+	// =========================================================
+	// Data Field
+	
+	// =========================================================
+	// Constructor
+	public SummonStat(L2Summon activeChar)
+	{
+		super(activeChar);
+	}
 
-    // =========================================================
-    // Method - Public
+	// =========================================================
+	// Method - Public
 
-    // =========================================================
-    // Method - Private
+	// =========================================================
+	// Method - Private
 
-    // =========================================================
-    // Property - Public
-    @Override
-    public L2Summon getActiveChar() { return (L2Summon)_activeChar; }
+	// =========================================================
+	// Property - Public
+	@Override
+	public L2Summon getActiveChar()
+	{
+		return (L2Summon) _activeChar;
+	}
 }

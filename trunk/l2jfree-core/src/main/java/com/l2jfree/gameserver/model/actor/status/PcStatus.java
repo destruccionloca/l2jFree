@@ -92,6 +92,6 @@ public final class PcStatus extends CharStatus
 	@Override
 	public L2PcInstance getActiveChar()
 	{
-		return (L2PcInstance)_activeChar;
+		return (L2PcInstance) _activeChar;
 	}
 }

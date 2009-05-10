@@ -40,6 +40,6 @@ public final class SummonStatus extends CharStatus
 	@Override
 	public L2SummonInstance getActiveChar()
 	{
-		return (L2SummonInstance)super.getActiveChar();
+		return (L2SummonInstance) _activeChar;
 	}
 }

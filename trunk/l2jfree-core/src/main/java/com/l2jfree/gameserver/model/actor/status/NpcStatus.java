@@ -35,6 +35,6 @@ public class NpcStatus extends CharStatus
 	@Override
 	public L2Npc getActiveChar()
 	{
-		return (L2Npc)_activeChar;
+		return (L2Npc) _activeChar;
 	}
 }

@@ -452,10 +452,10 @@ public class CharStat
 		if (_activeChar == null)
 			return 1;
 
-		if (_activeChar instanceof L2PcInstance && ((L2PcInstance)_activeChar).isMounted())
+		if (_activeChar instanceof L2PcInstance && ((L2PcInstance) _activeChar).isMounted())
 		{
 			L2PetData stats = PetDataTable.getInstance().getPetData(
-					((L2PcInstance)_activeChar).getMountNpcId(), ((L2PcInstance)_activeChar).getMountLevel());
+					((L2PcInstance) _activeChar).getMountNpcId(), ((L2PcInstance) _activeChar).getMountLevel());
 			if (stats != null)
 				return getRunSpeed() * 1f / stats.getPetSpeed();
 		}
@@ -674,7 +674,7 @@ public class CharStat
 		double baseRunSpd = _activeChar.getTemplate().getBaseRunSpd();
 		if (_activeChar instanceof L2PcInstance)
 		{
-			L2PcInstance player = (L2PcInstance)_activeChar;
+			L2PcInstance player = (L2PcInstance) _activeChar;
 			if (player.isMounted())
 			{
 				L2PetData stats = PetDataTable.getInstance().getPetData(player.getMountNpcId(), player.getMountLevel());
@@ -814,8 +814,7 @@ public class CharStat
 
 	public final int getAttackElement()
 	{
-		double tempVal = 0, stats[] =
-		{ _fire, _water, _wind, _earth, _holy, _dark };
+		double tempVal = 0, stats[] = { _fire, _water, _wind, _earth, _holy, _dark };
 		int returnVal = -2;
 
 		for (int x = 0; x < stats.length; x++)

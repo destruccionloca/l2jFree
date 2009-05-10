@@ -120,7 +120,7 @@ public class CharStatus
 		{
 			if (getCurrentHp() <= maxHp * 0.3)
 			{
-				QuestState qs = ((L2PcInstance)getActiveChar()).getQuestState("255_Tutorial");
+				QuestState qs = ((L2PcInstance) getActiveChar()).getQuestState("255_Tutorial");
 				if (qs != null)
 					qs.getQuest().notifyEvent("CE45", null, ((L2PcInstance)getActiveChar()));
 			}
@@ -129,7 +129,7 @@ public class CharStatus
 		getActiveChar().broadcastStatusUpdate();
 		
 		if (getActiveChar() instanceof L2PcInstance)
-			((L2PcInstance)getActiveChar()).refreshConditionListeners(ConditionListenerDependency.PLAYER_HP);
+			((L2PcInstance) getActiveChar()).refreshConditionListeners(ConditionListenerDependency.PLAYER_HP);
 	}
 	
 	public final void setCurrentMp(double newMp)
@@ -276,17 +276,17 @@ public class CharStatus
 			{
 				if (Config.ALT_OLY_SUMMON_DAMAGE_COUNTS
 					|| (attacker instanceof L2PcInstance && getActiveChar() instanceof L2PcInstance))
-					attackerPlayer.addOlyDamage((int)value);
+					attackerPlayer.addOlyDamage((int) value);
 			}
 			
 			// If we're dealing with an L2Attackable Instance and the attacker hit it with an over-hit enabled skill, set the over-hit values.
 			// Anything else, clear the over-hit flag
 			if (getActiveChar() instanceof L2Attackable)
 			{
-				if (((L2Attackable)getActiveChar()).isOverhit())
-					((L2Attackable)getActiveChar()).setOverhitValues(attacker, value);
+				if (((L2Attackable) getActiveChar()).isOverhit())
+					((L2Attackable) getActiveChar()).setOverhitValues(attacker, value);
 				else
-					((L2Attackable)getActiveChar()).overhitEnabled(false);
+					((L2Attackable) getActiveChar()).overhitEnabled(false);
 			}
 			value = getCurrentHp() - value; // Get diff of Hp vs value
 			if (value <= 0)
@@ -314,7 +314,7 @@ public class CharStatus
 			// If we're dealing with an L2Attackable Instance and the attacker's hit didn't kill the mob, clear the over-hit flag
 			if (getActiveChar() instanceof L2Attackable)
 			{
-				((L2Attackable)getActiveChar()).overhitEnabled(false);
+				((L2Attackable) getActiveChar()).overhitEnabled(false);
 			}
 		}
 		
@@ -345,7 +345,7 @@ public class CharStatus
 			// If we're dealing with an L2Attackable Instance and the attacker's hit didn't kill the mob, clear the over-hit flag
 			if (getActiveChar() instanceof L2Attackable)
 			{
-				((L2Attackable)getActiveChar()).overhitEnabled(false);
+				((L2Attackable) getActiveChar()).overhitEnabled(false);
 			}
 		}
 		

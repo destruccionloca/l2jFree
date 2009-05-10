@@ -43,14 +43,14 @@ public class NpcStat extends CharStat
 	@Override
 	public L2Npc getActiveChar()
 	{
-		return (L2Npc)_activeChar;
+		return (L2Npc) _activeChar;
 	}
 
 	@Override
 	public final int getMaxHp()
 	{
 		return (int)calcStat(Stats.MAX_HP, getActiveChar().getTemplate().getBaseHpMax()
-			* (getActiveChar().isChampion()?Config.CHAMPION_HP:1) , null, null);
+			* (getActiveChar().isChampion() ? Config.CHAMPION_HP : 1) , null, null);
 	}
 
 	@Override

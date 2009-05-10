@@ -18,29 +18,34 @@ import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 
 public class DoorStat extends CharStat
 {
-    // =========================================================
-    // Data Field
-    
-    // =========================================================
-    // Constructor
-    public DoorStat(L2DoorInstance activeChar)
-    {
-        super(activeChar);
+	// =========================================================
+	// Data Field
+	
+	// =========================================================
+	// Constructor
+	public DoorStat(L2DoorInstance activeChar)
+	{
+		super(activeChar);
+		setLevel((byte) 1);
+	}
 
-        setLevel((byte)1);
-    }
+	// =========================================================
+	// Method - Public
 
-    // =========================================================
-    // Method - Public
+	// =========================================================
+	// Method - Private
 
-    // =========================================================
-    // Method - Private
+	// =========================================================
+	// Property - Public
+	@Override
+	public L2DoorInstance getActiveChar()
+	{
+		return (L2DoorInstance) _activeChar;
+	}
 
-    // =========================================================
-    // Property - Public
-    @Override
-    public L2DoorInstance getActiveChar() { return (L2DoorInstance)_activeChar; }
-
-    @Override
-    public final byte getLevel() { return 1; }
+	@Override
+	public final byte getLevel()
+	{
+		return 1;
+	}
 }

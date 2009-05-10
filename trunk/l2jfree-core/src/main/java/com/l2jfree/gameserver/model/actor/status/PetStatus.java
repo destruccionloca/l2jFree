@@ -40,6 +40,6 @@ public final class PetStatus extends CharStatus
 	@Override
 	public L2PetInstance getActiveChar()
 	{
-		return (L2PetInstance)_activeChar;
+		return (L2PetInstance) _activeChar;
 	}
 }
