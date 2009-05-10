@@ -111,14 +111,8 @@ public class AdminEffects implements IAdminCommandHandler
 		{
 			if (!activeChar.getAppearance().isInvisible())
 			{
-				activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-				activeChar.setTarget(activeChar);
-				activeChar.disableAllSkills();
 				activeChar.getAppearance().setInvisible();
-				activeChar.broadcastUserInfo();
-				activeChar.decayMe();
-				activeChar.spawnMe();
-				activeChar.enableAllSkills();
+				activeChar.updateInvisibilityStatus();
 			}
 			else
 			{
@@ -129,15 +123,9 @@ public class AdminEffects implements IAdminCommandHandler
 		}
 		else if (command.startsWith("admin_invis"))
 		{
-			activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-			activeChar.setTarget(activeChar);
-			activeChar.disableAllSkills();
 			activeChar.getAppearance().setInvisible();
-			activeChar.broadcastUserInfo();
-			activeChar.decayMe();
-			activeChar.spawnMe();
+			activeChar.updateInvisibilityStatus();
 			RegionBBSManager.getInstance().changeCommunityBoard();
-			activeChar.enableAllSkills();
 		}
 
 		else if (command.startsWith("admin_vis"))

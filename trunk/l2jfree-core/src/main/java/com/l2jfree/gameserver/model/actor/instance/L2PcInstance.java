@@ -8861,7 +8861,8 @@ public final class L2PcInstance extends L2Playable
 		getPosition().setXYZ(x, y, z);
 
 		_observerMode = true;
-		broadcastUserInfo();
+		
+		updateInvisibilityStatus();
 	}
 
 	public void enterOlympiadObserverMode(int x, int y, int z, int id, boolean storeCoords)
@@ -8887,11 +8888,11 @@ public final class L2PcInstance extends L2Playable
 		if (isSitting())
 			standUp();
 		if (storeCoords)
-        {
-	        _obsX = getX();
-	        _obsY = getY();
-	        _obsZ = getZ();
-        }
+		{
+			_obsX = getX();
+			_obsY = getY();
+			_obsZ = getZ();
+		}
 		setTarget(null);
 		setIsInvul(true);
 		getAppearance().setInvisible();
@@ -8899,7 +8900,8 @@ public final class L2PcInstance extends L2Playable
 		sendPacket(new GMHide(1));
 		sendPacket(new ExOlympiadMode(3));
 		_observerMode = true;
-		broadcastUserInfo();
+		
+		updateInvisibilityStatus();
 	}
 
 	// [L2J_JP ADD SANDMAN]

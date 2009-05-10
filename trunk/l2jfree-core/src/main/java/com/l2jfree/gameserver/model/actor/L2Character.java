@@ -88,6 +88,7 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.Attack;
 import com.l2jfree.gameserver.network.serverpackets.ChangeMoveType;
 import com.l2jfree.gameserver.network.serverpackets.ChangeWaitType;
+import com.l2jfree.gameserver.network.serverpackets.DeleteObject;
 import com.l2jfree.gameserver.network.serverpackets.FlyToLocation;
 import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillCanceled;
@@ -7332,5 +7333,25 @@ public abstract class L2Character extends L2Object
 	public final void clearShotCharges()
 	{
 		getShots().clearShotCharges();
+	}
+	
+	public void updateInvisibilityStatus()
+	{
+		// Since knownlist objects are always mutual linked, DeleteObject is used for invisibility.
+		// In this case, sending the specific *Info packet is prevented until the object is visible again.
+		DeleteObject de = new DeleteObject(this);
+		for (L2PcInstance player : getKnownList().getKnownPlayers().values())
+		{
+			if (!player.canSee(this))
+			{
+				if (player.getTarget() == this)
+				{
+					player.setTarget(null);
+					player.abortAttack();
+				}
+				player.sendPacket(de);
+			}
+		}
+		broadcastFullInfo();
 	}
 }

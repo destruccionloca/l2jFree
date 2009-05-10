@@ -165,6 +165,15 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			writeD(0x00);
 			writeD(0x00);// CT1.5 Pet form and skills
 		}
+
+		@Override
+		public boolean canBeSentTo(L2GameClient client, L2PcInstance activeChar)
+		{
+			if (!activeChar.canSee(_npc))
+				return false;
+
+			return true;
+		}
 	}
 
 	public static class TrapInfo extends AbstractNpcInfo
@@ -244,6 +253,15 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			writeD(0x00);  // C6
 			writeD(0x00);
 			writeD(0);//CT1.5 Pet form and skills
+		}
+
+		@Override
+		public boolean canBeSentTo(L2GameClient client, L2PcInstance activeChar)
+		{
+			if (!activeChar.canSee(_trap))
+				return false;
+
+			return true;
 		}
 	}
 
@@ -467,6 +485,15 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			// T1
 			writeD(0x00); // Can Decoys be transformed?
 			writeD(0x00); // Can Decoys have Agathions?
+		}
+
+		@Override
+		public boolean canBeSentTo(L2GameClient client, L2PcInstance activeChar)
+		{
+			if (!activeChar.canSee(_decoy))
+				return false;
+
+			return true;
 		}
 	}
 
