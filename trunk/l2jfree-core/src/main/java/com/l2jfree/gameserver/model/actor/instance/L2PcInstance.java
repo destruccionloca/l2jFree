@@ -2094,6 +2094,14 @@ public final class L2PcInstance extends L2Playable
 			}
 			sendPacket(sm);
 
+			//must be sent before InventoryUpdate
+			if ((bodyPart & L2Item.SLOT_HEAD) > 0 || (bodyPart & L2Item.SLOT_NECK) > 0
+					|| (bodyPart & L2Item.SLOT_L_EAR) > 0 || (bodyPart & L2Item.SLOT_R_EAR) > 0
+					|| (bodyPart & L2Item.SLOT_L_FINGER) > 0 || (bodyPart & L2Item.SLOT_R_FINGER) > 0
+					|| (bodyPart & L2Item.SLOT_R_BRACELET) > 0 || (bodyPart & L2Item.SLOT_L_BRACELET) > 0
+					||(bodyPart & L2Item.SLOT_DECO) > 0)
+				sendPacket(new UserInfo(this));
+
 			items = getInventory().equipItemAndRecord(item);
 
 			// Consume mana - will start a task if required; returns if item is not a shadow item
@@ -2108,18 +2116,7 @@ public final class L2PcInstance extends L2Playable
 		sendPacket(iu);
 		if (abortAttack)
 			abortAttack();
-		if ((bodyPart & L2Item.SLOT_HEAD) > 0 || (bodyPart & L2Item.SLOT_NECK) > 0
-				|| (bodyPart & L2Item.SLOT_L_EAR) > 0 || (bodyPart & L2Item.SLOT_R_EAR) > 0
-				|| (bodyPart & L2Item.SLOT_L_FINGER) > 0 || (bodyPart & L2Item.SLOT_R_FINGER) > 0
-				|| (bodyPart & L2Item.SLOT_R_BRACELET) > 0 || (bodyPart & L2Item.SLOT_L_BRACELET) > 0
-				||(bodyPart & L2Item.SLOT_DECO) > 0)
-		{
-			sendPacket(new UserInfo(this));
-		}
-		else
-		{
-			broadcastUserInfo();
-		}
+		broadcastUserInfo();
 	}
 
 	/** Return the Experience of the L2PcInstance. */
