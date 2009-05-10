@@ -29,7 +29,8 @@ import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.item.L2Item;
 
-public class RequestBuyProcure extends L2GameClientPacket {
+public class RequestBuyProcure extends L2GameClientPacket
+{
 	private static final String _C__C3_REQUESTBUYPROCURE = "[C] C3 RequestBuyProcure";
 	//private int _listId;
 	private int _count;

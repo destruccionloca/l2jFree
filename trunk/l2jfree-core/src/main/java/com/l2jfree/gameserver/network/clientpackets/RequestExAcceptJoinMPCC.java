@@ -17,15 +17,16 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.gameserver.model.L2CommandChannel;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * @author -Wooden-
- *
  */
 public class RequestExAcceptJoinMPCC extends L2GameClientPacket
 {
 	private static final String _C__D0_0E_REQUESTEXASKJOINMPCC = "[C] D0:0E RequestExAcceptJoinMPCC";
+
 	private int _response;
 
 	@Override
@@ -34,48 +35,47 @@ public class RequestExAcceptJoinMPCC extends L2GameClientPacket
 		_response = readD();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#runImpl()
-	 */
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		SystemMessage sm;
-		if(player != null)
-		{
-			L2PcInstance requestor = player.getActiveRequester();
-			if (requestor == null)
-				return;
+		if (player == null) return;
+		L2PcInstance requestor = player.getActiveRequester();
+        if (requestor == null)
+        {
+        	sendPacket(ActionFailed.STATIC_PACKET);
+        	return;
+        }
 
-			if (_response == 1) 
+		SystemMessage sm;
+		if (_response == 1) 
+		{
+			boolean newCc = false;
+			if (!requestor.getParty().isInCommandChannel())
 			{
-				boolean newCc = false;
-				if(!requestor.getParty().isInCommandChannel())
-				{
-					new L2CommandChannel(requestor); // Create new CC
-					newCc = true;
-				}
-				requestor.getParty().getCommandChannel().addParty(player.getParty());
-				if (!newCc)
-				{
-					sm = new SystemMessage(SystemMessageId.JOINED_COMMAND_CHANNEL);
-					player.getParty().broadcastToPartyMembers(sm);
-				}
+				new L2CommandChannel(requestor); // Create new CC
+				newCc = true;
 			}
-			else
+			requestor.getParty().getCommandChannel().addParty(player.getParty());
+			if (!newCc)
 			{
-				requestor.sendMessage("The player declined to join your Command Channel.");
+				sm = new SystemMessage(SystemMessageId.JOINED_COMMAND_CHANNEL);
+				player.getParty().broadcastToPartyMembers(sm);
 			}
-			
-			player.setActiveRequester(null);
-			requestor.onTransactionResponse();
 		}
+		else
+		{
+			sm = new SystemMessage(SystemMessageId.S1_DECLINED_CHANNEL_INVITATION);
+			sm.addString(player.getName());
+			requestor.sendPacket(sm);
+		}
+		sm = null;
+
+		sendPacket(ActionFailed.STATIC_PACKET);
+		player.setActiveRequester(null);
+		requestor.onTransactionResponse();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.BasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

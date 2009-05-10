@@ -47,7 +47,11 @@ public class RequestAnswerJoinAlly extends L2GameClientPacket
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null) return;
 		L2PcInstance requestor = activeChar.getRequest().getPartner();
-        if (requestor == null) return;
+        if (requestor == null)
+        {
+        	sendPacket(ActionFailed.STATIC_PACKET);
+        	return;
+        }
 
 		if (_response == 0)
 		{

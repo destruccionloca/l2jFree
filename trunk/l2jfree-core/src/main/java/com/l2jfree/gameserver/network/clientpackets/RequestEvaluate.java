@@ -16,16 +16,15 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.instancemanager.RecommendationManager;
 import com.l2jfree.gameserver.model.L2Object;
+import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 
 public class RequestEvaluate extends L2GameClientPacket
 {
     private static final String _C__B9_REQUESTEVALUATE = "[C] B9 RequestEvaluate";
 
-    //private final static Log _log = LogFactory.getLog(RequestEvaluate.class.getName());
-
-    @SuppressWarnings("unused")
     private int _targetId;
 
     @Override
@@ -38,16 +37,23 @@ public class RequestEvaluate extends L2GameClientPacket
     protected void runImpl()
     {
     	L2PcInstance activeChar = getClient().getActiveChar();
-    	L2Object target = activeChar.getTarget();
+    	if (activeChar == null) return;
+
+    	L2Object target = null;
+    	// Get object from target
+		if (activeChar.getTargetId() == _targetId)
+			target = activeChar.getTarget();
+		if (target == null)
+			target = L2World.getInstance().findObject(_targetId);
+
     	if (target instanceof L2PcInstance)
     		RecommendationManager.getInstance().recommend(activeChar, (L2PcInstance) target);
     	else
-    		activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
+    		sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
+
+    	sendPacket(ActionFailed.STATIC_PACKET);
     }
-    
-    /* (non-Javadoc)
-     * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-     */
+
     @Override
     public String getType()
     {

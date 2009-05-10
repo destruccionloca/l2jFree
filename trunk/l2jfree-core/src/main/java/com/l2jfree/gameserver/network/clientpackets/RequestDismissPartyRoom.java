@@ -17,22 +17,20 @@ package com.l2jfree.gameserver.network.clientpackets;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
+
 /**
  * Format: (ch) dd
  * @author -Wooden-
- *
  */
 public class RequestDismissPartyRoom extends L2GameClientPacket
 {
-	private final static Log _log = LogFactory.getLog(RequestDismissPartyRoom.class.getName());
 	private static final String _C__D0_02_REQUESTDISMISSPARTYROOM = "[C] D0:02 RequestDismissPartyRoom";
+	private static final Log _log = LogFactory.getLog(RequestDismissPartyRoom.class.getName());
+
 	private int _data1;
 	private int _data2;
 
-	/**
-	 * @param buf
-	 * @param client
-	 */
     @Override
     protected void readImpl()
     {
@@ -40,20 +38,15 @@ public class RequestDismissPartyRoom extends L2GameClientPacket
 		_data2 = readD();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#runImpl()
-	 */
 	@Override
     protected void runImpl()
 	{
+		//TODO: implement
 		_log.info("This packet is not well known : RequestDismissPartyRoom");
 		_log.info("Data received: d:"+_data1+" d:"+_data2);
-
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.BasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

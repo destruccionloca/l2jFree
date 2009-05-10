@@ -47,7 +47,11 @@ public class RequestAnswerJoinParty extends L2GameClientPacket
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null) return;
 		L2PcInstance requestor = player.getActiveRequester();
-		if (requestor == null) return;
+        if (requestor == null)
+        {
+        	sendPacket(ActionFailed.STATIC_PACKET);
+        	return;
+        }
 
 		requestor.sendPacket(new JoinParty(_response));
 

@@ -16,43 +16,37 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 
 /**
- * This class ...
+ * This class represents a packet sent by the client when a clan's leader requests to
+ * quit the alliance
  *
  * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:30 $
  */
 public class RequestDismissAlly extends L2GameClientPacket
 {
 	private static final String _C__86_REQUESTDISMISSALLY = "[C] 86 RequestDismissAlly";
-	//static Logger _log = Logger.getLogger(RequestDismissAlly.class.getName());
 
     @Override
     protected void readImpl()
     {
-        // trigger packet
     }
 
     @Override
     protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
-		{
-		    return;
-		}
+		if (activeChar == null) return;
 		if (!activeChar.isClanLeader())
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.FEATURE_ONLY_FOR_ALLIANCE_LEADER));
+			requestFailed(SystemMessageId.FEATURE_ONLY_FOR_ALLIANCE_LEADER);
 			return;
 		}
 		activeChar.getClan().dissolveAlly(activeChar);
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

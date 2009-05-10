@@ -65,13 +65,13 @@ public class AnswerTradeRequest extends L2GameClientPacket
         }
 
         //possible exploit fix
-        if (player.getActiveTradeList() != null)
+        if (player.isProcessingTransaction())
         {
         	partner.sendPacket(new SystemMessage(SystemMessageId.C1_ALREADY_TRADING).addString(player.getName()));
         	requestFailed(SystemMessageId.ALREADY_TRADING);
         	return;
         }
-        else if (partner.getActiveTradeList() != null)
+        else if (partner.isProcessingTransaction())
         {
         	partner.sendPacket(SystemMessageId.ALREADY_TRADING);
         	requestFailed(new SystemMessage(SystemMessageId.C1_ALREADY_TRADING).addString(partner.getName()));

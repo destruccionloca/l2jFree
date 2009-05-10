@@ -74,9 +74,9 @@ public final class RequestBlock extends L2GameClientPacket
 			}
 		}
 
-		activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
-	
+
 	@Override
 	public String getType()
 	{

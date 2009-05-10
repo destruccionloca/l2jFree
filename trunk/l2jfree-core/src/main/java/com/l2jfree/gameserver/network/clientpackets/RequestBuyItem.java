@@ -43,7 +43,8 @@ import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.gameserver.util.Util;
 
 /**
- * This class ...
+ * This class represents a packet sent by the client when the player confirms his item
+ * selection in a general shop (not exchange shop)
  * 
  * @version $Revision: 1.12.4.4 $ $Date: 2005/03/27 15:29:30 $
  */
