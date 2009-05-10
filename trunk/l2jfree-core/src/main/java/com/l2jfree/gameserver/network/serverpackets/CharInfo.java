@@ -23,7 +23,6 @@ import com.l2jfree.gameserver.model.actor.appearance.PcAppearance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.network.L2GameClient;
-import com.l2jfree.gameserver.network.serverpackets.ExBrExtraUserInfo;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public class CharInfo extends L2GameServerPacket
@@ -89,7 +88,6 @@ public class CharInfo extends L2GameServerPacket
 	@Override
 	public void packetSent(L2GameClient client, L2PcInstance attacker)
 	{
-		attacker.sendPacket(new ExBrExtraUserInfo(_activeChar));
 		RelationChanged.sendRelationChanged(_activeChar, attacker);
 	}
 	

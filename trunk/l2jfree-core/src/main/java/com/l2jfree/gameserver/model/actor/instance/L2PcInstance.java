@@ -13979,6 +13979,7 @@ public final class L2PcInstance extends L2Playable
 		else
 		{
 			Broadcast.toKnownPlayers(this, new CharInfo(this));
+			//Broadcast.toKnownPlayers(this, new ExBrExtraUserInfo(this));
 		}
 	}
 	
