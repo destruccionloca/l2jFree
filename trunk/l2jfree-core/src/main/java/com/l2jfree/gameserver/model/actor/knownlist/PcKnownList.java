@@ -180,17 +180,19 @@ public class PcKnownList extends PlayableKnownList
             {
                 L2PcInstance otherPlayer = (L2PcInstance) object;
                 if (otherPlayer.isInBoat())
-                {
                     otherPlayer.getPosition().setWorldPosition(otherPlayer.getBoat().getPosition());
-                    getActiveChar().sendPacket(new CharInfo(otherPlayer));
-                    getActiveChar().sendPacket(new ExBrExtraUserInfo(otherPlayer));
-                    getActiveChar().sendPacket(new GetOnVehicle(otherPlayer, otherPlayer.getBoat(), otherPlayer.getInBoatPosition().getX(), otherPlayer.getInBoatPosition().getY(), otherPlayer.getInBoatPosition().getZ()));
+
+                if (otherPlayer.getPoly().isMorphed())
+                {
+                    getActiveChar().sendPacket(new AbstractNpcInfo.PcMorphInfo(otherPlayer, otherPlayer.getPoly().getNpcTemplate()));
                 }
                 else
                 {
                     getActiveChar().sendPacket(new CharInfo(otherPlayer));
-                    getActiveChar().sendPacket(new ExBrExtraUserInfo(otherPlayer));
                 }
+
+                if (otherPlayer.isInBoat())
+                    getActiveChar().sendPacket(new GetOnVehicle(otherPlayer, otherPlayer.getBoat(), otherPlayer.getInBoatPosition().getX(), otherPlayer.getInBoatPosition().getY(), otherPlayer.getInBoatPosition().getZ()));
 
                 if (otherPlayer.getMountType() == 4)
                 {

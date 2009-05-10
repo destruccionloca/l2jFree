@@ -26,6 +26,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.network.L2GameClient;
+import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public abstract class AbstractNpcInfo extends L2GameServerPacket
 {
@@ -584,7 +585,110 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 		@Override
 		public boolean canBeSentTo(L2GameClient client, L2PcInstance activeChar)
 		{
-			return _summon.getOwner() != activeChar;
+			// Owner gets PetInfo
+			if (_summon.getOwner() == activeChar)
+				return false;
+
+			if (!activeChar.canSee(_summon))
+				return false;
+
+			return true;
+		}
+	}
+
+	/**
+	 * Packet for morphed PCs
+	 */
+	public static class PcMorphInfo extends AbstractNpcInfo
+	{
+		private L2PcInstance	_pc;
+		private L2NpcTemplate	_template;
+
+		public PcMorphInfo(L2PcInstance cha, L2NpcTemplate template)
+		{
+			super(cha);
+			_pc = cha;
+			_template = template;
+		}
+
+		@Override
+		protected void writeImpl(L2GameClient client, L2PcInstance activeChar)
+		{
+			writeC(0x0c);
+			writeD(_pc.getObjectId());
+			writeD(_pc.getPoly().getPolyId() + 1000000); // npctype id
+			writeD(_pc.isAutoAttackable(activeChar) ? 1 : 0);
+			writeD(_x);
+			writeD(_y);
+			writeD(_z);
+			writeD(_heading);
+			writeD(0x00);
+			writeD(_mAtkSpd);
+			writeD(_pAtkSpd);
+			writeD(_runSpd); 
+			writeD(_walkSpd);
+			writeD(_swimRunSpd); // swimspeed
+			writeD(_swimWalkSpd); // swimspeed
+			writeD(_flRunSpd);
+			writeD(_flWalkSpd);
+			writeD(_flyRunSpd);
+			writeD(_flyWalkSpd);
+			writeF(_pc.getStat().getMovementSpeedMultiplier());
+			writeF(_pc.getStat().getAttackSpeedMultiplier());
+			writeF(_template.getCollisionRadius());
+			writeF(_template.getCollisionHeight());
+			writeD(_pc.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_RHAND)); // right hand weapon
+			writeD(0); // Chest
+			writeD(_pc.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_LHAND)); // left hand weapon
+			writeC(1); // name above char 1=true ... ??
+			writeC(_pc.isRunning() ? 1 : 0);
+			writeC(_pc.isInCombat() ? 1 : 0);
+			writeC(_pc.isAlikeDead() ? 1 : 0);
+			writeC(0);
+			writeS(_pc.getAppearance().getVisibleName());
+			writeS(_pc.getAppearance().getVisibleTitle());
+
+			writeD(0x00); // Title Color
+			writeD(_pc.getKarma());
+			writeD(_pc.getPvpFlag());
+
+			if (_pc.getAppearance().isInvisible())
+			{
+				writeD((_pc.getAbnormalEffect() | L2Character.ABNORMAL_EFFECT_STEALTH));
+			}
+			else
+			{
+				writeD(_pc.getAbnormalEffect()); // C2
+			}
+
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeC(0x00);
+			writeC(0x00);
+			writeF(_template.getCollisionRadius());
+			writeF(_template.getCollisionHeight());
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+		}
+
+		@Override
+		public boolean canBeSentTo(L2GameClient client, L2PcInstance activeChar)
+		{
+			// Won't work
+			if (_pc == activeChar)
+				return false;
+			
+			if (!activeChar.canSee(_pc))
+				return false;
+			
+			if (_pc.inObserverMode())
+				return false;
+
+			return true;
 		}
 	}
 }

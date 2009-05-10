@@ -342,9 +342,15 @@ public class AdminEffects implements IAdminCommandHandler
 			try
 			{
 				String id = st.nextToken();
-				activeChar.getPoly().setPolyInfo("npc", id);
-				activeChar.teleToLocation(activeChar.getX(), activeChar.getY(), activeChar.getZ(), false);
-				activeChar.broadcastUserInfo();
+				if (activeChar.getPoly().setPolyInfo("npc", id))
+				{
+					activeChar.teleToLocation(activeChar.getX(), activeChar.getY(), activeChar.getZ(), false);
+					activeChar.broadcastUserInfo(); // Should be done automatically?
+				}
+				else
+				{
+					activeChar.sendMessage("Invalid ID specified.");
+				}
 			}
 			catch (Exception e)
 			{
@@ -352,10 +358,13 @@ public class AdminEffects implements IAdminCommandHandler
 		}
 		else if (command.startsWith("admin_unpolyself"))
 		{
-			activeChar.getPoly().setPolyInfo(null, "1");
-			activeChar.decayMe();
-			activeChar.spawnMe(activeChar.getX(), activeChar.getY(), activeChar.getZ());
-			activeChar.broadcastUserInfo();
+			if (activeChar.getPoly().isMorphed())
+			{
+				activeChar.getPoly().setPolyInfo(null, "1");
+				activeChar.decayMe();
+				activeChar.spawnMe(activeChar.getX(), activeChar.getY(), activeChar.getZ());
+				activeChar.broadcastUserInfo(); // Should be done automatically?
+			}
 		}
 		else if (command.equals("admin_clear_teams"))
 		{

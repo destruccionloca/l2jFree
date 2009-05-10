@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.model.actor.poly;
 
+import com.l2jfree.gameserver.datatables.NpcTable;
+import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public class ObjectPoly
 {
@@ -23,6 +25,7 @@ public class ObjectPoly
 	private String _polyType;
 	private int _baseId;
 	private boolean _firstMorph;
+	private L2NpcTemplate _npcTemplate;
 	
 	// =========================================================
 	// Constructor
@@ -32,18 +35,31 @@ public class ObjectPoly
 	
 	// =========================================================
 	// Method - Public
-	public void setPolyInfo(String polyType, String polyId)
+	public boolean setPolyInfo(String polyType, String polyId)
 	{
-		setPolyId(Integer.parseInt(polyId));
+		int id = Integer.parseInt(polyId);
+		if ("npc".equals(polyType))
+		{
+			// May not be null
+			L2NpcTemplate template = NpcTable.getInstance().getTemplate(id);
+			if (template == null)
+				return false;
+			_npcTemplate = template;
+		}
+		setPolyId(id);
 		setPolyType(polyType);
+		return true;
 	}
 	
-	public void setPolyInfo(String polyType, String polyId, String baseId)
+	public boolean setPolyInfo(String polyType, String polyId, String baseId)
 	{
-		setPolyId(Integer.parseInt(polyId));
-		setPolyType(polyType);
-		setBaseId(Integer.parseInt(baseId));
-		setFirstMorph(true);
+		if (setPolyInfo(polyType, polyId))
+		{
+			setBaseId(Integer.parseInt(baseId));
+			setFirstMorph(true);
+			return true;
+		}
+		return false;
 	}
 	
 	// =========================================================
@@ -106,4 +122,8 @@ public class ObjectPoly
 		_firstMorph = value;
 	}
 	
+	public final L2NpcTemplate getNpcTemplate()
+	{
+		return _npcTemplate;
+	}
 }

@@ -177,6 +177,7 @@ import com.l2jfree.gameserver.network.Disconnection;
 import com.l2jfree.gameserver.network.InvalidPacketException;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.AbstractNpcInfo;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.CameraMode;
 import com.l2jfree.gameserver.network.serverpackets.ChangeWaitType;
@@ -184,7 +185,6 @@ import com.l2jfree.gameserver.network.serverpackets.CharInfo;
 import com.l2jfree.gameserver.network.serverpackets.ConfirmDlg;
 import com.l2jfree.gameserver.network.serverpackets.EtcStatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ExBasicActionList;
-import com.l2jfree.gameserver.network.serverpackets.ExBrExtraUserInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExDuelUpdateUserInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExFishingEnd;
 import com.l2jfree.gameserver.network.serverpackets.ExFishingStart;
@@ -13972,8 +13972,14 @@ public final class L2PcInstance extends L2Playable
 		refreshExpertisePenalty();
 		
 		sendPacket(new UserInfo(this));
-		Broadcast.toKnownPlayers(this, new CharInfo(this));
-		Broadcast.toKnownPlayers(this, new ExBrExtraUserInfo(this));
+		if (getPoly().isMorphed())
+		{
+			Broadcast.toKnownPlayers(this, new AbstractNpcInfo.PcMorphInfo(this, getPoly().getNpcTemplate()));
+		}
+		else
+		{
+			Broadcast.toKnownPlayers(this, new CharInfo(this));
+		}
 	}
 	
 	/**
@@ -14073,6 +14079,26 @@ public final class L2PcInstance extends L2Playable
 			return false;
 		}
 		
+		return true;
+	}
+
+	public boolean canSee(L2Character cha)
+	{
+		if (cha instanceof L2PcInstance)
+		{
+			if (((L2PcInstance) cha).getAppearance().isInvisible() && !isGM())
+				return false;
+		}
+		else if (cha instanceof L2Summon)
+		{
+			if (((L2Summon) cha).getOwner().getAppearance().isInvisible() && !isGM())
+				return false;
+		}
+		/* Are traps invisible for other chars than owner?
+		else if (cha instanceof L2Trap)
+		{
+		}
+		*/
 		return true;
 	}
 }

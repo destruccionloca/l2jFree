@@ -137,7 +137,11 @@ public class AdminPolymorph implements IAdminCommandHandler
 	{
 		if (obj != null)
 		{
-			obj.getPoly().setPolyInfo(type, id);
+			if (!obj.getPoly().setPolyInfo(type, id))
+			{
+				activeChar.sendMessage("Invalid ID specified.");
+				return;
+			}
 			//animation
 			if (obj instanceof L2Character)
 			{
@@ -162,7 +166,7 @@ public class AdminPolymorph implements IAdminCommandHandler
 	 */
 	private void doUnpoly(L2PcInstance activeChar, L2Object target)
 	{
-		if (target != null)
+		if (target != null && target.getPoly().isMorphed())
 		{
 			target.getPoly().setPolyInfo(null, "1");
 			target.decayMe();
