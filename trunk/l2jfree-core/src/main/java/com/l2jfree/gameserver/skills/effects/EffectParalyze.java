@@ -25,31 +25,29 @@ public final class EffectParalyze extends L2Effect
 	{
 		super(env, template);
 	}
-
+	
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.PARALYZE;
 	}
-
+	
 	@Override
 	public boolean onStart()
 	{
-		getEffected().startAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_1);
 		getEffected().startParalyze();
 		return true;
 	}
-
+	
 	@Override
 	public void onExit()
 	{
-		getEffected().stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_1);
 		getEffected().stopParalyze(false);
 	}
-
+	
 	@Override
-	public boolean onActionTime()
+	protected int getTypeBasedAbnormalEffect()
 	{
-		return false;
+		return L2Character.ABNORMAL_EFFECT_HOLD_1;
 	}
 }

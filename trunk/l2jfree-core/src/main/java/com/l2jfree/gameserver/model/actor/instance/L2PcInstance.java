@@ -7006,7 +7006,7 @@ public final class L2PcInstance extends L2Playable
 					statement.setInt(2, skillId);
 					statement.setInt(3, effect.getSkill().getLevel());
 					statement.setInt(4, effect.getCount());
-					statement.setInt(5, effect.getTime());
+					statement.setInt(5, effect.getPeriod() - effect.getTime());
 					if (_reuseTimeStamps.containsKey(skillId))
 					{
 						TimeStamp t = _reuseTimeStamps.get(skillId);
@@ -7401,8 +7401,7 @@ public final class L2PcInstance extends L2Playable
 				{
 					if (effect.getSkill().getId() == skillId)
 					{
-						effect.setCount(effectCount);
-						effect.setFirstTime(effectCurTime);
+						effect.setTiming(effectCount, effect.getPeriod() - effectCurTime);
 					}
 				}
 			}

@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
@@ -23,6 +25,8 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Playable;
+import com.l2jfree.gameserver.model.actor.effects.CharEffects;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
@@ -35,25 +39,14 @@ import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.funcs.FuncOwner;
 import com.l2jfree.gameserver.skills.funcs.FuncTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
-import com.l2jfree.util.LinkedBunch;
+import com.l2jfree.gameserver.threadmanager.FIFORunnableQueue;
+import com.l2jfree.util.L2Collections;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.1.2.1.2.12 $ $Date: 2005/04/11 10:06:07 $
- */
-public abstract class L2Effect implements FuncOwner
+public abstract class L2Effect implements FuncOwner, Runnable
 {
-	static final Log	_log	= LogFactory.getLog(L2Effect.class.getName());
+	protected static final Log _log = LogFactory.getLog(L2Effect.class);
 	
 	public static final L2Effect[] EMPTY_ARRAY = new L2Effect[0];
-	
-	public static enum EffectState
-	{
-		CREATED,
-		ACTING,
-		FINISHING
-	}
 	
 	// member _effector is the instance of L2Character that cast/used the spell/skill that is
 	// causing this effect. Do not confuse with the instance of L2Character that
@@ -68,16 +61,13 @@ public abstract class L2Effect implements FuncOwner
 	// the skill that was used.
 	private final L2Skill			_skill;
 	
-	// or the items that was used.
-	// private final L2Item _item;
-	
 	// the current state
-	private EffectState				_state;
+	private boolean _isActing;
 	
 	// period, seconds
-	private int						_period;
-	private int						_periodStartTicks;
-	private int						_periodfirsttime;
+	private final int _period;
+	private int _periodStartTicks;
+	private int _periodfirsttime;
 
 	// Effect template
 	private EffectTemplate			_template;
@@ -85,59 +75,27 @@ public abstract class L2Effect implements FuncOwner
 	// counter
 	private int						_count;
 	
-	public final class EffectTask implements Runnable
-	{
-		protected final int	_delay;
-		protected final int	_rate;
-		
-		EffectTask(int delay, int rate)
-		{
-			_delay = delay;
-			_rate = rate;
-		}
-		
-		public void run()
-		{
-			try
-			{
-				if (_periodfirsttime == 0)
-					_periodStartTicks = GameTimeController.getGameTicks();
-				else
-					_periodfirsttime = 0;
-				scheduleEffect();
-			}
-			catch (Exception e)
-			{
-				_log.fatal(e.getMessage(), e);
-			}
-		}
-	}
-	
 	private ScheduledFuture<?> _currentFuture;
-	private EffectTask		 _currentTask;
 	
-	private boolean			_inUse	= false;
-	private boolean			_startConditionsCorrect = true;
+	private volatile boolean _inUse = false;
+	private volatile boolean _startConditionsCorrect = true;
 	
 	protected L2Effect(Env env, EffectTemplate template)
 	{
-		_state = EffectState.CREATED;
-		_skill = env.skill;
-		// _item = env._item == null ? null : env._item.getItem();
 		_template = template;
+		_skill = env.skill;
 		_effected = env.target;
 		_effector = env.player;
 		_count = template.count;
-
+		
 		// TODO DrHouse: This should be reworked, we need to be able to change effect time out of Effect Constructor
 		// maybe using a child class
 		// Support for retail herbs duration when _effected has a Summon
 		int id = _skill.getId();
 		int temp = template.period;
-		if ((id > 2277 && id < 2286) || (id >= 2512 && id <= 2514))
+		if (2277 < id && id < 2286 || 2512 <= id && id <= 2514)
 		{
-			if (_effected instanceof L2SummonInstance
-				|| (_effected instanceof L2PcInstance && _effected.getPet() instanceof L2SummonInstance))
+			if (_effected.getActingSummon() instanceof L2SummonInstance)
 			{
 				temp /= 2;
 			}
@@ -147,10 +105,10 @@ public abstract class L2Effect implements FuncOwner
 			temp *= 2;
 		
 		_period = temp;
-
 		_periodStartTicks = GameTimeController.getGameTicks();
 		_periodfirsttime = 0;
-		scheduleEffect();
+		
+		startEffect();
 	}
 	
 	/**
@@ -163,7 +121,6 @@ public abstract class L2Effect implements FuncOwner
 	protected L2Effect(Env env, L2Effect effect)
 	{
 		_template = effect._template;
-		_state = EffectState.CREATED;
 		_skill = env.skill;
 		_effected = env.target;
 		_effector = env.player;
@@ -171,51 +128,72 @@ public abstract class L2Effect implements FuncOwner
 		_period = _template.period - effect.getTime();
 		_periodStartTicks = effect.getPeriodStartTicks();
 		_periodfirsttime = effect.getPeriodfirsttime();
-		scheduleEffect();
+		
+		startEffect();
 	}
-
-	public int getCount()
+	
+	private synchronized void startEffect()
+	{
+		if (_skill.isPvpSkill() && _effected instanceof L2PcInstance)
+		{
+			SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
+			sm.addSkillName(this);
+			_effected.sendPacket(sm);
+		}
+		
+		if (_currentFuture != null)
+			_currentFuture.cancel(false);
+		
+		if (_count > 1)
+			_currentFuture = ThreadPoolManager.getInstance().scheduleAtFixedRate(this, 5, _period * 1000);
+		
+		else if (_period > 0)
+			_currentFuture = ThreadPoolManager.getInstance().schedule(this, _period * 1000);
+		
+		else
+			_effected.getEffects().printStackTrace(getStackType(), this);
+		
+		setActing(true);
+		
+		_effected.getEffects().addEffect(this);
+		
+		GlobalRestrictions.effectCreated(this);
+	}
+	
+	public final int getCount()
 	{
 		return _count;
 	}
 	
-	public int getTotalCount()
+	public final int getTotalCount()
 	{
 		return _template.count;
 	}
 	
-	public void setCount(int newcount)
+	public synchronized final void setTiming(int newcount, int newfirsttime)
 	{
 		_count = newcount;
+		
+		_periodStartTicks = GameTimeController.getGameTicks() - newfirsttime * GameTimeController.TICKS_PER_SECOND;
+		
+		_periodfirsttime = newfirsttime;
+		int duration = _period - newfirsttime;
+		
+		_currentFuture.cancel(false);
+		_currentFuture = ThreadPoolManager.getInstance().schedule(this, duration * 1000);
 	}
 	
-	public void setFirstTime(int newfirsttime)
-	{
-		if (_currentFuture != null)
-		{
-			_periodStartTicks = GameTimeController.getGameTicks() - newfirsttime * GameTimeController.TICKS_PER_SECOND;
-			_currentFuture.cancel(false);
-			_currentFuture = null;
-			_currentTask = null;
-			_periodfirsttime = newfirsttime;
-			int duration = _period - _periodfirsttime;
-			// _log.warn("Period: "+_period+"-"+_periodfirsttime+"="+duration);
-			_currentTask = new EffectTask(duration * 1000, -1);
-			_currentFuture = ThreadPoolManager.getInstance().scheduleEffect(_currentTask, duration * 1000);
-		}
-	}
-
-	public boolean getShowIcon()
+	public final boolean getShowIcon()
 	{
 		return _template.showIcon;
 	}
 
-	public int getPeriod()
+	public final int getPeriod()
 	{
 		return _period;
 	}
 	
-	public int getTime()
+	public final int getTime()
 	{
 		return (GameTimeController.getGameTicks() - _periodStartTicks) / GameTimeController.TICKS_PER_SECOND;
 	}
@@ -225,17 +203,17 @@ public abstract class L2Effect implements FuncOwner
 	 * 
 	 * @return Time in seconds.
 	 */
-	public int getElapsedTaskTime()
+	public final int getElapsedTaskTime()
 	{
 		return (getTotalCount() - _count) * _period + getTime() + 1;
 	}
 	
-	public int getTotalTaskTime()
+	public final int getTotalTaskTime()
 	{
 		return getTotalCount() * _period;
 	}
 	
-	public int getRemainingTaskTime()
+	public final int getRemainingTaskTime()
 	{
 		return getTotalTaskTime() - getElapsedTaskTime();
 	}
@@ -245,52 +223,82 @@ public abstract class L2Effect implements FuncOwner
 		return _periodfirsttime;
 	}
 	
-	public void setPeriodfirsttime(int periodfirsttime)
-	{
-		_periodfirsttime = periodfirsttime;
-	}
-	
 	public int getPeriodStartTicks()
 	{
 		return _periodStartTicks;
 	}
-
-	public void setPeriodStartTicks(int periodStartTicks)
-	{
-		_periodStartTicks = periodStartTicks;
-	}
 	
-	public final boolean getInUse()
+	public final boolean isInUse()
 	{
 		return _inUse;
 	}
 	
-	public final void setInUse(boolean inUse)
+	/**
+	 * Must be called from synchronized context from {@link CharEffects}.
+	 */
+	public synchronized final void setInUse(boolean inUse)
 	{
-		_inUse = inUse;
-		if (_inUse)
+		if (_inUse != inUse)
+		{
+			_inUse = inUse;
+			
+			// Asynchronous FIFO execution to avoid deadlocks and concurrency
+			EFFECT_QUEUE.execute(_inUse ? ON_START : ON_EXIT);
+		}
+		else
+			_effected.getEffects().printStackTrace(getStackType(), this);
+	}
+	
+	private static final FIFORunnableQueue<Runnable> EFFECT_QUEUE = new FIFORunnableQueue<Runnable>() {};
+	
+	private final Runnable ON_START = new Runnable() {
+		public void run()
 		{
 			_startConditionsCorrect = onStart();
 			
-			if (_template.abnormalEffect != 0)
-				getEffected().startAbnormalEffect(_template.abnormalEffect);
-		}
-		else
-		{
-			if (_template.abnormalEffect != 0)
-				getEffected().stopAbnormalEffect(_template.abnormalEffect);
-			
 			if (_startConditionsCorrect)
-				onExit();
+			{
+				_effected.addStatFuncs(getStatFuncs());
+				_effected.startAbnormalEffect(_template.abnormalEffect | getTypeBasedAbnormalEffect());
+			}
+			
+			if (_effected instanceof L2Playable)
+				((L2Playable)_effected).updateEffectIcons();
 		}
+	};
+	
+	private final Runnable ON_EXIT = new Runnable() {
+		public void run()
+		{
+			if (_startConditionsCorrect)
+			{
+				onExit();
+				
+				_effected.removeStatsOwner(L2Effect.this);
+				_effected.stopAbnormalEffect(_template.abnormalEffect | getTypeBasedAbnormalEffect());
+			}
+			
+			if (_effected instanceof L2Playable)
+				((L2Playable)_effected).updateEffectIcons();
+		}
+	};
+	
+	private final boolean isActing()
+	{
+		return _isActing;
 	}
 	
-	public String getStackType()
+	private final void setActing(boolean isActing)
+	{
+		_isActing = isActing;
+	}
+	
+	public final String getStackType()
 	{
 		return _template.stackType;
 	}
 	
-	public float getStackOrder()
+	public final float getStackOrder()
 	{
 		return _template.stackOrder;
 	}
@@ -304,45 +312,25 @@ public abstract class L2Effect implements FuncOwner
 	{
 		return _effector;
 	}
-
+	
 	public final L2Character getEffected()
 	{
 		return _effected;
 	}
 	
-	public boolean isSelfEffect()
+	public final boolean isSelfEffect()
 	{
 		return _skill._effectTemplatesSelf != null;
 	}
 	
-	public boolean isHerbEffect()
+	public final boolean isHerbEffect()
 	{
-		return getSkill().getName().contains("Herb");
+		return _skill.isHerbEffect();
 	}
 	
 	public final double calc()
 	{
 		return _template.lambda;
-	}
-	
-	private synchronized void startEffectTask(int duration)
-	{
-		stopEffectTask();
-		_currentTask = new EffectTask(duration, -1);
-		_currentFuture = ThreadPoolManager.getInstance().scheduleEffect(_currentTask, duration);
-		
-		if (_state == EffectState.ACTING)
-			_effected.addEffect(this);
-	}
-
-	private synchronized void startEffectTaskAtFixedRate(int delay, int rate)
-	{
-		stopEffectTask();
-		_currentTask = new EffectTask(delay, rate);
-		_currentFuture = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(_currentTask, delay, rate);
-		
-		if (_state == EffectState.ACTING)
-			_effected.addEffect(this);
 	}
 	
 	/**
@@ -357,31 +345,36 @@ public abstract class L2Effect implements FuncOwner
 	 */
 	public final void exit()
 	{
-		_state = EffectState.FINISHING;
-		scheduleEffect();
+		if (_effected.getEffects().removeEffect(this))
+		{
+			synchronized (this)
+			{
+				if (isActing())
+				{
+					if (_count == 0 && _effected instanceof L2PcInstance)
+					{
+						// TODO: move to the proper places
+						//if (effect.getSkill().isToggle())
+						//	sm = new SystemMessage(SystemMessageId.S1_HAS_BEEN_ABORTED);
+						//else
+						//	sm = new SystemMessage(SystemMessageId.EFFECT_S1_DISAPPEARED);
+						
+						SystemMessage sm = new SystemMessage(SystemMessageId.S1_HAS_WORN_OFF);
+						sm.addSkillName(this);
+						_effected.sendPacket(sm);
+					}
+					
+					_currentFuture.cancel(false);
+					
+					setActing(false);
+				}
+			}
+		}
 	}
 	
-	/**
-	 * Stop the task of the L2Effect, remove it and update client magic icons.<BR>
-	 * <BR>
-	 * <B><U> Actions</U> :</B><BR>
-	 * <BR>
-	 * <li>Cancel the task </li>
-	 * <li>Stop and remove L2Effect from L2Character and update client magic icons </li>
-	 * <BR>
-	 * <BR>
-	 */
-	public void stopEffectTask()
+	protected int getTypeBasedAbnormalEffect()
 	{
-		if (_currentFuture != null)
-		{
-			// Cancel the task
-			_currentFuture.cancel(false);
-			_currentFuture = null;
-			_currentTask = null;
-			
-			_effected.removeEffect(this);
-		}
+		return 0;
 	}
 	
 	/** returns effect type */
@@ -393,6 +386,12 @@ public abstract class L2Effect implements FuncOwner
 		return true;
 	}
 	
+	/** Return true for continueation of this effect */
+	protected boolean onActionTime()
+	{
+		return false;
+	}
+	
 	/**
 	 * Cancel the effect in the the abnormal effect map of the effected L2Character.<BR>
 	 * <BR>
@@ -401,114 +400,56 @@ public abstract class L2Effect implements FuncOwner
 	{
 	}
 	
-	/** Return true for continueation of this effect */
-	public abstract boolean onActionTime();
-	
-	public final void rescheduleEffect()
+	public final void run()
 	{
-		if (_state != EffectState.ACTING)
-		{
-			scheduleEffect();
-		}
-		else
-		{
-			if (_count > 1)
-			{
-				startEffectTaskAtFixedRate(5, _period * 1000);
-				return;
-			}
-			if (_period > 0)
-			{
-				startEffectTask(_period * 1000);
-			}
-		}
-	}
-	
-	public final void scheduleEffect()
-	{
-		if (_state == EffectState.CREATED)
-		{
-			_state = EffectState.ACTING;
-			
-			if (_skill.isPvpSkill())
-			{
-				SystemMessage smsg = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
-				smsg.addSkillName(_skill);
-				getEffected().sendPacket(smsg);
-			}
-			
-			GlobalRestrictions.effectCreated(this);
-			
-			if (_count > 1)
-			{
-				startEffectTaskAtFixedRate(5, _period * 1000);
-				return;
-			}
-			
-			if (_period > 0)
-			{
-				startEffectTask(_period * 1000);
-				return;
-			}
-			// effects not having count or period should start
-			setInUse(true);
-		}
+		boolean shouldAct = false;
 		
-		if (_state == EffectState.ACTING)
+		synchronized (this)
 		{
-			if (_count-- > 0)
+			if (_periodfirsttime == 0)
+				_periodStartTicks = GameTimeController.getGameTicks();
+			else
+				_periodfirsttime = 0;
+			
+			if (isActing())
 			{
-				if (getInUse()) // effect has to be in use
+				if (_count-- > 0)
 				{
-					if (onActionTime() && _startConditionsCorrect)
-						return; // false causes effect to finish right away
+					if (_inUse)
+						shouldAct = true;
+					
+					else if (_count > 0)
+						return;
 				}
-				else if (_count > 0) // do not finish it yet, in case reactivated
-					return;
 			}
-			_state = EffectState.FINISHING;
 		}
 		
-		if (_state == EffectState.FINISHING)
-		{
-			// Cancel the effect in the the abnormal effect map of the L2Character
-			if (getInUse() || !(_count > 1 || _period > 0))
-				setInUse(false);
-			
-			// If the time left is equal to zero, send the message
-			if (_count == 0)
-			{
-				SystemMessage smsg3 = new SystemMessage(SystemMessageId.S1_HAS_WORN_OFF);
-				smsg3.addSkillName(_skill);
-				getEffected().sendPacket(smsg3);
-			}
-			// Stop the task of the L2Effect, remove it and update client magic icons
-			stopEffectTask();
-			
-		}
+		if (shouldAct && _startConditionsCorrect && onActionTime())
+			return; // false causes effect to finish right away
+		
+		exit();
 	}
 	
-	public Func[] getStatFuncs()
+	public final List<Func> getStatFuncs()
 	{
 		if (_template.funcTemplates == null)
-			return Func.EMPTY_ARRAY;
+			return L2Collections.emptyList();
 		
-		LinkedBunch<Func> funcs = new LinkedBunch<Func>();
+		List<Func> funcs = new ArrayList<Func>(_template.funcTemplates.length);
+		
 		for (FuncTemplate t : _template.funcTemplates)
 		{
 			Env env = new Env();
-			env.player = getEffector();
-			env.target = getEffected();
-			env.skill = getSkill();
-			Func f = t.getFunc(env, this); // effect is owner
+			env.player = _effector;
+			env.target = _effected;
+			env.skill = _skill;
+			
+			Func f = t.getFunc(env, this);
 			if (f != null)
 				funcs.add(f);
 		}
 		
-		if (funcs.size() == 0)
-			return Func.EMPTY_ARRAY;
-		
-		return funcs.moveToArray(new Func[funcs.size()]);
+		return funcs;
 	}
 	
 	public final void addPacket(EffectInfoPacketList list)
@@ -516,12 +457,8 @@ public abstract class L2Effect implements FuncOwner
 		if (!_inUse || !getShowIcon())
 			return;
 		
-		switch (_state)
-		{
-			case CREATED:
-			case FINISHING:
-				return;
-		}
+		if (!isActing())
+			return;
 		
 		// FIXME: why?
 		switch (_skill.getId())
@@ -538,15 +475,13 @@ public abstract class L2Effect implements FuncOwner
 				return;
 		}
 		
-		final EffectTask task = _currentTask;
 		final ScheduledFuture<?> future = _currentFuture;
-		
-		if (task == null || future == null)
+		if (future == null)
 			return;
 		
 		int time;
 		
-		if (task._rate > 0)
+		if (_count > 1)
 			time = getRemainingTaskTime() * 1000;
 		else
 			time = (int)future.getDelay(TimeUnit.MILLISECONDS);
@@ -558,15 +493,15 @@ public abstract class L2Effect implements FuncOwner
 	
 	public final int getId()
 	{
-		return getSkill().getId();
+		return _skill.getId();
 	}
 	
 	public final int getLevel()
 	{
-		return getSkill().getLevel();
+		return _skill.getLevel();
 	}
 	
-	public EffectTemplate getEffectTemplate()
+	public final EffectTemplate getEffectTemplate()
 	{
 		return _template;
 	}
@@ -583,12 +518,17 @@ public abstract class L2Effect implements FuncOwner
 	
 	public boolean canBeStoredInDb()
 	{
-		if (getSkill().isToggle())
+		if (_skill.isToggle())
 			return false;
 		
 		if (isHerbEffect())
 			return false;
 		
 		return true;
+	}
+	
+	public final boolean isBuff()
+	{
+		return _skill.isBuff();
 	}
 }

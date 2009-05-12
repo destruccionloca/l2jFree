@@ -25,34 +25,31 @@ public final class EffectPetrify extends L2Effect
 	{
 		super(env, template);
 	}
-
+	
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.PETRIFY;
 	}
-
+	
 	@Override
 	public boolean onStart()
 	{
-		getEffected().startAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_2);
 		getEffected().startParalyze();
 		getEffected().setIsPetrified(true);
 		return true;
 	}
-
+	
 	@Override
 	public void onExit()
-
 	{
-		getEffected().stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_2);
 		getEffected().stopParalyze(false);
 		getEffected().setIsPetrified(false);
 	}
-
+	
 	@Override
-	public boolean onActionTime()
+	protected int getTypeBasedAbnormalEffect()
 	{
-		return false;
+		return L2Character.ABNORMAL_EFFECT_HOLD_2;
 	}
 }

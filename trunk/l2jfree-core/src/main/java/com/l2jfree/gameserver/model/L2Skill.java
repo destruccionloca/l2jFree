@@ -354,6 +354,7 @@ public class L2Skill implements FuncOwner
 	private final boolean			_isDebuff;
 
 	private final int				_afroId;
+	private final boolean			_isHerbEffect;
 
 	public L2Skill(StatsSet set)
 	{
@@ -393,6 +394,7 @@ public class L2Skill implements FuncOwner
 
 		_refId = set.getInteger("referenceId", _itemConsumeId);
 		_afroId = set.getInteger("afroId", 0);
+		_isHerbEffect = _name.contains("Herb");
 
 		_castRange = set.getInteger("castRange", 0);
 		_effectRange = set.getInteger("effectRange", -1);
@@ -3893,5 +3895,29 @@ public class L2Skill implements FuncOwner
 	public final int getAfroColor()
 	{
 		return _afroId;
+	}
+	
+	public final boolean isBuff()
+	{
+		if (4360 < getId() && getId() < 4367) // 7s buffs
+			return false;
+		
+		// TODO: this is a so ugly hax
+		switch (getSkillType())
+		{
+			case BUFF:
+			case REFLECT:
+			case HEAL_PERCENT:
+			case MANAHEAL_PERCENT:
+			case COMBATPOINTHEAL:
+				return true;
+			default:
+				return false;
+		}
+	}
+	
+	public final boolean isHerbEffect()
+	{
+		return _isHerbEffect;
 	}
 }

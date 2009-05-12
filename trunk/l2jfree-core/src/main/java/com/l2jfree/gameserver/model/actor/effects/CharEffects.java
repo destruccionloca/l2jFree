@@ -14,26 +14,31 @@
  */
 package com.l2jfree.gameserver.model.actor.effects;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javolution.text.TextBuilder;
+import javolution.util.FastMap;
+
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.skills.effects.EffectCharmOfCourage;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
-import com.l2jfree.gameserver.templates.skills.L2SkillType;
+import com.l2jfree.util.ObjectPool;
 
 /**
  * @author NB4L1
  */
 public class CharEffects
 {
-	protected final L2Character _owner;
+	private final L2Character _owner;
 	
 	private L2Effect[] _toArray;
 	private List<L2Effect> _effects;
-	protected Map<String, List<L2Effect>/*StackQueue*/> _stackedEffects;
+	private Map<String, StackQueue> _stackedEffects;
 	
 	public CharEffects(L2Character owner)
 	{
@@ -43,6 +48,17 @@ public class CharEffects
 	private boolean isEmpty()
 	{
 		return _effects == null || _effects.isEmpty();
+	}
+	
+	private static boolean isActiveBuff(L2Effect e)
+	{
+		return e != null && e.isInUse() && e.getShowIcon() && !e.getSkill().isDance() && !e.getSkill().isSong()
+			&& !e.getSkill().isDebuff() && !e.getSkill().bestowed() && e.isBuff();
+	}
+	
+	private static boolean isActiveDance(L2Effect e, boolean isDance, boolean isSong)
+	{
+		return e != null && e.isInUse() && (isDance && e.getSkill().isDance() || isSong && e.getSkill().isSong());
 	}
 	
 	public synchronized L2Effect[] getAllEffects()
@@ -56,7 +72,6 @@ public class CharEffects
 		return _toArray;
 	}
 	
-	/*
 	public synchronized void addEffect(L2Effect newEffect)
 	{
 		if (_effects == null)
@@ -86,18 +101,36 @@ public class CharEffects
 		
 		stackQueue.add(newEffect);
 		
-		if (newEffect.getSkill().isDance() || newEffect.getSkill().isSong())
+		if (isActiveDance(newEffect, true, true))
 		{
-			while (getDanceCount(true, true) > Config.ALT_DANCES_SONGS_MAX_AMOUNT)
+			if (getDanceCount(true, true) > Config.ALT_DANCES_SONGS_MAX_AMOUNT)
 			{
-				// remove first dance/song stackQueue
+				for (int i = 0; i < _effects.size(); i++)
+				{
+					final L2Effect e = _effects.get(i);
+					
+					if (isActiveDance(e, true, true))
+					{
+						_stackedEffects.get(e.getStackType()).stopAllEffects();
+						return;
+					}
+				}
 			}
 		}
-		else
+		else if (isActiveBuff(newEffect))
 		{
-			while (getBuffCount() > _activeChar.getMaxBuffCount())
+			if (getBuffCount() > _owner.getMaxBuffCount())
 			{
-				// remove first buff stackQueue
+				for (int i = 0; i < _effects.size(); i++)
+				{
+					final L2Effect e = _effects.get(i);
+					
+					if (isActiveBuff(e))
+					{
+						_stackedEffects.get(e.getStackType()).stopAllEffects();
+						return;
+					}
+				}
 			}
 		}
 	}
@@ -111,16 +144,6 @@ public class CharEffects
 			return 2;
 		
 		return 1;
-	}
-	
-	public synchronized int getBuffCount()
-	{
-		throw new UnsupportedOperationException();
-	}
-	
-	public synchronized int getDanceCount(boolean dances, boolean songs)
-	{
-		throw new UnsupportedOperationException();
 	}
 	
 	public synchronized boolean removeEffect(L2Effect effect)
@@ -190,6 +213,8 @@ public class CharEffects
 			
 			if (index == 0)
 				_queue.get(0).setInUse(true);
+			
+			// TODO: Config.EFFECT_CANCELING
 		}
 		
 		private void remove(final L2Effect effect)
@@ -214,7 +239,26 @@ public class CharEffects
 				_queue.get(index).exit();
 		}
 	}
-	*/
+	
+	/**
+	 * For debugging purpose...
+	 */
+	public void printStackTrace(String stackType, L2Effect effect)
+	{
+		TextBuilder tb = TextBuilder.newInstance();
+		
+		tb.append(_owner);
+		
+		if (stackType != null)
+			tb.append(" -> ").append(stackType);
+		
+		if (effect != null)
+			tb.append(" -> ").append(effect.getSkill().toString());
+		
+		new Exception(tb.toString()).printStackTrace();
+		
+		TextBuilder.recycle(tb);
+	}
 	
 	// TODO: rework the rest
 	
@@ -231,7 +275,7 @@ public class CharEffects
 		{
 			if (e.getEffectType() == tp)
 			{
-				if (e.getInUse())
+				if (e.isInUse())
 					return e;
 				
 				eventNotInUse = e;
@@ -253,7 +297,7 @@ public class CharEffects
 		{
 			if (e.getSkill() == skill)
 			{
-				if (e.getInUse())
+				if (e.isInUse())
 					return e;
 				
 				eventNotInUse = e;
@@ -275,7 +319,7 @@ public class CharEffects
 		{
 			if (e.getSkill().getId() == skillId)
 			{
-				if (e.getInUse())
+				if (e.isInUse())
 					return e;
 				
 				eventNotInUse = e;
@@ -295,16 +339,7 @@ public class CharEffects
 		
 		for (L2Effect e : getAllEffects())
 		{
-			if (e != null
-				&& e.getShowIcon()
-				&& !e.getSkill().isDance()
-				&& !e.getSkill().isSong()
-				&& !e.getSkill().isDebuff()
-				&& !e.getSkill().bestowed()
-				&& (e.getSkill().getSkillType() == L2SkillType.BUFF
-					|| e.getSkill().getSkillType() == L2SkillType.REFLECT
-					|| e.getSkill().getSkillType() == L2SkillType.HEAL_PERCENT || e.getSkill().getSkillType() == L2SkillType.MANAHEAL_PERCENT)
-				&& !(e.getSkill().getId() > 4360 && e.getSkill().getId() < 4367)) // Seven Signs buffs
+			if (isActiveBuff(e))
 			{
 				buffCount++;
 			}
@@ -323,7 +358,7 @@ public class CharEffects
 		
 		for (L2Effect e : getAllEffects())
 		{
-			if (e != null && ((e.getSkill().isDance() && dances) || (e.getSkill().isSong() && songs)) && e.getInUse())
+			if (isActiveDance(e, dances, songs))
 				danceCount++;
 		}
 		return danceCount;

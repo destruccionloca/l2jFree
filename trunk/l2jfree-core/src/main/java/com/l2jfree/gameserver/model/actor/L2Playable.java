@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.model.actor;
 
-import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.knownlist.PlayableKnownList;
 import com.l2jfree.gameserver.model.actor.stat.PcStat;
@@ -261,22 +260,6 @@ public abstract class L2Playable extends L2Character
 	}
 	
 	public abstract void updateEffectIconsImpl();
-	
-	@Override
-	public final void addEffect(L2Effect newEffect)
-	{
-		super.addEffect(newEffect);
-		
-		updateEffectIcons();
-	}
-	
-	@Override
-	public final void removeEffect(L2Effect effect)
-	{
-		super.removeEffect(effect);
-		
-		updateEffectIcons();
-	}
 	
 	@Override
 	public final void onForcedAttack(L2PcInstance player)

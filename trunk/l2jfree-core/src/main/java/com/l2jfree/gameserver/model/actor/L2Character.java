@@ -47,7 +47,6 @@ import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.instancemanager.FactionManager;
 import com.l2jfree.gameserver.instancemanager.MapRegionManager;
 import com.l2jfree.gameserver.model.ChanceSkillList;
-import com.l2jfree.gameserver.model.CharEffectList;
 import com.l2jfree.gameserver.model.FusionSkill;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Effect;
@@ -59,6 +58,7 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.L2WorldRegion;
 import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.L2Skill.SkillTargetType;
+import com.l2jfree.gameserver.model.actor.effects.CharEffects;
 import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2ControlTowerInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
@@ -3065,8 +3065,16 @@ public abstract class L2Character extends L2Object
 	/** Map 32 bits (0x0000) containing all abnormal effect in progress */
 	private int				_abnormalEffects;
 
-	private CharEffectList	_effects						= new CharEffectList(this);
-
+	private CharEffects _effects;
+	
+	public final CharEffects getEffects()
+	{
+		if (_effects == null)
+			_effects = new CharEffects(this);
+		
+		return _effects;
+	}
+	
 	public static final int	ABNORMAL_EFFECT_BLEEDING		= 0x0000001;
 	public static final int	ABNORMAL_EFFECT_POISON			= 0x0000002;
 	public static final int	ABNORMAL_EFFECT_REDCIRCLE		= 0x0000004;
@@ -3102,65 +3110,13 @@ public abstract class L2Character extends L2Object
 
 	// Method - Public
 	/**
-	 * Launch and add L2Effect (including Stack Group management) to L2Character and update client magic icon.<BR>
-	 * <BR>
-	 * <B><U> Concept</U> :</B><BR>
-	 * <BR>
-	 * All active skills effects in progress on the L2Character are identified in ConcurrentHashMap(Integer,L2Effect) <B>_effects</B>. The Integer key of
-	 * _effects is the L2Skill Identifier that has created the L2Effect.<BR>
-	 * <BR>
-	 * Several same effect can't be used on a L2Character at the same time. Indeed, effects are not stackable and the last cast will replace the previous in
-	 * progress. More, some effects belong to the same Stack Group (ex WindWald and Haste Potion). If 2 effects of a same group are used at the same time on a
-	 * L2Character, only the more efficient (identified by its priority order) will be preserve.<BR>
-	 * <BR>
-	 * <B><U> Actions</U> :</B><BR>
-	 * <BR>
-	 * <li>Add the L2Effect to the L2Character _effects</li>
-	 * <li>If this effect doesn't belong to a Stack Group, add its Funcs to the Calculator set of the L2Character (remove the old one if necessary)</li>
-	 * <li>If this effect has higher priority in its Stack Group, add its Funcs to the Calculator set of the L2Character (remove previous stacked effect Funcs
-	 * if necessary)</li>
-	 * <li>If this effect has NOT higher priority in its Stack Group, set the effect to Not In Use</li>
-	 * <li>Update active skills in progress icons on player client</li>
-	 * <BR>
-	 */
-	public void addEffect(L2Effect newEffect)
-	{
-		_effects.addEffect(newEffect);
-	}
-
-	/**
-	 * Stop and remove L2Effect (including Stack Group management) from L2Character and update client magic icon.<BR>
-	 * <BR>
-	 * <B><U> Concept</U> :</B><BR>
-	 * <BR>
-	 * All active skills effects in progress on the L2Character are identified in ConcurrentHashMap(Integer,L2Effect) <B>_effects</B>. The Integer key of
-	 * _effects is the L2Skill Identifier that has created the L2Effect.<BR>
-	 * <BR>
-	 * Several same effect can't be used on a L2Character at the same time. Indeed, effects are not stackable and the last cast will replace the previous in
-	 * progress. More, some effects belong to the same Stack Group (ex WindWald and Haste Potion). If 2 effects of a same group are used at the same time on a
-	 * L2Character, only the more efficient (identified by its priority order) will be preserve.<BR>
-	 * <BR>
-	 * <B><U> Actions</U> :</B><BR>
-	 * <BR>
-	 * <li>Remove Func added by this effect from the L2Character Calculator (Stop L2Effect)</li>
-	 * <li>If the L2Effect belongs to a not empty Stack Group, replace theses Funcs by next stacked effect Funcs</li>
-	 * <li>Remove the L2Effect from _effects of the L2Character</li>
-	 * <li>Update active skills in progress icons on player client</li>
-	 * <BR>
-	 */
-	public void removeEffect(L2Effect effect)
-	{
-		_effects.removeEffect(effect);
-	}
-	
-	/**
 	 * Active abnormal effects flags in the binary mask and send Server->Client UserInfo/CharInfo packet.<BR>
 	 * <BR>
 	 */
 	public final void startAbnormalEffect(int mask)
 	{
-		_abnormalEffects |= mask;
-		updateAbnormalEffect();
+		if (_abnormalEffects != (_abnormalEffects |= mask))
+			updateAbnormalEffect();
 	}
 
 	/**
@@ -3384,8 +3340,8 @@ public abstract class L2Character extends L2Object
 	 */
 	public final void stopAbnormalEffect(int mask)
 	{
-		_abnormalEffects &= ~mask;
-		updateAbnormalEffect();
+		if (_abnormalEffects != (_abnormalEffects &= ~mask))
+			updateAbnormalEffect();
 	}
 
 	/**
@@ -3394,14 +3350,14 @@ public abstract class L2Character extends L2Object
 	 */
 	public final void stopAllEffects()
 	{
-		_effects.stopAllEffects();
+		getEffects().stopAllEffects();
 		
 		broadcastFullInfo();
 	}
 	
 	public final void stopAllEffectsExceptThoseThatLastThroughDeath()
 	{
-		_effects.stopAllEffectsExceptThoseThatLastThroughDeath();
+		getEffects().stopAllEffectsExceptThoseThatLastThroughDeath();
 		
 		broadcastFullInfo();
 	}
@@ -3455,7 +3411,7 @@ public abstract class L2Character extends L2Object
 	 */
 	public final void stopSkillEffects(int skillId)
 	{
-		_effects.stopSkillEffects(skillId);
+		getEffects().stopSkillEffects(skillId);
 	}
 
 	/**
@@ -3479,7 +3435,7 @@ public abstract class L2Character extends L2Object
 	 */
 	public final void stopEffects(L2EffectType type)
 	{
-		_effects.stopEffects(type);
+		getEffects().stopEffects(type);
 	}
 
 	/**
@@ -3743,7 +3699,7 @@ public abstract class L2Character extends L2Object
 	 */
 	public final L2Effect[] getAllEffects()
 	{
-		return _effects.getAllEffects();
+		return getEffects().getAllEffects();
 	}
 
 	/**
@@ -3759,7 +3715,7 @@ public abstract class L2Character extends L2Object
 	 */
 	public final L2Effect getFirstEffect(int skillId)
 	{
-		return _effects.getFirstEffect(skillId);
+		return getEffects().getFirstEffect(skillId);
 	}
 
 	/**
@@ -3775,7 +3731,7 @@ public abstract class L2Character extends L2Object
 	 */
 	public final L2Effect getFirstEffect(L2Skill skill)
 	{
-		return _effects.getFirstEffect(skill);
+		return getEffects().getFirstEffect(skill);
 	}
 
 	/**
@@ -3792,7 +3748,7 @@ public abstract class L2Character extends L2Object
 	 */
 	public final L2Effect getFirstEffect(L2EffectType tp)
 	{
-		return _effects.getFirstEffect(tp);
+		return getEffects().getFirstEffect(tp);
 	}
 
 	// =========================================================
@@ -5937,12 +5893,12 @@ public abstract class L2Character extends L2Object
 	 */
 	public int getBuffCount()
 	{
-		return _effects.getBuffCount();
+		return getEffects().getBuffCount();
 	}
 
 	public int getDanceCount(boolean dances, boolean songs)
 	{
-		return _effects.getDanceCount(dances, songs);
+		return getEffects().getDanceCount(dances, songs);
 	}
 
 	/**

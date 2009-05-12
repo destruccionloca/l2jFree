@@ -14,23 +14,15 @@
  */
 package com.l2jfree.gameserver.skills.effects;
 
-import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.skills.Env;
-import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
-public final class EffectGrow extends L2Effect
+public final class EffectGrow extends EffectBuff
 {
 	public EffectGrow(Env env, EffectTemplate template)
 	{
 		super(env, template);
-	}
-	
-	@Override
-	public L2EffectType getEffectType()
-	{
-		return L2EffectType.BUFF;
 	}
 	
 	@Override
@@ -42,16 +34,8 @@ public final class EffectGrow extends L2Effect
 			//TODO: Uncomment lines when fix for mobs falling underground is found
 			//npc.setCollisionHeight((int) (npc.getTemplate().getCollisionHeight() * 1.24));
 			//npc.setCollisionRadius((int) (npc.getTemplate().getCollisionRadius() * 1.19));
-			
-			getEffected().startAbnormalEffect(L2Character.ABNORMAL_EFFECT_GROW);
 			return true;
 		}
-		return false;
-	}
-	
-	@Override
-	public boolean onActionTime()
-	{
 		return false;
 	}
 	
@@ -62,6 +46,11 @@ public final class EffectGrow extends L2Effect
 		//TODO: Uncomment lines when fix for mobs falling underground is found
 		//npc.setCollisionHeight(npc.getTemplate().getCollisionHeight());
 		//npc.setCollisionRadius(npc.getTemplate().getCollisionRadius());
-		getEffected().stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_GROW);
+	}
+	
+	@Override
+	protected int getTypeBasedAbnormalEffect()
+	{
+		return L2Character.ABNORMAL_EFFECT_GROW;
 	}
 }
