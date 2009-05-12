@@ -3411,7 +3411,7 @@ public abstract class L2Character extends L2Object
 	 */
 	public final void stopSkillEffects(int skillId)
 	{
-		getEffects().stopSkillEffects(skillId);
+		getEffects().stopEffects(skillId);
 	}
 
 	/**

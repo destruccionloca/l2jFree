@@ -260,107 +260,132 @@ public class CharEffects
 		TextBuilder.recycle(tb);
 	}
 	
-	// TODO: rework the rest
-	
-	/**
-	 * Returns the first effect matching the given EffectType
-	 * 
-	 * @param tp
-	 * @return
-	 */
-	public final L2Effect getFirstEffect(L2EffectType tp)
+	public synchronized L2Effect getFirstEffect(L2Skill skill)
 	{
-		L2Effect eventNotInUse = null;
-		for (L2Effect e : getAllEffects())
+		return getFirstEffect(skill.getId());
+	}
+	
+	public synchronized boolean hasEffect(L2Skill skill)
+	{
+		return hasEffect(skill.getId());
+	}
+	
+	public synchronized void stopEffects(L2Skill skill)
+	{
+		stopEffects(skill.getId());
+	}
+	
+	public synchronized L2Effect getFirstEffect(int id)
+	{
+		return getFirstEffect(id, true);
+	}
+	
+	public synchronized boolean hasEffect(int id)
+	{
+		return getFirstEffect(id, false) != null;
+	}
+	
+	public synchronized void stopEffects(int id)
+	{
+		for (L2Effect e; (e = getFirstEffect(id, false)) != null;)
+			e.exit();
+	}
+	
+	private L2Effect getFirstEffect(int id, boolean searchForInUse)
+	{
+		if (isEmpty())
+			return null;
+		
+		L2Effect notUsedEffect = null;
+		
+		for (int i = 0; i < _effects.size(); i++)
 		{
+			final L2Effect e = _effects.get(i);
+			
+			if (e.getSkill().getId() == id)
+			{
+				if (e.isInUse() || !searchForInUse)
+					return e;
+				else if (notUsedEffect == null)
+					notUsedEffect = e;
+			}
+		}
+		
+		return notUsedEffect;
+	}
+	
+	public synchronized L2Effect getFirstEffect(L2EffectType tp)
+	{
+		return getFirstEffect(tp, true);
+	}
+	
+	public synchronized boolean hasEffect(L2EffectType tp)
+	{
+		return getFirstEffect(tp, false) != null;
+	}
+	
+	public synchronized void stopEffects(L2EffectType tp)
+	{
+		for (L2Effect e; (e = getFirstEffect(tp, false)) != null;)
+			e.exit();
+	}
+	
+	private L2Effect getFirstEffect(L2EffectType tp, boolean searchForInUse)
+	{
+		if (isEmpty())
+			return null;
+		
+		L2Effect notUsedEffect = null;
+		
+		for (int i = 0; i < _effects.size(); i++)
+		{
+			final L2Effect e = _effects.get(i);
+			
 			if (e.getEffectType() == tp)
 			{
-				if (e.isInUse())
+				if (e.isInUse() || !searchForInUse)
 					return e;
-				
-				eventNotInUse = e;
+				else if (notUsedEffect == null)
+					notUsedEffect = e;
 			}
 		}
-		return eventNotInUse;
+		
+		return notUsedEffect;
 	}
 	
-	/**
-	 * Returns the first effect matching the given L2Skill
-	 * 
-	 * @param skill
-	 * @return
-	 */
-	public final L2Effect getFirstEffect(L2Skill skill)
+	public synchronized int getBuffCount()
 	{
-		L2Effect eventNotInUse = null;
-		for (L2Effect e : getAllEffects())
-		{
-			if (e.getSkill() == skill)
-			{
-				if (e.isInUse())
-					return e;
-				
-				eventNotInUse = e;
-			}
-		}
-		return eventNotInUse;
-	}
-	
-	/**
-	 * Returns the first effect matching the given skillId
-	 * 
-	 * @param index
-	 * @return
-	 */
-	public final L2Effect getFirstEffect(int skillId)
-	{
-		L2Effect eventNotInUse = null;
-		for (L2Effect e : getAllEffects())
-		{
-			if (e.getSkill().getId() == skillId)
-			{
-				if (e.isInUse())
-					return e;
-				
-				eventNotInUse = e;
-			}
-		}
-		return eventNotInUse;
-	}
-	
-	/**
-	 * Return the number of buffs in this CharEffectList not counting Songs/Dances
-	 * 
-	 * @return
-	 */
-	public int getBuffCount()
-	{
+		if (isEmpty())
+			return 0;
+		
 		int buffCount = 0;
 		
-		for (L2Effect e : getAllEffects())
+		for (int i = 0; i < _effects.size(); i++)
 		{
+			final L2Effect e = _effects.get(i);
+			
 			if (isActiveBuff(e))
-			{
 				buffCount++;
-			}
 		}
+		
 		return buffCount;
 	}
 	
-	/**
-	 * Return the number of Songs/Dances in this CharEffectList
-	 * 
-	 * @return
-	 */
-	public int getDanceCount(boolean dances, boolean songs)
+	public synchronized int getDanceCount(boolean dances, boolean songs)
 	{
+		if (isEmpty())
+			return 0;
+		
 		int danceCount = 0;
 		
-		for (L2Effect e : getAllEffects())
+		for (int i = 0; i < _effects.size(); i++)
 		{
+			final L2Effect e = _effects.get(i);
+			
 			if (isActiveDance(e, dances, songs))
 				danceCount++;
 		}
+		
 		return danceCount;
 	}
 	
@@ -391,35 +416,6 @@ public class CharEffects
 					continue;
 				e.exit();
 			}
-		}
-	}
-	
-	/**
-	 * Exit all effects having a specified type
-	 * 
-	 * @param type
-	 */
-	public final void stopEffects(L2EffectType type)
-	{
-		for (L2Effect e : getAllEffects())
-		{
-			// Stop active skills effects of the selected type
-			if (e.getEffectType() == type)
-				e.exit();
-		}
-	}
-	
-	/**
-	 * Exits all effects created by a specific skillId
-	 * 
-	 * @param skillId
-	 */
-	public final void stopSkillEffects(int skillId)
-	{
-		for (L2Effect e : getAllEffects())
-		{
-			if (e.getSkill().getId() == skillId)
-				e.exit();
 		}
 	}
 }
