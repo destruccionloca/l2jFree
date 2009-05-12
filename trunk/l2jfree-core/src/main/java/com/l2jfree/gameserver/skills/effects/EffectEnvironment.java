@@ -28,11 +28,6 @@ import com.l2jfree.gameserver.templates.skills.L2EffectType;
  */
 public class EffectEnvironment extends L2Effect
 {
-	/**
-	 * Default constructor.
-	 * @param env
-	 * @param template
-	 */
 	public EffectEnvironment(Env env, EffectTemplate template)
 	{
 		super(env, template);
@@ -47,15 +42,6 @@ public class EffectEnvironment extends L2Effect
 		return L2EffectType.ENVIRONMENT;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
-	 */
-	@Override
-	protected boolean onActionTime()
-	{
-		return true;
-	}
-	
 	@Override
 	public final boolean canBeStoredInDb()
 	{

@@ -50,17 +50,4 @@ public final class EffectTargetMe extends L2Effect
 		}
 		return false;
 	}
-
-	/** Notify exited */
-	@Override
-	protected void onExit()
-	{
-		// nothing
-	}
-
-	@Override
-	protected boolean onActionTime()
-	{
-		return false;
-	}
 }

@@ -31,11 +31,4 @@ public final class EffectDebuff extends L2Effect
 	{
 		return L2EffectType.DEBUFF;
 	}
-
-	@Override
-	protected boolean onActionTime()
-	{
-		// just stop this effect
-		return false;
-	}
 }

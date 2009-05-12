@@ -41,12 +41,6 @@ public final class EffectSilenceMagicPhysical extends L2Effect
 	}
 
 	@Override
-	protected boolean onActionTime()
-	{
-		return false;
-	}
-
-	@Override
 	protected void onExit()
 	{
 		getEffected().stopMuted(false);

@@ -53,10 +53,4 @@ public final class EffectDisarm extends L2Effect
 	{
 		getEffected().setIsDisarmed(false);
 	}
-
-	@Override
-	protected boolean onActionTime()
-	{
-		return false;
-	}
 }

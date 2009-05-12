@@ -54,11 +54,4 @@ public final class EffectNoblesseBless extends L2Effect
 	{
 		((L2Playable) getEffected()).stopNoblesseBlessing(false);
 	}
-
-	@Override
-	protected boolean onActionTime()
-	{
-		// just stop this effect
-		return false;
-	}
 }

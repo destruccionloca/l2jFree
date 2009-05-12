@@ -55,11 +55,4 @@ public final class EffectImmobileUntilAttacked extends L2Effect
 		getEffected().stopImmobileUntilAttacked(false);
 		getEffected().stopSkillEffects(getSkill().getNegateId());
 	}
-
-	@Override
-	protected boolean onActionTime()
-	{
-		// just stop this effect
-		return false;
-	}
 }

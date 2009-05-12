@@ -44,18 +44,4 @@ public final class EffectRemoveTarget extends L2Effect
 		getEffected().abortCast();
 		return true;
 	}
-
-	/** Notify exited */
-	@Override
-	protected void onExit()
-	{
-		// nothing
-	}
-
-	@Override
-	protected boolean onActionTime()
-	{
-		// nothing
-		return false;
-	}
 }

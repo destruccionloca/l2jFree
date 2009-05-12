@@ -39,11 +39,4 @@ public class EffectBuff extends L2Effect
 	{
 		return L2EffectType.BUFF;
 	}
-
-	@Override
-	protected boolean onActionTime()
-	{
-		// just stop this effect
-		return false;
-	}
 }

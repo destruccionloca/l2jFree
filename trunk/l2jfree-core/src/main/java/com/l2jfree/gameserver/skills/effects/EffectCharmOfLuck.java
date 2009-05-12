@@ -54,11 +54,4 @@ public final class EffectCharmOfLuck extends L2Effect
 	{
 		((L2Playable) getEffected()).stopCharmOfLuck(false);
 	}
-
-	@Override
-	protected boolean onActionTime()
-	{
-		// just stop this effect
-		return false;
-	}
 }

@@ -60,14 +60,4 @@ public final class EffectCharmOfCourage extends L2Effect
 	{
 		((L2PcInstance) getEffected()).setCharmOfCourage(false);
 	}
-
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
-	 */
-	@Override
-	protected boolean onActionTime()
-	{
-		return false;
-	}
-
 }

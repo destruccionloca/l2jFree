@@ -43,11 +43,4 @@ public final class EffectStunSelf extends L2Effect
 	{
 		getEffector().stopStunning(false);
 	}
-
-	@Override
-	protected boolean onActionTime()
-	{
-		// just stop this effect
-		return false;
-	}
 }

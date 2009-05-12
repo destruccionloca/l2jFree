@@ -85,10 +85,4 @@ public final class EffectBluff extends L2Effect
 	{
 		getEffected().stopFear(false);
 	}
-
-	@Override
-	protected boolean onActionTime()
-	{
-		return false;
-	}
 }

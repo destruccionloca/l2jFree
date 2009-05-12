@@ -33,7 +33,7 @@ import com.l2jfree.gameserver.util.Util;
  * Flight course and radius are set as skill properties (flyCourse and flyRadius):
  * 
  * <li> Fly Radius means the distance between starting point and final point, it must be an integer.</li>
- * <li> Fly Course means the movement direction: imagine a compass above player's head, 
+ * <li> Fly Course means the movement direction: imagine a compass above player's head,
  * making north player's heading. So if fly course is 180, player will go backwards (good for blink, e.g.).
  * By the way, if flyCourse = 360 or 0, player will be moved in in front of him. <br><br>
  * 
@@ -102,11 +102,5 @@ public final class EffectWarp extends L2Effect
 	{
 		_actor.getPosition().setXYZ(x, y, z);
 		_actor.broadcastPacket(new ValidateLocation(_actor));
-	}
-
-	@Override
-	protected boolean onActionTime()
-	{
-		return false;
 	}
 }

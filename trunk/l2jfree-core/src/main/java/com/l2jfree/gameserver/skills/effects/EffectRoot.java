@@ -49,11 +49,4 @@ public final class EffectRoot extends L2Effect
 	{
 		getEffected().stopRooting(false);
 	}
-
-	@Override
-	protected boolean onActionTime()
-	{
-		// just stop this effect
-		return false;
-	}
 }

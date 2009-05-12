@@ -49,11 +49,4 @@ public final class EffectStun extends L2Effect
 	{
 		getEffected().stopStunning(false);
 	}
-
-	@Override
-	protected boolean onActionTime()
-	{
-		// just stop this effect
-		return false;
-	}
 }

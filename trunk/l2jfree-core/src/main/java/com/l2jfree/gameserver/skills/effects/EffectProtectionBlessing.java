@@ -57,11 +57,4 @@ public class EffectProtectionBlessing extends L2Effect
 	{
 		((L2Playable)getEffected()).stopProtectionBlessing(false);
 	}
-
-	@Override
-	protected boolean onActionTime()
-	{
-		// just stop this effect
-		return false;
-	}
 }

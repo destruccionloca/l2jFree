@@ -50,15 +50,4 @@ public final class EffectCancelTarget extends L2Effect
 		getEffected().abortCast();
 		return true;
 	}
-
-	@Override
-	protected void onExit()
-	{
-	}
-
-	@Override
-	protected boolean onActionTime()
-	{
-		return false;
-	}
 }

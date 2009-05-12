@@ -35,12 +35,6 @@ public final class EffectFusion extends L2Effect
 	}
 
 	@Override
-	protected boolean onActionTime()
-	{
-		return true;
-	}
-
-	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.FUSION;

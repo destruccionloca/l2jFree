@@ -50,27 +50,27 @@ public abstract class L2Effect implements FuncOwner, Runnable
 	// member _effector is the instance of L2Character that cast/used the spell/skill that is
 	// causing this effect. Do not confuse with the instance of L2Character that
 	// is being affected by this effect.
-	private final L2Character		_effector;
+	private final L2Character _effector;
 	
 	// member _effected is the instance of L2Character that was affected
 	// by this effect. Do not confuse with the instance of L2Character that
 	// casted/used this effect.
-	private final L2Character		_effected;
+	private final L2Character _effected;
 	
 	// the skill that was used.
-	private final L2Skill			_skill;
+	private final L2Skill _skill;
 	
 	// the current state
 	private boolean _isActing = true;
 	
 	// period, seconds
 	private final int _period;
-
+	
 	// Effect template
-	private EffectTemplate			_template;
+	private EffectTemplate _template;
 	
 	// counter
-	private int						_count;
+	private int _count;
 	
 	private ScheduledFuture<?> _currentFuture;
 	
@@ -109,7 +109,7 @@ public abstract class L2Effect implements FuncOwner, Runnable
 	/**
 	 * Special constructor to "steal" buffs. Must be implemented on
 	 * every child class that can be stolen.
-	 *
+	 * 
 	 * @param env
 	 * @param effect
 	 */
@@ -379,10 +379,15 @@ public abstract class L2Effect implements FuncOwner, Runnable
 		return true;
 	}
 	
-	/** Return true for continueation of this effect */
+	/**
+	 * <b>WARNING</b>: default value changed to <b>TRUE</b>.<br>
+	 * There is no reason to stop normal effects even if it's scheduled over time.
+	 * 
+	 * @return true for continuation of this effect
+	 */
 	protected boolean onActionTime()
 	{
-		return false;
+		return true;
 	}
 	
 	protected void onExit()

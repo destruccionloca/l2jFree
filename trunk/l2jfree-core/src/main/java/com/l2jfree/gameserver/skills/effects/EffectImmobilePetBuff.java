@@ -57,11 +57,4 @@ public final class EffectImmobilePetBuff extends L2Effect
 	{
 		_pet.setIsImmobilized(false);
 	}
-
-	@Override
-	protected boolean onActionTime()
-	{
-		// just stop this effect
-		return false;
-	}
 }

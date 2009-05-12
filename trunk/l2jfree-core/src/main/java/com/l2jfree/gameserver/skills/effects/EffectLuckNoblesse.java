@@ -50,11 +50,4 @@ public final class EffectLuckNoblesse extends L2Effect
 	{
 		getEffected().stopLuckNoblesse();
 	}
-
-	@Override
-	protected boolean onActionTime()
-	{
-		// just stop this effect
-		return false;
-	}
 }

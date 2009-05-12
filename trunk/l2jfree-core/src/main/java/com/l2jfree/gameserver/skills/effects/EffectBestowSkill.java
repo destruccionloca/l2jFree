@@ -57,10 +57,4 @@ final class EffectBestowSkill extends L2Effect
 	{
 		getEffected().removeSkill(getSkill().getEffectBestowedSkill());
 	}
-	
-	@Override
-	protected boolean onActionTime()
-	{
-		return false;
-	}
 }

@@ -48,10 +48,4 @@ public final class EffectPreventBuff extends L2Effect
 	{
 		getEffected().setPreventedFromReceivingBuffs(false);
 	}
-
-	@Override
-	protected boolean onActionTime()
-	{
-		return false;
-	}
 }

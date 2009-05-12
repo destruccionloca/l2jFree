@@ -49,11 +49,4 @@ public final class EffectSleep extends L2Effect
 	{
 		getEffected().stopSleeping(false);
 	}
-
-	@Override
-	protected boolean onActionTime()
-	{
-		// just stop this effect
-		return false;
-	}
 }

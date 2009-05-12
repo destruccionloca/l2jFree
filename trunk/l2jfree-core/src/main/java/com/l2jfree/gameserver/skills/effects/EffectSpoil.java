@@ -85,10 +85,4 @@ public final class EffectSpoil extends L2Effect
 		}
 		return true;
 	}
-
-	@Override
-	protected boolean onActionTime()
-	{
-		return false;
-	}
 }

@@ -44,13 +44,6 @@ public final class EffectPhysicalMute extends L2Effect
 	}
 
 	@Override
-	protected boolean onActionTime()
-	{
-		// Simply stop the effect
-		return false;
-	}
-
-	@Override
 	protected void onExit()
 	{
 		getEffected().stopPhysicalMuted(false);
