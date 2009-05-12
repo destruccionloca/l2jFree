@@ -33,7 +33,7 @@ public final class EffectSilenceMagicPhysical extends L2Effect
 	}
 
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		getEffected().startMuted();
 		getEffected().startPhysicalMuted();
@@ -41,13 +41,13 @@ public final class EffectSilenceMagicPhysical extends L2Effect
 	}
 
 	@Override
-	public boolean onActionTime()
+	protected boolean onActionTime()
 	{
 		return false;
 	}
 
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 		getEffected().stopMuted(false);
 		getEffected().stopPhysicalMuted(false);

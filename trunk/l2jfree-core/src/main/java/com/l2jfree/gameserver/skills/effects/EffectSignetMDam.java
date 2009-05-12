@@ -59,7 +59,7 @@ public final class EffectSignetMDam extends L2Effect
 	}
 
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		L2NpcTemplate template;
 		if (getSkill() instanceof L2SkillSignetCasttime)
@@ -95,7 +95,7 @@ public final class EffectSignetMDam extends L2Effect
 	}
 
 	@Override
-	public boolean onActionTime()
+	protected boolean onActionTime()
 	{
 		if (getCount() >= getTotalCount() - 2)
 			return true; // do nothing first 2 times
@@ -178,7 +178,7 @@ public final class EffectSignetMDam extends L2Effect
 	}
 
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 		if (_actor != null)
 		{

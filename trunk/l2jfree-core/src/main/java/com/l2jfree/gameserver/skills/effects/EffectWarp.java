@@ -60,7 +60,7 @@ public final class EffectWarp extends L2Effect
 	}
 
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		if (isSelfEffect())
 			_actor = getEffector();
@@ -98,14 +98,14 @@ public final class EffectWarp extends L2Effect
 	}
 
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 		_actor.getPosition().setXYZ(x, y, z);
 		_actor.broadcastPacket(new ValidateLocation(_actor));
 	}
 
 	@Override
-	public boolean onActionTime()
+	protected boolean onActionTime()
 	{
 		return false;
 	}

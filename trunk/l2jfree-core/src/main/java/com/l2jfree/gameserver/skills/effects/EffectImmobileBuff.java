@@ -43,7 +43,7 @@ public final class EffectImmobileBuff extends EffectBuff
 
 	/** Notify started */
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		getEffector().setIsImmobilized(true);
 		return true;
@@ -51,13 +51,13 @@ public final class EffectImmobileBuff extends EffectBuff
 
 	/** Notify exited */
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 		getEffector().setIsImmobilized(false);
 	}
 
 	@Override
-	public boolean onActionTime()
+	protected boolean onActionTime()
 	{
 		// just stop this effect
 		getEffector().setIsImmobilized(false);

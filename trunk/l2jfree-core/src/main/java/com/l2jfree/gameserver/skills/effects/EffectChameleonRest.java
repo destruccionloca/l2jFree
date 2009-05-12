@@ -39,7 +39,7 @@ public final class EffectChameleonRest extends L2Effect
 
 	/** Notify started */
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		L2Character effected = getEffected();
 		if (effected instanceof L2PcInstance)
@@ -57,7 +57,7 @@ public final class EffectChameleonRest extends L2Effect
 	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
 	 */
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 		setChameleon(false);
 
@@ -67,7 +67,7 @@ public final class EffectChameleonRest extends L2Effect
 	}
 
 	@Override
-	public boolean onActionTime()
+	protected boolean onActionTime()
 	{
 		L2Character effected = getEffected();
 		boolean retval = true;

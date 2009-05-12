@@ -46,14 +46,14 @@ public final class EffectSignetAntiSummon extends L2Effect
 	}
 
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		_actor = (L2EffectPointInstance) getEffected();
 		return true;
 	}
 
 	@Override
-	public boolean onActionTime()
+	protected boolean onActionTime()
 	{
 		if (getCount() == getTotalCount() - 1)
 			return true; // do nothing first time
@@ -92,7 +92,7 @@ public final class EffectSignetAntiSummon extends L2Effect
 	}
 
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 		if (_actor != null)
 		{

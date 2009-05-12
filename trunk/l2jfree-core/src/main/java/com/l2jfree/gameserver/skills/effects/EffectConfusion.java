@@ -52,7 +52,7 @@ public final class EffectConfusion extends L2Effect
 
 	/** Notify started */
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		getEffected().startConfused();
 		onActionTime();
@@ -61,13 +61,13 @@ public final class EffectConfusion extends L2Effect
 
 	/** Notify exited */
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 		getEffected().stopConfused(false);
 	}
 
 	@Override
-	public boolean onActionTime()
+	protected boolean onActionTime()
 	{
 		if (_log.isDebugEnabled())
 			_log.debug(getEffected());

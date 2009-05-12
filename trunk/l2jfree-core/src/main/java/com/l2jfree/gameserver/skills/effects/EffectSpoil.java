@@ -46,7 +46,7 @@ public final class EffectSpoil extends L2Effect
 	}
 
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		if (!(getEffector() instanceof L2PcInstance))
 			return false;
@@ -87,7 +87,7 @@ public final class EffectSpoil extends L2Effect
 	}
 
 	@Override
-	public boolean onActionTime()
+	protected boolean onActionTime()
 	{
 		return false;
 	}

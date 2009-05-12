@@ -32,21 +32,21 @@ public final class EffectInvincible extends L2Effect
 	}
 
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		getEffected().setIsInvul(true);
 		return true;
 	}
 
 	@Override
-	public boolean onActionTime()
+	protected boolean onActionTime()
 	{
 		// Simply stop the effect
 		return false;
 	}
 
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 		getEffected().setIsInvul(false);
 	}

@@ -35,7 +35,7 @@ public final class EffectFusion extends L2Effect
 	}
 
 	@Override
-	public boolean onActionTime()
+	protected boolean onActionTime()
 	{
 		return true;
 	}

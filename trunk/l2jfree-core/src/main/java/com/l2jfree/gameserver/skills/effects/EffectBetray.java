@@ -40,7 +40,7 @@ public final class EffectBetray extends L2Effect
 
 	/** Notify started */
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		if (getEffector() instanceof L2PcInstance && getEffected() instanceof L2Summon)
 		{
@@ -53,7 +53,7 @@ public final class EffectBetray extends L2Effect
 
 	/** Notify exited */
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 		if (getEffector() instanceof L2PcInstance && getEffected() instanceof L2Summon)
 		{
@@ -63,7 +63,7 @@ public final class EffectBetray extends L2Effect
 	}
 
 	@Override
-	public boolean onActionTime()
+	protected boolean onActionTime()
 	{
 		if (getEffector() instanceof L2PcInstance && getEffected() instanceof L2Summon)
 		{

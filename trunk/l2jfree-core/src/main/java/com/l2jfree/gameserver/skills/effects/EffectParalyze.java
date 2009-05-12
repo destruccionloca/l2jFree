@@ -33,14 +33,14 @@ public final class EffectParalyze extends L2Effect
 	}
 	
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		getEffected().startParalyze();
 		return true;
 	}
 	
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 		getEffected().stopParalyze(false);
 	}

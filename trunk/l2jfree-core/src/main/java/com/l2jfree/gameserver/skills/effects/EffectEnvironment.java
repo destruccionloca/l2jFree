@@ -51,7 +51,7 @@ public class EffectEnvironment extends L2Effect
 	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
 	 */
 	@Override
-	public boolean onActionTime()
+	protected boolean onActionTime()
 	{
 		return true;
 	}

@@ -41,7 +41,7 @@ public final class EffectEnemyCharge extends L2Effect
 	}
 
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		// Get current position of the L2Character
 		final int curX = getEffector().getX();
@@ -91,7 +91,7 @@ public final class EffectEnemyCharge extends L2Effect
 	}
 
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 		// maybe is need force set X,Y,Z
 		getEffector().getPosition().setXYZ(_x, _y, _z);
@@ -99,7 +99,7 @@ public final class EffectEnemyCharge extends L2Effect
 	}
 
 	@Override
-	public boolean onActionTime()
+	protected boolean onActionTime()
 	{
 		return false;
 	}

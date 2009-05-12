@@ -38,7 +38,7 @@ public final class EffectDisarm extends L2Effect
 	}
 
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		if (!(getEffected() instanceof L2PcInstance))
 			return false;
@@ -49,13 +49,13 @@ public final class EffectDisarm extends L2Effect
 	}
 
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 		getEffected().setIsDisarmed(false);
 	}
 
 	@Override
-	public boolean onActionTime()
+	protected boolean onActionTime()
 	{
 		return false;
 	}

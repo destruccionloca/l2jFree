@@ -40,7 +40,7 @@ public final class EffectCancelTarget extends L2Effect
 
 	/** Notify started */
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 		getEffected().setTarget(null);
@@ -52,12 +52,12 @@ public final class EffectCancelTarget extends L2Effect
 	}
 
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 	}
 
 	@Override
-	public boolean onActionTime()
+	protected boolean onActionTime()
 	{
 		return false;
 	}

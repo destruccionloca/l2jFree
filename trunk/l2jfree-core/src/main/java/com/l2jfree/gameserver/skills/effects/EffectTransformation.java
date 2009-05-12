@@ -45,7 +45,7 @@ public final class EffectTransformation extends L2Effect
 	}
 
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		if (getEffected().isAlikeDead())
 			return false;
@@ -70,13 +70,13 @@ public final class EffectTransformation extends L2Effect
 	}
 
 	@Override
-	public boolean onActionTime()
+	protected boolean onActionTime()
 	{
 		return false;
 	}
 
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 		getEffected().stopTransformation(false);
 	}

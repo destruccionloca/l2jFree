@@ -39,7 +39,7 @@ public final class EffectRecoverForce extends L2Effect
 	}
 
 	@Override
-	public boolean onActionTime()
+	protected boolean onActionTime()
 	{
 		if (getEffected() instanceof L2PcInstance)
 		{

@@ -39,7 +39,7 @@ public final class EffectTargetMe extends L2Effect
 
 	/** Notify started */
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		// Should only work on PC?
 		if (getEffected() instanceof L2PcInstance)
@@ -53,13 +53,13 @@ public final class EffectTargetMe extends L2Effect
 
 	/** Notify exited */
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 		// nothing
 	}
 
 	@Override
-	public boolean onActionTime()
+	protected boolean onActionTime()
 	{
 		return false;
 	}

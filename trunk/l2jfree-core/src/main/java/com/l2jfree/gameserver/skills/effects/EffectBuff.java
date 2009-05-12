@@ -41,7 +41,7 @@ public class EffectBuff extends L2Effect
 	}
 
 	@Override
-	public boolean onActionTime()
+	protected boolean onActionTime()
 	{
 		// just stop this effect
 		return false;

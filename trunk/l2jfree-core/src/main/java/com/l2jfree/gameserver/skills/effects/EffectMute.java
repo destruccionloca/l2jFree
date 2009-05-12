@@ -32,21 +32,21 @@ public final class EffectMute extends L2Effect
 	}
 
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		getEffected().startMuted();
 		return true;
 	}
 
 	@Override
-	public boolean onActionTime()
+	protected boolean onActionTime()
 	{
 		// Simply stop the effect
 		return false;
 	}
 
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 		getEffected().stopMuted(false);
 	}

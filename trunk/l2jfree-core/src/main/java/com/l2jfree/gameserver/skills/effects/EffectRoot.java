@@ -37,7 +37,7 @@ public final class EffectRoot extends L2Effect
 
 	/** Notify started */
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		getEffected().startRooted();
 		return true;
@@ -45,13 +45,13 @@ public final class EffectRoot extends L2Effect
 
 	/** Notify exited */
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 		getEffected().stopRooting(false);
 	}
 
 	@Override
-	public boolean onActionTime()
+	protected boolean onActionTime()
 	{
 		// just stop this effect
 		return false;

@@ -33,7 +33,7 @@ public final class EffectPetrify extends L2Effect
 	}
 	
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		getEffected().startParalyze();
 		getEffected().setIsPetrified(true);
@@ -41,7 +41,7 @@ public final class EffectPetrify extends L2Effect
 	}
 	
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 		getEffected().stopParalyze(false);
 		getEffected().setIsPetrified(false);

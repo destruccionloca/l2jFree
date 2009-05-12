@@ -37,7 +37,7 @@ public final class EffectRelax extends L2Effect
 
 	/** Notify started */
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		if (getEffected() instanceof L2PcInstance)
 		{
@@ -55,13 +55,13 @@ public final class EffectRelax extends L2Effect
 	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
 	 */
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 		setRelax(false);
 	}
 
 	@Override
-	public boolean onActionTime()
+	protected boolean onActionTime()
 	{
 		boolean retval = true;
 		if (getEffected().isDead())

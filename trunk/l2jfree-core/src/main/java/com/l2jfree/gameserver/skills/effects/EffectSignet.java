@@ -48,7 +48,7 @@ public final class EffectSignet extends L2Effect
 	}
 
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		if (getSkill() instanceof L2SkillSignet)
 			_skill = SkillTable.getInstance().getInfo(((L2SkillSignet) getSkill()).effectId, getLevel());
@@ -59,7 +59,7 @@ public final class EffectSignet extends L2Effect
 	}
 
 	@Override
-	public boolean onActionTime()
+	protected boolean onActionTime()
 	{
 		//if (getCount() == getTotalCount() - 1) return true; // do nothing first time
 		if (_skill == null)
@@ -86,7 +86,7 @@ public final class EffectSignet extends L2Effect
 	}
 
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 		if (_actor != null)
 		{

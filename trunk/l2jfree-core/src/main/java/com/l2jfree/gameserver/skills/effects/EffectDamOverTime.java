@@ -37,7 +37,7 @@ public final class EffectDamOverTime extends L2Effect
 	}
 
 	@Override
-	public boolean onActionTime()
+	protected boolean onActionTime()
 	{
 		if (getEffected().isDead())
 			return false;

@@ -26,7 +26,7 @@ public final class EffectGrow extends EffectBuff
 	}
 	
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		if (getEffected() instanceof L2Npc)
 		{
@@ -40,7 +40,7 @@ public final class EffectGrow extends EffectBuff
 	}
 	
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 		//L2Npc npc = (L2Npc) getEffected();
 		//TODO: Uncomment lines when fix for mobs falling underground is found

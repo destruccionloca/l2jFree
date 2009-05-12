@@ -48,7 +48,7 @@ public final class EffectConfuseMob extends L2Effect
 
 	/** Notify started */
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		getEffected().startConfused();
 		onActionTime();
@@ -57,13 +57,13 @@ public final class EffectConfuseMob extends L2Effect
 
 	/** Notify exited */
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 		getEffected().stopConfused(false);
 	}
 
 	@Override
-	public boolean onActionTime()
+	protected boolean onActionTime()
 	{
 		List<L2Character> targetList = new FastList<L2Character>();
 

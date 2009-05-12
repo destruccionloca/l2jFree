@@ -59,7 +59,7 @@ final class EffectBestowSkill extends L2Effect
 	}
 	
 	@Override
-	public boolean onActionTime()
+	protected boolean onActionTime()
 	{
 		return false;
 	}

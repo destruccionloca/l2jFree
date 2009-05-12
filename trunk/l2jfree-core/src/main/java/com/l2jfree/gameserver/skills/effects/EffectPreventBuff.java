@@ -37,20 +37,20 @@ public final class EffectPreventBuff extends L2Effect
 	}
 
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		getEffected().setPreventedFromReceivingBuffs(true);
 		return true;
 	}
 
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 		getEffected().setPreventedFromReceivingBuffs(false);
 	}
 
 	@Override
-	public boolean onActionTime()
+	protected boolean onActionTime()
 	{
 		return false;
 	}

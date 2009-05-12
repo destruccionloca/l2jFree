@@ -32,7 +32,7 @@ public final class EffectSilentMove extends L2Effect
 
 	/** Notify started */
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		if (getEffected() instanceof L2Playable)
 			((L2Playable) getEffected()).setSilentMoving(true);
@@ -41,7 +41,7 @@ public final class EffectSilentMove extends L2Effect
 
 	/** Notify exited */
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 		L2Character effected = getEffected();
 		if (effected instanceof L2Playable)
@@ -55,7 +55,7 @@ public final class EffectSilentMove extends L2Effect
 	}
 
 	@Override
-	public boolean onActionTime()
+	protected boolean onActionTime()
 	{
 		// Only cont skills shouldn't end
 		if (getSkill().getSkillType() != L2SkillType.CONT)
