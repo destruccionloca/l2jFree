@@ -16,49 +16,39 @@ package com.l2jfree.gameserver.model;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.effects.CharEffects;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
-import com.l2jfree.gameserver.skills.effects.EffectCharmOfCourage;
-import com.l2jfree.gameserver.templates.skills.L2EffectType;
-import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.util.LinkedBunch;
 
-public class CharEffectList
+public class CharEffectList extends CharEffects
 {
-	private static final L2Effect[]			EMPTY_EFFECTS	= new L2Effect[0];
-
 	private FastList<L2Effect>				_buffs;
 	private FastList<L2Effect>				_debuffs;
 
-	// The table containing the List of all stacked effect in progress for each Stack group Identifier
-	protected Map<String, List<L2Effect>>	_stackedEffects;
-
-	// Owner of this list
-	private L2Character						_owner;
-
 	public CharEffectList(L2Character owner)
 	{
-		_owner = owner;
+		super(owner);
 	}
 
 	/**
 	 * Returns all effects affecting stored in this CharEffectList
 	 * @return
 	 */
+	@Override
 	public final L2Effect[] getAllEffects()
 	{
 		// If no effect is active, return EMPTY_EFFECTS
 		if ((_buffs == null || _buffs.isEmpty()) && (_debuffs == null || _debuffs.isEmpty()))
 		{
-			return EMPTY_EFFECTS;
+			return L2Effect.EMPTY_ARRAY;
 		}
 
 		// Create a copy of the effects
@@ -75,193 +65,6 @@ public class CharEffectList
 
 		// Return all effects in an array
 		return temp.moveToArray(new L2Effect[temp.size()]);
-	}
-
-	/**
-	 * Returns the first effect matching the given EffectType
-	 * @param tp
-	 * @return
-	 */
-	public final L2Effect getFirstEffect(L2EffectType tp)
-	{
-		L2Effect[] effects = getAllEffects();
-
-		L2Effect eventNotInUse = null;
-		for (L2Effect e : effects)
-		{
-			if (e.getEffectType() == tp)
-			{
-				if (e.getInUse())
-					return e;
-
-				eventNotInUse = e;
-			}
-		}
-		return eventNotInUse;
-	}
-
-	/**
-	 * Returns the first effect matching the given L2Skill
-	 * @param skill
-	 * @return
-	 */
-	public final L2Effect getFirstEffect(L2Skill skill)
-	{
-		L2Effect[] effects = getAllEffects();
-
-		L2Effect eventNotInUse = null;
-		for (L2Effect e : effects)
-		{
-			if (e.getSkill() == skill)
-			{
-				if (e.getInUse())
-					return e;
-
-				eventNotInUse = e;
-			}
-		}
-		return eventNotInUse;
-	}
-
-	/**
-	 * Returns the first effect matching the given skillId
-	 * @param index
-	 * @return
-	 */
-	public final L2Effect getFirstEffect(int skillId)
-	{
-		L2Effect[] effects = getAllEffects();
-
-		L2Effect eventNotInUse = null;
-		for (L2Effect e : effects)
-		{
-			if (e.getSkill().getId() == skillId)
-			{
-				if (e.getInUse())
-					return e;
-
-				eventNotInUse = e;
-			}
-		}
-		return eventNotInUse;
-	}
-
-	/**
-	 * Return the number of buffs in this CharEffectList not counting Songs/Dances
-	 * @return
-	 */
-	public int getBuffCount()
-	{
-		if (_buffs == null)
-			return 0;
-		int buffCount = 0;
-
-		for (L2Effect e : _buffs)
-		{
-			if (e != null
-					&& e.getShowIcon()
-					&& !e.getSkill().isDance()
-					&& !e.getSkill().isSong()
-					&& !e.getSkill().isDebuff()
-					&& !e.getSkill().bestowed()
-					&& (e.getSkill().getSkillType() == L2SkillType.BUFF || e.getSkill().getSkillType() == L2SkillType.REFLECT
-							|| e.getSkill().getSkillType() == L2SkillType.HEAL_PERCENT || e.getSkill().getSkillType() == L2SkillType.MANAHEAL_PERCENT)
-					&& !(e.getSkill().getId() > 4360 && e.getSkill().getId() < 4367)) // Seven Signs buffs
-			{
-				buffCount++;
-			}
-		}
-		return buffCount;
-	}
-
-	/**
-	 * Return the number of Songs/Dances in this CharEffectList
-	 * @return
-	 */
-	public int getDanceCount(boolean dances, boolean songs)
-	{
-		if (_buffs == null)
-			return 0;
-		int danceCount = 0;
-
-		for (L2Effect e : _buffs)
-		{
-			if (e != null && ((e.getSkill().isDance() && dances) || (e.getSkill().isSong() && songs)) && e.getInUse())
-				danceCount++;
-		}
-		return danceCount;
-	}
-
-	/**
-	 * Exits all effects in this CharEffectList
-	 */
-	public final void stopAllEffects()
-	{
-		// Get all active skills effects from this list
-		L2Effect[] effects = getAllEffects();
-
-		// Exit them
-		for (L2Effect e : effects)
-		{
-			if (e != null && e.getSkill().getId() != 5660)
-			{
-				e.exit();
-			}
-		}
-	}
-
-	/**
-	 * Exits all effects in this CharEffectList
-	 */
-	public final void stopAllEffectsExceptThoseThatLastThroughDeath()
-	{
-		// Get all active skills effects from this list
-		L2Effect[] effects = getAllEffects();
-
-		// Exit them
-		for (L2Effect e : effects)
-		{
-			if (e != null)
-			{
-				if (e instanceof EffectCharmOfCourage)
-					continue;
-				e.exit();
-			}
-		}
- 	}
-
-	/**
-	 * Exit all effects having a specified type
-	 * @param type
-	 */
-	public final void stopEffects(L2EffectType type)
-	{
-		// Get all active skills effects from this list
-		L2Effect[] effects = getAllEffects();
-
-		// Go through all active skills effects
-		for (L2Effect e : effects)
-		{
-			// Stop active skills effects of the selected type
-			if (e.getEffectType() == type)
-				e.exit();
-		}
-	}
-
-	/**
-	 * Exits all effects created by a specific skillId
-	 * @param skillId
-	 */
-	public final void stopSkillEffects(int skillId)
-	{
-		// Get all skills effects on the L2Character
-		L2Effect[] effects = getAllEffects();
-
-		for (L2Effect e : effects)
-		{
-			if (e.getSkill().getId() == skillId)
-				e.exit();
-		}
 	}
 
 	/**
