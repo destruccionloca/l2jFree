@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.actor.L2Playable;
 
 /**
@@ -75,9 +74,7 @@ public abstract class EffectInfoPacket extends L2GameServerPacket
 		public EffectInfoPacketList(L2Playable playable)
 		{
 			_playable = playable;
-			
-			for (L2Effect effect : _playable.getAllEffects())
-				effect.addPacket(EffectInfoPacketList.this);
+			_playable.getEffects().addPacket(EffectInfoPacketList.this);
 		}
 		
 		public final void addEffect(int id, int level, int duration)

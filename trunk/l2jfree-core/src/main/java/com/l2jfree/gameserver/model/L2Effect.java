@@ -126,8 +126,8 @@ public abstract class L2Effect implements FuncOwner, Runnable
 		_effector = env.player;
 		_count = effect.getCount();
 		_period = _template.period - effect.getTime();
-		_periodStartTicks = effect.getPeriodStartTicks();
-		_periodfirsttime = effect.getPeriodfirsttime();
+		_periodStartTicks = effect._periodStartTicks;
+		_periodfirsttime = effect._periodfirsttime;
 		
 		startEffect();
 	}
@@ -187,7 +187,7 @@ public abstract class L2Effect implements FuncOwner, Runnable
 	{
 		return _template.showIcon;
 	}
-
+	
 	public final int getPeriod()
 	{
 		return _period;
@@ -216,16 +216,6 @@ public abstract class L2Effect implements FuncOwner, Runnable
 	public final int getRemainingTaskTime()
 	{
 		return getTotalTaskTime() - getElapsedTaskTime();
-	}
-	
-	public int getPeriodfirsttime()
-	{
-		return _periodfirsttime;
-	}
-	
-	public int getPeriodStartTicks()
-	{
-		return _periodStartTicks;
 	}
 	
 	public final boolean isInUse()
@@ -283,12 +273,12 @@ public abstract class L2Effect implements FuncOwner, Runnable
 		}
 	};
 	
-	private final boolean isActing()
+	private boolean isActing()
 	{
 		return _isActing;
 	}
 	
-	private final void setActing(boolean isActing)
+	private void setActing(boolean isActing)
 	{
 		_isActing = isActing;
 	}

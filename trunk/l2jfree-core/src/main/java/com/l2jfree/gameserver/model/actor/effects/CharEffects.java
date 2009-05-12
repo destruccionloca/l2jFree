@@ -25,6 +25,7 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.network.serverpackets.EffectInfoPacket.EffectInfoPacketList;
 import com.l2jfree.gameserver.skills.effects.EffectCharmOfCourage;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 import com.l2jfree.util.ObjectPool;
@@ -389,10 +390,20 @@ public class CharEffects
 		return danceCount;
 	}
 	
+	public synchronized void addPacket(EffectInfoPacketList list)
+	{
+		for (int i = 0; i < _effects.size(); i++)
+		{
+			final L2Effect e = _effects.get(i);
+			
+			e.addPacket(list);
+		}
+	}
+	
 	/**
 	 * Exits all effects in this CharEffectList
 	 */
-	public final void stopAllEffects()
+	public void stopAllEffects()
 	{
 		for (L2Effect e : getAllEffects())
 		{
@@ -406,7 +417,7 @@ public class CharEffects
 	/**
 	 * Exits all effects in this CharEffectList
 	 */
-	public final void stopAllEffectsExceptThoseThatLastThroughDeath()
+	public void stopAllEffectsExceptThoseThatLastThroughDeath()
 	{
 		for (L2Effect e : getAllEffects())
 		{
