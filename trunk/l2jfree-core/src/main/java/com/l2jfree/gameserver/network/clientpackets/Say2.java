@@ -28,11 +28,12 @@ import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.util.IllegalPlayerAction;
 import com.l2jfree.gameserver.util.Util;
 
 /**
- * This class ...
+ * This class represents a packet sent by the server when a chat message is sent.
  * 
  * @version $Revision: 1.16.2.12.2.7 $ $Date: 2005/04/11 10:06:11 $
  */
@@ -52,7 +53,6 @@ public class Say2 extends L2GameClientPacket
 	/**
 	 * packet type id 0x38
 	 * format:      cSd (S)
-	 * @param decrypt
 	 */
 	@Override
 	protected void readImpl()
@@ -80,19 +80,19 @@ public class Say2 extends L2GameClientPacket
 				_type == SystemChatChannelId.Chat_Custom ||
 					(_type == SystemChatChannelId.Chat_GM_Pet && !activeChar.isGM()))
 		{
-			_log.warn("[Say2.java] Illegal chat channel was used.");
+			//is this uninformative message still useful?
+			//_log.warn("[Say2.java] Illegal chat channel was used.");
+			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 
 		// If player is chat banned
-		if (ObjectRestrictions.getInstance().checkRestriction(activeChar, AvailableRestriction.PlayerChat))
+		if (ObjectRestrictions.getInstance().checkRestriction(activeChar, AvailableRestriction.PlayerChat)
+				&& _type != SystemChatChannelId.Chat_User_Pet
+				&& _type != SystemChatChannelId.Chat_Tell)
 		{
-			if (_type != SystemChatChannelId.Chat_User_Pet && _type != SystemChatChannelId.Chat_Tell)
-			{
-				// [L2J_JP EDIT]
-				activeChar.sendPacket(SystemMessageId.CHATTING_IS_CURRENTLY_PROHIBITED);
-				return;
-			}
+			requestFailed(SystemMessageId.CHATTING_IS_CURRENTLY_PROHIBITED);
+			return;
 		}
 
 		if (activeChar.isCursedWeaponEquipped())
@@ -101,7 +101,7 @@ public class Say2 extends L2GameClientPacket
 			{
 			case Chat_Shout:
 			case Chat_Market:
-				activeChar.sendPacket(SystemMessageId.SHOUT_AND_TRADE_CHAT_CANNOT_BE_USED_WHILE_POSSESSING_CURSED_WEAPON);
+				requestFailed(SystemMessageId.SHOUT_AND_TRADE_CHAT_CANNOT_BE_USED_WHILE_POSSESSING_CURSED_WEAPON);
 				return;
 			}
 		}
@@ -111,7 +111,7 @@ public class Say2 extends L2GameClientPacket
 		{
 			if (_type != SystemChatChannelId.Chat_User_Pet && _type != SystemChatChannelId.Chat_Normal)
 			{
-				activeChar.sendMessage("You can not chat with the outside of the jail.");
+				requestFailed(SystemMessageId.CHATTING_IS_CURRENTLY_PROHIBITED);
 				return;
 			}
 		}
@@ -119,6 +119,14 @@ public class Say2 extends L2GameClientPacket
 		// If Petition and GM use GM_Petition Channel
 		if (_type == SystemChatChannelId.Chat_User_Pet && activeChar.isGM())
 			_type = SystemChatChannelId.Chat_GM_Pet;
+
+		if (!Config.GM_ALLOW_CHAT_INVISIBLE && activeChar.getAppearance().isInvisible() &&
+				_type != SystemChatChannelId.Chat_GM_Pet &&
+				_type != SystemChatChannelId.Chat_Tell)
+		{
+			requestFailed(SystemMessageId.NOT_CHAT_WHILE_INVISIBLE);
+			return;
+		}
 
 		if (Config.BAN_CLIENT_EMULATORS)
 		{
@@ -132,19 +140,15 @@ public class Say2 extends L2GameClientPacket
 		}
 		else if (_text.length() > 400)
 		{
-			activeChar.sendPacket(SystemMessageId.DONT_SPAM);
+			requestFailed(SystemMessageId.DONT_SPAM);
 			//prevent crashing official clients
 			return;
 		}
 
 		// Say Filter implementation
 		if (Config.USE_SAY_FILTER)
-		{
 			for (String pattern : Config.FILTER_LIST)
-			{
-				_text = _text.replaceAll("(?i)" + pattern, "^_^");
-			}
-		}
+				_text = _text.replaceAll("(?i)" + pattern, "-_-");
 
 		if (_text.startsWith(".") && !_text.startsWith("..") && _type == SystemChatChannelId.Chat_Normal)
 		{
@@ -162,11 +166,11 @@ public class Say2 extends L2GameClientPacket
 			IVoicedCommandHandler vch = VoicedCommandHandler.getInstance().getVoicedCommandHandler(command);
 
 			if (vch != null)
+			{
 				vch.useVoicedCommand(command, activeChar, params);
-			else
-				_log.warn("No handler registered for voice command '" + command + "'");
-
-			return;
+				sendPacket(ActionFailed.STATIC_PACKET);
+				return;
+			}
 		}
 		// Some custom implementation to show how to add channels
 		// (for me Chat_System is used for emotes - further informations
@@ -194,11 +198,9 @@ public class Say2 extends L2GameClientPacket
 
 		if (ich != null)
 			ich.useChatHandler(activeChar, _target, _type, _text);
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

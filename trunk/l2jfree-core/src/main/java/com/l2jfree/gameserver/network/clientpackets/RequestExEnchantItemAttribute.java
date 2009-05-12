@@ -14,13 +14,13 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.Shutdown;
 import com.l2jfree.gameserver.Shutdown.DisableType;
 import com.l2jfree.gameserver.model.Elementals;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExAttributeEnchantResult;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -47,18 +47,16 @@ public class RequestExEnchantItemAttribute extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null)
-			return;
+		if (player == null) return;
 
 		if (_objectId == 0xFFFF)
 		{
 			// Player canceled enchant
 			player.setActiveEnchantAttrItem(null);
-			player.sendPacket(SystemMessageId.ELEMENTAL_ENHANCE_CANCELED);
+			requestFailed(SystemMessageId.ELEMENTAL_ENHANCE_CANCELED);
 			return;
 		}
-
-		if (player.isOnline() == 0)
+		else if (player.isOnline() == 0)
 		{
 			player.setActiveEnchantAttrItem(null);
 			return;
@@ -67,49 +65,45 @@ public class RequestExEnchantItemAttribute extends L2GameClientPacket
 		// Restrict enchant during restart/shutdown (because of an existing exploit)
 		if (Shutdown.isActionDisabled(DisableType.ENCHANT))
 		{
-			player.sendMessage("Enchanting items is not allowed during restart/shutdown.");
+			requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
 			return;
 		}
-
-		if (player.getPrivateStoreType() != 0)
+		else if (player.getPrivateStoreType() != L2PcInstance.STORE_PRIVATE_NONE)
 		{
-			player.sendPacket(SystemMessageId.CANNOT_ADD_ELEMENTAL_POWER_WHILE_OPERATING_PRIVATE_STORE_OR_WORKSHOP);
+			requestFailed(SystemMessageId.CANNOT_ADD_ELEMENTAL_POWER_WHILE_OPERATING_PRIVATE_STORE_OR_WORKSHOP);
 			return;
 		}
-
 		// Restrict enchant during a trade (bug if enchant fails)
-		if (player.getActiveRequester() != null)
+		else if (player.isProcessingTransaction())
 		{
 			// Cancel trade
 			player.cancelActiveTrade();
-			player.sendMessage("Enchanting items is not allowed during a trade.");
+			requestFailed(SystemMessageId.CANNOT_PICKUP_OR_USE_ITEM_WHILE_TRADING);
 			return;
 		}
 
 		L2ItemInstance item = player.getInventory().getItemByObjectId(_objectId);
 		L2ItemInstance stone = player.getActiveEnchantAttrItem();
-		if (item == null || stone == null)
+		if (item == null || stone == null || item.isWear())
 		{
 			player.setActiveEnchantAttrItem(null);
+			requestFailed(SystemMessageId.INAPPROPRIATE_ENCHANT_CONDITION);
 			return;
 		}
-		if ((item.getLocation() != L2ItemInstance.ItemLocation.INVENTORY) && (item.getLocation() != L2ItemInstance.ItemLocation.PAPERDOLL))
+		else if ((item.getLocation() != L2ItemInstance.ItemLocation.INVENTORY) && (item.getLocation() != L2ItemInstance.ItemLocation.PAPERDOLL))
+		{
+			requestFailed(SystemMessageId.INAPPROPRIATE_ENCHANT_CONDITION);
 			return;
+		}
 
 		int itemId = item.getItemId();
-
-		if (item.isWear())
-		{
-			Util.handleIllegalPlayerAction(player, "Player "+player.getName()+" tried to enchant a weared Item", IllegalPlayerAction.PUNISH_KICK);
-			return;
-		}
 
 		//can't enchant rods, shadow items, adventurers', hero items
 		if (item.getItem().getItemType() == L2WeaponType.ROD || item.isShadowItem() || item.isHeroItem()
 		|| (itemId >= 7816 && itemId <= 7831) || (item.getItem().getItemType() == L2WeaponType.NONE) ||
 			!(item.getItem().getCrystalType() == L2Item.CRYSTAL_S || item.getItem().getCrystalType() == L2Item.CRYSTAL_S80))
 		{
-			player.sendPacket(SystemMessageId.ELEMENTAL_ENHANCE_REQUIREMENT_NOT_SUFFICIENT);
+			requestFailed(SystemMessageId.ELEMENTAL_ENHANCE_REQUIREMENT_NOT_SUFFICIENT);
 			player.setActiveEnchantAttrItem(null);
 			return;
 		}
@@ -121,6 +115,7 @@ public class RequestExEnchantItemAttribute extends L2GameClientPacket
 			{
 				if (item.getOwnerId() != player.getObjectId())
 				{
+					requestFailed(SystemMessageId.INAPPROPRIATE_ENCHANT_CONDITION);
 					player.setActiveEnchantAttrItem(null);
 					return;
 				}
@@ -128,6 +123,7 @@ public class RequestExEnchantItemAttribute extends L2GameClientPacket
 			}
 			default:
 			{
+				sendPacket(ActionFailed.STATIC_PACKET);
 				player.setActiveEnchantAttrItem(null);
 				Util.handleIllegalPlayerAction(player, "Player "+player.getName()+" tried to use enchant Exploit!", IllegalPlayerAction.PUNISH_KICK);
 				return;
@@ -154,22 +150,20 @@ public class RequestExEnchantItemAttribute extends L2GameClientPacket
 
 		if (oldElement != null && oldElement.getElement() != elementToAdd)
 		{
-			player.sendPacket(SystemMessageId.ANOTHER_ELEMENTAL_POWER_ALREADY_ADDED);
+			requestFailed(SystemMessageId.ANOTHER_ELEMENTAL_POWER_ALREADY_ADDED);
+			player.setActiveEnchantAttrItem(null);
+			return;
+		}
+		else if (powerToAdd == 0)
+		{
+			requestFailed(SystemMessageId.ELEMENTAL_ENHANCE_REQUIREMENT_NOT_SUFFICIENT);
 			player.setActiveEnchantAttrItem(null);
 			return;
 		}
 
-		if (powerToAdd == 0)
+		if (!player.destroyItem("AttrEnchant", stone, 1, player, true))
 		{
-			player.sendPacket(SystemMessageId.ELEMENTAL_ENHANCE_REQUIREMENT_NOT_SUFFICIENT);
-			player.setActiveEnchantAttrItem(null);
-			return;
-		}
-
-		if(!player.destroyItem("AttrEnchant", stone, 1, player, true))
-		{
-			player.sendPacket(SystemMessageId.NOT_ENOUGH_ITEMS);
-			Util.handleIllegalPlayerAction(player, "Player "+player.getName()+" tried to attribute enchant with a stone he doesn't have", Config.DEFAULT_PUNISH);
+			requestFailed(SystemMessageId.NOT_ENOUGH_ITEMS);
 			player.setActiveEnchantAttrItem(null);
 			return;
 		}
@@ -186,21 +180,22 @@ public class RequestExEnchantItemAttribute extends L2GameClientPacket
 				sm = new SystemMessage(SystemMessageId.ELEMENTAL_POWER_S3_SUCCESSFULLY_ADDED_TO_S1_S2).addNumber(item.getEnchantLevel());
 				sm.addItemName(item).addNumber(powerToAdd);
 			}
-			player.sendPacket(sm);
+			sendPacket(sm);
 			item.setElementAttr(elementToAdd, newPower);
 
 			// send packets
 			InventoryUpdate iu = new InventoryUpdate();
 			iu.addModifiedItem(item);
-			player.sendPacket(iu);
+			sendPacket(iu);
 		}
 		else
 		{
-			player.sendPacket(SystemMessageId.FAILED_ADDING_ELEMENTAL_POWER);
+			sendPacket(SystemMessageId.FAILED_ADDING_ELEMENTAL_POWER);
 		}
 
-		player.sendPacket(new ExAttributeEnchantResult(powerToAdd));
-		player.sendPacket(new UserInfo(player));
+		sendPacket(new ExAttributeEnchantResult(powerToAdd));
+		sendPacket(new UserInfo(player));
+		sendPacket(ActionFailed.STATIC_PACKET);
 		player.setActiveEnchantAttrItem(null);
 	}
 

@@ -20,6 +20,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
 import com.l2jfree.gameserver.model.L2EnchantSkillLearn;
@@ -28,8 +29,12 @@ import com.l2jfree.gameserver.model.L2EnchantSkillLearn.EnchantSkillDetail;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExEnchantSkillInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExEnchantSkillList.EnchantSkillType;
+import com.l2jfree.gameserver.util.IllegalPlayerAction;
+import com.l2jfree.gameserver.util.Util;
 
 /**
  * Format (ch) dd
@@ -49,9 +54,8 @@ public final class RequestExEnchantSkillInfo extends L2GameClientPacket
     private static final int TYPE_SAFE_ENCHANT = 1;
     private static final int TYPE_UNTRAIN_ENCHANT = 2;
     private static final int TYPE_CHANGE_ENCHANT = 3;
-    
+
     private int _type;
-	@SuppressWarnings("unused")
 	private int _skillId;
 	private int _skillLvl;
 
@@ -63,60 +67,73 @@ public final class RequestExEnchantSkillInfo extends L2GameClientPacket
 		_skillLvl = readD();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#runImpl()
-	 */
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-
-        if (activeChar == null)
-            return;
+        if (activeChar == null) return;
 
         if (activeChar.getLevel() < 76)
+        {
+        	requestFailed(SystemMessageId.YOU_DONT_MEET_SKILL_LEVEL_REQUIREMENTS);
             return;
+        }
+        else if (activeChar.getClassId().level() < 3)
+        {
+        	requestFailed(SystemMessageId.NOT_COMPLETED_QUEST_FOR_SKILL_ACQUISITION);
+        	return;
+        }
 
         L2NpcInstance trainer = activeChar.getLastFolkNPC();
-
-        if ((trainer == null || !activeChar.isInsideRadius(trainer, L2Npc.INTERACTION_DISTANCE, false, false)) && !activeChar.isGM())
-            return;
-
-        L2Skill skill = SkillTable.getInstance().getInfo(_skillId, _skillLvl);
-        
-        if (skill == null || skill.getId() != _skillId)
+        if (trainer == null || !activeChar.isInsideRadius(trainer, L2Npc.INTERACTION_DISTANCE, false, false))
         {
-        	activeChar.sendMessage("This skill doesn't yet have enchant info in Datapack");
+        	requestFailed(SystemMessageId.TOO_FAR_FROM_NPC);
             return;
         }
 
-        if (trainer != null && !trainer.getTemplate().canTeach(activeChar.getClassId()) && !activeChar.isGM())
-        	return; // cheater
-        
+        L2Skill skill = SkillTable.getInstance().getInfo(_skillId, _skillLvl);
+        if (skill == null || skill.getId() != _skillId)
+        {
+        	requestFailed(SystemMessageId.THERE_IS_NO_SKILL_THAT_ENABLES_ENCHANT);
+            return;
+        }
+
+        if (!skill.canTeachBy(trainer.getNpcId()) || !skill.getCanLearn(activeChar.getClassId()))
+        {
+            if (!Config.ALT_GAME_SKILL_LEARN)
+            {
+                sendPacket(ActionFailed.STATIC_PACKET);
+                Util.handleIllegalPlayerAction(activeChar, "Client "+getClient()+" tried to learn skill that he can't!!!", IllegalPlayerAction.PUNISH_KICK);
+                return;
+            }
+        }
+
         switch (_type)
         {
             case TYPE_NORMAL_ENCHANT:
-                this.showEnchantInfo(activeChar, false);
+                showEnchantInfo(activeChar, false);
                 break;
             case TYPE_SAFE_ENCHANT:
-                this.showEnchantInfo(activeChar, true);
+                showEnchantInfo(activeChar, true);
                 break;
             case TYPE_UNTRAIN_ENCHANT:
-                this.showUntrainEnchantInfo(activeChar);
+                showUntrainEnchantInfo(activeChar);
                 break;
             case TYPE_CHANGE_ENCHANT:
-                this.showChangeEnchantInfo(activeChar);
+                showChangeEnchantInfo(activeChar);
                 break; 
             default:
                 _log.fatal("Unknown skill enchant type: "+_type);
                 break;
         }
+
+        sendPacket(ActionFailed.STATIC_PACKET);
 	}
-    
+
     public void showEnchantInfo(L2PcInstance activeChar, boolean isSafeEnchant)
     {
         ExEnchantSkillInfo asi = new ExEnchantSkillInfo(isSafeEnchant ? EnchantSkillType.SAFE : EnchantSkillType.NORMAL, _skillId);
-        
+
         L2EnchantSkillLearn enchantLearn = SkillTreeTable.getInstance().getSkillEnchantmentBySkillId(_skillId);
         // do we have this skill?
         if (enchantLearn != null)
@@ -126,29 +143,25 @@ public final class RequestExEnchantSkillInfo extends L2GameClientPacket
             {
                 // get detail for next level
                 EnchantSkillDetail esd = enchantLearn.getEnchantSkillDetail(_skillLvl + 1);
-                
+
                 // if it exists add it
                 if (esd != null)
-                {
                     asi.addEnchantSkillDetail(activeChar, esd);
-                }
             }
             else // not already enchanted
             {
                 for (List<EnchantSkillDetail> esd : enchantLearn.getEnchantRoutes())
-                {
                     // add first level (+1) of all routes
                     asi.addEnchantSkillDetail(activeChar, esd.get(0));
-                }
             }
-            sendPacket(asi);
+            activeChar.sendPacket(asi);
         }
     }
-    
+
     public void showChangeEnchantInfo(L2PcInstance activeChar)
     {
         ExEnchantSkillInfo asi = new ExEnchantSkillInfo(EnchantSkillType.CHANGE_ROUTE, _skillId);
-        
+
         L2EnchantSkillLearn enchantLearn = SkillTreeTable.getInstance().getSkillEnchantmentBySkillId(_skillId);
         // do we have this skill?
         if (enchantLearn != null)
@@ -158,7 +171,7 @@ public final class RequestExEnchantSkillInfo extends L2GameClientPacket
             {
                 // get current enchant type
                 int currentType = L2EnchantSkillLearn.getEnchantType(_skillLvl);
-                
+
                 List<EnchantSkillDetail>[] routes = enchantLearn.getEnchantRoutes();
                 List<EnchantSkillDetail> route;
                 for (int i = 0; i < routes.length; i++)
@@ -169,29 +182,21 @@ public final class RequestExEnchantSkillInfo extends L2GameClientPacket
                         route = routes[i];
                         EnchantSkillDetail esd = route.get(L2EnchantSkillLearn.getEnchantIndex(_skillLvl));
                         if (esd != null)
-                        {
                             asi.addEnchantSkillDetail(activeChar, esd);
-                        }
                     }
                 }
-                
-                
-                sendPacket(asi);
+
+                activeChar.sendPacket(asi);
             }
             else
-            {
                 _log.warn("Client: "+this.getClient()+" requested change route information for unenchanted skill");
-            }
         }
     }
-    
-    /**
-	 * @param activeChar  
-	 */
+
     public void showUntrainEnchantInfo(L2PcInstance activeChar)
     {
         ExEnchantSkillInfo asi = new ExEnchantSkillInfo(EnchantSkillType.UNTRAIN, _skillId);
-        
+
         L2EnchantSkillLearn enchantLearn = SkillTreeTable.getInstance().getSkillEnchantmentBySkillId(_skillId);
         // do we have this skill?
         if (enchantLearn != null)
@@ -204,42 +209,30 @@ public final class RequestExEnchantSkillInfo extends L2GameClientPacket
                 {
                     // no previous enchant level, return to original
                     if (_skillLvl%100 == 1)
-                    {
                         asi.addEnchantSkillDetail(enchantLearn.getBaseLevel(), 100, currentLevelDetail.getSpCost(), currentLevelDetail.getExp());
-                    }
                     else
                     {
                         // get detail for previous level
                         EnchantSkillDetail esd = enchantLearn.getEnchantSkillDetail(_skillLvl - 1);
-                        
+
                         // if it exists add it
                         if (esd != null)
-                        {
                             asi.addEnchantSkillDetail(esd.getLevel(), 100, currentLevelDetail.getSpCost(), currentLevelDetail.getExp());
-                        }
                     }
                 }
                 else
-                {
                     _log.warn("Client: "+this.getClient()+" tried to untrain enchanted skill, but server doesnt has data for his current skill enchantment level");
-                }
-                
-                sendPacket(asi);
+
+                activeChar.sendPacket(asi);
             }
             else
-            {
                 _log.warn("Client: "+this.getClient()+" requested untrain information for unenchanted skill");
-            }
         }
     }
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.BasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{
 		return _C__D0_06_REQUESTEXENCHANTSKILLINFO;
 	}
-
 }

@@ -14,12 +14,12 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExEnchantSkillInfoDetail;
 
 /**
@@ -35,36 +35,30 @@ import com.l2jfree.gameserver.network.serverpackets.ExEnchantSkillInfoDetail;
 public final class RequestExEnchantSkillInfoDetail extends L2GameClientPacket
 {
     private final static Log _log = LogFactory.getLog(RequestExEnchantSkillInfoDetail.class.getName());
-    
+
     private static final int TYPE_NORMAL_ENCHANT = 0;
     private static final int TYPE_SAFE_ENCHANT = 1;
     private static final int TYPE_UNTRAIN_ENCHANT = 2;
     private static final int TYPE_CHANGE_ENCHANT = 3;
-    
+
     private int _type;
-	@SuppressWarnings("unused")
-    private int _skillId;
+    //private int _skillId;
     private int _skillLvl;
-	
+
 	@Override
     protected void readImpl()
 	{
         _type = readD();
-		_skillId = readD();
+		/*_skillId = */readD();
 		_skillLvl = readD();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#runImpl()
-	 */
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-        
-        if (activeChar == null) 
-            return;
-        
+        if (activeChar == null) return;
+
         int bookId = 0;
         int reqCount = 0;
         // require book for first level
@@ -92,22 +86,19 @@ public final class RequestExEnchantSkillInfoDetail extends L2GameClientPacket
                     break;
                 default:
                     _log.fatal("Unknown skill enchant type: "+_type);
-                return;
+                	sendPacket(ActionFailed.STATIC_PACKET);
+                	return;
             }
         }
-        
+
         // send skill enchantment detail
-        ExEnchantSkillInfoDetail esd = new ExEnchantSkillInfoDetail(bookId, reqCount);
-        activeChar.sendPacket(esd);
+        sendPacket(new ExEnchantSkillInfoDetail(bookId, reqCount));
+        sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.BasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{
 		return "[C] D0:31 RequestExEnchantSkillInfo";
 	}
-	
 }

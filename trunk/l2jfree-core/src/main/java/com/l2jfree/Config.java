@@ -1837,6 +1837,7 @@ public final class Config extends L2Config
 	public static boolean		GM_STARTUP_INVULNERABLE;							// Set the GM invulnerable at startup ?
 	public static boolean		GM_ANNOUNCER_NAME;
 	public static boolean 		GM_ITEM_RESTRICTION;
+	public static boolean 		GM_ALLOW_CHAT_INVISIBLE;
 
 
 	// *******************************************************************************************
@@ -1931,6 +1932,7 @@ public final class Config extends L2Config
 			GM_STARTUP_SILENCE = Boolean.parseBoolean(gmSettings.getProperty("GMStartupSilence", "True"));
 			
 			GM_ITEM_RESTRICTION	= Boolean.parseBoolean(gmSettings.getProperty("GmItemRestriction", "False"));
+			GM_ALLOW_CHAT_INVISIBLE	= Boolean.parseBoolean(gmSettings.getProperty("GMChatInvisible", "False"));
 		}
 	}
 	
