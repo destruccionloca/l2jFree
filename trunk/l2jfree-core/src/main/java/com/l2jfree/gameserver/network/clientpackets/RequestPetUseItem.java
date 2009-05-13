@@ -18,7 +18,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.gameserver.datatables.PetDataTable;
-import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.handler.ItemHandler;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -105,9 +104,7 @@ public class RequestPetUseItem extends L2GameClientPacket
 			return;
 		}
 
-		IItemHandler handler = ItemHandler.getInstance().getItemHandler(item.getItemId());
-
-		if (handler != null)
+		if (ItemHandler.getInstance().hasItemHandler(item.getItemId()))
 		{
 			useItem(pet, item, activeChar);
 		}
@@ -161,16 +158,8 @@ public class RequestPetUseItem extends L2GameClientPacket
 		}
 		else
 		{
-			//_log.debug("item not equipable id:"+ item.getItemId());
-			IItemHandler handler = ItemHandler.getInstance().getItemHandler(item.getItemId());
-
-			if (handler == null)
+			if (ItemHandler.getInstance().useItem(item.getItemId(), pet, item))
 			{
-				_log.warn("no itemhandler registered for itemId:" + item.getItemId());
-			}
-			else
-			{
-				handler.useItem(pet, item);
 				pet.broadcastFullInfo();
 			}
 		}

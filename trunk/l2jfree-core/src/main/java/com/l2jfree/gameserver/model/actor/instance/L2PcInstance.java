@@ -70,7 +70,6 @@ import com.l2jfree.gameserver.datatables.ShotTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
 import com.l2jfree.gameserver.geodata.GeoData;
-import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.handler.ItemHandler;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminEditChar;
 import com.l2jfree.gameserver.handler.skillhandlers.SummonFriend;
@@ -2902,11 +2901,7 @@ public final class L2PcInstance extends L2Playable
 		// Auto use herbs - autoloot
 		else if (newitem.getItemType() == L2EtcItemType.HERB)
 		{
-			IItemHandler handler = ItemHandler.getInstance().getItemHandler(newitem.getItemId());
-			if (handler == null)
-				_log.warn("No item handler registered for item ID " + newitem.getItemId() + ".");
-			else
-				handler.useItem(this, newitem);
+			ItemHandler.getInstance().useItem(newitem.getItemId(), this, newitem);
 		}
 
 		// Update current load as well
@@ -4126,11 +4121,7 @@ public final class L2PcInstance extends L2Playable
 		// Auto use herbs - pick up
 		if (target.getItemType() == L2EtcItemType.HERB)
 		{
-			IItemHandler handler = ItemHandler.getInstance().getItemHandler(target.getItemId());
-			if (handler == null)
-				_log.warn("No item handler registered for item ID " + target.getItemId() + ".");
-			else
-				handler.useItem(this, target);
+			ItemHandler.getInstance().useItem(target.getItemId(), this, target);
 		}
 		// Cursed Weapons are not distributed
 		else if (CursedWeaponsManager.getInstance().isCursed(target.getItemId()))
@@ -9767,10 +9758,8 @@ public final class L2PcInstance extends L2Playable
 				}
 				if (food != null && isHungry())
 				{
-					IItemHandler handler = ItemHandler.getInstance().getItemHandler(food.getItemId());
-					if (handler != null)
+					if (ItemHandler.getInstance().useItem(food.getItemId(), L2PcInstance.this, food))
 					{
-						handler.useItem(L2PcInstance.this, food);
 						SystemMessage sm = new SystemMessage(SystemMessageId.PET_TOOK_S1_BECAUSE_HE_WAS_HUNGRY);
 						sm.addItemName(food.getItemId());
 						sendPacket(sm);

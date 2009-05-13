@@ -14,54 +14,65 @@
  */
 package com.l2jfree.gameserver.handler;
 
-import java.util.Map;
-import java.util.TreeMap;
+import com.l2jfree.gameserver.handler.itemhandlers.AdvQuestItems;
+import com.l2jfree.gameserver.handler.itemhandlers.BallistaBomb;
+import com.l2jfree.gameserver.handler.itemhandlers.BeastSoulShot;
+import com.l2jfree.gameserver.handler.itemhandlers.BeastSpice;
+import com.l2jfree.gameserver.handler.itemhandlers.BeastSpiritShot;
+import com.l2jfree.gameserver.handler.itemhandlers.BlessedSpiritShot;
+import com.l2jfree.gameserver.handler.itemhandlers.Book;
+import com.l2jfree.gameserver.handler.itemhandlers.CharChangePotions;
+import com.l2jfree.gameserver.handler.itemhandlers.ChestKey;
+import com.l2jfree.gameserver.handler.itemhandlers.CrystalCarol;
+import com.l2jfree.gameserver.handler.itemhandlers.DoorKey;
+import com.l2jfree.gameserver.handler.itemhandlers.EnchantAttr;
+import com.l2jfree.gameserver.handler.itemhandlers.EnchantScrolls;
+import com.l2jfree.gameserver.handler.itemhandlers.EnergyStone;
+import com.l2jfree.gameserver.handler.itemhandlers.ExtractableItems;
+import com.l2jfree.gameserver.handler.itemhandlers.Firework;
+import com.l2jfree.gameserver.handler.itemhandlers.FishShots;
+import com.l2jfree.gameserver.handler.itemhandlers.ForgottenScroll;
+import com.l2jfree.gameserver.handler.itemhandlers.Harvester;
+import com.l2jfree.gameserver.handler.itemhandlers.HolyWater;
+import com.l2jfree.gameserver.handler.itemhandlers.Maps;
+import com.l2jfree.gameserver.handler.itemhandlers.MercTicket;
+import com.l2jfree.gameserver.handler.itemhandlers.MysteryPotion;
+import com.l2jfree.gameserver.handler.itemhandlers.PetFood;
+import com.l2jfree.gameserver.handler.itemhandlers.Potions;
+import com.l2jfree.gameserver.handler.itemhandlers.Recipes;
+import com.l2jfree.gameserver.handler.itemhandlers.Remedy;
+import com.l2jfree.gameserver.handler.itemhandlers.RollingDice;
+import com.l2jfree.gameserver.handler.itemhandlers.ScrollOfEscape;
+import com.l2jfree.gameserver.handler.itemhandlers.ScrollOfResurrection;
+import com.l2jfree.gameserver.handler.itemhandlers.Scrolls;
+import com.l2jfree.gameserver.handler.itemhandlers.Seed;
+import com.l2jfree.gameserver.handler.itemhandlers.SevenSignsRecord;
+import com.l2jfree.gameserver.handler.itemhandlers.SoulCrystals;
+import com.l2jfree.gameserver.handler.itemhandlers.SoulShots;
+import com.l2jfree.gameserver.handler.itemhandlers.SpecialXMas;
+import com.l2jfree.gameserver.handler.itemhandlers.SpiritLake;
+import com.l2jfree.gameserver.handler.itemhandlers.SpiritShot;
+import com.l2jfree.gameserver.handler.itemhandlers.SummonItems;
+import com.l2jfree.gameserver.handler.itemhandlers.TransformationItems;
+import com.l2jfree.gameserver.handler.itemhandlers.WorldMap;
+import com.l2jfree.gameserver.model.L2ItemInstance;
+import com.l2jfree.gameserver.model.actor.L2Playable;
+import com.l2jfree.util.NumberHandlerRegistry;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import com.l2jfree.gameserver.handler.itemhandlers.*;
-
-/**
- * This class manages handlers of items
- *
- * @version $Revision: 1.1.4.3 $ $Date: 2005/03/27 15:30:09 $
- */
-public class ItemHandler
+public final class ItemHandler extends NumberHandlerRegistry<IItemHandler>
 {
-	private final static Log			_log	= LogFactory.getLog(ItemHandler.class.getName());
-	private static ItemHandler			_instance;
-
-	private Map<Integer, IItemHandler>	_datatable;
-
-	/**
-	 * Create ItemHandler if doesn't exist and returns ItemHandler
-	 *
-	 * @return ItemHandler
-	 */
+	private static ItemHandler _instance;
+	
 	public static ItemHandler getInstance()
 	{
 		if (_instance == null)
 			_instance = new ItemHandler();
+		
 		return _instance;
 	}
-
-	/**
-	 * Returns the number of elements contained in datatable
-	 *
-	 * @return int : Size of the datatable
-	 */
-	public int size()
-	{
-		return _datatable.size();
-	}
-
-	/**
-	 * Constructor of ItemHandler
-	 */
+	
 	private ItemHandler()
 	{
-		_datatable = new TreeMap<Integer, IItemHandler>();
 		registerItemHandler(new AdvQuestItems());
 		registerItemHandler(new BallistaBomb());
 		registerItemHandler(new BeastSoulShot());
@@ -85,56 +96,49 @@ public class ItemHandler
 		registerItemHandler(new Maps());
 		registerItemHandler(new MercTicket());
 		registerItemHandler(new MysteryPotion());
+		registerItemHandler(new PetFood());
+		registerItemHandler(new Potions());
 		registerItemHandler(new Recipes());
 		registerItemHandler(new Remedy());
 		registerItemHandler(new RollingDice());
-		registerItemHandler(new PetFood());
-		registerItemHandler(new Potions());
 		registerItemHandler(new ScrollOfEscape());
 		registerItemHandler(new ScrollOfResurrection());
 		registerItemHandler(new Scrolls());
-		registerItemHandler(new SpecialXMas());
 		registerItemHandler(new Seed());
 		registerItemHandler(new SevenSignsRecord());
 		registerItemHandler(new SoulCrystals());
 		registerItemHandler(new SoulShots());
+		registerItemHandler(new SpecialXMas());
 		registerItemHandler(new SpiritLake());
 		registerItemHandler(new SpiritShot());
 		registerItemHandler(new SummonItems());
 		registerItemHandler(new TransformationItems());
 		registerItemHandler(new WorldMap());
-		_log.info("ItemHandler: Loaded " + _datatable.size() + " handlers.");
+		
+		_log.info("ItemHandler: Loaded " + size() + " handlers.");
 	}
-
-	/**
-	 * Adds handler of item type in <I>datatable</I>.<BR>
-	 * <BR>
-	 * <B><I>Concept :</I></U><BR>
-	 * This handler is put in <I>datatable</I> Map &lt;Integer ; IItemHandler &gt; for each ID corresponding to an item type (existing in classes of package
-	 * itemhandlers) sets as key of the Map.
-	 *
-	 * @param handler
-	 *            (IItemHandler)
-	 */
+	
 	public void registerItemHandler(IItemHandler handler)
 	{
-		// Get all ID corresponding to the item type of the handler
-		int[] ids = handler.getItemIds();
-		for (int element : ids)
-		{
-			_datatable.put(element, handler);
-		}
+		registerAll(handler, handler.getItemIds());
 	}
-
-	/**
-	 * Returns the handler of the item
-	 *
-	 * @param itemId :
-	 *            int designating the itemID
-	 * @return IItemHandler
-	 */
-	public IItemHandler getItemHandler(int itemId)
+	
+	public boolean hasItemHandler(int itemId)
 	{
-		return _datatable.get(itemId);
+		return get(itemId) != null;
+	}
+	
+	public boolean useItem(int itemId, L2Playable playable, L2ItemInstance item)
+	{
+		final IItemHandler handler = get(itemId);
+		
+		if (handler == null)
+		{
+			_log.warn("No item handler registered for item ID " + itemId + ".");
+			return false;
+		}
+		
+		handler.useItem(playable, item);
+		return true;
 	}
 }

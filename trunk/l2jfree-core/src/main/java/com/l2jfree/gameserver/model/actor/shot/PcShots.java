@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.model.actor.shot;
 import java.util.Set;
 
 import com.l2jfree.gameserver.datatables.ShotTable;
-import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.handler.ItemHandler;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -126,9 +125,7 @@ public final class PcShots extends CharShots
 			{
 				L2ItemInstance item = getActiveChar().getInventory().getItemByItemId(itemId);
 				
-				IItemHandler handler = ItemHandler.getInstance().getItemHandler(itemId);
-				if (handler != null)
-					handler.useItem(getActiveChar(), item);
+				ItemHandler.getInstance().useItem(itemId, getActiveChar(), item);
 				
 				if (item == null)
 					removeAutoSoulShot(itemId);

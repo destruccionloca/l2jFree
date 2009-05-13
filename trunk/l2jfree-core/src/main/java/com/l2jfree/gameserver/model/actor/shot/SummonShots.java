@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.model.actor.shot;
 
 import com.l2jfree.gameserver.datatables.ShotTable;
-import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.handler.ItemHandler;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.L2Summon;
@@ -80,9 +79,7 @@ public final class SummonShots extends CharShots
 			{
 				L2ItemInstance item = getActiveChar().getOwner().getInventory().getItemByItemId(itemId);
 				
-				IItemHandler handler = ItemHandler.getInstance().getItemHandler(itemId);
-				if (handler != null)
-					handler.useItem(getActiveChar().getOwner(), item);
+				ItemHandler.getInstance().useItem(itemId, getActiveChar().getOwner(), item);
 				
 				if (item == null)
 					getActiveChar().getOwner().getShots().removeAutoSoulShot(itemId);

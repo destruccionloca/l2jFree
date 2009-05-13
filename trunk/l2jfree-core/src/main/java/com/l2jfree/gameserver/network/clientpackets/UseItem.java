@@ -19,7 +19,6 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.ShotTable;
-import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.handler.ItemHandler;
 import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.model.L2ItemInstance;
@@ -368,15 +367,7 @@ public final class UseItem extends L2GameClientPacket
 			}
 			else
 			{
-				IItemHandler handler = ItemHandler.getInstance().getItemHandler(item.getItemId());
-
-				if (handler == null)
-				{
-					if (_log.isDebugEnabled())
-						_log.warn("No item handler registered for item ID " + item.getItemId() + ".");
-				}
-				else
-					handler.useItem(activeChar, item);
+				ItemHandler.getInstance().useItem(item.getItemId(), activeChar, item);
 			}
 		}
 		//		}

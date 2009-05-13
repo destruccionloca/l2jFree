@@ -31,7 +31,6 @@ import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.datatables.PetDataTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.geodata.GeoData;
-import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.handler.ItemHandler;
 import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
@@ -161,13 +160,11 @@ public class L2PetInstance extends L2Summon
 				}
 				if (food != null && isHungry())
 				{
-					IItemHandler handler = ItemHandler.getInstance().getItemHandler(food.getItemId());
-					if (handler != null)
+					if (ItemHandler.getInstance().useItem(food.getItemId(), L2PetInstance.this, food))
 					{
 						SystemMessage sm = new SystemMessage(SystemMessageId.PET_TOOK_S1_BECAUSE_HE_WAS_HUNGRY);
 						sm.addItemName(food.getItemId());
 						getOwner().sendPacket(sm);
-						handler.useItem(L2PetInstance.this, food);
 					}
 				}
 				else
@@ -588,11 +585,7 @@ public class L2PetInstance extends L2Summon
 		// Herbs
 		if (target.getItemType() == L2EtcItemType.HERB)
 		{
-			IItemHandler handler = ItemHandler.getInstance().getItemHandler(target.getItemId());
-			if (handler == null)
-				_log.warn("No item handler registered for item ID " + target.getItemId() + ".");
-			else
-				handler.useItem(this, target);
+			ItemHandler.getInstance().useItem(target.getItemId(), this, target);
 			
 			ItemTable.getInstance().destroyItem("Consume", target, getOwner(), null);
 			
