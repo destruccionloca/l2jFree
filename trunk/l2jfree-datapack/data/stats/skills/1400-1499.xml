@@ -792,7 +792,10 @@
   </skill>
   <skill id="1435" levels="10" name="Death Mark" enchantLevels1="30" enchantLevels2="30">
     <!-- CT2.2 retail confirmed -->
-    <table name="#mpConsume"> 12 14 18 22 24 28 29 32 33 35 </table>
+    <table name="#mpInitialConsume"> 2 2 3 4 4 5 5 6 6 7 </table>
+    <set name="mpInitialConsume" val="#mpInitialConsume"/>
+    <table name="#mpConsume"> 9 11 14 17 19 22 23 25 26 28 </table>
+    <set name="mpConsume" val="#mpConsume"/>
     <table name="#power"> 35 40 45 50 55 60 65 70 75 80 </table>
     <table name="#EffectLvl">1 2 3 4 5 6 7 8 9 10</table>
     <table name="#ench1EffectLevel"> 10 10 10 10 10 10 10 10 11 11 11 11
@@ -805,6 +808,7 @@
     <set name="lvlDepend" val="3"/>
     <set name="reuseDelay" val="45000"/>
     <set name="hitTime" val="1200"/>
+    <set name="coolTime" val="800"/>
     <set name="skillType" val="DEBUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>

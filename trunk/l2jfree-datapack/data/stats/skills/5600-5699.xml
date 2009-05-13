@@ -29,6 +29,11 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="bestowed" val="true"/>
     <set name="weaponsAllowed" val="16"/>
+    <cond>
+      <not>
+        <target active_effect_id="5603"/>
+      </not>
+    </cond>
     <for>
       <effect count="1" name="Buff" time="5" val="0">
         <mul order="0x30" stat="PhysicalMpConsumeRate" val="0.33">
