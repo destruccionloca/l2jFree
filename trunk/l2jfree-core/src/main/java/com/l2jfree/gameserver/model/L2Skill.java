@@ -556,8 +556,15 @@ public class L2Skill implements FuncOwner
 	
 	public final void validate() throws Exception
 	{
+		validateOffensiveAndDebuffState();
 		validateBestowedSkill();
 		validateTriggeredSkill();
+	}
+	
+	private void validateOffensiveAndDebuffState() throws Exception
+	{
+		if (!isOffensive() && isDebuff())
+			throw new IllegalStateException(toString());
 	}
 	
 	private void validateBestowedSkill() throws Exception
