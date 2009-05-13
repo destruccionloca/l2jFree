@@ -119,7 +119,7 @@ public final class StatsSet
 			return ((Number) val).byteValue();
 		try
 		{
-			return Byte.parseByte((String) val);
+			return Byte.decode((String) val);
 		}
 		catch (Exception e)
 		{
@@ -141,7 +141,7 @@ public final class StatsSet
 			return ((Number) val).byteValue();
 		try
 		{
-			return Byte.parseByte((String) val);
+			return Byte.decode((String) val);
 		}
 		catch (Exception e)
 		{
@@ -165,7 +165,7 @@ public final class StatsSet
 			return ((Number) val).shortValue();
 		try
 		{
-			return Short.parseShort((String) val);
+			return Short.decode((String) val);
 		}
 		catch (Exception e)
 		{
@@ -187,7 +187,7 @@ public final class StatsSet
 			return ((Number) val).shortValue();
 		try
 		{
-			return Short.parseShort((String) val);
+			return Short.decode((String) val);
 		}
 		catch (Exception e)
 		{
@@ -209,7 +209,7 @@ public final class StatsSet
 			return ((Number) val).intValue();
 		try
 		{
-			return Integer.parseInt((String) val);
+			return Integer.decode((String) val);
 		}
 		catch (Exception e)
 		{
@@ -233,7 +233,7 @@ public final class StatsSet
 			return ((Number) val).intValue();
 		try
 		{
-			return Integer.parseInt((String) val);
+			return Integer.decode((String) val);
 		}
 		catch (Exception e)
 		{
@@ -265,7 +265,7 @@ public final class StatsSet
 		{
 			try
 			{
-				result[c++] = Integer.parseInt(v);
+				result[c++] = Integer.decode(v);
 			}
 			catch (Exception e)
 			{
@@ -289,7 +289,7 @@ public final class StatsSet
 			return ((Number) val).longValue();
 		try
 		{
-			return Long.parseLong((String) val);
+			return Long.decode((String) val);
 		}
 		catch (Exception e)
 		{
@@ -313,7 +313,7 @@ public final class StatsSet
 			return ((Number) val).longValue();
 		try
 		{
-			return Long.parseLong((String) val);
+			return Long.decode((String) val);
 		}
 		catch (Exception e)
 		{
