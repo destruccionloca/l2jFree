@@ -1314,7 +1314,7 @@
   <skill id="4082" levels="1" name="Poison of Death">
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="50"/>
-    <set name="skillType" val="BUFF"/>
+    <set name="skillType" val="DEBUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isDebuff" val="true"/>

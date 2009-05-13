@@ -298,7 +298,7 @@
     <set name="operateType" val="OP_CHANCE"/>
     <set name="chanceType" val="ON_ATTACKED"/>
     <set name="activationChance" val="#chance"/>
-    <set name="isDebuff" val="true"/>
+    <!-- <set name="isDebuff" val="true"/> -->
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
     <set name="triggeredId" val="5160"/>

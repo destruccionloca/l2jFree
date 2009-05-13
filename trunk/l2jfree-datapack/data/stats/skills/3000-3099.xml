@@ -172,12 +172,14 @@
   </skill>
   <skill id="3016" levels="6" name="Special Ability: Critical Stun">
     <!-- Descriptions: Lvl 1-6: Temporarily stuns target into paralysis. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="skillType" val="STUN"/>
     <set name="lvlDepend" val="1"/>
+    <set name="power" val="25"/>
+    <set name="target" val="TARGET_ONE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="isDebuff" val="true"/>
+    <set name="lvlDepend" val="1"/>
     <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
     <for>
       <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
@@ -934,18 +936,14 @@
         Lvl 1-2: Temporarily stuns and paralyzes target.
         Lvl 3-4: Instantly throws enemy into a state of shock, immobilizing them.
     -->
-    <set name="magicLvl" val="90"/>
-    <set name="skillType" val="PDAM"/>
+    <set name="skillType" val="STUN"/>
     <set name="lvlDepend" val="1"/>
-    <set name="power" val="800"/>
+    <set name="power" val="25"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="overHit" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="lvlDepend" val="1"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <set name="effectType" val="STUN"/>
-    <set name="effectPower" val="80"/>
     <for>
       <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
