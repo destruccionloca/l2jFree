@@ -115,9 +115,15 @@ public final class GlobalRestrictions
 		
 		private double getPriority(GlobalRestriction restriction)
 		{
-			RestrictionPriority a = getMatchingMethod(restriction.getClass()).getAnnotation(RestrictionPriority.class);
+			RestrictionPriority a1 = getMatchingMethod(restriction.getClass()).getAnnotation(RestrictionPriority.class);
+			if (a1 != null)
+				return a1.value();
 			
-			return a == null ? 0.0 : a.value();
+			RestrictionPriority a2 = restriction.getClass().getAnnotation(RestrictionPriority.class);
+			if (a2 != null)
+				return a2.value();
+			
+			return RestrictionPriority.DEFAULT_PRIORITY;
 		}
 		
 		private Method getMatchingMethod(Class<? extends GlobalRestriction> clazz)

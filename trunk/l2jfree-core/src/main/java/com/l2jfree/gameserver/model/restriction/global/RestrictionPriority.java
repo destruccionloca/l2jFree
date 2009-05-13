@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.model.restriction.global;
 
 import java.lang.annotation.ElementType;
+import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
@@ -24,9 +25,12 @@ import java.lang.annotation.Target;
  * 
  * @author NB4L1
  */
-@Target(ElementType.METHOD)
+@Inherited
 @Retention(RetentionPolicy.RUNTIME)
+@Target( { ElementType.TYPE, ElementType.METHOD })
 public @interface RestrictionPriority
 {
-	double value() default 0.0;
+	public static final double DEFAULT_PRIORITY = 0.0;
+	
+	double value() default DEFAULT_PRIORITY;
 }
