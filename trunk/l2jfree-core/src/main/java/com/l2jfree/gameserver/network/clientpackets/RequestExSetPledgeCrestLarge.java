@@ -18,7 +18,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -28,7 +27,7 @@ import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 
 /**
  * Format : chdb
@@ -42,7 +41,9 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 public class RequestExSetPledgeCrestLarge extends L2GameClientPacket
 {
 	private static final String _C__D0_11_REQUESTEXSETPLEDGECRESTLARGE = "[C] D0:11 RequestExSetPledgeCrestLarge";
-	static Log _log = LogFactory.getLog(RequestExSetPledgeCrestLarge.class.getName());
+	private static final Log _log = LogFactory.getLog(RequestExSetPledgeCrestLarge.class.getName());
+	private static final int MAX_INSIGNIA_BYTESIZE = 2176;
+
 	private int _size;
 	private byte[] _data;
 
@@ -50,71 +51,74 @@ public class RequestExSetPledgeCrestLarge extends L2GameClientPacket
     protected void readImpl()
     {
         _size = readD();
-        if(_size > 2176)
-            return;
-        if(_size > 0) // client CAN send a RequestExSetPledgeCrestLarge with the size set to 0 then format is just chd
+        if (_size > 0 && _size < MAX_INSIGNIA_BYTESIZE) // client CAN send a RequestExSetPledgeCrestLarge with the size set to 0 then format is just chd
         {
             _data = new byte[_size];
             readB(_data);
         }
     }
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#runImpl()
-	 */
 	@Override
     protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null) return;
-		
+
+		SystemMessageId fail = null;
 		L2Clan clan = activeChar.getClan();
-		if (clan == null) return;
-		
+		if (clan == null)
+		{
+			requestFailed(SystemMessageId.YOU_ARE_NOT_A_CLAN_MEMBER);
+			return;
+		}
+		else if (clan.getLevel() < 3)
+			fail = SystemMessageId.CLAN_LVL_3_NEEDED_TO_SET_CREST;
+		else if (clan.getDissolvingExpiryTime() > 0)
+			fail = SystemMessageId.CANNOT_SET_CREST_WHILE_DISSOLUTION_IN_PROGRESS;
+		else if ((activeChar.getClanPrivileges() & L2Clan.CP_CL_REGISTER_CREST) == L2Clan.CP_CL_REGISTER_CREST)
+			fail = SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT;
+		else if (_size > MAX_INSIGNIA_BYTESIZE)
+			fail = SystemMessageId.INVALID_INSIGNIA_FORMAT;
+
+		if (fail != null)
+		{
+			requestFailed(fail);
+			return;
+		}
+
+		CrestCache cc = CrestCache.getInstance();
+
 		if (_data == null)
 		{
-			CrestCache.getInstance().removePledgeCrestLarge(clan.getCrestId());
-			
-			clan.setHasCrestLarge(false);
-			activeChar.sendMessage("The insignia has been removed.");
-
-			for (L2PcInstance member : clan.getOnlineMembers(0))
-				member.broadcastUserInfo();
-
-			return;
-		}
-		
-		if (_size > 2176)
-		{
-			activeChar.sendMessage("The insignia file size is greater than 2176 bytes.");
-			return;
-		}
-
-		if ((activeChar.getClanPrivileges() & L2Clan.CP_CL_REGISTER_CREST) == L2Clan.CP_CL_REGISTER_CREST)
-		{	
-			if(clan.getHasCastle() == 0 && clan.getHasHideout() == 0)
+			if (!cc.removePledgeCrestLarge(clan.getCrestId()))
 			{
-				activeChar.sendMessage("Only a clan that owns a clan hall or a castle can get their emblem displayed on clan related items"); //there is a system message for that but didnt found the id
+				_log.warn("Error deleting large crest of clan:" + clan.getName());
+				requestFailed(SystemMessageId.FILE_NOT_FOUND);
 				return;
 			}
-			
-			CrestCache crestCache = CrestCache.getInstance();
-            
+
+			clan.setHasCrestLarge(false);
+			sendPacket(SystemMessageId.CLAN_CREST_HAS_BEEN_DELETED);
+			for (L2PcInstance member : clan.getOnlineMembers(0))
+				member.broadcastUserInfo();
+		}
+		else if (clan.getHasCastle() > 0 || clan.getHasHideout() > 0)
+		{
 			int newId = IdFactory.getInstance().getNextId();
-            
-            if (!crestCache.savePledgeCrestLarge(newId,_data))
+            if (!cc.savePledgeCrestLarge(newId, _data))
             {
-                _log.info( "Error loading large crest of clan:" + clan.getName());
+            	//all lies, the problem is server-side :D
+            	requestFailed(SystemMessageId.INVALID_INSIGNIA_COLOR);
                 return;
             }
-            
-            if (clan.hasCrestLarge())
+            else if (clan.hasCrestLarge() && !cc.removePledgeCrestLarge(clan.getCrestId()))
             {
-                crestCache.removePledgeCrestLarge(clan.getCrestLargeId());
+            	_log.warn("Error deleting large crest of clan:" + clan.getName());
+    			requestFailed(SystemMessageId.FILE_NOT_FOUND);
+    			return;
             }
-            
+
             Connection con = null;
-            
             try
             {
                 con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -126,27 +130,25 @@ public class RequestExSetPledgeCrestLarge extends L2GameClientPacket
             }
             catch (SQLException e)
             {
-                _log.warn("could not update the large crest id:"+e.getMessage());
+                _log.warn("could not update the large crest id:", e);
             }
             finally
             {
                 L2DatabaseFactory.close(con);
             }
-            
+
             clan.setCrestLargeId(newId);
             clan.setHasCrestLarge(true);
-            
-            activeChar.sendPacket(new SystemMessage(SystemMessageId.CLAN_EMBLEM_WAS_SUCCESSFULLY_REGISTERED));
+
+            sendPacket(SystemMessageId.CLAN_EMBLEM_WAS_SUCCESSFULLY_REGISTERED);
             
             for (L2PcInstance member : clan.getOnlineMembers(0))
                 member.broadcastUserInfo();
-            
 		}
+
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.BasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

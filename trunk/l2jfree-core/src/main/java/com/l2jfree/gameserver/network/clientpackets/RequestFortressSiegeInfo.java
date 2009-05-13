@@ -16,50 +16,36 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.model.entity.Fort;
-import com.l2jfree.gameserver.network.L2GameClient;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExShowFortressSiegeInfo;
 
 /**
- *
- * @author  KenM
+ * @author KenM
  */
 public class RequestFortressSiegeInfo extends L2GameClientPacket
 {
+	private static final String	_C__D0_42_REQUESTFORTRESSSIEGEINFO = "[C] D0:42 RequestFortressSiegeInfo";
 
-    /**
-     * @see com.l2jfree.gameserver.clientpackets.L2GameClientPacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-        return "[C] D0:42 RequestFortressSiegeInfo";
-    }
-
-    /**
-     * @see com.l2jfree.gameserver.clientpackets.L2GameClientPacket#readImpl()
-     */
     @Override
     protected void readImpl()
     {
-        // trigger
     }
 
-    /**
-     * @see com.l2jfree.gameserver.clientpackets.L2GameClientPacket#runImpl()
-     */
     @Override
     protected void runImpl()
     {
-        L2GameClient client = this.getClient();
-        if (client != null)
-        {
-        	for (Fort fort : FortManager.getInstance().getForts())
-        	{
-        		if (fort != null && fort.getSiege().getIsInProgress())
-        		{
-        			client.sendPacket(new ExShowFortressSiegeInfo(fort));
-        		}
-        	}
-        }
+    	if (getActiveChar() == null) return;
+
+        for (Fort fort : FortManager.getInstance().getForts())
+        	if (fort != null && fort.getSiege().getIsInProgress())
+        		sendPacket(new ExShowFortressSiegeInfo(fort));
+
+        sendPacket(ActionFailed.STATIC_PACKET);
+    }
+
+    @Override
+    public String getType()
+    {
+        return _C__D0_42_REQUESTFORTRESSSIEGEINFO;
     }
 }

@@ -73,7 +73,14 @@ public final class RequestExEnchantSkillInfo extends L2GameClientPacket
 		L2PcInstance activeChar = getClient().getActiveChar();
         if (activeChar == null) return;
 
-        if (activeChar.getLevel() < 76)
+        L2NpcInstance trainer = activeChar.getLastFolkNPC();
+        if (trainer == null || !activeChar.isInsideRadius(trainer, L2Npc.INTERACTION_DISTANCE, false, false))
+        {
+        	requestFailed(SystemMessageId.TOO_FAR_FROM_NPC);
+            return;
+        }
+
+        else if (activeChar.getLevel() < 76)
         {
         	requestFailed(SystemMessageId.YOU_DONT_MEET_SKILL_LEVEL_REQUIREMENTS);
             return;
@@ -82,13 +89,6 @@ public final class RequestExEnchantSkillInfo extends L2GameClientPacket
         {
         	requestFailed(SystemMessageId.NOT_COMPLETED_QUEST_FOR_SKILL_ACQUISITION);
         	return;
-        }
-
-        L2NpcInstance trainer = activeChar.getLastFolkNPC();
-        if (trainer == null || !activeChar.isInsideRadius(trainer, L2Npc.INTERACTION_DISTANCE, false, false))
-        {
-        	requestFailed(SystemMessageId.TOO_FAR_FROM_NPC);
-            return;
         }
 
         L2Skill skill = SkillTable.getInstance().getInfo(_skillId, _skillLvl);

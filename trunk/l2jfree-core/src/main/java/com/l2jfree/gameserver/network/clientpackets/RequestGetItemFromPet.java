@@ -14,24 +14,24 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
-import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 
 /**
- * This class ...
+ * This class represents a packet that is sent by the client when a player drags an item
+ * from the pet to own inventory.
  * 
  * @version $Revision: 1.3.4.4 $ $Date: 2005/03/29 23:15:33 $
  */
 public class RequestGetItemFromPet extends L2GameClientPacket
 {
 	private static final String REQUESTGETITEMFROMPET__C__8C = "[C] 8C RequestGetItemFromPet";
-	private final static Log _log = LogFactory.getLog(RequestGetItemFromPet.class.getName());
+	private static final Log _log = LogFactory.getLog(RequestGetItemFromPet.class.getName());
 
 	private int _objectId;
 	private int _amount;
@@ -50,21 +50,20 @@ public class RequestGetItemFromPet extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar(); 
-		if (player == null || !(player.getPet() instanceof L2PetInstance)) return;
-		L2PetInstance pet = (L2PetInstance)player.getPet(); 
+		if (player == null) return;
 
-		if(_amount < 0)
+		if (!(player.getPet() instanceof L2PetInstance))
 		{
-			Util.handleIllegalPlayerAction(player,"[RequestGetItemFromPet] count < 0! ban! oid: "+_objectId+" owner: "+player.getName(),Config.DEFAULT_PUNISH);
+			requestFailed(SystemMessageId.DONT_HAVE_PET);
 			return;
 		}
-		else if(_amount == 0)
-			return;
-		
-		if (pet.transferItem("Transfer", _objectId, _amount, player.getInventory(), player, pet) == null)
-		{
+
+		L2PetInstance pet = (L2PetInstance) player.getPet(); 
+
+		if (_amount > 0 && pet.transferItem("Transfer", _objectId, _amount, player.getInventory(), player, pet) == null)
 			_log.warn("Invalid item transfer request: " + pet.getName() + "(pet) --> " + player.getName());
-		}
+		
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	@Override

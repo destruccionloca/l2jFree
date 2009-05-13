@@ -14,30 +14,27 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2ClanMember;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
- * This class ...
+ * This class represents a packet sent by the client when a player/clan leader requests a
+ * new title.
  * 
  * @version $Revision: 1.3.2.1.2.4 $ $Date: 2005/03/27 15:29:30 $
  */
 public class RequestGiveNickName extends L2GameClientPacket
 {
 	private static final String _C__55_REQUESTGIVENICKNAME = "[C] 55 RequestGiveNickName";
-	static Log _log = LogFactory.getLog(RequestGiveNickName.class.getName());
-	
+
 	private String _target;
 	private String _title;
-	
+
 	@Override
 	protected void readImpl()
 	{
@@ -49,87 +46,69 @@ public class RequestGiveNickName extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
-			return;
-		
-		//Can the player change/give a title?
-		if ((activeChar.isNoble() || activeChar.isGM()) && activeChar.getTarget() == activeChar)
-		{
-			if (!Config.TITLE_PATTERN.matcher(_title).matches())
-			{
-				activeChar.sendMessage("Incorrect title. Please try again.");
-			}
-			else
-			{
-				activeChar.setTitle(_title);
-				SystemMessage sm = new SystemMessage(SystemMessageId.TITLE_CHANGED);
-				activeChar.sendPacket(sm);
-				activeChar.broadcastTitleInfo();
-				sm = null;
-			}
-		}
-		else if (activeChar.getClan() != null && (activeChar.getClanPrivileges() & L2Clan.CP_CL_GIVE_TITLE) == L2Clan.CP_CL_GIVE_TITLE) 
-		{
-			if (activeChar.getClan().getLevel() < 3)
-			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.CLAN_LVL_3_NEEDED_TO_ENDOWE_TITLE);
-				activeChar.sendPacket(sm);
-				sm = null;
-				return;
-			}
+		if (activeChar == null) return;
 
-			L2ClanMember member1 = activeChar.getClan().getClanMember(_target);
-			if (member1 != null)
-			{
-				L2PcInstance member = member1.getPlayerInstance();
-				 //is target from the same clan?
-				if (member != null)
-				{
-					if (!Config.TITLE_PATTERN.matcher(_title).matches())
-					{
-						activeChar.sendMessage("Incorrect title. Please try again.");
-					}
-					else
-					{
-						member.setTitle(_title);
-						SystemMessage sm = new SystemMessage(SystemMessageId.TITLE_CHANGED);
-						member.sendPacket(sm);
-						sm = null;
-						member.broadcastTitleInfo();
-						
-						if (member != activeChar)
-						{
-							sm = new SystemMessage(SystemMessageId.CLAN_MEMBER_C1_TITLE_CHANGED_TO_S2);
-							sm.addString(member.getName());
-							sm.addString(member.getTitle());
-							member.sendPacket(sm);
-							sm = null;
-						}
-					}
-				}
-				else
-				{
-					SystemMessage sm = new SystemMessage(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME);
-					activeChar.sendPacket(sm);
-					sm = null;
-				}
-			}
-			else
-			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.TARGET_MUST_BE_IN_CLAN);
-				activeChar.sendPacket(sm);
-				sm = null;
-			}
-		}
-		else
+		if (activeChar.getName().equals(_target) &&
+				(activeChar.isGM() || activeChar.isNoble()))
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+			setTitle(activeChar);
+			sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+		else if (activeChar.getClan() == null)
+		{
+			requestFailed(SystemMessageId.NOBLESSE_ONLY);
+			return;
+		}
+		else if ((activeChar.getClanPrivileges() & L2Clan.CP_CL_GIVE_TITLE) !=
+			L2Clan.CP_CL_GIVE_TITLE)
+		{
+			requestFailed(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
+			return;
+		}
+		else if (activeChar.getClan().getLevel() < 3)
+		{
+			requestFailed(SystemMessageId.CLAN_LVL_3_NEEDED_TO_ENDOWE_TITLE);
+			return;
+		}
+		else if (!Config.TITLE_PATTERN.matcher(_title).matches() || _title.length() > 128)
+		{
+			requestFailed(SystemMessageId.PLEASE_INPUT_TITLE_LESS_128_CHARACTERS);
+			return;
+		}
+
+		L2ClanMember targetMember = activeChar.getClan().getClanMember(_target);
+		if (targetMember == null)
+		{
+			requestFailed(SystemMessageId.TARGET_MUST_BE_IN_CLAN);
+			return;
+		}
+		L2PcInstance target = targetMember.getPlayerInstance();
+		if (target == null)
+		{
+			requestFailed(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME);
+			return;
+		}
+
+		setTitle(target);
+
+		sendPacket(ActionFailed.STATIC_PACKET);
+	}
+
+	private final void setTitle(L2PcInstance target)
+	{
+		target.setTitle(_title);
+		target.sendPacket(SystemMessageId.TITLE_CHANGED);
+		target.broadcastTitleInfo();
+		if (target != getActiveChar())
+		{
+			SystemMessage sm = new SystemMessage(SystemMessageId.CLAN_MEMBER_C1_TITLE_CHANGED_TO_S2);
+			sm.addString(target.getName());
+			sm.addString(target.getTitle());
+			sendPacket(sm);
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

@@ -17,7 +17,7 @@ package com.l2jfree.gameserver.network.clientpackets;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
+import com.l2jfree.gameserver.network.SystemMessageId;
 
 /**
  * Format: (ch) dd
@@ -44,7 +44,7 @@ public class RequestDismissPartyRoom extends L2GameClientPacket
 		//TODO: implement
 		_log.info("This packet is not well known : RequestDismissPartyRoom");
 		_log.info("Data received: d:"+_data1+" d:"+_data2);
-		sendPacket(ActionFailed.STATIC_PACKET);
+        requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
 	}
 
 	@Override

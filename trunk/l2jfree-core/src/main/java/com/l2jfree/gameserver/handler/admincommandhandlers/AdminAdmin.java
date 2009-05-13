@@ -93,7 +93,9 @@ public class AdminAdmin implements IAdminCommandHandler
 			//"admin_summon",
 			"admin_summon_npc",
 			"admin_unsummon",
-			"admin_memusage"						};
+			"admin_memusage",
+			"admin_debug"
+													};
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
@@ -427,6 +429,14 @@ public class AdminAdmin implements IAdminCommandHandler
 				}
 			}
 		}
+
+		else if (command.startsWith("admin_debug"))
+		{
+			//TODO: implement
+			_log.info("A GM requested debug information for player " + command.substring(12));
+			activeChar.sendPacket(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+		}
+
 		return true;
 	}
 

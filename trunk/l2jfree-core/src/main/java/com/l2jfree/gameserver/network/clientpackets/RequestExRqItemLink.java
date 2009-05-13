@@ -14,53 +14,51 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
-import com.l2jfree.gameserver.network.L2GameClient;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExRpItemLink;
+import com.l2jfree.gameserver.util.IllegalPlayerAction;
+import com.l2jfree.gameserver.util.Util;
 
 /**
  *
- * @author  KenM
+ * @author KenM
  */
 public class RequestExRqItemLink extends L2GameClientPacket
 {
-    private int _objectId;
-    /**
-     * @see com.l2jfree.gameserver.clientpackets.L2GameClientPacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-        return "[C] DO:1E RequestExRqItemLink";
-    }
+	private static final String _C__D0_1E_REQUESTEXRQITEMLINK = "[C] DO:1E RequestExRqItemLink";
 
-    /**
-     * @see com.l2jfree.gameserver.clientpackets.L2GameClientPacket#readImpl()
-     */
+    private int _objectId;
+
     @Override
     protected void readImpl()
     {
         _objectId = readD();
     }
 
-    /**
-     * @see com.l2jfree.gameserver.clientpackets.L2GameClientPacket#runImpl()
-     */
     @Override
     protected void runImpl()
     {
-        L2GameClient client = this.getClient();
-        if (client != null)
-        {
-            L2Object object = L2World.getInstance().findObject(_objectId);
-            if (object instanceof L2ItemInstance)
-            {
-                L2ItemInstance item = (L2ItemInstance)object;
-                client.sendPacket(new ExRpItemLink(item));
-            }
-        }
+    	L2PcInstance player = getClient().getActiveChar();
+    	if (player == null) return;
+
+        L2Object object = L2World.getInstance().findObject(_objectId);
+        if (object instanceof L2ItemInstance)
+        	sendPacket(new ExRpItemLink((L2ItemInstance) object));
+        else if (Config.BAN_CLIENT_EMULATORS)
+        	Util.handleIllegalPlayerAction(player, "Fake item link packet! " + player,
+					IllegalPlayerAction.PUNISH_KICKBAN);
+
+        sendPacket(ActionFailed.STATIC_PACKET);
     }
-    
+
+    @Override
+    public String getType()
+    {
+        return _C__D0_1E_REQUESTEXRQITEMLINK;
+    }
 }

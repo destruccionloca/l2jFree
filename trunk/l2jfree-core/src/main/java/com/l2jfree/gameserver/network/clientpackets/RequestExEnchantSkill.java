@@ -75,7 +75,7 @@ public final class RequestExEnchantSkill extends L2GameClientPacket
             return;
         }
 
-        if (player.getLevel() < 76)
+        else if (player.getLevel() < 76)
         {
         	requestFailed(SystemMessageId.YOU_DONT_MEET_SKILL_LEVEL_REQUIREMENTS);
             return;

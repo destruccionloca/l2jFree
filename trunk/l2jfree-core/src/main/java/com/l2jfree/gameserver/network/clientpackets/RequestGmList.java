@@ -15,6 +15,8 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.datatables.GmListTable;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 
 /**
  * This class handles RequestGmLista packet triggered by /gmlist command
@@ -28,20 +30,19 @@ public class RequestGmList extends L2GameClientPacket
 	@Override
 	protected void readImpl()
 	{
-		// Trigger
 	}
 
 	@Override
 	protected void runImpl()
 	{
-		if (getClient().getActiveChar() == null)
-			return;
+		L2PcInstance player = getClient().getActiveChar();
+		if (player == null) return;
+
 		GmListTable.getInstance().sendListToPlayer(getClient().getActiveChar());
+
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

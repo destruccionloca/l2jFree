@@ -17,9 +17,9 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.gameserver.instancemanager.BoatManager;
 import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.GetOnVehicle;
 import com.l2jfree.tools.geometry.Point3D;
-
 
 /**
  * This class ...
@@ -46,20 +46,21 @@ public class RequestGetOnVehicle extends L2GameClientPacket
     {
         L2PcInstance activeChar = getClient().getActiveChar();
         if (activeChar == null) return;
-        
+
         L2BoatInstance boat = BoatManager.getInstance().getBoat(_id);
-        if (boat == null) return;
-        
-        GetOnVehicle Gon = new GetOnVehicle(activeChar,boat,_x,_y,_z);
-        activeChar.setInBoatPosition(new Point3D(_x,_y,_z));
-        activeChar.getPosition().setXYZ(boat.getPosition().getX(),boat.getPosition().getY(),boat.getPosition().getZ());
-        activeChar.broadcastPacket(Gon);
-        activeChar.revalidateZone(true);
+        if (boat != null)
+        {
+        	GetOnVehicle gon = new GetOnVehicle(activeChar, boat, _x, _y, _z);
+            activeChar.setInBoatPosition(new Point3D(_x, _y, _z));
+            activeChar.getPosition().setXYZ(boat.getPosition().getX(),
+            		boat.getPosition().getY(), boat.getPosition().getZ());
+            activeChar.broadcastPacket(gon);
+            activeChar.revalidateZone(true);
+        }
+
+        sendPacket(ActionFailed.STATIC_PACKET);
     }
 
-    /* (non-Javadoc)
-     * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-     */
     @Override
     public String getType()
     {

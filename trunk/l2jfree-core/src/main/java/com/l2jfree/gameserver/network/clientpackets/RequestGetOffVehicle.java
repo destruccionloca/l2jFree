@@ -14,25 +14,21 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-
 import com.l2jfree.gameserver.instancemanager.BoatManager;
 import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.GetOffVehicle;
-
 
 /**
  * @author Maktakien
- *
  */
 public class RequestGetOffVehicle extends L2GameClientPacket
 {
+	private static final String _C__5D_GETOFFVEHICLE = "[C] 5d GetOffVehicle";
+
     private int _id, _x, _y, _z;
-    
-    /**
-     * @param buf
-     * @param client
-    */
+
     @Override
     protected void readImpl()
     {
@@ -42,26 +38,25 @@ public class RequestGetOffVehicle extends L2GameClientPacket
         _z  = readD();
     }
 
-    /* (non-Javadoc)
-     * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#runImpl()
-     */
     @Override
     protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
-        if(activeChar == null)
-            return;
+        if (activeChar == null) return;
+
         L2BoatInstance boat = BoatManager.getInstance().getBoat(_id);
-        GetOffVehicle Gon = new GetOffVehicle(activeChar,boat,_x,_y,_z);
-        activeChar.broadcastPacket(Gon);
+        if (boat != null)
+        {
+        	GetOffVehicle gov = new GetOffVehicle(activeChar, boat, _x, _y, _z);
+        	activeChar.broadcastPacket(gov);
+        }
+
+        sendPacket(ActionFailed.STATIC_PACKET);
     }
 
-    /* (non-Javadoc)
-     * @see com.l2jfree.gameserver.BasePacket#getType()
-     */
     @Override
     public String getType()
     {
-        return "[S] 5d GetOffVehicle";
+        return _C__5D_GETOFFVEHICLE;
     }
 }

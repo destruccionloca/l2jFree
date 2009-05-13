@@ -18,34 +18,33 @@ import com.l2jfree.gameserver.datatables.CharNameTable;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 public final class RequestFriendList extends L2GameClientPacket
 {
 	private static final String _C__60_REQUESTFRIENDLIST = "[C] 60 RequestFriendList";
-	
+
 	/**
-	 * packet type id 0x60 format: c
+	 * packet type id 0x60
+	 * format: c
 	 */
-	
 	@Override
 	protected void readImpl()
 	{
 	}
-	
+
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getActiveChar();
-		if (activeChar == null)
-			return;
-		
-		activeChar.sendPacket(SystemMessageId.FRIEND_LIST_HEADER);
-		
+		if (activeChar == null) return;
+
+		sendPacket(SystemMessageId.FRIEND_LIST_HEADER);
+
+		SystemMessage sm;
 		for (Integer objId : activeChar.getFriendList().getFriendIds())
 		{
-			SystemMessage sm;
-			
 			L2PcInstance friend = L2World.getInstance().findPlayer(objId);
 			if (friend == null)
 			{
@@ -57,13 +56,13 @@ public final class RequestFriendList extends L2GameClientPacket
 				sm = new SystemMessage(SystemMessageId.S1_ONLINE);
 				sm.addPcName(friend);
 			}
-			
-			activeChar.sendPacket(sm);
+			sendPacket(sm);
 		}
-		
-		activeChar.sendPacket(SystemMessageId.FRIEND_LIST_FOOTER);
+
+		sendPacket(SystemMessageId.FRIEND_LIST_FOOTER);
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
-	
+
 	@Override
 	public String getType()
 	{

@@ -15,42 +15,36 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.instancemanager.FortManager;
-import com.l2jfree.gameserver.model.entity.Fort;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExShowFortressMapInfo;
 
 /**
- *
- * @author  KenM
+ * @author KenM
  */
 public class RequestFortressMapInfo extends L2GameClientPacket
 {
-    private int _fortressId;
-    
-    /**
-     * @see com.l2jfree.gameserver.clientpackets.L2GameClientPacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-        return "[C] D0:4B RequestFortressMapInfo";
-    }
+	private static final String	_C__D0_4B_REQUESTFORTRESSMAPINFO = "[C] D0:4B RequestFortressMapInfo";
 
-    /**
-     * @see com.l2jfree.gameserver.clientpackets.L2GameClientPacket#readImpl()
-     */
+    private int _fortressId;
+
     @Override
     protected void readImpl()
     {
         _fortressId = readD();
     }
 
-    /**
-     * @see com.l2jfree.gameserver.clientpackets.L2GameClientPacket#runImpl()
-     */
     @Override
     protected void runImpl()
     {
-        Fort fort = FortManager.getInstance().getFortById(_fortressId);
-        sendPacket(new ExShowFortressMapInfo(fort));
+    	if (getActiveChar() == null) return;
+
+        sendPacket(new ExShowFortressMapInfo(FortManager.getInstance().getFortById(_fortressId)));
+        sendPacket(ActionFailed.STATIC_PACKET);
+    }
+
+    @Override
+    public String getType()
+    {
+        return _C__D0_4B_REQUESTFORTRESSMAPINFO;
     }
 }

@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.gameserver.network.SystemMessageId;
+
 /**
  * Format: (c) dddd
  * d: dx
@@ -46,6 +48,7 @@ public class ExGetOnAirShip extends L2GameClientPacket
         System.out.println("[T1:ExGetOnAirShip] y: "+_y);
         System.out.println("[T1:ExGetOnAirShip] z: "+_z);
         System.out.println("[T1:ExGetOnAirShip] ship ID: "+_shipId);
+        requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
     }
 
     @Override

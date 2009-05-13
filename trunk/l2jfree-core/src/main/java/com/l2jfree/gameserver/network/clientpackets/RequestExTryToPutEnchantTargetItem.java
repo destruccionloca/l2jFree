@@ -17,9 +17,9 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExPutEnchantTargetItemResult;
 import com.l2jfree.gameserver.network.serverpackets.RequestEnchant;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.gameserver.templates.item.L2WeaponType;
 
@@ -43,175 +43,181 @@ public class RequestExTryToPutEnchantTargetItem extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
+		if (activeChar == null) return;
 
-		if (activeChar != null)
+		if (activeChar.isEnchanting())
 		{
-			if (activeChar.isEnchanting())
-				return;
+			requestFailed(SystemMessageId.ENCHANTMENT_ALREADY_IN_PROGRESS);
+			return;
+		}
 
-			L2ItemInstance targetItem = activeChar.getInventory().getItemByObjectId(_objectId);
-			L2ItemInstance enchantScroll = activeChar.getActiveEnchantItem();
+		L2ItemInstance targetItem = activeChar.getInventory().getItemByObjectId(_objectId);
+		L2ItemInstance enchantScroll = activeChar.getActiveEnchantItem();
 
-			if (targetItem == null || enchantScroll == null)
-				return;
+		if (targetItem == null || enchantScroll == null)
+		{
+			requestFailed(SystemMessageId.INAPPROPRIATE_ENCHANT_CONDITION);
+			return;
+		}
 
-			activeChar.setIsEnchanting(true);
-			
-			if (targetItem.isEtcItem() || targetItem.isWear() || targetItem.getItem().getItemType() == L2WeaponType.ROD || targetItem.isHeroItem() || targetItem.getItemId() >= 7816 && targetItem.getItemId() <= 7831
-					|| targetItem.isShadowItem() || targetItem.getItem().isCommonItem())
+		activeChar.setIsEnchanting(true);
+
+		if (targetItem.isEtcItem() || targetItem.isWear() ||
+				targetItem.getItem().getItemType() == L2WeaponType.ROD ||
+				targetItem.isHeroItem() || (targetItem.getItemId() >= 7816 &&
+				targetItem.getItemId() <= 7831)
+				|| targetItem.isShadowItem() || targetItem.getItem().isCommonItem())
+		{
+			sendPacket(SystemMessageId.DOES_NOT_FIT_SCROLL_CONDITIONS);
+			activeChar.setActiveEnchantItem(null);
+			requestFailed(new ExPutEnchantTargetItemResult(2, 0, 0));
+			return;
+		}
+
+		switch (targetItem.getLocation())
+		{
+			case INVENTORY:
+			case PAPERDOLL:
 			{
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.DOES_NOT_FIT_SCROLL_CONDITIONS));
-				activeChar.setActiveEnchantItem(null);
-				activeChar.sendPacket(new ExPutEnchantTargetItemResult(2, 0, 0));
-				return;
-			}
-
-			switch (targetItem.getLocation())
-			{
-				case INVENTORY:
-				case PAPERDOLL:
+				switch (targetItem.getLocation())
 				{
-					switch (targetItem.getLocation())
+					case VOID:
+					case PET:
+					case WAREHOUSE:
+					case CLANWH:
+					case LEASE:
+					case FREIGHT:
+					case NPC:
 					{
-						case VOID:
-						case PET:
-						case WAREHOUSE:
-						case CLANWH:
-						case LEASE:
-						case FREIGHT:
-						case NPC:
-						{
-							activeChar.sendPacket(new SystemMessage(SystemMessageId.DOES_NOT_FIT_SCROLL_CONDITIONS));
-							activeChar.setActiveEnchantItem(null);
-							activeChar.sendPacket(new ExPutEnchantTargetItemResult(2, 0, 0));
-							return;
-						}
-					}					
-					if (targetItem.getOwnerId() != activeChar.getObjectId())
-					{
-						activeChar.sendPacket(new SystemMessage(SystemMessageId.DOES_NOT_FIT_SCROLL_CONDITIONS));
+						sendPacket(SystemMessageId.DOES_NOT_FIT_SCROLL_CONDITIONS);
 						activeChar.setActiveEnchantItem(null);
-						activeChar.sendPacket(new ExPutEnchantTargetItemResult(2, 0, 0));
+						requestFailed(new ExPutEnchantTargetItemResult(2, 0, 0));
 						return;
 					}
-					break;
-				}
-				default:
+				}					
+				if (targetItem.getOwnerId() != activeChar.getObjectId())
 				{
-					activeChar.sendPacket(new SystemMessage(SystemMessageId.DOES_NOT_FIT_SCROLL_CONDITIONS));
+					sendPacket(SystemMessageId.DOES_NOT_FIT_SCROLL_CONDITIONS);
 					activeChar.setActiveEnchantItem(null);
-					activeChar.sendPacket(new ExPutEnchantTargetItemResult(2, 0, 0));
+					requestFailed(new ExPutEnchantTargetItemResult(2, 0, 0));
 					return;
 				}
+				break;
 			}
-
-			int itemType2 = targetItem.getItem().getType2();
-			boolean enchantItem = false;
-
-			/** pretty code ;D */
-			switch (targetItem.getItem().getCrystalType())
+			default:
 			{
-				case L2Item.CRYSTAL_A:
-					switch (enchantScroll.getItemId())
-					{
-						case 729:
-						case 731:
-						case 6569:
-							if (itemType2 == L2Item.TYPE2_WEAPON)
-								enchantItem = true;
-							break;
-						case 730:
-						case 732:
-						case 6570:
-							if (itemType2 == L2Item.TYPE2_SHIELD_ARMOR || itemType2 == L2Item.TYPE2_ACCESSORY)
-								enchantItem = true;
-							break;
-					}
-					break;
-				case L2Item.CRYSTAL_B:
-					switch (enchantScroll.getItemId())
-					{
-						case 947:
-						case 949:
-						case 6571:
-							if (itemType2 == L2Item.TYPE2_WEAPON)
-								enchantItem = true;
-							break;
-						case 948:
-						case 950:
-						case 6572:
-							if (itemType2 == L2Item.TYPE2_SHIELD_ARMOR || itemType2 == L2Item.TYPE2_ACCESSORY)
-								enchantItem = true;
-							break;
-					}
-					break;
-				case L2Item.CRYSTAL_C:
-					switch (enchantScroll.getItemId())
-					{
-						case 951:
-						case 953:
-						case 6573:
-							if (itemType2 == L2Item.TYPE2_WEAPON)
-								enchantItem = true;
-							break;
-						case 952:
-						case 954:
-						case 6574:
-							if (itemType2 == L2Item.TYPE2_SHIELD_ARMOR || itemType2 == L2Item.TYPE2_ACCESSORY)
-								enchantItem = true;
-							break;
-					}
-					break;
-				case L2Item.CRYSTAL_D:
-					switch (enchantScroll.getItemId())
-					{
-						case 955:
-						case 957:
-						case 6575:
-							if (itemType2 == L2Item.TYPE2_WEAPON)
-								enchantItem = true;
-							break;
-						case 956:
-						case 958:
-						case 6576:
-							if (itemType2 == L2Item.TYPE2_SHIELD_ARMOR || itemType2 == L2Item.TYPE2_ACCESSORY)
-								enchantItem = true;
-							break;
-					}
-					break;
-				case L2Item.CRYSTAL_S:
-				case L2Item.CRYSTAL_S80:
-					switch (enchantScroll.getItemId())
-					{
-						case 959:
-						case 961:
-						case 6577:
-							if (itemType2 == L2Item.TYPE2_WEAPON)
-								enchantItem = true;
-							break;
-						case 960:
-						case 962:
-						case 6578:
-							if (itemType2 == L2Item.TYPE2_SHIELD_ARMOR || itemType2 == L2Item.TYPE2_ACCESSORY)
-								enchantItem = true;
-							break;
-					}
-					break;
-			}
-			if (!enchantItem)
-			{
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.DOES_NOT_FIT_SCROLL_CONDITIONS));
+				sendPacket(SystemMessageId.DOES_NOT_FIT_SCROLL_CONDITIONS);
 				activeChar.setActiveEnchantItem(null);
-				activeChar.sendPacket(new ExPutEnchantTargetItemResult(2, 0, 0));
+				requestFailed(new ExPutEnchantTargetItemResult(2, 0, 0));
 				return;
 			}
-			activeChar.sendPacket(new RequestEnchant(1));
 		}
+
+		int itemType2 = targetItem.getItem().getType2();
+		boolean enchantItem = false;
+
+		/** pretty code ;D */
+		switch (targetItem.getItem().getCrystalType())
+		{
+			case L2Item.CRYSTAL_A:
+				switch (enchantScroll.getItemId())
+				{
+					case 729:
+					case 731:
+					case 6569:
+						if (itemType2 == L2Item.TYPE2_WEAPON)
+							enchantItem = true;
+						break;
+					case 730:
+					case 732:
+					case 6570:
+						if (itemType2 == L2Item.TYPE2_SHIELD_ARMOR || itemType2 == L2Item.TYPE2_ACCESSORY)
+							enchantItem = true;
+						break;
+				}
+				break;
+			case L2Item.CRYSTAL_B:
+				switch (enchantScroll.getItemId())
+				{
+					case 947:
+					case 949:
+					case 6571:
+						if (itemType2 == L2Item.TYPE2_WEAPON)
+							enchantItem = true;
+						break;
+					case 948:
+					case 950:
+					case 6572:
+						if (itemType2 == L2Item.TYPE2_SHIELD_ARMOR || itemType2 == L2Item.TYPE2_ACCESSORY)
+							enchantItem = true;
+						break;
+				}
+				break;
+			case L2Item.CRYSTAL_C:
+				switch (enchantScroll.getItemId())
+				{
+					case 951:
+					case 953:
+					case 6573:
+						if (itemType2 == L2Item.TYPE2_WEAPON)
+							enchantItem = true;
+						break;
+					case 952:
+					case 954:
+					case 6574:
+						if (itemType2 == L2Item.TYPE2_SHIELD_ARMOR || itemType2 == L2Item.TYPE2_ACCESSORY)
+							enchantItem = true;
+						break;
+				}
+				break;
+			case L2Item.CRYSTAL_D:
+				switch (enchantScroll.getItemId())
+				{
+					case 955:
+					case 957:
+					case 6575:
+						if (itemType2 == L2Item.TYPE2_WEAPON)
+							enchantItem = true;
+						break;
+					case 956:
+					case 958:
+					case 6576:
+						if (itemType2 == L2Item.TYPE2_SHIELD_ARMOR || itemType2 == L2Item.TYPE2_ACCESSORY)
+							enchantItem = true;
+						break;
+				}
+				break;
+			case L2Item.CRYSTAL_S:
+			case L2Item.CRYSTAL_S80:
+				switch (enchantScroll.getItemId())
+				{
+					case 959:
+					case 961:
+					case 6577:
+						if (itemType2 == L2Item.TYPE2_WEAPON)
+							enchantItem = true;
+						break;
+					case 960:
+					case 962:
+					case 6578:
+						if (itemType2 == L2Item.TYPE2_SHIELD_ARMOR || itemType2 == L2Item.TYPE2_ACCESSORY)
+							enchantItem = true;
+						break;
+				}
+				break;
+		}
+		if (!enchantItem)
+		{
+			sendPacket(SystemMessageId.DOES_NOT_FIT_SCROLL_CONDITIONS);
+			activeChar.setActiveEnchantItem(null);
+			requestFailed(new ExPutEnchantTargetItemResult(2, 0, 0));
+			return;
+		}
+
+		sendPacket(new RequestEnchant(1));
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

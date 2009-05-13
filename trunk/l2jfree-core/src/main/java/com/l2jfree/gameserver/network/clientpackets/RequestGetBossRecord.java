@@ -14,57 +14,44 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import java.util.Map;
-import java.util.logging.Logger;
-
 import com.l2jfree.gameserver.instancemanager.RaidPointsManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExGetBossRecord;
 
 /**
  * Format: (ch) d
- * @author  -Wooden-
- * 
+ * @author -Wooden-
  */
 public class RequestGetBossRecord extends L2GameClientPacket
 {
-	protected static final Logger	_log							= Logger.getLogger(RequestGetBossRecord.class.getName());
 	private static final String		_C__D0_18_REQUESTGETBOSSRECORD	= "[C] D0:18 RequestGetBossRecord";
-	private int						_bossId;
+
+	//private int						_bossId;
 
 	@Override
 	protected void readImpl()
 	{
-		_bossId = readD();
+		//_bossId = readD();
 	}
 
-	/**
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#runImpl()
-	 */
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
-			return;
+		if (activeChar == null) return;
 
-		if (_bossId != 0)
-		{
-			_log.info("C5: RequestGetBossRecord: d: " + _bossId + " ActiveChar: " + activeChar); // should be always 0, log it if isnt 0 for furture research
-		}
+		// should be always 0, log it if isn't 0 for future research
+		//if (_bossId != 0)
+		//	_log.info("C5: RequestGetBossRecord: d: " + _bossId + " ActiveChar: " + activeChar);
 
 		int points = RaidPointsManager.getPointsByOwnerId(activeChar.getObjectId());
 		int ranking = RaidPointsManager.calculateRanking(activeChar.getObjectId());
 
-		Map<Integer, Integer> list = RaidPointsManager.getList(activeChar);
-
-		// trigger packet
-		activeChar.sendPacket(new ExGetBossRecord(ranking, points, list));
+		sendPacket(new ExGetBossRecord(ranking, points, RaidPointsManager.getList(activeChar)));
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
-	/**
-	 * @see com.l2jfree.gameserver.BasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

@@ -15,29 +15,31 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 
 public final class RequestFriendDel extends L2GameClientPacket
 {
 	private static final String _C__61_REQUESTFRIENDDEL = "[C] 61 RequestFriendDel";
-	
+
 	private String _name;
-	
+
 	@Override
 	protected void readImpl()
 	{
 		_name = readS();
 	}
-	
+
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getActiveChar();
-		if (activeChar == null)
-			return;
-		
+		if (activeChar == null) return;
+
 		activeChar.getFriendList().remove(_name);
+
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
-	
+
 	@Override
 	public String getType()
 	{

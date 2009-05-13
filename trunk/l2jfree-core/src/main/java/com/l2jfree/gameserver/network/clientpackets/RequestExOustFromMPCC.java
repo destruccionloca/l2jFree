@@ -17,16 +17,16 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * @author -Wooden-
- *
  */
 public class RequestExOustFromMPCC extends L2GameClientPacket
 {
-	//private final static Log _log = LogFactory.getLog(RequestExOustFromMPCC.class.getName());
 	private static final String _C__D0_0F_REQUESTEXOUSTFROMMPCC = "[C] D0:0F RequestExOustFromMPCC";
+
 	private String _name;
 
 	@Override
@@ -35,36 +35,41 @@ public class RequestExOustFromMPCC extends L2GameClientPacket
 		_name = readS();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#runImpl()
-	 */
 	@Override
 	protected void runImpl()
 	{
-		L2PcInstance target = L2World.getInstance().getPlayer(_name);
 		L2PcInstance activeChar = getClient().getActiveChar();
-		
-		if (target != null && target.isInParty() && activeChar.isInParty() && activeChar.getParty().isInCommandChannel() 
-				&& target.getParty().isInCommandChannel() 
-				&& activeChar.getParty().getCommandChannel().getChannelLeader().equals(activeChar))
+		if (activeChar == null) return;
+		if (!activeChar.isInParty() || !activeChar.getParty().isInCommandChannel())
 		{
-			target.getParty().getCommandChannel().removeParty(target.getParty());
-			
-			SystemMessage sm = SystemMessage.sendString("Your party was dismissed from the CommandChannel.");
-			target.getParty().broadcastToPartyMembers(sm);
-			
-			sm = SystemMessage.sendString(target.getParty().getPartyMembers().get(0).getName() 
-					+ "'s party was dismissed from the CommandChannel.");
+			requestFailed(SystemMessageId.NO_USER_INVITED_TO_COMMAND_CHANNEL);
+			return;
 		}
-		else
+		else if (!activeChar.getParty().getCommandChannel().getChannelLeader().equals(activeChar))
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+			requestFailed(SystemMessageId.CANT_USE_COMMAND_CHANNEL);
+			return;
 		}
+
+		L2PcInstance target = L2World.getInstance().getPlayer(_name);
+		if (target == null || !target.isInParty() || !target.getParty().isInCommandChannel())
+		{
+			requestFailed(SystemMessageId.INCORRECT_TARGET);
+			return;
+		}
+
+		target.getParty().getCommandChannel().removeParty(target.getParty());
+
+		SystemMessage sm = new SystemMessage(SystemMessageId.DISMISSED_FROM_COMMAND_CHANNEL);
+		target.getParty().broadcastToPartyMembers(sm);
+
+		sm = new SystemMessage(SystemMessageId.C1_PARTY_DISMISSED_FROM_COMMAND_CHANNEL);
+		sm.addString(target.getParty().getPartyMembers().get(0).getName());
+		sendPacket(sm);
+
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.BasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

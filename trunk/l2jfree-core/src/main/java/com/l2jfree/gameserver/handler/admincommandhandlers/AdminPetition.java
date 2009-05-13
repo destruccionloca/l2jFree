@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.handler.admincommandhandlers;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.instancemanager.PetitionManager;
 import com.l2jfree.gameserver.model.L2Object;
+import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 
@@ -35,7 +36,9 @@ public class AdminPetition implements IAdminCommandHandler
 			"admin_accept_petition",
 			"admin_reject_petition",
 			"admin_reset_petitions",
-			"admin_force_peti"						};
+			"admin_force_peti",
+			"admin_add_peti_chat"
+													};
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
@@ -108,6 +111,18 @@ public class AdminPetition implements IAdminCommandHandler
 				return false;
 			}
 		}
+		else if (command.startsWith("admin_add_peti_chat"))
+		{
+			L2PcInstance player = L2World.getInstance().getPlayer(command.substring(20));
+			if (player == null)
+			{
+				activeChar.sendPacket(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME);
+				return false;
+			}
+			petitionId = PetitionManager.getInstance().submitPetition(player, "", 9);
+			PetitionManager.getInstance().acceptPetition(activeChar, petitionId);
+		}
+
 		return true;
 	}
 

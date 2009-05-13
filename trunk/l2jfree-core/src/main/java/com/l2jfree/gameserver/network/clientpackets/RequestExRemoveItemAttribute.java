@@ -17,13 +17,14 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExShowBaseAttributeCancelWindow;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 public class RequestExRemoveItemAttribute extends L2GameClientPacket
 {
-	private static String _C__D0_23_REQUESTEXREMOVEITEMATTRIBUTE = "[C] D0:23 RequestExRemoveItemAttribute";
+	private static final String _C__D0_23_REQUESTEXREMOVEITEMATTRIBUTE = "[C] D0:23 RequestExRemoveItemAttribute";
 
 	private int _objectId;
 
@@ -37,28 +38,22 @@ public class RequestExRemoveItemAttribute extends L2GameClientPacket
 	public void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
-			return;
+		if (activeChar == null) return;
 
 		L2ItemInstance targetItem = activeChar.getInventory().getItemByObjectId(_objectId);
 
-		if (targetItem == null)
-			return;
-
-		if (targetItem.getElementals() == null)
-			return;
-
-		if (activeChar.getInventory().getAdena() < 50000)
+		if (targetItem == null || targetItem.getElementals() == null)
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
+			requestFailed(SystemMessageId.FAILED_TO_REMOVE_ELEMENTAL_POWER);
+			return;
 		}
-		else
+
+		if (activeChar.reduceAdena("RemoveElement", 50000, activeChar, true))
 		{
-			activeChar.reduceAdena("RemoveElement", 50000, activeChar, true);
 			targetItem.clearElementAttr();
 			InventoryUpdate iu = new InventoryUpdate();
 			iu.addModifiedItem(targetItem);
-			activeChar.sendPacket(iu);
+			sendPacket(iu);
 			SystemMessage sm;
 			if (targetItem.getEnchantLevel() > 0)
 			{
@@ -71,11 +66,13 @@ public class RequestExRemoveItemAttribute extends L2GameClientPacket
 				sm = new SystemMessage(SystemMessageId.S1_ELEMENTAL_POWER_REMOVED);
 				sm.addItemName(targetItem);
 			}
-			activeChar.sendPacket(sm);
+			sendPacket(sm);
 			activeChar.getInventory().reloadEquippedItems();
 			activeChar.broadcastUserInfo();
-			activeChar.sendPacket(new ExShowBaseAttributeCancelWindow(activeChar));
+			sendPacket(new ExShowBaseAttributeCancelWindow(activeChar));
 		}
+
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	@Override

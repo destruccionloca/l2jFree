@@ -17,51 +17,48 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.FriendAddRequest;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 public final class RequestFriendInvite extends L2GameClientPacket
 {
 	private static final String _C__5E_REQUESTFRIENDINVITE = "[C] 5E RequestFriendInvite";
-	
+
 	private String _name;
-	
+
 	@Override
 	protected void readImpl()
 	{
 		_name = readS();
 	}
-	
+
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getActiveChar();
-		if (activeChar == null)
-			return;
-		
+		if (activeChar == null) return;
+
 		L2PcInstance friend = L2World.getInstance().getPlayer(_name);
-		
 		if (friend == null)
-			activeChar.sendPacket(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME);
-		
+			sendPacket(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME);
 		else if (friend == activeChar)
-			activeChar.sendPacket(SystemMessageId.YOU_CANNOT_ADD_YOURSELF_TO_OWN_FRIEND_LIST);
-		
+			sendPacket(SystemMessageId.YOU_CANNOT_ADD_YOURSELF_TO_OWN_FRIEND_LIST);
 		else if (activeChar.getFriendList().contains(friend))
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.C1_ALREADY_ON_LIST).addPcName(friend));
-		
+			sendPacket(new SystemMessage(SystemMessageId.C1_ALREADY_ON_LIST).addPcName(friend));
 		else if (friend.isProcessingRequest())
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.C1_IS_BUSY_TRY_LATER).addPcName(friend));
-		
+			sendPacket(new SystemMessage(SystemMessageId.C1_IS_BUSY_TRY_LATER).addPcName(friend));
 		else
 		{
 			activeChar.onTransactionRequest(friend);
-			
+
 			friend.sendPacket(new SystemMessage(SystemMessageId.C1_REQUESTED_TO_BECOME_FRIENDS).addPcName(activeChar));
 			friend.sendPacket(new FriendAddRequest(activeChar.getName()));
 		}
+
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
-	
+
 	@Override
 	public String getType()
 	{

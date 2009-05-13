@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.cache.CrestCache;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExPledgeCrestLarge;
 
 /**
@@ -30,6 +31,7 @@ import com.l2jfree.gameserver.network.serverpackets.ExPledgeCrestLarge;
 public class RequestExPledgeCrestLarge extends L2GameClientPacket
 {
 	private static final String _C__D0_10_REQUESTEXPLEDGECRESTLARGE = "[C] D0:10 RequestExPledgeCrestLarge";
+
 	private int _crestId;
 
     @Override
@@ -37,25 +39,17 @@ public class RequestExPledgeCrestLarge extends L2GameClientPacket
     {
         _crestId = readD();
     }
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#runImpl()
-	 */
+
 	@Override
     protected void runImpl()
 	{
 		byte[] data = CrestCache.getInstance().getPledgeCrestLarge(_crestId);
-        
 		if (data != null)
-		{
-			ExPledgeCrestLarge pcl = new ExPledgeCrestLarge(_crestId, data);
-			sendPacket(pcl);
-		}
-		
+			sendPacket(new ExPledgeCrestLarge(_crestId, data));
+
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.BasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

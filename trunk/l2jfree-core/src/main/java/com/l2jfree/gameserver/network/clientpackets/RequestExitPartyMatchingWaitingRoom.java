@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.gameserver.network.SystemMessageId;
+
 /**
  * Format: (ch)
  * @author  Crion/kombat
@@ -25,21 +27,16 @@ public class RequestExitPartyMatchingWaitingRoom extends L2GameClientPacket
     @Override
     protected void readImpl()
     {
-        //trigger
     }
 
-    /**
-     * @see com.l2jfree.gameserver.network.clientpackets.ClientBasePacket#runImpl()
-     */
     @Override
     protected void runImpl()
     {
         // This packet is sent if you close the party matching window. Remove player from party matching list here.
+    	// FIXME: implementation must be done ASAP
+        requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
     }
 
-    /**
-     * @see com.l2jfree.gameserver.network.BasePacket#getType()
-     */
     @Override
     public String getType()
     {

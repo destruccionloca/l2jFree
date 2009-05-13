@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.model.L2Party;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExMPCCShowPartyMemberInfo;
 
 /**
@@ -25,6 +26,7 @@ import com.l2jfree.gameserver.network.serverpackets.ExMPCCShowPartyMemberInfo;
 public final class RequestExMPCCShowPartyMembersInfo extends L2GameClientPacket
 {
 	private static final String _C__D0_26_REQUESTMPCCSHOWPARTYMEMBERINFO = "[C] D0:26 RequestExMPCCShowPartyMembersInfo";
+
 	private int _leaderId;
 
 	@Override
@@ -33,29 +35,29 @@ public final class RequestExMPCCShowPartyMembersInfo extends L2GameClientPacket
 		_leaderId = readD();
 	}
 
-	/**
-	 * @see com.l2jfree.gameserver.network.clientpackets.ClientBasePacket#runImpl()
-	 */
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null || player.getParty() == null || player.getParty().getCommandChannel() == null)
+		if (player == null) return;
+		if (player.getParty() == null || player.getParty().getCommandChannel() == null)
+		{
+			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
+		}
 
 		for (L2Party party : player.getParty().getCommandChannel().getPartys())
 		{
 			if (party.getLeader().getObjectId() == _leaderId)
 			{
-				player.sendPacket(new ExMPCCShowPartyMemberInfo(party));
-				return;
+				sendPacket(new ExMPCCShowPartyMemberInfo(party));
+				break;
 			}
 		}
+
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
-	/**
-	 * @see com.l2jfree.gameserver.BasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

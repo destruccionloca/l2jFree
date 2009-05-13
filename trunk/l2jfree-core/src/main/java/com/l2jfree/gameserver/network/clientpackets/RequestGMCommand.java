@@ -14,13 +14,11 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.GMHennaInfo;
 import com.l2jfree.gameserver.network.serverpackets.GMViewCharacterInfo;
 import com.l2jfree.gameserver.network.serverpackets.GMViewItemList;
@@ -30,15 +28,15 @@ import com.l2jfree.gameserver.network.serverpackets.GMViewSkillInfo;
 import com.l2jfree.gameserver.network.serverpackets.GMViewWarehouseWithdrawList;
 
 /**
- * This class ...
+ * This class represents a packet that is sent whenever a GM clicks something
+ * player-related in the ALT+G menu.
  * 
  * @version $Revision: 1.1.2.2.2.2 $ $Date: 2005/03/27 15:29:30 $
  */
 public class RequestGMCommand extends L2GameClientPacket
 {
 	private static final String _C__6E_REQUESTGMCOMMAND = "[C] 6e RequestGMCommand";
-	static Log _log = LogFactory.getLog(RequestGMCommand.class.getName());
-	
+
 	private String _targetName;
 	private int _command;
 	//private final int _unknown;
@@ -46,8 +44,6 @@ public class RequestGMCommand extends L2GameClientPacket
 	/**
 	 * packet type id 0x00
 	 * format:	cd
-	 * 
-	 * @param rawPacket
 	 */
 	@Override
 	protected void readImpl()
@@ -60,13 +56,23 @@ public class RequestGMCommand extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		L2PcInstance player = L2World.getInstance().getPlayer(_targetName);
 		L2PcInstance activeChar = getClient().getActiveChar();
+		if (activeChar == null) return;
 
-		if (player == null || activeChar.getAccessLevel() < Config.GM_ALTG_MIN_LEVEL)
+		if (activeChar.getAccessLevel() < Config.GM_ALTG_MIN_LEVEL)
+		{
+			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
-		
-		switch(_command)
+		}
+
+		L2PcInstance player = L2World.getInstance().getPlayer(_targetName);
+		if (player == null)
+		{
+			requestFailed(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME);
+			return;
+		}
+
+		switch (_command)
 		{
 			case 1: // player status
 			{
@@ -80,8 +86,7 @@ public class RequestGMCommand extends L2GameClientPacket
 			case 2: // player clan
 			{
 				if (activeChar.getAccessLevel() >= Config.GM_CHAR_CLAN_VIEW && player.getClan() != null)
-					sendPacket(new GMViewPledgeInfo(player.getClan(),player));
-
+					sendPacket(new GMViewPledgeInfo(player.getClan(), player));
 				break;
 			}
 			case 3: // player skills
@@ -112,11 +117,10 @@ public class RequestGMCommand extends L2GameClientPacket
 				break;
 			}
 		}
+
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

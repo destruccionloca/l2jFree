@@ -19,6 +19,7 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.restriction.AvailableRestriction;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
+import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.util.Util;
@@ -30,14 +31,14 @@ import com.l2jfree.tools.geometry.Point3D;
 public final class RequestExMagicSkillUseGround extends L2GameClientPacket
 {
 	private static final String _C__D0_2F_REQUESTEXMAGICSKILLUSEGROUND = "[C] D0:2F RequestExMagicSkillUseGround";
-	
+
 	private int _x;
 	private int _y;
 	private int _z;
 	private int _skillId;
 	private boolean _ctrlPressed;
 	private boolean _shiftPressed;
-	
+
 	@Override
 	protected void readImpl()
 	{
@@ -48,48 +49,45 @@ public final class RequestExMagicSkillUseGround extends L2GameClientPacket
 		_ctrlPressed = readD() != 0;
 		_shiftPressed = readC() != 0;
 	}
-	
+
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		
-		if (activeChar == null)
-			return;
-		
+		if (activeChar == null) return;
+
 		if (ObjectRestrictions.getInstance().checkRestriction(activeChar, AvailableRestriction.PlayerCast))
 		{
-			activeChar.sendMessage("You cannot cast a skill due to a restriction.");
+			// TODO: correct message. Maybe message should be sent during check?
+			requestFailed(SystemMessageId.NOT_ENOUGH_SPACE_FOR_SKILL);
 			return;
 		}
-		
+
 		// Get the level of the used skill
 		int level = activeChar.getSkillLevel(_skillId);
 		if (level <= 0)
 		{
-			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
-		
+
 		// Get the L2Skill template corresponding to the skillID received from the client
 		L2Skill skill = SkillTable.getInstance().getInfo(_skillId, level);
-		
+
 		// Check the validity of the skill
 		if (activeChar.canUseMagic(skill))
 		{
 			activeChar.setCurrentSkillWorldPosition(new Point3D(_x, _y, _z));
-			
+
 			// normally magicskilluse packet turns char client side but for these skills, it doesn't (even with correct target)
 			activeChar.setHeading(Util.calculateHeadingFrom(activeChar.getX(), activeChar.getY(), _x, _y));
 			activeChar.broadcastPacket(new ValidateLocation(activeChar));
 			activeChar.useMagic(skill, _ctrlPressed, _shiftPressed);
 		}
-		else
-		{
-			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
-		}
+
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
-	
+
 	@Override
 	public String getType()
 	{

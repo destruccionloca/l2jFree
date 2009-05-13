@@ -223,17 +223,18 @@ public class CrestCache
 		}
 	}
 
-	public void removePledgeCrestLarge(int id)
+	public boolean removePledgeCrestLarge(int id)
 	{
 		File crestFile = new File(Config.DATAPACK_ROOT, "data/crests/Crest_Large_" + id + ".bmp");
-		_cachePledgeLarge.remove(id);
 		try
 		{
 			crestFile.delete();
 		}
 		catch (Exception e)
 		{
+			return false;
 		}
+		return _cachePledgeLarge.remove(id);
 	}
 
 	public void removeOldPledgeCrest(int id)
