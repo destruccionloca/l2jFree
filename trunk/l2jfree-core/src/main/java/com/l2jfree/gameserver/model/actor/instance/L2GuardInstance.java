@@ -74,8 +74,6 @@ public final class L2GuardInstance extends L2Guard
 	
 	public void stopReturnTask()
 	{
-		GuardReturnHomeManager.getInstance().callTask(this); // just to be sure it returned to home
-		
 		GuardReturnHomeManager.getInstance().stopTask(this);
 	}
 	
