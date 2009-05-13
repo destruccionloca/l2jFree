@@ -98,7 +98,7 @@ public class SagasSuperClass extends QuestJython
 
 	public L2Npc FindSpawn (L2PcInstance player,L2Npc npc)
 	{
-		if (_SpawnList.containsKey(npc) && _SpawnList.get(npc) == player.getObjectId())
+		if (npc != null && _SpawnList.containsKey(npc) && _SpawnList.get(npc) == player.getObjectId())
 			return npc;
 
 		return null;
