@@ -60,6 +60,7 @@ public final class GlobalRestrictions
 		playerKilled,
 		isInsideZoneStateChanged,
 		onBypassFeedback,
+		onAction,
 		// TODO
 		;
 		
@@ -335,6 +336,21 @@ public final class GlobalRestrictions
 		
 		for (GlobalRestriction restriction : _restrictions[RestrictionMode.onBypassFeedback.ordinal()])
 			if (restriction.onBypassFeedback(npc, activeChar, command))
+				return true;
+		
+		return false;
+	}
+	
+	public static boolean onAction(L2Npc npc, L2PcInstance activeChar)
+	{
+		if (npc.isEventMob)
+		{
+			L2Event.showEventHtml(activeChar, String.valueOf(npc.getObjectId()));
+			return true;
+		}
+		
+		for (GlobalRestriction restriction : _restrictions[RestrictionMode.onAction.ordinal()])
+			if (restriction.onAction(npc, activeChar))
 				return true;
 		
 		return false;

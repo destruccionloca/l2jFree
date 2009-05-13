@@ -112,5 +112,11 @@ public abstract class AbstractRestriction implements GlobalRestriction
 		throw new AbstractMethodError();
 	}
 	
+	@DisabledRestriction
+	public boolean onAction(L2Npc npc, L2PcInstance activeChar)
+	{
+		throw new AbstractMethodError();
+	}
+	
 	// TODO
 }

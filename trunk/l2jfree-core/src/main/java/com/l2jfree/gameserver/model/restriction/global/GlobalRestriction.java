@@ -55,5 +55,7 @@ public interface GlobalRestriction
 	
 	public boolean onBypassFeedback(L2Npc npc, L2PcInstance activeChar, String command);
 	
+	public boolean onAction(L2Npc npc, L2PcInstance activeChar);
+	
 	// TODO
 }

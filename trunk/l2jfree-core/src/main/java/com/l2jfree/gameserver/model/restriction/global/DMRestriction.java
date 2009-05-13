@@ -110,4 +110,16 @@ final class DMRestriction extends AbstractFunEventRestriction
 		
 		return false;
 	}
+	
+	@Override
+	public boolean onAction(L2Npc npc, L2PcInstance activeChar)
+	{
+		if (npc._isEventMobDM)
+		{
+			DM.showEventHtml(activeChar, String.valueOf(npc.getObjectId()));
+			return true;
+		}
+		
+		return false;
+	}
 }

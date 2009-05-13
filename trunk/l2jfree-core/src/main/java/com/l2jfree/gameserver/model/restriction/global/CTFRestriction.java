@@ -122,4 +122,26 @@ final class CTFRestriction extends AbstractFunEventRestriction
 		
 		return false;
 	}
+	
+	@Override
+	public boolean onAction(L2Npc npc, L2PcInstance activeChar)
+	{
+		if (npc._isEventMobCTF)
+		{
+			CTF.showEventHtml(activeChar, String.valueOf(npc.getObjectId()));
+			return true;
+		}
+		else if (npc._isCTF_Flag && activeChar._inEventCTF)
+		{
+			CTF.showFlagHtml(activeChar, String.valueOf(npc.getObjectId()), npc._CTF_FlagTeamName);
+			return true;
+		}
+		else if (npc._isCTF_throneSpawn)
+		{
+			CTF.CheckRestoreFlags();
+			return true;
+		}
+		
+		return false;
+	}
 }

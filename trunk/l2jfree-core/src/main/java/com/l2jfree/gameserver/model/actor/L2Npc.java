@@ -77,17 +77,13 @@ import com.l2jfree.gameserver.model.actor.stat.NpcStat;
 import com.l2jfree.gameserver.model.actor.status.NpcStatus;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.Fort;
-import com.l2jfree.gameserver.model.entity.L2Event;
 import com.l2jfree.gameserver.model.entity.Town;
-import com.l2jfree.gameserver.model.entity.events.CTF;
-import com.l2jfree.gameserver.model.entity.events.DM;
-import com.l2jfree.gameserver.model.entity.events.TvT;
-import com.l2jfree.gameserver.model.entity.events.VIP;
 import com.l2jfree.gameserver.model.itemcontainer.NpcInventory;
 import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.model.quest.State;
+import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.AbstractNpcInfo;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
@@ -672,22 +668,9 @@ public class L2Npc extends L2Character
 						broadcastRandomAnimation(true);
 						
 						// Open a chat window on client with the text of the L2Npc
-						if (isEventMob)
-							L2Event.showEventHtml(player, String.valueOf(getObjectId()));
-						else if (_isEventMobTvT)
-							TvT.showEventHtml(player, String.valueOf(getObjectId()));
-						else if (_isEventMobDM)
-							DM.showEventHtml(player, String.valueOf(getObjectId()));
-						else if (_isEventMobCTF)
-							CTF.showEventHtml(player, String.valueOf(getObjectId()));
-						else if (_isCTF_Flag && player._inEventCTF)
-							CTF.showFlagHtml(player, String.valueOf(getObjectId()), _CTF_FlagTeamName);
-						else if (_isCTF_throneSpawn)
-							CTF.CheckRestoreFlags();
-						else if (_isEventVIPNPC)
-							VIP.showJoinHTML(player, String.valueOf(getObjectId()));
-						else if (_isEventVIPNPCEnd)
-							VIP.showEndHTML(player, String.valueOf(getObjectId()));
+						if (GlobalRestrictions.onAction(this, player))
+						{
+						}
 						else
 						{
 							Quest[] qlsa = getTemplate().getEventQuests(Quest.QuestEventType.QUEST_START);
