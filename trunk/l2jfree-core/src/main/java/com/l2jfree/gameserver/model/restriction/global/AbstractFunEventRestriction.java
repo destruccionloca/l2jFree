@@ -14,10 +14,16 @@
  */
 package com.l2jfree.gameserver.model.restriction.global;
 
+import com.l2jfree.gameserver.handler.IItemHandler;
+import com.l2jfree.gameserver.handler.itemhandlers.Potions;
+import com.l2jfree.gameserver.handler.itemhandlers.SummonItems;
+import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 
 /**
  * @author NB4L1
@@ -25,6 +31,10 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 abstract class AbstractFunEventRestriction extends AbstractRestriction
 {
 	abstract boolean started();
+	
+	abstract boolean allowSummon();
+	
+	abstract boolean allowPotions();
 	
 	abstract boolean allowInterference();
 	
@@ -67,6 +77,34 @@ abstract class AbstractFunEventRestriction extends AbstractRestriction
 		{
 			activeChar.sendMessage("You can't teleport during an event.");
 			return false;
+		}
+		
+		return true;
+	}
+	
+	@Override
+	public boolean canUseItemHandler(Class<? extends IItemHandler> clazz, int itemId, L2Playable activeChar,
+		L2ItemInstance item)
+	{
+		if (clazz == SummonItems.class)
+		{
+			L2PcInstance player = activeChar.getActingPlayer();
+			
+			if (player != null && isInFunEvent(player) && started() && !allowSummon())
+			{
+				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+				return false;
+			}
+		}
+		else if (clazz == Potions.class)
+		{
+			L2PcInstance player = activeChar.getActingPlayer();
+			
+			if (player != null && isInFunEvent(player) && started() && !allowPotions())
+			{
+				player.sendPacket(ActionFailed.STATIC_PACKET);
+				return false;
+			}
 		}
 		
 		return true;

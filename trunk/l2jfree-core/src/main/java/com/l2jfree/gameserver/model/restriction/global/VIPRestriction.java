@@ -34,6 +34,18 @@ final class VIPRestriction extends AbstractFunEventRestriction
 	}
 	
 	@Override
+	boolean allowSummon()
+	{
+		return true;
+	}
+	
+	@Override
+	boolean allowPotions()
+	{
+		return Config.VIP_ALLOW_POTIONS;
+	}
+	
+	@Override
 	boolean allowInterference()
 	{
 		return Config.VIP_ALLOW_INTERFERENCE;

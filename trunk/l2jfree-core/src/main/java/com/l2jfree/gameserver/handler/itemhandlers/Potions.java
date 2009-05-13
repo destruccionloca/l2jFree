@@ -20,15 +20,11 @@ import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.L2Playable;
+import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
-import com.l2jfree.gameserver.model.entity.events.CTF;
-import com.l2jfree.gameserver.model.entity.events.DM;
-import com.l2jfree.gameserver.model.entity.events.TvT;
-import com.l2jfree.gameserver.model.entity.events.VIP;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
@@ -118,7 +114,7 @@ public class Potions implements IItemHandler
 			8631,
 			8632,
 			8633,
-			// Elixir of cp 
+			// Elixir of cp
 			8634,
 			8635,
 			8636,
@@ -164,19 +160,6 @@ public class Potions implements IItemHandler
 			activeChar = ((L2PetInstance) playable).getOwner();
 		else
 			return;
-
-		if ((activeChar._inEventTvT && TvT._started && !Config.TVT_ALLOW_POTIONS) || (activeChar._inEventCTF && CTF._started && !Config.CTF_ALLOW_POTIONS)
-				|| (activeChar._inEventDM && DM._started && !Config.DM_ALLOW_POTIONS) || (activeChar._inEventVIP && VIP._started && !Config.VIP_ALLOW_POTIONS))
-		{
-			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
-			return;
-		}
-
-		if (activeChar.isInOlympiadMode())
-		{
-			activeChar.sendPacket(SystemMessageId.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT);
-			return;
-		}
 
 		if (playable.isAllSkillsDisabled())
 		{
@@ -325,7 +308,7 @@ public class Potions implements IItemHandler
 			res = usePotion(playable, 2339, 1);
 			break;
 
-		// ELIXIR 
+		// ELIXIR
 		case 8622:
 		case 8623:
 		case 8624:
@@ -807,7 +790,7 @@ public class Potions implements IItemHandler
 				{
 					player.shortBuffStatusUpdate(magicId, level, 15);
 				}
-				// Summons should be affected by herbs too, self time effect is handled at L2Effect constructor 
+				// Summons should be affected by herbs too, self time effect is handled at L2Effect constructor
 				else if (((magicId > 2277 && magicId < 2286) || (magicId >= 2512 && magicId <= 2514)) && (player.getPet() instanceof L2SummonInstance))
 				{
 					player.getPet().doSimultaneousCast(skill);

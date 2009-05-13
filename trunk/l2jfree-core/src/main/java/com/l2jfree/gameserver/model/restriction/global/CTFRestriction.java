@@ -33,6 +33,18 @@ final class CTFRestriction extends AbstractFunEventRestriction
 	}
 	
 	@Override
+	boolean allowSummon()
+	{
+		return Config.CTF_ALLOW_SUMMON;
+	}
+	
+	@Override
+	boolean allowPotions()
+	{
+		return Config.CTF_ALLOW_POTIONS;
+	}
+	
+	@Override
 	boolean allowInterference()
 	{
 		return Config.CTF_ALLOW_INTERFERENCE;

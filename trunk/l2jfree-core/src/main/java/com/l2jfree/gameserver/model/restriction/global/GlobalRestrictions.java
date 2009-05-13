@@ -20,11 +20,14 @@ import java.util.Arrays;
 import org.apache.commons.lang.ArrayUtils;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.model.L2Effect;
+import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
+import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeFlagInstance;
@@ -47,6 +50,7 @@ public final class GlobalRestrictions
 		canCreateEffect,
 		isInvul,
 		canTeleport,
+		canUseItemHandler,
 		// TODO
 		
 		isInsideZoneModifier,
@@ -249,6 +253,16 @@ public final class GlobalRestrictions
 	{
 		for (GlobalRestriction restriction : _restrictions[RestrictionMode.canTeleport.ordinal()])
 			if (!restriction.canTeleport(activeChar))
+				return false;
+		
+		return true;
+	}
+	
+	public static boolean canUseItemHandler(Class<? extends IItemHandler> clazz, int itemId, L2Playable activeChar,
+		L2ItemInstance item)
+	{
+		for (GlobalRestriction restriction : _restrictions[RestrictionMode.canUseItemHandler.ordinal()])
+			if (!restriction.canUseItemHandler(clazz, itemId, activeChar, item))
 				return false;
 		
 		return true;

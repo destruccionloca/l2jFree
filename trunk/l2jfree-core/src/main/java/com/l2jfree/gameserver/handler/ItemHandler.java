@@ -57,6 +57,7 @@ import com.l2jfree.gameserver.handler.itemhandlers.TransformationItems;
 import com.l2jfree.gameserver.handler.itemhandlers.WorldMap;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.L2Playable;
+import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.util.NumberHandlerRegistry;
 
 public final class ItemHandler extends NumberHandlerRegistry<IItemHandler>
@@ -137,6 +138,9 @@ public final class ItemHandler extends NumberHandlerRegistry<IItemHandler>
 			_log.warn("No item handler registered for item ID " + itemId + ".");
 			return false;
 		}
+		
+		if (!GlobalRestrictions.canUseItemHandler(handler.getClass(), itemId, playable, item))
+			return true;
 		
 		handler.useItem(playable, item);
 		return true;

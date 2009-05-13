@@ -14,10 +14,13 @@
  */
 package com.l2jfree.gameserver.model.restriction.global;
 
+import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.model.L2Effect;
+import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
+import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
@@ -32,6 +35,9 @@ public interface GlobalRestriction
 	public boolean isInvul(L2Character activeChar, L2Character target, boolean isOffensive);
 	
 	public boolean canTeleport(L2PcInstance activeChar);
+	
+	public boolean canUseItemHandler(Class<? extends IItemHandler> clazz, int itemId, L2Playable activeChar,
+		L2ItemInstance item);
 	
 	// TODO
 	

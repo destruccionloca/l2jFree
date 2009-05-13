@@ -29,11 +29,7 @@ import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.entity.ClanHall;
-import com.l2jfree.gameserver.model.entity.events.CTF;
-import com.l2jfree.gameserver.model.entity.events.DM;
-import com.l2jfree.gameserver.model.entity.events.TvT;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillLaunched;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.PetItemList;
@@ -60,13 +56,6 @@ public class SummonItems implements IItemHandler
 		if (!FloodProtector.tryPerformAction(activeChar, Protected.ITEMPETSUMMON))
 			return;
 
-		if ((activeChar._inEventTvT && TvT._started && !Config.TVT_ALLOW_SUMMON) || (activeChar._inEventCTF && CTF._started && !Config.CTF_ALLOW_SUMMON)
-				|| (activeChar._inEventDM && DM._started && !Config.DM_ALLOW_SUMMON))
-		{
-			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
-			return;
-		}
-
 		if (activeChar.isSitting())
 		{
 			activeChar.sendPacket(SystemMessageId.CANT_MOVE_SITTING);
@@ -75,12 +64,6 @@ public class SummonItems implements IItemHandler
 
 		if (activeChar.inObserverMode())
 			return;
-
-		if (activeChar.isInOlympiadMode())
-		{
-			activeChar.sendPacket(SystemMessageId.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT);
-			return;
-		}
 
 		if (activeChar.isAllSkillsDisabled() || activeChar.isCastingNow())
 			return;
@@ -270,7 +253,7 @@ public class SummonItems implements IItemHandler
 				if (weaponId > 0 && petSummon.getOwner().getInventory().getItemByItemId(weaponId)!= null)
 				{
 					L2ItemInstance item = petSummon.getOwner().getInventory().getItemByItemId(weaponId);
-					L2ItemInstance newItem = petSummon.getOwner().transferItem("Transfer", item.getObjectId(), 1, petSummon.getInventory(), petSummon); 
+					L2ItemInstance newItem = petSummon.getOwner().transferItem("Transfer", item.getObjectId(), 1, petSummon.getInventory(), petSummon);
 					if (newItem == null)
 					{
 						_log.warn("Invalid item transfer request: " + petSummon.getName() + "(pet) --> " + petSummon.getOwner().getName());
@@ -284,7 +267,7 @@ public class SummonItems implements IItemHandler
 				if (armorId > 0 && petSummon.getOwner().getInventory().getItemByItemId(armorId)!= null)
 				{
 					L2ItemInstance item = petSummon.getOwner().getInventory().getItemByItemId(armorId);
-					L2ItemInstance newItem = petSummon.getOwner().transferItem("Transfer", item.getObjectId(), 1, petSummon.getInventory(), petSummon); 
+					L2ItemInstance newItem = petSummon.getOwner().transferItem("Transfer", item.getObjectId(), 1, petSummon.getInventory(), petSummon);
 					if (newItem == null)
 					{
 						_log.warn("Invalid item transfer request: " + petSummon.getName() + "(pet) --> " + petSummon.getOwner().getName());
@@ -298,7 +281,7 @@ public class SummonItems implements IItemHandler
 				if (jewelId > 0 && petSummon.getOwner().getInventory().getItemByItemId(jewelId)!= null)
 				{
 					L2ItemInstance item = petSummon.getOwner().getInventory().getItemByItemId(jewelId);
-					L2ItemInstance newItem = petSummon.getOwner().transferItem("Transfer", item.getObjectId(), 1, petSummon.getInventory(), petSummon); 
+					L2ItemInstance newItem = petSummon.getOwner().transferItem("Transfer", item.getObjectId(), 1, petSummon.getInventory(), petSummon);
 					if (newItem == null)
 					{
 						_log.warn("Invalid item transfer request: " + petSummon.getName() + "(pet) --> " + petSummon.getOwner().getName());

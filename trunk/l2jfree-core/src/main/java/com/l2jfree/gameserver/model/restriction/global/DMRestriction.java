@@ -33,6 +33,18 @@ final class DMRestriction extends AbstractFunEventRestriction
 	}
 	
 	@Override
+	boolean allowSummon()
+	{
+		return Config.DM_ALLOW_SUMMON;
+	}
+	
+	@Override
+	boolean allowPotions()
+	{
+		return Config.DM_ALLOW_POTIONS;
+	}
+	
+	@Override
 	boolean allowInterference()
 	{
 		return Config.DM_ALLOW_INTERFERENCE;

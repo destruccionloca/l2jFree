@@ -17,10 +17,13 @@ package com.l2jfree.gameserver.model.restriction.global;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.model.L2Effect;
+import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
+import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
@@ -50,6 +53,13 @@ public abstract class AbstractRestriction implements GlobalRestriction
 	
 	@DisabledRestriction
 	public boolean canTeleport(L2PcInstance activeChar)
+	{
+		throw new AbstractMethodError();
+	}
+	
+	@DisabledRestriction
+	public boolean canUseItemHandler(Class<? extends IItemHandler> clazz, int itemId, L2Playable activeChar,
+		L2ItemInstance item)
 	{
 		throw new AbstractMethodError();
 	}
