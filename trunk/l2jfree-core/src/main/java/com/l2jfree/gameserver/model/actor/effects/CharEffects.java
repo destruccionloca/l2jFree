@@ -392,6 +392,9 @@ public class CharEffects
 	
 	public synchronized void addPacket(EffectInfoPacketList list)
 	{
+		if (isEmpty())
+			return;
+		
 		for (int i = 0; i < _effects.size(); i++)
 		{
 			final L2Effect e = _effects.get(i);
