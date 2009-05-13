@@ -13970,6 +13970,12 @@ public final class L2PcInstance extends L2Playable
 		}
 	}
 	
+	@Override
+	protected boolean shouldAddPacketBroadcastMask()
+	{
+		return getOnlineState() != L2PcInstance.ONLINE_STATE_LOADED;
+	}
+	
 	/**
 	 * @return afro haircut id
 	 */

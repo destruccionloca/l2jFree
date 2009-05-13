@@ -7186,9 +7186,14 @@ public abstract class L2Character extends L2Object
 	
 	private byte _packetBroadcastMask;
 	
+	protected boolean shouldAddPacketBroadcastMask()
+	{
+		return !getKnownList().getKnownPlayers().isEmpty();
+	}
+	
 	public final void addPacketBroadcastMask(BroadcastMode mode)
 	{
-		if (!(this instanceof L2Playable) && getKnownList().getKnownPlayers().isEmpty())
+		if (!shouldAddPacketBroadcastMask())
 			return;
 		
 		synchronized (PacketBroadcaster.getInstance())

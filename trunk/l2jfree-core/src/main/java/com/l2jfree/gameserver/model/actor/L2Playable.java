@@ -259,6 +259,12 @@ public abstract class L2Playable extends L2Character
 		addPacketBroadcastMask(BroadcastMode.UPDATE_EFFECT_ICONS);
 	}
 	
+	@Override
+	protected boolean shouldAddPacketBroadcastMask()
+	{
+		return true;
+	}
+	
 	public abstract void updateEffectIconsImpl();
 	
 	@Override
