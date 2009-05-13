@@ -24,9 +24,11 @@ import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeFlagInstance;
+import com.l2jfree.gameserver.model.entity.L2Event;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 
@@ -57,6 +59,7 @@ public final class GlobalRestrictions
 		playerDisconnected,
 		playerKilled,
 		isInsideZoneStateChanged,
+		onBypassFeedback,
 		// TODO
 		;
 		
@@ -320,6 +323,21 @@ public final class GlobalRestrictions
 		
 		for (GlobalRestriction restriction : _restrictions[RestrictionMode.isInsideZoneStateChanged.ordinal()])
 			restriction.isInsideZoneStateChanged(activeChar, zone, isInsideZone);
+	}
+	
+	public static boolean onBypassFeedback(L2Npc npc, L2PcInstance activeChar, String command)
+	{
+		if (command.startsWith("event_participate"))
+		{
+			L2Event.inscribePlayer(activeChar);
+			return true;
+		}
+		
+		for (GlobalRestriction restriction : _restrictions[RestrictionMode.onBypassFeedback.ordinal()])
+			if (restriction.onBypassFeedback(npc, activeChar, command))
+				return true;
+		
+		return false;
 	}
 	
 	// TODO

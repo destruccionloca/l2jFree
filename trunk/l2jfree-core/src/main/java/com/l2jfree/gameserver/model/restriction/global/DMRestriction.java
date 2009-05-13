@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.model.restriction.global;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.events.DM;
 
@@ -85,5 +86,28 @@ final class DMRestriction extends AbstractFunEventRestriction
 		}
 		
 		return true;
+	}
+	
+	@Override
+	public boolean onBypassFeedback(L2Npc npc, L2PcInstance activeChar, String command)
+	{
+		if (command.startsWith("dmevent_player_join"))
+		{
+			if (DM._joining)
+				DM.addPlayer(activeChar);
+			else
+				activeChar.sendMessage("The event is already started. You can not join now!");
+			return true;
+		}
+		else if (command.startsWith("dmevent_player_leave"))
+		{
+			if (DM._joining)
+				DM.removePlayer(activeChar);
+			else
+				activeChar.sendMessage("The event is already started. You can not leave now!");
+			return true;
+		}
+		
+		return false;
 	}
 }

@@ -14100,4 +14100,27 @@ public final class L2PcInstance extends L2Playable
 		*/
 		return true;
 	}
+	
+	public <T extends L2Object> T getTarget(Class<T> clazz)
+	{
+		L2Object target = getTarget();
+		
+		if (clazz.isInstance(target))
+			return clazz.cast(target);
+		else
+			return null;
+	}
+	
+	public <T extends L2Object> T getTarget(Class<T> clazz, int objectId)
+	{
+		L2Object target = getTarget();
+		
+		if (target == null)
+			target = L2World.getInstance().findObject(objectId);
+		
+		if (clazz.isInstance(target) && target.getObjectId() == objectId)
+			return clazz.cast(target);
+		else
+			return null;
+	}
 }

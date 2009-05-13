@@ -18,6 +18,7 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.Announcements;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.events.VIP;
 
@@ -95,6 +96,28 @@ final class VIPRestriction extends AbstractFunEventRestriction
 				}
 			}
 			
+			return true;
+		}
+		
+		return false;
+	}
+	
+	@Override
+	public boolean onBypassFeedback(L2Npc npc, L2PcInstance activeChar, String command)
+	{
+		if (command.startsWith("vip_joinVIPTeam"))
+		{
+			VIP.addPlayerVIP(activeChar);
+			return true;
+		}
+		else if (command.startsWith("vip_joinNotVIPTeam"))
+		{
+			VIP.addPlayerNotVIP(activeChar);
+			return true;
+		}
+		else if (command.startsWith("vip_finishVIP"))
+		{
+			VIP.vipWin(activeChar);
 			return true;
 		}
 		

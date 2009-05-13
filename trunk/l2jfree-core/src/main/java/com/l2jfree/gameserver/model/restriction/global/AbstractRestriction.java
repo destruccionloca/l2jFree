@@ -20,6 +20,7 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
@@ -101,6 +102,12 @@ public abstract class AbstractRestriction implements GlobalRestriction
 	
 	@DisabledRestriction
 	public void isInsideZoneStateChanged(L2Character activeChar, byte zone, boolean isInsideZone)
+	{
+		throw new AbstractMethodError();
+	}
+	
+	@DisabledRestriction
+	public boolean onBypassFeedback(L2Npc npc, L2PcInstance activeChar, String command)
 	{
 		throw new AbstractMethodError();
 	}

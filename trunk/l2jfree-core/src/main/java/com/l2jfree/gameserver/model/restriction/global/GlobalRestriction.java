@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.model.restriction.global;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
@@ -51,6 +52,8 @@ public interface GlobalRestriction
 	public boolean playerKilled(L2Character activeChar, L2PcInstance target);
 	
 	public void isInsideZoneStateChanged(L2Character activeChar, byte zone, boolean isInsideZone);
+	
+	public boolean onBypassFeedback(L2Npc npc, L2PcInstance activeChar, String command);
 	
 	// TODO
 }

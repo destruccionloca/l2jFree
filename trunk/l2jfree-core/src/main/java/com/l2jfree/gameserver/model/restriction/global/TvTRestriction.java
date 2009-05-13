@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.model.restriction.global;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.events.TvT;
 import com.l2jfree.gameserver.network.serverpackets.PlaySound;
@@ -115,5 +116,28 @@ final class TvTRestriction extends AbstractFunEventRestriction
 		}
 		
 		return true;
+	}
+	
+	@Override
+	public boolean onBypassFeedback(L2Npc npc, L2PcInstance activeChar, String command)
+	{
+		if (command.startsWith("tvt_player_join "))
+		{
+			if (TvT._joining)
+				TvT.addPlayer(activeChar, command.substring(16));
+			else
+				activeChar.sendMessage("The event is already started. You can not join now!");
+			return true;
+		}
+		else if (command.startsWith("tvt_player_leave"))
+		{
+			if (TvT._joining)
+				TvT.removePlayer(activeChar);
+			else
+				activeChar.sendMessage("The event is already started. You can not leave now!");
+			return true;
+		}
+		
+		return false;
 	}
 }
