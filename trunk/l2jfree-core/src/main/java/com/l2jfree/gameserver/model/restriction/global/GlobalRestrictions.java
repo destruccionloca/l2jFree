@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.model.restriction.global;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Comparator;
 
 import org.apache.commons.lang.ArrayUtils;
 
@@ -44,7 +45,7 @@ public final class GlobalRestrictions
 	{
 	}
 	
-	private static enum RestrictionMode
+	private static enum RestrictionMode implements Comparator<GlobalRestriction>
 	{
 		canInviteToParty,
 		canCreateEffect,
@@ -105,6 +106,28 @@ public final class GlobalRestrictions
 			
 			return null;
 		}
+		
+		@Override
+		public int compare(GlobalRestriction o1, GlobalRestriction o2)
+		{
+			return Double.compare(getPriority(o2), getPriority(o1));
+		}
+		
+		private double getPriority(GlobalRestriction restriction)
+		{
+			RestrictionPriority a = getMatchingMethod(restriction.getClass()).getAnnotation(RestrictionPriority.class);
+			
+			return a == null ? 0.0 : a.value();
+		}
+		
+		private Method getMatchingMethod(Class<? extends GlobalRestriction> clazz)
+		{
+			for (Method method : clazz.getMethods())
+				if (equalsMethod(method))
+					return method;
+			
+			throw new InternalError();
+		}
 	}
 	
 	private static final GlobalRestriction[][] _restrictions = new GlobalRestriction[RestrictionMode.VALUES.length][0];
@@ -125,6 +148,8 @@ public final class GlobalRestrictions
 			
 			if (!ArrayUtils.contains(restrictions, restriction))
 				restrictions = (GlobalRestriction[])ArrayUtils.add(restrictions, restriction);
+			
+			Arrays.sort(restrictions, mode);
 			
 			_restrictions[mode.ordinal()] = restrictions;
 		}
