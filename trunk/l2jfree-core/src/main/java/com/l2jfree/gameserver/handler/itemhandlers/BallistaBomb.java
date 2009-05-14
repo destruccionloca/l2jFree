@@ -23,7 +23,6 @@ import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2FortBallistaInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * Ballista Bombs Handler
@@ -37,7 +36,7 @@ public class BallistaBomb implements IItemHandler
 	{
 		9688
 	};
-	
+
 	/**
 	 * 
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.actor.instance.L2Playable, com.l2jfree.gameserver.model.L2ItemInstance)
@@ -46,18 +45,20 @@ public class BallistaBomb implements IItemHandler
 	{
 		if (playable == null)
 			return;
-		
+
 		L2PcInstance player = null;
 		if (playable instanceof L2Summon)
 		{
 			player = ((L2Summon) playable).getOwner();
-			player.sendPacket(new SystemMessage(SystemMessageId.PET_CANNOT_USE_ITEM));
+			player.sendPacket(SystemMessageId.PET_CANNOT_USE_ITEM);
 			return;
 		}
 		else if (playable instanceof L2PcInstance)
 		{
 			player = (L2PcInstance) playable;
 		}
+		else
+			return;
 
 		if (player.getTarget() instanceof L2FortBallistaInstance)
 		{
@@ -65,12 +66,9 @@ public class BallistaBomb implements IItemHandler
 			player.useMagic(skill, false, false);
 		}
 		else
-		{
-			SystemMessage sm = new SystemMessage(SystemMessageId.INCORRECT_TARGET);
-			player.sendPacket(sm);
-		}
+			player.sendPacket(SystemMessageId.INCORRECT_TARGET);
 	}
-	
+
 	/**
 	 * 
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#getItemIds()

@@ -36,7 +36,7 @@ public class Escape implements IUserCommandHandler
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.handler.IUserCommandHandler#useUserCommand(int, com.l2jfree.gameserver.model.L2PcInstance)
 	 */
-	public boolean useUserCommand(@SuppressWarnings("unused") int id, L2PcInstance activeChar)
+	public boolean useUserCommand(int id, L2PcInstance activeChar)
 	{
 		if (!activeChar.canTeleport(TeleportMode.UNSTUCK))
 		{

@@ -51,8 +51,7 @@ public class L2SkillTrap extends L2Skill
 	 * @see com.l2jfree.gameserver.model.L2Skill#useSkill(com.l2jfree.gameserver.model.actor.L2Character, com.l2jfree.gameserver.model.actor.L2Character...)
 	 */
 	@Override
-	public void useSkill(L2Character caster, @SuppressWarnings("unused")
-	L2Character... targets)
+	public void useSkill(L2Character caster, L2Character... targets)
 	{
 		if (caster.isAlikeDead() || !(caster instanceof L2PcInstance))
 			return;

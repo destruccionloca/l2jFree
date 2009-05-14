@@ -347,6 +347,7 @@ public class Potions implements IItemHandler
 			// Elixir of Strength
 			res = usePotion(activeChar, 2288, (expIndex > 5 ? expIndex : expIndex + 1));
 		}
+		break;
 		case 8634:
 		case 8635:
 		case 8636:
@@ -366,6 +367,7 @@ public class Potions implements IItemHandler
 			// Elixir of cp
 			res = usePotion(activeChar, 2289, (expIndex > 5 ? expIndex : expIndex + 1));
 		}
+		break;
 			// Valakas Amulets
 		case 6652: // Amulet Protection of Valakas
 			res = usePotion(playable, 2231, 1);
@@ -715,6 +717,7 @@ public class Potions implements IItemHandler
 			if (!isUseable(playable, item, 2341))
 				return;
 			res = usePotion(playable, 2341, 1);
+			break;
 		default:
 		}
 

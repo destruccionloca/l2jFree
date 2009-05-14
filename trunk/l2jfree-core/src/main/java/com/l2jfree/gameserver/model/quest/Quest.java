@@ -55,7 +55,7 @@ import com.l2jfree.tools.random.Rnd;
  */
 public class Quest extends ManagedScript
 {
-	protected static Log								_log			= LogFactory.getLog(Quest.class.getName());
+	protected static final Log							_log			= LogFactory.getLog(Quest.class.getName());
 
 	/** HashMap containing events from String value of the event */
 	private static Map<String, Quest>					_allEventsS		= new FastMap<String, Quest>();
@@ -501,7 +501,6 @@ public class Quest extends ManagedScript
 	}
 
 	// these are methods that java calls to invoke scripts
-	@SuppressWarnings("unused")
 	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isPet)
 	{
 		return null;
@@ -512,7 +511,6 @@ public class Quest extends ManagedScript
 		return onAttack(npc, attacker, damage, isPet);
 	}
 
-	@SuppressWarnings("unused")
 	public String onDeath(L2Character killer, L2Character victim, QuestState qs)
 	{
 		if (killer instanceof L2Npc)
@@ -521,7 +519,6 @@ public class Quest extends ManagedScript
 		return onAdvEvent("", null, qs.getPlayer());
 	}
 
-	@SuppressWarnings("unused")
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
 		// if not overridden by a subclass, then default to the returned value of the simpler (and older) onEvent override
@@ -533,55 +530,46 @@ public class Quest extends ManagedScript
 		return null;
 	}
 
-	@SuppressWarnings("unused")
 	public String onEvent(String event, QuestState qs)
 	{
 		return null;
 	}
 
-	@SuppressWarnings("unused")
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isPet)
 	{
 		return null;
 	}
 
-	@SuppressWarnings("unused")
 	public String onTalk(L2Npc npc, L2PcInstance talker)
 	{
 		return null;
 	}
 
-	@SuppressWarnings("unused")
 	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
 		return null;
 	}
 
-	@SuppressWarnings("unused")
 	public String onSkillSee(L2Npc npc, L2PcInstance caster, L2Skill skill, L2Object[] targets, boolean isPet)
 	{
 		return null;
 	}
 
-	@SuppressWarnings("unused")
 	public String onSpellFinished(L2Npc npc, L2PcInstance player, L2Skill skill)
 	{
 		return null;
 	}
 
-	@SuppressWarnings("unused")
 	public String onSpawn(L2Npc npc)
 	{
 		return null;
 	}
 
-	@SuppressWarnings("unused")
 	public String onFactionCall(L2Npc npc, L2Npc caller, L2PcInstance attacker, boolean isPet)
 	{
 		return null;
 	}
 
-	@SuppressWarnings("unused")
 	public String onAggroRangeEnter(L2Npc npc, L2PcInstance player, boolean isPet)
 	{
 		return null;

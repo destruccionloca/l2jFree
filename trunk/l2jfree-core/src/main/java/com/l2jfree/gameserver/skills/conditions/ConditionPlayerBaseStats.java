@@ -25,15 +25,14 @@ class ConditionPlayerBaseStats extends Condition
 {
 	private final BaseStat _stat;
 	private final int _value;
-	
-	public ConditionPlayerBaseStats(@SuppressWarnings("unused")
-	L2Character player, BaseStat stat, int value)
+
+	public ConditionPlayerBaseStats(L2Character player, BaseStat stat, int value)
 	{
 		super();
 		_stat = stat;
 		_value = value;
 	}
-	
+
 	@Override
 	public boolean testImpl(Env env)
 	{

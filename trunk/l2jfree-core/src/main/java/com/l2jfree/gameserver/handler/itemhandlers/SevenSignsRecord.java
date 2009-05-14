@@ -32,8 +32,7 @@ public class SevenSignsRecord implements IItemHandler
 	private static final int[]	ITEM_IDS	=
 											{ 5707 };
 
-	public void useItem(L2Playable playable, @SuppressWarnings("unused")
-	L2ItemInstance item)
+	public void useItem(L2Playable playable, L2ItemInstance item)
 	{
 		L2PcInstance activeChar;
 
@@ -44,8 +43,7 @@ public class SevenSignsRecord implements IItemHandler
 		else
 			return;
 
-		SSQStatus ssqs = new SSQStatus(activeChar, 1);
-		activeChar.sendPacket(ssqs);
+		activeChar.sendPacket(new SSQStatus(activeChar, 1));
 	}
 
 	public int[] getItemIds()

@@ -85,7 +85,8 @@ public class StaticObjects
 		{
 			try
 			{
-				lnr.close();
+				if (lnr != null)
+					lnr.close();
 			}
 			catch (Exception e)
 			{

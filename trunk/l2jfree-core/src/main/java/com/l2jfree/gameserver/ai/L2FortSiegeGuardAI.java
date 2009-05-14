@@ -147,8 +147,11 @@ public class L2FortSiegeGuardAI extends L2CharacterAI implements Runnable
 	 */
 	private boolean autoAttackCondition(L2Character target)
 	{
+		if (target == null)
+			return false;
+
 		// Check if the target isn't another guard, folk or a door
-		if (target == null || target instanceof L2FortSiegeGuardInstance || target instanceof L2FortCommanderInstance || target instanceof L2FortBallistaInstance
+		if (target instanceof L2FortSiegeGuardInstance || target instanceof L2FortCommanderInstance || target instanceof L2FortBallistaInstance
 				|| target instanceof L2NpcInstance || target instanceof L2DoorInstance || target instanceof L2Playable)
 		{
 			L2PcInstance player = null;

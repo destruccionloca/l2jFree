@@ -326,7 +326,8 @@ public class GeoPathFinding extends PathFinding
 		{
 			try
 			{
-				roChannel.close();
+				if (roChannel != null)
+					roChannel.close();
 			}
 			catch (Exception e)
 			{

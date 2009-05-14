@@ -28,8 +28,7 @@ public class DeluxeKey implements ISkillHandler
 	private static final L2SkillType[]	SKILL_IDS	=
 													{ L2SkillType.DELUXE_KEY_UNLOCK };
 
-	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused")
-	L2Character... targets)
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
 		if (_log.isDebugEnabled())
 			_log.info("Deluxe key casting succeded.");

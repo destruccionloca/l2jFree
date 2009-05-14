@@ -28,18 +28,13 @@ import com.l2jfree.gameserver.util.Util;
 
 /**
  * @author _drunk_
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
  */
 public class TakeFort implements ISkillHandler
 {
 	private static final L2SkillType[]	SKILL_IDS	=
 													{ L2SkillType.TAKEFORT };
 
-	public void useSkill(L2Character activeChar, @SuppressWarnings("unused")
-	L2Skill skill, @SuppressWarnings("unused")
-	L2Character... targets)
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
 		if (!(activeChar instanceof L2PcInstance))
 			return;

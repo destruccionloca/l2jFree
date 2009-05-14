@@ -961,7 +961,9 @@ public class Duel
 			}
 		}
 	}
-	
+
+	//handled by the final boolean
+	@SuppressWarnings("null")
 	public static boolean isInvul(L2Character targetChar, L2Character attackerChar)
 	{
 		final L2PcInstance attacker = L2Object.getActingPlayer(attackerChar);

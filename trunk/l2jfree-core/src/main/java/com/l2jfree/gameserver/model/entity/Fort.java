@@ -349,7 +349,7 @@ public class Fort extends Siegeable<FortSiege>
 		}
 		setFortState(0, 0); // initialize fort state
 		//	if clan already have castle, don't store him in fortress
-		if (clan.getHasCastle() > 0)
+		if (clan != null && clan.getHasCastle() > 0)
 		{
 			getSiege().announceToPlayer(new SystemMessage(SystemMessageId.NPCS_RECAPTURED_FORTRESS), 0, false);
 			return false;
@@ -359,11 +359,14 @@ public class Fort extends Siegeable<FortSiege>
 			getSpawnManager().spawnSpecialEnvoys();
 			ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleSpecialEnvoysDeSpawn(this), 1*60*60*1000); // Prepare 1hr task for special envoys despawn
 			// if clan have already fortress, remove it
-			if (clan.getHasFort() > 0)
+			if (clan != null && clan.getHasFort() > 0)
 				FortManager.getInstance().getFortByOwner(clan).removeOwner(true);
 
 			setOwnerClan(clan);
-			_ownerId = clan.getClanId();
+			if (clan != null)
+				_ownerId = clan.getClanId();
+			else
+				_ownerId = 0;
 			updateOwnerInDB(); // Update in database
 
 			if (getSiege().getIsInProgress()) // If siege in progress

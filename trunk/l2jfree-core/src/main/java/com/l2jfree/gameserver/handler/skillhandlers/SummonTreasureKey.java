@@ -30,9 +30,7 @@ public class SummonTreasureKey implements ISkillHandler
 	private static final L2SkillType[]	SKILL_IDS	=
 													{ L2SkillType.SUMMON_TREASURE_KEY };
 
-	public void useSkill(L2Character activeChar, @SuppressWarnings("unused")
-	L2Skill skill, @SuppressWarnings("unused")
-	L2Character... targets)
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
 		if (!(activeChar instanceof L2PcInstance))
 			return;

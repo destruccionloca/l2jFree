@@ -38,7 +38,7 @@ public class CPperHeal implements ISkillHandler
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.L2PcInstance, com.l2jfree.gameserver.model.L2ItemInstance)
 	 */
-	public void useSkill(@SuppressWarnings("unused") L2Character actChar, L2Skill skill, L2Character... targets)
+	public void useSkill(L2Character actChar, L2Skill skill, L2Character... targets)
 	{
 		SkillHandler.getInstance().getSkillHandler(L2SkillType.BUFF).useSkill(actChar, skill, targets);
 		

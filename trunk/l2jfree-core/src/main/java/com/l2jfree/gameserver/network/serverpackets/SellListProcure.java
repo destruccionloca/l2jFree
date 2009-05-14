@@ -25,7 +25,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
-@SuppressWarnings("unused")
 public class SellListProcure extends L2GameServerPacket
 {
     private static final String _S__E9_SELLLISTPROCURE = "[S] E9 SellListProcure";

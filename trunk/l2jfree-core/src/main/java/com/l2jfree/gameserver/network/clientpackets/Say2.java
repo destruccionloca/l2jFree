@@ -121,8 +121,7 @@ public class Say2 extends L2GameClientPacket
 			_type = SystemChatChannelId.Chat_GM_Pet;
 
 		if (!Config.GM_ALLOW_CHAT_INVISIBLE && activeChar.getAppearance().isInvisible() &&
-				_type != SystemChatChannelId.Chat_GM_Pet &&
-				_type != SystemChatChannelId.Chat_Tell)
+				_type == SystemChatChannelId.Chat_Normal)
 		{
 			requestFailed(SystemMessageId.NOT_CHAT_WHILE_INVISIBLE);
 			return;
@@ -164,7 +163,6 @@ public class Say2 extends L2GameClientPacket
 				params = activeChar.getTarget().getName();
 
 			IVoicedCommandHandler vch = VoicedCommandHandler.getInstance().getVoicedCommandHandler(command);
-
 			if (vch != null)
 			{
 				vch.useVoicedCommand(command, activeChar, params);
@@ -172,6 +170,7 @@ public class Say2 extends L2GameClientPacket
 				return;
 			}
 		}
+
 		// Some custom implementation to show how to add channels
 		// (for me Chat_System is used for emotes - further informations
 		// in ChatSystem.java)
@@ -195,9 +194,9 @@ public class Say2 extends L2GameClientPacket
 		}
 
 		IChatHandler ich = ChatHandler.getInstance().getChatHandler(_type);
-
 		if (ich != null)
 			ich.useChatHandler(activeChar, _target, _type, _text);
+
 		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 

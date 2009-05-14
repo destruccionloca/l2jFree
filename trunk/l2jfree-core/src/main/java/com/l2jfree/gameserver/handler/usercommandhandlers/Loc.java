@@ -33,8 +33,7 @@ public class Loc implements IUserCommandHandler
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.handler.IUserCommandHandler#useUserCommand(int, com.l2jfree.gameserver.model.L2PcInstance)
 	 */
-	public boolean useUserCommand(@SuppressWarnings("unused")
-	int id, L2PcInstance activeChar)
+	public boolean useUserCommand(int id, L2PcInstance activeChar)
 	{
 		L2MapRegionRestart restart = null;
 		SystemMessageId msg = SystemMessageId.LOC_ADEN_S1_S2_S3;

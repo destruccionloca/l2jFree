@@ -1016,7 +1016,8 @@ public final class Olympiad
 		{
 			try
 			{
-				fos.close();
+				if (fos != null)
+					fos.close();
 			}
 			catch (Exception e)
 			{
@@ -1406,7 +1407,8 @@ public final class Olympiad
 		{
 			try
 			{
-				save.close();
+				if (save != null)
+					save.close();
 			}
 			catch (Exception e)
 			{

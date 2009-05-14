@@ -156,7 +156,8 @@ public class L2SignsPriestInstance extends L2NpcInstance
                             break;
                         }
                     }
-                case 3: // Join Cabal Intro 1
+                break;
+				case 3: // Join Cabal Intro 1
                 case 8: // Festival of Darkness Intro - SevenSigns x [0]1
                 case 10: // Teleport Locations List
                     showChatWindow(player, val, SevenSigns.getCabalShortName(cabal), false);

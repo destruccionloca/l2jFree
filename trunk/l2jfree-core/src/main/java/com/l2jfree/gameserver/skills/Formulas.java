@@ -1968,7 +1968,7 @@ public final class Formulas
 	}
 
 	/** Calculate delay (in milliseconds) before next ATTACK */
-	public static final int calcPAtkSpd(@SuppressWarnings("unused") L2Character attacker, @SuppressWarnings("unused") L2Character target, double atkSpd, double base)
+	public static final int calcPAtkSpd(L2Character attacker, L2Character target, double atkSpd, double base)
 	{
 		if (attacker instanceof L2PcInstance)
 			base *= Config.ALT_ATTACK_DELAY;

@@ -21,22 +21,23 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.GmListTable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.Disconnection;
+import com.l2jfree.gameserver.network.SystemMessageId;
 
 /**
  * @author luisantonioa
  */
 public final class IllegalPlayerAction implements Runnable
 {
-	private static Log		_logAudit			= LogFactory.getLog("audit");
+	private static final Log	_logAudit			= LogFactory.getLog("audit");
 
-	protected String		_message;
-	protected int			_punishment;
-	protected L2PcInstance	_actor;
+	protected String			_message;
+	protected int				_punishment;
+	protected L2PcInstance		_actor;
 
-	public static final int	PUNISH_BROADCAST	= 1;
-	public static final int	PUNISH_KICK			= 2;
-	public static final int	PUNISH_KICKBAN		= 3;
-	public static final int	PUNISH_JAIL			= 4;
+	public static final int		PUNISH_BROADCAST	= 1;
+	public static final int		PUNISH_KICK			= 2;
+	public static final int		PUNISH_KICKBAN		= 3;
+	public static final int		PUNISH_JAIL			= 4;
 
 	public IllegalPlayerAction(L2PcInstance actor, String message, int punishment)
 	{
@@ -47,18 +48,18 @@ public final class IllegalPlayerAction implements Runnable
 		switch (punishment)
 		{
 		case PUNISH_KICK:
-			_actor.sendMessage("You will be kicked for illegal action, GM informed.");
+			_actor.sendPacket(SystemMessageId.YOU_HAVE_BEEN_DISCONNECTED);
 			break;
 		case PUNISH_KICKBAN:
-			_actor.sendMessage("You are banned for illegal action, GM informed.");
+			_actor.sendPacket(SystemMessageId.ACCOUNT_SUSPENDED);
 			break;
 		case PUNISH_JAIL:
-			_actor.sendMessage("Illegal action performed!");
-			_actor.sendMessage("You will be teleported to GM Consultation Service area and jailed.");
+			_actor.sendPacket(SystemMessageId.FROZEN_CONDITION_STARTED);
 			break;
 		}
 	}
 
+	@SuppressWarnings("fallthrough")
 	public void run()
 	{
 		_logAudit.info("AUDIT:" + _message + "," + _actor + " " + _punishment);

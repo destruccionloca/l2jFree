@@ -712,7 +712,8 @@ public class GeoEngine extends GeoData
 	    {
 	    	try
 	    	{
-	    		roChannel.close();
+	    		if (roChannel != null)
+	    			roChannel.close();
 	    	}
 	    	catch (Exception e)
 	    	{

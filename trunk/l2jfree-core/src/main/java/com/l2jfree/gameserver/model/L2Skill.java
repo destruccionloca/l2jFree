@@ -634,6 +634,7 @@ public class L2Skill implements FuncOwner
 		}
 	}
 	
+	@SuppressWarnings("fallthrough")
 	private OffensiveState getOffensiveState(StatsSet set)
 	{
 		final OffensiveState defaultState = getDefaultOffensiveState();
