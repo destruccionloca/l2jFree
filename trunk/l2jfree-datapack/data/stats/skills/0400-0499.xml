@@ -1290,7 +1290,7 @@
     <set name="reuseDelay" val="600000"/>
     <set name="hitTime" val="3000"/>
     <set name="skillType" val="CHARGE_NEGATE"/>
-    <set name="negateStats" val="ROOT PARALYZE SLOW"/>
+    <set name="negateStats" val="ROOT SLOW"/> <!-- Paralyzed player can't cast, so it's non-sense to have it in negateStats. -->
     <set name="negatePower" val="#power"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>

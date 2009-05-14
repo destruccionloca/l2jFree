@@ -21,7 +21,6 @@ import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.instancemanager.grandbosses.FrintezzaManager;
 import com.l2jfree.gameserver.model.L2Object;
-import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
@@ -38,7 +37,6 @@ import com.l2jfree.gameserver.network.serverpackets.SocialAction;
 import com.l2jfree.gameserver.network.serverpackets.StopMove;
 import com.l2jfree.gameserver.network.serverpackets.SunRise;
 import com.l2jfree.gameserver.network.serverpackets.SunSet;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 
 /**
@@ -303,17 +301,8 @@ public class AdminEffects implements IAdminCommandHandler
 			try
 			{
 				int val = Integer.parseInt(st.nextToken());
-				boolean sendMessage = activeChar.getFirstEffect(7029) != null;
 				activeChar.stopSkillEffects(7029);
-				if (val == 0 && sendMessage)
-				{
-					activeChar.sendPacket(new SystemMessage(SystemMessageId.EFFECT_S1_DISAPPEARED).addSkillName(7029));
-				}
-				else if ((val >= 1) && (val <= 4))
-				{
-					L2Skill gmSpeedSkill = SkillTable.getInstance().getInfo(7029, val);
-					activeChar.doSimultaneousCast(gmSpeedSkill);
-				}
+				activeChar.doSimultaneousCast(SkillTable.getInstance().getInfo(7029, val));
 			}
 			catch (Exception e)
 			{

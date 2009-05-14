@@ -25,6 +25,7 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Playable;
+import com.l2jfree.gameserver.model.actor.effects.CharEffects;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
@@ -175,7 +176,7 @@ public abstract class L2Effect implements FuncOwner, Runnable
 	
 	public final int getTime()
 	{
-		return (int)(_period - _currentFuture.getDelay(TimeUnit.SECONDS));
+		return (int)((_period * 1000 - _currentFuture.getDelay(TimeUnit.MILLISECONDS)) / 1000);
 	}
 	
 	/**
@@ -183,17 +184,17 @@ public abstract class L2Effect implements FuncOwner, Runnable
 	 * 
 	 * @return Time in seconds.
 	 */
-	public final int getElapsedTaskTime()
+	public final long getElapsedTaskTime()
 	{
-		return (getTotalCount() - _count) * _period + getTime();
+		return ((long)getTotalCount() - _count) * _period + getTime();
 	}
 	
-	public final int getTotalTaskTime()
+	public final long getTotalTaskTime()
 	{
-		return getTotalCount() * _period;
+		return (long)getTotalCount() * _period;
 	}
 	
-	public final int getRemainingTaskTime()
+	public final long getRemainingTaskTime()
 	{
 		return getTotalTaskTime() - getElapsedTaskTime();
 	}
@@ -344,16 +345,17 @@ public abstract class L2Effect implements FuncOwner, Runnable
 			{
 				if (isActing())
 				{
-					if (_count == 0 && _effected instanceof L2PcInstance)
+					if (shouldSendExitMessage())
 					{
-						// TODO: move to the proper places
-						//if (effect.getSkill().isToggle())
-						//	sm = new SystemMessage(SystemMessageId.S1_HAS_BEEN_ABORTED);
-						//else
-						//	sm = new SystemMessage(SystemMessageId.EFFECT_S1_DISAPPEARED);
-						
-						SystemMessage sm = new SystemMessage(SystemMessageId.S1_HAS_WORN_OFF);
+						SystemMessage sm;
+						if (getCount() == 0)
+							sm = new SystemMessage(SystemMessageId.S1_HAS_WORN_OFF);
+						else if (getSkill().isToggle())
+							sm = new SystemMessage(SystemMessageId.S1_HAS_BEEN_ABORTED);
+						else
+							sm = new SystemMessage(SystemMessageId.EFFECT_S1_DISAPPEARED);
 						sm.addSkillName(this);
+						
 						_effected.sendPacket(sm);
 					}
 					
@@ -363,6 +365,22 @@ public abstract class L2Effect implements FuncOwner, Runnable
 				}
 			}
 		}
+	}
+	
+	private boolean shouldSendExitMessage()
+	{
+		if (!(_effected instanceof L2PcInstance))
+			return false;
+		
+		final L2Effect e = _effected.getFirstEffect(getId());
+		
+		if (e == null)
+			return true;
+		
+		if (getStackOrder() > e.getStackOrder())
+			return true;
+		
+		return false;
 	}
 	
 	protected int getTypeBasedAbnormalEffect()
@@ -459,9 +477,12 @@ public abstract class L2Effect implements FuncOwner, Runnable
 		if (future == null)
 			return;
 		
-		int time = getRemainingTaskTime();
+		long time = getRemainingTaskTime();
 		
-		list.addEffect(_skill.getDisplayId(), _skill.getLevel(), (time < 0 ? -1 : time));
+		if (time <= 0 || 86400 <= time)
+			time = -1;
+		
+		list.addEffect(_skill.getDisplayId(), _skill.getLevel(), (int)time);
 	}
 	
 	public final int getId()

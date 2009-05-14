@@ -20,6 +20,7 @@ import java.util.StringTokenizer;
 
 import javolution.util.FastList;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -402,16 +403,10 @@ public class L2Skill implements FuncOwner
 		_abnormalLvl = set.getInteger("abnormalLvl", -1);
 		_effectAbnormalLvl = set.getInteger("effectAbnormalLvl", -1); // support for a separate effect abnormal lvl, e.g. poison inside a different skill
 		_negateLvl = set.getInteger("negateLvl", -1);
-		String[] negateStats = set.getString("negateStats", "").split(" ");
-		if (negateStats.length > 0)
-		{
-			FastList<String> stats = new FastList<String>();
-			for (String stat : negateStats)
-				stats.add(stat.toLowerCase().intern());
-			_negateStats = stats.toArray(new String[stats.size()]);
-		}
-		else
-			_negateStats = negateStats;
+		_negateStats = StringUtils.split(set.getString("negateStats", ""), " ");
+		for (int i = 0; i < _negateStats.length; i++)
+			_negateStats[i] = _negateStats[i].toLowerCase().intern();
+		
 		_negateId = set.getInteger("negateId", 0);
 		_maxNegatedEffects = set.getInteger("maxNegated", 0);
 

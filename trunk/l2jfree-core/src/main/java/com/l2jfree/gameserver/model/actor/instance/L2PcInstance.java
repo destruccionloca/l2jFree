@@ -2319,6 +2319,12 @@ public final class L2PcInstance extends L2Playable
 
 			giveAvailableSkills();
 		}
+		
+		if (isGM() && !hasSkill(7029))
+		{
+			addSkill(SkillTable.getInstance().getInfo(7029, 4));
+		}
+		
 		sendSkillList();
 	}
 
