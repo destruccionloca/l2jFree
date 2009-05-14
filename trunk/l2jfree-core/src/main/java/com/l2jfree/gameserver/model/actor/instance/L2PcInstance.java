@@ -949,43 +949,40 @@ public final class L2PcInstance extends L2Playable
 		if (isClanLeader())
 			result |= RelationChanged.RELATION_LEADER;
 
-		if (getParty() != null && getParty() == target.getParty())
+		L2Party party = getParty();
+		if (party != null && party == target.getParty())
 		{
 			result |= RelationChanged.RELATION_HAS_PARTY;
-			for (int i = 0; i < getParty().getPartyMembers().size(); i++)
+			
+			switch (party.getPartyMembers().indexOf(this))
 			{
-				if (getParty().getPartyMembers().get(i) != this)
-					continue;
-				switch (i)
-				{
-					case 0:
-						result |= RelationChanged.RELATION_PARTYLEADER; // 0x10
-						break;
-					case 1:
-						result |= RelationChanged.RELATION_PARTY4; // 0x8
-						break;
-					case 2:
-						result |= RelationChanged.RELATION_PARTY3+RelationChanged.RELATION_PARTY2+RelationChanged.RELATION_PARTY1; // 0x7
-						break;
-					case 3:
-						result |= RelationChanged.RELATION_PARTY3+RelationChanged.RELATION_PARTY2; // 0x6
-						break;
-					case 4:
-						result |= RelationChanged.RELATION_PARTY3+RelationChanged.RELATION_PARTY1; // 0x5
-						break;
-					case 5:
-						result |= RelationChanged.RELATION_PARTY3; // 0x4
-						break;
-					case 6:
-						result |= RelationChanged.RELATION_PARTY2+RelationChanged.RELATION_PARTY1; // 0x3
-						break;
-					case 7:
-						result |= RelationChanged.RELATION_PARTY2; // 0x2
-						break;
-					case 8:
-						result |= RelationChanged.RELATION_PARTY1; // 0x1
-						break;
-				}
+				case 0:
+					result |= RelationChanged.RELATION_PARTYLEADER; // 0x10
+					break;
+				case 1:
+					result |= RelationChanged.RELATION_PARTY4; // 0x8
+					break;
+				case 2:
+					result |= RelationChanged.RELATION_PARTY3+RelationChanged.RELATION_PARTY2+RelationChanged.RELATION_PARTY1; // 0x7
+					break;
+				case 3:
+					result |= RelationChanged.RELATION_PARTY3+RelationChanged.RELATION_PARTY2; // 0x6
+					break;
+				case 4:
+					result |= RelationChanged.RELATION_PARTY3+RelationChanged.RELATION_PARTY1; // 0x5
+					break;
+				case 5:
+					result |= RelationChanged.RELATION_PARTY3; // 0x4
+					break;
+				case 6:
+					result |= RelationChanged.RELATION_PARTY2+RelationChanged.RELATION_PARTY1; // 0x3
+					break;
+				case 7:
+					result |= RelationChanged.RELATION_PARTY2; // 0x2
+					break;
+				case 8:
+					result |= RelationChanged.RELATION_PARTY1; // 0x1
+					break;
 			}
 		}
 

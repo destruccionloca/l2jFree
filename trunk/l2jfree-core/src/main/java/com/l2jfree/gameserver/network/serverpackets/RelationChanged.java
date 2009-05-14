@@ -46,11 +46,6 @@ public final class RelationChanged extends L2GameServerPacket
 		
 		int currentRelation = target.getRelation(attacker);
 		
-		Integer oldRelation = attacker.getKnownList().getKnownRelations().put(target.getObjectId(), currentRelation);
-		
-		if (oldRelation != null && oldRelation == currentRelation)
-			return;
-		
 		attacker.sendPacket(new RelationChanged(target, currentRelation, attacker));
 		if (target.getPet() != null)
 			attacker.sendPacket(new RelationChanged(target.getPet(), currentRelation, attacker));
@@ -62,7 +57,7 @@ public final class RelationChanged extends L2GameServerPacket
 	private final int _karma;
 	private final int _pvpFlag;
 	
-	public RelationChanged(L2Playable target, int relation, L2PcInstance attacker)
+	private RelationChanged(L2Playable target, int relation, L2PcInstance attacker)
 	{
 		_objId = target.getObjectId();
 		_relation = relation;
