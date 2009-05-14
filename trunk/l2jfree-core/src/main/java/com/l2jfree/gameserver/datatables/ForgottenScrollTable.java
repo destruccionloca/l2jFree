@@ -57,14 +57,14 @@ public final class ForgottenScrollTable
 		private final int _itemId;
 		private final int _skillId;
 		private final int _minLevel;
-		private final int[] _classIds;
+		private final int _classId;
 		
-		public ForgottenScrollData(int itemId, int skillId, int minLevel, int[] classIds)
+		public ForgottenScrollData(int itemId, int skillId, int minLevel, int classId)
 		{
 			_itemId = itemId;
 			_skillId = skillId;
 			_minLevel = minLevel;
-			_classIds = classIds;
+			_classId = classId;
 		}
 		
 		public int getItemId()
@@ -82,13 +82,13 @@ public final class ForgottenScrollTable
 			return _minLevel;
 		}
 		
-		public int[] getClassIds()
+		public int getClassId()
 		{
-			return _classIds;
+			return _classId;
 		}
 	}
 	
-	private final Map<Integer, ForgottenScrollData> _scrolls = new HashMap<Integer, ForgottenScrollData>();
+	private final Map<Integer, Map<Integer, ForgottenScrollData>> _scrolls = new HashMap<Integer, Map<Integer, ForgottenScrollData>>();
 	private final Map<Integer, Set<Integer>> _allowedSkills = new HashMap<Integer, Set<Integer>>();
 	
 	private ForgottenScrollTable()
@@ -126,12 +126,19 @@ public final class ForgottenScrollTable
 						Node att = attrs.getNamedItem("minlevel");
 						int minLevel = (att == null) ? 81 : Integer.parseInt(att.getNodeValue());
 						
-						ForgottenScrollData sd = new ForgottenScrollData(itemid, skillid, minLevel, classIds);
-						
-						_scrolls.put(sd.getItemId(), sd);
-						
-						for (int classId : sd.getClassIds())
-							getAllowedSkillIds(classId).add(sd.getSkillId());
+						for (int classId : classIds)
+						{
+							ForgottenScrollData sd = new ForgottenScrollData(itemid, skillid, minLevel, classId);
+							
+							Map<Integer, ForgottenScrollData> map = _scrolls.get(itemid);
+							
+							if (map == null)
+								_scrolls.put(itemid, map = new HashMap<Integer, ForgottenScrollData>());
+							
+							map.put(classId, sd);
+							
+							getAllowedSkillIds(classId).add(skillid);
+						}
 					}
 				}
 			}
@@ -140,9 +147,9 @@ public final class ForgottenScrollTable
 		_log.info("ForgottenScrollsManager: Loaded " + _scrolls.size() + " forgotten scrolls.");
 	}
 	
-	public ForgottenScrollData getForgottenScrollByItemId(int itemId)
+	public ForgottenScrollData getForgottenScroll(int itemId, int classId)
 	{
-		return _scrolls.get(itemId);
+		return _scrolls.get(itemId).get(classId);
 	}
 	
 	public int[] getItemIds()

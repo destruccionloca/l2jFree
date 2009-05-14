@@ -14,8 +14,6 @@
  */
 package com.l2jfree.gameserver.handler.itemhandlers;
 
-import org.apache.commons.lang.ArrayUtils;
-
 import com.l2jfree.gameserver.datatables.ForgottenScrollTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.ForgottenScrollTable.ForgottenScrollData;
@@ -52,7 +50,15 @@ public final class ForgottenScroll implements IItemHandler
 			return;
 		}
 		
-		ForgottenScrollData sd = ForgottenScrollTable.getInstance().getForgottenScrollByItemId(item.getItemId());
+		ForgottenScrollData sd = ForgottenScrollTable.getInstance().getForgottenScroll(item.getItemId(), activeChar.getActiveClass());
+		
+		if (sd == null)
+		{
+			SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
+			sm.addItemName(item);
+			activeChar.sendPacket(sm);
+			return;
+		}
 		
 		if (activeChar.getLevel() < sd.getMinLevel())
 		{
@@ -65,14 +71,6 @@ public final class ForgottenScroll implements IItemHandler
 		if (sk != null)
 		{
 			activeChar.sendMessage("That skill is already learned."); // Retail MSG?
-			return;
-		}
-		
-		if (!ArrayUtils.contains(sd.getClassIds(), activeChar.getActiveClass()))
-		{
-			SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
-			sm.addItemName(item);
-			activeChar.sendPacket(sm);
 			return;
 		}
 		
