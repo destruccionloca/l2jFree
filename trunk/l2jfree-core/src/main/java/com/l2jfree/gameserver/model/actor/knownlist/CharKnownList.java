@@ -68,12 +68,12 @@ public class CharKnownList extends ObjectKnownList
 	
 	public final boolean knowsObject(L2Object object)
 	{
-		return getActiveChar() == object || _knownObjects != null && _knownObjects.containsKey(object.getObjectId());
+		return object != null && (getActiveChar() == object || _knownObjects != null && _knownObjects.containsKey(object.getObjectId()));
 	}
 	
 	public final boolean knowsThePlayer(L2PcInstance player)
 	{
-		return getActiveChar() == player || _knownPlayers != null && _knownPlayers.containsKey(player.getObjectId());
+		return player != null && (getActiveChar() == player || _knownPlayers != null && _knownPlayers.containsKey(player.getObjectId()));
 	}
 	
 	public final L2Object getKnownObject(int objectId)
