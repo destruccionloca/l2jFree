@@ -129,11 +129,17 @@ public final class ItemHandler extends NumberHandlerRegistry<IItemHandler>
 	
 	public boolean useItem(int itemId, L2Playable playable, L2ItemInstance item)
 	{
+		return useItem(itemId, playable, item, true);
+	}
+	
+	public boolean useItem(int itemId, L2Playable playable, L2ItemInstance item, boolean warn)
+	{
 		final IItemHandler handler = get(itemId);
 		
 		if (handler == null)
 		{
-			_log.warn("No item handler registered for item ID " + itemId + ".");
+			if (warn)
+				_log.warn("No item handler registered for item ID " + itemId + ".");
 			return false;
 		}
 		

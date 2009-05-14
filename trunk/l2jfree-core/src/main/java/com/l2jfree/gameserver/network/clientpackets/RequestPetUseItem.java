@@ -158,7 +158,7 @@ public class RequestPetUseItem extends L2GameClientPacket
 		}
 		else
 		{
-			if (ItemHandler.getInstance().useItem(item.getItemId(), pet, item))
+			if (ItemHandler.getInstance().useItem(item.getItemId(), pet, item, false))
 			{
 				pet.broadcastFullInfo();
 			}
