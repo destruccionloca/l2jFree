@@ -54,7 +54,6 @@ import com.l2jfree.gameserver.handler.itemhandlers.SpiritLake;
 import com.l2jfree.gameserver.handler.itemhandlers.SpiritShot;
 import com.l2jfree.gameserver.handler.itemhandlers.SummonItems;
 import com.l2jfree.gameserver.handler.itemhandlers.TransformationItems;
-import com.l2jfree.gameserver.handler.itemhandlers.WorldMap;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
@@ -114,7 +113,6 @@ public final class ItemHandler extends NumberHandlerRegistry<IItemHandler>
 		registerItemHandler(new SpiritShot());
 		registerItemHandler(new SummonItems());
 		registerItemHandler(new TransformationItems());
-		registerItemHandler(new WorldMap());
 		
 		_log.info("ItemHandler: Loaded " + size() + " handlers.");
 	}
