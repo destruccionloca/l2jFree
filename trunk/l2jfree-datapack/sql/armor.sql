@@ -3,27 +3,27 @@
 -- ----------------------------------
 DROP TABLE IF EXISTS `armor`;
 CREATE TABLE IF NOT EXISTS `armor` (
-  `item_id` int(11) NOT NULL DEFAULT '0',
-  `name` varchar(100) NOT NULL DEFAULT '',
-  `bodypart` varchar(15) NOT NULL DEFAULT 'none',
-  `crystallizable` varchar(5) NOT NULL DEFAULT 'false',
-  `armor_type` varchar(5) NOT NULL DEFAULT 'none',
-  `weight` int(5) NOT NULL DEFAULT '0',
-  `material` varchar(15) NOT NULL DEFAULT 'wood',
-  `crystal_type` varchar(4) NOT NULL DEFAULT 'none',
-  `avoid_modify` int(1) NOT NULL DEFAULT '0',
-  `duration` int(3) NOT NULL DEFAULT '-1',          -- duration for shadow items
-  `time` int(4) NOT NULL DEFAULT '-1',              -- duration for time limited items
-  `p_def` int(3) NOT NULL DEFAULT '0',
-  `m_def` int(2) NOT NULL DEFAULT '0',
-  `mp_bonus` int(3) NOT NULL DEFAULT '0',
-  `price` int(11) NOT NULL DEFAULT '0',
-  `crystal_count` int(4) NOT NULL DEFAULT '0',
-  `sellable` varchar(5) NOT NULL DEFAULT 'false',
-  `dropable` varchar(5) NOT NULL DEFAULT 'false',
-  `destroyable` varchar(5) NOT NULL DEFAULT 'true',
-  `tradeable` varchar(5) NOT NULL DEFAULT 'false',
-  `skills_item` varchar(70) NOT NULL DEFAULT '',
+  `item_id` MEDIUMINT UNSIGNED NOT NULL DEFAULT 0,
+  `name` VARCHAR(100) NOT NULL DEFAULT "",
+  `bodypart` VARCHAR(15) NOT NULL DEFAULT "none",
+  `crystallizable` VARCHAR(5) NOT NULL DEFAULT "false",
+  `armor_type` VARCHAR(5) NOT NULL DEFAULT "none",
+  `weight` MEDIUMINT(5) NOT NULL DEFAULT 0,
+  `material` VARCHAR(15) NOT NULL DEFAULT "wood",
+  `crystal_type` VARCHAR(4) NOT NULL DEFAULT "none",
+  `avoid_modify` TINYINT(1) NOT NULL DEFAULT 0,
+  `duration` SMALLINT(3) NOT NULL DEFAULT -1,          -- duration for shadow items
+  `time` SMALLINT(4) NOT NULL DEFAULT -1,              -- duration for time limited items
+  `p_def` SMALLINT(3) NOT NULL DEFAULT 0,
+  `m_def` TINYINT(2) NOT NULL DEFAULT 0,
+  `mp_bonus` SMALLINT(3) NOT NULL DEFAULT 0,
+  `price` INT UNSIGNED NOT NULL DEFAULT 0,
+  `crystal_count` SMALLINT(4) UNSIGNED NOT NULL DEFAULT 0,
+  `sellable` VARCHAR(5) NOT NULL DEFAULT "false",
+  `dropable` VARCHAR(5) NOT NULL DEFAULT "false",
+  `destroyable` VARCHAR(5) NOT NULL DEFAULT "true",
+  `tradeable` VARCHAR(5) NOT NULL DEFAULT "false",
+  `skills_item` VARCHAR(70) NOT NULL DEFAULT "",
   PRIMARY KEY (`item_id`)
 ) DEFAULT CHARSET=utf8;
 
@@ -821,14 +821,14 @@ INSERT INTO `armor` VALUES
 (6724,'Sealed Tateossian Earring','rear,lear','true','none',150,'silver','s',0,-1,-1,0,68,0,3700000,157,'true','true','true','true',''),
 (6725,'Sealed Tateossian Ring','rfinger,lfinger','true','none',150,'gold','s',0,-1,-1,0,46,0,2470000,105,'true','true','true','true',''),
 (6726,'Sealed Tateossian Necklace','neck','true','none',150,'silver','s',0,-1,-1,0,91,0,4940000,209,'true','true','true','true',''),
-(6834,'Circlet of Innadril','face','false','none',10,'wood','none',0,-1,-1,0,0,0,500000,0,'false','false','false','false','3633-1'),
-(6835,'Circlet of Dion','face','false','none',10,'wood','none',0,-1,-1,0,0,0,500000,0,'false','false','false','false','3633-1'),
-(6836,'Circlet of Goddard','face','false','none',10,'wood','none',0,-1,-1,0,0,0,500000,0,'false','false','false','false','3633-2'),
-(6837,'Circlet of Oren','face','false','none',10,'wood','none',0,-1,-1,0,0,0,500000,0,'false','false','false','false','3633-1'),
-(6838,'Circlet of Gludio','face','false','none',10,'wood','none',0,-1,-1,0,0,0,500000,0,'false','false','false','false','3633-1'),
-(6839,'Circlet of Giran','face','false','none',10,'wood','none',0,-1,-1,0,0,0,500000,0,'false','false','false','false','3633-1'),
-(6840,'Circlet of Aden','face','false','none',10,'wood','none',0,-1,-1,0,0,0,500000,0,'false','false','false','false','3633-2'),
-(6841,'The Lord\'s Crown','face','false','none',10,'wood','none',0,-1,-1,0,0,0,0,0,'false','false','false','false','3633-1'),
+(6834,'Circlet of Innadril','face','false','none',10,'wood','none',0,-1,-1,0,0,0,500000,0,'true','false','true','false','3633-1'),
+(6835,'Circlet of Dion','face','false','none',10,'wood','none',0,-1,-1,0,0,0,500000,0,'true','false','true','false','3633-1'),
+(6836,'Circlet of Goddard','face','false','none',10,'wood','none',0,-1,-1,0,0,0,500000,0,'true','false','true','false','3633-2'),
+(6837,'Circlet of Oren','face','false','none',10,'wood','none',0,-1,-1,0,0,0,500000,0,'true','false','true','false','3633-1'),
+(6838,'Circlet of Gludio','face','false','none',10,'wood','none',0,-1,-1,0,0,0,500000,0,'true','false','true','false','3633-1'),
+(6839,'Circlet of Giran','face','false','none',10,'wood','none',0,-1,-1,0,0,0,500000,0,'true','false','true','false','3633-1'),
+(6840,'Circlet of Aden','face','false','none',10,'wood','none',0,-1,-1,0,0,0,500000,0,'true','false','true','false','3633-2'),
+(6841,'The Lord\'s Crown','face','false','none',10,'wood','none',0,-1,-1,0,0,0,0,0,'false','false','false','false','3632-1;3633-2'),
 (6842,'Wings of Destiny Circlet','face','false','none',10,'wood','none',0,-1,-1,0,0,0,0,0,'false','false','true','false',''),
 (6843,'Cat Ear','hair','false','none',10,'wood','none',0,-1,-1,0,0,0,500000,0,'true','true','true','true',''),
 (6844,'Lady\'s Hair Pin','hair','false','none',10,'wood','none',0,-1,-1,0,0,0,500000,0,'true','true','true','true',''),
@@ -891,8 +891,8 @@ INSERT INTO `armor` VALUES
 (8179,'Raid Master\'s Circlet','face','false','none',10,'wood','none',0,-1,-1,0,0,0,0,0,'true','true','true','true',''),
 (8180,'Circlet of Ice Fairy Sirra','face','false','none',10,'wood','none',0,-1,-1,0,0,0,0,0,'true','true','true','true',''),
 (8181,'Academy Circlet','face','false','none',10,'wood','none',0,-1,-1,0,0,0,0,0,'false','false','false','false',''),
-(8182,'Circlet of Rune','face','false','none',10,'wood','none',0,-1,-1,0,0,0,500000,0,'false','false','false','false','3633-2'),
-(8183,'Circlet of Schuttgart','face','false','none',10,'wood','none',0,-1,-1,0,0,0,500000,0,'false','false','false','false','3633-2'),
+(8182,'Circlet of Rune','face','false','none',10,'wood','none',0,-1,-1,0,0,0,500000,0,'true','false','true','false','3633-2'),
+(8183,'Circlet of Schuttgart','face','false','none',10,'wood','none',0,-1,-1,0,0,0,500000,0,'true','false','true','false','3633-2'),
 (8184,'Party Hat','dhair','false','none',10,'wood','none',0,-1,-1,0,0,0,0,0,'true','true','true','true',''),
 (8185,'Feathered Hat','dhair','false','none',10,'wood','none',0,-1,-1,0,0,0,0,0,'true','true','true','true',''),
 (8186,'Artisan\'s Goggles','dhair','false','none',10,'wood','none',0,-1,-1,0,0,0,0,0,'true','true','true','true',''),
@@ -1210,7 +1210,7 @@ INSERT INTO `armor` VALUES
 (9896,'Iron Circlet - Firework','hairall','false','none',10,'wood','none',0,-1,-1,0,0,0,0,0,'true','true','true','true','3266-1'),
 (9899,'Weight Loss Ring','rfinger,lfinger','false','none',150,'wood','none',0,-1,-1,0,24,0,0,0,'true','true','true','true','3406-1'),
 (9900,'Quiet Footsteps Ring','rfinger,lfinger','false','none',150,'wood','none',0,400,-1,0,0,0,0,0,'true','true','true','true',''),
-(9909,'Agathion Seal Bracelet','lbracelet','false','none',150,'wood','none',0,700,-1,0,0,0,0,0,'true','true','true','true','3267-1'),
+(9909,'Agathion Seal Bracelet','lbracelet','false','none',150,'wood','none',0,700,-1,0,0,0,0,0,'true','true','true','true','3361-1;3267-1'),
 (9913,'Talisman_Test','talisman','false','none',150,'wood','none',0,60,-1,0,0,0,0,0,'true','true','true','true',''),
 (9914,'Blue Talisman of Power','talisman','false','none',150,'wood','none',0,65,-1,0,0,0,0,0,'true','true','true','true','3271-1'),
 (9915,'Blue Talisman of Wild Magic','talisman','false','none',150,'wood','none',0,75,-1,0,0,0,0,0,'true','true','true','true','3277-1'),
@@ -1265,7 +1265,7 @@ INSERT INTO `armor` VALUES
 (9964,'White Talisman of Bandages','talisman','false','none',150,'wood','none',0,60,-1,0,0,0,0,0,'true','true','true','true','3303-1'),
 (9965,'White Talisman of Protection','talisman','false','none',150,'wood','none',0,60,-1,0,0,0,0,0,'true','true','true','true','3309-1'),
 (9966,'White Talisman of Freedom','talisman','false','none',150,'wood','none',0,60,-1,0,0,0,0,0,'true','true','true','true','3308-1'),
-(10018,'Agathion Seal Bracelet - Fortress','lbracelet','false','none',150,'wood','none',0,-1,-1,0,0,0,0,0,'false','false','true','false','3361-1;5458-1;3267-1'),
+(10018,'Agathion Seal Bracelet - Fortress','lbracelet','false','none',150,'wood','none',0,-1,-1,0,0,0,0,0,'false','false','true','false','3361-1;3267-1;5458-1'),
 (10019,'Ring Mail Breastplate','chest','false','none',8820,'wood','d',0,-1,-1,77,0,0,0,0,'false','false','true','false',''),
 (10020,'Iron Plate Gaiters','legs','false','none',3820,'wood','d',0,-1,-1,48,0,0,0,0,'false','false','true','false',''),
 (10021,'Puma Skin Shirt','chest','false','none',4700,'wood','d',0,-1,-1,58,0,0,0,0,'false','false','true','false',''),
@@ -1277,7 +1277,7 @@ INSERT INTO `armor` VALUES
 (10124,'Ring of Devotion','rfinger,lfinger','false','none',150,'gold','d',0,-1,-1,0,16,0,0,0,'false','false','true','false',''),
 (10126,'Dynasty Leather Armor - Force Master','chest','true','light',4180,'wood','s80',0,-1,-1,170,0,0,0,1721,'true','true','true','true',''),
 (10127,'Dynasty Leather Armor - Weapon Master','chest','true','light',4180,'wood','s80',0,-1,-1,170,0,0,0,1721,'true','true','true','true',''),
-(10139,'Agathion Bracelet','lbracelet','false','none',150,'wood','none',0,700,-1,0,0,0,0,0,'false','false','true','false','3269-1;5414-1;3267-1'),
+(10139,'Agathion Bracelet','lbracelet','false','none',150,'wood','none',0,700,-1,0,0,0,0,0,'false','false','true','false','3269-1;3267-1;5414-1'),
 (10140,'Blessed Ring of Escape','rfinger,lfinger','false','none',150,'wood','none',0,250,-1,0,24,0,0,0,'true','true','true','true','3408-1'),
 (10141,'Grey Talisman - Yeti Transform','talisman','false','none',150,'wood','none',0,70,-1,0,0,0,0,0,'true','true','true','true','3335-1'),
 (10142,'Grey Talisman - Buffalo Transform','talisman','false','none',150,'wood','none',0,70,-1,0,0,0,0,0,'true','true','true','true','3336-1'),
@@ -2199,24 +2199,17 @@ INSERT INTO `armor` VALUES
 -- L2J-Free Add-ons
 --
 
--- Armor dual-skill fix example
-UPDATE `armor` SET `skills_item` = '3632-1;3633-2' WHERE `item_id` = 6841;
-
--- Skills Item update for Bracelets
-UPDATE `armor` SET `skills_item` = '3361-1;3267-1' WHERE `item_id` IN (9909,10018);
-UPDATE `armor` SET `skills_item` = '3269-1;3267-1' WHERE `item_id` = 10139;
-
 -- According to client and xml this line should be here (Needs confirmation on skills part)
 INSERT INTO `armor` (`item_id`, `name`, `bodypart`, `crystallizable`, `armor_type`, `weight`, `material`, `crystal_type`, `avoid_modify`, `duration`, `time`, `p_def`, `m_def`, `mp_bonus`, `price`, `crystal_count`, `sellable`, `dropable`, `destroyable`, `tradeable`, `skills_item`) VALUES
-(10607,'Agathion Seal Bracelet - Rudolph','lbracelet','false','none',150,'wood','none',0,-1,-1,0,0,0,0,0,'false','false','true','false','3425-1;3267-1');
+(10607, 'Agathion Seal Bracelet - Rudolph','lbracelet','false','none',150,'wood','none',0,-1,-1,0,0,0,0,0,'false','false','true','false','3425-1;3267-1');
 
 INSERT INTO `armor` VALUES
-(20063,'Agathion Seal Bracelet - Baby Panda','lbracelet','false','none',150,'wood','none',0,-1,-1,0,0,0,0,0,'false','false','true','false','21008-1;3267-1'),
-(20064,'Agathion Seal Bracelet - Bamboo Panda','lbracelet','false','none',150,'wood','none',0,-1,-1,0,0,0,0,0,'false','false','true','false','21009-1;3267-1'),
-(20065,'Agathion Seal Bracelet - Sexy Panda','lbracelet','false','none',150,'wood','none',0,-1,-1,0,0,0,0,0,'false','false','true','false','21010-1;3267-1'),
-(20066,'Agathion Seal Bracelet - Baby Panda','lbracelet','false','none',150,'wood','none',0,-1,-1,0,0,0,0,0,'false','false','true','false','21008-1;3267-1'),
-(20067,'Agathion Seal Bracelet - Bamboo Panda','lbracelet','false','none',150,'wood','none',0,-1,-1,0,0,0,0,0,'false','false','true','false','21009-1;3267-1'),
-(20068,'Agathion Seal Bracelet - Sexy Panda','lbracelet','false','none',150,'wood','none',0,-1,-1,0,0,0,0,0,'false','false','true','false','21010-1;3267-1'),
+(20063, 'Agathion Seal Bracelet - Baby Panda','lbracelet','false','none',150,'wood','none',0,-1,-1,0,0,0,0,0,'false','false','true','false','21008-1;3267-1'),
+(20064, 'Agathion Seal Bracelet - Bamboo Panda','lbracelet','false','none',150,'wood','none',0,-1,-1,0,0,0,0,0,'false','false','true','false','21009-1;3267-1'),
+(20065, 'Agathion Seal Bracelet - Sexy Panda','lbracelet','false','none',150,'wood','none',0,-1,-1,0,0,0,0,0,'false','false','true','false','21010-1;3267-1'),
+(20066, 'Agathion Seal Bracelet - Baby Panda','lbracelet','false','none',150,'wood','none',0,-1,-1,0,0,0,0,0,'false','false','true','false','21008-1;3267-1'),
+(20067, 'Agathion Seal Bracelet - Bamboo Panda','lbracelet','false','none',150,'wood','none',0,-1,-1,0,0,0,0,0,'false','false','true','false','21009-1;3267-1'),
+(20068, 'Agathion Seal Bracelet - Sexy Panda','lbracelet','false','none',150,'wood','none',0,-1,-1,0,0,0,0,0,'false','false','true','false','21010-1;3267-1'),
 (20224, 'Agathion Seal Bracelet - White Maneki Neko Resurrection', 'lbracelet', 'false', 'none', 150, 'wood', 'none', 0, -1, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '21033-1;3267-1'),
 (20225, 'Agathion Seal Bracelet - Black Maneki Neko Escape', 'lbracelet', 'false', 'none', 150, 'wood', 'none', 0, -1, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '21034-1;3267-1'),
 (20226, 'Agathion Seal Bracelet - Brown Maneki Neko Vitality', 'lbracelet', 'false', 'none', 150, 'wood', 'none', 0, -1, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '21035-1;3267-1'),
@@ -2229,7 +2222,3 @@ INSERT INTO `armor` VALUES
 (20250, 'Agathion Seal Bracelet - Green-Robed Tojigong Mana Regeneration', 'lbracelet', 'false', 'none', 150, 'wood', 'none', 0, -1, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '21040-1;3267-1'),
 (20275, 'Gold Afro', 'dhair', 'false', 'none', 10, 'wood', 'none', 0, -1, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', ''),
 (20276, 'Pink Afro', 'dhair', 'false', 'none', 10, 'wood', 'none', 0, -1, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '');
-
--- We have the retail cost, let's have the retail stats
-UPDATE `armor` SET `sellable` = 'true' WHERE `item_id` BETWEEN 6834 AND 6840;
-UPDATE `armor` SET `sellable` = 'true' WHERE `item_id` IN (8182, 8183);

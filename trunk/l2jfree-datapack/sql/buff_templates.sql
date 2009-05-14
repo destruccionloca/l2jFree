@@ -3,20 +3,20 @@
 -- ----------------------------------
 DROP TABLE IF EXISTS `buff_templates`;
 CREATE TABLE `buff_templates` (
-  `id` int(11) unsigned NOT NULL,
-  `name` varchar(35) NOT NULL DEFAULT '',
-  `skill_id` int(10) unsigned NOT NULL,
-  `skill_name` varchar(35) DEFAULT NULL,
-  `skill_level` int(10) unsigned NOT NULL DEFAULT '1',
-  `skill_force` int(1) NOT NULL DEFAULT '1',
-  `skill_order` int(10) unsigned NOT NULL,
-  `char_min_level` int(10) unsigned NOT NULL DEFAULT '0',
-  `char_max_level` int(10) unsigned NOT NULL DEFAULT '0',
-  `char_race` int(1) unsigned NOT NULL DEFAULT '0',
-  `char_class` int(1) NOT NULL DEFAULT '0',
-  `char_faction` int(10) unsigned NOT NULL DEFAULT '0',
-  `price_adena` int(10) unsigned NOT NULL DEFAULT '0',
-  `price_points` int(10) unsigned NOT NULL DEFAULT '0',
+  `id` INT UNSIGNED NOT NULL,
+  `name` VARCHAR(35) NOT NULL DEFAULT "",
+  `skill_id` SMALLINT UNSIGNED NOT NULL,
+  `skill_name` VARCHAR(35) DEFAULT NULL,
+  `skill_level` SMALLINT(3) UNSIGNED NOT NULL DEFAULT 1,
+  `skill_force` TINYINT(1) NOT NULL DEFAULT 1,
+  `skill_order` TINYINT UNSIGNED NOT NULL,
+  `char_min_level` TINYINT(2) UNSIGNED NOT NULL DEFAULT 1,
+  `char_max_level` TINYINT(2) UNSIGNED NOT NULL DEFAULT 85,
+  `char_race` TINYINT(2) UNSIGNED NOT NULL DEFAULT 0,
+  `char_class` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+  `char_faction` INT UNSIGNED NOT NULL DEFAULT 0,
+  `price_adena` INT UNSIGNED NOT NULL DEFAULT 0,
+  `price_points` INT UNSIGNED NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`,`name`,`skill_order`)
 ) DEFAULT CHARSET=utf8;
 

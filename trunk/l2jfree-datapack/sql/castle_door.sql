@@ -3,21 +3,21 @@
 -- ---------------------------------
 DROP TABLE IF EXISTS `castle_door`;
 CREATE TABLE `castle_door` (
-  `castleId` INT NOT NULL DEFAULT 0,
-  `id` INT NOT NULL DEFAULT 0,
-  `name` varchar(30) NOT NULL,
-  `x` INT NOT NULL DEFAULT 0,
-  `y` INT NOT NULL DEFAULT 0,
-  `z` INT NOT NULL DEFAULT 0,
+  `castleId` TINYINT(1) NOT NULL,
+  `id` INT NOT NULL,
+  `name` VARCHAR(30) NOT NULL,
+  `x` INT NOT NULL,
+  `y` INT NOT NULL,
+  `z` INT NOT NULL,
   `range_xmin` INT NOT NULL DEFAULT 0,
   `range_ymin` INT NOT NULL DEFAULT 0,
   `range_zmin` INT NOT NULL DEFAULT 0,
   `range_xmax` INT NOT NULL DEFAULT 0,
   `range_ymax` INT NOT NULL DEFAULT 0,
   `range_zmax` INT NOT NULL DEFAULT 0,
-  `hp` INT NOT NULL DEFAULT 0,
-  `pDef` INT NOT NULL DEFAULT 0,
-  `mDef` INT NOT NULL DEFAULT 0,
+  `hp` INT NOT NULL,
+  `pDef` INT NOT NULL,
+  `mDef` INT NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id` (`castleId`)
 ) DEFAULT CHARSET=utf8;

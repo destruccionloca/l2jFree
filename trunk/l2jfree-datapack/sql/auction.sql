@@ -2,18 +2,18 @@
 -- Table structure for table `auction`
 -- ---------------------------
 CREATE TABLE IF NOT EXISTS `auction` (
-  `id` int(11) NOT NULL DEFAULT '0',
-  `sellerId` int(11) NOT NULL DEFAULT '0',
-  `sellerName` varchar(50) NOT NULL DEFAULT 'NPC',
-  `sellerClanName` varchar(50) NOT NULL DEFAULT '',
-  `itemType` varchar(25) NOT NULL DEFAULT '',
-  `itemId` int(11) NOT NULL DEFAULT '0',
-  `itemObjectId` int(11) NOT NULL DEFAULT '0',
-  `itemName` varchar(40) NOT NULL DEFAULT '',
-  `itemQuantity` int(11) NOT NULL DEFAULT '0',
-  `startingBid` int(11) NOT NULL DEFAULT '0',
-  `currentBid` int(11) NOT NULL DEFAULT '0',
-  `endDate` decimal(20,0) NOT NULL DEFAULT '0',
+  `id` INT UNSIGNED NOT NULL DEFAULT 0,
+  `sellerId` INT UNSIGNED NOT NULL DEFAULT 0,
+  `sellerName` VARCHAR(35) NOT NULL DEFAULT "NPC",
+  `sellerClanName` VARCHAR(45) NOT NULL DEFAULT "",
+  `itemType` VARCHAR(25) NOT NULL DEFAULT "",
+  `itemId` SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+  `itemObjectId` INT UNSIGNED NOT NULL DEFAULT 0,
+  `itemName` VARCHAR(40) NOT NULL DEFAULT "",
+  `itemQuantity` INT UNSIGNED NOT NULL DEFAULT 0,
+  `startingBid` INT UNSIGNED NOT NULL DEFAULT 0,
+  `currentBid` INT UNSIGNED NOT NULL DEFAULT 0,
+  `endDate` BIGINT NOT NULL DEFAULT 0,
   PRIMARY KEY (`itemType`,`itemId`,`itemObjectId`),
   KEY `id` (`id`)
 ) DEFAULT CHARSET=utf8;
