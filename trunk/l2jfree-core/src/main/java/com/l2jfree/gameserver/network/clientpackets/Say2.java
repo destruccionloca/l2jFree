@@ -150,7 +150,7 @@ public class Say2 extends L2GameClientPacket
 			for (String pattern : Config.FILTER_LIST)
 				_text = _text.replaceAll("(?i)" + pattern, "-_-");
 
-		if (_text.startsWith(".") && !_text.startsWith("..") && _type == SystemChatChannelId.Chat_Normal)
+		if (_text.startsWith("."))
 		{
 			String[] _commandParams = _text.split(" ");
 

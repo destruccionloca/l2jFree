@@ -14,37 +14,28 @@
  */
 package com.l2jfree.gameserver.handler;
 
-import javolution.util.FastMap;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.handler.voicedcommandhandlers.*;
+import com.l2jfree.gameserver.handler.voicedcommandhandlers.Banking;
+import com.l2jfree.gameserver.handler.voicedcommandhandlers.CastleDoors;
+import com.l2jfree.gameserver.handler.voicedcommandhandlers.Hellbound;
+import com.l2jfree.gameserver.handler.voicedcommandhandlers.VersionInfo;
+import com.l2jfree.gameserver.handler.voicedcommandhandlers.Wedding;
+import com.l2jfree.util.HandlerRegistry;
 
-/**
- * This class ...
- *
- * @version $Revision: 1.1.4.5 $ $Date: 2005/03/27 15:30:09 $
- */
-public class VoicedCommandHandler
+public final class VoicedCommandHandler extends HandlerRegistry<String, IVoicedCommandHandler>
 {
-	private final static Log						_log	= LogFactory.getLog(ItemHandler.class.getName());
-
-	private static VoicedCommandHandler				_instance;
-
-	private FastMap<String, IVoicedCommandHandler>	_datatable;
-
+	private static VoicedCommandHandler _instance;
+	
 	public static VoicedCommandHandler getInstance()
 	{
 		if (_instance == null)
 			_instance = new VoicedCommandHandler();
+		
 		return _instance;
 	}
-
+	
 	private VoicedCommandHandler()
 	{
-		_datatable = new FastMap<String, IVoicedCommandHandler>();
 		if (Config.BANKING_SYSTEM_ENABLED)
 			registerVoicedCommandHandler(new Banking());
 		registerVoicedCommandHandler(new CastleDoors());
@@ -52,37 +43,20 @@ public class VoicedCommandHandler
 		registerVoicedCommandHandler(new VersionInfo());
 		if (Config.ALLOW_WEDDING)
 			registerVoicedCommandHandler(new Wedding());
-		_log.info("VoicedCommandHandler: Loaded " + _datatable.size() + " handlers.");
+		
+		_log.info("VoicedCommandHandler: Loaded " + size() + " handlers.");
 	}
-
-	public void registerVoicedCommandHandler(IVoicedCommandHandler handler)
+	
+	private void registerVoicedCommandHandler(IVoicedCommandHandler handler)
 	{
-		String[] ids = handler.getVoicedCommandList();
-		for (String element : ids)
-		{
-			if (_log.isDebugEnabled())
-				_log.debug("Adding handler for command " + element);
-			_datatable.put(element, handler);
-		}
+		registerAll(handler, handler.getVoicedCommandList());
 	}
-
+	
 	public IVoicedCommandHandler getVoicedCommandHandler(String voicedCommand)
 	{
-		String command = voicedCommand;
 		if (voicedCommand.indexOf(" ") != -1)
-		{
-			command = voicedCommand.substring(0, voicedCommand.indexOf(" "));
-		}
-		if (_log.isDebugEnabled())
-			_log.debug("getting handler for command: " + command + " -> " + (_datatable.get(command) != null));
-		return _datatable.get(command);
-	}
-
-	/**
-	 * @return
-	 */
-	public int size()
-	{
-		return _datatable.size();
+			voicedCommand = voicedCommand.substring(0, voicedCommand.indexOf(" "));
+		
+		return get(voicedCommand);
 	}
 }

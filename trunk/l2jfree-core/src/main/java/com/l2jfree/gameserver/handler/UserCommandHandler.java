@@ -14,38 +14,40 @@
  */
 package com.l2jfree.gameserver.handler;
 
-import javolution.util.FastMap;
+import com.l2jfree.gameserver.handler.usercommandhandlers.ChannelDelete;
+import com.l2jfree.gameserver.handler.usercommandhandlers.ChannelLeave;
+import com.l2jfree.gameserver.handler.usercommandhandlers.ChannelListUpdate;
+import com.l2jfree.gameserver.handler.usercommandhandlers.ClanPenalty;
+import com.l2jfree.gameserver.handler.usercommandhandlers.ClanWarsList;
+import com.l2jfree.gameserver.handler.usercommandhandlers.DisMount;
+import com.l2jfree.gameserver.handler.usercommandhandlers.Escape;
+import com.l2jfree.gameserver.handler.usercommandhandlers.FatigueTime;
+import com.l2jfree.gameserver.handler.usercommandhandlers.GraduateList;
+import com.l2jfree.gameserver.handler.usercommandhandlers.InstanceZone;
+import com.l2jfree.gameserver.handler.usercommandhandlers.Loc;
+import com.l2jfree.gameserver.handler.usercommandhandlers.Mount;
+import com.l2jfree.gameserver.handler.usercommandhandlers.OlympiadStat;
+import com.l2jfree.gameserver.handler.usercommandhandlers.PartyInfo;
+import com.l2jfree.gameserver.handler.usercommandhandlers.SiegeStatus;
+import com.l2jfree.gameserver.handler.usercommandhandlers.Time;
+import com.l2jfree.util.NumberHandlerRegistry;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import com.l2jfree.gameserver.handler.usercommandhandlers.*;
-
-/**
- * This class ...
- *
- * @version $Revision: 1.1.2.1.2.5 $ $Date: 2005/03/27 15:30:09 $
- */
-public class UserCommandHandler
+public final class UserCommandHandler extends NumberHandlerRegistry<IUserCommandHandler>
 {
-	private final static Log						_log	= LogFactory.getLog(UserCommandHandler.class.getName());
-
-	private static UserCommandHandler				_instance;
-
-	private FastMap<Integer, IUserCommandHandler>	_datatable;
-
+	private static UserCommandHandler _instance;
+	
 	public static UserCommandHandler getInstance()
 	{
 		if (_instance == null)
 			_instance = new UserCommandHandler();
+		
 		return _instance;
 	}
-
+	
 	private UserCommandHandler()
 	{
-		_datatable = new FastMap<Integer, IUserCommandHandler>();
-		registerUserCommandHandler(new ChannelLeave());
 		registerUserCommandHandler(new ChannelDelete());
+		registerUserCommandHandler(new ChannelLeave());
 		registerUserCommandHandler(new ChannelListUpdate());
 		registerUserCommandHandler(new ClanPenalty());
 		registerUserCommandHandler(new ClanWarsList());
@@ -60,33 +62,17 @@ public class UserCommandHandler
 		registerUserCommandHandler(new PartyInfo());
 		registerUserCommandHandler(new SiegeStatus());
 		registerUserCommandHandler(new Time());
-
-		_log.info("UserCommandHandler: Loaded " + _datatable.size() + " handlers.");
+		
+		_log.info("UserCommandHandler: Loaded " + size() + " handlers.");
 	}
-
-	public void registerUserCommandHandler(IUserCommandHandler handler)
+	
+	private void registerUserCommandHandler(IUserCommandHandler handler)
 	{
-		int[] ids = handler.getUserCommandList();
-		for (int element : ids)
-		{
-			if (_log.isDebugEnabled())
-				_log.debug("Adding handler for user command " + element);
-			_datatable.put(element, handler);
-		}
+		registerAll(handler, handler.getUserCommandList());
 	}
-
+	
 	public IUserCommandHandler getUserCommandHandler(int userCommand)
 	{
-		if (_log.isDebugEnabled())
-			_log.debug("getting handler for user command: " + userCommand);
-		return _datatable.get(Integer.valueOf(userCommand));
-	}
-
-	/**
-	 * @return
-	 */
-	public int size()
-	{
-		return _datatable.size();
+		return get(userCommand);
 	}
 }

@@ -14,72 +14,63 @@
  */
 package com.l2jfree.gameserver.handler;
 
-import java.util.Map;
-
-import javolution.util.FastMap;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import com.l2jfree.gameserver.handler.chathandlers.*;
+import com.l2jfree.gameserver.handler.chathandlers.ChatAll;
+import com.l2jfree.gameserver.handler.chathandlers.ChatAlliance;
+import com.l2jfree.gameserver.handler.chathandlers.ChatAnnounce;
+import com.l2jfree.gameserver.handler.chathandlers.ChatClan;
+import com.l2jfree.gameserver.handler.chathandlers.ChatCommander;
+import com.l2jfree.gameserver.handler.chathandlers.ChatHero;
+import com.l2jfree.gameserver.handler.chathandlers.ChatParty;
+import com.l2jfree.gameserver.handler.chathandlers.ChatPartyRoom;
+import com.l2jfree.gameserver.handler.chathandlers.ChatPetition;
+import com.l2jfree.gameserver.handler.chathandlers.ChatShout;
+import com.l2jfree.gameserver.handler.chathandlers.ChatSystem;
+import com.l2jfree.gameserver.handler.chathandlers.ChatTrade;
+import com.l2jfree.gameserver.handler.chathandlers.ChatWhisper;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
+import com.l2jfree.util.HandlerRegistry;
 
 /**
- *
- * @author  Noctarius
+ * @author Noctarius
  */
-public class ChatHandler
+public final class ChatHandler extends HandlerRegistry<SystemChatChannelId, IChatHandler>
 {
-	private final static Log						_log		= LogFactory.getLog(ChatHandler.class.getName());
-	private static ChatHandler						_instance	= null;
-
-	private Map<SystemChatChannelId, IChatHandler>	_datatable;
-
+	private static ChatHandler _instance;
+	
 	public static ChatHandler getInstance()
 	{
 		if (_instance == null)
 			_instance = new ChatHandler();
-
+		
 		return _instance;
 	}
-
-	public ChatHandler()
+	
+	private ChatHandler()
 	{
-		_datatable = new FastMap<SystemChatChannelId, IChatHandler>();
 		registerChatHandler(new ChatAll());
 		registerChatHandler(new ChatAlliance());
 		registerChatHandler(new ChatAnnounce());
 		registerChatHandler(new ChatClan());
 		registerChatHandler(new ChatCommander());
-		registerChatHandler(new ChatSystem());
 		registerChatHandler(new ChatHero());
 		registerChatHandler(new ChatParty());
 		registerChatHandler(new ChatPartyRoom());
 		registerChatHandler(new ChatPetition());
 		registerChatHandler(new ChatShout());
+		registerChatHandler(new ChatSystem());
 		registerChatHandler(new ChatTrade());
 		registerChatHandler(new ChatWhisper());
-		_log.info("ChatHandler: Loaded " + _datatable.size() + " handlers.");
+		
+		_log.info("ChatHandler: Loaded " + size() + " handlers.");
 	}
-
+	
 	public void registerChatHandler(IChatHandler handler)
 	{
-		SystemChatChannelId chatId[] = handler.getChatTypes();
-
-		for (SystemChatChannelId chat : chatId)
-		{
-			// Adding handler for each ChatChannelId
-			_datatable.put(chat, handler);
-		}
+		registerAll(handler, handler.getChatTypes());
 	}
-
+	
 	public IChatHandler getChatHandler(SystemChatChannelId chatId)
 	{
-		return _datatable.get(chatId);
-	}
-
-	public int size()
-	{
-		return _datatable.size();
+		return get(chatId);
 	}
 }
