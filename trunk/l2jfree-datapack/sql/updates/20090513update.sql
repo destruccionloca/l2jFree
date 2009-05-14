@@ -10,7 +10,7 @@ ALTER TABLE `character_shortcuts`
   MODIFY `page` TINYINT NOT NULL,
   MODIFY `type` TINYINT NOT NULL,
   MODIFY `shortcut_id` INT NOT NULL,
-  MODIFY `level` SMALLINT(3) NOT NULL;
+  MODIFY `level` SMALLINT(3) NOT NULL,
   MODIFY `class_index` TINYINT UNSIGNED NOT NULL;
 
 ALTER TABLE `character_skills`
