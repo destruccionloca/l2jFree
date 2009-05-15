@@ -15,36 +15,56 @@
 package com.l2jfree.gameserver.geodata.pathfinding.utils;
 
 import com.l2jfree.gameserver.geodata.pathfinding.Node;
+import com.l2jfree.util.L2FastSet;
+import com.l2jfree.util.ThreadLocalObjectPool;
 
 /**
- *
  * @author -Nemesiss-
  */
-public class FastNodeList
+public final class FastNodeList
 {
-	private Node[] _list;
-	private int _size;
-
-	public FastNodeList(int size)
+	private final L2FastSet<Node> _nodes = new L2FastSet<Node>();
+	
+	private FastNodeList()
 	{
-		_list = new Node[size];
 	}
+	
 	public void add(Node n)
 	{
-		_list[_size++] = n;
+		_nodes.add(n);
 	}
+	
 	public boolean contains(Node n)
 	{
-		for (int i =0; i < _size; i++)
-			if(_list[i].equals(n))
-				return true;
-		return false;
+		return _nodes.contains(n);
 	}
+	
 	public boolean containsRev(Node n)
 	{
-		for (int i=_size-1; i >= 0; i--)
-			if(_list[i].equals(n))
-				return true;
-		return false;
+		return _nodes.contains(n);
 	}
+	
+	public static FastNodeList newInstance()
+	{
+		return THREAD_LOCAL_POOL.get();
+	}
+	
+	public static void recycle(FastNodeList list)
+	{
+		THREAD_LOCAL_POOL.store(list);
+	}
+	
+	private static final ThreadLocalObjectPool<FastNodeList> THREAD_LOCAL_POOL = new ThreadLocalObjectPool<FastNodeList>() {
+		@Override
+		protected void reset(FastNodeList list)
+		{
+			list._nodes.clear();
+		}
+		
+		@Override
+		protected FastNodeList create()
+		{
+			return new FastNodeList();
+		}
+	};
 }

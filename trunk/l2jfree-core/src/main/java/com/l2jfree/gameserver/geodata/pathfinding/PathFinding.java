@@ -14,18 +14,17 @@
  */
 package com.l2jfree.gameserver.geodata.pathfinding;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
-import javolution.util.FastList;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.geodata.GeoData;
-import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.geodata.pathfinding.cellnodes.CellPathFinding;
 import com.l2jfree.gameserver.geodata.pathfinding.geonodes.GeoPathFinding;
 import com.l2jfree.gameserver.geodata.pathfinding.utils.BinaryNodeHeap;
 import com.l2jfree.gameserver.geodata.pathfinding.utils.CellNodeMap;
 import com.l2jfree.gameserver.geodata.pathfinding.utils.FastNodeList;
+import com.l2jfree.gameserver.model.L2World;
 
 /**
  *
@@ -63,25 +62,23 @@ public abstract class PathFinding
 		// Could be optimized e.g. not to calculate backwards as far as forwards.
 
 		// List of Visited Nodes
-		LinkedList<Node> visited = new LinkedList<Node>();
+		List<Node> visited = new ArrayList<Node>();
 
 		// List of Nodes to Visit
-		LinkedList<Node> to_visit = new LinkedList<Node>();
+		List<Node> to_visit = new ArrayList<Node>();
 		to_visit.add(start);
 
 		int i = 0;
 		while (i < 800)
 		{
-			Node node;
-			try
-			{
-				 node = to_visit.removeFirst();
-			}
-			catch (Exception e)
+			if (to_visit.isEmpty())
 			{
 				// No Path found
 				return null;
 			}
+			
+			Node node = to_visit.get(0);
+			
 			if (node.equals(end)) //path found!
 				return constructPath(node);
 			else
@@ -107,7 +104,7 @@ public abstract class PathFinding
 
 	public List<AbstractNodeLoc> searchByClosest(Node start, Node end)
 	{
-		// Note: This is the version for cell-based calculation, harder 
+		// Note: This is the version for cell-based calculation, harder
 		// on cpu than from block-based pathnode files. However produces better routes.
 		
 		// Always continues checking from the closest to target non-blocked
@@ -120,10 +117,11 @@ public abstract class PathFinding
 		// load) level of intelligence though.
 
 		// List of Visited Nodes
-		CellNodeMap known = new CellNodeMap();
-
+		CellNodeMap known = CellNodeMap.newInstance();
+		try
+		{
 		// List of Nodes to Visit
-		LinkedList<Node> to_visit = new LinkedList<Node>();
+		List<Node> to_visit = new ArrayList<Node>();
 		to_visit.add(start);
 		known.add(start);
 		int targetx = end.getLoc().getNodeX();
@@ -135,20 +133,18 @@ public abstract class PathFinding
 		int i = 0;
 		while (i < 3500)
 		{
-			Node node;
-			try
-			{
-				 node = to_visit.removeFirst();
-			}
-			catch (Exception e)
+			if (to_visit.isEmpty())
 			{
 				// No Path found
 				return null;
 			}
+			
+			Node node = to_visit.get(0);
+			
 			i++;
 			
 			node.attachNeighbors();
-			if (node.equals(end)) { 
+			if (node.equals(end)) {
 				//path found! note that node z coordinate is updated only in attach
 				//to improve performance (alternative: much more checks)
 				//System.out.println("path found, i:"+i);
@@ -178,7 +174,7 @@ public abstract class PathFinding
 							break;
 						}
 					}
-					if (!added) to_visit.addLast(n);
+					if (!added) to_visit.add(n);
 					known.add(n);
 				}
 			}
@@ -186,6 +182,11 @@ public abstract class PathFinding
 		//No Path found
 		//System.out.println("no path found");
 		return null;
+		}
+		finally
+		{
+			CellNodeMap.recycle(known);
+		}
 	}
 	
 	
@@ -201,10 +202,11 @@ public abstract class PathFinding
 		// load) level of intelligence though.
 
 		// List of Visited Nodes
-		FastNodeList visited = new FastNodeList(550);
-
+		FastNodeList visited = FastNodeList.newInstance();
+		try
+		{
 		// List of Nodes to Visit
-		LinkedList<Node> to_visit = new LinkedList<Node>();
+		List<Node> to_visit = new ArrayList<Node>();
 		to_visit.add(start);
 		int targetx = end.getLoc().getNodeX();
 		int targety = end.getLoc().getNodeY();
@@ -213,16 +215,14 @@ public abstract class PathFinding
 		int i = 0;
 		while (i < 550)
 		{
-			Node node;
-			try
-			{
-				 node = to_visit.removeFirst();
-			}
-			catch (Exception e)
+			if (to_visit.isEmpty())
 			{
 				// No Path found
 				return null;
 			}
+			
+			Node node = to_visit.get(0);
+			
 			if (node.equals(end)) //path found!
 				return constructPath2(node);
 			else
@@ -251,13 +251,18 @@ public abstract class PathFinding
 								break;
 							}
 						}
-						if (!added) to_visit.addLast(n);
+						if (!added) to_visit.add(n);
 					}
 				}
 			}
 		}
 		//No Path found
 		return null;
+		}
+		finally
+		{
+			FastNodeList.recycle(visited);
+		}
 	}
 
 	
@@ -269,12 +274,13 @@ public abstract class PathFinding
 		int end_x = end.getLoc().getX();
 		int end_y = end.getLoc().getY();
 		//List of Visited Nodes
-		FastNodeList visited = new FastNodeList(800);//TODO! Add limit to cfg
+		FastNodeList visited = FastNodeList.newInstance();//TODO! Add limit to cfg
 
 		// List of Nodes to Visit
-		BinaryNodeHeap to_visit = new BinaryNodeHeap(800);
+		BinaryNodeHeap to_visit = BinaryNodeHeap.newInstance();
 		to_visit.add(start);
-
+		try
+		{
 		int i = 0;
 		while (i < 800)//TODO! Add limit to cfg
 		{
@@ -309,11 +315,17 @@ public abstract class PathFinding
 		}
 		//No Path found
 		return null;
+		}
+		finally
+		{
+			FastNodeList.recycle(visited);
+			BinaryNodeHeap.recycle(to_visit);
+		}
 	}
 
 	public List<AbstractNodeLoc> constructPath(Node node)
 	{
-		LinkedList<AbstractNodeLoc> path = new LinkedList<AbstractNodeLoc>();
+		List<AbstractNodeLoc> path = new ArrayList<AbstractNodeLoc>();
 		int previousdirectionx = -1000;
 		int previousdirectiony = -1000;
 		int directionx;
@@ -337,7 +349,7 @@ public abstract class PathFinding
 			{
 				previousdirectionx = directionx;
 				previousdirectiony = directiony;
-				path.addFirst(node.getLoc());
+				path.add(0, node.getLoc());
 			}
 			node = node.getParent();
 		}
@@ -345,7 +357,7 @@ public abstract class PathFinding
 		if (path.size() > 4)
 		{
 			//System.out.println("pathsize:"+path.size());
-			List<Integer> valueList = new FastList<Integer>();
+			List<Integer> valueList = new ArrayList<Integer>();
 			for (int index = 0; index < path.size()-3; index = index +3)
 			{
 				//System.out.println("Attempt filter");
@@ -367,7 +379,7 @@ public abstract class PathFinding
 	
 	public List<AbstractNodeLoc> constructPath2(Node node)
 	{
-		LinkedList<AbstractNodeLoc> path = new LinkedList<AbstractNodeLoc>();
+		List<AbstractNodeLoc> path = new ArrayList<AbstractNodeLoc>();
 		int previousdirectionx = -1000;
 		int previousdirectiony = -1000;
 		int directionx;
@@ -381,7 +393,7 @@ public abstract class PathFinding
 			{
 				previousdirectionx = directionx;
 				previousdirectiony = directiony;
-				path.addFirst(node.getLoc());
+				path.add(0, node.getLoc());
 			}
 			node = node.getParent();
 		}

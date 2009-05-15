@@ -14,41 +14,46 @@
  */
 package com.l2jfree.gameserver.geodata.pathfinding.utils;
 
+import java.util.Arrays;
 
 import com.l2jfree.gameserver.geodata.pathfinding.Node;
+import com.l2jfree.util.L2FastSet;
+import com.l2jfree.util.ThreadLocalObjectPool;
 
 /**
- *
  * @author -Nemesiss-
  */
 public class BinaryNodeHeap
 {
-	private final Node[] _list;
-	private int _size;
-
-	public BinaryNodeHeap(int size)
+	private final Node[] _list = new Node[800 + 1];
+	private final L2FastSet<Node> _set = new L2FastSet<Node>();
+	private int _size = 0;
+	
+	private BinaryNodeHeap()
 	{
-		_list = new Node[size+1];
-		_size = 0;
 	}
-	public void add(Node n) {
+	
+	public void add(Node n)
+	{
 		_size++;
-		int pos  = _size;
+		int pos = _size;
 		_list[pos] = n;
+		_set.add(n);
 		while (pos != 1)
 		{
-			int p2 = pos/2;
+			int p2 = pos / 2;
 			if (_list[pos].getCost() <= _list[p2].getCost())
 			{
 				Node temp = _list[p2];
 				_list[p2] = _list[pos];
 				_list[pos] = temp;
-		        pos = p2;
+				pos = p2;
 			}
 			else
 				break;
 		}
 	}
+	
 	public Node removeFirst()
 	{
 		Node first = _list[1];
@@ -59,23 +64,23 @@ public class BinaryNodeHeap
 		int cpos;
 		int dblcpos;
 		Node temp;
-		while(true)
+		while (true)
 		{
 			cpos = pos;
-			dblcpos = cpos*2;
-			if ((dblcpos+1) <= _size)
+			dblcpos = cpos * 2;
+			if ((dblcpos + 1) <= _size)
 			{
 				if (_list[cpos].getCost() >= _list[dblcpos].getCost())
 					pos = dblcpos;
-			    if (_list[pos].getCost() >= _list[dblcpos+1].getCost())
-			    	pos = dblcpos+1;
+				if (_list[pos].getCost() >= _list[dblcpos + 1].getCost())
+					pos = dblcpos + 1;
 			}
 			else if (dblcpos <= _size)
 			{
 				if (_list[cpos].getCost() >= _list[dblcpos].getCost())
 					pos = dblcpos;
 			}
-
+			
 			if (cpos != pos)
 			{
 				temp = _list[cpos];
@@ -85,21 +90,46 @@ public class BinaryNodeHeap
 			else
 				break;
 		}
+		_set.remove(first);
 		return first;
 	}
+	
 	public boolean contains(Node n)
 	{
 		if (_size == 0)
 			return false;
-		for (int i = 1; i <= _size; i++)
-		{
-			if(_list[i].equals(n))
-				return true;
-		}
-		return false;
+		
+		return _set.contains(n);
 	}
+	
 	public boolean isEmpty()
 	{
 		return _size == 0;
 	}
+	
+	public static BinaryNodeHeap newInstance()
+	{
+		return THREAD_LOCAL_POOL.get();
+	}
+	
+	public static void recycle(BinaryNodeHeap heap)
+	{
+		THREAD_LOCAL_POOL.store(heap);
+	}
+	
+	private static final ThreadLocalObjectPool<BinaryNodeHeap> THREAD_LOCAL_POOL = new ThreadLocalObjectPool<BinaryNodeHeap>() {
+		@Override
+		protected void reset(BinaryNodeHeap heap)
+		{
+			Arrays.fill(heap._list, null);
+			heap._set.clear();
+			heap._size = 0;
+		}
+		
+		@Override
+		protected BinaryNodeHeap create()
+		{
+			return new BinaryNodeHeap();
+		}
+	};
 }
