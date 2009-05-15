@@ -3941,6 +3941,10 @@ public class L2Skill implements FuncOwner
 	@Override
 	public int hashCode()
 	{
-		return SkillTable.getSkillUID(this);
+		int h = SkillTable.getSkillUID(this);
+		h += ~(h << 9);
+		h ^= (h >>> 14);
+		h += (h << 4);
+		return h ^ (h >>> 10);
 	}
 }
