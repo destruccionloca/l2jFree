@@ -48,7 +48,17 @@ public abstract class ObjectPool<E>
 		_shared = shared;
 	}
 	
-	public final void clear()
+	public final int getMaximumSize()
+	{
+		return _maximumSize;
+	}
+	
+	public final boolean isShared()
+	{
+		return _shared;
+	}
+	
+	public void clear()
 	{
 		if (_shared)
 		{
@@ -67,7 +77,7 @@ public abstract class ObjectPool<E>
 		}
 	}
 	
-	public final void store(E e)
+	public void store(E e)
 	{
 		if (_shared)
 		{
@@ -102,7 +112,7 @@ public abstract class ObjectPool<E>
 	{
 	}
 	
-	public final E get()
+	public E get()
 	{
 		if (_shared)
 		{
