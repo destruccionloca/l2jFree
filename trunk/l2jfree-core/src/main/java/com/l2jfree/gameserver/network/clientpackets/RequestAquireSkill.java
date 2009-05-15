@@ -27,6 +27,7 @@ import com.l2jfree.gameserver.model.L2ShortCut;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2SkillLearn;
 import com.l2jfree.gameserver.model.L2TransformSkillLearn;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2FishermanInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -85,7 +86,7 @@ public class RequestAquireSkill extends L2GameClientPacket
 
         int npcid = trainer.getNpcId();
 
-        if (!player.isInsideRadius(trainer, L2NpcInstance.INTERACTION_DISTANCE, false, false) && !player.isGM())
+        if (!player.isInsideRadius(trainer, L2Npc.INTERACTION_DISTANCE, false, false) && !player.isGM())
         {
         	requestFailed(SystemMessageId.TOO_FAR_FROM_NPC);
             return;
@@ -216,7 +217,7 @@ public class RequestAquireSkill extends L2GameClientPacket
                 int costid = 0;
                 int costcount = 0;
                 // Skill Learn bug Fix
-                L2SkillLearn[] skillsc = SkillTreeTable.getInstance().getAvailableSkills(player);
+                L2SkillLearn[] skillsc = SkillTreeTable.getInstance().getAvailableFishingSkills(player);
 
                 for (L2SkillLearn s : skillsc)
                 {
@@ -349,7 +350,7 @@ public class RequestAquireSkill extends L2GameClientPacket
         player.addSkill(skill, true);
         //player.sendSkillList(); sent later
 
-        if (_log.isDebugEnabled()) 
+        if (_log.isDebugEnabled())
             _log.debug("Learned skill " + _id + " for " + _requiredSp + " SP.");
 
         player.setSp(player.getSp() - _requiredSp);
@@ -369,7 +370,7 @@ public class RequestAquireSkill extends L2GameClientPacket
             L2ShortCut[] allShortCuts = player.getAllShortCuts();
 
             for (L2ShortCut sc : allShortCuts)
-            {               
+            {
                 if (sc.getId() == _id && sc.getType() == L2ShortCut.TYPE_SKILL)
                 {
                     L2ShortCut newsc = new L2ShortCut(sc.getSlot(), sc.getPage(), sc.getType(), sc.getId(), _level, 1);

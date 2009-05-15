@@ -85,7 +85,7 @@ public class L2FishermanInstance extends L2MerchantInstance
 
     public void showSkillList(L2PcInstance player)
     {
-        L2SkillLearn[] skills = SkillTreeTable.getInstance().getAvailableSkills(player);
+        L2SkillLearn[] skills = SkillTreeTable.getInstance().getAvailableFishingSkills(player);
         AcquireSkillList asl = new AcquireSkillList(AcquireSkillList.SkillType.Fishing);
         
         int counts = 0;
@@ -104,7 +104,7 @@ public class L2FishermanInstance extends L2MerchantInstance
         if (counts == 0)
         {
             SystemMessage sm;
-            int minlevel = SkillTreeTable.getInstance().getMinLevelForNewSkill(player);
+            int minlevel = SkillTreeTable.getInstance().getMinLevelForNewFishingSkill(player);
             if (minlevel > 0)
             {
                 // No more skills to learn, come back when you level.

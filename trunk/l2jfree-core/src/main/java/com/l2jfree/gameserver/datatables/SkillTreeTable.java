@@ -18,8 +18,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -27,6 +29,7 @@ import javolution.util.FastMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.model.L2EnchantSkillLearn;
 import com.l2jfree.gameserver.model.L2PledgeSkillLearn;
@@ -36,8 +39,8 @@ import com.l2jfree.gameserver.model.L2TransformSkillLearn;
 import com.l2jfree.gameserver.model.L2EnchantSkillLearn.EnchantSkillDetail;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.base.ClassId;
-import com.l2jfree.util.LinkedBunch;
 import com.l2jfree.util.L2Collections;
+import com.l2jfree.util.LinkedBunch;
 
 /**
  * This class ...
@@ -96,7 +99,7 @@ public class SkillTreeTable
 	}
 
 	/**
-	 * Each class receives new skill on certain levels, this methods allow the retrieval of the minimun character level 
+	 * Each class receives new skill on certain levels, this methods allow the retrieval of the minimun character level
 	 * of given class required to learn a given skill
 	 * @param skillId The iD of the skill
 	 * @param classID The classId of the character
@@ -438,8 +441,60 @@ public class SkillTreeTable
 
 		return result.moveToArray(new L2SkillLearn[result.size()]);
 	}
-
-	public L2SkillLearn[] getAvailableSkills(L2PcInstance cha)
+	
+	public String giveAvailableSkills(L2PcInstance activeChar)
+	{
+		Map<Integer, L2Skill> skillsToAdd = new HashMap<Integer, L2Skill>();
+		
+		for (L2SkillLearn temp : getSkillTrees().get(activeChar.getClassId()).values())
+		{
+			if (temp.getMinLevel() > activeChar.getLevel())
+				continue;
+			
+			if (temp.getId() == L2Skill.SKILL_EXPERTISE)
+				continue;
+			
+			if (temp.getId() == L2Skill.SKILL_LUCKY)
+				continue;
+			
+			if (temp.getId() == L2Skill.SKILL_DIVINE_INSPIRATION && !Config.ALT_AUTO_LEARN_DIVINE_INSPIRATION)
+				continue;
+			
+			L2Skill knownSkill = activeChar.getKnownSkill(temp.getId());
+			
+			if (knownSkill != null && knownSkill.getLevel() >= temp.getLevel())
+				continue;
+			
+			L2Skill mappedSkill = skillsToAdd.get(temp.getId());
+			
+			if (mappedSkill != null && mappedSkill.getLevel() >= temp.getLevel())
+				continue;
+			
+			L2Skill skill = SkillTable.getInstance().getInfo(temp.getId(), temp.getLevel());
+			
+			if (skill == null)
+				continue;
+			
+			skillsToAdd.put(temp.getId(), skill);
+		}
+		
+		long skillsAdded = 0;
+		long newSkillsAdded = 0;
+		
+		for (L2Skill skill : skillsToAdd.values())
+		{
+			skillsAdded++;
+			
+			if (!activeChar.hasSkill(skill.getId()))
+				newSkillsAdded++;
+			
+			activeChar.addSkill(skill, true);
+		}
+		
+		return skillsAdded + " (" + newSkillsAdded + " new) skill(s)";
+	}
+	
+	public L2SkillLearn[] getAvailableFishingSkills(L2PcInstance cha)
 	{
 		LinkedBunch<L2SkillLearn> result = new LinkedBunch<L2SkillLearn>();
 
@@ -450,7 +505,7 @@ public class SkillTreeTable
 		//    return new L2SkillLearn[0];
 		//}
 
-		Iterable<L2SkillLearn> iterable = cha.hasDwarvenCraft() ? 
+		Iterable<L2SkillLearn> iterable = cha.hasDwarvenCraft() ?
 			L2Collections.concatenatedIterable(_fishingSkillTrees, _expandDwarfCraftSkillTrees) : _fishingSkillTrees;
 
 		L2Skill[] oldSkills = cha.getAllSkills();
@@ -488,7 +543,7 @@ public class SkillTreeTable
 
 	public L2EnchantSkillLearn getSkillEnchantmentForSkill(L2Skill skill)
 	{
-		L2EnchantSkillLearn esl = this.getSkillEnchantmentBySkillId(skill.getId());
+		L2EnchantSkillLearn esl = getSkillEnchantmentBySkillId(skill.getId());
 		// there is enchantment for this skill and we have the required level of it
 		if (esl != null && skill.getLevel() >= esl.getBaseLevel())
 		{
@@ -600,6 +655,11 @@ public class SkillTreeTable
 	{
 		return getSkillTrees().get(classId).values();
 	}
+	
+	public Set<Integer> getAllowedSkillUIDs(ClassId classId)
+	{
+		return getSkillTrees().get(classId).keySet();
+	}
 
 	public int getMinLevelForNewSkill(L2PcInstance cha, ClassId classId)
 	{
@@ -623,7 +683,7 @@ public class SkillTreeTable
 		return minLevel;
 	}
 
-	public int getMinLevelForNewSkill(L2PcInstance cha)
+	public int getMinLevelForNewFishingSkill(L2PcInstance cha)
 	{
 		int minLevel = 0;
 		List<L2SkillLearn> skills = new FastList<L2SkillLearn>();

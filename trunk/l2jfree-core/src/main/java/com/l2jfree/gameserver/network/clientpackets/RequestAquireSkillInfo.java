@@ -184,18 +184,18 @@ public class RequestAquireSkillInfo extends L2GameClientPacket
             asi = null;
         }
         else // Common Skills
-        {           
+        {
             int costid = 0;
             int costcount = 0;
             int spcost = 0;
 
-            L2SkillLearn[] skillsc = SkillTreeTable.getInstance().getAvailableSkills(activeChar);
+            L2SkillLearn[] skillsc = SkillTreeTable.getInstance().getAvailableFishingSkills(activeChar);
 
             for (L2SkillLearn s : skillsc)
             {
                 L2Skill sk = SkillTable.getInstance().getInfo(s.getId(), s.getLevel());
 
-				if (sk == null || sk != skill) 
+				if (sk == null || sk != skill)
                     continue;
 
                 canteach = true;

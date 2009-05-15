@@ -2311,13 +2311,8 @@ public final class L2PcInstance extends L2Playable
 		}
 
 		// Auto-Learn skills if activated
-		if (Config.ALT_AUTO_LEARN_SKILLS)
-		{
-			if (isCursedWeaponEquipped())
-				return;
-
-			giveAvailableSkills();
-		}
+		if (Config.ALT_AUTO_LEARN_SKILLS && !isCursedWeaponEquipped())
+			sendMessage("You have learned " + SkillTreeTable.getInstance().giveAvailableSkills(this) + ".");
 		
 		if (isGM() && !hasSkill(7029))
 		{
@@ -2364,64 +2359,6 @@ public final class L2PcInstance extends L2Playable
 
 		// Add Death Penalty Buff Level
 		restoreDeathPenaltyBuffLevel();
-	}
-
-	/**
-	 * Give all available skills to the player.<br><br>
-	 *
-	 */
-	private void giveAvailableSkills()
-	{
-		int skillCounter = 0;
-
-		int lvl = getLevel();
-		int skillLvl;
-
-		Collection<L2SkillLearn> skills = SkillTreeTable.getInstance().getAllowedSkills(getClassId());
-
-		boolean learn = true;
-		while (learn)
-		{
-			learn = false;
-
-			for (L2SkillLearn s : skills)
-			{
-				if (s.getMinLevel() > lvl)
-					continue;
-				
-				if (s.getId() == L2Skill.SKILL_EXPERTISE)
-					continue;
-
-				if (s.getId() == L2Skill.SKILL_LUCKY)
-					continue;
-
-				if (s.getId() == L2Skill.SKILL_DIVINE_INSPIRATION && !Config.ALT_AUTO_LEARN_DIVINE_INSPIRATION)
-					continue;
-
-				L2Skill sk = SkillTable.getInstance().getInfo(s.getId(), s.getLevel());
-
-				if (sk == null)
-					continue;
-
-				skillLvl = getSkillLevel(s.getId());
-
-				if (getSkillLevel(sk.getId()) == -1)
-					skillCounter++;
-
-				if (skillLvl < 0 || skillLvl == s.getLevel() - 1)
-				{
-					addSkill(sk, true);
-					learn = true;
-				}
-			}
-		}
-
-		if (skillCounter > 0)
-			sendMessage(new StringBuilder().append("You have learned ")
-										   .append(skillCounter)
-										   .append(" new skill")
-										   .append((skillCounter != 1 ? "s" : ""))
-										   	.append(".").toString());
 	}
 
 	/**
@@ -7247,7 +7184,7 @@ public final class L2PcInstance extends L2Playable
 		if (isGM())
 			return;
 		
-		Collection<L2SkillLearn> skillTree = SkillTreeTable.getInstance().getAllowedSkills(getClassId());
+		Set<Integer> skillTreeUIDs = SkillTreeTable.getInstance().getAllowedSkillUIDs(getClassId());
 		Set<Integer> forgottenIds = ForgottenScrollTable.getInstance().getAllowedSkillIds(getActiveClass());
 		
 		skill_loop: for (L2Skill skill : getAllSkills())
@@ -7255,13 +7192,8 @@ public final class L2PcInstance extends L2Playable
 			int skillid = skill.getId();
 			
 			// Loop through all skills in players skilltree
-			for (L2SkillLearn temp : skillTree)
-			{
-				// If the skill was found and the level is possible to obtain for his class everything is ok
-				if (temp.getId() == skillid) // && temp.getLevel()>=skilllevel))
-					continue skill_loop;
-			}
-			
+			if (skillTreeUIDs.contains(SkillTable.getSkillUID(skill)))
+				continue;
 			if (forgottenIds.contains(skillid))
 				continue skill_loop;
 			// Exclude noble skills
