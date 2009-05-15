@@ -134,9 +134,9 @@ public abstract class L2Effect implements FuncOwner, Runnable
 			_effected.sendPacket(sm);
 		}
 		
-		if (_period > 0 && _count > 0)
-			_currentFuture = ThreadPoolManager.getInstance().scheduleAtFixedRate(this, _period * 1000, _period * 1000);
-		else
+		_currentFuture = ThreadPoolManager.getInstance().scheduleAtFixedRate(this, _period * 1000, _period * 1000);
+		
+		if (_period <= 0 && _count > 1)
 			_effected.getEffects().printStackTrace(getStackType(), this);
 		
 		_effected.getEffects().addEffect(this);

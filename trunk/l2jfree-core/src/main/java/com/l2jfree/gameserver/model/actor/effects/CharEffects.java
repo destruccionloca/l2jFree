@@ -21,6 +21,9 @@ import java.util.Map;
 import javolution.text.TextBuilder;
 import javolution.util.FastMap;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Skill;
@@ -35,6 +38,8 @@ import com.l2jfree.util.ObjectPool;
  */
 public class CharEffects
 {
+	private static final Log _log = LogFactory.getLog(CharEffects.class);
+	
 	private final L2Character _owner;
 	
 	private L2Effect[] _toArray;
@@ -256,7 +261,7 @@ public class CharEffects
 		if (effect != null)
 			tb.append(" -> ").append(effect.getSkill().toString());
 		
-		new Exception(tb.toString()).printStackTrace();
+		_log.warn(tb, new IllegalStateException());
 		
 		TextBuilder.recycle(tb);
 	}
