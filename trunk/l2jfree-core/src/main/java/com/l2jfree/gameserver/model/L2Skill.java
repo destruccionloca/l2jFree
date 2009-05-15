@@ -3924,4 +3924,21 @@ public class L2Skill implements FuncOwner
 	{
 		return _isHerbEffect;
 	}
+	
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (!(obj instanceof L2Skill))
+			return false;
+		
+		L2Skill skill = (L2Skill)obj;
+		
+		return getId() == skill.getId() && getLevel() == skill.getLevel();
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		return SkillTable.getSkillUID(this);
+	}
 }

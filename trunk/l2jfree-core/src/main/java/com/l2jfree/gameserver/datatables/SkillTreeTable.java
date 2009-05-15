@@ -85,7 +85,7 @@ public class SkillTreeTable
 		// since expertise comes at same level for all classes we use paladin for now
 		Map<Integer, L2SkillLearn> learnMap = getSkillTrees().get(ClassId.paladin);
 
-		int skillHashCode = SkillTable.getSkillHashCode(239, grade);
+		int skillHashCode = SkillTable.getSkillUID(239, grade);
 		if (learnMap.containsKey(skillHashCode))
 		{
 			return learnMap.get(skillHashCode).getMinLevel();
@@ -107,7 +107,7 @@ public class SkillTreeTable
 	{
 		Map<Integer, L2SkillLearn> map = getSkillTrees().get(classId);
 
-		int skillHashCode = SkillTable.getSkillHashCode(skillId, skillLvl);
+		int skillHashCode = SkillTable.getSkillUID(skillId, skillLvl);
 
 		if (map.containsKey(skillHashCode))
 		{
@@ -119,7 +119,7 @@ public class SkillTreeTable
 
 	public int getMinSkillLevel(int skillId, int skillLvl)
 	{
-		int skillHashCode = SkillTable.getSkillHashCode(skillId, skillLvl);
+		int skillHashCode = SkillTable.getSkillUID(skillId, skillLvl);
 
 		// Look on all classes for this skill (takes the first one found)
 		for (Map<Integer, L2SkillLearn> map : getSkillTrees().values())
@@ -181,7 +181,7 @@ public class SkillTreeTable
 						prevSkillId = id;
 
 					skillLearn = new L2SkillLearn(id, lvl, minLvl, name, cost, 0, 0);
-					map.put(SkillTable.getSkillHashCode(id, lvl), skillLearn);
+					map.put(SkillTable.getSkillUID(id, lvl), skillLearn);
 				}
 
 				getSkillTrees().put(ClassId.values()[classId], map);
@@ -680,7 +680,7 @@ public class SkillTreeTable
 	{
 		int skillCost = 100000000;
 		ClassId classId = player.getSkillLearningClassId();
-		int skillHashCode = SkillTable.getSkillHashCode(skill);
+		int skillHashCode = SkillTable.getSkillUID(skill);
 
 		if (getSkillTrees().get(classId).containsKey(skillHashCode))
 		{

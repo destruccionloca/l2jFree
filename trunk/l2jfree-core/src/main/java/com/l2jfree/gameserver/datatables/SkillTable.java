@@ -15,7 +15,9 @@
 package com.l2jfree.gameserver.datatables;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -83,10 +85,17 @@ public final class SkillTable
 		
 		_instance = this;
 		
+		Map<Integer, L2Skill> skillsByUID = new HashMap<Integer, L2Skill>();
+		
 		for (L2Skill skill : skills)
 		{
 			try
 			{
+				L2Skill old = skillsByUID.put(SkillTable.getSkillUID(skill), skill);
+				
+				if (old != null)
+					throw new IllegalStateException("Overlapping UIDs for: " + old + ", " + skill);
+				
 				skill.validate();
 			}
 			catch (Exception e)
@@ -96,12 +105,12 @@ public final class SkillTable
 		}
 	}
 	
-	public static int getSkillHashCode(L2Skill skill)
+	public static int getSkillUID(L2Skill skill)
 	{
-		return skill == null ? 0 : getSkillHashCode(skill.getId(), skill.getLevel());
+		return skill == null ? 0 : getSkillUID(skill.getId(), skill.getLevel());
 	}
 	
-	public static int getSkillHashCode(int skillId, int skillLevel)
+	public static int getSkillUID(int skillId, int skillLevel)
 	{
 		return skillId * 1023 + skillLevel;
 	}

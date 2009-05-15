@@ -80,7 +80,7 @@ public class PetSkillsTable
 						int minLvl = skilltree.getInt("minLvl");
 						
 						skillLearn = new L2PetSkillLearn(id, lvl, minLvl);
-						map.put(SkillTable.getSkillHashCode(id, lvl+1), skillLearn);
+						map.put(SkillTable.getSkillUID(id, lvl+1), skillLearn);
 					}
 					getPetSkillTrees().put(npcId, map);
 					skilltree.close();
