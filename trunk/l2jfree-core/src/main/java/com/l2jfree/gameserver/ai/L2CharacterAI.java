@@ -24,9 +24,8 @@ import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_MOVE_TO;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_PICK_UP;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_REST;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import javolution.util.FastList;
 
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2ItemInstance;
@@ -43,9 +42,7 @@ import com.l2jfree.gameserver.network.serverpackets.AutoAttackStop;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
-import com.l2jfree.gameserver.templates.item.L2WeaponType;
 import com.l2jfree.tools.geometry.Point3D;
-import com.l2jfree.tools.random.Rnd;
 
 /**
  * This class manages AI of L2Character.<BR><BR>
@@ -1112,76 +1109,89 @@ public class L2CharacterAI extends AbstractAI
 		}
 		return false;
 	}
-
-	protected class SelfAnalysis
+	
+	protected static final class SelfAnalysis
 	{
-		public boolean			isMage						= false;
-		public boolean			isBalanced;
-		public boolean			isArcher					= false;
-		public boolean			isHealer					= false;
-		public boolean			isFighter					= false;
-		public boolean			cannotMoveOnLand			= false;
-		public List<L2Skill>	generalSkills				= new FastList<L2Skill>();
-		public List<L2Skill>	buffSkills					= new FastList<L2Skill>();
-		public int				lastBuffTick				= 0;
-		public List<L2Skill>	debuffSkills				= new FastList<L2Skill>();
-		public int				lastDebuffTick				= 0;
-		public List<L2Skill>	cancelSkills				= new FastList<L2Skill>();
-		public List<L2Skill>	healSkills					= new FastList<L2Skill>();
-		//public List<L2Skill> trickSkills = new FastList<L2Skill>();
-		public List<L2Skill>	generalDisablers			= new FastList<L2Skill>();
-		public List<L2Skill>	sleepSkills					= new FastList<L2Skill>();
-		public List<L2Skill>	rootSkills					= new FastList<L2Skill>();
-		public List<L2Skill>	muteSkills					= new FastList<L2Skill>();
-		public List<L2Skill>	resurrectSkills				= new FastList<L2Skill>();
-		public boolean			hasHealOrResurrect			= false;
-		public boolean			hasLongRangeSkills			= false;
-		public boolean			hasLongRangeDamageSkills	= false;
-		public int				maxCastRange				= 0;
-
-		public SelfAnalysis()
+		protected boolean		isMage						= false;
+		protected boolean		isBalanced					= false;
+		protected boolean		isArcher					= false;
+		protected boolean		isHealer					= false;
+		protected boolean		isFighter					= false;
+		protected boolean		cannotMoveOnLand			= false;
+		protected L2Skill[]		generalSkills				= L2Skill.EMPTY_ARRAY;
+		protected L2Skill[]		buffSkills					= L2Skill.EMPTY_ARRAY;
+		protected int			lastBuffTick				= 0;
+		protected L2Skill[]		debuffSkills				= L2Skill.EMPTY_ARRAY;
+		protected int			lastDebuffTick				= 0;
+		protected L2Skill[]		cancelSkills				= L2Skill.EMPTY_ARRAY;
+		protected L2Skill[]		healSkills					= L2Skill.EMPTY_ARRAY;
+		protected L2Skill[]		trickSkills					= L2Skill.EMPTY_ARRAY;
+		protected L2Skill[]		generalDisablers			= L2Skill.EMPTY_ARRAY;
+		protected L2Skill[]		sleepSkills					= L2Skill.EMPTY_ARRAY;
+		protected L2Skill[]		rootSkills					= L2Skill.EMPTY_ARRAY;
+		protected L2Skill[]		muteSkills					= L2Skill.EMPTY_ARRAY;
+		protected L2Skill[]		resurrectSkills				= L2Skill.EMPTY_ARRAY;
+		protected boolean		hasHealOrResurrect			= false;
+		protected boolean		hasLongRangeSkills			= false;
+		protected boolean		hasLongRangeDamageSkills	= false;
+		protected int			maxCastRange				= 0;
+		
+		protected SelfAnalysis()
 		{
 		}
-
-		public void init()
+		
+		@SuppressWarnings("hiding")
+		protected void init(L2Character actor)
 		{
-			switch (((L2NpcTemplate) _actor.getTemplate()).getAI())
+			final List<L2Skill> generalSkills = new ArrayList<L2Skill>();
+			final List<L2Skill> buffSkills = new ArrayList<L2Skill>();
+			final List<L2Skill> debuffSkills = new ArrayList<L2Skill>();
+			final List<L2Skill> cancelSkills = new ArrayList<L2Skill>();
+			final List<L2Skill> healSkills = new ArrayList<L2Skill>();
+			//final List<L2Skill> trickSkills = new ArrayList<L2Skill>();
+			final List<L2Skill> generalDisablers = new ArrayList<L2Skill>();
+			final List<L2Skill> sleepSkills = new ArrayList<L2Skill>();
+			final List<L2Skill> rootSkills = new ArrayList<L2Skill>();
+			final List<L2Skill> muteSkills = new ArrayList<L2Skill>();
+			final List<L2Skill> resurrectSkills = new ArrayList<L2Skill>();
+			
+			switch (((L2NpcTemplate)actor.getTemplate()).getAI())
 			{
-			case FIGHTER:
-				isFighter = true;
-				break;
-			case MAGE:
-				isMage = true;
-				break;
-			case BALANCED:
-				isBalanced = true;
-				break;
-			case ARCHER:
-				isArcher = true;
-				break;
-			case HEALER:
-				isHealer = true;
-				break;
-			default:
-				isFighter = true;
-				break;
-			}
-			// water movement analysis
-			if (_actor instanceof L2Npc)
-			{
-				switch (((L2Npc) _actor).getNpcId())
-				{
-				case 20314: // Great White Shark
-				case 20849: // Light Worm
-					cannotMoveOnLand = true;
+				case FIGHTER:
+					isFighter = true;
+					break;
+				case MAGE:
+					isMage = true;
+					break;
+				case BALANCED:
+					isBalanced = true;
+					break;
+				case ARCHER:
+					isArcher = true;
+					break;
+				case HEALER:
+					isHealer = true;
 					break;
 				default:
-					cannotMoveOnLand = false;
+					isFighter = true;
 					break;
+			}
+			// water movement analysis
+			if (actor instanceof L2Npc)
+			{
+				switch (((L2Npc)actor).getNpcId())
+				{
+					case 20314: // Great White Shark
+					case 20849: // Light Worm
+						cannotMoveOnLand = true;
+						break;
+					default:
+						cannotMoveOnLand = false;
+						break;
 				}
 			}
 			// skill analysis
-			for (L2Skill sk : _actor.getAllSkills())
+			for (L2Skill sk : actor.getAllSkills())
 			{
 				if (sk.isPassive())
 					continue;
@@ -1189,68 +1199,68 @@ public class L2CharacterAI extends AbstractAI
 				boolean hasLongRangeDamageSkill = false;
 				switch (sk.getSkillType())
 				{
-				case HEAL:
-				case HEAL_PERCENT:
-				case HEAL_STATIC:
-				case BALANCE_LIFE:
-				case HOT:
-					healSkills.add(sk);
-					hasHealOrResurrect = true;
-					continue; // won't be considered something for fighting
-				case BUFF:
-					buffSkills.add(sk);
-					continue; // won't be considered something for fighting
-				case PARALYZE:
-				case STUN:
-					// hardcoding petrification until improvements are made to
-					// EffectTemplate... petrification is totally different for
-					// AI than paralyze
-					switch (sk.getId())
-					{
-					case 367:
-					case 4111:
-					case 4383:
-					case 4616:
-					case 4578:
+					case HEAL:
+					case HEAL_PERCENT:
+					case HEAL_STATIC:
+					case BALANCE_LIFE:
+					case HOT:
+						healSkills.add(sk);
+						hasHealOrResurrect = true;
+						continue; // won't be considered something for fighting
+					case BUFF:
+						buffSkills.add(sk);
+						continue; // won't be considered something for fighting
+					case PARALYZE:
+					case STUN:
+						// hardcoding petrification until improvements are made to
+						// EffectTemplate... petrification is totally different for
+						// AI than paralyze
+						switch (sk.getId())
+						{
+							case 367:
+							case 4111:
+							case 4383:
+							case 4616:
+							case 4578:
+								sleepSkills.add(sk);
+								break;
+							default:
+								generalDisablers.add(sk);
+								break;
+						}
+						break;
+					case MUTE:
+						muteSkills.add(sk);
+						break;
+					case SLEEP:
 						sleepSkills.add(sk);
 						break;
-					default:
-						generalDisablers.add(sk);
+					case ROOT:
+						rootSkills.add(sk);
 						break;
-					}
-					break;
-				case MUTE:
-					muteSkills.add(sk);
-					break;
-				case SLEEP:
-					sleepSkills.add(sk);
-					break;
-				case ROOT:
-					rootSkills.add(sk);
-					break;
-				case FEAR: // could be used as an alternative for healing?
-				case CONFUSION:
-					//  trickSkills.add(sk);
-				case DEBUFF:
-					debuffSkills.add(sk);
-					break;
-				case CANCEL:
-				case MAGE_BANE:
-				case WARRIOR_BANE:
-				case NEGATE:
-					cancelSkills.add(sk);
-					break;
-				case RESURRECT:
-					resurrectSkills.add(sk);
-					hasHealOrResurrect = true;
-					break;
-				case NOTDONE:
-				case COREDONE:
-					continue; // won't be considered something for fighting
-				default:
-					generalSkills.add(sk);
-					hasLongRangeDamageSkill = true;
-					break;
+					case FEAR: // could be used as an alternative for healing?
+					case CONFUSION:
+						//  trickSkills.add(sk);
+					case DEBUFF:
+						debuffSkills.add(sk);
+						break;
+					case CANCEL:
+					case MAGE_BANE:
+					case WARRIOR_BANE:
+					case NEGATE:
+						cancelSkills.add(sk);
+						break;
+					case RESURRECT:
+						resurrectSkills.add(sk);
+						hasHealOrResurrect = true;
+						break;
+					case NOTDONE:
+					case COREDONE:
+						continue; // won't be considered something for fighting
+					default:
+						generalSkills.add(sk);
+						hasLongRangeDamageSkill = true;
+						break;
 				}
 				if (castRange > 70)
 				{
@@ -1260,7 +1270,7 @@ public class L2CharacterAI extends AbstractAI
 				}
 				if (castRange > maxCastRange)
 					maxCastRange = castRange;
-
+				
 			}
 			// Because of missing skills, some mages/balanced cannot play like mages
 			if (!hasLongRangeDamageSkills && isMage)
@@ -1280,58 +1290,78 @@ public class L2CharacterAI extends AbstractAI
 				isBalanced = true;
 				isMage = false;
 			}
+			
+			this.generalSkills = convert(generalSkills);
+			this.buffSkills = convert(buffSkills);
+			this.debuffSkills = convert(debuffSkills);
+			this.cancelSkills = convert(cancelSkills);
+			this.healSkills = convert(healSkills);
+			//this.trickSkills = convert(trickSkills);
+			this.generalDisablers = convert(generalDisablers);
+			this.sleepSkills = convert(sleepSkills);
+			this.rootSkills = convert(rootSkills);
+			this.muteSkills = convert(muteSkills);
+			this.resurrectSkills = convert(resurrectSkills);
+		}
+		
+		private L2Skill[] convert(List<L2Skill> list)
+		{
+			return list.toArray(new L2Skill[list.size()]);
 		}
 	}
-
-	protected class TargetAnalysis
+	
+	protected static final class TargetAnalysis
 	{
-		public L2Character	character;
-		public boolean		isMage;
-		public boolean		isBalanced;
-		public boolean		isArcher;
-		public boolean		isFighter;
-		public boolean		isCanceled;
-		public boolean		isSlower;
-		public boolean		isMagicResistant;
-
-		public TargetAnalysis()
+		protected L2Character	character;
+		protected boolean		isMage;
+		protected boolean		isBalanced;
+		protected boolean		isArcher;
+		protected boolean		isFighter;
+		protected boolean		isCanceled;
+		protected boolean		isSlower;
+		protected boolean		isMagicResistant;
+		
+		protected TargetAnalysis()
 		{
 		}
-
-		public void update(L2Character target)
+		
+		protected void update(L2Character actor, L2Character target)
 		{
-			// update status once in 4 seconds
-			if (target == character && Rnd.nextInt(100) > 25)
+			// update status once in 4 tries
+			if (target == character && System.nanoTime() % 4 == 0)
 				return;
+			
 			character = target;
 			if (target == null)
 				return;
+			
 			isMage = false;
 			isBalanced = false;
 			isArcher = false;
 			isFighter = false;
-			isCanceled = false;
-
-			if (target.getMAtk(null, null) > 1.5 * target.getPAtk(null))
+			
+			double multi = (double)target.getMAtk(null, null) / target.getPAtk(null);
+			
+			if (multi > 1.5)
+			{
 				isMage = true;
-			else if (target.getPAtk(null) * 0.8 < target.getMAtk(null, null) || target.getMAtk(null, null) * 0.8 > target.getPAtk(null))
+			}
+			else if (multi > 0.8)
 			{
 				isBalanced = true;
 			}
 			else
 			{
 				L2Weapon weapon = target.getActiveWeaponItem();
-				if (weapon != null && (weapon.getItemType() == L2WeaponType.BOW || weapon.getItemType() == L2WeaponType.CROSSBOW))
+				if (weapon != null && weapon.getItemType().isBowType())
 					isArcher = true;
 				else
 					isFighter = true;
 			}
-            isSlower = target.getRunSpeed() < _actor.getRunSpeed() - 3;
-
-            isMagicResistant = target.getMDef(null, null) * 1.2 > _actor.getMAtk(null, null);
-
-			if (target.getBuffCount() < 4)
-				isCanceled = true;
+			
+			isCanceled = target.getBuffCount() < 4;
+			isSlower = target.getRunSpeed() < actor.getRunSpeed() - 3;
+			isMagicResistant = target.getMDef(null, null) * 1.2 > actor.getMAtk(null, null);
 		}
 	}
 }

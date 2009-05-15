@@ -74,7 +74,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 	private static final int	MAX_ATTACK_TIMEOUT	= 300;					// int ticks, i.e. 30 seconds
 
 	/** For attack AI, analysis of mob and its targets */
-	private SelfAnalysis		_selfAnalysis		= new SelfAnalysis();
+	private final SelfAnalysis _selfAnalysis = new SelfAnalysis();
 	//private TargetAnalysis _mostHatedAnalysis = new TargetAnalysis();
 
 	/** The delay after which the attacked is stopped */
@@ -98,7 +98,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 	{
 		super(accessor);
 
-		_selfAnalysis.init();
+		_selfAnalysis.init(_actor);
 		_attackTimeout = Integer.MAX_VALUE;
 		_globalAggro = -10; // 10 seconds timeout of ATTACK after respawn
 

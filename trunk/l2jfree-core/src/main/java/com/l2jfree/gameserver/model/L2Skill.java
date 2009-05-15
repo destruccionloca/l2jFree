@@ -77,6 +77,8 @@ import com.l2jfree.util.LinkedBunch;
 
 public class L2Skill implements FuncOwner
 {
+	public static final L2Skill[] EMPTY_ARRAY = new L2Skill[0];
+	
 	protected static Log	_log						= LogFactory.getLog(L2Skill.class.getName());
 
 	public static final int	SKILL_CUBIC_MASTERY			= 143;

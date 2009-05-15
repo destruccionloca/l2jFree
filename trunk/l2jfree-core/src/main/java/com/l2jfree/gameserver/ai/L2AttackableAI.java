@@ -100,9 +100,9 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 	private volatile boolean _thinking; // to prevent recursive thinking
 
 	/** For attack AI, analysis of mob and its targets */
-	private SelfAnalysis		_selfAnalysis				= new SelfAnalysis();
-	private TargetAnalysis		_mostHatedAnalysis			= new TargetAnalysis();
-	private TargetAnalysis		_secondMostHatedAnalysis	= new TargetAnalysis();
+	private final SelfAnalysis _selfAnalysis = new SelfAnalysis();
+	private final TargetAnalysis _mostHatedAnalysis = new TargetAnalysis();
+	private final TargetAnalysis _secondMostHatedAnalysis = new TargetAnalysis();
 
 	/**
 	 * Constructor of L2AttackableAI.<BR><BR>
@@ -114,7 +114,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 	{
 		super(accessor);
 
-		_selfAnalysis.init();
+		_selfAnalysis.init(_actor);
 		_attackTimeout = Integer.MAX_VALUE;
 		_globalAggro = -10; // 10 seconds timeout of ATTACK after respawn
 	}
@@ -892,8 +892,8 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		{
 			setAttackTarget(hated[0]);
 		}
-		_mostHatedAnalysis.update(hated[0]);
-		_secondMostHatedAnalysis.update(hated[1]);
+		_mostHatedAnalysis.update(_actor, hated[0]);
+		_secondMostHatedAnalysis.update(_actor, hated[1]);
 
 		// Get all information needed to choose between physical or magical attack
 		_actor.setTarget(_mostHatedAnalysis.character);
@@ -973,7 +973,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		// Check if the actor is far from target
 		if (dist2 > range * range)
 		{
-			if (!_actor.isMuted() && (_selfAnalysis.hasLongRangeSkills || !_selfAnalysis.healSkills.isEmpty()))
+			if (!_actor.isMuted() && (_selfAnalysis.hasLongRangeSkills || _selfAnalysis.healSkills.length > 0))
 			{
 				// check for long ranged skills and heal/buff skills
 				if (!_mostHatedAnalysis.isCanceled)
