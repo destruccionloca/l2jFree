@@ -171,6 +171,7 @@ public class L2RaceManagerInstance extends L2Npc
                 _state = WAITING;
                 _minutes = 2;
                 break;
+            case 821: // SystemMessageId.MONSRACE_S1_BEGINS_IN_30_SECONDS
             case 822: // SystemMessageId.MONSRACE_S1_COUNTDOWN_IN_FIVE_SECONDS
             case 825: // SystemMessageId.MONSRACE_S1_END
                 sm.addNumber(_raceNumber);
