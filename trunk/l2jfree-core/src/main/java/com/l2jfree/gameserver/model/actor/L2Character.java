@@ -3860,7 +3860,7 @@ public abstract class L2Character extends L2Object
 
 		public boolean			disregardingGeodata;
 		public int				onGeodataPathIndex;
-		public List<AbstractNodeLoc> geoPath;
+		public AbstractNodeLoc[]	geoPath;
 		public int				geoPathAccurateTx;
 		public int				geoPathAccurateTy;
 		public int				geoPathGtx;
@@ -3953,7 +3953,7 @@ public abstract class L2Character extends L2Object
 		if (m.onGeodataPathIndex == -1)
 			return false;
 
-        return m.onGeodataPathIndex != m.geoPath.size() - 1;
+        return m.onGeodataPathIndex != m.geoPath.length - 1;
     }
 	
 	public final void addStatFunc(Func f)
@@ -4734,7 +4734,7 @@ public abstract class L2Character extends L2Object
 				{
 		
 					m.geoPath = PathFinding.getInstance().findPath(curX, curY, curZ, originalX, originalY, originalZ);
-                	if (m.geoPath == null || m.geoPath.size() < 2) // No path found
+                	if (m.geoPath == null || m.geoPath.length < 2) // No path found
                 	{
                 		// * Even though there's no path found (remember geonodes aren't perfect),
                 		// the mob is attacking and right now we set it so that the mob will go
@@ -4768,9 +4768,9 @@ public abstract class L2Character extends L2Object
                 		m.geoPathAccurateTx = originalX;
                 		m.geoPathAccurateTy = originalY;
 				
-                		x = m.geoPath.get(m.onGeodataPathIndex).getX();
-                		y = m.geoPath.get(m.onGeodataPathIndex).getY();
-                		z = m.geoPath.get(m.onGeodataPathIndex).getZ();
+                		x = m.geoPath[m.onGeodataPathIndex].getX();
+                		y = m.geoPath[m.onGeodataPathIndex].getY();
+                		z = m.geoPath[m.onGeodataPathIndex].getZ();
                 		
                 		// check for doors in the route
                 		if (DoorTable.getInstance().checkIfDoorsBetween(curX, curY, curZ, x, y, z))
@@ -4779,9 +4779,9 @@ public abstract class L2Character extends L2Object
             				getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
             				return;
             			}
-                		for (int i = 0; i < m.geoPath.size()-1; i++)
+                		for (int i = 0; i < m.geoPath.length-1; i++)
                 		{
-                			if (DoorTable.getInstance().checkIfDoorsBetween(m.geoPath.get(i),m.geoPath.get(i+1)))
+                			if (DoorTable.getInstance().checkIfDoorsBetween(m.geoPath[i], m.geoPath[i+1]))
                 			{
                 				m.geoPath = null;
                 				getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
@@ -4865,17 +4865,17 @@ public abstract class L2Character extends L2Object
 		m.geoPathAccurateTx = md.geoPathAccurateTx;
 		m.geoPathAccurateTy = md.geoPathAccurateTy;
 
-		if (md.onGeodataPathIndex == md.geoPath.size()-2)
+		if (md.onGeodataPathIndex == md.geoPath.length-2)
 		{
 			m._xDestination = md.geoPathAccurateTx;
 			m._yDestination = md.geoPathAccurateTy;
-			m._zDestination = md.geoPath.get(m.onGeodataPathIndex).getZ();
+			m._zDestination = md.geoPath[m.onGeodataPathIndex].getZ();
 		}
 		else
 		{
-			m._xDestination = md.geoPath.get(m.onGeodataPathIndex).getX();
-			m._yDestination = md.geoPath.get(m.onGeodataPathIndex).getY();
-			m._zDestination = md.geoPath.get(m.onGeodataPathIndex).getZ();
+			m._xDestination = md.geoPath[m.onGeodataPathIndex].getX();
+			m._yDestination = md.geoPath[m.onGeodataPathIndex].getY();
+			m._zDestination = md.geoPath[m.onGeodataPathIndex].getZ();
 		}
 		double dx = (m._xDestination - super.getX());
 		double dy = (m._yDestination - super.getY());

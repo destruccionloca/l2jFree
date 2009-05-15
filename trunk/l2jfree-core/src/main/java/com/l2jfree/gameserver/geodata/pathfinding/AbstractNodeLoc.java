@@ -15,15 +15,36 @@
 package com.l2jfree.gameserver.geodata.pathfinding;
 
 /**
- *
  * @author -Nemesiss-
  */
 public abstract class AbstractNodeLoc
 {
 	public abstract int getX();
+	
 	public abstract int getY();
+	
 	public abstract short getZ();
+	
 	public abstract void setZ(short z);
+	
 	public abstract int getNodeX();
+	
 	public abstract int getNodeY();
+	
+	@Override
+	public int hashCode()
+	{
+		return getX() ^ getY() ^ getZ();
+	}
+	
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (!(obj instanceof AbstractNodeLoc))
+			return false;
+		
+		AbstractNodeLoc loc = (AbstractNodeLoc)obj;
+		
+		return getX() == loc.getX() && getY() == loc.getY() && getZ() == loc.getZ();
+	}
 }

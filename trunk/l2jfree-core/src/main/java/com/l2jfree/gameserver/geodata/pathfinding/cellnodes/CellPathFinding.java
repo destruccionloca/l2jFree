@@ -14,31 +14,28 @@
  */
 package com.l2jfree.gameserver.geodata.pathfinding.cellnodes;
 
-
-import java.util.List;
-
 import com.l2jfree.gameserver.geodata.GeoData;
-import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.geodata.pathfinding.AbstractNodeLoc;
 import com.l2jfree.gameserver.geodata.pathfinding.Node;
 import com.l2jfree.gameserver.geodata.pathfinding.PathFinding;
+import com.l2jfree.gameserver.model.L2World;
 
 /**
- *
  * @author Sami
  */
 public class CellPathFinding extends PathFinding
 {
 	//private static Logger _log = Logger.getLogger(WorldPathFinding.class.getName());
 	private static CellPathFinding _instance;
-  	
+	
 	public static CellPathFinding getInstance()
 	{
 		if (_instance == null)
 			_instance = new CellPathFinding();
+		
 		return _instance;
 	}
-
+	
 	/**
 	 * @see net.sf.l2j.gameserver.pathfinding.PathFinding#PathNodesExist(short)
 	 */
@@ -47,26 +44,28 @@ public class CellPathFinding extends PathFinding
 	{
 		return false;
 	}
-
+	
 	/**
 	 * @see net.sf.l2j.gameserver.pathfinding.PathFinding#FindPath(int, int, short, int, int, short)
 	 */
 	@Override
-	public List<AbstractNodeLoc> findPath(int x, int y, int z, int tx, int ty, int tz)
+	public AbstractNodeLoc[] findPath(int x, int y, int z, int tx, int ty, int tz)
 	{
 		int gx = (x - L2World.MAP_MIN_X) >> 4;
 		int gy = (y - L2World.MAP_MIN_Y) >> 4;
-		if (!GeoData.getInstance().hasGeo(x, y)) return null;
-		short gz = GeoData.getInstance().getHeight(x, y, z); 
+		if (!GeoData.getInstance().hasGeo(x, y))
+			return null;
+		short gz = GeoData.getInstance().getHeight(x, y, z);
 		int gtx = (tx - L2World.MAP_MIN_X) >> 4;
 		int gty = (ty - L2World.MAP_MIN_Y) >> 4;
-		if (!GeoData.getInstance().hasGeo(tx, ty)) return null;
+		if (!GeoData.getInstance().hasGeo(tx, ty))
+			return null;
 		short gtz = GeoData.getInstance().getHeight(tx, ty, tz);
-		Node start = readNode(gx,gy,gz);
-		Node end = readNode(gtx,gty,gtz);
+		Node start = readNode(gx, gy, gz);
+		Node end = readNode(gtx, gty, gtz);
 		return searchByClosest(start, end);
 	}
-
+	
 	/**
 	 * @see net.sf.l2j.gameserver.pathfinding.PathFinding#ReadNeighbors(short, short)
 	 */
@@ -75,13 +74,12 @@ public class CellPathFinding extends PathFinding
 	{
 		return GeoData.getInstance().getNeighbors(n);
 	}
-
 	
 	//Private
-
+	
 	public Node readNode(int gx, int gy, short z)
 	{
-		return new Node(new NodeLoc(gx,gy,z), 0);
+		return new Node(new NodeLoc(gx, gy, z), 0);
 	}
 	
 	private CellPathFinding()
