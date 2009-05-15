@@ -7562,6 +7562,7 @@ public final class L2PcInstance extends L2Playable
 				sendPacket(new HennaInfo(this));
 				// Send Server->Client UserInfo packet to this L2PcInstance
 				sendPacket(new UserInfo(this));
+				return;
 			}
 		}
 	}

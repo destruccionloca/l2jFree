@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.datatables;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
 import java.util.Map;
 
 import javolution.util.FastList;
@@ -35,7 +34,7 @@ public class HennaTreeTable
 	private static final Log _log = LogFactory.getLog(HennaTreeTable.class);
 	private static HennaTreeTable _instance;
 	
-	private final Map<Integer, List<L2Henna>> _hennaTrees = new FastMap<Integer, List<L2Henna>>();
+	private final Map<Integer, L2Henna[]> _hennaTrees = new FastMap<Integer, L2Henna[]>();
 	
 	public static HennaTreeTable getInstance()
 	{
@@ -85,7 +84,7 @@ public class HennaTreeTable
 				statement2.close();
 				
 				count += list.size();
-				_hennaTrees.put(classId, list);
+				_hennaTrees.put(classId, list.toArray(new L2Henna[list.size()]));
 			}
 			
 			classlist.close();
@@ -102,7 +101,7 @@ public class HennaTreeTable
 		}
 	}
 	
-	public List<L2Henna> getAvailableHenna(L2PcInstance player)
+	public L2Henna[] getAvailableHenna(L2PcInstance player)
 	{
 		return _hennaTrees.get(player.getClassId().getId());
 	}
