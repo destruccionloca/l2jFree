@@ -77,7 +77,7 @@ public abstract class PathFinding
 				return null;
 			}
 			
-			Node node = to_visit.get(0);
+			Node node = to_visit.remove(0);
 			
 			if (node.equals(end)) //path found!
 				return constructPath(node);
@@ -139,7 +139,7 @@ public abstract class PathFinding
 				return null;
 			}
 			
-			Node node = to_visit.get(0);
+			Node node = to_visit.remove(0);
 			
 			i++;
 			
@@ -221,7 +221,7 @@ public abstract class PathFinding
 				return null;
 			}
 			
-			Node node = to_visit.get(0);
+			Node node = to_visit.remove(0);
 			
 			if (node.equals(end)) //path found!
 				return constructPath2(node);
