@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.HennaEquipList;
 
 /**
@@ -27,18 +28,16 @@ public class RequestHennaList extends L2GameClientPacket
     private static final String _C__BA_RequestHennaList = "[C] ba RequestHennaList";
 
     // This is just a trigger packet...
-    @SuppressWarnings("unused")
-    private int _unknown;
+    //private int _unknown;
 
     /**
      * packet type id 0xba
      * format:		cd
-     * @param decrypt
      */
     @Override
     protected void readImpl()
     {
-        _unknown = readD(); // ??
+        /*_unknown = */readD(); // ??
     }
 
     @Override
@@ -47,12 +46,10 @@ public class RequestHennaList extends L2GameClientPacket
         L2PcInstance activeChar = getClient().getActiveChar();
         if (activeChar == null) return;
 
-        activeChar.sendPacket(new HennaEquipList(activeChar));
+        sendPacket(new HennaEquipList(activeChar));
+        sendPacket(ActionFailed.STATIC_PACKET);
     }
 
-    /* (non-Javadoc)
-     * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-     */
     @Override
     public String getType()
     {

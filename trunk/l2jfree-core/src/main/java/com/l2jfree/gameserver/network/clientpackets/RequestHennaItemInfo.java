@@ -14,9 +14,10 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-
 import com.l2jfree.gameserver.datatables.HennaTable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.HennaItemInfo;
 import com.l2jfree.gameserver.templates.item.L2Henna;
 
@@ -28,38 +29,36 @@ import com.l2jfree.gameserver.templates.item.L2Henna;
 public class RequestHennaItemInfo extends L2GameClientPacket
 {
 	private static final String _C__BB_RequestHennaItemInfo = "[C] bb RequestHennaItemInfo";
-	//private final static Log _log = LogFactory.getLog(RequestHennaItemInfo.class.getName());
+
 	private int _symbolId;
-	// format  cd
-	
+
 	/**
 	 * packet type id 0xbb
 	 * format:		cd
-	 * @param decrypt
 	 */
     @Override
     protected void readImpl()
     {
         _symbolId  = readD();
     }
-	
+
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
-			return;
-		
+		if (activeChar == null) return;
+
 		L2Henna template = HennaTable.getInstance().getTemplate(_symbolId);
 		if (template == null)
-			return;
-		
-		activeChar.sendPacket(new HennaItemInfo(template, activeChar));
+		{
+        	requestFailed(SystemMessageId.SYMBOL_NOT_FOUND);
+            return;
+        }
+
+		sendPacket(new HennaItemInfo(template, activeChar));
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
-	
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
+
 	@Override
 	public String getType()
 	{

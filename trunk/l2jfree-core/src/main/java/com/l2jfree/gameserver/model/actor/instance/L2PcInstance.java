@@ -60,7 +60,6 @@ import com.l2jfree.gameserver.datatables.FishTable;
 import com.l2jfree.gameserver.datatables.ForgottenScrollTable;
 import com.l2jfree.gameserver.datatables.GmListTable;
 import com.l2jfree.gameserver.datatables.HennaTable;
-import com.l2jfree.gameserver.datatables.HennaTreeTable;
 import com.l2jfree.gameserver.datatables.HeroSkillTable;
 import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.datatables.NobleSkillTable;
@@ -7593,31 +7592,10 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Add a Henna to the L2PcInstance, save update in the character_hennas table of the database and send Server->Client HennaInfo/UserInfo packet to this L2PcInstance.<BR><BR>
+	 * <B>Does not do <U>any</U> validation!</B>
 	 */
-	public boolean addHenna(L2Henna henna)
+	public void addHenna(L2Henna henna)
 	{
-		if (getHennaEmptySlots() <= 0)
-		{
-			sendMessage("You may not have more than three equipped symbols at a time.");
-			return false;
-		}
-		
-		boolean allow = false;
-		for (L2Henna tmp : HennaTreeTable.getInstance().getAvailableHenna(this))
-		{
-			if (tmp == henna)
-			{
-				allow = true;
-				break;
-			}
-		}
-		
-		if (!allow)
-		{
-			sendMessage("Wrong class to add this henna!");
-			return false;
-		}
-		
 		for (int i = 0; i < 3; i++)
 		{
 			if (_henna[i] == null)
@@ -7628,7 +7606,6 @@ public final class L2PcInstance extends L2Playable
 				recalcHennaStats();
 
 				Connection con = null;
-
 				try
 				{
 					con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -7651,15 +7628,10 @@ public final class L2PcInstance extends L2Playable
 
 				// Send Server->Client HennaInfo packet to this L2PcInstance
 				sendPacket(new HennaInfo(this));
-
 				// Send Server->Client UserInfo packet to this L2PcInstance
 				sendPacket(new UserInfo(this));
-
-				return true;
 			}
 		}
-
-		return false;
 	}
 
 	/**

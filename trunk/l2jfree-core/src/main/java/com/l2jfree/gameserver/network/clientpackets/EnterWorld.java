@@ -142,7 +142,13 @@ public class EnterWorld extends L2GameClientPacket
 		sendPacket(new ShortCutInit(activeChar));
 		activeChar.sendSkillList();
 		sendPacket(SystemMessageId.WELCOME_TO_LINEAGE);
-		activeChar.sendPacket(new HennaInfo(activeChar));
+		if (Config.SERVER_AGE_LIM >= 18 || Config.SERVER_PVP)
+			sendPacket(SystemMessageId.ENTERED_ADULTS_ONLY_SERVER);
+		else if (Config.SERVER_AGE_LIM >= 15)
+			sendPacket(SystemMessageId.ENTERED_COMMON_SERVER);
+		else
+			sendPacket(SystemMessageId.ENTERED_JUVENILES_SERVER);
+		sendPacket(new HennaInfo(activeChar));
 
 		Announcements.getInstance().showAnnouncements(activeChar);
 		SevenSigns.getInstance().sendCurrentPeriodMsg(activeChar);
@@ -222,7 +228,7 @@ public class EnterWorld extends L2GameClientPacket
 			engage(activeChar);
 			notifyPartner(activeChar);
 
-			// Check if player is maried and remove if necessary Cupid's Bow
+			// Check if player is married and remove if necessary Cupid's Bow
 			if (!activeChar.isMaried())
 			{
 				L2ItemInstance item = activeChar.getInventory().getItemByItemId(9140);
@@ -248,8 +254,8 @@ public class EnterWorld extends L2GameClientPacket
 		notifySponsorOrApprentice(activeChar);
 		showPledgeSkillList(activeChar);
 
-		activeChar.sendPacket(new ExStorageMaxCount(activeChar));
-		activeChar.sendPacket(new QuestList(activeChar));
+		sendPacket(new ExStorageMaxCount(activeChar));
+		sendPacket(new QuestList(activeChar));
 
 		activeChar.broadcastUserInfo();
 
@@ -386,7 +392,7 @@ public class EnterWorld extends L2GameClientPacket
 		activeChar.onPlayerEnter();
 
 		if (activeChar.getClanJoinExpiryTime() > System.currentTimeMillis())
-			activeChar.sendPacket(SystemMessageId.CLAN_MEMBERSHIP_TERMINATED);
+			sendPacket(SystemMessageId.CLAN_MEMBERSHIP_TERMINATED);
 
 		if (activeChar.getClan() != null)
 		{
@@ -396,7 +402,7 @@ public class EnterWorld extends L2GameClientPacket
 			// Add message if clanHall not paid. Possibly this is custom...
 			ClanHall clanHall = ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan());
 			if (clanHall != null && !clanHall.getPaid())
-				activeChar.sendPacket(SystemMessageId.PAYMENT_FOR_YOUR_CLAN_HALL_HAS_NOT_BEEN_MADE_PLEASE_MAKE_PAYMENT_TO_YOUR_CLAN_WAREHOUSE_BY_TOMORROW);
+				sendPacket(SystemMessageId.PAYMENT_FOR_YOUR_CLAN_HALL_HAS_NOT_BEEN_MADE_PLEASE_MAKE_PAYMENT_TO_YOUR_CLAN_WAREHOUSE_BY_TOMORROW);
 		}
 
 		updateShortCuts(activeChar);
@@ -433,13 +439,10 @@ public class EnterWorld extends L2GameClientPacket
 		{
 			activeChar.regiveTemporarySkills();
 			// Send Action list
-			activeChar.sendPacket(ExBasicActionList.DEFAULT_ACTION_LIST);
+			sendPacket(ExBasicActionList.DEFAULT_ACTION_LIST);
 		}
 		else
-		{
-			activeChar.sendPacket(ExBasicActionList.TRANSFORMED_ACTION_LIST);
-		}
-
+			sendPacket(ExBasicActionList.TRANSFORMED_ACTION_LIST);
 
 		GlobalRestrictions.playerLoggedIn(activeChar);
 	}
@@ -461,13 +464,9 @@ public class EnterWorld extends L2GameClientPacket
 				cha.setCoupleId(cl.getId());
 
 				if (cl.getPlayer1Id() == _chaid)
-				{
 					cha.setPartnerId(cl.getPlayer2Id());
-				}
 				else
-				{
 					cha.setPartnerId(cl.getPlayer1Id());
-				}
 			}
 		}
 	}
@@ -479,9 +478,7 @@ public class EnterWorld extends L2GameClientPacket
 	{
 		if (cha.getPartnerId() != 0)
 		{
-
 			L2PcInstance partner = L2World.getInstance().getPlayer(cha.getPartnerId());
-
 			if (partner != null)
 				partner.sendMessage("Your Partner " + cha.getName() + " has logged in.");
 		}
@@ -494,7 +491,7 @@ public class EnterWorld extends L2GameClientPacket
 	{
 		SystemMessage sm = new SystemMessage(SystemMessageId.FRIEND_S1_HAS_LOGGED_IN);
 		sm.addPcName(cha);
-		
+
 		for (Integer objId : cha.getFriendList().getFriendIds())
 		{
 			L2PcInstance friend = L2World.getInstance().findPlayer(objId);
@@ -561,7 +558,7 @@ public class EnterWorld extends L2GameClientPacket
 	}
 
 	/**
-	 * CT1 doesn't update shortcuts so we need to reregister them to the client
+	 * CT1 doesn't update shortcuts so we need to re-register them to the client
 	 * 
 	 * @param activeChar
 	 */
@@ -570,9 +567,7 @@ public class EnterWorld extends L2GameClientPacket
 		L2ShortCut[] allShortCuts = activeChar.getAllShortCuts();
 
 		for (L2ShortCut sc : allShortCuts)
-		{
 			activeChar.sendPacket(new ShortCutRegister(sc));
-		}
 	}
 
 	private void loadTutorial(L2PcInstance player)
@@ -585,7 +580,7 @@ public class EnterWorld extends L2GameClientPacket
 	private void showPledgeSkillList(L2PcInstance activeChar)
 	{
 		L2Clan clan = activeChar.getClan();
-		if(clan != null)
+		if (clan != null)
 		{
 			PledgeSkillList response = new PledgeSkillList(clan);
 			L2Skill[] skills = clan.getAllSkills();
@@ -595,7 +590,7 @@ public class EnterWorld extends L2GameClientPacket
 					continue;
 				response.addSkill(s.getId(), s.getLevel());
 			}
-			sendPacket(response);
+			activeChar.sendPacket(response);
 		}
 	}
 
@@ -607,9 +602,6 @@ public class EnterWorld extends L2GameClientPacket
 		//activeChar.getInventory().refreshListeners();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

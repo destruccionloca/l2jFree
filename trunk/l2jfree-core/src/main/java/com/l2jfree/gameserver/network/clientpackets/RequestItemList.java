@@ -14,40 +14,40 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
 
 /**
- * This class ...
+ * This class represents a packet sent by the client when a player opens the inventory.
  * 
  * @version $Revision: 1.3.4.3 $ $Date: 2005/03/27 15:29:30 $
  */
 public class RequestItemList extends L2GameClientPacket
 {
 	private static final String _C__0F_REQUESTITEMLIST = "[C] 0F RequestItemList";
+
 	/**
 	 * packet type id 0x0f
 	 * format:		c
-	 * @param rawPacket
 	 */
     @Override
     protected void readImpl()
     {
-        // trigger
     }
 
     @Override
     protected void runImpl()
 	{
-        if (getClient() != null && getClient().getActiveChar() != null && !getClient().getActiveChar().isInvetoryDisabled())
-        {
-    		ItemList il = new ItemList(getClient().getActiveChar(), true);
-    		sendPacket(il);
-        }
+    	L2PcInstance player = getActiveChar();
+    	if (player == null) return;
+
+    	else if (!player.isInvetoryDisabled())
+    		sendPacket(new ItemList(player, true));
+
+    	sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

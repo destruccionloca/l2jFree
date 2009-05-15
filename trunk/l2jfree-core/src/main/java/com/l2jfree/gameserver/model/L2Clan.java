@@ -2098,47 +2098,44 @@ public class L2Clan
 	 * @param target
 	 * @return
 	 */
-	public boolean checkAllyJoinCondition(L2PcInstance activeChar, L2PcInstance target)
+	public static boolean checkAllyJoinCondition(L2PcInstance activeChar, L2PcInstance target)
 	{
 		if (activeChar == null)
-		{
 			return false;
-		}
+
 		if (activeChar.getAllyId() == 0 || !activeChar.isClanLeader() || activeChar.getClanId() != activeChar.getAllyId())
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.FEATURE_ONLY_FOR_ALLIANCE_LEADER));
+			activeChar.sendPacket(SystemMessageId.FEATURE_ONLY_FOR_ALLIANCE_LEADER);
 			return false;
 		}
+
 		L2Clan leaderClan = activeChar.getClan();
-		if (leaderClan.getAllyPenaltyExpiryTime() > System.currentTimeMillis())
+		if (leaderClan.getAllyPenaltyExpiryTime() > System.currentTimeMillis() &&
+				leaderClan.getAllyPenaltyType() == PENALTY_TYPE_DISMISS_CLAN)
 		{
-			if (leaderClan.getAllyPenaltyType() == PENALTY_TYPE_DISMISS_CLAN)
-			{
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.CANT_INVITE_CLAN_WITHIN_1_DAY));
-				return false;
-			}
-		}
-		if (target == null)
-		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_INVITED_THE_WRONG_TARGET));
+			activeChar.sendPacket(SystemMessageId.CANT_INVITE_CLAN_WITHIN_1_DAY);
 			return false;
 		}
-		if (activeChar.getObjectId() == target.getObjectId())
+		else if (target == null)
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_INVITE_YOURSELF));
+			activeChar.sendPacket(SystemMessageId.YOU_HAVE_INVITED_THE_WRONG_TARGET);
 			return false;
 		}
-		if (target.getClan() == null)
+		else if (activeChar.getObjectId() == target.getObjectId())
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_MUST_BE_IN_CLAN));
+			activeChar.sendPacket(SystemMessageId.CANNOT_INVITE_YOURSELF);
 			return false;
 		}
-		if (!target.isClanLeader())
+		else if (target.getClan() == null)
+		{
+			activeChar.sendPacket(SystemMessageId.TARGET_MUST_BE_IN_CLAN);
+			return false;
+		}
+		else if (!target.isClanLeader())
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_IS_NOT_A_CLAN_LEADER);
 			sm.addString(target.getName());
 			activeChar.sendPacket(sm);
-			sm = null;
 			return false;
 		}
 		L2Clan targetClan = target.getClan();
@@ -2148,10 +2145,9 @@ public class L2Clan
 			sm.addString(targetClan.getName());
 			sm.addString(targetClan.getAllyName());
 			activeChar.sendPacket(sm);
-			sm = null;
 			return false;
 		}
-		if (targetClan.getAllyPenaltyExpiryTime() > System.currentTimeMillis())
+		else if (targetClan.getAllyPenaltyExpiryTime() > System.currentTimeMillis())
 		{
 			if (targetClan.getAllyPenaltyType() == PENALTY_TYPE_CLAN_LEAVED)
 			{
@@ -2162,34 +2158,32 @@ public class L2Clan
 				sm = null;
 				return false;
 			}
-			if (targetClan.getAllyPenaltyType() == PENALTY_TYPE_CLAN_DISMISSED)
+			else if (targetClan.getAllyPenaltyType() == PENALTY_TYPE_CLAN_DISMISSED)
 			{
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.CANT_ENTER_ALLIANCE_WITHIN_1_DAY));
+				activeChar.sendPacket(SystemMessageId.CANT_ENTER_ALLIANCE_WITHIN_1_DAY);
 				return false;
 			}
 		}
-		if (SiegeManager.getInstance().checkIfInZone(activeChar) && SiegeManager.getInstance().checkIfInZone(target))
+		if (SiegeManager.getInstance().checkIfInZone(activeChar) &&
+				SiegeManager.getInstance().checkIfInZone(target))
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.OPPOSING_CLAN_IS_PARTICIPATING_IN_SIEGE));
+			activeChar.sendPacket(SystemMessageId.OPPOSING_CLAN_IS_PARTICIPATING_IN_SIEGE);
 			return false;
 		}
-		if (leaderClan.isAtWarWith(targetClan.getClanId()))
+		else if (leaderClan.isAtWarWith(targetClan.getClanId()))
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.MAY_NOT_ALLY_CLAN_BATTLE));
+			activeChar.sendPacket(SystemMessageId.MAY_NOT_ALLY_CLAN_BATTLE);
 			return false;
 		}
 
 		int numOfClansInAlly = 0;
 		for (L2Clan clan : ClanTable.getInstance().getClans())
-		{
 			if (clan.getAllyId() == activeChar.getAllyId())
-			{
 				++numOfClansInAlly;
-			}
-		}
+
 		if (numOfClansInAlly >= Config.ALT_MAX_NUM_OF_CLANS_IN_ALLY)
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_EXCEEDED_THE_LIMIT));
+			activeChar.sendPacket(SystemMessageId.YOU_HAVE_EXCEEDED_THE_LIMIT);
 			return false;
 		}
 

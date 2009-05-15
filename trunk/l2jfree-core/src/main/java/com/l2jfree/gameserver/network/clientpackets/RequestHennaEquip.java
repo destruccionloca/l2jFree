@@ -14,32 +14,28 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.HennaTable;
 import com.l2jfree.gameserver.datatables.HennaTreeTable;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.item.L2Henna;
-import com.l2jfree.gameserver.util.Util;
 
 /**
- * This class ...
- * 
- * @version $Revision$ $Date$
+ * This class represents a packet sent by the client when a player confirms henna dye
+ * selection.
  */
 public class RequestHennaEquip extends L2GameClientPacket
 {
 	private static final String _C__BC_RequestHennaEquip = "[C] bc RequestHennaEquip";
-	//private final static Log _log = LogFactory.getLog(RequestHennaEquip.class.getName());
+
 	private int _symbolId;
-	// format  cd
-	
+
 	/**
 	 * packet type id 0xbb
 	 * format: cd
-	 * @param decrypt
 	 */
 	@Override
 	protected void readImpl()
@@ -51,56 +47,62 @@ public class RequestHennaEquip extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
-		    return;
-        
+		if (activeChar == null) return;
+
 		L2Henna temp = HennaTable.getInstance().getTemplate(_symbolId);
         if (temp == null)
+        {
+        	requestFailed(SystemMessageId.SYMBOL_NOT_FOUND);
             return;
-        
-		/* Prevents henna drawing exploit: 
-		   1) talk to L2SymbolMakerInstance 
-		   2) RequestHennaList
-		   3) Don't close the window and go to a GrandMaster and change your subclass
-		   4) Get SymbolMaker range again and press draw
-		   You could draw any kind of henna just having the required subclass...
-		 */
-		boolean cheater = true;
-		for (L2Henna h : HennaTreeTable.getInstance().getAvailableHenna(activeChar))
-		{
-			if (h.getSymbolId() == temp.getSymbolId()) 
-			{
-				cheater = false;
-				break;
-			}
-		}  
-		
+        }
+        else if (activeChar.getHennaEmptySlots() < 1)
+        {
+        	requestFailed(SystemMessageId.SYMBOLS_FULL);
+        	return;
+        }
+        else if (!isDrawable(activeChar))
+        {
+        	requestFailed(SystemMessageId.CANT_DRAW_SYMBOL);
+        	return;
+        }
+
 		L2ItemInstance item = activeChar.getInventory().getItemByItemId(temp.getItemId());
-		
 		int count = (item == null ? 0 : item.getCount());
-		
-		if (!cheater && count >= temp.getAmount()&& activeChar.getAdena() >= temp.getPrice() && activeChar.addHenna(temp))
+		if (count >= temp.getAmount() && activeChar.getAdena() >= temp.getPrice())
 		{
+			activeChar.addHenna(temp);
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_DISAPPEARED);
 			sm.addItemName(temp.getItemId());
-			activeChar.sendPacket(sm);
+			sendPacket(sm);
 			activeChar.reduceAdena("Henna", temp.getPrice(), activeChar.getLastFolkNPC(), true);
 			L2ItemInstance dye = activeChar.getInventory().destroyItemByItemId("Henna", temp.getItemId(), temp.getAmount(), activeChar, activeChar.getLastFolkNPC());
 			// Send inventory update packet
 			activeChar.getInventory().updateInventory(dye);
-			activeChar.sendPacket(SystemMessageId.SYMBOL_ADDED);
+			sendPacket(SystemMessageId.SYMBOL_ADDED);
 		}
 		else
-		{
-			activeChar.sendPacket(SystemMessageId.CANT_DRAW_SYMBOL);
-			if (!activeChar.isGM() && cheater)
-				Util.handleIllegalPlayerAction(activeChar,"Exploit attempt: Character "+activeChar.getName()+" of account "+activeChar.getAccountName()+" tryed to add a forbidden henna.",Config.DEFAULT_PUNISH);
-		}
+			sendPacket(SystemMessageId.NUMBER_INCORRECT);
+
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
-	
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
+
+	/**
+	 * Prevents henna drawing exploit: 
+	 * 1) talk to L2SymbolMakerInstance 
+	 * 2) RequestHennaList
+	 * 3) Don't close the window and go to a GrandMaster and change your subclass
+	 * 4) Get SymbolMaker range again and press draw
+	 * You could draw any kind of henna just having the required subclass...
+	 * @param activeChar a player that is not null
 	 */
+	private final boolean isDrawable(L2PcInstance activeChar)
+	{
+		for (L2Henna h : HennaTreeTable.getInstance().getAvailableHenna(activeChar))
+			if (h.getSymbolId() == _symbolId)
+				return true;
+		return false;
+	}
+
 	@Override
 	public String getType()
 	{

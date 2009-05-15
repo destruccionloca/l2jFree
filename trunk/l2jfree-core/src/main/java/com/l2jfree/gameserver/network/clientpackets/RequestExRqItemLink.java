@@ -49,7 +49,7 @@ public class RequestExRqItemLink extends L2GameClientPacket
         L2Object object = L2World.getInstance().findObject(_objectId);
         if (object instanceof L2ItemInstance)
         	sendPacket(new ExRpItemLink((L2ItemInstance) object));
-        else if (Config.BAN_CLIENT_EMULATORS)
+        else if (object != null && Config.BAN_CLIENT_EMULATORS)
         	Util.handleIllegalPlayerAction(player, "Fake item link packet! " + player,
 					IllegalPlayerAction.PUNISH_KICKBAN);
 

@@ -14,26 +14,24 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.AskJoinAlly;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
- * This class ...
+ * This class represents a packet sent by the client when a player requests alliance with
+ * another clan.
  * 
  * @version $Revision: 1.3.4.2 $ $Date: 2005/03/27 15:29:30 $
  */
 public class RequestJoinAlly extends L2GameClientPacket
 {
-	private static final String _C__82_REQUESTJOINALLY = "[C] 82 RequestJoinAlly";
-	protected final static Log	_log	= LogFactory.getLog(RequestJoinAlly.class.getName());
+	private static final String _C__82_REQUESTJOINALLY	= "[C] 82 RequestJoinAlly";
 
 	private int _objectId;
 
@@ -47,56 +45,47 @@ public class RequestJoinAlly extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
-		{
-			return;
-		}
+		if (activeChar == null) return;
 
 		if (activeChar.getClan() == null)
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_ARE_NOT_A_CLAN_MEMBER));
+			//requestFailed(SystemMessageId.YOU_ARE_NOT_A_CLAN_MEMBER);
+			requestFailed(SystemMessageId.FEATURE_ONLY_FOR_ALLIANCE_LEADER);
 			return;
 		}
 
 		L2Object obj = null;
-
 		// Get object from target
 		if (activeChar.getTargetId() == _objectId)
 			obj = activeChar.getTarget();
-
-		// Get object from world
+		// Try to get object from world
 		if (obj == null)
-		{
 			obj = L2World.getInstance().getPlayer(_objectId);
-			//_log.warn("Player "+activeChar.getName()+" ally-invited player from outside of his knownlist.");
-		}
 
 		if (!(obj instanceof L2PcInstance))
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_INVITED_THE_WRONG_TARGET));
+			requestFailed(SystemMessageId.YOU_HAVE_INVITED_THE_WRONG_TARGET);
 			return;
 		}
 
 		L2PcInstance target = (L2PcInstance) obj;
-		L2Clan clan = activeChar.getClan();
-		if (!clan.checkAllyJoinCondition(activeChar, target))
+		if (!L2Clan.checkAllyJoinCondition(activeChar, target) ||
+				!activeChar.getRequest().setRequest(target, this))
+		{
+			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
-
-		if (!activeChar.getRequest().setRequest(target, this))
-			return;
+		}
 
 		SystemMessage sm = new SystemMessage(SystemMessageId.S2_ALLIANCE_LEADER_OF_S1_REQUESTED_ALLIANCE);
 		sm.addString(activeChar.getClan().getAllyName());
 		sm.addString(activeChar.getName());
 		target.sendPacket(sm);
-		AskJoinAlly aja = new AskJoinAlly(activeChar.getObjectId(), activeChar.getClan().getAllyName());
-		target.sendPacket(aja);
+		target.sendPacket(new AskJoinAlly(activeChar.getObjectId(), activeChar.getClan().getAllyName()));
+		sendPacket(SystemMessageId.YOU_INVITED_FOR_ALLIANCE);
 
-		sm = new SystemMessage(SystemMessageId.YOU_INVITED_FOR_ALLIANCE);
-		activeChar.sendPacket(sm);
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
-	
-	
+
 	@Override
 	public String getType()
 	{
