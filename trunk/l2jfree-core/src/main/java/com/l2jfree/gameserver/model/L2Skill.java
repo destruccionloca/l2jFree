@@ -83,6 +83,7 @@ public class L2Skill implements FuncOwner
 	public static final int	SKILL_LUCKY					= 194;
 	public static final int	SKILL_CREATE_COMMON			= 1320;
 	public static final int	SKILL_CREATE_DWARVEN		= 172;
+	public static final int	SKILL_EXPERTISE				= 239;
 	public static final int	SKILL_CRYSTALLIZE			= 248;
 	public static final int	SKILL_DIVINE_INSPIRATION	= 1405;
 	public static final int	SKILL_SOUL_MASTERY			= 467;

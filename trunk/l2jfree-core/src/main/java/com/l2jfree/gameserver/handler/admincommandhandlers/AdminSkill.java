@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.handler.admincommandhandlers;
 
+import java.util.Collection;
 import java.util.StringTokenizer;
 
 import javolution.text.TextBuilder;
@@ -21,6 +22,7 @@ import javolution.text.TextBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
@@ -201,28 +203,48 @@ public class AdminSkill implements IAdminCommandHandler
 			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 			return;
 		}
-		boolean countUnlearnable = true;
-		int unLearnable = 0;
+		
 		int skillCounter = 0;
-		L2SkillLearn[] skills = SkillTreeTable.getInstance().getAvailableSkills(player, player.getClassId());
-		while (skills.length > unLearnable)
+
+		int lvl = player.getLevel();
+		int skillLvl;
+
+		Collection<L2SkillLearn> skills = SkillTreeTable.getInstance().getAllowedSkills(player.getClassId());
+
+		boolean learn = true;
+		while (learn)
 		{
+			learn = false;
+
 			for (L2SkillLearn s : skills)
 			{
-				L2Skill sk = SkillTable.getInstance().getInfo(s.getId(), s.getLevel());
-				if (sk == null || !sk.getCanLearn(player.getClassId()))
-				{
-					if (countUnlearnable)
-						unLearnable++;
+				if (s.getMinLevel() > lvl)
 					continue;
-				}
+				
+				if (s.getId() == L2Skill.SKILL_EXPERTISE)
+					continue;
+
+				if (s.getId() == L2Skill.SKILL_LUCKY)
+					continue;
+
+				L2Skill sk = SkillTable.getInstance().getInfo(s.getId(), s.getLevel());
+
+				if (sk == null)
+					continue;
+
+				skillLvl = player.getSkillLevel(s.getId());
+
 				if (player.getSkillLevel(sk.getId()) == -1)
 					skillCounter++;
-				player.addSkill(sk, true);
+
+				if (skillLvl < 0 || skillLvl == s.getLevel() - 1)
+				{
+					player.addSkill(sk, true);
+					learn = true;
+				}
 			}
-			countUnlearnable = false;
-			skills = SkillTreeTable.getInstance().getAvailableSkills(player, player.getClassId());
 		}
+		
 		//Notify player and admin
 		if (player != activeChar)
 			player.sendMessage("A GM gave you " + skillCounter + " skills.");
