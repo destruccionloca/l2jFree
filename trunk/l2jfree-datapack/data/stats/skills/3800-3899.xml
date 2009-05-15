@@ -433,7 +433,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="-1"/>
   </skill>
-  <skill id="3772" levels="1" name="Crossbow of Boost HP">
+  <skill id="3872" levels="1" name="Crossbow of Boost HP">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
