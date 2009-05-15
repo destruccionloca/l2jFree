@@ -11,7 +11,8 @@ import org.apache.log4j.spi.LoggingEvent;
 /**
  * Overload PatternParser class
  */
-public class ExtendedPatternParser extends PatternParser {
+public class ExtendedPatternParser extends PatternParser
+{
 	private static final char STACKTRACE_CHAR = 's';
 
 	/**
@@ -20,7 +21,8 @@ public class ExtendedPatternParser extends PatternParser {
 	 * @param _pattern
 	 *            the pattern
 	 */
-	public ExtendedPatternParser(String _pattern) {
+	public ExtendedPatternParser(String _pattern)
+	{
 		super(_pattern);
 	}
 
@@ -28,9 +30,11 @@ public class ExtendedPatternParser extends PatternParser {
 	 * @see org.apache.log4j.helpers.PatternParser#finalizeConverter(char)
 	 */
 	@Override
-	public void finalizeConverter(char formatChar) {
+	public void finalizeConverter(char formatChar)
+	{
 		PatternConverter pc = null;
-		switch (formatChar) {
+		switch (formatChar)
+		{
 		case STACKTRACE_CHAR:
 			pc = new ThrowablePatternConverter(formattingInfo);
 			currentLiteral.setLength(0);
@@ -41,8 +45,10 @@ public class ExtendedPatternParser extends PatternParser {
 		}
 	}
 
-	private class ThrowablePatternConverter extends PatternConverter {
-		ThrowablePatternConverter(FormattingInfo _formattingInfo) {
+	private class ThrowablePatternConverter extends PatternConverter
+	{
+		ThrowablePatternConverter(FormattingInfo _formattingInfo)
+		{
 			super(_formattingInfo);
 		}
 
@@ -50,15 +56,18 @@ public class ExtendedPatternParser extends PatternParser {
 		 * @see org.apache.log4j.helpers.PatternConverter#convert(org.apache.log4j.spi.LoggingEvent)
 		 */
 		@Override
-		public String convert(LoggingEvent event) {
+		public String convert(LoggingEvent event)
+		{
 			String sbReturn;
-			try {
+			try 
+			{
 				StringWriter sw = new StringWriter();
 				PrintWriter pw = new PrintWriter(sw, true);
-				event.getThrowableInformation().getThrowable().printStackTrace(
-						pw);
+				event.getThrowableInformation().getThrowable().printStackTrace(pw);
 				return sw.toString();
-			} catch (NullPointerException ex) {
+			}
+			catch (NullPointerException ex)
+			{
 				sbReturn = ""; // //$NON-NLS-1$
 			}
 			return sbReturn;

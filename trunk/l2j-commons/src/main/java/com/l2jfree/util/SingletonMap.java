@@ -27,8 +27,7 @@ public final class SingletonMap<K, V> implements Map<K, V>
 {
 	private FastMap<K, V> _map;
 	private boolean _shared = false;
-	
-	@SuppressWarnings("unchecked")
+
 	private Map<K, V> get(boolean init)
 	{
 		if (_map == null)

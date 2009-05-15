@@ -6,11 +6,13 @@ import org.apache.log4j.helpers.PatternParser;
 /**
  * Overload of PatternLayout class to handle throwable
  */
-public class ExtendedPatternLayout extends PatternLayout {
+public class ExtendedPatternLayout extends PatternLayout
+{
 	/**
 	 * Default Constructor
 	 */
-	public ExtendedPatternLayout() {
+	public ExtendedPatternLayout()
+	{
 		this(DEFAULT_CONVERSION_PATTERN);
 	}
 
@@ -20,7 +22,8 @@ public class ExtendedPatternLayout extends PatternLayout {
 	 * @param pattern
 	 *            the pattern
 	 */
-	public ExtendedPatternLayout(String pattern) {
+	public ExtendedPatternLayout(String pattern)
+	{
 		super(pattern);
 	}
 
@@ -28,13 +31,13 @@ public class ExtendedPatternLayout extends PatternLayout {
 	 * @see org.apache.log4j.PatternLayout#createPatternParser(java.lang.String)
 	 */
 	@Override
-	public PatternParser createPatternParser(String pattern) {
+	public PatternParser createPatternParser(String pattern)
+	{
 		PatternParser result;
-		if (pattern == null) {
+		if (pattern == null)
 			result = new ExtendedPatternParser(DEFAULT_CONVERSION_PATTERN);
-		} else {
+		else
 			result = new ExtendedPatternParser(pattern);
-		}
 
 		return result;
 	}
@@ -46,7 +49,8 @@ public class ExtendedPatternLayout extends PatternLayout {
 	 *      l'ExtendedPattern utilise les Throwables !
 	 */
 	@Override
-	public boolean ignoresThrowable() {
+	public boolean ignoresThrowable()
+	{
 		return false;
 	}
 }
