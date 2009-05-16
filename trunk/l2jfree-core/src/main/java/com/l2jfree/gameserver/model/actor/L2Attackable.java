@@ -2572,13 +2572,6 @@ public class L2Attackable extends L2Npc
 		}
 	}
 
-	@Override
-	public void firstSpawn()
-	{
-		super.onSpawn();
-		setWalking();
-	}
-
 	/**
 	 * Sets state of the mob to seeded. Paramets needed to be set before.
 	 */

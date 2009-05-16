@@ -119,7 +119,6 @@ public abstract class L2Object implements L2Entity<Integer>
 	
 	public void firstSpawn()
 	{
-		onSpawn();
 	}
 	
 	/**
@@ -247,8 +246,8 @@ public abstract class L2Object implements L2Entity<Integer>
 		
 		if (firstspawn)
 			firstSpawn();
-		else
-			onSpawn();
+		
+		onSpawn();
 	}
 	
 	public final void spawnMe()
