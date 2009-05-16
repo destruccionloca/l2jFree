@@ -121,7 +121,9 @@ public class Say2 extends L2GameClientPacket
 			_type = SystemChatChannelId.Chat_GM_Pet;
 
 		if (!Config.GM_ALLOW_CHAT_INVISIBLE && activeChar.getAppearance().isInvisible() &&
-				_type == SystemChatChannelId.Chat_Normal)
+				(_type == SystemChatChannelId.Chat_Normal ||
+						_type == SystemChatChannelId.Chat_Shout ||
+						_type == SystemChatChannelId.Chat_Market))
 		{
 			requestFailed(SystemMessageId.NOT_CHAT_WHILE_INVISIBLE);
 			return;

@@ -1140,7 +1140,6 @@ public class L2CharacterAI extends AbstractAI
 		{
 		}
 		
-		@SuppressWarnings("hiding")
 		protected void init(L2Character actor)
 		{
 			final List<L2Skill> generalSkills = new ArrayList<L2Skill>();
