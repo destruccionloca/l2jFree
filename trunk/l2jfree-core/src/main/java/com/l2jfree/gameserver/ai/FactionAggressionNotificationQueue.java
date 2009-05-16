@@ -1,5 +1,16 @@
-/**
+/*
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
  * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package com.l2jfree.gameserver.ai;
 
@@ -17,6 +28,8 @@ public final class FactionAggressionNotificationQueue extends FIFOExecutableQueu
 	{
 		private final L2Npc _npc;
 		private final L2Character _target;
+		
+		private volatile long _lastNotificationTime;
 		
 		private NotificationInfo(L2Npc npc, L2Character target)
 		{
@@ -42,13 +55,19 @@ public final class FactionAggressionNotificationQueue extends FIFOExecutableQueu
 		}
 	}
 	
-	private final L2FastSet<NotificationInfo> _set = new L2FastSet<NotificationInfo>();
+	private final L2FastSet<NotificationInfo> _new = new L2FastSet<NotificationInfo>();
+	private final L2FastSet<NotificationInfo> _old = new L2FastSet<NotificationInfo>();
+	
+	private final Object _lock = new Object();
 	
 	public void add(L2Npc npc, L2Character target)
 	{
-		synchronized (_set)
+		final NotificationInfo ni = new NotificationInfo(npc, target);
+		
+		synchronized (_lock)
 		{
-			_set.add(new NotificationInfo(npc, target));
+			if (!_old.contains(ni))
+				_new.add(new NotificationInfo(npc, target));
 		}
 		
 		execute();
@@ -57,27 +76,58 @@ public final class FactionAggressionNotificationQueue extends FIFOExecutableQueu
 	@Override
 	protected boolean isEmpty()
 	{
-		synchronized (_set)
+		synchronized (_lock)
 		{
-			return _set.isEmpty();
+			if (!_new.isEmpty())
+				return false;
+			
+			NotificationInfo ni = _old.getFirst();
+			
+			if (ni == null)
+				return true;
+			
+			return ni._lastNotificationTime + 1000 > System.currentTimeMillis();
 		}
 	}
 	
 	@Override
 	protected void removeAndExecuteFirst()
 	{
-		NotificationInfo ni = null;
+		NotificationInfo ni;
 		
-		synchronized (_set)
+		synchronized (_lock)
 		{
-			ni = _set.removeFirst();
+			ni = _new.removeFirst();
+			
+			if (ni == null)
+				ni = _old.removeFirst();
 		}
 		
-		switch (ni._npc.getAI().getIntention())
+		if (shouldNotify(ni._npc))
+		{
+			ni._npc.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, ni._target, 1);
+			ni._lastNotificationTime = System.currentTimeMillis();
+			
+			synchronized (_lock)
+			{
+				_new.remove(ni);
+				_old.remove(ni);
+				
+				if (shouldNotify(ni._npc))
+					_old.add(ni);
+			}
+		}
+	}
+	
+	private boolean shouldNotify(L2Npc npc)
+	{
+		switch (npc.getAI().getIntention())
 		{
 			case AI_INTENTION_IDLE:
 			case AI_INTENTION_ACTIVE:
-				ni._npc.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, ni._target, 1);
+				return true;
 		}
+		
+		return false;
 	}
 }
