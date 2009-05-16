@@ -67,7 +67,7 @@ public final class FactionAggressionNotificationQueue extends FIFOExecutableQueu
 		synchronized (_lock)
 		{
 			if (!_old.contains(ni))
-				_new.add(new NotificationInfo(npc, target));
+				_new.add(ni);
 		}
 		
 		execute();
