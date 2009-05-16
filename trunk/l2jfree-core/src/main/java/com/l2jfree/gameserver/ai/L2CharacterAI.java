@@ -43,6 +43,7 @@ import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
 import com.l2jfree.tools.geometry.Point3D;
+import com.l2jfree.util.ThreadLocalObjectPool;
 
 /**
  * This class manages AI of L2Character.<BR><BR>
@@ -1142,18 +1143,6 @@ public class L2CharacterAI extends AbstractAI
 		
 		protected void init(L2Character actor)
 		{
-			final List<L2Skill> generalSkills = new ArrayList<L2Skill>();
-			final List<L2Skill> buffSkills = new ArrayList<L2Skill>();
-			final List<L2Skill> debuffSkills = new ArrayList<L2Skill>();
-			final List<L2Skill> cancelSkills = new ArrayList<L2Skill>();
-			final List<L2Skill> healSkills = new ArrayList<L2Skill>();
-			//final List<L2Skill> trickSkills = new ArrayList<L2Skill>();
-			final List<L2Skill> generalDisablers = new ArrayList<L2Skill>();
-			final List<L2Skill> sleepSkills = new ArrayList<L2Skill>();
-			final List<L2Skill> rootSkills = new ArrayList<L2Skill>();
-			final List<L2Skill> muteSkills = new ArrayList<L2Skill>();
-			final List<L2Skill> resurrectSkills = new ArrayList<L2Skill>();
-			
 			switch (((L2NpcTemplate)actor.getTemplate()).getAI())
 			{
 				case FIGHTER:
@@ -1189,6 +1178,19 @@ public class L2CharacterAI extends AbstractAI
 						break;
 				}
 			}
+			
+			final List<L2Skill> generalSkills0 = LISTS.get();
+			final List<L2Skill> buffSkills0 = LISTS.get();
+			final List<L2Skill> debuffSkills0 = LISTS.get();
+			final List<L2Skill> cancelSkills0 = LISTS.get();
+			final List<L2Skill> healSkills0 = LISTS.get();
+			//final List<L2Skill> trickSkills0 = LISTS.get();
+			final List<L2Skill> generalDisablers0 = LISTS.get();
+			final List<L2Skill> sleepSkills0 = LISTS.get();
+			final List<L2Skill> rootSkills0 = LISTS.get();
+			final List<L2Skill> muteSkills0 = LISTS.get();
+			final List<L2Skill> resurrectSkills0 = LISTS.get();
+			
 			// skill analysis
 			for (L2Skill sk : actor.getAllSkills())
 			{
@@ -1203,11 +1205,11 @@ public class L2CharacterAI extends AbstractAI
 					case HEAL_STATIC:
 					case BALANCE_LIFE:
 					case HOT:
-						healSkills.add(sk);
+						healSkills0.add(sk);
 						hasHealOrResurrect = true;
 						continue; // won't be considered something for fighting
 					case BUFF:
-						buffSkills.add(sk);
+						buffSkills0.add(sk);
 						continue; // won't be considered something for fighting
 					case PARALYZE:
 					case STUN:
@@ -1221,43 +1223,43 @@ public class L2CharacterAI extends AbstractAI
 							case 4383:
 							case 4616:
 							case 4578:
-								sleepSkills.add(sk);
+								sleepSkills0.add(sk);
 								break;
 							default:
-								generalDisablers.add(sk);
+								generalDisablers0.add(sk);
 								break;
 						}
 						break;
 					case MUTE:
-						muteSkills.add(sk);
+						muteSkills0.add(sk);
 						break;
 					case SLEEP:
-						sleepSkills.add(sk);
+						sleepSkills0.add(sk);
 						break;
 					case ROOT:
-						rootSkills.add(sk);
+						rootSkills0.add(sk);
 						break;
 					case FEAR: // could be used as an alternative for healing?
 					case CONFUSION:
 						//  trickSkills.add(sk);
 					case DEBUFF:
-						debuffSkills.add(sk);
+						debuffSkills0.add(sk);
 						break;
 					case CANCEL:
 					case MAGE_BANE:
 					case WARRIOR_BANE:
 					case NEGATE:
-						cancelSkills.add(sk);
+						cancelSkills0.add(sk);
 						break;
 					case RESURRECT:
-						resurrectSkills.add(sk);
+						resurrectSkills0.add(sk);
 						hasHealOrResurrect = true;
 						break;
 					case NOTDONE:
 					case COREDONE:
 						continue; // won't be considered something for fighting
 					default:
-						generalSkills.add(sk);
+						generalSkills0.add(sk);
 						hasLongRangeDamageSkill = true;
 						break;
 				}
@@ -1284,29 +1286,51 @@ public class L2CharacterAI extends AbstractAI
 				isMage = false;
 				isFighter = true;
 			}
-			if (generalSkills.isEmpty() && isMage)
+			if (generalSkills0.isEmpty() && isMage)
 			{
 				isBalanced = true;
 				isMage = false;
 			}
 			
-			this.generalSkills = convert(generalSkills);
-			this.buffSkills = convert(buffSkills);
-			this.debuffSkills = convert(debuffSkills);
-			this.cancelSkills = convert(cancelSkills);
-			this.healSkills = convert(healSkills);
-			//this.trickSkills = convert(trickSkills);
-			this.generalDisablers = convert(generalDisablers);
-			this.sleepSkills = convert(sleepSkills);
-			this.rootSkills = convert(rootSkills);
-			this.muteSkills = convert(muteSkills);
-			this.resurrectSkills = convert(resurrectSkills);
+			generalSkills = convert(generalSkills0);
+			buffSkills = convert(buffSkills0);
+			debuffSkills = convert(debuffSkills0);
+			cancelSkills = convert(cancelSkills0);
+			healSkills = convert(healSkills0);
+			//this.trickSkills = convert(trickSkills0);
+			generalDisablers = convert(generalDisablers0);
+			sleepSkills = convert(sleepSkills0);
+			rootSkills = convert(rootSkills0);
+			muteSkills = convert(muteSkills0);
+			resurrectSkills = convert(resurrectSkills0);
 		}
 		
 		private L2Skill[] convert(List<L2Skill> list)
 		{
-			return list.toArray(new L2Skill[list.size()]);
+			try
+			{
+				return list.toArray(new L2Skill[list.size()]);
+			}
+			finally
+			{
+				LISTS.store(list);
+			}
 		}
+		
+		private static final ThreadLocalObjectPool<List<L2Skill>> LISTS = new ThreadLocalObjectPool<List<L2Skill>>() {
+			@Override
+			protected void reset(List<L2Skill> list)
+			{
+				list.clear();
+			}
+			
+			@Override
+			protected List<L2Skill> create()
+			{
+				return new ArrayList<L2Skill>();
+			}
+			
+		};
 	}
 	
 	protected static final class TargetAnalysis
