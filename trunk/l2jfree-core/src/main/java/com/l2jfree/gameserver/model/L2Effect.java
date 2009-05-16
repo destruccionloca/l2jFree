@@ -134,14 +134,25 @@ public abstract class L2Effect implements FuncOwner, Runnable
 			_effected.sendPacket(sm);
 		}
 		
-		_currentFuture = ThreadPoolManager.getInstance().scheduleAtFixedRate(this, _period * 1000, _period * 1000);
-		
-		if (_period <= 0 && _count > 1)
-			_effected.getEffects().printStackTrace(getStackType(), this);
+		scheduleEffect(_period);
 		
 		_effected.getEffects().addEffect(this);
 		
 		GlobalRestrictions.effectCreated(this);
+	}
+	
+	private void scheduleEffect(int initialDelay)
+	{
+		if (_currentFuture != null)
+			_currentFuture.cancel(false);
+		
+		if (_period <= 0 && _count > 1)
+			_effected.getEffects().printStackTrace(getStackType(), this);
+		
+		if (_count > 1)
+			_currentFuture = ThreadPoolManager.getInstance().scheduleAtFixedRate(this, initialDelay * 1000, _period * 1000);
+		else
+			_currentFuture = ThreadPoolManager.getInstance().schedule(this, initialDelay * 1000);
 	}
 	
 	public final int getCount()
@@ -158,10 +169,7 @@ public abstract class L2Effect implements FuncOwner, Runnable
 	{
 		_count = newcount;
 		
-		int remaining = _period - newfirsttime;
-		
-		_currentFuture.cancel(false);
-		_currentFuture = ThreadPoolManager.getInstance().scheduleAtFixedRate(this, remaining * 1000, _period * 1000);
+		scheduleEffect(_period - newfirsttime);
 	}
 	
 	public final boolean getShowIcon()
