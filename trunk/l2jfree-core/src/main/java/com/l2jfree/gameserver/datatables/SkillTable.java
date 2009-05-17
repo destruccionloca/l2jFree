@@ -139,6 +139,14 @@ public final class SkillTable
 		return _maxLevels[skillId];
 	}
 	
+	public int getNormalLevel(L2Skill skill)
+	{
+		if (skill.getLevel() < 100)
+			return skill.getLevel();
+		
+		return getMaxLevel(skill.getId());
+	}
+	
 	private L2Skill[] _siegeSkills;
 	
 	public L2Skill[] getSiegeSkills(boolean addNoble)

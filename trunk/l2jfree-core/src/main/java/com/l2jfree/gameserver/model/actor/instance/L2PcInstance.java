@@ -7192,7 +7192,7 @@ public final class L2PcInstance extends L2Playable
 			int skillid = skill.getId();
 			
 			// Loop through all skills in players skilltree
-			if (skillTreeUIDs.contains(SkillTable.getSkillUID(skill)))
+			if (skillTreeUIDs.contains(SkillTable.getSkillUID(skillid, SkillTable.getInstance().getNormalLevel(skill))))
 				continue;
 			if (forgottenIds.contains(skillid))
 				continue skill_loop;
