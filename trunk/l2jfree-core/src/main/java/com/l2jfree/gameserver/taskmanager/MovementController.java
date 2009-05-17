@@ -124,8 +124,8 @@ public final class MovementController extends AbstractPeriodicTaskManager
 		@Override
 		public void run()
 		{
-			for (Entry<L2Character, TickRange> entry = _movingChars.head(), end = _movingChars.tail();
-					(entry = entry.getNext()) != end;)
+			for (Entry<L2Character, TickRange> entry = _movingChars.head();
+					(entry = entry.getNext()) != _movingChars.tail();)
 			{
 				L2Character cha = entry.getKey();
 				TickRange range = entry.getValue();
