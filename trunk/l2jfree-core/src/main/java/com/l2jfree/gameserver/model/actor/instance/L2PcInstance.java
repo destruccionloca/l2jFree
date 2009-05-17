@@ -10222,7 +10222,9 @@ public final class L2PcInstance extends L2Playable
 
 		restoreHenna();
 		sendPacket(new HennaInfo(this));
-
+		
+		checkItemRestriction();
+		
 		if (getStatus().getCurrentHp() > getMaxHp())
 			getStatus().setCurrentHp(getMaxHp());
 		if (getStatus().getCurrentMp() > getMaxMp())
