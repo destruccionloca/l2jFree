@@ -7191,6 +7191,8 @@ public final class L2PcInstance extends L2Playable
 		{
 			int skillid = skill.getId();
 			
+			if (isTransformed() && containsAllowedTransformSkill(skillid))
+				continue;
 			// Loop through all skills in players skilltree
 			if (skillTreeUIDs.contains(SkillTable.getSkillUID(skillid, SkillTable.getInstance().getNormalLevel(skill))))
 				continue;
