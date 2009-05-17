@@ -142,6 +142,10 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 				}
 
 				break;
+			// to avoid unnecessary warning about invalid opcode (if the client lags a bit, then it starts spamming this packet)
+			case 0x59: // ValidatePosition
+				break;
+			//
 			default:
 				printDebug(opcode, null, buf, client);
 				break;
@@ -150,6 +154,10 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 		case IN_GAME:
 			switch (opcode)
 			{
+			// to avoid unnecessary warning about invalid opcode (player clicked the button multiple times)
+			case 0x12: // CharacterSelected
+				break;
+			//
 			case 0x00:
 				msg = new Logout();
 				break;
