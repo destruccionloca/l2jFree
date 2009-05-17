@@ -22,7 +22,6 @@ import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Summon;
-import com.l2jfree.gameserver.model.actor.shot.SummonShots;
 import com.l2jfree.gameserver.model.actor.status.SummonStatus;
 import com.l2jfree.gameserver.network.serverpackets.SetSummonRemainTime;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
@@ -301,14 +300,5 @@ public class L2SummonInstance extends L2Summon
 			_status = new SummonStatus(this);
 		
 		return (SummonStatus)_status;
-	}
-	
-	@Override
-	public SummonShots getShots()
-	{
-		if (_shots == null)
-			_shots = new SummonShots(this);
-		
-		return (SummonShots)_shots;
 	}
 }

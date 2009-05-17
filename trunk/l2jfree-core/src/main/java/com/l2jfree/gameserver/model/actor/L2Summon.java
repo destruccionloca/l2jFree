@@ -30,6 +30,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.model.actor.knownlist.SummonKnownList;
+import com.l2jfree.gameserver.model.actor.shot.SummonShots;
 import com.l2jfree.gameserver.model.actor.stat.SummonStat;
 import com.l2jfree.gameserver.model.base.Experience;
 import com.l2jfree.gameserver.model.itemcontainer.PetInventory;
@@ -902,5 +903,14 @@ public abstract class L2Summon extends L2Playable
 			party.broadcastToPartyMembers(getOwner(), new ExPartyPetWindowUpdate(this));
 		
 		updateEffectIcons();
+	}
+	
+	@Override
+	public SummonShots getShots()
+	{
+		if (_shots == null)
+			_shots = new SummonShots(this);
+		
+		return (SummonShots)_shots;
 	}
 }
