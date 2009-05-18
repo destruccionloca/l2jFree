@@ -57,16 +57,4 @@ public final class L2EtcItem extends L2Item
 	{
 		return ((getItemType() == L2EtcItemType.SHOT) || (getItemType() == L2EtcItemType.POTION)); // ||(type==L2EtcItemType.SCROLL));
 	}
-
-	/**
-	 * Returns the ID of the Etc item after applying the mask.
-	 * 
-	 * @return int : ID of the EtcItem
-	 */
-	@Override
-	public int getItemMask()
-	{
-		return getItemType().mask();
-	}
-
 }

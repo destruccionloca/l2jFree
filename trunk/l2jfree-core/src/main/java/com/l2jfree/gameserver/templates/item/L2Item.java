@@ -231,8 +231,6 @@ public abstract class L2Item implements FuncOwner
 		return _itemDisplayId;
 	}
 	
-	public abstract int getItemMask();
-
 	/**
 	 * Return the type of material of the item
 	 * @return int

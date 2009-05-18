@@ -18,6 +18,7 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.gameserver.templates.item.L2Equip;
 
 /**
  * @author mkizub
@@ -39,8 +40,8 @@ class ConditionSlotItemType extends ConditionInventory
 			return false;
 		Inventory inv = ((L2PcInstance)env.player).getInventory();
 		L2ItemInstance item = inv.getPaperdollItem(_slot);
-		if (item == null)
+		if (item == null || !(item.getItem() instanceof L2Equip))
 			return false;
-		return (item.getItem().getItemMask() & _mask) != 0;
+		return (((L2Equip)item.getItem()).getItemMask() & _mask) != 0;
 	}
 }

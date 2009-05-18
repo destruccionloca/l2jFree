@@ -34,7 +34,6 @@ public enum L2EtcItemType implements AbstractL2ItemType
 	HERB(12, "Herb"),
 	BOLT(13, "Bolt");
 	
-	private final int _mask;
 	private final String _name;
 	
 	/**
@@ -45,18 +44,7 @@ public enum L2EtcItemType implements AbstractL2ItemType
 	 */
 	private L2EtcItemType(int id, String name)
 	{
-		_mask = L2ArmorType.values()[L2ArmorType.values().length - 1].mask() << (id + 1);
 		_name = name;
-	}
-	
-	/**
-	 * Returns the ID of the item after applying the mask.
-	 * 
-	 * @return int : ID of the item
-	 */
-	public int mask()
-	{
-		return _mask;
 	}
 	
 	/**

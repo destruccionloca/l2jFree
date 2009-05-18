@@ -171,7 +171,7 @@ public abstract class L2Equip extends L2Item
 		return itemSkills;
 	}
 
-	/** 
+	/**
 	* Returns passive skills linked to that item
 	* @return
 	*/
@@ -179,4 +179,6 @@ public abstract class L2Equip extends L2Item
 	{
 		return _itemSkills;
 	}
+	
+	public abstract int getItemMask();
 }

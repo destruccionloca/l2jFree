@@ -19,6 +19,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.templates.item.L2ArmorType;
+import com.l2jfree.gameserver.templates.item.L2Equip;
 import com.l2jfree.gameserver.templates.item.L2Item;
 
 /**
@@ -46,9 +47,9 @@ public class ConditionUsingItemType extends Condition
 		{
 			//Get the itemMask of the weared chest (if exists)
 			L2ItemInstance chest = inv.getPaperdollItem(Inventory.PAPERDOLL_CHEST);
-			if (chest == null)
+			if (chest == null || !(chest.getItem() instanceof L2Equip))
 				return false;
-			int chestMask = chest.getItem().getItemMask();
+			int chestMask = ((L2Equip)chest.getItem()).getItemMask();
 			
 			//If chest armor is different from the condition one return false
 			if ((_mask & chestMask) == 0)
@@ -63,9 +64,9 @@ public class ConditionUsingItemType extends Condition
 			
 			//check legs armor
 			L2ItemInstance legs = inv.getPaperdollItem(Inventory.PAPERDOLL_LEGS);
-			if (legs == null)
+			if (legs == null || !(legs.getItem() instanceof L2Equip))
 				return false;
-			int legMask = legs.getItem().getItemMask();
+			int legMask = ((L2Equip)legs.getItem()).getItemMask();
 			//return true if legs armor matches too
 			return (_mask & legMask) != 0;
 		}
