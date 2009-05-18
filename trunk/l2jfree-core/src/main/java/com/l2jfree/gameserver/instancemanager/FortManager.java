@@ -137,7 +137,7 @@ public class FortManager
 			rs.close();
 			statement.close();
 
-			_log.info("Loaded: " + getForts().size() + " fortress");
+			_log.info("Loaded: " + getForts().size() + " fortress(es)");
 		}
 		catch (Exception e)
 		{

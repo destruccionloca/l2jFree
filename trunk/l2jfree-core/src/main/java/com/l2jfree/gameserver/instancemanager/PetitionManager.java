@@ -226,7 +226,7 @@ public final class PetitionManager
 
 	private PetitionManager()
 	{
-		_log.info("PetitionManager: initalized.");
+		_log.info("PetitionManager: initialized.");
 		_pendingPetitions = new FastMap<Integer, Petition>();
 		_completedPetitions = new FastMap<Integer, Petition>();
 	}

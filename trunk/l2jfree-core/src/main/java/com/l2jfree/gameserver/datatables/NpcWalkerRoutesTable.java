@@ -46,7 +46,7 @@ public class NpcWalkerRoutesTable
 		if (_instance == null)
 		{
 			_instance = new NpcWalkerRoutesTable();
-			_log.info("Initializing Walkers Routes Table.");
+			_log.info("Initializing Walker Routes Table.");
 		}
 
 		return _instance;
@@ -93,7 +93,7 @@ public class NpcWalkerRoutesTable
 		}
 		catch (Exception e)
 		{
-			_log.fatal("WalkerRoutesTable: Error while loading Npc Walkers Routes: " + e.getMessage());
+			_log.fatal("WalkerRoutesTable: Error while loading Npc Walker Routes: " + e.getMessage());
 		}
 		finally
 		{

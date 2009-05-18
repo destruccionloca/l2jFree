@@ -333,7 +333,7 @@ public class SiegeManager
 				_controlTowerSpawnList.put(castle.getCastleId(), _controlTowersSpawns);
 				_artefactSpawnList.put(castle.getCastleId(), _artefactSpawns);
 
-				_log.info("SiegeManager: loaded controltowers[" + Integer.toString(_controlTowersSpawns.size()) + "] artefacts["
+				_log.info("SiegeManager: loaded controltowers[" + Integer.toString(_controlTowersSpawns.size()) + "] artifacts["
 						+ Integer.toString(_artefactSpawns.size()) + "] castle[" + castle.getName() + "]");
 			}
 		}
