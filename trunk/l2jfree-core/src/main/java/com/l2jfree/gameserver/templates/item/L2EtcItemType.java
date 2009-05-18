@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.templates.item;
 /**
  * Description of EtcItem Type
  */
-
 public enum L2EtcItemType implements AbstractL2ItemType
 {
 	ARROW(0, "Arrow"),
@@ -34,22 +33,22 @@ public enum L2EtcItemType implements AbstractL2ItemType
 	SHOT(11, "Shot"),
 	HERB(12, "Herb"),
 	BOLT(13, "Bolt");
-
-	final int		_id;
-	final String	_name;
-
+	
+	private final int _mask;
+	private final String _name;
+	
 	/**
 	 * Constructor of the L2EtcItemType.
 	 * 
 	 * @param id : int designating the ID of the EtcItemType
 	 * @param name : String designating the name of the EtcItemType
 	 */
-	L2EtcItemType(int id, String name)
+	private L2EtcItemType(int id, String name)
 	{
-		_id = id;
+		_mask = L2ArmorType.values()[L2ArmorType.values().length - 1].mask() << (id + 1);
 		_name = name;
 	}
-
+	
 	/**
 	 * Returns the ID of the item after applying the mask.
 	 * 
@@ -57,9 +56,9 @@ public enum L2EtcItemType implements AbstractL2ItemType
 	 */
 	public int mask()
 	{
-		return 1 << (_id + 21);
+		return _mask;
 	}
-
+	
 	/**
 	 * Returns the name of the EtcItemType
 	 * 

@@ -40,7 +40,7 @@ public enum L2WeaponType implements AbstractL2ItemType
 	CROSSBOW(16, "Crossbow", Stats.CROSSBOW_WPN_VULN),
 	RAPIER(17, "Rapier", Stats.DAGGER_WPN_VULN);
 	
-	private final int _id;
+	private final int _mask;
 	private final String _name;
 	private final Stats _stat;
 	
@@ -52,7 +52,7 @@ public enum L2WeaponType implements AbstractL2ItemType
 	 */
 	private L2WeaponType(int id, String name, Stats stat)
 	{
-		_id = id;
+		_mask = 1 << id;
 		_name = name;
 		_stat = stat;
 	}
@@ -64,7 +64,7 @@ public enum L2WeaponType implements AbstractL2ItemType
 	 */
 	public int mask()
 	{
-		return 1 << _id;
+		return _mask;
 	}
 	
 	/**

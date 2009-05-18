@@ -16,28 +16,30 @@ package com.l2jfree.gameserver.templates.item;
 
 /**
  * Description of Armor Type
- * 
  */
-
 public enum L2ArmorType implements AbstractL2ItemType
 {
-	NONE(1, "None"), LIGHT(2, "Light"), HEAVY(3, "Heavy"), MAGIC(4, "Magic"), PET(5, "Pet");
-
-	final int		_id;
-	final String	_name;
-
+	NONE(1, "None"),
+	LIGHT(2, "Light"),
+	HEAVY(3, "Heavy"),
+	MAGIC(4, "Magic"),
+	PET(5, "Pet");
+	
+	private final int _mask;
+	private final String _name;
+	
 	/**
 	 * Constructor of the L2ArmorType.
 	 * 
 	 * @param id : int designating the ID of the ArmorType
 	 * @param name : String designating the name of the ArmorType
 	 */
-	L2ArmorType(int id, String name)
+	private L2ArmorType(int id, String name)
 	{
-		_id = id;
+		_mask = L2WeaponType.values()[L2WeaponType.values().length - 1].mask() << id;
 		_name = name;
 	}
-
+	
 	/**
 	 * Returns the ID of the ArmorType after applying a mask.
 	 * 
@@ -45,9 +47,9 @@ public enum L2ArmorType implements AbstractL2ItemType
 	 */
 	public int mask()
 	{
-		return 1 << (_id + 16);
+		return _mask;
 	}
-
+	
 	/**
 	 * Returns the name of the ArmorType
 	 * 
