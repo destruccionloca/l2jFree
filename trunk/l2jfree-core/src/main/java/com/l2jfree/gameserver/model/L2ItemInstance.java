@@ -61,6 +61,8 @@ import com.l2jfree.sql.SQLQuery;
  */
 public final class L2ItemInstance extends L2Object implements FuncOwner
 {
+	public static final L2ItemInstance[] EMPTY_ARRAY = new L2ItemInstance[0];
+	
 	protected static final Log	_log		= LogFactory.getLog(L2ItemInstance.class.getName());
 
 	private static final Log	_logItems	= LogFactory.getLog("item");
