@@ -23,6 +23,8 @@ import javolution.text.TextBuilder;
 
 import org.apache.commons.io.IOUtils;
 
+import com.l2jfree.Config;
+
 /**
  * @author NB4L1
  */
@@ -44,7 +46,12 @@ public abstract class L2RuntimeLogFormatter extends L2LogFormatter
 	
 	protected final void appendThrown(LogRecord record, TextBuilder tb)
 	{
-		if (record.getThrown() != null)
+		Throwable throwable = record.getThrown();
+		
+		if (throwable == null && record.getLevel().intValue() >= Config.EXTENDED_LOG_LEVEL.intValue())
+			throwable = new ExtendedLog();
+		
+		if (throwable != null)
 		{
 			StringWriter sw = null;
 			PrintWriter pw = null;
@@ -53,7 +60,7 @@ public abstract class L2RuntimeLogFormatter extends L2LogFormatter
 				sw = new StringWriter();
 				pw = new PrintWriter(sw);
 				
-				record.getThrown().printStackTrace(pw);
+				throwable.printStackTrace(pw);
 				
 				appendNewline(tb);
 				tb.append(sw);
@@ -64,5 +71,10 @@ public abstract class L2RuntimeLogFormatter extends L2LogFormatter
 				IOUtils.closeQuietly(sw);
 			}
 		}
+	}
+	
+	private static final class ExtendedLog extends Exception
+	{
+		private static final long serialVersionUID = -8959693629510963880L;
 	}
 }

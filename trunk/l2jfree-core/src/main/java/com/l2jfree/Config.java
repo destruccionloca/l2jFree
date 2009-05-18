@@ -26,6 +26,7 @@ import java.math.BigInteger;
 import java.util.Map;
 import java.util.Properties;
 import java.util.StringTokenizer;
+import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -116,10 +117,7 @@ public final class Config extends L2Config
 	public static int			MIN_PROTOCOL_REVISION;																// protocol revision
 	public static int			MAX_PROTOCOL_REVISION;
 	public static File			DATAPACK_ROOT;																		// Datapack root directory
-	public static int			NEW_NODE_ID;
-	public static int			SELECTED_NODE_ID;
-	public static int			LINKED_NODE_ID;
-	public static String		NEW_NODE_TYPE;
+	public static Level			EXTENDED_LOG_LEVEL;
 
 	// *******************************************************************************************
 	public static void loadConfiguration()
@@ -202,6 +200,8 @@ public final class Config extends L2Config
 			SAFE_REBOOT_DISABLE_TRANSACTION = Boolean.parseBoolean(serverSettings.getProperty("SafeRebootDisableTransaction", "False"));
 			SAFE_REBOOT_DISABLE_PC_ITERACTION = Boolean.parseBoolean(serverSettings.getProperty("SafeRebootDisablePcIteraction", "False"));
 			SAFE_REBOOT_DISABLE_NPC_ITERACTION = Boolean.parseBoolean(serverSettings.getProperty("SafeRebootDisableNpcIteraction", "False"));
+			
+			EXTENDED_LOG_LEVEL = Level.parse(serverSettings.getProperty("ExtendedLogLevel", "WARNING"));
 		}
 		catch (Exception e)
 		{
