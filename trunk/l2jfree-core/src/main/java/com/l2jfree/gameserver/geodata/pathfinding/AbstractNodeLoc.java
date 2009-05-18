@@ -36,7 +36,7 @@ public abstract class AbstractNodeLoc
 	@Override
 	public int hashCode()
 	{
-		return L2System.hash(getX() ^ getY() ^ getZ());
+		return L2System.hash((getX() << 20) + (getY() << 8) + getZ());
 	}
 	
 	@Override
