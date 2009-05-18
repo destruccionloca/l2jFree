@@ -73,6 +73,7 @@ import com.l2jfree.gameserver.templates.item.L2WeaponType;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.lang.L2Integer;
+import com.l2jfree.lang.L2System;
 import com.l2jfree.util.LinkedBunch;
 
 public class L2Skill implements FuncOwner
@@ -3941,10 +3942,6 @@ public class L2Skill implements FuncOwner
 	@Override
 	public int hashCode()
 	{
-		int h = SkillTable.getSkillUID(this);
-		h += ~(h << 9);
-		h ^= (h >>> 14);
-		h += (h << 4);
-		return h ^ (h >>> 10);
+		return L2System.hash(SkillTable.getSkillUID(this));
 	}
 }

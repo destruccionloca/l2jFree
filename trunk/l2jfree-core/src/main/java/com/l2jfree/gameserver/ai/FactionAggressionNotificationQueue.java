@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.ai;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.threadmanager.FIFOExecutableQueue;
+import com.l2jfree.lang.L2System;
 import com.l2jfree.util.L2FastSet;
 
 /**
@@ -51,7 +52,7 @@ public final class FactionAggressionNotificationQueue extends FIFOExecutableQueu
 		@Override
 		public int hashCode()
 		{
-			return (_npc.getObjectId() << 2) + _target.getObjectId();
+			return L2System.hash((_npc.getObjectId() << 16) + _target.getObjectId());
 		}
 	}
 	

@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.geodata.pathfinding;
 
+import com.l2jfree.lang.L2System;
+
 /**
  * @author -Nemesiss-
  */
@@ -34,7 +36,7 @@ public abstract class AbstractNodeLoc
 	@Override
 	public int hashCode()
 	{
-		return getX() ^ getY() ^ getZ();
+		return L2System.hash(getX() ^ getY() ^ getZ());
 	}
 	
 	@Override
