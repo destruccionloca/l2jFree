@@ -89,7 +89,7 @@ public final class CellNodeMap
 		@Override
 		protected L2FastSet<Node> create()
 		{
-			return new L2FastSet<Node>();
+			return new L2FastSet<Node>(4096);
 		}
 	};
 }

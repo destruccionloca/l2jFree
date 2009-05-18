@@ -14013,14 +14013,17 @@ public final class L2PcInstance extends L2Playable
 
 	public boolean canSee(L2Character cha)
 	{
-		if (cha instanceof L2PcInstance)
+		if (isGM())
+			return true;
+		
+		final L2PcInstance player = cha.getActingPlayer();
+		
+		if (player != null)
 		{
-			if (((L2PcInstance) cha).getAppearance().isInvisible() && !isGM())
+			if (player.getAppearance().isInvisible())
 				return false;
-		}
-		else if (cha instanceof L2Summon)
-		{
-			if (((L2Summon) cha).getOwner().getAppearance().isInvisible() && !isGM())
+			
+			if (player.inObserverMode())
 				return false;
 		}
 		/* Are traps invisible for other chars than owner?

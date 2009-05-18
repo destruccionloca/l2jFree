@@ -290,8 +290,6 @@ public class CharInfo extends L2GameServerPacket
 			return false;
 		if (!activeChar.canSee(_activeChar))
 			return false;
-		if (_activeChar.inObserverMode())
-			return false;
 
 		return true;
 	}

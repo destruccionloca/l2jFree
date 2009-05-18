@@ -711,9 +711,6 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			
 			if (!activeChar.canSee(_pc))
 				return false;
-			
-			if (_pc.inObserverMode())
-				return false;
 
 			return true;
 		}
