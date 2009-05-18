@@ -599,7 +599,7 @@ public class L2Multisell
 				if (attribute != null)
 					isTaxIngredient = Boolean.parseBoolean(attribute.getNodeValue());
 					
-				attribute = n.getAttributes().getNamedItem("mantainIngredient");
+				attribute = n.getAttributes().getNamedItem("maintainIngredient");
 				
 				if (attribute != null)
 					mantainIngredient = Boolean.parseBoolean(attribute.getNodeValue());
