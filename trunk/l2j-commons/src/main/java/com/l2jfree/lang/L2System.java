@@ -88,4 +88,13 @@ public final class L2System
 	{
 		return milliTime.milliTime();
 	}
+	
+	/**
+	 * Copy of HashMap.hash().
+	 */
+	public static int hash(int h)
+	{
+		h ^= (h >>> 20) ^ (h >>> 12);
+		return h ^ (h >>> 7) ^ (h >>> 4);
+	}
 }
