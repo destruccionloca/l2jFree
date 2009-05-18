@@ -117,7 +117,7 @@ public final class Config extends L2Config
 	public static int			MIN_PROTOCOL_REVISION;																// protocol revision
 	public static int			MAX_PROTOCOL_REVISION;
 	public static File			DATAPACK_ROOT;																		// Datapack root directory
-	public static Level			EXTENDED_LOG_LEVEL;
+	public static Level			EXTENDED_LOG_LEVEL					= Level.WARNING;
 
 	// *******************************************************************************************
 	public static void loadConfiguration()
