@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- adventure guildsman - use life crystals (giran) -->
+<!DOCTYPE list SYSTEM "exchange.dtd">
+<!-- adventure guildsman - use life crystals (giran) -->
 <list>
   <!-- Chakram c -->
   <item id="1">

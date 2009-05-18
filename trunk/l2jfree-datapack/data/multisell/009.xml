@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- Proof of Catching a Fish multisell -->
+<!DOCTYPE list SYSTEM "exchange.dtd">
+<!-- Proof of Catching a Fish -->
 <list>
   <!-- PoCaF (1) -->
   <item id="1">

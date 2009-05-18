@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- adventure guildsman - Exchange Life Crystals -->
+<!DOCTYPE list SYSTEM "exchange.dtd">
+<!-- adventure guildsman - Exchange Life Crystals -->
 <list>
   <!-- Memento Mori: C-Grade  -->
   <item id="1">

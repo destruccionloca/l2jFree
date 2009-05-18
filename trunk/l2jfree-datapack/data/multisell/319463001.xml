@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- Buy Shadow Weapons from Merchants - by BiTi -->
+<!DOCTYPE list SYSTEM "exchange.dtd">
+<!-- Buy Shadow Weapons from Merchants - by BiTi -->
 <list applyTaxes="true">
   <!-- Buy C Grade Shadow Weapons -->
   <!-- Shadow Weapon: Swords of Revolution Duals for 87600 Adena -->

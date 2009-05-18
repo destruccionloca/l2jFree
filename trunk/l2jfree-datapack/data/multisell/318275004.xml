@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- Adventure guildsman - Use Life Crystals (Aden) -->
+<!DOCTYPE list SYSTEM "exchange.dtd">
+<!-- Adventure guildsman - Use Life Crystals (Aden) -->
 <list>
   <!-- Crystal Staff c -->
   <item id="1">

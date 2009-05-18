@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- Adventure guildsman - Use Life Crystals (Hunters Village) -->
+<!DOCTYPE list SYSTEM "exchange.dtd">
+<!-- Adventure guildsman - Use Life Crystals (Hunters Village) -->
 <list>
   <!-- Orcish Glaive c -->
   <item id="1">

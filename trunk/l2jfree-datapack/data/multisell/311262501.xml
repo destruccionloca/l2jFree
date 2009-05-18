@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- Seven Signs - Blacksmith of Mammon - SA: S-Grade -->
+<!DOCTYPE list SYSTEM "exchange.dtd">
+<!-- Seven Signs - Blacksmith of Mammon - SA: S-Grade -->
 <list maintainEnchantment="true">
   <!-- Forgotten Blade - Haste  -->
   <item id="1">

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- Seven Signs - Blacksmith of Mammon - Reseal A-grade Armor -->
+<!DOCTYPE list SYSTEM "exchange.dtd">
+<!-- Seven Signs - Blacksmith of Mammon - Reseal A-grade Armor -->
 <list maintainEnchantment="true">
   <!-- Reseal Dark Crystal Gloves Heavy -->
   <item id="1">

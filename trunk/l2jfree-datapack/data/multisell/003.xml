@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- Newbie exchange -->
+<!DOCTYPE list SYSTEM "exchange.dtd">
+<!-- Newbie exchange -->
 <list>
   <item id="1">
     <production id="152" count="1"/>

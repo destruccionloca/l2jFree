@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- Newbie Armor Token -->
+<!DOCTYPE list SYSTEM "exchange.dtd">
+<!-- Newbie Armor Token -->
 <list>
   <item id="1">
     <production id="10122" count="2"/>

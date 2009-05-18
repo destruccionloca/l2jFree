@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- Shadow Weapon Exchange C Grade - by BiTi -->
+<!DOCTYPE list SYSTEM "exchange.dtd">
+<!-- Shadow Weapon Exchange C Grade - by BiTi -->
 <list>
   <!-- Shadow Item: Stormbringer duals (120 min) for 1 C Grade Coupon -->
   <item id="1">

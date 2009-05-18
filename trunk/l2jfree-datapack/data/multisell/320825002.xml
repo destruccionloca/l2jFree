@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- adventure guildsman territory manager - armors shop -->
+<!DOCTYPE list SYSTEM "exchange.dtd">
+<!-- adventure guildsman territory manager - armors shop -->
 <list>
   <!-- Sealed Dark Crystal Breastplate -->
   <item id="1">

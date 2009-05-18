@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- Quest 382: Kail's Magic Coin - Head Blacksmith Vergara -->
+<!DOCTYPE list SYSTEM "exchange.dtd">
+<!-- Quest 382: Kail's Magic Coin - Head Blacksmith Vergara -->
 <list>
   <item id="1">
     <ingredient id="5961" count="10"/>

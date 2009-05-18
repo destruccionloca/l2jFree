@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- Ketra lv3 multisell -->
+<!DOCTYPE list SYSTEM "exchange.dtd">
+<!-- Ketra level 3 -->
 <list>
   <!-- Brown Pouch -->
   <item id="1">

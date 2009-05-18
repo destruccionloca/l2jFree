@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- Quest 373: Supplier of Reagents - Wesley -->
+<!DOCTYPE list SYSTEM "exchange.dtd">
+<!-- Quest 373: Supplier of Reagents - Wesley -->
 <list>
   <item id="1">
     <production id="4042" count="1"/>

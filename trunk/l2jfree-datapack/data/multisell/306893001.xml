@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- Shadow Weapon Exchange D Grade - by BiTi -->
+<!DOCTYPE list SYSTEM "exchange.dtd">
+<!-- Shadow Weapon Exchange D Grade - by BiTi -->
 <list>
   <!-- Shadow Weapon: Two Handed Sword for 1 D Grade Coupon -->
   <item id="1">

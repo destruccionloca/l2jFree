@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- Newbie Weapon Token -->
+<!DOCTYPE list SYSTEM "exchange.dtd">
+<!-- Newbie Weapon Token -->
 <list>
   <item id="1">
     <production id="10474" count="1"/>

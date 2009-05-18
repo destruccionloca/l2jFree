@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- Blacksmith of Mammon AA Exchange -->
+<!DOCTYPE list SYSTEM "exchange.dtd">
+<!-- Blacksmith of Mammon AA Exchange -->
 <list>
   <!-- Green Stone*3 AA -->
   <item id="1">

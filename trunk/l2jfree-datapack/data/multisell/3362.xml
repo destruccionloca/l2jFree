@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- Quest 336: Coins of Magic, Rewards level 2 -->
+<!DOCTYPE list SYSTEM "exchange.dtd">
+<!-- Quest 336: Coins of Magic, Rewards level 2 -->
 <list>
   <!-- Demon Boots -->
   <item id="1">

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- adventure guildsman territory manager - weapons shop -->
+<!DOCTYPE list SYSTEM "exchange.dtd">
+<!-- adventure guildsman territory manager - weapons shop -->
 <list>
   <!-- Tallum Blade -->
   <item id="1">

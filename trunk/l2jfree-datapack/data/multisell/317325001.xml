@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- adventure guildsman - use life crystals (Town Of Schuttgart) -->
+<!DOCTYPE list SYSTEM "exchange.dtd">
+<!-- adventure guildsman - use life crystals (Town Of Schuttgart) -->
 <list>
   <!-- Chain Mail Shirt -->
   <item id="1">

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- Exchange the equipment for pets with the high grade equipment -->
-  <!-- This list is best used in exc_multisel -->
+<!DOCTYPE list SYSTEM "exchange.dtd">
+<!-- Exchange the equipment for pets with the high grade equipment -->
+<!-- This list is best used in exc_multisel -->
 <list>
   <item id="1">
     <production id="3439" count="1"/>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- Castle Merchant - bracelets -->
+<!DOCTYPE list SYSTEM "exchange.dtd">
+<!-- Castle Merchant - bracelets -->
 <list>
   <!-- Iron Bracelet -->
   <item id="1">

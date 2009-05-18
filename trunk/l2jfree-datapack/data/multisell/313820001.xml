@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- Varka lv1 multisell -->
+<!DOCTYPE list SYSTEM "exchange.dtd">
+<!-- Varka level 1 -->
 <list>
   <!-- Brown Pouch -->
   <item id="1">

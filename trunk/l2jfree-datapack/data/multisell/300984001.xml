@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- Trader Alexandria (Luxury Shop) Armor -->
+<!DOCTYPE list SYSTEM "exchange.dtd">
+<!-- Trader Alexandria (Luxury Shop) Armor -->
 <list>
   <item id="1">
     <!-- Ingredients -->

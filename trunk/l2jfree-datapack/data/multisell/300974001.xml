@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- Trader Galladucci (Luxury Shop) Weapons -->
+<!DOCTYPE list SYSTEM "exchange.dtd">
+<!-- Trader Galladucci (Luxury Shop) Weapons -->
 <list>
   <item id="1">
     <ingredient id="1460" count="579"/>

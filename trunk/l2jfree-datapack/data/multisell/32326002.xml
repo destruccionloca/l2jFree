@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-  <!-- Elemental stones exchange -->
+<!DOCTYPE list SYSTEM "exchange.dtd">
+<!-- Elemental stones exchange -->
 <list>
   <!-- Fire stone -->
   <item id="1">

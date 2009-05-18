@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- Seven Signs - Blacksmith of Mammon - Weapon Exchange -->
+<!DOCTYPE list SYSTEM "exchange.dtd">
+<!-- Seven Signs - Blacksmith of Mammon - Weapon Exchange -->
 <list maintainEnchantment="true">
   <!--3272 D-grade crystals -->
   <!--Ancient Reagent for Atuba Mace-->

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- Unseal B-Grade -->
-  <!-- This list is best used in exc_multisel -->
+<!DOCTYPE list SYSTEM "exchange.dtd">
+<!-- Unseal B-Grade -->
+<!-- This list is best used in exc_multisel -->
 <list maintainEnchantment="true">
   <!-- Zubei's Gauntlets - Heavy Armor -->
   <item id="1">

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- Tickets for pet collars Exchange -->
+<!DOCTYPE list SYSTEM "exchange.dtd">
+<!-- Tickets for pet collars Exchange -->
 <list>
   <!-- Baby cougar chime for Pet Exchange Ticket: Cougar -->
   <item id="1">

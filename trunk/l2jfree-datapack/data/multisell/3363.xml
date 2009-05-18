@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- Quest 336: Coins of Magic, Rewards level 3 -->
+<!DOCTYPE list SYSTEM "exchange.dtd">
+<!-- Quest 336: Coins of Magic, Rewards level 3 -->
 <list>
   <!-- Moonstone Earring -->
   <item id="1">

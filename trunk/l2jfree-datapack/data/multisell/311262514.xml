@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- Seven Signs - Blacksmith of Mammon - Unseal S80-Grade Armor. -->
+<!DOCTYPE list SYSTEM "exchange.dtd">
+<!-- Seven Signs - Blacksmith of Mammon - Unseal S80-Grade Armor. -->
 <list maintainEnchantment="true">
   <!-- Dynasty Breast Plate  -->
   <item id="1">

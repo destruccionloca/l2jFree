@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- Newbie return weapon -->
+<!DOCTYPE list SYSTEM "exchange.dtd">
+<!-- Newbie return weapon -->
 <list>
   <!-- [Apprentice Adventurer's Staff] -->
   <item id="1">

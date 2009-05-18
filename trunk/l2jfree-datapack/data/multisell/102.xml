@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- Noblesse Gate Pass ==> items -->
+<!DOCTYPE list SYSTEM "exchange.dtd">
+<!-- Noblesse Gate Pass ==> items -->
 <list>
   <!--Blessed Scroll: Enchant Weapon (Grade S )  -->
   <item id="1">

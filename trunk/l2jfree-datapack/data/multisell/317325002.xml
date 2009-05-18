@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- adventure guildsman - Adventurer's Box -->
+<!DOCTYPE list SYSTEM "exchange.dtd">
+<!-- adventure guildsman - Adventurer's Box -->
 <list>
   <!-- Adventurer's Box: C-Grade Accessory (Medium Grade) -->
   <item id="1">
