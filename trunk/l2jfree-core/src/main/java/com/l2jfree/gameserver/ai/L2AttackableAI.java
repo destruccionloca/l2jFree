@@ -683,8 +683,6 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		}
 	}
 	
-	private static final FactionAggressionNotificationQueue AGGRESSION_QUEUE = new FactionAggressionNotificationQueue();
-	
 	/**
 	 * Manage AI attack thinks of a L2Attackable (called by onEvtThink).<BR><BR>
 	 * 
@@ -780,7 +778,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 
 							// TODO: notifyEvent ought to be removed from here and added in the AI script, when implemented (Fulminus)
 							// Notify the L2Object AI with EVT_AGGRESSION
-							AGGRESSION_QUEUE.add(npc, originalAttackTarget);
+							FactionAggressionNotificationQueue.add(faction_id, npc, originalAttackTarget);
 							if ((originalAttackTarget instanceof L2PcInstance) || (originalAttackTarget instanceof L2Summon))
 							{
 								L2PcInstance player = (originalAttackTarget instanceof L2PcInstance) ? (L2PcInstance) originalAttackTarget : ((L2Summon) originalAttackTarget)

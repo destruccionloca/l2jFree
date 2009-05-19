@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.ai;
 
+import java.util.HashMap;
+
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.threadmanager.FIFOExecutableQueue;
@@ -130,5 +132,17 @@ public final class FactionAggressionNotificationQueue extends FIFOExecutableQueu
 		}
 		
 		return false;
+	}
+	
+	private static final HashMap<String, FactionAggressionNotificationQueue> _queues = new HashMap<String, FactionAggressionNotificationQueue>();
+	
+	public static void add(String factionId, L2Npc npc, L2Character target)
+	{
+		FactionAggressionNotificationQueue queue = _queues.get(factionId);
+		
+		if (queue == null)
+			_queues.put(factionId, queue = new FactionAggressionNotificationQueue());
+		
+		queue.add(npc, target);
 	}
 }

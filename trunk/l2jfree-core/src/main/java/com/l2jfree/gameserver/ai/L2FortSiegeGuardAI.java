@@ -399,8 +399,6 @@ public class L2FortSiegeGuardAI extends L2CharacterAI implements Runnable
 		attackPrepare();
 	}
 	
-	private static final FactionAggressionNotificationQueue AGGRESSION_QUEUE = new FactionAggressionNotificationQueue();
-	
 	private final void factionNotifyAndSupport()
 	{
 		final L2Character target = getAttackTarget();
@@ -466,7 +464,7 @@ public class L2FortSiegeGuardAI extends L2CharacterAI implements Runnable
 						//limiting aggro for siege guards
 						&& target.isInsideRadius(npc, 1500, true, false) && GeoData.getInstance().canSeeTarget(npc, target))
 				{
-					AGGRESSION_QUEUE.add(npc, target);
+					FactionAggressionNotificationQueue.add(faction_id, npc, target);
 				}
 				// heal friends
 				if (_selfAnalysis.hasHealOrResurrect && !_actor.isAttackingDisabled() && npc.getStatus().getCurrentHp() < npc.getMaxHp() * 0.6
