@@ -1,7 +1,8 @@
 -- ---------------------------
 -- Table structure for `pledge_skill_trees`
 -- ---------------------------
-CREATE TABLE IF NOT EXISTS `pledge_skill_trees` (
+DROP TABLE IF EXISTS `pledge_skill_trees`;
+CREATE TABLE `pledge_skill_trees` (
   `skill_id` int(11) DEFAULT NULL,
   `level` int(11) DEFAULT NULL,
   `name` varchar(25) DEFAULT NULL,

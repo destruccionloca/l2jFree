@@ -1,8 +1,7 @@
 -- ---------------------------
 -- Table structure for `raidboss_spawnlist`
 -- ---------------------------
-DROP TABLE IF EXISTS `grandboss_spawnlist`;
-CREATE TABLE `grandboss_spawnlist` (
+CREATE TABLE IF NOT EXISTS `grandboss_spawnlist` (
   `boss_id` INT NOT NULL DEFAULT 0,
   `loc_x` INT NOT NULL DEFAULT 0,
   `loc_y` INT NOT NULL DEFAULT 0,
@@ -18,7 +17,7 @@ CREATE TABLE `grandboss_spawnlist` (
 
 -- This table stores spawn infos for all L2 bosses not currently managed by a lair instance.
 
-INSERT INTO `grandboss_spawnlist` VALUES
+INSERT IGNORE INTO `grandboss_spawnlist` VALUES
 (29001,-21610,181594,-5734,0,86400,129600,0,229898,667),-- Queen Ant (40)
 (29006,17726,108915,-6480,0,86400,129600,0,622493,575),-- Core (50)
 (29014,55024,17368,-5412,10126,86400,129600,0,622493,1660),-- Orfen (50)
