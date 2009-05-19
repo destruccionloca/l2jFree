@@ -76,5 +76,10 @@ public abstract class L2RuntimeLogFormatter extends L2LogFormatter
 	private static final class ExtendedLog extends Exception
 	{
 		private static final long serialVersionUID = -8959693629510963880L;
+		
+		private ExtendedLog()
+		{
+			super("This is just an extended feature of logging to show the stacktrace! It's not a real exception to report!");
+		}
 	}
 }
