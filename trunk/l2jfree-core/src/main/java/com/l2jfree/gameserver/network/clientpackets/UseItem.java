@@ -191,10 +191,7 @@ public final class UseItem extends L2GameClientPacket
 		if ((item.getItem() instanceof L2Armor && item.getItem().getItemType() == L2ArmorType.PET)
 				|| (item.getItem() instanceof L2Weapon && item.getItem().getItemType() == L2WeaponType.PET))
 		{
-			SystemMessage sm = new SystemMessage(SystemMessageId.CANNOT_EQUIP_PET_ITEM); // You cannot equip a pet item.
-			sm.addItemName(item);
-			getClient().getActiveChar().sendPacket(sm);
-			sm = null;
+			sendPacket(SystemMessageId.CANNOT_EQUIP_PET_ITEM);
 			return;
 		}
 
