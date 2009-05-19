@@ -545,17 +545,20 @@ public class L2Multisell
 		{
 			if ("list".equalsIgnoreCase(n.getNodeName()))
 			{
-				Node attribute;
-				attribute = n.getAttributes().getNamedItem("applyTaxes");
-				if (attribute == null)
-					list.setApplyTaxes(false);
-				else
-					list.setApplyTaxes(Boolean.parseBoolean(attribute.getNodeValue()));
-				attribute = n.getAttributes().getNamedItem("maintainEnchantment");
-				if (attribute == null)
-					list.setMaintainEnchantment(false);
-				else
-					list.setMaintainEnchantment(Boolean.parseBoolean(attribute.getNodeValue()));
+				if (n.getAttributes() != null)
+				{
+					Node attribute;
+					attribute = n.getAttributes().getNamedItem("applyTaxes");
+					if (attribute == null)
+						list.setApplyTaxes(false);
+					else
+						list.setApplyTaxes(Boolean.parseBoolean(attribute.getNodeValue()));
+					attribute = n.getAttributes().getNamedItem("maintainEnchantment");
+					if (attribute == null)
+						list.setMaintainEnchantment(false);
+					else
+						list.setMaintainEnchantment(Boolean.parseBoolean(attribute.getNodeValue()));
+				}
 
 				for (Node d = n.getFirstChild(); d != null; d = d.getNextSibling())
 				{
