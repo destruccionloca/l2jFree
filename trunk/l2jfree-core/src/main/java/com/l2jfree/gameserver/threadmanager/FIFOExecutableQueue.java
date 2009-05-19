@@ -46,28 +46,39 @@ public abstract class FIFOExecutableQueue implements Runnable
 	
 	public final void run()
 	{
-		while (!isEmpty())
+		try
 		{
-			try
+			while (!isEmpty())
 			{
-				synchronized (this)
-				{
-					if (_state == RUNNING)
-						return;
-					
-					_state = RUNNING;
-				}
+				setState(QUEUED, RUNNING);
 				
-				while (!isEmpty())
-					removeAndExecuteFirst();
-			}
-			finally
-			{
-				synchronized (this)
+				try
 				{
-					_state = NONE;
+					while (!isEmpty())
+						removeAndExecuteFirst();
+				}
+				finally
+				{
+					setState(RUNNING, QUEUED);
 				}
 			}
+		}
+		finally
+		{
+			setState(QUEUED, NONE);
+		}
+	}
+	
+	private synchronized void setState(byte expected, byte value)
+	{
+		try
+		{
+			if (_state != expected)
+				throw new IllegalStateException("state: " + _state + ", expected: " + expected);
+		}
+		finally
+		{
+			_state = value;
 		}
 	}
 	
