@@ -33,10 +33,10 @@ import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.SpawnTable;
 import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.model.L2Spawn;
+import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.entity.Town;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
-import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.tools.random.Rnd;
 
 /**
@@ -52,18 +52,18 @@ import com.l2jfree.tools.random.Rnd;
  *       int initialDelay (If < 0 = default value)
  *       int respawnDelay (If < 0 = default value)
  *       int despawnDelay (If < 0 = default value or if = 0, function disabled)
- *   
+ * 
  *   spawnPoints is a standard two-dimensional int array containing X,Y and Z coordinates.
- *   The default respawn/despawn delays are currently every hour (as for Mammon on official servers). 
- *       
- * - The resulting AutoSpawnInstance object represents the newly added spawn index. 
+ *   The default respawn/despawn delays are currently every hour (as for Mammon on official servers).
+ * 
+ * - The resulting AutoSpawnInstance object represents the newly added spawn index.
  * - The interal methods of this object can be used to adjust random spawning, for instance a call to setRandomSpawn(1, true); would set the spawn at index 1
  *   to be randomly rather than sequentially-based.
- * - Also they can be used to specify the number of NPC instances to spawn 
- *   using setSpawnCount(), and broadcast a message to all users using setBroadcast().      
+ * - Also they can be used to specify the number of NPC instances to spawn
+ *   using setSpawnCount(), and broadcast a message to all users using setBroadcast().
  * 
  *   Random Spawning = OFF by default
- *   Broadcasting = OFF by default  
+ *   Broadcasting = OFF by default
  * 
  * @author Tempy
  *
@@ -182,7 +182,7 @@ public class AutoSpawnManager
 	}
 
 	/**
-	 * Registers a spawn with the given parameters with the spawner, and marks it as 
+	 * Registers a spawn with the given parameters with the spawner, and marks it as
 	 * active. Returns a AutoSpawnInstance containing info about the spawn.
 	 * 
 	 * @param npcId
@@ -222,7 +222,7 @@ public class AutoSpawnManager
 	}
 
 	/**
-	 * Registers a spawn with the given parameters with the spawner, and marks it as 
+	 * Registers a spawn with the given parameters with the spawner, and marks it as
 	 * active. Returns a AutoSpawnInstance containing info about the spawn.
 	 * <BR>
 	 * <B>Warning:</B> Spawn locations must be specified separately using addSpawnLocation().
@@ -325,7 +325,7 @@ public class AutoSpawnManager
 
 	/**
 	 * Sets the active state of all auto spawn instances to that specified,
-	 * and cancels the scheduled spawn task if necessary. 
+	 * and cancels the scheduled spawn task if necessary.
 	 * 
 	 * @param isActive
 	 */
@@ -512,7 +512,7 @@ public class AutoSpawnManager
 					{
 						npcInst = newSpawn.doSpawn();
 
-						// To prevent spawning of more than one NPC in the exact same spot, 
+						// To prevent spawning of more than one NPC in the exact same spot,
 						// move it slightly by a small random offset.
 						npcInst.getPosition().setXYZ(npcInst.getX() + Rnd.nextInt(50), npcInst.getY() + Rnd.nextInt(50), npcInst.getZ());
 
@@ -536,7 +536,7 @@ public class AutoSpawnManager
 					_log.debug("AutoSpawnHandler: Spawned NPC ID " + spawnInst.getNpcId() + " at " + x + ", " + y + ", " + z + " (Near " + nearestTown
 							+ ") for " + (spawnInst.getRespawnDelay() / 60000) + " minute(s).");
 
-				// If there is no despawn time, do not create a despawn task. 
+				// If there is no despawn time, do not create a despawn task.
 				if (spawnInst.getDespawnDelay() > 0)
 				{
 					AutoDespawner rd = new AutoDespawner(_objectId);
@@ -575,6 +575,9 @@ public class AutoSpawnManager
 				for (L2Npc npcInst : spawnInst.getNPCInstanceList())
 				{
 					npcInst.deleteMe();
+					
+					SpawnTable.getInstance().deleteSpawn(npcInst.getSpawn(), false);
+					
 					spawnInst.removeNpcInstance(npcInst);
 
 					if (_log.isDebugEnabled())
