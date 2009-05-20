@@ -69,8 +69,18 @@ public final class FactionAggressionNotificationQueue extends FIFOExecutableQueu
 		
 		synchronized (_lock)
 		{
-			if (!_old.contains(ni))
-				_new.add(ni);
+			for (NotificationInfo old; (old = _old.getFirst()) != null;)
+			{
+				if (old._lastNotificationTime + 1000 > System.currentTimeMillis())
+					break;
+				
+				_old.removeFirst();
+			}
+			
+			if (_old.contains(ni))
+				return;
+			
+			_new.add(ni);
 		}
 		
 		execute();
@@ -81,15 +91,7 @@ public final class FactionAggressionNotificationQueue extends FIFOExecutableQueu
 	{
 		synchronized (_lock)
 		{
-			if (!_new.isEmpty())
-				return false;
-			
-			NotificationInfo ni = _old.getFirst();
-			
-			if (ni == null)
-				return true;
-			
-			return ni._lastNotificationTime + 1000 > System.currentTimeMillis();
+			return _new.isEmpty();
 		}
 	}
 	
@@ -100,25 +102,21 @@ public final class FactionAggressionNotificationQueue extends FIFOExecutableQueu
 		
 		synchronized (_lock)
 		{
-			ni = _new.removeFirst();
-			
-			if (ni == null)
-				ni = _old.removeFirst();
+			ni = _new.getFirst();
 		}
 		
 		if (shouldNotify(ni._npc))
 		{
 			ni._npc.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, ni._target, 1);
-			ni._lastNotificationTime = System.currentTimeMillis();
-			
-			synchronized (_lock)
-			{
-				_new.remove(ni);
-				_old.remove(ni);
-				
-				if (shouldNotify(ni._npc))
-					_old.add(ni);
-			}
+		}
+		
+		ni._lastNotificationTime = System.currentTimeMillis();
+		
+		synchronized (_lock)
+		{
+			_new.remove(ni);
+			_old.remove(ni);
+			_old.add(ni);
 		}
 	}
 	
