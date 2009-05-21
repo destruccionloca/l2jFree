@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE list SYSTEM "skills.dtd">
+<list>
+  <skill id="5900" levels="1" name="none">
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+</list>

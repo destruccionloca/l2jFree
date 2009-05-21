@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Root -->
+<!ELEMENT list (skill)*>
+
+<!-- Skill -->
+<!ATTLIST skill id CDATA #REQUIRED>
+<!ATTLIST skill name CDATA #REQUIRED>
+<!ATTLIST skill levels CDATA #REQUIRED>
+<!ATTLIST skill enchantLevels1 CDATA #IMPLIED>
+<!ATTLIST skill enchantLevels2 CDATA #IMPLIED>
+<!ATTLIST skill enchantLevels3 CDATA #IMPLIED>
+<!ATTLIST skill enchantLevels4 CDATA #IMPLIED>
+<!ATTLIST skill enchantLevels5 CDATA #IMPLIED>
+<!ELEMENT skill ((table|set|enchant1|enchant2|enchant3|enchant4|enchant5)*,cond?,enchant1cond?,enchant2cond?,enchant3cond?,enchant4cond?,enchant5cond?,for?,enchant1for?,enchant2for?,enchant3for?,enchant4for?,enchant5for?)>
+
+<!-- Table -->
+<!ATTLIST table name CDATA #REQUIRED>
+<!ELEMENT table (#PCDATA)>
+
+<!-- Property -->
+<!ATTLIST set      name CDATA #IMPLIED> <!-- overlapping with stats -->
+<!ATTLIST enchant1 name CDATA #REQUIRED>
+<!ATTLIST enchant2 name CDATA #REQUIRED>
+<!ATTLIST enchant3 name CDATA #REQUIRED>
+<!ATTLIST enchant4 name CDATA #REQUIRED>
+<!ATTLIST enchant5 name CDATA #REQUIRED>
+<!ATTLIST set      val CDATA #REQUIRED>
+<!ATTLIST enchant1 val CDATA #REQUIRED>
+<!ATTLIST enchant2 val CDATA #REQUIRED>
+<!ATTLIST enchant3 val CDATA #REQUIRED>
+<!ATTLIST enchant4 val CDATA #REQUIRED>
+<!ATTLIST enchant5 val CDATA #REQUIRED>
+<!-- <!ELEMENT set      EMPTY> --> <!-- overlapping with stats -->
+<!ELEMENT enchant1 EMPTY>
+<!ELEMENT enchant2 EMPTY>
+<!ELEMENT enchant3 EMPTY>
+<!ELEMENT enchant4 EMPTY>
+<!ELEMENT enchant5 EMPTY>
+
+<!-- Template -->
+<!ELEMENT for         (effect*|(set|add|sub|mul|div|basemul)+)> <!-- TODO -->
+<!ELEMENT enchant1for (effect*|(set|add|sub|mul|div|basemul)+)> <!-- TODO -->
+<!ELEMENT enchant2for (effect*|(set|add|sub|mul|div|basemul)+)> <!-- TODO -->
+<!ELEMENT enchant3for (effect*|(set|add|sub|mul|div|basemul)+)> <!-- TODO -->
+<!ELEMENT enchant4for (effect*|(set|add|sub|mul|div|basemul)+)> <!-- TODO -->
+<!ELEMENT enchant5for (effect*|(set|add|sub|mul|div|basemul)+)> <!-- TODO -->
+
+<!-- Condition -->
+<!ATTLIST cond         msg CDATA #IMPLIED>
+<!ATTLIST enchant1cond msg CDATA #IMPLIED>
+<!ATTLIST enchant2cond msg CDATA #IMPLIED>
+<!ATTLIST enchant3cond msg CDATA #IMPLIED>
+<!ATTLIST enchant4cond msg CDATA #IMPLIED>
+<!ATTLIST enchant5cond msg CDATA #IMPLIED>
+<!ATTLIST cond         msgId CDATA #IMPLIED>
+<!ATTLIST enchant1cond msgId CDATA #IMPLIED>
+<!ATTLIST enchant2cond msgId CDATA #IMPLIED>
+<!ATTLIST enchant3cond msgId CDATA #IMPLIED>
+<!ATTLIST enchant4cond msgId CDATA #IMPLIED>
+<!ATTLIST enchant5cond msgId CDATA #IMPLIED>
+<!ELEMENT cond         (and|or|not|player|target|using|game)>
+<!ELEMENT enchant1cond (and|or|not|player|target|using|game)>
+<!ELEMENT enchant2cond (and|or|not|player|target|using|game)>
+<!ELEMENT enchant3cond (and|or|not|player|target|using|game)>
+<!ELEMENT enchant4cond (and|or|not|player|target|using|game)>
+<!ELEMENT enchant5cond (and|or|not|player|target|using|game)>
+
+<!-- Effect -->
+<!ATTLIST effect name CDATA #REQUIRED>
+<!ATTLIST effect count CDATA #IMPLIED>
+<!ATTLIST effect time CDATA #REQUIRED>
+<!ATTLIST effect self (1) #IMPLIED>
+<!ATTLIST effect noicon (1) #IMPLIED>
+<!ATTLIST effect val CDATA #REQUIRED>
+<!ATTLIST effect abnormal (bleeding|poison|redcircle|ice|wind|flame|stun|mute|root|bighead|stealth|earthquake|invul) #IMPLIED>
+<!ATTLIST effect stackType CDATA #IMPLIED>
+<!ATTLIST effect stackOrder CDATA #IMPLIED>
+<!ELEMENT effect (cond?,(set|add|sub|mul|div|basemul)*)> <!-- TODO: cond? -->
+
+<!-- Stat -->
+<!ATTLIST set     stat CDATA #IMPLIED> <!-- overlapping with properties -->
+<!ATTLIST add     stat CDATA #REQUIRED>
+<!ATTLIST sub     stat CDATA #REQUIRED>
+<!ATTLIST mul     stat CDATA #REQUIRED>
+<!ATTLIST div     stat CDATA #REQUIRED>
+<!ATTLIST basemul stat CDATA #REQUIRED>
+<!ATTLIST set     order (0x08|0x99) #IMPLIED> <!-- one level to set it before calculations, and another to set if after --> <!-- overlapping with properties -->
+<!ATTLIST add     order (0x10|0x40) #REQUIRED> <!-- same level for add/sub -->
+<!ATTLIST sub     order (0x10|0x40) #REQUIRED> <!-- same level for add/sub -->
+<!ATTLIST mul     order (0x30) #REQUIRED> <!-- same level for mul/div -->
+<!ATTLIST div     order (0x30) #REQUIRED> <!-- same level for mul/div -->
+<!ATTLIST basemul order (0x30) #REQUIRED> <!-- same level with mul/div -> COULD CAUSE PROBLEMS -> SHOULD BE CHANGED -->
+<!ATTLIST set     val CDATA #REQUIRED>
+<!ATTLIST add     val CDATA #REQUIRED>
+<!ATTLIST sub     val CDATA #REQUIRED>
+<!ATTLIST mul     val CDATA #REQUIRED>
+<!ATTLIST div     val CDATA #REQUIRED>
+<!ATTLIST basemul val CDATA #REQUIRED>
+<!ELEMENT set     (and|or|not|player|target|using|game)?> <!-- overlapping with properties -->
+<!ELEMENT add     (and|or|not|player|target|using|game)?>
+<!ELEMENT sub     (and|or|not|player|target|using|game)?>
+<!ELEMENT mul     (and|or|not|player|target|using|game)?>
+<!ELEMENT div     (and|or|not|player|target|using|game)?>
+<!ELEMENT basemul (and|or|not|player|target|using|game)?>
+
+<!-- Logic -->
+<!ELEMENT and ((and|or|not|player|target|using|game)+)> <!-- TODO: make sure <and> tags contains multiple elements -->
+<!-- <!ELEMENT and ((and|or|not|player|target|using|game),(and|or|not|player|target|using|game)+)> -->
+<!ELEMENT or  ((and|or|not|player|target|using|game),(and|or|not|player|target|using|game)+)>
+<!ELEMENT not (and|or|not|player|target|using|game)>
+
+<!-- Conditions -->
+<!ATTLIST player skill (true|false) #IMPLIED>
+<!ATTLIST player race (Human|Elf|Darkelf|Orc|Dwarf|Kamael) #IMPLIED>
+<!ATTLIST player level CDATA #IMPLIED>
+<!ATTLIST player resting (true|false) #IMPLIED>
+<!ATTLIST player moving (true|false) #IMPLIED>
+<!ATTLIST player running (true|false) #IMPLIED>
+<!ATTLIST player walking (true|false) #IMPLIED>
+<!ATTLIST player behind (true|false) #IMPLIED>
+<!ATTLIST player front (true|false) #IMPLIED>
+<!ATTLIST player chaotic (true|false) #IMPLIED>
+<!ATTLIST player olympiad (true|false) #IMPLIED>
+<!ATTLIST player flying (true|false) #IMPLIED>
+<!ATTLIST player hp CDATA #IMPLIED>
+<!ATTLIST player mp CDATA #IMPLIED>
+<!ATTLIST player cp CDATA #IMPLIED>
+<!ATTLIST player attack_stance (true|false) #IMPLIED>
+<!ATTLIST player grade CDATA #IMPLIED>
+<!ATTLIST player siegezone CDATA #IMPLIED>
+<!ATTLIST player battle_force (2|3) #IMPLIED>
+<!ATTLIST player spell_force (2|3) #IMPLIED>
+<!ATTLIST player weight CDATA #IMPLIED>
+<!ATTLIST player invSize CDATA #IMPLIED>
+<!ATTLIST player pledgeClass CDATA #IMPLIED>
+<!ATTLIST player clanHall CDATA #IMPLIED>
+<!ATTLIST player fort CDATA #IMPLIED>
+<!ATTLIST player castle CDATA #IMPLIED>
+<!ATTLIST player sex CDATA #IMPLIED>
+<!ATTLIST player agathionId CDATA #IMPLIED>
+<!ATTLIST player active_effect_id CDATA #IMPLIED>
+<!ELEMENT player EMPTY>
+
+<!ATTLIST target aggro (true|false) #IMPLIED>
+<!ATTLIST target siegezone CDATA #IMPLIED>
+<!ATTLIST target level CDATA #IMPLIED>
+<!ATTLIST target class_id_restriction CDATA #IMPLIED>
+<!ATTLIST target active_effect_id CDATA #IMPLIED>
+<!ATTLIST target active_skill_id CDATA #IMPLIED>
+<!ATTLIST target mindistance CDATA #IMPLIED>
+<!ATTLIST target race_id CDATA #IMPLIED>
+<!ATTLIST target undead (true|false) #IMPLIED>
+<!ATTLIST target using CDATA #IMPLIED>
+<!ATTLIST target npcId CDATA #IMPLIED>
+<!ELEMENT target EMPTY>
+
+<!ATTLIST using kind CDATA #IMPLIED>
+<!ATTLIST using skill CDATA #IMPLIED>
+<!ATTLIST using slotitem CDATA #IMPLIED>
+<!ATTLIST using weaponChange (true|false) #IMPLIED>
+<!ELEMENT using EMPTY>
+
+<!ATTLIST game night (true|false) #IMPLIED>
+<!ATTLIST game chance CDATA #IMPLIED>
+<!ELEMENT game EMPTY>

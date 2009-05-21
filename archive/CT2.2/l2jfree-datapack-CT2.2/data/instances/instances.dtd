@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Root -->
+<!ATTLIST instance name CDATA #REQUIRED>
+<!ELEMENT instance (activityTime?,timeDelay?,allowSummon?,returnteleport?,doorlist?,spawnlist?,spawnPoint?)>
+
+<!-- Activity Time (minutes) -->
+<!ATTLIST activityTime val CDATA #REQUIRED>
+<!ELEMENT activityTime EMPTY>
+
+<!-- Time Delay (hours), NOT SUPPORTED AT THIS TIME -->
+<!ATTLIST timeDelay val CDATA #REQUIRED>
+<!ELEMENT timeDelay EMPTY>
+
+<!-- Allow Summon [Friend type skills] -->
+<!ATTLIST allowSummon val (true|false) #REQUIRED>
+<!ELEMENT allowSummon EMPTY>
+
+<!-- Return Teleport [location] -->
+<!ATTLIST returnteleport x CDATA #REQUIRED>
+<!ATTLIST returnteleport y CDATA #REQUIRED>
+<!ATTLIST returnteleport z CDATA #REQUIRED>
+<!ELEMENT returnteleport EMPTY>
+
+<!-- Door list -->
+<!ELEMENT doorlist (door)+>
+<!ATTLIST door doorId CDATA #REQUIRED>
+<!ATTLIST door open (true|false) #IMPLIED>
+<!ELEMENT door EMPTY>
+
+<!-- Spawn list -->
+<!ELEMENT spawnlist (spawn)+>
+<!ATTLIST spawn npcId CDATA #REQUIRED>
+<!ATTLIST spawn x CDATA #REQUIRED>
+<!ATTLIST spawn y CDATA #REQUIRED>
+<!ATTLIST spawn z CDATA #REQUIRED>
+<!ATTLIST spawn heading CDATA #REQUIRED>
+<!ATTLIST spawn respawn CDATA #REQUIRED>
+<!ELEMENT spawn EMPTY>
+
+<!-- Spawn Point -->
+<!ATTLIST spawnPoint spawnX CDATA #REQUIRED>
+<!ATTLIST spawnPoint spawnY CDATA #REQUIRED>
+<!ATTLIST spawnPoint spawnZ CDATA #REQUIRED>
+<!ELEMENT spawnPoint EMPTY>

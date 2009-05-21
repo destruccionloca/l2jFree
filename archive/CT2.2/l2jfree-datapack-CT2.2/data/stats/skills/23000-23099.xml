@@ -1,0 +1,602 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE list SYSTEM "skills.dtd">
+<list>
+  <skill id="23000" levels="1" name="Majo Agathion Cute Trick">
+    <!-- Needs to be verified -->
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <cond msgId="2292">
+      <player agathionId="1501"/>
+    </cond>
+  </skill>
+  <skill id="23001" levels="1" name="Gold Majo Agathion Cute Trick">
+    <!-- Needs to be verified -->
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <cond msgId="2292">
+      <player agathionId="1502"/>
+    </cond>
+  </skill>
+  <skill id="23002" levels="1" name="Black Majo Agathion Cute Trick">
+    <!-- Needs to be verified -->
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <cond msgId="2292">
+      <player agathionId="1503"/>
+    </cond>
+  </skill>
+  <skill id="23003" levels="1" name="Plaipitak Agathion Cute Trick">
+    <!-- Needs to be verified -->
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <cond msgId="2292">
+      <player agathionId="1504"/>
+    </cond>
+  </skill>
+  <skill id="23004" levels="1" name="Majo Agathion Special Skill - Mysterious Power">
+    <set name="magicLvl" val="75"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="DEBUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="isDebuff" val="true"/>
+    <set name="castRange" val="600"/>
+    <set name="effectRange" val="1100"/>
+    <set name="reuseDelay" val="1200000"/>
+    <set name="staticReuse" val="true"/>
+    <cond msgId="2292">
+      <player agathionId="1501"/>
+    </cond>
+    <for>
+      <effect count="1" name="BigHead" time="1200" val="0" abnormal="bighead" stackOrder="600" stackType="big_head"/>
+    </for>
+  </skill>
+  <skill id="23005" levels="1" name="Gold Majo Agathion Special Skill - Power of Blessed Resurrection">
+    <set name="target" val="TARGET_CORPSE_PLAYER"/>
+    <set name="skillType" val="RESURRECT"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="power" val="100"/>
+    <set name="hitTime" val="3000"/>
+    <set name="reuseDelay" val="3600000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="castRange" val="400"/>
+    <set name="effectRange" val="600"/>
+    <cond msgId="2292">
+      <player agathionId="1502"/>
+    </cond>
+  </skill>
+  <skill id="23006" levels="1" name="Black Majo Agathion Special Skill - Power of Blessed Return">
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="RECALL"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="200"/>
+    <set name="reuseDelay" val="3600000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <cond msgId="2292">
+      <player agathionId="1503"/>
+    </cond>
+  </skill>
+  <skill id="23007" levels="1" name="Plaipitak Agathion Special Skill - Mysterious Power">
+    <set name="magicLvl" val="75"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="DEBUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="isDebuff" val="true"/>
+    <set name="castRange" val="600"/>
+    <set name="effectRange" val="1100"/>
+    <set name="reuseDelay" val="1200000"/>
+    <set name="staticReuse" val="true"/>
+    <cond msgId="2292">
+      <player agathionId="1504"/>
+    </cond>
+    <for>
+      <effect count="1" name="BigHead" time="1200" val="0" abnormal="bighead" stackOrder="600" stackType="big_head"/>
+    </for>
+  </skill>
+  <skill id="23008" levels="1" name="Plaipitak Agathion Special Skill - Power of Blessed Return">
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="RECALL"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="200"/>
+    <set name="reuseDelay" val="3600000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <cond msgId="2292">
+      <player agathionId="1504"/>
+    </cond>
+  </skill>
+  <skill id="23009" levels="1" name="Plaipitak Agathion Special Skill - Power of Blessed Resurrection">
+    <set name="target" val="TARGET_CORPSE_PLAYER"/>
+    <set name="skillType" val="RESURRECT"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="power" val="100"/>
+    <set name="hitTime" val="3000"/>
+    <set name="reuseDelay" val="3600000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="castRange" val="400"/>
+    <set name="effectRange" val="600"/>
+    <cond msgId="2292">
+      <player agathionId="1504"/>
+    </cond>
+  </skill>
+  <skill id="23010" levels="1" name="Baby Panda Agathion Cute Trick">
+    <!-- Needs to be verified -->
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <cond msgId="2292">
+      <player agathionId="1505"/>
+    </cond>
+  </skill>
+  <skill id="23011" levels="1" name="Bamboo Panda Agathion Cute Trick">
+    <!-- Needs to be verified -->
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <cond msgId="2292">
+      <player agathionId="1506"/>
+    </cond>
+  </skill>
+  <skill id="23012" levels="1" name="Sexy Panda Agathion Cute Trick">
+    <!-- Needs to be verified -->
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <cond msgId="2292">
+      <player agathionId="1507"/>
+    </cond>
+  </skill>
+  <skill id="23013" levels="1" name="Baby Panda Agathion Special Skill - Mysterious Power">
+    <set name="magicLvl" val="75"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="DEBUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="isDebuff" val="true"/>
+    <set name="castRange" val="600"/>
+    <set name="effectRange" val="1100"/>
+    <set name="reuseDelay" val="1200000"/>
+    <set name="staticReuse" val="true"/>
+    <cond msgId="2292">
+      <player agathionId="1505"/>
+    </cond>
+    <for>
+      <effect count="1" name="BigHead" time="1200" val="0" abnormal="bighead" stackOrder="600" stackType="big_head"/>
+    </for>
+  </skill>
+  <skill id="23014" levels="1" name="Bamboo Panda Agathion Special Skill - Power of Blessed Resurrection">
+    <set name="power" val="100"/>
+    <set name="target" val="TARGET_CORPSE_PLAYER"/>
+    <set name="hitTime" val="3000"/>
+    <set name="skillType" val="RESURRECT"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="400"/>
+    <set name="effectRange" val="600"/>
+    <set name="reuseDelay" val="3600000"/>
+    <set name="staticReuse" val="true"/>
+    <cond msgId="2292">
+      <player agathionId="1506"/>
+    </cond>
+  </skill>
+  <skill id="23015" levels="1" name="Sexy Panda Agathion Special Skill - Power of Blessed Return">
+    <set name="target" val="TARGET_SELF"/>
+    <set name="hitTime" val="200"/>
+    <set name="skillType" val="RECALL"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <set name="reuseDelay" val="3600000"/>
+    <set name="staticReuse" val="true"/>
+    <cond msgId="2292">
+      <player agathionId="1507"/>
+    </cond>
+  </skill>
+  <skill id="23016" levels="1" name="Rudolph Agathion Special Skill - Ability of Energy">
+    <set name="power" val="100"/>
+    <set name="target" val="TARGET_CORPSE_PLAYER"/>
+    <set name="hitTime" val="25000"/>
+    <set name="skillType" val="RESURRECT"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="400"/>
+    <set name="effectRange" val="600"/>
+    <set name="reuseDelay" val="3600000"/>
+    <set name="staticReuse" val="true"/>
+    <cond msgId="2292">
+      <player agathionId="1504"/>
+    </cond>
+  </skill>
+  <skill id="23017" levels="1" name="Holiday Festival">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+  <skill id="23018" levels="1" name="Thomas D. Turkey's Mistake">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+  <skill id="23019" levels="3" name="Scissors,Rock,Paper">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+  <skill id="23020" levels="1" name="Challenge the Turkey">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+  <skill id="23021" levels="3" name="Turkey's Attack">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+  <skill id="23022" levels="10" name="First Wink">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+  <skill id="23023" levels="1" name="Reset Consecutive Wins">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+  </skill>
+  <skill id="23024" levels="1" name="Agathion of Love Special Skill">
+    <!-- Needs to be verified -->
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <cond msgId="2292">
+      <player agathionId="16049"/>
+    </cond>
+  </skill>
+  <skill id="23025" levels="1" name="Charming Cupid Agathion Cute Trick">
+    <!-- Needs to be verified -->
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <cond msgId="2292">
+      <player agathionId="1508"/>
+    </cond>
+  </skill>
+  <skill id="23026" levels="1" name="Naughty Cupid Agathion Cute Trick">
+    <!-- Needs to be verified -->
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <cond msgId="2292">
+      <player agathionId="1509"/>
+    </cond>
+  </skill>
+  <skill id="23027" levels="1" name="White Maneki Neko Agathion Cute Trick I">
+    <!-- Needs to be verified -->
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <cond msgId="2292">
+      <player agathionId="1510"/>
+    </cond>
+  </skill>
+  <skill id="23028" levels="1" name="Black Maneki Neko Agathion Cute Trick I">
+    <!-- Needs to be verified -->
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <cond msgId="2292">
+      <player agathionId="1511"/>
+    </cond>
+  </skill>
+  <skill id="23029" levels="1" name="Brown Maneki Neko Agathion Cute Trick I">
+    <!-- Needs to be verified -->
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <cond msgId="2292">
+      <player agathionId="1512"/>
+    </cond>
+  </skill>
+  <skill id="23030" levels="1" name="White Maneki Neko Agathion Special Skill - Blessed Resurrection Ability">
+    <set name="target" val="TARGET_CORPSE_PLAYER"/>
+    <set name="skillType" val="RESURRECT"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="power" val="100"/>
+    <set name="hitTime" val="3000"/>
+    <set name="reuseDelay" val="3600000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="castRange" val="400"/>
+    <set name="effectRange" val="600"/>
+    <cond msgId="2292">
+      <player agathionId="1510"/>
+    </cond>
+  </skill>
+  <skill id="23031" levels="1" name="Black Maneki Neko Agathion Special Skill - Ability of Blessed Return">
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="RECALL"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="200"/>
+    <set name="reuseDelay" val="3600000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <cond msgId="2292">
+      <player agathionId="1511"/>
+    </cond>
+  </skill>
+  <skill id="23032" levels="1" name="Brown Maneki Neko Agathion Special Skill - Vitality Recovery Ability">
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="buffDuration" val="300000"/>
+    <set name="castRange" val="-1"/>
+    <set name="reuseDelay" val="3600000"/>
+    <set name="staticReuse" val="true"/>
+    <cond msgId="2292">
+      <player agathionId="1512"/>
+    </cond>
+    <for>
+      <effect name="Buff" time="300" val="0" stackOrder="1" stackType="none"/>
+    </for>
+  </skill>
+  <skill id="23033" levels="1" name="One-Eyed Bat Drove Agathion Cute Trick">
+    <!-- Needs to be verified -->
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <cond msgId="2292">
+      <player agathionId="1513"/>
+    </cond>
+  </skill>
+  <skill id="23034" levels="1" name="One-Eyed Bat Drove Agathion Special Skill - Resist Unholy Ability">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="2292">
+      <player agathionId="1513"/>
+    </cond>
+  </skill>
+  <skill id="23035" levels="1" name="One-Eyed Bat Drove Agathion Special Skill - Vitality Recovery Ability">
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="buffDuration" val="300000"/>
+    <set name="castRange" val="-1"/>
+    <set name="reuseDelay" val="3600000"/>
+    <set name="staticReuse" val="true"/>
+    <cond msgId="2292">
+      <player agathionId="1513"/>
+    </cond>
+    <for>
+      <effect name="Buff" time="300" val="0" stackOrder="1" stackType="none"/>
+    </for>
+  </skill>
+  <skill id="23036" levels="1" name="Pegasus Agathion Cute Trick">
+    <!-- Needs to be verified -->
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <cond msgId="2292">
+      <player agathionId="1514"/>
+    </cond>
+  </skill>
+  <skill id="23037" levels="1" name="Pegasus Agathion Special Skill - Wind Walk Ability">
+    <set name="target" val="TARGET_ONE"/>
+    <set name="reuseDelay" val="3600000"/>
+    <set name="hitTime" val="4000"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="400"/>
+    <set name="effectRange" val="900"/>
+    <cond msgId="2292">
+      <player agathionId="1514"/>
+    </cond>
+    <for>
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="600" stackType="speed_up">
+        <add order="0x40" stat="runSpd" val="33"/>
+      </effect>
+    </for>
+  </skill>
+  <skill id="23038" levels="1" name="Pegasus Agathion Special Skill - Blessed Return Ability">
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="RECALL"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="200"/>
+    <set name="reuseDelay" val="3600000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <cond msgId="2292">
+      <player agathionId="1514"/>
+    </cond>
+  </skill>
+  <skill id="23039" levels="1" name="Yellow-Robed Tojigong Agathion Cute Trick">
+    <!-- Needs to be verified -->
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <cond msgId="2292">
+      <player agathionId="1515"/>
+    </cond>
+  </skill>
+  <skill id="23040" levels="1" name="Blue-Robed Tojigong Agathion Cute Trick">
+    <!-- Needs to be verified -->
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <cond msgId="2292">
+      <player agathionId="1516"/>
+    </cond>
+  </skill>
+  <skill id="23041" levels="1" name="Green-Robed Tojigong Agathion Cute Trick">
+    <!-- Needs to be verified -->
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <cond msgId="2292">
+      <player agathionId="1517"/>
+    </cond>
+  </skill>
+  <skill id="23042" levels="1" name="Yellow-Robed Tojigong Agathion Special Skill - Greater Heal Ability">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="2292">
+      <player agathionId="1515"/>
+    </cond>
+  </skill>
+  <skill id="23043" levels="1" name="Blue-Robed Tojigong Agathion Special Skill - Reflect Damage Ability">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="2292">
+      <player agathionId="1516"/>
+    </cond>
+  </skill>
+  <skill id="23044" levels="1" name="Green-Robed Tojigong Agathion Special Skill - Mana Regeneration Ability">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="2292">
+      <player agathionId="1517"/>
+    </cond>
+  </skill>
+  <skill id="23045" levels="1" name="Bugbear Agathion Cute Trick">
+    <!-- Needs to be verified -->
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <cond msgId="2292">
+      <player agathionId="1518"/>
+    </cond>
+  </skill>
+  <skill id="23046" levels="1" name="White Maneki Neko Agathion Cute Trick II">
+    <!-- Needs to be verified -->
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <cond msgId="2292">
+      <player agathionId="1510"/>
+    </cond>
+  </skill>
+  <skill id="23047" levels="1" name="Black Maneki Neko Agathion Cute Trick II">
+    <!-- Needs to be verified -->
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <cond msgId="2292">
+      <player agathionId="1511"/>
+    </cond>
+  </skill>
+  <skill id="23048" levels="1" name="Brown Maneki Neko Agathion Cute Trick II">
+    <!-- Needs to be verified -->
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <cond msgId="2292">
+      <player agathionId="1512"/>
+    </cond>
+  </skill>
+</list>

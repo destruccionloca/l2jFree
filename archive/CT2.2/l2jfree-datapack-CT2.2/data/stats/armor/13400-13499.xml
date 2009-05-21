@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE list SYSTEM "armors.dtd">
+<list>
+  <item id="13415" name="Frog Hat">
+    <for/>
+  </item>
+  <item id="13416" name="Chicken Hat">
+    <for/>
+  </item>
+  <item id="13429" name="Teddy Bear Hat (Event)">
+    <for/>
+  </item>
+  <item id="13430" name="Piggy Hat (Event)">
+    <for/>
+  </item>
+  <item id="13431" name="Jester Hat (Event)">
+    <for/>
+  </item>
+</list>
