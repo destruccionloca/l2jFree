@@ -1,4 +1,4 @@
-CLASSPATH=${CLASSPATH}:l2j-mmocore-1.1.2.jar
+CLASSPATH=${CLASSPATH}:l2j-mmocore-1.3.0.jar
 
 #jython
 CLASSPATH=${CLASSPATH}:jython-2.2.1.jar
@@ -25,8 +25,8 @@ CLASSPATH=${CLASSPATH}:commons-io-1.2.jar
 CLASSPATH=${CLASSPATH}:javolution-1.5.5.2.6.jar
 
 # main jar
-CLASSPATH=${CLASSPATH}:l2j-commons-1.1.13.jar
-CLASSPATH=${CLASSPATH}:l2jfree-core-1.2.11.jar
+CLASSPATH=${CLASSPATH}:l2j-commons-1.3.0.jar
+CLASSPATH=${CLASSPATH}:l2jfree-core-1.3.0.jar
 
 CLASSPATH=${CLASSPATH}:core-3.3.0.jar
 CLASSPATH=${CLASSPATH}:java-engine-1.0.2.jar

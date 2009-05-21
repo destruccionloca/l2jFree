@@ -9,7 +9,7 @@ SET CLASSPATH=%CLASSPATH%;commons-collections-2.1.1.jar
 REM for second level cache (hibernate)
 SET CLASSPATH=%CLASSPATH%;ehcache-1.2.3.jar
 
-SET CLASSPATH=%CLASSPATH%;l2j-mmocore-1.1.2.jar
+SET CLASSPATH=%CLASSPATH%;l2j-mmocore-1.3.0.jar
 
 REM for bean use
 SET CLASSPATH=%CLASSPATH%;commons-beanutils-1.7.0.jar
@@ -33,8 +33,8 @@ REM for performance usage
 SET CLASSPATH=%CLASSPATH%;javolution-1.5.5.2.6.jar
 
 REM main jar
-SET CLASSPATH=%CLASSPATH%;l2j-commons-1.1.13.jar
-SET CLASSPATH=%CLASSPATH%;l2jfree-login-1.2.0.jar
+SET CLASSPATH=%CLASSPATH%;l2j-commons-1.3.0.jar
+SET CLASSPATH=%CLASSPATH%;l2jfree-login-1.3.0.jar
 
 REM spring 
 SET CLASSPATH=%CLASSPATH%;spring-2.0.2.jar
