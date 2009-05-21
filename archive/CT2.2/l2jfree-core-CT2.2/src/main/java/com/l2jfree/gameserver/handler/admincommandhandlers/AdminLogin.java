@@ -1,0 +1,137 @@
+/*
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+package com.l2jfree.gameserver.handler.admincommandhandlers;
+
+import java.util.StringTokenizer;
+
+import com.l2jfree.Config;
+import com.l2jfree.gameserver.LoginServerThread;
+import com.l2jfree.gameserver.handler.IAdminCommandHandler;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.gameserverpackets.ServerStatus;
+import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
+
+/**
+ * This class handles admin commands that manage the loginserver
+ * @reworked by savormix
+ * @version $Revision: 1.2.2.1.2.4 $ $Date: 2007/07/31 10:05:56 $
+ */
+public class AdminLogin implements IAdminCommandHandler
+{
+	private static final String[] LOGIN_COMMANDS = {
+		"admin_login", "admin_login_conn", "admin_login_status", "admin_login_toggle",
+		"admin_login_age"
+	};
+
+	private static final String HTML_ROOT = "data/html/admin/";
+
+	private static final String ON = "ON";
+	private static final String OFF = "OFF";
+	private static final String ENABLE = "1";
+	private static final String DISABLE = "0";
+
+	/* (non-Javadoc)
+	 * @see com.l2jfree.gameserver.handler.IAdminCommandHandler#useAdminCommand(java.lang.String, com.l2jfree.gameserver.model.L2PcInstance)
+	 */
+	public boolean useAdminCommand(String command, L2PcInstance GM)
+	{
+		StringTokenizer st;
+
+		if (command.equalsIgnoreCase(LOGIN_COMMANDS[0]))
+			showMenu(GM);
+		else if (command.startsWith(LOGIN_COMMANDS[1]))
+		{
+			st = new StringTokenizer(command, " "); st.nextToken();
+			int connCount;
+			try { connCount = Integer.parseInt(st.nextToken()); }
+			catch (Exception e) { showMenu(GM); return false; }
+			LoginServerThread.getInstance().setMaxPlayer(connCount);
+		}
+		else if (command.startsWith(LOGIN_COMMANDS[2]))
+		{
+			st = new StringTokenizer(command, " "); st.nextToken();
+			int newStatus;
+			try { newStatus = Integer.parseInt(st.nextToken()); }
+			catch (Exception e) { showMenu(GM); return false; }
+			LoginServerThread.getInstance().setServerStatus(newStatus);
+		}
+		else if (command.startsWith(LOGIN_COMMANDS[3]))
+		{
+			st = new StringTokenizer(command, " "); st.nextToken();
+			int attrib; int value;
+			try
+			{
+				attrib = Integer.parseInt(st.nextToken());
+				value = Integer.parseInt(st.nextToken());
+			}
+			catch (Exception e) { showMenu(GM); return false; }
+			LoginServerThread.getInstance().toggleServerAttribute(attrib, value > 0);
+		}
+		else if (command.startsWith(LOGIN_COMMANDS[4]))
+		{
+			st = new StringTokenizer(command, " "); st.nextToken();
+			int age;
+			try { age = Integer.parseInt(st.nextToken()); }
+			catch (Exception e) { showMenu(GM); return false; }
+			LoginServerThread.getInstance().setMinAge(age);
+		}
+		else
+			return false;
+
+		showMenu(GM);
+		return true;
+	}
+
+	private void showMenu(L2PcInstance GM)
+	{
+		NpcHtmlMessage html = new NpcHtmlMessage(1);
+		html.setFile(HTML_ROOT + "LoginMenu.html");
+		switch (LoginServerThread.getInstance().getGSStatus())
+		{
+		case ServerStatus.STATUS_DOWN:
+			html.replace("%statusCol%", "EE0000");
+			html.replace("%statusStr%", OFF);
+			break;
+		case ServerStatus.STATUS_GM_ONLY:
+			html.replace("%statusCol%", "EEEE00");
+			html.replace("%statusStr%", "MAINTENANCE");
+			break;
+		default:
+			html.replace("%statusCol%", "00EE00");
+			html.replace("%statusStr%", ON);
+			break;
+		}
+		html.replace("%statusB1%", Config.SERVER_BIT_1 ? ON : OFF);
+		html.replace("%statusB2%", Config.SERVER_BIT_2 ? ON : OFF);
+		html.replace("%statusB3%", Config.SERVER_BIT_3 ? ON : OFF);
+		html.replace("%statusB4%", Config.SERVER_BIT_4 ? ON : OFF);
+		html.replace("%b1%", Config.SERVER_BIT_1 ? DISABLE : ENABLE);
+		html.replace("%b2%", Config.SERVER_BIT_2 ? DISABLE : ENABLE);
+		html.replace("%b3%", Config.SERVER_BIT_3 ? DISABLE : ENABLE);
+		html.replace("%b4%", Config.SERVER_BIT_4 ? DISABLE : ENABLE);
+		html.replace("%statusBr%", Config.SERVER_LIST_BRACKET ? ON : OFF);
+		html.replace("%br%", Config.SERVER_LIST_BRACKET ? DISABLE : ENABLE);
+		html.replace("%maxConn%", String.valueOf(LoginServerThread.getInstance().getMaxPlayer()));
+		GM.sendPacket(html); html = null;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.l2jfree.gameserver.handler.IAdminCommandHandler#getAdminCommandList()
+	 */
+	public String[] getAdminCommandList()
+	{
+		return LOGIN_COMMANDS;
+	}
+}
