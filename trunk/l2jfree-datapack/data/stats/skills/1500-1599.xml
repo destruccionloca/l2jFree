@@ -129,9 +129,9 @@
   <skill id="1506" levels="1" name="Blessing of Eva">
     <!-- Done by L2CDP -->
     <set name="power" val="50"/> <!-- Need retail value -->
-    <set name="restoreCP" val="800"/> <!-- Need retail value -->
-    <set name="restoreHP" val="500"/> <!-- Need retail value -->
-    <set name="restoreMP" val="150"/> <!-- Need retail value -->
+    <set name="restoredCP" val="800"/> <!-- Need retail value -->
+    <set name="restoredHP" val="500"/> <!-- Need retail value -->
+    <set name="restoredMP" val="150"/> <!-- Need retail value -->
     <set name="mpInitialConsume" val="14"/>
     <set name="mpConsume" val="58"/>
     <set name="target" val="TARGET_ONE"/>
