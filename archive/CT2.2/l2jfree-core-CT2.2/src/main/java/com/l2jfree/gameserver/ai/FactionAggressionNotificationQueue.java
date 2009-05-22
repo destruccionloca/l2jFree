@@ -54,7 +54,7 @@ public final class FactionAggressionNotificationQueue extends FIFOExecutableQueu
 		@Override
 		public int hashCode()
 		{
-			return L2System.hash((_npc.getObjectId() << 16) + _target.getObjectId());
+			return L2System.hash((_npc.hashCode() << 16) + _target.hashCode());
 		}
 	}
 	
