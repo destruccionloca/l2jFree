@@ -832,8 +832,8 @@
   <skill id="5571" levels="1" name="Mutual Response">
     <set name="power" val="0"/>
     <!-- Need retail values -->
-    <set name="restoreHP" val="50"/>
-    <set name="restoreMP" val="50"/>
+    <set name="restoredHP" val="50"/>
+    <set name="restoredMP" val="50"/>
     <set name="activationChance" val="5"/>
     <set name="castRange" val="-1"/>
     <set name="chanceType" val="ON_HIT"/>
