@@ -616,11 +616,9 @@ public class Disablers implements ICubicSkillHandler
 									e.exit();
 									count++;
 								}
-								if (count > max)
-								{
-									break;
-								}
 						}
+						if (count > max)
+							break;
 					}
 				}
 				else
