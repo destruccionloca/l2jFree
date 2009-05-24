@@ -233,7 +233,7 @@ public abstract class AbstractAI implements Ctrl
 		return _intention;
 	}
 	
-	protected synchronized void setCastTarget(L2Character target)
+	public synchronized void setCastTarget(L2Character target)
 	{
 		_castTarget = target;
 	}
@@ -247,7 +247,7 @@ public abstract class AbstractAI implements Ctrl
 		return _castTarget;
 	}
 	
-	protected synchronized void setAttackTarget(L2Character target)
+	public synchronized void setAttackTarget(L2Character target)
 	{
 		_attackTarget = target;
 	}
@@ -870,17 +870,22 @@ public abstract class AbstractAI implements Ctrl
 		}
 	}
 	
-	protected L2Character getFollowTarget()
+	public L2Character getFollowTarget()
 	{
 		return _followTarget;
 	}
 	
-	protected L2Object getTarget()
+	public void setFollowTarget(L2Character cha)
+	{
+		_followTarget = cha;
+	}
+	
+	public L2Object getTarget()
 	{
 		return _target;
 	}
 	
-	protected synchronized void setTarget(L2Object target)
+	public synchronized void setTarget(L2Object target)
 	{
 		_target = target;
 	}

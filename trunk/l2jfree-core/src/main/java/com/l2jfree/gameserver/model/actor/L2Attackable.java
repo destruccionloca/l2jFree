@@ -384,6 +384,11 @@ public class L2Attackable extends L2Npc
 	 */
 	private final Map<L2PcInstance, AbsorberInfo> _absorbersList = new SingletonMap<L2PcInstance, AbsorberInfo>().setShared();
 
+	public Map<L2PcInstance, AbsorberInfo> getAbsorbersList()
+	{
+		return _absorbersList;
+	}
+	
 	/** Have this L2Attackable to reward Exp and SP on Die? **/
 	private boolean								_mustGiveExpSp;
 
@@ -2120,6 +2125,11 @@ public class L2Attackable extends L2Npc
 	{
 		return _overhitAttacker;
 	}
+	
+	public void setOverhitAttacker(L2Character cha)
+	{
+		_overhitAttacker = cha;
+	}
 
 	/**
 	 * Return the ammount of damage done on the L2Attackable using an over-hit
@@ -2660,6 +2670,11 @@ public class L2Attackable extends L2Npc
 	public L2PcInstance getSeeder()
 	{
 		return _seeder;
+	}
+	
+	public void setSeeder(L2PcInstance player)
+	{
+		_seeder = player;
 	}
 
 	public int getSeedType()

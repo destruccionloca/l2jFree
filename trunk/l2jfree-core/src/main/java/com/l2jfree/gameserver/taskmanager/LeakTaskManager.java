@@ -131,14 +131,14 @@ public final class LeakTaskManager
 	
 	private synchronized void cleanup()
 	{
+		L2Object[] objects = L2World.getInstance().getAllVisibleObjects();
+		
 		_log.info("LeakTaskManager: " + _players.size() + " player(s) are waiting for cleanup.");
 		for (ImmutableReference<L2PcInstance> ref : _players.keySet())
 		{
 			L2PcInstance player = ref.get();
 			if (player != null)
-			{
-				// TODO
-			}
+				player.removeFromLists(objects);
 		}
 		
 		_log.info("LeakTaskManager: " + _summons.size() + " summons(s) are waiting for cleanup.");
@@ -146,9 +146,7 @@ public final class LeakTaskManager
 		{
 			L2Summon summon = ref.get();
 			if (summon != null)
-			{
-				// TODO
-			}
+				summon.removeFromLists(objects);
 		}
 	}
 	

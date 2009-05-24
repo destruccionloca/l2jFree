@@ -14,11 +14,15 @@
  */
 package com.l2jfree.gameserver.model.actor;
 
+import com.l2jfree.gameserver.ai.L2CharacterAI;
+import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.knownlist.PlayableKnownList;
 import com.l2jfree.gameserver.model.actor.stat.PcStat;
 import com.l2jfree.gameserver.model.actor.stat.PlayableStat;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
+import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
+import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
 import com.l2jfree.gameserver.taskmanager.PacketBroadcaster.BroadcastMode;
 import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
@@ -288,5 +292,65 @@ public abstract class L2Playable extends L2Character
 		}
 		
 		super.onForcedAttack(player);
+	}
+	
+	public final void removeFromLists(L2Object[] array)
+	{
+		if (hasAI())
+			getAI().stopFollow();
+		getStatus().stopHpMpRegeneration();
+		DecayTaskManager.getInstance().cancelDecayTask(this);
+		AttackStanceTaskManager.getInstance().removeAttackStanceTask(this);
+		
+		for (L2Object obj : array)
+		{
+			if (obj == null)
+				return;
+			
+			obj.getKnownList().removeKnownObject(this);
+			
+			if (obj instanceof L2Character)
+			{
+				L2Character cha = (L2Character)obj;
+				
+				cha.getAttackByList().remove(this);
+				
+				if (cha.getTarget() == this)
+					cha.setTarget(null);
+				
+				if (cha.hasAI())
+				{
+					L2CharacterAI ai = cha.getAI();
+					
+					if (ai.getTarget() == this)
+						ai.setTarget(null);
+					
+					if (ai.getCastTarget() == this)
+						ai.setCastTarget(null);
+					
+					if (ai.getAttackTarget() == this)
+						ai.setAttackTarget(null);
+					
+					if (ai.getFollowTarget() == this)
+						ai.setFollowTarget(null);
+				}
+				
+				if (obj instanceof L2Attackable)
+				{
+					L2Attackable mob = (L2Attackable)obj;
+					
+					mob.getAggroList().remove(this);
+					mob.getAbsorbersList().remove(this);
+					
+					if (mob.getOverhitAttacker() == this)
+						mob.setOverhitAttacker(null);
+					
+					if (mob.getSeeder() == this)
+						mob.setSeeder(null);
+				}
+			}
+		}
+		
+		//TODO
 	}
 }
