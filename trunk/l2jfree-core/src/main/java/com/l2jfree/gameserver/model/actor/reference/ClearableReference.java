@@ -14,18 +14,39 @@
  */
 package com.l2jfree.gameserver.model.actor.reference;
 
+import java.lang.ref.WeakReference;
+
+import com.l2jfree.gameserver.model.L2Object;
+
 /**
  * @author NB4L1
  */
-public class ClearableReference<T> extends ImmutableReference<T>
+public class ClearableReference<T> extends WeakReference<T>
 {
+	private final String _name;
+	
 	public ClearableReference(T referent)
 	{
 		super(referent);
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("[ ");
+		sb.append(Integer.toHexString(System.identityHashCode(referent)).toUpperCase());
+		sb.append(" | ");
+		sb.append(referent);
+		if (referent instanceof L2Object)
+		{
+			L2Object obj = (L2Object)referent;
+			sb.append(" | ");
+			sb.append(obj.getObjectId()).append(" - ").append(obj.getName());
+		}
+		sb.append(" ]");
+		
+		_name = sb.toString();
 	}
 	
-	public void clear()
+	public String getName()
 	{
-		_ref.clear();
+		return _name;
 	}
 }

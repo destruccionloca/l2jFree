@@ -14,36 +14,19 @@
  */
 package com.l2jfree.gameserver.model.actor.reference;
 
-import java.lang.ref.WeakReference;
-
 /**
  * @author NB4L1
  */
-public class ImmutableReference<T>
+public class ImmutableReference<T> extends ClearableReference<T>
 {
-	protected final WeakReference<T> _ref;
-	private Class<?> _refClass;
-	private final String _name;
-	
 	public ImmutableReference(T referent)
 	{
-		_ref = new WeakReference<T>(referent);
-		_refClass = referent.getClass();
-		_name = referent+" @ "+Integer.toHexString(referent.hashCode());
+		super(referent);
 	}
 	
-	public T get()
+	@Override
+	public void clear()
 	{
-		return _ref.get();
-	}
-	
-	public String getName()
-	{
-		return _name;
-	}
-	
-	public Class<?> getReferentClass()
-	{
-		return _refClass;
+		throw new IllegalStateException();
 	}
 }

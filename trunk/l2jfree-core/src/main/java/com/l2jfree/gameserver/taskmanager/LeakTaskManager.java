@@ -15,8 +15,8 @@
 package com.l2jfree.gameserver.taskmanager;
 
 import java.text.DecimalFormat;
-import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -25,7 +25,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.gameserver.ThreadPoolManager;
+import com.l2jfree.gameserver.model.L2Object;
+import com.l2jfree.gameserver.model.L2World;
+import com.l2jfree.gameserver.model.actor.L2Summon;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.reference.ImmutableReference;
+import com.l2jfree.lang.L2Thread;
 
 /**
  * @author NB4L1
@@ -33,6 +38,9 @@ import com.l2jfree.gameserver.model.actor.reference.ImmutableReference;
 public final class LeakTaskManager
 {
 	private static final Log _log = LogFactory.getLog(LeakTaskManager.class);
+	
+	private static final long MINIMUM_DELAY_BETWEEN_CLEANUPS = TimeUnit.MINUTES.toMillis(10);
+	private static final long MINIMUM_DELAY_BETWEEN_MEMORY_DUMPS = TimeUnit.HOURS.toMillis(4);
 	
 	private static LeakTaskManager _instance;
 	
@@ -44,82 +52,174 @@ public final class LeakTaskManager
 		return _instance;
 	}
 	
-	private final Map<Class<?>, LeakHandler> _handlers = new FastMap<Class<?>, LeakHandler>().setShared(true);
+	private final Map<ImmutableReference<L2PcInstance>, Long> _players = FastMap.newInstance();
+	private final Map<ImmutableReference<L2Summon>, Long> _summons = FastMap.newInstance();
 	
 	private LeakTaskManager()
 	{
+		new Finalizable();
+		
 		_log.info("LeakTaskManager: Initialized.");
 	}
 	
-	public void add(ImmutableReference<?> ref)
+	private final class Finalizable
 	{
-		getHandler(ref.getReferentClass()).add(ref);
-	}
-	
-	private LeakHandler getHandler(Class<?> cl)
-	{
-		LeakHandler handler = _handlers.get(cl);
-		if (handler == null)
-			_handlers.put(cl, (handler = new LeakHandler(cl)));
-		
-		return handler;
-	}
-	
-	private class LeakHandler implements Runnable
-	{
-		private static final int DELAY = 3600000;
-		
-		private final Class<?> _cl;
-		private final List<ImmutableReference<?>> _list = new FastList<ImmutableReference<?>>();
-		private final Map<ImmutableReference<?>, Long> _map = new FastMap<ImmutableReference<?>, Long>();
-		
-		private LeakHandler(Class<?> cl)
+		@Override
+		protected void finalize()
 		{
-			_cl = cl;
+			System.runFinalization();
 			
-			ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(this, DELAY, DELAY);
+			ThreadPoolManager.getInstance().executeLongRunning(new Cleanup());
 		}
-		
-		private void add(ImmutableReference<?> ref)
-		{
-			_list.add(ref);
-			_map.put(ref, System.currentTimeMillis());
-		}
-		
+	}
+	
+	private long _lastDump = System.currentTimeMillis();
+	
+	private final class Cleanup implements Runnable
+	{
 		public void run()
 		{
-			cleanup();
-			check();
-		}
-		
-		private void cleanup()
-		{
-			_log.info("LeakTaskManager: "+_list.size()+" "+_cl+" are waiting for cleanup.");
-			for (ImmutableReference<?> ref : _list)
+			synchronized (LeakTaskManager.this)
 			{
-				Object obj = ref.get();
-				if (obj != null)
+				boolean shouldDump = System.currentTimeMillis() > _lastDump + MINIMUM_DELAY_BETWEEN_MEMORY_DUMPS;
+				
+				check(false);
+				
+				if (_players.size() + _summons.size() > 200)
 				{
-					/* here comes a deep cleanup */
+					cleanup();
+					
+					System.gc();
+					System.runFinalization();
+					
+					check(true);
+					
+					shouldDump = true;
+				}
+				
+				if (shouldDump)
+				{
+					for (String line : L2Thread.getMemoryUsageStatistics())
+						_log.info(line);
+					
+					_lastDump = System.currentTimeMillis();
 				}
 			}
-			_list.clear();
-		}
-		
-		private void check()
-		{
-			DecimalFormat df = new DecimalFormat("##0.00");
 			
-			for (ImmutableReference<?> ref : _map.keySet())
+			try
 			{
-				if (ref.get() == null)
-				{
-					double diff = (double)(System.currentTimeMillis() - _map.get(ref)) / 60000;
-					_log.info("LeakTaskManager: Removed after "+df.format(diff)+" minutes -> ("+ref.getName()+")");
-					_map.remove(ref);
-				}
+				Thread.sleep(MINIMUM_DELAY_BETWEEN_CLEANUPS);
 			}
-			_log.info("LeakTaskManager: "+_map.size()+" "+_cl+" are leaking.");
+			catch (InterruptedException e)
+			{
+				e.printStackTrace();
+			}
+			
+			new Finalizable();
 		}
+	}
+	
+	public synchronized void add(L2PcInstance player)
+	{
+		_players.put(player.getImmutableReference(), System.currentTimeMillis());
+	}
+	
+	public synchronized void add(L2Summon summon)
+	{
+		_summons.put(summon.getImmutableReference(), System.currentTimeMillis());
+	}
+	
+	private synchronized void cleanup()
+	{
+		_log.info("LeakTaskManager: " + _players.size() + " player(s) are waiting for cleanup.");
+		for (ImmutableReference<L2PcInstance> ref : _players.keySet())
+		{
+			L2PcInstance player = ref.get();
+			if (player != null)
+			{
+				// TODO
+			}
+		}
+		
+		_log.info("LeakTaskManager: " + _summons.size() + " summons(s) are waiting for cleanup.");
+		for (ImmutableReference<L2Summon> ref : _summons.keySet())
+		{
+			L2Summon summon = ref.get();
+			if (summon != null)
+			{
+				// TODO
+			}
+		}
+	}
+	
+	private static final DecimalFormat _df = new DecimalFormat("##0.00");
+	
+	private synchronized void check(boolean forced)
+	{
+		FastList<String> list = new FastList<String>();
+		
+		for (ImmutableReference<L2PcInstance> ref : _players.keySet())
+		{
+			if (ref.get() != null)
+				continue;
+			
+			double diff = (double)(System.currentTimeMillis() - _players.get(ref)) / 60000;
+			list.add("LeakTaskManager: Removed after " + _df.format(diff) + " minutes -> (" + ref.getName() + ")");
+			_players.remove(ref);
+		}
+		
+		if (!list.isEmpty())
+		{
+			_log.info(list.getFirst());
+			if (list.size() >= 2)
+				_log.info(list.getLast());
+			_log.info("LeakTaskManager: " + list.size() + " player(s) are removed.");
+		}
+		
+		if (!list.isEmpty() || forced)
+			_log.info("LeakTaskManager: " + _players.size() + " player(s) are leaking.");
+		
+		// ================================================================================
+		
+		list.clear();
+		
+		for (ImmutableReference<L2Summon> ref : _summons.keySet())
+		{
+			if (ref.get() != null)
+				continue;
+			
+			double diff = (double)(System.currentTimeMillis() - _summons.get(ref)) / 60000;
+			list.add("LeakTaskManager: Removed after " + _df.format(diff) + " minutes -> (" + ref.getName() + ")");
+			_summons.remove(ref);
+		}
+		
+		if (!list.isEmpty())
+		{
+			_log.info(list.getFirst());
+			if (list.size() >= 2)
+				_log.info(list.getLast());
+			_log.info("LeakTaskManager: " + list.size() + " summon(s) are removed.");
+		}
+		
+		if (!list.isEmpty() || forced)
+			_log.info("LeakTaskManager: " + _summons.size() + " summon(s) are leaking.");
+	}
+	
+	// ================================================================================
+	
+	public synchronized void clean()
+	{
+		check(true);
+		
+		cleanup();
+	}
+	
+	public synchronized void clear()
+	{
+		check(true);
+		
+		for (L2Object obj : L2World.getInstance().getAllVisibleObjects())
+			if (obj != null)
+				obj.reset();
 	}
 }

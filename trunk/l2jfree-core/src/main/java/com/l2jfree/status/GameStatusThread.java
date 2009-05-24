@@ -73,6 +73,7 @@ import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
+import com.l2jfree.gameserver.taskmanager.LeakTaskManager;
 import com.l2jfree.gameserver.util.DynamicExtension;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.lang.L2Thread;
@@ -295,6 +296,8 @@ public final class GameStatusThread extends Thread
 					_print.println("threads				- dumps thread infos.");
 					_print.println("purge				- purges TPM.");
 					_print.println("gc					- forced garbage collection.");
+					_print.println("clean				- cleans leakmanager mapped objects.");
+					_print.println("clear				- clears leakmanager mapped objects.");
 					_print.println("class				- dumps TPM-class stats.");
 					_print.println("announce <text>		- announces <text> in game.");
 					_print.println("msg <nick> <text>	- Sends a whisper to char <nick> with <text>.");
@@ -470,6 +473,22 @@ public final class GameStatusThread extends Thread
 						_print.println(line);
 					}
 					_print.flush();
+				}
+				else if (_usrCommand.equals("clean"))
+				{
+					_print.println("================================================================");
+					long begin = System.currentTimeMillis();
+					LeakTaskManager.getInstance().clean();
+					_print.println("'clean' done in " + (System.currentTimeMillis() - begin) + "msec.");
+					_print.println("================================================================");
+				}
+				else if (_usrCommand.equals("clear"))
+				{
+					_print.println("================================================================");
+					long begin = System.currentTimeMillis();
+					LeakTaskManager.getInstance().clear();
+					_print.println("'clear' done in " + (System.currentTimeMillis() - begin) + "msec.");
+					_print.println("================================================================");
 				}
 				else if (_usrCommand.startsWith("announce"))
 				{

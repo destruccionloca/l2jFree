@@ -245,6 +245,7 @@ import com.l2jfree.gameserver.skills.conditions.ConditionGameTime;
 import com.l2jfree.gameserver.skills.conditions.ConditionPlayerHp;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
+import com.l2jfree.gameserver.taskmanager.LeakTaskManager;
 import com.l2jfree.gameserver.taskmanager.SQLQueue;
 import com.l2jfree.gameserver.taskmanager.PacketBroadcaster.BroadcastMode;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
@@ -11396,7 +11397,7 @@ public final class L2PcInstance extends L2Playable
 		RegionBBSManager.getInstance().changeCommunityBoard();
 		
 		//getClearableReference().clear();
-		//LeakTaskManager.getInstance().add(getImmutableReference());
+		LeakTaskManager.getInstance().add(this);
 		
 		SQLQueue.getInstance().run();
 	}

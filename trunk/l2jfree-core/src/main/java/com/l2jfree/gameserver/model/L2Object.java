@@ -532,6 +532,7 @@ public abstract class L2Object implements L2Entity<Integer>
 		return getObjectId();
 	}
 	
+	// TODO: for subclasses
 	public void reset()
 	{
 	}

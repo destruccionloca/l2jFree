@@ -30,6 +30,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.model.actor.knownlist.SummonKnownList;
+import com.l2jfree.gameserver.model.actor.reference.ImmutableReference;
 import com.l2jfree.gameserver.model.actor.shot.SummonShots;
 import com.l2jfree.gameserver.model.actor.stat.SummonStat;
 import com.l2jfree.gameserver.model.base.Experience;
@@ -51,6 +52,7 @@ import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.EffectInfoPacket.EffectInfoPacketList;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
+import com.l2jfree.gameserver.taskmanager.LeakTaskManager;
 import com.l2jfree.gameserver.taskmanager.SQLQueue;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
@@ -379,6 +381,8 @@ public abstract class L2Summon extends L2Playable
 		getKnownList().removeAllKnownObjects();
 		owner.setPet(null);
 		setTarget(null);
+		
+		LeakTaskManager.getInstance().add(this);
 	}
 
 	public final void unSummon()
@@ -413,9 +417,21 @@ public abstract class L2Summon extends L2Playable
 			getKnownList().removeAllKnownObjects();
 			owner.setPet(null);
 			setTarget(null);
+			
+			LeakTaskManager.getInstance().add(this);
 		}
 	}
-
+	
+	private ImmutableReference<L2Summon> _immutableReference;
+	
+	public ImmutableReference<L2Summon> getImmutableReference()
+	{
+		if (_immutableReference == null)
+			_immutableReference = new ImmutableReference<L2Summon>(this);
+		
+		return _immutableReference;
+	}
+	
 	public int getAttackRange()
 	{
 		return _attackRange;
