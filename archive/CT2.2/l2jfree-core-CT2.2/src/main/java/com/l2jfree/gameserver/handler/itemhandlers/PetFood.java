@@ -112,12 +112,12 @@ public class PetFood implements IItemHandler
 					}
 					else
 					{
-						activeChar.sendPacket(new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED));
+						activeChar.sendPacket(new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED).addItemName(item));
 						return false;
 					}
 				}
 				else
-					player.sendPacket(new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED));
+					player.sendPacket(new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED).addItemName(item));
 				return false;
 			}
 		}
