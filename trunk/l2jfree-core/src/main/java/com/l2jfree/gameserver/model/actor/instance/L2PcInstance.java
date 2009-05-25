@@ -4664,9 +4664,9 @@ public final class L2PcInstance extends L2Playable
 						dropItem("DieDrop", itemDrop, killer, true);
 
 						if (isKarmaDrop)
-							_log.warn(getName() + " has karma and dropped id = " + itemDrop.getItemId() + ", count = " + itemDrop.getCount());
+							_log.info(getName() + " has karma and dropped " + itemDrop);
 						else
-							_log.warn(getName() + " dropped id = " + itemDrop.getItemId() + ", count = " + itemDrop.getCount());
+							_log.info(getName() + " dropped " + itemDrop);
 
 						dropCount++;
 						break;
