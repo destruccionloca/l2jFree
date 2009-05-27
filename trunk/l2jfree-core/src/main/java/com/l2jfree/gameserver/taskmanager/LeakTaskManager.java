@@ -89,6 +89,7 @@ public final class LeakTaskManager
 				{
 					cleanup();
 					
+					ThreadPoolManager.getInstance().purge();
 					System.gc();
 					System.runFinalization();
 					
