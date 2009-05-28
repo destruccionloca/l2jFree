@@ -61,14 +61,16 @@ public class CharInfo extends L2GameServerPacket
 		_swimWalkSpd = _flWalkSpd = _flyWalkSpd = _walkSpd;
 		if (cha.isCursedWeaponEquipped())
 			_cursedWeaponLevel = CursedWeaponsManager.getInstance().getLevel(cha.getCursedWeaponEquippedId());
-
+		
+		_trans = cha.getTransformation();
+		
 		if (cha.getMountType() != 0)
 		{
 			L2NpcTemplate tpl = NpcTable.getInstance().getTemplate(cha.getMountNpcId());
 			_collisionRadius = tpl.getdCollisionRadius();
 			_collisionHeight = tpl.getdCollisionHeight();
 		}
-		else if ((_trans = cha.getTransformation()) != null)
+		else if (_trans != null)
 		{
 			_collisionRadius = _trans.getCollisionRadius(cha);
 			_collisionHeight = _trans.getCollisionHeight(cha);
