@@ -260,14 +260,14 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 			case 0x34:
 				msg = new RequestSocialAction();
 				break;
-				/* Deprecated - RequestActionUse
+			// Deprecated - RequestActionUse
 			case 0x35:
-				msg = new ChangeMoveType2();
+			//	msg = new ChangeMoveType2();
 				break;
 			case 0x36:
-				msg = new ChangeWaitType2();
+			//	msg = new ChangeWaitType2();
 				break;
-				*/
+			//
 			case 0x37:
 				msg = new RequestSellItem();
 				break;
