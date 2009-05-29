@@ -127,6 +127,10 @@ public final class Shutdown extends Thread
 			}
 		}
 		
+		// shutdown aborted
+		if (this != _counterInstance)
+			return;
+		
 		// last point where logging is operational :(
 		_log.warn("Shutdown countdown is over: " + _mode.getText() + " NOW!");
 		
