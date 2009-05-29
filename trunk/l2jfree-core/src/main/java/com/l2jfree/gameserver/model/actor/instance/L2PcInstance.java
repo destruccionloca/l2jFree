@@ -14040,40 +14040,6 @@ public final class L2PcInstance extends L2Playable
 		return true;
 	}
 
-	private int killsWithoutDeath = 0;
-	private int points = 0;
-	private int team = -1;
-
-	public final int getKillsWithoutDeath()
-	{
-		return killsWithoutDeath;
-	}
-
-	public final void setKillsWithoutDeath(int val)
-	{
-		killsWithoutDeath = val;
-	}
-
-	public final int getEventPoints()
-	{
-		return points;
-	}
-
-	public final void setEventPoints(int val)
-	{
-		points = val;
-	}
-
-	public final int getEventTeam()
-	{
-		return team;
-	}
-
-	public final void setEventTeam(int val)
-	{
-		team = val;
-	}
-
 	public boolean canSee(L2Character cha)
 	{
 		if (isGM())
