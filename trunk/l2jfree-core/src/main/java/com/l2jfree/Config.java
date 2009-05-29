@@ -38,6 +38,8 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.ArrayUtils;
 
 import com.l2jfree.config.L2Properties;
+import com.l2jfree.gameserver.GameServer;
+import com.l2jfree.gameserver.GameServer.StartupHook;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.handler.VoicedCommandHandler;
 import com.l2jfree.gameserver.model.L2Skill;
@@ -3250,7 +3252,7 @@ public final class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(Properties properties)
+		protected void loadImpl(final Properties properties)
 		{
 			AUTO_TVT_ENABLED = Boolean.parseBoolean(properties.getProperty("EnableAutoTvT", "false"));
 			VoicedCommandHandler.reload();
@@ -3330,20 +3332,26 @@ public final class Config extends L2Config
 			AUTO_TVT_TK_PUNISH_CANCEL = Boolean.parseBoolean(properties.getProperty("TvTPunishTKCancelBuffs", "true"));
 			AUTO_TVT_TK_RESET_GODLIKE = Boolean.parseBoolean(properties.getProperty("TvTPunishTKResetGodlike", "true"));
 			AUTO_TVT_TK_PUNISH_POINTS_LOST = Integer.parseInt(properties.getProperty("TvTPunishTKDecreaseScore", "5"));
-			locations = new StringTokenizer(properties.getProperty("TvTPunishTKDebuff", ""), ";");
-			AUTO_TVT_TK_PUNISH_EFFECTS = new L2Skill[locations.countTokens()];
-			for (int i = 0; i < AUTO_TVT_TK_PUNISH_EFFECTS.length; i++)
-			{
-				coords = new StringTokenizer(locations.nextToken(), ",");
-				if (coords.countTokens() == 2)
+			final StringTokenizer skills = new StringTokenizer(properties.getProperty("TvTPunishTKDebuff", ""), ";");
+			AUTO_TVT_TK_PUNISH_EFFECTS = new L2Skill[skills.countTokens()];
+			GameServer.addStartupHook(new StartupHook() {
+				@Override
+				public void onStartup()
 				{
-					AUTO_TVT_TK_PUNISH_EFFECTS[i] = SkillTable.getInstance().getInfo(
-							Integer.parseInt(coords.nextToken()),
-							Integer.parseInt(coords.nextToken()));
+					for (int i = 0; i < AUTO_TVT_TK_PUNISH_EFFECTS.length; i++)
+					{
+						StringTokenizer skill = new StringTokenizer(skills.nextToken(), ",");
+						if (skill.countTokens() == 2)
+						{
+							AUTO_TVT_TK_PUNISH_EFFECTS[i] = SkillTable.getInstance().getInfo(
+									Integer.parseInt(skill.nextToken()),
+									Integer.parseInt(skill.nextToken()));
+						}
+						else
+							AUTO_TVT_TK_PUNISH_EFFECTS[i] = null;
+					}
 				}
-				else
-					AUTO_TVT_TK_PUNISH_EFFECTS[i] = null;
-			}
+			});
 			AUTO_TVT_REVIVE_SELF = Boolean.parseBoolean(properties.getProperty("TvTReviveSelf", "false"));
 			AUTO_TVT_REVIVE_RECOVER = Boolean.parseBoolean(properties.getProperty("TvTReviveRecover", "true"));
 			AUTO_TVT_REVIVE_DELAY = Long.parseLong(properties.getProperty("TvTReviveDelay", "5000"));
