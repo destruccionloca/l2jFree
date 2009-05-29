@@ -52,8 +52,8 @@ public final class LeakTaskManager
 		return _instance;
 	}
 	
-	private final Map<ImmutableReference<L2PcInstance>, Long> _players = FastMap.newInstance();
-	private final Map<ImmutableReference<L2Summon>, Long> _summons = FastMap.newInstance();
+	private final Map<ImmutableReference<L2PcInstance>, Long> _players = new FastMap<ImmutableReference<L2PcInstance>, Long>().setShared(true);
+	private final Map<ImmutableReference<L2Summon>, Long> _summons = new FastMap<ImmutableReference<L2Summon>, Long>().setShared(true);
 	
 	private LeakTaskManager()
 	{
@@ -120,12 +120,12 @@ public final class LeakTaskManager
 		}
 	}
 	
-	public synchronized void add(L2PcInstance player)
+	public void add(L2PcInstance player)
 	{
 		_players.put(player.getImmutableReference(), System.currentTimeMillis());
 	}
 	
-	public synchronized void add(L2Summon summon)
+	public void add(L2Summon summon)
 	{
 		_summons.put(summon.getImmutableReference(), System.currentTimeMillis());
 	}
