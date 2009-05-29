@@ -18,6 +18,7 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.handler.voicedcommandhandlers.Banking;
 import com.l2jfree.gameserver.handler.voicedcommandhandlers.CastleDoors;
 import com.l2jfree.gameserver.handler.voicedcommandhandlers.Hellbound;
+import com.l2jfree.gameserver.handler.voicedcommandhandlers.JoinEvent;
 import com.l2jfree.gameserver.handler.voicedcommandhandlers.VersionInfo;
 import com.l2jfree.gameserver.handler.voicedcommandhandlers.Wedding;
 import com.l2jfree.util.HandlerRegistry;
@@ -25,7 +26,7 @@ import com.l2jfree.util.HandlerRegistry;
 public final class VoicedCommandHandler extends HandlerRegistry<String, IVoicedCommandHandler>
 {
 	private static VoicedCommandHandler _instance;
-	
+
 	public static VoicedCommandHandler getInstance()
 	{
 		if (_instance == null)
@@ -33,25 +34,34 @@ public final class VoicedCommandHandler extends HandlerRegistry<String, IVoicedC
 		
 		return _instance;
 	}
-	
+
+	/** Reloads the voiced command list. Does nothing if it hasn't been loaded yet */
+	public static void reload()
+	{
+		if (_instance != null)
+			_instance = new VoicedCommandHandler();
+	}
+
 	private VoicedCommandHandler()
 	{
 		if (Config.BANKING_SYSTEM_ENABLED)
 			registerVoicedCommandHandler(new Banking());
 		registerVoicedCommandHandler(new CastleDoors());
 		registerVoicedCommandHandler(new Hellbound());
+		if (Config.AUTO_TVT_ENABLED)
+			registerVoicedCommandHandler(new JoinEvent());
 		registerVoicedCommandHandler(new VersionInfo());
 		if (Config.ALLOW_WEDDING)
 			registerVoicedCommandHandler(new Wedding());
 		
 		_log.info("VoicedCommandHandler: Loaded " + size() + " handlers.");
 	}
-	
+
 	private void registerVoicedCommandHandler(IVoicedCommandHandler handler)
 	{
 		registerAll(handler, handler.getVoicedCommandList());
 	}
-	
+
 	public IVoicedCommandHandler getVoicedCommandHandler(String voicedCommand)
 	{
 		if (voicedCommand.indexOf(" ") != -1)

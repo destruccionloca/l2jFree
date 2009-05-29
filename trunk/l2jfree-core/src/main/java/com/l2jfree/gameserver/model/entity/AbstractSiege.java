@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.model.entity;
 
 import com.l2jfree.gameserver.model.L2Clan;
+import com.l2jfree.gameserver.model.L2SiegeClan;
 
 /**
  * @author NB4L1
@@ -26,4 +27,8 @@ public abstract class AbstractSiege
 	public abstract boolean checkIsAttacker(L2Clan clan);
 
 	public abstract boolean checkIsDefender(L2Clan clan);
+
+	public abstract L2SiegeClan getAttackerClan(L2Clan clan);
+
+	public abstract L2SiegeClan getDefenderClan(L2Clan clan);
 }

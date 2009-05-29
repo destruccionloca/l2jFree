@@ -16,9 +16,6 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import javolution.util.FastList;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.model.L2Augmentation;
@@ -43,13 +40,12 @@ import com.l2jfree.gameserver.templates.item.L2Weapon;
 
 public class MultiSellChoose extends L2GameClientPacket
 {
-	private static final String	_C__A7_MULTISELLCHOOSE	= "[C] A7 MultiSellChoose";
-	private final static Log	_log					= LogFactory.getLog(MultiSellChoose.class.getName());
-	private int					_listId;
-	private int					_entryId;
-	private int					_amount;
-	private int					_enchantment;
-	private int					_transactionTax;																// local handling of taxation
+	private static final String	_C__A7_MULTISELLCHOOSE = "[C] A7 MultiSellChoose";
+	private int _listId;
+	private int _entryId;
+	private int _amount;
+	private int _enchantment;
+	private int _transactionTax;																// local handling of taxation
 
 	@Override
 	protected void readImpl()

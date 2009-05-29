@@ -14,9 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
@@ -48,8 +45,6 @@ import com.l2jfree.gameserver.util.Util;
  */
 public final class RequestExEnchantSkillUntrain extends L2GameClientPacket
 {
-    protected final static Log _log = LogFactory.getLog(RequestExEnchantSkillUntrain.class.getName());
-
 	private int _skillId;
 	private int _skillLvl;
 

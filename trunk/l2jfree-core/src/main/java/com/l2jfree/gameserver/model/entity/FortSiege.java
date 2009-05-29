@@ -1032,6 +1032,17 @@ public class FortSiege extends AbstractSiege
 		getSiegeGuardManager().spawnSiegeGuard();
 	}
 
+	/**
+	 * Always returns null.
+	 * @param clan A clan
+	 */
+	@Override
+	public final L2SiegeClan getDefenderClan(L2Clan clan)
+	{
+		return null;
+	}
+
+	@Override
 	public final L2SiegeClan getAttackerClan(L2Clan clan)
 	{
 		if (clan == null)

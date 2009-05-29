@@ -14,9 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.SkillSpellbookTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
@@ -43,7 +40,6 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 public class RequestAquireSkillInfo extends L2GameClientPacket
 {
     private static final String _C__6B_REQUESTAQUIRESKILLINFO = "[C] 6B RequestAquireSkillInfo";
-    private final static Log _log = LogFactory.getLog(RequestAquireSkillInfo.class.getName());
 
     private int _id;
     private int _level;

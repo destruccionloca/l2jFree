@@ -14,9 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Shutdown;
 import com.l2jfree.gameserver.Shutdown.DisableType;
@@ -35,7 +32,6 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 public class RequestGiveItemToPet extends L2GameClientPacket
 {
 	private static final String	REQUESTCIVEITEMTOPET__C__8B	= "[C] 8B RequestGiveItemToPet";
-	private static final Log	_log						= LogFactory.getLog(RequestGetItemFromPet.class.getName());
 
 	private int					_objectId;
 	private int					_amount;

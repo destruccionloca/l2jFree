@@ -75,6 +75,7 @@ import com.l2jfree.gameserver.model.actor.knownlist.CharKnownList;
 import com.l2jfree.gameserver.model.actor.shot.CharShots;
 import com.l2jfree.gameserver.model.actor.stat.CharStat;
 import com.l2jfree.gameserver.model.actor.status.CharStatus;
+import com.l2jfree.gameserver.model.entity.events.AutomatedTvT;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.model.quest.Quest;
@@ -2291,7 +2292,7 @@ public abstract class L2Character extends L2Object
 				((L2Playable) this).stopPhoenixBlessing(true);
 			}
 
-			if(restorefull)
+			if (restorefull)
 			{
 				//_status.setCurrentCp(getMaxCp()); //this is not confirmed...
 				_status.setCurrentHp(getMaxHp()); //confirmed
@@ -2303,6 +2304,9 @@ public abstract class L2Character extends L2Object
 				//_status.setCurrentCp(getMaxCp() * Config.RESPAWN_RESTORE_CP);
 				//_status.setCurrentMp(getMaxMp() * Config.RESPAWN_RESTORE_MP);
 			}
+
+			if (this instanceof L2PcInstance)
+				AutomatedTvT.getInstance().recover((L2PcInstance) this);
 
 			// Start broadcast status
 			broadcastPacket(new Revive(this));
@@ -5546,6 +5550,9 @@ public abstract class L2Character extends L2Object
 			return false;
 		
 		if (attackerPlayer.isInFunEvent() && targetPlayer.isInFunEvent())
+			return false;
+		
+		if (AutomatedTvT.isPlaying(attackerPlayer) && AutomatedTvT.isPlaying(targetPlayer))
 			return false;
 		
 		if (attackerPlayer.getAccessLevel() >= Config.GM_PEACEATTACK)

@@ -18,6 +18,7 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2ClanMember;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.entity.events.AutomatedTvT;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -74,6 +75,11 @@ public class RequestGiveNickName extends L2GameClientPacket
 		else if (!Config.TITLE_PATTERN.matcher(_title).matches() || _title.length() > 128)
 		{
 			requestFailed(SystemMessageId.PLEASE_INPUT_TITLE_LESS_128_CHARACTERS);
+			return;
+		}
+		else if (AutomatedTvT.isPlaying(activeChar))
+		{
+			requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
 			return;
 		}
 

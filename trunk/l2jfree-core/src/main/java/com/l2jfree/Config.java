@@ -38,6 +38,10 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.ArrayUtils;
 
 import com.l2jfree.config.L2Properties;
+import com.l2jfree.gameserver.datatables.SkillTable;
+import com.l2jfree.gameserver.handler.VoicedCommandHandler;
+import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.entity.events.AutomatedTvT;
 import com.l2jfree.gameserver.util.Util;
 
 /**
@@ -51,6 +55,7 @@ public final class Config extends L2Config
 	static
 	{
 		registerConfig(new AltConfig());
+		registerConfig(new AutoEventConfig());
 		registerConfig(new BossConfig());
 		registerConfig(new CastleConfig());
 		registerConfig(new ChampionsConfig());
@@ -3191,6 +3196,158 @@ public final class Config extends L2Config
 			RATE_VITALITY_LOST = Float.parseFloat(vitalitySettings.getProperty("RateVitalityLost", "1."));
 			RATE_VITALITY_GAIN = Float.parseFloat(vitalitySettings.getProperty("RateVitalityGain", "1."));
 			RATE_RECOVERY_ON_RECONNECT = Float.parseFloat(vitalitySettings.getProperty("RateRecoveryOnReconnect", "4."));
+		}
+	}
+
+	public static boolean AUTO_TVT_ENABLED;
+	public static int[][] AUTO_TVT_TEAM_LOCATIONS;
+	public static boolean AUTO_TVT_OVERRIDE_TELE_BACK;
+	public static int[] AUTO_TVT_DEFAULT_TELE_BACK;
+	public static int AUTO_TVT_REWARD_MIN_POINTS;
+	public static int[] AUTO_TVT_REWARD_IDS;
+	public static int[] AUTO_TVT_REWARD_COUNT;
+	public static int AUTO_TVT_LEVEL_MAX;
+	public static int AUTO_TVT_LEVEL_MIN;
+	public static int AUTO_TVT_PARTICIPANTS_MAX;
+	public static int AUTO_TVT_PARTICIPANTS_MIN;
+	public static long AUTO_TVT_DELAY_INITIAL_REGISTRATION;
+	public static long AUTO_TVT_DELAY_BETWEEN_EVENTS;
+	public static long AUTO_TVT_PERIOD_LENGHT_REGISTRATION;
+	public static long AUTO_TVT_PERIOD_LENGHT_PREPARATION;
+	public static long AUTO_TVT_PERIOD_LENGHT_EVENT;
+	public static long AUTO_TVT_PERIOD_LENGHT_REWARDS;
+	public static int AUTO_TVT_REGISTRATION_ANNOUNCEMENT_COUNT;
+	public static boolean AUTO_TVT_REGISTER_CURSED;
+	public static boolean AUTO_TVT_REGISTER_HERO;
+	public static int[] AUTO_TVT_DISALLOWED_ITEMS;
+	public static boolean AUTO_TVT_REGISTER_AFTER_RELOG;
+	public static boolean AUTO_TVT_START_CANCEL_BUFFS;
+	public static boolean AUTO_TVT_START_CANCEL_CUBICS;
+	public static boolean AUTO_TVT_START_CANCEL_SERVITORS;
+	public static boolean AUTO_TVT_START_CANCEL_TRANSFORMATION;
+	public static boolean AUTO_TVT_START_RECOVER;
+	public static boolean AUTO_TVT_GODLIKE_SYSTEM;
+	public static boolean AUTO_TVT_GODLIKE_ANNOUNCE;
+	public static int AUTO_TVT_GODLIKE_MIN_KILLS;
+	public static int AUTO_TVT_GODLIKE_POINT_MULTIPLIER;
+	public static String AUTO_TVT_GODLIKE_TITLE;
+	public static boolean AUTO_TVT_TK_PUNISH;
+	public static boolean AUTO_TVT_TK_PUNISH_CANCEL;
+	public static boolean AUTO_TVT_TK_RESET_GODLIKE;
+	public static int AUTO_TVT_TK_PUNISH_POINTS_LOST;
+	public static L2Skill[] AUTO_TVT_TK_PUNISH_EFFECTS;
+	public static boolean AUTO_TVT_REVIVE_SELF;
+	public static boolean AUTO_TVT_REVIVE_RECOVER;
+	public static long AUTO_TVT_REVIVE_DELAY;
+	public static int AUTO_TVT_SPAWN_PROTECT;
+
+	private static final class AutoEventConfig extends ConfigLoader
+	{
+		@Override
+		protected String getName()
+		{
+			return "autoevent";
+		}
+
+		@Override
+		protected void loadImpl(Properties properties)
+		{
+			AUTO_TVT_ENABLED = Boolean.parseBoolean(properties.getProperty("EnableAutoTvT", "false"));
+			VoicedCommandHandler.reload();
+			if (AUTO_TVT_ENABLED)
+				AutomatedTvT.startIfNecessary();
+			StringTokenizer coords;
+			StringTokenizer locations = new StringTokenizer(properties.getProperty("TvTTeamLocations", ""), ";");
+			AUTO_TVT_TEAM_LOCATIONS = new int[locations.countTokens()][3];
+			for (int i = 0; i < AUTO_TVT_TEAM_LOCATIONS.length; i++)
+			{
+				coords = new StringTokenizer(locations.nextToken(), ",");
+				if (coords.countTokens() == 3)
+				{
+					AUTO_TVT_TEAM_LOCATIONS[i] = new int[3];
+					AUTO_TVT_TEAM_LOCATIONS[i][0] = Integer.parseInt(coords.nextToken());
+					AUTO_TVT_TEAM_LOCATIONS[i][1] = Integer.parseInt(coords.nextToken());
+					AUTO_TVT_TEAM_LOCATIONS[i][2] = Integer.parseInt(coords.nextToken());
+				}
+				else
+					AUTO_TVT_TEAM_LOCATIONS[i] = null;
+			}
+			AUTO_TVT_OVERRIDE_TELE_BACK = Boolean.parseBoolean(properties.getProperty("TvTTeleportAfterEventSpecial", "false"));
+			coords = new StringTokenizer(properties.getProperty("TvTTeleportSpecialLocation", ""), ",");
+			if (coords.countTokens() == 3)
+			{
+				AUTO_TVT_DEFAULT_TELE_BACK = new int[3];
+				AUTO_TVT_DEFAULT_TELE_BACK[0] = Integer.parseInt(coords.nextToken());
+				AUTO_TVT_DEFAULT_TELE_BACK[1] = Integer.parseInt(coords.nextToken());
+				AUTO_TVT_DEFAULT_TELE_BACK[2] = Integer.parseInt(coords.nextToken());
+			}
+			else
+				AUTO_TVT_DEFAULT_TELE_BACK = null;
+			AUTO_TVT_REWARD_MIN_POINTS = Integer.parseInt(properties.getProperty("TvTRewardedMinScore", "1"));
+			locations = new StringTokenizer(properties.getProperty("TvTRewards", ""), ";");
+			AUTO_TVT_REWARD_IDS = new int[locations.countTokens()];
+			AUTO_TVT_REWARD_COUNT = new int[locations.countTokens()];
+			for (int i = 0; i < AUTO_TVT_REWARD_IDS.length; i++)
+			{
+				coords = new StringTokenizer(locations.nextToken(), ",");
+				if (coords.countTokens() == 2)
+				{
+					AUTO_TVT_REWARD_IDS[i] = Integer.parseInt(coords.nextToken());
+					AUTO_TVT_REWARD_COUNT[i] = Integer.parseInt(coords.nextToken());
+				}
+				else
+					AUTO_TVT_REWARD_COUNT[i] = 0;
+			}
+			AUTO_TVT_LEVEL_MAX = Integer.parseInt(properties.getProperty("TvTMaxLevel", "85"));
+			AUTO_TVT_LEVEL_MIN = Integer.parseInt(properties.getProperty("TvTMinLevel", "1"));
+			AUTO_TVT_PARTICIPANTS_MAX = Integer.parseInt(properties.getProperty("TvTMaxParticipants", "25"));
+			AUTO_TVT_PARTICIPANTS_MIN = Integer.parseInt(properties.getProperty("TvTMinParticipants", "6"));
+			AUTO_TVT_DELAY_INITIAL_REGISTRATION = Long.parseLong(properties.getProperty("TvTDelayInitial", "900000"));
+			AUTO_TVT_DELAY_BETWEEN_EVENTS = Long.parseLong(properties.getProperty("TvTDelayBetweenEvents", "900000"));
+			AUTO_TVT_PERIOD_LENGHT_REGISTRATION = Long.parseLong(properties.getProperty("TvTLengthRegistration", "300000"));
+			AUTO_TVT_PERIOD_LENGHT_PREPARATION = Long.parseLong(properties.getProperty("TvTLengthPreparation", "50000"));
+			AUTO_TVT_PERIOD_LENGHT_EVENT = Long.parseLong(properties.getProperty("TvTLengthCombat", "240000"));
+			AUTO_TVT_PERIOD_LENGHT_REWARDS = Long.parseLong(properties.getProperty("TvTLengthRewards", "15000"));
+			AUTO_TVT_REGISTRATION_ANNOUNCEMENT_COUNT = Integer.parseInt(properties.getProperty("TvTAnnounceRegistration", "3"));
+			AUTO_TVT_REGISTER_CURSED = Boolean.parseBoolean(properties.getProperty("TvTRegisterCursedWeaponOwner", "false"));
+			AUTO_TVT_REGISTER_HERO = Boolean.parseBoolean(properties.getProperty("TvTRegisterHero", "true"));
+			coords = new StringTokenizer(properties.getProperty("TvTItemsNotAllowed", ""), ",");
+			AUTO_TVT_DISALLOWED_ITEMS = new int[coords.countTokens()];
+			for (int i = 0; i < AUTO_TVT_DISALLOWED_ITEMS.length; i++)
+				AUTO_TVT_DISALLOWED_ITEMS[i] = Integer.parseInt(coords.nextToken());
+			AUTO_TVT_REGISTER_AFTER_RELOG = Boolean.parseBoolean(properties.getProperty("TvTRegisterOnRelogin", "true"));
+			AUTO_TVT_START_CANCEL_BUFFS = Boolean.parseBoolean(properties.getProperty("TvTCancelBuffsOnStart", "false"));
+			AUTO_TVT_START_CANCEL_CUBICS = Boolean.parseBoolean(properties.getProperty("TvTCancelCubicsOnStart", "false"));
+			AUTO_TVT_START_CANCEL_SERVITORS = Boolean.parseBoolean(properties.getProperty("TvTCancelServitorsOnStart", "true"));
+			AUTO_TVT_START_CANCEL_TRANSFORMATION = Boolean.parseBoolean(properties.getProperty("TvTCancelTransformationOnStart", "true"));
+			AUTO_TVT_START_RECOVER = Boolean.parseBoolean(properties.getProperty("TvTRecoverOnStart", "true"));
+			AUTO_TVT_GODLIKE_SYSTEM = Boolean.parseBoolean(properties.getProperty("TvTGodlikeSystem", "true"));
+			AUTO_TVT_GODLIKE_ANNOUNCE = Boolean.parseBoolean(properties.getProperty("TvTGodlikeAnnounce", "true"));
+			AUTO_TVT_GODLIKE_MIN_KILLS = Integer.parseInt(properties.getProperty("TvTGodlikeMinKills", "5"));
+			AUTO_TVT_GODLIKE_POINT_MULTIPLIER = Integer.parseInt(properties.getProperty("TvTGodlikeKillPoints", "3"));
+			AUTO_TVT_GODLIKE_TITLE = properties.getProperty("TvTGodlikeTitle", "God-like").trim();
+			AUTO_TVT_TK_PUNISH = Boolean.parseBoolean(properties.getProperty("TvTPunishTeamKillers", "true"));
+			AUTO_TVT_TK_PUNISH_CANCEL = Boolean.parseBoolean(properties.getProperty("TvTPunishTKCancelBuffs", "true"));
+			AUTO_TVT_TK_RESET_GODLIKE = Boolean.parseBoolean(properties.getProperty("TvTPunishTKResetGodlike", "true"));
+			AUTO_TVT_TK_PUNISH_POINTS_LOST = Integer.parseInt(properties.getProperty("TvTPunishTKDecreaseScore", "5"));
+			locations = new StringTokenizer(properties.getProperty("TvTPunishTKDebuff", ""), ";");
+			AUTO_TVT_TK_PUNISH_EFFECTS = new L2Skill[locations.countTokens()];
+			for (int i = 0; i < AUTO_TVT_TK_PUNISH_EFFECTS.length; i++)
+			{
+				coords = new StringTokenizer(locations.nextToken(), ",");
+				if (coords.countTokens() == 2)
+				{
+					AUTO_TVT_TK_PUNISH_EFFECTS[i] = SkillTable.getInstance().getInfo(
+							Integer.parseInt(coords.nextToken()),
+							Integer.parseInt(coords.nextToken()));
+				}
+				else
+					AUTO_TVT_TK_PUNISH_EFFECTS[i] = null;
+			}
+			AUTO_TVT_REVIVE_SELF = Boolean.parseBoolean(properties.getProperty("TvTReviveSelf", "false"));
+			AUTO_TVT_REVIVE_RECOVER = Boolean.parseBoolean(properties.getProperty("TvTReviveRecover", "true"));
+			AUTO_TVT_REVIVE_DELAY = Long.parseLong(properties.getProperty("TvTReviveDelay", "5000"));
+			AUTO_TVT_SPAWN_PROTECT = Integer.parseInt(properties.getProperty("TvTSpawnProtection", "0"));
 		}
 	}
 

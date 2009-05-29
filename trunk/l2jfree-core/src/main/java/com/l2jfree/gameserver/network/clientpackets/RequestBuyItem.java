@@ -16,9 +16,6 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import javolution.util.FastList;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.datatables.ItemTable;
@@ -51,7 +48,6 @@ import com.l2jfree.gameserver.util.Util;
 public class RequestBuyItem extends L2GameClientPacket
 {
 	private static final String	_C__1F_REQUESTBUYITEM	= "[C] 1F RequestBuyItem";
-	private final static Log	_log					= LogFactory.getLog(RequestBuyItem.class.getName());
 
 	private int					_listId;
 	private int					_count;

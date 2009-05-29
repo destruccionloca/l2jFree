@@ -14,9 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.network.SystemMessageId;
 
 /**
@@ -27,7 +24,6 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 public class RequestExFishRanking extends L2GameClientPacket
 {
     private static final String _C__D0_1F_REQUESTEXFISHRANKING = "[C] D0:1F RequestExFishRanking";
-    private static final Log _log = LogFactory.getLog(RequestExFishRanking.class.getName());
 
     @Override
     protected void readImpl()

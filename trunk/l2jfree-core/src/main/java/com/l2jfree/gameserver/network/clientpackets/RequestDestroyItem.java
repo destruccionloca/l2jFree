@@ -16,8 +16,6 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
@@ -40,7 +38,6 @@ import com.l2jfree.gameserver.util.Util;
 public class RequestDestroyItem extends L2GameClientPacket
 {
 	private static final String _C__59_REQUESTDESTROYITEM = "[C] 59 RequestDestroyItem";
-	private final static Log _log = LogFactory.getLog(RequestDestroyItem.class.getName());
 
 	private int _objectId;
 	private int _count;

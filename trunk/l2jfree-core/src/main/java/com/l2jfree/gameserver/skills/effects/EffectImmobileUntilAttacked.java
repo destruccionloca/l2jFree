@@ -14,10 +14,6 @@
  */
 package com.l2jfree.gameserver.skills.effects;
 
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
@@ -27,8 +23,6 @@ import com.l2jfree.gameserver.templates.skills.L2EffectType;
  */
 public final class EffectImmobileUntilAttacked extends L2Effect
 {
-	static final Log	_log	= LogFactory.getLog(EffectImmobileUntilAttacked.class.getName());
-
 	public EffectImmobileUntilAttacked(Env env, EffectTemplate template)
 	{
 		super(env, template);

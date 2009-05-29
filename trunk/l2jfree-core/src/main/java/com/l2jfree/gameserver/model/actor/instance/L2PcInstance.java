@@ -150,6 +150,7 @@ import com.l2jfree.gameserver.model.entity.FortSiege;
 import com.l2jfree.gameserver.model.entity.GrandBossState;
 import com.l2jfree.gameserver.model.entity.L2Event;
 import com.l2jfree.gameserver.model.entity.Siege;
+import com.l2jfree.gameserver.model.entity.events.AutomatedTvT;
 import com.l2jfree.gameserver.model.entity.events.CTF;
 import com.l2jfree.gameserver.model.entity.events.DM;
 import com.l2jfree.gameserver.model.entity.events.TvT;
@@ -3371,12 +3372,16 @@ public final class L2PcInstance extends L2Playable
 	 */
 	public void setProtection(boolean protect)
 	{
+		int proTime = AutomatedTvT.isPlaying(this) ? Config.AUTO_TVT_SPAWN_PROTECT : Config.PLAYER_SPAWN_PROTECTION;
+		if (protect && (proTime == 0 || isInOlympiadMode()))
+			return;
+
 		if (_log.isDebugEnabled() && (protect || _protectEndTime > 0))
 			_log.debug(getName() + ": Protection "
-					+ (protect ? "ON " + (GameTimeController.getGameTicks() + Config.PLAYER_SPAWN_PROTECTION * GameTimeController.TICKS_PER_SECOND) : "OFF")
+					+ (protect ? "ON " + (GameTimeController.getGameTicks() + proTime * GameTimeController.TICKS_PER_SECOND) : "OFF")
 					+ " (currently " + GameTimeController.getGameTicks() + ")");
 
-		_protectEndTime = protect ? GameTimeController.getGameTicks() + Config.PLAYER_SPAWN_PROTECTION * GameTimeController.TICKS_PER_SECOND : 0;
+		_protectEndTime = protect ? GameTimeController.getGameTicks() + proTime * GameTimeController.TICKS_PER_SECOND : 0;
 	}
 
 	public long getProtection()
@@ -4470,6 +4475,12 @@ public final class L2PcInstance extends L2Playable
 				}
 			}
 
+			if (AutomatedTvT.isPlaying(this) && AutomatedTvT.isPlaying(pk))
+			{
+				srcInPvP = true;
+				AutomatedTvT.getInstance().onKill(pk, this);
+			}
+
 			if (!srcInPvP)
 			{
 				if (pk == null || !pk.isCursedWeaponEquipped())
@@ -4748,6 +4759,9 @@ public final class L2PcInstance extends L2Playable
 		if (isInsideZone(L2Zone.FLAG_PVP))
 			return;
 
+		if (AutomatedTvT.isPlaying(this) && AutomatedTvT.isPlaying(targetPlayer))
+			return;
+
 		// Check if it's pvp
 		if ((checkIfPvP(target) && //  Can pvp and
 				targetPlayer.getPvpFlag() != 0 // Target player has pvp flag set
@@ -4947,6 +4961,8 @@ public final class L2PcInstance extends L2Playable
 			return;
 		if ((TvT._started && _inEventTvT && player_target._inEventTvT) || (DM._started && _inEventDM && player_target._inEventDM)
 				|| (CTF._started && _inEventCTF && player_target._inEventCTF) || (_inEventVIP && VIP._started && player_target._inEventVIP))
+			return;
+		if (AutomatedTvT.isPlaying(this) && AutomatedTvT.isPlaying(player_target))
 			return;
 
 		if ((isInDuel() && player_target.getDuelId() == getDuelId()))
@@ -7695,6 +7711,10 @@ public final class L2PcInstance extends L2Playable
 		if (isCursedWeaponEquipped())
 			return true;
 
+		if (AutomatedTvT.isPlaying(this) &&
+				AutomatedTvT.isPlaying((L2PcInstance) attacker))
+			return true;
+
 		// Check if the attacker is in olympia and olympia start
 		if (attacker instanceof L2PcInstance && ((L2PcInstance) attacker).isInOlympiadMode())
 		{
@@ -8469,6 +8489,8 @@ public final class L2PcInstance extends L2Playable
 		)
 		{
 			L2PcInstance target = (L2PcInstance) obj;
+			if (AutomatedTvT.isPlaying(this) && AutomatedTvT.isPlaying(target))
+				return true;
 			if (skill.isPvpSkill()) // Pvp skill
 			{
 				if (getClan() != null && target.getClan() != null)
@@ -10722,8 +10744,7 @@ public final class L2PcInstance extends L2Playable
 		
 		getKnownList().updateKnownObjects();
 		
-		if ((Config.PLAYER_SPAWN_PROTECTION > 0) && !isInOlympiadMode())
-			setProtection(true);
+		setProtection(true);
 
 		// Trained beast is after teleport lost
 		if (getTrainedBeast() != null)
@@ -11083,6 +11104,7 @@ public final class L2PcInstance extends L2Playable
 		
 		abortCast();
 		abortAttack();
+		AutomatedTvT.getInstance().onDisconnection(this);
 
 		try
 		{
@@ -14008,8 +14030,48 @@ public final class L2PcInstance extends L2Playable
 			sendMessage("You can't teleport during Observation Mode.");
 			return false;
 		}
+
+		if (AutomatedTvT.isPlaying(this))
+		{
+			sendPacket(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+			return false;
+		}
 		
 		return true;
+	}
+
+	private int killsWithoutDeath = 0;
+	private int points = 0;
+	private int team = -1;
+
+	public final int getKillsWithoutDeath()
+	{
+		return killsWithoutDeath;
+	}
+
+	public final void setKillsWithoutDeath(int val)
+	{
+		killsWithoutDeath = val;
+	}
+
+	public final int getEventPoints()
+	{
+		return points;
+	}
+
+	public final void setEventPoints(int val)
+	{
+		points = val;
+	}
+
+	public final int getEventTeam()
+	{
+		return team;
+	}
+
+	public final void setEventTeam(int val)
+	{
+		team = val;
 	}
 
 	public boolean canSee(L2Character cha)

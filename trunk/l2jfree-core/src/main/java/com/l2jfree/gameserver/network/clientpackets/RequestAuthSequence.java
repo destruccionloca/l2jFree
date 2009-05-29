@@ -14,13 +14,8 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 public final class RequestAuthSequence extends L2GameClientPacket
 {
-	private static final Log _log = LogFactory.getLog(RequestAuthSequence.class.getName());
-
     private int _version;
 
     @Override

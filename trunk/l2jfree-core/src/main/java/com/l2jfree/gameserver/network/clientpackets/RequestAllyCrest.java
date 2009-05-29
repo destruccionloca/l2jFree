@@ -14,9 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.cache.CrestCache;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.AllyCrest;
@@ -30,7 +27,6 @@ import com.l2jfree.gameserver.network.serverpackets.AllyCrest;
 public class RequestAllyCrest extends L2GameClientPacket
 {
 	private static final String _C__88_REQUESTALLYCREST = "[C] 88 RequestAllyCrest";
-	private final static Log _log = LogFactory.getLog(RequestAllyCrest.class.getName());
 
 	private int _crestId;
 

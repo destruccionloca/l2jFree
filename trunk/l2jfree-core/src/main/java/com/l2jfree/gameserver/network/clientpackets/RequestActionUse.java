@@ -16,9 +16,6 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import java.util.Arrays;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2SummonAI;
 import com.l2jfree.gameserver.datatables.PetSkillsTable;
@@ -48,7 +45,6 @@ import com.l2jfree.gameserver.network.serverpackets.RecipeShopManageList;
 public class RequestActionUse extends L2GameClientPacket
 {
 	private static final String	_C__45_REQUESTACTIONUSE	= "[C] 45 RequestActionUse";
-	private final static Log	_log					= LogFactory.getLog(RequestActionUse.class.getName());
 
 	private int					_actionId;
 	private boolean				_ctrlPressed;

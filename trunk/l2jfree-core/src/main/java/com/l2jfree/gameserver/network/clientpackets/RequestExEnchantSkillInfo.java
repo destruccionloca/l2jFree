@@ -16,10 +16,6 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import java.util.List;
 
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
@@ -47,7 +43,6 @@ import com.l2jfree.gameserver.util.Util;
  */
 public final class RequestExEnchantSkillInfo extends L2GameClientPacket
 {
-	private final static Log _log = LogFactory.getLog(RequestExEnchantSkillInfo.class.getName());
 	private static final String _C__D0_06_REQUESTEXENCHANTSKILLINFO = "[C] D0:06 RequestExEnchantSkillInfo";
 
     private static final int TYPE_NORMAL_ENCHANT = 0;
@@ -103,7 +98,7 @@ public final class RequestExEnchantSkillInfo extends L2GameClientPacket
             if (!Config.ALT_GAME_SKILL_LEARN)
             {
                 sendPacket(ActionFailed.STATIC_PACKET);
-                Util.handleIllegalPlayerAction(activeChar, "Client "+getClient()+" tried to learn skill that he can't!!!", IllegalPlayerAction.PUNISH_KICK);
+                Util.handleIllegalPlayerAction(activeChar, "Client " + getClient() + " tried to learn skill that he can't!!!", IllegalPlayerAction.PUNISH_KICK);
                 return;
             }
         }
@@ -123,7 +118,7 @@ public final class RequestExEnchantSkillInfo extends L2GameClientPacket
                 showChangeEnchantInfo(activeChar);
                 break; 
             default:
-                _log.fatal("Unknown skill enchant type: "+_type);
+                _log.fatal("Unknown skill enchant type: " + _type);
                 break;
         }
 
@@ -189,7 +184,7 @@ public final class RequestExEnchantSkillInfo extends L2GameClientPacket
                 activeChar.sendPacket(asi);
             }
             else
-                _log.warn("Client: "+this.getClient()+" requested change route information for unenchanted skill");
+                _log.warn("Client: " + getClient() + " requested change route information for unenchanted skill");
         }
     }
 
@@ -208,7 +203,7 @@ public final class RequestExEnchantSkillInfo extends L2GameClientPacket
                 if (currentLevelDetail != null)
                 {
                     // no previous enchant level, return to original
-                    if (_skillLvl%100 == 1)
+                    if (_skillLvl % 100 == 1)
                         asi.addEnchantSkillDetail(enchantLearn.getBaseLevel(), 100, currentLevelDetail.getSpCost(), currentLevelDetail.getExp());
                     else
                     {
@@ -221,12 +216,12 @@ public final class RequestExEnchantSkillInfo extends L2GameClientPacket
                     }
                 }
                 else
-                    _log.warn("Client: "+this.getClient()+" tried to untrain enchanted skill, but server doesnt has data for his current skill enchantment level");
+                    _log.warn("Client: " + getClient() + " tried to untrain enchanted skill, but server doesn't have data for his current skill enchantment level");
 
                 activeChar.sendPacket(asi);
             }
             else
-                _log.warn("Client: "+this.getClient()+" requested untrain information for unenchanted skill");
+                _log.warn("Client: " + getClient() + " requested untrain information for unenchanted skill");
         }
     }
 

@@ -1361,7 +1361,8 @@ public class Siege extends AbstractSiege
         }
     }
 
-    public final L2SiegeClan getAttackerClan(L2Clan clan)
+    @Override
+	public final L2SiegeClan getAttackerClan(L2Clan clan)
     {
         if (clan == null) return null;
         return getAttackerClan(clan.getClanId());
@@ -1389,7 +1390,8 @@ public class Siege extends AbstractSiege
         return _castle;
     }
 
-    public final L2SiegeClan getDefenderClan(L2Clan clan)
+    @Override
+	public final L2SiegeClan getDefenderClan(L2Clan clan)
     {
         if (clan == null) return null;
         return getDefenderClan(clan.getClanId());

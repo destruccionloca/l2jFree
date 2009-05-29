@@ -47,6 +47,7 @@ import com.l2jfree.gameserver.model.entity.FortSiege;
 import com.l2jfree.gameserver.model.entity.Hero;
 import com.l2jfree.gameserver.model.entity.L2Event;
 import com.l2jfree.gameserver.model.entity.Siege;
+import com.l2jfree.gameserver.model.entity.events.AutomatedTvT;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.model.quest.Quest;
@@ -221,6 +222,8 @@ public class EnterWorld extends L2GameClientPacket
 		if (activeChar.isAlikeDead()) // dead or fake dead
 			// no broadcast needed since the player will already spawn dead to others
 			sendPacket(new Die(activeChar));
+
+		AutomatedTvT.getInstance().addDisconnected(activeChar);
 
 		// engage and notify Partner
 		if (Config.ALLOW_WEDDING)

@@ -24,9 +24,6 @@ import java.util.List;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.ThreadPoolManager;
@@ -46,8 +43,6 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 public class Fort extends Siegeable<FortSiege>
 {
-	protected static final Log		_log			= LogFactory.getLog(Fort.class.getName());
-
 	// =========================================================
 	// Data Field
 	private int						_fortId			= 0;

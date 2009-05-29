@@ -14,9 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.datatables.CharTemplateTable;
 import com.l2jfree.gameserver.model.base.ClassId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
@@ -33,7 +30,6 @@ import com.l2jfree.gameserver.templates.chars.L2PcTemplate;
 public class NewCharacter extends L2GameClientPacket
 {
 	private static final String _C__0E_NEWCHARACTER = "[C] 0E NewCharacter";
-	private final static Log _log = LogFactory.getLog(NewCharacter.class.getName());
 
 	/**
 	 * packet type id 0x0e

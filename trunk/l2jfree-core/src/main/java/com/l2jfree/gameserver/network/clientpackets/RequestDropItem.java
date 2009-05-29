@@ -14,9 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Shutdown;
 import com.l2jfree.gameserver.Shutdown.DisableType;
@@ -41,7 +38,6 @@ import com.l2jfree.gameserver.util.FloodProtector.Protected;
 public class RequestDropItem extends L2GameClientPacket
 {
     private static final String _C__12_REQUESTDROPITEM = "[C] 12 RequestDropItem";
-    private final static Log _log = LogFactory.getLog(RequestDropItem.class.getName());
 
     private int _objectId;
     private int _count;

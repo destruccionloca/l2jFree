@@ -18,9 +18,6 @@ import java.util.List;
 
 import javolution.util.FastList;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Object;
@@ -36,9 +33,6 @@ import com.l2jfree.tools.random.Rnd;
  */
 public final class EffectConfusion extends L2Effect
 {
-
-	private static final Log	_log	= LogFactory.getLog(EffectConfusion.class);
-
 	public EffectConfusion(Env env, EffectTemplate template)
 	{
 		super(env, template);
@@ -74,7 +68,6 @@ public final class EffectConfusion extends L2Effect
 		List<L2Character> targetList = new FastList<L2Character>();
 
 		// Getting the possible targets
-
 		for (L2Object obj : getEffected().getKnownList().getKnownObjects().values())
 		{
 			if ((obj instanceof L2Character) && (obj != getEffected()))
@@ -82,16 +75,13 @@ public final class EffectConfusion extends L2Effect
 		}
 		// if there is no target, exit function
 		if (targetList.size() == 0)
-		{
 			return true;
-		}
 
 		// Choosing randomly a new target
 		int nextTargetIdx = Rnd.nextInt(targetList.size());
 		L2Object target = targetList.get(nextTargetIdx);
 
 		// Attacking the target
-		// getEffected().setTarget(target);
 		getEffected().setTarget(target);
 		getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, target);
 

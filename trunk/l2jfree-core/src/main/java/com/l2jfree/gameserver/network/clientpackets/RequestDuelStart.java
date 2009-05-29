@@ -14,9 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -31,7 +28,6 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 public final class RequestDuelStart extends L2GameClientPacket
 {
 	private static final String _C__D0_27_REQUESTDUELSTART = "[C] D0:27 RequestDuelStart";
-	private static final Log _log = LogFactory.getLog(RequestDuelStart.class.getName());
 
 	private String _player;
 	private int _partyDuel;

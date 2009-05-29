@@ -14,9 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
@@ -49,8 +46,6 @@ import com.l2jfree.tools.random.Rnd;
  */
 public final class RequestExEnchantSkillSafe extends L2GameClientPacket
 {
-    private final static Log _log = LogFactory.getLog(RequestExEnchantSkillSafe.class.getName());
-
 	private int _skillId;
 	private int _skillLvl;
 

@@ -14,9 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.CharDeleteFail;
 import com.l2jfree.gameserver.network.serverpackets.CharDeleteSuccess;
@@ -31,7 +28,6 @@ import com.l2jfree.gameserver.network.serverpackets.CharSelectionInfo;
 public class CharacterDelete extends L2GameClientPacket
 {
 	private static final String _C__0C_CHARACTERDELETE = "[C] 0C CharacterDelete";
-	private final static Log _log = LogFactory.getLog(CharacterDelete.class.getName());
 
 	// cd
 	private int _charSlot;

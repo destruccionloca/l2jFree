@@ -14,9 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.network.serverpackets.KeyPacket;
 
@@ -28,7 +25,6 @@ import com.l2jfree.gameserver.network.serverpackets.KeyPacket;
 public class ProtocolVersion extends L2GameClientPacket
 {
 	private static final String	_C__00_PROTOCOLVERSION	= "[C] 00 ProtocolVersion";
-	private static Log			_log					= LogFactory.getLog(ProtocolVersion.class.getName());
 
 	private long				_version;
 

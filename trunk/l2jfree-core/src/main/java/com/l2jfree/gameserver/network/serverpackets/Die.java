@@ -22,8 +22,8 @@ import com.l2jfree.gameserver.model.L2SiegeClan;
 import com.l2jfree.gameserver.model.actor.L2Attackable;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.entity.FortSiege;
-import com.l2jfree.gameserver.model.entity.Siege;
+import com.l2jfree.gameserver.model.entity.AbstractSiege;
+import com.l2jfree.gameserver.model.entity.events.AutomatedTvT;
 
 /**
  * sample
@@ -39,61 +39,81 @@ import com.l2jfree.gameserver.model.entity.Siege;
 public class Die extends L2GameServerPacket
 {
 	private static final String _S__00_DIE = "[S] 00 Die [dddddddd]";
-	private int _charObjId;
-	private boolean _fallDown;
-	private boolean _sweepable;
-	private int _access;
-	private L2Character _activeChar;
-	private int _showVillage;
-	private int _showClanhall;
-	private int _showCastle;
+	private final int _charObjId;
+	private final boolean _fallDown;
+	private final int _sweepable;
+	private final int _access;
+	private final int _showVillage;
+	private final int _showClanhall;
+	private final int _showCastle;
 	private int _showFlag;
-	private int _showFortress;
+	private final int _showFortress;
 
-	/**
-	 * @param _characters
-	 */
 	public Die(L2Character cha)
 	{
-		_activeChar = cha;
-		L2Clan clan = null;
-		if (cha instanceof L2PcInstance)
-		{
-			L2PcInstance player = (L2PcInstance)cha;
-			_access = player.getAccessLevel();
-			clan = player.getClan();
-		}
 		_charObjId = cha.getObjectId();
 		_fallDown = cha.mustFallDownOnDeath();
 		if (cha instanceof L2Attackable)
-			_sweepable = ((L2Attackable)cha).isSweepActive();
-		if(clan != null)
+			_sweepable = ((L2Attackable) cha).isSweepActive() ? 1 : 0;
+		else
+			_sweepable = 0;
+		if (cha instanceof L2PcInstance)
 		{
-			_showClanhall = clan.getHasHideout() <= 0 ? 0 : 1;
-			_showCastle = clan.getHasCastle() <= 0 ? 0 : 1;
-			_showFortress = clan.getHasFort() <= 0 ? 0 : 1;
-			L2SiegeClan siegeClan = null;
-			boolean isInDefense = false;
-			Siege siege = SiegeManager.getInstance().getSiege(_activeChar);
-			if(siege != null && siege.getIsInProgress())
+			L2PcInstance player = (L2PcInstance) cha;
+			_access = player.getAccessLevel();
+
+			// GMs will be able to do a fixed resurrection, but they wont be able
+			// to ruin the game
+			if (!Config.AUTO_TVT_REVIVE_SELF &&	AutomatedTvT.isPlaying(player))
 			{
-				siegeClan = siege.getAttackerClan(clan);
-				if(siegeClan == null && siege.checkIsDefender(clan))
-					isInDefense = true;
+				_showVillage = 0;
+				_showClanhall = 0;
+				_showCastle = 0;
+				_showFortress = 0;
+				_showFlag = 0;
+				return;
+			}
+
+			_showVillage = 1;
+			_showFlag = 0;
+			L2Clan clan = player.getClan();
+			if (clan != null)
+			{
+				_showClanhall = clan.getHasHideout() > 0 ? 1 : 0;
+				_showCastle = clan.getHasCastle() > 0 ? 1 : 0;
+				_showFortress = clan.getHasFort() > 0 ? 1 : 0;
+				L2SiegeClan sc = null;
+				AbstractSiege as = SiegeManager.getInstance().getSiege(player);
+				if (as != null && as.getIsInProgress())
+				{
+					sc = as.getAttackerClan(clan);
+					if (sc != null && sc.getNumFlags() > 0)
+						_showFlag = 1;
+				}
+				as = FortSiegeManager.getInstance().getSiege(player);
+				if (as != null && as.getIsInProgress())
+				{
+					sc = as.getAttackerClan(clan);
+					if (sc != null && sc.getNumFlags() > 0)
+						_showFlag = 1;
+				}
 			}
 			else
 			{
-				FortSiege fsiege = FortSiegeManager.getInstance().getSiege(_activeChar);
-				if (fsiege != null && fsiege.getIsInProgress())
-				{
-					siegeClan = fsiege.getAttackerClan(clan);
-					if(siegeClan == null && fsiege.checkIsDefender(clan))
-						isInDefense = true;
-				}
+				_showClanhall = 0;
+				_showCastle = 0;
+				_showFortress = 0;
 			}
-			_showFlag = (siegeClan == null || isInDefense || siegeClan.getFlag().size() <= 0) ? 0 : 1;
 		}
-		_showVillage = 1;
+		else
+		{
+			_showVillage = 0;
+			_showClanhall = 0;
+			_showCastle = 0;
+			_showFortress = 0;
+			_showFlag = 0;
+			_access = 0;
+		}
 	}
 
 	@Override
@@ -103,20 +123,16 @@ public class Die extends L2GameServerPacket
 			return;
 
 		writeC(0x0);
-		
-		writeD(_charObjId); 
+		writeD(_charObjId);
 		writeD(_showVillage);
 		writeD(_showClanhall);
 		writeD(_showCastle);
 		writeD(_showFlag);
-		writeD(_sweepable ? 0x01 : 0x00);              // sweepable  (blue glow)
-		writeD(_access >= Config.GM_FIXED ? 0x01: 0x00); // 6d 04 00 00 00 - to FIXED
+		writeD(_sweepable);
+		writeD(_access >= Config.GM_FIXED ? 0x01: 0x00);
 		writeD(_showFortress);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

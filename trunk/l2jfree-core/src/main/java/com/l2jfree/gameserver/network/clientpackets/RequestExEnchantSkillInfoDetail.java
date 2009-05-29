@@ -14,9 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
@@ -34,8 +31,6 @@ import com.l2jfree.gameserver.network.serverpackets.ExEnchantSkillInfoDetail;
  */
 public final class RequestExEnchantSkillInfoDetail extends L2GameClientPacket
 {
-    private final static Log _log = LogFactory.getLog(RequestExEnchantSkillInfoDetail.class.getName());
-
     private static final int TYPE_NORMAL_ENCHANT = 0;
     private static final int TYPE_SAFE_ENCHANT = 1;
     private static final int TYPE_UNTRAIN_ENCHANT = 2;
@@ -62,9 +57,13 @@ public final class RequestExEnchantSkillInfoDetail extends L2GameClientPacket
         int bookId = 0;
         int reqCount = 0;
         // require book for first level
-        int enchantLevel = _skillLvl%100;
-        // if going to first level OR going to Original level(untraining) OR changing route then require book
-        if ((_skillLvl > 100 && enchantLevel == 1) || (_skillLvl < 100) || _type == TYPE_CHANGE_ENCHANT || _type == TYPE_SAFE_ENCHANT || _type == TYPE_UNTRAIN_ENCHANT)
+        int enchantLevel = _skillLvl % 100;
+        // if going to first level
+        // OR going to Original level(untraining)
+        // OR changing route - then require book
+        if ((_skillLvl > 100 && enchantLevel == 1) || (_skillLvl < 100) ||
+        		_type == TYPE_CHANGE_ENCHANT || _type == TYPE_SAFE_ENCHANT ||
+        		_type == TYPE_UNTRAIN_ENCHANT)
         {
             switch (_type)
             {

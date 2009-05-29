@@ -122,6 +122,7 @@ import com.l2jfree.gameserver.model.L2Manor;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.Hero;
+import com.l2jfree.gameserver.model.entity.events.AutomatedTvT;
 import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 import com.l2jfree.gameserver.network.IOFloodManager;
@@ -392,6 +393,7 @@ public class GameServer
 		{
 			_log.warn("DynamicExtension could not be loaded and initialized", ex);
 		}
+		AutomatedTvT.getInstance();
 		
 		Util.printSection("Handlers");
 		ItemHandler.getInstance();
