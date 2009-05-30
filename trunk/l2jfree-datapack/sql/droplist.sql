@@ -26191,7 +26191,6 @@ INSERT INTO `droplist` VALUES
 (22274,5167,1,1,-1,10000), -- Recipe: Blessed Spiritshot (S) Compressed Package (100%)
 (22274,5515,1,1,-1,110000), -- Sealed Majestic Gloves Design
 (22275,57,10810,24070,0,700000), -- Adena
-(22275,9698,1,1,100,860000), -- Blue Coral Key
 (22275,1895,1,3,2,250000), -- Metallic Fiber
 (22275,4042,1,1,2,15625), -- Enria
 (22275,4043,1,1,2,15625), -- Asofe
