@@ -243,7 +243,7 @@ public final class SelectorThread<T extends MMOConnection<T>> extends Thread
 				
 				synchronized (con)
 				{
-					if (con.getSendQueue2().isEmpty())
+					if (con.getSendQueue2().isEmpty() && !con.hasPendingWriteBuffer() || con.closeTimeouted())
 					{
 						FastList.Node<MMOConnection<T>> temp = n.getPrevious();
 						getPendingClose().delete(n);

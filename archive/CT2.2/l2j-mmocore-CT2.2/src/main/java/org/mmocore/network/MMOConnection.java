@@ -41,7 +41,7 @@ public abstract class MMOConnection<T extends MMOConnection<T>>
 	private ByteBuffer _primaryWriteBuffer;
 	private ByteBuffer _secondaryWriteBuffer;
 	
-	private boolean _pendingClose;
+	private long _timeClosed = -1;
 	
 	protected MMOConnection(SelectorThread<T> selectorThread, ISocket socket, SelectionKey key)
 	{
@@ -315,7 +315,12 @@ public abstract class MMOConnection<T extends MMOConnection<T>>
 	
 	boolean isClosed()
 	{
-		return _pendingClose;
+		return _timeClosed != -1;
+	}
+	
+	boolean closeTimeouted()
+	{
+		return System.currentTimeMillis() > _timeClosed + 10000;
 	}
 	
 	public synchronized void closeNow()
@@ -323,7 +328,7 @@ public abstract class MMOConnection<T extends MMOConnection<T>>
 		if (isClosed())
 			return;
 		
-		_pendingClose = true;
+		_timeClosed = System.currentTimeMillis();
 		getSendQueue2().clear();
 		disableWriteInterest();
 		getSelectorThread().closeConnection(this);
@@ -336,7 +341,7 @@ public abstract class MMOConnection<T extends MMOConnection<T>>
 		
 		getSendQueue2().clear();
 		sendPacket(sp);
-		_pendingClose = true;
+		_timeClosed = System.currentTimeMillis();
 		getSelectorThread().closeConnection(this);
 	}
 	
