@@ -8,8 +8,8 @@ public class LightPurpleManedHorse extends L2DefaultTransformation
 {
 	public LightPurpleManedHorse()
 	{
-		// id, duration (secs), colRadius, colHeight
-		super(106, 1800, 12.0, 32.0);
+		// id, colRadius, colHeight
+		super(106, 12.0, 32.0);
 	}
 
 	@Override
