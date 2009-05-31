@@ -1,6 +1,3 @@
--- ---------------------------
--- Table structure for table `auction`
--- ---------------------------
 CREATE TABLE IF NOT EXISTS `auction` (
   `id` INT UNSIGNED NOT NULL DEFAULT 0,
   `sellerId` INT UNSIGNED NOT NULL DEFAULT 0,

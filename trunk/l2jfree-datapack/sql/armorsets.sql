@@ -1,7 +1,3 @@
---
--- Table structure for table `armorsets`
--- 
-
 DROP TABLE IF EXISTS `armorsets`;
 CREATE TABLE `armorsets` (
  `id` SMALLINT UNSIGNED NOT NULL auto_increment,
@@ -65,11 +61,11 @@ INSERT INTO `armorsets` VALUES (22,   2376, 2379, 2415, 5714, 5730,   3519,     
 INSERT INTO `armorsets` VALUES (23,   2390,  0,   2415, 5715, 5731,   3521,      1,      0,      0,      3618,        11368,      0,     12980,   11366,     11371,      0);--		Avadon leather set
 INSERT INTO `armorsets` VALUES (24,   2406,  0,   2415, 5716, 5732,   3523,      1,      0,      0,      3619,        11369,      0,     12981,   11367,     11372,      0);--		Avadon robe set
 
-INSERT INTO `armorsets` VALUES (25,   358,  2380, 2416, 5718, 5734,   3524,      1,      0,      0,      3617,        11405,    11395,   11403,   11399,     11396,      0);--		Blue Wolf's Breastplate set
+INSERT INTO `armorsets` VALUES (25,   358,  2380, 2416, 5718, 5734,   3524,      1,      0,      0,      3617,        11405,    11394,   11403,   11399,     11396,      0);--		Blue Wolf's Breastplate set
 INSERT INTO `armorsets` VALUES (26,   2391,  0,   2416, 5719, 5735,   3526,      1,      0,      0,      3618,        11395,      0,     12984,   11400,     11397,      0);--		Blue wolf leather set
 INSERT INTO `armorsets` VALUES (27,   2398, 2403, 2416, 5720, 5736,   3528,      1,      0,      0,      3619,        11402,    11404,   12985,   11401,     11398,      0);--		Blue Wolf robe set
 
-INSERT INTO `armorsets` VALUES (28,   2381,  0,   2417, 5722, 5738,   3525,      1,     110,   3549,     3617,        11386,      0,     11387,   11397,     11382,    11385);--	Doom plate heavy set
+INSERT INTO `armorsets` VALUES (28,   2381,  0,   2417, 5722, 5738,   3525,      1,     110,   3549,     3617,        11386,      0,     11387,   11379,     11382,    11385);--	Doom plate heavy set
 INSERT INTO `armorsets` VALUES (29,   2392,  0,   2417, 5723, 5739,   3527,      1,      0,      0,      3618,        11388,      0,     12982,   11380,     11383,      0);--		Doom leather set
 INSERT INTO `armorsets` VALUES (30,   2399, 2404, 2417, 5724, 5740,   3529,      1,      0,      0,      3619,        11393,    11406,   12983,   11381,     11384,      0);--		Doom robe set
 

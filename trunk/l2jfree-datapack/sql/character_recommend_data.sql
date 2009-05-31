@@ -1,6 +1,3 @@
--- ----------------------------
--- Table structure for `character_recommend_data`
--- ----------------------------
 CREATE TABLE IF NOT EXISTS `character_recommend_data` (
   `charId` INT UNSIGNED NOT NULL,
   `evaluationAble` TINYINT(1) UNSIGNED NOT NULL DEFAULT 3,

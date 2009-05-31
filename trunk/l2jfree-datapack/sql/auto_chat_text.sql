@@ -1,6 +1,3 @@
--- ----------------------------------
--- Table structure for auto_chat_text
--- ----------------------------------
 DROP TABLE IF EXISTS `auto_chat_text`;
 CREATE TABLE `auto_chat_text` (
   `groupId` TINYINT(2) UNSIGNED NOT NULL,

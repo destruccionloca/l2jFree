@@ -1,10 +1,7 @@
--- ---------------------------
--- Table structure for table `skill_spellbooks`
--- ---------------------------
 DROP TABLE IF EXISTS `skill_spellbooks`;
 CREATE TABLE `skill_spellbooks` (
-  `skill_id` int(11) NOT NULL DEFAULT '-1',
-  `item_id` int(11) NOT NULL DEFAULT '-1',
+  `skill_id` INT(11) NOT NULL DEFAULT -1,
+  `item_id` INT(11) NOT NULL DEFAULT -1,
   KEY `skill_id` (`skill_id`,`item_id`)
 ) DEFAULT CHARSET=utf8;
 

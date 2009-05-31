@@ -193,6 +193,7 @@ full_install()
 	$MYG < ../sql/character_friends.sql &> /dev/null
 	$MYG < ../sql/character_hennas.sql &> /dev/null
 	$MYG < ../sql/character_macroses.sql &> /dev/null
+	$MYG < ../sql/character_quest_global_data.sql &> /dev/null
 	$MYG < ../sql/character_quests.sql &> /dev/null
 	$MYG < ../sql/character_raid_points.sql &> /dev/null
 	$MYG < ../sql/character_recipebook.sql &> /dev/null
@@ -202,13 +203,14 @@ full_install()
 	$MYG < ../sql/character_skills.sql &> /dev/null
 	$MYG < ../sql/character_skills_save.sql &> /dev/null
 	$MYG < ../sql/character_subclasses.sql &> /dev/null
+	$MYG < ../sql/character_tpbookmark.sql &> /dev/null
 	$MYG < ../sql/characters.sql &> /dev/null
 	$MYG < ../sql/clan_data.sql &> /dev/null
-	$MYG < ../sql/clan_notice.sql &> /dev/null
 	$MYG < ../sql/clan_privs.sql &> /dev/null
 	$MYG < ../sql/clan_skills.sql &> /dev/null
 	$MYG < ../sql/clan_subpledges.sql &> /dev/null
 	$MYG < ../sql/clan_wars.sql &> /dev/null
+	$MYG < ../sql/clan_notices.sql &> /dev/null
 	$MYG < ../sql/clanhall.sql &> /dev/null
 	$MYG < ../sql/clanhall_functions.sql &> /dev/null
 	$MYG < ../sql/class_list.sql &> /dev/null
@@ -235,7 +237,7 @@ full_install()
 	$MYG < ../sql/heroes.sql &> /dev/null
 	$MYG < ../sql/item_attributes.sql &> /dev/null
 	$MYG < ../sql/items.sql &> /dev/null
-	$MYG < ../sql/items_on_ground.sql &> /dev/null
+	$MYG < ../sql/itemsonground.sql &> /dev/null
 	$MYG < ../sql/lvlupgain.sql &> /dev/null
 	$MYG < ../sql/merchant_buylists.sql &> /dev/null
 	$MYG < ../sql/merchant_shopids.sql &> /dev/null
@@ -263,7 +265,9 @@ full_install()
 	$MYG < ../sql/skill_learn.sql &> /dev/null
 	$MYG < ../sql/skill_spellbooks.sql &> /dev/null
 	$MYG < ../sql/skill_trees.sql &> /dev/null
+	$MYG < ../sql/skill_residential.sql &> /dev/null
 	$MYG < ../sql/spawnlist.sql &> /dev/null
+	$MYG < ../sql/special_skill_trees.sql &> /dev/null
 	$MYG < ../sql/teleport.sql &> /dev/null
 	$MYG < ../sql/topic.sql &> /dev/null
 	$MYG < ../sql/transform_skill_trees.sql &> /dev/null
@@ -419,6 +423,9 @@ update_db()
 			$MYG < ../sql/updates/20090424update.sql
 			$MYG < ../sql/updates/20090424update_1.sql
 			$MYG < ../sql/updates/20090425update.sql
+			$MYG < ../sql/updates/20090504update.sql
+			$MYG < ../sql/updates/20090507update.sql
+			$MYG < ../sql/updates/20090510update.sql
 			$MYG < ../sql/updates/20090501update.sql
 			$MYG < ../sql/updates/20090513update.sql
 			$MYG < ../sql/updates/20090514update.sql

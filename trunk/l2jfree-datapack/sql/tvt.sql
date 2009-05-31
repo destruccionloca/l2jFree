@@ -1,24 +1,20 @@
--- --------------------------------
--- Table structure for table `tvt`
--- Created by SqueezeD from l2jfree
--- --------------------------------
 DROP TABLE IF EXISTS `tvt`;
 CREATE TABLE `tvt` (
-  `eventName` varchar(255) NOT NULL DEFAULT '',
-  `eventDesc` varchar(255) NOT NULL DEFAULT '',
-  `joiningLocation` varchar(255) NOT NULL DEFAULT '',
-  `minlvl` int(4) NOT NULL DEFAULT '0',
-  `maxlvl` int(4) NOT NULL DEFAULT '0',
-  `npcId` int(8) NOT NULL DEFAULT '0',
-  `npcX` int(11) NOT NULL DEFAULT '0',
-  `npcY` int(11) NOT NULL DEFAULT '0',
-  `npcZ` int(11) NOT NULL DEFAULT '0',
-  `npcHeading` int(11) NOT NULL DEFAULT '0',
-  `rewardId` int(11) NOT NULL DEFAULT '0',
-  `rewardAmount` int(11) NOT NULL DEFAULT '0',
-  `teamsCount` int(4) NOT NULL DEFAULT '0',
-  `joinTime` int(11) NOT NULL DEFAULT '0',
-  `eventTime` int(11) NOT NULL DEFAULT '0',
-  `minPlayers` int(4) NOT NULL DEFAULT '0',
-  `maxPlayers` int(4) NOT NULL DEFAULT '0'
+  `eventName` VARCHAR(255) NOT NULL DEFAULT '',
+  `eventDesc` VARCHAR(255) NOT NULL DEFAULT '',
+  `joiningLocation` VARCHAR(255) NOT NULL DEFAULT '',
+  `minlvl` INT(4) NOT NULL DEFAULT 0,
+  `maxlvl` INT(4) NOT NULL DEFAULT 0,
+  `npcId` INT(8) NOT NULL DEFAULT 0,
+  `npcX` INT(11) NOT NULL DEFAULT 0,
+  `npcY` INT(11) NOT NULL DEFAULT 0,
+  `npcZ` INT(11) NOT NULL DEFAULT 0,
+  `npcHeading` INT(11) NOT NULL DEFAULT 0,
+  `rewardId` INT(11) NOT NULL DEFAULT 0,
+  `rewardAmount` INT(11) NOT NULL DEFAULT 0,
+  `teamsCount` INT(4) NOT NULL DEFAULT 0,
+  `joinTime` INT(11) NOT NULL DEFAULT 0,
+  `eventTime` INT(11) NOT NULL DEFAULT 0,
+  `minPlayers` INT(4) NOT NULL DEFAULT 0,
+  `maxPlayers` INT(4) NOT NULL DEFAULT 0
 ) DEFAULT CHARSET=utf8;

@@ -1,10 +1,7 @@
--- -------------------------------------
--- Table structure for fort_siege_guards
--- -------------------------------------
 DROP TABLE IF EXISTS `fort_siege_guards`;
 CREATE TABLE `fort_siege_guards` (
   fortId INT NOT NULL DEFAULT 0,
-  id int(11) NOT NULL auto_increment,
+  id INT(11) NOT NULL auto_increment,
   npcId INT NOT NULL DEFAULT 0,
   x INT NOT NULL DEFAULT 0,
   y INT NOT NULL DEFAULT 0,

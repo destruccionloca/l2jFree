@@ -1,6 +1,3 @@
--- ---------------------------
--- Table structure for `auto_chat`
--- ---------------------------
 DROP TABLE IF EXISTS `auto_chat`;
 CREATE TABLE `auto_chat` (
   `groupId` INT UNSIGNED NOT NULL DEFAULT 0,

@@ -1,19 +1,16 @@
--- -----------------------------------------
--- Table structure for transform_skill_trees
--- -----------------------------------------
 DROP TABLE IF EXISTS transform_skill_trees;
 CREATE TABLE `transform_skill_trees` (
-  `race_id` int(10) NOT NULL DEFAULT '0',
-  `skill_id` int(10) NOT NULL DEFAULT '0',
-  `item_id` int(10) NOT NULL DEFAULT '0',
-  `level` int(10) NOT NULL DEFAULT '0',
-  `name` varchar(40) NOT NULL DEFAULT '',
-  `sp` int(10) NOT NULL DEFAULT '0',
-  `min_level` int(10) NOT NULL DEFAULT '0',
+  `race_id` INT(10) NOT NULL DEFAULT 0,
+  `skill_id` INT(10) NOT NULL DEFAULT 0,
+  `item_id` INT(10) NOT NULL DEFAULT 0,
+  `level` INT(10) NOT NULL DEFAULT 0,
+  `name` VARCHAR(40) NOT NULL DEFAULT '',
+  `sp` INT(10) NOT NULL DEFAULT 0,
+  `min_level` INT(10) NOT NULL DEFAULT 0,
   PRIMARY KEY (`race_id`,`skill_id`,`level`)
 ) DEFAULT CHARSET=utf8;
 
-INSERT INTO transform_skill_trees VALUES 
+INSERT INTO `transform_skill_trees` VALUES
 -- Human
 (0, 541, 9650, 1, 'Transform Grail Apostle', 0, 60),
 (0, 545, 9651, 1, 'Transform Unicorn', 0, 60),

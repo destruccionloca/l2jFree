@@ -1,20 +1,17 @@
--- ---------------------------------------
--- Table structure for fishing_skill_trees
--- ---------------------------------------
 DROP TABLE IF EXISTS `fishing_skill_trees`;
 CREATE TABLE `fishing_skill_trees` (
-  `skill_id` int(10) NOT NULL DEFAULT '0',
-  `level` int(10) NOT NULL DEFAULT '0',
-  `name` varchar(25) NOT NULL DEFAULT '',
-  `sp` int(10) NOT NULL DEFAULT '0',
-  `min_level` int(10) NOT NULL DEFAULT '0',
-  `costid` int(10) NOT NULL DEFAULT '0',
-  `cost` int(10) NOT NULL DEFAULT '0',
-  `isfordwarf` int(1) NOT NULL DEFAULT '0',
+  `skill_id` INT(10) NOT NULL DEFAULT 0,
+  `level` INT(10) NOT NULL DEFAULT 0,
+  `name` VARCHAR(25) NOT NULL DEFAULT "",
+  `sp` INT(10) NOT NULL DEFAULT 0,
+  `min_level` INT(10) NOT NULL DEFAULT 0,
+  `costid` INT(10) NOT NULL DEFAULT 0,
+  `cost` INT(10) NOT NULL DEFAULT 0,
+  `isfordwarf` INT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`skill_id`,`level`)
 ) DEFAULT CHARSET=utf8;
 
-INSERT INTO `fishing_skill_trees` VALUES 
+INSERT INTO `fishing_skill_trees` VALUES
 (1313,1,'Pumping',0,10,57,10,0),
 (1313,2,'Pumping',0,12,57,50,0),
 (1313,3,'Pumping',0,15,57,200,0),

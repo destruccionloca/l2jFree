@@ -1,11 +1,8 @@
--- ----------------------------------------
--- Table structure for fort_staticobjects
--- ----------------------------------------
 DROP TABLE IF EXISTS `fort_staticobjects`;
 CREATE TABLE `fort_staticobjects` (
   `fortId` INT NOT NULL DEFAULT 0,
   `id` INT NOT NULL DEFAULT 0,
-  `name` varchar(30) NOT NULL,
+  `name` VARCHAR(30) NOT NULL,
   `x` INT NOT NULL DEFAULT 0,
   `y` INT NOT NULL DEFAULT 0,
   `z` INT NOT NULL DEFAULT 0,
@@ -18,14 +15,14 @@ CREATE TABLE `fort_staticobjects` (
   `hp` INT NOT NULL DEFAULT 0,
   `pDef` INT NOT NULL DEFAULT 0,
   `mDef` INT NOT NULL DEFAULT 0,
-  `openType` varchar(5) NOT NULL DEFAULT 'false',
-  `commanderDoor` varchar(5) NOT NULL DEFAULT 'false',
+  `openType` VARCHAR(5) NOT NULL DEFAULT "false",
+  `commanderDoor` VARCHAR(5) NOT NULL DEFAULT "false",
   `objectType` INT NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `id` (`fortId`)
 ) DEFAULT CHARSET=utf8;
 
-INSERT INTO `fort_staticobjects` VALUES 
+INSERT INTO `fort_staticobjects` VALUES
 (101,18220001,'Gate_of_fort',-50796,155913,-2102,0,0,0,0,0,0,67884,644,518,'false','false',0),
 (101,18220002,'Gate_of_fort',-53359,156592,-2081,0,0,0,0,0,0,67884,644,518,'true','true',0),
 (101,18220003,'Gate_of_fort',-53313,156743,-2081,0,0,0,0,0,0,67884,644,518,'true','true',0),

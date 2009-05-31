@@ -1,15 +1,16 @@
--- ----------------------------------------------
--- Table structure for table `merchant_shopids`
--- ----------------------------------------------
 DROP TABLE IF EXISTS `merchant_shopids`;
 CREATE TABLE `merchant_shopids` (
-  `shop_id` decimal(9,0) NOT NULL DEFAULT '0',
-  `npc_id` varchar(9) DEFAULT NULL,
+  `shop_id` DECIMAL(9,0) NOT NULL DEFAULT 0,
+  `npc_id` VARCHAR(9) DEFAULT NULL,
   PRIMARY KEY (`shop_id`)
 ) DEFAULT CHARSET=utf8;
 
--- General Shops
 INSERT INTO `merchant_shopids` VALUES
+
+-- Golem shop
+(13128001,'13128'),
+
+-- General Shops
 (3000100,'30001'),
 (3000101,'30001'),
 (3000200,'30002'),
@@ -188,10 +189,8 @@ INSERT INTO `merchant_shopids` VALUES
 (3126300,'31263'),
 (3126301,'31263'),
 (3126500,'31265'),
-(3127300,'31273'),
 (3127400,'31274'),
 (3128400,'31284'),
-(3129100,'31291'),
 (3130000,'31300'),
 (3130001,'31300'),
 (3130100,'31301'),
@@ -325,32 +324,7 @@ INSERT INTO `merchant_shopids` VALUES
 (3198900,'31989'),
 (3234800,'32348'),
 
--- GM Shops
-(1001,'gm'),
-(1002,'gm'),
-(1003,'gm'),
-(1004,'gm'),
-(1005,'gm'),
-(1006,'gm'),
-(1007,'gm'),
-(1008,'gm'),
-(1009,'gm'),
-(1010,'gm'),
-(1011,'gm'),
-(1012,'gm'),
-(1013,'gm'),
-(1014,'gm'),
-(1015,'gm'),
-(1020,'gm'),
-(2011,'gm'),
-(2012,'gm'),
-(2013,'gm'),
-(2014,'gm'),
-(2015,'gm'),
-(3001,'gm'),
-(3002,'gm'),
-(3003,'gm'),
-(3004,'gm'),
+-- Old GM Shops (some still used temp)
 (9001,'gm'),
 (9002,'gm'),
 (9003,'gm'),
@@ -404,84 +378,9 @@ INSERT INTO `merchant_shopids` VALUES
 (9051,'gm'),
 (9052,'gm'),
 (9053,'gm'),
-(9054,'gm'),
-(9055,'gm'),
-(9056,'gm'),
-(9057,'gm'),
-(9058,'gm'),
-(9059,'gm'),
-(9060,'gm'),
--- (9061,'gm'),
-(9062,'gm'),
-(9063,'gm'),
-(9064,'gm'),
-(9065,'gm'),
-(9066,'gm'),
-(9067,'gm'),
-(9068,'gm'),
-(9069,'gm'),
-(9070,'gm'),
-(9071,'gm'),
-(9072,'gm'),
-(9073,'gm'),
-(9074,'gm'),
-(9075,'gm'),
-(9076,'gm'),
-(9077,'gm'),
-(9078,'gm'),
-(9079,'gm'),
-(9080,'gm'),
-(9081,'gm'),
-(9082,'gm'),
-(9083,'gm'),
-(9084,'gm'),
-(9085,'gm'),
-(9086,'gm'),
-(9087,'gm'),
-(9088,'gm'),
-(9089,'gm'),
-(9090,'gm'),
-(9091,'gm'),
-(9092,'gm'),
-(9093,'gm'),
-(9094,'gm'),
-(9095,'gm'),
-(9096,'gm'),
-(9097,'gm'),
-(9098,'gm'),
-(9099,'gm'),
-(9100,'gm'),
-(9101,'gm'),
-(9102,'gm'),
-(9103,'gm'),
-(9104,'gm'),
-(9105,'gm'),
-(9106,'gm'),
-(9107,'gm'),
-(9108,'gm'),
-(9109,'gm'),
-(9110,'gm'),
-(9111,'gm'),
-(9112,'gm'),
-(9113,'gm'),
-(9114,'gm'),
-(9115,'gm'),
-(9116,'gm'),
-(9117,'gm'),
-(9118,'gm'),
-(9119,'gm'),
-(9120,'gm'),
-(9121,'gm'),
-(9122,'gm'),
-(9123,'gm'),
-(9124,'gm'),
-(9125,'gm'),
-(9126,'gm'),
-(9127,'gm'),
-(9128,'gm'),
-(9148,'gm'),
-(9149,'gm'),
-(9150,'gm'),
+(71022,'gm'),
+(71028,'gm'),
+(71029,'gm'),
 (30040,'gm'),
 (30041,'gm'),
 (30042,'gm'),
@@ -502,56 +401,17 @@ INSERT INTO `merchant_shopids` VALUES
 (30057,'gm'),
 (30058,'gm'),
 (30059,'gm'),
-(71021,'gm'),
-(71022,'gm'),
-(71023,'gm'),
-(71024,'gm'),
-(71025,'gm'),
-(71026,'gm'),
-(71027,'gm'),
-(71028,'gm'),
-(71029,'gm'),
-(71030,'gm'),
-(300523,'gm'),
-(300524,'gm'),
-(300525,'gm'),
-(300526,'gm'),
-(300527,'gm'),
-(300528,'gm'),
-(300529,'gm'),
 (300530,'gm'),
-(300531,'gm'),
-(300532,'gm'),
-(300533,'gm'),
-(300534,'gm'),
-(300535,'gm'),
 (300536,'gm'),
-(300537,'gm'),
-(300538,'gm'),
 (300539,'gm'),
 (300540,'gm'),
 (300541,'gm'),
-(300522,'gm'),
-(300511,'gm'),
-(300510,'gm'),
-(300410,'gm'),
 (300542,'gm'),
-(71031,'gm'),
-(71032,'gm'),
-(9151,'gm'),
-(9152,'gm'),
-(9153,'gm'),
-(9154,'gm'),
-(9155,'gm'),
-(9156,'gm'),
+(300410,'gm'),
+(300510,'gm'),
 (9157,'gm'),
-(9158,'gm'),
-(9159,'gm'),
-(9160,'gm'),
-(9161,'gm'),
---
+
 -- Castle 
---
 (335103, '35103'),
 (335145, '35145'),
 (335187, '35187'),
@@ -565,9 +425,8 @@ INSERT INTO `merchant_shopids` VALUES
 (335558, '35558'),
 (335644, '35644'),
 (335645, '35645'),
---
+
 -- Castles Lord's Certificates
---
 (63881, 35100),
 (63882, 35142),
 (63883, 35184),
@@ -577,9 +436,8 @@ INSERT INTO `merchant_shopids` VALUES
 (63887, 35363),
 (63888, 35509),
 (63889, 35555),
---
+
 -- Castles Item creation
---
 (351001,'35100'),
 (351421,'35142'),
 (351841,'35184'),
@@ -589,9 +447,8 @@ INSERT INTO `merchant_shopids` VALUES
 (353631,'35363'),
 (355091,'35509'),
 (355551,'35555'),
---
+
 -- Clan Halls Item creation
---
 (135445, '35445'),
 (235445, '35445'),
 (335445, '35445'),
@@ -715,8 +572,83 @@ INSERT INTO `merchant_shopids` VALUES
 (355111, '35511'),
 (355571, '35557');
 
--- L2J-Free Add-ons
+-- GM SHOP IDs START (99xx range)--
+INSERT INTO `merchant_shopids` VALUES
+('9901', 'gm'), -- Forgotten Scrolls
+('9902', 'gm'), -- Life Stones
+('9903', 'gm'), -- Elemental
+('9904', 'gm'), -- Codex Books
+('9905', 'gm'), -- Divine Inspiration Books
+('9906', 'gm'), -- Transform Sealbooks
+('9907', 'gm'), -- S84 Vesper Weapons
+('9908', 'gm'), -- S84 Vesper Jewels
+('9909', 'gm'), -- Cloaks
+('9910', 'gm'), -- Belts
+('9911', 'gm'), -- Magic Pins
+('9912', 'gm'), -- Magic Pouches
+('9913', 'gm'), -- Shirts
+('9914', 'gm'), -- Bracelets
+('9915', 'gm'), -- Talisman
+('9916', 'gm'), -- Currency
+('9917', 'gm'), -- Boss Jewels
+('9918', 'gm'), -- Pets
+('9919', 'gm'), -- Castle Circlets
+('9920', 'gm'), -- Hair Accessory
+('9921', 'gm'), -- Fly Transform Books
+('9922', 'gm'), -- Fishing Potions
+('9923', 'gm'), -- Dynasty Weapons
+('9924', 'gm'), -- Icarus Weapons
+('9925', 'gm'), -- Monster Weapons
+('9926', 'gm'), -- Sigils
+('9927', 'gm'), -- SA Crystals
+('9928', 'gm'), -- Potions
+('9929', 'gm'), -- Elixirs
+('9930', 'gm'), -- Scrolls
+('9931', 'gm'), -- Enchant Scrolls
+('9932', 'gm'), -- Pet Gear
+('9933', 'gm'), -- S80 Dynasty Recipes
+('9934', 'gm'), -- S80 Dynasty Parts
+('9935', 'gm'), -- S80 Icarus Recipes
+('9936', 'gm'), -- S80 Icarus Parts
+('9937', 'gm'), -- Craft Materials
+('9938', 'gm'), -- Shots
+('9939', 'gm'), -- Crystals/Gemstones
+('9940', 'gm'), -- S grade Parts
+('9941', 'gm'), -- S grade Recipes
+('9942', 'gm'), -- A Grade Recipes
+('9943', 'gm'), -- A Grade Parts 
+('9944', 'gm'), -- Other Circlets
+('9945', 'gm'), -- Buff Scrolls (event)
+('9946', 'gm'), -- B Grade Recipes
+('9947', 'gm'), -- B Grade Parts
+('9948', 'gm'), -- Dyes
+('9949', 'gm'), -- Fishing Rods
+('9950', 'gm'), -- Fishing Gear
+('9951', 'gm'), -- NG set
+('9952', 'gm'), -- D set
+('9953', 'gm'), -- C set
+('9954', 'gm'), -- B set
+('9955', 'gm'), -- A set
+('9956', 'gm'), -- S set
+('9957', 'gm'), -- S80 set
+('9958', 'gm'), -- S84 set
+('9959', 'gm'), -- Apella set
+('9960', 'gm'), -- NG Jewel
+('9961', 'gm'), -- D Jewel
+('9962', 'gm'), -- C Jewel
+('9963', 'gm'), -- B Jewel
+('9964', 'gm'), -- A Jewel
+('9965', 'gm'), -- S Jewel
+('9966', 'gm'), -- S80 Jewel
+('9967', 'gm'), -- Fishes
+('9968', 'gm'), -- Designs (Gracia Items)
+('9969', 'gm'), -- Materials for Designs (Gracia Items)
+('9970', 'gm'), -- Mercenary Transformation Scrolls
+('9971', 'gm'); -- Disguise Scroll
 
+
+-- L2J-Free Add-ons
+-- Edit: Left these here in case you wanna add them to the new GMShop
 -- GM Shop Addition bySkatershi
 INSERT INTO `merchant_shopids` VALUES
 (71040, 'gm'), -- Interlude Spellbooks

@@ -1,14 +1,11 @@
--- ---------------------------
--- Table structure for table `skill_learn`
--- ---------------------------
 DROP TABLE IF EXISTS `skill_learn`;
 CREATE TABLE `skill_learn` (
-  `npc_id` int(11) NOT NULL DEFAULT '0',
-  `class_id` int(11) NOT NULL DEFAULT '0',
+  `npc_id` INT(11) NOT NULL DEFAULT 0,
+  `class_id` INT(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`npc_id`,`class_id`)
 ) DEFAULT CHARSET=utf8;
 
-INSERT INTO skill_learn VALUES 
+INSERT INTO `skill_learn` VALUES
 (30010,0),
 (30010,1),
 (30010,2),
@@ -1247,7 +1244,7 @@ INSERT INTO skill_learn VALUES
 (31316,57),
 (31316,117),
 (31316,118);
-INSERT INTO skill_learn VALUES 
+INSERT INTO `skill_learn` VALUES
 (31956,53),
 (31956,54),
 (31956,55),
@@ -1579,7 +1576,7 @@ INSERT INTO skill_learn VALUES
 (32232,135),
 (32232,136);
 
-INSERT INTO `skill_learn` (`npc_id`, `class_id`) VALUES
+INSERT INTO `skill_learn` VALUES
 (32156, 0),
 (32156, 1),
 (32156, 2),

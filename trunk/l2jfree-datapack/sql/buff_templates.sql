@@ -1,6 +1,3 @@
--- ----------------------------------
--- Table structure for buff_templates
--- ----------------------------------
 DROP TABLE IF EXISTS `buff_templates`;
 CREATE TABLE `buff_templates` (
   `id` INT UNSIGNED NOT NULL,

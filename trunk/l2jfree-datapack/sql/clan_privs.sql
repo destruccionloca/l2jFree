@@ -1,7 +1,4 @@
--- ----------------------------
--- Table structure for `clan_privs`
--- ----------------------------
-CREATE TABLE IF Not EXISTS `clan_privs` (
+CREATE TABLE IF NOT EXISTS `clan_privs` (
   `clan_id` INT NOT NULL DEFAULT 0,
   `rank` INT NOT NULL DEFAULT 0,
   `party` INT NOT NULL DEFAULT 0,

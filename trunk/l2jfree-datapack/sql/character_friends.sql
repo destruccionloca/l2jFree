@@ -1,6 +1,3 @@
--- ----------------------------
--- Table structure for `character_friends`
--- ----------------------------
 CREATE TABLE IF NOT EXISTS `character_friends` (
   `charId1` INT UNSIGNED NOT NULL,
   `charId2` INT UNSIGNED NOT NULL,

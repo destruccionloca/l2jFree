@@ -1,10 +1,7 @@
--- -----------------------------------
--- Table structure for fort_spawnlist
--- -----------------------------------
 DROP TABLE IF EXISTS `fort_spawnlist`;
 CREATE TABLE `fort_spawnlist` (
   `fortId` INT NOT NULL DEFAULT 0,
-  `id` int(11) NOT NULL auto_increment,
+  `id` INT(11) NOT NULL auto_increment,
   `npcId` INT NOT NULL DEFAULT 0,
   `x` INT NOT NULL DEFAULT 0,
   `y` INT NOT NULL DEFAULT 0,
@@ -16,7 +13,7 @@ CREATE TABLE `fort_spawnlist` (
   KEY `id` (`fortId`)
 ) DEFAULT CHARSET=utf8;
 
-INSERT INTO fort_spawnlist VALUES
+INSERT INTO `fort_spawnlist` VALUES
 (101,null,35658,-53273,156650,-1896,62000,0,0),
 (101,null,35659,-55097,157042,-2055,0,2,0),
 (101,null,35660,-52128,157752,-2024,29864,1,0),

@@ -1,19 +1,16 @@
--- ---------------------------
--- Table structure for table `lvlupgain`
--- ---------------------------
 DROP TABLE IF EXISTS `lvlupgain`;
 CREATE TABLE `lvlupgain` (
-  `classid` int(3) NOT NULL DEFAULT '0',
-  `defaulthpbase` decimal(5,1) NOT NULL DEFAULT '0.0',
-  `defaulthpadd` decimal(4,2) NOT NULL DEFAULT '0.00',
-  `defaulthpmod` decimal(4,2) NOT NULL DEFAULT '0.00',
-  `defaultcpbase` decimal(5,1) NOT NULL DEFAULT '0.0',
-  `defaultcpadd` decimal(4,2) NOT NULL DEFAULT '0.00',
-  `defaultcpmod` decimal(4,2) NOT NULL DEFAULT '0.00',
-  `defaultmpbase` decimal(5,1) NOT NULL DEFAULT '0.0',
-  `defaultmpadd` decimal(4,2) NOT NULL DEFAULT '0.00',
-  `defaultmpmod` decimal(4,2) NOT NULL DEFAULT '0.00',
-  `class_lvl` int(3) NOT NULL DEFAULT '0',
+  `classid` INT(3) NOT NULL DEFAULT 0,
+  `defaulthpbase` DECIMAL(5,1) NOT NULL DEFAULT '0.0',
+  `defaulthpadd` DECIMAL(4,2) NOT NULL DEFAULT '0.00',
+  `defaulthpmod` DECIMAL(4,2) NOT NULL DEFAULT '0.00',
+  `defaultcpbase` DECIMAL(5,1) NOT NULL DEFAULT '0.0',
+  `defaultcpadd` DECIMAL(4,2) NOT NULL DEFAULT '0.00',
+  `defaultcpmod` DECIMAL(4,2) NOT NULL DEFAULT '0.00',
+  `defaultmpbase` DECIMAL(5,1) NOT NULL DEFAULT '0.0',
+  `defaultmpadd` DECIMAL(4,2) NOT NULL DEFAULT '0.00',
+  `defaultmpmod` DECIMAL(4,2) NOT NULL DEFAULT '0.00',
+  `class_lvl` INT(3) NOT NULL DEFAULT 0,
   PRIMARY KEY (`classid`)
 ) DEFAULT CHARSET=utf8;
 

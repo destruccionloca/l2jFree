@@ -8,8 +8,6 @@
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
     <cond msgId="2292">
       <player agathionId="1501"/>
     </cond>
@@ -21,8 +19,6 @@
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
     <cond msgId="2292">
       <player agathionId="1502"/>
     </cond>
@@ -34,8 +30,6 @@
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
     <cond msgId="2292">
       <player agathionId="1503"/>
     </cond>
@@ -47,8 +41,6 @@
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
     <cond msgId="2292">
       <player agathionId="1504"/>
     </cond>
@@ -67,7 +59,7 @@
       <player agathionId="1501"/>
     </cond>
     <for>
-      <effect count="1" name="BigHead" time="1200" val="0" abnormal="bighead" stackOrder="600" stackType="big_head"/>
+      <effect name="BigHead" time="1200" val="0" abnormal="bighead" stackOrder="600" stackType="big_head"/>
     </for>
   </skill>
   <skill id="23005" levels="1" name="Gold Majo Agathion Special Skill - Power of Blessed Resurrection">
@@ -91,8 +83,6 @@
     <set name="hitTime" val="200"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="staticReuse" val="true"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
     <cond msgId="2292">
       <player agathionId="1503"/>
     </cond>
@@ -111,7 +101,7 @@
       <player agathionId="1504"/>
     </cond>
     <for>
-      <effect count="1" name="BigHead" time="1200" val="0" abnormal="bighead" stackOrder="600" stackType="big_head"/>
+      <effect name="BigHead" time="1200" val="0" abnormal="bighead" stackOrder="600" stackType="big_head"/>
     </for>
   </skill>
   <skill id="23008" levels="1" name="Plaipitak Agathion Special Skill - Power of Blessed Return">
@@ -121,8 +111,6 @@
     <set name="hitTime" val="200"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="staticReuse" val="true"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
     <cond msgId="2292">
       <player agathionId="1504"/>
     </cond>
@@ -148,8 +136,6 @@
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
     <cond msgId="2292">
       <player agathionId="1505"/>
     </cond>
@@ -161,8 +147,6 @@
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
     <cond msgId="2292">
       <player agathionId="1506"/>
     </cond>
@@ -174,8 +158,6 @@
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
     <cond msgId="2292">
       <player agathionId="1507"/>
     </cond>
@@ -194,7 +176,7 @@
       <player agathionId="1505"/>
     </cond>
     <for>
-      <effect count="1" name="BigHead" time="1200" val="0" abnormal="bighead" stackOrder="600" stackType="big_head"/>
+      <effect name="BigHead" time="1200" val="0" abnormal="bighead" stackOrder="600" stackType="big_head"/>
     </for>
   </skill>
   <skill id="23014" levels="1" name="Bamboo Panda Agathion Special Skill - Power of Blessed Resurrection">
@@ -216,8 +198,6 @@
     <set name="hitTime" val="200"/>
     <set name="skillType" val="RECALL"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="staticReuse" val="true"/>
     <cond msgId="2292">
@@ -242,43 +222,36 @@
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
   </skill>
   <skill id="23018" levels="1" name="Thomas D. Turkey's Mistake">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
   </skill>
   <skill id="23019" levels="3" name="Scissors,Rock,Paper">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
   </skill>
   <skill id="23020" levels="1" name="Challenge the Turkey">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
   </skill>
   <skill id="23021" levels="3" name="Turkey's Attack">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
   </skill>
   <skill id="23022" levels="10" name="First Wink">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
   </skill>
   <skill id="23023" levels="1" name="Reset Consecutive Wins">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
   </skill>
   <skill id="23024" levels="1" name="Agathion of Love Special Skill">
     <!-- Needs to be verified -->
@@ -287,8 +260,6 @@
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
     <cond msgId="2292">
       <player agathionId="16049"/>
     </cond>
@@ -300,8 +271,6 @@
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
     <cond msgId="2292">
       <player agathionId="1508"/>
     </cond>
@@ -313,8 +282,6 @@
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
     <cond msgId="2292">
       <player agathionId="1509"/>
     </cond>
@@ -326,8 +293,6 @@
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
     <cond msgId="2292">
       <player agathionId="1510"/>
     </cond>
@@ -339,8 +304,6 @@
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
     <cond msgId="2292">
       <player agathionId="1511"/>
     </cond>
@@ -352,8 +315,6 @@
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
     <cond msgId="2292">
       <player agathionId="1512"/>
     </cond>
@@ -379,8 +340,6 @@
     <set name="hitTime" val="200"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="staticReuse" val="true"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
     <cond msgId="2292">
       <player agathionId="1511"/>
     </cond>
@@ -390,7 +349,6 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="buffDuration" val="300000"/>
-    <set name="castRange" val="-1"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="staticReuse" val="true"/>
     <cond msgId="2292">
@@ -407,8 +365,6 @@
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
     <cond msgId="2292">
       <player agathionId="1513"/>
     </cond>
@@ -417,7 +373,6 @@
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="2292">
       <player agathionId="1513"/>
     </cond>
@@ -427,7 +382,6 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="buffDuration" val="300000"/>
-    <set name="castRange" val="-1"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="staticReuse" val="true"/>
     <cond msgId="2292">
@@ -444,8 +398,6 @@
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
     <cond msgId="2292">
       <player agathionId="1514"/>
     </cond>
@@ -463,7 +415,7 @@
       <player agathionId="1514"/>
     </cond>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0" stackOrder="600" stackType="speed_up">
+      <effect name="Buff" time="1200" val="0" stackOrder="600" stackType="speed_up">
         <add order="0x40" stat="runSpd" val="33"/>
       </effect>
     </for>
@@ -475,8 +427,6 @@
     <set name="hitTime" val="200"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="staticReuse" val="true"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
     <cond msgId="2292">
       <player agathionId="1514"/>
     </cond>
@@ -488,8 +438,6 @@
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
     <cond msgId="2292">
       <player agathionId="1515"/>
     </cond>
@@ -501,8 +449,6 @@
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
     <cond msgId="2292">
       <player agathionId="1516"/>
     </cond>
@@ -514,8 +460,6 @@
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
     <cond msgId="2292">
       <player agathionId="1517"/>
     </cond>
@@ -524,7 +468,6 @@
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="2292">
       <player agathionId="1515"/>
     </cond>
@@ -533,7 +476,6 @@
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="2292">
       <player agathionId="1516"/>
     </cond>
@@ -542,7 +484,6 @@
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="2292">
       <player agathionId="1517"/>
     </cond>
@@ -554,8 +495,6 @@
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
     <cond msgId="2292">
       <player agathionId="1518"/>
     </cond>
@@ -567,8 +506,6 @@
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
     <cond msgId="2292">
       <player agathionId="1510"/>
     </cond>
@@ -580,8 +517,6 @@
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
     <cond msgId="2292">
       <player agathionId="1511"/>
     </cond>
@@ -593,10 +528,98 @@
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
     <cond msgId="2292">
       <player agathionId="1512"/>
     </cond>
+  </skill>
+  <skill id="23049" levels="1" name="Red Sumo Wrestler Agathion Cute Trick">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="23050" levels="1" name="Blue Sumo Wrestler Agathion Cute Trick">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="23051" levels="1" name="Great Sumo Match Agathion Cute Trick">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="23052" levels="1" name="Button-Eyed Bear Doll Agathion Cute Trick">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="23053" levels="1" name="God of Fortune Agathion Cute Trick">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="23054" levels="1" name="Dryad Agathion Cute Trick">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="23055" levels="1" name="Wonboso Agathion Cute Trick">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="23056" levels="1" name="Daewoonso Agathion Cute Trick">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="23057" levels="1" name="Red Sumo Wrestler Agathion Special Skill - Death Whisper Ability">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="23058" levels="1" name="Blue Sumo Wrestler Agathion Special Skill - Wild Magic Ability">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="23059" levels="1" name="Great Sumo Match Agathion Special Skill - Mysterious Power">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="23060" levels="1" name="Great Sumo Match Agathion Special Skill - Ability of Firework">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="23061" levels="1" name="Button-Eyed Bear Doll Agathion Special Skill - Ability of Blessed Return">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="23062" levels="1" name="Button-Eyed Bear Doll Agathion Special Skill - Ability of Blessed Resurrection">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="23063" levels="1" name="Button-Eyed Bear Doll Agathion Special Skill - Ability of Energy Recovery">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="23064" levels="1" name="God of Fortune Agathion Special Skill - Energy Recovery Ability">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="23065" levels="1" name="Wonboso Agathion Special Skill - Wind Walk Ability">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="23066" levels="1" name="Daewoonso Agathion Special Skill - New Year's Gift Ability">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
   </skill>
 </list>

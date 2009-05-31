@@ -1,6 +1,3 @@
--- ---------------------------
--- Table structure for `seven_signs`
--- ---------------------------
 CREATE TABLE IF NOT EXISTS `seven_signs` (
   `charId` INT NOT NULL DEFAULT 0,
   `cabal` VARCHAR(4) NOT NULL DEFAULT '',

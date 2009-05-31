@@ -1,12 +1,9 @@
--- -----------------------------------------
--- Table structure for table `pets_skills`
--- -----------------------------------------
 DROP TABLE IF EXISTS `pets_skills`;
 CREATE TABLE `pets_skills` (
-  `templateId` int(6) NOT NULL DEFAULT '0',
-  `minLvl` int(2) NOT NULL DEFAULT '0',
-  `skillId` int(5) NOT NULL DEFAULT '0',
-  `skillLvl` int(2) NOT NULL DEFAULT '0',
+  `templateId` INT(6) NOT NULL DEFAULT 0,
+  `minLvl` INT(2) NOT NULL DEFAULT 0,
+  `skillId` INT(5) NOT NULL DEFAULT 0,
+  `skillLvl` INT(2) NOT NULL DEFAULT 0,
   PRIMARY KEY (`templateId`,`skillId`,`skillLvl`)
 ) DEFAULT CHARSET=utf8;
 

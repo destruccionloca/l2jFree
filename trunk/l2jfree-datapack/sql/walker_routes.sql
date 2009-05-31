@@ -1,21 +1,18 @@
--- ---------------------------------
--- Table structure for walker_routes
--- ---------------------------------
 DROP TABLE IF EXISTS `walker_routes`;
 CREATE TABLE `walker_routes` (
-  `route_id` int(11) NOT NULL DEFAULT '0',
-  `npc_id` int(11) NOT NULL DEFAULT '0',
-  `move_point` int(9) NOT NULL,
-  `chatText` varchar(255) DEFAULT NULL,
-  `move_x` int(9) NOT NULL DEFAULT '0',
-  `move_y` int(9) NOT NULL DEFAULT '0',
-  `move_z` int(9) NOT NULL DEFAULT '0',
-  `delay`  int(9) NOT NULL DEFAULT '0',
-  `running`  tinyint(1) NOT NULL DEFAULT '0',
+  `route_id` INT(11) NOT NULL DEFAULT 0,
+  `npc_id` INT(11) NOT NULL DEFAULT 0,
+  `move_point` INT(9) NOT NULL,
+  `chatText` VARCHAR(255) DEFAULT NULL,
+  `move_x` INT(9) NOT NULL DEFAULT 0,
+  `move_y` INT(9) NOT NULL DEFAULT 0,
+  `move_z` INT(9) NOT NULL DEFAULT 0,
+  `delay`  INT(9) NOT NULL DEFAULT 0,
+  `running`  TINYINT(1) NOT NULL DEFAULT 0,
    PRIMARY KEY (`route_id`,`npc_id`,`move_point`)
 ) DEFAULT CHARSET=utf8;
 
-INSERT INTO `walker_routes` VALUES 
+INSERT INTO `walker_routes` VALUES
 (1,31361,1,NULL,22418,10249,-3648,61,1),
 (1,31361,2,NULL,23423,11165,-3720,0,1),
 (1,31361,3,NULL,20182,11101,-3720,0,1),
@@ -185,6 +182,7 @@ INSERT INTO `walker_routes` VALUES
 (12,32070,10,NULL,87351,-140059,-1536,5,1),
 (12,32070,11,NULL,89343,-140746,-1536,1,1),
 (12,32070,12,NULL,90605,-143167,-1536,1,1);
+
 INSERT INTO `walker_routes` VALUES
 (13,29095,1,NULL,141569,-45908,-2387,10,0),
 (13,29095,2,NULL,142494,-45456,-2397,0,0),

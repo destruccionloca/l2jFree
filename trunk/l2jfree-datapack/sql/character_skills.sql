@@ -1,6 +1,3 @@
--- ------------------------------------
--- Table structure for character_skills
--- ------------------------------------
 CREATE TABLE IF NOT EXISTS `character_skills` (
   `charId` INT UNSIGNED NOT NULL,
   `skill_id` SMALLINT UNSIGNED NOT NULL,

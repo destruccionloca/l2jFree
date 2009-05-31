@@ -1,7 +1,4 @@
--- ---------------------------
--- Table structure for `games`
--- ---------------------------
-CREATE TABLE IF NOT EXISTS games (
+CREATE TABLE IF NOT EXISTS `games` (
   `id` INT NOT NULL DEFAULT 0,
   `idnr` INT NOT NULL DEFAULT 0,
   `number1` INT NOT NULL DEFAULT 0,
@@ -11,7 +8,7 @@ CREATE TABLE IF NOT EXISTS games (
   `prize1`  INT NOT NULL DEFAULT 0,
   `prize2`  INT NOT NULL DEFAULT 0,
   `prize3`  INT NOT NULL DEFAULT 0,
-  `enddate` decimal(20,0) NOT NULL DEFAULT 0,
+  `enddate` DECIMAL(20,0) NOT NULL DEFAULT 0,
   `finished` INT NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`,`idnr`)
 ) DEFAULT CHARSET=utf8;

@@ -1,19 +1,16 @@
--- -------------------------------------
--- Table structure for table `teleport`
--- -------------------------------------
 DROP TABLE IF EXISTS `teleport`;
 CREATE TABLE `teleport` (
-  `Description` varchar(75) DEFAULT NULL,
-  `id` decimal(11,0) NOT NULL DEFAULT '0',
-  `loc_x` decimal(9,0) DEFAULT NULL,
-  `loc_y` decimal(9,0) DEFAULT NULL,
-  `loc_z` decimal(9,0) DEFAULT NULL,
-  `price` decimal(6,0) DEFAULT NULL,
-  `fornoble` int(1) NOT NULL DEFAULT '0',
+  `Description` VARCHAR(75) DEFAULT NULL,
+  `id` DECIMAL(11,0) NOT NULL DEFAULT 0,
+  `loc_x` DECIMAL(9,0) DEFAULT NULL,
+  `loc_y` DECIMAL(9,0) DEFAULT NULL,
+  `loc_z` DECIMAL(9,0) DEFAULT NULL,
+  `price` DECIMAL(6,0) DEFAULT NULL,
+  `fornoble` INT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) DEFAULT CHARSET=utf8;
 
-INSERT INTO teleport VALUES 
+INSERT INTO `teleport` VALUES
 ('Dark Elven Town -> Town of Gludio',1,-12672,122776,-3116,10000,0),
 ('Elven Town  -> Town of Gludio',2,-12672,122776,-3116,9200,0),
 ('Elven Village -> Elven Forest',468,21362,51122,-3688,710,0),
@@ -48,8 +45,8 @@ INSERT INTO teleport VALUES
 ('Dion Town -> Town of Giran',19,83400,147943,-3404,6800,0),
 ('Dion Town -> Giran Harbor',20,47942,186764,-3485,6500,0),
 ('Cruma Tower 1st floor -> Cruma Tower Entrance',22,17192,114178,-3439,0,0),
-('Cruma Tower 1st floor -> Cruma Tower 2nd floor',23,17730,108301,-9057,0,0),
-('Cruma Tower 2nd floor -> Cruma Tower 1st floor',24,17714,107923,-11850,0,0),
+('Cruma Tower 1st floor -> Cruma Tower 2nd floor',23,17776,108288,-9056,0,0),
+('Cruma Tower 2nd floor -> Cruma Tower 1st floor',24,17781,113999,-11672,0,0),
 ('Town of Giran -> Dion Town',25,15670,142983,-2705,6800,0),
 ('Town of Giran -> Oren Town',26,82956,53162,-1495,9400,0),
 ('Town of Giran -> Hunter Village',27,116819,76994,-2714,4100,0),
@@ -397,7 +394,7 @@ INSERT INTO teleport VALUES
 ('Pagan Temple - > exit',11999,-16307,-36591,-10725,0,0),
 ('Pagan Chapel - > exit',11998,-16359,-43803,-10725,0,0);
 
-INSERT INTO teleport VALUES
+INSERT INTO `teleport` VALUES
 ('Clan Hall -> Execution Grounds',502,51055,141959,-2869,500,0),
 ('Clan Hall -> Fortress of Resistance',503,47382,111278,-104,500,0),
 ('Clan Hall -> Cruma Marshlands',504,5106,126916,-3664,500,0),
@@ -517,7 +514,7 @@ INSERT INTO teleport VALUES
 ('Clan Hall -> Windmill Hill',668,-75347,168800,-3632,500,0);
 
 -- Noblesse Teleport
-INSERT INTO teleport VALUES
+INSERT INTO `teleport` VALUES
 -- 1000 adena
 ('Gludin Arena - 1000 adena',9000,-87328,142266,-3640,1000,0),
 ('Coliseum - 1000 adena',9001,146440,46723,-3432,1000,0),
@@ -667,7 +664,7 @@ INSERT INTO teleport VALUES
 ('Varka teleport - Wall of Argos',10036,164564,-48145,-3536,11000,0),
 ('Varka teleport - Hot Springs',10037,144880,-113468,-2560,14000,0);
 
-INSERT INTO teleport VALUES
+INSERT INTO `teleport` VALUES
 ('Clan Hall -> Center Town of Aden',12000,147450,28081,-2294,0,0),
 ('Clan Hall -> North Town of Aden',12001,151950,25094,-2172,0,0),
 ('Clan Hall -> East Town of Aden',12002,142593,26344,-2425,0,0),
@@ -761,7 +758,29 @@ INSERT INTO teleport VALUES
 ('Demon Fort -> Swamp of Screams', 12114, 69340, -50203, -3288, 500, 0),
 ('Demon Fort -> Valley of Saints', 12115, 65307, -71445, -3688, 500, 0),
 ('Demon Fort -> Entrance to the Forge of the Gods', 12116, 169018, -116303, -2432, 500, 0),
-('Demon Fort -> Wall of Argos', 12117, 165054, -47861, -3560, 500, 0);
+('Demon Fort -> Wall of Argos', 12117, 165054, -47861, -3560, 500, 0),
+('Gludio -> Airship dock', 12118, -149406, 255247, -80, 0, 0),
+('Airship dock -> Talking Island', 12119, -84752, 243122, -3728, 0, 0),
+('Talking Island -> Airship dock', 12120, -149406, 255247, -80, 0, 0),
+('Fantasy Isle -> Handys Block', 12121, -57328, -60566, -2360, 0, 0),
+('Keucereus -> Heart of Infinity', 12122, -204288, 242026, 1744, 0, 0),
+('Valley Fort -> Fortress North Gate', 12123, 126066, 120350, -2584, 0, 0),
+('Valley Fort -> Fortress South Gate', 12124, 126023, 125853, -2584, 0, 0),
+('Valley Fort -> Giran Town Square', 12125, 81749, 149171, -3464, 0, 0),
+('Valley Fort -> Front of the Giran Castle Gate', 12126, 107954, 145841, -3224, 0, 0),
+('Valley Fort -> Brekas Stronghold', 12127, 85546, 131328, -3672, 500, 0),
+('Valley Fort -> Devils Isle', 12128, 43408, 206811, -3752, 500, 0),
+('Valley Fort -> Dragon Valley', 12129, 73024, 118485, -3688, 500, 0),
+('Valley Fort -> Tanor Canyon', 12130, 60374, 164301, -2856, 500, 0),
+('Tanor Fort -> Fortress North Gate', 12131, 58923, 137789, -1752, 0, 0),
+('Tanor Fort -> Fortress South Gate', 12132, 61551, 141036, -1752, 0, 0),
+('Tanor Fort -> Dion Town Square', 12133, 19025, 145245, -3120, 0, 0),
+('Tanor Fort -> Giran Town Square', 12134, 81749, 149171, -3464, 0, 0),
+('Tanor Fort -> The Ant Nest', 12135, -9959, 176184, -4160, 500, 0),
+('Tanor Fort -> Windawood Manor', 12136, -28327, 155125, -3496, 500, 0),
+('Tanor Fort -> Dragon Valley', 12137, 73024, 118485, -3688, 500, 0),
+('Tanor Fort -> Tanor Canyon', 12138, 60374, 164301, -2856, 500, 0),
+('Handys Block -> Fantasy Isle', 12139, -59157, -56906, -2032, 0, 0);
 
 
 --

@@ -1,19 +1,16 @@
--- ---------------------------
---  Table structure for fish
--- ---------------------------
 DROP TABLE IF EXISTS `fish`;
 CREATE TABLE `fish` (
-  `id` int(5) NOT NULL DEFAULT '0',
-  `level` int(5) NOT NULL DEFAULT '0',
-  `name` varchar(40) NOT NULL DEFAULT '',
-  `hp` int(5) NOT NULL DEFAULT '0',
-  `hpregen` int(3) NOT NULL DEFAULT '5',
-  `fish_type` int(1) NOT NULL DEFAULT '0', -- 0 = wide, 1 = swift, 2 = ugly, 3 = box, 4 = easy_wide, 5 = easy_swift, 6 = easy_ugly, 7 = hard_wide, 8 = hard_swift, 9 = hard_ugly
-  `fish_group` int(1) NOT NULL DEFAULT '0', -- 0 = easy, 1 = normal, 2 = hard
-  `fish_guts` INT(4) NOT NULL DEFAULT '0',
-  `guts_check_time` INT(4) NOT NULL DEFAULT '0',
-  `wait_time` INT(5) NOT NULL DEFAULT '0',
-  `combat_time` INT(5) NOT NULL DEFAULT '0',
+  `id` INT(5) NOT NULL DEFAULT 0,
+  `level` INT(5) NOT NULL DEFAULT 0,
+  `name` VARCHAR(40) NOT NULL DEFAULT "",
+  `hp` INT(5) NOT NULL DEFAULT 0,
+  `hpregen` INT(3) NOT NULL DEFAULT 5,
+  `fish_type` INT(1) NOT NULL DEFAULT 0, -- 0 = wide, 1 = swift, 2 = ugly, 3 = box, 4 = easy_wide, 5 = easy_swift, 6 = easy_ugly, 7 = hard_wide, 8 = hard_swift, 9 = hard_ugly
+  `fish_group` INT(1) NOT NULL DEFAULT 0, -- 0 = easy, 1 = normal, 2 = hard
+  `fish_guts` INT(4) NOT NULL DEFAULT 0,
+  `guts_check_time` INT(4) NOT NULL DEFAULT 0,
+  `wait_time` INT(5) NOT NULL DEFAULT 0,
+  `combat_time` INT(5) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`,`level`)
 ) DEFAULT CHARSET=utf8;
 

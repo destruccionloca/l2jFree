@@ -1,17 +1,14 @@
 -- This table allows yoo to define what items
 -- should players receive upon character creation,
 -- depending on the class they choose.
---
+
 -- A value of -1 in the classId field means "Any class"
 
--- ---------------------------------------
--- Table structure for char_creation_items
--- ---------------------------------------
 DROP TABLE IF EXISTS `char_creation_items`;
 CREATE TABLE `char_creation_items` (
   `classId` smallint(6) NOT NULL,
   `itemId` smallint(6) unsigned NOT NULL,
-  `amount` int(10) unsigned NOT NULL DEFAULT '1',
+  `amount` int(10) unsigned NOT NULL DEFAULT 1,
   `equipped` enum('true','false') NOT NULL DEFAULT 'false',
   PRIMARY KEY (`classId`,`itemId`)
 ) DEFAULT CHARSET=utf8;

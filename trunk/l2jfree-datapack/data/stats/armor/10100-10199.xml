@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "armors.dtd">
 <list>
+  <item id="10119" name="Dynasty Sickle">
+    <for>
+      <add val="15" order="0x10" stat="pDef"/>
+      <enchant val="0" order="0x0C" stat="pDef"/>
+    </for>
+  </item>
+  <item id="10120" name="Sealed Dynasty Sigil">
+    <cond msgId="1518">
+      <or>
+        <player active_skill_id="925"/>
+        <player active_skill_id="926"/>
+        <player active_skill_id="934"/>
+        <player active_skill_id="935"/>
+      </or>
+    </cond>
+    <for>
+      <add val="15" order="0x10" stat="pDef"/>
+      <enchant val="0" order="0x0C" stat="pDef"/>
+    </for>
+  </item>
+  <item id="10121" name="Sealed Arcana Sigil">
+    <cond msgId="1518">
+      <or>
+        <player active_skill_id="925"/>
+        <player active_skill_id="926"/>
+        <player active_skill_id="934"/>
+        <player active_skill_id="935"/>
+      </or>
+    </cond>
+    <for>
+      <add val="13" order="0x10" stat="pDef"/>
+      <enchant val="0" order="0x0C" stat="pDef"/>
+    </for>
+  </item>
   <item id="10122" name="Red Crescent Earring">
     <for>
       <add val="24" order="0x10" stat="mDef"/>
@@ -26,6 +60,7 @@
     <for>
       <add val="170" order="0x10" stat="pDef"/>
       <enchant val="0" order="0x0C" stat="pDef"/>
+      <enchant val="0" order="0x40" stat="maxHp"/>
     </for>
   </item>
   <item id="10127" name="Dynasty Leather Armor - Weapon Master">
@@ -35,6 +70,7 @@
     <for>
       <add val="170" order="0x10" stat="pDef"/>
       <enchant val="0" order="0x0C" stat="pDef"/>
+      <enchant val="0" order="0x40" stat="maxHp"/>
     </for>
   </item>
   <item id="10139" name="Agathion Bracelet">
@@ -62,6 +98,7 @@
     <for>
       <add val="170" order="0x10" stat="pDef"/>
       <enchant val="0" order="0x0C" stat="pDef"/>
+      <enchant val="0" order="0x40" stat="maxHp"/>
     </for>
   </item>
   <item id="10169" name="Enchanter Circlet (Kamael only)">
@@ -74,8 +111,8 @@
     <for>
       <add val="71" order="0x10" stat="mDef"/>
       <add val="31" order="0x40" stat="maxMp"/>
+      <add order="0x40" stat="darkRes" val="30"/> <!-- Dark Resistance +30% -->
       <enchant val="0" order="0x0C" stat="mDef"/>
-      <mul order="0x30" stat="darkVuln" val="0.70"/> <!-- Dark Resistance +30% -->
     </for>
   </item>
   <item id="10175" name="Gobblin Circlet (Event)">

@@ -1,6 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "armors.dtd">
 <list>
+  <item id="20200" name="Agathion of Love - 3 Day Expiration Period">
+    <for/>
+  </item>
+  <item id="20201" name="Agathion of Love - 7 Day Expiration Period">
+    <for/>
+  </item>
+  <item id="20202" name="Agathion of Love - 15 Day Expiration Period">
+    <for/>
+  </item>
+  <item id="20203" name="Agathion of Love - 30 Day Expiration Period">
+    <for/>
+  </item>
+  <item id="20204" name="Queen Ant's Ring (Event) - 3 Day Expiration Period">
+    <for>
+      <add val="48" order="0x10" stat="mDef"/>
+      <enchant val="0" order="0x0C" stat="mDef"/>
+    </for>
+  </item>
+  <item id="20205" name="Queen Ant's Ring (Event) - 7 Day Expiration Period">
+    <for>
+      <add val="48" order="0x10" stat="mDef"/>
+      <enchant val="0" order="0x0C" stat="mDef"/>
+    </for>
+  </item>
+  <item id="20206" name="Queen Ant's Ring (Event) - 15 Day Expiration Period">
+    <for>
+      <add val="48" order="0x10" stat="mDef"/>
+      <enchant val="0" order="0x0C" stat="mDef"/>
+    </for>
+  </item>
+  <item id="20207" name="Zaken's Earring (Event) - 3 Day Expiration Period">
+    <for>
+      <add val="71" order="0x10" stat="mDef"/>
+      <enchant val="0" order="0x0C" stat="mDef"/>
+    </for>
+  </item>
+  <item id="20208" name="Zaken's Earring (Event) - 7 Day Expiration Period">
+    <for>
+      <add val="71" order="0x10" stat="mDef"/>
+      <enchant val="0" order="0x0C" stat="mDef"/>
+    </for>
+  </item>
+  <item id="20209" name="Zaken's Earring (Event) - 15 Day Expiration Period">
+    <for>
+      <add val="71" order="0x10" stat="mDef"/>
+      <enchant val="0" order="0x0C" stat="mDef"/>
+    </for>
+  </item>
   <item id="20212" name="Agathion Seal Bracelet - Charming Cupid">
     <for/>
   </item>
@@ -37,10 +85,10 @@
   <item id="20236" name="Agathion Seal Bracelet - Pegasus">
     <for/>
   </item>
-  <item id="20237" name="Agathion Seal Bracelet - Pegasus Wind Walk - 7 Day Expiration Period">
+  <item id="20237" name="Agathion Seal Bracelet - Pegasus - Wind Walk - 7 Day Expiration Period">
     <for/>
   </item>
-  <item id="20238" name="Agathion Seal Bracelet - Pegasus Escape - 7 Day Expiration Period">
+  <item id="20238" name="Agathion Seal Bracelet - Pegasus - Escape - 7 Day Expiration Period">
     <for/>
   </item>
   <item id="20245" name="Agathion Seal Bracelet - Yellow-Robed Tojigong">
@@ -64,10 +112,25 @@
   <item id="20252" name="Agathion Seal Bracelet - Bugbear">
     <for/>
   </item>
+  <item id="20253" name="Agathion of Love (Event)">
+    <for/>
+  </item>
+  <item id="20266" name="Baguette Shield - 7 Day Expiration Period">
+    <for/>
+  </item>
   <item id="20275" name="Gold Afro">
     <for/>
   </item>
   <item id="20276" name="Pink Afro">
+    <for/>
+  </item>
+  <item id="20297" name="Agathion Seal Bracelet - Red Sumo Wrestler">
+    <for/>
+  </item>
+  <item id="20298" name="Agathion Seal Bracelet - Red Sumo Wrestler - Death Whisper - 7 Day Expiration Period">
+    <for/>
+  </item>
+  <item id="20299" name="Agathion Seal Bracelet - Blue Sumo Wrestler">
     <for/>
   </item>
 </list>

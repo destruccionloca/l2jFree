@@ -1,6 +1,3 @@
--- ---------------------------
--- Table structure for `castle`
--- ---------------------------
 CREATE TABLE IF NOT EXISTS `castle` (
   `id` INT NOT NULL DEFAULT 0,
   `name` VARCHAR(10) NOT NULL,

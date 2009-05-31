@@ -1,6 +1,3 @@
--- ---------------------------
--- Table structure for `character_subclasses`
--- ---------------------------
 CREATE TABLE IF NOT EXISTS `character_subclasses` (
   `charId` INT UNSIGNED NOT NULL,
   `class_id` TINYINT UNSIGNED NOT NULL,

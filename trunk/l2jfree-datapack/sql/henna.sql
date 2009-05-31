@@ -1,6 +1,3 @@
---
--- Table structure for table `henna`
---
 DROP TABLE IF EXISTS `henna`;
 CREATE TABLE `henna` (
   `symbol_id` TINYINT UNSIGNED NOT NULL,
@@ -17,9 +14,6 @@ CREATE TABLE `henna` (
   PRIMARY KEY (`symbol_id`)
 ) DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `henna`
---
 INSERT INTO `henna` VALUES
 (1,"Dye of STR <Str+1 Con-3>",4445,10,5100,0,1,-3,0,0,0),
 (2,"Dye of STR <Str+1 Dex-3>",4446,10,5100,0,1,0,0,-3,0),

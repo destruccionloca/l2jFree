@@ -1,16 +1,13 @@
--- ------------------------------
--- Table structure for class_list
--- ------------------------------
 DROP TABLE IF EXISTS `class_list`;
 CREATE TABLE `class_list` (
-  `class_name` varchar(20) NOT NULL DEFAULT '',
-  `id` int(10) unsigned NOT NULL DEFAULT '0',
-  `parent_id` int(11) NOT NULL DEFAULT '0',
+  `class_name` varchar(20) NOT NULL DEFAULT "",
+  `id` int(10) unsigned NOT NULL DEFAULT 0,
+  `parent_id` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) DEFAULT CHARSET=utf8;
 
 INSERT INTO `class_list` VALUES
-('H_Fighter', 0, -1), 
+('H_Fighter', 0, -1),
 ('H_Warrior', 1, 0), 
 ('H_Gladiator', 2, 1), 
 ('H_Duelist', 88, 2), 

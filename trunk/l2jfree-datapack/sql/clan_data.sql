@@ -1,9 +1,6 @@
--- ---------------------------
--- Table structure for `clan_data`
--- ---------------------------
 CREATE TABLE IF NOT EXISTS `clan_data` (
   `clan_id` INT NOT NULL DEFAULT 0,
-  `clan_name` varchar(45) ,
+  `clan_name` varchar(45),
   `clan_level` INT,
   `hasCastle` INT,
   `ally_id` INT,

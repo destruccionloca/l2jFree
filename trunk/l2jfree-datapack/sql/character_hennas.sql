@@ -1,6 +1,3 @@
--- ---------------------------
--- Table structure for `character_hennas`
--- ---------------------------
 CREATE TABLE IF NOT EXISTS `character_hennas` (
   `charId` INT UNSIGNED NOT NULL,
   `symbol_id` TINYINT UNSIGNED NOT NULL,
