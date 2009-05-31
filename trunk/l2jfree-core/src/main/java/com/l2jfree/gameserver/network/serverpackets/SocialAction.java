@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import com.l2jfree.Config;
+
 /**
  * This class ...
  * 
@@ -24,7 +26,8 @@ public class SocialAction extends L2GameServerPacket
 	private static final String _S__3D_SOCIALACTION = "[S] 2D SocialAction";
 	private int _charObjId;
 	private int _actionId;
-
+	public static final int		LEVEL_UP			= Config.PACKET_FINAL ? 2122 : 15;
+	
 	/**
 	 * 0x3d SocialAction         dd 
 	 * @param _characters

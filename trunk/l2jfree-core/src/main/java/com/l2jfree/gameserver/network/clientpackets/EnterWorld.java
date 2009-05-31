@@ -18,7 +18,7 @@ import java.io.File;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Announcements;
-import com.l2jfree.gameserver.L2JfreeInfo;
+import com.l2jfree.gameserver.CoreInfo;
 import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.communitybbs.Manager.RegionBBSManager;
 import com.l2jfree.gameserver.datatables.GmListTable;
@@ -328,7 +328,7 @@ public class EnterWorld extends L2GameClientPacket
 		sendPacket(new FriendList(activeChar));
 
 		if (Config.SHOW_LICENSE)
-			L2JfreeInfo.versionInfo(activeChar);
+			CoreInfo.versionInfo(activeChar);
 
 		if (Config.SHOW_HTML_NEWBIE && activeChar.getLevel() < Config.LEVEL_HTML_NEWBIE)
 		{
@@ -442,10 +442,9 @@ public class EnterWorld extends L2GameClientPacket
 		{
 			activeChar.regiveTemporarySkills();
 			// Send Action list
-			sendPacket(ExBasicActionList.DEFAULT_ACTION_LIST);
+			
 		}
-		else
-			sendPacket(ExBasicActionList.TRANSFORMED_ACTION_LIST);
+		sendPacket(ExBasicActionList.DEFAULT_ACTION_LIST);
 
 		GlobalRestrictions.playerLoggedIn(activeChar);
 	}

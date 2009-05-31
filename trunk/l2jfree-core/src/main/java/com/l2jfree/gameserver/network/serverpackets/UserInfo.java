@@ -96,7 +96,11 @@ public class UserInfo extends L2GameServerPacket
 	@Override
 	public void packetSent(L2GameClient client, L2PcInstance activeChar)
 	{
-		//_activeChar.sendPacket(new ExBrExtraUserInfo(_activeChar));
+		if(Config.PACKET_FINAL)
+		{
+			_activeChar.sendPacket(new ExBrExtraUserInfo(_activeChar));
+			_activeChar.sendPacket(new ExVitalityPointInfo((int) _activeChar.getVitalityPoints()));
+		}
 	}
 	
 	@Override
@@ -169,6 +173,8 @@ public class UserInfo extends L2GameServerPacket
 		writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_DECO4));
 		writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_DECO5));
 		writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_DECO6));
+		if(Config.PACKET_FINAL)
+			writeD(_activeChar.getInventory().getPaperdollAugmentationId(Inventory.PAPERDOLL_BELT)); // CT2.3
 
 		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_UNDER));
 		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_REAR));
@@ -195,6 +201,8 @@ public class UserInfo extends L2GameServerPacket
 		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO4));
 		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO5));
 		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO6));
+		if(Config.PACKET_FINAL)
+			writeD(_activeChar.getInventory().getPaperdollAugmentationId(Inventory.PAPERDOLL_BELT)); // CT2.3
 
 		// c6 new h's
 		writeD(_inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_UNDER));
@@ -227,6 +235,13 @@ public class UserInfo extends L2GameServerPacket
 		writeD(_inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_DECO6));
 		// end of T1 new h's
 
+		if(Config.PACKET_FINAL)
+		{
+			writeD(_activeChar.getInventory().getPaperdollAugmentationId(Inventory.PAPERDOLL_BELT)); // CT2.3
+	        writeD(0x00); // CT2.3
+	        writeD(0x01); // CT2.3
+		}
+		
 		writeD(_activeChar.getPAtk(null));
 		writeD(_activeChar.getPAtkSpd());
 		writeD(_activeChar.getPDef(null));
@@ -383,6 +398,13 @@ public class UserInfo extends L2GameServerPacket
 		writeD(_activeChar.getFame());  // Fame
 		writeD(0x00); // Unknown
 		writeD(_activeChar.getVitalityLevel());  // Vitality Level
+		if(Config.PACKET_FINAL)
+		{
+	        writeD(0x00); // CT2.3
+	        writeD(0x00); // CT2.3
+	        writeD(0x00); // CT2.3
+	        writeD(0x00); // CT2.3			
+		}
 	}
 
 	/* (non-Javadoc)

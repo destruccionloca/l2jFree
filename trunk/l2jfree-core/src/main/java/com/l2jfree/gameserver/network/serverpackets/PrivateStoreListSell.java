@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.TradeList;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
@@ -45,7 +46,10 @@ public class PrivateStoreListSell extends L2GameServerPacket
 		writeC(0xa1);
 		writeD(_objId);
 		writeD(_packageSale ? 1 : 0);
-		writeD(_playerAdena);
+		if(Config.PACKET_FINAL)
+			writeQ(_playerAdena);
+		else
+			writeD(_playerAdena);
 		
 		writeD(_items.length);
 		for (TradeList.TradeItem item : _items)
@@ -53,18 +57,24 @@ public class PrivateStoreListSell extends L2GameServerPacket
 			writeD(item.getItem().getType2());
 			writeD(item.getObjectId());
 			writeD(item.getItem().getItemDisplayId());
-			writeD(item.getCount());
+			if(Config.PACKET_FINAL)
+				writeQ(item.getCount());
+			else
+				writeD(item.getCount());
 			writeH(0x00);
 			writeH(item.getEnchant());
 			writeH(0x00);
 			writeD(item.getItem().getBodyPart());
 			writeD(item.getPrice()); //your price
-			writeD(item.getItem().getReferencePrice()); //store price
-			writeD(item.getAttackElementType());
-			writeD(item.getAttackElementPower());
+			if(Config.PACKET_FINAL)
+				writeQ(item.getItem().getReferencePrice()); //store price
+			else
+				writeD(item.getItem().getReferencePrice()); //store price
+			writeH(item.getAttackElementType());
+			writeH(item.getAttackElementPower());
 			for (byte i = 0; i < 6; i++)
 			{
-				writeD(item.getElementDefAttr(i));
+				writeH(item.getElementDefAttr(i));
 			}
 		}
 	}

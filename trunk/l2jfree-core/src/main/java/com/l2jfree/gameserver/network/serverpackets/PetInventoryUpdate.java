@@ -21,6 +21,7 @@ import javolution.util.FastList;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.ItemInfo;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 
@@ -81,7 +82,10 @@ public class PetInventoryUpdate extends L2GameServerPacket
 			writeH(item.getItem().getType1()); // item type1
 			writeD(item.getObjectId());
 			writeD(item.getItem().getItemDisplayId());
-			writeD(item.getCount());
+			if(Config.PACKET_FINAL)
+				writeQ(item.getCount());
+			else
+				writeD(item.getCount());
 			writeH(item.getItem().getType2());	// item type2
 			writeH(0x00);	// ?
 			writeH(item.getEquipped());
@@ -89,11 +93,11 @@ public class PetInventoryUpdate extends L2GameServerPacket
 			writeH(item.getEnchant());	// enchant level
 			writeH(0x00);	// ?
 
-			writeD(item.getAttackElementType());
-			writeD(item.getAttackElementPower());
+			writeH(item.getAttackElementType());
+			writeH(item.getAttackElementPower());
 			for (byte i = 0; i < 6; i++)
 			{
-				writeD(item.getElementDefAttr(i));
+				writeH(item.getElementDefAttr(i));
 			}
 		}
 	}

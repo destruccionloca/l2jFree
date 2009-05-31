@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2Object;
 
 /**
@@ -32,16 +33,17 @@ public class TeleportToLocation extends L2GameServerPacket
 	private int _x;
 	private int _y;
 	private int _z;
-
+	private int _heading;
 	/**
 	 * @param _characters
 	 */
-	public TeleportToLocation(L2Object obj, int x, int y, int z)
+	public TeleportToLocation(L2Object obj, int x, int y, int z, int heading)
 	{
 		_targetObjId = obj.getObjectId();
 		_x = x;
 		_y = y;
 		_z = z;
+		_heading = heading;
 	}
 	
 	@Override
@@ -52,6 +54,11 @@ public class TeleportToLocation extends L2GameServerPacket
 		writeD(_x);
 		writeD(_y);
 		writeD(_z);
+		if(Config.PACKET_FINAL)
+		{
+			writeD(0x00); // isValidation ??
+			writeD(_heading); // nYaw
+		}
 	}
 
 	/* (non-Javadoc)

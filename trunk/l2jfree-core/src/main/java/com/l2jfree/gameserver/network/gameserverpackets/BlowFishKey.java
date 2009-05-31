@@ -25,11 +25,12 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * @author -Wooden-
- *
+ * 
  */
 public class BlowFishKey extends GameServerBasePacket
 {
-	private final static Log _log = LogFactory.getLog(BlowFishKey.class.getName());
+	private final static Log	_log	= LogFactory.getLog(BlowFishKey.class.getName());
+
 	/**
 	 * @param blowfishKey
 	 * @param publicKey
@@ -41,20 +42,24 @@ public class BlowFishKey extends GameServerBasePacket
 		try
 		{
 			Cipher rsaCipher = Cipher.getInstance("RSA/ECB/nopadding");
-	        rsaCipher.init(Cipher.ENCRYPT_MODE, publicKey);
-	        encrypted = rsaCipher.doFinal(blowfishKey);
+			rsaCipher.init(Cipher.ENCRYPT_MODE, publicKey);
+			encrypted = rsaCipher.doFinal(blowfishKey);
 
 			writeD(encrypted.length);
 			writeB(encrypted);
 		}
-		catch(GeneralSecurityException e)
+		catch (GeneralSecurityException e)
 		{
-			_log.fatal("Error While encrypting blowfish key for transmision (Crypt error)",e);
+			_log.fatal("Error While encrypting blowfish key for transmision (Crypt error)", e);
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.gameserverpackets.GameServerBasePacket#getContent()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.l2jfree.gameserver.gameserverpackets.GameServerBasePacket#getContent
+	 * ()
 	 */
 	@Override
 	public byte[] getContent() throws IOException

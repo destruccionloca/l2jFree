@@ -24,6 +24,7 @@ import javolution.util.FastList;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.RecipeController;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2RecipeList;
@@ -685,7 +686,10 @@ public class SortedWareHouseWithdrawalList extends L2GameServerPacket
 	    * 0x03-Castle Warehouse  
 	    * 0x04-Warehouse */  
 	    writeH(_whType);
-		writeD(_playerAdena);
+	    if(Config.PACKET_FINAL)
+	    	writeQ(_playerAdena);
+	    else
+	    	writeD(_playerAdena);
 		writeH(_objects.size());
 		
 		for (L2WarehouseItem item : _objects)
@@ -693,7 +697,10 @@ public class SortedWareHouseWithdrawalList extends L2GameServerPacket
 			writeH(item.getItem().getType1()); // item type1 //unconfirmed, works
 			writeD(item.getObjectId());
 			writeD(item.getItem().getItemDisplayId()); //unconfirmed, works
-			writeD(item.getCount()); //unconfirmed, works
+			if(Config.PACKET_FINAL)
+				writeQ(item.getCount()); //unconfirmed, works
+			else
+				writeD(item.getCount()); //unconfirmed, works
 			writeH(item.getItem().getType2());	// item type2 //unconfirmed, works
 			writeH(item.getCustomType1());
 			writeD(item.getItem().getBodyPart());	// ?
@@ -709,11 +716,11 @@ public class SortedWareHouseWithdrawalList extends L2GameServerPacket
 			else
 				writeQ(0x00);
 
-			writeD(item.getAttackElementType());
-			writeD(item.getAttackElementPower());
+			writeH(item.getAttackElementType());
+			writeH(item.getAttackElementPower());
 			for (byte i = 0; i < 6; i++)
 			{
-				writeD(item.getElementDefAttr(i));
+				writeH(item.getElementDefAttr(i));
 			}
 
 			writeD(item.getManaLeft());

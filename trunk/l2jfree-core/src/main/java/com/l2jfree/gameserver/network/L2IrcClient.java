@@ -15,7 +15,13 @@
 package com.l2jfree.gameserver.network;
 
 import java.io.IOException;
+import java.security.MessageDigest;
 import java.security.cert.X509Certificate;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.StringTokenizer;
+
+import javolution.util.FastMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -27,11 +33,16 @@ import org.schwering.irc.lib.ssl.SSLIRCConnection;
 import org.schwering.irc.lib.ssl.SSLTrustManager;
 
 import com.l2jfree.Config;
+import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.LoginServerThread;
 import com.l2jfree.gameserver.datatables.GmListTable;
+import com.l2jfree.gameserver.handler.IIrcCommandHandler;
+import com.l2jfree.gameserver.handler.IrcCommandHandler;
+import com.l2jfree.gameserver.instancemanager.IrcManager;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
+import com.l2jfree.tools.codec.Base64;
 import com.l2jfree.tools.random.Rnd;
 
 /**
@@ -40,24 +51,24 @@ import com.l2jfree.tools.random.Rnd;
 public class L2IrcClient extends Thread
 {
 
-	private final static Log	_log		= LogFactory.getLog(L2IrcClient.class.getName());
-	private static Log			_logChat	= LogFactory.getLog("irc");
+	private final static Log			_log				= LogFactory.getLog(L2IrcClient.class.getName());
+	private static Log					_logChat			= LogFactory.getLog("irc");
 
-	private IRCConnection		conn;
-	private String				channel;
-	private String				nickname;
+	private IRCConnection				conn;
+	private String						channel;
+	private String						nickname;
+	protected boolean					forcedDisconnect	= false;
+	protected FastMap<String, String>	_authedGms			= new FastMap<String, String>();
 
 	public L2IrcClient(String host, int port, String pass, String nick, String user, String name, boolean ssl, String Chan)
 	{
 		if (!ssl)
 		{
-			conn = new IRCConnection(host, new int[]
-			{ port }, pass, nick, user, name);
+			conn = new IRCConnection(host, new int[] { port }, pass, nick, user, name);
 		}
 		else
 		{
-			conn = new SSLIRCConnection(host, new int[]
-			{ port }, pass, nick, user, name);
+			conn = new SSLIRCConnection(host, new int[] { port }, pass, nick, user, name);
 			((SSLIRCConnection) conn).addTrustManager(new TrustManager());
 		}
 		channel = Chan;
@@ -76,7 +87,6 @@ public class L2IrcClient extends Thread
 		{
 			conn.connect();
 			conn.send("JOIN " + channel);
-			setDaemon(true);
 		}
 	}
 
@@ -85,8 +95,30 @@ public class L2IrcClient extends Thread
 		if (conn.isConnected())
 		{
 			conn.doQuit();
-			conn.setDaemon(false);
+			conn.close();
 		}
+	}
+
+	public void forcedConnect() throws IOException
+	{
+		IrcManager.getInstance().reload();
+	}
+
+	public void forcedDisconnect()
+	{
+		if (conn.isConnected())
+		{
+			conn.doQuit("Evil Admin killed me.");
+			forcedDisconnect = true;
+			conn.close();
+		}
+		IrcManager.getInstance().removeConnection();
+	}
+
+	public void forcedReconnect()
+	{
+		forcedDisconnect = false;
+		IrcManager.getInstance().reload();
 	}
 
 	public void send(String Text)
@@ -117,12 +149,15 @@ public class L2IrcClient extends Thread
 		{
 			try
 			{
-				conn.close();
-				connect();
+				if (!forcedDisconnect)
+				{
+					conn.doQuit();
+					conn.connect();
+				}
 			}
 			catch (Exception exc)
 			{
-				_log.error(exc.getMessage(), exc);
+				exc.printStackTrace();
 			}
 		}
 		return conn.isConnected();
@@ -172,12 +207,17 @@ public class L2IrcClient extends Thread
 		public void onDisconnected()
 		{
 			_log.info("IRC: Disconnected");
+			isconnected = false;
+			if (conn.isConnected())
+				conn.close();
+			if (!forcedDisconnect)
+			{
+				IrcManager.getInstance().removeConnection();
+				IrcManager.getInstance().reload();
+			}
 
 			if (Config.IRC_LOG_CHAT)
 				_logChat.info("IRC: Disconnected");
-
-			isconnected = false;
-			conn.close();
 		}
 
 		public void onError(String msg)
@@ -236,6 +276,7 @@ public class L2IrcClient extends Thread
 
 		public void onNick(IRCUser u, String nickNew)
 		{
+			removeAccount(u.getUsername(), u.getHost());
 			if (Config.IRC_LOG_CHAT)
 				_logChat.info("IRC Nick: " + u.getNick() + " is now known as " + nickNew);
 		}
@@ -248,6 +289,7 @@ public class L2IrcClient extends Thread
 
 		public void onPart(String chan, IRCUser u, String msg)
 		{
+			removeAccount(u.getUsername(), u.getHost());
 			if (Config.IRC_LOG_CHAT)
 				_logChat.info("IRC: " + chan + "> " + u.getNick() + " parts");
 		}
@@ -279,8 +321,7 @@ public class L2IrcClient extends Thread
 			{
 				if (Config.IRC_TO_GAME_TYPE.equals("global") || Config.IRC_TO_GAME_TYPE.equals("special"))
 				{
-					if (Config.IRC_TO_GAME_TYPE.equals("global")
-							|| (Config.IRC_TO_GAME_TYPE.equals("special") && msg.substring(0, 1).equals(Config.IRC_TO_GAME_SPECIAL_CHAR) && msg.length() >= 2))
+					if (Config.IRC_TO_GAME_TYPE.equals("global") || (Config.IRC_TO_GAME_TYPE.equals("special") && msg.substring(0, 1).equals(Config.IRC_TO_GAME_SPECIAL_CHAR) && msg.length() >= 2))
 					{
 
 						String sendmsg;
@@ -304,50 +345,68 @@ public class L2IrcClient extends Thread
 						}
 					}
 				}
-			}
-
-			if (msg.equals("!online"))
-			{
-				sendChan("Online Players: " + L2World.getInstance().getAllPlayersCount() + " / " + LoginServerThread.getInstance().getMaxPlayer());
-			}
-
-			if (msg.equals("!gmlist"))
-			{
-				if (GmListTable.getInstance().getAllGms(false).size() == 0)
-					sendChan("There are not any GMs that are providing customer service currently");
-				else
-					for (L2PcInstance gm : GmListTable.getInstance().getAllGms(false))
-						sendChan(gm.getName());
-			}
-
-			if (msg.equals("!rates"))
-			{
-				sendChan("XP Rate: " + Config.RATE_XP + " | " + "SP Rate: " + Config.RATE_SP + " | " + "Spoil Rate: " + Config.RATE_DROP_SPOIL + " | "
-						+ "Adena Rate: " + Config.RATE_DROP_ADENA + " | " + "Drop Rate: " + Config.RATE_DROP_ITEMS + " | " + "Party XP Rate: "
-						+ Config.RATE_PARTY_XP + " | " + "Party SP Rate: " + Config.RATE_PARTY_SP);
-			}
-
-			if (msg.equals("!showon"))
-			{
-				if (L2World.getInstance().getAllPlayers().size() == 0)
-					sendChan("No Players currently online");
-				else
+				if (msg.equals("!online"))
 				{
-					String _onlineNames = "Players currently online:";
-					boolean _isFirst = true;
-					for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+					sendChan("Online Players: " + L2World.getInstance().getAllPlayersCount() + " / " + LoginServerThread.getInstance().getMaxPlayer());
+				}
+				else if (msg.equals("!gmlist"))
+				{
+					if (GmListTable.getInstance().getAllGms(false).size() == 0)
+						sendChan("There are not any GMs that are providing customer service currently");
+					else
+						for (L2PcInstance gm : GmListTable.getInstance().getAllGms(false))
+							sendChan(gm.getName());
+				}
+				else if (msg.equals("!rates"))
+				{
+					sendChan("XP Rate: " + Config.RATE_XP + " | " + "SP Rate: " + Config.RATE_SP + " | " + "Spoil Rate: " + Config.RATE_DROP_SPOIL + " | " + "Adena Rate: " + Config.RATE_DROP_ADENA + " | " + "Drop Rate: "
+							+ Config.RATE_DROP_ITEMS + " | " + "Party XP Rate: " + Config.RATE_PARTY_XP + " | " + "Party SP Rate: " + Config.RATE_PARTY_SP);
+				}
+				else if (msg.equals("!showon"))
+				{
+					if (L2World.getInstance().getAllPlayers().size() == 0)
+						sendChan("No Players currently online");
+					else
 					{
-						_onlineNames = _onlineNames + (_isFirst ? " " : ", ") + player.getName();
-						_isFirst = false;
+						String _onlineNames = "Players currently online:";
+						boolean _isFirst = true;
+						for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+						{
+							_onlineNames = _onlineNames + (_isFirst ? " " : ", ") + player.getName();
+							_isFirst = false;
+						}
+						sendChan(_onlineNames);
 					}
-					sendChan(_onlineNames);
 				}
 			}
 
+			if (msg.startsWith("!ident"))
+			{
+				StringTokenizer st = new StringTokenizer(msg);
+				st.nextToken();
+				try
+				{
+					String username = st.nextToken();
+					String password = st.nextToken();
+					isAccountValid(username, password, u.getUsername(), u.getNick(), u.getHost());
+				}
+				catch (Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
+			else
+			{
+				IIrcCommandHandler ircch = IrcCommandHandler.getInstance().getIrcCommandHandler(msg);
+
+				if (ircch != null)
+					ircch.useIrcCommand(msg, u.getNick(), null, _authedGms.containsKey(u.getUsername().toLowerCase()));
+			}
 		}
 
 		public void onQuit(IRCUser u, String msg)
 		{
+			removeAccount(u.getUsername(), u.getHost());
 			if (Config.IRC_LOG_CHAT)
 				_logChat.info("IRC Quit: " + u.getNick());
 		}
@@ -382,5 +441,92 @@ public class L2IrcClient extends Thread
 		{
 			return isconnected;
 		}
+	}
+
+	protected void isAccountValid(String account, String password, String ident, String nick, String ip)
+	{
+		boolean ok = false;
+		java.sql.Connection con = null;
+		try
+		{
+			MessageDigest md = MessageDigest.getInstance("SHA");
+			byte[] raw = password.getBytes("UTF-8");
+			byte[] hash = md.digest(raw);
+			byte[] expected = null;
+			int access = 0;
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement = con.prepareStatement("SELECT password, access_level FROM irc WHERE login=?");
+			statement.setString(1, account);
+			ResultSet rset = statement.executeQuery();
+			if (rset.next())
+			{
+				expected = Base64.decode(rset.getString("password"));
+				access = rset.getInt("access_level");
+			}
+			rset.close();
+			statement.close();
+
+			if (expected == null)
+				return;
+			else
+			{
+				if (access <= 0)
+					return;
+
+				ok = true;
+				for (int i = 0; i < expected.length; i++)
+				{
+					if (hash[i] != expected[i])
+					{
+						ok = false;
+						break;
+					}
+				}
+			}
+			if (ok)
+			{
+				if (!_authedGms.containsKey(ident.toLowerCase()))
+				{
+					_authedGms.put(ident.toLowerCase(), ip);
+					send(nick, "Successfully Authed!");
+				}
+				else
+				{
+					send(nick, "Already Authed!");
+				}
+
+			}
+			else
+			{
+				send(nick, "Authentication Failed!");
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
+		}
+	}
+
+	protected void removeAccount(String nick, String ip)
+	{
+		if (_authedGms.containsKey(nick.toLowerCase()))
+			_authedGms.remove(nick.toLowerCase());
+		else if (_authedGms.containsValue(ip))
+			_authedGms.remove(ip);
+	}
+
+	public FastMap<String, String> getAuthedGms()
+	{
+		return _authedGms;
 	}
 }

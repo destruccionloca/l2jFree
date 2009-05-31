@@ -18,6 +18,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 /**
@@ -67,7 +68,10 @@ public class WareHouseWithdrawalList extends L2GameServerPacket
 	    * 0x03-Castle Warehouse  
 	    * 0x04-Warehouse */  
 	    writeH(_whType);
-		writeD(_activeCharAdena);
+	    if(Config.PACKET_FINAL)
+	    	writeQ(_activeCharAdena);
+	    else
+	    	writeD(_activeCharAdena);
 		writeH(_items.length);
 		
 		for (L2ItemInstance item : _items)
@@ -75,7 +79,10 @@ public class WareHouseWithdrawalList extends L2GameServerPacket
 			writeH(item.getItem().getType1());
 			writeD(item.getObjectId());
 			writeD(item.getItemDisplayId());
-			writeD(item.getCount());
+			if(Config.PACKET_FINAL)
+				writeQ(item.getCount());
+			else
+				writeD(item.getCount());
 			writeH(item.getItem().getType2());
 			writeH(item.getCustomType1() );
 			writeD(item.getItem().getBodyPart());
@@ -91,11 +98,11 @@ public class WareHouseWithdrawalList extends L2GameServerPacket
 			else
 				writeQ(0x00);
 
-			writeD(item.getAttackElementType());
-			writeD(item.getAttackElementPower());
+			writeH(item.getAttackElementType());
+			writeH(item.getAttackElementPower());
 			for (byte i = 0; i < 6; i++)
 			{
-				writeD(item.getElementDefAttr(i));
+				writeH(item.getElementDefAttr(i));
 			}
 
 			writeD(item.getMana());

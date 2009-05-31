@@ -53,9 +53,17 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
         for (int i = 0; i < _count ; i++)
         {
             int objectId = readD();
-            long count   = readD();
+            long count   = 0;
+            if(Config.PACKET_FINAL)
+            	count = toInt(readQ());
+            else
+            	count = readD();
             if (count >= Integer.MAX_VALUE) count = Integer.MAX_VALUE;
-            int price    = readD();
+            int price =0;
+            if(Config.PACKET_FINAL)
+            	price    = toInt(readQ());
+            else
+            	price    = readD();
             
             _items[i] = new ItemRequest(objectId, (int)count, price);
         }
@@ -111,21 +119,15 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
         {
 			if (ir.getCount() < 0)
 			{
-	            String msgErr = "[RequestPrivateStoreBuy] player "+getClient().getActiveChar().getName()+" tried an overflow exploit, ban this player!";
-	            Util.handleIllegalPlayerAction(getClient().getActiveChar(),msgErr,Config.DEFAULT_PUNISH);
 			    return;
 			}
 			TradeItem sellersItem = storeList.getItem(ir.getObjectId());
 			if(sellersItem == null)
 			{
-	            String msgErr = "[RequestPrivateStoreBuy] player "+getClient().getActiveChar().getName()+" tried to buy an item not sold in a private store (buy), ban this player!";
-	            Util.handleIllegalPlayerAction(getClient().getActiveChar(),msgErr,Config.DEFAULT_PUNISH);
 			    return;
 			}
 			if(ir.getPrice() != sellersItem.getPrice())
 			{
-	            String msgErr = "[RequestPrivateStoreBuy] player "+getClient().getActiveChar().getName()+" tried to change the seller's price in a private store (buy), ban this player!";
-	            Util.handleIllegalPlayerAction(getClient().getActiveChar(),msgErr,Config.DEFAULT_PUNISH);
 			    return;
 			}
 			priceTotal += ir.getPrice() * ir.getCount();
@@ -133,8 +135,6 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
         
         if(priceTotal < 0 || priceTotal >= Integer.MAX_VALUE)
         {
-            String msgErr = "[RequestPrivateStoreBuy] player "+getClient().getActiveChar().getName()+" tried an overflow exploit, ban this player!";
-            Util.handleIllegalPlayerAction(getClient().getActiveChar(),msgErr,Config.DEFAULT_PUNISH);
             return;
         }
         
@@ -149,8 +149,6 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
         {
            if (storeList.getItemCount() > _count)
            {
-               String msgErr = "[RequestPrivateStoreBuy] player "+getClient().getActiveChar().getName()+" tried to buy less items then sold by package-sell, ban this player for bot-usage!";
-               Util.handleIllegalPlayerAction(getClient().getActiveChar(),msgErr,Config.DEFAULT_PUNISH);
                return;
            }
         }
@@ -166,39 +164,6 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
             storePlayer.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
             storePlayer.broadcastUserInfo();
         }
-
-/*   Lease holders are currently not implemented
-        else if (_seller != null)
-        {
-            // lease shop sell
-            L2MerchantInstance seller = (L2MerchantInstance)_seller;
-            L2ItemInstance ladena = seller.getLeaseAdena();
-            for (TradeItem ti : buyerlist) {
-                L2ItemInstance li = seller.getLeaseItemByObjectId(ti.getObjectId());
-                if (li == null) {
-                    if (ti.getObjectId() == ladena.getObjectId())
-                    {
-                        buyer.addAdena(ti.getCount());
-                        ladena.setCount(ladena.getCount()-ti.getCount());
-                        ladena.updateDatabase();
-                    }
-                    continue;
-                }
-                int cnt = li.getCount();
-                if (cnt < ti.getCount())
-                    ti.setCount(cnt);
-                if (ti.getCount() <= 0)
-                    continue;
-                L2ItemInstance inst = ItemTable.getInstance().createItem(li.getItemId());
-                inst.setCount(ti.getCount());
-                inst.setEnchantLevel(li.getEnchantLevel());
-                buyer.getInventory().addItem(inst);
-                li.setCount(li.getCount()-ti.getCount());
-                li.updateDatabase();
-                ladena.setCount(ladena.getCount()+ti.getCount()*ti.getOwnersPrice());
-                ladena.updateDatabase();
-            }
-        }*/
     }
 
     @Override

@@ -35,6 +35,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.RecipeShopManageList;
+import com.l2jfree.gameserver.network.serverpackets.SocialAction;
 
 /**
  * This class represents a packet sent by the client when a player uses one of the buttons
@@ -476,6 +477,98 @@ public class RequestActionUse extends L2GameClientPacket
 		case 1060: // Guidance (Nightshade)
 			useSkill(5654);
 			break;
+		case 1061:
+			useSkill(5745);
+			break;
+		case 1062:
+			useSkill(5746);
+			break;
+		case 1063:
+			useSkill(5747);
+			break;
+		case 1064:
+			useSkill(5748);
+			break;
+		case 1065:
+			useSkill(5753);
+			break;
+		case 1066:
+			useSkill(5749);
+			break;
+		case 1067:
+			useSkill(5750);
+			break;
+		case 1068:
+			useSkill(5751);
+			break;
+		case 1069:
+			useSkill(5752);
+			break;
+		case 1070:
+			useSkill(5771);
+			break;
+		case 1071:
+			useSkill(5761);
+			break;
+		// Gracia Final Social Packets
+		case 12:
+			activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 2));
+			break;
+		case 13:
+			activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 3));
+			break;
+		case 14:
+			activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 4));
+			break;
+		case 24:
+			activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 5));
+			break;
+		case 25:
+			activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 6));
+			break;
+		case 26:
+			activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 7));
+			break;
+		case 29:
+			activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 8));
+			break;
+		case 30:
+			activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 9));
+			break;
+		case 31:
+			activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 10));
+			break;
+		case 33:
+			activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 11));
+			break;
+		case 34:
+			activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 12));
+			break;
+		case 35:
+			activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 13));
+			break;
+		case 62:
+			activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 14));
+			break;
+		case 63:
+			break;
+		case 66:
+			break;
+		case 67:
+			break;
+		case 68:
+			break;
+		case 69:
+			break;
+		case 70:
+			break;
+		case 71:
+			break;
+		case 72:
+			break;
+		case 73:
+			break;
+			
 		default:
 			_log.warn(activeChar.getName() + ": unhandled action type " + _actionId);
 		}

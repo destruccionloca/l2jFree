@@ -54,7 +54,10 @@ public class ShopPreviewList extends L2GameServerPacket
 		writeC(0x13);	// ?
 		writeC(0x00);	// ?
 		writeC(0x00);	// ?
-		writeD(_money);	// current money
+		if(Config.PACKET_FINAL)
+			writeQ(_money);	// current money
+		else
+			writeD(_money);	// current money
 		writeD(_listId);
 		 
 		int newlength = 0;
@@ -80,8 +83,10 @@ public class ShopPreviewList extends L2GameServerPacket
 				{
 					writeH(0x00);	// rev 415  slot    0006-lr.ear  0008-neck  0030-lr.finger  0040-head  0080-??  0100-l.hand  0200-gloves  0400-chest  0800-pants  1000-feet  2000-??  4000-r.hand  8000-r.hand
 				}
-
-				writeD(Config.WEAR_PRICE);
+				if(Config.PACKET_FINAL)
+					writeQ(Config.WEAR_PRICE);
+				else
+					writeD(Config.WEAR_PRICE);
 			}
 		}
 	}

@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.TradeList;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
@@ -43,7 +44,10 @@ public class PrivateStoreListBuy extends L2GameServerPacket
 	{
 		writeC(0xbe);
 		writeD(_objId);
-		writeD(_playerAdena);
+		if(Config.PACKET_FINAL)
+			writeQ(_playerAdena);
+		else
+			writeD(_playerAdena);
 
 		writeD(_items.length);
 
@@ -52,22 +56,38 @@ public class PrivateStoreListBuy extends L2GameServerPacket
 			writeD(item.getObjectId());
 			writeD(item.getItem().getItemDisplayId()); 
 			writeH(item.getEnchant());
-			writeD(item.getCount()); //give max possible sell amount
+			if(Config.PACKET_FINAL)
+			{
+				writeQ(item.getCount()); //give max possible sell amount
+				writeQ(item.getItem().getReferencePrice());
+			}
+			else
+			{
+				writeD(item.getCount()); //give max possible sell amount
+				writeD(item.getItem().getReferencePrice());
+			}
 			
-			writeD(item.getItem().getReferencePrice());
 			writeH(0);
 
 			writeD(item.getItem().getBodyPart());
 			writeH(item.getItem().getType2());
-			writeD(item.getPrice());//buyers price
 			
-			writeD(item.getCount());  // maximum possible tradecount
+			if(Config.PACKET_FINAL)
+			{
+				writeQ(item.getPrice());//buyers price
+				writeQ(item.getCount());  // maximum possible tradecount
+			}
+			else
+			{
+				writeD(item.getPrice());//buyers price
+				writeD(item.getCount());  // maximum possible tradecount
+			}
 			
-			writeD(item.getAttackElementType());
-			writeD(item.getAttackElementPower());
+			writeH(item.getAttackElementType());
+			writeH(item.getAttackElementPower());
 			for (byte i = 0; i < 6; i++)
 			{
-				writeD(item.getElementDefAttr(i));
+				writeH(item.getElementDefAttr(i));
 			}
 		}
 	}

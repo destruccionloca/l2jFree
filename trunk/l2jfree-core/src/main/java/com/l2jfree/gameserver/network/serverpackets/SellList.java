@@ -19,6 +19,7 @@ import javolution.util.FastList;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MerchantInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -76,7 +77,10 @@ public class SellList extends L2GameServerPacket
 	protected final void writeImpl()
 	{
 		writeC(0x06);
-		writeD(_money);
+		if(Config.PACKET_FINAL)
+			writeQ(_money);
+		else
+			writeD(_money);
 		writeD(0x00);
 		writeH(_selllist.size());
 		
@@ -85,20 +89,26 @@ public class SellList extends L2GameServerPacket
 			writeH(item.getItem().getType1());
 			writeD(item.getObjectId());
 			writeD(item.getItemDisplayId());
-			writeD(item.getCount());
+			if(Config.PACKET_FINAL)
+				writeQ(item.getCount());
+			else
+				writeD(item.getCount());
 			writeH(item.getItem().getType2());
 			writeH(item.getCustomType1());
 			writeD(item.getItem().getBodyPart());
 			writeH(item.getEnchantLevel());
 			writeH(item.getCustomType2());
 			writeH(0x00);
-			writeD(item.getItem().getReferencePrice() / 2);
-
-			writeD(item.getAttackElementType());
-			writeD(item.getAttackElementPower());
+			if(Config.PACKET_FINAL)
+				writeQ(item.getItem().getReferencePrice() / 2);
+			else
+				writeD(item.getItem().getReferencePrice() / 2);
+			
+			writeH(item.getAttackElementType());
+			writeH(item.getAttackElementPower());
 			for (byte i = 0; i < 6; i++)
 			{
-				writeD(item.getElementDefAttr(i));
+				writeH(item.getElementDefAttr(i));
 			}
 		}
 	}

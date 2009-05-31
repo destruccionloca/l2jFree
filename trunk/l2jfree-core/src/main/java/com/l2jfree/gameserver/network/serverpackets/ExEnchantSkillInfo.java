@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
 import com.l2jfree.gameserver.model.L2EnchantSkillLearn.EnchantSkillDetail;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -99,7 +100,10 @@ public final class ExEnchantSkillInfo extends L2GameServerPacket
             writeD(sede._rate);
             writeD(sede._spCost * _xpSpCostMultiplier);
             writeQ(sede._expCost * _xpSpCostMultiplier);
-            writeD(0); // required item count
+            if(Config.PACKET_FINAL)
+            	writeQ(0); // required item count
+            else
+            	writeD(0); // required item count
             writeD(0); // req type?
             writeD(0); // required itemId
             writeD(0); // ?

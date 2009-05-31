@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 
 public class DropItem extends L2GameServerPacket
@@ -53,7 +54,10 @@ public class DropItem extends L2GameServerPacket
 		{
 			writeD(0x00);
 		}
-		writeD(_item.getCount());
+		if(Config.PACKET_FINAL)
+			writeQ(_item.getCount());
+		else
+			writeD(_item.getCount());
 		
 		writeD(0x01); // unknown
 	}

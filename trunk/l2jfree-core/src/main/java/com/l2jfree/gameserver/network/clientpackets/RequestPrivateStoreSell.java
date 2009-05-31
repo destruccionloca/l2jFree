@@ -62,13 +62,21 @@ public class RequestPrivateStoreSell extends L2GameClientPacket
             int itemId = readD();
             readH(); //TODO: analyse this
             readH(); //TODO: analyse this
-            long count   = readD();
-            int price    = readD();
+            long count   = 0;
+            int price    = 0;
+            if(Config.PACKET_FINAL)
+            {
+            	count = toInt(readQ());
+            	price = toInt(readQ());
+            }
+            else
+            {
+            	count = readD();
+            	price = readD();
+            }
             
             if (count >= Integer.MAX_VALUE || count < 0)
             {
-                String msgErr = "[RequestPrivateStoreSell] player "+getClient().getActiveChar().getName()+" tried an overflow exploit, ban this player!";
-                Util.handleIllegalPlayerAction(getClient().getActiveChar(),msgErr,Config.DEFAULT_PUNISH);
                 _count = 0;
                 _items = null;
                 return;
@@ -79,8 +87,6 @@ public class RequestPrivateStoreSell extends L2GameClientPacket
         
         if(priceTotal < 0 || priceTotal >= Integer.MAX_VALUE)
         {
-            String msgErr = "[RequestPrivateStoreSell] player "+getClient().getActiveChar().getName()+" tried an overflow exploit, ban this player!";
-            Util.handleIllegalPlayerAction(getClient().getActiveChar(),msgErr,Config.DEFAULT_PUNISH);
             _count = 0;
             _items = null;
             return;
@@ -136,7 +142,6 @@ public class RequestPrivateStoreSell extends L2GameClientPacket
         
         if (storePlayer.getAdena() < _price)
         {
-			// [L2J_JP EDIT]
 			sendPacket(new SystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 			storePlayer.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
@@ -145,11 +150,7 @@ public class RequestPrivateStoreSell extends L2GameClientPacket
         }
         
         if (!storeList.privateStoreSell(player, _items))
-        {
-            player.sendPacket(ActionFailed.STATIC_PACKET);
-            _log.warn("PrivateStore sell has failed due to invalid list or request. Player: " + player.getName() + ", Private store of: " + storePlayer.getName());
             return;
-        }
 
         if (storeList.getItemCount() == 0)
         {

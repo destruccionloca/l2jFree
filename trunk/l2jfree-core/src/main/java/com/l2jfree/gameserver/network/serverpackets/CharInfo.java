@@ -134,6 +134,9 @@ public class CharInfo extends L2GameServerPacket
 		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO5));
 		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO6));
 		// end of t1 new d's
+		if(Config.PACKET_FINAL)
+			writeD(0x00); // CT2.3
+
 
 		// c6 new h's
 		writeD(_inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_UNDER));
@@ -159,6 +162,13 @@ public class CharInfo extends L2GameServerPacket
 		writeD(_inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_DECO5));
 		writeD(_inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_DECO6));
 		// end of t1 new h's
+		if(Config.PACKET_FINAL)
+		{
+			writeD(0x00); // CT2.3
+		
+			writeD(0x00);
+			writeD(0x00);			
+		}
 
 		writeD(_activeChar.getPvpFlag());
 		writeD(_activeChar.getKarma());
@@ -274,6 +284,15 @@ public class CharInfo extends L2GameServerPacket
 		writeD(_activeChar.getAgathionId());
 
 		writeD(0x00);
+		
+		if(Config.PACKET_FINAL)
+		{
+			// T2.3
+			writeD(0x00);
+        	writeD(0x00);
+        	writeD(0x00);
+        	writeD(0x00);
+		}
 	}
 
 	/* (non-Javadoc)

@@ -18,7 +18,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.mmocore.network.SendablePacket;
 
-import com.l2jfree.gameserver.L2JfreeInfo;
+import com.l2jfree.gameserver.CoreInfo;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.L2GameClient;
 
@@ -42,7 +42,7 @@ public abstract class L2GameServerPacket extends SendablePacket<L2GameClient>
 		}
 		catch (Exception e)
 		{
-			_log.fatal("Failed writing: " + client + " - " + getType() + " - " + L2JfreeInfo.getVersionInfo(), e);
+			_log.fatal("Failed writing: " + client + " - " + getType() + " - " + CoreInfo.getVersionInfo(), e);
 		}
 	}
 	

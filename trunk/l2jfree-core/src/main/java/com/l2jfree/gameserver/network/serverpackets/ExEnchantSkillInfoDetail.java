@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import com.l2jfree.Config;
+
 /**
  *
  * @author  KenM
@@ -53,7 +55,10 @@ public class ExEnchantSkillInfoDetail extends L2GameServerPacket
         writeD(0);
         writeQ(0);
         writeD(0);
-        writeD(_itemCount); // Count
+        if(Config.PACKET_FINAL)
+        	writeQ(_itemCount); // Count
+        else
+        	writeD(_itemCount); // Count
         writeD(0);
         writeD(_itemId); // ItemId Required
         writeD(0);

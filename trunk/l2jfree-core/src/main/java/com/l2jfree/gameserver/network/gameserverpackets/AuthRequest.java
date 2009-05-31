@@ -19,30 +19,23 @@ import java.io.IOException;
 public class AuthRequest extends GameServerBasePacket
 {
 	/**
-	 * Format: cccSddb
-	 * c desired ID
-	 * c accept alternative ID
-	 * c reserve Host
-	 * s ExternalHostName
-	 * s InetranlHostName
-	 * d max players
-	 * d hexid size
-	 * b hexid
+	 * Format: cccSddb c desired ID c accept alternative ID c reserve Host s
+	 * ExternalHostName s InetranlHostName d max players d hexid size b hexid
 	 * 
 	 * @param id
 	 * @param acceptAlternate
 	 * @param hexid
 	 * @param externalHost
-	 * @param internalHost 
+	 * @param internalHost
 	 * @param reserveHost
 	 * @param maxplayer
 	 */
-	public AuthRequest(int id, boolean acceptAlternate, byte[] hexid, String _gsNetConfig1,String _gsNetConfig2, int port, boolean reserveHost, int maxplayer)
+	public AuthRequest(int id, boolean acceptAlternate, byte[] hexid, String _gsNetConfig1, String _gsNetConfig2, int port, boolean reserveHost, int maxplayer)
 	{
 		writeC(0x01);
 		writeC(id);
-		writeC(acceptAlternate? 0x01 : 0x00);
-		writeC(reserveHost? 0x01 : 0x00);
+		writeC(acceptAlternate ? 0x01 : 0x00);
+		writeC(reserveHost ? 0x01 : 0x00);
 		writeS(_gsNetConfig1);
 		writeS(_gsNetConfig2);
 		writeH(port);
@@ -50,9 +43,13 @@ public class AuthRequest extends GameServerBasePacket
 		writeD(hexid.length);
 		writeB(hexid);
 	}
-	
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.gameserverpackets.GameServerBasePacket#getContent()
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.l2jfree.gameserver.gameserverpackets.GameServerBasePacket#getContent
+	 * ()
 	 */
 	@Override
 	public byte[] getContent() throws IOException

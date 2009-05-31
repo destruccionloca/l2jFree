@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
@@ -58,7 +59,10 @@ public class GMViewItemList extends L2GameServerPacket
 			writeD(temp.getObjectId());
 			writeD(temp.getItemDisplayId());
 			writeD(temp.getLocationSlot()); // T1
-			writeD(temp.getCount());
+			if(Config.PACKET_FINAL)
+				writeQ(temp.getCount());
+			else
+				writeD(temp.getCount());
 			writeH(temp.getItem().getType2());
 			writeH(temp.getCustomType1()); 
 			writeH(temp.isEquipped() ? 0x01 : 0x00);
@@ -76,13 +80,14 @@ public class GMViewItemList extends L2GameServerPacket
 			writeD(temp.getMana());
 
 			// T1
-			writeD(temp.getAttackElementType());
-			writeD(temp.getAttackElementPower());
+			writeH(temp.getAttackElementType());
+			writeH(temp.getAttackElementPower());
 			for (byte i = 0; i < 6; i++)
 			{
-				writeD(temp.getElementDefAttr(i));
+				writeH(temp.getElementDefAttr(i));
 			}
 			// T2
+			//writeD(temp.getItem().it isTimeLimitedItem() ? (int) (temp.getRemainingTime()/1000) : -1);
 			writeD(0x00);
 		}
 	}

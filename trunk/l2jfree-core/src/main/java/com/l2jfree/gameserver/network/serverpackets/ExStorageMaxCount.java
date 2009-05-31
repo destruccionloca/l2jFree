@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
@@ -68,6 +69,8 @@ public class ExStorageMaxCount extends L2GameServerPacket
 		writeD(_privateBuy);
 		writeD(_receipeD);
 		writeD(_recipe);
+		if(Config.PACKET_FINAL)
+			writeD(0x00);
 				
 	}
 

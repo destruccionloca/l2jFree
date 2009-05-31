@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 import java.util.List;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2TradeList;
 
@@ -55,10 +56,16 @@ public final class BuyListSeed extends L2GameServerPacket
 			writeH(0x04);                      // item->type1
 			writeD(0x00);                      // objectId
 			writeD(item.getItemDisplayId());          // item id
-			writeD(item.getCount());           // item count
+			if(Config.PACKET_FINAL)
+				writeQ(item.getCount());           // item count
+			else
+				writeD(item.getCount());           // item count
 			writeH(0x04);                      // item->type2
-			writeH(0x00);                      // unknown :)
-			writeD(item.getPriceToSell());     // price
+			writeH(0x00);          
+			if(Config.PACKET_FINAL)
+				writeQ(item.getPriceToSell());     // price
+			else
+				writeD(item.getPriceToSell());     // price
 		}
 	}
 

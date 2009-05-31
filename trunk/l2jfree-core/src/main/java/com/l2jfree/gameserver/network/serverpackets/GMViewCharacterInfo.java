@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 /**
@@ -97,6 +98,8 @@ public class GMViewCharacterInfo extends L2GameServerPacket
         writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_DECO4));
         writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_DECO5));
         writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_DECO6));
+        if(Config.PACKET_FINAL)
+        	 writeD(0); // T3 Unknown
 
         writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIRALL));
         writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_REAR));
@@ -123,6 +126,12 @@ public class GMViewCharacterInfo extends L2GameServerPacket
         writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO4));
         writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO5));
         writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO6));
+        if(Config.PACKET_FINAL)
+        {
+            writeD(0); // T3 Unknown 
+            writeD(0); // T3 Unknown 
+            writeD(0); // T3 Unknown         	
+        }
         
         writeH(0x00);
         writeH(0x00);

@@ -183,6 +183,9 @@ public class RequestExEnchantItemAttribute extends L2GameClientPacket
 			sendPacket(sm);
 			item.setElementAttr(elementToAdd, newPower);
 
+			if(item.isEquipped())
+				item.updateElementAttrBonus(player);
+
 			// send packets
 			InventoryUpdate iu = new InventoryUpdate();
 			iu.addModifiedItem(item);
@@ -240,7 +243,7 @@ public class RequestExEnchantItemAttribute extends L2GameClientPacket
 			{
 				if (item.isWeapon())
 					return Elementals.WEAPON_VALUES[3];
-				return Elementals.ARMOR_VALUES[3];
+				return Elementals.ARMOR_VALUES[6];
 			}
 		}
 		for (int id : Elementals.CRYSTALS)

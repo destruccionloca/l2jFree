@@ -25,22 +25,19 @@ import com.l2jfree.gameserver.network.serverpackets.AskJoinParty;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
- *  sample
- *  29
- *  42 00 00 10
- *  01 00 00 00
+ * sample 29 42 00 00 10 01 00 00 00
  * 
- *  format  cdd
+ * format cdd
  * 
  * 
  * @version $Revision: 1.7.4.4 $ $Date: 2005/03/27 15:29:30 $
  */
 public class RequestJoinParty extends L2GameClientPacket
 {
-	private static final String _C__29_REQUESTJOINPARTY = "[C] 29 RequestJoinParty";
+	private static final String	_C__29_REQUESTJOINPARTY	= "[C] 29 RequestJoinParty";
 
-	private String _name;
-	private int _itemDistribution;
+	private String				_name;
+	private int					_itemDistribution;
 
 	@Override
 	protected void readImpl()
@@ -53,7 +50,8 @@ public class RequestJoinParty extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance requestor = getClient().getActiveChar();
-		if (requestor == null) return;
+		if (requestor == null)
+			return;
 
 		L2PcInstance target = L2World.getInstance().getPlayer(_name);
 		if (target == null || (target.getAppearance().isInvisible() && !requestor.isGM()))
@@ -76,13 +74,11 @@ public class RequestJoinParty extends L2GameClientPacket
 			requestFailed(new SystemMessage(SystemMessageId.C1_IS_ALREADY_IN_PARTY).addString(target.getName()));
 			return;
 		}
-		/*
-		if (!requestor.isGM() && target.getInstanceId() != requestor.getInstanceId())
+		else if (target.isOffline())
 		{
-			requestor.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+			requestor.sendMessage("You can't invite " + target.getName() + " because the player is in offline mode!");
 			return;
 		}
-		*/
 		else if (!GlobalRestrictions.canInviteToParty(requestor, target))
 		{
 			requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);

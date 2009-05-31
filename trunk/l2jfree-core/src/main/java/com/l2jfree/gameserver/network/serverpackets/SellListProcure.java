@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 import java.util.List;
 import java.util.Map;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.CastleManorManager.CropProcure;
 import com.l2jfree.gameserver.model.L2ItemInstance;
@@ -55,7 +56,10 @@ public class SellListProcure extends L2GameServerPacket
     protected final void writeImpl()
     {
         writeC(0xEf);
-        writeD(_money);         // money
+        if(Config.PACKET_FINAL)
+        	writeQ(_money);         // money
+        else
+        	writeD(_money);         // money
         writeD(0x00);           // lease ?
         writeH(_sellList.size());         // list size
         
@@ -64,10 +68,16 @@ public class SellListProcure extends L2GameServerPacket
             writeH(item.getItem().getType1());
             writeD(item.getObjectId());
             writeD(item.getItemDisplayId());
-            writeD(_sellList.get(item));  // count
+            if(Config.PACKET_FINAL)
+            	writeQ(_sellList.get(item));  // count
+            else
+            	writeD(_sellList.get(item));  // count
             writeH(item.getItem().getType2());
             writeH(0);  // unknown
-            writeD(0);  // price, u shouldnt get any adena for crops, only raw materials
+            if(Config.PACKET_FINAL)
+            	writeQ(0);  // price, u shouldnt get any adena for crops, only raw materials
+            else
+            	writeD(0);  // price, u shouldnt get any adena for crops, only raw materials
         }
     }
     

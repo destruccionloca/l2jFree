@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -42,7 +43,10 @@ public final class RequestConfirmGemStone extends L2GameClientPacket
 		_targetItemObjId = readD();
 		_refinerItemObjId = readD();
 		_gemstoneItemObjId = readD();
-		_gemstoneCount= readD();
+		if(Config.PACKET_FINAL)
+			_gemstoneCount= toInt(readQ());
+		else
+			_gemstoneCount= readD();
 	}
 
 	@Override
@@ -103,7 +107,7 @@ public final class RequestConfirmGemStone extends L2GameClientPacket
 				break;
 		}
 
-		sendPacket(new ExPutCommissionResultForVariationMake(_gemstoneItemObjId, _gemstoneCount));
+		activeChar.sendPacket(new ExPutCommissionResultForVariationMake(_gemstoneItemObjId, _gemstoneCount, gemstoneItemId));
 		sendPacket(SystemMessageId.PRESS_THE_AUGMENT_BUTTON_TO_BEGIN);
 		sendPacket(ActionFailed.STATIC_PACKET);
 	}

@@ -20,6 +20,7 @@ import com.l2jfree.gameserver.network.Disconnection;
 import com.l2jfree.gameserver.network.L2GameClient.GameClientState;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.CharSelected;
+import com.l2jfree.gameserver.taskmanager.SQLQueue;
 
 public final class CharacterSelected extends L2GameClientPacket
 {
@@ -45,12 +46,21 @@ public final class CharacterSelected extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
+		
 		// should always be null
 		// but if not then this is repeated packet and nothing should be done here
 		if (getClient().getActiveChar() != null)
 			return;
 
 		final L2PcInstance cha = getClient().loadCharFromDisk(_charSlot);
+		
+		L2PcInstance oldchar =L2World.getInstance().getPlayer(cha.getObjectId());
+		if(oldchar!=null && oldchar.isOffline())
+		{
+			oldchar.cleanOffline();
+			oldchar.deleteMe();
+			SQLQueue.getInstance().run();
+		}		
 
 		if (cha == null)
 		{

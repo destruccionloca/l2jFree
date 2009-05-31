@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 import java.util.List;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
@@ -52,7 +53,10 @@ public class TradeStart extends L2GameServerPacket
 			writeH(item.getItem().getType1()); // item type1
 			writeD(item.getObjectId());
 			writeD(item.getItemDisplayId());
-			writeD(item.getCount());
+			if(Config.PACKET_FINAL)
+				writeQ(item.getCount());
+			else
+				writeD(item.getCount());
 			writeH(item.getItem().getType2());	// item type2
 			writeH(0x00);	// ?
 

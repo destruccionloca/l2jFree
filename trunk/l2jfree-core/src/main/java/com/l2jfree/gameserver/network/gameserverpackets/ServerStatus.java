@@ -19,79 +19,70 @@ import java.util.Vector;
 
 /**
  * @author -Wooden-
- * @reworked by savormix
+ * 
  */
 public class ServerStatus extends GameServerBasePacket
 {
-    private Vector<Attribute> _attributes;
+	private Vector<Attribute>		_attributes;
 
-    public static final String[] STATUS_STRING = { "Auto", "Maintenance", "Down" };
+	public static final String[]	STATUS_STRING				= { "Auto", "Good", "Normal", "Full", "Down", "Gm Only" };
 
-    public static final int SERVER_LIST_PVP			= 0x01;
-    public static final int SERVER_LIST_MAX_PLAYERS = 0x02;
-    public static final int SERVER_LIST_STATUS		= 0x03;
-    public static final int SERVER_LIST_UNK			= 0x04;
-    public static final int SERVER_LIST_CLOCK		= 0x05;
-    public static final int SERVER_LIST_HIDE_NAME	= 0x06;
-    public static final int TEST_SERVER				= 0x07;
-    public static final int SERVER_LIST_BRACKETS	= 0x08;
-    public static final int SERVER_AGE_LIMIT		= 0x09;
+	public static final int			SERVER_LIST_STATUS			= 0x01;
+	public static final int			SERVER_LIST_CLOCK			= 0x02;
+	public static final int			SERVER_LIST_SQUARE_BRACKET	= 0x03;
+	public static final int			MAX_PLAYERS					= 0x04;
+	public static final int			TEST_SERVER					= 0x05;
 
-    public static final int STATUS_AUTO				= 0x00;
-    public static final int STATUS_GM_ONLY			= 0x01;
-    public static final int STATUS_DOWN				= 0x02;
+	public static final int			STATUS_AUTO					= 0x00;
+	public static final int			STATUS_GOOD					= 0x01;
+	public static final int			STATUS_NORMAL				= 0x02;
+	public static final int			STATUS_FULL					= 0x03;
+	public static final int			STATUS_DOWN					= 0x04;
+	public static final int			STATUS_GM_ONLY				= 0x05;
 
-    class Attribute
-    {
-        public int id;
-        public int value;
+	public static final int			ON							= 0x01;
+	public static final int			OFF							= 0x00;
 
-        Attribute(int pId, int pValue)
-        {
-            id = pId;
-            value = pValue;
-        }
-    }
+	class Attribute
+	{
+		public int	id;
+		public int	value;
 
-    public ServerStatus()
-    {
-        _attributes = new Vector<Attribute>();
-    }
+		Attribute(int pId, int pValue)
+		{
+			id = pId;
+			value = pValue;
+		}
+	}
 
-    public void addAttribute(int id, boolean on)
-    {
-        _attributes.add(new Attribute(id, on ? 1 : 0));
-    }
+	public ServerStatus()
+	{
+		_attributes = new Vector<Attribute>();
+	}
 
-    public void addMaxPlayerAttribute(int count)
-    {
-    	_attributes.add(new Attribute(SERVER_LIST_MAX_PLAYERS, count));
-    }
+	public void addAttribute(int id, int value)
+	{
+		_attributes.add(new Attribute(id, value));
+	}
 
-    public void addMinAgeAttribute(int age)
-    {
-    	_attributes.add(new Attribute(SERVER_AGE_LIMIT, age));
-    }
-
-    public void addServerDownAttribute()
-    {
-        _attributes.add(new Attribute(SERVER_LIST_STATUS, STATUS_DOWN));
-    }
-
-    /* (non-Javadoc)
-     * @see com.l2jfree.gameserver.gameserverpackets.GameServerBasePacket#getContent()
-     */
-    @Override
-    public byte[] getContent() throws IOException
-    {
-        writeC(0x06);
-        writeD(_attributes.size());
-        for (int i = 0; i < _attributes.size(); i++)
-        {
-            Attribute temp = _attributes.get(i);
-            writeD(temp.id);
-            writeD(temp.value);
-        }
-        return getBytes();
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.l2jfree.gameserver.gameserverpackets.GameServerBasePacket#getContent
+	 * ()
+	 */
+	@Override
+	public byte[] getContent() throws IOException
+	{
+		writeC(0x06);
+		writeD(_attributes.size());
+		for (int i = 0; i < _attributes.size(); i++)
+		{
+			Attribute temp = _attributes.get(i);
+			writeD(temp.id);
+			writeD(temp.value);
+		}
+		return getBytes();
+	}
 }

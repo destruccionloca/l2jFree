@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.templates.item.L2Henna;
 
@@ -38,8 +39,16 @@ public class HennaItemInfo extends L2GameServerPacket
         writeC(0xe4);
         writeD(_henna.getSymbolId());          //symbol Id
         writeD(_henna.getItemId());     //item id of dye
-        writeD(_henna.getAmount());    // total amount of dye require
-        writeD(_henna.getPrice());  //total amount of aden require to draw symbol
+        if(Config.PACKET_FINAL)
+        {
+        	writeQ(_henna.getAmount());    // total amount of dye require
+        	writeQ(_henna.getPrice());  //total amount of aden require to draw symbol
+        }
+        else
+        {
+            writeD(_henna.getAmount());    // total amount of dye require
+            writeD(_henna.getPrice());  //total amount of aden require to draw symbol
+        }
         writeD(1);      //able to draw or not 0 is false and 1 is true 
         writeD(_activeChar.getAdena());
         

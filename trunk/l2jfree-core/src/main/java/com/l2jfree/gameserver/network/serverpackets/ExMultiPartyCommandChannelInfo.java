@@ -35,17 +35,13 @@ public class ExMultiPartyCommandChannelInfo extends L2GameServerPacket
 	@Override
 	protected void writeImpl()
 	{
-		writeC(0xFE);
+		writeC(0xfe);
 		writeH(0x31);
 
 		writeS(_cc.getChannelLeader().getName());
-
-		// Looting rights
-		// possible values: 1 and 0
 		writeD(0x00);
-		
-
 		writeD(_cc.getMemberCount());
+		
 		writeD(_cc.getPartys().size());
 		for (L2Party party : _cc.getPartys())
 		{

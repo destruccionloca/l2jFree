@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
@@ -44,7 +45,10 @@ public class GMViewWarehouseWithdrawList extends L2GameServerPacket
 	{
 		writeC(0x9b);
 		writeS(_playerName);
-		writeD(_money);
+		if(Config.PACKET_FINAL)
+			writeQ(_money);
+		else
+			writeD(_money);
 		writeH(_items.length);
 
 		for (L2ItemInstance item : _items)
@@ -53,7 +57,10 @@ public class GMViewWarehouseWithdrawList extends L2GameServerPacket
 
 			writeD(item.getObjectId());
 			writeD(item.getItemDisplayId());
-			writeD(item.getCount());
+			if(Config.PACKET_FINAL)
+				writeQ(item.getCount());
+			else
+				writeD(item.getCount());
 			writeH(item.getItem().getType2());
 			writeH(item.getCustomType1());
 			if (item.getItem().isEquipable())
@@ -84,11 +91,11 @@ public class GMViewWarehouseWithdrawList extends L2GameServerPacket
 				}
 				writeD(item.getObjectId());
 
-				writeD(item.getAttackElementType());
-				writeD(item.getAttackElementPower());
+				writeH(item.getAttackElementType());
+				writeH(item.getAttackElementPower());
 				for (byte i = 0; i < 6; i++)
 				{
-					writeD(item.getElementDefAttr(i));
+					writeH(item.getElementDefAttr(i));
 				}
 			}
 			

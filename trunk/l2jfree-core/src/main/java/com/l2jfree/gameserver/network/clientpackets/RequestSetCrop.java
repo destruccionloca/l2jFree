@@ -23,31 +23,25 @@ import com.l2jfree.gameserver.instancemanager.CastleManorManager.CropProcure;
 
 /**
  * Format: (ch) dd [dddc]
+ * 
  * @author -Wooden-
- *
- * d - manor id
- * d - size
- * [
- * d - crop id
- * d - sales
- * d - price
- * c - reward type
- * ]
+ * 
+ *         d - manor id d - size [ d - crop id d - sales d - price c - reward
+ *         type ]
  * @author l3x
  * 
  */
 
 public class RequestSetCrop extends L2GameClientPacket
 {
-	private static final String _C__D0_0B_REQUESTSETCROP = "[C] D0:0B RequestSetCrop";
+	private static final String	_C__D0_0B_REQUESTSETCROP	= "[C] D0:0B RequestSetCrop";
 
-	private int _size;
+	private int					_size;
 
-	private int _manorId;
+	private int					_manorId;
 
-	private int[] _items; // _size*4
+	private int[]				_items;													// _size*4
 
-	
 	/**
 	 */
 	@Override
@@ -66,9 +60,19 @@ public class RequestSetCrop extends L2GameClientPacket
 		{
 			int itemId = readD();
 			_items[(i * 4)] = itemId;
-			int sales = readD();
+
+			int sales = 0;
+			if (Config.PACKET_FINAL)
+				sales = toInt(readQ());
+			else
+				sales = readD();
 			_items[i * 4 + 1] = sales;
-			int price = readD();
+
+			int price = 0;
+			if (Config.PACKET_FINAL)
+				price = toInt(readQ());
+			else
+				price = readD();
 			_items[i * 4 + 2] = price;
 			int type = readC();
 			_items[i * 4 + 3] = type;
@@ -95,8 +99,7 @@ public class RequestSetCrop extends L2GameClientPacket
 			}
 		}
 
-		CastleManager.getInstance().getCastleById(_manorId).setCropProcure(crops,
-				CastleManorManager.PERIOD_NEXT);
+		CastleManager.getInstance().getCastleById(_manorId).setCropProcure(crops, CastleManorManager.PERIOD_NEXT);
 		if (Config.ALT_MANOR_SAVE_ALL_ACTIONS)
 			CastleManager.getInstance().getCastleById(_manorId).saveCropData(CastleManorManager.PERIOD_NEXT);
 	}

@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.CastleManorManager;
 import com.l2jfree.gameserver.instancemanager.CastleManorManager.CropProcure;
@@ -131,12 +132,30 @@ public class ExShowCropSetting extends L2GameServerPacket
 			writeD(_cropData[i*14 + 6]);  // min crop price
 			writeD(_cropData[i*14 + 7]);  // max crop price
 			
-			writeD(_cropData[i*14 + 8]);  // today buy
-			writeD(_cropData[i*14 + 9]);  // today price
-			writeC(_cropData[i*14 + 10]); // today reward
+			if(Config.PACKET_FINAL)
+			{
+				writeQ(_cropData[i*14 + 8]);  // today buy
+				writeQ(_cropData[i*14 + 9]);  // today price
+			}
+			else
+			{
+				writeD(_cropData[i*14 + 8]);  // today buy
+				writeD(_cropData[i*14 + 9]);  // today price
+			}
+
 			
-			writeD(_cropData[i*14 + 11]); // next buy
-			writeD(_cropData[i*14 + 12]); // next price
+			writeC(_cropData[i*14 + 10]); // today reward
+			if(Config.PACKET_FINAL)
+			{
+				writeQ(_cropData[i*14 + 11]); // next buy
+				writeQ(_cropData[i*14 + 12]); // next price
+			}
+			else
+			{
+				writeD(_cropData[i*14 + 11]); // next buy
+				writeD(_cropData[i*14 + 12]); // next price
+			}
+				
 			writeC(_cropData[i*14 + 13]); // next reward
 		}
 	}

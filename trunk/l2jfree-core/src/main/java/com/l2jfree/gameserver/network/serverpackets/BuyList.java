@@ -19,6 +19,7 @@ import java.util.List;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2TradeList;
+import com.l2jfree.gameserver.templates.item.L2Item;
 
 
 public final class BuyList extends L2GameServerPacket
@@ -57,7 +58,10 @@ public final class BuyList extends L2GameServerPacket
 	protected final void writeImpl()
 	{
 		writeC(0x07);
-		writeD(_money);		// current money
+		if(Config.PACKET_FINAL)
+			writeQ(_money);		// current money
+		else
+			writeD(_money);		// current money
 		writeD(_listId);
 		writeH(_list.length);
 
@@ -68,21 +72,33 @@ public final class BuyList extends L2GameServerPacket
 				writeH(item.getItem().getType1()); // item type1
 				writeD(item.getObjectId());
 				writeD(item.getItemDisplayId());
-				writeD(item.getCount() >= 0 ? item.getCount() : 0); // max amount of items that a player can buy at a time (with this itemid)
+				if(Config.PACKET_FINAL)
+					writeQ(item.getCount() >= 0 ? item.getCount() : 0); // max amount of items that a player can buy at a time (with this itemid)
+				else
+					writeD(item.getCount() >= 0 ? item.getCount() : 0); // max amount of items that a player can buy at a time (with this itemid)
 				writeH(item.getItem().getType2());					// item type2
 				writeH(item.getCustomType1());						// custom type1
 				writeD(item.getItem().getBodyPart());
 				writeH(item.getEnchantLevel());						// enchant level
 				writeH(item.getCustomType2());						// custom type2
 				writeH(0x00);
-				if (item.getItemId() >= 3960 && item.getItemId() <= 4026)//Config.RATE_SIEGE_GUARDS_PRICE-//'
-					writeD((int)(item.getPriceToSell() * Config.RATE_SIEGE_GUARDS_PRICE * _taxRate));
+				if(Config.PACKET_FINAL)
+				{
+					if (item.getItemId() >= 3960 && item.getItemId() <= 4026)//Config.RATE_SIEGE_GUARDS_PRICE-//'
+						writeQ((int)(item.getPriceToSell() * Config.RATE_SIEGE_GUARDS_PRICE * _taxRate));
+					else
+						writeQ((int)(item.getPriceToSell() * _taxRate));
+				}
 				else
-					writeD((int)(item.getPriceToSell() * _taxRate));
-
+				{
+					if (item.getItemId() >= 3960 && item.getItemId() <= 4026)//Config.RATE_SIEGE_GUARDS_PRICE-//'
+						writeD((int)(item.getPriceToSell() * Config.RATE_SIEGE_GUARDS_PRICE * _taxRate));
+					else
+						writeD((int)(item.getPriceToSell() * _taxRate));
+				}	
 				for (byte i = 0; i < 8; i++)
 				{
-					writeD(0x00);
+					writeH(0x00);
 				}
 			}
 		}

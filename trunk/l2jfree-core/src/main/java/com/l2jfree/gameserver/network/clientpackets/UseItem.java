@@ -27,6 +27,7 @@ import com.l2jfree.gameserver.model.entity.events.AutomatedTvT;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
+import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.network.serverpackets.ShowCalculator;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -367,6 +368,7 @@ public final class UseItem extends L2GameClientPacket
 				// Send a Server->Client packet ItemList to this L2PcINstance to update left hand equipement
 				ItemList il = new ItemList(activeChar, false);
 				sendPacket(il);
+				sendPacket(new InventoryUpdate());				
 				return;
 			}
 			else

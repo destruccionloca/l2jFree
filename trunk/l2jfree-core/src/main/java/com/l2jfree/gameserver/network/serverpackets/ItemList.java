@@ -18,6 +18,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
@@ -106,7 +107,10 @@ public class ItemList extends L2GameServerPacket
 			writeD(temp.getItemDisplayId());
 			// writeD(0x00);
 			writeD(temp.getLocationSlot());
-			writeD(temp.getCount());
+			if(Config.PACKET_FINAL)
+				writeQ(temp.getCount());
+			else
+				writeD(temp.getCount());
 			writeH(temp.getItem().getType2());	// item type2
 			writeH(temp.getCustomType1());	// item type3
 			writeH(temp.isEquipped() ? 0x01 : 0x00);
@@ -124,11 +128,11 @@ public class ItemList extends L2GameServerPacket
 			writeD(temp.getMana());
 			
 			// T1
-			writeD(temp.getAttackElementType());
-			writeD(temp.getAttackElementPower());
+			writeH(temp.getAttackElementType());
+			writeH(temp.getAttackElementPower());
 			for (byte i = 0; i < 6; i++)
 			{
-				writeD(temp.getElementDefAttr(i));
+				writeH(temp.getElementDefAttr(i));
 			}
 			// T2
 			writeD(0x00);

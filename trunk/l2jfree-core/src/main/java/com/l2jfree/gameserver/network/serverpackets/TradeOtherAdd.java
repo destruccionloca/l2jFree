@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.TradeList;
 
 /**
@@ -42,7 +43,10 @@ public class TradeOtherAdd extends L2GameServerPacket
 		writeH(_item.getItem().getType1()); // item type1
 		writeD(_item.getObjectId());
 		writeD(_item.getItem().getItemDisplayId());
-		writeD(_item.getCount());
+		if(Config.PACKET_FINAL)
+			writeQ(_item.getCount());
+		else
+			writeD(_item.getCount());
 		writeH(_item.getItem().getType2());	// item type2
 		writeH(0x00);	// ?
 
@@ -51,11 +55,11 @@ public class TradeOtherAdd extends L2GameServerPacket
 		writeH(0x00);	// ?
 		writeH(0x00);
 
-		writeD(_item.getAttackElementType());
-		writeD(_item.getAttackElementPower());
+		writeH(_item.getAttackElementType());
+		writeH(_item.getAttackElementPower());
 		for (byte i = 0; i < 6; i++)
 		{
-			writeD(_item.getElementDefAttr(i));
+			writeH(_item.getElementDefAttr(i));
 		}
 	}
 

@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2ClanMember;
 import com.l2jfree.gameserver.model.L2Clan.SubPledge;
@@ -75,6 +76,10 @@ public final class PledgeShowMemberListAll extends L2GameServerPacket
 		writeS(_clan.getAllyName());
 		writeD(_clan.getAllyCrestId());
 		writeD(_clan.isAtWar() ? 1 : 0);// new c3
+		
+		if(Config.PACKET_FINAL)
+			writeD(0); // Territory castle ID
+		
 		writeD(_clan.getSubPledgeMembersCount(_pledgeType));
 		
 		for (L2ClanMember m : _members)

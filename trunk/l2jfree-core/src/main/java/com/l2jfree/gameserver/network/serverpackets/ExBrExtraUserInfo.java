@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 
@@ -35,7 +36,10 @@ public class ExBrExtraUserInfo extends L2GameServerPacket
 	protected final void writeImpl()
 	{
 		writeC(0xfe);
-		writeH(0x8d);
+		if(Config.PACKET_FINAL)
+			writeH(0xac);
+		else
+			writeH(0x8d);
 		writeD(_charObjId);  // object id of player
 		writeD(_val);        // afro hair cut
 	}

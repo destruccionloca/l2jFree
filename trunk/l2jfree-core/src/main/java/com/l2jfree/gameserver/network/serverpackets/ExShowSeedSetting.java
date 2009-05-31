@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.CastleManorManager;
 import com.l2jfree.gameserver.instancemanager.CastleManorManager.SeedProduction;
@@ -125,10 +126,21 @@ public class ExShowSeedSetting extends L2GameServerPacket
 			writeD(_seedData[i*12 + 6]);  // min seed price
 			writeD(_seedData[i*12 + 7]);  // max seed price
 			
-			writeD(_seedData[i*12 + 8]);  // today sales
-			writeD(_seedData[i*12 + 9]);  // today price
-			writeD(_seedData[i*12 + 10]); // next sales
-			writeD(_seedData[i*12 + 11]); // next price
+			if(Config.PACKET_FINAL)
+			{
+				writeQ(_seedData[i*12 + 8]);  // today sales
+				writeQ(_seedData[i*12 + 9]);  // today price
+				writeQ(_seedData[i*12 + 10]); // next sales
+				writeQ(_seedData[i*12 + 11]); // next price
+			}
+			else
+			{
+				writeD(_seedData[i*12 + 8]);  // today sales
+				writeD(_seedData[i*12 + 9]);  // today price
+				writeD(_seedData[i*12 + 10]); // next sales
+				writeD(_seedData[i*12 + 11]); // next price
+			}
+				
 		}
 	}
 

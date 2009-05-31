@@ -82,7 +82,7 @@ public class RequestUnEquipItem extends L2GameClientPacket
 			return;
 
 		// Prevent player from unequipping items in special conditions
-		if (activeChar.isStunned() || activeChar.isSleeping() 
+		if (activeChar.isStunned() || activeChar.isSleeping()
 				|| activeChar.isParalyzed() || activeChar.isAlikeDead())
 		{
 			activeChar.sendMessage("Your status does not allow you to do that.");

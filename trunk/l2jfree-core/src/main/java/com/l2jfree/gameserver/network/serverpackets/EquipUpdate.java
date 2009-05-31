@@ -90,6 +90,9 @@ public class EquipUpdate extends L2GameServerPacket
 			case L2Item.SLOT_HAIR:
 				bodypart = 0x0f;
 				break;
+			case L2Item.SLOT_BELT:
+				bodypart = 0x10;
+				break;				
 		}
 		
 		if (_log.isDebugEnabled()) _log.info("body:" +bodypart);

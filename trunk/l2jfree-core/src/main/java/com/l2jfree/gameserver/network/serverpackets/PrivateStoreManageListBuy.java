@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.TradeList;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -45,7 +46,10 @@ public class PrivateStoreManageListBuy extends L2GameServerPacket
 		writeC(0xbd);
 		//section 1 
 		writeD(_objId);
-		writeD(_playerAdena);
+		if(Config.PACKET_FINAL)
+			writeQ(_playerAdena);
+		else
+			writeD(_playerAdena);
 
 		//section2 
 		writeD(_itemList.length); // inventory items for potential buy
@@ -53,17 +57,26 @@ public class PrivateStoreManageListBuy extends L2GameServerPacket
 		{
 			writeD(item.getItemDisplayId()); 
 			writeH(0); //show enchant lvl as 0, as you can't buy enchanted weapons
-			writeD(item.getCount());
-			writeD(item.getReferencePrice());
+			if(Config.PACKET_FINAL)
+			{
+				writeQ(item.getCount());
+				writeQ(item.getReferencePrice());
+			}
+			else
+			{
+				writeD(item.getCount());
+				writeD(item.getReferencePrice());
+			}
+
 			writeH(0x00);
 			writeD(item.getItem().getBodyPart());
 			writeH(item.getItem().getType2());
 
-			writeD(item.getAttackElementType());
-			writeD(item.getAttackElementPower());
+			writeH(item.getAttackElementType());
+			writeH(item.getAttackElementPower());
 			for (byte i = 0; i < 6; i++)
 			{
-				writeD(item.getElementDefAttr(i));
+				writeH(item.getElementDefAttr(i));
 			}
 		}
 
@@ -73,19 +86,36 @@ public class PrivateStoreManageListBuy extends L2GameServerPacket
 		{
 			writeD(item.getItem().getItemDisplayId()); 
 			writeH(0);
-			writeD(item.getCount());
-			writeD(item.getItem().getReferencePrice());
+			if(Config.PACKET_FINAL)
+			{
+				writeQ(item.getCount());
+				writeQ(item.getItem().getReferencePrice());
+			}
+			else
+			{
+				writeD(item.getCount());
+				writeD(item.getItem().getReferencePrice());
+			}
+				
 			writeH(0x00);
 			writeD(item.getItem().getBodyPart());
 			writeH(item.getItem().getType2());
-			writeD(item.getPrice());//your price
-			writeD(item.getItem().getReferencePrice());//fixed store price
+			if(Config.PACKET_FINAL)
+			{
+				writeQ(item.getPrice());//your price
+				writeQ(item.getItem().getReferencePrice());//fixed store price
+			}
+			else
+			{
+				writeD(item.getPrice());//your price
+				writeD(item.getItem().getReferencePrice());//fixed store price
+			}
 
-			writeD(item.getAttackElementType());
-			writeD(item.getAttackElementPower());
+			writeH(item.getAttackElementType());
+			writeH(item.getAttackElementPower());
 			for (byte i = 0; i < 6; i++)
 			{
-				writeD(item.getElementDefAttr(i));
+				writeH(item.getElementDefAttr(i));
 			}
 		}
 	}

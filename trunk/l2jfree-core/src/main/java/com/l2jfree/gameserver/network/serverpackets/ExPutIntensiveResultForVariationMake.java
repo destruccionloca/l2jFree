@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import com.l2jfree.Config;
+
 /**
  * Format: (ch)ddddd
  *
@@ -48,7 +50,10 @@ public class ExPutIntensiveResultForVariationMake extends L2GameServerPacket
 		writeD(_refinerItemObjId);
 		writeD(_lifestoneItemId);
 		writeD(_gemstoneItemId);
-		writeD(_gemstoneCount);
+		if(Config.PACKET_FINAL)
+			writeQ(_gemstoneCount);
+		else
+			writeD(_gemstoneCount);
 		writeD(_unk2);
 	}
 

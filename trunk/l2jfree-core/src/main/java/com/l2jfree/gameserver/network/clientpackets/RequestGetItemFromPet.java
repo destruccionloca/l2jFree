@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -38,7 +39,10 @@ public class RequestGetItemFromPet extends L2GameClientPacket
 	protected void readImpl()
 	{
 		_objectId = readD();
-		_amount   = readD();
+		if(Config.PACKET_FINAL)
+			_amount   = toInt(readQ());
+		else
+			_amount   = readD();
 		_unknown  = readD();// = 0 for most trades
 	}
 

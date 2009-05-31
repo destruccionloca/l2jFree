@@ -18,10 +18,9 @@ import java.io.IOException;
 
 import com.l2jfree.gameserver.LoginServerThread.SessionKey;
 
-
 /**
  * @author -Wooden-
- *
+ * 
  */
 public class PlayerAuthRequest extends GameServerBasePacket
 {
@@ -34,14 +33,18 @@ public class PlayerAuthRequest extends GameServerBasePacket
 		writeD(key.loginOkID1);
 		writeD(key.loginOkID2);
 	}
-	
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.gameserverpackets.GameServerBasePacket#getContent()
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.l2jfree.gameserver.gameserverpackets.GameServerBasePacket#getContent
+	 * ()
 	 */
 	@Override
 	public byte[] getContent() throws IOException
 	{
 		return getBytes();
 	}
-	
+
 }

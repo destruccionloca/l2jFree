@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 import java.util.Arrays;
 import java.util.Comparator;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.HennaTreeTable;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -63,7 +64,10 @@ public final class HennaEquipList extends L2GameServerPacket
 	protected final void writeImpl()
 	{
 		writeC(0xee);
-		writeD(_player.getAdena());
+		if(Config.PACKET_FINAL)
+			writeQ(_player.getAdena());
+		else
+			writeD(_player.getAdena());
 		writeD(3); //available equip slot
 		writeD(_hennas.length);
 		
@@ -71,8 +75,17 @@ public final class HennaEquipList extends L2GameServerPacket
 		{
 			writeD(element.getSymbolId()); //symbolid
 			writeD(element.getItemId()); //itemid of dye
-			writeD(element.getAmount()); //amount of dye require
-			writeD(element.getPrice()); //amount of aden require
+			if(Config.PACKET_FINAL)
+			{
+				writeQ(element.getAmount()); //amount of dye require
+				writeQ(element.getPrice()); //amount of aden require
+			}
+			else
+			{
+				writeD(element.getAmount()); //amount of dye require
+				writeD(element.getPrice()); //amount of aden require
+			}
+
 			writeD(1); //meet the requirement or not
 		}
 	}

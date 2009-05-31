@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.TradeList;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
@@ -57,7 +58,10 @@ public class PrivateStoreManageListSell extends L2GameServerPacket
 		//section 1 
 		writeD(_objId);
 		writeD(_packageSale ? 1 : 0); // Package sell
-		writeD(_playerAdena);
+		if(Config.PACKET_FINAL)
+			writeQ(_playerAdena);
+		else
+			writeD(_playerAdena);
 
 		//section2 
 		writeD(_itemList.length); //for potential sells
@@ -66,18 +70,24 @@ public class PrivateStoreManageListSell extends L2GameServerPacket
 			writeD(item.getItem().getType2());
 			writeD(item.getObjectId());
 			writeD(item.getItem().getItemDisplayId());
-			writeD(item.getCount());
+			if(Config.PACKET_FINAL)
+				writeQ(item.getCount());
+			else
+				writeD(item.getCount());
 			writeH(0x00);
 			writeH(item.getEnchant());//enchant lvl
 			writeH(0x00);
 			writeD(item.getItem().getBodyPart());
-			writeD(item.getPrice()); //store price
+			if(Config.PACKET_FINAL)
+				writeQ(item.getPrice()); //store price
+			else
+				writeD(item.getPrice()); //store price
 
-			writeD(item.getAttackElementType());
-			writeD(item.getAttackElementPower());
+			writeH(item.getAttackElementType());
+			writeH(item.getAttackElementPower());
 			for (byte i = 0; i < 6; i++)
 			{
-				writeD(item.getElementDefAttr(i));
+				writeH(item.getElementDefAttr(i));
 			}
 		}
 
@@ -88,19 +98,30 @@ public class PrivateStoreManageListSell extends L2GameServerPacket
 			writeD(item.getItem().getType2()); 
 			writeD(item.getObjectId());
 			writeD(item.getItem().getItemDisplayId());
-			writeD(item.getCount());
+			if(Config.PACKET_FINAL)
+				writeQ(item.getCount());
+			else
+				writeD(item.getCount());
 			writeH(0x00);
 			writeH(item.getEnchant());//enchant lvl
 			writeH(0x00);
 			writeD(item.getItem().getBodyPart());
-			writeD(item.getPrice());//your price
-			writeD(item.getItem().getReferencePrice()); //store price
+			if(Config.PACKET_FINAL)
+			{
+				writeQ(item.getPrice());//your price
+				writeQ(item.getItem().getReferencePrice()); //store price
+			}
+			else
+			{
+				writeD(item.getPrice());//your price
+				writeD(item.getItem().getReferencePrice()); //store price
+			}
 
-			writeD(item.getAttackElementType());
-			writeD(item.getAttackElementPower());
+			writeH(item.getAttackElementType());
+			writeH(item.getAttackElementPower());
 			for (byte i = 0; i < 6; i++)
 			{
-				writeD(item.getElementDefAttr(i));
+				writeH(item.getElementDefAttr(i));
 			}
 		}
 	}

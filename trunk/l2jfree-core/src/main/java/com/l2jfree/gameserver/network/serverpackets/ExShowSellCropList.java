@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.instancemanager.CastleManorManager.CropProcure;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Manor;
@@ -100,15 +101,32 @@ public class ExShowSellCropList extends L2GameServerPacket
 			{
 				CropProcure crop = _castleCrops.get(item.getItemId()); 
 				writeD(_manorId);				// manor
-				writeD(crop.getAmount());		// buy residual
-				writeD(crop.getPrice());		// buy price
+				if(Config.PACKET_FINAL)
+				{
+					writeQ(crop.getAmount());		// buy residual
+					writeQ(crop.getPrice());		// buy price
+				}
+				else
+				{
+					writeD(crop.getAmount());		// buy residual
+					writeD(crop.getPrice());		// buy price
+				}
+					
 				writeC(crop.getReward());		// reward
 			}
 			else
 			{
 				writeD(0xFFFFFFFF); // manor
-				writeD(0);		  // buy residual
-				writeD(0);		  // buy price
+				if(Config.PACKET_FINAL)
+				{
+					writeQ(0);		  // buy residual
+					writeQ(0);		  // buy price
+				}
+				else
+				{
+					writeD(0);		  // buy residual
+					writeD(0);		  // buy price
+				}
 				writeC(0);		  // reward
 			}
 			writeD(item.getCount());// my crops

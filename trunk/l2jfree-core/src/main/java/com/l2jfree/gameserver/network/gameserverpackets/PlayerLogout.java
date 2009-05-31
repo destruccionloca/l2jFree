@@ -18,7 +18,7 @@ import java.io.IOException;
 
 /**
  * @author -Wooden-
- *
+ * 
  */
 public class PlayerLogout extends GameServerBasePacket
 {
@@ -27,14 +27,18 @@ public class PlayerLogout extends GameServerBasePacket
 		writeC(0x03);
 		writeS(player);
 	}
-	
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.gameserverpackets.GameServerBasePacket#getContent()
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.l2jfree.gameserver.gameserverpackets.GameServerBasePacket#getContent
+	 * ()
 	 */
 	@Override
 	public byte[] getContent() throws IOException
 	{
 		return getBytes();
 	}
-	
+
 }

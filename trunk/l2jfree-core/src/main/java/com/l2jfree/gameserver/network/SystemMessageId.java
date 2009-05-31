@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.network;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
@@ -12266,7 +12267,7 @@ public enum SystemMessageId
 	 * ID: 1983<br>
 	 * Message: $s1
 	 */
-	S1(1983),
+	S1(Config.PACKET_FINAL ? 1987 : 1983),
 
 	/**
 	 * ID: 1984<br>
@@ -15260,7 +15261,90 @@ public enum SystemMessageId
 	 * you complete the second class change, the character's capability is
 	 * enhanced.
 	 */
-	BECOME_LEVEL_40_INFORMATION(2617);
+	BECOME_LEVEL_40_INFORMATION(2617),
+
+	/**
+	* ID: 2321<br>
+	* Message: Current location: Inside Kamaloka
+	*/
+	LOC_KAMALOKA(2321),
+	
+	/**
+	* ID: 2322<br>
+	* Message: Current location: Inside Nia Kamaloka
+	*/
+	
+	LOC_NIA_KAMALOKA(2322),
+	/**
+	* ID: 2323<br>
+	* Message: Current location: Inside Rim Kamaloka
+	*/
+	LOC_RIM_KAMALOKA(2323),
+	
+	/**
+	 * ID: 2366<br>
+	 * Message: The limited-time item has been deleted..
+	 */
+	TIME_LIMITED_ITEM_DELETED(2366),
+	
+	/**
+	* ID: 2390<br>
+	* Message: Your number of My Teleports slots has reached its maximum limit.
+	*/
+	YOUR_NUMBER_OF_MY_TELEPORTS_SLOTS_HAS_REACHED_ITS_MAXIMUM_LIMIT(2390),
+	
+	/**
+	* ID: 2398<br>
+	* Message: You have no open My Teleports slots.
+	*/
+	YOU_HAVE_NO_OPEN_MY_TELEPORTS_SLOTS(2398),
+	
+	/**
+	* ID: 2409<br>
+	* Message: The number of My Teleports slots has been increased.
+	*/
+	THE_NUMBER_OF_MY_TELEPORTS_SLOTS_HAS_BEEN_INCREASED(2409),
+	/**
+	* ID: 2710<br>
+	* Message: Current location: $s1, $s2, $s3 (near the Keucereus clan association location)
+	*/
+	LOC_KEUCEREUS_S1_S2_S3(2710),
+	
+	/**
+	* ID: 2711<br>
+	* Message: Current location: $s1, $s2, $s3 (inside the Seed of Infinity)
+	*/
+	LOC_IN_SEED_INFINITY_S1_S2_S3(2711),
+	
+	/**
+	* ID: 2712<br>
+	* Message: Current location: $s1, $s2, $s3 (outside the Seed of Infinity)
+	*/
+	LOC_OUT_SEED_INFINITY_S1_S2_S3(2712),
+	
+	/**
+	* ID: 2716<br>
+	* Message: Current location: $s1, $s2, $s3 (inside Aerial Cleft)
+	*/
+	LOC_CLEFT_S1_S2_S3(2716),
+	
+	/**
+	* ID: 2721<br>
+	* Message: Boarding or cancellation of boarding on Airships is not allowed in the current area.
+	*/
+	BOARD_OR_CANCEL_NOT_POSSIBLE_HERE(2721),
+
+	/**
+	* ID: 2727<br>
+	* Message: You cannot mount because you do not meet the requirements.
+	*/
+	YOU_CANNOT_MOUNT_NOT_MEET_REQUEIREMENTS(2727),
+	
+	/**
+	* ID: 6501<br>
+	* Message: You cannot bookmark this location because you do not have a My Teleport Flag.
+	*/
+	YOU_CANNOT_BOOKMARK_THIS_LOCATION_BECAUSE_YOU_DO_NOT_HAVE_A_MY_TELEPORT_FLAG(6501);
 	
 	private final int _id;
 	private final int _size;

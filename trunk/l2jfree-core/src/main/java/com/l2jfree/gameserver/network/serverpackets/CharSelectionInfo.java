@@ -23,6 +23,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
@@ -153,13 +154,15 @@ public class CharSelectionInfo extends L2GameServerPacket
             
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_RBRACELET));
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_LBRACELET));
-            writeD(0x00);
-            writeD(0x00);
-            writeD(0x00);
-            writeD(0x00);
-            writeD(0x00);
-            writeD(0x00);
-
+            writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_DECO1));
+            writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_DECO2));
+            writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_DECO3));
+            writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_DECO4));
+            writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_DECO5));
+            writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_DECO6));
+            if(Config.PACKET_FINAL)
+            	writeD(0x00);
+            
             writeD(charInfoPackage.getHairStyle());
             writeD(charInfoPackage.getHairColor());
             writeD(charInfoPackage.getFace());
@@ -179,7 +182,7 @@ public class CharSelectionInfo extends L2GameServerPacket
 			writeC(charInfoPackage.getEnchantEffect() > 127 ? 127 : charInfoPackage.getEnchantEffect());
 			writeD(charInfoPackage.getAugmentationId());
 
-			writeD(0x00); // Currently on retail when you are on character select you don't see your transformation.
+			writeD(charInfoPackage.getTransformationId());
 		}
 	}
 

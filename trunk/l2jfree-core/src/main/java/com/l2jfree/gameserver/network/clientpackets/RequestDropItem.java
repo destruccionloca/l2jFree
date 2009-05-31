@@ -63,7 +63,10 @@ public class RequestDropItem extends L2GameClientPacket
     protected void readImpl()
     {
         _objectId = readD();
-        _count    = readD();
+        if(Config.PACKET_FINAL)
+        	_count    = toInt(readQ());
+        else
+        	_count    = readD();
         _x        = readD();
         _y        = readD();
         _z        = readD();

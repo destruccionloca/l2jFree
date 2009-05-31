@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.CastleManorManager;
 import com.l2jfree.gameserver.instancemanager.CastleManorManager.CropProcure;
@@ -73,8 +74,17 @@ public class ExShowProcureCropDetail extends L2GameServerPacket
 		{
 			CropProcure crop = _castleCrops.get(manorId); 
 			writeD(manorId);          // manor name
-			writeD(crop.getAmount()); // buy residual
-			writeD(crop.getPrice());  // buy price
+			if(Config.PACKET_FINAL)
+			{
+				writeQ(crop.getAmount()); // buy residual
+				writeQ(crop.getPrice());  // buy price
+			}
+			else
+			{
+				writeD(crop.getAmount()); // buy residual
+				writeD(crop.getPrice());  // buy price
+			}
+				
 			writeC(crop.getReward()); // reward type
 		}
 	}
