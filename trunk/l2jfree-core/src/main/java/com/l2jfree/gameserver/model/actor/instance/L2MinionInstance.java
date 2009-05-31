@@ -25,7 +25,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  * 
  * @version $Revision: 1.20.4.6 $ $Date: 2005/04/06 16:13:39 $
  */
-public final class L2MinionInstance extends L2MonsterInstance
+public class L2MinionInstance extends L2MonsterInstance
 {
 	/** The master L2Character whose depends this L2MinionInstance on */
 	private L2MonsterInstance _master;

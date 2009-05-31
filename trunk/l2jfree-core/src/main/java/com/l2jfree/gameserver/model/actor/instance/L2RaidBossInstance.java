@@ -25,7 +25,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  * 
  * @version $Revision: 1.20.4.6 $ $Date: 2005/04/06 16:13:39 $
  */
-public final class L2RaidBossInstance extends L2Boss
+public class L2RaidBossInstance extends L2Boss
 {
     /**
      * Constructor of L2RaidBossInstance (use L2Character and L2NpcInstance constructor).<BR><BR>

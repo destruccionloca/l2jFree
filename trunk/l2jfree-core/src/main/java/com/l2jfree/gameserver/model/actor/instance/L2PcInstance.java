@@ -31,6 +31,8 @@ import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
+import javolution.util.FastList;
+
 import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.Announcements;
@@ -187,6 +189,7 @@ import com.l2jfree.gameserver.network.serverpackets.ExBasicActionList;
 import com.l2jfree.gameserver.network.serverpackets.ExDuelUpdateUserInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExFishingEnd;
 import com.l2jfree.gameserver.network.serverpackets.ExFishingStart;
+import com.l2jfree.gameserver.network.serverpackets.ExGetBookMarkInfoPacket;
 import com.l2jfree.gameserver.network.serverpackets.ExOlympiadMode;
 import com.l2jfree.gameserver.network.serverpackets.ExOlympiadSpelledInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExOlympiadUserInfo;
@@ -199,6 +202,7 @@ import com.l2jfree.gameserver.network.serverpackets.HennaInfo;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
+import com.l2jfree.gameserver.network.serverpackets.LeaveWorld;
 import com.l2jfree.gameserver.network.serverpackets.MagicEffectIcons;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
@@ -278,6 +282,12 @@ import com.l2jfree.util.SingletonMap;
  */
 public final class L2PcInstance extends L2Playable
 {
+    // Character Teleport Bookmark:
+    private static final String INSERT_TP_BOOKMARK 				= "INSERT INTO character_tpbookmark (charId,Id,x,y,z,icon,tag,name) values (?,?,?,?,?,?,?,?)";
+    private static final String UPDATE_TP_BOOKMARK 				= "UPDATE character_tpbookmark SET icon=?,tag=?,name=? where charId=? AND Id=?";	
+    private static final String RESTORE_TP_BOOKMARK 			= "SELECT Id,x,y,z,icon,tag,name FROM character_tpbookmark WHERE charId=?";	
+    private static final String DELETE_TP_BOOKMARK 				= "DELETE FROM character_tpbookmark WHERE charId=? AND Id=?";
+	
 	// Character Skill SQL String Definitions:
 	private static final String	RESTORE_SKILLS_FOR_CHAR			= "SELECT skill_id,skill_level FROM character_skills WHERE charId=? AND class_index=?";
 	private static final String	ADD_NEW_SKILL					= "INSERT INTO character_skills (charId,skill_id,skill_level,skill_name,class_index) VALUES (?,?,?,?,?)";
@@ -437,6 +447,9 @@ public final class L2PcInstance extends L2Playable
 	private int								_lastCompassZone;																	// The last compass zone update send to the client
 
 	private boolean							_isIn7sDungeon			= false;
+	
+	public int 								_bookmarkslot = 0; // The Teleport Bookmark Slot
+	public FastList<TeleportBookmark> 		tpbookmark = new FastList<TeleportBookmark>();
 
 	private int								_subPledgeType			= 0;
 
@@ -463,6 +476,10 @@ public final class L2PcInstance extends L2Playable
 
 	/** True if the L2PcInstance is in a boat */
 	private boolean							_inBoat;
+    /** AirShip */
+    private L2AirShipInstance 				_airShip;
+	private boolean 						_inAirShip;
+	private Point3D 						_inAirShipPosition;
 
 	/** Last NPC Id talked on a quest */
 	private int								_questNpcObject			= 0;
@@ -504,7 +521,7 @@ public final class L2PcInstance extends L2Playable
 	private boolean							_isRidingStrider		= false;
 	private boolean							_isRidingRedStrider		= false;
 	private boolean							_isRidingHorse			= false;
-	private boolean							_isFlyingWyvern			= false;
+	private boolean 						_isFlyingMounted 		= false;
 
 	/** The L2Summon of the L2PcInstance */
 	private L2Summon						_summon					= null;
@@ -644,6 +661,11 @@ public final class L2PcInstance extends L2Playable
 	public int								_originalNameColorTvT, _countTvTkills, _countTvTdies, _originalKarmaTvT;
 	public boolean							_inEventTvT				= false;
 
+	/** TvT Instanced Engine parameters */
+	public String							_originalTitleTvTi;
+	public int								_originalNameColorTvTi, _originalKarmaTvTi, _countTvTiKills = 0, _countTvTITeamKills = 0;
+	public boolean							_inEventTvTi			= false, _isSitForcedTvTi = false, _joiningTvTi = false;
+	
 	/** CTF Engine parameters */
 	public String							_teamNameCTF, _teamNameHaveFlagCTF, _originalTitleCTF;
 	public int								_originalNameColorCTF, _originalKarmaCTF, _countCTFflags;
@@ -812,6 +834,9 @@ public final class L2PcInstance extends L2Playable
 
 	// Id of the afro hair cut
 	private int								_afroId					= 0;
+	
+	// offline shops
+	private boolean	_isOffline			= false;
 
 	private class VitalityTask implements Runnable
 	{
@@ -2538,7 +2563,7 @@ public final class L2PcInstance extends L2Playable
 		{
 			sendMessage("A dark force beyond your mortal understanding makes your knees to shake when you try to stand up ...");
 		}
-		else if (TvT._sitForced && _inEventTvT || CTF._sitForced && _inEventCTF || DM._sitForced && _inEventDM || VIP._sitForced && _inEventVIP)
+		else if (TvT._sitForced && _inEventTvT || CTF._sitForced && _inEventCTF || DM._sitForced && _inEventDM || VIP._sitForced && _inEventVIP || _isSitForcedTvTi)
 			sendMessage("The Admin/GM handle if you sit or stand in this match!");
 		else if (_waitTypeSitting && !isInStoreMode() && !isAlikeDead() && (!isTryingToSitOrStandup() || force))
 		{
@@ -3541,7 +3566,7 @@ public final class L2PcInstance extends L2Playable
 		}
 
 		if (((TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (CTF._started && !Config.CTF_ALLOW_INTERFERENCE)
-				|| (DM._started && !Config.DM_ALLOW_INTERFERENCE) || (VIP._started && !Config.VIP_ALLOW_INTERFERENCE)) && !isGM())
+				|| ((player._inEventTvTi || _inEventTvTi) && !Config.TVTI_ALLOW_INTERFERENCE) || (DM._started && !Config.DM_ALLOW_INTERFERENCE) || (VIP._started && !Config.VIP_ALLOW_INTERFERENCE)) && !isGM())
 		{
 			if ((_inEventTvT && !player._inEventTvT) || (!_inEventTvT && player._inEventTvT))
 			{
@@ -3559,7 +3584,11 @@ public final class L2PcInstance extends L2Playable
 				sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
-			
+			else if ((_inEventTvTi && !player._inEventTvTi) || (!_inEventTvTi && player._inEventTvTi))
+			{
+				sendPacket(ActionFailed.STATIC_PACKET);
+				return;
+			}			
 			else if ((_inEventVIP && !player._inEventVIP) || (!_inEventVIP && player._inEventVIP))
 			{
 				sendPacket(ActionFailed.STATIC_PACKET);
@@ -3599,7 +3628,7 @@ public final class L2PcInstance extends L2Playable
 			{
 				// Check if this L2PcInstance is autoAttackable
 				if (isAutoAttackable(player) || (player._inEventTvT && TvT._started) || (player._inEventCTF && CTF._started)
-						|| (player._inEventDM && DM._started) || (player._inEventVIP && VIP._started) && !isGM())
+						|| (player._inEventDM && DM._started) || (player._inEventVIP && VIP._started) && !isGM() || (player._inEventTvTi && !player._joiningTvTi))
 				{
 					// Player with lvl < 21 can't attack a cursed weapon holder
 					// And a cursed weapon holder  can't attack players with lvl < 21
@@ -3663,7 +3692,7 @@ public final class L2PcInstance extends L2Playable
 	@Override
 	public boolean isInFunEvent()
 	{
-		return (atEvent || (TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF) || (VIP._started && _inEventVIP) && !isGM());
+		return (atEvent || (TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF) || (VIP._started && _inEventVIP) && !isGM() || _inEventTvTi);
 	}
 
 	/**
@@ -4438,6 +4467,7 @@ public final class L2PcInstance extends L2Playable
 			if (GlobalRestrictions.playerKilled(killer, this))
 			{
 			}
+			
 			else if (pk != null)
 			{
 				clanWarKill = pk.getClan() != null && getClan() != null && !isAcademyMember() && !pk.isAcademyMember() &&
@@ -4544,6 +4574,10 @@ public final class L2PcInstance extends L2Playable
 		// Unsummon the Pet
 		//if (getPet() != null) getPet().unSummon(this);
 
+		// Untransforms character.
+		if (!isFlyingMounted() && isTransformed())
+			untransform();
+		
 		// Unsummon Cubics
 		if (!_cubics.isEmpty())
 		{
@@ -4593,6 +4627,16 @@ public final class L2PcInstance extends L2Playable
 		return true;
 	}
 
+	public void removeCTFFlagOnDie()
+	{
+		CTF._flagsTaken.set(CTF._teams.indexOf(_teamNameHaveFlagCTF), false);
+		CTF.spawnFlag(_teamNameHaveFlagCTF);
+		CTF.removeFlagFromPlayer(this);
+		broadcastUserInfo();
+		_haveFlagCTF = false;
+		CTF.AnnounceToPlayers(false, CTF._eventName + "(CTF): " + _teamNameHaveFlagCTF + "'s flag returned.");
+	}
+	
 	/** UnEnquip on skills with disarm effect **/
 	public void onDisarm(L2PcInstance target)
 	{
@@ -4602,7 +4646,7 @@ public final class L2PcInstance extends L2Playable
 	private void onDieDropItem(L2Character killer)
 	{
 		if (atEvent || (TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF) || (VIP._started && _inEventVIP)
-				|| killer == null)
+				||  _inEventTvTi || killer == null)
 			return;
 
 		L2PcInstance pk = killer.getActingPlayer();
@@ -4728,7 +4772,7 @@ public final class L2PcInstance extends L2Playable
 			return;
 		if (!(target instanceof L2Playable))
 			return;
-		if (_inEventCTF || _inEventTvT || _inEventVIP || _inEventDM)
+		if (_inEventCTF || _inEventTvT || _inEventVIP || _inEventDM || _inEventTvTi)
 			return;
 
 		L2PcInstance targetPlayer = target.getActingPlayer();
@@ -4848,7 +4892,7 @@ public final class L2PcInstance extends L2Playable
 	 */
 	public void increasePvpKills()
 	{
-		if ((TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (VIP._started && _inEventVIP) || (CTF._started && _inEventCTF))
+		if ((TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (VIP._started && _inEventVIP) || (CTF._started && _inEventCTF) || _inEventTvTi)
 			return;
 
 		// Add karma to attacker and increase its PK counter
@@ -4865,7 +4909,7 @@ public final class L2PcInstance extends L2Playable
 	 */
 	public void increasePkKillsAndKarma(int targLVL)
 	{
-		if ((TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (VIP._started && _inEventVIP) || (CTF._started && _inEventCTF))
+		if ((TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (VIP._started && _inEventVIP) || (CTF._started && _inEventCTF) || _inEventTvTi)
 			return;
 
 		int baseKarma = (int)(Config.KARMA_MIN_KARMA * Config.KARMA_RATE);
@@ -4942,7 +4986,7 @@ public final class L2PcInstance extends L2Playable
 
 	public void updatePvPStatus()
 	{
-		if ((TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF) || (_inEventVIP && VIP._started))
+		if ((TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF) || (_inEventVIP && VIP._started) || _inEventTvTi)
 			return;
 
 		if (isInsideZone(L2Zone.FLAG_PVP))
@@ -4960,7 +5004,7 @@ public final class L2PcInstance extends L2Playable
 		if (player_target == null)
 			return;
 		if ((TvT._started && _inEventTvT && player_target._inEventTvT) || (DM._started && _inEventDM && player_target._inEventDM)
-				|| (CTF._started && _inEventCTF && player_target._inEventCTF) || (_inEventVIP && VIP._started && player_target._inEventVIP))
+				|| (CTF._started && _inEventCTF && player_target._inEventCTF) || (_inEventVIP && VIP._started && player_target._inEventVIP) || (_inEventTvTi && player_target._inEventTvTi))
 			return;
 		if (AutomatedTvT.isPlaying(this) && AutomatedTvT.isPlaying(player_target))
 			return;
@@ -5082,7 +5126,7 @@ public final class L2PcInstance extends L2Playable
 
 		// Calculate the Experience loss
 		long lostExp = 0;
-		if (!atEvent && !_inEventTvT && !_inEventDM && !_inEventCTF && (!_inEventVIP && !VIP._started))
+		if (!atEvent && !_inEventTvT && !_inEventDM && !_inEventCTF && (!_inEventVIP && !VIP._started) && !_inEventTvTi)
 		{
 			if (lvl < Experience.MAX_LEVEL)
 				lostExp = Math.round((getStat().getExpForLevel(lvl + 1) - getStat().getExpForLevel(lvl)) * percentLost / 100);
@@ -7795,6 +7839,9 @@ public final class L2PcInstance extends L2Playable
 	 */
 	public boolean canUseMagic(L2Skill skill)
 	{
+		if ((!containsAllowedTransformSkill(skill.getId()) && !skill.allowOnTransform()) && isTransformed() && !skill.isPotion())
+			return false;
+		
 		if (skill == null || skill.getSkillType() == L2SkillType.NOTDONE)
 			return false;
 		
@@ -8477,7 +8524,7 @@ public final class L2PcInstance extends L2Playable
 	 */
 	public boolean checkPvpSkill(L2Object obj, L2Skill skill,boolean srcIsSummon)
 	{
-		if ((_inEventTvT && TvT._started) || (_inEventDM && DM._started) || (_inEventCTF && CTF._started) || (_inEventVIP && VIP._started))
+		if ((_inEventTvT && TvT._started) || (_inEventDM && DM._started) || (_inEventCTF && CTF._started) || (_inEventVIP && VIP._started) || _inEventTvTi)
 			return true;
 
 		// Check for PC->PC Pvp status
@@ -10268,7 +10315,7 @@ public final class L2PcInstance extends L2Playable
 		getShortCuts().restore();
 		sendPacket(new ShortCutInit(this));
 
-		broadcastPacket(new SocialAction(getObjectId(), 15));
+		broadcastPacket(new SocialAction(getObjectId(), SocialAction.LEVEL_UP));
 		sendPacket(new SkillCoolTime(this));
 
 		broadcastClassIcon();
@@ -10598,7 +10645,7 @@ public final class L2PcInstance extends L2Playable
 				getParty().getDimensionalRift().memberRessurected(this);
 		}
 
-		if ((_inEventTvT && TvT._started && Config.TVT_REVIVE_RECOVERY) || (_inEventCTF && CTF._started && Config.CTF_REVIVE_RECOVERY))
+		if ((_inEventTvT && TvT._started && Config.TVT_REVIVE_RECOVERY) || (_inEventCTF && CTF._started && Config.CTF_REVIVE_RECOVERY) || (_inEventTvTi && Config.TVTI_REVIVE_RECOVERY))
 		{
 			getStatus().setCurrentHp(getMaxHp());
 			getStatus().setCurrentMp(getMaxMp());
@@ -11056,6 +11103,41 @@ public final class L2PcInstance extends L2Playable
 		_boat = boat;
 	}
 
+	/**
+	 * @return Returns the inAirShip.
+	 */
+	public boolean isInAirShip()
+	{
+		return _inAirShip;
+	}
+
+	/**
+	 * @param inAirShip The inAirShip to set.
+	 */
+	public void setInAirShip(boolean inAirShip)
+	{
+		_inAirShip = inAirShip;
+	}
+
+	/**
+	 * @return
+	 */
+	public L2AirShipInstance getAirShip()
+	{
+		return _airShip;
+	}
+
+	/**
+	 * @param airShip
+	 */
+	public void setAirShip(L2AirShipInstance airShip)
+	{
+		if (airShip != null)
+			setInAirShip(true);
+		else
+			setInAirShip(false);
+		_airShip = airShip;
+	}	
 	public void setInCrystallize(boolean inCrystallize)
 	{
 		_inCrystallize = inCrystallize;
@@ -11079,6 +11161,19 @@ public final class L2PcInstance extends L2Playable
 		_inBoatPosition = pt;
 	}
 
+	/**
+	 * @return
+	 */
+	public Point3D getInAirShipPosition()
+	{
+		return _inAirShipPosition;
+	}
+
+	public void setInAirShipPosition(Point3D pt)
+	{
+		_inAirShipPosition = pt;
+	}
+	
 	/**
 	 * Manage the delete task of a L2PcInstance (Leave Party, Unsummon pet, Save its inventory in the database, Remove it from the world...).<BR><BR>
 	 *
@@ -11167,7 +11262,9 @@ public final class L2PcInstance extends L2Playable
 		// Check if the L2PcInstance is in observer mode to set its position to its position before entering in observer mode
 		if (inObserverMode())
 			getPosition().setXYZ(_obsX, _obsY, _obsZ);
-
+		else if (isInAirShip())
+			getAirShip().oustPlayer(this);
+		
 		Castle castle = null;
 		if (getClan() != null) {
 			castle = CastleManager.getInstance().getCastleByOwner(getClan());
@@ -12382,15 +12479,6 @@ public final class L2PcInstance extends L2Playable
 	{
 		return _isRidingHorse;
 	}
-	/**
-	 * PcInstance flying wyvern
-	 * @return
-	 */
-	@Override
-	public final boolean isFlying()
-	{
-		return _isFlyingWyvern;
-	}
 
 	/** Set the L2Character riding mode to True. */
 	public final void setIsRidingStrider(boolean mode)
@@ -12408,11 +12496,6 @@ public final class L2PcInstance extends L2Playable
 		_isRidingHorse = mode;
 	}
 	
-	public final void setIsFlying(boolean mode)
-	{
-		_isFlyingWyvern = mode;
-	}
-
 	public int getCharges()
 	{
 		return _charges;
@@ -13065,7 +13148,7 @@ public final class L2PcInstance extends L2Playable
 		transformation.onTransform(this);
 		sendSkillList();
 		sendPacket(new SkillCoolTime(this));
-		sendPacket(ExBasicActionList.TRANSFORMED_ACTION_LIST);
+		sendPacket(new ExBasicActionList());
 		broadcastUserInfo();
 	}
 
@@ -14084,5 +14167,336 @@ public final class L2PcInstance extends L2Playable
 			return clazz.cast(target);
 		else
 			return null;
+	}
+	
+    public class TeleportBookmark
+    {
+    	public int _id,_x,_y,_z,_icon;
+    	public String _name,_tag;
+    	
+    	TeleportBookmark(int id, int x, int y, int z, int icon,String tag , String name)
+    	{
+    		_id = id;
+    		_x = x;
+    		_y = y;
+    		_z = z;
+    		_icon = icon;
+    		_name = name;
+    		_tag = tag;
+    	}
+    	
+    }
+    
+    public void TeleportBookmarkModify(int Id,int icon, String tag,String name)
+    {
+    	int count = 0;
+    	int size = tpbookmark.size();
+    	while(size > count)
+    	{
+    		if(tpbookmark.get(count)._id==Id)
+    		{
+    			tpbookmark.get(count)._icon = icon;
+    			tpbookmark.get(count)._tag = tag;
+    			tpbookmark.get(count)._name = name;
+    			
+    			Connection con = null;
+
+    			try
+    			{
+
+    				con = L2DatabaseFactory.getInstance().getConnection();
+    				PreparedStatement statement = con.prepareStatement(UPDATE_TP_BOOKMARK);
+    				
+    				statement.setInt(1, icon);
+    				statement.setString(2, tag);
+    				statement.setString(3, name);
+    				statement.setInt(4, getObjectId());
+    				statement.setInt(5, Id);
+
+    				statement.execute();
+    				statement.close();
+    			}
+    			catch (Exception e) { _log.warn("Could not update character teleport bookmark data: "+ e); }
+    			finally { try { con.close(); } catch (Exception e) {} }
+    			
+    		}
+    		count++;
+    	}
+    	
+    	sendPacket(new ExGetBookMarkInfoPacket(this));
+    	
+    }
+    
+    public void TeleportBookmarkDelete(int Id)
+    {
+		Connection con = null;
+
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection();
+			PreparedStatement statement = con.prepareStatement(DELETE_TP_BOOKMARK);
+			
+			statement.setInt(1, getObjectId());
+			statement.setInt(2, Id);
+
+			statement.execute();
+			statement.close();
+		}
+		catch (Exception e) { _log.warn("Could not delete character teleport bookmark data: "+ e); }
+		finally { try { con.close(); } catch (Exception e) {} }
+		
+		int count = 0;
+		int size = tpbookmark.size();
+		
+    	while(size > count)
+    	{
+    		if(tpbookmark.get(count)._id==Id)
+    		{
+    			tpbookmark.remove(count);
+    			break;
+    		}
+    		count++;
+    	}
+    	
+		sendPacket(new ExGetBookMarkInfoPacket(this));
+    }
+    
+    public void TeleportBookmarkGo(int Id)
+    {
+    	if(!TeleportBookmarkCondition(0)||this==null)
+    		return;
+    	if (getInventory().getInventoryItemCount(13016,0)==0)
+    	{
+    		sendPacket(new SystemMessage(2359));
+    		return;
+    	}
+    	SystemMessage sm = new SystemMessage(SystemMessageId.S1_DISAPPEARED);
+    	sm.addItemName(13016);
+    	sendPacket(sm);
+    	int count = 0;
+    	int size = tpbookmark.size();
+    	while(size > count)
+    	{
+    		if(tpbookmark.get(count)._id==Id)
+    		{
+    			destroyItem("Consume", getInventory().getItemByItemId(13016).getObjectId(), 1, null, false);
+    			this.teleToLocation(tpbookmark.get(count)._x, tpbookmark.get(count)._y, tpbookmark.get(count)._z);
+    			break;
+    		}
+    		count++;
+    	}
+    	sendPacket(new ExGetBookMarkInfoPacket(this));
+    }
+    
+    public boolean TeleportBookmarkCondition(int type)
+    {
+    	
+    	if(this.isInCombat())
+    	{
+    		sendPacket(new SystemMessage(2348));
+    		return false;
+    	}
+    	else if (this.isInSiege())
+    	{
+    		sendPacket(new SystemMessage(2349));
+    		return false;
+    	}
+    	else if (this.isInDuel())
+    	{
+    		sendPacket(new SystemMessage(2350));
+    		return false;
+    	}
+    	else if (this.isFlying())
+    	{
+    		sendPacket(new SystemMessage(2351));
+    		return false;
+    	}
+    	else if (this.isInOlympiadMode())
+    	{
+    		sendPacket(new SystemMessage(2352));
+    		return false;
+    	}
+    	else if (this.isParalyzed())
+    	{
+    		sendPacket(new SystemMessage(2353));
+    		return false;
+    	}
+    	else if (this.isDead())
+    	{
+    		sendPacket(new SystemMessage(2354));
+    		return false;
+    	}
+    	else if (this.isInBoat() || this.isInAirShip() || this.isInJail() || this.isInsideZone(L2Zone.FLAG_NOSUMMON))
+    	{
+    		if(type == 0)
+    			sendPacket(new SystemMessage(2355));
+    		else if (type == 1)
+    			sendPacket(new SystemMessage(2410));
+    		return false;
+    	}
+    	else if (this.isInWater())
+    	{
+    		sendPacket(new SystemMessage(2356));
+    		return false;
+    	}
+    	/* TODO: Instant Zone still not implement
+    	else if (this.isInsideZone(ZONE_INSTANT))
+    	{
+    		sendPacket(new SystemMessage(2357));
+    		return;
+    	}
+    	*/
+    	else 
+    		return true;
+    }
+    
+    public void TeleportBookmarkAdd(int x,int y,int z,int icon, String tag, String name)
+    {
+    	if(this == null)
+    		return;
+    	
+    	if(!TeleportBookmarkCondition(1))
+    		return;
+    	
+    	if(tpbookmark.size()>=_bookmarkslot)
+    	{
+    		sendPacket(new SystemMessage(2358));
+    		return;
+    	}
+    	
+    	if(getInventory().getInventoryItemCount(20033,0) == 0)
+    	{
+    		sendPacket(new SystemMessage(6501));
+    		return;
+    	}
+
+    	int count = 0;
+    	int id = 1;
+    	FastList<Integer> idlist = new FastList<Integer>();
+    	
+    	int size = tpbookmark.size();
+    	
+    	while(size > count)
+    	{
+    		idlist.add(tpbookmark.get(count)._id);
+    		count++;
+    	}
+    	
+    	for(int i=1;i<10;i++)
+    	{
+    		if(!idlist.contains(i))
+    		{
+    			id = i;
+    			break;
+    		}
+    	}
+    	
+    	TeleportBookmark tpadd = new TeleportBookmark(id,x,y,z,icon,tag,name);
+    	if(tpbookmark==null)
+    		tpbookmark = new FastList<TeleportBookmark>();
+    	
+    	tpbookmark.add(tpadd);
+
+    	destroyItem("Consume", getInventory().getItemByItemId(20033).getObjectId(), 1, null, false);
+    	
+    	SystemMessage sm = new SystemMessage(SystemMessageId.S1_DISAPPEARED);
+    	sm.addItemName(20033);
+    	sendPacket(sm);
+    	
+    	Connection con = null;
+
+		try
+		{
+
+			con = L2DatabaseFactory.getInstance().getConnection();
+			PreparedStatement statement = con.prepareStatement(INSERT_TP_BOOKMARK);
+			
+			statement.setInt(1, getObjectId());
+			statement.setInt(2, id);
+			statement.setInt(3, x);
+			statement.setInt(4, y);
+			statement.setInt(5, z);
+			statement.setInt(6, icon);
+			statement.setString(7, tag);
+			statement.setString(8, name);
+
+
+			statement.execute();
+			statement.close();
+		}
+		catch (Exception e) { _log.warn("Could not insert character teleport bookmark data: "+ e); }
+		finally { try { con.close(); } catch (Exception e) {} }
+		
+		sendPacket(new ExGetBookMarkInfoPacket(this));
+    }
+    
+    public void restoreTeleportBookmark()
+    {
+    	if(tpbookmark==null)
+    		tpbookmark = new FastList<TeleportBookmark>();
+    	Connection con = null;
+
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection();
+			PreparedStatement statement = con.prepareStatement(RESTORE_TP_BOOKMARK);
+			statement.setInt(1, getObjectId());
+			ResultSet rset = statement.executeQuery();
+
+			while (rset.next())
+			{
+				tpbookmark.add(new TeleportBookmark(rset.getInt("Id"), rset.getInt("x"), rset.getInt("y"), rset.getInt("z"), rset.getInt("icon"), rset.getString("tag"), rset.getString("name")));
+			}
+
+			rset.close();
+			statement.close();
+		}
+		catch (Exception e)
+		{
+		    _log.fatal("Failed restoing character teleport bookmark.", e);
+		}
+		finally
+		{
+			try { con.close(); } catch (Exception e) {}
+		}
+    }
+
+    public boolean isFlyingMounted()
+    {
+	    return _isFlyingMounted;
+    }
+    
+    public void setIsFlyingMounted(boolean val)
+    {
+    	_isFlyingMounted = val;
+    	setIsFlying(val);
+    }
+    
+    public void cleanOffline()
+    {
+    	_isOffline=false;
+    }
+    
+	public boolean setOffline()
+	{
+		synchronized (this)
+		{
+			if (_isOffline)
+				return false;
+        
+			_isOffline = true;
+        	leaveParty();
+        	if (Config.ALLOW_OFFLINE_TRADE_COLOR_NAME)
+        		getAppearance().setNameColor(Config.OFFLINE_TRADE_COLOR_NAME);
+        	sendMessage("Offline Mode enabled, Good Bye " + getName() + "");
+        	sendPacket(LeaveWorld.STATIC_PACKET);
+        	getClient().setActiveChar(null);
+        	return true;
+		}
+	}    
+	
+	public boolean isOffline()
+	{
+		return _isOffline;
 	}
 }
