@@ -61,8 +61,8 @@ public class ChatShout implements IChatHandler
 		{
 			IrcManager.getInstance().getConnection().sendChan("07!" + activeChar.getName() + ": " + text);
 		}
-
-		CreatureSay cs = new CreatureSay(activeChar.getObjectId(), chatType, activeChar.getName(), text);
+		String name = activeChar.isGM()? "[GM]" + activeChar.getName() : activeChar.getName();
+		CreatureSay cs = new CreatureSay(activeChar.getObjectId(), chatType, name, text);
 
 		if (Config.DEFAULT_GLOBAL_CHAT == ChatMode.REGION)
 		{

@@ -43,7 +43,8 @@ public class ChatAll implements IChatHandler
 	 */
 	public void useChatHandler(L2PcInstance activeChar, String target, SystemChatChannelId chatType, String text)
 	{
-		String name = activeChar.getAppearance().getVisibleName();
+		String name = activeChar.isGM()? "[GM]" + activeChar.getAppearance().getVisibleName() : activeChar.getAppearance().getVisibleName();
+		
 		CreatureSay cs = new CreatureSay(activeChar.getObjectId(), chatType, name, text);
 
 		for (L2PcInstance player : activeChar.getKnownList().getKnownPlayers().values())
