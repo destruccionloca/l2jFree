@@ -435,4 +435,29 @@ public final class Util
 		}
 		return bools;
 	}
+	
+	/**
+	 * Return amount of adena formatted with "," delimiter
+	 * 
+	 * @param amount
+	 * @return String formatted adena amount
+	 */
+	public static String formatAdena(int amount)
+	{
+		String s = "";
+		int rem = amount % 1000;
+		s = Integer.toString(rem);
+		amount = (amount - rem) / 1000;
+		while (amount > 0)
+		{
+			if (rem < 99)
+				s = '0' + s;
+			if (rem < 9)
+				s = '0' + s;
+			rem = amount % 1000;
+			s = Integer.toString(rem) + "," + s;
+			amount = (amount - rem) / 1000;
+		}
+		return s;
+	}
 }
