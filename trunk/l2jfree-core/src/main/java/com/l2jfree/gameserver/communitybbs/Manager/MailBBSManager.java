@@ -947,9 +947,11 @@ public class MailBBSManager extends BaseBBSManager
 		}
 	}
 
-	/** FIXME is there a better way? */
 	private String getCharName(int charId)
 	{
+		if(charId==100100)
+			return "Auction";
+		
 		String name = CharNameTable.getInstance().getByObjectId(charId);
 		
 		return name == null ? "No Name" : name;
@@ -964,6 +966,9 @@ public class MailBBSManager extends BaseBBSManager
 
 	private boolean isGM(int charId)
 	{
+		if(charId==100100)
+			return false;
+		
 		boolean isGM = false;
 
 		Connection con = null;
