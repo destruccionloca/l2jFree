@@ -126,6 +126,7 @@ public final class Config extends L2Config
 	public static int			MAX_PROTOCOL_REVISION;
 	public static File			DATAPACK_ROOT;																		// Datapack root directory
 	public static Level			EXTENDED_LOG_LEVEL					= Level.WARNING;
+	public static boolean		PACKET_FINAL;
 
 	// *******************************************************************************************
 	public static void loadConfiguration()
@@ -208,6 +209,7 @@ public final class Config extends L2Config
 			SAFE_REBOOT_DISABLE_TRANSACTION = Boolean.parseBoolean(serverSettings.getProperty("SafeRebootDisableTransaction", "False"));
 			SAFE_REBOOT_DISABLE_PC_ITERACTION = Boolean.parseBoolean(serverSettings.getProperty("SafeRebootDisablePcIteraction", "False"));
 			SAFE_REBOOT_DISABLE_NPC_ITERACTION = Boolean.parseBoolean(serverSettings.getProperty("SafeRebootDisableNpcIteraction", "False"));
+			PACKET_FINAL = Boolean.parseBoolean(customSettings.getProperty("PacketFinal", "False"));
 			
 			EXTENDED_LOG_LEVEL = Level.parse(serverSettings.getProperty("ExtendedLogLevel", "WARNING"));
 		}
@@ -1169,6 +1171,18 @@ public final class Config extends L2Config
 	public static boolean			SERVER_LIST_CLOCK;											// Displays a clock next to the server name ?
 	public static boolean			SERVER_LIST_TESTSERVER;										// Display test server in the list of servers ?
 	
+	public static int				AUCTION_SPECIAL_CURRENCY;
+	public static String			AUCTION_SPECIAL_CURRENCY_ICON;
+	public static String			AUCTION_EXCLUDED_ITEMS;
+	public static FastList<Integer>	AUCTION_EXCLUDED_ITEMS_LIST	= new FastList<Integer>();
+	public static String			AUCTION_INCLUDED_ITEMS;
+	public static FastList<Integer>	AUCTION_INCLUDED_ITEMS_LIST	= new FastList<Integer>();
+	public static boolean			ALLOW_OFFLINE_TRADE;
+	public static boolean			ALLOW_OFFLINE_TRADE_CRAFT;
+	public static boolean			ALLOW_OFFLINE_TRADE_COLOR_NAME;
+	public static int				OFFLINE_TRADE_COLOR_NAME;
+	public static boolean			ALLOW_OFFLINE_TRADE_PROTECTION;
+	
 	// *******************************************************************************************
 	private static final class OptionsConfig extends ConfigLoader
 	{
@@ -1349,6 +1363,27 @@ public final class Config extends L2Config
 			ALLOW_MASTERWORK = Boolean.parseBoolean(optionsSettings.getProperty("AllowMasterwork", "False"));
 			ALLOW_CRITICAL_CRAFT = Boolean.parseBoolean(optionsSettings.getProperty("AllowCriticalCraft", "False"));
 			BAN_CLIENT_EMULATORS = Boolean.parseBoolean(optionsSettings.getProperty("AutoBanClientEmulators", "True"));
+			
+			AUCTION_SPECIAL_CURRENCY = Integer.parseInt(customSettings.getProperty("AuctionSpecialCurrency", "8575"));
+			AUCTION_SPECIAL_CURRENCY_ICON = customSettings.getProperty("AuctionSpecialCurrencyIcon", "etc_box_of_adventure_3_i00");
+			AUCTION_EXCLUDED_ITEMS = customSettings.getProperty("AuctionExcludedItems", "57,5575");
+			AUCTION_EXCLUDED_ITEMS_LIST = new FastList<Integer>();
+			for (String id : AUCTION_EXCLUDED_ITEMS.trim().split(","))
+			{
+				AUCTION_EXCLUDED_ITEMS_LIST.add(Integer.parseInt(id.trim()));
+			}
+
+			AUCTION_INCLUDED_ITEMS = customSettings.getProperty("AuctionIncludedItems", "8575");
+			AUCTION_INCLUDED_ITEMS_LIST = new FastList<Integer>();
+			for (String id : AUCTION_INCLUDED_ITEMS.trim().split(","))
+			{
+				AUCTION_INCLUDED_ITEMS_LIST.add(Integer.parseInt(id.trim()));
+			}
+		    ALLOW_OFFLINE_TRADE = Boolean.parseBoolean(customSettings.getProperty("AllowOfflineTrade", "false")); 
+		    ALLOW_OFFLINE_TRADE_CRAFT = Boolean.parseBoolean(customSettings.getProperty("AllowOfflineTradeCraft", "true")); 
+		    ALLOW_OFFLINE_TRADE_COLOR_NAME = Boolean.parseBoolean(customSettings.getProperty("AllowOfflineTradeColorName", "true")); 
+		    OFFLINE_TRADE_COLOR_NAME = Integer.parseInt(customSettings.getProperty("OfflineTradeColorName", "999999")); 
+		    ALLOW_OFFLINE_TRADE_PROTECTION = Boolean.parseBoolean(customSettings.getProperty("AllowOfflineTradeProtection", "true")); 			
 		}
 	}
 
@@ -2501,6 +2536,10 @@ public final class Config extends L2Config
 	public static int			CS_REINFORCE_WALL1_FEE;
 	public static int			CS_REINFORCE_WALL2_FEE;
 	public static int			CS_REINFORCE_WALL3_FEE;
+	public static long			CS_SECURITY_FEE_RATIO;
+	public static int			CS_SECURITY1_FEE;
+	public static int			CS_SECURITY2_FEE;
+	public static int			CS_SECURITY3_FEE;
 
 	// *******************************************************************************************
 	private static final class CastleConfig extends ConfigLoader
@@ -2553,6 +2592,10 @@ public final class Config extends L2Config
 			CS_REINFORCE_WALL1_FEE = Integer.parseInt(castleSettings.getProperty("CastleReinforceWallsFeeLvl1", "1600000"));
 			CS_REINFORCE_WALL2_FEE = Integer.parseInt(castleSettings.getProperty("CastleReinforceWallsFeeLvl2", "1800000"));
 			CS_REINFORCE_WALL3_FEE = Integer.parseInt(castleSettings.getProperty("CastleReinforceWallsFeeLvl3", "3000000"));
+			CS_SECURITY_FEE_RATIO = Long.parseLong(customSettings.getProperty("CastleSecurityFunctionFeeRatio", "86400000"));
+			CS_SECURITY1_FEE = Integer.parseInt(customSettings.getProperty("CastleSecurityFeeLvl1", "1000000"));
+			CS_SECURITY2_FEE = Integer.parseInt(customSettings.getProperty("CastleSecurityFeeLvl2", "1000000"));
+			CS_SECURITY3_FEE = Integer.parseInt(customSettings.getProperty("CastleSecurityFeeLvl3", "1000000"));
 		}
 	}
 
@@ -2605,7 +2648,25 @@ public final class Config extends L2Config
 	public static int			FISHERMAN_INTERVAL;
 	public static int			FISHERMAN_REWARD_ID;
 	public static int			FISHERMAN_REWARD_COUNT;
-
+	public static String		TVTI_INSTANCE_XML;
+	public static boolean		TVTI_ALLOW_TIE;
+	public static boolean		TVTI_CHECK_WEIGHT_AND_INVENTORY;
+	public static boolean		TVTI_ALLOW_INTERFERENCE;
+	public static boolean		TVTI_ALLOW_POTIONS;
+	public static boolean		TVTI_ALLOW_SUMMON;
+	public static boolean		TVTI_ON_START_REMOVE_ALL_EFFECTS;
+	public static boolean		TVTI_ON_START_UNSUMMON_PET;
+	public static boolean		TVTI_REVIVE_RECOVERY;
+	public static boolean		TVTI_ANNOUNCE_TEAM_STATS;
+	public static boolean		TVTI_ANNOUNCE_REWARD;
+	public static boolean		TVTI_PRICE_NO_KILLS;
+	public static boolean		TVTI_JOIN_CURSED;
+	public static boolean		TVTI_SHOW_STATS_PAGE;
+	public static int			TVTI_SORT_TEAMS;
+	public static int			TVTI_JOIN_NPC_SKILL;
+	public static long			TVTI_REVIVE_DELAY;
+	public static long			TVTI_JOIN_NPC_DO_SKILL_AGAIN;
+	
 	// *******************************************************************************************
 	// *******************************************************************************************
 	private static final class FunEnginesConfig extends ConfigLoader
@@ -2681,6 +2742,29 @@ public final class Config extends L2Config
 			FISHERMAN_INTERVAL = Integer.parseInt(funEnginesSettings.getProperty("FishermanInterval", "60"));
 			FISHERMAN_REWARD_ID = Integer.parseInt(funEnginesSettings.getProperty("FishermanRewardId", "57"));
 			FISHERMAN_REWARD_COUNT = Integer.parseInt(funEnginesSettings.getProperty("FishermanRewardCount", "100"));
+			
+			TVTI_INSTANCE_XML = customSettings.getProperty("TvTIInstanceXML", "TvTI.xml");
+			TVTI_ALLOW_TIE = Boolean.parseBoolean(customSettings.getProperty("TvTIAllowTie", "false"));
+			TVTI_CHECK_WEIGHT_AND_INVENTORY = Boolean.parseBoolean(customSettings.getProperty("TvTICheckWeightAndInventory", "true"));
+			TVTI_ALLOW_INTERFERENCE = Boolean.parseBoolean(customSettings.getProperty("TvTIAllowInterference", "false"));
+			TVTI_ALLOW_POTIONS = Boolean.parseBoolean(customSettings.getProperty("TvTIAllowPotions", "false"));
+			TVTI_ALLOW_SUMMON = Boolean.parseBoolean(customSettings.getProperty("TvTIAllowSummon", "false"));
+			TVTI_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(customSettings.getProperty("TvTIOnStartRemoveAllEffects", "true"));
+			TVTI_ON_START_UNSUMMON_PET = Boolean.parseBoolean(customSettings.getProperty("TvTIOnStartUnsummonPet", "true"));
+			TVTI_REVIVE_RECOVERY = Boolean.parseBoolean(customSettings.getProperty("TvTIReviveRecovery", "false"));
+			TVTI_ANNOUNCE_TEAM_STATS = Boolean.parseBoolean(customSettings.getProperty("TvTIAnnounceTeamStats", "false"));
+			TVTI_ANNOUNCE_REWARD = Boolean.parseBoolean(customSettings.getProperty("TvTIAnnounceReward", "false"));
+			TVTI_PRICE_NO_KILLS = Boolean.parseBoolean(customSettings.getProperty("TvTIPriceNoKills", "false"));
+			TVTI_JOIN_CURSED = Boolean.parseBoolean(customSettings.getProperty("TvTIJoinWithCursedWeapon", "true"));
+			TVTI_SHOW_STATS_PAGE = Boolean.parseBoolean(customSettings.getProperty("TvTIShowStatistics", "true"));
+			TVTI_SORT_TEAMS = Integer.parseInt(customSettings.getProperty("TvTISortTeams", "0"));
+			TVTI_JOIN_NPC_SKILL = Integer.parseInt(customSettings.getProperty("TvTIJoinNpcSkill", "1034"));
+			TVTI_REVIVE_DELAY = Long.parseLong(customSettings.getProperty("TvTIReviveDelay", "20000"));
+			if (TVTI_REVIVE_DELAY < 1000)
+				TVTI_REVIVE_DELAY = 1000; //can't be set less then 1 second
+			TVTI_JOIN_NPC_DO_SKILL_AGAIN = Long.parseLong(customSettings.getProperty("TvTIJoinNpcDoSkillAgain", "0"));
+			if (TVTI_JOIN_NPC_DO_SKILL_AGAIN < 1000 && TVTI_JOIN_NPC_DO_SKILL_AGAIN != 0)
+				TVTI_JOIN_NPC_DO_SKILL_AGAIN = 1000; //can't be set less then 1 second
 		}
 	}
 
@@ -3373,42 +3457,7 @@ public final class Config extends L2Config
 	// *******************************************************************************************
 	public static final String	CUSTOM_FILE	= "./config/custom.properties";
 	// *******************************************************************************************
-	public static boolean			PACKET_FINAL;
-	public static long				CS_SECURITY_FEE_RATIO;
-	public static int				CS_SECURITY1_FEE;
-	public static int				CS_SECURITY2_FEE;
-	public static int				CS_SECURITY3_FEE;
-	public static String			TVTI_INSTANCE_XML;
-	public static boolean			TVTI_ALLOW_TIE;
-	public static boolean			TVTI_CHECK_WEIGHT_AND_INVENTORY;
-	public static boolean			TVTI_ALLOW_INTERFERENCE;
-	public static boolean			TVTI_ALLOW_POTIONS;
-	public static boolean			TVTI_ALLOW_SUMMON;
-	public static boolean			TVTI_ON_START_REMOVE_ALL_EFFECTS;
-	public static boolean			TVTI_ON_START_UNSUMMON_PET;
-	public static boolean			TVTI_REVIVE_RECOVERY;
-	public static boolean			TVTI_ANNOUNCE_TEAM_STATS;
-	public static boolean			TVTI_ANNOUNCE_REWARD;
-	public static boolean			TVTI_PRICE_NO_KILLS;
-	public static boolean			TVTI_JOIN_CURSED;
-	public static boolean			TVTI_SHOW_STATS_PAGE;
-	public static int				TVTI_SORT_TEAMS;
-	public static int				TVTI_JOIN_NPC_SKILL;
-	public static long				TVTI_REVIVE_DELAY;
-	public static long				TVTI_JOIN_NPC_DO_SKILL_AGAIN;
-	public static int				AUCTION_SPECIAL_CURRENCY;
-	public static String			AUCTION_SPECIAL_CURRENCY_ICON;
-	public static String			AUCTION_EXCLUDED_ITEMS;
-	public static FastList<Integer>	AUCTION_EXCLUDED_ITEMS_LIST	= new FastList<Integer>();
-	public static String			AUCTION_INCLUDED_ITEMS;
-	public static FastList<Integer>	AUCTION_INCLUDED_ITEMS_LIST	= new FastList<Integer>();
-	public static boolean			ALLOW_OFFLINE_TRADE;
-	public static boolean			ALLOW_OFFLINE_TRADE_CRAFT;
-	public static boolean			ALLOW_OFFLINE_TRADE_COLOR_NAME;
-	public static int				OFFLINE_TRADE_COLOR_NAME;
-	public static boolean			ALLOW_OFFLINE_TRADE_PROTECTION;
-
-
+	// FOR YOUR PRIVATE CONFIGS
 	// *******************************************************************************************
 	private static final class CustomConfig extends ConfigLoader
 	{
@@ -3421,53 +3470,6 @@ public final class Config extends L2Config
 		@Override
 		protected void loadImpl(Properties customSettings) throws Exception
 		{
-			PACKET_FINAL = Boolean.parseBoolean(customSettings.getProperty("PacketFinal", "False"));
-			CS_SECURITY_FEE_RATIO = Long.parseLong(customSettings.getProperty("CastleSecurityFunctionFeeRatio", "86400000"));
-			CS_SECURITY1_FEE = Integer.parseInt(customSettings.getProperty("CastleSecurityFeeLvl1", "1000000"));
-			CS_SECURITY2_FEE = Integer.parseInt(customSettings.getProperty("CastleSecurityFeeLvl2", "1000000"));
-			CS_SECURITY3_FEE = Integer.parseInt(customSettings.getProperty("CastleSecurityFeeLvl3", "1000000"));
-			TVTI_INSTANCE_XML = customSettings.getProperty("TvTIInstanceXML", "TvTI.xml");
-			TVTI_ALLOW_TIE = Boolean.parseBoolean(customSettings.getProperty("TvTIAllowTie", "false"));
-			TVTI_CHECK_WEIGHT_AND_INVENTORY = Boolean.parseBoolean(customSettings.getProperty("TvTICheckWeightAndInventory", "true"));
-			TVTI_ALLOW_INTERFERENCE = Boolean.parseBoolean(customSettings.getProperty("TvTIAllowInterference", "false"));
-			TVTI_ALLOW_POTIONS = Boolean.parseBoolean(customSettings.getProperty("TvTIAllowPotions", "false"));
-			TVTI_ALLOW_SUMMON = Boolean.parseBoolean(customSettings.getProperty("TvTIAllowSummon", "false"));
-			TVTI_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(customSettings.getProperty("TvTIOnStartRemoveAllEffects", "true"));
-			TVTI_ON_START_UNSUMMON_PET = Boolean.parseBoolean(customSettings.getProperty("TvTIOnStartUnsummonPet", "true"));
-			TVTI_REVIVE_RECOVERY = Boolean.parseBoolean(customSettings.getProperty("TvTIReviveRecovery", "false"));
-			TVTI_ANNOUNCE_TEAM_STATS = Boolean.parseBoolean(customSettings.getProperty("TvTIAnnounceTeamStats", "false"));
-			TVTI_ANNOUNCE_REWARD = Boolean.parseBoolean(customSettings.getProperty("TvTIAnnounceReward", "false"));
-			TVTI_PRICE_NO_KILLS = Boolean.parseBoolean(customSettings.getProperty("TvTIPriceNoKills", "false"));
-			TVTI_JOIN_CURSED = Boolean.parseBoolean(customSettings.getProperty("TvTIJoinWithCursedWeapon", "true"));
-			TVTI_SHOW_STATS_PAGE = Boolean.parseBoolean(customSettings.getProperty("TvTIShowStatistics", "true"));
-			TVTI_SORT_TEAMS = Integer.parseInt(customSettings.getProperty("TvTISortTeams", "0"));
-			TVTI_JOIN_NPC_SKILL = Integer.parseInt(customSettings.getProperty("TvTIJoinNpcSkill", "1034"));
-			TVTI_REVIVE_DELAY = Long.parseLong(customSettings.getProperty("TvTIReviveDelay", "20000"));
-			if (TVTI_REVIVE_DELAY < 1000)
-				TVTI_REVIVE_DELAY = 1000; //can't be set less then 1 second
-			TVTI_JOIN_NPC_DO_SKILL_AGAIN = Long.parseLong(customSettings.getProperty("TvTIJoinNpcDoSkillAgain", "0"));
-			if (TVTI_JOIN_NPC_DO_SKILL_AGAIN < 1000 && TVTI_JOIN_NPC_DO_SKILL_AGAIN != 0)
-				TVTI_JOIN_NPC_DO_SKILL_AGAIN = 1000; //can't be set less then 1 second
-			AUCTION_SPECIAL_CURRENCY = Integer.parseInt(customSettings.getProperty("AuctionSpecialCurrency", "8575"));
-			AUCTION_SPECIAL_CURRENCY_ICON = customSettings.getProperty("AuctionSpecialCurrencyIcon", "etc_box_of_adventure_3_i00");
-			AUCTION_EXCLUDED_ITEMS = customSettings.getProperty("AuctionExcludedItems", "57,5575");
-			AUCTION_EXCLUDED_ITEMS_LIST = new FastList<Integer>();
-			for (String id : AUCTION_EXCLUDED_ITEMS.trim().split(","))
-			{
-				AUCTION_EXCLUDED_ITEMS_LIST.add(Integer.parseInt(id.trim()));
-			}
-
-			AUCTION_INCLUDED_ITEMS = customSettings.getProperty("AuctionIncludedItems", "8575");
-			AUCTION_INCLUDED_ITEMS_LIST = new FastList<Integer>();
-			for (String id : AUCTION_INCLUDED_ITEMS.trim().split(","))
-			{
-				AUCTION_INCLUDED_ITEMS_LIST.add(Integer.parseInt(id.trim()));
-			}
-		    ALLOW_OFFLINE_TRADE = Boolean.parseBoolean(customSettings.getProperty("AllowOfflineTrade", "false")); 
-		    ALLOW_OFFLINE_TRADE_CRAFT = Boolean.parseBoolean(customSettings.getProperty("AllowOfflineTradeCraft", "true")); 
-		    ALLOW_OFFLINE_TRADE_COLOR_NAME = Boolean.parseBoolean(customSettings.getProperty("AllowOfflineTradeColorName", "true")); 
-		    OFFLINE_TRADE_COLOR_NAME = Integer.parseInt(customSettings.getProperty("OfflineTradeColorName", "999999")); 
-		    ALLOW_OFFLINE_TRADE_PROTECTION = Boolean.parseBoolean(customSettings.getProperty("AllowOfflineTradeProtection", "true")); 			
 		}
 	}
 
