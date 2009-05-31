@@ -16,15 +16,18 @@ package com.l2jfree.gameserver.communitybbs;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.communitybbs.Manager.ClanBBSManager;
+import com.l2jfree.gameserver.communitybbs.Manager.DroplocatorBBSManager;
 import com.l2jfree.gameserver.communitybbs.Manager.MailBBSManager;
 import com.l2jfree.gameserver.communitybbs.Manager.PostBBSManager;
 import com.l2jfree.gameserver.communitybbs.Manager.RegionBBSManager;
 import com.l2jfree.gameserver.communitybbs.Manager.TopBBSManager;
 import com.l2jfree.gameserver.communitybbs.Manager.TopicBBSManager;
+import com.l2jfree.gameserver.communitybbs.Manager.UpdateBBSManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ShowBoard;
+import com.l2jfree.gameserver.communitybbs.Manager.AuctionBBSManager;
 
 public class CommunityBoard
 {
@@ -91,6 +94,18 @@ public class CommunityBoard
 			else if (command.startsWith("_maillist_0_1_0_"))
 			{
 				MailBBSManager.getInstance().parsecmd(command, activeChar);
+			}
+			else if (command.startsWith("_bbsauction"))
+			{
+				AuctionBBSManager.getInstance().parsecmd(command, activeChar);
+			}
+			else if (command.startsWith("_bbsupdate"))
+			{
+				UpdateBBSManager.getInstance().parsecmd(command, activeChar);
+			}
+			else if (command.startsWith("_bbsdroploc"))
+			{
+				DroplocatorBBSManager.getInstance().parsecmd(command, activeChar);
 			}
 			else
 			{
