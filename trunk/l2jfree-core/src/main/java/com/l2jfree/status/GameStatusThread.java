@@ -42,6 +42,7 @@ import com.l2jfree.gameserver.Shutdown;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.Shutdown.ShutdownMode;
 import com.l2jfree.gameserver.cache.HtmCache;
+import com.l2jfree.gameserver.datatables.CharNameTable;
 import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.datatables.GmListTable;
 import com.l2jfree.gameserver.datatables.ItemTable;
@@ -49,6 +50,7 @@ import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.TeleportLocationTable;
 import com.l2jfree.gameserver.datatables.TradeListTable;
+import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.instancemanager.IrcManager;
 import com.l2jfree.gameserver.instancemanager.Manager;
 import com.l2jfree.gameserver.instancemanager.ZoneManager;
@@ -82,17 +84,17 @@ import com.l2jfree.util.concurrent.RunnableStatsManager.SortBy;
 
 public final class GameStatusThread extends Thread
 {
-	private static final Log _log = LogFactory.getLog(GameStatusThread.class);
-	
-	private String _gm;
-	
-	private Socket _cSocket;
-	
-	private PrintWriter _print;
-	private BufferedReader _read;
-	
-	private long _uptime;
-	
+	private static final Log	_log	= LogFactory.getLog(GameStatusThread.class);
+
+	private String				_gm;
+
+	private Socket				_cSocket;
+
+	private PrintWriter			_print;
+	private BufferedReader		_read;
+
+	private long				_uptime;
+
 	private void telnetOutput(int type, String text)
 	{
 		if (Config.DEVELOPER)
@@ -115,28 +117,28 @@ public final class GameStatusThread extends Thread
 				_log.info("TELNET | " + text);
 		}
 	}
-	
+
 	private boolean isValidIP(Socket client)
 	{
 		boolean result = false;
-		
+
 		String clientStringIP = client.getInetAddress().getHostAddress();
-		
+
 		telnetOutput(1, "Connection from: " + clientStringIP);
-		
+
 		// read and loop thru list of IPs, compare with newIP
 		if (Config.DEVELOPER)
 			telnetOutput(2, "");
-		
+
 		try
 		{
 			Properties telnetSettings = new L2Properties(L2Config.TELNET_FILE);
-			
+
 			String HostList = telnetSettings.getProperty("ListOfHosts", "127.0.0.1,localhost");
-			
+
 			if (Config.DEVELOPER)
 				telnetOutput(3, "Comparing ip to list...");
-			
+
 			// compare
 			String ipToCompare = null;
 			for (String ip : HostList.split(","))
@@ -157,29 +159,29 @@ public final class GameStatusThread extends Thread
 				telnetOutput(4, "");
 			telnetOutput(1, "Error: " + e);
 		}
-		
+
 		if (Config.DEVELOPER)
 			telnetOutput(4, "Allow IP: " + result);
 		return result;
 	}
-	
+
 	public GameStatusThread(Socket client, long uptime, String StatusPW) throws IOException
 	{
 		_cSocket = client;
 		_uptime = uptime;
-		
+
 		_print = new PrintWriter(_cSocket.getOutputStream());
 		_read = new BufferedReader(new InputStreamReader(_cSocket.getInputStream()));
-		
+
 		if (!isValidIP(client))
 		{
 			telnetOutput(5, "Connection attempt from " + client.getInetAddress().getHostAddress() + " rejected.");
 			_cSocket.close();
 			return;
 		}
-		
+
 		telnetOutput(1, client.getInetAddress().getHostAddress() + " accepted!");
-		_print.println("Welcome to the L2j-Free Telnet Server...");
+		_print.println("Welcome to the l2core Telnet Server...");
 		_print.println("Please insert your Password!");
 		_print.print("Password: ");
 		_print.flush();
@@ -192,7 +194,7 @@ public final class GameStatusThread extends Thread
 			_cSocket.close();
 			return;
 		}
-		
+
 		if (tmpLine.compareTo(StatusPW) != 0)
 		{
 			_print.println("Incorrect Password!");
@@ -201,20 +203,19 @@ public final class GameStatusThread extends Thread
 			_cSocket.close();
 			return;
 		}
-		
+
 		if (Config.ALT_TELNET)
 		{
 			_print.println("Password Correct!");
 			_print.print("GM name: ");
 			_print.flush();
 			_gm = readLine();
-			
+
 			Connection con = null;
 			try
 			{
 				con = L2DatabaseFactory.getInstance().getConnection();
-				PreparedStatement stmt =
-					con.prepareStatement("SELECT COUNT(*) FROM characters WHERE char_name = ? AND accesslevel >= 100");
+				PreparedStatement stmt = con.prepareStatement("SELECT COUNT(*) FROM characters WHERE char_name = ? AND accesslevel >= 100");
 				ResultSet rs = stmt.executeQuery();
 				if (!rs.next())
 				{
@@ -227,7 +228,7 @@ public final class GameStatusThread extends Thread
 				{
 					_print.println("Welcome, " + _gm);
 				}
-				
+
 				rs.close();
 				stmt.close();
 			}
@@ -241,20 +242,20 @@ public final class GameStatusThread extends Thread
 			{
 				L2DatabaseFactory.close(con);
 			}
-			
+
 			telnetOutput(4, _gm + " successfully connected to Telnet.");
 		}
 		else
 		{
 			_print.println("Connection accepted... Welcome!");
 		}
-		
-		_print.println("[L2j-Free Telnet Console]");
+
+		_print.println("[l2core telnet console]");
 		_print.print("");
 		_print.flush();
 		start();
 	}
-	
+
 	/*
 	 * Handling backspaces.
 	 */
@@ -263,15 +264,15 @@ public final class GameStatusThread extends Thread
 		String line = _read.readLine();
 		if (line == null)
 			return null;
-		
+
 		StringBuilder sb = new StringBuilder(line);
-		
+
 		for (int index; (index = sb.indexOf("\b")) != -1;)
 			sb.replace(Math.max(0, index - 1), index + 1, "");
-		
+
 		return sb.toString();
 	}
-	
+
 	@Override
 	public void run()
 	{
@@ -310,12 +311,9 @@ public final class GameStatusThread extends Thread
 					_print.println("abort				- aborts shutdown/restart.");
 					_print.println("halt				- halts server.");
 					_print.println("give <player> <itemid> <amount>");
-					_print
-						.println("enchant <player> <itemType> <enchant> (itemType: 1 - Helmet, 2 - Chest, 3 - Gloves, 4 - Feet, "
-							+ "5 - Legs, 6 - Right Hand, 7 - Left Hand, 8 - Left Ear, 9 - Right Ear , 10 - Left Finger, 11 - Right Finger, "
-							+ "12- Necklace, 13 - Underwear, 14 - Back, 0 - No Enchant)");
-					_print
-						.println("extreload <name>	- reload and initializes the named extension or all if used without argument");
+					_print.println("enchant <player> <itemType> <enchant> (itemType: 1 - Helmet, 2 - Chest, 3 - Gloves, 4 - Feet, "
+							+ "5 - Legs, 6 - Right Hand, 7 - Left Hand, 8 - Left Ear, 9 - Right Ear , 10 - Left Finger, 11 - Right Finger, " + "12- Necklace, 13 - Underwear, 14 - Back, 0 - No Enchant)");
+					_print.println("extreload <name>	- reload and initializes the named extension or all if used without argument");
 					_print.println("extinit <name>		- initilizes the named extension or all if used without argument");
 					_print.println("extunload <name>	- unload the named extension or all if used without argument");
 					_print.println("debug <cmd>			- executes the debug command (see 'help debug').");
@@ -338,10 +336,10 @@ public final class GameStatusThread extends Thread
 				else if (_usrCommand.equals("status"))
 				{
 					int max = LoginServerThread.getInstance().getMaxPlayer();
-					
+
 					int playerCount = L2World.getInstance().getAllPlayersCount();
 					int objectCount = L2World.getInstance().getAllVisibleObjectsCount();
-					
+
 					int itemCount = 0;
 					int itemVoidCount = 0;
 					int monsterCount = 0;
@@ -352,18 +350,18 @@ public final class GameStatusThread extends Thread
 					int doorCount = 0;
 					int summonCount = 0;
 					int AICount = 0;
-					
+
 					for (L2Object obj : L2World.getInstance().getAllVisibleObjects())
 					{
 						if (obj == null)
 							continue;
 						if (obj instanceof L2Character)
-							if (((L2Character)obj).hasAI())
+							if (((L2Character) obj).hasAI())
 								AICount++;
-						
+
 						if (obj instanceof L2ItemInstance)
 						{
-							if (((L2ItemInstance)obj).getLocation() == L2ItemInstance.ItemLocation.VOID)
+							if (((L2ItemInstance) obj).getLocation() == L2ItemInstance.ItemLocation.VOID)
 								itemVoidCount++;
 							else
 								itemCount++;
@@ -371,8 +369,8 @@ public final class GameStatusThread extends Thread
 						else if (obj instanceof L2MonsterInstance)
 						{
 							monsterCount++;
-							minionCount += ((L2MonsterInstance)obj).getTotalSpawnedMinionsInstances();
-							minionsGroupCount += ((L2MonsterInstance)obj).getTotalSpawnedMinionsGroups();
+							minionCount += ((L2MonsterInstance) obj).getTotalSpawnedMinionsInstances();
+							minionsGroupCount += ((L2MonsterInstance) obj).getTotalSpawnedMinionsGroups();
 						}
 						else if (obj instanceof L2Npc)
 							npcCount++;
@@ -400,8 +398,7 @@ public final class GameStatusThread extends Thread
 					_print.println("  ---> Server Uptime: " + getUptime(_uptime));
 					_print.println("  --->	  GM Count: " + getOnlineGMS());
 					_print.println("  --->	   Threads: " + Thread.activeCount());
-					_print.println("  RAM Used: "
-						+ ((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576));
+					_print.println("  RAM Used: " + ((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576));
 					_print.flush();
 				}
 				else if (_usrCommand.equals("printmemusage"))
@@ -447,7 +444,7 @@ public final class GameStatusThread extends Thread
 					catch (Exception e)
 					{
 					}
-					
+
 					RunnableStatsManager.getInstance().dumpClassStats(sortBy);
 					_print.println("TPM-Classes dumped....");
 					_print.flush();
@@ -540,9 +537,7 @@ public final class GameStatusThread extends Thread
 					try
 					{
 						_usrCommand = _usrCommand.substring(7);
-						CreatureSay cs =
-							new CreatureSay(0, SystemChatChannelId.Chat_Alliance, "Telnet GM Broadcast from "
-								+ _cSocket.getInetAddress().getHostAddress(), _usrCommand);
+						CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Alliance, "Telnet GM Broadcast from " + _cSocket.getInetAddress().getHostAddress(), _usrCommand);
 						GmListTable.broadcastToGMs(cs);
 						_print.println("Your Message Has Been Sent To " + getOnlineGMS() + " GM(s).");
 					}
@@ -555,7 +550,7 @@ public final class GameStatusThread extends Thread
 				{
 					int igm = 0;
 					String gmList = "";
-					
+
 					for (String player : GmListTable.getInstance().getAllGmNames(false))
 					{
 						gmList = gmList + ", " + player;
@@ -668,17 +663,17 @@ public final class GameStatusThread extends Thread
 				else if (_usrCommand.startsWith("give"))
 				{
 					StringTokenizer st = new StringTokenizer(_usrCommand.substring(5));
-					
+
+					String playername = st.nextToken();
 					try
 					{
-						L2PcInstance player = L2World.getInstance().getPlayer(st.nextToken());
+						L2PcInstance player = L2World.getInstance().getPlayer(playername);
 						int itemId = Integer.parseInt(st.nextToken());
 						int amount = Integer.parseInt(st.nextToken());
-						
+
 						if (player != null)
 						{
-							L2ItemInstance item =
-								player.getInventory().addItem("Status-Give", itemId, amount, null, null);
+							L2ItemInstance item = player.getInventory().addItem("Status-Give", itemId, amount, null, null);
 							InventoryUpdate iu = new InventoryUpdate();
 							iu.addItem(item);
 							player.sendPacket(iu);
@@ -686,25 +681,40 @@ public final class GameStatusThread extends Thread
 							sm.addItemName(item);
 							sm.addNumber(amount);
 							player.sendPacket(sm);
-							_print.println("ok");
+							_print.println("ok - was online");
+						}
+						else
+						{
+							Integer playerId = CharNameTable.getInstance().getByName(playername);
+							if (playerId != null)
+							{
+								java.sql.Connection con = null;
+								con = L2DatabaseFactory.getInstance().getConnection(con);
+								addItemToInventory(con, playerId, IdFactory.getInstance().getNextId(), itemId, amount, 0);
+								_print.println("ok - was offline");
+							}
+							else
+							{
+								_print.println("player not found");
+							}
 						}
 					}
 					catch (Exception e)
 					{
-						
+
 					}
 				}
 				else if (_usrCommand.startsWith("enchant"))
 				{
 					StringTokenizer st = new StringTokenizer(_usrCommand.substring(8), " ");
 					int enchant = 0, itemType = 0;
-					
+
 					try
 					{
 						L2PcInstance player = L2World.getInstance().getPlayer(st.nextToken());
 						itemType = Integer.parseInt(st.nextToken());
 						enchant = Integer.parseInt(st.nextToken());
-						
+
 						switch (itemType)
 						{
 							case 1:
@@ -752,14 +762,14 @@ public final class GameStatusThread extends Thread
 							default:
 								itemType = 0;
 						}
-						
+
 						if (enchant > 65535)
 							enchant = 65535;
 						else if (enchant < 0)
 							enchant = 0;
-						
+
 						boolean success = false;
-						
+
 						if (player != null && itemType > 0)
 						{
 							success = setEnchant(_cSocket, player, enchant, itemType);
@@ -771,7 +781,7 @@ public final class GameStatusThread extends Thread
 					}
 					catch (Exception e)
 					{
-						
+
 					}
 				}
 				else if (_usrCommand.startsWith("jail"))
@@ -794,12 +804,11 @@ public final class GameStatusThread extends Thread
 						}
 						// L2PcInstance playerObj =
 						// L2World.getInstance().getPlayer(player);
-						
+
 						if (playerObj != null)
 						{
 							playerObj.setInJail(true, delay);
-							_print.println("Character " + name + " jailed for "
-								+ (delay > 0 ? delay + " minutes." : "ever!"));
+							_print.println("Character " + name + " jailed for " + (delay > 0 ? delay + " minutes." : "ever!"));
 						}
 						else
 							jailOfflinePlayer(name, delay);
@@ -821,7 +830,7 @@ public final class GameStatusThread extends Thread
 					{
 						String name = st.nextToken();
 						L2PcInstance playerObj = L2World.getInstance().getPlayer(name);
-						
+
 						if (playerObj != null)
 						{
 							playerObj.stopJailTask(false);
@@ -849,7 +858,7 @@ public final class GameStatusThread extends Thread
 						try
 						{
 							IrcManager.getInstance().getConnection().send(_usrCommand);
-							
+
 						}
 						catch (Exception e)
 						{
@@ -869,7 +878,7 @@ public final class GameStatusThread extends Thread
 							String name = st.nextToken();
 							String message = val.substring(name.length() + 1);
 							IrcManager.getInstance().getConnection().send(name, message);
-							
+
 						}
 						catch (Exception e)
 						{
@@ -884,7 +893,7 @@ public final class GameStatusThread extends Thread
 					try
 					{
 						String dbg = st.nextToken();
-						
+
 						if (dbg.equals("decay"))
 							_print.print(DecayTaskManager.getInstance().getStats());
 					}
@@ -896,7 +905,7 @@ public final class GameStatusThread extends Thread
 				{
 					StringTokenizer st = new StringTokenizer(_usrCommand);
 					st.nextToken();
-					
+
 					try
 					{
 						_print.println(L2Config.loadConfig(st.nextToken()));
@@ -913,7 +922,7 @@ public final class GameStatusThread extends Thread
 					try
 					{
 						String type = st.nextToken();
-						
+
 						if (type.equals("multisell"))
 						{
 							_print.print("Reloading multisell... ");
@@ -977,14 +986,12 @@ public final class GameStatusThread extends Thread
 						}
 						else
 						{
-							_print
-								.println("Usage: reload <multisell|teleport|skill|npc|htm|item|instancemanager|tradelist|zone|door>");
+							_print.println("Usage: reload <multisell|teleport|skill|npc|htm|item|instancemanager|tradelist|zone|door>");
 						}
 					}
 					catch (Exception e)
 					{
-						_print
-							.println("Usage: reload <multisell|teleport|skill|npc|htm|item|instancemanager|tradelist|zone|door>");
+						_print.println("Usage: reload <multisell|teleport|skill|npc|htm|item|instancemanager|tradelist|zone|door>");
 					}
 				}
 				else if (_usrCommand.startsWith("gamestat"))
@@ -993,7 +1000,7 @@ public final class GameStatusThread extends Thread
 					try
 					{
 						String type = st.nextToken();
-						
+
 						// name;type;x;y;itemId:enchant:price...
 						if (type.equals("privatestore"))
 						{
@@ -1001,22 +1008,18 @@ public final class GameStatusThread extends Thread
 							{
 								if (player.getPrivateStoreType() == 0)
 									continue;
-								
+
 								TradeList list = null;
 								String content = "";
-								
+
 								if (player.getPrivateStoreType() == 1) // sell
 								{
 									list = player.getSellList();
 									for (TradeItem item : list.getItems())
 									{
-										content +=
-											item.getItem().getItemId() + ":" + item.getEnchant() + ":"
-												+ item.getPrice() + ":";
+										content += item.getItem().getItemId() + ":" + item.getEnchant() + ":" + item.getPrice() + ":";
 									}
-									content =
-										player.getName() + ";" + "sell;" + player.getX() + ";" + player.getY() + ";"
-											+ content;
+									content = player.getName() + ";" + "sell;" + player.getX() + ";" + player.getY() + ";" + content;
 									_print.println(content);
 									continue;
 								}
@@ -1025,17 +1028,13 @@ public final class GameStatusThread extends Thread
 									list = player.getBuyList();
 									for (TradeItem item : list.getItems())
 									{
-										content +=
-											item.getItem().getItemId() + ":" + item.getEnchant() + ":"
-												+ item.getPrice() + ":";
+										content += item.getItem().getItemId() + ":" + item.getEnchant() + ":" + item.getPrice() + ":";
 									}
-									content =
-										player.getName() + ";" + "buy;" + player.getX() + ";" + player.getY() + ";"
-											+ content;
+									content = player.getName() + ";" + "buy;" + player.getX() + ";" + player.getY() + ";" + content;
 									_print.println(content);
 									continue;
 								}
-								
+
 							}
 						}
 					}
@@ -1136,13 +1135,13 @@ public final class GameStatusThread extends Thread
 			_log.error(e.getMessage(), e);
 		}
 	}
-	
+
 	private boolean setEnchant(Socket gm, L2PcInstance activeChar, int ench, int armorType)
 	{
 		// now we need to find the equipped weapon of the targeted character...
 		int curEnchant = 0; // display purposes only
 		L2ItemInstance itemInstance = null;
-		
+
 		// only attempt to enchant if there is a weapon equipped
 		L2ItemInstance parmorInstance = activeChar.getInventory().getPaperdollItem(armorType);
 		if (parmorInstance != null && parmorInstance.getLocationSlot() == armorType)
@@ -1156,57 +1155,53 @@ public final class GameStatusThread extends Thread
 			if (parmorInstance != null && parmorInstance.getLocationSlot() == Inventory.PAPERDOLL_LRHAND)
 				itemInstance = parmorInstance;
 		}
-		
+
 		if (itemInstance != null)
 		{
 			curEnchant = itemInstance.getEnchantLevel();
-			
+
 			// set enchant value
 			activeChar.getInventory().unEquipItemInSlotAndRecord(armorType);
 			itemInstance.setEnchantLevel(ench);
 			activeChar.getInventory().equipItemAndRecord(itemInstance);
-			
+
 			// send packets
 			InventoryUpdate iu = new InventoryUpdate();
 			iu.addModifiedItem(itemInstance);
 			activeChar.sendPacket(iu);
 			activeChar.broadcastUserInfo();
-			
+
 			// informations
-			activeChar.sendMessage("Changed enchantment of " + activeChar.getName() + "'s "
-				+ itemInstance.getItem().getName() + " from " + curEnchant + " to " + ench + ".");
-			activeChar.sendMessage("Admin has changed the enchantment of your " + itemInstance.getItem().getName()
-				+ " from " + curEnchant + " to " + ench + ".");
-			
+			activeChar.sendMessage("Changed enchantment of " + activeChar.getName() + "'s " + itemInstance.getItem().getName() + " from " + curEnchant + " to " + ench + ".");
+			activeChar.sendMessage("Admin has changed the enchantment of your " + itemInstance.getItem().getName() + " from " + curEnchant + " to " + ench + ".");
+
 			String IP = gm.getInetAddress().getHostAddress();
 			// log
-			GMAudit.auditGMAction(IP, activeChar.getName(), "telnet-enchant", "telnet-enchant", itemInstance.getItem().getName() + "("
-				+ itemInstance.getObjectId() + ")" + " from " + curEnchant + " to " + ench);
+			GMAudit.auditGMAction(IP, activeChar.getName(), "telnet-enchant", "telnet-enchant", itemInstance.getItem().getName() + "(" + itemInstance.getObjectId() + ")" + " from " + curEnchant + " to " + ench);
 			return true;
 		}
 		return false;
 	}
-	
+
 	private void jailOfflinePlayer(String name, int delay)
 	{
 		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
-			
-			PreparedStatement statement =
-				con.prepareStatement("UPDATE characters SET x=?, y=?, z=?, in_jail=?, jail_timer=? WHERE char_name=?");
+
+			PreparedStatement statement = con.prepareStatement("UPDATE characters SET x=?, y=?, z=?, in_jail=?, jail_timer=? WHERE char_name=?");
 			statement.setInt(1, -114356);
 			statement.setInt(2, -249645);
 			statement.setInt(3, -2984);
 			statement.setInt(4, 1);
 			statement.setLong(5, delay * 60000L);
 			statement.setString(6, name);
-			
+
 			statement.execute();
 			int count = statement.getUpdateCount();
 			statement.close();
-			
+
 			if (count == 0)
 				_print.println("Character not found!");
 			else
@@ -1223,27 +1218,26 @@ public final class GameStatusThread extends Thread
 			L2DatabaseFactory.close(con);
 		}
 	}
-	
+
 	private void unjailOfflinePlayer(String name)
 	{
 		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
-			
-			PreparedStatement statement =
-				con.prepareStatement("UPDATE characters SET x=?, y=?, z=?, in_jail=?, jail_timer=? WHERE char_name=?");
+
+			PreparedStatement statement = con.prepareStatement("UPDATE characters SET x=?, y=?, z=?, in_jail=?, jail_timer=? WHERE char_name=?");
 			statement.setInt(1, 17836);
 			statement.setInt(2, 170178);
 			statement.setInt(3, -3507);
 			statement.setInt(4, 0);
 			statement.setLong(5, 0);
 			statement.setString(6, name);
-			
+
 			statement.execute();
 			int count = statement.getUpdateCount();
 			statement.close();
-			
+
 			if (count == 0)
 				_print.println("Character not found!");
 			else
@@ -1260,12 +1254,12 @@ public final class GameStatusThread extends Thread
 			L2DatabaseFactory.close(con);
 		}
 	}
-	
+
 	private int getOnlineGMS()
 	{
 		return GmListTable.getInstance().getAllGms(true).size();
 	}
-	
+
 	private String getUptime(long time)
 	{
 		long uptime = System.currentTimeMillis() - time;
@@ -1275,4 +1269,19 @@ public final class GameStatusThread extends Thread
 		long s = ((uptime - (h * 3600)) - (m * 60));
 		return h + "hrs " + m + "mins " + s + "secs";
 	}
+
+	private void addItemToInventory(java.sql.Connection con, int charId, int objectId, int currency, long count, int enchantLevel) throws SQLException
+	{
+		PreparedStatement statement = con.prepareStatement("INSERT INTO items (owner_id, object_id, item_id, count, enchant_level, loc, loc_data) VALUES (?,?,?,?,?,?,?)");
+		statement.setInt(1, charId);
+		statement.setInt(2, objectId);
+		statement.setInt(3, currency);
+		statement.setLong(4, count);
+		statement.setInt(5, enchantLevel);
+		statement.setString(6, "INVENTORY");
+		statement.setInt(7, 0);
+		statement.execute();
+		statement.close();
+	}
+
 }
