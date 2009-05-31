@@ -213,6 +213,8 @@ public final class TaskManager extends HandlerRegistry<String, TaskHandler>
 		registerTaskHandler(new TaskRaidPointsReset());
 		registerTaskHandler(new TaskRestart());
 		registerTaskHandler(new TaskSevenSignsUpdate());
+		registerTaskHandler(new TaskMailCleanUp());
+		registerTaskHandler(new TaskProcessAuction());
 		
 		Connection con = null;
 		try
