@@ -73,6 +73,7 @@ import com.l2jfree.gameserver.handler.admincommandhandlers.AdminRegion;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminRepairChar;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminRes;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminRide;
+import com.l2jfree.gameserver.handler.admincommandhandlers.AdminSHEngine;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminSendHome;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminShop;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminShutdown;
@@ -86,6 +87,7 @@ import com.l2jfree.gameserver.handler.admincommandhandlers.AdminTarget;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminTeleport;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminTest;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminTvTEngine;
+import com.l2jfree.gameserver.handler.admincommandhandlers.AdminTvTiEngine;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminUnblockIp;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminVIPEngine;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminVitality;
@@ -97,16 +99,16 @@ import com.l2jfree.util.HandlerRegistry;
 
 public final class AdminCommandHandler extends HandlerRegistry<String, IAdminCommandHandler>
 {
-	private static AdminCommandHandler _instance;
-	
+	private static AdminCommandHandler	_instance;
+
 	public static AdminCommandHandler getInstance()
 	{
 		if (_instance == null)
 			_instance = new AdminCommandHandler();
-		
+
 		return _instance;
 	}
-	
+
 	private AdminCommandHandler()
 	{
 		register(new AdminAI());
@@ -175,83 +177,85 @@ public final class AdminCommandHandler extends HandlerRegistry<String, IAdminCom
 		register(new AdminTeleport());
 		register(new AdminTest());
 		register(new AdminTvTEngine());
+		register(new AdminSHEngine());
+		register(new AdminTvTiEngine());
 		register(new AdminUnblockIp());
 		register(new AdminVIPEngine());
 		register(new AdminVitality());
 		register(new AdminZone());
-		
+
 		if (Config.IRC_ENABLED)
 			register(new AdminIRC());
-		
+
 		_log.info("AdminCommandHandler: Loaded " + size() + " handlers.");
-		
+
 		for (String cmd : Config.GM_COMMAND_PRIVILEGES.keySet())
 			if (get(cmd) == null)
 				_log.warn("AdminCommandHandler: Command \"" + cmd + "\" isn't used anymore.");
 	}
-	
+
 	private void register(IAdminCommandHandler handler)
 	{
 		registerAll(handler, handler.getAdminCommandList());
-		
+
 		for (String element : handler.getAdminCommandList())
 			if (!Config.GM_COMMAND_PRIVILEGES.containsKey(element))
 				_log.warn("Command \"" + element + "\" have no access level definition. Can't be used.");
 	}
-	
+
 	public void useAdminCommand(final L2PcInstance activeChar, String message0)
 	{
 		final String message = message0.trim();
-		
+
 		String command = message;
 		String params = "";
-		
+
 		if (message.indexOf(" ") != -1)
 		{
 			command = message.substring(0, message.indexOf(" "));
 			params = message.substring(message.indexOf(" ") + 1);
 		}
-		
+
 		command = command.trim().toLowerCase();
 		params = params.trim();
-		
+
 		if (!activeChar.isGM() && !command.equals("admin_gm"))
 		{
 			Util.handleIllegalPlayerAction(activeChar, "AdminCommandHandler: A non-gm request.", Config.DEFAULT_PUNISH);
 			return;
 		}
-		
+
 		final IAdminCommandHandler handler = get(command);
-		
+
 		if (handler == null)
 		{
 			activeChar.sendMessage("No handler registered.");
-			
+
 			_log.warn("No handler registered for bypass '" + message + "'");
-			
+
 			return;
 		}
-		
+
 		if (!Config.GM_COMMAND_PRIVILEGES.containsKey(command))
 		{
 			activeChar.sendMessage("It has no access level definition. It can't be used.");
-			
+
 			_log.warn(message + "' have no access level definition. It can't be used.");
-			
+
 			return;
 		}
-		
+
 		if (activeChar.getAccessLevel() < Config.GM_COMMAND_PRIVILEGES.get(command))
 		{
 			activeChar.sendMessage("You don't have sufficient privileges.");
-			
+
 			_log.warn(activeChar + " does not have sufficient privileges for '" + message + "'.");
-			
+
 			return;
 		}
-		
+
 		GMAudit.auditGMAction(activeChar, "admincommand", command, params);
-		
+
 		final Future<?> task = ThreadPoolManager.getInstance().submitLongRunning(new Runnable() {
 			@Override
 			public void run()
@@ -264,21 +268,21 @@ public final class AdminCommandHandler extends HandlerRegistry<String, IAdminCom
 				catch (RuntimeException e)
 				{
 					activeChar.sendMessage("Exception during execution of  '" + message + "': " + e.toString());
-					
+
 					throw e;
 				}
 				finally
 				{
 					final long runtime = System.currentTimeMillis() - begin;
-					
+
 					if (runtime < ThreadPoolManager.MAXIMUM_RUNTIME_IN_MILLISEC_WITHOUT_WARNING)
 						return;
-					
+
 					activeChar.sendMessage("The execution of '" + message + "' took " + Util.formatNumber(runtime) + " msec.");
 				}
 			}
 		});
-		
+
 		try
 		{
 			task.get(1000, TimeUnit.MILLISECONDS);
