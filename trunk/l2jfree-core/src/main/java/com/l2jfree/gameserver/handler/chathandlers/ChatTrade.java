@@ -61,7 +61,7 @@ public class ChatTrade implements IChatHandler
 		{
 			IrcManager.getInstance().getConnection().sendChan("13+" + activeChar.getName() + ": " + text);
 		}
-		String name = activeChar.isGM()? "[GM]" + activeChar.getName() : activeChar.getName();
+		String name = (activeChar.isGM() && Config.GM_NAME_HAS_BRACELETS)? "[GM]" + activeChar.getName() : activeChar.getName();
 		CreatureSay cs = new CreatureSay(activeChar.getObjectId(), chatType, name, text);
 
 		if (Config.DEFAULT_TRADE_CHAT == ChatMode.REGION)

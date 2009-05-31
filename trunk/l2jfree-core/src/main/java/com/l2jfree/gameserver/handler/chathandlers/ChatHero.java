@@ -70,7 +70,7 @@ public class ChatHero implements IChatHandler
 			{
 				IrcManager.getInstance().getConnection().sendChan("12%" + activeChar.getName() + ": " + text);
 			}
-			String name = activeChar.isGM()? "[GM]" + activeChar.getName() : activeChar.getName();
+			String name = (activeChar.isGM() && Config.GM_NAME_HAS_BRACELETS)? "[GM]" + activeChar.getName() : activeChar.getName();
 			
 			CreatureSay cs = new CreatureSay(activeChar.getObjectId(), chatType, name, text);
 			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
