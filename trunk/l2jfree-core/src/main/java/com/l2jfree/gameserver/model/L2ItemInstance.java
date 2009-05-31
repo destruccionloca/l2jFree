@@ -1005,6 +1005,14 @@ public final class L2ItemInstance extends L2Object implements FuncOwner
 		updateItemAttributes();
 	}
 
+	public void updateElementAttrBonus(L2PcInstance player)
+	{
+		if (_elementals == null)
+			return;
+
+		_elementals.updateBonus(player, isArmor());
+	}
+
 	public void clearElementAttr()
 	{
 		_elementals = null;

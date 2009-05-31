@@ -159,14 +159,14 @@ public class L2Skill implements FuncOwner
 	}
 	
 	// elements
-	public final static int			ELEMENT_WIND			= 1;
-	public final static int			ELEMENT_FIRE			= 2;
-	public final static int			ELEMENT_WATER			= 3;
-	public final static int			ELEMENT_EARTH			= 4;
-	public final static int			ELEMENT_HOLY			= 5;
-	public final static int			ELEMENT_DARK			= 6;
-	public final static int			ELEMENT_UNHOLY			= 5;
-	public final static int			ELEMENT_SACRED			= 6;
+	public final static int			ELEMENT_WIND			= 2;
+	public final static int			ELEMENT_FIRE			= 0;
+	public final static int			ELEMENT_WATER			= 1;
+	public final static int			ELEMENT_EARTH			= 3;
+	public final static int			ELEMENT_HOLY			= 4;
+	public final static int			ELEMENT_DARK			= 5;
+	public final static int			ELEMENT_UNHOLY			= 4;
+	public final static int			ELEMENT_SACRED			= 5;
 
 	// conditional values
 	public final static int			COND_RUNNING			= 0x0001;
@@ -280,6 +280,7 @@ public class L2Skill implements FuncOwner
 
 	private final boolean			_ispotion;
 	private final int				_element;
+	private final int				_elementPower;
 	private final boolean			_isSuicideAttack;
 	private final int				_activateRate;
 	private final int				_magicLevel;
@@ -452,6 +453,7 @@ public class L2Skill implements FuncOwner
 		_magicLevel = set.getInteger("magicLvl", SkillTreeTable.getInstance().getMinSkillLevel(_id, _level));
 
 		_ignoreShld = set.getBool("ignoreShld", false);
+		_elementPower = set.getInteger("elementPower", 0);
 		_condition = set.getInteger("condition", 0);
 		_overhit = set.getBool("overHit", false);
 		_isSuicideAttack = set.getBool("isSuicideAttack", false);
@@ -763,7 +765,22 @@ public class L2Skill implements FuncOwner
 	 */
 	public final double getPower(L2Character activeChar)
 	{
-		return _power;
+    	if (activeChar == null)
+	    		return _power;
+			    	
+    	switch (_skillType)
+    	{
+    		case DEATHLINK:
+    		{
+    			return _power * (1 - activeChar.getCurrentHp() / activeChar.getMaxHp()) * 2; 
+    		}
+    		case FATAL:
+    		{
+    			return _power*3.5*(1-activeChar.getCurrentHp()/activeChar.getMaxHp());
+    		}
+    		default:
+    			return _power;
+    	}
 	}
 
 	public final double getPower()
@@ -1502,6 +1519,7 @@ public class L2Skill implements FuncOwner
 			case INSTANT_JUMP:
 			case SIGNET_CASTTIME:
 			case BALLISTA:
+			case FATAL:
 				return OffensiveState.OFFENSIVE;
 			case BUFF:
 			case CONT:
@@ -3944,4 +3962,9 @@ public class L2Skill implements FuncOwner
 	{
 		return L2System.hash(SkillTable.getSkillUID(this));
 	}
+	
+	public final int getElementPower()
+	{
+		return _elementPower;
+ 	}
 }
