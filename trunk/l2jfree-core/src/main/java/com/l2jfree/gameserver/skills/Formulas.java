@@ -24,6 +24,8 @@ import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.ClanHallManager;
 import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
+import com.l2jfree.gameserver.model.Elementals;
+import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2SiegeClan;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
@@ -33,6 +35,7 @@ import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2GrandBossInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.base.PlayerState;
@@ -54,8 +57,8 @@ import com.l2jfree.gameserver.templates.item.L2Weapon;
 import com.l2jfree.gameserver.templates.item.L2WeaponType;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.gameserver.util.Util;
-import com.l2jfree.lang.L2Math;
 import com.l2jfree.tools.random.Rnd;
+
 
 /**
  * Global calculations, can be modified by server admins
@@ -1395,6 +1398,14 @@ public final class Formulas
 	 */
 	public static final double calcPhysDam(L2Character attacker, L2Character target, L2Skill skill, byte shld, boolean crit, boolean dual, boolean ss)
 	{
+		if (skill == null)
+			return calcPhysDam(attacker, target, -1, shld, crit, dual, ss, 0f, -1, 0, skill);
+		else
+			return calcPhysDam(attacker, target, skill.getPower(), shld, crit, dual, ss, skill.getSSBoost(), skill.getElement(), skill.getElementPower(), skill);
+	}
+		
+	public final static double calcPhysDam(L2Character attacker, L2Character target, double skillpower, byte shld, boolean crit, boolean dual, boolean ss,float ssboost, int element, int elementPower, L2Skill skill)
+	{
 		boolean transformed = false;
 		if (attacker instanceof L2PcInstance)
 		{
@@ -1405,6 +1416,7 @@ public final class Formulas
 		}
 
 		double damage = attacker.getPAtk(target);
+		damage *= calcElemental(attacker, target, element, elementPower);
 		double defence = target.getPDef(attacker);
 
 		switch (shld)
@@ -1423,13 +1435,11 @@ public final class Formulas
 			damage *= 2;
 		if (skill != null)
 		{
-			double skillpower = skill.getPower();
 			if (skill.getSkillType() == L2SkillType.FATALCOUNTER)
 			{
 				skillpower *= (3.5 * (1 - attacker.getStatus().getCurrentHp() / attacker.getMaxHp()));
 			}
 
-			float ssboost = skill.getSSBoost();
 			if (ssboost <= 0)
 				damage += skillpower;
 			else if (ssboost > 0)
@@ -1720,17 +1730,18 @@ public final class Formulas
 			mAtk *= 2;
 
 		double power = skill.getPower(attacker);
-		if (skill.getSkillType() == L2SkillType.DEATHLINK)
+/*		if (skill.getSkillType() == L2SkillType.DEATHLINK)
 		{
 			double part = attacker.getStatus().getCurrentHp() / attacker.getMaxHp();
 			/*if (part > 0.005)
 				power *= (-0.45 * Math.log(part) + 1.);
 			else
 				power *= (-0.45 * Math.log(0.005) + 1.);*/
-			power *= (L2Math.pow(1.7165 - part, 2) * 0.577);
-		}
+/*			power *= (L2Math.pow(1.7165 - part, 2) * 0.577);
+		}*/
 
 		double damage = 91 * Math.sqrt(mAtk) / mDef * power * calcSkillVulnerability(target, skill);
+		damage *= calcElemental(attacker, target, skill);
 
 		// In C5 summons make 10 % less dmg in PvP.
 		if (attacker instanceof L2Summon && target instanceof L2PcInstance)
@@ -2277,7 +2288,7 @@ public final class Formulas
 			*/
 
 			// Next, calculate the elemental vulnerabilities
-			switch (skill.getElement())
+			/*switch (skill.getElement())
 			{
 			case L2Skill.ELEMENT_EARTH:
 				multiplier = target.calcStat(Stats.EARTH_VULN, multiplier, target, skill);
@@ -2297,7 +2308,7 @@ public final class Formulas
 			case L2Skill.ELEMENT_DARK:
 				multiplier = target.calcStat(Stats.DARK_VULN, multiplier, target, skill);
 				break;
-			}
+			}*/
 
 			// Finally, calculate L2SkillType vulnerabilities
 			if (type != null)
@@ -2791,4 +2802,125 @@ public final class Formulas
 		
 		return Rnd.get(100) < val;
 	}
+	
+    public static double calcElemental(L2Character attacker, L2Character target, L2Skill skill)
+    {
+    	if(skill==null)
+    		return calcElemental(attacker,target,-1, 0);
+    	else
+    		return calcElemental(attacker,target,skill.getElement(), skill.getElementPower());
+    }
+    
+    public static double calcElemental(L2Character attacker, L2Character target,int element, int elementPower)
+    {
+    	double calcPower = 0;
+    	double calcDefen = 0;
+    	double calcTotal = 0;
+    	double result = 1;
+    	if (target instanceof L2NpcInstance)
+    		calcDefen = 20;
+
+    	if (element != -1) // -1 => no skill | -2 => no element
+    	{
+    		if (attacker.getAttackElement() != -2 && attacker.getAttackElement() != element)
+    			return 1;
+
+    		switch (element)
+    		{
+    			case L2Skill.ELEMENT_EARTH:
+    				calcPower = attacker.calcStat(Stats.EARTH_POWER, calcPower, target, null);
+    				calcDefen = target.calcStat(Stats.EARTH_VULN, calcDefen, target, null);
+    				break;
+    			case L2Skill.ELEMENT_FIRE:
+    				calcPower = attacker.calcStat(Stats.FIRE_POWER, calcPower, target, null);
+    				calcDefen = target.calcStat(Stats.FIRE_VULN, calcDefen, target, null);
+    				break;
+    			case L2Skill.ELEMENT_WATER:
+    				calcPower = attacker.calcStat(Stats.WATER_POWER, calcPower, target, null);
+    				calcDefen = target.calcStat(Stats.WATER_VULN, calcDefen, target, null);
+    				break;
+    			case L2Skill.ELEMENT_WIND:
+    				calcPower = attacker.calcStat(Stats.WIND_POWER, calcPower, target, null);
+    				calcDefen = target.calcStat(Stats.WIND_VULN, calcDefen, target, null);
+    				break;
+    			case L2Skill.ELEMENT_HOLY:
+    				calcPower = attacker.calcStat(Stats.HOLY_POWER, calcPower, target, null);
+    				calcDefen = target.calcStat(Stats.HOLY_VULN, calcDefen, target, null);
+    				break;
+    			case L2Skill.ELEMENT_DARK:
+    				calcPower = attacker.calcStat(Stats.DARK_POWER, calcPower, target, null);
+    				calcDefen = target.calcStat(Stats.DARK_VULN, calcDefen, target, null);
+    				break;
+    		}
+    		
+    		calcPower += elementPower;
+    		calcTotal = calcPower - calcDefen;
+    		
+        	if(calcTotal == 0)
+        		result = 1;
+        	else if (calcTotal <= -1) 
+    			result = 1 - (Math.abs(calcTotal) / 100);
+    		else if (calcTotal >= 1 && calcTotal <= 74)
+    			result = 1 + (calcTotal * 0.0052);
+    		else if (calcTotal >= 75 && calcTotal <= 149)
+    			result = 1.4;
+    		else if (calcTotal >= 150)
+    			result = 1.7;
+    	}
+    	else
+    	{
+    		int elementType = attacker.getAttackElement();
+    		if (attacker instanceof L2PcInstance)
+    		{
+    			L2ItemInstance weaponInstance = attacker.getActiveWeaponInstance();
+    			elementType = -1;
+    			if (weaponInstance != null)
+    				elementType = weaponInstance.getAttackElementType();
+    		}
+    		
+    		switch (elementType)
+    		{
+    			case Elementals.EARTH:
+    				calcPower = attacker.calcStat(Stats.EARTH_POWER, calcPower, target, null);
+    				calcDefen = target.calcStat(Stats.EARTH_VULN, calcDefen, target, null);
+    				break;
+    			case Elementals.FIRE:
+    				calcPower = attacker.calcStat(Stats.FIRE_POWER, calcPower, target, null);
+    				calcDefen = target.calcStat(Stats.FIRE_VULN, calcDefen, target, null);
+    				break;
+    			case Elementals.WATER:
+    				calcPower = attacker.calcStat(Stats.WATER_POWER, calcPower, target, null);
+    				calcDefen = target.calcStat(Stats.WATER_VULN, calcDefen, target, null);
+    				break;
+    			case Elementals.WIND:
+    				calcPower = attacker.calcStat(Stats.WIND_POWER, calcPower, target, null);
+    				calcDefen = target.calcStat(Stats.WIND_VULN, calcDefen, target, null);
+    				break;
+    			case Elementals.HOLY:
+    				calcPower = attacker.calcStat(Stats.HOLY_POWER, calcPower, target, null);
+    				calcDefen = target.calcStat(Stats.HOLY_VULN, calcDefen, target, null);
+    				break;
+    			case Elementals.DARK:
+    				calcPower = attacker.calcStat(Stats.DARK_POWER, calcPower, target, null);
+    				calcDefen = target.calcStat(Stats.DARK_VULN, calcDefen, target, null);
+    				break;
+    		}
+    		
+    		calcTotal = calcPower - calcDefen;	
+    		if(calcTotal == 0)
+        		result = 1;
+    		else if (calcTotal <= -1) 
+    			result = 1 - (Math.abs(calcTotal) * 0.007);
+    		else if (calcTotal >= 1 && calcTotal < 100)
+    			result = 1 + (calcTotal * 0.007);
+    		else if (calcTotal >= 100)
+    			result = 1.7;
+    	}
+    	if(_log.isDebugEnabled())
+    	{
+    		_log.info("Element mod: "+Double.toString(result)+"x");
+    		attacker.sendMessage("Element mod: "+Double.toString(result)+"x");
+    	}
+    	return result;
+    }
 }
