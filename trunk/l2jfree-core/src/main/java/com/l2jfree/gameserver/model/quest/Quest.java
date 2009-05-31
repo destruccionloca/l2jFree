@@ -34,6 +34,7 @@ import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.datatables.NpcTable;
+import com.l2jfree.gameserver.datatables.SpawnTable;
 import com.l2jfree.gameserver.instancemanager.QuestManager;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Party;
@@ -1396,6 +1397,7 @@ public class Quest extends ManagedScript
 				spawn.setLocz(z + 20);
 				spawn.stopRespawn();
 				result = spawn.spawnOne(isSummonSpawn);
+				SpawnTable.getInstance().addNewSpawn(spawn, false);
 
 				if (despawnDelay > 0)
 					ThreadPoolManager.getInstance().scheduleGeneral(new DeSpawnScheduleTimerTask(result), despawnDelay);
