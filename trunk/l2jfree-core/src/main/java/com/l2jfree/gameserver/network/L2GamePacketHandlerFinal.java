@@ -36,39 +36,40 @@ import com.l2jfree.tools.util.HexUtil;
 
 /**
  * Stateful Packet Handler<BR>
- * The Stateful approach prevents the server from handling inconsistent packets,
- * examples:<BR>
- * <li>Clients sends a MoveToLocation packet without having a character
- * attached. (Potential errors handling the packet).</li> <li>Clients sends a
- * RequestAuthLogin being already authed. (Potential exploit).</li> <BR>
+ * The Stateful approach prevents the server from handling inconsistent packets, examples:<BR>
+ * <li>Clients sends a MoveToLocation packet without having a character attached. (Potential errors handling the
+ * packet).</li>
+ * <li>Clients sends a RequestAuthLogin being already authed. (Potential exploit).</li>
  * <BR>
- * Note: If for a given exception a packet needs to be handled on more then one
- * state, then it should be added to all these states.
+ * <BR>
+ * Note: If for a given exception a packet needs to be handled on more then one state, then it should be added to all
+ * these states.
  * 
  * @author KenM
  */
-public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClient> implements IPacketHandler<L2GameClient>, IClientFactory<L2GameClient>, IMMOExecutor<L2GameClient>
+public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClient> implements
+	IPacketHandler<L2GameClient>, IClientFactory<L2GameClient>, IMMOExecutor<L2GameClient>
 {
 	public L2GamePacketHandlerFinal()
 	{
 		super(null);
 	}
-
-	private static final Log	_log	= LogFactory.getLog(L2GamePacketHandlerFinal.class.getName());
-
+	
+	private static final Log _log = LogFactory.getLog(L2GamePacketHandlerFinal.class.getName());
+	
 	public ReceivablePacket<L2GameClient> handlePacket(ByteBuffer buf, L2GameClient client)
 	{
 		if (client.isDisconnected())
 			return null;
-
+		
 		final int opcode = buf.get() & 0xFF;
-
+		
 		if (!IOFloodManager.getInstance().canReceivePacketFrom(client, opcode))
 			return null;
-
+		
 		ReceivablePacket<L2GameClient> msg = null;
 		GameClientState state = client.getState();
-
+		
 		//_log.info("op:"+opcode);
 		switch (state)
 		{
@@ -128,7 +129,7 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 							_log.warn("Client: " + client.toString() + " sent a 0xd0 without the second opcode.");
 							break;
 						}
-
+						
 						// single packet
 						if (id2 == 0x39)
 						{
@@ -136,12 +137,12 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 						}
 						else
 						{
-							this.printDebugDoubleOpcode(opcode, id2, buf, state, client);
+							printDebugDoubleOpcode(opcode, id2, buf, state, client);
 						}
-
+						
 						break;
 					default:
-						this.printDebug(opcode, buf, state, client);
+						printDebug(opcode, buf, state, client);
 						break;
 				}
 				break;
@@ -659,7 +660,7 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 					case 0x6e: // record video
 						msg = new RequestRecordInfo();
 						break;
-
+					
 					case 0xd0:
 						int id2 = -1;
 						if (buf.remaining() >= 2)
@@ -725,201 +726,202 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 							case 0x11:
 								msg = new RequestExSetPledgeCrestLarge();
 								break;
-                            case 0x12:
-                                msg = new RequestPledgeSetAcademyMaster();
-                                break;
-                            case 0x13:
-                                msg = new RequestPledgePowerGradeList();
-                                break;
-                            case 0x14:
-                                msg = new RequestPledgeMemberPowerInfo();
-                                break;
-                            case 0x15:
-                                msg = new RequestPledgeSetMemberPowerGrade();
-                                break;
-                            case 0x16:
-                                msg = new RequestPledgeMemberInfo();
-                                break;
-                            case 0x17:
-                                msg = new RequestPledgeWarList();
-                                break;
-                            case 0x18:
-                                msg = new RequestExFishRanking();
-                                break;
-                            case 0x19:
-                                msg = new RequestPCCafeCouponUse();
-                                break;
-                            case 0x20:
-                            	msg = new MoveToLocationInAirShip();
-                            	break;								
-                            case 0x21:
-                                msg = new RequestKeyMapping(); 
-                                break;
-                            case 0x22:
-                                // TODO implement me (just disabling warnings for this packet)
-                                break;
-		                    case 0x23: 
-		                     	msg = new RequestExRemoveItemAttribute(); 
-		                     	break; 
-                            case 0x24:
-                                msg = new RequestSaveInventoryOrder();
-                                break;
-                            case 0x25:
-                                msg = new RequestExitPartyMatchingWaitingRoom();
-                                break;
-                            case 0x26:
-                                msg = new RequestConfirmTargetItem();
-                                break;
-                            case 0x27:
-                                msg = new RequestConfirmRefinerItem();
-                                break;
-                            case 0x28:
-                                msg = new RequestConfirmGemStone();
-                                break;
-		                    case 0x29:
-		                    	msg = new RequestOlympiadObserverEnd();
-		                    	break;
-                            case 0x2a:
-                                msg = new RequestCursedWeaponList();
-                                break;
-                            case 0x2b:
-                                msg = new RequestCursedWeaponLocation();
-                                break;
-                            case 0x2c:
-                                msg = new RequestPledgeReorganizeMember();
-                                break;
-                            case 0x2e:
-                                msg = new RequestExMPCCShowPartyMembersInfo();
-                                break;
-		                    case 0x2f:
-		                    	msg = new RequestOlympiadMatchList();
-		                    	break;
-		                    case 0x30:
-		                        msg = new RequestAskJoinPartyRoom();
-		                        break;
-		                    case 0x31:
-		                        msg = new AnswerJoinPartyRoom();
-		                        break;
-		                    case 0x32:
-		                        msg = new RequestListPartyMatchingWaitingRoom();
-		                        break;
-                            case 0x33:
-                                msg = new RequestExEnchantSkillSafe();
-                                break;
-                            case 0x34:
-                                msg = new RequestExEnchantSkillUntrain();
-                                break;
-                            case 0x35:
-                                msg = new RequestExEnchantItemAttribute();
-                                break;
-                            case 0x36:
-                                msg = new ExGetOnAirShip();
-                                break;
-                            case 0x3c:
-                                msg = new RequestAllCastleInfo();
-                                break;
-                            case 0x3d:
-                                msg = new RequestAllFortressInfo();
-                                break;
-                            case 0x3e:
-                                msg = new RequestAllAgitInfo();
-                                break;
-		                    case 0x3f:
-		                    	// TODO: Create RequestFortressSiegeInfo Packet.
-		                    	break;
-                            case 0x40:
-                                msg = new RequestGetBossRecord();
-                                break;
-                            case 0x41:
-                            	msg = new RequestRefine();
-                                break;
-                            case 0x42:
-                                msg = new RequestConfirmCancelItem();
-                                break;
-		                    case 0x43:
-		                    	msg = new RequestRefineCancel();
-		                        break;
-		                    case 0x44:
-		                    	msg = new RequestRefine();
-		                    	break;
-		                    case 0x45:
-		                    	msg = new RequestDuelSurrender();
-		                    	break;
-                            case 0x46:
-                                msg = new RequestExEnchantSkillRouteChange();
-                                break;
+							case 0x12:
+								msg = new RequestPledgeSetAcademyMaster();
+								break;
+							case 0x13:
+								msg = new RequestPledgePowerGradeList();
+								break;
+							case 0x14:
+								msg = new RequestPledgeMemberPowerInfo();
+								break;
+							case 0x15:
+								msg = new RequestPledgeSetMemberPowerGrade();
+								break;
+							case 0x16:
+								msg = new RequestPledgeMemberInfo();
+								break;
+							case 0x17:
+								msg = new RequestPledgeWarList();
+								break;
+							case 0x18:
+								msg = new RequestExFishRanking();
+								break;
+							case 0x19:
+								msg = new RequestPCCafeCouponUse();
+								break;
+							case 0x20:
+								msg = new MoveToLocationInAirShip();
+								break;
+							case 0x21:
+								msg = new RequestKeyMapping();
+								break;
+							case 0x22:
+								// TODO implement me (just disabling warnings for this packet)
+								break;
+							case 0x23:
+								msg = new RequestExRemoveItemAttribute();
+								break;
+							case 0x24:
+								msg = new RequestSaveInventoryOrder();
+								break;
+							case 0x25:
+								msg = new RequestExitPartyMatchingWaitingRoom();
+								break;
+							case 0x26:
+								msg = new RequestConfirmTargetItem();
+								break;
+							case 0x27:
+								msg = new RequestConfirmRefinerItem();
+								break;
+							case 0x28:
+								msg = new RequestConfirmGemStone();
+								break;
+							case 0x29:
+								msg = new RequestOlympiadObserverEnd();
+								break;
+							case 0x2a:
+								msg = new RequestCursedWeaponList();
+								break;
+							case 0x2b:
+								msg = new RequestCursedWeaponLocation();
+								break;
+							case 0x2c:
+								msg = new RequestPledgeReorganizeMember();
+								break;
+							case 0x2e:
+								msg = new RequestExMPCCShowPartyMembersInfo();
+								break;
+							case 0x2f:
+								msg = new RequestOlympiadMatchList();
+								break;
+							case 0x30:
+								msg = new RequestAskJoinPartyRoom();
+								break;
+							case 0x31:
+								msg = new AnswerJoinPartyRoom();
+								break;
+							case 0x32:
+								msg = new RequestListPartyMatchingWaitingRoom();
+								break;
+							case 0x33:
+								msg = new RequestExEnchantSkillSafe();
+								break;
+							case 0x34:
+								msg = new RequestExEnchantSkillUntrain();
+								break;
+							case 0x35:
+								msg = new RequestExEnchantItemAttribute();
+								break;
+							case 0x36:
+								msg = new ExGetOnAirShip();
+								break;
+							case 0x3c:
+								msg = new RequestAllCastleInfo();
+								break;
+							case 0x3d:
+								msg = new RequestAllFortressInfo();
+								break;
+							case 0x3e:
+								msg = new RequestAllAgitInfo();
+								break;
+							case 0x3f:
+								// TODO: Create RequestFortressSiegeInfo Packet.
+								break;
+							case 0x40:
+								msg = new RequestGetBossRecord();
+								break;
+							case 0x41:
+								msg = new RequestRefine();
+								break;
+							case 0x42:
+								msg = new RequestConfirmCancelItem();
+								break;
+							case 0x43:
+								msg = new RequestRefineCancel();
+								break;
+							case 0x44:
+								msg = new RequestRefine();
+								break;
+							case 0x45:
+								msg = new RequestDuelSurrender();
+								break;
+							case 0x46:
+								msg = new RequestExEnchantSkillRouteChange();
+								break;
 							case 0x47:
 								msg = new RequestExMagicSkillUseGround();
 								break;
-		                    case 0x4b:
-		                    	msg = new RequestDispel();
-		                    	break;
-		                    case 0x4c:
-		                    	msg = new RequestExTryToPutEnchantTargetItem();
-		                    	break;
-		                    case 0x4d:
-		                    	msg = new SetPrivateStoreWholeMsg();
-		                    	break;
-		                    case 0x4e:
-		                    	msg = new RequestExCancelEnchantItem();
-		                    	break;
-		                    case 0x50:
-		                    	msg = new RequestExTryToPutEnchantSupportItem();
-		                    	break;
-		                    case 0x51:
-		                        int id3 = 0;
-		                        if (buf.remaining() >= 2)
-		                        {
-								    id3 = buf.getShort() & 0xffff;
-		                        }
-		                        else
-		                        {
-		                        	_log.warn("Client: "+client.toString()+" sent a 0xd0:0x51 without the third opcode.");
-		                        	break;
-		                        }
-		                        switch (id3)
-		                        {
-		                        	case 0x00:
-		                        		msg = new RequestBookMarkSlotInfo();
-		                        		break;
-		                        	case 0x01:
-		                        		msg = new RequestSaveBookMarkSlot();
-		                        		break;
-		                        	case 0x02:
-		                        		msg = new RequestModifyBookMarkSlot();
-		                        		break;
-		                        	case 0x03:
-		                        		msg = new RequestDeleteBookMarkSlot();
-		                        		break;
-		                        	case 0x04:
-		                        		msg = new RequestTeleportBookMark();
-		                        		break;
-		                        default:
-		                        	this.printDebugDoubleOpcode(opcode, id3, buf, state, client);
-		                            break;
-		                        }
-		                        break;
-		                    case 0x52:
-		                    	msg = new RequestChangeNicknameColor();
-		                    	break;
-		                    case 0x53:
-		                    	msg = new RequestResetNickname();
-		                    	break;
-		                    case 0x54:
-		                    	// TODO: implement me (just disabling warnings for this packet)
-		                    	break;
-		                    case 0x56:
-		                    	// TODO: implement me (just disabling warnings for this packet)
-		                    	break;
-		                    case 0x58:
-		                    	// TODO: Create RequestDominionInfo packet to send back
-		                    	//       FE:92 ExReplyDominionInfo (packet info in YAL2Logger)
-		                    	break;
-		                    case 0x63:
-		                    	// TODO: Create RequestSeedPhase packet to send back FE:A1 ExShowSeedMapInfo
-		                    	break;
+							case 0x4b:
+								msg = new RequestDispel();
+								break;
+							case 0x4c:
+								msg = new RequestExTryToPutEnchantTargetItem();
+								break;
+							case 0x4d:
+								msg = new SetPrivateStoreWholeMsg();
+								break;
+							case 0x4e:
+								msg = new RequestExCancelEnchantItem();
+								break;
+							case 0x50:
+								msg = new RequestExTryToPutEnchantSupportItem();
+								break;
+							case 0x51:
+								int id3 = 0;
+								if (buf.remaining() >= 2)
+								{
+									id3 = buf.getShort() & 0xffff;
+								}
+								else
+								{
+									_log.warn("Client: " + client.toString()
+										+ " sent a 0xd0:0x51 without the third opcode.");
+									break;
+								}
+								switch (id3)
+								{
+									case 0x00:
+										msg = new RequestBookMarkSlotInfo();
+										break;
+									case 0x01:
+										msg = new RequestSaveBookMarkSlot();
+										break;
+									case 0x02:
+										msg = new RequestModifyBookMarkSlot();
+										break;
+									case 0x03:
+										msg = new RequestDeleteBookMarkSlot();
+										break;
+									case 0x04:
+										msg = new RequestTeleportBookMark();
+										break;
+									default:
+										printDebugDoubleOpcode(opcode, id3, buf, state, client);
+										break;
+								}
+								break;
+							case 0x52:
+								msg = new RequestChangeNicknameColor();
+								break;
+							case 0x53:
+								msg = new RequestResetNickname();
+								break;
+							case 0x54:
+								// TODO: implement me (just disabling warnings for this packet)
+								break;
+							case 0x56:
+								// TODO: implement me (just disabling warnings for this packet)
+								break;
+							case 0x58:
+								// TODO: Create RequestDominionInfo packet to send back
+								//       FE:92 ExReplyDominionInfo (packet info in YAL2Logger)
+								break;
+							case 0x63:
+								// TODO: Create RequestSeedPhase packet to send back FE:A1 ExShowSeedMapInfo
+								break;
 							default:
-								this.printDebugDoubleOpcode(opcode, id2, buf, state, client);
+								printDebugDoubleOpcode(opcode, id2, buf, state, client);
 								break;
 						}
 						break;
@@ -928,55 +930,57 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 					 * _client); break;
 					 */
 					default:
-						this.printDebug(opcode, buf, state, client);
+						printDebug(opcode, buf, state, client);
 						break;
 				}
 				break;
 		}
 		return msg;
 	}
-
+	
 	private void printDebug(int opcode, ByteBuffer buf, GameClientState state, L2GameClient client)
 	{
 		int size = buf.remaining();
-		_log.warn("Unknown Packet: " + Integer.toHexString(opcode) + " on State: " + state.name() + " Client: " + client.toString());
+		_log.warn("Unknown Packet: " + Integer.toHexString(opcode) + " on State: " + state.name() + " Client: "
+			+ client.toString());
 		byte[] array = new byte[size];
 		buf.get(array);
 		_log.warn(HexUtil.printData(array, size));
-
+		
 		IOFloodManager.getInstance().report(ErrorMode.INVALID_OPCODE, client, null, null);
 	}
-
+	
 	private void printDebugDoubleOpcode(int opcode, int id2, ByteBuffer buf, GameClientState state, L2GameClient client)
 	{
 		int size = buf.remaining();
-		_log.warn("Unknown Packet: " + Integer.toHexString(opcode) + ":" + Integer.toHexString(id2) + " on State: " + state.name() + " Client: " + client.toString());
+		_log.warn("Unknown Packet: " + Integer.toHexString(opcode) + ":" + Integer.toHexString(id2) + " on State: "
+			+ state.name() + " Client: " + client.toString());
 		byte[] array = new byte[size];
 		buf.get(array);
 		_log.warn(HexUtil.printData(array, size));
-
+		
 		IOFloodManager.getInstance().report(ErrorMode.INVALID_OPCODE, client, null, null);
 	}
-
+	
 	public L2GameClient create(SelectorThread<L2GameClient> selectorThread, ISocket socket, SelectionKey key)
 	{
 		return new L2GameClient(selectorThread, socket, key);
 	}
-
+	
 	public void execute(ReceivablePacket<L2GameClient> rp)
 	{
 		rp.getClient().execute(rp);
 	}
-
+	
 	@Override
 	public HeaderInfo<L2GameClient> handleHeader(SelectionKey key, ByteBuffer buf)
 	{
 		if (buf.remaining() >= 2)
 		{
 			int dataPending = (buf.getShort() & 0xffff) - 2;
-			return this.getHeaderInfoReturn().set(0, dataPending, false, (L2GameClient) key.attachment());
+			return getHeaderInfoReturn().set(0, dataPending, false, (L2GameClient)key.attachment());
 		}
-
-		return this.getHeaderInfoReturn().set(2 - buf.remaining(), 0, false, (L2GameClient) key.attachment());
+		
+		return getHeaderInfoReturn().set(2 - buf.remaining(), 0, false, (L2GameClient)key.attachment());
 	}
 }
