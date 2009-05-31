@@ -37,14 +37,13 @@ public final class L2ArmorSet
 
 	private final int _enchant6Skill;
 
-	private final int _mwork_chest;
 	private final int _mwork_legs;
 	private final int _mwork_head;
 	private final int _mwork_gloves;
 	private final int _mwork_feet;
 	private final int _mwork_shield;
 
-	public L2ArmorSet(int chest, int legs, int head, int gloves, int feet, int skillId, int skill_lvl, int shield, int shieldSkillId, int enchant6Skill, int mwork_chest, int mwork_legs, int mwork_head, int mwork_gloves, int mwork_feet, int mwork_shield)
+	public L2ArmorSet(int chest, int legs, int head, int gloves, int feet, int skillId, int skill_lvl, int shield, int shieldSkillId, int enchant6Skill, int mwork_legs, int mwork_head, int mwork_gloves, int mwork_feet, int mwork_shield)
 	{
 		_chest = chest;
 		_legs  = legs;
@@ -58,8 +57,7 @@ public final class L2ArmorSet
 		_shieldSkillId = shieldSkillId;
 		
 		_enchant6Skill = enchant6Skill;
-		
-		_mwork_chest = mwork_chest;
+
 		_mwork_legs  = mwork_legs;
 		_mwork_head  = mwork_head;
 		_mwork_gloves = mwork_gloves;
@@ -99,7 +97,7 @@ public final class L2ArmorSet
 
 	public boolean containAll(int chest, int legs, int head, int gloves, int feet)
 	{
-		if ((_chest != 0 && _chest != chest) && (_mwork_chest == 0 || chest != _mwork_chest))
+		if (_chest != 0 && _chest != chest)
 			return false;
 
 		if ((_legs != 0 && _legs != legs) && (_mwork_legs == 0 || legs != _mwork_legs))
@@ -119,7 +117,7 @@ public final class L2ArmorSet
 		switch (slot)
 		{
 		case Inventory.PAPERDOLL_CHEST:
-			return (_chest == itemId || _mwork_chest == itemId);
+			return (_chest == itemId);
 
 		case Inventory.PAPERDOLL_LEGS:
 			return (_legs == itemId || _mwork_legs == itemId);
