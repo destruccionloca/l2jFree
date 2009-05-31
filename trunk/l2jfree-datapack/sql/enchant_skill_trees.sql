@@ -5,7 +5,7 @@ CREATE TABLE `enchant_skill_trees` (
   `base_lvl` TINYINT(2) NOT NULL DEFAULT 0,
   `sp` INT(10) NOT NULL DEFAULT 0,
   `exp` INT(20) DEFAULT NULL,
-  `min_skill_lvl` TINYINT(2) NOT NULL DEFAULT 0,
+  `min_skill_lvl` INT(3) NOT NULL DEFAULT 0,
   `success_rate76` SMALLINT(3) unsigned NOT NULL DEFAULT 0,
   `success_rate77` SMALLINT(3) NOT NULL DEFAULT 0,
   `success_rate78` SMALLINT(3) NOT NULL DEFAULT 0,
