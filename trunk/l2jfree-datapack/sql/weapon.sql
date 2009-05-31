@@ -476,7 +476,7 @@ INSERT INTO `weapon` VALUES
 (2554,'Crimson Sword*Elven Long Sword','lrhand','true',2360,2,2,'fine_steel','c',148,10,'dual',8,0.00000,0,0,0,325,0,68,-1,-1,2870000,884,'true','true','true','true','','','','',0),
 (2555,'Elven Sword*Elven Sword','lrhand','true',2440,2,2,'fine_steel','c',118,10,'dual',8,0.00000,0,0,0,325,0,56,-1,-1,1960000,602,'true','true','true','true','','','','',0),
 (2556,'Elven Sword*Sword of Revolution','lrhand','true',2410,2,2,'fine_steel','c',136,10,'dual',8,0.00000,0,0,0,325,0,63,-1,-1,2470000,761,'true','true','true','true','','','','',0),
-(2557,'Elven Sword*Elven Long Sword','lrhand','true',2410,2,2,'fine_steel','c',148,10,'dual',8,0.00000,0,0,0,325,0,68,-1,-1,2870000,884,'true','true','true','true','',''3042-2,'','',0),
+(2557,'Elven Sword*Elven Long Sword','lrhand','true',2410,2,2,'fine_steel','c',148,10,'dual',8,0.00000,0,0,0,325,0,68,-1,-1,2870000,884,'true','true','true','true','','3042-2','','',0),
 (2558,'Sword of Revolution*Sword of Revolution','lrhand','true',2360,2,2,'fine_steel','c',148,10,'dual',8,0.00000,0,0,0,325,0,68,-1,-1,2870000,884,'true','true','true','true','','','','',0),
 (2559,'Sword of Revolution*Elven Long Sword','lrhand','true',2340,3,3,'fine_steel','c',155,10,'dual',8,0.00000,0,0,0,325,0,70,-1,-1,3340000,1029,'true','true','true','true','','','','',0),
 (2560,'Elven Long Sword*Elven Long Sword','lrhand','true',2340,3,3,'fine_steel','c',162,10,'dual',8,0.00000,0,0,0,325,0,73,-1,-1,3820000,1175,'true','true','true','true','','','','',0),
