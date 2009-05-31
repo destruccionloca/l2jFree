@@ -888,12 +888,6 @@ public abstract class L2Character extends L2Object
 				sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
-
-			if (Config.ALLOW_OFFLINE_TRADE_PROTECTION && target instanceof L2PcInstance && ((L2PcInstance)target).isOffline())
-			{
-				sendPacket(ActionFailed.STATIC_PACKET);
-				return;
-			}
 			
 			if (((L2PcInstance) this).inObserverMode())
 			{
@@ -941,6 +935,16 @@ public abstract class L2Character extends L2Object
 			}
 			
 			transformed = ((L2PcInstance) this).isTransformed();
+		}
+		
+		// TODO: this protects against a very small part of possible attacks
+		if (this instanceof L2Playable && Config.ALLOW_OFFLINE_TRADE_PROTECTION)
+		{
+			if (target instanceof L2PcInstance && ((L2PcInstance)target).isInOfflineMode())
+			{
+				sendPacket(ActionFailed.STATIC_PACKET);
+				return;
+			}
 		}
 
 		// Get the active weapon instance (always equipped in the right hand)
@@ -2756,7 +2760,7 @@ public abstract class L2Character extends L2Object
 	}
 	
 	public final boolean isFlying() { return _isFlying; }
-	public void setIsFlying(boolean mode) { _isFlying = mode; }	
+	public void setIsFlying(boolean mode) { _isFlying = mode; }
 
 	@Override
 	public CharKnownList getKnownList()

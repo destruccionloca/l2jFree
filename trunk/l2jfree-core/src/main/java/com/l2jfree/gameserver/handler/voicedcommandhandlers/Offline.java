@@ -19,7 +19,7 @@ public class Offline implements IVoicedCommandHandler
 		{
 			if (activeChar.isInsideZone(L2Zone.FLAG_PEACE) || activeChar.isGM())
 			{
-				return activeChar.setOffline();
+				return activeChar.enterOfflineMode();
 			}
 			else
 			{

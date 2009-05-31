@@ -27,7 +27,7 @@ public class ExPutCommissionResultForVariationMake extends L2GameServerPacket
 	private int _gemstoneObjId;
 	private int _itemId;
 	private long _gemstoneCount;
-	private int _unk1;
+	//private int _unk1;
 	private int _unk2;
 	private int _unk3;
 
@@ -36,7 +36,7 @@ public class ExPutCommissionResultForVariationMake extends L2GameServerPacket
 		_gemstoneObjId = gemstoneObjId;
 		_itemId = itemId;
 		_gemstoneCount = count;
-		_unk1 = 0;
+		//_unk1 = 0;
 		_unk2 = 0;
 		_unk3 = 1;
 	}

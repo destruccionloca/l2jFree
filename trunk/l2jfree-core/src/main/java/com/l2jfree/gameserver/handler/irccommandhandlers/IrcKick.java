@@ -22,7 +22,6 @@ import com.l2jfree.gameserver.instancemanager.IrcManager;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.Disconnection;
-import com.l2jfree.gameserver.network.serverpackets.LeaveWorld;
 
 public class IrcKick implements IIrcCommandHandler
 {
@@ -45,7 +44,6 @@ public class IrcKick implements IIrcCommandHandler
 				if (!plyr.isGM())
 				{
 					counter++;
-					plyr.sendPacket(LeaveWorld.STATIC_PACKET);
 					new Disconnection(plyr).defaultSequence(false);
 				}
 			}

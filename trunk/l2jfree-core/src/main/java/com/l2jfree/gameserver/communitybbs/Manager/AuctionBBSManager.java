@@ -386,7 +386,7 @@ public class AuctionBBSManager extends BaseBBSManager
 					else if (!lot.enchantLevel.equals(0))
 						html.append("<td FIXWIDTH=380 align=left valign=top><a action=\"bypass _bbsauction_view " + lot.lotId + "\">" + "Level " + lot.enchantLevel + " " + item.getName() + "</a></td>");
 					else if (!lot.count.equals(Long.valueOf("1")))
-						html.append("<td FIXWIDTH=380 align=left valign=top><a action=\"bypass _bbsauction_view " + lot.lotId + "\">" + "(" + Util.formatAdena((int) ((long) lot.count)) + ") " + item.getName() + "</a></td>");
+						html.append("<td FIXWIDTH=380 align=left valign=top><a action=\"bypass _bbsauction_view " + lot.lotId + "\">" + "(" + Util.formatAdena(lot.count.intValue()) + ") " + item.getName() + "</a></td>");
 					else
 						html.append("<td FIXWIDTH=380 align=left valign=top><a action=\"bypass _bbsauction_view " + lot.lotId + "\">" + item.getName() + "</a></td>");
 					html.append("<td FIXWIDTH=100 align=center valign=center>" + Util.formatAdena((int) currentBid) + "</td>");
@@ -455,7 +455,7 @@ public class AuctionBBSManager extends BaseBBSManager
 		else if (!lot.enchantLevel.equals(0))
 			html.append("<td FIXWIDTH=360 height=20 align=left>" + "Level " + lot.enchantLevel + " " + item.getName() + "</td>");
 		else if (!lot.count.equals(Long.valueOf("1")))
-			html.append("<td FIXWIDTH=360 height=20 align=left>(" + Util.formatAdena((int) ((long) lot.count)) + ") " + item.getName() + "</td>");
+			html.append("<td FIXWIDTH=360 height=20 align=left>(" + Util.formatAdena(lot.count.intValue()) + ") " + item.getName() + "</td>");
 		else
 			html.append("<td FIXWIDTH=360 height=20 align=left>" + item.getName() + "</td>");
 		html.append("<td FIXWIDTH=150 height=20 align=right>End Date:&nbsp;</td>");
@@ -509,7 +509,7 @@ public class AuctionBBSManager extends BaseBBSManager
 			html.append("<table border=0 cellspacing=0 cellpadding=2 width=770><tr>");
 			html.append("<td FIXWIDTH=85></td>");
 			html.append("<td FIXWIDTH=200 align=center>" + getCharName(bid.bidderId) + "</td>");
-			html.append("<td FIXWIDTH=200 align=center>(" + Util.formatAdena((int) ((long) bid.bidAmount)) + ") "
+			html.append("<td FIXWIDTH=200 align=center>(" + Util.formatAdena(bid.bidAmount.intValue()) + ") "
 					+ (lot.currency.equals(57) ? "Adena" : (lot.currency.equals(5575) ? "Ancient Adena" : ItemTable.getInstance().getTemplate(Config.AUCTION_SPECIAL_CURRENCY).getName())) + "</td>");
 			html.append("<td FIXWIDTH=200 align=center>" + bid.bidDateFormated + "</td>");
 			html.append("<td FIXWIDTH=85></td>");
@@ -564,7 +564,7 @@ public class AuctionBBSManager extends BaseBBSManager
 		html.append("<td FIXWIDTH=180 valign=top>" + lot.enchantLevel + "</td>");
 		html.append("</tr><tr>");
 		html.append("<td FIXWIDTH=100 align=right>Count:</td>");
-		html.append("<td FIXWIDTH=180>" + Util.formatAdena((int) ((long) lot.count)) + "</td>");
+		html.append("<td FIXWIDTH=180>" + Util.formatAdena(lot.count.intValue()) + "</td>");
 		html.append("</tr><tr>");
 		html.append("<td FIXWIDTH=100 align=right>Currency:</td>");
 		html.append("<td FIXWIDTH=180><img src=icon." + (lot.currency.equals(57) ? "etc_adena_i00" : (lot.currency.equals(5575) ? "etc_ancient_adena_i00" : Config.AUCTION_SPECIAL_CURRENCY_ICON)) + " width=32 height=16></td>");
@@ -749,7 +749,7 @@ public class AuctionBBSManager extends BaseBBSManager
 		html.append("<td FIXWIDTH=180 valign=top>" + lot.enchantLevel + "</td>");
 		html.append("</tr><tr>");
 		html.append("<td FIXWIDTH=100 align=right>Count:</td>");
-		html.append("<td FIXWIDTH=180>" + Util.formatAdena((int) ((long) lot.count)) + "</td>");
+		html.append("<td FIXWIDTH=180>" + Util.formatAdena(lot.count.intValue()) + "</td>");
 		html.append("</tr><tr>");
 		html.append("<td FIXWIDTH=100 align=right>Currency:</td>");
 		html.append("<td FIXWIDTH=180><img src=icon." + (lot.currency.equals(57) ? "etc_adena_i00" : (lot.currency.equals(5575) ? "etc_ancient_adena_i00" : Config.AUCTION_SPECIAL_CURRENCY_ICON)) + " width=32 height=16></td>");
@@ -890,13 +890,13 @@ public class AuctionBBSManager extends BaseBBSManager
 							for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 								if (player.getObjectId().equals(lot.ownerId))
 								{
-									L2ItemInstance item = player.getInventory().addItem("Auction Give Bid", lot.currency, (int) ((long) bid.bidAmount), null, null);
+									L2ItemInstance item = player.getInventory().addItem("Auction Give Bid", lot.currency, bid.bidAmount.intValue(), null, null);
 									InventoryUpdate iu = new InventoryUpdate();
 									iu.addItem(item);
 									player.sendPacket(iu);
 									SystemMessage sm = new SystemMessage(SystemMessageId.YOU_PICKED_UP_S1_S2);
 									sm.addItemName(item);
-									sm.addNumber((int) ((long) bid.bidAmount));
+									sm.addNumber(bid.bidAmount.intValue());
 									player.sendPacket(sm);
 									player.sendPacket(SystemMessageId.NEW_MAIL);
 									player.sendPacket(ExMailArrived.STATIC_PACKET);
@@ -907,8 +907,8 @@ public class AuctionBBSManager extends BaseBBSManager
 								addItemToInventory(con, lot.ownerId, IdFactory.getInstance().getNextId(), lot.currency, bid.bidAmount, 0);
 
 							sendMail(con, lot.ownerId, "Auctioneer", "Your auction was success!", "Item Sold: "
-									+ (!lot.count.equals(1) ? "(" + Util.formatAdena((int) ((long) lot.count)) + ")" : (itemWon.isEquipable() ? "+" : "Level ") + lot.enchantLevel) + " " + itemWon.getName() + "<br>Check your inventory for "
-									+ Util.formatAdena((int) ((long) bid.bidAmount)) + " " + ItemTable.getInstance().getTemplate(lot.currency));
+									+ (!lot.count.equals(1) ? "(" + Util.formatAdena(lot.count.intValue()) + ")" : (itemWon.isEquipable() ? "+" : "Level ") + lot.enchantLevel) + " " + itemWon.getName() + "<br>Check your inventory for "
+									+ Util.formatAdena(bid.bidAmount.intValue()) + " " + ItemTable.getInstance().getTemplate(lot.currency));
 
 							for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 								if (player.getObjectId().equals(bid.bidderId))
@@ -921,7 +921,7 @@ public class AuctionBBSManager extends BaseBBSManager
 							addItemToInventory(con, bid.bidderId, (lot.count.equals(1) ? lot.objectId : IdFactory.getInstance().getNextId()), lot.itemId, lot.count, lot.enchantLevel);
 
 							sendMail(con, bid.bidderId, "Bidder", "You won an auction!!", "Please relog to see your "
-									+ (!lot.count.equals(1) ? "(" + Util.formatAdena((int) ((long) lot.count)) + ")" : (itemWon.isEquipable() ? "+" : "Level ") + lot.enchantLevel) + " " + itemWon.getName());
+									+ (!lot.count.equals(1) ? "(" + Util.formatAdena(lot.count.intValue()) + ")" : (itemWon.isEquipable() ? "+" : "Level ") + lot.enchantLevel) + " " + itemWon.getName());
 
 							PreparedStatement statement = con.prepareStatement("UPDATE auction_lots SET processed = 'true' WHERE lotId = ?");
 							statement.setInt(1, lot.lotId);
@@ -962,7 +962,7 @@ public class AuctionBBSManager extends BaseBBSManager
 						addItemToInventory(con, lot.ownerId, (lot.count.equals(1) ? lot.objectId : IdFactory.getInstance().getNextId()), lot.itemId, lot.count, lot.enchantLevel);
 
 						sendMail(con, lot.ownerId, "Auctioneer", "Your auction did not have any bids", "Please relog to see your "
-								+ (!lot.count.equals(1) ? "(" + Util.formatAdena((int) ((long) lot.count)) + ")" : (itemWon.isEquipable() ? "+" : "Level ") + lot.enchantLevel) + " " + itemWon.getName());
+								+ (!lot.count.equals(1) ? "(" + Util.formatAdena(lot.count.intValue()) + ")" : (itemWon.isEquipable() ? "+" : "Level ") + lot.enchantLevel) + " " + itemWon.getName());
 
 						PreparedStatement statement = con.prepareStatement("UPDATE auction_lots SET processed = 'true' WHERE lotId = ?");
 						statement.setInt(1, lot.lotId);
@@ -1031,7 +1031,7 @@ public class AuctionBBSManager extends BaseBBSManager
 	private boolean addBid(L2PcInstance activeChar, int lotId, long bidIncrement, int currency, long bidAmount)
 	{
 		boolean playerWasOnline = false;
-		int currentBid = getHighestBid(lotId);
+		long currentBid = getHighestBid(lotId);
 		int prevBidderId, prevBidAmount;
 		LotList lot = getLot(lotId);
 		int bidCount = countBids(lot.lotId);
@@ -1047,7 +1047,7 @@ public class AuctionBBSManager extends BaseBBSManager
 
 		if (bidAmount <= activeChar.getInventory().getInventoryItemCount(currency, 0))
 		{
-			if (bidAmount > (bidCount != 0 ? (long) currentBid + bidIncrement : (long) currentBid))
+			if (bidAmount > (bidCount != 0 ? currentBid + bidIncrement : (long) currentBid))
 			{
 				java.sql.Connection con = null;
 				try

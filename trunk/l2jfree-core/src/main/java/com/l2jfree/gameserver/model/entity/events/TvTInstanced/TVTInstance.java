@@ -20,7 +20,6 @@ package com.l2jfree.gameserver.model.entity.events.TvTInstanced;
  * 
  */
 
-import java.io.FileNotFoundException;
 import java.util.Vector;
 
 import javolution.text.TextBuilder;
@@ -74,7 +73,7 @@ public class TVTInstance
 		{
 			createInstance();
 		}
-		catch (FileNotFoundException e)
+		catch (RuntimeException e)
 		{
 			_log.error("TvTi Engine: Faild creating instance - ", e);
 		}
@@ -672,7 +671,7 @@ public class TVTInstance
 		return true;
 	}
 
-	public void createInstance() throws FileNotFoundException
+	public void createInstance()
 	{
 		_instanceId = InstanceManager.getInstance().createDynamicInstance(Config.TVTI_INSTANCE_XML);
 	}

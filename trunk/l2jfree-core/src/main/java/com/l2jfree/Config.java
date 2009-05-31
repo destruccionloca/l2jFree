@@ -1379,10 +1379,10 @@ public final class Config extends L2Config
 			{
 				AUCTION_INCLUDED_ITEMS_LIST.add(Integer.parseInt(id.trim()));
 			}
-		    ALLOW_OFFLINE_TRADE = Boolean.parseBoolean(optionsSettings.getProperty("AllowOfflineTrade", "false")); 
-		    ALLOW_OFFLINE_TRADE_CRAFT = Boolean.parseBoolean(optionsSettings.getProperty("AllowOfflineTradeCraft", "true")); 
-		    ALLOW_OFFLINE_TRADE_COLOR_NAME = Boolean.parseBoolean(optionsSettings.getProperty("AllowOfflineTradeColorName", "true")); 
-		    OFFLINE_TRADE_COLOR_NAME = Integer.parseInt(optionsSettings.getProperty("OfflineTradeColorName", "999999")); 
+		    ALLOW_OFFLINE_TRADE = Boolean.parseBoolean(optionsSettings.getProperty("AllowOfflineTrade", "false"));
+		    ALLOW_OFFLINE_TRADE_CRAFT = Boolean.parseBoolean(optionsSettings.getProperty("AllowOfflineTradeCraft", "true"));
+		    ALLOW_OFFLINE_TRADE_COLOR_NAME = Boolean.parseBoolean(optionsSettings.getProperty("AllowOfflineTradeColorName", "true"));
+		    OFFLINE_TRADE_COLOR_NAME = Integer.parseInt(optionsSettings.getProperty("OfflineTradeColorName", "999999"));
 		    ALLOW_OFFLINE_TRADE_PROTECTION = Boolean.parseBoolean(optionsSettings.getProperty("AllowOfflineTradeProtection", "true"));
 		}
 	}
@@ -1983,7 +1983,7 @@ public final class Config extends L2Config
 			GM_ITEM_RESTRICTION	= Boolean.parseBoolean(gmSettings.getProperty("GmItemRestriction", "False"));
 			GM_ALLOW_CHAT_INVISIBLE	= Boolean.parseBoolean(gmSettings.getProperty("GMChatInvisible", "False"));
 			
-		    GM_NAME_HAS_BRACELETS = Boolean.parseBoolean(gmSettings.getProperty("GmBracelets", "true"));			
+		    GM_NAME_HAS_BRACELETS = Boolean.parseBoolean(gmSettings.getProperty("GmBracelets", "true"));
 		}
 	}
 	

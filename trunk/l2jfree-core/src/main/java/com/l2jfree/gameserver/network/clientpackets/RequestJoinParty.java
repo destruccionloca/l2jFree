@@ -74,7 +74,7 @@ public class RequestJoinParty extends L2GameClientPacket
 			requestFailed(new SystemMessage(SystemMessageId.C1_IS_ALREADY_IN_PARTY).addString(target.getName()));
 			return;
 		}
-		else if (target.isOffline())
+		else if (target.isInOfflineMode())
 		{
 			requestor.sendMessage("You can't invite " + target.getName() + " because the player is in offline mode!");
 			return;

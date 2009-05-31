@@ -202,7 +202,6 @@ import com.l2jfree.gameserver.network.serverpackets.HennaInfo;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
-import com.l2jfree.gameserver.network.serverpackets.LeaveWorld;
 import com.l2jfree.gameserver.network.serverpackets.MagicEffectIcons;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
@@ -284,8 +283,8 @@ public final class L2PcInstance extends L2Playable
 {
     // Character Teleport Bookmark:
     private static final String INSERT_TP_BOOKMARK 				= "INSERT INTO character_tpbookmark (charId,Id,x,y,z,icon,tag,name) values (?,?,?,?,?,?,?,?)";
-    private static final String UPDATE_TP_BOOKMARK 				= "UPDATE character_tpbookmark SET icon=?,tag=?,name=? where charId=? AND Id=?";	
-    private static final String RESTORE_TP_BOOKMARK 			= "SELECT Id,x,y,z,icon,tag,name FROM character_tpbookmark WHERE charId=?";	
+    private static final String UPDATE_TP_BOOKMARK 				= "UPDATE character_tpbookmark SET icon=?,tag=?,name=? where charId=? AND Id=?";
+    private static final String RESTORE_TP_BOOKMARK 			= "SELECT Id,x,y,z,icon,tag,name FROM character_tpbookmark WHERE charId=?";
     private static final String DELETE_TP_BOOKMARK 				= "DELETE FROM character_tpbookmark WHERE charId=? AND Id=?";
 	
 	// Character Skill SQL String Definitions:
@@ -835,9 +834,6 @@ public final class L2PcInstance extends L2Playable
 	// Id of the afro hair cut
 	private int								_afroId					= 0;
 	
-	// offline shops
-	private boolean	_isOffline			= false;
-
 	private class VitalityTask implements Runnable
 	{
 		private L2PcInstance	_player	= null;
@@ -3588,7 +3584,7 @@ public final class L2PcInstance extends L2Playable
 			{
 				sendPacket(ActionFailed.STATIC_PACKET);
 				return;
-			}			
+			}
 			else if ((_inEventVIP && !player._inEventVIP) || (!_inEventVIP && player._inEventVIP))
 			{
 				sendPacket(ActionFailed.STATIC_PACKET);
@@ -6371,7 +6367,8 @@ public final class L2PcInstance extends L2Playable
 		if (onlinePlayer == null)
 			return;
 		
-		_log.warn("Avoiding duplicate character! Disconnecting online character (" + onlinePlayer.getName() + ")");
+		if (!onlinePlayer.isInOfflineMode())
+			_log.warn("Avoiding duplicate character! Disconnecting online character (" + onlinePlayer.getName() + ")");
 		
 		new Disconnection(onlinePlayer).defaultSequence(true);
 	}
@@ -7839,9 +7836,6 @@ public final class L2PcInstance extends L2Playable
 	 */
 	public boolean canUseMagic(L2Skill skill)
 	{
-		if ((!containsAllowedTransformSkill(skill.getId()) && !skill.allowOnTransform()) && isTransformed() && !skill.isPotion())
-			return false;
-		
 		if (skill == null || skill.getSkillType() == L2SkillType.NOTDONE)
 			return false;
 		
@@ -7853,7 +7847,7 @@ public final class L2PcInstance extends L2Playable
 		if (skill.isPassive() || skill.isChance() || skill.bestowed())
 			return false;
 		
-		if (isTransformed() && !containsAllowedTransformSkill(skill.getId()))
+		if (isTransformed() && !containsAllowedTransformSkill(skill.getId()) && !skill.allowOnTransform() && !skill.isPotion())
 			return false;
 		
 		return true;
@@ -11137,7 +11131,7 @@ public final class L2PcInstance extends L2Playable
 		else
 			setInAirShip(false);
 		_airShip = airShip;
-	}	
+	}
 	public void setInCrystallize(boolean inCrystallize)
 	{
 		_inCrystallize = inCrystallize;
@@ -14291,42 +14285,42 @@ public final class L2PcInstance extends L2Playable
     public boolean TeleportBookmarkCondition(int type)
     {
     	
-    	if(this.isInCombat())
+    	if(isInCombat())
     	{
     		sendPacket(new SystemMessage(2348));
     		return false;
     	}
-    	else if (this.isInSiege())
+    	else if (isInSiege())
     	{
     		sendPacket(new SystemMessage(2349));
     		return false;
     	}
-    	else if (this.isInDuel())
+    	else if (isInDuel())
     	{
     		sendPacket(new SystemMessage(2350));
     		return false;
     	}
-    	else if (this.isFlying())
+    	else if (isFlying())
     	{
     		sendPacket(new SystemMessage(2351));
     		return false;
     	}
-    	else if (this.isInOlympiadMode())
+    	else if (isInOlympiadMode())
     	{
     		sendPacket(new SystemMessage(2352));
     		return false;
     	}
-    	else if (this.isParalyzed())
+    	else if (isParalyzed())
     	{
     		sendPacket(new SystemMessage(2353));
     		return false;
     	}
-    	else if (this.isDead())
+    	else if (isDead())
     	{
     		sendPacket(new SystemMessage(2354));
     		return false;
     	}
-    	else if (this.isInBoat() || this.isInAirShip() || this.isInJail() || this.isInsideZone(L2Zone.FLAG_NOSUMMON))
+    	else if (isInBoat() || isInAirShip() || isInJail() || isInsideZone(L2Zone.FLAG_NOSUMMON))
     	{
     		if(type == 0)
     			sendPacket(new SystemMessage(2355));
@@ -14334,7 +14328,7 @@ public final class L2PcInstance extends L2Playable
     			sendPacket(new SystemMessage(2410));
     		return false;
     	}
-    	else if (this.isInWater())
+    	else if (isInWater())
     	{
     		sendPacket(new SystemMessage(2356));
     		return false;
@@ -14346,7 +14340,7 @@ public final class L2PcInstance extends L2Playable
     		return;
     	}
     	*/
-    	else 
+    	else
     		return true;
     }
     
@@ -14471,32 +14465,23 @@ public final class L2PcInstance extends L2Playable
     	_isFlyingMounted = val;
     	setIsFlying(val);
     }
-    
-    public void cleanOffline()
-    {
-    	_isOffline=false;
-    }
-    
-	public boolean setOffline()
-	{
-		synchronized (this)
-		{
-			if (_isOffline)
-				return false;
-        
-			_isOffline = true;
-        	leaveParty();
-        	if (Config.ALLOW_OFFLINE_TRADE_COLOR_NAME)
-        		getAppearance().setNameColor(Config.OFFLINE_TRADE_COLOR_NAME);
-        	sendMessage("Offline Mode enabled, Good Bye " + getName() + "");
-        	sendPacket(LeaveWorld.STATIC_PACKET);
-        	getClient().setActiveChar(null);
-        	return true;
-		}
-	}    
 	
-	public boolean isOffline()
+	public synchronized boolean enterOfflineMode()
 	{
-		return _isOffline;
+		if (isInOfflineMode())
+			return false;
+		
+		leaveParty();
+		if (Config.ALLOW_OFFLINE_TRADE_COLOR_NAME)
+			getAppearance().setNameColor(Config.OFFLINE_TRADE_COLOR_NAME);
+		sendMessage("Offline mode enabled.");
+		
+		new Disconnection(this).store().close(false);
+		return true;
+	}
+	
+	public boolean isInOfflineMode()
+	{
+		return getOnlineState() == ONLINE_STATE_ONLINE && getClient() == null;
 	}
 }

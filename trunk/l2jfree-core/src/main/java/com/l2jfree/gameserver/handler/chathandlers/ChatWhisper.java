@@ -52,14 +52,14 @@ public class ChatWhisper implements IChatHandler
 		{
 			if ((!receiver.getMessageRefusal() && !BlockList.isBlocked(receiver, activeChar)) || activeChar.isGM())
 			{
-				if (receiver.isOffline())
+				if (receiver.isInOfflineMode())
 				{
 					receiver.sendPacket(new CreatureSay(activeChar.getObjectId(), chatType, activeChar.getName(), text));
 					activeChar.sendPacket(new CreatureSay(activeChar.getObjectId(),  chatType, "->" + receiver.getName(), text));
 					SystemMessage sm = new SystemMessage(SystemMessageId.S1);
 					sm.addString(target + " is in offline mode!");
 					activeChar.sendPacket(sm);
-				}				
+				}
 				if (Config.JAIL_DISABLE_CHAT && receiver.isInJail())
 				{
 					activeChar.sendMessage(receiver.getName()+" is currently in jail.");

@@ -578,7 +578,7 @@ public class RegionBBSManager extends BaseBBSManager
 
 					if (player.isGM())
 						htmlCode.append("<font color=\"LEVEL\">" + player.getName() + "</font>");
-					else if (player.isOffline())
+					else if (player.isInOfflineMode())
 						htmlCode.append(player.getName() + " (Offline Mode)");
 					else
 						htmlCode.append(player.getName());

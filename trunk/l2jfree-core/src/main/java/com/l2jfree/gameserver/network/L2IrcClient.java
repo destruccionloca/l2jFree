@@ -99,7 +99,7 @@ public class L2IrcClient extends Thread
 		}
 	}
 
-	public void forcedConnect() throws IOException
+	public void forcedConnect()
 	{
 		IrcManager.getInstance().reload();
 	}

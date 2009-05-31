@@ -15,9 +15,6 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Shutdown;
 import com.l2jfree.gameserver.Shutdown.DisableType;
@@ -38,7 +35,6 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 public class RequestPrivateStoreSell extends L2GameClientPacket
 {
     private static final String _C__96_REQUESTPRIVATESTORESELL = "[C] 96 RequestPrivateStoreSell";
-    private final static Log _log = LogFactory.getLog(RequestPrivateStoreSell.class.getName());
     
     private int _storePlayerId;
     private int _count;
