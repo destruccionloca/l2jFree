@@ -26,57 +26,73 @@ import com.l2jfree.gameserver.network.L2IrcClient;
  */
 public class IrcManager
 {
-	private static final Log	_log	= LogFactory.getLog(IrcManager.class.getName());
-	private static IrcManager	_instance;
-	private static L2IrcClient	_ircConnection;
+	private static final Log	_log		= LogFactory.getLog(IrcManager.class.getName());
+	private static IrcManager	_Instance;
+	private static L2IrcClient	_IrcConnection;
+	private static boolean		initilized	= false;
 
 	public static final IrcManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new IrcManager();
-		
-		return _instance;
+		if (_Instance == null)
+		{
+			_log.info("Initializing IrcManager");
+			_Instance = new IrcManager();
+			_Instance.load();
+		}
+		return _Instance;
 	}
-	
-	private IrcManager()
+
+	public static boolean isInitialized()
 	{
-		_log.info("Initializing IrcManager");
-		load();
+		return initilized;
 	}
-	
-	// =========================================================
-	// Method - Public
+
 	public void reload()
 	{
-		_ircConnection.disconnect();
+		if (_IrcConnection != null)
+		{
+			_IrcConnection.disconnect();
+			_IrcConnection = null;
+			initilized = false;
+		}
+
 		try
 		{
-			_ircConnection.connect();
+			_IrcConnection = new L2IrcClient(Config.IRC_SERVER, Config.IRC_PORT, Config.IRC_PASS, Config.IRC_NICK, Config.IRC_USER, Config.IRC_NAME, Config.IRC_SSL, Config.IRC_CHANNEL);
+			_IrcConnection.connect();
 		}
 		catch (Exception e)
 		{
-			_log.fatal(e);
+			e.printStackTrace();
 		}
+
+		initilized = true;
 	}
 
 	public L2IrcClient getConnection()
 	{
-		return _ircConnection;
+		return _IrcConnection;
 	}
 
-	// =========================================================
-	// Method - Private
+	public void removeConnection()
+	{
+		_IrcConnection.disconnect();
+		_IrcConnection = null;
+	}
+
 	private final void load()
 	{
-		_ircConnection = new L2IrcClient(Config.IRC_SERVER, Config.IRC_PORT, Config.IRC_PASS, Config.IRC_NICK, Config.IRC_USER, Config.IRC_NAME,
-				Config.IRC_SSL, Config.IRC_CHANNEL);
+		_IrcConnection = new L2IrcClient(Config.IRC_SERVER, Config.IRC_PORT, Config.IRC_PASS, Config.IRC_NICK, Config.IRC_USER, Config.IRC_NAME, Config.IRC_SSL, Config.IRC_CHANNEL);
+
 		try
 		{
-			_ircConnection.connect();
+			_IrcConnection.connect();
 		}
 		catch (Exception e)
 		{
-			_log.fatal(e);
+			_log.warn(e.toString());
 		}
+
+		initilized = true;
 	}
 }
