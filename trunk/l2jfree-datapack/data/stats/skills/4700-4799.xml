@@ -17,9 +17,11 @@
     <set name="isMagic" val="true"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
     <set name="aggroPoints" val="#power"/>
     <for>
-      <effect name="Buff" time="#time" val="0" stackOrder="1" stackType="QueenBuff">
+      <effect count="1" name="Buff" time="#time" val="0" stackOrder="1" stackType="QueenBuff">
         <mul order="0x30" stat="pAtk" val="#pAtk"/>
         <add order="0x40" stat="accCombat" val="#accCombat"/>
       </effect>
@@ -36,10 +38,16 @@
     <set name="skillRadius" val="1000"/>
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="2000"/>
-    <set name="skillType" val="CANCEL_STATS"/>
+    <set name="skillType" val="NEGATE"/>
+    <!--
+      Temp Fix until "core-side" is fixed. This should be "CANCEL",
+      because this skill should cancel these "negateStats" with chance (using power).
+    -->
     <set name="isMagic" val="true"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
     <set name="negateStats" val="DEBUFF"/>
     <set name="aggroPoints" val="#aggroPoints"/>
   </skill>
@@ -59,9 +67,11 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
     <set name="aggroPoints" val="#power"/>
     <for>
-      <effect name="Buff" time="#time" val="0" stackOrder="1" stackType="SeraphimBuff">
+      <effect name="Buff" time="#time" count="1" val="0" stackOrder="1" stackType="SeraphimBuff">
         <mul order="0x30" stat="regMp" val="#regMp"/>
       </effect>
     </for>
@@ -81,9 +91,11 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
     <set name="aggroPoints" val="#power"/>
     <for>
-      <effect name="Buff" time="#time" val="0" stackOrder="1" stackType="SeraphimBuff">
+      <effect name="Buff" time="#time" count="1" val="0" stackOrder="1" stackType="SeraphimBuff">
         <mul order="0x30" stat="mReuse" val="#mReuse"/>
       </effect>
     </for>
@@ -97,12 +109,18 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_PARTY"/>
     <set name="skillRadius" val="1000"/>
-    <set name="skillType" val="CANCEL_STATS"/>
+    <set name="skillType" val="NEGATE"/>
+    <!--
+      Temp Fix until "core-side" is fixed. This should be "CANCEL",
+      because this skill should cancel these "negateStats" with chance (using power).
+    -->
     <set name="hitTime" val="2000"/>
     <set name="reuseDelay" val="8000"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
     <set name="negateStats" val="SLEEP ROOT STUN PARALYZE MUTE"/>
     <set name="aggroPoints" val="#aggroPoints"/>
   </skill>
@@ -128,11 +146,11 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect name="Debuff" time="30" val="0" stackOrder="#stackOrder" stackType="debuff_nightshade">
+      <effect count="1" name="Debuff" time="30" val="0" stackOrder="#stackOrder" stackType="debuff_nightshade">
         <mul order="0x30" stat="mDef" val="#mDef"/>
         <mul order="0x30" stat="pDef" val="#pDef"/>
       </effect>
-      <effect name="TargetMe" val="0" noicon="1"/>
+      <effect count="1" name="TargetMe" time="1" val="0" noicon="1"/>
     </for>
   </skill>
   <skill id="4706" levels="13" name="Mass Curse of Shade">
@@ -155,12 +173,14 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
     <for>
-      <effect name="Debuff" time="30" val="0" stackOrder="#stackOrder" stackType="debuff_nightshade">
+      <effect count="1" name="Debuff" time="30" val="0" stackOrder="#stackOrder" stackType="debuff_nightshade">
         <mul order="0x30" stat="mDef" val="#mDef"/>
         <mul order="0x30" stat="pDef" val="#pDef"/>
       </effect>
-      <effect name="TargetMe" val="0" noicon="1"/>
+      <effect count="1" name="TargetMe" time="1" val="0" noicon="1"/>
     </for>
   </skill>
   <skill id="4707" levels="13" name="Shade Sacrifice">
@@ -196,8 +216,10 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
     <set name="effectRange" val="200"/>
+    <set name="effectType" val="STUN"/>
+    <set name="effectPower" val="50"/> <!-- Base Land Rate -->
     <for>
-      <effect name="Stun" time="9" val="0" stackOrder="1" effectPower="50" effectType="STUN" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4709" levels="10" name="Cursed Blow">
@@ -233,14 +255,16 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
     <set name="effectRange" val="200"/>
+    <set name="effectType" val="STUN"/>
+    <set name="effectPower" val="15"/> <!-- Base Land Rate -->
     <for>
-      <effect name="Stun" time="9" val="0" effectPower="15" effectType="STUN" stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4711" levels="12" name="Wild Defense">
     <table name="#mpConsume"> 46 76 104 139 179 220 258 275 288 298 305 309 </table>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
-    <table name="#aggroPoints"> 138 204 285 379 477 566 635 659 676 689 700 709 </table>
+    <table name="#aggro"> 138 204 285 379 477 566 635 659 676 689 700 709 </table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="target" val="TARGET_SELF"/>
@@ -248,9 +272,11 @@
     <set name="hitTime" val="1100"/>
     <set name="reuseDelay" val="120000"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="aggroPoints" val="#aggroPoints"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <set name="aggroPoints" val="#aggro"/>
     <for>
-      <effect name="ImmobileBuff" time="30" val="0">
+      <effect count="1" name="ImmobileBuff" time="30" val="0">
         <mul order="0x30" stat="mDef" val="5"/>
         <mul order="0x30" stat="pDef" val="5"/>
         <mul order="0x30" stat="pAtkSpd" val="0.3"/>
@@ -277,7 +303,7 @@
     <table name="#mpConsume"> 5 9 11 15 19 23 27 28 30 30 32 32 </table>
     <table name="#power"> 33 61 98 145 198 251 298 316 330 338 341 342 </table>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
-    <table name="#aggroPoints"> 33 34 35 36 37 38 39 40 41 42 43 44 </table>
+    <table name="#aggro"> 33 34 35 36 37 38 39 40 41 42 43 44 </table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="magicLvl" val="#magicLvl"/>
@@ -287,31 +313,39 @@
     <set name="reuseDelay" val="12000"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
-    <set name="aggroPoints" val="#aggroPoints"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <set name="aggroPoints" val="#aggro"/>
   </skill>
   <skill id="4714" levels="1" name="Twilight Dragon">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="35"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4715" levels="1" name="Wind Dragon">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="35"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4716" levels="1" name="Star Dragon">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="35"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4717" levels="12" name="Heal Trick">
     <table name="#mpConsume"> 5 8 12 17 20 25 29 32 33 33 34 34 </table>
     <table name="#power"> 9 16 25 37 50 63 75 79 83 85 86 86 </table>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
-    <table name="#aggroPoints"> 9 16 25 37 50 63 75 79 83 85 86 86 </table>
+    <table name="#aggro"> 9 16 25 37 50 63 75 79 83 85 86 86 </table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="magicLvl" val="#magicLvl"/>
@@ -323,7 +357,7 @@
     <set name="isMagic" val="true"/>
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
-    <set name="aggroPoints" val="#aggroPoints"/>
+    <set name="aggroPoints" val="#aggro"/>
   </skill>
   <skill id="4718" levels="12" name="Greater Heal Trick">
     <table name="#mpConsume"> 33 59 88 122 162 195 228 242 252 259 262 262 </table>
@@ -426,8 +460,10 @@
     <set name="isDebuff" val="true"/>
     <set name="castRange" val="40"/>
     <set name="effectRange" val="200"/>
+    <set name="effectType" val="STUN"/>
+    <set name="effectPower" val="80"/>
     <for>
-      <effect name="Stun" time="9" val="0" effectPower="80" effectType="STUN" stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4725" levels="12" name="Stun">
@@ -444,8 +480,10 @@
     <set name="isDebuff" val="true"/>
     <set name="castRange" val="40"/>
     <set name="effectRange" val="200"/>
+    <set name="effectType" val="STUN"/>
+    <set name="effectPower" val="80"/>
     <for>
-      <effect name="Stun" time="9" val="0" effectPower="80" effectType="STUN" stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4726" levels="12" name="Stun">
@@ -462,8 +500,10 @@
     <set name="isDebuff" val="true"/>
     <set name="castRange" val="40"/>
     <set name="effectRange" val="200"/>
+    <set name="effectType" val="STUN"/>
+    <set name="effectPower" val="80"/>
     <for>
-      <effect name="Stun" time="9" val="0" effectPower="80" effectType="STUN" stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4727" levels="12" name="Stun">
@@ -480,8 +520,10 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
     <set name="effectRange" val="200"/>
+    <set name="effectType" val="STUN"/>
+    <set name="effectPower" val="80"/>
     <for>
-      <effect name="Stun" time="9" val="0" effectPower="80" effectType="STUN" stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4728" levels="12" name="Stun">
@@ -498,8 +540,10 @@
     <set name="castRange" val="40"/>
     <set name="effectRange" val="200"/>
     <set name="isDebuff" val="true"/>
+    <set name="effectType" val="STUN"/>
+    <set name="effectPower" val="80"/>
     <for>
-      <effect name="Stun" time="9" val="0" effectPower="80" effectType="STUN" stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4729" levels="12" name="BOSS Mortal Blow">
@@ -589,8 +633,10 @@
     <set name="hitTime" val="830"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
   </skill>
-  <skill id="4735" levels="12" name="BOSS Spinning Slash">
+  <skill id="4735" levels="12" name="BOSS Spinning Slasher">
     <table name="#power"> 48 128 352 920 2377 4645 7195 8490 9855 11350 12936 14430 </table>
     <table name="#magicLvl"> 14 24 34 44 54 64 75 79 84 89 94 99 </table>
     <table name="#mpConsume"> 16 23 32 42 53 65 75 79 82 84 85 87 </table>
@@ -602,8 +648,10 @@
     <set name="hitTime" val="830"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
   </skill>
-  <skill id="4736" levels="12" name="BOSS Spinning Slash">
+  <skill id="4736" levels="12" name="BOSS Spinning Slasher">
     <table name="#power"> 26 68 188 491 1268 2479 3834 4519 5242 6037 6889 7675 </table>
     <table name="#magicLvl"> 14 24 34 44 54 64 75 79 84 89 94 99 </table>
     <table name="#mpConsume"> 16 23 32 42 53 65 75 79 82 84 85 87 </table>
@@ -615,8 +663,10 @@
     <set name="hitTime" val="830"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
   </skill>
-  <skill id="4737" levels="12" name="BOSS Spinning Slash">
+  <skill id="4737" levels="12" name="BOSS Spinning Slasher">
     <table name="#power"> 24 64 176 461 1189 2326 3598 4245 4928 5682 6461 7215 </table>
     <table name="#magicLvl"> 14 24 34 44 54 64 75 79 84 89 94 99 </table>
     <table name="#mpConsume"> 16 23 32 42 53 65 75 79 82 84 85 87 </table>
@@ -628,8 +678,10 @@
     <set name="hitTime" val="830"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
   </skill>
-  <skill id="4738" levels="12" name="BOSS Spinning Slash">
+  <skill id="4738" levels="12" name="BOSS Spinning Slasher">
     <table name="#power"> 23 60 165 429 1109 2172 3362 3971 4614 5313 6047 6756 </table>
     <table name="#magicLvl"> 14 24 34 44 54 64 75 79 84 89 94 99 </table>
     <table name="#mpConsume"> 16 23 32 42 53 65 75 79 82 84 85 87 </table>
@@ -641,6 +693,8 @@
     <set name="hitTime" val="830"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4739" levels="12" name="BOSS Strike">
     <table name="#power"> 112 302 834 2177 5631 11008 17044 20119 23243 26363 29567 32796 </table>
@@ -726,8 +780,9 @@
     <set name="castRange" val="40"/>
     <set name="isDebuff" val="true"/>
     <set name="effectRange" val="200"/>
+    <set name="effectType" val="STUN"/>
     <for>
-      <effect name="Stun" time="9" val="0" effectPower="80" effectType="STUN" stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4745" levels="12" name="Stun">
@@ -744,8 +799,9 @@
     <set name="isDebuff" val="true"/>
     <set name="castRange" val="40"/>
     <set name="effectRange" val="200"/>
+    <set name="effectType" val="STUN"/>
     <for>
-      <effect name="Stun" time="9" val="0" effectPower="80" effectType="STUN" stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4746" levels="12" name="Stun">
@@ -762,8 +818,9 @@
     <set name="isDebuff" val="true"/>
     <set name="castRange" val="40"/>
     <set name="effectRange" val="200"/>
+    <set name="effectType" val="STUN"/>
     <for>
-      <effect name="Stun" time="9" val="0" effectPower="80" effectType="STUN" stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4747" levels="12" name="Stun">
@@ -780,8 +837,9 @@
     <set name="castRange" val="40"/>
     <set name="isDebuff" val="true"/>
     <set name="effectRange" val="200"/>
+    <set name="effectType" val="STUN"/>
     <for>
-      <effect name="Stun" time="9" val="0" effectPower="80" effectType="STUN" stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4748" levels="12" name="Stun">
@@ -798,8 +856,9 @@
     <set name="castRange" val="40"/>
     <set name="effectRange" val="200"/>
     <set name="isDebuff" val="true"/>
+    <set name="effectType" val="STUN"/>
     <for>
-      <effect name="Stun" time="9" val="0" effectPower="80" effectType="STUN" stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4749" levels="12" name="BOSS Mortal Blow">
@@ -961,8 +1020,9 @@
     <set name="castRange" val="900"/>
     <set name="isDebuff" val="true"/>
     <set name="effectRange" val="1400"/>
+    <set name="effectType" val="STUN"/>
     <for>
-      <effect name="Stun" time="9" val="0" effectPower="80" effectType="STUN" stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4760" levels="12" name="Stun">
@@ -979,8 +1039,9 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
+    <set name="effectType" val="STUN"/>
     <for>
-      <effect name="Stun" time="9" val="0" effectPower="80" effectType="STUN" stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4761" levels="12" name="Stun">
@@ -997,8 +1058,9 @@
     <set name="castRange" val="900"/>
     <set name="isDebuff" val="true"/>
     <set name="effectRange" val="1400"/>
+    <set name="effectType" val="STUN"/>
     <for>
-      <effect name="Stun" time="9" val="0" effectPower="80" effectType="STUN" stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4762" levels="12" name="Stun">
@@ -1015,8 +1077,9 @@
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
     <set name="isDebuff" val="true"/>
+    <set name="effectType" val="STUN"/>
     <for>
-      <effect name="Stun" time="9" val="0" effectPower="80" effectType="STUN" stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4763" levels="12" name="Stun">
@@ -1032,9 +1095,10 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
+    <set name="effectType" val="STUN"/>
     <set name="isDebuff" val="true"/>
     <for>
-      <effect name="Stun" time="9" val="0" effectPower="80" effectType="STUN" stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4764" levels="12" name="BOSS Power Shot">
@@ -1120,9 +1184,10 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
+    <set name="effectType" val="STUN"/>
     <set name="isDebuff" val="true"/>
     <for>
-      <effect name="Stun" time="9" val="0" effectPower="80" effectType="STUN" stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4770" levels="12" name="Stun">
@@ -1138,9 +1203,10 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
+    <set name="effectType" val="STUN"/>
     <set name="isDebuff" val="true"/>
     <for>
-      <effect name="Stun" time="9" val="0" effectPower="80" effectType="STUN" stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4771" levels="12" name="Stun">
@@ -1157,8 +1223,9 @@
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
     <set name="isDebuff" val="true"/>
+    <set name="effectType" val="STUN"/>
     <for>
-      <effect name="Stun" time="9" val="0" effectPower="80" effectType="STUN" stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4772" levels="12" name="Stun">
@@ -1175,8 +1242,9 @@
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
     <set name="isDebuff" val="true"/>
+    <set name="effectType" val="STUN"/>
     <for>
-      <effect name="Stun" time="9" val="0" effectPower="80" effectType="STUN" stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4773" levels="12" name="Stun">
@@ -1193,8 +1261,9 @@
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
     <set name="isDebuff" val="true"/>
+    <set name="effectType" val="STUN"/>
     <for>
-      <effect name="Stun" time="9" val="0" effectPower="80" effectType="STUN" stackOrder="1" stackType="Stun"/>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
   <skill id="4774" levels="12" name="BOSS Spear Attack">
@@ -1357,7 +1426,7 @@
     <set name="effectRange" val="1200"/>
     <set name="aggroPoints" val="100"/>
     <for>
-      <effect count="15" name="HealOverTime" val="#hot" stackOrder="#hot" stackType="HpRecover"/>
+      <effect count="15" name="HealOverTime" time="1" val="#hot" stackOrder="#hot" stackType="HpRecover"/>
     </for>
   </skill>
   <skill id="4785" levels="12" name="BOSS Chant of Life">
@@ -1375,7 +1444,7 @@
     <set name="effectRange" val="1200"/>
     <set name="aggroPoints" val="100"/>
     <for>
-      <effect count="15" name="HealOverTime" val="#hot" stackOrder="#hot" stackType="HpRecover"/>
+      <effect count="15" name="HealOverTime" time="1" val="#hot" stackOrder="#hot" stackType="HpRecover"/>
     </for>
   </skill>
   <skill id="4786" levels="12" name="BOSS Chant of Life">
@@ -1393,7 +1462,7 @@
     <set name="effectRange" val="1200"/>
     <set name="aggroPoints" val="100"/>
     <for>
-      <effect count="15" name="HealOverTime" val="#hot" stackOrder="#hot" stackType="HpRecover"/>
+      <effect count="15" name="HealOverTime" time="1" val="#hot" stackOrder="#hot" stackType="HpRecover"/>
     </for>
   </skill>
   <skill id="4787" levels="12" name="BOSS Chant of Life">
@@ -1411,7 +1480,7 @@
     <set name="effectRange" val="1200"/>
     <set name="aggroPoints" val="100"/>
     <for>
-      <effect count="15" name="HealOverTime" val="#hot" stackOrder="#hot" stackType="HpRecover"/>
+      <effect count="15" name="HealOverTime" time="1" val="#hot" stackOrder="#hot" stackType="HpRecover"/>
     </for>
   </skill>
   <skill id="4788" levels="12" name="BOSS Chant of Life">
@@ -1429,7 +1498,7 @@
     <set name="effectRange" val="1200"/>
     <set name="aggroPoints" val="100"/>
     <for>
-      <effect count="15" name="HealOverTime" val="#hot" stackOrder="#hot" stackType="HpRecover"/>
+      <effect count="15" name="HealOverTime" time="1" val="#hot" stackOrder="#hot" stackType="HpRecover"/>
     </for>
   </skill>
   <skill id="4789" levels="10" name="NPC High Level">
@@ -1439,6 +1508,8 @@
     <set name="skillType" val="BUFF"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
     <for>
       <add order="0x40" stat="rEvas" val="#rEvas"/>
       <mul order="0x30" stat="mDef" val="#mDef"/>
@@ -1449,59 +1520,79 @@
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4791" levels="1" name="Raid Boss - Level 30">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4792" levels="1" name="Raid Boss - Level 42">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4793" levels="1" name="Raid Boss - Level 55">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4794" levels="1" name="Raid Boss - Level 50">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4795" levels="1" name="Raid Boss - Level 60">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4796" levels="1" name="Raid Boss - Level 25">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4797" levels="1" name="Raid Boss - Level 34">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4798" levels="1" name="Raid Boss - Level 34">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4799" levels="1" name="Raid Boss - Level 49">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
   </skill>
 </list>
