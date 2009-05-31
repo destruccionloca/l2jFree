@@ -92,6 +92,7 @@ public class Castle extends Siegeable<Siege>
 	public static final int FUNC_RESTORE_MP = 3;
 	public static final int FUNC_RESTORE_EXP = 4;
 	public static final int FUNC_SUPPORT = 5;
+	public static final int					FUNC_SECURITY							= 9;
 
 	public class CastleFunction
 	{
