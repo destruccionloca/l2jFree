@@ -24,7 +24,6 @@ import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.util.Broadcast;
@@ -83,8 +82,8 @@ public final class AutomatedTvT
 	private final FastMap<Integer, Participant> eventPlayers;
 	private Team[] eventTeams;
 
-	private int status;
-	private boolean active;
+	private volatile int status;
+	private volatile boolean active;
 	private int announced;
 
 	private AutomatedTvT()
@@ -234,6 +233,8 @@ public final class AutomatedTvT
 			player.setIsPetrified(true);
 			player.sendPacket(time);
 			checkEquipment(player);
+			if (Config.AUTO_TVT_START_CANCEL_PARTY && player.getParty() != null)
+				player.getParty().removePartyMember(player);
 			if (Config.AUTO_TVT_START_CANCEL_BUFFS)
 				player.stopAllEffects();
 			if (Config.AUTO_TVT_START_CANCEL_CUBICS && !player.getCubics().isEmpty())
@@ -481,8 +482,7 @@ public final class AutomatedTvT
 
 	public final void registerPlayer(L2PcInstance player)
 	{
-		if (!active)
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+		if (!active) return;
 
 		if (status != STATUS_REGISTRATION ||
 				participants.size() >= Config.AUTO_TVT_PARTICIPANTS_MAX)
@@ -497,9 +497,27 @@ public final class AutomatedTvT
 			participants.add(player);
 			registered.add(player.getObjectId());
 			player.sendMessage("You have been registered to " + evtName);
+			if (Config.AUTO_TVT_REGISTER_CANCEL)
+				player.sendMessage("If you decide to cancel your registration, type .leavetvt");
 		}
 		else
 			player.sendMessage("Already registered!");
+	}
+
+	public final void cancelRegistration(L2PcInstance player)
+	{
+		if (!active) return;
+
+		if (status != STATUS_REGISTRATION)
+			player.sendPacket(SystemMessageId.REGISTRATION_PERIOD_OVER);
+		else if (participants.contains(player))
+		{
+			participants.remove(player);
+			registered.remove(player.getObjectId());
+			player.sendMessage("You have cancelled your registration in " + evtName);
+		}
+		else
+			player.sendMessage("You have not registered in " + evtName);
 	}
 
 	public final void onKill(L2PcInstance killer, L2PcInstance victim)

@@ -22,6 +22,7 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Instance;
+import com.l2jfree.gameserver.model.entity.events.AutomatedTvT;
 import com.l2jfree.gameserver.model.restriction.AvailableRestriction;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 import com.l2jfree.gameserver.model.zone.L2Zone;
@@ -56,9 +57,10 @@ public class SummonFriend implements ISkillHandler
 			return false;
 		}
 
-		if (summonerChar.isInsideZone(L2Zone.FLAG_NOSUMMON))
+		if (summonerChar.isInsideZone(L2Zone.FLAG_NOSUMMON) ||
+				AutomatedTvT.isPlaying(summonerChar))
 		{
-			summonerChar.sendPacket(SystemMessageId.YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING);
+			summonerChar.sendPacket(SystemMessageId.YOU_MAY_NOT_SUMMON_FROM_YOUR_CURRENT_LOCATION);
 			return false;
 		}
 
@@ -67,8 +69,7 @@ public class SummonFriend implements ISkillHandler
 			Instance summonerInstance = InstanceManager.getInstance().getInstance(summonerChar.getInstanceId());
 			if (summonerInstance != null && (!Config.ALLOW_SUMMON_TO_INSTANCE || !summonerInstance.isSummonAllowed()))
 			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.YOU_MAY_NOT_SUMMON_FROM_YOUR_CURRENT_LOCATION);
-				summonerChar.sendPacket(sm);
+				summonerChar.sendPacket(SystemMessageId.YOU_MAY_NOT_SUMMON_FROM_YOUR_CURRENT_LOCATION);
 				return false;
 			}
 		}
@@ -123,7 +124,8 @@ public class SummonFriend implements ISkillHandler
 			return false;
 		}
 
-		if (targetChar.isInsideZone(L2Zone.FLAG_NOSUMMON))
+		if (targetChar.isInsideZone(L2Zone.FLAG_NOSUMMON) ||
+				AutomatedTvT.isPlaying(targetChar))
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.C1_IN_SUMMON_BLOCKING_AREA);
 			sm.addString(targetChar.getName());

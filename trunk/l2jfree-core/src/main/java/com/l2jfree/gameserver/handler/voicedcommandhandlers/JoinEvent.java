@@ -1,5 +1,6 @@
 package com.l2jfree.gameserver.handler.voicedcommandhandlers;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.handler.IVoicedCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.events.AutomatedTvT;
@@ -11,7 +12,7 @@ import com.l2jfree.gameserver.model.entity.events.AutomatedTvT;
 public class JoinEvent implements IVoicedCommandHandler
 {
 	private static final String[] CMDS = {
-		"jointvt", "joinTvT", "joinTvt"
+		"jointvt", "joinTvT", "joinTVT", "JOINTVT", "leavetvt", "leaveTvT", "leaveTVT", "LEAVETVT"
 	};
 
 	/* (non-Javadoc)
@@ -20,12 +21,18 @@ public class JoinEvent implements IVoicedCommandHandler
 	@Override
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
 	{
-		if (command.equalsIgnoreCase(CMDS[0]))
+		if (command.equals(CMDS[0]) || command.equals(CMDS[1]) || command.equals(CMDS[2]) || command.equals(CMDS[3]))
 		{
 			AutomatedTvT.getInstance().registerPlayer(activeChar);
 			return true;
 		}
-		return false;
+		else if (Config.AUTO_TVT_REGISTER_CANCEL)
+		{
+			AutomatedTvT.getInstance().cancelRegistration(activeChar);
+			return true;
+		}
+		else
+			return false;
 	}
 
 	/* (non-Javadoc)
