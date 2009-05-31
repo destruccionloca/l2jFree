@@ -37,6 +37,8 @@ CLASSPATH=${CLASSPATH}:mysql-connector-java-5.1.5.jar
 # For irc use
 CLASSPATH=${CLASSPATH}:irclib-1.10.jar
 
+CLASSPATH=${CLASSPATH}:trove-2.1.1.jar
+
 # for configuration
 CLASSPATH=${CLASSPATH}:./config/
 CLASSPATH=${CLASSPATH}:.

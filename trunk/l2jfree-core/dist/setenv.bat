@@ -38,6 +38,8 @@ SET CLASSPATH=%CLASSPATH%;mysql-connector-java-5.1.5.jar
 REM For IRC use
 SET CLASSPATH=%CLASSPATH%;irclib-1.10.jar
 
+SET CLASSPATH=%CLASSPATH%;trove-2.1.1.jar
+
 REM for configuration
 SET CLASSPATH=%CLASSPATH%;./config/
 SET CLASSPATH=%CLASSPATH%;.
