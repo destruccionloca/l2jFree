@@ -51,6 +51,7 @@ import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.PetInfo;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.gameserver.communitybbs.Manager.AuctionBBSManager;
 
 /**
  * This class handles following admin commands:
@@ -94,6 +95,7 @@ public class AdminAdmin implements IAdminCommandHandler
 			"admin_summon_npc",
 			"admin_unsummon",
 			"admin_memusage",
+			"admin_process_auction",
 			"admin_debug"
 													};
 
@@ -429,7 +431,14 @@ public class AdminAdmin implements IAdminCommandHandler
 				}
 			}
 		}
-
+		
+		else if (command.equals("admin_process_auction"))
+		{
+			AuctionBBSManager.getInstance().processAuctions();
+			AuctionBBSManager.getInstance().removeOldAuctions();
+			_log.info("Process Auction Task: launched.");
+		}
+		
 		else if (command.startsWith("admin_debug"))
 		{
 			//TODO: implement
