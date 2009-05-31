@@ -2,7 +2,7 @@
 <instance name="Kamaloka-66">
   <activityTime val="30" />
   <timeDelay val="24"/>
-  <canSummonFriend val="false" />
+  <allowSummon val="false" />
   <returnteleport x="85945" y="-142176" z="-1341" />
   <spawnlist>
     <spawn npcId="18573" x="-42026" y="-219858" z="-8117" heading="0" respawn="0" amount="1" />
