@@ -6,7 +6,6 @@
 
 # Settings
 qn = "5011_l2day"
-QuestId     = 5011
 QuestName   = "l2day"
 QuestDesc   = "custom"
 InitialHtml = "1.htm"
@@ -116,7 +115,7 @@ class Quest (JQuest) :
    return InitialHtml
 
 # Quest class and state definition
-QUEST       = Quest(QuestId,str(QuestId) + "_" + QuestName,QuestDesc)
+QUEST       = Quest(-1,str(QuestId) + "_" + QuestName,QuestDesc)
 
 QUEST.addStartNpc(BERYL_THE_CAT)
 

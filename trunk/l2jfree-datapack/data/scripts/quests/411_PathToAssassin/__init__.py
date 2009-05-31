@@ -81,13 +81,16 @@ class Quest (JQuest) :
    elif npcId == 30416 and st.getInt("cond")>=1 :
         if st.getQuestItemsCount(ARKENIAS_LETTER) == 0 and st.getQuestItemsCount(LEIKANS_NOTE) == 0 and st.getQuestItemsCount(SHILENS_TEARS) == 0 and st.getQuestItemsCount(ARKENIA_RECOMMEND) == 1 and st.getQuestItemsCount(IRON_HEART) == 0 :
           htmltext = "30416-06.htm"
-          st.rewardItems(57,81900)
           st.takeItems(ARKENIA_RECOMMEND,1)
           st.giveItems(IRON_HEART,1)
-          st.addExpAndSp(295862,21264)
+          isFinished = st.getGlobalQuestVar("1ClassQuestFinished")
+          if isFinished == "" :
+            st.rewardItems(57,81900)
+            st.addExpAndSp(295862,21264)
           player.sendPacket(SocialAction(player.getObjectId(),3))
           st.set("cond","0")
           st.exitQuest(False)
+          st.saveGlobalQuestVar("1ClassQuestFinished","1")
           st.playSound("ItemSound.quest_finish")
         elif st.getQuestItemsCount(ARKENIAS_LETTER) == 1 and st.getQuestItemsCount(LEIKANS_NOTE) == 0 and st.getQuestItemsCount(SHILENS_TEARS) == 0 and st.getQuestItemsCount(ARKENIA_RECOMMEND) == 0 and st.getQuestItemsCount(IRON_HEART) == 0 and st.getQuestItemsCount(SHILENS_CALL) == 0 :
             htmltext = "30416-07.htm"

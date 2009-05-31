@@ -85,13 +85,16 @@ class Quest (JQuest) :
         st.takeItems(8546,-1)
     elif event == "31979-03.htm" :
         st.takeItems(SCROLL_FIERY_SPIRIT,1)
-        st.rewardItems(57,81900)
         st.giveItems(KHAVATARI_TOTEM,1)
-        st.addExpAndSp(295862,19344)
+        isFinished = st.getGlobalQuestVar("1ClassQuestFinished")
+        if isFinished == "" :
+          st.rewardItems(57,81900)
+          st.addExpAndSp(295862,19344)
         player.sendPacket(SocialAction(player.getObjectId(),3))
         st.set("cond","0")
         st.set("onlyone","1")
         st.exitQuest(False)
+        st.saveGlobalQuestVar("1ClassQuestFinished","1")
         st.playSound("ItemSound.quest_finish")
     return htmltext
 

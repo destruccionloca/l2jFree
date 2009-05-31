@@ -92,11 +92,14 @@ class Quest (JQuest) :
             st.takeItems(DAIRY_OF_ALLANA,1)
             st.takeItems(LIZARD_CAPTAIN_ORDER,1)
             st.takeItems(CRYSTAL_MEDALLION,1)
-            st.rewardItems(57,81900)
             st.giveItems(LEAF_OF_ORACLE,1)
-            st.addExpAndSp(295862,16894)
+            isFinished = st.getGlobalQuestVar("1ClassQuestFinished")
+            if isFinished == "" :
+              st.rewardItems(57,81900)
+              st.addExpAndSp(295862,16894)
             st.set("cond","0")
             st.exitQuest(False)
+            st.saveGlobalQuestVar("1ClassQuestFinished","1")
             st.playSound("ItemSound.quest_finish")
           else:
             htmltext = "30293-07.htm"

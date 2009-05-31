@@ -123,4 +123,105 @@
       </not>
     </cond>
   </zone>
+  <!-- TODO, find the zone name -->
+  <zone id="11" name="Landing Zone 1">
+    <shape type="Poly" zMin="2668" zMax="2750">
+      <point x="-186945" y="244064"/>
+      <point x="-186503" y="244183"/>
+      <point x="-186526" y="244273"/>
+      <point x="-186998" y="244149"/>
+    </shape>
+  </zone>
+  <!-- TODO, find the zone name -->
+  <zone id="12" name="Landing Zone 2">
+    <shape type="Poly" zMin="2612" zMax="2700">
+      <point x="-186707" y="243348"/>
+      <point x="-186098" y="243499"/>
+      <point x="-186209" y="243886"/>
+      <point x="-186836" y="243713"/>
+    </shape>
+  </zone>
+  <!-- TODO, find the zone name -->
+  <zone id="13" name="Landing Zone 3">
+    <shape type="Poly" zMin="2548" zMax="2650">
+      <point x="-186388" y="241751"/>
+      <point x="-185747" y="241972"/>
+      <point x="-186026" y="243171"/>
+      <point x="-186755" y="242965"/>
+    </shape>
+  </zone>
+  <!-- TODO, find the zone name -->
+  <zone id="14" name="Landing Zone 4">
+    <shape type="Poly" zMin="2612" zMax="2700">
+      <point x="-186067" y="241090"/>
+      <point x="-185469" y="241336"/>
+      <point x="-185541" y="241652"/>
+      <point x="-186173" y="241496"/>
+    </shape>
+  </zone>
+  <!-- TODO, find the zone name -->
+  <zone id="15" name="Landing Zone 5">
+    <shape type="Poly" zMin="2818" zMax="2900">
+      <point x="-186158" y="240243"/>
+      <point x="-185440" y="240450"/>
+      <point x="-185461" y="240566"/>
+      <point x="-186182" y="240351"/>
+    </shape>
+  </zone>
+  <!-- TODO, find the zone name -->
+  <zone id="16" name="Landing Zone 6">
+    <shape type="Poly" zMin="1532" zMax="1671">
+      <point x="-185611" y="240192"/>
+      <point x="-183498" y="240759"/>
+      <point x="-183834" y="241948"/>
+      <point x="-185906" y="241253"/>
+    </shape>
+  </zone>
+  <!-- TODO, find the zone name -->
+  <zone id="17" name="Landing Zone 7">
+    <shape type="Poly" zMin="1676" zMax="1771">
+      <point x="-186102" y="241831"/>
+      <point x="-185039" y="242209"/>
+      <point x="-185356" y="243326"/>
+      <point x="-186447" y="243020"/>
+    </shape>
+  </zone>
+  <!-- TODO, find the zone name -->
+  <zone id="18" name="Landing Zone 8">
+    <shape type="Poly" zMin="1564" zMax="1771">
+      <point x="-184942" y="242302"/>
+      <point x="-183775" y="242671"/>
+      <point x="-184015" y="243618"/>
+      <point x="-185256" y="243318"/>
+    </shape>
+  </zone>
+  <!-- TODO, find the zone name -->
+  <zone id="19" name="Landing Zone 9">
+    <shape type="Poly" zMin="1532" zMax="1671">
+      <point x="-186637" y="243638"/>
+      <point x="-184503" y="244189"/>
+      <point x="-184878" y="245409"/>
+      <point x="-187009" y="244723"/>
+    </shape>
+  </zone>
+  <!-- TODO, find the zone name -->
+  <zone id="20" name="Landing Zone 10">
+    <shape type="Poly" zMin="1735" zMax="1892">
+      <point x="-203218" y="241627"/>
+      <point x="-203218" y="242642"/>
+      <point x="-203355" y="242648"/>
+      <point x="-203376" y="242219"/>
+      <point x="-204119" y="242289"/>
+      <point x="-204108" y="242617"/>
+      <point x="-204305" y="242631"/>
+      <point x="-204315" y="242913"/>
+      <point x="-204613" y="242930"/>
+      <point x="-204624" y="241399"/>
+      <point x="-204312" y="241374"/>
+      <point x="-204132" y="241677"/>
+      <point x="-204114" y="242019"/>
+      <point x="-203349" y="241982"/>
+      <point x="-203345" y="241646"/>
+    </shape>
+  </zone>
 </list>

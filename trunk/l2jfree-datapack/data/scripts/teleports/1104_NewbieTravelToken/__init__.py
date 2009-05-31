@@ -21,8 +21,10 @@ class Quest (JQuest) :
 
  def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
 
- def onEvent (self,event,st) :
+ def onAdvEvent (self,event,npc, player) :
    htmltext = event
+   st = player.getQuestState(qn)
+   if not st : return
    if event.isdigit():
       dest=int(event)
       if dest in DATA.keys():
@@ -47,7 +49,7 @@ class Quest (JQuest) :
      htmltext=str(npcId)+".htm"
    return htmltext
 
-QUEST       = Quest(1104,qn,"Teleports")
+QUEST       = Quest(-1,qn,"Teleports")
 
 for i in DATA.keys() :
     QUEST.addStartNpc(i)

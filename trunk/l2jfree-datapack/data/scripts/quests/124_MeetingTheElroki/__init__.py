@@ -20,7 +20,9 @@ class Quest (JQuest) :
 
  def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
 
- def onEvent (self,event,st) :
+ def onAdvEvent (self,event,npc, player) :
+     st = player.getQuestState(qn)
+     if not st : return
      cond = st.getInt("cond")
      htmltext = event
 
@@ -33,7 +35,7 @@ class Quest (JQuest) :
      if event == "32113-04.htm" :
        if cond == 1 :
          st.set("cond","2")
-         st.playSound("ItemSound.quest_itemget")
+         st.playSound("ItemSound.quest_middle")
      if event == "32114-02.htm" :
        if cond == 2 :
          st.set("cond","3")

@@ -95,7 +95,7 @@ class Quest (JQuest) :
       st = self.newQuestState(player)
    return "30598.htm"
 
-QUEST = Quest(5001,qn,"custom")
+QUEST = Quest(-1,qn,"custom")
 
 for i in NEWBIE_GUIDES :
     QUEST.addStartNpc(i)

@@ -960,4 +960,12 @@
       <point x="-43060" y="-77664"/>
     </shape>
   </zone>
+  <zone id="39" name="Keucereus" type="Town">
+    <!--<settings pvp="Peace"/> Overridden -->
+    <entity townId="21"/>
+    <shape type="Rect" zMin="1080" zMax="3210">
+      <point x="-187342" y="238059"/>
+      <point x="-181849" y="247548"/>
+    </shape>
+  </zone>
 </list>

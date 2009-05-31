@@ -88,15 +88,18 @@ class Quest (JQuest) :
         elif cond in [3, 4, 5] :
             htmltext = "30327-11.htm"
         elif cond == 6 :
-            st.rewardItems(57,81900)
             st.takeItems(KLUTO_BOX,-1)
+            isFinished = st.getGlobalQuestVar("1ClassQuestFinished")
+            if isFinished == "" :
+              st.rewardItems(57,81900)
+              st.addExpAndSp(228064,14925)
             player.sendPacket(SocialAction(player.getObjectId(),3))
             st.set("cond","0")
             st.exitQuest(False)
             st.playSound("ItemSound.quest_finish")
+            st.saveGlobalQuestVar("1ClassQuestFinished","1")
             if st.getQuestItemsCount(ELVEN_KNIGHT_BROOCH) == 0 :
               st.giveItems(ELVEN_KNIGHT_BROOCH,1)
-            st.addExpAndSp(228064,14925)
             htmltext = "30327-10.htm"
    elif npcId == 30317 :
         if cond == 3 :

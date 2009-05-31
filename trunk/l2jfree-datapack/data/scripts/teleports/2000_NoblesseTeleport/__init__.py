@@ -15,7 +15,7 @@ class Quest (JQuest) :
 
  def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
 
- def onEvent (self,event,st):
+ def onAdvEvent (self,event,npc, player) :
     return event
 
  def onTalk (self,npc,player):
@@ -30,7 +30,7 @@ class Quest (JQuest) :
     htmltext=htmltext.replace("%objectId%",str(npc.getObjectId()))
     return htmltext
 
-QUEST       = Quest(2000,qn,"Teleports")
+QUEST       = Quest(-1,qn,"Teleports")
 
 for item in NPC:
    QUEST.addStartNpc(item)

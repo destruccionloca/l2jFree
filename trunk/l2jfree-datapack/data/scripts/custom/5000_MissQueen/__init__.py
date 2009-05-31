@@ -82,7 +82,7 @@ class Quest (JQuest) :
       st = self.newQuestState(player)
    return "31760.htm"
 
-QUEST = Quest(5000,qn,"custom")
+QUEST = Quest(-1,qn,"custom")
 
 for i in MISS_QUEENs :
     QUEST.addStartNpc(i)

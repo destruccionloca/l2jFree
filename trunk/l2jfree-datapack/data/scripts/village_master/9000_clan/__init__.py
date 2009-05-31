@@ -23,10 +23,9 @@ class Quest (JQuest) :
 
  def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
 
- def onEvent (self,event,st):
-   htmltext     = event
-   player = st.getPlayer()
-   clan = player.getClan()
+ def onAdvEvent(self,event,npc, player) :
+   htmltext = event
+   clan     = player.getClan()
    if event == "9000-03.htm" :
       if clan == None or not player.isClanLeader():
          return "9000-03-no.htm"

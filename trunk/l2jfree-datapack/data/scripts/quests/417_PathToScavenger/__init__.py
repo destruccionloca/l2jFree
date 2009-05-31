@@ -258,12 +258,15 @@ class Quest (JQuest) :
           htmltext = "30316-04.htm"
    elif npcId == 30316 and cond and st.getQuestItemsCount(SUCCUBUS_UNDIES)==1 :
           htmltext = "30316-05.htm"
-          st.rewardItems(57,81900)
           st.giveItems(RING_OF_RAVEN,1)
           st.takeItems(SUCCUBUS_UNDIES,1)
-          st.addExpAndSp(295862,24404)
+          isFinished = st.getGlobalQuestVar("1ClassQuestFinished")
+          if isFinished == "" :
+            st.rewardItems(57,81900)
+            st.addExpAndSp(295862,24404)
           st.set("cond","0")
           st.exitQuest(False)
+          st.saveGlobalQuestVar("1ClassQuestFinished","1")
           st.playSound("ItemSound.quest_finish")
    elif npcId == 30557 and cond and st.getQuestItemsCount(ROUTS_TP_SCROLL)==1 :
           htmltext = "30557-01.htm"

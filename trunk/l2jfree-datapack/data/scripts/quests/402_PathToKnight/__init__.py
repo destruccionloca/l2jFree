@@ -107,6 +107,7 @@ class Quest (JQuest) :
           st.addExpAndSp(295862,17664)
           st.set("cond","0")
           st.exitQuest(False)
+          st.saveGlobalQuestVar("1ClassQuestFinished","1")
           st.playSound("ItemSound.quest_finish")
         else:
           htmltext=default

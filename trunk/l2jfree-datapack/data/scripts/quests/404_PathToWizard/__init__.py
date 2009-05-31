@@ -205,6 +205,7 @@ class Quest (JQuest) :
         st.takeItems(EARTH_RING,st.getQuestItemsCount(EARTH_RING))
         st.set("cond","0")
         st.exitQuest(False)
+        st.saveGlobalQuestVar("1ClassQuestFinished","1")
         st.playSound("ItemSound.quest_finish")
         st.rewardItems(57,81900)
         if st.getQuestItemsCount(BEAD_OF_SEASON) == 0 :

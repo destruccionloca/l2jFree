@@ -97,7 +97,7 @@ class Quest (JQuest) :
        st.playSound("ItemSound.quest_finish")
    return htmltext
 
-QUEST       = Quest(5025,qn,"Custom")
+QUEST       = Quest(-1,qn,"Custom")
 
 for i in NPCS:
    QUEST.addStartNpc(i)

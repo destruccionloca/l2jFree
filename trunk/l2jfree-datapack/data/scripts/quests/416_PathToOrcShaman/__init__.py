@@ -98,14 +98,17 @@ class Quest (JQuest) :
           st.playSound("ItemSound.quest_middle")
     elif event == "30502_2" :
           htmltext = "30502-07.htm"
-          st.rewardItems(57,81900)
           st.takeItems(TOTEM_SPIRIT_BLOOD,st.getQuestItemsCount(TOTEM_SPIRIT_BLOOD))
           st.giveItems(MASK_OF_MEDIUM,1)
-          st.addExpAndSp(295862,18194)
+          isFinished = st.getGlobalQuestVar("1ClassQuestFinished")
+          if isFinished == "" :
+            st.rewardItems(57,81900)
+            st.addExpAndSp(295862,18194)
           player.sendPacket(SocialAction(player.getObjectId(),3))
           player.sendPacket(SocialAction(player.getObjectId(),15))
           st.set("cond","0")
           st.exitQuest(False)
+          st.saveGlobalQuestVar("1ClassQuestFinished","1")
           st.playSound("ItemSound.quest_finish")
     elif event == "30593_1" :
           htmltext = "30593-02.htm"

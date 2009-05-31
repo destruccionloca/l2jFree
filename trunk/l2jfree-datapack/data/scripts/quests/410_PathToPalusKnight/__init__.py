@@ -96,13 +96,16 @@ class Quest (JQuest) :
             htmltext = "30329-09.htm"
         elif st.getQuestItemsCount(COFFIN_ETERNAL_REST) == 1 :
             htmltext = "30329-11.htm"
-            st.rewardItems(57,81900)
             st.takeItems(COFFIN_ETERNAL_REST,1)
             st.giveItems(GAZE_OF_ABYSS,1)
-            st.addExpAndSp(295862,19804)
+            isFinished = st.getGlobalQuestVar("1ClassQuestFinished")
+            if isFinished == "" :
+              st.rewardItems(57,81900)
+              st.addExpAndSp(295862,19804)
             player.sendPacket(SocialAction(player.getObjectId(),3))
             st.set("cond","0")
             st.exitQuest(False)
+            st.saveGlobalQuestVar("1ClassQuestFinished","1")
             st.playSound("ItemSound.quest_finish")
         elif st.getQuestItemsCount(MORTE_TALISMAN) or st.getQuestItemsCount(VIRGILS_LETTER) :
             htmltext = "30329-12.htm"

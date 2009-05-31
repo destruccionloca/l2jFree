@@ -24,7 +24,7 @@ class Quest (JQuest) :
        st.exitQuest(1)
        return "1.htm"
 
-QUEST       = Quest(1107,qn,"Teleports")
+QUEST       = Quest(-1,qn,"Teleports")
 
 for i in [MOZELLA] :
     QUEST.addStartNpc(i)

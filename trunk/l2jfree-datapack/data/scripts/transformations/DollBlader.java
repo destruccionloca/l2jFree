@@ -27,13 +27,10 @@ public class DollBlader extends L2DefaultTransformation
 	{
 		int level = 1;
 		if (player.getLevel() >= 76)
-		{
 			level = 3;
-		}
 		else if (player.getLevel() >= 73)
-		{
 			level = 2;
-		}
+
 		addSkill(player, 752, 1);
 		addSkill(player, 753, level);
 		addSkill(player, 754, level);

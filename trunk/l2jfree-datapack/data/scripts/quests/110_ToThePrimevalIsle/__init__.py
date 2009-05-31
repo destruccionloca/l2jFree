@@ -18,8 +18,10 @@ class Quest (JQuest) :
 
   def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
   
-  def onEvent(self, event, st):
+  def onAdvEvent (self,event,npc, player) :
     htmltext = event
+    st = player.getQuestState(qn)
+    if not st : return
     if event == "1" :
       htmltext = "1.htm"
       st.set("cond","1")
@@ -51,12 +53,11 @@ class Quest (JQuest) :
         htmltext = "<html><body>This quest can only be taken by characters that have a minimum level of 75. Return when you are more experienced.</body></html>"
     elif id == State.STARTED:
       cond = int(st.get("cond"))
-      if npcId == MARQUEZ :
+      if npcId == ANTON :
+        htmltext = "0c.htm"
+      elif npcId == MARQUEZ :
         if cond == 1 :
-          if not st.getQuestItemsCount(ANCIENT_BOOK):
-            htmltext = "1a.htm"
-          else :
-            htmltext = "2.htm"
+          htmltext = "2.htm"
     return htmltext
 
 QUEST=Quest(110,qn,"To The Primeval Isle")

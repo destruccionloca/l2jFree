@@ -14,9 +14,10 @@ class Quest (JQuest) :
 
  def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
 
- def onEvent (self,event,st):
-
+ def onAdvEvent(self,event,npc, player) :
    htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
+   st = player.getQuestState(qn)
+   if not st : return
 
    if event == "30154-01.htm":
      htmltext = event

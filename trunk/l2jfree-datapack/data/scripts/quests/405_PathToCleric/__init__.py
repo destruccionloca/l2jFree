@@ -73,14 +73,17 @@ class Quest (JQuest) :
         htmltext = "30022-07.htm"
    elif npcId == 30022 and st.getInt("cond") and st.getQuestItemsCount(LETTER_OF_ORDER2)==1 and st.getQuestItemsCount(LEMONIELLS_COVENANT)==1 :
         htmltext = "30022-09.htm"
-        st.rewardItems(57,81900)
+        isFinished = st.getGlobalQuestVar("1ClassQuestFinished")
+        if isFinished == "" :
+          st.addExpAndSp(295862,17664)
+          st.rewardItems(57,81900)
         st.takeItems(LETTER_OF_ORDER2,1)
         st.takeItems(LEMONIELLS_COVENANT,1)
         st.giveItems(MARK_OF_FAITH,1)
         # st.rewardItems(57,81900) 	This quest should give adena rewards 2 times each time??  not sure, uncomment if that's the case
-        st.addExpAndSp(295862,17664)
         st.set("cond","0")
         st.exitQuest(False)
+        st.saveGlobalQuestVar("1ClassQuestFinished","1")
         st.playSound("ItemSound.quest_finish")
         player.sendPacket(SocialAction(player.getObjectId(),3))
    elif npcId == 30022 and st.getInt("cond") and st.getQuestItemsCount(LETTER_OF_ORDER1)==1 :

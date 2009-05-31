@@ -99,11 +99,14 @@ class Quest (JQuest) :
           st.takeItems(WANTED_BILL,1)
           for i in STOLEN_ITEM.keys() :
             st.takeItems(STOLEN_ITEM[i],-1)
-          st.rewardItems(57,81900)
+          isFinished = st.getGlobalQuestVar("1ClassQuestFinished")
+          if isFinished == "" :
+            st.rewardItems(57,81900)
+            st.addExpAndSp(295862,16814)
           st.giveItems(BEZIQUES_RECOMMENDATION,1)
-          st.addExpAndSp(295862,16814)
           st.set("cond","0")
           st.exitQuest(False)
+          st.saveGlobalQuestVar("1ClassQuestFinished","1")
           st.playSound("ItemSound.quest_finish")
         elif st.getQuestItemsCount(HORSESHOE_OF_LIGHT) == 0 and st.getQuestItemsCount(BEZIQUES_LETTER)>0 :
           htmltext = "30379-07.htm"
