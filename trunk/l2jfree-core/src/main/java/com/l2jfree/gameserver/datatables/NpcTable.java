@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.datatables;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -857,5 +858,26 @@ public class NpcTable
 	public Set<Integer> getAllNpcOfAiType(String aiType)
 	{
 		return null;
+	}
+	
+	public List<L2NpcTemplate> getMobsByDrop(int itemid)
+	{
+		List<L2NpcTemplate> returnVal = new FastList<L2NpcTemplate>();
+		for(L2NpcTemplate tempNpc:_npcs.values())
+		{
+			List<L2DropData> dropdata = tempNpc.getAllDropData();
+			if(dropdata!=null)
+			{
+				for(L2DropData tempDrop:dropdata)
+				{
+					if(tempDrop.getItemId()==itemid)
+					{
+						returnVal.add(tempNpc);
+						break;
+					}
+				}
+			}
+		}
+		return returnVal;
 	}
 }

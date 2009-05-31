@@ -210,6 +210,7 @@ public class ClanTable
 
 	public synchronized void destroyClan(int clanId)
 	{
+		_log.info("destory clan with id:"+clanId);
 		L2Clan clan = getClan(clanId);
 		if (clan == null)
 		{

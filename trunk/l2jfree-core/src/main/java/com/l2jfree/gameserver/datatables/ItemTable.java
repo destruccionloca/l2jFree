@@ -23,6 +23,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javolution.util.FastList;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -605,6 +607,11 @@ public final class ItemTable
 		return _allTemplates[id];
 	}
 	
+	public L2Item[] getAllTemplates()
+	{
+		return _allTemplates;
+	}
+	
 	/**
 	 * Create the L2ItemInstance corresponding to the Item Identifier and quantitiy add logs the activity.<BR>
 	 * <BR>
@@ -800,4 +807,24 @@ public final class ItemTable
 			_item.setItemLootShedule(null);
 		}
 	}
+	
+	public List<L2Item> findItemsByName(String search)
+	{
+		List<L2Item> returnVal = new FastList<L2Item>();
+		
+		if(search!=null && !search.equalsIgnoreCase(""))
+		{
+			for(L2Item temp : _allTemplates)
+			{
+				if(temp!=null)
+				{
+					if(temp.getName().toLowerCase().contains(search.toLowerCase())) 
+					{
+						returnVal.add(temp);
+					}
+				}
+			}
+		}
+		return returnVal;
+	}	
 }
