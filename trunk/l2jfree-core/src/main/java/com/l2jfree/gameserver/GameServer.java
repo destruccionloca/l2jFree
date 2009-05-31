@@ -147,7 +147,6 @@ import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.status.Status;
 import com.l2jfree.util.concurrent.RunnableStatsManager;
 
-
 public class GameServer
 {
 	private static final Log					_log			= LogFactory.getLog(GameServer.class);
@@ -159,6 +158,12 @@ public class GameServer
 		System.setProperty("python.home", ".");
 
 		Util.printSection("Preparations");
+
+		if (System.getProperty("user.name").equals("root") && System.getProperty("user.home").equals("/root"))
+		{
+			System.out.print("L2Jfree servers should not run under root-account ... exited.");
+			System.exit(-1);
+		}
 
 		new File("log").mkdirs();
 		new File("log/java").mkdirs();
@@ -294,7 +299,7 @@ public class GameServer
 		MercTicketManager.getInstance();
 		DoorTable.getInstance().registerToClanHalls();
 		DoorTable.getInstance().setCommanderDoors();
-		if(Config.PACKET_FINAL)
+		if (Config.PACKET_FINAL)
 			AirShipManager.getInstance();
 		// make sure that all the scheduled siege dates are in the Seal Validation period
 		for (Castle castle : CastleManager.getInstance().getCastles().values())
@@ -415,7 +420,7 @@ public class GameServer
 
 		Util.printSection("ServerThreads");
 		LoginServerThread.getInstance().start();
-		if(Config.PACKET_FINAL)
+		if (Config.PACKET_FINAL)
 		{
 			L2GamePacketHandlerFinal gph = new L2GamePacketHandlerFinal();
 			SelectorConfig<L2GameClient> sc = new SelectorConfig<L2GameClient>(null, null, gph, gph);
@@ -442,7 +447,7 @@ public class GameServer
 		if (Config.ACCEPT_GEOEDITOR_CONN)
 			GeoEditorListener.getInstance();
 
-		Util.printSection("lancer-core");
+		Util.printSection("l2jfree-core");
 		for (String line : CoreInfo.getFullVersionInfo())
 			_log.info(line);
 		_log.info("Operating System: " + Util.getOSName() + " " + Util.getOSVersion() + " " + Util.getOSArch());
