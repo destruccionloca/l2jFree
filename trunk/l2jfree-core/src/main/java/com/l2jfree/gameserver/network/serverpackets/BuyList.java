@@ -19,7 +19,6 @@ import java.util.List;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2TradeList;
-import com.l2jfree.gameserver.templates.item.L2Item;
 
 
 public final class BuyList extends L2GameServerPacket

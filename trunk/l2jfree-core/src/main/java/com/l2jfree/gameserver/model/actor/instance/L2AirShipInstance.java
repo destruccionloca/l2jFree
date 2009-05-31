@@ -34,7 +34,6 @@ import com.l2jfree.gameserver.instancemanager.AirShipManager;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.knownlist.AirShipKnownList;
-import com.l2jfree.gameserver.model.actor.knownlist.BoatKnownList;
 import com.l2jfree.gameserver.network.serverpackets.ExAirShipInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExGetOffAirShip;
 import com.l2jfree.gameserver.network.serverpackets.ExGetOnAirShip;

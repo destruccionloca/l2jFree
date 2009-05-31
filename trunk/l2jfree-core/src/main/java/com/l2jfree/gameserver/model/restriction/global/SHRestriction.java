@@ -14,14 +14,9 @@
  */
 package com.l2jfree.gameserver.model.restriction.global;
 
-import com.l2jfree.Config;
-import com.l2jfree.gameserver.ThreadPoolManager;
-import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.events.SH;
-import com.l2jfree.gameserver.model.entity.events.TvTInstanced.*;
-import com.l2jfree.gameserver.network.serverpackets.PlaySound;
 
 final class SHRestriction extends AbstractFunEventRestriction
 {
