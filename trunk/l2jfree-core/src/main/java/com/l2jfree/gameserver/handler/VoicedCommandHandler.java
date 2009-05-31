@@ -15,27 +15,33 @@
 package com.l2jfree.gameserver.handler;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.handler.voicedcommandhandlers.Auction;
 import com.l2jfree.gameserver.handler.voicedcommandhandlers.Banking;
 import com.l2jfree.gameserver.handler.voicedcommandhandlers.CastleDoors;
 import com.l2jfree.gameserver.handler.voicedcommandhandlers.Hellbound;
 import com.l2jfree.gameserver.handler.voicedcommandhandlers.JoinEvent;
+import com.l2jfree.gameserver.handler.voicedcommandhandlers.Mail;
+import com.l2jfree.gameserver.handler.voicedcommandhandlers.Offline;
 import com.l2jfree.gameserver.handler.voicedcommandhandlers.VersionInfo;
 import com.l2jfree.gameserver.handler.voicedcommandhandlers.Wedding;
 import com.l2jfree.util.HandlerRegistry;
 
 public final class VoicedCommandHandler extends HandlerRegistry<String, IVoicedCommandHandler>
 {
-	private static VoicedCommandHandler _instance;
+	private static VoicedCommandHandler	_instance;
 
 	public static VoicedCommandHandler getInstance()
 	{
 		if (_instance == null)
 			_instance = new VoicedCommandHandler();
-		
+
 		return _instance;
 	}
 
-	/** Reloads the voiced command list. Does nothing if it hasn't been loaded yet */
+	/**
+	 * Reloads the voiced command list. Does nothing if it hasn't been loaded
+	 * yet
+	 */
 	public static void reload()
 	{
 		if (_instance != null)
@@ -46,14 +52,17 @@ public final class VoicedCommandHandler extends HandlerRegistry<String, IVoicedC
 	{
 		if (Config.BANKING_SYSTEM_ENABLED)
 			registerVoicedCommandHandler(new Banking());
+		if (Config.ALLOW_OFFLINE_TRADE)
+			registerVoicedCommandHandler(new Offline());
+		if (Config.ALLOW_WEDDING)
+			registerVoicedCommandHandler(new Wedding());
 		registerVoicedCommandHandler(new CastleDoors());
 		registerVoicedCommandHandler(new Hellbound());
 		if (Config.AUTO_TVT_ENABLED)
 			registerVoicedCommandHandler(new JoinEvent());
 		registerVoicedCommandHandler(new VersionInfo());
-		if (Config.ALLOW_WEDDING)
-			registerVoicedCommandHandler(new Wedding());
-		
+		registerVoicedCommandHandler(new Mail());
+		registerVoicedCommandHandler(new Auction());
 		_log.info("VoicedCommandHandler: Loaded " + size() + " handlers.");
 	}
 
@@ -66,7 +75,7 @@ public final class VoicedCommandHandler extends HandlerRegistry<String, IVoicedC
 	{
 		if (voicedCommand.indexOf(" ") != -1)
 			voicedCommand = voicedCommand.substring(0, voicedCommand.indexOf(" "));
-		
+
 		return get(voicedCommand);
 	}
 }
