@@ -114,23 +114,23 @@ public class CharStat
 		{
 			switch (stat)
 			{
-				case MAX_HP:
-				case MAX_MP:
-				case MAX_CP:
-				case MAGIC_DEFENCE:
-				case POWER_DEFENCE:
-				case POWER_ATTACK:
-				case MAGIC_ATTACK:
-				case POWER_ATTACK_SPEED:
-				case MAGIC_ATTACK_SPEED:
-				case SHIELD_DEFENCE:
-				case STAT_CON:
-				case STAT_DEX:
-				case STAT_INT:
-				case STAT_MEN:
-				case STAT_STR:
-				case STAT_WIT:
-					env.value = 1;
+			case MAX_HP:
+			case MAX_MP:
+			case MAX_CP:
+			case MAGIC_DEFENCE:
+			case POWER_DEFENCE:
+			case POWER_ATTACK:
+			case MAGIC_ATTACK:
+			case POWER_ATTACK_SPEED:
+			case MAGIC_ATTACK_SPEED:
+			case SHIELD_DEFENCE:
+			case STAT_CON:
+			case STAT_DEX:
+			case STAT_INT:
+			case STAT_MEN:
+			case STAT_STR:
+			case STAT_WIT:
+				env.value = 1;
 			}
 		}
 
@@ -186,9 +186,8 @@ public class CharStat
 		if (_activeChar == null)
 			return 1;
 
-		int criticalHit = (int) (calcStat(Stats.CRITICAL_RATE, _activeChar.getTemplate().getBaseCritRate(), target, skill)*10.0 + 0.5);
+		int criticalHit = (int) (calcStat(Stats.CRITICAL_RATE, _activeChar.getTemplate().getBaseCritRate(), target, skill) * 10.0 + 0.5);
 		criticalHit /= 10;
-
 
 		// Set a cap of Critical Hit at ALT_PCRITICAL_CAP
 		if (criticalHit > Config.ALT_PCRITICAL_CAP)
@@ -812,10 +811,47 @@ public class CharStat
 		}
 	}
 
+	public double getElementAttributeFire()
+	{
+		return (int) calcStat(Stats.FIRE_VULN, _activeChar.getTemplate().baseFireVuln, null, null);
+	}
+
+	public double getElementAttributeWater()
+	{
+		return (int) calcStat(Stats.WATER_VULN, _activeChar.getTemplate().baseWaterVuln, null, null);
+	}
+
+	public double getElementAttributeEarth()
+	{
+		return (int) calcStat(Stats.EARTH_VULN, _activeChar.getTemplate().baseEarthVuln, null, null);
+	}
+
+	public double getElementAttributeWind()
+	{
+		return (int) calcStat(Stats.WIND_VULN, _activeChar.getTemplate().baseWindVuln, null, null);
+	}
+
+	public double getElementAttributeHoly()
+	{
+		return (int) calcStat(Stats.HOLY_VULN, _activeChar.getTemplate().baseHolyVuln, null, null);
+	}
+
+	public double getElementAttributeUnholy()
+	{
+		return (int) calcStat(Stats.DARK_VULN, _activeChar.getTemplate().baseDarkVuln, null, null);
+	}
+
 	public final int getAttackElement()
 	{
 		double tempVal = 0, stats[] = { _fire, _water, _wind, _earth, _holy, _dark };
 		int returnVal = -2;
+
+		_earth = (int) calcStat(Stats.EARTH_POWER, 0, null, null);
+		_fire = (int) calcStat(Stats.FIRE_POWER, 0, null, null);
+		_water = (int) calcStat(Stats.WATER_POWER, 0, null, null);
+		_wind = (int) calcStat(Stats.WIND_POWER, 0, null, null);
+		_holy = (int) calcStat(Stats.HOLY_POWER, 0, null, null);
+		_dark = (int) calcStat(Stats.DARK_POWER, 0, null, null);
 
 		for (int x = 0; x < stats.length; x++)
 		{
@@ -825,11 +861,23 @@ public class CharStat
 				tempVal = stats[x];
 			}
 		}
+
 		return returnVal;
 	}
 
 	public final int getAttackElementValue(int attackAttribute)
 	{
+		// no need to call calcStats if we return 0 anyways
+		if(attackAttribute==-2)
+			return 0;
+		
+		_earth = (int) calcStat(Stats.EARTH_POWER, 0, null, null);
+		_fire = (int) calcStat(Stats.FIRE_POWER, 0, null, null);
+		_water = (int) calcStat(Stats.WATER_POWER, 0, null, null);
+		_wind = (int) calcStat(Stats.WIND_POWER, 0, null, null);
+		_holy = (int) calcStat(Stats.HOLY_POWER, 0, null, null);
+		_dark = (int) calcStat(Stats.DARK_POWER, 0, null, null);
+
 		switch (attackAttribute)
 		{
 		case -2:
@@ -847,6 +895,8 @@ public class CharStat
 		case 5:
 			return _dark;
 		}
+
 		return 0;
+
 	}
 }

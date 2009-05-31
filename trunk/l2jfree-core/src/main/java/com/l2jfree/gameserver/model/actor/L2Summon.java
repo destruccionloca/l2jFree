@@ -50,6 +50,7 @@ import com.l2jfree.gameserver.network.serverpackets.PetStatusShow;
 import com.l2jfree.gameserver.network.serverpackets.PetStatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 import com.l2jfree.gameserver.network.serverpackets.EffectInfoPacket.EffectInfoPacketList;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
 import com.l2jfree.gameserver.taskmanager.LeakTaskManager;
@@ -125,6 +126,11 @@ public abstract class L2Summon extends L2Playable
 		{
 			party.broadcastToPartyMembers(getOwner(), new ExPartyPetWindowAdd(this));
 		}
+		if (this instanceof L2SummonInstance && getOwner() != null && getOwner().getActiveWeaponInstance() != null)
+		{
+			getOwner().getActiveWeaponInstance().updateElementAttrBonus(getOwner());
+			this.getOwner().sendPacket(new UserInfo(this.getOwner()));
+ 		}
 	}
 
 	@Override

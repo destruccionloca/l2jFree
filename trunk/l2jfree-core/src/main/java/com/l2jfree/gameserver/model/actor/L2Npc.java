@@ -181,7 +181,9 @@ public class L2Npc extends L2Character
 	public String					_CTF_FlagTeamName;
 	public boolean					isEventMob				= false, _isEventMobTvT = false, _isEventMobDM = false, _isEventMobCTF = false,
 			_isCTF_throneSpawn = false, _isCTF_Flag = false, _isEventVIPNPC = false, _isEventVIPNPCEnd = false;
-
+	public boolean					_isEventMobTvTi			= false;
+	public boolean					_isEventMobSH			= false;
+	
 	private boolean					_isInTown				= false;
 	private int						_isSpoiledBy			= 0;
 

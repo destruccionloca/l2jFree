@@ -219,6 +219,8 @@ public abstract class L2Character extends L2Object
 	protected byte					_zoneValidateCounter				= 4;
 
 	private boolean					_isRaid								= false;
+	private boolean _isFlying;
+
 
 	/**
 	 * Objects known by this object
@@ -405,7 +407,7 @@ public abstract class L2Character extends L2Object
 
 		if (this instanceof L2Summon)
 		{
-			((L2Summon)this).getOwner().sendPacket(new TeleportToLocation(this, getPosition().getX(), getPosition().getY(), getPosition().getZ()));
+			((L2Summon)this).getOwner().sendPacket(new TeleportToLocation(this, getPosition().getX(), getPosition().getY(), getPosition().getZ(), getPosition().getHeading()));
 		}
 
 		setIsTeleporting(false);
@@ -565,6 +567,10 @@ public abstract class L2Character extends L2Object
 	 */
 	public void teleToLocation(int x, int y, int z, boolean allowRandomOffset)
 	{
+		teleToLocation(x, y, z, 0, allowRandomOffset);
+	}
+	public void teleToLocation(int x, int y, int z, int heading, boolean allowRandomOffset)
+	{
 		// Restrict teleport during restart/shutdown
 		if (Shutdown.isActionDisabled(DisableType.TELEPORT))
 		{
@@ -595,7 +601,7 @@ public abstract class L2Character extends L2Object
 		decayMe();
 
 		// Send a Server->Client packet TeleportToLocationt to the L2Character AND to all L2PcInstance in the _knownPlayers of the L2Character
-		broadcastPacket(new TeleportToLocation(this, x, y, z));
+		broadcastPacket(new TeleportToLocation(this, x, y, z, heading));
 
 		// Set the x, y, z coords of the object, but do not update it's world region yet - onTeleported() will do it
 		getPosition().setWorldPosition(x, y, z);
@@ -883,6 +889,12 @@ public abstract class L2Character extends L2Object
 				return;
 			}
 
+			if (Config.ALLOW_OFFLINE_TRADE_PROTECTION && target instanceof L2PcInstance && ((L2PcInstance)target).isOffline())
+			{
+				sendPacket(ActionFailed.STATIC_PACKET);
+				return;
+			}
+			
 			if (((L2PcInstance) this).inObserverMode())
 			{
 				sendPacket(new SystemMessage(SystemMessageId.OBSERVERS_CANNOT_PARTICIPATE));
@@ -2490,13 +2502,6 @@ public abstract class L2Character extends L2Object
 		_isFallsdown = value;
 	}
 
-	// [L2J_JP_ADD END]
-
-	public boolean isFlying()
-	{
-		return false;
-	}
-
 	public boolean isImmobilized()
 	{
 		return _isImmobilized;
@@ -2749,6 +2754,9 @@ public abstract class L2Character extends L2Object
 	{
 		return _template.isUndead();
 	}
+	
+	public final boolean isFlying() { return _isFlying; }
+	public void setIsFlying(boolean mode) { _isFlying = mode; }	
 
 	@Override
 	public CharKnownList getKnownList()
@@ -3107,6 +3115,7 @@ public abstract class L2Character extends L2Object
 	public static final int	ABNORMAL_EFFECT_EARTHQUAKE		= 0x2000000;
 	public static final int	ABNORMAL_EFFECT_UNKNOWN27		= 0x4000000;
 	public static final int	ABNORMAL_EFFECT_INVULNERABLE	= 0x8000000;
+	public static final int ABNORMAL_EFFECT_VITALITY		= 0x10000000;
 
 	// FIXME: TEMP HACKS (get the proper mask for these effects)
 	public static final int	ABNORMAL_EFFECT_CONFUSED		= 0x0020;
@@ -7065,32 +7074,32 @@ public abstract class L2Character extends L2Object
 
 	public int getDefAttrFire()
 	{
-		return (int) ((getTemplate().baseFireVuln - calcStat(Stats.FIRE_VULN, 1, this, null)) * 100);
+		return (int)getStat().getElementAttributeFire()-1;
 	}
 
 	public int getDefAttrWater()
 	{
-		return (int) ((getTemplate().baseWaterVuln - calcStat(Stats.WATER_VULN, 1, this, null)) * 100);
+		return (int)getStat().getElementAttributeWater()-1;
 	}
 
 	public int getDefAttrEarth()
 	{
-		return (int) ((getTemplate().baseEarthVuln - calcStat(Stats.EARTH_VULN, 1, this, null)) * 100);
+		return (int)getStat().getElementAttributeEarth()-1;
 	}
 
 	public int getDefAttrWind()
 	{
-		return (int) ((getTemplate().baseWindVuln - calcStat(Stats.WIND_VULN, 1, this, null)) * 100);
+		return (int)getStat().getElementAttributeWind()-1;
 	}
 
 	public int getDefAttrHoly()
 	{
-		return (int) ((getTemplate().baseHolyVuln - calcStat(Stats.HOLY_VULN, 1, this, null)) * 100);
+		return (int)getStat().getElementAttributeHoly()-1;
 	}
 
 	public int getDefAttrUnholy()
 	{
-		return (int) ((getTemplate().baseDarkVuln - calcStat(Stats.DARK_VULN, 1, this, null)) * 100);
+		return (int)getStat().getElementAttributeUnholy()-1;
 	}
 
 	public int getAttackElement()
