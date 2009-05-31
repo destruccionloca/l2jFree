@@ -16,7 +16,7 @@ package com.l2jfree.gameserver.handler.voicedcommandhandlers;
 
 import com.l2jfree.gameserver.handler.IVoicedCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.L2JfreeInfo;
+import com.l2jfree.gameserver.CoreInfo;
 
 /** 
  * @author evill33t
@@ -31,7 +31,7 @@ public class VersionInfo  implements IVoicedCommandHandler
 	{
 		if (command.startsWith("version"))
 		{
-			L2JfreeInfo.versionInfo(activeChar);
+			CoreInfo.versionInfo(activeChar);
 			return true;
 		}
 		return false;
