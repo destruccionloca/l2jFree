@@ -91,8 +91,9 @@ public abstract class Inventory extends ItemContainer
     public static final int PAPERDOLL_DECO4 = 27;
     public static final int PAPERDOLL_DECO5 = 28;
     public static final int PAPERDOLL_DECO6 = 29;
+	public static final int PAPERDOLL_BELT = 30;
+    public static final int PAPERDOLL_TOTALSLOTS = 31;
     
-    public static final int PAPERDOLL_TOTALSLOTS = 30;
 	
 	// Speed percentage mods
 	public static final double					MAX_ARMOR_WEIGHT	= 12000;
@@ -251,12 +252,19 @@ public abstract class Inventory extends ItemContainer
 				// Remove augmentation bonuses on unequip
 				if (item.isAugmented() && getOwner() instanceof L2PcInstance)
 					item.getAugmentation().removeBonus((L2PcInstance)getOwner());
+				
+				if (item.getElementals() != null)
+						item.getElementals().removeBonus(player);
+				
 				itemSkills = ((L2Weapon)it).getSkills();
 				enchant4Skills = ((L2Weapon)it).getEnchant4Skills();
 			}
 			else if (it instanceof L2Armor)
 			{
 				itemSkills = ((L2Armor)it).getSkills();
+				
+				if (item.getElementals() != null)
+					item.getElementals().removeBonus(player);
 			}
 			
 			if (itemSkills != null)
@@ -296,6 +304,9 @@ public abstract class Inventory extends ItemContainer
 				if (item.isAugmented() && getOwner() instanceof L2PcInstance)
 					item.getAugmentation().applyBonus((L2PcInstance)getOwner());
 				
+				if (item.getElementals() != null)
+						item.getElementals().applyBonus(player, false);
+				
 				itemSkills = ((L2Weapon)it).getSkills();
 				
 				if (item.getEnchantLevel() >= 4)
@@ -304,6 +315,9 @@ public abstract class Inventory extends ItemContainer
 			else if (it instanceof L2Armor)
 			{
 				itemSkills = ((L2Armor)it).getSkills();
+				
+				if (item.getElementals() != null)
+						item.getElementals().applyBonus(player, true);
 			}
 			
 			boolean updateTimeStamp = false;
@@ -554,7 +568,7 @@ public abstract class Inventory extends ItemContainer
 	 */
 	protected Inventory()
 	{
-		_paperdoll = new L2ItemInstance[30];
+		_paperdoll = new L2ItemInstance[31];
 		_paperdollListeners = new FastList<PaperdollListener>();
 		addPaperdollListener(new AmmunationListener());
 		addPaperdollListener(new StatsListener());
@@ -791,6 +805,8 @@ public abstract class Inventory extends ItemContainer
 				return _paperdoll[23];
 			case 0x400000:
 				return _paperdoll[24];
+			case 0x10000000:
+				return _paperdoll[25];
 		}
 		return null;
 	}
@@ -1100,6 +1116,10 @@ public abstract class Inventory extends ItemContainer
 			case L2Item.SLOT_R_BRACELET:
 				pdollSlot = PAPERDOLL_RBRACELET;
 				break;
+			case L2Item.SLOT_BELT:
+				pdollSlot = PAPERDOLL_BELT;
+				break;
+			
 		}
 		
 		if (pdollSlot >= 0)
@@ -1312,6 +1332,9 @@ public abstract class Inventory extends ItemContainer
 				break;
 			case L2Item.SLOT_DECO:
 				equipTalisman(item);
+				break;
+			case L2Item.SLOT_BELT:
+				setPaperdollItem(PAPERDOLL_BELT, item);
 				break;
 			default:
 				_log.warn("unknown body slot:" + targetSlot + " for item ID:"+item.getItemId());
