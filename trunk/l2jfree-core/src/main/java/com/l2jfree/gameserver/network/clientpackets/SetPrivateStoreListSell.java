@@ -43,11 +43,14 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
 	protected void readImpl()
 	{
 		_packageSale = (readD() == 1);
-		if(Config.PACKET_FINAL)
+		if (Config.PACKET_FINAL)
 			_count = toInt(readQ());
 		else
 			_count = readD();
-		if (_count <= 0 || _count * 12 > getByteBuffer().remaining() || _count > Config.MAX_ITEM_IN_PACKET)
+		int m = 12;
+		if (Config.PACKET_FINAL)
+			m = 20;
+		if (_count <= 0 || _count * m > getByteBuffer().remaining() || _count > Config.MAX_ITEM_IN_PACKET)
 		{
 			_count = 0;
 			_items = null;
@@ -67,7 +70,7 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
 			}
 			_items[x * 3 + 1] = (int) cnt;
 			int price = 0;
-			if(Config.PACKET_FINAL)
+			if (Config.PACKET_FINAL)
 				price = toInt(readQ());
 			else
 				price = readD();
