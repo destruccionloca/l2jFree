@@ -69,7 +69,7 @@ public class Recipes implements IItemHandler
 					}
 					else
 					{
-						activeChar.registerDwarvenRecipeList(rp);
+						activeChar.registerDwarvenRecipeList(rp, true);
 						activeChar.destroyItem("Consume", item.getObjectId(), 1, null, false);
 						activeChar.sendMessage("Added recipe \"" + item.getItemName() + "\" to dwarven recipe book.");
 					}
@@ -97,7 +97,7 @@ public class Recipes implements IItemHandler
 					}
 					else
 					{
-						activeChar.registerCommonRecipeList(rp);
+						activeChar.registerCommonRecipeList(rp, true);
 						activeChar.destroyItem("Consume", item.getObjectId(), 1, null, false);
 						activeChar.sendMessage("Added recipe \"" + item.getItemName() + "\" to common recipe book.");
 					}

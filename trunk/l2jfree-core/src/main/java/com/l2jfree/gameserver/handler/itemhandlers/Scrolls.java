@@ -24,6 +24,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
+import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
 * This class ...
@@ -81,7 +82,23 @@ public class Scrolls implements IItemHandler
 			9152,
 			9153,
 			9154,
-			9155,							};
+			9155,
+			9897,
+			10131,
+			10132,
+			10133,
+			10134,
+			10135,
+			10136,
+			10137,
+			10138,
+			10151,
+			10274,
+			13844,
+			13386,
+			13387,
+			13388
+			};
 
 	public void useItem(L2Playable playable, L2ItemInstance item)
 	{
@@ -135,19 +152,43 @@ public class Scrolls implements IItemHandler
 			useScroll(activeChar, 5041, 1);
 			return;
 		}
+		else if (itemId == 9897 || itemId >= 10131 && itemId <= 10138 || itemId == 10151 || itemId == 10274) //transformation scrolls
+		{
+			if (activeChar.isMounted() || activeChar.getPet() != null || activeChar.isTransformed())
+			{
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED).addItemName(item));
+				return;
+			}
+		}
 		else if (itemId >= 8954 && itemId <= 8956)
 		{
-			if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
-				return;
 			switch (itemId)
 			{
 			case 8954: // Blue Primeval Crystal XML: 2306;1
 			case 8955: // Green Primeval Crystal XML: 2306;2
 			case 8956: // Red Primeval Crystal XML: 2306;3
+				activeChar.broadcastPacket(new MagicSkillUse(playable, playable, 2306, itemId - 8953, 1, 0));
 				useScroll(activeChar, 2306, itemId - 8953);
 				break;
-			default:
-				break;
+			}
+			return;
+		}
+		else if (itemId >= 13386 && itemId <= 13388)
+		{
+			switch (itemId)
+			{
+				case 13386: // Blue Crystal of Fantasy XML: 2608
+					activeChar.broadcastPacket(new MagicSkillUse(playable, playable, 2608, 1, 1, 0));
+					useScroll(activeChar, 2608, 1);
+					break;
+				case 13387: // Green Crystal of Fantasy XML: 2608
+					activeChar.broadcastPacket(new MagicSkillUse(playable, playable, 2608, 2, 1, 0));
+					useScroll(activeChar, 2608, 2);
+					break;
+				case 13388: // Red Crystal of Fantasy XML: 2608
+					activeChar.broadcastPacket(new MagicSkillUse(playable, playable, 2608, 3, 1, 0));
+					useScroll(activeChar, 2608, 3);
+					break;
 			}
 			return;
 		}
