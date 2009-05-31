@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.network;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.mmocore.network.HeaderInfo;
@@ -76,9 +77,12 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 			case CONNECTED:
 				switch (opcode)
 				{
+					/* Commented out by Kerberos: not useful anymore
 					case 0x00:
-						_log.warn("Client " + client.toString() + " is trying to connect using Interlude Client");
+						if (Config.PACKET_HANDLER_DEBUG)
+							_log.warn("Client " + client.toString() + " is trying to connect using Interlude Client");
 						break;
+					*/
 					case 0x0e:
 						msg = new ProtocolVersion();
 						break;
@@ -86,7 +90,7 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 						msg = new AuthLogin();
 						break;
 					default:
-						printDebug(opcode, buf, state, client);
+						printDebug(buf, client, opcode);
 						break;
 				}
 				break;
@@ -108,10 +112,11 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 					case 0x13:
 						msg = new NewCharacter();
 						break;
+					/* Commented out by Kerberos: not being used anymore
 					case 0x54:
-						// client send this packet when u are on boat and u
-						// relog game X_x
+						// client send this packet when u are on boat and u relog game X_x
 						break;
+					*/
 					case 0x67:
 						msg = new RequestPledgeCrest();
 						break;
@@ -126,7 +131,8 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 						}
 						else
 						{
-							_log.warn("Client: " + client.toString() + " sent a 0xd0 without the second opcode.");
+							if (Config.PACKET_HANDLER_DEBUG)
+								_log.warn("Client: " + client.toString() + " sent a 0xd0 without the second opcode.");
 							break;
 						}
 						
@@ -137,18 +143,26 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 						}
 						else
 						{
-							printDebugDoubleOpcode(opcode, id2, buf, state, client);
+							printDebug(buf, client, opcode, id2);
 						}
 						
 						break;
+					// to avoid unnecessary warning about invalid opcode (if the client lags a bit, then it starts spamming this packet)
+					case 0x59: // ValidatePosition
+						break;
+					//
 					default:
-						printDebug(opcode, buf, state, client);
+						printDebug(buf, client, opcode);
 						break;
 				}
 				break;
 			case IN_GAME:
 				switch (opcode)
 				{
+					// to avoid unnecessary warning about invalid opcode (player clicked the button multiple times)
+					case 0x12: // CharacterSelected
+						break;
+					//
 					case 0x00:
 						msg = new Logout();
 						break;
@@ -184,8 +198,6 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 						break;
 					case 0x11:
 						msg = new EnterWorld();
-						break;
-					case 0x12:
 						break;
 					case 0x14:
 						msg = new RequestItemList();
@@ -253,12 +265,14 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 					case 0x34:
 						msg = new RequestSocialAction();
 						break;
+					// Deprecated - RequestActionUse
 					case 0x35:
-						msg = new ChangeMoveType2();
+						//	msg = new ChangeMoveType2();
 						break;
 					case 0x36:
-						msg = new ChangeWaitType2();
+						//	msg = new ChangeWaitType2();
 						break;
+					//
 					case 0x37:
 						msg = new RequestSellItem();
 						break;
@@ -669,7 +683,8 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 						}
 						else
 						{
-							_log.warn("Client: " + client.toString() + " sent a 0xd0 without the second opcode.");
+							if (Config.PACKET_HANDLER_DEBUG)
+								_log.warn("Client: " + client.toString() + " sent a 0xd0 without the second opcode.");
 							break;
 						}
 						//_log.info("ex:"+id2);
@@ -875,8 +890,8 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 								}
 								else
 								{
-									_log.warn("Client: " + client.toString()
-										+ " sent a 0xd0:0x51 without the third opcode.");
+									if (Config.PACKET_HANDLER_DEBUG)
+										_log.warn("Client: " + client + " sent a 0xd0:0x51 without the third opcode.");
 									break;
 								}
 								switch (id3)
@@ -897,7 +912,7 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 										msg = new RequestTeleportBookMark();
 										break;
 									default:
-										printDebugDoubleOpcode(opcode, id3, buf, state, client);
+										printDebug(buf, client, opcode, id2, id3);
 										break;
 								}
 								break;
@@ -921,7 +936,7 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 								// TODO: Create RequestSeedPhase packet to send back FE:A1 ExShowSeedMapInfo
 								break;
 							default:
-								printDebugDoubleOpcode(opcode, id2, buf, state, client);
+								printDebug(buf, client, opcode, id2);
 								break;
 						}
 						break;
@@ -930,7 +945,7 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 					 * _client); break;
 					 */
 					default:
-						printDebug(opcode, buf, state, client);
+						printDebug(buf, client, opcode);
 						break;
 				}
 				break;
@@ -938,28 +953,29 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 		return msg;
 	}
 	
-	private void printDebug(int opcode, ByteBuffer buf, GameClientState state, L2GameClient client)
+	private void printDebug(ByteBuffer buf, L2GameClient client, int... opcodes)
 	{
-		int size = buf.remaining();
-		_log.warn("Unknown Packet: " + Integer.toHexString(opcode) + " on State: " + state.name() + " Client: "
-			+ client.toString());
-		byte[] array = new byte[size];
-		buf.get(array);
-		_log.warn(HexUtil.printData(array, size));
-		
 		IOFloodManager.getInstance().report(ErrorMode.INVALID_OPCODE, client, null, null);
-	}
-	
-	private void printDebugDoubleOpcode(int opcode, int id2, ByteBuffer buf, GameClientState state, L2GameClient client)
-	{
-		int size = buf.remaining();
-		_log.warn("Unknown Packet: " + Integer.toHexString(opcode) + ":" + Integer.toHexString(id2) + " on State: "
-			+ state.name() + " Client: " + client.toString());
-		byte[] array = new byte[size];
-		buf.get(array);
-		_log.warn(HexUtil.printData(array, size));
 		
-		IOFloodManager.getInstance().report(ErrorMode.INVALID_OPCODE, client, null, null);
+		if (!Config.PACKET_HANDLER_DEBUG)
+			return;
+		
+		StringBuilder sb = new StringBuilder("Unknown Packet: ");
+		
+		for (int i = 0; i < opcodes.length; i++)
+		{
+			if (i != 0)
+				sb.append(" : ");
+			
+			sb.append("0x").append(Integer.toHexString(opcodes[i]));
+		}
+		sb.append(", Client: ").append(client);
+		_log.warn(sb);
+		
+		byte[] array = new byte[buf.remaining()];
+		buf.get(array);
+		for (String line : StringUtils.split(HexUtil.printData(array), "\n"))
+			_log.warn(line);
 	}
 	
 	public L2GameClient create(SelectorThread<L2GameClient> selectorThread, ISocket socket, SelectionKey key)
