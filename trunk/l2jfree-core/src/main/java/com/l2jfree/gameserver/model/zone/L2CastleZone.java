@@ -15,10 +15,15 @@
 package com.l2jfree.gameserver.model.zone;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.datatables.ClanTable;
+import com.l2jfree.gameserver.instancemanager.CastleManager;
+import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.Siege;
+import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 public class L2CastleZone extends SiegeableEntityZone
 {
@@ -28,17 +33,17 @@ public class L2CastleZone extends SiegeableEntityZone
 		_entity = initCastle();
 		_entity.registerZone(this);
 	}
-	
+
 	@Override
 	protected void onEnter(L2Character character)
 	{
 		character.setInsideZone(FLAG_CASTLE, true);
-		
+		alertCastle(character, true);
 		super.onEnter(character);
-		
+
 		if (character instanceof L2PcInstance)
 		{
-			L2PcInstance player = (L2PcInstance)character;
+			L2PcInstance player = (L2PcInstance) character;
 			L2Clan clan = player.getClan();
 			if (clan != null)
 			{
@@ -50,15 +55,77 @@ public class L2CastleZone extends SiegeableEntityZone
 			}
 		}
 	}
-	
+
 	@Override
 	protected void onExit(L2Character character)
 	{
 		character.setInsideZone(FLAG_CASTLE, false);
-		
+
 		super.onExit(character);
-		
+
 		if (character instanceof L2PcInstance)
-			((L2PcInstance)character).stopFameTask();
+			((L2PcInstance) character).stopFameTask();
+	}
+
+	private void alertCastle(L2Character character, boolean entering)
+	{
+		Castle castle = CastleManager.getInstance().getCastleById(_entity.getCastleId());
+		int ownerId = castle.getOwnerId();
+
+		Siege siege = SiegeManager.getInstance().getSiege(character);
+		if (siege != null && siege.getIsInProgress())
+			return;
+		else if (ownerId == 0)
+			return;
+		else if (castle.getFunction(Castle.FUNC_SECURITY) == null)
+			return;
+		else if (character.getInstanceId() != 0)
+			return;
+		else if (character.isInFunEvent())
+			return;
+		else if (character instanceof L2PcInstance)
+		{
+			if (((L2PcInstance) character).isGM())
+				return;
+		}
+		else
+			return;
+
+		L2PcInstance activeChar = (L2PcInstance) character;
+		L2Clan castleClan = ClanTable.getInstance().getClan(ownerId);
+		L2Clan activeCharClan = activeChar.getClan();
+		SystemMessage sm = null;
+
+		if (entering)
+			sm = SystemMessage.sendString("Castle Alert: " + activeChar.getName() + " has entered the castle's premises!");
+		else
+			sm = SystemMessage.sendString("Castle Alert: " + activeChar.getName() + " has exited the castle's premises!");
+
+		switch (castle.getFunction(Castle.FUNC_SECURITY).getLvl())
+		{
+			case 1: // low
+				if (activeCharClan != null)
+				{
+					if (activeCharClan == castleClan)
+						return;
+					else if (castleClan.getAllyId() != 0)
+						if (activeCharClan.getAllyId() == castleClan.getAllyId())
+							return;
+				}
+				castleClan.broadcastToOnlineMembers(sm);
+				break;
+			case 2: // med
+				if (activeCharClan != null)
+					if (activeCharClan == castleClan)
+						return;
+				castleClan.broadcastToOnlineMembers(sm);
+				break;
+			case 3: // high
+				castleClan.broadcastToOnlineMembers(sm);
+				break;
+			default: // off
+				break;
+		}
+		return;
 	}
 }
