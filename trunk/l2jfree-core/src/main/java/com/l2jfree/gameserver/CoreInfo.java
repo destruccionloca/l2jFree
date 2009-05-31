@@ -16,6 +16,10 @@ package com.l2jfree.gameserver;
 
 import org.mmocore.network.SelectorThread;
 
+import com.l2jfree.L2Config;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.versionning.Version;
+
 public final class CoreInfo
 {
 	private CoreInfo()
