@@ -145,7 +145,7 @@ public enum L2SkillType
 	SIGNET_CASTTIME(L2SkillSignetCasttime.class),
 	SUMMON(L2SkillSummon.class),
 	SUMMON_TRAP(L2SkillTrap.class),
-	
+	FATAL,	
 	// Skill that has no effect.
 	DUMMY,
 	// Skill is done within the core.
