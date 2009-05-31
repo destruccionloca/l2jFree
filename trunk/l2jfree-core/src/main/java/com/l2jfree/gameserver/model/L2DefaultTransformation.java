@@ -45,6 +45,12 @@ public abstract class L2DefaultTransformation extends L2Transformation
 		super.addSkill(player, skillId, skillLevel);
 	}
 
+	public void addSkills(L2PcInstance player, int... skills)
+	{
+		for (int skill : skills)
+			addSkill(player, skill, 1);
+	}
+
 	@Override
 	public void onTransform(L2PcInstance player)
 	{
@@ -72,6 +78,12 @@ public abstract class L2DefaultTransformation extends L2Transformation
 		removeSkill(player, 619);
 		// Decrease Bow/Crossbow Attack Speed
 		removeSkill(player, 5491);
+	}
+
+	public void removeSkills(L2PcInstance player, int... skills)
+	{
+		for (int skill : skills)
+			removeSkill(player, skill);
 	}
 
 	public abstract void removeSkills(L2PcInstance player);
