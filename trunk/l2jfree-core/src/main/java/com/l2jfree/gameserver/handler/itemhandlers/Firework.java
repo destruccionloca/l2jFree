@@ -20,11 +20,7 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
-import com.l2jfree.gameserver.util.FloodProtector;
-import com.l2jfree.gameserver.util.FloodProtector.Protected;
 
 /** 
  * This class ... 
@@ -42,28 +38,18 @@ public class Firework implements IItemHandler
 	{
 		L2PcInstance activeChar;
 		activeChar = (L2PcInstance) playable;
-		int itemId = item.getItemId();
-		int skillId = -1;
-
-		if (!FloodProtector.tryPerformAction(activeChar, Protected.FIREWORK))
+		int skillId = 0;
+		switch (item.getItemId())
 		{
-			SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
-			sm.addItemName(item);
-			activeChar.sendPacket(sm);
-			return;
-		}
-
-		switch (itemId)
-		{
-		case 6403: // Elven Firecracker
-			skillId = 2023; // elven_firecracker, xml: 2023
-			break;
-		case 6406: // Firework
-			skillId = 2024; // firework, xml: 2024
-			break;
-		case 6407: // Large Firework
-			skillId = 2025; // large_firework, xml: 2025
-			break;
+			case 6403:
+				skillId = 2023;
+				break;
+			case 6406:
+				skillId = 2024;
+				break;
+			case 6407:
+				skillId = 2025;
+				break;
 		}
 
 		L2Skill skill = SkillTable.getInstance().getInfo(skillId, 1);

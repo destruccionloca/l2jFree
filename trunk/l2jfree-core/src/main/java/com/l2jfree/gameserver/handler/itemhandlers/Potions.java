@@ -325,7 +325,7 @@ public class Potions implements IItemHandler
 			if (!isUseable(activeChar, item, 2287))
 				return;
 			byte expIndex = (byte) activeChar.getExpertiseIndex();
-			res = usePotion(activeChar, 2287, (expIndex > 5 ? expIndex : expIndex + 1));
+			res = usePotion(activeChar, 2287, (expIndex > 5 ? 6 : expIndex + 1));
 			break;
 		}
 		case 8628:
@@ -345,7 +345,7 @@ public class Potions implements IItemHandler
 				return;
 			byte expIndex = (byte) activeChar.getExpertiseIndex();
 			// Elixir of Strength
-			res = usePotion(activeChar, 2288, (expIndex > 5 ? expIndex : expIndex + 1));
+			res = usePotion(activeChar, 2288, (expIndex > 5 ? 6 : expIndex + 1));
 		}
 		break;
 		case 8634:
@@ -365,7 +365,7 @@ public class Potions implements IItemHandler
 				return;
 			byte expIndex = (byte) activeChar.getExpertiseIndex();
 			// Elixir of cp
-			res = usePotion(activeChar, 2289, (expIndex > 5 ? expIndex : expIndex + 1));
+			res = usePotion(activeChar, 2289, (expIndex > 5 ? 6 : expIndex + 1));
 		}
 		break;
 			// Valakas Amulets
