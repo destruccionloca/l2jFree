@@ -383,7 +383,7 @@ final class DocumentSkill extends DocumentBase
 			if (abn.equals("poison"))
 				abnormal = L2Character.ABNORMAL_EFFECT_POISON;
 
-			else if (abn.equals("bleed"))
+			else if (abn.equals("bleed") || abn.equals("bleeding"))
 				abnormal = L2Character.ABNORMAL_EFFECT_BLEEDING;
 			else if (abn.equalsIgnoreCase("stun"))
 				abnormal = L2Character.ABNORMAL_EFFECT_STUN;
