@@ -352,6 +352,7 @@ public class Instance
 						z = Integer.parseInt(d.getAttributes().getNamedItem("z").getNodeValue());
 						heading = Integer.parseInt(d.getAttributes().getNamedItem("heading").getNodeValue());
 						respawn = Integer.parseInt(d.getAttributes().getNamedItem("respawn").getNodeValue());
+						int amount = Integer.parseInt(d.getAttributes().getNamedItem("amount").getNodeValue());
 
 						npcTemplate = NpcTable.getInstance().getTemplate(npcId);
 						if (npcTemplate != null)
@@ -360,7 +361,7 @@ public class Instance
 							spawnDat.setLocx(x);
 							spawnDat.setLocy(y);
 							spawnDat.setLocz(z);
-							spawnDat.setAmount(1);
+							spawnDat.setAmount(amount);
 							spawnDat.setHeading(heading);
 							spawnDat.setRespawnDelay(respawn);
 							if (respawn == 0)

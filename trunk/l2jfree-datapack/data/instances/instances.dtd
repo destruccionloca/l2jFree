@@ -36,6 +36,7 @@
 <!ATTLIST spawn z CDATA #REQUIRED>
 <!ATTLIST spawn heading CDATA #REQUIRED>
 <!ATTLIST spawn respawn CDATA #REQUIRED>
+<!ATTLIST spawn amount CDATA #REQUIRED>
 <!ELEMENT spawn EMPTY>
 
 <!-- Spawn Point -->
