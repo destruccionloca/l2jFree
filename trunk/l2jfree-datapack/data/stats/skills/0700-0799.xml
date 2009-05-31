@@ -1465,10 +1465,19 @@
     </for>
   </skill>
   <skill id="792" levels="1" name="Betrayal Mark">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="1200"/>
+    <set name="castRange" val="600"/>
+    <set name="effectRange" val="1200"/>
+    <set name="hitTime" val="1000"/>
+    <set name="mpConsume" val="78"/>
+    <set name="power" val="80" />
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="reuseDelay" val="6000"/>
+    <set name="skillType" val="DEBUFF"/>
+    <set name="isDebuff" val="true"/>
+    <set name="skillRadius" val="1000"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="bestowedSkillId" val="5600"/>
+    <set name="bestowedSkillLevel" val="1"/>    
   </skill>
   <skill id="793" levels="1" name="Rush Impact">
     <set name="castRange" val="600"/>
@@ -1577,11 +1586,37 @@
     </for>
   </skill>
   <skill id="799" levels="3" name="Master Ability - Defense">
+    <table name="#Heavy"> 60 120 180 </table>
+    <table name="#Light"> 45 90 135 </table>
+    <table name="#Robe"> 30 60 90 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <for>
-      <mul order="0x30" stat="pDef" val="1"/>
-    </for>
+     <for>
+       <add order="0x40" stat="pDef" val="#Heavy">
+         <and>
+           <using kind="Heavy"/>
+          <not>
+           <using kind="Light,Magic"/>
+          </not>
+         </and>
+       </add>
+       <add order="0x40" stat="pDef" val="#Light">
+         <and>
+           <using kind="Light"/>
+          <not>
+           <using kind="Heavy,Magic"/>
+          </not>
+         </and>
+       </add>
+       <add order="0x40" stat="pDef" val="#Robe">
+         <and>
+          <using kind="Magic"/>
+          <not>
+           <using kind="Light,Heavy"/>
+          </not>
+         </and>
+       </add>
+     </for>
   </skill>
 </list>

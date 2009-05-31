@@ -2,9 +2,22 @@
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
   <skill id="5600" levels="1" name="Betrayal Mark">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_PARTY" />
+    <set name="skillType" val="PDAM" />
+    <set name="operateType" val="OP_PASSIVE" />
+    <set name="castRange" val="600" />
+    <set name="effectRange" val="1200"/>
+    <set name="skillRadius" val="1000"/>
+    <cond>
+      <not>
+        <target active_effect_id="5600"/>
+      </not>
+    </cond>
+    <for>
+      <effect count="1" name="Debuff" time="30" val="0">
+        <add order="0x40" stat="transDam" val="100" />
+      </effect>
+    </for>        
   </skill>
   <skill id="5601" levels="12" name="Short-Range Physical Attack Resistance">
     <set name="target" val="TARGET_NONE"/>

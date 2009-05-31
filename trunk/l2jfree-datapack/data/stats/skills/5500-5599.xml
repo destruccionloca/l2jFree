@@ -760,29 +760,93 @@
     <set name="bestowed" val="true"/>
   </skill>
   <skill id="5572" levels="1" name="Warrior Ability - Haste">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="magicLvl" val="75"/>
+    <set name="activationChance" val="3"/>
+    <set name="chanceType" val="ON_HIT"/>
+    <set name="operateType" val="OP_CHANCE"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="bestowed" val="true"/>
+    <cond>
+      <not>
+        <target active_effect_id="5572"/>
+      </not>
+    </cond>
+    <for> 
+     <effect count="1" name="Buff" time="15" val="0">
+       <mul order="0x30" stat="pAtkSpd" val="1.32"/>
+      </effect> 
+    </for>
   </skill>
   <skill id="5573" levels="1" name="Knight Ability - Defense">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="magicLvl" val="75"/>
+    <set name="activationChance" val="3"/>
+    <set name="chanceType" val="ON_ATTACKED"/>
+    <set name="operateType" val="OP_CHANCE"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="bestowed" val="true"/>
+    <cond>
+      <not>
+        <target active_effect_id="5573"/>
+      </not>
+    </cond>
+    <for>
+     <effect count="1" name="Buff" time="15" val="0">
+      <mul order="0x30" stat="pDef" val="1.24"/>
+      <mul order="0x30" stat="mDef" val="1.24"/>
+     </effect>
+    </for>
   </skill>
   <skill id="5574" levels="1" name="Log Ability - Critical Chance">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="magicLvl" val="75"/>
+    <set name="activationChance" val="3"/>
+    <set name="chanceType" val="ON_HIT"/>
+    <set name="operateType" val="OP_CHANCE"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="bestowed" val="true"/>
+    <cond>
+      <not>
+        <target active_effect_id="5574"/>
+      </not>
+    </cond>
+    <for> 
+     <effect count="1" name="Buff" time="15" val="0">
+      <mul order="0x30" stat="rCrit" val="1.32"/>
+     </effect>
+    </for>
   </skill>
   <skill id="5575" levels="1" name="Wizard Ability - Mana Steel">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="power" val="10"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="MANARECHARGE"/>
+    <set name="operateType" val="OP_CHANCE"/>
+    <set name="chanceType" val="ON_HIT"/>
+    <set name="activationChance" val="3"/>
+    <set name="bestowed" val="true"/>
+    <cond>
+      <not>
+        <target active_effect_id="5575"/>
+      </not>
+    </cond>
   </skill>
   <skill id="5576" levels="1" name="Enchanter Ability - Barrier">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="magicLvl" val="75"/>
+    <set name="activationChance" val="3"/>
+    <set name="chanceType" val="ON_ATTACKED"/>
+    <set name="operateType" val="OP_CHANCE"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="bestowed" val="true"/>
+    <cond>
+      <not>
+        <target active_effect_id="5576"/>
+      </not>
+    </cond>
+    <for>
+      <effect count="1" name="Buff" time="5" val="0"/>
+    </for>
   </skill>
   <skill id="5577" levels="1" name="Healer Ability - Heal">
     <set name="activationChance" val="5"/>

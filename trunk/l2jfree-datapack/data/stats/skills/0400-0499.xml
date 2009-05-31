@@ -1431,19 +1431,17 @@
     </for>
   </skill>
   <skill id="475" levels="1" name="Strike Back">
-    <!--
-    Needs to be finished.
-    Description(s):
-        Temporarily reflects damage from melee attack skills back to the enemy.
-    -->
-    <set name="operateType" val="OP_TOGGLE"/>
-    <set name="skillType" val="CONT"/>
-    <set name="target" val="TARGET_SELF"/>
-    <for>
-      <effect count="0x7fffffff" name="MpConsumePerLevel" time="3" val="0.5"> <!-- TODO: MpConsumePerLevel amount is guessed -->
-        <add order="0x40" stat="vengeancePdam" val="100"/>
-      </effect>
-    </for>
+   <set name="target" val="TARGET_SELF"/>  
+   <set name="skillType" val="CONT"/>  
+   <set name="operateType" val="OP_TOGGLE"/>  
+   <set name="castRange" val="-1"/>  
+   <set name="effectRange" val="-1"/>  
+    <for>  
+     <effect count="0x7fffffff" name="ManaDamOverTime" time="3" val="0.2">  
+      <add order="0x40" stat="counterAttackPower" val="5893"/>  
+      <add order="0x40" stat="counterAttackChance" val="30"/>  
+    </effect>       
+   </for>  
   </skill>
   <skill id="476" levels="15" name="Dark Strike">
     <table name="#power"> 108 117 126 147 159 171 198 213 229 263 281 301 344 367 391 </table>

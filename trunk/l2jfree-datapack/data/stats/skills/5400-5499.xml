@@ -471,11 +471,28 @@
       </effect>
     </for>
   </skill>
-  <skill id="5451" levels="1" name="Enervation">
-    <!-- Description(s): Decreases attack and magic speed. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+ <skill id="5451" levels="1" name="Enervation">
+    <set name="target" val="TARGET_SELF" />
+    <set name="skillType" val="DEBUFF" />
+    <set name="operateType" val="OP_CHANCE" />
+    <set name="chanceType" val="ON_ATTACKED"/>
+    <set name="isDebuff" val="true"/>
+    <set name="castRange" val="900" />
+    <set name="effectRange" val="1400" />
+    <set name="activationChance" val="33"/>
+    <set name="bestowed" val="true"/>
+    <cond>
+      <not>
+        <target active_effect_id="5451"/>
+      </not>
+    </cond>
+   <for>
+     <effect count="1" name="Debuff" time="30" val="0">
+       <mul order="0x30" stat="runSpd" val="0.5"/>
+       <mul order="0x30" stat="pAtkSpd" val="0.76"/>
+       <mul order="0x30" stat="mAtkSpd" val="0.76"/>
+     </effect>
+    </for>
   </skill>
   <skill id="5452" levels="3" name="Spite">
     <!-- Description(s): Greatly increases the amount of critical damage received -->

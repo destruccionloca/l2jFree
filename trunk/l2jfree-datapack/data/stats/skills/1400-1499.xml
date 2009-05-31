@@ -1110,13 +1110,19 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="2500"/>
   </skill>
-  <skill id="1450" levels="1" name="Chain Lightning">
-    <!-- Description(s): Unleash a force of thunderbolts to electrocute nearby enemies. Consumes 4 soul. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="soulMaxConsumeCount" val="5"/>
-    <set name="hitTime" val="5000"/>
+  <skill id="1450" levels="1" name="Chain Lightning"> 
+    <set name="hitTime" val="5000" />
+    <set name="reuseDelay" val="30000" />
+    <set name="mpConsume" val="100" />
+    <set name="magivLvl" val="78" />
+    <set name="element" val="3" /> <!-- Water -->
+    <set name="target" val="TARGET_AURA" />
+    <set name="skillType" val="MDAM" />
+    <set name="power" val="129" /> <!-- guessed -->
+    <set name="skillRadius" val="200" />
+    <set name="operateType" val="OP_ACTIVE" />
+    <set name="castRange" val="-1" />
+    <set name="soulConsumeCount" val="4" />
   </skill>
   <skill id="1451" levels="1" name="Fire Vortex Buster">
     <set name="mpInitialConsume" val="28"/>
@@ -1653,11 +1659,6 @@
     </for>
   </skill>
   <skill id="1481" levels="7" name="Oblivion">
-    <!--
-      Description(s): 
-       Lvl 1-7: When damage is received by the curse of Forsaken on an enemy,
-       there is a chance that the target will be lost. Consumes 2 soul.
-    -->
     <table name="#mpConsume"> 38 44 50 55 60 64 67 </table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="isMagic" val="true"/>
@@ -1723,18 +1724,25 @@
     </for>
   </skill>
   <skill id="1484" levels="4" name="Enervation">
-    <!--
-      Description(s):
-       Lvl 1-4: May cause the enemy to forfeit their desire to decrease
-       your attack speed/speed/casting speed when damaged. Consumes 3 soul.
-    -->
-    <table name="#mpConsume"> 55 60 64 67</table>
+    <table name="#mpConsume"> 55 60 64 67 </table>
+    <table name="#mLevel"> 60 64 68 72 </table>
+    <set name="magicLevel" val="#mLevel"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="isMagic" val="true"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="skillType" val="DEBUFF"/>
+    <set name="power" val="80" />
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="hitTime" val="3000"/>
+    <set name="castRange" val="600" />
+    <set name="effectRange" val="1200" />
+    <set name="isDebuff" val="true" />
+    <set name="skillType" val="DEBUFF" />
+    <set name="isMagic" val="true" />
+    <set name="hitTime" val="1200"/>
+    <set name="reuseDelay" val="15000"/>
+    <set name="bestowedSkillId" val="5451"/>
+    <set name="bestowedSkillLevel" val="1"/>    
+    <for>
+      <effect count="1" name="BestowSkill" time="30" val="0"/>
+    </for>
     <set name="reuseDelay" val="120000"/>
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1600"/>

@@ -808,8 +808,6 @@
     <set name="reuseDelay" val="2000"/>
   </skill>
   <skill id="1543" levels="1" name="Great Fury">
-    <!-- 
-    L2J DP Sync - Waitinig for review
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -820,7 +818,6 @@
     <cond>
       <target active_effect_id="927"/>
     </cond>
-    -->
   </skill>
   <skill id="1544" levels="7" name="Death Beam">
     <set name="target" val="TARGET_NONE"/>
