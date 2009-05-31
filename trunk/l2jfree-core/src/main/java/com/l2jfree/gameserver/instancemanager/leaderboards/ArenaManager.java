@@ -38,8 +38,8 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.util.Util;
 
 /**
- *
- * @author  KID
+ * 
+ * @author KID
  */
 public class ArenaManager
 {
@@ -142,15 +142,12 @@ public class ArenaManager
 
 		L2PcInstance winner = L2World.getInstance().findPlayer(idTop);
 
-		Announcements.getInstance().announceToAll(
-				"PvP Arena Manager: " + arTop.name + " is the winner for this time with " + arTop.kills + "/" + arTop.death + ". Next calculation in "
-						+ Config.ARENA_INTERVAL + " min(s).");
+		Announcements.getInstance().announceToAll("PvP Arena Manager: " + arTop.name + " is the winner for this time with " + arTop.kills + "/" + arTop.death + ". Next calculation in " + Config.ARENA_INTERVAL + " min(s).");
 		if (winner != null && Config.ARENA_REWARD_ID > 0)
 		{
 			winner.getInventory().addItem("ArenaManager", Config.ARENA_REWARD_ID, Config.ARENA_REWARD_COUNT, winner, null);
 			if (Config.ARENA_REWARD_COUNT > 1) //You have earned $s1.
-				winner.sendPacket(new SystemMessage(SystemMessageId.EARNED_S2_S1_S).addItemName(Config.ARENA_REWARD_ID)
-						.addNumber(Config.ARENA_REWARD_COUNT));
+				winner.sendPacket(new SystemMessage(SystemMessageId.EARNED_S2_S1_S).addItemName(Config.ARENA_REWARD_ID).addNumber(Config.ARENA_REWARD_COUNT));
 			else
 				winner.sendPacket(new SystemMessage(SystemMessageId.EARNED_S1).addItemName(Config.ARENA_REWARD_ID));
 			winner.sendPacket(new ItemList(winner, false));
@@ -231,8 +228,8 @@ public class ArenaManager
 	{
 		String t = "";
 
-		t += "	<tr>" + "<td align=center>" + (mi ? "<font color=\"LEVEL\">" : "") + (counter + 1) + ".</td>" + "<td align=center>" + name + "</td>"
-				+ "<td align=center>" + kills + "</td>" + "<td align=center>" + deaths + "" + (mi ? "</font>" : "") + " </td>" + "</tr>";
+		t += "	<tr>" + "<td align=center>" + (mi ? "<font color=\"LEVEL\">" : "") + (counter + 1) + ".</td>" + "<td align=center>" + name + "</td>" + "<td align=center>" + kills + "</td>" + "<td align=center>" + deaths + ""
+				+ (mi ? "</font>" : "") + " </td>" + "</tr>";
 
 		return t;
 	}
@@ -273,7 +270,18 @@ public class ArenaManager
 			_log.warning("ArenaManager.engineInit() >> last line parsed is \n[" + lineId + "]\n");
 			e.printStackTrace();
 		}
-		finally { try { if (lnr != null) lnr.close(); } catch (Exception e) { e.printStackTrace(); } }
+		finally
+		{
+			try
+			{
+				if (lnr != null)
+					lnr.close();
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
 
 		startSaveTask();
 		_log.info("ArenaManager: Loaded " + _ranks.size() + " player(s).");
