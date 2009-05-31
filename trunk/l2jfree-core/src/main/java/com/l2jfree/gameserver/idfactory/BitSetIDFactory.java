@@ -77,6 +77,12 @@ public class BitSetIDFactory extends IdFactory
 				int objectID = usedObjectId - FIRST_OID;
 				if (objectID < 0)
 				{
+					// auction hack
+					if (usedObjectId == 100100)
+					{
+						continue;
+					}
+					
 					_log.warn("Object ID " + usedObjectId + " in DB is less than minimum ID of " + FIRST_OID);
 					continue;
 				}

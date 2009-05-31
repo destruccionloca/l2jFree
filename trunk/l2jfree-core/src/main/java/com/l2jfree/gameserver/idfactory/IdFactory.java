@@ -24,6 +24,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
+import gnu.trove.TIntArrayList;
 
 /**
  * This class ...
@@ -253,45 +254,36 @@ public abstract class IdFactory
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
-
-			//create a temporary table
 			Statement s = con.createStatement();
-			try
-			{
-				s.executeUpdate("DROP TABLE temporaryObjectTable");
-			}
-			catch (SQLException e)
-			{
-			}
+			TIntArrayList temp = new TIntArrayList();
 
-			s.executeUpdate("CREATE TABLE temporaryObjectTable" + " (object_id int NOT NULL PRIMARY KEY)");
-
-			s.executeUpdate("INSERT INTO temporaryObjectTable (object_id)" + " SELECT charId FROM characters");
-			s.executeUpdate("INSERT INTO temporaryObjectTable (object_id)" + " SELECT object_id FROM items");
-			s.executeUpdate("INSERT INTO temporaryObjectTable (object_id)" + " SELECT clan_id FROM clan_data");
-			s.executeUpdate("INSERT INTO temporaryObjectTable (object_id)" + " SELECT object_id FROM itemsonground");
-
-			ResultSet result = s.executeQuery("SELECT COUNT(object_id) FROM temporaryObjectTable");
-
-			result.next();
-			int size = result.getInt(1);
-			int[] tmp_obj_ids = new int[size];
-			if (_log.isDebugEnabled())
-				_log.info("tmp table size: " + tmp_obj_ids.length);
-			result.close();
-
-			result = s.executeQuery("SELECT object_id FROM temporaryObjectTable ORDER BY object_id");
-
-			int idx = 0;
+			ResultSet result = s.executeQuery("SELECT charId FROM characters");
 			while (result.next())
 			{
-				tmp_obj_ids[idx++] = result.getInt(1);
+				temp.add(result.getInt(1));
 			}
 
-			result.close();
-			s.close();
+			result = s.executeQuery("SELECT object_id FROM items");
+			while (result.next())
+			{
+				temp.add(result.getInt(1));
+			}
 
-			return tmp_obj_ids;
+			result = s.executeQuery("SELECT clan_id FROM clan_data");
+			while (result.next())
+			{
+				temp.add(result.getInt(1));
+			}
+
+			result = s.executeQuery("SELECT object_id FROM itemsonground");
+			while (result.next())
+			{
+				temp.add(result.getInt(1));
+			}
+
+			temp.sort();
+
+			return temp.toNativeArray();
 		}
 		finally
 		{
