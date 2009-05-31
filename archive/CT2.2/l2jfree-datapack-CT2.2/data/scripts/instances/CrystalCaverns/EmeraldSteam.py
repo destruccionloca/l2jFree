@@ -5,7 +5,7 @@
 # - Meeting with Baylor is custom and not complete. Please understand that it's hard to get real info about CC
 # - Mob stats and droplists, AI for the final mobs + z-axis corrections on them
 # - Traps in Steam Corridor
-# - Retail check for last room in Steam Corridor just berfore Kechi
+# - Retail check for last room in Steam Corridor just before Kechi
 # - Surely much more, but at least it's completly working! Enjoy retail like S80 crafting possibilities!
 # @devs: Please edit this list if bugs found or points solved
 
@@ -176,9 +176,13 @@ def checkKillProgress(npc,room):
 
 def runEmeraldAndSteamFirstRoom(self,world):
 	world.status = 0
-	self.addSpawn(22275, 148206, 149486, -12140, 32308, False, 0, False, world.instanceId)
+	world.keyKeepers = PyObject()
+	world.keyKeepers.npclist = {} 
+	newNpc = self.addSpawn(22275, 148206, 149486, -12140, 32308, False, 0, False, world.instanceId)
+	world.keyKeepers.npclist[newNpc] = False 
+	newNpc = self.addSpawn(22277, 148203, 151093, -12140, 31100, False, 0, False, world.instanceId)
+	world.keyKeepers.npclist[newNpc] = False 
 	self.addSpawn(22276, 147193, 149487, -12140, 32301, False, 0, False, world.instanceId)
-	self.addSpawn(22277, 148203, 151093, -12140, 31100, False, 0, False, world.instanceId)
 	self.addSpawn(22278, 147182, 151091, -12140, 32470, False, 0, False, world.instanceId)
 	self.addSpawn(22282, 144289, 150685, -12140, 49394, False, 0, False, world.instanceId)
 	self.addSpawn(22282, 144335, 149846, -12140, 38440, False, 0, False, world.instanceId)
@@ -628,9 +632,9 @@ class EmeraldSteam(JQuest):
 				teleportplayer(self,player,teleto,False)
 
 	def onSkillSee(self,npc,caster,skill,targets,isPet):
+		if not npc in targets: return
 		world = self.worlds[npc.getInstanceId()]
 		skillId = skill.getId()
-		if not npc in targets: return
 		npcId = npc.getNpcId()
 		if npcId in [32275,32276,32277] and skillId in [1217,1218,1011,1015,1401,5146]:
 			world.OracleTriggered = True
@@ -644,8 +648,14 @@ class EmeraldSteam(JQuest):
 			world = self.worlds[npc.getInstanceId()]
 			if world.status == 0:
 				if npcId == GK1:
+					for mob in world.keyKeepers.npclist: 
+						mob.decayMe()
+					dropItem(npc,9698,1)
 					runEmerald(self,world)
 				elif npcId == GK2:
+					for mob in world.keyKeepers.npclist: 
+						mob.decayMe()
+					dropItem(npc,9699,1)
 					runSteamRoom1(self,world)
 			elif world.status == 1:
 				if checkKillProgress(npc,world.emeraldRoom):
@@ -732,6 +742,7 @@ QUEST.addKillId(TOURMALINE)
 QUEST.addKillId(KECHICAPTAIN)
 for npc in [32274,32275,32276,32277]:
 	QUEST.addFirstTalkId(npc)
+for npc in [32275,32276,32277]:
 	QUEST.addSkillSeeId(npc)
 for mob in MOBLIST:
 	QUEST.addKillId(mob)
