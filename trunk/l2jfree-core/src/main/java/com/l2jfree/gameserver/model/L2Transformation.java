@@ -36,6 +36,9 @@ public abstract class L2Transformation
     public static final int TRANSFORM_ZARICHE = 301;
     public static final int TRANSFORM_AKAMANAH = 302;
 
+    protected boolean _canDoMeleeAttack = true;
+    protected boolean _startFollowToCast = true;
+
     /**
      * 
      * @param id Internal id that server will use to associate this transformation 
@@ -123,4 +126,20 @@ public abstract class L2Transformation
     public void onLevelUp(L2PcInstance player)
     {
     }
+    
+    /**
+     * Returns true if transformation can do melee attack
+     */
+    public boolean canDoMeleeAttack()
+    {
+    	return _canDoMeleeAttack;
+    }
+    
+    /**
+     * Returns true if transformation can start follow target when trying to cast an skill out of range
+     */
+    public boolean canStartFollowToCast()
+    {
+    	return _startFollowToCast;
+    }    
 }

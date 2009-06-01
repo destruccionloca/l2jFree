@@ -883,7 +883,8 @@ public abstract class L2Character extends L2Object
 
 		if (this instanceof L2PcInstance)
 		{
-			if (((L2PcInstance)this).isMounted() && ((L2PcInstance)this).getMountNpcId() == 12621)
+			L2PcInstance actor = (L2PcInstance)this;
+			if ((actor.isMounted() && actor.getMountNpcId() == 12621) || (actor.isTransformed() && !actor.getTransformation().canDoMeleeAttack()))
 			{
 				sendPacket(ActionFailed.STATIC_PACKET);
 				return;

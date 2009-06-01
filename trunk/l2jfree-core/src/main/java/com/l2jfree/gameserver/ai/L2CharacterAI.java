@@ -38,7 +38,10 @@ import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.AutoAttackStop;
+import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
@@ -1038,6 +1041,19 @@ public class L2CharacterAI extends AbstractAI
 			if (_actor.isMovementDisabled())
 				return true;
 
+			// while flying there is no move to cast
+			if (_actor.getAI().getIntention() == CtrlIntention.AI_INTENTION_CAST && 
+					_actor instanceof L2PcInstance && ((L2PcInstance)_actor).isTransformed())
+			{
+				if (!((L2PcInstance)_actor).getTransformation().canStartFollowToCast())
+				{
+					((L2PcInstance)_actor).sendPacket(new SystemMessage(SystemMessageId.DIST_TOO_FAR_CASTING_STOPPED));
+					((L2PcInstance)_actor).sendPacket(ActionFailed.STATIC_PACKET);
+					
+					return true;
+				}
+			}
+			
 			// If not running, set the L2Character movement type to run and send Server->Client packet ChangeMoveType to all others L2PcInstance
 			if (!_actor.isRunning() && !(this instanceof L2PlayerAI) && !(this instanceof L2SummonAI))
 				_actor.setRunning();
