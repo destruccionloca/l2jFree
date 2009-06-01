@@ -124,17 +124,10 @@ public class EffectSignetMDam extends L2Effect
 		L2ItemInstance weaponInst = caster.getActiveWeaponInstance();
 		if (weaponInst != null)
 		{
-			switch (weaponInst.getChargedSpiritshot())
-			{
-				case L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT:
-					weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
-					bss = true;
-					break;
-				case L2ItemInstance.CHARGED_SPIRITSHOT:
-					weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
-					ss = true;
-					break;
-			}
+			if(caster.isBlessedSpiritshotCharged())
+				bss = true;
+			else if(caster.isSpiritshotCharged())
+				ss = true;
 		}
 		
 		FastList<L2Character> targets = new FastList<L2Character>();
