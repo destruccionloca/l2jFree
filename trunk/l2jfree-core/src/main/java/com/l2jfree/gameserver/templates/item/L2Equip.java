@@ -22,7 +22,7 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.skills.effects.EffectTemplate;
+import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.funcs.FuncTemplate;
 import com.l2jfree.gameserver.templates.StatsSet;
