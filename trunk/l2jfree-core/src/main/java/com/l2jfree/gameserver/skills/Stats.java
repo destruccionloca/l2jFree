@@ -229,8 +229,6 @@ public enum Stats
 	PATK_VALAKAS("pAtk-valakas"),
 	PDEF_VALAKAS("pDef-valakas"),
 	
-	//ATK_REUSE        ("atkReuse"),
-	PHYS_REUSE_RATE("pReuse"),
 	MAGIC_REUSE_RATE("mReuse"),
 	BOW_REUSE("bowReuse"),
 	
@@ -252,7 +250,9 @@ public enum Stats
 	SOULSHOT_COUNT("soulShotCount"),
 	
 	transformId("transformId"),
-	TALISMAN_SLOTS("talisman");
+	TALISMAN_SLOTS("talisman"),
+	ATK_REUSE("atkReuse"),
+	P_REUSE("pReuse");
 	
 	private final String _value;
 	

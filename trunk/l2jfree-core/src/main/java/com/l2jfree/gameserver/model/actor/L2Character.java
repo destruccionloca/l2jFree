@@ -5626,44 +5626,72 @@ public abstract class L2Character extends L2Object
 	 */
 	public int calculateTimeBetweenAttacks(L2Character target, L2Weapon weapon)
 	{
-		return Formulas.calcPAtkSpd(this, target, getPAtkSpd(), 500000);
+        double atkSpd = 0;
+        boolean transformed = false;
+        if(this instanceof L2PcInstance)
+        {
+        	L2PcInstance pcInst = (L2PcInstance) this;
+        	transformed = pcInst.isTransformed();
+        }
+        if (weapon !=null && !transformed)
+        {
+		    switch (weapon.getItemType())
+		    {
+			    case BOW:
+			        atkSpd = getStat().getPAtkSpd();
+			        return (int)(1500*345/atkSpd);
+			    case CROSSBOW:
+			        atkSpd = getStat().getPAtkSpd();
+			        return (int)(1200*345/atkSpd);
+			    case DAGGER:
+			        atkSpd = getStat().getPAtkSpd();
+			        //atkSpd /= 1.15;
+			        break;
+			    default:
+			        atkSpd = getStat().getPAtkSpd();
+		    }
+        }
+        else
+            atkSpd = getPAtkSpd();
+
+        return Formulas.calcPAtkSpd(this, target, atkSpd);
 	}
 
 	public int calculateReuseTime(L2Character target, L2Weapon weapon)
 	{
-		// Source L2P
-		// Standing still and with no SA, normal bows and yumi bows shoot the exact same number of shots per second.
-		// Normal Bows allow faster use of skills and more kiteability due to having a higher Atk. Spd. while Yumi Bows have significant P.Atk.
-		// The SA "Quick Recovery" reduces the red bar Weapon Delay on a bow to the following:
-		// Reuse goes from 639 EB QR, to 1500 Normal...
+        boolean transformed = false;
+        if(this instanceof L2PcInstance)
+        {
+        	L2PcInstance pcInst = (L2PcInstance) this;
+        	transformed = pcInst.isTransformed();
+        }		
+        if (weapon == null || transformed)
+        	return 0;
 
-		if (weapon == null || (this instanceof L2PcInstance && ((L2PcInstance) this).isTransformed()))
-			return 0;
+        int reuse = weapon.getAttackReuseDelay();
+        // only bows should continue for now
+        if (reuse == 0) return 0; 
+        // else if (reuse < 10) reuse = 1500;
 
-		double reuse = weapon.getAttackReuseDelay();
-
-		if (reuse == 0)
-			return 0;
-
-		reuse = getBowReuse(reuse) * 333;
-
-		return Formulas.calcPAtkSpd(this, target, getPAtkSpd(), reuse);
+		reuse *= getStat().getWeaponReuseModifier(target);
+        double atkSpd = getStat().getPAtkSpd();
+        switch (weapon.getItemType())
+        {
+            case BOW:
+            case CROSSBOW:
+                return (int)(reuse*345/atkSpd);
+            default:
+                return (int)(reuse*312/atkSpd);
+        }
 	}
-
-	/** Return the bow reuse time. */
-	public final double getBowReuse(double reuse)
-	{
-		return calcStat(Stats.BOW_REUSE, reuse, null, null);
-	}
-
+	
 	/**
-	 * Return True if the L2Character use a dual weapon.<BR>
-	 * <BR>
-	 */
+	 * Return True if the L2Character use a dual weapon.<BR><BR>
+	 */	
 	public boolean isUsingDualWeapon()
 	{
 		return false;
-	}
+	}	
 	
 	/**
 	 * Add a skill to the L2Character _skills and its Func objects to the calculator set of the L2Character.<BR>
@@ -6967,6 +6995,11 @@ public abstract class L2Character extends L2Object
 	public void reduceCurrentHp(double i, L2Character attacker, boolean awake, boolean isDOT, L2Skill skill)
 	{
 		getStatus().reduceHp(i, attacker, awake, isDOT);
+	}
+
+	public void reduceCurrentHpByDOT(double i, L2Character attacker, L2Skill skill)
+	{
+		reduceCurrentHp(i, attacker, false, true, skill); 
 	}
 
 	public void reduceCurrentMp(double i)

@@ -494,7 +494,7 @@ public class CharStat
 		if (_activeChar == null)
 			return 1;
 
-		return calcStat(Stats.PHYS_REUSE_RATE, _activeChar.getTemplate().getBaseMReuseRate(), null, skill);
+		return calcStat(Stats.P_REUSE, _activeChar.getTemplate().baseMReuseRate, null, skill)
 	}
 
 	/** Return the PAtk (base+modifier) of the L2Character. */
@@ -659,6 +659,12 @@ public class CharStat
 		return (int) calcStat(Stats.POWER_ATTACK_RANGE, _activeChar.getTemplate().getBaseAtkRange(), null, null);
 	}
 
+	/** Return the weapon reuse modifier */
+	public final double getWeaponReuseModifier(L2Character target)
+	{
+		return calcStat(Stats.ATK_REUSE, 1, target, null);
+	}
+	
 	/**
 	 * Return the RunSpeed (base+modifier) of the L2Character in function of the
 	 * Armour Expertise Penalty.
