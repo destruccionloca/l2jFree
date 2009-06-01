@@ -19,6 +19,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.PetDataTable;
+import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2PetData;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
@@ -494,7 +495,7 @@ public class CharStat
 		if (_activeChar == null)
 			return 1;
 
-		return calcStat(Stats.P_REUSE, _activeChar.getTemplate().baseMReuseRate, null, skill)
+		return calcStat(Stats.P_REUSE, _activeChar.getTemplate().getBaseMReuseRate(), null, skill);
 	}
 
 	/** Return the PAtk (base+modifier) of the L2Character. */
@@ -767,99 +768,55 @@ public class CharStat
 		return (int) calcStat(Stats.MP_CONSUME, skill.getMpInitialConsume(), null, skill);
 	}
 
-	public final void addElement(L2Skill skill)
-	{
-		switch (skill.getElement())
-		{
-		case L2Skill.ELEMENT_EARTH:
-			_earth += skill.getMagicLevel();
-			break;
-		case L2Skill.ELEMENT_FIRE:
-			_fire += skill.getMagicLevel();
-			break;
-		case L2Skill.ELEMENT_WATER:
-			_water += skill.getMagicLevel();
-			break;
-		case L2Skill.ELEMENT_WIND:
-			_wind += skill.getMagicLevel();
-			break;
-		case L2Skill.ELEMENT_HOLY:
-			_holy += skill.getMagicLevel();
-			break;
-		case L2Skill.ELEMENT_DARK:
-			_dark += skill.getMagicLevel();
-			break;
-		}
-	}
-
-	public final void removeElement(L2Skill skill)
-	{
-		switch (skill.getElement())
-		{
-		case L2Skill.ELEMENT_EARTH:
-			_earth -= skill.getMagicLevel();
-			break;
-		case L2Skill.ELEMENT_FIRE:
-			_fire -= skill.getMagicLevel();
-			break;
-		case L2Skill.ELEMENT_WATER:
-			_water -= skill.getMagicLevel();
-			break;
-		case L2Skill.ELEMENT_WIND:
-			_wind -= skill.getMagicLevel();
-			break;
-		case L2Skill.ELEMENT_HOLY:
-			_holy -= skill.getMagicLevel();
-			break;
-		case L2Skill.ELEMENT_DARK:
-			_dark -= skill.getMagicLevel();
-			break;
-		}
-	}
-
 	public double getElementAttributeFire()
 	{
-		return (int) calcStat(Stats.FIRE_VULN, _activeChar.getTemplate().baseFireVuln, null, null);
+		return (int) calcStat(Stats.FIRE_RES, _activeChar.getTemplate().getBaseFireRes(), null, null);
 	}
 
 	public double getElementAttributeWater()
 	{
-		return (int) calcStat(Stats.WATER_VULN, _activeChar.getTemplate().baseWaterVuln, null, null);
+		return (int) calcStat(Stats.WATER_RES, _activeChar.getTemplate().getBaseWaterRes(), null, null);
 	}
 
 	public double getElementAttributeEarth()
 	{
-		return (int) calcStat(Stats.EARTH_VULN, _activeChar.getTemplate().baseEarthVuln, null, null);
+		return (int) calcStat(Stats.EARTH_RES, _activeChar.getTemplate().getBaseEarthRes(), null, null);
 	}
 
 	public double getElementAttributeWind()
 	{
-		return (int) calcStat(Stats.WIND_VULN, _activeChar.getTemplate().baseWindVuln, null, null);
+		return (int) calcStat(Stats.WIND_RES, _activeChar.getTemplate().getBaseWindRes(), null, null);
 	}
 
 	public double getElementAttributeHoly()
 	{
-		return (int) calcStat(Stats.HOLY_VULN, _activeChar.getTemplate().baseHolyVuln, null, null);
+		return (int) calcStat(Stats.HOLY_RES, _activeChar.getTemplate().getBaseHolyRes(), null, null);
 	}
 
 	public double getElementAttributeUnholy()
 	{
-		return (int) calcStat(Stats.DARK_VULN, _activeChar.getTemplate().baseDarkVuln, null, null);
+		return (int) calcStat(Stats.DARK_RES, _activeChar.getTemplate().getBaseDarkRes(), null, null);
 	}
 
-	public final int getAttackElement()
+	public int getAttackElement()
 	{
-		double tempVal = 0, stats[] = { _fire, _water, _wind, _earth, _holy, _dark };
+		L2ItemInstance weaponInstance = _activeChar.getActiveWeaponInstance();
+		// 1st order - weapon element
+		if (weaponInstance != null && weaponInstance.getAttackElementType() >= 0 )
+			return weaponInstance.getAttackElementType();
+		
+		// temp fix starts
+		double tempVal =0,stats[] = { 0, 0, 0, 0, 0, 0 };
+
 		int returnVal = -2;
+		stats[0] = (int) calcStat(Stats.FIRE_POWER, _activeChar.getTemplate().getBaseFire(), null, null);
+		stats[1] = (int) calcStat(Stats.WATER_POWER, _activeChar.getTemplate().getBaseWater(), null, null);
+		stats[2] = (int) calcStat(Stats.WIND_POWER, _activeChar.getTemplate().getBaseWind(), null, null);
+		stats[3] = (int) calcStat(Stats.EARTH_POWER, _activeChar.getTemplate().getBaseEarth(), null, null);
+		stats[4] = (int) calcStat(Stats.HOLY_POWER, _activeChar.getTemplate().getBaseHoly(), null, null);
+		stats[5] = (int) calcStat(Stats.DARK_POWER, _activeChar.getTemplate().getBaseDark(), null, null);
 
-		_earth = (int) calcStat(Stats.EARTH_POWER, 0, null, null);
-		_fire = (int) calcStat(Stats.FIRE_POWER, 0, null, null);
-		_water = (int) calcStat(Stats.WATER_POWER, 0, null, null);
-		_wind = (int) calcStat(Stats.WIND_POWER, 0, null, null);
-		_holy = (int) calcStat(Stats.HOLY_POWER, 0, null, null);
-		_dark = (int) calcStat(Stats.DARK_POWER, 0, null, null);
-
-		for (int x = 0; x < stats.length; x++)
+		for (int x = 0; x < 6; x++)
 		{
 			if (stats[x] > tempVal)
 			{
@@ -869,40 +826,32 @@ public class CharStat
 		}
 
 		return returnVal;
+		// temp fix ends
+		
+		/*
+		 * uncomment me once deadlocks in getAllEffects() fixed 
+			return _activeChar.getElementIdFromEffects();
+		*/
 	}
 
-	public final int getAttackElementValue(int attackAttribute)
+	public int getAttackElementValue(int attackAttribute)
 	{
-		// no need to call calcStats if we return 0 anyways
-		if(attackAttribute==-2)
-			return 0;
-		
-		_earth = (int) calcStat(Stats.EARTH_POWER, 0, null, null);
-		_fire = (int) calcStat(Stats.FIRE_POWER, 0, null, null);
-		_water = (int) calcStat(Stats.WATER_POWER, 0, null, null);
-		_wind = (int) calcStat(Stats.WIND_POWER, 0, null, null);
-		_holy = (int) calcStat(Stats.HOLY_POWER, 0, null, null);
-		_dark = (int) calcStat(Stats.DARK_POWER, 0, null, null);
-
 		switch (attackAttribute)
 		{
-		case -2:
-			return 0;
 		case 0:
-			return _fire;
+			return (int) calcStat(Stats.FIRE_POWER, _activeChar.getTemplate().getBaseFire(), null, null);
 		case 1:
-			return _water;
+			return (int) calcStat(Stats.WATER_POWER, _activeChar.getTemplate().getBaseWater(), null, null);
 		case 2:
-			return _wind;
+			return (int) calcStat(Stats.WIND_POWER, _activeChar.getTemplate().getBaseWind(), null, null);
 		case 3:
-			return _earth;
+			return (int) calcStat(Stats.EARTH_POWER, _activeChar.getTemplate().getBaseEarth(), null, null);
 		case 4:
-			return _holy;
+			return (int) calcStat(Stats.HOLY_POWER, _activeChar.getTemplate().getBaseHoly(), null, null);
 		case 5:
-			return _dark;
+			return (int) calcStat(Stats.DARK_POWER, _activeChar.getTemplate().getBaseDark(), null, null);
+		default:
+			return 0;
 		}
-
-		return 0;
-
 	}
 }

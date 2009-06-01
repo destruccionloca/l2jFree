@@ -84,12 +84,12 @@ public class L2CharTemplate
 	public double	baseMovementVuln;
 	public double	baseConfusionVuln;
 	public double	baseSleepVuln;
-	public double	baseFireVuln;
-	public double	baseWindVuln;
-	public double	baseWaterVuln;
-	public double	baseEarthVuln;
-	public double	baseHolyVuln;
-	public double	baseDarkVuln;
+	public double 	baseFireRes;
+	public double 	baseWindRes;
+	public double 	baseWaterRes;
+	public double 	baseEarthRes;
+	public double 	baseHolyRes;
+	public double 	baseDarkRes;
 	public double	baseCritVuln;
 
 	public double	baseCancelVuln;
@@ -168,12 +168,12 @@ public class L2CharTemplate
 		baseMovementVuln = set.getInteger("baseMovementVuln", 1);
 		baseConfusionVuln = set.getInteger("baseConfusionVuln", 1);
 		baseSleepVuln = set.getInteger("baseSleepVuln", 1);
-		baseFireVuln = set.getInteger("baseFireVuln", 1);
-		baseWindVuln = set.getInteger("baseWindVuln", 1);
-		baseWaterVuln = set.getInteger("baseWaterVuln", 1);
-		baseEarthVuln = set.getInteger("baseEarthVuln", 1);
-		baseHolyVuln = set.getInteger("baseHolyVuln", 1);
-		baseDarkVuln = set.getInteger("baseDarkVuln", 1);
+		baseFireRes = set.getInteger("baseFireRes", 0);
+		baseWindRes = set.getInteger("baseWindRes", 0);
+		baseWaterRes = set.getInteger("baseWaterRes", 0);
+		baseEarthRes = set.getInteger("baseEarthRes", 0);
+		baseHolyRes = set.getInteger("baseHolyRes", 0);
+		baseDarkRes = set.getInteger("baseDarkRes", 0);
 		baseCritVuln = set.getInteger("baseCritVuln", 1);
 		baseCancelVuln = set.getInteger("baseCancelVuln", 1);
 
@@ -401,17 +401,17 @@ public class L2CharTemplate
 	/**
 	 * @return the baseDarkRes
 	 */
-	public double getBaseDarkVuln()
+	public double getBaseDarkRes()
 	{
-		return baseDarkVuln;
+		return baseDarkRes;
 	}
 
 	/**
 	 * @param baseDarkRes the baseDarkRes to set
 	 */
-	public void setBaseDarkVuln(double _baseDarkVuln)
+	public void setBaseDarkRes(double _baseDarkRes)
 	{
-		baseDarkVuln = _baseDarkVuln;
+		baseDarkRes = _baseDarkRes;
 	}
 
 	/**
@@ -449,17 +449,17 @@ public class L2CharTemplate
 	/**
 	 * @return the baseEarthRes
 	 */
-	public double getBaseEarthVuln()
+	public double getBaseEarthRes()
 	{
-		return baseEarthVuln;
+		return baseEarthRes;
 	}
 
 	/**
 	 * @param baseEarthRes the baseEarthRes to set
 	 */
-	public void setBaseEarthVuln(double _baseEarthVuln)
+	public void setBaseEarthRes(double _baseEarthRes)
 	{
-		baseEarthVuln = _baseEarthVuln;
+		baseEarthRes = _baseEarthRes;
 	}
 
 	/**
@@ -481,17 +481,17 @@ public class L2CharTemplate
 	/**
 	 * @return the baseFireRes
 	 */
-	public double getBaseFireVuln()
+	public double getBaseFireRes()
 	{
-		return baseFireVuln;
+		return baseFireRes;
 	}
 
 	/**
 	 * @param baseFireRes the baseFireRes to set
 	 */
-	public void setBaseFireVuln(double _baseFireVuln)
+	public void setBaseFireRes(double _baseFireRes)
 	{
-		baseFireVuln = _baseFireVuln;
+		baseFireRes = _baseFireRes;
 	}
 
 	/**
@@ -513,17 +513,17 @@ public class L2CharTemplate
 	/**
 	 * @return the baseHolyRes
 	 */
-	public double getBaseHolyVuln()
+	public double getBaseHolyRes()
 	{
-		return baseHolyVuln;
+		return baseHolyRes;
 	}
 
 	/**
 	 * @param baseHolyRes the baseHolyRes to set
 	 */
-	public void setBaseHolyVuln(double _baseHolyVuln)
+	public void setBaseHolyRes(double _baseHolyRes)
 	{
-		baseHolyVuln = _baseHolyVuln;
+		baseHolyRes = _baseHolyRes;
 	}
 
 	/**
@@ -1017,17 +1017,17 @@ public class L2CharTemplate
 	/**
 	 * @return the baseWaterRes
 	 */
-	public double getBaseWaterVuln()
+	public double getBaseWaterRes()
 	{
-		return baseWaterVuln;
+		return baseWaterRes;
 	}
 
 	/**
 	 * @param baseWaterRes the baseWaterRes to set
 	 */
-	public void setBaseWaterVuln(double _baseWaterVuln)
+	public void setBaseWaterRes(double _baseWaterRes)
 	{
-		baseWaterVuln = _baseWaterVuln;
+		baseWaterRes = _baseWaterRes;
 	}
 
 	/**
@@ -1049,17 +1049,17 @@ public class L2CharTemplate
 	/**
 	 * @return the baseWindRes
 	 */
-	public double getBaseWindVuln()
+	public double getBaseWindRes()
 	{
-		return baseWindVuln;
+		return baseWindRes;
 	}
 
 	/**
 	 * @param baseWindRes the baseWindRes to set
 	 */
-	public void setBaseWindVuln(double _baseWindVuln)
+	public void setBaseWindRes(double _baseWindRes)
 	{
-		baseWindVuln = _baseWindVuln;
+		baseWindRes = _baseWindRes;
 	}
 
 	/**
