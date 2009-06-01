@@ -4064,5 +4064,66 @@ public class L2Skill implements FuncOwner
 	public int getFaceId()
 	{
 		return _faceId;
-	}	
+	}
+	
+	/**
+	 * used for learning skills through skills
+     * @return new skill id to learn (if not defined, default 0)
+     */
+    public int getNewSkillId()
+    {
+	    return _learnSkillId;
+    }
+
+	/**
+	 * used for learning skills through skills
+     * @return skill lvl to learn (if not defined, default 1)
+     */
+    public int getNewSkillLvl()
+    {
+	    return _learnSkillLvl;
+    }
+    public final int getRequiredCharges()
+    {
+    	return _requiredCharges;
+    }
+    
+    public final int getMaxCharges()
+    {
+    	return _maxCharges;
+    }
+
+    public int getAfterEffectId()
+    {
+	    return _afterEffectId;
+    }
+
+    public int getAfterEffectLvl()
+    {
+	    return _afterEffectLvl;
+    }
+    
+    @Override
+	public boolean triggersChanceSkill()
+	{
+		return _triggeredId > 0 && isChance();
+	}
+	
+	@Override
+	public int getTriggeredChanceId()
+	{
+		return _triggeredId;
+	}
+	
+	@Override
+	public int getTriggeredChanceLevel()
+	{
+		return _triggeredLevel;
+	}
+	
+	@Override
+	public ChanceCondition getTriggeredChanceCondition()
+	{
+		return _chanceCondition;
+	}
 }

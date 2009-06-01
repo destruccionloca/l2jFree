@@ -15,7 +15,7 @@
 package com.l2jfree.gameserver.templates.skills;
 
 /**
- * @author  nBd
+ * @author nBd
  */
 public enum L2EffectType
 {
@@ -73,5 +73,6 @@ public enum L2EffectType
 	PROTECTION_BLESSING,
 	AFROHAIR,
 	ENVIRONMENT,
-	PETRIFICATION
+	PETRIFICATION,
+	CHANCE_SKILL_TRIGGER
 }

@@ -26,7 +26,7 @@ public class EffectChanceSkillTrigger extends L2Effect implements IChanceSkillTr
 {
 	private final int _triggeredId;
 	private final int _triggeredLevel;
-	private final Condition _chanceCondition;
+	private final ChanceCondition _chanceCondition;
 	
 	public EffectChanceSkillTrigger(Env env, EffectTemplate template)
     {

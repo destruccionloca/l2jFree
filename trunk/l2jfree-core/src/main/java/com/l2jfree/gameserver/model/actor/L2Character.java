@@ -106,6 +106,7 @@ import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.skills.Calculator;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.skills.Stats;
+import com.l2jfree.gameserver.skills.effects.EffectChanceSkillTrigger;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.funcs.FuncOwner;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillAgathion;
@@ -7375,4 +7376,22 @@ public abstract class L2Character extends L2Object
 		}
 		broadcastFullInfo();
 	}
+	
+	public synchronized void addChanceEffect(EffectChanceSkillTrigger effect)
+	{
+		if (_chanceSkills == null)
+			_chanceSkills = new ChanceSkillList(this);
+		
+		_chanceSkills.put(effect, effect.getTriggeredChanceCondition());
+	}
+
+	public synchronized void removeChanceEffect(EffectChanceSkillTrigger effect)
+	{
+		if (_chanceSkills == null) return;
+
+		_chanceSkills.remove(effect);
+
+		if (_chanceSkills.isEmpty())
+			_chanceSkills = null;
+	}	
 }
