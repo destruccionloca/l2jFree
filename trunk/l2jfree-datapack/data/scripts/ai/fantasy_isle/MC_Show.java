@@ -22,8 +22,8 @@ import javolution.util.FastMap;
 import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
-import com.l2jfree.gameserver.instancemanager.Log;
-import com.l2jfree.gameserver.instancemanager.ZoneManager;
+// Not used and doesn't exist
+//import com.l2jfree.gameserver.instancemanager.Log;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -225,11 +225,12 @@ public class MC_Show extends Quest
 		
 	}
 	
-	private void autoChat(L2Npc npc, String text, int type)
+	private void autoChat(L2Npc npc, String txt, int type)
 	{
-		npc.broadcastPacket(new NpcSay(npc.getObjectId(), type, npc.getNpcId(), text));
+		npc.broadcastPacket(new NpcSay(npc.getObjectId(), type, npc.getNpcId(), txt));
 	}
 	
+	@Override
 	public String onSpawn(L2Npc npc)
 	{
 		if (isStarted)
@@ -366,14 +367,14 @@ public class MC_Show extends Quest
 			}
 			else if (event.equalsIgnoreCase("28"))
 			{
-				autoChat(npc,"We love you.",0);
-				startQuestTimer("social1",1, npc, null);
+				autoChat(npc, "We love you." ,0);
+				startQuestTimer("social1", 1, npc, null);
 			}
 			else if (event.equalsIgnoreCase("29"))
 			{
-				npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO,new  L2CharPosition(-56730,-56340,-2008,32768));
-				startQuestTimer("clean_npc",4100, npc, null);
-				startQuestTimer("timer_check",60000, null, null, true);
+				npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(-56730, -56340, -2008, 32768));
+				startQuestTimer("clean_npc", 4100, npc, null);
+				startQuestTimer("timer_check", 60000, null, null, true);
 			}
 			else if (event.equalsIgnoreCase("social1"))
 				npc.broadcastPacket(new SocialAction(npc.getObjectId(),1));
@@ -386,11 +387,11 @@ public class MC_Show extends Quest
 			{
 				if (talks.containsKey(event))
 				{
-					String text = (String) talks.get("event")[0];
+					String txt = (String) talks.get("event")[0];
 					String nextEvent = (String) talks.get("event")[1];
 					int time = Integer.valueOf((String) talks.get("event")[2]);
-					autoChat(npc,text,1);
-					startQuestTimer(nextEvent,time, npc, null);
+					autoChat(npc, txt, 1);
+					startQuestTimer(nextEvent, time, npc, null);
 				}
 				else if (walks.containsKey(event))
 				{
@@ -399,17 +400,17 @@ public class MC_Show extends Quest
 					int z = Integer.valueOf((String) walks.get("event")[2]);
 					String nextEvent = (String) walks.get("event")[3];
 					int time = Integer.valueOf((String) walks.get("event")[4]);
-					npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO,new L2CharPosition(x,y,z,0));
-					startQuestTimer(nextEvent,time, npc, null);
+					npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(x, y, z, 0));
+					startQuestTimer(nextEvent, time, npc, null);
 				}
 			}
 		}
 		return null;
 	}
-	
+
     public static void main(String[] args)
     {
     	// now call the constructor (starts up the ai)
-    	new MC_Show(-1,"MC_Show","fantasy_isle");
+    	new MC_Show(-1, "MC_Show", "fantasy_isle");
     }
 }

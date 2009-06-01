@@ -12,18 +12,17 @@ package ai.individual;
 
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_FOLLOW;
 
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.model.quest.jython.QuestJython;
-
 
 public class querrySlave extends QuestJython
 {
 	private int[]	_npcId	=
 							{ 32299 };
 
-	public querySlave(int questId, String name, String descr)
+	public querrySlave(int questId, String name, String descr)
 	{
 		super(questId, name, descr);
 
@@ -33,25 +32,24 @@ public class querrySlave extends QuestJython
 			this.addEventId(_npcId[i], Quest.QuestEventType.ON_TALK);
 		}
 	}
-	
 
-	private void follow(L2NpcInstance npc, L2PcInstance player)
+	private void follow(L2Npc npc, L2PcInstance player)
 	{
 		npc.setTarget(player);
 		npc.getAI().setIntention(AI_INTENTION_FOLLOW);
 	}
-	
+
 	@Override
-	public String onTalk(L2NpcInstance npc, L2PcInstance player)
+	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
-		follow(npc,player);
+		follow(npc, player);
 		return "";
 	}
-	
+
 	@Override
-	public String onFirstTalk(L2NpcInstance npc, L2PcInstance player)
+	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
-		follow(npc,player);
+		follow(npc, player);
 		return "";
 	}
 

@@ -49,6 +49,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  */
 public class IceFairySirra extends L2AttackableAIScript
 {
+	@SuppressWarnings("hiding")
 	protected static Logger				_log				= Logger.getLogger(IceFairySirra.class.getName());
 	private static final int			STEWARD				= 32029;
 	private static final int			SILVER_HEMOCYTE		= 8057;
