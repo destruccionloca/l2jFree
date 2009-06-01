@@ -3664,7 +3664,11 @@ public final class L2PcInstance extends L2Playable
 			// Send a Server->Client packet ActionFailed to the player
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 		}
-
+		if (player.isLockedTarget() && player.getLockedTarget() != this)
+		{
+			player.sendPacket(new SystemMessage(SystemMessageId.FAILED_CHANGE_TARGET));
+			return;
+		}
 		// Check if the player already target this L2PcInstance
 		if (player.getTarget() != this)
 		{

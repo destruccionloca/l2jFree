@@ -36,6 +36,7 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.RecipeShopManageList;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
+import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * This class represents a packet sent by the client when a player uses one of the buttons
@@ -169,7 +170,11 @@ public class RequestActionUse extends L2GameClientPacket
 					sendPacket(ActionFailed.STATIC_PACKET);
 					return;
 				}
-
+				if (pet.isLockedTarget())
+				{
+					pet.getOwner().sendPacket(new SystemMessage(SystemMessageId.FAILED_CHANGE_TARGET));
+					return;
+				}
 				if (target.isAutoAttackable(activeChar) || _ctrlPressed)
 				{
 					if (target instanceof L2DoorInstance)

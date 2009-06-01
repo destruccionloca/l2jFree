@@ -44,6 +44,7 @@ public abstract class L2Playable extends L2Character
 	private boolean	_isPhoenixBlessed	= false;	// For Soul of The Phoenix or Salvation buffs
 	private boolean	_isSilentMoving		= false;	// Silent Move
 	private boolean	_protectionBlessing	= false;	// Blessed by Blessing of Protection
+	private L2Character _lockedTarget = null;
 
 	/**
 	 * Constructor of L2Playable (use L2Character constructor).<BR><BR>
@@ -353,4 +354,19 @@ public abstract class L2Playable extends L2Character
 		
 		//TODO
 	}
+	
+	public boolean isLockedTarget()
+	{
+		return _lockedTarget != null;
+	}
+
+	public L2Character getLockedTarget()
+	{
+		return _lockedTarget;
+	}
+
+	public void setLockedTarget(L2Character cha)
+	{
+		_lockedTarget = cha;
+	}	
 }
