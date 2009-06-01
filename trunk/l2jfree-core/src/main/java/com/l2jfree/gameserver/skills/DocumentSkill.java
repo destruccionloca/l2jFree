@@ -88,7 +88,7 @@ final class DocumentSkill extends DocumentBase
 			"enchant5cond", // ...
 			"enchant6",
 			"enchant6for",
-			"enchant5cond", // ...
+			"enchant6cond", // ...
 																	};
 
 	private static int							_currentSkillId;
@@ -246,7 +246,7 @@ final class DocumentSkill extends DocumentBase
 		attach(first, startLvl += enchantLevels2, enchantLevels3, "enchant3cond", "enchant3for");
 		attach(first, startLvl += enchantLevels3, enchantLevels4, "enchant4cond", "enchant4for");
 		attach(first, startLvl += enchantLevels4, enchantLevels5, "enchant5cond", "enchant5for");
-		attach(first, startLvl += enchantLevels4, enchantLevels5, "enchant6cond", "enchant6for");
+		attach(first, startLvl += enchantLevels5, enchantLevels6, "enchant6cond", "enchant6for");
 	}
 
 	private int getLevel(NamedNodeMap attrs, String nodeName, Integer defaultValue)
