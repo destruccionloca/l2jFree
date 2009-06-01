@@ -768,6 +768,57 @@ public class CharStat
 		return (int) calcStat(Stats.MP_CONSUME, skill.getMpInitialConsume(), null, skill);
 	}
 
+	public final void addElement(L2Skill skill)
+	{
+		switch (skill.getElement())
+		{
+			case L2Skill.ELEMENT_EARTH:
+				_earth += skill.getMagicLevel();
+				break;
+			case L2Skill.ELEMENT_FIRE:
+				_fire += skill.getMagicLevel();
+				break;
+			case L2Skill.ELEMENT_WATER:
+				_water += skill.getMagicLevel();
+				break;
+			case L2Skill.ELEMENT_WIND:
+				_wind += skill.getMagicLevel();
+				break;
+			case L2Skill.ELEMENT_HOLY:
+				_holy += skill.getMagicLevel();
+				break;
+			case L2Skill.ELEMENT_DARK:
+				_dark += skill.getMagicLevel();
+				break;
+		}
+	}
+
+	public final void removeElement(L2Skill skill)
+	{
+		switch (skill.getElement())
+		{
+			case L2Skill.ELEMENT_EARTH:
+				_earth -= skill.getMagicLevel();
+				break;
+			case L2Skill.ELEMENT_FIRE:
+				_fire -= skill.getMagicLevel();
+				break;
+			case L2Skill.ELEMENT_WATER:
+				_water -= skill.getMagicLevel();
+				break;
+			case L2Skill.ELEMENT_WIND:
+				_wind -= skill.getMagicLevel();
+				break;
+			case L2Skill.ELEMENT_HOLY:
+				_holy -= skill.getMagicLevel();
+				break;
+			case L2Skill.ELEMENT_DARK:
+				_dark -= skill.getMagicLevel();
+				break;
+		}
+	}
+
+	
 	public double getElementAttributeFire()
 	{
 		return (int) calcStat(Stats.FIRE_RES, _activeChar.getTemplate().getBaseFireRes(), null, null);
