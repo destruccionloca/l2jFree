@@ -3296,6 +3296,8 @@ public final class Config extends L2Config
 
 	public static boolean AUTO_TVT_ENABLED;
 	public static int[][] AUTO_TVT_TEAM_LOCATIONS;
+	public static boolean AUTO_TVT_TEAM_COLORS_RANDOM;
+	public static int[] AUTO_TVT_TEAM_COLORS;
 	public static boolean AUTO_TVT_OVERRIDE_TELE_BACK;
 	public static int[] AUTO_TVT_DEFAULT_TELE_BACK;
 	public static int AUTO_TVT_REWARD_MIN_POINTS;
@@ -3347,7 +3349,7 @@ public final class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(final Properties properties)
+		protected void loadImpl(final Properties properties) throws Exception
 		{
 			AUTO_TVT_ENABLED = Boolean.parseBoolean(properties.getProperty("EnableAutoTvT", "false"));
 			VoicedCommandHandler.reload();
@@ -3367,7 +3369,20 @@ public final class Config extends L2Config
 					AUTO_TVT_TEAM_LOCATIONS[i][2] = Integer.parseInt(coords.nextToken());
 				}
 				else
-					AUTO_TVT_TEAM_LOCATIONS[i] = null;
+					throw new IllegalArgumentException("Cannot parse TvTTeamLocations!");
+			}
+			AUTO_TVT_TEAM_COLORS_RANDOM = Boolean.parseBoolean(properties.getProperty("TvTTeamColorsRandom", "true"));
+			AUTO_TVT_TEAM_COLORS = new int[AUTO_TVT_TEAM_LOCATIONS.length];
+			if (!AUTO_TVT_TEAM_COLORS_RANDOM)
+			{
+				coords = new StringTokenizer(properties.getProperty("TvTTeamColors", ""), ",");
+				if (coords.countTokens() == AUTO_TVT_TEAM_COLORS.length)
+				{
+					for (int i = 0; i < AUTO_TVT_TEAM_COLORS.length; i++)
+						AUTO_TVT_TEAM_COLORS[i] = Integer.decode("0x" + coords.nextToken());
+				}
+				else
+					throw new IllegalArgumentException("Cannot parse TvTTeamColors!");
 			}
 			AUTO_TVT_OVERRIDE_TELE_BACK = Boolean.parseBoolean(properties.getProperty("TvTTeleportAfterEventSpecial", "false"));
 			coords = new StringTokenizer(properties.getProperty("TvTTeleportSpecialLocation", ""), ",");
@@ -3379,7 +3394,7 @@ public final class Config extends L2Config
 				AUTO_TVT_DEFAULT_TELE_BACK[2] = Integer.parseInt(coords.nextToken());
 			}
 			else
-				AUTO_TVT_DEFAULT_TELE_BACK = null;
+				throw new IllegalArgumentException("Cannot parse TvTTeleportSpecialLocation!");
 			AUTO_TVT_REWARD_MIN_POINTS = Integer.parseInt(properties.getProperty("TvTRewardedMinScore", "1"));
 			locations = new StringTokenizer(properties.getProperty("TvTRewards", ""), ";");
 			AUTO_TVT_REWARD_IDS = new int[locations.countTokens()];
@@ -3393,7 +3408,7 @@ public final class Config extends L2Config
 					AUTO_TVT_REWARD_COUNT[i] = Integer.parseInt(coords.nextToken());
 				}
 				else
-					AUTO_TVT_REWARD_COUNT[i] = 0;
+					throw new IllegalArgumentException("Cannot parse TvTRewards!");
 			}
 			AUTO_TVT_LEVEL_MAX = Integer.parseInt(properties.getProperty("TvTMaxLevel", "85"));
 			AUTO_TVT_LEVEL_MIN = Integer.parseInt(properties.getProperty("TvTMinLevel", "1"));
@@ -3445,7 +3460,7 @@ public final class Config extends L2Config
 									Integer.parseInt(skill.nextToken()));
 						}
 						else
-							AUTO_TVT_TK_PUNISH_EFFECTS[i] = null;
+							throw new IllegalArgumentException("Cannot parse TvTPunishTKDebuff!");
 					}
 				}
 			});

@@ -67,7 +67,10 @@ public final class AutomatedTvT
 	public static final void startIfNecessary()
 	{
 		if (instance != null && !instance.active)
+		{
+			instance.buildCountArray();
 			instance.tpm.scheduleGeneral(instance.task, Config.AUTO_TVT_DELAY_INITIAL_REGISTRATION);
+		}
 	}
 
 	private final ThreadPoolManager tpm;
@@ -81,6 +84,7 @@ public final class AutomatedTvT
 	private final FastList<L2PcInstance> participants;
 	private final FastMap<Integer, Participant> eventPlayers;
 	private Team[] eventTeams;
+	private int[] teamMembers;
 
 	private volatile int status;
 	private volatile boolean active;
@@ -99,6 +103,7 @@ public final class AutomatedTvT
 		task = new AutoEventTask();
 		taskDuring = new AutoReviveTask();
 		reviver = null;
+		buildCountArray();
 		active = Config.AUTO_TVT_ENABLED;
 		if (active)
 			tpm.scheduleGeneral(task, Config.AUTO_TVT_DELAY_INITIAL_REGISTRATION);
@@ -214,7 +219,12 @@ public final class AutomatedTvT
 
 		eventTeams = new Team[Config.AUTO_TVT_TEAM_LOCATIONS.length];
 		for (int i = 0; i < eventTeams.length; i++)
-			eventTeams[i] = new Team(correctColor(eventTeams, Rnd.get(256), Rnd.get(256), Rnd.get(256), i));
+		{
+			if (Config.AUTO_TVT_TEAM_COLORS_RANDOM)
+				eventTeams[i] = new Team(correctColor(eventTeams, Rnd.get(256), Rnd.get(256), Rnd.get(256), i));
+			else
+				eventTeams[i] = new Team(Config.AUTO_TVT_TEAM_COLORS[i]);
+		}
 
 		int currTeam = 0;
 		SystemMessage time = new SystemMessage(SystemMessageId.BATTLE_BEGINS_S1_S2_S3);
@@ -321,21 +331,7 @@ public final class AutomatedTvT
 			}
 			if (p.getTeam() == winnerTeam)
 				reward(player);
-			player.setTitle(p.getTitle());
-			player.getAppearance().setNameColor(p.getNameColor());
-			if (!player.isDead())
-			{
-				player.getStatus().setCurrentCp(player.getMaxCp());
-				player.getStatus().setCurrentHpMp(player.getMaxHp(), player.getMaxMp());
-			}
-			else
-				player.setIsPendingRevive(true);
-			if (Config.AUTO_TVT_OVERRIDE_TELE_BACK)
-				player.teleToLocation(Config.AUTO_TVT_DEFAULT_TELE_BACK[0],
-						Config.AUTO_TVT_DEFAULT_TELE_BACK[1],
-						Config.AUTO_TVT_DEFAULT_TELE_BACK[2]);
-			else
-				player.teleToLocation(p.getLoc(), true);
+			removeFromEvent(player, p);
 		}
 		tpm.scheduleGeneral(task, Config.AUTO_TVT_PERIOD_LENGHT_REWARDS);
 	}
@@ -597,23 +593,47 @@ public final class AutomatedTvT
 		case STATUS_REGISTRATION:
 			participants.remove(player);
 			break;
+		case STATUS_PREPARATION:
+			participants.remove(player);
+			Participant part = eventPlayers.remove(player.getObjectId());
+			if (part != null)
+				removeFromEvent(player, part);
+			break;
 		case STATUS_COMBAT:
 		case STATUS_REWARDS:
 			Participant p = eventPlayers.get(player.getObjectId());
 			p.setPlayer(null);
-			if (countTeamMembers(p.getTeam()) == 0)
+			if (!checkTeamStatus())
 				eventEnd();
 			break;
 		}
 	}
 
-	private final int countTeamMembers(int team)
+	private final int[] countTeamMembers()
 	{
-		int result = 0;
+		int[] count = new int[eventTeams.length];
+		System.arraycopy(teamMembers, 0, count, 0, count.length);
 		for (Participant p : eventPlayers.values())
-			if (p.getTeam() == team && p.getPlayer() != null)
-				result++;
-		return result;
+			if (p.getPlayer() != null)
+				count[p.getTeam()]++;
+		return count;
+	}
+
+	private final boolean checkTeamStatus()
+	{
+		int[] members = countTeamMembers();
+		boolean flag = false;
+		for (int i : members)
+		{
+			if (i > 0)
+			{
+				if (flag)
+					return true;
+				else
+					flag = true;
+			}
+		}
+		return false;
 	}
 
 	private final void removeDisconnected(int objID, Location loc, String title)
@@ -658,7 +678,6 @@ public final class AutomatedTvT
 		if (Config.AUTO_TVT_TEAM_LOCATIONS.length > 32 || current == 0)
 			return result;
 
-		// TODO: calibrate the multiplier
 		int totalDiff, noticeable = (256 * 2) / Config.AUTO_TVT_TEAM_LOCATIONS.length;
 		while (true)
 		{
@@ -677,6 +696,32 @@ public final class AutomatedTvT
 					return result;
 			}
 		}
+	}
+
+	private final void buildCountArray()
+	{
+		teamMembers = new int[Config.AUTO_TVT_TEAM_LOCATIONS.length];
+		for (int i = 0; i < teamMembers.length; i++)
+			teamMembers[i] = 0;
+	}
+
+	private final void removeFromEvent(L2PcInstance player, Participant p)
+	{
+		player.setTitle(p.getTitle());
+		player.getAppearance().setNameColor(p.getNameColor());
+		if (!player.isDead())
+		{
+			player.getStatus().setCurrentCp(player.getMaxCp());
+			player.getStatus().setCurrentHpMp(player.getMaxHp(), player.getMaxMp());
+		}
+		else
+			player.setIsPendingRevive(true);
+		if (Config.AUTO_TVT_OVERRIDE_TELE_BACK)
+			player.teleToLocation(Config.AUTO_TVT_DEFAULT_TELE_BACK[0],
+					Config.AUTO_TVT_DEFAULT_TELE_BACK[1],
+					Config.AUTO_TVT_DEFAULT_TELE_BACK[2]);
+		else
+			player.teleToLocation(p.getLoc(), true);
 	}
 
 	private class Participant
@@ -787,6 +832,11 @@ public final class AutomatedTvT
 			this.g = rgb[1];
 			this.b = rgb[2];
 			this.points = 0;
+		}
+
+		private Team(int color)
+		{
+			this(new int[] { (color >> 16) & 0xFF, (color >> 8) & 0xFF, (color >> 0) & 0xFF });
 		}
 
 		public final int getPoints()
