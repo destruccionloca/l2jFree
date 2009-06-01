@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!ENTITY % conditions.dtd SYSTEM "conditions.dtd"> %conditions.dtd;
+
 <!-- Root -->
 <!ELEMENT list (zone)*>
 
@@ -80,64 +82,4 @@
 <!-- Condition -->
 <!ATTLIST cond msg CDATA #IMPLIED>
 <!ATTLIST cond msgId CDATA #IMPLIED>
-<!ELEMENT cond (and|or|not|player|target|using|game)>
-
-<!-- Logic -->
-<!ELEMENT and ((and|or|not|player|target|using|game)+)>
-<!ELEMENT or  ((and|or|not|player|target|using|game),(and|or|not|player|target|using|game)+)>
-<!ELEMENT not (and|or|not|player|target|using|game)>
-
-<!-- Conditions -->
-<!ATTLIST player skill (true|false) #IMPLIED>
-<!ATTLIST player race (Human|Elf|Darkelf|Orc|Dwarf|Kamael) #IMPLIED>
-<!ATTLIST player level CDATA #IMPLIED>
-<!ATTLIST player resting (true|false) #IMPLIED>
-<!ATTLIST player moving (true|false) #IMPLIED>
-<!ATTLIST player running (true|false) #IMPLIED>
-<!ATTLIST player walking (true|false) #IMPLIED>
-<!ATTLIST player behind (true|false) #IMPLIED>
-<!ATTLIST player front (true|false) #IMPLIED>
-<!ATTLIST player chaotic (true|false) #IMPLIED>
-<!ATTLIST player olympiad (true|false) #IMPLIED>
-<!ATTLIST player flying (true|false) #IMPLIED>
-<!ATTLIST player hp CDATA #IMPLIED>
-<!ATTLIST player mp CDATA #IMPLIED>
-<!ATTLIST player cp CDATA #IMPLIED>
-<!ATTLIST player attack_stance (true|false) #IMPLIED>
-<!ATTLIST player grade CDATA #IMPLIED>
-<!ATTLIST player siegezone CDATA #IMPLIED>
-<!ATTLIST player battle_force (2|3) #IMPLIED>
-<!ATTLIST player spell_force (2|3) #IMPLIED>
-<!ATTLIST player weight CDATA #IMPLIED>
-<!ATTLIST player invSize CDATA #IMPLIED>
-<!ATTLIST player pledgeClass CDATA #IMPLIED>
-<!ATTLIST player clanHall CDATA #IMPLIED>
-<!ATTLIST player fort CDATA #IMPLIED>
-<!ATTLIST player castle CDATA #IMPLIED>
-<!ATTLIST player sex CDATA #IMPLIED>
-<!ATTLIST player agathionId CDATA #IMPLIED>
-<!ATTLIST player active_effect_id CDATA #IMPLIED>
-<!ELEMENT player EMPTY>
-
-<!ATTLIST target aggro (true|false) #IMPLIED>
-<!ATTLIST target siegezone CDATA #IMPLIED>
-<!ATTLIST target level CDATA #IMPLIED>
-<!ATTLIST target class_id_restriction CDATA #IMPLIED>
-<!ATTLIST target active_effect_id CDATA #IMPLIED>
-<!ATTLIST target active_skill_id CDATA #IMPLIED>
-<!ATTLIST target mindistance CDATA #IMPLIED>
-<!ATTLIST target race_id CDATA #IMPLIED>
-<!ATTLIST target undead (true|false) #IMPLIED>
-<!ATTLIST target using CDATA #IMPLIED>
-<!ATTLIST target npcId CDATA #IMPLIED>
-<!ELEMENT target EMPTY>
-
-<!ATTLIST using kind CDATA #IMPLIED>
-<!ATTLIST using skill CDATA #IMPLIED>
-<!ATTLIST using slotitem CDATA #IMPLIED>
-<!ATTLIST using weaponChange (true|false) #IMPLIED>
-<!ELEMENT using EMPTY>
-
-<!ATTLIST game night (true|false) #IMPLIED>
-<!ATTLIST game chance CDATA #IMPLIED>
-<!ELEMENT game EMPTY>
+<!ELEMENT cond (%condition;)>
