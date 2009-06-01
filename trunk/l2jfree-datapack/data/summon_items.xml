@@ -1,151 +1,152 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE list SYSTEM "templates/pet_call_items.dtd">
 <list><!-- summonType: 0 = static, 1 = pet, 2 = wyvern -->
   <!-- Static -->
   <!-- Christmas Tree -->
   <item id="5560">
-    <npcid val="13006"/>
+    <npcId val="13006"/>
     <summonType val="0"/>
   </item>
-  <!-- Special Cristmas Tree -->
+  <!-- Special Christmas Tree -->
   <item id="5561">
-    <npcid val="13007"/>
+    <npcId val="13007"/>
     <summonType val="0"/>
   </item>
   <!-- Pets -->
   <!-- Wolf -->
   <item id="2375">
-    <npcid val="12077"/>
+    <npcId val="12077"/>
     <summonType val="1"/>
   </item>
   <!-- Black Wolf -->
   <item id="9882">
-    <npcid val="16025"/>
+    <npcId val="16025"/>
     <summonType val="1"/>
   </item>
   <!-- Great Wolf -->
   <item id="10163">
-    <npcid val="16030"/>
+    <npcId val="16030"/>
     <summonType val="1"/>
   </item>
   <!-- White Great Wolf -->
   <item id="10307">
-    <npcid val="16037"/>
+    <npcId val="16037"/>
     <summonType val="1"/>
   </item>
   <!-- Fenrir -->
   <item id="10426">
-    <npcid val="16041"/>
+    <npcId val="16041"/>
     <summonType val="1"/>
   </item>
   <!-- White Fenrir -->
   <item id="10611">
-    <npcid val="16042"/>
+    <npcId val="16042"/>
     <summonType val="1"/>
   </item>
   <!-- Hatchling of Wind -->
   <item id="3500">
-    <npcid val="12311"/>
+    <npcId val="12311"/>
     <summonType val="1"/>
   </item>
   <!-- Hatchling of Star -->
   <item id="3501">
-    <npcid val="12312"/>
+    <npcId val="12312"/>
     <summonType val="1"/>
   </item>
   <!-- Hatchling of Twilight -->
   <item id="3502">
-    <npcid val="12313"/>
+    <npcId val="12313"/>
     <summonType val="1"/>
   </item>
   <!-- Wind Strider -->
   <item id="4422">
-    <npcid val="12526"/>
+    <npcId val="12526"/>
     <summonType val="1"/>
   </item>
   <!-- Star Strider -->
   <item id="4423">
-    <npcid val="12527"/>
+    <npcId val="12527"/>
     <summonType val="1"/>
   </item>
   <!-- Twilight Strider -->
   <item id="4424">
-    <npcid val="12528"/>
+    <npcId val="12528"/>
     <summonType val="1"/>
   </item>
   <!-- Red Wind Strider -->
   <item id="10308">
-    <npcid val="16038"/>
+    <npcId val="16038"/>
     <summonType val="1"/>
   </item>
   <!-- Red Star Strider -->
   <item id="10309">
-    <npcid val="16039"/>
+    <npcId val="16039"/>
     <summonType val="1"/>
   </item>
   <!-- Red Twilight Strider -->
   <item id="10310">
-    <npcid val="16040"/>
+    <npcId val="16040"/>
     <summonType val="1"/>
   </item>
   <!-- Sin Eater -->
   <item id="4425">
-    <npcid val="12564"/>
+    <npcId val="12564"/>
     <summonType val="1"/>
   </item>
   <!-- Baby Bufallo -->
   <item id="6648">
-    <npcid val="12780"/>
+    <npcId val="12780"/>
     <summonType val="1"/>
   </item>
   <!-- Baby Cougar -->
   <item id="6649">
-    <npcid val="12782"/>
+    <npcId val="12782"/>
     <summonType val="1"/>
   </item>
   <!-- Baby Kookaburra -->
   <item id="6650">
-    <npcid val="12781"/>
+    <npcId val="12781"/>
     <summonType val="1"/>
   </item>
   <!-- Improved Baby Bufallo -->
   <item id="10311">
-    <npcid val="16034"/>
+    <npcId val="16034"/>
     <summonType val="1"/>
   </item>
   <!-- Improved Baby Cougar -->
   <item id="10312">
-    <npcid val="16036"/>
+    <npcId val="16036"/>
     <summonType val="1"/>
   </item>
   <!-- Improved Baby Kookaburra -->
   <item id="10313">
-    <npcid val="16035"/>
+    <npcId val="16035"/>
     <summonType val="1"/>
   </item>
   <!-- Custom! -->
   <!-- Wyvern -->
   <item id="5249">
-    <npcid val="12621"/>
+    <npcId val="12621"/>
     <summonType val="2"/>
   </item>
   <!-- Light Purple Maned Horse -->
   <item id="13022">
-    <npcid val="13130"/>
+    <npcId val="13130"/>
     <summonType val="2"/>
   </item>
   <!-- Light Purple Maned Horse -->
   <item id="13308">
-    <npcid val="13130"/>
+    <npcId val="13130"/>
     <summonType val="2"/>
   </item>
   <!-- Light Purple Maned Horse -->
   <item id="20029">
-    <npcid val="13130"/>
+    <npcId val="13130"/>
     <summonType val="2"/>
   </item>
   <!-- Light Purple Maned Horse -->
   <item id="20030">
-    <npcid val="13130"/>
+    <npcId val="13130"/>
     <summonType val="2"/>
   </item>
 </list>

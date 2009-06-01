@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE list SYSTEM "templates/recipes.dtd">
   <!--
     Information: - statUse can have HP/MP, but you can use both - altStatChange and productionRare is optional - in altStatChange you can use XP/SP/GIM(this works only if AltGameCreation = True): XP:
     base XP value SP: base SP value GIM: the old function used only the skilllevel to determine how many item is grabbed in each step with this stat changer you can multiple this
