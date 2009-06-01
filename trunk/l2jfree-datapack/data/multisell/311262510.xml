@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE list SYSTEM "exchange.dtd">
+<!DOCTYPE list SYSTEM "../templates/exchange.dtd">
 <!-- Seven Signs - Blacksmith of Mammon - SA: A-grade -->
 <list maintainEnchantment="true">
   <!-- Dasparion's Staff - Mana Up -->

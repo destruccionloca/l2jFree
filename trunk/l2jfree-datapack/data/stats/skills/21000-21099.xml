@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE list SYSTEM "skills.dtd">
+<!DOCTYPE list SYSTEM "../../templates/skills.dtd">
 <list>
   <skill id="21000" levels="1" name="Release Seal on Agathion - Majo">
     <set name="target" val="TARGET_SELF"/>

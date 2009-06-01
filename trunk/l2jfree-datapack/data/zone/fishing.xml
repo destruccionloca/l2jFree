@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE list SYSTEM "zones.dtd">
+<!DOCTYPE list SYSTEM "../templates/zones.dtd">
 <!-- TODO: C5/Interlude fishing zones -->
 <list>
   <zone id="1" name="Fishing_1" type="Fishing"> <!-- used for L2JDP zone 11401 -->

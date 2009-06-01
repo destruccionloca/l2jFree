@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE list SYSTEM "skills.dtd">
+<!DOCTYPE list SYSTEM "../../templates/skills.dtd">
 <list>
   <skill id="100" levels="15" name="Stun Attack">
     <table name="#mpConsume"> 19 19 20 21 21 22 24 25 26 27 28 29 31 32 33 </table>

@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Remove path (leave only "templates/exchange.dtd") if used -->
+<!DOCTYPE list SYSTEM "../../../../data/templates/exchange.dtd">
 <!-- Prestigeshop Enchant Scrolls -->
 <list>
   <!-- [Scroll of Enchant Armor D grade] for [Crystals D grade] -->

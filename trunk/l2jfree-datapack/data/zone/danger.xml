@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE list SYSTEM "zones.dtd">
+<!DOCTYPE list SYSTEM "../templates/zones.dtd">
 <!-- All these zones taken from retail. Done by Savormix -->
 <list>
   <!-- Blazing swamp in Aden area -->
@@ -339,7 +339,7 @@
   <zone id="31" name="conquerors_weakness_pddown_poison_nonheal" type="Danger">
     <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
     <!-- Weakness, P. Def. Down, Poison, Nonheal -->
-    <skill applyEnter="4145,3;4146,3;4148,12;4624,12" removeExit="4145;4146;4148;4624"/>
+    <skill applyEnter="4145,3;4146,3;4148,9;4624,9" removeExit="4145;4146;4148;4624"/>
     <shape type="Poly" zMin="-7260" zMax="-7010">
       <point x="186739" y="-86322"/>
       <point x="190108" y="-86335"/>
@@ -350,7 +350,7 @@
   <zone id="32" name="lords_weakness_pddown_poison_nonheal" type="Danger">
     <settings exitOnDeath="true" buffRepeat="true" noHeal="true" affected="playable"/>
     <!-- Weakness, P. Def. Down, Poison, Nonheal -->
-    <skill applyEnter="4145,3;4146,3;4148,12;4624,12" removeExit="4145;4146;4148;4624"/>
+    <skill applyEnter="4145,3;4146,3;4148,9;4624,9" removeExit="4145;4146;4148;4624"/>
     <shape type="Poly" zMin="-7265" zMax="-7015">
       <point x="185028" y="-89729"/>
       <point x="188398" y="-89741"/>
@@ -361,7 +361,7 @@
   <zone id="33" name="savants_weakness_pddown_poison_nonheal" type="Danger">
     <settings exitOnDeath="true" buffRepeat="true" noHeal="true" affected="playable"/>
     <!-- Weakness, P. Def. Down, Poison, Nonheal -->
-    <skill applyEnter="4145,3;4146,3;4148,12;4624,12" removeExit="4145;4146;4148;4624"/>
+    <skill applyEnter="4145,3;4146,3;4148,9;4624,9" removeExit="4145;4146;4148;4624"/>
     <shape type="Poly" zMin="-7262" zMax="-7012">
       <point x="172411" y="-81083"/>
       <point x="173942" y="-81073"/>
@@ -372,7 +372,7 @@
   <zone id="34" name="magistrates_weakness_pddown_poison_nonheal" type="Danger">
     <settings exitOnDeath="true" buffRepeat="true" noHeal="true" affected="playable"/>
     <!-- Weakness, P. Def. Down, Poison, Nonheal -->
-    <skill applyEnter="4145,3;4146,3;4148,12;4624,12" removeExit="4145;4146;4148;4624"/>
+    <skill applyEnter="4145,3;4146,3;4148,9;4624,9" removeExit="4145;4146;4148;4624"/>
     <shape type="Poly" zMin="-7262" zMax="-7012">
       <point x="174822" y="-77261"/>
       <point x="176354" y="-77251"/>
@@ -429,7 +429,7 @@
   <!-- Need retail info -->
   <zone id="39" name="fire_pot_god_hp_regen1" type="Danger">
     <settings exitOnDeath="true" buffRepeat="true" affected="npc"/>
-  <skill applyEnter="4698,6" removeExit="4698"/><!-- Area Buff - HP Regeneration -->
+    <skill applyEnter="4698,6" removeExit="4698"/><!-- Area Buff - HP Regeneration -->
     <shape type="Poly" zMin="-3359" zMax="-2959">
       <point x="185241" y="-118610"/>
       <point x="185966" y="-119586"/>
@@ -439,7 +439,7 @@
   </zone>
   <zone id="40" name="fire_pot_god_hp_regen2" type="Danger">
     <settings exitOnDeath="true" buffRepeat="true" affected="npc"/>
-  <skill applyEnter="4698,6" removeExit="4698"/><!-- Area Buff - HP Regeneration -->
+    <skill applyEnter="4698,6" removeExit="4698"/><!-- Area Buff - HP Regeneration -->
     <shape type="Poly" zMin="-3246" zMax="-2846">
       <point x="182713" y="-119880"/>
       <point x="183822" y="-120471"/>
@@ -449,7 +449,7 @@
   </zone>
   <zone id="41" name="fire_pot_god_hp_regen3" type="Danger">
     <settings exitOnDeath="true" buffRepeat="true" affected="npc"/>
-  <skill applyEnter="4698,6" removeExit="4698"/><!-- Area Buff - HP Regeneration -->
+    <skill applyEnter="4698,6" removeExit="4698"/><!-- Area Buff - HP Regeneration -->
     <shape type="Poly" zMin="-3180" zMax="-2780">
       <point x="184021" y="-121547"/>
       <point x="185825" y="-121596"/>
@@ -459,7 +459,7 @@
   </zone>
   <zone id="42" name="fire_pot_god_hp_regen4" type="Danger">
     <settings exitOnDeath="true" buffRepeat="true" affected="npc"/>
-  <skill applyEnter="4698,6" removeExit="4698"/><!-- Area Buff - HP Regeneration -->
+    <skill applyEnter="4698,6" removeExit="4698"/><!-- Area Buff - HP Regeneration -->
     <shape type="Poly" zMin="-3164" zMax="-2764">
       <point x="186868" y="-121700"/>
       <point x="188500" y="-121604"/>
@@ -469,7 +469,7 @@
   </zone>
   <zone id="43" name="fire_pot_god_hp_regen5" type="Danger">
     <settings exitOnDeath="true" buffRepeat="true" affected="npc"/>
-  <skill applyEnter="4698,6" removeExit="4698"/><!-- Area Buff - HP Regeneration -->
+    <skill applyEnter="4698,6" removeExit="4698"/><!-- Area Buff - HP Regeneration -->
     <shape type="Poly" zMin="-3152" zMax="-2752">
       <point x="189116" y="-121636"/>
       <point x="190732" y="-121116"/>
@@ -479,7 +479,7 @@
   </zone>
   <zone id="44" name="fire_pot_god_hp_regen6" type="Danger">
     <settings exitOnDeath="true" buffRepeat="true" affected="npc"/>
-  <skill applyEnter="4698,6" removeExit="4698"/><!-- Area Buff - HP Regeneration -->
+    <skill applyEnter="4698,6" removeExit="4698"/><!-- Area Buff - HP Regeneration -->
     <shape type="Poly" zMin="-3388" zMax="-2988">
       <point x="187636" y="-120012"/>
       <point x="189680" y="-119284"/>
@@ -489,7 +489,7 @@
   </zone>
   <zone id="45" name="fire_pot_god_hp_regen7" type="Danger">
     <settings exitOnDeath="true" buffRepeat="true" affected="npc"/>
-  <skill applyEnter="4698,6" removeExit="4698"/><!-- Area Buff - HP Regeneration -->
+    <skill applyEnter="4698,6" removeExit="4698"/><!-- Area Buff - HP Regeneration -->
     <shape type="Poly" zMin="-3356" zMax="-2956">
       <point x="188888" y="-118252"/>
       <point x="191124" y="-118348"/>

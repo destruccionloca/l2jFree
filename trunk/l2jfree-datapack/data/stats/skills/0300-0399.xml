@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE list SYSTEM "skills.dtd">
+<!DOCTYPE list SYSTEM "../../templates/skills.dtd">
 <list>
   <skill id="301" levels="5" name="Summon Big Boom" enchantLevels1="30">
     <table name="#enchantNpcIds"> 14707 14708 14709 14710 14711 14712 14713 14714 14715

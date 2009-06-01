@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Remove path (leave only "templates/exchange.dtd") if used -->
+<!DOCTYPE list SYSTEM "../../../../data/templates/exchange.dtd">
 <!-- Glittering Medal Event(2/2) -->
 <list>
   <!-- [Sealed Majestic Necklace] for [glittering_event_medals] -->

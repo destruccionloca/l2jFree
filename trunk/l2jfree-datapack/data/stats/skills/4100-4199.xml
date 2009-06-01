@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE list SYSTEM "skills.dtd">
+<!DOCTYPE list SYSTEM "../../templates/skills.dtd">
 <list>
   <skill id="4100" levels="12" name="NPC Prominence">
     <table name="#mpConsume"> 13 20 27 35 45 55 65 69 73 75 77 78 </table>

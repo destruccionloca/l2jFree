@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE list SYSTEM "skills.dtd">
+<!DOCTYPE list SYSTEM "../../templates/skills.dtd">
 <list>
   <skill id="4500" levels="1" name="Treasure Chest - Level 27">
     <set name="target" val="TARGET_SELF"/>

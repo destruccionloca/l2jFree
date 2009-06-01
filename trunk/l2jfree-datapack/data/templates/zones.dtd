@@ -116,6 +116,7 @@
 <!ATTLIST player castle CDATA #IMPLIED>
 <!ATTLIST player sex CDATA #IMPLIED>
 <!ATTLIST player agathionId CDATA #IMPLIED>
+<!ATTLIST player active_effect_id CDATA #IMPLIED>
 <!ELEMENT player EMPTY>
 
 <!ATTLIST target aggro (true|false) #IMPLIED>

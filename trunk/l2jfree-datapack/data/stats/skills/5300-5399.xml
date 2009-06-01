@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE list SYSTEM "skills.dtd">
+<!DOCTYPE list SYSTEM "../../templates/skills.dtd">
 <!-- 1stThrone Skills List By Skatershi -->
 <list>
   <skill id="5300" levels="9" name="NPC(party) - Physical Range Long Range Attack - Dark">
