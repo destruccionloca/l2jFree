@@ -73,7 +73,7 @@ public class EffectTransformation extends L2Effect
 		
 		if (!trg.isTransformed())
 		{
-			TransformationManager.getInstance().transformPlayer(transformId, trg, Long.MAX_VALUE);
+			TransformationManager.getInstance().transformPlayer(transformId, trg);
 			return true;
 		}
 		return false;
@@ -93,6 +93,6 @@ public class EffectTransformation extends L2Effect
 	@Override
 	public void onExit()
 	{
-		getEffected().stopTransformation(this);
+		getEffected().stopTransformation(false);
 	}
 }
