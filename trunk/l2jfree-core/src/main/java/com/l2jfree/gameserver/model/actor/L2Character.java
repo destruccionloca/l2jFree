@@ -189,6 +189,7 @@ public abstract class L2Character extends L2Object
 	// timed out
 	protected boolean				_isTeleporting						= false;
 	protected boolean				_isInvul							= false;
+	protected L2Effect 				_invulEffect               			= null;
 	protected boolean				_isDisarmed							= false;
 	protected boolean				_isMarked							= false;
 	private int[]					lastPosition						=
@@ -1245,7 +1246,7 @@ public abstract class L2Character extends L2Object
 			shld1 = Formulas.calcShldUse(this, target);
 
 			// Calculate if hit is critical
-			crit1 = Formulas.calcCrit(this, target, getStat().getCriticalHit(target, null));
+			crit1 = Formulas.calcCrit(getStat().getCriticalHit(target, null), target);
 
 			// Calculate physical damages
 			damage1 = (int) Formulas.calcPhysDam(this, target, null, shld1, crit1, false, attack.soulshot);
@@ -1314,7 +1315,7 @@ public abstract class L2Character extends L2Object
 			shld1 = Formulas.calcShldUse(this, target);
 
 			// Calculate if hit is critical
-			crit1 = Formulas.calcCrit(getStat().getCriticalHit(target, null));
+			crit1 = Formulas.calcCrit(getStat().getCriticalHit(target, null), target);
 
 			// Calculate physical damages
 			damage1 = (int) Formulas.calcPhysDam(this, target, null, shld1, crit1, false, attack.soulshot);
@@ -1381,7 +1382,7 @@ public abstract class L2Character extends L2Object
 			shld1 = Formulas.calcShldUse(this, target);
 
 			// Calculate if hit 1 is critical
-			crit1 = Formulas.calcCrit(this, target, getStat().getCriticalHit(target, null));
+			crit1 = Formulas.calcCrit(getStat().getCriticalHit(target, null), target);
 
 			// Calculate physical damages of hit 1
 			damage1 = (int) Formulas.calcPhysDam(this, target, null, shld1, crit1, true, attack.soulshot);
@@ -1395,7 +1396,7 @@ public abstract class L2Character extends L2Object
 			shld2 = Formulas.calcShldUse(this, target);
 
 			// Calculate if hit 2 is critical
-			crit2 = Formulas.calcCrit(this, target, getStat().getCriticalHit(target, null));
+			crit2 = Formulas.calcCrit(getStat().getCriticalHit(target, null), target);
 
 			// Calculate physical damages of hit 2
 			damage2 = (int) Formulas.calcPhysDam(this, target, null, shld2, crit2, true, attack.soulshot);
@@ -1562,7 +1563,7 @@ public abstract class L2Character extends L2Object
 			shld1 = Formulas.calcShldUse(this, target);
 
 			// Calculate if hit is critical
-			crit1 = Formulas.calcCrit(this, target, getStat().getCriticalHit(target, null));
+			crit1 = Formulas.calcCrit(getStat().getCriticalHit(target, null), target);
 
 			// Calculate physical damages
 			damage1 = (int) Formulas.calcPhysDam(this, target, null, shld1, crit1, false, attack.soulshot);
@@ -1719,24 +1720,11 @@ public abstract class L2Character extends L2Object
 		
 		// Calculate the casting time of the skill (base + modifier of MAtkSpd)
 		// Don't modify the skill time for FORCE_BUFF skills. The skill time for those skills represent the buff time.
-		if (!effectWhileCasting && !skill.isStaticHitTime())
+		if(!effectWhileCasting)
 		{
-			hitTime = Formulas.calcCastingRelatedTime(this, skill, hitTime);
-			coolTime = Formulas.calcCastingRelatedTime(this, skill, coolTime);
-			skillInterruptTime = Formulas.calcCastingRelatedTime(this, skill, skillInterruptTime);
-			
-			rechargeShot();
-			
-			// Calculate altered Cast Speed due to BSpS/SpS
-			if (skill.useSpiritShot())
-			{
-				if (isAnySpiritshotCharged())
-				{
-					hitTime *= 0.7;
-					coolTime *= 0.7;
-					skillInterruptTime *= 0.7;
-				}
-			}
+			hitTime = Formulas.calcAtkSpd(this, skill, hitTime);
+			if (coolTime > 0) 
+				coolTime = Formulas.calcAtkSpd(this, skill, coolTime);
 		}
 		
 		// queue herbs and potions
@@ -1763,20 +1751,27 @@ public abstract class L2Character extends L2Object
 		// Init the reuse time of the skill
 		int reuseDelay = skill.getReuseDelay();
 		
-		if (Formulas.calcSkillMastery(this, skill))
+		if (skill.isStaticReuse())
 		{
-			reuseDelay = 0;
-			sendPacket(SystemMessageId.SKILL_READY_TO_USE_AGAIN);
+			reuseDelay = (skill.getReuseDelay());
 		}
-		else if (!skill.isStaticReuse())
+		else
 		{
-			reuseDelay *= skill.isMagic() ? getStat().getMReuseRate(skill) : getStat().getPReuseRate(skill);
-			reuseDelay = Formulas.calcCastingRelatedTime(this, skill, reuseDelay);
+			if(skill.isMagic())
+			{
+				reuseDelay = (int)(skill.getReuseDelay() * getStat().getMReuseRate(skill));
+			}
+			else
+			{
+				reuseDelay = (int)(skill.getReuseDelay() * getStat().getPReuseRate(skill));
+			}
 		}
 		
+		boolean skillMastery = Formulas.calcSkillMastery(this, skill);
+		
 		// Skill reuse check
-		if (reuseDelay > 30000)
-			addTimeStamp(skill.getId(), reuseDelay);
+		if (reuseDelay > 30000 && !skillMastery)
+			addTimeStamp(skill.getId(),reuseDelay);
 		
 		// Check if this skill consume mp on start casting
 		int initmpcons = getStat().getMpInitialConsume(skill);
@@ -2750,9 +2745,20 @@ public abstract class L2Character extends L2Object
 		_isInvul = b;
 	}
 
+	public void setIsInvulByEffect(boolean b, L2Effect effect)
+	{
+		_isInvul = b;
+		_invulEffect = effect;
+	}
+	
 	public boolean isInvul()
 	{
 		return _isInvul || _isTeleporting;
+	}
+	
+	public L2Effect getInvulEffect()
+	{
+		return _invulEffect;
 	}
 
 	public boolean isUndead()
@@ -3392,14 +3398,14 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <BR>
 	 */
-	public final void stopConfused(boolean all)
-	{
-		if (all)
-			stopEffects(L2EffectType.CONFUSION);
-
-		setIsConfused(false);
-		getAI().notifyEvent(CtrlEvent.EVT_THINK, null);
-	}
+		public final void stopConfused(boolean all)
+		{
+			if (all)
+				stopEffects(L2EffectType.CONFUSION);
+	
+			setIsConfused(false);
+			getAI().notifyEvent(CtrlEvent.EVT_THINK, null);
+		}
 
 	public final void startPhysicalAttackMuted()
 	{

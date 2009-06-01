@@ -22,52 +22,65 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Formulas;
+import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
 /**
  * 
  * @author Ahmed
  * 
- * This is the Effect support for spoil.
+ *         This is the Effect support for spoil.
  * 
- * This was originally done by _drunk_
+ *         This was originally done by _drunk_
  */
-public final class EffectSpoil extends L2Effect
+public class EffectSpoil extends L2Effect
 {
 	public EffectSpoil(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
+	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.SPOIL;
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
+	 */
 	@Override
-	protected boolean onStart()
+	public boolean onStart()
 	{
+		
 		if (!(getEffector() instanceof L2PcInstance))
 			return false;
-
+		
 		if (!(getEffected() instanceof L2MonsterInstance))
 			return false;
-
+		
 		L2MonsterInstance target = (L2MonsterInstance) getEffected();
-
+		
+		if (target == null)
+			return false;
+		
 		if (target.isSpoil())
 		{
 			getEffector().sendPacket(new SystemMessage(SystemMessageId.ALREADY_SPOILED));
 			return false;
 		}
-
+		
 		// SPOIL SYSTEM by Lbaldi
 		boolean spoil = false;
-		if (!target.isDead())
+		if (target.isDead() == false)
 		{
 			spoil = Formulas.calcMagicSuccess(getEffector(), target, getSkill());
-
+			
 			if (spoil)
 			{
 				target.setSpoil(true);
@@ -78,11 +91,22 @@ public final class EffectSpoil extends L2Effect
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
 				sm.addCharName(target);
-				sm.addSkillName(this);
+				sm.addSkillName(getSkill().getDisplayId());
 				getEffector().sendPacket(sm);
 			}
 			target.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, getEffector());
 		}
 		return true;
+		
+	}
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
+	 */
+	@Override
+	public boolean onActionTime()
+	{
+		return false;
 	}
 }

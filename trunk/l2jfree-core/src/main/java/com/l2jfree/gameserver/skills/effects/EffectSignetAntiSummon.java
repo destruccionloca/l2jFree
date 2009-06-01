@@ -24,65 +24,78 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
 /**
  * @author Forsaiken
  */
 
-public final class EffectSignetAntiSummon extends L2Effect
+public class EffectSignetAntiSummon extends L2Effect
 {
-	private L2EffectPointInstance	_actor;
-
+	private L2EffectPointInstance _actor;
+	
 	public EffectSignetAntiSummon(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
+	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.SIGNET_GROUND;
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
+	 */
 	@Override
-	protected boolean onStart()
+	public boolean onStart()
 	{
 		_actor = (L2EffectPointInstance) getEffected();
 		return true;
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
+	 */
 	@Override
-	protected boolean onActionTime()
+	public boolean onActionTime()
 	{
 		if (getCount() == getTotalCount() - 1)
 			return true; // do nothing first time
 		int mpConsume = getSkill().getMpConsume();
-
+		
 		for (L2Character cha : _actor.getKnownList().getKnownCharactersInRadius(getSkill().getSkillRadius()))
 		{
 			if (cha == null)
 				continue;
-
+			
 			if (cha instanceof L2Playable)
 			{
 				L2PcInstance owner = null;
-
+				
 				if (cha instanceof L2Summon)
 					owner = ((L2Summon) cha).getOwner();
 				else
 					owner = (L2PcInstance) cha;
-
+				
 				if (owner != null && owner.getPet() != null)
 				{
-					if (mpConsume > getEffector().getStatus().getCurrentMp())
+					if (mpConsume > getEffector().getCurrentMp())
 					{
 						getEffector().sendPacket(new SystemMessage(SystemMessageId.SKILL_REMOVED_DUE_LACK_MP));
 						return false;
 					}
-
-					getEffector().reduceCurrentMp(mpConsume);
-
+					else
+						getEffector().reduceCurrentMp(mpConsume);
+					
 					owner.getPet().unSummon(owner);
 					owner.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, getEffector());
 				}
@@ -90,9 +103,13 @@ public final class EffectSignetAntiSummon extends L2Effect
 		}
 		return true;
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
+	 */
 	@Override
-	protected void onExit()
+	public void onExit()
 	{
 		if (_actor != null)
 		{

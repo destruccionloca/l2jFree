@@ -18,31 +18,46 @@ import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
 /**
  * @author demonia
+ * 
+ *         TODO To change the template for this generated type comment go to
+ *         Window - Preferences - Java - Code Style - Code Templates
  */
-public final class EffectImmobilePetBuff extends L2Effect
+public class EffectImmobilePetBuff extends L2Effect
 {
-	private L2Summon	_pet;
-
+	private L2Summon _pet;
+	
 	public EffectImmobilePetBuff(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
+	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.BUFF;
 	}
-
-	/** Notify started */
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
+	 */
 	@Override
-	protected boolean onStart()
+	public boolean onStart()
 	{
-		if (getEffected() instanceof L2Summon && getEffector() instanceof L2PcInstance && ((L2Summon) getEffected()).getOwner() == getEffector())
+		_pet = null;
+		
+		if (getEffected() instanceof L2Summon
+		        && getEffector() instanceof L2PcInstance
+		        && ((L2Summon) getEffected()).getOwner() == getEffector())
 		{
 			_pet = (L2Summon) getEffected();
 			_pet.setIsImmobilized(true);
@@ -50,11 +65,24 @@ public final class EffectImmobilePetBuff extends L2Effect
 		}
 		return false;
 	}
-
-	/** Notify exited */
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
+	 */
 	@Override
-	protected void onExit()
+	public void onExit()
 	{
 		_pet.setIsImmobilized(false);
+	}
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
+	 */
+	public boolean onActionTime()
+	{
+		// just stop this effect
+		return false;
 	}
 }

@@ -19,59 +19,76 @@ import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2EffectPointInstance;
 import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
 /**
  * @authors Forsaiken, Sami
  */
 
-public final class EffectSignetNoise extends L2Effect
+public class EffectSignetNoise extends L2Effect
 {
-	private L2EffectPointInstance	_actor;
-
+	private L2EffectPointInstance _actor;
+	
 	public EffectSignetNoise(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
+	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.SIGNET_GROUND;
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
+	 */
 	@Override
-	protected boolean onStart()
+	public boolean onStart()
 	{
 		_actor = (L2EffectPointInstance) getEffected();
 		return true;
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
+	 */
 	@Override
-	protected boolean onActionTime()
+	public boolean onActionTime()
 	{
 		if (getCount() == getTotalCount() - 1)
 			return true; // do nothing first time
-
+			
 		for (L2Character target : _actor.getKnownList().getKnownCharactersInRadius(getSkill().getSkillRadius()))
 		{
 			if (target == null)
 				continue;
-
+			
 			L2Effect[] effects = target.getAllEffects();
 			if (effects != null)
 				for (L2Effect effect : effects)
 				{
-					if (effect.getSkill().isDance() || effect.getSkill().isSong())
+					if (effect.getSkill().isDance())
 						effect.exit();
 				}
 			// there doesn't seem to be a visible effect?
 		}
 		return true;
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
+	 */
 	@Override
-	protected void onExit()
+	public void onExit()
 	{
 		if (_actor != null)
 		{

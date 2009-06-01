@@ -19,59 +19,80 @@ import com.l2jfree.gameserver.instancemanager.TransformationManager;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
 /**
-*
-* @author nBd
-*/
-public final class EffectTransformation extends L2Effect
+ * 
+ * @author nBd
+ */
+public class EffectTransformation extends L2Effect
 {
 	public EffectTransformation(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
-
+	
 	// Special constructor to steal this effect
 	public EffectTransformation(Env env, L2Effect effect)
 	{
 		super(env, effect);
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
+	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.TRANSFORMATION;
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
+	 */
 	@Override
-	protected boolean onStart()
+	public boolean onStart()
 	{
 		if (getEffected().isAlikeDead())
 			return false;
-
+		
 		if (!(getEffected() instanceof L2PcInstance))
 			return false;
-
+		
 		L2PcInstance trg = (L2PcInstance) getEffected();
-
-		// No transformation if dead or cursed by cursed weapon
+		if (trg == null)
+			return false;
+		
 		if (trg.isAlikeDead() || trg.isCursedWeaponEquipped())
 			return false;
-
+		
 		int transformId = getSkill().getTransformId();
-
+		
 		if (!trg.isTransformed())
 		{
-			TransformationManager.getInstance().transformPlayer(transformId, trg);
+			TransformationManager.getInstance().transformPlayer(transformId, trg, Long.MAX_VALUE);
 			return true;
 		}
 		return false;
+		
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
+	 */
 	@Override
-	protected void onExit()
+	public boolean onActionTime()
 	{
-		getEffected().stopTransformation(false);
+		return false;
+	}
+	
+	@Override
+	public void onExit()
+	{
+		getEffected().stopTransformation(this);
 	}
 }

@@ -14,20 +14,17 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-
 public final class StartRotation extends L2GameServerPacket
 {
-	private static final String S_7A_STARTROTATION = "[S] 7a StartRotation";
-	private int _charObjId;
-	private int _degree;
-	private int _side;
+	private static final String	_S__77_BEGINROTATION	= "[S] 7a BeginRotation";
+	private int					_charObjId, _degree, _side, _speed;
 
-	public StartRotation(L2PcInstance player, int degree, int side)
+	public StartRotation(int objectId, int degree, int side, int speed)
 	{
-		_charObjId = player.getObjectId();
+		_charObjId = objectId;
 		_degree = degree;
 		_side = side;
+		_speed = speed;
 	}
 
 	@Override
@@ -37,14 +34,17 @@ public final class StartRotation extends L2GameServerPacket
 		writeD(_charObjId);
 		writeD(_degree);
 		writeD(_side);
+		writeD(_speed);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
 	 */
 	@Override
 	public String getType()
 	{
-		return S_7A_STARTROTATION;
+		return _S__77_BEGINROTATION;
 	}
 }

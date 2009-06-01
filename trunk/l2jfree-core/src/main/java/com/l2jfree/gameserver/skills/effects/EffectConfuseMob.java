@@ -14,81 +14,100 @@
  */
 package com.l2jfree.gameserver.skills.effects;
 
+import java.util.Collection;
 import java.util.List;
 
 import javolution.util.FastList;
-
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.L2Attackable;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
-import com.l2jfree.tools.random.Rnd;
+import com.l2jfree.tools.random.Rnd;;
 
 /**
  * @author littlecrow
  * 
- * Implementation of the Confusion Effect
+ *         Implementation of the Confusion Effect
  */
-public final class EffectConfuseMob extends L2Effect
+public class EffectConfuseMob extends L2Effect
 {
-
+	
 	public EffectConfuseMob(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
+	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.CONFUSE_MOB_ONLY;
 	}
-
-	/** Notify started */
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
+	 */
 	@Override
-	protected boolean onStart()
+	public boolean onStart()
 	{
 		getEffected().startConfused();
 		onActionTime();
 		return true;
 	}
-
-	/** Notify exited */
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
+	 */
 	@Override
-	protected void onExit()
+	public void onExit()
 	{
 		getEffected().stopConfused(false);
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
+	 */
 	@Override
-	protected boolean onActionTime()
+	public boolean onActionTime()
 	{
 		List<L2Character> targetList = new FastList<L2Character>();
-
+		
 		// Getting the possible targets
-
-		for (L2Object obj : getEffected().getKnownList().getKnownObjects().values())
+		
+		Collection<L2Object> objs = getEffected().getKnownList().getKnownObjects().values();
+		// synchronized (getEffected().getKnownList().getKnownObjects())
 		{
-			if ((obj instanceof L2Attackable) && (obj != getEffected()))
-				targetList.add((L2Character) obj);
+			for (L2Object obj : objs)
+			{
+				if ((obj instanceof L2Attackable) && (obj != getEffected()))
+					targetList.add((L2Character) obj);
+			}
 		}
 		// if there is no target, exit function
-		if (targetList.size() == 0)
+		if (targetList.isEmpty())
 		{
 			return true;
 		}
-
+		
 		// Choosing randomly a new target
 		int nextTargetIdx = Rnd.nextInt(targetList.size());
 		L2Object target = targetList.get(nextTargetIdx);
-
+		
 		// Attacking the target
 		// getEffected().setTarget(target);
 		getEffected().setTarget(target);
 		getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, target);
-
+		
 		return true;
 	}
 }

@@ -17,55 +17,66 @@ package com.l2jfree.gameserver.skills.effects;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
 /**
- * @author kombat
+ * @author Kerberos
  */
-public final class EffectFusion extends L2Effect
+
+public class EffectFusion extends L2Effect
 {
 	public int _effect;
 	public int _maxEffect;
-
+	
 	public EffectFusion(Env env, EffectTemplate template)
 	{
 		super(env, template);
 		_effect = getSkill().getLevel();
 		_maxEffect = SkillTable.getInstance().getMaxLevel(getSkill().getId());
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
+	 */
+	@Override
+	public boolean onActionTime()
+	{
+		return true;
+	}
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
+	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.FUSION;
 	}
-
+	
 	public void increaseEffect()
 	{
 		if (_effect < _maxEffect)
 		{
-			exit();
 			_effect++;
-			renewBuff();
+			updateBuff();
 		}
 	}
-
-	public void decreaseEffect()
+	
+	public void decreaseForce()
 	{
 		_effect--;
-		exit();
-		if (_effect >= 1)
-			renewBuff();
-	}
-
-	private void renewBuff()
-	{
-		SkillTable.getInstance().getInfo(getSkill().getId(), _effect).getEffects(getEffector(), getEffected());
+		if (_effect < 1)
+			exit();
+		else
+			updateBuff();
 	}
 	
-	@Override
-	public boolean canBeStoredInDb()
+	private void updateBuff()
 	{
-		return false;
+		exit();
+		SkillTable.getInstance().getInfo(getSkill().getId(), _effect).getEffects(getEffector(), getEffected());
 	}
 }

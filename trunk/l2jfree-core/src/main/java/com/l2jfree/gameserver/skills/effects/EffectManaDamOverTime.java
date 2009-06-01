@@ -18,30 +18,39 @@ import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
-public final class EffectManaDamOverTime extends L2Effect
+public class EffectManaDamOverTime extends L2Effect
 {
 	public EffectManaDamOverTime(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
+	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.MANA_DMG_OVER_TIME;
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
+	 */
 	@Override
-	protected boolean onActionTime()
+	public boolean onActionTime()
 	{
 		if (getEffected().isDead())
 			return false;
-
+		
 		double manaDam = calc();
-
-		if (manaDam > getEffected().getStatus().getCurrentMp())
+		
+		if (manaDam > getEffected().getCurrentMp())
 		{
 			if (getSkill().isToggle())
 			{
@@ -50,7 +59,7 @@ public final class EffectManaDamOverTime extends L2Effect
 				return false;
 			}
 		}
-
+		
 		getEffected().reduceCurrentMp(manaDam);
 		return true;
 	}

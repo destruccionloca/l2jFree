@@ -25,30 +25,39 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSignet;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSignetCasttime;
+import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
 /**
  * @authors Forsaiken, Sami
  */
 
-public final class EffectSignet extends L2Effect
+public class EffectSignet extends L2Effect
 {
-	private L2Skill					_skill;
-	private L2EffectPointInstance	_actor;
-
+	private L2Skill _skill;
+	private L2EffectPointInstance _actor;
+	
 	public EffectSignet(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
+	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.SIGNET_EFFECT;
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
+	 */
 	@Override
-	protected boolean onStart()
+	public boolean onStart()
 	{
 		if (getSkill() instanceof L2SkillSignet)
 			_skill = SkillTable.getInstance().getInfo(((L2SkillSignet) getSkill()).effectId, getLevel());
@@ -57,23 +66,26 @@ public final class EffectSignet extends L2Effect
 		_actor = (L2EffectPointInstance) getEffected();
 		return true;
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
+	 */
 	@Override
-	protected boolean onActionTime()
+	public boolean onActionTime()
 	{
-		//if (getCount() == getTotalCount() - 1) return true; // do nothing first time
 		if (_skill == null)
 			return true;
 		int mpConsume = _skill.getMpConsume();
-
-		if (mpConsume > getEffector().getStatus().getCurrentMp())
+		
+		if (mpConsume > getEffector().getCurrentMp())
 		{
 			getEffector().sendPacket(new SystemMessage(SystemMessageId.SKILL_REMOVED_DUE_LACK_MP));
 			return false;
 		}
-
-		getEffector().reduceCurrentMp(mpConsume);
-
+		else
+			getEffector().reduceCurrentMp(mpConsume);
+		
 		for (L2Character cha : _actor.getKnownList().getKnownCharactersInRadius(getSkill().getSkillRadius()))
 		{
 			if (cha == null)
@@ -84,9 +96,13 @@ public final class EffectSignet extends L2Effect
 		}
 		return true;
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
+	 */
 	@Override
-	protected void onExit()
+	public void onExit()
 	{
 		if (_actor != null)
 		{

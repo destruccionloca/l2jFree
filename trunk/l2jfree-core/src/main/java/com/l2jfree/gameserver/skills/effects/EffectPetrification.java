@@ -12,40 +12,64 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 package com.l2jfree.gameserver.skills.effects;
 
 import com.l2jfree.gameserver.model.L2Effect;
+import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
-/**
- * 
- * @author Darki699
- */
-public final class EffectPreventBuff extends L2Effect
+public class EffectPetrification extends L2Effect
 {
-
-	public EffectPreventBuff(Env env, EffectTemplate template)
+	public EffectPetrification(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
+	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
-		return L2EffectType.PREVENT_BUFF;
+		return L2EffectType.PETRIFICATION;
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
+	 */
 	@Override
-	protected boolean onStart()
+	public boolean onStart()
 	{
-		getEffected().setPreventedFromReceivingBuffs(true);
+		getEffected().startAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_2);
+		getEffected().startParalyze();
+		getEffected().setIsInvul(true);
 		return true;
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
+	 */
 	@Override
-	protected void onExit()
+	public void onExit()
 	{
-		getEffected().setPreventedFromReceivingBuffs(false);
+		getEffected().stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_2);
+		getEffected().stopParalyze(false);
+		getEffected().setIsInvul(false);
+	}
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
+	 */
+	@Override
+	public boolean onActionTime()
+	{
+		return false;
 	}
 }

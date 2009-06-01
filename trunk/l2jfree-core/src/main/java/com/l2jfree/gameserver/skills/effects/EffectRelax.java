@@ -20,25 +20,34 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
-public final class EffectRelax extends L2Effect
+public class EffectRelax extends L2Effect
 {
 	public EffectRelax(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
+	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.RELAXING;
 	}
-
-	/** Notify started */
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
+	 */
 	@Override
-	protected boolean onStart()
+	public boolean onStart()
 	{
+		
 		if (getEffected() instanceof L2PcInstance)
 		{
 			setRelax(true);
@@ -46,47 +55,50 @@ public final class EffectRelax extends L2Effect
 		}
 		else
 			getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_REST);
-		return true;
+		return super.onStart();
 	}
-
-	/*
-	 * (non-Javadoc)
+	
+	/**
 	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
 	 */
 	@Override
-	protected void onExit()
+	public void onExit()
 	{
 		setRelax(false);
+		super.onExit();
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
+	 */
 	@Override
-	protected boolean onActionTime()
+	public boolean onActionTime()
 	{
 		boolean retval = true;
 		if (getEffected().isDead())
 			retval = false;
-
+		
 		if (getEffected() instanceof L2PcInstance)
 		{
 			if (!((L2PcInstance) getEffected()).isSitting())
 				retval = false;
 		}
-
-		if (getEffected().getStatus().getCurrentHp() + 1 > getEffected().getMaxHp())
+		
+		if (getEffected().getCurrentHp() + 1 > getEffected().getMaxHp())
 		{
 			if (getSkill().isToggle())
 			{
-				getEffected().sendMessage("Fully rested. Effect of " + getSkill().getName() + " has been removed.");
-				// if (getEffected() instanceof L2PcInstance)
-				// ((L2PcInstance)getEffected()).standUp();
+				getEffected().sendMessage("Fully rested. Effect of "
+				        + getSkill().getName() + " has been removed.");
 				retval = false;
 			}
 		}
-
+		
 		double manaDam = calc();
-
-		if (manaDam > getEffected().getStatus().getCurrentMp())
+		
+		if (manaDam > getEffected().getCurrentMp())
 		{
 			if (getSkill().isToggle())
 			{
@@ -97,15 +109,19 @@ public final class EffectRelax extends L2Effect
 				retval = false;
 			}
 		}
-
+		
 		if (!retval)
 			setRelax(retval);
 		else
 			getEffected().reduceCurrentMp(manaDam);
-
+		
 		return retval;
 	}
-
+	
+	/**
+	 * 
+	 * @param val
+	 */
 	private void setRelax(boolean val)
 	{
 		if (getEffected() instanceof L2PcInstance)

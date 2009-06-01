@@ -14,39 +14,65 @@
  */
 package com.l2jfree.gameserver.skills.effects;
 
+import java.util.logging.Logger;
+
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
 /**
  * @author Ahmed
+ * 
  */
-public final class EffectImmobileUntilAttacked extends L2Effect
+public class EffectImmobileUntilAttacked extends L2Effect
 {
+	static final Logger _log = Logger.getLogger(EffectImmobileUntilAttacked.class.getName());
+	
 	public EffectImmobileUntilAttacked(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
+	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.IMMOBILEUNTILATTACKED;
 	}
-
-	/** Notify started */
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
+	 */
 	@Override
-	protected boolean onStart()
+	public boolean onStart()
 	{
 		getEffected().startImmobileUntilAttacked();
 		return true;
 	}
-
-	/** Notify exited */
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
+	 */
 	@Override
-	protected void onExit()
+	public void onExit()
 	{
 		getEffected().stopImmobileUntilAttacked(false);
-		getEffected().stopSkillEffects(getSkill().getNegateId());
+	}
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
+	 */
+	@Override
+	public boolean onActionTime()
+	{
+		// just stop this effect
+		return false;
 	}
 }

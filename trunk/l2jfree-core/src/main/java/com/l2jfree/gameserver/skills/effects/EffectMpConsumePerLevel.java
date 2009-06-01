@@ -18,37 +18,47 @@ import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
-public final class EffectMpConsumePerLevel extends L2Effect
+public class EffectMpConsumePerLevel extends L2Effect
 {
 	public EffectMpConsumePerLevel(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
+	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.MP_CONSUME_PER_LEVEL;
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
+	 */
 	@Override
-	protected boolean onActionTime()
+	public boolean onActionTime()
 	{
 		if (getEffected().isDead())
 			return false;
-
+		
 		double base = calc();
-		double consume = (getEffected().getLevel() - 1) / 7.5 * base * getPeriod();
-
-		if (consume > getEffected().getStatus().getCurrentMp())
+		double consume = (getEffected().getLevel() - 1) / 7.5 * base
+		        * getPeriod();
+		
+		if (consume > getEffected().getCurrentMp())
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.SKILL_REMOVED_DUE_LACK_MP);
 			getEffected().sendPacket(sm);
 			return false;
 		}
-
+		
 		getEffected().reduceCurrentMp(consume);
 		return true;
 	}

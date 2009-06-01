@@ -60,9 +60,10 @@ import com.l2jfree.gameserver.skills.BestowedSkill;
 import com.l2jfree.gameserver.skills.ChanceCondition;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Formulas;
+import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.TriggeredSkill;
 import com.l2jfree.gameserver.skills.conditions.Condition;
-import com.l2jfree.gameserver.skills.effects.EffectTemplate;
+import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.funcs.FuncOwner;
 import com.l2jfree.gameserver.skills.funcs.FuncTemplate;
@@ -159,14 +160,14 @@ public class L2Skill implements FuncOwner
 	}
 	
 	// elements
-	public final static int			ELEMENT_WIND			= 2;
-	public final static int			ELEMENT_FIRE			= 0;
-	public final static int			ELEMENT_WATER			= 1;
-	public final static int			ELEMENT_EARTH			= 3;
-	public final static int			ELEMENT_HOLY			= 4;
-	public final static int			ELEMENT_DARK			= 5;
-	public final static int			ELEMENT_UNHOLY			= 4;
-	public final static int			ELEMENT_SACRED			= 5;
+    public final static int 		ELEMENT_FIRE = 1;
+    public final static int 		ELEMENT_WATER = 2;
+    public final static int 		ELEMENT_WIND = 3;
+    public final static int 		ELEMENT_EARTH = 4;
+    public final static int 		ELEMENT_HOLY = 5;
+    public final static int 		ELEMENT_DARK = 6;
+	public final static int			ELEMENT_UNHOLY			= 5;
+	public final static int			ELEMENT_SACRED			= 6;
 
 	// conditional values
 	public final static int			COND_RUNNING			= 0x0001;
@@ -207,6 +208,12 @@ public class L2Skill implements FuncOwner
 	private final int				_mpInitialConsume;
 	private final int				_hpConsume;
 	private final int				_cpConsume;
+    private final int[] 			_teleportCoords;
+    private final String 			_recallType;
+    private final int 				_hairColorId;
+    private final int 				_faceId;
+    private final int 				_hairStyleId;
+    private final Stats 			_stat;
 
 	private final int				_itemConsume;
 	private final int				_itemConsumeId;
@@ -261,6 +268,7 @@ public class L2Skill implements FuncOwner
 	// base success chance
 	private final double			_power;
 	private final int				_levelDepend;
+	 private final boolean 			_ignoreResists;
 
 	// Kill by damage over time
 	private final boolean			_killByDOT;
@@ -281,7 +289,6 @@ public class L2Skill implements FuncOwner
 	private final boolean			_ispotion;
 	private final int				_element;
 	private final int				_elementPower;
-	private final boolean			_isSuicideAttack;
 	private final int				_activateRate;
 	private final int				_magicLevel;
 
@@ -336,6 +343,7 @@ public class L2Skill implements FuncOwner
 	private final int				_timeMulti;
 
 	private final boolean			_isAdvanced;								// Used by siege flag summon skills
+	private final String			_attribute;
 
 	private final int				_minPledgeClass;
 
@@ -360,14 +368,24 @@ public class L2Skill implements FuncOwner
 	private final boolean			_isDebuff;
 
 	private final int				_afroId;
+	private boolean 				_isAdvancedFlag;
 	private final boolean			_isHerbEffect;
+	
+	private final int 				_learnSkillId;
+	private final int 				_learnSkillLvl;
+
+	private final boolean 			_useShield;
+	private final boolean 			_ignoreShield;
+	private final boolean 			_isSuicideAttack;
+	private final boolean 			_canBeReflected;	
 
 	public L2Skill(StatsSet set)
 	{
 		_id = L2Integer.valueOf(set.getInteger("skill_id"));
 		_level = set.getInteger("level");
-
-		_displayId = set.getInteger("displayId", _id);
+        _refId = set.getInteger("referenceId", set.getInteger("itemConsumeId", 0));
+        _afroId = set.getInteger("afroId",0);
+        _displayId = set.getInteger("displayId", _id);
 		_name = set.getString("name").intern();
 		_skillType = set.getEnum("skillType", L2SkillType.class);
 		_operateType = set.getEnum("operateType", SkillOpType.class);
@@ -394,12 +412,22 @@ public class L2Skill implements FuncOwner
 		_summonTimeLostIdle = set.getInteger("summonTimeLostIdle", 0);
 		_summonTimeLostActive = set.getInteger("summonTimeLostActive", 0);
 		_isCubic = set.getBool("isCubic", false);
-
+        _hairColorId = set.getInteger("hairColorId", -1);
+        _faceId = set.getInteger("faceId", -1);
+        _hairStyleId = set.getInteger("hairStyleId", -1);
+        String coords = set.getString("teleCoords", null);
+        if (coords != null)
+        {
+            String[] valuesSplit = coords.split(",");
+            _teleportCoords = new int[valuesSplit.length];
+    		for (int i = 0; i < valuesSplit.length;i++)
+    			_teleportCoords[i] = Integer.valueOf(valuesSplit[i]);
+        }
+        else
+        	_teleportCoords = null;
 		_activationtime = set.getInteger("activationtime", 8);
 		_activationchance = set.getInteger("activationchance", 30);
 
-		_refId = set.getInteger("referenceId", _itemConsumeId);
-		_afroId = set.getInteger("afroId", 0);
 		_isHerbEffect = _name.contains("Herb");
 
 		_castRange = set.getInteger("castRange", 0);
@@ -438,6 +466,8 @@ public class L2Skill implements FuncOwner
 		_power = set.getFloat("power", 0.f);
 
 		_levelDepend = set.getInteger("lvlDepend", 0);
+		_ignoreResists = set.getBool("ignoreResists", false);
+
 
 		_isAdvanced = set.getBool("isAdvanced", false); // Used by siege flag summon skills
 		_isDebuff = set.getBool("isDebuff", false);
@@ -507,7 +537,17 @@ public class L2Skill implements FuncOwner
 		_flyType = set.getEnum("flyType", FlyType.class, null);
 		_flyRadius = set.getInteger("flyRadius", 200);
 		_flyCourse = set.getFloat("flyCourse", 0);
+		_canBeReflected = set.getBool("canBeReflected", true);
+		_attribute = set.getString("attribute","");
+        _useShield = set.getBool("useShield", false);
+        _stat = set.getEnum("stat", Stats.class, null);
+        _ignoreShield = set.getBool("ignoreShld", false);
 
+        _learnSkillId = set.getInteger("learnSkillId",0);
+        _learnSkillLvl = set.getInteger("learnSkillLvl",1);
+        _recallType = set.getString("recallType", "");
+        _isAdvancedFlag = set.getBool("isAdvancedFlag", false);
+		
 		String canLearn = set.getString("canLearn", null);
 		if (canLearn == null)
 		{
@@ -772,7 +812,7 @@ public class L2Skill implements FuncOwner
     	{
     		case DEATHLINK:
     		{
-    			return _power * (1 - activeChar.getCurrentHp() / activeChar.getMaxHp()) * 2; 
+    			return _power * Math.pow(1.7165 - activeChar.getCurrentHp() / activeChar.getMaxHp(), 2) * 0.577; 
     		}
     		case FATAL:
     		{
@@ -871,6 +911,14 @@ public class L2Skill implements FuncOwner
 		return _effectPower;
 	}
 
+    /**
+     * Return true if skill should ignore all resistances
+     */	
+    public final boolean ignoreResists()
+    {
+    	return _ignoreResists;
+    }
+    
 	/**
 	* Return the additional effect Id.<BR><BR>
 	*/
@@ -968,6 +1016,11 @@ public class L2Skill implements FuncOwner
 		return _minPledgeClass;
 	}
 
+    public final Stats getStat()
+    {
+        return _stat;
+    }
+	
 	/**
 	* @return Returns the _targetConsumeId.
 	*/
@@ -3967,4 +4020,49 @@ public class L2Skill implements FuncOwner
 	{
 		return _elementPower;
  	}
+	
+	public String getAttributeName()
+	{
+		return _attribute;
+	}
+	
+	public boolean useShield()
+	{
+		return _useShield;
+	}
+
+	public boolean ignoreShield()
+	{
+		return _ignoreShield;
+	}
+
+	public int[] getTeleportCoords()
+	{
+		return _teleportCoords;
+	}
+	
+	public String getRecallType()
+	{
+		return _recallType;
+	}
+	
+	public boolean canBeReflected()
+	{
+		return _canBeReflected;
+	}
+	
+	public int getHairColorId()
+	{
+		return _hairColorId;
+	}
+	
+	public int getHairStyleId()
+	{
+		return _hairStyleId;
+	}
+	
+	public int getFaceId()
+	{
+		return _faceId;
+	}	
 }

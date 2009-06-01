@@ -14,8 +14,6 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.gameserver.model.actor.L2Character;
-
 /**
  * This class ...
  * 
@@ -23,25 +21,29 @@ import com.l2jfree.gameserver.model.actor.L2Character;
  */
 public class StopRotation extends L2GameServerPacket
 {
-	private static final String _S__78_STOPROTATION = "[S] 63 StopRotation";
-	private int _charObjId;
-	private int _degree;
-	
-	public StopRotation(L2Character player, int degree)
+	private static final String	_S__78_STOPROTATION	= "[S] 61 StopRotation";
+	private int					_charObjId, _degree, _speed;
+
+	public StopRotation(int objectId, int degree, int speed)
 	{
-		_charObjId = player.getObjectId();
+		_charObjId = objectId;
 		_degree = degree;
+		_speed = speed;
 	}
-	
+
 	@Override
 	protected final void writeImpl()
 	{
 		writeC(0x61);
 		writeD(_charObjId);
 		writeD(_degree);
+		writeD(_speed);
+		writeC(0); // ?
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
 	 */
 	@Override

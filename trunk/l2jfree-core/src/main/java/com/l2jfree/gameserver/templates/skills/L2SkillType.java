@@ -131,6 +131,7 @@ public enum L2SkillType
 	BALLISTA,
 	EXTRACTABLE,
 	CLAN_GATE,
+	UNDEAD_DEFENSE,
 	
 	AGATHION(L2SkillAgathion.class),
 	MOUNT(L2SkillMount.class),

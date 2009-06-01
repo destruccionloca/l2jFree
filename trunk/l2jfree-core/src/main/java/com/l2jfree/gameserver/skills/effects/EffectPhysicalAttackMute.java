@@ -16,34 +16,59 @@ package com.l2jfree.gameserver.skills.effects;
 
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
 /**
  * @author -Rnn-
- *
+ * 
  */
-public final class EffectPhysicalAttackMute extends L2Effect
+public class EffectPhysicalAttackMute extends L2Effect
 {
+	
 	public EffectPhysicalAttackMute(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
+	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.PHYSICAL_ATTACK_MUTE;
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
+	 */
 	@Override
-	protected boolean onStart()
+	public boolean onStart()
 	{
 		getEffected().startPhysicalAttackMuted();
 		return true;
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
+	 */
 	@Override
-	protected void onExit()
+	public boolean onActionTime()
+	{
+		// Simply stop the effect
+		return false;
+	}
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
+	 */
+	@Override
+	public void onExit()
 	{
 		getEffected().stopPhysicalAttackMuted(false);
 	}

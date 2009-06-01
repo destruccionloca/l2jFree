@@ -19,57 +19,69 @@ import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
 /**
  * @author decad
  * 
  */
-public final class EffectBetray extends L2Effect
+public class EffectBetray extends L2Effect
 {
 	public EffectBetray(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
+	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.BETRAY;
 	}
-
-	/** Notify started */
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
+	 */
 	@Override
-	protected boolean onStart()
+	public boolean onStart()
 	{
-		if (getEffector() instanceof L2PcInstance && getEffected() instanceof L2Summon)
+		if (getEffector() instanceof L2PcInstance && 
+				getEffected() instanceof L2Summon)
 		{
+			L2PcInstance targetOwner = getEffected().getActingPlayer();
+			getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, targetOwner);
 			getEffected().setIsBetrayed(true);
-			getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, ((L2Summon) getEffected()).getOwner());
+			if (targetOwner != null) targetOwner.setIsBetrayed(true);
 			return true;
 		}
 		return false;
 	}
-
-	/** Notify exited */
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
+	 */
 	@Override
-	protected void onExit()
+	public void onExit()
 	{
-		if (getEffector() instanceof L2PcInstance && getEffected() instanceof L2Summon)
-		{
-			getEffected().setIsBetrayed(false);
-			getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-		}
+		getEffected().setIsBetrayed(false);
+		getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+		L2PcInstance targetOwner = getEffected().getActingPlayer();
+		if (targetOwner != null) targetOwner.setIsBetrayed(false);
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
+	 */
 	@Override
-	protected boolean onActionTime()
+	public boolean onActionTime()
 	{
-		if (getEffector() instanceof L2PcInstance && getEffected() instanceof L2Summon)
-		{
-			getEffected().setIsBetrayed(true);
-			getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, ((L2Summon) getEffected()).getOwner());
-		}
 		return false;
 	}
 }

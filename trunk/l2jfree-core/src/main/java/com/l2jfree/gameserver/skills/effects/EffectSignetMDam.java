@@ -20,11 +20,11 @@
 package com.l2jfree.gameserver.skills.effects;
 
 import javolution.util.FastList;
-
 import com.l2jfree.gameserver.ai.CtrlEvent;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.model.L2Effect;
+import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.L2Attackable;
@@ -40,46 +40,56 @@ import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSignetCasttime;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
+import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 import com.l2jfree.tools.geometry.Point3D;
 
-public final class EffectSignetMDam extends L2Effect
+public class EffectSignetMDam extends L2Effect
 {
-	private L2EffectPointInstance	_actor;
-
+	private L2EffectPointInstance _actor;
+	
 	public EffectSignetMDam(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
+	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.SIGNET_GROUND;
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
+	 */
 	@Override
-	protected boolean onStart()
+	public boolean onStart()
 	{
 		L2NpcTemplate template;
 		if (getSkill() instanceof L2SkillSignetCasttime)
 			template = NpcTable.getInstance().getTemplate(((L2SkillSignetCasttime) getSkill())._effectNpcId);
 		else
 			return false;
-
+		
 		L2EffectPointInstance effectPoint = new L2EffectPointInstance(IdFactory.getInstance().getNextId(), template, getEffector());
 		effectPoint.getStatus().setCurrentHp(effectPoint.getMaxHp());
 		effectPoint.getStatus().setCurrentMp(effectPoint.getMaxMp());
 		L2World.getInstance().storeObject(effectPoint);
-
+		
 		int x = getEffector().getX();
 		int y = getEffector().getY();
 		int z = getEffector().getZ();
-
-		if (getEffector() instanceof L2PcInstance && getSkill().getTargetType() == L2Skill.SkillTargetType.TARGET_GROUND)
+		
+		if (getEffector() instanceof L2PcInstance
+		        && getSkill().getTargetType() == L2Skill.SkillTargetType.TARGET_GROUND)
 		{
 			Point3D wordPosition = ((L2PcInstance) getEffector()).getCurrentSkillWorldPosition();
-
+			
 			if (wordPosition != null)
 			{
 				x = wordPosition.getX();
@@ -89,81 +99,92 @@ public final class EffectSignetMDam extends L2Effect
 		}
 		effectPoint.setIsInvul(true);
 		effectPoint.spawnMe(x, y, z);
-
+		
 		_actor = effectPoint;
 		return true;
+		
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
+	 */
 	@Override
-	protected boolean onActionTime()
+	public boolean onActionTime()
 	{
 		if (getCount() >= getTotalCount() - 2)
 			return true; // do nothing first 2 times
 		int mpConsume = getSkill().getMpConsume();
-
+		
 		L2PcInstance caster = (L2PcInstance) getEffector();
-
+		
 		boolean ss = false;
 		boolean bss = false;
-
-		if (caster.isBlessedSpiritshotCharged())
+		
+		L2ItemInstance weaponInst = caster.getActiveWeaponInstance();
+		if (weaponInst != null)
 		{
-			bss = true;
-			caster.useBlessedSpiritshotCharge();
+			switch (weaponInst.getChargedSpiritshot())
+			{
+				case L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT:
+					weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
+					bss = true;
+					break;
+				case L2ItemInstance.CHARGED_SPIRITSHOT:
+					weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
+					ss = true;
+					break;
+			}
 		}
-		else if (caster.isSpiritshotCharged())
-		{
-			ss = true;
-			caster.useSpiritshotCharge();
-		}
-
-		// if (!bss && !ss)
-		//    caster.rechargeAutoSoulShot(false, true, false);
-
+		
 		FastList<L2Character> targets = new FastList<L2Character>();
-
+		
 		for (L2Character cha : _actor.getKnownList().getKnownCharactersInRadius(getSkill().getSkillRadius()))
 		{
 			if (cha == null || cha == caster)
 				continue;
-
-			if (cha instanceof L2Attackable || cha instanceof L2Playable)
+			
+			if (cha instanceof L2Attackable
+			        || cha instanceof L2Playable)
 			{
 				if (cha.isAlikeDead())
 					continue;
-
-				if (mpConsume > caster.getStatus().getCurrentMp())
+				
+				if (mpConsume > caster.getCurrentMp())
 				{
 					caster.sendPacket(new SystemMessage(SystemMessageId.SKILL_REMOVED_DUE_LACK_MP));
 					return false;
 				}
-
-				caster.reduceCurrentMp(mpConsume);
-
+				else
+					caster.reduceCurrentMp(mpConsume);
+				
 				if (cha instanceof L2Playable)
 				{
-					if (!(cha instanceof L2Summon && ((L2Summon)cha).getOwner() == caster))
+					if (cha instanceof L2Summon && ((L2Summon)cha).getOwner() == caster){}
+					else
 						caster.updatePvPStatus(cha);
 				}
-
+				
 				targets.add(cha);
 			}
 		}
-
+		
 		if (!targets.isEmpty())
 		{
-			caster.broadcastPacket(new MagicSkillLaunched(caster, getSkill(), targets.toArray(new L2Character[targets.size()])));
+			caster.broadcastPacket(new MagicSkillLaunched(caster, getSkill().getId(), getSkill().getLevel(), targets.toArray(new L2Character[targets.size()])));
 			for (L2Character target : targets)
 			{
 				boolean mcrit = Formulas.calcMCrit(caster.getMCriticalHit(target, getSkill()));
-				byte shld = Formulas.calcShldUse(caster, target);
+				byte shld = Formulas.calcShldUse(caster, target, getSkill());
 				int mdam = (int) Formulas.calcMagicDam(caster, target, getSkill(), shld, ss, bss, mcrit);
-
-				target.broadcastStatusUpdate();
-
+				
+				if (target instanceof L2Summon)
+					target.broadcastStatusUpdate();
+				
 				if (mdam > 0)
 				{
-					if (!target.isRaid() && Formulas.calcAtkBreak(target, mdam))
+					if (!target.isRaid()
+					        && Formulas.calcAtkBreak(target, mdam))
 					{
 						target.breakAttack();
 						target.breakCast();
@@ -176,9 +197,13 @@ public final class EffectSignetMDam extends L2Effect
 		}
 		return true;
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
+	 */
 	@Override
-	protected void onExit()
+	public void onExit()
 	{
 		if (_actor != null)
 		{

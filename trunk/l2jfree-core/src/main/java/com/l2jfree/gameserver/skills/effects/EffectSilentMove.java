@@ -20,61 +20,81 @@ import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
-public final class EffectSilentMove extends L2Effect
+public class EffectSilentMove extends L2Effect
 {
 	public EffectSilentMove(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
-
-	/** Notify started */
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
+	 */
 	@Override
-	protected boolean onStart()
+	public boolean onStart()
 	{
-		if (getEffected() instanceof L2Playable)
-			((L2Playable) getEffected()).setSilentMoving(true);
+		super.onStart();
+		
+		L2Character effected = getEffected();
+		if (effected instanceof L2Playable)
+			((L2Playable) effected).setSilentMoving(true);
 		return true;
 	}
-
-	/** Notify exited */
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
+	 */
 	@Override
-	protected void onExit()
+	public void onExit()
 	{
+		super.onExit();
+		
 		L2Character effected = getEffected();
 		if (effected instanceof L2Playable)
 			((L2Playable) effected).setSilentMoving(false);
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
+	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.SILENT_MOVE;
 	}
-
+	
+	/**
+	 * 
+	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
+	 */
 	@Override
-	protected boolean onActionTime()
+	public boolean onActionTime()
 	{
 		// Only cont skills shouldn't end
 		if (getSkill().getSkillType() != L2SkillType.CONT)
 			return false;
-
+		
 		if (getEffected().isDead())
 			return false;
-
+		
 		double manaDam = calc();
-
-		if (manaDam > getEffected().getStatus().getCurrentMp())
+		
+		if (manaDam > getEffected().getCurrentMp())
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.SKILL_REMOVED_DUE_LACK_MP);
 			getEffected().sendPacket(sm);
 			return false;
 		}
-
+		
 		getEffected().reduceCurrentMp(manaDam);
 		return true;
 	}
-
+	
 }
