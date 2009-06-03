@@ -25,6 +25,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.gameserver.ThreadPoolManager;
+import com.l2jfree.gameserver.ai.FactionAggressionNotificationQueue;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.L2Summon;
@@ -90,6 +91,7 @@ public final class LeakTaskManager
 					cleanup();
 					
 					ThreadPoolManager.getInstance().purge();
+					FactionAggressionNotificationQueue.purgeAll();
 					System.gc();
 					System.runFinalization();
 					

@@ -14,8 +14,10 @@
  */
 package com.l2jfree.gameserver.ai;
 
+import java.util.ConcurrentModificationException;
 import java.util.HashMap;
 
+import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.threadmanager.FIFOExecutableQueue;
@@ -69,13 +71,7 @@ public final class FactionAggressionNotificationQueue extends FIFOExecutableQueu
 		
 		synchronized (_lock)
 		{
-			for (NotificationInfo old; (old = _old.getFirst()) != null;)
-			{
-				if (old._lastNotificationTime + 1000 > System.currentTimeMillis())
-					break;
-				
-				_old.removeFirst();
-			}
+			purge();
 			
 			if (_old.contains(ni))
 				return;
@@ -132,6 +128,20 @@ public final class FactionAggressionNotificationQueue extends FIFOExecutableQueu
 		return false;
 	}
 	
+	private void purge()
+	{
+		synchronized (_lock)
+		{
+			for (NotificationInfo old; (old = _old.getFirst()) != null;)
+			{
+				if (old._lastNotificationTime + 1000 > System.currentTimeMillis())
+					break;
+				
+				_old.removeFirst();
+			}
+		}
+	}
+	
 	private static final HashMap<String, FactionAggressionNotificationQueue> _queues = new HashMap<String, FactionAggressionNotificationQueue>();
 	
 	public static void add(String factionId, L2Npc npc, L2Character target)
@@ -142,5 +152,30 @@ public final class FactionAggressionNotificationQueue extends FIFOExecutableQueu
 			_queues.put(factionId, queue = new FactionAggressionNotificationQueue());
 		
 		queue.add(npc, target);
+	}
+	
+	public static void purgeAll()
+	{
+		try
+		{
+			for (FactionAggressionNotificationQueue queue : _queues.values())
+				if (queue != null)
+					queue.purge();
+		}
+		catch (ConcurrentModificationException e)
+		{
+			// skip it
+		}
+	}
+	
+	static
+	{
+		ThreadPoolManager.getInstance().scheduleAtFixedRate(new Runnable() {
+			@Override
+			public void run()
+			{
+				purgeAll();
+			}
+		}, 60000, 60000);
 	}
 }
