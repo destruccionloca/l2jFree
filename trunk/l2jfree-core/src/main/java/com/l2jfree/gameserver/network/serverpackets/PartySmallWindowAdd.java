@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.L2GameClient;
 
@@ -51,6 +52,11 @@ public class PartySmallWindowAdd extends L2GameServerPacket
 		writeD(_member.getClassId().getId());
 		writeD(0x00);//writeD(0x01); ??
 		writeD(0x00);
+		if(Config.PACKET_FINAL)
+		{
+			writeD(0x00);
+			writeD(0x00);
+		}
 	}
 
 	/* (non-Javadoc)
