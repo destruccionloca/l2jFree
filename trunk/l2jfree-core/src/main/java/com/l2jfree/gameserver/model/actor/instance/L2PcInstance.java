@@ -6848,7 +6848,57 @@ public final class L2PcInstance extends L2Playable
 			L2DatabaseFactory.close(con);
 		}
 	}
-
+	
+	/** player coords from client */
+	private int _clientX;
+	private int _clientY;
+	private int _clientZ;
+	private int _clientHeading;
+	
+	@Override
+	public int getClientX()
+	{
+		return _clientX;
+	}
+	
+	@Override
+	public int getClientY()
+	{
+		return _clientY;
+	}
+	
+	@Override
+	public int getClientZ()
+	{
+		return _clientZ;
+	}
+	
+	@Override
+	public int getClientHeading()
+	{
+		return _clientHeading;
+	}
+	
+	public void setClientX(int val)
+	{
+		_clientX = val;
+	}
+	
+	public void setClientY(int val)
+	{
+		_clientY = val;
+	}
+	
+	public void setClientZ(int val)
+	{
+		_clientZ = val;
+	}
+	
+	public void setClientHeading(int val)
+	{
+		_clientHeading = val;
+	}
+	
 	/**
 	 * Update L2PcInstance stats in the characters table of the database.<BR><BR>
 	 */

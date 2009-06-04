@@ -3926,12 +3926,6 @@ public abstract class L2Character extends L2Object
 	protected Future<?>					_skillCast;
 	protected Future<?>					_skillCast2;
 
-	/** Char Coords from Client */
-	private int							_clientX;
-	private int							_clientY;
-	private int							_clientZ;
-	private int							_clientHeading;
-
 	/** List of all QuestState instance that needs to be notified of this character's death */
 	private List<QuestState>			_NotifyQuestOfDeathList	= new SingletonList<QuestState>();
 
@@ -4061,50 +4055,26 @@ public abstract class L2Character extends L2Object
 		broadcastFullInfo();
 	}
 	
-	/**
-	 * Return the X destination of the L2Character or the X position if not in movement.<BR>
-	 * <BR>
-	 */
-	public final int getClientX()
+	public int getClientX()
 	{
-		return _clientX;
+		return getX();
 	}
-
-	public final int getClientY()
+	
+	public int getClientY()
 	{
-		return _clientY;
+		return getY();
 	}
-
-	public final int getClientZ()
+	
+	public int getClientZ()
 	{
-		return _clientZ;
+		return getZ();
 	}
-
-	public final int getClientHeading()
+	
+	public int getClientHeading()
 	{
-		return _clientHeading;
+		return getHeading();
 	}
-
-	public final void setClientX(int val)
-	{
-		_clientX = val;
-	}
-
-	public final void setClientY(int val)
-	{
-		_clientY = val;
-	}
-
-	public final void setClientZ(int val)
-	{
-		_clientZ = val;
-	}
-
-	public final void setClientHeading(int val)
-	{
-		_clientHeading = val;
-	}
-
+	
 	public final int getXdestination()
 	{
 		MoveData m = _move;
