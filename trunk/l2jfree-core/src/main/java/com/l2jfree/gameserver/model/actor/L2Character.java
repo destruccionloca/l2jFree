@@ -1436,90 +1436,60 @@ public abstract class L2Character extends L2Object
 	 */
 	private boolean doAttackHitByPole(Attack attack, L2Character target, int sAtk)
 	{
-		double angleChar;
-		int maxRadius = getPhysicalAttackRange();
-		int maxAngleDiff = (int) getStat().calcStat(Stats.POWER_ATTACK_ANGLE, 120, null, null);
-
-		if (_log.isDebugEnabled())
-		{
-			_log.debug("doAttackHitByPole: Max radius = " + maxRadius);
-			_log.debug("doAttackHitByPole: Max angle = " + maxAngleDiff);
-		}
-
-		// o1 x: 83420 y: 148158 (Giran)
-		// o2 x: 83379 y: 148081 (Giran)
-		// dx = -41
-		// dy = -77
-		// distance between o1 and o2 = 87.24
-		// arctan2 = -120 (240) degree (excel arctan2(dx, dy); java arctan2(dy, dx))
-		//
-		// o2
-		//
-		// o1 ----- (heading)
-		// In the diagram above:
-		// o1 has a heading of 0/360 degree from horizontal (facing East)
-		// Degree of o2 in respect to o1 = -120 (240) degree
-		//
-		// o2 / (heading)
-		// /
-		// o1
-		// In the diagram above
-		// o1 has a heading of -80 (280) degree from horizontal (facing north east)
-		// Degree of o2 in respect to 01 = -40 (320) degree
-
-		// Get char's heading degree
-		angleChar = Util.convertHeadingToDegree(getHeading());
-		int attackRandomCountMax = (int) getStat().calcStat(Stats.ATTACK_COUNT_MAX, 3, null, null) - 1;
-		int attackcount = 0;
-
-		if (angleChar <= 0)
-			angleChar += 360;
+		final int maxRadius = getPhysicalAttackRange();
+		final int maxAngleDiff = (int)getStat().calcStat(Stats.POWER_ATTACK_ANGLE, 120, null, null) / 2;
+		final int attackCountMax = (int)getStat().calcStat(Stats.ATTACK_COUNT_MAX, 1, null, null);
+		
 		// ===========================================================
-
-		boolean hitted = doAttackHitSimple(attack, target, 100, sAtk);
-		double attackpercent = 85;
-		L2Character temp;
+		
+		boolean hitted = false;
+		double attackpercent = 100;
+		int attackCount = 0;
+		
+		hitted |= doAttackHitSimple(attack, target, attackpercent, sAtk);
+		attackpercent /= 1.15;
+		attackCount++;
+		
 		for (L2Object obj : getKnownList().getKnownObjects().values())
 		{
+			if (attackCount >= attackCountMax)
+				break;
+			
 			if (obj == target)
 				continue; // do not hit twice
-
+				
 			// Check if the L2Object is a L2Character
-			if (obj instanceof L2Character)
-			{
-				if (obj instanceof L2PetInstance && this instanceof L2PcInstance && ((L2PetInstance) obj).getOwner() == this)
-					continue;
-
-				if (!Util.checkIfInRange(maxRadius, this, obj, false))
-					continue;
-				if (!GeoData.getInstance().canSeeTarget(this, obj))
-					continue;
-
-				// otherwise hit too high/low. 650 because mob z coord sometimes wrong on hills
-				if (Math.abs(obj.getZ() - getZ()) > 650)
-					continue;
-				if (!isFacing(obj, maxAngleDiff))
-					continue;
-
-				temp = (L2Character) obj;
-
-				// Launch a simple attack against the L2Character targeted
-				if (!temp.isAlikeDead())
-				{
-					attackcount += 1;
-					if (attackcount <= attackRandomCountMax)
-					{
-						if (temp == getAI().getAttackTarget() || temp.isAutoAttackable(this))
-						{
-
-							hitted |= doAttackHitSimple(attack, temp, attackpercent, sAtk);
-							attackpercent /= 1.15;
-						}
-					}
-				}
-			}
+			if (!(obj instanceof L2Character))
+				continue;
+			
+			if (obj instanceof L2Summon && ((L2Summon)obj).getOwner() == this)
+				continue;
+			
+			if (!Util.checkIfInRange(maxRadius, this, obj, false))
+				continue;
+			if (!GeoData.getInstance().canSeeTarget(this, obj))
+				continue;
+			
+			// otherwise hit too high/low. 650 because mob z coord sometimes wrong on hills
+			if (Math.abs(obj.getZ() - getZ()) > 650)
+				continue;
+			if (!target.isInFrontOf(this, maxAngleDiff))
+				continue;
+			
+			L2Character cha = (L2Character)obj;
+			
+			// Launch a simple attack against the L2Character targeted
+			if (cha.isAlikeDead())
+				continue;
+			
+			if (cha != getAI().getAttackTarget() && !cha.isAutoAttackable(this))
+				continue;
+			
+			hitted |= doAttackHitSimple(attack, cha, attackpercent, sAtk);
+			attackpercent /= 1.15;
+			attackCount++;
 		}
-
+		
 		// Return true if one hit isn't missed
 		return hitted;
 	}
@@ -6654,7 +6624,7 @@ public abstract class L2Character extends L2Object
 	
 	public boolean isInFrontOf(L2Object src, double degree)
 	{
-		return Util.getAngleDifference(this, src) <= degree;
+		return Util.isInAngle(this, src, degree);
 	}
 	
 	public boolean isInFrontOf(L2Object src)
