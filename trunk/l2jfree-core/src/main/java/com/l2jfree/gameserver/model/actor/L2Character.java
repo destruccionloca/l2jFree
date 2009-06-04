@@ -125,6 +125,7 @@ import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.gameserver.threadmanager.ExclusiveTask;
 import com.l2jfree.gameserver.util.Broadcast;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.gameserver.util.Util.Direction;
 import com.l2jfree.lang.L2System;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.tools.random.Rnd;
@@ -6637,115 +6638,37 @@ public abstract class L2Character extends L2Object
 			((L2Attackable) this).addDamageHate(caster, 0, (-skill.getAggroPoints() / Config.ALT_BUFFER_HATE));
 	}
 
-	/**
-	 * Return True if the L2Character is behind the target and can't be seen.<BR>
-	 * <BR>
-	 */
-	public boolean isBehind(L2Object target)
+	public boolean isBehind(L2Object src)
 	{
-		double angleChar, angleTarget, angleDiff, maxAngleDiff = 45;
-
-		if (target == null)
-			return false;
-
-		if (target instanceof L2Character)
-		{
-			L2Character target1 = (L2Character) target;
-			angleChar = Util.calculateAngleFrom(this, target1);
-			angleTarget = Util.convertHeadingToDegree(target1.getHeading());
-			angleDiff = angleChar - angleTarget;
-			if (angleDiff <= -360 + maxAngleDiff)
-				angleDiff += 360;
-			if (angleDiff >= 360 - maxAngleDiff)
-				angleDiff -= 360;
-			if (Math.abs(angleDiff) <= maxAngleDiff)
-			{
-				if (_log.isDebugEnabled())
-					_log.debug("Char " + getName() + " is behind " + target.getName());
-				return true;
-			}
-		}
-		else
-		{
-			if (_log.isDebugEnabled())
-				_log.debug("isBehind's target not an L2 Character.");
-		}
-		return false;
+		return Direction.getDirection(this, src) == Direction.BACK;
 	}
-
+	
+	/**
+	 * @deprecated should be called with proper target
+	 */
+	@Deprecated
 	public boolean isBehindTarget()
 	{
 		return isBehind(getTarget());
 	}
-
-	/**
-	 * Return True if the target is facing the L2Character.<BR><BR>
-	 */
-	public boolean isInFrontOf(L2Character target)
+	
+	public boolean isInFrontOf(L2Object src, double degree)
 	{
-		double angleChar, angleTarget, angleDiff, maxAngleDiff = 45;
-
-		if (target == null)
-			return false;
-
-		angleTarget = Util.calculateAngleFrom(target, this);
-		angleChar = Util.convertHeadingToDegree(target.getHeading());
-		angleDiff = angleChar - angleTarget;
-		if (angleDiff <= -360 + maxAngleDiff)
-			angleDiff += 360;
-		if (angleDiff >= 360 - maxAngleDiff)
-			angleDiff -= 360;
-		return (Math.abs(angleDiff) <= maxAngleDiff);
+		return Util.getAngleDifference(this, src) <= degree;
 	}
-
+	
+	public boolean isInFrontOf(L2Object src)
+	{
+		return Direction.getDirection(this, src) == Direction.FRONT;
+	}
+	
+	/**
+	 * @deprecated should be called with proper target
+	 */
+	@Deprecated
 	public boolean isInFrontOfTarget()
 	{
-		L2Object target = getTarget();
-		if (target instanceof L2Character)
-			return isInFrontOf((L2Character) target);
-
-		return false;
-	}
-
-	/** Returns true if target is in front of L2Character (shield def etc) */
-	public boolean isFacing(L2Object target, int maxAngle)
-	{
-		double angleChar, angleTarget, angleDiff, maxAngleDiff;
-		if (target == null)
-			return false;
-		maxAngleDiff = maxAngle / 2;
-		angleTarget = Util.calculateAngleFrom(this, target);
-		angleChar = Util.convertHeadingToDegree(getHeading());
-		angleDiff = angleChar - angleTarget;
-		if (angleDiff <= -360 + maxAngleDiff)
-			angleDiff += 360;
-		if (angleDiff >= 360 - maxAngleDiff)
-			angleDiff -= 360;
-		return (Math.abs(angleDiff) <= maxAngleDiff);
-	}
-
-	/**
-	 * Return heading to L2Character<BR>
-	 * If <b>boolean toChar</b> is true heading calcs this->target, else target->this.<BR>
-	 * <BR>
-	 */
-
-	public int getHeadingTo(L2Character target, boolean toChar)
-	{
-		if (target == null || target == this)
-			return -1;
-
-		int dx = target.getClientX() - getClientX();
-		int dy = target.getClientY() - getClientY();
-		int heading = (int) (Math.atan2(-dy, -dx) * 32768. / Math.PI);
-		if (toChar)
-			heading = target.getHeading() - (heading + 32768);
-		else
-			heading = getHeading() - (heading + 32768);
-
-		if (heading < 0)
-			heading += 65536;
-		return heading;
+		return isInFrontOf(getTarget());
 	}
 	
 	/**
