@@ -73,6 +73,11 @@ public final class Rnd
 		return min + nextInt(max - min + 1);
 	}
 	
+	public static boolean calcChance(double chance, int maxChance)
+	{
+		return chance > nextInt(maxChance);
+	}
+	
 	public static double nextGaussian()
 	{
 		return rnd().nextGaussian();
