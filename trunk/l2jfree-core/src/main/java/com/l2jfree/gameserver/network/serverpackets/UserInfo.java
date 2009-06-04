@@ -247,7 +247,7 @@ public class UserInfo extends L2GameServerPacket
 		writeD(_activeChar.getPDef(null));
 		writeD(_activeChar.getEvasionRate(null));
 		writeD(_activeChar.getAccuracy());
-		writeD(_activeChar.getCriticalHit(null, null));
+		writeD(_activeChar.getCriticalHit());
 		writeD(_activeChar.getMAtk(null, null));
 		writeD(_activeChar.getMAtkSpd());
 		writeD(_activeChar.getPAtkSpd());
@@ -403,7 +403,7 @@ public class UserInfo extends L2GameServerPacket
 	        writeD(0x00); // CT2.3
 	        writeD(0x00); // CT2.3
 	        writeD(0x00); // CT2.3
-	        writeD(0x00); // CT2.3			
+	        writeD(0x00); // CT2.3
 		}
 	}
 

@@ -1248,7 +1248,7 @@ public abstract class L2Character extends L2Object
 			shld1 = Formulas.calcShldUse(this, target);
 
 			// Calculate if hit is critical
-			crit1 = Formulas.calcCrit(getStat().getCriticalHit(target, null), target);
+			crit1 = Formulas.calcCriticalHit(this, target);
 
 			// Calculate physical damages
 			damage1 = (int) Formulas.calcPhysDam(this, target, null, shld1, crit1, false, attack.soulshot);
@@ -1317,7 +1317,7 @@ public abstract class L2Character extends L2Object
 			shld1 = Formulas.calcShldUse(this, target);
 
 			// Calculate if hit is critical
-			crit1 = Formulas.calcCrit(getStat().getCriticalHit(target, null), target);
+			crit1 = Formulas.calcCriticalHit(this, target);
 
 			// Calculate physical damages
 			damage1 = (int) Formulas.calcPhysDam(this, target, null, shld1, crit1, false, attack.soulshot);
@@ -1384,7 +1384,7 @@ public abstract class L2Character extends L2Object
 			shld1 = Formulas.calcShldUse(this, target);
 
 			// Calculate if hit 1 is critical
-			crit1 = Formulas.calcCrit(getStat().getCriticalHit(target, null), target);
+			crit1 = Formulas.calcCriticalHit(this, target);
 
 			// Calculate physical damages of hit 1
 			damage1 = (int) Formulas.calcPhysDam(this, target, null, shld1, crit1, true, attack.soulshot);
@@ -1398,7 +1398,7 @@ public abstract class L2Character extends L2Object
 			shld2 = Formulas.calcShldUse(this, target);
 
 			// Calculate if hit 2 is critical
-			crit2 = Formulas.calcCrit(getStat().getCriticalHit(target, null), target);
+			crit2 = Formulas.calcCriticalHit(this, target);
 
 			// Calculate physical damages of hit 2
 			damage2 = (int) Formulas.calcPhysDam(this, target, null, shld2, crit2, true, attack.soulshot);
@@ -1535,7 +1535,7 @@ public abstract class L2Character extends L2Object
 			shld1 = Formulas.calcShldUse(this, target);
 
 			// Calculate if hit is critical
-			crit1 = Formulas.calcCrit(getStat().getCriticalHit(target, null), target);
+			crit1 = Formulas.calcCriticalHit(this, target);
 
 			// Calculate physical damages
 			damage1 = (int) Formulas.calcPhysDam(this, target, null, shld1, crit1, false, attack.soulshot);
@@ -6748,17 +6748,17 @@ public abstract class L2Character extends L2Object
 	}
 
 	// Property - Public
-	public int getAccuracy()
+	public final int getAccuracy()
 	{
 		return getStat().getAccuracy();
 	}
 
-	public int getCriticalHit(L2Character target, L2Skill skill)
+	public final int getCriticalHit()
 	{
-		return getStat().getCriticalHit(target, skill);
+		return getStat().getCriticalHit(null);
 	}
 
-	public int getEvasionRate(L2Character target)
+	public final int getEvasionRate(L2Character target)
 	{
 		return getStat().getEvasionRate(target);
 	}
@@ -6778,12 +6778,12 @@ public abstract class L2Character extends L2Object
 		return getStat().getMaxCp();
 	}
 
-	public int getMAtk(L2Character target, L2Skill skill)
+	public final int getMAtk(L2Character target, L2Skill skill)
 	{
 		return getStat().getMAtk(target, skill);
 	}
 
-	public int getMAtkSpd()
+	public final int getMAtkSpd()
 	{
 		return getStat().getMAtkSpd();
 	}
@@ -6803,27 +6803,27 @@ public abstract class L2Character extends L2Object
 		return getStat().getMCriticalHit(target, skill);
 	}
 
-	public int getMDef(L2Character target, L2Skill skill)
+	public final int getMDef(L2Character target, L2Skill skill)
 	{
 		return getStat().getMDef(target, skill);
 	}
 
-	public int getPAtk(L2Character target)
+	public final int getPAtk(L2Character target)
 	{
 		return getStat().getPAtk(target);
 	}
 
-	public int getPAtkSpd()
+	public final int getPAtkSpd()
 	{
 		return getStat().getPAtkSpd();
 	}
 
-	public int getPDef(L2Character target)
+	public final int getPDef(L2Character target)
 	{
 		return getStat().getPDef(target);
 	}
 
-	public int getShldDef()
+	public final int getShldDef()
 	{
 		return getStat().getShldDef();
 	}
@@ -6833,7 +6833,7 @@ public abstract class L2Character extends L2Object
 		return getStat().getPhysicalAttackRange();
 	}
 
-	public int getRunSpeed()
+	public final int getRunSpeed()
 	{
 		return getStat().getRunSpeed();
 	}

@@ -56,7 +56,7 @@ public class FinishRotating extends L2GameClientPacket
     	L2PcInstance player = getClient().getActiveChar();
 		if (player == null) return;
 
-		StopRotation sr = new StopRotation(player, _degree);
+		StopRotation sr = new StopRotation(player.getObjectId(), _degree, 0);
 		Broadcast.toSelfAndKnownPlayers(player, sr);
 		sr = null;
 		sendPacket(ActionFailed.STATIC_PACKET);

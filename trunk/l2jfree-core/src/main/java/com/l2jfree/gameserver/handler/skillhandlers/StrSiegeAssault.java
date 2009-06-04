@@ -61,13 +61,16 @@ public class StrSiegeAssault implements ISkillHandler
 
 				boolean dual = activeChar.isUsingDualWeapon();
 				byte shld = Formulas.calcShldUse(activeChar, target);
-				boolean crit = Formulas.calcCrit(activeChar, target, activeChar.getCriticalHit(target, skill));
+				boolean crit = Formulas.calcSkillCrit(activeChar, target, skill);
 				boolean soul = (weapon != null && weapon.isSoulshotCharged() && weapon.getItemType() != L2WeaponType.DAGGER);
 
 				if (!crit && (skill.getCondition() & L2Skill.COND_CRIT) != 0)
 					damage = 0;
 				else
-					damage = (int) Formulas.calcPhysDam(activeChar, target, skill, shld, crit, dual, soul);
+					damage = (int) Formulas.calcPhysDam(activeChar, target, skill, shld, false, dual, soul);
+				
+				if (crit)
+					damage *= 2;
 
 				if (damage > 0)
 				{

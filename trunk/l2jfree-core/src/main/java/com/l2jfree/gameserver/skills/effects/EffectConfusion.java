@@ -14,10 +14,9 @@
  */
 package com.l2jfree.gameserver.skills.effects;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
 
-import javolution.util.FastList;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Object;
@@ -25,85 +24,60 @@ import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
-import com.l2jfree.util.Rnd;
+import com.l2jfree.tools.random.Rnd;
 
 /**
- * @author littlecrow
+ * Implementation of the confusion effect
  * 
- *         Implementation of the Confusion Effect
+ * @author littlecrow
  */
-public class EffectConfusion extends L2Effect
+public final class EffectConfusion extends L2Effect
 {
-	
 	public EffectConfusion(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
 	
-	/**
-	 * 
-	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
-	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.CONFUSION;
 	}
 	
-	/**
-	 * 
-	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
-	 */
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		getEffected().startConfused();
 		onActionTime();
 		return true;
 	}
 	
-	/**
-	 * 
-	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
-	 */
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 		getEffected().stopConfused(false);
 	}
 	
-	/**
-	 * 
-	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
-	 */
 	@Override
-	public boolean onActionTime()
+	protected boolean onActionTime()
 	{
-		List<L2Character> targetList = new FastList<L2Character>();
+		List<L2Character> targetList = new ArrayList<L2Character>();
 		
 		// Getting the possible targets
-		
-		Collection<L2Object> objs = getEffected().getKnownList().getKnownObjects().values();
-		// synchronized (getEffected().getKnownList().getKnownObjects())
+		for (L2Object obj : getEffected().getKnownList().getKnownObjects().values())
 		{
-			for (L2Object obj : objs)
-			{
-				if ((obj instanceof L2Character) && (obj != getEffected()))
-					targetList.add((L2Character) obj);
-			}
+			if (obj instanceof L2Character && obj != getEffected()) // TODO: more check
+				targetList.add((L2Character)obj);
 		}
+		
 		// if there is no target, exit function
 		if (targetList.isEmpty())
-		{
 			return true;
-		}
 		
 		// Choosing randomly a new target
-		int nextTargetIdx = Rnd.nextInt(targetList.size());
-		L2Object target = targetList.get(nextTargetIdx);
+		L2Object target = targetList.get(Rnd.get(targetList.size()));
 		
 		// Attacking the target
-		// getEffected().setTarget(target);
 		getEffected().setTarget(target);
 		getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, target);
 		

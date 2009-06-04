@@ -50,14 +50,15 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.conditions.ConditionPlayerState;
 import com.l2jfree.gameserver.skills.conditions.ConditionUsingItemType;
-import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.templates.chars.L2PcTemplate;
-import com.l2jfree.gameserver.templates.item.L2Armor;
+import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
 import com.l2jfree.gameserver.templates.item.L2WeaponType;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.gameserver.util.Util.Direction;
+import com.l2jfree.lang.L2Math;
 import com.l2jfree.tools.random.Rnd;
 
 /**
@@ -1540,9 +1541,9 @@ public final class Formulas
 		//if (skill == null)
 		if (crit)
 		{
-			//Finally retail like formula 
+			//Finally retail like formula
 			damage = 2 * attacker.calcStat(Stats.CRITICAL_DAMAGE, 1, target, skill) * target.calcStat(Stats.CRIT_VULN, target.getTemplate().baseCritVuln, target, null) * (70 * damage / defence);
-			//Crit dmg add is almost useless in normal hits... 
+			//Crit dmg add is almost useless in normal hits...
 			damage += (attacker.calcStat(Stats.CRITICAL_DAMAGE_ADD, 0, target, skill) * 70 / defence);
 		}
 		else
@@ -1801,21 +1802,43 @@ public final class Formulas
 	}
 
 	/** Returns true in case of critical hit */
-	public static final boolean calcCrit(double rate, L2Character target)
+	public static boolean calcSkillCrit(L2Character attacker, L2Character target, L2Skill skill)
 	{
-		final boolean success = rate > Rnd.get(1000);
-
-		// support for critical damage evasion
-		if (success)
-		{
-			if (target == null)
-				return true; // no effect
-
-			return target.getStat().calcStat(Stats.CRIT_DAMAGE_EVASION, 100, null, null) > Rnd.get(100);
-		}
-		return success;
+		final double rate = skill.getBaseCritRate() * 10 * Formulas.getSTRBonus(attacker);
+		
+		return calcCrit(attacker, target, rate);
 	}
-
+	
+	public static boolean calcCriticalHit(L2Character attacker, L2Character target)
+	{
+		final double rate = attacker.getStat().getCriticalHit(target);
+		
+		// support for critical damage evasion
+		return calcCrit(attacker, target, rate) && target.getStat().calcStat(Stats.CRIT_DAMAGE_EVASION, 100, null, null) > Rnd.get(100);
+	}
+	
+	private static boolean calcCrit(L2Character attacker, L2Character target, double rate)
+	{
+		switch (Direction.getDirection(attacker, target))
+		{
+			case SIDE:
+				rate *= 1.2;
+				break;
+			case BACK:
+				rate *= 1.35;
+				break;
+		}
+		
+		rate *= 1 + getHeightModifier(attacker, target, 0.15);
+		
+		return rate > Rnd.get(1000);
+	}
+	
+	private static double getHeightModifier(L2Character attacker, L2Character target, double base)
+	{
+		return base * L2Math.limit(-1.0, ((double)attacker.getZ() - target.getZ()) / 50., 1.0);
+	}
+	
 	/** Calculate value of blow success */
 	public static final boolean calcBlow(L2Character activeChar, L2Character target, int chance)
 	{
@@ -1839,7 +1862,7 @@ public final class Formulas
 			else if (delta < -3 && delta >= -9)
 			{
 				//               baseLethal
-				// chance = -1 * ----------- 
+				// chance = -1 * -----------
 				//               (delta / 3)
 				chance = (-3) * (baseLethal / (delta));
 			}
@@ -2129,7 +2152,7 @@ public final class Formulas
 		}
 
 		byte shldSuccess = SHIELD_DEFENSE_FAILED;
-		// if attacker 
+		// if attacker
 		// if attacker use bow and target wear shield, shield block rate is multiplied by 1.3 (30%)
 		L2Weapon at_weapon = attacker.getActiveWeaponItem();
 		if (at_weapon != null && at_weapon.getItemType() == L2WeaponType.BOW)
@@ -2871,7 +2894,7 @@ public final class Formulas
 		if (skill != null && skill.getElement() > 0)
 		{
 			calcPower = 20;
-			// Calculate the elemental power  
+			// Calculate the elemental power
 			switch (skill.getElement())
 			{
 				case L2Skill.ELEMENT_FIRE:

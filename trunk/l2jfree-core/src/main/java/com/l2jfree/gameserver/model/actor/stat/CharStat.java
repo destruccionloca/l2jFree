@@ -182,13 +182,9 @@ public class CharStat
 	}
 
 	/** Return the Critical Hit rate (base+modifier) of the L2Character. */
-	public int getCriticalHit(L2Character target, L2Skill skill)
+	public int getCriticalHit(L2Character target)
 	{
-		if (_activeChar == null)
-			return 1;
-
-		int criticalHit = (int) (calcStat(Stats.CRITICAL_RATE, _activeChar.getTemplate().getBaseCritRate(), target, skill) * 10.0 + 0.5);
-		criticalHit /= 10;
+		int criticalHit = (int)calcStat(Stats.CRITICAL_RATE, _activeChar.getTemplate().getBaseCritRate(), target, null);
 
 		// Set a cap of Critical Hit at ALT_PCRITICAL_CAP
 		if (criticalHit > Config.ALT_PCRITICAL_CAP)
@@ -880,7 +876,7 @@ public class CharStat
 		// temp fix ends
 		
 		/*
-		 * uncomment me once deadlocks in getAllEffects() fixed 
+		 * uncomment me once deadlocks in getAllEffects() fixed
 			return _activeChar.getElementIdFromEffects();
 		*/
 	}

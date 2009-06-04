@@ -219,7 +219,7 @@ public class PetStat extends SummonStat
 	}
 
 	@Override
-	public int getCriticalHit(L2Character target, L2Skill skill)
+	public int getCriticalHit(L2Character target)
 	{
 		return (int)calcStat(Stats.CRITICAL_RATE, getActiveChar().getPetData().getPetCritical(), target, null);
 	}

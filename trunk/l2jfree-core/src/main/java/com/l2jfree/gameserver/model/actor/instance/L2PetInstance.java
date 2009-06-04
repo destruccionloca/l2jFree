@@ -38,7 +38,6 @@ import com.l2jfree.gameserver.instancemanager.ItemsOnGroundManager;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2PetData;
-import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.L2ItemInstance.ItemLocation;
 import com.l2jfree.gameserver.model.actor.L2Character;
@@ -1114,60 +1113,6 @@ public class L2PetInstance extends L2Summon
 	public long getExpForNextLevel()
 	{
 		return getStat().getExpForLevel(getLevel() + 1);
-	}
-	
-	@Override
-	public int getAccuracy()
-	{
-		return getStat().getAccuracy();
-	}
-	
-	@Override
-	public int getCriticalHit(L2Character target, L2Skill skill)
-	{
-		return getStat().getCriticalHit(target, skill);
-	}
-	
-	@Override
-	public int getEvasionRate(L2Character target)
-	{
-		return getStat().getEvasionRate(target);
-	}
-	
-	@Override
-	public int getPAtkSpd()
-	{
-		return getStat().getPAtkSpd();
-	}
-	
-	@Override
-	public int getMAtkSpd()
-	{
-		return getStat().getMAtkSpd();
-	}
-	
-	@Override
-	public int getMAtk(L2Character target, L2Skill skill)
-	{
-		return getStat().getMAtk(target, skill);
-	}
-	
-	@Override
-	public int getMDef(L2Character target, L2Skill skill)
-	{
-		return getStat().getMDef(target, skill);
-	}
-	
-	@Override
-	public int getPAtk(L2Character target)
-	{
-		return getStat().getPAtk(target);
-	}
-	
-	@Override
-	public int getPDef(L2Character target)
-	{
-		return getStat().getPDef(target);
 	}
 	
 	@Override

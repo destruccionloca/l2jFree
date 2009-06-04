@@ -112,9 +112,8 @@ public class Blow implements ISkillHandler
 				byte shld = Formulas.calcShldUse(activeChar, target);
 
 				// Crit rate base crit rate for skill, modified with STR bonus
-				boolean crit = false;
-				if (Formulas.calcCrit(skill.getBaseCritRate() * 10 * Formulas.getSTRBonus(activeChar)))
-					crit = true;
+				boolean crit = Formulas.calcSkillCrit(activeChar, target, skill);
+				
 				double damage = (int) Formulas.calcBlowDamage(activeChar, target, skill, shld, soul);
 				if (crit)
 				{

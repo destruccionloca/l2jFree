@@ -51,7 +51,7 @@ public class StartRotating extends L2GameClientPacket
 	{
 		if (getClient().getActiveChar() == null)
 		    return;
-		StartRotation br = new StartRotation(getClient().getActiveChar(), _degree, _side);
+		StartRotation br = new StartRotation(getClient().getActiveChar().getObjectId(), _degree, _side, 0);
 		getClient().getActiveChar().broadcastPacket(br);
 	}
 

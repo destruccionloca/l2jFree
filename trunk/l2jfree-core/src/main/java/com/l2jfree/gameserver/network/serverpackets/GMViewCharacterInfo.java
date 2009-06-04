@@ -128,9 +128,9 @@ public class GMViewCharacterInfo extends L2GameServerPacket
         writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO6));
         if(Config.PACKET_FINAL)
         {
-            writeD(0); // T3 Unknown 
-            writeD(0); // T3 Unknown 
-            writeD(0); // T3 Unknown         	
+            writeD(0); // T3 Unknown
+            writeD(0); // T3 Unknown
+            writeD(0); // T3 Unknown
         }
         
         writeH(0x00);
@@ -191,7 +191,7 @@ public class GMViewCharacterInfo extends L2GameServerPacket
 		writeD(_activeChar.getPDef(null));
 		writeD(_activeChar.getEvasionRate(null));
 		writeD(_activeChar.getAccuracy());
-		writeD(_activeChar.getCriticalHit(null, null));
+		writeD(_activeChar.getCriticalHit());
 		writeD(_activeChar.getMAtk(null, null));
 
 		writeD(_activeChar.getMAtkSpd());
@@ -222,7 +222,7 @@ public class GMViewCharacterInfo extends L2GameServerPacket
 		writeS(_activeChar.getTitle());
 		writeD(_activeChar.getClanId());		// pledge id
 		writeD(_activeChar.getClanCrestId());		// pledge crest id
-		writeD(_activeChar.getAllyId());		// ally id 
+		writeD(_activeChar.getAllyId());		// ally id
 		writeC(_activeChar.getMountType()); // mount type
 		writeC(_activeChar.getPrivateStoreType());
 		writeC(_activeChar.hasDwarvenCraft() ? 1 : 0);
@@ -236,7 +236,7 @@ public class GMViewCharacterInfo extends L2GameServerPacket
 		writeD(_activeChar.getMaxCp());
 		writeD((int) _activeChar.getStatus().getCurrentCp());
 		
-		writeC(_activeChar.isRunning() ? 0x01 : 0x00); //changes the Speed display on Status Window 
+		writeC(_activeChar.isRunning() ? 0x01 : 0x00); //changes the Speed display on Status Window
 		
 		writeC(321);
 		
@@ -248,7 +248,7 @@ public class GMViewCharacterInfo extends L2GameServerPacket
 		writeD(_activeChar.getAppearance().getNameColor());
 		writeD(_activeChar.getAppearance().getTitleColor());
 
-		int attackAttribute = _activeChar.getAttackElement(); 
+		int attackAttribute = _activeChar.getAttackElement();
 		writeD(attackAttribute);
 		writeD(_activeChar.getAttackElementValue(attackAttribute));
 		writeD(_activeChar.getDefAttrFire());

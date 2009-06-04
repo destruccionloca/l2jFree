@@ -39,7 +39,7 @@ public final class L2CharPosition
 		x = spawn.getLocx();
 		y = spawn.getLocy();
 		z = spawn.getLocz();
-		heading = 0;
+		heading = spawn.getHeading();
 	}
 	
 	public L2CharPosition(int pX, int pY, int pZ, int pHeading)

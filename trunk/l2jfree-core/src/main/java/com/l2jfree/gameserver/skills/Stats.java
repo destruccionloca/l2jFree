@@ -69,7 +69,6 @@ public enum Stats
 	MAGIC_ATTACK_RANGE("mAtkRange"),
 	POWER_ATTACK_ANGLE("pAtkAngle"),
 	ATTACK_COUNT_MAX("atkCountMax"),
-	POLE_ATTACK_ANGLE("poleAngle"),
 	
 	// Run speed,
 	// walk & escape speed are calculated proportionally,
@@ -136,7 +135,6 @@ public enum Stats
 	CRIT_VULN("critVuln"), // Resistence to Crit DMG.
 	MAGIC_DAMAGE_VULN("magicDamVul"),
 	CRIT_DAMAGE_EVASION("critDamEvas"),
-	SHIELD_DEFENCE_ANGLE("shieldDefAngle"),
 	BUFF_VULN("buffVuln"),
 	VALAKAS("valakas"),
 	VALAKAS_RES("valakasRes"),

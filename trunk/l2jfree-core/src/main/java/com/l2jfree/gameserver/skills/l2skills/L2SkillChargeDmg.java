@@ -51,10 +51,8 @@ public class L2SkillChargeDmg extends L2Skill
 				continue;
 
 			byte shld = Formulas.calcShldUse(activeChar, target);
-			boolean crit = false;
-			if (getBaseCritRate() > 0)
-				crit = Formulas.calcCrit(getBaseCritRate() * 10 * Formulas.getSTRBonus(activeChar));
-
+			boolean crit = Formulas.calcSkillCrit(activeChar, target, this);
+			
 			boolean soul = (weapon != null && weapon.isSoulshotCharged() && weapon.getItemType() != L2WeaponType.DAGGER);
 
 			// damage calculation, crit is static 2x
