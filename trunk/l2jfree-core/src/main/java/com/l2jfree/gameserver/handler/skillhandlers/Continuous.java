@@ -149,7 +149,7 @@ public class Continuous implements ICubicSkillHandler
 					activeChar.useSoulshotCharge();
 				}
 				
-				byte shld = Formulas.calcShldUse(activeChar, target);
+				byte shld = Formulas.calcShldUse(activeChar, target, skill);
 				acted = Formulas.calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss);
 			}
 
@@ -225,7 +225,7 @@ public class Continuous implements ICubicSkillHandler
 			
 			if (skill.isOffensive())
 			{
-				byte shld = Formulas.calcShldUse(activeCubic.getOwner(), target);
+				byte shld = Formulas.calcShldUse(activeCubic.getOwner(), target, skill);
 				boolean acted = Formulas.calcCubicSkillSuccess(activeCubic, target, skill, shld);
 				if (!acted)
 				{

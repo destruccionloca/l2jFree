@@ -2127,74 +2127,61 @@ public final class Formulas
 	}
 
 	/**
-	 * Returns:<br>
-	 * 0 = shield defense doesn't succeed<br>
-	 * 1 = shield defense succeed<br>
-	 * 2 = perfect block<br>
-	 * 
 	 * @param attacker
 	 * @param target
 	 * @param sendSysMsg
-	 * @return
+	 * @return 0 = shield defense doesn't succeed<br>
+	 *         1 = shield defense succeed<br>
+	 *         2 = perfect block<br>
 	 */
-	public static byte calcShldUse(L2Character attacker, L2Character target, L2Skill skill, boolean sendSysMsg)
+	public static byte calcShldUse(L2Character attacker, L2Character target)
 	{
-		if (skill != null && skill.ignoreShield())
-			return 0;
-
-		double shldRate = target.calcStat(Stats.SHIELD_RATE, 0, attacker, null) * DEXbonus[target.getStat().getDEX()];
-		if (shldRate == 0.0)
-			return 0;
-		int degreeside = (int) target.calcStat(Stats.SHIELD_DEFENCE_ANGLE, 0, null, null) + 120;
-		if (degreeside < 360 && (!target.isFacing(attacker, degreeside)))
-		{
-			return 0;
-		}
-
-		byte shldSuccess = SHIELD_DEFENSE_FAILED;
-		// if attacker
-		// if attacker use bow and target wear shield, shield block rate is multiplied by 1.3 (30%)
-		L2Weapon at_weapon = attacker.getActiveWeaponItem();
-		if (at_weapon != null && at_weapon.getItemType() == L2WeaponType.BOW)
-			shldRate *= 1.3;
-
-		if (shldRate > 0 && 100 - Config.ALT_PERFECT_SHLD_BLOCK < Rnd.get(100))
-		{
-			shldSuccess = SHIELD_DEFENSE_PERFECT_BLOCK;
-		}
-		else if (shldRate > Rnd.get(100))
-		{
-			shldSuccess = SHIELD_DEFENSE_SUCCEED;
-		}
-
-		if (sendSysMsg && target instanceof L2PcInstance)
-		{
-			L2PcInstance enemy = (L2PcInstance) target;
-
-			switch (shldSuccess)
-			{
-				case SHIELD_DEFENSE_SUCCEED:
-					enemy.sendPacket(new SystemMessage(SystemMessageId.SHIELD_DEFENCE_SUCCESSFULL));
-					break;
-				case SHIELD_DEFENSE_PERFECT_BLOCK:
-					enemy.sendPacket(new SystemMessage(SystemMessageId.YOUR_EXCELLENT_SHIELD_DEFENSE_WAS_A_SUCCESS));
-					break;
-			}
-		}
-
-		return shldSuccess;
+		return calcShldUse(attacker, target, null);
 	}
-
+	
 	public static byte calcShldUse(L2Character attacker, L2Character target, L2Skill skill)
 	{
 		return calcShldUse(attacker, target, skill, true);
 	}
-
-	public static byte calcShldUse(L2Character attacker, L2Character target)
+	
+	public static byte calcShldUse(L2Character attacker, L2Character target, L2Skill skill, boolean sendSysMsg)
 	{
-		return calcShldUse(attacker, target, null, true);
+		if (skill != null && skill.ignoreShld())
+			return SHIELD_DEFENSE_FAILED;
+		
+		if (!attacker.isInFrontOf(target, target.calcStat(Stats.SHIELD_ANGLE, 120, target, skill) / 2))
+			return SHIELD_DEFENSE_FAILED;
+		
+		double shldRate = target.calcStat(Stats.SHIELD_RATE, 0, attacker, skill) * DEXbonus[target.getStat().getDEX()];
+		if (shldRate == 0.0)
+			return SHIELD_DEFENSE_FAILED;
+		
+		// if attacker use bow and target wear shield, shield block rate is multiplied by 1.3 (30%)
+		L2Weapon weapon = attacker.getActiveWeaponItem();
+		if (weapon != null && weapon.getItemType().isBowType())
+			shldRate *= 1.3;
+		
+		if (!Rnd.calcChance(shldRate, 100))
+			return SHIELD_DEFENSE_FAILED;
+		
+		byte shldSuccess = Rnd.calcChance(Config.ALT_PERFECT_SHLD_BLOCK, 100) ? SHIELD_DEFENSE_PERFECT_BLOCK : SHIELD_DEFENSE_SUCCEED;
+		
+		if (sendSysMsg && target instanceof L2PcInstance)
+		{
+			switch (shldSuccess)
+			{
+				case SHIELD_DEFENSE_SUCCEED:
+					target.sendPacket(SystemMessageId.SHIELD_DEFENCE_SUCCESSFULL);
+					break;
+				case SHIELD_DEFENSE_PERFECT_BLOCK:
+					target.sendPacket(SystemMessageId.YOUR_EXCELLENT_SHIELD_DEFENSE_WAS_A_SUCCESS);
+					break;
+			}
+		}
+		
+		return shldSuccess;
 	}
-
+	
 	public static boolean calcMagicAffected(L2Character actor, L2Character target, L2Skill skill)
 	{
 		// TODO: CHECK/FIX THIS FORMULA UP!!

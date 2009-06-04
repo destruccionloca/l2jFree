@@ -109,7 +109,7 @@ public class Blow implements ISkillHandler
 				}
 				L2ItemInstance weapon = activeChar.getActiveWeaponInstance();
 				boolean soul = (weapon != null && weapon.isSoulshotCharged() && weapon.getItemType() == L2WeaponType.DAGGER);
-				byte shld = Formulas.calcShldUse(activeChar, target);
+				byte shld = Formulas.calcShldUse(activeChar, target, skill);
 
 				// Crit rate base crit rate for skill, modified with STR bonus
 				boolean crit = Formulas.calcSkillCrit(activeChar, target, skill);

@@ -131,7 +131,7 @@ public class Disablers implements ICubicSkillHandler
 			if (target.isPreventedFromReceivingBuffs())
 				continue;
 
-			shld = Formulas.calcShldUse(activeChar, target);
+			shld = Formulas.calcShldUse(activeChar, target, skill);
 
 			switch (type)
 			{
@@ -781,7 +781,7 @@ public class Disablers implements ICubicSkillHandler
 			if (target.isDead()) // Bypass if target is null or dead
 				continue;
 
-			byte shld = Formulas.calcShldUse(activeCubic.getOwner(), target);
+			byte shld = Formulas.calcShldUse(activeCubic.getOwner(), target, skill);
 			switch (type)
 			{
 				case STUN:

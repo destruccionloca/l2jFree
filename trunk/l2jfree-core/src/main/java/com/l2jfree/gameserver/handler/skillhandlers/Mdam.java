@@ -81,7 +81,7 @@ public class Mdam implements ICubicSkillHandler
 			}
 
 			boolean mcrit = Formulas.calcMCrit(activeChar.getMCriticalHit(target, skill));
-			byte shld = Formulas.calcShldUse(activeChar, target);
+			byte shld = Formulas.calcShldUse(activeChar, target, skill);
 			int damage = (int) Formulas.calcMagicDam(activeChar, target, skill, shld, ss, bss, mcrit);
 
 			if (skill.getMaxSoulConsumeCount() > 0 && activeChar instanceof L2PcInstance)
@@ -223,7 +223,7 @@ public class Mdam implements ICubicSkillHandler
 				continue;
 
 			boolean mcrit = Formulas.calcMCrit(activeCubic.getMCriticalHit(target, skill));
-			byte shld = Formulas.calcShldUse(activeCubic.getOwner(), target);
+			byte shld = Formulas.calcShldUse(activeCubic.getOwner(), target, skill);
 			int damage = (int) Formulas.calcMagicDam(activeCubic, target, skill, mcrit, shld);
 
 			// If target is reflecting the skill then no damage is done
