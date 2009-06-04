@@ -121,22 +121,20 @@ public final class Util
 	public final static double calculateAngleFrom(int obj1X, int obj1Y, int obj2X, int obj2Y)
 	{
 		double angleTarget = Math.toDegrees(Math.atan2(obj2Y - obj1Y, obj2X - obj1X));
-		if (angleTarget < 0)
-			angleTarget += 360;
-		return angleTarget;
+		
+		return getValidDegree(angleTarget);
 	}
 	
 	public final static double convertHeadingToDegree(int clientHeading)
 	{
 		double degree = clientHeading / 182.044444444;
-		return degree;
+		
+		return getValidDegree(degree);
 	}
 	
 	public final static int convertDegreeToClientHeading(double degree)
 	{
-		if (degree < 0)
-			degree += 360;
-		return (int)(degree * 182.044444444);
+		return (int)getValidHeading(degree * 182.044444444);
 	}
 	
 	public final static int calculateHeadingFrom(L2Object obj1, L2Object obj2)
@@ -148,17 +146,63 @@ public final class Util
 	public final static int calculateHeadingFrom(int obj1X, int obj1Y, int obj2X, int obj2Y)
 	{
 		double angleTarget = Math.toDegrees(Math.atan2(obj2Y - obj1Y, obj2X - obj1X));
-		if (angleTarget < 0)
-			angleTarget += 360;
-		return (int)(angleTarget * 182.044444444);
+		
+		return (int)getValidHeading(angleTarget * 182.044444444);
 	}
 	
 	public final static int calculateHeadingFrom(double dx, double dy)
 	{
 		double angleTarget = Math.toDegrees(Math.atan2(dy, dx));
-		if (angleTarget < 0)
-			angleTarget += 360;
-		return (int)(angleTarget * 182.044444444);
+		
+		return (int)getValidHeading(angleTarget * 182.044444444);
+	}
+	
+	/**
+	 * @param heading (n * 65536 + k)
+	 * @return k [0, 65536[
+	 */
+	public static double getValidHeading(double heading)
+	{
+		while (heading < 0.)
+			heading += 65536.;
+		
+		while (heading >= 65536.)
+			heading -= 65536.;
+		
+		return heading;
+	}
+	
+	/**
+	 * @param degree (n * 360 + k)
+	 * @return k [0, 360[
+	 */
+	public static double getValidDegree(double degree)
+	{
+		while (degree < 0.)
+			degree += 360.;
+		
+		while (degree >= 360.)
+			degree -= 360.;
+		
+		return degree;
+	}
+	
+	/**
+	 * @param attacker
+	 * @param target
+	 * @return angle difference [0, 180]
+	 */
+	public static double getAngleDifference(L2Character attacker, L2Character target)
+	{
+		double diff = Util.calculateAngleFrom(target, attacker) - Util.convertHeadingToDegree(target.getHeading());
+		
+		while (diff > +180)
+			diff -= 360;
+		
+		while (diff < -180)
+			diff += 360;
+		
+		return Math.abs(diff);
 	}
 	
 	public final static double calculateDistance(int x1, int y1, int z1, int x2, int y2, int z2, boolean includeZAxis)
