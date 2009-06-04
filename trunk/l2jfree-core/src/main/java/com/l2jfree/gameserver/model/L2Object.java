@@ -157,6 +157,16 @@ public abstract class L2Object implements L2Entity<Integer>
 		return getPosition().getZ();
 	}
 	
+	public final int getHeading()
+	{
+		return getPosition().getHeading();
+	}
+	
+	public final void setHeading(int value)
+	{
+		getPosition().setHeading(value);
+	}
+	
 	/**
 	 * Remove a L2Object from the world.<BR>
 	 * <BR>

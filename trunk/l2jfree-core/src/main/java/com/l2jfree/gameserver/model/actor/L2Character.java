@@ -1724,7 +1724,7 @@ public abstract class L2Character extends L2Object
 		if(!effectWhileCasting)
 		{
 			hitTime = Formulas.calcAtkSpd(this, skill, hitTime);
-			if (coolTime > 0) 
+			if (coolTime > 0)
 				coolTime = Formulas.calcAtkSpd(this, skill, coolTime);
 		}
 		
@@ -3904,9 +3904,6 @@ public abstract class L2Character extends L2Object
 	/** Movement data of this L2Character */
 	protected MoveData					_move;
 
-	/** Orientation of the L2Character */
-	private int							_heading;
-
 	/** L2Charcater targeted by the L2Character */
 	private L2Object					_target					= null;
 
@@ -4064,24 +4061,6 @@ public abstract class L2Character extends L2Object
 		broadcastFullInfo();
 	}
 	
-	/**
-	 * Return the orientation of the L2Character.<BR>
-	 * <BR>
-	 */
-	public final int getHeading()
-	{
-		return _heading;
-	}
-
-	/**
-	 * Set the orientation of the L2Character.<BR>
-	 * <BR>
-	 */
-	public final void setHeading(int heading)
-	{
-		_heading = heading;
-	}
-
 	/**
 	 * Return the X destination of the L2Character or the X position if not in movement.<BR>
 	 * <BR>
@@ -4563,6 +4542,29 @@ public abstract class L2Character extends L2Object
 	public final L2Object getTarget()
 	{
 		return _target;
+	}
+	
+	public final <T extends L2Object> T getTarget(Class<T> clazz)
+	{
+		L2Object target = getTarget();
+		
+		if (clazz.isInstance(target))
+			return clazz.cast(target);
+		else
+			return null;
+	}
+	
+	public final <T extends L2Object> T getTarget(Class<T> clazz, int objectId)
+	{
+		L2Object target = getTarget();
+		
+		if (target == null)
+			target = L2World.getInstance().findObject(objectId);
+		
+		if (clazz.isInstance(target) && target.getObjectId() == objectId)
+			return clazz.cast(target);
+		else
+			return null;
 	}
 
 	// called from AIAccessor only
@@ -5665,13 +5667,13 @@ public abstract class L2Character extends L2Object
         {
         	L2PcInstance pcInst = (L2PcInstance) this;
         	transformed = pcInst.isTransformed();
-        }		
+        }
         if (weapon == null || transformed)
         	return 0;
 
         int reuse = weapon.getAttackReuseDelay();
         // only bows should continue for now
-        if (reuse == 0) return 0; 
+        if (reuse == 0) return 0;
         // else if (reuse < 10) reuse = 1500;
 
 		reuse *= getStat().getWeaponReuseModifier(target);
@@ -5688,11 +5690,11 @@ public abstract class L2Character extends L2Object
 	
 	/**
 	 * Return True if the L2Character use a dual weapon.<BR><BR>
-	 */	
+	 */
 	public boolean isUsingDualWeapon()
 	{
 		return false;
-	}	
+	}
 	
 	/**
 	 * Add a skill to the L2Character _skills and its Func objects to the calculator set of the L2Character.<BR>
@@ -6775,7 +6777,7 @@ public abstract class L2Character extends L2Object
 			heading += 65536;
 		return heading;
 	}
-
+	
 	/**
 	 * Return 1.<BR>
 	 * <BR>
@@ -7000,7 +7002,7 @@ public abstract class L2Character extends L2Object
 
 	public void reduceCurrentHpByDOT(double i, L2Character attacker, L2Skill skill)
 	{
-		reduceCurrentHp(i, attacker, false, true, skill); 
+		reduceCurrentHp(i, attacker, false, true, skill);
 	}
 
 	public void reduceCurrentMp(double i)
@@ -7393,5 +7395,5 @@ public abstract class L2Character extends L2Object
 
 		if (_chanceSkills.isEmpty())
 			_chanceSkills = null;
-	}	
+	}
 }
