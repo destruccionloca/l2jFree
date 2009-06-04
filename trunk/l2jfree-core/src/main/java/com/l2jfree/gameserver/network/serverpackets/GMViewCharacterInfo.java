@@ -189,7 +189,7 @@ public class GMViewCharacterInfo extends L2GameServerPacket
 		writeD(_activeChar.getPAtk(null));
 		writeD(_activeChar.getPAtkSpd());
 		writeD(_activeChar.getPDef(null));
-		writeD(_activeChar.getEvasionRate(null));
+		writeD(_activeChar.getEvasionRate());
 		writeD(_activeChar.getAccuracy());
 		writeD(_activeChar.getCriticalHit());
 		writeD(_activeChar.getMAtk(null, null));

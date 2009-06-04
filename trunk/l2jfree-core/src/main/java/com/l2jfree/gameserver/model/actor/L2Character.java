@@ -6758,9 +6758,9 @@ public abstract class L2Character extends L2Object
 		return getStat().getCriticalHit(null);
 	}
 
-	public final int getEvasionRate(L2Character target)
+	public final int getEvasionRate()
 	{
-		return getStat().getEvasionRate(target);
+		return getStat().getEvasionRate(null);
 	}
 
 	public final int getINT()

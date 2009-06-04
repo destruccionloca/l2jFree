@@ -35,6 +35,7 @@ import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2GrandBossInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2GuardInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
@@ -1831,7 +1832,7 @@ public final class Formulas
 		
 		rate *= 1 + getHeightModifier(attacker, target, 0.15);
 		
-		return rate > Rnd.get(1000);
+		return Rnd.calcChance(rate, 1000);
 	}
 	
 	private static double getHeightModifier(L2Character attacker, L2Character target, double base)
@@ -1999,131 +2000,106 @@ public final class Formulas
 	 */
 	public static boolean calcHitMiss(L2Character attacker, L2Character target)
 	{
-		int delta = attacker.getAccuracy() - target.getEvasionRate(attacker);
-		int chance;
-		if (delta >= 10)
-			chance = 980;
-		else
+		if (attacker instanceof L2GuardInstance)
+			return false;
+		
+		double chance = getBaseHitChance(attacker, target);
+		
+		switch (Direction.getDirection(attacker, target))
 		{
-			switch (delta)
-			{
-				case 9:
-					chance = 975;
-					break;
-				case 8:
-					chance = 970;
-					break;
-				case 7:
-					chance = 965;
-					break;
-				case 6:
-					chance = 960;
-					break;
-				case 5:
-					chance = 955;
-					break;
-				case 4:
-					chance = 945;
-					break;
-				case 3:
-					chance = 935;
-					break;
-				case 2:
-					chance = 925;
-					break;
-				case 1:
-					chance = 915;
-					break;
-				case 0:
-					chance = 905;
-					break;
-				case -1:
-					chance = 890;
-					break;
-				case -2:
-					chance = 875;
-					break;
-				case -3:
-					chance = 860;
-					break;
-				case -4:
-					chance = 845;
-					break;
-				case -5:
-					chance = 830;
-					break;
-				case -6:
-					chance = 815;
-					break;
-				case -7:
-					chance = 800;
-					break;
-				case -8:
-					chance = 785;
-					break;
-				case -9:
-					chance = 770;
-					break;
-				case -10:
-					chance = 755;
-					break;
-				case -11:
-					chance = 735;
-					break;
-				case -12:
-					chance = 715;
-					break;
-				case -13:
-					chance = 695;
-					break;
-				case -14:
-					chance = 675;
-					break;
-				case -15:
-					chance = 655;
-					break;
-				case -16:
-					chance = 625;
-					break;
-				case -17:
-					chance = 595;
-					break;
-				case -18:
-					chance = 565;
-					break;
-				case -19:
-					chance = 535;
-					break;
-				case -20:
-					chance = 505;
-					break;
-				case -21:
-					chance = 455;
-					break;
-				case -22:
-					chance = 405;
-					break;
-				case -23:
-					chance = 355;
-					break;
-				case -24:
-					chance = 305;
-					break;
-				default:
-					chance = 275;
-			}
-			if (!attacker.isInFrontOfTarget())
-			{
-				if (attacker.isBehindTarget())
-					chance *= 1.2;
-				else
-					// side
-					chance *= 1.1;
-				if (chance > 980)
-					chance = 980;
-			}
+			case SIDE:
+				chance *= 1.1;
+				break;
+			case BACK:
+				chance *= 1.2;
+				break;
 		}
-		return chance < Rnd.get(1000);
+		
+		chance *= 1 + getHeightModifier(attacker, target, 0.05);
+		
+		return !Rnd.calcChance(chance, 1000);
+	}
+	
+	private static int getBaseHitChance(L2Character attacker, L2Character target)
+	{
+		final int diff = attacker.getStat().getAccuracy() - target.getStat().getEvasionRate(attacker);
+		
+		if (diff >= 10)
+			return 980;
+		
+		switch (diff)
+		{
+			case 9:
+				return 975;
+			case 8:
+				return 970;
+			case 7:
+				return 965;
+			case 6:
+				return 960;
+			case 5:
+				return 955;
+			case 4:
+				return 945;
+			case 3:
+				return 935;
+			case 2:
+				return 925;
+			case 1:
+				return 915;
+			case 0:
+				return 905;
+			case -1:
+				return 890;
+			case -2:
+				return 875;
+			case -3:
+				return 860;
+			case -4:
+				return 845;
+			case -5:
+				return 830;
+			case -6:
+				return 815;
+			case -7:
+				return 800;
+			case -8:
+				return 785;
+			case -9:
+				return 770;
+			case -10:
+				return 755;
+			case -11:
+				return 735;
+			case -12:
+				return 715;
+			case -13:
+				return 695;
+			case -14:
+				return 675;
+			case -15:
+				return 655;
+			case -16:
+				return 625;
+			case -17:
+				return 595;
+			case -18:
+				return 565;
+			case -19:
+				return 535;
+			case -20:
+				return 505;
+			case -21:
+				return 455;
+			case -22:
+				return 405;
+			case -23:
+				return 355;
+			case -24:
+				return 305;
+		}
+		
+		return 275;
 	}
 
 	/**
@@ -2784,7 +2760,7 @@ public final class Formulas
 
 		double damage = (Math.sqrt(mAtk) * skill.getPower(attacker) * (mp / 97)) / mDef;
 		damage *= calcSkillVulnerability(attacker, target, skill);
-		return damage;
+		return GlobalRestrictions.calcDamage(attacker, target, damage, skill);
 	}
 
 	public static double calculateSkillResurrectRestorePercent(double baseRestorePercent, int casterWIT)
