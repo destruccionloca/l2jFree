@@ -188,13 +188,11 @@ public final class Util
 	}
 	
 	/**
-	 * @param attacker
-	 * @param target
 	 * @return angle difference [0, 180]
 	 */
-	public static double getAngleDifference(L2Character attacker, L2Character target)
+	public static double getAngleDifference(L2Object obj, L2Object src)
 	{
-		double diff = Util.calculateAngleFrom(target, attacker) - Util.convertHeadingToDegree(target.getHeading());
+		double diff = Util.calculateAngleFrom(src, obj) - Util.convertHeadingToDegree(src.getHeading());
 		
 		while (diff > +180)
 			diff -= 360;
@@ -203,6 +201,31 @@ public final class Util
 			diff += 360;
 		
 		return Math.abs(diff);
+	}
+	
+	public static boolean isInAngle(L2Object obj, L2Object src, double degree)
+	{
+		return Util.getAngleDifference(obj, src) <= degree;
+	}
+	
+	public static enum Direction
+	{
+		FRONT,
+		SIDE,
+		BACK;
+		
+		public static Direction getDirection(L2Object obj, L2Object src)
+		{
+			double angleDifference = Util.getAngleDifference(obj, src);
+			
+			if (angleDifference <= 60)
+				return FRONT;
+			
+			if (angleDifference <= 120)
+				return SIDE;
+			
+			return BACK;
+		}
 	}
 	
 	public final static double calculateDistance(int x1, int y1, int z1, int x2, int y2, int z2, boolean includeZAxis)
@@ -488,20 +511,6 @@ public final class Util
 	 */
 	public static String formatAdena(int amount)
 	{
-		String s = "";
-		int rem = amount % 1000;
-		s = Integer.toString(rem);
-		amount = (amount - rem) / 1000;
-		while (amount > 0)
-		{
-			if (rem < 99)
-				s = '0' + s;
-			if (rem < 9)
-				s = '0' + s;
-			rem = amount % 1000;
-			s = Integer.toString(rem) + "," + s;
-			amount = (amount - rem) / 1000;
-		}
-		return s;
+		return formatNumber(amount);
 	}
 }
