@@ -28,7 +28,6 @@ public class EffectDebuff extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
 	 */
 	@Override

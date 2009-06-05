@@ -39,7 +39,6 @@ public class EffectEnemyCharge extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
 	 */
 	@Override
@@ -49,7 +48,6 @@ public class EffectEnemyCharge extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
 	 */
 	@Override
@@ -67,10 +65,11 @@ public class EffectEnemyCharge extends L2Effect
 		double distance = Math.sqrt(dx * dx + dy * dy);
 		if (distance > 2000)
 		{
-			_log.info("EffectEnemyCharge was going to use invalid coordinates for characters, getEffector: "+curX+","+curY+" and getEffected: "+getEffected().getX()+","+getEffected().getY());
+			_log.info("EffectEnemyCharge was going to use invalid coordinates for characters, getEffector: " + curX
+				+ "," + curY + " and getEffected: " + getEffected().getX() + "," + getEffected().getY());
 			return false;
 		}
-		int offset = Math.max((int) distance - getSkill().getFlyRadius(), 30);
+		int offset = Math.max((int)distance - getSkill().getFlyRadius(), 30);
 		
 		double cos;
 		double sin;
@@ -90,13 +89,14 @@ public class EffectEnemyCharge extends L2Effect
 		cos = dx / distance;
 		
 		// Calculate the new destination with offset included
-		_x = curX + (int) ((distance - offset) * cos);
-		_y = curY + (int) ((distance - offset) * sin);
+		_x = curX + (int)((distance - offset) * cos);
+		_y = curY + (int)((distance - offset) * sin);
 		_z = getEffected().getZ();
 		
 		if (Config.GEODATA > 0)
 		{
-			Location destiny = GeoData.getInstance().moveCheck(getEffector().getX(), getEffector().getY(), getEffector().getZ(), _x, _y, _z);
+			Location destiny = GeoData.getInstance().moveCheck(getEffector().getX(), getEffector().getY(),
+				getEffector().getZ(), _x, _y, _z);
 			_x = destiny.getX();
 			_y = destiny.getY();
 		}
@@ -107,7 +107,6 @@ public class EffectEnemyCharge extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
 	 */
 	@Override

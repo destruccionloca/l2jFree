@@ -20,10 +20,8 @@ import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
 /**
- * @author mkizub
- * 
- *         TODO To change the template for this generated type comment go to
- *         Window - Preferences - Java - Code Style - Code Templates
+ * @author mkizub TODO To change the template for this generated type comment go to Window - Preferences - Java - Code
+ *         Style - Code Templates
  */
 public class EffectRoot extends L2Effect
 {
@@ -34,7 +32,6 @@ public class EffectRoot extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
 	 */
 	@Override
@@ -44,7 +41,6 @@ public class EffectRoot extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
 	 */
 	@Override
@@ -55,7 +51,6 @@ public class EffectRoot extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
 	 */
 	@Override

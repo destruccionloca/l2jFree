@@ -28,7 +28,6 @@ public class EffectSilenceMagicPhysical extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
 	 */
 	@Override
@@ -38,7 +37,6 @@ public class EffectSilenceMagicPhysical extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
 	 */
 	@Override
@@ -50,7 +48,6 @@ public class EffectSilenceMagicPhysical extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
 	 */
 	@Override

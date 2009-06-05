@@ -22,10 +22,8 @@ import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
 /**
- * @author demonia
- * 
- *         TODO To change the template for this generated type comment go to
- *         Window - Preferences - Java - Code Style - Code Templates
+ * @author demonia TODO To change the template for this generated type comment go to Window - Preferences - Java - Code
+ *         Style - Code Templates
  */
 public class EffectImmobilePetBuff extends L2Effect
 {
@@ -37,7 +35,6 @@ public class EffectImmobilePetBuff extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
 	 */
 	@Override
@@ -47,7 +44,6 @@ public class EffectImmobilePetBuff extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
 	 */
 	@Override
@@ -55,11 +51,10 @@ public class EffectImmobilePetBuff extends L2Effect
 	{
 		_pet = null;
 		
-		if (getEffected() instanceof L2Summon
-		        && getEffector() instanceof L2PcInstance
-		        && ((L2Summon) getEffected()).getOwner() == getEffector())
+		if (getEffected() instanceof L2Summon && getEffector() instanceof L2PcInstance
+			&& ((L2Summon)getEffected()).getOwner() == getEffector())
 		{
-			_pet = (L2Summon) getEffected();
+			_pet = (L2Summon)getEffected();
 			_pet.setIsImmobilized(true);
 			return true;
 		}
@@ -67,7 +62,6 @@ public class EffectImmobilePetBuff extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
 	 */
 	@Override

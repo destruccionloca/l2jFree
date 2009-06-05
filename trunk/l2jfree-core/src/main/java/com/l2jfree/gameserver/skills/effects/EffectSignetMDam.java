@@ -54,7 +54,6 @@ public class EffectSignetMDam extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
 	 */
 	@Override
@@ -64,7 +63,6 @@ public class EffectSignetMDam extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
 	 */
 	@Override
@@ -72,11 +70,12 @@ public class EffectSignetMDam extends L2Effect
 	{
 		L2NpcTemplate template;
 		if (getSkill() instanceof L2SkillSignetCasttime)
-			template = NpcTable.getInstance().getTemplate(((L2SkillSignetCasttime) getSkill())._effectNpcId);
+			template = NpcTable.getInstance().getTemplate(((L2SkillSignetCasttime)getSkill())._effectNpcId);
 		else
 			return false;
 		
-		L2EffectPointInstance effectPoint = new L2EffectPointInstance(IdFactory.getInstance().getNextId(), template, getEffector());
+		L2EffectPointInstance effectPoint = new L2EffectPointInstance(IdFactory.getInstance().getNextId(), template,
+			getEffector());
 		effectPoint.getStatus().setCurrentHp(effectPoint.getMaxHp());
 		effectPoint.getStatus().setCurrentMp(effectPoint.getMaxMp());
 		L2World.getInstance().storeObject(effectPoint);
@@ -86,9 +85,9 @@ public class EffectSignetMDam extends L2Effect
 		int z = getEffector().getZ();
 		
 		if (getEffector() instanceof L2PcInstance
-		        && getSkill().getTargetType() == L2Skill.SkillTargetType.TARGET_GROUND)
+			&& getSkill().getTargetType() == L2Skill.SkillTargetType.TARGET_GROUND)
 		{
-			Point3D wordPosition = ((L2PcInstance) getEffector()).getCurrentSkillWorldPosition();
+			Point3D wordPosition = ((L2PcInstance)getEffector()).getCurrentSkillWorldPosition();
 			
 			if (wordPosition != null)
 			{
@@ -106,7 +105,6 @@ public class EffectSignetMDam extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
 	 */
 	@Override
@@ -116,7 +114,7 @@ public class EffectSignetMDam extends L2Effect
 			return true; // do nothing first 2 times
 		int mpConsume = getSkill().getMpConsume();
 		
-		L2PcInstance caster = (L2PcInstance) getEffector();
+		L2PcInstance caster = (L2PcInstance)getEffector();
 		
 		boolean ss = false;
 		boolean bss = false;
@@ -124,9 +122,9 @@ public class EffectSignetMDam extends L2Effect
 		L2ItemInstance weaponInst = caster.getActiveWeaponInstance();
 		if (weaponInst != null)
 		{
-			if(caster.isBlessedSpiritshotCharged())
+			if (caster.isBlessedSpiritshotCharged())
 				bss = true;
-			else if(caster.isSpiritshotCharged())
+			else if (caster.isSpiritshotCharged())
 				ss = true;
 		}
 		
@@ -137,8 +135,7 @@ public class EffectSignetMDam extends L2Effect
 			if (cha == null || cha == caster)
 				continue;
 			
-			if (cha instanceof L2Attackable
-			        || cha instanceof L2Playable)
+			if (cha instanceof L2Attackable || cha instanceof L2Playable)
 			{
 				if (cha.isAlikeDead())
 					continue;
@@ -153,7 +150,9 @@ public class EffectSignetMDam extends L2Effect
 				
 				if (cha instanceof L2Playable)
 				{
-					if (cha instanceof L2Summon && ((L2Summon)cha).getOwner() == caster){}
+					if (cha instanceof L2Summon && ((L2Summon)cha).getOwner() == caster)
+					{
+					}
 					else
 						caster.updatePvPStatus(cha);
 				}
@@ -164,20 +163,20 @@ public class EffectSignetMDam extends L2Effect
 		
 		if (!targets.isEmpty())
 		{
-			caster.broadcastPacket(new MagicSkillLaunched(caster, getSkill().getId(), getSkill().getLevel(), targets.toArray(new L2Character[targets.size()])));
+			caster.broadcastPacket(new MagicSkillLaunched(caster, getSkill().getId(), getSkill().getLevel(), targets
+				.toArray(new L2Character[targets.size()])));
 			for (L2Character target : targets)
 			{
 				boolean mcrit = Formulas.calcMCrit(caster.getMCriticalHit(target, getSkill()));
 				byte shld = Formulas.calcShldUse(caster, target, getSkill());
-				int mdam = (int) Formulas.calcMagicDam(caster, target, getSkill(), shld, ss, bss, mcrit);
+				int mdam = (int)Formulas.calcMagicDam(caster, target, getSkill(), shld, ss, bss, mcrit);
 				
 				if (target instanceof L2Summon)
 					target.broadcastStatusUpdate();
 				
 				if (mdam > 0)
 				{
-					if (!target.isRaid()
-					        && Formulas.calcAtkBreak(target, mdam))
+					if (!target.isRaid() && Formulas.calcAtkBreak(target, mdam))
 					{
 						target.breakAttack();
 						target.breakCast();
@@ -192,7 +191,6 @@ public class EffectSignetMDam extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
 	 */
 	@Override

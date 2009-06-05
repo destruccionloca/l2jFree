@@ -22,7 +22,6 @@ import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
 /**
  * @author earendil
- * 
  */
 public class EffectNoblesseBless extends L2Effect
 {
@@ -33,7 +32,6 @@ public class EffectNoblesseBless extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
 	 */
 	@Override
@@ -43,7 +41,6 @@ public class EffectNoblesseBless extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
 	 */
 	@Override
@@ -51,19 +48,18 @@ public class EffectNoblesseBless extends L2Effect
 	{
 		if (getEffected() instanceof L2Playable)
 		{
-			((L2Playable) getEffected()).startNoblesseBlessing();
+			((L2Playable)getEffected()).startNoblesseBlessing();
 			return true;
 		}
 		return false;
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
 	 */
 	@Override
 	protected void onExit()
 	{
-		((L2Playable) getEffected()).stopNoblesseBlessing(false);
+		((L2Playable)getEffected()).stopNoblesseBlessing(false);
 	}
 }

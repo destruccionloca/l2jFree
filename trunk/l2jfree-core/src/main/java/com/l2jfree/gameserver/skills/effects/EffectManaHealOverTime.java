@@ -28,7 +28,6 @@ public class EffectManaHealOverTime extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
 	 */
 	@Override
@@ -38,7 +37,6 @@ public class EffectManaHealOverTime extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
 	 */
 	@Override
@@ -56,7 +54,7 @@ public class EffectManaHealOverTime extends L2Effect
 		}
 		getEffected().getStatus().setCurrentMp(mp);
 		StatusUpdate sump = new StatusUpdate(getEffected().getObjectId());
-		sump.addAttribute(StatusUpdate.CUR_MP, (int) mp);
+		sump.addAttribute(StatusUpdate.CUR_MP, (int)mp);
 		getEffected().sendPacket(sump);
 		return true;
 	}

@@ -28,7 +28,6 @@ public class EffectCombatPointHealOverTime extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
 	 */
 	@Override
@@ -38,7 +37,6 @@ public class EffectCombatPointHealOverTime extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
 	 */
 	@Override
@@ -56,7 +54,7 @@ public class EffectCombatPointHealOverTime extends L2Effect
 		}
 		getEffected().getStatus().setCurrentCp(cp);
 		StatusUpdate sump = new StatusUpdate(getEffected().getObjectId());
-		sump.addAttribute(StatusUpdate.CUR_CP, (int) cp);
+		sump.addAttribute(StatusUpdate.CUR_CP, (int)cp);
 		getEffected().sendPacket(sump);
 		return true;
 	}

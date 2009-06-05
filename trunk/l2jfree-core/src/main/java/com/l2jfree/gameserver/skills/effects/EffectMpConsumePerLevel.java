@@ -29,7 +29,6 @@ public class EffectMpConsumePerLevel extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
 	 */
 	@Override
@@ -39,7 +38,6 @@ public class EffectMpConsumePerLevel extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
 	 */
 	@Override
@@ -49,8 +47,7 @@ public class EffectMpConsumePerLevel extends L2Effect
 			return false;
 		
 		double base = calc();
-		double consume = (getEffected().getLevel() - 1) / 7.5 * base
-		        * getPeriod();
+		double consume = (getEffected().getLevel() - 1) / 7.5 * base * getPeriod();
 		
 		if (consume > getEffected().getCurrentMp())
 		{

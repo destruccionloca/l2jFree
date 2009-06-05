@@ -32,7 +32,6 @@ public class EffectSilentMove extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
 	 */
 	@Override
@@ -42,12 +41,11 @@ public class EffectSilentMove extends L2Effect
 		
 		L2Character effected = getEffected();
 		if (effected instanceof L2Playable)
-			((L2Playable) effected).setSilentMoving(true);
+			((L2Playable)effected).setSilentMoving(true);
 		return true;
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
 	 */
 	@Override
@@ -57,11 +55,10 @@ public class EffectSilentMove extends L2Effect
 		
 		L2Character effected = getEffected();
 		if (effected instanceof L2Playable)
-			((L2Playable) effected).setSilentMoving(false);
+			((L2Playable)effected).setSilentMoving(false);
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
 	 */
 	@Override
@@ -71,7 +68,6 @@ public class EffectSilentMove extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
 	 */
 	@Override

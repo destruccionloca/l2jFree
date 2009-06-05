@@ -24,7 +24,6 @@ import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
 /**
  * @author decad
- * 
  */
 public class EffectBetray extends L2Effect
 {
@@ -34,7 +33,6 @@ public class EffectBetray extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
 	 */
 	@Override
@@ -44,26 +42,24 @@ public class EffectBetray extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
 	 */
 	@Override
 	protected boolean onStart()
 	{
-		if (getEffector() instanceof L2PcInstance &&
-				getEffected() instanceof L2Summon)
+		if (getEffector() instanceof L2PcInstance && getEffected() instanceof L2Summon)
 		{
 			L2PcInstance targetOwner = getEffected().getActingPlayer();
 			getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, targetOwner);
 			getEffected().setIsBetrayed(true);
-			if (targetOwner != null) targetOwner.setIsBetrayed(true);
+			if (targetOwner != null)
+				targetOwner.setIsBetrayed(true);
 			return true;
 		}
 		return false;
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
 	 */
 	@Override
@@ -72,6 +68,7 @@ public class EffectBetray extends L2Effect
 		getEffected().setIsBetrayed(false);
 		getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 		L2PcInstance targetOwner = getEffected().getActingPlayer();
-		if (targetOwner != null) targetOwner.setIsBetrayed(false);
+		if (targetOwner != null)
+			targetOwner.setIsBetrayed(false);
 	}
 }

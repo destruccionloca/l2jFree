@@ -23,7 +23,6 @@ import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
 /**
- * 
  * @author Kerberos
  */
 public class EffectAfroHaircut extends L2Effect
@@ -43,7 +42,6 @@ public class EffectAfroHaircut extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
 	 */
 	@Override
@@ -51,19 +49,18 @@ public class EffectAfroHaircut extends L2Effect
 	{
 		if (getEffected() instanceof L2PcInstance)
 		{
-			((L2PcInstance) getEffected()).setAfroHaircutId(getSkill().getAfroColor());
+			((L2PcInstance)getEffected()).setAfroHaircutId(getSkill().getAfroColor());
 			return true;
 		}
 		return false;
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
 	 */
 	@Override
 	protected void onExit()
 	{
-		((L2PcInstance) getEffected()).setAfroHaircutId(0);
+		((L2PcInstance)getEffected()).setAfroHaircutId(0);
 	}
 }

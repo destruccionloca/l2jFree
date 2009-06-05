@@ -29,7 +29,6 @@ public class EffectDamOverTime extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
 	 */
 	@Override
@@ -39,7 +38,6 @@ public class EffectDamOverTime extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
 	 */
 	@Override
@@ -68,7 +66,7 @@ public class EffectDamOverTime extends L2Effect
 				
 				damage = getEffected().getCurrentHp() - 1;
 			}
-		}	
+		}
 		getEffected().reduceCurrentHpByDOT(damage, getEffector(), null);
 		
 		return true;

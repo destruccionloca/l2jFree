@@ -41,7 +41,6 @@ public class EffectSignetAntiSummon extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
 	 */
 	@Override
@@ -51,18 +50,16 @@ public class EffectSignetAntiSummon extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
 	 */
 	@Override
 	protected boolean onStart()
 	{
-		_actor = (L2EffectPointInstance) getEffected();
+		_actor = (L2EffectPointInstance)getEffected();
 		return true;
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
 	 */
 	@Override
@@ -82,9 +79,9 @@ public class EffectSignetAntiSummon extends L2Effect
 				L2PcInstance owner = null;
 				
 				if (cha instanceof L2Summon)
-					owner = ((L2Summon) cha).getOwner();
+					owner = ((L2Summon)cha).getOwner();
 				else
-					owner = (L2PcInstance) cha;
+					owner = (L2PcInstance)cha;
 				
 				if (owner != null && owner.getPet() != null)
 				{
@@ -105,7 +102,6 @@ public class EffectSignetAntiSummon extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
 	 */
 	@Override

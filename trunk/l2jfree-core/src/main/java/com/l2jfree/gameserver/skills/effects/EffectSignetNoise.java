@@ -36,7 +36,6 @@ public class EffectSignetNoise extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
 	 */
 	@Override
@@ -46,18 +45,16 @@ public class EffectSignetNoise extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
 	 */
 	@Override
 	protected boolean onStart()
 	{
-		_actor = (L2EffectPointInstance) getEffected();
+		_actor = (L2EffectPointInstance)getEffected();
 		return true;
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
 	 */
 	@Override
@@ -84,7 +81,6 @@ public class EffectSignetNoise extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
 	 */
 	@Override

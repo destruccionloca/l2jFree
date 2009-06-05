@@ -30,7 +30,6 @@ public class EffectHealOverTime extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
 	 */
 	@Override
@@ -40,7 +39,6 @@ public class EffectHealOverTime extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
 	 */
 	@Override
@@ -51,7 +49,6 @@ public class EffectHealOverTime extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
 	 */
 	@Override
@@ -72,7 +69,7 @@ public class EffectHealOverTime extends L2Effect
 		}
 		getEffected().getStatus().setCurrentHp(hp);
 		StatusUpdate suhp = new StatusUpdate(getEffected().getObjectId());
-		suhp.addAttribute(StatusUpdate.CUR_HP, (int) hp);
+		suhp.addAttribute(StatusUpdate.CUR_HP, (int)hp);
 		getEffected().sendPacket(suhp);
 		return true;
 	}

@@ -25,7 +25,6 @@ import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
 /**
  * @author kerberos_20
- *
  */
 public class EffectProtectionBlessing extends L2Effect
 {
@@ -46,7 +45,7 @@ public class EffectProtectionBlessing extends L2Effect
 	{
 		if (getEffected() instanceof L2Playable)
 		{
-			((L2Playable) getEffected()).startProtectionBlessing();
+			((L2Playable)getEffected()).startProtectionBlessing();
 			return true;
 		}
 		return false;
@@ -56,6 +55,6 @@ public class EffectProtectionBlessing extends L2Effect
 	@Override
 	protected void onExit()
 	{
-		((L2Playable) getEffected()).stopProtectionBlessing(false);
+		((L2Playable)getEffected()).stopProtectionBlessing(false);
 	}
 }

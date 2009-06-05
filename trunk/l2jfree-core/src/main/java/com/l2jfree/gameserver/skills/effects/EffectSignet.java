@@ -43,7 +43,6 @@ public class EffectSignet extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
 	 */
 	@Override
@@ -53,22 +52,20 @@ public class EffectSignet extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
 	 */
 	@Override
 	protected boolean onStart()
 	{
 		if (getSkill() instanceof L2SkillSignet)
-			_skill = SkillTable.getInstance().getInfo(((L2SkillSignet) getSkill()).effectId, getLevel());
+			_skill = SkillTable.getInstance().getInfo(((L2SkillSignet)getSkill()).effectId, getLevel());
 		else if (getSkill() instanceof L2SkillSignetCasttime)
-			_skill = SkillTable.getInstance().getInfo(((L2SkillSignetCasttime) getSkill()).effectId, getLevel());
-		_actor = (L2EffectPointInstance) getEffected();
+			_skill = SkillTable.getInstance().getInfo(((L2SkillSignetCasttime)getSkill()).effectId, getLevel());
+		_actor = (L2EffectPointInstance)getEffected();
 		return true;
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
 	 */
 	@Override
@@ -98,7 +95,6 @@ public class EffectSignet extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
 	 */
 	@Override

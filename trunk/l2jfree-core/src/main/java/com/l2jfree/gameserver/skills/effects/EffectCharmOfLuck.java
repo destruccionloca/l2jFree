@@ -22,7 +22,6 @@ import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
 /**
  * @author kerberos_20
- * 
  */
 public class EffectCharmOfLuck extends L2Effect
 {
@@ -32,7 +31,6 @@ public class EffectCharmOfLuck extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
 	 */
 	@Override
@@ -42,7 +40,6 @@ public class EffectCharmOfLuck extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
 	 */
 	@Override
@@ -50,19 +47,18 @@ public class EffectCharmOfLuck extends L2Effect
 	{
 		if (getEffected() instanceof L2Playable)
 		{
-			((L2Playable) getEffected()).startCharmOfLuck();
+			((L2Playable)getEffected()).startCharmOfLuck();
 			return true;
 		}
 		return false;
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
 	 */
 	@Override
 	protected void onExit()
 	{
-		((L2Playable) getEffected()).stopCharmOfLuck(false);
+		((L2Playable)getEffected()).stopCharmOfLuck(false);
 	}
 }

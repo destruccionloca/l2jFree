@@ -23,7 +23,6 @@ import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
 /**
  * @author Ahmed
- * 
  */
 public class EffectImmobileUntilAttacked extends L2Effect
 {
@@ -35,7 +34,6 @@ public class EffectImmobileUntilAttacked extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
 	 */
 	@Override
@@ -45,7 +43,6 @@ public class EffectImmobileUntilAttacked extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
 	 */
 	@Override
@@ -56,7 +53,6 @@ public class EffectImmobileUntilAttacked extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
 	 */
 	@Override

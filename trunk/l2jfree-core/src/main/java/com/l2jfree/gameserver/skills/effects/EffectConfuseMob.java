@@ -18,6 +18,7 @@ import java.util.Collection;
 import java.util.List;
 
 import javolution.util.FastList;
+
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Object;
@@ -26,12 +27,10 @@ import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
-import com.l2jfree.tools.random.Rnd;;
+import com.l2jfree.tools.random.Rnd;
 
 /**
- * @author littlecrow
- * 
- *         Implementation of the Confusion Effect
+ * @author littlecrow Implementation of the Confusion Effect
  */
 public class EffectConfuseMob extends L2Effect
 {
@@ -42,7 +41,6 @@ public class EffectConfuseMob extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
 	 */
 	@Override
@@ -52,7 +50,6 @@ public class EffectConfuseMob extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
 	 */
 	@Override
@@ -64,7 +61,6 @@ public class EffectConfuseMob extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
 	 */
 	@Override
@@ -74,7 +70,6 @@ public class EffectConfuseMob extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
 	 */
 	@Override
@@ -90,7 +85,7 @@ public class EffectConfuseMob extends L2Effect
 			for (L2Object obj : objs)
 			{
 				if ((obj instanceof L2Attackable) && (obj != getEffected()))
-					targetList.add((L2Character) obj);
+					targetList.add((L2Character)obj);
 			}
 		}
 		// if there is no target, exit function

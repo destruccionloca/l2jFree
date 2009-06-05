@@ -33,7 +33,6 @@ public class EffectChameleonRest extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
 	 */
 	@Override
@@ -42,9 +41,7 @@ public class EffectChameleonRest extends L2Effect
 		return L2EffectType.RELAXING;
 	}
 	
-	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
 	 */
 	@Override
@@ -55,8 +52,8 @@ public class EffectChameleonRest extends L2Effect
 		if (effected instanceof L2PcInstance)
 		{
 			setChameleon(true);
-			((L2PcInstance) effected).setSilentMoving(true);
-			((L2PcInstance) effected).sitDown();
+			((L2PcInstance)effected).setSilentMoving(true);
+			((L2PcInstance)effected).sitDown();
 		}
 		else
 			effected.getAI().setIntention(CtrlIntention.AI_INTENTION_REST);
@@ -64,7 +61,6 @@ public class EffectChameleonRest extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
 	 */
 	@Override
@@ -74,13 +70,12 @@ public class EffectChameleonRest extends L2Effect
 		
 		L2Character effected = getEffected();
 		if (effected instanceof L2PcInstance)
-			((L2PcInstance) effected).setSilentMoving(false);
+			((L2PcInstance)effected).setSilentMoving(false);
 		
 		super.onExit();
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
 	 */
 	@Override
@@ -98,7 +93,7 @@ public class EffectChameleonRest extends L2Effect
 		
 		if (effected instanceof L2PcInstance)
 		{
-			if (!((L2PcInstance) effected).isSitting())
+			if (!((L2PcInstance)effected).isSitting())
 				retval = false;
 		}
 		
@@ -120,13 +115,12 @@ public class EffectChameleonRest extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @param val
 	 */
 	private void setChameleon(boolean val)
 	{
 		L2Character effected = getEffected();
 		if (effected instanceof L2PcInstance)
-			((L2PcInstance) effected).setRelax(val);
+			((L2PcInstance)effected).setRelax(val);
 	}
 }

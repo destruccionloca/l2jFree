@@ -33,7 +33,6 @@ public class EffectPhoenixBless extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
 	 */
 	@Override
@@ -43,7 +42,6 @@ public class EffectPhoenixBless extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
 	 */
 	@Override
@@ -51,19 +49,18 @@ public class EffectPhoenixBless extends L2Effect
 	{
 		if (getEffected() instanceof L2Playable)
 		{
-			((L2Playable) getEffected()).startPhoenixBlessing();
+			((L2Playable)getEffected()).startPhoenixBlessing();
 			return true;
 		}
 		return false;
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
 	 */
 	@Override
 	protected void onExit()
 	{
-		((L2Playable) getEffected()).stopPhoenixBlessing(false);
+		((L2Playable)getEffected()).stopPhoenixBlessing(false);
 	}
 }

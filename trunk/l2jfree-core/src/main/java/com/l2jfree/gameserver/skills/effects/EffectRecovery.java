@@ -22,7 +22,6 @@ import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
 /**
  * @author Kerberos
- * 
  */
 public class EffectRecovery extends L2Effect
 {
@@ -33,7 +32,6 @@ public class EffectRecovery extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
 	 */
 	@Override
@@ -43,7 +41,6 @@ public class EffectRecovery extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
 	 */
 	@Override
@@ -51,7 +48,7 @@ public class EffectRecovery extends L2Effect
 	{
 		if (getEffected() instanceof L2PcInstance)
 		{
-			((L2PcInstance) getEffected()).reduceDeathPenaltyBuffLevel();
+			((L2PcInstance)getEffected()).reduceDeathPenaltyBuffLevel();
 			return true;
 		}
 		return false;

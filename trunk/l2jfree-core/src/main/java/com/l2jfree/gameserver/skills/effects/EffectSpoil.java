@@ -26,12 +26,7 @@ import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
 /**
- * 
- * @author Ahmed
- * 
- *         This is the Effect support for spoil.
- * 
- *         This was originally done by _drunk_
+ * @author Ahmed This is the Effect support for spoil. This was originally done by _drunk_
  */
 public class EffectSpoil extends L2Effect
 {
@@ -41,7 +36,6 @@ public class EffectSpoil extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
 	 */
 	@Override
@@ -51,7 +45,6 @@ public class EffectSpoil extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
 	 */
 	@Override
@@ -64,7 +57,7 @@ public class EffectSpoil extends L2Effect
 		if (!(getEffected() instanceof L2MonsterInstance))
 			return false;
 		
-		L2MonsterInstance target = (L2MonsterInstance) getEffected();
+		L2MonsterInstance target = (L2MonsterInstance)getEffected();
 		
 		if (target == null)
 			return false;

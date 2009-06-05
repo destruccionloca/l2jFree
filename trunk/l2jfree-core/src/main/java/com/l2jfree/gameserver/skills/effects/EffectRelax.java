@@ -31,7 +31,6 @@ public class EffectRelax extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
 	 */
 	@Override
@@ -41,7 +40,6 @@ public class EffectRelax extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
 	 */
 	@Override
@@ -51,7 +49,7 @@ public class EffectRelax extends L2Effect
 		if (getEffected() instanceof L2PcInstance)
 		{
 			setRelax(true);
-			((L2PcInstance) getEffected()).sitDown();
+			((L2PcInstance)getEffected()).sitDown();
 		}
 		else
 			getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_REST);
@@ -59,7 +57,6 @@ public class EffectRelax extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
 	 */
 	@Override
@@ -70,7 +67,6 @@ public class EffectRelax extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
 	 */
 	@Override
@@ -82,7 +78,7 @@ public class EffectRelax extends L2Effect
 		
 		if (getEffected() instanceof L2PcInstance)
 		{
-			if (!((L2PcInstance) getEffected()).isSitting())
+			if (!((L2PcInstance)getEffected()).isSitting())
 				retval = false;
 		}
 		
@@ -90,8 +86,7 @@ public class EffectRelax extends L2Effect
 		{
 			if (getSkill().isToggle())
 			{
-				getEffected().sendMessage("Fully rested. Effect of "
-				        + getSkill().getName() + " has been removed.");
+				getEffected().sendMessage("Fully rested. Effect of " + getSkill().getName() + " has been removed.");
 				retval = false;
 			}
 		}
@@ -119,12 +114,11 @@ public class EffectRelax extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @param val
 	 */
 	private void setRelax(boolean val)
 	{
 		if (getEffected() instanceof L2PcInstance)
-			((L2PcInstance) getEffected()).setRelax(val);
+			((L2PcInstance)getEffected()).setRelax(val);
 	}
 }

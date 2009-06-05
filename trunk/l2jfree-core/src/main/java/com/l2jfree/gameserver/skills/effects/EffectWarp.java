@@ -29,21 +29,16 @@ import com.l2jfree.gameserver.templates.skills.L2EffectType;
 import com.l2jfree.gameserver.util.Util;
 
 /**
- * This class handles warp effects, disappear and quickly turn up in a near
- * location. If geodata enabled and an object is between initial and final
- * point, flight is stopped just before colliding with object. Flight course and
- * radius are set as skill properties (flyCourse and flyRadius):
- * 
- * <li>Fly Radius means the distance between starting point and final point, it
- * must be an integer.</li> <li>Fly Course means the movement direction: imagine
- * a compass above player's head, making north player's heading. So if fly
- * course is 180, player will go backwards (good for blink, e.g.). By the way,
- * if flyCourse = 360 or 0, player will be moved in in front of him. <br>
+ * This class handles warp effects, disappear and quickly turn up in a near location. If geodata enabled and an object
+ * is between initial and final point, flight is stopped just before colliding with object. Flight course and radius are
+ * set as skill properties (flyCourse and flyRadius):
+ * <li>Fly Radius means the distance between starting point and final point, it must be an integer.</li>
+ * <li>Fly Course means the movement direction: imagine a compass above player's head, making north player's heading.
+ * So if fly course is 180, player will go backwards (good for blink, e.g.). By the way, if flyCourse = 360 or 0, player
+ * will be moved in in front of him. <br>
  * <br>
- * 
- * If target is effector, put in XML self = "1". This will make _actor =
- * getEffector(). This, combined with target type, allows more complex actions
- * like flying target's backwards or player's backwards.<br>
+ * If target is effector, put in XML self = "1". This will make _actor = getEffector(). This, combined with target type,
+ * allows more complex actions like flying target's backwards or player's backwards.<br>
  * <br>
  * 
  * @author House
@@ -60,7 +55,6 @@ public class EffectWarp extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
 	 */
 	@Override
@@ -70,7 +64,6 @@ public class EffectWarp extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
 	 */
 	@Override
@@ -88,8 +81,8 @@ public class EffectWarp extends L2Effect
 		double radian = Math.toRadians(angle);
 		double course = Math.toRadians(getSkill().getFlyCourse());
 		
-		int x1 = (int) (Math.cos(Math.PI + radian + course) * _radius);
-		int y1 = (int) (Math.sin(Math.PI + radian + course) * _radius);
+		int x1 = (int)(Math.cos(Math.PI + radian + course) * _radius);
+		int y1 = (int)(Math.sin(Math.PI + radian + course) * _radius);
 		
 		x = _actor.getX() + x1;
 		y = _actor.getY() + y1;
@@ -114,7 +107,6 @@ public class EffectWarp extends L2Effect
 	}
 	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
 	 */
 	@Override
