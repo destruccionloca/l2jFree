@@ -44,8 +44,6 @@ public class StrSiegeAssault implements ISkillHandler
 		if (SiegeManager.checkIfOkToUseStriderSiegeAssault(player, false) || FortSiegeManager.checkIfOkToUseStriderSiegeAssault(player, false))
 		{
 			//TODO: damage calculation below is crap - needs rewrite
-			int damage = 0;
-
 			for (L2Character target : targets)
 			{
 				if (target == null)
@@ -64,10 +62,7 @@ public class StrSiegeAssault implements ISkillHandler
 				boolean crit = Formulas.calcSkillCrit(activeChar, target, skill);
 				boolean soul = (weapon != null && weapon.isSoulshotCharged() && weapon.getItemType() != L2WeaponType.DAGGER);
 
-				if (!crit && (skill.getCondition() & L2Skill.COND_CRIT) != 0)
-					damage = 0;
-				else
-					damage = (int) Formulas.calcPhysDam(activeChar, target, skill, shld, false, dual, soul);
+				int damage = (int) Formulas.calcPhysDam(activeChar, target, skill, shld, false, dual, soul);
 				
 				if (crit)
 					damage *= 2;

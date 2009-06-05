@@ -1436,6 +1436,9 @@ public final class Formulas
 
 	public final static double calcPhysDam(L2Character attacker, L2Character target, double skillpower, byte shld, boolean crit, boolean dual, boolean ss, float ssboost, int element, int elementPower, L2Skill skill)
 	{
+		if (!crit && (skill.getCondition() & L2Skill.COND_CRIT) != 0)
+			return 0;
+		
 		double damage = attacker.getPAtk(target);
 		double defence = target.getPDef(attacker);
 		damage *= calcElemental(attacker, target, skill);
@@ -1841,9 +1844,36 @@ public final class Formulas
 	}
 	
 	/** Calculate value of blow success */
-	public static final boolean calcBlow(L2Character activeChar, L2Character target, int chance)
+	public static final boolean calcBlow(L2Character attacker, L2Character target, L2Skill skill)
 	{
-		return activeChar.calcStat(Stats.BLOW_RATE, chance * (1.0 + (activeChar.getStat().getDEX() - 20) / 100), target, null) > Rnd.get(100);
+		if ((skill.getCondition() & L2Skill.COND_BEHIND) != 0 && !attacker.isBehind(target))
+			return false;
+		
+		double chance = attacker.calcStat(Stats.BLOW_RATE, 40 + 0.5 * attacker.getStat().getDEX(), target, skill);
+		
+		switch (Direction.getDirection(attacker, target))
+		{
+			case SIDE:
+				chance += 5;
+				break;
+			case BACK:
+				chance += 15;
+				break;
+		}
+		
+		chance += getHeightModifier(attacker, target, 5);
+		
+		chance += 2 * (getAverageMagicLevel(attacker, skill) - target.getLevel());
+		
+		return Rnd.calcChance(chance, 100);
+	}
+	
+	private static double getAverageMagicLevel(L2Character attacker, L2Skill skill)
+	{
+		if (skill.getMagicLevel() > 0)
+			return 0.5 * (skill.getMagicLevel() + attacker.getLevel());
+		else
+			return attacker.getLevel();
 	}
 
 	/** Calculate value of lethal chance */

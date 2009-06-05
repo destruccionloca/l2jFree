@@ -167,20 +167,8 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	public final static int			ELEMENT_SACRED	= 6;
 
 	// conditional values
-	public final static int			COND_RUNNING	= 0x0001;
-	public final static int			COND_WALKING	= 0x0002;
-	public final static int			COND_SIT		= 0x0004;
 	public final static int			COND_BEHIND		= 0x0008;
 	public final static int			COND_CRIT		= 0x0010;
-	public final static int			COND_LOWHP		= 0x0020;
-	public final static int			COND_ROBES		= 0x0040;
-	public final static int			COND_CHARGES	= 0x0080;
-	public final static int			COND_SHIELD		= 0x0100;
-	public final static int			COND_GRADEA		= 0x010000;
-	public final static int			COND_GRADEB		= 0x020000;
-	public final static int			COND_GRADEC		= 0x040000;
-	public final static int			COND_GRADED		= 0x080000;
-	public final static int			COND_GRADES		= 0x100000;
 
 	// these two build the primary key
 	private final Integer			_id;

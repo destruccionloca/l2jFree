@@ -54,8 +54,6 @@ public class Pdam implements ISkillHandler
 		if (activeChar.isAlikeDead())
 			return;
 
-		int damage = 0;
-
 		if (_log.isDebugEnabled())
 			_log.info("Begin Skill processing in Pdam.java " + skill.getSkillType());
 
@@ -98,10 +96,7 @@ public class Pdam implements ISkillHandler
 			if (skill.ignoreShld())
 				shld = 0;
 
-			if (!crit && (skill.getCondition() & L2Skill.COND_CRIT) != 0)
-				damage = 0;
-			else
-				damage = (int) Formulas.calcPhysDam(activeChar, target, skill, shld, false, dual, soul);
+			int damage = (int) Formulas.calcPhysDam(activeChar, target, skill, shld, false, dual, soul);
 
 			if (skill.getMaxSoulConsumeCount() > 0 && activeChar instanceof L2PcInstance)
 			{

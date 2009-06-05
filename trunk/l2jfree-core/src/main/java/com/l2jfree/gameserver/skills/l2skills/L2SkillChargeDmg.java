@@ -50,7 +50,7 @@ public class L2SkillChargeDmg extends L2Skill
 			if (target.isAlikeDead())
 				continue;
 
-			byte shld = Formulas.calcShldUse(activeChar, target, skill);
+			byte shld = Formulas.calcShldUse(activeChar, target, this);
 			boolean crit = Formulas.calcSkillCrit(activeChar, target, this);
 			
 			boolean soul = (weapon != null && weapon.isSoulshotCharged() && weapon.getItemType() != L2WeaponType.DAGGER);
