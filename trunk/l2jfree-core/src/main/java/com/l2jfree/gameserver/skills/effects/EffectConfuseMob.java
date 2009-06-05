@@ -84,15 +84,13 @@ public class EffectConfuseMob extends L2Effect
 		{
 			for (L2Object obj : objs)
 			{
-				if ((obj instanceof L2Attackable) && (obj != getEffected()))
+				if (obj instanceof L2Attackable && obj != getEffected())
 					targetList.add((L2Character)obj);
 			}
 		}
 		// if there is no target, exit function
 		if (targetList.isEmpty())
-		{
 			return true;
-		}
 		
 		// Choosing randomly a new target
 		int nextTargetIdx = Rnd.nextInt(targetList.size());

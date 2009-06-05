@@ -20,6 +20,7 @@
 package com.l2jfree.gameserver.skills.effects;
 
 import javolution.util.FastList;
+
 import com.l2jfree.gameserver.ai.CtrlEvent;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.idfactory.IdFactory;
