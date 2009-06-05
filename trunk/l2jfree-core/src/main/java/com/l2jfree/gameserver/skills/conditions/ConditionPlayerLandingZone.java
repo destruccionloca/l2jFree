@@ -12,55 +12,27 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.gameserver.model;
+package com.l2jfree.gameserver.skills.conditions;
+
+import com.l2jfree.gameserver.model.zone.L2Zone;
+import com.l2jfree.gameserver.skills.Env;
 
 /**
+ * @author kerberos
  *
  */
-public class ItemRequest
+final class ConditionPlayerLandingZone extends Condition
 {
-	int _objectId;
-	int _itemId;
-	long _count;
-	long _price;
+	private boolean _val;
 
-	public ItemRequest(int objectId, long count, long price)
+	public ConditionPlayerLandingZone(boolean val)
 	{
-		_objectId = objectId;
-		_count = count;
-		_price = price;
+		_val = val;
 	}
 
-	public ItemRequest(int objectId, int itemId, long count, long price)
+	@Override
+	public boolean testImpl(Env env)
 	{
-		_objectId = objectId;
-		_itemId = itemId;
-		_count = count;
-		_price = price;
-	}
-
-	public int getObjectId()
-	{
-		return _objectId;
-	}
-	
-	public int getItemId()
-	{
-		return _itemId;
-	}
-	
-	public void setCount(long count)
-	{
-		_count = count;
-	}
-	
-	public long getCount()
-	{
-		return _count;
-	}
-	
-	public long getPrice()
-	{
-		return _price;
+		return env.player.isInsideZone(L2Zone.FLAG_LANDING) == _val;
 	}
 }

@@ -35,7 +35,7 @@ public class ExStorageMaxCount extends L2GameServerPacket
 	private L2PcInstance _activeChar;
 	private int _inventory;
 	private int _warehouse;
-	private int _freight;
+	private int _clan;
 	private int _privateSell;
 	private int _privateBuy;
 	private int _receipeD;
@@ -48,8 +48,8 @@ public class ExStorageMaxCount extends L2GameServerPacket
 		_warehouse = _activeChar.getWareHouseLimit();
 		_privateSell = _activeChar.getPrivateSellStoreLimit();
 		_privateBuy = _activeChar.getPrivateBuyStoreLimit();
-		_freight = _activeChar.getFreightLimit();  
-		_receipeD = _activeChar.getDwarfRecipeLimit();  
+		_clan = Config.WAREHOUSE_SLOTS_CLAN;
+		_receipeD = _activeChar.getDwarfRecipeLimit();
 		_recipe = _activeChar.getCommonRecipeLimit();
 	}
 
@@ -64,14 +64,13 @@ public class ExStorageMaxCount extends L2GameServerPacket
 		
 		writeD(_inventory);
 		writeD(_warehouse);
-		writeD(_freight);
+		writeD(_clan);
 		writeD(_privateSell);
 		writeD(_privateBuy);
 		writeD(_receipeD);
 		writeD(_recipe);
-		if(Config.PACKET_FINAL)
+		if (Config.PACKET_FINAL)
 			writeD(0x00);
-				
 	}
 
 	/* (non-Javadoc)

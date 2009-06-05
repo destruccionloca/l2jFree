@@ -46,19 +46,19 @@ public class RequestProcureCropList extends L2GameClientPacket
 
 	private int					_size;
 
-	private int[]				_items;																	// count*4
+	private long[]				_items;																	// count*4
 
 	@Override
 	protected void readImpl()
 	{
 		_size = readD();
-		if (_size * 16 > getByteBuffer().remaining() || _size > 500)
+		if (_size * (Config.PACKET_FINAL ? 20 : 16) > getByteBuffer().remaining() || _size > 500)
 		{
 			_size = 0;
 			return;
 		}
 
-		_items = new int[_size * 4];
+		_items = new long[_size * 4];
 		for (int i = 0; i < _size; i++)
 		{
 			int objId = readD();
@@ -74,7 +74,7 @@ public class RequestProcureCropList extends L2GameClientPacket
 				count = readD();
 			if (count > Integer.MAX_VALUE)
 				count = Integer.MAX_VALUE;
-			_items[i * 4 + 3] = (int) count;
+			_items[i * 4 + 3] = count;
 		}
 	}
 
@@ -108,9 +108,9 @@ public class RequestProcureCropList extends L2GameClientPacket
 
 		for (int i = 0; i < _size; i++)
 		{
-			int itemId = _items[i * 4 + 1];
-			int manorId = _items[i * 4 + 2];
-			int count = _items[i * 4 + 3];
+			int itemId = (int) _items[i * 4 + 1];
+			int manorId = (int) _items[i * 4 + 2];
+			long count = _items[i * 4 + 3];
 
 			if (itemId == 0 || manorId == 0 || count == 0)
 				continue;
@@ -168,10 +168,10 @@ public class RequestProcureCropList extends L2GameClientPacket
 
 		for (int i = 0; i < _size; i++)
 		{
-			int objId = _items[(i * 4)];
-			int cropId = _items[i * 4 + 1];
-			int manorId = _items[i * 4 + 2];
-			int count = _items[i * 4 + 3];
+			int objId = (int) _items[(i * 4)];
+			int cropId = (int) _items[i * 4 + 1];
+			int manorId = (int) _items[i * 4 + 2];
+			long count = _items[i * 4 + 3];
 
 			if (objId == 0 || cropId == 0 || manorId == 0 || count == 0)
 				continue;
@@ -190,25 +190,25 @@ public class RequestProcureCropList extends L2GameClientPacket
 			if (crop == null || crop.getId() == 0 || crop.getPrice() == 0)
 				continue;
 
-			int fee = 0; // fee for selling to other manors
+			long fee = 0; // fee for selling to other manors
 
 			int rewardItem = L2Manor.getInstance().getRewardItem(cropId, crop.getReward());
 
 			if (count > crop.getAmount())
 				continue;
 
-			int sellPrice = (count * crop.getPrice());
-			int rewardPrice = ItemTable.getInstance().getTemplate(rewardItem).getReferencePrice();
+			long sellPrice = (count * crop.getPrice());
+			long rewardPrice = ItemTable.getInstance().getTemplate(rewardItem).getReferencePrice();
 
 			if (rewardPrice == 0)
 				continue;
 
-			int rewardItemCount = sellPrice / rewardPrice;
+			long rewardItemCount = sellPrice / rewardPrice;
 			if (rewardItemCount < 1)
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.FAILED_IN_TRADING_S2_OF_CROP_S1);
 				sm.addItemName(cropId);
-				sm.addNumber(count);
+				sm.addItemNumber(count);
 				player.sendPacket(sm);
 				continue;
 			}
@@ -220,7 +220,7 @@ public class RequestProcureCropList extends L2GameClientPacket
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.FAILED_IN_TRADING_S2_OF_CROP_S1);
 				sm.addItemName(cropId);
-				sm.addNumber(count);
+				sm.addItemNumber(count);
 				player.sendPacket(sm);
 				sm = new SystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA);
 				player.sendPacket(sm);
@@ -268,31 +268,31 @@ public class RequestProcureCropList extends L2GameClientPacket
 			// Send System Messages
 			SystemMessage sm = new SystemMessage(SystemMessageId.TRADED_S2_OF_CROP_S1);
 			sm.addItemName(cropId);
-			sm.addNumber(count);
+			sm.addItemNumber(count);
 			player.sendPacket(sm);
 
 			if (fee > 0)
 			{
 				sm = new SystemMessage(SystemMessageId.S1_ADENA_HAS_BEEN_WITHDRAWN_TO_PAY_FOR_PURCHASING_FEES);
-				sm.addNumber(fee);
+				sm.addItemNumber(fee);
 				player.sendPacket(sm);
 			}
 
 			sm = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
 			sm.addItemName(cropId);
-			sm.addNumber(count);
+			sm.addItemNumber(count);
 			player.sendPacket(sm);
 
 			if (fee > 0)
 			{
 				sm = new SystemMessage(SystemMessageId.S1_ADENA_DISAPPEARED);
-				sm.addNumber(fee);
+				sm.addItemNumber(fee);
 				player.sendPacket(sm);
 			}
 
 			sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
 			sm.addItemName(rewardItem);
-			sm.addNumber(rewardItemCount);
+			sm.addItemNumber(rewardItemCount);
 			player.sendPacket(sm);
 		}
 

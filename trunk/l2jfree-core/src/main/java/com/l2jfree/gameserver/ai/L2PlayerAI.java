@@ -258,6 +258,10 @@ public class L2PlayerAI extends L2CharacterAI
 			return;
 		}
 
+		// stop invul effect if exist
+		if (_actor.getInvulEffect() != null)
+			_actor.getInvulEffect().exit();
+
 		_accessor.doAttack(target);
 	}
 
@@ -297,6 +301,10 @@ public class L2PlayerAI extends L2CharacterAI
 
 		if (_skill.getHitTime() > 50)
 			clientStopMoving(null);
+
+		// stop invul effect if exist
+		if (_actor.getInvulEffect() != null)
+			_actor.getInvulEffect().exit();
 
 		L2Object oldTarget = _actor.getTarget();
 		if (oldTarget != null && target != null && oldTarget != target)

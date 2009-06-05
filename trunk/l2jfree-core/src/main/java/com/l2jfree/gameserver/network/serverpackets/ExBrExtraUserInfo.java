@@ -32,11 +32,14 @@ public class ExBrExtraUserInfo extends L2GameServerPacket
 		_val = player.getAfroHaircutId();
 	}
 
+	/**
+	 * This packet should belong to Quest windows, not UserInfo in T3.
+	 */
 	@Override
 	protected final void writeImpl()
 	{
 		writeC(0xfe);
-		if(Config.PACKET_FINAL)
+		if (Config.PACKET_FINAL)
 			writeH(0xac);
 		else
 			writeH(0x8d);

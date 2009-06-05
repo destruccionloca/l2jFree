@@ -66,7 +66,7 @@ public class RequestExTryToPutEnchantTargetItem extends L2GameClientPacket
 				targetItem.getItem().getItemType() == L2WeaponType.ROD ||
 				targetItem.isHeroItem() || (targetItem.getItemId() >= 7816 &&
 				targetItem.getItemId() <= 7831)
-				|| targetItem.isShadowItem() || targetItem.getItem().isCommonItem())
+				|| targetItem.isShadowItem() || targetItem.getItem().isCommonItem() || targetItem.isTimeLimitedItem())
 		{
 			sendPacket(SystemMessageId.DOES_NOT_FIT_SCROLL_CONDITIONS);
 			activeChar.setActiveEnchantItem(null);

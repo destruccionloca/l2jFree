@@ -166,9 +166,9 @@ public final class AutomatedTvT
 		Announcements.getInstance().announceToAll(SystemMessageId.REGISTRATION_PERIOD);
 		SystemMessage time = new SystemMessage(SystemMessageId.REGISTRATION_TIME_S1_S2_S3);
 		long timeLeft = Config.AUTO_TVT_PERIOD_LENGHT_REGISTRATION / 1000;
-		time.addNumber(timeLeft / 3600);
-		time.addNumber(timeLeft % 3600 / 60);
-		time.addNumber(timeLeft % 3600 % 60);
+		time.addNumber((int) (timeLeft / 3600));
+		time.addNumber((int) (timeLeft % 3600 / 60));
+		time.addNumber((int) (timeLeft % 3600 % 60));
 		Broadcast.toAllOnlinePlayers(time);
 		Announcements.getInstance().announceToAll("To join the " + evtName + " you must type .jointvt");
 		tpm.scheduleGeneral(task, Config.AUTO_TVT_PERIOD_LENGHT_REGISTRATION / (Config.AUTO_TVT_REGISTRATION_ANNOUNCEMENT_COUNT + 2));
@@ -181,9 +181,9 @@ public final class AutomatedTvT
 		long elapsed = timeLeft / (Config.AUTO_TVT_REGISTRATION_ANNOUNCEMENT_COUNT + 2) * announced;
 		timeLeft -= elapsed;
 		timeLeft /= 1000;
-		time.addNumber(timeLeft / 3600);
-		time.addNumber(timeLeft % 3600 / 60);
-		time.addNumber(timeLeft % 3600 % 60);
+		time.addNumber((int) (timeLeft / 3600));
+		time.addNumber((int) (timeLeft % 3600 / 60));
+		time.addNumber((int) (timeLeft % 3600 % 60));
 		Broadcast.toAllOnlinePlayers(time);
 		Announcements.getInstance().announceToAll("To join the " + evtName + " you must type .jointvt");
 		announced++;
@@ -229,9 +229,9 @@ public final class AutomatedTvT
 		int currTeam = 0;
 		SystemMessage time = new SystemMessage(SystemMessageId.BATTLE_BEGINS_S1_S2_S3);
 		long timeLeft = Config.AUTO_TVT_PERIOD_LENGHT_PREPARATION / 1000;
-		time.addNumber(timeLeft / 3600);
-		time.addNumber(timeLeft % 3600 / 60);
-		time.addNumber(timeLeft % 3600 % 60);
+		time.addNumber((int) (timeLeft / 3600));
+		time.addNumber((int) (timeLeft % 3600 / 60));
+		time.addNumber((int) (timeLeft % 3600 % 60));
 
 		for (FastList.Node<L2PcInstance> n = participants.head(), end = participants.tail(); (n = n.getNext()) != end;)
 		{
@@ -283,9 +283,9 @@ public final class AutomatedTvT
 		status = STATUS_COMBAT;
 		SystemMessage time = new SystemMessage(SystemMessageId.BATTLE_ENDS_S1_S2_S3);
 		long timeLeft = Config.AUTO_TVT_PERIOD_LENGHT_EVENT / 1000;
-		time.addNumber(timeLeft / 3600);
-		time.addNumber(timeLeft % 3600 / 60);
-		time.addNumber(timeLeft % 3600 % 60);
+		time.addNumber((int) (timeLeft / 3600));
+		time.addNumber((int) (timeLeft % 3600 / 60));
+		time.addNumber((int) (timeLeft % 3600 % 60));
 		L2PcInstance player;
 		for (Participant p : eventPlayers.values())
 		{
@@ -466,7 +466,7 @@ public final class AutomatedTvT
 		can &= !(player.isInOlympiadMode() || Olympiad.getInstance().isRegistered(player));
 		// Cannot mess with raids or sieges
 		can &= !player.isInsideZone(L2Zone.FLAG_NOESCAPE);
-		can &= !(player.getMountType() == 2 && player.isInsideZone(L2Zone.FLAG_NOLANDING));
+		can &= !(player.getMountType() == 2 && player.isInsideZone(L2Zone.FLAG_NOWYVERN));
 		// Hero restriction
 		if (!Config.AUTO_TVT_REGISTER_HERO)
 			can &= !player.isHero();

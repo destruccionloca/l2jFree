@@ -23,10 +23,10 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.templates.item.L2WeaponType;
 import com.l2jfree.tools.geometry.Point3D;
 
-
-
 public class RequestMoveToLocationInVehicle extends L2GameClientPacket
 {
+	private static final String _C__75_MOVETOLOCATIONINVEHICLE = "[C] 75 RequestMoveToLocationInVehicle";
+
 	private final Point3D _pos = new Point3D(0,0,0);
 	private final Point3D _origin_pos = new Point3D(0,0,0);
 	private int _boatId;
@@ -55,14 +55,16 @@ public class RequestMoveToLocationInVehicle extends L2GameClientPacket
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)
 			return;
-		else if (activeChar.isAttackingNow() && activeChar.getActiveWeaponItem() != null && (activeChar.getActiveWeaponItem().getItemType() == L2WeaponType.BOW))
+
+		if (activeChar.isAttackingNow() && activeChar.getActiveWeaponItem() != null && (activeChar.getActiveWeaponItem().getItemType() == L2WeaponType.BOW))
 		{
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 		}
 		else
 		{
 			L2BoatInstance boat = BoatManager.getInstance().getBoat(_boatId);
-			if (boat == null) return;
+			if (boat == null)
+				return;
 			activeChar.setBoat(boat);
 			activeChar.setInBoat(true);
 			activeChar.setInBoatPosition(_pos);
@@ -71,17 +73,12 @@ public class RequestMoveToLocationInVehicle extends L2GameClientPacket
 		
 	}
 
-	/**
-	 * @return
-	 */
-
-
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.BasePacket#getType()
 	 */
 	@Override
 	public String getType()
 	{
-		return null;
+		return _C__75_MOVETOLOCATIONINVEHICLE;
 	}
 }

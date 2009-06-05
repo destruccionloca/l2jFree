@@ -64,10 +64,10 @@ public final class HennaEquipList extends L2GameServerPacket
 	protected final void writeImpl()
 	{
 		writeC(0xee);
-		if(Config.PACKET_FINAL)
+		if (Config.PACKET_FINAL)
 			writeQ(_player.getAdena());
 		else
-			writeD(_player.getAdena());
+			writeD(toInt(_player.getAdena()));
 		writeD(3); //available equip slot
 		writeD(_hennas.length);
 		
@@ -75,15 +75,15 @@ public final class HennaEquipList extends L2GameServerPacket
 		{
 			writeD(element.getSymbolId()); //symbolid
 			writeD(element.getItemId()); //itemid of dye
-			if(Config.PACKET_FINAL)
+			if (Config.PACKET_FINAL)
 			{
 				writeQ(element.getAmount()); //amount of dye require
 				writeQ(element.getPrice()); //amount of aden require
 			}
 			else
 			{
-				writeD(element.getAmount()); //amount of dye require
-				writeD(element.getPrice()); //amount of aden require
+				writeD(toInt(element.getAmount())); //amount of dye require
+				writeD(toInt(element.getPrice())); //amount of aden require
 			}
 
 			writeD(1); //meet the requirement or not

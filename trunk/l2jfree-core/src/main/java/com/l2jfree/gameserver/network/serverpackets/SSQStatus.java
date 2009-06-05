@@ -14,10 +14,10 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.SevenSignsFestival;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -30,7 +30,7 @@ import com.l2jfree.gameserver.templates.StatsSet;
  * packet type id 0xf5
  * format:
  * 
- * c cc	(Page Num = 1 -> 4, period)
+ * c cc    (Page Num = 1 -> 4, period)
  * 
  * 1: [ddd cc dd ddd c ddd c]
  * 2: [hc [cd (dc (S))]
@@ -57,10 +57,10 @@ public class SSQStatus extends L2GameServerPacket
     @Override
     protected final void writeImpl()
     {
-    	int winningCabal = SevenSigns.getInstance().getCabalHighestScore();
-    	int totalDawnMembers = SevenSigns.getInstance().getTotalMembers(SevenSigns.CABAL_DAWN);
-    	int totalDuskMembers = SevenSigns.getInstance().getTotalMembers(SevenSigns.CABAL_DUSK);
-    	
+        int winningCabal = SevenSigns.getInstance().getCabalHighestScore();
+        int totalDawnMembers = SevenSigns.getInstance().getTotalMembers(SevenSigns.CABAL_DAWN);
+        int totalDuskMembers = SevenSigns.getInstance().getTotalMembers(SevenSigns.CABAL_DUSK);
+        
         writeC(0xfb);
 
         writeC(_page);
@@ -72,7 +72,7 @@ public class SSQStatus extends L2GameServerPacket
         switch (_page)
         {
             case 1:
-                // [ddd cc dd ddd c ddd c]	
+                // [ddd cc dd ddd c ddd c]    
                 writeD(SevenSigns.getInstance().getCurrentCycle());
 
                 int currentPeriod = SevenSigns.getInstance().getCurrentPeriod();
@@ -97,19 +97,27 @@ public class SSQStatus extends L2GameServerPacket
                 {
                     case SevenSigns.PERIOD_COMP_RECRUITING:
                     case SevenSigns.PERIOD_COMP_RESULTS:
-                		writeD(SystemMessageId.UNTIL_TODAY_6PM.getId());
+                        writeD(SystemMessageId.UNTIL_TODAY_6PM.getId());
                         break;
                     case SevenSigns.PERIOD_COMPETITION:
                     case SevenSigns.PERIOD_SEAL_VALIDATION:
-                		writeD(SystemMessageId.UNTIL_MONDAY_6PM.getId());
+                        writeD(SystemMessageId.UNTIL_MONDAY_6PM.getId());
                         break;
                 }
 
                 writeC(SevenSigns.getInstance().getPlayerCabal(_activeChar));
                 writeC(SevenSigns.getInstance().getPlayerSeal(_activeChar));
 
-                writeD(SevenSigns.getInstance().getPlayerStoneContrib(_activeChar)); // Seal Stones Turned-In
-                writeD(SevenSigns.getInstance().getPlayerAdenaCollect(_activeChar)); // Ancient Adena to Collect
+                if (Config.PACKET_FINAL)
+                {
+                    writeQ(SevenSigns.getInstance().getPlayerStoneContrib(_activeChar)); // Seal Stones Turned-In
+                    writeQ(SevenSigns.getInstance().getPlayerAdenaCollect(_activeChar)); // Ancient Adena to Collect
+                }
+                else
+                {
+                    writeD(toInt(SevenSigns.getInstance().getPlayerStoneContrib(_activeChar))); // Seal Stones Turned-In
+                    writeD(toInt(SevenSigns.getInstance().getPlayerAdenaCollect(_activeChar))); // Ancient Adena to Collect
+                }
 
                 double dawnStoneScore = SevenSigns.getInstance().getCurrentStoneScore(SevenSigns.CABAL_DAWN);
                 int dawnFestivalScore = SevenSigns.getInstance().getCurrentFestivalScore(SevenSigns.CABAL_DAWN);
@@ -128,19 +136,19 @@ public class SSQStatus extends L2GameServerPacket
                 
                 if (totalStoneScore != 0)
                 {
-	                duskStoneScoreProp = Math.round(((float)duskStoneScore / (float)totalStoneScore) * 500);   
-	                dawnStoneScoreProp = Math.round(((float)dawnStoneScore / (float)totalStoneScore) * 500);
+                    duskStoneScoreProp = Math.round(((float)duskStoneScore / (float)totalStoneScore) * 500);   
+                    dawnStoneScoreProp = Math.round(((float)dawnStoneScore / (float)totalStoneScore) * 500);
                 }
 
-                int duskTotalScore = SevenSigns.getInstance().getCurrentScore(SevenSigns.CABAL_DUSK);
-                int dawnTotalScore = SevenSigns.getInstance().getCurrentScore(SevenSigns.CABAL_DAWN);
+                long duskTotalScore = SevenSigns.getInstance().getCurrentScore(SevenSigns.CABAL_DUSK);
+                long dawnTotalScore = SevenSigns.getInstance().getCurrentScore(SevenSigns.CABAL_DAWN);
                 
-                int totalOverallScore = duskTotalScore + dawnTotalScore;
+                long totalOverallScore = duskTotalScore + dawnTotalScore;
 
                 if (totalOverallScore != 0)
                 {
-	                dawnPercent = Math.round(((float)dawnTotalScore / (float)totalOverallScore) * 100);
-	                duskPercent = Math.round(((float)duskTotalScore / (float)totalOverallScore) * 100);
+                    dawnPercent = Math.round(((float)dawnTotalScore / (float)totalOverallScore) * 100);
+                    duskPercent = Math.round(((float)duskTotalScore / (float)totalOverallScore) * 100);
                 }
 
                 if (_log.isDebugEnabled()) {
@@ -152,24 +160,42 @@ public class SSQStatus extends L2GameServerPacket
                     _log.info("Overall Score: " + totalOverallScore);
                     _log.info("");
                     if (totalStoneScore == 0)
-                    	_log.info("Dusk Prop: 0 - Dawn Prop: 0");
+                        _log.info("Dusk Prop: 0 - Dawn Prop: 0");
                     else
-                    	_log.info("Dusk Prop: " + ((duskStoneScore / totalStoneScore) * 500) + " - Dawn Prop: "
+                        _log.info("Dusk Prop: " + ((duskStoneScore / totalStoneScore) * 500) + " - Dawn Prop: "
                                   + ((dawnStoneScore / totalStoneScore) * 500));
                     _log.info("Dusk %: " + duskPercent + " - Dawn %: " + dawnPercent);
                 }
 
                 /* DUSK */
-                writeD(duskStoneScoreProp); // Seal Stone Score
-                writeD(duskFestivalScore); // Festival Score
-                writeD(duskTotalScore); // Total Score
+                if (Config.PACKET_FINAL)
+                {
+                    writeQ(duskStoneScoreProp); // Seal Stone Score
+                    writeQ(duskFestivalScore); // Festival Score
+                    writeQ(duskTotalScore); // Total Score
+                }
+                else
+                {
+                    writeD(toInt(duskStoneScoreProp)); // Seal Stone Score
+                    writeD(toInt(duskFestivalScore)); // Festival Score
+                    writeD(toInt(duskTotalScore)); // Total Score
+                }
 
                 writeC(duskPercent); // Dusk %
 
                 /* DAWN */
-                writeD(dawnStoneScoreProp); // Seal Stone Score
-                writeD(dawnFestivalScore); // Festival Score
-                writeD(dawnTotalScore); // Total Score
+                if (Config.PACKET_FINAL)
+                {
+                    writeQ(dawnStoneScoreProp); // Seal Stone Score
+                    writeQ(dawnFestivalScore); // Festival Score
+                    writeQ(dawnTotalScore); // Total Score
+                }
+                else
+                {
+                    writeD(toInt(dawnStoneScoreProp)); // Seal Stone Score
+                    writeD(toInt(dawnFestivalScore)); // Festival Score
+                    writeD(toInt(dawnTotalScore)); // Total Score
+                }
 
                 writeC(dawnPercent); // Dawn %
                 break;
@@ -188,7 +214,10 @@ public class SSQStatus extends L2GameServerPacket
                     int dawnScore = SevenSignsFestival.getInstance().getHighestScore(SevenSigns.CABAL_DAWN, i);
                     
                     // Dusk Score \\
-                    writeD(duskScore);
+                    if (Config.PACKET_FINAL)
+                        writeQ(duskScore);
+                    else
+                        writeD(duskScore);
                     
                     StatsSet highScoreData = SevenSignsFestival.getInstance().getHighestScoreData(SevenSigns.CABAL_DUSK, i);
                     String[] partyMembers = highScoreData.getString("members").split(",");
@@ -206,7 +235,10 @@ public class SSQStatus extends L2GameServerPacket
                     }
                     
                     // Dawn Score \\
-                    writeD(dawnScore);
+                    if (Config.PACKET_FINAL)
+                        writeQ(dawnScore);
+                    else
+                        writeD(dawnScore);
                     
                     highScoreData = SevenSignsFestival.getInstance().getHighestScoreData(SevenSigns.CABAL_DAWN, i);
                     partyMembers = highScoreData.getString("members").split(",");
@@ -245,29 +277,29 @@ public class SSQStatus extends L2GameServerPacket
                     
                     if (totalDuskMembers == 0)
                     {
-                    	if (totalDawnMembers == 0)
-                    	{
-                    		writeC(0);
-                    		writeC(0);
-                    	}
-                    	else
-                    	{
-                    		writeC(0);
-                    		writeC(Math.round(((float)dawnProportion / (float)totalDawnMembers) * 100));
-                    	}
+                        if (totalDawnMembers == 0)
+                        {
+                            writeC(0);
+                            writeC(0);
+                        }
+                        else
+                        {
+                            writeC(0);
+                            writeC(Math.round(((float)dawnProportion / (float)totalDawnMembers) * 100));
+                        }
                     }
                     else
                     {
-                    	if (totalDawnMembers == 0)
-                    	{
-                    		writeC(Math.round(((float)duskProportion / (float)totalDuskMembers) * 100));
-                    		writeC(0);
-                    	}
-                    	else
-                    	{
-                    		writeC(Math.round(((float)duskProportion / (float)totalDuskMembers) * 100));
-                    		writeC(Math.round(((float)dawnProportion / (float)totalDawnMembers) * 100));
-                    	}
+                        if (totalDawnMembers == 0)
+                        {
+                            writeC(Math.round(((float)duskProportion / (float)totalDuskMembers) * 100));
+                            writeC(0);
+                        }
+                        else
+                        {
+                            writeC(Math.round(((float)duskProportion / (float)totalDuskMembers) * 100));
+                            writeC(Math.round(((float)dawnProportion / (float)totalDawnMembers) * 100));
+                        }
                     }
                 }
                 break;
@@ -288,133 +320,132 @@ public class SSQStatus extends L2GameServerPacket
 
                     switch (sealOwner)
                     {
-                    	case SevenSigns.CABAL_NULL:
-                    		switch(winningCabal)
-                    		{
-                    			case SevenSigns.CABAL_NULL:
-                    				writeC(SevenSigns.CABAL_NULL);
-                    				writeH(SystemMessageId.COMPETITION_TIE_SEAL_NOT_AWARDED.getId());
-                    				break;
-                    			case SevenSigns.CABAL_DAWN:
-                    				if (dawnPercent >= 35)
-                    				{
-                    					writeC(SevenSigns.CABAL_DAWN);
-                    					writeH(SystemMessageId.SEAL_NOT_OWNED_35_MORE_VOTED.getId());
-                    				}
-                    				else
-                    				{
-                        				writeC(SevenSigns.CABAL_NULL);
-                        				writeH(SystemMessageId.SEAL_NOT_OWNED_35_LESS_VOTED.getId());
-                    				}
-                    				break;
-                    			case SevenSigns.CABAL_DUSK:
-                    				if (duskPercent >= 35)
-                    				{
-                    					writeC(SevenSigns.CABAL_DUSK);
-                    					writeH(SystemMessageId.SEAL_NOT_OWNED_35_MORE_VOTED.getId());
-                    				}
-                    				else
-                    				{
-                        				writeC(SevenSigns.CABAL_NULL);
-                        				writeH(SystemMessageId.SEAL_NOT_OWNED_35_LESS_VOTED.getId());
-                    				}
-                    				break;
-                    		}
-                    		break;
-                    	case SevenSigns.CABAL_DAWN:
-                    		switch(winningCabal)
-                    		{
-                    			case SevenSigns.CABAL_NULL:
-                                    if (dawnPercent >= 10)
+                        case SevenSigns.CABAL_NULL:
+                            switch(winningCabal)
+                            {
+                                case SevenSigns.CABAL_NULL:
+                                    writeC(SevenSigns.CABAL_NULL);
+                                    writeD(SystemMessageId.COMPETITION_TIE_SEAL_NOT_AWARDED.getId());
+                                    break;
+                                case SevenSigns.CABAL_DAWN:
+                                    if (dawnPercent >= 35)
                                     {
                                         writeC(SevenSigns.CABAL_DAWN);
-                                        writeH(SystemMessageId.SEAL_OWNED_10_MORE_VOTED.getId());
+                                        writeD(SystemMessageId.SEAL_NOT_OWNED_35_MORE_VOTED.getId());
                                     }
                                     else
                                     {
                                         writeC(SevenSigns.CABAL_NULL);
-                                        writeH(SystemMessageId.COMPETITION_TIE_SEAL_NOT_AWARDED.getId());
+                                        writeD(SystemMessageId.SEAL_NOT_OWNED_35_LESS_VOTED.getId());
                                     }
                                     break;
-                    			case SevenSigns.CABAL_DAWN:
-                    				if (dawnPercent >= 10)
-                    				{
-                    					writeC(sealOwner);
-                    					writeH(SystemMessageId.SEAL_OWNED_10_MORE_VOTED.getId());
-                    				}
-                    				else
-                    				{
-                        				writeC(SevenSigns.CABAL_NULL);
-                        				writeH(SystemMessageId.SEAL_OWNED_10_LESS_VOTED.getId());
-                    				}
-                    				break;
-                    			case SevenSigns.CABAL_DUSK:
-                    				if (duskPercent >= 35)
-                    				{
-                    					writeC(SevenSigns.CABAL_DUSK);
-                    					writeH(SystemMessageId.SEAL_NOT_OWNED_35_MORE_VOTED.getId());
-                    				}
-                                    else if (dawnPercent >= 10)
-                                    {
-                                        writeC(SevenSigns.CABAL_DAWN);
-                                        writeH(SystemMessageId.SEAL_OWNED_10_MORE_VOTED.getId());
-                                    }
-                    				else
-                    				{
-                        				writeC(SevenSigns.CABAL_NULL);
-                        				writeH(SystemMessageId.SEAL_OWNED_10_LESS_VOTED.getId());
-                    				}
-                    				break;
-                    		}
-                    		break;
-                    	case SevenSigns.CABAL_DUSK:
-                    		switch(winningCabal)
-                    		{
-                    			case SevenSigns.CABAL_NULL:
-                                    if (duskPercent >= 10)
+                                case SevenSigns.CABAL_DUSK:
+                                    if (duskPercent >= 35)
                                     {
                                         writeC(SevenSigns.CABAL_DUSK);
-                                        writeH(SystemMessageId.SEAL_OWNED_10_MORE_VOTED.getId());
+                                        writeD(SystemMessageId.SEAL_NOT_OWNED_35_MORE_VOTED.getId());
                                     }
                                     else
                                     {
-                        				writeC(SevenSigns.CABAL_NULL);
-                        				writeH(SystemMessageId.COMPETITION_TIE_SEAL_NOT_AWARDED.getId());
+                                        writeC(SevenSigns.CABAL_NULL);
+                                        writeD(SystemMessageId.SEAL_NOT_OWNED_35_LESS_VOTED.getId());
                                     }
                                     break;
-                    			case SevenSigns.CABAL_DAWN:
-                    				if (dawnPercent >= 35)
-                    				{
-                    					writeC(SevenSigns.CABAL_DAWN);
-                    					writeH(SystemMessageId.SEAL_NOT_OWNED_35_MORE_VOTED.getId());
-                    				}
-                    				else if (duskPercent >= 10)
-                    				{
-                    					writeC(sealOwner);
-                    					writeH(SystemMessageId.SEAL_OWNED_10_MORE_VOTED.getId());
-                    				}
-                    				else
-                    				{
-                        				writeC(SevenSigns.CABAL_NULL);
-                        				writeH(SystemMessageId.SEAL_OWNED_10_LESS_VOTED.getId());
-                    				}
-                    				break;
-                    			case SevenSigns.CABAL_DUSK:
-                    				if (duskPercent >= 10)
-                    				{
-                    					writeC(sealOwner);
-                    					writeH(SystemMessageId.SEAL_OWNED_10_MORE_VOTED.getId());
-                    				}
-                    				else
-                    				{
-                        				writeC(SevenSigns.CABAL_NULL);
-                        				writeH(SystemMessageId.SEAL_OWNED_10_LESS_VOTED.getId());
-                    				}
-                    				break;
-                    		}
-                    		break;
+                            }
+                            break;
+                        case SevenSigns.CABAL_DAWN:
+                            switch(winningCabal)
+                            {
+                                case SevenSigns.CABAL_NULL:
+                                    if (dawnPercent >= 10)
+                                    {
+                                        writeC(SevenSigns.CABAL_DAWN);
+                                        writeD(SystemMessageId.SEAL_OWNED_10_MORE_VOTED.getId());
+                                    }
+                                    else
+                                    {
+                                        writeC(SevenSigns.CABAL_NULL);
+                                        writeD(SystemMessageId.COMPETITION_TIE_SEAL_NOT_AWARDED.getId());
+                                    }
+                                    break;
+                                case SevenSigns.CABAL_DAWN:
+                                    if (dawnPercent >= 10)
+                                    {
+                                        writeC(sealOwner);
+                                        writeD(SystemMessageId.SEAL_OWNED_10_MORE_VOTED.getId());
+                                    }
+                                    else
+                                    {
+                                        writeC(SevenSigns.CABAL_NULL);
+                                        writeD(SystemMessageId.SEAL_OWNED_10_LESS_VOTED.getId());
+                                    }
+                                    break;
+                                case SevenSigns.CABAL_DUSK:
+                                    if (duskPercent >= 35)
+                                    {
+                                        writeC(SevenSigns.CABAL_DUSK);
+                                        writeD(SystemMessageId.SEAL_NOT_OWNED_35_MORE_VOTED.getId());
+                                    }
+                                    else if (dawnPercent >= 10)
+                                    {
+                                        writeC(SevenSigns.CABAL_DAWN);
+                                        writeD(SystemMessageId.SEAL_OWNED_10_MORE_VOTED.getId());
+                                    }
+                                    else
+                                    {
+                                        writeC(SevenSigns.CABAL_NULL);
+                                        writeD(SystemMessageId.SEAL_OWNED_10_LESS_VOTED.getId());
+                                    }
+                                    break;
+                            }
+                            break;
+                        case SevenSigns.CABAL_DUSK:
+                            switch(winningCabal)
+                            {
+                                case SevenSigns.CABAL_NULL:
+                                    if (duskPercent >= 10)
+                                    {
+                                        writeC(SevenSigns.CABAL_DUSK);
+                                        writeD(SystemMessageId.SEAL_OWNED_10_MORE_VOTED.getId());
+                                    }
+                                    else
+                                    {
+                                        writeC(SevenSigns.CABAL_NULL);
+                                        writeD(SystemMessageId.COMPETITION_TIE_SEAL_NOT_AWARDED.getId());
+                                    }
+                                    break;
+                                case SevenSigns.CABAL_DAWN:
+                                    if (dawnPercent >= 35)
+                                    {
+                                        writeC(SevenSigns.CABAL_DAWN);
+                                        writeD(SystemMessageId.SEAL_NOT_OWNED_35_MORE_VOTED.getId());
+                                    }
+                                    else if (duskPercent >= 10)
+                                    {
+                                        writeC(sealOwner);
+                                        writeD(SystemMessageId.SEAL_OWNED_10_MORE_VOTED.getId());
+                                    }
+                                    else
+                                    {
+                                        writeC(SevenSigns.CABAL_NULL);
+                                        writeD(SystemMessageId.SEAL_OWNED_10_LESS_VOTED.getId());
+                                    }
+                                    break;
+                                case SevenSigns.CABAL_DUSK:
+                                    if (duskPercent >= 10)
+                                    {
+                                        writeC(sealOwner);
+                                        writeD(SystemMessageId.SEAL_OWNED_10_MORE_VOTED.getId());
+                                    }
+                                    else
+                                    {
+                                        writeC(SevenSigns.CABAL_NULL);
+                                        writeD(SystemMessageId.SEAL_OWNED_10_LESS_VOTED.getId());
+                                    }
+                                    break;
+                            }
+                            break;
                     }
-                    writeH(0);
                 }
                 break;
         }

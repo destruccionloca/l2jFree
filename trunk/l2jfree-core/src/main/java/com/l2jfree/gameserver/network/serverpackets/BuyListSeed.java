@@ -32,9 +32,9 @@ public final class BuyListSeed extends L2GameServerPacket
 
 	private int _manorId;
 	private List<L2ItemInstance> _list = new FastList<L2ItemInstance>();
-	private int _money;
+	private long _money;
 
-	public BuyListSeed(L2TradeList list, int manorId, int currentMoney)
+	public BuyListSeed(L2TradeList list, int manorId, long currentMoney)
 	{
 		_money  = currentMoney;
 		_manorId = manorId;
@@ -46,7 +46,11 @@ public final class BuyListSeed extends L2GameServerPacket
 	{
 		writeC(0xE9);
 
-		writeD(_money);                        // current money
+		// current money
+		if (Config.PACKET_FINAL)
+			writeQ(_money);
+		else
+			writeD(toInt(_money));
 		writeD(_manorId);                      // manor id
 
 		writeH(_list.size());                  // list length
@@ -56,16 +60,16 @@ public final class BuyListSeed extends L2GameServerPacket
 			writeH(0x04);                      // item->type1
 			writeD(0x00);                      // objectId
 			writeD(item.getItemDisplayId());          // item id
-			if(Config.PACKET_FINAL)
+			if (Config.PACKET_FINAL)
 				writeQ(item.getCount());           // item count
 			else
-				writeD(item.getCount());           // item count
+				writeD(toInt(item.getCount()));           // item count
 			writeH(0x04);                      // item->type2
 			writeH(0x00);          
-			if(Config.PACKET_FINAL)
+			if (Config.PACKET_FINAL)
 				writeQ(item.getPriceToSell());     // price
 			else
-				writeD(item.getPriceToSell());     // price
+				writeD(toInt(item.getPriceToSell()));     // price
 		}
 	}
 

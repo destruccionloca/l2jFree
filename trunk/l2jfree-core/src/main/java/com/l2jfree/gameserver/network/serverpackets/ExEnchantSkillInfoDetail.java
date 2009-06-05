@@ -23,9 +23,9 @@ import com.l2jfree.Config;
 public class ExEnchantSkillInfoDetail extends L2GameServerPacket
 {
     private final int _itemId;
-    private final int _itemCount;
+    private final long _itemCount;
 
-    public ExEnchantSkillInfoDetail(int itemId, int itemCount)
+    public ExEnchantSkillInfoDetail(int itemId, long itemCount)
     {
         _itemId = itemId;
         _itemCount = itemCount;
@@ -55,13 +55,12 @@ public class ExEnchantSkillInfoDetail extends L2GameServerPacket
         writeD(0);
         writeQ(0);
         writeD(0);
-        if(Config.PACKET_FINAL)
+        if (Config.PACKET_FINAL)
         	writeQ(_itemCount); // Count
         else
-        	writeD(_itemCount); // Count
+        	writeD(toInt(_itemCount)); // Count
         writeD(0);
         writeD(_itemId); // ItemId Required
         writeD(0);
     }
-
 }

@@ -330,21 +330,22 @@ public class L2Multisell
 
 	public class MultiSellIngredient
 	{
-		private int _itemId, _itemCount, _enchantmentLevel, _augmentationId, _manaLeft;
-		private boolean _isTaxIngredient, _mantainIngredient;
+		private int _itemId, _enchantmentLevel, _augmentationId, _manaLeft;
+		private long _itemCount;
+		private boolean _isTaxIngredient, _maintainIngredient;
 
-		public MultiSellIngredient(int itemId, int itemCount, boolean isTaxIngredient, boolean mantainIngredient)
+		public MultiSellIngredient(int itemId, long itemCount, boolean isTaxIngredient, boolean maintainIngredient)
 		{
-			this(itemId, itemCount, 0, isTaxIngredient, mantainIngredient);
+			this(itemId, itemCount, 0, isTaxIngredient, maintainIngredient);
 		}
 		
-		public MultiSellIngredient(int itemId, int itemCount, int enchantmentLevel, boolean isTaxIngredient, boolean mantainIngredient)
+		public MultiSellIngredient(int itemId, long itemCount, int enchantmentLevel, boolean isTaxIngredient, boolean maintainIngredient)
 		{
 			setItemId(itemId);
 			setItemCount(itemCount);
 			setEnchantmentLevel(enchantmentLevel);
 			setIsTaxIngredient(isTaxIngredient);
-			setMantainIngredient(mantainIngredient);
+			setMaintainIngredient(maintainIngredient);
 		}
 		
 		public MultiSellIngredient(MultiSellIngredient e)
@@ -353,7 +354,7 @@ public class L2Multisell
 			_itemCount = e.getItemCount();
 			_enchantmentLevel = e.getEnchantmentLevel();
 			_isTaxIngredient = e.isTaxIngredient();
-			_mantainIngredient = e.getMantainIngredient();
+			_maintainIngredient = e.getMaintainIngredient();
 		}
 		/**
 		 * @param itemId The itemId to set.
@@ -374,7 +375,7 @@ public class L2Multisell
 		/**
 		 * @param itemCount The itemCount to set.
 		 */
-		public void setItemCount(int itemCount)
+		public void setItemCount(long itemCount)
 		{
 			_itemCount = itemCount;
 		}
@@ -382,7 +383,7 @@ public class L2Multisell
 		/**
 		 * @return Returns the itemCount.
 		 */
-		public int getItemCount()
+		public long getItemCount()
 		{
 			return _itemCount;
 		}
@@ -413,14 +414,14 @@ public class L2Multisell
 			return _isTaxIngredient;
 		}
 		
-		public void setMantainIngredient(boolean mantainIngredient)
+		public void setMaintainIngredient(boolean maintainIngredient)
 		{
-			_mantainIngredient = mantainIngredient;
+			_maintainIngredient = maintainIngredient;
 		}
 		
-		public boolean getMantainIngredient()
+		public boolean getMaintainIngredient()
 		{
-			return _mantainIngredient;
+			return _maintainIngredient;
 		}
 		
 		public int getAugmentationId()
@@ -595,7 +596,7 @@ public class L2Multisell
 				int id = Integer.parseInt(n.getAttributes().getNamedItem("id").getNodeValue());
 				int count = Integer.parseInt(n.getAttributes().getNamedItem("count").getNodeValue());
 				
-				boolean isTaxIngredient = false, mantainIngredient = false;
+				boolean isTaxIngredient = false, maintainIngredient = false;
 				
 				attribute = n.getAttributes().getNamedItem("isTaxIngredient");
 				
@@ -605,9 +606,9 @@ public class L2Multisell
 				attribute = n.getAttributes().getNamedItem("maintainIngredient");
 				
 				if (attribute != null)
-					mantainIngredient = Boolean.parseBoolean(attribute.getNodeValue());
+					maintainIngredient = Boolean.parseBoolean(attribute.getNodeValue());
 
-				MultiSellIngredient e = new MultiSellIngredient(id, count, isTaxIngredient, mantainIngredient);
+				MultiSellIngredient e = new MultiSellIngredient(id, count, isTaxIngredient, maintainIngredient);
 				entry.addIngredient(e);
 			}
 			else if ("production".equalsIgnoreCase(n.getNodeName()))

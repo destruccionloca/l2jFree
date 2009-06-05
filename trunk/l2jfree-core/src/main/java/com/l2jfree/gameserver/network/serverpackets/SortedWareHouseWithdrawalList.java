@@ -48,7 +48,7 @@ public class SortedWareHouseWithdrawalList extends L2GameServerPacket
 	private final static Log _log = LogFactory.getLog(SortedWareHouseWithdrawalList.class.getName());
 	private static final String _S__54_SORTEDWAREHOUSEWITHDRAWALLIST = "[S] 42 SortedWareHouseWithdrawalList";
 	private L2PcInstance _activeChar;
-	private int _playerAdena;
+	private long _playerAdena;
 	private List<L2WarehouseItem> _objects = new FastList<L2WarehouseItem>();
 	private int _whType;
 	private byte _sortorder;
@@ -682,14 +682,14 @@ public class SortedWareHouseWithdrawalList extends L2GameServerPacket
 	{
 		writeC(0x42);
 		/* 0x01-Private Warehouse  
-	    * 0x02-Clan Warehouse  
-	    * 0x03-Castle Warehouse  
-	    * 0x04-Warehouse */  
-	    writeH(_whType);
-	    if(Config.PACKET_FINAL)
-	    	writeQ(_playerAdena);
-	    else
-	    	writeD(_playerAdena);
+		* 0x02-Clan Warehouse  
+		* 0x03-Castle Warehouse  
+		* 0x04-Warehouse */  
+		writeH(_whType);
+		if (Config.PACKET_FINAL)
+			writeQ(_playerAdena);
+		else
+			writeD(toInt(_playerAdena));
 		writeH(_objects.size());
 		
 		for (L2WarehouseItem item : _objects)
@@ -697,10 +697,10 @@ public class SortedWareHouseWithdrawalList extends L2GameServerPacket
 			writeH(item.getItem().getType1()); // item type1 //unconfirmed, works
 			writeD(item.getObjectId());
 			writeD(item.getItem().getItemDisplayId()); //unconfirmed, works
-			if(Config.PACKET_FINAL)
+			if (Config.PACKET_FINAL)
 				writeQ(item.getCount()); //unconfirmed, works
 			else
-				writeD(item.getCount()); //unconfirmed, works
+				writeD(toInt(item.getCount())); //unconfirmed, works
 			writeH(item.getItem().getType2());	// item type2 //unconfirmed, works
 			writeH(item.getCustomType1());
 			writeD(item.getItem().getBodyPart());	// ?
@@ -716,16 +716,28 @@ public class SortedWareHouseWithdrawalList extends L2GameServerPacket
 			else
 				writeQ(0x00);
 
-			writeH(item.getAttackElementType());
-			writeH(item.getAttackElementPower());
-			for (byte i = 0; i < 6; i++)
+			if (Config.PACKET_FINAL)
 			{
-				writeH(item.getElementDefAttr(i));
+				writeH(item.getAttackElementType());
+				writeH(item.getAttackElementPower());
+				for (byte i = 0; i < 6; i++)
+				{
+					writeH(item.getElementDefAttr(i));
+				}
+			}
+			else
+			{
+				writeD(item.getAttackElementType());
+				writeD(item.getAttackElementPower());
+				for (byte i = 0; i < 6; i++)
+				{
+					writeD(item.getElementDefAttr(i));
+				}
 			}
 
 			writeD(item.getManaLeft());
 			// T2
-			writeD(0x00);
+			writeD(item.getTime());
 		}
 	}
 	

@@ -20,6 +20,7 @@ import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
 
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.L2Character.AIAccessor;
+import com.l2jfree.gameserver.model.actor.instance.L2MerchantSummonInstance;
 
 public class L2SummonAI extends L2CharacterAI
 {
@@ -35,6 +36,8 @@ public class L2SummonAI extends L2CharacterAI
 	@Override
 	protected void onIntentionIdle()
 	{
+		if (_actor instanceof L2MerchantSummonInstance)
+			return;
 		stopFollow();
 		_startFollow = false;
 		onIntentionActive();
@@ -43,6 +46,8 @@ public class L2SummonAI extends L2CharacterAI
 	@Override
 	protected void onIntentionActive()
 	{
+		if (_actor instanceof L2MerchantSummonInstance)
+			return;
 		L2Summon summon = (L2Summon) _actor;
 		if (_startFollow)
 			setIntention(AI_INTENTION_FOLLOW, summon.getOwner());
@@ -52,6 +57,8 @@ public class L2SummonAI extends L2CharacterAI
 
 	private void thinkAttack()
 	{
+		if (_actor instanceof L2MerchantSummonInstance)
+			return;
 		if (checkTargetLostOrDead(getAttackTarget()))
 		{
 			setAttackTarget(null);
@@ -65,6 +72,8 @@ public class L2SummonAI extends L2CharacterAI
 
 	private void thinkCast()
 	{
+		if (_actor instanceof L2MerchantSummonInstance)
+			return;
 		L2Summon summon = (L2Summon) _actor;
 		if (checkTargetLost(getCastTarget()))
 		{
@@ -83,6 +92,8 @@ public class L2SummonAI extends L2CharacterAI
 
 	private void thinkPickUp()
 	{
+		if (_actor instanceof L2MerchantSummonInstance)
+			return;
 		if (checkTargetLost(getTarget()))
 			return;
 		if (maybeMoveToPawn(getTarget(), 36))
@@ -93,6 +104,8 @@ public class L2SummonAI extends L2CharacterAI
 
 	private void thinkInteract()
 	{
+		if (_actor instanceof L2MerchantSummonInstance)
+			return;
 		if (checkTargetLost(getTarget()))
 			return;
 		if (maybeMoveToPawn(getTarget(), 36))
@@ -103,6 +116,8 @@ public class L2SummonAI extends L2CharacterAI
 	@Override
 	protected void onEvtThink()
 	{
+		if (_actor instanceof L2MerchantSummonInstance)
+			return;
 		if (_thinking || _actor.isCastingNow() || _actor.isAllSkillsDisabled())
 			return;
 		_thinking = true;
@@ -133,12 +148,16 @@ public class L2SummonAI extends L2CharacterAI
 	@Override
 	protected void onEvtFinishCasting()
 	{
+		if (_actor instanceof L2MerchantSummonInstance)
+			return;
 		if (getIntention() != AI_INTENTION_ATTACK)
 			((L2Summon)_actor).setFollowStatus(_startFollow);
 	}
 
 	public void notifyFollowStatusChange()
 	{
+		if (_actor instanceof L2MerchantSummonInstance)
+			return;
 		_startFollow = !_startFollow;
 		switch (getIntention())
 		{
@@ -151,6 +170,8 @@ public class L2SummonAI extends L2CharacterAI
 
 	public void setStartFollowController(boolean val)
 	{
+		if (_actor instanceof L2MerchantSummonInstance)
+			return;
 		_startFollow = val;
 	}
 }

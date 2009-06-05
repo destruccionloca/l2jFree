@@ -23,7 +23,7 @@ public class L2StadiumZone extends L2Zone
 	{
 		character.setInsideZone(FLAG_STADIUM, true);
 		character.setInsideZone(FLAG_PVP, true);
-		character.setInsideZone(FLAG_NOLANDING, true);
+		character.setInsideZone(FLAG_NOWYVERN, true);
 		
 		super.onEnter(character);
 	}
@@ -33,7 +33,7 @@ public class L2StadiumZone extends L2Zone
 	{
 		character.setInsideZone(FLAG_STADIUM, false);
 		character.setInsideZone(FLAG_PVP, false);
-		character.setInsideZone(FLAG_NOLANDING, false);
+		character.setInsideZone(FLAG_NOWYVERN, false);
 		
 		super.onEnter(character);
 	}

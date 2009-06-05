@@ -40,7 +40,7 @@ public class RequestDropItem extends L2GameClientPacket
     private static final String _C__12_REQUESTDROPITEM = "[C] 12 RequestDropItem";
 
     private int _objectId;
-    private int _count;
+    private long _count;
     private int _x;
     private int _y;
     private int _z;
@@ -63,10 +63,10 @@ public class RequestDropItem extends L2GameClientPacket
     protected void readImpl()
     {
         _objectId = readD();
-        if(Config.PACKET_FINAL)
-        	_count    = toInt(readQ());
+        if (Config.PACKET_FINAL)
+            _count    = toInt(readQ());
         else
-        	_count    = readD();
+            _count    = readD();
         _x        = readD();
         _y        = readD();
         _z        = readD();
@@ -160,6 +160,10 @@ public class RequestDropItem extends L2GameClientPacket
     		requestFailed(SystemMessageId.CANNOT_DISCARD_THIS_ITEM);
             return false;
         }
+		else if (activeChar.isFlying())
+		{
+			return false;
+		}
     	else if (activeChar.isCastingSimultaneouslyNow() &&
     			activeChar.getLastSimultaneousSkillCast() != null &&
     			activeChar.getLastSimultaneousSkillCast().getItemConsumeId() == item.getItemId())

@@ -20,8 +20,8 @@ public final class L2Henna
 {
 	private final int		_symbolId;
 	private final int		_itemId;
-	private final int		_price;
-	private final int		_amount;
+	private final long		_price;
+	private final long		_amount;
 	private final int		_modINT;
 	private final int		_modSTR;
 	private final int		_modCON;
@@ -35,8 +35,8 @@ public final class L2Henna
 		_symbolId	= set.getInteger("symbol_id");
 		_name		= set.getString("symbol_name");
 		_itemId		= set.getInteger("dye_id");
-		_price		= set.getInteger("price");
-		_amount		= set.getInteger("dye_amount");
+		_price		= set.getLong("price");
+		_amount		= set.getLong("dye_amount");
 		_modINT		= set.getInteger("mod_INT");
 		_modSTR		= set.getInteger("mod_STR");
 		_modCON		= set.getInteger("mod_CON");
@@ -47,8 +47,8 @@ public final class L2Henna
 
 	public int getSymbolId() {	return _symbolId;	}
 	public int getItemId()   {	return _itemId;		}
-	public int getPrice()    {	return _price;		}
-	public int getAmount()   {	return _amount;		}
+	public long getPrice()   {	return _price;		}
+	public long getAmount()  {	return _amount;		}
 	public int getStatINT()  {	return _modINT;		}
 	public int getStatSTR()  {	return _modSTR;		}
 	public int getStatCON()  {	return _modCON;		}

@@ -43,7 +43,7 @@ public class MultiSellChoose extends L2GameClientPacket
 	private static final String	_C__A7_MULTISELLCHOOSE = "[C] A7 MultiSellChoose";
 	private int _listId;
 	private int _entryId;
-	private int _amount;
+	private long _amount;
 	private int _enchantment;
 	private int _transactionTax;																// local handling of taxation
 
@@ -57,6 +57,17 @@ public class MultiSellChoose extends L2GameClientPacket
 		else
 			_amount = readD();
 		// _enchantment = readH();  // <---commented this line because it did NOT work!
+		readH();
+		readD();
+		readD();
+		readH(); // elemental attributes
+		readH();// elemental attributes
+		readH();// elemental attributes
+		readH();// elemental attributes
+		readH();// elemental attributes
+		readH();// elemental attributes
+		readH();// elemental attributes
+		readH();// elemental attributes
 		_enchantment = _entryId % 100000;
 		_entryId = _entryId / 100000;
 		_transactionTax = 0; // initialize tax amount to 0...
@@ -179,9 +190,9 @@ public class MultiSellChoose extends L2GameClientPacket
 				// if this is not a list that maintains enchantment, check the count of all items that have the given id.
 				// otherwise, check only the count of items with exactly the needed enchantment level
 				if (inv.getInventoryItemCount(e.getItemId(), maintainEnchantment ? e.getEnchantmentLevel() : -1) < ((Config.ALT_BLACKSMITH_USE_RECIPES || !e
-						.getMantainIngredient()) ? (e.getItemCount() * _amount) : e.getItemCount()))
+						.getMaintainIngredient()) ? (e.getItemCount() * _amount) : e.getItemCount()))
 				{
-					sendPacket(SystemMessageId.NOT_ENOUGH_ITEMS);
+					sendPacket(SystemMessageId.NOT_ENOUGH_REQUIRED_ITEMS);
 					_ingredientsList.clear();
 					_ingredientsList = null;
 					return;
@@ -204,15 +215,14 @@ public class MultiSellChoose extends L2GameClientPacket
 			{
 			case -200: // Clan Reputation Score
 			{
-				int repLeft = player.getClan().getReputationScore() - (e.getItemCount() * _amount);
+				int repLeft = (int) (player.getClan().getReputationScore() - (e.getItemCount() * _amount));
 				player.getClan().setReputationScore(repLeft, true);
-				sendPacket(new SystemMessage(SystemMessageId.S1_DEDUCTED_FROM_CLAN_REP).addNumber(e.getItemCount() * _amount));
-				player.getClan().broadcastToOnlineMembers(new PledgeShowInfoUpdate(player.getClan()));
+				sendPacket(new SystemMessage(SystemMessageId.S1_DEDUCTED_FROM_CLAN_REP).addNumber((int) (e.getItemCount() * _amount)));
 				break;
 			}
 			case -300: // Player Fame
 			{
-				int fameLeft = player.getFame() - (e.getItemCount() * _amount);
+				int fameLeft = (int) (player.getFame() - (e.getItemCount() * _amount));
 				player.setFame(fameLeft);
 				sendPacket(new UserInfo(player));
 				break;
@@ -223,18 +233,18 @@ public class MultiSellChoose extends L2GameClientPacket
 				if (itemToTake == null)
 				{ //this is a cheat, transaction will be aborted and if any items already taken will not be returned back to inventory!
 					_log.fatal("Character: " + player.getName() + " is trying to cheat in multisell, merchant id:" + merchant.getNpcId());
-					sendPacket(SystemMessageId.NOT_ENOUGH_ITEMS);
+					sendPacket(SystemMessageId.NOT_ENOUGH_REQUIRED_ITEMS);
 					return;
 				}
 
 				if (itemToTake.isWear())
 				{//Player trying to buy something from the Multisell store with an item that's just being used from the Wear option from merchants.
 					_log.fatal("Character: " + player.getName() + " is trying to cheat in multisell, merchant id:" + merchant.getNpcId());
-					sendPacket(SystemMessageId.NOT_ENOUGH_ITEMS);
+					sendPacket(SystemMessageId.NOT_ENOUGH_REQUIRED_ITEMS);
 					return;
 				}
 
-				if (Config.ALT_BLACKSMITH_USE_RECIPES || !e.getMantainIngredient())
+				if (Config.ALT_BLACKSMITH_USE_RECIPES || !e.getMaintainIngredient())
 				{
 					// if it's a stackable item, just reduce the amount from the first (only) instance that is found in the inventory
 					if (itemToTake.isStackable())
@@ -361,7 +371,7 @@ public class MultiSellChoose extends L2GameClientPacket
 			{
 				sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
 				sm.addItemName(e.getItemId());
-				sm.addNumber(e.getItemCount() * _amount);
+				sm.addItemNumber(e.getItemCount() * _amount);
 				sendPacket(sm);
 				sm = null;
 			}

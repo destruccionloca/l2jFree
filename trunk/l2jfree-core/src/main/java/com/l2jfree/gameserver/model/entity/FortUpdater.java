@@ -17,7 +17,9 @@ package com.l2jfree.gameserver.model.entity;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2Clan;
+import com.l2jfree.gameserver.model.entity.Fort;
 
 /**
  * Vice - 2008 Class managing periodical events with castle
@@ -26,13 +28,13 @@ public class FortUpdater implements Runnable
 {
 	protected static Log _log = LogFactory.getLog(FortUpdater.class.getName());
 	
-	@SuppressWarnings("unused")
 	private L2Clan _clan;
-	@SuppressWarnings("unused")
-	private int _runCount = 0;
+	private Fort _fort;
+	private int _runCount;
 	
-	public FortUpdater(L2Clan clan, int runCount)
+	public FortUpdater(Fort fort, L2Clan clan, int runCount)
 	{
+		_fort = fort;
 		_clan = clan;
 		_runCount = runCount;
 	}
@@ -41,6 +43,12 @@ public class FortUpdater implements Runnable
 	{
 		try
 		{
+			_runCount++;
+			if (_fort.getOwnerClan() == null || _fort.getOwnerClan() != _clan
+					|| (_runCount * Config.FS_BLOOD_OATH_FRQ * 60) > (_fort.getOwnedTime() + 60))
+				return;
+			
+			_fort.setBloodOathReward(_fort.getBloodOathReward() + Config.FS_BLOOD_OATH_COUNT);
 		}
 		catch (Exception e)
 		{

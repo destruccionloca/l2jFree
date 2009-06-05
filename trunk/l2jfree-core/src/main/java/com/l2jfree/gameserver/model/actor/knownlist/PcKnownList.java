@@ -22,8 +22,10 @@ import com.l2jfree.gameserver.model.actor.L2Decoy;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.L2Trap;
+import com.l2jfree.gameserver.model.actor.instance.L2AirShipInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2MerchantSummonInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2StaticObjectInstance;
@@ -31,6 +33,8 @@ import com.l2jfree.gameserver.network.serverpackets.AbstractNpcInfo;
 import com.l2jfree.gameserver.network.serverpackets.CharInfo;
 import com.l2jfree.gameserver.network.serverpackets.DeleteObject;
 import com.l2jfree.gameserver.network.serverpackets.DropItem;
+import com.l2jfree.gameserver.network.serverpackets.ExAirShipInfo;
+import com.l2jfree.gameserver.network.serverpackets.ExGetOnAirShip;
 import com.l2jfree.gameserver.network.serverpackets.ExPrivateStoreSetWholeMsg;
 import com.l2jfree.gameserver.network.serverpackets.GetOnVehicle;
 import com.l2jfree.gameserver.network.serverpackets.PetInfo;
@@ -117,6 +121,13 @@ public class PcKnownList extends PlayableKnownList
 					}
 				}
 			}
+			else if (object instanceof L2AirShipInstance)
+			{
+				if (object != getActiveChar().getAirShip())
+				{
+					getActiveChar().sendPacket(new ExAirShipInfo((L2AirShipInstance) object));
+				}
+			}
 			else if (object instanceof L2StaticObjectInstance)
 			{
 				getActiveChar().sendPacket(new StaticObject((L2StaticObjectInstance)object));
@@ -144,7 +155,7 @@ public class PcKnownList extends PlayableKnownList
 				L2Summon summon = (L2Summon)object;
 				
 				// Check if the L2PcInstance is the owner of the Pet
-				if (getActiveChar() == summon.getOwner())
+				if (getActiveChar() == summon.getOwner() && !(summon instanceof L2MerchantSummonInstance))
 				{
 					getActiveChar().sendPacket(new PetInfo(summon, 0));
 					if (summon instanceof L2PetInstance)
@@ -160,6 +171,8 @@ public class PcKnownList extends PlayableKnownList
 				L2PcInstance otherPlayer = (L2PcInstance)object;
 				if (otherPlayer.isInBoat())
 					otherPlayer.getPosition().setWorldPosition(otherPlayer.getBoat().getPosition());
+				else if (otherPlayer.isInAirShip())
+					otherPlayer.getPosition().setWorldPosition(otherPlayer.getAirShip().getPosition());
 				
 				if (otherPlayer.getPoly().isMorphed())
 				{
@@ -173,7 +186,9 @@ public class PcKnownList extends PlayableKnownList
 				
 				if (otherPlayer.isInBoat())
 					getActiveChar().sendPacket(new GetOnVehicle(otherPlayer, otherPlayer.getBoat(), otherPlayer.getInBoatPosition().getX(), otherPlayer.getInBoatPosition().getY(), otherPlayer.getInBoatPosition().getZ()));
-				
+				else if (otherPlayer.isInAirShip())
+					getActiveChar().sendPacket(new ExGetOnAirShip(otherPlayer, otherPlayer.getAirShip()));
+
 				if (otherPlayer.getMountType() == 4)
 				{
 					// TODO: Remove when horse mounts fixed

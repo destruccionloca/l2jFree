@@ -84,11 +84,11 @@ public class CastleManorManager
 
 	public class CropProcure
 	{
-		int	_cropId;
-		int	_buyResidual;
-		int	_rewardType;
-		int	_buy;
-		int	_price;
+		int		_cropId;
+		long	_buyResidual;
+		int		_rewardType;
+		long	_buy;
+		long	_price;
 
 		public CropProcure(int id)
 		{
@@ -99,7 +99,7 @@ public class CastleManorManager
 			_price = 0;
 		}
 
-		public CropProcure(int id, int amount, int type, int buy, int price)
+		public CropProcure(int id, long amount, int type, long buy, long price)
 		{
 			_cropId = id;
 			_buyResidual = amount;
@@ -118,22 +118,22 @@ public class CastleManorManager
 			return _cropId;
 		}
 
-		public int getAmount()
+		public long getAmount()
 		{
 			return _buyResidual;
 		}
 
-		public int getStartAmount()
+		public long getStartAmount()
 		{
 			return _buy;
 		}
 
-		public int getPrice()
+		public long getPrice()
 		{
 			return _price;
 		}
 
-		public void setAmount(int amount)
+		public void setAmount(long amount)
 		{
 			_buyResidual = amount;
 		}
@@ -141,10 +141,10 @@ public class CastleManorManager
 
 	public class SeedProduction
 	{
-		int	_seedId;
-		int	_residual;
-		int	_price;
-		int	_sales;
+		int		_seedId;
+		long	_residual;
+		long	_price;
+		long	_sales;
 
 		public SeedProduction(int id)
 		{
@@ -154,7 +154,7 @@ public class CastleManorManager
 			_sales = 0;
 		}
 
-		public SeedProduction(int id, int amount, int price, int sales)
+		public SeedProduction(int id, long amount, long price, long sales)
 		{
 			_seedId = id;
 			_residual = amount;
@@ -167,22 +167,22 @@ public class CastleManorManager
 			return _seedId;
 		}
 
-		public int getCanProduce()
+		public long getCanProduce()
 		{
 			return _residual;
 		}
 
-		public int getPrice()
+		public long getPrice()
 		{
 			return _price;
 		}
 
-		public int getStartProduce()
+		public long getStartProduce()
 		{
 			return _sales;
 		}
 
-		public void setCanProduce(int amount)
+		public void setCanProduce(long amount)
 		{
 			_residual = amount;
 		}
@@ -234,8 +234,8 @@ public class CastleManorManager
 					else
 						productionNext.add(new SeedProduction(seedId, canProduce, price, startProduce));
 				}
-				statement.close();
 				rs.close();
+				statement.close();
 
 				castle.setSeedProduction(production, PERIOD_CURRENT);
 				castle.setSeedProduction(productionNext, PERIOD_NEXT);
@@ -257,8 +257,8 @@ public class CastleManorManager
 					else
 						procureNext.add(new CropProcure(cropId, canBuy, rewardType, startBuy, price));
 				}
-				statement.close();
 				rs.close();
+				statement.close();
 
 				castle.setCropProcure(procure, PERIOD_CURRENT);
 				castle.setCropProcure(procureNext, PERIOD_NEXT);
@@ -408,7 +408,7 @@ public class CastleManorManager
 				// Adding bought crops to clan warehouse
 				if (crop.getStartAmount() - crop.getAmount() > 0)
 				{
-					int count = crop.getStartAmount() - crop.getAmount();
+					long count = crop.getStartAmount() - crop.getAmount();
 					count = count * 90 / 100;
 					if (count < 1)
 					{
@@ -567,12 +567,12 @@ public class CastleManorManager
 		_disabled = mode;
 	}
 
-	public SeedProduction getNewSeedProduction(int id, int amount, int price, int sales)
+	public SeedProduction getNewSeedProduction(int id, long amount, long price, long sales)
 	{
 		return new SeedProduction(id, amount, price, sales);
 	}
 
-	public CropProcure getNewCropProcure(int id, int amount, int type, int price, int buy)
+	public CropProcure getNewCropProcure(int id, long amount, int type, long price, long buy)
 	{
 		return new CropProcure(id, amount, type, buy, price);
 	}

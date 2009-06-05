@@ -110,9 +110,9 @@ public class L2Manor
 	 * @param seedId
 	 * @return seed price
 	 */
-	public int getSeedBuyPrice (int seedId)
+	public long getSeedBuyPrice (int seedId)
 	{
-		int buyPrice = getSeedBasicPrice(seedId) / 10;
+		long buyPrice = getSeedBasicPrice(seedId) / 10;
 		return (buyPrice > 0 ? buyPrice : 1); 
 	}
 

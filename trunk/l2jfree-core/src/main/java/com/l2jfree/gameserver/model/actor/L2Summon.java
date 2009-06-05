@@ -27,6 +27,7 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2WorldRegion;
 import com.l2jfree.gameserver.model.actor.L2Attackable.AggroInfo;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2MerchantSummonInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.model.actor.knownlist.SummonKnownList;
@@ -42,6 +43,7 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExPartyPetWindowAdd;
 import com.l2jfree.gameserver.network.serverpackets.ExPartyPetWindowDelete;
 import com.l2jfree.gameserver.network.serverpackets.ExPartyPetWindowUpdate;
+import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.PartySpelled;
 import com.l2jfree.gameserver.network.serverpackets.PetDelete;
@@ -115,22 +117,26 @@ public abstract class L2Summon extends L2Playable
 	public void onSpawn()
 	{
 		super.onSpawn();
-		setFollowStatus(true);
+
+		if (!(this instanceof L2MerchantSummonInstance))
+		{
+			setFollowStatus(true);
+			broadcastFullInfoImpl(0);
+			getOwner().broadcastRelationChanged();
+			L2Party party = getOwner().getParty();
+			if (party != null)
+			{
+				party.broadcastToPartyMembers(getOwner(), new ExPartyPetWindowAdd(this));
+			}
+			if (this instanceof L2SummonInstance && getOwner() != null && getOwner().getActiveWeaponInstance() != null)
+			{
+				getOwner().getActiveWeaponInstance().updateElementAttrBonus(getOwner());
+				this.getOwner().sendPacket(new UserInfo(this.getOwner()));
+			}
+		}
+
 		setShowSummonAnimation(false); // addVisibleObject created the info packets with summon animation
 		// if someone comes into range now, the animation shouldnt show any more
-		broadcastFullInfoImpl(0);
-		getOwner().broadcastRelationChanged();
-		
-		L2Party party = getOwner().getParty();
-		if (party != null)
-		{
-			party.broadcastToPartyMembers(getOwner(), new ExPartyPetWindowAdd(this));
-		}
-		if (this instanceof L2SummonInstance && getOwner() != null && getOwner().getActiveWeaponInstance() != null)
-		{
-			getOwner().getActiveWeaponInstance().updateElementAttrBonus(getOwner());
-			this.getOwner().sendPacket(new UserInfo(this.getOwner()));
- 		}
 	}
 
 	@Override
@@ -154,6 +160,9 @@ public abstract class L2Summon extends L2Playable
 	@Override
 	public L2CharacterAI getAI()
 	{
+		if (this instanceof L2MerchantSummonInstance)
+			return null;
+
 		L2CharacterAI ai = _ai; // copy handle
 		if (ai == null)
 		{
@@ -293,6 +302,9 @@ public abstract class L2Summon extends L2Playable
 		if (!super.doDie(killer))
 			return false;
 
+		if (this instanceof L2MerchantSummonInstance)
+			return true;
+
 		L2PcInstance owner = getOwner();
 
 		if (owner != null)
@@ -353,6 +365,9 @@ public abstract class L2Summon extends L2Playable
 	@Override
 	public final void updateEffectIconsImpl()
 	{
+		if (this instanceof L2MerchantSummonInstance)
+			return;
+
 		final EffectInfoPacketList list = new EffectInfoPacketList(this);
 		
 		final L2Party party = getParty();
@@ -365,6 +380,9 @@ public abstract class L2Summon extends L2Playable
 
 	public void deleteMe(L2PcInstance owner)
 	{
+		if (this instanceof L2MerchantSummonInstance)
+			return;
+
 		getAI().stopFollow();
 		owner.sendPacket(new PetDelete(getObjectId(), 2));
 		L2Party party = owner.getParty();
@@ -400,18 +418,21 @@ public abstract class L2Summon extends L2Playable
 	{
 		if (isVisible())
 		{
-			stopAllEffects();
-
-			getAI().stopFollow();
-			owner.sendPacket(new PetDelete(getObjectId(), 2));
-			L2Party party = owner.getParty();
-			if (party != null)
-				party.broadcastToPartyMembers(owner, new ExPartyPetWindowDelete(this));
-
-			store();
-
-			giveAllToOwner();
-			SQLQueue.getInstance().run();
+			if (!(this instanceof L2MerchantSummonInstance))
+			{
+				getAI().stopFollow();
+				owner.sendPacket(new PetDelete(getObjectId(), 2));
+				L2Party party;
+				if ((party = owner.getParty()) != null)
+				{
+					party.broadcastToPartyMembers(owner, new ExPartyPetWindowDelete(this));
+				}
+				
+				store();
+				giveAllToOwner();
+				SQLQueue.getInstance().run();
+				owner.setPet(null);
+			}
 
 			stopAllEffects();
 
@@ -421,7 +442,6 @@ public abstract class L2Summon extends L2Playable
 				oldRegion.removeFromZones(this);
 
 			getKnownList().removeAllKnownObjects();
-			owner.setPet(null);
 			setTarget(null);
 			
 			LeakTaskManager.getInstance().add(this);

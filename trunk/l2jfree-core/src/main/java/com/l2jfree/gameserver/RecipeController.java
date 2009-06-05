@@ -389,11 +389,11 @@ public class RecipeController
 		protected final int				_skillLevel;
 		protected int					_creationPasses	= 1;
 		protected int					_itemGrab;
-		protected int					_exp			= -1;
+		protected long					_exp			= -1;
 		protected int					_sp				= -1;
-		protected int					_price;
+		protected long					_price;
 		protected int					_totalItems;
-		protected int					_materialsRefPrice;
+		protected long					_materialsRefPrice;
 		protected int					_delay;
 
 		public RecipeItemMaker(L2PcInstance pPlayer, L2RecipeList pRecipeList, L2PcInstance pTarget)
@@ -628,12 +628,12 @@ public class RecipeController
 					SystemMessage msg = new SystemMessage(SystemMessageId.CREATION_OF_S2_FOR_C1_AT_S3_ADENA_FAILED);
 					msg.addPcName(_target);
 					msg.addItemName(_recipeList.getItemId());
-					msg.addNumber(_price);
+					msg.addItemNumber(_price);
 					_player.sendPacket(msg);
 					msg = new SystemMessage(SystemMessageId.C1_FAILED_TO_CREATE_S2_FOR_S3_ADENA);
 					msg.addPcName(_player);
 					msg.addItemName(_recipeList.getItemId());
-					msg.addNumber(_price);
+					msg.addItemNumber(_price);
 					_target.sendPacket(msg);
 				}
 				else
@@ -679,7 +679,7 @@ public class RecipeController
 			{
 				TempItem item = _items.get(0);
 
-				int count = item.getQuantity();
+				long count = item.getQuantity();
 				if (count >= grabItems)
 					count = grabItems;
 
@@ -692,7 +692,7 @@ public class RecipeController
 				grabItems -= count;
 
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2_EQUIPPED); // you equipped ...
-				sm.addNumber(count);
+				sm.addItemNumber(count);
 				sm.addItemName(item.getItemId());
 				_player.sendPacket(sm);
 				if (_target != _player)
@@ -837,7 +837,7 @@ public class RecipeController
 		private class TempItem
 		{ // no object id stored, this will be only "list" of items with it's owner
 			private int		_itemId;
-			private int		_quantity;
+			private long		_quantity;
 			private int		_ownerId;
 			private int		_referencePrice;
 			private String	_itemName;
@@ -846,7 +846,7 @@ public class RecipeController
 			 * @param item
 			 * @param quantity of that item
 			 */
-			public TempItem(L2ItemInstance item, int quantity)
+			public TempItem(L2ItemInstance item, long quantity)
 			{
 				super();
 				_itemId = item.getItemId();
@@ -859,7 +859,7 @@ public class RecipeController
 			/**
 			 * @return Returns the quantity.
 			 */
-			public int getQuantity()
+			public long getQuantity()
 			{
 				return _quantity;
 			}
@@ -867,12 +867,12 @@ public class RecipeController
 			/**
 			 * @param quantity The quantity to set.
 			 */
-			public void setQuantity(int quantity)
+			public void setQuantity(long quantity)
 			{
 				_quantity = quantity;
 			}
 
-			public int getReferencePrice()
+			public long getReferencePrice()
 			{
 				return _referencePrice;
 			}
@@ -902,11 +902,11 @@ public class RecipeController
 			}
 		}
 
-		private void rewardPlayer(int price)
+		private void rewardPlayer(long price)
 		{
 			int rareProdId = _recipeList.getRareItemId();
 			int itemId = _recipeList.getItemId();
-			int itemCount = _recipeList.getCount();
+			long itemCount = _recipeList.getCount();
 
 			L2Item template = ItemTable.getInstance().getTemplate(itemId);
 
@@ -953,27 +953,27 @@ public class RecipeController
 					msg = new SystemMessage(SystemMessageId.S2_CREATED_FOR_C1_FOR_S3_ADENA);
 					msg.addPcName(_target);
 					msg.addItemName(template);
-					msg.addNumber(price);
+					msg.addItemNumber(price);
 					_player.sendPacket(msg);
 					msg = new SystemMessage(SystemMessageId.C1_CREATED_S2_FOR_S3_ADENA);
 					msg.addPcName(_player);
 					msg.addItemName(template);
-					msg.addNumber(price);
+					msg.addItemNumber(price);
 					_target.sendPacket(msg);
 				}
 				else
 				{
 					msg = new SystemMessage(SystemMessageId.S2_S3_S_CREATED_FOR_C1_FOR_S4_ADENA);
 					msg.addPcName(_target);
-					msg.addNumber(itemCount);
+					msg.addItemNumber(itemCount);
 					msg.addItemName(template);
-					msg.addNumber(price);
+					msg.addItemNumber(price);
 					_player.sendPacket(msg);
 					msg = new SystemMessage(SystemMessageId.C1_CREATED_S2_S3_S_FOR_S4_ADENA);
 					msg.addPcName(_player);
-					msg.addNumber(itemCount);
+					msg.addItemNumber(itemCount);
 					msg.addItemName(template);
-					msg.addNumber(price);
+					msg.addItemNumber(price);
 					_target.sendPacket(msg);
 				}
 			}
@@ -983,7 +983,7 @@ public class RecipeController
 			{
 				msg = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
 				msg.addItemName(template);
-				msg.addNumber(itemCount);
+				msg.addItemNumber(itemCount);
 				_target.sendPacket(msg);
 			}
 			else
@@ -1002,7 +1002,7 @@ public class RecipeController
 					_exp /= recipeLevel;
 				}
 				if (_sp < 0)
-					_sp = _exp / 10;
+					_sp = (int) (_exp / 10);
 				if (itemId == rareProdId)
 				{
 					_exp *= Config.ALT_GAME_CREATION_RARE_XPSP_RATE;

@@ -27,7 +27,7 @@ public class PrivateStoreListSell extends L2GameServerPacket
 {
 	private static final String _S__B4_PRIVATESTORELISTSELL = "[S] 9b PrivateStoreListSell";
 	private int _objId;
-	private int _playerAdena;
+	private long _playerAdena;
 	private boolean _packageSale;
 	private TradeList.TradeItem[] _items;
 	
@@ -46,10 +46,10 @@ public class PrivateStoreListSell extends L2GameServerPacket
 		writeC(0xa1);
 		writeD(_objId);
 		writeD(_packageSale ? 1 : 0);
-		if(Config.PACKET_FINAL)
+		if (Config.PACKET_FINAL)
 			writeQ(_playerAdena);
 		else
-			writeD(_playerAdena);
+			writeD(toInt(_playerAdena));
 		
 		writeD(_items.length);
 		for (TradeList.TradeItem item : _items)
@@ -57,24 +57,37 @@ public class PrivateStoreListSell extends L2GameServerPacket
 			writeD(item.getItem().getType2());
 			writeD(item.getObjectId());
 			writeD(item.getItem().getItemDisplayId());
-			if(Config.PACKET_FINAL)
+			if (Config.PACKET_FINAL)
 				writeQ(item.getCount());
 			else
-				writeD(item.getCount());
+				writeD(toInt(item.getCount()));
 			writeH(0x00);
 			writeH(item.getEnchant());
 			writeH(0x00);
 			writeD(item.getItem().getBodyPart());
 			writeD(item.getPrice()); //your price
-			if(Config.PACKET_FINAL)
+			if (Config.PACKET_FINAL)
 				writeQ(item.getItem().getReferencePrice()); //store price
 			else
-				writeD(item.getItem().getReferencePrice()); //store price
-			writeH(item.getAttackElementType());
-			writeH(item.getAttackElementPower());
-			for (byte i = 0; i < 6; i++)
+				writeD(toInt(item.getItem().getReferencePrice())); //store price
+
+			if (Config.PACKET_FINAL)
 			{
-				writeH(item.getElementDefAttr(i));
+				writeH(item.getAttackElementType());
+				writeH(item.getAttackElementPower());
+				for (byte i = 0; i < 6; i++)
+				{
+					writeH(item.getElementDefAttr(i));
+				}
+			}
+			else
+			{
+				writeD(item.getAttackElementType());
+				writeD(item.getAttackElementPower());
+				for (byte i = 0; i < 6; i++)
+				{
+					writeD(item.getElementDefAttr(i));
+				}
 			}
 		}
 	}

@@ -26,6 +26,7 @@ public class L2ShortCut
 	public final static int TYPE_ACTION = 3;
 	public final static int TYPE_MACRO = 4;
 	public final static int TYPE_RECIPE = 5;
+	public final static int TYPE_TPBOOKMARK = 6;
 
 	private final int _slot;
 	private final int _page;

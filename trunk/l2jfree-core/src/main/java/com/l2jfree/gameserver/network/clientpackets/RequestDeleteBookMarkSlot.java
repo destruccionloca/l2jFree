@@ -41,9 +41,8 @@ public final class RequestDeleteBookMarkSlot extends L2GameClientPacket
 		if (activeChar == null)
 			return;
 		
-		activeChar.TeleportBookmarkDelete(id);
+		activeChar.teleportBookmarkDelete(id);
 	}
-
 
 	@Override
 	public String getType()

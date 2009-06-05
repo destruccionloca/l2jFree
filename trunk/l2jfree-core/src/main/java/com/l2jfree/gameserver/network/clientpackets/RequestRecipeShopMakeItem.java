@@ -30,7 +30,7 @@ public class RequestRecipeShopMakeItem extends L2GameClientPacket
 	private int _id;
 	private int _recipeId;
 	@SuppressWarnings("unused")
-	private int _unknown;
+	private long _unknown;
 
 	/**
 	 * packet type id 0xac
@@ -42,7 +42,7 @@ public class RequestRecipeShopMakeItem extends L2GameClientPacket
 	{
 		_id = readD();
 		_recipeId = readD();
-		if(Config.PACKET_FINAL)
+		if (Config.PACKET_FINAL)
 			_unknown = toInt(readQ());
 		else
 			_unknown = readD();

@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 
 /**
@@ -22,49 +23,64 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
  */
 public final class ExRpItemLink extends L2GameServerPacket
 {
-    private final static String S_FE_6C_EXPRPITEMLINK = "[S] FE:6C ExRpItemLink";
-    private final L2ItemInstance _item;
-    
-    public ExRpItemLink(L2ItemInstance item)
-    {
-        _item = item;
-    }
-    
-    /**
-     * @see com.l2jfree.gameserver.serverpackets.L2GameServerPacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-        return S_FE_6C_EXPRPITEMLINK;
-    }
+	private final static String S_FE_6C_EXPRPITEMLINK = "[S] FE:6C ExRpItemLink";
+	private final L2ItemInstance _item;
+	
+	public ExRpItemLink(L2ItemInstance item)
+	{
+		_item = item;
+	}
+	
+	/**
+	 * @see com.l2jfree.gameserver.serverpackets.L2GameServerPacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return S_FE_6C_EXPRPITEMLINK;
+	}
 
-    /**
-     * @see com.l2jfree.gameserver.serverpackets.L2GameServerPacket#writeImpl()
-     */
-    @Override
-    protected void writeImpl()
-    {
-        writeC(0xfe);
-        writeH(0x6c);
-        // guessing xD
-        writeD(_item.getObjectId());
-        writeD(_item.getItemId());
-        writeD(_item.getCount());
-        writeH(_item.getItem().getType2());
-        writeD(_item.getItem().getBodyPart());
-        writeH(_item.getEnchantLevel());
-        writeH(_item.getCustomType2());  // item type3
-        writeH(0x00); // ??
-        writeD(_item.isAugmented() ? _item.getAugmentation().getAugmentationId() : 0x00);
-        writeD(_item.getMana());
+	/**
+	 * @see com.l2jfree.gameserver.serverpackets.L2GameServerPacket#writeImpl()
+	 */
+	@Override
+	protected void writeImpl()
+	{
+		writeC(0xfe);
+		writeH(0x6c);
+		// guessing xD
+		writeD(_item.getObjectId());
+		writeD(_item.getItemId());
+		if (Config.PACKET_FINAL)
+			writeQ(_item.getCount());
+		else
+			writeD(toInt(_item.getCount()));
+		writeH(_item.getItem().getType2());
+		writeD(_item.getItem().getBodyPart());
+		writeH(_item.getEnchantLevel());
+		writeH(_item.getCustomType2());  // item type3
+		writeH(0x00); // ??
+		writeD(_item.isAugmented() ? _item.getAugmentation().getAugmentationId() : 0x00);
+		writeD(_item.getMana());
 
-        // T1
-        writeD(_item.getAttackElementType());
-        writeD(_item.getAttackElementPower());
-        for (byte i = 0; i < 6; i++)
-        {
-            writeD(_item.getElementDefAttr(i));
-        }
-    }
+		// T1
+		if (Config.PACKET_FINAL)
+		{
+			writeH(_item.getAttackElementType());
+			writeH(_item.getAttackElementPower());
+			for (byte i = 0; i < 6; i++)
+			{
+				writeH(_item.getElementDefAttr(i));
+			}
+		}
+		else
+		{
+			writeD(_item.getAttackElementType());
+			writeD(_item.getAttackElementPower());
+			for (byte i = 0; i < 6; i++)
+			{
+				writeD(_item.getElementDefAttr(i));
+			}
+		}
+	}
 }

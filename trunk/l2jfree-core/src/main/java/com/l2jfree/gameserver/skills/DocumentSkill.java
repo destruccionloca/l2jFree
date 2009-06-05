@@ -25,7 +25,6 @@ import java.util.StringTokenizer;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
-import com.l2jfree.gameserver.model.ChanceCondition;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.skills.conditions.Condition;
@@ -494,13 +493,8 @@ final class DocumentSkill extends DocumentBase
 		else if (isChanceSkillTrigger)
 			throw new NoSuchElementException(name + " requires activationChance");
 		
-		ChanceCondition chance = ChanceCondition.parse(chanceCond, activationChance);
-		
-		if (chance == null && isChanceSkillTrigger)
-			throw new NoSuchElementException("Invalid chance condition: " + chanceCond + " " + activationChance);
-		
 		EffectTemplate effectTemplate = new EffectTemplate(attachCond, name, lambda, count, time, abnormal, stackType,
-			stackOrder, showIcon, effectPower, effectType, trigId, trigLvl, chance);
+			stackOrder, showIcon, effectPower, effectType, trigId, trigLvl);
 		
 		parseTemplate(n, effectTemplate);
 		

@@ -19,10 +19,10 @@ import com.l2jfree.gameserver.RecipeController;
 public class L2ManufactureItem 
 {
 	private int _recipeId;
-	private int _cost;
+	private long _cost;
 	private boolean _isDwarven;
 
-	public L2ManufactureItem(int recipeId, int cost)
+	public L2ManufactureItem(int recipeId, long cost)
 	{
 		_recipeId = recipeId;
 		_cost = cost;
@@ -35,7 +35,7 @@ public class L2ManufactureItem
 		return _recipeId;
 	}
 
-	public int getCost()
+	public long getCost()
 	{
 		return _cost;
 	}

@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 import java.util.List;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
@@ -28,7 +29,7 @@ public class PackageSendableList extends L2GameServerPacket
 	
 	private final List<L2ItemInstance> _items;
 	private final int _playerObjId;
-	private final int _adena;
+	private final long _adena;
 	
 	public PackageSendableList(L2PcInstance sender, int playerOID)
 	{
@@ -46,14 +47,20 @@ public class PackageSendableList extends L2GameServerPacket
 		writeC(0xd2);
 		
 		writeD(_playerObjId);
-		writeD(_adena);
+		if (Config.PACKET_FINAL)
+			writeQ(_adena);
+		else
+			writeD(toInt(_adena));
 		writeD(_items.size());
 		for (L2ItemInstance item : _items) // format inside the for taken from SellList part use should be about the same
 		{
 			writeH(item.getItem().getType1());
 			writeD(item.getObjectId());
 			writeD(item.getItemDisplayId());
-			writeD(item.getCount());
+			if (Config.PACKET_FINAL)
+				writeQ(item.getCount());
+			else
+				writeD(toInt(item.getCount()));
 			writeH(item.getItem().getType2());
 			writeH(item.getCustomType1());
 			writeD(item.getItem().getBodyPart());
@@ -62,11 +69,23 @@ public class PackageSendableList extends L2GameServerPacket
 			writeH(0x00);
 			writeD(item.getObjectId()); // Will be used in RequestPackageSend response packet
 			//T1
-			writeD(item.getAttackElementType());
-			writeD(item.getAttackElementPower());
-			for (byte i = 0; i < 6; i++)
+			if (Config.PACKET_FINAL)
 			{
-				writeD(item.getElementDefAttr(i));
+				writeH(item.getAttackElementType());
+				writeH(item.getAttackElementPower());
+				for (byte i = 0; i < 6; i++)
+				{
+					writeH(item.getElementDefAttr(i));
+				}
+			}
+			else
+			{
+				writeD(item.getAttackElementType());
+				writeD(item.getAttackElementPower());
+				for (byte i = 0; i < 6; i++)
+				{
+					writeD(item.getElementDefAttr(i));
+				}
 			}
 		}
 	}

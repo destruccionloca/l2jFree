@@ -55,7 +55,7 @@ public class RequestBuyProcure extends L2GameClientPacket
 			int itemId = readD();
 			_items[(i * 2)] = itemId;
 			long cnt = 0;
-			if(Config.PACKET_FINAL)
+			if (Config.PACKET_FINAL)
 				cnt = toInt(readQ());
 			else
 				cnt = readD();
@@ -158,7 +158,7 @@ public class RequestBuyProcure extends L2GameClientPacket
 			// Send Char Buy Messages
 			SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
 			sm.addItemName(item);
-			sm.addNumber(rewardItemCount);
+			sm.addItemNumber(rewardItemCount);
 			sendPacket(sm);
 			sm = null;
 

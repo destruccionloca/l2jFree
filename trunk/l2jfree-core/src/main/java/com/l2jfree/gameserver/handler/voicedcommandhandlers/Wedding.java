@@ -69,14 +69,14 @@ public class Wedding implements IVoicedCommandHandler
 
 		int _partnerId = activeChar.getPartnerId();
 		int _coupleId = activeChar.getCoupleId();
-		int AdenaAmount = 0;
+		long adenaAmount = 0;
 
 		if (activeChar.isMaried())
 		{
 			activeChar.sendMessage("You are now divorced.");
 
-			AdenaAmount = (activeChar.getAdena() / 100) * Config.WEDDING_DIVORCE_COSTS;
-			activeChar.getInventory().reduceAdena("Wedding", AdenaAmount, activeChar, null);
+			adenaAmount = (activeChar.getAdena() / 100) * Config.WEDDING_DIVORCE_COSTS;
+			activeChar.getInventory().reduceAdena("Wedding", adenaAmount, activeChar, null);
 
 		}
 		else
@@ -92,8 +92,8 @@ public class Wedding implements IVoicedCommandHandler
 				partner.sendMessage("Your fiance has decided to break the engagement with you.");
 
 			// give adena
-			if (AdenaAmount > 0)
-				partner.addAdena("WEDDING", AdenaAmount, null, false);
+			if (adenaAmount > 0)
+				partner.addAdena("WEDDING", adenaAmount, null, false);
 		}
 
 		CoupleManager.getInstance().deleteCouple(_coupleId);

@@ -48,6 +48,8 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.AcquireSkillDone;
 import com.l2jfree.gameserver.network.serverpackets.AcquireSkillList;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
+import com.l2jfree.gameserver.network.serverpackets.MagicSkillLaunched;
+import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.PledgeReceiveSubPledgeCreated;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -173,7 +175,11 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 				player.sendPacket(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
 				return;
 			}
-			player.getClan().levelUpClan(player);
+			if (player.getClan().levelUpClan(player))
+			{
+				player.broadcastPacket(new MagicSkillUse(player, 5103, 1, 0, 0));
+				player.broadcastPacket(new MagicSkillLaunched(player, 5103, 1));
+			}
 		}
 		else if (actualCommand.equalsIgnoreCase("learn_clan_skills"))
 		{
@@ -585,7 +591,7 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 		ClanTable.getInstance().scheduleRemoveClan(clan.getClanId());
 
 		// The clan leader should take the XP penalty of a full death.
-		player.deathPenalty(false, false);
+		player.deathPenalty(false, false, false);
 	}
 
 	/**
@@ -1069,12 +1075,11 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 		AcquireSkillList asl = new AcquireSkillList(AcquireSkillList.SkillType.Clan);
 		int counts = 0;
 
+
 		for (L2PledgeSkillLearn s : skills)
 		{
-			int cost = s.getRepCost();
+			asl.addSkill(s.getId(), s.getLevel(), s.getLevel(), s.getRepCost(), (int) s.getItemCount());
 			counts++;
-
-			asl.addSkill(s.getId(), s.getLevel(), s.getLevel(), cost, 0);
 		}
 
 		if (counts == 0)

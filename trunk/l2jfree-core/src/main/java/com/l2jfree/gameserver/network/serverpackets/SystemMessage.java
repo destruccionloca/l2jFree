@@ -91,6 +91,28 @@ public final class SystemMessage extends L2GameServerPacket
 		}
 	}
 	
+	private static final class LongNumberElement extends Element
+	{
+		private final long _number;
+		
+		private LongNumberElement(long number)
+		{
+			_number = number;
+		}
+		
+		@Override
+		protected int getType()
+		{
+			return TYPE_ITEM_NUMBER;
+		}
+		
+		@Override
+		protected void write2(SystemMessage sm)
+		{
+			sm.writeQ(_number);
+		}
+	}
+	
 	private static final class SkillElement extends Element
 	{
 		private final int _skillId;
@@ -149,6 +171,7 @@ public final class SystemMessage extends L2GameServerPacket
 	// d d (d S/d d/d dd)
 	//      |--------------> 0 - String  1-number 2-textref npcname (1000000-1002655)  3-textref itemname 4-textref skills 5-fortress names
 	private static final int TYPE_ZONE_NAME = 7;
+	private static final int TYPE_ITEM_NUMBER = 6;
 	private static final int TYPE_FORTRESS = 5; // maybe not only for fortress, rename if needed
 	private static final int TYPE_SKILL_NAME = 4;
 	private static final int TYPE_ITEM_NAME = 3;
@@ -256,16 +279,25 @@ public final class SystemMessage extends L2GameServerPacket
 		return this;
 	}
 	
-	public SystemMessage addNumber(long number)
+	public SystemMessage addItemNumber(long number)
 	{
-		addElement(new NumberElement(TYPE_NUMBER, number));
+		addElement(new LongNumberElement(number));
 		
 		return this;
 	}
 	
-	public SystemMessage add(long number)
+	public SystemMessage addExpNumber(long number)
 	{
-		return addNumber(number);
+		addElement(new LongNumberElement(number));
+		
+		return this;
+	}
+	
+	public SystemMessage addNumber(int number)
+	{
+		addElement(new NumberElement(TYPE_NUMBER, number));
+		
+		return this;
 	}
 	
 	public SystemMessage addCharName(L2Character cha)
@@ -302,7 +334,7 @@ public final class SystemMessage extends L2GameServerPacket
 	
 	public SystemMessage addNpcName(L2NpcTemplate tpl)
 	{
-		if (tpl.isCustom())
+		if (tpl.isCustom() || tpl.isServerSideName())
 			return addString(tpl.getName());
 		
 		return addNpcName(tpl.getNpcId());

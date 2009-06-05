@@ -81,7 +81,7 @@ public class Loc implements IUserCommandHandler
 					activeChar.sendMessage("Restart at Rune Township.");
 				else if (SystemMessageId.LOC_GODDARD_S1_S2_S3.getId() == restart.getLocName())
 					activeChar.sendMessage("Restart at the Town of Goddard.");
-				else if (SystemMessageId.CURRENT_LOCATION_S1_S2_S3_DIMENSIONAL_GAP.getId() == restart.getLocName())
+				else if (SystemMessageId.LOC_DIMENSIONAL_GAP_S1_S2_S3.getId() == restart.getLocName())
 					activeChar.sendMessage("Restart at the Dimensional Gap.");
 				else if (SystemMessageId.LOC_CEMETARY_OF_THE_EMPIRE_S1_S2_S3.getId() == restart.getLocName())
 					activeChar.sendMessage("Restart at the Cemetary of the Empire.");

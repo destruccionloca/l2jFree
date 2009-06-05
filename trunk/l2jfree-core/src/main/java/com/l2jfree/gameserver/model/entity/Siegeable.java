@@ -14,8 +14,10 @@
  */
 package com.l2jfree.gameserver.model.entity;
 
+import com.l2jfree.gameserver.datatables.ResidentialSkillTable;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2Object;
+import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.zone.L2SiegeZone;
@@ -31,6 +33,14 @@ public abstract class Siegeable<T extends AbstractSiege> extends Entity
 	private L2SiegeZone	_zoneBF;
 	private L2Zone		_zoneDS;
 	private L2Zone		_zoneTP;
+
+	private L2Skill[] _residentialSkills = null;
+
+	public Siegeable(int entityId)
+	{
+		super();
+		_residentialSkills = ResidentialSkillTable.getInstance().getSkills(entityId);
+	}
 
 	public final String getName()
 	{
@@ -131,4 +141,27 @@ public abstract class Siegeable<T extends AbstractSiege> extends Entity
 	}
 	
 	public abstract T getSiege();
+
+	public L2Skill[] getResidentialSkills()
+	{
+		return _residentialSkills;
+	}
+
+	public void giveResidentialSkills(L2PcInstance player)
+	{
+		if (_residentialSkills != null)
+		{
+			for (L2Skill sk : _residentialSkills)
+				player.addSkill(sk, false);
+		}
+	}
+
+	public void removeResidentialSkills(L2PcInstance player)
+	{
+		if (_residentialSkills != null)
+		{
+			for (L2Skill sk : _residentialSkills)
+				player.removeSkill(sk, false);
+		}
+	}
 }

@@ -12,33 +12,27 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.gameserver.model;
+package com.l2jfree.gameserver.skills.conditions;
+
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.skills.Env;
 
 /**
- * This interface provides method to handle triggered skills from other objects.<br>
- * For example, other skill, an effect, etc...
+ * @author kerberos
  *
- * @author  DrHouse
  */
-public interface IChanceSkillTrigger
+final class ConditionPlayerFlyMounted extends Condition
 {
-	/**
-	 * Just a flag
-	 */
-	public boolean triggersChanceSkill();
-	
-	/**
-	 * Triggered Id
-	 */
-	public int getTriggeredChanceId();
-	
-	/**
-	 * Triggered level
-	 */
-	public int getTriggeredChanceLevel();
-	
-	/**
-	 * Chance condition object
-	 */
-	public ChanceCondition getTriggeredChanceCondition();
+	private boolean _val;
+
+	public ConditionPlayerFlyMounted(boolean val)
+	{
+		_val = val;
+	}
+
+	@Override
+	public boolean testImpl(Env env)
+	{
+		return (env.player instanceof L2PcInstance) ? ((L2PcInstance) env.player).isFlyingMounted() == _val : true;
+	}
 }

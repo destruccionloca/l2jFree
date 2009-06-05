@@ -27,7 +27,7 @@ public final class RequestModifyBookMarkSlot extends L2GameClientPacket
 
 	private int id,icon;
 	private String name,tag;
-	
+
 	@Override
 	protected void readImpl()
 	{
@@ -39,15 +39,15 @@ public final class RequestModifyBookMarkSlot extends L2GameClientPacket
 		tag = readS();
 		
 	}
+
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)
 			return;
-		activeChar.TeleportBookmarkModify(id, icon, tag, name);
+		activeChar.teleportBookmarkModify(id, icon, tag, name);
 	}
-
 
 	@Override
 	public String getType()

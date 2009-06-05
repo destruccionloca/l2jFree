@@ -24,6 +24,7 @@ import com.l2jfree.gameserver.handler.AdminCommandHandler;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.L2Npc;
+import com.l2jfree.gameserver.model.actor.instance.L2MerchantSummonInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
@@ -94,6 +95,33 @@ public class RequestBypassToServer extends L2GameClientPacket
 				}
 				
 				sendPacket(ActionFailed.STATIC_PACKET);
+			}
+			catch (NumberFormatException nfe)
+			{
+			}
+		}
+		else if (_command.startsWith("summon_"))
+		{
+			activeChar.validateBypass(_command);
+
+			int endOfId = _command.indexOf('_', 8);
+			String id;
+			if (endOfId > 0)
+				id = _command.substring(7, endOfId);
+			else
+				id = _command.substring(7);
+			try
+			{
+				int objectId = Integer.parseInt(id);
+				
+				L2MerchantSummonInstance summon = activeChar.getTarget(L2MerchantSummonInstance.class, objectId);
+
+				if (summon != null && endOfId > 0
+						&& activeChar.isInsideRadius(summon, L2Npc.INTERACTION_DISTANCE, false, false))
+				{
+					((L2MerchantSummonInstance) summon).onBypassFeedback(activeChar, _command.substring(endOfId + 1));
+				}
+				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			}
 			catch (NumberFormatException nfe)
 			{

@@ -140,10 +140,10 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 	
 	public static int toInt(long var)
 	{
-		if(var>Integer.MAX_VALUE)
+		if (var > Integer.MAX_VALUE)
 			return Integer.MAX_VALUE-1; //TODO: HACK TO BYPASS THE EXPLOIT CHECKS WHICH CAN BE REMOVED NOW
-		if(var<0)
+		if (var < 0)
 			return 0;
 		return (int) var;
-	}	
+	}
 }

@@ -33,8 +33,8 @@ public class TradeStart extends L2GameServerPacket
 	
 	public TradeStart (L2PcInstance player)
 	{
-        _activeChar = player;
-        _itemList = _activeChar.getInventory().getAvailableItems(true);
+		_activeChar = player;
+		_itemList = _activeChar.getInventory().getAvailableItems(true);
 	}
 	
 	@Override
@@ -53,10 +53,10 @@ public class TradeStart extends L2GameServerPacket
 			writeH(item.getItem().getType1()); // item type1
 			writeD(item.getObjectId());
 			writeD(item.getItemDisplayId());
-			if(Config.PACKET_FINAL)
+			if (Config.PACKET_FINAL)
 				writeQ(item.getCount());
 			else
-				writeD(item.getCount());
+				writeD(toInt(item.getCount()));
 			writeH(item.getItem().getType2());	// item type2
 			writeH(0x00);	// ?
 
@@ -65,11 +65,23 @@ public class TradeStart extends L2GameServerPacket
 			writeH(0x00);
 			writeH(0x00);
 
-			writeD(item.getAttackElementType());
-			writeD(item.getAttackElementPower());
-			for (byte i = 0; i < 6; i++)
+			if (Config.PACKET_FINAL)
 			{
-				writeD(item.getElementDefAttr(i));
+				writeH(item.getAttackElementType());
+				writeH(item.getAttackElementPower());
+				for (byte i = 0; i < 6; i++)
+				{
+					writeH(item.getElementDefAttr(i));
+				}
+			}
+			else
+			{
+				writeD(item.getAttackElementType());
+				writeD(item.getAttackElementPower());
+				for (byte i = 0; i < 6; i++)
+				{
+					writeD(item.getElementDefAttr(i));
+				}
 			}
 		}
 	}

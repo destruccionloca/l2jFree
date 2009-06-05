@@ -23,12 +23,14 @@ import com.l2jfree.gameserver.datatables.TradeListTable;
 import com.l2jfree.gameserver.instancemanager.MercTicketManager;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2TradeList;
+import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2CastleChamberlainInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2ClanHallManagerInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2FishermanInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MercManagerInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MerchantInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2MerchantSummonInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetManagerInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -83,8 +85,8 @@ public class RequestBuyItem extends L2GameClientPacket
 		{
 			int itemId = readD();
 			_items[i * 2] = itemId;
-			long cnt=0;
-			if(Config.PACKET_FINAL)
+			long cnt;
+			if (Config.PACKET_FINAL)
 				cnt = toInt(readQ());
 			else
 				cnt = readD();
@@ -113,23 +115,29 @@ public class RequestBuyItem extends L2GameClientPacket
 		}
 
 		String htmlFolder = "";
-		if (target instanceof L2MerchantInstance)
+		if (target instanceof L2MerchantInstance || target instanceof L2MerchantSummonInstance)
 			htmlFolder = "merchant";
 		else if (target instanceof L2FishermanInstance)
 			htmlFolder = "fisherman";
 		else if (target instanceof L2PetManagerInstance)
 			htmlFolder = "petmanager";
 
-		L2Npc merchant = null;
-		if (target instanceof L2Npc)
-			merchant = (L2Npc) target;
+		L2Character merchant = null;
+		if (target instanceof L2Character)
+			merchant = (L2Character) target;
+
+		int npcId = -1;
 
 		L2TradeList list = null;
 
 		if (merchant != null && !player.isGM())
 		{
-			FastList<L2TradeList> lists = TradeListTable.getInstance().getBuyListByNpcId(merchant.getNpcId());
+			if (merchant instanceof L2MerchantSummonInstance)
+				npcId = ((L2MerchantSummonInstance)merchant).getTemplate().getNpcId();
+			else
+				npcId = ((L2MerchantInstance)merchant).getTemplate().getNpcId();
 
+			FastList<L2TradeList> lists = TradeListTable.getInstance().getBuyListByNpcId(npcId);
 			if (lists == null)
 			{
 				sendPacket(ActionFailed.STATIC_PACKET);
@@ -173,7 +181,7 @@ public class RequestBuyItem extends L2GameClientPacket
 
 		if (_listId > 1000000) // lease
 		{
-			if (merchant != null && merchant.getTemplate().getNpcId() != _listId / 100)
+			if (npcId != -1 && npcId != _listId / 100)
 			{
 				sendPacket(ActionFailed.STATIC_PACKET);
 				return;
@@ -187,8 +195,8 @@ public class RequestBuyItem extends L2GameClientPacket
 		}
 
 		double taxRate = 1.0;
-		if (merchant != null && merchant.getIsInTown())
-			taxRate = merchant.getCastle().getTaxRate();
+		if (merchant instanceof L2MerchantInstance && ((L2MerchantInstance) merchant).getIsInTown())
+			taxRate = ((L2MerchantInstance) merchant).getCastle().getTaxRate();
 
 		long taxedPriceTotal = 0;
 		long taxTotal = 0;
@@ -199,8 +207,8 @@ public class RequestBuyItem extends L2GameClientPacket
 		for (int i = 0; i < _count; i++)
 		{
 			int itemId = _items[i * 2];
-			int count = _items[i * 2 + 1];
-			int price = -1;
+			long count = _items[i * 2 + 1];
+			long price = -1;
 
 			if (!list.containsItemId(itemId))
 			{
@@ -240,7 +248,7 @@ public class RequestBuyItem extends L2GameClientPacket
 				return;
 			}
 
-			if ((price == 0) && !player.isGM() && Config.ONLY_GM_ITEMS_FREE)
+			if (price == 0 && !player.isGM() && Config.ONLY_GM_ITEMS_FREE)
 			{
 				sendPacket(ActionFailed.STATIC_PACKET);
 				Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account " + player.getAccountName()
@@ -248,7 +256,7 @@ public class RequestBuyItem extends L2GameClientPacket
 				return;
 			}
 
-			long stackPrice = (long)price * count;
+			long stackPrice = price * count;
 			long taxedPrice = (long) (stackPrice * taxRate);
 			long tax = taxedPrice - stackPrice;
 			if (taxedPrice >= Integer.MAX_VALUE)
@@ -259,7 +267,7 @@ public class RequestBuyItem extends L2GameClientPacket
 			taxedPriceTotal += taxedPrice;
 			taxTotal += tax;
 
-			weight += (long) count * template.getWeight();
+			weight += count * template.getWeight();
 			if (!template.isStackable())
 				slots += count;
 			else if (player.getInventory().getItemByItemId(itemId) == null)
@@ -290,8 +298,9 @@ public class RequestBuyItem extends L2GameClientPacket
 		if (!player.isGM())
 		{
 			//  Charge buyer and add tax to castle treasury if not owned by npc clan
-			if (merchant != null && merchant.getIsInTown() && merchant.getCastle().getOwnerId() > 0)
-				merchant.getCastle().addToTreasury((int) taxTotal);
+			if (merchant instanceof L2MerchantInstance && ((L2MerchantInstance) merchant).getIsInTown()
+					&& ((L2MerchantInstance) merchant).getCastle().getOwnerId() > 0)
+				((L2MerchantInstance)merchant).getCastle().addToTreasury(taxTotal);
 		}
 		//  Check if player is GM and buying from GM shop or have proper access level
 		else if (list.isGm() && (player.getAccessLevel() < Config.GM_CREATE_ITEM))
@@ -304,7 +313,7 @@ public class RequestBuyItem extends L2GameClientPacket
 		for (int i = 0; i < _count; i++)
 		{
 			int itemId = _items[(i * 2)];
-			int count = _items[i * 2 + 1];
+			long count = _items[i * 2 + 1];
 			if (count < 0)
 				count = 0;
 
@@ -331,7 +340,15 @@ public class RequestBuyItem extends L2GameClientPacket
 
 		if (merchant != null)
 		{
-			String html = HtmCache.getInstance().getHtm("data/html/" + htmlFolder + "/" + merchant.getNpcId() + "-bought.htm");
+			String html;
+			if (merchant instanceof L2MerchantInstance)
+			{
+				html = HtmCache.getInstance().getHtm("data/html/" + htmlFolder
+						+ "/" + ((L2MerchantInstance)merchant).getTemplate().getNpcId() + "-bought.htm");
+			}
+			else
+				html = HtmCache.getInstance().getHtm("data/html/" + htmlFolder
+						+ "/" + ((L2MerchantSummonInstance)merchant).getTemplate().getNpcId() + "-bought.htm");
 
 			if (html != null)
 			{

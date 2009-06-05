@@ -298,13 +298,13 @@ public class L2SummonInstance extends L2Summon
 	}
 
 	@Override
-	public boolean destroyItem(String process, int objectId, int count, L2Object reference, boolean sendMessage)
+	public boolean destroyItem(String process, int objectId, long count, L2Object reference, boolean sendMessage)
 	{
 		return getOwner().destroyItem(process, objectId, count, reference, sendMessage);
 	}
 
 	@Override
-	public boolean destroyItemByItemId(String process, int itemId, int count, L2Object reference, boolean sendMessage)
+	public boolean destroyItemByItemId(String process, int itemId, long count, L2Object reference, boolean sendMessage)
 	{
 		if (_log.isDebugEnabled())
 			_log.warn("L2SummonInstance: " + getTemplate().getName() + " (" + getOwner().getName() + ") consume.");

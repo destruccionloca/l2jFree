@@ -20,12 +20,12 @@ import org.apache.commons.logging.LogFactory;
 /**
  * Format: (ch) S
  * @author  -Wooden-
- * 
+ * TODO: GodKratos: This packet is wrong in Gracia Final!!
  */
 public class RequestPCCafeCouponUse extends L2GameClientPacket
 {
     private final static Log _log = LogFactory.getLog(RequestPCCafeCouponUse.class.getName());
-    private static final String _C__D0_20_REQUESTPCCAFECOUPONUSE = "[C] D0:20 RequestPCCafeCouponUse";
+    private static final String _C__D0_20_REQUESTPCCAFECOUPONUSE = "[C] D0:?? RequestPCCafeCouponUse";
     private String _str;
 
     /**

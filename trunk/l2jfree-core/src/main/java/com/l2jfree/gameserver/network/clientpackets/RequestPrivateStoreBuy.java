@@ -45,7 +45,7 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
     {
         _storePlayerId = readD();
         _count = readD();
-        if (_count < 0  || _count * 12 > getByteBuffer().remaining() || _count > Config.MAX_ITEM_IN_PACKET)
+        if (_count < 0  || _count * (Config.PACKET_FINAL ? 20 : 12) > getByteBuffer().remaining() || _count > Config.MAX_ITEM_IN_PACKET)
             _count = 0;
         _items = new ItemRequest[_count];
 
@@ -53,18 +53,18 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
         {
             int objectId = readD();
             long count   = 0;
-            if(Config.PACKET_FINAL)
-            	count = toInt(readQ());
+            if (Config.PACKET_FINAL)
+                count = toInt(readQ());
             else
-            	count = readD();
-            if (count >= Integer.MAX_VALUE) count = Integer.MAX_VALUE;
-            int price =0;
-            if(Config.PACKET_FINAL)
-            	price    = toInt(readQ());
+                count = readD();
+
+            long price =0;
+            if (Config.PACKET_FINAL)
+                price    = toInt(readQ());
             else
-            	price    = readD();
+                price    = readD();
             
-            _items[i] = new ItemRequest(objectId, (int)count, price);
+            _items[i] = new ItemRequest(objectId, count, price);
         }
     }
 

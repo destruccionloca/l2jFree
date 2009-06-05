@@ -117,7 +117,7 @@ public class RequestEnchantItem extends L2GameClientPacket
 		SystemMessage sm;
 		// can't enchant rods, hero weapons, adventurers' items,shadow and common items
 		if (item.getItem().getItemType() == L2WeaponType.ROD || item.isShadowItem() || (!Config.ENCHANT_HERO_WEAPONS && item.isHeroItem())
-				|| (item.getItemId() >= 7816 && item.getItemId() <= 7831) || item.getItem().isCommonItem())
+				|| (item.getItemId() >= 7816 && item.getItemId() <= 7831) || item.getItem().isCommonItem() || item.isTimeLimitedItem())
 		{
 			sendPacket(new ExPutEnchantTargetItemResult(2, 0, 0));
 			activeChar.setActiveEnchantItem(null);
@@ -433,7 +433,7 @@ public class RequestEnchantItem extends L2GameClientPacket
 					iu = null;
 				}
 
-				int count = item.getCrystalCount() - (item.getItem().getCrystalCount() + 1) / 2;
+				long count = item.getCrystalCount() - (item.getItem().getCrystalCount() + 1) / 2;
 				if (count < 1)
 					count = 1;
 
@@ -455,7 +455,7 @@ public class RequestEnchantItem extends L2GameClientPacket
 				L2ItemInstance crystals = activeChar.getInventory().addItem("Enchant", crystalId, count, activeChar, destroyItem);
 				sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
 				sm.addItemName(crystals);
-				sm.addNumber(count);
+				sm.addItemNumber(count);
 				sendPacket(sm);
 				activeChar.getInventory().updateInventory(crystals);
 				sendPacket(new ExPutEnchantTargetItemResult(1, crystalId, count));

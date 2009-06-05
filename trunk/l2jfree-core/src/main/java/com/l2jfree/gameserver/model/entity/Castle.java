@@ -216,6 +216,7 @@ public class Castle extends Siegeable<Siege>
 
 	public Castle(int castleId)
 	{
+		super(castleId);
 		_castleId = castleId;
 		if (_castleId == 7 || castleId == 9) // Goddard and Schuttgart
 			_nbArtifact = 2;
@@ -261,7 +262,7 @@ public class Castle extends Siegeable<Siege>
 	}
 
 	/** Add amount to castle instance's treasury (warehouse). */
-	public void addToTreasury(int amount)
+	public void addToTreasury(long amount)
 	{
 		// check if owned
 		if (getOwnerId() <= 0)
@@ -274,7 +275,7 @@ public class Castle extends Siegeable<Siege>
 			Castle rune = CastleManager.getInstance().getCastleByName("Rune");
 			if (rune != null)
 			{
-				int runeTax = (int) (amount * rune.getTaxPercent() / 100.);
+				long runeTax = (long) (amount * rune.getTaxPercent() / 100.);
 				if (rune.getOwnerId() > 0)
 					rune.addToTreasuryNoTax(runeTax);
 				amount -= runeTax;
@@ -285,7 +286,7 @@ public class Castle extends Siegeable<Siege>
 			Castle aden = CastleManager.getInstance().getCastleByName("Aden");
 			if (aden != null)
 			{
-				int adenTax = (int) (amount * aden.getTaxPercent() / 100.); // Find out what Aden gets from the current castle instance's income
+				long adenTax = (long) (amount * aden.getTaxPercent() / 100.); // Find out what Aden gets from the current castle instance's income
 				if (aden.getOwnerId() > 0)
 					aden.addToTreasuryNoTax(adenTax); // Only bother to really add the tax to the treasury if not npc owned
 
@@ -297,7 +298,7 @@ public class Castle extends Siegeable<Siege>
 	}
 
 	/** Add amount to castle instance's treasury (warehouse), no tax paying. */
-	public boolean addToTreasuryNoTax(int amount)
+	public boolean addToTreasuryNoTax(long amount)
 	{
 		if (getOwnerId() <= 0)
 			return false;
@@ -311,7 +312,7 @@ public class Castle extends Siegeable<Siege>
 		}
 		else
 		{
-			if ((long) _treasury + amount > Integer.MAX_VALUE)
+			if (_treasury + amount > Integer.MAX_VALUE) // TODO is this valid after gracia final?
 				_treasury = Integer.MAX_VALUE;
 			else
 				_treasury += amount;
@@ -384,16 +385,21 @@ public class Castle extends Siegeable<Siege>
 			clan.setHasCastle(0);
 			Announcements.getInstance().announceToAll(clan.getName() + " has lost " + getName() + " castle.");
 			clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan));
+
+			for (L2PcInstance member : clan.getOnlineMembers(0))
+			{
+				removeResidentialSkills(member);
+				member.sendSkillList();
+			}
 		}
 
 		updateOwnerInDB(null);
 		if (getSiege().getIsInProgress())
 			getSiege().midVictory();
 
-		updateClansReputation();
-        for (Map.Entry<Integer, CastleFunction> fc : _function.entrySet())
-        	removeFunction(fc.getKey());
-        _function.clear();
+		for (Map.Entry<Integer, CastleFunction> fc : _function.entrySet())
+			removeFunction(fc.getKey());
+		_function.clear();
 	}
 
 	// This method updates the castle owner
@@ -436,7 +442,11 @@ public class Castle extends Siegeable<Siege>
 		if (getSiege().getIsInProgress()) // If siege in progress
 			getSiege().midVictory(); // Mid victory phase of siege
 
-		updateClansReputation();
+		for (L2PcInstance member : clan.getOnlineMembers(0))
+		{
+			giveResidentialSkills(member);
+			member.sendSkillList();
+		}
 	}
 
 	/**
@@ -1188,7 +1198,7 @@ public class Castle extends Siegeable<Siege>
 		}
 	}
 
-	public void updateCrop(int cropId, int amount, int period)
+	public void updateCrop(int cropId, long amount, int period)
 	{
 		Connection con = null;
 		PreparedStatement statement;
@@ -1197,7 +1207,7 @@ public class Castle extends Siegeable<Siege>
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 
 			statement = con.prepareStatement(CASTLE_UPDATE_CROP);
-			statement.setInt(1, amount);
+			statement.setLong(1, amount);
 			statement.setInt(2, cropId);
 			statement.setInt(3, getCastleId());
 			statement.setInt(4, period);
@@ -1214,7 +1224,7 @@ public class Castle extends Siegeable<Siege>
 		}
 	}
 
-	public void updateSeed(int seedId, int amount, int period)
+	public void updateSeed(int seedId, long amount, int period)
 	{
 		Connection con = null;
 		PreparedStatement statement;
@@ -1223,7 +1233,7 @@ public class Castle extends Siegeable<Siege>
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 
 			statement = con.prepareStatement(CASTLE_UPDATE_SEED);
-			statement.setInt(1, amount);
+			statement.setLong(1, amount);
 			statement.setInt(2, seedId);
 			statement.setInt(3, getCastleId());
 			statement.setInt(4, period);
@@ -1262,13 +1272,10 @@ public class Castle extends Siegeable<Siege>
 				if (owner != null)
 				{
 					owner.setReputationScore(owner.getReputationScore() + Math.min(Config.TAKE_CASTLE_POINTS, maxreward), true);
-					owner.broadcastToOnlineMembers(new PledgeShowInfoUpdate(owner));
 				}
 			}
 			else
 				_formerOwner.setReputationScore(_formerOwner.getReputationScore() + Config.CASTLE_DEFENDED_POINTS, true);
-
-			_formerOwner.broadcastToOnlineMembers(new PledgeShowInfoUpdate(_formerOwner));
 		}
 		else
 		{
@@ -1276,7 +1283,6 @@ public class Castle extends Siegeable<Siege>
 			if (owner != null)
 			{
 				owner.setReputationScore(owner.getReputationScore() + Config.TAKE_CASTLE_POINTS, true);
-				owner.broadcastToOnlineMembers(new PledgeShowInfoUpdate(owner));
 			}
 		}
 	}

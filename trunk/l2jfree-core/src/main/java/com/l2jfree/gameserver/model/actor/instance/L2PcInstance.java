@@ -282,12 +282,6 @@ import com.l2jfree.util.SingletonMap;
  */
 public final class L2PcInstance extends L2Playable
 {
-    // Character Teleport Bookmark:
-    private static final String INSERT_TP_BOOKMARK 				= "INSERT INTO character_tpbookmark (charId,Id,x,y,z,icon,tag,name) values (?,?,?,?,?,?,?,?)";
-    private static final String UPDATE_TP_BOOKMARK 				= "UPDATE character_tpbookmark SET icon=?,tag=?,name=? where charId=? AND Id=?";
-    private static final String RESTORE_TP_BOOKMARK 			= "SELECT Id,x,y,z,icon,tag,name FROM character_tpbookmark WHERE charId=?";
-    private static final String DELETE_TP_BOOKMARK 				= "DELETE FROM character_tpbookmark WHERE charId=? AND Id=?";
-	
 	// Character Skill SQL String Definitions:
 	private static final String	RESTORE_SKILLS_FOR_CHAR			= "SELECT skill_id,skill_level FROM character_skills WHERE charId=? AND class_index=?";
 	private static final String	ADD_NEW_SKILL					= "INSERT INTO character_skills (charId,skill_id,skill_level,skill_name,class_index) VALUES (?,?,?,?,?)";
@@ -301,8 +295,8 @@ public final class L2PcInstance extends L2Playable
 	private static final String	DELETE_SKILL_SAVE				= "DELETE FROM character_skills_save WHERE charId=? AND class_index=?";
 
 	// Character Character SQL String Definitions:
-	private static final String	UPDATE_CHARACTER				= "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,face=?,hairStyle=?,hairColor=?,heading=?,x=?,y=?,z=?,exp=?,expBeforeDeath=?,sp=?,karma=?,fame=?,pvpkills=?,pkkills=?,clanid=?,race=?,classid=?,deletetime=?,title=?,accesslevel=?,online=?,isin7sdungeon=?,clan_privs=?,wantspeace=?,base_class=?,onlinetime=?,in_jail=?,jail_timer=?,newbie=?,nobless=?,pledge_rank=?,subpledge=?,lvl_joined_academy=?,apprentice=?,sponsor=?,varka_ketra_ally=?,clan_join_expiry_time=?,clan_create_expiry_time=?,banchat_timer=?,char_name=?,death_penalty_level=?,trust_level=?,vitality_points=? WHERE charId=?";
-	private static final String	RESTORE_CHARACTER				= "SELECT account_name, charId, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, face, hairStyle, hairColor, sex, heading, x, y, z, exp, expBeforeDeath, sp, karma, fame, pvpkills, pkkills, clanid, race, classid, deletetime, cancraft, title, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, banchat_timer, newbie, nobless, pledge_rank, subpledge, lvl_joined_academy, apprentice, sponsor, varka_ketra_ally, clan_join_expiry_time,clan_create_expiry_time,charViP,death_penalty_level,trust_level,vitality_points FROM characters WHERE charId=?";
+	private static final String	UPDATE_CHARACTER				= "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,face=?,hairStyle=?,hairColor=?,heading=?,x=?,y=?,z=?,exp=?,expBeforeDeath=?,sp=?,karma=?,fame=?,pvpkills=?,pkkills=?,clanid=?,race=?,classid=?,deletetime=?,title=?,accesslevel=?,online=?,isin7sdungeon=?,clan_privs=?,wantspeace=?,base_class=?,onlinetime=?,in_jail=?,jail_timer=?,newbie=?,nobless=?,pledge_rank=?,subpledge=?,lvl_joined_academy=?,apprentice=?,sponsor=?,varka_ketra_ally=?,clan_join_expiry_time=?,clan_create_expiry_time=?,banchat_timer=?,char_name=?,death_penalty_level=?,trust_level=?,vitality_points=?,bookmarkslot=? WHERE charId=?";
+	private static final String	RESTORE_CHARACTER				= "SELECT account_name, charId, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, face, hairStyle, hairColor, sex, heading, x, y, z, exp, expBeforeDeath, sp, karma, fame, pvpkills, pkkills, clanid, race, classid, deletetime, cancraft, title, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, banchat_timer, newbie, nobless, pledge_rank, subpledge, lvl_joined_academy, apprentice, sponsor, varka_ketra_ally, clan_join_expiry_time,clan_create_expiry_time,charViP,death_penalty_level,trust_level,vitality_points,bookmarkslot FROM characters WHERE charId=?";
 
 	// Character Subclass SQL String Definitions:
 	private static final String	RESTORE_CHAR_SUBCLASSES			= "SELECT class_id,exp,sp,level,class_index FROM character_subclasses WHERE charId=? ORDER BY class_index ASC";
@@ -323,6 +317,12 @@ public final class L2PcInstance extends L2Playable
 	private static final String	SELECT_CHAR_TRANSFORM			= "SELECT transform_id FROM characters WHERE charId=?";
 	private static final String	UPDATE_CHAR_TRANSFORM			= "UPDATE characters SET transform_id=? WHERE charId=?";
 
+	// Character Teleport Bookmark:
+	private static final String INSERT_TP_BOOKMARK = "INSERT INTO character_tpbookmark (charId,Id,x,y,z,icon,tag,name) values (?,?,?,?,?,?,?,?)";
+	private static final String UPDATE_TP_BOOKMARK = "UPDATE character_tpbookmark SET icon=?,tag=?,name=? where charId=? AND Id=?";	
+	private static final String RESTORE_TP_BOOKMARK = "SELECT Id,x,y,z,icon,tag,name FROM character_tpbookmark WHERE charId=?";	
+	private static final String DELETE_TP_BOOKMARK = "DELETE FROM character_tpbookmark WHERE charId=? AND Id=?";
+
 	public static final int		REQUEST_TIMEOUT					= 15;
 
 	public static final int		STORE_PRIVATE_NONE				= 0;
@@ -340,7 +340,8 @@ public final class L2PcInstance extends L2Playable
 			SkillTreeTable.getInstance().getExpertiseLevel(3), // B
 			SkillTreeTable.getInstance().getExpertiseLevel(4), // A
 			SkillTreeTable.getInstance().getExpertiseLevel(5), // S
-			SkillTreeTable.getInstance().getExpertiseLevel(6)  // S80
+			SkillTreeTable.getInstance().getExpertiseLevel(6), // S80
+			SkillTreeTable.getInstance().getExpertiseLevel(7)  //S84
 																};
 
 	private static final int[]	COMMON_CRAFT_LEVELS				=
@@ -447,7 +448,7 @@ public final class L2PcInstance extends L2Playable
 	private int								_lastCompassZone;																	// The last compass zone update send to the client
 
 	private boolean							_isIn7sDungeon			= false;
-	
+
 	public int 								_bookmarkslot = 0; // The Teleport Bookmark Slot
 	public FastList<TeleportBookmark> 		tpbookmark = new FastList<TeleportBookmark>();
 
@@ -476,10 +477,12 @@ public final class L2PcInstance extends L2Playable
 
 	/** True if the L2PcInstance is in a boat */
 	private boolean							_inBoat;
-    /** AirShip */
-    private L2AirShipInstance 				_airShip;
+	/** AirShip */
+	private L2AirShipInstance 				_airShip;
 	private boolean 						_inAirShip;
 	private Point3D 						_inAirShipPosition;
+
+	public ScheduledFuture<?>				_taskforfish;
 
 	/** Last NPC Id talked on a quest */
 	private int								_questNpcObject			= 0;
@@ -618,7 +621,7 @@ public final class L2PcInstance extends L2Playable
 	
 	private byte _isOnline = ONLINE_STATE_LOADED;
 	
-	protected boolean						_inventoryDisable		= false;
+	protected boolean						_inventoryDisabled		= false;
 
 	protected Map<Integer, L2CubicInstance>	_cubics					= new SingletonMap<Integer, L2CubicInstance>().setShared();
 
@@ -1413,7 +1416,7 @@ public final class L2PcInstance extends L2Playable
 		for (QuestState qs : _quests.values())
 		{
 			int questId = qs.getQuest().getQuestIntId();
-			if ((questId > 999) || (questId < 1))
+			if ((questId > 19999) || (questId < 1))
 				continue;
 
 			if (!qs.isStarted() && !Config.DEVELOPER)
@@ -2037,7 +2040,6 @@ public final class L2PcInstance extends L2Playable
 				_clan.setReputationScore(_clan.getReputationScore() + Config.JOIN_ACADEMY_MIN_REP_SCORE, true);
 			else
 				_clan.setReputationScore(_clan.getReputationScore() + (Config.JOIN_ACADEMY_MAX_REP_SCORE - (getLvlJoinedAcademy() - 16) * 20), true);
-			_clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(_clan));
 			setLvlJoinedAcademy(0);
 
 			// Oust pledge member from the academy, cuz he has finished his 2nd class transfer
@@ -2441,6 +2443,7 @@ public final class L2PcInstance extends L2Playable
 			sendPacket(psl);
 			if (getClan().getLevel() >= Config.SIEGE_CLAN_MIN_LEVEL && isClanLeader())
 				SiegeManager.getInstance().addSiegeSkills(this);
+			enableResidentialSkills(true);
 		}
 
 		// Reload passive skills from armors / jewels / weapons
@@ -2448,6 +2451,28 @@ public final class L2PcInstance extends L2Playable
 
 		// Add Death Penalty Buff Level
 		restoreDeathPenaltyBuffLevel();
+	}
+
+	public void enableResidentialSkills(boolean enable)
+	{
+		if (getClan() == null)
+			return;
+
+		if (enable)
+		{
+			if (getClan().getHasCastle() > 0)
+				CastleManager.getInstance().getCastleByOwner(getClan()).giveResidentialSkills(this);
+			
+			if (getClan().getHasFort() > 0)
+				FortManager.getInstance().getFortByOwner(getClan()).giveResidentialSkills(this);
+		}
+		else
+		{
+			if (getClan().getHasCastle() > 0)
+				CastleManager.getInstance().getCastleByOwner(getClan()).removeResidentialSkills(this);
+			if (getClan().getHasFort() > 0)
+				FortManager.getInstance().getFortByOwner(getClan()).removeResidentialSkills(this);
+		}
 	}
 
 	/**
@@ -2706,7 +2731,7 @@ public final class L2PcInstance extends L2Playable
 	/**
 	 * Return the Adena amount of the L2PcInstance.<BR><BR>
 	 */
-	public int getAdena()
+	public long getAdena()
 	{
 		return getInventory().getAdena();
 	}
@@ -2714,7 +2739,7 @@ public final class L2PcInstance extends L2Playable
 	/**
 	 * Return the Ancient Adena amount of the L2PcInstance.<BR><BR>
 	 */
-	public int getAncientAdena()
+	public long getAncientAdena()
 	{
 		return getInventory().getAncientAdena();
 	}
@@ -2722,11 +2747,11 @@ public final class L2PcInstance extends L2Playable
 	/**
 	 * Add adena to Inventory of the L2PcInstance and send a Server->Client InventoryUpdate packet to the L2PcInstance.
 	 * @param process : String Identifier of process triggering this action
-	 * @param count : int Quantity of adena to be added
+	 * @param count : long Quantity of adena to be added
 	 * @param reference : L2Object Object referencing current action like NPC selling item or previous item in transformation
 	 * @param sendMessage : boolean Specifies whether to send message to Client about this action
 	 */
-	public void addAdena(String process, int count, L2Object reference, boolean sendMessage)
+	public void addAdena(String process, long count, L2Object reference, boolean sendMessage)
 	{
 		if (count > 0)
 		{
@@ -2747,7 +2772,7 @@ public final class L2PcInstance extends L2Playable
 			if (sendMessage)
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S1_ADENA);
-				sm.addNumber(count);
+				sm.addItemNumber(count);
 				sendPacket(sm);
 			}
 
@@ -2759,12 +2784,12 @@ public final class L2PcInstance extends L2Playable
 	/**
 	 * Reduce adena in Inventory of the L2PcInstance and send a Server->Client InventoryUpdate packet to the L2PcInstance.
 	 * @param process : String Identifier of process triggering this action
-	 * @param count : int Quantity of adena to be reduced
+	 * @param count : long Quantity of adena to be reduced
 	 * @param reference : L2Object Object referencing current action like NPC selling item or previous item in transformation
 	 * @param sendMessage : boolean Specifies whether to send message to Client about this action
 	 * @return boolean informing if the action was successfull
 	 */
-	public boolean reduceAdena(String process, int count, L2Object reference, boolean sendMessage)
+	public boolean reduceAdena(String process, long count, L2Object reference, boolean sendMessage)
 	{
 		if (count > getAdena())
 		{
@@ -2784,7 +2809,7 @@ public final class L2PcInstance extends L2Playable
 			if (sendMessage)
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_ADENA_DISAPPEARED);
-				sm.addNumber(count);
+				sm.addItemNumber(count);
 				sendPacket(sm);
 			}
 		}
@@ -2796,17 +2821,17 @@ public final class L2PcInstance extends L2Playable
 	 * Add ancient adena to Inventory of the L2PcInstance and send a Server->Client InventoryUpdate packet to the L2PcInstance.
 	 * 
 	 * @param process : String Identifier of process triggering this action
-	 * @param count : int Quantity of ancient adena to be added
+	 * @param count : long Quantity of ancient adena to be added
 	 * @param reference : L2Object Object referencing current action like NPC selling item or previous item in transformation
 	 * @param sendMessage : boolean Specifies whether to send message to Client about this action
 	 */
-	public void addAncientAdena(String process, int count, L2Object reference, boolean sendMessage)
+	public void addAncientAdena(String process, long count, L2Object reference, boolean sendMessage)
 	{
 		if (sendMessage)
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
 			sm.addItemName(PcInventory.ANCIENT_ADENA_ID);
-			sm.addNumber(count);
+			sm.addItemNumber(count);
 			sendPacket(sm);
 		}
 
@@ -2820,12 +2845,12 @@ public final class L2PcInstance extends L2Playable
 	/**
 	 * Reduce ancient adena in Inventory of the L2PcInstance and send a Server->Client InventoryUpdate packet to the L2PcInstance.
 	 * @param process : String Identifier of process triggering this action
-	 * @param count : int Quantity of ancient adena to be reduced
+	 * @param count : long Quantity of ancient adena to be reduced
 	 * @param reference : L2Object Object referencing current action like NPC selling item or previous item in transformation
 	 * @param sendMessage : boolean Specifies whether to send message to Client about this action
 	 * @return boolean informing if the action was successfull
 	 */
-	public boolean reduceAncientAdena(String process, int count, L2Object reference, boolean sendMessage)
+	public boolean reduceAncientAdena(String process, long count, L2Object reference, boolean sendMessage)
 	{
 		if (count > getAncientAdena())
 		{
@@ -2843,7 +2868,7 @@ public final class L2PcInstance extends L2Playable
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
 				sm.addItemName(PcInventory.ANCIENT_ADENA_ID);
-				sm.addNumber(count);
+				sm.addItemNumber(count);
 				sendPacket(sm);
 			}
 		}
@@ -2869,7 +2894,7 @@ public final class L2PcInstance extends L2Playable
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.YOU_PICKED_UP_S1_S2);
 					sm.addItemName(item);
-					sm.addNumber(item.getCount());
+					sm.addItemNumber(item.getCount());
 					sendPacket(sm);
 				}
 				else if (item.getEnchantLevel() > 0)
@@ -2901,11 +2926,11 @@ public final class L2PcInstance extends L2Playable
 	 * Adds item to Inventory and send a Server->Client InventoryUpdate packet to the L2PcInstance.
 	 * @param process : String Identifier of process triggering this action
 	 * @param itemId : int Item Identifier of the item to be added
-	 * @param count : int Quantity of items to be added
+	 * @param count : long Quantity of items to be added
 	 * @param reference : L2Object Object referencing current action like NPC selling item or previous item in transformation
 	 * @param sendMessage : boolean Specifies whether to send message to Client about this action
 	 */
-	public L2ItemInstance addItem(String process, int itemId, int count, L2Object reference, boolean sendMessage, boolean UpdateIL)
+	public L2ItemInstance addItem(String process, int itemId, long count, L2Object reference, boolean sendMessage, boolean UpdateIL)
 	{
 		if (count > 0)
 		{
@@ -2976,10 +3001,10 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * @param item : L2ItemInstance Item Identifier of the item to be added
-	 * @param count : int Quantity of items to be added
+	 * @param count : long Quantity of items to be added
      * @param process : String Identifier of process triggering this action
 	 */
-	private void sendMessageForNewItem(L2ItemInstance item, int count, String process)
+	private void sendMessageForNewItem(L2ItemInstance item, long count, String process)
 	{
 		if (count > 1)
 		{
@@ -2987,14 +3012,14 @@ public final class L2PcInstance extends L2Playable
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
 				sm.addItemName(item);
-				sm.addNumber(count);
+				sm.addItemNumber(count);
 				sendPacket(sm);
 			}
 			else
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.YOU_PICKED_UP_S1_S2);
 				sm.addItemName(item);
-				sm.addNumber(count);
+				sm.addItemNumber(count);
 				sendPacket(sm);
 			}
 		}
@@ -3020,7 +3045,7 @@ public final class L2PcInstance extends L2Playable
 		addItem(process, item, reference, sendMessage, true);
 	}
 
-	public void addItem(String process, int itemId, int count, L2Object reference, boolean sendMessage)
+	public void addItem(String process, int itemId, long count, L2Object reference, boolean sendMessage)
 	{
 		addItem(process, itemId, count, reference, sendMessage, true);
 	}
@@ -3046,7 +3071,7 @@ public final class L2PcInstance extends L2Playable
 	 * @param sendMessage : boolean Specifies whether to send message to Client about this action
 	 * @return boolean informing if the action was successfull
 	 */
-	public boolean destroyItem(String process, L2ItemInstance item, int count, L2Object reference, boolean sendMessage)
+	public boolean destroyItem(String process, L2ItemInstance item, long count, L2Object reference, boolean sendMessage)
 	{
 		item = getInventory().destroyItem(process, item, count, this, reference);
 
@@ -3081,7 +3106,7 @@ public final class L2PcInstance extends L2Playable
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
 			sm.addItemName(item);
-			sm.addNumber(count);
+			sm.addItemNumber(count);
 			sendPacket(sm);
 		}
 
@@ -3094,13 +3119,13 @@ public final class L2PcInstance extends L2Playable
 	 * Destroys item from inventory and send a Server->Client InventoryUpdate packet to the L2PcInstance.
 	 * @param process : String Identifier of process triggering this action
 	 * @param objectId : int Item Instance identifier of the item to be destroyed
-	 * @param count : int Quantity of items to be destroyed
+	 * @param count : long Quantity of items to be destroyed
 	 * @param reference : L2Object Object referencing current action like NPC selling item or previous item in transformation
 	 * @param sendMessage : boolean Specifies whether to send message to Client about this action
 	 * @return boolean informing if the action was successfull
 	 */
 	@Override
-	public boolean destroyItem(String process, int objectId, int count, L2Object reference, boolean sendMessage)
+	public boolean destroyItem(String process, int objectId, long count, L2Object reference, boolean sendMessage)
 	{
 		L2ItemInstance item = getInventory().getItemByObjectId(objectId);
 		if (item == null)
@@ -3118,12 +3143,12 @@ public final class L2PcInstance extends L2Playable
 	 * Sends a Server->Client InventoryUpdate packet to the L2PcInstance.
 	 * @param process : String Identifier of process triggering this action
 	 * @param objectId : int Item Instance identifier of the item to be destroyed
-	 * @param count : int Quantity of items to be destroyed
+	 * @param count : long Quantity of items to be destroyed
 	 * @param reference : L2Object Object referencing current action like NPC selling item or previous item in transformation
 	 * @param sendMessage : boolean Specifies whether to send message to Client about this action
 	 * @return boolean informing if the action was successfull
 	 */
-	public boolean destroyItemWithoutTrace(String process, int objectId, int count, L2Object reference, boolean sendMessage)
+	public boolean destroyItemWithoutTrace(String process, int objectId, long count, L2Object reference, boolean sendMessage)
 	{
 		L2ItemInstance item = getInventory().getItemByObjectId(objectId);
 
@@ -3141,13 +3166,13 @@ public final class L2PcInstance extends L2Playable
 	 * Destroy item from inventory by using its <B>itemId</B> and send a Server->Client InventoryUpdate packet to the L2PcInstance.
 	 * @param process : String Identifier of process triggering this action
 	 * @param itemId : int Item identifier of the item to be destroyed
-	 * @param count : int Quantity of items to be destroyed
+	 * @param count : long Quantity of items to be destroyed
 	 * @param reference : L2Object Object referencing current action like NPC selling item or previous item in transformation
 	 * @param sendMessage : boolean Specifies whether to send message to Client about this action
 	 * @return boolean informing if the action was successfull
 	 */
 	@Override
-	public boolean destroyItemByItemId(String process, int itemId, int count, L2Object reference, boolean sendMessage)
+	public boolean destroyItemByItemId(String process, int itemId, long count, L2Object reference, boolean sendMessage)
 	{
 		L2ItemInstance item = getInventory().getItemByItemId(itemId);
 		if (item == null || item.getCount() < count || getInventory().destroyItemByItemId(process, itemId, count, this, reference) == null)
@@ -3166,7 +3191,7 @@ public final class L2PcInstance extends L2Playable
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
 			sm.addItemName(item);
-			sm.addNumber(count);
+			sm.addItemNumber(count);
 			sendPacket(sm);
 		}
 		return true;
@@ -3225,12 +3250,14 @@ public final class L2PcInstance extends L2Playable
 	 * @param reference : L2Object Object referencing current action like NPC selling item or previous item in transformation
 	 * @return L2ItemInstance corresponding to the new item or the updated item in inventory
 	 */
-	public L2ItemInstance transferItem(String process, int objectId, int count, Inventory target, L2Object reference)
+	public L2ItemInstance transferItem(String process, int objectId, long count, Inventory target, L2Object reference)
 	{
 		L2ItemInstance oldItem = checkItemManipulation(objectId, count, "transfer");
-		if (oldItem == null) return null;
+		if (oldItem == null)
+			return null;
 		L2ItemInstance newItem = getInventory().transferItem(process, objectId, count, target, this, reference);
-		if (newItem == null) return null;
+		if (newItem == null)
+			return null;
 
 		// Send inventory update packet
 		if (!Config.FORCE_INVENTORY_UPDATE)
@@ -3238,13 +3265,14 @@ public final class L2PcInstance extends L2Playable
 			InventoryUpdate playerIU = new InventoryUpdate();
 
 			if (oldItem.getCount() > 0 && oldItem != newItem)
-                playerIU.addModifiedItem(oldItem);
+				playerIU.addModifiedItem(oldItem);
 			else
-                playerIU.addRemovedItem(oldItem);
+				playerIU.addRemovedItem(oldItem);
 
 			sendPacket(playerIU);
 		}
-		else sendPacket(new ItemList(this, false));
+		else
+			sendPacket(new ItemList(this, false));
 
 		// Update current load as well
 		StatusUpdate playerSU = new StatusUpdate(getObjectId());
@@ -3261,13 +3289,14 @@ public final class L2PcInstance extends L2Playable
 				InventoryUpdate playerIU = new InventoryUpdate();
 
 				if (newItem.getCount() > count)
-                    playerIU.addModifiedItem(newItem);
+					playerIU.addModifiedItem(newItem);
 				else
-                    playerIU.addNewItem(newItem);
+					playerIU.addNewItem(newItem);
 
 				targetPlayer.sendPacket(playerIU);
 			}
-			else targetPlayer.sendPacket(new ItemList(targetPlayer, false));
+			else
+				targetPlayer.sendPacket(new ItemList(targetPlayer, false));
 
 			// Update current load as well
 			playerSU = new StatusUpdate(targetPlayer.getObjectId());
@@ -3279,9 +3308,9 @@ public final class L2PcInstance extends L2Playable
 			PetInventoryUpdate petIU = new PetInventoryUpdate();
 
 			if (newItem.getCount() > count)
-                petIU.addModifiedItem(newItem);
+				petIU.addModifiedItem(newItem);
 			else
-                petIU.addNewItem(newItem);
+				petIU.addNewItem(newItem);
 
 			((PetInventory)target).getOwner().getOwner().sendPacket(petIU);
 		}
@@ -3351,7 +3380,7 @@ public final class L2PcInstance extends L2Playable
 	 * @param sendMessage : boolean Specifies whether to send message to Client about this action
 	 * @return L2ItemInstance corresponding to the new item or the updated item in inventory
 	 */
-	public L2ItemInstance dropItem(String process, int objectId, int count, int x, int y, int z, L2Object reference, boolean sendMessage)
+	public L2ItemInstance dropItem(String process, int objectId, long count, int x, int y, int z, L2Object reference, boolean sendMessage)
 	{
 		L2ItemInstance olditem = getInventory().getItemByObjectId(objectId);
 		L2ItemInstance item = getInventory().dropItem(process, objectId, count, this, reference);
@@ -3405,7 +3434,7 @@ public final class L2PcInstance extends L2Playable
 		return item;
 	}
 
-	public L2ItemInstance checkItemManipulation(int objectId, int count, String action)
+	public L2ItemInstance checkItemManipulation(int objectId, long count, String action)
 	{
 		L2ItemInstance item = getInventory().getItemByObjectId(objectId);
 		if (item == null)
@@ -4139,14 +4168,14 @@ public final class L2PcInstance extends L2Playable
 				if (target.getItemId() == 57)
 				{
 					SystemMessage smsg = new SystemMessage(SystemMessageId.FAILED_TO_PICKUP_S1_ADENA);
-					smsg.addNumber(target.getCount());
+					smsg.addItemNumber(target.getCount());
 					sendPacket(smsg);
 				}
 				else if (target.getCount() > 1)
 				{
 					SystemMessage smsg = new SystemMessage(SystemMessageId.FAILED_TO_PICKUP_S2_S1_S);
 					smsg.addItemName(target);
-					smsg.addNumber(target.getCount());
+					smsg.addItemNumber(target.getCount());
 					sendPacket(smsg);
 				}
 				else
@@ -4517,7 +4546,8 @@ public final class L2PcInstance extends L2Playable
 		}
 
 		Castle castle = null;
-		if (getClan() != null) {
+		if (getClan() != null)
+		{
 			castle = CastleManager.getInstance().getCastleByOwner(getClan());
 			if (castle != null)
 				castle.destroyClanGate();
@@ -4560,14 +4590,10 @@ public final class L2PcInstance extends L2Playable
 				if (getClan().getReputationScore() > 0) // When your reputation score is 0 or below, the other clan cannot acquire any reputation points
 				{
 					pk.getClan().setReputationScore(pk.getClan().getReputationScore() + Config.REPUTATION_SCORE_PER_KILL, true);
-					getClan().broadcastToOnlineMembers(new PledgeShowInfoUpdate(_clan));
-					pk.getClan().broadcastToOnlineMembers(new PledgeShowInfoUpdate(pk.getClan()));
 				}
 				if (pk.getClan().getReputationScore() > 0) // When the opposing sides reputation score is 0 or below, your clans reputation score does not decrease
 				{
 					_clan.setReputationScore(_clan.getReputationScore() - Config.REPUTATION_SCORE_PER_KILL, true);
-					getClan().broadcastToOnlineMembers(new PledgeShowInfoUpdate(_clan));
-					pk.getClan().broadcastToOnlineMembers(new PledgeShowInfoUpdate(pk.getClan()));
 				}
 			}
 
@@ -4591,7 +4617,13 @@ public final class L2PcInstance extends L2Playable
 							// NOTE: deathPenalty +- Exp will update karma
 							// Penalty is lower if the player is at war with the pk (war has to be declared)
 							if (getSkillLevel(L2Skill.SKILL_LUCKY) < 0 || getStat().getLevel() > 9)
-								deathPenalty(clanWarKill, playerKill, charmOfCourage);
+							{
+								boolean siege_npc = false;
+								if (killer instanceof L2FortSiegeGuardInstance || killer instanceof L2SiegeGuardInstance
+										|| killer instanceof L2FortCommanderInstance)
+									siege_npc = true;
+								deathPenalty(pk != null && getClan() != null && getClan().isAtWarWith(pk.getClanId()), pk != null, siege_npc);
+							}
 						}
 						else
 						{
@@ -4627,10 +4659,6 @@ public final class L2PcInstance extends L2Playable
 					Announcements.getInstance().announceToAll(pk.getName() + " has defeated " + getName());
 			}
 		}
-
-		// Untransforms character
-		if (isTransformed())
-			untransform();
 
 		// Force Charges
 		_charges = 0; // Empty charges
@@ -4763,6 +4791,8 @@ public final class L2PcInstance extends L2Playable
 				{
 					// Don't drop
 					if (!itemDrop.isDropable() || itemDrop.getItemId() == 57 || // Adena
+							itemDrop.isShadowItem() || // Dont drop Shadow Items
+							itemDrop.isTimeLimitedItem() || // Dont drop Time Limited Items
 							itemDrop.getItem().getType2() == L2Item.TYPE2_QUEST || // Quest Items
 							nonDroppableList.contains(itemDrop.getItemId()) || // Item listed in the non droppable item list
 							nonDroppableListPet.contains(itemDrop.getItemId()) || // Item listed in the non droppable pet item list
@@ -4799,7 +4829,7 @@ public final class L2PcInstance extends L2Playable
 					&& !(killer instanceof L2PcInstance && ((L2PcInstance) killer).isGM()))
 			{
 				L2ItemInstance itemDrop = getInventory().getAdenaInstance();
-				int iCount = getInventory().getAdena();
+				long iCount = getInventory().getAdena();
 				// Adena count depends on config
 				iCount = iCount * Config.PLAYER_RATE_DROP_ADENA / 100;
 				// Drop only adena this time
@@ -5112,7 +5142,7 @@ public final class L2PcInstance extends L2Playable
 	 * <li>Send a Server->Client StatusUpdate packet with its new Experience </li><BR><BR>
 	 *
 	 */
-	public void deathPenalty(boolean atwar, boolean killed_by_pc, boolean charmOfCourage)
+	public void deathPenalty(boolean atwar, boolean killed_by_pc, boolean charmOfCourage, boolean killed_by_siege_npc)
 	{
 		// FIXME: Need Correct Penalty
 
@@ -5163,7 +5193,7 @@ public final class L2PcInstance extends L2Playable
 		}
 		
 		// The death steal you some Exp
-		double percentLost = (clan_luck_modificator);
+		double percentLost = Config.PLAYER_XP_PERCENT_LOST[getLevel()]*clan_luck_modificator;
 
 		switch (level)
 		{
@@ -5207,7 +5237,7 @@ public final class L2PcInstance extends L2Playable
 		if (charmOfCourage && getSiegeState() > 0 && isInsideZone(L2Zone.FLAG_SIEGE))
 			return;
 
-		if (killed_by_pc && (
+		if ((killed_by_pc || killed_by_siege_npc) && (
 				(isInsideZone(L2Zone.FLAG_PVP) && !isInsideZone(L2Zone.FLAG_SIEGE))
 			|| (isInsideZone(L2Zone.FLAG_SIEGE) && getSiegeState() > 0)))
 			return;
@@ -5219,9 +5249,9 @@ public final class L2PcInstance extends L2Playable
 		getStat().addExp(-lostExp);
 	}
 
-	public void deathPenalty(boolean atwar, boolean killed_by_pc)
+	public void deathPenalty(boolean atwar, boolean killed_by_pc, boolean killed_by_siege_npc)
 	{
-		deathPenalty(atwar, killed_by_pc, getCharmOfCourage());
+		deathPenalty(atwar, killed_by_pc, getCharmOfCourage(), killed_by_siege_npc);
 	}
 
 	/**
@@ -5875,7 +5905,7 @@ public final class L2PcInstance extends L2Playable
 		// so this is temporary
 		if (!isInsideRadius(pet, 80, true, false))
 		{
-			sendPacket(SystemMessageId.TOO_FAR_AWAY_FROM_STRIDER_TO_MOUNT);
+			sendPacket(SystemMessageId.TOO_FAR_AWAY_FROM_FENRIR_TO_MOUNT);
 			return false;
 		}
 		else if (!GeoData.getInstance().canSeeTarget(this, pet))
@@ -6045,7 +6075,7 @@ public final class L2PcInstance extends L2Playable
 			else if (!Util.checkIfInRange(200, this, pet, true))
 			{
 				sendPacket(ActionFailed.STATIC_PACKET);
-				sendPacket(SystemMessageId.TOO_FAR_AWAY_FROM_STRIDER_TO_MOUNT);
+				sendPacket(SystemMessageId.TOO_FAR_AWAY_FROM_FENRIR_TO_MOUNT);
 				return false;
 			}
 			else if (!pet.isDead() && !isMounted())
@@ -6064,7 +6094,7 @@ public final class L2PcInstance extends L2Playable
 				sendPacket(ActionFailed.STATIC_PACKET);
 				return false;
 			}
-			else if (getMountType() == 2 && isInsideZone(L2Zone.FLAG_NOLANDING))
+			else if (getMountType() == 2 && isInsideZone(L2Zone.FLAG_NOWYVERN))
 			{
 				sendPacket(ActionFailed.STATIC_PACKET);
 				sendPacket(new SystemMessage(SystemMessageId.NO_DISMOUNT_HERE));
@@ -6614,6 +6644,9 @@ public final class L2PcInstance extends L2Playable
 				// Set the x,y,z position of the L2PcInstance and make it invisible
 				player.getPosition().setXYZInvisible(rset.getInt("x"), rset.getInt("y"), rset.getInt("z"));
 
+				// Set Teleport Bookmark Slot
+				player.setBookMarkSlot(rset.getInt("BookmarkSlot"));
+
 				// Retrieve the name and ID of the other characters assigned to this account.
 				PreparedStatement stmt = con.prepareStatement("SELECT charId, char_name FROM characters WHERE account_name=? AND charId<>?");
 				stmt.setString(1, player._accountName);
@@ -6796,6 +6829,9 @@ public final class L2PcInstance extends L2Playable
 
 		// Retrieve from the database all henna of this L2PcInstance and add them to _henna.
 		restoreHenna();
+
+		// Retrieve from the database all teleport bookmark of this L2PcInstance and add them to _tpbookmark.
+		restoreTeleportBookmark();
 
 		// Retrieve from the database all recom data of this L2PcInstance and add to _recomChars.
 		RecommendationManager.getInstance().onJoin(this);
@@ -7002,7 +7038,8 @@ public final class L2PcInstance extends L2Playable
 			statement.setLong(48, getDeathPenaltyBuffLevel());
 			statement.setLong(49, getTrustLevel());
 			statement.setDouble(50, getVitalityPoints());
-		    statement.setInt(51, getObjectId());
+			statement.setInt(51, getBookMarkSlot());
+		    statement.setInt(52, getObjectId());
 			statement.execute();
 			statement.close();
 		}
@@ -7650,7 +7687,7 @@ public final class L2PcInstance extends L2Playable
 		
 		SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
 		sm.addItemName(henna.getItemId());
-		sm.addNumber(henna.getAmount() / 2);
+		sm.addItemNumber(henna.getAmount() / 2);
 		sendPacket(sm);
 
 		return true;
@@ -8652,7 +8689,7 @@ public final class L2PcInstance extends L2Playable
 	public boolean checkCanLand()
 	{
 		// Check if char is in a no landing zone
-		if (isInsideZone(L2Zone.FLAG_NOLANDING))
+		if (isInsideZone(L2Zone.FLAG_NOWYVERN))
 			return false;
 
 		// If this is a castle that is currently being sieged, and the rider is NOT a castle owner
@@ -8719,9 +8756,9 @@ public final class L2PcInstance extends L2Playable
 	/**
 	 * Disable the Inventory and create a new task to enable it after 1.5s.<BR><BR>
 	 */
-	public void tempInvetoryDisable()
+	public void tempInventoryDisable()
 	{
-		_inventoryDisable = true;
+		_inventoryDisabled = true;
 
 		ThreadPoolManager.getInstance().scheduleGeneral(new InventoryEnable(), 1500);
 	}
@@ -8729,16 +8766,16 @@ public final class L2PcInstance extends L2Playable
 	/**
 	 * Return True if the Inventory is disabled.<BR><BR>
 	 */
-	public boolean isInvetoryDisabled()
+	public boolean isInventoryDisabled()
 	{
-		return _inventoryDisable;
+		return _inventoryDisabled;
 	}
 
 	class InventoryEnable implements Runnable
 	{
 		public void run()
 		{
-			_inventoryDisable = false;
+			_inventoryDisabled = false;
 		}
 	}
 
@@ -8835,8 +8872,6 @@ public final class L2PcInstance extends L2Playable
 		}
 	}
 
-	public ScheduledFuture<?>	_taskforfish;
-
 	class WaterTask implements Runnable
 	{
 		public void run()
@@ -8898,6 +8933,17 @@ public final class L2PcInstance extends L2Playable
 	public void setClanPrivileges(int n)
 	{
 		_clanPrivileges = n;
+	}
+
+	public int getBookMarkSlot()
+	{
+		return _bookmarkslot;
+	}
+
+	public void setBookMarkSlot(int slot)
+	{
+		_bookmarkslot = slot;
+		sendPacket(new ExGetBookMarkInfoPacket(this));
 	}
 
 	@Override
@@ -9947,14 +9993,14 @@ public final class L2PcInstance extends L2Playable
 		}
 	}
 
-	public void enteredNoLanding()
+	public void enteredNoWyvernZone()
 	{
 		sendPacket(SystemMessageId.AREA_CANNOT_BE_ENTERED_WHILE_MOUNTED_WYVERN);
 		
 		_dismountTask = ThreadPoolManager.getInstance().scheduleGeneral(new L2PcInstance.dismount(), 5000);
 	}
 
-	public void exitedNoLanding()
+	public void exitedNoWyvernZone()
 	{
 		if (_dismountTask != null)
 		{
@@ -12888,7 +12934,7 @@ public final class L2PcInstance extends L2Playable
 	public void calculateDeathPenaltyBuffLevel(L2Character killer)
 	{
 		if (!(killer instanceof L2Playable) && !isGM() && !(getCharmOfLuck() && killer.isRaid())
-				&& !isPhoenixBlessed() && !isInFunEvent() && Rnd.get(100) <= Config.DEATH_PENALTY_CHANCE)
+				&& !isPhoenixBlessed() && !isInFunEvent() && Rnd.get(100) < Config.DEATH_PENALTY_CHANCE)
 			increaseDeathPenaltyBuffLevel();
 	}
 
@@ -14213,67 +14259,68 @@ public final class L2PcInstance extends L2Playable
 		*/
 		return true;
 	}
-	
-    public class TeleportBookmark
-    {
-    	public int _id,_x,_y,_z,_icon;
-    	public String _name,_tag;
-    	
-    	TeleportBookmark(int id, int x, int y, int z, int icon,String tag , String name)
-    	{
-    		_id = id;
-    		_x = x;
-    		_y = y;
-    		_z = z;
-    		_icon = icon;
-    		_name = name;
-    		_tag = tag;
-    	}
-    	
-    }
-    
-    public void TeleportBookmarkModify(int Id,int icon, String tag,String name)
-    {
-    	int count = 0;
-    	int size = tpbookmark.size();
-    	while(size > count)
-    	{
-    		if(tpbookmark.get(count)._id==Id)
-    		{
-    			tpbookmark.get(count)._icon = icon;
-    			tpbookmark.get(count)._tag = tag;
-    			tpbookmark.get(count)._name = name;
-    			
-    			Connection con = null;
 
-    			try
-    			{
+	public static class TeleportBookmark
+	{
+		public int _id,_x,_y,_z,_icon;
+		public String _name,_tag;
 
-    				con = L2DatabaseFactory.getInstance().getConnection();
-    				PreparedStatement statement = con.prepareStatement(UPDATE_TP_BOOKMARK);
-    				
-    				statement.setInt(1, icon);
-    				statement.setString(2, tag);
-    				statement.setString(3, name);
-    				statement.setInt(4, getObjectId());
-    				statement.setInt(5, Id);
+		public TeleportBookmark(int id, int x, int y, int z, int icon,String tag , String name)
+		{
+			_id = id;
+			_x = x;
+			_y = y;
+			_z = z;
+			_icon = icon;
+			_name = name;
+			_tag = tag;
+		}
+	}
 
-    				statement.execute();
-    				statement.close();
-    			}
-    			catch (Exception e) { _log.warn("Could not update character teleport bookmark data: "+ e); }
-    			finally { try { con.close(); } catch (Exception e) {} }
-    			
-    		}
-    		count++;
-    	}
-    	
-    	sendPacket(new ExGetBookMarkInfoPacket(this));
-    	
-    }
-    
-    public void TeleportBookmarkDelete(int Id)
-    {
+	public void teleportBookmarkModify(int Id,int icon, String tag,String name)
+	{
+		int count = 0;
+		int size = tpbookmark.size();
+		while(size > count)
+		{
+			if (tpbookmark.get(count)._id==Id)
+			{
+				tpbookmark.get(count)._icon = icon;
+				tpbookmark.get(count)._tag = tag;
+				tpbookmark.get(count)._name = name;
+				
+				Connection con = null;
+				try
+				{
+
+					con = L2DatabaseFactory.getInstance().getConnection();
+					PreparedStatement statement = con.prepareStatement(UPDATE_TP_BOOKMARK);
+					
+					statement.setInt(1, icon);
+					statement.setString(2, tag);
+					statement.setString(3, name);
+					statement.setInt(4, getObjectId());
+					statement.setInt(5, Id);
+
+					statement.execute();
+					statement.close();
+				}
+				catch (Exception e)
+				{
+					_log.error("Could not update character teleport bookmark data: " + e, e);
+				}
+				finally
+				{
+					L2DatabaseFactory.close(con);
+				}
+			}
+			count++;
+		}
+		sendPacket(new ExGetBookMarkInfoPacket(this));
+	}
+
+	public void teleportBookmarkDelete(int Id)
+	{
 		Connection con = null;
 
 		try
@@ -14287,168 +14334,171 @@ public final class L2PcInstance extends L2Playable
 			statement.execute();
 			statement.close();
 		}
-		catch (Exception e) { _log.warn("Could not delete character teleport bookmark data: "+ e); }
-		finally { try { con.close(); } catch (Exception e) {} }
+		catch (Exception e)
+		{
+			_log.error("Could not delete character teleport bookmark data: " + e, e);
+		}
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 		
 		int count = 0;
 		int size = tpbookmark.size();
 		
-    	while(size > count)
-    	{
-    		if(tpbookmark.get(count)._id==Id)
-    		{
-    			tpbookmark.remove(count);
-    			break;
-    		}
-    		count++;
-    	}
-    	
+		while (size > count)
+		{
+			if (tpbookmark.get(count)._id==Id)
+			{
+				tpbookmark.remove(count);
+				break;
+			}
+			count++;
+		}
+		
 		sendPacket(new ExGetBookMarkInfoPacket(this));
-    }
-    
-    public void TeleportBookmarkGo(int Id)
-    {
-    	if(!TeleportBookmarkCondition(0)||this==null)
-    		return;
-    	if (getInventory().getInventoryItemCount(13016,0)==0)
-    	{
-    		sendPacket(new SystemMessage(2359));
-    		return;
-    	}
-    	SystemMessage sm = new SystemMessage(SystemMessageId.S1_DISAPPEARED);
-    	sm.addItemName(13016);
-    	sendPacket(sm);
-    	int count = 0;
-    	int size = tpbookmark.size();
-    	while(size > count)
-    	{
-    		if(tpbookmark.get(count)._id==Id)
-    		{
-    			destroyItem("Consume", getInventory().getItemByItemId(13016).getObjectId(), 1, null, false);
-    			this.teleToLocation(tpbookmark.get(count)._x, tpbookmark.get(count)._y, tpbookmark.get(count)._z);
-    			break;
-    		}
-    		count++;
-    	}
-    	sendPacket(new ExGetBookMarkInfoPacket(this));
-    }
-    
-    public boolean TeleportBookmarkCondition(int type)
-    {
-    	
-    	if(isInCombat())
-    	{
-    		sendPacket(new SystemMessage(2348));
-    		return false;
-    	}
-    	else if (isInSiege())
-    	{
-    		sendPacket(new SystemMessage(2349));
-    		return false;
-    	}
-    	else if (isInDuel())
-    	{
-    		sendPacket(new SystemMessage(2350));
-    		return false;
-    	}
-    	else if (isFlying())
-    	{
-    		sendPacket(new SystemMessage(2351));
-    		return false;
-    	}
-    	else if (isInOlympiadMode())
-    	{
-    		sendPacket(new SystemMessage(2352));
-    		return false;
-    	}
-    	else if (isParalyzed())
-    	{
-    		sendPacket(new SystemMessage(2353));
-    		return false;
-    	}
-    	else if (isDead())
-    	{
-    		sendPacket(new SystemMessage(2354));
-    		return false;
-    	}
-    	else if (isInBoat() || isInAirShip() || isInJail() || isInsideZone(L2Zone.FLAG_NOSUMMON))
-    	{
-    		if(type == 0)
-    			sendPacket(new SystemMessage(2355));
-    		else if (type == 1)
-    			sendPacket(new SystemMessage(2410));
-    		return false;
-    	}
-    	else if (isInWater())
-    	{
-    		sendPacket(new SystemMessage(2356));
-    		return false;
-    	}
-    	/* TODO: Instant Zone still not implement
-    	else if (this.isInsideZone(ZONE_INSTANT))
-    	{
-    		sendPacket(new SystemMessage(2357));
-    		return;
-    	}
-    	*/
-    	else
-    		return true;
-    }
-    
-    public void TeleportBookmarkAdd(int x,int y,int z,int icon, String tag, String name)
-    {
-    	if(this == null)
-    		return;
-    	
-    	if(!TeleportBookmarkCondition(1))
-    		return;
-    	
-    	if(tpbookmark.size()>=_bookmarkslot)
-    	{
-    		sendPacket(new SystemMessage(2358));
-    		return;
-    	}
-    	
-    	if(getInventory().getInventoryItemCount(20033,0) == 0)
-    	{
-    		sendPacket(new SystemMessage(6501));
-    		return;
-    	}
+	}
 
-    	int count = 0;
-    	int id = 1;
-    	FastList<Integer> idlist = new FastList<Integer>();
-    	
-    	int size = tpbookmark.size();
-    	
-    	while(size > count)
-    	{
-    		idlist.add(tpbookmark.get(count)._id);
-    		count++;
-    	}
-    	
-    	for(int i=1;i<10;i++)
-    	{
-    		if(!idlist.contains(i))
-    		{
-    			id = i;
-    			break;
-    		}
-    	}
-    	
-    	TeleportBookmark tpadd = new TeleportBookmark(id,x,y,z,icon,tag,name);
-    	if(tpbookmark==null)
-    		tpbookmark = new FastList<TeleportBookmark>();
-    	
-    	tpbookmark.add(tpadd);
+	public void teleportBookmarkGo(int Id)
+	{
+		if (!teleportBookmarkCondition(0))
+			return;
+		if (getInventory().getInventoryItemCount(13016, 0) == 0)
+		{
+			sendPacket(new SystemMessage(2359));
+			return;
+		}
+		SystemMessage sm = new SystemMessage(SystemMessageId.S1_DISAPPEARED);
+		sm.addItemName(13016);
+		sendPacket(sm);
 
-    	destroyItem("Consume", getInventory().getItemByItemId(20033).getObjectId(), 1, null, false);
-    	
-    	SystemMessage sm = new SystemMessage(SystemMessageId.S1_DISAPPEARED);
-    	sm.addItemName(20033);
-    	sendPacket(sm);
-    	
-    	Connection con = null;
+		int count = 0;
+		int size = tpbookmark.size();
+		while (size > count)
+		{
+			if (tpbookmark.get(count)._id==Id)
+			{
+				destroyItem("Consume", getInventory().getItemByItemId(13016).getObjectId(), 1, null, false);
+				teleToLocation(tpbookmark.get(count)._x, tpbookmark.get(count)._y, tpbookmark.get(count)._z);
+				break;
+			}
+			count++;
+		}
+		sendPacket(new ExGetBookMarkInfoPacket(this));
+	}
+
+	public boolean teleportBookmarkCondition(int type)
+	{
+		
+		if (isInCombat())
+		{
+			sendPacket(new SystemMessage(2348));
+			return false;
+		}
+		else if (isInSiege())
+		{
+			sendPacket(new SystemMessage(2349));
+			return false;
+		}
+		else if (isInDuel())
+		{
+			sendPacket(new SystemMessage(2350));
+			return false;
+		}
+		else if (isFlying())
+		{
+			sendPacket(new SystemMessage(2351));
+			return false;
+		}
+		else if (isInOlympiadMode())
+		{
+			sendPacket(new SystemMessage(2352));
+			return false;
+		}
+		else if (isParalyzed())
+		{
+			sendPacket(new SystemMessage(2353));
+			return false;
+		}
+		else if (isDead())
+		{
+			sendPacket(new SystemMessage(2354));
+			return false;
+		}
+		else if (isInBoat() || isInAirShip() || isInJail() || isInsideZone(L2Zone.FLAG_NOSUMMON))
+		{
+			if(type == 0)
+				sendPacket(new SystemMessage(2355));
+			else if (type == 1)
+				sendPacket(new SystemMessage(2410));
+			return false;
+		}
+		else if (isInWater())
+		{
+			sendPacket(new SystemMessage(2356));
+			return false;
+		}
+		/* TODO: Instant Zone still not implement
+		else if (this.isInsideZone(ZONE_INSTANT))
+		{
+			sendPacket(new SystemMessage(2357));
+			return;
+		}
+		*/
+		else
+			return true;
+	}
+
+	public void teleportBookmarkAdd(int x,int y,int z,int icon, String tag, String name)
+	{
+		if (!teleportBookmarkCondition(1))
+			return;
+		
+		if (tpbookmark.size() >= _bookmarkslot)
+		{
+			sendPacket(new SystemMessage(2358));
+			return;
+		}
+		
+		if (getInventory().getInventoryItemCount(20033, 0) == 0)
+		{
+			sendPacket(new SystemMessage(6501));
+			return;
+		}
+
+		int count = 0;
+		int id = 1;
+		FastList<Integer> idlist = new FastList<Integer>();
+
+		int size = tpbookmark.size();
+
+		while (size > count)
+		{
+			idlist.add(tpbookmark.get(count)._id);
+			count++;
+		}
+		
+		for (int i=1;i<10;i++)
+		{
+			if (!idlist.contains(i))
+			{
+				id = i;
+				break;
+			}
+		}
+
+		TeleportBookmark tpadd = new TeleportBookmark(id,x,y,z,icon,tag,name);
+		if (tpbookmark==null)
+			tpbookmark = new FastList<TeleportBookmark>();
+		tpbookmark.add(tpadd);
+
+		destroyItem("Consume", getInventory().getItemByItemId(20033).getObjectId(), 1, null, false);
+
+		SystemMessage sm = new SystemMessage(SystemMessageId.S1_DISAPPEARED);
+		sm.addItemName(20033);
+		sendPacket(sm);
+		
+		Connection con = null;
 
 		try
 		{
@@ -14469,17 +14519,23 @@ public final class L2PcInstance extends L2Playable
 			statement.execute();
 			statement.close();
 		}
-		catch (Exception e) { _log.warn("Could not insert character teleport bookmark data: "+ e); }
-		finally { try { con.close(); } catch (Exception e) {} }
+		catch (Exception e)
+		{
+			_log.error("Could not insert character teleport bookmark data: " + e, e);
+		}
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 		
 		sendPacket(new ExGetBookMarkInfoPacket(this));
-    }
-    
-    public void restoreTeleportBookmark()
-    {
-    	if(tpbookmark==null)
-    		tpbookmark = new FastList<TeleportBookmark>();
-    	Connection con = null;
+	}
+
+	public void restoreTeleportBookmark()
+	{
+		if (tpbookmark==null)
+			tpbookmark = new FastList<TeleportBookmark>();
+		Connection con = null;
 
 		try
 		{
@@ -14498,25 +14554,25 @@ public final class L2PcInstance extends L2Playable
 		}
 		catch (Exception e)
 		{
-		    _log.fatal("Failed restoing character teleport bookmark.", e);
+			_log.fatal("Failed restoing character teleport bookmark.", e);
 		}
 		finally
 		{
-			try { con.close(); } catch (Exception e) {}
+			L2DatabaseFactory.close(con);
 		}
-    }
+	}
 
-    public boolean isFlyingMounted()
-    {
-	    return _isFlyingMounted;
-    }
-    
-    public void setIsFlyingMounted(boolean val)
-    {
-    	_isFlyingMounted = val;
-    	setIsFlying(val);
-    }
-	
+	public boolean isFlyingMounted()
+	{
+		return _isFlyingMounted;
+	}
+
+	public void setIsFlyingMounted(boolean val)
+	{
+		_isFlyingMounted = val;
+		setIsFlying(val);
+	}
+
 	public synchronized boolean enterOfflineMode()
 	{
 		if (isInOfflineMode())

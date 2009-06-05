@@ -23,6 +23,7 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2PetData;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.instance.L2AirShipInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.skills.Calculator;
@@ -468,8 +469,11 @@ public class CharStat
 		if (_activeChar == null)
 			return 1;
 
+		// TODO: Merge this
 		if (_activeChar instanceof L2BoatInstance)
 			return ((L2BoatInstance) _activeChar).boatSpeed;
+		if (_activeChar instanceof L2AirShipInstance)
+			return ((L2AirShipInstance) _activeChar).boatSpeed;
 
 		if (_activeChar.isRunning())
 			return getRunSpeed();

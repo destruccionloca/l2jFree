@@ -43,15 +43,15 @@ public class TradeList
 		private int _objectId;
 		private L2Item _item;
 		private int _enchant;
-		private int _count;
-		private int _price;
+		private long _count;
+		private long _price;
 
 		private int _elemAtkType = -2;
 		private int _elemAtkPower = 0;
 		private int[] _elemDefAttr = {0, 0, 0, 0, 0, 0};
 
 
-		public TradeItem(L2ItemInstance item, int count, int price)
+		public TradeItem(L2ItemInstance item, long count, long price)
 		{
 			_objectId = item.getObjectId();
 			_item = item.getItem();
@@ -65,7 +65,7 @@ public class TradeList
 				_elemDefAttr[i] = item.getElementDefAttr(i);
 		}
 
-		public TradeItem(L2Item item, int count, int price)
+		public TradeItem(L2Item item, long count, long price)
 		{
 			_objectId = 0;
 			_item = item;
@@ -74,7 +74,7 @@ public class TradeList
 			_price = price;
 		}
 
-		public TradeItem(TradeItem item, int count, int price)
+		public TradeItem(TradeItem item, long count, long price)
 		{
 			_objectId = item.getObjectId();
 			_item = item.getItem();
@@ -113,22 +113,22 @@ public class TradeList
 			return _enchant;
 		}
 
-		public void setCount(int count)
+		public void setCount(long count)
 		{
 			_count = count;
 		}
 
-		public int getCount()
+		public long getCount()
 		{
 			return _count;
 		}
 
-		public void setPrice(int price)
+		public void setPrice(long price)
 		{
 			_price = price;
 		}
 
-		public int getPrice()
+		public long getPrice()
 		{
 			return _price;
 		}
@@ -306,10 +306,10 @@ public class TradeList
 	/**
 	 * Add simplified item to TradeList
 	 * @param objectId : int
-	 * @param count : int
+	 * @param count : long
 	 * @return
 	 */
-	public synchronized TradeItem addItem(int objectId, int count)
+	public synchronized TradeItem addItem(int objectId, long count)
 	{
 		return addItem(objectId, count, 0);
 	}
@@ -317,11 +317,11 @@ public class TradeList
 	/**
 	 * Add item to TradeList
 	 * @param objectId : int
-	 * @param count : int
-	 * @param price : int
+	 * @param count : long
+	 * @param price : ilong
 	 * @return
 	 */
-	public synchronized TradeItem addItem(int objectId, int count, int price)
+	public synchronized TradeItem addItem(int objectId, long count, long price)
 	{
 		if (isLocked())
 		{
@@ -365,11 +365,11 @@ public class TradeList
 	/**
 	 * Add item to TradeList
 	 * @param itemId : int
-	 * @param count : int
-	 * @param price : int
+	 * @param count : long
+	 * @param price : long
 	 * @return
 	 */
-	public synchronized TradeItem addItemByItemId(int itemId, int count, int price)
+	public synchronized TradeItem addItemByItemId(int itemId, long count, long price)
 	{
 		if (isLocked())
 		{
@@ -410,10 +410,10 @@ public class TradeList
 	/**
 	 * Remove item from TradeList
 	 * @param objectId : int
-	 * @param count : int
+	 * @param count : long
 	 * @return
 	 */
-	public synchronized TradeItem removeItem(int objectId, int itemId, int count)
+	public synchronized TradeItem removeItem(int objectId, int itemId, long count)
 	{
 		if (isLocked())
 		{
@@ -813,13 +813,13 @@ public class TradeList
 				SystemMessage msg = new SystemMessage(SystemMessageId.C1_PURCHASED_S3_S2_S);
 				msg.addString(player.getName());
 				msg.addItemName(newItem);
-				msg.addNumber(item.getCount());
+				msg.addItemNumber(item.getCount());
 				_owner.sendPacket(msg);
 
 				msg = new SystemMessage(SystemMessageId.PURCHASED_S3_S2_S_FROM_C1);
 				msg.addString(_owner.getName());
 				msg.addItemName(newItem);
-				msg.addNumber(item.getCount());
+				msg.addItemNumber(item.getCount());
 				player.sendPacket(msg);
 			}
 			else
@@ -875,7 +875,7 @@ public class TradeList
 		InventoryUpdate ownerIU = new InventoryUpdate();
 		InventoryUpdate playerIU = new InventoryUpdate();
 
-		int totalprice = 0;
+		long totalprice = 0;
 
 		// Transfer items
 		for (ItemRequest item : items)
@@ -885,7 +885,7 @@ public class TradeList
 			if (item.getCount() == 0)
 				continue;
 
-			int price = -1;
+			long price = -1;
 
 			for (TradeItem ti : _items)
 			{
@@ -929,13 +929,13 @@ public class TradeList
 				SystemMessage msg = new SystemMessage(SystemMessageId.PURCHASED_S3_S2_S_FROM_C1);
 				msg.addString(player.getName());
 				msg.addItemName(newItem);
-				msg.addNumber(item.getCount());
+				msg.addItemNumber(item.getCount());
 				_owner.sendPacket(msg);
 
 				msg = new SystemMessage(SystemMessageId.C1_PURCHASED_S3_S2_S);
 				msg.addString(_owner.getName());
 				msg.addItemName(newItem);
-				msg.addNumber(item.getCount());
+				msg.addItemNumber(item.getCount());
 				player.sendPacket(msg);
 			}
 			else

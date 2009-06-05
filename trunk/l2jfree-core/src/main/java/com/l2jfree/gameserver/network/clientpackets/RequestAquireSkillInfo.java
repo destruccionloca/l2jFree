@@ -154,6 +154,7 @@ public class RequestAquireSkillInfo extends L2GameClientPacket
         {
             int requiredRep = 0;
             int itemId = 0;
+            long itemCount = 0;
             L2PledgeSkillLearn[] skills = SkillTreeTable.getInstance().getAvailablePledgeSkills(activeChar);
 
             for (L2PledgeSkillLearn s : skills)
@@ -163,6 +164,7 @@ public class RequestAquireSkillInfo extends L2GameClientPacket
                     canteach = true;
                     requiredRep = s.getRepCost();
                     itemId = s.getItemId();
+                    itemCount = s.getItemCount();
                     break;
                 }
             }
@@ -175,7 +177,7 @@ public class RequestAquireSkillInfo extends L2GameClientPacket
 
             AcquireSkillInfo asi = new AcquireSkillInfo(skill.getId(), skill.getLevel(), requiredRep, 2);
             if (Config.ALT_LIFE_CRYSTAL_NEEDED)
-                asi.addRequirement(1, itemId, 1, 0);
+                asi.addRequirement(1, itemId, (int) itemCount, 0);
             sendPacket(asi);
             asi = null;
         }

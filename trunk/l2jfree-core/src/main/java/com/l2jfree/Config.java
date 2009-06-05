@@ -564,6 +564,7 @@ public final class Config extends L2Config
 	public static int			KARMA_RATE_DROP_ITEM;
 	public static int			KARMA_RATE_DROP_EQUIP;
 	public static int			KARMA_RATE_DROP_EQUIP_WEAPON;
+	public static double[]		PLAYER_XP_PERCENT_LOST;
 
 	// *******************************************************************************************
 	private static final class RatesConfig extends ConfigLoader
@@ -622,6 +623,41 @@ public final class Config extends L2Config
 			KARMA_RATE_DROP_ITEM = Integer.parseInt(ratesSettings.getProperty("KarmaRateDropItem", "50"));
 			KARMA_RATE_DROP_EQUIP = Integer.parseInt(ratesSettings.getProperty("KarmaRateDropEquip", "40"));
 			KARMA_RATE_DROP_EQUIP_WEAPON = Integer.parseInt(ratesSettings.getProperty("KarmaRateDropEquipWeapon", "10"));
+
+			// Initializing table
+			PLAYER_XP_PERCENT_LOST = new double[Byte.MAX_VALUE+1];
+			
+			// Default value
+			for (int i = 0; i <= Byte.MAX_VALUE; i++)
+				PLAYER_XP_PERCENT_LOST[i] = 1.;
+			
+			// Now loading into table parsed values
+			try
+			{
+				String[] values = ratesSettings.getProperty("PlayerXPPercentLost", "0,39-7.0;40,75-4.0;76,76-2.5;77,77-2.0;78,78-1.5").split(";");
+				
+				for (String s : values)
+				{
+					int min;
+					int max;
+					double val;
+					
+					String[] vals = s.split("-");
+					String[] mM = vals[0].split(",");
+					
+					min = Integer.parseInt(mM[0]);
+					max = Integer.parseInt(mM[1]);
+					val = Double.parseDouble(vals[1]);
+					
+					for (int i = min; i <= max; i++)
+						PLAYER_XP_PERCENT_LOST[i] = val;
+				}
+			}
+			catch (Exception e)
+			{
+				_log.warn("Error while loading Player XP percent lost");
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -1533,6 +1569,7 @@ public final class Config extends L2Config
 	public static int					ALT_OLY_GP_PER_POINT;
 	public static int					ALT_OLY_MIN_POINT_FOR_EXCH;
 	public static int					ALT_OLY_HERO_POINTS;
+	public static int					ALT_OLY_HERO_TOKENS;
 	public static boolean				ALT_OLY_LOG_FIGHTS;
 	public static boolean				ALT_OLY_SHOW_MONTHLY_WINNERS;
 	public static boolean				ALT_OLY_ANNOUNCE_GAMES;
@@ -1728,7 +1765,7 @@ public final class Config extends L2Config
 			ALT_OLY_NONCLASSED = Integer.parseInt(altSettings.getProperty("AltOlyNonClassedParticipants", "9"));
 			ALT_OLY_SUMMON_DAMAGE_COUNTS = Boolean.parseBoolean(altSettings.getProperty("AltOlySummonDamageCounts", "false"));
 			ALT_OLY_REMOVE_CUBICS = Boolean.parseBoolean(altSettings.getProperty("AltOlyRemoveCubics", "false"));
-			ALT_OLY_BATTLE_REWARD_ITEM = Integer.parseInt(altSettings.getProperty("AltOlyBattleRewItem", "6651"));
+			ALT_OLY_BATTLE_REWARD_ITEM = Integer.parseInt(altSettings.getProperty("AltOlyBattleRewItem", "13722"));
 			ALT_OLY_CLASSED_RITEM_C = Integer.parseInt(altSettings.getProperty("AltOlyClassedRewItemCount", "50"));
 			ALT_OLY_NONCLASSED_RITEM_C = Integer.parseInt(altSettings.getProperty("AltOlyNonClassedRewItemCount", "30"));
 			ALT_OLY_GP_PER_POINT = Integer.parseInt(altSettings.getProperty("AltOlyGPPerPoint", "1000"));
@@ -2161,6 +2198,8 @@ public final class Config extends L2Config
 	public static long			FS_SUPPORT_FEE_RATIO;
 	public static int			FS_SUPPORT1_FEE;
 	public static int			FS_SUPPORT2_FEE;
+	public static int			FS_BLOOD_OATH_COUNT;
+	public static int			FS_BLOOD_OATH_FRQ;
 
 	private static final class FortSiegeConfig extends ConfigLoader
 	{
@@ -2196,6 +2235,9 @@ public final class Config extends L2Config
 			FS_EXPREG_FEE_RATIO         = Long.parseLong(fortSiegeSettings.getProperty("FortressExpRegenerationFunctionFeeRatio", "86400000"));
 			FS_EXPREG1_FEE              = Integer.parseInt(fortSiegeSettings.getProperty("FortressExpRegenerationFeeLvl1", "9000"));
 			FS_EXPREG2_FEE              = Integer.parseInt(fortSiegeSettings.getProperty("FortressExpRegenerationFeeLvl2", "10000"));
+
+			FS_BLOOD_OATH_COUNT         = Integer.parseInt(fortSiegeSettings.getProperty("FortressBloodOathCount", "1"));
+			FS_BLOOD_OATH_FRQ           = Integer.parseInt(fortSiegeSettings.getProperty("FortressBloodOathFrequency", "360"));
 		}
 	}
 
@@ -2320,7 +2362,7 @@ public final class Config extends L2Config
 	public static boolean		ALT_GAME_CASTLE_DAWN;								// Alternative gaming - players must be in a castle-owning clan or ally to sign up for Dawn.
 	public static boolean		ALT_GAME_CASTLE_DUSK;								// Alternative gaming - players being in a castle-owning clan or ally cannot sign up for Dusk.
 	public static int			ALT_FESTIVAL_MIN_PLAYER;							// Minimum number of player to participate in SevenSigns Festival
-	public static int			ALT_MAXIMUM_PLAYER_CONTRIB;						// Maximum of player contrib during Festival
+	public static long			ALT_MAXIMUM_PLAYER_CONTRIB;						// Maximum of player contrib during Festival
 	public static long			ALT_FESTIVAL_MANAGER_START;						// Festival Manager start time.
 	public static long			ALT_FESTIVAL_LENGTH;								// Festival Length
 	public static long			ALT_FESTIVAL_CYCLE_LENGTH;							// Festival Cycle Length
@@ -2332,7 +2374,7 @@ public final class Config extends L2Config
 	public static int			ALT_FESTIVAL_ARCHER_AGGRO;							// Aggro value of Archer in SevenSigns Festival
 	public static int			ALT_FESTIVAL_CHEST_AGGRO;							// Aggro value of Chest in SevenSigns Festival
 	public static int			ALT_FESTIVAL_MONSTER_AGGRO;						// Aggro value of Monster in SevenSigns Festival
-	public static int			ALT_DAWN_JOIN_COST;								// Amount of adena to pay to join Dawn Cabal
+	public static long			ALT_DAWN_JOIN_COST;								// Amount of adena to pay to join Dawn Cabal
 
 	public static double		ALT_SIEGE_DAWN_GATES_PDEF_MULT;
 	public static double		ALT_SIEGE_DUSK_GATES_PDEF_MULT;
@@ -2354,7 +2396,7 @@ public final class Config extends L2Config
 			ALT_GAME_CASTLE_DAWN = Boolean.parseBoolean(SevenSettings.getProperty("AltCastleForDawn", "True"));
 			ALT_GAME_CASTLE_DUSK = Boolean.parseBoolean(SevenSettings.getProperty("AltCastleForDusk", "True"));
 			ALT_FESTIVAL_MIN_PLAYER = Integer.parseInt(SevenSettings.getProperty("AltFestivalMinPlayer", "5"));
-			ALT_MAXIMUM_PLAYER_CONTRIB = Integer.parseInt(SevenSettings.getProperty("AltMaxPlayerContrib", "1000000"));
+			ALT_MAXIMUM_PLAYER_CONTRIB = Long.parseLong(SevenSettings.getProperty("AltMaxPlayerContrib", "1000000"));
 			ALT_FESTIVAL_MANAGER_START = Long.parseLong(SevenSettings.getProperty("AltFestivalManagerStart", "120000"));
 			ALT_FESTIVAL_LENGTH = Long.parseLong(SevenSettings.getProperty("AltFestivalLength", "1080000"));
 			ALT_FESTIVAL_CYCLE_LENGTH = Long.parseLong(SevenSettings.getProperty("AltFestivalCycleLength", "2280000"));
@@ -2366,7 +2408,7 @@ public final class Config extends L2Config
 			ALT_FESTIVAL_ARCHER_AGGRO = Integer.parseInt(SevenSettings.getProperty("AltFestivalArcherAggro", "200"));
 			ALT_FESTIVAL_CHEST_AGGRO = Integer.parseInt(SevenSettings.getProperty("AltFestivalChestAggro", "0"));
 			ALT_FESTIVAL_MONSTER_AGGRO = Integer.parseInt(SevenSettings.getProperty("AltFestivalMonsterAggro", "200"));
-			ALT_DAWN_JOIN_COST = Integer.parseInt(SevenSettings.getProperty("AltJoinDawnCost", "50000"));
+			ALT_DAWN_JOIN_COST = Long.parseLong(SevenSettings.getProperty("AltJoinDawnCost", "50000"));
 
 			ALT_SIEGE_DAWN_GATES_PDEF_MULT = Double.parseDouble(SevenSettings.getProperty("AltDawnGatesPdefMult", "1.1"));
 			ALT_SIEGE_DUSK_GATES_PDEF_MULT = Double.parseDouble(SevenSettings.getProperty("AltDuskGatesPdefMult", "0.8"));

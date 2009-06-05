@@ -36,7 +36,7 @@ public class PrivateStoreManageListSell extends L2GameServerPacket
 {
 	private static final String _S__B3_PRIVATESELLLISTSELL = "[S] 9a PrivateSellListSell";
 	private int _objId;
-	private int _playerAdena;
+	private long _playerAdena;
 	private boolean _packageSale;
 	private TradeList.TradeItem[] _itemList;
 	private TradeList.TradeItem[] _sellList;
@@ -58,10 +58,10 @@ public class PrivateStoreManageListSell extends L2GameServerPacket
 		//section 1 
 		writeD(_objId);
 		writeD(_packageSale ? 1 : 0); // Package sell
-		if(Config.PACKET_FINAL)
+		if (Config.PACKET_FINAL)
 			writeQ(_playerAdena);
 		else
-			writeD(_playerAdena);
+			writeD(toInt(_playerAdena));
 
 		//section2 
 		writeD(_itemList.length); //for potential sells
@@ -70,24 +70,36 @@ public class PrivateStoreManageListSell extends L2GameServerPacket
 			writeD(item.getItem().getType2());
 			writeD(item.getObjectId());
 			writeD(item.getItem().getItemDisplayId());
-			if(Config.PACKET_FINAL)
+			if (Config.PACKET_FINAL)
 				writeQ(item.getCount());
 			else
-				writeD(item.getCount());
+				writeD(toInt(item.getCount()));
 			writeH(0x00);
 			writeH(item.getEnchant());//enchant lvl
 			writeH(0x00);
 			writeD(item.getItem().getBodyPart());
-			if(Config.PACKET_FINAL)
+			if (Config.PACKET_FINAL)
 				writeQ(item.getPrice()); //store price
 			else
-				writeD(item.getPrice()); //store price
+				writeD(toInt(item.getPrice())); //store price
 
-			writeH(item.getAttackElementType());
-			writeH(item.getAttackElementPower());
-			for (byte i = 0; i < 6; i++)
+			if (Config.PACKET_FINAL)
 			{
-				writeH(item.getElementDefAttr(i));
+				writeH(item.getAttackElementType());
+				writeH(item.getAttackElementPower());
+				for (byte i = 0; i < 6; i++)
+				{
+					writeH(item.getElementDefAttr(i));
+				}
+			}
+			else
+			{
+				writeD(item.getAttackElementType());
+				writeD(item.getAttackElementPower());
+				for (byte i = 0; i < 6; i++)
+				{
+					writeD(item.getElementDefAttr(i));
+				}
 			}
 		}
 
@@ -98,10 +110,10 @@ public class PrivateStoreManageListSell extends L2GameServerPacket
 			writeD(item.getItem().getType2()); 
 			writeD(item.getObjectId());
 			writeD(item.getItem().getItemDisplayId());
-			if(Config.PACKET_FINAL)
+			if (Config.PACKET_FINAL)
 				writeQ(item.getCount());
 			else
-				writeD(item.getCount());
+				writeD(toInt(item.getCount()));
 			writeH(0x00);
 			writeH(item.getEnchant());//enchant lvl
 			writeH(0x00);
@@ -113,15 +125,27 @@ public class PrivateStoreManageListSell extends L2GameServerPacket
 			}
 			else
 			{
-				writeD(item.getPrice());//your price
-				writeD(item.getItem().getReferencePrice()); //store price
+				writeD(toInt(item.getPrice()));//your price
+				writeD(toInt(item.getItem().getReferencePrice())); //store price
 			}
 
-			writeH(item.getAttackElementType());
-			writeH(item.getAttackElementPower());
-			for (byte i = 0; i < 6; i++)
+			if (Config.PACKET_FINAL)
 			{
-				writeH(item.getElementDefAttr(i));
+				writeH(item.getAttackElementType());
+				writeH(item.getAttackElementPower());
+				for (byte i = 0; i < 6; i++)
+				{
+					writeH(item.getElementDefAttr(i));
+				}
+			}
+			else
+			{
+				writeD(item.getAttackElementType());
+				writeD(item.getAttackElementPower());
+				for (byte i = 0; i < 6; i++)
+				{
+					writeD(item.getElementDefAttr(i));
+				}
 			}
 		}
 	}

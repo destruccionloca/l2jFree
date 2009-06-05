@@ -30,7 +30,7 @@ public class GMViewWarehouseWithdrawList extends L2GameServerPacket
 	private L2ItemInstance[] _items;
 	private String _playerName;
 	private L2PcInstance _activeChar;
-	private int _money;
+	private long _money;
 
 	public GMViewWarehouseWithdrawList(L2PcInstance cha)
 	{
@@ -45,10 +45,10 @@ public class GMViewWarehouseWithdrawList extends L2GameServerPacket
 	{
 		writeC(0x9b);
 		writeS(_playerName);
-		if(Config.PACKET_FINAL)
+		if (Config.PACKET_FINAL)
 			writeQ(_money);
 		else
-			writeD(_money);
+			writeD(toInt(_money));
 		writeH(_items.length);
 
 		for (L2ItemInstance item : _items)
@@ -57,10 +57,10 @@ public class GMViewWarehouseWithdrawList extends L2GameServerPacket
 
 			writeD(item.getObjectId());
 			writeD(item.getItemDisplayId());
-			if(Config.PACKET_FINAL)
+			if (Config.PACKET_FINAL)
 				writeQ(item.getCount());
 			else
-				writeD(item.getCount());
+				writeD(toInt(item.getCount()));
 			writeH(item.getItem().getType2());
 			writeH(item.getCustomType1());
 			if (item.getItem().isEquipable())
@@ -91,17 +91,29 @@ public class GMViewWarehouseWithdrawList extends L2GameServerPacket
 				}
 				writeD(item.getObjectId());
 
-				writeH(item.getAttackElementType());
-				writeH(item.getAttackElementPower());
-				for (byte i = 0; i < 6; i++)
+				if (Config.PACKET_FINAL)
 				{
-					writeH(item.getElementDefAttr(i));
+					writeH(item.getAttackElementType());
+					writeH(item.getAttackElementPower());
+					for (byte i = 0; i < 6; i++)
+					{
+						writeH(item.getElementDefAttr(i));
+					}
+				}
+				else
+				{
+					writeD(item.getAttackElementType());
+					writeD(item.getAttackElementPower());
+					for (byte i = 0; i < 6; i++)
+					{
+						writeD(item.getElementDefAttr(i));
+					}
 				}
 			}
 			
 			writeD(item.getMana());
 			// T2
-			writeD(0x00);
+			writeD(item.isTimeLimitedItem() ? (int) (item.getRemainingTime()/1000) : -1);
 		}
 	}
 

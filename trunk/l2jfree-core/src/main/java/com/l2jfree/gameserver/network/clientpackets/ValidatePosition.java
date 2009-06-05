@@ -18,6 +18,7 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.geoeditorcon.GeoEditorListener;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.zone.L2Zone;
+import com.l2jfree.gameserver.network.serverpackets.ExValidateLocationInAirShip;
 import com.l2jfree.gameserver.network.serverpackets.PartyMemberPosition;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocationInVehicle;
@@ -114,6 +115,10 @@ public class ValidatePosition extends L2GameClientPacket
                 {
                     sendPacket(new ValidateLocationInVehicle(activeChar));
                 }
+                else if (activeChar.isInAirShip())
+                {
+                    sendPacket(new ExValidateLocationInAirShip(activeChar));
+                }
                 else
                 {
                     activeChar.sendPacket(new ValidateLocation(activeChar));
@@ -165,6 +170,10 @@ public class ValidatePosition extends L2GameClientPacket
                     if (activeChar.isInBoat())
                     {
                         sendPacket(new ValidateLocationInVehicle(activeChar));
+                    }
+                    else if (activeChar.isInAirShip())
+                    {
+                        sendPacket(new ExValidateLocationInAirShip(activeChar));
                     }
                     else
                     {

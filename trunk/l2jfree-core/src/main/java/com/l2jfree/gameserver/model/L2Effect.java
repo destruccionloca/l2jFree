@@ -524,7 +524,14 @@ public abstract class L2Effect implements FuncOwner, Runnable
 		
 		if (isHerbEffect())
 			return false;
-		
+
+		switch (getEffectType())
+		{
+			case HEAL_OVER_TIME:
+			case COMBAT_POINT_HEAL_OVER_TIME:
+				return false;
+		}
+
 		return true;
 	}
 	

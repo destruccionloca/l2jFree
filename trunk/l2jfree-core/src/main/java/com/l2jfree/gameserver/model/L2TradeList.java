@@ -92,7 +92,7 @@ public class L2TradeList
 		_items.add(item);
 	}
 
-	public void replaceItem(int itemID, int price)
+	public void replaceItem(int itemID, long price)
 	{
 		for (int i = 0; i < _items.size(); i++)
 		{
@@ -104,14 +104,14 @@ public class L2TradeList
 		}
 	}
 
-	public boolean decreaseCount(int itemID, int count)
+	public boolean decreaseCount(int itemID, long count)
 	{
 		for (int i = 0; i < _items.size(); i++)
 		{
 			L2ItemInstance item = _items.get(i);
 			if (item.getItemId() == itemID)
 			{
-				int newCount = item.getCount() - count;
+				long newCount = item.getCount() - count;
 				if (newCount < 0)
 					continue;
 				
@@ -128,7 +128,7 @@ public class L2TradeList
 		for (int i = 0; i < _items.size(); i++)
 		{
 			L2ItemInstance item = _items.get(i);
-			if (item.getCountDecrease() && item.getTime() == time)
+			if (item.getCountDecrease() && item.getRestoreTime() == time)
 			{
 				item.restoreInitCount();
 			}
@@ -184,7 +184,7 @@ public class L2TradeList
 		return _items.subList(start, end);
 	}
 
-	public int getPriceForItemId(int itemId)
+	public long getPriceForItemId(int itemId)
 	{
 		for (int i = 0; i < _items.size(); i++)
 		{
@@ -243,7 +243,7 @@ public class L2TradeList
 		return _confirmed;
 	}
 	
-	public void removeItem(int objId,int count)
+	public void removeItem(int objId, long count)
 	{
 		L2ItemInstance temp;
 		for (int y = 0; y < _items.size(); y++)
@@ -366,7 +366,7 @@ public class L2TradeList
 		
 		ItemTable itemTable = ItemTable.getInstance();
 		
-		int amount = 0;
+		long amount = 0;
 		int x = 0;
 		int y = 0;
 		
@@ -428,12 +428,12 @@ public class L2TradeList
 					msg = new SystemMessage(SystemMessageId.C1_PURCHASED_S3_S2_S);
 					msg.addString(buyer.getName());
 					msg.addItemName(sellerItem);
-					msg.addNumber(amount);
+					msg.addItemNumber(amount);
 					sysmsgs.add(msg);
 					msg = new SystemMessage(SystemMessageId.C1_PURCHASED_S3_S2_S);
 					msg.addString("You");
 					msg.addItemName(sellerItem);
-					msg.addNumber(amount);
+					msg.addItemNumber(amount);
 					sysmsgs.add(msg);
 				}
 				if (temp2.getCount() == buyerItem.getCount())

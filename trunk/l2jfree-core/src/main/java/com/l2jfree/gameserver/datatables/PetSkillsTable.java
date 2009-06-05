@@ -31,7 +31,7 @@ import com.l2jfree.gameserver.model.actor.L2Summon;
 
 public class PetSkillsTable
 {
-	private static Log _log = LogFactory.getLog(PetSkillsTable.class.getName());
+	private final static Log _log = LogFactory.getLog(PetSkillsTable.class.getName());
 
 	private FastMap<Integer, Map<Integer, L2PetSkillLearn>> _skillTrees;
 	private static PetSkillsTable _instance;

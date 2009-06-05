@@ -109,10 +109,10 @@ public class InventoryUpdate extends L2GameServerPacket
 			writeD(item.getObjectId());             // ObjectId 
 			writeD(item.getItem().getItemDisplayId());     // ItemId
 			writeD(item.getLocation());             // T1
-			if(Config.PACKET_FINAL)
+			if (Config.PACKET_FINAL)
 				writeQ(item.getCount());                // Quantity
 			else
-				writeD(item.getCount());                // Quantity
+				writeD(toInt(item.getCount()));                // Quantity
 			writeH(item.getItem().getType2());      // Item Type 2 : 00-weapon, 01-shield/armor, 02-ring/earring/necklace, 03-questitem, 04-adena, 05-item
 			writeH(item.getCustomType1());          // Filler (always 0)
 			writeH(item.getEquipped());             // Equipped    : 00-No, 01-yes
@@ -123,14 +123,26 @@ public class InventoryUpdate extends L2GameServerPacket
 			writeD(item.getMana());
 
 			// T1
-			writeH(item.getAttackElementType());
-			writeH(item.getAttackElementPower());
-			for (byte i = 0; i < 6; i++)
+			if (Config.PACKET_FINAL)
 			{
-				writeH(item.getElementDefAttr(i));
+				writeH(item.getAttackElementType());
+				writeH(item.getAttackElementPower());
+				for (byte i = 0; i < 6; i++)
+				{
+					writeH(item.getElementDefAttr(i));
+				}
+			}
+			else
+			{
+				writeD(item.getAttackElementType());
+				writeD(item.getAttackElementPower());
+				for (byte i = 0; i < 6; i++)
+				{
+					writeD(item.getElementDefAttr(i));
+				}
 			}
 			// T2
-			writeD(0x00);
+			writeD(item.getTime());
 		}
 	}
 

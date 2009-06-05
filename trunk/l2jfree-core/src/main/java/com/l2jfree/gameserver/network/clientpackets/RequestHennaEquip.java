@@ -67,7 +67,7 @@ public class RequestHennaEquip extends L2GameClientPacket
         }
 
 		L2ItemInstance item = activeChar.getInventory().getItemByItemId(temp.getItemId());
-		int count = (item == null ? 0 : item.getCount());
+		long count = (item == null ? 0 : item.getCount());
 		if (count >= temp.getAmount() && activeChar.getAdena() >= temp.getPrice())
 		{
 			activeChar.addHenna(temp);

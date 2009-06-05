@@ -35,7 +35,7 @@ public final class RequestConfirmGemStone extends L2GameClientPacket
 	private int _targetItemObjId;
 	private int _refinerItemObjId;
 	private int _gemstoneItemObjId;
-	private int _gemstoneCount;
+	private long _gemstoneCount;
 
 	@Override
 	protected void readImpl()
@@ -43,8 +43,8 @@ public final class RequestConfirmGemStone extends L2GameClientPacket
 		_targetItemObjId = readD();
 		_refinerItemObjId = readD();
 		_gemstoneItemObjId = readD();
-		if(Config.PACKET_FINAL)
-			_gemstoneCount= toInt(readQ());
+		if (Config.PACKET_FINAL)
+			_gemstoneCount = toInt(readQ());
 		else
 			_gemstoneCount= readD();
 	}
@@ -53,7 +53,8 @@ public final class RequestConfirmGemStone extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) return;
+		if (activeChar == null)
+			return;
 
 		L2ItemInstance targetItem = activeChar.getInventory().getItemByObjectId(_targetItemObjId);
 		L2ItemInstance refinerItem = activeChar.getInventory().getItemByObjectId(_refinerItemObjId);

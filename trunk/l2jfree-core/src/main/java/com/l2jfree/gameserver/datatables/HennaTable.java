@@ -51,19 +51,16 @@ public class HennaTable
 		Connection con = null;
 		try
 		{
-			try
-			{
-				con = L2DatabaseFactory.getInstance().getConnection(con);
-				PreparedStatement statement = con.prepareStatement(LOAD_HENNA);
-				ResultSet hennadata = statement.executeQuery();
-				fillHennaTable(hennadata);
-				hennadata.close();
-				statement.close();
-			}
-			catch (Exception e)
-			{
-				_log.error("error while creating henna table!", e);
-			}
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement = con.prepareStatement(LOAD_HENNA);
+			ResultSet hennadata = statement.executeQuery();
+			fillHennaTable(hennadata);
+			hennadata.close();
+			statement.close();
+		}
+		catch (Exception e)
+		{
+			_log.error("error while creating henna table!", e);
 		}
 		finally
 		{

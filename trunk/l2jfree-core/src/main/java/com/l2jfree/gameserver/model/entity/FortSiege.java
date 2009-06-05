@@ -774,12 +774,27 @@ public class FortSiege extends AbstractSiege
 		if (player.getClan() == null || player.getClan().getLevel() < Config.FORTSIEGE_CLAN_MIN_LEVEL)
 		{
 			b = false;
-			player.sendMessage("Only clans with Level " + Config.FORTSIEGE_CLAN_MIN_LEVEL + " and higher may register for a fort siege.");
+			player.sendMessage("Only clans with Level " + Config.FORTSIEGE_CLAN_MIN_LEVEL + " and higher may register for a fortress siege.");
+		}
+		else if (!player.isClanLeader())
+		{
+			b = false;
+			player.sendPacket(new SystemMessage(SystemMessageId.ONLY_THE_CLAN_LEADER_IS_ENABLED));
 		}
 		else if (player.getClan() == getFort().getOwnerClan())
 		{
 			b = false;
 			player.sendPacket(new SystemMessage(SystemMessageId.CLAN_THAT_OWNS_CASTLE_IS_AUTOMATICALLY_REGISTERED_DEFENDING));
+		}
+		else if (getFort().getOwnerClan() != null && player.getClan().getHasCastle() > 0 && player.getClan().getHasCastle() == getFort().getCastleId())
+		{
+			b = false;
+			player.sendPacket(new SystemMessage(SystemMessageId.CANT_REGISTER_TO_SIEGE_DUE_TO_CONTRACT));
+		}
+		else if (getFort().getSiege().getAttackerClans().isEmpty() && player.getInventory().getAdena() < 250000)
+		{
+			b = false;
+			player.sendMessage("You need 250,000 adena to register"); // replace me with html
 		}
 		else
 		{

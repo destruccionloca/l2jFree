@@ -24,6 +24,7 @@ public class PlaySound extends L2GameServerPacket
     private int _x;
     private int _y;
     private int _z;
+    private int _unknown8;
 
     public PlaySound(String soundFile)
     {
@@ -34,6 +35,7 @@ public class PlaySound extends L2GameServerPacket
         _x         = 0;
         _y         = 0;
         _z         = 0;
+        _unknown8  = 0;
     }
 
     public PlaySound(int mode, String soundFile)
@@ -45,6 +47,7 @@ public class PlaySound extends L2GameServerPacket
         _x         = 0;
         _y         = 0;
         _z         = 0;
+        _unknown8  = 0;
     }
 
     public PlaySound(int mode, String soundFile, int unknown1, int unknown2, int x, int y, int z)
@@ -56,6 +59,7 @@ public class PlaySound extends L2GameServerPacket
         _x          = x;
         _y          = y;
         _z          = z;
+        _unknown8   = 0;
     }
     
     @Override
@@ -69,6 +73,7 @@ public class PlaySound extends L2GameServerPacket
         writeD(_x);              //x
         writeD(_y);              //y
         writeD(_z);              //z
+        writeD(_unknown8);
     }
     
     /* (non-Javadoc)

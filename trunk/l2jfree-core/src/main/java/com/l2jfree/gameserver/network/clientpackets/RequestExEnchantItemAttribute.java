@@ -99,7 +99,7 @@ public class RequestExEnchantItemAttribute extends L2GameClientPacket
 		int itemId = item.getItemId();
 
 		//can't enchant rods, shadow items, adventurers', hero items
-		if (item.getItem().getItemType() == L2WeaponType.ROD || item.isShadowItem() || item.isHeroItem()
+		if (item.getItem().getItemType() == L2WeaponType.ROD || item.isShadowItem() || item.isHeroItem() || item.isTimeLimitedItem()
 		|| (itemId >= 7816 && itemId <= 7831) || (item.getItem().getItemType() == L2WeaponType.NONE) ||
 			!(item.getItem().getCrystalType() == L2Item.CRYSTAL_S || item.getItem().getCrystalType() == L2Item.CRYSTAL_S80))
 		{

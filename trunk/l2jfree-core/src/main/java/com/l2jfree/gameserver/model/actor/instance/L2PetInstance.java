@@ -414,14 +414,14 @@ public class L2PetInstance extends L2Summon
 	 * 
 	 * @param process : String Identifier of process triggering this action
 	 * @param objectId : int Item Instance identifier of the item to be destroyed
-	 * @param count : int Quantity of items to be destroyed
+	 * @param count : long Quantity of items to be destroyed
 	 * @param reference : L2Object Object referencing current action like NPC selling item or previous item in
 	 *            transformation
 	 * @param sendMessage : boolean Specifies whether to send message to Client about this action
 	 * @return boolean informing if the action was successfull
 	 */
 	@Override
-	public boolean destroyItem(String process, int objectId, int count, L2Object reference, boolean sendMessage)
+	public boolean destroyItem(String process, int objectId, long count, L2Object reference, boolean sendMessage)
 	{
 		L2ItemInstance item = _inventory.destroyItem(process, objectId, count, getOwner(), reference);
 		
@@ -439,7 +439,7 @@ public class L2PetInstance extends L2Summon
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
 			sm.addItemName(item);
-			sm.addNumber(count);
+			sm.addItemNumber(count);
 			getOwner().sendPacket(sm);
 		}
 		return true;
@@ -452,14 +452,14 @@ public class L2PetInstance extends L2Summon
 	 * 
 	 * @param process : String Identifier of process triggering this action
 	 * @param itemId : int Item identifier of the item to be destroyed
-	 * @param count : int Quantity of items to be destroyed
+	 * @param count : long Quantity of items to be destroyed
 	 * @param reference : L2Object Object referencing current action like NPC selling item or previous item in
 	 *            transformation
 	 * @param sendMessage : boolean Specifies whether to send message to Client about this action
 	 * @return boolean informing if the action was successfull
 	 */
 	@Override
-	public boolean destroyItemByItemId(String process, int itemId, int count, L2Object reference, boolean sendMessage)
+	public boolean destroyItemByItemId(String process, int itemId, long count, L2Object reference, boolean sendMessage)
 	{
 		L2ItemInstance item = _inventory.destroyItemByItemId(process, itemId, count, getOwner(), reference);
 		
@@ -477,7 +477,7 @@ public class L2PetInstance extends L2Summon
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
 			sm.addItemName(item);
-			sm.addNumber(count);
+			sm.addItemNumber(count);
 			getOwner().sendPacket(sm);
 		}
 		
@@ -552,14 +552,14 @@ public class L2PetInstance extends L2Summon
 				if (target.getItemId() == 57)
 				{
 					SystemMessage smsg = new SystemMessage(SystemMessageId.FAILED_TO_PICKUP_S1_ADENA);
-					smsg.addNumber(target.getCount());
+					smsg.addItemNumber(target.getCount());
 					getOwner().sendPacket(smsg);
 				}
 				else if (target.getCount() > 1)
 				{
 					SystemMessage smsg = new SystemMessage(SystemMessageId.FAILED_TO_PICKUP_S2_S1_S);
 					smsg.addItemName(target);
-					smsg.addNumber(target.getCount());
+					smsg.addItemNumber(target.getCount());
 					getOwner().sendPacket(smsg);
 				}
 				else
@@ -604,7 +604,7 @@ public class L2PetInstance extends L2Summon
 			if (target.getItemId() == 57)
 			{
 				SystemMessage sm2 = new SystemMessage(SystemMessageId.PET_PICKED_S1_ADENA);
-				sm2.addNumber(target.getCount());
+				sm2.addItemNumber(target.getCount());
 				getOwner().sendPacket(sm2);
 			}
 			else if (target.getEnchantLevel() > 0)
@@ -617,7 +617,7 @@ public class L2PetInstance extends L2Summon
 			else if (target.getCount() > 1)
 			{
 				SystemMessage sm2 = new SystemMessage(SystemMessageId.PET_PICKED_S2_S1_S);
-				sm2.addNumber(target.getCount());
+				sm2.addItemNumber(target.getCount());
 				sm2.addString(target.getName());
 				getOwner().sendPacket(sm2);
 			}
@@ -693,13 +693,13 @@ public class L2PetInstance extends L2Summon
 	 * 
 	 * @param process : String Identifier of process triggering this action
 	 * @param itemId : int Item Identifier of the item to be transfered
-	 * @param count : int Quantity of items to be transfered
+	 * @param count : long Quantity of items to be transfered
 	 * @param actor : L2PcInstance Player requesting the item transfer
 	 * @param reference : L2Object Object referencing current action like NPC selling item or previous item in
 	 *            transformation
 	 * @return L2ItemInstance corresponding to the new item or the updated item in inventory
 	 */
-	public L2ItemInstance transferItem(String process, int objectId, int count, Inventory target, L2PcInstance actor,
+	public L2ItemInstance transferItem(String process, int objectId, long count, Inventory target, L2PcInstance actor,
 		L2Object reference)
 	{
 		L2ItemInstance oldItem = getInventory().getItemByObjectId(objectId);

@@ -28,7 +28,7 @@ public class PrivateStoreManageListBuy extends L2GameServerPacket
 {
 	private static final String _S__D0_PRIVATESELLLISTBUY = "[S] b7 PrivateSellListBuy";
 	private int _objId;
-	private int _playerAdena;
+	private long _playerAdena;
 	private L2ItemInstance[] _itemList;
 	private TradeList.TradeItem[] _buyList;
 	
@@ -46,10 +46,10 @@ public class PrivateStoreManageListBuy extends L2GameServerPacket
 		writeC(0xbd);
 		//section 1 
 		writeD(_objId);
-		if(Config.PACKET_FINAL)
+		if (Config.PACKET_FINAL)
 			writeQ(_playerAdena);
 		else
-			writeD(_playerAdena);
+			writeD(toInt(_playerAdena));
 
 		//section2 
 		writeD(_itemList.length); // inventory items for potential buy
@@ -57,26 +57,38 @@ public class PrivateStoreManageListBuy extends L2GameServerPacket
 		{
 			writeD(item.getItemDisplayId()); 
 			writeH(0); //show enchant lvl as 0, as you can't buy enchanted weapons
-			if(Config.PACKET_FINAL)
+			if (Config.PACKET_FINAL)
 			{
 				writeQ(item.getCount());
 				writeQ(item.getReferencePrice());
 			}
 			else
 			{
-				writeD(item.getCount());
-				writeD(item.getReferencePrice());
+				writeD(toInt(item.getCount()));
+				writeD(toInt(item.getReferencePrice()));
 			}
 
 			writeH(0x00);
 			writeD(item.getItem().getBodyPart());
 			writeH(item.getItem().getType2());
 
-			writeH(item.getAttackElementType());
-			writeH(item.getAttackElementPower());
-			for (byte i = 0; i < 6; i++)
+			if (Config.PACKET_FINAL)
 			{
-				writeH(item.getElementDefAttr(i));
+				writeH(item.getAttackElementType());
+				writeH(item.getAttackElementPower());
+				for (byte i = 0; i < 6; i++)
+				{
+					writeH(item.getElementDefAttr(i));
+				}
+			}
+			else
+			{
+				writeD(item.getAttackElementType());
+				writeD(item.getAttackElementPower());
+				for (byte i = 0; i < 6; i++)
+				{
+					writeD(item.getElementDefAttr(i));
+				}
 			}
 		}
 
@@ -86,36 +98,48 @@ public class PrivateStoreManageListBuy extends L2GameServerPacket
 		{
 			writeD(item.getItem().getItemDisplayId()); 
 			writeH(0);
-			if(Config.PACKET_FINAL)
+			if (Config.PACKET_FINAL)
 			{
 				writeQ(item.getCount());
 				writeQ(item.getItem().getReferencePrice());
 			}
 			else
 			{
-				writeD(item.getCount());
-				writeD(item.getItem().getReferencePrice());
+				writeD(toInt(item.getCount()));
+				writeD(toInt(item.getItem().getReferencePrice()));
 			}
-				
+
 			writeH(0x00);
 			writeD(item.getItem().getBodyPart());
 			writeH(item.getItem().getType2());
-			if(Config.PACKET_FINAL)
+			if (Config.PACKET_FINAL)
 			{
 				writeQ(item.getPrice());//your price
 				writeQ(item.getItem().getReferencePrice());//fixed store price
 			}
 			else
 			{
-				writeD(item.getPrice());//your price
-				writeD(item.getItem().getReferencePrice());//fixed store price
+				writeD(toInt(item.getPrice()));//your price
+				writeD(toInt(item.getItem().getReferencePrice()));//fixed store price
 			}
 
-			writeH(item.getAttackElementType());
-			writeH(item.getAttackElementPower());
-			for (byte i = 0; i < 6; i++)
+			if (Config.PACKET_FINAL)
 			{
-				writeH(item.getElementDefAttr(i));
+				writeH(item.getAttackElementType());
+				writeH(item.getAttackElementPower());
+				for (byte i = 0; i < 6; i++)
+				{
+					writeH(item.getElementDefAttr(i));
+				}
+			}
+			else
+			{
+				writeD(item.getAttackElementType());
+				writeD(item.getAttackElementPower());
+				for (byte i = 0; i < 6; i++)
+				{
+					writeD(item.getElementDefAttr(i));
+				}
 			}
 		}
 	}

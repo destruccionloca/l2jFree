@@ -502,7 +502,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 
 		if (args.length > 3)
 		{
-			int price = Integer.parseInt(args[3]);
+			long price = Long.parseLong(args[3]);
 			int order = findOrderTradeList(itemID, tradeList.getPriceForItemId(itemID), tradeListID);
 
 			tradeList.replaceItem(itemID, Integer.parseInt(args[3]));
@@ -647,7 +647,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 
 		if (args.length > 3)
 		{
-			int price = Integer.parseInt(args[3]);
+			long price = Long.parseLong(args[3]);
 			int order = findOrderCustomTradeList(itemID, tradeList.getPriceForItemId(itemID), tradeListID);
 
 			tradeList.replaceItem(itemID, Integer.parseInt(args[3]));
@@ -962,7 +962,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 		activeChar.sendPacket(adminReply);
 	}
 
-	private void storeTradeList(int itemID, int price, int tradeListID, int order)
+	private void storeTradeList(int itemID, long price, int tradeListID, int order)
 	{
 		Connection con = null;
 		try
@@ -989,7 +989,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 	 * @param tradeListID  
 	 * @param order  
 	 */
-	private void updateTradeList(int itemID, int price, int tradeListID, int order)
+	private void updateTradeList(int itemID, long price, int tradeListID, int order)
 	{
 		Connection con = null;
 		try
@@ -1030,7 +1030,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 		}
 	}
 
-	private int findOrderTradeList(int itemID, int price, int tradeListID)
+	private int findOrderTradeList(int itemID, long price, int tradeListID)
 	{
 		Connection con = null;
 		int order = 0;
@@ -1059,7 +1059,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 		return order;
 	}
 
-	private void storeCustomTradeList(int itemID, int price, int tradeListID, int order)
+	private void storeCustomTradeList(int itemID, long price, int tradeListID, int order)
 	{
 		Connection con = null;
 		try
@@ -1086,7 +1086,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 	 * @param tradeListID  
 	 * @param order  
 	 */
-	private void updateCustomTradeList(int itemID, int price, int tradeListID, int order)
+	private void updateCustomTradeList(int itemID, long price, int tradeListID, int order)
 	{
 		Connection con = null;
 		try
@@ -1128,7 +1128,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 		}
 	}
 
-	private int findOrderCustomTradeList(int itemID, int price, int tradeListID)
+	private int findOrderCustomTradeList(int itemID, long price, int tradeListID)
 	{
 		Connection con = null;
 		int order = 0;

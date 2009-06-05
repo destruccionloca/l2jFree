@@ -40,7 +40,7 @@ public class RequestDestroyItem extends L2GameClientPacket
 	private static final String _C__59_REQUESTDESTROYITEM = "[C] 59 RequestDestroyItem";
 
 	private int _objectId;
-	private int _count;
+	private long _count;
 
 	/**
 	 * packet type id 0x1f
@@ -59,7 +59,7 @@ public class RequestDestroyItem extends L2GameClientPacket
     protected void readImpl()
     {
 		_objectId = readD();
-		if(Config.PACKET_FINAL)
+		if (Config.PACKET_FINAL)
 			_count = toInt(readQ());
 		else
 			_count = readD();
@@ -77,11 +77,11 @@ public class RequestDestroyItem extends L2GameClientPacket
 			return;
 		}
 
-        if (activeChar.getPrivateStoreType() != 0)
-        {
-        	requestFailed(SystemMessageId.CANNOT_TRADE_DISCARD_DROP_ITEM_WHILE_IN_SHOPMODE);
-            return;
-        }
+		if (activeChar.getPrivateStoreType() != 0)
+		{
+			requestFailed(SystemMessageId.CANNOT_TRADE_DISCARD_DROP_ITEM_WHILE_IN_SHOPMODE);
+			return;
+		}
 
 		L2ItemInstance itemToRemove = activeChar.getInventory().getItemByObjectId(_objectId);
 
@@ -175,6 +175,8 @@ public class RequestDestroyItem extends L2GameClientPacket
 			}
 		}
 
+		if (itemToRemove.isTimeLimitedItem())
+			itemToRemove.endOfLife();
 		L2ItemInstance removedItem = activeChar.getInventory().destroyItem("Destroy", _objectId, _count, activeChar, null);
 		if (removedItem == null)
 		{

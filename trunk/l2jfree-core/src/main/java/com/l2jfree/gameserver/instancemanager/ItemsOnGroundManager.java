@@ -116,10 +116,8 @@ public class ItemsOnGroundManager
 				{
 					L2ItemInstance item = new L2ItemInstance(result.getInt(1), result.getInt(2));
 					L2World.getInstance().storeObject(item);
-					if (item.isStackable() && result.getInt(3) > 1) // This check and..
-						item.setCount(result.getInt(3));
-					if (result.getInt(4) > 0) // This, are really necessary?
-						item.setEnchantLevel(result.getInt(4));
+					item.setCount(result.getLong(3));
+					item.setEnchantLevel(result.getInt(4));
 					item.getPosition().setXYZ(result.getInt(5), result.getInt(6), result.getInt(7));
 					item.setDropTime(result.getLong(8));
 					if (result.getLong(8) == -1)
@@ -237,7 +235,7 @@ public class ItemsOnGroundManager
 							.prepareStatement("INSERT INTO itemsonground(object_id,item_id,count,enchant_level,x,y,z,drop_time,equipable) VALUES(?,?,?,?,?,?,?,?,?)");
 					statement.setInt(1, item.getObjectId());
 					statement.setInt(2, item.getItemId());
-					statement.setInt(3, item.getCount());
+					statement.setLong(3, item.getCount());
 					statement.setInt(4, item.getEnchantLevel());
 					statement.setInt(5, item.getX());
 					statement.setInt(6, item.getY());

@@ -92,7 +92,7 @@ public final class L2WarehouseInstance extends L2NpcInstance
 	{
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 		player.setActiveWarehouse(player.getWarehouse());
-		player.tempInvetoryDisable();
+		player.tempInventoryDisable();
 		if (_log.isDebugEnabled())
 			_log.debug("Showing items to deposit");
 
@@ -115,7 +115,7 @@ public final class L2WarehouseInstance extends L2NpcInstance
 					player.sendPacket(SystemMessageId.ONLY_CLAN_LEADER_CAN_RETRIEVE_ITEMS_FROM_CLAN_WAREHOUSE);
 				}
 				player.setActiveWarehouse(player.getClan().getWarehouse());
-				player.tempInvetoryDisable();
+				player.tempInventoryDisable();
 				if (_log.isDebugEnabled())
 					_log.debug("Showing items to deposit - clan");
 
@@ -229,7 +229,7 @@ public final class L2WarehouseInstance extends L2NpcInstance
 			freight.setActiveLocation(getClosestTown());
 
 		player.setActiveWarehouse(freight);
-		player.tempInvetoryDisable();
+		player.tempInventoryDisable();
 
 		if (_log.isDebugEnabled())
 			_log.debug("Showing items to freight");

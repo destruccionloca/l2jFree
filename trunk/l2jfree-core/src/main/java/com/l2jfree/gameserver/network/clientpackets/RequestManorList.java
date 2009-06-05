@@ -23,13 +23,13 @@ import javolution.util.FastList;
 /**
  * Format: ch
  * c (id) 0xD0
- * h (subid) 0x08
+ * h (subid) 0x01
  * @author l3x
  *
  */
 public class RequestManorList extends L2GameClientPacket
 {
-    private static final String _C__FE_08_REQUESTMANORLIST = "[S] FE:08 RequestManorList";
+    private static final String _C__D0_01_REQUESTMANORLIST = "[S] D0:01 RequestManorList";
 
     @Override
     protected void readImpl()
@@ -60,6 +60,6 @@ public class RequestManorList extends L2GameClientPacket
     @Override
     public String getType()
     {
-        return _C__FE_08_REQUESTMANORLIST;
+        return _C__D0_01_REQUESTMANORLIST;
     }
 }

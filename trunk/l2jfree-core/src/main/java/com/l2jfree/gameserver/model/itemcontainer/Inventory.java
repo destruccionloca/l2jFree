@@ -253,18 +253,12 @@ public abstract class Inventory extends ItemContainer
 				if (item.isAugmented() && getOwner() instanceof L2PcInstance)
 					item.getAugmentation().removeBonus((L2PcInstance) getOwner());
 
-				if (item.getElementals() != null)
-					item.getElementals().removeBonus(player, false);
-
 				itemSkills = ((L2Weapon) it).getSkills();
 				enchant4Skills = ((L2Weapon) it).getEnchant4Skills();
 			}
 			else if (it instanceof L2Armor)
 			{
 				itemSkills = ((L2Armor) it).getSkills();
-
-				if (item.getElementals() != null)
-					item.getElementals().removeBonus(player, true);
 			}
 
 			if (itemSkills != null)
@@ -653,14 +647,14 @@ public abstract class Inventory extends ItemContainer
 	 * 
 	 * @param process : String Identifier of process triggering this action
 	 * @param objectId : int Item Instance identifier of the item to be dropped
-	 * @param count : int Quantity of items to be dropped
+	 * @param count : long Quantity of items to be dropped
 	 * @param actor : L2PcInstance Player requesting the item drop
 	 * @param reference : L2Object Object referencing current action like NPC
 	 *            selling item or previous item in transformation
 	 * @return L2ItemInstance corresponding to the destroyed item or the updated
 	 *         item in inventory
 	 */
-	public L2ItemInstance dropItem(String process, int objectId, int count, L2PcInstance actor, L2Object reference)
+	public L2ItemInstance dropItem(String process, int objectId, long count, L2PcInstance actor, L2Object reference)
 	{
 		L2ItemInstance item = getItemByObjectId(objectId);
 		if (item == null)
@@ -1359,7 +1353,6 @@ public abstract class Inventory extends ItemContainer
 
 		switch (bow.getCrystalType())
 		{
-			default: // broken weapon.csv ??
 			case L2Item.CRYSTAL_NONE:
 				arrowsId = 17;
 				break; // Wooden arrow
@@ -1377,8 +1370,12 @@ public abstract class Inventory extends ItemContainer
 				break; // Mithril arrow
 			case L2Item.CRYSTAL_S:
 			case L2Item.CRYSTAL_S80:
+			case L2Item.CRYSTAL_S84:
 				arrowsId = 1345;
 				break; // Shining arrow
+			default: // broken weapon.csv ??
+				arrowsId = 17;
+				break; // Wooden arrow
 		}
 
 		// Get the L2ItemInstance corresponding to the item identifier and return it
@@ -1409,6 +1406,7 @@ public abstract class Inventory extends ItemContainer
 				break;
 			case L2Item.CRYSTAL_S:
 			case L2Item.CRYSTAL_S80:
+			case L2Item.CRYSTAL_S84:
 				arrowsId = 9637;
 				break;
 		}
@@ -1485,7 +1483,7 @@ public abstract class Inventory extends ItemContainer
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement = con
-					.prepareStatement("SELECT object_id, item_id, count, enchant_level, loc, loc_data, custom_type1, custom_type2, mana_left, attributes FROM items WHERE owner_id=? AND (loc=? OR loc=?) ORDER BY loc_data");
+					.prepareStatement("SELECT object_id, item_id, count, enchant_level, loc, loc_data, custom_type1, custom_type2, mana_left, attributes, time FROM items WHERE owner_id=? AND (loc=? OR loc=?) ORDER BY loc_data");
 			statement.setInt(1, getOwnerId());
 			statement.setString(2, getBaseLocation().name());
 			statement.setString(3, getEquipLocation().name());

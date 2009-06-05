@@ -28,7 +28,7 @@ public class PrivateStoreListBuy extends L2GameServerPacket
 //	private static final String _S__D1_PRIVATEBUYLISTBUY = "[S] b8 PrivateBuyListBuy";
 	private static final String _S__BE_PRIVATESTORELISTBUY = "[S] be PrivateStoreListBuy";
 	private int _objId;
-	private int _playerAdena;
+	private long _playerAdena;
 	private TradeList.TradeItem[] _items;
 	
 	public PrivateStoreListBuy(L2PcInstance player, L2PcInstance storePlayer)
@@ -44,10 +44,10 @@ public class PrivateStoreListBuy extends L2GameServerPacket
 	{
 		writeC(0xbe);
 		writeD(_objId);
-		if(Config.PACKET_FINAL)
+		if (Config.PACKET_FINAL)
 			writeQ(_playerAdena);
 		else
-			writeD(_playerAdena);
+			writeD(toInt(_playerAdena));
 
 		writeD(_items.length);
 
@@ -56,15 +56,15 @@ public class PrivateStoreListBuy extends L2GameServerPacket
 			writeD(item.getObjectId());
 			writeD(item.getItem().getItemDisplayId()); 
 			writeH(item.getEnchant());
-			if(Config.PACKET_FINAL)
+			if (Config.PACKET_FINAL)
 			{
 				writeQ(item.getCount()); //give max possible sell amount
 				writeQ(item.getItem().getReferencePrice());
 			}
 			else
 			{
-				writeD(item.getCount()); //give max possible sell amount
-				writeD(item.getItem().getReferencePrice());
+				writeD(toInt(item.getCount())); //give max possible sell amount
+				writeD(toInt(item.getItem().getReferencePrice()));
 			}
 			
 			writeH(0);
@@ -72,22 +72,34 @@ public class PrivateStoreListBuy extends L2GameServerPacket
 			writeD(item.getItem().getBodyPart());
 			writeH(item.getItem().getType2());
 			
-			if(Config.PACKET_FINAL)
+			if (Config.PACKET_FINAL)
 			{
 				writeQ(item.getPrice());//buyers price
 				writeQ(item.getCount());  // maximum possible tradecount
 			}
 			else
 			{
-				writeD(item.getPrice());//buyers price
-				writeD(item.getCount());  // maximum possible tradecount
+				writeD(toInt(item.getPrice()));//buyers price
+				writeD(toInt(item.getCount()));  // maximum possible tradecount
 			}
 			
-			writeH(item.getAttackElementType());
-			writeH(item.getAttackElementPower());
-			for (byte i = 0; i < 6; i++)
+			if (Config.PACKET_FINAL)
 			{
-				writeH(item.getElementDefAttr(i));
+				writeH(item.getAttackElementType());
+				writeH(item.getAttackElementPower());
+				for (byte i = 0; i < 6; i++)
+				{
+					writeH(item.getElementDefAttr(i));
+				}
+			}
+			else
+			{
+				writeD(item.getAttackElementType());
+				writeD(item.getAttackElementPower());
+				for (byte i = 0; i < 6; i++)
+				{
+					writeD(item.getElementDefAttr(i));
+				}
 			}
 		}
 	}

@@ -47,25 +47,25 @@ public class SendWareHouseWithDrawList extends L2GameClientPacket
 	private final static Log	_log								= LogFactory.getLog(SendWareHouseWithDrawList.class.getName());
 
 	private int					_count;
-	private int[]				_items;
+	private long[]				_items;
 
 	@Override
 	protected void readImpl()
 	{
 		_count = readD();
-		if (_count < 0 || _count * 8 > getByteBuffer().remaining() || _count > Config.MAX_ITEM_IN_PACKET)
+		if (_count < 0 || _count * (Config.PACKET_FINAL ? 12 : 8) > getByteBuffer().remaining() || _count > Config.MAX_ITEM_IN_PACKET)
 		{
 			_count = 0;
 			_items = null;
 			return;
 		}
-		_items = new int[_count * 2];
+		_items = new long[_count * 2];
 		for (int i = 0; i < _count; i++)
 		{
 			int objectId = readD();
 			_items[(i * 2)] = objectId;
-			long cnt =0;
-			if(Config.PACKET_FINAL)
+			long cnt;
+			if (Config.PACKET_FINAL)
 				cnt = toInt(readQ());
 			else
 				cnt = readD();
@@ -75,7 +75,7 @@ public class SendWareHouseWithDrawList extends L2GameClientPacket
 				_items = null;
 				return;
 			}
-			_items[i * 2 + 1] = (int) cnt;
+			_items[i * 2 + 1] = cnt;
 		}
 	}
 
@@ -134,8 +134,8 @@ public class SendWareHouseWithDrawList extends L2GameClientPacket
 
 		for (int i = 0; i < _count; i++)
 		{
-			int objectId = _items[(i * 2)];
-			int count = _items[i * 2 + 1];
+			int objectId = (int) _items[(i * 2)];
+			long count = _items[i * 2 + 1];
 
 			// Calculate needed slots
 			L2ItemInstance item = warehouse.getItemByObjectId(objectId);
@@ -168,8 +168,8 @@ public class SendWareHouseWithDrawList extends L2GameClientPacket
 		InventoryUpdate playerIU = Config.FORCE_INVENTORY_UPDATE ? null : new InventoryUpdate();
 		for (int i = 0; i < _count; i++)
 		{
-			int objectId = _items[(i * 2)];
-			int count = _items[i * 2 + 1];
+			int objectId = (int) _items[(i * 2)];
+			long count = _items[i * 2 + 1];
 
 			L2ItemInstance oldItem = warehouse.getItemByObjectId(objectId);
 			if (oldItem == null || oldItem.getCount() < count)

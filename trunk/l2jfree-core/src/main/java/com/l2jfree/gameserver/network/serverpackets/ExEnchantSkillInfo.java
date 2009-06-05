@@ -100,7 +100,7 @@ public final class ExEnchantSkillInfo extends L2GameServerPacket
             writeD(sede._rate);
             writeD(sede._spCost * _xpSpCostMultiplier);
             writeQ(sede._expCost * _xpSpCostMultiplier);
-            if(Config.PACKET_FINAL)
+            if (Config.PACKET_FINAL)
             	writeQ(0); // required item count
             else
             	writeD(0); // required item count
@@ -108,7 +108,6 @@ public final class ExEnchantSkillInfo extends L2GameServerPacket
             writeD(0); // required itemId
             writeD(0); // ?
         }
-
     }
 
     /* (non-Javadoc)
@@ -119,5 +118,4 @@ public final class ExEnchantSkillInfo extends L2GameServerPacket
     {
         return _S__FE_18_EXENCHANTSKILLINFO;
     }
-
 }

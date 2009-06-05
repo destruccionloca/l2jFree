@@ -84,14 +84,7 @@ public class ClanTable
 				clan = getClan(Integer.parseInt(result.getString("clan_id")));
 				if (clan.getDissolvingExpiryTime() != 0)
 				{
-					if (clan.getDissolvingExpiryTime() < System.currentTimeMillis())
-					{
-						destroyClan(clan.getClanId());
-					}
-					else
-					{
-						scheduleRemoveClan(clan.getClanId());
-					}
+					scheduleRemoveClan(clan.getClanId());
 				}
 				clanCount++;
 			}
@@ -280,6 +273,11 @@ public class ClanTable
 			statement.execute();
 			statement.close();
 
+			statement = con.prepareStatement("DELETE FROM clan_notices WHERE clan_id=?");
+			statement.setInt(1, clanId);
+			statement.execute();
+			statement.close();
+
 			if (castleId != 0)
 			{
 				statement = con.prepareStatement("UPDATE castle SET taxPercent = 0 WHERE id = ?");
@@ -326,7 +324,7 @@ public class ClanTable
 					destroyClan(clanId);
 				}
 			}
-		}, getClan(clanId).getDissolvingExpiryTime() - System.currentTimeMillis());
+		}, Math.max(getClan(clanId).getDissolvingExpiryTime() - System.currentTimeMillis(), 300000));
 	}
 
 	public boolean isAllyExists(String allyName)

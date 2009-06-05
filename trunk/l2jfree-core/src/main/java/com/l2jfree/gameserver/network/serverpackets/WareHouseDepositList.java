@@ -29,14 +29,14 @@ import com.l2jfree.gameserver.templates.item.L2Item;
 public class WareHouseDepositList extends L2GameServerPacket
 {
 	public static final int PRIVATE = 1;
-	public static final int CLAN = 2;
+	public static final int CLAN = 4;
 	public static final int CASTLE = 3; //not sure
-	public static final int FREIGHT = 4; //not sure
+	public static final int FREIGHT = 1;
 	
 	private static final String _S__41_WAREHOUSEDEPOSITLIST = "[S] 41 WareHouseDepositList";
 	
 	private L2PcInstance _activeChar;
-	private int _activeCharAdena;
+	private long _activeCharAdena;
 	private List<L2ItemInstance> _items;
 	private int _whType;
 	
@@ -72,10 +72,10 @@ public class WareHouseDepositList extends L2GameServerPacket
 		// 0x03-Castle Warehouse
 		// 0x04-Warehouse
 		writeH(_whType);
-		if(Config.PACKET_FINAL)
+		if (Config.PACKET_FINAL)
 			writeQ(_activeCharAdena);
 		else
-			writeD(_activeCharAdena);
+			writeD(toInt(_activeCharAdena));
 		int count = _items.size();
 		if (_log.isDebugEnabled())
 			_log.debug("count:" + count);
@@ -86,10 +86,10 @@ public class WareHouseDepositList extends L2GameServerPacket
 			writeH(item.getItem().getType1());
 			writeD(item.getObjectId());
 			writeD(item.getItemDisplayId());
-			if(Config.PACKET_FINAL)
+			if (Config.PACKET_FINAL)
 				writeQ(item.getCount());
 			else
-				writeD(item.getCount());
+				writeD(toInt(item.getCount()));
 			writeH(item.getItem().getType2());
 			writeH(item.getCustomType1());
 			writeD(item.getItem().getBodyPart());
@@ -106,16 +106,28 @@ public class WareHouseDepositList extends L2GameServerPacket
 				writeQ(0x00);
 			
 			// T1
-			writeH(item.getAttackElementType());
-			writeH(item.getAttackElementPower());
-			for (byte i = 0; i < 6; i++)
+			if (Config.PACKET_FINAL)
 			{
-				writeH(item.getElementDefAttr(i));
+				writeH(item.getAttackElementType());
+				writeH(item.getAttackElementPower());
+				for (byte i = 0; i < 6; i++)
+				{
+					writeH(item.getElementDefAttr(i));
+				}
+			}
+			else
+			{
+				writeD(item.getAttackElementType());
+				writeD(item.getAttackElementPower());
+				for (byte i = 0; i < 6; i++)
+				{
+					writeD(item.getElementDefAttr(i));
+				}
 			}
 			
 			writeD(item.getMana());
 			// T2
-			writeD(0x00);
+			writeD(item.isTimeLimitedItem() ? (int) (item.getRemainingTime()/1000) : -1);
 		}
 	}
 	

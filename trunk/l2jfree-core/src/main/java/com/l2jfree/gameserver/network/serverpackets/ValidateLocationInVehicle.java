@@ -14,7 +14,7 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 /**
  * This class ...
  * 
@@ -23,13 +23,13 @@ import com.l2jfree.gameserver.model.actor.L2Character;
 public class ValidateLocationInVehicle extends L2GameServerPacket
 {
     private static final String _S__73_ValidateLocationInVehicle = "[S] 73 ValidateLocationInVehicle";
-    private L2Character _activeChar;
+    private final L2PcInstance _activeChar;
 
     /**
      * 0x73 ValidateLocationInVehicle         hdd 
      * @param _characters
      */
-    public ValidateLocationInVehicle(L2Character player)
+    public ValidateLocationInVehicle(L2PcInstance player)
     {
         _activeChar = player;
     }
@@ -39,7 +39,7 @@ public class ValidateLocationInVehicle extends L2GameServerPacket
     {
         writeC(0x80);
         writeD(_activeChar.getObjectId());
-        writeD(1343225858); //FIXME: verify vehicle object id ??
+        writeD(_activeChar.getBoat().getObjectId());
         writeD(_activeChar.getX());
         writeD(_activeChar.getY());
         writeD(_activeChar.getZ());

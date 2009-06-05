@@ -243,6 +243,7 @@ public enum Stats
 	PHYSICAL_CONSUME_RATE("PhysicalMpConsumeRate"),
 	MAGIC_CONSUME_RATE("MagicalMpConsumeRate"),
 	DANCE_CONSUME_RATE("DanceMpConsumeRate"),
+	BOW_MP_CONSUME_RATE("BowMpConsumeRate"),
 	HP_CONSUME_RATE("HpConsumeRate"),
 	MP_CONSUME("MpConsume"),
 	SOULSHOT_COUNT("soulShotCount"),

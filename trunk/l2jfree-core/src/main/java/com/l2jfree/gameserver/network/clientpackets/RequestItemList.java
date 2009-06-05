@@ -42,7 +42,7 @@ public class RequestItemList extends L2GameClientPacket
     	L2PcInstance player = getActiveChar();
     	if (player == null) return;
 
-    	else if (!player.isInvetoryDisabled())
+    	else if (!player.isInventoryDisabled())
     		sendPacket(new ItemList(player, true));
 
     	sendPacket(ActionFailed.STATIC_PACKET);

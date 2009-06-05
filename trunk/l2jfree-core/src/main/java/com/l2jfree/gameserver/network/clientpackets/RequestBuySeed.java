@@ -105,9 +105,9 @@ public class RequestBuySeed extends L2GameClientPacket
 		for (int i = 0; i < _count; i++)
 		{
 			int seedId = _items[(i * 2)];
-			int count = _items[i * 2 + 1];
-			int price = 0;
-			int residual = 0;
+			long count = _items[i * 2 + 1];
+			long price = 0;
+			long residual = 0;
 
 			SeedProduction seed = castle.getSeed(seedId, CastleManorManager.PERIOD_CURRENT);
 			price = seed.getPrice();
@@ -186,7 +186,7 @@ public class RequestBuySeed extends L2GameClientPacket
 			// Send Char Buy Messages
 			SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
 			sm.addItemName(item);
-			sm.addNumber(count);
+			sm.addItemNumber(count);
 			sendPacket(sm);
 			sm = null;
 		}

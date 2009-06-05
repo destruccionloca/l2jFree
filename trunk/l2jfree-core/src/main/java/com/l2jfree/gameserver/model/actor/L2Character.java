@@ -59,6 +59,7 @@ import com.l2jfree.gameserver.model.L2WorldRegion;
 import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.L2Skill.SkillTargetType;
 import com.l2jfree.gameserver.model.actor.effects.CharEffects;
+import com.l2jfree.gameserver.model.actor.instance.L2AirShipInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2ControlTowerInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
@@ -222,7 +223,7 @@ public abstract class L2Character extends L2Object
 	protected byte					_zoneValidateCounter				= 4;
 
 	private boolean					_isRaid								= false;
-	private boolean _isFlying;
+	private boolean					_isFlying;
 
 
 	/**
@@ -346,7 +347,7 @@ public abstract class L2Character extends L2Object
 	 * @param reference
 	 * @param sendMessage
 	 */
-	public boolean destroyItemByItemId(String process, int itemId, int count, L2Object reference, boolean sendMessage)
+	public boolean destroyItemByItemId(String process, int itemId, long count, L2Object reference, boolean sendMessage)
 	{
 		// Default: NPCs consume virtual items for their skills
 		if (_log.isDebugEnabled())
@@ -362,7 +363,7 @@ public abstract class L2Character extends L2Object
 	 * @param reference
 	 * @param sendMessage
 	 */
-	public boolean destroyItem(String process, int objectId, int count, L2Object reference, boolean sendMessage)
+	public boolean destroyItem(String process, int objectId, long count, L2Object reference, boolean sendMessage)
 	{
 		// Default: NPCs consume virtual items for their skills
 		if (_log.isDebugEnabled())
@@ -426,7 +427,7 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 *
 	 * @param player
-	 *            The L2Character that attcks this one
+	 *            The L2Character that attacks this one
 	 */
 	public void addAttackerToAttackByList(L2Character player)
 	{
@@ -608,6 +609,10 @@ public abstract class L2Character extends L2Object
 
 		// Set the x, y, z coords of the object, but do not update it's world region yet - onTeleported() will do it
 		getPosition().setWorldPosition(x, y, z);
+		// temporary fix for heading on teleports
+		if (heading != 0)
+			getPosition().setHeading(heading);
+
 		isFalling(false, 0);
 
 		if (this instanceof L2PcInstance)
@@ -989,6 +994,7 @@ public abstract class L2Character extends L2Object
 						// Verify if L2PcInstance owns enough MP
 						int saMpConsume = (int)getStat().calcStat(Stats.MP_CONSUME, 0, null, null);
 						int mpConsume = saMpConsume == 0 ? weaponItem.getMpConsume() : saMpConsume;
+						mpConsume = (int)calcStat(Stats.BOW_MP_CONSUME_RATE, mpConsume, null, null);
 						
 						if (getStatus().getCurrentMp() < mpConsume)
 						{
@@ -999,7 +1005,8 @@ public abstract class L2Character extends L2Object
 							return;
 						}
 						// If L2PcInstance have enough MP, the bow consumes it
-						getStatus().reduceMp(mpConsume);
+						if (mpConsume > 0)
+							getStatus().reduceMp(mpConsume);
 					}
 					else
 					{
@@ -1093,7 +1100,7 @@ public abstract class L2Character extends L2Object
 		}
 
 		// Create a Server->Client packet Attack
-		Attack attack = new Attack(this, wasSSCharged, ssGrade);
+		Attack attack = new Attack(this, target, wasSSCharged, ssGrade);
 
 		// Set the Attacking Body part to CHEST
 		setAttackingBodypart();
@@ -1698,6 +1705,9 @@ public abstract class L2Character extends L2Object
 			if (coolTime > 0)
 				coolTime = Formulas.calcAtkSpd(this, skill, coolTime);
 		}
+		// if basic hitTime is higher than 500 than the min hitTime is 500
+		else if (skill.getHitTime() > 500 && hitTime < 500)
+			hitTime = 500;
 		
 		// queue herbs and potions
 		if (isCastingSimultaneouslyNow() && simultaneously)
@@ -2179,12 +2189,15 @@ public abstract class L2Character extends L2Object
 				if (pl.getCharmOfLuck()) // remove Lucky Charm if player have Nobless blessing buff
 					pl.stopCharmOfLuck(true);
 
-				// Delete transformation effects, even if you have noblesse blessing
-				L2Effect[] effects = getAllEffects();
-				for (L2Effect e : effects)
+				if (this instanceof L2PcInstance && !((L2PcInstance) this).isFlyingMounted())
 				{
-					if (e != null && e.getSkill().getTransformId() > 0)
-						e.exit();
+					// Delete transformation effects, even if you have noblesse blessing
+					L2Effect[] effects = getAllEffects();
+					for (L2Effect e : effects)
+					{
+						if (e != null && e.getSkill().getTransformId() > 0)
+							e.exit();
+					}
 				}
 			}
 			else
@@ -2738,8 +2751,15 @@ public abstract class L2Character extends L2Object
 		return _template.isUndead();
 	}
 	
-	public final boolean isFlying() { return _isFlying; }
-	public void setIsFlying(boolean mode) { _isFlying = mode; }
+	public final boolean isFlying()
+	{
+		return _isFlying;
+	}
+
+	public void setIsFlying(boolean mode)
+	{
+		_isFlying = mode;
+	}
 
 	@Override
 	public CharKnownList getKnownList()
@@ -3675,8 +3695,8 @@ public abstract class L2Character extends L2Object
 			ae |= ABNORMAL_EFFECT_CONFUSED;
 		if (isMuted())
 			ae |= ABNORMAL_EFFECT_MUTED;
-		if (isAfraid())
-			ae |= ABNORMAL_EFFECT_AFRAID;
+		//if (isAfraid())
+		//	ae |= ABNORMAL_EFFECT_AFRAID;
 		if (isPhysicalMuted())
 			ae |= ABNORMAL_EFFECT_MUTED;
 		return ae;
@@ -4285,7 +4305,8 @@ public abstract class L2Character extends L2Object
 			&& !isFlying() && !isInsideZone(L2Zone.FLAG_WATER)
 			&& !m.disregardingGeodata
 			&& GameTimeController.getGameTicks() % 10 == 0
-			&& !(this instanceof L2BoatInstance)) // once a second to reduce possible cpu load
+			&& !(this instanceof L2BoatInstance) // once a second to reduce possible cpu load
+			&& !(this instanceof L2AirShipInstance))
 		{
 			short geoHeight = GeoData.getInstance().getSpawnHeight(xPrev, yPrev, zPrev-30, zPrev+30, getObjectId());
 			dz = m._zDestination - geoHeight;
@@ -4324,6 +4345,10 @@ public abstract class L2Character extends L2Object
 			{
 				((L2BoatInstance) this).updatePeopleInTheBoat(m._xDestination, m._yDestination, m._zDestination);
 			}
+			else if (this instanceof L2AirShipInstance)
+			{
+				((L2AirShipInstance) this).updatePeopleInTheAirShip(m._xDestination, m._yDestination, m._zDestination);
+			}
 		}
 		else
 		{
@@ -4332,9 +4357,13 @@ public abstract class L2Character extends L2Object
 
 			// Set the position of the L2Character to estimated after parcial move
 			super.getPosition().setXYZ((int)(m._xAccurate), (int)(m._yAccurate), zPrev + (int)(dz * distFraction + 0.5));
-			if(this instanceof L2BoatInstance)
+			if (this instanceof L2BoatInstance)
 			{
 				((L2BoatInstance)this).updatePeopleInTheBoat((int)(m._xAccurate), (int)(m._yAccurate), zPrev + (int)(dz * distFraction + 0.5));
+			}
+			else if (this instanceof L2AirShipInstance)
+			{
+				((L2AirShipInstance)this).updatePeopleInTheAirShip((int)(m._xAccurate), (int)(m._yAccurate), zPrev + (int)(dz * distFraction + 0.5));
 			}
 			else
 			{
@@ -7241,7 +7270,8 @@ public abstract class L2Character extends L2Object
 		}
 		broadcastFullInfo();
 	}
-	
+
+	/*
 	public synchronized void addChanceEffect(EffectChanceSkillTrigger effect)
 	{
 		if (_chanceSkills == null)
@@ -7259,4 +7289,5 @@ public abstract class L2Character extends L2Object
 		if (_chanceSkills.isEmpty())
 			_chanceSkills = null;
 	}
+	*/
 }

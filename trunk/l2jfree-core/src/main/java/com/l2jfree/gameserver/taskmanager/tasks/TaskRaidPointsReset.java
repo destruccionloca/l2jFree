@@ -86,7 +86,6 @@ final class TaskRaidPointsReset extends TaskHandler
 						}
 						
 						c.setReputationScore(c.getReputationScore() + reputation, true);
-						c.broadcastToOnlineMembers(new PledgeShowInfoUpdate(c));
 					}
 				}
 			}

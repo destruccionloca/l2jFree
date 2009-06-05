@@ -39,7 +39,7 @@ public final class RequestTeleportBookMark extends L2GameClientPacket
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)
 			return;
-		activeChar.TeleportBookmarkGo(id);
+		activeChar.teleportBookmarkGo(id);
 	}
 
 

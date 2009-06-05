@@ -27,10 +27,10 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  * 
  * @version $Revision: 1.1.2.1.2.2 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestUserCommand extends L2GameClientPacket
+public class BypassUserCmd extends L2GameClientPacket
 {
-	private static final String _C__AA_REQUESTUSERCOMMAND = "[C] aa RequestUserCommand";
-	static Log _log = LogFactory.getLog(RequestUserCommand.class.getName());
+	private static final String _C__AA_REQUESTUSERCOMMAND = "[C] aa BypassUserCmd";
+	static Log _log = LogFactory.getLog(BypassUserCmd.class.getName());
 			
 	private int _command;
 	

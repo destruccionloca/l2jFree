@@ -43,10 +43,10 @@ public class TradeOwnAdd extends L2GameServerPacket
 		writeH(_item.getItem().getType1()); // item type1
 		writeD(_item.getObjectId());
 		writeD(_item.getItem().getItemDisplayId());
-		if(Config.PACKET_FINAL)
+		if (Config.PACKET_FINAL)
 			writeQ(_item.getCount());
 		else
-			writeD(_item.getCount());
+			writeD(toInt(_item.getCount()));
 		writeH(_item.getItem().getType2());	// item type2
 		writeH(0x00);	// ?
 
@@ -55,11 +55,23 @@ public class TradeOwnAdd extends L2GameServerPacket
 		writeH(0x00);	// ?
 		writeH(0x00);
 
-		writeD(_item.getAttackElementType());
-		writeD(_item.getAttackElementPower());
-		for (byte i = 0; i < 6; i++)
+		if (Config.PACKET_FINAL)
 		{
-			writeD(_item.getElementDefAttr(i));
+			writeH(_item.getAttackElementType());
+			writeH(_item.getAttackElementPower());
+			for (byte i = 0; i < 6; i++)
+			{
+				writeH(_item.getElementDefAttr(i));
+			}
+		}
+		else
+		{
+			writeD(_item.getAttackElementType());
+			writeD(_item.getAttackElementPower());
+			for (byte i = 0; i < 6; i++)
+			{
+				writeD(_item.getElementDefAttr(i));
+			}
 		}
 	}
 

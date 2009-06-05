@@ -57,7 +57,7 @@ public class ExShowSeedSetting extends L2GameServerPacket
 	
 	private int _manorId;
 	private int _count;
-	private int[] _seedData; // data to send, size:_count*12
+	private long[] _seedData; // data to send, size:_count*12
 
 	public ExShowSeedSetting(int manorId)
 	{
@@ -65,8 +65,8 @@ public class ExShowSeedSetting extends L2GameServerPacket
 		Castle c = CastleManager.getInstance().getCastleById(_manorId);
 		FastList<Integer> seeds = L2Manor.getInstance().getSeedsForCastle(_manorId);
 		_count = seeds.size();
-		_seedData = new int[_count * 12];
-		int i=0;
+		_seedData = new long[_count * 12];
+		int i = 0;
 		for (int s : seeds)
 		{
 			_seedData[(i * 12)] = s;
@@ -112,21 +112,21 @@ public class ExShowSeedSetting extends L2GameServerPacket
 		writeD(_manorId); // manor id
 		writeD(_count);   // size 
 
-		for (int i=0; i< _count; i++)
+		for (int i = 0; i < _count; i++)
 		{
-			writeD(_seedData[(i * 12)]);  // seed id
-			writeD(_seedData[i*12 + 1]);  // level
+			writeD((int) _seedData[(i * 12)]);  // seed id
+			writeD((int) _seedData[i*12 + 1]);  // level
 			writeC(1);
-			writeD(_seedData[i*12 + 2]);  // reward 1 id
+			writeD((int) _seedData[i*12 + 2]);  // reward 1 id
 			writeC(1);
-			writeD(_seedData[i*12 + 3]);  // reward 2 id
+			writeD((int) _seedData[i*12 + 3]);  // reward 2 id
 			
-			writeD(_seedData[i*12 + 4]);  // next sale limit
-			writeD(_seedData[i*12 + 5]);  // price for castle to produce 1
-			writeD(_seedData[i*12 + 6]);  // min seed price
-			writeD(_seedData[i*12 + 7]);  // max seed price
+			writeD((int) _seedData[i*12 + 4]);  // next sale limit
+			writeD((int) _seedData[i*12 + 5]);  // price for castle to produce 1
+			writeD((int) _seedData[i*12 + 6]);  // min seed price
+			writeD((int) _seedData[i*12 + 7]);  // max seed price
 			
-			if(Config.PACKET_FINAL)
+			if (Config.PACKET_FINAL)
 			{
 				writeQ(_seedData[i*12 + 8]);  // today sales
 				writeQ(_seedData[i*12 + 9]);  // today price
@@ -135,12 +135,11 @@ public class ExShowSeedSetting extends L2GameServerPacket
 			}
 			else
 			{
-				writeD(_seedData[i*12 + 8]);  // today sales
-				writeD(_seedData[i*12 + 9]);  // today price
-				writeD(_seedData[i*12 + 10]); // next sales
-				writeD(_seedData[i*12 + 11]); // next price
+				writeD(toInt(_seedData[i*12 + 8]));  // today sales
+				writeD(toInt(_seedData[i*12 + 9]));  // today price
+				writeD(toInt(_seedData[i*12 + 10])); // next sales
+				writeD(toInt(_seedData[i*12 + 11])); // next price
 			}
-				
 		}
 	}
 

@@ -58,6 +58,7 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ClientSetTime;
 import com.l2jfree.gameserver.network.serverpackets.Die;
 import com.l2jfree.gameserver.network.serverpackets.ExBasicActionList;
+import com.l2jfree.gameserver.network.serverpackets.ExGetBookMarkInfoPacket;
 import com.l2jfree.gameserver.network.serverpackets.ExStorageMaxCount;
 import com.l2jfree.gameserver.network.serverpackets.FriendList;
 import com.l2jfree.gameserver.network.serverpackets.GameGuardQuery;
@@ -215,6 +216,9 @@ public class EnterWorld extends L2GameClientPacket
 		{
 			sendPacket(new PledgeShowMemberListAll(activeChar.getClan()));
 			sendPacket(new PledgeStatusChanged(activeChar.getClan()));
+
+			// Residential skills support
+			activeChar.enableResidentialSkills(true);
 		}
 
 		if (activeChar.getStatus().getCurrentHp() < 0.5) // is dead
@@ -315,6 +319,14 @@ public class EnterWorld extends L2GameClientPacket
 					activeChar.addSkill(SkillTable.getInstance().getInfo(5074, 1), false);
 				else if (cabal != SevenSigns.CABAL_NULL)
 					activeChar.addSkill(SkillTable.getInstance().getInfo(5075, 1), false);
+			}
+		}
+
+		for (L2ItemInstance i : activeChar.getInventory().getItems())
+		{
+			if (i.isTimeLimitedItem())
+			{
+				i.scheduleLifeTimeTask();
 			}
 		}
 
@@ -445,6 +457,9 @@ public class EnterWorld extends L2GameClientPacket
 			
 		}
 		sendPacket(ExBasicActionList.DEFAULT_ACTION_LIST);
+
+		// Send Teleport Bookmark List
+		sendPacket(new ExGetBookMarkInfoPacket(activeChar));
 
 		GlobalRestrictions.playerLoggedIn(activeChar);
 	}

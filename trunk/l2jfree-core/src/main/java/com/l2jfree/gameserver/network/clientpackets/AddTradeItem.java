@@ -37,7 +37,7 @@ public class AddTradeItem extends L2GameClientPacket
 
     private int _tradeId;
     private int _objectId;
-    private int _count;
+    private long _count;
 
     @Override
     protected void readImpl()

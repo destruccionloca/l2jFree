@@ -33,7 +33,7 @@ public class RequestRecipeShopListSet extends L2GameClientPacket
 	//private final static Log _log = LogFactory.getLog(RequestRecipeShopListSet.class.getName());
 
 	private int					_count;
-	private int[]				_items;																// count*2
+	private long[]				_items; // count*2
 
 	@Override
 	protected void readImpl()
@@ -43,14 +43,18 @@ public class RequestRecipeShopListSet extends L2GameClientPacket
 		else
 			_count = readD();
 
-		if (_count < 0 || _count * 8 > getByteBuffer().remaining() || _count > Config.MAX_ITEM_IN_PACKET)
+		if (_count < 0 || _count * (Config.PACKET_FINAL ? 12 : 8) > getByteBuffer().remaining() || _count > Config.MAX_ITEM_IN_PACKET)
 			_count = 0;
-		_items = new int[_count * 2];
+		_items = new long[_count * 2];
 		for (int x = 0; x < _count; x++)
 		{
 			int recipeID = readD();
 			_items[(x * 2)] = recipeID;
-			int cost = readD();
+			long cost = 0;
+			if (Config.PACKET_FINAL)
+				cost = toInt(readQ());
+			else
+				cost = readD();
 			_items[x * 2 + 1] = cost;
 		}
 	}
@@ -80,8 +84,8 @@ public class RequestRecipeShopListSet extends L2GameClientPacket
 
 			for (int x = 0; x < _count; x++)
 			{
-				int recipeID = _items[(x * 2)];
-				int cost = _items[x * 2 + 1];
+				int recipeID = (int) _items[(x * 2)];
+				long cost = _items[x * 2 + 1];
 				createList.add(new L2ManufactureItem(recipeID, cost));
 			}
 			createList.setStoreName(player.getCreateList() != null ? player.getCreateList().getStoreName() : "");

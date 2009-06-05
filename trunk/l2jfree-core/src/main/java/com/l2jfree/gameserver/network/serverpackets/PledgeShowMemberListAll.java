@@ -77,7 +77,7 @@ public final class PledgeShowMemberListAll extends L2GameServerPacket
 		writeD(_clan.getAllyCrestId());
 		writeD(_clan.isAtWar() ? 1 : 0);// new c3
 		
-		if(Config.PACKET_FINAL)
+		if (Config.PACKET_FINAL)
 			writeD(0); // Territory castle ID
 		
 		writeD(_clan.getSubPledgeMembersCount(_pledgeType));

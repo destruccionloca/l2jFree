@@ -95,7 +95,7 @@ public final class MultiSellList extends L2GameServerPacket
 					if(Config.PACKET_FINAL)
 						writeQ(i.getItemCount());
 					else
-						writeD(i.getItemCount());
+						writeD(toInt(i.getItemCount()));
 					writeH(i.getEnchantmentLevel()); //enchtant lvl
 					writeD(0x00); // C6
 					writeD(0x00); // C6
@@ -131,10 +131,10 @@ public final class MultiSellList extends L2GameServerPacket
 						typeE = ItemTable.getInstance().getTemplate(i.getItemId()).getType2();
 					writeD(items); //ID
 					writeH(typeE);
-					if(Config.PACKET_FINAL)
+					if (Config.PACKET_FINAL)
 						writeQ(i.getItemCount()); //Count
 					else
-						writeD(i.getItemCount());
+						writeD(toInt(i.getItemCount()));
 					writeH(i.getEnchantmentLevel()); //Enchant Level
 					writeD(0x00); // C6
 					writeD(0x00); // C6

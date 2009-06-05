@@ -59,7 +59,7 @@ public class ExShowCropSetting extends L2GameServerPacket
 	
 	private int _manorId;
 	private int _count;
-	private int[] _cropData; // data to send, size:_count*14
+	private long[] _cropData; // data to send, size:_count*14
 
 	public ExShowCropSetting(int manorId)
 	{
@@ -67,8 +67,8 @@ public class ExShowCropSetting extends L2GameServerPacket
 		Castle c = CastleManager.getInstance().getCastleById(_manorId);
 		FastList<Integer> crops = L2Manor.getInstance().getCropsForCastle(_manorId);
 		_count = crops.size();
-		_cropData = new int[_count * 14];
-		int i=0;
+		_cropData = new long[_count * 14];
+		int i = 0;
 		for (int cr : crops)
 		{
 			_cropData[(i * 14)] = cr;
@@ -118,45 +118,44 @@ public class ExShowCropSetting extends L2GameServerPacket
 		writeD(_manorId); // manor id
 		writeD(_count);   // size
 
-		for (int i=0; i< _count;i++)
-		{ 
-			writeD(_cropData[(i * 14)]);  // crop id
-			writeD(_cropData[i*14 + 1]);  // seed level
+		for (int i = 0; i < _count; i++)
+		{
+			writeD((int) _cropData[(i * 14)]);  // crop id
+			writeD((int) _cropData[i*14 + 1]);  // seed level
 			writeC(1);
-			writeD(_cropData[i*14 + 2]);  // reward 1 id
+			writeD((int) _cropData[i*14 + 2]);  // reward 1 id
 			writeC(1);
-			writeD(_cropData[i*14 + 3]);  // reward 2 id
+			writeD((int) _cropData[i*14 + 3]);  // reward 2 id
 			
-			writeD(_cropData[i*14 + 4]);  // next sale limit
-			writeD(_cropData[i*14 + 5]);  // ??? 
-			writeD(_cropData[i*14 + 6]);  // min crop price
-			writeD(_cropData[i*14 + 7]);  // max crop price
+			writeD((int) _cropData[i*14 + 4]);  // next sale limit
+			writeD((int) _cropData[i*14 + 5]);  // ??? 
+			writeD((int) _cropData[i*14 + 6]);  // min crop price
+			writeD((int) _cropData[i*14 + 7]);  // max crop price
 			
-			if(Config.PACKET_FINAL)
+			if (Config.PACKET_FINAL)
 			{
 				writeQ(_cropData[i*14 + 8]);  // today buy
 				writeQ(_cropData[i*14 + 9]);  // today price
 			}
 			else
 			{
-				writeD(_cropData[i*14 + 8]);  // today buy
-				writeD(_cropData[i*14 + 9]);  // today price
+				writeD(toInt(_cropData[i*14 + 8]));  // today buy
+				writeD(toInt(_cropData[i*14 + 9]));  // today price
 			}
 
 			
-			writeC(_cropData[i*14 + 10]); // today reward
-			if(Config.PACKET_FINAL)
+			writeC((int) _cropData[i*14 + 10]); // today reward
+			if (Config.PACKET_FINAL)
 			{
 				writeQ(_cropData[i*14 + 11]); // next buy
 				writeQ(_cropData[i*14 + 12]); // next price
 			}
 			else
 			{
-				writeD(_cropData[i*14 + 11]); // next buy
-				writeD(_cropData[i*14 + 12]); // next price
+				writeD(toInt(_cropData[i*14 + 11])); // next buy
+				writeD(toInt(_cropData[i*14 + 12])); // next price
 			}
-				
-			writeC(_cropData[i*14 + 13]); // next reward
+			writeC((int) _cropData[i*14 + 13]); // next reward
 		}
 	}
 

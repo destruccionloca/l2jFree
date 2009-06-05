@@ -226,6 +226,7 @@ public class OlympiadGame
 				{
 					for (L2Skill skill : player.getClan().getAllSkills())
 						player.removeSkill(skill, false);
+					player.enableResidentialSkills(false);
 				}
 				// Abort casting if player casting
 				if (player.isCastingNow())
@@ -424,6 +425,7 @@ public class OlympiadGame
 						if (skill.getMinPledgeClass() <= player.getPledgeClass())
 							player.addSkill(skill, false);
 					}
+					player.enableResidentialSkills(true);
 				}
 
 				// Add Hero Skills

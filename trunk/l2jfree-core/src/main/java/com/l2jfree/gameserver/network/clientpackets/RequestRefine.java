@@ -36,7 +36,7 @@ public final class RequestRefine extends L2GameClientPacket
 	private int					_targetItemObjId;
 	private int					_refinerItemObjId;
 	private int					_gemstoneItemObjId;
-	private int					_gemstoneCount;
+	private long				_gemstoneCount;
 
 	@Override
 	protected void readImpl()
@@ -44,7 +44,7 @@ public final class RequestRefine extends L2GameClientPacket
 		_targetItemObjId = readD();
 		_refinerItemObjId = readD();
 		_gemstoneItemObjId = readD();
-		if(Config.PACKET_FINAL)
+		if (Config.PACKET_FINAL)
 			_gemstoneCount = toInt(readQ());
 		else
 			_gemstoneCount = readD();
@@ -156,7 +156,7 @@ public final class RequestRefine extends L2GameClientPacket
 		if (itemGrade < L2Item.CRYSTAL_C || itemType != L2Item.TYPE2_WEAPON || !targetItem.isDestroyable())
 			return false;
 
-		int modifyGemstoneCount = _gemstoneCount;
+		long modifyGemstoneCount = _gemstoneCount;
 		int lifeStoneLevel = getLifeStoneLevel(lifeStoneId);
 		int lifeStoneGrade = getLifeStoneGrade(lifeStoneId);
 		switch (itemGrade)

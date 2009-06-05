@@ -14,6 +14,9 @@
  */
 package com.l2jfree.gameserver.model.quest;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Map;
 
 import javolution.util.FastMap;
@@ -22,6 +25,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
+import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.instancemanager.QuestManager;
@@ -325,7 +329,7 @@ public final class QuestState
 		getPlayer().sendPacket(new QuestList(getPlayer()));
 
 		int questId = getQuest().getQuestIntId();
-		if (questId > 0 && questId < 999 && cond > 0)
+		if (questId > 0 && questId < 19999 && cond > 0)
 			getPlayer().sendPacket(new ExShowQuestMark(questId));
 	}
 
@@ -347,6 +351,103 @@ public final class QuestState
 			Quest.deleteQuestVarInDb(this, var);
 
 		return old;
+	}
+
+	/**
+	 * Insert (or Update) in the database variables that need to stay persistant for this player after a reboot.
+	 * This function is for storage of values that do not related to a specific quest but are
+	 * global for all quests.  For example, player's can get only once the adena and XP reward for  
+	 * the first class quests, but they can make more than one first class quest.
+	 * @param var : String designating the name of the variable for the quest
+	 * @param value : String designating the value of the variable for the quest
+	 */
+	public final void saveGlobalQuestVar(String var, String value)
+	{
+		Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement;
+			statement = con.prepareStatement("REPLACE INTO character_quest_global_data (charId,var,value) VALUES (?,?,?)");
+			statement.setInt(1, _player.getObjectId());
+			statement.setString(2, var);
+			statement.setString(3, value);
+			statement.executeUpdate();
+			statement.close();
+		}
+		catch (Exception e)
+		{
+			_log.error("could not insert player's global quest variable:", e);
+		}
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
+	}
+
+	/**
+	 * Read from the database a previously saved variable for this quest.
+	 * Due to performance considerations, this function should best be used only when the quest is first loaded.
+	 * Subclasses of this class can define structures into which these loaded values can be saved.
+	 * However, on-demand usage of this function throughout the script is not prohibited, only not recommended. 
+	 * Values read from this function were entered by calls to "saveGlobalQuestVar"
+	 * @param var : String designating the name of the variable for the quest
+	 * @return String : String representing the loaded value for the passed var, or an empty string if the var was invalid
+	 */
+
+	public final String getGlobalQuestVar(String var)
+	{
+		String result = "";
+		Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement;
+			statement = con.prepareStatement("SELECT value FROM character_quest_global_data WHERE charId = ? AND var = ?");
+			statement.setInt(1, _player.getObjectId());
+			statement.setString(2, var);
+			ResultSet rs = statement.executeQuery();
+			if (rs.first())
+				result = rs.getString(1);
+			rs.close();
+			statement.close();
+		}
+		catch (Exception e)
+		{
+			_log.error("could not load player's global quest variable:", e);
+		}
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
+		return result;
+	}
+	
+	/**
+	 * Permanently delete from the database one of the player's global quest variable that was previously saved.
+	 * @param var : String designating the name of the variable
+	 */
+	public final void deleteGlobalQuestVar(String var)
+	{
+		Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement;
+			statement = con.prepareStatement("DELETE FROM character_quest_global_data WHERE charId = ? AND var = ?");
+			statement.setInt(1, _player.getObjectId());
+			statement.setString(2, var);
+			statement.executeUpdate();
+			statement.close();
+		}
+		catch (Exception e)
+		{
+			_log.error("could not delete player's global quest variable:", e);
+		}
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	/**
@@ -434,12 +535,12 @@ public final class QuestState
 	 * @param itemId
 	 * @param count
 	 */
-	public void giveItems(int itemId, int count)
+	public void giveItems(int itemId, long count)
 	{
 		giveItems(itemId, count, 0);
 	}
 
-	public void giveItems(int itemId, int count, int enchantlevel)
+	public void giveItems(int itemId, long count, int enchantlevel)
 	{
 		if (count <= 0)
 			return;
@@ -456,7 +557,7 @@ public final class QuestState
 		if (itemId == 57)
 		{
 			SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_S1_ADENA);
-			smsg.addNumber(count);
+			smsg.addItemNumber(count);
 			getPlayer().sendPacket(smsg);
 		}
 		// Otherwise, send message of object reward to client
@@ -466,7 +567,7 @@ public final class QuestState
 			{
 				SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
 				smsg.addItemName(item);
-				smsg.addNumber(count);
+				smsg.addItemNumber(count);
 				getPlayer().sendPacket(smsg);
 			}
 			else
@@ -484,20 +585,20 @@ public final class QuestState
 	 * @param itemId
 	 * @param count
 	 */
-	public void rewardItems(int itemId, int count)
+	public void rewardItems(int itemId, long count)
 	{
 		rewardItems(itemId, count, 0);
 	}
 
-	public void rewardItems(int itemId, int count, int enchantlevel)
+	public void rewardItems(int itemId, long count, int enchantlevel)
 	{
 		if (count <= 0)
 			return;
 
 		if (itemId == 57)
-			count=(int)(count*Config.RATE_QUESTS_REWARD_ADENA);
+			count= (long)(count*Config.RATE_QUESTS_REWARD_ADENA);
 		else
-			count=(int)(count*Config.RATE_QUESTS_REWARD_ITEMS);
+			count= (long)(count*Config.RATE_QUESTS_REWARD_ITEMS);
 		
 		// Add items to player's inventory
 		L2ItemInstance item = getPlayer().getInventory().addItem("Quest", itemId, count, getPlayer(), getPlayer().getTarget());
@@ -511,7 +612,7 @@ public final class QuestState
 		if (itemId == 57)
 		{
 			SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_S1_ADENA);
-			smsg.addNumber(count);
+			smsg.addItemNumber(count);
 			getPlayer().sendPacket(smsg);
 		}
 		// Otherwise, send message of object reward to client
@@ -521,7 +622,7 @@ public final class QuestState
 			{
 				SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
 				smsg.addItemName(item);
-				smsg.addNumber(count);
+				smsg.addItemNumber(count);
 				getPlayer().sendPacket(smsg);
 			}
 			else
@@ -559,7 +660,7 @@ public final class QuestState
         if (currentCount >= neededCount)
             return true;
         
-        int itemCount = 0;
+        long itemCount = 0;
         int random = Rnd.get(L2DropData.MAX_CHANCE);
         
         while (random < dropChance)
@@ -622,18 +723,18 @@ public final class QuestState
 	 * @param itemId : Identifier of the item
 	 * @param count : Quantity of items to destroy
 	 */
-	public void takeItems(int itemId, int count)
-    {
+	public void takeItems(int itemId, long count)
+	{
 		// Get object item from player's inventory list
 		L2ItemInstance item = getPlayer().getInventory().getItemByItemId(itemId);
-        
+
 		if (item == null)
 			return;
-        
+
 		// Tests on count value in order not to have negative value
 		if (count < 0 || count > item.getCount())
 			count = item.getCount();
-		
+
 		// Destroy the quantity of items wanted
 		if (itemId == 57)
 			getPlayer().reduceAdena("Quest", count, getPlayer(), true);

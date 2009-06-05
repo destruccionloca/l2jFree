@@ -29,7 +29,7 @@ public class L2WarehouseItem
 
 	private L2Item	_item;
 	private int		_object;
-	private int		_count;
+	private long	_count;
 	private int		_owner;
 	private int		_enchant;
 	private int		_grade;
@@ -43,6 +43,8 @@ public class L2WarehouseItem
 
 	private int		_type1;
 	private int		_type2;
+
+	private int _time;
 
 	public L2WarehouseItem(L2ItemInstance item)
 	{
@@ -60,6 +62,7 @@ public class L2WarehouseItem
 		else
 			_isAugmented = false;
 		_manaLeft = item.getMana();
+		_time = item.isTimeLimitedItem() ? (int) (item.getRemainingTime()/1000) : -1;
 		_type1 = item.getCustomType1();
 		_type2 = item.getCustomType2();
 
@@ -98,11 +101,20 @@ public class L2WarehouseItem
 
 	/**
 	 * Returns the count
-	 * @return int
+	 * @return long
 	 */
-	public final int getCount()
+	public final long getCount()
 	{
 		return _count;
+	}
+
+	/**
+	 * Returns the time
+	 * @return int
+	 */
+	public int getTime()
+	{
+		return _time;
 	}
 
 	/**

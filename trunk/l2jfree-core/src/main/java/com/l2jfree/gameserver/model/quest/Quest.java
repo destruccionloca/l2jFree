@@ -45,6 +45,7 @@ import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
+import com.l2jfree.gameserver.network.serverpackets.NpcQuestHtmlMessage;
 import com.l2jfree.gameserver.scripting.ManagedScript;
 import com.l2jfree.gameserver.scripting.ScriptManager;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
@@ -254,7 +255,6 @@ public class Quest extends ManagedScript
 				}
 			}
 		}
-		// ignore the startQuestTimer in all other cases (timer is already started)
 	}
 
 	public QuestTimer getQuestTimer(String name, L2Npc npc, L2PcInstance player)
@@ -1277,25 +1277,36 @@ public class Quest extends ManagedScript
 	 */
 	public String showHtmlFile(L2PcInstance player, String fileName)
 	{
-		String questId = getName();
+		String questName = getName();
+		int questId = getQuestIntId();
 
 		//Create handler to file linked to the quest
 		String directory = getDescr().toLowerCase();
-		String content = HtmCache.getInstance().getHtm("data/scripts/" + directory + "/" + questId + "/" + fileName);
+		String content = HtmCache.getInstance().getHtm("data/scripts/" + directory + "/" + questName + "/" + fileName);
 
 		if (content == null)
-			content = HtmCache.getInstance().getHtmForce("data/scripts/quests/" + questId + "/" + fileName);
+			content = HtmCache.getInstance().getHtmForce("data/scripts/quests/" + questName + "/" + fileName);
 
 		if (player != null && player.getTarget() != null)
 			content = content.replaceAll("%objectId%", String.valueOf(player.getTarget().getObjectId()));
 
-		//Send message to client if message not empty	 
+		//Send message to client if message not empty
 		if (content != null && player != null)
 		{
-			NpcHtmlMessage npcReply = new NpcHtmlMessage(5);
-			npcReply.setHtml(content);
-			npcReply.replace("%playername%", player.getName());
-			player.sendPacket(npcReply);
+			if (questId > 0 && questId < 20000)
+			{
+				NpcQuestHtmlMessage npcReply = new NpcQuestHtmlMessage(5, questId);
+				npcReply.setHtml(content);
+				npcReply.replace("%playername%", player.getName());
+				player.sendPacket(npcReply);
+			}
+			else
+			{
+				NpcHtmlMessage npcReply = new NpcHtmlMessage(5);
+				npcReply.setHtml(content);
+				npcReply.replace("%playername%", player.getName());
+				player.sendPacket(npcReply);
+			}
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 		}
 

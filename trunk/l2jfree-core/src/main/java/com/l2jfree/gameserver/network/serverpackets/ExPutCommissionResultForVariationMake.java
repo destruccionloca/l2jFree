@@ -31,7 +31,7 @@ public class ExPutCommissionResultForVariationMake extends L2GameServerPacket
 	private int _unk2;
 	private int _unk3;
 
-	public ExPutCommissionResultForVariationMake(int gemstoneObjId, int count,int itemId)
+	public ExPutCommissionResultForVariationMake(int gemstoneObjId, long count, int itemId)
 	{
 		_gemstoneObjId = gemstoneObjId;
 		_itemId = itemId;
@@ -49,16 +49,16 @@ public class ExPutCommissionResultForVariationMake extends L2GameServerPacket
 	{
 		writeC(0xfe);
 		writeH(0x55);
-        writeD(_gemstoneObjId);
-        writeD(_itemId);
-        if(Config.PACKET_FINAL)
-        	writeQ(_gemstoneCount);
-        else
-        	writeD(_gemstoneCount);
-        writeD(_unk2);
-        writeD(_unk2);
-        if(Config.PACKET_FINAL)
-        	writeD(_unk3);
+		writeD(_gemstoneObjId);
+		writeD(_itemId);
+		if (Config.PACKET_FINAL)
+			writeQ(_gemstoneCount);
+		else
+			writeD(toInt(_gemstoneCount));
+		writeD(_unk2);
+		writeD(_unk2);
+		if (Config.PACKET_FINAL)
+			writeD(_unk3);
 	}
 
 	/**

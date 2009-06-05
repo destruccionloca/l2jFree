@@ -88,8 +88,6 @@ public class NpcWalkerRoutesTable
 			statement.close();
 
 			_log.info("WalkerRoutesTable: Loaded " + _routes.size() + " Npc Walker Routes.");
-			rset.close();
-			statement.close();
 		}
 		catch (Exception e)
 		{

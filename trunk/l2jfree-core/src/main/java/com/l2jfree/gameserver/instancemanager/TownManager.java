@@ -135,6 +135,48 @@ public class TownManager
 		case 21:
 			nearestTown = "Fantasy Isle";
 			break;
+		case 22:
+			nearestTown = "Neutral Zone";
+			break;
+		case 23:
+			nearestTown = "Coliseum";
+			break;
+		case 24:
+			nearestTown = "GM Consultation service";
+			break;
+		case 25:
+			nearestTown = "Dimensional Gap";
+			break;
+		case 26:
+			nearestTown = "Cemetery of the Empire";
+			break;
+		case 27:
+			nearestTown = "inside the Steel Citadel";
+			break;
+		case 28:
+			nearestTown = "Steel Citadel Resistance";
+			break;
+		case 29:
+			nearestTown = "Inside Kamaloka";
+			break;
+		case 30:
+			nearestTown = "Inside Nia Kamaloka";
+			break;
+		case 31:
+			nearestTown = "Inside Rim Kamaloka";
+			break;
+		case 32:
+			nearestTown = "Keucereus clan association";
+			break;
+		case 33:
+			nearestTown = "inside the Seed of Infinity";
+			break;
+		case 34:
+			nearestTown = "outside the Seed of Infinity";
+			break;
+		case 35:
+			nearestTown = "Aerial Cleft";
+			break;
 		default:
 			nearestTown = "";
 			break;

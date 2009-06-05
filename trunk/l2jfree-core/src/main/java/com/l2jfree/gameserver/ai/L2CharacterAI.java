@@ -35,6 +35,7 @@ import com.l2jfree.gameserver.model.L2ItemInstance.ItemLocation;
 import com.l2jfree.gameserver.model.actor.L2Attackable;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
+import com.l2jfree.gameserver.model.actor.instance.L2AirShipInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -196,6 +197,10 @@ public class L2CharacterAI extends AbstractAI
 	@Override
 	protected void onIntentionAttack(L2Character target)
 	{
+		// stop invul effect if exist
+		if (_actor.getInvulEffect() != null)
+			_actor.getInvulEffect().exit();
+
 		if (target == null)
 		{
 			clientActionFailed();
@@ -265,6 +270,10 @@ public class L2CharacterAI extends AbstractAI
 	@Override
 	protected void onIntentionCast(L2Skill skill, L2Object target)
 	{
+		// stop invul effect if exist
+		if (_actor.getInvulEffect() != null)
+			_actor.getInvulEffect().exit();
+
 		if (getIntention() == AI_INTENTION_REST && skill.isMagic())
 		{
 			clientActionFailed();
@@ -754,6 +763,10 @@ public class L2CharacterAI extends AbstractAI
 		if (_actor instanceof L2BoatInstance)
 		{
 			((L2BoatInstance) _actor).evtArrived();
+		}
+		else if (_actor instanceof L2AirShipInstance)
+		{
+			((L2AirShipInstance) _actor).evtArrived();
 		}
 	}
 

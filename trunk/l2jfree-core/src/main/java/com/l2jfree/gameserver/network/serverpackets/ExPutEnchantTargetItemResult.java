@@ -26,11 +26,11 @@ public class ExPutEnchantTargetItemResult extends L2GameServerPacket
 	
 	private int _result;
 	private int _crystal;
-	private int _count;
+	private long _count;
 	/**
 	 * 
 	 */
-	public ExPutEnchantTargetItemResult(int result, int crystal, int count)
+	public ExPutEnchantTargetItemResult(int result, int crystal, long count)
 	{
 		_result = result;
 		_crystal = crystal;
@@ -55,9 +55,9 @@ public class ExPutEnchantTargetItemResult extends L2GameServerPacket
 		writeC(0x87);
 		writeD(_result);
 		writeD(_crystal);
-		if(Config.PACKET_FINAL)
+		if (Config.PACKET_FINAL)
 			writeQ(_count);
 		else
-			writeD(_count);
+			writeD(toInt(_count));
 	}
 }

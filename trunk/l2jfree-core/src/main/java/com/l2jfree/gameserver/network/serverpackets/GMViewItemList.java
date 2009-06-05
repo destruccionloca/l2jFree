@@ -59,10 +59,10 @@ public class GMViewItemList extends L2GameServerPacket
 			writeD(temp.getObjectId());
 			writeD(temp.getItemDisplayId());
 			writeD(temp.getLocationSlot()); // T1
-			if(Config.PACKET_FINAL)
+			if (Config.PACKET_FINAL)
 				writeQ(temp.getCount());
 			else
-				writeD(temp.getCount());
+				writeD(toInt(temp.getCount()));
 			writeH(temp.getItem().getType2());
 			writeH(temp.getCustomType1()); 
 			writeH(temp.isEquipped() ? 0x01 : 0x00);
@@ -80,15 +80,26 @@ public class GMViewItemList extends L2GameServerPacket
 			writeD(temp.getMana());
 
 			// T1
-			writeH(temp.getAttackElementType());
-			writeH(temp.getAttackElementPower());
-			for (byte i = 0; i < 6; i++)
+			if (Config.PACKET_FINAL)
 			{
-				writeH(temp.getElementDefAttr(i));
+				writeH(temp.getAttackElementType());
+				writeH(temp.getAttackElementPower());
+				for (byte i = 0; i < 6; i++)
+				{
+					writeH(temp.getElementDefAttr(i));
+				}
+			}
+			else
+			{
+				writeD(temp.getAttackElementType());
+				writeD(temp.getAttackElementPower());
+				for (byte i = 0; i < 6; i++)
+				{
+					writeD(temp.getElementDefAttr(i));
+				}
 			}
 			// T2
-			//writeD(temp.getItem().it isTimeLimitedItem() ? (int) (temp.getRemainingTime()/1000) : -1);
-			writeD(0x00);
+			writeD(temp.isTimeLimitedItem() ? (int) (temp.getRemainingTime() / 1000) : -1);
 		}
 	}
 	

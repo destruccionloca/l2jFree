@@ -117,7 +117,7 @@ public class TradeListTable
 						_price = rset.getInt("price");
 						int count = rset.getInt("count");
 						int currentCount = rset.getInt("currentCount");
-						int time = rset.getInt("time");
+						int restoreTime = rset.getInt("time");
 
 						L2ItemInstance buyItem = ItemTable.getInstance().createDummyItem(_itemId);
 						if (buyItem == null)
@@ -129,7 +129,7 @@ public class TradeListTable
 							_price = ItemTable.getInstance().getTemplate(_itemId).getReferencePrice();
 
 						buyItem.setPriceToSell(_price);
-						buyItem.setTime(time);
+						buyItem.setRestoreTime(restoreTime);
 						buyItem.setInitCount(count);
 						if (currentCount > -1)
 							buyItem.setCount(currentCount);
@@ -293,7 +293,7 @@ public class TradeListTable
 					if (Item.getCount() < Item.getInitCount()) //needed?
 					{
 						statement = con.prepareStatement("UPDATE merchant_buylists SET currentCount=? WHERE item_id=? AND shop_id=?");
-						statement.setInt(1, Item.getCount());
+						statement.setLong(1, Item.getCount());
 						statement.setInt(2, Item.getItemId());
 						statement.setInt(3, listId);
 						statement.executeUpdate();

@@ -130,13 +130,13 @@ public class PcStat extends PlayableStat
 		else if (addToExp > 0 && addToSp == 0)
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S1_EXPERIENCE);
-			sm.addNumber(addToExp);
+			sm.addExpNumber(addToExp);
 			activeChar.sendPacket(sm);
 		}
 		else
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.YOU_EARNED_S1_EXP_AND_S2_SP);
-			sm.addNumber(addToExp);
+			sm.addExpNumber(addToExp);
 			sm.addNumber(addToSp);
 			activeChar.sendPacket(sm);
 		}

@@ -160,8 +160,8 @@ public class CharSelectionInfo extends L2GameServerPacket
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_DECO4));
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_DECO5));
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_DECO6));
-            if(Config.PACKET_FINAL)
-            	writeD(0x00);
+            if (Config.PACKET_FINAL)
+                writeD(0x00);
             
             writeD(charInfoPackage.getHairStyle());
             writeD(charInfoPackage.getHairColor());

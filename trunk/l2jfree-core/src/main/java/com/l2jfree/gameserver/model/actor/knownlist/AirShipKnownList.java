@@ -20,7 +20,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * @author Kerberos
- * 
+ *
  */
 public class AirShipKnownList extends CharKnownList
 {
@@ -31,7 +31,6 @@ public class AirShipKnownList extends CharKnownList
 	public AirShipKnownList(L2Character activeChar)
 	{
 		super(activeChar);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -49,5 +48,4 @@ public class AirShipKnownList extends CharKnownList
 			return 0;
 		return 4000;
 	}
-
 }

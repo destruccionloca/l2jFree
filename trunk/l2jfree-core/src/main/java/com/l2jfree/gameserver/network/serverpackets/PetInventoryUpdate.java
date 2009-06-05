@@ -82,10 +82,10 @@ public class PetInventoryUpdate extends L2GameServerPacket
 			writeH(item.getItem().getType1()); // item type1
 			writeD(item.getObjectId());
 			writeD(item.getItem().getItemDisplayId());
-			if(Config.PACKET_FINAL)
+			if (Config.PACKET_FINAL)
 				writeQ(item.getCount());
 			else
-				writeD(item.getCount());
+				writeD(toInt(item.getCount()));
 			writeH(item.getItem().getType2());	// item type2
 			writeH(0x00);	// ?
 			writeH(item.getEquipped());
@@ -93,11 +93,23 @@ public class PetInventoryUpdate extends L2GameServerPacket
 			writeH(item.getEnchant());	// enchant level
 			writeH(0x00);	// ?
 
-			writeH(item.getAttackElementType());
-			writeH(item.getAttackElementPower());
-			for (byte i = 0; i < 6; i++)
+			if (Config.PACKET_FINAL)
 			{
-				writeH(item.getElementDefAttr(i));
+				writeH(item.getAttackElementType());
+				writeH(item.getAttackElementPower());
+				for (byte i = 0; i < 6; i++)
+				{
+					writeH(item.getElementDefAttr(i));
+				}
+			}
+			else
+			{
+				writeD(item.getAttackElementType());
+				writeD(item.getAttackElementPower());
+				for (byte i = 0; i < 6; i++)
+				{
+					writeD(item.getElementDefAttr(i));
+				}
 			}
 		}
 	}

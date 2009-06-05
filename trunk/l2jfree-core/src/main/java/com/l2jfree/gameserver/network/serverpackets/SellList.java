@@ -35,7 +35,7 @@ public class SellList extends L2GameServerPacket
 	private final static Log _log = LogFactory.getLog(SellList.class.getName());
 	private final L2PcInstance _activeChar;
 	private final L2MerchantInstance _lease;
-	private int _money;
+	private long _money;
 	private FastList<L2ItemInstance> _selllist = new FastList<L2ItemInstance>();
 	
 	public SellList(L2PcInstance player)
@@ -77,10 +77,10 @@ public class SellList extends L2GameServerPacket
 	protected final void writeImpl()
 	{
 		writeC(0x06);
-		if(Config.PACKET_FINAL)
+		if (Config.PACKET_FINAL)
 			writeQ(_money);
 		else
-			writeD(_money);
+			writeD(toInt(_money));
 		writeD(0x00);
 		writeH(_selllist.size());
 		
@@ -89,26 +89,38 @@ public class SellList extends L2GameServerPacket
 			writeH(item.getItem().getType1());
 			writeD(item.getObjectId());
 			writeD(item.getItemDisplayId());
-			if(Config.PACKET_FINAL)
+			if (Config.PACKET_FINAL)
 				writeQ(item.getCount());
 			else
-				writeD(item.getCount());
+				writeD(toInt(item.getCount()));
 			writeH(item.getItem().getType2());
 			writeH(item.getCustomType1());
 			writeD(item.getItem().getBodyPart());
 			writeH(item.getEnchantLevel());
 			writeH(item.getCustomType2());
 			writeH(0x00);
-			if(Config.PACKET_FINAL)
+			if (Config.PACKET_FINAL)
 				writeQ(item.getItem().getReferencePrice() / 2);
 			else
-				writeD(item.getItem().getReferencePrice() / 2);
+				writeD(toInt(item.getItem().getReferencePrice() / 2));
 			
-			writeH(item.getAttackElementType());
-			writeH(item.getAttackElementPower());
-			for (byte i = 0; i < 6; i++)
+			if (Config.PACKET_FINAL)
 			{
-				writeH(item.getElementDefAttr(i));
+				writeH(item.getAttackElementType());
+				writeH(item.getAttackElementPower());
+				for (byte i = 0; i < 6; i++)
+				{
+					writeH(item.getElementDefAttr(i));
+				}
+			}
+			else
+			{
+				writeD(item.getAttackElementType());
+				writeD(item.getAttackElementPower());
+				for (byte i = 0; i < 6; i++)
+				{
+					writeD(item.getElementDefAttr(i));
+				}
 			}
 		}
 	}

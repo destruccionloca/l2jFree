@@ -33,6 +33,7 @@ public class CharSelectInfoPackage
 	private int			_clanId				= 0;
 	private int			_karma				= 0;
 	private int			_pkKills			= 0;
+	private int			_pvpKills			= 0;
 	private int			_augmentationId		= 0;
 	private int			_race				= 0;
 	private int			_classId			= 0;
@@ -50,6 +51,7 @@ public class CharSelectInfoPackage
 	private double		_currentMp			= 0;
 	private int[][]		_paperdoll;
 	private int			_transformationId	= 0;
+	private int			_x = 0, _y = 0, _z	= 0;
 
 
 	/**
@@ -314,6 +316,16 @@ public class CharSelectInfoPackage
 		return _pkKills;
 	}
 	
+	public void setPvPKills(int PvPKills)
+	{
+		_pvpKills = PvPKills;
+	}
+	
+	public int getPvPKills()
+	{
+		return _pvpKills;
+	}
+	
 	public int getTransformationId()
 	{
 		return _transformationId;
@@ -322,5 +334,35 @@ public class CharSelectInfoPackage
 	public void setTransformationId(int id)
 	{
 		_transformationId = id;
+	}
+	
+	public int getX()
+	{
+		return _x;
+	}
+	
+	public int getY()
+	{
+		return _y;
+	}
+	
+	public int getZ()
+	{
+		return _z;
+	}
+	
+	public void setX(int x)
+	{
+		_x = x;
+	}
+	
+	public void setY(int y)
+	{
+		_y = y;
+	}
+	
+	public void setZ(int z)
+	{
+		_z = z;
 	}
 }

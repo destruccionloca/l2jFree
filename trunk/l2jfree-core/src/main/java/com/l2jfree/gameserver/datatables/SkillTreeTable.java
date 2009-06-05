@@ -269,7 +269,6 @@ public class SkillTreeTable
 			{
 				int id = skilltree3.getInt("skill_id");
 				int lvl = skilltree3.getInt("level");
-				String name = skilltree3.getString("name");
 				int baseLvl = skilltree3.getInt("base_lvl");
 				int minSkillLvl = skilltree3.getInt("min_skill_lvl");
 				int sp = skilltree3.getInt("sp");
@@ -277,6 +276,13 @@ public class SkillTreeTable
 				byte rate76 = skilltree3.getByte("success_rate76");
 				byte rate77 = skilltree3.getByte("success_rate77");
 				byte rate78 = skilltree3.getByte("success_rate78");
+				byte rate79 = skilltree3.getByte("success_rate79");
+				byte rate80 = skilltree3.getByte("success_rate80");
+				byte rate81 = skilltree3.getByte("success_rate81");
+				byte rate82 = skilltree3.getByte("success_rate82");
+				byte rate83 = skilltree3.getByte("success_rate83");
+				byte rate84 = skilltree3.getByte("success_rate84");
+				byte rate85 = skilltree3.getByte("success_rate85");
 
 				if (prevSkillId != id)
 					prevSkillId = id;
@@ -287,7 +293,8 @@ public class SkillTreeTable
 					skill = new L2EnchantSkillLearn(id, baseLvl);
 					_enchantSkillTrees.put(id, skill);
 				}
-				EnchantSkillDetail esd = new EnchantSkillDetail(lvl, minSkillLvl, name, sp, exp, rate76, rate77, rate78);
+				EnchantSkillDetail esd = new EnchantSkillDetail(lvl, minSkillLvl, sp, exp,
+						rate76, rate77, rate78, rate79, rate80, rate81, rate82, rate83, rate84, rate85);
 				skill.addEnchantDetail(esd);
 			}
 
@@ -320,11 +327,12 @@ public class SkillTreeTable
 				int baseLvl = skilltree4.getInt("clan_lvl");
 				int sp = skilltree4.getInt("repCost");
 				int itemId = skilltree4.getInt("itemId");
+				long itemCount = skilltree4.getLong("itemCount");
 
 				if (prevSkillId != id)
 					prevSkillId = id;
 
-				L2PledgeSkillLearn skill = new L2PledgeSkillLearn(id, lvl, baseLvl, name, sp, itemId);
+				L2PledgeSkillLearn skill = new L2PledgeSkillLearn(id, lvl, baseLvl, name, sp, itemId, itemCount);
 
 				_pledgeSkillTrees.add(skill);
 			}

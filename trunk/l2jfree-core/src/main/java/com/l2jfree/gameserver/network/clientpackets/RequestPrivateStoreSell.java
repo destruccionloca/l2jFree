@@ -57,17 +57,17 @@ public class RequestPrivateStoreSell extends L2GameClientPacket
             int itemId = readD();
             readH(); //TODO: analyse this
             readH(); //TODO: analyse this
-            long count   = 0;
-            int price    = 0;
-            if(Config.PACKET_FINAL)
+            long count = 0;
+            long price = 0;
+            if (Config.PACKET_FINAL)
             {
-            	count = toInt(readQ());
-            	price = toInt(readQ());
+                count = toInt(readQ());
+                price = toInt(readQ());
             }
             else
             {
-            	count = readD();
-            	price = readD();
+                count = readD();
+                price = readD();
             }
             
             if (count >= Integer.MAX_VALUE || count < 0)
@@ -76,7 +76,7 @@ public class RequestPrivateStoreSell extends L2GameClientPacket
                 _items = null;
                 return;
             }
-            _items[i] = new ItemRequest(objectId, itemId, (int)count, price);
+            _items[i] = new ItemRequest(objectId, itemId, count, price);
             priceTotal += price * count;
         }
         

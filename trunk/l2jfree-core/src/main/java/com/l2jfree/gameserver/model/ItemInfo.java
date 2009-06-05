@@ -35,10 +35,10 @@ public class ItemInfo
 	private int _augmentation;
 
 	/** The quantity of L2ItemInstance */
-	private int _count;
+	private long _count;
 
 	/** The price of the L2ItemInstance */
-	private int _price;
+	private long _price;
 
 	/** The custom L2ItemInstance types (used loto, race tickets) */
 	private int _type1;
@@ -52,6 +52,7 @@ public class ItemInfo
 
 	/** The mana of this item */
 	private int _mana;
+	private int _time;
 
 	private int _location;
 
@@ -110,6 +111,8 @@ public class ItemInfo
 		// Get shadow item mana
 		_mana = item.getMana();
 
+		_time = item.isTimeLimitedItem() ? (int) (item.getRemainingTime() * 1000 * 60) : -1;
+
 		_location = item.getLocationSlot();
 
 		_elemAtkType = item.getAttackElementType();
@@ -154,6 +157,8 @@ public class ItemInfo
 		// Get shadow item mana
 		_mana = item.getMana();
 
+		_time = item.isTimeLimitedItem() ? (int) (item.getRemainingTime() / 1000) : -1;
+
 		_location = item.getLocationSlot();
 
 		_elemAtkType = item.getAttackElementType();
@@ -182,12 +187,12 @@ public class ItemInfo
 		return _augmentation;
 	}
 	
-	public int getCount()
+	public long getCount()
 	{
 		return _count;
 	}
 	
-	public int getPrice()
+	public long getPrice()
 	{
 		return _price;
 	}
@@ -215,6 +220,11 @@ public class ItemInfo
 	public int getMana()
 	{
 		return _mana;
+	}
+	
+	public int getTime()
+	{
+		return _time;
 	}
 	
 	public int getLocation()

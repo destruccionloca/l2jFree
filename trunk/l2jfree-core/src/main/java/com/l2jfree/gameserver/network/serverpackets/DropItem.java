@@ -47,17 +47,17 @@ public class DropItem extends L2GameServerPacket
 		writeD(_item.getZ());
 		// only show item count if it is a stackable item
 		if (_item.isStackable())
-		{	
+		{
 			writeD(0x01);
 		}
 		else
 		{
 			writeD(0x00);
 		}
-		if(Config.PACKET_FINAL)
+		if (Config.PACKET_FINAL)
 			writeQ(_item.getCount());
 		else
-			writeD(_item.getCount());
+			writeD(toInt(_item.getCount()));
 		
 		writeD(0x01); // unknown
 	}

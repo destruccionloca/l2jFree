@@ -582,7 +582,7 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 					// // NetPing
 					// break;
 					case 0xb3:
-						msg = new RequestUserCommand();
+						msg = new BypassUserCmd();
 						break;
 					case 0xb4:
 						msg = new SnoopQuit();

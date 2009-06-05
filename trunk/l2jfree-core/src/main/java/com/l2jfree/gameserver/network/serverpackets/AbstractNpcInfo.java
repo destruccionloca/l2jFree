@@ -37,7 +37,7 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 	protected boolean _isSummoned;
 	protected int _mAtkSpd, _pAtkSpd;
 	protected int _runSpd, _walkSpd, _swimRunSpd, _swimWalkSpd, _flRunSpd, _flWalkSpd, _flyRunSpd, _flyWalkSpd;
-	protected int _rhand, _lhand, _chest, _val;
+	protected int _rhand, _lhand, _chest;
 	protected int _collisionHeight, _collisionRadius;
 	protected String _name = "";
 	protected String _title = "";
@@ -142,7 +142,7 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			writeC(_npc.isRunning() ? 1 : 0);
 			writeC(_npc.isInCombat() ? 1 : 0);
 			writeC(_npc.isAlikeDead() ? 1 : 0);
-			writeC(_isSummoned ? 2 : _val); // 0=teleported 1=default 2=summoned
+			writeC(_isSummoned ? 2 : 0); // 0=teleported 1=default 2=summoned
 			writeS(_name);
 			writeS(_title);
 			writeD(0x00); // Title color 0=client default
@@ -150,25 +150,24 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			writeD(0x00); // pvp flag
 			
 			writeD(_npc.getAbnormalEffect()); // C2
-			writeD(0x00);
-			
+			writeD(0x00); //clan id
+			writeD(0x00); //crest id
 			writeD(0000); // C2
 			writeD(0000); // C2
-			writeD(0000); // C2
-			writeC(0000); // C2
+			writeC(_npc.isFlying() ? 2 : 0); // C2
 			writeC(0x00); // title color 0=client
 			
 			writeF(_collisionRadius);
 			writeF(_collisionHeight);
 			writeD(0x00); // C4
-			writeD(0x00); // C6
+			writeD(_npc.isFlying() ? 1 : 0); // C6
 			writeD(0x00);
 			writeD(0x00);// CT1.5 Pet form and skills
-			if(Config.PACKET_FINAL)
+			if (Config.PACKET_FINAL)
 			{
-		        writeC(0x01);
-	            writeC(0x01);
-	            writeD(0x00);				
+				writeC(0x01);
+				writeC(0x01);
+				writeD(0x00);
 			}
 		}
 
@@ -232,10 +231,10 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			writeD(_chest);
 			writeD(_lhand); // left hand weapon
 			writeC(1);	// name above char 1=true ... ??
-			writeC(_trap.isRunning() ? 1 : 0);
+			writeC(1);
 			writeC(_trap.isInCombat() ? 1 : 0);
 			writeC(_trap.isAlikeDead() ? 1 : 0);
-			writeC(_isSummoned ? 2 : _val); //  0=teleported  1=default   2=summoned
+			writeC(_isSummoned ? 2 : 0); //  0=teleported  1=default   2=summoned
 			writeS(_name);
 			writeS(_title);
 			writeD(0x00);  // title color 0 = client default
@@ -244,8 +243,8 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			writeD(0x00);  // pvp flag
 
 			writeD(_trap.getAbnormalEffect());  // C2
-			
-			writeD(0x00);   // 0x01 only for summons
+			writeD(0x00); //clan id
+			writeD(0x00); //crest id
 			writeD(0000);  // C2
 			writeD(0000);  // C2
 			writeD(0000);  // C2
@@ -259,6 +258,12 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			writeD(0x00);  // C6
 			writeD(0x00);
 			writeD(0);//CT1.5 Pet form and skills
+			if (Config.PACKET_FINAL)
+			{
+				writeC(0x01);
+				writeC(0x01);
+				writeD(0x00);
+			}
 		}
 
 		@Override
@@ -510,6 +515,7 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 	{
 		private L2Summon _summon;
 		private int _form = 0;
+		private int _val = 0;
 
 		public SummonInfo(L2Summon cha, int val)
 		{
@@ -548,6 +554,9 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			_title = cha.getOwner() != null ? (cha.getOwner().isOnline() == 0 ? "" : cha.getOwner().getName()) : ""; // when owner online, summon will show in title owner name
 			_idTemplate = cha.getTemplate().getIdTemplate();
 
+			_collisionHeight = cha.getTemplate().getCollisionHeight();
+			_collisionRadius = cha.getTemplate().getCollisionRadius();
+
 			// few fields needing fix from AbstractNpcInfo
 			_runSpd = cha.getPetSpeed();
 			_walkSpd = cha.isMountable() ? 45 : 30;
@@ -558,9 +567,6 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 		@Override
 		protected void writeImpl(L2GameClient client, L2PcInstance activeChar)
 		{
-			if (_summon.getOwner() != null && _summon.getOwner().getAppearance().isInvisible())
-				return; // TODO get his out of here
-
 			writeC(0x0c);
 			writeD(_summon.getObjectId());
 			writeD(_idTemplate + 1000000);  // npctype id
@@ -591,7 +597,7 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			writeC(1);
 			writeC(_summon.isInCombat() ? 1 : 0);
 			writeC(_summon.isAlikeDead() ? 1 : 0);
-			writeC(_isSummoned ? 2 : _val); //  0=teleported  1=default   2=summoned
+			writeC(_val); //  0=teleported  1=default   2=summoned
 			writeS(_name);
 			writeS(_title);
 			writeD(0x01);// Title color 0=client default
@@ -599,9 +605,16 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			writeD(0);
 			writeD(_summon.getOwner().getPvpFlag());
 
-			writeD(_summon.getAbnormalEffect());  // C2
+			if (_summon.getOwner().getAppearance().isInvisible())
+			{
+				writeD((_summon.getAbnormalEffect() | L2Character.ABNORMAL_EFFECT_STEALTH));
+			}
+			else
+			{
+				writeD(_summon.getAbnormalEffect());
+			}
 			writeD(_summon.getOwner().getClanId());
-			writeD(0000);  // C2
+			writeD(0x00); //crest id
 			writeD(0000);  // C2
 			writeD(0000);  // C2
 			writeC(0000);  // C2
@@ -613,6 +626,12 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			writeD(0x00);  // C6
 			writeD(0x00);
 			writeD(_form);//CT1.5 Pet form and skills
+			if (Config.PACKET_FINAL)
+			{
+				writeC(0x01);
+				writeC(0x01);
+				writeD(0x00);
+			}
 		}
 
 		@Override
@@ -706,6 +725,12 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			writeD(0x00);
 			writeD(0x00);
 			writeD(0x00);
+			if (Config.PACKET_FINAL)
+			{
+				writeC(0x01);
+				writeC(0x01);
+				writeD(0x00);
+			}
 		}
 
 		@Override

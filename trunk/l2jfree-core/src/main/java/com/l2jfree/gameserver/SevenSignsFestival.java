@@ -735,8 +735,8 @@ public class SevenSignsFestival implements SpawnListener
 	protected Map<Integer, List<L2PcInstance>>		_dawnPreviousParticipants;
 	protected Map<Integer, List<L2PcInstance>>		_duskPreviousParticipants;
 
-	private Map<Integer, Integer>					_dawnFestivalScores;
-	private Map<Integer, Integer>					_duskFestivalScores;
+	private Map<Integer, Long>						_dawnFestivalScores;
+	private Map<Integer, Long>						_duskFestivalScores;
 
 	/**
 	 * _festivalData is essentially an instance of the seven_signs_festival table and should be treated as such. Data is initially accessed by the related Seven
@@ -752,11 +752,11 @@ public class SevenSignsFestival implements SpawnListener
 
 		_dawnFestivalParticipants = new FastMap<Integer, List<L2PcInstance>>();
 		_dawnPreviousParticipants = new FastMap<Integer, List<L2PcInstance>>();
-		_dawnFestivalScores = new FastMap<Integer, Integer>();
+		_dawnFestivalScores = new FastMap<Integer, Long>();
 
 		_duskFestivalParticipants = new FastMap<Integer, List<L2PcInstance>>();
 		_duskPreviousParticipants = new FastMap<Integer, List<L2PcInstance>>();
-		_duskFestivalScores = new FastMap<Integer, Integer>();
+		_duskFestivalScores = new FastMap<Integer, Long>();
 
 		_festivalData = new FastMap<Integer, Map<Integer, StatsSet>>();
 
@@ -1121,7 +1121,6 @@ public class SevenSignsFestival implements SpawnListener
 			if (player.getClan() != null)
 			{
 				player.getClan().setReputationScore(player.getClan().getReputationScore() + Config.FESTIVAL_WIN_POINTS, true);
-				player.getClan().broadcastClanStatus();
 				SystemMessage sm = new SystemMessage(
 						SystemMessageId.CLAN_MEMBER_C1_WAS_IN_HIGHEST_RANKED_PARTY_IN_FESTIVAL_OF_DARKNESS_AND_GAINED_S2_REPUTATION);
 				sm.addString(partyMemberName);
@@ -1148,7 +1147,6 @@ public class SevenSignsFestival implements SpawnListener
 						if (clan != null)
 						{
 							clan.setReputationScore(clan.getReputationScore() + Config.FESTIVAL_WIN_POINTS, true);
-							clan.broadcastClanStatus();
 							SystemMessage sm = new SystemMessage(
 									SystemMessageId.CLAN_MEMBER_C1_WAS_IN_HIGHEST_RANKED_PARTY_IN_FESTIVAL_OF_DARKNESS_AND_GAINED_S2_REPUTATION);
 							sm.addString(partyMemberName);
@@ -1416,7 +1414,7 @@ public class SevenSignsFestival implements SpawnListener
 		}
 	}
 
-	public final int getFinalScore(int oracle, int festivalId)
+	public final long getFinalScore(int oracle, int festivalId)
 	{
 		if (oracle == SevenSigns.CABAL_DAWN)
 			return _dawnFestivalScores.get(festivalId);
@@ -1507,7 +1505,7 @@ public class SevenSignsFestival implements SpawnListener
 	 * @param offeringScore
 	 * @return boolean isHighestScore
 	 */
-	public boolean setFinalScore(L2PcInstance player, int oracle, int festivalId, int offeringScore)
+	public boolean setFinalScore(L2PcInstance player, int oracle, int festivalId, long offeringScore)
 	{
 		List<String> partyMembers;
 

@@ -43,6 +43,9 @@ public class RequestPetUseItem extends L2GameClientPacket
 	protected void readImpl()
 	{
 		_objectId = readD();
+		// todo implement me properly
+		//readQ();
+		//readD();
 	}
 
 	@Override

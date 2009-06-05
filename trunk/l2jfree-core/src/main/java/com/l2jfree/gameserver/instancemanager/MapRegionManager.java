@@ -393,6 +393,9 @@ public class MapRegionManager
 			Fort fort = null;
 			ClanHall clanhall = null;
 
+			if (player.isFlyingMounted()) // prevent flying players to teleport outside of gracia
+				return new Location(-186330, 242944, 2544);
+
 			// Checking if in Dimensinal Gap
 			if (DimensionalRiftManager.getInstance().checkIfInRiftZone(player.getX(), player.getY(), player.getZ(), true)) // true -> ignore waiting room :)
 			{
@@ -435,7 +438,7 @@ public class MapRegionManager
 
 				Location loc = null;
 				// Karma player land out of city
-				if (player.getKarma() > 1 || player.isCursedWeaponEquipped())
+				if (player.getKarma() > 0 || player.isCursedWeaponEquipped())
 				{
 					loc = getLocationFromPoint3D(getChaosRestartPoint(restartId));
 				}
@@ -479,7 +482,7 @@ public class MapRegionManager
 					L2Zone zone = castle.getZone();
 					if (zone != null)
 					{
-						if ((castle.getSiege() != null && castle.getSiege().getIsInProgress()) && (player.getKarma() > 1 || player.isCursedWeaponEquipped()))
+						if ((castle.getSiege() != null && castle.getSiege().getIsInProgress()) && (player.getKarma() > 0 || player.isCursedWeaponEquipped()))
 						{
 							// Karma player respawns out of siege zone (only during sieges ? o.O )
 							return zone.getRestartPoint(L2Zone.RestartType.CHAOTIC);
@@ -494,7 +497,7 @@ public class MapRegionManager
 					if (zone != null)
 					{
 						// If is on castle with siege and player's clan is defender
-						if ((fort.getSiege() != null && fort.getSiege().getIsInProgress()) && (player.getKarma() > 1 || player.isCursedWeaponEquipped()))
+						if ((fort.getSiege() != null && fort.getSiege().getIsInProgress()) && (player.getKarma() > 0 || player.isCursedWeaponEquipped()))
 						{
 							// Karma player respawns out of siege zone (only during sieges ? o.O )
 							return zone.getRestartPoint(L2Zone.RestartType.CHAOTIC);
@@ -512,7 +515,7 @@ public class MapRegionManager
 					if (siege != null && fsiege == null && siege.checkIsAttacker(clan) && siege.checkIfInZone(player))
 					{
 						// Karma player respawns out of siege zone
-						if (player.getKarma() > 1 || player.isCursedWeaponEquipped())
+						if (player.getKarma() > 0 || player.isCursedWeaponEquipped())
 						{
 							L2Zone zone = siege.getCastle().getZone();
 							if (zone != null)
@@ -529,7 +532,7 @@ public class MapRegionManager
 					else if (siege == null && fsiege != null && fsiege.checkIsAttacker(clan) && fsiege.checkIfInZone(player))
 					{
 						// Karma player respawns out of siege zone
-						if (player.getKarma() > 1 || player.isCursedWeaponEquipped())
+						if (player.getKarma() > 0 || player.isCursedWeaponEquipped())
 						{
 							L2Zone zone = fsiege.getFort().getZone();
 							if (zone != null)

@@ -41,13 +41,13 @@ public class RequestCrystallizeItem extends L2GameClientPacket
 	private static final String _C__72_REQUESTDCRYSTALLIZEITEM = "[C] 72 RequestCrystallizeItem";
 
 	private int _objectId;
-	private int _count;
+	private long _count;
 
 	@Override
 	protected void readImpl()
 	{
 		_objectId = readD();
-		if(Config.PACKET_FINAL)
+		if (Config.PACKET_FINAL)
 			_count = toInt(readQ());
 		else
 			_count = readD();
@@ -159,12 +159,12 @@ public class RequestCrystallizeItem extends L2GameClientPacket
 
 		// add crystals
 		int crystalId = item.getItem().getCrystalItemId();
-		int crystalAmount = item.getCrystalCount();
+		long crystalAmount = item.getCrystalCount();
 		L2ItemInstance createditem = activeChar.getInventory().addItem("Crystalize", crystalId, crystalAmount, activeChar, removedItem);
 
 		SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
 		sm.addItemName(createditem);
-		sm.addNumber(crystalAmount);
+		sm.addItemNumber(crystalAmount);
 		sendPacket(sm);
 		sm = null;
 

@@ -33,7 +33,7 @@ public class CPperHeal implements ISkillHandler
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.L2PcInstance, com.l2jfree.gameserver.model.L2ItemInstance)
 	 */
-	private static final L2SkillType[]	SKILL_IDS	= { L2SkillType.COMBATPOINTPERCENTHEAL };
+	private static final L2SkillType[]	SKILL_IDS	= { L2SkillType.CPHEAL_PERCENT };
 
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.L2PcInstance, com.l2jfree.gameserver.model.L2ItemInstance)

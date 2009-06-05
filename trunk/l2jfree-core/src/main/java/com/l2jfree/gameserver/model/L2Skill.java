@@ -57,6 +57,7 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.FlyToLocation.FlyType;
 import com.l2jfree.gameserver.skills.BestowedSkill;
+import com.l2jfree.gameserver.skills.ChanceCondition;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.skills.Stats;
@@ -76,7 +77,7 @@ import com.l2jfree.lang.L2Integer;
 import com.l2jfree.lang.L2System;
 import com.l2jfree.util.LinkedBunch;
 
-public class L2Skill implements FuncOwner, IChanceSkillTrigger
+public class L2Skill implements FuncOwner
 {
 	public static final L2Skill[]	EMPTY_ARRAY					= new L2Skill[0];
 
@@ -364,8 +365,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	private final boolean			_canBeReflected;
 	private final int				_afterEffectId;
 	private final int				_afterEffectLvl;
-	private final int				_triggeredId;
-	private final int				_triggeredLevel;
 
 	public L2Skill(StatsSet set)
 	{
@@ -505,8 +504,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		_soulMaxConsume = set.getInteger("soulMaxConsumeCount", 0);
 		_expNeeded = set.getInteger("expNeeded", 0);
 		_critChance = set.getInteger("critChance", 0);
-		_triggeredId = set.getInteger("triggeredId", 0);
-		_triggeredLevel = set.getInteger("triggeredLevel", 0);
 
 		// Stats for transformation Skill
 		_transformId = set.getInteger("transformId", 0);
@@ -1577,7 +1574,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 			case MANAHEAL_PERCENT:
 			case MANARECHARGE:
 			case COMBATPOINTHEAL:
-			case COMBATPOINTPERCENTHEAL:
+			case CPHEAL_PERCENT:
 			case REFLECT:
 			case LUCK:
 			case PASSIVE:
@@ -1786,7 +1783,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 						case CANCEL_DEBUFF:
 						case REFLECT:
 						case COMBATPOINTHEAL:
-						case COMBATPOINTPERCENTHEAL:
+						case CPHEAL_PERCENT:
 						case MAGE_BANE:
 						case WARRIOR_BANE:
 						case BETRAY:
@@ -4032,29 +4029,5 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	public int getAfterEffectLvl()
 	{
 		return _afterEffectLvl;
-	}
-
-	@Override
-	public boolean triggersChanceSkill()
-	{
-		return _triggeredId > 0 && isChance();
-	}
-
-	@Override
-	public int getTriggeredChanceId()
-	{
-		return _triggeredId;
-	}
-
-	@Override
-	public int getTriggeredChanceLevel()
-	{
-		return _triggeredLevel;
-	}
-
-	@Override
-	public ChanceCondition getTriggeredChanceCondition()
-	{
-		return _chanceCondition;
 	}
 }

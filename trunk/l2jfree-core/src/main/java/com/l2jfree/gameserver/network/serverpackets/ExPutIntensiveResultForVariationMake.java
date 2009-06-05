@@ -50,10 +50,10 @@ public class ExPutIntensiveResultForVariationMake extends L2GameServerPacket
 		writeD(_refinerItemObjId);
 		writeD(_lifestoneItemId);
 		writeD(_gemstoneItemId);
-		if(Config.PACKET_FINAL)
+		if (Config.PACKET_FINAL)
 			writeQ(_gemstoneCount);
 		else
-			writeD(_gemstoneCount);
+			writeD(toInt(_gemstoneCount));
 		writeD(_unk2);
 	}
 

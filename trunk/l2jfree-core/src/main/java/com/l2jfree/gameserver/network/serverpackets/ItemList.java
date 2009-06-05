@@ -53,7 +53,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public class ItemList extends L2GameServerPacket
 {
     private final static Log _log = LogFactory.getLog(ItemList.class.getName());
-	private static final String _S__27_ITEMLIST = "[S] 1b ItemList";
+	private static final String _S__11_ITEMLIST = "[S] 11 ItemList";
 	private L2ItemInstance[] _items;
 	private boolean _showWindow;
 
@@ -107,10 +107,10 @@ public class ItemList extends L2GameServerPacket
 			writeD(temp.getItemDisplayId());
 			// writeD(0x00);
 			writeD(temp.getLocationSlot());
-			if(Config.PACKET_FINAL)
+			if (Config.PACKET_FINAL)
 				writeQ(temp.getCount());
 			else
-				writeD(temp.getCount());
+				writeD(toInt(temp.getCount()));
 			writeH(temp.getItem().getType2());	// item type2
 			writeH(temp.getCustomType1());	// item type3
 			writeH(temp.isEquipped() ? 0x01 : 0x00);
@@ -128,14 +128,26 @@ public class ItemList extends L2GameServerPacket
 			writeD(temp.getMana());
 			
 			// T1
-			writeH(temp.getAttackElementType());
-			writeH(temp.getAttackElementPower());
-			for (byte i = 0; i < 6; i++)
+			if (Config.PACKET_FINAL)
 			{
-				writeH(temp.getElementDefAttr(i));
+				writeH(temp.getAttackElementType());
+				writeH(temp.getAttackElementPower());
+				for (byte i = 0; i < 6; i++)
+				{
+					writeH(temp.getElementDefAttr(i));
+				}
+			}
+			else
+			{
+				writeD(temp.getAttackElementType());
+				writeD(temp.getAttackElementPower());
+				for (byte i = 0; i < 6; i++)
+				{
+					writeD(temp.getElementDefAttr(i));
+				}
 			}
 			// T2
-			writeD(0x00);
+			writeD(temp.isTimeLimitedItem() ? (int) (temp.getRemainingTime()/1000) : -1);
 		}
 	}
 	
@@ -145,6 +157,6 @@ public class ItemList extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__27_ITEMLIST;
+		return _S__11_ITEMLIST;
 	}
 }

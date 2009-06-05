@@ -431,7 +431,7 @@ public final class Util
 	 * @param value
 	 * @return String formatted number
 	 */
-	public static String formatNumber(double value)
+	public static String formatNumber(long value)
 	{
 		return NumberFormat.getInstance(Locale.ENGLISH).format(value);
 	}
@@ -509,7 +509,7 @@ public final class Util
 	 * @param amount
 	 * @return String formatted adena amount
 	 */
-	public static String formatAdena(int amount)
+	public static String formatAdena(long amount)
 	{
 		return formatNumber(amount);
 	}

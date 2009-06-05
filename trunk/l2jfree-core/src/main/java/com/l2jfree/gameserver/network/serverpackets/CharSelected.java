@@ -73,10 +73,10 @@ public class CharSelected extends L2GameServerPacket
 		writeD(0x00);
 		writeD(0x00);
 		writeD(0x00); 
-        
-        writeB(new byte[64]);
-        if(Config.PACKET_FINAL)
-        	writeD(0x00);
+
+		writeB(new byte[64]);
+		if (Config.PACKET_FINAL)
+			writeD(0x00);
 	}
 
 	/* (non-Javadoc)

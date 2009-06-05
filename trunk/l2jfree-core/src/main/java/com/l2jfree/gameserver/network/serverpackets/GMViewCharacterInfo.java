@@ -98,8 +98,8 @@ public class GMViewCharacterInfo extends L2GameServerPacket
         writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_DECO4));
         writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_DECO5));
         writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_DECO6));
-        if(Config.PACKET_FINAL)
-        	 writeD(0); // T3 Unknown
+        if (Config.PACKET_FINAL)
+            writeD(0); // T3 Unknown
 
         writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIRALL));
         writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_REAR));
@@ -126,7 +126,7 @@ public class GMViewCharacterInfo extends L2GameServerPacket
         writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO4));
         writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO5));
         writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO6));
-        if(Config.PACKET_FINAL)
+        if (Config.PACKET_FINAL)
         {
             writeD(0); // T3 Unknown
             writeD(0); // T3 Unknown
@@ -249,14 +249,28 @@ public class GMViewCharacterInfo extends L2GameServerPacket
 		writeD(_activeChar.getAppearance().getTitleColor());
 
 		int attackAttribute = _activeChar.getAttackElement();
-		writeD(attackAttribute);
-		writeD(_activeChar.getAttackElementValue(attackAttribute));
-		writeD(_activeChar.getDefAttrFire());
-		writeD(_activeChar.getDefAttrWater());
-		writeD(_activeChar.getDefAttrWind());
-		writeD(_activeChar.getDefAttrEarth());
-		writeD(_activeChar.getDefAttrHoly());
-		writeD(_activeChar.getDefAttrUnholy());
+		if (Config.PACKET_FINAL)
+		{
+			writeH(attackAttribute);
+			writeH(_activeChar.getAttackElementValue(attackAttribute));
+			writeH(_activeChar.getDefAttrFire());
+			writeH(_activeChar.getDefAttrWater());
+			writeH(_activeChar.getDefAttrWind());
+			writeH(_activeChar.getDefAttrEarth());
+			writeH(_activeChar.getDefAttrHoly());
+			writeH(_activeChar.getDefAttrUnholy());
+		}
+		else
+		{
+			writeD(attackAttribute);
+			writeD(_activeChar.getAttackElementValue(attackAttribute));
+			writeD(_activeChar.getDefAttrFire());
+			writeD(_activeChar.getDefAttrWater());
+			writeD(_activeChar.getDefAttrWind());
+			writeD(_activeChar.getDefAttrEarth());
+			writeD(_activeChar.getDefAttrHoly());
+			writeD(_activeChar.getDefAttrUnholy());
+		}
 	}
 
 	/* (non-Javadoc)

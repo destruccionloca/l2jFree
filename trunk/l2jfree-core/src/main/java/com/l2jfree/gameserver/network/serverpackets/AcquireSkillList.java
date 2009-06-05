@@ -20,13 +20,17 @@ import javolution.util.FastList;
 
 public class AcquireSkillList extends L2GameServerPacket
 {
-    public enum SkillType
-    {
-    	Usual,
-    	Fishing,
-    	Clan
-    }
-	
+	public enum SkillType
+	{
+		Usual, // 0
+		Fishing, // 1
+		Clan, // 2
+		unk3,
+		unk4,
+		unk5,
+		Special // 6
+	}
+
 	private static final String _S__90_AQUIRESKILLLIST = "[S] 90 AquireSkillList [dd (ddddd)]";
 	
 	private List<Skill> _skills;
@@ -54,18 +58,18 @@ public class AcquireSkillList extends L2GameServerPacket
 	{
 		_skills = new FastList<Skill>();
 		_fishingSkills = type;
-	}	
-	
+	}
+
 	public void addSkill(int id, int nextLevel, int maxLevel, int spCost, int requirements)
 	{
 		_skills.add(new Skill(id, nextLevel, maxLevel, spCost, requirements));
 	}
-	
+
 	@Override
 	protected final void writeImpl()
 	{
 		writeC(0x90);
-        writeD(_fishingSkills.ordinal());   //c4 : C5 : 0: usuall  1: fishing 2: clans
+		writeD(_fishingSkills.ordinal());   //c4 : C5 : 0: usuall  1: fishing 2: clans
 		writeD(_skills.size());
 
 		for (Skill temp : _skills)

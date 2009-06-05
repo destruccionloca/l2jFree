@@ -142,7 +142,7 @@ public class RequestAquireSkill extends L2GameClientPacket
                         }
 
                         SystemMessage sm = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
-                        sm.addNumber(1);
+                        sm.addItemNumber(1);
                         sm.addItemName(costid);
                         sendPacket(sm);
                         sm = null;
@@ -245,7 +245,7 @@ public class RequestAquireSkill extends L2GameClientPacket
                     }
 
                     SystemMessage sm = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
-                    sm.addNumber(costcount);
+                    sm.addItemNumber(costcount);
                     sm.addItemName(costid);
                     sendPacket(sm);
                     sm = null;
@@ -266,6 +266,7 @@ public class RequestAquireSkill extends L2GameClientPacket
                 }
 
                 int itemId = 0;
+                long itemCount = 0;
                 int repCost = 100000000;
                 // Skill Learn bug Fix
                 L2PledgeSkillLearn[] skills = SkillTreeTable.getInstance().getAvailablePledgeSkills(player);
@@ -279,6 +280,7 @@ public class RequestAquireSkill extends L2GameClientPacket
 
                     counts++;
                     itemId = s.getItemId();
+                    itemCount = s.getItemCount();
                     repCost = s.getRepCost();
                 }
 
@@ -293,7 +295,7 @@ public class RequestAquireSkill extends L2GameClientPacket
                 {
                     if (Config.ALT_LIFE_CRYSTAL_NEEDED)
                     {
-                        if (!player.destroyItemByItemId("Consume", itemId, 1, trainer, false))
+                        if (!player.destroyItemByItemId("Consume", itemId, itemCount, trainer, false))
                         {
                             // Haven't spellbook
                             requestFailed(SystemMessageId.ITEM_MISSING_TO_LEARN_SKILL);
@@ -302,7 +304,7 @@ public class RequestAquireSkill extends L2GameClientPacket
 
                         SystemMessage sm = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
                         sm.addItemName(itemId);
-                        sm.addNumber(1);
+                        sm.addItemNumber(itemCount);
                         sendPacket(sm);
                         sm = null;
                     }

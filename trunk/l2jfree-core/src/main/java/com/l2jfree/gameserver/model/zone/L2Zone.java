@@ -136,7 +136,7 @@ public class L2Zone implements FuncOwner
 	public static final byte FLAG_MOTHERTREE = 3;
 	public static final byte FLAG_CLANHALL = 4;
 	public static final byte FLAG_NOESCAPE = 5;
-	public static final byte FLAG_NOLANDING = 6;
+	public static final byte FLAG_NOWYVERN = 6;
 	public static final byte FLAG_NOSTORE = 7;
 	public static final byte FLAG_WATER = 8;
 	public static final byte FLAG_FISHING = 9;
@@ -148,6 +148,7 @@ public class L2Zone implements FuncOwner
 	public static final byte FLAG_NOSUMMON = 15;
 	public static final byte FLAG_FORT = 16;
 	public static final byte FLAG_NOHEAL = 17;
+	public static final byte FLAG_LANDING = 17;
 	
 	/**
 	 * Move speed multiplier applied when character is in water (swimming).<BR>
@@ -176,8 +177,10 @@ public class L2Zone implements FuncOwner
 
 	/** Can't logout (including back to character selection menu); can't use SoE? */
 	private boolean _noEscape;
-	/** Can't dismount */
-	private boolean _noLanding;
+	/** Can't use wyvern */
+	private boolean _noWyvern;
+	/** Fly transform zone (gracia) */
+	private boolean _landing;
 	private boolean _noPrivateStore;
 	private boolean _noSummon;
 	/** Can't cast heal if caster is in zone; can't receive healing if target is in zone */
@@ -475,12 +478,12 @@ public class L2Zone implements FuncOwner
 				character.setInsideZone(FLAG_PEACE, true);
 		}
 		
-		if (_noLanding && character instanceof L2PcInstance)
+		if (_noWyvern && character instanceof L2PcInstance)
 		{
-			character.setInsideZone(FLAG_NOLANDING, true);
+			character.setInsideZone(FLAG_NOWYVERN, true);
 			
 			if (((L2PcInstance)character).getMountType() == 2)
-				((L2PcInstance)character).enteredNoLanding();
+				((L2PcInstance)character).enteredNoWyvernZone();
 		}
 		
 		if (_noEscape)
@@ -491,6 +494,8 @@ public class L2Zone implements FuncOwner
 			character.setInsideZone(FLAG_NOSUMMON, true);
 		if (_noHeal)
 			character.setInsideZone(FLAG_NOHEAL, true);
+		if (_landing)
+			character.setInsideZone(FLAG_LANDING, true);
 		
 		if (_instanceName != null && _instanceGroup != null && character instanceof L2PcInstance)
 			tryPortIntoInstance((L2PcInstance)character);
@@ -525,12 +530,12 @@ public class L2Zone implements FuncOwner
 			character.setInsideZone(FLAG_PEACE, false);
 		}
 		
-		if (_noLanding && character instanceof L2PcInstance)
+		if (_noWyvern && character instanceof L2PcInstance)
 		{
-			character.setInsideZone(FLAG_NOLANDING, false);
+			character.setInsideZone(FLAG_NOWYVERN, false);
 			
 			if (((L2PcInstance)character).getMountType() == 2)
-				((L2PcInstance)character).exitedNoLanding();
+				((L2PcInstance)character).exitedNoWyvernZone();
 		}
 		
 		if (_noEscape)
@@ -541,6 +546,8 @@ public class L2Zone implements FuncOwner
 			character.setInsideZone(FLAG_NOSUMMON, false);
 		if (_noHeal)
 			character.setInsideZone(FLAG_NOHEAL, false);
+		if (_landing)
+			character.setInsideZone(FLAG_LANDING, false);
 		
 		if (_instanceName != null && character instanceof L2PcInstance && character.getInstanceId() > 0)
 			portIntoInstance((L2PcInstance)character, 0);
@@ -1122,7 +1129,8 @@ public class L2Zone implements FuncOwner
 	private void parseSettings(Node n) throws Exception
 	{
 		Node pvp = n.getAttributes().getNamedItem("pvp");
-		Node noLanding = n.getAttributes().getNamedItem("noLanding");
+		Node noWyvern = n.getAttributes().getNamedItem("noWyvern");
+		Node landing = n.getAttributes().getNamedItem("landing");
 		Node noEscape = n.getAttributes().getNamedItem("noEscape");
 		Node noPrivateStore = n.getAttributes().getNamedItem("noPrivateStore");
 		Node noSummon = n.getAttributes().getNamedItem("noSummon"); // Forbids summon friend skills.
@@ -1136,7 +1144,8 @@ public class L2Zone implements FuncOwner
 		Node noHeal = n.getAttributes().getNamedItem("noHeal");
 		
 		_pvp = (pvp != null) ? PvpSettings.valueOf(pvp.getNodeValue().toUpperCase()) : PvpSettings.GENERAL;
-		_noLanding = (noLanding != null) && Boolean.parseBoolean(noLanding.getNodeValue());
+		_noWyvern = (noWyvern != null) && Boolean.parseBoolean(noWyvern.getNodeValue());
+		_landing = (landing != null) && Boolean.parseBoolean(landing.getNodeValue());
 		_noEscape = (noEscape != null) && Boolean.parseBoolean(noEscape.getNodeValue());
 		_noPrivateStore = (noPrivateStore != null) && Boolean.parseBoolean(noPrivateStore.getNodeValue());
 		_noSummon = (noSummon != null) && Boolean.parseBoolean(noSummon.getNodeValue());

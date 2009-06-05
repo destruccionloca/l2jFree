@@ -27,19 +27,19 @@ public class ShopPreviewList extends L2GameServerPacket
 	private static final String S_F5_SHOPPREVIEWLIST = "[S] F5 ShopPreviewList";
 	private int _listId;
 	private L2ItemInstance[] _list;
-	private int _money;
+	private long _money;
 	private int _expertise;
 
-	public ShopPreviewList(L2TradeList list, int currentMoney, int expertiseIndex)
+	public ShopPreviewList(L2TradeList list, long currentMoney, int expertiseIndex)
 	{
 		_listId = list.getListId();
 		List<L2ItemInstance> lst = list.getItems();
 		_list = lst.toArray(new L2ItemInstance[lst.size()]);
 		_money = currentMoney;
 		_expertise = expertiseIndex;
-	}	
+	}
 	
-	public ShopPreviewList(List<L2ItemInstance> lst, int listId, int currentMoney)
+	public ShopPreviewList(List<L2ItemInstance> lst, int listId, long currentMoney)
 	{
 		_listId = listId;
 		_list = lst.toArray(new L2ItemInstance[lst.size()]);
@@ -54,10 +54,10 @@ public class ShopPreviewList extends L2GameServerPacket
 		writeC(0x13);	// ?
 		writeC(0x00);	// ?
 		writeC(0x00);	// ?
-		if(Config.PACKET_FINAL)
+		if (Config.PACKET_FINAL)
 			writeQ(_money);	// current money
 		else
-			writeD(_money);	// current money
+			writeD(toInt(_money));	// current money
 		writeD(_listId);
 		 
 		int newlength = 0;
@@ -83,10 +83,10 @@ public class ShopPreviewList extends L2GameServerPacket
 				{
 					writeH(0x00);	// rev 415  slot    0006-lr.ear  0008-neck  0030-lr.finger  0040-head  0080-??  0100-l.hand  0200-gloves  0400-chest  0800-pants  1000-feet  2000-??  4000-r.hand  8000-r.hand
 				}
-				if(Config.PACKET_FINAL)
+				if (Config.PACKET_FINAL)
 					writeQ(Config.WEAR_PRICE);
 				else
-					writeD(Config.WEAR_PRICE);
+					writeD(toInt(Config.WEAR_PRICE));
 			}
 		}
 	}

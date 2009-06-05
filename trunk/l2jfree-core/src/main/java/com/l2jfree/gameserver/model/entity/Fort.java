@@ -20,6 +20,7 @@ import java.sql.ResultSet;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -60,6 +61,9 @@ public class Fort extends Siegeable<FortSiege>
 	private int						_castleId		= 0;
 
 	private FastMap<Integer, FortFunction> _function;
+
+	private int						_blood			= 0;
+	private ScheduledFuture<?>		_fortUpdater;
 
 	/** Fortress Functions */
 	public static final int FUNC_TELEPORT = 1;
@@ -233,6 +237,7 @@ public class Fort extends Siegeable<FortSiege>
 	// Constructor
 	public Fort(int fortId)
 	{
+		super(fortId);
 		_fortId = fortId;
 		load();
 		loadDoor();
@@ -357,6 +362,7 @@ public class Fort extends Siegeable<FortSiege>
 			if (clan != null && clan.getHasFort() > 0)
 				FortManager.getInstance().getFortByOwner(clan).removeOwner(true);
 
+			setBloodOathReward(0);
 			setOwnerClan(clan);
 			if (clan != null)
 				_ownerId = clan.getClanId();
@@ -379,9 +385,47 @@ public class Fort extends Siegeable<FortSiege>
 			clan.setHasFort(0);
 			clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan));
 			setOwnerClan(null);
+			setBloodOathReward(0);
 			if (updateDB)
 				updateOwnerInDB();
 		}
+	}
+
+	public void setBloodOathReward(int val)
+	{
+		_blood = val;
+		Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement;
+
+			statement = con.prepareStatement("UPDATE fort SET blood=? where id = ?");
+			statement.setInt(1, _blood);
+			statement.setInt(2, getFortId());
+			statement.execute();
+			statement.close();
+		}
+		catch (Exception e)
+		{
+			_log.error("Exception: setBloodOathReward(int val): " + e.getMessage(), e);
+		}
+		finally
+		{
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+				L2DatabaseFactory.close(con);
+			}
+		}
+	}
+
+	public int getBloodOathReward()
+	{
+		return _blood;
 	}
 
 	/**
@@ -454,6 +498,7 @@ public class Fort extends Siegeable<FortSiege>
 				_fortType = rs.getInt("fortType");
 				_state = rs.getInt("state");
 				_castleId = rs.getInt("castleId");
+				_blood = rs.getInt("blood");
 			}
 
 			rs.close();
@@ -464,7 +509,11 @@ public class Fort extends Siegeable<FortSiege>
 				L2Clan clan = ClanTable.getInstance().getClan(_ownerId); // Try to find clan instance
 				setOwnerClan(clan);
 				clan.setHasFort(getFortId());
-				ThreadPoolManager.getInstance().scheduleGeneral(new FortUpdater(clan, 1), 3600000); // Schedule owner tasks to start running
+				int runCount = getOwnedTime() / (Config.FS_BLOOD_OATH_FRQ * 60);
+				long initial = System.currentTimeMillis() - _lastOwnedTime;
+				while (initial > (Config.FS_BLOOD_OATH_FRQ * 60000))
+					initial -= (Config.FS_BLOOD_OATH_FRQ * 60000);
+				_fortUpdater = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new FortUpdater(this, clan, runCount), initial, Config.FS_BLOOD_OATH_FRQ * 60000); // Schedule owner tasks to start running
 			}
 			else
 				setOwnerClan(null);
@@ -733,12 +782,13 @@ public class Fort extends Siegeable<FortSiege>
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement;
 
-			statement = con.prepareStatement("UPDATE fort SET owner=?, lastOwnedTime=?, state=?, castleId=? WHERE id = ?");
+			statement = con.prepareStatement("UPDATE fort SET owner=?, lastOwnedTime=?, state=?, castleId=?, blood=? WHERE id = ?");
 			statement.setInt(1, clanId);
 			statement.setLong(2, _lastOwnedTime);
 			statement.setInt(3, 0);
 			statement.setInt(4, 0);
-			statement.setInt(5, getFortId());
+			statement.setInt(5, getBloodOathReward());
+			statement.setInt(6, getFortId());
 			statement.execute();
 			statement.close();
 
@@ -758,7 +808,18 @@ public class Fort extends Siegeable<FortSiege>
 				}
 				clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan));
 				clan.broadcastToOnlineMembers(new PlaySound(1, "Siege_Victory", 0, 0, 0, 0, 0));
-				ThreadPoolManager.getInstance().scheduleGeneral(new FortUpdater(clan, 1), 3600000); // Schedule owner tasks to start running
+				int runCount = getOwnedTime() / (Config.FS_BLOOD_OATH_FRQ * 60);
+				long initial = System.currentTimeMillis() - _lastOwnedTime;
+				while (initial > (Config.FS_BLOOD_OATH_FRQ * 60000))
+					initial -= (Config.FS_BLOOD_OATH_FRQ * 60000);
+				if (_fortUpdater != null)
+					_fortUpdater.cancel(false);
+				_fortUpdater = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new FortUpdater(this, clan, 0), Config.FS_BLOOD_OATH_FRQ * 60000, Config.FS_BLOOD_OATH_FRQ * 60000); // Schedule owner tasks to start running
+			}
+			else
+			{
+				_fortUpdater.cancel(false);
+				_fortUpdater = null;
 			}
 		}
 		catch (Exception e)
@@ -848,7 +909,6 @@ public class Fort extends Siegeable<FortSiege>
 				owner.setReputationScore(owner.getReputationScore() - Config.LOOSE_FORT_POINTS, true);
 			else
 				owner.setReputationScore(owner.getReputationScore() + Config.TAKE_FORT_POINTS, true);
-			owner.broadcastToOnlineMembers(new PledgeShowInfoUpdate(owner));
 		}
 	}
 

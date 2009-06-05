@@ -34,13 +34,13 @@ public class RequestGiveItemToPet extends L2GameClientPacket
 	private static final String	REQUESTCIVEITEMTOPET__C__8B	= "[C] 8B RequestGiveItemToPet";
 
 	private int					_objectId;
-	private int					_amount;
+	private long				_amount;
 
 	@Override
 	protected void readImpl()
 	{
 		_objectId = readD();
-		if(Config.PACKET_FINAL)
+		if (Config.PACKET_FINAL)
 			_amount = toInt(readQ());
 		else
 			_amount = readD();
@@ -57,7 +57,11 @@ public class RequestGiveItemToPet extends L2GameClientPacket
 			requestFailed(SystemMessageId.DONT_HAVE_PET);
 			return;
 		}
-
+		else if (player.getActiveEnchantItem() != null)
+		{
+			requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+			return;
+		}
 		else if (Shutdown.isActionDisabled(DisableType.TRANSACTION))
 		{
 			requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);

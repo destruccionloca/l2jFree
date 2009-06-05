@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.gameserver.instancemanager.CastleManager;
+import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -107,6 +109,9 @@ public class RequestAnswerJoinPledge extends L2GameClientPacket
 				sendPacket(new PledgeShowMemberListAll(clan));
 				activeChar.setClanJoinExpiryTime(0);
 				activeChar.broadcastUserInfo();
+
+				activeChar.enableResidentialSkills(true);
+				activeChar.sendSkillList();
 			}
 		}
 

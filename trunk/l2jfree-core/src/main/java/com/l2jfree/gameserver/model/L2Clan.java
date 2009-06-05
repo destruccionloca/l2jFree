@@ -34,6 +34,7 @@ import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.CrownManager;
+import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.itemcontainer.ClanWarehouse;
@@ -616,9 +617,15 @@ public class L2Clan
 				SiegeManager.getInstance().removeSiegeSkills(player);
 				player.setClanCreateExpiryTime(System.currentTimeMillis() + Config.ALT_CLAN_CREATE_DAYS * 86400000L); //24*60*60*1000 = 86400000
 			}
+			
 			// remove Clanskills from Player
-			for (L2Skill skill : player.getClan().getAllSkills())
+			for (L2Skill skill : getAllSkills())
 				player.removeSkill(skill, false);
+			
+			// remove Residential skills
+			player.enableResidentialSkills(false);
+			player.sendSkillList();
+			
 			player.setClan(null);
 			player.setClanJoinExpiryTime(clanJoinExpiryTime);
 			player.setPledgeClass(L2ClanMember.getCurrentPledgeClass(player));
@@ -1965,6 +1972,8 @@ public class L2Clan
 			_reputationScore = -100000000;
 		if (save)
 			updateClanInDB();
+
+		broadcastClanStatus();
 	}
 
 	public int getReputationScore()
@@ -2326,20 +2335,20 @@ public class L2Clan
 		updateClanInDB();
 
 		// The clan leader should take the XP penalty of a full death.
-		player.deathPenalty(false, false);
+		player.deathPenalty(false, false, false);
 	}
 
-	public void levelUpClan(L2PcInstance player)
+	public boolean levelUpClan(L2PcInstance player)
 	{
 		if (!player.isClanLeader())
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT));
-			return;
+			return false;
 		}
 		if (System.currentTimeMillis() < getDissolvingExpiryTime())
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_RISE_LEVEL_WHILE_DISSOLUTION_IN_PROGRESS));
-			return;
+			return false;
 		}
 
 		boolean increaseClanLevel = false;
@@ -2506,7 +2515,7 @@ public class L2Clan
 					cr = null;
 					SystemMessage sm = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
 					sm.addItemName(9910);
-					sm.addNumber(150);
+					sm.addItemNumber(150);
 					player.sendPacket(sm);
 					increaseClanLevel = true;
 				}
@@ -2528,7 +2537,7 @@ public class L2Clan
 					cr = null;
 					SystemMessage sm = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
 					sm.addItemName(9911);
-					sm.addNumber(5);
+					sm.addItemNumber(5);
 					player.sendPacket(sm);
 					increaseClanLevel = true;
 				}
@@ -2536,14 +2545,14 @@ public class L2Clan
 			break;
 		}
 		default:
-			return;
+			return false;
 		}
 
 		if (!increaseClanLevel)
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.FAILED_TO_INCREASE_CLAN_LEVEL);
 			player.sendPacket(sm);
-			return;
+			return false;
 		}
 
 		// the player should know that he has less sp now :p
@@ -2557,6 +2566,8 @@ public class L2Clan
 		changeLevel(getLevel() + 1);
 
 		player.updateNameTitleColor();
+
+		return true;
 	}
 
 	public void changeLevel(int level)

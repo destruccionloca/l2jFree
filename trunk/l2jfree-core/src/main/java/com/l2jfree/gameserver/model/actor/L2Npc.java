@@ -1396,7 +1396,7 @@ public class L2Npc extends L2Character
 			else if (command.startsWith("remove_dp"))
 			{
 				int cmdChoice = Integer.parseInt(command.substring(10, 11).trim());
-				int[] pen_clear_price = { 3600, 8640, 25200, 50400, 86400, 144000, 288000 }; //TODO: Find a retail value for S80
+				int[] pen_clear_price = { 3600, 8640, 25200, 50400, 86400, 144000, 144000, 144000 };
 				int price = pen_clear_price[player.getExpertiseIndex()] * (int)Config.RATE_DROP_ADENA;
 				switch (cmdChoice)
 				{
@@ -1718,7 +1718,7 @@ public class L2Npc extends L2Character
 		}
 		else
 		{
-			if ((q.getQuestIntId() >= 1 && q.getQuestIntId() < 1000)
+			if ((q.getQuestIntId() >= 1 && q.getQuestIntId() < 20000)
 					&& (player.getWeightPenalty() >= 3 || player.getInventoryLimit() * 0.8 <= player.getInventory().getSize()))
 			{
 				player.sendPacket(SystemMessageId.INVENTORY_LESS_THAN_80_PERCENT);
@@ -1727,7 +1727,7 @@ public class L2Npc extends L2Character
 
 			if (qs == null)
 			{
-				if (q.getQuestIntId() >= 1 && q.getQuestIntId() < 1000)
+				if (q.getQuestIntId() >= 1 && q.getQuestIntId() < 20000)
 				{
 					Quest[] questList = player.getAllActiveQuests();
 					if (questList.length >= 25) // if too many ongoing quests, don't show window and send message
@@ -1806,7 +1806,7 @@ public class L2Npc extends L2Character
 			for (QuestState x : awaits)
 			{
 				if (!options.contains(x.getQuest()))
-					if ((x.getQuest().getQuestIntId() > 0) && (x.getQuest().getQuestIntId() < 1000))
+					if ((x.getQuest().getQuestIntId() > 0) && (x.getQuest().getQuestIntId() < 20000))
 						options.add(x.getQuest());
 			}
 		}
@@ -1816,7 +1816,7 @@ public class L2Npc extends L2Character
 			for (Quest x : starts)
 			{
 				if (!options.contains(x))
-					if ((x.getQuestIntId() > 0) && (x.getQuestIntId() < 1000))
+					if ((x.getQuestIntId() > 0) && (x.getQuestIntId() < 20000))
 						options.add(x);
 			}
 		}
@@ -1986,7 +1986,7 @@ public class L2Npc extends L2Character
 			Lottery.getInstance().increasePrize(price);
 
 			sm = new SystemMessage(SystemMessageId.ACQUIRED_S1_S2);
-			sm.addNumber(lotonumber);
+			sm.addItemNumber(lotonumber);
 			sm.addItemName(4442);
 			player.sendPacket(sm);
 
@@ -2568,7 +2568,10 @@ public class L2Npc extends L2Character
 		default:
 			if (npcId >= 31865 && npcId <= 31918)
 			{
-				filename += "rift/GuardianOfBorder.htm";
+				if (val == 0)
+					filename += "rift/GuardianOfBorder.htm";
+				else
+					filename += "rift/GuardianOfBorder-" + val + ".htm";
 				break;
 			}
 			if ((npcId >= 31093 && npcId <= 31094) || (npcId >= 31172 && npcId <= 31201) || (npcId >= 31239 && npcId <= 31254))

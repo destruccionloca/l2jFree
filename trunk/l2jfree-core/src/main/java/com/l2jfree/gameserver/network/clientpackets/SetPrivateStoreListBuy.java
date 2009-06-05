@@ -35,29 +35,26 @@ public class SetPrivateStoreListBuy extends L2GameClientPacket
 	private static final String	_C__91_SETPRIVATESTORELISTBUY	= "[C] 91 SetPrivateStoreListBuy";
 
 	private int					_count;
-	private int[]				_items;															// count * 3
+	private long[]				_items;															// count * 3
 
 	@Override
 	protected void readImpl()
 	{
 		_count = readD();
-		int m = 12;
-		if(Config.PACKET_FINAL)
-			m = 20;
-		if (_count <= 0 || _count * m > getByteBuffer().remaining() || _count > Config.MAX_ITEM_IN_PACKET)
+		if (_count <= 0 || _count * (Config.PACKET_FINAL ? 20 : 12) > getByteBuffer().remaining() || _count > Config.MAX_ITEM_IN_PACKET)
 		{
 			_count = 0;
 			_items = null;
 			return;
 		}
-		_items = new int[_count * 3];
+		_items = new long[_count * 3];
 		for (int x = 0; x < _count; x++)
 		{
 			int itemId = readD();
 			_items[(x * 3)] = itemId;
 			readH();//TODO: analyse this
 			readH();//TODO: analyse this
-			long cnt = 0;
+			long cnt;
 			if (Config.PACKET_FINAL)
 				cnt = toInt(readQ());
 			else
@@ -68,9 +65,9 @@ public class SetPrivateStoreListBuy extends L2GameClientPacket
 				_items = null;
 				return;
 			}
-			_items[x * 3 + 1] = (int) cnt;
-			int price = 0;
-			if(Config.PACKET_FINAL)
+			_items[x * 3 + 1] = cnt;
+			long price = 0;
+			if (Config.PACKET_FINAL)
 				price = toInt(readQ());
 			else
 				price = readD();
@@ -106,9 +103,9 @@ public class SetPrivateStoreListBuy extends L2GameClientPacket
 		int cost = 0;
 		for (int i = 0; i < _count; i++)
 		{
-			int itemId = _items[(i * 3)];
-			int count = _items[i * 3 + 1];
-			int price = _items[i * 3 + 2];
+			int itemId = (int) _items[(i * 3)];
+			long count = _items[i * 3 + 1];
+			long price = _items[i * 3 + 2];
 
 			tradeList.addItemByItemId(itemId, count, price);
 			cost += count * price;

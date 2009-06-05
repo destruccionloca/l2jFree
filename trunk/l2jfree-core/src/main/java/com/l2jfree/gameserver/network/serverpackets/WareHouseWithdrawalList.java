@@ -29,13 +29,13 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public class WareHouseWithdrawalList extends L2GameServerPacket
 {
 	public static final int PRIVATE = 1;
-	public static final int CLAN = 2;
+	public static final int CLAN = 4;
 	public static final int CASTLE = 3; //not sure
-	public static final int FREIGHT = 4; //not sure
+	public static final int FREIGHT = 1;
 	private final static Log _log = LogFactory.getLog(WareHouseWithdrawalList.class.getName());
 	private static final String _S__54_WAREHOUSEWITHDRAWALLIST = "[S] 42 WareHouseWithdrawalList";
 	private L2PcInstance _activeChar;
-	private int _activeCharAdena;
+	private long _activeCharAdena;
 	private L2ItemInstance[] _items;
 	private int _whType;
 
@@ -64,14 +64,14 @@ public class WareHouseWithdrawalList extends L2GameServerPacket
 	{
 		writeC(0x42);
 		/* 0x01-Private Warehouse  
-	    * 0x02-Clan Warehouse  
-	    * 0x03-Castle Warehouse  
-	    * 0x04-Warehouse */  
-	    writeH(_whType);
-	    if(Config.PACKET_FINAL)
-	    	writeQ(_activeCharAdena);
-	    else
-	    	writeD(_activeCharAdena);
+		* 0x02-Clan Warehouse  
+		* 0x03-Castle Warehouse  
+		* 0x04-Warehouse */  
+		writeH(_whType);
+		if (Config.PACKET_FINAL)
+			writeQ(_activeCharAdena);
+		else
+			writeD(toInt(_activeCharAdena));
 		writeH(_items.length);
 		
 		for (L2ItemInstance item : _items)
@@ -79,15 +79,15 @@ public class WareHouseWithdrawalList extends L2GameServerPacket
 			writeH(item.getItem().getType1());
 			writeD(item.getObjectId());
 			writeD(item.getItemDisplayId());
-			if(Config.PACKET_FINAL)
+			if (Config.PACKET_FINAL)
 				writeQ(item.getCount());
 			else
-				writeD(item.getCount());
+				writeD(toInt(item.getCount()));
 			writeH(item.getItem().getType2());
 			writeH(item.getCustomType1() );
 			writeD(item.getItem().getBodyPart());
 			writeH(item.getEnchantLevel());
-            writeH(item.getCustomType2() );
+			writeH(item.getCustomType2() );
 			writeH(0x00);	// ?
 			writeD(item.getObjectId());
 			if (item.isAugmented())
@@ -98,17 +98,29 @@ public class WareHouseWithdrawalList extends L2GameServerPacket
 			else
 				writeQ(0x00);
 
-			writeH(item.getAttackElementType());
-			writeH(item.getAttackElementPower());
-			for (byte i = 0; i < 6; i++)
+			if (Config.PACKET_FINAL)
 			{
-				writeH(item.getElementDefAttr(i));
+				writeH(item.getAttackElementType());
+				writeH(item.getAttackElementPower());
+				for (byte i = 0; i < 6; i++)
+				{
+					writeH(item.getElementDefAttr(i));
+				}
+			}
+			else
+			{
+				writeD(item.getAttackElementType());
+				writeD(item.getAttackElementPower());
+				for (byte i = 0; i < 6; i++)
+				{
+					writeD(item.getElementDefAttr(i));
+				}
 			}
 
 			writeD(item.getMana());
 
 			// T2
-			writeD(0x00);
+			writeD(item.isTimeLimitedItem() ? (int) (item.getRemainingTime()/1000) : -1);
 		}
 	}
 	

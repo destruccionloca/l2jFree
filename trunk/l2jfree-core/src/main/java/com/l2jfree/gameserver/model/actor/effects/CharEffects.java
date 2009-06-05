@@ -415,9 +415,18 @@ public class CharEffects
 	{
 		for (L2Effect e : getAllEffects())
 		{
-			if (e != null && e.getSkill().getId() != 5660)
+			if (e == null)
+				continue;
+			
+			switch (e.getSkill().getId())
 			{
-				e.exit();
+				case 5660:
+				case 840:
+				case 841:
+				case 842:
+					continue;
+				default:
+					e.exit();
 			}
 		}
 	}
@@ -429,11 +438,20 @@ public class CharEffects
 	{
 		for (L2Effect e : getAllEffects())
 		{
-			if (e != null)
+			if (e == null)
+				continue;
+			if (e instanceof EffectCharmOfCourage)
+				continue;
+			
+			switch (e.getSkill().getId())
 			{
-				if (e instanceof EffectCharmOfCourage)
+				case 5660:
+				case 840:
+				case 841:
+				case 842:
 					continue;
-				e.exit();
+				default:
+					e.exit();
 			}
 		}
 	}

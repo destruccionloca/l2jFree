@@ -225,6 +225,8 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 				}
 			}
 			result = answer;
+			rs.close();
+			statement.close();
 		}
 		catch (Exception e)
 		{
@@ -307,6 +309,11 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 			statement = con.prepareStatement("DELETE FROM character_quests WHERE charId=?");
 			statement.setInt(1, objid);
 			statement.execute();
+			statement.close();
+			
+			statement = con.prepareStatement("DELETE FROM character_quest_global_data WHERE charId=?");
+			statement.setInt(1, objid);
+			statement.executeUpdate();
 			statement.close();
 			
 			statement = con.prepareStatement("DELETE FROM character_recipebook WHERE charId=?");

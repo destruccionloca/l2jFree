@@ -58,7 +58,7 @@ public final class PartySmallWindowAll extends L2GameServerPacket
 				writeD(member.getClassId().getId());
 				writeD(0x00);//writeD(0x01); ??
 				writeD(member.getRace().ordinal());
-				if(Config.PACKET_FINAL)
+				if (Config.PACKET_FINAL)
 				{
 					writeD(0x00);  
 					writeD(0x00);

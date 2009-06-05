@@ -51,7 +51,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  */
 public class MercTicketManager
 {
-	protected static final Log			_log	= LogFactory.getLog(CastleManager.class.getName());
+	protected static final Log			_log	= LogFactory.getLog(MercTicketManager.class.getName());
 	private static MercTicketManager	_instance;
 
 	public static final MercTicketManager getInstance()
