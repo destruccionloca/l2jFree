@@ -192,13 +192,11 @@ public class AdminTest implements IAdminCommandHandler
 		}
 		else if (cmd.equals("admin_heading"))
 		{
-			L2Object objTarget = activeChar.getTarget();
+			L2Character charTarget = activeChar.getTarget(L2Character.class);
 
-			if (objTarget != null && objTarget instanceof L2Character)
+			if (charTarget != null)
 			{
-				double angleChar, angleTarget, angleDiff, maxAngleDiff = 45;
-
-				L2Character charTarget = (L2Character) objTarget;
+				double angleChar, angleTarget, angleDiff;
 
 				angleChar = Util.calculateAngleFrom(charTarget, activeChar);
 				angleTarget = Util.convertHeadingToDegree(charTarget.getHeading());
@@ -209,14 +207,8 @@ public class AdminTest implements IAdminCommandHandler
 				activeChar.sendMessage("Target angle " + angleTarget + ".");
 				activeChar.sendMessage("Your angle " + angleChar + ".");
 				activeChar.sendMessage("Angle difference before correction " + angleDiff + ".");
-
-				if (angleDiff <= -360 + maxAngleDiff)
-					angleDiff += 360;
-				if (angleDiff >= 360 - maxAngleDiff)
-					angleDiff -= 360;
-
-				activeChar.sendMessage("Angle difference after correction " + angleDiff + ".");
-				activeChar.sendMessage("Is Behind ? " + activeChar.isBehindTarget() + ".");
+				activeChar.sendMessage("Angle difference after correction " + Util.getAngleDifference(activeChar, charTarget) + ".");
+				activeChar.sendMessage("Is Behind ? " + activeChar.isBehind(charTarget) + ".");
 			}
 			else
 				showAdminCommandHelp(activeChar, cmd);

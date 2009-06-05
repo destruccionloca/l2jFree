@@ -353,7 +353,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	private final boolean			_isDebuff;
 
 	private final int				_afroId;
-	private boolean					_isAdvancedFlag;
 	private final boolean			_isHerbEffect;
 
 	private final int				_learnSkillId;
@@ -537,7 +536,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		_learnSkillId = set.getInteger("learnSkillId", 0);
 		_learnSkillLvl = set.getInteger("learnSkillLvl", 1);
 		_recallType = set.getString("recallType", "");
-		_isAdvancedFlag = set.getBool("isAdvancedFlag", false);
 
 		String canLearn = set.getString("canLearn", null);
 		if (canLearn == null)

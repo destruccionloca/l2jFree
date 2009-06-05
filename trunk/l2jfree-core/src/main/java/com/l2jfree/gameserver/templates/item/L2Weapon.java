@@ -85,7 +85,7 @@ public final class L2Weapon extends L2Equip
 		_shieldDef = set.getInteger("shield_def");
 		_shieldDefRate = set.getDouble("shield_def_rate");
 		_atkSpeed = set.getInteger("atk_speed");
-		_atkReuse = set.getInteger("atk_reuse", (type == L2WeaponType.BOW) ? 1500 : (type == L2WeaponType.CROSSBOW) ? 1200 : 0);
+		_atkReuse = set.getInteger("atk_reuse", initAtkReuse(type, _atkSpeed));
 		_mpConsume = set.getInteger("mp_consume");
 		_mDam = set.getInteger("m_dam");
 		_changeWeaponId = set.getInteger("change_weaponId");
@@ -146,7 +146,7 @@ public final class L2Weapon extends L2Equip
 		}
 	}
 	
-	private int initAtkReuse(L2WeaponType type)
+	private static int initAtkReuse(L2WeaponType type, int atkSpeed)
 	{
 		// http://www.l2p.bravehost.com/endL2P/misc.html
 		// Normal bows have a base Weapon Delay of 1500 - Like Draconic Bow (atkSpd == 293)
@@ -154,10 +154,12 @@ public final class L2Weapon extends L2Equip
 		
 		if (type == L2WeaponType.BOW)
 		{
-			if (_atkSpeed == 293)
+			if (atkSpeed == 293)
 				return 1500;
-			if (_atkSpeed == 227)
+			if (atkSpeed == 227)
 				return 820;
+			
+			throw new IllegalArgumentException("Wrong bow parameters!");
 		}
 		else if (type == L2WeaponType.CROSSBOW)
 		{
