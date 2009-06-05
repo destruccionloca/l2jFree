@@ -374,38 +374,62 @@ final class DocumentSkill extends DocumentBase
 		{
 			String abn = attrs.getNamedItem("abnormal").getNodeValue();
 			
-			if (abn.equals("poison"))
-				abnormal = L2Character.ABNORMAL_EFFECT_POISON;
-			else if (abn.equals("bleed") || abn.equals("bleeding"))
+			if (abn.equalsIgnoreCase("bleed") || abn.equalsIgnoreCase("bleeding"))
 				abnormal = L2Character.ABNORMAL_EFFECT_BLEEDING;
+			else if (abn.equalsIgnoreCase("poison"))
+				abnormal = L2Character.ABNORMAL_EFFECT_POISON;
+			else if (abn.equalsIgnoreCase("redcircle"))
+				abnormal = L2Character.ABNORMAL_EFFECT_REDCIRCLE;
+			else if (abn.equalsIgnoreCase("ice"))
+				abnormal = L2Character.ABNORMAL_EFFECT_ICE;
+			else if (abn.equalsIgnoreCase("wind"))
+				abnormal = L2Character.ABNORMAL_EFFECT_WIND;
+			else if (abn.equalsIgnoreCase("fear"))
+				abnormal = L2Character.ABNORMAL_EFFECT_FEAR;
 			else if (abn.equalsIgnoreCase("stun"))
 				abnormal = L2Character.ABNORMAL_EFFECT_STUN;
-			else if (abn.equalsIgnoreCase("dancestun"))
-				abnormal = L2Character.ABNORMAL_EFFECT_DANCE_STUNNED;
 			else if (abn.equalsIgnoreCase("sleep"))
 				abnormal = L2Character.ABNORMAL_EFFECT_SLEEP;
-			else if (abn.equalsIgnoreCase("redcircle"))
-				abnormal |= L2Character.ABNORMAL_EFFECT_REDCIRCLE;
-			else if (abn.equalsIgnoreCase("ice"))
-				abnormal |= L2Character.ABNORMAL_EFFECT_ICE;
-			else if (abn.equalsIgnoreCase("wind"))
-				abnormal |= L2Character.ABNORMAL_EFFECT_WIND;
-			else if (abn.equalsIgnoreCase("flame"))
-				abnormal |= L2Character.ABNORMAL_EFFECT_FLAME;
-			else if (abn.equalsIgnoreCase("stun"))
-				abnormal |= L2Character.ABNORMAL_EFFECT_STUN;
-			else if (abn.equalsIgnoreCase("bighead"))
-				abnormal |= L2Character.ABNORMAL_EFFECT_BIG_HEAD;
-			else if (abn.equalsIgnoreCase("stealth"))
-				abnormal |= L2Character.ABNORMAL_EFFECT_STEALTH;
-			else if (abn.equalsIgnoreCase("invul"))
-				abnormal |= L2Character.ABNORMAL_EFFECT_INVULNERABLE;
-			else if (abn.equalsIgnoreCase("root"))
-				abnormal = L2Character.ABNORMAL_EFFECT_ROOT;
 			else if (abn.equalsIgnoreCase("mute"))
 				abnormal = L2Character.ABNORMAL_EFFECT_MUTED;
+			else if (abn.equalsIgnoreCase("root"))
+				abnormal = L2Character.ABNORMAL_EFFECT_ROOT;
+			else if (abn.equalsIgnoreCase("hold1"))
+				abnormal = L2Character.ABNORMAL_EFFECT_HOLD_1;
+			else if (abn.equalsIgnoreCase("hold2"))
+				abnormal = L2Character.ABNORMAL_EFFECT_HOLD_2;
+			else if (abn.equalsIgnoreCase("unknown13"))
+				abnormal = L2Character.ABNORMAL_EFFECT_UNKNOWN_13;
+			else if (abn.equalsIgnoreCase("bighead"))
+				abnormal = L2Character.ABNORMAL_EFFECT_BIG_HEAD;
+			else if (abn.equalsIgnoreCase("flame"))
+				abnormal = L2Character.ABNORMAL_EFFECT_FLAME;
+			else if (abn.equalsIgnoreCase("unknown16"))
+				abnormal = L2Character.ABNORMAL_EFFECT_UNKNOWN_16;
+			else if (abn.equalsIgnoreCase("grow"))
+				abnormal = L2Character.ABNORMAL_EFFECT_GROW;
+			else if (abn.equalsIgnoreCase("floatroot"))
+				abnormal = L2Character.ABNORMAL_EFFECT_FLOATING_ROOT;
+			else if (abn.equalsIgnoreCase("dancestun"))
+				abnormal = L2Character.ABNORMAL_EFFECT_DANCE_STUNNED;
+			else if (abn.equalsIgnoreCase("firerootstun"))
+				abnormal = L2Character.ABNORMAL_EFFECT_FIREROOT_STUN;
+			else if (abn.equalsIgnoreCase("stealth"))
+				abnormal = L2Character.ABNORMAL_EFFECT_STEALTH;
+			else if (abn.equalsIgnoreCase("imprison1"))
+				abnormal = L2Character.ABNORMAL_EFFECT_IMPRISIONING_1;
+			else if (abn.equalsIgnoreCase("imprison2"))
+				abnormal = L2Character.ABNORMAL_EFFECT_IMPRISIONING_2;
+			else if (abn.equalsIgnoreCase("magiccircle"))
+				abnormal = L2Character.ABNORMAL_EFFECT_MAGIC_CIRCLE;
+			else if (abn.equalsIgnoreCase("ice2"))
+				abnormal = L2Character.ABNORMAL_EFFECT_ICE2;
 			else if (abn.equalsIgnoreCase("earthquake"))
 				abnormal = L2Character.ABNORMAL_EFFECT_EARTHQUAKE;
+			else if (abn.equalsIgnoreCase("unknown27"))
+				abnormal = L2Character.ABNORMAL_EFFECT_UNKNOWN_27;
+			else if (abn.equalsIgnoreCase("invulnerable"))
+				abnormal = L2Character.ABNORMAL_EFFECT_INVULNERABLE;
 			else if (abn.equalsIgnoreCase("vitality"))
 				abnormal = L2Character.ABNORMAL_EFFECT_VITALITY;
 			else
