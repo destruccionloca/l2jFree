@@ -21,13 +21,12 @@ import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
 /**
- * @author Kerberos
+ * @author kombat
  */
-
-public class EffectFusion extends L2Effect
+public final class EffectFusion extends L2Effect
 {
 	public int _effect;
-	public int _maxEffect;
+	public final int _maxEffect;
 	
 	public EffectFusion(Env env, EffectTemplate template)
 	{
@@ -36,20 +35,6 @@ public class EffectFusion extends L2Effect
 		_maxEffect = SkillTable.getInstance().getMaxLevel(getSkill().getId());
 	}
 	
-	/**
-	 * 
-	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
-	 */
-	@Override
-	public boolean onActionTime()
-	{
-		return true;
-	}
-	
-	/**
-	 * 
-	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
-	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
@@ -65,7 +50,7 @@ public class EffectFusion extends L2Effect
 		}
 	}
 	
-	public void decreaseForce()
+	public void decreaseEffect()
 	{
 		_effect--;
 		if (_effect < 1)
@@ -78,5 +63,11 @@ public class EffectFusion extends L2Effect
 	{
 		exit();
 		SkillTable.getInstance().getInfo(getSkill().getId(), _effect).getEffects(getEffector(), getEffected());
+	}
+	
+	@Override
+	public boolean canBeStoredInDb()
+	{
+		return false;
 	}
 }
