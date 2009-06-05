@@ -18,70 +18,64 @@ import com.l2jfree.gameserver.model.ChanceCondition;
 import com.l2jfree.gameserver.model.IChanceSkillTrigger;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.skills.Env;
-import com.l2jfree.gameserver.skills.conditions.Condition;
 import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
-public class EffectChanceSkillTrigger extends L2Effect implements IChanceSkillTrigger
+public final class EffectChanceSkillTrigger extends L2Effect implements IChanceSkillTrigger
 {
 	private final int _triggeredId;
 	private final int _triggeredLevel;
 	private final ChanceCondition _chanceCondition;
 	
 	public EffectChanceSkillTrigger(Env env, EffectTemplate template)
-    {
+	{
 		super(env, template);
 		
 		_triggeredId = template.triggeredId;
-	    _triggeredLevel = template.triggeredLevel;
-	    _chanceCondition = template.chanceCondition;
-    }
-
-	@Override
-    public L2EffectType getEffectType()
-    {
-	    return L2EffectType.CHANCE_SKILL_TRIGGER;
-    }
+		_triggeredLevel = template.triggeredLevel;
+		_chanceCondition = template.chanceCondition;
+	}
 	
-	public boolean onStart()
+	@Override
+	public L2EffectType getEffectType()
+	{
+		return L2EffectType.CHANCE_SKILL_TRIGGER;
+	}
+	
+	@Override
+	protected boolean onStart()
 	{
 		getEffected().addChanceEffect(this);
 		return true;
 	}
-
-	@Override
-    public boolean onActionTime()
-    {
-	    return false;
-    }
 	
-	public void onExit()
+	@Override
+	protected void onExit()
 	{
 		getEffected().removeChanceEffect(this);
 	}
-
-	@Override
-    public int getTriggeredChanceId()
-    {
-	    return _triggeredId;
-    }
-
-	@Override
-    public int getTriggeredChanceLevel()
-    {
-	    return _triggeredLevel;
-    }
-
-	@Override
-    public boolean triggersChanceSkill()
-    {
-	    return _triggeredId > 1;
-    }
-
-	@Override
-    public ChanceCondition getTriggeredChanceCondition()
-    {
-	    return _chanceCondition;
-    }
 	
+	@Override
+	public int getTriggeredChanceId()
+	{
+		return _triggeredId;
+	}
+	
+	@Override
+	public int getTriggeredChanceLevel()
+	{
+		return _triggeredLevel;
+	}
+	
+	@Override
+	public boolean triggersChanceSkill()
+	{
+		return _triggeredId > 1;
+	}
+	
+	@Override
+	public ChanceCondition getTriggeredChanceCondition()
+	{
+		return _chanceCondition;
+	}
 }
