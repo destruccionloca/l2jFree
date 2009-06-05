@@ -51,7 +51,7 @@ public class EffectImmobilePetBuff extends L2Effect
 	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
 	 */
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		_pet = null;
 		
@@ -71,18 +71,8 @@ public class EffectImmobilePetBuff extends L2Effect
 	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
 	 */
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 		_pet.setIsImmobilized(false);
-	}
-	
-	/**
-	 * 
-	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
-	 */
-	public boolean onActionTime()
-	{
-		// just stop this effect
-		return false;
 	}
 }

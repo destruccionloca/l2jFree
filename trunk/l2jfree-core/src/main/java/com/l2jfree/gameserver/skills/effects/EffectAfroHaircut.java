@@ -47,11 +47,11 @@ public class EffectAfroHaircut extends L2Effect
 	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
 	 */
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		if (getEffected() instanceof L2PcInstance)
 		{
-			((L2PcInstance) getEffected()).setAfroHaircutId(this.getSkill().getAfroColor());
+			((L2PcInstance) getEffected()).setAfroHaircutId(getSkill().getAfroColor());
 			return true;
 		}
 		return false;
@@ -62,18 +62,8 @@ public class EffectAfroHaircut extends L2Effect
 	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
 	 */
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 		((L2PcInstance) getEffected()).setAfroHaircutId(0);
 	}
-	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
-	 */
-	@Override
-	public boolean onActionTime()
-	{
-		return false;
-	}
-	
 }

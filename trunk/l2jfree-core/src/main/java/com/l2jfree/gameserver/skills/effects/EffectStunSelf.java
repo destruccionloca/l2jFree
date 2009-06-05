@@ -41,7 +41,7 @@ public class EffectStunSelf extends L2Effect
 	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
 	 */
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		getEffector().startStunning();
 		return true;
@@ -52,19 +52,8 @@ public class EffectStunSelf extends L2Effect
 	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
 	 */
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 		getEffector().stopStunning(false);
-	}
-	
-	/**
-	 * 
-	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
-	 */
-	@Override
-	public boolean onActionTime()
-	{
-		// just stop this effect
-		return false;
 	}
 }

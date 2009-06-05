@@ -53,7 +53,7 @@ public class EffectEnemyCharge extends L2Effect
 	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
 	 */
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		// Get current position of the L2Character
 		final int curX = getEffector().getX();
@@ -111,20 +111,10 @@ public class EffectEnemyCharge extends L2Effect
 	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
 	 */
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 		// maybe is need force set X,Y,Z
 		getEffector().getPosition().setXYZ(_x, _y, _z);
 		getEffector().broadcastPacket(new ValidateLocation(getEffector()));
-	}
-	
-	/**
-	 * 
-	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
-	 */
-	@Override
-	public boolean onActionTime()
-	{
-		return false;
 	}
 }

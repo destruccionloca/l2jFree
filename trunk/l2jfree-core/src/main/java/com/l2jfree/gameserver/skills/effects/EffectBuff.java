@@ -48,15 +48,4 @@ public class EffectBuff extends L2Effect
 	{
 		return L2EffectType.BUFF;
 	}
-	
-	/**
-	 * 
-	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
-	 */
-	@Override
-	public boolean onActionTime()
-	{
-		// just stop this effect
-		return false;
-	}
 }

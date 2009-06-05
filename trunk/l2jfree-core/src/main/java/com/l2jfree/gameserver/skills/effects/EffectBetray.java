@@ -48,9 +48,9 @@ public class EffectBetray extends L2Effect
 	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
 	 */
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
-		if (getEffector() instanceof L2PcInstance && 
+		if (getEffector() instanceof L2PcInstance &&
 				getEffected() instanceof L2Summon)
 		{
 			L2PcInstance targetOwner = getEffected().getActingPlayer();
@@ -67,21 +67,11 @@ public class EffectBetray extends L2Effect
 	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
 	 */
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 		getEffected().setIsBetrayed(false);
 		getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 		L2PcInstance targetOwner = getEffected().getActingPlayer();
 		if (targetOwner != null) targetOwner.setIsBetrayed(false);
-	}
-	
-	/**
-	 * 
-	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
-	 */
-	@Override
-	public boolean onActionTime()
-	{
-		return false;
 	}
 }

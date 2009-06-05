@@ -42,7 +42,7 @@ public class EffectParalyze extends L2Effect
 	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
 	 */
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		getEffected().startAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_1);
 		getEffected().startParalyze();
@@ -54,19 +54,9 @@ public class EffectParalyze extends L2Effect
 	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
 	 */
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 		getEffected().stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_1);
 		getEffected().stopParalyze(false);
-	}
-	
-	/**
-	 * 
-	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
-	 */
-	@Override
-	public boolean onActionTime()
-	{
-		return false;
 	}
 }

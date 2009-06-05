@@ -48,7 +48,7 @@ public class EffectChameleonRest extends L2Effect
 	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
 	 */
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		
 		L2Character effected = getEffected();
@@ -68,7 +68,7 @@ public class EffectChameleonRest extends L2Effect
 	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
 	 */
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 		setChameleon(false);
 		

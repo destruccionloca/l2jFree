@@ -46,7 +46,7 @@ public class EffectBigHead extends L2Effect
 	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
 	 */
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		getEffected().startAbnormalEffect(0x02000);
 		return true;
@@ -57,18 +57,8 @@ public class EffectBigHead extends L2Effect
 	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
 	 */
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 		getEffected().stopAbnormalEffect(0x02000);
-	}
-	
-	/**
-	 * 
-	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
-	 */
-	@Override
-	public boolean onActionTime()
-	{
-		return false;
 	}
 }

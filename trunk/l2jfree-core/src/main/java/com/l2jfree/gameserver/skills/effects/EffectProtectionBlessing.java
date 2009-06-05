@@ -42,7 +42,7 @@ public class EffectProtectionBlessing extends L2Effect
 	
 	/** Notify started */
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		if (getEffected() instanceof L2Playable)
 		{
@@ -54,15 +54,8 @@ public class EffectProtectionBlessing extends L2Effect
 	
 	/** Notify exited */
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 		((L2Playable) getEffected()).stopProtectionBlessing(false);
-	}
-	
-	@Override
-	public boolean onActionTime()
-	{
-		// just stop this effect
-		return false;
 	}
 }

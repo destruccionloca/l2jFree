@@ -42,7 +42,7 @@ public class EffectSilenceMagicPhysical extends L2Effect
 	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
 	 */
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		getEffected().startMuted();
 		getEffected().startPhysicalMuted();
@@ -51,20 +51,10 @@ public class EffectSilenceMagicPhysical extends L2Effect
 	
 	/**
 	 * 
-	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
-	 */
-	@Override
-	public boolean onActionTime()
-	{
-		return false;
-	}
-	
-	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
 	 */
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 		getEffected().stopMuted(false);
 		getEffected().stopPhysicalMuted(false);

@@ -61,7 +61,7 @@ public class EffectFear extends L2Effect
 	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
 	 */
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		// Fear skills cannot be used l2pcinstance to l2pcinstance. Heroic
 		// Dread, Curse: Fear, Fear, Horror, Sword Symphony, Word of Fear and
@@ -101,7 +101,7 @@ public class EffectFear extends L2Effect
 	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
 	 */
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 		getEffected().stopFear(false);
 	}

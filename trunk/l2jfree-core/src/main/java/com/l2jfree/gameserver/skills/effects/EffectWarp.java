@@ -15,8 +15,8 @@
 package com.l2jfree.gameserver.skills.effects;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.ai.CtrlIntention;
+import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.L2Character;
@@ -74,7 +74,7 @@ public class EffectWarp extends L2Effect
 	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
 	 */
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		
 		if (isSelfEffect())
@@ -118,19 +118,9 @@ public class EffectWarp extends L2Effect
 	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
 	 */
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 		_actor.getPosition().setXYZ(x, y, z);
 		_actor.broadcastPacket(new ValidateLocation(_actor));
-	}
-	
-	/**
-	 * 
-	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
-	 */
-	@Override
-	public boolean onActionTime()
-	{
-		return false;
 	}
 }

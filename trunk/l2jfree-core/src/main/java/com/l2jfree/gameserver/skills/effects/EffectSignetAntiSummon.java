@@ -55,7 +55,7 @@ public class EffectSignetAntiSummon extends L2Effect
 	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
 	 */
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		_actor = (L2EffectPointInstance) getEffected();
 		return true;
@@ -109,7 +109,7 @@ public class EffectSignetAntiSummon extends L2Effect
 	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
 	 */
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 		if (_actor != null)
 		{

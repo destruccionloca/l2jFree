@@ -36,15 +36,4 @@ public class EffectDebuff extends L2Effect
 	{
 		return L2EffectType.DEBUFF;
 	}
-	
-	/**
-	 * 
-	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
-	 */
-	@Override
-	public boolean onActionTime()
-	{
-		// just stop this effect
-		return false;
-	}
 }

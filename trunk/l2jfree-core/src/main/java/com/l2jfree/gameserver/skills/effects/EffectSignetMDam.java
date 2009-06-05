@@ -68,7 +68,7 @@ public class EffectSignetMDam extends L2Effect
 	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
 	 */
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		L2NpcTemplate template;
 		if (getSkill() instanceof L2SkillSignetCasttime)
@@ -196,7 +196,7 @@ public class EffectSignetMDam extends L2Effect
 	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
 	 */
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 		if (_actor != null)
 		{

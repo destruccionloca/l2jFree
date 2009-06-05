@@ -46,33 +46,12 @@ public class EffectRemoveTarget extends L2Effect
 	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
 	 */
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		getEffected().setTarget(null);
 		getEffected().abortAttack();
 		getEffected().abortCast();
 		getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE, getEffector());
 		return true;
-	}
-	
-	/**
-	 * 
-	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
-	 */
-	@Override
-	public void onExit()
-	{
-		// nothing
-	}
-	
-	/**
-	 * 
-	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
-	 */
-	@Override
-	public boolean onActionTime()
-	{
-		// nothing
-		return false;
 	}
 }

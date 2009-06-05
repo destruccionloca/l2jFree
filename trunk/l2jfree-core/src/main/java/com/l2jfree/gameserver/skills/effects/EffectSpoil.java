@@ -55,7 +55,7 @@ public class EffectSpoil extends L2Effect
 	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
 	 */
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		
 		if (!(getEffector() instanceof L2PcInstance))
@@ -98,15 +98,5 @@ public class EffectSpoil extends L2Effect
 		}
 		return true;
 		
-	}
-	
-	/**
-	 * 
-	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
-	 */
-	@Override
-	public boolean onActionTime()
-	{
-		return false;
 	}
 }
