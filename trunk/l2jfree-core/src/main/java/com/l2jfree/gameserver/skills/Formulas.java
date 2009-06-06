@@ -2000,22 +2000,18 @@ public final class Formulas
 		
 		return (int) (base / atkSpd);
 	}
-
-	/** Calculate delay (in milliseconds) for skills cast */
-	public static final int calcCastingRelatedTime(L2Character attacker, L2Skill skill, double time)
+	
+	public static double calcCastingRelatedTimeMulti(L2Character attacker, L2Skill skill)
 	{
-		if (time <= 0)
-			return 0;
-		
 		if (skill.isItemSkill() && Config.ALT_ITEM_SKILLS_NOT_INFLUENCED)
-			return (int)time;
+			return 1.0;
 		
 		if (skill.isMagic())
-			return (int)(time * 333.3 / attacker.getMAtkSpd());
+			return 333.3 / attacker.getMAtkSpd();
 		else
-			return (int)(time * 333.3 / attacker.getPAtkSpd());
+			return 333.3 / attacker.getPAtkSpd();
 	}
-	 
+	
 	/**
 	 * Returns true if hit missed (target evaded) Formula based on http://l2p.l2wh.com/nonskillattacks.html
 	 */

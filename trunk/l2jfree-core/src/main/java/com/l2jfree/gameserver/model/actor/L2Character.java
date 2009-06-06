@@ -1700,32 +1700,21 @@ public abstract class L2Character extends L2Object
 		// Don't modify the skill time for FORCE_BUFF skills. The skill time for those skills represent the buff time.
 		if (!effectWhileCasting && !skill.isStaticHitTime())
 		{
-			hitTime = Formulas.calcCastingRelatedTime(this, skill, hitTime);
-			coolTime = Formulas.calcCastingRelatedTime(this, skill, coolTime);
-			skillInterruptTime = Formulas.calcCastingRelatedTime(this, skill, skillInterruptTime);
+			double multi = Formulas.calcCastingRelatedTimeMulti(this, skill);
 			
 			rechargeShot();
 			
 			// Calculate altered Cast Speed due to BSpS/SpS
-			if (skill.useSpiritShot())
-			{
-				if (isAnySpiritshotCharged())
-				{
-					hitTime *= 0.7;
-					coolTime *= 0.7;
-					skillInterruptTime *= 0.7;
-				}
-			}
+			if (skill.useSpiritShot() && isAnySpiritshotCharged())
+				multi *= 0.7;
 			
 			// if basic hitTime is higher or equal to 500 than the min hitTime is 500
-			if (skill.getHitTime() >= 500 && hitTime < 500)
-			{
-				final double multi = 500.0 / hitTime;
-				
-				hitTime *= multi;
-				coolTime *= multi;
-				skillInterruptTime *= multi;
-			}
+			if (hitTime >= 500)
+				multi = Math.max(multi, 500.0 / hitTime);
+			
+			hitTime *= multi;
+			coolTime *= multi;
+			skillInterruptTime *= multi;
 		}
 		
 		// queue herbs and potions
