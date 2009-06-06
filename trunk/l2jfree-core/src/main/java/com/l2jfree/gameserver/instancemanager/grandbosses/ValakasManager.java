@@ -39,44 +39,45 @@ import com.l2jfree.tools.random.Rnd;
 
 /**
  * 
- * This class ...
- * control for sequence of fight against Valakas.
+ * This class ... control for sequence of fight against Valakas.
+ * 
  * @version $Revision: $ $Date: $
- * @author  L2J_JP SANDMAN
+ * @author L2J_JP SANDMAN
  */
 public class ValakasManager extends BossLair
 {
 	private static ValakasManager	_instance;
 
+	public int						_instanceId					= 0;
+
 	// Location of teleport cube.
 	private final int				_teleportCubeId				= 31759;
-	private final int				_teleportCubeLocation[][]	=
-																{
-																{ 214880, -116144, -1644, 0 },
-																{ 213696, -116592, -1644, 0 },
-																{ 212112, -116688, -1644, 0 },
-																{ 211184, -115472, -1664, 0 },
-																{ 210336, -114592, -1644, 0 },
-																{ 211360, -113904, -1644, 0 },
-																{ 213152, -112352, -1644, 0 },
-																{ 214032, -113232, -1644, 0 },
-																{ 214752, -114592, -1644, 0 },
-																{ 209824, -115568, -1421, 0 },
-																{ 210528, -112192, -1403, 0 },
-																{ 213120, -111136, -1408, 0 },
-																{ 215184, -111504, -1392, 0 },
-																{ 215456, -117328, -1392, 0 },
-																{ 213200, -118160, -1424, 0 }
+	private final int				_teleportCubeLocation[][]	= {
+			{ 214880, -116144, -1644, 0 },
+			{ 213696, -116592, -1644, 0 },
+			{ 212112, -116688, -1644, 0 },
+			{ 211184, -115472, -1664, 0 },
+			{ 210336, -114592, -1644, 0 },
+			{ 211360, -113904, -1644, 0 },
+			{ 213152, -112352, -1644, 0 },
+			{ 214032, -113232, -1644, 0 },
+			{ 214752, -114592, -1644, 0 },
+			{ 209824, -115568, -1421, 0 },
+			{ 210528, -112192, -1403, 0 },
+			{ 213120, -111136, -1408, 0 },
+			{ 215184, -111504, -1392, 0 },
+			{ 215456, -117328, -1392, 0 },
+			{ 213200, -118160, -1424, 0 }
 
 																};
 	protected List<L2Spawn>			_teleportCubeSpawn			= new FastList<L2Spawn>();
-	protected List<L2Npc>	_teleportCube				= new FastList<L2Npc>();
+	protected List<L2Npc>			_teleportCube				= new FastList<L2Npc>();
 
 	// Spawn data of monsters.
 	protected Map<Integer, L2Spawn>	_monsterSpawn				= new FastMap<Integer, L2Spawn>();
 
 	// Instance of monsters.
-	protected List<L2Npc>	_monsters					= new FastList<L2Npc>();
+	protected List<L2Npc>			_monsters					= new FastList<L2Npc>();
 
 	// Tasks.
 	protected ScheduledFuture<?>	_cubeSpawnTask				= null;
@@ -188,6 +189,7 @@ public class ValakasManager extends BossLair
 	{
 		for (L2Spawn spawnDat : _teleportCubeSpawn)
 		{
+			spawnDat.setInstanceId(_instanceId);
 			_teleportCube.add(spawnDat.doSpawn());
 		}
 	}
@@ -225,303 +227,303 @@ public class ValakasManager extends BossLair
 
 			switch (_taskId)
 			{
-			case 1:
-				// Do spawn.
-				L2Spawn valakasSpawn = _monsterSpawn.get(29028);
-				_valakas = (L2GrandBossInstance) valakasSpawn.doSpawn();
-				_monsters.add(_valakas);
-				_valakas.setIsImmobilized(true);
-				_valakas.setIsInSocialAction(true);
+				case 1:
+					// Do spawn.
+					L2Spawn valakasSpawn = _monsterSpawn.get(29028);
+					valakasSpawn.setInstanceId(_instanceId);
+					_valakas = (L2GrandBossInstance) valakasSpawn.doSpawn();
+					_monsters.add(_valakas);
+					_valakas.setIsImmobilized(true);
+					_valakas.setIsInSocialAction(true);
 
-				_state.setRespawnDate(Rnd.get(Config.FWV_FIXINTERVALOFVALAKAS, Config.FWV_FIXINTERVALOFVALAKAS + Config.FWV_RANDOMINTERVALOFVALAKAS)
-						+ Config.FWV_ACTIVITYTIMEOFVALAKAS);
-				_state.setState(GrandBossState.StateEnum.ALIVE);
-				_state.update();
+					_state.setRespawnDate(Rnd.get(Config.FWV_FIXINTERVALOFVALAKAS, Config.FWV_FIXINTERVALOFVALAKAS + Config.FWV_RANDOMINTERVALOFVALAKAS) + Config.FWV_ACTIVITYTIMEOFVALAKAS);
+					_state.setState(GrandBossState.StateEnum.ALIVE);
+					_state.update();
 
-				// Set next task.
-				if (_socialTask != null)
-				{
-					_socialTask.cancel(true);
-					_socialTask = null;
-				}
-				_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new ValakasSpawn(2, _valakas), 16);
-
-				break;
-
-			case 2:
-				// Do social.
-				sa = new SocialAction(_valakas.getObjectId(), 1);
-				_valakas.broadcastPacket(sa);
-
-				// Set camera.
-				for (L2PcInstance pc : _players)
-				{
-					if (pc.getPlanDistanceSq(_valakas) <= _distance)
+					// Set next task.
+					if (_socialTask != null)
 					{
-						pc.enterMovieMode();
-						pc.specialCamera(_valakas, 1800, 180, -1, 1500, 15000);
+						_socialTask.cancel(true);
+						_socialTask = null;
 					}
-					else
+					_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new ValakasSpawn(2, _valakas), 16);
+
+					break;
+
+				case 2:
+					// Do social.
+					sa = new SocialAction(_valakas.getObjectId(), 1);
+					_valakas.broadcastPacket(sa);
+
+					// Set camera.
+					for (L2PcInstance pc : _players)
+					{
+						if (pc.getPlanDistanceSq(_valakas) <= _distance)
+						{
+							pc.enterMovieMode();
+							pc.specialCamera(_valakas, 1800, 180, -1, 1500, 15000);
+						}
+						else
+						{
+							pc.leaveMovieMode();
+						}
+					}
+
+					// Set next task.
+					if (_socialTask != null)
+					{
+						_socialTask.cancel(true);
+						_socialTask = null;
+					}
+					_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new ValakasSpawn(3, _valakas), 1500);
+
+					break;
+
+				case 3:
+					// Set camera.
+					for (L2PcInstance pc : _players)
+					{
+						if (pc.getPlanDistanceSq(_valakas) <= _distance)
+						{
+							pc.enterMovieMode();
+							pc.specialCamera(_valakas, 1300, 180, -5, 3000, 15000);
+						}
+						else
+						{
+							pc.leaveMovieMode();
+						}
+					}
+
+					// Set next task.
+					if (_socialTask != null)
+					{
+						_socialTask.cancel(true);
+						_socialTask = null;
+					}
+					_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new ValakasSpawn(4, _valakas), 3300);
+
+					break;
+
+				case 4:
+					// Set camera.
+					for (L2PcInstance pc : _players)
+					{
+						if (pc.getPlanDistanceSq(_valakas) <= _distance)
+						{
+							pc.enterMovieMode();
+							pc.specialCamera(_valakas, 500, 180, -8, 600, 15000);
+						}
+						else
+						{
+							pc.leaveMovieMode();
+						}
+					}
+
+					// Set next task.
+					if (_socialTask != null)
+					{
+						_socialTask.cancel(true);
+						_socialTask = null;
+					}
+					_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new ValakasSpawn(5, _valakas), 1300);
+
+					break;
+
+				case 5:
+					// Set camera.
+					for (L2PcInstance pc : _players)
+					{
+						if (pc.getPlanDistanceSq(_valakas) <= _distance)
+						{
+							pc.enterMovieMode();
+							pc.specialCamera(_valakas, 1200, 180, -5, 300, 15000);
+						}
+						else
+						{
+							pc.leaveMovieMode();
+						}
+					}
+
+					// Set next task.
+					if (_socialTask != null)
+					{
+						_socialTask.cancel(true);
+						_socialTask = null;
+					}
+					_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new ValakasSpawn(6, _valakas), 1600);
+
+					break;
+
+				case 6:
+					// Set camera.
+					for (L2PcInstance pc : _players)
+					{
+						if (pc.getPlanDistanceSq(_valakas) <= _distance)
+						{
+							pc.enterMovieMode();
+							pc.specialCamera(_valakas, 2800, 250, 70, 0, 15000);
+						}
+						else
+						{
+							pc.leaveMovieMode();
+						}
+					}
+
+					// Set next task.
+					if (_socialTask != null)
+					{
+						_socialTask.cancel(true);
+						_socialTask = null;
+					}
+					_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new ValakasSpawn(7, _valakas), 200);
+
+					break;
+
+				case 7:
+					// Set camera.
+					for (L2PcInstance pc : _players)
+					{
+						if (pc.getPlanDistanceSq(_valakas) <= _distance)
+						{
+							pc.enterMovieMode();
+							pc.specialCamera(_valakas, 2600, 30, 60, 3400, 15000);
+						}
+						else
+						{
+							pc.leaveMovieMode();
+						}
+					}
+
+					// Set next task.
+					if (_socialTask != null)
+					{
+						_socialTask.cancel(true);
+						_socialTask = null;
+					}
+					_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new ValakasSpawn(8, _valakas), 5700);
+
+					break;
+
+				case 8:
+					// Set camera.
+					for (L2PcInstance pc : _players)
+					{
+						if (pc.getPlanDistanceSq(_valakas) <= _distance)
+						{
+							pc.enterMovieMode();
+							pc.specialCamera(_valakas, 700, 150, -65, 0, 15000);
+						}
+						else
+						{
+							pc.leaveMovieMode();
+						}
+					}
+
+					// Set next task.
+					if (_socialTask != null)
+					{
+						_socialTask.cancel(true);
+						_socialTask = null;
+					}
+					_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new ValakasSpawn(9, _valakas), 1400);
+
+					break;
+
+				case 9:
+					// Set camera.
+					for (L2PcInstance pc : _players)
+					{
+						if (pc.getPlanDistanceSq(_valakas) <= _distance)
+						{
+							pc.enterMovieMode();
+							pc.specialCamera(_valakas, 1200, 150, -55, 2900, 15000);
+						}
+						else
+						{
+							pc.leaveMovieMode();
+						}
+					}
+
+					// Set next task.
+					if (_socialTask != null)
+					{
+						_socialTask.cancel(true);
+						_socialTask = null;
+					}
+					_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new ValakasSpawn(10, _valakas), 6700);
+
+					break;
+
+				case 10:
+					// Set camera.
+					for (L2PcInstance pc : _players)
+					{
+						if (pc.getPlanDistanceSq(_valakas) <= _distance)
+						{
+							pc.enterMovieMode();
+							pc.specialCamera(_valakas, 750, 170, -10, 1700, 5700);
+						}
+						else
+						{
+							pc.leaveMovieMode();
+						}
+					}
+
+					// Set next task.
+					if (_socialTask != null)
+					{
+						_socialTask.cancel(true);
+						_socialTask = null;
+					}
+					_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new ValakasSpawn(11, _valakas), 3700);
+
+					break;
+
+				case 11:
+					// Set camera.
+					for (L2PcInstance pc : _players)
+					{
+						if (pc.getPlanDistanceSq(_valakas) <= _distance)
+						{
+							pc.enterMovieMode();
+							pc.specialCamera(_valakas, 840, 170, -5, 1200, 2000);
+						}
+						else
+						{
+							pc.leaveMovieMode();
+						}
+					}
+
+					// Set next task.
+					if (_socialTask != null)
+					{
+						_socialTask.cancel(true);
+						_socialTask = null;
+					}
+					_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new ValakasSpawn(12, _valakas), 2000);
+
+					break;
+
+				case 12:
+					// Reset camera.
+					for (L2PcInstance pc : _players)
 					{
 						pc.leaveMovieMode();
 					}
-				}
 
-				// Set next task.
-				if (_socialTask != null)
-				{
-					_socialTask.cancel(true);
-					_socialTask = null;
-				}
-				_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new ValakasSpawn(3, _valakas), 1500);
+					_mobiliseTask = ThreadPoolManager.getInstance().scheduleGeneral(new SetMobilised(_valakas), 16);
 
-				break;
-
-			case 3:
-				// Set camera.
-				for (L2PcInstance pc : _players)
-				{
-					if (pc.getPlanDistanceSq(_valakas) <= _distance)
+					// Move at random.
+					if (Config.FWV_MOVEATRANDOM)
 					{
-						pc.enterMovieMode();
-						pc.specialCamera(_valakas, 1300, 180, -5, 3000, 15000);
+						L2CharPosition pos = new L2CharPosition(Rnd.get(211080, 214909), Rnd.get(-115841, -112822), -1662, 0);
+						_moveAtRandomTask = ThreadPoolManager.getInstance().scheduleGeneral(new MoveAtRandom(_valakas, pos), 32);
 					}
-					else
-					{
-						pc.leaveMovieMode();
-					}
-				}
 
-				// Set next task.
-				if (_socialTask != null)
-				{
-					_socialTask.cancel(true);
-					_socialTask = null;
-				}
-				_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new ValakasSpawn(4, _valakas), 3300);
+					// Set delete task.
+					_activityTimeEndTask = ThreadPoolManager.getInstance().scheduleGeneral(new ActivityTimeEnd(), Config.FWV_ACTIVITYTIMEOFVALAKAS);
 
-				break;
-
-			case 4:
-				// Set camera.
-				for (L2PcInstance pc : _players)
-				{
-					if (pc.getPlanDistanceSq(_valakas) <= _distance)
-					{
-						pc.enterMovieMode();
-						pc.specialCamera(_valakas, 500, 180, -8, 600, 15000);
-					}
-					else
-					{
-						pc.leaveMovieMode();
-					}
-				}
-
-				// Set next task.
-				if (_socialTask != null)
-				{
-					_socialTask.cancel(true);
-					_socialTask = null;
-				}
-				_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new ValakasSpawn(5, _valakas), 1300);
-
-				break;
-
-			case 5:
-				// Set camera.
-				for (L2PcInstance pc : _players)
-				{
-					if (pc.getPlanDistanceSq(_valakas) <= _distance)
-					{
-						pc.enterMovieMode();
-						pc.specialCamera(_valakas, 1200, 180, -5, 300, 15000);
-					}
-					else
-					{
-						pc.leaveMovieMode();
-					}
-				}
-
-				// Set next task.
-				if (_socialTask != null)
-				{
-					_socialTask.cancel(true);
-					_socialTask = null;
-				}
-				_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new ValakasSpawn(6, _valakas), 1600);
-
-				break;
-
-			case 6:
-				// Set camera.
-				for (L2PcInstance pc : _players)
-				{
-					if (pc.getPlanDistanceSq(_valakas) <= _distance)
-					{
-						pc.enterMovieMode();
-						pc.specialCamera(_valakas, 2800, 250, 70, 0, 15000);
-					}
-					else
-					{
-						pc.leaveMovieMode();
-					}
-				}
-
-				// Set next task.
-				if (_socialTask != null)
-				{
-					_socialTask.cancel(true);
-					_socialTask = null;
-				}
-				_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new ValakasSpawn(7, _valakas), 200);
-
-				break;
-
-			case 7:
-				// Set camera.
-				for (L2PcInstance pc : _players)
-				{
-					if (pc.getPlanDistanceSq(_valakas) <= _distance)
-					{
-						pc.enterMovieMode();
-						pc.specialCamera(_valakas, 2600, 30, 60, 3400, 15000);
-					}
-					else
-					{
-						pc.leaveMovieMode();
-					}
-				}
-
-				// Set next task.
-				if (_socialTask != null)
-				{
-					_socialTask.cancel(true);
-					_socialTask = null;
-				}
-				_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new ValakasSpawn(8, _valakas), 5700);
-
-				break;
-
-			case 8:
-				// Set camera.
-				for (L2PcInstance pc : _players)
-				{
-					if (pc.getPlanDistanceSq(_valakas) <= _distance)
-					{
-						pc.enterMovieMode();
-						pc.specialCamera(_valakas, 700, 150, -65, 0, 15000);
-					}
-					else
-					{
-						pc.leaveMovieMode();
-					}
-				}
-
-				// Set next task.
-				if (_socialTask != null)
-				{
-					_socialTask.cancel(true);
-					_socialTask = null;
-				}
-				_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new ValakasSpawn(9, _valakas), 1400);
-
-				break;
-
-			case 9:
-				// Set camera.
-				for (L2PcInstance pc : _players)
-				{
-					if (pc.getPlanDistanceSq(_valakas) <= _distance)
-					{
-						pc.enterMovieMode();
-						pc.specialCamera(_valakas, 1200, 150, -55, 2900, 15000);
-					}
-					else
-					{
-						pc.leaveMovieMode();
-					}
-				}
-
-				// Set next task.
-				if (_socialTask != null)
-				{
-					_socialTask.cancel(true);
-					_socialTask = null;
-				}
-				_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new ValakasSpawn(10, _valakas), 6700);
-
-				break;
-
-			case 10:
-				// Set camera.
-				for (L2PcInstance pc : _players)
-				{
-					if (pc.getPlanDistanceSq(_valakas) <= _distance)
-					{
-						pc.enterMovieMode();
-						pc.specialCamera(_valakas, 750, 170, -10, 1700, 5700);
-					}
-					else
-					{
-						pc.leaveMovieMode();
-					}
-				}
-
-				// Set next task.
-				if (_socialTask != null)
-				{
-					_socialTask.cancel(true);
-					_socialTask = null;
-				}
-				_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new ValakasSpawn(11, _valakas), 3700);
-
-				break;
-
-			case 11:
-				// Set camera.
-				for (L2PcInstance pc : _players)
-				{
-					if (pc.getPlanDistanceSq(_valakas) <= _distance)
-					{
-						pc.enterMovieMode();
-						pc.specialCamera(_valakas, 840, 170, -5, 1200, 2000);
-					}
-					else
-					{
-						pc.leaveMovieMode();
-					}
-				}
-
-				// Set next task.
-				if (_socialTask != null)
-				{
-					_socialTask.cancel(true);
-					_socialTask = null;
-				}
-				_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new ValakasSpawn(12, _valakas), 2000);
-
-				break;
-
-			case 12:
-				// Reset camera.
-				for (L2PcInstance pc : _players)
-				{
-					pc.leaveMovieMode();
-				}
-
-				_mobiliseTask = ThreadPoolManager.getInstance().scheduleGeneral(new SetMobilised(_valakas), 16);
-
-				// Move at random.
-				if (Config.FWV_MOVEATRANDOM)
-				{
-					L2CharPosition pos = new L2CharPosition(Rnd.get(211080, 214909), Rnd.get(-115841, -112822), -1662, 0);
-					_moveAtRandomTask = ThreadPoolManager.getInstance().scheduleGeneral(new MoveAtRandom(_valakas, pos), 32);
-				}
-
-				// Set delete task.
-				_activityTimeEndTask = ThreadPoolManager.getInstance().scheduleGeneral(new ActivityTimeEnd(), Config.FWV_ACTIVITYTIMEOFVALAKAS);
-
-				break;
+					break;
 			}
 		}
 	}
@@ -674,7 +676,7 @@ public class ValakasManager extends BossLair
 	// Move at random on after Valakas appears.
 	private class MoveAtRandom implements Runnable
 	{
-		private L2Npc	_npc;
+		private L2Npc			_npc;
 		private L2CharPosition	_pos;
 
 		public MoveAtRandom(L2Npc npc, L2CharPosition pos)
@@ -693,6 +695,7 @@ public class ValakasManager extends BossLair
 	protected void restartValakas()
 	{
 		L2Spawn valakasSpawn = _monsterSpawn.get(32123);
+		valakasSpawn.setInstanceId(_instanceId);
 		L2Npc valakas = valakasSpawn.doSpawn();
 		_monsters.add(valakas);
 

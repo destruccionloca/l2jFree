@@ -42,70 +42,70 @@ import com.l2jfree.tools.random.Rnd;
 
 /**
  * 
- * This class ...
- * control for sequence of fight against Baium.
+ * This class ... control for sequence of fight against Baium.
+ * 
  * @version $Revision: $ $Date: $
- * @author  L2J_JP SANDMAN
+ * @author L2J_JP SANDMAN
  */
 public class BaiumManager extends BossLair
 {
 	private static BaiumManager		_instance;
+	public int						_instanceId				= 0;
 
-	public final static int			BAIUM_NPC = 29025;
-	public final static int			BAIUM = 29020;
-	public final static int			ARCHANGEL = 29021;
-	public final static int			TELEPORT_CUBE = 29055;
+	public final static int			BAIUM_NPC				= 29025;
+	public final static int			BAIUM					= 29020;
+	public final static int			ARCHANGEL				= 29021;
+	public final static int			TELEPORT_CUBE			= 29055;
 
-	public final static int			STATUE_LOCATION[]		=	{ 115996, 17417, 10106, 41740 };
+	public final static int			STATUE_LOCATION[]		= { 115996, 17417, 10106, 41740 };
 	protected L2Spawn				_statueSpawn			= null;
 
 	// Location of arcangels.
-	public final static int			ANGEL_LOCATION[][]			=
-																{
-																{ 113004, 16209, 10076, 60242 },
-																{ 114053, 16642, 10076, 4411 },
-																{ 114563, 17184, 10076, 49241 },
-																{ 116356, 16402, 10076, 31109 },
-																{ 115015, 16393, 10076, 32760 },
-																{ 115481, 15335, 10076, 16241 },
-																{ 114680, 15407, 10051, 32485 },
-																{ 114886, 14437, 10076, 16868 },
-																{ 115391, 17593, 10076, 55346 },
-																{ 115245, 17558, 10076, 35536 } };
-	protected List<L2Spawn>					_angelSpawns				= new FastList<L2Spawn>();
-	protected List<L2Npc>			_angels						= new FastList<L2Npc>();
+	public final static int			ANGEL_LOCATION[][]		= {
+			{ 113004, 16209, 10076, 60242 },
+			{ 114053, 16642, 10076, 4411 },
+			{ 114563, 17184, 10076, 49241 },
+			{ 116356, 16402, 10076, 31109 },
+			{ 115015, 16393, 10076, 32760 },
+			{ 115481, 15335, 10076, 16241 },
+			{ 114680, 15407, 10051, 32485 },
+			{ 114886, 14437, 10076, 16868 },
+			{ 115391, 17593, 10076, 55346 },
+			{ 115245, 17558, 10076, 35536 }				};
+	protected List<L2Spawn>			_angelSpawns			= new FastList<L2Spawn>();
+	protected List<L2Npc>			_angels					= new FastList<L2Npc>();
 
 	// Location of teleport cube.
-	public final static int			CUBE_LOCATION[]				= { 115203, 16620, 10078, 0 };
-	protected L2Spawn				_teleportCubeSpawn			= null;
-	protected L2Npc			_teleportCube				= null;
+	public final static int			CUBE_LOCATION[]			= { 115203, 16620, 10078, 0 };
+	protected L2Spawn				_teleportCubeSpawn		= null;
+	protected L2Npc					_teleportCube			= null;
 
 	// Instance of statue of Baium.
-	protected L2Npc			_npcBaium;
+	protected L2Npc					_npcBaium;
 
 	// Spawn data of monsters.
-	protected Map<Integer, L2Spawn>	_monsterSpawn				= new FastMap<Integer, L2Spawn>();
+	protected Map<Integer, L2Spawn>	_monsterSpawn			= new FastMap<Integer, L2Spawn>();
 
 	// Instance of monsters.
-	protected List<L2Npc>	_monsters					= new FastList<L2Npc>();
+	protected List<L2Npc>			_monsters				= new FastList<L2Npc>();
 
 	// Tasks.
-	protected ScheduledFuture<?>	_cubeSpawnTask				= null;
-	protected ScheduledFuture<?>	_monsterSpawnTask			= null;
-	protected ScheduledFuture<?>	_intervalEndTask			= null;
-	protected ScheduledFuture<?>	_activityTimeEndTask		= null;
-	protected ScheduledFuture<?>	_socialTask					= null;
-	protected ScheduledFuture<?>	_mobiliseTask				= null;
-	protected ScheduledFuture<?>	_moveAtRandomTask			= null;
-	protected ScheduledFuture<?>	_socialTask2				= null;
-	protected ScheduledFuture<?>	_killPcTask					= null;
-	protected ScheduledFuture<?>	_callAngelTask				= null;
-	protected ScheduledFuture<?>	_sleepCheckTask				= null;
-	protected ScheduledFuture<?>	_speakTask					= null;
+	protected ScheduledFuture<?>	_cubeSpawnTask			= null;
+	protected ScheduledFuture<?>	_monsterSpawnTask		= null;
+	protected ScheduledFuture<?>	_intervalEndTask		= null;
+	protected ScheduledFuture<?>	_activityTimeEndTask	= null;
+	protected ScheduledFuture<?>	_socialTask				= null;
+	protected ScheduledFuture<?>	_mobiliseTask			= null;
+	protected ScheduledFuture<?>	_moveAtRandomTask		= null;
+	protected ScheduledFuture<?>	_socialTask2			= null;
+	protected ScheduledFuture<?>	_killPcTask				= null;
+	protected ScheduledFuture<?>	_callAngelTask			= null;
+	protected ScheduledFuture<?>	_sleepCheckTask			= null;
+	protected ScheduledFuture<?>	_speakTask				= null;
 
 	// Status in lair.
-	protected long					_lastAttackTime				= 0;
-	protected String				_words						= "Don't obstruct my sleep! Die!";
+	protected long					_lastAttackTime			= 0;
+	protected String				_words					= "Don't obstruct my sleep! Die!";
 
 	public BaiumManager()
 	{
@@ -233,6 +233,7 @@ public class BaiumManager extends BossLair
 	{
 		for (L2Spawn spawn : _angelSpawns)
 		{
+			spawn.setInstanceId(_instanceId);
 			_angels.add(spawn.doSpawn());
 		}
 	}
@@ -263,14 +264,15 @@ public class BaiumManager extends BossLair
 		baiumSpawn.setLocz(_npcBaium.getZ());
 		baiumSpawn.setHeading(_npcBaium.getHeading());
 
+		baiumSpawn.setInstanceId(_instanceId);
+
 		// Delete statue.  
 		_npcBaium.deleteMe();
 
 		final L2GrandBossInstance baium = (L2GrandBossInstance) baiumSpawn.doSpawn();
 		_monsters.add(baium);
 
-		_state.setRespawnDate(Rnd.get(Config.FWB_FIXINTERVALOFBAIUM, Config.FWB_FIXINTERVALOFBAIUM + Config.FWB_RANDOMINTERVALOFBAIUM)
-				+ Config.FWB_ACTIVITYTIMEOFBAIUM);
+		_state.setRespawnDate(Rnd.get(Config.FWB_FIXINTERVALOFBAIUM, Config.FWB_FIXINTERVALOFBAIUM + Config.FWB_RANDOMINTERVALOFBAIUM) + Config.FWB_ACTIVITYTIMEOFBAIUM);
 		_state.setState(GrandBossState.StateEnum.ALIVE);
 		_state.update();
 
@@ -284,15 +286,12 @@ public class BaiumManager extends BossLair
 		baium.setIsImmobilized(true);
 		baium.setIsInSocialAction(true);
 
-
-
 		SocialAction sa = new SocialAction(baium.getObjectId(), 2);
 		baium.broadcastPacket(sa);
 
 		_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new Social(baium, 3), 15000);
 
-		ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
-		{
+		ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
 			public void run()
 			{
 				Earthquake eq = new Earthquake(baium.getX(), baium.getY(), baium.getZ(), 40, 5);
@@ -422,6 +421,7 @@ public class BaiumManager extends BossLair
 	// Do spawn teleport cube.
 	public void spawnCube()
 	{
+		_teleportCubeSpawn.setInstanceId(_instanceId);
 		_teleportCube = _teleportCubeSpawn.doSpawn();
 	}
 
@@ -477,7 +477,7 @@ public class BaiumManager extends BossLair
 	// Do social.
 	private class Social implements Runnable
 	{
-		private int				_action;
+		private int		_action;
 		private L2Npc	_npc;
 
 		public Social(L2Npc npc, int actionId)
@@ -520,7 +520,7 @@ public class BaiumManager extends BossLair
 	// Move at random on after Baium appears.
 	private class MoveAtRandom implements Runnable
 	{
-		private L2Npc	_npc;
+		private L2Npc			_npc;
 		private L2CharPosition	_pos;
 
 		public MoveAtRandom(L2Npc npc, L2CharPosition pos)
@@ -576,6 +576,8 @@ public class BaiumManager extends BossLair
 
 		// statue of Baium respawn.
 		_statueSpawn.doSpawn();
+
+		checkAnnihilated();
 	}
 
 	public void setLastAttackTime()
@@ -602,5 +604,11 @@ public class BaiumManager extends BossLair
 				}
 			}
 		}
+	}
+
+	public void spawnStatue()
+	{
+		_statueSpawn.setInstanceId(_instanceId);
+		_statueSpawn.doSpawn();
 	}
 }
