@@ -12,11 +12,6 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
-/**
- * @author godson
- */
-
 package com.l2jfree.gameserver.model.olympiad;
 
 import java.io.File;
@@ -54,6 +49,9 @@ import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.StatsSet;
 
+/**
+ * @author godson
+ */
 public final class Olympiad
 {
 	private static final Log _log = LogFactory.getLog(Olympiad.class);

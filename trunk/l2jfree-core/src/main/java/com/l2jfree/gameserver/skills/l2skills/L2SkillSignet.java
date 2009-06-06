@@ -12,11 +12,6 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
-/**
- * @author Forsaiken
- */
-
 package com.l2jfree.gameserver.skills.l2skills;
 
 import com.l2jfree.gameserver.datatables.NpcTable;
@@ -26,11 +21,13 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2EffectPointInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.StatsSet;
+import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.tools.geometry.Point3D;
 
-
+/**
+ * @author Forsaiken
+ */
 public final class L2SkillSignet extends L2Skill
 {
 	private int	_effectNpcId;

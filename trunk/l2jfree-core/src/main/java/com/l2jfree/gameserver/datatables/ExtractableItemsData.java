@@ -12,13 +12,6 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
-/**
- *
- * @author FBIagent
- *
- */
-
 package com.l2jfree.gameserver.datatables;
 
 import java.io.File;
@@ -26,7 +19,6 @@ import java.util.Scanner;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -36,6 +28,9 @@ import com.l2jfree.gameserver.items.model.L2ExtractableItem;
 import com.l2jfree.gameserver.items.model.L2ExtractableProductItem;
 import com.l2jfree.gameserver.model.L2Skill;
 
+/**
+ * @author FBIagent
+ */
 public class ExtractableItemsData
 {
 	private final static Log					_log		= LogFactory.getLog(ExtractableItemsData.class.getName());

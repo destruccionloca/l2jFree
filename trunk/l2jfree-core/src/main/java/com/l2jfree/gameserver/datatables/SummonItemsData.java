@@ -12,13 +12,6 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
-/**
- * 
- * @author FBIagent
- * @reworked by Michiru
- */
-
 package com.l2jfree.gameserver.datatables;
 
 import java.io.File;
@@ -26,18 +19,20 @@ import java.io.IOException;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-
 import javolution.util.FastMap;
-
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2SummonItem;
 
+/**
+ * @author FBIagent
+ * @reworked by Michiru
+ */
 public class SummonItemsData
 {
 	private static final Log				_log	= LogFactory.getLog(SummonItemsData.class.getName());
