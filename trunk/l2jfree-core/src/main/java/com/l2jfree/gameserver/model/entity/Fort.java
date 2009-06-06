@@ -814,7 +814,7 @@ public class Fort extends Siegeable<FortSiege>
 					initial -= (Config.FS_BLOOD_OATH_FRQ * 60000);
 				if (_fortUpdater != null)
 					_fortUpdater.cancel(false);
-				_fortUpdater = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new FortUpdater(this, clan, 0), Config.FS_BLOOD_OATH_FRQ * 60000, Config.FS_BLOOD_OATH_FRQ * 60000); // Schedule owner tasks to start running
+				_fortUpdater = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new FortUpdater(this, clan, runCount), initial, Config.FS_BLOOD_OATH_FRQ * 60000); // Schedule owner tasks to start running
 			}
 			else
 			{
