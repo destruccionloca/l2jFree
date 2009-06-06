@@ -1404,10 +1404,7 @@ public final class Formulas
 		// Dmg bonusses in PvP fight
 		if ((attacker instanceof L2Playable) && (target instanceof L2Playable))
 		{
-			if (skill == null)
-				damage *= attacker.calcStat(Stats.PVP_PHYSICAL_DMG, 1, null, null);
-			else
-				damage *= attacker.calcStat(Stats.PVP_PHYS_SKILL_DMG, 1, null, null);
+			damage *= attacker.calcStat(Stats.PVP_PHYS_SKILL_DMG, 1, null, null);
 		}
 
 		return damage < 1 ? 1. : damage;

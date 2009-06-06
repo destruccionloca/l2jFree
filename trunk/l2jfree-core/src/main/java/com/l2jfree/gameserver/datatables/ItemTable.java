@@ -816,14 +816,14 @@ public final class ItemTable
 	
 	public List<L2Item> findItemsByName(String search)
 	{
-		String searchLower = search.toLowerCase();
+		search = search.toLowerCase();
 		List<L2Item> returnVal = new FastList<L2Item>();
 		
-		if (search != null && !search.isEmpty())
+		if (!search.isEmpty())
 		{
 			for (L2Item temp : _allTemplates)
 			{
-				if (temp != null && temp.getName().toLowerCase().contains(searchLower))
+				if (temp != null && temp.getName().toLowerCase().contains(search))
 				{
 					returnVal.add(temp);
 				}

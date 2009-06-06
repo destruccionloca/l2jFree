@@ -213,7 +213,6 @@ import com.l2jfree.gameserver.network.serverpackets.ObservationReturn;
 import com.l2jfree.gameserver.network.serverpackets.PartySmallWindowUpdate;
 import com.l2jfree.gameserver.network.serverpackets.PartySpelled;
 import com.l2jfree.gameserver.network.serverpackets.PetInventoryUpdate;
-import com.l2jfree.gameserver.network.serverpackets.PledgeShowInfoUpdate;
 import com.l2jfree.gameserver.network.serverpackets.PledgeShowMemberListDelete;
 import com.l2jfree.gameserver.network.serverpackets.PledgeShowMemberListUpdate;
 import com.l2jfree.gameserver.network.serverpackets.PledgeSkillList;

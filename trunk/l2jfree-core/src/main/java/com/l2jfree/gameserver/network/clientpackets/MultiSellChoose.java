@@ -30,7 +30,6 @@ import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
-import com.l2jfree.gameserver.network.serverpackets.PledgeShowInfoUpdate;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
@@ -128,7 +127,7 @@ public class MultiSellChoose extends L2GameClientPacket
 				// this happens if 1 list entry has the same ingredient twice (example 2 swords = 1 dual)
 				if ((ex.getItemId() == e.getItemId()) && (ex.getEnchantmentLevel() == e.getEnchantmentLevel()))
 				{
-					if ((long) ex.getItemCount() + e.getItemCount() >= Integer.MAX_VALUE)
+					if (ex.getItemCount() + e.getItemCount() >= Integer.MAX_VALUE)
 					{
 						sendPacket(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
 						_ingredientsList.clear();

@@ -103,7 +103,7 @@ public class RequestBypassToServer extends L2GameClientPacket
 		else if (_command.startsWith("summon_"))
 		{
 			activeChar.validateBypass(_command);
-
+			
 			int endOfId = _command.indexOf('_', 8);
 			String id;
 			if (endOfId > 0)
@@ -115,11 +115,11 @@ public class RequestBypassToServer extends L2GameClientPacket
 				int objectId = Integer.parseInt(id);
 				
 				L2MerchantSummonInstance summon = activeChar.getTarget(L2MerchantSummonInstance.class, objectId);
-
+				
 				if (summon != null && endOfId > 0
-						&& activeChar.isInsideRadius(summon, L2Npc.INTERACTION_DISTANCE, false, false))
+					&& activeChar.isInsideRadius(summon, L2Npc.INTERACTION_DISTANCE, false, false))
 				{
-					((L2MerchantSummonInstance) summon).onBypassFeedback(activeChar, _command.substring(endOfId + 1));
+					summon.onBypassFeedback(activeChar, _command.substring(endOfId + 1));
 				}
 				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			}
