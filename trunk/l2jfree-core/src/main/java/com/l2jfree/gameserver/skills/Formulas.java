@@ -1360,7 +1360,7 @@ public final class Formulas
 			return 0;
 
 		L2SiegeClan siegeClan = siege.getAttackerClan(activeChar.getClan().getClanId());
-		if (siegeClan == null || siegeClan.getFlag().size() == 0 || !Util.checkIfInRange(200, activeChar, siegeClan.getFlag().valueOf(siegeClan.getFlag().head().getNext()), true))
+		if (siegeClan == null || siegeClan.getFlag().isEmpty() || !Util.checkIfInRange(200, activeChar, siegeClan.getFlag().getFirst(), true))
 			return 0;
 
 		return 1.5; // If all is true, then modifer will be 50% more
@@ -1477,52 +1477,6 @@ public final class Formulas
 			transformed = pcInst.isTransformed();
 		}
 		
-		// defence modifier depending of the attacker weapon
-		L2Weapon weapon = attacker.getActiveWeaponItem();
-		Stats stat = null;
-		if (weapon != null && !transformed)
-		{
-			switch (weapon.getItemType())
-			{
-				case BOW:
-					stat = Stats.BOW_WPN_VULN;
-					break;
-				case CROSSBOW:
-					stat = Stats.CROSSBOW_WPN_VULN;
-					break;
-				case BLUNT:
-					stat = Stats.BLUNT_WPN_VULN;
-					break;
-				case DAGGER:
-					stat = Stats.DAGGER_WPN_VULN;
-					break;
-				case DUAL:
-					stat = Stats.DUAL_WPN_VULN;
-					break;
-				case DUALFIST:
-					stat = Stats.DUALFIST_WPN_VULN;
-					break;
-				case ETC:
-					stat = Stats.ETC_WPN_VULN;
-					break;
-				case FIST:
-					stat = Stats.FIST_WPN_VULN;
-					break;
-				case POLE:
-					stat = Stats.POLE_WPN_VULN;
-					break;
-				case SWORD:
-					stat = Stats.SWORD_WPN_VULN;
-					break;
-				case BIGSWORD:
-					stat = Stats.BIGSWORD_WPN_VULN;
-					break;
-				case BIGBLUNT:
-					stat = Stats.BIGBLUNT_WPN_VULN;
-					break;
-			}
-		}
-
 		/*
 		 * if (shld && !Config.ALT_GAME_SHIELD_BLOCKS) { defence +=
 		 * target.getShldDef(); }
@@ -1543,17 +1497,21 @@ public final class Formulas
 		if (crit)
 		{
 			//Finally retail like formula
-			damage = 2 * attacker.calcStat(Stats.CRITICAL_DAMAGE, 1, target, skill) * target.calcStat(Stats.CRIT_VULN, target.getTemplate().baseCritVuln, target, null) * (70 * damage / defence);
+			damage *= 2 * attacker.calcStat(Stats.CRITICAL_DAMAGE, 1, target, skill) * target.calcStat(Stats.CRIT_VULN, target.getTemplate().baseCritVuln, target, skill);
 			//Crit dmg add is almost useless in normal hits...
-			damage += (attacker.calcStat(Stats.CRITICAL_DAMAGE_ADD, 0, target, skill) * 70 / defence);
+			damage += attacker.calcStat(Stats.CRITICAL_DAMAGE_ADD, 0, target, skill);
 		}
-		else
-			damage = 70 * damage / defence;
-
+		
+		damage *= 70. / defence;
+		
 		// In C5 summons make 10 % less dmg in PvP.
 		if (attacker instanceof L2Summon && target instanceof L2PcInstance)
 			damage *= 0.9;
-
+		
+		// defence modifier depending of the attacker weapon
+		L2Weapon weapon = attacker.getActiveWeaponItem();
+		
+		Stats stat = weapon != null && !transformed ? weapon.getItemType().getStat() : null;
 		if (stat != null)
 		{
 			// get the vulnerability due to skills (buffs, passives, toggles, etc)
@@ -1574,7 +1532,7 @@ public final class Formulas
 			if (damage < 0)
 				damage = 0;
 		}
-
+		
 		if (target instanceof L2Npc)
 		{
 			switch (((L2Npc) target).getTemplate().getRace())
@@ -1597,8 +1555,36 @@ public final class Formulas
 				case GIANT:
 					damage *= attacker.getStat().getPAtkGiants(target);
 					break;
-				default:
-					// nothing
+				case MAGICCREATURE:
+					damage *= attacker.getStat().getPAtkMagic(target);
+					break;
+			}
+		}
+		
+		if (attacker instanceof L2Npc)
+		{
+			switch (((L2Npc)attacker).getTemplate().getRace())
+			{
+				case BEAST:
+					damage /= target.getStat().getPDefMonsters(attacker);
+					break;
+				case ANIMAL:
+					damage /= target.getStat().getPDefAnimals(attacker);
+					break;
+				case PLANT:
+					damage /= target.getStat().getPDefPlants(attacker);
+					break;
+				case DRAGON:
+					damage /= target.getStat().getPDefDragons(attacker);
+					break;
+				case BUG:
+					damage /= target.getStat().getPDefInsects(attacker);
+					break;
+				case GIANT:
+					damage /= target.getStat().getPDefGiants(attacker);
+					break;
+				case MAGICCREATURE:
+					damage /= target.getStat().getPDefMagic(attacker);
 					break;
 			}
 		}
@@ -1613,7 +1599,7 @@ public final class Formulas
 		}
 
 		// Dmg bonusses in PvP fight
-		if ((attacker instanceof L2Playable) && (target instanceof L2Playable))
+		if (attacker instanceof L2Playable && target instanceof L2Playable)
 		{
 			if (skill == null)
 				damage *= attacker.calcStat(Stats.PVP_PHYSICAL_DMG, 1, null, null);
@@ -1692,7 +1678,7 @@ public final class Formulas
 			}
 		}
 		else if (mcrit)
-			damage *= 3;
+			damage *= Config.ALT_MCRIT_RATE;
 
 		// CT2.3 general magic vuln
 		damage *= target.calcStat(Stats.MAGIC_DAMAGE_VULN, 1, null, null);
@@ -1771,7 +1757,7 @@ public final class Formulas
 			}
 		}
 		else if (mcrit)
-			damage *= 3;
+			damage *= Config.ALT_MCRIT_RATE;
 		damage += Rnd.nextDouble() * attacker.getRandomDamage(target);
 		// Pvp bonusses for dmg
 		if ((attacker instanceof L2Playable) && (target instanceof L2Playable))
@@ -1969,61 +1955,69 @@ public final class Formulas
 	{
 		if (target.getFusionSkill() != null)
 			return true;
-
-		double init = 0;
-
+		
+		if (target.isRaid() || target.isInvul())
+			return false; // No attack break
+		
+		double init;
+		
 		if (Config.ALT_GAME_CANCEL_CAST && target.isCastingNow())
 			init = 15;
-		if (Config.ALT_GAME_CANCEL_BOW && target.isAttackingNow())
+		else if (Config.ALT_GAME_CANCEL_BOW && target.isAttackingNow() && target.getActiveWeaponItem() != null
+			&& target.getActiveWeaponItem().getItemType() == L2WeaponType.BOW)
 		{
-			L2Weapon wpn = target.getActiveWeaponItem();
-			if (wpn != null && wpn.getItemType() == L2WeaponType.BOW)
-				init = 15;
+			init = 15;
 		}
-
-		if (target.isRaid() || target.isInvul() || init <= 0)
-			return false; // No attack break
-
+		else
+			return false;
+			
 		// Chance of break is higher with higher dmg
 		init += Math.sqrt(13 * dmg);
-
+		
 		// Chance is affected by target MEN
 		init -= (MENbonus[target.getStat().getMEN()] * 100 - 100);
-
+		
 		// Calculate all modifiers for ATTACK_CANCEL
 		double rate = target.calcStat(Stats.ATTACK_CANCEL, init, null, null);
-
+		
 		// Adjust the rate to be between 1 and 99
 		if (rate > 99)
 			rate = 99;
 		else if (rate < 1)
 			rate = 1;
-
+		
 		return Rnd.get(100) < rate;
 	}
 
 	/** Calculate delay (in milliseconds) before next ATTACK */
-	public static final int calcPAtkSpd(L2Character attacker, L2Character target, double rate)
+	public static final int calcPAtkSpd(L2Character attacker, L2Character target, double atkSpd, double base)
 	{
-		// measured Oct 2006 by Tank6585, formula by Sami
-		// attack speed 312 equals 1500 ms delay... (or 300 + 40 ms delay?)
-		if (rate < 2)
-			return 2700;
-		else
-			return (int) (470000 / rate);
+		if (attacker instanceof L2PcInstance)
+			base *= Config.ALT_ATTACK_DELAY;
+		
+		if (atkSpd < 10)
+			atkSpd = 10;
+		
+		return (int) (base / atkSpd);
 	}
 
 	/** Calculate delay (in milliseconds) for skills cast */
-	public static final int calcAtkSpd(L2Character attacker, L2Skill skill, double skillTime)
+	public static final int calcCastingRelatedTime(L2Character attacker, L2Skill skill, double time)
 	{
+		if (time <= 0)
+			return 0;
+		
+		if (skill.isItemSkill() && Config.ALT_ITEM_SKILLS_NOT_INFLUENCED)
+			return (int)time;
+		
 		if (skill.isMagic())
-			return (int) (skillTime * 333 / attacker.getMAtkSpd());
-		return (int) (skillTime * 333 / attacker.getPAtkSpd());
+			return (int)(time * 333.3 / attacker.getMAtkSpd());
+		else
+			return (int)(time * 333.3 / attacker.getPAtkSpd());
 	}
-
+	 
 	/**
-	 * Returns true if hit missed (target evaded) Formula based on
-	 * http://l2p.l2wh.com/nonskillattacks.html
+	 * Returns true if hit missed (target evaded) Formula based on http://l2p.l2wh.com/nonskillattacks.html
 	 */
 	public static boolean calcHitMiss(L2Character attacker, L2Character target)
 	{
@@ -2218,16 +2212,17 @@ public final class Formulas
 		d += 0.5 * Rnd.nextGaussian();
 		return d > 0;
 	}
-
+	
 	public static double calcSkillVulnerability(L2Character attacker, L2Character target, L2Skill skill)
 	{
 		double multiplier = 1; // initialize...
-
+		
 		// Get the skill type to calculate its effect in function of base stats
 		// of the L2Character target
 		if (skill != null)
 		{
 			// first, get the natural template vulnerability values for the target
+			/*
 			Stats stat = skill.getStat();
 			if (stat != null)
 			{
@@ -2259,6 +2254,8 @@ public final class Formulas
 						break;
 				}
 			}
+			*/
+			
 			if (skill.getElement() > 0)
 				multiplier *= calcElemental(attacker, target, skill);
 
@@ -2266,7 +2263,7 @@ public final class Formulas
 			L2SkillType type = skill.getSkillType();
 
 			// For additional effects on PDAM and MDAM skills (like STUN, SHOCK, PARALYZE...)
-			if (type != null && (type == L2SkillType.PDAM || type == L2SkillType.MDAM))
+			if (type == L2SkillType.PDAM || type == L2SkillType.MDAM || type == L2SkillType.DRAIN || type == L2SkillType.WEAPON_SA)
 				type = skill.getEffectType();
 
 			multiplier = calcSkillTypeVulnerability(multiplier, target, type);
@@ -2313,13 +2310,15 @@ public final class Formulas
 				case WEAKNESS:
 					multiplier = target.calcStat(Stats.DEBUFF_VULN, multiplier, target, null);
 					break;
+				case CANCEL:
+					multiplier = target.calcStat(Stats.CANCEL_VULN, multiplier, target, null);
+					break;
 				case BUFF:
 					multiplier = target.calcStat(Stats.BUFF_VULN, multiplier, target, null);
 					break;
-				default:
 			}
 		}
-
+		
 		return multiplier;
 	}
 
@@ -2333,7 +2332,7 @@ public final class Formulas
 			L2SkillType type = skill.getSkillType();
 
 			// For additional effects on PDAM and MDAM skills (like STUN, SHOCK, PARALYZE...)
-			if (type != null && (type == L2SkillType.PDAM || type == L2SkillType.MDAM))
+			if (type == L2SkillType.PDAM || type == L2SkillType.MDAM || type == L2SkillType.DRAIN || type == L2SkillType.WEAPON_SA)
 				type = skill.getEffectType();
 
 			multiplier = calcSkillTypeProficiency(multiplier, attacker, target, type);
@@ -2380,8 +2379,9 @@ public final class Formulas
 				case WEAKNESS:
 					multiplier = attacker.calcStat(Stats.DEBUFF_PROF, multiplier, target, null);
 					break;
-				default:
-
+				case CANCEL:
+					multiplier = attacker.calcStat(Stats.CANCEL_PROF, multiplier, target, null);
+					break;
 			}
 		}
 		return multiplier;
@@ -2399,7 +2399,7 @@ public final class Formulas
 				case STUN:
 				case BLEED:
 				case POISON:
-					multiplier = 2 - Math.sqrt(CONbonus[target.getStat().getCON()]);
+					multiplier = 2 - sqrtCONbonus[target.getStat().getCON()];
 					break;
 				case SLEEP:
 				case DEBUFF:
@@ -2413,7 +2413,7 @@ public final class Formulas
 				case CONFUSE_MOB_ONLY:
 				case AGGREDUCE_CHAR:
 				case PARALYZE:
-					multiplier = 2 - Math.sqrt(MENbonus[target.getStat().getMEN()]);
+					multiplier = 2 - sqrtMENbonus[target.getStat().getMEN()];
 					break;
 				default:
 					return multiplier;

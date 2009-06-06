@@ -1698,15 +1698,35 @@ public abstract class L2Character extends L2Object
 		
 		// Calculate the casting time of the skill (base + modifier of MAtkSpd)
 		// Don't modify the skill time for FORCE_BUFF skills. The skill time for those skills represent the buff time.
-		if(!effectWhileCasting)
+		if (!effectWhileCasting && !skill.isStaticHitTime())
 		{
-			hitTime = Formulas.calcAtkSpd(this, skill, hitTime);
-			if (coolTime > 0)
-				coolTime = Formulas.calcAtkSpd(this, skill, coolTime);
+			hitTime = Formulas.calcCastingRelatedTime(this, skill, hitTime);
+			coolTime = Formulas.calcCastingRelatedTime(this, skill, coolTime);
+			skillInterruptTime = Formulas.calcCastingRelatedTime(this, skill, skillInterruptTime);
+			
+			rechargeShot();
+			
+			// Calculate altered Cast Speed due to BSpS/SpS
+			if (skill.useSpiritShot())
+			{
+				if (isAnySpiritshotCharged())
+				{
+					hitTime *= 0.7;
+					coolTime *= 0.7;
+					skillInterruptTime *= 0.7;
+				}
+			}
+			
+			// if basic hitTime is higher or equal to 500 than the min hitTime is 500
+			if (skill.getHitTime() >= 500 && hitTime < 500)
+			{
+				final double multi = 500.0 / hitTime;
+				
+				hitTime *= multi;
+				coolTime *= multi;
+				skillInterruptTime *= multi;
+			}
 		}
-		// if basic hitTime is higher than 500 than the min hitTime is 500
-		else if (skill.getHitTime() > 500 && hitTime < 500)
-			hitTime = 500;
 		
 		// queue herbs and potions
 		if (isCastingSimultaneouslyNow() && simultaneously)
@@ -1732,27 +1752,19 @@ public abstract class L2Character extends L2Object
 		// Init the reuse time of the skill
 		int reuseDelay = skill.getReuseDelay();
 		
-		if (skill.isStaticReuse())
+		if (Formulas.calcSkillMastery(this, skill))
 		{
-			reuseDelay = (skill.getReuseDelay());
+			reuseDelay = 0;
+			sendPacket(SystemMessageId.SKILL_READY_TO_USE_AGAIN);
 		}
-		else
+		else if (!skill.isStaticReuse())
 		{
-			if(skill.isMagic())
-			{
-				reuseDelay = (int)(skill.getReuseDelay() * getStat().getMReuseRate(skill));
-			}
-			else
-			{
-				reuseDelay = (int)(skill.getReuseDelay() * getStat().getPReuseRate(skill));
-			}
+			reuseDelay *= skill.isMagic() ? getStat().getMReuseRate(skill) : getStat().getPReuseRate(skill);
 		}
-		
-		boolean skillMastery = Formulas.calcSkillMastery(this, skill);
 		
 		// Skill reuse check
-		if (reuseDelay > 30000 && !skillMastery)
-			addTimeStamp(skill.getId(),reuseDelay);
+		if (reuseDelay > 30000)
+			addTimeStamp(skill.getId(), reuseDelay);
 		
 		// Check if this skill consume mp on start casting
 		int initmpcons = getStat().getMpInitialConsume(skill);
@@ -5600,65 +5612,47 @@ public abstract class L2Character extends L2Object
 	 * @param target
 	 * @param weapon
 	 */
+	// FIXME
 	public int calculateTimeBetweenAttacks(L2Character target, L2Weapon weapon)
 	{
-        double atkSpd = 0;
-        boolean transformed = false;
-        if(this instanceof L2PcInstance)
-        {
-        	L2PcInstance pcInst = (L2PcInstance) this;
-        	transformed = pcInst.isTransformed();
-        }
-        if (weapon !=null && !transformed)
-        {
-		    switch (weapon.getItemType())
-		    {
-			    case BOW:
-			        atkSpd = getStat().getPAtkSpd();
-			        return (int)(1500*345/atkSpd);
-			    case CROSSBOW:
-			        atkSpd = getStat().getPAtkSpd();
-			        return (int)(1200*345/atkSpd);
-			    case DAGGER:
-			        atkSpd = getStat().getPAtkSpd();
-			        //atkSpd /= 1.15;
-			        break;
-			    default:
-			        atkSpd = getStat().getPAtkSpd();
-		    }
-        }
-        else
-            atkSpd = getPAtkSpd();
-
-        return Formulas.calcPAtkSpd(this, target, atkSpd);
+		double base = 500000/*468000*/; //1500 * 333.3/*1500 * 312*/
+		
+		//if (weapon != null && !(this instanceof L2PcInstance && ((L2PcInstance)this).isTransformed()))
+		//{
+		//	switch (weapon.getItemType())
+		//	{
+		//		case BOW:
+		//			base = 517500; //1500 * 345
+		//		case CROSSBOW:
+		//			base = 414000; //1200 * 345
+		//	}
+		//}
+		
+		return Formulas.calcPAtkSpd(this, target, getPAtkSpd(), base);
 	}
 
 	public int calculateReuseTime(L2Character target, L2Weapon weapon)
 	{
-        boolean transformed = false;
-        if(this instanceof L2PcInstance)
-        {
-        	L2PcInstance pcInst = (L2PcInstance) this;
-        	transformed = pcInst.isTransformed();
-        }
-        if (weapon == null || transformed)
-        	return 0;
-
-        int reuse = weapon.getAttackReuseDelay();
-        // only bows should continue for now
-        if (reuse == 0) return 0;
-        // else if (reuse < 10) reuse = 1500;
-
-		reuse *= getStat().getWeaponReuseModifier(target);
-        double atkSpd = getStat().getPAtkSpd();
-        switch (weapon.getItemType())
-        {
-            case BOW:
-            case CROSSBOW:
-                return (int)(reuse*345/atkSpd);
-            default:
-                return (int)(reuse*312/atkSpd);
-        }
+		// Source L2P
+		// Standing still and with no SA, normal bows and yumi bows shoot the exact same number of shots per second.
+		// Normal Bows allow faster use of skills and more kiteability due to having a higher Atk. Spd. while Yumi Bows have significant P.Atk.
+		// The SA "Quick Recovery" reduces the red bar Weapon Delay on a bow to the following:
+		// Reuse goes from 639 EB QR, to 1500 Normal...
+		
+		if (weapon == null || (this instanceof L2PcInstance && ((L2PcInstance) this).isTransformed()))
+			return 0;
+		
+		double reuse = weapon.getAttackReuseDelay();
+		
+		// only bows should continue for now
+		if (reuse == 0)
+			return 0;
+		
+		reuse = calcStat(Stats.BOW_REUSE, reuse, target, null);
+		
+		reuse *= 333.3/*345/312*/;
+		
+		return Formulas.calcPAtkSpd(this, target, getPAtkSpd(), reuse);
 	}
 	
 	/**
