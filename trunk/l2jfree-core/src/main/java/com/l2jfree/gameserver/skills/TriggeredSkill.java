@@ -39,6 +39,19 @@ public final class TriggeredSkill
 		return null;
 	}
 	
+	public static TriggeredSkill parse(int triggeredId, int triggeredLevel)
+	{
+		if (triggeredId > 0)
+		{
+			if (triggeredLevel > 0)
+				return new TriggeredSkill(triggeredId, triggeredLevel);
+			else
+				throw new IllegalStateException();
+		}
+		
+		return null;
+	}
+	
 	private final int _skillId;
 	private final int _skillLvl;
 	

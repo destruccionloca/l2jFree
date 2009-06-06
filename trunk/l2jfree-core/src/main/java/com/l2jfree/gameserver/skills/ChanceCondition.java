@@ -84,23 +84,33 @@ public final class ChanceCondition
 	private TriggerType _triggerType;
 	
 	private final int _chance;
-	private final int _impChance;
 	
-	private ChanceCondition(TriggerType trigger, int chance, int impChance)
+	private ChanceCondition(TriggerType trigger, int chance)
 	{
 		_triggerType = trigger;
 		_chance = chance;
-		_impChance = impChance;
 	}
 	
 	public static ChanceCondition parse(StatsSet set)
 	{
 		final TriggerType trigger = set.getEnum("chanceType", TriggerType.class);
 		final int chance = set.getInteger("activationChance");
-		final int impChance = set.getInteger("improveChance", 0);
 		
 		if (trigger != null && chance > 0)
-			return new ChanceCondition(trigger, chance, impChance);
+			return new ChanceCondition(trigger, chance);
+		else
+			throw new IllegalStateException();
+	}
+	
+	public static ChanceCondition parse(String chanceType, int chance)
+	{
+		if (chanceType == null && chance == 0)
+			return null;
+		
+		final TriggerType trigger = Enum.valueOf(TriggerType.class, chanceType);
+		
+		if (trigger != null && chance > 0)
+			return new ChanceCondition(trigger, chance);
 		else
 			throw new IllegalStateException();
 	}
@@ -108,16 +118,6 @@ public final class ChanceCondition
 	public boolean trigger(int event)
 	{
 		return _triggerType.check(event) && Rnd.get(100) < _chance;
-	}
-	
-	public boolean improve()
-	{
-		return Rnd.get(100) < _impChance;
-	}
-	
-	public boolean canImprove()
-	{
-		return _impChance > 0;
 	}
 	
 	@Override

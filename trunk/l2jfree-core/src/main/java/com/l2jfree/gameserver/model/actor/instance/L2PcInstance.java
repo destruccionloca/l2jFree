@@ -318,8 +318,8 @@ public final class L2PcInstance extends L2Playable
 
 	// Character Teleport Bookmark:
 	private static final String INSERT_TP_BOOKMARK = "INSERT INTO character_tpbookmark (charId,Id,x,y,z,icon,tag,name) values (?,?,?,?,?,?,?,?)";
-	private static final String UPDATE_TP_BOOKMARK = "UPDATE character_tpbookmark SET icon=?,tag=?,name=? where charId=? AND Id=?";	
-	private static final String RESTORE_TP_BOOKMARK = "SELECT Id,x,y,z,icon,tag,name FROM character_tpbookmark WHERE charId=?";	
+	private static final String UPDATE_TP_BOOKMARK = "UPDATE character_tpbookmark SET icon=?,tag=?,name=? where charId=? AND Id=?";
+	private static final String RESTORE_TP_BOOKMARK = "SELECT Id,x,y,z,icon,tag,name FROM character_tpbookmark WHERE charId=?";
 	private static final String DELETE_TP_BOOKMARK = "DELETE FROM character_tpbookmark WHERE charId=? AND Id=?";
 
 	public static final int		REQUEST_TIMEOUT					= 15;
@@ -11600,8 +11600,6 @@ public final class L2PcInstance extends L2Playable
 				friend.sendMessage("Friend: " + getName() + " has logged off.");
 			}
 		}
-		
-		_chanceSkills = null;
 		
 		// we store all data from players who are disconnected while
 		// in an event in order to restore it in the next login

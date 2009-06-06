@@ -469,32 +469,37 @@ final class DocumentSkill extends DocumentBase
 		if (effectPower > -1 && effectType == null)
 			_log.warn("Missing effectType for effect: " + name);
 		
-		final boolean isChanceSkillTrigger = "ChanceSkillTrigger".equals(name);
 		int trigId = 0;
 		if (attrs.getNamedItem("triggeredId") != null)
 			trigId = Integer.parseInt(getValue(attrs.getNamedItem("triggeredId").getNodeValue(), template));
-		else if (isChanceSkillTrigger)
-			throw new NoSuchElementException(name + " requires triggerId");
 		
 		int trigLvl = 1;
 		if (attrs.getNamedItem("triggeredLevel") != null)
 			trigLvl = Integer.parseInt(getValue(attrs.getNamedItem("triggeredLevel").getNodeValue(), template));
 		
-		String chanceCond = null;
+		String chanceType = null;
 		if (attrs.getNamedItem("chanceType") != null)
-			chanceCond = getValue(attrs.getNamedItem("chanceType").getNodeValue(), template);
-		else if (isChanceSkillTrigger)
-			throw new NoSuchElementException(name + " requires chanceType");
+			chanceType = getValue(attrs.getNamedItem("chanceType").getNodeValue(), template);
 		
 		int activationChance = 0;
 		if (attrs.getNamedItem("activationChance") != null)
 			activationChance = Integer.parseInt(getValue(attrs.getNamedItem("activationChance").getNodeValue(),
 				template));
-		else if (isChanceSkillTrigger)
-			throw new NoSuchElementException(name + " requires activationChance");
+		
+		final TriggeredSkill trigSkill = TriggeredSkill.parse(trigId, trigLvl);
+		final ChanceCondition chanceCond = ChanceCondition.parse(chanceType, activationChance);
+		
+		if ("ChanceSkillTrigger".equals(name))
+		{
+			if (trigSkill == null)
+				throw new NoSuchElementException(name + " requires proper TriggeredSkill parameters!");
+			
+			if (chanceCond == null)
+				throw new NoSuchElementException(name + " requires proper ChanceCondition parameters!");
+		}
 		
 		EffectTemplate effectTemplate = new EffectTemplate(attachCond, name, lambda, count, time, abnormal, stackType,
-			stackOrder, showIcon, effectPower, effectType, trigId, trigLvl);
+			stackOrder, showIcon, effectPower, effectType, trigSkill, chanceCond);
 		
 		parseTemplate(n, effectTemplate);
 		

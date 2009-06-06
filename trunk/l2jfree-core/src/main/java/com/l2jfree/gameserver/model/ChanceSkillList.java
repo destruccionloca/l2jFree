@@ -14,42 +14,74 @@
  */
 package com.l2jfree.gameserver.model;
 
-import javolution.util.FastMap;
-import com.l2jfree.gameserver.datatables.SkillTable;
+import org.apache.commons.lang.ArrayUtils;
+
 import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillLaunched;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.skills.ChanceCondition;
+import com.l2jfree.gameserver.skills.IChanceSkillTrigger;
+import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.util.L2Arrays;
 
 /**
  * @author kombat/crion
  */
-public class ChanceSkillList extends FastMap<L2Skill, ChanceCondition>
+public final class ChanceSkillList
 {
-	private static final long serialVersionUID = 1L;
-
-	private L2Character _owner;
-
+	private IChanceSkillTrigger[] _triggers = IChanceSkillTrigger.EMPTY_ARRAY;
+	
+	private final L2Character _owner;
+	
 	public ChanceSkillList(L2Character owner)
 	{
-		super();
-		setShared(true);
 		_owner = owner;
 	}
-
-	public L2Character getOwner()
+	
+	public synchronized void add(IChanceSkillTrigger trigger)
 	{
-		return _owner;
+		int nullIndex = -1;
+		for (int i = 0; i < _triggers.length; i++)
+		{
+			final IChanceSkillTrigger tmp = _triggers[i];
+			
+			if (tmp == null)
+				nullIndex = i;
+			
+			if (trigger.equals(tmp))
+				return;
+		}
+		
+		if (nullIndex < 0)
+			_triggers = (IChanceSkillTrigger[])ArrayUtils.add(_triggers, trigger);
+		
+		else
+			_triggers[nullIndex] = trigger;
 	}
-
-	public void setOwner(L2Character owner)
+	
+	public synchronized void remove(IChanceSkillTrigger trigger)
 	{
-		_owner = owner;
+		int nullCount = 0;
+		for (int i = 0; i < _triggers.length; i++)
+		{
+			final IChanceSkillTrigger tmp = _triggers[i];
+			
+			if (trigger.equals(tmp))
+			{
+				_triggers[i] = null;
+				
+				nullCount++;
+			}
+			else if (tmp == null)
+				nullCount++;
+		}
+		
+		if (nullCount > 5)
+			_triggers = L2Arrays.compact(_triggers);
 	}
-
-	public void onHit(L2Character target, boolean ownerWasHit, boolean wasCrit)
+	
+	public void onHit(L2Character evtInitiator, boolean ownerWasHit, boolean wasCrit)
 	{
 		int event;
 		if (ownerWasHit)
@@ -64,16 +96,16 @@ public class ChanceSkillList extends FastMap<L2Skill, ChanceCondition>
 			if (wasCrit)
 				event |= ChanceCondition.EVT_CRIT;
 		}
-
-		onEvent(event, target);
+		
+		onEvent(event, evtInitiator);
 	}
-
+	
 	public void onEvadedHit(L2Character attacker)
 	{
 		onEvent(ChanceCondition.EVT_EVADED_HIT, attacker);
 	}
-
-	public void onSkillHit(L2Character target, boolean ownerWasHit, boolean wasMagic, boolean wasOffensive)
+	
+	public void onSkillHit(L2Character evtInitiator, boolean ownerWasHit, boolean wasMagic, boolean wasOffensive)
 	{
 		int event;
 		if (ownerWasHit)
@@ -95,89 +127,67 @@ public class ChanceSkillList extends FastMap<L2Skill, ChanceCondition>
 			event |= wasMagic ? ChanceCondition.EVT_MAGIC : ChanceCondition.EVT_PHYSICAL;
 			event |= wasOffensive ? ChanceCondition.EVT_MAGIC_OFFENSIVE : ChanceCondition.EVT_MAGIC_GOOD;
 		}
-
-		onEvent(event, target);
+		
+		onEvent(event, evtInitiator);
 	}
-
+	
 	public void onEvent(int event, L2Character evtInitiator)
 	{
-		for (FastMap.Entry<L2Skill, ChanceCondition> e = head(), end = tail(); (e = e.getNext()) != end;)
+		for (IChanceSkillTrigger trigger : _triggers)
 		{
-			if (e.getValue() != null && e.getValue().trigger(event))
+			if (trigger != null && trigger.getChanceCondition().trigger(event))
 			{
-				L2Skill s = e.getKey();
-				if (e.getValue().canImprove())
-				{
-					L2Effect ef = _owner.getFirstEffect(s.getId());
-					if (ef == null)
-						makeCast(s, evtInitiator);
-					else if (e.getValue().improve())
-					{
-						s = SkillTable.getInstance().getInfo(s.getId(), ef.getLevel() + 1);
-						if (s != null)
-							makeCast(s, evtInitiator);
-					}
-				}
-				else
-					makeCast(s, evtInitiator);
+				makeCast(trigger.getChanceTriggeredSkill(_owner), evtInitiator);
 			}
 		}
 	}
-
+	
 	private void makeCast(L2Skill skill, L2Character evtInitiator)
 	{
-		try
+		if (skill == null || skill.getSkillType() == L2SkillType.NOTDONE)
+			return;
+		
+		L2Character[] targets = skill.getTargetList(_owner, false, evtInitiator);
+		
+		if (targets == null || targets.length == 0)
+			return;
+		
+		//anyone has a better idea?
+		boolean hasValidTarget = false;
+		for (int i = 0; i < targets.length; i++)
 		{
-			if (skill.getWeaponDependancy(_owner, false))
+			final L2Character target = targets[i];
+			
+			if (target == null)
+				continue;
+			
+			final L2Effect effect = target.getFirstEffect(skill.getId());
+			
+			// if we already have a greater or equal effect of it
+			if (effect != null && effect.getSkill().getLevel() >= skill.getLevel())
 			{
-				// Should we use this skill or this skill is just referring to another one...
-				if (skill.shouldTriggerSkill())
-				{
-					skill = skill.getTriggeredSkill();
-					if (skill == null)
-						return;
-				}
-				L2Character[] targets = skill.getTargetList(_owner, false, evtInitiator);
-				
-				if (targets != null && targets.length > 0)
-				{
-					//anyone has a better idea?
-					boolean hasValidTarget = false;
-					for (int i = 0; i < targets.length; i++)
-					{
-						final L2Character target = targets[i];
-						
-						if (target == null)
-							continue;
-						
-						final L2Effect effect = target.getFirstEffect(skill.getId());
-						
-						// if we already have a greater or equal effect of it
-						if (effect != null && effect.getSkill().getLevel() >= skill.getLevel())
-						{
-							targets[i] = null;
-							continue;
-						}
-						else if (!skill.checkCondition(_owner, target))
-						{
-							targets[i] = null;
-							continue;
-						}
-						hasValidTarget = true;
-					}
-					if (!hasValidTarget)
-						return;
-					targets = L2Arrays.compact(targets);
-					_owner.broadcastPacket(new MagicSkillUse(_owner, skill, 0, 0));
-					_owner.broadcastPacket(new MagicSkillLaunched(_owner, skill, targets));
-					// Launch the magic skill and calculate its effects
-					SkillHandler.getInstance().getSkillHandler(skill.getSkillType()).useSkill(_owner, skill, targets);
-				}
+				targets[i] = null;
+				continue;
 			}
+			else if (!skill.checkCondition(_owner, target))
+			{
+				targets[i] = null;
+				continue;
+			}
+			
+			hasValidTarget = true;
 		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
+		
+		if (!hasValidTarget)
+			return;
+		
+		targets = L2Arrays.compact(targets);
+		
+		_owner.broadcastPacket(new MagicSkillUse(_owner, skill, 0, 0));
+		_owner.broadcastPacket(new MagicSkillLaunched(_owner, skill, targets));
+		
+		// Launch the magic skill and calculate its effects
+		// TODO: once core will support all posible effects, use effects (not handler)
+		SkillHandler.getInstance().getSkillHandler(skill.getSkillType()).useSkill(_owner, skill, targets);
 	}
 }

@@ -59,6 +59,7 @@ import com.l2jfree.gameserver.network.serverpackets.FlyToLocation.FlyType;
 import com.l2jfree.gameserver.skills.ChanceCondition;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Formulas;
+import com.l2jfree.gameserver.skills.IChanceSkillTrigger;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.TriggeredSkill;
 import com.l2jfree.gameserver.skills.conditions.Condition;
@@ -76,7 +77,7 @@ import com.l2jfree.lang.L2Integer;
 import com.l2jfree.lang.L2System;
 import com.l2jfree.util.LinkedBunch;
 
-public class L2Skill implements FuncOwner
+public class L2Skill implements FuncOwner, IChanceSkillTrigger
 {
 	public static final L2Skill[]	EMPTY_ARRAY					= new L2Skill[0];
 
@@ -101,7 +102,7 @@ public class L2Skill implements FuncOwner
 
 	public static enum SkillOpType
 	{
-		OP_PASSIVE, OP_ACTIVE, OP_TOGGLE, OP_CHANCE
+		OP_PASSIVE, OP_ACTIVE, OP_TOGGLE
 	}
 
 	/** Target types of skills : SELF, PARTY, CLAN, PET... */
@@ -481,7 +482,7 @@ public class L2Skill implements FuncOwner
 
 		_minPledgeClass = set.getInteger("minPledgeClass", 0);
 
-		if (_operateType == SkillOpType.OP_CHANCE)
+		if (set.contains("chanceType") || set.contains("activationChance"))
 			_chanceCondition = ChanceCondition.parse(set);
 		else
 			_chanceCondition = null;
@@ -799,11 +800,6 @@ public class L2Skill implements FuncOwner
 	public final int getEffectAbnormalLvl()
 	{
 		return _effectAbnormalLvl;
-	}
-
-	public final boolean shouldTriggerSkill()
-	{
-		return _triggeredSkill != null;
 	}
 
 	public final L2Skill getTriggeredSkill()
@@ -1157,12 +1153,7 @@ public class L2Skill implements FuncOwner
 
 	public final boolean isChance()
 	{
-		return _operateType == SkillOpType.OP_CHANCE;
-	}
-
-	public ChanceCondition getChanceCondition()
-	{
-		return _chanceCondition;
+		return _chanceCondition != null && isPassive();
 	}
 
 	public final boolean isDance()
@@ -3955,5 +3946,23 @@ public class L2Skill implements FuncOwner
 	public int getAfterEffectLvl()
 	{
 		return _afterEffectLvl;
+	}
+	
+	@Override
+	public L2Skill getChanceTriggeredSkill(L2Character activeChar)
+	{
+		if (!getWeaponDependancy(activeChar, false))
+			return null;
+		
+		if (_triggeredSkill == null)
+			return this;
+		
+		return _triggeredSkill.getTriggeredSkill();
+	}
+	
+	@Override
+	public ChanceCondition getChanceCondition()
+	{
+		return _chanceCondition;
 	}
 }

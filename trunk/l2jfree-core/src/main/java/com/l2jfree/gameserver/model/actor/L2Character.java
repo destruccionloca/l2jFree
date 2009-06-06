@@ -106,6 +106,7 @@ import com.l2jfree.gameserver.network.serverpackets.TeleportToLocation;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.skills.Calculator;
 import com.l2jfree.gameserver.skills.Formulas;
+import com.l2jfree.gameserver.skills.IChanceSkillTrigger;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.funcs.FuncOwner;
@@ -214,8 +215,8 @@ public abstract class L2Character extends L2Object
 	private Calculator[]			_calculators;
 
 	/** FastMap(Integer, L2Skill) containing all skills of the L2Character */
-	protected Map<Integer, L2Skill>	_skills;
-	protected ChanceSkillList		_chanceSkills;
+	private Map<Integer, L2Skill>	_skills;
+	private ChanceSkillList			_chanceSkills;
 	/** Current force buff this caster is casting to a target */
 	protected FusionSkill			_fusionSkill;
 
@@ -5816,7 +5817,7 @@ public abstract class L2Character extends L2Object
 			getStat().addElement(skill);
 		
 		if (skill.isChance())
-			addChanceSkill(skill);
+			addChanceSkillTrigger(skill);
 	}
 	
 	private void skillRemoved(L2Skill skill)
@@ -5827,30 +5828,23 @@ public abstract class L2Character extends L2Object
 			getStat().removeElement(skill);
 		
 		if (skill.isChance())
-			removeChanceSkill(skill.getId());
+			removeChanceSkillTrigger(skill);
 	}
 	
-	public synchronized void addChanceSkill(L2Skill skill)
+	public synchronized void addChanceSkillTrigger(IChanceSkillTrigger trigger)
 	{
 		if (_chanceSkills == null)
 			_chanceSkills = new ChanceSkillList(this);
 		
-		_chanceSkills.put(skill, skill.getChanceCondition());
+		_chanceSkills.add(trigger);
 	}
 	
-	public synchronized void removeChanceSkill(int id)
+	public synchronized void removeChanceSkillTrigger(IChanceSkillTrigger trigger)
 	{
 		if (_chanceSkills == null)
 			return;
 		
-		for (L2Skill skill : _chanceSkills.keySet())
-		{
-			if (skill.getId() == id)
-				_chanceSkills.remove(skill);
-		}
-		
-		if (_chanceSkills.isEmpty())
-			_chanceSkills = null;
+		_chanceSkills.remove(trigger);
 	}
 	
 	/**
@@ -7265,24 +7259,4 @@ public abstract class L2Character extends L2Object
 		}
 		broadcastFullInfo();
 	}
-
-	/*
-	public synchronized void addChanceEffect(EffectChanceSkillTrigger effect)
-	{
-		if (_chanceSkills == null)
-			_chanceSkills = new ChanceSkillList(this);
-		
-		_chanceSkills.put(effect, effect.getTriggeredChanceCondition());
-	}
-
-	public synchronized void removeChanceEffect(EffectChanceSkillTrigger effect)
-	{
-		if (_chanceSkills == null) return;
-
-		_chanceSkills.remove(effect);
-
-		if (_chanceSkills.isEmpty())
-			_chanceSkills = null;
-	}
-	*/
 }

@@ -21,7 +21,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.gameserver.model.L2Effect;
+import com.l2jfree.gameserver.skills.ChanceCondition;
 import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.gameserver.skills.TriggeredSkill;
 import com.l2jfree.gameserver.skills.conditions.Condition;
 import com.l2jfree.gameserver.skills.funcs.FuncTemplate;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
@@ -48,11 +50,14 @@ public final class EffectTemplate
 	public final double effectPower; // to thandle chance
 	public final L2SkillType effectType; // to handle resistences etc...
 	
+	public final TriggeredSkill triggeredSkill;
+	public final ChanceCondition chanceCondition;
+	
 	public FuncTemplate[] funcTemplates;
 	
 	public EffectTemplate(Condition pAttachCond, String pName, double pLambda, int pCount, int pPeriod,
 		int pAbnormalEffect, String pStackType, float pStackOrder, boolean pShowIcon, double ePower, L2SkillType eType,
-		int trigId, int trigLvl)
+		TriggeredSkill trigSkill, ChanceCondition chanceCond)
 	{
 		_attachCond = pAttachCond;
 		
@@ -66,6 +71,8 @@ public final class EffectTemplate
 		showIcon = pShowIcon;
 		effectPower = ePower;
 		effectType = eType;
+		triggeredSkill = trigSkill;
+		chanceCondition = chanceCond;
 		
 		try
 		{
