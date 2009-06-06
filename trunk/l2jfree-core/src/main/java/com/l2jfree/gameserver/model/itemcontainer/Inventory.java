@@ -252,12 +252,18 @@ public abstract class Inventory extends ItemContainer
 				// Remove augmentation bonuses on unequip
 				if (item.isAugmented() && getOwner() instanceof L2PcInstance)
 					item.getAugmentation().removeBonus((L2PcInstance) getOwner());
+				
+				if (item.getElementals() != null)
+					item.getElementals().removeBonus(player);
 
 				itemSkills = ((L2Weapon) it).getSkills();
 				enchant4Skills = ((L2Weapon) it).getEnchant4Skills();
 			}
 			else if (it instanceof L2Armor)
 			{
+				if (item.getElementals() != null)
+					item.getElementals().removeBonus(player);
+				
 				itemSkills = ((L2Armor) it).getSkills();
 			}
 

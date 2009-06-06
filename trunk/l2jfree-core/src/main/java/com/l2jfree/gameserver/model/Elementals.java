@@ -20,7 +20,7 @@ import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.funcs.FuncAdd;
 import com.l2jfree.gameserver.skills.funcs.FuncOwner;
 
-public final class Elementals
+public final class Elementals implements FuncOwner
 {
 	public final static byte NONE = -1;
 	public final static byte FIRE = 0;
@@ -46,19 +46,25 @@ public final class Elementals
 		325, // Level 8
 		375, // Level 9
 		450, // Level 10
+		475, // Level 11
+		525, // Level 12
+		600, // Level 13
 		Integer.MAX_VALUE // TODO: Higher stones
 	};
 	
 	public final static int[] ARMOR_VALUES = { 0, // Level 1
-		6, // Level 2
-		15, // Level 3
-		30, // Level 4
-		36, // Level 5
-		45, // Level 6
-		60, // Level 7
-		66, // Level 8
-		75, // Level 9
-		90, // Level 10
+		12, // Level 2
+		30, // Level 3
+		60, // Level 4
+		72, // Level 5
+		90, // Level 6
+		120, // Level 7
+		132, // Level 8
+		150, // Level 9
+		180, // Level 10
+		192, // Level 11
+		210, // Level 12
+		240, // Level 13
 		Integer.MAX_VALUE // TODO: Higher stones
 	};
 	
@@ -70,9 +76,17 @@ public final class Elementals
 	
 	public final static int[] ENERGIES = { 9564, 9565, 9567, 9566, 9569, 9568 };
 	
-	private final ElementalStatBoni _boni;
-	private byte _element = NONE;
-	private int _value = 0;
+	private byte _element;
+	private int _value;
+	
+	private boolean _active;
+	private L2SummonInstance _summon;
+	
+	public Elementals(byte type, int value)
+	{
+		_element = type;
+		_value = value;
+	}
 	
 	public byte getElement()
 	{
@@ -82,7 +96,6 @@ public final class Elementals
 	public void setElement(byte type)
 	{
 		_element = type;
-		_boni.setElement(type);
 	}
 	
 	public int getValue()
@@ -93,7 +106,6 @@ public final class Elementals
 	public void setValue(int val)
 	{
 		_value = val;
-		_boni.setValue(val);
 	}
 	
 	public static String getElementName(byte element)
@@ -139,133 +151,52 @@ public final class Elementals
 		return (byte)((element % 2 == 0) ? (element + 1) : (element - 1));
 	}
 	
+	public static Stats getResist(byte element)
+	{
+		switch (element)
+		{
+			case FIRE:
+				return Stats.FIRE_RES;
+			case WATER:
+				return Stats.WATER_RES;
+			case WIND:
+				return Stats.WIND_RES;
+			case EARTH:
+				return Stats.EARTH_RES;
+			case DARK:
+				return Stats.DARK_RES;
+			case HOLY:
+				return Stats.HOLY_RES;
+			default:
+				return null;
+		}
+	}
+	
+	public static Stats getPower(byte element)
+	{
+		switch (element)
+		{
+			case FIRE:
+				return Stats.FIRE_POWER;
+			case WATER:
+				return Stats.WATER_POWER;
+			case WIND:
+				return Stats.WIND_POWER;
+			case EARTH:
+				return Stats.EARTH_POWER;
+			case DARK:
+				return Stats.DARK_POWER;
+			case HOLY:
+				return Stats.HOLY_POWER;
+			default:
+				return null;
+		}
+	}
+	
 	@Override
 	public String toString()
 	{
 		return getElementName(_element) + " +" + _value;
-	}
-	
-	public Elementals(byte type, int value)
-	{
-		_element = type;
-		_value = value;
-		_boni = new ElementalStatBoni(_element, _value);
-	}
-	
-	private static final class ElementalStatBoni implements FuncOwner
-	{
-		private byte _elementalType;
-		private int _elementalValue;
-		private boolean _active;
-		private boolean _toPet;
-		private L2SummonInstance _pet;
-		
-		public ElementalStatBoni(byte type, int value)
-		{
-			_elementalType = type;
-			_elementalValue = value;
-			_active = false;
-		}
-		
-		public void applyBonus(L2PcInstance player, boolean isArmor)
-		{
-			// make sure the bonuses are not applied twice..
-			if (_active)
-				return;
-			
-			double petPower = 0;
-			double tempPower = _elementalValue;
-			if (!isArmor && player.getPet() != null && player.getPet() instanceof L2SummonInstance
-				&& !player.getPet().isDead() && player.getExpertisePenalty() == 0) // grade penalty
-			{
-				_pet = (L2SummonInstance)player.getPet();
-				_toPet = true;
-				petPower = (int)(_elementalValue * 0.8);
-				tempPower *= 0.2;
-			}
-			
-			Stats res = null;
-			Stats power = null;
-			
-			switch (_elementalType)
-			{
-				case FIRE:
-					res = Stats.FIRE_RES;
-					power = Stats.FIRE_POWER;
-					break;
-				case WATER:
-					res = Stats.WATER_RES;
-					power = Stats.WATER_POWER;
-					break;
-				case WIND:
-					res = Stats.WIND_RES;
-					power = Stats.WIND_POWER;
-					break;
-				case EARTH:
-					res = Stats.EARTH_RES;
-					power = Stats.EARTH_POWER;
-					break;
-				case DARK:
-					res = Stats.DARK_RES;
-					power = Stats.DARK_POWER;
-					break;
-				case HOLY:
-					res = Stats.HOLY_RES;
-					power = Stats.HOLY_POWER;
-					break;
-			}
-			
-			if (isArmor)
-				player.addStatFunc(new FuncAdd(res, 0x40, this, tempPower, null));
-			else
-			{
-				player.addStatFunc(new FuncAdd(power, 0x40, this, tempPower, null));
-				if (_toPet)
-					_pet.addStatFunc(new FuncAdd(power, 0x40, this, petPower, null));
-			}
-			
-			_active = true;
-		}
-		
-		public void removeBonus(L2PcInstance player)
-		{
-			// make sure the bonuses are not removed twice
-			if (!_active)
-				return;
-			
-			player.removeStatsOwner(this);
-			if (_pet != null)
-			{
-				_pet.removeStatsOwner(this);
-				_pet = null;
-				_toPet = false;
-			}
-			_active = false;
-		}
-		
-		public void setValue(int val)
-		{
-			_elementalValue = val;
-		}
-		
-		public void setElement(byte type)
-		{
-			_elementalType = type;
-		}
-		
-		@Override
-		public String getFuncOwnerName()
-		{
-			// TODO Auto-generated method stub
-			return null;
-		}
-		
-		@Override
-		public L2Skill getFuncOwnerSkill()
-		{
-			// TODO Auto-generated method stub
-			return null;
-		}
 	}
 	
 	/**
@@ -275,7 +206,35 @@ public final class Elementals
 	 */
 	public void applyBonus(L2PcInstance player, boolean isArmor)
 	{
-		_boni.applyBonus(player, isArmor);
+		// make sure the bonuses are not applied twice..
+		if (_active)
+			return;
+		
+		final Stats res = getResist(_element);
+		final Stats power = getPower(_element);
+		
+		if (!isArmor && player.getPet() instanceof L2SummonInstance && !player.getPet().isDead()
+			&& player.getExpertisePenalty() == 0) // grade penalty
+		{
+			_summon = (L2SummonInstance)player.getPet();
+		}
+		else
+			_summon = null;
+		
+		if (isArmor)
+			player.addStatFunc(new FuncAdd(res, 0x40, this, _value, null));
+		
+		else if (_summon == null)
+			player.addStatFunc(new FuncAdd(power, 0x40, this, _value, null));
+		
+		else
+		{
+			player.addStatFunc(new FuncAdd(power, 0x40, this, _value * 0.2, null));
+			
+			_summon.addStatFunc(new FuncAdd(power, 0x40, this, _value * 0.8, null));
+		}
+		
+		_active = true;
 	}
 	
 	/**
@@ -285,7 +244,17 @@ public final class Elementals
 	 */
 	public void removeBonus(L2PcInstance player)
 	{
-		_boni.removeBonus(player);
+		// make sure the bonuses are not removed twice
+		if (!_active)
+			return;
+		
+		player.removeStatsOwner(this);
+		
+		if (_summon != null)
+			_summon.removeStatsOwner(this);
+		
+		_summon = null;
+		_active = false;
 	}
 	
 	/**
@@ -295,7 +264,19 @@ public final class Elementals
 	 */
 	public void updateBonus(L2PcInstance player, boolean isArmor)
 	{
-		_boni.removeBonus(player);
-		_boni.applyBonus(player, isArmor);
+		removeBonus(player);
+		applyBonus(player, isArmor);
+	}
+	
+	@Override
+	public String getFuncOwnerName()
+	{
+		return null;
+	}
+	
+	@Override
+	public L2Skill getFuncOwnerSkill()
+	{
+		return null;
 	}
 }
