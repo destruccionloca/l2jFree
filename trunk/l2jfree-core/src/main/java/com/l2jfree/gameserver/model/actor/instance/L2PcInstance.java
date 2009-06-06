@@ -130,6 +130,7 @@ import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Decoy;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.L2Playable;
+import com.l2jfree.gameserver.model.actor.L2SiegeGuard;
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.L2Trap;
 import com.l2jfree.gameserver.model.actor.appearance.PcAppearance;
@@ -4617,11 +4618,7 @@ public final class L2PcInstance extends L2Playable
 							// Penalty is lower if the player is at war with the pk (war has to be declared)
 							if (getSkillLevel(L2Skill.SKILL_LUCKY) < 0 || getStat().getLevel() > 9)
 							{
-								boolean siege_npc = false;
-								if (killer instanceof L2FortSiegeGuardInstance || killer instanceof L2SiegeGuardInstance
-										|| killer instanceof L2FortCommanderInstance)
-									siege_npc = true;
-								deathPenalty(pk != null && getClan() != null && getClan().isAtWarWith(pk.getClanId()), pk != null, siege_npc);
+								deathPenalty(clanWarKill, playerKill, charmOfCourage, killer instanceof L2SiegeGuard);
 							}
 						}
 						else
@@ -14459,7 +14456,7 @@ public final class L2PcInstance extends L2Playable
 		
 		if (getInventory().getInventoryItemCount(20033, 0) == 0)
 		{
-			sendPacket(new SystemMessage(6501));
+			sendPacket(SystemMessageId.YOU_CANNOT_BOOKMARK_THIS_LOCATION_BECAUSE_YOU_DO_NOT_HAVE_A_MY_TELEPORT_FLAG);
 			return;
 		}
 
