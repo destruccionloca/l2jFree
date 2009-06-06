@@ -41,7 +41,7 @@ public class SetPrivateStoreListBuy extends L2GameClientPacket
 	protected void readImpl()
 	{
 		_count = readD();
-		if (_count <= 0 || _count * (Config.PACKET_FINAL ? 20 : 12) > getByteBuffer().remaining() || _count > Config.MAX_ITEM_IN_PACKET)
+		if (_count <= 0 || _count * (Config.PACKET_FINAL ? 40 : 12) > getByteBuffer().remaining() || _count > Config.MAX_ITEM_IN_PACKET)
 		{
 			_count = 0;
 			_items = null;
@@ -73,6 +73,12 @@ public class SetPrivateStoreListBuy extends L2GameClientPacket
 				price = readD();
 			
 			_items[x * 3 + 2] = price;
+			
+			if (Config.PACKET_FINAL)
+			{
+				readQ(); // unknown
+				readQ(); // unknown
+			}
 		}
 	}
 
