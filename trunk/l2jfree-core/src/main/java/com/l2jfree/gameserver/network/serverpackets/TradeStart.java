@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 import java.util.List;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
@@ -25,18 +24,18 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  * 
  * @version $Revision: 1.4.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
-public class TradeStart extends L2GameServerPacket
+public class TradeStart extends ElementalInfo
 {
-	private static final String _S__2E_TRADESTART = "[S] 1E TradeStart";
-	private L2PcInstance _activeChar;
-	private List<L2ItemInstance> _itemList;
-	
-	public TradeStart (L2PcInstance player)
+	private static final String		_S__2E_TRADESTART	= "[S] 1E TradeStart";
+	private L2PcInstance			_activeChar;
+	private List<L2ItemInstance>	_itemList;
+
+	public TradeStart(L2PcInstance player)
 	{
 		_activeChar = player;
 		_itemList = _activeChar.getInventory().getAvailableItems(true);
 	}
-	
+
 	@Override
 	protected final void writeImpl()
 	{//0x2e TradeStart   d h (h dddhh dhhh)
@@ -46,47 +45,29 @@ public class TradeStart extends L2GameServerPacket
 		writeC(0x14);
 		writeD(_activeChar.getActiveTradeList().getPartner().getObjectId());
 		//writeD((_char != null || _char.getTransactionRequester() != null)? _char.getTransactionRequester().getObjectId() : 0);
-		
+
 		writeH(_itemList.size());
 		for (L2ItemInstance item : _itemList)
 		{
 			writeH(item.getItem().getType1()); // item type1
 			writeD(item.getObjectId());
 			writeD(item.getItemDisplayId());
-			if (Config.PACKET_FINAL)
-				writeQ(item.getCount());
-			else
-				writeD(toInt(item.getCount()));
-			writeH(item.getItem().getType2());	// item type2
-			writeH(0x00);	// ?
+			writeCompQ(item.getCount());
+			writeH(item.getItem().getType2()); // item type2
+			writeH(0x00); // ?
 
-			writeD(item.getItem().getBodyPart());	// rev 415  slot    0006-lr.ear  0008-neck  0030-lr.finger  0040-head  0080-??  0100-l.hand  0200-gloves  0400-chest  0800-pants  1000-feet  2000-??  4000-r.hand  8000-r.hand
-			writeH(item.getEnchantLevel());	// enchant level
+			writeD(item.getItem().getBodyPart()); // rev 415  slot    0006-lr.ear  0008-neck  0030-lr.finger  0040-head  0080-??  0100-l.hand  0200-gloves  0400-chest  0800-pants  1000-feet  2000-??  4000-r.hand  8000-r.hand
+			writeH(item.getEnchantLevel()); // enchant level
 			writeH(0x00);
 			writeH(0x00);
 
-			if (Config.PACKET_FINAL)
-			{
-				writeH(item.getAttackElementType());
-				writeH(item.getAttackElementPower());
-				for (byte i = 0; i < 6; i++)
-				{
-					writeH(item.getElementDefAttr(i));
-				}
-			}
-			else
-			{
-				writeD(item.getAttackElementType());
-				writeD(item.getAttackElementPower());
-				for (byte i = 0; i < 6; i++)
-				{
-					writeD(item.getElementDefAttr(i));
-				}
-			}
+			writeElementalInfo(item); //8x h or d
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
 	 */
 	@Override

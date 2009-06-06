@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.L2Character;
 
@@ -113,9 +114,12 @@ public class Attack extends L2GameServerPacket
 			writeD(temp._damage);
 			writeC(temp._flags);
 		}
-		writeD(_tx);
-		writeD(_ty);
-		writeD(_tz);
+		if(Config.PACKET_FINAL)
+		{
+			writeD(_tx);
+			writeD(_ty);
+			writeD(_tz);
+		}
 	}
 
 	/* (non-Javadoc)

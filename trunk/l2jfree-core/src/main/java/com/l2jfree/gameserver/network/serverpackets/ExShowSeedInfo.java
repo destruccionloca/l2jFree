@@ -14,41 +14,26 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import javolution.util.FastList;
+
 import com.l2jfree.gameserver.instancemanager.CastleManorManager.SeedProduction;
 import com.l2jfree.gameserver.model.L2Manor;
 
-import javolution.util.FastList;
-
-
 /**
- * format(packet 0xFE)
- * ch ddd [dddddcdcd]
- * c  - id
- * h  - sub id
+ * format(packet 0xFE) ch ddd [dddddcdcd] c - id h - sub id
  * 
- * d  - manor id
- * d
- * d  - size
+ * d - manor id d d - size
  * 
- * [
- * d  - seed id
- * d  - left to buy
- * d  - started amount
- * d  - sell price
- * d  - seed level
- * c 
- * d  - reward 1 id
- * c
- * d  - reward 2 id 
- * ]
+ * [ d - seed id d - left to buy d - started amount d - sell price d - seed
+ * level c d - reward 1 id c d - reward 2 id ]
  * 
  * @author l3x
  */
 public class ExShowSeedInfo extends L2GameServerPacket
 {
-	private static final String _S__FE_1C_EXSHOWSEEDINFO = "[S] FE:1C ExShowSeedInfo";
-	private FastList<SeedProduction> _seeds;
-	private int _manorId;
+	private static final String			_S__FE_1C_EXSHOWSEEDINFO	= "[S] FE:1C ExShowSeedInfo";
+	private FastList<SeedProduction>	_seeds;
+	private int							_manorId;
 
 	public ExShowSeedInfo(int manorId, FastList<SeedProduction> seeds)
 	{
@@ -71,15 +56,15 @@ public class ExShowSeedInfo extends L2GameServerPacket
 		writeD(_seeds.size());
 		for (SeedProduction seed : _seeds)
 		{
-			writeD(seed.getId());           // Seed id
-			writeD(toInt(seed.getCanProduce()));   // Left to buy
-			writeD(toInt(seed.getStartProduce())); // Started amount
-			writeD(toInt(seed.getPrice()));        // Sell Price
+			writeD(seed.getId()); // Seed id
+			writeCompQ(seed.getCanProduce()); // Left to buy
+			writeCompQ(seed.getStartProduce()); // Started amount
+			writeCompQ(seed.getPrice()); // Sell Price
 			writeD(L2Manor.getInstance().getSeedLevel(seed.getId())); // Seed Level
 			writeC(1); // reward 1 Type
-			writeD(L2Manor.getInstance().getRewardItemBySeed(seed.getId(),1)); // Reward 1 Type Item Id
+			writeD(L2Manor.getInstance().getRewardItemBySeed(seed.getId(), 1)); // Reward 1 Type Item Id
 			writeC(1); // reward 2 Type
-			writeD(L2Manor.getInstance().getRewardItemBySeed(seed.getId(),2)); // Reward 2 Type Item Id
+			writeD(L2Manor.getInstance().getRewardItemBySeed(seed.getId(), 2)); // Reward 2 Type Item Id
 		}
 	}
 

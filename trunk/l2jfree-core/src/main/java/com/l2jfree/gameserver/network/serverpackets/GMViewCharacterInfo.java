@@ -99,7 +99,7 @@ public class GMViewCharacterInfo extends L2GameServerPacket
         writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_DECO5));
         writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_DECO6));
         if (Config.PACKET_FINAL)
-            writeD(0); // T3 Unknown
+            writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_BELT)); // T3 Unknown
 
         writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIRALL));
         writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_REAR));
@@ -128,7 +128,7 @@ public class GMViewCharacterInfo extends L2GameServerPacket
         writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO6));
         if (Config.PACKET_FINAL)
         {
-            writeD(0); // T3 Unknown
+        	writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_BELT)); // T3 Unknown
             writeD(0); // T3 Unknown
             writeD(0); // T3 Unknown
         }

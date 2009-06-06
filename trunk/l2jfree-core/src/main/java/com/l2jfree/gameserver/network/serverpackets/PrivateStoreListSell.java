@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.TradeList;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
@@ -23,7 +22,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  * 
  * @version $Revision: 1.2.2.3.2.6 $ $Date: 2005/03/27 15:29:57 $
  */
-public class PrivateStoreListSell extends L2GameServerPacket
+public class PrivateStoreListSell extends ElementalInfo
 {
 	private static final String _S__B4_PRIVATESTORELISTSELL = "[S] 9b PrivateStoreListSell";
 	private int _objId;
@@ -46,10 +45,7 @@ public class PrivateStoreListSell extends L2GameServerPacket
 		writeC(0xa1);
 		writeD(_objId);
 		writeD(_packageSale ? 1 : 0);
-		if (Config.PACKET_FINAL)
-			writeQ(_playerAdena);
-		else
-			writeD(toInt(_playerAdena));
+		writeCompQ(_playerAdena);
 		
 		writeD(_items.length);
 		for (TradeList.TradeItem item : _items)
@@ -57,38 +53,15 @@ public class PrivateStoreListSell extends L2GameServerPacket
 			writeD(item.getItem().getType2());
 			writeD(item.getObjectId());
 			writeD(item.getItem().getItemDisplayId());
-			if (Config.PACKET_FINAL)
-				writeQ(item.getCount());
-			else
-				writeD(toInt(item.getCount()));
+			writeCompQ(item.getCount());
 			writeH(0x00);
 			writeH(item.getEnchant());
 			writeH(0x00);
 			writeD(item.getItem().getBodyPart());
 			writeD(item.getPrice()); //your price
-			if (Config.PACKET_FINAL)
-				writeQ(item.getItem().getReferencePrice()); //store price
-			else
-				writeD(toInt(item.getItem().getReferencePrice())); //store price
-
-			if (Config.PACKET_FINAL)
-			{
-				writeH(item.getAttackElementType());
-				writeH(item.getAttackElementPower());
-				for (byte i = 0; i < 6; i++)
-				{
-					writeH(item.getElementDefAttr(i));
-				}
-			}
-			else
-			{
-				writeD(item.getAttackElementType());
-				writeD(item.getAttackElementPower());
-				for (byte i = 0; i < 6; i++)
-				{
-					writeD(item.getElementDefAttr(i));
-				}
-			}
+			writeCompQ(item.getItem().getReferencePrice()); //store price
+			
+			writeElementalInfo(item); //8x h or d			
 		}
 	}
 	

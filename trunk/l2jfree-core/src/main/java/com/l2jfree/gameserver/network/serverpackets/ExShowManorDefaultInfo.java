@@ -14,9 +14,9 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.gameserver.model.L2Manor;
-
 import javolution.util.FastList;
+
+import com.l2jfree.gameserver.model.L2Manor;
 
 
 /**

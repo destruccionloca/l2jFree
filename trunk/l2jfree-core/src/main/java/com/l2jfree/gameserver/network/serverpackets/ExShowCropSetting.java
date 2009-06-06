@@ -14,52 +14,32 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.Config;
+import javolution.util.FastList;
+
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.CastleManorManager;
 import com.l2jfree.gameserver.instancemanager.CastleManorManager.CropProcure;
 import com.l2jfree.gameserver.model.L2Manor;
 import com.l2jfree.gameserver.model.entity.Castle;
 
-import javolution.util.FastList;
-
 /**
- * format(packet 0xFE)
- * ch dd [ddcdcdddddddcddc]
- * c  - id
- * h  - sub id
+ * format(packet 0xFE) ch dd [ddcdcdddddddcddc] c - id h - sub id
  * 
- * d  - manor id
- * d  - size
+ * d - manor id d - size
  * 
- * [
- * d  - crop id
- * d  - seed level
- * c 
- * d  - reward 1 id
- * c
- * d  - reward 2 id
- * d  - next sale limit
- * d  
- * d  - min crop price
- * d  - max crop price
- * d  - today buy
- * d  - today price
- * c  - today reward
- * d  - next buy
- * d  - next price
- * c  - next reward
- * ]
+ * [ d - crop id d - seed level c d - reward 1 id c d - reward 2 id d - next
+ * sale limit d d - min crop price d - max crop price d - today buy d - today
+ * price c - today reward d - next buy d - next price c - next reward ]
  * 
  * @author l3x
  */
 public class ExShowCropSetting extends L2GameServerPacket
 {
-	private static final String _S__FE_20_EXSHOWCROPSETTING = "[S] FE:20 ExShowCropSetting";
-	
-	private int _manorId;
-	private int _count;
-	private long[] _cropData; // data to send, size:_count*14
+	private static final String	_S__FE_20_EXSHOWCROPSETTING	= "[S] FE:20 ExShowCropSetting";
+
+	private int					_manorId;
+	private int					_count;
+	private long[]				_cropData;														// data to send, size:_count*14
 
 	public ExShowCropSetting(int manorId)
 	{
@@ -72,38 +52,38 @@ public class ExShowCropSetting extends L2GameServerPacket
 		for (int cr : crops)
 		{
 			_cropData[(i * 14)] = cr;
-			_cropData[i*14 + 1] = L2Manor.getInstance().getSeedLevelByCrop(cr);
-			_cropData[i*14 + 2] = L2Manor.getInstance().getRewardItem(cr, 1);
-			_cropData[i*14 + 3] = L2Manor.getInstance().getRewardItem(cr, 2);
-			_cropData[i*14 + 4] = L2Manor.getInstance().getCropPuchaseLimit(cr);
-			_cropData[i*14 + 5] = 0; // Looks like not used 
-			_cropData[i*14 + 6] = L2Manor.getInstance().getCropBasicPrice(cr) * 60 / 100;
-			_cropData[i*14 + 7] = L2Manor.getInstance().getCropBasicPrice(cr) * 10;
-			CropProcure cropPr = c.getCrop(cr, CastleManorManager.PERIOD_CURRENT); 
+			_cropData[i * 14 + 1] = L2Manor.getInstance().getSeedLevelByCrop(cr);
+			_cropData[i * 14 + 2] = L2Manor.getInstance().getRewardItem(cr, 1);
+			_cropData[i * 14 + 3] = L2Manor.getInstance().getRewardItem(cr, 2);
+			_cropData[i * 14 + 4] = L2Manor.getInstance().getCropPuchaseLimit(cr);
+			_cropData[i * 14 + 5] = 0; // Looks like not used 
+			_cropData[i * 14 + 6] = L2Manor.getInstance().getCropBasicPrice(cr) * 60 / 100;
+			_cropData[i * 14 + 7] = L2Manor.getInstance().getCropBasicPrice(cr) * 10;
+			CropProcure cropPr = c.getCrop(cr, CastleManorManager.PERIOD_CURRENT);
 			if (cropPr != null)
 			{
-				_cropData[i*14 + 8] = cropPr.getStartAmount();
-				_cropData[i*14 + 9] = cropPr.getPrice();
-				_cropData[i*14 + 10] = cropPr.getReward();
+				_cropData[i * 14 + 8] = cropPr.getStartAmount();
+				_cropData[i * 14 + 9] = cropPr.getPrice();
+				_cropData[i * 14 + 10] = cropPr.getReward();
 			}
 			else
 			{
-				_cropData[i*14 + 8] = 0;
-				_cropData[i*14 + 9] = 0;
-				_cropData[i*14 + 10] = 0;
+				_cropData[i * 14 + 8] = 0;
+				_cropData[i * 14 + 9] = 0;
+				_cropData[i * 14 + 10] = 0;
 			}
-			cropPr = c.getCrop(cr, CastleManorManager.PERIOD_NEXT); 
+			cropPr = c.getCrop(cr, CastleManorManager.PERIOD_NEXT);
 			if (cropPr != null)
 			{
-				_cropData[i*14 + 11] = cropPr.getStartAmount();
-				_cropData[i*14 + 12] = cropPr.getPrice();
-				_cropData[i*14 + 13] = cropPr.getReward();
+				_cropData[i * 14 + 11] = cropPr.getStartAmount();
+				_cropData[i * 14 + 12] = cropPr.getPrice();
+				_cropData[i * 14 + 13] = cropPr.getReward();
 			}
 			else
 			{
-				_cropData[i*14 + 11] = 0;
-				_cropData[i*14 + 12] = 0;
-				_cropData[i*14 + 13] = 0;
+				_cropData[i * 14 + 11] = 0;
+				_cropData[i * 14 + 12] = 0;
+				_cropData[i * 14 + 13] = 0;
 			}
 			i++;
 		}
@@ -112,50 +92,33 @@ public class ExShowCropSetting extends L2GameServerPacket
 	@Override
 	public void writeImpl()
 	{
-		writeC(0xFE);     // Id
-		writeH(0x2b);     // SubId
+		writeC(0xFE); // Id
+		writeH(0x2b); // SubId
 
 		writeD(_manorId); // manor id
-		writeD(_count);   // size
+		writeD(_count); // size
 
 		for (int i = 0; i < _count; i++)
 		{
-			writeD((int) _cropData[(i * 14)]);  // crop id
-			writeD((int) _cropData[i*14 + 1]);  // seed level
+			writeD((int) _cropData[(i * 14)]); // crop id
+			writeD((int) _cropData[i * 14 + 1]); // seed level
 			writeC(1);
-			writeD((int) _cropData[i*14 + 2]);  // reward 1 id
+			writeD((int) _cropData[i * 14 + 2]); // reward 1 id
 			writeC(1);
-			writeD((int) _cropData[i*14 + 3]);  // reward 2 id
-			
-			writeD((int) _cropData[i*14 + 4]);  // next sale limit
-			writeD((int) _cropData[i*14 + 5]);  // ??? 
-			writeD((int) _cropData[i*14 + 6]);  // min crop price
-			writeD((int) _cropData[i*14 + 7]);  // max crop price
-			
-			if (Config.PACKET_FINAL)
-			{
-				writeQ(_cropData[i*14 + 8]);  // today buy
-				writeQ(_cropData[i*14 + 9]);  // today price
-			}
-			else
-			{
-				writeD(toInt(_cropData[i*14 + 8]));  // today buy
-				writeD(toInt(_cropData[i*14 + 9]));  // today price
-			}
+			writeD((int) _cropData[i * 14 + 3]); // reward 2 id
 
+			writeD((int) _cropData[i * 14 + 4]); // next sale limit
+			writeD((int) _cropData[i * 14 + 5]); // ??? 
+			writeD((int) _cropData[i * 14 + 6]); // min crop price
+			writeD((int) _cropData[i * 14 + 7]); // max crop price
+
+			writeCompQ(_cropData[i * 14 + 8]); // today buy
+			writeCompQ(_cropData[i * 14 + 9]); // today price
+			writeC((int) _cropData[i * 14 + 10]); // today reward
 			
-			writeC((int) _cropData[i*14 + 10]); // today reward
-			if (Config.PACKET_FINAL)
-			{
-				writeQ(_cropData[i*14 + 11]); // next buy
-				writeQ(_cropData[i*14 + 12]); // next price
-			}
-			else
-			{
-				writeD(toInt(_cropData[i*14 + 11])); // next buy
-				writeD(toInt(_cropData[i*14 + 12])); // next price
-			}
-			writeC((int) _cropData[i*14 + 13]); // next reward
+			writeCompQ(_cropData[i * 14 + 11]); // next buy
+			writeCompQ(_cropData[i * 14 + 12]); // next price
+			writeC((int) _cropData[i * 14 + 13]); // next reward
 		}
 	}
 

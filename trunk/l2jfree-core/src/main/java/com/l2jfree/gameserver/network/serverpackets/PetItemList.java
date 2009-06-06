@@ -18,7 +18,6 @@ package com.l2jfree.gameserver.network.serverpackets;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 
@@ -27,7 +26,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
  * 
  * @version $Revision: 1.4.2.1.2.4 $ $Date: 2005/03/27 15:29:39 $
  */
-public class PetItemList extends L2GameServerPacket 
+public class PetItemList extends ElementalInfo 
 {
 	private final static Log _log = LogFactory.getLog(PetItemList.class.getName());
 	private static final String _S__cb_PETITEMLIST = "[S] b2  PetItemList";
@@ -61,10 +60,7 @@ public class PetItemList extends L2GameServerPacket
 			writeH(temp.getItem().getType1()); // item type1
 			writeD(temp.getObjectId());
 			writeD(temp.getItemDisplayId());
-			if (Config.PACKET_FINAL)
-				writeQ(temp.getCount());
-			else
-				writeD(toInt(temp.getCount()));
+			writeCompQ(temp.getCount());
 			writeH(temp.getItem().getType2());	// item type2
 			writeH(0xff);	// ?
 			writeH(temp.isEquipped() ? 0x01 : 0x00);
@@ -72,24 +68,7 @@ public class PetItemList extends L2GameServerPacket
 			writeH(temp.getEnchantLevel());	// enchant level
 			writeH(0x00);	// ?
 
-			if (Config.PACKET_FINAL)
-			{
-				writeH(temp.getAttackElementType());
-				writeH(temp.getAttackElementPower());
-				for (byte i = 0; i < 6; i++)
-				{
-					writeH(temp.getElementDefAttr(i));
-				}
-			}
-			else
-			{
-				writeD(temp.getAttackElementType());
-				writeD(temp.getAttackElementPower());
-				for (byte i = 0; i < 6; i++)
-				{
-					writeD(temp.getElementDefAttr(i));
-				}
-			}
+			writeElementalInfo(temp);
 		}
 	}
 

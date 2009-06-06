@@ -16,19 +16,26 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 public class EnchantResult extends L2GameServerPacket
 {
-	private static final String _S__87_ENCHANTRESULT = "[S] 87 EnchantResult [d]";
-	private int _unknown;
+	private static final String _S__87_ENCHANTRESULT = "[S] 87 EnchantResult";
 
-	public EnchantResult(int unknown)
+	private int _result;
+	private int _crystal;
+	private int _count;
+
+	public EnchantResult(int result, int crystal, int count)
 	{
-		_unknown = unknown;
+		_result = result;
+		_crystal = crystal;
+		_count = count;
 	}
-	
+
 	@Override
 	protected final void writeImpl()
 	{
 		writeC(0x87);
-		writeD(_unknown);
+		writeD(_result);
+		writeD(_crystal);
+		writeCompQ(_count);
 	}
 
 	/* (non-Javadoc)

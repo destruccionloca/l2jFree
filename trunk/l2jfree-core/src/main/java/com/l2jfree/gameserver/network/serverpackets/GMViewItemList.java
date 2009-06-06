@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
@@ -23,7 +22,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  * 
  * @version $Revision: 1.1.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
  */
-public class GMViewItemList extends L2GameServerPacket
+public class GMViewItemList extends ElementalInfo
 {
 	//private static Logger _log = Logger.getLogger(GMViewItemList.class.getName());
 	private static final String _S__AD_GMVIEWITEMLIST = "[S] 94 GMViewItemList";
@@ -59,10 +58,7 @@ public class GMViewItemList extends L2GameServerPacket
 			writeD(temp.getObjectId());
 			writeD(temp.getItemDisplayId());
 			writeD(temp.getLocationSlot()); // T1
-			if (Config.PACKET_FINAL)
-				writeQ(temp.getCount());
-			else
-				writeD(toInt(temp.getCount()));
+			writeCompQ(temp.getCount());
 			writeH(temp.getItem().getType2());
 			writeH(temp.getCustomType1()); 
 			writeH(temp.isEquipped() ? 0x01 : 0x00);
@@ -80,24 +76,7 @@ public class GMViewItemList extends L2GameServerPacket
 			writeD(temp.getMana());
 
 			// T1
-			if (Config.PACKET_FINAL)
-			{
-				writeH(temp.getAttackElementType());
-				writeH(temp.getAttackElementPower());
-				for (byte i = 0; i < 6; i++)
-				{
-					writeH(temp.getElementDefAttr(i));
-				}
-			}
-			else
-			{
-				writeD(temp.getAttackElementType());
-				writeD(temp.getAttackElementPower());
-				for (byte i = 0; i < 6; i++)
-				{
-					writeD(temp.getElementDefAttr(i));
-				}
-			}
+			writeElementalInfo(temp);
 			// T2
 			writeD(temp.isTimeLimitedItem() ? (int) (temp.getRemainingTime() / 1000) : -1);
 		}

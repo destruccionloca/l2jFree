@@ -20,14 +20,13 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2TradeList;
 
-
-public final class BuyList extends L2GameServerPacket
+public final class BuyList extends ElementalInfo
 {
-	private static final String _S__07_BUYLIST = "[S] 07 BuyList [ddh (hdddhhdhhhdddddddd)]";
-	private int _listId;
-	private L2ItemInstance[] _list;
-	private long _money;
-	private double _taxRate = 1.;
+	private static final String	_S__07_BUYLIST	= "[S] 07 BuyList [ddh (hdddhhdhhhdddddddd)]";
+	private int					_listId;
+	private L2ItemInstance[]	_list;
+	private long				_money;
+	private double				_taxRate		= 1.;
 
 	public BuyList(L2TradeList list, long currentMoney)
 	{
@@ -35,7 +34,7 @@ public final class BuyList extends L2GameServerPacket
 		List<L2ItemInstance> lst = list.getItems();
 		_list = lst.toArray(new L2ItemInstance[lst.size()]);
 		_money = currentMoney;
-	}	
+	}
 
 	public BuyList(L2TradeList list, long currentMoney, double taxRate)
 	{
@@ -44,70 +43,50 @@ public final class BuyList extends L2GameServerPacket
 		_list = lst.toArray(new L2ItemInstance[lst.size()]);
 		_money = currentMoney;
 		_taxRate = taxRate;
-	}	
-	
+	}
+
 	public BuyList(List<L2ItemInstance> lst, int listId, long currentMoney)
 	{
 		_listId = listId;
 		_list = lst.toArray(new L2ItemInstance[lst.size()]);
 		_money = currentMoney;
 	}
-	
+
 	@Override
 	protected final void writeImpl()
 	{
 		writeC(0x07);
 		// current money
-		if (Config.PACKET_FINAL)
-			writeQ(_money);
-		else
-			writeD(toInt(_money));
+		writeCompQ(_money);
 		writeD(_listId);
 		writeH(_list.length);
 
 		for (L2ItemInstance item : _list)
 		{
-			if (item.getCount() >0 || item.getCount() == -1)
+			if (item.getCount() > 0 || item.getCount() == -1)
 			{
 				writeH(item.getItem().getType1()); // item type1
 				writeD(item.getObjectId());
 				writeD(item.getItemDisplayId());
-				if (Config.PACKET_FINAL)
-					writeQ(item.getCount() >= 0 ? item.getCount() : 0); // max amount of items that a player can buy at a time (with this itemid)
-				else
-					writeD(toInt(item.getCount() >= 0 ? item.getCount() : 0)); // max amount of items that a player can buy at a time (with this itemid)
-				writeH(item.getItem().getType2());					// item type2
-				writeH(item.getCustomType1());						// custom type1
+				writeCompQ(item.getCount() >= 0 ? item.getCount() : 0); // max amount of items that a player can buy at a time (with this itemid)
+				writeH(item.getItem().getType2()); // item type2
+				writeH(item.getCustomType1()); // custom type1
 				writeD(item.getItem().getBodyPart());
-				writeH(item.getEnchantLevel());						// enchant level
-				writeH(item.getCustomType2());						// custom type2
+				writeH(item.getEnchantLevel()); // enchant level
+				writeH(item.getCustomType2()); // custom type2
 				writeH(0x00);
-				if (Config.PACKET_FINAL)
-				{
-					if (item.getItemId() >= 3960 && item.getItemId() <= 4026)//Config.RATE_SIEGE_GUARDS_PRICE-//'
-						writeQ((long) (item.getPriceToSell() * Config.RATE_SIEGE_GUARDS_PRICE * _taxRate));
-					else
-						writeQ((long) (item.getPriceToSell() * _taxRate));
-				}
+				if (item.getItemId() >= 3960 && item.getItemId() <= 4026)//Config.RATE_SIEGE_GUARDS_PRICE-//'
+					writeCompQ((long) (item.getPriceToSell() * Config.RATE_SIEGE_GUARDS_PRICE * _taxRate));
 				else
-				{
-					if (item.getItemId() >= 3960 && item.getItemId() <= 4026)//Config.RATE_SIEGE_GUARDS_PRICE-//'
-						writeD(toInt((long) (item.getPriceToSell() * Config.RATE_SIEGE_GUARDS_PRICE * _taxRate)));
-					else
-						writeD(toInt((long) (item.getPriceToSell() * _taxRate)));
-				}
-				for (byte i = 0; i < 8; i++)
-				{
-					if (Config.PACKET_FINAL)
-						writeH(0x00);
-					else
-						writeD(0x00);
-				}
+					writeCompQ((long) (item.getPriceToSell() * _taxRate));
+				writeElementalInfo(item);
 			}
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
 	 */
 	@Override

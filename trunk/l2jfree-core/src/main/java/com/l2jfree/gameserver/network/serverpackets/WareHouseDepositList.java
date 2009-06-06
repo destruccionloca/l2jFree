@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 import java.util.List;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.templates.item.L2Item;
@@ -26,20 +25,20 @@ import com.l2jfree.gameserver.templates.item.L2Item;
  * 
  * @version $Revision: 1.4.2.1.2.4 $ $Date: 2005/03/27 15:29:39 $
  */
-public class WareHouseDepositList extends L2GameServerPacket
+public class WareHouseDepositList extends ElementalInfo
 {
-	public static final int PRIVATE = 1;
-	public static final int CLAN = 4;
-	public static final int CASTLE = 3; //not sure
-	public static final int FREIGHT = 1;
-	
-	private static final String _S__41_WAREHOUSEDEPOSITLIST = "[S] 41 WareHouseDepositList";
-	
-	private L2PcInstance _activeChar;
-	private long _activeCharAdena;
-	private List<L2ItemInstance> _items;
-	private int _whType;
-	
+	public static final int			PRIVATE						= 1;
+	public static final int			CLAN						= 4;
+	public static final int			CASTLE						= 3;								//not sure
+	public static final int			FREIGHT						= 1;
+
+	private static final String		_S__41_WAREHOUSEDEPOSITLIST	= "[S] 41 WareHouseDepositList";
+
+	private L2PcInstance			_activeChar;
+	private long					_activeCharAdena;
+	private List<L2ItemInstance>	_items;
+	private int						_whType;
+
 	public WareHouseDepositList(L2PcInstance player, int type)
 	{
 		//TODO: make it one loop
@@ -47,22 +46,20 @@ public class WareHouseDepositList extends L2GameServerPacket
 		_whType = type;
 		_activeCharAdena = _activeChar.getAdena();
 		_items = _activeChar.getInventory().getAvailableItems(true);
-		
+
 		// non-tradeable, augmented and shadow items can be stored in private wh
 		if (_whType == PRIVATE)
 		{
 			for (L2ItemInstance temp : player.getInventory().getItems())
 			{
-				if (temp != null && !temp.isEquipped()
-					&& (temp.isShadowItem() || temp.isAugmented() || !temp.isTradeable())
-					&& temp.getItem().getType2() != L2Item.TYPE2_QUEST) // exclude quest items
+				if (temp != null && !temp.isEquipped() && (temp.isShadowItem() || temp.isAugmented() || !temp.isTradeable()) && temp.getItem().getType2() != L2Item.TYPE2_QUEST) // exclude quest items
 				{
 					_items.add(temp);
 				}
 			}
 		}
 	}
-	
+
 	@Override
 	protected final void writeImpl()
 	{
@@ -72,24 +69,18 @@ public class WareHouseDepositList extends L2GameServerPacket
 		// 0x03-Castle Warehouse
 		// 0x04-Warehouse
 		writeH(_whType);
-		if (Config.PACKET_FINAL)
-			writeQ(_activeCharAdena);
-		else
-			writeD(toInt(_activeCharAdena));
+		writeCompQ(_activeCharAdena);
 		int count = _items.size();
 		if (_log.isDebugEnabled())
 			_log.debug("count:" + count);
 		writeH(count);
-		
+
 		for (L2ItemInstance item : _items)
 		{
 			writeH(item.getItem().getType1());
 			writeD(item.getObjectId());
 			writeD(item.getItemDisplayId());
-			if (Config.PACKET_FINAL)
-				writeQ(item.getCount());
-			else
-				writeD(toInt(item.getCount()));
+			writeCompQ(item.getCount());
 			writeH(item.getItem().getType2());
 			writeH(item.getCustomType1());
 			writeD(item.getItem().getBodyPart());
@@ -104,34 +95,19 @@ public class WareHouseDepositList extends L2GameServerPacket
 			}
 			else
 				writeQ(0x00);
-			
+
 			// T1
-			if (Config.PACKET_FINAL)
-			{
-				writeH(item.getAttackElementType());
-				writeH(item.getAttackElementPower());
-				for (byte i = 0; i < 6; i++)
-				{
-					writeH(item.getElementDefAttr(i));
-				}
-			}
-			else
-			{
-				writeD(item.getAttackElementType());
-				writeD(item.getAttackElementPower());
-				for (byte i = 0; i < 6; i++)
-				{
-					writeD(item.getElementDefAttr(i));
-				}
-			}
-			
+			writeElementalInfo(item); //8x h or d
+
 			writeD(item.getMana());
 			// T2
-			writeD(item.isTimeLimitedItem() ? (int) (item.getRemainingTime()/1000) : -1);
+			writeD(item.isTimeLimitedItem() ? (int) (item.getRemainingTime() / 1000) : -1);
 		}
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
 	 */
 	@Override

@@ -19,7 +19,6 @@ import javolution.util.FastList;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MerchantInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -29,15 +28,15 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  * 
  * @version $Revision: 1.4.2.3.2.4 $ $Date: 2005/03/27 15:29:39 $
  */
-public class SellList extends L2GameServerPacket
+public class SellList extends ElementalInfo
 {
-	private static final String _S__10_SELLLIST = "[S] 10 SellList";
-	private final static Log _log = LogFactory.getLog(SellList.class.getName());
-	private final L2PcInstance _activeChar;
-	private final L2MerchantInstance _lease;
-	private long _money;
-	private FastList<L2ItemInstance> _selllist = new FastList<L2ItemInstance>();
-	
+	private static final String			_S__10_SELLLIST	= "[S] 10 SellList";
+	private final static Log			_log			= LogFactory.getLog(SellList.class.getName());
+	private final L2PcInstance			_activeChar;
+	private final L2MerchantInstance	_lease;
+	private long						_money;
+	private FastList<L2ItemInstance>	_selllist		= new FastList<L2ItemInstance>();
+
 	public SellList(L2PcInstance player)
 	{
 		_activeChar = player;
@@ -45,7 +44,7 @@ public class SellList extends L2GameServerPacket
 		_money = _activeChar.getAdena();
 		doLease();
 	}
-	
+
 	public SellList(L2PcInstance player, L2MerchantInstance lease)
 	{
 		_activeChar = player;
@@ -53,79 +52,56 @@ public class SellList extends L2GameServerPacket
 		_money = _activeChar.getAdena();
 		doLease();
 	}
-	
+
 	private void doLease()
 	{
 		if (_lease == null)
 		{
 			for (L2ItemInstance item : _activeChar.getInventory().getItems())
 			{
-				if (!item.isEquipped()                       // Not equipped 
-					&& item.isSellable()                      // Item is sellable
-					&& (_activeChar.getPet() == null         // Pet not summoned or
-						||	item.getObjectId() != _activeChar.getPet().getControlItemId()))   // Pet is summoned and not the item that summoned the pet
+				if (!item.isEquipped() // Not equipped 
+						&& item.isSellable() // Item is sellable
+						&& (_activeChar.getPet() == null // Pet not summoned or
+						|| item.getObjectId() != _activeChar.getPet().getControlItemId())) // Pet is summoned and not the item that summoned the pet
 				{
 					_selllist.add(item);
-					if (_log.isDebugEnabled()) 
+					if (_log.isDebugEnabled())
 						_log.info("item added to selllist: " + item.getItem().getName());
 				}
 			}
 		}
 	}
-	
+
 	@Override
 	protected final void writeImpl()
 	{
 		writeC(0x06);
-		if (Config.PACKET_FINAL)
-			writeQ(_money);
-		else
-			writeD(toInt(_money));
+		writeCompQ(_money);
 		writeD(0x00);
 		writeH(_selllist.size());
-		
+
 		for (L2ItemInstance item : _selllist)
 		{
 			writeH(item.getItem().getType1());
 			writeD(item.getObjectId());
 			writeD(item.getItemDisplayId());
-			if (Config.PACKET_FINAL)
-				writeQ(item.getCount());
-			else
-				writeD(toInt(item.getCount()));
+
+			writeCompQ(item.getCount());
 			writeH(item.getItem().getType2());
 			writeH(item.getCustomType1());
 			writeD(item.getItem().getBodyPart());
 			writeH(item.getEnchantLevel());
 			writeH(item.getCustomType2());
 			writeH(0x00);
-			if (Config.PACKET_FINAL)
-				writeQ(item.getItem().getReferencePrice() / 2);
-			else
-				writeD(toInt(item.getItem().getReferencePrice() / 2));
-			
-			if (Config.PACKET_FINAL)
-			{
-				writeH(item.getAttackElementType());
-				writeH(item.getAttackElementPower());
-				for (byte i = 0; i < 6; i++)
-				{
-					writeH(item.getElementDefAttr(i));
-				}
-			}
-			else
-			{
-				writeD(item.getAttackElementType());
-				writeD(item.getAttackElementPower());
-				for (byte i = 0; i < 6; i++)
-				{
-					writeD(item.getElementDefAttr(i));
-				}
-			}
+			writeCompQ(item.getItem().getReferencePrice() / 2);
+
+			writeElementalInfo(item); //8x h or d
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
 	 */
 	@Override

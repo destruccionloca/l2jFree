@@ -14,8 +14,9 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import javolution.util.FastList;
 import java.util.Collection;
+
+import javolution.util.FastList;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 

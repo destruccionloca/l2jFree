@@ -14,14 +14,12 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import java.util.List;
-
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.ItemInfo;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 
@@ -51,7 +49,7 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
  * Rebuild 23.2.2006 by Advi
  */
 
-public class InventoryUpdate extends L2GameServerPacket
+public class InventoryUpdate extends ElementalInfo
 {
     private final static Log _log = LogFactory.getLog(InventoryUpdate.class.getName());
 	private static final String _S__37_INVENTORYUPDATE = "[S] 27 InventoryUpdate";
@@ -109,10 +107,7 @@ public class InventoryUpdate extends L2GameServerPacket
 			writeD(item.getObjectId());             // ObjectId 
 			writeD(item.getItem().getItemDisplayId());     // ItemId
 			writeD(item.getLocation());             // T1
-			if (Config.PACKET_FINAL)
-				writeQ(item.getCount());                // Quantity
-			else
-				writeD(toInt(item.getCount()));                // Quantity
+			writeCompQ(item.getCount());                // Quantity
 			writeH(item.getItem().getType2());      // Item Type 2 : 00-weapon, 01-shield/armor, 02-ring/earring/necklace, 03-questitem, 04-adena, 05-item
 			writeH(item.getCustomType1());          // Filler (always 0)
 			writeH(item.getEquipped());             // Equipped    : 00-No, 01-yes
@@ -123,24 +118,8 @@ public class InventoryUpdate extends L2GameServerPacket
 			writeD(item.getMana());
 
 			// T1
-			if (Config.PACKET_FINAL)
-			{
-				writeH(item.getAttackElementType());
-				writeH(item.getAttackElementPower());
-				for (byte i = 0; i < 6; i++)
-				{
-					writeH(item.getElementDefAttr(i));
-				}
-			}
-			else
-			{
-				writeD(item.getAttackElementType());
-				writeD(item.getAttackElementPower());
-				for (byte i = 0; i < 6; i++)
-				{
-					writeD(item.getElementDefAttr(i));
-				}
-			}
+			writeElementalInfo(item); //8x h or d
+			
 			// T2
 			writeD(item.getTime());
 		}

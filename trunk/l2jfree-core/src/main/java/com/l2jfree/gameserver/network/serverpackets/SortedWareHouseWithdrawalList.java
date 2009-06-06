@@ -20,11 +20,9 @@ import java.util.List;
 
 import javolution.util.FastList;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.RecipeController;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2RecipeList;
@@ -39,7 +37,7 @@ import com.l2jfree.gameserver.templates.item.L2WarehouseItem;
  * @version $Revision: 1.3.2.1.2.5 $ $Date: 2005/03/29 23:15:10 $
  */
 
-public class SortedWareHouseWithdrawalList extends L2GameServerPacket
+public class SortedWareHouseWithdrawalList extends ElementalInfo
 {
 	public static final int PRIVATE = 1;
 	public static final int CLAN = 2;
@@ -686,10 +684,7 @@ public class SortedWareHouseWithdrawalList extends L2GameServerPacket
 		* 0x03-Castle Warehouse  
 		* 0x04-Warehouse */  
 		writeH(_whType);
-		if (Config.PACKET_FINAL)
-			writeQ(_playerAdena);
-		else
-			writeD(toInt(_playerAdena));
+		writeCompQ(_playerAdena);
 		writeH(_objects.size());
 		
 		for (L2WarehouseItem item : _objects)
@@ -697,10 +692,7 @@ public class SortedWareHouseWithdrawalList extends L2GameServerPacket
 			writeH(item.getItem().getType1()); // item type1 //unconfirmed, works
 			writeD(item.getObjectId());
 			writeD(item.getItem().getItemDisplayId()); //unconfirmed, works
-			if (Config.PACKET_FINAL)
-				writeQ(item.getCount()); //unconfirmed, works
-			else
-				writeD(toInt(item.getCount())); //unconfirmed, works
+			writeCompQ(item.getCount()); //unconfirmed, works
 			writeH(item.getItem().getType2());	// item type2 //unconfirmed, works
 			writeH(item.getCustomType1());
 			writeD(item.getItem().getBodyPart());	// ?
@@ -716,24 +708,7 @@ public class SortedWareHouseWithdrawalList extends L2GameServerPacket
 			else
 				writeQ(0x00);
 
-			if (Config.PACKET_FINAL)
-			{
-				writeH(item.getAttackElementType());
-				writeH(item.getAttackElementPower());
-				for (byte i = 0; i < 6; i++)
-				{
-					writeH(item.getElementDefAttr(i));
-				}
-			}
-			else
-			{
-				writeD(item.getAttackElementType());
-				writeD(item.getAttackElementPower());
-				for (byte i = 0; i < 6; i++)
-				{
-					writeD(item.getElementDefAttr(i));
-				}
-			}
+			writeElementalInfo(item); //8x h or d
 
 			writeD(item.getManaLeft());
 			// T2

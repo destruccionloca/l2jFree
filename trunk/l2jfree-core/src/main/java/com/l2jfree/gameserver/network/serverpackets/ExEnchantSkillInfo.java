@@ -14,13 +14,12 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.Config;
+import javolution.util.FastList;
+
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
 import com.l2jfree.gameserver.model.L2EnchantSkillLearn.EnchantSkillDetail;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.ExEnchantSkillList.EnchantSkillType;
-
-import javolution.util.FastList;
 
 public final class ExEnchantSkillInfo extends L2GameServerPacket
 {
@@ -100,10 +99,7 @@ public final class ExEnchantSkillInfo extends L2GameServerPacket
             writeD(sede._rate);
             writeD(sede._spCost * _xpSpCostMultiplier);
             writeQ(sede._expCost * _xpSpCostMultiplier);
-            if (Config.PACKET_FINAL)
-            	writeQ(0); // required item count
-            else
-            	writeD(0); // required item count
+            writeCompQ(0); // required item count
             writeD(0); // req type?
             writeD(0); // required itemId
             writeD(0); // ?

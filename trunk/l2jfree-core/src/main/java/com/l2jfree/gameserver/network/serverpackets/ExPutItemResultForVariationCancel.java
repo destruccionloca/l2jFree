@@ -43,7 +43,7 @@ public class ExPutItemResultForVariationCancel extends L2GameServerPacket
 		writeD(_itemObjId);
 		writeD(0x27);
 		writeD(0x2006);
-		writeQ(_price);
+		writeCompQ(_price);
 		writeD(0x01);
 	}
 

@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.network.serverpackets;
 import java.util.Arrays;
 import java.util.Comparator;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.HennaTreeTable;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -25,71 +24,60 @@ import com.l2jfree.gameserver.templates.item.L2Henna;
 
 public final class HennaEquipList extends L2GameServerPacket
 {
-	private static final String _S__E2_HennaEquipList = "[S] E2 HennaEquipList";
-	
-	private final L2PcInstance _player;
-	private final L2Henna[] _hennas;
-	
+	private static final String	_S__E2_HennaEquipList	= "[S] E2 HennaEquipList";
+
+	private final L2PcInstance	_player;
+	private final L2Henna[]		_hennas;
+
 	public HennaEquipList(L2PcInstance player)
 	{
 		_player = player;
 		_hennas = HennaTreeTable.getInstance().getAvailableHenna(player).clone();
-		
+
 		Arrays.sort(_hennas, new Comparator<L2Henna>() {
 			@Override
 			public int compare(L2Henna o1, L2Henna o2)
 			{
 				return checkRequirements(o1).compareTo(checkRequirements(o2));
 			}
-			
+
 			private Integer checkRequirements(L2Henna henna)
 			{
 				final L2ItemInstance hennaItem = _player.getInventory().getItemByItemId(henna.getItemId());
-				
+
 				if (hennaItem == null)
 					return 3;
-				
+
 				if (hennaItem.getCount() < henna.getAmount())
 					return 2;
-				
+
 				if (_player.getAdena() < henna.getPrice())
 					return 1;
-				
+
 				return 0;
 			}
 		});
 	}
-	
+
 	@Override
 	protected final void writeImpl()
 	{
 		writeC(0xee);
-		if (Config.PACKET_FINAL)
-			writeQ(_player.getAdena());
-		else
-			writeD(toInt(_player.getAdena()));
+		writeCompQ(_player.getAdena());
 		writeD(3); //available equip slot
 		writeD(_hennas.length);
-		
+
 		for (L2Henna element : _hennas)
 		{
 			writeD(element.getSymbolId()); //symbolid
 			writeD(element.getItemId()); //itemid of dye
-			if (Config.PACKET_FINAL)
-			{
-				writeQ(element.getAmount()); //amount of dye require
-				writeQ(element.getPrice()); //amount of aden require
-			}
-			else
-			{
-				writeD(toInt(element.getAmount())); //amount of dye require
-				writeD(toInt(element.getPrice())); //amount of aden require
-			}
+			writeCompQ(element.getAmount()); //amount of dye require
+			writeCompQ(element.getPrice()); //amount of aden require
 
 			writeD(1); //meet the requirement or not
 		}
 	}
-	
+
 	@Override
 	public String getType()
 	{

@@ -22,7 +22,7 @@ import com.l2jfree.gameserver.model.L2Multisell.MultiSellListContainer;
 
 /**
  * This class ...
- *
+ * 
  * @version $Revision: 1.2 $ $Date: 2004/06/27 08:12:59 $
  */
 public final class MultiSellList extends L2GameServerPacket
@@ -92,10 +92,7 @@ public final class MultiSellList extends L2GameServerPacket
 					writeD(i.getItemId());
 					writeD(ItemTable.getInstance().getTemplate(i.getItemId()).getBodyPart());
 					writeH(ItemTable.getInstance().getTemplate(i.getItemId()).getType2());
-					if(Config.PACKET_FINAL)
-						writeQ(i.getItemCount());
-					else
-						writeD(toInt(i.getItemCount()));
+					writeCompQ(i.getItemCount());
 					writeH(i.getEnchantmentLevel()); //enchtant lvl
 					writeD(0x00); // C6
 					writeD(0x00); // C6
@@ -131,10 +128,7 @@ public final class MultiSellList extends L2GameServerPacket
 						typeE = ItemTable.getInstance().getTemplate(i.getItemId()).getType2();
 					writeD(items); //ID
 					writeH(typeE);
-					if (Config.PACKET_FINAL)
-						writeQ(i.getItemCount()); //Count
-					else
-						writeD(toInt(i.getItemCount()));
+					writeCompQ(i.getItemCount()); //Count
 					writeH(i.getEnchantmentLevel()); //Enchant Level
 					writeD(0x00); // C6
 					writeD(0x00); // C6

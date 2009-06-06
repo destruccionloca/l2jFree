@@ -16,9 +16,9 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 import java.util.List;
 
-import com.l2jfree.gameserver.model.L2Object;
-
 import javolution.util.FastList;
+
+import com.l2jfree.gameserver.model.L2Object;
 
 /**
 + *

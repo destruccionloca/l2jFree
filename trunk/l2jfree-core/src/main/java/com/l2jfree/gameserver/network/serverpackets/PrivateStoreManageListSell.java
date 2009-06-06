@@ -14,33 +14,28 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.TradeList;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-
 /**
- * 3 section to this packet
- * 1)playerinfo which is always sent
- * dd
- *
- * 2)list of items which can be added to sell
- * d(hhddddhhhd)
- *
- * 3)list of items which have already been setup 
- * for sell in previous sell private store sell manageent 
- * d(hhddddhhhdd) * 
+ * 3 section to this packet 1)playerinfo which is always sent dd
+ * 
+ * 2)list of items which can be added to sell d(hhddddhhhd)
+ * 
+ * 3)list of items which have already been setup for sell in previous sell
+ * private store sell manageent d(hhddddhhhdd) *
+ * 
  * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
-public class PrivateStoreManageListSell extends L2GameServerPacket
+public class PrivateStoreManageListSell extends ElementalInfo
 {
-	private static final String _S__B3_PRIVATESELLLISTSELL = "[S] 9a PrivateSellListSell";
-	private int _objId;
-	private long _playerAdena;
-	private boolean _packageSale;
-	private TradeList.TradeItem[] _itemList;
-	private TradeList.TradeItem[] _sellList;
-	
+	private static final String		_S__B3_PRIVATESELLLISTSELL	= "[S] 9a PrivateSellListSell";
+	private int						_objId;
+	private long					_playerAdena;
+	private boolean					_packageSale;
+	private TradeList.TradeItem[]	_itemList;
+	private TradeList.TradeItem[]	_sellList;
+
 	public PrivateStoreManageListSell(L2PcInstance player, boolean isPackageSale)
 	{
 		_objId = player.getObjectId();
@@ -50,7 +45,7 @@ public class PrivateStoreManageListSell extends L2GameServerPacket
 		_itemList = player.getInventory().getAvailableItems(player.getSellList());
 		_sellList = player.getSellList().getItems();
 	}
-	
+
 	@Override
 	protected final void writeImpl()
 	{
@@ -58,10 +53,7 @@ public class PrivateStoreManageListSell extends L2GameServerPacket
 		//section 1 
 		writeD(_objId);
 		writeD(_packageSale ? 1 : 0); // Package sell
-		if (Config.PACKET_FINAL)
-			writeQ(_playerAdena);
-		else
-			writeD(toInt(_playerAdena));
+		writeCompQ(_playerAdena);
 
 		//section2 
 		writeD(_itemList.length); //for potential sells
@@ -70,91 +62,42 @@ public class PrivateStoreManageListSell extends L2GameServerPacket
 			writeD(item.getItem().getType2());
 			writeD(item.getObjectId());
 			writeD(item.getItem().getItemDisplayId());
-			if (Config.PACKET_FINAL)
-				writeQ(item.getCount());
-			else
-				writeD(toInt(item.getCount()));
+			writeCompQ(item.getCount());
 			writeH(0x00);
 			writeH(item.getEnchant());//enchant lvl
 			writeH(0x00);
 			writeD(item.getItem().getBodyPart());
-			if (Config.PACKET_FINAL)
-				writeQ(item.getPrice()); //store price
-			else
-				writeD(toInt(item.getPrice())); //store price
+			writeCompQ(item.getPrice()); //store price
 
-			if (Config.PACKET_FINAL)
-			{
-				writeH(item.getAttackElementType());
-				writeH(item.getAttackElementPower());
-				for (byte i = 0; i < 6; i++)
-				{
-					writeH(item.getElementDefAttr(i));
-				}
-			}
-			else
-			{
-				writeD(item.getAttackElementType());
-				writeD(item.getAttackElementPower());
-				for (byte i = 0; i < 6; i++)
-				{
-					writeD(item.getElementDefAttr(i));
-				}
-			}
+			writeElementalInfo(item); //8x h or d
 		}
 
 		//section 3
 		writeD(_sellList.length); //count for any items already added for sell
 		for (TradeList.TradeItem item : _sellList)
 		{
-			writeD(item.getItem().getType2()); 
+			writeD(item.getItem().getType2());
 			writeD(item.getObjectId());
 			writeD(item.getItem().getItemDisplayId());
-			if (Config.PACKET_FINAL)
-				writeQ(item.getCount());
-			else
-				writeD(toInt(item.getCount()));
+			writeCompQ(item.getCount());
 			writeH(0x00);
 			writeH(item.getEnchant());//enchant lvl
 			writeH(0x00);
 			writeD(item.getItem().getBodyPart());
-			if(Config.PACKET_FINAL)
-			{
-				writeQ(item.getPrice());//your price
-				writeQ(item.getItem().getReferencePrice()); //store price
-			}
-			else
-			{
-				writeD(toInt(item.getPrice()));//your price
-				writeD(toInt(item.getItem().getReferencePrice())); //store price
-			}
+			writeCompQ(item.getPrice());//your price
+			writeCompQ(item.getItem().getReferencePrice()); //store price
 
-			if (Config.PACKET_FINAL)
-			{
-				writeH(item.getAttackElementType());
-				writeH(item.getAttackElementPower());
-				for (byte i = 0; i < 6; i++)
-				{
-					writeH(item.getElementDefAttr(i));
-				}
-			}
-			else
-			{
-				writeD(item.getAttackElementType());
-				writeD(item.getAttackElementPower());
-				for (byte i = 0; i < 6; i++)
-				{
-					writeD(item.getElementDefAttr(i));
-				}
-			}
+			writeElementalInfo(item); //8x h or d
 		}
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
 	 */
 	@Override
-    public String getType()
+	public String getType()
 	{
 		return _S__B3_PRIVATESELLLISTSELL;
 	}

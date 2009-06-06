@@ -14,23 +14,22 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
 
 /**
- * Sdh(h dddhh [dhhh] d)
- * Sdh ddddd ddddd ddddd ddddd
+ * Sdh(h dddhh [dhhh] d) Sdh ddddd ddddd ddddd ddddd
+ * 
  * @version $Revision: 1.1.2.1.2.5 $ $Date: 2007/11/26 16:10:05 $
  */
-public class GMViewWarehouseWithdrawList extends L2GameServerPacket
+public class GMViewWarehouseWithdrawList extends ElementalInfo
 {
-	private static final String _S__95_GMViewWarehouseWithdrawList = "[S] 95 GMViewWarehouseWithdrawList";
-	private L2ItemInstance[] _items;
-	private String _playerName;
-	private L2PcInstance _activeChar;
-	private long _money;
+	private static final String	_S__95_GMViewWarehouseWithdrawList	= "[S] 95 GMViewWarehouseWithdrawList";
+	private L2ItemInstance[]	_items;
+	private String				_playerName;
+	private L2PcInstance		_activeChar;
+	private long				_money;
 
 	public GMViewWarehouseWithdrawList(L2PcInstance cha)
 	{
@@ -45,10 +44,7 @@ public class GMViewWarehouseWithdrawList extends L2GameServerPacket
 	{
 		writeC(0x9b);
 		writeS(_playerName);
-		if (Config.PACKET_FINAL)
-			writeQ(_money);
-		else
-			writeD(toInt(_money));
+		writeCompQ(_money);
 		writeH(_items.length);
 
 		for (L2ItemInstance item : _items)
@@ -57,29 +53,25 @@ public class GMViewWarehouseWithdrawList extends L2GameServerPacket
 
 			writeD(item.getObjectId());
 			writeD(item.getItemDisplayId());
-			if (Config.PACKET_FINAL)
-				writeQ(item.getCount());
-			else
-				writeD(toInt(item.getCount()));
+			writeCompQ(item.getCount());
 			writeH(item.getItem().getType2());
 			writeH(item.getCustomType1());
 			if (item.getItem().isEquipable())
 			{
 				writeD(item.getItem().getBodyPart());
 				writeH(item.getEnchantLevel());
-				
+
 				if (item.getItem() instanceof L2Weapon)
 				{
-					writeH(((L2Weapon)item.getItem()).getSoulShotCount());
-					writeH(((L2Weapon)item.getItem()).getSpiritShotCount());
+					writeH(((L2Weapon) item.getItem()).getSoulShotCount());
+					writeH(((L2Weapon) item.getItem()).getSpiritShotCount());
 				}
 				else
 				{
 					writeH(0x00);
 					writeH(0x00);
 				}
-				
-				
+
 				if (item.isAugmented())
 				{
 					writeD(0x0000FFFF & item.getAugmentation().getAugmentationId());
@@ -90,30 +82,12 @@ public class GMViewWarehouseWithdrawList extends L2GameServerPacket
 					writeQ(0);
 				}
 				writeD(item.getObjectId());
-
-				if (Config.PACKET_FINAL)
-				{
-					writeH(item.getAttackElementType());
-					writeH(item.getAttackElementPower());
-					for (byte i = 0; i < 6; i++)
-					{
-						writeH(item.getElementDefAttr(i));
-					}
-				}
-				else
-				{
-					writeD(item.getAttackElementType());
-					writeD(item.getAttackElementPower());
-					for (byte i = 0; i < 6; i++)
-					{
-						writeD(item.getElementDefAttr(i));
-					}
-				}
+				writeElementalInfo(item);
 			}
-			
+
 			writeD(item.getMana());
 			// T2
-			writeD(item.isTimeLimitedItem() ? (int) (item.getRemainingTime()/1000) : -1);
+			writeD(item.isTimeLimitedItem() ? (int) (item.getRemainingTime() / 1000) : -1);
 		}
 	}
 

@@ -14,14 +14,13 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 
 /**
  *
  * @author  KenM
  */
-public final class ExRpItemLink extends L2GameServerPacket
+public final class ExRpItemLink extends ElementalInfo
 {
 	private final static String S_FE_6C_EXPRPITEMLINK = "[S] FE:6C ExRpItemLink";
 	private final L2ItemInstance _item;
@@ -51,10 +50,7 @@ public final class ExRpItemLink extends L2GameServerPacket
 		// guessing xD
 		writeD(_item.getObjectId());
 		writeD(_item.getItemId());
-		if (Config.PACKET_FINAL)
-			writeQ(_item.getCount());
-		else
-			writeD(toInt(_item.getCount()));
+		writeCompQ(_item.getCount());
 		writeH(_item.getItem().getType2());
 		writeD(_item.getItem().getBodyPart());
 		writeH(_item.getEnchantLevel());
@@ -64,23 +60,6 @@ public final class ExRpItemLink extends L2GameServerPacket
 		writeD(_item.getMana());
 
 		// T1
-		if (Config.PACKET_FINAL)
-		{
-			writeH(_item.getAttackElementType());
-			writeH(_item.getAttackElementPower());
-			for (byte i = 0; i < 6; i++)
-			{
-				writeH(_item.getElementDefAttr(i));
-			}
-		}
-		else
-		{
-			writeD(_item.getAttackElementType());
-			writeD(_item.getAttackElementPower());
-			for (byte i = 0; i < 6; i++)
-			{
-				writeD(_item.getElementDefAttr(i));
-			}
-		}
+		writeElementalInfo(_item);
 	}
 }

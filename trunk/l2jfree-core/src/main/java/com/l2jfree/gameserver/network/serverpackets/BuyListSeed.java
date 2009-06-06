@@ -16,11 +16,10 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 import java.util.List;
 
-import com.l2jfree.Config;
+import javolution.util.FastList;
+
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2TradeList;
-
-import javolution.util.FastList;
 
 /**
  * @author l3x
@@ -28,17 +27,17 @@ import javolution.util.FastList;
 
 public final class BuyListSeed extends L2GameServerPacket
 {
-	private static final String _S__E9_BUYLISTSEED = "[S] E9 BuyListSeed [dd h (hdddhhd)]";
+	private static final String		_S__E9_BUYLISTSEED	= "[S] E9 BuyListSeed [dd h (hdddhhd)]";
 
-	private int _manorId;
-	private List<L2ItemInstance> _list = new FastList<L2ItemInstance>();
-	private long _money;
+	private int						_manorId;
+	private List<L2ItemInstance>	_list				= new FastList<L2ItemInstance>();
+	private long					_money;
 
 	public BuyListSeed(L2TradeList list, int manorId, long currentMoney)
 	{
-		_money  = currentMoney;
+		_money = currentMoney;
 		_manorId = manorId;
-		_list   = list.getItems();
+		_list = list.getItems();
 	}
 
 	@Override
@@ -47,29 +46,20 @@ public final class BuyListSeed extends L2GameServerPacket
 		writeC(0xE9);
 
 		// current money
-		if (Config.PACKET_FINAL)
-			writeQ(_money);
-		else
-			writeD(toInt(_money));
-		writeD(_manorId);                      // manor id
+		writeCompQ(_money);
+		writeD(_manorId); // manor id
 
-		writeH(_list.size());                  // list length
+		writeH(_list.size()); // list length
 
 		for (L2ItemInstance item : _list)
 		{
-			writeH(0x04);                      // item->type1
-			writeD(0x00);                      // objectId
-			writeD(item.getItemDisplayId());          // item id
-			if (Config.PACKET_FINAL)
-				writeQ(item.getCount());           // item count
-			else
-				writeD(toInt(item.getCount()));           // item count
-			writeH(0x04);                      // item->type2
-			writeH(0x00);          
-			if (Config.PACKET_FINAL)
-				writeQ(item.getPriceToSell());     // price
-			else
-				writeD(toInt(item.getPriceToSell()));     // price
+			writeH(0x04); // item->type1
+			writeD(0x00); // objectId
+			writeD(item.getItemDisplayId()); // item id
+			writeCompQ(item.getCount()); // item count
+			writeH(0x04); // item->type2
+			writeH(0x00);
+			writeCompQ(item.getPriceToSell()); // price
 		}
 	}
 

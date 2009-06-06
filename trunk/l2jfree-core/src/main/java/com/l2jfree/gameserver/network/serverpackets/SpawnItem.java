@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
 
@@ -75,10 +74,7 @@ public final class SpawnItem extends L2GameServerPacket
 		writeD(_z);
 		// only show item count if it is a stackable item
 		writeD(_stackable);
-		if (Config.PACKET_FINAL)
-			writeQ(_count);
-		else
-			writeD(toInt(_count));
+		writeCompQ(_count);
 		writeD(0x00); //c2
 	}
 

@@ -14,8 +14,6 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.Config;
-
 import javolution.util.FastList;
 
 public class AcquireSkillInfo extends L2GameServerPacket
@@ -69,10 +67,7 @@ public class AcquireSkillInfo extends L2GameServerPacket
         {
 			writeD(temp.type);
 			writeD(temp.itemId);
-			if(Config.PACKET_FINAL)
-				writeQ(temp.count);
-			else
-				writeD(toInt(temp.count));
+			writeCompQ(temp.count);
 			writeD(temp.unk);
         }
     }

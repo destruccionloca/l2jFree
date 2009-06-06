@@ -18,6 +18,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.mmocore.network.SendablePacket;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.CoreInfo;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.L2GameClient;
@@ -27,8 +28,8 @@ import com.l2jfree.gameserver.network.L2GameClient;
  */
 public abstract class L2GameServerPacket extends SendablePacket<L2GameClient>
 {
-	protected static final Log _log = LogFactory.getLog(L2GameServerPacket.class);
-	
+	protected static final Log	_log	= LogFactory.getLog(L2GameServerPacket.class);
+
 	/**
 	 * @see com.l2jserver.mmocore.network.SendablePacket#write()
 	 */
@@ -45,23 +46,23 @@ public abstract class L2GameServerPacket extends SendablePacket<L2GameClient>
 			_log.fatal("Failed writing: " + client + " - " + getType() + " - " + CoreInfo.getVersionInfo(), e);
 		}
 	}
-	
+
 	public void prepareToSend(L2GameClient client, L2PcInstance activeChar)
 	{
 	}
-	
+
 	public void packetSent(L2GameClient client, L2PcInstance activeChar)
 	{
 	}
-	
+
 	protected void writeImpl()
 	{
 	}
-	
+
 	protected void writeImpl(L2GameClient client, L2PcInstance activeChar)
 	{
 	}
-	
+
 	/**
 	 * @return a String with this packet name for debuging purposes
 	 */
@@ -69,7 +70,7 @@ public abstract class L2GameServerPacket extends SendablePacket<L2GameClient>
 	{
 		return getClass().getSimpleName();
 	}
-	
+
 	/**
 	 * @see org.mmocore.network.SendablePacket#getHeaderSize()
 	 */
@@ -78,7 +79,7 @@ public abstract class L2GameServerPacket extends SendablePacket<L2GameClient>
 	{
 		return 2;
 	}
-	
+
 	/**
 	 * @see org.mmocore.network.SendablePacket#writeHeader(int)
 	 */
@@ -87,7 +88,7 @@ public abstract class L2GameServerPacket extends SendablePacket<L2GameClient>
 	{
 		writeH(dataSize + getHeaderSize());
 	}
-	
+
 	public boolean canBeSentTo(L2GameClient client, L2PcInstance activeChar)
 	{
 		return true;
@@ -100,5 +101,13 @@ public abstract class L2GameServerPacket extends SendablePacket<L2GameClient>
 		if (var < 0)
 			return 0;
 		return (int) var;
+	}
+
+	public void writeCompQ(long var)
+	{
+		if (Config.PACKET_FINAL)
+			writeD(toInt(var));
+		else
+			writeQ(var);
 	}
 }

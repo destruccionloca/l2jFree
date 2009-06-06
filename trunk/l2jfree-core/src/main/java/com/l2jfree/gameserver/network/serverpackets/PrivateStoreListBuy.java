@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.TradeList;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
@@ -23,14 +22,14 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  * 
  * @version $Revision: 1.7.2.2.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
-public class PrivateStoreListBuy extends L2GameServerPacket
+public class PrivateStoreListBuy extends ElementalInfo
 {
-//	private static final String _S__D1_PRIVATEBUYLISTBUY = "[S] b8 PrivateBuyListBuy";
-	private static final String _S__BE_PRIVATESTORELISTBUY = "[S] be PrivateStoreListBuy";
-	private int _objId;
-	private long _playerAdena;
-	private TradeList.TradeItem[] _items;
-	
+	//	private static final String _S__D1_PRIVATEBUYLISTBUY = "[S] b8 PrivateBuyListBuy";
+	private static final String		_S__BE_PRIVATESTORELISTBUY	= "[S] be PrivateStoreListBuy";
+	private int						_objId;
+	private long					_playerAdena;
+	private TradeList.TradeItem[]	_items;
+
 	public PrivateStoreListBuy(L2PcInstance player, L2PcInstance storePlayer)
 	{
 		_objId = storePlayer.getObjectId();
@@ -38,77 +37,40 @@ public class PrivateStoreListBuy extends L2GameServerPacket
 		storePlayer.getSellList().updateItems(); // Update SellList for case inventory content has changed
 		_items = storePlayer.getBuyList().getAvailableItems(player.getInventory());
 	}
-	
+
 	@Override
 	protected final void writeImpl()
 	{
 		writeC(0xbe);
 		writeD(_objId);
-		if (Config.PACKET_FINAL)
-			writeQ(_playerAdena);
-		else
-			writeD(toInt(_playerAdena));
+		writeCompQ(_playerAdena);
 
 		writeD(_items.length);
 
 		for (TradeList.TradeItem item : _items)
 		{
 			writeD(item.getObjectId());
-			writeD(item.getItem().getItemDisplayId()); 
+			writeD(item.getItem().getItemDisplayId());
 			writeH(item.getEnchant());
-			if (Config.PACKET_FINAL)
-			{
-				writeQ(item.getCount()); //give max possible sell amount
-				writeQ(item.getItem().getReferencePrice());
-			}
-			else
-			{
-				writeD(toInt(item.getCount())); //give max possible sell amount
-				writeD(toInt(item.getItem().getReferencePrice()));
-			}
-			
+			writeCompQ(item.getCount()); //give max possible sell amount
+			writeCompQ(item.getItem().getReferencePrice());
 			writeH(0);
-
 			writeD(item.getItem().getBodyPart());
 			writeH(item.getItem().getType2());
-			
-			if (Config.PACKET_FINAL)
-			{
-				writeQ(item.getPrice());//buyers price
-				writeQ(item.getCount());  // maximum possible tradecount
-			}
-			else
-			{
-				writeD(toInt(item.getPrice()));//buyers price
-				writeD(toInt(item.getCount()));  // maximum possible tradecount
-			}
-			
-			if (Config.PACKET_FINAL)
-			{
-				writeH(item.getAttackElementType());
-				writeH(item.getAttackElementPower());
-				for (byte i = 0; i < 6; i++)
-				{
-					writeH(item.getElementDefAttr(i));
-				}
-			}
-			else
-			{
-				writeD(item.getAttackElementType());
-				writeD(item.getAttackElementPower());
-				for (byte i = 0; i < 6; i++)
-				{
-					writeD(item.getElementDefAttr(i));
-				}
-			}
+			writeCompQ(item.getPrice());//buyers price
+			writeCompQ(item.getCount()); // maximum possible tradecount
+
+			writeElementalInfo(item); //8x h or d
 		}
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
 	 */
 	@Override
-    public String getType()
+	public String getType()
 	{
 		return _S__BE_PRIVATESTORELISTBUY;
 	}

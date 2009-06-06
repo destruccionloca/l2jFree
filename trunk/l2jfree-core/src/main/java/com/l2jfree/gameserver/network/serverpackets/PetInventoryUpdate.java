@@ -21,7 +21,6 @@ import javolution.util.FastList;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.ItemInfo;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 
@@ -32,7 +31,7 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
  * @version $Revision: 1.3.2.1.2.5 $ $Date: 2005/03/27 15:29:57 $
  * Rebuild 23.2.2006 by Advi
  */
-public class PetInventoryUpdate extends L2GameServerPacket
+public class PetInventoryUpdate extends ElementalInfo
 {
 	private final static Log _log = LogFactory.getLog(PetInventoryUpdate.class.getName());
 	private static final String _S__37_INVENTORYUPDATE = "[S] b3 InventoryUpdate";
@@ -82,10 +81,7 @@ public class PetInventoryUpdate extends L2GameServerPacket
 			writeH(item.getItem().getType1()); // item type1
 			writeD(item.getObjectId());
 			writeD(item.getItem().getItemDisplayId());
-			if (Config.PACKET_FINAL)
-				writeQ(item.getCount());
-			else
-				writeD(toInt(item.getCount()));
+			writeCompQ(item.getCount());
 			writeH(item.getItem().getType2());	// item type2
 			writeH(0x00);	// ?
 			writeH(item.getEquipped());
@@ -93,24 +89,7 @@ public class PetInventoryUpdate extends L2GameServerPacket
 			writeH(item.getEnchant());	// enchant level
 			writeH(0x00);	// ?
 
-			if (Config.PACKET_FINAL)
-			{
-				writeH(item.getAttackElementType());
-				writeH(item.getAttackElementPower());
-				for (byte i = 0; i < 6; i++)
-				{
-					writeH(item.getElementDefAttr(i));
-				}
-			}
-			else
-			{
-				writeD(item.getAttackElementType());
-				writeD(item.getAttackElementPower());
-				for (byte i = 0; i < 6; i++)
-				{
-					writeD(item.getElementDefAttr(i));
-				}
-			}
+			writeElementalInfo(item);
 		}
 	}
 

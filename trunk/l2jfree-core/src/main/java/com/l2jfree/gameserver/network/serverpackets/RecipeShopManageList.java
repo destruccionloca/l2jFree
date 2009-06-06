@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ManufactureItem;
 import com.l2jfree.gameserver.model.L2ManufactureList;
 import com.l2jfree.gameserver.model.L2RecipeList;
@@ -91,10 +90,7 @@ public class RecipeShopManageList extends L2GameServerPacket
 			{
 				writeD(item.getRecipeId());
 				writeD(0x00);
-				if (Config.PACKET_FINAL)
-					writeQ(item.getCost());
-				else
-					writeD(toInt(item.getCost()));
+				writeCompQ(item.getCost());
 			}
 		}
 	}

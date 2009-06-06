@@ -338,7 +338,6 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
 			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIR2));
 
-			// T1 new d's
 			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_RBRACELET));
 			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_LBRACELET));
 			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO1));
@@ -347,9 +346,9 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO4));
 			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO5));
 			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO6));
-			// end of t1 new d's
+			if (Config.PACKET_FINAL)
+				writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_BELT));
 
-			// c6 new h's
 			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_HAIRALL));
 			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_HEAD));
 			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_RHAND));
@@ -363,7 +362,6 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_HAIR));
 			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_HAIR2));
 
-			// T1 new h's
 			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_RBRACELET));
 			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_LBRACELET));
 			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_DECO1));
@@ -372,7 +370,8 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_DECO4));
 			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_DECO5));
 			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_DECO6));
-			// end of t1 new h's
+			if (Config.PACKET_FINAL)
+				writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_BELT));
 
 			writeD(owner.getPvpFlag());
 			writeD(owner.getKarma());
@@ -496,6 +495,17 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			// T1
 			writeD(0x00); // Can Decoys be transformed?
 			writeD(0x00); // Can Decoys have Agathions?
+			
+			writeD(0x00);
+			
+			if (Config.PACKET_FINAL)
+			{
+				// T2.3
+				writeD(0x00);
+				writeD(0x00);
+				writeD(0x00);
+				writeD(0x00);
+			}			
 		}
 
 		@Override

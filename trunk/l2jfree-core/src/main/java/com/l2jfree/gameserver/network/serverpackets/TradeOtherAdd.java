@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.TradeList;
 
 /**
@@ -23,59 +22,41 @@ import com.l2jfree.gameserver.model.TradeList;
  * @author Yme
  * @version $Revision: 1.2.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
-public class TradeOtherAdd extends L2GameServerPacket
+public class TradeOtherAdd extends ElementalInfo
 {
-	private static final String _S__31_TRADEOTHERADD = "[S] 21 TradeOtherAdd";
-	private TradeList.TradeItem _item;
+	private static final String	_S__31_TRADEOTHERADD	= "[S] 21 TradeOtherAdd";
+	private TradeList.TradeItem	_item;
 
 	public TradeOtherAdd(TradeList.TradeItem item)
 	{
 		_item = item;
 	}
-	
+
 	@Override
 	protected final void writeImpl()
 	{
 		writeC(0x1b);
-		
-		writeH(1);  // item count
-		
+
+		writeH(1); // item count
+
 		writeH(_item.getItem().getType1()); // item type1
 		writeD(_item.getObjectId());
 		writeD(_item.getItem().getItemDisplayId());
-		if (Config.PACKET_FINAL)
-			writeQ(_item.getCount());
-		else
-			writeD(toInt(_item.getCount()));
-		writeH(_item.getItem().getType2());	// item type2
-		writeH(0x00);	// ?
+		writeCompQ(_item.getCount());
+		writeH(_item.getItem().getType2()); // item type2
+		writeH(0x00); // ?
 
-		writeD(_item.getItem().getBodyPart());	// rev 415  slot    0006-lr.ear  0008-neck  0030-lr.finger  0040-head  0080-??  0100-l.hand  0200-gloves  0400-chest  0800-pants  1000-feet  2000-??  4000-r.hand  8000-r.hand
-		writeH(_item.getEnchant());	// enchant level
-		writeH(0x00);	// ?
+		writeD(_item.getItem().getBodyPart()); // rev 415  slot    0006-lr.ear  0008-neck  0030-lr.finger  0040-head  0080-??  0100-l.hand  0200-gloves  0400-chest  0800-pants  1000-feet  2000-??  4000-r.hand  8000-r.hand
+		writeH(_item.getEnchant()); // enchant level
+		writeH(0x00); // ?
 		writeH(0x00);
 
-		if (Config.PACKET_FINAL)
-		{
-			writeH(_item.getAttackElementType());
-			writeH(_item.getAttackElementPower());
-			for (byte i = 0; i < 6; i++)
-			{
-				writeH(_item.getElementDefAttr(i));
-			}
-		}
-		else
-		{
-			writeD(_item.getAttackElementType());
-			writeD(_item.getAttackElementPower());
-			for (byte i = 0; i < 6; i++)
-			{
-				writeD(_item.getElementDefAttr(i));
-			}
-		}
+		writeElementalInfo(_item); //8x h or d		
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
 	 */
 	@Override

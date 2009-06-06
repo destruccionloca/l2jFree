@@ -14,8 +14,8 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2AirShipInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 
 public class ExAirShipStopMove extends L2GameServerPacket

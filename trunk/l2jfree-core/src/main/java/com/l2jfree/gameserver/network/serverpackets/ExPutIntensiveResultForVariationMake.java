@@ -14,21 +14,20 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.Config;
 
 /**
  * Format: (ch)ddddd
- *
+ * 
  */
 public class ExPutIntensiveResultForVariationMake extends L2GameServerPacket
 {
-	private static final String S_FE_54_EXPUTINTENSIVERESULTFORVARIATIONMAKE = "[S] FE:54 ExPutIntensiveResultForVariationMake";
+	private static final String	S_FE_54_EXPUTINTENSIVERESULTFORVARIATIONMAKE	= "[S] FE:54 ExPutIntensiveResultForVariationMake";
 
-	private int _refinerItemObjId;
-	private int _lifestoneItemId;
-	private int _gemstoneItemId;
-	private int _gemstoneCount;
-	private int _unk2;
+	private int					_refinerItemObjId;
+	private int					_lifestoneItemId;
+	private int					_gemstoneItemId;
+	private int					_gemstoneCount;
+	private int					_unk2;
 
 	public ExPutIntensiveResultForVariationMake(int refinerItemObjId, int lifeStoneId, int gemstoneItemId, int gemstoneCount)
 	{
@@ -50,10 +49,7 @@ public class ExPutIntensiveResultForVariationMake extends L2GameServerPacket
 		writeD(_refinerItemObjId);
 		writeD(_lifestoneItemId);
 		writeD(_gemstoneItemId);
-		if (Config.PACKET_FINAL)
-			writeQ(_gemstoneCount);
-		else
-			writeD(toInt(_gemstoneCount));
+		writeCompQ(_gemstoneCount);
 		writeD(_unk2);
 	}
 

@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.actor.L2Character;
 
 /**
@@ -60,9 +61,12 @@ public class MoveToPawn extends L2GameServerPacket
 		writeD(_x);
 		writeD(_y);
 		writeD(_z);
-		writeD(_tx);
-		writeD(_ty);
-		writeD(_tz);
+		if(Config.PACKET_FINAL)
+		{
+			writeD(_tx);
+			writeD(_ty);
+			writeD(_tz);
+		}
 	}
 	
 	/* (non-Javadoc)

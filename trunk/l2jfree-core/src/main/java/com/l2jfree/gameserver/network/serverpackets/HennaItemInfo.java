@@ -14,67 +14,56 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.templates.item.L2Henna;
 
-
 public class HennaItemInfo extends L2GameServerPacket
 {
-    private static final String _S__E3_HennaItemInfo = "[S] E3 HennaItemInfo";
-    
-    private L2PcInstance _activeChar;
-    private L2Henna _henna;
-    
-    public HennaItemInfo(L2Henna henna, L2PcInstance player)
-    {
-        _henna = henna;			
-        _activeChar = player;
-    }
-    
-    @Override
-    protected final void writeImpl()
-    {
-        
-        writeC(0xe4);
-        writeD(_henna.getSymbolId());          //symbol Id
-        writeD(_henna.getItemId());     //item id of dye
-        if (Config.PACKET_FINAL)
-        {
-        	writeQ(_henna.getAmount());    // total amount of dye require
-        	writeQ(_henna.getPrice());  //total amount of aden require to draw symbol
-        }
-        else
-        {
-            writeD(toInt(_henna.getAmount()));    // total amount of dye require
-            writeD(toInt(_henna.getPrice()));  //total amount of aden require to draw symbol
-        }
-        writeD(1);      //able to draw or not 0 is false and 1 is true 
-        if (Config.PACKET_FINAL)
-            writeQ(_activeChar.getAdena());
-        else
-            writeD(toInt(_activeChar.getAdena()));
-        
-        writeD(_activeChar.getINT());   //current INT
-        writeC(_activeChar.getINT()+ _henna.getStatINT());    //equip INT
-        writeD(_activeChar.getStat().getSTR());   //current STR
-        writeC(_activeChar.getStat().getSTR()+ _henna.getStatSTR());   //equip STR
-        writeD(_activeChar.getStat().getCON());   //current CON
-        writeC(_activeChar.getStat().getCON()+ _henna.getStatCON());    //equip CON
-        writeD(_activeChar.getStat().getMEN());    //current MEM
-        writeC(_activeChar.getStat().getMEN()+ _henna.getStatMEM());		//equip MEM
-        writeD(_activeChar.getStat().getDEX());     //current DEX
-        writeC(_activeChar.getStat().getDEX()+ _henna.getStatDEX());		//equip DEX
-        writeD(_activeChar.getStat().getWIT());     //current WIT
-        writeC(_activeChar.getStat().getWIT()+ _henna.getStatWIT());		//equip WIT
-    }
-    
-    /* (non-Javadoc)
-     * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-        return _S__E3_HennaItemInfo;
-    }
+	private static final String	_S__E3_HennaItemInfo	= "[S] E3 HennaItemInfo";
+
+	private L2PcInstance		_activeChar;
+	private L2Henna				_henna;
+
+	public HennaItemInfo(L2Henna henna, L2PcInstance player)
+	{
+		_henna = henna;
+		_activeChar = player;
+	}
+
+	@Override
+	protected final void writeImpl()
+	{
+
+		writeC(0xe4);
+		writeD(_henna.getSymbolId()); //symbol Id
+		writeD(_henna.getItemId()); //item id of dye
+		writeCompQ(_henna.getAmount()); // total amount of dye require
+		writeCompQ(_henna.getPrice()); //total amount of aden require to draw symbol
+		writeD(1); //able to draw or not 0 is false and 1 is true 
+		writeCompQ(_activeChar.getAdena());
+
+		writeD(_activeChar.getINT()); //current INT
+		writeC(_activeChar.getINT() + _henna.getStatINT()); //equip INT
+		writeD(_activeChar.getStat().getSTR()); //current STR
+		writeC(_activeChar.getStat().getSTR() + _henna.getStatSTR()); //equip STR
+		writeD(_activeChar.getStat().getCON()); //current CON
+		writeC(_activeChar.getStat().getCON() + _henna.getStatCON()); //equip CON
+		writeD(_activeChar.getStat().getMEN()); //current MEM
+		writeC(_activeChar.getStat().getMEN() + _henna.getStatMEM()); //equip MEM
+		writeD(_activeChar.getStat().getDEX()); //current DEX
+		writeC(_activeChar.getStat().getDEX() + _henna.getStatDEX()); //equip DEX
+		writeD(_activeChar.getStat().getWIT()); //current WIT
+		writeC(_activeChar.getStat().getWIT() + _henna.getStatWIT()); //equip WIT
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _S__E3_HennaItemInfo;
+	}
 }

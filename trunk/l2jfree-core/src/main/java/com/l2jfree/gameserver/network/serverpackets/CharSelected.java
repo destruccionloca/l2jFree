@@ -65,7 +65,7 @@ public class CharSelected extends L2GameServerPacket
 		writeD(_activeChar.getStat().getDEX()); 
 		writeD(_activeChar.getStat().getWIT()); 
 		
-		writeD(0x00);
+		writeD(2158);
 		writeD(0x00);
 
 		writeD(_activeChar.getClassId().getId());
@@ -75,6 +75,7 @@ public class CharSelected extends L2GameServerPacket
 		writeD(0x00); 
 
 		writeB(new byte[64]);
+		
 		if (Config.PACKET_FINAL)
 			writeD(0x00);
 	}
