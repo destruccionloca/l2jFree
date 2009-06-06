@@ -1460,9 +1460,6 @@ public final class Config extends L2Config
 	public static boolean				ALT_MOB_AGGRO_IN_PEACEZONE;													// -
 	public static boolean				ALT_ATTACKABLE_NPCS;
 	public static float					ALT_INSTANT_KILL_EFFECT_2;													// Rate of Instant kill effect 2(CP no change ,HP =1,no kill
-	public static float					ALT_DAGGER_DMG_VS_HEAVY2;													// Alternative damage for dagger skills VS heavy
-	public static float					ALT_DAGGER_DMG_VS_ROBE2;													// Alternative damage for dagger skills VS robe
-	public static float					ALT_DAGGER_DMG_VS_LIGHT2;													// Alternative damage for dagger skills VS light
 	public static boolean				ALT_DAGGER_FORMULA;														// Alternative success rate formulas for skills such
 	// dagger/critical skills and blows
 	public static float					ALT_ATTACK_DELAY;															// Alternative config for next hit delay
