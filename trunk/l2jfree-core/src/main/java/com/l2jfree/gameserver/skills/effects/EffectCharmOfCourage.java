@@ -1,7 +1,8 @@
 /*
- * This program is free software; you can redistribute it and/or modify it under
+ * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2, or (at your option) any later version.
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
  * 
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
@@ -9,10 +10,7 @@
  * details.
  * 
  * You should have received a copy of the GNU General Public License along with
- * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
- * Place - Suite 330, Boston, MA 02111-1307, USA.
- * 
- * http://www.gnu.org/copyleft/gpl.html
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package com.l2jfree.gameserver.skills.effects;
 
@@ -25,7 +23,7 @@ import com.l2jfree.gameserver.templates.skills.L2EffectType;
 /**
  * @author nBd
  */
-public class EffectCharmOfCourage extends L2Effect
+public final class EffectCharmOfCourage extends L2Effect
 {
 	public EffectCharmOfCourage(Env env, EffectTemplate template)
 	{
@@ -41,9 +39,7 @@ public class EffectCharmOfCourage extends L2Effect
 		return L2EffectType.CHARMOFCOURAGE;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
-	 */
+	/** Notify started */
 	@Override
 	protected boolean onStart()
 	{
@@ -55,9 +51,7 @@ public class EffectCharmOfCourage extends L2Effect
 		return false;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
-	 */
+	/** Notify exited */
 	@Override
 	protected void onExit()
 	{

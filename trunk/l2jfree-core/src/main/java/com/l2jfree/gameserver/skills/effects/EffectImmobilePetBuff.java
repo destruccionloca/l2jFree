@@ -22,10 +22,9 @@ import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
 /**
- * @author demonia TODO To change the template for this generated type comment go to Window - Preferences - Java - Code
- *         Style - Code Templates
+ * @author demonia
  */
-public class EffectImmobilePetBuff extends L2Effect
+public final class EffectImmobilePetBuff extends L2Effect
 {
 	private L2Summon _pet;
 	
@@ -34,18 +33,13 @@ public class EffectImmobilePetBuff extends L2Effect
 		super(env, template);
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
-	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.BUFF;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
-	 */
+	/** Notify started */
 	@Override
 	protected boolean onStart()
 	{
@@ -61,9 +55,7 @@ public class EffectImmobilePetBuff extends L2Effect
 		return false;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
-	 */
+	/** Notify exited */
 	@Override
 	protected void onExit()
 	{

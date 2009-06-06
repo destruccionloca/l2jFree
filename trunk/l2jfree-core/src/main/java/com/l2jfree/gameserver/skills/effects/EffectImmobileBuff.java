@@ -22,9 +22,8 @@ import com.l2jfree.gameserver.templates.skills.L2EffectType;
 /**
  * @author mkizub
  */
-public class EffectImmobileBuff extends EffectBuff
+public final class EffectImmobileBuff extends EffectBuff
 {
-	
 	public EffectImmobileBuff(Env env, EffectTemplate template)
 	{
 		super(env, template);
@@ -36,18 +35,13 @@ public class EffectImmobileBuff extends EffectBuff
 		super(env, effect);
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
-	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.BUFF;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
-	 */
+	/** Notify started */
 	@Override
 	protected boolean onStart()
 	{
@@ -55,9 +49,7 @@ public class EffectImmobileBuff extends EffectBuff
 		return true;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
-	 */
+	/** Notify exited */
 	@Override
 	protected void onExit()
 	{

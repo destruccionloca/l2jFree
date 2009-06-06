@@ -20,12 +20,10 @@ import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
 /**
- * @author mkizub TODO To change the template for this generated type comment go to Window - Preferences - Java - Code
- *         Style - Code Templates
+ * @author mkizub
  */
 public class EffectBuff extends L2Effect
 {
-	
 	public EffectBuff(Env env, EffectTemplate template)
 	{
 		super(env, template);
@@ -37,9 +35,6 @@ public class EffectBuff extends L2Effect
 		super(env, effect);
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
-	 */
 	@Override
 	public L2EffectType getEffectType()
 	{

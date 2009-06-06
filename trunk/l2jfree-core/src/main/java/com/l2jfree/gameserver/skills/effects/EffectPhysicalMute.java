@@ -22,7 +22,7 @@ import com.l2jfree.gameserver.templates.skills.L2EffectType;
 /**
  * @author -Nemesiss-
  */
-public class EffectPhysicalMute extends L2Effect
+public final class EffectPhysicalMute extends L2Effect
 {
 	
 	public EffectPhysicalMute(Env env, EffectTemplate template)
@@ -30,18 +30,12 @@ public class EffectPhysicalMute extends L2Effect
 		super(env, template);
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
-	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.PHYSICAL_MUTE;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
-	 */
 	@Override
 	protected boolean onStart()
 	{
@@ -49,9 +43,6 @@ public class EffectPhysicalMute extends L2Effect
 		return true;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
-	 */
 	@Override
 	protected void onExit()
 	{

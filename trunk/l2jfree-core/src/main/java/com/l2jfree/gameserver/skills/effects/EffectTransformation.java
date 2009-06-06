@@ -25,7 +25,7 @@ import com.l2jfree.gameserver.templates.skills.L2EffectType;
 /**
  * @author nBd
  */
-public class EffectTransformation extends L2Effect
+public final class EffectTransformation extends L2Effect
 {
 	public EffectTransformation(Env env, EffectTemplate template)
 	{
@@ -38,18 +38,12 @@ public class EffectTransformation extends L2Effect
 		super(env, effect);
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
-	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.TRANSFORMATION;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
-	 */
 	@Override
 	protected boolean onStart()
 	{
@@ -60,9 +54,8 @@ public class EffectTransformation extends L2Effect
 			return false;
 		
 		L2PcInstance trg = (L2PcInstance)getEffected();
-		if (trg == null)
-			return false;
 		
+		// No transformation if dead or cursed by cursed weapon
 		if (trg.isAlikeDead() || trg.isCursedWeaponEquipped())
 			return false;
 		
@@ -74,7 +67,6 @@ public class EffectTransformation extends L2Effect
 			return true;
 		}
 		return false;
-		
 	}
 	
 	@Override

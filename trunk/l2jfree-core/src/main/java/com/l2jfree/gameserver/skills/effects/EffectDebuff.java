@@ -19,7 +19,7 @@ import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
-public class EffectDebuff extends L2Effect
+public final class EffectDebuff extends L2Effect
 {
 	
 	public EffectDebuff(Env env, EffectTemplate template)
@@ -27,9 +27,6 @@ public class EffectDebuff extends L2Effect
 		super(env, template);
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
-	 */
 	@Override
 	public L2EffectType getEffectType()
 	{

@@ -19,25 +19,19 @@ import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
-public class EffectMute extends L2Effect
+public final class EffectMute extends L2Effect
 {
 	public EffectMute(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
-	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.MUTE;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
-	 */
 	@Override
 	protected boolean onStart()
 	{
@@ -45,9 +39,6 @@ public class EffectMute extends L2Effect
 		return true;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
-	 */
 	@Override
 	protected void onExit()
 	{

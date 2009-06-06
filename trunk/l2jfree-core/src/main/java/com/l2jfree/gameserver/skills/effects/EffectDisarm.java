@@ -24,25 +24,19 @@ import com.l2jfree.gameserver.templates.skills.L2EffectType;
  * @author nBd
  */
 
-public class EffectDisarm extends L2Effect
+public final class EffectDisarm extends L2Effect
 {
 	public EffectDisarm(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
-	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.DISARM;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
-	 */
 	@Override
 	protected boolean onStart()
 	{
@@ -52,12 +46,8 @@ public class EffectDisarm extends L2Effect
 		((L2PcInstance)getEffected()).disarmWeapons();
 		getEffected().setIsDisarmed(true);
 		return true;
-		
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
-	 */
 	@Override
 	protected void onExit()
 	{

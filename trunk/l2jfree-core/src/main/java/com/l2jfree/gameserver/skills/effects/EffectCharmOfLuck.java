@@ -23,25 +23,20 @@ import com.l2jfree.gameserver.templates.skills.L2EffectType;
 /**
  * @author kerberos_20
  */
-public class EffectCharmOfLuck extends L2Effect
+public final class EffectCharmOfLuck extends L2Effect
 {
 	public EffectCharmOfLuck(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
-	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.CHARM_OF_LUCK;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
-	 */
+	/** Notify started */
 	@Override
 	protected boolean onStart()
 	{
@@ -53,9 +48,7 @@ public class EffectCharmOfLuck extends L2Effect
 		return false;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
-	 */
+	/** Notify exited */
 	@Override
 	protected void onExit()
 	{

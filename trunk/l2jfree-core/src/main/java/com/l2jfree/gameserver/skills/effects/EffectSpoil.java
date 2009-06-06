@@ -28,29 +28,22 @@ import com.l2jfree.gameserver.templates.skills.L2EffectType;
 /**
  * @author Ahmed This is the Effect support for spoil. This was originally done by _drunk_
  */
-public class EffectSpoil extends L2Effect
+public final class EffectSpoil extends L2Effect
 {
 	public EffectSpoil(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
-	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.SPOIL;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
-	 */
 	@Override
 	protected boolean onStart()
 	{
-		
 		if (!(getEffector() instanceof L2PcInstance))
 			return false;
 		
@@ -58,9 +51,6 @@ public class EffectSpoil extends L2Effect
 			return false;
 		
 		L2MonsterInstance target = (L2MonsterInstance)getEffected();
-		
-		if (target == null)
-			return false;
 		
 		if (target.isSpoil())
 		{
@@ -70,7 +60,7 @@ public class EffectSpoil extends L2Effect
 		
 		// SPOIL SYSTEM by Lbaldi
 		boolean spoil = false;
-		if (target.isDead() == false)
+		if (!target.isDead())
 		{
 			spoil = Formulas.calcMagicSuccess(getEffector(), target, getSkill());
 			
@@ -84,12 +74,11 @@ public class EffectSpoil extends L2Effect
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
 				sm.addCharName(target);
-				sm.addSkillName(getSkill().getDisplayId());
+				sm.addSkillName(this);
 				getEffector().sendPacket(sm);
 			}
 			target.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, getEffector());
 		}
 		return true;
-		
 	}
 }

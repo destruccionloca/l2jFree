@@ -23,7 +23,7 @@ import com.l2jfree.gameserver.templates.skills.L2EffectType;
 /**
  * @author earendil
  */
-public class EffectNoblesseBless extends L2Effect
+public final class EffectNoblesseBless extends L2Effect
 {
 	
 	public EffectNoblesseBless(Env env, EffectTemplate template)
@@ -31,18 +31,13 @@ public class EffectNoblesseBless extends L2Effect
 		super(env, template);
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
-	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.NOBLESSE_BLESSING;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
-	 */
+	/** Notify started */
 	@Override
 	protected boolean onStart()
 	{
@@ -54,9 +49,7 @@ public class EffectNoblesseBless extends L2Effect
 		return false;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
-	 */
+	/** Notify exited */
 	@Override
 	protected void onExit()
 	{
