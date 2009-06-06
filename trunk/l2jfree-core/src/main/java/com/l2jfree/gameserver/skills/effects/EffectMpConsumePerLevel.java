@@ -21,27 +21,21 @@ import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
-public class EffectMpConsumePerLevel extends L2Effect
+public final class EffectMpConsumePerLevel extends L2Effect
 {
 	public EffectMpConsumePerLevel(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
-	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.MP_CONSUME_PER_LEVEL;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
-	 */
 	@Override
-	public boolean onActionTime()
+	protected boolean onActionTime()
 	{
 		if (getEffected().isDead())
 			return false;
@@ -49,7 +43,7 @@ public class EffectMpConsumePerLevel extends L2Effect
 		double base = calc();
 		double consume = (getEffected().getLevel() - 1) / 7.5 * base * getPeriod();
 		
-		if (consume > getEffected().getCurrentMp())
+		if (consume > getEffected().getStatus().getCurrentMp())
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.SKILL_REMOVED_DUE_LACK_MP);
 			getEffected().sendPacket(sm);

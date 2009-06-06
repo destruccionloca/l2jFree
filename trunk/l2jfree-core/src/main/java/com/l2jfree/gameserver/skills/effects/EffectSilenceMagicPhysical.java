@@ -19,7 +19,7 @@ import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
-public class EffectSilenceMagicPhysical extends L2Effect
+public final class EffectSilenceMagicPhysical extends L2Effect
 {
 	
 	public EffectSilenceMagicPhysical(Env env, EffectTemplate template)
@@ -27,18 +27,12 @@ public class EffectSilenceMagicPhysical extends L2Effect
 		super(env, template);
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
-	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.SILENCE_MAGIC_PHYSICAL;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
-	 */
 	@Override
 	protected boolean onStart()
 	{
@@ -47,9 +41,6 @@ public class EffectSilenceMagicPhysical extends L2Effect
 		return true;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
-	 */
 	@Override
 	protected void onExit()
 	{

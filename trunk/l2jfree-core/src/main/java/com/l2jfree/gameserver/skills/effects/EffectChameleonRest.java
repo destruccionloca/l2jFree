@@ -25,29 +25,23 @@ import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
-public class EffectChameleonRest extends L2Effect
+public final class EffectChameleonRest extends L2Effect
 {
 	public EffectChameleonRest(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
-	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.RELAXING;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
-	 */
+	/** Notify started */
 	@Override
 	protected boolean onStart()
 	{
-		
 		L2Character effected = getEffected();
 		if (effected instanceof L2PcInstance)
 		{
@@ -57,10 +51,10 @@ public class EffectChameleonRest extends L2Effect
 		}
 		else
 			effected.getAI().setIntention(CtrlIntention.AI_INTENTION_REST);
-		return super.onStart();
+		return true;
 	}
 	
-	/**
+	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
 	 */
 	@Override
@@ -71,15 +65,10 @@ public class EffectChameleonRest extends L2Effect
 		L2Character effected = getEffected();
 		if (effected instanceof L2PcInstance)
 			((L2PcInstance)effected).setSilentMoving(false);
-		
-		super.onExit();
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
-	 */
 	@Override
-	public boolean onActionTime()
+	protected boolean onActionTime()
 	{
 		L2Character effected = getEffected();
 		boolean retval = true;
@@ -99,7 +88,7 @@ public class EffectChameleonRest extends L2Effect
 		
 		double manaDam = calc();
 		
-		if (manaDam > effected.getCurrentMp())
+		if (manaDam > effected.getStatus().getCurrentMp())
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.SKILL_REMOVED_DUE_LACK_MP);
 			effected.sendPacket(sm);
@@ -114,9 +103,6 @@ public class EffectChameleonRest extends L2Effect
 		return retval;
 	}
 	
-	/**
-	 * @param val
-	 */
 	private void setChameleon(boolean val)
 	{
 		L2Character effected = getEffected();

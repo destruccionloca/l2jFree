@@ -12,7 +12,6 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
 package com.l2jfree.gameserver.skills.effects;
 
 import com.l2jfree.gameserver.model.L2Effect;
@@ -26,7 +25,7 @@ import com.l2jfree.gameserver.templates.skills.L2EffectType;
  * @authors Forsaiken, Sami
  */
 
-public class EffectSignetNoise extends L2Effect
+public final class EffectSignetNoise extends L2Effect
 {
 	private L2EffectPointInstance _actor;
 	
@@ -35,18 +34,12 @@ public class EffectSignetNoise extends L2Effect
 		super(env, template);
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
-	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.SIGNET_GROUND;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
-	 */
 	@Override
 	protected boolean onStart()
 	{
@@ -54,11 +47,8 @@ public class EffectSignetNoise extends L2Effect
 		return true;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
-	 */
 	@Override
-	public boolean onActionTime()
+	protected boolean onActionTime()
 	{
 		if (getCount() == getTotalCount() - 1)
 			return true; // do nothing first time
@@ -72,7 +62,7 @@ public class EffectSignetNoise extends L2Effect
 			if (effects != null)
 				for (L2Effect effect : effects)
 				{
-					if (effect.getSkill().isDance())
+					if (effect.getSkill().isDance() || effect.getSkill().isSong())
 						effect.exit();
 				}
 			// there doesn't seem to be a visible effect?
@@ -80,9 +70,6 @@ public class EffectSignetNoise extends L2Effect
 		return true;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
-	 */
 	@Override
 	protected void onExit()
 	{

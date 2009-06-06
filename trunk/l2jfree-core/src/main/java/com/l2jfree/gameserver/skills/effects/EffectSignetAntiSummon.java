@@ -31,7 +31,7 @@ import com.l2jfree.gameserver.templates.skills.L2EffectType;
  * @author Forsaiken
  */
 
-public class EffectSignetAntiSummon extends L2Effect
+public final class EffectSignetAntiSummon extends L2Effect
 {
 	private L2EffectPointInstance _actor;
 	
@@ -40,18 +40,12 @@ public class EffectSignetAntiSummon extends L2Effect
 		super(env, template);
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
-	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.SIGNET_GROUND;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
-	 */
 	@Override
 	protected boolean onStart()
 	{
@@ -59,11 +53,8 @@ public class EffectSignetAntiSummon extends L2Effect
 		return true;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
-	 */
 	@Override
-	public boolean onActionTime()
+	protected boolean onActionTime()
 	{
 		if (getCount() == getTotalCount() - 1)
 			return true; // do nothing first time
@@ -85,13 +76,13 @@ public class EffectSignetAntiSummon extends L2Effect
 				
 				if (owner != null && owner.getPet() != null)
 				{
-					if (mpConsume > getEffector().getCurrentMp())
+					if (mpConsume > getEffector().getStatus().getCurrentMp())
 					{
 						getEffector().sendPacket(new SystemMessage(SystemMessageId.SKILL_REMOVED_DUE_LACK_MP));
 						return false;
 					}
-					else
-						getEffector().reduceCurrentMp(mpConsume);
+					
+					getEffector().reduceCurrentMp(mpConsume);
 					
 					owner.getPet().unSummon(owner);
 					owner.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, getEffector());
@@ -101,9 +92,6 @@ public class EffectSignetAntiSummon extends L2Effect
 		return true;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
-	 */
 	@Override
 	protected void onExit()
 	{
