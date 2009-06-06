@@ -56,7 +56,6 @@ import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.FlyToLocation.FlyType;
-import com.l2jfree.gameserver.skills.BestowedSkill;
 import com.l2jfree.gameserver.skills.ChanceCondition;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Formulas;
@@ -226,10 +225,6 @@ public class L2Skill implements FuncOwner
 
 	private final int				_feed;
 
-	// cubic AI
-	private final int				_activationtime;
-	private final int				_activationchance;
-
 	private final int				_castRange;
 	private final int				_effectRange;
 
@@ -298,7 +293,6 @@ public class L2Skill implements FuncOwner
 
 	private final ChanceCondition	_chanceCondition;
 	private final TriggeredSkill	_triggeredSkill;
-	private final BestowedSkill		_bestowedSkill;
 
 	private final boolean			_bestowed;
 
@@ -414,8 +408,6 @@ public class L2Skill implements FuncOwner
 		}
 		else
 			_teleportCoords = null;
-		_activationtime = set.getInteger("activationtime", 8);
-		_activationchance = set.getInteger("activationchance", 30);
 
 		_isHerbEffect = _name.contains("Herb");
 
@@ -495,7 +487,6 @@ public class L2Skill implements FuncOwner
 			_chanceCondition = null;
 
 		_triggeredSkill = TriggeredSkill.parse(set);
-		_bestowedSkill = BestowedSkill.parse(set);
 
 		_bestowed = set.getBool("bestowed", false);
 
@@ -584,7 +575,6 @@ public class L2Skill implements FuncOwner
 	public final void validate() throws Exception
 	{
 		validateOffensiveAndDebuffState();
-		validateBestowedSkill();
 		validateTriggeredSkill();
 	}
 
@@ -592,44 +582,6 @@ public class L2Skill implements FuncOwner
 	{
 		if (!isOffensive() && isDebuff())
 			throw new IllegalStateException(toString());
-	}
-
-	private void validateBestowedSkill() throws Exception
-	{
-		// can have BestowSkill effect
-		if (isChance() || isActive() && getSkillType() != L2SkillType.FUSION)
-		{
-			// bestowed skills should always be chance or passive, to prevent hlapex
-			final L2Skill bestowedSkill = getEffectBestowedSkill();
-			if (bestowedSkill != null && !bestowedSkill.isChance() && !bestowedSkill.isPassive())
-				throw new IllegalStateException(toString());
-		}
-		// can't have BestowSkill effect
-		else
-		{
-			if (_effectTemplates != null)
-				for (EffectTemplate template : _effectTemplates)
-					if (template.name.equals("BestowSkill"))
-						throw new IllegalStateException(toString());
-
-			if (getEffectBestowedSkill() != null)
-				throw new IllegalStateException(toString());
-		}
-
-		// can have automatically bestowed skill
-		if (isPassive())
-		{
-			// bestowed skills should always be chance or passive, to prevent hlapex
-			final L2Skill bestowedSkill = getAutomaticallyBestowedSkill();
-			if (bestowedSkill != null && !bestowedSkill.isChance() && !bestowedSkill.isPassive())
-				throw new IllegalStateException(toString());
-		}
-		// can't have automatically bestowed skill
-		else
-		{
-			if (getAutomaticallyBestowedSkill() != null)
-				throw new IllegalStateException(toString());
-		}
 	}
 
 	private void validateTriggeredSkill() throws Exception
@@ -857,16 +809,6 @@ public class L2Skill implements FuncOwner
 	public final L2Skill getTriggeredSkill()
 	{
 		return _triggeredSkill != null ? _triggeredSkill.getTriggeredSkill() : null;
-	}
-
-	public final L2Skill getAutomaticallyBestowedSkill()
-	{
-		return _bestowedSkill != null ? _bestowedSkill.getAutomaticallyBestowedSkill() : null;
-	}
-
-	public final L2Skill getEffectBestowedSkill()
-	{
-		return _bestowedSkill != null ? _bestowedSkill.getEffectBestowedSkill() : null;
 	}
 
 	public final boolean bestowed()
@@ -1099,22 +1041,6 @@ public class L2Skill implements FuncOwner
 	public final int getItemConsumeTime()
 	{
 		return _itemConsumeTime;
-	}
-
-	/**
-	 * @return Returns the activation time for a cubic.
-	 */
-	public final int getActivationTime()
-	{
-		return _activationtime;
-	}
-
-	/**
-	 * @return Returns the activation chance for a cubic.
-	 */
-	public final int getActivationChance()
-	{
-		return _activationchance;
 	}
 
 	/**

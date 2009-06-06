@@ -32,15 +32,38 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public class L2SkillSummon extends L2Skill
 {
-	private int		_npcId;
-	private float	_expPenalty;
-
+	private final int _npcId;
+	private final float _expPenalty;
+	
+	// cubic AI
+	private final int _activationtime;
+	private final int _activationchance;
+	
 	public L2SkillSummon(StatsSet set)
 	{
 		super(set);
-
+		
 		_npcId = set.getInteger("npcId", 0); // default for undescribed skills
 		_expPenalty = set.getFloat("expPenalty", 0.f);
+		
+		_activationtime = set.getInteger("activationtime", 8);
+		_activationchance = set.getInteger("activationchance", 30);
+	}
+	
+	/**
+	 * @return Returns the activation time for a cubic.
+	 */
+	public final int getActivationTime()
+	{
+		return _activationtime;
+	}
+	
+	/**
+	 * @return Returns the activation chance for a cubic.
+	 */
+	public final int getActivationChance()
+	{
+		return _activationchance;
 	}
 	
 	@Override
