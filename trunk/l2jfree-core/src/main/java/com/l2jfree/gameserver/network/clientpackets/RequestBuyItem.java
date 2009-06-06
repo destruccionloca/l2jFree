@@ -86,10 +86,7 @@ public class RequestBuyItem extends L2GameClientPacket
 			int itemId = readD();
 			_items[i * 2] = itemId;
 			long cnt;
-			if (Config.PACKET_FINAL)
-				cnt = toInt(readQ());
-			else
-				cnt = readD();
+			cnt = readCompQ();
 			if ((cnt >= Integer.MAX_VALUE) || (cnt < 0))
 			{
 				_count = 0;

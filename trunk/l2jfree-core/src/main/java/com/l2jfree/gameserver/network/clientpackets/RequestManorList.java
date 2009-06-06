@@ -14,10 +14,10 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import javolution.util.FastList;
+
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.ExSendManorList;
-
-import javolution.util.FastList;
 
 
 /**

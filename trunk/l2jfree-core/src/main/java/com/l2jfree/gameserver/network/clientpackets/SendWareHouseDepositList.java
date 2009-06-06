@@ -69,10 +69,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 			int objectId = readD();
 			_items[(i * 2)] = objectId;
 			long cnt = 0;
-			if (Config.PACKET_FINAL)
-				cnt = toInt(readQ());
-			else
-				cnt = readD();
+			cnt = readCompQ();
 			if (cnt >= Integer.MAX_VALUE || cnt < 0)
 			{
 				_count = 0;

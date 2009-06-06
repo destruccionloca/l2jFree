@@ -65,17 +65,11 @@ public class RequestSetSeed extends L2GameClientPacket
 			_items[(i * 3)] = itemId;
 			
 			int sales =0;
-			if(Config.PACKET_FINAL)
-				sales = toInt(readQ());
-			else
-				sales = readD();
+			sales = readCompQ();
 			
 			_items[i * 3 + 1] = sales;
 			int price = 0;
-			if(Config.PACKET_FINAL)
-				price = toInt(readQ());
-			else
-				price = readD();
+			price = readCompQ();
 			_items[i * 3 + 2] = price;
 		}
 	}

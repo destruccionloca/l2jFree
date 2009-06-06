@@ -22,6 +22,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.mmocore.network.ReceivablePacket;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.IOFloodManager;
 import com.l2jfree.gameserver.network.InvalidPacketException;
@@ -145,5 +146,13 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 		if (var < 0)
 			return 0;
 		return (int) var;
+	}
+	
+	public int readCompQ()
+	{
+		if(Config.PACKET_FINAL)
+			return readD();
+		else
+			return toInt(readQ());
 	}
 }

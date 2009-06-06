@@ -37,185 +37,176 @@ import com.l2jfree.gameserver.util.FloodProtector.Protected;
  */
 public class RequestDropItem extends L2GameClientPacket
 {
-    private static final String _C__12_REQUESTDROPITEM = "[C] 12 RequestDropItem";
+	private static final String	_C__12_REQUESTDROPITEM	= "[C] 12 RequestDropItem";
 
-    private int _objectId;
-    private long _count;
-    private int _x;
-    private int _y;
-    private int _z;
+	private int					_objectId;
+	private long				_count;
+	private int					_x;
+	private int					_y;
+	private int					_z;
 
-    /**
-     * packet type id 0x12
-     * 
-     * sample
-     * 
-     * 12
-     * 09 00 00 40         // object id
-     * 01 00 00 00         // count ??
-     * fd e7 fe ff         // x
-     * e5 eb 03 00         // y
-     * bb f3 ff ff         // z
-     * 
-     * format:        cdd ddd
-     */
-    @Override
-    protected void readImpl()
-    {
-        _objectId = readD();
-        if (Config.PACKET_FINAL)
-            _count    = toInt(readQ());
-        else
-            _count    = readD();
-        _x        = readD();
-        _y        = readD();
-        _z        = readD();
-    }
+	/**
+	 * packet type id 0x12
+	 * 
+	 * sample
+	 * 
+	 * 12 09 00 00 40 // object id 01 00 00 00 // count ?? fd e7 fe ff // x e5
+	 * eb 03 00 // y bb f3 ff ff // z
+	 * 
+	 * format: cdd ddd
+	 */
+	@Override
+	protected void readImpl()
+	{
+		_objectId = readD();
+		_count = readCompQ();
+		_x = readD();
+		_y = readD();
+		_z = readD();
+	}
 
-    @Override
-    protected void runImpl()
-    {
-        L2PcInstance activeChar = getClient().getActiveChar();
-        if (activeChar == null) return;
+	@Override
+	protected void runImpl()
+	{
+		L2PcInstance activeChar = getClient().getActiveChar();
+		if (activeChar == null)
+			return;
 
-        // Flood protect drop to avoid packet lag, do not add any messages here
-        if (!FloodProtector.tryPerformAction(activeChar, Protected.DROPITEM))
-        {
-        	sendPacket(ActionFailed.STATIC_PACKET);
-            return;
-        }
-        else if (Shutdown.isActionDisabled(DisableType.TRANSACTION))
-        {
-            requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
-            return;
-        }
-        else if (Config.GM_DISABLE_TRANSACTION && activeChar.getAccessLevel() >= Config.GM_TRANSACTION_MIN && activeChar.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
-        {
-            requestFailed(SystemMessageId.ACCOUNT_CANT_DROP_ITEMS);
-            return;
-        }
+		// Flood protect drop to avoid packet lag, do not add any messages here
+		if (!FloodProtector.tryPerformAction(activeChar, Protected.DROPITEM))
+		{
+			sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+		else if (Shutdown.isActionDisabled(DisableType.TRANSACTION))
+		{
+			requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+			return;
+		}
+		else if (Config.GM_DISABLE_TRANSACTION && activeChar.getAccessLevel() >= Config.GM_TRANSACTION_MIN && activeChar.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
+		{
+			requestFailed(SystemMessageId.ACCOUNT_CANT_DROP_ITEMS);
+			return;
+		}
 
-        L2ItemInstance item = activeChar.checkItemManipulation(_objectId, _count, "Drop");
-        if (_count > item.getCount() || _count < 1)
-        {
-            sendPacket(ActionFailed.STATIC_PACKET);
-            return;
-        }
-        else if (!item.isStackable() && _count > 1)
-        {
-        	sendPacket(ActionFailed.STATIC_PACKET);
-            Util.handleIllegalPlayerAction(activeChar,"[RequestDropItem] count > 1 but item is not stackable! ban! oid: "+_objectId+" owner: "+activeChar.getName(),IllegalPlayerAction.PUNISH_KICK);
-            return;
-        }
-        else if (!canDrop(item))
-        	return;
+		L2ItemInstance item = activeChar.checkItemManipulation(_objectId, _count, "Drop");
+		if (_count > item.getCount() || _count < 1)
+		{
+			sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+		else if (!item.isStackable() && _count > 1)
+		{
+			sendPacket(ActionFailed.STATIC_PACKET);
+			Util.handleIllegalPlayerAction(activeChar, "[RequestDropItem] count > 1 but item is not stackable! ban! oid: " + _objectId + " owner: " + activeChar.getName(), IllegalPlayerAction.PUNISH_KICK);
+			return;
+		}
+		else if (!canDrop(item))
+			return;
 
-        if (_log.isDebugEnabled())
-        	_log.debug("requested drop item " + _objectId + "(" + item.getCount()+") at " + _x + "/" + _y + "/" + _z);
+		if (_log.isDebugEnabled())
+			_log.debug("requested drop item " + _objectId + "(" + item.getCount() + ") at " + _x + "/" + _y + "/" + _z);
 
-        if (item.isEquipped())
-        {
-            L2ItemInstance[] unequiped = activeChar.getInventory().unEquipItemInBodySlotAndRecord(item.getItem().getBodyPart());
-            InventoryUpdate iu = new InventoryUpdate();
-            for (L2ItemInstance element : unequiped)
-            {
-                activeChar.checkSSMatch(null, element);
-                iu.addModifiedItem(element);
-            }
-            sendPacket(iu); iu = null;
-            activeChar.broadcastUserInfo();
-        }
+		if (item.isEquipped())
+		{
+			L2ItemInstance[] unequiped = activeChar.getInventory().unEquipItemInBodySlotAndRecord(item.getItem().getBodyPart());
+			InventoryUpdate iu = new InventoryUpdate();
+			for (L2ItemInstance element : unequiped)
+			{
+				activeChar.checkSSMatch(null, element);
+				iu.addModifiedItem(element);
+			}
+			sendPacket(iu);
+			iu = null;
+			activeChar.broadcastUserInfo();
+		}
 
-        sendPacket(ActionFailed.STATIC_PACKET);
+		sendPacket(ActionFailed.STATIC_PACKET);
 
-        L2ItemInstance dropedItem = activeChar.dropItem("Drop", _objectId, _count, _x, _y, _z, activeChar, false);
-        if (_log.isDebugEnabled())
-        	_log.debug("dropping " + _objectId + " item(" + _count + ") at: " + _x + " " + _y + " " + _z);
-        if (dropedItem != null && dropedItem.getItemId() == 57 && dropedItem.getCount() >= 1000000)
-        {
-            String msg = "Character (" + activeChar.getName() + ") has dropped (" + dropedItem.getCount() + ")adena at (" + _x + "," + _y + "," + _z + ")";
-            _log.warn(msg);
-            GmListTable.broadcastMessageToGMs(msg);
-        }
-    }
+		L2ItemInstance dropedItem = activeChar.dropItem("Drop", _objectId, _count, _x, _y, _z, activeChar, false);
+		if (_log.isDebugEnabled())
+			_log.debug("dropping " + _objectId + " item(" + _count + ") at: " + _x + " " + _y + " " + _z);
+		if (dropedItem != null && dropedItem.getItemId() == 57 && dropedItem.getCount() >= 1000000)
+		{
+			String msg = "Character (" + activeChar.getName() + ") has dropped (" + dropedItem.getCount() + ")adena at (" + _x + "," + _y + "," + _z + ")";
+			_log.warn(msg);
+			GmListTable.broadcastMessageToGMs(msg);
+		}
+	}
 
-    private final boolean canDrop(L2ItemInstance item)
-    {
-    	L2PcInstance activeChar = getActiveChar();
+	private final boolean canDrop(L2ItemInstance item)
+	{
+		L2PcInstance activeChar = getActiveChar();
 
-    	if (activeChar.isProcessingTransaction() || activeChar.getPrivateStoreType() != 0)
-        {
-            requestFailed(SystemMessageId.CANNOT_TRADE_DISCARD_DROP_ITEM_WHILE_IN_SHOPMODE);
-            return false;
-        }
-    	else if (activeChar.isFishing())
-        {
-        	requestFailed(SystemMessageId.CANNOT_DO_WHILE_FISHING_2);
-            return false;
-        }
-    	// Cannot discard item that the skill is consuming
-    	else if (activeChar.isCastingNow() && activeChar.getCurrentSkill() != null &&
-    			activeChar.getCurrentSkill().getSkill().getItemConsumeId() == item.getItemId())
-        {
-    		requestFailed(SystemMessageId.CANNOT_DISCARD_THIS_ITEM);
-            return false;
-        }
+		if (activeChar.isProcessingTransaction() || activeChar.getPrivateStoreType() != 0)
+		{
+			requestFailed(SystemMessageId.CANNOT_TRADE_DISCARD_DROP_ITEM_WHILE_IN_SHOPMODE);
+			return false;
+		}
+		else if (activeChar.isFishing())
+		{
+			requestFailed(SystemMessageId.CANNOT_DO_WHILE_FISHING_2);
+			return false;
+		}
+		// Cannot discard item that the skill is consuming
+		else if (activeChar.isCastingNow() && activeChar.getCurrentSkill() != null && activeChar.getCurrentSkill().getSkill().getItemConsumeId() == item.getItemId())
+		{
+			requestFailed(SystemMessageId.CANNOT_DISCARD_THIS_ITEM);
+			return false;
+		}
 		else if (activeChar.isFlying())
 		{
 			return false;
 		}
-    	else if (activeChar.isCastingSimultaneouslyNow() &&
-    			activeChar.getLastSimultaneousSkillCast() != null &&
-    			activeChar.getLastSimultaneousSkillCast().getItemConsumeId() == item.getItemId())
-        {
-    		requestFailed(SystemMessageId.CANNOT_DISCARD_THIS_ITEM);
-            return false;
-        }
-    	else if (!activeChar.isInsideRadius(_x, _y, 150, false) || Math.abs(_z - activeChar.getZ()) > 50)
-        {
-    		requestFailed(SystemMessageId.CANNOT_DISCARD_DISTANCE_TOO_FAR);
-            return false;
-        }
+		else if (activeChar.isCastingSimultaneouslyNow() && activeChar.getLastSimultaneousSkillCast() != null && activeChar.getLastSimultaneousSkillCast().getItemConsumeId() == item.getItemId())
+		{
+			requestFailed(SystemMessageId.CANNOT_DISCARD_THIS_ITEM);
+			return false;
+		}
+		else if (!activeChar.isInsideRadius(_x, _y, 150, false) || Math.abs(_z - activeChar.getZ()) > 50)
+		{
+			requestFailed(SystemMessageId.CANNOT_DISCARD_DISTANCE_TOO_FAR);
+			return false;
+		}
 
-    	else if (item == null)
-        {
-        	_log.warn("Error while droping item for char " + activeChar.getName() + " (validity check).");
-        	sendPacket(ActionFailed.STATIC_PACKET);
-        	return false;
-        }
-    	else if (!activeChar.isGM() && (!Config.ALLOW_DISCARDITEM || !item.isDropable()))
-    	{
-    		requestFailed(SystemMessageId.CANNOT_DISCARD_THIS_ITEM);
-    		return false;
-    	}
-    	else if (!activeChar.isGM() && activeChar.isInvul() &&
-    			Config.PLAYER_SPAWN_PROTECTION > 0)
-    	{
-    		requestFailed(SystemMessageId.CANNOT_DISCARD_THIS_ITEM);
-    		return false;
-    	}
-    	else if (Config.ALT_STRICT_HERO_SYSTEM && item.isHeroItem())
-        {
-    		requestFailed(SystemMessageId.CANNOT_DISCARD_THIS_ITEM);
-            return false;
-        }
-    	else if (CursedWeaponsManager.getInstance().isCursed(item.getItemId()))
-        {
-    		requestFailed(SystemMessageId.CANNOT_DISCARD_THIS_ITEM);
-            return false;
-        }
-    	else if (L2Item.TYPE2_QUEST == item.getItem().getType2())
-    	{
-    		requestFailed(SystemMessageId.CANNOT_DISCARD_EXCHANGE_ITEM);
-    		return false;
-    	}
+		else if (item == null)
+		{
+			_log.warn("Error while droping item for char " + activeChar.getName() + " (validity check).");
+			sendPacket(ActionFailed.STATIC_PACKET);
+			return false;
+		}
+		else if (!activeChar.isGM() && (!Config.ALLOW_DISCARDITEM || !item.isDropable()))
+		{
+			requestFailed(SystemMessageId.CANNOT_DISCARD_THIS_ITEM);
+			return false;
+		}
+		else if (!activeChar.isGM() && activeChar.isInvul() && Config.PLAYER_SPAWN_PROTECTION > 0)
+		{
+			requestFailed(SystemMessageId.CANNOT_DISCARD_THIS_ITEM);
+			return false;
+		}
+		else if (Config.ALT_STRICT_HERO_SYSTEM && item.isHeroItem())
+		{
+			requestFailed(SystemMessageId.CANNOT_DISCARD_THIS_ITEM);
+			return false;
+		}
+		else if (CursedWeaponsManager.getInstance().isCursed(item.getItemId()))
+		{
+			requestFailed(SystemMessageId.CANNOT_DISCARD_THIS_ITEM);
+			return false;
+		}
+		else if (L2Item.TYPE2_QUEST == item.getItem().getType2())
+		{
+			requestFailed(SystemMessageId.CANNOT_DISCARD_EXCHANGE_ITEM);
+			return false;
+		}
 
-    	return true;
-    }
+		return true;
+	}
 
-    @Override
-    public String getType()
-    {
-        return _C__12_REQUESTDROPITEM;
-    }
+	@Override
+	public String getType()
+	{
+		return _C__12_REQUESTDROPITEM;
+	}
 }

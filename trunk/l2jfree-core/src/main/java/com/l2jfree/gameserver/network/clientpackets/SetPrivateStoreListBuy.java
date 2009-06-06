@@ -55,10 +55,7 @@ public class SetPrivateStoreListBuy extends L2GameClientPacket
 			readH();//TODO: analyse this
 			readH();//TODO: analyse this
 			long cnt;
-			if (Config.PACKET_FINAL)
-				cnt = toInt(readQ());
-			else
-				cnt = readD();
+			cnt = readCompQ();
 			if (cnt >= Integer.MAX_VALUE || cnt < 0)
 			{
 				_count = 0;
@@ -66,19 +63,7 @@ public class SetPrivateStoreListBuy extends L2GameClientPacket
 				return;
 			}
 			_items[x * 3 + 1] = cnt;
-			long price = 0;
-			if (Config.PACKET_FINAL)
-				price = toInt(readQ());
-			else
-				price = readD();
-			
-			_items[x * 3 + 2] = price;
-			
-			if (Config.PACKET_FINAL)
-			{
-				readQ(); // unknown
-				readQ(); // unknown
-			}
+			_items[x * 3 + 2] = readCompQ();
 		}
 	}
 

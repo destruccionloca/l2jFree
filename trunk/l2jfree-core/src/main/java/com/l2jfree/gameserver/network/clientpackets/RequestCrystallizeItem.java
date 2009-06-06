@@ -47,10 +47,7 @@ public class RequestCrystallizeItem extends L2GameClientPacket
 	protected void readImpl()
 	{
 		_objectId = readD();
-		if (Config.PACKET_FINAL)
-			_count = toInt(readQ());
-		else
-			_count = readD();
+		_count = readCompQ();
 	}
 
 	@Override

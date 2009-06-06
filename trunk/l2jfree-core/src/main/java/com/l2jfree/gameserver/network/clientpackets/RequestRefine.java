@@ -44,10 +44,7 @@ public final class RequestRefine extends L2GameClientPacket
 		_targetItemObjId = readD();
 		_refinerItemObjId = readD();
 		_gemstoneItemObjId = readD();
-		if (Config.PACKET_FINAL)
-			_gemstoneCount = toInt(readQ());
-		else
-			_gemstoneCount = readD();
+		_gemstoneCount = readCompQ();
 	}
 
 	/**

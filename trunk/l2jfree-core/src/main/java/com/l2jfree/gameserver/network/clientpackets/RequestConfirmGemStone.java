@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -43,10 +42,7 @@ public final class RequestConfirmGemStone extends L2GameClientPacket
 		_targetItemObjId = readD();
 		_refinerItemObjId = readD();
 		_gemstoneItemObjId = readD();
-		if (Config.PACKET_FINAL)
-			_gemstoneCount = toInt(readQ());
-		else
-			_gemstoneCount= readD();
+		_gemstoneCount= readCompQ();
 	}
 
 	@Override

@@ -44,10 +44,7 @@ public class AddTradeItem extends L2GameClientPacket
     {
         _tradeId = readD();
         _objectId = readD();
-        if(Config.PACKET_FINAL)
-        	_count = toInt(readQ());
-        else
-        	_count = readD();
+        _count = readCompQ();
     }
 
     @Override

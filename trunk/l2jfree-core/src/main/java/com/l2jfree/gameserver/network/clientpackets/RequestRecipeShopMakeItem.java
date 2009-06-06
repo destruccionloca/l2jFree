@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.RecipeController;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
@@ -42,10 +41,7 @@ public class RequestRecipeShopMakeItem extends L2GameClientPacket
 	{
 		_id = readD();
 		_recipeId = readD();
-		if (Config.PACKET_FINAL)
-			_unknown = toInt(readQ());
-		else
-			_unknown = readD();
+		_unknown = readCompQ();
 	}
 
 	@Override

@@ -24,8 +24,8 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 
 /**
- * This class is sent by the client when the player drags an item out of his to pet's
- * inventory.
+ * This class is sent by the client when the player drags an item out of his to
+ * pet's inventory.
  * 
  * @version $Revision: 1.3.2.1.2.5 $ $Date: 2005/03/29 23:15:33 $
  */
@@ -40,17 +40,15 @@ public class RequestGiveItemToPet extends L2GameClientPacket
 	protected void readImpl()
 	{
 		_objectId = readD();
-		if (Config.PACKET_FINAL)
-			_amount = toInt(readQ());
-		else
-			_amount = readD();
+		_amount = readCompQ();
 	}
 
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null) return;
+		if (player == null)
+			return;
 
 		if (!(player.getPet() instanceof L2PetInstance))
 		{
@@ -104,8 +102,7 @@ public class RequestGiveItemToPet extends L2GameClientPacket
 		}
 
 		L2ItemInstance item = player.getInventory().getItemByObjectId(_objectId);
-		if (!item.isDropable() || !item.isDestroyable() || !item.isTradeable() ||
-				item.isAugmented() || (Config.ALT_STRICT_HERO_SYSTEM && item.isHeroItem()))
+		if (!item.isDropable() || !item.isDestroyable() || !item.isTradeable() || item.isAugmented() || (Config.ALT_STRICT_HERO_SYSTEM && item.isHeroItem()))
 		{
 			requestFailed(SystemMessageId.ITEM_NOT_FOR_PETS);
 			return;

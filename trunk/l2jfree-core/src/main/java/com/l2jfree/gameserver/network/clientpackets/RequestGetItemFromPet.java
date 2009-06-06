@@ -14,43 +14,40 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 
 /**
- * This class represents a packet that is sent by the client when a player drags an item
- * from the pet to own inventory.
+ * This class represents a packet that is sent by the client when a player drags
+ * an item from the pet to own inventory.
  * 
  * @version $Revision: 1.3.4.4 $ $Date: 2005/03/29 23:15:33 $
  */
 public class RequestGetItemFromPet extends L2GameClientPacket
 {
-	private static final String REQUESTGETITEMFROMPET__C__8C = "[C] 8C RequestGetItemFromPet";
+	private static final String	REQUESTGETITEMFROMPET__C__8C	= "[C] 8C RequestGetItemFromPet";
 
-	private int _objectId;
-	private long _amount;
+	private int					_objectId;
+	private long				_amount;
 	@SuppressWarnings("unused")
-	private int _unknown;
+	private int					_unknown;
 
 	@Override
 	protected void readImpl()
 	{
 		_objectId = readD();
-		if (Config.PACKET_FINAL)
-			_amount   = toInt(readQ());
-		else
-			_amount   = readD();
-		_unknown  = readD();// = 0 for most trades
+		_amount = readCompQ();
+		_unknown = readD();// = 0 for most trades
 	}
 
 	@Override
 	protected void runImpl()
 	{
-		L2PcInstance player = getClient().getActiveChar(); 
-		if (player == null) return;
+		L2PcInstance player = getClient().getActiveChar();
+		if (player == null)
+			return;
 
 		if (!(player.getPet() instanceof L2PetInstance))
 		{
@@ -63,11 +60,11 @@ public class RequestGetItemFromPet extends L2GameClientPacket
 			return;
 		}
 
-		L2PetInstance pet = (L2PetInstance) player.getPet(); 
+		L2PetInstance pet = (L2PetInstance) player.getPet();
 
 		if (_amount > 0 && pet.transferItem("Transfer", _objectId, _amount, player.getInventory(), player, pet) == null)
 			_log.warn("Invalid item transfer request: " + pet.getName() + "(pet) --> " + player.getName());
-		
+
 		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 

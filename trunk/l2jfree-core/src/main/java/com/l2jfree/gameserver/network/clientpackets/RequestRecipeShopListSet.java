@@ -33,15 +33,12 @@ public class RequestRecipeShopListSet extends L2GameClientPacket
 	//private final static Log _log = LogFactory.getLog(RequestRecipeShopListSet.class.getName());
 
 	private int					_count;
-	private long[]				_items; // count*2
+	private long[]				_items;																// count*2
 
 	@Override
 	protected void readImpl()
 	{
-		if (Config.PACKET_FINAL)
-			_count = toInt(readQ());
-		else
-			_count = readD();
+		_count = readD();
 
 		if (_count < 0 || _count * (Config.PACKET_FINAL ? 12 : 8) > getByteBuffer().remaining() || _count > Config.MAX_ITEM_IN_PACKET)
 			_count = 0;
@@ -51,10 +48,7 @@ public class RequestRecipeShopListSet extends L2GameClientPacket
 			int recipeID = readD();
 			_items[(x * 2)] = recipeID;
 			long cost = 0;
-			if (Config.PACKET_FINAL)
-				cost = toInt(readQ());
-			else
-				cost = readD();
+			cost = readCompQ();
 			_items[x * 2 + 1] = cost;
 		}
 	}

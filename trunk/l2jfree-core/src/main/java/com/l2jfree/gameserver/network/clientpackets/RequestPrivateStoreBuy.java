@@ -53,16 +53,10 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
         {
             int objectId = readD();
             long count   = 0;
-            if (Config.PACKET_FINAL)
-                count = toInt(readQ());
-            else
-                count = readD();
+            count = readCompQ();
 
             long price =0;
-            if (Config.PACKET_FINAL)
-                price    = toInt(readQ());
-            else
-                price    = readD();
+            price    = readCompQ();
             
             _items[i] = new ItemRequest(objectId, count, price);
         }
