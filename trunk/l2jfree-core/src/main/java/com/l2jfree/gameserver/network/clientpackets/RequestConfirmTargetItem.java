@@ -68,7 +68,7 @@ public final class RequestConfirmTargetItem extends L2GameClientPacket
 			fail = SystemMessageId.YOU_CANNOT_AUGMENT_ITEMS_WHILE_TRADING;
 		else if (activeChar.isDead())
 			fail = SystemMessageId.YOU_CANNOT_AUGMENT_ITEMS_WHILE_DEAD;
-		else if (activeChar.isParalyzed() || activeChar.isPetrified())
+		else if (activeChar.isParalyzed())
 			fail = SystemMessageId.YOU_CANNOT_AUGMENT_ITEMS_WHILE_PARALYZED;
 		else if (activeChar.isFishing())
 			fail = SystemMessageId.YOU_CANNOT_AUGMENT_ITEMS_WHILE_FISHING;

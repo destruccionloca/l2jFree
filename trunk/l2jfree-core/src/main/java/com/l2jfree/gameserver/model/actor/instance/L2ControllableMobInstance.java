@@ -99,7 +99,7 @@ public class L2ControllableMobInstance extends L2MonsterInstance
 	@Override
 	public void reduceCurrentHp(double i, L2Character attacker, boolean awake, boolean isDOT, L2Skill skill)
     {
-		if (isInvul() || isDead() || isPetrified())
+		if (isInvul() || isDead())
 			return;
 
 		if (awake)

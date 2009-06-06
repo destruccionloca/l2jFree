@@ -21,42 +21,35 @@ import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
-public class EffectPetrification extends L2Effect
+public final class EffectPetrify extends L2Effect
 {
-	public EffectPetrification(Env env, EffectTemplate template)
+	public EffectPetrify(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
-	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
-		return L2EffectType.PETRIFICATION;
+		return L2EffectType.PETRIFY;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
-	 */
 	@Override
 	protected boolean onStart()
 	{
-		getEffected().startAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_2);
-		getEffected().startParalyze();
-		getEffected().setIsInvul(true);
+		getEffected().setIsPetrified(true);
 		return true;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
-	 */
 	@Override
 	protected void onExit()
 	{
-		getEffected().stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_2);
-		getEffected().stopParalyze(false);
-		getEffected().setIsInvul(false);
+		getEffected().setIsPetrified(false);
+	}
+	
+	@Override
+	protected int getTypeBasedAbnormalEffect()
+	{
+		return L2Character.ABNORMAL_EFFECT_HOLD_2;
 	}
 }

@@ -198,7 +198,7 @@ public class CharStatus
 	
 	boolean canReduceHp(double value, L2Character attacker, boolean awake, boolean isDOT)
 	{
-		if (attacker == null || getActiveChar().isDead() || getActiveChar().isPetrified())
+		if (attacker == null || getActiveChar().isDead())
 			return false;
 		
 		if (getActiveChar() instanceof L2FortBallistaInstance && getActiveChar().getMaxHp() == value)

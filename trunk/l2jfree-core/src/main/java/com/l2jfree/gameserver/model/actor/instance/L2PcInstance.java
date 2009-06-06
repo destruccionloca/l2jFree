@@ -5989,7 +5989,7 @@ public final class L2PcInstance extends L2Playable
 				sendPacket(SystemMessageId.YOU_CANNOT_MOUNT_A_STEED_WHILE_HOLDING_A_FLAG);
 				return false;
 			}
-			else if (isParalyzed() || isPetrified())
+			else if (isParalyzed())
 			{
 				// You cannot mount a steed while petrified.
 				sendPacket(SystemMessageId.YOU_CANNOT_MOUNT_A_STEED_WHILE_PETRIFIED);
@@ -6009,7 +6009,7 @@ public final class L2PcInstance extends L2Playable
 				sendPacket(SystemMessageId.DEAD_STRIDER_CANT_BE_RIDDEN);
 				return false;
 			}
-			else if (pet.isInCombat() || pet.isRooted() || pet.isParalyzed() || pet.isPetrified())
+			else if (pet.isInCombat() || pet.isRooted() || pet.isParalyzed())
 			{
 				//A strider in battle cannot be ridden
 				sendPacket(ActionFailed.STATIC_PACKET);

@@ -62,7 +62,7 @@ public class Manadam implements ISkillHandler
 				target = activeChar;
 
 			boolean acted = Formulas.calcMagicAffected(activeChar, target, skill);
-			if (!acted || target.isInvul() || target.isPetrified())
+			if (!acted || target.isInvul())
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
 				sm.addCharName(target);

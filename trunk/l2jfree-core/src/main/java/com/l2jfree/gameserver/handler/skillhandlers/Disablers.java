@@ -124,7 +124,7 @@ public class Disablers implements ICubicSkillHandler
 			if (target == null)
 				continue;
 			
-			if (target.isDead() || target.isInvul() || target.isPetrified()) //bypass if target is null, invul or dead
+			if (target.isDead() || target.isInvul()) //bypass if target is null, invul or dead
 				continue;
 
 			// With Mystic Immunity you can't be buffed/debuffed

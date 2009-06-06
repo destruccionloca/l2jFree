@@ -177,7 +177,6 @@ public abstract class L2Character extends L2Object
 	private boolean					_isImmobilized						= false;
 	private boolean					_isOverloaded						= false;											// the char is carrying too much
 	private boolean					_isParalyzed						= false;											// cannot do anything
-	private boolean					_isPetrified						= false;											// cannot receive dmg from hits.
 
 	private boolean					_isPendingRevive					= false;
 	private boolean					_isRooted							= false;											// Cannot move until root timed out
@@ -2424,14 +2423,14 @@ public abstract class L2Character extends L2Object
 	/** Return True if the L2Character can't use its skills (ex : stun, sleep...). */
 	public boolean isAllSkillsDisabled()
 	{
-		return _allSkillsDisabled || isStunned() || isSleeping() || isImmobileUntilAttacked() || isParalyzed() || isPetrified();
+		return _allSkillsDisabled || isStunned() || isSleeping() || isImmobileUntilAttacked() || isParalyzed();
 	}
 
 	/** Return True if the L2Character can't attack (stun, sleep, attackEndTime, fakeDeath, paralyse). */
 	public boolean isAttackingDisabled()
 	{
-		return isStunned() || isSleeping() || isImmobileUntilAttacked() || isAttackingNow() || isFakeDeath() || isParalyzed()
-				|| isPetrified() || isFallsdown() || isPhysicalAttackMuted() || isCoreAIDisabled();
+		return isStunned() || isSleeping() || isImmobileUntilAttacked() || isAttackingNow() || isFakeDeath()
+			|| isParalyzed() || isFallsdown() || isPhysicalAttackMuted() || isCoreAIDisabled();
 	}
 
 	public final Calculator[] getCalculators()
@@ -2543,8 +2542,8 @@ public abstract class L2Character extends L2Object
 	public boolean isMovementDisabled()
 	{
 		// check for isTeleporting to prevent teleport cheating (if appear packet not received)
-		return isStunned() || isRooted() || isSleeping() || isTeleporting() || isImmobileUntilAttacked() || isOverloaded() || isParalyzed() || isImmobilized()
-				|| isFakeDeath() || isFallsdown() || isPetrified();
+		return isStunned() || isRooted() || isSleeping() || isTeleporting() || isImmobileUntilAttacked()
+			|| isOverloaded() || isParalyzed() || isImmobilized() || isFakeDeath() || isFallsdown();
 	}
 
 	/** Return True if the L2Character can not be controlled by the player (confused, afraid). */
@@ -2695,16 +2694,20 @@ public abstract class L2Character extends L2Object
 		updateAbnormalEffect();
 	}
 
-	public final boolean isPetrified()
-	{
-		return _isPetrified;
-	}
-
 	public final void setIsPetrified(boolean value)
 	{
-		_isPetrified = value;
+		if (value)
+		{
+			startParalyze();
+			setIsInvul(true);
+		}
+		else
+		{
+			stopParalyze(false);
+			setIsInvul(false);
+		}
 	}
-
+	
 	public final boolean isBetrayed()
 	{
 		return _isBetrayed;

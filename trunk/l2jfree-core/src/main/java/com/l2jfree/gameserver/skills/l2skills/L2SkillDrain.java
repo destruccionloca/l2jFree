@@ -54,7 +54,7 @@ public class L2SkillDrain extends L2Skill
 			if (target.isAlikeDead() && getTargetType() != SkillTargetType.TARGET_CORPSE_MOB)
 				continue;
 
-			if (activeChar != target && (target.isInvul() || target.isPetrified()))
+			if (activeChar != target && target.isInvul())
 				continue; // No effect on invulnerable chars unless they cast it themselves.
 			
 			if (activeChar.isBlessedSpiritshotCharged())

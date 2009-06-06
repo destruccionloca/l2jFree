@@ -14,47 +14,23 @@
  */
 package com.l2jfree.gameserver.skills.effects;
 
-import com.l2jfree.gameserver.model.L2Effect;
+import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.templates.effects.EffectTemplate;
-import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
 /**
  * @author LBaldi
  */
-public class EffectBigHead extends L2Effect
+public final class EffectBigHead extends EffectBuff
 {
-	
 	public EffectBigHead(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
-	 */
 	@Override
-	public L2EffectType getEffectType()
+	protected int getTypeBasedAbnormalEffect()
 	{
-		return L2EffectType.BUFF;
-	}
-	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
-	 */
-	@Override
-	protected boolean onStart()
-	{
-		getEffected().startAbnormalEffect(0x02000);
-		return true;
-	}
-	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
-	 */
-	@Override
-	protected void onExit()
-	{
-		getEffected().stopAbnormalEffect(0x02000);
+		return L2Character.ABNORMAL_EFFECT_BIG_HEAD;
 	}
 }

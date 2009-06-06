@@ -858,7 +858,7 @@ public class FrintezzaManager extends BossLair
 
 				L2Character cha = (L2Character) target;
 
-				if (cha.isDead() || cha.isInvul() || cha.isPetrified())
+				if (cha.isDead() || cha.isInvul())
 					continue;
 
 				// show the magic effect on the target - visual effect
