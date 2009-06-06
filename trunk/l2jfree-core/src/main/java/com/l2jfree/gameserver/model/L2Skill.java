@@ -60,7 +60,6 @@ import com.l2jfree.gameserver.skills.ChanceCondition;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.skills.IChanceSkillTrigger;
-import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.TriggeredSkill;
 import com.l2jfree.gameserver.skills.conditions.Condition;
 import com.l2jfree.gameserver.skills.funcs.Func;
@@ -199,7 +198,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	private final int				_hairColorId;
 	private final int				_faceId;
 	private final int				_hairStyleId;
-	private final Stats				_stat;
 
 	private final int				_itemConsume;
 	private final int				_itemConsumeId;
@@ -329,8 +327,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	private final int				_minPledgeClass;
 
 	private final int				_aggroPoints;
-
-	private final float				_pvpMulti;
 
 	protected Condition				_preCondition;
 	protected FuncTemplate[]		_funcTemplates;
@@ -511,15 +507,12 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 		_aggroPoints = set.getInteger("aggroPoints", 0);
 
-		_pvpMulti = set.getFloat("pvpMulti", 1.f);
-
 		_flyType = set.getEnum("flyType", FlyType.class, null);
 		_flyRadius = set.getInteger("flyRadius", 200);
 		_flyCourse = set.getFloat("flyCourse", 0);
 		_canBeReflected = set.getBool("canBeReflected", true);
 		_attribute = set.getString("attribute", "");
 		_useShield = set.getBool("useShield", false);
-		_stat = set.getEnum("stat", Stats.class, null);
 		_ignoreShield = set.getBool("ignoreShld", false);
 
 		_learnSkillId = set.getInteger("learnSkillId", 0);
@@ -941,11 +934,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		return _minPledgeClass;
 	}
 
-	public final Stats getStat()
-	{
-		return _stat;
-	}
-
 	/**
 	 * @return Returns the _targetConsumeId.
 	 */
@@ -1192,11 +1180,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	public final int getAggroPoints()
 	{
 		return _aggroPoints;
-	}
-
-	public final float getPvpMulti()
-	{
-		return _pvpMulti;
 	}
 
 	public final boolean useSoulShot()

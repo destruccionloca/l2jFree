@@ -212,7 +212,6 @@ public enum Stats
 	PATK_MONSTERS("pAtk-monsters"),
 	PATK_DRAGONS("pAtk-dragons"),
 	PATK_GIANTS("pAtk-giants"),
-	PATK_UNDEAD("pAtk-undead"),
 	PATK_MAGIC("pAtk-magic"),
 	
 	PDEF_PLANTS("pDef-plants"),
@@ -220,14 +219,11 @@ public enum Stats
 	PDEF_ANIMALS("pDef-animals"),
 	PDEF_MONSTERS("pDef-monsters"),
 	PDEF_DRAGONS("pDef-dragons"),
-	PDEF_UNDEAD("pDef-undead"),
 	PDEF_GIANTS("pDef-giants"),
 	PDEF_MAGIC("pDef-magic"),
 	
-	PATK_VALAKAS("pAtk-valakas"),
-	PDEF_VALAKAS("pDef-valakas"),
-	
 	MAGIC_REUSE_RATE("mReuse"),
+	PHYS_REUSE_RATE("pReuse"),
 	BOW_REUSE("bowReuse"),
 	
 	//ExSkill :)
@@ -250,8 +246,7 @@ public enum Stats
 	
 	transformId("transformId"),
 	TALISMAN_SLOTS("talisman"),
-	ATK_REUSE("atkReuse"),
-	P_REUSE("pReuse");
+	;
 	
 	private final String _value;
 	

@@ -14,15 +14,14 @@
  */
 package com.l2jfree.gameserver.model;
 
-import javolution.util.FastSet;
-
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.util.L2FastSet;
 
 public class L2SiegeClan
 {
 	private int					_clanId			= 0;
-	private FastSet<L2Npc>		_flags;
+	private L2FastSet<L2Npc>	_flags;
 	private int					_numFlagsAdded	= 0;
 	private SiegeClanType		_type;
 
@@ -78,10 +77,10 @@ public class L2SiegeClan
 		return _clanId;
 	}
 
-	public final FastSet<L2Npc> getFlag()
+	public final L2FastSet<L2Npc> getFlag()
 	{
 		if (_flags == null)
-			_flags = new FastSet<L2Npc>();
+			_flags = new L2FastSet<L2Npc>();
 		return _flags;
 	}
 

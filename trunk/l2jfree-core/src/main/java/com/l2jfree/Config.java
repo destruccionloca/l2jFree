@@ -1460,9 +1460,9 @@ public final class Config extends L2Config
 	public static boolean				ALT_MOB_AGGRO_IN_PEACEZONE;													// -
 	public static boolean				ALT_ATTACKABLE_NPCS;
 	public static float					ALT_INSTANT_KILL_EFFECT_2;													// Rate of Instant kill effect 2(CP no change ,HP =1,no kill
-	public static float					ALT_DAGGER_DMG_VS_HEAVY;													// Alternative damage for dagger skills VS heavy
-	public static float					ALT_DAGGER_DMG_VS_ROBE;													// Alternative damage for dagger skills VS robe
-	public static float					ALT_DAGGER_DMG_VS_LIGHT;													// Alternative damage for dagger skills VS light
+	public static float					ALT_DAGGER_DMG_VS_HEAVY2;													// Alternative damage for dagger skills VS heavy
+	public static float					ALT_DAGGER_DMG_VS_ROBE2;													// Alternative damage for dagger skills VS robe
+	public static float					ALT_DAGGER_DMG_VS_LIGHT2;													// Alternative damage for dagger skills VS light
 	public static boolean				ALT_DAGGER_FORMULA;														// Alternative success rate formulas for skills such
 	// dagger/critical skills and blows
 	public static float					ALT_ATTACK_DELAY;															// Alternative config for next hit delay
@@ -1663,9 +1663,6 @@ public final class Config extends L2Config
 			ALT_MOB_AGGRO_IN_PEACEZONE = Boolean.parseBoolean(altSettings.getProperty("AltMobAgroInPeaceZone", "true"));
 			ALT_ATTACKABLE_NPCS = Boolean.parseBoolean(altSettings.getProperty("AltAttackableNpcs", "True"));
 			ALT_INSTANT_KILL_EFFECT_2 = Float.parseFloat(altSettings.getProperty("InstantKillEffect2", "2"));
-			ALT_DAGGER_DMG_VS_HEAVY = Float.parseFloat(altSettings.getProperty("DaggerVSHeavy", "2.50"));
-			ALT_DAGGER_DMG_VS_ROBE = Float.parseFloat(altSettings.getProperty("DaggerVSRobe", "2.00"));
-			ALT_DAGGER_DMG_VS_LIGHT = Float.parseFloat(altSettings.getProperty("DaggerVSLight", "1.80"));
 			ALT_DAGGER_FORMULA = Boolean.parseBoolean(altSettings.getProperty("AltGameDaggerFormula", "false"));
 			ALT_DAGGER_RATE = Integer.parseInt(altSettings.getProperty("AltCancelRate", "85"));
 			ALT_DAGGER_FAIL_RATE = Integer.parseInt(altSettings.getProperty("AltFailRate", "15"));
@@ -4017,14 +4014,8 @@ public final class Config extends L2Config
 			ALT_BUFF_TIME = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("AltSuccessRate"))
 			ALT_DAGGER_RATE = Integer.parseInt(pValue);
-		else if (pName.equalsIgnoreCase("DaggerVSRobe"))
-			ALT_DAGGER_DMG_VS_ROBE = Float.parseFloat(pValue);
-		else if (pName.equalsIgnoreCase("DaggerVSLight"))
-			ALT_DAGGER_DMG_VS_LIGHT = Float.parseFloat(pValue);
 		else if (pName.equalsIgnoreCase("InstantKillEffect2"))
 			ALT_INSTANT_KILL_EFFECT_2 = Float.parseFloat(pValue);
-		else if (pName.equalsIgnoreCase("DaggerVSHeavy"))
-			ALT_DAGGER_DMG_VS_HEAVY = Float.parseFloat(pValue);
 		else if (pName.equalsIgnoreCase("AltAttackDelay"))
 			ALT_ATTACK_DELAY = Float.parseFloat(pValue);
 		else if (pName.equalsIgnoreCase("AltFailRate"))

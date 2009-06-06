@@ -495,7 +495,7 @@ public class CharStat
 		if (_activeChar == null)
 			return 1;
 
-		return calcStat(Stats.P_REUSE, _activeChar.getTemplate().getBaseMReuseRate(), null, skill);
+		return calcStat(Stats.PHYS_REUSE_RATE, _activeChar.getTemplate().getBaseMReuseRate(), null, skill);
 	}
 
 	/** Return the PAtk (base+modifier) of the L2Character. */
@@ -553,12 +553,6 @@ public class CharStat
 		return calcStat(Stats.PATK_MAGIC, 1, target, null);
 	}
 
-	/** Return the PAtk Modifier against valakas. */
-	public final double getPAtkValakas(L2Character target)
-	{
-		return calcStat(Stats.PATK_VALAKAS, 1, target, null);
-	}
-
 	/**
 	 * Return the PAtk Speed (base+modifier) of the L2Character in function of
 	 * the Armour Expertise Penalty.
@@ -575,17 +569,6 @@ public class CharStat
 		int val = (int) (calcStat(Stats.POWER_ATTACK_SPEED, _activeChar.getTemplate().getBasePAtkSpd() * bonusSpdAtk, null, null));
 
 		return val;
-	}
-
-	/** Return the PAtk Modifier against undead. */
-	public final double getPAtkUndead(L2Character target)
-	{
-		return calcStat(Stats.PATK_UNDEAD, 1, target, null);
-	}
-
-	public final double getPDefUndead(L2Character target)
-	{
-		return calcStat(Stats.PDEF_UNDEAD, 1, target, null);
 	}
 
 	/** Return the PDef Modifier against animals. */
@@ -630,11 +613,6 @@ public class CharStat
 		return calcStat(Stats.PDEF_MAGIC, 1, target, null);
 	}
 
-	public final double getPDefValakas(L2Character target)
-	{
-		return calcStat(Stats.PDEF_VALAKAS, 1, target, null);
-	}
-
 	/** Return the PDef (base+modifier) of the L2Character. */
 	public int getPDef(L2Character target)
 	{
@@ -660,12 +638,6 @@ public class CharStat
 		return (int) calcStat(Stats.POWER_ATTACK_RANGE, _activeChar.getTemplate().getBaseAtkRange(), null, null);
 	}
 
-	/** Return the weapon reuse modifier */
-	public final double getWeaponReuseModifier(L2Character target)
-	{
-		return calcStat(Stats.ATK_REUSE, 1, target, null);
-	}
-	
 	/**
 	 * Return the RunSpeed (base+modifier) of the L2Character in function of the
 	 * Armour Expertise Penalty.
