@@ -1509,7 +1509,6 @@
     <set name="power" val="#power"/>
     <set name="magicLvl" val="50"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="onCrit" val="true"/>
     <set name="skillRadius" val="300"/>
     <set name="reuseDelay" val="11250"/>
     <set name="hitTime" val="1080"/>
