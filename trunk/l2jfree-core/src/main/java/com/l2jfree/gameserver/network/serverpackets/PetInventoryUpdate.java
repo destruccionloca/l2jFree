@@ -31,7 +31,7 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
  * @version $Revision: 1.3.2.1.2.5 $ $Date: 2005/03/27 15:29:57 $
  * Rebuild 23.2.2006 by Advi
  */
-public class PetInventoryUpdate extends ElementalInfo
+public class PetInventoryUpdate extends L2GameServerPacket
 {
 	private final static Log _log = LogFactory.getLog(PetInventoryUpdate.class.getName());
 	private static final String _S__37_INVENTORYUPDATE = "[S] b3 InventoryUpdate";
@@ -73,7 +73,7 @@ public class PetInventoryUpdate extends ElementalInfo
 	protected final void writeImpl()
 	{
 		writeC(0xb4);
-		int count = _items.size(); 
+		int count = _items.size();
 		writeH(count);
 		for (ItemInfo item : _items)
 		{

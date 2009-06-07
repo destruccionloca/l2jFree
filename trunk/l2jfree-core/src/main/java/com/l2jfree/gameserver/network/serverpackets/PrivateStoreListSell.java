@@ -22,7 +22,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  * 
  * @version $Revision: 1.2.2.3.2.6 $ $Date: 2005/03/27 15:29:57 $
  */
-public class PrivateStoreListSell extends ElementalInfo
+public class PrivateStoreListSell extends L2GameServerPacket
 {
 	private static final String _S__B4_PRIVATESTORELISTSELL = "[S] 9b PrivateStoreListSell";
 	private int _objId;
@@ -61,7 +61,7 @@ public class PrivateStoreListSell extends ElementalInfo
 			writeD(item.getPrice()); //your price
 			writeCompQ(item.getItem().getReferencePrice()); //store price
 			
-			writeElementalInfo(item); //8x h or d			
+			writeElementalInfo(item); //8x h or d
 		}
 	}
 	

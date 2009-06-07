@@ -20,7 +20,7 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
  *
  * @author  KenM
  */
-public final class ExRpItemLink extends ElementalInfo
+public final class ExRpItemLink extends L2GameServerPacket
 {
 	private final static String S_FE_6C_EXPRPITEMLINK = "[S] FE:6C ExRpItemLink";
 	private final L2ItemInstance _item;

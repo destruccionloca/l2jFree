@@ -14,15 +14,15 @@
  */
 package com.l2jfree.gameserver.model;
 
+import static com.l2jfree.gameserver.model.itemcontainer.PcInventory.ADENA_ID;
+import static com.l2jfree.gameserver.model.itemcontainer.PcInventory.MAX_ADENA;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ScheduledFuture;
-
-import static com.l2jfree.gameserver.model.itemcontainer.PcInventory.ADENA_ID;
-import static com.l2jfree.gameserver.model.itemcontainer.PcInventory.MAX_ADENA;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -45,6 +45,7 @@ import com.l2jfree.gameserver.network.serverpackets.GetItem;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket.ElementalOwner;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.funcs.FuncOwner;
 import com.l2jfree.gameserver.taskmanager.SQLQueue;
@@ -61,7 +62,7 @@ import com.l2jfree.sql.SQLQuery;
  * 
  * @version $Revision: 1.4.2.1.2.11 $ $Date: 2005/03/31 16:07:50 $
  */
-public final class L2ItemInstance extends L2Object implements FuncOwner
+public final class L2ItemInstance extends L2Object implements FuncOwner, ElementalOwner
 {
 	public static final L2ItemInstance[] EMPTY_ARRAY = new L2ItemInstance[0];
 	

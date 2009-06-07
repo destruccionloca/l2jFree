@@ -27,7 +27,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  * 
  * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
-public class PrivateStoreManageListSell extends ElementalInfo
+public class PrivateStoreManageListSell extends L2GameServerPacket
 {
 	private static final String		_S__B3_PRIVATESELLLISTSELL	= "[S] 9a PrivateSellListSell";
 	private int						_objId;
@@ -50,12 +50,12 @@ public class PrivateStoreManageListSell extends ElementalInfo
 	protected final void writeImpl()
 	{
 		writeC(0xa0);
-		//section 1 
+		//section 1
 		writeD(_objId);
 		writeD(_packageSale ? 1 : 0); // Package sell
 		writeCompQ(_playerAdena);
 
-		//section2 
+		//section2
 		writeD(_itemList.length); //for potential sells
 		for (TradeList.TradeItem item : _itemList)
 		{

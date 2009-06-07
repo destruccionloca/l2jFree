@@ -25,7 +25,7 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 
 
 /**
- *  
+ * 
  * 37                // Packet Identifier <BR>
  * 01 00             // Number of ItemInfo Trame of the Packet <BR><BR>
  * 
@@ -40,7 +40,7 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
  * 00 00             // Slot        : 0006-lr.ear, 0008-neck, 0030-lr.finger, 0040-head, 0100-l.hand, 0200-gloves, 0400-chest, 0800-pants, 1000-feet, 4000-r.hand, 8000-r.hand <BR>
  * 00 00             // Enchant level (pet level shown in control item) <BR>
  * 00 00             // Pet name exists or not shown in control item <BR><BR><BR>
- *  
+ * 
  *
  * format   h (hh dddhhhh hh)    revision 377 <BR>
  * format   h (hh dddhhhd hh)   revision 415 <BR><BR>
@@ -49,7 +49,7 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
  * Rebuild 23.2.2006 by Advi
  */
 
-public class InventoryUpdate extends ElementalInfo
+public class InventoryUpdate extends L2GameServerPacket
 {
     private final static Log _log = LogFactory.getLog(InventoryUpdate.class.getName());
 	private static final String _S__37_INVENTORYUPDATE = "[S] 27 InventoryUpdate";
@@ -97,14 +97,14 @@ public class InventoryUpdate extends ElementalInfo
 	protected final void writeImpl()
 	{
 		writeC(0x21);
-		int count = _items.size(); 
+		int count = _items.size();
 		writeH(count);
 		for (ItemInfo item : _items)
 		{
-			writeH(item.getChange());               // Update type : 01-add, 02-modify, 03-remove	
+			writeH(item.getChange());               // Update type : 01-add, 02-modify, 03-remove
 			writeH(item.getItem().getType1());      // Item Type 1 : 00-weapon/ring/earring/necklace, 01-armor/shield, 04-item/questitem/adena
 			
-			writeD(item.getObjectId());             // ObjectId 
+			writeD(item.getObjectId());             // ObjectId
 			writeD(item.getItem().getItemDisplayId());     // ItemId
 			writeD(item.getLocation());             // T1
 			writeCompQ(item.getCount());                // Quantity

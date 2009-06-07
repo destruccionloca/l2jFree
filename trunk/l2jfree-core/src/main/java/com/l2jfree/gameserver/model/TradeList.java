@@ -28,6 +28,7 @@ import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket.ElementalOwner;
 import com.l2jfree.gameserver.templates.item.L2EtcItemType;
 import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.util.LinkedBunch;
@@ -38,7 +39,7 @@ import com.l2jfree.util.LinkedBunch;
  */
 public class TradeList
 {
-	public class TradeItem
+	public class TradeItem implements ElementalOwner
 	{
 		private int _objectId;
 		private L2Item _item;
@@ -247,7 +248,7 @@ public class TradeList
 	/**
 	 * Adjust available item from Inventory by the one in this list
 	 * @param item : L2ItemInstance to be adjusted
-	 * @return TradeItem representing adjusted item 
+	 * @return TradeItem representing adjusted item
 	 */
 	public TradeItem adjustAvailableItem(L2ItemInstance item)
 	{
@@ -514,7 +515,7 @@ public class TradeList
 			}
 
 			synchronized (sync1)
-			{ 
+			{
 				synchronized (sync2)
 				{
 					_confirmed = true;
@@ -778,7 +779,7 @@ public class TradeList
 		// Transfer items
 		for (ItemRequest item : items)
 		{
-			//Check if requested item is sill on the list and adjust its count 
+			//Check if requested item is sill on the list and adjust its count
 			adjustItemRequest(item);
 			if (item.getCount() == 0)
 				continue;
@@ -807,7 +808,7 @@ public class TradeList
 			else
 				playerIU.addNewItem(newItem);
 
-			// Send messages about the transaction to both players 
+			// Send messages about the transaction to both players
 			if (newItem.isStackable())
 			{
 				SystemMessage msg = new SystemMessage(SystemMessageId.C1_PURCHASED_S3_S2_S);
@@ -858,7 +859,7 @@ public class TradeList
 		// also check if augmented items are traded. If so, cancel it...
 		for (ItemRequest item : items)
 		{
-			// Check if requested item is available for manipulation 
+			// Check if requested item is available for manipulation
 			L2ItemInstance oldItem = player.checkItemManipulation(item.getObjectId(), item.getCount(), "sell");
 			if (oldItem == null)
 				return false;
@@ -880,7 +881,7 @@ public class TradeList
 		// Transfer items
 		for (ItemRequest item : items)
 		{
-			// Check if requested item is sill on the list and adjust its count 
+			// Check if requested item is sill on the list and adjust its count
 			adjustItemRequestByItemId(item);
 			if (item.getCount() == 0)
 				continue;
@@ -902,7 +903,7 @@ public class TradeList
 
 			totalprice += price*item.getCount();
 
-			// Check if requested item is available for manipulation 
+			// Check if requested item is available for manipulation
 			L2ItemInstance oldItem = player.checkItemManipulation(item.getObjectId(), item.getCount(), "sell");
 			if (oldItem == null)
 				return false;
@@ -923,7 +924,7 @@ public class TradeList
 			else
 				ownerIU.addNewItem(newItem);
 
-			// Send messages about the transaction to both players 
+			// Send messages about the transaction to both players
 			if (newItem.isStackable())
 			{
 				SystemMessage msg = new SystemMessage(SystemMessageId.PURCHASED_S3_S2_S_FROM_C1);

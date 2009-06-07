@@ -22,7 +22,7 @@ import com.l2jfree.gameserver.model.TradeList;
  * @author Yme
  * @version $Revision: 1.2.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
-public class TradeOwnAdd extends ElementalInfo
+public class TradeOwnAdd extends L2GameServerPacket
 {
 	private static final String	_S__30_TRADEOWNADD	= "[S] 20 TradeOwnAdd";
 	private TradeList.TradeItem	_item;

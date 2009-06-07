@@ -15,16 +15,17 @@
 package com.l2jfree.gameserver.templates.item;
 
 import com.l2jfree.gameserver.model.L2ItemInstance;
+import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket.ElementalOwner;
 
 /**
  * This class contains L2ItemInstance<BR>
  * Use to sort L2ItemInstance of :
  * <LI>L2Armor</LI>
  * <LI>L2EtcItem</LI>
- * <LI>L2Weapon</LI> 
+ * <LI>L2Weapon</LI>
  * @version $Revision: 1.7.2.2.2.5 $ $Date: 2005/04/06 18:25:18 $
  */
-public class L2WarehouseItem
+public class L2WarehouseItem implements ElementalOwner
 {
 
 	private L2Item	_item;

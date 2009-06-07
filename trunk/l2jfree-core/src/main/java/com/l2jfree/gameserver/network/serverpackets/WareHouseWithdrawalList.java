@@ -25,7 +25,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  * 
  * @version $Revision: 1.3.2.1.2.5 $ $Date: 2005/03/29 23:15:10 $
  */
-public class WareHouseWithdrawalList extends ElementalInfo
+public class WareHouseWithdrawalList extends L2GameServerPacket
 {
 	public static final int		PRIVATE							= 1;
 	public static final int		CLAN							= 4;

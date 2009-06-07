@@ -28,7 +28,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  * 
  * @version $Revision: 1.4.2.3.2.4 $ $Date: 2005/03/27 15:29:39 $
  */
-public class SellList extends ElementalInfo
+public class SellList extends L2GameServerPacket
 {
 	private static final String			_S__10_SELLLIST	= "[S] 10 SellList";
 	private final static Log			_log			= LogFactory.getLog(SellList.class.getName());
@@ -59,7 +59,7 @@ public class SellList extends ElementalInfo
 		{
 			for (L2ItemInstance item : _activeChar.getInventory().getItems())
 			{
-				if (!item.isEquipped() // Not equipped 
+				if (!item.isEquipped() // Not equipped
 						&& item.isSellable() // Item is sellable
 						&& (_activeChar.getPet() == null // Pet not summoned or
 						|| item.getObjectId() != _activeChar.getPet().getControlItemId())) // Pet is summoned and not the item that summoned the pet

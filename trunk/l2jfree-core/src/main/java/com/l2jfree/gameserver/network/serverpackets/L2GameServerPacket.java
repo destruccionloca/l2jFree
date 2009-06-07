@@ -103,4 +103,31 @@ public abstract class L2GameServerPacket extends SendablePacket<L2GameClient>
 		else
 			writeD((int)L2Math.limit(Integer.MIN_VALUE, value, Integer.MAX_VALUE));
 	}
+	
+	protected final void writeCompH(int value)
+	{
+		if (Config.PACKET_FINAL)
+			writeH(value);
+		else
+			writeD(value);
+	}
+	
+	public interface ElementalOwner
+	{
+		public int getAttackElementType();
+		
+		public int getAttackElementPower();
+		
+		public int getElementDefAttr(byte element);
+	}
+	
+	protected final void writeElementalInfo(ElementalOwner owner)
+	{
+		writeCompH(owner.getAttackElementType());
+		writeCompH(owner.getAttackElementPower());
+		for (byte i = 0; i < 6; i++)
+		{
+			writeCompH(owner.getElementDefAttr(i));
+		}
+	}
 }

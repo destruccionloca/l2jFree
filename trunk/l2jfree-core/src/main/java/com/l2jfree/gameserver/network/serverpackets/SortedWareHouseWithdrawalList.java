@@ -31,7 +31,7 @@ import com.l2jfree.util.L2Collections.Filter;
  * 0x42 WarehouseWithdrawalList dh (h dddhh dhhh d)
  */
 
-public final class SortedWareHouseWithdrawalList extends ElementalInfo
+public final class SortedWareHouseWithdrawalList extends L2GameServerPacket
 {
 	public static final int PRIVATE = 1;
 	public static final int CLAN = 2;

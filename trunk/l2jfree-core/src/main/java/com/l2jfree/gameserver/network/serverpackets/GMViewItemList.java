@@ -22,7 +22,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  * 
  * @version $Revision: 1.1.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
  */
-public class GMViewItemList extends ElementalInfo
+public class GMViewItemList extends L2GameServerPacket
 {
 	//private static Logger _log = Logger.getLogger(GMViewItemList.class.getName());
 	private static final String _S__AD_GMVIEWITEMLIST = "[S] 94 GMViewItemList";
@@ -60,7 +60,7 @@ public class GMViewItemList extends ElementalInfo
 			writeD(temp.getLocationSlot()); // T1
 			writeCompQ(temp.getCount());
 			writeH(temp.getItem().getType2());
-			writeH(temp.getCustomType1()); 
+			writeH(temp.getCustomType1());
 			writeH(temp.isEquipped() ? 0x01 : 0x00);
 			writeD(temp.getItem().getBodyPart());
 			writeH(temp.getEnchantLevel());

@@ -23,7 +23,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  * 
  * @version $Revision: 1.3.2.1.2.4 $ $Date: 2005/03/27 15:29:40 $
  */
-public class PrivateStoreManageListBuy extends ElementalInfo
+public class PrivateStoreManageListBuy extends L2GameServerPacket
 {
 	private static final String		_S__D0_PRIVATESELLLISTBUY	= "[S] b7 PrivateSellListBuy";
 	private int						_objId;
@@ -43,11 +43,11 @@ public class PrivateStoreManageListBuy extends ElementalInfo
 	protected final void writeImpl()
 	{
 		writeC(0xbd);
-		//section 1 
+		//section 1
 		writeD(_objId);
 		writeCompQ(_playerAdena);
 
-		//section2 
+		//section2
 		writeD(_itemList.length); // inventory items for potential buy
 		for (L2ItemInstance item : _itemList)
 		{

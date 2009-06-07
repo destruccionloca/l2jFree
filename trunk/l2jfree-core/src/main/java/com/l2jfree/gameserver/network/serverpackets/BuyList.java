@@ -20,7 +20,7 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2TradeList;
 
-public final class BuyList extends ElementalInfo
+public final class BuyList extends L2GameServerPacket
 {
 	private static final String	_S__07_BUYLIST	= "[S] 07 BuyList [ddh (hdddhhdhhhdddddddd)]";
 	private int					_listId;

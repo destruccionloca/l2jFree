@@ -14,13 +14,14 @@
  */
 package com.l2jfree.gameserver.model;
 
+import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket.ElementalOwner;
 import com.l2jfree.gameserver.templates.item.L2Item;
 
 /**
  * Get all information from L2ItemInstance to generate ItemInfo.<BR><BR>
  * 
  */
-public class ItemInfo
+public class ItemInfo implements ElementalOwner
 {
 	/** Identifier of the L2ItemInstance */
 	private int _objectId;

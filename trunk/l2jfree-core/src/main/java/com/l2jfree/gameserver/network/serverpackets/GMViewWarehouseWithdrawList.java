@@ -23,7 +23,7 @@ import com.l2jfree.gameserver.templates.item.L2Weapon;
  * 
  * @version $Revision: 1.1.2.1.2.5 $ $Date: 2007/11/26 16:10:05 $
  */
-public class GMViewWarehouseWithdrawList extends ElementalInfo
+public class GMViewWarehouseWithdrawList extends L2GameServerPacket
 {
 	private static final String	_S__95_GMViewWarehouseWithdrawList	= "[S] 95 GMViewWarehouseWithdrawList";
 	private L2ItemInstance[]	_items;

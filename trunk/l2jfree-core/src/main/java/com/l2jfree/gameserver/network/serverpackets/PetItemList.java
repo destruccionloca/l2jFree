@@ -26,7 +26,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
  * 
  * @version $Revision: 1.4.2.1.2.4 $ $Date: 2005/03/27 15:29:39 $
  */
-public class PetItemList extends ElementalInfo 
+public class PetItemList extends L2GameServerPacket
 {
 	private final static Log _log = LogFactory.getLog(PetItemList.class.getName());
 	private static final String _S__cb_PETITEMLIST = "[S] b2  PetItemList";
@@ -52,7 +52,7 @@ public class PetItemList extends ElementalInfo
 		writeC(0xb3);
 
 		L2ItemInstance[] items = _activeChar.getInventory().getItems();
-		int count = items.length; 
+		int count = items.length;
 		writeH(count);
 
 		for (L2ItemInstance temp : items)

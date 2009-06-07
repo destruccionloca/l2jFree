@@ -25,7 +25,7 @@ import com.l2jfree.gameserver.templates.item.L2Item;
  * 
  * @version $Revision: 1.4.2.1.2.4 $ $Date: 2005/03/27 15:29:39 $
  */
-public class WareHouseDepositList extends ElementalInfo
+public class WareHouseDepositList extends L2GameServerPacket
 {
 	public static final int			PRIVATE						= 1;
 	public static final int			CLAN						= 4;

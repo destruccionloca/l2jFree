@@ -22,7 +22,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 /**
  * @author -Wooden-
  */
-public class PackageSendableList extends ElementalInfo
+public class PackageSendableList extends L2GameServerPacket
 {
 	private static final String			_S__C3_PACKAGESENDABLELIST	= "[S] C3 PackageSendableList";
 

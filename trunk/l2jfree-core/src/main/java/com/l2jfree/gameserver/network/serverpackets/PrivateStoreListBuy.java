@@ -22,7 +22,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  * 
  * @version $Revision: 1.7.2.2.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
-public class PrivateStoreListBuy extends ElementalInfo
+public class PrivateStoreListBuy extends L2GameServerPacket
 {
 	//	private static final String _S__D1_PRIVATEBUYLISTBUY = "[S] b8 PrivateBuyListBuy";
 	private static final String		_S__BE_PRIVATESTORELISTBUY	= "[S] be PrivateStoreListBuy";

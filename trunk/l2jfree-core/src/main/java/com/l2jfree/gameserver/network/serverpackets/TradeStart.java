@@ -24,7 +24,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  * 
  * @version $Revision: 1.4.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
-public class TradeStart extends ElementalInfo
+public class TradeStart extends L2GameServerPacket
 {
 	private static final String		_S__2E_TRADESTART	= "[S] 1E TradeStart";
 	private L2PcInstance			_activeChar;
