@@ -371,7 +371,6 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isPotion" val="true"/>
-    <set name="buffDuration" val="600000"/>
     <cond msgId="113" addName="1">
       <player flyMounted="False"/>
     </cond>
@@ -390,7 +389,6 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isPotion" val="true"/>
-    <set name="buffDuration" val="600000"/>
     <cond msgId="113" addName="1">
       <player flyMounted="False"/>
     </cond>
@@ -409,7 +407,6 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isPotion" val="true"/>
-    <set name="buffDuration" val="600000"/>
     <cond msgId="113" addName="1">
       <player flyMounted="False"/>
     </cond>
@@ -428,7 +425,6 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isPotion" val="true"/>
-    <set name="buffDuration" val="600000"/>
     <cond msgId="113" addName="1">
       <player flyMounted="False"/>
     </cond>
@@ -447,7 +443,6 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isPotion" val="true"/>
-    <set name="buffDuration" val="600000"/>
     <cond msgId="113" addName="1">
       <player flyMounted="False"/>
     </cond>
@@ -466,7 +461,6 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isPotion" val="true"/>
-    <set name="buffDuration" val="600000"/>
     <cond msgId="113" addName="1">
       <player flyMounted="False"/>
     </cond>
@@ -1054,7 +1048,6 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isPotion" val="true"/>
-    <set name="buffDuration" val="1200000"/>
     <cond msgId="113" addName="1">
       <player SiegeZone="126"/>
     </cond>
@@ -1083,7 +1076,6 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isPotion" val="true"/>
-    <set name="buffDuration" val="1200000"/>
     <cond msgId="113" addName="1">
       <player SiegeZone="126"/>
     </cond>

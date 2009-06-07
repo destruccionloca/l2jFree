@@ -959,7 +959,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <enchant1 name="power" val="#ench1power"/>
-    <enchant2 name="buffDuration" val="#ench2Time"/>
+    <!--  <enchant2 name="buffDuration" val="#ench2Time"/>  -->
     <for>
       <effect name="Buff" time="1200" val="0" stackOrder="1" stackType="ElementPwr">
         <add order="0x40" stat="darkRes" val="20"/>

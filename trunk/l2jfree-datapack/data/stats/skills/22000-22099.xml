@@ -456,7 +456,6 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isPotion" val="true"/>
-    <set name="buffDuration" val="3600000"/>
     <cond msgId="113" addName="1">
       <player flyMounted="False"/>
     </cond>
@@ -471,7 +470,6 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isPotion" val="true"/>
-    <set name="buffDuration" val="3600000"/>
     <cond msgId="113" addName="1">
       <player flyMounted="False"/>
     </cond>
@@ -486,7 +484,6 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isPotion" val="true"/>
-    <set name="buffDuration" val="3600000"/>
     <cond msgId="113" addName="1">
       <player flyMounted="False"/>
     </cond>
@@ -501,7 +498,6 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isPotion" val="true"/>
-    <set name="buffDuration" val="3600000"/>
     <cond msgId="113" addName="1">
       <player flyMounted="False"/>
     </cond>
@@ -516,7 +512,6 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isPotion" val="true"/>
-    <set name="buffDuration" val="3600000"/>
     <cond msgId="113" addName="1">
       <player flyMounted="False"/>
     </cond>
@@ -531,7 +526,6 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isPotion" val="true"/>
-    <set name="buffDuration" val="3600000"/>
     <cond msgId="113" addName="1">
       <player flyMounted="False"/>
     </cond>
@@ -546,7 +540,6 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isPotion" val="true"/>
-    <set name="buffDuration" val="3600000"/>
     <cond msgId="113" addName="1">
       <player flyMounted="False"/>
     </cond>
@@ -561,7 +554,6 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isPotion" val="true"/>
-    <set name="buffDuration" val="3600000"/>
     <cond msgId="113" addName="1">
       <player flyMounted="False"/>
     </cond>
@@ -576,7 +568,6 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isPotion" val="true"/>
-    <set name="buffDuration" val="3600000"/>
     <cond msgId="113" addName="1">
       <player flyMounted="False"/>
     </cond>
@@ -591,7 +582,6 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isPotion" val="true"/>
-    <set name="buffDuration" val="3600000"/>
     <cond msgId="113" addName="1">
       <player flyMounted="False"/>
     </cond>
@@ -606,7 +596,6 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isPotion" val="true"/>
-    <set name="buffDuration" val="3600000"/>
     <cond msgId="113" addName="1">
       <player flyMounted="False"/>
     </cond>
@@ -628,7 +617,6 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isPotion" val="true"/>
-    <set name="buffDuration" val="3600000"/>
     <cond msgId="113" addName="1">
       <player flyMounted="False"/>
     </cond>
@@ -643,7 +631,6 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isPotion" val="true"/>
-    <set name="buffDuration" val="3600000"/>
     <cond msgId="113" addName="1">
       <player flyMounted="False"/>
     </cond>
@@ -658,7 +645,6 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isPotion" val="true"/>
-    <set name="buffDuration" val="3600000"/>
     <for>
       <effect name="Buff" time="3600" val="0" stackOrder="2" stackType="MPrate">
         <mul order="0x30" stat="MagicalMpConsumeRate" val="0.96"/>
@@ -671,7 +657,6 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isPotion" val="true"/>
-    <set name="buffDuration" val="3600000"/>
     <for>
       <effect name="Buff" time="3600" val="0" stackOrder="2" stackType="magic_critical_up">
         <add order="0x40" stat="mCritRate" val="1"/>
