@@ -31,10 +31,17 @@ public class ValidatingStatsSet extends StatsSet
 	private final Map<String, Object> _nonRequestedStats = new FastMap<String, Object>();
 	
 	private String _description;
+	private boolean _validating = true;
 	
 	public ValidatingStatsSet setDescription(String description)
 	{
 		_description = description;
+		return this;
+	}
+	
+	public ValidatingStatsSet setValidating(boolean validating)
+	{
+		_validating = validating;
 		return this;
 	}
 	
@@ -54,7 +61,7 @@ public class ValidatingStatsSet extends StatsSet
 		final Object previousValue = super.put(key, value);
 		
 		if (previousValue != null)
-			if(_log.isDebugEnabled())
+			if (_validating)
 				_log.info(_description + ": '" + key + "' has been replaced [" + previousValue + "->" + value + "]!");
 		
 		return previousValue;

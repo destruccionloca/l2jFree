@@ -93,23 +93,26 @@ public final class ChanceCondition
 	
 	public static ChanceCondition parse(StatsSet set)
 	{
+		if (!set.contains("chanceType") && !set.contains("activationChance"))
+			return null;
+		
 		final TriggerType trigger = set.getEnum("chanceType", TriggerType.class);
 		final int chance = set.getInteger("activationChance");
 		
-		if (trigger != null && chance > 0)
+		if (trigger != null && chance >= 0)
 			return new ChanceCondition(trigger, chance);
 		else
 			throw new IllegalStateException();
 	}
 	
-	public static ChanceCondition parse(String chanceType, int chance)
+	public static ChanceCondition parse(String chanceType, Integer chance)
 	{
-		if (chanceType == null && chance == 0)
+		if (chanceType == null && chance == null)
 			return null;
 		
 		final TriggerType trigger = Enum.valueOf(TriggerType.class, chanceType);
 		
-		if (trigger != null && chance > 0)
+		if (trigger != null && chance >= 0)
 			return new ChanceCondition(trigger, chance);
 		else
 			throw new IllegalStateException();

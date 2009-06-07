@@ -85,6 +85,7 @@ public final class ItemHandler extends NumberHandlerRegistry<IItemHandler>
 		registerItemHandler(new ChestKey());
 		registerItemHandler(new CrystalCarol());
 		registerItemHandler(new DoorKey());
+		registerItemHandler(new Elixir());
 		registerItemHandler(new EnchantAttr());
 		registerItemHandler(new EnchantScrolls());
 		registerItemHandler(new EnergyStone());
@@ -113,9 +114,8 @@ public final class ItemHandler extends NumberHandlerRegistry<IItemHandler>
 		registerItemHandler(new SpiritLake());
 		registerItemHandler(new SpiritShot());
 		registerItemHandler(new SummonItems());
-		registerItemHandler(new TransformationItems());
 		//registerItemHandler(new TeleportBookmark());
-		ItemHandler.getInstance().registerItemHandler(new Elixir());
+		registerItemHandler(new TransformationItems());
 		
 		_log.info("ItemHandler: Loaded " + size() + " handlers.");
 	}

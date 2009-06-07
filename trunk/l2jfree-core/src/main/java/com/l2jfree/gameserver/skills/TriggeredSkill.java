@@ -25,31 +25,30 @@ public final class TriggeredSkill
 {
 	public static TriggeredSkill parse(StatsSet set)
 	{
-		final int triggeredId = set.getInteger("triggeredId", 0);
-		final int triggeredLevel = set.getInteger("triggeredLevel", 0);
+		if (!set.contains("triggeredId") && !set.contains("triggeredLevel"))
+			return null;
 		
-		if (triggeredId > 0 || triggeredLevel > 0)
-		{
-			if (triggeredId > 0 && triggeredLevel > 0)
-				return new TriggeredSkill(triggeredId, triggeredLevel);
-			else
-				throw new IllegalStateException();
-		}
+		final int triggeredId = set.getInteger("triggeredId");
+		final int triggeredLevel = set.getInteger("triggeredLevel");
 		
-		return null;
+		if (triggeredId >= 0 && triggeredLevel > 0)
+			return new TriggeredSkill(triggeredId, triggeredLevel);
+		else
+			throw new IllegalStateException();
 	}
 	
-	public static TriggeredSkill parse(int triggeredId, int triggeredLevel)
+	public static TriggeredSkill parse(Integer triggeredId, Integer triggeredLevel)
 	{
-		if (triggeredId > 0)
-		{
-			if (triggeredLevel > 0)
-				return new TriggeredSkill(triggeredId, triggeredLevel);
-			else
-				throw new IllegalStateException();
-		}
+		if (triggeredId == null && triggeredLevel == null)
+			return null;
 		
-		return null;
+		if (triggeredLevel == null)
+			triggeredLevel = 1;
+		
+		if (triggeredId >= 0 && triggeredLevel > 0)
+			return new TriggeredSkill(triggeredId, triggeredLevel);
+		else
+			throw new IllegalStateException();
 	}
 	
 	private final int _skillId;

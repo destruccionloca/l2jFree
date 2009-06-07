@@ -490,11 +490,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 		_minPledgeClass = set.getInteger("minPledgeClass", 0);
 
-		if (set.contains("chanceType") || set.contains("activationChance"))
-			_chanceCondition = ChanceCondition.parse(set);
-		else
-			_chanceCondition = null;
-
+		_chanceCondition = ChanceCondition.parse(set);
 		_triggeredSkill = TriggeredSkill.parse(set);
 
 		_bestowed = set.getBool("bestowed", false);

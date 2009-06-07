@@ -252,29 +252,35 @@ final class DocumentSkill extends DocumentBase
 			
 			statsSets.add(set);
 			
+			boolean isEnchant = false;
+			
 			if (startLvl >= 100)
 			{
+				isEnchant = true;
+				
 				for (Node n = first; n != null; n = n.getNextSibling())
 				{
 					if ("set".equalsIgnoreCase(n.getNodeName()))
-						parseBeanSet(n, set, _sets.size());
+						parseBeanSet(n, set, _sets.size(), false);
 				}
 			}
 			
 			for (Node n = first; n != null; n = n.getNextSibling())
 			{
 				if (setName.equalsIgnoreCase(n.getNodeName()))
-					parseBeanSet(n, set, i + 1);
+					parseBeanSet(n, set, i + 1, isEnchant);
 			}
 		}
 	}
 	
-	private void parseBeanSet(Node n, ValidatingStatsSet set, int level)
+	private void parseBeanSet(Node n, ValidatingStatsSet set, int level, boolean isEnchant)
 	{
 		String name = n.getAttributes().getNamedItem("name").getNodeValue().trim();
 		String value = n.getAttributes().getNamedItem("val").getNodeValue().trim();
 		
+		set.setValidating(!isEnchant);
 		set.set(name, getValue(value, level));
+		set.setValidating(true);
 	}
 	
 	private void makeSkills(List<ValidatingStatsSet> statsSets) throws Exception
@@ -467,11 +473,11 @@ final class DocumentSkill extends DocumentBase
 		if (effectPower > -1 && effectType == null)
 			_log.warn("Missing effectType for effect: " + name);
 		
-		int trigId = 0;
+		Integer trigId = null;
 		if (attrs.getNamedItem("triggeredId") != null)
 			trigId = Integer.parseInt(getValue(attrs.getNamedItem("triggeredId").getNodeValue(), template));
 		
-		int trigLvl = 1;
+		Integer trigLvl = null;
 		if (attrs.getNamedItem("triggeredLevel") != null)
 			trigLvl = Integer.parseInt(getValue(attrs.getNamedItem("triggeredLevel").getNodeValue(), template));
 		
@@ -479,7 +485,7 @@ final class DocumentSkill extends DocumentBase
 		if (attrs.getNamedItem("chanceType") != null)
 			chanceType = getValue(attrs.getNamedItem("chanceType").getNodeValue(), template);
 		
-		int activationChance = 0;
+		Integer activationChance = null;
 		if (attrs.getNamedItem("activationChance") != null)
 			activationChance = Integer.parseInt(getValue(attrs.getNamedItem("activationChance").getNodeValue(),
 				template));
