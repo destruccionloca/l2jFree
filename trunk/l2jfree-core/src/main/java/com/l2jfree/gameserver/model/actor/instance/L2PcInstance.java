@@ -13256,7 +13256,8 @@ public final class L2PcInstance extends L2Playable
 		transformation.onTransform(this);
 		sendSkillList();
 		sendPacket(new SkillCoolTime(this));
-		sendPacket(ExBasicActionList.DEFAULT_ACTION_LIST);
+		//TODO: use DEFAULT_ACTION_LIST when ct2.2 is fully dropped
+		sendPacket(new ExBasicActionList());
 		broadcastUserInfo();
 	}
 
@@ -13269,7 +13270,8 @@ public final class L2PcInstance extends L2Playable
 			_transformation = null;
 			stopEffects(L2EffectType.TRANSFORMATION);
 			broadcastUserInfo();
-			sendPacket(ExBasicActionList.DEFAULT_ACTION_LIST);
+			//TODO: use DEFAULT_ACTION_LIST when ct2.2 is fully dropped			
+			sendPacket(new ExBasicActionList());
 			sendSkillList();
 			sendPacket(new SkillCoolTime(this));
 		}

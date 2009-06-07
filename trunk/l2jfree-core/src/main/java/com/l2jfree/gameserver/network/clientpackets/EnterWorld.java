@@ -456,7 +456,8 @@ public class EnterWorld extends L2GameClientPacket
 			// Send Action list
 			
 		}
-		sendPacket(ExBasicActionList.DEFAULT_ACTION_LIST);
+		//TODO: use default action list when ct2.2 support is fully dropped
+		sendPacket(new ExBasicActionList());
 
 		// Send Teleport Bookmark List
 		sendPacket(new ExGetBookMarkInfoPacket(activeChar));

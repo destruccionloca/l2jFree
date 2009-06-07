@@ -140,7 +140,7 @@ public class ExBasicActionList extends L2GameServerPacket
 
 	public static final ExBasicActionList	DEFAULT_ACTION_LIST			= new ExBasicActionList();
 
-	private ExBasicActionList()
+	public ExBasicActionList()
 	{
 		this(getActions());
 	}
