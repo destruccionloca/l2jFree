@@ -30,6 +30,7 @@ import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.IOFloodManager.ErrorMode;
 import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
+import com.l2jfree.lang.L2Math;
 
 /**
  * Packets received by the game server from clients
@@ -39,7 +40,7 @@ import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 {
 	protected static final Log _log = LogFactory.getLog(L2GameClientPacket.class);
-
+	
 	@Override
 	protected final boolean read()
 	{
@@ -48,7 +49,7 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 			IOFloodManager.getInstance().report(ErrorMode.BUFFER_UNDER_FLOW, getClient(), this, null);
 			return false;
 		}
-
+		
 		try
 		{
 			readImpl();
@@ -62,12 +63,12 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 		{
 			IOFloodManager.getInstance().report(ErrorMode.FAILED_READING, getClient(), this, e);
 		}
-
+		
 		return false;
 	}
-
+	
 	protected abstract void readImpl();
-
+	
 	@Override
 	public final void run()
 	{
@@ -99,60 +100,51 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 			IOFloodManager.getInstance().report(ErrorMode.FAILED_RUNNING, getClient(), this, e);
 		}
 	}
-
+	
 	protected abstract void runImpl() throws InvalidPacketException;
-
+	
 	protected final void sendPacket(L2GameServerPacket gsp)
 	{
 		getClient().sendPacket(gsp);
 	}
-
+	
 	protected final void sendPacket(SystemMessageId sm)
 	{
 		getClient().sendPacket(sm.getSystemMessage());
 	}
-
+	
 	protected final L2PcInstance getActiveChar()
 	{
 		return getClient().getActiveChar();
 	}
-
+	
 	public String getType()
 	{
 		return getClass().getSimpleName();
 	}
-
+	
 	protected final void requestFailed(SystemMessageId sm)
 	{
 		requestFailed(sm.getSystemMessage());
 	}
-
+	
 	protected final void requestFailed(L2GameServerPacket gsp)
 	{
 		sendPacket(gsp);
 		sendPacket(STATIC_PACKET);
 	}
-
+	
 	/** Should be overridden. */
 	protected int getMinimumLength()
 	{
 		return 0;
 	}
 	
-	public static int toInt(long var)
+	protected final int readCompQ()
 	{
-		if (var > Integer.MAX_VALUE)
-			return Integer.MAX_VALUE-1; //TODO: HACK TO BYPASS THE EXPLOIT CHECKS WHICH CAN BE REMOVED NOW
-		if (var < 0)
-			return 0;
-		return (int) var;
-	}
-	
-	public int readCompQ()
-	{
-		if(Config.PACKET_FINAL)
-			return readD();
+		if (Config.PACKET_FINAL)
+			return (int)L2Math.limit(Integer.MIN_VALUE, readQ(), Integer.MAX_VALUE);
 		else
-			return toInt(readQ());
+			return readD();
 	}
 }

@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.Config;
 
 /**
  *
@@ -55,9 +54,6 @@ public class ExPutEnchantTargetItemResult extends L2GameServerPacket
 		writeC(0x87);
 		writeD(_result);
 		writeD(_crystal);
-		if (Config.PACKET_FINAL)
-			writeQ(_count);
-		else
-			writeD(toInt(_count));
+		writeCompQ(_count);
 	}
 }

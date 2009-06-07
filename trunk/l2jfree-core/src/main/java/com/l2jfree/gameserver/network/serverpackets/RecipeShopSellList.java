@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ManufactureItem;
 import com.l2jfree.gameserver.model.L2ManufactureList;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -48,10 +47,7 @@ public class RecipeShopSellList extends L2GameServerPacket
             writeD(_manufacturer.getObjectId());
             writeD((int) _manufacturer.getStatus().getCurrentMp()); //Creator's MP
             writeD(_manufacturer.getMaxMp()); //Creator's MP
-            if (Config.PACKET_FINAL)
-                writeQ(_buyer.getAdena()); //Buyer Adena
-            else
-                writeD(toInt(_buyer.getAdena())); //Buyer Adena
+            writeCompQ(_buyer.getAdena()); //Buyer Adena
 
             int count = createList.size();
             writeD(count);
@@ -62,10 +58,7 @@ public class RecipeShopSellList extends L2GameServerPacket
                 temp = createList.getList().get(i);
                 writeD(temp.getRecipeId());
                 writeD(0x00); //unknown
-                if (Config.PACKET_FINAL)
-                    writeQ(temp.getCost());
-                else
-                    writeD(toInt(temp.getCost()));
+                writeCompQ(temp.getCost());
             }
         }
     }
