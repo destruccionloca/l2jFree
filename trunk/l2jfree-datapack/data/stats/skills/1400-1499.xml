@@ -1670,18 +1670,10 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1600"/>
     <for>
-      <!-- 
-      L2J DP Sync - Waitinig for review
       <effect name="ChanceSkillTrigger" time="60" val="0" triggeredId="5448" chanceType="ON_ATTACKED" activationChance="30"/>
-      -->
     </for>
   </skill>
   <skill id="1482" levels="4" name="Weak Constitution">
-    <!--
-      Description(s):
-       Lvl 1-4: When damage is received by the curse of Weakness on an enemy,
-        there is a chance that the target will faint. Consumes 3 soul.
-    -->
     <table name="#mpConsume"> 58 62 65 68 </table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="isMagic" val="true"/>
@@ -1693,18 +1685,10 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1600"/>
     <for>
-      <!-- 
-      L2J DP Sync - Waitinig for review
       <effect name="ChanceSkillTrigger" time="60" val="0" triggeredId="5449" chanceType="ON_ATTACKED" activationChance="30"/>
-      -->
     </for>
   </skill>
   <skill id="1483" levels="7" name="Thin Skin">
-    <!--
-      Description(s):
-        Lvl 1-7: Casts curse to weaken the enemy's skin so that they are wounded when damaged.
-        Consumes 2 soul.
-    -->
     <table name="#mpConsume"> 42 48 54 58 62 65 68</table>
     <table name="#lvl"> 1 2 3 4 5 6 7 </table>
     <set name="mpConsume" val="#mpConsume"/>
@@ -1717,48 +1701,25 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1600"/>
     <for>
-      <!-- 
-      L2J DP Sync - Waitinig for review
       <effect name="ChanceSkillTrigger" time="60" val="0" triggeredId="5450" triggeredLevel="#lvl" chanceType="ON_ATTACKED" activationChance="30"/>
-      -->
     </for>
   </skill>
   <skill id="1484" levels="4" name="Enervation">
-    <table name="#mpConsume"> 55 60 64 67 </table>
-    <table name="#mLevel"> 60 64 68 72 </table>
-    <set name="magicLevel" val="#mLevel"/>
+    <table name="#mpConsume"> 55 60 64 67</table>
     <set name="mpConsume" val="#mpConsume"/>
+    <set name="isMagic" val="true"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="power" val="80" />
+    <set name="skillType" val="DEBUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="600" />
-    <set name="effectRange" val="1200" />
-    <set name="isDebuff" val="true" />
-    <set name="skillType" val="DEBUFF" />
-    <set name="isMagic" val="true" />
-    <set name="hitTime" val="1200"/>
-    <set name="reuseDelay" val="15000"/>
-    <set name="bestowedSkillId" val="5451"/>
-    <set name="bestowedSkillLevel" val="1"/>    
-    <for>
-      <effect count="1" name="BestowSkill" time="30" val="0"/>
-    </for>
+    <set name="hitTime" val="3000"/>
     <set name="reuseDelay" val="120000"/>
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1600"/>
     <for>
-      <!-- 
-      L2J DP Sync - Waitinig for review
       <effect name="ChanceSkillTrigger" time="60" val="0" triggeredId="5451" chanceType="ON_ATTACKED" activationChance="30"/>
-      -->
     </for>
   </skill>
   <skill id="1485" levels="3" name="Spite">
-    <!--
-      Description(s):
-       Lvl 1-3: Casts a curse to hold a grudge against a target so that an enemy receives
-       higher critical damage by chance when damaged. Consumes 3 soul.
-    -->
     <table name="#mpConsume"> 62 65 68</table>
     <table name="#lvl"> 1 2 3 </table>
     <set name="mpConsume" val="#mpConsume"/>
@@ -1771,18 +1732,10 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1600"/>
     <for>
-      <!-- 
-      L2J DP Sync - Waitinig for review
       <effect name="ChanceSkillTrigger" time="60" val="0" triggeredId="5452" triggeredLevel="#lvl" chanceType="ON_ATTACKED" activationChance="30"/>
-      -->
     </for>
   </skill>
   <skill id="1486" levels="4" name="Mental Impoverish">
-    <!--
-      Description(s):
-       Lvl 1-4: Impoverishes an enemy's mind, potentially eliminating their MP when damaged.
-       Consumes 2 soul.
-    -->
     <table name="#mpConsume"> 64 65 67 68</table>
     <table name="#lvl"> 1 2 3 4</table>
     <set name="mpConsume" val="#mpConsume"/>
@@ -1795,10 +1748,7 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1600"/>
     <for>
-      <!-- 
-      L2J DP Sync - Waitinig for review
       <effect name="ChanceSkillTrigger" time="60" val="0" triggeredId="5453" triggeredLevel="#lvl" chanceType="ON_ATTACKED" activationChance="30"/>
-      -->
     </for>
   </skill>
   <skill id="1487" levels="8" name="Restoration">
@@ -1822,18 +1772,12 @@
     </for>
   </skill>
   <skill id="1488" levels="3" name="Restoration Impact">
-    <!--
-      Description(s):
-       Lvl 1 Recovers 10% of maximum HP by catalysis under restoration. Restoration will disappear.
-       Lvl 2 Recovers 15% of maximum HP by catalysis under restoration. Restoration will disappear.
-       Lvl 3 Recovers 20% of maximum HP by catalysis under restoration. Restoration will disappear.
-    -->
-    <table name="#mpInitialConsume">7 8 10</table>
-    <table name="#mpConsume">16 20 23</table>
-    <table name="#power">10 15 20</table>
-    <set name="mpInitialConsume" val="#mpInitialConsume"/>
+    <table name="#mpConsume_Init"> 7 8 10 </table>
+    <table name="#mpConsume"> 16 20 23 </table>
+    <table name="#Tab-power"> 10 15 20 </table>
+    <set name="mpInitialConsume" val="#mpConsume_Init"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="power" val="#power"/>
+    <set name="power" val="#Tab-power"/>
     <set name="hitTime" val="1000"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
@@ -1841,10 +1785,10 @@
     <set name="skillType" val="HEAL_PERCENT"/>
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1200"/>
-    <set name="reuseDelay" val="600000"/> <!-- CT1.5 Retail -->
+    <set name="reuseDelay" val="360000"/> <!-- Need retail -->
     <set name="effectType" val="NEGATE"/> <!-- Possibly require core-side improvement to allow NEGATE inside a HEAL_PERCENT skill -->
     <set name="negateId" val="1487"/>
-    <cond msg="Target does not have an active Restoration skill."><!-- Need retail msg if there is one. -->
+    <cond msg="Target does not have an active Restoration skill."> <!-- Need retail msg if there is one. -->
       <target active_effect_id="1487"/>
     </cond>
   </skill>
@@ -1864,21 +1808,21 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
-    <set name="bestowSkillAutomatically" val="true"/>
-    <set name="bestowedSkillId" val="5577"/>
-    <set name="bestowedSkillLevel" val="1"/>
+    <set name="triggeredId" val="5577"/>
+    <set name="triggeredLevel" val="1"/>
+    <set name="activationChance" val="30"/>
+    <set name="chanceType" val="ON_HIT"/>
   </skill>
   <skill id="1491" levels="1" name="Summoner Ability - Spirit">
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
-    <set name="bestowSkillAutomatically" val="true"/>
-    <set name="bestowedSkillId" val="5578"/>
-    <set name="bestowedSkillLevel" val="1"/>
+    <set name="triggeredId" val="5578"/>
+    <set name="triggeredLevel" val="1"/>
+    <set name="activationChance" val="30"/>
+    <set name="chanceType" val="ON_HIT"/>
   </skill>
   <skill id="1492" levels="1" name="Flame Armor">
-    <!-- 
-    L2J DP Sync - Waitinig for review
     <set name="mpConsume" val="37"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1890,20 +1834,9 @@
       <effect name="ChanceSkillTrigger" time="120" val="0" triggeredId="5567" chanceType="ON_ATTACKED" activationChance="30">
         <add order="0x40" stat="fireRes" val="10"/>
       </effect>
-    -->
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="skillType" val="BUFF"/>
-    <set name="target" val="TARGET_SELF"/>
-    <set name="bestowSkillAutomatically" val="true"/>
-    <set name="bestowedSkillId" val="5567"/>
-    <set name="bestowedSkillLevel" val="1"/>
-    <for>
-      <mul order="0x30" stat="fireVuln" val="0.7"/>
     </for>
   </skill>
   <skill id="1493" levels="1" name="Frost Armor">
-    <!-- 
-    L2J DP Sync - Waitinig for review
     <set name="mpConsume" val="37"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1915,20 +1848,9 @@
       <effect name="ChanceSkillTrigger" time="120" val="0" triggeredId="5568" chanceType="ON_ATTACKED" activationChance="30">
         <add order="0x40" stat="waterRes" val="10"/>
       </effect>
-    -->
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="skillType" val="BUFF"/>
-    <set name="target" val="TARGET_SELF"/>
-    <set name="bestowSkillAutomatically" val="true"/>
-    <set name="bestowedSkillId" val="5568"/>
-    <set name="bestowedSkillLevel" val="1"/>
-    <for>
-      <mul order="0x30" stat="waterVuln" val="0.7"/>
     </for>
   </skill>
   <skill id="1494" levels="1" name="Hurricane Armor">
-    <!-- 
-    L2J DP Sync - Waitinig for review
     <set name="mpConsume" val="37"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1940,15 +1862,6 @@
       <effect name="ChanceSkillTrigger" time="120" val="0" triggeredId="5569" chanceType="ON_ATTACKED" activationChance="30">
         <add order="0x40" stat="windRes" val="10"/>
       </effect>
-    -->
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="skillType" val="BUFF"/>
-    <set name="target" val="TARGET_SELF"/>
-    <set name="bestowSkillAutomatically" val="true"/>
-    <set name="bestowedSkillId" val="5569"/>
-    <set name="bestowedSkillLevel" val="1"/>
-    <for>
-      <mul order="0x30" stat="windVuln" val="0.7"/>
     </for>
   </skill>
   <skill id="1495" levels="1" name="Vampiric Mist">
@@ -1992,26 +1905,18 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="bestowSkillAutomatically" val="true"/>
-    <set name="bestowedSkillId" val="5570"/>
-    <set name="bestowedSkillLevel" val="1"/>
+    <set name="triggeredId" val="5570"/>
+    <set name="triggeredLevel" val="1"/>
+    <set name="activationChance" val="30"/>
+    <set name="chanceType" val="ON_HIT"/>
   </skill>
   <skill id="1498" levels="1" name="Mutual Response">
-    <!-- 
-    L2J DP Sync - Waitinig for review
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <for>
       <effect name="ChanceSkillTrigger" val="0" triggeredId="5571" chanceType="ON_HIT" activationChance="14"/>
     </for>
-    -->
-    <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="BUFF"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="bestowSkillAutomatically" val="true"/>
-    <set name="bestowedSkillId" val="5571"/>
-    <set name="bestowedSkillLevel" val="1"/>
   </skill>
   <skill id="1499" levels="1" name="Improved Combat">
     <set name="mpConsume" val="27"/>

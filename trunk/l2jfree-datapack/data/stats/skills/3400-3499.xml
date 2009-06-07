@@ -231,13 +231,12 @@
   </skill>
   <skill id="3427" levels="1" name="Special Ability: Infinity Rapier">
     <!-- Done by DJ MELERIX -->
-    <set name="bestowSkillAutomatically" val="true"/>
     <set name="magicLvl" val="80"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
-    <set name="bestowedSkillId" val="3579"/>
-    <set name="bestowedSkillLevel" val="1"/>
+    <set name="triggeredId" val="3579"/>
+    <set name="triggeredLevel" val="1"/>
     <for>
       <!-- The following values are copied from Infinity Blade SA -->
       <mul order="0x30" stat="maxHp" val="1.25"/><!-- HP +25% -->

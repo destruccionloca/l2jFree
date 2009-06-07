@@ -569,41 +569,36 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="bestowSkillAutomatically" val="true"/>
-    <set name="bestowedSkillId" val="5572"/>
-    <set name="bestowedSkillLevel" val="1"/>
+    <set name="triggeredId" val="5572"/>
+    <set name="triggeredLevel" val="1"/>    
   </skill>
   <skill id="652" levels="1" name="Knight Ability - Defense">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="bestowSkillAutomatically" val="true"/>
-    <set name="bestowedSkillId" val="5573"/>
-    <set name="bestowedSkillLevel" val="1"/>
+    <set name="triggeredId" val="5573"/>
+    <set name="triggeredLevel" val="1"/>    
   </skill>
   <skill id="653" levels="1" name="Rogue Ability - Critical Chance">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="bestowSkillAutomatically" val="true"/>
-    <set name="bestowedSkillId" val="5574"/>
-    <set name="bestowedSkillLevel" val="1"/>
+    <set name="triggeredId" val="5574"/>
+    <set name="triggeredLevel" val="1"/>    
   </skill>
   <skill id="654" levels="1" name="Wizard Ability - Mana Steal">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="bestowSkillAutomatically" val="true"/>
-    <set name="bestowedSkillId" val="5575"/>
-    <set name="bestowedSkillLevel" val="1"/>
+    <set name="triggeredId" val="5575"/>
+    <set name="triggeredLevel" val="1"/>    
   </skill>
   <skill id="655" levels="1" name="Enchanter Ability - Barrier">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="bestowSkillAutomatically" val="true"/>
-    <set name="bestowedSkillId" val="5576"/>
-    <set name="bestowedSkillLevel" val="1"/>
+    <set name="triggeredId" val="5576"/>
+    <set name="triggeredLevel" val="1"/>    
   </skill>
   <skill id="656" levels="3" name="Transform Divine Warrior">
     <set name="mpConsume" val="31"/>

@@ -958,9 +958,10 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="bestowSkillAutomatically" val="true"/>
-    <set name="bestowedSkillId" val="5565"/>
-    <set name="bestowedSkillLevel" val="1"/>
+    <set name="triggeredId" val="5565"/>
+    <set name="triggeredLevel" val="1"/>
+    <set name="chanceType" val="ON_ATTACKED"/>
+    <set name="activationChance" val="30"/> <!-- guessed -->    
     <for>
       <add order="0x40" stat="rCrit" val="180"/>
     </for>
@@ -1267,10 +1268,8 @@
     <set name="isMagic" val="true"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="bestowedSkillId" val="5562"/>
-    <set name="bestowedSkillLevel" val="1"/>
     <for>
-      <effect name="BestowSkill" time="60" val="0" stackOrder="1" stackType="inc_buff"/>
+      <effect name="ChanceSkillTrigger" time="60" val="0" triggeredId="5562" triggeredLevel="1" chanceType="ON_ATTACKED" activationChance="10" stackOrder="1" stackType="inc_buff"/>
     </for>
   </skill>
   <skill id="785" levels="1" name="Flame Icon">
@@ -1318,12 +1317,8 @@
     <set name="coolTime" val="1666"/>
     <set name="reuseDelay" val="95000"/>
     <set name="isMagic" val="true"/>
-    <set name="triggeredId" val="5563"/>
-    <set name="triggeredLevel" val="1"/>
-    <set name="activationChance" val="30"/>
-    <set name="chanceType" val="ON_ATTACKED"/>
     <for>
-      <effect name="BestowSkill" time="60" val="0" stackOrder="1" stackType="inc_buff"/>
+      <effect name="ChanceSkillTrigger" time="60" val="0" triggeredId="5563" triggeredLevel="1" chanceType="ON_ATTACKED" activationChance="10" stackOrder="1" stackType="inc_buff"/>
     </for>
   </skill>
   <skill id="787" levels="1" name="Touch of Eva">
@@ -1361,10 +1356,8 @@
     <set name="isMagic" val="true"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="bestowedSkillId" val="5564"/>
-    <set name="bestowedSkillLevel" val="1"/>
     <for>
-      <effect name="BestowSkill" time="60" val="0" stackOrder="1" stackType="inc_buff"/>
+      <effect name="ChanceSkillTrigger" time="60" val="0" triggeredId="5564" triggeredLevel="1" chanceType="ON_ATTACKED" activationChance="10" stackOrder="1" stackType="inc_buff"/>
     </for>
   </skill>
   <skill id="789" levels="1" name="Spirit of Shilen">
@@ -1448,8 +1441,8 @@
     <set name="isDebuff" val="true"/>
     <set name="skillRadius" val="1000"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="bestowedSkillId" val="5600"/>
-    <set name="bestowedSkillLevel" val="1"/>    
+    <set name="triggeredId" val="5600"/>
+    <set name="triggeredLevel" val="1"/>
   </skill>
   <skill id="793" levels="1" name="Rush Impact">
     <set name="castRange" val="600"/>
