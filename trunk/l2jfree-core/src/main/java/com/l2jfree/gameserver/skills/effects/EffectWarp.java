@@ -32,8 +32,8 @@ import com.l2jfree.gameserver.util.Util;
  * This class handles warp effects, disappear and quickly turn up in a near location. If geodata enabled and an object
  * is between initial and final point, flight is stopped just before colliding with object. Flight course and radius are
  * set as skill properties (flyCourse and flyRadius):
- * <li>Fly Radius means the distance between starting point and final point, it must be an integer.</li>
- * <li>Fly Course means the movement direction: imagine a compass above player's head, making north player's heading.
+ * <li> Fly Radius means the distance between starting point and final point, it must be an integer.</li>
+ * <li> Fly Course means the movement direction: imagine a compass above player's head, making north player's heading.
  * So if fly course is 180, player will go backwards (good for blink, e.g.). By the way, if flyCourse = 360 or 0, player
  * will be moved in in front of him. <br>
  * <br>
@@ -43,10 +43,10 @@ import com.l2jfree.gameserver.util.Util;
  * 
  * @author House
  */
-public class EffectWarp extends L2Effect
+public final class EffectWarp extends L2Effect
 {
-	
 	private int x, y, z;
+	
 	private L2Character _actor;
 	
 	public EffectWarp(Env env, EffectTemplate template)
@@ -54,22 +54,15 @@ public class EffectWarp extends L2Effect
 		super(env, template);
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
-	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.WARP;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
-	 */
 	@Override
 	protected boolean onStart()
 	{
-		
 		if (isSelfEffect())
 			_actor = getEffector();
 		else
@@ -96,8 +89,7 @@ public class EffectWarp extends L2Effect
 			z = destiny.getZ();
 		}
 		
-		// TODO: check if this AI intention is retail-like. This stops player's
-		// previous movement
+		//TODO: check if this AI intention is retail-like. This stops player's previous movement
 		_actor.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 		
 		_actor.broadcastPacket(new FlyToLocation(_actor, x, y, z, FlyType.DUMMY));
@@ -106,9 +98,6 @@ public class EffectWarp extends L2Effect
 		return true;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
-	 */
 	@Override
 	protected void onExit()
 	{

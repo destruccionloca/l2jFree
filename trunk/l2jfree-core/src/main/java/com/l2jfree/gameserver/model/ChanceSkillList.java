@@ -21,6 +21,7 @@ import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillLaunched;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.skills.ChanceCondition;
+import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.skills.IChanceSkillTrigger;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.util.L2Arrays;
@@ -105,13 +106,16 @@ public final class ChanceSkillList
 		onEvent(ChanceCondition.EVT_EVADED_HIT, attacker);
 	}
 	
-	public void onSkillHit(L2Character evtInitiator, boolean ownerWasHit, boolean wasMagic, boolean wasOffensive)
+	public void onSkillHit(L2Character evtInitiator, boolean ownerWasHit, L2Skill trigger)
 	{
 		int event;
 		if (ownerWasHit)
 		{
+			if (!ChanceSkillList.canTriggerByCast(evtInitiator, _owner, trigger))
+				return;
+			
 			event = ChanceCondition.EVT_HIT_BY_SKILL;
-			if (wasOffensive)
+			if (trigger.isOffensive())
 			{
 				event |= ChanceCondition.EVT_HIT_BY_OFFENSIVE_SKILL;
 				event |= ChanceCondition.EVT_ATTACKED;
@@ -123,12 +127,29 @@ public final class ChanceSkillList
 		}
 		else
 		{
+			if (!ChanceSkillList.canTriggerByCast(_owner, evtInitiator, trigger))
+				return;
+			
 			event = ChanceCondition.EVT_CAST;
-			event |= wasMagic ? ChanceCondition.EVT_MAGIC : ChanceCondition.EVT_PHYSICAL;
-			event |= wasOffensive ? ChanceCondition.EVT_MAGIC_OFFENSIVE : ChanceCondition.EVT_MAGIC_GOOD;
+			event |= trigger.isMagic() ? ChanceCondition.EVT_MAGIC : ChanceCondition.EVT_PHYSICAL;
+			event |= trigger.isOffensive() ? ChanceCondition.EVT_MAGIC_OFFENSIVE : ChanceCondition.EVT_MAGIC_GOOD;
 		}
 		
 		onEvent(event, evtInitiator);
+	}
+	
+	public static boolean canTriggerByCast(L2Character caster, L2Character target, L2Skill trigger)
+	{
+		if (trigger.isToggle() || trigger.isPotion())
+			return false; // No buffing with toggle skills or potions
+			
+		if (1320 <= trigger.getId() && trigger.getId() <= 1322)
+			return false; // No buffing with Common and Dwarven Craft
+			
+		if (trigger.isOffensive() && !Formulas.calcMagicSuccess(caster, target, trigger))
+			return false; // Low grade skills won't trigger for high level targets
+			
+		return true;
 	}
 	
 	public void onEvent(int event, L2Character evtInitiator)

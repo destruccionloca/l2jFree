@@ -17,9 +17,9 @@ package com.l2jfree.gameserver.templates.item;
 import javolution.util.FastList;
 
 import com.l2jfree.gameserver.handler.SkillHandler;
+import com.l2jfree.gameserver.model.ChanceSkillList;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
-import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.templates.StatsSet;
 import com.l2jfree.tools.random.Rnd;
 
@@ -390,15 +390,9 @@ public final class L2Weapon extends L2Equip
 		if (target.isDead())
 			return;
 		
-		if (trigger.isToggle() || trigger.isPotion())
-			return;// No buffing with toggle skills or potions
-			
-		if (1320 <= trigger.getId() && trigger.getId() <= 1322)
-			return; // No buffing with Common and Dwarven Craft
-			
-		if (trigger.isOffensive() && !Formulas.calcMagicSuccess(caster, target, trigger))
-			return; // Low grade skills won't trigger for high level targets
-			
+		if (!ChanceSkillList.canTriggerByCast(caster, target, trigger))
+			return;
+		
 		for (int i = 0; i < _onCastSkills.length; i++)
 		{
 			final L2Skill skill = _onCastSkills[i];

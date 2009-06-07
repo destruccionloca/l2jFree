@@ -24,54 +24,39 @@ import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
-public class EffectSilentMove extends L2Effect
+public final class EffectSilentMove extends L2Effect
 {
 	public EffectSilentMove(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
-	 */
+	/** Notify started */
 	@Override
 	protected boolean onStart()
 	{
-		super.onStart();
-		
-		L2Character effected = getEffected();
-		if (effected instanceof L2Playable)
-			((L2Playable)effected).setSilentMoving(true);
+		if (getEffected() instanceof L2Playable)
+			((L2Playable)getEffected()).setSilentMoving(true);
 		return true;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
-	 */
+	/** Notify exited */
 	@Override
 	protected void onExit()
 	{
-		super.onExit();
-		
 		L2Character effected = getEffected();
 		if (effected instanceof L2Playable)
 			((L2Playable)effected).setSilentMoving(false);
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
-	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.SILENT_MOVE;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
-	 */
 	@Override
-	public boolean onActionTime()
+	protected boolean onActionTime()
 	{
 		// Only cont skills shouldn't end
 		if (getSkill().getSkillType() != L2SkillType.CONT)
@@ -82,7 +67,7 @@ public class EffectSilentMove extends L2Effect
 		
 		double manaDam = calc();
 		
-		if (manaDam > getEffected().getCurrentMp())
+		if (manaDam > getEffected().getStatus().getCurrentMp())
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.SKILL_REMOVED_DUE_LACK_MP);
 			getEffected().sendPacket(sm);
