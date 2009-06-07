@@ -15,7 +15,7 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.LoginServerThread;
-import com.l2jfree.gameserver.LoginServerThread.SessionKey;
+import com.l2jfree.gameserver.loginserverthread.LoginServerThreadBase.SessionKey;
 import com.l2jfree.gameserver.network.L2GameClient;
 
 /**

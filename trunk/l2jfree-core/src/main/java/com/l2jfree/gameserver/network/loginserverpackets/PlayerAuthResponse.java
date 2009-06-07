@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.network.loginserverpackets;
 
+import com.l2jfree.Config;
+
 /**
  * @author -Wooden-
  * 
@@ -23,6 +25,7 @@ public class PlayerAuthResponse extends LoginServerBasePacket
 
 	private String	_account;
 	private boolean	_authed;
+	private String _host;
 
 	/**
 	 * @param decrypt
@@ -33,6 +36,8 @@ public class PlayerAuthResponse extends LoginServerBasePacket
 
 		_account = readS();
 		_authed = (readC() != 0);
+		if(Config.L2JFREE_LOGIN)
+			_host = readS();
 	}
 
 	/**
@@ -50,5 +55,9 @@ public class PlayerAuthResponse extends LoginServerBasePacket
 	{
 		return _authed;
 	}
-
+	
+	public String getHost()
+	{
+		return _host;
+	}	
 }

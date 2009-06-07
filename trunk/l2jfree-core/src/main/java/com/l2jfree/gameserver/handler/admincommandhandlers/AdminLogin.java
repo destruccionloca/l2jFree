@@ -56,7 +56,7 @@ public class AdminLogin implements IAdminCommandHandler
 			int connCount;
 			try { connCount = Integer.parseInt(st.nextToken()); }
 			catch (Exception e) { showMenu(GM); return false; }
-			LoginServerThread.getInstance().setMaxPlayer(connCount);
+			LoginServerThread.getInstance().setMaxPlayers(connCount);
 		}
 		else if (command.startsWith(LOGIN_COMMANDS[2]))
 		{

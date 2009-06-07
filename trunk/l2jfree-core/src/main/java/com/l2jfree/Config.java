@@ -127,6 +127,7 @@ public final class Config extends L2Config
 	public static File			DATAPACK_ROOT;																		// Datapack root directory
 	public static Level			EXTENDED_LOG_LEVEL					= Level.WARNING;
 	public static boolean		PACKET_FINAL;
+	public static boolean		L2JFREE_LOGIN;
 
 	// *******************************************************************************************
 	public static void loadConfiguration()
@@ -209,7 +210,8 @@ public final class Config extends L2Config
 			SAFE_REBOOT_DISABLE_TRANSACTION = Boolean.parseBoolean(serverSettings.getProperty("SafeRebootDisableTransaction", "False"));
 			SAFE_REBOOT_DISABLE_PC_ITERACTION = Boolean.parseBoolean(serverSettings.getProperty("SafeRebootDisablePcIteraction", "False"));
 			SAFE_REBOOT_DISABLE_NPC_ITERACTION = Boolean.parseBoolean(serverSettings.getProperty("SafeRebootDisableNpcIteraction", "False"));
-			PACKET_FINAL = Boolean.parseBoolean(serverSettings.getProperty("PacketFinal", "False"));
+			PACKET_FINAL = Boolean.parseBoolean(serverSettings.getProperty("PacketFinal", "True"));
+			L2JFREE_LOGIN = Boolean.parseBoolean(serverSettings.getProperty("L2jfreeLogin", "True"));
 			
 			EXTENDED_LOG_LEVEL = Level.parse(serverSettings.getProperty("ExtendedLogLevel", "WARNING"));
 		}

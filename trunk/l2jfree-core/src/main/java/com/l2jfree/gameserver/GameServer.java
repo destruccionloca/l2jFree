@@ -119,6 +119,8 @@ import com.l2jfree.gameserver.instancemanager.grandbosses.VanHalterManager;
 import com.l2jfree.gameserver.instancemanager.lastimperialtomb.LastImperialTombManager;
 import com.l2jfree.gameserver.instancemanager.leaderboards.ArenaManager;
 import com.l2jfree.gameserver.instancemanager.leaderboards.FishermanManager;
+import com.l2jfree.gameserver.loginserverthread.LoginServerThreadL2j;
+import com.l2jfree.gameserver.loginserverthread.LoginServerThreadL2jfree;
 import com.l2jfree.gameserver.model.AutoChatHandler;
 import com.l2jfree.gameserver.model.L2Manor;
 import com.l2jfree.gameserver.model.L2World;
@@ -422,6 +424,7 @@ public class GameServer
 
 		Util.printSection("ServerThreads");
 		LoginServerThread.getInstance().start();
+			
 		if (Config.PACKET_FINAL)
 		{
 			L2GamePacketHandlerFinal gph = new L2GamePacketHandlerFinal();

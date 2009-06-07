@@ -16,7 +16,7 @@ package com.l2jfree.gameserver.network.gameserverpackets;
 
 import java.io.IOException;
 
-import com.l2jfree.gameserver.LoginServerThread.SessionKey;
+import com.l2jfree.gameserver.loginserverthread.LoginServerThreadBase.SessionKey;
 
 /**
  * @author -Wooden-

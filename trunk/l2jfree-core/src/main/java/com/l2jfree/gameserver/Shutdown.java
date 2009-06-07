@@ -35,7 +35,6 @@ import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 import com.l2jfree.gameserver.network.Disconnection;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.gameserverpackets.ServerStatus;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.taskmanager.SQLQueue;
 
@@ -108,7 +107,7 @@ public final class Shutdown extends Thread
 			try
 			{
 				if (_counter <= 60)
-					LoginServerThread.getInstance().setServerStatus(ServerStatus.STATUS_DOWN);
+					LoginServerThread.getInstance().setServerStatusDown();
 			}
 			catch (Exception e)
 			{
