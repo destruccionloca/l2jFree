@@ -154,7 +154,7 @@ public enum L2SkillType
 	// Skill is done within the core.
 	COREDONE,
 	// Unimplemented
-	NOTDONE;
+	NOTDONE, TELEPORT;
 	
 	private final Constructor<? extends L2Skill> _constructor;
 	

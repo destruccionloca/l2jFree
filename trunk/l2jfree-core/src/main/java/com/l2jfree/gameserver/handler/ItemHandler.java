@@ -53,6 +53,7 @@ import com.l2jfree.gameserver.handler.itemhandlers.SpecialXMas;
 import com.l2jfree.gameserver.handler.itemhandlers.SpiritLake;
 import com.l2jfree.gameserver.handler.itemhandlers.SpiritShot;
 import com.l2jfree.gameserver.handler.itemhandlers.SummonItems;
+import com.l2jfree.gameserver.handler.itemhandlers.TeleportBookmark;
 import com.l2jfree.gameserver.handler.itemhandlers.TransformationItems;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.L2Playable;
@@ -113,6 +114,7 @@ public final class ItemHandler extends NumberHandlerRegistry<IItemHandler>
 		registerItemHandler(new SpiritShot());
 		registerItemHandler(new SummonItems());
 		registerItemHandler(new TransformationItems());
+		registerItemHandler(new TeleportBookmark());
 		
 		_log.info("ItemHandler: Loaded " + size() + " handlers.");
 	}

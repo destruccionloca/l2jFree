@@ -28,12 +28,11 @@ import com.l2jfree.tools.random.Rnd;
 
 public class Recall implements ISkillHandler
 {
-	private static final L2SkillType[]	SKILL_IDS	=
-													{ L2SkillType.RECALL };
+	private static final L2SkillType[]	SKILL_IDS	= { L2SkillType.RECALL, L2SkillType.TELEPORT };
 
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
-		// [L2J_JP ADD SANDMAN]
+		// TODO: REMOVE FROM HERE
 		// <!--- Zaken skills - teleport PC --> or <!--- Zaken skills - teleport -->
 		if (skill.getId() == 4216 || skill.getId() == 4217 || skill.getId() == 4222)
 		{
@@ -46,33 +45,63 @@ public class Recall implements ISkillHandler
 
 		if (activeChar instanceof L2PcInstance)
 		{
-			L2PcInstance player = (L2PcInstance)activeChar;
-			
+			L2PcInstance player = (L2PcInstance) activeChar;
+
 			if (!player.canTeleport(TeleportMode.RECALL))
 			{
 				player.sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
 		}
-		
+
 		for (L2Character target : targets)
 		{
 			if (target == null)
 				continue;
-			
+
 			if (target instanceof L2PcInstance)
 			{
-				L2PcInstance targetChar = (L2PcInstance)target;
-				
+				L2PcInstance targetChar = (L2PcInstance) target;
+
 				if (!targetChar.canTeleport(TeleportMode.RECALL))
 				{
 					targetChar.sendPacket(ActionFailed.STATIC_PACKET);
 					continue;
 				}
 			}
-			
-			target.setInstanceId(0);
-			target.teleToLocation(TeleportWhereType.Town);
+
+			if (skill.getSkillType() == L2SkillType.TELEPORT)
+			{
+				int[] coords = skill.getTeleportCoords();
+				if (coords != null)
+				{
+					if (activeChar instanceof L2PcInstance && !((L2PcInstance) activeChar).isFlyingMounted())
+						target.teleToLocation(coords[0], coords[1], coords[2]);
+				}
+			}
+			else
+			{
+				target.setInstanceId(0);
+
+				String recall = skill.getRecallType();
+				if (recall.equalsIgnoreCase("Castle"))
+				{
+					if (activeChar instanceof L2PcInstance && !((L2PcInstance) activeChar).isFlyingMounted())
+						target.teleToLocation(TeleportWhereType.Castle);
+				}
+				else if (recall.equalsIgnoreCase("ClanHall"))
+				{
+					if (activeChar instanceof L2PcInstance && !((L2PcInstance) activeChar).isFlyingMounted())
+						target.teleToLocation(TeleportWhereType.ClanHall);
+				}
+				else if (recall.equalsIgnoreCase("Fortress"))
+				{
+					if (activeChar instanceof L2PcInstance && !((L2PcInstance) activeChar).isFlyingMounted())
+						target.teleToLocation(TeleportWhereType.Fortress);
+				}
+				else
+					target.teleToLocation(TeleportWhereType.Town);
+			}
 		}
 	}
 
@@ -84,22 +113,21 @@ public class Recall implements ISkillHandler
 	// [L2J_JP ADD SANDMAN]
 	protected void doZakenTeleport(L2Character... targets)
 	{
-		final int loc[][] =
-		{
-		{ 54228, 220136, -3496 },
-		{ 56315, 220127, -3496 },
-		{ 56285, 218078, -3496 },
-		{ 54238, 218066, -3496 },
-		{ 55259, 219107, -3496 },
-		{ 56295, 218078, -3224 },
-		{ 56283, 220133, -3224 },
-		{ 54241, 220127, -3224 },
-		{ 54238, 218077, -3224 },
-		{ 55268, 219090, -3224 },
-		{ 56284, 218078, -2952 },
-		{ 54252, 220135, -2952 },
-		{ 54244, 218095, -2952 },
-		{ 55270, 219086, -2952 } };
+		final int loc[][] = {
+				{ 54228, 220136, -3496 },
+				{ 56315, 220127, -3496 },
+				{ 56285, 218078, -3496 },
+				{ 54238, 218066, -3496 },
+				{ 55259, 219107, -3496 },
+				{ 56295, 218078, -3224 },
+				{ 56283, 220133, -3224 },
+				{ 54241, 220127, -3224 },
+				{ 54238, 218077, -3224 },
+				{ 55268, 219090, -3224 },
+				{ 56284, 218078, -2952 },
+				{ 54252, 220135, -2952 },
+				{ 54244, 218095, -2952 },
+				{ 55270, 219086, -2952 } };
 
 		int rndLoc = 0;
 		int rndX = 0;
