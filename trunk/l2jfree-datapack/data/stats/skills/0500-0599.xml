@@ -288,8 +288,8 @@
   </skill>
   <skill id="510" levels="5" name="Deadly Roulette" enchantLevels1="30" enchantLevels2="30">
     <!-- by Sephiroth for team umbrella -->
-    <table name="#lethal2">10 18 26 34 42 50</table> <!-- Guessing -->
-    <table name="#magicLvl"> 66 68 70 72 </table>
+    <table name="#lethal2">10 18 26 34 42</table> <!-- Guessing -->
+    <table name="#magicLvl"> 66 68 70 72 74 </table>
     <table name="#mpConsume">100 103 106 109 112</table>
     <table name="#ench1Chance1"> 6 6 6 6 6 6 7 7 7 7 7 7 8 8 8 8 8 8 9 9 9 9 9 9 10 10 10 10 10 10 </table>
     <table name="#ench1Chance2"> 3 3 6 3 3 3 4 4 4 4 4 4 5 5 5 5 5 5 6 6 6 6 6 6 7 7 7 7 7 7 </table>
@@ -1496,7 +1496,7 @@
     <set name="lethal1" val="5"/>
     <set name="lethal2" val="2"/>
     <set name="effectRange" val="360"/>
-    <set name="nextAction" val="attack"/>
+    <!--  <set name="nextAction" val="attack"/> -->
     <!-- To prevent character stop from attacking -->
     <for>
       <effect name="Buff" time="15" count="1" val="0" stackOrder="#accCombat" stackType="accuracyDown">
@@ -1544,7 +1544,7 @@
     <set name="isDebuff" val="true"/>
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
-    <set name="nextAction" val="attack"/> <!-- To prevent character stop from attacking -->
+    <!--   <set name="nextAction" val="attack"/> --> <!-- To prevent character stop from attacking -->
     <for>
       <effect count="5" name="DamOverTime" time="3" val="#dot" abnormal="bleed" effectPower="40" effectType="BLEED"> <!-- Guess effectPower -->
         <mul order="0x30" stat="runSpd" val="0.8"/>

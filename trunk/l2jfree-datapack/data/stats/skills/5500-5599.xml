@@ -421,7 +421,7 @@
       <effect name="Buff" time="60" val="0">
         <mul order="0x30" stat="mDef" val="1.05"/>
         <mul order="0x40" stat="fireRes" val="10"/>
-        <mul order="0x40" stat="waterRes val="10"/>
+        <mul order="0x40" stat="waterRes" val="10"/>
         <mul order="0x40" stat="earthRes" val="10"/>
         <mul order="0x40" stat="windRes" val="10"/>
       </effect>

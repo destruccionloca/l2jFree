@@ -8,7 +8,6 @@
     <set name="skillType" val="HOT"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isPotion" val="true"/>
-    <set name="buffDuration" val="15000"/>
     <cond msgId="113" addName="1">
       <player flyMounted="False"/>
     </cond>
@@ -23,7 +22,6 @@
     <set name="skillType" val="HOT"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isPotion" val="true"/>
-    <set name="buffDuration" val="20000"/>
     <cond msgId="113" addName="1">
       <player flyMounted="False"/>
     </cond>
@@ -109,7 +107,6 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isPotion" val="true"/>
-    <set name="buffDuration" val="1200000"/>
     <cond msgId="113" addName="1">
       <player flyMounted="False"/>
     </cond>
@@ -127,7 +124,6 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isPotion" val="true"/>
-    <set name="buffDuration" val="1200000"/>
     <cond msgId="113" addName="1">
       <player flyMounted="False"/>
     </cond>
@@ -258,7 +254,6 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isPotion" val="true"/>
     <set name="buffDuration" val="15000"/>
-    <set name="reuseDelay" val="10000"/>
     <set name="staticReuse" val="true"/>
     <cond msgId="113" addName="1">
       <player flyMounted="False"/>
@@ -275,7 +270,6 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isPotion" val="true"/>
     <set name="buffDuration" val="15000"/>
-    <set name="reuseDelay" val="10000"/>
     <set name="staticReuse" val="true"/>
     <cond msgId="113" addName="1">
       <player flyMounted="False"/>
@@ -299,7 +293,6 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isPotion" val="true"/>
-    <set name="buffDuration" val="1200000"/>
     <cond msgId="113" addName="1">
       <player flyMounted="False"/>
     </cond>
@@ -317,7 +310,6 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isPotion" val="true"/>
-    <set name="buffDuration" val="1200000"/>
     <cond msgId="113" addName="1">
       <player flyMounted="False"/>
     </cond>
