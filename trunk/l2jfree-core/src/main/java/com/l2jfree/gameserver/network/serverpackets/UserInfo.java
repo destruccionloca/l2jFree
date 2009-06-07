@@ -117,7 +117,7 @@ public class UserInfo extends L2GameServerPacket
 		writeD(_activeChar.getX());
 		writeD(_activeChar.getY());
 		writeD(_activeChar.getZ());
-		// heading from CT2.3 no longer used inside userinfo, here is now vehicle id (boat,airship) 
+		// heading from CT2.3 no longer used inside userinfo, here is now vehicle id (boat,airship)
 		writeD((_activeChar.isInAirShip() && Config.PACKET_FINAL) ? _activeChar.getAirShip().getObjectId() : 0x00);
 		writeD(_activeChar.getObjectId());
 		writeS(_appearance.getVisibleName());
@@ -383,29 +383,7 @@ public class UserInfo extends L2GameServerPacket
 
 		writeD(_activeChar.getTransformationId());
 
-		int attackAttribute = _activeChar.getAttackElement();
-		if (Config.PACKET_FINAL)
-		{
-			writeH(attackAttribute);
-			writeH(_activeChar.getAttackElementValue(attackAttribute));
-			writeH(_activeChar.getDefAttrFire());
-			writeH(_activeChar.getDefAttrWater());
-			writeH(_activeChar.getDefAttrWind());
-			writeH(_activeChar.getDefAttrEarth());
-			writeH(_activeChar.getDefAttrHoly());
-			writeH(_activeChar.getDefAttrUnholy());
-		}
-		else
-		{
-			writeD(attackAttribute);
-			writeD(_activeChar.getAttackElementValue(attackAttribute));
-			writeD(_activeChar.getDefAttrFire());
-			writeD(_activeChar.getDefAttrWater());
-			writeD(_activeChar.getDefAttrWind());
-			writeD(_activeChar.getDefAttrEarth());
-			writeD(_activeChar.getDefAttrHoly());
-			writeD(_activeChar.getDefAttrUnholy());
-		}
+		writePlayerElementAttribute(_activeChar);
 
 		writeD(_activeChar.getAgathionId());
 		

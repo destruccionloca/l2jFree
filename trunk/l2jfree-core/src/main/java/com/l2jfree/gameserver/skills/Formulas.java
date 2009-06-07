@@ -2876,6 +2876,8 @@ public final class Formulas
 			calcDefen = 20;
 		L2ItemInstance weaponInstance = attacker.getActiveWeaponInstance();
 		int elementType = -1;
+		
+		final int attackElement = attacker.getAttackElement();
 		// first check skill element
 		if (skill != null && skill.getElement() > 0)
 		{
@@ -2884,32 +2886,32 @@ public final class Formulas
 			switch (skill.getElement())
 			{
 				case L2Skill.ELEMENT_FIRE:
-					if (attacker.getAttackElement() == Elementals.FIRE)
+					if (attackElement == Elementals.FIRE)
 						calcPower = attacker.calcStat(Stats.FIRE_POWER, calcPower, target, skill);
 					calcDefen = target.calcStat(Stats.FIRE_RES, calcDefen, target, skill);
 					break;
 				case L2Skill.ELEMENT_WATER:
-					if (attacker.getAttackElement() == Elementals.WATER)
+					if (attackElement == Elementals.WATER)
 						calcPower = attacker.calcStat(Stats.WATER_POWER, calcPower, target, skill);
 					calcDefen = target.calcStat(Stats.WATER_RES, calcDefen, target, skill);
 					break;
 				case L2Skill.ELEMENT_EARTH:
-					if (attacker.getAttackElement() == Elementals.EARTH)
+					if (attackElement == Elementals.EARTH)
 						calcPower = attacker.calcStat(Stats.EARTH_POWER, calcPower, target, skill);
 					calcDefen = target.calcStat(Stats.EARTH_RES, calcDefen, target, skill);
 					break;
 				case L2Skill.ELEMENT_WIND:
-					if (attacker.getAttackElement() == Elementals.WIND)
+					if (attackElement == Elementals.WIND)
 						calcPower = attacker.calcStat(Stats.WIND_POWER, calcPower, target, skill);
 					calcDefen = target.calcStat(Stats.WIND_RES, calcDefen, target, skill);
 					break;
 				case L2Skill.ELEMENT_HOLY:
-					if (attacker.getAttackElement() == Elementals.HOLY)
+					if (attackElement == Elementals.HOLY)
 						calcPower = attacker.calcStat(Stats.HOLY_POWER, calcPower, target, skill);
 					calcDefen = target.calcStat(Stats.HOLY_RES, calcDefen, target, skill);
 					break;
 				case L2Skill.ELEMENT_DARK:
-					if (attacker.getAttackElement() == Elementals.DARK)
+					if (attackElement == Elementals.DARK)
 						calcPower = attacker.calcStat(Stats.DARK_POWER, calcPower, target, skill);
 					calcDefen = target.calcStat(Stats.DARK_RES, calcDefen, target, skill);
 					break;
@@ -2929,10 +2931,10 @@ public final class Formulas
 		// if skill not used or non-elemental skill, check for item/character elemental power
 		else
 		{
-			if (weaponInstance != null && weaponInstance.getAttackElementType() >= 0 && weaponInstance.getAttackElementType() == attacker.getAttackElement())
+			if (weaponInstance != null && weaponInstance.getAttackElementType() >= 0 && weaponInstance.getAttackElementType() == attackElement)
 				elementType = weaponInstance.getAttackElementType();
-			else if (attacker.getAttackElement() > 0)
-				elementType = attacker.getAttackElement();
+			else if (attackElement > 0)
+				elementType = attackElement;
 			if (elementType >= 0)
 			{
 				switch (elementType)

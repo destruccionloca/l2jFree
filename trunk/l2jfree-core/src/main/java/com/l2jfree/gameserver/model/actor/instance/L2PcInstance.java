@@ -13256,7 +13256,7 @@ public final class L2PcInstance extends L2Playable
 		transformation.onTransform(this);
 		sendSkillList();
 		sendPacket(new SkillCoolTime(this));
-		sendPacket(new ExBasicActionList());
+		sendPacket(ExBasicActionList.DEFAULT_ACTION_LIST);
 		broadcastUserInfo();
 	}
 

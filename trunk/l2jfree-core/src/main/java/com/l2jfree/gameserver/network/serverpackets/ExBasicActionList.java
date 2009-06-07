@@ -140,7 +140,7 @@ public class ExBasicActionList extends L2GameServerPacket
 
 	public static final ExBasicActionList	DEFAULT_ACTION_LIST			= new ExBasicActionList();
 
-	public ExBasicActionList()
+	private ExBasicActionList()
 	{
 		this(getActions());
 	}
@@ -159,7 +159,7 @@ public class ExBasicActionList extends L2GameServerPacket
 	 2 - Attack
 	 3 - Exchange
 	 4 - Next Target
-	 5 - Pick Up 
+	 5 - Pick Up
 	 6 - Assist
 	 7 - Invite
 	 8 - Leave Party
@@ -174,7 +174,7 @@ public class ExBasicActionList extends L2GameServerPacket
 	 17 - Pet Stop
 	 18 - Pet Pickup
 	 19 - Pet Unsummon
-	 20 - 
+	 20 -
 	 21 - Summon Change Movement Mode
 	 22 - Summon Attack
 	 23 - Summon Stop
@@ -275,7 +275,7 @@ public class ExBasicActionList extends L2GameServerPacket
 	 1060 - Guidance (Nightshade)
 	 */
 
-	public static int[] getDefaultActionList()
+	private static int[] getDefaultActionList()
 	{
 		int count1 = 71; // 0 <-> (count1 - 1)
 		int count2 = 89; // 1000 <-> (1000 + count2 - 1) //Update by rocknow

@@ -130,4 +130,17 @@ public abstract class L2GameServerPacket extends SendablePacket<L2GameClient>
 			writeCompH(owner.getElementDefAttr(i));
 		}
 	}
+	
+	protected final void writePlayerElementAttribute(L2PcInstance player)
+	{
+		int attackAttribute = player.getAttackElement();
+		writeCompH(attackAttribute);
+		writeCompH(player.getAttackElementValue(attackAttribute));
+		writeCompH(player.getDefAttrFire());
+		writeCompH(player.getDefAttrWater());
+		writeCompH(player.getDefAttrWind());
+		writeCompH(player.getDefAttrEarth());
+		writeCompH(player.getDefAttrHoly());
+		writeCompH(player.getDefAttrUnholy());
+	}
 }
