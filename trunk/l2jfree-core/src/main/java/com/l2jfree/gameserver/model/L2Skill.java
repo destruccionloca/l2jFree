@@ -101,7 +101,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 	public static enum SkillOpType
 	{
-		OP_PASSIVE, OP_ACTIVE, OP_TOGGLE
+		OP_PASSIVE, OP_ACTIVE, OP_TOGGLE, OP_CHANCE
 	}
 
 	/** Target types of skills : SELF, PARTY, CLAN, PET... */
