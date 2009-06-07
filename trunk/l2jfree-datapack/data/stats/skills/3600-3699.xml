@@ -356,6 +356,7 @@
     <set name="reuseDelay" val="30000"/>
     <set name="isMagic" val="true"/>
     <set name="isDebuff" val="true"/>
+    <set name="offensive" val="true"/>
     <cond msgId="109">
       <target npcId="22215 22216 22217"/>
     </cond>
@@ -378,9 +379,10 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="300"/>
     <set name="effectRange" val="900"/>
-    <set name="reuseDelay" val="30000"/>
+    <set name="reuseDelay" val="30000"/>	
     <set name="isMagic" val="true"/>
     <set name="isDebuff" val="true"/>
+    <set name="offensive" val="true"/>
     <cond msgId="109">
       <target npcId="22215 22216 22217"/>
     </cond>
@@ -406,6 +408,7 @@
     <set name="reuseDelay" val="30000"/>
     <set name="isMagic" val="true"/>
     <set name="isDebuff" val="true"/>
+    <set name="offensive" val="true"/>
     <cond msgId="109">
       <target npcId="22215 22216 22217"/>
     </cond>
