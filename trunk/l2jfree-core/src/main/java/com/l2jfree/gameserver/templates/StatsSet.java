@@ -33,9 +33,9 @@ public class StatsSet
 		return _set.get(key);
 	}
 	
-	protected void put(String key, Object value)
+	protected Object put(String key, Object value)
 	{
-		_set.put(key, value);
+		return _set.put(key, value);
 	}
 	
 	public void clear()

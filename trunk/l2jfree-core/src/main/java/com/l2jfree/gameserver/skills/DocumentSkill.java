@@ -197,7 +197,8 @@ final class DocumentSkill extends DocumentBase
 				for (int i = 0; i < table.length; i++)
 					table[i] = st.nextToken();
 				
-				_tables.put(name, table);
+				if (_tables.put(name, table) != null)
+					_log.info("Skill ID " + _currentSkillId + ": replaced 'table' mapping of '" + name + "'!");
 			}
 			else if (n.getNodeType() == Node.ELEMENT_NODE)
 			{

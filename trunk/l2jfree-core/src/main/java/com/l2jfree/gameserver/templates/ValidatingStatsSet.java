@@ -47,11 +47,16 @@ public class ValidatingStatsSet extends StatsSet
 	}
 	
 	@Override
-	protected void put(String key, Object value)
+	protected Object put(String key, Object value)
 	{
 		_nonRequestedStats.put(key, value);
 		
-		super.put(key, value);
+		final Object previousValue = super.put(key, value);
+		
+		if (previousValue != null)
+			_log.info(_description + ": '" + previousValue + "' replaced with '" + value + "'!");
+		
+		return previousValue;
 	}
 	
 	@Override
@@ -59,7 +64,7 @@ public class ValidatingStatsSet extends StatsSet
 	{
 		for (Map.Entry<String, Object> entry : _nonRequestedStats.entrySet())
 		{
-			_log.info(_description + ": Non-requested stat [" + entry.getKey() + "=>" + entry.getValue() + "]");
+			_log.info(_description + ": Non-requested stat [" + entry.getKey() + "=>" + entry.getValue() + "]!");
 		}
 		
 		_nonRequestedStats.clear();
