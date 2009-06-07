@@ -54,7 +54,8 @@ public class ValidatingStatsSet extends StatsSet
 		final Object previousValue = super.put(key, value);
 		
 		if (previousValue != null)
-			_log.info(_description + ": '" + key + "' has been replaced [" + previousValue + "->" + value + "]!");
+			if(_log.isDebugEnabled())
+				_log.info(_description + ": '" + key + "' has been replaced [" + previousValue + "->" + value + "]!");
 		
 		return previousValue;
 	}
