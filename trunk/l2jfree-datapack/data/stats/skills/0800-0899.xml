@@ -528,7 +528,7 @@
     <set name="mpConsume" val="40"/>
     <set name="target" val="TARGET_PARTY"/>
     <set name="skillRadius" val="1000"/>
-    <set name="reuseDelay" val="240000"/>
+    <set name="reuseDelay" val="75000"/>
     <set name="hitTime" val="1500"/>
     <set name="skillType" val="HEAL_PERCENT"/>
     <set name="isMagic" val="true"/>
@@ -537,16 +537,9 @@
     <set name="effectRange" val="-1"/>
     <set name="aggroPoints" val="345"/>
     <for>
-      <effect count="1" name="Buff" time="120" val="0">
-        <mul order="0x30" stat="maxHp" val="1.1"/>
-        <mul order="0x30" stat="regHp" val="1.2"/>
-      </effect>
-    </for>
-    <set name="reuseDelay" val="75000"/>
-    <for>
       <effect name="Buff" time="120" val="0">
         <mul order="0x30" stat="maxHp" val="1.1"/>
-        <mul order="0x30" stat="regHp" val="1.1"/>
+        <mul order="0x30" stat="regHp" val="1.2"/>
       </effect>
     </for>
   </skill>

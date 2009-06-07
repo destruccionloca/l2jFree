@@ -902,7 +902,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="MUTE"/>
     <set name="isMagic" val="true"/>
-    <set name="lvlDepend" val="2"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="lvlDepend" val="1"/>
     <set name="castRange" val="1000"/>

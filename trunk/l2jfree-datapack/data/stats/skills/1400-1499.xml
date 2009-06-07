@@ -481,8 +481,6 @@
     <set name="hitTime" val="5000"/>
     <set name="reuseDelay" val="240000"/>
     <set name="skillRadius" val="200"/>
-    <set name="castRange" val="700"/>
-    <!-- Maybe 720, need further check out -->
     <set name="itemConsumeId" val="8876"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="castRange" val="900"/>
@@ -677,7 +675,6 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="2000"/>
-    <set name="isMagic" val="true"/>
     <for>
       <effect name="Buff" time="1200" val="0" stackOrder="#rate" stackType="pa_up">
         <mul order="0x30" stat="pAtk" val="#rate"/>

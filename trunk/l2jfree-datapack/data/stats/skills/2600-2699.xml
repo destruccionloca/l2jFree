@@ -233,13 +233,11 @@
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1200"/>
     <cond msgId="113" addName="1">
-      <player flyMounted="True"/>
+      <and>
+        <player flyMounted="True"/>
+        <target npcId="18684 18685 18686 18687 18688 18689 18690 18691 18692"/>
+      </and>
     </cond>
-    <and>
-       <cond msgId="109">
-         <target npcId="18684 18685 18686 18687 18688 18689 18690 18691 18692"/>
-       </cond>
-    </and>
   </skill>
   <skill id="2631" levels="1" name="Scroll of Transformation - Frog">
     <set name="target" val="TARGET_NONE"/>
