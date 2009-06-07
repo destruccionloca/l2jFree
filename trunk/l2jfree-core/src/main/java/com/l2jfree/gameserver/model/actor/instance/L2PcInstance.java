@@ -7952,7 +7952,7 @@ public final class L2PcInstance extends L2Playable
 			return false;
 		
 		// Check if the skill is active
-		if (skill.isPassive() || skill.isChance() || skill.bestowed())
+		if (skill.isPassive() || skill.isChance())
 			return false;
 		
 		if (isTransformed() && !containsAllowedTransformSkill(skill.getId()) && !skill.allowOnTransform() && !skill.isPotion())
@@ -9716,9 +9716,6 @@ public final class L2PcInstance extends L2Playable
 			if (!containsAllowedTransformSkill(s.getId()) && !s.allowOnTransform() && isTransformed())
 				return 9;
 			
-			if (s.bestowed())
-				return 8;
-			
 			if (s.getId() > 9000 && s.getId() < 9007)
 				return 7;
 			
@@ -9755,12 +9752,6 @@ public final class L2PcInstance extends L2Playable
 				{
 					array[i] = null;
 					continue; // Fake skills to change base stats
-				}
-				
-				if (s.bestowed())
-				{
-					array[i] = null;
-					continue;
 				}
 				
 				// Hide skills when transformed if they are not passive

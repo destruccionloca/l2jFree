@@ -59,7 +59,7 @@ public class CharEffects
 	private static boolean isActiveBuff(L2Effect e)
 	{
 		return e != null && e.isInUse() && e.getShowIcon() && !e.getSkill().isDance() && !e.getSkill().isSong()
-			&& !e.getSkill().isDebuff() && !e.getSkill().bestowed() && e.isBuff();
+			&& !e.getSkill().isDebuff() && e.isBuff();
 	}
 	
 	private static boolean isActiveDance(L2Effect e, boolean isDance, boolean isSong)

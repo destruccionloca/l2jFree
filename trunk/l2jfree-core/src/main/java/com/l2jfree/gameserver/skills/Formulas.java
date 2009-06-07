@@ -2003,9 +2003,6 @@ public final class Formulas
 	
 	public static double calcCastingRelatedTimeMulti(L2Character attacker, L2Skill skill)
 	{
-		if (skill.isItemSkill() && Config.ALT_ITEM_SKILLS_NOT_INFLUENCED)
-			return 1.0;
-		
 		if (skill.isMagic())
 			return 333.3 / attacker.getMAtkSpd();
 		else

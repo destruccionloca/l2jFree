@@ -293,8 +293,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	private final ChanceCondition	_chanceCondition;
 	private final TriggeredSkill	_triggeredSkill;
 
-	private final boolean			_bestowed;
-
 	private final int				_soulConsume;
 	private final int				_soulMaxConsume;
 	private final int				_numSouls;
@@ -491,8 +489,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 		_chanceCondition = ChanceCondition.parse(set);
 		_triggeredSkill = TriggeredSkill.parse(set);
-
-		_bestowed = set.getBool("bestowed", false);
 
 		_offensiveState = getOffensiveState(set);
 
@@ -819,11 +815,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		return _triggeredSkill != null ? _triggeredSkill.getTriggeredSkill() : null;
 	}
 
-	public final boolean bestowed()
-	{
-		return _bestowed;
-	}
-
 	public final int getLevelDepend()
 	{
 		return _levelDepend;
@@ -932,7 +923,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 	public final boolean allowOnTransform()
 	{
-		return isPassive() || isChance() || bestowed();
+		return isPassive() || isChance();
 	}
 
 	/**
@@ -1080,7 +1071,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	 */
 	public final boolean isStaticReuse()
 	{
-		return _staticReuse;
+		return _staticReuse || isItemSkill() && Config.ALT_ITEM_SKILLS_NOT_INFLUENCED;
 	}
 
 	/**
@@ -1088,7 +1079,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	 */
 	public final boolean isStaticHitTime()
 	{
-		return _staticHitTime;
+		return _staticHitTime || isItemSkill() && Config.ALT_ITEM_SKILLS_NOT_INFLUENCED;
 	}
 
 	/**
