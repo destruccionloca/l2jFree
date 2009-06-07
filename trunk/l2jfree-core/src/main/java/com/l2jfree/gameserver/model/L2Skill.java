@@ -231,7 +231,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	private final int				_abnormalLvl;				// e.g. poison or bleed lvl 2
 	// Note: see also _effectAbnormalLvl
 	private final int				_negateLvl;				// abnormalLvl is negated with negateLvl
-	private final int				_negateId;					// cancels the effect of skill ID
+	private final int[]				_negateId;					// cancels the effect of skill ID
 	private final String[]			_negateStats;				// lists the effect types that are canceled
 	private final int				_maxNegatedEffects;		// maximum number of effects to negate
 
@@ -418,7 +418,19 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		for (int i = 0; i < _negateStats.length; i++)
 			_negateStats[i] = _negateStats[i].toLowerCase().intern();
 
-		_negateId = set.getInteger("negateId", 0);
+		String negateId = set.getString("negateId", null);
+        if (negateId != null)
+        {
+            String[] valuesSplit = negateId.split(",");
+            _negateId = new int[valuesSplit.length];
+    		for (int i = 0; i < valuesSplit.length;i++)
+    		{
+    			_negateId[i] = Integer.valueOf(valuesSplit[i]);
+    		}
+        }
+        else
+        	_negateId = new int[0];
+        
 		_maxNegatedEffects = set.getInteger("maxNegated", 0);
 
 		_killByDOT = set.getBool("killByDOT", false);
@@ -775,10 +787,10 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		return _negateLvl;
 	}
 
-	public final int getNegateId()
-	{
-		return _negateId;
-	}
+    public final int[] getNegateId()
+    {
+        return _negateId;
+    }
 
 	public final int getMaxNegatedEffects()
 	{

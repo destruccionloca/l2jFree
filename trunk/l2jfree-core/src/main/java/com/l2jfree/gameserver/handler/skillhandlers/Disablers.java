@@ -638,25 +638,29 @@ public class Disablers implements ICubicSkillHandler
 				if (target.reflectSkill(skill))
 					target = activeChar;
 				
-				if (skill.getNegateId() > 0)
+				for(int id:skill.getNegateId())
 				{
-					L2Effect[] effects = target.getAllEffects();
-					for (L2Effect e : effects)
+					if (id > 0)
 					{
-						//if someone is dumb enough to set a skill to negate an ENVIRONMENT skill,
-						//it will be applied again in less than 3 seconds. No check here.
-						if (e.getSkill().getId() == skill.getNegateId())
-							e.exit();
+						L2Effect[] effects = target.getAllEffects();
+						for (L2Effect e : effects)
+						{
+							//if someone is dumb enough to set a skill to negate an ENVIRONMENT skill,
+							//it will be applied again in less than 3 seconds. No check here.
+							if (e.getSkill().getId() == id)
+								e.exit();
+						}
+					}
+					// Fishing potion
+					else if (skill.getId() == 2275)
+					{
+						negateEffect(target, L2SkillType.BUFF, skill.getNegateLvl(), id, -1);
+						break;
 					}
 				}
-				// Fishing potion
-				else if (skill.getId() == 2275)
-				{
-					negateEffect(target, L2SkillType.BUFF, skill.getNegateLvl(), skill.getNegateId(), -1);
-					break;
-				}
+				
 				// Touch of Death
-				else if (skill.getId() == 342 && target != activeChar)//can't cancel your self
+				if (skill.getId() == 342 && target != activeChar)//can't cancel your self
 				{
 					if (Formulas.calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss))
 					{
