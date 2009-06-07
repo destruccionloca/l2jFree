@@ -28,8 +28,8 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="effectRange" val="-1"/>
      <for>
-      <add order="0x30" stat="darkVuln" val="5"/>
-      <add order="0x30" stat="holyVuln" val="5"/>
+      <add order="0x30" stat="darkRes" val="5"/>
+      <add order="0x30" stat="holyRes" val="5"/>
      </for>
   </skill>
   <skill id="804" levels="1" name="Knight Ability - Resist Critical">

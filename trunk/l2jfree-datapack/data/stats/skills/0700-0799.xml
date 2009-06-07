@@ -856,6 +856,7 @@
   </skill>
   <skill id="761" levels="1" name="Seed of Revenge">
     <set name="mpInitialConsume" val="7"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="mpConsume" val="29"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="hitTime" val="2500"/>
