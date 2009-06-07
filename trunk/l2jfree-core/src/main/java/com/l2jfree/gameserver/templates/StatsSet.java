@@ -452,6 +452,26 @@ public class StatsSet
 			return deflt;
 		return String.valueOf(val);
 	}
+	
+	/**
+	 * Returns the String[] associated to the key put in parameter ("name").
+	 * @param name : String designating the key in the set
+	 * @return String[] : value associated to the key
+	 */
+	public final String[] getStringArray(String name)
+	{
+		Object val = get(name);
+		if (val == null)
+			throw new IllegalArgumentException("String[] value required, but not specified");
+		try
+		{
+			return (String[])val;
+		}
+		catch (Exception e)
+		{
+			throw new IllegalArgumentException("String[] value required, but found: " + val);
+		}
+	}
 
 	/**
 	 * Returns an enumeration of &lt;T&gt; from the set
@@ -510,6 +530,16 @@ public class StatsSet
 	 * @param value : String corresponding to the value associated with the key
 	 */
 	public final void set(String name, String value)
+	{
+		put(name, value);
+	}
+	
+	/**
+	 * Add the String[] hold in param "value" for the key "name"
+	 * @param name : String designating the key in the set
+	 * @param value : String[] corresponding to the value associated with the key
+	 */
+	public final void set(String name, String[] value)
 	{
 		put(name, value);
 	}

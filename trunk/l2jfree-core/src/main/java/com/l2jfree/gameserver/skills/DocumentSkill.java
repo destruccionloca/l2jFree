@@ -16,9 +16,7 @@ package com.l2jfree.gameserver.skills;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
@@ -84,7 +82,7 @@ final class DocumentSkill extends DocumentBase
 	private static int _currentSkillLevel;
 	private static String _currentSkillName;
 	
-	private static final Map<String, String[]> _tables = new HashMap<String, String[]>();
+	private static final ValidatingStatsSet _tables = new ValidatingStatsSet();
 	
 	private static final List<ValidatingStatsSet> _sets = new ArrayList<ValidatingStatsSet>();
 	private static final List<ValidatingStatsSet> _enchsets1 = new ArrayList<ValidatingStatsSet>();
@@ -112,9 +110,9 @@ final class DocumentSkill extends DocumentBase
 	String getTableValue(String value, Object template)
 	{
 		if (template instanceof Integer)
-			return _tables.get(value)[(Integer)template - 1];
+			return _tables.getStringArray(value)[(Integer)template - 1];
 		else
-			return _tables.get(value)[_currentSkillLevel];
+			return _tables.getStringArray(value)[_currentSkillLevel];
 	}
 	
 	@Override
@@ -197,8 +195,7 @@ final class DocumentSkill extends DocumentBase
 				for (int i = 0; i < table.length; i++)
 					table[i] = st.nextToken();
 				
-				if (_tables.put(name, table) != null)
-					_log.info("Skill ID " + _currentSkillId + ": replaced 'table' mapping of '" + name + "'!");
+				_tables.set(name, table);
 			}
 			else if (n.getNodeType() == Node.ELEMENT_NODE)
 			{
