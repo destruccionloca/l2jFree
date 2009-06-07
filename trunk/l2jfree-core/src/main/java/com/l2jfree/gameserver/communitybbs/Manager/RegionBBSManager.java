@@ -15,8 +15,8 @@
 package com.l2jfree.gameserver.communitybbs.Manager;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.StringTokenizer;
@@ -125,8 +125,8 @@ public class RegionBBSManager extends BaseBBSManager
 				levelApprox = "high";
 			else if (player.getLevel() >= 20)
 				levelApprox = "medium";
-			htmlCode.append("<table border=0><tr><td>" + player.getName() + " (" + sex + " " + player.getTemplate().getClassName() + "):</td></tr>");
-			htmlCode.append("<tr><td>Level: " + levelApprox + "</td></tr>");
+			htmlCode.append("<table border=0><tr><td>").append(player.getName()).append(" (").append(sex).append(" ").append(player.getTemplate().getClassName()).append("):</td></tr>");
+			htmlCode.append("<tr><td>Level: ").append(levelApprox).append("</td></tr>");
 			htmlCode.append("<tr><td><br></td></tr>");
 
 			if (activeChar != null && (activeChar.isGM() || player.getObjectId() == activeChar.getObjectId() || Config.SHOW_LEVEL_COMMUNITYBOARD))
@@ -139,9 +139,9 @@ public class RegionBBSManager extends BaseBBSManager
 					nextLevelExpNeeded = nextLevelExp - player.getExp();
 				}
 
-				htmlCode.append("<tr><td>Level: " + player.getLevel() + "</td></tr>");
-				htmlCode.append("<tr><td>Experience: " + player.getExp() + "/" + nextLevelExp + "</td></tr>");
-				htmlCode.append("<tr><td>Experience needed for level up: " + nextLevelExpNeeded + "</td></tr>");
+				htmlCode.append("<tr><td>Level: ").append(player.getLevel()).append("</td></tr>");
+				htmlCode.append("<tr><td>Experience: ").append(player.getExp()).append("/").append(nextLevelExp).append("</td></tr>");
+				htmlCode.append("<tr><td>Experience needed for level up: ").append(nextLevelExpNeeded).append("</td></tr>");
 				htmlCode.append("<tr><td><br></td></tr>");
 			}
 
@@ -150,19 +150,19 @@ public class RegionBBSManager extends BaseBBSManager
 			int m = (uptime - (h * 3600)) / 60;
 			int s = ((uptime - (h * 3600)) - (m * 60));
 
-			htmlCode.append("<tr><td>Uptime: " + h + "h " + m + "m " + s + "s</td></tr>");
+			htmlCode.append("<tr><td>Uptime: ").append(h).append("h ").append(m).append("m ").append(s).append("s</td></tr>");
 			htmlCode.append("<tr><td><br></td></tr>");
 
 			if (player.getClan() != null)
 			{
-				htmlCode.append("<tr><td>Clan: " + player.getClan().getName() + "</td></tr>");
+				htmlCode.append("<tr><td>Clan: ").append(player.getClan().getName()).append("</td></tr>");
 				htmlCode.append("<tr><td><br></td></tr>");
 			}
 
 			htmlCode
-					.append("<tr><td><multiedit var=\"pm\" width=240 height=40><button value=\"Send PM\" action=\"Write Region PM "
-							+ player.getName()
-							+ " pm pm pm\" width=110 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr><tr><td><br><button value=\"Back\" action=\"bypass _bbsloc\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr></table>");
+					.append("<tr><td><multiedit var=\"pm\" width=240 height=40><button value=\"Send PM\" action=\"Write Region PM ")
+					.append(player.getName())
+					.append(" pm pm pm\" width=110 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr><tr><td><br><button value=\"Back\" action=\"bypass _bbsloc\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr></table>");
 			htmlCode.append("</td></tr></table>");
 			htmlCode.append("</body></html>");
 			separateAndSend(htmlCode.toString(), activeChar);
@@ -210,7 +210,7 @@ public class RegionBBSManager extends BaseBBSManager
 				L2PcInstance receiver = L2World.getInstance().getPlayer(ar2);
 				if (receiver == null)
 				{
-					htmlCode.append("Player not found!<br><button value=\"Back\" action=\"bypass _bbsloc;playerinfo;" + ar2 + "\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
+					htmlCode.append("Player not found!<br><button value=\"Back\" action=\"bypass _bbsloc;playerinfo;").append(ar2).append("\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
 					htmlCode.append("</td></tr></table></body></html>");
 					separateAndSend(htmlCode.toString(), activeChar);
 					return;
@@ -245,7 +245,7 @@ public class RegionBBSManager extends BaseBBSManager
 					{
 						receiver.sendPacket(cs);
 						activeChar.sendPacket(new CreatureSay(activeChar.getObjectId(), SystemChatChannelId.Chat_Tell, "->" + receiver.getName(), ar3));
-						htmlCode.append("Message Sent<br><button value=\"Back\" action=\"bypass _bbsloc;playerinfo;" + receiver.getName() + "\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
+						htmlCode.append("Message Sent<br><button value=\"Back\" action=\"bypass _bbsloc;playerinfo;").append(receiver.getName()).append("\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
 						htmlCode.append("</td></tr></table></body></html>");
 						separateAndSend(htmlCode.toString(), activeChar);
 					}
@@ -299,11 +299,9 @@ public class RegionBBSManager extends BaseBBSManager
 	public synchronized void changeCommunityBoard()
 	{
 		Collection<L2PcInstance> players = L2World.getInstance().getAllPlayers();
-		FastList<L2PcInstance> sortedPlayers = new FastList<L2PcInstance>();
-		sortedPlayers.addAll(players);
-		players = null;
-
-		Collections.sort(sortedPlayers, new Comparator<L2PcInstance>() {
+		L2PcInstance[] sortedPlayers = players.toArray(new L2PcInstance[players.size()]);
+		
+		Arrays.sort(sortedPlayers, new Comparator<L2PcInstance>() {
 			public int compare(L2PcInstance p1, L2PcInstance p2)
 			{
 				return p1.getName().compareToIgnoreCase(p2.getName());
@@ -378,35 +376,35 @@ public class RegionBBSManager extends BaseBBSManager
 			String colSpacer = "<td FIXWIDTH=15></td>";
 
 			htmlCode.append("<table>");
-			htmlCode.append(trOpen + tdOpen + "Server Time: " + format.format(new Date()) + tdClose + colSpacer);
-			htmlCode.append(tdOpen + "Game Time: " + gameTime + tdClose + colSpacer);
-			htmlCode.append(tdOpen + "Server Restarted: " + GameServer.getStartedTime().getTime() + tdClose + trClose);
+			htmlCode.append(trOpen).append(tdOpen).append("Server Time: ").append(format.format(new Date())).append(tdClose).append(colSpacer);
+			htmlCode.append(tdOpen).append("Game Time: ").append(gameTime).append(tdClose).append(colSpacer);
+			htmlCode.append(tdOpen).append("Server Restarted: ").append(GameServer.getStartedTime().getTime()).append(tdClose).append(trClose);
 			htmlCode.append("</table>");
 
 			htmlCode.append("<table>");
 
 			htmlCode.append(trOpen);
-			htmlCode.append(tdOpen + "XP Rate: x" + Config.RATE_XP + tdClose);
+			htmlCode.append(tdOpen).append("XP Rate: x").append(Config.RATE_XP).append(tdClose);
 			htmlCode.append(colSpacer);
-			htmlCode.append(tdOpen + "Party XP Rate: x" + Config.RATE_XP * Config.RATE_PARTY_XP + tdClose);
+			htmlCode.append(tdOpen).append("Party XP Rate: x").append(Config.RATE_XP * Config.RATE_PARTY_XP).append(tdClose);
 			htmlCode.append(colSpacer);
-			htmlCode.append(tdOpen + "XP Exponent: " + Config.ALT_GAME_EXPONENT_XP + tdClose);
+			htmlCode.append(tdOpen).append("XP Exponent: ").append(Config.ALT_GAME_EXPONENT_XP).append(tdClose);
 			htmlCode.append(trClose);
 
 			htmlCode.append(trOpen);
-			htmlCode.append(tdOpen + "SP Rate: x" + Config.RATE_SP + tdClose);
+			htmlCode.append(tdOpen).append("SP Rate: x").append(Config.RATE_SP).append(tdClose);
 			htmlCode.append(colSpacer);
-			htmlCode.append(tdOpen + "Party SP Rate: x" + Config.RATE_SP * Config.RATE_PARTY_SP + tdClose);
+			htmlCode.append(tdOpen).append("Party SP Rate: x").append(Config.RATE_SP * Config.RATE_PARTY_SP).append(tdClose);
 			htmlCode.append(colSpacer);
-			htmlCode.append(tdOpen + "SP Exponent: " + Config.ALT_GAME_EXPONENT_SP + tdClose);
+			htmlCode.append(tdOpen).append("SP Exponent: ").append(Config.ALT_GAME_EXPONENT_SP).append(tdClose);
 			htmlCode.append(trClose);
 
 			htmlCode.append(trOpen);
-			htmlCode.append(tdOpen + "Drop Rate: " + Config.RATE_DROP_ITEMS + tdClose);
+			htmlCode.append(tdOpen).append("Drop Rate: ").append(Config.RATE_DROP_ITEMS).append(tdClose);
 			htmlCode.append(colSpacer);
-			htmlCode.append(tdOpen + "Spoil Rate: " + Config.RATE_DROP_SPOIL + tdClose);
+			htmlCode.append(tdOpen).append("Spoil Rate: ").append(Config.RATE_DROP_SPOIL).append(tdClose);
 			htmlCode.append(colSpacer);
-			htmlCode.append(tdOpen + "Adena Rate: " + Config.RATE_DROP_ADENA + tdClose);
+			htmlCode.append(tdOpen).append("Adena Rate: ").append(Config.RATE_DROP_ADENA).append(tdClose);
 			htmlCode.append(trClose);
 
 			htmlCode.append("</table>");
@@ -416,19 +414,19 @@ public class RegionBBSManager extends BaseBBSManager
 			htmlCode.append("<td><img src=\"sek.cbui355\" width=600 height=1><br></td>");
 			htmlCode.append(trClose);
 
-			htmlCode.append(trOpen + tdOpen + " Record of Player(s) Online:" + RecordTable.getInstance().getMaxPlayer() + tdClose + trClose);
-			htmlCode.append(trOpen + tdOpen + " On date : " + RecordTable.getInstance().getDateMaxPlayer() + tdClose + trClose);
+			htmlCode.append(trOpen).append(tdOpen).append(" Record of Player(s) Online:").append(RecordTable.getInstance().getMaxPlayer()).append(tdClose).append(trClose);
+			htmlCode.append(trOpen).append(tdOpen).append(" On date : ").append(RecordTable.getInstance().getDateMaxPlayer()).append(tdClose).append(trClose);
 
 			htmlCode.append(trOpen);
-			htmlCode.append(tdOpen + L2World.getInstance().getAllVisibleObjectsCount() + " Object count</td>");
+			htmlCode.append(tdOpen).append(L2World.getInstance().getAllVisibleObjectsCount()).append(" Object count</td>");
 			htmlCode.append(trClose);
 
 			htmlCode.append(trOpen);
-			htmlCode.append(tdOpen + getOnlineCount("gm") + " Player(s) Online</td>");
+			htmlCode.append(tdOpen).append(getOnlineCount("gm")).append(" Player(s) Online</td>");
 			htmlCode.append(trClose);
 			if (Config.SHOW_LEGEND)
-				htmlCode.append(trOpen + tdOpen + "<font color=\"LEVEL\">GM</font><font color=\"00FF00\">Clan Leader</font><font color=\"FF0000\">Cursedweapon</font><font color=\"FF00FF\">Karma</font><font color=\"999999\">Jailed</font>"
-						+ tdClose + trClose);
+				htmlCode.append(trOpen).append(tdOpen).append("<font color=\"LEVEL\">GM</font><font color=\"00FF00\">Clan Leader</font><font color=\"FF0000\">Cursedweapon</font><font color=\"FF00FF\">Karma</font><font color=\"999999\">Jailed</font>")
+					.append(tdClose).append(trClose);
 
 			htmlCode.append("</table>");
 
@@ -445,18 +443,18 @@ public class RegionBBSManager extends BaseBBSManager
 					if (cell == 1)
 						htmlCode.append(trOpen);
 
-					htmlCode.append("<td align=left valign=top FIXWIDTH=110><a action=\"bypass _bbsloc;playerinfo;" + player.getName() + "\">");
+					htmlCode.append("<td align=left valign=top FIXWIDTH=110><a action=\"bypass _bbsloc;playerinfo;").append(player.getName()).append("\">");
 
 					if (player.isGM())
-						htmlCode.append("<font color=\"LEVEL\">" + player.getName() + "</font>");
+						htmlCode.append("<font color=\"LEVEL\">").append(player.getName()).append("</font>");
 					else if (player.getClan() != null && player.isClanLeader() && Config.SHOW_CLAN_LEADER && player.getClan().getLevel() >= Config.SHOW_CLAN_LEADER_CLAN_LEVEL)
-						htmlCode.append("<font color=\"00FF00\">" + player.getName() + "</font>");
+						htmlCode.append("<font color=\"00FF00\">").append(player.getName()).append("</font>");
 					else if (player.isCursedWeaponEquipped() && Config.SHOW_CURSED_WEAPON_OWNER)
-						htmlCode.append("<font color=\"FF0000\">" + player.getName() + "</font>");
+						htmlCode.append("<font color=\"FF0000\">").append(player.getName()).append("</font>");
 					else if (player.getKarma() > 0 && Config.SHOW_KARMA_PLAYERS)
-						htmlCode.append("<font color=\"FF00FF\">" + player.getName() + "</font>");
+						htmlCode.append("<font color=\"FF00FF\">").append(player.getName()).append("</font>");
 					else if (player.isInJail() && Config.SHOW_JAILED_PLAYERS)
-						htmlCode.append("<font color=\"999999\">" + player.getName() + "</font>");
+						htmlCode.append("<font color=\"999999\">").append(player.getName()).append("</font>");
 					else
 						htmlCode.append(player.getName());
 
@@ -490,15 +488,15 @@ public class RegionBBSManager extends BaseBBSManager
 				if (page == 1)
 					htmlCode.append("<td align=right width=190><button value=\"Prev\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
 				else
-					htmlCode.append("<td align=right width=190><button value=\"Prev\" action=\"bypass _bbsloc;page;" + (page - 1) + "\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+					htmlCode.append("<td align=right width=190><button value=\"Prev\" action=\"bypass _bbsloc;page;").append(page - 1).append("\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
 				htmlCode.append("<td FIXWIDTH=10></td>");
-				htmlCode.append("<td align=center valign=top width=200>Displaying " + (((page - 1) * Config.NAME_PAGE_SIZE_COMMUNITYBOARD) + 1) + " - " + (((page - 1) * Config.NAME_PAGE_SIZE_COMMUNITYBOARD) + getOnlinePlayers(page).size())
-						+ " player(s)</td>");
+				htmlCode.append("<td align=center valign=top width=200>Displaying ").append((page - 1) * Config.NAME_PAGE_SIZE_COMMUNITYBOARD + 1).append(" - ").append((page - 1) * Config.NAME_PAGE_SIZE_COMMUNITYBOARD + getOnlinePlayers(page).size())
+						.append(" player(s)</td>");
 				htmlCode.append("<td FIXWIDTH=10></td>");
 				if (getOnlineCount("gm") <= (page * Config.NAME_PAGE_SIZE_COMMUNITYBOARD))
 					htmlCode.append("<td width=190><button value=\"Next\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
 				else
-					htmlCode.append("<td width=190><button value=\"Next\" action=\"bypass _bbsloc;page;" + (page + 1) + "\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+					htmlCode.append("<td width=190><button value=\"Next\" action=\"bypass _bbsloc;page;").append(page + 1).append("\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
 				htmlCode.append("</tr>");
 				htmlCode.append("</table>");
 			}
@@ -511,7 +509,7 @@ public class RegionBBSManager extends BaseBBSManager
 			htmlCode.append("<table>");
 
 			htmlCode.append(trOpen);
-			htmlCode.append("<td align=left valign=top>Server Restarted: " + GameServer.getStartedTime().getTime() + tdClose);
+			htmlCode.append("<td align=left valign=top>Server Restarted: ").append(GameServer.getStartedTime().getTime()).append(tdClose);
 			htmlCode.append(trClose);
 
 			htmlCode.append("</table>");
@@ -519,27 +517,27 @@ public class RegionBBSManager extends BaseBBSManager
 			htmlCode.append("<table>");
 
 			htmlCode.append(trOpen);
-			htmlCode.append(tdOpen + "XP Rate: " + Config.RATE_XP + tdClose);
+			htmlCode.append(tdOpen).append("XP Rate: ").append(Config.RATE_XP).append(tdClose);
 			htmlCode.append(colSpacer);
-			htmlCode.append(tdOpen + "Party XP Rate: " + Config.RATE_PARTY_XP + tdClose);
+			htmlCode.append(tdOpen).append("Party XP Rate: ").append(Config.RATE_PARTY_XP).append(tdClose);
 			htmlCode.append(colSpacer);
-			htmlCode.append(tdOpen + "XP Exponent: " + Config.ALT_GAME_EXPONENT_XP + tdClose);
+			htmlCode.append(tdOpen).append("XP Exponent: ").append(Config.ALT_GAME_EXPONENT_XP).append(tdClose);
 			htmlCode.append(trClose);
 
 			htmlCode.append(trOpen);
-			htmlCode.append(tdOpen + "SP Rate: " + Config.RATE_SP + tdClose);
+			htmlCode.append(tdOpen).append("SP Rate: ").append(Config.RATE_SP).append(tdClose);
 			htmlCode.append(colSpacer);
-			htmlCode.append(tdOpen + "Party SP Rate: " + Config.RATE_PARTY_SP + tdClose);
+			htmlCode.append(tdOpen).append("Party SP Rate: ").append(Config.RATE_PARTY_SP).append(tdClose);
 			htmlCode.append(colSpacer);
-			htmlCode.append(tdOpen + "SP Exponent: " + Config.ALT_GAME_EXPONENT_SP + tdClose);
+			htmlCode.append(tdOpen).append("SP Exponent: ").append(Config.ALT_GAME_EXPONENT_SP).append(tdClose);
 			htmlCode.append(trClose);
 
 			htmlCode.append(trOpen);
-			htmlCode.append(tdOpen + "Drop Rate: " + Config.RATE_DROP_ITEMS + tdClose);
+			htmlCode.append(tdOpen).append("Drop Rate: ").append(Config.RATE_DROP_ITEMS).append(tdClose);
 			htmlCode.append(colSpacer);
-			htmlCode.append(tdOpen + "Spoil Rate: " + Config.RATE_DROP_SPOIL + tdClose);
+			htmlCode.append(tdOpen).append("Spoil Rate: ").append(Config.RATE_DROP_SPOIL).append(tdClose);
 			htmlCode.append(colSpacer);
-			htmlCode.append(tdOpen + "Adena Rate: " + Config.RATE_DROP_ADENA + tdClose);
+			htmlCode.append(tdOpen).append("Adena Rate: ").append(Config.RATE_DROP_ADENA).append(tdClose);
 			htmlCode.append(trClose);
 
 			htmlCode.append("</table>");
@@ -550,11 +548,11 @@ public class RegionBBSManager extends BaseBBSManager
 			htmlCode.append(trClose);
 
 			htmlCode.append(trOpen);
-			htmlCode.append(tdOpen + getOnlineCount("pl") + " Player(s) Online</td>");
+			htmlCode.append(tdOpen).append(getOnlineCount("pl")).append(" Player(s) Online</td>");
 			htmlCode.append(trClose);
 			if (Config.SHOW_LEGEND)
-				htmlCode.append(trOpen + tdOpen + "<font color=\"LEVEL\">GM</font><font color=\"00FF00\">Clan Leader</font><font color=\"FF0000\">Cursedweapon</font><font color=\"FF00FF\">Karma</font><font color=\"999999\">Jailed</font>"
-						+ tdClose + trClose);
+				htmlCode.append(trOpen).append(tdOpen).append("<font color=\"LEVEL\">GM</font><font color=\"00FF00\">Clan Leader</font><font color=\"FF0000\">Cursedweapon</font><font color=\"FF00FF\">Karma</font><font color=\"999999\">Jailed</font>")
+					.append(tdClose).append(trClose);
 
 			htmlCode.append("</table>");
 
@@ -566,7 +564,7 @@ public class RegionBBSManager extends BaseBBSManager
 				cell = 0;
 				for (L2PcInstance player : getOnlinePlayers(page))
 				{
-					if ((player == null) || (player.getAppearance().isInvisible()))
+					if (player == null || player.getAppearance().isInvisible())
 						continue; // Go to next
 
 					cell++;
@@ -574,12 +572,12 @@ public class RegionBBSManager extends BaseBBSManager
 					if (cell == 1)
 						htmlCode.append(trOpen);
 
-					htmlCode.append("<td align=left valign=top FIXWIDTH=110><a action=\"bypass _bbsloc;playerinfo;" + player.getName() + "\">");
+					htmlCode.append("<td align=left valign=top FIXWIDTH=110><a action=\"bypass _bbsloc;playerinfo;").append(player.getName()).append("\">");
 
 					if (player.isGM())
-						htmlCode.append("<font color=\"LEVEL\">" + player.getName() + "</font>");
+						htmlCode.append("<font color=\"LEVEL\">").append(player.getName()).append("</font>");
 					else if (player.isInOfflineMode())
-						htmlCode.append(player.getName() + " (Offline Mode)");
+						htmlCode.append(player.getName()).append(" (Offline Mode)");
 					else
 						htmlCode.append(player.getName());
 
@@ -613,15 +611,15 @@ public class RegionBBSManager extends BaseBBSManager
 				if (page == 1)
 					htmlCode.append("<td align=right width=190><button value=\"Prev\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
 				else
-					htmlCode.append("<td align=right width=190><button value=\"Prev\" action=\"bypass _bbsloc;page;" + (page - 1) + "\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+					htmlCode.append("<td align=right width=190><button value=\"Prev\" action=\"bypass _bbsloc;page;").append(page - 1).append("\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
 				htmlCode.append("<td FIXWIDTH=10></td>");
-				htmlCode.append("<td align=center valign=top width=200>Displaying " + (((page - 1) * Config.NAME_PAGE_SIZE_COMMUNITYBOARD) + 1) + " - " + (((page - 1) * Config.NAME_PAGE_SIZE_COMMUNITYBOARD) + getOnlinePlayers(page).size())
-						+ " player(s)</td>");
+				htmlCode.append("<td align=center valign=top width=200>Displaying ").append((page - 1) * Config.NAME_PAGE_SIZE_COMMUNITYBOARD + 1).append(" - ").append((page - 1) * Config.NAME_PAGE_SIZE_COMMUNITYBOARD + getOnlinePlayers(page).size())
+					.append(" player(s)</td>");
 				htmlCode.append("<td FIXWIDTH=10></td>");
 				if (getOnlineCount("pl") <= (page * Config.NAME_PAGE_SIZE_COMMUNITYBOARD))
 					htmlCode.append("<td width=190><button value=\"Next\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
 				else
-					htmlCode.append("<td width=190><button value=\"Next\" action=\"bypass _bbsloc;page;" + (page + 1) + "\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+					htmlCode.append("<td width=190><button value=\"Next\" action=\"bypass _bbsloc;page;").append(page + 1).append("\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
 				htmlCode.append("</tr>");
 				htmlCode.append("</table>");
 			}
