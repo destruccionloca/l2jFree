@@ -482,7 +482,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		_mulCrossLearn = set.getFloat("mulCrossLearn", 2.f);
 		_mulCrossLearnRace = set.getFloat("mulCrossLearnRace", 2.f);
 		_mulCrossLearnProf = set.getFloat("mulCrossLearnProf", 3.f);
-		_offensiveState = getOffensiveState(set);
 
 		_needCharges = set.getInteger("needCharges", 0);
 		_giveCharges = set.getInteger("giveCharges", 0);
@@ -494,6 +493,8 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		_triggeredSkill = TriggeredSkill.parse(set);
 
 		_bestowed = set.getBool("bestowed", false);
+
+		_offensiveState = getOffensiveState(set);
 
 		_numSouls = set.getInteger("num_souls", 0);
 		_soulConsume = set.getInteger("soulConsumeCount", 0);
@@ -574,6 +575,16 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		}
 	}
 
+	private boolean isPurePassiveSkill()
+	{
+		return isPassive() && !isChance();
+	}
+	
+	private boolean isPureChanceSkill()
+	{
+		return isChance() && _triggeredSkill != null;
+	}
+
 	public final void validate() throws Exception
 	{
 		validateOffensiveAndDebuffState();
@@ -582,7 +593,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 	private void validateOffensiveAndDebuffState() throws Exception
 	{
-		if (!isOffensive() && isDebuff())
+		if (!isOffensive() && isDebuff() && !isPureChanceSkill())
 			throw new IllegalStateException(toString());
 	}
 
@@ -1420,7 +1431,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 	private OffensiveState getDefaultOffensiveState()
 	{
-		if (isPassive() || isToggle())
+		if (isPurePassiveSkill() || isPureChanceSkill() || isToggle())
 			return OffensiveState.POSITIVE;
 
 		switch (_skillType)
