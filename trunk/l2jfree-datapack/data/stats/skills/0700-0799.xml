@@ -855,7 +855,6 @@
     </for>
   </skill>
   <skill id="761" levels="1" name="Seed of Revenge">
-    <set name="power" val="0"/>
     <set name="mpInitialConsume" val="7"/>
     <set name="mpConsume" val="29"/>
     <set name="target" val="TARGET_SELF"/>
@@ -864,12 +863,8 @@
     <set name="reuseDelay" val="95000"/>
     <set name="isMagic" val="true"/>
     <set name="skillType" val="BUFF"/>
-    <set name="triggeredId" val="5561"/>
-    <set name="triggeredLevel" val="1"/>
-    <set name="activationChance" val="30"/> <!-- guessed -->
-    <set name="chanceType" val="ON_HIT"/>
-        <for>
-      <effect name="BestowSkill" time="60" val="0" stackOrder="1" stackType="inc_buff"/>
+    <for>
+      <effect name="ChanceSkillTrigger" time="60" val="0" triggeredId="5561" triggeredLevel="1" chanceType="ON_ATTACKED" activationChance="10" stackOrder="1" stackType="inc_buff"/>
     </for>
   </skill>
   <skill id="762" levels="1" name="Insane Crusher">
