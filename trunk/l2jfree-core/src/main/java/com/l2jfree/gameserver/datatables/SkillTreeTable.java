@@ -49,16 +49,16 @@ import com.l2jfree.util.LinkedBunch;
  */
 public class SkillTreeTable
 {
-	public static final int								NORMAL_ENCHANT_COST_MULTIPLIER	= 1;
-	public static final int								SAFE_ENCHANT_COST_MULTIPLIER	= 3;
+	public static final int									NORMAL_ENCHANT_COST_MULTIPLIER	= 1;
+	public static final int									SAFE_ENCHANT_COST_MULTIPLIER	= 3;
 
-	public static final int								NORMAL_ENCHANT_BOOK				= 6622;
-	public static final int								SAFE_ENCHANT_BOOK				= 9627;
-	public static final int								CHANGE_ENCHANT_BOOK				= 9626;
-	public static final int								UNTRAIN_ENCHANT_BOOK			= 9625;
+	public static final int									NORMAL_ENCHANT_BOOK				= 6622;
+	public static final int									SAFE_ENCHANT_BOOK				= 9627;
+	public static final int									CHANGE_ENCHANT_BOOK				= 9626;
+	public static final int									UNTRAIN_ENCHANT_BOOK			= 9625;
 
-	private final static Log							_log							= LogFactory.getLog(SkillTreeTable.class.getName());
-	private static SkillTreeTable						_instance;
+	private final static Log								_log							= LogFactory.getLog(SkillTreeTable.class.getName());
+	private static SkillTreeTable							_instance;
 
 	private FastMap<ClassId, Map<Integer, L2SkillLearn>>	_skillTrees;
 	private FastList<L2SkillLearn>							_fishingSkillTrees;																	//all common skills (teached by Fisherman)
@@ -76,7 +76,8 @@ public class SkillTreeTable
 	}
 
 	/**
-	 * Return the minimum level needed to have this Expertise.<BR><BR>
+	 * Return the minimum level needed to have this Expertise.<BR>
+	 * <BR>
 	 * 
 	 * @param grade The grade level searched
 	 */
@@ -99,8 +100,10 @@ public class SkillTreeTable
 	}
 
 	/**
-	 * Each class receives new skill on certain levels, this methods allow the retrieval of the minimun character level
-	 * of given class required to learn a given skill
+	 * Each class receives new skill on certain levels, this methods allow the
+	 * retrieval of the minimun character level of given class required to learn
+	 * a given skill
+	 * 
 	 * @param skillId The iD of the skill
 	 * @param classID The classId of the character
 	 * @param skillLvl The SkillLvl
@@ -159,8 +162,7 @@ public class SkillTreeTable
 				map = new FastMap<Integer, L2SkillLearn>();
 				parentClassId = classlist.getInt("parent_id");
 				classId = classlist.getInt("id");
-				PreparedStatement statement2 = con
-						.prepareStatement("SELECT class_id, skill_id, level, name, sp, min_level FROM skill_trees where class_id=? ORDER BY skill_id, level");
+				PreparedStatement statement2 = con.prepareStatement("SELECT class_id, skill_id, level, name, sp, min_level FROM skill_trees where class_id=? ORDER BY skill_id, level");
 				statement2.setInt(1, classId);
 				ResultSet skilltree = statement2.executeQuery();
 
@@ -215,8 +217,7 @@ public class SkillTreeTable
 			_fishingSkillTrees = new FastList<L2SkillLearn>();
 			_expandDwarfCraftSkillTrees = new FastList<L2SkillLearn>();
 
-			PreparedStatement statement = con
-					.prepareStatement("SELECT skill_id, level, name, sp, min_level, costid, cost, isfordwarf FROM fishing_skill_trees ORDER BY skill_id, level");
+			PreparedStatement statement = con.prepareStatement("SELECT skill_id, level, name, sp, min_level, costid, cost, isfordwarf FROM fishing_skill_trees ORDER BY skill_id, level");
 			ResultSet skilltree2 = statement.executeQuery();
 
 			int prevSkillId = -1;
@@ -260,7 +261,7 @@ public class SkillTreeTable
 			_enchantSkillTrees = new FastMap<Integer, L2EnchantSkillLearn>();
 
 			PreparedStatement statement = con
-					.prepareStatement("SELECT skill_id, level, name, base_lvl, sp, min_skill_lvl, exp, success_rate76, success_rate77, success_rate78 FROM enchant_skill_trees ORDER BY skill_id, level");
+					.prepareStatement("SELECT skill_id, level, base_lvl, sp, min_skill_lvl, exp, success_rate76, success_rate77, success_rate78, success_rate79, success_rate80, success_rate81, success_rate82, success_rate83, success_rate84, success_rate85 FROM enchant_skill_trees ORDER BY skill_id, level");
 			ResultSet skilltree3 = statement.executeQuery();
 
 			int prevSkillId = -1;
@@ -293,8 +294,7 @@ public class SkillTreeTable
 					skill = new L2EnchantSkillLearn(id, baseLvl);
 					_enchantSkillTrees.put(id, skill);
 				}
-				EnchantSkillDetail esd = new EnchantSkillDetail(lvl, minSkillLvl, sp, exp,
-						rate76, rate77, rate78, rate79, rate80, rate81, rate82, rate83, rate84, rate85);
+				EnchantSkillDetail esd = new EnchantSkillDetail(lvl, minSkillLvl, sp, exp, rate76, rate77, rate78, rate79, rate80, rate81, rate82, rate83, rate84, rate85);
 				skill.addEnchantDetail(esd);
 			}
 
@@ -313,8 +313,7 @@ public class SkillTreeTable
 		{
 			_pledgeSkillTrees = new FastList<L2PledgeSkillLearn>();
 
-			PreparedStatement statement = con
-					.prepareStatement("SELECT skill_id, level, name, clan_lvl, repCost, itemId FROM pledge_skill_trees ORDER BY skill_id, level");
+			PreparedStatement statement = con.prepareStatement("SELECT skill_id, level, name, clan_lvl, repCost, itemId, itemCount FROM pledge_skill_trees ORDER BY skill_id, level");
 			ResultSet skilltree4 = statement.executeQuery();
 
 			int prevSkillId = -1;
@@ -352,8 +351,7 @@ public class SkillTreeTable
 		{
 			_TransformSkillTrees = new FastList<L2TransformSkillLearn>();
 
-			PreparedStatement statement = con
-					.prepareStatement("SELECT race_id, skill_id, item_id, level, name, sp, min_level FROM transform_skill_trees ORDER BY race_id, skill_id, level");
+			PreparedStatement statement = con.prepareStatement("SELECT race_id, skill_id, item_id, level, name, sp, min_level FROM transform_skill_trees ORDER BY race_id, skill_id, level");
 			ResultSet skilltree5 = statement.executeQuery();
 
 			int prevSkillId = -1;
@@ -449,59 +447,59 @@ public class SkillTreeTable
 
 		return result.moveToArray(new L2SkillLearn[result.size()]);
 	}
-	
+
 	public String giveAvailableSkills(L2PcInstance activeChar)
 	{
 		Map<Integer, L2Skill> skillsToAdd = new HashMap<Integer, L2Skill>();
-		
+
 		for (L2SkillLearn temp : getSkillTrees().get(activeChar.getClassId()).values())
 		{
 			if (temp.getMinLevel() > activeChar.getLevel())
 				continue;
-			
+
 			if (temp.getId() == L2Skill.SKILL_EXPERTISE)
 				continue;
-			
+
 			if (temp.getId() == L2Skill.SKILL_LUCKY)
 				continue;
-			
+
 			if (temp.getId() == L2Skill.SKILL_DIVINE_INSPIRATION && !Config.ALT_AUTO_LEARN_DIVINE_INSPIRATION)
 				continue;
-			
+
 			L2Skill knownSkill = activeChar.getKnownSkill(temp.getId());
-			
+
 			if (knownSkill != null && knownSkill.getLevel() >= temp.getLevel())
 				continue;
-			
+
 			L2Skill mappedSkill = skillsToAdd.get(temp.getId());
-			
+
 			if (mappedSkill != null && mappedSkill.getLevel() >= temp.getLevel())
 				continue;
-			
+
 			L2Skill skill = SkillTable.getInstance().getInfo(temp.getId(), temp.getLevel());
-			
+
 			if (skill == null)
 				continue;
-			
+
 			skillsToAdd.put(temp.getId(), skill);
 		}
-		
+
 		long skillsAdded = 0;
 		long newSkillsAdded = 0;
-		
+
 		for (L2Skill skill : skillsToAdd.values())
 		{
 			skillsAdded++;
-			
+
 			if (!activeChar.hasSkill(skill.getId()))
 				newSkillsAdded++;
-			
+
 			activeChar.addSkill(skill, true);
 		}
-		
+
 		return skillsAdded + " (" + newSkillsAdded + " new) skill(s)";
 	}
-	
+
 	public L2SkillLearn[] getAvailableFishingSkills(L2PcInstance cha)
 	{
 		LinkedBunch<L2SkillLearn> result = new LinkedBunch<L2SkillLearn>();
@@ -513,8 +511,7 @@ public class SkillTreeTable
 		//    return new L2SkillLearn[0];
 		//}
 
-		Iterable<L2SkillLearn> iterable = cha.hasDwarvenCraft() ?
-			L2Collections.concatenatedIterable(_fishingSkillTrees, _expandDwarfCraftSkillTrees) : _fishingSkillTrees;
+		Iterable<L2SkillLearn> iterable = cha.hasDwarvenCraft() ? L2Collections.concatenatedIterable(_fishingSkillTrees, _expandDwarfCraftSkillTrees) : _fishingSkillTrees;
 
 		L2Skill[] oldSkills = cha.getAllSkills();
 
@@ -656,6 +653,7 @@ public class SkillTreeTable
 
 	/**
 	 * Returns all allowed skills for a given class.
+	 * 
 	 * @param classId
 	 * @return all allowed skills for a given class.
 	 */
@@ -663,7 +661,7 @@ public class SkillTreeTable
 	{
 		return getSkillTrees().get(classId).values();
 	}
-	
+
 	public Set<Integer> getAllowedSkillUIDs(ClassId classId)
 	{
 		return getSkillTrees().get(classId).keySet();
