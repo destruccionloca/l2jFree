@@ -333,6 +333,11 @@ public abstract class ConditionParser
 			int sex = Integer.decode(nodeValue);
 			return new ConditionPlayerSex(sex);
 		}
+        else if ("flyMounted".equalsIgnoreCase(nodeName))
+        {
+        	boolean val = Boolean.valueOf(nodeValue);
+            return new ConditionPlayerFlyMounted(val);
+        }
 		else if ("agathionId".equalsIgnoreCase(nodeName))
 		{
 			int agathionId = Integer.decode(nodeValue);
