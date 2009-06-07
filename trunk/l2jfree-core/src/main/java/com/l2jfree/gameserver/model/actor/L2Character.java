@@ -403,10 +403,10 @@ public abstract class L2Character extends L2Object
 		revalidateZone(true);
 	}
 
-	public void onTeleported()
+	public boolean onTeleported()
 	{
 		if (!isTeleporting())
-			return;
+			return false;
 
 		if (this instanceof L2Summon)
 		{
@@ -417,6 +417,7 @@ public abstract class L2Character extends L2Object
 		spawnMe();
 		if (_isPendingRevive)
 			doRevive();
+		return true;
 	}
 
 	// =========================================================
@@ -614,7 +615,7 @@ public abstract class L2Character extends L2Object
 
 		isFalling(false, 0);
 
-		if (this instanceof L2PcInstance)
+		if (this instanceof L2PcInstance && !((L2PcInstance)this).isInOfflineMode())
 		{
 		}
 		else

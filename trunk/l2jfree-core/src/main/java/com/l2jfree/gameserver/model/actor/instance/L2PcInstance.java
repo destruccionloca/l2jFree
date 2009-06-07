@@ -211,6 +211,7 @@ import com.l2jfree.gameserver.network.serverpackets.NicknameChanged;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.ObservationMode;
 import com.l2jfree.gameserver.network.serverpackets.ObservationReturn;
+import com.l2jfree.gameserver.network.serverpackets.PartyMemberPosition;
 import com.l2jfree.gameserver.network.serverpackets.PartySmallWindowUpdate;
 import com.l2jfree.gameserver.network.serverpackets.PartySpelled;
 import com.l2jfree.gameserver.network.serverpackets.PetInventoryUpdate;
@@ -10895,9 +10896,10 @@ public final class L2PcInstance extends L2Playable
 	}
 
 	@Override
-	public final void onTeleported()
+	public boolean onTeleported()
 	{
-		super.onTeleported();
+		if (!super.onTeleported())
+			return false;
 		
 		getKnownList().updateKnownObjects();
 		
@@ -10919,6 +10921,12 @@ public final class L2PcInstance extends L2Playable
 			pet.setFollowStatus(true);
 			getPet().broadcastFullInfoImpl(0);
 		}
+		
+		sendPacket(new UserInfo(this));
+		
+		if (getParty() != null)
+			getParty().broadcastToPartyMembers(this, new PartyMemberPosition(this));
+		return true;
 	}
 	
 	private Point3D getLastPartyPosition()
