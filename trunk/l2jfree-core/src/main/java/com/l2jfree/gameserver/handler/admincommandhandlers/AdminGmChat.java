@@ -93,8 +93,8 @@ public class AdminGmChat implements IAdminCommandHandler
 		{
 			int offset = 0;
 			String text;
-			if (command.contains("menu"))
-				offset = 17;
+			if (command.startsWith("admin_gmchat_menu"))
+				offset = 18;
 			else
 				offset = 13;
 			text = command.substring(offset);

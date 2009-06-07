@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.handler;
 
 import com.l2jfree.gameserver.handler.itemhandlers.AdvQuestItems;
-import com.l2jfree.gameserver.handler.itemhandlers.BallistaBomb;
 import com.l2jfree.gameserver.handler.itemhandlers.BeastSoulShot;
 import com.l2jfree.gameserver.handler.itemhandlers.BeastSpice;
 import com.l2jfree.gameserver.handler.itemhandlers.BeastSpiritShot;
@@ -23,7 +22,6 @@ import com.l2jfree.gameserver.handler.itemhandlers.BlessedSpiritShot;
 import com.l2jfree.gameserver.handler.itemhandlers.Book;
 import com.l2jfree.gameserver.handler.itemhandlers.CharChangePotions;
 import com.l2jfree.gameserver.handler.itemhandlers.ChestKey;
-import com.l2jfree.gameserver.handler.itemhandlers.CrystalCarol;
 import com.l2jfree.gameserver.handler.itemhandlers.DoorKey;
 import com.l2jfree.gameserver.handler.itemhandlers.Elixir;
 import com.l2jfree.gameserver.handler.itemhandlers.EnchantAttr;
@@ -37,7 +35,6 @@ import com.l2jfree.gameserver.handler.itemhandlers.HolyWater;
 import com.l2jfree.gameserver.handler.itemhandlers.ItemSkills;
 import com.l2jfree.gameserver.handler.itemhandlers.Maps;
 import com.l2jfree.gameserver.handler.itemhandlers.MercTicket;
-import com.l2jfree.gameserver.handler.itemhandlers.MysteryPotion;
 import com.l2jfree.gameserver.handler.itemhandlers.PetFood;
 import com.l2jfree.gameserver.handler.itemhandlers.Potions;
 import com.l2jfree.gameserver.handler.itemhandlers.Recipes;
@@ -51,7 +48,6 @@ import com.l2jfree.gameserver.handler.itemhandlers.SevenSignsRecord;
 import com.l2jfree.gameserver.handler.itemhandlers.SoulCrystals;
 import com.l2jfree.gameserver.handler.itemhandlers.SoulShots;
 import com.l2jfree.gameserver.handler.itemhandlers.SpecialXMas;
-import com.l2jfree.gameserver.handler.itemhandlers.SpiritLake;
 import com.l2jfree.gameserver.handler.itemhandlers.SpiritShot;
 import com.l2jfree.gameserver.handler.itemhandlers.SummonItems;
 import com.l2jfree.gameserver.handler.itemhandlers.TransformationItems;
@@ -75,7 +71,6 @@ public final class ItemHandler extends NumberHandlerRegistry<IItemHandler>
 	private ItemHandler()
 	{
 		registerItemHandler(new AdvQuestItems());
-		registerItemHandler(new BallistaBomb());
 		registerItemHandler(new BeastSoulShot());
 		registerItemHandler(new BeastSpice());
 		registerItemHandler(new BeastSpiritShot());
@@ -83,7 +78,6 @@ public final class ItemHandler extends NumberHandlerRegistry<IItemHandler>
 		registerItemHandler(new Book());
 		registerItemHandler(new CharChangePotions());
 		registerItemHandler(new ChestKey());
-		registerItemHandler(new CrystalCarol());
 		registerItemHandler(new DoorKey());
 		registerItemHandler(new Elixir());
 		registerItemHandler(new EnchantAttr());
@@ -97,7 +91,6 @@ public final class ItemHandler extends NumberHandlerRegistry<IItemHandler>
 		registerItemHandler(new HolyWater());
 		registerItemHandler(new Maps());
 		registerItemHandler(new MercTicket());
-		registerItemHandler(new MysteryPotion());
 		registerItemHandler(new PetFood());
 		registerItemHandler(new Potions());
 		registerItemHandler(new Recipes());
@@ -111,7 +104,6 @@ public final class ItemHandler extends NumberHandlerRegistry<IItemHandler>
 		registerItemHandler(new SoulCrystals());
 		registerItemHandler(new SoulShots());
 		registerItemHandler(new SpecialXMas());
-		registerItemHandler(new SpiritLake());
 		registerItemHandler(new SpiritShot());
 		registerItemHandler(new SummonItems());
 		//registerItemHandler(new TeleportBookmark());

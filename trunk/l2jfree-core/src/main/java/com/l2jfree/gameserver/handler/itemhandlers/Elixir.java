@@ -53,6 +53,16 @@ public class Elixir implements IItemHandler
 			8637,
 			8638,
 			8639,
+			20354,
+			20355,
+			20356,
+			20357,
+			20358,
+			20359,
+			20360,
+			20361,
+			20362,
+			20363,
 			22027,
 			22028,
 			22029,
@@ -139,7 +149,22 @@ public class Elixir implements IItemHandler
 			if (usePotion(activeChar, 26028, 0, itemId - 22030))
 				activeChar.sendPacket(new ExUseSharedGroupItem(itemId, 1, 300000, 300000));
 			break;
-
+		case 20354:
+		case 20355:
+		case 20356:
+		case 20357:
+		case 20358:
+			if (usePotion(activeChar, 22043, 0, itemId - 20352))
+				activeChar.sendPacket(new ExUseSharedGroupItem(itemId, 2, 300000, 300000));
+			break;
+		case 20359:
+		case 20360:
+		case 20361:
+		case 20362:
+		case 20363:
+			if (usePotion(activeChar, 22044, 0, itemId - 20357))
+				activeChar.sendPacket(new ExUseSharedGroupItem(itemId, 1, 300000, 300000));
+			break;
 		}
 	}
 

@@ -26,34 +26,35 @@ import com.l2jfree.gameserver.network.SystemMessageId;
  */
 public final class BeastSpiritShot implements IItemHandler
 {
-	private static final int[] ITEM_IDS = { 6646, 6647 };
-	
+	private static final int[]	ITEM_IDS	=
+											{ 6646, 6647, 20333, 20334 };
+
 	public void useItem(L2Playable playable, L2ItemInstance item)
 	{
 		if (playable instanceof L2Summon)
 		{
-			((L2Summon)playable).getOwner().sendPacket(SystemMessageId.PET_CANNOT_USE_ITEM);
+			((L2Summon) playable).getOwner().sendPacket(SystemMessageId.PET_CANNOT_USE_ITEM);
 			return;
 		}
-		
+
 		if (playable instanceof L2PcInstance)
 		{
-			L2PcInstance activeOwner = (L2PcInstance)playable;
+			L2PcInstance activeOwner = (L2PcInstance) playable;
 			L2Summon activePet = activeOwner.getPet();
-			
+
 			if (activePet == null)
 			{
 				activeOwner.sendPacket(SystemMessageId.PETS_ARE_NOT_AVAILABLE_AT_THIS_TIME);
 				return;
 			}
-			
+
 			if (item.getItemId() == 6647)
 				activePet.getShots().chargeBlessedSpiritshot(item);
 			else
 				activePet.getShots().chargeSpiritshot(item);
 		}
 	}
-	
+
 	public int[] getItemIds()
 	{
 		return ITEM_IDS;
