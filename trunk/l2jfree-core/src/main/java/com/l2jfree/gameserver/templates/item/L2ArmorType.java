@@ -23,7 +23,8 @@ public enum L2ArmorType implements AbstractL2ItemType
 	LIGHT(2, "Light"),
 	HEAVY(3, "Heavy"),
 	MAGIC(4, "Magic"),
-	PET(5, "Pet");
+	PET(5, "Pet"),
+	SIGIL(6, "Sigil");
 	
 	private final int _mask;
 	private final String _name;
