@@ -842,7 +842,6 @@
     <set name="power" val="80"/>
     <set name="lvlDepend" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="lvlDepend" val="1"/>
     <for>
       <effect name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
@@ -920,7 +919,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="PARALYZE"/>
     <set name="isMagic" val="true"/>
-    <set name="lvlDepend" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="1000"/>
     <set name="effectRange" val="900"/>
