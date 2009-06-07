@@ -32,12 +32,11 @@ import org.mmocore.network.SendablePacket;
 
 import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
+import com.l2jfree.gameserver.LoginServerThread;
 import com.l2jfree.gameserver.ThreadPoolManager;
+import com.l2jfree.gameserver.LoginServerThread.SessionKey;
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.instancemanager.RecommendationManager;
-import com.l2jfree.gameserver.loginserverthread.LoginServerThreadL2j;
-import com.l2jfree.gameserver.loginserverthread.LoginServerThreadL2jfree;
-import com.l2jfree.gameserver.loginserverthread.LoginServerThreadBase.SessionKey;
 import com.l2jfree.gameserver.model.CharSelectInfoPackage;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -559,10 +558,7 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 			@Override
 			public void run()
 			{
-				if (Config.L2JFREE_LOGIN)
-					LoginServerThreadL2jfree.getInstance().sendLogout(getAccountName());
-				else
-					LoginServerThreadL2j.getInstance().sendLogout(getAccountName());
+				LoginServerThread.getInstance().sendLogout(getAccountName());
 			}
 		});
 

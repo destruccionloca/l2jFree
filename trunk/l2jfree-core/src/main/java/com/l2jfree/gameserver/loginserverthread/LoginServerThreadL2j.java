@@ -27,11 +27,9 @@ import java.security.spec.RSAPublicKeySpec;
 
 import javolution.util.FastList;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
+import com.l2jfree.gameserver.LoginServerThread;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.L2GameClient.GameClientState;
@@ -49,35 +47,11 @@ import com.l2jfree.gameserver.network.serverpackets.LoginFail;
 import com.l2jfree.tools.security.NewCrypt;
 import com.l2jfree.tools.util.HexUtil;
 
-public class LoginServerThreadL2j extends LoginServerThreadBase
+public class LoginServerThreadL2j extends LoginServerThread
 {
-	protected static Log				_log		= LogFactory.getLog(LoginServerThreadBase.class.getName());
-
-	/** The LoginServerThread singleton */
-	private static LoginServerThreadL2j	_instance;
-
 	/** {@see com.l2jfree.loginserver.LoginServer#PROTOCOL_REV } */
 	private static final int			REVISION	= 0x0102;
-	public LoginServerThreadL2j()
-	{
-		super();
-	}
-
-	public void stopInstance()
-	{
-		this.interrupt();
-		_instance = null;
-	}
 	
-	public static LoginServerThreadL2j getInstance()
-	{
-		if (_instance == null)
-		{
-			_instance = new LoginServerThreadL2j();
-		}
-		return _instance;
-	}
-
 	@Override
 	public void run()
 	{
@@ -383,7 +357,7 @@ public class LoginServerThreadL2j extends LoginServerThreadBase
 	@Override
 	public void setServerStatusDown()
 	{
-		_instance.setServerStatus(ServerStatusL2j.STATUS_DOWN);
+		setServerStatus(ServerStatusL2j.STATUS_DOWN);
 	}
 	
 	@Override

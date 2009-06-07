@@ -27,11 +27,9 @@ import java.security.spec.RSAPublicKeySpec;
 
 import javolution.util.FastList;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
+import com.l2jfree.gameserver.LoginServerThread;
 import com.l2jfree.gameserver.Shutdown;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -51,34 +49,14 @@ import com.l2jfree.gameserver.network.serverpackets.LoginFail;
 import com.l2jfree.tools.security.NewCrypt;
 import com.l2jfree.tools.util.HexUtil;
 
-public class LoginServerThreadL2jfree extends LoginServerThreadBase
+public class LoginServerThreadL2jfree extends LoginServerThread
 {
-	protected static Log					_log		= LogFactory.getLog(LoginServerThreadBase.class.getName());
-
-	/** The LoginServerThread singleton */
-	private static LoginServerThreadL2jfree	_instance;
-
 	/** {@see com.l2jfree.loginserver.LoginServer#PROTOCOL_REV } */
 	private static final int				REVISION	= 0x0103;
 
 	public LoginServerThreadL2jfree()
 	{
 		super();
-	}
-
-	public void stopInstance()
-	{
-		this.interrupt();
-		_instance = null;
-	}
-
-	public static LoginServerThreadBase getInstance()
-	{
-		if (_instance == null)
-		{
-			_instance = new LoginServerThreadL2jfree();
-		}
-		return _instance;
 	}
 
 	@Override
@@ -469,7 +447,7 @@ public class LoginServerThreadL2jfree extends LoginServerThreadBase
 	@Override
 	public void setServerStatusDown()
 	{
-		_instance.setServerStatus(ServerStatusL2jfree.STATUS_DOWN);
+		setServerStatus(ServerStatusL2jfree.STATUS_DOWN);
 	}
 
 	@Override
