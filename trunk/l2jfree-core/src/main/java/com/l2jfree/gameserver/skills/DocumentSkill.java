@@ -28,7 +28,7 @@ import org.w3c.dom.Node;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.skills.conditions.Condition;
-import com.l2jfree.gameserver.templates.StatsSet;
+import com.l2jfree.gameserver.templates.ValidatingStatsSet;
 import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.util.ObjectPool;
@@ -38,29 +38,29 @@ import com.l2jfree.util.ObjectPool;
  */
 final class DocumentSkill extends DocumentBase
 {
-	private static final class StatsSetPool extends ObjectPool<StatsSet>
+	private static final class ValidatingStatsSetPool extends ObjectPool<ValidatingStatsSet>
 	{
-		private StatsSetPool()
+		private ValidatingStatsSetPool()
 		{
 			super(false);
 		}
 		
 		@Override
-		protected StatsSet create()
+		protected ValidatingStatsSet create()
 		{
-			return new StatsSet();
+			return new ValidatingStatsSet();
 		}
 		
 		@Override
-		protected void reset(StatsSet set)
+		protected void reset(ValidatingStatsSet set)
 		{
-			set.getSet().clear();
+			set.clear();
 		}
 		
-		private StatsSet getSkillSet(int level)
+		private ValidatingStatsSet getSkillSet(int level)
 		{
-			StatsSet set = get();
-			
+			final ValidatingStatsSet set = get();
+			set.setDescription("Skill ID: " + _currentSkillId + ", Lvl: " + level + ", Name: " + _currentSkillName);
 			set.set("skill_id", _currentSkillId);
 			set.set("level", level);
 			set.set("name", _currentSkillName);
@@ -69,7 +69,7 @@ final class DocumentSkill extends DocumentBase
 		}
 	}
 	
-	private static final StatsSetPool STATS_SET_POOL = new StatsSetPool();
+	private static final ValidatingStatsSetPool STATS_SET_POOL = new ValidatingStatsSetPool();
 	
 	private static final String[] VALID_NODE_NAMES = { "set", "for", "cond", // ...
 		"enchant1", "enchant1for", "enchant1cond", // ...
@@ -86,13 +86,13 @@ final class DocumentSkill extends DocumentBase
 	
 	private static final Map<String, String[]> _tables = new HashMap<String, String[]>();
 	
-	private static final List<StatsSet> _sets = new ArrayList<StatsSet>();
-	private static final List<StatsSet> _enchsets1 = new ArrayList<StatsSet>();
-	private static final List<StatsSet> _enchsets2 = new ArrayList<StatsSet>();
-	private static final List<StatsSet> _enchsets3 = new ArrayList<StatsSet>();
-	private static final List<StatsSet> _enchsets4 = new ArrayList<StatsSet>();
-	private static final List<StatsSet> _enchsets5 = new ArrayList<StatsSet>();
-	private static final List<StatsSet> _enchsets6 = new ArrayList<StatsSet>();
+	private static final List<ValidatingStatsSet> _sets = new ArrayList<ValidatingStatsSet>();
+	private static final List<ValidatingStatsSet> _enchsets1 = new ArrayList<ValidatingStatsSet>();
+	private static final List<ValidatingStatsSet> _enchsets2 = new ArrayList<ValidatingStatsSet>();
+	private static final List<ValidatingStatsSet> _enchsets3 = new ArrayList<ValidatingStatsSet>();
+	private static final List<ValidatingStatsSet> _enchsets4 = new ArrayList<ValidatingStatsSet>();
+	private static final List<ValidatingStatsSet> _enchsets5 = new ArrayList<ValidatingStatsSet>();
+	private static final List<ValidatingStatsSet> _enchsets6 = new ArrayList<ValidatingStatsSet>();
 	
 	private static final List<L2Skill> _skills = new ArrayList<L2Skill>();
 	
@@ -156,9 +156,9 @@ final class DocumentSkill extends DocumentBase
 		}
 	}
 	
-	private void clear(List<StatsSet> statsSets)
+	private void clear(List<ValidatingStatsSet> statsSets)
 	{
-		for (StatsSet set : statsSets)
+		for (ValidatingStatsSet set : statsSets)
 			STATS_SET_POOL.store(set);
 		
 		statsSets.clear();
@@ -246,11 +246,11 @@ final class DocumentSkill extends DocumentBase
 		return defaultValue.intValue();
 	}
 	
-	private void parseBeanSets(Node first, int length, int startLvl, List<StatsSet> statsSets, String setName)
+	private void parseBeanSets(Node first, int length, int startLvl, List<ValidatingStatsSet> statsSets, String setName)
 	{
 		for (int i = 0; i < length; i++)
 		{
-			StatsSet set = STATS_SET_POOL.getSkillSet(i + startLvl);
+			ValidatingStatsSet set = STATS_SET_POOL.getSkillSet(i + startLvl);
 			
 			statsSets.add(set);
 			
@@ -271,7 +271,7 @@ final class DocumentSkill extends DocumentBase
 		}
 	}
 	
-	private void parseBeanSet(Node n, StatsSet set, int level)
+	private void parseBeanSet(Node n, ValidatingStatsSet set, int level)
 	{
 		String name = n.getAttributes().getNamedItem("name").getNodeValue().trim();
 		String value = n.getAttributes().getNamedItem("val").getNodeValue().trim();
@@ -279,9 +279,9 @@ final class DocumentSkill extends DocumentBase
 		set.set(name, getValue(value, level));
 	}
 	
-	private void makeSkills(List<StatsSet> statsSets) throws Exception
+	private void makeSkills(List<ValidatingStatsSet> statsSets) throws Exception
 	{
-		for (StatsSet set : statsSets)
+		for (ValidatingStatsSet set : statsSets)
 			_skills.add(set.getEnum("skillType", L2SkillType.class).makeSkill(set));
 	}
 	

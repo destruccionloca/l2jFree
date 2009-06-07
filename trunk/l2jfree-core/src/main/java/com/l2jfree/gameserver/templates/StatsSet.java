@@ -24,11 +24,25 @@ import javolution.util.FastMap;
  * This class is used in order to have a set of couples (key,value).<BR>
  * Methods deployed are accessors to the set (add/get value from its key) and addition of a whole set in the current one.
  */
-public final class StatsSet
+public class StatsSet
 {
-
-	private final Map<String, Object>	_set	= new FastMap<String, Object>();
-
+	private final Map<String, Object> _set = new FastMap<String, Object>();
+	
+	protected Object get(String key)
+	{
+		return _set.get(key);
+	}
+	
+	protected void put(String key, Object value)
+	{
+		_set.put(key, value);
+	}
+	
+	public void clear()
+	{
+		_set.clear();
+	}
+	
 	/**
 	 * Returns the set of values
 	 * @return HashMap
@@ -38,7 +52,7 @@ public final class StatsSet
 		return _set;
 	}
 
-	public boolean contains(String name)
+	public final boolean contains(String name)
 	{
 		return _set.containsKey(name);
 	}
@@ -47,13 +61,11 @@ public final class StatsSet
 	 * Add a set of couple values in the current set
 	 * @param newSet : StatsSet pointing out the list of couples to add in the current set
 	 */
-	public void add(StatsSet newSet)
+	public final void add(StatsSet newSet)
 	{
-		Map<String, Object> newMap = newSet.getSet();
-		for (String key : newMap.keySet())
+		for (Map.Entry<String, Object> entry : newSet._set.entrySet())
 		{
-			Object value = newMap.get(key);
-			_set.put(key, value);
+			put(entry.getKey(), entry.getValue());
 		}
 	}
 
@@ -62,9 +74,9 @@ public final class StatsSet
 	 * @param name : String designating the key in the set
 	 * @return boolean : value associated to the key
 	 */
-	public boolean getBool(String name)
+	public final boolean getBool(String name)
 	{
-		Object val = _set.get(name);
+		Object val = get(name);
 		if (val == null)
 			throw new IllegalArgumentException("Boolean value required, but not specified");
 		if (val instanceof Boolean)
@@ -86,9 +98,9 @@ public final class StatsSet
 	 * @param deflt : boolean designating the default value if value associated with the key is null
 	 * @return boolean : value of the key
 	 */
-	public boolean getBool(String name, boolean deflt)
+	public final boolean getBool(String name, boolean deflt)
 	{
-		Object val = _set.get(name);
+		Object val = get(name);
 		if (val == null)
 			return deflt;
 		if (val instanceof Boolean)
@@ -110,9 +122,9 @@ public final class StatsSet
 	 * @param deflt : byte designating the default value if value associated with the key is null
 	 * @return byte : value associated to the key
 	 */
-	public byte getByte(String name, byte deflt)
+	public final byte getByte(String name, byte deflt)
 	{
-		Object val = _set.get(name);
+		Object val = get(name);
 		if (val == null)
 			return deflt;
 		if (val instanceof Number)
@@ -132,9 +144,9 @@ public final class StatsSet
 	 * @param name : String designating the key in the set
 	 * @return byte : value associated to the key
 	 */
-	public byte getByte(String name)
+	public final byte getByte(String name)
 	{
-		Object val = _set.get(name);
+		Object val = get(name);
 		if (val == null)
 			throw new IllegalArgumentException("Byte value required, but not specified");
 		if (val instanceof Number)
@@ -156,9 +168,9 @@ public final class StatsSet
 	 * @param deflt : short designating the default value if value associated with the key is null
 	 * @return short : value associated to the key
 	 */
-	public short getShort(String name, short deflt)
+	public final short getShort(String name, short deflt)
 	{
-		Object val = _set.get(name);
+		Object val = get(name);
 		if (val == null)
 			return deflt;
 		if (val instanceof Number)
@@ -178,9 +190,9 @@ public final class StatsSet
 	 * @param name : String designating the key in the set
 	 * @return short : value associated to the key
 	 */
-	public short getShort(String name)
+	public final short getShort(String name)
 	{
-		Object val = _set.get(name);
+		Object val = get(name);
 		if (val == null)
 			throw new IllegalArgumentException("Short value required, but not specified");
 		if (val instanceof Number)
@@ -200,9 +212,9 @@ public final class StatsSet
 	 * @param name : String designating the key in the set
 	 * @return int : value associated to the key
 	 */
-	public int getInteger(String name)
+	public final int getInteger(String name)
 	{
-		Object val = _set.get(name);
+		Object val = get(name);
 		if (val == null)
 			throw new IllegalArgumentException("Integer value required, but not specified");
 		if (val instanceof Number)
@@ -224,9 +236,9 @@ public final class StatsSet
 	 * @param deflt : int designating the default value if value associated with the key is null
 	 * @return int : value associated to the key
 	 */
-	public int getInteger(String name, int deflt)
+	public final int getInteger(String name, int deflt)
 	{
-		Object val = _set.get(name);
+		Object val = get(name);
 		if (val == null)
 			return deflt;
 		if (val instanceof Number)
@@ -247,9 +259,9 @@ public final class StatsSet
 	 * @param name : String designating the key in the set
 	 * @return int[] : value associated to the key
 	 */
-	public int[] getIntegerArray(String name)
+	public final int[] getIntegerArray(String name)
 	{
-		Object val = _set.get(name);
+		Object val = get(name);
 		if (val == null)
 			throw new IllegalArgumentException("Integer value required, but not specified");
 		if (val instanceof Number)
@@ -280,9 +292,9 @@ public final class StatsSet
 	 * @param name : String designating the key in the set
 	 * @return long : value associated to the key
 	 */
-	public long getLong(String name)
+	public final long getLong(String name)
 	{
-		Object val = _set.get(name);
+		Object val = get(name);
 		if (val == null)
 			throw new IllegalArgumentException("Integer value required, but not specified");
 		if (val instanceof Number)
@@ -304,9 +316,9 @@ public final class StatsSet
 	 * @param deflt : long designating the default value if value associated with the key is null
 	 * @return long : value associated to the key
 	 */
-	public long getLong(String name, int deflt)
+	public final long getLong(String name, int deflt)
 	{
-		Object val = _set.get(name);
+		Object val = get(name);
 		if (val == null)
 			return deflt;
 		if (val instanceof Number)
@@ -326,9 +338,9 @@ public final class StatsSet
 	 * @param name : String designating the key in the set
 	 * @return float : value associated to the key
 	 */
-	public float getFloat(String name)
+	public final float getFloat(String name)
 	{
-		Object val = _set.get(name);
+		Object val = get(name);
 		if (val == null)
 			throw new IllegalArgumentException("Float value required, but not specified");
 		if (val instanceof Number)
@@ -350,9 +362,9 @@ public final class StatsSet
 	 * @param deflt : float designating the default value if value associated with the key is null
 	 * @return float : value associated to the key
 	 */
-	public float getFloat(String name, float deflt)
+	public final float getFloat(String name, float deflt)
 	{
-		Object val = _set.get(name);
+		Object val = get(name);
 		if (val == null)
 			return deflt;
 		if (val instanceof Number)
@@ -372,9 +384,9 @@ public final class StatsSet
 	 * @param name : String designating the key in the set
 	 * @return double : value associated to the key
 	 */
-	public double getDouble(String name)
+	public final double getDouble(String name)
 	{
-		Object val = _set.get(name);
+		Object val = get(name);
 		if (val == null)
 			throw new IllegalArgumentException("Float value required, but not specified");
 		if (val instanceof Number)
@@ -396,9 +408,9 @@ public final class StatsSet
 	 * @param deflt : float designating the default value if value associated with the key is null
 	 * @return double : value associated to the key
 	 */
-	public double getDouble(String name, float deflt)
+	public final double getDouble(String name, float deflt)
 	{
-		Object val = _set.get(name);
+		Object val = get(name);
 		if (val == null)
 			return deflt;
 		if (val instanceof Number)
@@ -418,9 +430,9 @@ public final class StatsSet
 	 * @param name : String designating the key in the set
 	 * @return String : value associated to the key
 	 */
-	public String getString(String name)
+	public final String getString(String name)
 	{
-		Object val = _set.get(name);
+		Object val = get(name);
 		if (val == null)
 			throw new IllegalArgumentException("String value required, but not specified");
 		return String.valueOf(val);
@@ -433,9 +445,9 @@ public final class StatsSet
 	 * @param deflt : String designating the default value if value associated with the key is null
 	 * @return String : value associated to the key
 	 */
-	public String getString(String name, String deflt)
+	public final String getString(String name, String deflt)
 	{
-		Object val = _set.get(name);
+		Object val = get(name);
 		if (val == null)
 			return deflt;
 		return String.valueOf(val);
@@ -449,9 +461,9 @@ public final class StatsSet
 	 * @return Enum<T>
 	 */
 	@SuppressWarnings("unchecked")
-	public <T extends Enum<T>> T getEnum(String name, Class<T> enumClass)
+	public final <T extends Enum<T>> T getEnum(String name, Class<T> enumClass)
 	{
-		Object val = _set.get(name);
+		Object val = get(name);
 		if (val == null)
 			throw new IllegalArgumentException("Enum value of type " + enumClass.getName() + " required, but not specified");
 		if (enumClass.isInstance(val))
@@ -475,9 +487,9 @@ public final class StatsSet
 	 * @return Enum<T>
 	 */
 	@SuppressWarnings("unchecked")
-	public <T extends Enum<T>> T getEnum(String name, Class<T> enumClass, T deflt)
+	public final <T extends Enum<T>> T getEnum(String name, Class<T> enumClass, T deflt)
 	{
-		Object val = _set.get(name);
+		Object val = get(name);
 		if (val == null)
 			return deflt;
 		if (enumClass.isInstance(val))
@@ -497,9 +509,9 @@ public final class StatsSet
 	 * @param name : String designating the key in the set
 	 * @param value : String corresponding to the value associated with the key
 	 */
-	public void set(String name, String value)
+	public final void set(String name, String value)
 	{
-		_set.put(name, value);
+		put(name, value);
 	}
 
 	/**
@@ -507,9 +519,9 @@ public final class StatsSet
 	 * @param name : String designating the key in the set
 	 * @param value : boolean corresponding to the value associated with the key
 	 */
-	public void set(String name, boolean value)
+	public final void set(String name, boolean value)
 	{
-		_set.put(name, value);
+		put(name, value);
 	}
 
 	/**
@@ -517,9 +529,9 @@ public final class StatsSet
 	 * @param name : String designating the key in the set
 	 * @param value : int corresponding to the value associated with the key
 	 */
-	public void set(String name, int value)
+	public final void set(String name, int value)
 	{
-		_set.put(name, value);
+		put(name, value);
 	}
 
 	/**
@@ -527,9 +539,9 @@ public final class StatsSet
 	 * @param name : String designating the key in the set
 	 * @param value : double corresponding to the value associated with the key
 	 */
-	public void set(String name, double value)
+	public final void set(String name, double value)
 	{
-		_set.put(name, value);
+		put(name, value);
 	}
 
 	/**
@@ -537,9 +549,9 @@ public final class StatsSet
 	 * @param name : String designating the key in the set
 	 * @param value : double corresponding to the value associated with the key
 	 */
-	public void set(String name, long value)
+	public final void set(String name, long value)
 	{
-		_set.put(name, value);
+		put(name, value);
 	}
 
 	/**
@@ -547,8 +559,8 @@ public final class StatsSet
 	 * @param name : String designating the key in the set
 	 * @param value : Enum corresponding to the value associated with the key
 	 */
-	public void set(String name, Enum<?> value)
+	public final void set(String name, Enum<?> value)
 	{
-		_set.put(name, value);
+		put(name, value);
 	}
 }
