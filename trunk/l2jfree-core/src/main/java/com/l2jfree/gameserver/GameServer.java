@@ -154,29 +154,34 @@ public class GameServer
 	private static final Calendar				_serverStarted	= Calendar.getInstance();
 	private static SelectorThread<L2GameClient>	_selectorThread;
 
-	public static void main(String[] args) throws Throwable
+	public static void init() throws Exception
 	{
 		System.setProperty("python.home", ".");
-
+		
 		Util.printSection("Preparations");
-
+		
 		if (System.getProperty("user.name").equals("root") && System.getProperty("user.home").equals("/root"))
 		{
 			System.out.print("L2Jfree servers should not run under root-account ... exited.");
 			System.exit(-1);
 		}
-
+		
 		new File("log").mkdirs();
 		new File("log/java").mkdirs();
 		new File("log/error").mkdirs();
-
+		
 		new File("log/audit").mkdirs();
 		new File("log/chat").mkdirs();
 		new File("log/irc").mkdirs();
 		new File("log/item").mkdirs();
-
+		
 		new File("data/crests").mkdirs();
 		new File("data/serial").mkdirs();
+	}
+	
+	public static void main(String[] args) throws Throwable
+	{
+		init();
 
 		CoreInfo.showStartupInfo();
 

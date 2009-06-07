@@ -168,6 +168,7 @@ final class DocumentSkill extends DocumentBase
 		
 		_currentSkillId = Integer.decode(attrs.getNamedItem("id").getNodeValue());
 		_currentSkillName = attrs.getNamedItem("name").getNodeValue();
+		_tables.setDescription("Skill ID: " + _currentSkillId + ", Name: " + _currentSkillName);
 		
 		final int levels = getLevel(attrs, "levels", null);
 		final int enchantLevels1 = getLevel(attrs, "enchantLevels1", 0);

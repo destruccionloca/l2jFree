@@ -62,7 +62,7 @@ public class ValidatingStatsSet extends StatsSet
 		
 		if (previousValue != null)
 			if (_validating)
-				_log.info(_description + ": '" + key + "' has been replaced [" + previousValue + "->" + value + "]!");
+				_log.info(_description + ": '" + key + "' has been replaced {" + previousValue + " -> " + value + "}!");
 		
 		return previousValue;
 	}
@@ -72,7 +72,7 @@ public class ValidatingStatsSet extends StatsSet
 	{
 		for (Map.Entry<String, Object> entry : _nonRequestedStats.entrySet())
 		{
-			_log.info(_description + ": Non-requested stat [" + entry.getKey() + "=>" + entry.getValue() + "]!");
+			_log.info(_description + ": non-requested stat {" + entry.getKey() + " => " + entry.getValue() + "}!");
 		}
 		
 		_nonRequestedStats.clear();

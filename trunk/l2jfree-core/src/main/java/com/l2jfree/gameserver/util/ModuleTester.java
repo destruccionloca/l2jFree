@@ -17,6 +17,8 @@ package com.l2jfree.gameserver.util;
 import java.io.File;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.GameServer;
+import com.l2jfree.gameserver.datatables.SkillTable;
 
 /**
  * @author NB4L1
@@ -25,9 +27,15 @@ public final class ModuleTester
 {
 	public static void main(String[] args) throws Exception
 	{
+		GameServer.init();
 		Config.load();
 		Config.DATAPACK_ROOT = new File("../l2jfree-datapack");
 		
 		// here comes what you want to test
+		SkillTable.getInstance();
+		
+		System.gc();
+		System.runFinalization();
+		Thread.sleep(1000);
 	}
 }
