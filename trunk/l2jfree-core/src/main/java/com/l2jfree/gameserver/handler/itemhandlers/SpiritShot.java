@@ -21,14 +21,15 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public final class SpiritShot implements IItemHandler
 {
-	private static final int[] ITEM_IDS = { 5790, 2509, 2510, 2511, 2512, 2513, 2514 };
-	
+	private static final int[]	ITEM_IDS	=
+											{ 5790, 2509, 2510, 2511, 2512, 2513, 2514, 22077, 22078, 22079, 22080, 22081 };
+
 	public void useItem(L2Playable playable, L2ItemInstance item)
 	{
 		if (playable instanceof L2PcInstance)
 			playable.getShots().chargeSpiritshot(item);
 	}
-	
+
 	public int[] getItemIds()
 	{
 		return ITEM_IDS;

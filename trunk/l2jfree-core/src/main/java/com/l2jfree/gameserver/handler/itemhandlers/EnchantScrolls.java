@@ -29,13 +29,19 @@ public class EnchantScrolls implements IItemHandler
 	// All the item IDs that this handler knows.
 	private static final int[]	ITEM_IDS	=
 											{
-			// A grade
+											// A grade
 			729,
 			730,
 			731,
 			732,
 			6569,
 			6570,
+			22009,
+			22013,
+			22015,
+			22017,
+			22019,
+			22021,
 			// B grade
 			947,
 			948,
@@ -43,6 +49,12 @@ public class EnchantScrolls implements IItemHandler
 			950,
 			6571,
 			6572,
+			22008,
+			22012,
+			22014,
+			22016,
+			22018,
+			22020,
 			// C grade
 			951,
 			952,
@@ -50,6 +62,8 @@ public class EnchantScrolls implements IItemHandler
 			954,
 			6573,
 			6574,
+			22007,
+			22011,
 			// D grade
 			955,
 			956,
@@ -57,14 +71,15 @@ public class EnchantScrolls implements IItemHandler
 			958,
 			6575,
 			6576,
+			22006,
+			22010,
 			// S grade
 			959,
 			960,
 			961,
 			962,
 			6577,
-			6578
-											};
+			6578							};
 
 	public void useItem(L2Playable playable, L2ItemInstance item)
 	{

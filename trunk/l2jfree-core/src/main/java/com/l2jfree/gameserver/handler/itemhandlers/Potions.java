@@ -102,27 +102,6 @@ public class Potions implements IItemHandler
 			10000,
 			10001,
 			10002,
-			// Elixir of life
-			8622,
-			8623,
-			8624,
-			8625,
-			8626,
-			8627,
-			// Elixir of Strength
-			8628,
-			8629,
-			8630,
-			8631,
-			8632,
-			8633,
-			// Elixir of cp
-			8634,
-			8635,
-			8636,
-			8637,
-			8638,
-			8639,
 			// Bottles of souls
 			10409,
 			10410,
@@ -150,7 +129,8 @@ public class Potions implements IItemHandler
 			// Caravaners Remedy
 			9702,
 			// Bless of Eva
-			4679							};
+			4679,
+			22037							};
 
 	public void useItem(L2Playable playable, L2ItemInstance item)
 	{
@@ -218,10 +198,11 @@ public class Potions implements IItemHandler
 			usePotion(playable, 2012, 1);
 			break;
 		case 1060: // lesser_healing_potion,
+		case 1061: // 
 		case 1073: // beginner's potion, xml: 2031
 			if (!isUseable(playable, L2EffectType.HEAL_OVER_TIME, item, 2031))
 				return;
-			usePotion(playable, 2031, 1);
+			res = usePotion(playable, 2031, 1);
 			break;
 		case 10157: // instant haste_potion, xml: 2398
 			if (!isUseable(playable, item, 2398))
@@ -305,67 +286,7 @@ public class Potions implements IItemHandler
 			usePotion(playable, 2339, 1);
 			break;
 
-		// ELIXIR
-		case 8622:
-		case 8623:
-		case 8624:
-		case 8625:
-		case 8626:
-		case 8627:
-		{
-			if (!(playable instanceof L2PcInstance))
-			{
-				itemNotForPets(activeChar);
-				return;
-			}
-			// Elixir of Life
-			if (!isUseable(activeChar, item, 2287))
-				return;
-			byte expIndex = (byte) activeChar.getExpertiseIndex();
-			usePotion(activeChar, 2287, (expIndex > 5 ? 6 : expIndex + 1));
-			break;
-		}
-		case 8628:
-		case 8629:
-		case 8630:
-		case 8631:
-		case 8632:
-		case 8633:
-		{
-			if (!(playable instanceof L2PcInstance))
-			{
-				itemNotForPets(activeChar);
-				return;
-			}
-			// Elixir of Strength
-			if (!isUseable(activeChar, item, 2288))
-				return;
-			byte expIndex = (byte) activeChar.getExpertiseIndex();
-			// Elixir of Strength
-			usePotion(activeChar, 2288, (expIndex > 5 ? 6 : expIndex + 1));
-		}
-		break;
-		case 8634:
-		case 8635:
-		case 8636:
-		case 8637:
-		case 8638:
-		case 8639:
-		{
-			if (!(playable instanceof L2PcInstance))
-			{
-				itemNotForPets(activeChar);
-				return;
-			}
-			// Elixir of cp
-			if (!isUseable(activeChar, item, 2289))
-				return;
-			byte expIndex = (byte) activeChar.getExpertiseIndex();
-			// Elixir of cp
-			usePotion(activeChar, 2289, (expIndex > 5 ? 6 : expIndex + 1));
-		}
-		break;
-			// Valakas Amulets
+		// Valakas Amulets
 		case 6652: // Amulet Protection of Valakas
 			usePotion(playable, 2231, 1);
 			break;
@@ -381,52 +302,52 @@ public class Potions implements IItemHandler
 
 		// Herbs
 		case 8600: // Herb of Life
-			usePotion(playable, 2278, 1);
+			res = usePotion(playable, 2278, 1);
 			break;
 		case 8601: // Greater Herb of Life
-			usePotion(playable, 2278, 2);
+			res = usePotion(playable, 2278, 2);
 			break;
 		case 8602: // Superior Herb of Life
-			usePotion(playable, 2278, 3);
+			res = usePotion(playable, 2278, 3);
 			break;
 		case 8603: // Herb of Mana
-			usePotion(playable, 2279, 1);
+			res = usePotion(playable, 2279, 1);
 			break;
 		case 8604: // Greater Herb of Mane
-			usePotion(playable, 2279, 2);
+			res = usePotion(playable, 2279, 2);
 			break;
 		case 8605: // Superior Herb of Mane
-			usePotion(playable, 2279, 3);
+			res = usePotion(playable, 2279, 3);
 			break;
 		case 8606: // Herb of Strength
-			usePotion(playable, 2280, 1);
+			res = usePotion(playable, 2280, 1);
 			break;
 		case 8607: // Herb of Magic
-			usePotion(playable, 2281, 1);
+			res = usePotion(playable, 2281, 1);
 			break;
 		case 8608: // Herb of Atk. Spd.
-			usePotion(playable, 2282, 1);
+			res = usePotion(playable, 2282, 1);
 			break;
 		case 8609: // Herb of Casting Spd.
-			usePotion(playable, 2283, 1);
+			res = usePotion(playable, 2283, 1);
 			break;
 		case 8610: // Herb of Critical Attack
-			usePotion(playable, 2284, 1);
+			res = usePotion(playable, 2284, 1);
 			break;
 		case 8611: // Herb of Speed
-			usePotion(playable, 2285, 1);
+			res = usePotion(playable, 2285, 1);
 			break;
 		case 8612: // Herb of Warrior
-			usePotion(playable, 2280, 1);// Herb of Strength
+			res = usePotion(playable, 2280, 1);// Herb of Strength
 			usePotion(playable, 2282, 1);// Herb of Atk. Spd
 			usePotion(playable, 2284, 1);// Herb of Critical Attack
 			break;
 		case 8613: // Herb of Mystic
-			usePotion(playable, 2281, 1);// Herb of Magic
+			res = usePotion(playable, 2281, 1);// Herb of Magic
 			usePotion(playable, 2283, 1);// Herb of Casting Spd.
 			break;
 		case 8614: // Herb of Warrior
-			usePotion(playable, 2278, 3);// Superior Herb of Life
+			res = usePotion(playable, 2278, 3);// Superior Herb of Life
 			usePotion(playable, 2279, 3);// Superior Herb of Mana
 			break;
 		case 10655:
@@ -603,7 +524,7 @@ public class Potions implements IItemHandler
 				return;
 			}
 			if (activeChar.isKamaelic())
-				usePotion(activeChar, 2499, 1);
+				res = usePotion(activeChar, 2499, 1);
 			else
 				activeChar.sendPacket(SystemMessageId.NOTHING_HAPPENED);
 			break;
@@ -614,7 +535,7 @@ public class Potions implements IItemHandler
 				return;
 			}
 			if (activeChar.isKamaelic() && activeChar.isInsideZone(L2Zone.FLAG_SIEGE))
-				usePotion(activeChar, 2499, 1);
+				res = usePotion(activeChar, 2499, 1);
 			else
 				activeChar.sendPacket(SystemMessageId.NOTHING_HAPPENED);
 			break;
@@ -625,7 +546,7 @@ public class Potions implements IItemHandler
 				return;
 			}
 			if (activeChar.isKamaelic())
-				usePotion(activeChar, 2499, 2);
+				res = usePotion(activeChar, 2499, 2);
 			else
 				activeChar.sendPacket(SystemMessageId.NOTHING_HAPPENED);
 			break;
@@ -692,6 +613,9 @@ public class Potions implements IItemHandler
 				return;
 			usePotion(playable, 2341, 1);
 			break;
+		case 22037: // Potion of Will
+			usePotion(playable, 26029, 1);
+			break;
 		default:
 		}
 
@@ -706,7 +630,7 @@ public class Potions implements IItemHandler
 		if (effects == null)
 			return true;
 
-		L2PcInstance activeChar =  ((playable instanceof L2PcInstance) ? ((L2PcInstance) playable) : ((L2Summon) playable).getOwner());
+		L2PcInstance activeChar = ((playable instanceof L2PcInstance) ? ((L2PcInstance) playable) : ((L2Summon) playable).getOwner());
 
 		for (L2Effect e : effects)
 		{
@@ -727,7 +651,7 @@ public class Potions implements IItemHandler
 
 	private boolean isUseable(L2Playable playable, L2ItemInstance item, int skillid)
 	{
-		L2PcInstance activeChar =  ((playable instanceof L2PcInstance) ? ((L2PcInstance) playable) : ((L2Summon) playable).getOwner());
+		L2PcInstance activeChar = ((playable instanceof L2PcInstance) ? ((L2PcInstance) playable) : ((L2Summon) playable).getOwner());
 		if (activeChar.isSkillDisabled(skillid))
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_PREPARED_FOR_REUSE);
@@ -748,6 +672,9 @@ public class Potions implements IItemHandler
 		L2Skill skill = SkillTable.getInstance().getInfo(magicId, level);
 		if (skill != null)
 		{
+			if (!skill.checkCondition(activeChar, activeChar))
+				return false;
+
 			// Return false if potion is in reuse
 			// so is not destroyed from inventory
 			if (activeChar.isSkillDisabled(skill.getId()))

@@ -14,8 +14,6 @@
  */
 package com.l2jfree.gameserver.handler.itemhandlers;
 
-import com.l2jfree.gameserver.ThreadPoolManager;
-import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
@@ -26,13 +24,10 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance.TeleportMode;
-import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.model.restriction.AvailableRestriction;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
-import com.l2jfree.gameserver.network.serverpackets.SetupGauge;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
@@ -40,16 +35,15 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
  * 
  * @version $Revision: 1.2.2.3.2.5 $ $Date: 2005/03/27 15:30:07 $
  */
-
 public class ScrollOfEscape implements IItemHandler
 {
 	// All the item IDs that this handler knows.
 	private static final int[]	ITEM_IDS	=
 											{
 			736,
-			1830,
-			1829,
 			1538,
+			1829,
+			1830,
 			3958,
 			5858,
 			5859,
@@ -80,10 +74,44 @@ public class ScrollOfEscape implements IItemHandler
 			7559,
 			7618,
 			7619,
+			9156,
+			9647,
 			9716,
 			10129,
 			10130,
-			10650							};
+			10650,
+			10149,
+			13129,
+			13258,
+			13395,
+			13396,
+			13397,
+			13398,
+			13399,
+			13400,
+			13401,
+			13402,
+			13403,
+			13404,
+			13405,
+			13406,
+			13407,
+			13408,
+			13409,
+			13410,
+			13411,
+			13412,
+			13413,
+			13414,
+			13731,
+			13732,
+			13733,
+			13734,
+			13735,
+			13736,
+			13737,
+			13738,
+			13739							};
 
 	/*
 	 * (non-Javadoc)
@@ -95,37 +123,40 @@ public class ScrollOfEscape implements IItemHandler
 	{
 		if (!(playable instanceof L2PcInstance))
 			return;
-		
+
 		final L2PcInstance activeChar = (L2PcInstance) playable;
-		
+
+		activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+
 		if (ObjectRestrictions.getInstance().checkRestriction(activeChar, AvailableRestriction.PlayerScrollTeleport))
 		{
 			activeChar.sendMessage("You cannot use this scroll due to a restriction.");
 			return;
 		}
-		
+
 		if (!activeChar.canTeleport(TeleportMode.SCROLL_OF_ESCAPE))
 		{
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
-		
+
+		// TODO: unhardcode me
 		// Blessed Scrolls don't do anything if hideout target it is null
 		boolean ret = false;
-		switch(item.getItemId())
+		switch (item.getItemId())
 		{
-			case 5859:
-				if (activeChar.getClan() == null || CastleManager.getInstance().getCastleByOwner(activeChar.getClan()) == null)
-					ret = true;
-				break;
-			case 10130:
-				if (activeChar.getClan() == null || FortManager.getInstance().getFortByOwner(activeChar.getClan()) == null)
-					ret = true;
-				break;
-			case 5858:
-				if (activeChar.getClan() == null || ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan()) == null)
-					ret = true;
-				break;
+		case 5859:
+			if (activeChar.getClan() == null || CastleManager.getInstance().getCastleByOwner(activeChar.getClan()) == null)
+				ret = true;
+			break;
+		case 10130:
+			if (activeChar.getClan() == null || FortManager.getInstance().getFortByOwner(activeChar.getClan()) == null)
+				ret = true;
+			break;
+		case 5858:
+			if (activeChar.getClan() == null || ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan()) == null)
+				ret = true;
+			break;
 		}
 		if (ret)
 		{
@@ -134,176 +165,158 @@ public class ScrollOfEscape implements IItemHandler
 			activeChar.sendPacket(sm);
 			return;
 		}
-		
-		//activeChar.abortCast();
-		activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-		
-		// Modified by Tempy - 28 Jul 05 \\
-		// Check if this is a blessed scroll, if it is then shorten the cast time.
+
 		int itemId = item.getItemId();
-		int escapeSkill = (itemId == 1538 || itemId == 5858 || itemId == 5859 || itemId == 3958 || itemId == 10130) ? 2036 : 2013;
-		
-		if (!activeChar.destroyItem("Consume", item.getObjectId(), 1, null, false))
-			return;
-		
-		activeChar.disableAllSkills();
-		
-		L2Skill skill = SkillTable.getInstance().getInfo(escapeSkill, 1);
-		MagicSkillUse msu = new MagicSkillUse(activeChar, activeChar, escapeSkill, 1, skill.getHitTime(), 0);
-		activeChar.broadcastPacket(msu);
-		SetupGauge sg = new SetupGauge(0, skill.getHitTime());
-		activeChar.sendPacket(sg);
-		// End SoE Animation section
-		
-		SystemMessage sm = new SystemMessage(SystemMessageId.S1_DISAPPEARED);
-		sm.addItemName(item);
-		activeChar.sendPacket(sm);
-		
-		EscapeFinalizer ef = new EscapeFinalizer(activeChar, itemId);
-		// Continue execution later
-		activeChar.setSkillCast(ThreadPoolManager.getInstance().scheduleEffect(ef, skill.getHitTime()));
-		activeChar.forceIsCastingForDuration(skill.getHitTime());
+		switch (itemId)
+		{
+		case 736: // Scroll of Escape
+			useSkill(activeChar, 2013, 1);
+			break;
+		case 1538: // Blessed Scroll of Escape
+			useSkill(activeChar, 2036, 1);
+			break;
+		case 1829: // Scroll of Escape: Clan Hall
+			useSkill(activeChar, 2040, 1);
+			break;
+		case 1830: // Scroll of Escape: Castle
+			useSkill(activeChar, 2041, 1);
+			break;
+		case 3958: // L2Day - Blessed Escape Effect
+			useSkill(activeChar, 2036, 2);
+			break;
+		case 5858: // Blessed Scroll of Escape: Clan Hall
+			useSkill(activeChar, 2177, 1);
+			break;
+		case 5859: // Blessed Scroll of Escape: Castle
+			useSkill(activeChar, 2178, 1);
+			break;
+		case 7117: // Scroll of Escape: Talking Island
+		case 7118: // Scroll of Escape: Elven Village
+		case 7119: // Scroll of Escape: Dark Elf Village
+		case 7120: // Scroll of Escape: Orc Village
+		case 7121: // Scroll of Escape: Dwarven Village
+		case 7122: // Scroll of Escape: Gludin Village
+		case 7123: // Scroll of Escape: Town of Gludio
+		case 7124: // Scroll of Escape: Town of Dion
+		case 7125: // Scroll of Escape: Floran
+		case 7126: // Scroll of Escape: Giran Castle Town
+		case 7127: // Scroll of Escape: Hardin's Private Academy
+		case 7128: // Scroll of Escape: Heine
+		case 7129: // Scroll of Escape: Town of Oren
+		case 7130: // Scroll of Escape: Ivory Tower
+		case 7131: // Scroll of Escape: Hunters Village
+		case 7132: // Scroll of Escape: Aden Castle Town
+		case 7133: // Scroll of Escape: Town of Goddard
+		case 7134: // Scroll of Escape: Rune Township
+		case 7135: // Scroll of Escape: Town of Schuttgart
+			useSkill(activeChar, 2213, itemId - 7116);
+			break;
+		case 7554: // Scroll of Escape: Talking Island
+		case 7555: // Scroll of Escape: Elven Village
+		case 7556: // Scroll of Escape: Dark Elf Village
+		case 7557: // Scroll of Escape: Orc Village
+		case 7558: // Scroll of Escape: Dwarven Village
+			useSkill(activeChar, 2214, itemId - 7553);
+			break;
+		case 7559: // Scroll of Escape: Giran Castle Town
+			useSkill(activeChar, 2214, 10);
+			break;
+		case 7618: // Scroll of Escape: Ketra Orc Village
+			useSkill(activeChar, 2213, 20);
+			break;
+		case 7619: // Scroll of Escape: Varka Silenos Village
+			useSkill(activeChar, 2213, 21);
+			break;
+		case 9156: // Blessed Scroll of Escape (Event)
+			useSkill(activeChar, 2320, 1);
+			break;
+		case 9647: // Scroll of Escape: Kamael Village
+			useSkill(activeChar, 2213, 22);
+			break;
+		case 9716: // Scroll of Escape: Kamael Village
+			useSkill(activeChar, 2214, 6);
+			break;
+		case 10129: // Scroll of Escape: Fortress
+			useSkill(activeChar, 2365, 1);
+			break;
+		case 10130: // Blessed Scroll of Escape: Fortress
+			useSkill(activeChar, 2364, 1);
+			break;
+		case 10149: // Battleground Blessed Scroll of Escape
+			useSkill(activeChar, 2392, 1);
+			break;
+		case 10650: // Adventurer's Scroll of Escape
+			useSkill(activeChar, 2531, 1);
+			break;
+		case 13129: // Pailaka Scroll of Escape
+			useSkill(activeChar, 2594, 1);
+			break;
+		case 13258: // Gran Kain's Blessed Scroll of Escape
+			useSkill(activeChar, 2595, 1);
+			break;
+		case 13395: // Escape - Talking Island Village
+		case 13396: // Escape - Elven Village
+		case 13397: // Escape - Dark Elven Village
+		case 13398: // Escape - Orc Village
+		case 13399: // Escape - Dwarven Village
+		case 13400: // Escape - Gludin Village
+		case 13401: // Escape - Town of Gludio
+		case 13402: // Escape - Town of Dion
+		case 13403: // Escape - Floran Village
+		case 13404: // Escape - Giran Castle Town
+		case 13405: // Escape - Hardin's Academy
+		case 13406: // Escape - Heine
+		case 13407: // Escape - Town of Oren
+		case 13408: // Escape - Ivory Tower
+		case 13409: // Escape - Hunters Village
+		case 13410: // Escape - Town of Aden
+		case 13411: // Escape - Town of Goddard
+		case 13412: // Escape - Rune Township
+		case 13413: // Escape - Town of Schuttgart
+		case 13414: // Escape - Kamael Village
+			useSkill(activeChar, 2609, itemId - 13394);
+			break;
+		case 13731: // Gludio Blessed Scroll of Escape
+		case 13732: // Dion Blessed Scroll of Escape
+		case 13733: // Giran Blessed Scroll of Escape
+		case 13734: // Oren Blessed Scroll of Escape
+		case 13735: // Aden Blessed Scroll of Escape
+		case 13736: // Innadril Blessed Scroll of Escape
+		case 13737: // Goddard Blessed Scroll of Escape
+		case 13738: // Rune Blessed Scroll of Escape
+		case 13739: // Schuttgart Blessed Scroll of Escape
+			useSkill(activeChar, 2649, itemId - 13730);
+			break;
+		case 20372: // Escape - Talking Island Village
+		case 20373: // Escape - Elven Village
+		case 20374: // Escape - Dark Elven Village
+		case 20375: // Escape - Orc Village
+		case 20376: // Escape - Dwarven Village
+		case 20377: // Escape - Gludin Village
+		case 20378: // Escape - Town of Gludio
+		case 20379: // Escape - Town of Dion
+		case 20380: // Escape - Floran Village
+		case 20381: // Escape - Giran Castle Town
+		case 20382: // Escape - Hardin's Academy
+		case 20383: // Escape - Heine
+		case 20384: // Escape - Town of Oren
+		case 20385: // Escape - Ivory Tower
+		case 20386: // Escape - Hunters Village
+		case 20387: // Escape - Town of Aden
+		case 20388: // Escape - Town of Goddard
+		case 20389: // Escape - Rune Township
+		case 20390: // Escape - Town of Schuttgart
+			//useSkill(activeChar,??,itemId-20371);
+			break;
+		}
 	}
-	
-	static class EscapeFinalizer implements Runnable
+
+	private void useSkill(L2PcInstance player, int skillId, int skillLvl)
 	{
-		private L2PcInstance _activeChar;
-		private int _itemId;
-		
-		EscapeFinalizer(L2PcInstance activeChar, int itemId)
-		{
-			_activeChar = activeChar;
-			_itemId = itemId;
-		}
-		
-		public void run()
-		{
-			if (_activeChar.isDead())
-				return;
-			_activeChar.enableAllSkills();
-			_activeChar.setIsCastingNow(false);
-			_activeChar.setIsIn7sDungeon(false);
-			_activeChar.setInstanceId(0);
-			
-			try
-			{
-				switch (_itemId)
-				{
-					case 1830:
-					case 5859:
-						if (_activeChar.getClan() != null && CastleManager.getInstance().getCastleByOwner(_activeChar.getClan()) != null)
-							_activeChar.teleToLocation(TeleportWhereType.Castle);
-						else
-							_activeChar.teleToLocation(TeleportWhereType.Town);
-						break;
-					case 10129:
-					case 10130:
-						if (_activeChar.getClan() != null && FortManager.getInstance().getFortByOwner(_activeChar.getClan()) != null)
-							_activeChar.teleToLocation(TeleportWhereType.Fortress);
-						else
-							_activeChar.teleToLocation(TeleportWhereType.Town);
-						break;
-					case 1829:
-					case 5858:
-						if (_activeChar.getClan() != null && ClanHallManager.getInstance().getClanHallByOwner(_activeChar.getClan()) != null)
-							_activeChar.teleToLocation(TeleportWhereType.ClanHall);
-						else
-							_activeChar.teleToLocation(TeleportWhereType.Town);
-						break;
-					case 7117:
-						_activeChar.teleToLocation(-84318, 244579, -3730, true); // Talking Island
-						break;
-					case 7554:
-						_activeChar.teleToLocation(-84318, 244579, -3730, true); // Talking Island quest scroll
-						break;
-					case 7118:
-						_activeChar.teleToLocation(46934, 51467, -2977, true); // Elven Village
-						break;
-					case 7555:
-						_activeChar.teleToLocation(46934, 51467, -2977, true); // Elven Village quest scroll
-						break;
-					case 7119:
-						_activeChar.teleToLocation(9745, 15606, -4574, true); // Dark Elven Village
-						break;
-					case 7556:
-						_activeChar.teleToLocation(9745, 15606, -4574, true); // Dark Elven Village quest scroll
-						break;
-					case 7120:
-						_activeChar.teleToLocation(-44836, -112524, -235, true); // Orc Village
-						break;
-					case 7557:
-						_activeChar.teleToLocation(-44836, -112524, -235, true); // Orc Village quest scroll
-						break;
-					case 7121:
-						_activeChar.teleToLocation(115113, -178212, -901, true); // Dwarven Village
-						break;
-					case 7558:
-						_activeChar.teleToLocation(115113, -178212, -901, true); // Dwarven Village quest scroll
-						break;
-					case 7122:
-						_activeChar.teleToLocation(-80826, 149775, -3043, true); // Gludin Village
-						break;
-					case 7123:
-						_activeChar.teleToLocation(-12678, 122776, -3116, true); // Gludio Castle Town
-						break;
-					case 7124:
-						_activeChar.teleToLocation(15670, 142983, -2705, true); // Dion Castle Town
-						break;
-					case 7125:
-						_activeChar.teleToLocation(17836, 170178, -3507, true); // Floran
-						break;
-					case 7126:
-						_activeChar.teleToLocation(83400, 147943, -3404, true); // Giran Castle Town
-						break;
-					case 7559:
-						_activeChar.teleToLocation(83400, 147943, -3404, true); // Giran Castle Town quest scroll
-						break;
-					case 7127:
-						_activeChar.teleToLocation(105918, 109759, -3207, true); // Hardin's Private Academy
-						break;
-					case 7128:
-						_activeChar.teleToLocation(111409, 219364, -3545, true); // Heine
-						break;
-					case 7129:
-						_activeChar.teleToLocation(82956, 53162, -1495, true); // Oren Castle Town
-						break;
-					case 7130:
-						_activeChar.teleToLocation(85348, 16142, -3699, true); // Ivory Tower
-						break;
-					case 7131:
-						_activeChar.teleToLocation(116819, 76994, -2714, true); // Hunters Village
-						break;
-					case 7132:
-						_activeChar.teleToLocation(146331, 25762, -2018, true); // Aden Castle Town
-						break;
-					case 7133:
-						_activeChar.teleToLocation(147928, -55273, -2734, true); // Goddard Castle Town
-						break;
-					case 7134:
-						_activeChar.teleToLocation(43799, -47727, -798, true); // Rune Castle Town
-						break;
-					case 7135:
-						_activeChar.teleToLocation(87331, -142842, -1317, true); // Schuttgart Castle Town
-						break;
-					case 7618:
-						_activeChar.teleToLocation(149864, -81062, -5618, true); // Ketra Orc Village
-						break;
-					case 7619:
-						_activeChar.teleToLocation(108275, -53785, -2524, true); // Varka Silenos Village
-						break;
-					case 9716:
-						_activeChar.teleToLocation(-117251, 46771, 360, true); // Kamael Village
-						break;
-					default:
-						_activeChar.teleToLocation(TeleportWhereType.Town);
-						break;
-				}
-			}
-			catch (Exception e)
-			{
-				_log.error(e.getMessage(), e);
-			}
-		}
+		L2Skill skill = SkillTable.getInstance().getInfo(skillId, skillLvl);
+
+		if (skill != null)
+			player.useMagic(skill, false, true);
 	}
 
 	public int[] getItemIds()

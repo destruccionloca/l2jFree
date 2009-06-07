@@ -25,15 +25,16 @@ import com.l2jfree.gameserver.handler.itemhandlers.CharChangePotions;
 import com.l2jfree.gameserver.handler.itemhandlers.ChestKey;
 import com.l2jfree.gameserver.handler.itemhandlers.CrystalCarol;
 import com.l2jfree.gameserver.handler.itemhandlers.DoorKey;
+import com.l2jfree.gameserver.handler.itemhandlers.Elixir;
 import com.l2jfree.gameserver.handler.itemhandlers.EnchantAttr;
 import com.l2jfree.gameserver.handler.itemhandlers.EnchantScrolls;
 import com.l2jfree.gameserver.handler.itemhandlers.EnergyStone;
 import com.l2jfree.gameserver.handler.itemhandlers.ExtractableItems;
-import com.l2jfree.gameserver.handler.itemhandlers.Firework;
 import com.l2jfree.gameserver.handler.itemhandlers.FishShots;
 import com.l2jfree.gameserver.handler.itemhandlers.ForgottenScroll;
 import com.l2jfree.gameserver.handler.itemhandlers.Harvester;
 import com.l2jfree.gameserver.handler.itemhandlers.HolyWater;
+import com.l2jfree.gameserver.handler.itemhandlers.ItemSkills;
 import com.l2jfree.gameserver.handler.itemhandlers.Maps;
 import com.l2jfree.gameserver.handler.itemhandlers.MercTicket;
 import com.l2jfree.gameserver.handler.itemhandlers.MysteryPotion;
@@ -53,7 +54,6 @@ import com.l2jfree.gameserver.handler.itemhandlers.SpecialXMas;
 import com.l2jfree.gameserver.handler.itemhandlers.SpiritLake;
 import com.l2jfree.gameserver.handler.itemhandlers.SpiritShot;
 import com.l2jfree.gameserver.handler.itemhandlers.SummonItems;
-import com.l2jfree.gameserver.handler.itemhandlers.TeleportBookmark;
 import com.l2jfree.gameserver.handler.itemhandlers.TransformationItems;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.L2Playable;
@@ -89,7 +89,7 @@ public final class ItemHandler extends NumberHandlerRegistry<IItemHandler>
 		registerItemHandler(new EnchantScrolls());
 		registerItemHandler(new EnergyStone());
 		registerItemHandler(new ExtractableItems());
-		registerItemHandler(new Firework());
+		registerItemHandler(new ItemSkills());
 		registerItemHandler(new FishShots());
 		registerItemHandler(new ForgottenScroll());
 		registerItemHandler(new Harvester());
@@ -115,6 +115,7 @@ public final class ItemHandler extends NumberHandlerRegistry<IItemHandler>
 		registerItemHandler(new SummonItems());
 		registerItemHandler(new TransformationItems());
 		//registerItemHandler(new TeleportBookmark());
+		ItemHandler.getInstance().registerItemHandler(new Elixir());
 		
 		_log.info("ItemHandler: Loaded " + size() + " handlers.");
 	}
