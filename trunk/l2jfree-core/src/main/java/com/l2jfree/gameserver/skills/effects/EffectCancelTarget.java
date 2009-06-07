@@ -14,60 +14,39 @@
  */
 package com.l2jfree.gameserver.skills.effects;
 
-import com.l2jfree.gameserver.datatables.SkillTable;
+import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
 /**
- * @author kombat
+ * @author decad Implementation of the CANCEL TARGET
  */
-public final class EffectFusion extends L2Effect
+public final class EffectCancelTarget extends L2Effect
 {
-	public int _effect;
-	public final int _maxEffect;
 	
-	public EffectFusion(Env env, EffectTemplate template)
+	public EffectCancelTarget(Env env, EffectTemplate template)
 	{
 		super(env, template);
-		_effect = getSkill().getLevel();
-		_maxEffect = SkillTable.getInstance().getMaxLevel(getSkill().getId());
 	}
 	
 	@Override
 	public L2EffectType getEffectType()
 	{
-		return L2EffectType.FUSION;
+		return L2EffectType.CANCEL_TARGET;
 	}
 	
-	public void increaseEffect()
-	{
-		if (_effect < _maxEffect)
-		{
-			_effect++;
-			updateBuff();
-		}
-	}
-	
-	public void decreaseEffect()
-	{
-		_effect--;
-		if (_effect < 1)
-		exit();
-		else
-			updateBuff();
-	}
-	
-	private void updateBuff()
-	{
-		exit();
-		SkillTable.getInstance().getInfo(getSkill().getId(), _effect).getEffects(getEffector(), getEffected());
-	}
-	
+	/** Notify started */
 	@Override
-	public boolean canBeStoredInDb()
+	protected boolean onStart()
 	{
-		return false;
+		getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+		getEffected().setTarget(null);
+		getEffected().breakAttack();
+		getEffected().breakCast();
+		getEffected().abortAttack();
+		getEffected().abortCast();
+		return true;
 	}
 }

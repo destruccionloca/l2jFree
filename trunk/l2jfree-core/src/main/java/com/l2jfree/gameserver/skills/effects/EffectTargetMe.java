@@ -27,25 +27,20 @@ import com.l2jfree.gameserver.templates.skills.L2EffectType;
 /**
  * @author -Nemesiss-
  */
-public class EffectTargetMe extends L2Effect
+public final class EffectTargetMe extends L2Effect
 {
 	public EffectTargetMe(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
-	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.TARGET_ME;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
-	 */
+	/** Notify started */
 	@Override
 	protected boolean onStart()
 	{
@@ -70,9 +65,6 @@ public class EffectTargetMe extends L2Effect
 		return false;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
-	 */
 	@Override
 	protected void onExit()
 	{

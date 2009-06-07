@@ -14,8 +14,6 @@
  */
 package com.l2jfree.gameserver.skills.effects;
 
-import java.util.logging.Logger;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.model.L2Effect;
@@ -27,9 +25,8 @@ import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
-public class EffectEnemyCharge extends L2Effect
+public final class EffectEnemyCharge extends L2Effect
 {
-	static final Logger _log = Logger.getLogger(EffectEnemyCharge.class.getName());
 	
 	private int _x, _y, _z;
 	
@@ -38,18 +35,12 @@ public class EffectEnemyCharge extends L2Effect
 		super(env, template);
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
-	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.BUFF;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
-	 */
 	@Override
 	protected boolean onStart()
 	{
@@ -101,14 +92,11 @@ public class EffectEnemyCharge extends L2Effect
 			_y = destiny.getY();
 		}
 		getEffector().broadcastPacket(new FlyToLocation(getEffector(), _x, _y, _z, FlyType.CHARGE));
-		// getEffector().abortAttack();
-		// getEffector().abortCast();
+		//getEffector().abortAttack();
+		//getEffector().abortCast();
 		return true;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
-	 */
 	@Override
 	protected void onExit()
 	{

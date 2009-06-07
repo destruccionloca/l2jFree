@@ -23,29 +23,23 @@ import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
-public class EffectRelax extends L2Effect
+public final class EffectRelax extends L2Effect
 {
 	public EffectRelax(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
-	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.RELAXING;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
-	 */
+	/** Notify started */
 	@Override
 	protected boolean onStart()
 	{
-		
 		if (getEffected() instanceof L2PcInstance)
 		{
 			setRelax(true);
@@ -53,24 +47,22 @@ public class EffectRelax extends L2Effect
 		}
 		else
 			getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_REST);
-		return super.onStart();
+		return true;
 	}
 	
-	/**
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
 	 */
 	@Override
 	protected void onExit()
 	{
 		setRelax(false);
-		super.onExit();
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
-	 */
 	@Override
-	public boolean onActionTime()
+	protected boolean onActionTime()
 	{
 		boolean retval = true;
 		if (getEffected().isDead())
@@ -82,18 +74,20 @@ public class EffectRelax extends L2Effect
 				retval = false;
 		}
 		
-		if (getEffected().getCurrentHp() + 1 > getEffected().getMaxHp())
+		if (getEffected().getStatus().getCurrentHp() + 1 > getEffected().getMaxHp())
 		{
 			if (getSkill().isToggle())
 			{
 				getEffected().sendMessage("Fully rested. Effect of " + getSkill().getName() + " has been removed.");
+				// if (getEffected() instanceof L2PcInstance)
+				// ((L2PcInstance)getEffected()).standUp();
 				retval = false;
 			}
 		}
 		
 		double manaDam = calc();
 		
-		if (manaDam > getEffected().getCurrentMp())
+		if (manaDam > getEffected().getStatus().getCurrentMp())
 		{
 			if (getSkill().isToggle())
 			{
@@ -113,9 +107,6 @@ public class EffectRelax extends L2Effect
 		return retval;
 	}
 	
-	/**
-	 * @param val
-	 */
 	private void setRelax(boolean val)
 	{
 		if (getEffected() instanceof L2PcInstance)
