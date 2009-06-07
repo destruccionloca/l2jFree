@@ -598,7 +598,7 @@
     <set name="triggeredId" val="5575"/>
     <set name="triggeredLevel" val="1"/>
     <set name="activationChance" val="5"/> <!-- guessed -->
-    <set name="chanceType" val="EVT_MAGIC_OFFENSIVE"/> <!-- guessed -->
+    <set name="chanceType" val="ON_MAGIC_OFFENSIVE"/> <!-- guessed -->
   </skill>
   <skill id="655" levels="1" name="Enchanter Ability - Barrier">
     <set name="target" val="TARGET_SELF"/>
