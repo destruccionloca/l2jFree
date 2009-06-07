@@ -114,7 +114,7 @@ public final class ItemHandler extends NumberHandlerRegistry<IItemHandler>
 		registerItemHandler(new SpiritShot());
 		registerItemHandler(new SummonItems());
 		registerItemHandler(new TransformationItems());
-		registerItemHandler(new TeleportBookmark());
+		//registerItemHandler(new TeleportBookmark());
 		
 		_log.info("ItemHandler: Loaded " + size() + " handlers.");
 	}

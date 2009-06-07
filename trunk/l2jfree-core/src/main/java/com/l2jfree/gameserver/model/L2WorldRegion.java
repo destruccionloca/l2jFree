@@ -307,8 +307,6 @@ public final class L2WorldRegion
 		if (object == null)
 			return;
 		
-		_objects.add(object);
-		
 		if (object instanceof L2Playable)
 		{
 			_playables.add((L2Playable)object);
@@ -317,6 +315,8 @@ public final class L2WorldRegion
 			if (!Config.GRIDS_ALWAYS_ON && _playables.size() == 1)
 				startActivation();
 		}
+		
+		_objects.add(object);
 		
 		if (addToKnownLists)
 		{
