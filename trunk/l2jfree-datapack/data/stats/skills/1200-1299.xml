@@ -607,7 +607,6 @@
     <set name="summonTimeLostIdle" val="500"/>
     <set name="summonTimeLostActive" val="1000"/>
     <set name="target" val="TARGET_SELF"/>
-    <set name="itemConsumeCount" val="1"/>
     <set name="reuseDelay" val="#reuseDelay"/>
     <set name="hitTime" val="15000"/>
     <set name="skillType" val="SUMMON"/>
@@ -2153,7 +2152,6 @@
     <set name="summonTimeLostIdle" val="500"/>
     <set name="summonTimeLostActive" val="1000"/>
     <set name="target" val="TARGET_SELF"/>
-    <set name="itemConsumeCount" val="#itemConsumeCount"/>
     <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="15000"/>
     <set name="skillType" val="SUMMON"/>

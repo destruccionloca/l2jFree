@@ -161,7 +161,6 @@
     <set name="castRange" val="40"/>
     <set name="effectRange" val="200"/>
     <set name="soulMaxConsumeCount" val="5"/>
-    <set name="baseCritRate" val="15"/>
     <set name="overHit" val="true"/>
     <set name="SSBoost" val="2.0"/>
     <set name="baseCritRate" val="15"/>
@@ -654,7 +653,6 @@
     <set name="mpConsume" val="43"/>
     <set name="hitTime" val="1500"/>
     <set name="isDebuff" val="true"/>
-    <set name="magicLvl" val="79"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="power" val="80"/>
     <set name="reuseDelay" val="8000"/>
@@ -1311,7 +1309,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="hitTime" val="1500"/>
     <set name="reuseDelay" val="5200"/>
-    <set name="hitTime" val="900"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="600"/>

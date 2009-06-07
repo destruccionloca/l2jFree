@@ -31,7 +31,7 @@ public final class TriggeredSkill
 		final int triggeredId = set.getInteger("triggeredId");
 		final int triggeredLevel = set.getInteger("triggeredLevel");
 		
-		if (triggeredId >= 0 && triggeredLevel > 0)
+		if (triggeredId >= 0 && triggeredLevel >= 0)
 			return new TriggeredSkill(triggeredId, triggeredLevel);
 		else
 			throw new IllegalStateException();
@@ -45,7 +45,7 @@ public final class TriggeredSkill
 		if (triggeredLevel == null)
 			triggeredLevel = 1;
 		
-		if (triggeredId >= 0 && triggeredLevel > 0)
+		if (triggeredId >= 0 && triggeredLevel >= 0)
 			return new TriggeredSkill(triggeredId, triggeredLevel);
 		else
 			throw new IllegalStateException();

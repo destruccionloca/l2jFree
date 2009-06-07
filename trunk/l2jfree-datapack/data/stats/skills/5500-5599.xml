@@ -491,8 +491,6 @@
     <table name="#res">0 10 20</table>
     <table name="#gain">1 1 1.5</table>
     <table name="#time">60 30 12</table>
-    <table name="#activationChance">10 5 5</table>
-    <set name="activationChance" val="#activationChance"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -513,7 +511,6 @@
     <table name="#mDef">1.03 1.06 1.10</table>
     <table name="#crit">0 0 18</table>
     <table name="#time">60 30 12</table>
-    <table name="#activationChance">10 5 5</table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -533,8 +530,6 @@
     <table name="#cAtk">1.05 1.1 1.15</table>
     <table name="#abs">1 1 8</table>
     <table name="#time">60 30 12</table>
-    <table name="#activationChance">10 5 5</table>
-    <set name="activationChance" val="#activationChance"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
