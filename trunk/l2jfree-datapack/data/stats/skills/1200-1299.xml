@@ -343,7 +343,7 @@
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
-      <effect count="15" name="HealOverTime" val="#hotValue" stackOrder="#hotValue" stackType="LifeForce"/>
+	  <effect count="15" name="HealOverTime" val="#hotValue" stackOrder="#hotValue" stackType="LifeForce"/>
     </for>
   </skill>
   <skill id="1220" levels="8" name="Blaze">

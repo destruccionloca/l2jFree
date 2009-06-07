@@ -621,8 +621,6 @@
     <set name="effectRange" val="1400"/>
   </skill>
   <skill id="1531" levels="7" name="Bless the Blood">
-    <!-- 
-    L2J DP Sync - Waitinig for review
     <table name="#mpConsume"> 35 44 52 55 60 64 67 </table>
     <table name="#lvl"> 1 2 3 4 5 6 7 </table>
     <set name="mpConsume" val="#mpConsume"/>
@@ -636,24 +634,6 @@
     <set name="effectRange" val="1500"/>
     <for>
       <effect name="ChanceSkillTrigger" time="15" val="0" triggeredId="5698" triggeredLevel="#lvl" chanceType="ON_ATTACKED" activationChance="45"/>
-    -->
-    <table name="#mpInitialConsume"> 7 8 10 11 12 12 13 </table>
-    <set name="mpInitialConsume" val="#mpInitialConsume"/>
-    <table name="#mpConsume"> 28 35 41 44 48 51 53 </table>
-    <set name="mpConsume" val="#mpConsume"/>
-    <table name="#level"> 1 2 3 4 5 6 7 </table>
-    <set name="target" val="TARGET_PARTY"/>
-    <set name="skillType" val="BUFF"/>
-    <set name="isMagic" val="true"/>
-    <set name="hitTime" val="4000"/>
-    <set name="reuseDelay" val="20000"/>
-    <set name="coolTime" val="2666"/>
-    <set name="skillRadius" val="1000"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-    <set name="bestowedSkillId" val="5698"/>
-    <set name="bestowedSkillLevel" val="#level"/>
-    <for>
-      <effect name="BestowSkill" time="60" val="0"/>
     </for>
   </skill>
   <skill id="1532" levels="1" name="Enlightenment">

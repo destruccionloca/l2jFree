@@ -1091,7 +1091,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="triggeredId" val="3588"/>
     <set name="triggeredLevel" val="1"/>
-    <set name="activationChance" val="100"/> <!-- On Each Critical Hit --/>
+    <set name="activationChance" val="100"/> <!- On Each Critical Hit -/>
     <set name="chanceType" val="ON_CRIT"/>
     -->
     <set name="bestowSkillAutomatically" val="true"/>
@@ -1136,7 +1136,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="triggeredId" val="3590"/>
     <set name="triggeredLevel" val="1"/>
-    <set name="activationChance" val="100"/> <!-- On Each Critical Hit --/>
+    <set name="activationChance" val="100"/> <!- On Each Critical Hit -/>
     <set name="chanceType" val="ON_CRIT"/>
     -->
     <set name="bestowSkillAutomatically" val="true"/>
@@ -1183,7 +1183,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="triggeredId" val="3592"/>
     <set name="triggeredLevel" val="1"/>
-    <set name="activationChance" val="100"/> <!-- On Each Critical Hit --/>
+    <set name="activationChance" val="100"/> <!- On Each Critical Hit -/>
     <set name="chanceType" val="ON_CRIT"/>
     -->
     <set name="bestowSkillAutomatically" val="true"/>
@@ -1268,7 +1268,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="triggeredId" val="3596"/>
     <set name="triggeredLevel" val="1"/>
-    <set name="activationChance" val="3"/> <!-- On 3% of Good Magic Cast --/>
+    <set name="activationChance" val="3"/> <!- On 3% of Good Magic Cast -/>
     <set name="chanceType" val="ON_MAGIC_GOOD"/>
     -->
     <set name="bestowSkillAutomatically" val="true"/>
@@ -1301,7 +1301,7 @@
   </skill>
   <skill id="3597" levels="1" name="Special Ability: Infinity Rod">
     <!-- Done by DJ MELERIX -->
-    <!-- 
+    <!--
     L2J DP Sync - Waitinig for review    
     <set name="magicLvl" val="80"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1309,7 +1309,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="triggeredId" val="3598"/>
     <set name="triggeredLevel" val="1"/>
-    <set name="activationChance" val="3"/> <!-- On 3% of Good Magic Cast --/>
+    <set name="activationChance" val="3"/> <!- On 3% of Good Magic Cast -/>
     <set name="chanceType" val="ON_MAGIC_GOOD"/>
     -->    
     <set name="bestowSkillAutomatically" val="true"/>
