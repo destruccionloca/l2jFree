@@ -1238,13 +1238,13 @@
   <skill id="464" levels="5" name="Armor Mastery">
     <table name="#pDef">9 11 12 13 14</table>
     <table name="#rEvas">0 0 0 3 3</table>
-    <table name="#regMp"> 1.72 2.16 2.74 3.09 </table>
+    <table name="#regMp"> 1.72 2.16 2.74 3.09 3.18</table> <!--  Guessed -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
       <add order="0x40" stat="pDef" val="#pDef"/>
-      <add order="0x40" stat="regMp" val="1.1"/>
+      <add order="0x40" stat="regMp" val="#regMp"/>
       <add order="0x40" stat="rEvas" val="#rEvas"/>
     </for>
   </skill>

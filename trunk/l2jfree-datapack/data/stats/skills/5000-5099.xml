@@ -47,7 +47,6 @@
     <set name="power" val="60000"/>
     <set name="target" val="TARGET_AREA"/>
     <set name="skillRadius" val="700"/>
-    <set name="skillTime" val="25000"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="1200"/>
@@ -65,15 +64,16 @@
         Lvl 4 - Frintezza's Plagued Concerto A triumphant ballad of Heal Suppressing.
         Lvl 5 - Frintezza's Psycho Symphony Two Can Dance + Cancel Performance.
     -->
+    <table name="#hitTime"> 32000 32000 32000 31000 35000 </table>
     <table name="#skill_landing_percent">0 60 0 0 0</table>
     <table name="#skillRadius">0 100 0 100 100</table>
     <table name="#Power">0 0 5 10 30</table>
     <table name="#Heal">2.3 0 0 10 30</table>
     <table name="#time">20 20 0 10 30</table>
-    <table name="#rampage">0 1000 0 0 0</table>
+    <!-- <table name="#rampage">0 1000 0 0 0</table> -->
     <table name="#Plague">0 0 0 450 0</table>
     <table name="#Psycho">0 0 0 0 4.9</table>
-    <set name="hitTime" val="#shTime"/>
+    <set name="hitTime" val="#hitTime"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="DEBUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -81,7 +81,7 @@
     <set name="castRange" val="1200"/>
     <set name="skill_landing_percent" val="#skill_landing_percent"/>
     <set name="negateStats" val="Buff"/>
-    <set name="negatePower" val="#rampage"/>
+    <!--  <set name="negatePower" val="#rampage"/>  -->
     <for>
       <effect count="5" name="DamOverTime" time="#time" val="#Plague"/>
       <effect name="Confusion" time="#time" val="0">
@@ -123,7 +123,6 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="900"/>
     <set name="hitTime" val="830"/>
-    <set name="skillTime" val="4500"/>
     <set name="effectRange" val="1400"/>
     <set name="effectType" val="STUN"/>
     <set name="effectPower" val="900000"/>
@@ -143,7 +142,6 @@
     <set name="effectRange" val="900"/>    
     <set name="hitTime" val="4500"/>
     <set name="isMagic" val="true"/>
-    <set name="skillTime" val="4000"/>
     <set name="effectType" val="PARALYZE"/>
     <set name="effectPower" val="90"/>
     <for>
@@ -160,10 +158,8 @@
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2000"/>
-    <set name="skillRadius" val="300"/>
     <set name="castRange" val="50"/>
     <set name="effectRange" val="120"/>
-    <set name="skillTime" val="2000"/>
     <cond>
       <player hp="75"/>
     </cond>
@@ -185,7 +181,6 @@
     <set name="effectRange" val="1100"/>
     <set name="hitTime" val="830"/>
     <set name="reuseDelay" val="9000"/>
-    <set name="skillTime" val="2500"/>
     <set name="isMagic" val="true"/>
     <for>
       <effect name="Paralyze" time="30" val="0" stackOrder="1" stackType="Paralyze"/>
@@ -202,7 +197,6 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <set name="hitTime" val="1000"/>
-    <set name="skillTime" val="1000"/>
     <set name="isMagic" val="true"/>
     <set name="absorbPart" val="0.8"/>
   </skill>
@@ -253,7 +247,6 @@
     <set name="effectRange" val="1100"/>
     <set name="hitTime" val="2030"/>
     <set name="reuseDelay" val="9000"/>
-    <set name="skillTime" val="2000"/>
     <set name="isMagic" val="true"/>
     <for>
       <effect name="Paralyze" time="30" val="0" stackOrder="1" stackType="Paralyze"/>
@@ -267,7 +260,6 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2500"/>
     <set name="reuseDelay" val="1000000"/>
-    <set name="skillTime" val="2300"/>
     <set name="isMagic" val="true"/>
     <set name="effectRange" val="1400"/>
     <for>
@@ -286,7 +278,6 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="1000"/>
-    <set name="skillTime" val="1500"/>
     <set name="reuseDelay" val="1000000"/>
     <for>
       <effect name="Buff" time="60" val="0">
@@ -304,7 +295,6 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="6000"/>
     <set name="castRange" val="600"/>
-    <set name="skillTime" val="2700"/>
     <set name="isMagic" val="true"/>
     <set name="effectRange" val="1100"/>
     <set name="absorbPart" val="0.8"/>

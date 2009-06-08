@@ -502,18 +502,17 @@
         <add order="0x40" stat="pAtk" val="#ench1pAtk">
           <using kind="Crossbow"/>
         </add>
-        <add order="0x40" stat="accCombat" val="#accCombat">
+        <add order="0x40" stat="accCombat" val="6">
           <using kind="Crossbow"/>
         </add>
         <basemul order="0x30" stat="rCrit" val="0.2">
           <using kind="Crossbow"/>
         </basemul>
-        <add order="0x40" stat="pAtkRange" val="#range">
+        <add order="0x40" stat="pAtkRange" val="200">
           <using kind="Crossbow"/>
         </add>
       </effect>
     </enchant1for>
-    
   </skill>
   <skill id="522" levels="4" name="Real Target">
     <table name="#magicLvl"> 40 52 62 70 </table>

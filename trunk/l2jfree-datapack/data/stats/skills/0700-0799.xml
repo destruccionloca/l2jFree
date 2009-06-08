@@ -1431,6 +1431,11 @@
     </for>
   </skill>
   <skill id="792" levels="1" name="Betrayal Mark">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="hitTime" val="1200"/>
+<!--   
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1200"/>
     <set name="hitTime" val="1000"/>
@@ -1444,6 +1449,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="triggeredId" val="5600"/>
     <set name="triggeredLevel" val="1"/>
+ -->    
   </skill>
   <skill id="793" levels="1" name="Rush Impact">
     <set name="castRange" val="600"/>

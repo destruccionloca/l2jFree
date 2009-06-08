@@ -1463,6 +1463,7 @@
       593 596 599 603 606 609 613 616 619 622 626 629 632 636 639 642 646 </table>
     <table name="#aggroPoints"> 337 349 362 375 388 401 414 427 440 454 467 481 494 508 521 535 548
       562 575 588 602 615 627 640 653 665 677 689 700 711 722 733 743 753 763 772 780 </table>
+    <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
@@ -2226,6 +2227,7 @@
     <table name="#mpConsume">57 75 89</table>
     <table name="#skillRadius">500 700 900</table>
     <table name="#vuln"> 1.1 1.15 1.2 </table>
+    <set name="magicLvl" val="#magicLvl"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="500"/>
     <set name="target" val="TARGET_AURA"/>

@@ -138,7 +138,7 @@
     <!-- Needs to be finished -->
     <table name="#maxCP">1035 1116</table>
     <!-- <table name="#rCrit">1 1.02621</table> -->
-    <table name="#cAtk">0 3</table>
+    <!-- <table name="#cAtk">0 3</table> -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
