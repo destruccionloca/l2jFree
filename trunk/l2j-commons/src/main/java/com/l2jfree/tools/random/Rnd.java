@@ -18,27 +18,61 @@ import java.util.Random;
 
 public final class Rnd
 {
-	private static final Random[] RANDOMS = new Random[1 << 4];
-	
-	static
+	private static final class L2Random extends Random
 	{
-		for (int i = 0; i < RANDOMS.length; i++)
-			RANDOMS[i] = new Random();
+		private static final long serialVersionUID = 2089256427272977088L;
+		
+		/**
+		 * Copied from java.util.Random.
+		 */
+		private static final long multiplier = 0x5DEECE66DL;
+		private static final long addend = 0xBL;
+		private static final long mask = (1L << 48) - 1;
+		
+		private long seed;
+		
+		@Override
+		public synchronized void setSeed(long newSeed)
+		{
+			seed = (newSeed ^ multiplier) & mask;
+			
+			super.setSeed(newSeed);
+		}
+		
+		@Override
+		protected int next(int bits)
+		{
+			long nextseed = (seed = ((seed * multiplier + addend) & mask));
+			
+			return (int)(nextseed >>> (48 - bits));
+		}
+		
+		@Override
+		public double nextDouble()
+		{
+			return (double)next(31) / 0x7fffffff;
+		}
+		
+		public double nextDouble(double n)
+		{
+			return ((double)(next(31) - 1) / 0x7fffffff) * n;
+		}
+		
+		@Override
+		public int nextInt(int n)
+		{
+			return (int)(((double)(next(31) - 1) / 0x7fffffff) * n);
+		}
 	}
 	
-	private static int randomizer;
-	
-	private static Random rnd()
-	{
-		return RANDOMS[randomizer++ & (RANDOMS.length - 1)];
-	}
+	private static final L2Random RND = new L2Random();
 	
 	/**
 	 * Get random number from 0.0 to 1.0
 	 */
 	public static double nextDouble()
 	{
-		return rnd().nextDouble();
+		return RND.nextDouble();
 	}
 	
 	/**
@@ -46,12 +80,7 @@ public final class Rnd
 	 */
 	public static int nextInt(int n)
 	{
-		if (n < 0)
-			return rnd().nextInt(-n) * -1;
-		else if (n == 0)
-			return 0;
-		
-		return rnd().nextInt(n);
+		return RND.nextInt(n);
 	}
 	
 	/**
@@ -59,38 +88,48 @@ public final class Rnd
 	 */
 	public static int get(int n)
 	{
-		return nextInt(n);
+		return RND.nextInt(n);
 	}
 	
 	/**
 	 * Get random number from min to max <b>(not max-1)</b>
 	 */
-	public static int get(int min_, int max_)
+	public static int get(int min, int max)
 	{
-		int min = Math.min(min_, max_);
-		int max = Math.max(min_, max_);
-		
-		return min + nextInt(max - min + 1);
+		if (min < max)
+			return min + RND.nextInt(max - min + 1);
+		else
+			return max + RND.nextInt(min - max + 1);
+	}
+	
+	public static boolean calcChance(int chance, int maxChance)
+	{
+		return chance > RND.nextInt(maxChance);
 	}
 	
 	public static boolean calcChance(double chance, int maxChance)
 	{
-		return chance > nextInt(maxChance);
+		return chance > RND.nextDouble(maxChance);
+	}
+	
+	public static boolean calcChance(double chance)
+	{
+		return chance > RND.nextDouble();
 	}
 	
 	public static double nextGaussian()
 	{
-		return rnd().nextGaussian();
+		return RND.nextGaussian();
 	}
 	
 	public static boolean nextBoolean()
 	{
-		return rnd().nextBoolean();
+		return RND.nextBoolean();
 	}
 	
 	public static byte[] nextBytes(byte[] array)
 	{
-		rnd().nextBytes(array);
+		RND.nextBytes(array);
 		
 		return array;
 	}
