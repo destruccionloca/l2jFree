@@ -1064,7 +1064,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <for>
       <effect name="Buff" time="120" val="0" stackOrder="1" stackType="turn_passive">
-        <sub order="0x40" stat="aggression" val="100000"/>
+        <!-- <sub order="0x40" stat="aggression" val="100000"/> --> <!-- requires core support -->
       </effect>
     </for>
   </skill>

@@ -1431,10 +1431,9 @@
    <set name="castRange" val="-1"/>  
    <set name="effectRange" val="-1"/>  
     <for>  
-     <effect count="0x7fffffff" name="ManaDamOverTime" time="3" val="0.2">  
-      <add order="0x40" stat="counterAttackPower" val="5893"/>  
-      <add order="0x40" stat="counterAttackChance" val="30"/>  
-    </effect>       
+      <effect count="0x7fffffff" name="MpConsumePerLevel" time="3" val="0.5"> <!-- TODO: MpConsumePerLevel amount is guessed -->
+        <add order="0x40" stat="vengeancePdam" val="30"/>
+      </effect>
    </for>  
   </skill>
   <skill id="476" levels="15" name="Dark Strike">
