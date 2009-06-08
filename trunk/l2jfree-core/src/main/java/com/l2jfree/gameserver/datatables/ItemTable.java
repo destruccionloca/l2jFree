@@ -516,6 +516,8 @@ public final class ItemTable
 		item.set.set("dropable", Boolean.valueOf(rset.getString("dropable")));
 		item.set.set("destroyable", Boolean.valueOf(rset.getString("destroyable")));
 		item.set.set("tradeable", Boolean.valueOf(rset.getString("tradeable")));
+		item.set.set("handler", rset.getString("handler"));
+		item.set.set("skill", rset.getString("skill"));
 		
 		String itemType = rset.getString("item_type");
 		if (itemType.equals("none"))
