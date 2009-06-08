@@ -96,24 +96,8 @@ public enum Stats
 	// stats of various abilities
 	BREATH("breath"),
 	//
-	AGGRESSION("aggression"), // locks a mob on tank caster
-	BLEED("bleed"), // by daggers, like poison
-	POISON("poison"), // by magic, hp dmg over time
-	STUN("stun"), // disable move/ATTACK for a period of time
-	ROOT("root"), // disable movement, but not ATTACK
-	MOVEMENT("movement"), // slowdown movement, debuff
-	CONFUSION("confusion"), // mob changes target, opposite to aggression/hate
-	SLEEP("sleep"), // sleep (don't move/ATTACK) until attacked
-	FIRE("fire"),
-	WIND("wind"),
-	WATER("water"),
-	EARTH("earth"),
-	HOLY("holy"),
-	DARK("dark"),
-	SACRED("sacred"),
-	CANCEL("cancel"),
 	//
-	AGGRESSION_VULN("aggressionVuln"),
+	//AGGRESSION_VULN("aggressionVuln"),
 	BLEED_VULN("bleedVuln"),
 	POISON_VULN("poisonVuln"),
 	STUN_VULN("stunVuln"),
@@ -121,7 +105,6 @@ public enum Stats
 	ROOT_VULN("rootVuln"),
 	SLEEP_VULN("sleepVuln"),
 	CONFUSION_VULN("confusionVuln"),
-	MOVEMENT_VULN("movementVuln"),
 	FIRE_RES("fireRes"),
 	WIND_RES("windRes"),
 	WATER_RES("waterRes"),
@@ -141,7 +124,7 @@ public enum Stats
 	VENGEANCE_SKILL_MAGIC_DAMAGE("vengeanceMdam"),
 	VENGEANCE_SKILL_PHYSICAL_DAMAGE("vengeancePdam"),
 
-	AGGRESSION_PROF("aggressionProf"),
+	//AGGRESSION_PROF("aggressionProf"),
 	BLEED_PROF("bleedProf"),
 	POISON_PROF("poisonProf"),
 	STUN_PROF("stunProf"),
@@ -149,27 +132,16 @@ public enum Stats
 	ROOT_PROF("rootProf"),
 	SLEEP_PROF("sleepProf"),
 	CONFUSION_PROF("confusionProf"),
-	PROF("movementProf"),
-	FIRE_PROF("fireProf"),
-	WIND_PROF("windProf"),
-	WATER_PROF("waterProf"),
-	EARTH_PROF("earthProf"),
-	HOLY_PROF("holyProf"),
-	DARK_PROF("darkProf"),
 	CANCEL_PROF("cancelProf"),
 	DERANGEMENT_PROF("derangementProf"),
 	DEBUFF_PROF("debuffProf"),
-	CRIT_PROF("critProf"),
 	
-	NONE_WPN_VULN("noneWpnVuln"), // Shields!!!
 	SWORD_WPN_VULN("swordWpnVuln"),
 	BLUNT_WPN_VULN("bluntWpnVuln"),
 	DAGGER_WPN_VULN("daggerWpnVuln"),
 	BOW_WPN_VULN("bowWpnVuln"),
 	CROSSBOW_WPN_VULN("crossbowWpnVuln"),
 	POLE_WPN_VULN("poleWpnVuln"),
-	ETC_WPN_VULN("etcWpnVuln"),
-	FIST_WPN_VULN("fistWpnVuln"),
 	DUAL_WPN_VULN("dualWpnVuln"),
 	DUALFIST_WPN_VULN("dualFistWpnVuln"),
 	BIGSWORD_WPN_VULN("bigSwordWpnVuln"),
@@ -181,10 +153,8 @@ public enum Stats
 	REFLECT_SKILL_MELEE_PHYSIC("reflectSkillMeleePhysic"),
 	ABSORB_DAMAGE_PERCENT("absorbDam"),
 	TRANSFER_DAMAGE_PERCENT("transDam"),
-	ABSORB_CP_PERCENT("absorbCpPercent"),
+	//ABSORB_CP_PERCENT("absorbCpPercent"),
 	SKILL_MASTERY("skillMastery"),
-	COUNTER_ATTACK_POWER("counterAttackPower"),
-	COUNTER_ATTACK_CHANCE("counterAttackChance"),
 
 	//Skills Power
 	FIRE_POWER("firePower"),
@@ -193,19 +163,11 @@ public enum Stats
 	EARTH_POWER("earthPower"),
 	HOLY_POWER("holyPower"),
 	DARK_POWER("darkPower"),
-	BLEED_POWER("bleedPower"),
-	POISON_POWER("poisonPower"),
-	STUN_POWER("stunPower"),
-	PARALYZE_POWER("paralyzePower"),
-	ROOT_POWER("rootPower"),
-	SLEEP_POWER("sleepPower"),
-	DERANGEMENT_POWER("derangementPower"),
-	CONFUSION_POWER("confusionPower"),
-	DEBUFF_POWER("debuffPower"),
 	
 	MAX_LOAD("maxLoad"),
 	WEIGHT_LIMIT("weightLimit"),
 	
+	// FIXME: should be pAtk with ConditionTargetRaceId
 	PATK_PLANTS("pAtk-plants"),
 	PATK_INSECTS("pAtk-insects"),
 	PATK_ANIMALS("pAtk-animals"),
@@ -244,7 +206,6 @@ public enum Stats
 	MP_CONSUME("MpConsume"),
 	SOULSHOT_COUNT("soulShotCount"),
 	
-	transformId("transformId"),
 	TALISMAN_SLOTS("talisman"),
 	;
 	

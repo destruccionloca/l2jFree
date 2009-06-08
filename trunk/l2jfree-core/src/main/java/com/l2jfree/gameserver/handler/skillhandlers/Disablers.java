@@ -329,13 +329,8 @@ public class Disablers implements ICubicSkillHandler
 				{
 					skill.getEffects(activeChar, target);
 
-					double aggdiff = ((L2Attackable) target).getHating(activeChar)
-							- target.calcStat(Stats.AGGRESSION, ((L2Attackable) target).getHating(activeChar), target, skill);
-
 					if (skill.getPower() > 0)
 						((L2Attackable) target).reduceHate(null, (int) skill.getPower());
-					else if (aggdiff > 0)
-						((L2Attackable) target).reduceHate(null, (int) aggdiff);
 				}
 				// when fail, target.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, activeChar);
 				break;
