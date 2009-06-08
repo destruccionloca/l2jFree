@@ -101,7 +101,7 @@ public abstract class L2GameServerPacket extends SendablePacket<L2GameClient>
 		if (Config.PACKET_FINAL)
 			writeQ(value);
 		else
-			writeD((int)L2Math.limit(Integer.MIN_VALUE, value, Integer.MAX_VALUE));
+			writeD(L2Math.limit(Integer.MIN_VALUE, value, Integer.MAX_VALUE));
 	}
 	
 	protected final void writeCompH(int value)

@@ -27,7 +27,6 @@ import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.item.L2Item;
-import com.l2jfree.lang.L2Math;
 
 public final class SystemMessage extends L2GameServerPacket
 {
@@ -67,27 +66,67 @@ public final class SystemMessage extends L2GameServerPacket
 		}
 	}
 	
-	private static final class NumberElement extends Element
+	private static class NumberElement extends Element
 	{
-		private final int _type;
 		private final int _number;
 		
-		private NumberElement(int type, long number)
+		private NumberElement(int number)
 		{
-			_type = type;
-			_number = (int)L2Math.limit(Integer.MIN_VALUE, number, Integer.MAX_VALUE);
+			_number = number;
 		}
 		
 		@Override
 		protected int getType()
 		{
-			return _type;
+			return TYPE_NUMBER;
 		}
 		
 		@Override
-		protected void write2(SystemMessage sm)
+		protected final void write2(SystemMessage sm)
 		{
 			sm.writeD(_number);
+		}
+	}
+	
+	private static final class FortElement extends NumberElement
+	{
+		private FortElement(int fortId)
+		{
+			super(fortId);
+		}
+		
+		@Override
+		protected int getType()
+		{
+			return TYPE_FORTRESS;
+		}
+	}
+	
+	private static final class NpcElement extends NumberElement
+	{
+		private NpcElement(int npcId)
+		{
+			super(npcId);
+		}
+		
+		@Override
+		protected int getType()
+		{
+			return TYPE_NPC_NAME;
+		}
+	}
+	
+	private static final class ItemElement extends NumberElement
+	{
+		private ItemElement(int itemId)
+		{
+			super(itemId);
+		}
+		
+		@Override
+		protected int getType()
+		{
+			return TYPE_ITEM_NAME;
 		}
 	}
 	
@@ -274,7 +313,7 @@ public final class SystemMessage extends L2GameServerPacket
 	
 	public SystemMessage addFortId(int number)
 	{
-		addElement(new NumberElement(TYPE_FORTRESS, number));
+		addElement(new FortElement(number));
 		
 		return this;
 	}
@@ -295,7 +334,7 @@ public final class SystemMessage extends L2GameServerPacket
 	
 	public SystemMessage addNumber(int number)
 	{
-		addElement(new NumberElement(TYPE_NUMBER, number));
+		addElement(new NumberElement(number));
 		
 		return this;
 	}
@@ -342,7 +381,7 @@ public final class SystemMessage extends L2GameServerPacket
 	
 	public SystemMessage addNpcName(int id)
 	{
-		addElement(new NumberElement(TYPE_NPC_NAME, 1000000 + id));
+		addElement(new NpcElement(1000000 + id));
 		
 		return this;
 	}
@@ -369,7 +408,7 @@ public final class SystemMessage extends L2GameServerPacket
 	
 	public SystemMessage addItemName(int id)
 	{
-		addElement(new NumberElement(TYPE_ITEM_NAME, id));
+		addElement(new ItemElement(id));
 		
 		return this;
 	}
