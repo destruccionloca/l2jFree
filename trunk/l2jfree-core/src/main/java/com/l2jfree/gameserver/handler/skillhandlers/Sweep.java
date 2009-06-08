@@ -24,23 +24,26 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
+import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillSweep;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
-/** 
- * @author _drunk_ 
+/**
+ * @author _drunk_
  */
 public class Sweep implements ISkillHandler
 {
-	private static final L2SkillType[]	SKILL_IDS	=
-													{ L2SkillType.SWEEP };
+	private static final L2SkillType[]	SKILL_IDS	= { L2SkillType.SWEEP };
 
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
+	public void useSkill(L2Character activeChar, L2Skill tmpSkill, L2Character... targets)
 	{
 		if (!(activeChar instanceof L2PcInstance))
 		{
 			return;
 		}
+
+		L2SkillSweep skill = (L2SkillSweep) tmpSkill;
 
 		L2PcInstance player = (L2PcInstance) activeChar;
 		InventoryUpdate iu = Config.FORCE_INVENTORY_UPDATE ? null : new InventoryUpdate();
@@ -50,7 +53,7 @@ public class Sweep implements ISkillHandler
 		{
 			if (!(element instanceof L2Attackable))
 				continue;
-			
+
 			L2Attackable target = (L2Attackable) element;
 
 			L2Attackable.RewardItem[] items = null;
@@ -65,6 +68,17 @@ public class Sweep implements ISkillHandler
 			}
 			if (isSweeping)
 			{
+				if (skill.getAbsorbAbs() > 0)
+				{
+					double hpAdd = skill.getAbsorbAbs();
+					double hp = Math.min(activeChar.getStatus().getCurrentHp() + hpAdd, activeChar.getMaxHp());
+					double hpDiff = hp - activeChar.getStatus().getCurrentHp();
+
+					activeChar.getStatus().increaseHp(hpDiff);
+					StatusUpdate suhp = new StatusUpdate(activeChar.getObjectId());
+					suhp.addAttribute(StatusUpdate.CUR_HP, (int) hp);
+					activeChar.sendPacket(suhp);
+				}
 				if (items == null || items.length == 0)
 					continue;
 				for (L2Attackable.RewardItem ritem : items)

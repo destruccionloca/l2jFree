@@ -89,8 +89,7 @@ public class L2SkillDrain extends L2Skill
 				_drain = damage;
 
 			double hpAdd = _absorbAbs + _absorbPart * _drain;
-			double hp = ((activeChar.getStatus().getCurrentHp() + hpAdd) > activeChar.getMaxHp() ? activeChar.getMaxHp() : (activeChar.getStatus()
-					.getCurrentHp() + hpAdd));
+			double hp = Math.min(activeChar.getStatus().getCurrentHp() + hpAdd, activeChar.getMaxHp());
 
 			double hpDiff = hp - activeChar.getStatus().getCurrentHp();
 
@@ -186,7 +185,7 @@ public class L2SkillDrain extends L2Skill
 
 			double hpAdd = _absorbAbs + _absorbPart * damage;
 			L2PcInstance owner = activeCubic.getOwner();
-			double hp = ((owner.getStatus().getCurrentHp() + hpAdd) > owner.getMaxHp() ? owner.getMaxHp() : (owner.getStatus().getCurrentHp() + hpAdd));
+			double hp = Math.min(owner.getStatus().getCurrentHp() + hpAdd, owner.getMaxHp());
 
 			owner.getStatus().setCurrentHp(hp);
 
