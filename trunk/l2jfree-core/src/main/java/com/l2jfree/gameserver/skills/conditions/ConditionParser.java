@@ -343,18 +343,18 @@ public abstract class ConditionParser
 			boolean val = Boolean.valueOf(nodeName);
 			return new ConditionPlayerLandingZone(val);
 		}
-        else if ("active_skill_id".equalsIgnoreCase(nodeName))
-        {
-        	int skill_id = Integer.decode(nodeValue);
-        	return new ConditionPlayerActiveSkillId(skill_id);
-        }
-        else if ("active_skill_id_lvl".equalsIgnoreCase(nodeName))
-        {
-        	StringTokenizer st = new StringTokenizer(nodeValue, ",");
-        	int skill_id = Integer.decode(st.nextToken());
-    		int skill_lvl =  st.hasMoreTokens() ? Integer.decode(st.nextToken()) : -1;
-            return new ConditionPlayerActiveSkillId(skill_id, skill_lvl);
-        }
+		else if ("active_skill_id".equalsIgnoreCase(nodeName))
+		{
+			int skill_id = Integer.decode(nodeValue);
+			return new ConditionPlayerActiveSkillId(skill_id);
+		}
+		else if ("active_skill_id_lvl".equalsIgnoreCase(nodeName))
+		{
+			StringTokenizer st = new StringTokenizer(nodeValue, ",");
+			int skill_id = Integer.decode(st.nextToken());
+			int skill_lvl = st.hasMoreTokens() ? Integer.decode(st.nextToken()) : -1;
+			return new ConditionPlayerActiveSkillId(skill_id, skill_lvl);
+		}
 		else if ("agathionId".equalsIgnoreCase(nodeName))
 		{
 			int agathionId = Integer.decode(nodeValue);
