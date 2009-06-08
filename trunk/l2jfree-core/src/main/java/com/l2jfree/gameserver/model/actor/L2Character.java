@@ -175,7 +175,6 @@ public abstract class L2Character extends L2Object
 	private boolean					_isPhysicalAttackMuted				= false;											// Cannot use attack
 	private boolean					_isDead								= false;
 	private boolean					_isImmobilized						= false;
-	private boolean					_isOverloaded						= false;											// the char is carrying too much
 	private boolean					_isParalyzed						= false;											// cannot do anything
 
 	private boolean					_isPendingRevive					= false;
@@ -2554,15 +2553,9 @@ public abstract class L2Character extends L2Object
 		return isConfused() || isAfraid();
 	}
 
-	public final boolean isOverloaded()
+	public boolean isOverloaded()
 	{
-		return _isOverloaded;
-	}
-
-	/** Set the overloaded status of the L2Character is overloaded (if True, the L2PcInstance can't take more item). */
-	public final void setIsOverloaded(boolean value)
-	{
-		_isOverloaded = value;
+		return false;
 	}
 
 	public final boolean isParalyzed()
@@ -5375,6 +5368,7 @@ public abstract class L2Character extends L2Object
 						}
 					}
 
+					/*
 					// Absorb CP from the damage inflicted
 					double absorbCPPercent = getStat().calcStat(Stats.ABSORB_CP_PERCENT, 0, null, null);
 
@@ -5388,6 +5382,7 @@ public abstract class L2Character extends L2Object
 
 						getStatus().setCurrentCp(getStatus().getCurrentCp() + absorbDamage);
 					}
+					*/
 				}
 
 				// Notify AI with EVT_ATTACKED
