@@ -235,13 +235,7 @@
     <set name="isMagic" val="true"/>
     <set name="isDebuff" val="true"/>
     <for>
-      <!-- 
-      L2J DP Sync - Waitinig for review
       <effect name="ChanceSkillTrigger" time="30" val="0" triggeredId="5591" triggeredLevel="#lvl" chanceType="ON_ATTACKED" activationChance="40"  abnormal="poison" stackOrder="8" stackType="poison"/>
-      -->
-      <effect count="25" name="Debuff" time="1" val="0" abnormal="poison" stackOrder="8" stackType="poison">
-         <!-- effect values yet unknown -->
-      </effect>
     </for>
   </skill>
   <skill id="1512" levels="1" name="Soul Vortex">

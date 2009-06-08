@@ -162,7 +162,9 @@
     <table name="#mpInitialConsume">20 23 29 31</table>
     <table name="#mpConsume">77 92 113 122</table>
     <table name="#magicLvl">48 56 68 74</table>
+    <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
+    <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="70"/> <!-- Base Land Rate -->
     <set name="lvlDepend" val="1"/>
     <set name="target" val="TARGET_AURA"/>
@@ -685,7 +687,6 @@
     <enchant1 name="npcId" val="#enchantNpcId"/>
     <table name="#mpInitialConsume">14 18 21 23 25 26</table>
     <table name="#mpConsume">56 69 82 92 98 104</table>
-    <table name="#itemConsumeCount">3 3 3 3 3 3</table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="itemConsumeCount" val="3"/>

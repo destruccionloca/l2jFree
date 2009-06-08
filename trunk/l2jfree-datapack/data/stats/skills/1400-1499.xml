@@ -1862,7 +1862,7 @@
     <set name="skillRadius" val="100"/> <!-- guess -->
     <set name="element" val="6"/> <!-- Dark -->
     <set name="isMagic" val="true"/>
-    <set name="skillType" val="MDAM"/>
+    <set name="skillType" val="DRAIN"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="4000"/>
     <set name="reuseDelay" val="20000"/> <!-- guess -->

@@ -827,8 +827,8 @@
     <set name="castRange" val="20"/>
     <set name="effectRange" val="400"/>
     <!-- Drain-specific: absorb from a mob's corpse -->
-    <enchant1 name="absorbPart" val="0"/> <!-- no damage, it's dead -->
     <enchant1 name="absorbAbs" val="#ench1drain"/> <!-- absorbs absolute value -->
+    <enchant2 name="absorbAbs" val="#ench2drain"/> <!-- absorbs absolute value -->
   </skill>
   <skill id="44" levels="3" name="Remedy">
     <table name="#mpInitialConsume">7 9 11</table>

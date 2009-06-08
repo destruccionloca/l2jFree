@@ -73,9 +73,7 @@
     <table name="#rampage">0 1000 0 0 0</table>
     <table name="#Plague">0 0 0 450 0</table>
     <table name="#Psycho">0 0 0 0 4.9</table>
-    <table name="#shTime"> 32000 32000 32000 31000 35000 </table>
     <set name="hitTime" val="#shTime"/>
-    <set name="skillTime" val="#shTime"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="DEBUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -221,7 +219,6 @@
     <set name="hitTime" val="2030"/>
     <set name="reuseDelay" val="100000"/>
     <set name="condition" val="128"/>
-    <set name="skillTime" val="2000"/>
     <set name="effectRange" val="400"/>
     <!-- charge values ... should be done by AI -->
     <!--
@@ -242,7 +239,6 @@
     <set name="skillType" val="CONT"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="power" val="#power"/>
-    <set name="skillTime" val="900"/>
     <set name="hitTime" val="#hitTime"/>
   </skill>
   <skill id="5016" levels="1" name="Yoke of Scarlet">
