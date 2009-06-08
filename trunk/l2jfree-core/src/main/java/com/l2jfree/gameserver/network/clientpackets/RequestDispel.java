@@ -14,51 +14,38 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import com.l2jfree.gameserver.model.L2Effect;
-import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
-/** 
+/**
  * @author evill33t/crion
  */
-public class RequestDispel extends L2GameClientPacket
+public final class RequestDispel extends L2GameClientPacket
 {
-	private static final String	_C__D0_78_REQUESTDISPEL	= "[C] D0 4E RequestDispel";
-
-	private int					_skillId;
-	private int					_skillLevel;
-
+	private static final String _C__D0_78_REQUESTDISPEL = "[C] D0 4E RequestDispel";
+	
+	private int _skillId;
+	private int _skillLevel;
+	
 	@Override
 	protected void readImpl()
 	{
 		_skillId = readD();
 		_skillLevel = readD();
 	}
-
+	
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance cha = getClient().getActiveChar();
-		if (cha == null) return;
-
-		L2Skill s;
-		for (L2Effect e : cha.getAllEffects())
-		{
-			s = e.getSkill();
-			if (s.getId() == _skillId && s.getLevel() == _skillLevel)
-			{
-				if (!s.isDance() && !s.isSong() && !s.isDebuff() &&
-						e.getEffectType() != L2EffectType.TRANSFORMATION &&
-						e.getEffectType() != L2EffectType.ENVIRONMENT)
-					e.exit();
-			}
-		}
-		s = null;
+		if (cha == null)
+			return;
+		
+		cha.getEffects().dispelBuff(_skillId, _skillLevel);
+		
 		sendPacket(ActionFailed.STATIC_PACKET);
 	}
-
+	
 	@Override
 	public String getType()
 	{

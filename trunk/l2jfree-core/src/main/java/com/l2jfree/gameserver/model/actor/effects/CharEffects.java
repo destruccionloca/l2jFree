@@ -57,8 +57,23 @@ public class CharEffects
 	
 	private static boolean isActiveBuff(L2Effect e)
 	{
-		return e != null && e.isInUse() && e.getShowIcon() && !e.getSkill().isDance() && !e.getSkill().isSong()
-			&& !e.getSkill().isDebuff() && e.isBuff();
+		if (e == null)
+			return false;
+		
+		if (!e.getSkill().isBuff() || e.getSkill().isDebuff())
+			return false;
+		
+		if (e.getSkill().isDance() || e.getSkill().isSong())
+			return false;
+		
+		switch (e.getEffectType())
+		{
+			case TRANSFORMATION:
+			case ENVIRONMENT:
+				return false;
+		}
+		
+		return e.isInUse() && e.getShowIcon();
 	}
 	
 	private static boolean isActiveDance(L2Effect e, boolean isDance, boolean isSong)
@@ -432,5 +447,27 @@ public class CharEffects
 	public void stopAllEffectsExceptThoseThatLastThroughDeath()
 	{
 		stopAllEffects(false);
+	}
+	
+	public synchronized void dispelBuff(int skillId, int skillLvl)
+	{
+		for (L2Effect e : getAllEffects())
+		{
+			if (e == null)
+				continue;
+			
+			if (e.getId() != skillId || e.getLevel() != skillLvl)
+				continue;
+			
+			if (!isActiveBuff(e))
+				continue;
+			
+			StackQueue queue = _stackedEffects.get(e.getStackType());
+			
+			if (queue != null)
+				queue.stopAllEffects();
+			
+			e.exit(); // just to be sure
+		}
 	}
 }

@@ -11409,10 +11409,7 @@ public final class L2PcInstance extends L2Playable
 			_log.fatal(e.getMessage(), e);
 		}
 	
-		//it always solves problems. once it solved losing buffs when a client critical occured
-		//now it solves logout char->mark to delete->undelete->use long reuse skill
-		storeEffect();
-		stopAllEffects();
+		getEffects().stopAllEffects(true);
 
 		// Remove from world regions zones
 		L2WorldRegion oldRegion = getWorldRegion();
