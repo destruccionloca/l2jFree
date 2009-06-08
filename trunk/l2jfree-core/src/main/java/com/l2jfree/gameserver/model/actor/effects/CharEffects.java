@@ -442,6 +442,8 @@ public class CharEffects
 				continue;
 			if (e instanceof EffectCharmOfCourage)
 				continue;
+			if (e.getSkill().isStayAfterDeath())
+				continue;
 			
 			switch (e.getSkill().getId())
 			{

@@ -354,6 +354,8 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	private final boolean			_canBeReflected;
 	private final int				_afterEffectId;
 	private final int				_afterEffectLvl;
+	
+	private final boolean 			_stayAfterDeath; // skill should stay after death
 
 	public L2Skill(StatsSet set)
 	{
@@ -430,7 +432,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
         	_negateId = new int[0];
         
 		_maxNegatedEffects = set.getInteger("maxNegated", 0);
-
+		_stayAfterDeath = set.getBool("stayAfterDeath", false);
 		_killByDOT = set.getBool("killByDOT", false);
 
 		_hitTime = set.getInteger("hitTime", 0);
@@ -1554,6 +1556,11 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 	private String	_weaponDependancyMessage;
 
+    public final boolean isStayAfterDeath()
+    {
+    	return _stayAfterDeath;
+    }
+	
 	public final boolean getWeaponDependancy(L2Character activeChar, boolean message)
 	{
 		int weaponsAllowed = getWeaponsAllowed();
