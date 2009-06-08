@@ -6994,32 +6994,32 @@ public abstract class L2Character extends L2Object
 
 	public int getDefAttrFire()
 	{
-		return (int)getStat().getElementAttributeFire()-1;
+		return (int)getStat().getElementAttributeFire();
 	}
 
 	public int getDefAttrWater()
 	{
-		return (int)getStat().getElementAttributeWater()-1;
+		return (int)getStat().getElementAttributeWater();
 	}
 
 	public int getDefAttrEarth()
 	{
-		return (int)getStat().getElementAttributeEarth()-1;
+		return (int)getStat().getElementAttributeEarth();
 	}
 
 	public int getDefAttrWind()
 	{
-		return (int)getStat().getElementAttributeWind()-1;
+		return (int)getStat().getElementAttributeWind();
 	}
 
 	public int getDefAttrHoly()
 	{
-		return (int)getStat().getElementAttributeHoly()-1;
+		return (int)getStat().getElementAttributeHoly();
 	}
 
 	public int getDefAttrUnholy()
 	{
-		return (int)getStat().getElementAttributeUnholy()-1;
+		return (int)getStat().getElementAttributeUnholy();
 	}
 
 	public int getAttackElement()

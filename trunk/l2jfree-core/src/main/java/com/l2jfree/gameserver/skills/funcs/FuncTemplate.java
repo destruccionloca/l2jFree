@@ -59,6 +59,7 @@ public final class FuncTemplate
 			{
 				if (clazz != FuncAdd.class && clazz != FuncSub.class)
 				{
+					throwException(pFunc, pStat, pOrder, pLambda);
 					pStat = Stats.CRITICAL_DAMAGE;
 				}
 				break;
@@ -67,6 +68,7 @@ public final class FuncTemplate
 			{
 				if (clazz == FuncAdd.class || clazz == FuncSub.class)
 				{
+					throwException(pFunc, pStat, pOrder, pLambda);
 					pStat = Stats.CRITICAL_DAMAGE_ADD;
 				}
 				break;
@@ -75,16 +77,36 @@ public final class FuncTemplate
 			{
 				if (clazz == FuncMul.class)
 				{
+					throwException(pFunc, pStat, pOrder, pLambda);
 					clazz = FuncBaseMul.class;
 					pLambda = (pLambda - 1.0);
 				}
 				else if (clazz == FuncDiv.class)
 				{
+					throwException(pFunc, pStat, pOrder, pLambda);
 					clazz = FuncBaseMul.class;
 					pLambda = ((1.0 / pLambda) - 1.0);
 				}
 				break;
 			}
+		}
+		
+		if (pStat.isMultiplicativeResist())
+		{
+			if (clazz != FuncMul.class && clazz != FuncDiv.class)
+				throwException(pFunc, pStat, pOrder, pLambda);
+			
+			if (pLambda >= 2 || pLambda < 0)
+				throwException(pFunc, pStat, pOrder, pLambda);
+		}
+		
+		if (pStat.isAdditiveResist())
+		{
+			if (clazz != FuncAdd.class && clazz != FuncSub.class)
+				throwException(pFunc, pStat, pOrder, pLambda);
+			
+			if ((int)pLambda != pLambda) // it wasn't an integer value
+				throwException(pFunc, pStat, pOrder, pLambda);
 		}
 		
 		if ("Enchant".equalsIgnoreCase(pFunc))
@@ -98,7 +120,7 @@ public final class FuncTemplate
 				case POWER_ATTACK:
 					break;
 				default:
-					throw new IllegalStateException();
+					throwException(pFunc, pStat, pOrder, pLambda);
 			}
 		}
 		
@@ -115,6 +137,12 @@ public final class FuncTemplate
 		{
 			throw new RuntimeException(e);
 		}
+	}
+	
+	private void throwException(String pFunc, Stats pStat, int pOrder, double pLambda)
+	{
+		throw new IllegalStateException("<" + pFunc.toLowerCase() + " order=\"0x" + Integer.toHexString(pOrder)
+			+ "\" stat=\"" + pStat.getValue() + "\" val=\"" + pLambda + "\"/>");
 	}
 	
 	public Func getFunc(Env env, FuncOwner funcOwner)

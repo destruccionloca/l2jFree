@@ -123,7 +123,7 @@ public enum Stats
 	VALAKAS_RES("valakasRes"),
 	VENGEANCE_SKILL_MAGIC_DAMAGE("vengeanceMdam"),
 	VENGEANCE_SKILL_PHYSICAL_DAMAGE("vengeancePdam"),
-
+	
 	//AGGRESSION_PROF("aggressionProf"),
 	BLEED_PROF("bleedProf"),
 	POISON_PROF("poisonProf"),
@@ -155,7 +155,7 @@ public enum Stats
 	TRANSFER_DAMAGE_PERCENT("transDam"),
 	//ABSORB_CP_PERCENT("absorbCpPercent"),
 	SKILL_MASTERY("skillMastery"),
-
+	
 	//Skills Power
 	FIRE_POWER("firePower"),
 	WATER_POWER("waterPower"),
@@ -231,5 +231,78 @@ public enum Stats
 				return s;
 		
 		throw new NoSuchElementException("Unknown name '" + name + "' for enum BaseStats");
+	}
+	
+	//TODO: add more stats
+	public boolean isAdditiveResist()
+	{
+		switch (this)
+		{
+			// defensive
+			case FIRE_RES:
+			case WIND_RES:
+			case WATER_RES:
+			case EARTH_RES:
+			case HOLY_RES:
+			case DARK_RES:
+			// offensive
+			case FIRE_POWER:
+			case WATER_POWER:
+			case WIND_POWER:
+			case EARTH_POWER:
+			case HOLY_POWER:
+			case DARK_POWER:
+				return true;
+			default:
+				return false;
+		}
+	}
+	
+	//TODO: add more stats
+	public boolean isMultiplicativeResist()
+	{
+		switch (this)
+		{
+			// defensive
+			case BLEED_VULN:
+			case POISON_VULN:
+			case STUN_VULN:
+			case PARALYZE_VULN:
+			case ROOT_VULN:
+			case SLEEP_VULN:
+			case CONFUSION_VULN:
+			case CANCEL_VULN:
+			case DERANGEMENT_VULN:
+			case DEBUFF_VULN:
+			case FALL_VULN:
+			case CRIT_VULN:
+			case MAGIC_DAMAGE_VULN:
+			case BUFF_VULN:
+			// offensive
+			case BLEED_PROF:
+			case POISON_PROF:
+			case STUN_PROF:
+			case PARALYZE_PROF:
+			case ROOT_PROF:
+			case SLEEP_PROF:
+			case CONFUSION_PROF:
+			case CANCEL_PROF:
+			case DERANGEMENT_PROF:
+			case DEBUFF_PROF:
+			// defensive
+			case SWORD_WPN_VULN:
+			case BLUNT_WPN_VULN:
+			case DAGGER_WPN_VULN:
+			case BOW_WPN_VULN:
+			case CROSSBOW_WPN_VULN:
+			case POLE_WPN_VULN:
+			case DUAL_WPN_VULN:
+			case DUALFIST_WPN_VULN:
+			case BIGSWORD_WPN_VULN:
+			case BIGBLUNT_WPN_VULN:
+				return true;
+			default:
+				return false;
+		}
 	}
 }
