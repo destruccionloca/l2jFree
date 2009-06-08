@@ -1800,8 +1800,11 @@ public final class Formulas
 	{
 		final double rate = attacker.getStat().getCriticalHit(target);
 		
+		if (!calcCrit(attacker, target, rate))
+			return false;
+		
 		// support for critical damage evasion
-		return calcCrit(attacker, target, rate) && target.getStat().calcStat(Stats.CRIT_DAMAGE_EVASION, 100, null, null) > Rnd.get(100);
+		return Rnd.calcChance(200 - target.getStat().calcStat(Stats.CRIT_DAMAGE_EVASION, 100, attacker, null), 100);
 	}
 	
 	private static boolean calcCrit(L2Character attacker, L2Character target, double rate)
