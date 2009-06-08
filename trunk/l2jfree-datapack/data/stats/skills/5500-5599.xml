@@ -501,7 +501,7 @@
       <!-- TODO: increase darkness atrib -->
       <effect name="ChanceSkillTrigger" time="#time" val="0" triggeredId="#triggeredIds" triggeredLevel="#triggeredLevels" chanceType="ON_ATTACKED" activationChance="#activationChance" stackOrder="#stack" stackType="inc_buff">
         <mul order="0x30" stat="pDef" val="#pDef"/>
-        <mul order="0x40" stat="fireRes" val="#res"/>
+        <add order="0x40" stat="fireRes" val="#res"/>
         <mul order="0x30" stat="gainHp" val="#gain"/>
       </effect>
     </for>
