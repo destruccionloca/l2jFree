@@ -3369,6 +3369,13 @@ public abstract class L2Character extends L2Object
 		broadcastFullInfo();
 	}
 	
+	public final void stopAllEffects(boolean stopEffectsThatLastThroughDeathToo)
+	{
+		getEffects().stopAllEffects(stopEffectsThatLastThroughDeathToo);
+		
+		broadcastFullInfo();
+	}
+	
 	public final void stopAllEffectsExceptThoseThatLastThroughDeath()
 	{
 		getEffects().stopAllEffectsExceptThoseThatLastThroughDeath();
@@ -4215,9 +4222,7 @@ public abstract class L2Character extends L2Object
 			if (getFusionSkill() != null)
 				getFusionSkill().onCastAbort();
 
-			L2Effect mog = getFirstEffect(L2EffectType.SIGNET_GROUND);
-			if (mog != null)
-				mog.exit();
+			stopEffects(L2EffectType.SIGNET_GROUND);
 
 			if (_allSkillsDisabled)
 				enableAllSkills(); // this remains for forced skill use, e.g. scroll of escape

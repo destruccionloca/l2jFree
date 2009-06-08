@@ -443,9 +443,7 @@ public class TvT
 							if (player.getPet() != null)
 							{
 								L2Summon summon = player.getPet();
-								for (L2Effect e : summon.getAllEffects())
-									if (e != null)
-										e.exit();
+								summon.stopAllEffects();
 
 								if (summon instanceof L2PetInstance)
 									summon.unSummon(player);
@@ -514,9 +512,7 @@ public class TvT
 							if (player.getPet() != null)
 							{
 								L2Summon summon = player.getPet();
-								for (L2Effect e : summon.getAllEffects())
-									if (e != null)
-										e.exit();
+								summon.stopAllEffects();
 
 								if (summon instanceof L2PetInstance)
 									summon.unSummon(player);
@@ -643,7 +639,7 @@ public class TvT
 					break;
 				case 1800: // 30 minutes left
 				case 900: // 15 minutes left
-				case 600: //  10 minutes left 
+				case 600: //  10 minutes left
 				case 300: // 5 minutes left
 				case 60: // 1 minute left
 					if (_joining)
@@ -1448,11 +1444,7 @@ public class TvT
 		{
 			if (Config.TVT_ON_START_REMOVE_ALL_EFFECTS)
 			{
-				for (L2Effect e : player.getAllEffects())
-				{
-					if (e != null)
-						e.exit();
-				}
+				player.stopAllEffects();
 			}
 
 			player._teamNameTvT = _savePlayerTeams.get(_savePlayers.indexOf(player.getName()));

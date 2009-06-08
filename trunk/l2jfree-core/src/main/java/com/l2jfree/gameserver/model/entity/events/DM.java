@@ -48,7 +48,7 @@ import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public class DM
-{   
+{
 	private final static Log _log = LogFactory.getLog(DM.class.getName());
 	public static String _eventName = "",
 						 _eventDesc = "",
@@ -183,8 +183,7 @@ public class DM
 							if (player.getPet() != null)
 							{
 								L2Summon summon = player.getPet();
-								for (L2Effect e : summon.getAllEffects())
-									e.exit();
+								summon.stopAllEffects();
 
 								if (summon instanceof L2PetInstance)
 									summon.unSummon(player);
@@ -299,7 +298,7 @@ public class DM
 	}
 
 	/**
-	 * @param activeChar  
+	 * @param activeChar
 	 */
 	public static void rewardPlayer(L2PcInstance activeChar)
 	{
@@ -505,7 +504,7 @@ public class DM
 			statement.execute();
 			statement.close();
 
-			statement = con.prepareStatement("INSERT INTO dm (eventName, eventDesc, joiningLocation, minlvl, maxlvl, npcId, npcX, npcY, npcZ, rewardId, rewardAmount, color, playerX, playerY, playerZ ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");  
+			statement = con.prepareStatement("INSERT INTO dm (eventName, eventDesc, joiningLocation, minlvl, maxlvl, npcId, npcX, npcY, npcZ, rewardId, rewardAmount, color, playerX, playerY, playerZ ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			statement.setString(1, _eventName);
 			statement.setString(2, _eventDesc);
 			statement.setString(3, _joiningLocationName);
@@ -527,7 +526,7 @@ public class DM
 		catch (Exception e)
 		{
 			_log.error("Exception: DM.saveData(): " + e.getMessage());
-		}		
+		}
 		finally
 		{
 			L2DatabaseFactory.close(con);
@@ -610,22 +609,22 @@ public class DM
 	{
 		if (eventPlayer._inEventTvT)
 		{
-			eventPlayer.sendMessage("You are already participating to another event!"); 
+			eventPlayer.sendMessage("You are already participating to another event!");
 			return false;
 		}
 		if (eventPlayer._inEventCTF)
 		{
-			eventPlayer.sendMessage("You are already participating to another event!"); 
+			eventPlayer.sendMessage("You are already participating to another event!");
 			return false;
 		}
 		if (eventPlayer._inEventDM)
 		{
-			eventPlayer.sendMessage("You are already participating in the event!"); 
+			eventPlayer.sendMessage("You are already participating in the event!");
 			return false;
 		}
 		if (eventPlayer._inEventVIP)
 		{
-			eventPlayer.sendMessage("You are already participating to another event!"); 
+			eventPlayer.sendMessage("You are already participating to another event!");
 			return false;
 		}
 
@@ -638,11 +637,7 @@ public class DM
 		{
 			if (Config.DM_ON_START_REMOVE_ALL_EFFECTS)
 			{
-				for (L2Effect e : player.getAllEffects())
-				{
-					if (e != null)
-						e.exit();
-				}
+				player.stopAllEffects();
 			}
 			for (L2PcInstance p : _players)
 			{
@@ -720,7 +715,7 @@ public class DM
 				{
 					if (player !=  null && player.isOnline()!=0)
 						player.teleToLocation(_npcX, _npcY, _npcZ, false);
-				} 
+				}
 				cleanDM();
 			}
 		}, 20000);

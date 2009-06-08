@@ -378,9 +378,7 @@ public final class L2PcInstance extends L2Playable
 
 			// Cancel the recent fake-death protection instantly if the player attacks or casts spells
 			getPlayer().setRecentFakeDeath(false);
-			L2Effect silentMove = getPlayer().getFirstEffect(L2EffectType.SILENT_MOVE);
-			if (silentMove != null)
-				silentMove.exit();
+			getPlayer().stopEffects(L2EffectType.SILENT_MOVE);
 		}
 
 		@Override
@@ -397,9 +395,7 @@ public final class L2PcInstance extends L2Playable
 
 			if (getPlayer().isSilentMoving())
 			{
-				L2Effect silentMove = getPlayer().getFirstEffect(L2EffectType.SILENT_MOVE);
-				if (silentMove != null)
-					silentMove.exit();
+				getPlayer().stopEffects(L2EffectType.SILENT_MOVE);
 			}
 
 			switch (skill.getTargetType())
@@ -10325,8 +10321,7 @@ public final class L2PcInstance extends L2Playable
 		for (L2Skill oldSkill : getAllSkills())
 			super.removeSkill(oldSkill);
 
-		for (L2Effect effect : getAllEffects())
-			effect.exit();
+		stopAllEffects();
 
 		if (isSubClassActive())
 		{

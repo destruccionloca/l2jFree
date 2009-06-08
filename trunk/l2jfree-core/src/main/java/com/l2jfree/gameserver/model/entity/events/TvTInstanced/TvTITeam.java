@@ -23,7 +23,6 @@ package com.l2jfree.gameserver.model.entity.events.TvTInstanced;
 import javolution.util.FastList;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
@@ -150,9 +149,7 @@ public class TvTITeam
 
 		for (L2PcInstance player : _players)
 			if (player != null)
-				for (L2Effect e : player.getAllEffects())
-					if (e != null)
-						e.exit();
+				player.stopAllEffects();
 	}
 
 	public void removeParty()
@@ -175,9 +172,7 @@ public class TvTITeam
 				if (player.getPet() != null)
 				{
 					L2Summon summon = player.getPet();
-					for (L2Effect e : summon.getAllEffects())
-						if (e != null)
-							e.exit();
+					summon.stopAllEffects();
 
 					if (summon instanceof L2PetInstance)
 						summon.unSummon(player);

@@ -43,8 +43,8 @@ import com.l2jfree.gameserver.model.base.Race;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
-import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
+import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.tools.random.Rnd;
 
 public class VIP {
@@ -129,7 +129,7 @@ public class VIP {
 	}
 	
 	/**
-	 * @param activeChar  
+	 * @param activeChar
 	 */
 	public static void setRandomTeam(L2PcInstance activeChar)
 	{
@@ -347,8 +347,8 @@ public class VIP {
 	}
 
 	/**
-	 * @param id  
-	 * @param activeChar  
+	 * @param id
+	 * @param activeChar
 	 */
 	public static String getNPCName(int id, L2PcInstance activeChar)
 	{
@@ -371,15 +371,15 @@ public class VIP {
 			return "";
 
 		L2NpcTemplate npctmp = NpcTable.getInstance().getTemplate(id);
-		if (npctmp == null)		
+		if (npctmp == null)
 			return "";
 		
 		return npctmp.getName();
 	}
 
 	/**
-	 * @param id  
-	 * @param activeChar  
+	 * @param id
+	 * @param activeChar
 	 */
 	public static String getItemName(int id, L2PcInstance activeChar)
 	{
@@ -402,7 +402,7 @@ public class VIP {
 			return "";
 
 		L2Item itemtmp = ItemTable.getInstance().getTemplate(id);
-		if(itemtmp == null)		
+		if(itemtmp == null)
 			return "";
 		
 		return itemtmp.getName();
@@ -417,7 +417,7 @@ public class VIP {
 
 	public static void startJoin(L2PcInstance activeChar)
 	{
-		if (_teamName.isEmpty() || _joinArea.isEmpty() || _time == 0 || _vipReward == 0 || _vipRewardAmount == 0 || _notVipReward == 0 || 
+		if (_teamName.isEmpty() || _joinArea.isEmpty() || _time == 0 || _vipReward == 0 || _vipRewardAmount == 0 || _notVipReward == 0 ||
 				_notVipRewardAmount == 0 || _theVipReward == 0 || _theVipRewardAmount == 0 ||
 				_endNPC == 0 || _joinNPC == 0 || _delay == 0 || _endX == 0 || _endY == 0 || _endZ == 0 ||
 				_startX == 0 || _startY == 0 || _startZ == 0 || _joinX == 0 || _joinY == 0 || _joinZ == 0 || _team == 0 )
@@ -460,7 +460,7 @@ public class VIP {
 	
 	public static void startAutoJoin()
 	{
-		if (_teamName.isEmpty() || _joinArea.isEmpty() || _time == 0 || _vipReward == 0 || _vipRewardAmount == 0 || _notVipReward == 0 || 
+		if (_teamName.isEmpty() || _joinArea.isEmpty() || _time == 0 || _vipReward == 0 || _vipRewardAmount == 0 || _notVipReward == 0 ||
 				_notVipRewardAmount == 0 || _theVipReward == 0 || _theVipRewardAmount == 0 ||
 				_endNPC == 0 || _joinNPC == 0 || _delay == 0 || _endX == 0 || _endY == 0 || _endZ == 0 ||
 				_startX == 0 || _startY == 0 || _startZ == 0 || _joinX == 0 || _joinY == 0 || _joinZ == 0 || _team == 0 )
@@ -638,7 +638,7 @@ public class VIP {
 	}
 
 	/**
-	 * @param activeChar  
+	 * @param activeChar
 	 */
 	public static void vipWin(L2PcInstance activeChar)
 	{
@@ -792,7 +792,7 @@ public class VIP {
 		
 		for (L2PcInstance player : _playersVIP)
 		{
-			if (player !=  null) 
+			if (player !=  null)
 				player.teleToLocation(_startX, _startY, _startZ);
 		}
 		for (L2PcInstance player : _playersNotVIP)
@@ -862,11 +862,7 @@ public class VIP {
 			player.broadcastUserInfo();
 			if (Config.VIP_ON_START_REMOVE_ALL_EFFECTS)
 			{
-				for (L2Effect e : player.getAllEffects())
-				{
-					if (e != null)
-						e.exit();
-				}
+				player.stopAllEffects();
 			}
 		}
 		for (L2PcInstance player : _playersNotVIP)
@@ -991,7 +987,7 @@ public class VIP {
 		}
 		if (activeChar._inEventTvT || activeChar._inEventDM || activeChar._inEventCTF)
 		{
-			activeChar.sendMessage("You are already participating in another event!"); 
+			activeChar.sendMessage("You are already participating in another event!");
 			return;
 		}
 		activeChar._isVIP = true;
@@ -1011,7 +1007,7 @@ public class VIP {
 		}
 		if (activeChar._inEventTvT || activeChar._inEventDM || activeChar._inEventCTF)
 		{
-			activeChar.sendMessage("You are already participating in another event!"); 
+			activeChar.sendMessage("You are already participating in another event!");
 			return;
 		}
 		activeChar._isNotVIP = true;
@@ -1030,11 +1026,7 @@ public class VIP {
 			{
 				if (Config.VIP_ON_START_REMOVE_ALL_EFFECTS)
 				{
-					for (L2Effect e : player.getAllEffects())
-					{
-						if (e != null)
-							e.exit();
-					}
+					player.stopAllEffects();
 				}
 
 				for (L2PcInstance p : _playersVIP)
@@ -1056,7 +1048,7 @@ public class VIP {
 							player._isTheVIP = true;
 						}
 						else
-							player.getAppearance().setNameColor(255,0,0);						
+							player.getAppearance().setNameColor(255,0,0);
 						player.setKarma(0);
 						player.broadcastUserInfo();
 						player.teleToLocation(_startX, _startY, _startZ);

@@ -32,7 +32,6 @@ import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.SpawnTable;
-import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.L2Summon;
@@ -310,10 +309,9 @@ public class TvTIMain
 
 	public synchronized static void addDisconnectedPlayer(L2PcInstance player)
 	{
-		if (true)// Config.TVTI_ON_START_REMOVE_ALL_EFFECTS)
-			for (L2Effect e : player.getAllEffects())
-				if (e != null)
-					e.exit();
+		if (Config.TVTI_ON_START_REMOVE_ALL_EFFECTS)
+			player.stopAllEffects();
+		
 		for (TVTInstance i : _instances)
 		{
 			if (i.isJoining())

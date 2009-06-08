@@ -965,9 +965,7 @@ public class CTF
 							if (player.getPet() != null)
 							{
 								L2Summon summon = player.getPet();
-								for (L2Effect e : summon.getAllEffects())
-									if (e != null)
-										e.exit();
+								summon.stopAllEffects();
 
 								if (summon instanceof L2PetInstance)
 									summon.unSummon(player);
@@ -1035,9 +1033,7 @@ public class CTF
 							if (player.getPet() != null)
 							{
 								L2Summon summon = player.getPet();
-								for (L2Effect e : summon.getAllEffects())
-									if (e != null)
-										e.exit();
+								summon.stopAllEffects();
 
 								if (summon instanceof L2PetInstance)
 									summon.unSummon(player);
@@ -1162,7 +1158,7 @@ public class CTF
 
 					break;
 				case 1800: // 30 minutes left
-				case 600: //  10 minutes left 
+				case 600: //  10 minutes left
 				case 180: // 3 minutes left
 				case 120: // 2 minutes left
 				case 60: // 1 minute left
@@ -1988,11 +1984,7 @@ public class CTF
 		{
 			if (Config.CTF_ON_START_REMOVE_ALL_EFFECTS)
 			{
-				for (L2Effect e : player.getAllEffects())
-				{
-					if (e != null)
-						e.exit();
-				}
+				player.stopAllEffects();
 			}
 
 			player._teamNameCTF = _savePlayerTeams.get(_savePlayers.indexOf(player.getName()));
@@ -2206,7 +2198,7 @@ public class CTF
 				break;
 		}
 
-		//find the polygon center, note that it's not the mathematical center of the polygon, 
+		//find the polygon center, note that it's not the mathematical center of the polygon,
 		//rather than a point which centers all coordinates:
 		int centerX = 0, centerY = 0, centerZ = 0;
 		for (int x = 0; x < pos; x++)
@@ -2216,7 +2208,7 @@ public class CTF
 			centerZ += (locZ[x] / division);
 		}
 
-		//now let's find the furthest distance from the "center" to the egg shaped sphere 
+		//now let's find the furthest distance from the "center" to the egg shaped sphere
 		//surrounding the polygon, size x1.5 (for maximum logical area to wander...):
 		int maxX = 0, maxY = 0, maxZ = 0;
 		for (int x = 0; x < pos; x++)
