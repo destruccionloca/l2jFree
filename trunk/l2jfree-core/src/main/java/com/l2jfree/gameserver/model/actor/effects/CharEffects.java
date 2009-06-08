@@ -29,7 +29,6 @@ import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.network.serverpackets.EffectInfoPacket.EffectInfoPacketList;
-import com.l2jfree.gameserver.skills.effects.EffectCharmOfCourage;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 import com.l2jfree.util.ObjectPool;
 
@@ -413,48 +412,25 @@ public class CharEffects
 	 */
 	public void stopAllEffects()
 	{
-		for (L2Effect e : getAllEffects())
-		{
-			if (e == null)
-				continue;
-			
-			switch (e.getSkill().getId())
-			{
-				case 5660:
-				case 840:
-				case 841:
-				case 842:
-					continue;
-				default:
-					e.exit();
-			}
-		}
+		stopAllEffects(false);
 	}
 	
-	/**
-	 * Exits all effects in this CharEffectList
-	 */
-	public void stopAllEffectsExceptThoseThatLastThroughDeath()
+	public void stopAllEffects(boolean stopEffectsThatLastThroughDeathToo)
 	{
 		for (L2Effect e : getAllEffects())
 		{
 			if (e == null)
 				continue;
-			if (e instanceof EffectCharmOfCourage)
-				continue;
-			if (e.getSkill().isStayAfterDeath())
+			
+			if (e.isStayAfterDeath() && !stopEffectsThatLastThroughDeathToo)
 				continue;
 			
-			switch (e.getSkill().getId())
-			{
-				case 5660:
-				case 840:
-				case 841:
-				case 842:
-					continue;
-				default:
-					e.exit();
-			}
+			e.exit();
 		}
+	}
+	
+	public void stopAllEffectsExceptThoseThatLastThroughDeath()
+	{
+		stopAllEffects(false);
 	}
 }

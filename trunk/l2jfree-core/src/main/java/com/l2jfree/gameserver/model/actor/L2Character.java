@@ -6910,8 +6910,9 @@ public abstract class L2Character extends L2Object
 		
 		if (!skill.isMagic() && skill.getCastRange() < 100) // is 100 maximum range for melee skills?
 		{
-			double reflectMeleeSkill = calcStat(Stats.REFLECT_SKILL_MELEE_PHYSIC, 0, null, null);
-			reflect = (reflectMeleeSkill > reflect) ? reflectMeleeSkill : reflect;
+			// TODO: should be removed after skillhandlers synced
+			//double reflectMeleeSkill = calcStat(Stats.REFLECT_SKILL_MELEE_PHYSIC, 0, null, null);
+			//reflect = (reflectMeleeSkill > reflect) ? reflectMeleeSkill : reflect;
 		}
 		
 		if (Rnd.get(100) < reflect)

@@ -32,6 +32,7 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.EffectInfoPacket.EffectInfoPacketList;
 import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.gameserver.skills.effects.EffectCharmOfCourage;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.funcs.FuncOwner;
 import com.l2jfree.gameserver.skills.funcs.FuncTemplate;
@@ -538,5 +539,13 @@ public abstract class L2Effect implements FuncOwner, Runnable
 	public final boolean isBuff()
 	{
 		return _skill.isBuff();
+	}
+	
+	public final boolean isStayAfterDeath()
+	{
+		if (this instanceof EffectCharmOfCourage)
+			return true;
+		
+		return getSkill().isStayAfterDeath();
 	}
 }

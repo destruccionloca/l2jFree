@@ -1554,13 +1554,22 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		return (_skillType == L2SkillType.MDAM);
 	}
 
+	public final boolean isStayAfterDeath()
+	{
+		switch (getId())
+		{
+			case 5660:
+			case 840:
+			case 841:
+			case 842:
+				return true;
+			default:
+				return _stayAfterDeath;
+		}
+	}
+
 	private String	_weaponDependancyMessage;
 
-    public final boolean isStayAfterDeath()
-    {
-    	return _stayAfterDeath;
-    }
-	
 	public final boolean getWeaponDependancy(L2Character activeChar, boolean message)
 	{
 		int weaponsAllowed = getWeaponsAllowed();

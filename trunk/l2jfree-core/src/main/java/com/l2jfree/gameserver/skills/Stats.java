@@ -150,7 +150,6 @@ public enum Stats
 	REFLECT_DAMAGE_PERCENT("reflectDam"),
 	REFLECT_SKILL_MAGIC("reflectSkillMagic"),
 	REFLECT_SKILL_PHYSIC("reflectSkillPhysic"),
-	REFLECT_SKILL_MELEE_PHYSIC("reflectSkillMeleePhysic"),
 	ABSORB_DAMAGE_PERCENT("absorbDam"),
 	TRANSFER_DAMAGE_PERCENT("transDam"),
 	//ABSORB_CP_PERCENT("absorbCpPercent"),
@@ -245,6 +244,7 @@ public enum Stats
 			case EARTH_RES:
 			case HOLY_RES:
 			case DARK_RES:
+			case VALAKAS_RES:
 			// offensive
 			case FIRE_POWER:
 			case WATER_POWER:
@@ -252,6 +252,7 @@ public enum Stats
 			case EARTH_POWER:
 			case HOLY_POWER:
 			case DARK_POWER:
+			case VALAKAS:
 				return true;
 			default:
 				return false;
