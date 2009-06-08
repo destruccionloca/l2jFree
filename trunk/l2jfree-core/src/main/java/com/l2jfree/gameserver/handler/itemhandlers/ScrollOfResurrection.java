@@ -34,6 +34,9 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
  */
 public class ScrollOfResurrection implements IItemHandler
 {
+	// All the item IDs that this handler knows.
+	private static final int[]	ITEM_IDS	=
+											{ 737, 3936, 3959, 6387 };	
 	/**
 	 * 
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.actor.L2Playable, com.l2jfree.gameserver.model.L2ItemInstance)
@@ -185,6 +188,6 @@ public class ScrollOfResurrection implements IItemHandler
 	@Override
 	public int[] getItemIds()
 	{
-		return null;
+		return ITEM_IDS;
 	}
 }
