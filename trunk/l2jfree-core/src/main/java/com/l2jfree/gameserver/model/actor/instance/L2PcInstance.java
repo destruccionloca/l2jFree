@@ -1805,6 +1805,7 @@ public final class L2PcInstance extends L2Playable
 	/**
 	 * Return the current weight of the L2PcInstance.<BR><BR>
 	 */
+	@Override
 	public int getCurrentLoad()
 	{
 		return getInventory().getTotalWeight();
@@ -1916,9 +1917,10 @@ public final class L2PcInstance extends L2Playable
 	/**
 	 * Return the max weight that the L2PcInstance can load.<BR><BR>
 	 */
+	@Override
 	public int getMaxLoad()
 	{
-		return (int) (calcStat(Stats.MAX_LOAD, 69000, this, null) * Config.ALT_WEIGHT_LIMIT);
+		return (int)(calcStat(Stats.MAX_LOAD, 69000, this, null) * Config.ALT_WEIGHT_LIMIT);
 	}
 
 	public int getExpertisePenalty()
@@ -1926,52 +1928,18 @@ public final class L2PcInstance extends L2Playable
 		return _expertisePenalty;
 	}
 
+	@Override
 	public int getWeightPenalty()
 	{
-		if (_dietMode)
-			return 0;
 		return _curWeightPenalty;
 	}
-
-	/**
-	 * Update the overloaded status of the L2PcInstance.<BR><BR>
-	 */
-	public void refreshOverloaded()
+	
+	@Override
+	public void setWeightPenalty(int value)
 	{
-		int maxLoad = getMaxLoad();
-		int newWeightPenalty = 0;
-
-		if (maxLoad > 0)
-		{
-			setIsOverloaded(getCurrentLoad() > maxLoad && !_dietMode);
-			int weightproc = getCurrentLoad() * 1000 / maxLoad;
-			weightproc = (int)calcStat(Stats.WEIGHT_LIMIT, weightproc, this, null);
-
-			if (weightproc < 500 || _dietMode)
-				newWeightPenalty = 0;
-			else if (weightproc < 666)
-				newWeightPenalty = 1;
-			else if (weightproc < 800)
-				newWeightPenalty = 2;
-			else if (weightproc < 1000)
-				newWeightPenalty = 3;
-			else
-				newWeightPenalty = 4;
-		}
-
-		if (_curWeightPenalty != newWeightPenalty)
-		{
-			_curWeightPenalty = newWeightPenalty;
-			if (newWeightPenalty > 0)
-				super.addSkill(SkillTable.getInstance().getInfo(4270, newWeightPenalty));
-			else
-				super.removeSkill(getKnownSkill(4270));
-			
-			sendEtcStatusUpdate();
-			broadcastUserInfo();
-		}
+		_curWeightPenalty = value;
 	}
-
+	
 	public void refreshExpertisePenalty()
 	{
 		if (Config.ALT_GRADE_PENALTY)

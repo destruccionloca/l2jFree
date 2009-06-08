@@ -66,13 +66,13 @@ public abstract class L2Summon extends L2Playable
 	public static final int	SWOOP_CANNON_ID			= 14839;
 
 	private L2PcInstance	_owner;
-	private int				_attackRange			= 36;		//Melee range
+	//private int				_attackRange			= 36;		//Melee range
 	private boolean			_follow					= true;
 	private boolean			_previousFollowStatus	= true;
 
 	// TODO: currently, all servitors use 1 shot.  However, this value should vary depending on the servitor template (id and level)!
-	private int				_soulShotsPerHit		= 1;
-	private int				_spiritShotsPerHit		= 1;
+	//private int				_soulShotsPerHit		= 1;
+	//private int				_spiritShotsPerHit		= 1;
 
 	public class AIAccessor extends L2Character.AIAccessor
 	{
@@ -130,7 +130,7 @@ public abstract class L2Summon extends L2Playable
 			if (this instanceof L2SummonInstance && getOwner() != null && getOwner().getActiveWeaponInstance() != null)
 			{
 				getOwner().getActiveWeaponInstance().updateElementAttrBonus(getOwner());
-				this.getOwner().sendPacket(new UserInfo(this.getOwner()));
+				getOwner().sendPacket(new UserInfo(getOwner()));
 			}
 		}
 
@@ -282,12 +282,12 @@ public abstract class L2Summon extends L2Playable
 
 	public final int getSoulShotsPerHit()
 	{
-		return _soulShotsPerHit;
+		return 1/*_soulShotsPerHit*/;
 	}
 
 	public final int getSpiritShotsPerHit()
 	{
-		return _spiritShotsPerHit;
+		return 1/*_spiritShotsPerHit*/;
 	}
 
 	public void followOwner()
@@ -459,15 +459,15 @@ public abstract class L2Summon extends L2Playable
 	
 	public int getAttackRange()
 	{
-		return _attackRange;
+		return 36/*_attackRange*/;
 	}
 
-	public void setAttackRange(int range)
-	{
-		if (range < 36)
-			range = 36;
-		_attackRange = range;
-	}
+	//public void setAttackRange(int range)
+	//{
+	//	if (range < 36)
+	//		range = 36;
+	//	_attackRange = range;
+	//}
 
 	public void setFollowStatus(boolean state)
 	{
@@ -503,16 +503,6 @@ public abstract class L2Summon extends L2Playable
 	public PetInventory getInventory()
 	{
 		return null;
-	}
-
-	public int getCurrentLoad()
-	{
-		return 0;
-	}
-
-	public int getMaxLoad()
-	{
-	    return 0;
 	}
 	
 	/**

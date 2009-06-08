@@ -5689,6 +5689,16 @@ public abstract class L2Character extends L2Object
 		return oldSkill;
 	}
 	
+	public L2Skill addSkill(int skillId, int skillLvl)
+	{
+		return addSkill(SkillTable.getInstance().getInfo(skillId, skillLvl));
+	}
+	
+	public L2Skill addSkill(int skillId)
+	{
+		return addSkill(skillId, 1);
+	}
+	
 	/**
 	 * Remove a skill from the L2Character and its Func objects from calculator set of the L2Character.<BR>
 	 * <BR>

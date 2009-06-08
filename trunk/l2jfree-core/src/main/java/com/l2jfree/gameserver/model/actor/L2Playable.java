@@ -16,16 +16,19 @@ package com.l2jfree.gameserver.model.actor;
 
 import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.model.L2Object;
+import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.knownlist.PlayableKnownList;
 import com.l2jfree.gameserver.model.actor.stat.PcStat;
 import com.l2jfree.gameserver.model.actor.stat.PlayableStat;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
+import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
 import com.l2jfree.gameserver.taskmanager.PacketBroadcaster.BroadcastMode;
 import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
+import com.l2jfree.lang.L2Math;
 
 /**
  * This class represents all Playable characters in the world.<BR><BR>
@@ -368,5 +371,104 @@ public abstract class L2Playable extends L2Character
 	public void setLockedTarget(L2Character cha)
 	{
 		_lockedTarget = cha;
-	}	
+	}
+	
+	public static final int WEIGHT_PENALTY_MIN = 0;
+	public static final int WEIGHT_PENALTY_MAX = 4;
+	
+	private boolean _isOverloaded = false;
+	
+	@Override
+	public final boolean isOverloaded()
+	{
+		return _isOverloaded;
+	}
+	
+	public final void setIsOverloaded(boolean value)
+	{
+		_isOverloaded = value;
+	}
+	
+	public int getCurrentLoad()
+	{
+		return 0;
+	}
+	
+	public int getMaxLoad()
+	{
+		return 0;
+	}
+	
+	public int getWeightPenalty()
+	{
+		return 0;
+	}
+	
+	public void setWeightPenalty(int value)
+	{
+	}
+	
+	public final double getWeightProc()
+	{
+		if (getActingPlayer().getDietMode())
+			return 0;
+		
+		final double maxLoad = getMaxLoad();
+		
+		if (maxLoad <= 0)
+			return 0;
+		
+		double currentLoad = getCurrentLoad();
+		
+		if (currentLoad >= maxLoad)
+			return 1;
+		
+		currentLoad -= calcStat(Stats.WEIGHT_LIMIT, 0, this, null);
+		
+		return L2Math.limit(0, currentLoad / maxLoad, 1);
+	}
+	
+	public final int getExpectedWeightPenalty()
+	{
+		final double weightproc = getWeightProc();
+		
+		if (weightproc < 0.500)
+			return 0/*WEIGHT_PENALTY_MIN*/;
+		else if (weightproc < 0.666)
+			return 1;
+		else if (weightproc < 0.800)
+			return 2;
+		else if (weightproc < 1.000)
+			return 3;
+		else
+			return 4/*WEIGHT_PENALTY_MAX*/;
+	}
+	
+	public final void refreshOverloaded()
+	{
+		final int newWeightPenalty = getExpectedWeightPenalty();
+		
+		L2Skill skill = getKnownSkill(4270);
+		int skillLevel = skill == null ? 0 : skill.getLevel();
+		
+		if (getWeightPenalty() != newWeightPenalty || skillLevel != newWeightPenalty)
+		{
+			setWeightPenalty(newWeightPenalty);
+			
+			if (newWeightPenalty > 0)
+				addSkill(4270, newWeightPenalty);
+			else
+				removeSkill(4270);
+			
+			if (this instanceof L2PcInstance)
+			{
+				L2PcInstance player = (L2PcInstance)this;
+				
+				player.sendEtcStatusUpdate();
+				player.broadcastUserInfo();
+			}
+		}
+		
+		setIsOverloaded(newWeightPenalty == WEIGHT_PENALTY_MAX);
+	}
 }

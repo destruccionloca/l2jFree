@@ -29,7 +29,6 @@ import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.datatables.PetDataTable;
-import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.handler.ItemHandler;
 import com.l2jfree.gameserver.idfactory.IdFactory;
@@ -59,7 +58,6 @@ import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.StopMove;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
-import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.item.L2EtcItemType;
@@ -89,7 +87,7 @@ public class L2PetInstance extends L2Summon
 	/** The Experience before the last Death Penalty */
 	private long _expBeforeDeath = 0;
 	
-	private int _maxload;
+	//private int _maxload;
 	
 	public final L2PetData getPetData()
 	{
@@ -256,7 +254,7 @@ public class L2PetInstance extends L2Summon
 		_inventory.restore();
 		int npcId = template.getNpcId();
 		_mountable = PetDataTable.isMountable(npcId);
-		_maxload = getPetData().getPetMaxLoad();
+		//_maxload = getPetData().getPetMaxLoad();
 	}
 	
 	@Override
@@ -1139,15 +1137,15 @@ public class L2PetInstance extends L2Summon
 		return _inventory.getTotalWeight();
 	}
 	
-	public final void setMaxLoad(int maxLoad)
-	{
-		_maxload = maxLoad;
-	}
+	//public final void setMaxLoad(int maxLoad)
+	//{
+	//	_maxload = maxLoad;
+	//}
 	
 	@Override
 	public final int getMaxLoad()
 	{
-		return _maxload;
+		return getPetData().getPetMaxLoad();
 	}
 	
 	public int getInventoryLimit()
@@ -1155,50 +1153,16 @@ public class L2PetInstance extends L2Summon
 		return Config.ALT_INVENTORY_MAXIMUM_PET;
 	}
 	
-	public void refreshOverloaded()
+	@Override
+	public int getWeightPenalty()
 	{
-		int maxLoad = getMaxLoad();
-		if (maxLoad > 0)
-		{
-			int weightproc = getCurrentLoad() * 1000 / maxLoad;
-			weightproc = (int)calcStat(Stats.WEIGHT_LIMIT, weightproc, this, null);
-			int newWeightPenalty;
-			if (weightproc < 500 || getOwner().getDietMode())
-			{
-				newWeightPenalty = 0;
-			}
-			else if (weightproc < 666)
-			{
-				newWeightPenalty = 1;
-			}
-			else if (weightproc < 800)
-			{
-				newWeightPenalty = 2;
-			}
-			else if (weightproc < 1000)
-			{
-				newWeightPenalty = 3;
-			}
-			else
-			{
-				newWeightPenalty = 4;
-			}
-			
-			if (_curWeightPenalty != newWeightPenalty)
-			{
-				_curWeightPenalty = newWeightPenalty;
-				if (newWeightPenalty > 0)
-				{
-					addSkill(SkillTable.getInstance().getInfo(4270, newWeightPenalty));
-					setIsOverloaded(getCurrentLoad() >= maxLoad);
-				}
-				else
-				{
-					super.removeSkill(getKnownSkill(4270));
-					setIsOverloaded(false);
-				}
-			}
-		}
+		return _curWeightPenalty;
+	}
+	
+	@Override
+	public void setWeightPenalty(int value)
+	{
+		_curWeightPenalty = value;
 	}
 	
 	@Override
