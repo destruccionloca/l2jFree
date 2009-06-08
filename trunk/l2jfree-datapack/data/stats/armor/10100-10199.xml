@@ -60,7 +60,7 @@
     <for>
       <add val="170" order="0x10" stat="pDef"/>
       <enchant val="0" order="0x0C" stat="pDef"/>
-      <enchant val="0" order="0x40" stat="maxHp"/>
+      <!-- <enchant val="0" order="0x40" stat="maxHp"/> typo ?  -->
     </for>
   </item>
   <item id="10127" name="Dynasty Leather Armor - Weapon Master">
@@ -70,7 +70,7 @@
     <for>
       <add val="170" order="0x10" stat="pDef"/>
       <enchant val="0" order="0x0C" stat="pDef"/>
-      <enchant val="0" order="0x40" stat="maxHp"/>
+      <!-- <enchant val="0" order="0x40" stat="maxHp"/> typo ?  -->
     </for>
   </item>
   <item id="10139" name="Agathion Bracelet">
@@ -98,7 +98,7 @@
     <for>
       <add val="170" order="0x10" stat="pDef"/>
       <enchant val="0" order="0x0C" stat="pDef"/>
-      <enchant val="0" order="0x40" stat="maxHp"/>
+      <!-- <enchant val="0" order="0x40" stat="maxHp"/> typo ?  -->
     </for>
   </item>
   <item id="10169" name="Enchanter Circlet (Kamael only)">

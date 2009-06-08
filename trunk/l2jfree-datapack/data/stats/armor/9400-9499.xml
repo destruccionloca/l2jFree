@@ -514,7 +514,6 @@
       <add val="27" order="0x10" stat="mDef"/>
       <add val="35" order="0x40" stat="maxMp"/>
       <enchant val="0" order="0x0C" stat="mDef"/>
-      <sub order="0x40" stat="darkVuln" val="0.06"/>
     </for>
   </item>
   <item id="9480" name="Dynasty Necklace (not used) - Darkness Resistance">
@@ -523,7 +522,6 @@
       <add val="36" order="0x10" stat="mDef"/>
       <add val="46" order="0x40" stat="maxMp"/>
       <enchant val="0" order="0x0C" stat="mDef"/>
-      <sub order="0x40" stat="darkVuln" val="0.07"/>
     </for>
   </item>
   <item id="9481" name="Dynasty Ring (not used) - Darkness Resistance">
@@ -532,7 +530,6 @@
       <add val="18" order="0x10" stat="mDef"/>
       <add val="23" order="0x40" stat="maxMp"/>
       <enchant val="0" order="0x0C" stat="mDef"/>
-      <sub order="0x40" stat="darkVuln" val="0.05"/>
     </for>
   </item>
 </list>

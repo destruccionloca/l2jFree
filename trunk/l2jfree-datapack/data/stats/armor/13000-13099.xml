@@ -5,14 +5,14 @@
     <for>
       <add val="73" order="0x10" stat="pDef"/>
       <enchant val="0" order="0x0C" stat="pDef"/>
-      <enchant val="0" order="0x40" stat="maxHp"/>
+      <!-- <enchant val="0" order="0x40" stat="maxHp"/> typo ?  -->
     </for>
   </item>
   <item id="13001" name="Sealed Helm of Nightmare - Robe Use">
     <for>
       <add val="73" order="0x10" stat="pDef"/>
       <enchant val="0" order="0x0C" stat="pDef"/>
-      <enchant val="0" order="0x40" stat="maxHp"/>
+      <!-- <enchant val="0" order="0x40" stat="maxHp"/> typo ?  -->
     </for>
   </item>
   <item id="13022" name="Light Purple-Maned Horse Mounting Bracelet - 7 day limited period">
