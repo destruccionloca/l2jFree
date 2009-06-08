@@ -29,6 +29,7 @@ import com.l2jfree.gameserver.skills.l2skills.L2SkillRecover;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSignet;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSignetCasttime;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSummon;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillSweep;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillTrap;
 import com.l2jfree.gameserver.templates.StatsSet;
 
@@ -92,7 +93,6 @@ public enum L2SkillType
 	SOULSHOT, // should be deprecated
 	SPIRITSHOT, // should be deprecated
 	SPOIL,
-	SWEEP,
 	WEAKNESS, // should be deprecated
 	DISARM,
 	STEAL_BUFF,
@@ -143,6 +143,7 @@ public enum L2SkillType
 	CREATE_ITEM(L2SkillCreateItem.class),
 	DECOY(L2SkillDecoy.class),
 	DRAIN(L2SkillDrain.class),
+	SWEEP(L2SkillSweep.class),
 	RECOVER(L2SkillRecover.class),
 	SIGNET(L2SkillSignet.class),
 	SIGNET_CASTTIME(L2SkillSignetCasttime.class),
