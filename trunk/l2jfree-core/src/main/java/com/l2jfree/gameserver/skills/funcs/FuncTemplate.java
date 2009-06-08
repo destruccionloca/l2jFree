@@ -96,7 +96,6 @@ public final class FuncTemplate
 				case SHIELD_DEFENCE:
 				case MAGIC_ATTACK:
 				case POWER_ATTACK:
-				case MAX_HP:
 					break;
 				default:
 					throw new IllegalStateException();
