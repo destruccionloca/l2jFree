@@ -85,7 +85,6 @@ public class InstantJump implements ISkillHandler
 		{
 			if (target.reflectSkill(skill))
 			{
-				activeChar.stopSkillEffects(skill.getId());
 				skill.getEffects(target, activeChar);
 				//SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
 				//sm.addSkillName(skill);
@@ -94,7 +93,6 @@ public class InstantJump implements ISkillHandler
 			else
 			{
 				// activate attacked effects, if any
-				target.stopSkillEffects(skill.getId());
 				byte shld = Formulas.calcShldUse(activeChar, target, skill);
 				if (Formulas.calcSkillSuccess(activeChar, target, skill, shld, false, false, false))
 				{

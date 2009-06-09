@@ -103,13 +103,6 @@ public class L2SkillRecover extends L2Skill
 				tryNegate(e);
 		}
 		//effect self :]
-		L2Effect effect = activeChar.getFirstEffect(getId());
-		if (effect != null && effect.isSelfEffect())
-		{
-			//Replace old effect with new one.
-			effect.exit();
-		}
-		// cast self effect if any
 		getEffectsSelf(activeChar);
 	}
 

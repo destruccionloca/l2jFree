@@ -18,7 +18,6 @@ import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.model.L2Clan;
-import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -72,9 +71,6 @@ public class ClanGate implements ISkillHandler
 				}
 			}
 		}
-		L2Effect effect = player.getFirstEffect(skill.getId());
-		if (effect != null && effect.isSelfEffect())
-			effect.exit();
 		skill.getEffectsSelf(player);
 	}
 

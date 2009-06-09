@@ -314,7 +314,6 @@ public class Disablers implements ICubicSkillHandler
 								}
 							}
 							target.setTarget(activeChar); //c5 hate PvP
-							activeChar.stopSkillEffects(skill.getId());
 							skill.getEffects(activeChar, activeChar);
 							target.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, activeChar, (int) ((150 * skill.getPower()) / (target.getLevel() + 7)));
 						}
@@ -756,12 +755,6 @@ public class Disablers implements ICubicSkillHandler
 
 		}
 		// Self Effect :]
-		L2Effect effect = activeChar.getFirstEffect(skill.getId());
-		if (effect != null && effect.isSelfEffect())
-		{
-			//Replace old effect with new one.
-			effect.exit();
-		}
 		skill.getEffectsSelf(activeChar);
 	}
 

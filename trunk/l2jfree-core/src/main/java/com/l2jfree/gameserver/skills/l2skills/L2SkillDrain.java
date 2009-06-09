@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.skills.l2skills;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
@@ -123,7 +122,6 @@ public class L2SkillDrain extends L2Skill
 				{
 					if (target.reflectSkill(this))
 					{
-						activeChar.stopSkillEffects(getId());
 						getEffects(target, activeChar);
 						SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
 						sm.addSkillName(this);
@@ -132,7 +130,6 @@ public class L2SkillDrain extends L2Skill
 					else
 					{
 						// activate attacked effects, if any
-						target.stopSkillEffects(getId());
 						if (Formulas.calcSkillSuccess(activeChar, target, this, shld, false, ss, bss))
 							getEffects(activeChar, target);
 						else
@@ -154,13 +151,6 @@ public class L2SkillDrain extends L2Skill
 			}
 		}
 		//effect self :]
-		L2Effect effect = activeChar.getFirstEffect(getId());
-		if (effect != null && effect.isSelfEffect())
-		{
-			//Replace old effect with new one.
-			effect.exit();
-		}
-		// cast self effect if any
 		getEffectsSelf(activeChar);
 	}
 

@@ -86,7 +86,6 @@ public class Blow implements ISkillHandler
 				{
 					if (target.reflectSkill(skill))
 					{
-						activeChar.stopSkillEffects(skill.getId());
 						skill.getEffects(target, activeChar);
 						SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
 						sm.addSkillName(skill);
@@ -237,10 +236,6 @@ public class Blow implements ISkillHandler
 			// Possibility of a lethal strike
 			Formulas.calcLethalHit(activeChar, target, skill);
 
-			L2Effect effect = activeChar.getFirstEffect(skill.getId());
-			// Self Effect
-			if (effect != null && effect.isSelfEffect())
-				effect.exit();
 			skill.getEffectsSelf(activeChar);
 		}
 	}

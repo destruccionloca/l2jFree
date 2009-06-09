@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.skills.l2skills;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
@@ -99,13 +98,6 @@ public class L2SkillChargeDmg extends L2Skill
 				activeChar.sendDamageMessage(target, 0, false, false, true);
 			}
 		} // effect self :]
-		L2Effect seffect = activeChar.getFirstEffect(getId());
-		if (seffect != null && seffect.isSelfEffect())
-		{
-			//Replace old effect with new one.
-			seffect.exit();
-		}
-		// cast self effect if any
 		getEffectsSelf(activeChar);
 	}
 }

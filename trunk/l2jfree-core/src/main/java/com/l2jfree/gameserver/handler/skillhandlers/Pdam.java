@@ -18,7 +18,6 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.handler.ISkillHandler;
-import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
@@ -139,7 +138,6 @@ public class Pdam implements ISkillHandler
 					{
 						if (target.reflectSkill(skill))
 						{
-							activeChar.stopSkillEffects(skill.getId());
 							skill.getEffects(target, activeChar);
 							SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
 							sm.addSkillName(skill);
@@ -148,7 +146,6 @@ public class Pdam implements ISkillHandler
 						else
 						{
 							// Activate attacked effects, if any
-							target.stopSkillEffects(skill.getId());
 							if (Formulas.calcSkillSuccess(activeChar, target, skill, shld, false, false, false))
 							{
 								skill.getEffects(activeChar, target);
@@ -287,12 +284,6 @@ public class Pdam implements ISkillHandler
 			}
 
 			// Self Effect :]
-			L2Effect effect = activeChar.getFirstEffect(skill.getId());
-			if (effect != null && effect.isSelfEffect())
-			{
-				//Replace old effect with new one.
-				effect.exit();
-			}
 			skill.getEffectsSelf(activeChar);
 		}
 

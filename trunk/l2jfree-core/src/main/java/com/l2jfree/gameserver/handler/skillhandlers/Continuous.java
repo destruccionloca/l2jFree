@@ -207,12 +207,6 @@ public class Continuous implements ICubicSkillHandler
 		}
 
 		// Self Effect :]
-		L2Effect effect = activeChar.getFirstEffect(skill.getId());
-		if (effect != null && effect.isSelfEffect())
-		{
-			//Replace old effect with new one.
-			effect.exit();
-		}
 		skill.getEffectsSelf(activeChar);
 	}
 

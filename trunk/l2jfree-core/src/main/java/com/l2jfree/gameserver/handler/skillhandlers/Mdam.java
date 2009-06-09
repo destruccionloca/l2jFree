@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.handler.skillhandlers;
 
 import com.l2jfree.gameserver.handler.ICubicSkillHandler;
-import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
@@ -142,7 +141,6 @@ public class Mdam implements ICubicSkillHandler
 				{
 					if (target.reflectSkill(skill))
 					{
-						activeChar.stopSkillEffects(skill.getId());
 						skill.getEffects(target, activeChar);
 						SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
 						sm.addSkillName(skill);
@@ -151,7 +149,6 @@ public class Mdam implements ICubicSkillHandler
 					else
 					{
 						// activate attacked effects, if any
-						target.stopSkillEffects(skill.getId());
 						if (Formulas.calcSkillSuccess(activeChar, target, skill, shld, false, ss, bss))
 						{
 							skill.getEffects(activeChar, target);
@@ -185,12 +182,6 @@ public class Mdam implements ICubicSkillHandler
 			Formulas.calcLethalHit(activeChar, target, skill);
 		}
 		// Self Effect :]
-		L2Effect effect = activeChar.getFirstEffect(skill.getId());
-		if (effect != null && effect.isSelfEffect())
-		{
-			//Replace old effect with new one.
-			effect.exit();
-		}
 		skill.getEffectsSelf(activeChar);
 
 		if (skill.isSuicideAttack())
@@ -247,7 +238,6 @@ public class Mdam implements ICubicSkillHandler
 				if (skill.hasEffects())
 				{
 					// activate attacked effects, if any
-					target.stopSkillEffects(skill.getId());
 					if (Formulas.calcCubicSkillSuccess(activeCubic, target, skill, shld))
 					{
 						skill.getEffects(activeCubic, target);
