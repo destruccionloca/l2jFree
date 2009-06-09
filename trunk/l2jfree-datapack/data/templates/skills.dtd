@@ -15,7 +15,8 @@
 <!ATTLIST skill enchantLevels3 CDATA #IMPLIED>
 <!ATTLIST skill enchantLevels4 CDATA #IMPLIED>
 <!ATTLIST skill enchantLevels5 CDATA #IMPLIED>
-<!ELEMENT skill ((table|set|enchant1|enchant2|enchant3|enchant4|enchant5)*,cond?,enchant1cond?,enchant2cond?,enchant3cond?,enchant4cond?,enchant5cond?,for?,enchant1for?,enchant2for?,enchant3for?,enchant4for?,enchant5for?)>
+<!ATTLIST skill enchantLevels6 CDATA #IMPLIED>
+<!ELEMENT skill ((table|set|enchant1|enchant2|enchant3|enchant4|enchant5|enchant6)*,cond?,enchant1cond?,enchant2cond?,enchant3cond?,enchant4cond?,enchant5cond?,enchant6cond?,for?,enchant1for?,enchant2for?,enchant3for?,enchant4for?,enchant5for?,enchant6for?)>
 
 <!-- Table -->
 <!ATTLIST table name CDATA #REQUIRED>
@@ -28,26 +29,30 @@
 <!ATTLIST enchant3 name CDATA #REQUIRED>
 <!ATTLIST enchant4 name CDATA #REQUIRED>
 <!ATTLIST enchant5 name CDATA #REQUIRED>
+<!ATTLIST enchant6 name CDATA #REQUIRED>
 <!ATTLIST set      val CDATA #REQUIRED>
 <!ATTLIST enchant1 val CDATA #REQUIRED>
 <!ATTLIST enchant2 val CDATA #REQUIRED>
 <!ATTLIST enchant3 val CDATA #REQUIRED>
 <!ATTLIST enchant4 val CDATA #REQUIRED>
 <!ATTLIST enchant5 val CDATA #REQUIRED>
+<!ATTLIST enchant6 val CDATA #REQUIRED>
 <!-- <!ELEMENT set      EMPTY> --> <!-- overlapping with stats -->
 <!ELEMENT enchant1 EMPTY>
 <!ELEMENT enchant2 EMPTY>
 <!ELEMENT enchant3 EMPTY>
 <!ELEMENT enchant4 EMPTY>
 <!ELEMENT enchant5 EMPTY>
+<!ELEMENT enchant6 EMPTY>
 
 <!-- Template -->
-<!ELEMENT for         (effect+|%func;+)?> <!-- TODO -->
-<!ELEMENT enchant1for (effect+|%func;+)?> <!-- TODO -->
-<!ELEMENT enchant2for (effect+|%func;+)?> <!-- TODO -->
-<!ELEMENT enchant3for (effect+|%func;+)?> <!-- TODO -->
-<!ELEMENT enchant4for (effect+|%func;+)?> <!-- TODO -->
-<!ELEMENT enchant5for (effect+|%func;+)?> <!-- TODO -->
+<!ELEMENT for         (effect+|(%func;)+)?> <!-- TODO -->
+<!ELEMENT enchant1for (effect+|(%func;)+)?> <!-- TODO -->
+<!ELEMENT enchant2for (effect+|(%func;)+)?> <!-- TODO -->
+<!ELEMENT enchant3for (effect+|(%func;)+)?> <!-- TODO -->
+<!ELEMENT enchant4for (effect+|(%func;)+)?> <!-- TODO -->
+<!ELEMENT enchant5for (effect+|(%func;)+)?> <!-- TODO -->
+<!ELEMENT enchant6for (effect+|(%func;)+)?> <!-- TODO -->
 
 <!-- Condition -->
 <!ATTLIST cond         msg CDATA #IMPLIED>
@@ -56,29 +61,45 @@
 <!ATTLIST enchant3cond msg CDATA #IMPLIED>
 <!ATTLIST enchant4cond msg CDATA #IMPLIED>
 <!ATTLIST enchant5cond msg CDATA #IMPLIED>
+<!ATTLIST enchant6cond msg CDATA #IMPLIED>
 <!ATTLIST cond         msgId CDATA #IMPLIED>
 <!ATTLIST enchant1cond msgId CDATA #IMPLIED>
 <!ATTLIST enchant2cond msgId CDATA #IMPLIED>
 <!ATTLIST enchant3cond msgId CDATA #IMPLIED>
 <!ATTLIST enchant4cond msgId CDATA #IMPLIED>
 <!ATTLIST enchant5cond msgId CDATA #IMPLIED>
+<!ATTLIST enchant6cond msgId CDATA #IMPLIED>
+<!ATTLIST cond         addName (1) #IMPLIED>
+<!ATTLIST enchant1cond addName (1) #IMPLIED>
+<!ATTLIST enchant2cond addName (1) #IMPLIED>
+<!ATTLIST enchant3cond addName (1) #IMPLIED>
+<!ATTLIST enchant4cond addName (1) #IMPLIED>
+<!ATTLIST enchant5cond addName (1) #IMPLIED>
+<!ATTLIST enchant6cond addName (1) #IMPLIED>
 <!ELEMENT cond         (%condition;)>
 <!ELEMENT enchant1cond (%condition;)>
 <!ELEMENT enchant2cond (%condition;)>
 <!ELEMENT enchant3cond (%condition;)>
 <!ELEMENT enchant4cond (%condition;)>
 <!ELEMENT enchant5cond (%condition;)>
+<!ELEMENT enchant6cond (%condition;)>
 
 <!-- Effect -->
 <!ATTLIST effect name CDATA #REQUIRED>
 <!ATTLIST effect count CDATA #IMPLIED>
-<!ATTLIST effect time CDATA #REQUIRED>
+<!ATTLIST effect time CDATA #IMPLIED>
 <!ATTLIST effect self (1) #IMPLIED>
 <!ATTLIST effect noicon (1) #IMPLIED>
 <!ATTLIST effect val CDATA #REQUIRED>
-<!ATTLIST effect abnormal (bleeding|poison|redcircle|ice|wind|flame|stun|mute|root|bighead|stealth|earthquake|invul) #IMPLIED>
+<!ATTLIST effect abnormal (bleed|bleeding|poison|redcircle|ice|wind|fear|stun|sleep|mute|root|hold1|hold2|unknown13|bighead|flame|unknown16|grow|floatroot|dancestun|firerootstun|stealth|imprison1|imprison2|magiccircle|ice2|earthquake|unknown27|invulnerable|vitality) #IMPLIED>
 <!ATTLIST effect stackType CDATA #IMPLIED>
 <!ATTLIST effect stackOrder CDATA #IMPLIED>
+<!ATTLIST effect effectPower CDATA #IMPLIED>
+<!ATTLIST effect effectType CDATA #IMPLIED>
+<!ATTLIST effect triggeredId CDATA #IMPLIED>
+<!ATTLIST effect triggeredLevel CDATA #IMPLIED>
+<!ATTLIST effect chanceType CDATA #IMPLIED>
+<!ATTLIST effect activationChance CDATA #IMPLIED>
 <!ELEMENT effect (cond?,(%func;)*)> <!-- TODO: cond? -->
 
 <!-- Stat -->
