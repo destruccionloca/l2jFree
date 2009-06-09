@@ -10,7 +10,7 @@ from com.l2jfree import L2DatabaseFactory
 from com.l2jfree.gameserver.instancemanager        import InstanceManager
 from com.l2jfree.gameserver.model.entity           import Instance
 from com.l2jfree.gameserver.model.actor            import L2Character
-from com.l2jfree.gameserver.model                  import L2Summon
+from com.l2jfree.gameserver.model.actor            import L2Summon
 from com.l2jfree.gameserver.model                  import L2World
 from com.l2jfree.gameserver.model.quest            import State
 from com.l2jfree.gameserver.model.quest            import QuestState
