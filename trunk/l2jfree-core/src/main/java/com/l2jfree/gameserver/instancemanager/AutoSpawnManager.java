@@ -173,7 +173,7 @@ public class AutoSpawnManager
 		}
 		catch (Exception e)
 		{
-			_log.warn("AutoSpawnHandler: Could not restore spawn data: " + e);
+			_log.warn("AutoSpawnHandler: Could not restore spawn data: ", e);
 		}
 		finally
 		{
@@ -264,7 +264,7 @@ public class AutoSpawnManager
 		}
 		catch (Exception e)
 		{
-			_log.warn("AutoSpawnHandler: Could not auto spawn for NPC ID " + spawnInst._npcId + " (Object ID = " + spawnInst._objectId + "): " + e);
+			_log.warn("AutoSpawnHandler: Could not auto spawn for NPC ID " + spawnInst._npcId + " (Object ID = " + spawnInst._objectId + "): ", e);
 			return false;
 		}
 
@@ -573,8 +573,14 @@ public class AutoSpawnManager
 			{
 				AutoSpawnInstance spawnInst = _registeredSpawns.get(_objectId);
 
+				if (spawnInst == null)
+					return;
+				
 				for (L2Npc npcInst : spawnInst.getNPCInstanceList())
 				{
+					if (npcInst == null)
+						continue;
+					
 					npcInst.deleteMe();
 					
 					SpawnTable.getInstance().deleteSpawn(npcInst.getSpawn(), false);
@@ -587,7 +593,7 @@ public class AutoSpawnManager
 			}
 			catch (Exception e)
 			{
-				_log.warn("AutoSpawnHandler: An error occurred while despawning spawn (Object ID = " + _objectId + "): " + e);
+				_log.warn("AutoSpawnHandler: An error occurred while despawning spawn (Object ID = " + _objectId + "): ", e);
 			}
 		}
 	}
