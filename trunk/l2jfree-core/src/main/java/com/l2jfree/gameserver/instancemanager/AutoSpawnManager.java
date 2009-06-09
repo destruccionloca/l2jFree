@@ -256,7 +256,8 @@ public class AutoSpawnManager
 
 			// Cancel the currently associated running scheduled task.
 			ScheduledFuture<?> respawnTask = _runningSpawns.remove(spawnInst._objectId);
-			respawnTask.cancel(false);
+			if (respawnTask != null)
+				respawnTask.cancel(false);
 
 			if (_log.isDebugEnabled())
 				_log.debug("AutoSpawnHandler: Removed auto spawn for NPC ID " + spawnInst._npcId + " (Object ID = " + spawnInst._objectId + ").");
