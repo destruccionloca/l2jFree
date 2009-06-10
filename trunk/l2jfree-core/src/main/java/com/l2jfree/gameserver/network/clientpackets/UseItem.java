@@ -186,6 +186,12 @@ public final class UseItem extends L2GameClientPacket
 			activeChar.sendPacket(SystemMessageId.CANNOT_DO_WHILE_FISHING_3);
 			return;
 		}
+		
+		if (AutomatedTvT.isPlaying(activeChar) && !AutomatedTvT.canUse(itemId))
+		{
+			requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+			return;
+		} 		
 
 		// Char cannot use item when dead
 		if (activeChar.isDead())

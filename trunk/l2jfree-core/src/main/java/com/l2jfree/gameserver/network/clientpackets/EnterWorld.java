@@ -48,6 +48,11 @@ import com.l2jfree.gameserver.model.entity.Hero;
 import com.l2jfree.gameserver.model.entity.L2Event;
 import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.model.entity.events.AutomatedTvT;
+import com.l2jfree.gameserver.model.entity.events.CTF;
+import com.l2jfree.gameserver.model.entity.events.DM;
+import com.l2jfree.gameserver.model.entity.events.TvT;
+import com.l2jfree.gameserver.model.entity.events.VIP;
+import com.l2jfree.gameserver.model.entity.events.TvTInstanced.TvTIMain;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.model.quest.Quest;
@@ -450,6 +455,21 @@ public class EnterWorld extends L2GameClientPacket
 		if (Config.GAMEGUARD_ENFORCE)
 			activeChar.sendPacket(GameGuardQuery.STATIC_PACKET);
 
+		if (TvT._savePlayers.contains(activeChar.getName()))
+			TvT.addDisconnectedPlayer(activeChar);
+
+		if (CTF._savePlayers.contains(activeChar.getName()))
+			CTF.addDisconnectedPlayer(activeChar);
+
+		if (DM._savePlayers.contains(activeChar.getName()))
+			DM.addDisconnectedPlayer(activeChar);
+
+		if (TvTIMain.isPlayerInList(activeChar))
+			TvTIMain.addDisconnectedPlayer(activeChar);
+
+		if (VIP._savePlayers.contains(activeChar.getName()))
+			VIP.addDisconnectedPlayer(activeChar); 
+		
 		if (!activeChar.isTransformed())
 		{
 			activeChar.regiveTemporarySkills();

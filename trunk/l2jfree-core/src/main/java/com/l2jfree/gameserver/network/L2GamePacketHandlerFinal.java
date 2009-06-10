@@ -71,7 +71,6 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 		ReceivablePacket<L2GameClient> msg = null;
 		GameClientState state = client.getState();
 		
-		//_log.info("op:"+opcode);
 		switch (state)
 		{
 			case CONNECTED:
@@ -259,22 +258,26 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 					case 0x31: // t1 ??
 						msg = new SetPrivateStoreListSell();
 						break;
-					// case 0x32:
-					// msg = new RequestPrivateStoreManageCancel(data, _client);
-					// break;
+                    case 0x32:
+                        msg = new AttackRequest();
+                        break;
+                    case 0x33:
+                    	// RequestTeleportPacket
+                    	break;
 					case 0x34:
 						msg = new RequestSocialAction();
 						break;
-					// Deprecated - RequestActionUse
 					case 0x35:
-						//	msg = new ChangeMoveType2();
+						msg = new ChangeMoveType2();
 						break;
 					case 0x36:
-						//	msg = new ChangeWaitType2();
+						msg = new ChangeWaitType2();
 						break;
-					//
 					case 0x37:
 						msg = new RequestSellItem();
+						break;
+					case 0x38:
+						// RequestMagicSkillList
 						break;
 					case 0x39:
 						msg = new RequestMagicSkillUse();
@@ -582,7 +585,7 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 					// // NetPing
 					// break;
 					case 0xb3:
-						msg = new BypassUserCmd();
+						msg = new RequestUserCommand();
 						break;
 					case 0xb4:
 						msg = new SnoopQuit();
@@ -687,7 +690,6 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 								_log.warn("Client: " + client.toString() + " sent a 0xd0 without the second opcode.");
 							break;
 						}
-						//_log.info("ex:"+id2);
 						switch (id2)
 						{
 							case 0x01:
@@ -765,6 +767,21 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 							case 0x19:
 								msg = new RequestPCCafeCouponUse();
 								break;
+                           case 0x1b:
+                                msg = new RequestDuelStart();
+                                break;
+                            case 0x1c:
+                                msg = new RequestDuelAnswerStart();
+                                break;
+                            case 0x1d:
+                            	// RequestExSetTutorial
+                            	break;
+                            case 0x1e:
+                                msg = new RequestExRqItemLink();
+                                break;
+                            case 0x1f:
+                            	// CanNotMoveAnymoreAirShip
+                            	break;
 							case 0x20:
 								msg = new MoveToLocationInAirShip();
 								break;

@@ -23,11 +23,18 @@ import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.handler.AdminCommandHandler;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Object;
+import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2MerchantSummonInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.entity.L2Event;
+import com.l2jfree.gameserver.model.entity.events.CTF;
+import com.l2jfree.gameserver.model.entity.events.DM;
+import com.l2jfree.gameserver.model.entity.events.TvT;
+import com.l2jfree.gameserver.model.entity.events.VIP;
+import com.l2jfree.gameserver.model.entity.events.TvTInstanced.TvTIMain;
 import com.l2jfree.gameserver.model.olympiad.Olympiad;
-import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.network.InvalidPacketException;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.GMViewPledgeInfo;
@@ -78,27 +85,115 @@ public class RequestBypassToServer extends L2GameClientPacket
 				id = _command.substring(4);
 			try
 			{
+				L2Object object = null;
 				int objectId = Integer.parseInt(id);
-				
-				L2Npc npc = activeChar.getTarget(L2Npc.class, objectId);
-				
-				if (npc != null && endOfId > 0
-					&& activeChar.isInsideRadius(npc, L2Npc.INTERACTION_DISTANCE, false, false))
+
+				// Get object from target
+				if (activeChar.getTargetId() == objectId)
+					object = activeChar.getTarget();
+
+				// Get object from world
+				if (object == null)
 				{
-					String realCommand = _command.substring(endOfId + 1);
-					
-					if (GlobalRestrictions.onBypassFeedback(npc, activeChar, realCommand))
-					{
-					}
-					else
-						npc.onBypassFeedback(activeChar, realCommand);
+					object = L2World.getInstance().findObject(objectId);
+					// _log.warn("Player "+activeChar.getName()+" bypassed command to NPC outside of his knownlist.");
 				}
-				
-				sendPacket(ActionFailed.STATIC_PACKET);
+
+				if (_command.substring(endOfId + 1).startsWith("event_participate"))
+					L2Event.inscribePlayer(activeChar);
+
+				else if (_command.substring(endOfId + 1).startsWith("vip_joinVIPTeam"))
+					VIP.addPlayerVIP(activeChar);
+
+				else if (_command.substring(endOfId + 1).startsWith("vip_joinNotVIPTeam"))
+					VIP.addPlayerNotVIP(activeChar);
+
+				else if (_command.substring(endOfId + 1).startsWith("vip_finishVIP"))
+					VIP.vipWin(activeChar);
+
+				else if (_command.substring(endOfId + 1).startsWith("tvt_player_join "))
+				{
+					String teamName = _command.substring(endOfId + 1).substring(16);
+
+					if (TvT._joining)
+						TvT.addPlayer(activeChar, teamName);
+					else
+						activeChar.sendMessage("The event is already started. You can not join now!");
+				}
+
+				else if (_command.substring(endOfId + 1).startsWith("tvt_player_leave"))
+				{
+					if (TvT._joining)
+						TvT.removePlayer(activeChar);
+					else
+						activeChar.sendMessage("The event is already started. You can not leave now!");
+				}
+
+				else if (_command.substring(endOfId + 1).startsWith("dmevent_player_join"))
+				{
+					if (DM._joining)
+						DM.addPlayer(activeChar);
+					else
+						activeChar.sendMessage("The event is already started. You can not join now!");
+				}
+
+				else if (_command.substring(endOfId + 1).startsWith("dmevent_player_leave"))
+				{
+					if (DM._joining)
+						DM.removePlayer(activeChar);
+					else
+						activeChar.sendMessage("The event is already started. You can not leave now!");
+				}
+
+				else if (_command.substring(endOfId + 1).startsWith("ctf_player_join "))
+				{
+					String teamName = _command.substring(endOfId + 1).substring(16);
+
+					if (CTF._joining)
+						CTF.addPlayer(activeChar, teamName);
+					else
+						activeChar.sendMessage("The event is already started. You can not join now!");
+				}
+
+				else if (_command.substring(endOfId + 1).startsWith("ctf_player_leave"))
+				{
+					if (CTF._joining)
+						CTF.removePlayer(activeChar);
+					else
+						activeChar.sendMessage("The event is already started. You can not leave now!");
+				}
+
+				else if (_command.substring(endOfId + 1).startsWith("tvt_player_leave"))
+				{
+					if (TvT._joining)
+						TvT.removePlayer(activeChar);
+					else
+						activeChar.sendMessage("The event is already started. You can not leave now!");
+				}
+
+				else if (_command.substring(endOfId + 1).startsWith("tvti_player_join_page"))
+				{
+					TvTIMain.showInstancesHtml(activeChar, String.valueOf(TvTIMain.getJoinNpc().getLastSpawn().getObjectId()));
+				}
+
+				else if (_command.substring(endOfId + 1).startsWith("tvti_player_join "))
+				{
+					int instanceId = Integer.parseInt(_command.substring(endOfId + 1).substring(17));
+
+					TvTIMain.addPlayer(activeChar, instanceId);
+				}
+
+				else if (_command.substring(endOfId + 1).startsWith("tvti_player_leave"))
+				{
+					TvTIMain.removePlayer(activeChar);
+				}
+				else if (object instanceof L2NpcInstance && endOfId > 0 && activeChar.isInsideRadius(object, L2NpcInstance.INTERACTION_DISTANCE, false, false))
+					((L2NpcInstance) object).onBypassFeedback(activeChar, _command.substring(endOfId + 1));
+				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			}
 			catch (NumberFormatException nfe)
 			{
-			}
+			} 
 		}
 		else if (_command.startsWith("summon_"))
 		{

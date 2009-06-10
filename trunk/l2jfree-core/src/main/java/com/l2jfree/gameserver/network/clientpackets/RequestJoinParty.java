@@ -14,10 +14,15 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.BlockList;
 import com.l2jfree.gameserver.model.L2Party;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.entity.events.CTF;
+import com.l2jfree.gameserver.model.entity.events.DM;
+import com.l2jfree.gameserver.model.entity.events.TvT;
+import com.l2jfree.gameserver.model.entity.events.VIP;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
@@ -69,6 +74,7 @@ public class RequestJoinParty extends L2GameClientPacket
 			requestFailed(new SystemMessage(SystemMessageId.C1_HAS_ADDED_YOU_TO_IGNORE_LIST).addCharName(target));
 			return;
 		}
+		
 		else if (target.isInParty())
 		{
 			requestFailed(new SystemMessage(SystemMessageId.C1_IS_ALREADY_IN_PARTY).addString(target.getName()));
@@ -85,6 +91,31 @@ public class RequestJoinParty extends L2GameClientPacket
 			return;
 		}
 
+		if (((TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (CTF._started && !Config.CTF_ALLOW_INTERFERENCE) || (DM._started && !Config.DM_ALLOW_INTERFERENCE) || (VIP._started && !Config.VIP_ALLOW_INTERFERENCE)) && !requestor.isGM())
+		{
+			if ((target._inEventTvT && !requestor._inEventTvT) || (!target._inEventTvT && requestor._inEventTvT))
+			{
+				requestor.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+				return;
+			}
+
+			if ((target._inEventCTF && !requestor._inEventCTF) || (!target._inEventCTF && requestor._inEventCTF))
+			{
+				requestor.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+				return;
+			}
+			if ((target._inEventDM && !requestor._inEventDM) || (!target._inEventDM && requestor._inEventDM))
+			{
+				requestor.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+				return;
+			}
+			else if ((target._inEventVIP && !requestor._inEventVIP) || (!target._inEventVIP && requestor._inEventVIP))
+			{
+				requestor.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+				return;
+			}
+		}
+		
 		if (!requestor.isInParty())
 		{
 			if (!target.isProcessingRequest())

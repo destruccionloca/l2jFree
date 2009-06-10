@@ -79,7 +79,11 @@ public class RequestBuyItem extends L2GameClientPacket
 		_count = readD();
 		if ((_count * 2 < 0) || (_count * 8 > getByteBuffer().remaining()) || (_count > Config.MAX_ITEM_IN_PACKET))
 			_count = 0;
-
+		if (Config.TEST_SWITCH)
+		{
+			_log.info("SetPrivateStoreListBuy: wanna buy item id:"+itemId);
+			_log.info("count:"+cnt);
+		}			
 		_items = new int[_count * 2];
 		for (int i = 0; i < _count; i++)
 		{
@@ -94,6 +98,11 @@ public class RequestBuyItem extends L2GameClientPacket
 				return;
 			}
 			_items[i * 2 + 1] = (int) cnt;
+			if (Config.TEST_SWITCH)
+			{
+				_log.info("SetPrivateStoreListBuy: wanna buy item id:"+itemId);
+				_log.info("count:"+cnt);
+			}			
 		}
 	}
 
@@ -271,6 +280,11 @@ public class RequestBuyItem extends L2GameClientPacket
 				slots++;
 		}
 
+		if (Config.TEST_SWITCH)
+		{
+			_log.info("slots:"+slots);
+		}			
+		
 		if ((weight >= Integer.MAX_VALUE) || (weight < 0) || !player.getInventory().validateWeight((int) weight))
 		{
 			requestFailed(SystemMessageId.WEIGHT_LIMIT_EXCEEDED);

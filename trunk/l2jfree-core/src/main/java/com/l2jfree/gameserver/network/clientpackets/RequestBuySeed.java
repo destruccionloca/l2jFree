@@ -52,7 +52,10 @@ public class RequestBuySeed extends L2GameClientPacket
 		_manorId = readD();
 		_count = readD();
 		// check values
-		if (_count > 500 || _count * 8 < getByteBuffer().remaining() || _count < 1)
+		int acc = 8;
+		if (Config.PACKET_FINAL)
+			acc = 12;
+		if (_count > 500 || _count * acc < getByteBuffer().remaining() || _count < 1)
 		{
 			sendPacket(ActionFailed.STATIC_PACKET);
 			return;

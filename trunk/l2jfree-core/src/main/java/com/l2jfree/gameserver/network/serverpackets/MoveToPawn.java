@@ -63,9 +63,18 @@ public class MoveToPawn extends L2GameServerPacket
 		writeD(_z);
 		if(Config.PACKET_FINAL)
 		{
-			writeD(_tx);
-			writeD(_ty);
-			writeD(_tz);
+			if(_tx!=0)
+				writeD(_tx);
+			else
+				writeD(_x);
+			if(_ty!=0)
+				writeD(_ty);
+			else
+				writeD(_y);
+			if(_tz!=0)
+				writeD(_tz);
+			else
+				writeD(_z);
 		}
 	}
 	

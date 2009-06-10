@@ -15,119 +15,145 @@
 package com.l2jfree.gameserver.network.serverpackets;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.L2Object;
 
-public class Attack extends L2GameServerPacket
+/**
+ * @author Forsaiken
+ */
+public final class Attack extends L2GameServerPacket
 {
-    private class Hit 
-    {
-        protected int _targetId;
-        protected int _damage;
-        protected int _flags;
-        
-        Hit(L2Object target, int damage, boolean miss, boolean crit, byte shld)
-        {
-            _targetId = target.getObjectId();
-            _damage = damage;
-            if (soulshot)  _flags |= 0x10 | _grade;
-            if (crit)      _flags |= 0x20;
-            if (shld > 0)  _flags |= 0x40;
-            if (miss)      _flags |= 0x80;
-            
-        }
-    }
+	private static final String	_S__06_ATTACK	= "[S] 33 Attack";
 
-	private static final String _S__33_ATTACK = "[S] 33 Attack [dddc dddh (ddc)]";
-	protected final int _attackerObjId;
-	public final boolean soulshot;
-	protected int _grade; 
-	private int _x;
-	private int _y;
-	private int _z;
-	private int _tx;
-	private int _ty;
-	private int _tz;
-	L2Object _defender;
-	private Hit[] _hits;
+	private final int			_attackerObjId;
+	private final int			_attackerX;
+	private final int			_attackerY;
+	private final int			_attackerZ;
+	private int					_targetX;
+	private int					_targetY;
+	private int					_targetZ;
 
-	/**
-	 * @param attacker the attacker L2Character
-	 * @param ss true if useing SoulShots
-	 */
-	public Attack(L2Character attacker, L2Object target, boolean ss, int grade)
+	public final boolean		soulshot;
+	protected final int			_grade;
+
+	private int					_targetObjId;
+	private int					_targetDamage;
+	private int					_targetFlags;
+
+	private int[][]				_hits;
+
+	public Attack(final L2Character attacker, final boolean ss, final int grade)
 	{
 		_attackerObjId = attacker.getObjectId();
 		soulshot = ss;
-        _grade = grade;
-		_x = attacker.getX();
-		_y = attacker.getY();
-		_z = attacker.getZ();
-		_tx = target.getX();
-		_ty = target.getY();
-		_tz = target.getZ();
-		_defender = target;
-		_hits = new Hit[0];
+		_grade = grade;
+		_attackerX = attacker.getX();
+		_attackerY = attacker.getY();
+		_attackerZ = attacker.getZ();
 	}
 
-	/**
-	 * Add this hit (target, damage, miss, critical, shield) to the Server-Client packet Attack.<BR><BR>
-	 */
-	public void addHit(L2Object target, int damage, boolean miss, boolean crit, byte shld)
+	private final int getFlags(final boolean miss, final boolean crit, final byte shld)
 	{
-		// Get the last position in the hits table
-		int pos = _hits.length;
-		
-		// Create a new Hit object
-		Hit[] tmp = new Hit[pos+1];
-		
-		// Add the new Hit object to hits table
-        System.arraycopy(_hits, 0, tmp, 0, _hits.length);
-		tmp[pos] = new Hit(target, damage, miss, crit, shld);
-		_hits = tmp;
+		int flags = 0;
+
+		if (soulshot)
+			flags |= 0x10 | _grade;
+
+		if (crit)
+			flags |= 0x20;
+
+		if (shld > 0)
+			flags |= 0x40;
+
+		if (miss)
+			flags |= 0x80;
+
+		return flags;
 	}
 
-	/**
-	 * Return True if the Server-Client packet Attack conatins at least 1 hit.<BR><BR>
-	 */
-	public boolean hasHits() 
+	public final void addHit(final L2Object targetObj, final int damage, final boolean miss, final boolean crit, final byte shld)
 	{
-		return _hits.length > 0;
+		_targetX = targetObj.getX();
+		_targetY = targetObj.getY();
+		_targetZ = targetObj.getZ();
+
+		if (_targetObjId == 0)
+		{
+			_targetObjId = targetObj.getObjectId();
+			_targetDamage = damage;
+			_targetFlags = getFlags(miss, crit, shld);
+		}
+		else
+		{
+			final int[] hit = new int[] { _targetObjId, _targetDamage, getFlags(miss, crit, shld) };
+
+			if (_hits == null)
+			{
+				_hits = new int[][] { hit };
+			}
+			else
+			{
+				final int off = _hits.length;
+				final int[][] temp = new int[off + 1][];
+				System.arraycopy(_hits, 0, temp, 0, _hits.length);
+				_hits = temp;
+				_hits[off] = hit;
+			}
+		}
+
+	}
+
+	public final boolean hasHits()
+	{
+		return _targetObjId > 0;
 	}
 
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0x33);
+		super.writeC(0x33);
+		super.writeD(_attackerObjId);
+		super.writeD(_targetObjId);
+		super.writeD(_targetDamage);
+		super.writeC(_targetFlags);
+		super.writeD(_attackerX);
+		super.writeD(_attackerY);
+		super.writeD(_attackerZ);
 
-		writeD(_attackerObjId);
-		writeD(_defender.getObjectId());
-		writeD(_hits[0]._damage);
-		writeC(_hits[0]._flags);
-		writeD(_x);
-		writeD(_y);
-		writeD(_z);
-		writeH(_hits.length-1);
-		for (Hit temp : _hits)
+		if (_hits == null)
 		{
-			writeD(temp._targetId);
-			writeD(temp._damage);
-			writeC(temp._flags);
+			super.writeH(0x00);
 		}
-		if(Config.PACKET_FINAL)
+		else
 		{
-			writeD(_tx);
-			writeD(_ty);
-			writeD(_tz);
+			super.writeH(_hits.length);
+			for (final int[] hit : _hits)
+			{
+				super.writeD(hit[0]);
+				super.writeD(hit[1]);
+				super.writeC(hit[2]);
+			}
 		}
+		if(_targetX!=0)
+			writeD(_targetX);
+		else
+			writeD(_attackerX);
+		
+		if(_targetY!=0)
+			writeD(_targetY);
+		else
+			writeD(_attackerY);
+		
+		if(_targetZ!=0)
+			writeD(_targetZ);
+		else
+			writeD(_attackerZ);
+		
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
-	 */
 	@Override
-	public String getType()
+	public final String getType()
 	{
-		return _S__33_ATTACK;
+		return _S__06_ATTACK;
 	}
 }

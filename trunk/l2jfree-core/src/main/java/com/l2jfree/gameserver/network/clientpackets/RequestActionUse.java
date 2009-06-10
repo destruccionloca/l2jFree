@@ -517,7 +517,55 @@ public class RequestActionUse extends L2GameClientPacket
 		case 1071:
 			useSkill(5761);
 			break;
-		// Gracia Final Social Packets
+		case 1072:
+			useSkill(6046); // Piercing attack
+			break;
+		case 1073:
+			useSkill(6047); // Whirlwind
+			break;
+		case 1074:
+			useSkill(6048); // Lance Smash
+			break;
+		case 1075:
+			useSkill(6049); // Battle Cry
+			break;
+		case 1076:
+			useSkill(6050); // Power Smash
+			break;
+		case 1077:
+			useSkill(6051); // Energy Burst
+			break;
+		case 1078:
+			useSkill(6052); // Shockwave
+			break;
+		case 1079:
+			useSkill(6053); // Howl
+			break;
+		case 1080:
+			useSkill(6041); // Phoenix Rush
+			break;
+		case 1081:
+			useSkill(6042); // Phoenix Cleanse
+			break;
+		case 1082:
+			useSkill(6043); // Phoenix Flame Feather
+			break;
+		case 1083:
+			useSkill(6044); // Phoenix Flame Beak
+			break;
+		case 1084:
+			useSkill(6054); // Switch State
+			break;
+		case 1086:
+			useSkill(6094); // Panther Cancel
+			break;
+		case 1087:
+			useSkill(6095); // Panther Dark Claw
+			break;
+		case 1088:
+			useSkill(6096); // Panther Fatal Claw
+			break;
+		// CT2.3 Social Packets
 		case 12:
 			useSocial(2, activeChar);
 			break;
