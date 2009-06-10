@@ -28,6 +28,12 @@ public abstract class ObjectKnownList
 		}
 		
 		@Override
+		public L2Object getKnownObject(int objectId)
+		{
+			return null;
+		}
+		
+		@Override
 		public void removeAllKnownObjects()
 		{
 		}
@@ -69,6 +75,8 @@ public abstract class ObjectKnownList
 	}
 	
 	public abstract boolean addKnownObject(L2Object object, L2Character dropper);
+	
+	public abstract L2Object getKnownObject(int objectId);
 	
 	public abstract void removeAllKnownObjects();
 	

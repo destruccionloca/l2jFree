@@ -311,7 +311,8 @@ public abstract class L2Playable extends L2Character
 			if (obj == null)
 				return;
 			
-			obj.getKnownList().removeKnownObject(this);
+			if (obj.getKnownList().getKnownObject(getObjectId()) == this)
+				obj.getKnownList().removeKnownObject(this);
 			
 			if (obj instanceof L2Character)
 			{

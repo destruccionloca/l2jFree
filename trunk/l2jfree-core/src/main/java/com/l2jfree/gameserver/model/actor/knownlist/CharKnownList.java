@@ -76,6 +76,7 @@ public class CharKnownList extends ObjectKnownList
 		return player != null && (getActiveChar() == player || _knownPlayers != null && _knownPlayers.containsKey(player.getObjectId()));
 	}
 	
+	@Override
 	public final L2Object getKnownObject(int objectId)
 	{
 		return getKnownObjects().get(objectId);
