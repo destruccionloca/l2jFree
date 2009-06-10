@@ -69,7 +69,7 @@ public final class RequestAutoSoulShot extends L2GameClientPacket
 				else if (activeChar.getActiveWeaponItem() != null)
 				{
 					int weaponGrade = activeChar.getActiveWeaponItem().getCrystalType();
-					if (weaponGrade == L2Item.CRYSTAL_S80)
+					if (weaponGrade == L2Item.CRYSTAL_S80 || weaponGrade == L2Item.CRYSTAL_S84)
 						weaponGrade = L2Item.CRYSTAL_S;
 
 					if (activeChar.getActiveWeaponItem() != activeChar.getFistsWeaponItem()

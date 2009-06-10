@@ -159,10 +159,9 @@ public class RequestAquireSkill extends L2GameClientPacket
 
                 for (L2SkillLearn s : skills)
                 {
-                    L2Skill sk = SkillTable.getInstance().getInfo(s.getId(),
-                    s.getLevel());
-                    if (sk == null || sk != skill || !sk.getCanLearn(player.getSkillLearningClassId())
-                            || !sk.canTeachBy(npcid))
+                    L2Skill sk = SkillTable.getInstance().getInfo(s.getId(), s.getLevel());
+                    if (sk == null || sk != skill/* || !sk.getCanLearn(player.getSkillLearningClassId())
+                            || !sk.canTeachBy(npcid)*/)
                         continue;
                     counts++;
                     _requiredSp = SkillTreeTable.getInstance().getSkillCost(player,skill);

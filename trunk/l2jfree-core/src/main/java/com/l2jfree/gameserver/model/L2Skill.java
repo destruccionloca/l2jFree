@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
 
 import javolution.util.FastList;
 
@@ -44,7 +43,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
-import com.l2jfree.gameserver.model.base.ClassId;
 import com.l2jfree.gameserver.model.entity.Couple;
 import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.model.entity.events.CTF;
@@ -92,13 +90,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	public static final int			SKILL_SOUL_MASTERY			= 467;
 	public static final int			SKILL_CLAN_LUCK				= 390;
 
-	public static final int			SKILL_FAKE_INT				= 9001;
-	public static final int			SKILL_FAKE_WIT				= 9002;
-	public static final int			SKILL_FAKE_MEN				= 9003;
-	public static final int			SKILL_FAKE_CON				= 9004;
-	public static final int			SKILL_FAKE_DEX				= 9005;
-	public static final int			SKILL_FAKE_STR				= 9006;
-
 	public static enum SkillOpType
 	{
 		OP_PASSIVE, OP_ACTIVE, OP_TOGGLE
@@ -131,7 +122,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		TARGET_AREA_CORPSES,
 		TARGET_MULTIFACE,
 		TARGET_AREA_UNDEAD,
-		TARGET_ITEM,
 		TARGET_UNLOCKABLE,
 		TARGET_HOLY,
 		TARGET_FLAGPOLE,
@@ -278,12 +268,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	private final int				_weaponsAllowed;
 	private final int				_armorsAllowed;
 
-	private final int				_addCrossLearn;			// -1 disable, otherwice SP price for others classes, default 1000
-	private final float				_mulCrossLearn;			// multiplay for others classes, default 2
-	private final float				_mulCrossLearnRace;		// multiplay for others races, default 2
-	private final float				_mulCrossLearnProf;		// multiplay for fighter/mage missmatch, default 3
-	private final FastList<ClassId>	_canLearn;					// which classes can learn
-	private final FastList<Integer>	_teachers;					// which NPC teaches
 	private final OffensiveState	_offensiveState;
 
 	private final int				_needCharges;
@@ -478,11 +462,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		_weaponsAllowed = set.getInteger("weaponsAllowed", 0);
 		_armorsAllowed = set.getInteger("armorsAllowed", 0);
 
-		_addCrossLearn = set.getInteger("addCrossLearn", 1000);
-		_mulCrossLearn = set.getFloat("mulCrossLearn", 2.f);
-		_mulCrossLearnRace = set.getFloat("mulCrossLearnRace", 2.f);
-		_mulCrossLearnProf = set.getFloat("mulCrossLearnProf", 3.f);
-
 		_needCharges = set.getInteger("needCharges", 0);
 		_giveCharges = set.getInteger("giveCharges", 0);
 		_maxCharges = set.getInteger("maxCharges", 0);
@@ -525,52 +504,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		_learnSkillId = set.getInteger("learnSkillId", 0);
 		_learnSkillLvl = set.getInteger("learnSkillLvl", 1);
 		_recallType = set.getString("recallType", "");
-
-		String canLearn = set.getString("canLearn", null);
-		if (canLearn == null)
-		{
-			_canLearn = null;
-		}
-		else
-		{
-			_canLearn = new FastList<ClassId>();
-			StringTokenizer st = new StringTokenizer(canLearn, " \r\n\t,;");
-			while (st.hasMoreTokens())
-			{
-				String cls = st.nextToken();
-				try
-				{
-					_canLearn.add(ClassId.valueOf(cls));
-				}
-				catch (Exception e)
-				{
-					_log.fatal("Bad class " + cls + " to learn skill", e);
-				}
-			}
-		}
-
-		String teachers = set.getString("teachers", null);
-		if (teachers == null)
-		{
-			_teachers = null;
-		}
-		else
-		{
-			_teachers = new FastList<Integer>();
-			StringTokenizer st = new StringTokenizer(teachers, " \r\n\t,;");
-			while (st.hasMoreTokens())
-			{
-				String npcid = st.nextToken();
-				try
-				{
-					_teachers.add(Integer.parseInt(npcid));
-				}
-				catch (Exception e)
-				{
-					_log.fatal("Bad teacher id " + npcid + " to teach skill", e);
-				}
-			}
-		}
 	}
 
 	private boolean isPurePassiveSkill()
@@ -1221,36 +1154,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	public final int getWeaponsAllowed()
 	{
 		return _weaponsAllowed;
-	}
-
-	public final int getCrossLearnAdd()
-	{
-		return _addCrossLearn;
-	}
-
-	public final float getCrossLearnMul()
-	{
-		return _mulCrossLearn;
-	}
-
-	public final float getCrossLearnRace()
-	{
-		return _mulCrossLearnRace;
-	}
-
-	public final float getCrossLearnProf()
-	{
-		return _mulCrossLearnProf;
-	}
-
-	public final boolean getCanLearn(ClassId cls)
-	{
-		return _canLearn == null || _canLearn.contains(cls);
-	}
-
-	public final boolean canTeachBy(int npcId)
-	{
-		return _teachers == null || _teachers.contains(npcId);
 	}
 
 	public final boolean isPvpSkill()

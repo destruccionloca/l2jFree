@@ -31,8 +31,6 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ShortCutRegister;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
-import com.l2jfree.gameserver.util.IllegalPlayerAction;
-import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.random.Rnd;
 
 /**
@@ -89,6 +87,7 @@ public final class RequestExEnchantSkill extends L2GameClientPacket
             return;
         }
 
+        /*
         int npcid = trainer.getNpcId();
         if (!skill.canTeachBy(npcid) || !skill.getCanLearn(player.getClassId()))
         {
@@ -99,6 +98,7 @@ public final class RequestExEnchantSkill extends L2GameClientPacket
                 return;
             }
         }
+        */
 
         int costMultiplier = SkillTreeTable.NORMAL_ENCHANT_COST_MULTIPLIER;
         int reqItemId = SkillTreeTable.NORMAL_ENCHANT_BOOK;

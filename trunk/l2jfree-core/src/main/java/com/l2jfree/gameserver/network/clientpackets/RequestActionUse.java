@@ -37,6 +37,8 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.RecipeShopManageList;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.util.FloodProtector;
+import com.l2jfree.gameserver.util.FloodProtector.Protected;
 
 /**
  * This class represents a packet sent by the client when a player uses one of the buttons
@@ -517,47 +519,48 @@ public class RequestActionUse extends L2GameClientPacket
 			break;
 		// Gracia Final Social Packets
 		case 12:
-			activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 2));
+			useSocial(2, activeChar);
 			break;
 		case 13:
-			activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 3));
+			useSocial(2, activeChar);
 			break;
 		case 14:
-			activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 4));
+			useSocial(4, activeChar);
 			break;
 		case 24:
-			activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 5));
+			useSocial(6, activeChar);
 			break;
 		case 25:
-			activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 6));
+			useSocial(5, activeChar);
 			break;
 		case 26:
-			activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 7));
+			useSocial(7, activeChar);
 			break;
 		case 29:
-			activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 8));
+			useSocial(8, activeChar);
 			break;
 		case 30:
-			activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 9));
+			useSocial(9, activeChar);
 			break;
 		case 31:
-			activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 10));
+			useSocial(10, activeChar);
 			break;
 		case 33:
-			activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 11));
+			useSocial(11, activeChar);
 			break;
 		case 34:
-			activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 12));
+			useSocial(12, activeChar);
 			break;
 		case 35:
-			activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 13));
+			useSocial(13, activeChar);
 			break;
 		case 62:
-			activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 14));
+			useSocial(14, activeChar);
 			break;
 		case 63:
 			break;
 		case 66:
+			useSocial(15, activeChar);
 			break;
 		case 67:
 			break;
@@ -588,7 +591,8 @@ public class RequestActionUse extends L2GameClientPacket
 	private void useSkill(int skillId, L2Object target)
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) return;
+		if (activeChar == null)
+			return;
 
 		if (activeChar.getPrivateStoreType() != 0)
 			return;
@@ -628,6 +632,20 @@ public class RequestActionUse extends L2GameClientPacket
 			return;
 
 		useSkill(skillId, activeChar.getTarget());
+	}
+
+	private void useSocial(int socialId, L2PcInstance activeChar)
+	{
+		if (	activeChar.getPrivateStoreType() == 0 &&
+				activeChar.getActiveRequester() == null &&
+				!activeChar.isAlikeDead() &&
+				!activeChar.isCastingNow() && !activeChar.isCastingSimultaneouslyNow() &&
+				(!activeChar.isAllSkillsDisabled() || activeChar.isInDuel()) &&
+				activeChar.getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE
+				&& FloodProtector.tryPerformAction(activeChar, Protected.SOCIAL))
+		{
+			activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), socialId));
+		}
 	}
 
 	@Override

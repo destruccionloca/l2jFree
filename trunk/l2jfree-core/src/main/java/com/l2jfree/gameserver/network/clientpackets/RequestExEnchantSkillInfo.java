@@ -29,8 +29,6 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExEnchantSkillInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExEnchantSkillList.EnchantSkillType;
-import com.l2jfree.gameserver.util.IllegalPlayerAction;
-import com.l2jfree.gameserver.util.Util;
 
 /**
  * Format (ch) dd
@@ -66,7 +64,8 @@ public final class RequestExEnchantSkillInfo extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-        if (activeChar == null) return;
+		if (activeChar == null)
+			return;
 
         L2NpcInstance trainer = activeChar.getLastFolkNPC();
         if (trainer == null || !activeChar.isInsideRadius(trainer, L2Npc.INTERACTION_DISTANCE, false, false))
@@ -93,6 +92,7 @@ public final class RequestExEnchantSkillInfo extends L2GameClientPacket
             return;
         }
 
+        /*
         if (!skill.canTeachBy(trainer.getNpcId()) || !skill.getCanLearn(activeChar.getClassId()))
         {
             if (!Config.ALT_GAME_SKILL_LEARN)
@@ -102,6 +102,7 @@ public final class RequestExEnchantSkillInfo extends L2GameClientPacket
                 return;
             }
         }
+        */
 
         switch (_type)
         {
