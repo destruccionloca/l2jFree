@@ -1451,7 +1451,15 @@
     <set name="triggeredLevel" val="1"/>
  -->    
   </skill>
-  <skill id="793" levels="1" name="Rush Impact">
+  <skill id="793" levels="1" name="Rush Impact" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
+	<table name="#enchantMagicLvl"> 78 78 78 78 79 79 79 79 79 79 79 79
+      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+	<table name="#ench2mpConsume"> 77 76 75 74 73 72 71 70 69
+      68 67 66 65 64 63 62 61 60 59 58 57 56 55 54 53 52 51 50 49 48 </table>
+	<table name="#ench1effectPower"> 51 52 53 54 55 56 57 58 59 60 61
+      62 63 64 65 66 67 68 68 69 70 71 72 73 74 75 76 77 78 79 </table>
+    <table name="#ench3Power"> 4140 4161 4180 4201 4225 4248 4262 4280 4298 4315 4325 4344 4362
+      4388 4401 4425 4448 4470 4491 4515 4535 4580 4613 4631 4662 4682 4702 4722 4744 4775 </table>
     <set name="castRange" val="600"/>
     <set name="coolTime" val="320"/>
     <set name="effectRange" val="1100"/>
@@ -1463,6 +1471,7 @@
     <set name="mpConsume" val="83"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="power" val="4040"/>
+	<set name="effectPower" val="50"/>
     <set name="skillRadius" val="600"/>
     <set name="skillType" val="PDAM"/>
     <set name="soulMaxConsumeCount" val="5"/>
@@ -1472,11 +1481,24 @@
     <cond msgId="113" addName="1">
       <target mindistance="200"/>
     </cond>
+	<enchant1 name="ench1effectPower" val="#ench1effectPower"/>
+	<enchant1 name="magicLvl" val="#enchantMagicLvl"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
+	<enchant2 name="magicLvl" val="#enchantMagicLvl"/>
+    <enchant3 name="power" val="#ench3Power"/>
+	<enchant3 name="magicLvl" val="#enchantMagicLvl"/>
     <for>
       <effect name="Stun" time="9" val="0" effectPower="50" effectType="STUN" stackOrder="1" stackType="Stun"/>
+	  <effect name="RemoveTarget" noicon="1" val="0"/>
     </for>
+	<enchant1for>
+      <effect name="Stun" time="9" val="0" effectPower="#ench1effectPower" effectType="STUN" stackOrder="1" stackType="Stun"/>
+	  <effect name="RemoveTarget" noicon="1" val="0"/>
+    </enchant1for>
   </skill>
-  <skill id="794" levels="1" name="Mass Disarm">
+  <skill id="794" levels="1" name="Mass Disarm" enchantLevels1="30" enchantLevels1="30">
+	<table name="#enchantMagicLvl"> 79 79 79 79 79 80 80 80 80 80 81 81 81 81 82 82 82 82 82 83 83 83 83 84 84 84 84 85 85 85 </table>
+    <table name="#ench1power"> 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 67 68 69 70 </table>>
     <!-- Done by DJ MELERIX -->
     <set name="hitTime" val="1500"/>
     <set name="isDebuff" val="true"/>
@@ -1492,6 +1514,8 @@
     <for>
       <effect name="Disarm" time="5" val="0"/>
     </for>
+	<enchant1 name="magicLvl" val="#enchantMagicLvl"/>
+    <enchant1 name="power" val="#ench1power"/>
   </skill>
   <skill id="795" levels="1" name="Divine Knight Brandish">
     <set name="power" val="2322"/>

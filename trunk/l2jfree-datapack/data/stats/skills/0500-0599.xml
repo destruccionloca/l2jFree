@@ -40,18 +40,23 @@
       </effect>
     </for>
   </skill>
-  <skill id="502" levels="5" name="Life to Soul">
+  <skill id="502" levels="5" name="Life to Soul" enchantLevels1="30" enchantLevels1="30">
     <!-- CT2.2 retail confirmed -->
     <table name="#hpConsume">193 237 279 311 328</table>
     <table name="#num_souls">1 2 3 4 5</table>
-    <set name="hpConsume" val="#hpConsume"/>
+    <table name="#ench1power">6 6 6 6 7 7 7 8 8 8 8 9 9 10 10 10 10 11 11 11 12 12 12
+      13 13 13 14 14 15 15</table>
+	<table name="#ench2hpConsume">301 297 288 276 271 265 260 253 248 240 237 231 228 222 213 209 203 200 197 193 188 180 175 171 167 163 159 156 153 150</table>
+	<set name="hpConsume" val="#hpConsume"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="reuseDelay" val="11000"/>
     <set name="hitTime" val="900"/>
     <set name="skillType" val="CHARGESOUL"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="num_souls" val="#num_souls"/>
-  </skill>
+	<enchant1 name="num_souls" val="#ench1power"/>
+    <enchant2 name="hpConsume" val="#ench2hpConsume"/>
+    </skill>
   <skill id="503" levels="3" name="Scorn">
     <table name="#mpConsume">21 28 33</table>
     <table name="#skillRadius">80 160 240</table>
@@ -580,10 +585,16 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="npcId" val="#npcId"/>
   </skill>
-  <skill id="526" levels="1" name="Enuma Elish">
+  <skill id="526" levels="1" name="Enuma Elish" enchantLevels1="30" enchantLevels2="30">
+	<table name="#enchantMagicLvl"> 78 78 78 78 79 79 79 79 79 79 79 79
+      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+	<table name="#ench2mpConsume"> 77 76 75 74 73 72 71 70 69
+      68 67 66 65 64 63 62 61 60 59 58 57 56 55 54 53 52 51 50 49 48 </table>
+	<table name="#ench1Power"> 6140 6161 6180 6201 6225 6248 6262 6280 6298 6315 6325 6344 6362
+      6388 6401 6425 6448 6470 6491 6515 6535 6580 6613 6631 6662 6682 6702 6722 6744 6775 </table>
     <!-- Needs retail accuracy check -->
     <set name="mpConsume" val="78"/>
-    <set name="power" val="138"/>
+    <set name="power" val="6060"/>
     <set name="hitTime" val="1080"/>
     <set name="SSBoost" val="2.0"/><!-- Guessing -->
     <set name="overHit" val="true"/>
@@ -596,7 +607,11 @@
     <set name="effectRange" val="400"/>
     <set name="reuseDelay" val="75000"/>
     <set name="soulMaxConsumeCount" val="5"/>
-  </skill>
+	<enchant1 name="power" val="#ench1Power"/>
+	<enchant1 name="magicLvl" val="#enchantMagicLvl"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
+	<enchant2 name="magicLvl" val="#enchantMagicLvl"/>
+    </skill>
   <skill id="527" levels="1" name="Iron Shield">
     <!-- Needs to be verified -->
     <set name="hitTime" val="1000"/>

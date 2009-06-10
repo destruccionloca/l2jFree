@@ -418,6 +418,7 @@
 	<for>
       <effect name="RemoveTarget" val="0" effectPower="80" effectType="DEBUFF"/>
 	</for>
+    </for>
   </skill>
   <skill id="5449" levels="1" name="Weak Constitution">
     <!-- Description(s): Temporarily gets thrown into a state of shock and immobilized. -->
