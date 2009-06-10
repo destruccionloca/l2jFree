@@ -470,6 +470,7 @@
     </for>
   </skill>
   <skill id="5453" levels="4" name="Mental Impoverish">
+    <table name="#dmg"> 388 504 712 1006 </table>
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="DEBUFF" />
     <set name="operateType" val="OP_ACTIVE" />
@@ -477,9 +478,9 @@
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
 	<for>
-	<effect count="1" name="Debuff" time="30" val="0">
+	 <effect count="1" name="Debuff" time="30" val="0">
 		<sub order="0x40" stat="gainMp" val="#dmg"/>
-	</effect>
+	 </effect>
 	</for>
   </skill>
   <skill id="5454" levels="1" name="Shadow Bind">
