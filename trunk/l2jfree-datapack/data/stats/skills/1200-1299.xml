@@ -679,8 +679,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="1"/> <!-- Fire -->
-    <set name="reuseDelay" val="1200"/>
-    <set name="hitTime" val="4000"/>
+    <set name="reuseDelay" val="2400"/>
+    <set name="hitTime" val="1800"/>
     <set name="skillType" val="MDAM"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -822,8 +822,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="6"/> <!-- Dark -->
-    <set name="reuseDelay" val="4000"/>
-    <set name="hitTime" val="4000"/>
+    <set name="reuseDelay" val="4800"/>
+    <set name="hitTime" val="1800"/>
     <set name="skillType" val="DRAIN"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -860,8 +860,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="2"/> <!-- Water -->
-    <set name="reuseDelay" val="1200"/>
-    <set name="hitTime" val="4000"/>
+    <set name="reuseDelay" val="2400"/>
+    <set name="hitTime" val="1800"/>
     <set name="skillType" val="MDAM"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1018,8 +1018,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="3"/> <!-- Wind -->
-    <set name="reuseDelay" val="1200"/>
-    <set name="hitTime" val="4000"/>
+    <set name="reuseDelay" val="2400"/>
+    <set name="hitTime" val="1800"/>
     <set name="skillType" val="MDAM"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1191,8 +1191,8 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="2000"/>
-    <set name="hitTime" val="4000"/>
+    <set name="reuseDelay" val="2400"/>
+    <set name="hitTime" val="1800"/>
     <set name="skillType" val="DRAIN"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>

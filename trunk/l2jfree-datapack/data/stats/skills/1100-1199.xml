@@ -637,8 +637,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="6"/> <!-- Dark -->
-    <set name="reuseDelay" val="1200"/>
-    <set name="hitTime" val="4000"/>
+    <set name="reuseDelay" val="2400"/>
+    <set name="hitTime" val="1200"/>
     <set name="skillType" val="MDAM"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -795,8 +795,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="6"/> <!-- Dark -->
-    <set name="reuseDelay" val="1200"/>
-    <set name="hitTime" val="4000"/>
+    <set name="reuseDelay" val="2400"/>
+    <set name="hitTime" val="1800"/>
     <set name="skillType" val="DEATHLINK"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
