@@ -86,7 +86,7 @@ public final class LeakTaskManager
 				
 				check(false);
 				
-				if (_players.size() + _summons.size() > 200)
+				if (_players.size() + _summons.size() > Math.max(200, L2World.getInstance().getAllPlayersCount()))
 				{
 					cleanup();
 					
@@ -109,16 +109,13 @@ public final class LeakTaskManager
 				}
 			}
 			
-			try
-			{
-				Thread.sleep(MINIMUM_DELAY_BETWEEN_CLEANUPS);
-			}
-			catch (InterruptedException e)
-			{
-				e.printStackTrace();
-			}
-			
-			new Finalizable();
+			ThreadPoolManager.getInstance().schedule(new Runnable() {
+				@Override
+				public void run()
+				{
+					new Finalizable();
+				}
+			}, MINIMUM_DELAY_BETWEEN_CLEANUPS);
 		}
 	}
 	
