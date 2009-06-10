@@ -1,5 +1,6 @@
 # Created by Gigiikun
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -89,11 +90,11 @@ class Quest (JQuest) :
           if cond == 1 :
              if npcId == 18344 :
                 itemId = DINOSAUR_EGG
-                chance = EGG_DROP_CHANCE
+                chance = EGG_DROP_CHANCE*Config.RATE_DROP_QUEST
                 numItems, chance = divmod(chance,100)
              else :
                 itemId = DINOSAUR_TISSUE
-                chance = TISSUE_DROP_CHANCE
+                chance = TISSUE_DROP_CHANCE*Config.RATE_DROP_QUEST
                 numItems, chance = divmod(chance,100)
              if st.getRandom(100) < chance :
                 numItems += 1

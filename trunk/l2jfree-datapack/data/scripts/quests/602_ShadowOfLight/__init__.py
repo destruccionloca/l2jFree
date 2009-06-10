@@ -78,7 +78,7 @@ class Quest (JQuest) :
      if st :
         if st.getState() == State.STARTED :  
            count = st.getQuestItemsCount(EYE_OF_DARKNESS)
-           chance = CHANCE[npc.getNpcId()]
+           chance = CHANCE[npc.getNpcId()]*Config.RATE_DROP_QUEST
            numItems, chance = divmod(chance,100)
            if st.getInt("cond") == 1 :
              if st.getRandom(100) < chance :

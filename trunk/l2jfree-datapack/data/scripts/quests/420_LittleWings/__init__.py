@@ -1,6 +1,7 @@
 # version 0.1
 # by DrLecter
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -494,7 +495,7 @@ class Quest (JQuest):
            count = 10
         else :
            count = 20
-        numItems, chance = divmod(BACK_DROP,100)
+        numItems, chance = divmod(BACK_DROP*Config.RATE_DROP_QUEST,100)
         if st.getRandom(100) <= chance :
           numItems += 1
         numItems = int(numItems)
@@ -531,7 +532,7 @@ class Quest (JQuest):
       prevItems = st.getQuestItemsCount(eggs)
       if st.getQuestItemsCount(scale) == 1 and prevItems < REQUIRED_EGGS :
          if npcId == eggdropper :
-            chance = EGG_DROP
+            chance = EGG_DROP*Config.RATE_DROP_QUEST
             numItems, chance = divmod(chance,100)
             if st.getRandom(100) <= chance :
                numItems += 1

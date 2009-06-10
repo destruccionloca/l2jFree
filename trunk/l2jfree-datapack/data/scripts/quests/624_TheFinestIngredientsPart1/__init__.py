@@ -1,5 +1,6 @@
 # by disKret
 import sys
+from com.l2jfree import Config
 from com.l2jfree.tools.random import Rnd
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
@@ -78,9 +79,9 @@ class Quest (JQuest) :
    partyMember2 = self.getRandomPartyMemberState(player, State.COMPLETED)
    if not partyMember1 and not partyMember2 : return
    partyMember = partyMember1
-   numItems,chance = divmod(100,100)
+   numItems,chance = divmod(100*Config.RATE_DROP_QUEST,100)
    dropchance = Rnd.get(100)
-   if dropchance < chance:
+   if dropchance  < chance:
     # player who has State.COMPLETED up to 2 out of 3 item collections may consume the party drop
     if partyMember2 :
       if Rnd.get(100) <= 66:

@@ -1,5 +1,6 @@
 # The Finest Food - v0.1 by disKret & DrLecter
 import sys
+from com.l2jfree import Config
 from com.l2jfree.tools.random import Rnd
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
@@ -98,8 +99,8 @@ class Quest (JQuest) :
       if st.getState() == State.STARTED :
          count = st.getQuestItemsCount(item)
          if st.getInt("cond") == 1 and count < 100 :
-            numItems, chance = divmod(chance,100)
-            if dropchance < chance:
+            numItems, chance = divmod(chance*Config.RATE_DROP_QUEST,100)
+            if dropchance  < chance:
                numItems += 1
             if count + numItems >= 100 :
               numItems = 100 - count

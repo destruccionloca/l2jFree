@@ -3,6 +3,7 @@
 # Visit http://forum.l2jdp.com for more details.
 
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -280,7 +281,7 @@ class Quest (JQuest) :
      # that appear later in the list, first check with the sum of all entries to
      # see if any one of them will drop, then select which one...
      totalDropChance = DROPLIST[npcId][0]
-     if totalDropChance > st.getRandom(100) :
+     if totalDropChance*Config.RATE_DROP_QUEST > st.getRandom(100) :
         # At this point, we decided that one entry from this list will definitely be dropped
         # to select which one, get a random value in the range of the total chance and find
         # the first item that passes this range.
@@ -295,7 +296,7 @@ class Quest (JQuest) :
               # 100% after rates.  Apply rates to see for bonus amounts...
               # definitely give at least 1 item.  If the chance exceeds 100%, then give some
               # additional bonus...
-              numItems,chance = divmod(chance,100)
+              numItems,chance = divmod(chance*Config.RATE_DROP_QUEST,100)
               if numItems == 0 or chance > st.getRandom(100) :
                  numItems += 1
               st.giveItems(item,int(numItems))

@@ -2,6 +2,7 @@
 # this script is part of the Official L2J Datapack Project.
 # Visit http://forum.l2jdp.com for more details.
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -101,7 +102,7 @@ class Quest (JQuest) :
     if not partyMember : return
     st = partyMember.getQuestState(qn)
     if st :
-        chance = int(npc.getNpcId() - 22050)
+        chance = int((npc.getNpcId() - 22050)*Config.RATE_DROP_QUEST)
         numItems, chance = divmod(chance,100)
         random = st.getRandom(100)
         if random <= chance:

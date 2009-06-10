@@ -1,6 +1,7 @@
 # Whisper of Dreams, part 1 version 0.1 
 # by DrLecter
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -10,13 +11,11 @@ qn = "374_WhisperOfDreams1"
 
 #Variables
 #Quest items drop rate
-DROP_RATE = 50
+DROP_RATE   = 50*Config.RATE_DROP_QUEST
 DROP_MAX = 100 #in % unless you change this
-
 #Mysterious Stone drop rate
-DROP_RATE_2 = 1
+DROP_RATE_2 = 1*Config.RATE_DROP_QUEST
 DROP_MAX_2 = 1000 # default: ~ 1/1000
-
 #Rewards
 SHOP_LIST={
 5485:["etc_leather_yellow_i00",4,10450,"Sealed Tallum Tunic Textures"    ],# 4xTallum Tunic Textures: 10450a

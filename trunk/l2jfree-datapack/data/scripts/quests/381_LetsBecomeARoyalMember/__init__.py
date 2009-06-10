@@ -1,5 +1,6 @@
 # Lets Become A Royal Member ver. 0.1 by DrLecter
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -18,8 +19,9 @@ SORINT, SANDRA = 30232, 30090
 #MOBs
 ANCIENT_GARGOYLE, VEGUS = 21018,27316
 #CHANCES (custom values, feel free to change them)
-GARGOYLE_CHANCE = 5
-VEGUS_CHANCE = 100
+GARGOYLE_CHANCE = 5*Config.RATE_DROP_QUEST
+VEGUS_CHANCE = 100*Config.RATE_DROP_QUEST
+
 
 class Quest (JQuest) :
 

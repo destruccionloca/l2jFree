@@ -1,5 +1,6 @@
 # Created by Emperorc
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -99,7 +100,7 @@ class Quest (JQuest) :
      if npcId in Ketra_Orcs and partyMember.getAllianceWithVarkaKetra() <= -1 :
     #see comments in 611 : Alliance with Varka Silenos for reason for doing st2 check
        if not st2 :
-         numItems,chance = divmod(Chance[npcId],1000)
+         numItems,chance = divmod(Chance[npcId]*Config.RATE_DROP_QUEST,1000)
          if st.getRandom(1000) < chance :
            numItems += 1
          numItems = int(numItems)

@@ -137,9 +137,9 @@ class Quest (JQuest) :
      if st :
          count = st.getQuestItemsCount(EVIL_SPIRIT)
          if st.getInt("cond") == 7 and count < 200 :
-            chance = DROP_CHANCE
+            chance = DROP_CHANCE * Config.RATE_DROP_QUEST
             numItems, chance = divmod(chance,100)
-            if st.getRandom(100) < chance :
+            if st.getRandom(100) < chance : 
                numItems += 1
             if numItems :
                if count + numItems >= 200 :
@@ -147,7 +147,7 @@ class Quest (JQuest) :
                   st.playSound("ItemSound.quest_middle")
                   st.set("cond","8")
                else:
-                  st.playSound("ItemSound.quest_itemget")
+                  st.playSound("ItemSound.quest_itemget")   
                st.giveItems(EVIL_SPIRIT,int(numItems))
      return
 

@@ -1,5 +1,6 @@
 # Created by t0rm3nt0r
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -65,7 +66,7 @@ class Quest (JQuest) :
         relics = st.getQuestItemsCount(RELICS)
         entrance = st.getQuestItemsCount(ENTRANCE)
         if id==State.CREATED:
-           if player.getLevel() >= 75 :
+           if player.getLevel() >= 74 :
               htmltext="31538-01.htm"
            else :
               htmltext="31538-02.htm"
@@ -85,12 +86,12 @@ class Quest (JQuest) :
      st = partyMember.getQuestState(qn)
      if st :
        if st.getState() == State.STARTED :
-         numItems, chance = divmod(100,100)
+         numItems, chance = divmod(100*Config.RATE_DROP_QUEST,100)
          if st.getRandom(100) < chance :
            numItems += 1
          st.giveItems(RELICS,int(numItems))
          st.playSound("ItemSound.quest_itemget")
-         if st.getRandom(100) < 5 :
+         if st.getRandom(100) < (5*Config.RATE_DROP_QUEST) :
              st.giveItems(ENTRANCE,1)
              st.playSound("ItemSound.quest_middle")
      return

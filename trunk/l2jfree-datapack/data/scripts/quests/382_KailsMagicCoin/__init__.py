@@ -1,5 +1,6 @@
 # Kail's Magic Coin ver. 0.1 by DrLecter
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -57,9 +58,9 @@ class Quest (JQuest) :
 
   def onKill(self,npc,player,isPet):
       st = player.getQuestState(qn)
-      if not st : return
-      if st.getState() != State.STARTED : return
-      numItems,chance = divmod(CHANCE,MAX)
+      if not st : return 
+      if st.getState() != State.STARTED : return 
+      numItems,chance = divmod(CHANCE*Config.RATE_DROP_QUEST,MAX)
       if st.getQuestItemsCount(ROYAL_MEMBERSHIP) :
          if st.getRandom(MAX) < chance :
             numItems = numItems + 1

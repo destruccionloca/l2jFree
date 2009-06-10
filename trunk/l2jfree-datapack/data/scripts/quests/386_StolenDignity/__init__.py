@@ -1,6 +1,7 @@
 # Stolen Dignity version 0.1 
 # by DrLecter
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -10,8 +11,8 @@ QUEST_NUMBER,QUEST_NAME,QUEST_DESCRIPTION = 386,"StolenDignity","Stolen Dignity"
 qn = "386_StolenDignity"
 
 #Variables
-DROP_RATE = 15
-REQUIRED_ORE = 100 #how many items will be paid for a game (affects onkill sounds too)
+DROP_RATE=15*Config.RATE_DROP_QUEST
+REQUIRED_ORE=100 #how many items will be paid for a game (affects onkill sounds too)
 
 #Quest items
 SI_ORE = 6363
@@ -198,11 +199,11 @@ class Quest (JQuest) :
      partyMember = self.getRandomPartyMemberState(player, State.STARTED)
      if not partyMember : return
      st = partyMember.getQuestState(qn)
-     numItems,chance = divmod(MOB[npc.getNpcId()],MAX)
+     numItems,chance = divmod(MOB[npc.getNpcId()]*Config.RATE_DROP_QUEST,MAX)
      prevItems = st.getQuestItemsCount(SI_ORE)
      if st.getRandom(MAX) < chance :
         numItems = numItems + 1
-     if numItems != 0 :
+     if numItems != 0 :   
         st.giveItems(SI_ORE,int(numItems))
         if int(prevItems+numItems)/REQUIRED_ORE > int(prevItems)/REQUIRED_ORE :
            st.playSound("ItemSound.quest_middle")

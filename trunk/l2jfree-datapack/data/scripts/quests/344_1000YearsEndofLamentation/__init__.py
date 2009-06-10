@@ -185,7 +185,7 @@ class Quest (JQuest) :
      if st.getState() != State.STARTED : return
 
      npcId = npc.getNpcId()
-     chance = (CHANCE+(npcId-20234)*2)
+     chance = (CHANCE+(npcId-20234)*2)*Config.RATE_DROP_QUEST
      bonus = int(divmod(chance,100)[0])
      if st.getInt("cond") == 1 and st.getRandom(100)<chance :
          st.giveItems(ARTICLES_DEAD_HEROES,1+bonus)

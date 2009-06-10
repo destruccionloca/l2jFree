@@ -93,6 +93,7 @@ TRADE_LIST={
     }
 
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -358,7 +359,7 @@ class Quest (JQuest) :
    
    cond=st.getInt("cond")
    grade=st.getInt("grade")
-   chance=int(npc.getLevel() - grade * 3 - 20)
+   chance=int((npc.getLevel() - grade * 3 - 20)*Config.RATE_DROP_QUEST)
    item=DROP_LIST[npcId][0]
    random = st.getRandom(100)
    if item == KALDIS_COIN :

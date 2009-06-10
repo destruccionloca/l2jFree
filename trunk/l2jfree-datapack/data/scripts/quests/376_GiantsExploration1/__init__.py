@@ -1,6 +1,7 @@
 # Exploration of Giants Cave, part 1 version 0.1 
 # by DrLecter
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -10,10 +11,10 @@ qn = "376_GiantsExploration1"
 
 #Variables
 #Ancient parchment drop rate in %
-DROP_RATE = 15
+DROP_RATE   = 15*Config.RATE_DROP_QUEST
 MAX = 100
 #Mysterious Book drop rate in %
-DROP_RATE_2 = 5
+DROP_RATE_2 = 5*Config.RATE_DROP_QUEST
 #By changing this setting you can make a group of recipes harder to get
 RP_BALANCE = 50
 #Changing this value to non-zero, will turn recipes to 100% instead of 60%

@@ -1,6 +1,7 @@
 # Created by CubicVirtuoso
 # Any problems feel free to drop by #l2j-datapack on irc.freenode.net
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -55,7 +56,7 @@ class Quest (JQuest) :
      if not st : return 
      if st.getState() != State.STARTED : return 
      if st.getInt("cond") == 1 :
-             numItems, chance = divmod(100,100)
+             numItems, chance = divmod(100*Config.RATE_DROP_QUEST,100)
              if st.getRandom(100) < chance :
                  numItems = numItems + 1
              count = st.getQuestItemsCount(RED_CRYSTALS_ID)

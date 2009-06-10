@@ -1,5 +1,6 @@
 # Made by disKret & DrLecter
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -103,7 +104,7 @@ class Quest (JQuest) :
    
    if st.getInt("cond") == 1 :
       chance,item,max = DROPLIST[npc.getNpcId()]
-      numItems,chance = divmod(chance,100)
+      numItems,chance = divmod(chance*Config.RATE_DROP_QUEST,100)
       count = st.getQuestItemsCount(item)
       if count < max :
          if st.getRandom(100) < chance :
