@@ -24,7 +24,6 @@ import com.l2jfree.gameserver.templates.StatsSet;
 public final class L2EtcItem extends L2Item
 {
 	private final String[] _skill;
-	private final String _handler;
 	
 	/**
 	 * Constructor for EtcItem.
@@ -37,8 +36,7 @@ public final class L2EtcItem extends L2Item
 	public L2EtcItem(L2EtcItemType type, StatsSet set)
 	{
 		super(type, set);
-		_skill = set.getString("skill").split(";");
-		_handler = set.getString("handler");		
+		_skill = set.getString("skills_item").split(";");
 	}
 
 	/**
@@ -71,9 +69,4 @@ public final class L2EtcItem extends L2Item
 	{
 		return _skill;
 	}
-	
-	public String getHandlerName()
-	{
-		return _handler;
-	}	
 }
