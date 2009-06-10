@@ -158,7 +158,7 @@ public final class ItemTable
 	/** Table of SQL request in order to obtain items from tables [etcitem], [armor], [weapon] */
 	private static final String[] SQL_ITEM_SELECTS = {
 		"SELECT item_id, name, crystallizable, item_type, weight, consume_type, material, crystal_type,"
-			+ " duration, time, price, crystal_count, sellable, dropable, destroyable, tradeable FROM etcitem",
+			+ " duration, time, price, crystal_count, sellable, dropable, destroyable, tradeable, skills_item FROM etcitem",
 		
 		"SELECT item_id, name, bodypart, crystallizable, armor_type, weight,"
 			+ " material, crystal_type, avoid_modify, duration, time, p_def, m_def, mp_bonus,"
@@ -172,7 +172,7 @@ public final class ItemTable
 	
 	private static final String[] SQL_CUSTOM_ITEM_SELECTS = {
 		"SELECT item_id, item_display_id, name, crystallizable, item_type, weight, consume_type, material, crystal_type,"
-			+ " duration, time, price, crystal_count, sellable, dropable, destroyable, tradeable FROM custom_etcitem",
+			+ " duration, time, price, crystal_count, sellable, dropable, destroyable, tradeable,skills_item FROM custom_etcitem",
 		
 		"SELECT item_id, item_display_id, name, bodypart, crystallizable, armor_type, weight,"
 			+ " material, crystal_type, avoid_modify, duration, time, p_def, m_def, mp_bonus,"
@@ -516,8 +516,7 @@ public final class ItemTable
 		item.set.set("dropable", Boolean.valueOf(rset.getString("dropable")));
 		item.set.set("destroyable", Boolean.valueOf(rset.getString("destroyable")));
 		item.set.set("tradeable", Boolean.valueOf(rset.getString("tradeable")));
-		item.set.set("handler", rset.getString("handler"));
-		item.set.set("skill", rset.getString("skill"));
+		item.set.set("skills_item", rset.getString("skills_item"));
 		
 		String itemType = rset.getString("item_type");
 		if (itemType.equals("none"))
