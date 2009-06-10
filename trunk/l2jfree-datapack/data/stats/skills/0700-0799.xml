@@ -1478,15 +1478,15 @@
     <set name="SSBoost" val="2.0"/>
     <set name="target" val="TARGET_FRONT_AREA"/>
     <set name="weaponsAllowed" val="32768"/> <!-- Ancient -->
-    <cond msgId="113" addName="1">
-      <target mindistance="200"/>
-    </cond>
 	<enchant1 name="ench1effectPower" val="#ench1effectPower"/>
 	<enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
 	<enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant3 name="power" val="#ench3Power"/>
 	<enchant3 name="magicLvl" val="#enchantMagicLvl"/>
+    <cond msgId="113" addName="1">
+      <target mindistance="200"/>
+    </cond>
     <for>
       <effect name="Stun" time="9" val="0" effectPower="50" effectType="STUN" stackOrder="1" stackType="Stun"/>
 	  <effect name="RemoveTarget" noicon="1" val="0"/>
@@ -1496,7 +1496,7 @@
 	  <effect name="RemoveTarget" noicon="1" val="0"/>
     </enchant1for>
   </skill>
-  <skill id="794" levels="1" name="Mass Disarm" enchantLevels1="30" enchantLevels1="30">
+  <skill id="794" levels="1" name="Mass Disarm" enchantLevels1="30">
 	<table name="#enchantMagicLvl"> 79 79 79 79 79 80 80 80 80 80 81 81 81 81 82 82 82 82 82 83 83 83 83 84 84 84 84 85 85 85 </table>
     <table name="#ench1power"> 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 67 68 69 70 </table>>
     <!-- Done by DJ MELERIX -->
@@ -1511,11 +1511,11 @@
     <set name="skillRadius" val="200"/>
     <set name="skillType" val="DISARM"/>
     <set name="target" val="TARGET_AURA"/>
+	<enchant1 name="magicLvl" val="#enchantMagicLvl"/>
+    <enchant1 name="power" val="#ench1power"/>
     <for>
       <effect name="Disarm" time="5" val="0"/>
     </for>
-	<enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant1 name="power" val="#ench1power"/>
   </skill>
   <skill id="795" levels="1" name="Divine Knight Brandish">
     <set name="power" val="2322"/>

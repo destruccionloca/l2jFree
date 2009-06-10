@@ -1852,11 +1852,11 @@
     <set name="soulMaxConsumeCount" val="5"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="weaponsAllowed" val="32768"/> <!-- Ancient -->
+	<enchant1 name="magicLvl" val="#enchantMagicLvl"/>
+    <enchant1 name="power" val="#ench1power"/>
     <cond msgId="113" addName="1">
       <target mindistance="200"/>
     </cond>
-	<enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant1 name="power" val="#ench1power"/>
     <for>
       <effect name="EnemyCharge" val="0" noicon="1"/>
       <effect name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
@@ -1864,7 +1864,7 @@
     </for>
 	<enchant1for>
 		<effect name="EnemyCharge" val="0" noicon="1"/>
-		<effect name="Stun" time="9" val="0" effectPower="#ench1Power" stackOrder="1" stackType="Stun"/>
+		<effect name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
 		<effect name="RemoveTarget" noicon="1" val="0"/>
 	</enchant1for>
   </skill>
