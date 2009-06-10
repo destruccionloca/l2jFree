@@ -70,7 +70,7 @@ public final class RequestRefine extends L2GameClientPacket
 
 		// unequip item
 		if (targetItem.isEquipped())
-			activeChar.disarmWeapons();
+			activeChar.disarmWeapons(false);
 
 		if (tryAugmentItem(activeChar, targetItem, refinerItem, gemstoneItem))
 		{

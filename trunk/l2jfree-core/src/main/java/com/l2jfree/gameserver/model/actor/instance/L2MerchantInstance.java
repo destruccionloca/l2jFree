@@ -224,7 +224,7 @@ public class L2MerchantInstance extends L2NpcInstance
 		if (player == null || player.getPet() != null || player.isMounted() || player.isRentedPet() || player.isTransformed() || player.isCursedWeaponEquipped())
 			return;
 
-		if (!player.disarmWeapons())
+		if (!player.disarmWeapons(true))
 			return;
 
 		int petId;

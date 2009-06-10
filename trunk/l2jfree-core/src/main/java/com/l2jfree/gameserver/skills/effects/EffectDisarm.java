@@ -43,7 +43,7 @@ public final class EffectDisarm extends L2Effect
 		if (!(getEffected() instanceof L2PcInstance))
 			return false;
 		
-		((L2PcInstance)getEffected()).disarmWeapons();
+		((L2PcInstance)getEffected()).disarmWeapons(false);
 		getEffected().setIsDisarmed(true);
 		return true;
 	}

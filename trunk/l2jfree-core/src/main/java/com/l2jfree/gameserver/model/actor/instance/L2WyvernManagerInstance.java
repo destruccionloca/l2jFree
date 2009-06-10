@@ -83,7 +83,7 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
             if (player.getInventory().getItemByItemId(1460) != null &&
                     player.getInventory().getItemByItemId(1460).getCount() >= Config.ALT_MANAGER_CRYSTAL_COUNT)
             {
-                if(!player.disarmWeapons())
+                if(!player.disarmWeapons(true))
                     return;
                 
                 if (player.isMounted())

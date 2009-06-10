@@ -375,6 +375,7 @@ public class L2Fishing implements Runnable
 			npcid = 18325;
 			break;
 		case 8:
+		case 9:
 			npcid = 18326;
 			break;
 		default:

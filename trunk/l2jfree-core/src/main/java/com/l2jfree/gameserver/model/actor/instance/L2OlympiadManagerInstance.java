@@ -24,11 +24,15 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.gameserver.datatables.SkillTable;
+import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Multisell;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.olympiad.Olympiad;
+import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ExHeroList;
+import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
+import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 /**
@@ -62,8 +66,7 @@ public class L2OlympiadManagerInstance extends L2NpcInstance
 				return;
 
 			int val = Integer.parseInt(command.substring(14));
-			NpcHtmlMessage reply;
-			TextBuilder replyMSG;
+			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 
 			switch (val)
 			{
@@ -79,49 +82,20 @@ public class L2OlympiadManagerInstance extends L2NpcInstance
 					{
 						classed = array[0];
 						nonClassed = array[1];
-
 					}
-
-					reply = new NpcHtmlMessage(getObjectId());
-					replyMSG = new TextBuilder("<html><body>The number of people on the waiting list for Grand Olympiad<center>");
-					replyMSG.append("<img src=\"L2UI.SquareWhite\" width=270 height=1><img src=\"L2UI.SquareBlank\" width=1 height=3>");
-					replyMSG.append("<table width=270 border=0 bgcolor=\"000000\">");
-					replyMSG.append("<tr><td fixwidth=100>Class (Individual)</td>");
-					replyMSG.append("<td fixwidth=170 align=right>");
-					replyMSG.append((classed < 100 ? "Fewer than 100" : "More than 100"));
-					replyMSG.append("</td></tr>");
-					replyMSG.append("<tr><td fixwidth=100>Class-Irrelevant (Team)</td>");
-					replyMSG.append("<td fixwidth=170 align=right>Fewer than 100</td>"); // once team (3vs3) will be supported, unhardcode Fewer than 100 as its done with others
-					replyMSG.append("</td></tr>");
-					replyMSG.append("<tr><td fixwidth=100>Class-Irrelevant (Individual)</td>");
-					replyMSG.append("<td fixwidth=170 align=right>");
-					replyMSG.append((nonClassed < 100 ? "Fewer than 100" : "More than 100"));
-					replyMSG.append("</td></tr></table>");
-					replyMSG.append("<img src=\"L2UI.SquareWhite\" width=270 height=1> <img src=\"L2UI.SquareBlank\" width=1 height=3>");
-					replyMSG.append("<table width=270 border=0 cellpadding=0 cellspacing=0>");
-					replyMSG.append("<tr><td width=90 height=20 align=center>");
-					replyMSG.append("<button value=\"Back\" action=\"bypass -h npc_");
-					replyMSG.append(String.valueOf(getObjectId()));
-					replyMSG.append("_OlympiadDesc 2a\" ");
-					replyMSG.append("width=80 height=27 back=\"L2UI_CT1.Button_DF_Down\" fore=\"L2UI_CT1.Button_DF\"></td></tr></table></center>");
-					replyMSG.append("</body></html>");
-
-					reply.setHtml(replyMSG.toString());
-					player.sendPacket(reply);
+					html.setFile(Olympiad.OLYMPIAD_HTML_PATH + "noble_registered.htm");
+					html.replace("%listClassed%", String.valueOf(classed < 100 ? "Fewer than 100" : "More than 100"));
+					html.replace("%listNonClassedTeam%", String.valueOf("Fewer than 100"));
+					html.replace("%listNonClassed%", String.valueOf(nonClassed < 100 ? "Fewer than 100" : "More than 100"));
+					html.replace("%objectId%", String.valueOf(getObjectId()));
+					player.sendPacket(html);
 					break;
 				case 3:
 					int points = Olympiad.getInstance().getNoblePoints(player.getObjectId());
-					if (points >= 0)
-					{
-						reply = new NpcHtmlMessage(getObjectId());
-						replyMSG = new TextBuilder("<html><body>");
-						replyMSG.append("There are " + points + " Grand Olympiad " + "points granted for this event.<br><br>" + "<a action=\"bypass -h npc_"
-								+ getObjectId() + "_OlympiadDesc 2a\">Return</a>");
-						replyMSG.append("</body></html>");
-
-						reply.setHtml(replyMSG.toString());
-						player.sendPacket(reply);
-					}
+					html.setFile(Olympiad.OLYMPIAD_HTML_PATH + "noble_points1.htm");
+					html.replace("%points%", String.valueOf(points));
+					html.replace("%objectId%", String.valueOf(getObjectId()));
+					player.sendPacket(html);
 					break;
 				case 4:
 					Olympiad.getInstance().registerNoble(player, false);
@@ -133,18 +107,22 @@ public class L2OlympiadManagerInstance extends L2NpcInstance
 					int passes = Olympiad.getInstance().getNoblessePasses(player.getObjectId());
 					if (passes > 0)
 					{
-						// Sends the correct packet even for newly created items
-						player.addItem("Olympiad", GATE_PASS, passes, player, true, true);
+						L2ItemInstance item = player.getInventory().addItem("Olympiad", GATE_PASS, passes, player, this);
+
+						InventoryUpdate iu = new InventoryUpdate();
+						iu.addModifiedItem(item);
+						player.sendPacket(iu);
+
+						SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
+						sm.addItemNumber(passes);
+						sm.addItemName(item);
+						player.sendPacket(sm);
 					}
 					else
 					{
-						reply = new NpcHtmlMessage(getObjectId());
-						String msg = "<html><body>Grand Olympiad Manager:<br>" +
-								"I'm sorry. You do not have enough points to obtain Olympiad Tokens. Better luck next time.<br>" +
-								"<a action=\"bypass -h npc_" + String.valueOf(getObjectId()) +
-								"_OlympiadDesc 2a\">Return</a></body></html>";
-						reply.setHtml(msg);
-						player.sendPacket(reply);
+						html.setFile(Olympiad.OLYMPIAD_HTML_PATH + "noble_nopoints.htm");
+						html.replace("%objectId%", String.valueOf(getObjectId()));
+						player.sendPacket(html);
 					}
 					break;
 				case 7:
@@ -155,19 +133,14 @@ public class L2OlympiadManagerInstance extends L2NpcInstance
 					break;
 				case 8:
 					int point = Olympiad.getInstance().getNoblePoints(player.getObjectId());
-					if (point >= 0) {
-						reply = new NpcHtmlMessage(getObjectId());
-						String msg = "<html><body>Your Grand Olympiad Score from the previous period is " +
-								String.valueOf(point) + " point(s). <br><a action=\"bypass -h npc_" +
-								String.valueOf(getObjectId()) + "_OlympiadDesc 2a\">Return</a></body></html>";
-						reply.setHtml(msg);
-						player.sendPacket(reply);
-					}
+					html.setFile(Olympiad.OLYMPIAD_HTML_PATH + "noble_points2.htm");
+					html.replace("%points%", String.valueOf(point));
+					html.replace("%objectId%", String.valueOf(getObjectId()));
+					player.sendPacket(html);
 					break;
 				default:
 					_log.warn("Olympiad System: Couldnt send packet for request " + val);
 					break;
-
 			}
 		}
 		else if (command.startsWith("OlyBuff"))
@@ -228,75 +201,42 @@ public class L2OlympiadManagerInstance extends L2NpcInstance
 			int val = Integer.parseInt(command.substring(9, 10));
 
 			NpcHtmlMessage reply = new NpcHtmlMessage(getObjectId());
-			TextBuilder replyMSG = new TextBuilder("<html><body>");
 
 			switch (val)
 			{
 				case 1:
 					FastMap<Integer, String> matches = Olympiad.getInstance().getMatchList();
-					replyMSG.append("<br>Grand Olympiad Competition View <br> Warning: "
-							+ "If you choose to watch an Olympiad game, any summoning of Servitors " + "or Pets will be canceled. <br><br>");
+					reply.setFile(Olympiad.OLYMPIAD_HTML_PATH + "olympiad_observe.htm");
 
-					for (int i = 0; i < Olympiad.getStadiumCount(); i++)
-					{
+					for (int i = 0; i < Olympiad.getStadiumCount(); i++) {
 						int arenaID = i + 1;
-						String title = "";
-						if (matches.containsKey(i))
-						{
-							title = matches.get(i);
-						}
-						else
-						{
-							title = "&$906;"; // initial state
-						}
-						replyMSG.append("<a action=\"bypass -h npc_" + getObjectId() + "_Olympiad 3_" + i + "\">" + "Arena " + arenaID + "&nbsp;&nbsp;&nbsp;"
-								+ title + "</a><br>");
+
+						// &$906; -> \\&\\$906;
+						reply.replace("%title"+arenaID+"%", matches.containsKey(i) ? matches.get(i) : "\\&\\$906;");
 					}
-
-					replyMSG.append("<img src=\"L2UI.SquareWhite\" width=270 height=1> <img src=\"L2UI.SquareBlank\" width=1 height=3>");
-					replyMSG.append("<table width=270 border=0 cellpadding=0 cellspacing=0>");
-					replyMSG.append("<tr><td width=90 height=20 align=center>");
-					replyMSG.append("<button value=\"Back\" action=\"bypass -h npc_" + getObjectId()
-							+ "_Chat 0\" width=80 height=27 back=\"L2UI_CT1.Button_DF_Down\" fore=\"L2UI_CT1.Button_DF\">");
-					replyMSG.append("</td></tr></table></body></html>");
-
-					reply.setHtml(replyMSG.toString());
+					reply.replace("%objectId%", String.valueOf(getObjectId()));
 					player.sendPacket(reply);
 					break;
 				case 2:
-					// For example >> Olympiad 1_88
+					// for example >> Olympiad 1_88
 					int classId = Integer.parseInt(command.substring(11));
 					if ((classId >= 88 && classId <= 118) || (classId >= 131 && classId <= 134) || classId == 136)
 					{
-						replyMSG.append("<center>Grand Olympiad Ranking");
-						replyMSG.append("<img src=\"L2UI.SquareWhite\" width=270 height=1><img src=\"L2UI.SquareBlank\" width=1 height=3>");
-
 						FastList<String> names = Olympiad.getInstance().getClassLeaderBoard(classId);
-						if (!names.isEmpty())
+						reply.setFile(Olympiad.OLYMPIAD_HTML_PATH + "olympiad_ranking.htm");
+
+						int index = 1;
+						for (String name : names)
 						{
-							replyMSG.append("<table width=270 border=0 bgcolor=\"000000\">");
-
-							int index = 1;
-
-							for (String name : names)
-							{
-								replyMSG.append("<tr>");
-								replyMSG.append("<td fixwidth=100 align=center>" + index++ + "</td>");
-								replyMSG.append("<td fixwidth=170 align=center>" + name + "</td>");
-								replyMSG.append("</tr>");
-							}
-
-							replyMSG.append("</table>");
+							reply.replace("%rank"+index+"%", name);
+							index++;
+							if (index > 10)
+								break;
 						}
+						for (; index <= 10; index++)
+							reply.replace("%rank"+index+"%", "");
 
-						replyMSG.append("<img src=\"L2UI.SquareWhite\" width=270 height=1> <img src=\"L2UI.SquareBlank\" width=1 height=3>");
-						replyMSG.append("<table width=270 border=0 cellpadding=0 cellspacing=0>");
-						replyMSG.append("<tr><td width=90 height=20 align=center>");
-						replyMSG.append("<button value=\"Back\" action=\"bypass -h npc_" + getObjectId()
-								+ "_OlympiadDesc 3a\" width=80 height=27 back=\"L2UI_CT1.Button_DF_Down\" fore=\"L2UI_CT1.Button_DF\"></td></tr></table></center>");
-						replyMSG.append("</body></html>");
-
-						reply.setHtml(replyMSG.toString());
+						reply.replace("%objectId%", String.valueOf(getObjectId()));
 						player.sendPacket(reply);
 					}
 					break;

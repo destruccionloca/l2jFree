@@ -194,8 +194,15 @@ public class CastleManorManager
 		init(); // Schedule all manor related events
 		_underMaintenance = false;
 		_disabled = !Config.ALLOW_MANOR;
-		boolean isApproved = (_periodApprove.getTimeInMillis() < System.currentTimeMillis() && _manorRefresh.getTimeInMillis() > Calendar
-				.getInstance().getTimeInMillis());
+
+		boolean isApproved;
+		if (_periodApprove.getTimeInMillis() > _manorRefresh.getTimeInMillis())
+			// Next approve period already scheduled
+			isApproved = (_manorRefresh.getTimeInMillis() > Calendar.getInstance().getTimeInMillis());
+		else
+			isApproved = (_periodApprove.getTimeInMillis() < Calendar.getInstance().getTimeInMillis() &&
+					_manorRefresh.getTimeInMillis() > Calendar.getInstance().getTimeInMillis());
+
 		for (Castle c : CastleManager.getInstance().getCastles().values())
 		{
 			c.setNextPeriodApproved(isApproved);

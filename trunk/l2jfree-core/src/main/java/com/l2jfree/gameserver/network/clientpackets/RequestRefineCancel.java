@@ -101,7 +101,7 @@ public final class RequestRefineCancel extends L2GameClientPacket
 		if (!activeChar.reduceAdena("RequestRefineCancel", price, null, true)) return;
 		
 		// unequip item
-		if (targetItem.isEquipped()) activeChar.disarmWeapons();
+		if (targetItem.isEquipped()) activeChar.disarmWeapons(false);
 		
 		// remove the augmentation
 		targetItem.removeAugmentation();

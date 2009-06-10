@@ -5655,7 +5655,7 @@ public final class L2PcInstance extends L2Playable
 	/**
 	 * Disarm the player's weapon and shield.<BR><BR>
 	 */
-	public boolean disarmWeapons()
+	public boolean disarmWeapons(boolean shield)
 	{
 		// Don't allow disarming a cursed weapon
 		if (isCursedWeaponEquipped())
@@ -5699,8 +5699,10 @@ public final class L2PcInstance extends L2Playable
 			}
 		}
 
+		if (!shield)
+			return true;
+
 		// Unequip the shield
-		/* Retail does not disarm shields
 		L2ItemInstance sld = getInventory().getPaperdollItem(Inventory.PAPERDOLL_LHAND);
 		if (sld != null)
 		{
@@ -5735,8 +5737,7 @@ public final class L2PcInstance extends L2Playable
 				sendPacket(sm);
 			}
 		}
-		*/
-		
+
 		return true;
 	}
 
@@ -5875,7 +5876,7 @@ public final class L2PcInstance extends L2Playable
 			return false;
 		}
 		
-		if (!disarmWeapons())
+		if (!disarmWeapons(true))
 			return false;
 		if (isTransformed())
 			return false;
@@ -5913,7 +5914,7 @@ public final class L2PcInstance extends L2Playable
 
 	public boolean mount(int npcId, int controlItemObjId, boolean useFood)
 	{
-		if (!disarmWeapons())
+		if (!disarmWeapons(true))
 			return false;
 		if (isTransformed())
 			return false;

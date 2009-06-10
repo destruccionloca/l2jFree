@@ -1563,12 +1563,12 @@ public class MercTicketManager
 				Castle castle = CastleManager.getInstance().getCastle(x, y, z);
 				if (castle != null)
 				{
+					if (mercPlaced[castle.getCastleId() - 1] > MERCS_MAX_PER_CASTLE[castle.getCastleId() - 1])
+						continue;
 					startindex = GUARDIAN_TYPES_COUNT * (castle.getCastleId() - 1);
 					// Needed to add a max merc check becase of a cheat (players switch clan leaders
 					// and place more guards. Need a check added here and during siege start)
 					mercPlaced[castle.getCastleId() - 1] += 1;
-					if (mercPlaced[castle.getCastleId() - 1] > MERCS_MAX_PER_CASTLE[castle.getCastleId() - 1])
-						break;
 				}
 
 				// Find the FIRST ticket itemId with spawns the saved NPC in the saved location
