@@ -966,7 +966,7 @@
     <set name="power" val="40"/>
     <set name="target" val="TARGET_AURA"/>
     <set name="skillRadius" val="200"/>
-    <set name="reuseDelay" val="7000"/>
+    <set name="reuseDelay" val="120000"/>
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="WARRIOR_BANE"/>
     <set name="isMagic" val="true"/>
@@ -979,7 +979,7 @@
     <set name="power" val="40"/>
     <set name="target" val="TARGET_AURA"/>
     <set name="skillRadius" val="200"/>
-    <set name="reuseDelay" val="7000"/>
+    <set name="reuseDelay" val="120000"/>
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="MAGE_BANE"/>
     <set name="isMagic" val="true"/>
@@ -1392,7 +1392,7 @@
     <set name="power" val="20"/>
     <set name="target" val="TARGET_PARTY"/>
     <set name="skillRadius" val="1000"/>
-    <set name="reuseDelay" val="240000"/>
+    <set name="reuseDelay" val="480000"/>
     <set name="hitTime" val="2500"/>
     <set name="skillType" val="HEAL_PERCENT"/>
     <set name="isMagic" val="true"/>
@@ -1825,7 +1825,7 @@
     <set name="itemConsumeCount" val="#itemConsumeCount"/>
     <set name="create_item_id" val="2508"/>
     <set name="create_item_count" val="#create_item_count"/>
-    <set name="random_count" val="#random_count"/>
+    <set name="random_count" val="4"/>
   </skill>
   <skill id="1388" levels="3" name="Greater Might">
     <!-- Done by KID -->
@@ -1849,11 +1849,16 @@
       </effect>
     </for>
   </skill>
-  <skill id="1389" levels="3" name="Greater Shield">
+  <skill id="1389" levels="3" name="Greater Shield" enchantLevels1="30" enchantLevels2="30">
     <!-- Done by KID -->
     <table name="#pDef">1.05 1.1 1.15</table>
     <table name="#mpConsume">54 62 69</table>
     <table name="#itemConsumeCount">1 2 3</table>
+    <table name="#magicLvl"> 58 66 74 </table>
+    <table name="#ench1MpConsume"> 68 67 67 65 65 64 63 63 62 62 60 59 59 58 57 57 55 55 54 53 53 52 52 50 49 49 48 47 47 45 </table>
+    <table name="#ench2time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720 1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
+    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+    <set name="magicLvl" val="#magicLvl"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="itemConsumeId" val="3031"/>
     <set name="itemConsumeCount" val="#itemConsumeCount"/>
@@ -1865,6 +1870,9 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
+    <enchant1 name="mpConsume" val="#ench1MpConsume"/>
+    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
+    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <for>
       <effect name="Buff" time="1200" val="0" stackOrder="0" stackType="Great">
         <mul order="0x30" stat="pDef" val="#pDef"/>

@@ -259,7 +259,7 @@
     <set name="itemConsumeCount" val="1"/>
     <set name="create_item_id" val="9635"/>
     <set name="create_item_count" val="700"/>
-    <set name="random_count" val="2100"/>
+    <set name="random_count" val="4"/>
   </skill>
   <skill id="621" levels="1" name="Create Special Bolt">
     <!-- Needs to be verified -->

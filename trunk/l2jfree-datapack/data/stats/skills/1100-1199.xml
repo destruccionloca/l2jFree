@@ -999,8 +999,8 @@
     <set name="power" val="20"/>
     <set name="lvlDepend" val="1"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="2000"/>
-    <set name="hitTime" val="6000"/>
+    <set name="reuseDelay" val="80000"/>
+    <set name="hitTime" val="4000"/>
     <set name="isDebuff" val="true"/>
     <set name="skillType" val="PARALYZE"/>
     <set name="isMagic" val="true"/>

@@ -65,9 +65,12 @@
       </effect>
     </for>
   </skill>
-  <skill id="402" levels="10" name="Arrest">
+  <skill id="402" levels="10" name="Arrest" enchantLevels1="30" enchantLevels2="30">
     <table name="#magicLvl"> 55 58 60 62 64 66 68 70 72 74 </table>
     <table name="#mpConsume"> 25 27 28 29 30 31 32 33 34 34 </table>
+    <table name="#ench1aggro"> 3536 3547 3558 3569 3580 3591 3602 3613 3624 3635 3646 3657 3668 3679 3690 3701 3712 3723 3734 3745 3756 3767 3778 3789 3800 3811 3822 3833 3844 3855 </table>
+    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+    <table name="#ench2Power"> 80 81 82 82 83 84 84 85 86 86 87 88 88 89 90 90 91 92 92 93 94 94 95 96 96 97 98 98 99 100 </table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="80"/>
     <set name="lvlDepend" val="2"/>
@@ -80,13 +83,20 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="150"/>
     <set name="effectRange" val="650"/>
+    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
+    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
+    <enchant1 name="aggro" val="#ench1aggro"/>
+    <enchant2 name="power" val="#ench2Power"/>
     <for>
       <effect name="Root" time="10" val="0" stackOrder="1" stackType="Root"/>
     </for>
   </skill>
-  <skill id="403" levels="10" name="Shackle">
+  <skill id="403" levels="10" name="Shackle"  enchantLevels1="30" enchantLevels2="30">
     <table name="#magicLvl"> 55 58 60 62 64 66 68 70 72 74 </table>
     <table name="#mpConsume"> 25 27 28 29 30 31 32 33 34 34 </table>
+    <table name="#ench1aggro"> 3536 3547 3558 3569 3580 3591 3602 3613 3624 3635 3646 3657 3668 3679 3690 3701 3712 3723 3734 3745 3756 3767 3778 3789 3800 3811 3822 3833 3844 3855 </table>
+    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+    <table name="#ench2Power"> 80 81 82 82 83 84 84 85 86 86 87 88 88 89 90 90 91 92 92 93 94 94 95 96 96 97 98 98 99 100 </table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="power" val="80"/>
@@ -99,13 +109,21 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
+    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
+    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
+    <enchant1 name="aggro" val="#ench1aggro"/>
+    <enchant2 name="power" val="#ench2Power"/>
     <for>
       <effect name="Root" time="10" val="0" stackOrder="1" stackType="Root"/>
     </for>
   </skill>
-  <skill id="404" levels="5" name="Mass Shackling">
+  <skill id="404" levels="5" name="Mass Shackling" enchantLevels1="30" enchantLevels2="30" >
     <table name="#magicLvl"> 58 62 66 70 74 </table>
     <table name="#mpConsume">40 43 46 59 51</table>
+    <table name="#aggro"> 2401 2575 2847 3134 3332 </table>
+    <table name="#ench1aggro"> 3536 3547 3558 3569 3580 3591 3602 3613 3624 3635 3646 3657 3668 3679 3690 3701 3712 3723 3734 3745 3756 3767 3778 3789 3800 3811 3822 3833 3844 3855 </table>
+    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+    <table name="#ench2Power"> 40 40 41 41 41 42 42 42 43 43 43 44 44 44 45 45 45 46 46 46 47 47 47 48 48 48 49 49 49 50 </table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_AURA"/>
     <set name="skillRadius" val="200"/>
@@ -117,6 +135,10 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isDebuff" val="true"/>
+    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
+    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
+    <enchant1 name="aggro" val="#ench1aggro"/>
+    <enchant2 name="power" val="#ench2Power"/>
     <for>
       <effect name="Root" time="10" val="0" stackOrder="1" stackType="Root"/>
     </for>
@@ -447,13 +469,17 @@
     <set name="skillType" val="SUMMON_TREASURE_KEY"/>
     <set name="operateType" val="OP_ACTIVE"/>
   </skill>
-  <skill id="420" levels="3" name="Zealot">
+  <skill id="420" levels="3" name="Zealot" enchantLevels1="30" enchantLevels2="30">
     <table name="#hpConsume">159 183 204</table>
     <table name="#mpConsume">106 122 136</table>
     <table name="#runSpd">10 20 30</table>
     <table name="#pAtkSpd">1.1 1.2 1.2</table>
     <table name="#rCrit">33 66 100</table>
     <table name="#cAtk">1.38 1.54 1.91</table> <!-- Confirmed trough private sources - CT1 -->
+    <table name="#ench1MpConsume"> 133 131 129 126 124 122 120 117 115 113 111 108 106 104 102 99 97 95 92 90 88 86 83 81 79 77 74 72 70 68 </table>
+    <table name="#ench1HpConsume"> 200 197 193 190 187 183 180 176 173 170 166 163 159 156 153 149 146 142 139 136 132 129 125 122 119 115 112 108 105 102 </table>
+    <table name="#ench2time"> 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 </table>
+    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <set name="hpConsume" val="#hpConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="condition" val="32"/>
@@ -462,6 +488,10 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <enchant1 name="mpConsume" val="#ench1MpConsume"/>
+    <enchant1 name="hpConsume" val="#ench1HpConsume"/>
+    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
+    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <cond msg="This skill is only available when your HP is at 30 percent or lower.">
       <player hp="30"/>
     </cond>
@@ -556,7 +586,7 @@
     <set name="magicLvl" val="74"/>
     <set name="mpConsume" val="34"/>
     <set name="target" val="TARGET_SELF"/>
-    <set name="reuseDelay" val="300000"/>
+    <set name="reuseDelay" val="35000"/>
     <set name="hitTime" val="2000"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1431,7 +1461,7 @@
    <set name="castRange" val="-1"/>  
    <set name="effectRange" val="-1"/>  
     <for>  
-      <effect count="0x7fffffff" name="MpConsumePerLevel" time="3" val="0.5"> <!-- TODO: MpConsumePerLevel amount is guessed -->
+      <effect count="0x7fffffff" name="ManaDamOverTime" time="3" val="5"> <!-- TODO: MpConsumePerLevel amount is guessed -->
         <add order="0x40" stat="vengeancePdam" val="30"/>
       </effect>
    </for>  
@@ -1919,9 +1949,9 @@
     <set name="overHit" val="true"/>
     <set name="ignoreShld" val="true"/>
     <set name="SSBoost" val="2.0"/>
-    <set name="reuseDelay" val="7000"/>
-    <set name="hitTime" val="2200"/>
-    <set name="coolTime" val="720"/>
+    <set name="reuseDelay" val="6000"/>
+    <set name="hitTime" val="1900"/>
+    <set name="coolTime" val="380"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
@@ -1951,7 +1981,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="overHit" val="true"/>
     <set name="reuseDelay" val="6000"/>
-    <set name="hitTime" val="2000"/>
+    <set name="hitTime" val="1800"/>
     <set name="coolTime" val="380"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>

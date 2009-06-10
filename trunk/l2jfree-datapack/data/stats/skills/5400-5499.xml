@@ -415,6 +415,9 @@
     <set name="skillType" val="AGGREDUCE"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="power" val="1000"/>
+	<for>
+      <effect name="RemoveTarget" val="0" effectPower="80" effectType="DEBUFF"/>
+	</for>
   </skill>
   <skill id="5449" levels="1" name="Weak Constitution">
     <!-- Description(s): Temporarily gets thrown into a state of shock and immobilized. -->
@@ -454,14 +457,30 @@
   </skill>
   <skill id="5452" levels="3" name="Spite">
     <!-- Description(s): Greatly increases the amount of critical damage received -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_SELF" />
+    <set name="skillType" val="DEBUFF" />
+    <set name="operateType" val="OP_ACTIVE" />
+    <set name="isDebuff" val="true"/>
+    <set name="castRange" val="900" />
+    <set name="effectRange" val="1400" />
+   <for>
+     <effect count="1" name="Debuff" time="30" val="0">
+       <mul order="0x30" stat="critVuln" val="1.30"/>
+     </effect>
+    </for>
   </skill>
   <skill id="5453" levels="4" name="Mental Impoverish">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_SELF" />
+    <set name="skillType" val="DEBUFF" />
+    <set name="operateType" val="OP_ACTIVE" />
+    <set name="isDebuff" val="true"/>
+    <set name="castRange" val="900" />
+    <set name="effectRange" val="1400" />
+	<for>
+	<effect count="1" name="Debuff" time="30" val="0">
+		<sub order="0x40" stat="gainMp" val="#dmg"/>
+	</effect>
+	</for>
   </skill>
   <skill id="5454" levels="1" name="Shadow Bind">
     <!-- Description(s): Immobilized. -->
