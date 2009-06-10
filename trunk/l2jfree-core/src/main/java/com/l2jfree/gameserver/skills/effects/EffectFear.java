@@ -15,8 +15,10 @@
 package com.l2jfree.gameserver.skills.effects;
 
 import com.l2jfree.gameserver.ai.CtrlIntention;
+import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Effect;
+import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.instance.L2FortCommanderInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2FortSiegeGuardInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
@@ -32,7 +34,7 @@ import com.l2jfree.gameserver.templates.skills.L2EffectType;
 /**
  * @author littlecrow Implementation of the Fear Effect
  */
-public class EffectFear extends L2Effect
+public final class EffectFear extends L2Effect
 {
 	public static final int FEAR_RANGE = 500;
 	
@@ -44,29 +46,35 @@ public class EffectFear extends L2Effect
 		super(env, template);
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
-	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.FEAR;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
-	 */
+	/** Notify started */
 	@Override
 	protected boolean onStart()
 	{
-		// Fear skills cannot be used l2pcinstance to l2pcinstance. Heroic
-		// Dread, Curse: Fear, Fear, Horror, Sword Symphony, Word of Fear and
-		// Mass Curse Fear are the exceptions.
-		if (getEffected() instanceof L2PcInstance && getEffector() instanceof L2PcInstance
-			&& getSkill().getId() != 1376 && getSkill().getId() != 1169 && getSkill().getId() != 65
-			&& getSkill().getId() != 1092 && getSkill().getId() != 98 && getSkill().getId() != 1272
-			&& getSkill().getId() != 1381)
-			return false;
+		// Fear skills cannot be used by L2PcInstance to L2PcInstance.
+		// Heroic Dread, Curse: Fear, Fear, Horror, Sword Symphony, Word of Fear and Mass Curse Fear are the exceptions.
+		if (getEffected() instanceof L2PcInstance && getEffector() instanceof L2PcInstance)
+		{
+			switch (getSkill().getId())
+			{
+				case 65:
+				case 98:
+				case 1092:
+				case 1169:
+				case 1272:
+				case 1376:
+				case 1381:
+					// all ok
+					break;
+				default:
+					return false;
+			}
+		}
 		
 		if (getEffected() instanceof L2NpcInstance || getEffected() instanceof L2SiegeGuardInstance
 			|| getEffected() instanceof L2FortSiegeGuardInstance || getEffected() instanceof L2FortCommanderInstance
@@ -87,20 +95,15 @@ public class EffectFear extends L2Effect
 		return false;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
-	 */
+	/** Notify exited */
 	@Override
 	protected void onExit()
 	{
 		getEffected().stopFear(false);
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
-	 */
 	@Override
-	public boolean onActionTime()
+	protected boolean onActionTime()
 	{
 		int posX = getEffected().getX();
 		int posY = getEffected().getY();
@@ -108,9 +111,12 @@ public class EffectFear extends L2Effect
 		
 		posX += _dX * FEAR_RANGE;
 		posY += _dY * FEAR_RANGE;
+		
+		Location destiny = GeoData.getInstance().moveCheck(getEffected().getX(), getEffected().getY(),
+			getEffected().getZ(), posX, posY, posZ);
 		if (!(getEffected() instanceof L2PetInstance))
 			getEffected().setRunning();
-		getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(posX, posY, posZ, 0));
+		getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(destiny));
 		return true;
 	}
 }
