@@ -258,10 +258,10 @@ INSERT INTO `armorsets` VALUES (165, 11451, 0,    2419, 5775, 5787,   3539,     
 INSERT INTO `armorsets` VALUES (166, 11452, 0,    2419, 5776, 5788,   3541,      1,      0,      0,      3622,            0,   12991,    11450,    11455,       0);--		Masterwork Majestic robe set
 
 -- MasterWorks S GRADE
--- ########################      id   chest legs  head gloves feet    skill  skill_lvl shield sh_skill enchant6      mw_chest  mw_legs  mw_head  mw_gloves  mw_feet  mw_shield
-INSERT INTO `armorsets` VALUES (167, 11510, 6374, 6378, 6375, 6376,   3553,      1,     6377,  3554,     3623,        11510,    11505,   11509,    11506,    11507,   11508);--		Masterwork Imperial crusader set
-INSERT INTO `armorsets` VALUES (168, 11485, 0,    6382, 6380, 6381,   3555,      1,     0,       0,      3624,        11485,        0,   11486,    11483,    11484,       0);--		Masterwork Draconic leather set
-INSERT INTO `armorsets` VALUES (169, 11488, 0,    6386, 6384, 6385,   3556,      1,     0,       0,      3625,        11488,        0,   11490,    11487,    11489,       0);--		Masterwork Major arcana robe set
+-- ########################      id   chest legs  head gloves feet    skill  skill_lvl shield sh_skill enchant6      mw_legs  mw_head  mw_gloves  mw_feet  mw_shield
+INSERT INTO `armorsets` VALUES (167, 11510, 6374, 6378, 6375, 6376,   3553,      1,     6377,  3554,     3623,       11505,   11509,    11506,    11507,   11508);--		Masterwork Imperial crusader set
+INSERT INTO `armorsets` VALUES (168, 11485, 0,    6382, 6380, 6381,   3555,      1,     0,       0,      3624,           0,   11486,    11483,    11484,       0);--		Masterwork Draconic leather set
+INSERT INTO `armorsets` VALUES (169, 11488, 0,    6386, 6384, 6385,   3556,      1,     0,       0,      3625,           0,   11490,    11487,    11489,       0);--		Masterwork Major arcana robe set
 
 -- S84 Vesper Armor Sets
 -- ########################     id    chest legs  head gloves feet    skill  skill_lvl shield sh_skill enchant6      mw_legs  mw_head  mw_gloves  mw_feet  mw_shield
