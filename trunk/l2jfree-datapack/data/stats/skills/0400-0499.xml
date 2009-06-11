@@ -576,7 +576,7 @@
     <set name="skillType" val="CONT"/>
     <set name="operateType" val="OP_TOGGLE"/>
     <for>
-      <effect count="0x7fffffff" name="MpConsumePerLevel" time="3" val="0.2"> <!-- Should be by Lvl -->
+      <effect count="0x7fffffff" name="MpConsumePerLevel" time="3" val="0.2">
         <mul order="0x30" stat="stunVuln" val="#stunVuln"/>
         <mul order="0x30" stat="sleepVuln" val="#sleepVuln"/>
       </effect>
@@ -1712,7 +1712,7 @@
     <set name="skillType" val="SHIFT_TARGET"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
-    <set name="effectRange" val="200"/>
+    <set name="effectRange" val="400"/>
     <set name="weaponsAllowed" val="65536"/> <!-- Crossbow -->
   </skill>
   <skill id="490" levels="2" name="Fast Shot" enchantLevels1="30" enchantLevels2="30">
@@ -1852,7 +1852,7 @@
     <set name="soulMaxConsumeCount" val="5"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="weaponsAllowed" val="32768"/> <!-- Ancient -->
-	<enchant1 name="magicLvl" val="#enchantMagicLvl"/>
+    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant1 name="power" val="#ench1power"/>
     <cond msgId="113" addName="1">
       <target mindistance="200"/>
@@ -1862,11 +1862,11 @@
       <effect name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
 	  <effect name="RemoveTarget" noicon="1" val="0"/>
     </for>
-	<enchant1for>
-		<effect name="EnemyCharge" val="0" noicon="1"/>
-		<effect name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
-		<effect name="RemoveTarget" noicon="1" val="0"/>
-	</enchant1for>
+      <enchant1for>
+        <effect name="EnemyCharge" val="0" noicon="1"/>
+        <effect name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
+        <effect name="RemoveTarget" noicon="1" val="0"/>
+      </enchant1for>
   </skill>
   <skill id="495" levels="10" name="Blade Rush">
     <table name="#abnormalLvl"> 6 6 7 7 7 7 7 8 8 8 </table>

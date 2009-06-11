@@ -111,9 +111,9 @@
     <!-- CT2.2 retail confirmed -->
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
-    <table name="#ench1power"> 5813 5852 5892 5932 5971 6011 6050 6090 6129 6169 6209 6248 6288
+    <table name="#ench1Power"> 5813 5852 5892 5932 5971 6011 6050 6090 6129 6169 6209 6248 6288
       6327 6367 6406 6446 6486 6525 6565 6604 6644 6683 6723 6763 6802 6842 6881 6921 6960 </table>
-    <table name="#ench2mpConsume"> 59 58 57 56 55 54 53 52 51 50 49 48
+    <table name="#ench2MpConsume"> 59 58 57 56 55 54 53 52 51 50 49 48
       47 46 45 44 43 42 41 40 39 38 37 36 35 34 33 32 31 30 </table>
     <table name="#mpConsume"> 37 38 39 40 40 41 42 43 44 45 46 47
       48 49 49 50 51 52 53 54 54 55 56 57 58 59 59 60 </table>
@@ -133,13 +133,14 @@
     <set name="skillType" val="BLOW"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="overHit" val="true"/>
+    <set name="SSBoost" val="2.0"/>
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
     <set name="soulMaxConsumeCount" val="5"/>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant1 name="power" val="#ench1power"/>
-    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
+    <enchant1 name="power" val="#ench1Power"/>
+    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   </skill>
   <skill id="506" levels="4" name="Checkmate" enchantLevels1="30" enchantLevels2="30">
     <!-- CT2.2 retail confirmed -->
@@ -861,7 +862,14 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+      <effect name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
+        <set order="0x08" stat="STR" val="41"/>
+        <set order="0x08" stat="DEX" val="31"/>
+        <set order="0x08" stat="CON" val="41"/>
+        <set order="0x08" stat="INT" val="21"/>
+        <set order="0x08" stat="WIT" val="11"/>
+        <set order="0x08" stat="MEN" val="25"/>
+      </effect>
     </for>
   </skill>
   <skill id="542" levels="1" name="Transform Grail Apostle">
@@ -879,7 +887,14 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+      <effect name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
+        <set order="0x08" stat="STR" val="41"/>
+        <set order="0x08" stat="DEX" val="31"/>
+        <set order="0x08" stat="CON" val="41"/>
+        <set order="0x08" stat="INT" val="21"/>
+        <set order="0x08" stat="WIT" val="11"/>
+        <set order="0x08" stat="MEN" val="25"/>
+      </effect>
     </for>
   </skill>
   <skill id="543" levels="1" name="Transform Grail Apostle">
@@ -897,7 +912,14 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+      <effect name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
+        <set order="0x08" stat="STR" val="41"/>
+        <set order="0x08" stat="DEX" val="31"/>
+        <set order="0x08" stat="CON" val="41"/>
+        <set order="0x08" stat="INT" val="21"/>
+        <set order="0x08" stat="WIT" val="11"/>
+        <set order="0x08" stat="MEN" val="25"/>
+      </effect>
     </for>
   </skill>
   <skill id="544" levels="1" name="Transform Unicorn">
@@ -915,7 +937,14 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+      <effect name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
+        <set order="0x08" stat="STR" val="37"/>
+        <set order="0x08" stat="DEX" val="36"/>
+        <set order="0x08" stat="CON" val="34"/>
+        <set order="0x08" stat="INT" val="23"/>
+        <set order="0x08" stat="WIT" val="14"/>
+        <set order="0x08" stat="MEN" val="26"/>
+      </effect>
     </for>
   </skill>
   <skill id="545" levels="1" name="Transform Unicorn">
@@ -933,7 +962,14 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+      <effect name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
+        <set order="0x08" stat="STR" val="37"/>
+        <set order="0x08" stat="DEX" val="36"/>
+        <set order="0x08" stat="CON" val="34"/>
+        <set order="0x08" stat="INT" val="23"/>
+        <set order="0x08" stat="WIT" val="14"/>
+        <set order="0x08" stat="MEN" val="26"/>
+      </effect>
     </for>
   </skill>
   <skill id="546" levels="1" name="Transform Unicorn">
@@ -951,7 +987,14 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+      <effect name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
+        <set order="0x08" stat="STR" val="37"/>
+        <set order="0x08" stat="DEX" val="36"/>
+        <set order="0x08" stat="CON" val="34"/>
+        <set order="0x08" stat="INT" val="23"/>
+        <set order="0x08" stat="WIT" val="14"/>
+        <set order="0x08" stat="MEN" val="26"/>
+      </effect>
     </for>
   </skill>
   <skill id="547" levels="1" name="Transform Lilim Knight">
@@ -969,7 +1012,14 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+      <effect name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
+        <set order="0x08" stat="STR" val="43"/>
+        <set order="0x08" stat="DEX" val="34"/>
+        <set order="0x08" stat="CON" val="30"/>
+        <set order="0x08" stat="INT" val="25"/>
+        <set order="0x08" stat="WIT" val="12"/>
+        <set order="0x08" stat="MEN" val="26"/>
+      </effect>
     </for>
   </skill>
   <skill id="548" levels="1" name="Transform Lilim Knight">
@@ -987,7 +1037,14 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+      <effect name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
+        <set order="0x08" stat="STR" val="43"/>
+        <set order="0x08" stat="DEX" val="34"/>
+        <set order="0x08" stat="CON" val="30"/>
+        <set order="0x08" stat="INT" val="25"/>
+        <set order="0x08" stat="WIT" val="12"/>
+        <set order="0x08" stat="MEN" val="26"/>
+      </effect>
     </for>
   </skill>
   <skill id="549" levels="1" name="Transform Lilim Knight">
@@ -1005,7 +1062,14 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+      <effect name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
+        <set order="0x08" stat="STR" val="43"/>
+        <set order="0x08" stat="DEX" val="34"/>
+        <set order="0x08" stat="CON" val="30"/>
+        <set order="0x08" stat="INT" val="25"/>
+        <set order="0x08" stat="WIT" val="12"/>
+        <set order="0x08" stat="MEN" val="26"/>
+      </effect>
     </for>
   </skill>
   <skill id="550" levels="1" name="Transform Golem Guardian">
@@ -1023,7 +1087,14 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+      <effect name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
+        <set order="0x08" stat="STR" val="40"/>
+        <set order="0x08" stat="DEX" val="30"/>
+        <set order="0x08" stat="CON" val="43"/>
+        <set order="0x08" stat="INT" val="20"/>
+        <set order="0x08" stat="WIT" val="10"/>
+        <set order="0x08" stat="MEN" val="27"/>
+      </effect>
     </for>
   </skill>
   <skill id="551" levels="1" name="Transform Golem Guardian">
@@ -1041,7 +1112,14 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+      <effect name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
+        <set order="0x08" stat="STR" val="40"/>
+        <set order="0x08" stat="DEX" val="30"/>
+        <set order="0x08" stat="CON" val="43"/>
+        <set order="0x08" stat="INT" val="20"/>
+        <set order="0x08" stat="WIT" val="10"/>
+        <set order="0x08" stat="MEN" val="27"/>
+      </effect>
     </for>
   </skill>
   <skill id="552" levels="1" name="Transform Golem Guardian">
@@ -1059,7 +1137,14 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+      <effect name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
+        <set order="0x08" stat="STR" val="40"/>
+        <set order="0x08" stat="DEX" val="30"/>
+        <set order="0x08" stat="CON" val="43"/>
+        <set order="0x08" stat="INT" val="20"/>
+        <set order="0x08" stat="WIT" val="10"/>
+        <set order="0x08" stat="MEN" val="27"/>
+      </effect>
     </for>
   </skill>
   <skill id="553" levels="1" name="Transform Inferno Drake">
@@ -1077,7 +1162,14 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+      <effect name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
+        <set order="0x08" stat="STR" val="42"/>
+        <set order="0x08" stat="DEX" val="26"/>
+        <set order="0x08" stat="CON" val="45"/>
+        <set order="0x08" stat="INT" val="18"/>
+        <set order="0x08" stat="WIT" val="12"/>
+        <set order="0x08" stat="MEN" val="27"/>
+      </effect>
     </for>
   </skill>
   <skill id="554" levels="1" name="Transform Inferno Drake">
@@ -1095,7 +1187,14 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+      <effect name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
+        <set order="0x08" stat="STR" val="42"/>
+        <set order="0x08" stat="DEX" val="26"/>
+        <set order="0x08" stat="CON" val="45"/>
+        <set order="0x08" stat="INT" val="18"/>
+        <set order="0x08" stat="WIT" val="12"/>
+        <set order="0x08" stat="MEN" val="27"/>
+      </effect>
     </for>
   </skill>
   <skill id="555" levels="1" name="Transform Inferno Drake">
@@ -1113,7 +1212,14 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+      <effect name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
+        <set order="0x08" stat="STR" val="42"/>
+        <set order="0x08" stat="DEX" val="26"/>
+        <set order="0x08" stat="CON" val="45"/>
+        <set order="0x08" stat="INT" val="18"/>
+        <set order="0x08" stat="WIT" val="12"/>
+        <set order="0x08" stat="MEN" val="27"/>
+      </effect>
     </for>
   </skill>
   <skill id="556" levels="1" name="Transform Dragon Bomber">
@@ -1131,7 +1237,14 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+      <effect name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
+        <set order="0x08" stat="STR" val="43"/>
+        <set order="0x08" stat="DEX" val="33"/>
+        <set order="0x08" stat="CON" val="29"/>
+        <set order="0x08" stat="INT" val="29"/>
+        <set order="0x08" stat="WIT" val="11"/>
+        <set order="0x08" stat="MEN" val="25"/>
+      </effect>
     </for>
   </skill>
   <skill id="557" levels="1" name="Transform Dragon Bomber">
@@ -1149,7 +1262,14 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+      <effect name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
+        <set order="0x08" stat="STR" val="43"/>
+        <set order="0x08" stat="DEX" val="33"/>
+        <set order="0x08" stat="CON" val="29"/>
+        <set order="0x08" stat="INT" val="29"/>
+        <set order="0x08" stat="WIT" val="11"/>
+        <set order="0x08" stat="MEN" val="25"/>
+      </effect>
     </for>
   </skill>
   <skill id="558" levels="1" name="Transform Dragon Bomber">
@@ -1167,7 +1287,14 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+      <effect name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
+        <set order="0x08" stat="STR" val="43"/>
+        <set order="0x08" stat="DEX" val="33"/>
+        <set order="0x08" stat="CON" val="29"/>
+        <set order="0x08" stat="INT" val="29"/>
+        <set order="0x08" stat="WIT" val="11"/>
+        <set order="0x08" stat="MEN" val="25"/>
+      </effect>
     </for>
   </skill>
   <skill id="559" levels="4" name="Spear">
