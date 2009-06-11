@@ -82,22 +82,23 @@ public class RequestCrystallizeItem extends L2GameClientPacket
 		PcInventory inventory = activeChar.getInventory();
 		L2ItemInstance item = inventory.getItemByObjectId(_objectId);
 
+		int grade;
 		if (item == null || item.isWear() || item.isHeroItem() ||
 				!item.getItem().isCrystallizable() ||
 				item.getItem().getCrystalCount() <= 0 ||
-				item.getItem().getCrystalType() == L2Item.CRYSTAL_NONE)
+				(grade = item.getItem().getCrystalGrade()) == L2Item.CRYSTAL_NONE)
 		{
 			requestFailed(SystemMessageId.ITEM_CANNOT_CRYSTALLIZED);
 			return;
 		}
 
 		if (_count > item.getCount())
-			_count = activeChar.getInventory().getItemByObjectId(_objectId).getCount();
+			_count = item.getCount();
 
 		// Check if the char can crystallize items and return if false;
 		boolean canCrystallize = true;
 
-		switch (item.getItem().getCrystalType())
+		switch (grade)
 		{
 			case L2Item.CRYSTAL_C:
 			{
@@ -118,7 +119,6 @@ public class RequestCrystallizeItem extends L2GameClientPacket
 				break;
 			}
 			case L2Item.CRYSTAL_S:
-			case L2Item.CRYSTAL_S80:
 			{
 				if (skillLevel <= 4)
 					canCrystallize = false;

@@ -183,11 +183,7 @@ public class L2RecipeList
 	 */
 	public boolean isCriticalAffected()
 	{
-		return ((ItemTable.getInstance().getTemplate(_itemId).getCrystalType() != L2Item.CRYSTAL_B)
-				&& (ItemTable.getInstance().getTemplate(_itemId).getCrystalType() != L2Item.CRYSTAL_A)
-				&& (ItemTable.getInstance().getTemplate(_itemId).getCrystalType() != L2Item.CRYSTAL_S)
-				&& (ItemTable.getInstance().getTemplate(_itemId).getCrystalType() != L2Item.CRYSTAL_S80)
-		);
+		return ItemTable.getInstance().getTemplate(_itemId).getCrystalGrade() < L2Item.CRYSTAL_B;
 	}
 
 	/**

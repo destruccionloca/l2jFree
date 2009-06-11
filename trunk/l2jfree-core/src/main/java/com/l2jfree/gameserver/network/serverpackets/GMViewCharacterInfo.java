@@ -185,7 +185,9 @@ public class GMViewCharacterInfo extends L2GameServerPacket
         writeH(0x00);
         writeH(0x00);
         // end of T1 new h's
-        
+        if (Config.PACKET_FINAL)
+            writeD(0x00); // T3 Unknown
+
 		writeD(_activeChar.getPAtk(null));
 		writeD(_activeChar.getPAtkSpd());
 		writeD(_activeChar.getPDef(null));
@@ -249,6 +251,8 @@ public class GMViewCharacterInfo extends L2GameServerPacket
 		writeD(_activeChar.getAppearance().getTitleColor());
 
 		writePlayerElementAttribute(_activeChar);
+
+		writeD(_activeChar.getFame());
 	}
 
 	/* (non-Javadoc)

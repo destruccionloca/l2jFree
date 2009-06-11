@@ -1357,7 +1357,7 @@ public abstract class Inventory extends ItemContainer
 	{
 		int arrowsId = 0;
 
-		switch (bow.getCrystalType())
+		switch (bow.getCrystalGrade())
 		{
 			case L2Item.CRYSTAL_NONE:
 				arrowsId = 17;
@@ -1375,8 +1375,6 @@ public abstract class Inventory extends ItemContainer
 				arrowsId = 1344;
 				break; // Mithril arrow
 			case L2Item.CRYSTAL_S:
-			case L2Item.CRYSTAL_S80:
-			case L2Item.CRYSTAL_S84:
 				arrowsId = 1345;
 				break; // Shining arrow
 			default: // broken weapon.csv ??
@@ -1392,7 +1390,7 @@ public abstract class Inventory extends ItemContainer
 	{
 		int arrowsId = 0;
 
-		switch (crossbow.getCrystalType())
+		switch (crossbow.getCrystalGrade())
 		{
 			default:
 			case L2Item.CRYSTAL_NONE:
@@ -1411,8 +1409,6 @@ public abstract class Inventory extends ItemContainer
 				arrowsId = 9636;
 				break;
 			case L2Item.CRYSTAL_S:
-			case L2Item.CRYSTAL_S80:
-			case L2Item.CRYSTAL_S84:
 				arrowsId = 9637;
 				break;
 		}

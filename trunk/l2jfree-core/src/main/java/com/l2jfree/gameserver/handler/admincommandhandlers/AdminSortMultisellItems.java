@@ -501,7 +501,7 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 			}
 		}
 
-		switch (item.getCrystalType())
+		switch (item.getCrystalGrade())
 		{
 		case L2Item.CRYSTAL_S:
 			if (!itemName.toLowerCase().contains("seal") && !item.isStackable())
@@ -648,7 +648,7 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 			return;
 		}
 
-		switch (item.getCrystalType())
+		switch (item.getCrystalGrade())
 		{
 		case L2Item.CRYSTAL_S:
 			if (!item.getName().toLowerCase().contains("seal") && !item.isStackable())
@@ -792,7 +792,7 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 						return;
 					}
 
-					switch (item.getCrystalType())
+					switch (item.getCrystalGrade())
 					{
 					case L2Item.CRYSTAL_S:
 						SA_S_weapon.addItem(itemId, price);
@@ -821,7 +821,7 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 					SA_S80_weapon.addItem(itemId, price);
 					return;
 				}
-				switch (item.getCrystalType())
+				switch (item.getCrystalGrade())
 				{
 				case L2Item.CRYSTAL_S:
 					SA_S_weapon.addItem(itemId, price);
@@ -837,7 +837,7 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 			return;
 		}
 
-		switch (item.getCrystalType())
+		switch (item.getCrystalGrade())
 		{
 		case L2Item.CRYSTAL_S:
 			if (item.getName().toLowerCase().contains("infinity"))

@@ -57,7 +57,7 @@ public class RequestConfirmRefinerItem extends L2GameClientPacket
 			return;
 		}
 
-		int itemGrade = targetItem.getItem().getItemGrade();
+		int itemGrade = targetItem.getItem().getCrystalGrade();
 		int refinerItemId = refinerItem.getItem().getItemId();
  
 		// is the item a life stone?
@@ -91,7 +91,6 @@ public class RequestConfirmRefinerItem extends L2GameClientPacket
 				sm.addString(GEMSTONE_C);
 				break;
 			case L2Item.CRYSTAL_S:
-			case L2Item.CRYSTAL_S80:
 				gemstoneCount = 25;
 				gemstoneItemId = RequestConfirmGemStone.GEMSTONE_C;
 				sm.addItemNumber(gemstoneCount);

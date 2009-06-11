@@ -57,10 +57,9 @@ public final class FuncEnchant extends Func
 			}
 			case MAGIC_ATTACK:
 			{
-				switch (item.getCrystalType())
+				switch (item.getCrystalGrade())
 				{
 					case L2Item.CRYSTAL_S:
-					case L2Item.CRYSTAL_S80:
 					{
 						return 4 * enchant + 8 * overEnchant;
 					}
@@ -82,10 +81,9 @@ public final class FuncEnchant extends Func
 			{
 				final boolean isBow = ((L2WeaponType)item.getItemType()).isBowType();
 				
-				switch (item.getCrystalType())
+				switch (item.getCrystalGrade())
 				{
 					case L2Item.CRYSTAL_S:
-					case L2Item.CRYSTAL_S80:
 					{
 						if (isBow)
 							return 10 * enchant + 20 * overEnchant;

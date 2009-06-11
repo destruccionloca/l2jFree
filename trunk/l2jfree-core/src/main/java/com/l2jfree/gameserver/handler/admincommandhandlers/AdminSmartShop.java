@@ -1760,7 +1760,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 
 	private int getGradeValue(String grade)
 	{
-		if (grade.equals("S"))
+		if (grade.startsWith("S"))
 			return L2Item.CRYSTAL_S;
 		else if (grade.equals("A"))
 			return L2Item.CRYSTAL_A;
@@ -1777,7 +1777,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 
 	private String getGradeString(int grade)
 	{
-		if (grade == L2Item.CRYSTAL_S)
+		if (grade >= L2Item.CRYSTAL_S)
 			return "S";
 		else if (grade == L2Item.CRYSTAL_A)
 			return "A";
@@ -1796,7 +1796,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 	private String getGrade(String grade)
 	{
 		grade = grade.toUpperCase();
-		if (grade.equals("S") || grade.equals(L2Item.CRYSTAL_S))
+		if (grade.startsWith("S") || grade.equals(L2Item.CRYSTAL_S))
 			return "S";
 		else if (grade.equals("A") || grade.equals(L2Item.CRYSTAL_A))
 			return "A";
@@ -2096,7 +2096,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 				break;
 			}
 			String grade = "";
-			switch (item.getCrystalType())
+			switch (item.getCrystalGrade())
 			{
 			case L2Item.CRYSTAL_S:
 				grade = (item.getName().toLowerCase().contains("infinity")) ? "S Grade / Hero" : "S Grade";

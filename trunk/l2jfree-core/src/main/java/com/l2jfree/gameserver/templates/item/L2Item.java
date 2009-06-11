@@ -128,11 +128,11 @@ public abstract class L2Item implements FuncOwner
 	public static final int				CRYSTAL_S84							= 0x07;									// ??
 
 	private static final int[]			crystalItemId						=
-																			{ 0, 1458, 1459, 1460, 1461, 1462, 1462, 1462 };
+																			{ 0, 1458, 1459, 1460, 1461, 1462 };
 	private static final int[]			crystalEnchantBonusArmor			=
-																			{ 0, 11, 6, 11, 19, 25, 25, 25 };
+																			{ 0, 11, 6, 11, 19, 25 };
 	private static final int[]			crystalEnchantBonusWeapon			=
-																			{ 0, 90, 45, 67, 144, 250, 250, 250 };
+																			{ 0, 90, 45, 67, 144, 250 };
 
 	private final int					_itemId;
 	private final int					_itemDisplayId;
@@ -291,6 +291,15 @@ public abstract class L2Item implements FuncOwner
 	}
 
 	/**
+	 * Return the grade of crystal of the item and S if grade is higher than S
+	 * @return int
+	 */
+	public final int getCrystalGrade()
+	{
+		return _crystalType > CRYSTAL_S ? CRYSTAL_S : _crystalType;
+	}
+
+	/**
 	 * Return the type of crystal if item is crystallizable
 	 * @return int
 	 */
@@ -330,9 +339,9 @@ public abstract class L2Item implements FuncOwner
 			{
 			case TYPE2_SHIELD_ARMOR:
 			case TYPE2_ACCESSORY:
-				return _crystalCount + crystalEnchantBonusArmor[getCrystalType()] * (3 * enchantLevel - 6);
+				return _crystalCount + crystalEnchantBonusArmor[getCrystalGrade()] * (3 * enchantLevel - 6);
 			case TYPE2_WEAPON:
-				return _crystalCount + crystalEnchantBonusWeapon[getCrystalType()] * (2 * enchantLevel - 3);
+				return _crystalCount + crystalEnchantBonusWeapon[getCrystalGrade()] * (2 * enchantLevel - 3);
 			default:
 				return _crystalCount;
 			}
@@ -341,9 +350,9 @@ public abstract class L2Item implements FuncOwner
 			{
 			case TYPE2_SHIELD_ARMOR:
 			case TYPE2_ACCESSORY:
-				return _crystalCount + crystalEnchantBonusArmor[getCrystalType()] * enchantLevel;
+				return _crystalCount + crystalEnchantBonusArmor[getCrystalGrade()] * enchantLevel;
 			case TYPE2_WEAPON:
-				return _crystalCount + crystalEnchantBonusWeapon[getCrystalType()] * enchantLevel;
+				return _crystalCount + crystalEnchantBonusWeapon[getCrystalGrade()] * enchantLevel;
 			default:
 				return _crystalCount;
 			}

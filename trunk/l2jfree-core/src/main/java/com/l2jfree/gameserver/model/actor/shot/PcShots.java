@@ -206,7 +206,7 @@ public final class PcShots extends CharShots
 			return false;
 		}
 		
-		int grade = weapon.getCrystalType();
+		int grade = weapon.getCrystalGrade();
 		int shotId = item.getItemId();
 		
 		// Beginner's Soulshot

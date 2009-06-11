@@ -63,7 +63,9 @@ public class RequestEnchantItem extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) return;
+		if (activeChar == null)
+			return;
+
 		if (activeChar.isOnline() == 0)
 		{
 			activeChar.setActiveEnchantItem(null);
@@ -131,7 +133,7 @@ public class RequestEnchantItem extends L2GameClientPacket
 		int crystalId = 0;
 
 		/** pretty code ;D */
-		switch (item.getItem().getCrystalType())
+		switch (item.getItem().getCrystalGrade())
 		{
 		case L2Item.CRYSTAL_A:
 			crystalId = 1461;
@@ -206,7 +208,6 @@ public class RequestEnchantItem extends L2GameClientPacket
 			}
 			break;
 		case L2Item.CRYSTAL_S:
-		case L2Item.CRYSTAL_S80:
 			crystalId = 1462;
 			switch (scroll.getItemId())
 			{

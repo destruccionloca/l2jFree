@@ -117,7 +117,7 @@ public class RequestExTryToPutEnchantTargetItem extends L2GameClientPacket
 		boolean enchantItem = false;
 
 		/** pretty code ;D */
-		switch (targetItem.getItem().getCrystalType())
+		switch (targetItem.getItem().getCrystalGrade())
 		{
 			case L2Item.CRYSTAL_A:
 				switch (enchantScroll.getItemId())
@@ -188,7 +188,6 @@ public class RequestExTryToPutEnchantTargetItem extends L2GameClientPacket
 				}
 				break;
 			case L2Item.CRYSTAL_S:
-			case L2Item.CRYSTAL_S80:
 				switch (enchantScroll.getItemId())
 				{
 					case 959:

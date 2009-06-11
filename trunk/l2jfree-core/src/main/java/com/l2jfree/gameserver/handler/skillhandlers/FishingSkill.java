@@ -61,7 +61,7 @@ public class FishingSkill implements ISkillHandler
 		int pen = 0;
 		if (weaponInst.isFishshotCharged())
 			SS = 2;
-		double gradebonus = 1 + weaponItem.getCrystalType() * 0.1;
+		double gradebonus = 1 + weaponItem.getCrystalGrade() * 0.1;
 		int dmg = (int) (skill.getPower() * gradebonus * SS);
 		if (player.getSkillLevel(1315) <= skill.getLevel() - 2) //1315 - Fish Expertise
 		{ //Penalty

@@ -2053,7 +2053,8 @@ public final class L2PcInstance extends L2Playable
 		if (unequipped == null || unequipped.getItem().getType2() != L2Item.TYPE2_WEAPON)
 			return;
 		
-		if (equipped != null && equipped.getItem().getCrystalType() == unequipped.getItem().getCrystalType())
+		// Keep shots with S80/84 weapons
+		if (equipped != null && equipped.getItem().getCrystalGrade() == unequipped.getItem().getCrystalGrade())
 			return;
 		
 		for (L2ItemInstance item : getInventory().getItems())
