@@ -143,7 +143,7 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 	protected final int readCompQ()
 	{
 		if (Config.PACKET_FINAL)
-			return L2Math.limit(Integer.MIN_VALUE, readQ(), Integer.MAX_VALUE);
+			return (int) L2Math.limit(Integer.MIN_VALUE, readQ(), Integer.MAX_VALUE);
 		else
 			return readD();
 	}

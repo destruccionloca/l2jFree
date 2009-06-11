@@ -74,14 +74,6 @@ public class SetPrivateStoreListBuy extends L2GameClientPacket
 				readD(); // 00 00 00 00
 				readB(new byte[7]); // Completely Unknown
 			}
-			
-			if (Config.TEST_SWITCH)
-			{
-				_log.info("SetPrivateStoreListBuy: wanna buy item id:"+itemId);
-				_log.info("count:"+cnt);
-				_log.info("unk1:"+_unk1);
-				_log.info("unk2:"+_unk2);
-			}
 		}
 	}
 

@@ -66,11 +66,6 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
 			}
 			_items[x * 3 + 1] = (int) cnt;
 			_items[x * 3 + 2] = readCompQ();
-			if (Config.TEST_SWITCH)
-			{
-				_log.info("SetPrivateStoreListSell: wanna sell objectid:"+objectId);
-				_log.info("count:"+cnt);
-			}
 		}
 	}
 
