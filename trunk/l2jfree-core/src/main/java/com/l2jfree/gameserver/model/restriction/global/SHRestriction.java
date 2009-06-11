@@ -18,44 +18,8 @@ import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.events.SH;
 
-final class SHRestriction extends AbstractFunEventRestriction
+final class SHRestriction extends AbstractRestriction
 {
-
-	@Override
-	boolean allowInterference()
-	{
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	boolean allowPotions()
-	{
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	boolean allowSummon()
-	{
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	boolean isInFunEvent(L2PcInstance player)
-	{
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	boolean started()
-	{
-		// TODO Auto-generated method stub
-		return true;
-	}
-	
 	@Override
 	public boolean onAction(L2Npc npc, L2PcInstance activeChar)
 	{

@@ -139,7 +139,7 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 					case 0x05:
 						msg = new RequestStopPledgeWar();
 						break;
-					case 0x06: // RequestSCCheck 
+					case 0x06: // RequestSCCheck
 						msg = new RequestReplyStopPledgeWar();
 						break;
 					case 0x07:
@@ -238,12 +238,14 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 					case 0x34:
 						msg = new RequestSocialAction();
 						break;
+					// Deprecated - RequestActionUse
 					case 0x35:
-						msg = new ChangeMoveType2();
+						//msg = new ChangeMoveType2();
 						break;
 					case 0x36:
-						msg = new ChangeWaitType2();
+						//msg = new ChangeWaitType2();
 						break;
+					//
 					case 0x37:
 						msg = new RequestSellItem();
 						break;
@@ -308,7 +310,7 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 						else
 						{
 							if (Config.PACKET_HANDLER_DEBUG)
-								_log.warn("Client: "+client.toString()+" sent a 0x4a without the second opcode.");
+								_log.warn("Client: " + client.toString() + " sent a 0x4a without the second opcode.");
 							break;
 						}
 						switch (id_2)
@@ -325,9 +327,9 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 							case 0x03:
 								// SendL2ParamSetting
 								break;
-						default:
-							printDebug(buf, client, opcode, id_2);
-							break;
+							default:
+								printDebug(buf, client, opcode, id_2);
+								break;
 						}
 						break;
 					case 0x4d:

@@ -32,7 +32,6 @@ import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeFlagInstance;
-import com.l2jfree.gameserver.model.entity.L2Event;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 
@@ -50,6 +49,7 @@ public final class GlobalRestrictions
 		canInviteToParty,
 		canCreateEffect,
 		isInvul,
+		canRequestRevive,
 		canTeleport,
 		canUseItemHandler,
 		// TODO
@@ -179,8 +179,12 @@ public final class GlobalRestrictions
 		/**
 		 * Temporary solution until events reworked to fit the new scheme.
 		 */
+		activate(new AutomatedTvTRestriction()); // TODO: must be checked
 		activate(new CTFRestriction());
 		activate(new DMRestriction());
+		activate(new L2EventRestriction());
+		activate(new SHRestriction()); // TODO: must be checked
+		//activate(new TvTiRestriction()); // TODO: must be checked to be able to activate it
 		activate(new TvTRestriction());
 		activate(new VIPRestriction());
 		
@@ -280,6 +284,15 @@ public final class GlobalRestrictions
 		return false;
 	}
 	
+	public static boolean canRequestRevive(L2PcInstance activeChar)
+	{
+		for (GlobalRestriction restriction : _restrictions[RestrictionMode.canRequestRevive.ordinal()])
+			if (!restriction.canRequestRevive(activeChar))
+				return false;
+		
+		return true;
+	}
+	
 	public static boolean canTeleport(L2PcInstance activeChar)
 	{
 		for (GlobalRestriction restriction : _restrictions[RestrictionMode.canTeleport.ordinal()])
@@ -373,12 +386,6 @@ public final class GlobalRestrictions
 	
 	public static boolean onBypassFeedback(L2Npc npc, L2PcInstance activeChar, String command)
 	{
-		if (command.startsWith("event_participate"))
-		{
-			L2Event.inscribePlayer(activeChar);
-			return true;
-		}
-		
 		for (GlobalRestriction restriction : _restrictions[RestrictionMode.onBypassFeedback.ordinal()])
 			if (restriction.onBypassFeedback(npc, activeChar, command))
 				return true;
@@ -388,12 +395,6 @@ public final class GlobalRestrictions
 	
 	public static boolean onAction(L2Npc npc, L2PcInstance activeChar)
 	{
-		if (npc.isEventMob)
-		{
-			L2Event.showEventHtml(activeChar, String.valueOf(npc.getObjectId()));
-			return true;
-		}
-		
 		for (GlobalRestriction restriction : _restrictions[RestrictionMode.onAction.ordinal()])
 			if (restriction.onAction(npc, activeChar))
 				return true;

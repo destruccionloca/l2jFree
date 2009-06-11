@@ -34,6 +34,8 @@ public interface GlobalRestriction
 	
 	public boolean isInvul(L2Character activeChar, L2Character target, boolean isOffensive);
 	
+	public boolean canRequestRevive(L2PcInstance activeChar);
+	
 	public boolean canTeleport(L2PcInstance activeChar);
 	
 	public boolean canUseItemHandler(Class<? extends IItemHandler> clazz, int itemId, L2Playable activeChar,

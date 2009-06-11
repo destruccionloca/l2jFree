@@ -58,6 +58,12 @@ final class VIPRestriction extends AbstractFunEventRestriction
 	}
 	
 	@Override
+	public boolean canRequestRevive(L2PcInstance activeChar)
+	{
+		return true;
+	}
+	
+	@Override
 	public void playerLoggedIn(L2PcInstance activeChar)
 	{
 		if (VIP._savePlayers.contains(activeChar.getName()))

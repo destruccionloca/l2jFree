@@ -14,100 +14,94 @@
  */
 package com.l2jfree.gameserver.model.restriction.global;
 
+import com.l2jfree.Config;
+import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Npc;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.entity.events.TvTInstanced.TvTIMain;
+import com.l2jfree.gameserver.network.serverpackets.PlaySound;
+
 /**
  * @author NB4L1
  */
-final class TvTiRestriction// extends AbstractFunEventRestriction
+final class TvTiRestriction extends AbstractFunEventRestriction
 {
-	/*
 	@Override
 	boolean started()
 	{
-		return activeChar.getActingPlayer().
+		return true;
 	}
 	
 	@Override
 	boolean allowSummon()
 	{
-		return Config.TVT_ALLOW_SUMMON;
+		return Config.TVTI_ALLOW_SUMMON;
 	}
 	
 	@Override
 	boolean allowPotions()
 	{
-		return Config.TVT_ALLOW_POTIONS;
+		return Config.TVTI_ALLOW_POTIONS;
 	}
 	
 	@Override
 	boolean allowInterference()
 	{
-		return false;
+		return Config.TVTI_ALLOW_INTERFERENCE;
 	}
 	
 	@Override
 	boolean isInFunEvent(L2PcInstance player)
 	{
-		return player._inEventTvT;
-	}
-	
-	@Override
-	public void levelChanged(L2PcInstance activeChar)
-	{
-		if (activeChar._inEventTvT && TvTIMain.getM _maxlvl == activeChar.getLevel() && !TvT._started)
-		{
-			TvT.removePlayer(activeChar);
-			
-			activeChar.sendMessage("Your event sign up was canceled.");
-		}
+		return player._inEventTvTi;
 	}
 	
 	@Override
 	public void playerLoggedIn(L2PcInstance activeChar)
 	{
-		if (TvT._savePlayers.contains(activeChar.getName()))
-			TvT.addDisconnectedPlayer(activeChar);
+		if (TvTIMain.isPlayerInList(activeChar))
+			TvTIMain.addDisconnectedPlayer(activeChar);
 	}
 	
 	@Override
-	public boolean playerKilled(L2Character activeChar, final L2PcInstance target)
+	public boolean playerKilled(L2Character killer, final L2PcInstance target)
 	{
 		if (!target._inEventTvT)
 			return false;
 		
-		if (((killer instanceof L2PcInstance && ((L2PcInstance) killer)._inEventTvTi) || (killer instanceof L2Summon && ((L2Summon) killer).getOwner()._inEventTvTi)) && _inEventTvTi)
+		final L2PcInstance tempKiller = killer.getActingPlayer();
+		
+		if (tempKiller == null || !tempKiller._inEventTvTi || !target._inEventTvTi)
+			return false;
+		
+		if (!TvTIMain.checkSameTeam(tempKiller, target))
 		{
-			L2PcInstance tempKiller = null;
-			if (killer instanceof L2Summon)
-				tempKiller = ((L2Summon) killer).getOwner();
-			else
-				tempKiller = (L2PcInstance) killer;
-			if (!TvTIMain.checkSameTeam(tempKiller, this))
-			{
-				PlaySound ps;
-				ps = new PlaySound(0, "ItemSound.quest_itemget", 1, getObjectId(), getX(), getY(), getZ());
-				tempKiller._countTvTiKills++;
-				tempKiller.setTitle("Kills: " + tempKiller._countTvTiKills);
-				tempKiller.sendPacket(ps);
-				TvTIMain.addKill(tempKiller);
-			}
-			else if (TvTIMain.checkSameTeam(tempKiller, this))
-			{
-				tempKiller.sendMessage("You are a teamkiller! Teamkills are not allowed, you will get death penalty and your team will lose one kill!");
-				tempKiller._countTvTITeamKills++;
-				// Give Penalty for Team-Kill:
-				// 1. Death Penalty + 5
-				// 2. Team will lost 1 Kill
-				if (tempKiller.getDeathPenaltyBuffLevel() < 10)
-				{
-					tempKiller.setDeathPenaltyBuffLevel(tempKiller.getDeathPenaltyBuffLevel() + 4);
-					tempKiller.increaseDeathPenaltyBuffLevel();
-				}
-				TvTIMain.removePoint(tempKiller);
-				if (tempKiller._countTvTITeamKills >= 2)
-					TvTIMain.kickPlayerFromEvent(tempKiller, 1);
-			}
-			TvTIMain.respawnPlayer(this);
+			tempKiller._countTvTiKills++;
+			tempKiller.setTitle("Kills: " + tempKiller._countTvTiKills);
+			tempKiller.sendPacket(new PlaySound(0, "ItemSound.quest_itemget", 1, target.getObjectId(), target.getX(),
+				target.getY(), target.getZ()));
+			TvTIMain.addKill(tempKiller);
 		}
+		else if (TvTIMain.checkSameTeam(tempKiller, target))
+		{
+			tempKiller
+				.sendMessage("You are a teamkiller! Teamkills are not allowed, you will get death penalty and your team will lose one kill!");
+			tempKiller._countTvTITeamKills++;
+			// Give Penalty for Team-Kill:
+			// 1. Death Penalty + 5
+			// 2. Team will lost 1 Kill
+			if (tempKiller.getDeathPenaltyBuffLevel() < 10)
+			{
+				tempKiller.setDeathPenaltyBuffLevel(tempKiller.getDeathPenaltyBuffLevel() + 4);
+				tempKiller.increaseDeathPenaltyBuffLevel();
+			}
+			TvTIMain.removePoint(tempKiller);
+			if (tempKiller._countTvTITeamKills >= 2)
+				TvTIMain.kickPlayerFromEvent(tempKiller, 1);
+		}
+		TvTIMain.respawnPlayer(target);
+		
+		return true;
 	}
 	
 	@Override
@@ -116,19 +110,21 @@ final class TvTiRestriction// extends AbstractFunEventRestriction
 		if (command.startsWith("tvti_player_join_page"))
 		{
 			TvTIMain.showInstancesHtml(activeChar, String.valueOf(TvTIMain.getJoinNpc().getLastSpawn().getObjectId()));
+			return true;
 		}
-
 		else if (command.startsWith("tvti_player_join "))
 		{
 			int instanceId = Integer.parseInt(command.substring(17));
-
+			
 			TvTIMain.addPlayer(activeChar, instanceId);
+			return true;
 		}
-
 		else if (command.startsWith("tvti_player_leave"))
 		{
 			TvTIMain.removePlayer(activeChar);
-		}		
+			return true;
+		}
+		
 		return false;
 	}
 	
@@ -142,5 +138,5 @@ final class TvTiRestriction// extends AbstractFunEventRestriction
 		}
 		
 		return false;
-	}*/
+	}
 }

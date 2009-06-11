@@ -52,6 +52,12 @@ public abstract class AbstractRestriction implements GlobalRestriction
 	}
 	
 	@DisabledRestriction
+	public boolean canRequestRevive(L2PcInstance activeChar)
+	{
+		throw new AbstractMethodError();
+	}
+	
+	@DisabledRestriction
 	public boolean canTeleport(L2PcInstance activeChar)
 	{
 		throw new AbstractMethodError();

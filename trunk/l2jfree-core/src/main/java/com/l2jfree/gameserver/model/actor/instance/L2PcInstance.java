@@ -148,7 +148,6 @@ import com.l2jfree.gameserver.model.base.Race;
 import com.l2jfree.gameserver.model.base.SubClass;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.Duel;
-import com.l2jfree.gameserver.model.entity.EventData;
 import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.model.entity.FortSiege;
 import com.l2jfree.gameserver.model.entity.GrandBossState;
@@ -11274,7 +11273,6 @@ public final class L2PcInstance extends L2Playable
 		
 		abortCast();
 		abortAttack();
-		AutomatedTvT.getInstance().onDisconnection(this);
 
 		try
 		{
@@ -11558,14 +11556,6 @@ public final class L2PcInstance extends L2Playable
 				friend.sendPacket(new FriendList(friend));
 				friend.sendMessage("Friend: " + getName() + " has logged off.");
 			}
-		}
-		
-		// we store all data from players who are disconnected while
-		// in an event in order to restore it in the next login
-		if (atEvent)
-		{
-			L2Event.connectionLossData.put(getName(), new EventData(
-				eventX, eventY, eventZ, eventKarma, eventPvpKills, eventPkKills, eventTitle, kills, eventSitForced));
 		}
 		
 		// Remove L2Object object from _allObjects of L2World, if still in it

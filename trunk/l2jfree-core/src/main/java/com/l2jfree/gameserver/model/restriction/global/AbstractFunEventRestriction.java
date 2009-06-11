@@ -41,6 +41,15 @@ abstract class AbstractFunEventRestriction extends AbstractRestriction
 	abstract boolean isInFunEvent(L2PcInstance player);
 	
 	@Override
+	public boolean canRequestRevive(L2PcInstance activeChar)
+	{
+		if (isInFunEvent(activeChar) && started())
+			return false;
+		
+		return true;
+	}
+	
+	@Override
 	public final boolean canInviteToParty(L2PcInstance activeChar, L2PcInstance target)
 	{
 		if (started() && !allowInterference() && !activeChar.isGM())

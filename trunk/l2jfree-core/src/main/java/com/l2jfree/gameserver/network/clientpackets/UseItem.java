@@ -196,12 +196,6 @@ public final class UseItem extends L2GameClientPacket
 		if (itemId == 57)
 			return;
 
-		if (AutomatedTvT.isPlaying(activeChar) && !AutomatedTvT.canUse(itemId))
-		{
-			requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
-			return;
-		}
-
 		if (activeChar.isFishing() && !ShotTable.getInstance().isFishingShot(itemId))
 		{
 			// You cannot do anything else while fishing
@@ -213,7 +207,7 @@ public final class UseItem extends L2GameClientPacket
 		{
 			requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
 			return;
-		} 		
+		}
 
 		// Char cannot use item when dead
 		if (activeChar.isDead())
@@ -398,7 +392,7 @@ public final class UseItem extends L2GameClientPacket
 				// Send a Server->Client packet ItemList to this L2PcINstance to update left hand equipement
 				ItemList il = new ItemList(activeChar, false);
 				sendPacket(il);
-				sendPacket(new InventoryUpdate());				
+				sendPacket(new InventoryUpdate());
 				return;
 			}
 			else

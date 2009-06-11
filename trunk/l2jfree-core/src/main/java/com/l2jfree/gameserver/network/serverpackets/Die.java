@@ -23,15 +23,12 @@ import com.l2jfree.gameserver.model.actor.L2Attackable;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.AbstractSiege;
-import com.l2jfree.gameserver.model.entity.events.AutomatedTvT;
-import com.l2jfree.gameserver.model.entity.events.CTF;
-import com.l2jfree.gameserver.model.entity.events.DM;
-import com.l2jfree.gameserver.model.entity.events.TvT;
+import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 
 /**
  * sample
- * 0b 
- * 952a1048     objectId 
+ * 0b
+ * 952a1048     objectId
  * 00000000 00000000 00000000 00000000 00000000 00000000
 
  * format  dddddd   rev 377
@@ -65,25 +62,13 @@ public class Die extends L2GameServerPacket
 			L2PcInstance player = (L2PcInstance) cha;
 			_access = player.getAccessLevel();
 
-			if ((((L2PcInstance) cha)._inEventTvT && TvT._started) || (((L2PcInstance) cha)._inEventCTF && CTF._started) && (((L2PcInstance) cha)._inEventDM && DM._started) || ((L2PcInstance) cha)._inEventTvTi
-					|| ((L2PcInstance) cha)._inEvent)
+			if (!GlobalRestrictions.canRequestRevive(player))
 			{
 				_showVillage = 0;
 				_showClanhall = 0;
 				_showCastle = 0;
 				_showFlag = 0;
 				_showFortress = 0;
-				return;
-			}			
-			// GMs will be able to do a fixed resurrection, but they wont be able
-			// to ruin the game
-			if (!Config.AUTO_TVT_REVIVE_SELF &&	AutomatedTvT.isPlaying(player))
-			{
-				_showVillage = 0;
-				_showClanhall = 0;
-				_showCastle = 0;
-				_showFortress = 0;
-				_showFlag = 0;
 				return;
 			}
 
