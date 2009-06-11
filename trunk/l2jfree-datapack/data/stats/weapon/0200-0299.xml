@@ -4,7 +4,7 @@
   <item id="200" name="Sage's Staff">
     <for>
       <set val="135" order="0x08" stat="pAtk"/>
-      <set val="101" order="0x08" stat="mAtk"/>
+      <set val="111" order="0x08" stat="mAtk"/>
       <set val="4" order="0x08" stat="rCrit"/>
       <add val="4" order="0x10" stat="accCombat"/>
       <set val="325" order="0x08" stat="pAtkSpd"/>
@@ -37,7 +37,7 @@
   <item id="203" name="Pa'agrian Axe">
     <for>
       <set val="141" order="0x08" stat="pAtk"/>
-      <set val="104" order="0x08" stat="mAtk"/>
+      <set val="114" order="0x08" stat="mAtk"/>
       <set val="4" order="0x08" stat="rCrit"/>
       <add val="4" order="0x10" stat="accCombat"/>
       <set val="325" order="0x08" stat="pAtkSpd"/>
@@ -48,7 +48,7 @@
   <item id="204" name="Deadman's Staff">
     <for>
       <set val="152" order="0x08" stat="pAtk"/>
-      <set val="111" order="0x08" stat="mAtk"/>
+      <set val="122" order="0x08" stat="mAtk"/>
       <set val="4" order="0x08" stat="rCrit"/>
       <add val="4" order="0x10" stat="accCombat"/>
       <set val="325" order="0x08" stat="pAtkSpd"/>
@@ -59,7 +59,7 @@
   <item id="205" name="Ghoul's Staff">
     <for>
       <set val="152" order="0x08" stat="pAtk"/>
-      <set val="111" order="0x08" stat="mAtk"/>
+      <set val="122" order="0x08" stat="mAtk"/>
       <set val="4" order="0x08" stat="rCrit"/>
       <add val="4" order="0x10" stat="accCombat"/>
       <set val="325" order="0x08" stat="pAtkSpd"/>
@@ -70,7 +70,7 @@
   <item id="206" name="Demon's Staff">
     <for>
       <set val="152" order="0x08" stat="pAtk"/>
-      <set val="111" order="0x08" stat="mAtk"/>
+      <set val="122" order="0x08" stat="mAtk"/>
       <set val="4" order="0x08" stat="rCrit"/>
       <add val="4" order="0x10" stat="accCombat"/>
       <set val="325" order="0x08" stat="pAtkSpd"/>
@@ -114,7 +114,7 @@
   <item id="210" name="Staff of Evil Spirits">
     <for>
       <set val="189" order="0x08" stat="pAtk"/>
-      <set val="132" order="0x08" stat="mAtk"/>
+      <set val="145" order="0x08" stat="mAtk"/>
       <set val="4" order="0x08" stat="rCrit"/>
       <add val="4" order="0x10" stat="accCombat"/>
       <set val="325" order="0x08" stat="pAtkSpd"/>
@@ -136,7 +136,7 @@
   <item id="212" name="Dasparion's Staff">
     <for>
       <set val="207" order="0x08" stat="pAtk"/>
-      <set val="143" order="0x08" stat="mAtk"/>
+      <set val="157" order="0x08" stat="mAtk"/>
       <set val="4" order="0x08" stat="rCrit"/>
       <add val="4" order="0x10" stat="accCombat"/>
       <set val="325" order="0x08" stat="pAtkSpd"/>
@@ -147,7 +147,7 @@
   <item id="213" name="Branch of the Mother Tree">
     <for>
       <set val="226" order="0x08" stat="pAtk"/>
-      <set val="152" order="0x08" stat="mAtk"/>
+      <set val="167" order="0x08" stat="mAtk"/>
       <set val="4" order="0x08" stat="rCrit"/>
       <add val="4" order="0x10" stat="accCombat"/>
       <set val="325" order="0x08" stat="pAtkSpd"/>

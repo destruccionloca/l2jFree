@@ -13838,6 +13838,7 @@ INSERT INTO `skill_trees` VALUES
 (112,336,1,'Arcane Wisdom',21340000,78),
 (112,436,1,'Divine Lore',21340000,78),
 (112,1460,1,'Mana Gain',80000000,79),
+(112,1508,1,'Throne Root',150000000,80),
 (112,1428,1,'Mass Recharge',150000000,80),
 (113,329,1,'Health',10000000,76),
 (113,328,1,'Wisdom',10000000,76),
@@ -16014,7 +16015,7 @@ INSERT INTO `skill_trees` VALUES
 (123,194,1,'Lucky',0,1),
 (124,194,1,'Lucky',0,1),
 
--- Expertise 239 D,C,B,A,S,S80 (Done by DJ MELERIX)
+-- Expertise 239 D,C,B,A,S,S80,S84 (Done by DJ MELERIX)
 
 (0,239,1,'Expertise D',0,20),
 (0,239,2,'Expertise C',0,40),

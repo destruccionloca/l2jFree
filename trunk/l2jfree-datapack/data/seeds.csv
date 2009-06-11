@@ -1,28 +1,20 @@
 #This file contains all special info about seeds.
 
 #Format:
-#seed_id;seed_level;crop_id;mature_id;reward1_id;reward2_id;manor_id;is_alternative;limit_for_seeds;limit_for_crops
+#seed_id;seed_level;crop_id;mature_id;
+#reward1_id;reward2_id;manor_id;is_alternative;
+#limit_for_seeds;limit_for_crops
 
 # Seed: Dark Coda
 5016;10;5073;5103;1864;1878;1;0;8100;9000
-# Seed: Dark Coda
-10171;10;5073;5103;1864;1878;1;0;8100;9000
 # Seed: Red Coda
 5017;13;5068;5098;1865;1879;1;0;8100;9000
-# Seed: Red Coda
-10172;13;5068;5098;1865;1879;9;0;8100;9000
 # Seed: Chilly Coda
 5018;16;5065;5095;1866;1874;1;0;8100;9000
-# Seed: Chilly Coda
-10173;16;5065;5095;1866;1874;9;0;8100;9000
 # Seed: Blue Coda
 5019;19;5067;5097;1867;1894;1;0;4050;4500
-# Seed: Blue Coda
-10174;19;5067;5097;1867;1894;9;0;4050;4500
 # Seed: Golden Coda
 5020;22;5069;5099;1868;1876;1;0;2025;2250
-# Seed: Golden Coda
-10202;22;5069;5099;1868;1876;1;0;2025;2250
 # Seed: Lute Coda
 5021;25;5071;5101;1869;1895;1;0;1350;1500
 # Seed: Desert Coda
@@ -87,6 +79,16 @@
 5051;55;5087;5117;1870;1882;4;0;720;800
 # Seed: Twin Codran
 5052;58;5092;5122;1871;4040;4;0;720;800
+# Seed: Dark Coda
+10171;10;5073;5103;1864;1878;1;0;8100;9000
+# Seed: Red Coda
+10172;13;5068;5098;1865;1879;9;0;8100;9000
+# Seed: Chilly Coda
+10173;16;5065;5095;1866;1874;9;0;8100;9000
+# Seed: Blue Coda
+10174;19;5067;5097;1867;1894;9;0;4050;4500
+# Seed: Golden Coda
+10202;22;5069;5099;1868;1876;1;0;2025;2250
 # Seed: Thorn Cobol
 5053;40;5082;5112;1864;5549;5;0;1344;1494
 # Seed: Golden Cobol
@@ -121,24 +123,14 @@
 5227;50;5091;5121;1868;1884;6;0;1296;1440
 # Alternative Dark Coda Seed
 5650;10;5818;5838;1864;1878;1;1;22500;2250
-# Alternative Dark Coda Seed
-10197;10;5818;5838;1864;1878;9;1;22500;2250
 # Alternative Red Coda Seed
 5651;13;5819;5839;1865;1879;1;1;22500;2250
-# Alternative Red Coda Seed
-10198;13;5819;5839;1865;1879;9;1;22500;2250
 # Alternative Chilly Coda Seed
 5652;16;5820;5840;1866;1874;1;1;22500;2250
-# Alternative Chilly Coda Seed
-10199;16;5820;5840;1866;1874;9;1;22500;2250
 # Alternative Blue Coda Seed
 5653;19;5821;5841;1867;1894;1;1;11250;1125
-# Alternative Blue Coda Seed
-10200;19;5821;5841;1867;1894;9;1;11250;1125
 # Alternative Golden Coda Seed
 5654;22;5822;5842;1868;1876;1;1;5625;562
-# Alternative Golden Coda Seed
-10201;22;5822;5842;1868;1876;9;1;5625;562
 # Alternative Lute Coda Seed
 5655;25;5823;5843;1869;1895;1;1;3750;375
 # Alternative Desert Coda Seed
@@ -221,6 +213,16 @@
 5694;61;5836;5856;1872;1881;5;1;2490;249
 # Alternative Desert Codran Seed
 5695;64;5837;5857;1873;5550;5;1;1867;186
+# Alternative Dark Coda Seed
+10197;10;5818;5838;1864;1878;9;1;22500;2250
+# Alternative Red Coda Seed
+10198;13;5819;5839;1865;1879;9;1;22500;2250
+# Seed: Alternative Chilly Coda
+10199;16;5820;5840;1866;1874;9;1;22500;2250
+# Alternative Blue Coda Seed
+10200;19;5821;5841;1867;1894;9;1;11250;1125
+# Seed: Alternative Golden Coda
+10201;22;5822;5842;1868;1876;9;1;5625;562
 # Alternative Chilly Cobol Seed
 5696;34;5826;5846;1872;1880;6;1;7200;720
 # Alternative Blue Cobol Seed

@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS `custom_armor` (
   `dropable` VARCHAR(5) NOT NULL DEFAULT 'false',
   `destroyable` VARCHAR(5) NOT NULL DEFAULT 'true',
   `tradeable` VARCHAR(5) NOT NULL DEFAULT 'false',
+  `enchant4_skill` VARCHAR(8) NOT NULL DEFAULT '',
   `skills_item` VARCHAR(70) NOT NULL DEFAULT '',
   PRIMARY KEY (`item_id`)
 ) DEFAULT CHARSET=utf8;
