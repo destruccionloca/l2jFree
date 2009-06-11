@@ -134,7 +134,7 @@ public enum L2SkillType
 	CLAN_GATE,
 	UNDEAD_DEFENSE,
 	CANCEL_STATS,
-	
+
 	AGATHION(L2SkillAgathion.class),
 	MOUNT(L2SkillMount.class),
 	CHANGEWEAPON(L2SkillChangeWeapon.class),
@@ -149,21 +149,23 @@ public enum L2SkillType
 	SIGNET_CASTTIME(L2SkillSignetCasttime.class),
 	SUMMON(L2SkillSummon.class),
 	SUMMON_TRAP(L2SkillTrap.class),
-	FATAL,	
+	FATAL,
 	// Skill that has no effect.
 	DUMMY,
 	// Skill is done within the core.
 	COREDONE,
 	// Unimplemented
-	NOTDONE, TELEPORT;
-	
-	private final Constructor<? extends L2Skill> _constructor;
-	
+	NOTDONE,
+	TELEPORT,
+	CHANGE_APPEARANCE;
+
+	private final Constructor<? extends L2Skill>	_constructor;
+
 	private L2SkillType()
 	{
 		this(L2Skill.class);
 	}
-	
+
 	private L2SkillType(Class<? extends L2Skill> clazz)
 	{
 		try
@@ -175,7 +177,7 @@ public enum L2SkillType
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	public L2Skill makeSkill(StatsSet set) throws Exception
 	{
 		return _constructor.newInstance(set);
