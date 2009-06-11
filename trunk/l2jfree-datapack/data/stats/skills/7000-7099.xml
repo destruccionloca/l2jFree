@@ -463,7 +463,7 @@
     <set name="effectRange" val="900"/>
     <for>
       <effect name="Buff" time="1200" val="0" stackOrder="9000" stackType="Weight">
-        <add order="0x40" stat="weightLimit" val="9000"/>
+        <add order="0x40" stat="maxLoad" val="9000"/>
       </effect>
     </for>
   </skill>

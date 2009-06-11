@@ -1598,12 +1598,12 @@
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <effect name="Buff" time="1200" val="0" stackOrder="#Weight" stackType="Weight">
-        <add order="0x40" stat="weightLimit" val="#Weight"/>
+        <add order="0x40" stat="maxLoad" val="#Weight"/>
       </effect>
     </for>
     <enchant1for>
       <effect name="Buff" time="#ench1time" val="0" stackOrder="9000" stackType="Weight">
-        <add order="0x40" stat="weightLimit" val="9000"/>
+        <add order="0x40" stat="maxLoad" val="9000"/>
       </effect>
     </enchant1for>
   </skill>
