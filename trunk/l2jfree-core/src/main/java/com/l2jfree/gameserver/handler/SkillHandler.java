@@ -19,6 +19,7 @@ import com.l2jfree.gameserver.handler.skillhandlers.BallistaBomb;
 import com.l2jfree.gameserver.handler.skillhandlers.BeastFeed;
 import com.l2jfree.gameserver.handler.skillhandlers.Blow;
 import com.l2jfree.gameserver.handler.skillhandlers.CPperHeal;
+import com.l2jfree.gameserver.handler.skillhandlers.ChangeFace;
 import com.l2jfree.gameserver.handler.skillhandlers.ClanGate;
 import com.l2jfree.gameserver.handler.skillhandlers.CombatPointHeal;
 import com.l2jfree.gameserver.handler.skillhandlers.Continuous;
@@ -80,6 +81,7 @@ public final class SkillHandler extends HandlerRegistry<L2SkillType, ISkillHandl
 		registerSkillHandler(new BallistaBomb());
 		registerSkillHandler(new BeastFeed());
 		registerSkillHandler(new Blow());
+		registerSkillHandler(new ChangeFace());
 		registerSkillHandler(new ClanGate());
 		registerSkillHandler(new CPperHeal());
 		registerSkillHandler(new CombatPointHeal());
