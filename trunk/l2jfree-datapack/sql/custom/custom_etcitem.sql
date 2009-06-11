@@ -17,6 +17,6 @@ CREATE TABLE IF NOT EXISTS `custom_etcitem` (
   `destroyable` VARCHAR(5) NOT NULL DEFAULT 'true',
   `tradeable` VARCHAR(5) NOT NULL DEFAULT 'false',
   `handler` VARCHAR(70) NOT NULL DEFAULT 'none',
-  `skill` VARCHAR(70) NOT NULL DEFAULT '',
+  `skills_item` VARCHAR(70) NOT NULL DEFAULT '',
   PRIMARY KEY (`item_id`)
 ) DEFAULT CHARSET=utf8;
