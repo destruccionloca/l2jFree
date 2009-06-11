@@ -60,14 +60,6 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
             price    = readCompQ();
             
             _items[i] = new ItemRequest(objectId, count, price);
-			/*
-			if (Config.TEST_SWITCH)
-			{
-				_log.info("SetPrivateStoreListBuy: wanna buy object id:"+objectId);
-				_log.info("count:"+count);
-				_log.info("count:"+price);
-			}	            
-			*/
         }
     }
 

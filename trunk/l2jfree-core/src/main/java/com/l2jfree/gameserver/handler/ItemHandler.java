@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.handler;
 
-import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.handler.itemhandlers.AdvQuestItems;
 import com.l2jfree.gameserver.handler.itemhandlers.BeastSoulShot;
 import com.l2jfree.gameserver.handler.itemhandlers.BeastSpice;
@@ -55,7 +54,6 @@ import com.l2jfree.gameserver.handler.itemhandlers.TransformationItems;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
-import com.l2jfree.gameserver.templates.item.L2EtcItem;
 import com.l2jfree.util.NumberHandlerRegistry;
 
 public final class ItemHandler extends NumberHandlerRegistry<IItemHandler>

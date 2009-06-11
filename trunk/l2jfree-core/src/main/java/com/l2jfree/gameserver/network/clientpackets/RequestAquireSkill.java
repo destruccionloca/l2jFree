@@ -80,7 +80,7 @@ public class RequestAquireSkill extends L2GameClientPacket
             return;
         }
 
-        int npcid = trainer.getNpcId();
+        //int npcid = trainer.getNpcId();
 
         if (!player.isInsideRadius(trainer, L2Npc.INTERACTION_DISTANCE, false, false) && !player.isGM())
         {

@@ -909,6 +909,7 @@ public final class L2PcInstance extends L2Playable
 	{
 		public void run()
 		{
+			setShortBuffTaskSkillId(0);
 			sendPacket(new ShortBuffStatusUpdate(0, 0, 0));
 		}
 	}
@@ -12871,9 +12872,22 @@ public final class L2PcInstance extends L2Playable
 			_shortBuffTask.cancel(false);
 			_shortBuffTask = null;
 		}
-		_shortBuffTask = ThreadPoolManager.getInstance().scheduleGeneral(new ShortBuffTask(), 15000);
-
+		_shortBuffTask = ThreadPoolManager.getInstance().scheduleGeneral(new ShortBuffTask(), time * 1000);
+		
+		setShortBuffTaskSkillId(magicId);
 		sendPacket(new ShortBuffStatusUpdate(magicId, level, time));
+	}
+	
+	private int _shortBuffTaskSkillId;
+	
+	public void setShortBuffTaskSkillId(int id)
+	{
+		_shortBuffTaskSkillId = id;
+	}
+	
+	public int getShortBuffTaskSkillId()
+	{
+		return _shortBuffTaskSkillId;
 	}
 
 	public int getDeathPenaltyBuffLevel()

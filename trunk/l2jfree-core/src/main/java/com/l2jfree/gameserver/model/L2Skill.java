@@ -17,8 +17,6 @@ package com.l2jfree.gameserver.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javolution.util.FastList;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

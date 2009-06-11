@@ -418,14 +418,11 @@ public class ItemSkills implements IItemHandler
 										case 2037:
 										case 26025:
 										case 26026:
-											/*
-											int buffId = activeChar._shortBuffTaskSkillId;
-											*/
+											int buffId = activeChar.getShortBuffTaskSkillId();
 											// greater healing potions
 											if (skillId == 2037 || skillId == 26025)
 												activeChar.shortBuffStatusUpdate(skillId, skillLvl, itemSkill.getDuration()/1000);
 											// healing potions
-											/*
 											else if ((skillId == 2032 || skillId == 26026) && buffId !=2037 && buffId != 26025)
 												activeChar.shortBuffStatusUpdate(skillId, skillLvl, itemSkill.getDuration()/1000);
 											// lesser healing potions
@@ -434,7 +431,6 @@ public class ItemSkills implements IItemHandler
 												if (buffId != 2037 && buffId != 26025 && buffId != 2032 && buffId != 26026)
 													activeChar.shortBuffStatusUpdate(skillId, skillLvl, itemSkill.getDuration()/1000);
 											}
-											*/
 											break;
 									}
 								}
@@ -497,7 +493,7 @@ public class ItemSkills implements IItemHandler
     		sm.addSkillName(skill);
     	}
     	player.sendPacket(sm);
-	}	
+	}
 	/**
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#getItemIds()
 	 */
