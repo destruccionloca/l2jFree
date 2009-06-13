@@ -30397,4 +30397,4 @@ INSERT INTO droplist VALUES
 (29069,8614,4,36,14,700000);
 
 -- Removing Blue Coral Keys drop, as they are included in the gatekeepers scripts (Fix by Psycho moved to our customs for easier sync)
-DELETE FROM `droplist` WHERE mobId = 22275, itemId = 9698;
+DELETE FROM `droplist` WHERE mobId = 22275 AND itemId = 9698;
