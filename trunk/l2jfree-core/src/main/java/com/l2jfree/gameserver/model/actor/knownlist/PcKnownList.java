@@ -48,7 +48,7 @@ import com.l2jfree.gameserver.network.serverpackets.SpawnItem;
 import com.l2jfree.gameserver.network.serverpackets.StaticObject;
 import com.l2jfree.gameserver.network.serverpackets.VehicleInfo;
 
-public class PcKnownList extends PlayableKnownList
+public final class PcKnownList extends PlayableKnownList
 {
 	public PcKnownList(L2PcInstance activeChar)
 	{
@@ -83,10 +83,10 @@ public class PcKnownList extends PlayableKnownList
 	@Override
 	public boolean addKnownObject(L2Object object, L2Character dropper)
 	{
-		if (object instanceof L2PcInstance && ((L2PcInstance)object).inObserverMode())
+		if (!super.addKnownObject(object, dropper))
 			return false;
 		
-		if (!super.addKnownObject(object, dropper))
+		if (object instanceof L2PcInstance && ((L2PcInstance)object).inObserverMode())
 			return false;
 		
 		if (object.getPoly().isMorphed() && object.getPoly().getPolyType().equals("item"))
@@ -95,7 +95,6 @@ public class PcKnownList extends PlayableKnownList
 			getActiveChar().sendPacket(new SpawnItem(object));
 			//else if (object.getPolytype().equals("npc"))
 			//	sendPacket(new NpcInfoPoly(object, this));
-			
 		}
 		else
 		{
