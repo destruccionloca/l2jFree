@@ -406,7 +406,7 @@ public final class GlobalRestrictions
 	public static boolean canObserve(L2PcInstance activeChar)
 	{
 		for (GlobalRestriction restriction : _restrictions[RestrictionMode.canObserve.ordinal()])
-			if (restriction.canObserve(activeChar))
+			if (!restriction.canObserve(activeChar))
 				return false;
 		
 		return true;
