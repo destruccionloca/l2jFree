@@ -82,7 +82,7 @@ public final class ChanceSkillList
 			_triggers = L2Arrays.compact(_triggers);
 	}
 	
-	public void onHit(L2Character evtInitiator, boolean ownerWasHit, boolean wasCrit)
+	public void onHit(L2Character evtInitiator, boolean ownerWasHit, boolean wasCrit, boolean wasRange)
 	{
 		int event;
 		if (ownerWasHit)
@@ -93,7 +93,11 @@ public final class ChanceSkillList
 		}
 		else
 		{
-			event = ChanceCondition.EVT_HIT;
+			if(wasRange)
+				event = ChanceCondition.EVT_RANGE;
+			else
+				event = ChanceCondition.EVT_HIT;
+			
 			if (wasCrit)
 				event |= ChanceCondition.EVT_CRIT;
 		}
