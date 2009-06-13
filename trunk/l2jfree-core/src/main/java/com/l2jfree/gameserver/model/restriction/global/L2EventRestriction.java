@@ -81,4 +81,13 @@ final class L2EventRestriction extends AbstractRestriction// extends AbstractFun
 		
 		return false;
 	}
+	
+	@Override
+	public boolean canObserve(L2PcInstance activeChar)
+	{
+		if(activeChar._inEvent)
+			return false;
+		
+		return true;
+	}
 }

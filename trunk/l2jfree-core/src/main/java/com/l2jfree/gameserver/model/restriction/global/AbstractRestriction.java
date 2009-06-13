@@ -64,6 +64,12 @@ public abstract class AbstractRestriction implements GlobalRestriction
 	}
 	
 	@DisabledRestriction
+	public boolean canObserve(L2PcInstance activeChar)
+	{
+		throw new AbstractMethodError();
+	}
+	
+	@DisabledRestriction
 	public boolean canUseItemHandler(Class<? extends IItemHandler> clazz, int itemId, L2Playable activeChar,
 		L2ItemInstance item)
 	{

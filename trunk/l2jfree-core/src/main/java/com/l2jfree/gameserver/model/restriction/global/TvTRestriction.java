@@ -164,4 +164,14 @@ final class TvTRestriction extends AbstractFunEventRestriction
 		
 		return false;
 	}
+	
+	@Override
+	public boolean canObserve(L2PcInstance activeChar)
+	{
+		if(activeChar._inEventTvT)
+			return false;
+		
+		return true;
+	}
+	
 }

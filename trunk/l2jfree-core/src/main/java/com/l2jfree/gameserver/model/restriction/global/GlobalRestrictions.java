@@ -66,6 +66,7 @@ public final class GlobalRestrictions
 		isInsideZoneStateChanged,
 		onBypassFeedback,
 		onAction,
+		canObserve,
 		// TODO
 		;
 		
@@ -400,6 +401,15 @@ public final class GlobalRestrictions
 				return true;
 		
 		return false;
+	}
+
+	public static boolean canObserve(L2PcInstance activeChar)
+	{
+		for (GlobalRestriction restriction : _restrictions[RestrictionMode.canObserve.ordinal()])
+			if (restriction.canObserve(activeChar))
+				return false;
+		
+		return true;
 	}
 	
 	// TODO

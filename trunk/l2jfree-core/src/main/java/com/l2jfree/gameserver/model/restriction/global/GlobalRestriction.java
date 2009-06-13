@@ -65,5 +65,7 @@ public interface GlobalRestriction
 	
 	public boolean onAction(L2Npc npc, L2PcInstance activeChar);
 	
+	public boolean canObserve(L2PcInstance activeChar);
+
 	// TODO
 }

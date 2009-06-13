@@ -73,4 +73,12 @@ final class CursedWeaponRestriction extends AbstractRestriction
 		if (activeChar.isCursedWeaponEquipped())
 			CursedWeaponsManager.getInstance().onExit(activeChar);
 	}
+	
+	@Override
+	public boolean canObserve(L2PcInstance activeChar)
+	{
+		if (activeChar.isCursedWeaponEquipped())
+			return false;
+		return true;
+	}
 }
