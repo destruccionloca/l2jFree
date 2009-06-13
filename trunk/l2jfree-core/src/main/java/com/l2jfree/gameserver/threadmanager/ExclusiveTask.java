@@ -41,7 +41,7 @@ public abstract class ExclusiveTask implements Runnable
 	
 	public synchronized boolean isScheduled()
 	{
-		return _future != null;
+		return _future != null && !_future.isDone();
 	}
 	
 	public synchronized final void cancel()
