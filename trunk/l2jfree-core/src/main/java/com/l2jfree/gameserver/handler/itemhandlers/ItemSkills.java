@@ -103,6 +103,7 @@ public class ItemSkills implements IItemHandler
 			8612,
 			8613,
 			8614,
+			9702,
 			8952,
 			8953,
 			8954,
