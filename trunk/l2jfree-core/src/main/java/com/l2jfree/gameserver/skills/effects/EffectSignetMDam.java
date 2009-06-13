@@ -12,11 +12,6 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
-/**
- * @author Forsaiken
- */
-
 package com.l2jfree.gameserver.skills.effects;
 
 import javolution.util.FastList;
@@ -25,7 +20,6 @@ import com.l2jfree.gameserver.ai.CtrlEvent;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.model.L2Effect;
-import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.L2Attackable;
@@ -45,7 +39,10 @@ import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 import com.l2jfree.tools.geometry.Point3D;
 
-public class EffectSignetMDam extends L2Effect
+/**
+ * @author Forsaiken
+ */
+public final class EffectSignetMDam extends L2Effect
 {
 	private L2EffectPointInstance _actor;
 	
@@ -54,18 +51,12 @@ public class EffectSignetMDam extends L2Effect
 		super(env, template);
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
-	 */
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.SIGNET_GROUND;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
-	 */
 	@Override
 	protected boolean onStart()
 	{
@@ -102,14 +93,10 @@ public class EffectSignetMDam extends L2Effect
 		
 		_actor = effectPoint;
 		return true;
-		
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
-	 */
 	@Override
-	public boolean onActionTime()
+	protected boolean onActionTime()
 	{
 		if (getCount() >= getTotalCount() - 2)
 			return true; // do nothing first 2 times
@@ -120,14 +107,20 @@ public class EffectSignetMDam extends L2Effect
 		boolean ss = false;
 		boolean bss = false;
 		
-		L2ItemInstance weaponInst = caster.getActiveWeaponInstance();
-		if (weaponInst != null)
+		caster.rechargeShot();
+		
+		if (caster.isBlessedSpiritshotCharged())
 		{
-			if (caster.isBlessedSpiritshotCharged())
-				bss = true;
-			else if (caster.isSpiritshotCharged())
-				ss = true;
+			bss = true;
+			caster.useBlessedSpiritshotCharge();
 		}
+		else if (caster.isSpiritshotCharged())
+		{
+			ss = true;
+			caster.useSpiritshotCharge();
+		}
+		
+		caster.rechargeShot();
 		
 		FastList<L2Character> targets = new FastList<L2Character>();
 		
@@ -141,13 +134,13 @@ public class EffectSignetMDam extends L2Effect
 				if (cha.isAlikeDead())
 					continue;
 				
-				if (mpConsume > caster.getCurrentMp())
+				if (mpConsume > caster.getStatus().getCurrentMp())
 				{
 					caster.sendPacket(new SystemMessage(SystemMessageId.SKILL_REMOVED_DUE_LACK_MP));
 					return false;
 				}
-				else
-					caster.reduceCurrentMp(mpConsume);
+				
+				caster.reduceCurrentMp(mpConsume);
 				
 				if (cha instanceof L2Playable)
 				{
@@ -164,8 +157,7 @@ public class EffectSignetMDam extends L2Effect
 		
 		if (!targets.isEmpty())
 		{
-			caster.broadcastPacket(new MagicSkillLaunched(caster, getSkill().getId(), getSkill().getLevel(), targets
-				.toArray(new L2Character[targets.size()])));
+			caster.broadcastPacket(new MagicSkillLaunched(caster, getSkill(), targets.toArray(new L2Character[targets.size()])));
 			for (L2Character target : targets)
 			{
 				boolean mcrit = Formulas.calcMCrit(caster.getMCriticalHit(target, getSkill()));
@@ -191,9 +183,6 @@ public class EffectSignetMDam extends L2Effect
 		return true;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
-	 */
 	@Override
 	protected void onExit()
 	{

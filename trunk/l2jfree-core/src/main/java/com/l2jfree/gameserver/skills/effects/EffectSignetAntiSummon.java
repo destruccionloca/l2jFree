@@ -18,7 +18,6 @@ import com.l2jfree.gameserver.ai.CtrlEvent;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Playable;
-import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2EffectPointInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -67,12 +66,7 @@ public final class EffectSignetAntiSummon extends L2Effect
 			
 			if (cha instanceof L2Playable)
 			{
-				L2PcInstance owner = null;
-				
-				if (cha instanceof L2Summon)
-					owner = ((L2Summon)cha).getOwner();
-				else
-					owner = (L2PcInstance)cha;
+				L2PcInstance owner = cha.getActingPlayer();
 				
 				if (owner != null && owner.getPet() != null)
 				{
