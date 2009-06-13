@@ -21,7 +21,7 @@ import com.l2jfree.lang.L2Entity;
 /**
  * @author NB4L1
  */
-public final class L2ReadWriteCollection<T extends L2Entity<Integer>> extends L2Collection<T>
+public final class L2ReadWriteEntityMap<T extends L2Entity<Integer>> extends L2EntityMap<T>
 {
 	private final ReentrantReadWriteLock _lock = new ReentrantReadWriteLock();
 	private final ReentrantReadWriteLock.ReadLock _read = _lock.readLock();

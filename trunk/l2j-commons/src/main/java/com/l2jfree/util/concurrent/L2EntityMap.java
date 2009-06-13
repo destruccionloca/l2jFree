@@ -27,13 +27,13 @@ import com.l2jfree.util.SingletonMap;
 /**
  * @author NB4L1
  */
-public abstract class L2Collection<T extends L2Entity<Integer>>
+public abstract class L2EntityMap<T extends L2Entity<Integer>>
 {
 	private final SingletonMap<Integer, T> _map = new SingletonMap<Integer, T>();
 	
-	protected L2Collection()
+	protected L2EntityMap()
 	{
-		if (this instanceof L2SharedCollection)
+		if (this instanceof L2SharedEntityMap)
 			_map.setShared();
 	}
 	

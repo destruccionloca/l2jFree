@@ -77,13 +77,25 @@ public final class L2Arrays
 	 * @param <T>
 	 * @param array to create a list from
 	 * @return a List&lt;T&gt;, which will NOT throw ConcurrentModificationException, if an element gets removed inside
-	 *         a foreach loop
+	 *         a foreach loop, and supports addition
 	 */
-	public static <T> List<T> foreachSafeList(T... array)
+	public static <T> List<T> asForeachSafeList(T... array)
+	{
+		return asForeachSafeList(true, array);
+	}
+	
+	/**
+	 * @param <T>
+	 * @param allowAddition determines that list MUST support add operation or not
+	 * @param array to create a list from
+	 * @return a List&lt;T&gt;, which will NOT throw ConcurrentModificationException, if an element gets removed inside
+	 *         a foreach loop, and supports addition if required
+	 */
+	public static <T> List<T> asForeachSafeList(boolean allowAddition, T... array)
 	{
 		final int newSize = countNotNull(array);
 		
-		if (newSize == 0)
+		if (newSize == 0 && !allowAddition)
 			return L2Collections.emptyList();
 		
 		if (newSize <= 8)

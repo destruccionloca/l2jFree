@@ -14,58 +14,24 @@
  */
 package com.l2jfree.util.concurrent;
 
+import java.util.Iterator;
+
 import com.l2jfree.lang.L2Entity;
 
 /**
  * @author NB4L1
  */
-public final class L2SynchronizedCollection<T extends L2Entity<Integer>> extends L2Collection<T>
+public final class L2SharedEntityMap<T extends L2Entity<Integer>> extends L2EntityMap<T> implements Iterable<T>, Executor<T>
 {
 	@Override
-	public synchronized int size()
+	public Iterator<T> iterator()
 	{
-		return super.size();
+		return super.iterator();
 	}
 	
 	@Override
-	public synchronized boolean isEmpty()
+	public void executeForEach(Executable<T> executable)
 	{
-		return super.isEmpty();
-	}
-	
-	@Override
-	public synchronized boolean contains(T obj)
-	{
-		return super.contains(obj);
-	}
-	
-	@Override
-	public synchronized T get(Integer id)
-	{
-		return super.get(id);
-	}
-	
-	@Override
-	public synchronized void add(T obj)
-	{
-		super.add(obj);
-	}
-	
-	@Override
-	public synchronized void remove(T obj)
-	{
-		super.remove(obj);
-	}
-	
-	@Override
-	public synchronized void clear()
-	{
-		super.clear();
-	}
-	
-	@Override
-	public synchronized T[] toArray(T[] array)
-	{
-		return super.toArray(array);
+		super.executeForEach(executable);
 	}
 }

@@ -122,9 +122,15 @@ public abstract class L2Config
 		}
 		
 		@Override
+		public int hashCode()
+		{
+			return getClass().hashCode();
+		}
+		
+		@Override
 		public boolean equals(Object obj)
 		{
-			return obj instanceof ConfigLoader && getClass().equals(obj.getClass());
+			return getClass().equals(obj.getClass());
 		}
 	}
 }
