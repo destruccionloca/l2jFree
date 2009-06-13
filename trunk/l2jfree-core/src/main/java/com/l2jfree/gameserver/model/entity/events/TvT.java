@@ -1635,4 +1635,16 @@ public class TvT
 
 		_teamPlayersCount.set(index, teamPlayersCount);
 	}
+	
+	public static void resSummon(final L2Summon summon)
+	{
+		summon.getOwner().sendMessage("Your pet will be revived in " + Config.TVT_REVIVE_DELAY / 1000 + " seconds!");
+		ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
+			public void run()
+			{
+				summon.doRevive();
+				summon.teleToLocation(summon.getOwner().getX(), summon.getOwner().getY(), summon.getOwner().getZ(), false);
+			}
+		}, Config.TVT_REVIVE_DELAY);
+	}	
 }
