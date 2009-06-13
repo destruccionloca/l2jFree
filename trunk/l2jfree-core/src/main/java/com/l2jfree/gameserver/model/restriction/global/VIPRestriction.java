@@ -158,14 +158,4 @@ final class VIPRestriction extends AbstractFunEventRestriction
 		
 		return false;
 	}
-	
-	@Override
-	public boolean canObserve(L2PcInstance activeChar)
-	{
-		if(activeChar._inEventVIP)
-			return false;
-		
-		return true;
-	}
-	
 }

@@ -653,7 +653,6 @@ public final class L2PcInstance extends L2Playable
 
 	/** Event Engine parameters */
 	public int								_originalNameColor, _countKills, _originalKarma, _eventKills;
-	public boolean							_inEvent				= false;
 
 	/** TvT Engine parameters */
 	public String							_teamNameTvT, _originalTitleTvT;

@@ -46,6 +46,7 @@ public final class GlobalRestrictions
 	
 	private static enum RestrictionMode implements Comparator<GlobalRestriction>
 	{
+		isRestricted,
 		canInviteToParty,
 		canCreateEffect,
 		isInvul,
@@ -66,7 +67,6 @@ public final class GlobalRestrictions
 		isInsideZoneStateChanged,
 		onBypassFeedback,
 		onAction,
-		canObserve,
 		// TODO
 		;
 		
@@ -193,6 +193,15 @@ public final class GlobalRestrictions
 		activate(new DuelRestriction());
 		activate(new JailRestriction());
 		activate(new OlympiadRestriction());
+	}
+	
+	public static boolean isRestricted(L2PcInstance activeChar)
+	{
+		for (GlobalRestriction restriction : _restrictions[RestrictionMode.isRestricted.ordinal()])
+			if (restriction.isRestricted(activeChar))
+				return true;
+		
+		return false;
 	}
 	
 	public static boolean canInviteToParty(L2PcInstance activeChar, L2PcInstance target)
@@ -401,15 +410,6 @@ public final class GlobalRestrictions
 				return true;
 		
 		return false;
-	}
-
-	public static boolean canObserve(L2PcInstance activeChar)
-	{
-		for (GlobalRestriction restriction : _restrictions[RestrictionMode.canObserve.ordinal()])
-			if (!restriction.canObserve(activeChar))
-				return false;
-		
-		return true;
 	}
 	
 	// TODO

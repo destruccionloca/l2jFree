@@ -26,6 +26,18 @@ import com.l2jfree.gameserver.model.entity.Duel;
 final class DuelRestriction extends AbstractRestriction
 {
 	@Override
+	public boolean isRestricted(L2PcInstance activeChar)
+	{
+		if (activeChar.isInDuel())
+		{
+			activeChar.sendMessage("You are participating in a duel!");
+			return true;
+		}
+		
+		return false;
+	}
+	
+	@Override
 	@DisabledRestriction
 	public boolean canInviteToParty(L2PcInstance activeChar, L2PcInstance target)
 	{

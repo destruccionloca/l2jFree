@@ -134,13 +134,4 @@ final class DMRestriction extends AbstractFunEventRestriction
 		
 		return false;
 	}
-	
-	@Override
-	public boolean canObserve(L2PcInstance activeChar)
-	{
-		if(activeChar._inEventDM)
-			return false;
-		
-		sreturn true;
-	}
 }

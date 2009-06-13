@@ -26,6 +26,18 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 final class CursedWeaponRestriction extends AbstractRestriction
 {
 	@Override
+	public boolean isRestricted(L2PcInstance activeChar)
+	{
+		if (activeChar.isCursedWeaponEquipped())
+		{
+			activeChar.sendMessage("You are holding a cursed weapon!");
+			return true;
+		}
+		
+		return false;
+	}
+	
+	@Override
 	public boolean canInviteToParty(L2PcInstance activeChar, L2PcInstance target)
 	{
 		if (activeChar.isCursedWeaponEquipped() || target.isCursedWeaponEquipped())
@@ -72,13 +84,5 @@ final class CursedWeaponRestriction extends AbstractRestriction
 	{
 		if (activeChar.isCursedWeaponEquipped())
 			CursedWeaponsManager.getInstance().onExit(activeChar);
-	}
-	
-	@Override
-	public boolean canObserve(L2PcInstance activeChar)
-	{
-		if (activeChar.isCursedWeaponEquipped())
-			return false;
-		return true;
 	}
 }

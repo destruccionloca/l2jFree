@@ -29,6 +29,24 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 final class OlympiadRestriction extends AbstractRestriction
 {
 	@Override
+	public boolean isRestricted(L2PcInstance activeChar)
+	{
+		if (activeChar.isInOlympiadMode())
+		{
+			activeChar.sendMessage("You are registered on Grand Olympiad Games!");
+			return true;
+		}
+		
+		if (activeChar.getOlympiadGameId() != -1 || activeChar.inObserverMode())
+		{
+			activeChar.sendMessage("You are observing Grand Olympiad Games!");
+			return true;
+		}
+		
+		return false;
+	}
+	
+	@Override
 	public boolean canInviteToParty(L2PcInstance activeChar, L2PcInstance target)
 	{
 		if (activeChar.isInOlympiadMode() || target.isInOlympiadMode())

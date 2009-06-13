@@ -41,6 +41,18 @@ abstract class AbstractFunEventRestriction extends AbstractRestriction
 	abstract boolean isInFunEvent(L2PcInstance player);
 	
 	@Override
+	public final boolean isRestricted(L2PcInstance activeChar)
+	{
+		if (isInFunEvent(activeChar))
+		{
+			activeChar.sendMessage("You are participating in a fun event!");
+			return true;
+		}
+		
+		return false;
+	}
+	
+	@Override
 	public boolean canRequestRevive(L2PcInstance activeChar)
 	{
 		if (isInFunEvent(activeChar) && started())
@@ -92,7 +104,7 @@ abstract class AbstractFunEventRestriction extends AbstractRestriction
 	}
 	
 	@Override
-	public boolean canUseItemHandler(Class<? extends IItemHandler> clazz, int itemId, L2Playable activeChar,
+	public final boolean canUseItemHandler(Class<? extends IItemHandler> clazz, int itemId, L2Playable activeChar,
 		L2ItemInstance item)
 	{
 		if (clazz == SummonItems.class)

@@ -34,6 +34,12 @@ public abstract class AbstractRestriction implements GlobalRestriction
 	static final Log _log = LogFactory.getLog(AbstractRestriction.class);
 	
 	@DisabledRestriction
+	public boolean isRestricted(L2PcInstance activeChar)
+	{
+		throw new AbstractMethodError();
+	}
+	
+	@DisabledRestriction
 	public boolean canInviteToParty(L2PcInstance activeChar, L2PcInstance target)
 	{
 		throw new AbstractMethodError();
@@ -59,12 +65,6 @@ public abstract class AbstractRestriction implements GlobalRestriction
 	
 	@DisabledRestriction
 	public boolean canTeleport(L2PcInstance activeChar)
-	{
-		throw new AbstractMethodError();
-	}
-	
-	@DisabledRestriction
-	public boolean canObserve(L2PcInstance activeChar)
 	{
 		throw new AbstractMethodError();
 	}

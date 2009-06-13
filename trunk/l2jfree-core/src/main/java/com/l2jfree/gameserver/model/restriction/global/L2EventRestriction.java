@@ -25,9 +25,21 @@ import com.l2jfree.gameserver.model.entity.L2Event;
 final class L2EventRestriction extends AbstractRestriction// extends AbstractFunEventRestriction
 {
 	@Override
+	public boolean isRestricted(L2PcInstance activeChar)
+	{
+		if (activeChar.atEvent)
+		{
+			activeChar.sendMessage("You are in an event!");
+			return true;
+		}
+		
+		return false;
+	}
+	
+	@Override
 	public boolean canRequestRevive(L2PcInstance activeChar)
 	{
-		if (activeChar._inEvent)
+		if (activeChar.atEvent)
 			return false;
 		
 		return true;
@@ -80,14 +92,5 @@ final class L2EventRestriction extends AbstractRestriction// extends AbstractFun
 		}
 		
 		return false;
-	}
-	
-	@Override
-	public boolean canObserve(L2PcInstance activeChar)
-	{
-		if(activeChar._inEvent)
-			return false;
-		
-		return true;
 	}
 }

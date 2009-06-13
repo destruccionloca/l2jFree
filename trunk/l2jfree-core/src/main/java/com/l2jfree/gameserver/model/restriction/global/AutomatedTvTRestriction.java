@@ -29,6 +29,18 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 final class AutomatedTvTRestriction extends AbstractRestriction// extends AbstractFunEventRestriction
 {
 	@Override
+	public boolean isRestricted(L2PcInstance activeChar)
+	{
+		if (AutomatedTvT.isReged(activeChar) || AutomatedTvT.isPlaying(activeChar))
+		{
+			activeChar.sendMessage("You are participating in a fun event!");
+			return true;
+		}
+		
+		return false;
+	}
+	
+	@Override
 	public boolean canRequestRevive(L2PcInstance activeChar)
 	{
 		if (!Config.AUTO_TVT_REVIVE_SELF && AutomatedTvT.isPlaying(activeChar))

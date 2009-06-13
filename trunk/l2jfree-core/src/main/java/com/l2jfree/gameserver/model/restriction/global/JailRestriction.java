@@ -23,9 +23,21 @@ import com.l2jfree.gameserver.model.zone.L2Zone;
 final class JailRestriction extends AbstractRestriction
 {
 	@Override
+	public boolean isRestricted(L2PcInstance activeChar)
+	{
+		if (isInJail(activeChar))
+		{
+			activeChar.sendMessage("You are in jail!");
+			return true;
+		}
+		
+		return false;
+	}
+	
+	@Override
 	public boolean canInviteToParty(L2PcInstance activeChar, L2PcInstance target)
 	{
-		if (activeChar.isInJail() || target.isInJail())
+		if (isInJail(activeChar) || isInJail(target))
 		{
 			activeChar.sendMessage("Player is in jail!");
 			return false;
@@ -38,12 +50,17 @@ final class JailRestriction extends AbstractRestriction
 	public boolean canTeleport(L2PcInstance activeChar)
 	{
 		// Check to see if player is in jail
-		if (activeChar.isInJail() || activeChar.isInsideZone(L2Zone.FLAG_JAIL))
+		if (isInJail(activeChar))
 		{
 			activeChar.sendMessage("You can't teleport in jail.");
 			return false;
 		}
 		
 		return true;
+	}
+	
+	private boolean isInJail(L2PcInstance player)
+	{
+		return player.isInJail() || player.isInsideZone(L2Zone.FLAG_JAIL);
 	}
 }

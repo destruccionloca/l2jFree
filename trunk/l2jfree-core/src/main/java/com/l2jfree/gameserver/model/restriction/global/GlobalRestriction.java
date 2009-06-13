@@ -28,6 +28,8 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  */
 public interface GlobalRestriction
 {
+	public boolean isRestricted(L2PcInstance activeChar);
+	
 	public boolean canInviteToParty(L2PcInstance activeChar, L2PcInstance target);
 	
 	public boolean canCreateEffect(L2Character activeChar, L2Character target, L2Skill skill);
@@ -65,7 +67,5 @@ public interface GlobalRestriction
 	
 	public boolean onAction(L2Npc npc, L2PcInstance activeChar);
 	
-	public boolean canObserve(L2PcInstance activeChar);
-
 	// TODO
 }
