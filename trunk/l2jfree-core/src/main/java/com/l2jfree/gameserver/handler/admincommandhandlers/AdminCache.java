@@ -84,8 +84,7 @@ public class AdminCache implements IAdminCommandHandler
 		else if (command.startsWith("admin_cache_crest_rebuild") || command.startsWith("admin_cache_crest_reload"))
 		{
 			CrestCache.getInstance().reload();
-			activeChar.sendMessage("Cache[Crest]: " + String.format("%.3f", CrestCache.getInstance().getMemoryUsage()) + " megabytes on "
-					+ CrestCache.getInstance().getLoadedFiles() + " files loaded");
+			activeChar.sendMessage(CrestCache.getInstance().toString());
 		}
 		else if (command.startsWith("admin_cache_crest_fix"))
 		{

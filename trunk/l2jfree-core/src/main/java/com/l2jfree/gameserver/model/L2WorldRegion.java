@@ -29,8 +29,8 @@ import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.zone.L2Zone;
-import com.l2jfree.util.concurrent.L2Collection;
-import com.l2jfree.util.concurrent.L2SynchronizedCollection;
+import com.l2jfree.util.concurrent.L2EntityMap;
+import com.l2jfree.util.concurrent.L2SynchronizedEntityMap;
 
 public final class L2WorldRegion
 {
@@ -41,8 +41,8 @@ public final class L2WorldRegion
 	public static final int MAP_MIN_Y = -262144;
 	public static final int MAP_MAX_Y = 262144;
 	
-	private final L2Collection<L2Playable> _playables = new L2SynchronizedCollection<L2Playable>();
-	private final L2Collection<L2Object> _objects = new L2SynchronizedCollection<L2Object>();
+	private final L2EntityMap<L2Playable> _playables = new L2SynchronizedEntityMap<L2Playable>();
+	private final L2EntityMap<L2Object> _objects = new L2SynchronizedEntityMap<L2Object>();
 	
 	private final int _tileX;
 	private final int _tileY;

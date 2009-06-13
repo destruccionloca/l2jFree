@@ -29,8 +29,8 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.util.LinkedBunch;
-import com.l2jfree.util.concurrent.L2Collection;
-import com.l2jfree.util.concurrent.L2ReadWriteCollection;
+import com.l2jfree.util.concurrent.L2EntityMap;
+import com.l2jfree.util.concurrent.L2ReadWriteEntityMap;
 
 /**
  * This class ...
@@ -74,7 +74,7 @@ public final class L2World
 	}
 	
 	/** all visible objects */
-	private final L2Collection<L2Object> _objects = new L2ReadWriteCollection<L2Object>();
+	private final L2EntityMap<L2Object> _objects = new L2ReadWriteEntityMap<L2Object>();
 	
 	/** all the players in game */
 	private final Map<String, L2PcInstance> _players = new FastMap<String, L2PcInstance>().setShared(true);
