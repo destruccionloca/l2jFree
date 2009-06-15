@@ -7909,7 +7909,7 @@ public final class L2PcInstance extends L2Playable
 	 */
 	public boolean canUseMagic(L2Skill skill)
 	{
-		if (skill == null || skill.getSkillType() == L2SkillType.NOTDONE)
+		if (skill == null || skill.getSkillType() == L2SkillType.NOTDONE || skill.getSkillType() == L2SkillType.WEAPON_SA)
 			return false;
 		
 		// players mounted on pets cannot use any toggle skills
