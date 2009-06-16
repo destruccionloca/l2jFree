@@ -53,6 +53,7 @@ public final class GlobalRestrictions
 		canRequestRevive,
 		canTeleport,
 		canUseItemHandler,
+		canBeInsidePeaceZone,
 		// TODO
 		
 		isInsideZoneModifier,
@@ -344,6 +345,15 @@ public final class GlobalRestrictions
 	{
 		for (GlobalRestriction restriction : _restrictions[RestrictionMode.canUseItemHandler.ordinal()])
 			if (!restriction.canUseItemHandler(clazz, itemId, activeChar, item))
+				return false;
+		
+		return true;
+	}
+	
+	public static boolean canBeInsidePeaceZone(L2PcInstance activeChar, L2PcInstance target)
+	{
+		for (GlobalRestriction restriction : _restrictions[RestrictionMode.canBeInsidePeaceZone.ordinal()])
+			if (!restriction.canBeInsidePeaceZone(activeChar, target))
 				return false;
 		
 		return true;

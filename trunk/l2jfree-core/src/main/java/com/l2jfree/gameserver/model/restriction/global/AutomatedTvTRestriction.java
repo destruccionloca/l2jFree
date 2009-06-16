@@ -66,6 +66,15 @@ public final class AutomatedTvTRestriction extends AbstractRestriction// extends
 	}
 	
 	@Override
+	public boolean canBeInsidePeaceZone(L2PcInstance activeChar, L2PcInstance target)
+	{
+		if (AutomatedTvT.isPlaying(activeChar) && AutomatedTvT.isPlaying(target))
+			return false;
+		
+		return true;
+	}
+	
+	@Override
 	public void playerLoggedIn(L2PcInstance activeChar)
 	{
 		AutomatedTvT.getInstance().addDisconnected(activeChar);

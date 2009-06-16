@@ -859,7 +859,7 @@ public abstract class L2Character extends L2Object
 	 * @param target
 	 *            The L2Character targeted
 	 */
-	protected void doAttack(L2Character target)
+	protected void doAttack(final L2Character target)
 	{
 		if (_log.isDebugEnabled())
 			_log.debug(getName() + " doAttack: target=" + target);
@@ -5545,10 +5545,7 @@ public abstract class L2Character extends L2Object
 		if (attackerPlayer == null || targetPlayer == null)
 			return false;
 		
-		if (attackerPlayer.isInFunEvent() && targetPlayer.isInFunEvent())
-			return false;
-		
-		if (AutomatedTvT.isPlaying(attackerPlayer) && AutomatedTvT.isPlaying(targetPlayer))
+		if (!GlobalRestrictions.canBeInsidePeaceZone(attackerPlayer, targetPlayer))
 			return false;
 		
 		if (attackerPlayer.getAccessLevel() >= Config.GM_PEACEATTACK)

@@ -43,6 +43,8 @@ public interface GlobalRestriction
 	public boolean canUseItemHandler(Class<? extends IItemHandler> clazz, int itemId, L2Playable activeChar,
 		L2ItemInstance item);
 	
+	public boolean canBeInsidePeaceZone(L2PcInstance activeChar, L2PcInstance target);
+	
 	// TODO
 	
 	public int isInsideZoneModifier(L2Character activeChar, byte zone);

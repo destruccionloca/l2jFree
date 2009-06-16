@@ -76,6 +76,12 @@ public abstract class AbstractRestriction implements GlobalRestriction
 		throw new AbstractMethodError();
 	}
 	
+	@DisabledRestriction
+	public boolean canBeInsidePeaceZone(L2PcInstance activeChar, L2PcInstance target)
+	{
+		throw new AbstractMethodError();
+	}
+	
 	// TODO
 	
 	@DisabledRestriction
