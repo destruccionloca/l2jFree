@@ -44,6 +44,7 @@ import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
+import com.l2jfree.gameserver.model.restriction.global.TvTRestriction;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
@@ -1346,7 +1347,7 @@ public class TvT
 
 	public static boolean addPlayerOk(String teamName, L2PcInstance eventPlayer)
 	{
-		if (GlobalRestrictions.isRestricted(eventPlayer))
+		if (GlobalRestrictions.isRestricted(eventPlayer, TvTRestriction.class))
 		{
 			// TODO: msg
 			return false;

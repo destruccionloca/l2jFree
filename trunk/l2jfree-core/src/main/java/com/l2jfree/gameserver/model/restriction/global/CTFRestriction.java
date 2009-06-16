@@ -24,7 +24,7 @@ import com.l2jfree.gameserver.model.entity.events.CTF;
 /**
  * @author NB4L1
  */
-final class CTFRestriction extends AbstractFunEventRestriction
+public final class CTFRestriction extends AbstractFunEventRestriction
 {
 	@Override
 	boolean started()
@@ -48,6 +48,12 @@ final class CTFRestriction extends AbstractFunEventRestriction
 	boolean allowInterference()
 	{
 		return Config.CTF_ALLOW_INTERFERENCE;
+	}
+	
+	@Override
+	boolean joinCursed()
+	{
+		return Config.CTF_JOIN_CURSED;
 	}
 	
 	@Override

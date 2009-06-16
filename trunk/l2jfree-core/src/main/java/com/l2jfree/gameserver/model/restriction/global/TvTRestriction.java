@@ -25,7 +25,7 @@ import com.l2jfree.gameserver.network.serverpackets.PlaySound;
 /**
  * @author NB4L1
  */
-final class TvTRestriction extends AbstractFunEventRestriction
+public final class TvTRestriction extends AbstractFunEventRestriction
 {
 	@Override
 	boolean started()
@@ -49,6 +49,12 @@ final class TvTRestriction extends AbstractFunEventRestriction
 	boolean allowInterference()
 	{
 		return Config.TVT_ALLOW_INTERFERENCE;
+	}
+	
+	@Override
+	boolean joinCursed()
+	{
+		return Config.TVT_JOIN_CURSED;
 	}
 	
 	@Override

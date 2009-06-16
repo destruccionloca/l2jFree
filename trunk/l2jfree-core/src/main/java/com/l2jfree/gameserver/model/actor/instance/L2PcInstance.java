@@ -172,6 +172,7 @@ import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.model.quest.State;
 import com.l2jfree.gameserver.model.restriction.AvailableRestriction;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
+import com.l2jfree.gameserver.model.restriction.global.DuelRestriction;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.model.zone.L2JailZone;
 import com.l2jfree.gameserver.model.zone.L2Zone;
@@ -2922,11 +2923,14 @@ public final class L2PcInstance extends L2Playable
 	{
 		// If over capacity, drop the item
 		if (!isGM() && !getInventory().validateCapacity(0))
+		{
 			dropItem("InvDrop", newitem, null, true);
+		}
 		// Cursed Weapon
 		else if (CursedWeaponsManager.getInstance().isCursed(newitem.getItemId()))
 		{
-			CursedWeaponsManager.getInstance().activate(this, newitem);
+			if (!CursedWeaponsManager.getInstance().activate(this, newitem))
+				dropItem("CwDrop", newitem, null, true);
 		}
 		// Combat Flag
 		else if (FortSiegeManager.getInstance().isCombat(newitem.getItemId()))
@@ -2937,6 +2941,8 @@ public final class L2PcInstance extends L2Playable
 				if (fort != null)
 					fort.getSiege().announceToPlayer(new SystemMessage(SystemMessageId.C1_ACQUIRED_THE_FLAG), getName());
 			}
+			//else // FIXME: i'm not sure about this
+			//	dropItem("CombatFlagDrop", newitem, null, true);
 		}
 
 		// Auto use herbs - autoloot
@@ -9482,6 +9488,11 @@ public final class L2PcInstance extends L2Playable
 		if (isInsideZone(L2Zone.FLAG_PVP) || isInsideZone(L2Zone.FLAG_PEACE) || SiegeManager.getInstance().checkIfInZone(this))
 		{
 			_noDuelReason = SystemMessageId.C1_CANNOT_MAKE_A_CHALLANGE_TO_A_DUEL_BECAUSE_C1_IS_CURRENTLY_IN_A_DUEL_PROHIBITED_AREA.getId();
+			return false;
+		}
+		if (GlobalRestrictions.isRestricted(this, DuelRestriction.class))
+		{
+			_noDuelReason = SystemMessageId.C1_CANNOT_DUEL_BECAUSE_C1_IS_CURRENTLY_ENGAGED_IN_BATTLE.getId(); // TODO
 			return false;
 		}
 		return true;

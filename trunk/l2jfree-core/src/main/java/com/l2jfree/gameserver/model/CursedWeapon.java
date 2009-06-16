@@ -31,8 +31,8 @@ import com.l2jfree.gameserver.instancemanager.TransformationManager;
 import com.l2jfree.gameserver.model.actor.L2Attackable;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.entity.events.CTF;
-import com.l2jfree.gameserver.model.entity.events.TvT;
+import com.l2jfree.gameserver.model.restriction.global.CursedWeaponRestriction;
+import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.Earthquake;
 import com.l2jfree.gameserver.network.serverpackets.ExRedSky;
@@ -379,8 +379,14 @@ public class CursedWeapon
 		return false;
 	}
 
-	public void activate(L2PcInstance player, L2ItemInstance item)
+	public boolean activate(L2PcInstance player, L2ItemInstance item)
 	{
+		if (GlobalRestrictions.isRestricted(player, CursedWeaponRestriction.class))
+		{
+			// TODO: msg
+			return false;
+		}
+		
 		// if the player is mounted, attempt to unmount first.  Only allow picking up
 		// the zariche if unmounting is successful.
 		if (player.isMounted())
@@ -389,19 +395,10 @@ public class CursedWeapon
 			{
 				// TODO: correct this custom message.
 				player.sendMessage("You may not pick up this item while riding in this territory");
-				player.dropItem("InvDrop", item, null, true);
-				return;
+				return false;
 			}
 		}
-
-		if ((player._inEventTvT && !Config.TVT_JOIN_CURSED) || (player._inEventCTF && !Config.CTF_JOIN_CURSED))
-		{
-			if (player._inEventTvT)
-				TvT.removePlayer(player);
-			if (player._inEventCTF)
-				CTF.removePlayer(player);
-		}
-
+		
 		_isActivated = true;
 
 		// Player holding it data
@@ -458,6 +455,7 @@ public class CursedWeapon
 		sm.addZoneName(_player.getX(), _player.getY(), _player.getZ()); // Region Name
 		sm.addItemName(_item);
 		CursedWeaponsManager.announce(sm);
+		return true;
 	}
 
 	public void saveData()

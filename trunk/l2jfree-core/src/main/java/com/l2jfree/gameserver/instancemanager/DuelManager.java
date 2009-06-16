@@ -22,6 +22,8 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Duel;
+import com.l2jfree.gameserver.model.restriction.global.DuelRestriction;
+import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 
 public class DuelManager
@@ -85,6 +87,7 @@ public class DuelManager
 		if (partyDuel == 1)
 		{
 			boolean playerInPvP = false;
+			boolean isRestricted = false;
 			for (L2PcInstance temp : playerA.getParty().getPartyMembers())
 			{
 				if (temp.getPvpFlag() != 0)
@@ -92,14 +95,24 @@ public class DuelManager
 					playerInPvP = true;
 					break;
 				}
+				else if (GlobalRestrictions.isRestricted(temp, DuelRestriction.class))
+				{
+					isRestricted = true;
+					break;
+				}
 			}
-			if (!playerInPvP)
+			if (!playerInPvP && !isRestricted)
 			{
 				for (L2PcInstance temp : playerB.getParty().getPartyMembers())
 				{
 					if (temp.getPvpFlag() != 0)
 					{
 						playerInPvP = true;
+						break;
+					}
+					else if (GlobalRestrictions.isRestricted(temp, DuelRestriction.class))
+					{
+						isRestricted = true;
 						break;
 					}
 				}
@@ -117,6 +130,18 @@ public class DuelManager
 				}
 				return;
 			}
+			else if (isRestricted)
+			{
+				for (L2PcInstance temp : playerA.getParty().getPartyMembers())
+				{
+					temp.sendMessage("The duel was canceled because a duelist is in a restricted state."); // TODO
+				}
+				for (L2PcInstance temp : playerB.getParty().getPartyMembers())
+				{
+					temp.sendMessage("The duel was canceled because a duelist is in a restricted state."); // TODO
+				}
+				return;
+			}
 		}
 		else
 		{
@@ -124,6 +149,13 @@ public class DuelManager
 			{
 				playerA.sendMessage(engagedInPvP);
 				playerB.sendMessage(engagedInPvP);
+				return;
+			}
+			else if (GlobalRestrictions.isRestricted(playerA, DuelRestriction.class)
+				|| GlobalRestrictions.isRestricted(playerB, DuelRestriction.class))
+			{
+				playerA.sendMessage("The duel was canceled because a duelist is in a restricted state.");
+				playerB.sendMessage("The duel was canceled because a duelist is in a restricted state.");
 				return;
 			}
 		}

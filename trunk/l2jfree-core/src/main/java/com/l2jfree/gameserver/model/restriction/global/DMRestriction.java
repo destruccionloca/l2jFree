@@ -24,7 +24,7 @@ import com.l2jfree.gameserver.model.entity.events.DM;
 /**
  * @author NB4L1
  */
-final class DMRestriction extends AbstractFunEventRestriction
+public final class DMRestriction extends AbstractFunEventRestriction
 {
 	@Override
 	boolean started()

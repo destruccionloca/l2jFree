@@ -41,6 +41,7 @@ import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
+import com.l2jfree.gameserver.model.restriction.global.DMRestriction;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
@@ -608,7 +609,7 @@ public class DM
 
 	public static boolean addPlayerOk(L2PcInstance eventPlayer)
 	{
-		if (GlobalRestrictions.isRestricted(eventPlayer))
+		if (GlobalRestrictions.isRestricted(eventPlayer, DMRestriction.class))
 		{
 			// TODO: msg
 			return false;

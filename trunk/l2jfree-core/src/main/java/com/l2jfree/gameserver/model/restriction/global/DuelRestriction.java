@@ -23,10 +23,10 @@ import com.l2jfree.gameserver.model.entity.Duel;
 /**
  * @author NB4L1
  */
-final class DuelRestriction extends AbstractRestriction
+public final class DuelRestriction extends AbstractRestriction
 {
 	@Override
-	public boolean isRestricted(L2PcInstance activeChar)
+	public boolean isRestricted(L2PcInstance activeChar, Class<? extends GlobalRestriction> callingRestriction)
 	{
 		if (activeChar.isInDuel())
 		{

@@ -36,6 +36,8 @@ import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
+import com.l2jfree.gameserver.model.restriction.global.TvTiRestriction;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
@@ -511,6 +513,12 @@ public class TvTIMain
 
 	public static void addPlayer(L2PcInstance player, int instanceId)
 	{
+		if (GlobalRestrictions.isRestricted(player, TvTiRestriction.class))
+		{
+			// TODO: msg
+			return;
+		}
+		
 		for (TVTInstance i : _instances)
 			if (i.getInstanceId() == instanceId)
 			{

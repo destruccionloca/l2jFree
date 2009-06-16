@@ -197,11 +197,12 @@ public final class GlobalRestrictions
 	
 	/**
 	 * @param activeChar
+	 * @param callingRestriction
 	 * @return <b>true</b> if the player shouldn't be affected by any other kind of event system,<br>
 	 *         because it's already participating in one, or it's just simply in a forbidden state<br>
 	 *         <b>false</b> otherwise
 	 */
-	public static boolean isRestricted(L2PcInstance activeChar)
+	public static boolean isRestricted(L2PcInstance activeChar, Class<? extends GlobalRestriction> callingRestriction)
 	{
 		// Cannot mess with observation
 		if (activeChar.inObserverMode()) // normal/olympiad observing
@@ -224,7 +225,7 @@ public final class GlobalRestrictions
 		}
 		
 		for (GlobalRestriction restriction : _restrictions[RestrictionMode.isRestricted.ordinal()])
-			if (restriction.isRestricted(activeChar))
+			if (restriction.isRestricted(activeChar, callingRestriction))
 				return true;
 		
 		return false;

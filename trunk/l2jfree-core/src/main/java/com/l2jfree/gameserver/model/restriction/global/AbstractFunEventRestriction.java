@@ -38,13 +38,24 @@ abstract class AbstractFunEventRestriction extends AbstractRestriction
 	
 	abstract boolean allowInterference();
 	
+	boolean joinCursed()
+	{
+		return false;
+	}
+	
 	abstract boolean isInFunEvent(L2PcInstance player);
 	
 	@Override
-	public final boolean isRestricted(L2PcInstance activeChar)
+	public final boolean isRestricted(L2PcInstance activeChar, Class<? extends GlobalRestriction> callingRestriction)
 	{
 		if (isInFunEvent(activeChar))
 		{
+			if (callingRestriction == CursedWeaponRestriction.class)
+			{
+				if (joinCursed())
+					return false;
+			}
+			
 			activeChar.sendMessage("You are participating in a fun event!");
 			return true;
 		}

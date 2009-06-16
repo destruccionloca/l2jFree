@@ -43,6 +43,8 @@ import com.l2jfree.gameserver.Announcements;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Hero;
+import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
+import com.l2jfree.gameserver.model.restriction.global.OlympiadRestriction;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -336,6 +338,12 @@ public final class Olympiad
 	
 	public boolean registerNoble(L2PcInstance noble, boolean classBased)
 	{
+		if (GlobalRestrictions.isRestricted(noble, OlympiadRestriction.class))
+		{
+			// TODO: msg
+			return false;
+		}
+		
 		SystemMessage sm;
 		
 		/*

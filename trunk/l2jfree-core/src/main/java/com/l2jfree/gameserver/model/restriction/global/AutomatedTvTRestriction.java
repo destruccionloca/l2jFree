@@ -26,10 +26,10 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 /**
  * @author NB4L1
  */
-final class AutomatedTvTRestriction extends AbstractRestriction// extends AbstractFunEventRestriction
+public final class AutomatedTvTRestriction extends AbstractRestriction// extends AbstractFunEventRestriction
 {
 	@Override
-	public boolean isRestricted(L2PcInstance activeChar)
+	public boolean isRestricted(L2PcInstance activeChar, Class<? extends GlobalRestriction> callingRestriction)
 	{
 		if (AutomatedTvT.isReged(activeChar) || AutomatedTvT.isPlaying(activeChar))
 		{

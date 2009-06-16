@@ -28,7 +28,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  */
 public interface GlobalRestriction
 {
-	public boolean isRestricted(L2PcInstance activeChar);
+	public boolean isRestricted(L2PcInstance activeChar, Class<? extends GlobalRestriction> callingRestriction);
 	
 	public boolean canInviteToParty(L2PcInstance activeChar, L2PcInstance target);
 	

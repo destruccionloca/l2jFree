@@ -25,7 +25,7 @@ import com.l2jfree.gameserver.model.entity.events.VIP;
 /**
  * @author NB4L1
  */
-final class VIPRestriction extends AbstractFunEventRestriction
+public final class VIPRestriction extends AbstractFunEventRestriction
 {
 	@Override
 	boolean started()

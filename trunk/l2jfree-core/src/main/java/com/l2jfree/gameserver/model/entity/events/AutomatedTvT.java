@@ -34,6 +34,7 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.restriction.global.AutomatedTvTRestriction;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -473,7 +474,7 @@ public final class AutomatedTvT
 	private final boolean canJoin(L2PcInstance player)
 	{
 		// Cannot mess with observation, Olympiad, raids or sieges
-		if (GlobalRestrictions.isRestricted(player))
+		if (GlobalRestrictions.isRestricted(player, AutomatedTvTRestriction.class))
 			return false;
 		
 		// Level restrictions

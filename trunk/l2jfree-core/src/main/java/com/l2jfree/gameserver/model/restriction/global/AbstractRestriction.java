@@ -34,7 +34,7 @@ public abstract class AbstractRestriction implements GlobalRestriction
 	static final Log _log = LogFactory.getLog(AbstractRestriction.class);
 	
 	@DisabledRestriction
-	public boolean isRestricted(L2PcInstance activeChar)
+	public boolean isRestricted(L2PcInstance activeChar, Class<? extends GlobalRestriction> callingRestriction)
 	{
 		throw new AbstractMethodError();
 	}

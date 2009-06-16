@@ -306,26 +306,29 @@ public class CursedWeaponsManager
 		}
 	}
 
-	public void activate(L2PcInstance player, L2ItemInstance item)
+	public boolean activate(L2PcInstance player, L2ItemInstance item)
 	{
 		if (Config.ALLOW_CURSED_WEAPONS)
 		{
 			CursedWeapon cw = _cursedWeapons.get(item.getItemId());
-
+			
 			if (player.isCursedWeaponEquipped()) // cannot own 2 cursed swords
 			{
 				CursedWeapon cw2 = _cursedWeapons.get(player.getCursedWeaponEquippedId());
-
+				
 				cw2.setNbKills(cw2.getStageKills() - 1);
 				cw2.increaseKills();
-
+				
 				// Erase the newly obtained cursed weapon
 				cw.setPlayer(player); // NECESSARY in order to find which inventory the weapon is in!
 				cw.endOfLife(); // expire the weapon and clean up.
+				return true;
 			}
 			else
-				cw.activate(player, item);
+				return cw.activate(player, item);
 		}
+		else
+			return false;
 	}
 
 	public void drop(int itemId, L2Character killer)

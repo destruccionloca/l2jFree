@@ -23,7 +23,7 @@ import com.l2jfree.gameserver.model.zone.L2Zone;
 final class JailRestriction extends AbstractRestriction
 {
 	@Override
-	public boolean isRestricted(L2PcInstance activeChar)
+	public boolean isRestricted(L2PcInstance activeChar, Class<? extends GlobalRestriction> callingRestriction)
 	{
 		if (isInJail(activeChar))
 		{

@@ -22,10 +22,10 @@ import com.l2jfree.gameserver.model.entity.L2Event;
 /**
  * @author NB4L1
  */
-final class L2EventRestriction extends AbstractRestriction// extends AbstractFunEventRestriction
+public final class L2EventRestriction extends AbstractRestriction// extends AbstractFunEventRestriction
 {
 	@Override
-	public boolean isRestricted(L2PcInstance activeChar)
+	public boolean isRestricted(L2PcInstance activeChar, Class<? extends GlobalRestriction> callingRestriction)
 	{
 		if (activeChar.atEvent)
 		{

@@ -33,6 +33,8 @@ import com.l2jfree.gameserver.datatables.SpawnTable;
 import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
+import com.l2jfree.gameserver.model.restriction.global.L2EventRestriction;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
@@ -226,7 +228,12 @@ public class L2Event
 
     public static void inscribePlayer(L2PcInstance player)
     {
-
+		if (GlobalRestrictions.isRestricted(player, L2EventRestriction.class))
+		{
+			// TODO: msg
+			return;
+		}
+		
         try
         {
             L2Event.participatingPlayers.add(player.getName());

@@ -23,10 +23,10 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 /**
  * @author NB4L1
  */
-final class CursedWeaponRestriction extends AbstractRestriction
+public final class CursedWeaponRestriction extends AbstractRestriction
 {
 	@Override
-	public boolean isRestricted(L2PcInstance activeChar)
+	public boolean isRestricted(L2PcInstance activeChar, Class<? extends GlobalRestriction> callingRestriction)
 	{
 		if (activeChar.isCursedWeaponEquipped())
 		{

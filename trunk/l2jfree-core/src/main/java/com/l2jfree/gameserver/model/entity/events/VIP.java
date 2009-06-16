@@ -41,6 +41,7 @@ import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.base.Race;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
+import com.l2jfree.gameserver.model.restriction.global.VIPRestriction;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -981,7 +982,7 @@ public class VIP {
 
 	public static void addPlayerVIP(L2PcInstance activeChar)
 	{
-		if (GlobalRestrictions.isRestricted(activeChar))
+		if (GlobalRestrictions.isRestricted(activeChar, VIPRestriction.class))
 		{
 			// TODO: msg
 			return;
@@ -1007,7 +1008,7 @@ public class VIP {
 
 	public static void addPlayerNotVIP(L2PcInstance activeChar)
 	{
-		if (GlobalRestrictions.isRestricted(activeChar))
+		if (GlobalRestrictions.isRestricted(activeChar, VIPRestriction.class))
 		{
 			// TODO: msg
 			return;

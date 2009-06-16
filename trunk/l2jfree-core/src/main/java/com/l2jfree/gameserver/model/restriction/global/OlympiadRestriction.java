@@ -26,10 +26,10 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 /**
  * @author NB4L1
  */
-final class OlympiadRestriction extends AbstractRestriction
+public final class OlympiadRestriction extends AbstractRestriction
 {
 	@Override
-	public boolean isRestricted(L2PcInstance activeChar)
+	public boolean isRestricted(L2PcInstance activeChar, Class<? extends GlobalRestriction> callingRestriction)
 	{
 		// TODO: merge different checking methods to one
 		if (activeChar.isInOlympiadMode() || Olympiad.getInstance().isRegistered(activeChar) || activeChar.getOlympiadGameId() != -1)
