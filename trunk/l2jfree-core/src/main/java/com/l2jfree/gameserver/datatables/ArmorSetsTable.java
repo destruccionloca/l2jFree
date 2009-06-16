@@ -58,7 +58,7 @@ public class ArmorSetsTable
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement = con
-					.prepareStatement("SELECT chest, legs, head, gloves, feet, skill_id, skill_lvl, shield, shield_skill_id, enchant6skill, mw_chest, mw_legs, mw_head, mw_gloves, mw_feet, mw_shield FROM armorsets");
+					.prepareStatement("SELECT chest, legs, head, gloves, feet, skill_id, skill_lvl, shield, shield_skill_id, enchant6skill, mw_legs, mw_head, mw_gloves, mw_feet, mw_shield FROM armorsets");
 			ResultSet rset = statement.executeQuery();
 
 			while (rset.next())
