@@ -43,6 +43,7 @@ import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
+import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
@@ -1345,6 +1346,12 @@ public class TvT
 
 	public static boolean addPlayerOk(String teamName, L2PcInstance eventPlayer)
 	{
+		if (GlobalRestrictions.isRestricted(eventPlayer))
+		{
+			// TODO: msg
+			return false;
+		}
+		
 		try
 		{
 			if (checkShufflePlayers(eventPlayer) || eventPlayer._inEventTvT)
@@ -1646,5 +1653,5 @@ public class TvT
 				summon.teleToLocation(summon.getOwner().getX(), summon.getOwner().getY(), summon.getOwner().getZ(), false);
 			}
 		}, Config.TVT_REVIVE_DELAY);
-	}	
+	}
 }

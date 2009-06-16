@@ -31,15 +31,10 @@ final class OlympiadRestriction extends AbstractRestriction
 	@Override
 	public boolean isRestricted(L2PcInstance activeChar)
 	{
-		if (activeChar.isInOlympiadMode())
+		// TODO: merge different checking methods to one
+		if (activeChar.isInOlympiadMode() || Olympiad.getInstance().isRegistered(activeChar) || activeChar.getOlympiadGameId() != -1)
 		{
 			activeChar.sendMessage("You are registered on Grand Olympiad Games!");
-			return true;
-		}
-		
-		if (activeChar.getOlympiadGameId() != -1 || activeChar.inObserverMode())
-		{
-			activeChar.sendMessage("You are observing Grand Olympiad Games!");
 			return true;
 		}
 		

@@ -34,8 +34,7 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.olympiad.Olympiad;
-import com.l2jfree.gameserver.model.zone.L2Zone;
+import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
@@ -473,16 +472,13 @@ public final class AutomatedTvT
 
 	private final boolean canJoin(L2PcInstance player)
 	{
+		// Cannot mess with observation, Olympiad, raids or sieges
+		if (GlobalRestrictions.isRestricted(player))
+			return false;
+		
 		// Level restrictions
 		boolean can = player.getLevel() <= Config.AUTO_TVT_LEVEL_MAX;
 		can &= player.getLevel() >= Config.AUTO_TVT_LEVEL_MIN;
-		// Cannot mess with observation
-		can &= !player.inObserverMode();
-		// Cannot mess with Olympiad
-		can &= !(player.isInOlympiadMode() || Olympiad.getInstance().isRegistered(player));
-		// Cannot mess with raids or sieges
-		can &= !player.isInsideZone(L2Zone.FLAG_NOESCAPE);
-		can &= !(player.getMountType() == 2 && player.isInsideZone(L2Zone.FLAG_NOWYVERN));
 		// Hero restriction
 		if (!Config.AUTO_TVT_REGISTER_HERO)
 			can &= !player.isHero();
@@ -754,13 +750,13 @@ public final class AutomatedTvT
 		private Participant(int team, L2PcInstance player)
 		{
 			this.team = team;
-			this.objectID = player.getObjectId();
-			this.loc = player.getLoc();
-			this.title = player.getTitle();
-			this.nameColor = player.getAppearance().getNameColor();
+			objectID = player.getObjectId();
+			loc = player.getLoc();
+			title = player.getTitle();
+			nameColor = player.getAppearance().getNameColor();
 			this.player = player;
-			this.points = 0;
-			this.killsNoDeath = 0;
+			points = 0;
+			killsNoDeath = 0;
 		}
 
 		public final L2PcInstance getPlayer()
@@ -844,10 +840,10 @@ public final class AutomatedTvT
 		private Team(int[] rgb)
 		{
 			//this.id = id;
-			this.r = rgb[0];
-			this.g = rgb[1];
-			this.b = rgb[2];
-			this.points = 0;
+			r = rgb[0];
+			g = rgb[1];
+			b = rgb[2];
+			points = 0;
 		}
 
 		private Team(int color)

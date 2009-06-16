@@ -47,6 +47,7 @@ import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
+import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
@@ -1879,6 +1880,12 @@ public class CTF
 
 	public static boolean addPlayerOk(String teamName, L2PcInstance eventPlayer)
 	{
+		if (GlobalRestrictions.isRestricted(eventPlayer))
+		{
+			// TODO: msg
+			return false;
+		}
+		
 		try
 		{
 			if (checkShufflePlayers(eventPlayer) || eventPlayer._inEventCTF)

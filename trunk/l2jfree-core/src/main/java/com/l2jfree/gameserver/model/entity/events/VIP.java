@@ -40,6 +40,7 @@ import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.base.Race;
+import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -980,6 +981,12 @@ public class VIP {
 
 	public static void addPlayerVIP(L2PcInstance activeChar)
 	{
+		if (GlobalRestrictions.isRestricted(activeChar))
+		{
+			// TODO: msg
+			return;
+		}
+		
 		if (activeChar._inEventVIP)
 		{
 			activeChar.sendMessage("You are already participating in the event!");
@@ -1000,6 +1007,12 @@ public class VIP {
 
 	public static void addPlayerNotVIP(L2PcInstance activeChar)
 	{
+		if (GlobalRestrictions.isRestricted(activeChar))
+		{
+			// TODO: msg
+			return;
+		}
+		
 		if (activeChar._inEventVIP)
 		{
 			activeChar.sendMessage("You are already participating in the event!");

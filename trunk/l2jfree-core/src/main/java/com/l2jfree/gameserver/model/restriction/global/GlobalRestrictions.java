@@ -195,8 +195,34 @@ public final class GlobalRestrictions
 		activate(new OlympiadRestriction());
 	}
 	
+	/**
+	 * @param activeChar
+	 * @return <b>true</b> if the player shouldn't be affected by any other kind of event system,<br>
+	 *         because it's already participating in one, or it's just simply in a forbidden state<br>
+	 *         <b>false</b> otherwise
+	 */
 	public static boolean isRestricted(L2PcInstance activeChar)
 	{
+		// Cannot mess with observation
+		if (activeChar.inObserverMode()) // normal/olympiad observing
+		{
+			activeChar.sendMessage("You are in observer mode!");
+			return true;
+		}
+		
+		// Cannot mess with raids or sieges
+		if (activeChar.isInsideZone(L2Zone.FLAG_NOESCAPE))
+		{
+			// TODO: msg
+			return true;
+		}
+		
+		if (activeChar.getMountType() == 2 && activeChar.isInsideZone(L2Zone.FLAG_NOWYVERN))
+		{
+			// TODO: msg
+			return true;
+		}
+		
 		for (GlobalRestriction restriction : _restrictions[RestrictionMode.isRestricted.ordinal()])
 			if (restriction.isRestricted(activeChar))
 				return true;
