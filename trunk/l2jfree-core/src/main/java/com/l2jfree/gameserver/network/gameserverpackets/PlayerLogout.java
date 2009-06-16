@@ -14,31 +14,15 @@
  */
 package com.l2jfree.gameserver.network.gameserverpackets;
 
-import java.io.IOException;
-
 /**
  * @author -Wooden-
  * 
  */
 public class PlayerLogout extends GameServerBasePacket
 {
-	public PlayerLogout(String player)
+	public PlayerLogout(int protocol, String player)
 	{
-		writeC(0x03);
+		super(protocol, 0x03);
 		writeS(player);
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.l2jfree.gameserver.gameserverpackets.GameServerBasePacket#getContent
-	 * ()
-	 */
-	@Override
-	public byte[] getContent() throws IOException
-	{
-		return getBytes();
-	}
-
 }

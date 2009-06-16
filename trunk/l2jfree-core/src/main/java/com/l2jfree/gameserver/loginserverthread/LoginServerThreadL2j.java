@@ -50,7 +50,7 @@ import com.l2jfree.tools.util.HexUtil;
 public class LoginServerThreadL2j extends LoginServerThread
 {
 	/** {@see com.l2jfree.loginserver.LoginServer#PROTOCOL_REV } */
-	private static final int			REVISION	= 0x0102;
+	private static final int			REVISION	= CrossLoginServerThread.PROTOCOL_L2J;
 	
 	@Override
 	public void run()
@@ -145,7 +145,7 @@ public class LoginServerThreadL2j extends LoginServerThread
 								break;
 							}
 							// send the blowfish key through the rsa encryption
-							BlowFishKey bfk = new BlowFishKey(_blowfishKey, _publicKey);
+							BlowFishKey bfk = new BlowFishKey(REVISION, _blowfishKey, _publicKey);
 							sendPacket(bfk);
 							if (_log.isDebugEnabled())
 								_log.info("Sent new blowfish key");
@@ -153,7 +153,7 @@ public class LoginServerThreadL2j extends LoginServerThread
 							_blowfish = new NewCrypt(_blowfishKey);
 							if (_log.isDebugEnabled())
 								_log.info("Changed blowfish key");
-							AuthRequest ar = new AuthRequest(_requestID, _acceptAlternate, _hexID, _gameExternalHost, _gameInternalHost, _gamePort, _reserveHost, _maxPlayer);
+							AuthRequest ar = new AuthRequest(REVISION, _requestID, _acceptAlternate, _hexID, _gameExternalHost, _gameInternalHost, _gamePort, _reserveHost, _maxPlayer);
 							sendPacket(ar);
 							if (_log.isDebugEnabled())
 								_log.debug("Sent AuthRequest to login");
@@ -164,7 +164,7 @@ public class LoginServerThreadL2j extends LoginServerThread
 							// login will close the connection here
 							break;
 						case 02:
-							AuthResponse aresp = new AuthResponse(decrypt);
+							AuthResponse aresp = new AuthResponse(REVISION, decrypt);
 							_serverID = aresp.getServerId();
 							_serverName = aresp.getServerName();
 							Config.saveHexid(_serverID, hexToString(_hexID));
@@ -210,12 +210,12 @@ public class LoginServerThreadL2j extends LoginServerThread
 								{
 									playerList.add(player.getAccountName());
 								}
-								PlayerInGame pig = new PlayerInGame(playerList);
+								PlayerInGame pig = new PlayerInGame(REVISION, playerList.toArray(new String[playerList.size()]));
 								sendPacket(pig);
 							}
 							break;
 						case 03:
-							PlayerAuthResponse par = new PlayerAuthResponse(decrypt);
+							PlayerAuthResponse par = new PlayerAuthResponse(REVISION, decrypt);
 							String account = par.getAccount();
 							WaitingClient wcToRemove = null;
 
@@ -235,7 +235,7 @@ public class LoginServerThreadL2j extends LoginServerThread
 								{
 									if (_log.isDebugEnabled())
 										_log.debug("Login accepted player " + wcToRemove.account + " waited(" + (GameTimeController.getGameTicks() - wcToRemove.timestamp) + "ms)");
-									PlayerInGame pig = new PlayerInGame(par.getAccount());
+									PlayerInGame pig = new PlayerInGame(REVISION, par.getAccount());
 									sendPacket(pig);
 									wcToRemove.gameClient.setState(GameClientState.AUTHED);
 									wcToRemove.gameClient.setSessionId(wcToRemove.session);
@@ -256,7 +256,7 @@ public class LoginServerThreadL2j extends LoginServerThread
 							}
 							break;
 						case 04:
-							KickPlayer kp = new KickPlayer(decrypt);
+							KickPlayer kp = new KickPlayer(CrossLoginServerThread.PROTOCOL_L2J, decrypt);
 							doKickPlayer(kp.getAccount());
 							break;
 					}
@@ -370,5 +370,11 @@ public class LoginServerThreadL2j extends LoginServerThread
 	public void setMaxPlayers(int maxPlayer)
 	{
 		_maxPlayer = maxPlayer;
+	}
+
+	@Override
+	protected int getProtocol()
+	{
+		return REVISION;
 	}
 }

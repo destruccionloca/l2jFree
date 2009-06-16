@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.network.gameserverpackets;
 
-import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.security.interfaces.RSAPublicKey;
 
@@ -29,15 +28,15 @@ import org.apache.commons.logging.LogFactory;
  */
 public class BlowFishKey extends GameServerBasePacket
 {
-	private final static Log	_log	= LogFactory.getLog(BlowFishKey.class.getName());
+	private final static Log	_log	= LogFactory.getLog(BlowFishKey.class);
 
 	/**
 	 * @param blowfishKey
 	 * @param publicKey
 	 */
-	public BlowFishKey(byte[] blowfishKey, RSAPublicKey publicKey)
+	public BlowFishKey(int protocol, byte[] blowfishKey, RSAPublicKey publicKey)
 	{
-		writeC(0x00);
+		super(protocol, 0x00);
 		byte[] encrypted = null;
 		try
 		{
@@ -53,18 +52,4 @@ public class BlowFishKey extends GameServerBasePacket
 			_log.fatal("Error While encrypting blowfish key for transmision (Crypt error)", e);
 		}
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.l2jfree.gameserver.gameserverpackets.GameServerBasePacket#getContent
-	 * ()
-	 */
-	@Override
-	public byte[] getContent() throws IOException
-	{
-		return getBytes();
-	}
-
 }

@@ -14,8 +14,9 @@
  */
 package com.l2jfree.gameserver.network.gameserverpackets;
 
-import java.io.IOException;
 import java.util.Vector;
+
+import com.l2jfree.gameserver.loginserverthread.CrossLoginServerThread;
 
 public class ServerStatusL2j extends GameServerBasePacket
 {
@@ -53,6 +54,7 @@ public class ServerStatusL2j extends GameServerBasePacket
 
 	public ServerStatusL2j()
 	{
+		super(CrossLoginServerThread.PROTOCOL_L2J, 0x06);
 		_attributes = new Vector<Attribute>();
 	}
 
@@ -61,17 +63,9 @@ public class ServerStatusL2j extends GameServerBasePacket
 		_attributes.add(new Attribute(id, value));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.l2jfree.gameserver.gameserverpackets.GameServerBasePacket#getContent
-	 * ()
-	 */
 	@Override
-	public byte[] getContent() throws IOException
+	public byte[] getContent()
 	{
-		writeC(0x06);
 		writeD(_attributes.size());
 		for (int i = 0; i < _attributes.size(); i++)
 		{

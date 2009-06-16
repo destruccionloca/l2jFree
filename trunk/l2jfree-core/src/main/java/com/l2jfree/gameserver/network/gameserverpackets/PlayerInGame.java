@@ -14,42 +14,17 @@
  */
 package com.l2jfree.gameserver.network.gameserverpackets;
 
-import java.io.IOException;
-
-import javolution.util.FastList;
-
 /**
  * @author -Wooden-
  * 
  */
 public class PlayerInGame extends GameServerBasePacket
 {
-	public PlayerInGame(String player)
+	public PlayerInGame(int protocol, String... players)
 	{
-		writeC(0x02);
-		writeH(1);
-		writeS(player);
-	}
-
-	public PlayerInGame(FastList<String> players)
-	{
-		writeC(0x02);
-		writeH(players.size());
+		super(protocol, 0x02);
+		writeH(players.length);
 		for (String pc : players)
 			writeS(pc);
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.l2jfree.gameserver.gameserverpackets.GameServerBasePacket#getContent
-	 * ()
-	 */
-	@Override
-	public byte[] getContent() throws IOException
-	{
-		return getBytes();
-	}
-
 }

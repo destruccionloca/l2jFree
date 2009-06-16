@@ -14,8 +14,6 @@
  */
 package com.l2jfree.gameserver.network.gameserverpackets;
 
-import java.io.IOException;
-
 public class AuthRequest extends GameServerBasePacket
 {
 	/**
@@ -30,9 +28,9 @@ public class AuthRequest extends GameServerBasePacket
 	 * @param reserveHost
 	 * @param maxplayer
 	 */
-	public AuthRequest(int id, boolean acceptAlternate, byte[] hexid, String _gsNetConfig1, String _gsNetConfig2, int port, boolean reserveHost, int maxplayer)
+	public AuthRequest(int protocol, int id, boolean acceptAlternate, byte[] hexid, String _gsNetConfig1, String _gsNetConfig2, int port, boolean reserveHost, int maxplayer)
 	{
-		writeC(0x01);
+		super(protocol, 0x01);
 		writeC(id);
 		writeC(acceptAlternate ? 0x01 : 0x00);
 		writeC(reserveHost ? 0x01 : 0x00);
@@ -42,18 +40,5 @@ public class AuthRequest extends GameServerBasePacket
 		writeD(maxplayer);
 		writeD(hexid.length);
 		writeB(hexid);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.l2jfree.gameserver.gameserverpackets.GameServerBasePacket#getContent
-	 * ()
-	 */
-	@Override
-	public byte[] getContent() throws IOException
-	{
-		return getBytes();
 	}
 }

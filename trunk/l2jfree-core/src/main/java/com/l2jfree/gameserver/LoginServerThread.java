@@ -30,6 +30,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.loginserverthread.CrossLoginServerThread;
 import com.l2jfree.gameserver.loginserverthread.LoginServerThreadL2j;
 import com.l2jfree.gameserver.loginserverthread.LoginServerThreadL2jfree;
 import com.l2jfree.gameserver.network.L2GameClient;
@@ -51,10 +52,15 @@ public abstract class LoginServerThread extends Thread
 	{
 		if (_instance == null)
 		{
-			if (Config.L2JFREE_LOGIN)
-				_instance = new LoginServerThreadL2jfree();
+			if (!Config.NEW_LOGIN_PROTOCOL)
+			{
+				if (Config.L2JFREE_LOGIN)
+					_instance = new LoginServerThreadL2jfree();
+				else
+					_instance = new LoginServerThreadL2j();
+			}
 			else
-				_instance = new LoginServerThreadL2j();
+				_instance = new CrossLoginServerThread();
 		}
 		
 		return _instance;
@@ -141,7 +147,7 @@ public abstract class LoginServerThread extends Thread
 			
 			_waitingClients.add(new WaitingClient(acc, client, key));
 		}
-		PlayerAuthRequest par = new PlayerAuthRequest(acc, key);
+		PlayerAuthRequest par = new PlayerAuthRequest(getProtocol(), acc, key);
 		try
 		{
 			sendPacket(par);
@@ -181,7 +187,7 @@ public abstract class LoginServerThread extends Thread
 		
 		try
 		{
-			sendPacket(new PlayerLogout(account));
+			sendPacket(new PlayerLogout(getProtocol(), account));
 		}
 		catch (IOException e)
 		{
@@ -196,7 +202,7 @@ public abstract class LoginServerThread extends Thread
 	
 	public void sendAccessLevel(String account, int level)
 	{
-		ChangeAccessLevel cal = new ChangeAccessLevel(account, level);
+		ChangeAccessLevel cal = new ChangeAccessLevel(getProtocol(), account, level);
 		try
 		{
 			sendPacket(cal);
@@ -319,4 +325,6 @@ public abstract class LoginServerThread extends Thread
 	public abstract int getMaxPlayer();
 	
 	public abstract void setMaxPlayers(int maxPlayer);
+
+	protected abstract int getProtocol();
 }

@@ -30,15 +30,14 @@ import javolution.util.FastList;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.LoginServerThread;
-import com.l2jfree.gameserver.Shutdown;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.Disconnection;
 import com.l2jfree.gameserver.network.L2GameClient.GameClientState;
 import com.l2jfree.gameserver.network.gameserverpackets.AuthRequest;
 import com.l2jfree.gameserver.network.gameserverpackets.BlowFishKey;
+import com.l2jfree.gameserver.network.gameserverpackets.CompatibleProtocol;
 import com.l2jfree.gameserver.network.gameserverpackets.PlayerInGame;
-import com.l2jfree.gameserver.network.gameserverpackets.ServerStatusL2jfree;
+import com.l2jfree.gameserver.network.gameserverpackets.ServerStatus;
 import com.l2jfree.gameserver.network.loginserverpackets.AuthResponse;
 import com.l2jfree.gameserver.network.loginserverpackets.InitLS;
 import com.l2jfree.gameserver.network.loginserverpackets.KickPlayer;
@@ -49,12 +48,18 @@ import com.l2jfree.gameserver.network.serverpackets.LoginFail;
 import com.l2jfree.tools.security.NewCrypt;
 import com.l2jfree.tools.util.HexUtil;
 
-public class LoginServerThreadL2jfree extends LoginServerThread
+/**
+ * @author savormix
+ */
+public final class CrossLoginServerThread extends LoginServerThread
 {
-	/** {@see com.l2jfree.loginserver.LoginServer#PROTOCOL_REV } */
-	private static final int				REVISION	= CrossLoginServerThread.PROTOCOL_LEGACY;
+	public static final int PROTOCOL_L2J = 258;
+	public static final int PROTOCOL_LEGACY = 259;
+	public static final int PROTOCOL_CURRENT = 1;
 
-	public LoginServerThreadL2jfree()
+	private int _protocol;
+
+	public CrossLoginServerThread()
 	{
 		super();
 	}
@@ -131,11 +136,22 @@ public class LoginServerThreadL2jfree extends LoginServerThread
 							InitLS init = new InitLS(decrypt);
 							if (_log.isDebugEnabled())
 								_log.debug("Init received");
-							if (init.getRevision() != REVISION)
+							if (init.getRevision() != PROTOCOL_L2J || init.getRevision() != PROTOCOL_LEGACY)
 							{
-								_log.warn("/!\\ Revision mismatch between LS and GS /!\\");
+								// WTF? Some retard thinks he is God?
+								_log.warn("The specified login server does not support L2J!");
 								break;
 							}
+							else if (init.getTrueRevision() != -1 &&
+									init.getTrueRevision() == PROTOCOL_CURRENT)
+							{
+								// Fully compatible login
+								_protocol = init.getTrueRevision();
+								sendPacket(new CompatibleProtocol());
+							}
+							else
+								// Default compatibility login
+								_protocol = init.getRevision();
 							try
 							{
 								KeyFactory kfac = KeyFactory.getInstance("RSA");
@@ -152,7 +168,7 @@ public class LoginServerThreadL2jfree extends LoginServerThread
 								break;
 							}
 							// send the blowfish key through the rsa encryption
-							BlowFishKey bfk = new BlowFishKey(REVISION, _blowfishKey, _publicKey);
+							BlowFishKey bfk = new BlowFishKey(_protocol, _blowfishKey, _publicKey);
 							sendPacket(bfk);
 							if (_log.isDebugEnabled())
 								_log.info("Sent new blowfish key");
@@ -160,7 +176,7 @@ public class LoginServerThreadL2jfree extends LoginServerThread
 							_blowfish = new NewCrypt(_blowfishKey);
 							if (_log.isDebugEnabled())
 								_log.info("Changed blowfish key");
-							AuthRequest ar = new AuthRequest(REVISION, _requestID, _acceptAlternate, _hexID, _gameExternalHost, _gameInternalHost, _gamePort, _reserveHost, _maxPlayer);
+							AuthRequest ar = new AuthRequest(_protocol, _requestID, _acceptAlternate, _hexID, _gameExternalHost, _gameInternalHost, _gamePort, _reserveHost, _maxPlayer);
 							sendPacket(ar);
 							if (_log.isDebugEnabled())
 								_log.debug("Sent AuthRequest to login");
@@ -176,42 +192,35 @@ public class LoginServerThreadL2jfree extends LoginServerThread
 							_serverName = aresp.getServerName();
 							Config.saveHexid(_serverID, hexToString(_hexID));
 							_log.info("Registered on login as Server " + _serverID + " : " + _serverName);
-							ServerStatusL2jfree st = new ServerStatusL2jfree();
-							st.addAttribute(ServerStatusL2jfree.SERVER_LIST_PVP, Config.SERVER_PVP);
+							ServerStatus st = new ServerStatus(_protocol);
+							st.addAttribute(ServerStatus.SERVER_LIST_PVP, Config.SERVER_PVP);
 							//max players already sent with auth
-							st.addAttribute(ServerStatusL2jfree.SERVER_LIST_STATUS, Config.SERVER_GMONLY);
+							st.addAttribute(ServerStatus.SERVER_LIST_STATUS, Config.SERVER_GMONLY);
 							_status = (Config.SERVER_GMONLY ? 1 : 0);
-							st.addAttribute(ServerStatusL2jfree.SERVER_LIST_UNK, Config.SERVER_BIT_1);
-							st.addAttribute(ServerStatusL2jfree.SERVER_LIST_CLOCK, Config.SERVER_BIT_2);
-							st.addAttribute(ServerStatusL2jfree.SERVER_LIST_HIDE_NAME, Config.SERVER_BIT_3);
-							st.addAttribute(ServerStatusL2jfree.TEST_SERVER, Config.SERVER_BIT_4);
-							st.addAttribute(ServerStatusL2jfree.SERVER_LIST_BRACKETS, Config.SERVER_LIST_BRACKET);
-							st.addMinAgeAttribute(Config.SERVER_AGE_LIM);
+							st.addAttribute(ServerStatus.SERVER_LIST_UNK, Config.SERVER_BIT_1);
+							st.addAttribute(ServerStatus.SERVER_LIST_CLOCK, Config.SERVER_BIT_2);
+							st.addAttribute(ServerStatus.SERVER_LIST_HIDE_NAME, Config.SERVER_BIT_3);
+							st.addAttribute(ServerStatus.TEST_SERVER, Config.SERVER_BIT_4);
+							st.addAttribute(ServerStatus.SERVER_LIST_BRACKETS, Config.SERVER_LIST_BRACKET);
+							st.addAttribute(ServerStatus.SERVER_AGE_LIMITATION, Config.SERVER_AGE_LIM);
 							sendPacket(st);
-							st = null;
 							if (L2World.getInstance().getAllPlayersCount() > 0)
 							{
 								FastList<String> playerList = new FastList<String>();
 								for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-								{
 									playerList.add(player.getAccountName());
-								}
-								sendPacket(new PlayerInGame(REVISION, playerList.toArray(new String[playerList.size()])));
+								sendPacket(new PlayerInGame(_protocol, playerList.toArray(new String[playerList.size()])));
 							}
 							break;
 						case 03:
-							PlayerAuthResponse par = new PlayerAuthResponse(REVISION, decrypt);
+							PlayerAuthResponse par = new PlayerAuthResponse(_protocol, decrypt);
 							String account = par.getAccount();
 							WaitingClient wcToRemove = null;
 							synchronized (_waitingClients)
 							{
 								for (WaitingClient wc : _waitingClients)
-								{
 									if (wc.account.equals(account))
-									{
 										wcToRemove = wc;
-									}
-								}
 							}
 							if (wcToRemove != null)
 							{
@@ -219,7 +228,7 @@ public class LoginServerThreadL2jfree extends LoginServerThread
 								{
 									if (_log.isDebugEnabled())
 										_log.debug("Login accepted player " + wcToRemove.account + " waited(" + (GameTimeController.getGameTicks() - wcToRemove.timestamp) + "ms)");
-									sendPacket(new PlayerInGame(REVISION, par.getAccount()));
+									sendPacket(new PlayerInGame(_protocol, par.getAccount()));
 									wcToRemove.gameClient.setState(GameClientState.AUTHED);
 									wcToRemove.gameClient.setSessionId(wcToRemove.session);
 									CharSelectionInfo cl = new CharSelectionInfo(wcToRemove.account, wcToRemove.gameClient.getSessionId().playOkID1);
@@ -237,7 +246,7 @@ public class LoginServerThreadL2jfree extends LoginServerThread
 							}
 							break;
 						case 04:
-							KickPlayer kp = new KickPlayer(REVISION, decrypt);
+							KickPlayer kp = new KickPlayer(_protocol, decrypt);
 							doKickPlayer(kp.getAccount());
 							break;
 					}
@@ -269,196 +278,83 @@ public class LoginServerThreadL2jfree extends LoginServerThread
 			}
 			catch (InterruptedException e)
 			{
-				//
 			}
 		}
 	}
 
-	/**
-	 * @param maxPlayer
-	 *            The maxPlayer to set.
+	/* (non-Javadoc)
+	 * @see com.l2jfree.gameserver.LoginServerThread#getMaxPlayer()
 	 */
-	@Override
-	public void setMaxPlayers(int maxPlayer)
-	{
-		_maxPlayer = maxPlayer;
-		sendMaxPlayer(maxPlayer);
-	}
-	
-	private void sendMaxPlayer(int newCount)
-	{
-		ServerStatusL2jfree ss = new ServerStatusL2jfree();
-		ss.addMaxPlayerAttribute(newCount);
-		try
-		{
-			sendPacket(ss);
-		}
-		catch (IOException e)
-		{
-			if (_log.isDebugEnabled())
-				_log.debug(e.getMessage(), e);
-		}
-		ss = null;
-	}
-
-	/**
-	 * @param minAge The minAge to set.
-	 */
-	public void setMinAge(int minAge)
-	{
-		Config.SERVER_AGE_LIM = minAge;
-		sendMinAge(Config.SERVER_AGE_LIM);
-	}
-
-	private void sendMinAge(int newAge)
-	{
-		ServerStatusL2jfree ss = new ServerStatusL2jfree();
-		ss.addMinAgeAttribute(newAge);
-		try
-		{
-			sendPacket(ss);
-		}
-		catch (IOException e)
-		{
-			if (_log.isDebugEnabled())
-				_log.debug(e.getMessage(), e);
-		}
-		ss = null;
-	}
-
-	public void toggleServerAttribute(int attrib, boolean on)
-	{
-		switch (attrib)
-		{
-			case ServerStatusL2jfree.SERVER_LIST_UNK:
-				Config.SERVER_BIT_1 = on;
-				break;
-			case ServerStatusL2jfree.SERVER_LIST_CLOCK:
-				Config.SERVER_BIT_2 = on;
-				break;
-			case ServerStatusL2jfree.SERVER_LIST_HIDE_NAME:
-				Config.SERVER_BIT_3 = on;
-				break;
-			case ServerStatusL2jfree.TEST_SERVER:
-				Config.SERVER_BIT_4 = on;
-				break;
-			case ServerStatusL2jfree.SERVER_LIST_BRACKETS:
-				Config.SERVER_LIST_BRACKET = on;
-				break;
-		}
-		ServerStatusL2jfree ss = new ServerStatusL2jfree();
-		ss.addAttribute(attrib, on);
-		try
-		{
-			sendPacket(ss);
-		}
-		catch (IOException e)
-		{
-			if (_log.isDebugEnabled())
-				_log.debug(e.getMessage(), e);
-		}
-		ss = null;
-	}
-
-	public void sendServerStatus(int status)
-	{
-		ServerStatusL2jfree ss = new ServerStatusL2jfree();
-		if (status == ServerStatusL2jfree.STATUS_DOWN)
-			ss.addServerDownAttribute();
-		else
-			ss.addAttribute(ServerStatusL2jfree.SERVER_LIST_STATUS, status == 1);
-		try
-		{
-			sendPacket(ss);
-		}
-		catch (IOException e)
-		{
-			if (_log.isDebugEnabled())
-				_log.debug(e.getMessage(), e);
-		}
-	}
-
-	/**
-	 * @return
-	 */
-	public String getStatusString()
-	{
-		return ServerStatusL2jfree.STATUS_STRING[_status];
-	}
-
-	public int getGSStatus()
-	{
-		return _status;
-	}
-
-	/**
-	 * Sets server's status: ON, MAINTENANCE or OFF.<BR>
-	 * While on-line server who's status is set to off forcedly kicks all non-GM
-	 * players, maintenance doesn't enforce such strategy (e.g. random selection
-	 * of testers on-line)<BR>
-	 * You can always do OFF, then MAINTENANCE to ensure only GMs are online.
-	 * 
-	 * @param status {@value ServerStatusL2jfree#STATUS_AUTO},
-	 *            {@value ServerStatusL2jfree#STATUS_DOWN},
-	 *            {@value ServerStatusL2jfree#STATUS_GM_ONLY}
-	 */
-	@Override
-	public void setServerStatus(int status)
-	{
-		switch (status)
-		{
-			case ServerStatusL2jfree.STATUS_AUTO:
-				sendServerStatus(ServerStatusL2jfree.STATUS_AUTO);
-				_status = status;
-				break;
-			case ServerStatusL2jfree.STATUS_DOWN:
-				sendServerStatus(ServerStatusL2jfree.STATUS_DOWN);
-				if (!Shutdown.isInProgress())
-					kickPlayers();
-				_status = status;
-				break;
-			case ServerStatusL2jfree.STATUS_GM_ONLY:
-				sendServerStatus(ServerStatusL2jfree.STATUS_GM_ONLY);
-				_status = status;
-				break;
-		}
-	}
-
-	public void kickPlayers()
-	{
-		int counter = 0;
-		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-		{
-			if (!player.isGM())
-			{
-				counter++;
-				try
-				{
-					new Disconnection(player).defaultSequence(true);
-				}
-				catch (Throwable t)
-				{
-				}
-			}
-		}
-		_log.info(counter + " players were auto-kicked.");
-	}
-
-	@Override
-	public void setServerStatusDown()
-	{
-		setServerStatus(ServerStatusL2jfree.STATUS_DOWN);
-	}
-
 	@Override
 	public int getMaxPlayer()
 	{
 		return _maxPlayer;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.l2jfree.gameserver.LoginServerThread#setMaxPlayers(int)
+	 */
 	@Override
-	protected int getProtocol()
+	public void setMaxPlayers(int maxPlayer)
 	{
-		return REVISION;
+		_maxPlayer = maxPlayer;
+		ServerStatus ss = new ServerStatus(_protocol);
+		ss.addAttribute(ServerStatus.SERVER_LIST_MAX_PLAYERS, maxPlayer);
+		try
+		{
+			sendPacket(ss);
+		}
+		catch (IOException e)
+		{
+			if (_log.isDebugEnabled())
+				_log.debug("Cannot send new max player count", e);
+		}
+	}
+
+	/**
+	 * @param id
+	 * @param value
+	 */
+	public void sendServerStatus(int id, int value)
+	{
+		ServerStatus ss = new ServerStatus(_protocol);
+		ss.addAttribute(id, value);
+		try
+		{
+			sendPacket(ss);
+		}
+		catch (IOException e)
+		{
+			if (_log.isDebugEnabled())
+				_log.debug(e.getMessage(), e);
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see com.l2jfree.gameserver.LoginServerThread#setServerStatus(int)
+	 */
+	@Override
+	public void setServerStatus(int status)
+	{
+		_status = status;
+		sendServerStatus(ServerStatus.SERVER_LIST_STATUS, status);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.l2jfree.gameserver.LoginServerThread#setServerStatusDown()
+	 */
+	@Override
+	public void setServerStatusDown()
+	{
+		setServerStatus(ServerStatus.STATUS_DOWN);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.l2jfree.gameserver.LoginServerThread#getProtocol()
+	 */
+	@Override
+	public int getProtocol()
+	{
+		return _protocol;
 	}
 }

@@ -20,16 +20,15 @@ package com.l2jfree.gameserver.network.loginserverpackets;
  */
 public class AuthResponse extends LoginServerBasePacket
 {
-
-	private int		_serverId;
-	private String	_serverName;
+	private final int		_serverId;
+	private final String	_serverName;
 
 	/**
 	 * @param decrypt
 	 */
-	public AuthResponse(byte[] decrypt)
+	public AuthResponse(int protocol, byte[] decrypt)
 	{
-		super(decrypt);
+		super(protocol, decrypt);
 		_serverId = readC();
 		_serverName = readS();
 	}
@@ -49,5 +48,4 @@ public class AuthResponse extends LoginServerBasePacket
 	{
 		return _serverName;
 	}
-
 }

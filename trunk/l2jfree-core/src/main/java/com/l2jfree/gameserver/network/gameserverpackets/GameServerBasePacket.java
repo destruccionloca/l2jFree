@@ -20,6 +20,8 @@ import java.io.IOException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.gameserver.loginserverthread.CrossLoginServerThread;
+
 /**
  * @author -Wooden-
  * 
@@ -28,11 +30,14 @@ public abstract class GameServerBasePacket
 {
 	private final static Log		_log	= LogFactory.getLog(GameServerBasePacket.class);
 
-	private ByteArrayOutputStream	_bao;
+	private final ByteArrayOutputStream	_bao;
+	protected final boolean				_l2j;
 
-	protected GameServerBasePacket()
+	protected GameServerBasePacket(int protocol, int opCode)
 	{
 		_bao = new ByteArrayOutputStream();
+		_l2j = (protocol == CrossLoginServerThread.PROTOCOL_L2J);
+		writeC(opCode);
 	}
 
 	protected void writeD(int value)
@@ -73,7 +78,10 @@ public abstract class GameServerBasePacket
 		{
 			if (text != null)
 			{
-				_bao.write(text.getBytes("UTF-16LE"));
+				if (_l2j)
+					_bao.write(text.getBytes("UTF-16LE"));
+				else
+					_bao.write(text.getBytes("UTF-8"));
 			}
 		}
 		catch (Exception e)
@@ -108,15 +116,14 @@ public abstract class GameServerBasePacket
 
 		int padding = _bao.size() % 8;
 		if (padding != 0)
-		{
 			for (int i = padding; i < 8; i++)
-			{
 				writeC(0x00);
-			}
-		}
 
 		return _bao.toByteArray();
 	}
 
-	public abstract byte[] getContent() throws IOException;
+	public byte[] getContent()
+	{
+		return getBytes();
+	}
 }

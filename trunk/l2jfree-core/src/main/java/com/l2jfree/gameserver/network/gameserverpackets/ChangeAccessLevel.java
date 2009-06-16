@@ -14,32 +14,16 @@
  */
 package com.l2jfree.gameserver.network.gameserverpackets;
 
-import java.io.IOException;
-
 /**
  * @author -Wooden-
  * 
  */
 public class ChangeAccessLevel extends GameServerBasePacket
 {
-	public ChangeAccessLevel(String player, int access)
+	public ChangeAccessLevel(int protocol, String player, int access)
 	{
-		writeC(0x04);
+		super(protocol, 0x04);
 		writeD(access);
 		writeS(player);
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.l2jfree.gameserver.gameserverpackets.GameServerBasePacket#getContent
-	 * ()
-	 */
-	@Override
-	public byte[] getContent() throws IOException
-	{
-		return getBytes();
-	}
-
 }

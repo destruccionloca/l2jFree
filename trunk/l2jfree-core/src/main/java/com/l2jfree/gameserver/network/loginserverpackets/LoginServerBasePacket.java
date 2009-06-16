@@ -17,6 +17,8 @@ package com.l2jfree.gameserver.network.loginserverpackets;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.gameserver.loginserverthread.CrossLoginServerThread;
+
 /**
  * @author -Wooden-
  * 
@@ -24,13 +26,20 @@ import org.apache.commons.logging.LogFactory;
 public abstract class LoginServerBasePacket
 {
 	private final static Log	_log	= LogFactory.getLog(LoginServerBasePacket.class);
-	private byte[]				_decrypt;
-	private int					_off;
+	protected final boolean	_l2j;
+	private final byte[]	_decrypt;
+	private int				_off;
+
+	public LoginServerBasePacket(int protocol, byte[] decrypt)
+	{
+		_l2j = (protocol == CrossLoginServerThread.PROTOCOL_L2J);
+		_decrypt = decrypt;
+		_off = 1; // skip packet type id
+	}
 
 	public LoginServerBasePacket(byte[] decrypt)
 	{
-		_decrypt = decrypt;
-		_off = 1; // skip packet type id
+		this(CrossLoginServerThread.PROTOCOL_CURRENT, decrypt);
 	}
 
 	public int readD()
@@ -73,10 +82,18 @@ public abstract class LoginServerBasePacket
 		String result = null;
 		try
 		{
-			result = new String(_decrypt, _off, _decrypt.length - _off, "UTF-16LE");
-			result = result.substring(0, result.indexOf(0x00));
-
-			_off += result.length() * 2 + 2;
+			if (_l2j)
+			{
+				result = new String(_decrypt, _off, _decrypt.length - _off, "UTF-16LE");
+				result = result.substring(0, result.indexOf(0x00));
+				_off += result.length() * 2 + 2;
+			}
+			else
+			{
+				result = new String(_decrypt, _off, _decrypt.length - _off, "UTF-8");
+				result = result.substring(0, result.indexOf(0x00));
+				_off += result.length() + 2;
+			}
 		}
 		catch (Exception e)
 		{
@@ -91,5 +108,10 @@ public abstract class LoginServerBasePacket
 		System.arraycopy(_decrypt, _off, result, 0, length);
 		_off += length;
 		return result;
+	}
+
+	protected final boolean canRead()
+	{
+		return _off < _decrypt.length;
 	}
 }
