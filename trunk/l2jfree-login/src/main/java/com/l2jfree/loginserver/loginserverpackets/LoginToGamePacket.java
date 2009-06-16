@@ -1,5 +1,4 @@
-/*
- * This program is free software; you can redistribute it and/or modify
+/* This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2, or (at your option)
  * any later version.
@@ -16,26 +15,49 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package com.l2jfree.loginserver.serverpackets;
+package com.l2jfree.loginserver.loginserverpackets;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.2.4.1 $ $Date: 2005/03/27 15:30:11 $
- */
-public abstract class ServerBasePacket
-{
-	ByteArrayOutputStream	_bao;
+import com.l2jfree.loginserver.L2LoginServer;
 
-	protected ServerBasePacket()
+/**
+ * Original author unknown.
+ * @author savormix
+ */
+public abstract class LoginToGamePacket
+{
+	private final ByteArrayOutputStream _bao;
+	private final boolean _l2j;
+
+	protected LoginToGamePacket(int opCode, boolean l2j)
 	{
 		_bao = new ByteArrayOutputStream();
+		_l2j = l2j;
+		writeC(opCode);
 	}
 
-	protected void writeD(int value)
+	/**
+	 * Creates a sendable packet.
+	 * @param opCode Packet identifier
+	 * @param protocol Network protocol version
+	 */
+	public LoginToGamePacket(int opCode, int protocol)
+	{
+		this(opCode, protocol == L2LoginServer.PROTOCOL_L2J);
+	}
+
+	/**
+	 * Creates a sendable packet.
+	 * @param opCode Packet identifier
+	 */
+	public LoginToGamePacket(int opCode)
+	{
+		this(opCode, false);
+	}
+
+	protected final void writeD(int value)
 	{
 		_bao.write(value & 0xff);
 		_bao.write(value >> 8 & 0xff);
@@ -43,18 +65,18 @@ public abstract class ServerBasePacket
 		_bao.write(value >> 24 & 0xff);
 	}
 
-	protected void writeH(int value)
+	protected final void writeH(int value)
 	{
 		_bao.write(value & 0xff);
 		_bao.write(value >> 8 & 0xff);
 	}
 
-	protected void writeC(int value)
+	protected final void writeC(int value)
 	{
 		_bao.write(value & 0xff);
 	}
 
-	protected void writeF(double org)
+	protected final void writeF(double org)
 	{
 		long value = Double.doubleToRawLongBits(org);
 		_bao.write((int) (value & 0xff));
@@ -67,13 +89,16 @@ public abstract class ServerBasePacket
 		_bao.write((int) (value >> 56 & 0xff));
 	}
 
-	protected void writeS(String text)
+	protected final void writeS(String text)
 	{
 		try
 		{
 			if (text != null)
 			{
-				_bao.write(text.getBytes("UTF-8"));
+				if (_l2j)
+					_bao.write(text.getBytes("UTF-16LE"));
+				else
+					_bao.write(text.getBytes("UTF-8"));
 			}
 		}
 		catch (Exception e)
@@ -85,7 +110,7 @@ public abstract class ServerBasePacket
 		_bao.write(0);
 	}
 
-	protected void writeB(byte[] array)
+	protected final void writeB(byte[] array)
 	{
 		try
 		{
@@ -93,31 +118,29 @@ public abstract class ServerBasePacket
 		}
 		catch (IOException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	public int getLength()
+	public final int getLength()
 	{
 		return _bao.size() + 2;
 	}
 
-	public byte[] getBytes()
+	public final byte[] getBytes()
 	{
 		writeD(0x00); // reserve for checksum
 
 		int padding = _bao.size() % 8;
 		if (padding != 0)
-		{
 			for (int i = padding; i < 8; i++)
-			{
 				writeC(0x00);
-			}
-		}
 
 		return _bao.toByteArray();
 	}
 
-	public abstract byte[] getContent() throws IOException;
+	public byte[] getContent()
+	{
+		return getBytes();
+	}
 }

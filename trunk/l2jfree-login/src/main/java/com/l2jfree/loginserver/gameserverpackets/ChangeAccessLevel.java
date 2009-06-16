@@ -18,24 +18,21 @@
  */
 package com.l2jfree.loginserver.gameserverpackets;
 
-import com.l2jfree.loginserver.clientpackets.ClientBasePacket;
-
 /**
  * @author -Wooden-
  *
  */
-public class ChangeAccessLevel extends ClientBasePacket
+public class ChangeAccessLevel extends GameToLoginPacket
 {
-
-	private int		_level;
-	private String	_account;
+	private final int		_level;
+	private final String	_account;
 
 	/**
 	 * @param decrypt
 	 */
-	public ChangeAccessLevel(byte[] decrypt)
+	public ChangeAccessLevel(int protocol, byte[] decrypt)
 	{
-		super(decrypt);
+		super(decrypt, protocol);
 		_level = readD();
 		_account = readS();
 	}
@@ -55,5 +52,4 @@ public class ChangeAccessLevel extends ClientBasePacket
 	{
 		return _level;
 	}
-
 }

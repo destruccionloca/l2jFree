@@ -24,18 +24,16 @@ import java.security.interfaces.RSAPrivateKey;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.loginserver.clientpackets.ClientBasePacket;
-
 import javax.crypto.Cipher;
 
 /**
  * @author -Wooden-
  *
  */
-public class BlowFishKey extends ClientBasePacket
+public class BlowFishKey extends GameToLoginPacket
 {
-	byte[]						_key;
-	private static final Log	_log	= LogFactory.getLog(BlowFishKey.class.getName());
+	private static final Log _log = LogFactory.getLog(BlowFishKey.class);
+	private byte[] _key;
 
 	/**
 	 * @param decrypt
@@ -55,10 +53,8 @@ public class BlowFishKey extends ClientBasePacket
 			int i = 0;
 			int len = tempDecryptKey.length;
 			for (; i < len; i++)
-			{
 				if (tempDecryptKey[i] != 0)
 					break;
-			}
 			_key = new byte[len - i];
 			System.arraycopy(tempDecryptKey, i, _key, 0, len - i);
 		}
@@ -66,16 +62,10 @@ public class BlowFishKey extends ClientBasePacket
 		{
 			_log.fatal("Error While decrypting blowfish key (RSA)", e);
 		}
-		/*catch(IOException ioe)
-		{
-			//TODO: manage
-		}*/
-
 	}
 
 	public byte[] getKey()
 	{
 		return _key;
 	}
-
 }

@@ -18,31 +18,14 @@
  */
 package com.l2jfree.loginserver.loginserverpackets;
 
-import java.io.IOException;
-
-import com.l2jfree.loginserver.serverpackets.ServerBasePacket;
 import com.l2jfree.status.Status;
 
-/**
- * @author -Wooden-
- */
-public class KickPlayer extends ServerBasePacket
+public class KickPlayer extends LoginToGamePacket
 {
-	public KickPlayer(String account)
+	public KickPlayer(int protocol, String account)
 	{
-		writeC(0x04);
+		super(0x04, protocol);
 		writeS(account);
-		
 		Status.tryBroadcast("Player " + account + " was kicked.");
-	}
-	
-	/* (non-Javadoc)
-	 * @see com.l2jfree.loginserver.serverpackets.ServerBasePacket#getContent()
-	 */
-	@Override
-	public byte[] getContent() throws IOException
-	{
-		return getBytes();
-	}
-	
+	}	
 }

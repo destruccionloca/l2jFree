@@ -18,23 +18,20 @@
  */
 package com.l2jfree.loginserver.gameserverpackets;
 
-import com.l2jfree.loginserver.clientpackets.ClientBasePacket;
-
 /**
  * @author -Wooden-
  *
  */
-public class PlayerLogout extends ClientBasePacket
+public class PlayerLogout extends GameToLoginPacket
 {
-
-	private String	_account;
+	private final String _account;
 
 	/**
 	 * @param decrypt
 	 */
-	public PlayerLogout(byte[] decrypt)
+	public PlayerLogout(int protocol, byte[] decrypt)
 	{
-		super(decrypt);
+		super(decrypt, protocol);
 		_account = readS();
 	}
 
@@ -45,5 +42,4 @@ public class PlayerLogout extends ClientBasePacket
 	{
 		return _account;
 	}
-
 }

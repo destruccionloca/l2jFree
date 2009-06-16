@@ -18,10 +18,6 @@
  */
 package com.l2jfree.loginserver.gameserverpackets;
 
-import java.util.logging.Logger;
-
-import com.l2jfree.loginserver.clientpackets.ClientBasePacket;
-
 /**
  * Format: cccddb
  * c desired ID
@@ -35,27 +31,26 @@ import com.l2jfree.loginserver.clientpackets.ClientBasePacket;
  * @author -Wooden-
  *
  */
-public class GameServerAuth extends ClientBasePacket
+public class GameServerAuth extends GameToLoginPacket
 {
-	protected static Logger	_log	= Logger.getLogger(GameServerAuth.class.getName());
-	private byte[]			_hexId;
-	private int				_desiredId;
-	private boolean			_hostReserved;
-	private boolean			_acceptAlternativeId;
-	private int				_maxPlayers;
-	private int				_port;
-	private String			_gsNetConfig1;
-	private String			_gsNetConfig2;
+	private byte[]	_hexId;
+	private int		_desiredId;
+	private boolean	_hostReserved;
+	private boolean	_acceptAlternativeId;
+	private int		_maxPlayers;
+	private int		_port;
+	private String	_gsNetConfig1;
+	private String	_gsNetConfig2;
 
 	/**
 	 * @param decrypt
 	 */
-	public GameServerAuth(byte[] decrypt)
+	public GameServerAuth(int protocol, byte[] decrypt)
 	{
-		super(decrypt);
+		super(decrypt, protocol);
 		_desiredId = readC();
-		_acceptAlternativeId = (readC() == 0 ? false : true);
-		_hostReserved = (readC() == 0 ? false : true);
+		_acceptAlternativeId = (readC() != 0);
+		_hostReserved = (readC() != 0);
 		_gsNetConfig1 = readS();
 		_gsNetConfig2 = readS();
 		_port = readH();
@@ -111,13 +106,9 @@ public class GameServerAuth extends ClientBasePacket
 		// make network config string
 		{
 			if (_gsNetConfig2.length() > 0) // internal hostname and default internal networks
-			{
 				_netConfig = _gsNetConfig2 + "," + "10.0.0.0/8,192.168.0.0/16" + ";";
-			}
 			if (_gsNetConfig1.length() > 0) // external hostname and all avaible addresses by default
-			{
 				_netConfig += _gsNetConfig1 + "," + "0.0.0.0/0" + ";";
-			}
 		}
 
 		return _netConfig;

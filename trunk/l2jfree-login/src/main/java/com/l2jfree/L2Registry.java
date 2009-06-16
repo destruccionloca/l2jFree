@@ -72,6 +72,11 @@ public class L2Registry
 		}
 	}
 
+	public static void loadRegistry(String path) throws Throwable
+	{
+		loadRegistry(new String[] { path });
+	}
+
 	/**
 	 * Retrieve a bean from registry
 	 * @param bean - the bean name

@@ -18,35 +18,18 @@
  */
 package com.l2jfree.loginserver.loginserverpackets;
 
-import java.io.IOException;
-
 import com.l2jfree.loginserver.manager.GameServerManager;
-import com.l2jfree.loginserver.serverpackets.ServerBasePacket;
 
-/**
- * @author -Wooden-
- *
- */
-public class AuthResponse extends ServerBasePacket
+public class AuthResponse extends LoginToGamePacket
 {
-
 	/**
 	 * @param serverID
+	 * @param protocol
 	 */
-	public AuthResponse(int serverID)
+	public AuthResponse(int protocol,int serverID)
 	{
-		writeC(0x02);
+		super(0x02, protocol);
 		writeC(serverID);
 		writeS(GameServerManager.getInstance().getServerName(serverID));
 	}
-
-	/* (non-Javadoc)
-	 * @see com.l2jfree.loginserver.serverpackets.ServerBasePacket#getContent()
-	 */
-	@Override
-	public byte[] getContent() throws IOException
-	{
-		return getBytes();
-	}
-
 }

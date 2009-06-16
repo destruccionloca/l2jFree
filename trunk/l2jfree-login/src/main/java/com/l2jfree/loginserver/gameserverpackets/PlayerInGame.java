@@ -18,38 +18,26 @@
  */
 package com.l2jfree.loginserver.gameserverpackets;
 
-import java.util.Vector;
-
-import com.l2jfree.loginserver.clientpackets.ClientBasePacket;
-
-/**
- * @author -Wooden-
- *
- */
-public class PlayerInGame extends ClientBasePacket
+public class PlayerInGame extends GameToLoginPacket
 {
-	Vector<String>	_accounts;
+	private final String[] _accounts;
 
 	/**
 	 * @param decrypt
 	 */
-	public PlayerInGame(byte[] decrypt)
+	public PlayerInGame(int protocol, byte[] decrypt)
 	{
-		super(decrypt);
-		_accounts = new Vector<String>();
-		int size = readH();
-		for (int i = 0; i < size; i++)
-		{
-			_accounts.add(readS());
-		}
+		super(decrypt, protocol);
+		_accounts = new String[readH()];
+		for (int i = 0; i < _accounts.length; i++)
+			_accounts[i] = readS();
 	}
 
 	/**
 	 * @return Returns the accounts.
 	 */
-	public Vector<String> getAccounts()
+	public String[] getAccounts()
 	{
 		return _accounts;
 	}
-
 }

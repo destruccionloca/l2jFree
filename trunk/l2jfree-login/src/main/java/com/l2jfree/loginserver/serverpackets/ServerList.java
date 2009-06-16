@@ -80,8 +80,8 @@ public final class ServerList extends L2LoginServerPacket
 	    protected final boolean		_brackets;
 
 		ServerData(int pServer_id, String pIp, int pPort, int pAge, boolean pPvp, 
-        		int pCurrentPlayers, int pMaxPlayers, boolean pOn, boolean pUnk1, boolean pClock, 
-        		boolean pHideName, boolean pTestServer, boolean pBrackets)
+        		int pCurrentPlayers, int pMaxPlayers, boolean pOn, boolean pUnk1,
+        		boolean pClock, boolean pHideName, boolean pTestServer, boolean pBrackets)
 		{
 			_serverId = pServer_id;
             _ip = pIp;
@@ -129,13 +129,9 @@ public final class ServerList extends L2LoginServerPacket
 
 		server = _servers.get(client.getLastServerId());
 		if (server != null && server._online)
-		{
 			writeC(server._serverId);
-		}
 		else
-		{
 			writeC(0);
-		}
 
 		for (Integer serverId : _serverIds)
 		{

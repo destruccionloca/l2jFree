@@ -19,31 +19,16 @@
 package com.l2jfree.loginserver.loginserverpackets;
 
 import com.l2jfree.loginserver.L2LoginServer;
-import com.l2jfree.loginserver.serverpackets.ServerBasePacket;
 
-/**
- * @author -Wooden-
- *
- */
-public class InitLS extends ServerBasePacket
+public class InitLS extends LoginToGamePacket
 {
-	// ID 0x00
-	// format
-	// d proto rev
-	// d key size
-	// b key
-
-	public InitLS(byte[] publickey)
+	public InitLS(int protocol, byte[] publickey)
 	{
-		writeC(0x00);
-		writeD(L2LoginServer.PROTOCOL_REV);
+		super(0x00);
+		writeD(protocol);
 		writeD(publickey.length);
 		writeB(publickey);
-	}
-
-	@Override
-	public byte[] getContent()
-	{
-		return getBytes();
+		// let the l2jfree game servers know we support enhanced protocol
+		writeD(L2LoginServer.PROTOCOL_CURRENT);
 	}
 }

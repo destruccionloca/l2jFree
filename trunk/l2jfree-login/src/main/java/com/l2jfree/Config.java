@@ -36,7 +36,6 @@ import org.apache.commons.logging.LogFactory;
  */
 public final class Config extends L2Config
 {
-
 	private static final Log	_log						= LogFactory.getLog(Config.class.getName());
 
 	/** Number of login tries before IP ban gets activated, default 10*/
@@ -86,6 +85,8 @@ public final class Config extends L2Config
 	public static int			FAST_CONNECTION_TIME;
 	public static int			MAX_CONNECTION_PER_IP;
 
+	public static boolean		PROTOCOL_LEGACY;
+
 	public static void load()
 	{
 		_log.info("loading login config");
@@ -123,6 +124,8 @@ public final class Config extends L2Config
 			NORMAL_CONNECTION_TIME = Integer.parseInt(serverSettings.getProperty("NormalConnectionTime", "700"));
 			FAST_CONNECTION_TIME = Integer.parseInt(serverSettings.getProperty("FastConnectionTime", "350"));
 			MAX_CONNECTION_PER_IP = Integer.parseInt(serverSettings.getProperty("MaxConnectionPerIP", "50"));
+
+			PROTOCOL_LEGACY = Boolean.parseBoolean(serverSettings.getProperty("SupportL2JFreeCT2P2", "False"));
 		}
 		catch (Exception e)
 		{

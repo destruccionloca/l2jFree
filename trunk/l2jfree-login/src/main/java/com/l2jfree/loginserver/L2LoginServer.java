@@ -44,12 +44,14 @@ import com.l2jfree.status.Status;
  */
 public class L2LoginServer
 {
-	/** Protocol revision */
-	public static final int					PROTOCOL_REV	= 0x0103;
+	/** Version sent if {@link Config#PROTOCOL_LEGACY} is false */
+	public static final int PROTOCOL_L2J = 258;
+	/** Version sent if {@link Config#PROTOCOL_LEGACY} is true */
+	public static final int PROTOCOL_LEGACY = 259;
+	/** Current network protocol version */
+	public static final int PROTOCOL_CURRENT = 1;
 
-	/**instance */
 	private static L2LoginServer			_instance;
-	/**Logger */
 	private static Log						_log			= LogFactory.getLog(L2LoginServer.class);
 	/**the gameserver listener store all gameserver connected to the client*/
 	private GameServerListener				_gameServerListener;
@@ -133,9 +135,6 @@ public class L2LoginServer
 		_log.info("Login Server ready on " + Config.LOGIN_SERVER_HOSTNAME + ":" + Config.LOGIN_SERVER_PORT);
 	}
 
-	/**
-	 * 
-	 */
 	private void startServer()
 	{
 		try
@@ -150,9 +149,6 @@ public class L2LoginServer
 		_selectorThread.start();
 	}
 
-	/**
-	 * @throws IOException
-	 */
 	private void initTelnetServer() throws IOException
 	{
 		if (Config.IS_TELNET_ENABLED)
@@ -162,9 +158,6 @@ public class L2LoginServer
 			_log.info("Telnet server is currently disabled.");
 	}
 
-	/**
-	 * 
-	 */
 	private void initGSListener()
 	{
 		_gameServerListener = new GameServerListener();
@@ -172,9 +165,6 @@ public class L2LoginServer
 		_log.info("Listening for GameServers on " + Config.LOGIN_HOSTNAME + ":" + Config.LOGIN_PORT);
 	}
 
-	/**
-	 * 
-	 */
 	private void initNetworkLayer()
 	{
 		L2LoginPacketHandler loginPacketHandler = new L2LoginPacketHandler();

@@ -61,10 +61,14 @@ public class AccountsServices
 	 * @param account
 	 * @param password
 	 * @param level
+	 * @param by
+	 * @param bm
+	 * @param bd
+	 * @param gs
 	 * @return the new account
 	 * @throws AccountModificationException 
 	 */
-	public Accounts addOrUpdateAccount(String account, String password, String level, int by, int bm, int bd) throws AccountModificationException
+	public Accounts addOrUpdateAccount(String account, String password, String level, int by, int bm, int bd, int gs) throws AccountModificationException
 	{
 		// o initialization
 		// ---------------
@@ -101,25 +105,26 @@ public class AccountsServices
 			acc.setBirthYear(Integer.valueOf(by));
 			acc.setBirthMonth(Integer.valueOf(bm));
 			acc.setBirthDay(Integer.valueOf(bd));
+			acc.setLastServerId(Integer.valueOf(gs));
 			__accDAO.createOrUpdate(acc);
 			if (_log.isDebugEnabled())
 				_log.info("Account " + account + " has been updated.");
 		}
 		catch (NumberFormatException e)
 		{
-			throw new AccountModificationException("Error : level (" + level + ") should be an integer.", e);
+			throw new AccountModificationException("Access level (" + level + ") should be an integer.", e);
 		}
 		return acc;
 	}
 
 	public Accounts addOrUpdateAccount(String account, String password, String level) throws AccountModificationException
 	{
-		return addOrUpdateAccount(account, password, level, 1900, 1, 1);
+		return addOrUpdateAccount(account, password, level, 1900, 1, 1, 0);
 	}
 
 	/**
 	 * Add or update an account
-	 * @param account
+	 * @param acc
 	 * @return the new account
 	 * @throws AccountModificationException 
 	 */
@@ -142,7 +147,7 @@ public class AccountsServices
 
 	/**
 	 * Change account level
-	 * @param account - the account to upadte
+	 * @param account - the account to update
 	 * @param level - the new level
 	 * @throws AccountModificationException
 	 */
@@ -211,7 +216,7 @@ public class AccountsServices
 		}
 		catch (ObjectRetrievalFailureException e)
 		{
-			throw new AccountModificationException("Error : unable to delete account : " + account + ". This account does not exist.");
+			throw new AccountModificationException("Unable to delete account : " + account + ". This account does not exist.");
 		}
 		__accDAO.removeAccount(acc);
 	}

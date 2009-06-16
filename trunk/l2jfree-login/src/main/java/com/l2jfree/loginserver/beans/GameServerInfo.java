@@ -55,6 +55,11 @@ public class GameServerInfo
 		_hexId = hexId;
 		_gst = gst;
 		_status = ServerStatus.STATUS_DOWN;
+		// these values are not necessarily sent by the game server
+		_isPvp = true;
+		_hideName = false;
+		_unk1 = false;
+		_age = 0;
 	}
 
 	public GameServerInfo(int id, byte[] hexId)
@@ -219,7 +224,6 @@ public class GameServerInfo
     {
         return _brackets;
     }
-
 
 	public void setDown()
 	{
