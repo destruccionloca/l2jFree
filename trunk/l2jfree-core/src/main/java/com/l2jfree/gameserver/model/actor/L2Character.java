@@ -2914,7 +2914,7 @@ public abstract class L2Character extends L2Object
 				throw new NullPointerException();
 			
 			_skill = skill;
-			_targets = L2Arrays.foreachSafeList(targets);
+			_targets = L2Arrays.asForeachSafeList(targets);
 			_originalTarget = L2Object.getActingCharacter(originalTarget);
 			_originalSkillTarget = originalSkillTarget;
 			_coolTime = coolTime;
@@ -5409,11 +5409,11 @@ public abstract class L2Character extends L2Object
 
 				// Maybe launch chance skills on us
 				if (_chanceSkills != null)
-					_chanceSkills.onHit(target, false, crit);
+					_chanceSkills.onHit(target, false, crit, isRangeWeapon);
 
 				// Maybe launch chance skills on target
 				if (target.getChanceSkills() != null)
-					target.getChanceSkills().onHit(this, true, crit);
+					target.getChanceSkills().onHit(this, true, crit, isRangeWeapon);
 
 				// Launch weapon Special ability effect if available
 				L2Weapon activeWeapon = getActiveWeaponItem();
@@ -7071,19 +7071,19 @@ public abstract class L2Character extends L2Object
 
 	private final class FlyToLocationTask implements Runnable
 	{
-		final L2Character _target;
+		final L2Character _flyTarget;
 		final L2Skill _skill;
 		
 		public FlyToLocationTask(L2Character target, L2Skill skill)
 		{
-			_target = target;
+			_flyTarget = target;
 			_skill = skill;
 		}
 		
 		public void run()
 		{
-			broadcastPacket(new FlyToLocation(L2Character.this, _target, _skill.getFlyType()));
-			getPosition().setXYZ(_target.getX(), _target.getY(), _target.getZ());
+			broadcastPacket(new FlyToLocation(L2Character.this, _flyTarget, _skill.getFlyType()));
+			getPosition().setXYZ(_flyTarget.getX(), _flyTarget.getY(), _flyTarget.getZ());
 			broadcastPacket(new ValidateLocation(L2Character.this));
 		}
 	}

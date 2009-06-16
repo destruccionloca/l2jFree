@@ -476,6 +476,8 @@ public final class AutomatedTvT
 		// Level restrictions
 		boolean can = player.getLevel() <= Config.AUTO_TVT_LEVEL_MAX;
 		can &= player.getLevel() >= Config.AUTO_TVT_LEVEL_MIN;
+		// Cannot mess with observation
+		can &= !player.inObserverMode();
 		// Cannot mess with Olympiad
 		can &= !(player.isInOlympiadMode() || Olympiad.getInstance().isRegistered(player));
 		// Cannot mess with raids or sieges
