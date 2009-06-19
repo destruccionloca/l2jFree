@@ -1568,9 +1568,12 @@ public final class Config extends L2Config
 	public static int					ALT_OLY_CLASSED_RITEM_C;
 	public static int					ALT_OLY_NONCLASSED_RITEM_C;
 	public static int					ALT_OLY_GP_PER_POINT;
-	public static int					ALT_OLY_MIN_POINT_FOR_EXCH;
 	public static int					ALT_OLY_HERO_POINTS;
-	public static int					ALT_OLY_HERO_TOKENS;
+	public static int					ALT_OLY_RANK1_POINTS;
+	public static int					ALT_OLY_RANK2_POINTS;
+	public static int					ALT_OLY_RANK3_POINTS;
+	public static int					ALT_OLY_RANK4_POINTS;
+	public static int					ALT_OLY_RANK5_POINTS;
 	public static boolean				ALT_OLY_LOG_FIGHTS;
 	public static boolean				ALT_OLY_SHOW_MONTHLY_WINNERS;
 	public static boolean				ALT_OLY_ANNOUNCE_GAMES;
@@ -1767,11 +1770,15 @@ public final class Config extends L2Config
 			ALT_OLY_CLASSED_RITEM_C = Integer.parseInt(altSettings.getProperty("AltOlyClassedRewItemCount", "50"));
 			ALT_OLY_NONCLASSED_RITEM_C = Integer.parseInt(altSettings.getProperty("AltOlyNonClassedRewItemCount", "30"));
 			ALT_OLY_GP_PER_POINT = Integer.parseInt(altSettings.getProperty("AltOlyGPPerPoint", "1000"));
-			ALT_OLY_MIN_POINT_FOR_EXCH = Integer.parseInt(altSettings.getProperty("AltOlyMinPointForExchange", "50"));
-			ALT_OLY_HERO_POINTS = Integer.parseInt(altSettings.getProperty("AltOlyHeroPoints", "300"));
-            ALT_OLY_LOG_FIGHTS = Boolean.parseBoolean(altSettings.getProperty("AlyOlyLogFights","false"));
-            ALT_OLY_SHOW_MONTHLY_WINNERS = Boolean.parseBoolean(altSettings.getProperty("AltOlyShowMonthlyWinners","true"));
-            ALT_OLY_ANNOUNCE_GAMES = Boolean.parseBoolean(altSettings.getProperty("AltOlyAnnounceGames","true"));
+			ALT_OLY_HERO_POINTS = Integer.parseInt(altSettings.getProperty("AltOlyHeroPoints","180"));
+			ALT_OLY_RANK1_POINTS = Integer.parseInt(altSettings.getProperty("AltOlyRank1Points","120"));
+			ALT_OLY_RANK2_POINTS = Integer.parseInt(altSettings.getProperty("AltOlyRank2Points","80"));
+			ALT_OLY_RANK3_POINTS = Integer.parseInt(altSettings.getProperty("AltOlyRank3Points","55"));
+			ALT_OLY_RANK4_POINTS = Integer.parseInt(altSettings.getProperty("AltOlyRank4Points","35"));
+			ALT_OLY_RANK5_POINTS = Integer.parseInt(altSettings.getProperty("AltOlyRank5Points","20"));
+			ALT_OLY_LOG_FIGHTS = Boolean.parseBoolean(altSettings.getProperty("AlyOlyLogFights","false"));
+			ALT_OLY_SHOW_MONTHLY_WINNERS = Boolean.parseBoolean(altSettings.getProperty("AltOlyShowMonthlyWinners","true"));
+			ALT_OLY_ANNOUNCE_GAMES = Boolean.parseBoolean(altSettings.getProperty("AltOlyAnnounceGames","true"));
 			ALT_LIST_OLY_RESTRICTED_ITEMS = new FastList<Integer>();
 			for (String id : altSettings.getProperty("AltOlyRestrictedItems","0").split(","))
 			{

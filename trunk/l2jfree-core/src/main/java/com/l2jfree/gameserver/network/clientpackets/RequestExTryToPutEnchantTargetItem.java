@@ -31,7 +31,7 @@ public class RequestExTryToPutEnchantTargetItem extends L2GameClientPacket
 {
 	private static final String	_C__D0_78_REQUESTEXTRYTOPUTENCHANTTARGETITEM	= "[C] D0 4F RequestExTryToPutEnchantTargetItem";
 
-	private int _objectId;
+	private int _objectId = 0;
 
 	@Override
 	protected void readImpl()
@@ -43,7 +43,14 @@ public class RequestExTryToPutEnchantTargetItem extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) return;
+		if (activeChar == null)
+			return;
+
+		if (_objectId == 0)
+		{
+			sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
 
 		if (activeChar.isEnchanting())
 		{
@@ -62,55 +69,25 @@ public class RequestExTryToPutEnchantTargetItem extends L2GameClientPacket
 
 		activeChar.setIsEnchanting(true);
 
-		if (targetItem.isEtcItem() || targetItem.isWear() ||
-				targetItem.getItem().getItemType() == L2WeaponType.ROD ||
-				targetItem.isHeroItem() || (targetItem.getItemId() >= 7816 &&
-				targetItem.getItemId() <= 7831)
-				|| targetItem.isShadowItem() || targetItem.getItem().isCommonItem() || targetItem.isTimeLimitedItem())
+		// can't enchant rods, hero weapons, adventurers' items, shadow and common items
+		if (targetItem.getOwnerId() != activeChar.getObjectId()
+				|| targetItem.getItem().getItemType() == L2WeaponType.ROD
+				|| targetItem.isHeroItem()
+				|| (targetItem.getItemId() >= 7816 && targetItem.getItemId() <= 7831)
+				|| targetItem.isShadowItem()
+				|| targetItem.isCommonItem()
+				|| targetItem.isTimeLimitedItem()
+				|| targetItem.isEtcItem()
+				|| targetItem.isWear()
+				|| targetItem.getItem().getBodyPart() == L2Item.SLOT_L_BRACELET
+				|| targetItem.getItem().getBodyPart() == L2Item.SLOT_R_BRACELET
+				|| (targetItem.getLocation() != L2ItemInstance.ItemLocation.INVENTORY
+						&& targetItem.getLocation() != L2ItemInstance.ItemLocation.PAPERDOLL))
 		{
-			sendPacket(SystemMessageId.DOES_NOT_FIT_SCROLL_CONDITIONS);
+			activeChar.sendPacket(SystemMessageId.DOES_NOT_FIT_SCROLL_CONDITIONS);
 			activeChar.setActiveEnchantItem(null);
-			requestFailed(new ExPutEnchantTargetItemResult(2, 0, 0));
+			activeChar.sendPacket(new ExPutEnchantTargetItemResult(2, 0, 0));
 			return;
-		}
-
-		switch (targetItem.getLocation())
-		{
-			case INVENTORY:
-			case PAPERDOLL:
-			{
-				switch (targetItem.getLocation())
-				{
-					case VOID:
-					case PET:
-					case WAREHOUSE:
-					case CLANWH:
-					case LEASE:
-					case FREIGHT:
-					case NPC:
-					{
-						sendPacket(SystemMessageId.DOES_NOT_FIT_SCROLL_CONDITIONS);
-						activeChar.setActiveEnchantItem(null);
-						requestFailed(new ExPutEnchantTargetItemResult(2, 0, 0));
-						return;
-					}
-				}					
-				if (targetItem.getOwnerId() != activeChar.getObjectId())
-				{
-					sendPacket(SystemMessageId.DOES_NOT_FIT_SCROLL_CONDITIONS);
-					activeChar.setActiveEnchantItem(null);
-					requestFailed(new ExPutEnchantTargetItemResult(2, 0, 0));
-					return;
-				}
-				break;
-			}
-			default:
-			{
-				sendPacket(SystemMessageId.DOES_NOT_FIT_SCROLL_CONDITIONS);
-				activeChar.setActiveEnchantItem(null);
-				requestFailed(new ExPutEnchantTargetItemResult(2, 0, 0));
-				return;
-			}
 		}
 
 		int itemType2 = targetItem.getItem().getType2();

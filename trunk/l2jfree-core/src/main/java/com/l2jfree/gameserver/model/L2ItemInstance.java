@@ -731,6 +731,16 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 	}
 	
 	/**
+	 * Returns if item is a common item.
+	 * 
+	 * @return boolean
+	 */
+	public boolean isCommonItem()
+	{
+		return _item.isCommonItem();
+	}
+	
+	/**
 	 * Returns if item is available for manipulation
 	 * 
 	 * @return boolean

@@ -41,7 +41,7 @@ public class RequestEnchantItem extends L2GameClientPacket
 	private static final int[]	BLESSED_SCROLLS				=
 															{ 6569, 6570, 6571, 6572, 6573, 6574, 6575, 6576, 6577, 6578 };
 
-	private int					_objectId;
+	private int					_objectId = 0;
 
 	/**
 	 * packet type id 0x58
@@ -90,6 +90,7 @@ public class RequestEnchantItem extends L2GameClientPacket
 		{
 			// Cancel trade
 			activeChar.cancelActiveTrade();
+			activeChar.setActiveEnchantItem(null);
 			requestFailed(SystemMessageId.CANNOT_PICKUP_OR_USE_ITEM_WHILE_TRADING);
 			return;
 		}
@@ -349,50 +350,31 @@ public class RequestEnchantItem extends L2GameClientPacket
 				chance = chance + Config.ENCHANT_DWARF_3_CHANCE;
 		}
 
-		switch (item.getLocation())
+		synchronized (item)
 		{
-		case INVENTORY:
-		case PAPERDOLL:
-		{
-			switch (item.getLocation())
+			// can't enchant rods, hero weapons, adventurers' items,shadow and common items
+			if (item.getOwnerId() != activeChar.getObjectId()
+					|| item.getItem().getItemType() == L2WeaponType.ROD
+					|| item.isHeroItem()
+					|| (item.getItemId() >= 7816 && item.getItemId() <= 7831)
+					|| item.isShadowItem()
+					|| item.isCommonItem()
+					|| item.isTimeLimitedItem()
+					|| item.isEtcItem()
+					|| item.isWear()
+					|| item.getItem().getBodyPart() == L2Item.SLOT_L_BRACELET
+					|| item.getItem().getBodyPart() == L2Item.SLOT_R_BRACELET
+					|| (item.getLocation() != L2ItemInstance.ItemLocation.INVENTORY
+							&& item.getLocation() != L2ItemInstance.ItemLocation.PAPERDOLL))
 			{
-				case VOID:
-				case PET:
-				case WAREHOUSE:
-				case CLANWH:
-				case LEASE:
-				case FREIGHT:
-				case NPC:
-				{
-					chance = 0;
-					activeChar.setActiveEnchantItem(null);
-					Util.handleIllegalPlayerAction(activeChar, "Warning!! Character " + activeChar.getName() + " of account " + activeChar.getAccountName()
-							+ " tried to use enchant Exploit!", Config.DEFAULT_PUNISH);
-					return;
-				}
-			}
-			if (item.getOwnerId() != activeChar.getObjectId())
-			{
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.INAPPROPRIATE_ENCHANT_CONDITION));
 				activeChar.setActiveEnchantItem(null);
-				sendPacket(new ExPutEnchantTargetItemResult(2, 0, 0));
+				activeChar.sendPacket(new ExPutEnchantTargetItemResult(2, 0, 0));
 				return;
 			}
-			break;
-		}
-		default:
-		{
-			chance = 0;
-			activeChar.setActiveEnchantItem(null);
-			Util.handleIllegalPlayerAction(activeChar, "Warning!! Character " + activeChar.getName() + " of account " + activeChar.getAccountName()
-					+ " tried to use enchant Exploit!", Config.DEFAULT_PUNISH);
-			return;
-		}
-		}
 
-		boolean failed = false;
-		if (Rnd.get(100) < chance)
-		{
-			synchronized (item)
+			boolean failed = false;
+			if (Rnd.get(100) < chance)
 			{
 				if (item.getOwnerId() != activeChar.getObjectId()) // has just lost the item
 				{
@@ -401,79 +383,82 @@ public class RequestEnchantItem extends L2GameClientPacket
 					requestFailed(SystemMessageId.INAPPROPRIATE_ENCHANT_CONDITION);
 					return;
 				}
-				item.setEnchantLevel(item.getEnchantLevel() + 1);
-				item.setLastChange(L2ItemInstance.MODIFIED);
-				item.updateDatabase();
-			}
-		}
-		else
-		{
-			failed = true;
-			if (enchantBreak)
-			{
-				if (item.isEquipped())
+				if (maxEnchantLevel == 0 || item.getEnchantLevel() < maxEnchantLevel)
 				{
-					if (item.getEnchantLevel() > 0)
-					{
-						sm = new SystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED);
-						sm.addNumber(item.getEnchantLevel());
-						sm.addItemName(item);
-						sendPacket(sm);
-					}
-					else
-					{
-						sm = new SystemMessage(SystemMessageId.S1_DISARMED);
-						sm.addItemName(item);
-						sendPacket(sm);
-					}
-					L2ItemInstance[] unequiped = activeChar.getInventory().unEquipItemInSlotAndRecord(item.getLocationSlot());
-					InventoryUpdate iu = new InventoryUpdate();
-					for (L2ItemInstance element : unequiped)
-						iu.addItem(element);
-					sendPacket(iu);
-					iu = null;
+					item.setEnchantLevel(item.getEnchantLevel() + 1);
+					item.setLastChange(L2ItemInstance.MODIFIED);
+					item.updateDatabase();
 				}
-
-				long count = item.getCrystalCount() - (item.getItem().getCrystalCount() + 1) / 2;
-				if (count < 1)
-					count = 1;
-
-				L2ItemInstance destroyItem = activeChar.getInventory().destroyItem("Enchant", item, activeChar, null);
-				if (destroyItem == null)
-				{
-					if (item.getLocation() != null)
-						activeChar.getWarehouse().destroyItem("Enchant", item, activeChar, null);
-
-					activeChar.setActiveEnchantItem(null);
-					sendPacket(new ExPutEnchantTargetItemResult(2, 0, 0));
-					return;
-				}
-				sm = new SystemMessage(SystemMessageId.S1_DISAPPEARED);
-				sm.addItemName(destroyItem);
-				sendPacket(sm);
-				L2World.getInstance().removeObject(destroyItem);
-
-				L2ItemInstance crystals = activeChar.getInventory().addItem("Enchant", crystalId, count, activeChar, destroyItem);
-				sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
-				sm.addItemName(crystals);
-				sm.addItemNumber(count);
-				sendPacket(sm);
-				activeChar.getInventory().updateInventory(crystals);
-				sendPacket(new ExPutEnchantTargetItemResult(1, crystalId, count));
 			}
 			else
 			{
-				sendPacket(SystemMessageId.BLESSED_ENCHANT_FAILED);
+				failed = true;
+				if (enchantBreak)
+				{
+					if (item.isEquipped())
+					{
+						if (item.getEnchantLevel() > 0)
+						{
+							sm = new SystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED);
+							sm.addNumber(item.getEnchantLevel());
+							sm.addItemName(item);
+							sendPacket(sm);
+						}
+						else
+						{
+							sm = new SystemMessage(SystemMessageId.S1_DISARMED);
+							sm.addItemName(item);
+							sendPacket(sm);
+						}
+						L2ItemInstance[] unequiped = activeChar.getInventory().unEquipItemInSlotAndRecord(item.getLocationSlot());
+						InventoryUpdate iu = new InventoryUpdate();
+						for (L2ItemInstance element : unequiped)
+							iu.addItem(element);
+						sendPacket(iu);
+						iu = null;
+					}
 
-				item.setEnchantLevel(0);
-				item.setLastChange(L2ItemInstance.MODIFIED);
-				item.updateDatabase();
-				sendPacket(new ExPutEnchantTargetItemResult(2, 0, 0));
+					long count = item.getCrystalCount() - (item.getItem().getCrystalCount() + 1) / 2;
+					if (count < 1)
+						count = 1;
+
+					L2ItemInstance destroyItem = activeChar.getInventory().destroyItem("Enchant", item, activeChar, null);
+					if (destroyItem == null)
+					{
+						if (item.getLocation() != null)
+							activeChar.getWarehouse().destroyItem("Enchant", item, activeChar, null);
+
+						activeChar.setActiveEnchantItem(null);
+						sendPacket(new ExPutEnchantTargetItemResult(2, 0, 0));
+						return;
+					}
+					sm = new SystemMessage(SystemMessageId.S1_DISAPPEARED);
+					sm.addItemName(destroyItem);
+					sendPacket(sm);
+					L2World.getInstance().removeObject(destroyItem);
+
+					L2ItemInstance crystals = activeChar.getInventory().addItem("Enchant", crystalId, count, activeChar, destroyItem);
+					sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
+					sm.addItemName(crystals);
+					sm.addItemNumber(count);
+					sendPacket(sm);
+					activeChar.getInventory().updateInventory(crystals);
+					sendPacket(new ExPutEnchantTargetItemResult(1, crystalId, count));
+				}
+				else
+				{
+					sendPacket(SystemMessageId.BLESSED_ENCHANT_FAILED);
+
+					item.setEnchantLevel(0);
+					item.setLastChange(L2ItemInstance.MODIFIED);
+					item.updateDatabase();
+					sendPacket(new ExPutEnchantTargetItemResult(2, 0, 0));
+				}
 			}
+			sm = null;
+			if (!failed)
+				sendPacket(new ExPutEnchantTargetItemResult(0, 0, 0));
 		}
-		sm = null;
-		if (!failed)
-			sendPacket(new ExPutEnchantTargetItemResult(0, 0, 0));
 
 		activeChar.getInventory().updateInventory(item);
 		activeChar.broadcastUserInfo();

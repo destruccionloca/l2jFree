@@ -48,6 +48,9 @@ public class RequestShortCutDel extends L2GameClientPacket
 		if (activeChar == null)
 		    return;
 
+		if (_page > 10 || _page < 0)
+			return;
+
 		activeChar.deleteShortCut(_slot, _page);
 		// client needs no confirmation. this packet is just to inform the server
 	}

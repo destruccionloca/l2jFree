@@ -421,9 +421,13 @@ public abstract class L2Item implements FuncOwner
 
 	public boolean isLifeStone()
 	{
-        return !(_itemId < 8723 || (_itemId > 8762 && _itemId < 9573) || (_itemId > 9576 && _itemId < 10483) || _itemId > 10486);
-    }
-	
+		return !(_itemId < 8723
+				|| (_itemId > 8762 && _itemId < 9573)
+				|| (_itemId > 9576 && _itemId < 10483)
+				|| (_itemId > 10486 && _itemId < 14166)
+				|| _itemId > 14169);
+	}
+
 	public boolean isEquipable()
 	{
 		return getBodyPart() != 0 && !(getItemType() instanceof L2EtcItemType);

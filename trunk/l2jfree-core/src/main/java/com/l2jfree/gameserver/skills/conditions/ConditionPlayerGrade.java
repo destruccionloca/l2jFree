@@ -31,6 +31,7 @@ final class ConditionPlayerGrade extends Condition
 	public final static int COND_A_GRADE = 0x0010;
 	public final static int COND_S_GRADE = 0x0020;
 	public final static int COND_S80_GRADE = 0x0040;
+	public final static int COND_S84_GRADE = 0x0080;
 	
 	private final int _value;
 	

@@ -85,8 +85,6 @@ public abstract class L2Effect implements FuncOwner, Runnable
 		_effector = env.player;
 		_count = template.count;
 		
-		// TODO DrHouse: This should be reworked, we need to be able to change effect time out of Effect Constructor
-		// maybe using a child class
 		// Support for retail herbs duration when _effected has a Summon
 		int id = _skill.getId();
 		int temp = template.period;

@@ -178,6 +178,16 @@ public final class RequestRefine extends L2GameClientPacket
 				return false;
 			modifyGemstoneCount = 25;
 			break;
+		case L2Item.CRYSTAL_S80:
+			if (player.getLevel() < 80 || gemstoneItemId != 2131)
+				return false;
+			modifyGemstoneCount = 25;
+			break;
+		case L2Item.CRYSTAL_S84:
+			if (player.getLevel() < 84 || gemstoneItemId != 2131)
+				return false;
+			modifyGemstoneCount = 25;
+			break;
 		}
 
 		// check if the lifestone is appropriate for this player
@@ -231,6 +241,10 @@ public final class RequestRefine extends L2GameClientPacket
 			if (player.getLevel() < 82)
 				return false;
 			break;
+		case 13:
+			if (player.getLevel() < 84)
+				return false;
+			break;
 		}
 
 		// consume the life stone
@@ -263,11 +277,11 @@ public final class RequestRefine extends L2GameClientPacket
 	private int getLifeStoneGrade(int itemId)
 	{
 		itemId -= 8723;
-		if (itemId < 10 || itemId == 850 || itemId == 1760)
+		if (itemId < 10 || itemId == 850 || itemId == 1760 || itemId == 5443)
 			return 0; // normal grade
-		if (itemId < 20 || itemId == 851 || itemId == 1761)
+		if (itemId < 20 || itemId == 851 || itemId == 1761 || itemId == 5444)
 			return 1; // mid grade
-		if (itemId < 30 || itemId == 852 || itemId == 1762)
+		if (itemId < 30 || itemId == 852 || itemId == 1762 || itemId == 5445)
 			return 2; // high grade
 		return 3; // top grade
 	}
@@ -280,6 +294,8 @@ public final class RequestRefine extends L2GameClientPacket
 			return 11;
 		if (itemId > 833 && itemId < 1762)
 			return 12;
+		if (itemId > 5416 && itemId < 5445)
+			return 13;
 		return itemId;
 	}
 
