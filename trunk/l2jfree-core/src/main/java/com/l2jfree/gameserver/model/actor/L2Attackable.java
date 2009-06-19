@@ -1448,6 +1448,10 @@ public class L2Attackable extends L2Npc
 				dropChance -= L2DropData.MAX_CHANCE;
 			}
 
+			if (itemCount > 1 && !Config.MULTIPLE_ITEM_DROP
+					&& !ItemTable.getInstance().getTemplate(drop.getItemId()).isStackable())
+				itemCount = 1;
+
 			if (itemCount > 0)
 				return new RewardItem(drop.getItemId(), itemCount);
 			else if (itemCount == 0 && _log.isDebugEnabled())
