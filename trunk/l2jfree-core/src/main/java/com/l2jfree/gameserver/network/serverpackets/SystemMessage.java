@@ -16,65 +16,40 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 import com.l2jfree.gameserver.network.SystemMessageId;
 
-/**
- * @author kombat
- * Format: c dd[d s/d/dd/ddd] dd
- */
-public class ConfirmDlg extends AbstractSystemMessage<ConfirmDlg>
+public final class SystemMessage extends AbstractSystemMessage<SystemMessage>
 {
-	private static final String _S__F3_CONFIRMDLG = "[S] f3 ConfirmDlg";
+	private static final String _S__62_SYSTEMMESSAGE = "[S] 62 SystemMessage";
 
-	private int _time			= 0;
-	private int _requesterId	= 0;
-
-	public ConfirmDlg(SystemMessageId messageId)
+	public SystemMessage(SystemMessageId messageId)
 	{
 		super(messageId);
 	}
 
-	public ConfirmDlg(int messageId)
+	public SystemMessage(int messageId)
 	{
 		super(messageId);
 	}
 
-	public static ConfirmDlg sendString(String msg)
+	public static SystemMessage sendString(String msg)
 	{
-		ConfirmDlg dlg = new ConfirmDlg(SystemMessageId.S1);
-		dlg.addString(msg);
-		return dlg;
-	}
-
-	public ConfirmDlg addTime(int time)
-	{
-		_time = time;
-		return this;
-	}
-
-	public ConfirmDlg addRequesterId(int id)
-	{
-		_requesterId = id;
-		return this;
+		SystemMessage sm = new SystemMessage(SystemMessageId.S1);
+		sm.addString(msg);
+		return sm;
 	}
 
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0xf3);
+		writeC(0x62);
 		writeD(_messageId);
 		writeD(_elements.length);
 		for (Element element : _elements)
 			element.write(this);
-		// timed dialog (Summon Friend skill request)
-		writeD(_time);
-		writeD(_requesterId);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{
-		return _S__F3_CONFIRMDLG;
+		return _S__62_SYSTEMMESSAGE;
 	}
 }

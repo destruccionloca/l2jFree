@@ -28,11 +28,11 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.item.L2Item;
 
-public final class SystemMessage extends L2GameServerPacket
+public abstract class AbstractSystemMessage<T extends AbstractSystemMessage> extends L2GameServerPacket
 {
-	private static abstract class Element
+	protected static abstract class Element
 	{
-		public final void write(SystemMessage sm)
+		public final void write(AbstractSystemMessage sm)
 		{
 			sm.writeD(getType());
 			
@@ -41,7 +41,7 @@ public final class SystemMessage extends L2GameServerPacket
 		
 		protected abstract int getType();
 		
-		protected abstract void write2(SystemMessage sm);
+		protected abstract void write2(AbstractSystemMessage sm);
 	}
 	
 	private static final class TextElement extends Element
@@ -60,7 +60,7 @@ public final class SystemMessage extends L2GameServerPacket
 		}
 		
 		@Override
-		protected void write2(SystemMessage sm)
+		protected void write2(AbstractSystemMessage sm)
 		{
 			sm.writeS(_text);
 		}
@@ -82,7 +82,7 @@ public final class SystemMessage extends L2GameServerPacket
 		}
 		
 		@Override
-		protected final void write2(SystemMessage sm)
+		protected final void write2(AbstractSystemMessage sm)
 		{
 			sm.writeD(_number);
 		}
@@ -146,7 +146,7 @@ public final class SystemMessage extends L2GameServerPacket
 		}
 		
 		@Override
-		protected void write2(SystemMessage sm)
+		protected void write2(AbstractSystemMessage sm)
 		{
 			sm.writeQ(_number);
 		}
@@ -170,7 +170,7 @@ public final class SystemMessage extends L2GameServerPacket
 		}
 		
 		@Override
-		protected void write2(SystemMessage sm)
+		protected void write2(AbstractSystemMessage sm)
 		{
 			sm.writeD(_skillId);
 			sm.writeD(_skillLvl);
@@ -197,7 +197,7 @@ public final class SystemMessage extends L2GameServerPacket
 		}
 		
 		@Override
-		protected void write2(SystemMessage sm)
+		protected void write2(AbstractSystemMessage sm)
 		{
 			sm.writeD(_x);
 			sm.writeD(_y);
@@ -205,10 +205,14 @@ public final class SystemMessage extends L2GameServerPacket
 		}
 	}
 	
-	private static final String _S__7A_SYSTEMMESSAGE = "[S] 64 SystemMessage";
-	
-	// d d (d S/d d/d dd)
-	//      |--------------> 0 - String  1-number 2-textref npcname (1000000-1002655)  3-textref itemname 4-textref skills 5-fortress names
+	// 0 - String
+	// 1 - Integer Number
+	// 2 - NPC ID (10xxxxx)
+	// 3 - Item ID
+	// 4 - Skill ID
+	// 5 - Fortress ID
+	// 6 - Long Number
+	// 7 - Zone Name (x, y, z)
 	private static final int TYPE_ZONE_NAME = 7;
 	private static final int TYPE_ITEM_NUMBER = 6;
 	private static final int TYPE_FORTRESS = 5; // maybe not only for fortress, rename if needed
@@ -218,18 +222,25 @@ public final class SystemMessage extends L2GameServerPacket
 	private static final int TYPE_NUMBER = 1;
 	private static final int TYPE_TEXT = 0;
 	
-	private final int _messageId;
-	private Element[] _elements;
+	protected final int _messageId;
 	
-	public SystemMessage(SystemMessageId messageId)
+	protected Element[] _elements;
+	
+	private T			_this;
+	
+	public AbstractSystemMessage(SystemMessageId messageId)
 	{
+		_this = (T) this;
+		
 		_messageId = messageId.getId();
 		
 		_elements = new Element[messageId.size()];
 	}
 	
-	public SystemMessage(int messageId)
+	public AbstractSystemMessage(int messageId)
 	{
+		_this = (T) this;
+		
 		_messageId = messageId;
 		
 		SystemMessageId smId = SystemMessageId.getSystemMessageId(messageId, false);
@@ -261,7 +272,7 @@ public final class SystemMessage extends L2GameServerPacket
 			}
 		}
 		
-		_log.warn("SystemMessage: Too much parameter for ID: " + _messageId, new ArrayIndexOutOfBoundsException());
+		_log.warn("AbstractSystemMessage: Too much parameter for ID: " + _messageId, new ArrayIndexOutOfBoundsException());
 		
 		_elements = Arrays.copyOf(_elements, _elements.length + 1);
 		_elements[_elements.length - 1] = element;
@@ -285,64 +296,56 @@ public final class SystemMessage extends L2GameServerPacket
 		
 		_elements = Arrays.copyOf(_elements, count);
 		
-		_log.warn("SystemMessage: Empty parameter for ID: " + _messageId, new ArrayIndexOutOfBoundsException());
+		_log.warn("AbstractSystemMessage: Empty parameter for ID: " + _messageId, new ArrayIndexOutOfBoundsException());
 	}
-	
-	public static SystemMessage sendString(String msg)
-	{
-		SystemMessage sm = new SystemMessage(SystemMessageId.S1);
-		sm.addString(msg);
-		
-		return sm;
-	}
-	
-	public SystemMessage addString(String text)
+
+	public T addString(String text)
 	{
 		if (checkNPE(text))
-			return this;
+			return _this;
 		
 		addElement(new TextElement(text));
 		
-		return this;
+		return _this;
 	}
 	
-	public SystemMessage add(String text)
+	public T add(String text)
 	{
 		return addString(text);
 	}
 	
-	public SystemMessage addFortId(int number)
+	public T addFortId(int number)
 	{
 		addElement(new FortElement(number));
 		
-		return this;
+		return _this;
 	}
 	
-	public SystemMessage addItemNumber(long number)
+	public T addItemNumber(long number)
 	{
 		addElement(new LongNumberElement(number));
 		
-		return this;
+		return _this;
 	}
 	
-	public SystemMessage addExpNumber(long number)
+	public T addExpNumber(long number)
 	{
 		addElement(new LongNumberElement(number));
 		
-		return this;
+		return _this;
 	}
 	
-	public SystemMessage addNumber(int number)
+	public T addNumber(int number)
 	{
 		addElement(new NumberElement(number));
 		
-		return this;
+		return _this;
 	}
 	
-	public SystemMessage addCharName(L2Character cha)
+	public T addCharName(L2Character cha)
 	{
 		if (checkNPE(cha))
-			return this;
+			return _this;
 		
 		if (cha instanceof L2Npc)
 			return addNpcName((L2Npc)cha);
@@ -356,22 +359,22 @@ public final class SystemMessage extends L2GameServerPacket
 		return addString(cha.getName());
 	}
 	
-	public SystemMessage addPcName(L2PcInstance pc)
+	public T addPcName(L2PcInstance pc)
 	{
 		return addString(pc.getAppearance().getVisibleName());
 	}
 	
-	public SystemMessage addNpcName(L2Npc npc)
+	public T addNpcName(L2Npc npc)
 	{
 		return addNpcName(npc.getTemplate());
 	}
 	
-	public SystemMessage addNpcName(L2Summon npc)
+	public T addNpcName(L2Summon npc)
 	{
 		return addNpcName(npc.getTemplate());
 	}
 	
-	public SystemMessage addNpcName(L2NpcTemplate tpl)
+	public T addNpcName(L2NpcTemplate tpl)
 	{
 		if (tpl.isCustom() || tpl.isServerSideName())
 			return addString(tpl.getName());
@@ -379,25 +382,25 @@ public final class SystemMessage extends L2GameServerPacket
 		return addNpcName(tpl.getNpcId());
 	}
 	
-	public SystemMessage addNpcName(int id)
+	public T addNpcName(int id)
 	{
 		addElement(new NpcElement(1000000 + id));
 		
-		return this;
+		return _this;
 	}
 	
-	public SystemMessage addItemName(L2ItemInstance item)
+	public T addItemName(L2ItemInstance item)
 	{
 		if (checkNPE(item))
-			return this;
+			return _this;
 		
 		return addItemName(item.getItem());
 	}
 	
-	public SystemMessage addItemName(L2Item item)
+	public T addItemName(L2Item item)
 	{
 		if (checkNPE(item))
-			return this;
+			return _this;
 		
 		if (item.getItemDisplayId() == item.getItemId())
 			return addItemName(item.getItemId());
@@ -406,32 +409,32 @@ public final class SystemMessage extends L2GameServerPacket
 			return addString(item.getName());
 	}
 	
-	public SystemMessage addItemName(int id)
+	public T addItemName(int id)
 	{
 		addElement(new ItemElement(id));
 		
-		return this;
+		return _this;
 	}
 	
-	public SystemMessage addZoneName(int x, int y, int z)
+	public T addZoneName(int x, int y, int z)
 	{
 		addElement(new LocElement(x, y, z));
 		
-		return this;
+		return _this;
 	}
 	
-	public SystemMessage addSkillName(L2Effect effect)
+	public T addSkillName(L2Effect effect)
 	{
 		if (checkNPE(effect))
-			return this;
+			return _this;
 		
 		return addSkillName(effect.getSkill());
 	}
 	
-	public SystemMessage addSkillName(L2Skill skill)
+	public T addSkillName(L2Skill skill)
 	{
 		if (checkNPE(skill))
-			return this;
+			return _this;
 		
 		if (skill.getId() != skill.getDisplayId()) //custom skill -  need nameId or smth like this.
 			return addString(skill.getName());
@@ -439,33 +442,15 @@ public final class SystemMessage extends L2GameServerPacket
 		return addSkillName(skill.getId(), skill.getLevel());
 	}
 	
-	public SystemMessage addSkillName(int id)
+	public T addSkillName(int id)
 	{
 		return addSkillName(id, 1);
 	}
 	
-	public SystemMessage addSkillName(int id, int lvl)
+	public T addSkillName(int id, int lvl)
 	{
 		addElement(new SkillElement(id, lvl));
 		
-		return this;
-	}
-	
-	@Override
-	protected final void writeImpl()
-	{
-		writeC(0x62);
-		
-		writeD(_messageId);
-		writeD(_elements.length);
-		
-		for (Element element : _elements)
-			element.write(this);
-	}
-	
-	@Override
-	public String getType()
-	{
-		return _S__7A_SYSTEMMESSAGE;
+		return _this;
 	}
 }
