@@ -22,8 +22,6 @@ import javolution.util.FastMap;
 import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
-// Not used and doesn't exist
-//import com.l2jfree.gameserver.instancemanager.Log;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -387,8 +385,8 @@ public class MC_Show extends Quest
 			{
 				if (talks.containsKey(event))
 				{
-					String txt = (String) talks.get("event")[0];
-					String nextEvent = (String) talks.get("event")[1];
+					String txt = (String) talks.get(event)[0];
+					String nextEvent = (String) talks.get(event)[1];
 					int time = (Integer) talks.get(event)[2];
 					autoChat(npc, txt, 1);
 					startQuestTimer(nextEvent, time, npc, null);
@@ -398,8 +396,8 @@ public class MC_Show extends Quest
 					int x = (Integer) walks.get(event)[0];
 					int y = (Integer) walks.get(event)[1];
 					int z = (Integer) walks.get(event)[2];
-					String nextEvent = (String) walks.get("event")[3];
-					int time = Integer.valueOf((String) walks.get("event")[4]);
+					String nextEvent = (String) walks.get(event)[3];
+					int time = (Integer) walks.get(event)[4];
 					npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(x, y, z, 0));
 					startQuestTimer(nextEvent, time, npc, null);
 				}
