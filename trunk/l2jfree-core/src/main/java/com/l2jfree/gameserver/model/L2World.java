@@ -121,13 +121,15 @@ public final class L2World
 	public void removeObjects(List<L2Object> list)
 	{
 		for (L2Object o : list)
-			removeObject(o); // suggestion by whatev
+			if (o != null)
+				removeObject(o); // suggestion by whatev
 	}
 	
 	public void removeObjects(L2Object[] objects)
 	{
 		for (L2Object o : objects)
-			removeObject(o); // suggestion by whatev
+			if (o != null)
+				removeObject(o); // suggestion by whatev
 	}
 	
 	public void addOnlinePlayer(L2PcInstance player)

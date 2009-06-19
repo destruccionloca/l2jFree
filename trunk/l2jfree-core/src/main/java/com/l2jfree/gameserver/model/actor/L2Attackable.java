@@ -455,7 +455,7 @@ public class L2Attackable extends L2Npc
 	 * @param awake The awake state (If True : stop sleeping)
 	 */
 	@Override
-	public void reduceCurrentHp(double damage, L2Character attacker, boolean awake, boolean isDOT, L2Skill skill)
+	public void reduceCurrentHp(double damage, L2Character attacker, boolean awake, boolean isDOT, boolean isConsume, L2Skill skill)
 	{
 		/*
 		if ((this instanceof L2SiegeGuardInstance) && (attacker instanceof L2SiegeGuardInstance))
@@ -500,7 +500,7 @@ public class L2Attackable extends L2Npc
 		}
 
 		// Reduce the current HP of the L2Attackable and launch the doDie Task if necessary
-		super.reduceCurrentHp(damage, attacker, awake, isDOT, skill);
+		super.reduceCurrentHp(damage, attacker, awake, isDOT, isConsume, skill);
 	}
 
 	public synchronized void setMustRewardExpSp(boolean value)

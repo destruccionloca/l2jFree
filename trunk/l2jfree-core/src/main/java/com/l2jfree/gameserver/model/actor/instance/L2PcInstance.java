@@ -296,7 +296,7 @@ public final class L2PcInstance extends L2Playable
 	private static final String	DELETE_SKILL_SAVE				= "DELETE FROM character_skills_save WHERE charId=? AND class_index=?";
 
 	// Character Character SQL String Definitions:
-	private static final String	UPDATE_CHARACTER				= "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,face=?,hairStyle=?,hairColor=?,heading=?,x=?,y=?,z=?,exp=?,expBeforeDeath=?,sp=?,karma=?,fame=?,pvpkills=?,pkkills=?,clanid=?,race=?,classid=?,deletetime=?,title=?,accesslevel=?,online=?,isin7sdungeon=?,clan_privs=?,wantspeace=?,base_class=?,onlinetime=?,in_jail=?,jail_timer=?,newbie=?,nobless=?,pledge_rank=?,subpledge=?,lvl_joined_academy=?,apprentice=?,sponsor=?,varka_ketra_ally=?,clan_join_expiry_time=?,clan_create_expiry_time=?,banchat_timer=?,char_name=?,death_penalty_level=?,trust_level=?,vitality_points=?,bookmarkslot=? WHERE charId=?";
+	private static final String	UPDATE_CHARACTER				= "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,face=?,hairStyle=?,hairColor=?,sex=?,heading=?,x=?,y=?,z=?,exp=?,expBeforeDeath=?,sp=?,karma=?,fame=?,pvpkills=?,pkkills=?,clanid=?,race=?,classid=?,deletetime=?,title=?,accesslevel=?,online=?,isin7sdungeon=?,clan_privs=?,wantspeace=?,base_class=?,onlinetime=?,in_jail=?,jail_timer=?,newbie=?,nobless=?,pledge_rank=?,subpledge=?,lvl_joined_academy=?,apprentice=?,sponsor=?,varka_ketra_ally=?,clan_join_expiry_time=?,clan_create_expiry_time=?,banchat_timer=?,char_name=?,death_penalty_level=?,trust_level=?,vitality_points=?,bookmarkslot=? WHERE charId=?";
 	private static final String	RESTORE_CHARACTER				= "SELECT account_name, charId, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, face, hairStyle, hairColor, sex, heading, x, y, z, exp, expBeforeDeath, sp, karma, fame, pvpkills, pkkills, clanid, race, classid, deletetime, cancraft, title, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, banchat_timer, newbie, nobless, pledge_rank, subpledge, lvl_joined_academy, apprentice, sponsor, varka_ketra_ally, clan_join_expiry_time,clan_create_expiry_time,charViP,death_penalty_level,trust_level,vitality_points,bookmarkslot FROM characters WHERE charId=?";
 
 	// Character Subclass SQL String Definitions:
@@ -1412,6 +1412,9 @@ public final class L2PcInstance extends L2Playable
 
 		for (QuestState qs : _quests.values())
 		{
+			if (qs == null)
+				continue;
+
 			int questId = qs.getQuest().getQuestIntId();
 			if ((questId > 19999) || (questId < 1))
 				continue;
@@ -6965,49 +6968,50 @@ public final class L2PcInstance extends L2Playable
 			statement.setInt(8, getAppearance().getFace());
 			statement.setInt(9, getAppearance().getHairStyle());
 			statement.setInt(10, getAppearance().getHairColor());
-			statement.setInt(11, getHeading());
-			statement.setInt(12, _observerMode ? _obsX : getX());
-			statement.setInt(13, _observerMode ? _obsY : getY());
-			statement.setInt(14, _observerMode ? _obsZ : getZ());
-			statement.setLong(15, exp);
-			statement.setLong(16, getExpBeforeDeath());
-			statement.setInt(17, sp);
-			statement.setInt(18, getKarma());
-			statement.setInt(19, getFame());
-			statement.setInt(20, getPvpKills());
-			statement.setInt(21, getPkKills());
-			statement.setInt(22, getClanId());
-			statement.setInt(23, getRace().ordinal());
-			statement.setInt(24, getClassId().getId());
-			statement.setLong(25, getDeleteTimer());
-			statement.setString(26, getTitle());
-			statement.setInt(27, getAccessLevel());
-			statement.setInt(28, isOnline());
-			statement.setInt(29, isIn7sDungeon() ? 1 : 0);
-			statement.setInt(30, getClanPrivileges());
-			statement.setInt(31, getWantsPeace());
-			statement.setInt(32, getBaseClass());
+			statement.setInt(11, getAppearance().getSex() ? 1 : 0);
+			statement.setInt(12, getHeading());
+			statement.setInt(13, _observerMode ? _obsX : getX());
+			statement.setInt(14, _observerMode ? _obsY : getY());
+			statement.setInt(15, _observerMode ? _obsZ : getZ());
+			statement.setLong(16, exp);
+			statement.setLong(17, getExpBeforeDeath());
+			statement.setInt(18, sp);
+			statement.setInt(19, getKarma());
+			statement.setInt(20, getFame());
+			statement.setInt(21, getPvpKills());
+			statement.setInt(22, getPkKills());
+			statement.setInt(23, getClanId());
+			statement.setInt(24, getRace().ordinal());
+			statement.setInt(25, getClassId().getId());
+			statement.setLong(26, getDeleteTimer());
+			statement.setString(27, getTitle());
+			statement.setInt(28, getAccessLevel());
+			statement.setInt(29, isOnline());
+			statement.setInt(30, isIn7sDungeon() ? 1 : 0);
+			statement.setInt(31, getClanPrivileges());
+			statement.setInt(32, getWantsPeace());
+			statement.setInt(33, getBaseClass());
 
-			statement.setLong(33, totalOnlineTime);
-			statement.setInt(34, isInJail() ? 1 : 0);
-			statement.setLong(35, getJailTimer());
-			statement.setInt(36, getNewbie());
-			statement.setInt(37, isNoble() ? 1 : 0);
-			statement.setLong(38, getPledgeRank());
-			statement.setInt(39, getSubPledgeType());
-			statement.setInt(40, getLvlJoinedAcademy());
-			statement.setLong(41, getApprentice());
-			statement.setLong(42, getSponsor());
-			statement.setInt(43, getAllianceWithVarkaKetra());
-			statement.setLong(44, getClanJoinExpiryTime());
-			statement.setLong(45, getClanCreateExpiryTime());
-			statement.setLong(46, getBanChatTimer());
-			statement.setString(47, getName());
-			statement.setLong(48, getDeathPenaltyBuffLevel());
-			statement.setLong(49, getTrustLevel());
-			statement.setDouble(50, getVitalityPoints());
-			statement.setInt(51, getBookMarkSlot());
-		    statement.setInt(52, getObjectId());
+			statement.setLong(34, totalOnlineTime);
+			statement.setInt(35, isInJail() ? 1 : 0);
+			statement.setLong(36, getJailTimer());
+			statement.setInt(37, getNewbie());
+			statement.setInt(38, isNoble() ? 1 : 0);
+			statement.setLong(39, getPledgeRank());
+			statement.setInt(40, getSubPledgeType());
+			statement.setInt(41, getLvlJoinedAcademy());
+			statement.setLong(42, getApprentice());
+			statement.setLong(43, getSponsor());
+			statement.setInt(44, getAllianceWithVarkaKetra());
+			statement.setLong(45, getClanJoinExpiryTime());
+			statement.setLong(46, getClanCreateExpiryTime());
+			statement.setLong(47, getBanChatTimer());
+			statement.setString(48, getName());
+			statement.setLong(49, getDeathPenaltyBuffLevel());
+			statement.setLong(50, getTrustLevel());
+			statement.setDouble(51, getVitalityPoints());
+			statement.setInt(52, getBookMarkSlot());
+		    statement.setInt(53, getObjectId());
 			statement.execute();
 			statement.close();
 		}
@@ -8849,7 +8853,7 @@ public final class L2PcInstance extends L2Playable
 			if (reduceHp < 1)
 				reduceHp = 1;
 
-			reduceCurrentHp(reduceHp, L2PcInstance.this, false, false, null);
+			reduceCurrentHp(reduceHp, L2PcInstance.this, false, false, false, null);
 			// Reduced hp, because not rest
 			SystemMessage sm = new SystemMessage(SystemMessageId.DROWN_DAMAGE_S1);
 			sm.addNumber((int) reduceHp);
@@ -10990,9 +10994,9 @@ public final class L2PcInstance extends L2Playable
 	}
 
 	@Override
-	public void reduceCurrentHp(double value, L2Character attacker, boolean awake, boolean isDOT, L2Skill skill)
+	public void reduceCurrentHp(double value, L2Character attacker, boolean awake, boolean isDOT, boolean isConsume, L2Skill skill)
 	{
-		getStatus().reduceHp(value, attacker, awake, isDOT);
+		getStatus().reduceHp(value, attacker, awake, isDOT, isConsume);
 
 		// Notify the tamed beast of attacks
 		if (getTrainedBeast() != null)
@@ -13099,9 +13103,17 @@ public final class L2PcInstance extends L2Playable
 		{
 			Olympiad.getInstance().notifyCompetitorDamage(this, damage, getOlympiadGameId());
 		}
-		
-		SystemMessage sm = new SystemMessage(SystemMessageId.YOU_DID_S1_DMG);
-		sm.addNumber(damage);
+
+		final SystemMessage sm;
+		if (target.isInvul() && !(target instanceof L2NpcInstance))
+		{
+			sm = new SystemMessage(SystemMessageId.ATTACK_WAS_BLOCKED);
+		}
+		else
+		{
+			sm = new SystemMessage(SystemMessageId.YOU_DID_S1_DMG);
+			sm.addNumber(damage);
+		}
 		sendPacket(sm);
 	}
 	

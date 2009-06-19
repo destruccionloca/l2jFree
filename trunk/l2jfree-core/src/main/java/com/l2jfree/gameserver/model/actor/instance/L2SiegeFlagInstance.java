@@ -157,13 +157,13 @@ public class L2SiegeFlagInstance extends L2Npc
 	}
 
 	@Override
-	public void reduceCurrentHp(double damage, L2Character attacker, boolean awake, boolean isDOT, L2Skill skill)
+	public void reduceCurrentHp(double damage, L2Character attacker, boolean awake, boolean isDOT, boolean isConsume, L2Skill skill)
 	{
 		// Advanced Headquarters have double HP.
-		if(_isAdvanced)
+		if (_isAdvanced)
 			 damage /= 2;
 
-		super.reduceCurrentHp(damage, attacker, awake, isDOT, skill);
+		super.reduceCurrentHp(damage, attacker, awake, isDOT, isConsume, skill);
 
 		if (canTalk())
 		{

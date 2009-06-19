@@ -39,6 +39,8 @@ public enum SystemChatChannelId
 	Chat_Inner_Partymaster ("INNERPARTYMASTER"),// id = 16 
 	Chat_Hero ("HERO"), // % id = 17 blue
 	Chat_Critical_Announce ("CRITANNOUNCE"),// id = 18 dark cyan
+	Chat_Unknown ("UNKNOWN"), // id = 19
+	Chat_Battlefield ("BATTLEFIELD"), // ^ id = 20
 	Chat_None ("NONE");
 
 	private String _channelName;

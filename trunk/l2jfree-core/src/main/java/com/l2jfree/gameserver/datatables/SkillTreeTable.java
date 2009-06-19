@@ -31,6 +31,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
+import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2EnchantSkillLearn;
 import com.l2jfree.gameserver.model.L2PledgeSkillLearn;
 import com.l2jfree.gameserver.model.L2Skill;
@@ -493,6 +494,18 @@ public class SkillTreeTable
 
 			if (!activeChar.hasSkill(skill.getId()))
 				newSkillsAdded++;
+
+			// fix when learning toggle skills
+			if (skill.isToggle())
+			{
+				L2Effect toggleEffect = activeChar.getFirstEffect(skill.getId());
+				if (toggleEffect != null)
+				{
+					// stop old toggle skill effect, and give new toggle skill effect back
+					toggleEffect.exit();
+					skill.getEffects(activeChar, activeChar);
+				}
+			}
 
 			activeChar.addSkill(skill, true);
 		}

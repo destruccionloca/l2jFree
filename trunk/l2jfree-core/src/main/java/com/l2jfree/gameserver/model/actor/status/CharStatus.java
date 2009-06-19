@@ -196,7 +196,7 @@ public class CharStatus
 	
 	// ========================================================================
 	
-	boolean canReduceHp(double value, L2Character attacker, boolean awake, boolean isDOT)
+	boolean canReduceHp(double value, L2Character attacker, boolean awake, boolean isDOT, boolean isConsume)
 	{
 		if (attacker == null || getActiveChar().isDead())
 			return false;
@@ -205,7 +205,15 @@ public class CharStatus
 		{
 		}
 		else if (getActiveChar().isInvul())
-			return false;
+		{
+			if (attacker == getActiveChar())
+			{
+				if (!isDOT && !isConsume)
+					return false;
+			}
+			else
+				return false;
+		}
 		
 		L2PcInstance attackerPlayer = attacker.getActingPlayer();
 		
@@ -233,18 +241,18 @@ public class CharStatus
 	
 	public final void reduceHp(double value, L2Character attacker, boolean awake)
 	{
-		reduceHp(value, attacker, awake, false);
+		reduceHp(value, attacker, awake, false, false);
 	}
-	
-	public final void reduceHp(double value, L2Character attacker, boolean awake, boolean isDOT)
+
+	public final void reduceHp(double value, L2Character attacker, boolean awake, boolean isDOT, boolean isConsume)
 	{
-		if (!canReduceHp(value, attacker, awake, isDOT))
+		if (!canReduceHp(value, attacker, awake, isDOT, isConsume))
 			return;
 		
-		reduceHp0(value, attacker, awake, isDOT);
+		reduceHp0(value, attacker, awake, isDOT, isConsume);
 	}
 	
-	void reduceHp0(double value, L2Character attacker, boolean awake, boolean isDOT)
+	void reduceHp0(double value, L2Character attacker, boolean awake, boolean isDOT, boolean isConsume)
 	{
 		if (!isDOT)
 		{

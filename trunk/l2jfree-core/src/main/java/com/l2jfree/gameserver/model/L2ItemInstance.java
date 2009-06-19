@@ -175,7 +175,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 		_type2 = 0;
 		_dropTime = 0;
 		_mana = _item.getDuration();
-		_time = _item.getTime() == -1 ? -1 : System.currentTimeMillis() + (_item.getTime() * 60 * 1000);
+		_time = _item.getTime() == -1 ? -1 : System.currentTimeMillis() + ((long)_item.getTime() * 60 * 1000);
 		scheduleLifeTimeTask();
 	}
 	
@@ -203,7 +203,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 		_type2 = 0;
 		_dropTime = 0;
 		_mana = _item.getDuration();
-		_time = _item.getTime() == -1 ? -1 : System.currentTimeMillis() + (_item.getTime() * 60 * 1000);
+		_time = _item.getTime() == -1 ? -1 : System.currentTimeMillis() + ((long)_item.getTime() * 60 * 1000);
 		scheduleLifeTimeTask();
 	}
 	
@@ -1526,6 +1526,9 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 		{
 			_log.fatal("Could not insert item " + getObjectId(), e);
 		}
+
+		if (_elementals != null)
+			updateItemAttributes();
 	}
 	
 	/**
@@ -1656,7 +1659,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 
 	public long getRemainingTime()
 	{
-		return _time-System.currentTimeMillis();
+		return _time - System.currentTimeMillis();
 	}
 
 	public void endOfLife()

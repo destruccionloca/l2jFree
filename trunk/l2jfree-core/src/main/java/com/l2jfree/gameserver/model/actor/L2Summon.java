@@ -28,6 +28,7 @@ import com.l2jfree.gameserver.model.L2WorldRegion;
 import com.l2jfree.gameserver.model.actor.L2Attackable.AggroInfo;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MerchantSummonInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.model.actor.knownlist.SummonKnownList;
@@ -782,11 +783,21 @@ public abstract class L2Summon extends L2Playable
 			}
 		}
 		
-		SystemMessage sm;
-		if (this instanceof L2SummonInstance)
-			sm = new SystemMessage(SystemMessageId.SUMMON_GAVE_DAMAGE_S1);
+		final SystemMessage sm;
+		if (target.isInvul() && !(target instanceof L2NpcInstance))
+		{
+			sm = new SystemMessage(SystemMessageId.ATTACK_WAS_BLOCKED);
+		}
 		else
-			sm = new SystemMessage(SystemMessageId.PET_HIT_FOR_S1_DAMAGE);
+		{
+			if (this instanceof L2SummonInstance)
+				sm = new SystemMessage(SystemMessageId.SUMMON_GAVE_DAMAGE_S1);
+			else
+				sm = new SystemMessage(SystemMessageId.PET_HIT_FOR_S1_DAMAGE);
+			
+			sm.addNumber(damage);
+		}
+
 		sm.addNumber(damage);
 		getOwner().sendPacket(sm);
 	}
@@ -800,9 +811,9 @@ public abstract class L2Summon extends L2Playable
 			getOwner().sendMessage("Your pet has avoided " + attacker.getName() + "'s attack.");
 	}
 	
-	public void reduceCurrentHp(int damage, L2Character attacker, boolean awake, boolean isDOT, L2Skill skill)
+	public void reduceCurrentHp(int damage, L2Character attacker, boolean awake, boolean isDOT, boolean isConsume, L2Skill skill)
 	{
-		super.reduceCurrentHp(damage, attacker, awake, isDOT, skill);
+		super.reduceCurrentHp(damage, attacker, awake, isDOT, isConsume, skill);
 
 		if (isDOT)
 			return;

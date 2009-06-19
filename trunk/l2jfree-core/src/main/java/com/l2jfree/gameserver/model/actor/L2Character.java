@@ -5339,7 +5339,7 @@ public abstract class L2Character extends L2Object
 
 				if (reflectedDamage > 0)
 				{
-					reduceCurrentHp(reflectedDamage, target, true, false, null);
+					reduceCurrentHp(reflectedDamage, target, true, false, false, null);
 
 					// Custom messages - nice but also more network load
 					/*
@@ -6099,7 +6099,7 @@ public abstract class L2Character extends L2Object
 				if (consumeHp + 1 >= getStatus().getCurrentHp())
 					consumeHp = getStatus().getCurrentHp() - 1.0;
 				
-				getStatus().reduceHp(consumeHp, this);
+				reduceCurrentHpByConsume(consumeHp);
 				
 				su.addAttribute(StatusUpdate.CUR_HP, (int)getStatus().getCurrentHp());
 				isSendStatus = true;
@@ -6855,27 +6855,32 @@ public abstract class L2Character extends L2Object
 	// Method - Public
 	public void reduceCurrentHp(double i, L2Character attacker)
 	{
-		reduceCurrentHp(i, attacker, true, false, null);
+		reduceCurrentHp(i, attacker, true, false, false, null);
 	}
 
 	public void reduceCurrentHp(double i, L2Character attacker, L2Skill skill)
 	{
-		reduceCurrentHp(i, attacker, true, false, skill);
+		reduceCurrentHp(i, attacker, true, false, false, skill);
 	}
 
 	public void reduceCurrentHp(double i, L2Character attacker, boolean awake, L2Skill skill)
 	{
-		reduceCurrentHp(i, attacker, awake, false, skill);
+		reduceCurrentHp(i, attacker, awake, false, false, skill);
 	}
 
-	public void reduceCurrentHp(double i, L2Character attacker, boolean awake, boolean isDOT, L2Skill skill)
+	public void reduceCurrentHp(double i, L2Character attacker, boolean awake, boolean isDOT, boolean isConsume, L2Skill skill)
 	{
-		getStatus().reduceHp(i, attacker, awake, isDOT);
+		getStatus().reduceHp(i, attacker, awake, isDOT, isConsume);
 	}
 
 	public void reduceCurrentHpByDOT(double i, L2Character attacker, L2Skill skill)
 	{
-		reduceCurrentHp(i, attacker, false, true, skill);
+		reduceCurrentHp(i, attacker, false, true, false, skill);
+	}
+
+	public void reduceCurrentHpByConsume(double i)
+	{
+		reduceCurrentHp(i, this, false, false, true, null);
 	}
 
 	public void reduceCurrentMp(double i)

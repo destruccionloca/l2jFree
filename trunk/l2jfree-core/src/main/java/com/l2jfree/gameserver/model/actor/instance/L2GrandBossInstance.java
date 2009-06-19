@@ -81,13 +81,13 @@ public class L2GrandBossInstance extends L2Boss
 	 * Reduce the current HP of the L2Attackable, update its _aggroList and launch the doDie Task if necessary.<BR><BR> 
 	 */
 	@Override
-	public void reduceCurrentHp(double damage, L2Character attacker, boolean awake, boolean isDOT, L2Skill skill)
+	public void reduceCurrentHp(double damage, L2Character attacker, boolean awake, boolean isDOT, boolean isConsume, L2Skill skill)
 	{
 		// [L2J_JP ADD SANDMAN]
 		if (isInSocialAction() || isInvul())
 			return;
 
-		super.reduceCurrentHp(damage, attacker, awake, isDOT, skill);
+		super.reduceCurrentHp(damage, attacker, awake, isDOT, isConsume, skill);
 	}
 
 	@Override

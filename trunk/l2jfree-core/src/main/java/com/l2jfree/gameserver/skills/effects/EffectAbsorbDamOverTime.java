@@ -51,7 +51,7 @@ public final class EffectAbsorbDamOverTime extends L2Effect
 		boolean awake = !(getEffected() instanceof L2Attackable)
 			&& !(getSkill().getTargetType() == SkillTargetType.TARGET_SELF && getSkill().isToggle());
 		
-		getEffected().reduceCurrentHp(damage, getEffector(), awake, true, getSkill());
+		getEffected().reduceCurrentHp(damage, getEffector(), awake, true, false, getSkill());
 		
 		int maxCanAbsorb = (int)(getEffector().getMaxHp() - getEffector().getStatus().getCurrentHp());
 		if (damage > maxCanAbsorb)

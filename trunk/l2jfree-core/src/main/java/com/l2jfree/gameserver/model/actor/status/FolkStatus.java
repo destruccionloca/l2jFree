@@ -25,7 +25,7 @@ public final class FolkStatus extends NpcStatus
 	}
 	
 	@Override
-	boolean canReduceHp(double value, L2Character attacker, boolean awake, boolean isDOT)
+	boolean canReduceHp(double value, L2Character attacker, boolean awake, boolean isDOT, boolean isConsume)
 	{
 		return false;
 	}

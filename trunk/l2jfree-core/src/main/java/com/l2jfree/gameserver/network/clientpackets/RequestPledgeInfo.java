@@ -40,37 +40,30 @@ public class RequestPledgeInfo extends L2GameClientPacket
 	 * format:		cd
 	 * @param rawPacket
 	 */
-    @Override
-    protected void readImpl()
-    {
-        _clanId = readD();
-    }
-
-    @Override
-    protected void runImpl()
+	@Override
+	protected void readImpl()
 	{
-		if (_log.isDebugEnabled()) _log.debug("infos for clan " + _clanId + " requested");
+		_clanId = readD();
+	}
+
+	@Override
+	protected void runImpl()
+	{
+		if (_log.isDebugEnabled())
+			_log.debug("infos for clan " + _clanId + " requested");
 
 		L2PcInstance activeChar = getClient().getActiveChar();
+		if (activeChar == null)
+			return;
+
 		L2Clan clan = ClanTable.getInstance().getClan(_clanId);
 		if (clan == null)
 		{
-			_log.warn("Clan data for clanId "+ _clanId + " is missing");
+			_log.warn("Clan data for clanId " + _clanId + " is missing for player " + activeChar.getName()); 
 			return; // we have no clan data ?!? should not happen
 		}
-			
-		PledgeInfo pc = new PledgeInfo(clan);
-        if(activeChar != null)
-        {
-            activeChar.sendPacket(pc);
-            
-//            if (clan.getClanId() == activeChar.getClanId())
-//            {
-//                PledgeShowMemberListAll pm = new PledgeShowMemberListAll(clan, activeChar);
-//                activeChar.sendPacket(pm);
-//                activeChar.sendPacket(new PledgeReceivePowerInfo(activeChar));
-//            }
-        }
+
+		activeChar.sendPacket(new PledgeInfo(clan));
 	}
 
 	/* (non-Javadoc)
