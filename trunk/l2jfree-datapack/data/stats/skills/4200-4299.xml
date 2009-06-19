@@ -306,10 +306,11 @@
     <set name="effectRange" val="1300"/>
   </skill>
   <skill id="4218" levels="1" name="Absorb HP MP">
-    <!-- Zaken skills Done By DrunkenDave -->
+    <!-- Zaken skills - Done By DrunkenDave -->
     <set name="magicLvl" val="60"/>
-    <set name="target" val="TARGET_ONE"/>
-    <set name="element" val="6"/><!-- Dark -->
+    <set name="target" val="TARGET_AURA"/>
+    <set name="element" val="5"/> <!-- Dark -->
+    <set name="elementPower" val="20"/>
     <set name="coolTime" val="2000"/>
     <set name="hitTime" val="2000"/>
     <set name="skillRadius" val="100"/>
@@ -319,7 +320,7 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <set name="absorbPart" val="0.8"/> <!-- absorbs 80% of damage -->
-    <set name="absorbAbs" val="0"/><!-- Drain absorbs absolute values from corpses only -->
+    <!-- Missing MP -274 -->
   </skill>
   <skill id="4219" levels="1" name="Hold">
     <!-- Zaken skills -->
@@ -700,7 +701,8 @@
     <table name="#power"> 5 8 12 17 24 31 39 39 39 39 39 39 </table>
     <table name="#mpConsume"> 18 29 40 53 68 83 98 104 109 113 115 117 </table>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
-    <set name="element" val="6"/><!-- Dark -->
+    <set name="element" val="5"/> <!-- Dark -->
+    <set name="elementPower" val="20"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
@@ -711,7 +713,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="1000"/>
     <set name="effectRange" val="1500"/>
-    <!-- <set name="absorbPart" val="0.2"/>  --> <!-- absorbs 20% of damage -->
+    <set name="absorbPart" val="0.2"/> <!-- absorbs 20% of damage -->
   </skill>
   <skill id="4249" levels="12" name="Decrease Speed">
     <table name="#mpConsume"> 13 20 27 35 45 55 65 69 73 75 77 78 </table>
@@ -722,7 +724,8 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="element" val="2"/><!-- Water -->
+    <set name="element" val="1"/> <!-- Water -->
+    <set name="elementPower" val="20"/>
     <set name="isDebuff" val="true"/>
     <set name="hitTime" val="1500"/>
     <set name="skillType" val="MDAM"/>
@@ -743,7 +746,8 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="element" val="3"/><!-- Wind -->
+    <set name="element" val="2"/> <!-- Wind -->
+    <set name="elementPower" val="20"/>
     <set name="hitTime" val="2000"/>
     <set name="skillType" val="MDAM"/>
     <set name="isMagic" val="true"/>
@@ -786,7 +790,8 @@
     <table name="#power"> 3 5 7 9 13 16 20 20 20 20 20 20 </table>
     <table name="#mpConsume"> 13 20 27 35 45 55 65 69 73 75 77 78 </table>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
-    <set name="element" val="1"/><!-- Fire -->
+    <set name="element" val="0"/> <!-- Fire -->
+    <set name="elementPower" val="20"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
@@ -802,7 +807,8 @@
     <table name="#power"> 5 8 12 17 24 31 39 39 39 39 39 39 </table>
     <table name="#mpConsume"> 13 20 27 35 45 55 65 69 73 75 77 78 </table>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
-    <set name="element" val="1"/> <!-- Fire -->
+    <set name="element" val="0"/> <!-- Fire -->
+    <set name="elementPower" val="20"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
@@ -848,7 +854,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_AREA"/>
     <set name="skillRadius" val="200"/>
-    <set name="element" val="2"/> <!-- Water -->
+    <set name="element" val="1"/> <!-- Water -->
+    <set name="elementPower" val="20"/>
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="MDAM"/>
     <set name="isMagic" val="true"/>
@@ -910,7 +917,8 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="element" val="6"/><!-- Dark -->
+    <set name="element" val="5"/> <!-- Dark -->
+    <set name="elementPower" val="20"/>
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="DRAIN"/>
@@ -929,7 +937,8 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="element" val="3"/><!-- Wind -->
+    <set name="element" val="2"/> <!-- Wind -->
+    <set name="elementPower" val="20"/>
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="MDAM"/>
@@ -1118,7 +1127,7 @@
       <mul order="0x30" stat="crossbowWpnVuln" val="#bowVuln"/>
     </for>
   </skill>
-  <skill id="4277" levels="6" name="Resist Poison">
+  <skill id="4277" levels="6" name="Resist Poison Attacks">
     <table name="#poisonVuln"> 0.85 0.7 0.5 0.3 0.1 0 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1133,7 +1142,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="element" val="6"/> <!-- Dark -->
+    <set name="element" val="5"/> <!-- Dark -->
     <for>
       <add order="0x40" stat="darkPower" val="1"/>
     </for>
@@ -1236,7 +1245,8 @@
     </for>
   </skill>
   <skill id="4289" levels="1" name="Wyvern Breath">
-    <set name="element" val="1"/><!-- Fire -->
+    <set name="element" val="0"/> <!-- Fire -->
+    <set name="elementPower" val="20"/>
     <set name="magicLvl" val="60"/>
     <set name="power" val="379"/>
     <set name="mpConsume" val="400"/>

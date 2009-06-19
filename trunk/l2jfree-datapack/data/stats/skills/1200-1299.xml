@@ -356,7 +356,8 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="element" val="1"/><!-- Fire -->
+    <set name="element" val="0"/> <!-- Fire -->
+    <set name="elementPower" val="20"/>
     <set name="reuseDelay" val="1200"/>
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="MDAM"/>
@@ -671,14 +672,15 @@
       44 44 45 46 47 48 48 49 50 51 51 52 53 53 54 55 </table>
     <table name="#power"> 49 52 55 58 61 65 68 72 75 78 80 82
       84 85 87 89 90 92 94 96 97 99 100 102 104 105 107 108 </table>
-    <table name="#ench1power"> 109 109 110 111 111 112 113 113 114 115 115 116 116
+    <table name="#ench1Power"> 109 109 110 111 111 112 113 113 114 115 115 116 116
       117 118 118 119 120 120 121 122 122 123 124 124 125 125 126 127 127 </table>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="element" val="1"/> <!-- Fire -->
+    <set name="element" val="0"/> <!-- Fire -->
+    <set name="elementPower" val="20"/>
     <set name="reuseDelay" val="2400"/>
     <set name="hitTime" val="1800"/>
     <set name="skillType" val="MDAM"/>
@@ -686,7 +688,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
-    <enchant1 name="power" val="#ench1power"/>
+    <enchant1 name="power" val="#ench1Power"/>
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
   </skill>
@@ -781,7 +783,8 @@
     <set name="power" val="70"/> <!-- Base Land Rate -->
     <set name="lvlDepend" val="1"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="element" val="4"/><!-- Earth -->
+    <set name="element" val="3"/> <!-- Earth -->
+    <set name="elementPower" val="20"/>
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="DOT"/>
@@ -821,7 +824,8 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="element" val="6"/> <!-- Dark -->
+    <set name="element" val="5"/> <!-- Dark -->
+    <set name="elementPower" val="20"/>
     <set name="reuseDelay" val="4800"/>
     <set name="hitTime" val="1800"/>
     <set name="skillType" val="DRAIN"/>
@@ -859,7 +863,8 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="element" val="2"/> <!-- Water -->
+    <set name="element" val="1"/> <!-- Water -->
+    <set name="elementPower" val="20"/>
     <set name="reuseDelay" val="2400"/>
     <set name="hitTime" val="1800"/>
     <set name="skillType" val="MDAM"/>
@@ -892,7 +897,8 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="lvlDepend" val="1"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="element" val="2"/> <!-- Water -->
+    <set name="element" val="1"/> <!-- Water -->
+    <set name="elementPower" val="20"/>
     <set name="reuseDelay" val="1200"/>
     <set name="hitTime" val="3100"/>
     <set name="coolTime" val="200"/>
@@ -935,7 +941,8 @@
     <set name="power" val="#power"/>
     <set name="lvlDepend" val="2"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="element" val="2"/> <!-- Water -->
+    <set name="element" val="1"/> <!-- Water -->
+    <set name="elementPower" val="20"/>
     <set name="reuseDelay" val="1200"/>
     <set name="hitTime" val="2500"/>
     <set name="skillType" val="MDAM"/>
@@ -1017,7 +1024,8 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="element" val="3"/> <!-- Wind -->
+    <set name="element" val="2"/> <!-- Wind -->
+    <set name="elementPower" val="20"/>
     <set name="reuseDelay" val="2400"/>
     <set name="hitTime" val="1800"/>
     <set name="skillType" val="MDAM"/>
@@ -1157,7 +1165,8 @@
     <set name="power" val="70"/> <!-- Base Land Rate -->
     <set name="lvlDepend" val="1"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="element" val="1"/><!-- Fire -->
+    <set name="element" val="0"/> <!-- Fire -->
+    <set name="elementPower" val="20"/>
     <set name="reuseDelay" val="2000"/>
     <set name="isDebuff" val="true"/>
     <set name="hitTime" val="4000"/>
@@ -1830,7 +1839,8 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="element" val="5"/><!-- Holy -->
+    <set name="element" val="4"/> <!-- Holy -->
+    <set name="elementPower" val="20"/>
     <set name="hitTime" val="5000"/>
     <set name="skillType" val="MDAM"/>
     <set name="overHit" val="true"/>
@@ -1860,7 +1870,8 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="element" val="5"/> <!-- Holy -->
+    <set name="element" val="4"/> <!-- Holy -->
+    <set name="elementPower" val="20"/>
     <set name="hitTime" val="5000"/>
     <set name="skillType" val="MDAM"/>
     <set name="reuseDelay" val="8000"/>
@@ -1883,7 +1894,8 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="element" val="6"/><!-- Dark -->
+    <set name="element" val="5"/> <!-- Dark -->
+    <set name="elementPower" val="20"/>
     <set name="hitTime" val="5000"/>
     <set name="skillType" val="MDAM"/>
     <set name="reuseDelay" val="8000"/>
@@ -1913,7 +1925,8 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="element" val="6"/> <!-- Dark -->
+    <set name="element" val="5"/> <!-- Dark -->
+    <set name="elementPower" val="20"/>
     <set name="hitTime" val="5000"/>
     <set name="reuseDelay" val="8000"/>
     <set name="skillType" val="MDAM"/>
@@ -2222,7 +2235,7 @@
     <table name="#mpConsume"> 28 31 35 38 41 46 49 52 55 </table>
     <table name="#itemConsumeCount"> 2 3 3 4 4 5 6 6 7 </table>
     <table name="#mAtk"> 282 377 497 644 820 1141 1394 1673 1975 </table>
-    <set name="element" val="2"/><!-- Water -->
+    <set name="element" val="1"/><!-- Water -->
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="itemConsumeId" val="1458"/>
@@ -2365,7 +2378,7 @@
     <set name="reuseDelay" val="2000"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="aggroPoints" val="100"/>
-    <set name="element" val="1"/><!-- Fire -->
+    <set name="element" val="0"/><!-- Fire -->
     <for>
       <effect name="Buff" time="600" val="0" stackOrder="2" stackType="Seed">
         <add order="0x40" stat="firePower" val="20" />
@@ -2382,7 +2395,7 @@
     <set name="reuseDelay" val="2000"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="aggroPoints" val="100"/>
-    <set name="element" val="2"/><!-- Water -->
+    <set name="element" val="1"/><!-- Water -->
     <for>
       <effect name="Buff" time="600" val="0" stackOrder="2" stackType="Seed">
         <add order="0x40" stat="waterPower" val="20" />
@@ -2399,7 +2412,7 @@
     <set name="reuseDelay" val="2000"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="aggroPoints" val="100"/>
-    <set name="element" val="3"/><!-- Wind -->
+    <set name="element" val="2"/><!-- Wind -->
     <for>
       <effect name="Buff" time="600" val="0" stackOrder="2" stackType="Seed">
         <add order="0x40" stat="windPower" val="20"/>
@@ -2425,7 +2438,8 @@
     <set name="mpConsume" val="200"/>
     <set name="magicLvl" val="70"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="element" val="1"/><!-- Fire -->
+    <set name="element" val="0"/> <!-- Fire -->
+    <set name="elementPower" val="20"/>
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="MDAM"/>
     <set name="reuseDelay" val="240000"/>
@@ -2446,7 +2460,8 @@
     <set name="magicLvl" val="70"/>
     <set name="power" val="150"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="element" val="2"/><!-- Water -->
+    <set name="element" val="1"/> <!-- Water -->
+    <set name="elementPower" val="20"/>
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="MDAM"/>
     <set name="reuseDelay" val="240000"/>
@@ -2467,7 +2482,8 @@
     <set name="magicLvl" val="70"/>
     <set name="power" val="150"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="element" val="3"/><!-- Wind -->
+    <set name="element" val="2"/> <!-- Wind -->
+    <set name="elementPower" val="20"/>
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="MDAM"/>
     <set name="reuseDelay" val="240000"/>
@@ -2551,7 +2567,8 @@
     <set name="hitTime" val="5000"/>
     <set name="skillType" val="MDAM"/>
     <set name="reuseDelay" val="4000"/>
-    <set name="element" val="2"/> <!-- Water -->
+    <set name="element" val="1"/> <!-- Water -->
+    <set name="elementPower" val="20"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
@@ -2581,7 +2598,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_AREA"/>
     <set name="skillRadius" val="100"/>
-    <set name="element" val="1"/> <!-- Fire -->
+    <set name="element" val="0"/> <!-- Fire -->
+    <set name="elementPower" val="20"/>
     <set name="hitTime" val="5000"/>
     <set name="skillType" val="MDAM"/>
     <set name="reuseDelay" val="4000"/>

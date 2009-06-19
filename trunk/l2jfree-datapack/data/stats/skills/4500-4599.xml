@@ -759,7 +759,8 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="element" val="1"/><!-- Fire -->
+    <set name="element" val="0"/> <!-- Fire -->
+    <set name="elementPower" val="20"/>
     <set name="hitTime" val="1500"/>
     <set name="skillType" val="MDAM"/>
     <set name="isMagic" val="true"/>
@@ -775,7 +776,8 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="element" val="1"/> <!-- Fire -->
+    <set name="element" val="0"/> <!-- Fire -->
+    <set name="elementPower" val="20"/>
     <set name="hitTime" val="1500"/>
     <set name="skillType" val="MDAM"/>
     <set name="isMagic" val="true"/>
@@ -792,7 +794,8 @@
     <table name="#power"> 22 33 47 65 85 107 127 137 145 152 157 161 </table>
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
-    <set name="element" val="5"/><!-- Holy -->
+    <set name="element" val="4"/> <!-- Holy -->
+    <set name="elementPower" val="20"/>
     <set name="hitTime" val="5000"/>
     <set name="isMagic" val="true"/>
     <set name="magicLvl" val="#magicLvl"/>
@@ -812,7 +815,8 @@
     <table name="#power"> 22 33 47 65 85 107 127 137 145 152 157 161 </table>
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
-    <set name="element" val="5"/> <!-- Holy -->
+    <set name="element" val="4"/> <!-- Holy -->
+    <set name="elementPower" val="20"/>
     <set name="hitTime" val="5000"/>
     <set name="isMagic" val="true"/>
     <set name="magicLvl" val="#magicLvl"/>
@@ -831,7 +835,8 @@
     <table name="#power"> 11 17 24 33 43 54 64 69 73 76 79 81 </table>
     <set name="castRange" val="1000"/>
     <set name="effectRange" val="1500"/>
-    <set name="element" val="5"/> <!-- Holy -->
+    <set name="element" val="4"/> <!-- Holy -->
+    <set name="elementPower" val="20"/>
     <set name="hitTime" val="2500"/>
     <set name="isMagic" val="true"/>
     <set name="magicLvl" val="#magicLvl"/>
@@ -850,7 +855,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_AREA"/>
     <set name="skillRadius" val="100"/>
-    <set name="element" val="1"/> <!-- Fire -->
+    <set name="element" val="0"/> <!-- Fire -->
+    <set name="elementPower" val="20"/>
     <set name="skillType" val="MDAM"/>
     <set name="hitTime" val="5000"/>
     <set name="reuseDelay" val="6000"/>
@@ -868,7 +874,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_AREA"/>
     <set name="skillRadius" val="100"/>
-    <set name="element" val="1"/> <!-- Fire -->
+    <set name="element" val="0"/> <!-- Fire -->
+    <set name="elementPower" val="20"/>
     <set name="skillType" val="MDAM"/>
     <set name="hitTime" val="5000"/>
     <set name="reuseDelay" val="6000"/>
@@ -886,7 +893,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_AREA"/>
     <set name="skillRadius" val="100"/>
-    <set name="element" val="1"/> <!-- Fire -->
+    <set name="element" val="0"/> <!-- Fire -->
+    <set name="elementPower" val="20"/>
     <set name="skillType" val="MDAM"/>
     <set name="hitTime" val="2500"/>
     <set name="reuseDelay" val="6000"/>
@@ -904,7 +912,8 @@
     <table name="#power"> 11 17 24 33 43 54 64 69 73 76 79 81 </table>
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
-    <set name="element" val="5"/><!-- Holy -->
+    <set name="element" val="4"/> <!-- Holy -->
+    <set name="elementPower" val="20"/>
     <set name="hitTime" val="5000"/>
     <set name="isMagic" val="true"/>
     <set name="magicLvl" val="#magicLvl"/>
@@ -925,7 +934,8 @@
     <table name="#power"> 11 17 24 33 43 54 64 69 73 76 79 81 </table>
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
-    <set name="element" val="5"/> <!-- Holy -->
+    <set name="element" val="4"/> <!-- Holy -->
+    <set name="elementPower" val="20"/>
     <set name="hitTime" val="5000"/>
     <set name="isMagic" val="true"/>
     <set name="magicLvl" val="#magicLvl"/>
@@ -945,7 +955,8 @@
     <table name="#power"> 6 9 12 17 22 27 32 35 37 38 40 41 </table>
     <set name="castRange" val="1000"/>
     <set name="effectRange" val="1500"/>
-    <set name="element" val="5"/> <!-- Holy -->
+    <set name="element" val="4"/> <!-- Holy -->
+    <set name="elementPower" val="20"/>
     <set name="hitTime" val="2500"/>
     <set name="isMagic" val="true"/>
     <set name="magicLvl" val="#magicLvl"/>
@@ -965,7 +976,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_AURA"/>
     <set name="skillRadius" val="200"/>
-    <set name="element" val="1"/><!-- Fire -->
+    <set name="element" val="0"/> <!-- Fire -->
+    <set name="elementPower" val="20"/>
     <set name="reuseDelay" val="15000"/>
     <set name="hitTime" val="5000"/>
     <set name="skillType" val="MDAM"/>

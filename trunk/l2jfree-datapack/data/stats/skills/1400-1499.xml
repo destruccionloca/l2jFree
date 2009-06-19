@@ -408,7 +408,8 @@
     <set name="effectNpcId" val="13025"/>
     <set name="offensive" val="true"/>
     <set name="effectId" val="5130"/>
-    <set name="element" val="1"/> <!-- Fire -->
+    <set name="element" val="0"/> <!-- Fire -->
+    <set name="elementPower" val="20"/>
     <set name="isMagic" val="true"/>
     <set name="power" val="200"/>
     <set name="itemConsumeId" val="8876"/>
@@ -430,7 +431,8 @@
     <set name="staticReuse" val="true"/>
     <set name="magicLvl" val="80"/>
     <set name="offensive" val="true"/>
-    <set name="element" val="3"/> <!-- Wind -->
+    <set name="element" val="2"/> <!-- Wind -->
+    <set name="elementPower" val="20"/>
     <set name="effectNpcId" val="13025"/>
     <set name="effectId" val="5132"/>
     <set name="isMagic" val="true"/>
@@ -456,7 +458,8 @@
     <set name="effectNpcId" val="13025"/>
     <set name="offensive" val="true"/>
     <set name="effectId" val="5131"/>
-    <set name="element" val="2"/> <!-- Water -->
+    <set name="element" val="1"/> <!-- Water -->
+    <set name="elementPower" val="20"/>
     <set name="isMagic" val="true"/>
     <set name="power" val="200"/>
     <set name="itemConsumeId" val="8876"/>
@@ -507,7 +510,8 @@
     <set name="effectNpcId" val="13025"/>
     <set name="offensive" val="true"/>
     <set name="effectId" val="5133"/>
-    <set name="element" val="6"/> <!-- Dark -->
+    <set name="element" val="5"/> <!-- Dark -->
+    <set name="elementPower" val="20"/>
     <set name="isMagic" val="true"/>
     <set name="power" val="200"/>
     <set name="itemConsumeId" val="8876"/>
@@ -679,7 +683,8 @@
     <table name="#mpConsume"> 15 17 17 18 19 20 22 23 24 25 </table>
     <table name="#power"> 24 26 28 31 33 35 38 40 43 46 </table>
     <table name="#magicLvl"> 20 22 24 26 38 30 32 34 36 38 </table>
-    <set name="element" val="6"/><!-- Dark -->
+    <set name="element" val="5"/> <!-- Dark -->
+    <set name="elementPower" val="20"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="magicLvl" val="#magicLvl"/>
@@ -710,7 +715,8 @@
     <set name="coolTime" val="520"/>
     <set name="lvlDepend" val="1"/>
     <set name="skillType" val="MDAM"/>
-    <set name="element" val="6"/><!-- Dark -->
+    <set name="element" val="5"/> <!-- Dark -->
+    <set name="elementPower" val="20"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
@@ -764,7 +770,8 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="lvlDepend" val="1"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="element" val="6"/> <!-- Dark -->
+    <set name="element" val="5"/> <!-- Dark -->
+    <set name="elementPower" val="20"/>
     <set name="reuseDelay" val="2400"/>
     <set name="hitTime" val="1800"/>
     <set name="coolTime" val="300"/>
@@ -809,7 +816,8 @@
     <set name="skillRadius" val="120"/>
     <set name="skillType" val="MDAM"/>
     <set name="castRange" val="40"/>
-    <set name="element" val="6"/> <!-- Dark -->
+    <set name="element" val="5"/> <!-- Dark -->
+    <set name="elementPower" val="20"/>
     <set name="lvlDepend" val="1"/>
     <set name="effectRange" val="400"/>
     <set name="reuseDelay" val="3750"/>
@@ -840,7 +848,8 @@
     <set name="skillRadius" val="200"/>
     <set name="reuseDelay" val="2400"/>
     <set name="hitTime" val="1800"/>
-    <set name="element" val="6"/><!-- Dark -->
+    <set name="element" val="5"/> <!-- Dark -->
+    <set name="elementPower" val="20"/>
     <set name="lvlDepend" val="2"/>
     <set name="coolTime" val="520"/>
     <set name="skillType" val="MDAM"/>
@@ -865,7 +874,8 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="hitTime" val="1800"/>
     <set name="reuseDelay" val="2400"/>
-    <set name="element" val="6"/> <!-- Dark -->
+    <set name="element" val="5"/> <!-- Dark -->
+    <set name="elementPower" val="20"/>
     <set name="coolTime" val="320"/>
     <set name="skillType" val="MDAM"/> 
     <!-- missing core support for additional damage based on target buffs count -->
@@ -951,6 +961,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
+    <set name="element" val="5"/> <!-- Dark -->
     <enchant1 name="power" val="#ench1power"/>
     <!--  <enchant2 name="buffDuration" val="#ench2Time"/>  -->
     <for>
@@ -1117,7 +1128,8 @@
     <set name="power" val="162"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="hitTime" val="1200"/>
-    <set name="element" val="1"/><!-- Fire -->
+    <set name="element" val="0"/> <!-- Fire -->
+    <set name="elementPower" val="20"/>
     <set name="reuseDelay" val="12000"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1142,7 +1154,8 @@
     <set name="skillType" val="DOT"/>
     <set name="isDebuff" val="true"/>
     <set name="hitTime" val="1800"/>
-    <set name="element" val="1"/><!-- Fire -->
+    <set name="element" val="0"/> <!-- Fire -->
+    <set name="elementPower" val="20"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="900"/>
     <for>
@@ -1157,7 +1170,8 @@
     <set name="power" val="162"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="hitTime" val="1200"/>
-    <set name="element" val="2"/><!-- Water -->
+    <set name="element" val="1"/> <!-- Water -->
+    <set name="elementPower" val="20"/>
     <set name="reuseDelay" val="12000"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1198,7 +1212,8 @@
     <set name="isMagic" val="true"/>
     <set name="isDebuff" val="true"/>
     <set name="hitTime" val="1800"/>
-    <set name="element" val="2"/><!-- Water -->
+    <set name="element" val="1"/> <!-- Water -->
+    <set name="elementPower" val="20"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
@@ -1215,7 +1230,8 @@
     <set name="power" val="162"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="hitTime" val="1200"/>
-    <set name="element" val="3"/><!-- Wind -->
+    <set name="element" val="2"/> <!-- Wind -->
+    <set name="elementPower" val="20"/>
     <set name="reuseDelay" val="12000"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1255,7 +1271,8 @@
     <set name="isMagic" val="true"/>
     <set name="isDebuff" val="true"/>
     <set name="hitTime" val="1800"/>
-    <set name="element" val="3"/><!-- Wind -->
+    <set name="element" val="2"/> <!-- Wind -->
+    <set name="elementPower" val="20"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
@@ -1347,7 +1364,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
-    <set name="element" val="1"/> <!-- Fire -->
+    <set name="element" val="0"/> <!-- Fire -->
     <for>
       <effect name="Buff" time="1200" val="0" stackOrder="2" stackType="ElementPwr">
         <add order="0x40" stat="firePower" val="20"/>
@@ -1365,7 +1382,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
-    <set name="element" val="2"/> <!-- Water -->
+    <set name="element" val="1"/> <!-- Water -->
     <for>
       <effect name="Buff" time="1200" val="0" stackOrder="2" stackType="ElementPwr">
         <add order="0x40" stat="waterPower" val="20"/>
@@ -1414,6 +1431,7 @@
     <!-- Done by DJ MELERIX -->
     <set name="castRange" val="600"/>
     <set name="element" val="0"/> <!-- Fire -->
+    <set name="elementPower" val="20"/>
     <set name="effectRange" val="1100"/>
     <set name="reuseDelay" val="225000"/>
     <set name="hitTime" val="8000"/>
@@ -1853,7 +1871,8 @@
     <set name="power" val="117"/>
     <set name="target" val="TARGET_AURA"/>
     <set name="skillRadius" val="100"/> <!-- guess -->
-    <set name="element" val="6"/> <!-- Dark -->
+    <set name="element" val="5"/> <!-- Dark -->
+    <set name="elementPower" val="20"/>
     <set name="isMagic" val="true"/>
     <set name="skillType" val="DRAIN"/>
     <set name="operateType" val="OP_ACTIVE"/>

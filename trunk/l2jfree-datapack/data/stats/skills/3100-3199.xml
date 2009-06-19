@@ -864,7 +864,8 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="element" val="6"/> <!-- Dark -->
+    <set name="element" val="5"/> <!-- Dark -->
+    <set name="elementPower" val="20"/>
     <set name="reuseDelay" val="12000"/>
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="DRAIN"/>
@@ -1080,7 +1081,8 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="element" val="1"/> <!-- Fire -->
+    <set name="element" val="0"/> <!-- Fire -->
+    <set name="elementPower" val="20"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="MDAM"/>
@@ -1099,7 +1101,8 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="element" val="2"/> <!-- Water -->
+    <set name="element" val="1"/> <!-- Water -->
+    <set name="elementPower" val="20"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="MDAM"/>
@@ -1118,7 +1121,8 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="element" val="3"/> <!-- Wind -->
+    <set name="element" val="2"/> <!-- Wind -->
+    <set name="elementPower" val="20"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="MDAM"/>
@@ -1135,7 +1139,8 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="element" val="4"/> <!-- Earth -->
+    <set name="element" val="3"/> <!-- Earth -->
+    <set name="elementPower" val="20"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="6000"/>
@@ -1156,7 +1161,8 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="element" val="5"/> <!-- Holy -->
+    <set name="element" val="4"/> <!-- Holy -->>
+    <set name="elementPower" val="20"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="MDAM"/>
@@ -1175,7 +1181,8 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="element" val="6"/> <!-- Dark -->
+    <set name="element" val="5"/> <!-- Dark -->
+    <set name="elementPower" val="20"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="MDAM"/>
@@ -1208,7 +1215,8 @@
     <table name="#power"> 31 33 36 39 41 44 46 49 51 55 </table>
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
     <set name="magicLvl" val="#magicLvl"/>
-    <set name="element" val="1"/> <!-- Fire -->
+    <set name="element" val="0"/> <!-- Fire -->
+    <set name="elementPower" val="20"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
@@ -1228,7 +1236,8 @@
     <table name="#power"> 31 33 36 39 41 44 46 49 51 55 </table>
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
     <set name="magicLvl" val="#magicLvl"/>
-    <set name="element" val="2"/> <!-- Water -->
+    <set name="element" val="1"/> <!-- Water -->
+    <set name="elementPower" val="20"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
@@ -1248,7 +1257,8 @@
     <table name="#power"> 31 33 36 39 41 44 46 49 51 55 </table>
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
     <set name="magicLvl" val="#magicLvl"/>
-    <set name="element" val="3"/> <!-- Wind -->
+    <set name="element" val="2"/> <!-- Wind -->
+    <set name="elementPower" val="20"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
@@ -1287,7 +1297,8 @@
     <table name="#power"> 31 33 36 39 41 44 46 49 51 55 </table>
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
     <set name="magicLvl" val="#magicLvl"/>
-    <set name="element" val="5"/> <!-- Holy -->
+    <set name="element" val="4"/> <!-- Holy -->
+    <set name="elementPower" val="20"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
@@ -1307,7 +1318,8 @@
     <table name="#power"> 31 33 36 39 41 44 46 49 51 55 </table>
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
     <set name="magicLvl" val="#magicLvl"/>
-    <set name="element" val="6"/> <!-- Dark -->
+    <set name="element" val="5"/> <!-- Dark -->
+    <set name="elementPower" val="20"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
@@ -1346,7 +1358,8 @@
     <table name="#power"> 31 33 36 39 41 44 46 49 51 55 </table>
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
     <set name="magicLvl" val="#magicLvl"/>
-    <set name="element" val="1"/> <!-- Fire -->
+    <set name="element" val="0"/> <!-- Fire -->
+    <set name="elementPower" val="20"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
@@ -1365,7 +1378,8 @@
     <table name="#power"> 31 33 36 39 41 44 46 49 51 55 </table>
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
     <set name="magicLvl" val="#magicLvl"/>
-    <set name="element" val="2"/> <!-- Water -->
+    <set name="element" val="1"/> <!-- Water -->
+    <set name="elementPower" val="20"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
@@ -1384,7 +1398,8 @@
     <table name="#power"> 31 33 36 39 41 44 46 49 51 55 </table>
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
     <set name="magicLvl" val="#magicLvl"/>
-    <set name="element" val="3"/> <!-- Wind -->
+    <set name="element" val="2"/> <!-- Wind -->
+    <set name="elementPower" val="20"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
@@ -1429,7 +1444,8 @@
     <set name="hitTime" val="5000"/>
     <set name="skillType" val="MDAM"/>
     <set name="reuseDelay" val="30000"/>
-    <set name="element" val="5"/> <!-- Holy -->
+    <set name="element" val="4"/> <!-- Holy -->
+    <set name="elementPower" val="20"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="effectRange" val="1000"/>
@@ -1448,7 +1464,8 @@
     <set name="hitTime" val="5000"/>
     <set name="skillType" val="MDAM"/>
     <set name="reuseDelay" val="30000"/>
-    <set name="element" val="6"/> <!-- Dark -->
+    <set name="element" val="5"/> <!-- Dark -->
+    <set name="elementPower" val="20"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="effectRange" val="1000"/>
@@ -1622,7 +1639,8 @@
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
-    <set name="element" val="4"/><!-- Earth -->
+    <set name="element" val="3"/> <!-- Earth -->
+    <set name="magicLvl" val="77"/>
     <set name="power" val="40"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="PARALYZE"/>
