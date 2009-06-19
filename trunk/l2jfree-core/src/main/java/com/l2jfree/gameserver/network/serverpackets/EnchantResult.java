@@ -20,9 +20,9 @@ public class EnchantResult extends L2GameServerPacket
 
 	private int _result;
 	private int _crystal;
-	private int _count;
+	private long _count;
 
-	public EnchantResult(int result, int crystal, int count)
+	public EnchantResult(int result, int crystal, long count)
 	{
 		_result = result;
 		_crystal = crystal;

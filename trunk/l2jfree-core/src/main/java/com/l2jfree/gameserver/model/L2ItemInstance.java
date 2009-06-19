@@ -365,13 +365,10 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 		if (count == 0)
 			return;
 		
-		long max = Integer.MAX_VALUE;
-		
-		if (getItemId() == ADENA_ID)
-			max = MAX_ADENA;
-		
-		if ( count > 0 && getCount() > max - count)
-			setCount(Integer.MAX_VALUE);
+		long max = getItemId() == ADENA_ID ? MAX_ADENA : Integer.MAX_VALUE;
+
+		if (count > 0 && getCount() > max - count)
+			setCount(max);
 		else
 			setCount(getCount() + count);
 		

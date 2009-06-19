@@ -14,33 +14,58 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.gameserver.model.L2ItemInstance;
+import com.l2jfree.gameserver.model.L2World;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.ExPutEnchantSupportItemResult;
+
 
 /** 
  * @author evill33t
  * 
  */
-public class RequestExTryToPutEnchantSupportItem extends L2GameClientPacket
+public class RequestExTryToPutEnchantSupportItem extends AbstractEnchantPacket
 {
 	private static final String	_C__D0_80_REQUESTEXTRYTOPUTENCHANTSUPPORTITEM	= "[C] D0 50 RequestExTryToPutEnchantSupportItem";
 
-	@SuppressWarnings("unused")
-	private int					_unk1;
-	@SuppressWarnings("unused")
-	private int					_unk2;
+	private int _supportObjectId;
+	private int _enchantObjectId;
 
 	@Override
 	protected void readImpl()
 	{
-		_unk1 = readD();
-		_unk2 = readD();
+		_supportObjectId = readD();
+		_enchantObjectId = readD();
 	}
 
 	@Override
 	protected void runImpl()
 	{
-		//TODO: Implementation RequestExTryToPutEnchantSupportItem
-		requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+		L2PcInstance activeChar = getClient().getActiveChar();
+		if (activeChar == null)
+			return;
+
+		if (activeChar.isEnchanting())
+		{
+			L2ItemInstance item = (L2ItemInstance) L2World.getInstance().findObject(_enchantObjectId);
+			L2ItemInstance support = (L2ItemInstance) L2World.getInstance().findObject(_supportObjectId);
+
+			if (item == null || support == null)
+				return;
+
+			EnchantItem supportTemplate = getSupportItem(support);
+			if (supportTemplate == null || !supportTemplate.isValid(item))
+			{
+				// message may be custom
+				activeChar.sendPacket(SystemMessageId.INAPPROPRIATE_ENCHANT_CONDITION);
+				activeChar.setActiveEnchantSupportItem(null);
+				activeChar.sendPacket(new ExPutEnchantSupportItemResult(0));
+				return;
+			}
+			activeChar.setActiveEnchantSupportItem(support);
+			activeChar.sendPacket(new ExPutEnchantSupportItemResult(_supportObjectId));
+		}
 	}
 
 	@Override

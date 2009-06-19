@@ -16,7 +16,7 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.network.serverpackets.ExPutEnchantTargetItemResult;
+import com.l2jfree.gameserver.network.serverpackets.EnchantResult;
 
 /** 
  * @author evill33t
@@ -37,7 +37,7 @@ public class RequestExCancelEnchantItem extends L2GameClientPacket
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar != null)
 		{
-			sendPacket(new ExPutEnchantTargetItemResult(2, 0, 0));
+			sendPacket(new EnchantResult(2, 0, 0));
 			sendPacket(ActionFailed.STATIC_PACKET);
 			activeChar.setActiveEnchantItem(null);
 		}

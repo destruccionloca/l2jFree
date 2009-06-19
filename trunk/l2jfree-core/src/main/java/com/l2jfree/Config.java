@@ -674,19 +674,10 @@ public final class Config extends L2Config
 	public static int			ENCHANT_CHANCE_WEAPON_CRYSTAL;
 	public static int			ENCHANT_CHANCE_ARMOR_CRYSTAL;
 	public static int			ENCHANT_CHANCE_JEWELRY_CRYSTAL;
-	public static int			ENCHANT_CHANCE_WEAPON_BLESSED;
-	public static int			ENCHANT_CHANCE_ARMOR_BLESSED;
-	public static int			ENCHANT_CHANCE_JEWELRY_BLESSED;
+	public static int			BLESSED_ENCHANT_CHANCE_WEAPON;
+	public static int			BLESSED_ENCHANT_CHANCE_ARMOR;
+	public static int			BLESSED_ENCHANT_CHANCE_JEWELRY;
 	public static boolean		ALLOW_CRYSTAL_SCROLL;
-	public static boolean		ENCHANT_BREAK_WEAPON;									// If an enchant fails - will the item break or only reset to 0?
-	public static boolean		ENCHANT_BREAK_ARMOR;
-	public static boolean		ENCHANT_BREAK_JEWELRY;
-	public static boolean		ENCHANT_BREAK_WEAPON_CRYSTAL;
-	public static boolean		ENCHANT_BREAK_ARMOR_CRYSTAL;
-	public static boolean		ENCHANT_BREAK_JEWELRY_CRYSTAL;
-	public static boolean		ENCHANT_BREAK_WEAPON_BLESSED;
-	public static boolean		ENCHANT_BREAK_ARMOR_BLESSED;
-	public static boolean		ENCHANT_BREAK_JEWELRY_BLESSED;
 	public static boolean		ENCHANT_HERO_WEAPONS;									// Enchant hero weapons?
 	public static boolean		ENCHANT_DWARF_SYSTEM;									// Dwarf enchant System?
 	public static int			ENCHANT_MAX_WEAPON;									// Maximum level of enchantment
@@ -728,27 +719,15 @@ public final class Config extends L2Config
 			ENCHANT_CHANCE_WEAPON = Integer.parseInt(enchantSettings.getProperty("EnchantChanceWeapon", "65"));
 			ENCHANT_CHANCE_ARMOR = Integer.parseInt(enchantSettings.getProperty("EnchantChanceArmor", "65"));
 			ENCHANT_CHANCE_JEWELRY = Integer.parseInt(enchantSettings.getProperty("EnchantChanceJewelry", "65"));
-			/* item may break normal scroll */
-			ENCHANT_BREAK_WEAPON = Boolean.parseBoolean(enchantSettings.getProperty("EnchantBreakWeapon", "True"));
-			ENCHANT_BREAK_ARMOR = Boolean.parseBoolean(enchantSettings.getProperty("EnchantBreakArmor", "True"));
-			ENCHANT_BREAK_JEWELRY = Boolean.parseBoolean(enchantSettings.getProperty("EnchantBreakJewelry", "True"));
 			/* chance to enchant an item crystal scroll */
 			ALLOW_CRYSTAL_SCROLL = Boolean.parseBoolean(enchantSettings.getProperty("AllowCrystalScroll", "False"));
 			ENCHANT_CHANCE_WEAPON_CRYSTAL = Integer.parseInt(enchantSettings.getProperty("EnchantChanceWeaponCrystal", "75"));
 			ENCHANT_CHANCE_ARMOR_CRYSTAL = Integer.parseInt(enchantSettings.getProperty("EnchantChanceArmorCrystal", "75"));
 			ENCHANT_CHANCE_JEWELRY_CRYSTAL = Integer.parseInt(enchantSettings.getProperty("EnchantChanceJewelryCrystal", "75"));
-			/* item may break crystal scroll */
-			ENCHANT_BREAK_WEAPON_CRYSTAL = Boolean.parseBoolean(enchantSettings.getProperty("EnchantBreakWeaponCrystal", "True"));
-			ENCHANT_BREAK_ARMOR_CRYSTAL = Boolean.parseBoolean(enchantSettings.getProperty("EnchantBreakArmorCrystal", "True"));
-			ENCHANT_BREAK_JEWELRY_CRYSTAL = Boolean.parseBoolean(enchantSettings.getProperty("EnchantBreakJewelryCrystal", "True"));
 			/* chance to enchant an item blessed scroll */
-			ENCHANT_CHANCE_WEAPON_BLESSED = Integer.parseInt(enchantSettings.getProperty("EnchantChanceWeaponBlessed", "65"));
-			ENCHANT_CHANCE_ARMOR_BLESSED = Integer.parseInt(enchantSettings.getProperty("EnchantChanceArmorBlessed", "65"));
-			ENCHANT_CHANCE_JEWELRY_BLESSED = Integer.parseInt(enchantSettings.getProperty("EnchantChanceJewelryBlessed", "65"));
-			/* item may break blessed scroll */
-			ENCHANT_BREAK_WEAPON_BLESSED = Boolean.parseBoolean(enchantSettings.getProperty("EnchantBreakWeaponBlessed", "False"));
-			ENCHANT_BREAK_ARMOR_BLESSED = Boolean.parseBoolean(enchantSettings.getProperty("EnchantBreakArmorBlessed", "False"));
-			ENCHANT_BREAK_JEWELRY_BLESSED = Boolean.parseBoolean(enchantSettings.getProperty("EnchantBreakJewelryBlessed", "True"));
+			BLESSED_ENCHANT_CHANCE_WEAPON = Integer.parseInt(enchantSettings.getProperty("EnchantChanceWeaponBlessed", "65"));
+			BLESSED_ENCHANT_CHANCE_ARMOR = Integer.parseInt(enchantSettings.getProperty("EnchantChanceArmorBlessed", "65"));
+			BLESSED_ENCHANT_CHANCE_JEWELRY = Integer.parseInt(enchantSettings.getProperty("EnchantChanceJewelryBlessed", "65"));
 			/* enchat hero weapons? */
 			ENCHANT_HERO_WEAPONS = Boolean.parseBoolean(enchantSettings.getProperty("EnchantHeroWeapons", "False"));
 			/* enchant dwarf system */
@@ -3873,28 +3852,18 @@ public final class Config extends L2Config
 			ENCHANT_CHANCE_WEAPON = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("EnchantChanceArmor"))
 			ENCHANT_CHANCE_ARMOR = Integer.parseInt(pValue);
-		else if (pName.equalsIgnoreCase("EnchantBreakWeapon"))
-			ENCHANT_BREAK_WEAPON = Boolean.parseBoolean(pValue);
-		else if (pName.equalsIgnoreCase("EnchantBreakArmor"))
-			ENCHANT_BREAK_ARMOR = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("AllowCrystalScroll"))
 			ALLOW_CRYSTAL_SCROLL = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("EnchantChanceWeaponCrystal"))
 			ENCHANT_CHANCE_WEAPON_CRYSTAL = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("EnchantChanceArmorCrystal"))
 			ENCHANT_CHANCE_ARMOR_CRYSTAL = Integer.parseInt(pValue);
-		else if (pName.equalsIgnoreCase("EnchantBreakWeaponCrystal"))
-			ENCHANT_BREAK_WEAPON_CRYSTAL = Boolean.parseBoolean(pValue);
-		else if (pName.equalsIgnoreCase("EnchantBreakArmorCrystal"))
-			ENCHANT_BREAK_ARMOR_CRYSTAL = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("EnchantChanceWeaponBlessed"))
-			ENCHANT_CHANCE_WEAPON_BLESSED = Integer.parseInt(pValue);
+			BLESSED_ENCHANT_CHANCE_WEAPON = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("EnchantChanceArmorBlessed"))
-			ENCHANT_CHANCE_ARMOR_BLESSED = Integer.parseInt(pValue);
-		else if (pName.equalsIgnoreCase("EnchantBreakWeaponBlessed"))
-			ENCHANT_BREAK_WEAPON_BLESSED = Boolean.parseBoolean(pValue);
-		else if (pName.equalsIgnoreCase("EnchantBreakArmorBlessed"))
-			ENCHANT_BREAK_ARMOR_BLESSED = Boolean.parseBoolean(pValue);
+			BLESSED_ENCHANT_CHANCE_ARMOR = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("EnchantChanceJewelryBlessed"))
+			BLESSED_ENCHANT_CHANCE_JEWELRY = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("EnchantMaxWeapon"))
 			ENCHANT_MAX_WEAPON = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("EnchantMaxArmor"))

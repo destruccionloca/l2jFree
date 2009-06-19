@@ -610,7 +610,9 @@ public final class L2PcInstance extends L2Playable
 
 	private boolean							_isEnchanting			= false;
 	private L2ItemInstance					_activeEnchantItem		= null;
+	private L2ItemInstance					_activeEnchantSupportItem = null;
 	private L2ItemInstance					_activeEnchantAttrItem	= null;
+	private long							_activeEnchantTimestamp = 0;
 	
 	public static final byte ONLINE_STATE_LOADED = 0;
 	public static final byte ONLINE_STATE_ONLINE = 1;
@@ -2184,7 +2186,11 @@ public final class L2PcInstance extends L2Playable
 	{
 		// If we dont have a Enchant Item, we are not enchanting.
 		if (scroll == null)
+		{
+			setActiveEnchantSupportItem(null);
+			setActiveEnchantTimestamp(0);
 			setIsEnchanting(false);
+		}
 
 		_activeEnchantItem = scroll;
 	}
@@ -2192,6 +2198,26 @@ public final class L2PcInstance extends L2Playable
 	public L2ItemInstance getActiveEnchantItem()
 	{
 		return _activeEnchantItem;
+	}
+
+	public void setActiveEnchantSupportItem(L2ItemInstance item)
+	{
+		_activeEnchantSupportItem = item;
+	}
+
+	public L2ItemInstance getActiveEnchantSupportItem()
+	{
+		return _activeEnchantSupportItem;
+	}
+
+	public long getActiveEnchantTimestamp()
+	{
+		return _activeEnchantTimestamp;
+	}
+
+	public void setActiveEnchantTimestamp(long val)
+	{
+		_activeEnchantTimestamp = val;
 	}
 
 	public void setActiveEnchantAttrItem(L2ItemInstance stone)
