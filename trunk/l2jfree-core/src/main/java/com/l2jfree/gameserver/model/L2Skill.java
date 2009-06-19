@@ -1730,38 +1730,37 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 					L2PcInstance src = activeChar.getActingPlayer();
 
 					// Go through the L2Character _knownList
-					for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
+					for (L2Character cha : activeChar.getKnownList().getKnownCharactersInRadius(radius))
 					{
-						if (obj instanceof L2Attackable || obj instanceof L2Playable)
+						if (cha instanceof L2Attackable || cha instanceof L2Playable)
 						{
-							L2Character cha = (L2Character) obj;
 							boolean targetInPvP = cha.isInsideZone(L2Zone.FLAG_PVP) && !cha.isInsideZone(L2Zone.FLAG_SIEGE);
 
 							// Don't add this target if this is a Pc->Pc pvp casting and pvp condition not met
-							if (obj == activeChar || obj == src || ((L2Character) obj).isDead())
+							if (cha == activeChar || cha == src || cha.isDead())
 								continue;
 							if (src != null)
 							{
-								if (!GeoData.getInstance().canSeeTarget(activeChar, obj))
-									continue;
 								// check if both attacker and target are L2PcInstances and if they are in same party
-								if (obj instanceof L2PcInstance)
+								if (cha instanceof L2PcInstance)
 								{
-									if (!src.checkPvpSkill(obj, this))
+									L2PcInstance player = (L2PcInstance) cha;
+									if (!src.checkPvpSkill(cha, this))
 										continue;
-									if ((src.getParty() != null && ((L2PcInstance) obj).getParty() != null) && src.getParty().getPartyLeaderOID() == ((L2PcInstance) obj).getParty().getPartyLeaderOID())
+									if ((src.getParty() != null && player.getParty() != null)
+											&& src.getParty().getPartyLeaderOID() == player.getParty().getPartyLeaderOID())
 										continue;
 									if (!srcInPvP && !targetInPvP)
 									{
-										if (src.getAllyId() == ((L2PcInstance) obj).getAllyId() && src.getAllyId() != 0)
+										if (src.getAllyId() == player.getAllyId() && src.getAllyId() != 0)
 											continue;
-										if (src.getClanId() != 0 && src.getClanId() == ((L2PcInstance) obj).getClanId())
+										if (src.getClanId() != 0 && src.getClanId() == player.getClanId())
 											continue;
 									}
 								}
-								else if (obj instanceof L2Summon)
+								else if (cha instanceof L2Summon)
 								{
-									L2PcInstance trg = ((L2Summon) obj).getOwner();
+									L2PcInstance trg = ((L2Summon) cha).getOwner();
 									if (trg == src)
 										continue;
 									if (!src.checkPvpSkill(trg, this))
@@ -1780,17 +1779,18 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 							else
 							// Skill user is not L2Playable
 							{
-								if (!(obj instanceof L2Playable) // Target is not L2Playable
+								if (!(cha instanceof L2Playable) // Target is not L2Playable
 										&& !activeChar.isConfused()) // and caster not confused (?)
 									continue;
 							}
-							if (!Util.checkIfInRange(radius, activeChar, obj, true))
+
+							if (!GeoData.getInstance().canSeeTarget(activeChar, cha))
 								continue;
 
 							if (!onlyFirst)
-								targetList.add((L2Character) obj);
+								targetList.add(cha);
 							else
-								return new L2Character[] { (L2Character) obj };
+								return new L2Character[] { cha };
 						}
 					}
 					return targetList.moveToArray(new L2Character[targetList.size()]);
@@ -1813,42 +1813,39 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 					L2PcInstance src = activeChar.getActingPlayer();
 
 					// Go through the L2Character _knownList
-					for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
+					for (L2Character cha : activeChar.getKnownList().getKnownCharactersInRadius(radius))
 					{
-						if (obj instanceof L2Attackable || obj instanceof L2Playable)
+						if (cha instanceof L2Attackable || cha instanceof L2Playable)
 						{
-							L2Character cha = (L2Character) obj;
-
 							// Don't add this target if this is a Pc->Pc pvp casting and pvp condition not met
-							if (obj == activeChar || obj == src || ((L2Character) obj).isDead())
+							if (cha == activeChar || cha == src || cha.isDead())
 								continue;
 							if (src != null)
 							{
 								if (!cha.isInFrontOf(activeChar))
 									continue;
 
-								if (!GeoData.getInstance().canSeeTarget(activeChar, obj))
-									continue;
-
 								boolean objInPvpZone = cha.isInsideZone(L2Zone.FLAG_PVP) && !cha.isInsideZone(L2Zone.FLAG_SIEGE);
 								// check if both attacker and target are L2PcInstances and if they are in same party
-								if (obj instanceof L2PcInstance)
+								if (cha instanceof L2PcInstance)
 								{
-									if (!src.checkPvpSkill(obj, this))
+									L2PcInstance player = (L2PcInstance) cha;
+									if (!src.checkPvpSkill(cha, this))
 										continue;
-									if ((src.getParty() != null && ((L2PcInstance) obj).getParty() != null) && src.getParty().getPartyLeaderOID() == ((L2PcInstance) obj).getParty().getPartyLeaderOID())
+									if ((src.getParty() != null && player.getParty() != null)
+											&& src.getParty().getPartyLeaderOID() == player.getParty().getPartyLeaderOID())
 										continue;
 									if (!srcInArena && !objInPvpZone)
 									{
-										if (src.getAllyId() == ((L2PcInstance) obj).getAllyId() && src.getAllyId() != 0)
+										if (src.getAllyId() == player.getAllyId() && src.getAllyId() != 0)
 											continue;
-										if (src.getClanId() != 0 && src.getClanId() == ((L2PcInstance) obj).getClanId())
+										if (src.getClanId() != 0 && src.getClanId() == player.getClanId())
 											continue;
 									}
 								}
-								if (obj instanceof L2Summon)
+								if (cha instanceof L2Summon)
 								{
-									L2PcInstance trg = ((L2Summon) obj).getOwner();
+									L2PcInstance trg = ((L2Summon) cha).getOwner();
 									if (trg == src)
 										continue;
 									if (!src.checkPvpSkill(trg, this))
@@ -1867,17 +1864,18 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 							else
 							// Skill user is not L2Playable
 							{
-								if (!(obj instanceof L2Playable) // Target is not L2Playable
+								if (!(cha instanceof L2Playable) // Target is not L2Playable
 										&& !activeChar.isConfused()) // and caster not confused (?)
 									continue;
 							}
-							if (!Util.checkIfInRange(radius, activeChar, obj, true))
+
+							if (!GeoData.getInstance().canSeeTarget(activeChar, cha))
 								continue;
 
 							if (!onlyFirst)
-								targetList.add((L2Character) obj);
+								targetList.add(cha);
 							else
-								return new L2Character[] { (L2Character) obj };
+								return new L2Character[] { cha };
 						}
 					}
 					return targetList.moveToArray(new L2Character[targetList.size()]);
@@ -1890,42 +1888,39 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 					L2PcInstance src = activeChar.getActingPlayer();
 
 					// Go through the L2Character _knownList
-					for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
+					for (L2Character cha : activeChar.getKnownList().getKnownCharactersInRadius(radius))
 					{
-						if (obj instanceof L2Attackable || obj instanceof L2Playable)
+						if (cha instanceof L2Attackable || cha instanceof L2Playable)
 						{
-							L2Character cha = (L2Character) obj;
-
 							// Don't add this target if this is a Pc->Pc pvp casting and pvp condition not met
-							if (obj == activeChar || obj == src || ((L2Character) obj).isDead())
+							if (cha == activeChar || cha == src || cha.isDead())
 								continue;
 							if (src != null)
 							{
 								if (!cha.isBehind(activeChar))
 									continue;
 
-								if (!GeoData.getInstance().canSeeTarget(activeChar, obj))
-									continue;
-
 								boolean objInPvpZone = cha.isInsideZone(L2Zone.FLAG_PVP) && !cha.isInsideZone(L2Zone.FLAG_SIEGE);
 								// check if both attacker and target are L2PcInstances and if they are in same party
-								if (obj instanceof L2PcInstance)
+								if (cha instanceof L2PcInstance)
 								{
-									if (!src.checkPvpSkill(obj, this))
+									L2PcInstance player = (L2PcInstance) cha;
+									if (!src.checkPvpSkill(cha, this))
 										continue;
-									if ((src.getParty() != null && ((L2PcInstance) obj).getParty() != null) && src.getParty().getPartyLeaderOID() == ((L2PcInstance) obj).getParty().getPartyLeaderOID())
+									if ((src.getParty() != null && player.getParty() != null)
+											&& src.getParty().getPartyLeaderOID() == player.getParty().getPartyLeaderOID())
 										continue;
 									if (!srcInArena && !objInPvpZone)
 									{
-										if (src.getAllyId() == ((L2PcInstance) obj).getAllyId() && src.getAllyId() != 0)
+										if (src.getAllyId() == player.getAllyId() && src.getAllyId() != 0)
 											continue;
-										if (src.getClanId() != 0 && src.getClanId() == ((L2PcInstance) obj).getClanId())
+										if (src.getClanId() != 0 && src.getClanId() == player.getClanId())
 											continue;
 									}
 								}
-								if (obj instanceof L2Summon)
+								if (cha instanceof L2Summon)
 								{
-									L2PcInstance trg = ((L2Summon) obj).getOwner();
+									L2PcInstance trg = ((L2Summon) cha).getOwner();
 									if (trg == src)
 										continue;
 									if (!src.checkPvpSkill(trg, this))
@@ -1944,17 +1939,17 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 							else
 							// Skill user is not L2Playable
 							{
-								if (!(obj instanceof L2Playable) // Target is not L2Playable
+								if (!(cha instanceof L2Playable) // Target is not L2Playable
 										&& !activeChar.isConfused()) // and caster not confused (?)
 									continue;
 							}
-							if (!Util.checkIfInRange(radius, activeChar, obj, true))
+							if (!GeoData.getInstance().canSeeTarget(activeChar, cha))
 								continue;
 
 							if (!onlyFirst)
-								targetList.add((L2Character) obj);
+								targetList.add(cha);
 							else
-								return new L2Character[] { (L2Character) obj };
+								return new L2Character[] { cha };
 						}
 					}
 					return targetList.moveToArray(new L2Character[targetList.size()]);
@@ -1999,9 +1994,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 							continue;
 						target = (L2Character) obj;
 						boolean targetInPvP = target.isInsideZone(L2Zone.FLAG_PVP) && !target.isInsideZone(L2Zone.FLAG_SIEGE);
-
-						if (!GeoData.getInstance().canSeeTarget(activeChar, target))
-							continue;
 
 						if (!target.isDead() && (target != activeChar))
 						{
@@ -2071,7 +2063,10 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 									continue;
 							}
 
-							targetList.add((L2Character) obj);
+							if (!GeoData.getInstance().canSeeTarget(activeChar, target))
+								continue;
+
+							targetList.add(target);
 						}
 					}
 
@@ -2127,9 +2122,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 								continue;
 
 							if (!target.isInFrontOf(activeChar))
-								continue;
-
-							if (!GeoData.getInstance().canSeeTarget(activeChar, target))
 								continue;
 
 							if (src != null) // caster is L2Playable and exists
@@ -2197,7 +2189,10 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 									continue;
 							}
 
-							targetList.add((L2Character) obj);
+							if (!GeoData.getInstance().canSeeTarget(activeChar, target))
+								continue;
+
+							targetList.add(target);
 						}
 					}
 
@@ -2251,9 +2246,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 								continue;
 
 							if (!target.isBehind(activeChar))
-								continue;
-
-							if (!GeoData.getInstance().canSeeTarget(activeChar, target))
 								continue;
 
 							if (src != null) // caster is L2Playable and exists
@@ -2322,6 +2314,9 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 									continue;
 							}
 
+							if (!GeoData.getInstance().canSeeTarget(activeChar, target))
+								continue;
+
 							targetList.add(target);
 						}
 					}
@@ -2356,14 +2351,13 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 						else
 							continue;
 
-						if (!GeoData.getInstance().canSeeTarget(activeChar, target))
-							continue;
-
 						if (!target.isAlikeDead()) // If target is not dead/fake death and not self
 						{
 							if (!target.isUndead())
 								continue;
 							if (!Util.checkIfInRange(radius, cha, obj, true)) // Go to next obj if obj isn't in range
+								continue;
+							if (!GeoData.getInstance().canSeeTarget(activeChar, target))
 								continue;
 
 							if (!onlyFirst)

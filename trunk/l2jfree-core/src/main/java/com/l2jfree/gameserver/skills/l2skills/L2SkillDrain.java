@@ -120,7 +120,7 @@ public class L2SkillDrain extends L2Skill
 
 				if (hasEffects() && getTargetType() != SkillTargetType.TARGET_CORPSE_MOB)
 				{
-					if (target.reflectSkill(this))
+					if ((Formulas.calcSkillReflect(target, this) & Formulas.SKILL_REFLECT_SUCCEED) > 0)
 					{
 						getEffects(target, activeChar);
 						SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);

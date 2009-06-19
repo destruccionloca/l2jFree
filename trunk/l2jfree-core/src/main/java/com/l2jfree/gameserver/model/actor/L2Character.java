@@ -6420,6 +6420,9 @@ public abstract class L2Character extends L2Object
 
 		for (L2Object trg : targets)
 		{
+			if (trg == null)
+				continue;
+
 			if (player != null && trg instanceof L2PcInstance && Config.SIEGE_ONLY_REGISTERED)
 			{
 				if (!((L2PcInstance) trg).canBeTargetedByAtSiege(player))
@@ -6903,35 +6906,6 @@ public abstract class L2Character extends L2Object
 	{
 	}
 
-	/**
-	 * Check if character reflected skill
-	 *
-	 * @param skill
-	 * @return
-	 */
-	public boolean reflectSkill(L2Skill skill)
-	{
-		double reflect = calcStat(skill.isMagic() ? Stats.REFLECT_SKILL_MAGIC : Stats.REFLECT_SKILL_PHYSIC, 0, null, null);
-		
-		if (!skill.isMagic() && skill.getCastRange() < 100) // is 100 maximum range for melee skills?
-		{
-			// TODO: should be removed after skillhandlers synced
-			//double reflectMeleeSkill = calcStat(Stats.REFLECT_SKILL_MELEE_PHYSIC, 0, null, null);
-			//reflect = (reflectMeleeSkill > reflect) ? reflectMeleeSkill : reflect;
-		}
-		
-		if (Rnd.get(100) < reflect)
-		{
-			if (this instanceof L2PcInstance)
-				((L2PcInstance)this).sendMessage("You reflected " + skill.getName() + "!");
-			else if (this instanceof L2Summon)
-				((L2Summon)this).getOwner().sendMessage("Your summon reflected " + skill.getName() + "!");
-			return true;
-		}
-		
-		return false;
-	}
-	
 	protected void refreshSkills()
 	{
 		_calculators = NPC_STD_CALCULATOR;

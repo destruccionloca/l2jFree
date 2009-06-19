@@ -79,8 +79,10 @@ public class Mdam implements ICubicSkillHandler
 				continue;
 			}
 
-			boolean mcrit = Formulas.calcMCrit(activeChar.getMCriticalHit(target, skill));
-			byte shld = Formulas.calcShldUse(activeChar, target, skill);
+			final boolean mcrit = Formulas.calcMCrit(activeChar.getMCriticalHit(target, skill));
+			final byte shld = Formulas.calcShldUse(activeChar, target, skill);
+			final byte reflect = Formulas.calcSkillReflect(target, skill);
+
 			int damage = (int) Formulas.calcMagicDam(activeChar, target, skill, shld, ss, bss, mcrit);
 
 			if (skill.getMaxSoulConsumeCount() > 0 && activeChar instanceof L2PcInstance)
@@ -139,7 +141,7 @@ public class Mdam implements ICubicSkillHandler
 				}
 				if (skill.hasEffects())
 				{
-					if (target.reflectSkill(skill))
+					if ((reflect & Formulas.SKILL_REFLECT_SUCCEED) != 0) // reflect skill effects
 					{
 						skill.getEffects(target, activeChar);
 						SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
@@ -163,6 +165,11 @@ public class Mdam implements ICubicSkillHandler
 					}
 				}
 				target.reduceCurrentHp(damage, activeChar, skill);
+
+				// vengeance reflected damage
+				if ((reflect & Formulas.SKILL_REFLECT_VENGEANCE) != 0)
+					activeChar.reduceCurrentHp(damage, target, skill);
+
 				if (damage > 5000 && activeChar instanceof L2PcInstance)
 				{
 					String name = "";
@@ -217,8 +224,11 @@ public class Mdam implements ICubicSkillHandler
 			byte shld = Formulas.calcShldUse(activeCubic.getOwner(), target, skill);
 			int damage = (int) Formulas.calcMagicDam(activeCubic, target, skill, mcrit, shld);
 
-			// If target is reflecting the skill then no damage is done
-			if (target.reflectSkill(skill))
+			/*
+			 *  If target is reflecting the skill then no damage is done
+			 *  Ignoring vengance-like reflections
+			 */
+			if (Formulas.calcSkillReflect(target, skill) == Formulas.SKILL_REFLECT_SUCCEED)
 				damage = 0;
 
 			if (_log.isDebugEnabled())

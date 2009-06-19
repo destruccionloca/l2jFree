@@ -6937,15 +6937,19 @@ public final class L2PcInstance extends L2Playable
 	 */
 	private long _lastStore;
 	
-	public synchronized void store()
+	public void store()
 	{
-		_lastStore = System.currentTimeMillis();
-		
-		store(false);
+		store(false, true);
 	}
 	
-	public synchronized void store(boolean items)
+	public void store(boolean storeActiveEffects)
 	{
+		store(false, storeActiveEffects);
+	}
+	
+	public synchronized void store(boolean items, boolean storeActiveEffects)
+	{
+		_lastStore = System.currentTimeMillis();
 		if (getOnlineState() == ONLINE_STATE_DELETED)
 			return;
 		
@@ -6955,7 +6959,7 @@ public final class L2PcInstance extends L2Playable
 		
 		storeCharBase();
 		storeCharSub();
-		storeEffect();
+		storeEffect(storeActiveEffects);
 		transformInsertInfo();
 		
 		if (Config.UPDATE_ITEMS_ON_CHAR_STORE || items)
@@ -7087,7 +7091,7 @@ public final class L2PcInstance extends L2Playable
 		}
 	}
 
-	private void storeEffect()
+	private void storeEffect(boolean storeEffects)
 	{
 		if (!Config.STORE_SKILL_COOLTIME)
 			return;
@@ -7111,39 +7115,43 @@ public final class L2PcInstance extends L2Playable
 			
 			Set<Integer> storedSkills = new HashSet<Integer>();
 			
-			// Store all effect data along with calulated remaining
-			// reuse delays for matching skills. 'restore_type'= 0.
-			for (L2Effect effect : getAllEffects())
+			if (storeEffects)
 			{
-				if (effect != null && effect.canBeStoredInDb())
+				// Store all effect data along with calulated remaining
+				// reuse delays for matching skills. 'restore_type'= 0.
+				for (L2Effect effect : getAllEffects())
 				{
-					int skillId = effect.getSkill().getId();
-					
-					if (!storedSkills.add(skillId))
-						continue;
-					
-					statement.setInt(1, getObjectId());
-					statement.setInt(2, skillId);
-					statement.setInt(3, effect.getSkill().getLevel());
-					statement.setInt(4, effect.getCount());
-					statement.setInt(5, effect.getPeriod() - effect.getTime());
-					if (_reuseTimeStamps.containsKey(skillId))
+					if (effect != null && effect.canBeStoredInDb())
 					{
-						TimeStamp t = _reuseTimeStamps.get(skillId);
-						statement.setLong(6, t.hasNotPassed() ? t.getReuse() : 0);
-						statement.setLong(7, t.hasNotPassed() ? t.getStamp() : 0 );
+						int skillId = effect.getSkill().getId();
+						
+						if (!storedSkills.add(skillId))
+							continue;
+						
+						statement.setInt(1, getObjectId());
+						statement.setInt(2, skillId);
+						statement.setInt(3, effect.getSkill().getLevel());
+						statement.setInt(4, effect.getCount());
+						statement.setInt(5, effect.getPeriod() - effect.getTime());
+						if (_reuseTimeStamps.containsKey(skillId))
+						{
+							TimeStamp t = _reuseTimeStamps.get(skillId);
+							statement.setLong(6, t.hasNotPassed() ? t.getReuse() : 0);
+							statement.setLong(7, t.hasNotPassed() ? t.getStamp() : 0 );
+						}
+						else
+						{
+							statement.setLong(6, 0);
+							statement.setLong(7, 0);
+						}
+						statement.setInt(8, 0);
+						statement.setInt(9, getClassIndex());
+						statement.setInt(10, ++buff_index);
+						statement.execute();
 					}
-					else
-					{
-						statement.setLong(6, 0);
-						statement.setLong(7, 0);
-					}
-					statement.setInt(8, 0);
-					statement.setInt(9, getClassIndex());
-					statement.setInt(10, ++buff_index);
-					statement.execute();
 				}
 			}
+			
 			// Store the reuse delays of remaining skills which
 			// lost effect but still under reuse delay. 'restore_type' 1.
 			for (TimeStamp t : _reuseTimeStamps.values())
@@ -10245,6 +10253,8 @@ public final class L2PcInstance extends L2Playable
 	 * <BR><BR>
 	 * An index of zero specifies the character's original (base) class,
 	 * while indexes 1-3 specifies the character's sub-classes respectively.
+	 * <br><br>
+	 * <font color="00FF00"/>WARNING: Use only on subclass change</font>
 	 * 
 	 * @param classIndex
 	 */
@@ -10289,7 +10299,7 @@ public final class L2PcInstance extends L2Playable
 		 * 1. Call store() before modifying _classIndex to avoid skill effects rollover.
 		 * 2. Register the correct _classId against applied 'classIndex'.
 		 */
-		store();
+		store(Config.SUBCLASS_STORE_SKILL_COOLTIME);
 		_reuseTimeStamps.clear();
 
 		if (classIndex == 0)

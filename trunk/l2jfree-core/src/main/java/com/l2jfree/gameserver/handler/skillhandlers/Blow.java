@@ -74,7 +74,7 @@ public class Blow implements ISkillHandler
 				continue;
 
 			// Check firstly if target dodges skill
-			boolean skillIsEvaded = Formulas.calcPhysicalSkillEvasion(target, skill);
+			final boolean skillIsEvaded = Formulas.calcPhysicalSkillEvasion(target, skill);
 
 			// If skill requires Crit or skill requires behind,
 			// Calculate chance based on DEX, Position and on self BUFF
@@ -82,9 +82,10 @@ public class Blow implements ISkillHandler
 			
 			if (!skillIsEvaded && success)
 			{
+				final byte reflect = Formulas.calcSkillReflect(target, skill);
 				if (skill.hasEffects())
 				{
-					if (target.reflectSkill(skill))
+					if (reflect == Formulas.SKILL_REFLECT_SUCCEED)
 					{
 						skill.getEffects(target, activeChar);
 						SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
@@ -124,51 +125,60 @@ public class Blow implements ISkillHandler
 				if (soul && weapon != null)
 					weapon.useSoulshotCharge();
 
-				if (skill.getDmgDirectlyToHP() && target instanceof L2PcInstance)
+				if (skill.getDmgDirectlyToHP())
 				{
-					L2PcInstance player = (L2PcInstance) target;
-					if (!player.isInvul())
+					final L2Character[] ts = {target, activeChar};
+					
+					/*
+					 * This loop iterates over previous array but, if skill damage is not reflected
+					 * it stops on first iteration (target) and misses activeChar
+					 */
+					for (L2Character targ : ts)
 					{
-						// Check and calculate transfered damage
-						L2Summon summon = player.getPet();
-						if (summon != null && summon instanceof L2SummonInstance && Util.checkIfInRange(900, player, summon, true))
+						if (target instanceof L2PcInstance)
 						{
-							int tDmg = (int) damage * (int) player.getStat().calcStat(Stats.TRANSFER_DAMAGE_PERCENT, 0, null, null) / 100;
-
-							// Only transfer dmg up to current HP, it should not be killed
-							if (summon.getStatus().getCurrentHp() < tDmg)
-								tDmg = (int) summon.getStatus().getCurrentHp() - 1;
-							if (tDmg > 0)
+							L2PcInstance player = (L2PcInstance) targ;
+							if (!player.isInvul())
 							{
-								summon.reduceCurrentHp(tDmg, activeChar, skill);
-								damage -= tDmg;
-							}
-						}
-
-						if (damage >= player.getStatus().getCurrentHp())
-						{
-							if (player.isInDuel())
-								player.getStatus().setCurrentHp(1);
-							else
-							{
-								player.getStatus().setCurrentHp(0);
-								if (player.isInOlympiadMode())
+								// Check and calculate transfered damage
+								L2Summon summon = player.getPet();
+								if (summon instanceof L2SummonInstance && Util.checkIfInRange(900, player, summon, true))
 								{
-									player.abortAttack();
-									player.abortCast();
-									player.getStatus().stopHpMpRegeneration();
-									player.setIsDead(true);
-									player.setIsPendingRevive(true);
-									
-									if (player.getPet() != null)
-										player.getPet().getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE, null);
+									int tDmg = (int)damage * (int)player.getStat().calcStat(Stats.TRANSFER_DAMAGE_PERCENT, 0, null, null) /100;
+
+									// Only transfer dmg up to current HP, it should not be killed
+									if (summon.getCurrentHp() < tDmg) tDmg = (int)summon.getCurrentHp() - 1;
+									if (tDmg > 0)
+									{
+										summon.reduceCurrentHp(tDmg, activeChar ,skill);
+										damage -= tDmg;
+									}
+								}
+								if (damage >= player.getCurrentHp())
+								{
+									if (player.isInDuel())
+										player.getStatus().setCurrentHp(1);
+									else
+									{
+										player.getStatus().setCurrentHp(0);
+										if (player.isInOlympiadMode())
+										{
+											player.abortAttack();
+											player.abortCast();
+											player.getStatus().stopHpMpRegeneration();
+											player.setIsDead(true);
+											player.setIsPendingRevive(true);
+											if (player.getPet() != null)
+												player.getPet().getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE, null);
+										}
+										else
+											player.doDie(activeChar);
+									}
 								}
 								else
-									player.doDie(activeChar);
+									player.getStatus().setCurrentHp(player.getStatus().getCurrentHp() - damage);
 							}
-						}
-						else
-						{
+
 							player.getStatus().setCurrentHp(player.getStatus().getCurrentHp() - damage);
 							// Add Olympiad damage
 							if (activeChar instanceof L2PcInstance && ((L2PcInstance) activeChar).isInOlympiadMode())
@@ -176,14 +186,18 @@ public class Blow implements ISkillHandler
 							else if (activeChar instanceof L2Summon && ((L2Summon) activeChar).getOwner().isInOlympiadMode()
 									&& Config.ALT_OLY_SUMMON_DAMAGE_COUNTS)
 								((L2Summon) activeChar).getOwner().addOlyDamage((int) damage);
-						}
-					}
-					SystemMessage smsg = new SystemMessage(SystemMessageId.C1_RECEIVED_DAMAGE_OF_S3_FROM_S2);
-					smsg.addPcName(player);
-					smsg.addCharName(activeChar);
-					smsg.addNumber((int) damage);
-					player.sendPacket(smsg);
-				}
+
+							SystemMessage smsg = new SystemMessage(SystemMessageId.C1_RECEIVED_DAMAGE_OF_S3_FROM_S2);
+							smsg.addPcName(player);
+							smsg.addCharName(activeChar);
+							smsg.addNumber((int) damage);
+							player.sendPacket(smsg);
+						} // end instanceof L2PcInstance check
+						
+						if ((reflect & Formulas.SKILL_REFLECT_VENGEANCE) != 0) // stop if no vengeance, so only target will be effected
+							break;
+					} // end for
+				} // end skill directlyToHp check
 				else
 					target.reduceCurrentHp(damage, activeChar, skill);
 
@@ -201,14 +215,13 @@ public class Blow implements ISkillHandler
 					activeChar.sendPacket(SystemMessageId.CRITICAL_HIT);
 					if (target instanceof L2PcInstance)
 						activeChar.sendPacket(new SystemMessage(SystemMessageId.C1_HAD_CRITICAL_HIT).addPcName((L2PcInstance) activeChar));
-				
 					if (activePlayer.isInOlympiadMode() &&
-			        		target instanceof L2PcInstance &&
-			        		((L2PcInstance)target).isInOlympiadMode() &&
-			        		((L2PcInstance)target).getOlympiadGameId() == activePlayer.getOlympiadGameId())
-			        {
-			        	Olympiad.getInstance().notifyCompetitorDamage(activePlayer, (int) damage, activePlayer.getOlympiadGameId());
-			        }
+							target instanceof L2PcInstance &&
+							((L2PcInstance)target).isInOlympiadMode() &&
+							((L2PcInstance)target).getOlympiadGameId() == activePlayer.getOlympiadGameId())
+					{
+						Olympiad.getInstance().notifyCompetitorDamage(activePlayer, (int) damage, activePlayer.getOlympiadGameId());
+					}
 				}
 
 				SystemMessage sm = new SystemMessage(SystemMessageId.YOU_DID_S1_DMG);

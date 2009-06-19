@@ -58,7 +58,7 @@ public class Manadam implements ISkillHandler
 			if (target == null)
 				continue;
 			
-			if (target.reflectSkill(skill))
+			if (Formulas.calcSkillReflect(target, skill) == Formulas.SKILL_REFLECT_SUCCEED)
 				target = activeChar;
 
 			boolean acted = Formulas.calcMagicAffected(activeChar, target, skill);

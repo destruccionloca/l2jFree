@@ -876,6 +876,7 @@ public final class Config extends L2Config
 	public static int				MAX_PETITIONS_PER_PLAYER;
 	public static int				MAX_PETITIONS_PENDING;
 	public static boolean			STORE_SKILL_COOLTIME;									// Store skills cooltime on char exit/relogin
+	public static boolean			SUBCLASS_STORE_SKILL_COOLTIME;
 	public static int				SEND_NOTDONE_SKILLS;
 	public static boolean			ANNOUNCE_MAMMON_SPAWN;
 	public static double			RESPAWN_RESTORE_CP;									// Percent CP is restore on respawn
@@ -1020,6 +1021,7 @@ public final class Config extends L2Config
 			MAX_PVTSTOREBUY_SLOTS_OTHER = Integer.parseInt(otherSettings.getProperty("MaxPvtStoreBuySlotsOther", "4"));
 
 			STORE_SKILL_COOLTIME = Boolean.parseBoolean(otherSettings.getProperty("StoreSkillCooltime", "true"));
+			SUBCLASS_STORE_SKILL_COOLTIME = Boolean.parseBoolean(otherSettings.getProperty("SubclassStoreSkillCooltime", "false"));
 
 			SEND_NOTDONE_SKILLS = Integer.parseInt(otherSettings.getProperty("SendNOTDONESkills", "2"));
 

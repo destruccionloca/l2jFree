@@ -14,7 +14,7 @@
  */
 package com.l2jfree.gameserver.model;
 
-import java.util.Vector;
+import javolution.util.FastList;
 
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -27,12 +27,12 @@ import com.l2jfree.gameserver.network.serverpackets.RadarControl;
 public final class L2Radar
 {
 	private L2PcInstance        _player;
-	private Vector<RadarMarker> _markers;
+	private FastList<RadarMarker> _markers;
 
 	public L2Radar(L2PcInstance player)
 	{
 		_player = player;
-		_markers = new Vector<RadarMarker>();
+		_markers = new FastList<RadarMarker>();
 	}
 
 	// Add a marker to player's radar
@@ -57,7 +57,7 @@ public final class L2Radar
 		for (RadarMarker tempMarker : _markers)
 			_player.sendPacket(new RadarControl(2, 2, tempMarker._x, tempMarker._y, tempMarker._z));
 
-		_markers.removeAllElements();
+		_markers.clear();
 	}
 
 	public void loadMarkers()

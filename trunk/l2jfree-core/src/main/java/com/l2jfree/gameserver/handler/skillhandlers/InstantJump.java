@@ -83,7 +83,7 @@ public class InstantJump implements ISkillHandler
 		
 		if (skill.hasEffects())
 		{
-			if (target.reflectSkill(skill))
+			if (Formulas.calcSkillReflect(target, skill) == Formulas.SKILL_REFLECT_SUCCEED)
 			{
 				skill.getEffects(target, activeChar);
 				//SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);

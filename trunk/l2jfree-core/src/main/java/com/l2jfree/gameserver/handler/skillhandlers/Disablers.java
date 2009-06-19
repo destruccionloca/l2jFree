@@ -170,7 +170,7 @@ public class Disablers implements ICubicSkillHandler
 			case DISARM:
 			case STUN:
 			{
-				if (target.reflectSkill(skill))
+				if (Formulas.calcSkillReflect(target, skill) == Formulas.SKILL_REFLECT_SUCCEED)
 					target = activeChar;
 
 				if (Formulas.calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss))
@@ -192,7 +192,7 @@ public class Disablers implements ICubicSkillHandler
 			case SLEEP:
 			case PARALYZE: //use same as root for now
 			{
-				if (target.reflectSkill(skill))
+				if (Formulas.calcSkillReflect(target, skill) == Formulas.SKILL_REFLECT_SUCCEED)
 					target = activeChar;
 
 				if (target instanceof L2Npc)
@@ -218,7 +218,7 @@ public class Disablers implements ICubicSkillHandler
 			case CONFUSION:
 			case MUTE:
 			{
-				if (target.reflectSkill(skill))
+				if (Formulas.calcSkillReflect(target, skill) == Formulas.SKILL_REFLECT_SUCCEED)
 					target = activeChar;
 
 				if (target instanceof L2Npc)
@@ -422,7 +422,7 @@ public class Disablers implements ICubicSkillHandler
 			}
 			case MAGE_BANE:
 			{
-				if (target.reflectSkill(skill))
+				if (Formulas.calcSkillReflect(target, skill) == Formulas.SKILL_REFLECT_SUCCEED)
 					target = activeChar;
 
 				if (!Formulas.calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss))
@@ -450,7 +450,7 @@ public class Disablers implements ICubicSkillHandler
 
 			case WARRIOR_BANE:
 			{
-				if (target.reflectSkill(skill))
+				if (Formulas.calcSkillReflect(target, skill) == Formulas.SKILL_REFLECT_SUCCEED)
 					target = activeChar;
 
 				if (!Formulas.calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss))
@@ -552,7 +552,7 @@ public class Disablers implements ICubicSkillHandler
 			}
 			case CANCEL:
 			{
-				if (target.reflectSkill(skill))
+				if (Formulas.calcSkillReflect(target, skill) == Formulas.SKILL_REFLECT_SUCCEED)
 					target = activeChar;
 
 				if (Formulas.calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss))
@@ -629,7 +629,7 @@ public class Disablers implements ICubicSkillHandler
 			}
 			case NEGATE:
 			{
-				if (target.reflectSkill(skill))
+				if (Formulas.calcSkillReflect(target, skill) == Formulas.SKILL_REFLECT_SUCCEED)
 					target = activeChar;
 				
 				for(int id:skill.getNegateId())

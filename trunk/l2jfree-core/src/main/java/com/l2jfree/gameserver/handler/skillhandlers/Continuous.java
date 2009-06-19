@@ -92,21 +92,8 @@ public class Continuous implements ICubicSkillHandler
 			if (target == null)
 				continue;
 
-			switch (skill.getSkillType())
-			{
-			case BUFF:
-			case HOT:
-			case CPHOT:
-			case MPHOT:
-			case AGGDEBUFF:
-			case CONT:
-				// No reflect possible
-				break;
-			default:
-				if (target.reflectSkill(skill))
-					target = activeChar;
-				break;
-			}
+			if (Formulas.calcSkillReflect(target, skill) == Formulas.SKILL_REFLECT_SUCCEED)
+				target = activeChar;
 
 			// With Mystic Immunity you can't be buffed/debuffed
 			if (target.isPreventedFromReceivingBuffs())
