@@ -914,7 +914,7 @@ public class RecipeController
 			{
 				if (Config.ALLOW_MASTERWORK)
 				{
-					if (rareProdId != -1 && Rnd.get(100) <= Config.RATE_MASTERWORK)
+					if (rareProdId != -1 && Rnd.get(100) < Config.RATE_MASTERWORK)
 					{
 						itemId = rareProdId;
 					}
@@ -922,7 +922,7 @@ public class RecipeController
 
 				if (Config.ALLOW_CRITICAL_CRAFT && _recipeList.isCriticalAffected())
 				{
-					if (Rnd.get(100) <= Config.RATE_CRITICAL_CRAFT_CHANCE)
+					if (Rnd.get(100) < Config.RATE_CRITICAL_CRAFT_CHANCE)
 					{
 						itemCount = itemCount * Config.RATE_CRITICAL_CRAFT_MULTIPLIER;
 					}
@@ -932,7 +932,7 @@ public class RecipeController
 			{
 				if (rareProdId != -1 && Config.ALLOW_MASTERWORK)
 				{
-					if (Rnd.get(100) <= _recipeList.getRarity())
+					if (Rnd.get(100) < _recipeList.getRarity())
 					{
 						itemId = rareProdId;
 						if (Config.ALLOW_CRITICAL_CRAFT)
