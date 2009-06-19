@@ -17,61 +17,56 @@ package com.l2jfree.gameserver.network.serverpackets;
 import com.l2jfree.gameserver.network.SystemMessageId;
 
 /**
- * @author kombat
  * Format: c dd[d s/d/dd/ddd] dd
+ * 
+ * @author kombat
  */
 public class ConfirmDlg extends AbstractSystemMessage<ConfirmDlg>
 {
 	private static final String _S__F3_CONFIRMDLG = "[S] f3 ConfirmDlg";
-
-	private int _time			= 0;
-	private int _requesterId	= 0;
-
+	
+	private int _time = 0;
+	private int _requesterId = 0;
+	
 	public ConfirmDlg(SystemMessageId messageId)
 	{
 		super(messageId);
 	}
-
+	
 	public ConfirmDlg(int messageId)
 	{
 		super(messageId);
 	}
-
+	
 	public static ConfirmDlg sendString(String msg)
 	{
 		ConfirmDlg dlg = new ConfirmDlg(SystemMessageId.S1);
 		dlg.addString(msg);
 		return dlg;
 	}
-
+	
 	public ConfirmDlg addTime(int time)
 	{
 		_time = time;
 		return this;
 	}
-
+	
 	public ConfirmDlg addRequesterId(int id)
 	{
 		_requesterId = id;
 		return this;
 	}
-
+	
 	@Override
 	protected final void writeImpl()
 	{
 		writeC(0xf3);
-		writeD(_messageId);
-		writeD(_elements.length);
-		for (Element element : _elements)
-			element.write(this);
+		writeMessageIdAndElements();
 		// timed dialog (Summon Friend skill request)
 		writeD(_time);
 		writeD(_requesterId);
 	}
-
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
-	 */
+	
 	@Override
 	public String getType()
 	{

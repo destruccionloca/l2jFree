@@ -28,6 +28,7 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.item.L2Item;
 
+@SuppressWarnings("unchecked")
 public abstract class AbstractSystemMessage<T extends AbstractSystemMessage> extends L2GameServerPacket
 {
 	protected static abstract class Element
@@ -223,15 +224,10 @@ public abstract class AbstractSystemMessage<T extends AbstractSystemMessage> ext
 	private static final int TYPE_TEXT = 0;
 	
 	protected final int _messageId;
-	
 	protected Element[] _elements;
-	
-	private T			_this;
 	
 	public AbstractSystemMessage(SystemMessageId messageId)
 	{
-		_this = (T) this;
-		
 		_messageId = messageId.getId();
 		
 		_elements = new Element[messageId.size()];
@@ -239,8 +235,6 @@ public abstract class AbstractSystemMessage<T extends AbstractSystemMessage> ext
 	
 	public AbstractSystemMessage(int messageId)
 	{
-		_this = (T) this;
-		
 		_messageId = messageId;
 		
 		SystemMessageId smId = SystemMessageId.getSystemMessageId(messageId, false);
@@ -298,15 +292,15 @@ public abstract class AbstractSystemMessage<T extends AbstractSystemMessage> ext
 		
 		_log.warn("AbstractSystemMessage: Empty parameter for ID: " + _messageId, new ArrayIndexOutOfBoundsException());
 	}
-
+	
 	public T addString(String text)
 	{
 		if (checkNPE(text))
-			return _this;
+			return (T)this;
 		
 		addElement(new TextElement(text));
 		
-		return _this;
+		return (T)this;
 	}
 	
 	public T add(String text)
@@ -318,34 +312,34 @@ public abstract class AbstractSystemMessage<T extends AbstractSystemMessage> ext
 	{
 		addElement(new FortElement(number));
 		
-		return _this;
+		return (T)this;
 	}
 	
 	public T addItemNumber(long number)
 	{
 		addElement(new LongNumberElement(number));
 		
-		return _this;
+		return (T)this;
 	}
 	
 	public T addExpNumber(long number)
 	{
 		addElement(new LongNumberElement(number));
 		
-		return _this;
+		return (T)this;
 	}
 	
 	public T addNumber(int number)
 	{
 		addElement(new NumberElement(number));
 		
-		return _this;
+		return (T)this;
 	}
 	
 	public T addCharName(L2Character cha)
 	{
 		if (checkNPE(cha))
-			return _this;
+			return (T)this;
 		
 		if (cha instanceof L2Npc)
 			return addNpcName((L2Npc)cha);
@@ -386,13 +380,13 @@ public abstract class AbstractSystemMessage<T extends AbstractSystemMessage> ext
 	{
 		addElement(new NpcElement(1000000 + id));
 		
-		return _this;
+		return (T)this;
 	}
 	
 	public T addItemName(L2ItemInstance item)
 	{
 		if (checkNPE(item))
-			return _this;
+			return (T)this;
 		
 		return addItemName(item.getItem());
 	}
@@ -400,7 +394,7 @@ public abstract class AbstractSystemMessage<T extends AbstractSystemMessage> ext
 	public T addItemName(L2Item item)
 	{
 		if (checkNPE(item))
-			return _this;
+			return (T)this;
 		
 		if (item.getItemDisplayId() == item.getItemId())
 			return addItemName(item.getItemId());
@@ -413,20 +407,20 @@ public abstract class AbstractSystemMessage<T extends AbstractSystemMessage> ext
 	{
 		addElement(new ItemElement(id));
 		
-		return _this;
+		return (T)this;
 	}
 	
 	public T addZoneName(int x, int y, int z)
 	{
 		addElement(new LocElement(x, y, z));
 		
-		return _this;
+		return (T)this;
 	}
 	
 	public T addSkillName(L2Effect effect)
 	{
 		if (checkNPE(effect))
-			return _this;
+			return (T)this;
 		
 		return addSkillName(effect.getSkill());
 	}
@@ -434,7 +428,7 @@ public abstract class AbstractSystemMessage<T extends AbstractSystemMessage> ext
 	public T addSkillName(L2Skill skill)
 	{
 		if (checkNPE(skill))
-			return _this;
+			return (T)this;
 		
 		if (skill.getId() != skill.getDisplayId()) //custom skill -  need nameId or smth like this.
 			return addString(skill.getName());
@@ -451,6 +445,14 @@ public abstract class AbstractSystemMessage<T extends AbstractSystemMessage> ext
 	{
 		addElement(new SkillElement(id, lvl));
 		
-		return _this;
+		return (T)this;
+	}
+	
+	protected final void writeMessageIdAndElements()
+	{
+		writeD(_messageId);
+		writeD(_elements.length);
+		for (Element element : _elements)
+			element.write(this);
 	}
 }

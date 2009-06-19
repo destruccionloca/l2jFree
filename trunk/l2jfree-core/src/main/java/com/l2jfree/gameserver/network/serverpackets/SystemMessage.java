@@ -19,34 +19,31 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 public final class SystemMessage extends AbstractSystemMessage<SystemMessage>
 {
 	private static final String _S__62_SYSTEMMESSAGE = "[S] 62 SystemMessage";
-
+	
 	public SystemMessage(SystemMessageId messageId)
 	{
 		super(messageId);
 	}
-
+	
 	public SystemMessage(int messageId)
 	{
 		super(messageId);
 	}
-
+	
 	public static SystemMessage sendString(String msg)
 	{
 		SystemMessage sm = new SystemMessage(SystemMessageId.S1);
 		sm.addString(msg);
 		return sm;
 	}
-
+	
 	@Override
 	protected final void writeImpl()
 	{
 		writeC(0x62);
-		writeD(_messageId);
-		writeD(_elements.length);
-		for (Element element : _elements)
-			element.write(this);
+		writeMessageIdAndElements();
 	}
-
+	
 	@Override
 	public String getType()
 	{
