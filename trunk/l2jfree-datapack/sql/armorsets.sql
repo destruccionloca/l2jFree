@@ -299,3 +299,8 @@ INSERT INTO `armorsets` VALUES (181, 10827, 9437, 9438, 9439, 9440,   0,       0
 -- ########################      id   chest legs  head gloves feet    skill  skill_lvl shield sh_skill enchant6      mw_legs  mw_head  mw_gloves  mw_feet  mw_shield
 INSERT INTO `armorsets` VALUES (183,  10232, 9428, 9429, 9430, 9431,   0,       0,      0,      0,      3624,            0,       0,       0,         0,        0);--		Dynasty Jewel Leather Mail
 INSERT INTO `armorsets` VALUES (184,  10235, 9437, 9438, 9439, 9440,   0,       0,      0,      0,      3625,            0,       0,       0,         0,        0);--		Dynasty Silver Satin Tunic
+
+-- Native Clothes
+-- ########################      id   chest legs  head gloves feet    skill  skill_lvl shield sh_skill enchant6      mw_legs  mw_head  mw_gloves  mw_feet  mw_shield
+INSERT INTO `armorsets` VALUES (185,  9670, 9671, 9669,0,     0,      3359,      1,     0,       0,       0,              0,       0,        0,        0,       0);--		Native Clothes
+
