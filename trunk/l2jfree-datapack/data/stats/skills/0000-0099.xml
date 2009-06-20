@@ -279,7 +279,7 @@
   <skill id="11" levels="12" name="Trick">
     <table name="#mpConsume"> 22 24 25 27 28 29 30 31 32 33 34 34 </table>
     <table name="#magicLvl"> 49 52 55 58 60 62 64 66 68 70 72 74 </table>
-    <set name="weaponsAllowed" val="16"/> <!-- Dagger -->
+    <set name="weaponsAllowed" val="262160"/> <!-- Dagger/Dual Daggers -->
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="50"/>
@@ -297,7 +297,7 @@
   <skill id="12" levels="14" name="Switch">
     <table name="#mpConsume"> 19 21 22 24 25 27 28 29 30 31 32 33 34 34 </table>
     <table name="#magicLvl"> 43 46 49 52 55 58 60 62 64 66 68 70 72 74 </table>
-    <set name="weaponsAllowed" val="16"/> <!-- Dagger -->
+    <set name="weaponsAllowed" val="262160"/> <!-- Dagger/Dual Daggers -->
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="80"/>
@@ -675,7 +675,7 @@
       5670 5684 5698 5711 5725 5738 5752 5766 5779 5793 5802 5820 5834 5848 5861 5875 5889 </table>
     <table name="#magicLvl"> 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54
       55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 </table>
-    <set name="weaponsAllowed" val="16"/> <!-- Dagger -->
+    <set name="weaponsAllowed" val="262160"/> <!-- Dagger/Dual Daggers -->
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
@@ -1751,7 +1751,7 @@
     <table name="#mpConsume">28 37 60 73 83 89</table>
     <table name="#abnormalLvl"> 3 4 5 6 7 8 </table>
     <set name="abnormalLvl" val="#abnormalLvl"/>
-    <set name="weaponsAllowed" val="16"/> <!-- Dagger -->
+    <set name="weaponsAllowed" val="262160"/> <!-- Dagger/Dual Daggers -->
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="100"/> <!-- Base Land Rate -->
