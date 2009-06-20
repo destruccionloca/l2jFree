@@ -45,6 +45,7 @@ public class VanguardTempleKnight extends L2DefaultTransformation
 		if (player.getLevel() > 43)
 		{
 			int level = player.getLevel() - 43;
+			addSkill(player, 293, level); // Two handed mastery
 			addSkill(player, 814, level); // Full Swing
 			addSkill(player, 816, level); // Power Divide
 		}
@@ -54,6 +55,7 @@ public class VanguardTempleKnight extends L2DefaultTransformation
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
+		removeSkill(player, 293); // Two handed mastery
 		removeSkill(player, 814); // Full Swing
 		removeSkill(player, 816); // Power Divide
 	}

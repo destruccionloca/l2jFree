@@ -48,6 +48,7 @@ public class VanguardShilienKnight extends L2DefaultTransformation
 		if (player.getLevel() > 43)
 		{
 			int level = player.getLevel() - 43;
+			addSkill(player, 144, level); // Dual Weapon Mastery
 			addSkill(player, 815, level); // Blade Hurricane
 			addSkill(player, 817, level); // Double Strike
 		}
@@ -57,6 +58,7 @@ public class VanguardShilienKnight extends L2DefaultTransformation
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
+		removeSkill(player, 144); // Dual Weapon Mastery
 		removeSkill(player, 815); // Blade Hurricane
 		removeSkill(player, 817); // Double Strike
 	}
