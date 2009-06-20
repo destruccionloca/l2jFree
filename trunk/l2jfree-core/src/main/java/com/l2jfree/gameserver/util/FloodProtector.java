@@ -40,7 +40,8 @@ public final class FloodProtector
 		HEROVOICE(10000),
 		SOCIAL(Config.SOCIAL_TIME * GameTimeController.MILLIS_IN_TICK),
 		SUBCLASS(2000),
-		DROPITEM(1000), ;
+		DROPITEM(1000),
+		MULTISELL(100);
 		
 		private final int _reuseDelay;
 		

@@ -864,7 +864,7 @@ public class L2Npc extends L2Character
 					{
 						String name = ItemTable.getInstance().getTemplate(drop.getItemId()).getName();
 
-						if (drop.getChance() >= 600000)
+						if (drop.getChance() >= 500000)
 							html1.append("<tr><td><font color=\"ff0000\">" + name + "</font></td><td>"
 									+ (drop.isQuestDrop() ? "Quest" : (cat.isSweep() ? "Sweep" : "Drop")) + "</td></tr>");
 						else if (drop.getChance() >= 300000)

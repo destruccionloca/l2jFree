@@ -136,7 +136,7 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 						}
 						
 						// single packet
-						if (id2 == 0x39)
+						if (id2 == 0x39 || id2 == 0x36)
 						{
 							msg = new CharacterPrevState();
 						}

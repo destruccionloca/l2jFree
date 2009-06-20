@@ -302,7 +302,7 @@ public abstract class L2Character extends L2Object
 			setIsInvul(true);
 	}
 	
-	private final byte[] _currentZones = new byte[21];
+	private final byte[] _currentZones = new byte[L2Zone.FLAG_SIZE];
 	
 	public final boolean isInsideZone(byte zone)
 	{
@@ -619,6 +619,8 @@ public abstract class L2Character extends L2Object
 		}
 		else
 			onTeleported();
+
+		revalidateZone(true);
 	}
 
 	public void teleToLocation(int x, int y, int z)
@@ -5389,7 +5391,8 @@ public abstract class L2Character extends L2Object
 				}
 
 				// Notify AI with EVT_ATTACKED
-				target.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, this);
+				if (target.hasAI())
+					target.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, this);
 				getAI().clientStartAutoAttack();
 				if (this instanceof L2Summon)
 				{
@@ -6439,8 +6442,13 @@ public abstract class L2Character extends L2Object
 
 				// Check Raidboss attack and
 				// check buffing chars who attack raidboss. Results in mute.
-				L2Character targetsAttackTarget = target.getAI().getAttackTarget();
-				L2Character targetsCastTarget = target.getAI().getCastTarget();
+				L2Character targetsAttackTarget = null;
+				L2Character targetsCastTarget = null;
+				if (target.hasAI())
+				{
+					targetsAttackTarget = target.getAI().getAttackTarget();
+					targetsCastTarget = target.getAI().getCastTarget();
+				}
 
 				if (!Config.ALT_DISABLE_RAIDBOSS_PETRIFICATION
 				&& ((target.isRaid() && getLevel() > target.getLevel() + 8) || (!skill.isOffensive() && targetsAttackTarget != null && targetsAttackTarget.isRaid()

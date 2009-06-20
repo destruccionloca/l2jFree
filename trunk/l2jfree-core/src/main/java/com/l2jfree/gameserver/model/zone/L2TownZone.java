@@ -53,6 +53,8 @@ public class L2TownZone extends L2Zone
 			character.setInsideZone(FLAG_PEACE, true);
 		else
 			character.setInsideZone(FLAG_PVP, true);
+
+		character.setInsideZone(FLAG_TOWN, true);
 		
 		super.onEnter(character);
 	}
@@ -66,7 +68,9 @@ public class L2TownZone extends L2Zone
 		
 		if (character.isInsideZone(FLAG_PEACE))
 			character.setInsideZone(FLAG_PEACE, false);
-		
+
+		character.setInsideZone(FLAG_TOWN, false);
+
 		super.onExit(character);
 	}
 }

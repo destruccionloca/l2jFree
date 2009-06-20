@@ -70,7 +70,7 @@ public class MinionList
 		int count = 0;
 		for (L2MinionInstance minion : getSpawnedMinions())
 		{
-			if (minion.getNpcId() == minionId)
+			if (minion != null && minion.getNpcId() == minionId)
 			{
 				count++;
 			}
@@ -99,7 +99,8 @@ public class MinionList
 		Set<Integer> seenGroups = new FastSet<Integer>();
 		for (L2MinionInstance minion : getSpawnedMinions())
 		{
-			seenGroups.add(minion.getNpcId());
+			if (minion != null)
+				seenGroups.add(minion.getNpcId());
 		}
 		
 		return seenGroups.size();

@@ -120,6 +120,8 @@ public final class SummonShots extends CharShots
 			return false;
 		}
 		
+		// Since CT2.3, Blessed Shots can be used in Olympiad.
+		/*
 		if (type == ShotType.BLESSED_SPIRIT)
 		{
 			// Blessed Beast Spirit Shot cannot be used in olympiad.
@@ -129,6 +131,7 @@ public final class SummonShots extends CharShots
 				return false;
 			}
 		}
+		*/
 		
 		int shotConsumption = 1;
 		

@@ -197,6 +197,7 @@ import com.l2jfree.gameserver.network.serverpackets.ExOlympiadSpelledInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExOlympiadUserInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExSetCompassZoneCode;
 import com.l2jfree.gameserver.network.serverpackets.ExSpawnEmitter;
+import com.l2jfree.gameserver.network.serverpackets.ExStorageMaxCount;
 import com.l2jfree.gameserver.network.serverpackets.FriendList;
 import com.l2jfree.gameserver.network.serverpackets.GMHide;
 import com.l2jfree.gameserver.network.serverpackets.GameGuardQuery;
@@ -332,7 +333,7 @@ public final class L2PcInstance extends L2Playable
 	public static final int		STORE_PRIVATE_MANUFACTURE		= 5;
 	public static final int		STORE_PRIVATE_PACKAGE_SELL		= 8;
 
-	/** The table containing all minimum level needed for each Expertise (None, D, C, B, A, S, S80)*/
+	/** The table containing all minimum level needed for each Expertise (None, D, C, B, A, S, S80, S84)*/
 	private static final int[]	EXPERTISE_LEVELS				=
 																{
 			SkillTreeTable.getInstance().getExpertiseLevel(0), // NONE
@@ -604,7 +605,7 @@ public final class L2PcInstance extends L2Playable
 	private int								_mountNpcId;
 	private int 							_mountLevel;
 
-	/** The current higher Expertise of the L2PcInstance (None=0, D=1, C=2, B=3, A=4, S=5)*/
+	/** The current higher Expertise of the L2PcInstance (None=0, D=1, C=2, B=3, A=4, S=5, S80=6, S84=7)*/
 	private int								_expertiseIndex;																	// Index in EXPERTISE_LEVELS
 	private int								_expertisePenalty		= 0;
 
@@ -3246,7 +3247,7 @@ public final class L2PcInstance extends L2Playable
 	 * Transfers item to another ItemContainer and send a Server->Client InventoryUpdate packet to the L2PcInstance.
 	 * @param process : String Identifier of process triggering this action
 	 * @param objectId : int Item Identifier of the item to be transfered
-	 * @param count : int Quantity of items to be transfered
+	 * @param count : long Quantity of items to be transfered
 	 * @param reference : L2Object Object referencing current action like NPC selling item or previous item in transformation
 	 * @return L2ItemInstance corresponding to the new item or the updated item in inventory
 	 */
@@ -3372,7 +3373,7 @@ public final class L2PcInstance extends L2Playable
 	 * Drop item from inventory by using its <B>objectID</B> and send a Server->Client InventoryUpdate packet to the L2PcInstance.
 	 * @param process : String Identifier of process triggering this action
 	 * @param objectId : int Item Instance identifier of the item to be dropped
-	 * @param count : int Quantity of items to be dropped
+	 * @param count : long Quantity of items to be dropped
 	 * @param x : int coordinate for drop X
 	 * @param y : int coordinate for drop Y
 	 * @param z : int coordinate for drop Z
@@ -10434,6 +10435,7 @@ public final class L2PcInstance extends L2Playable
 
 		broadcastPacket(new SocialAction(getObjectId(), SocialAction.LEVEL_UP));
 		sendPacket(new SkillCoolTime(this));
+		sendPacket(new ExStorageMaxCount(this));
 
 		broadcastClassIcon();
 

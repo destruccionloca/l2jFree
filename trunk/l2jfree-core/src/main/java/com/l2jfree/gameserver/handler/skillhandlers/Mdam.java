@@ -228,7 +228,7 @@ public class Mdam implements ICubicSkillHandler
 			 *  If target is reflecting the skill then no damage is done
 			 *  Ignoring vengance-like reflections
 			 */
-			if (Formulas.calcSkillReflect(target, skill) == Formulas.SKILL_REFLECT_SUCCEED)
+			if ((Formulas.calcSkillReflect(target, skill) & Formulas.SKILL_REFLECT_SUCCEED) > 0)
 				damage = 0;
 
 			if (_log.isDebugEnabled())

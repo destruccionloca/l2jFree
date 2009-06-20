@@ -148,7 +148,10 @@ public class L2Zone implements FuncOwner
 	public static final byte FLAG_NOSUMMON = 15;
 	public static final byte FLAG_FORT = 16;
 	public static final byte FLAG_NOHEAL = 17;
-	public static final byte FLAG_LANDING = 17;
+	public static final byte FLAG_LANDING = 18;
+	public static final byte FLAG_TOWN = 19;
+
+	public static final byte FLAG_SIZE = 20;
 	
 	/**
 	 * Move speed multiplier applied when character is in water (swimming).<BR>

@@ -28,6 +28,7 @@ import com.l2jfree.gameserver.instancemanager.TownManager;
 import com.l2jfree.gameserver.model.L2TeleportLocation;
 import com.l2jfree.gameserver.model.restriction.AvailableRestriction;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
+import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -187,16 +188,19 @@ public final class L2TeleporterInstance extends L2NpcInstance
 		L2TeleportLocation list = TeleportLocationTable.getInstance().getTemplate(val);
 		if (list != null)
 		{
-			// You cannot teleport to village that is in siege
-			if (SiegeManager.getInstance().checkIfInZone(list.getLocX(), list.getLocY(), list.getLocZ()))
+			if (isInsideZone(L2Zone.FLAG_TOWN))
 			{
-				player.sendPacket(SystemMessageId.NO_PORT_THAT_IS_IN_SIGE);
-				return;
-			}
-			if (TownManager.getInstance().townHasCastleInSiege(list.getLocX(), list.getLocY(), list.getLocZ()))
-			{
-				player.sendPacket(SystemMessageId.NO_PORT_THAT_IS_IN_SIGE);
-				return;
+				// You cannot teleport to village that is in siege
+				if (SiegeManager.getInstance().checkIfInZone(list.getLocX(), list.getLocY(), list.getLocZ()))
+				{
+					player.sendPacket(SystemMessageId.NO_PORT_THAT_IS_IN_SIGE);
+					return;
+				}
+				if (TownManager.getInstance().townHasCastleInSiege(list.getLocX(), list.getLocY(), list.getLocZ()))
+				{
+					player.sendPacket(SystemMessageId.NO_PORT_THAT_IS_IN_SIGE);
+					return;
+				}
 			}
 			if (list.isForNoble() && !player.isNoble())
 			{

@@ -183,6 +183,8 @@ public final class PcShots extends CharShots
 		
 		L2PcInstance activeChar = getActiveChar();
 		
+		// Since CT2.3, Blessed Shots can be used in Olympiad.
+		/*
 		if (type == ShotType.BLESSED_SPIRIT)
 		{
 			// Blessed Spiritshot cannot be used in olympiad.
@@ -192,6 +194,7 @@ public final class PcShots extends CharShots
 				return false;
 			}
 		}
+		*/
 		
 		if (count == 0)
 		{

@@ -76,6 +76,8 @@ final class DocumentSkill extends DocumentBase
 		"enchant4", "enchant4for", "enchant4cond", // ...
 		"enchant5", "enchant5for", "enchant5cond", // ...
 		"enchant6", "enchant6for", "enchant6cond", // ...
+		"enchant7", "enchant7for", "enchant7cond", // ...
+		"enchant8", "enchant8for", "enchant8cond", // ...
 	};
 	
 	private static int _currentSkillId;
@@ -91,6 +93,8 @@ final class DocumentSkill extends DocumentBase
 	private static final List<ValidatingStatsSet> _enchsets4 = new ArrayList<ValidatingStatsSet>();
 	private static final List<ValidatingStatsSet> _enchsets5 = new ArrayList<ValidatingStatsSet>();
 	private static final List<ValidatingStatsSet> _enchsets6 = new ArrayList<ValidatingStatsSet>();
+	private static final List<ValidatingStatsSet> _enchsets7 = new ArrayList<ValidatingStatsSet>();
+	private static final List<ValidatingStatsSet> _enchsets8 = new ArrayList<ValidatingStatsSet>();
 	
 	private static final List<L2Skill> _skills = new ArrayList<L2Skill>();
 	
@@ -149,6 +153,8 @@ final class DocumentSkill extends DocumentBase
 			clear(_enchsets4);
 			clear(_enchsets5);
 			clear(_enchsets6);
+			clear(_enchsets7);
+			clear(_enchsets8);
 			
 			_skills.clear();
 		}
@@ -177,6 +183,8 @@ final class DocumentSkill extends DocumentBase
 		final int enchantLevels4 = getLevel(attrs, "enchantLevels4", 0);
 		final int enchantLevels5 = getLevel(attrs, "enchantLevels5", 0);
 		final int enchantLevels6 = getLevel(attrs, "enchantLevels6", 0);
+		final int enchantLevels7 = getLevel(attrs, "enchantLevels7", 0);
+		final int enchantLevels8 = getLevel(attrs, "enchantLevels8", 0);
 		
 		final Node first = n.getFirstChild();
 		
@@ -217,6 +225,8 @@ final class DocumentSkill extends DocumentBase
 		parseBeanSets(first, enchantLevels4, 401, _enchsets4, "enchant4");
 		parseBeanSets(first, enchantLevels5, 501, _enchsets5, "enchant5");
 		parseBeanSets(first, enchantLevels6, 601, _enchsets6, "enchant6");
+		parseBeanSets(first, enchantLevels7, 701, _enchsets7, "enchant7");
+		parseBeanSets(first, enchantLevels8, 801, _enchsets8, "enchant8");
 		
 		makeSkills(_sets);
 		makeSkills(_enchsets1);
@@ -225,6 +235,8 @@ final class DocumentSkill extends DocumentBase
 		makeSkills(_enchsets4);
 		makeSkills(_enchsets5);
 		makeSkills(_enchsets6);
+		makeSkills(_enchsets7);
+		makeSkills(_enchsets8);
 		
 		int startLvl = 0;
 		
@@ -235,6 +247,8 @@ final class DocumentSkill extends DocumentBase
 		attach(first, startLvl += enchantLevels3, enchantLevels4, "enchant4cond", "enchant4for");
 		attach(first, startLvl += enchantLevels4, enchantLevels5, "enchant5cond", "enchant5for");
 		attach(first, startLvl += enchantLevels5, enchantLevels6, "enchant6cond", "enchant6for");
+		attach(first, startLvl += enchantLevels6, enchantLevels7, "enchant7cond", "enchant7for");
+		attach(first, startLvl += enchantLevels7, enchantLevels8, "enchant8cond", "enchant8for");
 	}
 	
 	private int getLevel(NamedNodeMap attrs, String nodeName, Integer defaultValue)

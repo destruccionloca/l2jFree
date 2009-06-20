@@ -36,6 +36,8 @@ import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 import com.l2jfree.gameserver.templates.item.L2Armor;
 import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
+import com.l2jfree.gameserver.util.FloodProtector;
+import com.l2jfree.gameserver.util.FloodProtector.Protected;
 
 public class MultiSellChoose extends L2GameClientPacket
 {
@@ -78,7 +80,12 @@ public class MultiSellChoose extends L2GameClientPacket
 			return;
 
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null) return;
+		if (player == null)
+			return;
+
+		// Flood protect Multisell
+		if (!FloodProtector.tryPerformAction(player, Protected.MULTISELL))
+			return;
 
 		MultiSellListContainer list = L2Multisell.getInstance().getList(_listId);
 		if (list != null)

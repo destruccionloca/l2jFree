@@ -286,6 +286,14 @@ public enum ClassId
 	 */
 	public final int level() 
 	{
+		switch (_id)
+		{
+			case 0x87:
+				return 2;
+			case 0x88:
+				return 3;
+		}
+
 		if (_parent == null)
 			return 0;
 		
