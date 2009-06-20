@@ -31,7 +31,7 @@ import com.l2jfree.gameserver.Shutdown.ShutdownMode;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.lang.L2Thread;
 
-public final class DeadlockDetector implements Runnable
+public final class DeadlockDetector extends L2Thread
 {
 	private static final Log _log = LogFactory.getLog(DeadlockDetector.class);
 	
@@ -49,13 +49,17 @@ public final class DeadlockDetector implements Runnable
 	
 	private DeadlockDetector()
 	{
-		ThreadPoolManager.getInstance().scheduleAtFixedRate(this, Config.DEADLOCKCHECK_INTERVAL,
-			Config.DEADLOCKCHECK_INTERVAL);
+		super("DeadlockDetector");
+		setPriority(Thread.MAX_PRIORITY);
+		setDaemon(true);
+		
+		start();
 		
 		_log.info("DeadlockDetector: Initialized.");
 	}
 	
-	public void run()
+	@Override
+	protected void runTurn()
 	{
 		long[] ids = findDeadlockedThreadIds();
 		if (ids == null)
@@ -82,6 +86,12 @@ public final class DeadlockDetector implements Runnable
 			
 			Shutdown.start("DeadlockDetector", 1, ShutdownMode.RESTART);
 		}
+	}
+	
+	@Override
+	protected void sleepTurn() throws InterruptedException
+	{
+		Thread.sleep(Config.DEADLOCKCHECK_INTERVAL);
 	}
 	
 	private long[] findDeadlockedThreadIds()
