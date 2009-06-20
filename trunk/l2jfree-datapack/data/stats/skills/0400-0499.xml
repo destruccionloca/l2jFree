@@ -1637,7 +1637,6 @@
     <set name="mpConsume" val="14"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="power" val="80"/> <!-- Base Land Rate -->
-    <set name="reuseDelay" val="20000"/>
     <set name="skillType" val="DEBUFF"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="weaponsAllowed" val="163840"/> <!-- Ancient/Rapier -->
@@ -1800,8 +1799,8 @@
       An equipped ancient sword weapon is required to use this skill. Power 618-1827.
     -->
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
-    <table name="#ench1power"> 2212 2231 2251 2271 2291 2310 2330 2350 2370 2389 2409 2429 2449 2468 2488 2508 2528 2547 2567 2587 2607 2626 2646 2666 2686 2705 2725 2745 2765 2784 </table>
-    <table name="#ench2mpConsume"> 74 73 72 72 71 70 69 69 68 67 66 66 65 64 64 63 62 61 61 60 59 58 58 57 56 55 55 54 53 53 </table>
+    <table name="#ench1Power"> 2212 2231 2251 2271 2291 2310 2330 2350 2370 2389 2409 2429 2449 2468 2488 2508 2528 2547 2567 2587 2607 2626 2646 2666 2686 2705 2725 2745 2765 2784 </table>
+    <table name="#ench2MpConsume"> 74 73 72 72 71 70 69 69 68 67 66 66 65 64 64 63 62 61 61 60 59 58 58 57 56 55 55 54 53 53 </table>
     <table name="#mpConsume"> 46 47 48 50 50 51 52 53 55 56 57 58 60 61 61 62 63 65 66 67 68 69 70 71 72 73 74 75 </table>
     <table name="#power"> 742 782 823 866 910 955 1002 1050 1100 1150 1202 1255 1309 1364 1420 1476 1531 1592 1651 1710 1770 1830 1891 1951 2012 2072 2132 2192 </table>
     <table name="#magicLvl"> 46 47 48 49 50 51 52 53 54 55 56 57 58 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 </table>
@@ -1817,7 +1816,6 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="overHit" val="true"/>
     <set name="power" val="#power"/>
-    <set name="reuseDelay" val="3000"/>
     <set name="skillRadius" val="#castRange"/>
     <set name="skillType" val="PDAM"/>
     <set name="SSBoost" val="2.0"/>
@@ -1825,8 +1823,8 @@
     <set name="weaponsAllowed" val="32768"/> <!-- Ancient -->
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant1 name="power" val="#ench1power"/>
-    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
+    <enchant1 name="power" val="#ench1Power"/>
+    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
     <cond msgId="113" addName="1">
       <target mindistance="200"/>
     </cond>
