@@ -428,13 +428,13 @@
     <set name="isMagic" val="true"/>
     <set name="minPledgeClass" val="2"/>
     <for>
-      <mul stat="maxCp" val="#maxCp" order="0x30"/>
-      <mul stat="pAtk" val="#pAtk" order="0x30"/>
-      <mul stat="mAtk" val="#mAtk" order="0x30"/>
-      <mul stat="pDef" val="#pDef" order="0x30"/>
-      <mul stat="mDef" val="#mDef" order="0x30"/>
-      <add stat="accCombat" val="#accCombat" order="0x40"/>
-      <add stat="runSpd" val="#runSpd" order="0x40"/>
+      <mul order="0x30" stat="maxCp" val="#maxCp"/>
+      <mul order="0x30" stat="pAtk" val="#pAtk"/>
+      <mul order="0x30" stat="mAtk" val="#mAtk"/>
+      <mul order="0x30" stat="pDef" val="#pDef"/>
+      <mul order="0x30" stat="mDef" val="#mDef"/>
+      <add order="0x40" stat="accCombat" val="#accCombat"/>
+      <add order="0x40" stat="runSpd" val="#runSpd"/>
       <add order="0x40" stat="absorbDam" val="100"/> <!-- absorb 100% HP from damage inflicted on enemies -->
       <mul order="0x30" stat="regCp" val="20"/>
     </for>

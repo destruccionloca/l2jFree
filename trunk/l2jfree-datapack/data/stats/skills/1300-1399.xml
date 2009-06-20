@@ -1150,10 +1150,10 @@
     <set name="aggroPoints" val="662"/>
     <for>
       <effect name="Buff" time="1200" val="0">
-      <add order="0x40" stat="waterRes" val="20"/>
-      <add order="0x40" stat="fireRes" val="30"/>
-      <add order="0x40" stat="windRes" val="20"/>
-      <add order="0x40" stat="earthRes" val="20"/>
+        <add order="0x40" stat="waterRes" val="20"/>
+        <add order="0x40" stat="fireRes" val="30"/>
+        <add order="0x40" stat="windRes" val="20"/>
+        <add order="0x40" stat="earthRes" val="20"/>
       </effect>
     </for>
   </skill>
@@ -1171,8 +1171,8 @@
     <set name="aggroPoints" val="666"/>
     <for>
       <effect name="Buff" time="1200" val="0">
-      <add order="0x40" stat="darkRes" val="30"/>
-      <add order="0x40" stat="holyRes" val="20"/>
+        <add order="0x40" stat="darkRes" val="30"/>
+        <add order="0x40" stat="holyRes" val="20"/>
       </effect>
     </for>
   </skill>
@@ -1476,13 +1476,13 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <for>
       <effect name="Debuff" time="120" val="0">
-        <mul stat="pAtk" order="0x30" val="0.9"/>
-        <mul stat="runSpd" order="0x30" val="0.8"/>
-        <mul stat="mDef" order="0x30" val="0.7"/>
-        <mul stat="pAtkSpd" order="0x30" val="0.7"/>
-        <mul stat="rCrit" order="0x30" val="0.7"/>
-        <mul stat="cAtk" order="0x30" val="0.7"/>
-        <sub stat="accCombat" order="0x40" val="6"/>
+        <mul order="0x30" stat="pAtk" val="0.9"/>
+        <mul order="0x30" stat="runSpd" val="0.8"/>
+        <mul order="0x30" stat="mDef" val="0.7"/>
+        <mul order="0x30" stat="pAtkSpd" val="0.7"/>
+        <mul order="0x30" stat="rCrit" val="0.7"/>
+        <mul order="0x30" stat="cAtk" val="0.7"/>
+        <sub order="0x40" stat="accCombat" val="6"/>
       </effect>
     </for>
   </skill>
@@ -1833,7 +1833,7 @@
     <set name="itemConsumeCount" val="#itemConsumeCount"/>
     <set name="create_item_id" val="2508"/>
     <set name="create_item_count" val="#create_item_count"/>
-    <set name="random_count" val="4"/>
+    <set name="random_count" val="#random_count"/>
   </skill>
   <skill id="1388" levels="3" name="Greater Might">
     <!-- Done by KID -->

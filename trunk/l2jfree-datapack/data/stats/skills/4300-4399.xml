@@ -687,7 +687,7 @@
     <set name="effectRange" val="900"/>
     <for>
       <effect name="Buff" time="1200" val="0" stackOrder="#stack" stackType="ShockVuln">
-        <mul stat="stunVuln" val="#vuln" order="0x30"/>
+        <mul order="0x30" stat="stunVuln" val="#vuln"/>
       </effect>
     </for>
   </skill>
