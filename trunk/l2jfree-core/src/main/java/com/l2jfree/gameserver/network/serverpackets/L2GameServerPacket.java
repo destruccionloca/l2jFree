@@ -20,6 +20,7 @@ import org.mmocore.network.SendablePacket;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.CoreInfo;
+import com.l2jfree.gameserver.model.Elementals;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.lang.L2Math;
@@ -136,11 +137,11 @@ public abstract class L2GameServerPacket extends SendablePacket<L2GameClient>
 		int attackAttribute = player.getAttackElement();
 		writeCompH(attackAttribute);
 		writeCompH(player.getAttackElementValue(attackAttribute));
-		writeCompH(player.getDefAttrFire());
-		writeCompH(player.getDefAttrWater());
-		writeCompH(player.getDefAttrWind());
-		writeCompH(player.getDefAttrEarth());
-		writeCompH(player.getDefAttrHoly());
-		writeCompH(player.getDefAttrUnholy());
+		writeCompH(player.getDefenseElementValue(Elementals.FIRE));
+		writeCompH(player.getDefenseElementValue(Elementals.WATER));
+		writeCompH(player.getDefenseElementValue(Elementals.WIND));
+		writeCompH(player.getDefenseElementValue(Elementals.EARTH));
+		writeCompH(player.getDefenseElementValue(Elementals.HOLY));
+		writeCompH(player.getDefenseElementValue(Elementals.DARK));
 	}
 }

@@ -19,6 +19,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.PetDataTable;
+import com.l2jfree.gameserver.model.Elementals;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2PetData;
 import com.l2jfree.gameserver.model.L2Skill;
@@ -38,7 +39,7 @@ public class CharStat
 
 	// =========================================================
 	// Data Field
-	protected final L2Character _activeChar;
+	protected final L2Character	_activeChar;
 	private long				_exp	= 0;
 	private int					_sp		= 0;
 	private byte				_level	= 1;
@@ -77,15 +78,11 @@ public class CharStat
 	 * stored in the value property of an Env class instance.<BR>
 	 * <BR>
 	 * 
-	 * @param stat
-	 *            The stat to calculate the new value with modifiers
-	 * @param init
-	 *            The initial value of the stat before applying modifiers
-	 * @param target
-	 *            The L2Charcater whose properties will be used in the
+	 * @param stat The stat to calculate the new value with modifiers
+	 * @param init The initial value of the stat before applying modifiers
+	 * @param target The L2Charcater whose properties will be used in the
 	 *            calculation (ex : CON, INT...)
-	 * @param skill
-	 *            The L2Skill whose properties will be used in the calculation
+	 * @param skill The L2Skill whose properties will be used in the calculation
 	 *            (ex : Level...)
 	 * 
 	 */
@@ -116,23 +113,23 @@ public class CharStat
 		{
 			switch (stat)
 			{
-			case MAX_HP:
-			case MAX_MP:
-			case MAX_CP:
-			case MAGIC_DEFENCE:
-			case POWER_DEFENCE:
-			case POWER_ATTACK:
-			case MAGIC_ATTACK:
-			case POWER_ATTACK_SPEED:
-			case MAGIC_ATTACK_SPEED:
-			case SHIELD_DEFENCE:
-			case STAT_CON:
-			case STAT_DEX:
-			case STAT_INT:
-			case STAT_MEN:
-			case STAT_STR:
-			case STAT_WIT:
-				env.value = 1;
+				case MAX_HP:
+				case MAX_MP:
+				case MAX_CP:
+				case MAGIC_DEFENCE:
+				case POWER_DEFENCE:
+				case POWER_ATTACK:
+				case MAGIC_ATTACK:
+				case POWER_ATTACK_SPEED:
+				case MAGIC_ATTACK_SPEED:
+				case SHIELD_DEFENCE:
+				case STAT_CON:
+				case STAT_DEX:
+				case STAT_INT:
+				case STAT_MEN:
+				case STAT_STR:
+				case STAT_WIT:
+					env.value = 1;
 			}
 		}
 
@@ -185,7 +182,7 @@ public class CharStat
 	/** Return the Critical Hit rate (base+modifier) of the L2Character. */
 	public int getCriticalHit(L2Character target)
 	{
-		int criticalHit = (int)calcStat(Stats.CRITICAL_RATE, _activeChar.getTemplate().getBaseCritRate(), target, null);
+		int criticalHit = (int) calcStat(Stats.CRITICAL_RATE, _activeChar.getTemplate().getBaseCritRate(), target, null);
 
 		// Set a cap of Critical Hit at ALT_PCRITICAL_CAP
 		if (criticalHit > Config.ALT_PCRITICAL_CAP)
@@ -286,14 +283,11 @@ public class CharStat
 	 * 
 	 * <B><U> Example of use </U> :</B><BR>
 	 * <BR>
-	 * <li> Calculate Magic damage </li>
-	 * <BR>
+	 * <li>Calculate Magic damage</li> <BR>
 	 * <BR>
 	 * 
-	 * @param target
-	 *            The L2Character targeted by the skill
-	 * @param skill
-	 *            The L2Skill used against the target
+	 * @param target The L2Character targeted by the skill
+	 * @param skill The L2Skill used against the target
 	 */
 	public int getMAtk(L2Character target, L2Skill skill)
 	{
@@ -310,57 +304,26 @@ public class CharStat
 		// Get the skill type to calculate its effect in function of base stats
 		// of the L2Character target
 		/*
-		Stats stat = skill == null ? null : skill.getStat();
-
-		if (stat != null)
-		{
-			switch (stat)
-			{
-			case AGGRESSION:
-				attack += _activeChar.getTemplate().getBaseAggression();
-				break;
-			case BLEED:
-				attack += _activeChar.getTemplate().getBaseBleed();
-				break;
-			case POISON:
-				attack += _activeChar.getTemplate().getBasePoison();
-				break;
-			case STUN:
-				attack += _activeChar.getTemplate().getBaseStun();
-				break;
-			case ROOT:
-				attack += _activeChar.getTemplate().getBaseRoot();
-				break;
-			case MOVEMENT:
-				attack += _activeChar.getTemplate().getBaseMovement();
-				break;
-			case CONFUSION:
-				attack += _activeChar.getTemplate().getBaseConfusion();
-				break;
-			case SLEEP:
-				attack += _activeChar.getTemplate().getBaseSleep();
-				break;
-			case FIRE:
-				attack += _activeChar.getTemplate().getBaseFire();
-				break;
-			case WIND:
-				attack += _activeChar.getTemplate().getBaseWind();
-				break;
-			case WATER:
-				attack += _activeChar.getTemplate().getBaseWater();
-				break;
-			case EARTH:
-				attack += _activeChar.getTemplate().getBaseEarth();
-				break;
-			case HOLY:
-				attack += _activeChar.getTemplate().getBaseHoly();
-				break;
-			case DARK:
-				attack += _activeChar.getTemplate().getBaseDark();
-				break;
-			}
-		}
-		*/
+		 * Stats stat = skill == null ? null : skill.getStat();
+		 * 
+		 * if (stat != null) { switch (stat) { case AGGRESSION: attack +=
+		 * _activeChar.getTemplate().getBaseAggression(); break; case BLEED:
+		 * attack += _activeChar.getTemplate().getBaseBleed(); break; case
+		 * POISON: attack += _activeChar.getTemplate().getBasePoison(); break;
+		 * case STUN: attack += _activeChar.getTemplate().getBaseStun(); break;
+		 * case ROOT: attack += _activeChar.getTemplate().getBaseRoot(); break;
+		 * case MOVEMENT: attack += _activeChar.getTemplate().getBaseMovement();
+		 * break; case CONFUSION: attack +=
+		 * _activeChar.getTemplate().getBaseConfusion(); break; case SLEEP:
+		 * attack += _activeChar.getTemplate().getBaseSleep(); break; case FIRE:
+		 * attack += _activeChar.getTemplate().getBaseFire(); break; case WIND:
+		 * attack += _activeChar.getTemplate().getBaseWind(); break; case WATER:
+		 * attack += _activeChar.getTemplate().getBaseWater(); break; case
+		 * EARTH: attack += _activeChar.getTemplate().getBaseEarth(); break;
+		 * case HOLY: attack += _activeChar.getTemplate().getBaseHoly(); break;
+		 * case DARK: attack += _activeChar.getTemplate().getBaseDark(); break;
+		 * } }
+		 */
 
 		// Add the power of the skill to the attack effect
 		if (skill != null)
@@ -410,14 +373,11 @@ public class CharStat
 	 * 
 	 * <B><U> Example of use </U> :</B><BR>
 	 * <BR>
-	 * <li> Calculate Magic damage </li>
-	 * <BR>
+	 * <li>Calculate Magic damage</li> <BR>
 	 * <BR>
 	 * 
-	 * @param target
-	 *            The L2Character targeted by the skill
-	 * @param skill
-	 *            The L2Skill used against the target
+	 * @param target The L2Character targeted by the skill
+	 * @param skill The L2Skill used against the target
 	 */
 	public int getMDef(L2Character target, L2Skill skill)
 	{
@@ -451,8 +411,7 @@ public class CharStat
 
 		if (_activeChar instanceof L2PcInstance && ((L2PcInstance) _activeChar).isMounted())
 		{
-			L2PetData stats = PetDataTable.getInstance().getPetData(
-					((L2PcInstance) _activeChar).getMountNpcId(), ((L2PcInstance) _activeChar).getMountLevel());
+			L2PetData stats = PetDataTable.getInstance().getPetData(((L2PcInstance) _activeChar).getMountNpcId(), ((L2PcInstance) _activeChar).getMountLevel());
 			if (stats != null)
 				return getRunSpeed() * 1f / stats.getPetSpeed();
 		}
@@ -619,9 +578,7 @@ public class CharStat
 		if (_activeChar == null)
 			return 1;
 
-		return (int) calcStat(Stats.POWER_DEFENCE,
-				(_activeChar.isRaid()) ? _activeChar.getTemplate().getBasePDef() * Config.RAID_PDEFENCE_MULTIPLIER : _activeChar.getTemplate().getBasePDef(),
-						target, null);
+		return (int) calcStat(Stats.POWER_DEFENCE, (_activeChar.isRaid()) ? _activeChar.getTemplate().getBasePDef() * Config.RAID_PDEFENCE_MULTIPLIER : _activeChar.getTemplate().getBasePDef(), target, null);
 	}
 
 	/** Return the Physical Attack range (base+modifier) of the L2Character. */
@@ -790,46 +747,15 @@ public class CharStat
 		}
 	}
 
-	
-	public double getElementAttributeFire()
-	{
-		return (int) calcStat(Stats.FIRE_RES, _activeChar.getTemplate().getBaseFireRes(), null, null);
-	}
-
-	public double getElementAttributeWater()
-	{
-		return (int) calcStat(Stats.WATER_RES, _activeChar.getTemplate().getBaseWaterRes(), null, null);
-	}
-
-	public double getElementAttributeEarth()
-	{
-		return (int) calcStat(Stats.EARTH_RES, _activeChar.getTemplate().getBaseEarthRes(), null, null);
-	}
-
-	public double getElementAttributeWind()
-	{
-		return (int) calcStat(Stats.WIND_RES, _activeChar.getTemplate().getBaseWindRes(), null, null);
-	}
-
-	public double getElementAttributeHoly()
-	{
-		return (int) calcStat(Stats.HOLY_RES, _activeChar.getTemplate().getBaseHolyRes(), null, null);
-	}
-
-	public double getElementAttributeUnholy()
-	{
-		return (int) calcStat(Stats.DARK_RES, _activeChar.getTemplate().getBaseDarkRes(), null, null);
-	}
-
 	public int getAttackElement()
 	{
 		L2ItemInstance weaponInstance = _activeChar.getActiveWeaponInstance();
 		// 1st order - weapon element
-		if (weaponInstance != null && weaponInstance.getAttackElementType() >= 0 )
+		if (weaponInstance != null && weaponInstance.getAttackElementType() >= 0)
 			return weaponInstance.getAttackElementType();
-		
+
 		// temp fix starts
-		double tempVal =0,stats[] = { 0, 0, 0, 0, 0, 0 };
+		int tempVal = 0, stats[] = { 0, 0, 0, 0, 0, 0 };
 
 		int returnVal = -2;
 		stats[0] = (int) calcStat(Stats.FIRE_POWER, _activeChar.getTemplate().getBaseFire(), null, null);
@@ -850,31 +776,53 @@ public class CharStat
 
 		return returnVal;
 		// temp fix ends
-		
+
 		/*
-		 * uncomment me once deadlocks in getAllEffects() fixed
-			return _activeChar.getElementIdFromEffects();
-		*/
+		 * uncomment me once deadlocks in getAllEffects() fixed return
+		 * _activeChar.getElementIdFromEffects();
+		 */
 	}
 
 	public int getAttackElementValue(int attackAttribute)
 	{
 		switch (attackAttribute)
 		{
-		case 0:
-			return (int) calcStat(Stats.FIRE_POWER, _activeChar.getTemplate().getBaseFire(), null, null);
-		case 1:
-			return (int) calcStat(Stats.WATER_POWER, _activeChar.getTemplate().getBaseWater(), null, null);
-		case 2:
-			return (int) calcStat(Stats.WIND_POWER, _activeChar.getTemplate().getBaseWind(), null, null);
-		case 3:
-			return (int) calcStat(Stats.EARTH_POWER, _activeChar.getTemplate().getBaseEarth(), null, null);
-		case 4:
-			return (int) calcStat(Stats.HOLY_POWER, _activeChar.getTemplate().getBaseHoly(), null, null);
-		case 5:
-			return (int) calcStat(Stats.DARK_POWER, _activeChar.getTemplate().getBaseDark(), null, null);
-		default:
-			return 0;
+			case Elementals.FIRE:
+				return (int) calcStat(Stats.FIRE_POWER, _activeChar.getTemplate().getBaseFire(), null, null);
+			case Elementals.WATER:
+				return (int) calcStat(Stats.WATER_POWER, _activeChar.getTemplate().getBaseWater(), null, null);
+			case Elementals.WIND:
+				return (int) calcStat(Stats.WIND_POWER, _activeChar.getTemplate().getBaseWind(), null, null);
+			case Elementals.EARTH:
+				return (int) calcStat(Stats.EARTH_POWER, _activeChar.getTemplate().getBaseEarth(), null, null);
+			case Elementals.HOLY:
+				return (int) calcStat(Stats.HOLY_POWER, _activeChar.getTemplate().getBaseHoly(), null, null);
+			case Elementals.DARK:
+				return (int) calcStat(Stats.DARK_POWER, _activeChar.getTemplate().getBaseDark(), null, null);
+			default:
+				return 0;
 		}
 	}
+
+	public int getDefenseElementValue(int defenseAttribute)
+	{
+		switch (defenseAttribute)
+		{
+			case Elementals.FIRE:
+				return (int) calcStat(Stats.FIRE_RES, _activeChar.getTemplate().baseFireRes, null, null);
+			case Elementals.WATER:
+				return (int) calcStat(Stats.WATER_RES, _activeChar.getTemplate().baseWaterRes, null, null);
+			case Elementals.WIND:
+				return (int) calcStat(Stats.WIND_RES, _activeChar.getTemplate().baseWindRes, null, null);
+			case Elementals.EARTH:
+				return (int) calcStat(Stats.EARTH_RES, _activeChar.getTemplate().baseEarthRes, null, null);
+			case Elementals.HOLY:
+				return (int) calcStat(Stats.HOLY_RES, _activeChar.getTemplate().baseHolyRes, null, null);
+			case Elementals.DARK:
+				return (int) calcStat(Stats.DARK_RES, _activeChar.getTemplate().baseDarkRes, null, null);
+			default:
+				return 0;
+		}
+	}
+
 }

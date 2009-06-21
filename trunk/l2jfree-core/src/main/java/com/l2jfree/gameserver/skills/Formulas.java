@@ -2842,112 +2842,52 @@ public final class Formulas
 
 	public static double calcElemental(L2Character attacker, L2Character target, L2Skill skill)
 	{
-		double calcPower = 0;
-		double calcDefen = 0;
-		double calcTotal = 0;
+		int calcPower = 0;
+		int calcDefen = 0;
+		int calcTotal = 0;
 		double result = 1;
+		int element;
 
-		if (target instanceof L2NpcInstance)
-			calcDefen = 20;
-		L2ItemInstance weaponInstance = attacker.getActiveWeaponInstance();
-		int elementType = -1;
-
-		final int attackElement = attacker.getAttackElement();
-		// first check skill element
-		if (skill != null && skill.getElement() > 0)
+		if (skill != null)
 		{
-			calcPower = 20;
-			// Calculate the elemental power
-			switch (skill.getElement())
+			element = skill.getElement();
+			if (element >= 0)
 			{
-				case L2Skill.ELEMENT_FIRE:
-					if (attackElement == Elementals.FIRE)
-						calcPower = attacker.calcStat(Stats.FIRE_POWER, calcPower, target, skill);
-					calcDefen = target.calcStat(Stats.FIRE_RES, calcDefen, target, skill);
-					break;
-				case L2Skill.ELEMENT_WATER:
-					if (attackElement == Elementals.WATER)
-						calcPower = attacker.calcStat(Stats.WATER_POWER, calcPower, target, skill);
-					calcDefen = target.calcStat(Stats.WATER_RES, calcDefen, target, skill);
-					break;
-				case L2Skill.ELEMENT_EARTH:
-					if (attackElement == Elementals.EARTH)
-						calcPower = attacker.calcStat(Stats.EARTH_POWER, calcPower, target, skill);
-					calcDefen = target.calcStat(Stats.EARTH_RES, calcDefen, target, skill);
-					break;
-				case L2Skill.ELEMENT_WIND:
-					if (attackElement == Elementals.WIND)
-						calcPower = attacker.calcStat(Stats.WIND_POWER, calcPower, target, skill);
-					calcDefen = target.calcStat(Stats.WIND_RES, calcDefen, target, skill);
-					break;
-				case L2Skill.ELEMENT_HOLY:
-					if (attackElement == Elementals.HOLY)
-						calcPower = attacker.calcStat(Stats.HOLY_POWER, calcPower, target, skill);
-					calcDefen = target.calcStat(Stats.HOLY_RES, calcDefen, target, skill);
-					break;
-				case L2Skill.ELEMENT_DARK:
-					if (attackElement == Elementals.DARK)
-						calcPower = attacker.calcStat(Stats.DARK_POWER, calcPower, target, skill);
-					calcDefen = target.calcStat(Stats.DARK_RES, calcDefen, target, skill);
-					break;
+				calcPower = skill.getElementPower();
+				calcDefen = target.getDefenseElementValue(element);
+
+				if (attacker.getAttackElement() == element)
+					calcPower += attacker.getAttackElementValue(element);
+
+				calcTotal = Math.max(calcPower - calcDefen, -20);
+				if (calcTotal < 0)
+					result += calcTotal * 0.01;
+				else if (calcTotal < 75)
+					result += calcTotal * 0.0052;
+				else if (calcTotal < 150)
+					result = 1.4;
+				else
+					result = 1.7;
+
+				if (_log.isDebugEnabled())
+					_log.info(skill.getName() + ": " + calcPower + ", " + calcDefen + ", " + result);
 			}
-			calcTotal = calcPower - calcDefen;
-			if (calcTotal <= -80)
-				result = 0.20;
-			else if (calcTotal > -80 && calcTotal <= -1)
-				result = 1 - (Math.abs(calcTotal) / 100);
-			else if (calcTotal >= 1 && calcTotal <= 74)
-				result = 1 + (calcTotal * 0.0052);
-			else if (calcTotal >= 75 && calcTotal <= 149)
-				result = 1.4;
-			else if (calcTotal >= 150)
-				result = 1.7;
 		}
-		// if skill not used or non-elemental skill, check for item/character elemental power
 		else
 		{
-			if (weaponInstance != null && weaponInstance.getAttackElementType() >= 0 && weaponInstance.getAttackElementType() == attackElement)
-				elementType = weaponInstance.getAttackElementType();
-			else if (attackElement > 0)
-				elementType = attackElement;
-			if (elementType >= 0)
+			element = attacker.getAttackElement();
+			if (element >= 0)
 			{
-				switch (elementType)
-				{
-					case Elementals.FIRE:
-						calcPower = attacker.calcStat(Stats.FIRE_POWER, calcPower, target, skill);
-						calcDefen = target.calcStat(Stats.FIRE_RES, calcDefen, target, skill);
-						break;
-					case Elementals.WATER:
-						calcPower = attacker.calcStat(Stats.WATER_POWER, calcPower, target, skill);
-						calcDefen = target.calcStat(Stats.WATER_RES, calcDefen, target, skill);
-						break;
-					case Elementals.EARTH:
-						calcPower = attacker.calcStat(Stats.EARTH_POWER, calcPower, target, skill);
-						calcDefen = target.calcStat(Stats.EARTH_RES, calcDefen, target, skill);
-						break;
-					case Elementals.WIND:
-						calcPower = attacker.calcStat(Stats.WIND_POWER, calcPower, target, skill);
-						calcDefen = target.calcStat(Stats.WIND_RES, calcDefen, target, skill);
-						break;
-					case Elementals.HOLY:
-						calcPower = attacker.calcStat(Stats.HOLY_POWER, calcPower, target, skill);
-						calcDefen = target.calcStat(Stats.HOLY_RES, calcDefen, target, skill);
-						break;
-					case Elementals.DARK:
-						calcPower = attacker.calcStat(Stats.DARK_POWER, calcPower, target, skill);
-						calcDefen = target.calcStat(Stats.DARK_RES, calcDefen, target, skill);
-						break;
-				}
-				calcTotal = calcPower - calcDefen;
-				if (calcTotal <= -80)
-					result = 0.20;
-				else if (calcTotal > -80 && calcTotal <= -1)
-					result = 1 - (Math.abs(calcTotal) * 0.007);
-				else if (calcTotal >= 1 && calcTotal < 100)
-					result = 1 + (calcTotal * 0.007);
-				else if (calcTotal > 100)
-					result = 1.7;
+				calcPower = attacker.getAttackElementValue(element);
+				calcDefen = target.getDefenseElementValue(element);
+
+				calcTotal = Math.max(calcPower - calcDefen, -20);
+				calcTotal = Math.min(calcTotal, 100);
+
+				result += calcTotal * 0.007;
+
+				if (_log.isDebugEnabled())
+					_log.info("Hit: " + calcPower + ", " + calcDefen + ", " + result);
 			}
 		}
 		return result;

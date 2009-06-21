@@ -144,15 +144,13 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		OFFENSIVE, NEUTRAL, POSITIVE;
 	}
 
-	// elements
+	//elements
 	public final static int			ELEMENT_FIRE	= 1;
 	public final static int			ELEMENT_WATER	= 2;
 	public final static int			ELEMENT_WIND	= 3;
 	public final static int			ELEMENT_EARTH	= 4;
 	public final static int			ELEMENT_HOLY	= 5;
 	public final static int			ELEMENT_DARK	= 6;
-	public final static int			ELEMENT_UNHOLY	= 5;
-	public final static int			ELEMENT_SACRED	= 6;
 
 	// conditional values
 	public final static int			COND_BEHIND		= 0x0008;
@@ -336,8 +334,8 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	private final boolean			_canBeReflected;
 	private final int				_afterEffectId;
 	private final int				_afterEffectLvl;
-	
-	private final boolean 			_stayAfterDeath; // skill should stay after death
+
+	private final boolean			_stayAfterDeath;					// skill should stay after death
 
 	public L2Skill(StatsSet set)
 	{
@@ -401,18 +399,18 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 			_negateStats[i] = _negateStats[i].toLowerCase().intern();
 
 		String negateId = set.getString("negateId", null);
-        if (negateId != null)
-        {
-            String[] valuesSplit = negateId.split(",");
-            _negateId = new int[valuesSplit.length];
-    		for (int i = 0; i < valuesSplit.length;i++)
-    		{
-    			_negateId[i] = Integer.valueOf(valuesSplit[i]);
-    		}
-        }
-        else
-        	_negateId = new int[0];
-        
+		if (negateId != null)
+		{
+			String[] valuesSplit = negateId.split(",");
+			_negateId = new int[valuesSplit.length];
+			for (int i = 0; i < valuesSplit.length; i++)
+			{
+				_negateId[i] = Integer.valueOf(valuesSplit[i]);
+			}
+		}
+		else
+			_negateId = new int[0];
+
 		_maxNegatedEffects = set.getInteger("maxNegated", 0);
 		_stayAfterDeath = set.getBool("stayAfterDeath", false);
 		_killByDOT = set.getBool("killByDOT", false);
@@ -448,12 +446,12 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		_effectId = set.getInteger("effectId", 0);
 		_effectLvl = set.getFloat("effectLevel", 0.f);
 		_skill_landing_percent = set.getInteger("skill_landing_percent", 0);
-		_element = set.getInteger("element", 0);
+		_element = set.getInteger("element", -1);
+		_elementPower = set.getInteger("elementPower", 0);
 		_activateRate = set.getInteger("activateRate", -1);
 		_magicLevel = set.getInteger("magicLvl", SkillTreeTable.getInstance().getMinSkillLevel(_id, _level));
 
 		_ignoreShld = set.getBool("ignoreShld", false);
-		_elementPower = set.getInteger("elementPower", 0);
 		_condition = set.getInteger("condition", 0);
 		_overhit = set.getBool("overHit", false);
 		_isSuicideAttack = set.getBool("isSuicideAttack", false);
@@ -508,7 +506,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	{
 		return isPassive() && !isChance();
 	}
-	
+
 	private boolean isPureChanceSkill()
 	{
 		return isChance() && _triggeredSkill != null;
@@ -723,10 +721,10 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		return _negateLvl;
 	}
 
-    public final int[] getNegateId()
-    {
-        return _negateId;
-    }
+	public final int[] getNegateId()
+	{
+		return _negateId;
+	}
 
 	public final int getMaxNegatedEffects()
 	{
@@ -1747,8 +1745,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 									L2PcInstance player = (L2PcInstance) cha;
 									if (!src.checkPvpSkill(cha, this))
 										continue;
-									if ((src.getParty() != null && player.getParty() != null)
-											&& src.getParty().getPartyLeaderOID() == player.getParty().getPartyLeaderOID())
+									if ((src.getParty() != null && player.getParty() != null) && src.getParty().getPartyLeaderOID() == player.getParty().getPartyLeaderOID())
 										continue;
 									if (!srcInPvP && !targetInPvP)
 									{
@@ -1832,8 +1829,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 									L2PcInstance player = (L2PcInstance) cha;
 									if (!src.checkPvpSkill(cha, this))
 										continue;
-									if ((src.getParty() != null && player.getParty() != null)
-											&& src.getParty().getPartyLeaderOID() == player.getParty().getPartyLeaderOID())
+									if ((src.getParty() != null && player.getParty() != null) && src.getParty().getPartyLeaderOID() == player.getParty().getPartyLeaderOID())
 										continue;
 									if (!srcInArena && !objInPvpZone)
 									{
@@ -1907,8 +1903,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 									L2PcInstance player = (L2PcInstance) cha;
 									if (!src.checkPvpSkill(cha, this))
 										continue;
-									if ((src.getParty() != null && player.getParty() != null)
-											&& src.getParty().getPartyLeaderOID() == player.getParty().getPartyLeaderOID())
+									if ((src.getParty() != null && player.getParty() != null) && src.getParty().getPartyLeaderOID() == player.getParty().getPartyLeaderOID())
 										continue;
 									if (!srcInArena && !objInPvpZone)
 									{
@@ -2407,8 +2402,8 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 								continue;
 
 							//check if allow interference is allowed if player is not on event but target is on event
-							if (((TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (CTF._started && !Config.CTF_ALLOW_INTERFERENCE)
-									|| (DM._started && !Config.DM_ALLOW_INTERFERENCE) || (VIP._started && !Config.VIP_ALLOW_INTERFERENCE)) && !player.isGM())
+							if (((TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (CTF._started && !Config.CTF_ALLOW_INTERFERENCE) || (DM._started && !Config.DM_ALLOW_INTERFERENCE) || (VIP._started && !Config.VIP_ALLOW_INTERFERENCE))
+									&& !player.isGM())
 							{
 								if ((partyMember._inEventTvT && !player._inEventTvT) || (!partyMember._inEventTvT && player._inEventTvT))
 									continue;
@@ -3851,19 +3846,19 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	{
 		return _afterEffectLvl;
 	}
-	
+
 	@Override
 	public L2Skill getChanceTriggeredSkill(L2Character activeChar)
 	{
 		if (!getWeaponDependancy(activeChar, false))
 			return null;
-		
+
 		if (_triggeredSkill == null)
 			return this;
-		
+
 		return _triggeredSkill.getTriggeredSkill();
 	}
-	
+
 	@Override
 	public ChanceCondition getChanceCondition()
 	{
