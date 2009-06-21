@@ -14,14 +14,11 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.ai.L2ControllableMobAI;
-import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.status.ControllableMobStatus;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 /**
@@ -30,8 +27,6 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  */
 public class L2ControllableMobInstance extends L2MonsterInstance
 {
-    private final static Log _log = LogFactory.getLog(L2ControllableMobInstance.class.getName());
-
 	private boolean _isInvul;
 	private L2ControllableMobAI _aiBackup;	// To save ai, avoiding beeing detached
 
@@ -95,43 +90,16 @@ public class L2ControllableMobInstance extends L2MonsterInstance
     {
 		_isInvul = isInvul;
 	}
-
+	
 	@Override
-	public void reduceCurrentHp(double i, L2Character attacker, boolean awake, boolean isDOT, boolean isConsume, L2Skill skill)
-    {
-		if (isInvul() || isDead())
-			return;
-
-		if (awake)
-		{
-			if(isSleeping())
-				stopSleeping(true);
-			if(isImmobileUntilAttacked())
-				stopImmobileUntilAttacked(true);
-		}
-
-		i = getStatus().getCurrentHp() - i;
-
-		if (i < 0)
-			i = 0;
-
-        getStatus().setCurrentHp(i);
-
-		if (getStatus().getCurrentHp() < 0.5) // Die
-		{
-			// First die (and calculate rewards), if currentHp < 0,  then overhit may be calculated
-			if (_log.isDebugEnabled()) _log.debug("char is dead.");
-
-			stopMove(null);
-
-			// Start the doDie process
-			doDie(attacker);
-
-			// Now reset currentHp to zero
-			getStatus().setCurrentHp(0);
-		}
+	public ControllableMobStatus getStatus()
+	{
+		if (_status == null)
+			_status = new ControllableMobStatus(this);
+		
+		return (ControllableMobStatus)_status;
 	}
-
+	
 	@Override
 	public boolean doDie(L2Character killer)
 	{

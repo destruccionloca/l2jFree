@@ -45,12 +45,12 @@ import com.l2jfree.gameserver.model.L2Manor;
 import com.l2jfree.gameserver.model.L2Party;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2ChestInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2MinionInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.model.actor.knownlist.AttackableKnownList;
+import com.l2jfree.gameserver.model.actor.status.AttackableStatus;
 import com.l2jfree.gameserver.model.base.SoulCrystal;
 import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.model.quest.QuestState;
@@ -445,64 +445,29 @@ public class L2Attackable extends L2Npc
 		return ai;
 	}
 
-	/**
-	 * Reduce the current HP of the L2Attackable, update its _aggroList and
-	 * launch the doDie Task if necessary.<BR>
-	 * <BR>
-	 * 
-	 * @param i The HP decrease value
-	 * @param attacker The L2Character who attacks
-	 * @param awake The awake state (If True : stop sleeping)
-	 */
-	@Override
-	public void reduceCurrentHp(double damage, L2Character attacker, boolean awake, boolean isDOT, boolean isConsume, L2Skill skill)
+	public final void startCommandChannelTimer(L2Character attacker)
 	{
-		/*
-		if ((this instanceof L2SiegeGuardInstance) && (attacker instanceof L2SiegeGuardInstance))
-		    //if((this.getEffect(L2EffectType.CONFUSION)!=null) && (attacker.getEffect(L2EffectType.CONFUSION)!=null))
-		        return;
-		
-		if ((this instanceof L2MonsterInstance)&&(attacker instanceof L2MonsterInstance))
-		    if((this.getEffect(L2EffectType.CONFUSION)!=null) && (attacker.getEffect(L2EffectType.CONFUSION)!=null))
-		        return;
-		*/
-
 		// CommandChannel
 		if (_commandChannelTimer == null && attacker != null && isRaid() && attacker.isInParty() && attacker.getParty().isInCommandChannel()
 				&& attacker.getParty().getCommandChannel().meetRaidWarCondition(this))
 		{
 			_firstCommandChannelAttacked = attacker.getParty().getCommandChannel();
-			_commandChannelTimer = new CommandChannelTimer(this, attacker.getParty().getCommandChannel());
+			_commandChannelTimer = new CommandChannelTimer(attacker.getParty().getCommandChannel());
 			ThreadPoolManager.getInstance().scheduleGeneral(_commandChannelTimer, 300000); // 5 min
 			_firstCommandChannelAttacked.broadcastToChannelMembers(new CreatureSay(0, SystemChatChannelId.Chat_Party_Room, "",
 					"You have looting rights!"));
 		}
-
-		if (isEventMob)
-			return;
-
-		// Add damage and hate to the attacker AggroInfo of the L2Attackable _aggroList
-		if (attacker != null)
-			addDamage(attacker, (int) damage, skill);
-
-		// If this L2Attackable is a L2MonsterInstance and it has spawned minions, call its minions to battle
-		if (this instanceof L2MonsterInstance)
-		{
-			L2MonsterInstance master = (L2MonsterInstance) this;
-			if (this instanceof L2MinionInstance)
-			{
-				master = ((L2MinionInstance) this).getLeader();
-				if (!master.isInCombat() && !master.isDead())
-					master.addDamage(attacker, 1, null);
-			}
-			if (master.hasMinions())
-				master.callMinionsToAssist(attacker);
-		}
-
-		// Reduce the current HP of the L2Attackable and launch the doDie Task if necessary
-		super.reduceCurrentHp(damage, attacker, awake, isDOT, isConsume, skill);
 	}
-
+	
+	@Override
+	public AttackableStatus getStatus()
+	{
+		if (_status == null)
+			_status = new AttackableStatus(this);
+		
+		return (AttackableStatus)_status;
+	}
+	
 	public synchronized void setMustRewardExpSp(boolean value)
 	{
 		_mustGiveExpSp = value;
@@ -2743,31 +2708,29 @@ public class L2Attackable extends L2Npc
 
 	private class CommandChannelTimer implements Runnable
 	{
-		private L2Attackable		_monster;
-		private L2CommandChannel	_channel;
-
-		public CommandChannelTimer(L2Attackable monster, L2CommandChannel channel)
+		private L2CommandChannel _channel;
+		
+		public CommandChannelTimer(L2CommandChannel channel)
 		{
-			_monster = monster;
 			_channel = channel;
 		}
-
+		
 		/**
 		 * @see java.lang.Runnable#run()
 		 */
 		public void run()
 		{
-			_monster.setCommandChannelTimer(null);
-			_monster.setFirstCommandChannelAttacked(null);
-			for (L2Character player : _monster.getAggroListRP().keySet())
+			setCommandChannelTimer(null);
+			setFirstCommandChannelAttacked(null);
+			for (L2Character player : getAggroListRP().keySet())
 			{
 				if (player.isInParty() && player.getParty().isInCommandChannel())
 				{
 					if (player.getParty().getCommandChannel().equals(_channel))
 					{
 						// if a player which is in first attacked CommandChannel, restart the timer ;)
-						_monster.setCommandChannelTimer(this);
-						_monster.setFirstCommandChannelAttacked(_channel);
+						setCommandChannelTimer(this);
+						setFirstCommandChannelAttacked(_channel);
 						ThreadPoolManager.getInstance().scheduleGeneral(this, 300000); // 5 min
 						break;
 					}

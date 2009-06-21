@@ -6951,6 +6951,7 @@ public final class L2PcInstance extends L2Playable
 	public synchronized void store(boolean items, boolean storeActiveEffects)
 	{
 		_lastStore = System.currentTimeMillis();
+		
 		if (getOnlineState() == ONLINE_STATE_DELETED)
 			return;
 		
@@ -11029,16 +11030,6 @@ public final class L2PcInstance extends L2Playable
 	public void removeExpAndSp(long removeExp, int removeSp)
 	{
 		getStat().removeExpAndSp(removeExp, removeSp);
-	}
-
-	@Override
-	public void reduceCurrentHp(double value, L2Character attacker, boolean awake, boolean isDOT, boolean isConsume, L2Skill skill)
-	{
-		getStatus().reduceHp(value, attacker, awake, isDOT, isConsume);
-
-		// Notify the tamed beast of attacks
-		if (getTrainedBeast() != null)
-			getTrainedBeast().onOwnerGotAttacked(attacker);
 	}
 
 	/**

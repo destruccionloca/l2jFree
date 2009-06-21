@@ -20,7 +20,6 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.instancemanager.BossSpawnManager;
 import com.l2jfree.gameserver.instancemanager.RaidPointsManager;
-import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -105,7 +104,7 @@ public abstract class L2Boss extends L2MonsterInstance
 
 	/**
 	 * Spawn all minions at a regular interval
-	 * if minions are not near the raid boss, teleport them 
+	 * if minions are not near the raid boss, teleport them
 	 * 
 	 */
 	@Override
@@ -129,17 +128,7 @@ public abstract class L2Boss extends L2MonsterInstance
 	}
 
 	/**
-     * Reduce the current HP of the L2Attackable, update its _aggroList and launch the doDie Task if necessary.<BR><BR>
-     *
-     */
-    @Override
-    public void reduceCurrentHp(double damage, L2Character attacker, boolean awake, boolean isDOT, boolean isConsume, L2Skill skill)
-    {
-        super.reduceCurrentHp(damage, attacker, awake, isDOT, isConsume, skill);
-    }
-    
-	/**
-	 * Restore full Amount of HP and MP 
+	 * Restore full Amount of HP and MP
 	 * 
 	 */
 	public void healFull()

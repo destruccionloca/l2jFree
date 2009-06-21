@@ -87,6 +87,10 @@ public final class PcStatus extends CharStatus
 			smsg.addNumber((int)realValue);
 			getActiveChar().sendPacket(smsg);
 		}
+		
+		// Notify the tamed beast of attacks
+		if (getActiveChar().getTrainedBeast() != null)
+			getActiveChar().getTrainedBeast().onOwnerGotAttacked(attacker);
 	}
 	
 	@Override

@@ -6864,41 +6864,42 @@ public abstract class L2Character extends L2Object
 	// =========================================================
 	// Status - NEED TO REMOVE ONCE L2CHARTATUS IS COMPLETE
 	// Method - Public
-	public void reduceCurrentHp(double i, L2Character attacker)
+	// WRAPPERS ONLY! DO NOT OVERRIDE IT!
+	public final void reduceCurrentHp(double i, L2Character attacker)
 	{
 		reduceCurrentHp(i, attacker, true, false, false, null);
 	}
-
-	public void reduceCurrentHp(double i, L2Character attacker, L2Skill skill)
+	
+	public final void reduceCurrentHp(double i, L2Character attacker, L2Skill skill)
 	{
 		reduceCurrentHp(i, attacker, true, false, false, skill);
 	}
-
-	public void reduceCurrentHp(double i, L2Character attacker, boolean awake, L2Skill skill)
+	
+	public final void reduceCurrentHp(double i, L2Character attacker, boolean awake, L2Skill skill)
 	{
 		reduceCurrentHp(i, attacker, awake, false, false, skill);
 	}
-
-	public void reduceCurrentHp(double i, L2Character attacker, boolean awake, boolean isDOT, boolean isConsume, L2Skill skill)
+	
+	public final void reduceCurrentHp(double i, L2Character attacker, boolean awake, boolean isDOT, boolean isConsume, L2Skill skill)
 	{
 		getStatus().reduceHp(i, attacker, awake, isDOT, isConsume);
 	}
-
-	public void reduceCurrentHpByDOT(double i, L2Character attacker, L2Skill skill)
+	
+	public final void reduceCurrentHpByDOT(double i, L2Character attacker, L2Skill skill)
 	{
 		reduceCurrentHp(i, attacker, false, true, false, skill);
 	}
-
-	public void reduceCurrentHpByConsume(double i)
+	
+	public final void reduceCurrentHpByConsume(double i)
 	{
 		reduceCurrentHp(i, this, false, false, true, null);
 	}
-
-	public void reduceCurrentMp(double i)
+	
+	public final void reduceCurrentMp(double i)
 	{
 		getStatus().reduceMp(i);
 	}
-
+	
 	// =========================================================
 	public void setChampion(boolean champ)
 	{

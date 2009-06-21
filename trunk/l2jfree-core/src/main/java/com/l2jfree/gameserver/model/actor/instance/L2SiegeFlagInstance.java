@@ -15,33 +15,31 @@
 package com.l2jfree.gameserver.model.actor.instance;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
-import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
+import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2SiegeClan;
-import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
-import com.l2jfree.gameserver.model.entity.Siege;
+import com.l2jfree.gameserver.model.actor.status.SiegeFlagStatus;
 import com.l2jfree.gameserver.model.entity.FortSiege;
+import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
-public class L2SiegeFlagInstance extends L2Npc
+public final class L2SiegeFlagInstance extends L2Npc
 {
 	private L2Clan _clan;
 	private L2PcInstance _player;
 	private Siege _siege;
 	private FortSiege _fortSiege;
 	private boolean _isAdvanced;
-	private boolean _canTalk;
+	private long _talkProtectionTime;
 
 	public L2SiegeFlagInstance(L2PcInstance player, int objectId, L2NpcTemplate template, boolean advanced)
 	{
@@ -50,7 +48,7 @@ public class L2SiegeFlagInstance extends L2Npc
 		_isAdvanced = advanced;
 		_clan = player.getClan();
 		_player = player;
-		_canTalk = true;
+		_talkProtectionTime = 0;
 		_siege = SiegeManager.getInstance().getSiege(_player);
 		_fortSiege = FortSiegeManager.getInstance().getSiege(_player);
 
@@ -83,7 +81,7 @@ public class L2SiegeFlagInstance extends L2Npc
 	}
 
 	@Override
-	public boolean isAutoAttackable(L2Character attacker) 
+	public boolean isAutoAttackable(L2Character attacker)
 	{
 		return true;
 	}
@@ -156,56 +154,31 @@ public class L2SiegeFlagInstance extends L2Npc
 		}
 	}
 
+	public void flagAttacked()
+	{
+		// send warning to owners of headquarters that theirs base is under attack
+		if (_clan != null && canTalk())
+			_clan.broadcastToOnlineMembers(SystemMessageId.BASE_UNDER_ATTACK.getSystemMessage());
+		
+		_talkProtectionTime = System.currentTimeMillis() + 20000;
+	}
+	
+	public boolean canTalk()
+	{
+		return System.currentTimeMillis() > _talkProtectionTime;
+	}
+	
 	@Override
-	public void reduceCurrentHp(double damage, L2Character attacker, boolean awake, boolean isDOT, boolean isConsume, L2Skill skill)
+	public SiegeFlagStatus getStatus()
 	{
-		// Advanced Headquarters have double HP.
-		if (_isAdvanced)
-			 damage /= 2;
-
-		super.reduceCurrentHp(damage, attacker, awake, isDOT, isConsume, skill);
-
-		if (canTalk())
-		{
-			if (getCastle() != null && getCastle().getSiege().getIsInProgress())
-			{
-				if (_clan != null)
-				{
-					// send warning to owners of headquarters that theirs base is under attack
-					_clan.broadcastToOnlineMembers(new SystemMessage(SystemMessageId.BASE_UNDER_ATTACK));
-					setCanTalk(false);
-					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleTalkTask(), 20000);
-				}
-			}
-			else if (getFort() != null && getFort().getSiege().getIsInProgress())
-			{
-				if (_clan != null)
-				{
-					// send warning to owners of headquarters that theirs base is under attack
-					_clan.broadcastToOnlineMembers(new SystemMessage(SystemMessageId.BASE_UNDER_ATTACK));
-					setCanTalk(false);
-					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleTalkTask(), 20000);
-				}
-			}
-		}
+		if (_status == null)
+			_status = new SiegeFlagStatus(this);
+		
+		return (SiegeFlagStatus)_status;
 	}
-
-	private class ScheduleTalkTask implements Runnable
+	
+	public boolean isAdvanced()
 	{
-		public void run()
-		{
-			setCanTalk(true);
-		}
+		return _isAdvanced;
 	}
-
-	void setCanTalk(boolean val)
-	{
-		_canTalk = val;
-	}
-
-	private boolean canTalk()
-	{
-		return _canTalk;
-	}
-
 }

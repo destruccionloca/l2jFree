@@ -16,9 +16,9 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.ai.L2NpcWalkerAI;
-import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
+import com.l2jfree.gameserver.model.actor.status.NpcWalkerStatus;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
@@ -75,17 +75,6 @@ public class L2NpcWalkerInstance extends L2Npc
 
 	/**
 	 * NPCs are immortal
-	 * @param i ignore it
-	 * @param attacker  ignore it
-	 * @param awake  ignore it
-	 */
-	@Override
-	public void reduceCurrentHp(double i, L2Character attacker, boolean awake, boolean isDOT, boolean isConsume, L2Skill skill)
-	{
-	}
-
-	/**
-	 * NPCs are immortal
 	 * @param killer ignore it
 	 * @return false
 	 */
@@ -110,5 +99,14 @@ public class L2NpcWalkerInstance extends L2Npc
 		public void detachAI()
 		{
 		}
+	}
+	
+	@Override
+	public final NpcWalkerStatus getStatus()
+	{
+		if (_status == null)
+			_status = new NpcWalkerStatus(this);
+		
+		return (NpcWalkerStatus)_status;
 	}
 }

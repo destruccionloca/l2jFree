@@ -15,9 +15,8 @@
 package com.l2jfree.gameserver.model.actor.instance;
 
 import com.l2jfree.gameserver.ai.CtrlIntention;
-import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
+import com.l2jfree.gameserver.model.actor.status.ArtefactStatus;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
@@ -103,9 +102,13 @@ public final class L2ArtefactInstance extends L2Npc
 	{
 		onAction(player);
 	}
-
+	
 	@Override
-	public void reduceCurrentHp(double damage, L2Character attacker, boolean awake, boolean isDOT, boolean isConsume, L2Skill skill)
+	public ArtefactStatus getStatus()
 	{
+		if (_status == null)
+			_status = new ArtefactStatus(this);
+		
+		return (ArtefactStatus)_status;
 	}
 }

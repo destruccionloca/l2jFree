@@ -75,7 +75,7 @@ public final class Disconnection
 		try
 		{
 			if (_activeChar != null)
-				_activeChar.store(true);
+				_activeChar.store(true, true);
 		}
 		catch (RuntimeException e)
 		{

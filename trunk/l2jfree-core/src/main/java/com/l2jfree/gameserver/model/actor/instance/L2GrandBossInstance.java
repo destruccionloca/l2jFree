@@ -18,10 +18,11 @@ import com.l2jfree.gameserver.instancemanager.GrandBossSpawnManager;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Boss;
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.status.GrandBossStatus;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 /**
- * This class manages all Bosses. 
+ * This class manages all Bosses.
  * 
  * @version $Revision: 1.0.0.0 $ $Date: 2006/06/16 $
  */
@@ -77,19 +78,15 @@ public class L2GrandBossInstance extends L2Boss
 		return true;
 	}
 
-	/**
-	 * Reduce the current HP of the L2Attackable, update its _aggroList and launch the doDie Task if necessary.<BR><BR> 
-	 */
 	@Override
-	public void reduceCurrentHp(double damage, L2Character attacker, boolean awake, boolean isDOT, boolean isConsume, L2Skill skill)
+	public GrandBossStatus getStatus()
 	{
-		// [L2J_JP ADD SANDMAN]
-		if (isInSocialAction() || isInvul())
-			return;
-
-		super.reduceCurrentHp(damage, attacker, awake, isDOT, isConsume, skill);
+		if (_status == null)
+			_status = new GrandBossStatus(this);
+		
+		return (GrandBossStatus) _status;
 	}
-
+	
 	@Override
 	public void doAttack(L2Character target)
 	{
