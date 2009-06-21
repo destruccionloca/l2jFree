@@ -14,35 +14,48 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import org.apache.commons.lang.ArrayUtils;
+
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.actor.L2Character;
-import com.l2jfree.gameserver.model.L2Object;
 
 /**
  * @author Forsaiken
  */
 public final class Attack extends L2GameServerPacket
 {
-	private static final String	_S__06_ATTACK	= "[S] 33 Attack";
-
-	private final int			_attackerObjId;
-	private final int			_attackerX;
-	private final int			_attackerY;
-	private final int			_attackerZ;
-	private int					_targetX;
-	private int					_targetY;
-	private int					_targetZ;
-
-	public final boolean		soulshot;
-	protected final int			_grade;
-
-	private int					_targetObjId;
-	private int					_targetDamage;
-	private int					_targetFlags;
-
-	private int[][]				_hits;
-
-	public Attack(final L2Character attacker, final boolean ss, final int grade)
+	private static final String _S__06_ATTACK = "[S] 33 Attack";
+	
+	private static final class Hit
+	{
+		private static final Hit[] EMPTY_ARRAY = new Hit[0];
+		
+		private final int _targetId;
+		private final int _damage;
+		private final int _flags;
+		
+		private Hit(int targetId, int damage, int flags)
+		{
+			_targetId = targetId;
+			_damage = damage;
+			_flags = flags;
+		}
+	}
+	
+	private final int _attackerObjId;
+	private final int _attackerX;
+	private final int _attackerY;
+	private final int _attackerZ;
+	private final int _targetX;
+	private final int _targetY;
+	private final int _targetZ;
+	
+	public final boolean soulshot;
+	private final int _grade;
+	
+	private Hit[] _hits = Hit.EMPTY_ARRAY;
+	
+	public Attack(L2Character attacker, L2Character target, boolean ss, int grade)
 	{
 		_attackerObjId = attacker.getObjectId();
 		soulshot = ss;
@@ -50,109 +63,73 @@ public final class Attack extends L2GameServerPacket
 		_attackerX = attacker.getX();
 		_attackerY = attacker.getY();
 		_attackerZ = attacker.getZ();
+		_targetX = target.getX();
+		_targetY = target.getY();
+		_targetZ = target.getZ();
 	}
-
-	private final int getFlags(final boolean miss, final boolean crit, final byte shld)
+	
+	private int getFlags(boolean miss, boolean crit, byte shld)
 	{
 		int flags = 0;
-
+		
 		if (soulshot)
 			flags |= 0x10 | _grade;
-
+		
 		if (crit)
 			flags |= 0x20;
-
+		
 		if (shld > 0)
 			flags |= 0x40;
-
+		
 		if (miss)
 			flags |= 0x80;
-
+		
 		return flags;
 	}
-
-	public final void addHit(final L2Object targetObj, final int damage, final boolean miss, final boolean crit, final byte shld)
+	
+	public void addHit(L2Character target, int damage, boolean miss, boolean crit, byte shld)
 	{
-		_targetX = targetObj.getX();
-		_targetY = targetObj.getY();
-		_targetZ = targetObj.getZ();
-
-		if (_targetObjId == 0)
-		{
-			_targetObjId = targetObj.getObjectId();
-			_targetDamage = damage;
-			_targetFlags = getFlags(miss, crit, shld);
-		}
-		else
-		{
-			final int[] hit = new int[] { _targetObjId, _targetDamage, getFlags(miss, crit, shld) };
-
-			if (_hits == null)
-			{
-				_hits = new int[][] { hit };
-			}
-			else
-			{
-				final int off = _hits.length;
-				final int[][] temp = new int[off + 1][];
-				System.arraycopy(_hits, 0, temp, 0, _hits.length);
-				_hits = temp;
-				_hits[off] = hit;
-			}
-		}
-
+		_hits = (Hit[])ArrayUtils.add(_hits, new Hit(target.getObjectId(), damage, getFlags(miss, crit, shld)));
 	}
-
-	public final boolean hasHits()
+	
+	public boolean hasHits()
 	{
-		return _targetObjId > 0;
+		return _hits.length > 0;
 	}
-
+	
 	@Override
 	protected final void writeImpl()
 	{
-		super.writeC(0x33);
-		super.writeD(_attackerObjId);
-		super.writeD(_targetObjId);
-		super.writeD(_targetDamage);
-		super.writeC(_targetFlags);
-		super.writeD(_attackerX);
-		super.writeD(_attackerY);
-		super.writeD(_attackerZ);
-
-		if (_hits == null)
+		writeC(0x33);
+		
+		writeD(_attackerObjId);
+		writeD(_hits[0]._targetId);
+		writeD(_hits[0]._damage);
+		writeC(_hits[0]._flags);
+		writeD(_attackerX);
+		writeD(_attackerY);
+		writeD(_attackerZ);
+		
+		writeH(_hits.length - 1);
+		for (int i = 1; i < _hits.length; i++)
 		{
-			super.writeH(0x00);
+			final Hit hit = _hits[i];
+			
+			writeD(hit._targetId);
+			writeD(hit._damage);
+			writeC(hit._flags);
 		}
-		else
+		
+		if (Config.PACKET_FINAL)
 		{
-			super.writeH(_hits.length);
-			for (final int[] hit : _hits)
-			{
-				super.writeD(hit[0]);
-				super.writeD(hit[1]);
-				super.writeC(hit[2]);
-			}
-		}
-		if(_targetX!=0)
 			writeD(_targetX);
-		else
-			writeD(_attackerX);
-		
-		if(_targetY!=0)
 			writeD(_targetY);
-		else
-			writeD(_attackerY);
-		
-		if(_targetZ!=0)
 			writeD(_targetZ);
-		else
-			writeD(_attackerZ);
-		
+		}
 	}
-
+	
 	@Override
-	public final String getType()
+	public String getType()
 	{
 		return _S__06_ATTACK;
 	}

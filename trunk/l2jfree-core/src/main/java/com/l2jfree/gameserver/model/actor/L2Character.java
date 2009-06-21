@@ -1098,7 +1098,7 @@ public abstract class L2Character extends L2Object
 		}
 
 		// Create a Server->Client packet Attack
-		Attack attack = new Attack(this, wasSSCharged, ssGrade);
+		final Attack attack = new Attack(this, target, wasSSCharged, ssGrade);
 
 		// Set the Attacking Body part to CHEST
 		setAttackingBodypart();
