@@ -8889,7 +8889,7 @@ public final class L2PcInstance extends L2Playable
 			if (reduceHp < 1)
 				reduceHp = 1;
 
-			reduceCurrentHp(reduceHp, L2PcInstance.this, false, false, false, null);
+			reduceCurrentHp(reduceHp, L2PcInstance.this, false);
 			// Reduced hp, because not rest
 			SystemMessage sm = new SystemMessage(SystemMessageId.DROWN_DAMAGE_S1);
 			sm.addNumber((int) reduceHp);

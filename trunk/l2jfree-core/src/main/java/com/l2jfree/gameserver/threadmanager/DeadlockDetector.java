@@ -26,7 +26,6 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Shutdown;
-import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.Shutdown.ShutdownMode;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.lang.L2Thread;

@@ -1535,7 +1535,7 @@ public final class Config extends L2Config
 	public static boolean				ALT_AUTO_LEARN_DIVINE_INSPIRATION;											// Alternative auto skill learning for divine inspiration (+4 max buff count)
 	public static boolean				ALT_GRADE_PENALTY;															// Disable Grade penalty
 	public static boolean				ALT_IS_CRAFTING_ENABLED;													// Crafting Enabled?
-	public static boolean				ALT_FAIL_FAKEDEATH;														// Config for Fake Death Fail Feature
+	//public static boolean				ALT_FAIL_FAKEDEATH;														// Config for Fake Death Fail Feature
 	public static boolean				ALT_FLYING_WYVERN_IN_SIEGE;												// Config for Wyvern enable flying in siege **/
 	public static int					ALT_OLY_START_TIME;														// Olympiad Competition Starting time
 	public static int					ALT_OLY_MIN;																// Olympiad Minutes
@@ -1675,7 +1675,7 @@ public final class Config extends L2Config
 			ALT_CHANCE_BREAK = Integer.parseInt(altSettings.getProperty("ChanceToBreak", "10"));
 			ALT_CHANCE_LEVEL = Integer.parseInt(altSettings.getProperty("ChanceToLevel", "32"));
 			ALT_IS_CRAFTING_ENABLED = Boolean.parseBoolean(altSettings.getProperty("CraftingEnabled", "true"));
-			ALT_FAIL_FAKEDEATH = Boolean.parseBoolean(altSettings.getProperty("FailFakeDeath", "true"));
+			//ALT_FAIL_FAKEDEATH = Boolean.parseBoolean(altSettings.getProperty("FailFakeDeath", "true"));
 			ALT_FLYING_WYVERN_IN_SIEGE = Boolean.parseBoolean(altSettings.getProperty("AltFlyingWyvernInSiege", "false"));
 			ALT_SP_BOOK_NEEDED = Boolean.parseBoolean(altSettings.getProperty("SpBookNeeded", "true"));
 			ALT_LIFE_CRYSTAL_NEEDED = Boolean.parseBoolean(altSettings.getProperty("LifeCrystalNeeded", "true"));
@@ -4190,8 +4190,8 @@ public final class Config extends L2Config
 		else if (pName.equalsIgnoreCase("DMReviveDelay"))
 			DM_REVIVE_DELAY = Long.parseLong(pValue);
 
-		else if (pName.equalsIgnoreCase("FailFakeDeath"))
-			ALT_FAIL_FAKEDEATH = Boolean.parseBoolean(pValue);
+		//else if (pName.equalsIgnoreCase("FailFakeDeath"))
+		//	ALT_FAIL_FAKEDEATH = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("AltFlyingWyvernInSiege"))
 			ALT_FLYING_WYVERN_IN_SIEGE = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("TimeInADayOfOpenADoor"))

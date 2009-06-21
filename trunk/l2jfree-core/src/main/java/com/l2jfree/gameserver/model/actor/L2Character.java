@@ -160,8 +160,8 @@ public abstract class L2Character extends L2Object
 
 	// =========================================================
 	// Data Field
-	private List<L2Character>		_attackByList;
-	private L2Character				_attackingChar;
+	private Set<L2Character>		_attackByList;
+	//private L2Character				_attackingChar;
 	private volatile boolean		_isCastingNow						= false;
 	private volatile boolean		_isCastingSimultaneouslyNow			= false;
 	private L2Skill					_lastSimultaneousSkillCast;
@@ -204,7 +204,6 @@ public abstract class L2Character extends L2Object
 	// L2Character type (ex : Max HP,
 	// Speed...)
 	private String					_title;
-	private boolean					_champion							= false;
 	private double					_hpUpdateIncCheck					= .0;
 	private double					_hpUpdateDecCheck					= .0;
 	private double					_hpUpdateInterval					= .0;
@@ -430,7 +429,7 @@ public abstract class L2Character extends L2Object
 	 */
 	public void addAttackerToAttackByList(L2Character player)
 	{
-		if (player == null || player == this || getAttackByList() == null || getAttackByList().contains(player))
+		if (player == null || player == this)
 			return;
 		getAttackByList().add(player);
 	}
@@ -1686,7 +1685,7 @@ public abstract class L2Character extends L2Object
 			return;
 		}
 		
-		setAttackingChar(this);
+		//setAttackingChar(this);
 		// setLastSkillCast(skill);
 		
 		// Get the casting time of the skill (base)
@@ -2372,18 +2371,20 @@ public abstract class L2Character extends L2Object
 	}
 
 	/** Return a list of L2Character that attacked. */
-	public final List<L2Character> getAttackByList()
+	public final Set<L2Character> getAttackByList()
 	{
 		if (_attackByList == null)
-			_attackByList = new SingletonList<L2Character>();
+			_attackByList = new SingletonSet<L2Character>();
 		
 		return _attackByList;
 	}
 
+	/*
 	public final L2Character getAttackingChar()
 	{
 		return _attackingChar;
 	}
+	*/
 
 	/**
 	 * Set _attackingChar to the L2Character that attacks this one.<BR>
@@ -2392,6 +2393,7 @@ public abstract class L2Character extends L2Object
 	 * @param player
 	 *            The L2Character that attcks this one
 	 */
+	/*
 	public final void setAttackingChar(L2Character player)
 	{
 		if (player == null || player == this)
@@ -2399,6 +2401,7 @@ public abstract class L2Character extends L2Object
 		_attackingChar = player;
 		addAttackerToAttackByList(player);
 	}
+	*/
 
 	public final L2Skill getLastSimultaneousSkillCast()
 	{
@@ -3152,6 +3155,7 @@ public abstract class L2Character extends L2Object
 		// [L2J_JP ADD START]
 		setIsFallsdown(true);
 
+		/*
 		if (Config.ALT_FAIL_FAKEDEATH)
 		{
 			// It fails in Fake Death at the probability
@@ -3215,14 +3219,16 @@ public abstract class L2Character extends L2Object
 			setIsFakeDeath(true);
 		}
 		// [L2J_JP ADD END]
+		*/
 
+		setIsFakeDeath(true);
 		/* Aborts any attacks/casts if fake dead */
 		abortAttack();
 		abortCast();
 		stopMove(null);
 		sendPacket(ActionFailed.STATIC_PACKET);
 		getAI().notifyEvent(CtrlEvent.EVT_FAKE_DEATH, null);
-		broadcastPacket(new ChangeWaitType(this, ChangeWaitType.WT_START_FAKEDEATH));
+		broadcastPacket(new ChangeWaitType(this,ChangeWaitType.WT_START_FAKEDEATH));
 	}
 
 	/**
@@ -5337,11 +5343,11 @@ public abstract class L2Character extends L2Object
 				}
 
 				// Reduce targets HP
-				target.reduceCurrentHp(damage, this, null);
+				target.reduceCurrentHp(damage, this);
 
 				if (reflectedDamage > 0)
 				{
-					reduceCurrentHp(reflectedDamage, target, true, false, false, null);
+					reduceCurrentHp(reflectedDamage, target);
 
 					// Custom messages - nice but also more network load
 					/*
@@ -5984,7 +5990,7 @@ public abstract class L2Character extends L2Object
 			|| isAlikeDead() && !skill.isPotion()) // Check if player is using fake death, potions still can be used.
 		{
 			// now cancels both, simultaneous and normal
-			setAttackingChar(null);
+			//setAttackingChar(null);
 			getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
 			
 			_castInterruptTime = 0;
@@ -6867,17 +6873,27 @@ public abstract class L2Character extends L2Object
 	// WRAPPERS ONLY! DO NOT OVERRIDE IT!
 	public final void reduceCurrentHp(double i, L2Character attacker)
 	{
-		reduceCurrentHp(i, attacker, true, false, false, null);
+		getStatus().reduceHp(i, attacker);
 	}
 	
 	public final void reduceCurrentHp(double i, L2Character attacker, L2Skill skill)
 	{
-		reduceCurrentHp(i, attacker, true, false, false, skill);
+		getStatus().reduceHp(i, attacker);
+	}
+	
+	public final void reduceCurrentHp(double i, L2Character attacker, boolean awake)
+	{
+		getStatus().reduceHp(i, attacker, awake);
 	}
 	
 	public final void reduceCurrentHp(double i, L2Character attacker, boolean awake, L2Skill skill)
 	{
-		reduceCurrentHp(i, attacker, awake, false, false, skill);
+		getStatus().reduceHp(i, attacker, awake);
+	}
+	
+	public final void reduceCurrentHp(double i, L2Character attacker, boolean awake, boolean isDOT, boolean isConsume)
+	{
+		getStatus().reduceHp(i, attacker, awake, isDOT, isConsume);
 	}
 	
 	public final void reduceCurrentHp(double i, L2Character attacker, boolean awake, boolean isDOT, boolean isConsume, L2Skill skill)
@@ -6887,12 +6903,12 @@ public abstract class L2Character extends L2Object
 	
 	public final void reduceCurrentHpByDOT(double i, L2Character attacker, L2Skill skill)
 	{
-		reduceCurrentHp(i, attacker, false, true, false, skill);
+		getStatus().reduceHpByDOT(i, attacker);
 	}
 	
 	public final void reduceCurrentHpByConsume(double i)
 	{
-		reduceCurrentHp(i, this, false, false, true, null);
+		getStatus().reduceHpByConsume(i);
 	}
 	
 	public final void reduceCurrentMp(double i)
@@ -6901,16 +6917,11 @@ public abstract class L2Character extends L2Object
 	}
 	
 	// =========================================================
-	public void setChampion(boolean champ)
-	{
-		_champion = champ;
-	}
-
 	public boolean isChampion()
 	{
-		return _champion;
+		return false;
 	}
-
+	
 	public void sendMessage(String message)
 	{
 	}
@@ -6981,7 +6992,7 @@ public abstract class L2Character extends L2Object
 		return _chanceSkills;
 	}
 
-	public int getAttackElement()
+	public final int getAttackElement()
 	{
 		return getStat().getAttackElement();
 	}
@@ -6992,24 +7003,24 @@ public abstract class L2Character extends L2Object
 	}
 	
 	// Wrapper
-	public double getCurrentHp()
+	public final double getCurrentHp()
 	{
 		return getStatus().getCurrentHp();
 	}
 
 	// Wrapper
-	public double getCurrentMp()
+	public final double getCurrentMp()
 	{
 		return getStatus().getCurrentMp();
 	}
 
 	// Wrapper
-	public double getCurrentCp()
+	public final double getCurrentCp()
 	{
 		return getStatus().getCurrentCp();
 	}
 
-	public int getAttackElementValue(int attackAttribute)
+	public final int getAttackElementValue(int attackAttribute)
 	{
 		return getStat().getAttackElementValue(attackAttribute);
 	}

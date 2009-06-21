@@ -252,6 +252,16 @@ public class CharStatus
 		reduceHp0(value, attacker, awake, isDOT, isConsume);
 	}
 	
+	public final void reduceHpByDOT(double value, L2Character attacker)
+	{
+		reduceHp(value, attacker, false, true, false);
+	}
+	
+	public final void reduceHpByConsume(double value)
+	{
+		reduceHp(value, getActiveChar(), false, false, true);
+	}
+	
 	void reduceHp0(double value, L2Character attacker, boolean awake, boolean isDOT, boolean isConsume)
 	{
 		if (!isDOT)
@@ -326,7 +336,7 @@ public class CharStatus
 			}
 		}
 		
-		if (getActiveChar().getStatus().getCurrentHp() < 0.5) // Die
+		if (getCurrentHp() < 0.5) // Die
 		{
 			if (player != null && player.isInOlympiadMode() && getActiveChar() instanceof L2PcInstance) // pets can die as usual
 			{

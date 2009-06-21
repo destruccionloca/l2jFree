@@ -811,24 +811,6 @@ public abstract class L2Summon extends L2Playable
 			getOwner().sendMessage("Your pet has avoided " + attacker.getName() + "'s attack.");
 	}
 	
-	public void reduceCurrentHp(int damage, L2Character attacker, boolean awake, boolean isDOT, boolean isConsume, L2Skill skill)
-	{
-		super.reduceCurrentHp(damage, attacker, awake, isDOT, isConsume, skill);
-
-		if (isDOT)
-			return;
-
-		SystemMessage sm;
-		if (this instanceof L2SummonInstance)
-			sm = new SystemMessage(SystemMessageId.SUMMON_RECEIVED_DAMAGE_S2_BY_C1);
-		else
-			sm = new SystemMessage(SystemMessageId.PET_RECEIVED_S2_DAMAGE_BY_C1);
-
-		sm.addCharName(attacker);
-		sm.addNumber(damage);
-		getOwner().sendPacket(sm);
-	}
-
 	@Override
 	public final boolean isOutOfControl()
 	{

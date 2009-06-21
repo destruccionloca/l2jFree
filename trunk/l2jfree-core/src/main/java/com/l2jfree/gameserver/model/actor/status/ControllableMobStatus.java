@@ -46,14 +46,14 @@ public class ControllableMobStatus extends AttackableStatus
 				stopImmobileUntilAttacked(true);
 		}
 		
-		i = getStatus().getCurrentHp() - i;
+		i = getCurrentHp() - i;
 		
 		if (i < 0)
 			i = 0;
 		
-		getStatus().setCurrentHp(i);
+		setCurrentHp(i);
 		
-		if (getStatus().getCurrentHp() < 0.5) // Die
+		if (getCurrentHp() < 0.5) // Die
 		{
 			// First die (and calculate rewards), if currentHp < 0,  then overhit may be calculated
 			if (_log.isDebugEnabled())
@@ -65,7 +65,7 @@ public class ControllableMobStatus extends AttackableStatus
 			doDie(attacker);
 			
 			// Now reset currentHp to zero
-			getStatus().setCurrentHp(0);
+			setCurrentHp(0);
 		}
 		*/
 		

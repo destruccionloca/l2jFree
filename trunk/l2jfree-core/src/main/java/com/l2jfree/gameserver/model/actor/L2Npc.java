@@ -2736,7 +2736,20 @@ public class L2Npc extends L2Character
 		if (_spawn != null)
 			_spawn.decreaseCount(this);
 	}
-
+	
+	private boolean _champion;
+	
+	public final void setChampion(boolean champion)
+	{
+		_champion = champion;
+	}
+	
+	@Override
+	public final boolean isChampion()
+	{
+		return _champion;
+	}
+	
 	/**
 	 * Remove PROPERLY the L2Npc from the world.<BR><BR>
 	 *
