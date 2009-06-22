@@ -18,7 +18,7 @@ package com.l2jfree.gameserver.network.serverpackets;
  * Format:(ch)
  * @author  Crion/kombat
  */
-public class ExClosePartyRoom extends L2GameServerPacket
+public class ExClosePartyRoom extends StaticPacket
 {
 	public static final ExClosePartyRoom STATIC_PACKET = new ExClosePartyRoom();
 

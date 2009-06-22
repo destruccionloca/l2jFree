@@ -99,6 +99,7 @@ import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.MoveToLocation;
 import com.l2jfree.gameserver.network.serverpackets.Revive;
 import com.l2jfree.gameserver.network.serverpackets.SetupGauge;
+import com.l2jfree.gameserver.network.serverpackets.StaticPacket;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.StopMove;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -544,14 +545,24 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * @param gsp
 	 */
+	@Deprecated
 	public void sendPacket(L2GameServerPacket gsp)
 	{
 	}
-
+	
 	/**
 	 * @param sm
 	 */
 	public void sendPacket(SystemMessageId sm)
+	{
+	}
+	
+	public void sendPacket(StaticPacket packet)
+	{
+	}
+	
+	@Deprecated
+	public void sendMessage(String message)
 	{
 	}
 
@@ -6920,10 +6931,6 @@ public abstract class L2Character extends L2Object
 	public boolean isChampion()
 	{
 		return false;
-	}
-	
-	public void sendMessage(String message)
-	{
 	}
 
 	protected void refreshSkills()

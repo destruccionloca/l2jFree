@@ -17,7 +17,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 /**
  * @author -Wooden-
  */
-public class ExMailArrived extends L2GameServerPacket
+public class ExMailArrived extends StaticPacket
 {
 	private static final String _S__FE_2E_EXMAILARRIVED = "[S] FE:2e ExMailArrived []";
 	public static final ExMailArrived STATIC_PACKET = new ExMailArrived();

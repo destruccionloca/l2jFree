@@ -18,7 +18,7 @@ package com.l2jfree.gameserver.network.serverpackets;
  *
  * @author  devScarlet & mrTJO
  */
-public class ServerClose extends L2GameServerPacket
+public class ServerClose extends StaticPacket
 {
 	private static final String _S__26_SERVERCLOSE = "[S] 26 ServerClose";
 

@@ -14,7 +14,7 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-public final class PartySmallWindowDeleteAll extends L2GameServerPacket
+public final class PartySmallWindowDeleteAll extends StaticPacket
 {
 	private static final String _S__50_PARTYSMALLWINDOWDELETEALL = "[S] 50 PartySmallWindowDeleteAll []";
 	

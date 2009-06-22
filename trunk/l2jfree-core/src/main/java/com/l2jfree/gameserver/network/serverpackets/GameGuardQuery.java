@@ -21,7 +21,7 @@ import com.l2jfree.gameserver.network.L2GameClient;
  * @author zabbix
  * Lets drink to code!
  */
-public class GameGuardQuery extends L2GameServerPacket
+public class GameGuardQuery extends StaticPacket
 {
     private static final String _S__F9_GAMEGUARDQUERY = "[S] F9 GameGuardQuery";
 

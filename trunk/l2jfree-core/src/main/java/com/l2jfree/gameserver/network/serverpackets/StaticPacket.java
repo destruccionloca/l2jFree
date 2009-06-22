@@ -15,37 +15,11 @@
 package com.l2jfree.gameserver.network.serverpackets;
 
 /**
- * Format:(ch)
- * @author  Crion/kombat
+ * @author NB4L1
  */
-public class ExOpenMPCC extends StaticPacket
+public abstract class StaticPacket extends L2GameServerPacket
 {
-
-	private static final String _S__FE_25_EXOPENMPCC = "[S] FE:25 ExOpenMPCC []";
-
-	public static final ExOpenMPCC STATIC_PACKET = new ExOpenMPCC();
-
-	private ExOpenMPCC()
+	protected StaticPacket()
 	{
 	}
-
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#writeImpl()
-	 */
-	@Override
-	protected void writeImpl()
-	{
-		writeC(0xfe);
-		writeH(0x12);
-	}
-
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.BasePacket#getType()
-	 */
-	@Override
-	public String getType()
-	{
-		return _S__FE_25_EXOPENMPCC;
-	}
-	
 }

@@ -17,7 +17,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
 
-public class ClientSetTime extends L2GameServerPacket
+public class ClientSetTime extends StaticPacket
 {
 	private static final String _S__F2_CLIENTSETTIME = "[S] f2 ClientSetTime [dd]";
 	

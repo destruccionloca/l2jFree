@@ -21,7 +21,7 @@ package com.l2jfree.gameserver.network.serverpackets;
  * close the CommandChannel Information window
  * 
  */
-public class ExCloseMPCC extends L2GameServerPacket
+public class ExCloseMPCC extends StaticPacket
 {
 
 	private static final String _S__FE_13_EXCLOSEMPCC = "[S] FE:13 ExCloseMPCC []";

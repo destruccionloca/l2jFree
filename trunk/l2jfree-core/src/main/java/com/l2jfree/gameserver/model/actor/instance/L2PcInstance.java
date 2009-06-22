@@ -235,6 +235,7 @@ import com.l2jfree.gameserver.network.serverpackets.SkillList;
 import com.l2jfree.gameserver.network.serverpackets.Snoop;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
 import com.l2jfree.gameserver.network.serverpackets.SpecialCamera;
+import com.l2jfree.gameserver.network.serverpackets.StaticPacket;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.StopMove;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -4007,11 +4008,13 @@ public final class L2PcInstance extends L2Playable
 			}
 		}
 	}
-
+	
 	/**
-	 * Send a Server->Client packet StatusUpdate to the L2PcInstance.<BR><BR>
+	 * Send a Server->Client packet to the L2PcInstance.<BR>
+	 * <BR>
 	 */
 	@Override
+	@SuppressWarnings("deprecation")
 	public void sendPacket(L2GameServerPacket packet)
 	{
 		final L2GameClient client = _client;
@@ -4026,6 +4029,19 @@ public final class L2PcInstance extends L2Playable
 	public void sendPacket(SystemMessageId sm)
 	{
 		sendPacket(sm.getSystemMessage());
+	}
+	
+	@Override
+	public void sendPacket(StaticPacket packet)
+	{
+		sendPacket((L2GameServerPacket)packet);
+	}
+	
+	@Override
+	@SuppressWarnings("deprecation")
+	public void sendMessage(String message)
+	{
+		sendPacket(SystemMessage.sendString(message));
 	}
 	
 	/**
@@ -8952,12 +8968,6 @@ public final class L2PcInstance extends L2Playable
 	{
 		_bookmarkslot = slot;
 		sendPacket(new ExGetBookMarkInfoPacket(this));
-	}
-
-	@Override
-	public void sendMessage(String message)
-	{
-		sendPacket(SystemMessage.sendString(message));
 	}
 
 	public void enterObserverMode(int x, int y, int z)
