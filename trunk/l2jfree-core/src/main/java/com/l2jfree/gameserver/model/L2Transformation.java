@@ -141,5 +141,13 @@ public abstract class L2Transformation
     public boolean canStartFollowToCast()
     {
     	return _startFollowToCast;
-    }    
+    }
+
+    /**
+     * Returns true if the standard action buttons must be hidden while transformed. (most except Vanguard, Inquisitor etc.)
+     */
+	public boolean hidesActionButtons()
+	{
+		return true;
+	}
 }

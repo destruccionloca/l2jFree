@@ -447,7 +447,7 @@ public class EnterWorld extends L2GameClientPacket
 			// Send Action list
 			
 		}
-		sendPacket(ExBasicActionList.DEFAULT_ACTION_LIST);
+		ExBasicActionList.sendTo(activeChar);
 
 		// Send Teleport Bookmark List
 		sendPacket(new ExGetBookMarkInfoPacket(activeChar));
