@@ -39,180 +39,177 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
  */
 public class RequestAquireSkillInfo extends L2GameClientPacket
 {
-    private static final String _C__6B_REQUESTAQUIRESKILLINFO = "[C] 6B RequestAquireSkillInfo";
+	private static final String _C__6B_REQUESTAQUIRESKILLINFO = "[C] 6B RequestAquireSkillInfo";
 
-    private int _id;
-    private int _level;
+	private int _id;
+	private int _level;
 	private int _skillType;
 
-    /**
-     * packet type id 0x6b packet
+	/**
+	 * packet type id 0x6b packet
 	 * format rev650 cddd
-     */
-    @Override
-    protected void readImpl()
-    {
-        _id = readD();
-        _level = readD();
-        _skillType = readD();
-    }
+	 */
+	@Override
+	protected void readImpl()
+	{
+		_id = readD();
+		_level = readD();
+		_skillType = readD();
+	}
 
-    @Override
-    protected void runImpl()
-    {
-        L2PcInstance activeChar = getClient().getActiveChar();
+	@Override
+	protected void runImpl()
+	{
+		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null) return;
-        L2NpcInstance trainer = activeChar.getLastFolkNPC();
-        if ((trainer == null || !activeChar.isInsideRadius(trainer, L2Npc.INTERACTION_DISTANCE, false, false)) && !activeChar.isGM())
-        {
-        	requestFailed(SystemMessageId.TOO_FAR_FROM_NPC);
-            return;
-        }
+		L2NpcInstance trainer = activeChar.getLastFolkNPC();
+		if ((trainer == null || !activeChar.isInsideRadius(trainer, L2Npc.INTERACTION_DISTANCE, false, false)) && !activeChar.isGM())
+		{
+			requestFailed(SystemMessageId.TOO_FAR_FROM_NPC);
+			return;
+		}
 
-        L2Skill skill = SkillTable.getInstance().getInfo(_id, _level);
+		L2Skill skill = SkillTable.getInstance().getInfo(_id, _level);
 
-        boolean canteach = false;
+		boolean canteach = false;
 
-        if (skill == null)
-        {
-        	if(_log.isDebugEnabled())
-        		_log.info("skill id " + _id + " level " + _level + " is undefined. aquireSkillInfo failed.");
-        	requestFailed(new SystemMessage(SystemMessageId.RACE_SETUP_FILE7_ERROR_S1).addNumber(_id));
-            return;
-        }
+		if (skill == null)
+		{
+			if(_log.isDebugEnabled())
+				_log.info("skill id " + _id + " level " + _level + " is undefined. aquireSkillInfo failed.");
+			requestFailed(new SystemMessage(SystemMessageId.RACE_SETUP_FILE7_ERROR_S1).addNumber(_id));
+			return;
+		}
 
-        if (_skillType == 0)
-        {
-            if (trainer instanceof L2TransformManagerInstance)
-            {
-                int itemId = 0;
-                L2TransformSkillLearn[] skillst = SkillTreeTable.getInstance().getAvailableTransformSkills(activeChar);
+		if (_skillType == 0)
+		{
+			if (trainer instanceof L2TransformManagerInstance)
+			{
+				int itemId = 0;
+				L2TransformSkillLearn[] skillst = SkillTreeTable.getInstance().getAvailableTransformSkills(activeChar);
 
-                for (L2TransformSkillLearn s : skillst)
-                {
-                    if (s.getId() == _id && s.getLevel() == _level)
-                    {
-                        canteach = true;
-                        itemId = s.getItemId();
-                        break;
-                    }
-                }
+				for (L2TransformSkillLearn s : skillst)
+				{
+					if (s.getId() == _id && s.getLevel() == _level)
+					{
+						canteach = true;
+						itemId = s.getItemId();
+						break;
+					}
+				}
 
-                if (!canteach)
-                {
-                	sendPacket(ActionFailed.STATIC_PACKET);
-                    return; // cheater
-                }
+				if (!canteach)
+				{
+					sendPacket(ActionFailed.STATIC_PACKET);
+					return; // cheater
+				}
 
-                int requiredSp = 0;
-                AcquireSkillInfo asi = new AcquireSkillInfo(skill.getId(), skill.getLevel(), requiredSp, 0);
-                asi.addRequirement(1, itemId, 1, 0);
-                sendPacket(asi);
-                return;
-            }
-            if (trainer != null && !trainer.getTemplate().canTeach(activeChar.getSkillLearningClassId()))
-            {
-            	sendPacket(ActionFailed.STATIC_PACKET);
-                return; // cheater
-            }
+				int requiredSp = 0;
+				AcquireSkillInfo asi = new AcquireSkillInfo(skill.getId(), skill.getLevel(), requiredSp, 0);
+				asi.addRequirement(1, itemId, 1, 0);
+				sendPacket(asi);
+				return;
+			}
+			if (trainer != null && !trainer.getTemplate().canTeach(activeChar.getSkillLearningClassId()))
+			{
+				sendPacket(ActionFailed.STATIC_PACKET);
+				return; // cheater
+			}
 
-            L2SkillLearn[] skills = SkillTreeTable.getInstance().getAvailableSkills(activeChar, activeChar.getSkillLearningClassId());
+			L2SkillLearn[] skills = SkillTreeTable.getInstance().getAvailableSkills(activeChar, activeChar.getSkillLearningClassId());
 
-            for (L2SkillLearn s : skills)
-            {
-                if (s.getId() == _id && s.getLevel() == _level)
-                {
-                    canteach = true;
-                    break;
-                }
-            }
+			for (L2SkillLearn s : skills)
+			{
+				if (s.getId() == _id && s.getLevel() == _level)
+				{
+					canteach = true;
+					break;
+				}
+			}
 
-            if (!canteach)
-            {
-            	sendPacket(ActionFailed.STATIC_PACKET);
-                return; // cheater :)
-            }
+			if (!canteach)
+			{
+				sendPacket(ActionFailed.STATIC_PACKET);
+				return; // cheater :)
+			}
 
-            int requiredSp = SkillTreeTable.getInstance().getSkillCost(activeChar, skill);
+			int requiredSp = SkillTreeTable.getInstance().getSkillCost(activeChar, skill);
 
-            AcquireSkillInfo asi = new AcquireSkillInfo(skill.getId(), skill.getLevel(), requiredSp, 0);
-            if (Config.ALT_SP_BOOK_NEEDED)
-            {
-                int spbId = -1;
-                if (skill.getId() == L2Skill.SKILL_DIVINE_INSPIRATION)
-                    spbId = SkillSpellbookTable.getInstance().getBookForSkill(skill, _level);
-                else
-                    spbId = SkillSpellbookTable.getInstance().getBookForSkill(skill);
+			AcquireSkillInfo asi = new AcquireSkillInfo(skill.getId(), skill.getLevel(), requiredSp, 0);
+			int spbId = -1;
+			if (skill.getId() == L2Skill.SKILL_DIVINE_INSPIRATION && Config.DIVINE_SP_BOOK_NEEDED)
+				spbId = SkillSpellbookTable.getInstance().getBookForSkill(skill, _level);
+			else if (Config.ALT_SP_BOOK_NEEDED && _level == 1)
+				spbId = SkillSpellbookTable.getInstance().getBookForSkill(skill);
 
-                if (skill.getId() == L2Skill.SKILL_DIVINE_INSPIRATION || skill.getLevel() == 1 && spbId > -1)
-                    asi.addRequirement(99, spbId, 1, 50);
-            }
-            sendPacket(asi);
-            asi = null;
-        }
-        else if (_skillType == 2)
-        {
-            int requiredRep = 0;
-            int itemId = 0;
-            long itemCount = 0;
-            L2PledgeSkillLearn[] skills = SkillTreeTable.getInstance().getAvailablePledgeSkills(activeChar);
+			if (spbId > -1)
+				asi.addRequirement(99, spbId, 1, 50);
+			sendPacket(asi);
+			asi = null;
+		}
+		else if (_skillType == 2)
+		{
+			int requiredRep = 0;
+			int itemId = 0;
+			long itemCount = 0;
+			L2PledgeSkillLearn[] skills = SkillTreeTable.getInstance().getAvailablePledgeSkills(activeChar);
 
-            for (L2PledgeSkillLearn s : skills)
-            {
-                if (s.getId() == _id && s.getLevel() == _level)
-                {
-                    canteach = true;
-                    requiredRep = s.getRepCost();
-                    itemId = s.getItemId();
-                    itemCount = s.getItemCount();
-                    break;
-                }
-            }
+			for (L2PledgeSkillLearn s : skills)
+			{
+				if (s.getId() == _id && s.getLevel() == _level)
+				{
+					canteach = true;
+					requiredRep = s.getRepCost();
+					itemId = s.getItemId();
+					itemCount = s.getItemCount();
+					break;
+				}
+			}
 
-            if (!canteach)
-            {
-            	sendPacket(ActionFailed.STATIC_PACKET);
-                return; // cheater :)
-            }
+			if (!canteach)
+			{
+				sendPacket(ActionFailed.STATIC_PACKET);
+				return; // cheater :)
+			}
 
-            AcquireSkillInfo asi = new AcquireSkillInfo(skill.getId(), skill.getLevel(), requiredRep, 2);
-            if (Config.ALT_LIFE_CRYSTAL_NEEDED)
-                asi.addRequirement(1, itemId, (int) itemCount, 0);
-            sendPacket(asi);
-            asi = null;
-        }
-        else // Common Skills
-        {
-            int costid = 0;
-            int costcount = 0;
-            int spcost = 0;
+			AcquireSkillInfo asi = new AcquireSkillInfo(skill.getId(), skill.getLevel(), requiredRep, 2);
+			if (Config.ALT_LIFE_CRYSTAL_NEEDED)
+				asi.addRequirement(1, itemId, (int) itemCount, 0);
+			sendPacket(asi);
+			asi = null;
+		}
+		else // Common Skills
+		{
+			int costid = 0;
+			int costcount = 0;
+			int spcost = 0;
 
-            L2SkillLearn[] skillsc = SkillTreeTable.getInstance().getAvailableFishingSkills(activeChar);
+			L2SkillLearn[] skillsc = SkillTreeTable.getInstance().getAvailableFishingSkills(activeChar);
 
-            for (L2SkillLearn s : skillsc)
-            {
-                L2Skill sk = SkillTable.getInstance().getInfo(s.getId(), s.getLevel());
+			for (L2SkillLearn s : skillsc)
+			{
+				L2Skill sk = SkillTable.getInstance().getInfo(s.getId(), s.getLevel());
 
 				if (sk == null || sk != skill)
-                    continue;
+					continue;
 
-                canteach = true;
-                costid = s.getIdCost();
-                costcount = s.getCostCount();
-                spcost = s.getSpCost();
-            }
+				canteach = true;
+				costid = s.getIdCost();
+				costcount = s.getCostCount();
+				spcost = s.getSpCost();
+			}
 
 			AcquireSkillInfo asi = new AcquireSkillInfo(skill.getId(), skill.getLevel(), spcost, 1);
-            asi.addRequirement(4, costid, costcount, 0);
-            sendPacket(asi);
-            asi = null;
-        }
-        sendPacket(ActionFailed.STATIC_PACKET);
-    }
+			asi.addRequirement(4, costid, costcount, 0);
+			sendPacket(asi);
+			asi = null;
+		}
+		sendPacket(ActionFailed.STATIC_PACKET);
+	}
 
-    @Override
-    public String getType()
-    {
-        return _C__6B_REQUESTAQUIRESKILLINFO;
-    }
+	@Override
+	public String getType()
+	{
+		return _C__6B_REQUESTAQUIRESKILLINFO;
+	}
 }

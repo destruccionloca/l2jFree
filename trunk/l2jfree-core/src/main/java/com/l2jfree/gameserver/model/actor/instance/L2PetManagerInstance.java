@@ -199,7 +199,7 @@ public class L2PetManagerInstance extends L2MerchantInstance
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 		L2Summon curpet = player.getPet();
 
-		if ((curpet == null) || (itemIdtake == 0) || (itemIdgive == 0) || (petminlvl == 0))
+		if ((curpet == null) || (itemIdtake == 0) || (itemIdgive == 0) || (petminlvl == 0) || curpet.isAlikeDead())
 		{
 			html.setFile("data/html/petmanager/evolve_no.htm");
 			player.sendPacket(html);

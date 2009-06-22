@@ -508,7 +508,7 @@ public abstract class ItemContainer
 	 * Destroy item from inventory by using its <B>itemId</B> and updates database
 	 * @param process : String Identifier of process triggering this action
      * @param itemId : int Item identifier of the item to be destroyed
-     * @param count : int Quantity of items to be destroyed
+     * @param count : long Quantity of items to be destroyed
 	 * @param actor : L2PcInstance Player requesting the item destroy
 	 * @param reference : L2Object Object referencing current action like NPC selling item or previous item in transformation
      * @return L2ItemInstance corresponding to the destroyed item or the updated item in inventory

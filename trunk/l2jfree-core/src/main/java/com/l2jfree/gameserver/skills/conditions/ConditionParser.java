@@ -443,6 +443,7 @@ public abstract class ConditionParser
 			int distance = Integer.decode(nodeValue);
 			return new ConditionMinDistance(distance * distance);
 		}
+		// used for npc race
 		else if ("race_id".equalsIgnoreCase(nodeName))
 		{
 			ArrayList<Integer> array = new ArrayList<Integer>();
@@ -453,6 +454,12 @@ public abstract class ConditionParser
 				array.add(Integer.decode(st.nextToken().trim()) - 1);
 			}
 			return new ConditionTargetRaceId(array);
+		}
+		// used for player race
+		else if ("race".equalsIgnoreCase(nodeName))
+		{
+			Race race = Race.valueOf(nodeValue);
+			return new ConditionTargetRace(race);
 		}
 		else if ("undead".equalsIgnoreCase(nodeName))
 		{

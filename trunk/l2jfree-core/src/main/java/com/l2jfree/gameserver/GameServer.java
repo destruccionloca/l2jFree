@@ -247,10 +247,7 @@ public class GameServer
 		ItemTable.getInstance();
 		ArmorSetsTable.getInstance();
 		AugmentationData.getInstance();
-		if (Config.ALT_SP_BOOK_NEEDED)
-		{
-			SkillSpellbookTable.getInstance();
-		}
+		SkillSpellbookTable.getInstance();
 		SummonItemsData.getInstance();
 		ExtractableItemsData.getInstance();
 		if (Config.ALLOW_FISHING)

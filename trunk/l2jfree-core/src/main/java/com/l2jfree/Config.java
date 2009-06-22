@@ -903,7 +903,7 @@ public final class Config extends L2Config
 	public static double			RAID_MINION_RESPAWN_TIMER;								// Raid Boss Minin Spawn Timer
 	public static float				RAID_MIN_RESPAWN_MULTIPLIER;							// Mulitplier for Raid boss minimum time respawn
 	public static float				RAID_MAX_RESPAWN_MULTIPLIER;							// Mulitplier for Raid boss maximum time respawn
-	public static int				STARTING_ADENA;										// Amount of adenas when starting a new character
+	public static long				STARTING_ADENA;										// Amount of adenas when starting a new character
 	public static boolean			DEEPBLUE_DROP_RULES;									// Deep Blue Mobs' Drop Rules Enabled
 	public static int				UNSTUCK_INTERVAL;
 	public static int				PLAYER_SPAWN_PROTECTION;								// Player Protection control
@@ -991,7 +991,7 @@ public final class Config extends L2Config
 			RAID_MIN_RESPAWN_MULTIPLIER = Float.parseFloat(otherSettings.getProperty("RaidMinRespawnMultiplier", "1.0"));
 			RAID_MAX_RESPAWN_MULTIPLIER = Float.parseFloat(otherSettings.getProperty("RaidMaxRespawnMultiplier", "1.0"));
 
-			STARTING_ADENA = Integer.parseInt(otherSettings.getProperty("StartingAdena", "100"));
+			STARTING_ADENA = Long.parseLong(otherSettings.getProperty("StartingAdena", "100"));
 			UNSTUCK_INTERVAL = Integer.parseInt(otherSettings.getProperty("UnstuckInterval", "300"));
 
 			/* Player protection after teleport or login */
@@ -1484,6 +1484,7 @@ public final class Config extends L2Config
 	public static boolean				ALT_SP_BOOK_NEEDED;														// Spell Book needed to learn skill
 	public static boolean				ALT_LIFE_CRYSTAL_NEEDED;													// Clan Item needed to learn clan skills
 	public static boolean				ALT_ES_SP_BOOK_NEEDED;														// Spell Book needet to enchant skill
+	public static boolean				DIVINE_SP_BOOK_NEEDED;
 	public static int					ALT_BUFF_TIME;
 	public static int					ALT_DANCE_TIME;
 	public static boolean				ALT_DANCE_MP_CONSUME;
@@ -1677,9 +1678,10 @@ public final class Config extends L2Config
 			ALT_IS_CRAFTING_ENABLED = Boolean.parseBoolean(altSettings.getProperty("CraftingEnabled", "true"));
 			//ALT_FAIL_FAKEDEATH = Boolean.parseBoolean(altSettings.getProperty("FailFakeDeath", "true"));
 			ALT_FLYING_WYVERN_IN_SIEGE = Boolean.parseBoolean(altSettings.getProperty("AltFlyingWyvernInSiege", "false"));
-			ALT_SP_BOOK_NEEDED = Boolean.parseBoolean(altSettings.getProperty("SpBookNeeded", "true"));
+			ALT_SP_BOOK_NEEDED = Boolean.parseBoolean(altSettings.getProperty("SpBookNeeded", "false"));
 			ALT_LIFE_CRYSTAL_NEEDED = Boolean.parseBoolean(altSettings.getProperty("LifeCrystalNeeded", "true"));
 			ALT_ES_SP_BOOK_NEEDED = Boolean.parseBoolean(altSettings.getProperty("EnchantSkillSpBookNeeded", "true"));
+			DIVINE_SP_BOOK_NEEDED = Boolean.parseBoolean(altSettings.getProperty("DivineInspirationSpBookNeeded", "true"));
 			ALT_AUTO_LOOT = Boolean.parseBoolean(altSettings.getProperty("AutoLoot", "true"));
 			ALT_AUTO_LOOT_RAID = Boolean.parseBoolean(altSettings.getProperty("AutoLootRaid", "true"));
 			ALT_AUTO_LOOT_ADENA = Boolean.parseBoolean(altSettings.getProperty("AutoLootAdena", "true"));
@@ -3929,7 +3931,7 @@ public final class Config extends L2Config
 			RAID_MINION_RESPAWN_TIMER = Integer.parseInt(pValue);
 
 		else if (pName.equalsIgnoreCase("StartingAdena"))
-			STARTING_ADENA = Integer.parseInt(pValue);
+			STARTING_ADENA = Long.parseLong(pValue);
 		else if (pName.equalsIgnoreCase("UnstuckInterval"))
 			UNSTUCK_INTERVAL = Integer.parseInt(pValue);
 
@@ -4131,7 +4133,7 @@ public final class Config extends L2Config
 			DEFAULT_GLOBAL_CHAT = ChatMode.valueOf(pValue.toUpperCase());
 		else if (pName.equalsIgnoreCase("TradeChat"))
 			DEFAULT_TRADE_CHAT = ChatMode.valueOf(pValue.toUpperCase());
-		else if (pName.equalsIgnoreCase("MenuStyle"))
+		else if (pName.equalsIgnoreCase("GMAdminMenuStyle"))
 			GM_ADMIN_MENU_STYLE = pValue;
 
 		else if (pName.equalsIgnoreCase("VIPAllowInterference"))

@@ -378,6 +378,7 @@ public class ClanHall extends Entity
 			{
 				door.decayMe(); // Kill current if not killed already
 				door = DoorTable.parseLine(_doorDefault.get(i));
+				DoorTable.getInstance().putDoor(door); //Read the new door to the DoorTable By Erb
 				if (isDoorWeak)
 					door.getStatus().setCurrentHp(door.getMaxHp() / 2);
 				door.spawnMe(door.getX(), door.getY(), door.getZ());

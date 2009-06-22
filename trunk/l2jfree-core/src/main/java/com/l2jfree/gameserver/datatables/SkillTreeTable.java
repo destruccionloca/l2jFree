@@ -344,7 +344,7 @@ public class SkillTreeTable
 		}
 		catch (Exception e)
 		{
-			_log.fatal("Error while creating fishing skill table: " + e);
+			_log.fatal("Error while creating pledge skill table: " + e);
 		}
 
 		int count6 = 0;

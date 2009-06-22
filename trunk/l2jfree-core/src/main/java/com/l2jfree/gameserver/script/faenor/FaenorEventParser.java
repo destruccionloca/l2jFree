@@ -49,7 +49,7 @@ public class FaenorEventParser extends FaenorParser
 		Date currentDate = new Date();
 		if (_eventDates.getEndDate().before(currentDate))
 		{
-			_log.warn("Event ID: (" + ID + ") has passed... Ignored.");
+			_log.info("Event ID: (" + ID + ") has passed... Ignored.");
 			return;
 		}
 

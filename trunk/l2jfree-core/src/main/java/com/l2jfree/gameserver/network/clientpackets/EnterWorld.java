@@ -277,6 +277,9 @@ public class EnterWorld extends L2GameClientPacket
 		// Wherever these should be?
 		sendPacket(new ShortCutInit(activeChar));
 
+		if (Hero.getInstance().getHeroes() != null && Hero.getInstance().getHeroes().containsKey(activeChar.getObjectId()))
+			activeChar.setHero(true);
+
 		// Restore character's siege state
 		if (activeChar.getClan() != null)
 		{
@@ -300,9 +303,6 @@ public class EnterWorld extends L2GameClientPacket
 					activeChar.setSiegeState((byte) 2);
 			}
 		}
-
-		if (Hero.getInstance().getHeroes() != null && Hero.getInstance().getHeroes().containsKey(activeChar.getObjectId()))
-			activeChar.setHero(true);
 
 		//Updating Seal of Strife Buff/Debuff
 		if (SevenSigns.getInstance().isSealValidationPeriod())
@@ -402,14 +402,14 @@ public class EnterWorld extends L2GameClientPacket
 
 		if (activeChar.getClan() != null)
 		{
-			//Sets the apropriate Pledge Class for the clannie (e.g. Viscount, Count, Baron, Marquiz)
-			activeChar.setPledgeClass(L2ClanMember.getCurrentPledgeClass(activeChar));
-
 			// Add message if clanHall not paid. Possibly this is custom...
 			ClanHall clanHall = ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan());
 			if (clanHall != null && !clanHall.getPaid())
 				sendPacket(SystemMessageId.PAYMENT_FOR_YOUR_CLAN_HALL_HAS_NOT_BEEN_MADE_PLEASE_MAKE_PAYMENT_TO_YOUR_CLAN_WAREHOUSE_BY_TOMORROW);
 		}
+	
+		//Sets the apropriate Pledge Class for the clannie (e.g. Viscount, Count, Baron, Marquiz)
+		activeChar.setPledgeClass(L2ClanMember.getCurrentPledgeClass(activeChar));
 
 		updateShortCuts(activeChar);
 

@@ -122,7 +122,6 @@ public final class ItemTable
 		_armorTypes.put("sigil", L2ArmorType.SIGIL);
 
 		_slots.put("shirt", L2Item.SLOT_UNDERWEAR);
-		_slots.put("belt", L2Item.SLOT_ALLDRESS);
 		_slots.put("lbracelet", L2Item.SLOT_L_BRACELET);
 		_slots.put("rbracelet", L2Item.SLOT_R_BRACELET);
 		_slots.put("talisman", L2Item.SLOT_DECO);
@@ -162,7 +161,7 @@ public final class ItemTable
 		
 		"SELECT item_id, name, bodypart, crystallizable, armor_type, weight,"
 			+ " material, crystal_type, avoid_modify, duration, time, p_def, m_def, mp_bonus,"
-			+ " price, crystal_count, sellable, dropable, destroyable, tradeable, skills_item FROM armor",
+			+ " price, crystal_count, sellable, dropable, destroyable, tradeable, enchant4_skill, skills_item FROM armor",
 		
 		"SELECT item_id, name, bodypart, crystallizable, weight, soulshots, spiritshots,"
 			+ " material, crystal_type, p_dam, rnd_dam, weaponType, critical, hit_modify, avoid_modify,"
@@ -176,7 +175,7 @@ public final class ItemTable
 		
 		"SELECT item_id, item_display_id, name, bodypart, crystallizable, armor_type, weight,"
 			+ " material, crystal_type, avoid_modify, duration, time, p_def, m_def, mp_bonus,"
-			+ " price, crystal_count, sellable, dropable, destroyable, tradeable, skills_item FROM custom_armor",
+			+ " price, crystal_count, sellable, dropable, destroyable, tradeable, enchant4_skill, skills_item FROM custom_armor",
 		
 		"SELECT item_id, item_display_id, name, bodypart, crystallizable, weight, soulshots, spiritshots,"
 			+ " material, crystal_type, p_dam, rnd_dam, weaponType, critical, hit_modify, avoid_modify,"
@@ -428,7 +427,7 @@ public final class ItemTable
 		item.set.set("dropable", Boolean.valueOf(rset.getString("dropable")));
 		item.set.set("destroyable", Boolean.valueOf(rset.getString("destroyable")));
 		item.set.set("tradeable", Boolean.valueOf(rset.getString("tradeable")));
-		
+		item.set.set("enchant4_skill", rset.getString("enchant4_skill"));
 		item.set.set("skills_item", rset.getString("skills_item"));
 		
 		if (bodypart == L2Item.SLOT_NECK || bodypart == L2Item.SLOT_HAIR || bodypart == L2Item.SLOT_HAIR2

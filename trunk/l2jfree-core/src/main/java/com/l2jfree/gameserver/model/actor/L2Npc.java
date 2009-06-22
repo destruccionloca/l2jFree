@@ -572,8 +572,8 @@ public class L2Npc extends L2Character
 	protected boolean canInteract(L2PcInstance player)
 	{
 		// TODO: NPC busy check etc...
-        return isInsideRadius(player, INTERACTION_DISTANCE, false, false);
-    }
+		return isInsideRadius(player, INTERACTION_DISTANCE, true, false);
+	}
 
 	/**
 	 * Manage actions when a player click on the L2Npc.<BR><BR>

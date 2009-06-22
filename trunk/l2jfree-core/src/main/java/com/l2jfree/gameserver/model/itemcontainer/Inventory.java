@@ -265,6 +265,7 @@ public abstract class Inventory extends ItemContainer
 					item.getElementals().removeBonus(player);
 				
 				itemSkills = ((L2Armor) it).getSkills();
+				enchant4Skills = ((L2Armor) it).getEnchant4Skills();
 			}
 
 			if (itemSkills != null)
@@ -318,6 +319,9 @@ public abstract class Inventory extends ItemContainer
 
 				if (item.getElementals() != null)
 					item.getElementals().applyBonus(player, true);
+
+				if (item.getEnchantLevel() >= 4)
+					enchant4Skills = ((L2Armor) it).getEnchant4Skills();
 			}
 
 			boolean updateTimeStamp = false;

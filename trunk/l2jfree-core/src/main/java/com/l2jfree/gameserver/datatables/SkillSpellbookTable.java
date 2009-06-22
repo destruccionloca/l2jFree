@@ -22,6 +22,7 @@ import javolution.util.FastMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.model.L2Skill;
 
@@ -43,6 +44,10 @@ public class SkillSpellbookTable
 	private SkillSpellbookTable()
 	{
 		_skillSpellbooks = new FastMap<Integer, Integer>();
+
+		if (!Config.ALT_SP_BOOK_NEEDED)
+			return;
+
 		Connection con = null;
 
 		try
@@ -87,6 +92,9 @@ public class SkillSpellbookTable
 				return -1;
 			}
 		}
+
+		if (!Config.ALT_SP_BOOK_NEEDED)
+			return -1;
 
 		if (!_skillSpellbooks.containsKey(skillId))
 			return -1;

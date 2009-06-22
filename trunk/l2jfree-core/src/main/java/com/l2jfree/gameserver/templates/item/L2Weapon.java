@@ -50,7 +50,6 @@ public final class L2Weapon extends L2Equip
 	private int[] _onCastChances;
 	private L2Skill[] _onCritSkills;
 	private int[] _onCritChances;
-	private L2Skill[] _enchant4Skills; // skill that activates when item is enchanted +4 (for duals)
 	
 	/**
 	 * Constructor for Weapon.<BR>
@@ -90,19 +89,11 @@ public final class L2Weapon extends L2Equip
 		_mDam = set.getInteger("m_dam");
 		_changeWeaponId = set.getInteger("change_weaponId");
 		
-		String[] enchant4SkillDefs = set.getString("skills_enchant4").split(";");
 		String[] onCastSkillDefs = set.getString("skills_onCast").split(";");
 		String[] onCritSkillDefs = set.getString("skills_onCrit").split(";");
 		
-		FastList<L2Skill> enchant4Skills = null;
 		FastList<WeaponSkill> onCastSkills = null;
 		FastList<WeaponSkill> onCritSkills = null;
-		
-		// Enchant4 skills
-		if (enchant4SkillDefs != null && enchant4SkillDefs.length > 0)
-		{
-			enchant4Skills = parseSkills(enchant4SkillDefs, "enchant4", "weapon");
-		}
 		
 		// OnCast skills (chance)
 		if (onCastSkillDefs != null && onCastSkillDefs.length > 0)
@@ -116,10 +107,6 @@ public final class L2Weapon extends L2Equip
 			onCritSkills = parseChanceSkills(onCritSkillDefs, "onCrit", "weapon");
 		}
 		
-		if (enchant4Skills != null && !enchant4Skills.isEmpty())
-		{
-			_enchant4Skills = enchant4Skills.toArray(new L2Skill[enchant4Skills.size()]);
-		}
 		if (onCastSkills != null && !onCastSkills.isEmpty())
 		{
 			_onCastSkills = new L2Skill[onCastSkills.size()];
@@ -320,16 +307,6 @@ public final class L2Weapon extends L2Equip
 	public double getShieldDefRate()
 	{
 		return _shieldDefRate;
-	}
-	
-	/**
-	 * Returns skill that player get when has equiped weapon +4 or more (for duals SA)
-	 * 
-	 * @return
-	 */
-	public L2Skill[] getEnchant4Skills()
-	{
-		return _enchant4Skills;
 	}
 	
 	/**

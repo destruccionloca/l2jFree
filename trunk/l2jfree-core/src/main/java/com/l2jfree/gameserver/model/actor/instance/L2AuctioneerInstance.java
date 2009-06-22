@@ -310,9 +310,9 @@ public final class L2AuctioneerInstance extends L2NpcInstance
 					items+= "<td><center><a action=\"bypass -h npc_"+getObjectId()+"_list "+j+"\"> Page "+j+" </a></center></td>";
 				items += "</tr></table>" +
 						"<table width=280 border=0>";
-				for (Auction a:auctions)
+				for (Auction a : auctions)
 				{
-					if(i > limit)
+					if (i > limit)
 					{
 						break;
 					}

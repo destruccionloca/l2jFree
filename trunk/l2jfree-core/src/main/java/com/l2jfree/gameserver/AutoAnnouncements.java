@@ -91,14 +91,14 @@ public final class AutoAnnouncements
 		}
 		catch (Exception e)
 		{
-			_log.fatal("AutoAnnoucements: Fail to load announcements data.", e);
+			_log.fatal("AutoAnnoucements: Failed to load announcements data.", e);
 		}
 		finally
 		{
 			L2DatabaseFactory.close(conn);
 		}
 		
-		_log.info("AutoAnnoucements: Load " + _announcers.size() + " Auto Annoucement Data.");
+		_log.info("AutoAnnoucements: Loaded " + _announcers.size() + " Auto Annoucement Data.");
 	}
 	
 	private final class AutoAnnouncer implements Runnable

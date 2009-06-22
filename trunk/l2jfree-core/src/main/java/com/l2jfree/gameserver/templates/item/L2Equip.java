@@ -31,6 +31,7 @@ public abstract class L2Equip extends L2Item
 {
 	protected static final Log		_log				= LogFactory.getLog(L2Equip.class.getName());
 	private L2Skill[]				_itemSkills			= null;
+	private L2Skill[]				_enchant4Skills		= null; // skill that activates when item is enchanted +4 (for duals)
 
 	protected FuncTemplate[]		_funcTemplates		= null;
 	protected EffectTemplate[]		_effectTemplates	= null;
@@ -50,17 +51,28 @@ public abstract class L2Equip extends L2Item
 		super(type, set);
 
 		String[] itemSkillDefs = set.getString("skills_item").split(";");
+		String[] enchant4SkillDefs = set.getString("skills_enchant4").split(";");
 
 		FastList<L2Skill> itemSkills = null;
+		FastList<L2Skill> enchant4Skills = null;
 
 		// Item skills
 		if (itemSkillDefs != null && itemSkillDefs.length > 0)
 		{
-			itemSkills = parseSkills(itemSkillDefs, "item", "armor");
+			itemSkills = parseSkills(itemSkillDefs, "item", (type instanceof L2ArmorType) ? "armor" : "weapon");
+		}
+
+		// Enchant4 skills
+		if (enchant4SkillDefs != null && enchant4SkillDefs.length > 0)
+		{
+			enchant4Skills = parseSkills(enchant4SkillDefs, "enchant4", (type instanceof L2ArmorType) ? "armor" : "weapon");
 		}
 
 		if (itemSkills != null)
 			_itemSkills = itemSkills.toArray(new L2Skill[itemSkills.size()]);
+
+		if (enchant4Skills != null && !enchant4Skills.isEmpty())
+			_enchant4Skills = enchant4Skills.toArray(new L2Skill[enchant4Skills.size()]);
 	}
 
 	protected FastList<Integer> parseRestriction(String[] from, String restrictType, String itemType)
@@ -178,6 +190,16 @@ public abstract class L2Equip extends L2Item
 	public L2Skill[] getSkills()
 	{
 		return _itemSkills;
+	}
+	
+	/**
+	 * Returns skill that player get when has equiped item +4 or more
+	 * 
+	 * @return
+	 */
+	public L2Skill[] getEnchant4Skills()
+	{
+		return _enchant4Skills;
 	}
 	
 	public abstract int getItemMask();
