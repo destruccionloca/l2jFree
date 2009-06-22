@@ -1131,7 +1131,7 @@ public class L2Attackable extends L2Npc
 			}
 		}
 		result[0] = mostHated;
-		if (getAttackByList().contains(secondMostHated))
+		if (secondMostHated != null && getAttackByList().contains(secondMostHated))
 			result[1] = secondMostHated;
 		
 		return result;
