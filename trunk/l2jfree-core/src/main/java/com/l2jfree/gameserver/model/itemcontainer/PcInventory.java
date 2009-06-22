@@ -576,7 +576,7 @@ public class PcInventory extends Inventory
 
 	public static int[][] restoreVisibleInventory(int objectId)
 	{
-		int[][] paperdoll = new int[30][4];
+		int[][] paperdoll = new int[Inventory.PAPERDOLL_TOTALSLOTS][4];
 		Connection con = null;
 		
 		try
