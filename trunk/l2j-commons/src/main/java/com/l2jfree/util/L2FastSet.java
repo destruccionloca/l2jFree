@@ -82,6 +82,12 @@ public class L2FastSet<E> extends L2FastCollection<E> implements Set<E>
 		_map.remove(((FastMap.Entry<E, Object>)record).getKey());
 	}
 	
+	@Override
+	public void delete(Record record, E value)
+	{
+		_map.remove(value);
+	}
+	
 	public boolean add(E value)
 	{
 		return _map.put(value, NULL) == null;

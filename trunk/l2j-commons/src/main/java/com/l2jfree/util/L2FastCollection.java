@@ -36,7 +36,9 @@ public abstract class L2FastCollection<E> implements Collection<E>
 	
 	public abstract void delete(Record record);
 	
-	public E getFirst()
+	public abstract void delete(Record record, E value);
+	
+	public final E getFirst()
 	{
 		final Record first = head().getNext();
 		if (first == tail())
@@ -45,7 +47,7 @@ public abstract class L2FastCollection<E> implements Collection<E>
 		return valueOf(first);
 	}
 	
-	public E getLast()
+	public final E getLast()
 	{
 		final Record last = tail().getPrevious();
 		if (last == head())
@@ -54,25 +56,25 @@ public abstract class L2FastCollection<E> implements Collection<E>
 		return valueOf(last);
 	}
 	
-	public E removeFirst()
+	public final E removeFirst()
 	{
 		final Record first = head().getNext();
 		if (first == tail())
 			return null;
 		
 		final E value = valueOf(first);
-		remove(value);
+		delete(first, value);
 		return value;
 	}
 	
-	public E removeLast()
+	public final E removeLast()
 	{
 		final Record last = tail().getPrevious();
 		if (last == head())
 			return null;
 		
 		final E value = valueOf(last);
-		remove(value);
+		delete(last, value);
 		return value;
 	}
 	
