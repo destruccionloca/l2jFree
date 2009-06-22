@@ -368,6 +368,21 @@ public abstract class ConditionParser
 			int maxEffectLvl = st.hasMoreTokens() ? Integer.decode(st.nextToken()) : minEffectLvl;
 			return new ConditionPlayerActiveEffectId(effectId, minEffectLvl, maxEffectLvl);
 		}
+		else if ("class_id_restriction".equalsIgnoreCase(nodeName))
+		{
+			List<Integer> array = new ArrayList<Integer>();
+			StringTokenizer st = new StringTokenizer(nodeValue, ",");
+			while (st.hasMoreTokens())
+			{
+				array.add(Integer.decode(st.nextToken().trim()));
+			}
+			return new ConditionPlayerClassIdRestriction(array);
+		}
+		else if ("isClanLeader".equalsIgnoreCase(nodeName))
+		{
+			boolean val = Boolean.parseBoolean(nodeValue);
+			return new ConditionPlayerIsClanLeader(val);
+		}
 		
 		throw new IllegalStateException("Invalid attribute at <player>: " + nodeName + "='" + nodeValue + "'");
 	}

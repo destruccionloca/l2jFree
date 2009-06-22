@@ -892,7 +892,9 @@ public class L2Clan
 		{
 			if (_level >= 2)
 			{
-				_forum = ForumsBBSManager.getInstance().getForumByName("ClanRoot").getChildByName(_name);
+				Forum forum = ForumsBBSManager.getInstance().getForumByName("ClanRoot");
+				if (forum != null)
+					_forum = forum.getChildByName(_name);
 				if (_forum == null)
 				{
 					_forum = ForumsBBSManager.getInstance().createNewForum(_name, ForumsBBSManager.getInstance().getForumByName("ClanRoot"), Forum.CLAN,

@@ -1231,9 +1231,9 @@ public final class Config extends L2Config
 			SERVER_PVP = Boolean.parseBoolean(optionsSettings.getProperty("ServerPvPEnabled", "true"));
 			SERVER_AGE_LIM = Integer.parseInt(optionsSettings.getProperty("ServerAgeLimitation", "15"));
 
-			AUTODESTROY_ITEM_AFTER = Integer.parseInt(optionsSettings.getProperty("AutoDestroyDroppedItemAfter", "0"));
+			AUTODESTROY_ITEM_AFTER = Integer.parseInt(optionsSettings.getProperty("AutoDestroyDroppedItemAfter", "600"));
 			HERB_AUTO_DESTROY_TIME = Integer.parseInt(optionsSettings.getProperty("AutoDestroyHerbTime", "15")) * 1000;
-			PROTECTED_ITEMS = optionsSettings.getProperty("ListOfProtectedItems");
+			PROTECTED_ITEMS = optionsSettings.getProperty("ListOfProtectedItems", "0");
 			LIST_PROTECTED_ITEMS = new FastList<Integer>();
 			for (String id : PROTECTED_ITEMS.trim().split(","))
 			{

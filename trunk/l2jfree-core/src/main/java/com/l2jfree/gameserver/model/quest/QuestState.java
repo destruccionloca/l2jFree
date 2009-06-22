@@ -504,9 +504,9 @@ public final class QuestState
 	 * @param itemId : ID of the item wanted to be count
 	 * @return int
 	 */
-    public int getQuestItemsCount(int itemId)
+    public long getQuestItemsCount(int itemId)
     {
-        int count = 0;
+        long count = 0;
         
         for (L2ItemInstance item: getPlayer().getInventory().getItems())
             if (item.getItemId() == itemId)
@@ -540,7 +540,7 @@ public final class QuestState
 		giveItems(itemId, count, 0);
 	}
 
-	public void giveItems(int itemId, long count, int enchantlevel)
+	public synchronized void giveItems(int itemId, long count, int enchantlevel)
 	{
 		if (count <= 0)
 			return;
@@ -652,7 +652,7 @@ public final class QuestState
     public boolean dropQuestItems(int itemId, int minCount, int maxCount, int neededCount, int dropChance, boolean sound)
     {
         dropChance *= Config.RATE_DROP_QUEST / ((getPlayer().getParty() != null) ? getPlayer().getParty().getMemberCount() : 1);
-        int currentCount = getQuestItemsCount(itemId);
+        long currentCount = getQuestItemsCount(itemId);
 
         if (neededCount > 0 && currentCount >= neededCount)
             return true;

@@ -36,10 +36,10 @@ public enum L2WeaponType implements AbstractL2ItemType
 	PET(12, "Pet", null),
 	ROD(13, "Rod", null),
 	BIGBLUNT(14, "Big Blunt", Stats.BLUNT_WPN_VULN),
-	ANCIENT_SWORD(15, "Ancient", Stats.BIGSWORD_WPN_VULN),
+	ANCIENT_SWORD(15, "Ancient", Stats.ANCIENT_WPN_VULN),
 	CROSSBOW(16, "Crossbow", Stats.CROSSBOW_WPN_VULN),
-	RAPIER(17, "Rapier", Stats.DAGGER_WPN_VULN),
-	DUAL_DAGGER(18, "Dual Dagger", Stats.DAGGER_WPN_VULN);
+	RAPIER(17, "Rapier", Stats.RAPIER_WPN_VULN),
+	DUAL_DAGGER(18, "Dual Dagger", Stats.DUALDAGGER_WPN_VULN);
 	
 	private final int _mask;
 	private final String _name;
