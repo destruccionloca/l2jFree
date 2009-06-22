@@ -1859,6 +1859,9 @@ public final class Formulas
 	/** Calculate value of lethal chance */
 	public static final double calcLethal(L2Character activeChar, L2Character target, int baseLethal, int magiclvl)
 	{
+		if (baseLethal <= 0)
+			return 0;
+		
 		double chance = 0;
 		if (magiclvl > 0)
 		{
@@ -1892,54 +1895,48 @@ public final class Formulas
 
 	public static final boolean calcLethalHit(L2Character activeChar, L2Character target, L2Skill skill)
 	{
-		if (!target.isRaid() && !(target instanceof L2DoorInstance) && !(target instanceof L2Npc && ((L2Npc) target).getNpcId() == 35062))
-		{
-			int chance = Rnd.get(1000);
-
-			//activeChar.sendMessage(Double.toString(chance));
-			//activeChar.sendMessage(Double.toString(calcLethal(activeChar, target, skill.getLethalChance2(),skill.getMagicLevel())));
-			//activeChar.sendMessage(Double.toString(calcLethal(activeChar, target, skill.getLethalChance1(),skill.getMagicLevel())));
-
-			// 2nd lethal effect activate (cp,hp to 1 or if target is npc then hp to 1)
-			if (skill.getLethalChance2() > 0 && chance < calcLethal(activeChar, target, skill.getLethalChance2(), skill.getMagicLevel()))
-			{
-				if (target instanceof L2Npc)
-					target.reduceCurrentHp(target.getCurrentHp() - 1, activeChar, skill);
-				else if (target instanceof L2PcInstance) // If is a active player set his HP and CP to 1
-				{
-					L2PcInstance player = (L2PcInstance) target;
-					if (!player.isInvul())
-					{
-						player.getStatus().setCurrentHp(1);
-						player.getStatus().setCurrentCp(1);
-						player.sendPacket(new SystemMessage(SystemMessageId.LETHAL_STRIKE_SUCCESSFUL));
-					}
-				}
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.LETHAL_STRIKE));
-			}
-			else if (skill.getLethalChance1() > 0 && chance < calcLethal(activeChar, target, skill.getLethalChance1(), skill.getMagicLevel()))
-			{
-				if (target instanceof L2PcInstance)
-				{
-					L2PcInstance player = (L2PcInstance) target;
-					if (!player.isInvul())
-					{
-						player.getStatus().setCurrentCp(1); // Set CP to 1
-						player.sendPacket(new SystemMessage(SystemMessageId.CP_DISAPPEARS_WHEN_HIT_WITH_A_HALF_KILL_SKILL));
-					}
-				}
-				else if (target instanceof L2Npc) // If is a monster remove first damage and after 50% of current hp
-					target.reduceCurrentHp(target.getCurrentHp() / 2, activeChar, skill);
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.HALF_KILL));
-
-			}
-			else
-				return false;
-		}
-		else
+		if (target.isRaid() || target instanceof L2DoorInstance)
 			return false;
-
-		return true;
+		
+		if (target instanceof L2Npc && ((L2Npc)target).getNpcId() == 35062)
+			return false;
+		
+		final int chance = Rnd.get(1000);
+		
+		// 2nd lethal effect activate (cp,hp to 1 or if target is npc then hp to 1)
+		if (chance < calcLethal(activeChar, target, skill.getLethalChance2(), skill.getMagicLevel()))
+		{
+			if (target instanceof L2PcInstance) // If is a active player set his HP and CP to 1
+			{
+				target.getStatus().reduceHp(target.getCurrentCp() + target.getCurrentHp() - 1, activeChar);
+				target.getStatus().setCurrentHp(1); // just to be sure (transfer damage, etc)
+				target.getStatus().setCurrentCp(1); // just to be sure (transfer damage, etc)
+				
+				target.sendPacket(SystemMessageId.LETHAL_STRIKE_SUCCESSFUL);
+			}
+			else if (target instanceof L2Npc) // If is a npc set his HP to 1
+				target.reduceCurrentHp(target.getCurrentHp() - 1, activeChar, skill);
+			
+			activeChar.sendPacket(SystemMessageId.LETHAL_STRIKE);
+			return true;
+		}
+		else if (chance < calcLethal(activeChar, target, skill.getLethalChance1(), skill.getMagicLevel()))
+		{
+			if (target instanceof L2PcInstance) // Set CP to 1
+			{
+				target.getStatus().reduceHp(target.getCurrentCp() - 1, activeChar);
+				target.getStatus().setCurrentCp(1); // just to be sure (transfer damage, etc)
+				
+				target.sendPacket(SystemMessageId.CP_DISAPPEARS_WHEN_HIT_WITH_A_HALF_KILL_SKILL);
+			}
+			else if (target instanceof L2Npc) // If is a monster remove first damage and after 50% of current hp
+				target.reduceCurrentHp(target.getCurrentHp() / 2, activeChar, skill);
+			
+			activeChar.sendPacket(SystemMessageId.HALF_KILL);
+			return true;
+		}
+		
+		return false;
 	}
 
 	public static final boolean calcMCrit(double mRate)
