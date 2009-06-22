@@ -17,6 +17,7 @@ package ai.group_template;
 import java.util.Collection;
 
 import javolution.util.FastList;
+
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.L2Object;
@@ -49,6 +50,7 @@ public class Monastery extends L2AttackableAIScript
         registerMobs(mobs2);
     }
 
+    @Override
     public String onAggroRangeEnter(L2Npc npc, L2PcInstance player, boolean isPet)
     {
     	if (equals(mobs1,npc.getNpcId()) && !npc.isInCombat())
@@ -81,6 +83,7 @@ public class Monastery extends L2AttackableAIScript
         return super.onAggroRangeEnter(npc, player, isPet);
     }
 
+    @Override
     public String onSkillSee(L2Npc npc, L2PcInstance caster, L2Skill skill, L2Object[] targets, boolean isPet)
 	{
     	if (equals(mobs2,npc.getNpcId()))
@@ -102,6 +105,7 @@ public class Monastery extends L2AttackableAIScript
 		return super.onSkillSee(npc, caster, skill, targets, isPet);
 	}
 
+    @Override
     public String onSpawn(L2Npc npc)
 	{
     	if (equals(mobs1,npc.getNpcId()))
@@ -151,6 +155,7 @@ public class Monastery extends L2AttackableAIScript
 		return super.onSpawn(npc);
 	}
 
+    @Override
     public String onSpellFinished(L2Npc npc, L2PcInstance player, L2Skill skill)
     {
     	if (equals(mobs1,npc.getNpcId()) && skill.getId() == 4589)
