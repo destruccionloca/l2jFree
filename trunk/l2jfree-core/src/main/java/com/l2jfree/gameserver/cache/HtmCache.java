@@ -18,6 +18,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
+import java.util.Map.Entry;
 
 import javolution.util.FastMap;
 
@@ -68,16 +69,76 @@ public final class HtmCache
 		_loadedFiles = 0;
 		_size = 0;
 		
-		if (!Config.LAZY_CACHE)
-		{
-			_log.info("Cache[HTML]: Caching started.");
-			
-			parseDir(Config.DATAPACK_ROOT);
-		}
-		else
-			_log.info("Cache[HTML]: Running lazy cache.");
+		_log.info("Cache[HTML]: Caching started.");
+		
+		parseDir(Config.DATAPACK_ROOT);
 		
 		_log.info(this);
+		_log.info("Cache[HTML]: Compacting htmls...");
+		
+		final StringBuilder sb = new StringBuilder(8192);
+		
+		for (Entry<String, String> entry : _cache.entrySet())
+		{
+			final String oldHtml = entry.getValue();
+			final String newHtml = compactHtml(sb, oldHtml);
+			
+			_size -= oldHtml.length();
+			_size += newHtml.length();
+			
+			entry.setValue(newHtml);
+		}
+		
+		_log.info(this);
+	}
+	
+	private String compactHtml(StringBuilder sb, String html)
+	{
+		sb.setLength(0);
+		sb.append(html);
+		
+		for (int i = 0; i < sb.length(); i++)
+			if (Character.isWhitespace(sb.charAt(i)))
+				sb.setCharAt(i, ' ');
+		
+		replaceAll(sb, "  ", " ");
+		
+		replaceAll(sb, "< ", "<");
+		replaceAll(sb, " >", ">");
+		
+		replaceTag(sb, "html");
+		replaceTag(sb, "head");
+		replaceTag(sb, "title");
+		replaceTag(sb, "body");
+		replaceTag(sb, "br");
+		replaceTag(sb, "table");
+		replaceTag(sb, "tr");
+		replaceTag(sb, "td");
+		// TODO: is there any other tag that should be replaced?
+		
+		replaceAll(sb, "  ", " ");
+		
+		return sb.toString().trim();
+	}
+	
+	private void replaceTag(StringBuilder sb, String tagName)
+	{
+		replaceTag2(sb, "<" + tagName + ">");
+		replaceTag2(sb, "</" + tagName + ">");
+		replaceTag2(sb, "<" + tagName + "/>");
+		replaceTag2(sb, "<" + tagName + " />");
+	}
+	
+	private void replaceTag2(StringBuilder sb, String tag)
+	{
+		replaceAll(sb, tag + " ", tag);
+		replaceAll(sb, " " + tag, tag);
+	}
+	
+	private void replaceAll(StringBuilder sb, String pattern, String value)
+	{
+		for (int index = 0; (index = sb.indexOf(pattern, index)) != -1;)
+			sb.replace(index, index + pattern.length(), value);
 	}
 	
 	public void reloadPath(File f)
@@ -109,7 +170,7 @@ public final class HtmCache
 				byte[] raw = new byte[bis.available()];
 				bis.read(raw);
 				
-				String content = new String(raw, "UTF-8").replaceAll("\r\n", "\n");
+				String content = new String(raw, "UTF-8");
 				String relpath = Util.getRelativePath(Config.DATAPACK_ROOT, file);
 				
 				_size += content.length();
@@ -153,12 +214,7 @@ public final class HtmCache
 	
 	public String getHtm(String path)
 	{
-		String content = _cache.get(path);
-		
-		if (content == null && Config.LAZY_CACHE)
-			content = loadFile(new File(Config.DATAPACK_ROOT, path));
-		
-		return content;
+		return _cache.get(path);
 	}
 	
 	public boolean isLoadable(File file)
@@ -168,19 +224,13 @@ public final class HtmCache
 	
 	public boolean pathExists(String path)
 	{
-		if (_cache.containsKey(path))
-			return true;
-		
-		if (Config.LAZY_CACHE && isLoadable(new File(Config.DATAPACK_ROOT, path)))
-			return true;
-		
-		return false;
+		return _cache.containsKey(path);
 	}
 	
 	@Override
 	public String toString()
 	{
-		return new StringBuilder(64).append("Cache[HTML]: ").append(String.format("%.3f", (float)_size / 1048576))
-			.append(" megabytes on ").append(_loadedFiles).append(" file(s) loaded.").toString();
+		return "Cache[HTML]: " + String.format("%.3f", (float)_size / 1024) + " kilobytes on " + _loadedFiles
+			+ " file(s) loaded.";
 	}
 }

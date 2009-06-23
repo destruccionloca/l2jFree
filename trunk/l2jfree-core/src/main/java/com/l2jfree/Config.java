@@ -1068,7 +1068,6 @@ public final class Config extends L2Config
 
 	public static boolean			AUTODELETE_INVALID_QUEST_DATA;								// Auto-delete invalid quest data ?
 	public static boolean			FORCE_INVENTORY_UPDATE;
-	public static boolean			LAZY_CACHE;
 	public static boolean			SHOW_LICENSE;												// Show License at login
 	public static boolean			SHOW_HTML_WELCOME;											// Show html window at login
 	public static boolean			SHOW_HTML_NEWBIE;
@@ -1326,7 +1325,6 @@ public final class Config extends L2Config
 			SHOW_NPC_LVL = Boolean.parseBoolean(optionsSettings.getProperty("ShowNpcLevel", "False"));
 
 			FORCE_INVENTORY_UPDATE = Boolean.parseBoolean(optionsSettings.getProperty("ForceInventoryUpdate", "False"));
-			LAZY_CACHE = Boolean.parseBoolean(optionsSettings.getProperty("LazyCache", "False"));
 
 			AUTODELETE_INVALID_QUEST_DATA = Boolean.parseBoolean(optionsSettings.getProperty("AutoDeleteInvalidQuestData", "False"));
 
