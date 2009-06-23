@@ -25,7 +25,7 @@ import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.network.serverpackets.FlyToLocation.FlyType;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
-import com.l2jfree.tools.random.Rnd;
+import com.l2jfree.gameserver.util.Util;
 
 /**
  *
@@ -48,31 +48,21 @@ public class InstantJump implements ISkillHandler
 		
 		int x = 0, y = 0, z = 0;
 		
-		// Gracia Final support = it ports you behind your target, uncomment these lines when Gracia Final! is out.
-		/*
 		int px = target.getX();
 		int py = target.getY();
 		double ph = Util.convertHeadingToDegree(target.getHeading());
 		
 		ph+=180;
 		
-		if(ph>360)
-			ph-=360;
+		if (ph>360)
+			ph -= 360;
 		
 		ph = (Math.PI * ph) / 180;
 		
 		x = (int) (px + (25 * Math.cos(ph)));
 		y = (int) (py + (25 * Math.sin(ph)));
 		z = target.getZ();
-		*/
-		
-		// Gracia Part I+II pozitioning - comment these lines when gracia final is out
-		// a little random location around player... not directly "into him"
-		x = target.getX() + Rnd.nextInt(5);
-		y = target.getY() + Rnd.nextInt(5);
-		z = target.getZ();
-		
-		
+
 		activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 		activeChar.broadcastPacket(new FlyToLocation(activeChar, x, y, z, FlyType.DUMMY));
 		activeChar.abortAttack();

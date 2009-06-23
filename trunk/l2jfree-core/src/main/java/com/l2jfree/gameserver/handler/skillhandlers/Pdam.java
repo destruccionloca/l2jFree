@@ -56,6 +56,9 @@ public class Pdam implements ISkillHandler
 		if (_log.isDebugEnabled())
 			_log.info("Begin Skill processing in Pdam.java " + skill.getSkillType());
 
+		L2ItemInstance weapon = activeChar.getActiveWeaponInstance();
+		boolean soul = (weapon != null && weapon.isSoulshotCharged() && weapon.getItemType() != L2WeaponType.DAGGER);
+
 		for (L2Character target : targets)
 		{
 			if (target == null)
@@ -77,7 +80,6 @@ public class Pdam implements ISkillHandler
 				}
 			}
 
-			L2ItemInstance weapon = activeChar.getActiveWeaponInstance();
 			if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance && target.isFakeDeath())
 			{
 				target.stopFakeDeath(true);
@@ -89,8 +91,6 @@ public class Pdam implements ISkillHandler
 			byte shld = Formulas.calcShldUse(activeChar, target, skill);
 			// PDAM critical chance not affected by buffs, only by STR. Only some skills are meant to crit.
 			boolean crit = Formulas.calcSkillCrit(activeChar, target, skill);
-			
-			boolean soul = (weapon != null && weapon.isSoulshotCharged() && weapon.getItemType() != L2WeaponType.DAGGER);
 
 			if (skill.ignoreShld())
 				shld = 0;
@@ -123,9 +123,6 @@ public class Pdam implements ISkillHandler
 			if (crit)
 				damage *= 2; // PDAM Critical damage always 2x and not affected by buffs
 
-			if (soul && weapon != null)
-				weapon.useSoulshotCharge();
-
 			final boolean skillIsEvaded = Formulas.calcPhysicalSkillEvasion(target, skill);
 			final byte reflect = Formulas.calcSkillReflect(target, skill);
 			
@@ -147,7 +144,7 @@ public class Pdam implements ISkillHandler
 						else
 						{
 							// Activate attacked effects, if any
-							if (Formulas.calcSkillSuccess(activeChar, target, skill, shld, false, false, false))
+							if (Formulas.calcSkillSuccess(activeChar, target, skill, shld, false, false, true))
 							{
 								skill.getEffects(activeChar, target);
 									
@@ -318,6 +315,9 @@ public class Pdam implements ISkillHandler
 			
 			activeChar.doDie(target);
 		}
+
+		if (soul && weapon != null)
+			weapon.useSoulshotCharge();
 	}
 
 	public L2SkillType[] getSkillIds()

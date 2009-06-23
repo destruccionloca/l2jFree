@@ -113,10 +113,9 @@ public class Disablers implements ICubicSkillHandler
 				activeChar.useSpiritshotCharge();
 			}
 		}
-		else if (activeChar.isSoulshotCharged())
+		else
 		{
 			ss = true;
-			activeChar.useSoulshotCharge();
 		}
 		
 		for (L2Character target : targets)
