@@ -14,8 +14,6 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
-import javolution.text.TextBuilder;
-
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
 import com.l2jfree.gameserver.model.L2Multisell;
@@ -100,7 +98,6 @@ public class L2TransformManagerInstance extends L2MerchantInstance
 
 		if (counts == 0)
 		{
-			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 			int minlevel = SkillTreeTable.getInstance().getMinLevelForNewTransformSkill(player);
 
 			if (minlevel > 0)
@@ -112,13 +109,9 @@ public class L2TransformManagerInstance extends L2MerchantInstance
 			}
 			else
 			{
-				TextBuilder sb = new TextBuilder();
-				sb.append("<html><head><body>");
-				sb.append("You've learned all skills.<br>");
-				sb.append("</body></html>");
-				html.setHtml(sb.toString());
+				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+				html.setHtml("<html><body>You've learned all skills.<br></body></html>");
 				player.sendPacket(html);
-
 			}
 		}
 		else

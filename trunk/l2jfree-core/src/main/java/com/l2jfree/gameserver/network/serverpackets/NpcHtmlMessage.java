@@ -120,6 +120,17 @@ import com.l2jfree.gameserver.network.L2GameClient;
 */
 public final class NpcHtmlMessage extends L2GameServerPacket
 {
+	// Based on the comment before
+	public static final String[] VALID_TAGS = { "volumn", "unknown", "ul", "u", "tt", "tr", "title", "textcode",
+		"textarea", "td", "table", "sup", "sub", "strike", "spin", "select", "right", "pre", "p", "option", "ol",
+		"multiedit", "li", "left", "input", "img", "i", "html", "h7", "h6", "h5", "h4", "h3", "h2", "h1", "font",
+		"extend", "edit", "comment", "combobox", "center", "button", "br", "body", "bar", "address", "a", "sel",
+		"list", "var", "fore", "readonl", "rows", "valign", "fixwidth", "bordercolorli", "bordercolorda",
+		"bordercolor", "border", "bgcolor", "background", "align", "valu", "readonly", "multiple", "selected", "typ",
+		"type", "maxlength", "checked", "src", "y", "x", "querydelay", "noscrollbar", "imgsrc", "b", "fg", "size",
+		"face", "color", "deffon", "deffixedfont", "width", "value", "tooltip", "name", "min", "max", "height",
+		"disabled", "align", "msg", "link", "href", "action" };
+	
 	private static final String _S__1B_NPCHTMLMESSAGE = "[S] 0f NpcHtmlMessage";
 	
 	// d S
