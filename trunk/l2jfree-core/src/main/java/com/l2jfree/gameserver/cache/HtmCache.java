@@ -18,6 +18,10 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.Map.Entry;
 
 import javolution.util.FastMap;
@@ -27,6 +31,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.util.Util;
 
 /**
@@ -69,7 +74,7 @@ public final class HtmCache
 		_loadedFiles = 0;
 		_size = 0;
 		
-		_log.info("Cache[HTML]: Caching started.");
+		_log.info("Cache[HTML]: Caching started...");
 		
 		parseDir(Config.DATAPACK_ROOT);
 		
@@ -80,16 +85,100 @@ public final class HtmCache
 		
 		for (Entry<String, String> entry : _cache.entrySet())
 		{
-			final String oldHtml = entry.getValue();
-			final String newHtml = compactHtml(sb, oldHtml);
-			
-			_size -= oldHtml.length();
-			_size += newHtml.length();
-			
-			entry.setValue(newHtml);
+			try
+			{
+				final String oldHtml = entry.getValue();
+				final String newHtml = compactHtml(sb, oldHtml);
+				
+				_size -= oldHtml.length();
+				_size += newHtml.length();
+				
+				entry.setValue(newHtml);
+			}
+			catch (Exception e)
+			{
+				_log.warn("Cache[HTML]: Error during compaction of " + entry.getKey(), e);
+			}
 		}
 		
+		_log.info("Cache[HTML]: Validating htmls...");
+		
+		validate();
+		
 		_log.info(this);
+	}
+	
+	private void validate()
+	{
+		final Set<String> set = new HashSet<String>();
+		
+		for (Entry<String, String> entry : _cache.entrySet())
+		{
+			final String html = entry.getValue();
+			
+			outer: for (int begin = 0; (begin = html.indexOf("<", begin)) != -1; begin++)
+			{
+				int end;
+				
+				for (end = begin; end < html.length(); end++)
+				{
+					if (html.charAt(end) == '>' || html.charAt(end) == ' ')
+						break;
+					
+					// some special quest-replaced tag
+					if (end == begin + 1 && html.charAt(end) == '?')
+						continue outer;
+				}
+				
+				end++;
+				
+				set.add(html.substring(begin + 1, end - 1).toLowerCase().replaceAll("/", ""));
+			}
+		}
+		
+		//_log.info("Tags used: " + set.size());
+		//for (String tag : set)
+		//	_log.info("'" + tag + "'");
+		
+		set.remove("!--"); // comment
+		for (String tag : NpcHtmlMessage.VALID_TAGS)
+			set.remove(tag);
+		
+		if (!set.isEmpty())
+		{
+			_log.info("Invalid tags used: " + set.size());
+			for (String tag : set)
+				_log.info("'" + tag + "'");
+		}
+	}
+	
+	private static final String[] TAGS_TO_COMPACT;
+	
+	static
+	{
+		// TODO: is there any other tag that should be replaced?
+		final String[] tagsToCompact = { "html", "title", "body", "br", "br1", "p", "table", "tr", "td" };
+		
+		final List<String> list = new ArrayList<String>();
+		
+		for (String tag : tagsToCompact)
+		{
+			list.add("<" + tag + ">");
+			list.add("</" + tag + ">");
+			list.add("<" + tag + "/>");
+			list.add("<" + tag + " />");
+		}
+		
+		final List<String> list2 = new ArrayList<String>();
+		
+		for (String tag : list)
+		{
+			list2.add(tag);
+			list2.add(tag + " ");
+			list2.add(" " + tag);
+		}
+		
+		TAGS_TO_COMPACT = list2.toArray(new String[list.size()]);
 	}
 	
 	private String compactHtml(StringBuilder sb, String html)
@@ -106,33 +195,25 @@ public final class HtmCache
 		replaceAll(sb, "< ", "<");
 		replaceAll(sb, " >", ">");
 		
-		replaceTag(sb, "html");
-		replaceTag(sb, "head");
-		replaceTag(sb, "title");
-		replaceTag(sb, "body");
-		replaceTag(sb, "br");
-		replaceTag(sb, "table");
-		replaceTag(sb, "tr");
-		replaceTag(sb, "td");
-		// TODO: is there any other tag that should be replaced?
+		for (int i = 0; i < TAGS_TO_COMPACT.length; i += 3)
+		{
+			replaceAll(sb, TAGS_TO_COMPACT[i + 1], TAGS_TO_COMPACT[i]);
+			replaceAll(sb, TAGS_TO_COMPACT[i + 2], TAGS_TO_COMPACT[i]);
+		}
 		
 		replaceAll(sb, "  ", " ");
 		
-		return sb.toString().trim();
-	}
-	
-	private void replaceTag(StringBuilder sb, String tagName)
-	{
-		replaceTag2(sb, "<" + tagName + ">");
-		replaceTag2(sb, "</" + tagName + ">");
-		replaceTag2(sb, "<" + tagName + "/>");
-		replaceTag2(sb, "<" + tagName + " />");
-	}
-	
-	private void replaceTag2(StringBuilder sb, String tag)
-	{
-		replaceAll(sb, tag + " ", tag);
-		replaceAll(sb, " " + tag, tag);
+		// String.trim() without additional garbage
+		int fromIndex = 0;
+		int toIndex = sb.length();
+		
+		while (fromIndex < toIndex && sb.charAt(fromIndex) == ' ')
+			fromIndex++;
+		
+		while (fromIndex < toIndex && sb.charAt(toIndex - 1) == ' ')
+			toIndex--;
+		
+		return sb.substring(fromIndex, toIndex);
 	}
 	
 	private void replaceAll(StringBuilder sb, String pattern, String value)
