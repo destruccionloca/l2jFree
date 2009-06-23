@@ -1523,7 +1523,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 	public boolean checkCondition(L2Character activeChar, L2Object target)
 	{
-		if (activeChar.isGM() && !Config.GM_SKILL_RESTRICTION)
+		if (activeChar instanceof L2PcInstance && ((L2PcInstance)activeChar).isGM() && !Config.GM_SKILL_RESTRICTION)
 			return true;
 
 		Condition preCondition = _preCondition;

@@ -197,19 +197,9 @@ public class RequestEnchantItem extends AbstractEnchantPacket
 					// need retail message
 					activeChar.sendPacket(new EnchantResult(5, 0, 0));
 				}
-				else if (scrollTemplate.isBlessed())
+				else
 				{
-					// blessed enchant - clear enchant value
-					sm = new SystemMessage(SystemMessageId.BLESSED_ENCHANT_FAILED);
-					activeChar.sendPacket(sm);
-
-					item.setEnchantLevel(0);
-					item.updateDatabase();
-					activeChar.sendPacket(new EnchantResult(3, 0, 0));
-				}
-				else 
-				{
-					// enchant failed, destroy item
+					// unequip item on enchant failure to avoid item skills stack
 					if (item.isEquipped())
 					{
 						if (item.getEnchantLevel() > 0)
@@ -233,35 +223,49 @@ public class RequestEnchantItem extends AbstractEnchantPacket
 						iu = null;
 					}
 
-					int crystalId = item.getItem().getCrystalItemId();
-					long count = item.getCrystalCount() - (item.getItem().getCrystalCount() + 1) / 2;
-					if (count < 1)
-						count = 1;
-
-					L2ItemInstance destroyItem = activeChar.getInventory().destroyItem("Enchant", item, activeChar, null);
-					if (destroyItem == null)
+					if (scrollTemplate.isBlessed())
 					{
-						// unable to destroy item, cheater ?
-						Util.handleIllegalPlayerAction(activeChar, "Unable to delete item on enchant failure from player " + activeChar.getName() + ", possible cheater !", Config.DEFAULT_PUNISH);
-						if (item.getLocation() != null)
-							activeChar.getWarehouse().destroyItem("Enchant", item, activeChar, null);
+						// blessed enchant - clear enchant value
+						sm = new SystemMessage(SystemMessageId.BLESSED_ENCHANT_FAILED);
+						activeChar.sendPacket(sm);
 
-						activeChar.setActiveEnchantItem(null);
-						activeChar.sendPacket(new EnchantResult(2, 0, 0));
-						return;
+						item.setEnchantLevel(0);
+						item.updateDatabase();
+						activeChar.sendPacket(new EnchantResult(3, 0, 0));
 					}
-					sm = new SystemMessage(SystemMessageId.S1_DISAPPEARED);
-					sm.addItemName(destroyItem);
-					sendPacket(sm);
-					L2World.getInstance().removeObject(destroyItem);
+					else
+					{
+						// enchant failed, destroy item
+						int crystalId = item.getItem().getCrystalItemId();
+						long count = item.getCrystalCount() - (item.getItem().getCrystalCount() + 1) / 2;
+						if (count < 1)
+							count = 1;
 
-					L2ItemInstance crystals = activeChar.getInventory().addItem("Enchant", crystalId, count, activeChar, destroyItem);
-					sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
-					sm.addItemName(crystals);
-					sm.addItemNumber(count);
-					sendPacket(sm);
-					activeChar.getInventory().updateInventory(crystals);
-					activeChar.sendPacket(new EnchantResult(1, crystalId, count));
+						L2ItemInstance destroyItem = activeChar.getInventory().destroyItem("Enchant", item, activeChar, null);
+						if (destroyItem == null)
+						{
+							// unable to destroy item, cheater ?
+							Util.handleIllegalPlayerAction(activeChar, "Unable to delete item on enchant failure from player " + activeChar.getName() + ", possible cheater !", Config.DEFAULT_PUNISH);
+							if (item.getLocation() != null)
+								activeChar.getWarehouse().destroyItem("Enchant", item, activeChar, null);
+
+							activeChar.setActiveEnchantItem(null);
+							activeChar.sendPacket(new EnchantResult(2, 0, 0));
+							return;
+						}
+						sm = new SystemMessage(SystemMessageId.S1_DISAPPEARED);
+						sm.addItemName(destroyItem);
+						sendPacket(sm);
+						L2World.getInstance().removeObject(destroyItem);
+
+						L2ItemInstance crystals = activeChar.getInventory().addItem("Enchant", crystalId, count, activeChar, destroyItem);
+						sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
+						sm.addItemName(crystals);
+						sm.addItemNumber(count);
+						sendPacket(sm);
+						activeChar.getInventory().updateInventory(crystals);
+						activeChar.sendPacket(new EnchantResult(1, crystalId, count));
+					}
 				}
 			}
 		}

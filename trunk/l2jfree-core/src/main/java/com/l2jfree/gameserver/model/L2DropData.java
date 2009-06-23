@@ -170,19 +170,32 @@ public class L2DropData
 	}
 
 	/**
-	 * Returns if parameter "o" is a L2DropData and has the same itemID that the current object
-	 * @param Object to compare to the current one
-	 * @return boolean 
+	 * @see java.lang.Object#hashCode()
+	 */
+	public int hashCode()
+	{
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + _itemId;
+		return result;
+	}
+
+	/**
+	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
-	public boolean equals(Object o)
+	public boolean equals(Object obj)
 	{
-		if (o instanceof L2DropData)
-		{
-			L2DropData drop = (L2DropData)o;
-			return drop.getItemId() == getItemId();
-		}
-		return false;
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof L2DropData))
+			return false;
+		final L2DropData other = (L2DropData) obj;
+		if (_itemId != other._itemId)
+			return false;
+		return true;
 	}
 
 	public void setCategory(int category)

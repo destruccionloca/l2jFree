@@ -236,7 +236,9 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 		case 25342:
 		case 25346:
 		case 25349:
-			giveCup((L2PcInstance) killer);
+			L2PcInstance pc = killer.getActingPlayer();
+			if (pc != null)
+				giveCup(pc);
 			if (_onDeadEventTask != null)
 				_onDeadEventTask.cancel(true);
 			_onDeadEventTask = ThreadPoolManager.getInstance().scheduleEffect(new OnDeadEvent(this), 8500);
