@@ -100,6 +100,11 @@ public final class Util
 		interp.cleanup();
 	}
 	
+	public static void handleIllegalPlayerAction(L2PcInstance actor, String message)
+	{
+		handleIllegalPlayerAction(actor, message, Config.DEFAULT_PUNISH);
+	}
+	
 	public static void handleIllegalPlayerAction(L2PcInstance actor, String message, int punishment)
 	{
 		ThreadPoolManager.getInstance().scheduleGeneral(new IllegalPlayerAction(actor, message, punishment), 5000);
