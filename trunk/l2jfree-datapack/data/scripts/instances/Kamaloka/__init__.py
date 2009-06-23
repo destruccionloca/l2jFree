@@ -249,7 +249,7 @@ class Kamaloka(JQuest):
 		self.startQuestTimer("finishKamaloka",300000,npc,player)
 		return
 
-QUEST = Kamaloka(-1, qn, "custom")
+QUEST = Kamaloka(-1, qn, "instances")
 
 for npc in GUARDS :
 	QUEST.addStartNpc(npc)
