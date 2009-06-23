@@ -18,7 +18,7 @@ import java.io.File;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameServer;
-import com.l2jfree.gameserver.datatables.SkillTable;
+import com.l2jfree.gameserver.cache.HtmCache;
 
 /**
  * @author NB4L1
@@ -32,7 +32,8 @@ public final class ModuleTester
 		Config.DATAPACK_ROOT = new File("../l2jfree-datapack");
 		
 		// here comes what you want to test
-		SkillTable.getInstance();
+		//SkillTable.getInstance();
+		HtmCache.getInstance();
 		
 		System.gc();
 		System.runFinalization();

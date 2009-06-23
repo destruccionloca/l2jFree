@@ -19,112 +19,116 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.L2GameClient;
 
 /**
-*
-* the HTML parser in the client knowns these standard and non-standard tags and attributes
-* VOLUMN
-* UNKNOWN
-* UL
-* U
-* TT
-* TR
-* TITLE
-* TEXTCODE
-* TEXTAREA
-* TD
-* TABLE
-* SUP
-* SUB
-* STRIKE
-* SPIN
-* SELECT
-* RIGHT
-* PRE
-* P
-* OPTION
-* OL
-* MULTIEDIT
-* LI
-* LEFT
-* INPUT
-* IMG
-* I
-* HTML
-* H7
-* H6
-* H5
-* H4
-* H3
-* H2
-* H1
-* FONT
-* EXTEND
-* EDIT
-* COMMENT
-* COMBOBOX
-* CENTER
-* BUTTON
-* BR
-* BODY
-* BAR
-* ADDRESS
-* A
-* SEL
-* LIST
-* VAR
-* FORE
-* READONL
-* ROWS
-* VALIGN
-* FIXWIDTH
-* BORDERCOLORLI
-* BORDERCOLORDA
-* BORDERCOLOR
-* BORDER
-* BGCOLOR
-* BACKGROUND
-* ALIGN
-* VALU
-* READONLY
-* MULTIPLE
-* SELECTED
-* TYP
-* TYPE
-* MAXLENGTH
-* CHECKED
-* SRC
-* Y
-* X
-* QUERYDELAY
-* NOSCROLLBAR
-* IMGSRC
-* B
-* FG
-* SIZE
-* FACE
-* COLOR
-* DEFFON
-* DEFFIXEDFONT
-* WIDTH
-* VALUE
-* TOOLTIP
-* NAME
-* MIN
-* MAX
-* HEIGHT
-* DISABLED
-* ALIGN
-* MSG
-* LINK
-* HREF
-* ACTION
-*/
+ * <b>The HTML parser in the client knowns these standard and non-standard tags and attributes:</b>
+ * <ul>
+ * <li>VOLUMN
+ * <li>UNKNOWN
+ * <li>UL
+ * <li>U
+ * <li>TT
+ * <li>TR
+ * <li>TITLE
+ * <li>TEXTCODE
+ * <li>TEXTAREA
+ * <li>TD
+ * <li>TABLE
+ * <li>SUP
+ * <li>SUB
+ * <li>STRIKE
+ * <li>SPIN
+ * <li>SELECT
+ * <li>RIGHT
+ * <li>PRE
+ * <li>P
+ * <li>OPTION
+ * <li>OL
+ * <li>MULTIEDIT
+ * <li>LI
+ * <li>LEFT
+ * <li>INPUT
+ * <li>IMG
+ * <li>I
+ * <li>HTML
+ * <li>H7
+ * <li>H6
+ * <li>H5
+ * <li>H4
+ * <li>H3
+ * <li>H2
+ * <li>H1
+ * <li>FONT
+ * <li>EXTEND
+ * <li>EDIT
+ * <li>COMMENT
+ * <li>COMBOBOX
+ * <li>CENTER
+ * <li>BUTTON
+ * <li>BR
+ * <li>BR1
+ * <li>BODY
+ * <li>BAR
+ * <li>ADDRESS
+ * <li>A
+ * <li>SEL
+ * <li>LIST
+ * <li>VAR
+ * <li>FORE
+ * <li>READONL
+ * <li>ROWS
+ * <li>VALIGN
+ * <li>FIXWIDTH
+ * <li>BORDERCOLORLI
+ * <li>BORDERCOLORDA
+ * <li>BORDERCOLOR
+ * <li>BORDER
+ * <li>BGCOLOR
+ * <li>BACKGROUND
+ * <li>ALIGN
+ * <li>VALU
+ * <li>READONLY
+ * <li>MULTIPLE
+ * <li>SELECTED
+ * <li>TYP
+ * <li>TYPE
+ * <li>MAXLENGTH
+ * <li>CHECKED
+ * <li>SRC
+ * <li>Y
+ * <li>X
+ * <li>QUERYDELAY
+ * <li>NOSCROLLBAR
+ * <li>IMGSRC
+ * <li>B
+ * <li>FG
+ * <li>SIZE
+ * <li>FACE
+ * <li>COLOR
+ * <li>DEFFON
+ * <li>DEFFIXEDFONT
+ * <li>WIDTH
+ * <li>VALUE
+ * <li>TOOLTIP
+ * <li>NAME
+ * <li>MIN
+ * <li>MAX
+ * <li>HEIGHT
+ * <li>DISABLED
+ * <li>ALIGN
+ * <li>MSG
+ * <li>LINK
+ * <li>HREF
+ * <li>ACTION
+ * </ul>
+ * 
+ * @see NpcHtmlMessage#VALID_TAGS
+ */
 public final class NpcHtmlMessage extends L2GameServerPacket
 {
 	// Based on the comment before
 	public static final String[] VALID_TAGS = { "volumn", "unknown", "ul", "u", "tt", "tr", "title", "textcode",
 		"textarea", "td", "table", "sup", "sub", "strike", "spin", "select", "right", "pre", "p", "option", "ol",
 		"multiedit", "li", "left", "input", "img", "i", "html", "h7", "h6", "h5", "h4", "h3", "h2", "h1", "font",
-		"extend", "edit", "comment", "combobox", "center", "button", "br", "body", "bar", "address", "a", "sel",
+		"extend", "edit", "comment", "combobox", "center", "button", "br", "br1", "body", "bar", "address", "a", "sel",
 		"list", "var", "fore", "readonl", "rows", "valign", "fixwidth", "bordercolorli", "bordercolorda",
 		"bordercolor", "border", "bgcolor", "background", "align", "valu", "readonly", "multiple", "selected", "typ",
 		"type", "maxlength", "checked", "src", "y", "x", "querydelay", "noscrollbar", "imgsrc", "b", "fg", "size",
