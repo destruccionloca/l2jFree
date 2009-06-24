@@ -506,7 +506,7 @@ public class Lottery
 
 	public long[] checkTicket(int id, int enchant, int type2)
 	{
-		int res[] =
+		long res[] =
 		{ 0, 0 };
 
 		Connection con = null;
