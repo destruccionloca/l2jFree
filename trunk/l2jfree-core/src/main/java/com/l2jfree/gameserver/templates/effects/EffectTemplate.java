@@ -47,7 +47,7 @@ public final class EffectTemplate
 	public final String stackType;
 	public final float stackOrder;
 	public final boolean showIcon;
-	public final double effectPower; // to thandle chance
+	public final double effectPower; // to handle chance
 	public final L2SkillType effectType; // to handle resistences etc...
 	
 	public final TriggeredSkill triggeredSkill;
