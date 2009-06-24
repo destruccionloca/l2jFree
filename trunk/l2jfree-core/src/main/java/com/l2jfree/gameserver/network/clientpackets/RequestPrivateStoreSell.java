@@ -22,6 +22,7 @@ import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.TradeList;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -45,7 +46,10 @@ public class RequestPrivateStoreSell extends L2GameClientPacket
 	{
 		_storePlayerId = readD();
 		_count = readD();
-		if (_count < 0 || _count * 20 > getByteBuffer().remaining() || _count > Config.MAX_ITEM_IN_PACKET)
+		int acc = 20;
+		if (Config.PACKET_FINAL)
+			acc = 28;
+		if (_count < 0 || _count * acc > getByteBuffer().remaining() || _count > Config.MAX_ITEM_IN_PACKET)
 			_count = 0;
 		_items = new ItemRequest[_count];
 
@@ -71,7 +75,7 @@ public class RequestPrivateStoreSell extends L2GameClientPacket
 			priceTotal += price * count;
 		}
 
-		if (priceTotal < 0 || priceTotal >= Integer.MAX_VALUE)
+		if (priceTotal < 0 || priceTotal > PcInventory.MAX_ADENA)
 		{
 			_count = 0;
 			_items = null;

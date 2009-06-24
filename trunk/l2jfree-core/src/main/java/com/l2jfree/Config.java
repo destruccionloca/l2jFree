@@ -451,15 +451,15 @@ public final class Config extends L2Config
 	// *******************************************************************************************
 	public static final String	LOTTERY_FILE	= "./config/lottery.properties";
 	// *******************************************************************************************
-	public static int			ALT_LOTTERY_PRIZE;									// Initial Lottery prize
-	public static int			ALT_LOTTERY_TICKET_PRICE;							// Lottery Ticket Price
+	public static long			ALT_LOTTERY_PRIZE;									// Initial Lottery prize
+	public static long			ALT_LOTTERY_TICKET_PRICE;							// Lottery Ticket Price
 	public static float			ALT_LOTTERY_5_NUMBER_RATE;							// What part of jackpot amount should receive characters who pick 5 wining
 	// numbers
 	public static float			ALT_LOTTERY_4_NUMBER_RATE;							// What part of jackpot amount should receive characters who pick 4 wining
 	// numbers
 	public static float			ALT_LOTTERY_3_NUMBER_RATE;							// What part of jackpot amount should receive characters who pick 3 wining
 	// numbers
-	public static int			ALT_LOTTERY_2_AND_1_NUMBER_PRIZE;					// How much adena receive characters who pick two or less of the winning
+	public static long			ALT_LOTTERY_2_AND_1_NUMBER_PRIZE;					// How much adena receive characters who pick two or less of the winning
 
 	// number
 
@@ -475,12 +475,12 @@ public final class Config extends L2Config
 		@Override
 		protected void loadImpl(Properties lotterySettings) throws Exception
 		{
-			ALT_LOTTERY_PRIZE = Integer.parseInt(lotterySettings.getProperty("AltLotteryPrize", "50000"));
-			ALT_LOTTERY_TICKET_PRICE = Integer.parseInt(lotterySettings.getProperty("AltLotteryTicketPrice", "2000"));
+			ALT_LOTTERY_PRIZE = Long.parseLong(lotterySettings.getProperty("AltLotteryPrize", "50000"));
+			ALT_LOTTERY_TICKET_PRICE = Long.parseLong(lotterySettings.getProperty("AltLotteryTicketPrice", "2000"));
 			ALT_LOTTERY_5_NUMBER_RATE = Float.parseFloat(lotterySettings.getProperty("AltLottery5NumberRate", "0.6"));
 			ALT_LOTTERY_4_NUMBER_RATE = Float.parseFloat(lotterySettings.getProperty("AltLottery4NumberRate", "0.2"));
 			ALT_LOTTERY_3_NUMBER_RATE = Float.parseFloat(lotterySettings.getProperty("AltLottery3NumberRate", "0.2"));
-			ALT_LOTTERY_2_AND_1_NUMBER_PRIZE = Integer.parseInt(lotterySettings.getProperty("AltLottery2and1NumberPrize", "200"));
+			ALT_LOTTERY_2_AND_1_NUMBER_PRIZE = Long.parseLong(lotterySettings.getProperty("AltLottery2and1NumberPrize", "200"));
 		}
 	}
 

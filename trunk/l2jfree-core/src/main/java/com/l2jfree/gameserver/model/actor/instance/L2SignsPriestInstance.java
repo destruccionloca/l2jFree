@@ -365,11 +365,11 @@ public class L2SignsPriestInstance extends L2NpcInstance
                     showChatWindow(player, 6, null, false);
                     break;
                 case 7: // Exchange Ancient Adena for Adena - SevenSigns 7 xxxxxxx
-                    int ancientAdenaConvert = 0;
+                    long ancientAdenaConvert = 0;
 
                     try
                     {
-                        ancientAdenaConvert = Integer.parseInt(command.substring(13).trim());
+                        ancientAdenaConvert = Long.parseLong(command.substring(13).trim());
                     }
                     catch (Exception e)
                     {
@@ -403,7 +403,7 @@ public class L2SignsPriestInstance extends L2NpcInstance
 
                     if (SevenSigns.getInstance().isSealValidationPeriod() && playerCabal == winningCabal)
                     {
-                        int ancientAdenaReward = SevenSigns.getInstance().getAncientAdenaReward(player,
+                        long ancientAdenaReward = SevenSigns.getInstance().getAncientAdenaReward(player,
                                                                                                 true);
 
                         if (ancientAdenaReward < 3)
@@ -436,7 +436,7 @@ public class L2SignsPriestInstance extends L2NpcInstance
                         int x = Integer.parseInt(st.nextToken());
                         int y = Integer.parseInt(st.nextToken());
                         int z = Integer.parseInt(st.nextToken());
-                        int ancientAdenaCost = Integer.parseInt(st.nextToken());
+                        long ancientAdenaCost = Long.parseLong(st.nextToken());
 
                         if (ancientAdenaCost > 0)
                         {
@@ -455,7 +455,7 @@ public class L2SignsPriestInstance extends L2NpcInstance
                     stoneType = Integer.parseInt(command.substring(14));
                     int stoneId = 0;
                     long stoneCount = 0;
-                    int stoneValue = 0;
+                    long stoneValue = 0;
                     String stoneColor = null;
                     String content;
 
@@ -505,11 +505,11 @@ public class L2SignsPriestInstance extends L2NpcInstance
                     break;
                 case 18: // Exchange Seal Stones for Ancient Adena - SevenSigns 18 xxxx xxxxxx
                     int convertStoneId = Integer.parseInt(command.substring(14, 18));
-                    int convertCount = 0;
+                    long convertCount = 0;
 
                     try
                     {
-                        convertCount = Integer.parseInt(command.substring(19).trim());
+                        convertCount = Long.parseLong(command.substring(19).trim());
                     }
                     catch (Exception NumberFormatException)
                     {

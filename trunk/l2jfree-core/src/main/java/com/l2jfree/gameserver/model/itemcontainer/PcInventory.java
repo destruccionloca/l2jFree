@@ -41,7 +41,7 @@ public class PcInventory extends Inventory
 {
 	public static final int ADENA_ID = 57;
 	public static final int ANCIENT_ADENA_ID = 5575;
-	public static final long MAX_ADENA = 99900000000L;
+	public static final long MAX_ADENA = 99000000000L;
 	
 	private final L2PcInstance _owner;
 	private L2ItemInstance _adena;

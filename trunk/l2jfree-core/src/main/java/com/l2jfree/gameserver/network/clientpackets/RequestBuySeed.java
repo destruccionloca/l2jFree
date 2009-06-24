@@ -24,6 +24,7 @@ import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.instance.L2ManorManagerInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Castle;
+import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
@@ -126,7 +127,7 @@ public class RequestBuySeed extends L2GameClientPacket
 				slots++;
 		}
 
-		if (totalPrice >= Integer.MAX_VALUE)
+		if (totalPrice >= PcInventory.MAX_ADENA)
 		{
 			requestFailed(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
 			return;
@@ -143,14 +144,14 @@ public class RequestBuySeed extends L2GameClientPacket
 		}
 
 		// Charge buyer
-		if ((totalPrice < 0) || !player.reduceAdena("Buy", (int) totalPrice, target, false))
+		if ((totalPrice < 0) || !player.reduceAdena("Buy", totalPrice, target, false))
 		{
 			requestFailed(SystemMessageId.YOU_NOT_ENOUGH_ADENA);
 			return;
 		}
 
 		// Adding to treasury for Manor Castle
-		castle.addToTreasuryNoTax((int) totalPrice);
+		castle.addToTreasuryNoTax(totalPrice);
 
 		// Proceed the purchase
 		InventoryUpdate playerIU = new InventoryUpdate();

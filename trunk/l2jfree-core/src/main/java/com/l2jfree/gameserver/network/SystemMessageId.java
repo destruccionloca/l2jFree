@@ -14322,7 +14322,7 @@ public enum SystemMessageId
 	 * Message: Resurrection is possible because of the courage charm's effect.
 	 * Would you like to resurrect now?
 	 */
-	RESURRECTION_POSSIBLE_BECAUSE_CHARM_EFFECT(2306),
+	RESURRECT_USING_CHARM_OF_COURAGE(2306),
 
 	/**
 	 * ID: 2307<br>

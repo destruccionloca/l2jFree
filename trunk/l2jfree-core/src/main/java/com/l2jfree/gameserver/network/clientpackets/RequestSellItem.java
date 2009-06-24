@@ -26,6 +26,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2MerchantInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MerchantSummonInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetManagerInstance;
+import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
@@ -66,38 +67,41 @@ public class RequestSellItem extends L2GameClientPacket
 	 * 
 	 * format:		cdd (ddd)
 	 */
-    @Override
-    protected void readImpl()
-    {
-        _listId = readD();
-        _count = readD();
-        if (_count <= 0  || _count * 12 > getByteBuffer().remaining() || _count > Config.MAX_ITEM_IN_PACKET)
-        {
-            _count = 0; _items = null;
-            return;
-        }
-        _items = new int[_count * 3];
-        for (int i = 0; i < _count; i++)
-        {
-            int objectId = readD(); _items[(i * 3)] = objectId;
-            int itemId   = readD(); _items[i * 3 + 1] = itemId;
-            long cnt      = 0;
-            cnt = readCompQ();
-            if (cnt >= Integer.MAX_VALUE || cnt <= 0)
-            {
-                _count = 0; _items = null;
-                return;
-            }
-            _items[i * 3 + 2] = (int)cnt;
-        }
-    }
+	@Override
+	protected void readImpl()
+	{
+		_listId = readD();
+		_count = readD();
+		int acc = 12;
+		if (Config.PACKET_FINAL)
+			acc = 16;
+		if (_count <= 0  || _count * acc > getByteBuffer().remaining() || _count > Config.MAX_ITEM_IN_PACKET)
+		{
+			_count = 0; _items = null;
+			return;
+		}
+		_items = new int[_count * 3];
+		for (int i = 0; i < _count; i++)
+		{
+			int objectId = readD(); _items[(i * 3)] = objectId;
+			int itemId   = readD(); _items[i * 3 + 1] = itemId;
+			long cnt      = 0;
+			cnt = readCompQ();
+			if (cnt >= Integer.MAX_VALUE || cnt <= 0)
+			{
+				_count = 0; _items = null;
+				return;
+			}
+			_items[i * 3 + 2] = (int)cnt;
+		}
+	}
 
-    @Override
-    protected void runImpl()
-    {
-        processSell();
-    }
-    
+	@Override
+	protected void runImpl()
+	{
+		processSell();
+	}
+
 	protected void processSell()
 	{
 		L2PcInstance player = getClient().getActiveChar();
@@ -116,33 +120,33 @@ public class RequestSellItem extends L2GameClientPacket
 		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_SHOP && player.getKarma() > 0)
 			return;
 
-        L2Object target = player.getTarget();
-        if (!player.isGM() && (target == null								// No target (ie GM Shop)
-        		|| !(target instanceof L2MerchantInstance || target instanceof L2MerchantSummonInstance)	// Target not a merchant and not mercmanager
-			    || !player.isInsideRadius(target, L2Npc.INTERACTION_DISTANCE, false, false) 	// Distance is too far
-			        )) return;
+		L2Object target = player.getTarget();
+		if (!player.isGM() && (target == null								// No target (ie GM Shop)
+				|| !(target instanceof L2MerchantInstance || target instanceof L2MerchantSummonInstance)	// Target not a merchant and not mercmanager
+				|| !player.isInsideRadius(target, L2Npc.INTERACTION_DISTANCE, false, false) 	// Distance is too far
+					)) return;
 
-        boolean ok = true;
-        String htmlFolder = "";
- 
-        if (target != null)
-        {
-        	if (target instanceof L2MerchantInstance)
-        		htmlFolder = "merchant";
-        	else if (target instanceof L2FishermanInstance)
-        		htmlFolder = "fisherman";
-        	else if (target instanceof L2PetManagerInstance)
-        		htmlFolder = "petmanager";
-        	else
-        		ok = false;
-        }
-        else
-        	ok = false;
+		boolean ok = true;
+		String htmlFolder = "";
 
-        L2Npc merchant = null;
+		if (target != null)
+		{
+			if (target instanceof L2MerchantInstance)
+				htmlFolder = "merchant";
+			else if (target instanceof L2FishermanInstance)
+				htmlFolder = "fisherman";
+			else if (target instanceof L2PetManagerInstance)
+				htmlFolder = "petmanager";
+			else
+				ok = false;
+		}
+		else
+			ok = false;
 
-        if (ok)
-        	merchant = (L2Npc)target;
+		L2Npc merchant = null;
+
+		if (ok)
+			merchant = (L2Npc)target;
 
 		if (merchant != null && _listId > 1000000) // lease
 		{
@@ -176,28 +180,28 @@ public class RequestSellItem extends L2GameClientPacket
 				continue;
 
 			totalPrice += item.getReferencePrice() * count /2;
-			if (totalPrice >= Integer.MAX_VALUE)
+			if (totalPrice > PcInventory.MAX_ADENA)
 			{
-				Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" tried to purchase over "+Integer.MAX_VALUE+" adena worth of goods.",  Config.DEFAULT_PUNISH);
+				Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" tried to purchase over "+PcInventory.MAX_ADENA+" adena worth of goods.",  Config.DEFAULT_PUNISH);
 				return;
 			}
 
 			item = player.getInventory().destroyItem("Sell", objectId, count, player, null);
 		}
-		player.addAdena("Sell", (int)totalPrice, merchant, false);
+		player.addAdena("Sell", totalPrice, merchant, false);
 
 		if (merchant != null) {
 			String html = HtmCache.getInstance().getHtm("data/html/"+ htmlFolder +"/" + merchant.getNpcId() + "-sold.htm");
 	
 			if (html != null)
 			{
-	            NpcHtmlMessage soldMsg = new NpcHtmlMessage(merchant.getObjectId());
+				NpcHtmlMessage soldMsg = new NpcHtmlMessage(merchant.getObjectId());
 				soldMsg.setHtml(html.replaceAll("%objectId%", String.valueOf(merchant.getObjectId())));
 				player.sendPacket(soldMsg);
 			}
 		}
 
-    	// Update current load as well
+		// Update current load as well
 		StatusUpdate su = new StatusUpdate(player.getObjectId());
 		su.addAttribute(StatusUpdate.CUR_LOAD, player.getCurrentLoad());
 		player.sendPacket(su);

@@ -177,7 +177,7 @@ public class L2Multisell
 	{
 		MultiSellEntry newEntry = L2Multisell.getInstance().new MultiSellEntry();
 		newEntry.setEntryId(templateEntry.getEntryId()*100000+enchantLevel);
-		int adenaAmount = 0;
+		long adenaAmount = 0;
 
 		for (MultiSellIngredient ing : templateEntry.getIngredients())
 		{
@@ -188,7 +188,7 @@ public class L2Multisell
 			if (ing.getItemId() == 57 && ing.isTaxIngredient())
 			{
 				if (applyTaxes)
-					adenaAmount += (int) Math.round(ing.getItemCount() * taxRate);
+					adenaAmount += Math.round(ing.getItemCount() * taxRate);
 				continue;	// do not adena yet, as non-taxIngredient adena entries might occur next (order not guaranteed)
 			}
 			else if (ing.getItemId() == 57)  // && !ing.isTaxIngredient()
@@ -594,7 +594,7 @@ public class L2Multisell
 				Node attribute;
 				
 				int id = Integer.parseInt(n.getAttributes().getNamedItem("id").getNodeValue());
-				int count = Integer.parseInt(n.getAttributes().getNamedItem("count").getNodeValue());
+				long count = Long.parseLong(n.getAttributes().getNamedItem("count").getNodeValue());
 				
 				boolean isTaxIngredient = false, maintainIngredient = false;
 				
@@ -614,7 +614,7 @@ public class L2Multisell
 			else if ("production".equalsIgnoreCase(n.getNodeName()))
 			{
 				int id = Integer.parseInt(n.getAttributes().getNamedItem("id").getNodeValue());
-				int count = Integer.parseInt(n.getAttributes().getNamedItem("count").getNodeValue());
+				long count = Long.parseLong(n.getAttributes().getNamedItem("count").getNodeValue());
 				
 				MultiSellIngredient e = new MultiSellIngredient(id, count, false, false); 
 				entry.addProduct(e);

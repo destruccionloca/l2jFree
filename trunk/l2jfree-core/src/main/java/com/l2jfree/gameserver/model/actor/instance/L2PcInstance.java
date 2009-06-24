@@ -4585,7 +4585,7 @@ public final class L2PcInstance extends L2Playable
 			{
 				clanWarKill = pk.getClan() != null && getClan() != null && !isAcademyMember() && !pk.isAcademyMember() &&
 							((_clan.isAtWarWith(pk.getClanId()) && pk.getClan().isAtWarWith(getClanId()))
-						|| (isInSiege() && pk.isInSiege() && isInsideZone(L2Zone.FLAG_SIEGE) && pk.isInsideZone(L2Zone.FLAG_SIEGE)));
+						|| (isInSiege() && pk.isInSiege()));
 				playerKill = true;
 			}
 
@@ -4594,7 +4594,7 @@ public final class L2PcInstance extends L2Playable
 				pk.kills.add(getName());
 			}
 
-			boolean srcInPvP = isInsideZone(L2Zone.FLAG_PVP) && !isInsideZone(L2Zone.FLAG_SIEGE);
+			boolean srcInPvP = isInsideZone(L2Zone.FLAG_PVP) && !isInSiege();
 			
 			if (killer instanceof L2PcInstance && srcInPvP && Config.ARENA_ENABLED)
 			{
@@ -5247,12 +5247,11 @@ public final class L2PcInstance extends L2Playable
 		// Get the Experience before applying penalty
 		setExpBeforeDeath(getExp());
 
-		if (charmOfCourage && getSiegeState() > 0 && isInsideZone(L2Zone.FLAG_SIEGE))
+		if (charmOfCourage && isInSiege())
 			return;
 
-		if ((killed_by_pc || killed_by_siege_npc) && (
-				(isInsideZone(L2Zone.FLAG_PVP) && !isInsideZone(L2Zone.FLAG_SIEGE))
-			|| (isInsideZone(L2Zone.FLAG_SIEGE) && getSiegeState() > 0)))
+		if ((killed_by_pc || killed_by_siege_npc)
+			&& ((isInsideZone(L2Zone.FLAG_PVP) && !isInSiege()) || isInSiege()))
 			return;
 
 		if (_log.isDebugEnabled())
@@ -10762,6 +10761,7 @@ public final class L2PcInstance extends L2Playable
 	public void doRevive()
 	{
 		super.doRevive();
+		stopEffects(L2EffectType.CHARMOFCOURAGE);
 		updateEffectIcons();
 		_reviveRequested = false;
 		_revivePower = 0;
@@ -10811,7 +10811,15 @@ public final class L2PcInstance extends L2Playable
 
 			int restoreExp = (int) Math.round((getExpBeforeDeath() - getExp()) * _revivePower / 100);
 
-			ConfirmDlg dlg = new ConfirmDlg(SystemMessageId.RESSURECTION_REQUEST_BY_C1_FOR_S2_XP.getId());
+			if (getCharmOfCourage())
+			{
+				ConfirmDlg dlg = new ConfirmDlg(SystemMessageId.RESURRECT_USING_CHARM_OF_COURAGE);
+				dlg.addTime(60000);
+				sendPacket(dlg);
+				return;
+			}
+
+			ConfirmDlg dlg = new ConfirmDlg(SystemMessageId.RESSURECTION_REQUEST_BY_C1_FOR_S2_XP);
 			sendPacket(dlg.addPcName(reviver).addString("" + restoreExp));
 		}
 	}

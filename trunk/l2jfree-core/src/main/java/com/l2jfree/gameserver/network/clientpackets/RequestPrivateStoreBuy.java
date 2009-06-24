@@ -23,6 +23,7 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.TradeList;
 import com.l2jfree.gameserver.model.TradeList.TradeItem;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -35,37 +36,40 @@ import com.l2jfree.gameserver.util.Util;
  */
 public class RequestPrivateStoreBuy extends L2GameClientPacket
 {
-    private static final String _C__79_REQUESTPRIVATESTOREBUY = "[C] 79 RequestPrivateStoreBuy";
+	private static final String _C__79_REQUESTPRIVATESTOREBUY = "[C] 79 RequestPrivateStoreBuy";
 
-    private int _storePlayerId;
-    private int _count;
-    private ItemRequest[] _items;
+	private int _storePlayerId;
+	private int _count;
+	private ItemRequest[] _items;
 
-    @Override
-    protected void readImpl()
-    {
-        _storePlayerId = readD();
-        _count = readD();
-        if (_count < 0  || _count * 12 > getByteBuffer().remaining() || _count > Config.MAX_ITEM_IN_PACKET)
-            _count = 0;
-        _items = new ItemRequest[_count];
+	@Override
+	protected void readImpl()
+	{
+		_storePlayerId = readD();
+		_count = readD();
+		int acc = 12;
+		if (Config.PACKET_FINAL)
+			acc = 20;
+		if (_count < 0  || _count * acc > getByteBuffer().remaining() || _count > Config.MAX_ITEM_IN_PACKET)
+			_count = 0;
+		_items = new ItemRequest[_count];
 
-        for (int i = 0; i < _count ; i++)
-        {
-            int objectId = readD();
-            long count   = 0;
-            count = readCompQ();
+		for (int i = 0; i < _count ; i++)
+		{
+			int objectId = readD();
+			long count   = 0;
+			count = readCompQ();
 
-            long price =0;
-            price    = readCompQ();
-            
-            _items[i] = new ItemRequest(objectId, count, price);
-        }
-    }
+			long price =0;
+			price    = readCompQ();
+			
+			_items[i] = new ItemRequest(objectId, count, price);
+		}
+	}
 
-    @Override
-    protected void runImpl()
-    {
+	@Override
+	protected void runImpl()
+	{
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null || player.isCursedWeaponEquipped())
 			return;
@@ -134,7 +138,7 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
 			priceTotal += ir.getPrice() * ir.getCount();
 		}
 
-		if (priceTotal < 0 || priceTotal >= Integer.MAX_VALUE)
+		if (priceTotal < 0 || priceTotal > PcInventory.MAX_ADENA)
 		{
 			String msgErr = "[RequestPrivateStoreBuy] player " + getClient().getActiveChar().getName() + " tried an overflow exploit, ban this player!";
 			Util.handleIllegalPlayerAction(getClient().getActiveChar(), msgErr, Config.DEFAULT_PUNISH);
@@ -143,7 +147,7 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
 
 		if (player.getAdena() < priceTotal)
 		{
-			sendPacket(new SystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
+			sendPacket(SystemMessageId.YOU_NOT_ENOUGH_ADENA);
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}

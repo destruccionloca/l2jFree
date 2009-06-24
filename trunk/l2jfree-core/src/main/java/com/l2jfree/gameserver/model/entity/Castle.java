@@ -79,7 +79,7 @@ public class Castle extends Siegeable<Siege>
 	private int							_taxPercent								= 0;
 	private int							_taxPercentNew							= 0;
 	private double						_taxRate								= 1.0;
-	private int							_treasury								= 0;
+	private long						_treasury								= 0;
 	private int							_nbArtifact								= 1;
 	private Map<Integer, Integer>		_engrave								= new FastMap<Integer, Integer>();
 	private final int[]					_gate									= { Integer.MIN_VALUE, 0, 0 };
@@ -312,8 +312,8 @@ public class Castle extends Siegeable<Siege>
 		}
 		else
 		{
-			if (_treasury + amount > Integer.MAX_VALUE) // TODO is this valid after gracia final?
-				_treasury = Integer.MAX_VALUE;
+			if (_treasury + amount > PcInventory.MAX_ADENA) // TODO is this valid after gracia final?
+				_treasury = PcInventory.MAX_ADENA;
 			else
 				_treasury += amount;
 		}
@@ -323,7 +323,7 @@ public class Castle extends Siegeable<Siege>
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement = con.prepareStatement("UPDATE castle SET treasury = ? WHERE id = ?");
-			statement.setInt(1, getTreasury());
+			statement.setLong(1, getTreasury());
 			statement.setInt(2, getCastleId());
 			statement.execute();
 			statement.close();
@@ -573,7 +573,7 @@ public class Castle extends Siegeable<Siege>
 				_siegeTimeRegistrationEndDate.setTimeInMillis(rs.getLong("regTimeEnd"));
 				_isTimeRegistrationOver = rs.getBoolean("regTimeOver");
 
-				_treasury = rs.getInt("treasury");
+				_treasury = rs.getLong("treasury");
 				_taxPercent = rs.getInt("taxPercent");
 				_taxPercentNew = rs.getInt("newTax");
 				if (_taxPercentNew != 0)
@@ -863,7 +863,7 @@ public class Castle extends Siegeable<Siege>
 		return _taxRate;
 	}
 
-	public final int getTreasury()
+	public final long getTreasury()
 	{
 		return _treasury;
 	}
@@ -918,7 +918,7 @@ public class Castle extends Siegeable<Siege>
 		return null;
 	}
 
-	public int getManorCost(int period)
+	public long getManorCost(int period)
 	{
 		FastList<CropProcure> procure;
 		FastList<SeedProduction> production;
@@ -934,7 +934,7 @@ public class Castle extends Siegeable<Siege>
 			production = _productionNext;
 		}
 
-		int total = 0;
+		long total = 0;
 		if (production != null)
 		{
 			for (SeedProduction seed : production)

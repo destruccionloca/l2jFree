@@ -33,6 +33,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2MerchantInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MerchantSummonInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetManagerInstance;
+import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
@@ -77,7 +78,10 @@ public class RequestBuyItem extends L2GameClientPacket
 	{
 		_listId = readD();
 		_count = readD();
-		if ((_count * 2 < 0) || (_count * 8 > getByteBuffer().remaining()) || (_count > Config.MAX_ITEM_IN_PACKET))
+		int acc = 8;
+		if (Config.PACKET_FINAL)
+			acc = 12;
+		if ((_count * 2 < 0) || (_count * acc > getByteBuffer().remaining()) || (_count > Config.MAX_ITEM_IN_PACKET))
 			_count = 0;
 		_items = new int[_count * 2];
 		for (int i = 0; i < _count; i++)
@@ -255,7 +259,7 @@ public class RequestBuyItem extends L2GameClientPacket
 			long stackPrice = price * count;
 			long taxedPrice = (long) (stackPrice * taxRate);
 			long tax = taxedPrice - stackPrice;
-			if (taxedPrice >= Integer.MAX_VALUE)
+			if (taxedPrice >= PcInventory.MAX_ADENA)
 			{
 				requestFailed(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
 				return;
@@ -284,7 +288,7 @@ public class RequestBuyItem extends L2GameClientPacket
 
 		if (!player.isGM() || (player.isGM() && (player.getAccessLevel() < Config.GM_FREE_SHOP)))
 		{
-			if ((taxedPriceTotal < 0) || (taxedPriceTotal >= Integer.MAX_VALUE) || !player.reduceAdena("Buy", (int) taxedPriceTotal, merchant, false))
+			if ((taxedPriceTotal < 0) || (taxedPriceTotal >= Integer.MAX_VALUE) || !player.reduceAdena("Buy", taxedPriceTotal, merchant, false))
 			{
 				requestFailed(SystemMessageId.YOU_NOT_ENOUGH_ADENA);
 				return;

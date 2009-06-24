@@ -228,28 +228,28 @@ public class L2MerchantInstance extends L2NpcInstance
 			return;
 
 		int petId;
-		double price = 1;
-		int cost[] = {1800, 7200, 720000, 6480000};
+		long cost[] = {1800, 7200, 720000, 6480000};
 		int ridetime[] = {30, 60, 600, 1800};
-
-		if (val > 10)
-		{
-			petId = 12526;
-			val -= 10;
-			price /= 2;
-		}
-		else
-		{
-			petId = 12621;
-		}
 
 		if (val < 1 || val > 4)
 			return;
 
-		price *= cost[val - 1];
+		long price;
+		if (val > 10)
+		{
+			petId = 12526;
+			val -= 10;
+			price = cost[val - 1] / 2;
+		}
+		else
+		{
+			petId = 12621;
+			price = cost[val - 1];
+		}
+
 		int time = ridetime[val - 1];
 
-		if (!player.reduceAdena("Rent", (int) price, player.getLastFolkNPC(), true))
+		if (!player.reduceAdena("Rent", price, player.getLastFolkNPC(), true))
 			return;
 
 		player.mount(petId, 0, false);
