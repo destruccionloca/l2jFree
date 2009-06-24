@@ -38,7 +38,6 @@ import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.SpawnTable;
-import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Party;
 import com.l2jfree.gameserver.model.L2Radar;
@@ -976,11 +975,7 @@ public class CTF
 
 						if (Config.CTF_ON_START_REMOVE_ALL_EFFECTS)
 						{
-							for (L2Effect e : player.getAllEffects())
-							{
-								if (e != null)
-									e.exit();
-							}
+							player.stopAllEffects();
 						}
 
 						//Remove player from his party
@@ -1044,11 +1039,7 @@ public class CTF
 
 						if (Config.CTF_ON_START_REMOVE_ALL_EFFECTS)
 						{
-							for (L2Effect e : player.getAllEffects())
-							{
-								if (e != null)
-									e.exit();
-							}
+							player.stopAllEffects();
 						}
 
 						//Remove player from his party

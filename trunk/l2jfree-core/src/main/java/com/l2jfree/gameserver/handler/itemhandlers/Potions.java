@@ -119,7 +119,7 @@ public class Potions implements IItemHandler
 			usePotion(playable, 2032, 1);
 			break;
 		case 1060: // lesser_healing_potion,
-		case 1061: // 
+		case 1061: //
 		case 1073: // beginner's potion, xml: 2031
 			if (!isUseable(playable, L2EffectType.HEAL_OVER_TIME, item, 2031))
 				return;
@@ -360,27 +360,21 @@ public class Potions implements IItemHandler
 
 	private boolean isEffectReplaceable(L2Playable playable, L2EffectType effectType, L2ItemInstance item)
 	{
-		L2Effect[] effects = playable.getAllEffects();
-
-		if (effects == null)
-			return true;
-
-		L2PcInstance activeChar = ((playable instanceof L2PcInstance) ? ((L2PcInstance) playable) : ((L2Summon) playable).getOwner());
-
-		for (L2Effect e : effects)
+		for (L2Effect e : playable.getAllEffects())
 		{
 			if (e.getEffectType() == effectType)
 			{
 				// One can reuse pots after 2/3 of their duration is over.
 				// It would be faster to check if its > 10 but that would screw custom pot durations...
 				if (e.getElapsedTaskTime() > (e.getTotalTaskTime() * 2 / 3))
-					return true;
+					continue;
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_PREPARED_FOR_REUSE);
 				sm.addItemName(item);
-				activeChar.sendPacket(sm);
+				playable.getActingPlayer().sendPacket(sm);
 				return false;
 			}
 		}
+		
 		return true;
 	}
 

@@ -8288,21 +8288,10 @@ public final class L2PcInstance extends L2Playable
 
 		if (skill.getTransformId() > 0)
 		{
-			boolean found = false;
-			L2Effect al2effect[] = getAllEffects();
-			int i = 0;
-			for (int k = al2effect.length; i < k; i++)
-			{
-				L2Effect ef = al2effect[i];
-				if (ef.getEffectType() == L2EffectType.TRANSFORMATION)
-					found = true;
-			}
-	 	 	if (getPet() != null)
-	 	 	{
-	 	 		// Unsummon pets
-	 	 		getPet().unSummon(this);
-	 	 	}
-			if (found || getPet() != null || isMounted() || isFlying())
+			if (getPet() != null)
+				getPet().unSummon(this); // Unsummon pets
+			
+			if (getEffects().hasEffect(L2EffectType.TRANSFORMATION) || getPet() != null || isMounted() || isFlying())
 			{
 				sendPacket(new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED).addSkillName(skill));
 				return false;

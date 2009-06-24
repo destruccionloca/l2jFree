@@ -144,20 +144,12 @@ public class Continuous implements ICubicSkillHandler
 			{
 				if (skill.isToggle())
 				{
-					L2Effect[] effects = target.getAllEffects();
-					if (effects != null)
+					L2Effect e = target.getEffects().getFirstEffect(skill);
+					
+					if (e != null)
 					{
-						for (L2Effect e : effects)
-						{
-							if (e != null)
-							{
-								if (e.getSkill().getId() == skill.getId())
-								{
-									e.exit();
-									return;
-								}
-							}
-						}
+						e.exit();
+						return;
 					}
 				}
 

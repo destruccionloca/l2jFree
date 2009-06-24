@@ -36,7 +36,6 @@ import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.SpawnTable;
-import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.base.Race;
@@ -874,11 +873,7 @@ public class VIP {
 			player.broadcastUserInfo();
 			if (Config.VIP_ON_START_REMOVE_ALL_EFFECTS)
 			{
-				for (L2Effect e : player.getAllEffects())
-				{
-					if (e != null)
-						e.exit();
-				}
+				player.stopAllEffects();
 			}
 		}
 	}

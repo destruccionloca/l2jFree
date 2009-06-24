@@ -20,7 +20,6 @@ import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
 
 import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.geodata.GeoData;
-import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Attackable;
@@ -542,16 +541,8 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 						}
 						if (sk.getSkillType() == L2SkillType.BUFF)
 						{
-							L2Effect[] effects = _actor.getAllEffects();
-							for (int i = 0; effects != null && i < effects.length; i++)
-							{
-								L2Effect effect = effects[i];
-								if (effect.getSkill() == sk)
-								{
-									useSkillSelf = false;
-									break;
-								}
-							}
+							if (_actor.getEffects().hasEffect(sk))
+								useSkillSelf = false;
 						}
 						if (useSkillSelf)
 							_actor.setTarget(_actor);
@@ -665,16 +656,8 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 							}
 							if (sk.getSkillType() == L2SkillType.BUFF)
 							{
-								L2Effect[] effects = _actor.getAllEffects();
-								for (int i = 0; effects != null && i < effects.length; i++)
-								{
-									L2Effect effect = effects[i];
-									if (effect.getSkill() == sk)
-									{
-										useSkillSelf = false;
-										break;
-									}
-								}
+								if (_actor.getEffects().hasEffect(sk))
+									useSkillSelf = false;
 							}
 							if (useSkillSelf)
 								_actor.setTarget(_actor);
