@@ -92,6 +92,19 @@ public class CharEffects
 		return _toArray;
 	}
 	
+	public synchronized L2Effect[] getAllEffects(String stackType)
+	{
+		if (isEmpty())
+			return L2Effect.EMPTY_ARRAY;
+		
+		final StackQueue queue = _stackedEffects.get(stackType);
+		
+		if (queue == null)
+			return L2Effect.EMPTY_ARRAY;
+		
+		return queue._queue.toArray(new L2Effect[queue._queue.size()]);
+	}
+	
 	public synchronized void addEffect(L2Effect newEffect)
 	{
 		if (_effects == null)
@@ -215,7 +228,7 @@ public class CharEffects
 		private CharEffects _effects;
 		private String _stackType;
 		
-		private void add(final L2Effect effect)
+		private synchronized void add(final L2Effect effect)
 		{
 			int index;
 			for (index = 0; index < _queue.size(); index++)
@@ -237,7 +250,7 @@ public class CharEffects
 			// TODO: Config.EFFECT_CANCELING
 		}
 		
-		private void remove(final L2Effect effect)
+		private synchronized void remove(final L2Effect effect)
 		{
 			final int index = _queue.indexOf(effect);
 			
@@ -253,10 +266,10 @@ public class CharEffects
 				StackQueue.recycle(this);
 		}
 		
-		private void stopAllEffects()
+		private synchronized void stopAllEffects()
 		{
-			for (int index = _queue.size() - 1; index >= 0; index--)
-				_queue.get(index).exit();
+			while (!_queue.isEmpty())
+				_queue.get(_queue.size() - 1).exit();
 		}
 	}
 	
@@ -430,17 +443,27 @@ public class CharEffects
 		stopAllEffects(false);
 	}
 	
-	public void stopAllEffects(boolean stopEffectsThatLastThroughDeathToo)
+	public synchronized void stopAllEffects(boolean stopEffectsThatLastThroughDeathToo)
 	{
-		for (L2Effect e : getAllEffects())
+		if (isEmpty())
+			return;
+		
+		if (stopEffectsThatLastThroughDeathToo)
 		{
-			if (e == null)
-				continue;
-			
-			if (e.isStayAfterDeath() && !stopEffectsThatLastThroughDeathToo)
-				continue;
-			
-			e.exit();
+			while (!_effects.isEmpty())
+				_stackedEffects.get(_effects.get(_effects.size() - 1).getStackType()).stopAllEffects();
+		}
+		else
+		{
+			for (int index = _effects.size() - 1; index >= 0; index = Math.min(index - 1, _effects.size() - 1))
+			{
+				final L2Effect e = _effects.get(index);
+				
+				if (e.isStayAfterDeath())
+					continue;
+				
+				e.exit();
+			}
 		}
 	}
 	

@@ -14,11 +14,10 @@
  */
 package com.l2jfree.gameserver.handler.skillhandlers;
 
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
-import javolution.util.FastList;
+import org.apache.commons.lang.ArrayUtils;
 
 import com.l2jfree.gameserver.ai.CtrlEvent;
 import com.l2jfree.gameserver.ai.CtrlIntention;
@@ -183,7 +182,7 @@ public class Disablers implements ICubicSkillHandler
 						SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
 						sm.addCharName(target);
 						sm.addSkillName(skill);
-						activeChar.sendPacket(sm);
+						((L2PcInstance)activeChar).sendPacket(sm);
 					}
 				}
 				break;
@@ -209,7 +208,7 @@ public class Disablers implements ICubicSkillHandler
 						SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
 						sm.addCharName(target);
 						sm.addSkillName(skill);
-						activeChar.sendPacket(sm);
+						((L2PcInstance)activeChar).sendPacket(sm);
 					}
 				}
 				break;
@@ -226,13 +225,6 @@ public class Disablers implements ICubicSkillHandler
 				}
 				if (Formulas.calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss))
 				{
-					// stop same type effect if available
-					L2Effect[] effects = target.getAllEffects();
-					for (L2Effect e : effects)
-					{
-						if (e.getSkill().getSkillType() == type)
-							e.exit();
-					}
 					skill.getEffects(activeChar, target);
 				}
 				else
@@ -242,7 +234,7 @@ public class Disablers implements ICubicSkillHandler
 						SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
 						sm.addCharName(target);
 						sm.addSkillName(skill);
-						activeChar.sendPacket(sm);
+						((L2PcInstance)activeChar).sendPacket(sm);
 					}
 				}
 				break;
@@ -254,12 +246,6 @@ public class Disablers implements ICubicSkillHandler
 				{
 					if (Formulas.calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss))
 					{
-						L2Effect[] effects = target.getAllEffects();
-						for (L2Effect e : effects)
-						{
-							if (e.getSkill().getSkillType() == type)
-								e.exit();
-						}
 						skill.getEffects(activeChar, target);
 					}
 					else
@@ -269,7 +255,7 @@ public class Disablers implements ICubicSkillHandler
 							SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
 							sm.addCharName(target);
 							sm.addSkillName(skill);
-							activeChar.sendPacket(sm);
+							((L2PcInstance)activeChar).sendPacket(sm);
 						}
 					}
 				}
@@ -360,7 +346,7 @@ public class Disablers implements ICubicSkillHandler
 						SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
 						sm.addString(target.getName());
 						sm.addSkillName(skill.getId());
-						activeChar.sendPacket(sm);
+						((L2PcInstance)activeChar).sendPacket(sm);
 					}
 					target.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, activeChar);
 				}
@@ -383,7 +369,7 @@ public class Disablers implements ICubicSkillHandler
 							SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
 							sm.addCharName(target);
 							sm.addSkillName(skill);
-							activeChar.sendPacket(sm);
+							((L2PcInstance)activeChar).sendPacket(sm);
 						}
 						target.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, activeChar);
 					}
@@ -413,7 +399,7 @@ public class Disablers implements ICubicSkillHandler
 						SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
 						sm.addCharName(target);
 						sm.addSkillName(skill);
-						activeChar.sendPacket(sm);
+						((L2PcInstance)activeChar).sendPacket(sm);
 					}
 				}
 
@@ -431,27 +417,24 @@ public class Disablers implements ICubicSkillHandler
 						SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
 						sm.addCharName(target);
 						sm.addSkillName(skill);
-						activeChar.sendPacket(sm);
+						((L2PcInstance)activeChar).sendPacket(sm);
 					}
 					continue;
 				}
-
-				L2Effect[] effects = target.getAllEffects();
-				for (L2Effect e : effects)
-				{
-					// TODO: Unhardcode this L2SkillType, maybe on its own child class
-					// only Acumen and Greater Empower
-					if (e.getSkill().getId() == 1085 || e.getSkill().getId() == 1059)
+				
+				for (L2Effect e : target.getEffects().getAllEffects("casting_time_down")) // Acumen
+					if (e.getSkill().isPositive())
 						e.exit();
-				}
+				for (L2Effect e : target.getEffects().getAllEffects("ma_up")) // Empower
+					if (e.getSkill().isPositive())
+						e.exit();
 				break;
 			}
-
 			case WARRIOR_BANE:
 			{
 				if (Formulas.calcSkillReflect(target, skill) == Formulas.SKILL_REFLECT_SUCCEED)
 					target = activeChar;
-
+				
 				if (!Formulas.calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss))
 				{
 					if (activeChar instanceof L2PcInstance)
@@ -459,19 +442,17 @@ public class Disablers implements ICubicSkillHandler
 						SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
 						sm.addCharName(target);
 						sm.addSkillName(skill);
-						activeChar.sendPacket(sm);
+						((L2PcInstance)activeChar).sendPacket(sm);
 					}
 					continue;
 				}
-
-				L2Effect[] effects = target.getAllEffects();
-				for (L2Effect e : effects)
-				{
-					// TODO: Unhardcode this L2SkillType, maybe on its own child class
-					// only Wind Walk and Haste
-					if (e.getSkill().getId() == 1204 || e.getSkill().getId() == 1086)
+				
+				for (L2Effect e : target.getEffects().getAllEffects("attack_time_down")) // Haste
+					if (e.getSkill().isPositive())
 						e.exit();
-				}
+				for (L2Effect e : target.getEffects().getAllEffects("speed_up")) // Wind Walk
+					if (e.getSkill().isPositive())
+						e.exit();
 				break;
 			}
 			case CANCEL_DEBUFF:
@@ -512,11 +493,9 @@ public class Disablers implements ICubicSkillHandler
 					return;
 
 				// Reversing array
-				List<L2Effect> list = Arrays.asList(effects);
-				Collections.reverse(list);
-				list.toArray(effects);
+				ArrayUtils.reverse(effects = effects.clone());
 
-				FastList<L2Effect> toSteal = new FastList<L2Effect>();
+				List<L2Effect> toSteal = new ArrayList<L2Effect>();
 				int count = 0;
 				int lastSkill = 0;
 
@@ -563,7 +542,7 @@ public class Disablers implements ICubicSkillHandler
 						max = 24; //this is for RBcancells and stuff...
 
 					if (effects.length >= max)
-						effects = sortEffects(effects);
+						effects = sortEffects(effects.clone());
 
 					double count = 1;
 
@@ -621,7 +600,7 @@ public class Disablers implements ICubicSkillHandler
 						SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
 						sm.addCharName(target);
 						sm.addSkillName(skill);
-						activeChar.sendPacket(sm);
+						((L2PcInstance)activeChar).sendPacket(sm);
 					}
 				}
 				break;
@@ -631,18 +610,13 @@ public class Disablers implements ICubicSkillHandler
 				if (Formulas.calcSkillReflect(target, skill) == Formulas.SKILL_REFLECT_SUCCEED)
 					target = activeChar;
 				
-				for(int id:skill.getNegateId())
+				for(int id : skill.getNegateId())
 				{
 					if (id > 0)
 					{
-						L2Effect[] effects = target.getAllEffects();
-						for (L2Effect e : effects)
-						{
-							//if someone is dumb enough to set a skill to negate an ENVIRONMENT skill,
-							//it will be applied again in less than 3 seconds. No check here.
-							if (e.getSkill().getId() == id)
-								e.exit();
-						}
+						//if someone is dumb enough to set a skill to negate an ENVIRONMENT skill,
+						//it will be applied again in less than 3 seconds. No check here.
+						target.getEffects().stopEffects(id);
 					}
 					// Fishing potion
 					else if (skill.getId() == 2275)
@@ -689,7 +663,7 @@ public class Disablers implements ICubicSkillHandler
 						SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
 						sm.addCharName(target);
 						sm.addSkillName(skill);
-						activeChar.sendPacket(sm);
+						((L2PcInstance)activeChar).sendPacket(sm);
 					}
 					break;
 				}
@@ -905,7 +879,7 @@ public class Disablers implements ICubicSkillHandler
 		return  (maxRemoved <= 0) ? count + 2 : count;
 	}
 
-	private void stealEffects(L2Character stealer, L2Character stolen, FastList<L2Effect> stolenEffects)
+	private void stealEffects(L2Character stealer, L2Character stolen, List<L2Effect> stolenEffects)
 	{
 		for (L2Effect eff : stolenEffects)
 		{
@@ -926,7 +900,7 @@ public class Disablers implements ICubicSkillHandler
 			{
 				SystemMessage smsg = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
 				smsg.addSkillName(eff);
-				stealer.sendPacket(smsg);
+				((L2PcInstance)stealer).sendPacket(smsg);
 			}
 			// Finishing stolen effect
 			eff.exit();
