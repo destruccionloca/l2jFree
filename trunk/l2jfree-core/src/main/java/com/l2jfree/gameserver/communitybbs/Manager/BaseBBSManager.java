@@ -14,12 +14,11 @@
  */
 package com.l2jfree.gameserver.communitybbs.Manager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.ShowBoard;
-
-import javolution.util.FastList;
 
 public abstract class BaseBBSManager
 {
@@ -80,7 +79,7 @@ public abstract class BaseBBSManager
 	 */
 	protected void send1002(L2PcInstance activeChar, String string, String string2, String string3)
 	{
-		List<String> _arg = new FastList<String>();
+		List<String> _arg = new ArrayList<String>(17);
 		_arg.add("0");
 		_arg.add("0");
 		_arg.add("0");

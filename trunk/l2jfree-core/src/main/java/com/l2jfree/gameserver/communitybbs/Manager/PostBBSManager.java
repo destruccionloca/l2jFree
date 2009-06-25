@@ -20,15 +20,15 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import javolution.text.TextBuilder;
+import javolution.util.FastMap;
+
 import com.l2jfree.gameserver.communitybbs.bb.Forum;
 import com.l2jfree.gameserver.communitybbs.bb.Post;
 import com.l2jfree.gameserver.communitybbs.bb.Topic;
 import com.l2jfree.gameserver.communitybbs.bb.Post.CPost;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.ShowBoard;
-
-import javolution.text.TextBuilder;
-import javolution.util.FastMap;
 
 public class PostBBSManager extends BaseBBSManager
 {
@@ -188,10 +188,12 @@ public class PostBBSManager extends BaseBBSManager
 	 */
 	private void showHtmlEditPost(Topic topic, L2PcInstance activeChar, Forum forum, Post p)
 	{
-        TextBuilder html = new TextBuilder("<html>");
+		final TextBuilder html = TextBuilder.newInstance();
+		html.append("<html>");
 		html.append("<body><br><br>");
 		html.append("<table border=0 width=610><tr><td width=10></td><td width=600 align=left>");
-		html.append("<a action=\"bypass _bbshome\">HOME</a>&nbsp;>&nbsp;<a action=\"bypass _bbsmemo\">"+forum.getName()+" Form</a>");
+		html.append("<a action=\"bypass _bbshome\">HOME</a>&nbsp;>&nbsp;<a action=\"bypass _bbsmemo\">").append(
+			forum.getName()).append(" Form</a>");
 		html.append("</td></tr>");
 		html.append("</table>");
 		html.append("<img src=\"L2UI.squareblank\" width=\"1\" height=\"10\">");
@@ -204,7 +206,7 @@ public class PostBBSManager extends BaseBBSManager
 		html.append("<tr>");
 		html.append("<td><img src=\"l2ui.mini_logo\" width=5 height=1></td>");
 		html.append("<td align=center FIXWIDTH=60 height=29>&$413;</td>");
-		html.append("<td FIXWIDTH=540>"+ topic.getName() +"</td>");
+		html.append("<td FIXWIDTH=540>").append(topic.getName()).append("</td>");
 		html.append("<td><img src=\"l2ui.mini_logo\" width=5 height=1></td>");
 		html.append("</tr></table>");
 		html.append("<table fixwidth=610 border=0 cellspacing=0 cellpadding=0>");
@@ -222,7 +224,8 @@ public class PostBBSManager extends BaseBBSManager
 		html.append("<tr>");
 		html.append("<td><img src=\"l2ui.mini_logo\" width=5 height=1></td>");
 		html.append("<td align=center FIXWIDTH=60 height=29>&nbsp;</td>");
-		html.append("<td align=center FIXWIDTH=70><button value=\"&$140;\" action=\"Write Post "+forum.getID()+";"+topic.getID()+";0 _ Content Content Content\" back=\"l2ui_ch3.smallbutton2_down\" width=65 height=20 fore=\"l2ui_ch3.smallbutton2\" ></td>");
+		html.append("<td align=center FIXWIDTH=70><button value=\"&$140;\" action=\"Write Post ").append(forum.getID()).append(";").append(topic.getID())
+			.append(";0 _ Content Content Content\" back=\"l2ui_ch3.smallbutton2_down\" width=65 height=20 fore=\"l2ui_ch3.smallbutton2\" ></td>");
 		html.append("<td align=center FIXWIDTH=70><button value = \"&$141;\" action=\"bypass _bbsmemo\" back=\"l2ui_ch3.smallbutton2_down\" width=65 height=20 fore=\"l2ui_ch3.smallbutton2\"> </td>");
 		html.append("<td align=center FIXWIDTH=400>&nbsp;</td>");
 		html.append("<td><img src=\"l2ui.mini_logo\" width=5 height=1></td>");
@@ -230,8 +233,16 @@ public class PostBBSManager extends BaseBBSManager
 		html.append("</center>");
 		html.append("</body>");
 		html.append("</html>");
-		send1001(html.toString(),activeChar);
-    	send1002(activeChar,p.getCPost(0).postTxt,topic.getName(),DateFormat.getInstance().format(new Date(topic.getDate())));
+		try
+		{
+			send1001(html.toString(), activeChar);
+			send1002(activeChar, p.getCPost(0).postTxt, topic.getName(), DateFormat.getInstance().format(
+				new Date(topic.getDate())));
+		}
+		finally
+		{
+			TextBuilder.recycle(html);
+		}
 	}
 
 	/**
@@ -245,7 +256,8 @@ public class PostBBSManager extends BaseBBSManager
 		Post p = getGPosttByTopic(topic);
 		Locale locale = Locale.getDefault();
 		DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL, locale);
-        TextBuilder html = new TextBuilder("<html><body><br><br>");
+		final TextBuilder html = TextBuilder.newInstance();
+		html.append("<html><body><br><br>");
 		html.append("<table border=0 width=610><tr><td width=10></td><td width=600 align=left>");
 		html.append("<a action=\"bypass _bbshome\">HOME</a>&nbsp;>&nbsp;<a action=\"bypass _bbsmemo\">Memo Form</a>");
 		html.append("</td></tr>");
@@ -256,7 +268,7 @@ public class PostBBSManager extends BaseBBSManager
 		html.append("<tr><td height=10></td></tr>");
 		html.append("<tr>");
 		html.append("<td fixWIDTH=55 align=right valign=top>&$413; : &nbsp;</td>");
-		html.append("<td fixWIDTH=380 valign=top>"+topic.getName()+"</td>");
+		html.append("<td fixWIDTH=380 valign=top>").append(topic.getName()).append("</td>");
 		html.append("<td fixwidth=5></td>");
 		html.append("<td fixwidth=50></td>");
 		html.append("<td fixWIDTH=120></td>");
@@ -264,10 +276,11 @@ public class PostBBSManager extends BaseBBSManager
 		html.append("<tr><td height=10></td></tr>");
 		html.append("<tr>");
 		html.append("<td align=right><font color=\"AAAAAA\" >&$417; : &nbsp;</font></td>");
-		html.append("<td><font color=\"AAAAAA\">"+topic.getOwnerName()+"</font></td>");
+		html.append("<td><font color=\"AAAAAA\">").append(topic.getOwnerName()).append("</font></td>");
 		html.append("<td></td>");
 		html.append("<td><font color=\"AAAAAA\">&$418; :</font></td>");
-		html.append("<td><font color=\"AAAAAA\">"+dateFormat.format(p.getCPost(0).postDate)+"</font></td>");
+		html.append("<td><font color=\"AAAAAA\">").append(dateFormat.format(p.getCPost(0).postDate)).append(
+			"</font></td>");
 		html.append("</tr>");
 		html.append("<tr><td height=10></td></tr>");
 		html.append("</table>");
@@ -275,10 +288,10 @@ public class PostBBSManager extends BaseBBSManager
 		html.append("<table border=0 cellspacing=0 cellpadding=0>");
 		html.append("<tr>");
 		html.append("<td fixwidth=5></td>");
-		String Mes = p.getCPost(0).postTxt.replace(">","&gt;");
-		Mes = Mes.replace("<","&lt;");
-		Mes = Mes.replace("\n","<br1>");
-		html.append("<td FIXWIDTH=600 align=left>"+ Mes +"</td>");
+		String Mes = p.getCPost(0).postTxt.replace(">", "&gt;");
+		Mes = Mes.replace("<", "&lt;");
+		Mes = Mes.replace("\n", "<br1>");
+		html.append("<td FIXWIDTH=600 align=left>").append(Mes).append("</td>");
 		html.append("<td fixqqwidth=5></td>");
 		html.append("</tr>");
 		html.append("</table>");
@@ -292,9 +305,12 @@ public class PostBBSManager extends BaseBBSManager
 		html.append("<button value=\"&$422;\" action=\"bypass _bbsmemo\" back=\"l2ui_ch3.smallbutton2_down\" width=65 height=20 fore=\"l2ui_ch3.smallbutton2\">");
 		html.append("</td>");
 		html.append("<td width=560 align=right><table border=0 cellspacing=0><tr>");
-		html.append("<td FIXWIDTH=300></td><td><button value = \"&$424;\" action=\"bypass _bbsposts;edit;"+ forum.getID() +";"+ topic.getID() +";0\" back=\"l2ui_ch3.smallbutton2_down\" width=65 height=20 fore=\"l2ui_ch3.smallbutton2\" ></td>&nbsp;");
-		html.append("<td><button value = \"&$425;\" action=\"bypass _bbstopics;del;"+forum.getID()+";"+ topic.getID() +"\" back=\"l2ui_ch3.smallbutton2_down\" width=65 height=20 fore=\"l2ui_ch3.smallbutton2\" ></td>&nbsp;");
-		html.append("<td><button value = \"&$421;\" action=\"bypass _bbstopics;crea;"+forum.getID()+"\" back=\"l2ui_ch3.smallbutton2_down\" width=65 height=20 fore=\"l2ui_ch3.smallbutton2\" ></td>&nbsp;");
+		html.append("<td FIXWIDTH=300></td><td><button value = \"&$424;\" action=\"bypass _bbsposts;edit;").append(forum.getID()).append(";").append(topic.getID())
+			.append(";0\" back=\"l2ui_ch3.smallbutton2_down\" width=65 height=20 fore=\"l2ui_ch3.smallbutton2\" ></td>&nbsp;");
+		html.append("<td><button value = \"&$425;\" action=\"bypass _bbstopics;del;").append(forum.getID()).append(";").append(topic.getID())
+			.append("\" back=\"l2ui_ch3.smallbutton2_down\" width=65 height=20 fore=\"l2ui_ch3.smallbutton2\" ></td>&nbsp;");
+		html.append("<td><button value = \"&$421;\" action=\"bypass _bbstopics;crea;").append(forum.getID())
+			.append("\" back=\"l2ui_ch3.smallbutton2_down\" width=65 height=20 fore=\"l2ui_ch3.smallbutton2\" ></td>&nbsp;");
 		html.append("</tr></table>");
 		html.append("</td>");
 		html.append("</tr>");
@@ -304,7 +320,14 @@ public class PostBBSManager extends BaseBBSManager
 		html.append("<br></center>");
 		html.append("</body>");
 		html.append("</html>");
-		separateAndSend(html.toString(),activeChar);
+		try
+		{
+			separateAndSend(html.toString(), activeChar);
+		}
+		finally
+		{
+			TextBuilder.recycle(html);
+		}
 	}
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.communitybbs.Manager.BaseBBSManager#parsewrite(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, com.l2jfree.gameserver.model.actor.instance.L2PcInstance)

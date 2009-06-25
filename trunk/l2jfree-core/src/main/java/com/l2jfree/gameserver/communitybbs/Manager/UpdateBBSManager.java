@@ -20,6 +20,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import javolution.text.TextBuilder;
 import javolution.util.FastList;
 
 import org.apache.commons.logging.Log;
@@ -107,27 +108,37 @@ public class UpdateBBSManager extends BaseBBSManager
 	{
 		if (command.equals("_bbsupdate_notes"))
 		{
-			String content = "<html><body><br>";
+			final TextBuilder tb = TextBuilder.newInstance();
+			tb.append("<html><body><br>");
 
-			content += "<table border=0 cellspacing=0 cellpadding=2 bgcolor=808080 width=770>";
-			content += "<tr>";
-			content += "<td FIXWIDTH=5></td>";
-			content += "<td FIXWIDTH=150 align=center>Author</td>";
-			content += "<td FIXWIDTH=460 align=left>Title</td>";
-			content += "<td FIXWIDTH=150 align=center>Authoring Date</td>";
-			content += "<td FIXWIDTH=5></td>";
-			content += "</tr></table>";
-			content += "<table border=0 cellspacing=0 cellpadding=2 width=770>";
+			tb.append("<table border=0 cellspacing=0 cellpadding=2 bgcolor=808080 width=770>");
+			tb.append("<tr>");
+			tb.append("<td FIXWIDTH=5></td>");
+			tb.append("<td FIXWIDTH=150 align=center>Author</td>");
+			tb.append("<td FIXWIDTH=460 align=left>Title</td>");
+			tb.append("<td FIXWIDTH=150 align=center>Authoring Date</td>");
+			tb.append("<td FIXWIDTH=5></td>");
+			tb.append("</tr></table>");
+			tb.append("<table border=0 cellspacing=0 cellpadding=2 width=770>");
 			for (UpdateItem temp : getChangeLog())
 			{
-				content += "<tr>";
-				content += "<td FIXWIDTH=5></td><td FIXWIDTH=150>" + temp.author + "</td><td FIXWIDTH=460><a action=\"bypass _bbsupdate_details;" + temp.id + "\">" + temp.introduction + "</a></td><td FIXWIDTH=150>" + temp.udate
-						+ "</td><td FIXWIDTH=5></td>";
-				content += "</tr>";
+				tb.append("<tr>");
+				tb.append("<td FIXWIDTH=5></td><td FIXWIDTH=150>").append(temp.author)
+					.append("</td><td FIXWIDTH=460><a action=\"bypass _bbsupdate_details;").append(temp.id)
+					.append("\">").append(temp.introduction).append("</a></td><td FIXWIDTH=150>").append(temp.udate)
+					.append("</td><td FIXWIDTH=5></td>");
+				tb.append("</tr>");
 			}
-			content += "  </table>";
-			content += "</body></html>";
-			separateAndSend(content, activeChar);
+			tb.append("</table>");
+			tb.append("</body></html>");
+			try
+			{
+				separateAndSend(tb.toString(), activeChar);
+			}
+			finally
+			{
+				TextBuilder.recycle(tb);
+			}
 		}
 		else if (command.startsWith("_bbsupdate_details"))
 		{
@@ -135,11 +146,19 @@ public class UpdateBBSManager extends BaseBBSManager
 			st.nextToken();
 			int id = Integer.parseInt(st.nextToken());
 			UpdateItem it = getDetails(id);
-			String content = "<html><body><table border=0 cellspacing=0 cellpadding=2 width=770><tr><td FIXWIDTH=5></td><td><br>";
-			content += it.udate + " " + it.introduction + "<br><br>";
-			content += it.text;
-			content += "</td><td FIXWIDTH=5></td></tr></table>  <a action=\"bypass _bbsupdate_notes\">Back to Changelog</a><br></body></html>";
-			separateAndSend(content, activeChar);
+			final TextBuilder tb = TextBuilder.newInstance();
+			tb.append("<html><body><table border=0 cellspacing=0 cellpadding=2 width=770><tr><td FIXWIDTH=5></td><td><br>");
+			tb.append(it.udate).append(" ").append(it.introduction).append("<br><br>");
+			tb.append(it.text);
+			tb.append("</td><td FIXWIDTH=5></td></tr></table>  <a action=\"bypass _bbsupdate_notes\">Back to Changelog</a><br></body></html>");
+			try
+			{
+				separateAndSend(tb.toString(), activeChar);
+			}
+			finally
+			{
+				TextBuilder.recycle(tb);
+			}
 		}
 		else
 		{

@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.communitybbs.Manager;
 
+import javolution.text.TextBuilder;
+
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class DroplocatorBBSManager extends BaseBBSManager
@@ -23,17 +25,26 @@ public class DroplocatorBBSManager extends BaseBBSManager
 	{
 		if (command.equals("_bbsdroplocator_search"))
 		{
-			String content = "<html><body><br>";
-
-			content += "<table border=0 cellspacing=0 cellpadding=2 bgcolor=808080 width=770>";
-			content += "<tr>";
-			content += "<td FIXWIDTH=5></td>";
-			content += "<td FIXWIDTH=150 align=center>Author</td>";
-			content += "<td FIXWIDTH=460 align=left>Title</td>";
-			content += "<td FIXWIDTH=150 align=center>Authoring Date</td>";
-			content += "<td FIXWIDTH=5></td>";
-			content += "</tr></table>";
-			content += "<table border=0 cellspacing=0 cellpadding=2 width=770>";
+			final TextBuilder content = TextBuilder.newInstance();
+			content.append("<html><body><br>");
+			content.append("<table border=0 cellspacing=0 cellpadding=2 bgcolor=808080 width=770>");
+			content.append("<tr>");
+			content.append("<td FIXWIDTH=5></td>");
+			content.append("<td FIXWIDTH=150 align=center>Author</td>");
+			content.append("<td FIXWIDTH=460 align=left>Title</td>");
+			content.append("<td FIXWIDTH=150 align=center>Authoring Date</td>");
+			content.append("<td FIXWIDTH=5></td>");
+			content.append("</tr></table>");
+			content.append("<table border=0 cellspacing=0 cellpadding=2 width=770>");
+			
+			try
+			{
+				// FIXME: i guess something is missing from here :D
+			}
+			finally
+			{
+				TextBuilder.recycle(content);
+			}
 		}
 	}
 
