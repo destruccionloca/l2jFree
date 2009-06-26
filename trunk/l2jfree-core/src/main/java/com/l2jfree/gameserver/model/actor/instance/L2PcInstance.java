@@ -3707,12 +3707,6 @@ public final class L2PcInstance extends L2Playable
 		{
 			// Set the target of the player
 			player.setTarget(this);
-
-			// Send a Server->Client packet MyTargetSelected to the player
-			// The color to display in the select window is White
-			player.sendPacket(new MyTargetSelected(getObjectId(), 0));
-			if (player != this)
-				player.sendPacket(new ValidateLocation(this));
 		}
 		else
 		{
@@ -3777,9 +3771,6 @@ public final class L2PcInstance extends L2Playable
 			if (this != gm.getTarget())
 			{
 				gm.setTarget(this);
-				gm.sendPacket(new MyTargetSelected(getObjectId(), 0));
-				if (gm != this)
-					gm.sendPacket(new ValidateLocation(this));
 			}
 			else
 			{
@@ -4294,71 +4285,62 @@ public final class L2PcInstance extends L2Playable
 	@Override
 	public void setTarget(L2Object newTarget)
 	{
-
 		if (newTarget != null)
 		{
-			boolean isParty = (((newTarget instanceof L2PcInstance) && isInParty() && getParty().getPartyMembers().contains(newTarget)));
-
-			// Check if the new target is visible
-			if (!isParty && !newTarget.isVisible())
-				newTarget = null;
-
-			// Prevents /target exploiting
-			if (newTarget != null && !isParty && Math.abs(newTarget.getZ() - getZ()) > 1000)
-				newTarget = null;
-		}
-
-		if (!isGM())
-		{
-			// Can't target and attack festival monsters if not participant
-			if ((newTarget instanceof L2FestivalMonsterInstance) && !isFestivalParticipant())
-				newTarget = null;
-
-			// Can't target and attack rift invaders if not in the same room
-			else if (isInParty() && getParty().isInDimensionalRift())
+			if (this != newTarget && newTarget instanceof L2Character)
+				sendPacket(new ValidateLocation((L2Character)newTarget));
+			
+			if (!isGM())
 			{
-				byte riftType = getParty().getDimensionalRift().getType();
-				byte riftRoom = getParty().getDimensionalRift().getCurrentRoom();
-
-				if (newTarget != null
-						&& !DimensionalRiftManager.getInstance().getRoom(riftType, riftRoom)
-								.checkIfInZone(newTarget.getX(), newTarget.getY(), newTarget.getZ()))
-					newTarget = null;
+				if (newTarget instanceof L2FestivalMonsterInstance && !isFestivalParticipant())
+					return;
+				
+				if (isInParty() && getParty().isInDimensionalRift())
+				{
+					byte riftType = getParty().getDimensionalRift().getType();
+					byte riftRoom = getParty().getDimensionalRift().getCurrentRoom();
+					
+					if (!DimensionalRiftManager.getInstance().getRoom(riftType, riftRoom).checkIfInZone(newTarget))
+						return;
+				}
+			}
+			
+			if (!(newTarget instanceof L2PcInstance) || !isInParty() ||  getParty() != ((L2PcInstance)newTarget).getParty())
+			{
+				if (!newTarget.isVisible())
+					return;
+				
+				if (Math.abs(newTarget.getZ() - getZ()) > 1000)
+					return;
 			}
 		}
-
-		// Get the current target
-		L2Object oldTarget = getTarget();
-		if (oldTarget != null)
-		{
-			if (oldTarget.equals(newTarget))
-			{
-				return; // No target change
-			}
-
-			// Remove the L2PcInstance from the _statusListener of the old target if it was a L2Character
-			if (oldTarget instanceof L2Character)
-			{
-				((L2Character) oldTarget).getStatus().removeStatusListener(this);
-			}
-		}
-
-		// Add the L2PcInstance to the _statusListener of the new target if it's a L2Character
+		
+		super.setTarget(newTarget);
+	}
+	
+	@Override
+	protected void refreshTarget(L2Object newTarget)
+	{
+		final L2Object oldTarget = getTarget();
+		
+		if (oldTarget instanceof L2Character)
+			((L2Character)oldTarget).getStatus().removeStatusListener(this);
+		
 		if (newTarget instanceof L2Character)
+			((L2Character)newTarget).getStatus().addStatusListener(this);
+		
+		if (newTarget != null)
 		{
-			((L2Character) newTarget).getStatus().addStatusListener(this);
-			TargetSelected my = new TargetSelected(getObjectId(), newTarget.getObjectId(), getX(), getY(), getZ());
-			broadcastPacket(my);
+			broadcastPacket(new TargetSelected(this, newTarget));
+			
+			sendPacket(new MyTargetSelected(this, newTarget));
 		}
-
-		if (newTarget == null && getTarget() != null)
+		else if (oldTarget != null)
 		{
 			broadcastPacket(new TargetUnselected(this));
 		}
-
-		// Target the new L2Object (add the target to the L2PcInstance _target, _knownObject and L2PcInstance to _KnownObject of the L2Object)
-		super.setTarget(newTarget);
-
+		
+		super.refreshTarget(newTarget);
 	}
 	
 	/**

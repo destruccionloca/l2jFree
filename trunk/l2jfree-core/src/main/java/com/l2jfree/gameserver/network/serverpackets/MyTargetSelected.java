@@ -14,10 +14,13 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import com.l2jfree.gameserver.model.L2Object;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+
 /**
  * 
  * <p>
- * sample  bf 73 5d 30 49 01 00 
+ * sample  bf 73 5d 30 49 01 00
  * <p>
  * format dh	(objectid, color)
  * <p>
@@ -27,9 +30,9 @@ package com.l2jfree.gameserver.network.serverpackets;
  * 			-2	-> 2    white<p>
  * 			 3	-> 5	green<p>
  * 			 6	-> 8	light-blue<p>
- * 			 9	-> xx	blue<p>	
+ * 			 9	-> xx	blue<p>
  * <p>
- * usually the color equals the level difference to the selected target 			
+ * usually the color equals the level difference to the selected target
  *
  * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
@@ -43,10 +46,10 @@ public class MyTargetSelected extends L2GameServerPacket
 	 * @param int objectId of the target
 	 * @param int level difference to the target. name color is calculated from that
 	 */
-	public MyTargetSelected(int objectId, int color)
+	public MyTargetSelected(L2PcInstance player, L2Object target)
 	{
-		_objectId = objectId;
-		_color = color;
+		_objectId = target.getObjectId();
+		_color = target.getMyTargetSelectedColor(player);
 	}
 	
 	@Override

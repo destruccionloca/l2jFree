@@ -14,6 +14,9 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import com.l2jfree.gameserver.model.L2Object;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+
 /**
  * format   ddddd
  * 
@@ -36,13 +39,13 @@ public class TargetSelected extends L2GameServerPacket
 	/**
 	 * @param _characters
 	 */
-	public TargetSelected(int objectId, int targetObjId, int x, int y, int z)
+	public TargetSelected(L2PcInstance player, L2Object target)
 	{
-		_objectId = objectId;
-		_targetObjId = targetObjId;
-		_x = x;
-		_y = y;
-		_z = z;
+		_objectId = player.getObjectId();
+		_targetObjId = target.getObjectId();
+		_x = player.getX();
+		_y = player.getY();
+		_z = player.getZ();
 	}
 	
 	@Override

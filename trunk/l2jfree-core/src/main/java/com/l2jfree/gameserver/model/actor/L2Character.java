@@ -4497,19 +4497,35 @@ public abstract class L2Character extends L2Object
 	 * @param object
 	 *            L2object to target
 	 */
-	public void setTarget(L2Object object)
+	public void setTarget(L2Object newTarget)
 	{
-		if (object != null && !object.isVisible())
-			object = null;
-
-		if (object != null && object != _target)
+		if (newTarget == getTarget())
+			return;
+		
+		if (newTarget != null && !(this instanceof L2PcInstance))
 		{
-			getKnownList().addKnownObject(object);
-			object.getKnownList().addKnownObject(this);
+			if (!newTarget.isVisible())
+				return;
+			
+			if (Math.abs(newTarget.getZ() - getZ()) > 1000)
+				return;
 		}
-		_target = object;
+			
+		
+		refreshTarget(newTarget);
 	}
-
+	
+	protected void refreshTarget(L2Object newTarget)
+	{
+		if (newTarget != null)
+		{
+			getKnownList().addKnownObject(newTarget);
+			newTarget.getKnownList().addKnownObject(this);
+		}
+		
+		_target = newTarget;
+	}
+	
 	/**
 	 * Return the identifier of the L2Object targeted or -1.<BR>
 	 * <BR>

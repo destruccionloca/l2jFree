@@ -546,4 +546,9 @@ public abstract class L2Object implements L2Entity<Integer>
 	public void reset()
 	{
 	}
+	
+	public int getMyTargetSelectedColor(L2PcInstance player)
+	{
+		return 0;
+	}
 }
