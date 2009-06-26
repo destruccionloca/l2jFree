@@ -40,7 +40,6 @@ import com.l2jfree.gameserver.model.base.Experience;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
-import com.l2jfree.gameserver.network.serverpackets.ShowBoard;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 public class RegionBBSManager extends BaseBBSManager
@@ -94,10 +93,7 @@ public class RegionBBSManager extends BaseBBSManager
 			}
 			else
 			{
-				ShowBoard sb = new ShowBoard("<html><body><br><br><center>the command: " + command + " is not implemented yet</center><br><br></body></html>", "101");
-				activeChar.sendPacket(sb);
-				activeChar.sendPacket(new ShowBoard(null, "102"));
-				activeChar.sendPacket(new ShowBoard(null, "103"));
+				notImplementedYet(activeChar, command);
 			}
 		}
 	}
@@ -171,10 +167,7 @@ public class RegionBBSManager extends BaseBBSManager
 		}
 		else
 		{
-			ShowBoard sb = new ShowBoard("<html><body><br><br><center>No player with name " + name + "</center><br><br></body></html>", "101");
-			activeChar.sendPacket(sb);
-			activeChar.sendPacket(new ShowBoard(null, "102"));
-			activeChar.sendPacket(new ShowBoard(null, "103"));
+			separateAndSend("<html><body><br><br><center>No player with name " + name + "</center><br><br></body></html>", activeChar);
 		}
 	}
 
@@ -273,12 +266,8 @@ public class RegionBBSManager extends BaseBBSManager
 		}
 		else
 		{
-			ShowBoard sb = new ShowBoard("<html><body><br><br><center>the command: " + ar1 + " is not implemented yet</center><br><br></body></html>", "101");
-			activeChar.sendPacket(sb);
-			activeChar.sendPacket(new ShowBoard(null, "102"));
-			activeChar.sendPacket(new ShowBoard(null, "103"));
+			notImplementedYet(activeChar, ar1);
 		}
-
 	}
 
 	private static RegionBBSManager								_instance		= null;

@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.communitybbs;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.communitybbs.Manager.AuctionBBSManager;
 import com.l2jfree.gameserver.communitybbs.Manager.ClanBBSManager;
 import com.l2jfree.gameserver.communitybbs.Manager.DroplocatorBBSManager;
 import com.l2jfree.gameserver.communitybbs.Manager.MailBBSManager;
@@ -27,7 +28,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ShowBoard;
-import com.l2jfree.gameserver.communitybbs.Manager.AuctionBBSManager;
 
 public class CommunityBoard
 {
@@ -109,11 +109,7 @@ public class CommunityBoard
 			}
 			else
 			{
-				ShowBoard sb = new ShowBoard("<html><body><br><br><center>the command: " + command + " is not implemented yet</center><br><br></body></html>",
-						"101");
-				activeChar.sendPacket(sb);
-				activeChar.sendPacket(new ShowBoard(null, "102"));
-				activeChar.sendPacket(new ShowBoard(null, "103"));
+				ShowBoard.notImplementedYet(activeChar, command);
 			}
 			break;
 		}
@@ -155,11 +151,7 @@ public class CommunityBoard
 			}
 			else
 			{
-				ShowBoard sb = new ShowBoard("<html><body><br><br><center>the command: " + url + " is not implemented yet</center><br><br></body></html>",
-						"101");
-				activeChar.sendPacket(sb);
-				activeChar.sendPacket(new ShowBoard(null, "102"));
-				activeChar.sendPacket(new ShowBoard(null, "103"));
+				ShowBoard.notImplementedYet(activeChar, url);
 			}
 			break;
 		case 1:
@@ -167,10 +159,7 @@ public class CommunityBoard
 			break;
 		default:
 		case 0:
-			ShowBoard sb = new ShowBoard("<html><body><br><br><center>The Community board is currently disabled</center><br><br></body></html>", "101");
-			activeChar.sendPacket(sb);
-			activeChar.sendPacket(new ShowBoard(null, "102"));
-			activeChar.sendPacket(new ShowBoard(null, "103"));
+			activeChar.sendPacket(SystemMessageId.CB_OFFLINE);
 			break;
 		}
 	}

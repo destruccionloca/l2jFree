@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.communitybbs.Manager;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.serverpackets.ShowBoard;
 
 public class AdminBBSManager extends BaseBBSManager
 {
@@ -50,14 +49,8 @@ public class AdminBBSManager extends BaseBBSManager
 		}
 		else
 		{
-
-			ShowBoard sb = new ShowBoard("<html><body><br><br><center>the command: " + command + " is not implemented yet</center><br><br></body></html>",
-					"101");
-			activeChar.sendPacket(sb);
-			activeChar.sendPacket(new ShowBoard(null, "102"));
-			activeChar.sendPacket(new ShowBoard(null, "103"));
+			notImplementedYet(activeChar, command);
 		}
-
 	}
 
 	/**

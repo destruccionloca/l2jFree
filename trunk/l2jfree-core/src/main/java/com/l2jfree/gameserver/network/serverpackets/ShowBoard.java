@@ -17,18 +17,53 @@ package com.l2jfree.gameserver.network.serverpackets;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+
 public class ShowBoard extends L2GameServerPacket
 {
 	private static final String _S__6E_SHOWBOARD = "[S] 6e ShowBoard";
 
-	private String _htmlCode;	
+	public static void notImplementedYet(L2PcInstance activeChar, String command)
+	{
+		if (activeChar == null || command == null)
+			return;
+		
+		separateAndSend(activeChar, "<html><body><br><br><center>The command: [" + command + "] isn't implemented yet!</center><br><br></body></html>");
+	}
+	
+	public static void separateAndSend(L2PcInstance activeChar, String html)
+	{
+		if (activeChar == null || html == null)
+			return;
+		
+		if (html.length() < 4090)
+		{
+			activeChar.sendPacket(new ShowBoard(html, "101"));
+			activeChar.sendPacket(new ShowBoard(null, "102"));
+			activeChar.sendPacket(new ShowBoard(null, "103"));
+		}
+		else if (html.length() < 8180)
+		{
+			activeChar.sendPacket(new ShowBoard(html.substring(0, 4090), "101"));
+			activeChar.sendPacket(new ShowBoard(html.substring(4090, html.length()), "102"));
+			activeChar.sendPacket(new ShowBoard(null, "103"));
+		}
+		else if (html.length() < 12270)
+		{
+			activeChar.sendPacket(new ShowBoard(html.substring(0, 4090), "101"));
+			activeChar.sendPacket(new ShowBoard(html.substring(4090, 8180), "102"));
+			activeChar.sendPacket(new ShowBoard(html.substring(8180, html.length()), "103"));
+		}
+	}
+	
+	private String _htmlCode;
 	private String _id;
 	private List<String> _arg;
 
 	public ShowBoard(String htmlCode, String id)
 	{
 		_id = id;
-		_htmlCode = htmlCode; // html code must not exceed 8192 bytes 
+		_htmlCode = htmlCode; // html code must not exceed 8192 bytes
 	}
 
 	public ShowBoard(List<String> arg)
@@ -73,7 +108,7 @@ public class ShowBoard extends L2GameServerPacket
 	protected final void writeImpl()
 	{
 		writeC(0x7b);
-		writeC(0x01); //c4 1 to show community 00 to hide 
+		writeC(0x01); //c4 1 to show community 00 to hide
 		writeS("bypass _bbshome"); // top
 		writeS("bypass _bbsgetfav"); // favorite
 		writeS("bypass _bbsloc"); // region

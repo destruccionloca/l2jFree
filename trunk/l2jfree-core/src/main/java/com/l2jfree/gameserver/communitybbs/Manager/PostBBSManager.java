@@ -28,7 +28,6 @@ import com.l2jfree.gameserver.communitybbs.bb.Post;
 import com.l2jfree.gameserver.communitybbs.bb.Topic;
 import com.l2jfree.gameserver.communitybbs.bb.Post.CPost;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.serverpackets.ShowBoard;
 
 public class PostBBSManager extends BaseBBSManager
 {
@@ -124,10 +123,7 @@ public class PostBBSManager extends BaseBBSManager
 		}
 		else
 		{
-			ShowBoard sb = new ShowBoard("<html><body><br><br><center>the command: "+command+" is not implemented yet</center><br><br></body></html>","101");
-			activeChar.sendPacket(sb);
-			activeChar.sendPacket(new ShowBoard(null,"102"));
-			activeChar.sendPacket(new ShowBoard(null,"103"));
+			notImplementedYet(activeChar, command);
 		}
 	}
 	/**
@@ -141,10 +137,7 @@ public class PostBBSManager extends BaseBBSManager
 		Post p = getGPosttByTopic(topic);
 		if((forum == null)||(topic == null)||(p == null))
 		{
-			ShowBoard sb = new ShowBoard("<html><body><br><br><center>Error, this forum, topic or post does not exit !</center><br><br></body></html>","101");
-			activeChar.sendPacket(sb);
-			activeChar.sendPacket(new ShowBoard(null,"102"));
-			activeChar.sendPacket(new ShowBoard(null,"103"));
+			separateAndSend("<html><body><br><br><center>Error, this forum, topic or post does not exit !</center><br><br></body></html>", activeChar);
 		}
 		else
 		{
@@ -163,10 +156,7 @@ public class PostBBSManager extends BaseBBSManager
 	{
 		if((forum == null)||(topic == null))
 		{
-			ShowBoard sb = new ShowBoard("<html><body><br><br><center>Error, this forum is not implemented yet</center><br><br></body></html>","101");
-			activeChar.sendPacket(sb);
-			activeChar.sendPacket(new ShowBoard(null,"102"));
-			activeChar.sendPacket(new ShowBoard(null,"103"));
+			separateAndSend("<html><body><br><br><center>Error, this forum is not implemented yet</center><br><br></body></html>", activeChar);
 		}
 		else if(forum.getType() == Forum.MEMO)
 		{
@@ -174,10 +164,7 @@ public class PostBBSManager extends BaseBBSManager
 		}
 		else
 		{
-			ShowBoard sb = new ShowBoard("<html><body><br><br><center>the forum: "+forum.getName()+" is not implemented yet</center><br><br></body></html>","101");
-			activeChar.sendPacket(sb);
-			activeChar.sendPacket(new ShowBoard(null,"102"));
-			activeChar.sendPacket(new ShowBoard(null,"103"));
+			separateAndSend("<html><body><br><br><center>the forum: "+forum.getName()+" is not implemented yet</center><br><br></body></html>", activeChar);
 		}
 	}
 	/**
@@ -320,14 +307,7 @@ public class PostBBSManager extends BaseBBSManager
 		html.append("<br></center>");
 		html.append("</body>");
 		html.append("</html>");
-		try
-		{
-			separateAndSend(html.toString(), activeChar);
-		}
-		finally
-		{
-			TextBuilder.recycle(html);
-		}
+		separateAndSend(html, activeChar);
 	}
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.communitybbs.Manager.BaseBBSManager#parsewrite(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, com.l2jfree.gameserver.model.actor.instance.L2PcInstance)
@@ -344,20 +324,14 @@ public class PostBBSManager extends BaseBBSManager
 		Forum f = ForumsBBSManager.getInstance().getForumByID(idf);
 		if(f == null)
 		{
-			ShowBoard sb = new ShowBoard("<html><body><br><br><center>the forum: "+idf+" does not exist !</center><br><br></body></html>","101");
-			activeChar.sendPacket(sb);
-			activeChar.sendPacket(new ShowBoard(null,"102"));
-			activeChar.sendPacket(new ShowBoard(null,"103"));
+			separateAndSend("<html><body><br><br><center>the forum: "+idf+" does not exist !</center><br><br></body></html>", activeChar);
 		}
 		else
 		{
 			Topic t = f.gettopic(idt);
 			if(t == null)
 			{
-				ShowBoard sb = new ShowBoard("<html><body><br><br><center>the topic: "+idt+" does not exist !</center><br><br></body></html>","101");
-				activeChar.sendPacket(sb);
-				activeChar.sendPacket(new ShowBoard(null,"102"));
-				activeChar.sendPacket(new ShowBoard(null,"103"));
+				separateAndSend("<html><body><br><br><center>the topic: "+idt+" does not exist !</center><br><br></body></html>", activeChar);
 			}
 			else
 			{
@@ -369,10 +343,7 @@ public class PostBBSManager extends BaseBBSManager
 				}
 				if(cp == null)
 				{
-					ShowBoard sb = new ShowBoard("<html><body><br><br><center>the post: "+idp+" does not exist !</center><br><br></body></html>","101");
-					activeChar.sendPacket(sb);
-					activeChar.sendPacket(new ShowBoard(null,"102"));
-					activeChar.sendPacket(new ShowBoard(null,"103"));
+					separateAndSend("<html><body><br><br><center>the post: "+idp+" does not exist !</center><br><br></body></html>", activeChar);
 				}
 				else if(p != null)
 				{

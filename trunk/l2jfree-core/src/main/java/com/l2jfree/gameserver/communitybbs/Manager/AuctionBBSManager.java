@@ -40,7 +40,6 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExMailArrived;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
-import com.l2jfree.gameserver.network.serverpackets.ShowBoard;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.gameserver.util.Util;
@@ -314,10 +313,7 @@ public class AuctionBBSManager extends BaseBBSManager
 		}
 		else
 		{
-			ShowBoard sb = new ShowBoard("<html><body><br><br><center>the command: " + command + " is not implemented yet</center><br><br></body></html>", "101");
-			activeChar.sendPacket(sb);
-			activeChar.sendPacket(new ShowBoard(null, "102"));
-			activeChar.sendPacket(new ShowBoard(null, "103"));
+			notImplementedYet(activeChar, command);
 		}
 	}
 
@@ -328,7 +324,8 @@ public class AuctionBBSManager extends BaseBBSManager
 		minIndex = maxIndex - 9;
 		getLotsBiddedOn(activeChar);
 
-		TextBuilder html = new TextBuilder("<html>");
+		final TextBuilder html = TextBuilder.newInstance();
+		html.append("<html>");
 		html.append("<body><br><br>");
 
 		html.append("<table border=0 cellspacing=0 cellpadding=0 width=810><tr><td width=10></td><td width=800 height=30 align=left>");
@@ -413,7 +410,7 @@ public class AuctionBBSManager extends BaseBBSManager
 		html.append("</tr></table>");
 
 		html.append("</body></html>");
-		separateAndSend(html.toString(), activeChar);
+		separateAndSend(html, activeChar);
 	}
 
 	private void showLotPage(L2PcInstance activeChar, int lotId)
@@ -438,7 +435,8 @@ public class AuctionBBSManager extends BaseBBSManager
 		if (currentBid == 0)
 			currentBid = lot.startingBid;
 
-		TextBuilder html = new TextBuilder("<html>");
+		final TextBuilder html = TextBuilder.newInstance();
+		html.append("<html>");
 		html.append("<body><br><br>");
 
 		html.append("<table border=0 cellspacing=0 cellpadding=0 width=810><tr><td width=10></td><td width=800 height=30 align=left>");
@@ -531,7 +529,7 @@ public class AuctionBBSManager extends BaseBBSManager
 		}
 		html.append("</tr></table>");
 		html.append("</body></html>");
-		separateAndSend(html.toString(), activeChar);
+		separateAndSend(html, activeChar);
 	}
 
 	private void showBidPage(L2PcInstance activeChar, int lotId)

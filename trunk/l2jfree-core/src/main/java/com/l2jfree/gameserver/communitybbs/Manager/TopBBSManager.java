@@ -18,7 +18,6 @@ import java.util.StringTokenizer;
 
 import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.serverpackets.ShowBoard;
 
 
 public class TopBBSManager extends BaseBBSManager
@@ -62,11 +61,7 @@ public class TopBBSManager extends BaseBBSManager
 		}
 		else
 		{
-			ShowBoard sb = new ShowBoard("<html><body><br><br><center>the command: " + command + " is not implemented yet</center><br><br></body></html>",
-					"101");
-			activeChar.sendPacket(sb);
-			activeChar.sendPacket(new ShowBoard(null, "102"));
-			activeChar.sendPacket(new ShowBoard(null, "103"));
+			notImplementedYet(activeChar, command);
 		}
 	}
 

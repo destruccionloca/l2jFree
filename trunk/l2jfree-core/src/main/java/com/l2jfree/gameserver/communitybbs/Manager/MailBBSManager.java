@@ -36,7 +36,6 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ExMailArrived;
-import com.l2jfree.gameserver.network.serverpackets.ShowBoard;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
@@ -229,11 +228,7 @@ public class MailBBSManager extends BaseBBSManager
 		}
 		else
 		{
-			ShowBoard sb = new ShowBoard("<html><body><br><br><center>the command: " + command + " is not implemented yet</center><br><br></body></html>",
-					"101");
-			activeChar.sendPacket(sb);
-			activeChar.sendPacket(new ShowBoard(null, "102"));
-			activeChar.sendPacket(new ShowBoard(null, "103"));
+			notImplementedYet(activeChar, command);
 		}
 	}
 	
@@ -327,14 +322,7 @@ public class MailBBSManager extends BaseBBSManager
 			.append("<td align=left><button value=\"Search\" action=\"bypass _maillist_0_1_0_search $combo $keyword\" width=60 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
 		html.append("</tr></table></center>");
 		html.append("</body></html>");
-		try
-		{
-			separateAndSend(html.toString(), activeChar);
-		}
-		finally
-		{
-			TextBuilder.recycle(html);
-		}
+		separateAndSend(html, activeChar);
 	}
 	
 	private void showLetterView(L2PcInstance activeChar, UpdateMail letter)
@@ -399,14 +387,7 @@ public class MailBBSManager extends BaseBBSManager
 			.append("<td align=right><button value=\"Mail Writing\" action=\"bypass _maillist_0_1_0_write\" width=70 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
 		html.append("</tr></table>");
 		html.append("</body></html>");
-		try
-		{
-			separateAndSend(html.toString(), activeChar);
-		}
-		finally
-		{
-			TextBuilder.recycle(html);
-		}
+		separateAndSend(html, activeChar);
 	}
 	
 	private void showSentbox(L2PcInstance activeChar, int page)
@@ -496,14 +477,7 @@ public class MailBBSManager extends BaseBBSManager
 			.append("<td align=left><button value=\"Search\" action=\"bypass _maillist_0_1_0_search $combo $keyword\" width=60 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
 		html.append("</tr></table></center>");
 		html.append("</body></html>");
-		try
-		{
-			separateAndSend(html.toString(), activeChar);
-		}
-		finally
-		{
-			TextBuilder.recycle(html);
-		}
+		separateAndSend(html, activeChar);
 	}
 	
 	private void showMailArchive(L2PcInstance activeChar, int page)
@@ -593,14 +567,7 @@ public class MailBBSManager extends BaseBBSManager
 			.append("<td align=left><button value=\"Search\" action=\"bypass _maillist_0_1_0_search $combo $keyword\" width=60 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
 		html.append("</tr></table></center>");
 		html.append("</body></html>");
-		try
-		{
-			separateAndSend(html.toString(), activeChar);
-		}
-		finally
-		{
-			TextBuilder.recycle(html);
-		}
+		separateAndSend(html, activeChar);
 	}
 	
 	private void showTempMailArchive(L2PcInstance activeChar, int page)
@@ -690,14 +657,7 @@ public class MailBBSManager extends BaseBBSManager
 			.append("<td align=left><button value=\"Search\" action=\"bypass _maillist_0_1_0_search $combo $keyword\" width=60 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
 		html.append("</tr></table></center>");
 		html.append("</body></html>");
-		try
-		{
-			separateAndSend(html.toString(), activeChar);
-		}
-		finally
-		{
-			TextBuilder.recycle(html);
-		}
+		separateAndSend(html, activeChar);
 	}
 	
 	private void showWriteView(L2PcInstance activeChar)
@@ -739,14 +699,7 @@ public class MailBBSManager extends BaseBBSManager
 		html.append("<td FIXWIDTH=400></td>");
 		html.append("</tr></table>");
 		html.append("</body></html>");
-		try
-		{
-			separateAndSend(html.toString(), activeChar);
-		}
-		finally
-		{
-			TextBuilder.recycle(html);
-		}
+		separateAndSend(html, activeChar);
 	}
 	
 	private void showWriteView(L2PcInstance activeChar, String parcipientName, UpdateMail letter)

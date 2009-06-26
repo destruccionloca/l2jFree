@@ -104,8 +104,7 @@ public class ClanBBSManager extends BaseBBSManager
 		}
 		else
 		{
-			separateAndSend("<html><body><br><br><center>Command : " + command + " needs core development</center><br><br></body></html>", activeChar);
-
+			notImplementedYet(activeChar, command);
 		}
 	}
 
@@ -355,14 +354,7 @@ public class ClanBBSManager extends BaseBBSManager
 		html.append("</center>");
 		html.append("</body>");
 		html.append("</html>");
-		try
-		{
-			separateAndSend(html.toString(), activeChar);
-		}
-		finally
-		{
-			TextBuilder.recycle(html);
-		}
+		separateAndSend(html, activeChar);
 	}
 
 	/**
@@ -467,14 +459,7 @@ public class ClanBBSManager extends BaseBBSManager
 				html.append("<br> <br>");
 				html.append("</body>");
 				html.append("</html>");
-				try
-				{
-					separateAndSend(html.toString(), activeChar);
-				}
-				finally
-				{
-					TextBuilder.recycle(html);
-				}
+				separateAndSend(html, activeChar);
 			}
 		}
 	}

@@ -28,7 +28,6 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.serverpackets.ShowBoard;
 
 public class UpdateBBSManager extends BaseBBSManager
 {
@@ -131,14 +130,7 @@ public class UpdateBBSManager extends BaseBBSManager
 			}
 			tb.append("</table>");
 			tb.append("</body></html>");
-			try
-			{
-				separateAndSend(tb.toString(), activeChar);
-			}
-			finally
-			{
-				TextBuilder.recycle(tb);
-			}
+			separateAndSend(tb, activeChar);
 		}
 		else if (command.startsWith("_bbsupdate_details"))
 		{
@@ -151,21 +143,11 @@ public class UpdateBBSManager extends BaseBBSManager
 			tb.append(it.udate).append(" ").append(it.introduction).append("<br><br>");
 			tb.append(it.text);
 			tb.append("</td><td FIXWIDTH=5></td></tr></table>  <a action=\"bypass _bbsupdate_notes\">Back to Changelog</a><br></body></html>");
-			try
-			{
-				separateAndSend(tb.toString(), activeChar);
-			}
-			finally
-			{
-				TextBuilder.recycle(tb);
-			}
+			separateAndSend(tb, activeChar);
 		}
 		else
 		{
-			ShowBoard sb = new ShowBoard("<html><body><br><br><center>the command: " + command + " is not implemented yet</center><br><br></body></html>", "101");
-			activeChar.sendPacket(sb);
-			activeChar.sendPacket(new ShowBoard(null, "102"));
-			activeChar.sendPacket(new ShowBoard(null, "103"));
+			notImplementedYet(activeChar, command);
 		}
 	}
 
