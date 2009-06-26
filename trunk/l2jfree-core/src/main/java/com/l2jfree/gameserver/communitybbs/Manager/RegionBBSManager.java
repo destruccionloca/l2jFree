@@ -15,17 +15,18 @@
 package com.l2jfree.gameserver.communitybbs.Manager;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
 import javolution.text.TextBuilder;
-import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import com.l2jfree.Config;
@@ -107,7 +108,8 @@ public class RegionBBSManager extends BaseBBSManager
 	 */
 	private void showOldCommunityPI(L2PcInstance activeChar, String name)
 	{
-		TextBuilder htmlCode = new TextBuilder("<html><body><br>");
+		final TextBuilder htmlCode = TextBuilder.newInstance();
+		htmlCode.append("<html><body><br>");
 		htmlCode.append("<table border=0><tr><td FIXWIDTH=15></td><td align=center>L2J Community Board<img src=\"sek.cbui355\" width=610 height=1></td></tr><tr><td FIXWIDTH=15></td><td>");
 		L2PcInstance player = L2World.getInstance().getPlayer(name);
 
@@ -165,7 +167,7 @@ public class RegionBBSManager extends BaseBBSManager
 					.append(" pm pm pm\" width=110 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr><tr><td><br><button value=\"Back\" action=\"bypass _bbsloc\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr></table>");
 			htmlCode.append("</td></tr></table>");
 			htmlCode.append("</body></html>");
-			separateAndSend(htmlCode.toString(), activeChar);
+			separateAndSend(htmlCode, activeChar);
 		}
 		else
 		{
@@ -181,7 +183,7 @@ public class RegionBBSManager extends BaseBBSManager
 	 */
 	private void showOldCommunity(L2PcInstance activeChar, int page)
 	{
-		separateAndSend(getCommunityPage(page, activeChar.isGM() ? "gm" : "pl"), activeChar);
+		separateAndSend(CommunityPageType.getType(activeChar).getPage(page), activeChar);
 	}
 
 	/*
@@ -201,7 +203,8 @@ public class RegionBBSManager extends BaseBBSManager
 
 		if (ar1.equals("PM"))
 		{
-			TextBuilder htmlCode = new TextBuilder("<html><body><br>");
+			final TextBuilder htmlCode = TextBuilder.newInstance();
+			htmlCode.append("<html><body><br>");
 			htmlCode.append("<table border=0><tr><td FIXWIDTH=15></td><td align=center>L2J Community Board<img src=\"sek.cbui355\" width=610 height=1></td></tr><tr><td FIXWIDTH=15></td><td>");
 
 			try
@@ -212,7 +215,7 @@ public class RegionBBSManager extends BaseBBSManager
 				{
 					htmlCode.append("Player not found!<br><button value=\"Back\" action=\"bypass _bbsloc;playerinfo;").append(ar2).append("\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
 					htmlCode.append("</td></tr></table></body></html>");
-					separateAndSend(htmlCode.toString(), activeChar);
+					separateAndSend(htmlCode, activeChar);
 					return;
 				}
 				if (Config.JAIL_DISABLE_CHAT && receiver.isInJail())
@@ -247,7 +250,7 @@ public class RegionBBSManager extends BaseBBSManager
 						activeChar.sendPacket(new CreatureSay(activeChar.getObjectId(), SystemChatChannelId.Chat_Tell, "->" + receiver.getName(), ar3));
 						htmlCode.append("Message Sent<br><button value=\"Back\" action=\"bypass _bbsloc;playerinfo;").append(receiver.getName()).append("\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
 						htmlCode.append("</td></tr></table></body></html>");
-						separateAndSend(htmlCode.toString(), activeChar);
+						separateAndSend(htmlCode, activeChar);
 					}
 					else
 					{
@@ -279,10 +282,6 @@ public class RegionBBSManager extends BaseBBSManager
 	}
 
 	private static RegionBBSManager								_instance		= null;
-	private int													_onlineCount	= 0;
-	private int													_onlineCountGm	= 0;
-	private static FastMap<Integer, FastList<L2PcInstance>>		_onlinePlayers	= new FastMap<Integer, FastList<L2PcInstance>>().setShared(true);
-	private static FastMap<Integer, FastMap<String, String>>	_communityPages	= new FastMap<Integer, FastMap<String, String>>().setShared(true);
 
 	/**
 	 * @return
@@ -296,296 +295,248 @@ public class RegionBBSManager extends BaseBBSManager
 		return _instance;
 	}
 
-	public synchronized void changeCommunityBoard()
+	public void changeCommunityBoard()
 	{
-		Collection<L2PcInstance> players = L2World.getInstance().getAllPlayers();
-		L2PcInstance[] sortedPlayers = players.toArray(new L2PcInstance[players.size()]);
+		CommunityPageType.PLAYER.clear();
+		CommunityPageType.GM.clear();
+	}
+	
+	private static final SimpleDateFormat format = new SimpleDateFormat("H:mm");
+	private static final String tdClose = "</td>";
+	private static final String tdOpen = "<td align=left valign=top>";
+	private static final String trClose = "</tr>";
+	private static final String trOpen = "<tr>";
+	private static final String colSpacer = "<td FIXWIDTH=15></td>";
+	
+	private static enum CommunityPageType
+	{
+		PLAYER,
+		GM;
 		
-		Arrays.sort(sortedPlayers, new Comparator<L2PcInstance>() {
-			public int compare(L2PcInstance p1, L2PcInstance p2)
-			{
-				return p1.getName().compareToIgnoreCase(p2.getName());
-			}
-		});
-
-		_onlinePlayers.clear();
-		_onlineCount = 0;
-		_onlineCountGm = 0;
-
-		for (L2PcInstance player : sortedPlayers)
+		private static CommunityPageType getType(L2PcInstance activeChar)
 		{
-			addOnlinePlayer(player);
+			return activeChar.isGM() ? GM : PLAYER;
 		}
-
-		_communityPages.clear();
-		writeCommunityPages();
-	}
-
-	private void addOnlinePlayer(L2PcInstance player)
-	{
-		boolean added = false;
-
-		for (FastList<L2PcInstance> page : _onlinePlayers.values())
+		
+		private final List<L2PcInstance> _players = new ArrayList<L2PcInstance>();
+		private final Map<Integer, String> _communityPages = new FastMap<Integer, String>();
+		
+		private synchronized void clear()
 		{
-			if (page.size() < Config.NAME_PAGE_SIZE_COMMUNITYBOARD)
+			_players.clear();
+			_communityPages.clear();
+		}
+		
+		private synchronized String getPage(int page)
+		{
+			if (_players.isEmpty())
 			{
-				if (!page.contains(player))
+				clear();
+				
+				for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 				{
-					page.add(player);
-					if (!player.getAppearance().isInvisible())
-						_onlineCount++;
-					_onlineCountGm++;
+					if (player == null)
+						continue;
+					
+					if (player.isGM() && player.getAppearance().isInvisible())
+						if (CommunityPageType.PLAYER == this)
+							continue;
+					
+					_players.add(player);
 				}
-				added = true;
-				break;
+				
+				Collections.sort(_players, new Comparator<L2PcInstance>() {
+					private Integer getOrder(L2PcInstance player)
+					{
+						if (player.isGM())
+							return 1;
+						
+						if (Config.SHOW_JAILED_PLAYERS)
+							if (player.isInJail())
+								return 2;
+						
+						if (Config.SHOW_CURSED_WEAPON_OWNER)
+							if (player.isCursedWeaponEquipped())
+								return 3;
+						
+						if (Config.SHOW_KARMA_PLAYERS)
+							if (player.getKarma() > 0)
+								return 4;
+						
+						if (Config.SHOW_CLAN_LEADER)
+							if (player.isClanLeader() && player.getClan().getLevel() >= Config.SHOW_CLAN_LEADER_CLAN_LEVEL)
+								return 5;
+						
+						if (player.isInOfflineMode())
+							return 6;
+						
+						return 10;
+					}
+					
+					public int compare(L2PcInstance p1, L2PcInstance p2)
+					{
+						final int value = getOrder(p1).compareTo(getOrder(p2));
+						
+						if (value != 0)
+							return value;
+						
+						return p1.getName().compareToIgnoreCase(p2.getName());
+					}
+				});
 			}
-			else if (page.contains(player))
-			{
-				added = true;
-				break;
-			}
+			
+			final String communityPage = _communityPages.get(page);
+			
+			if (communityPage != null)
+				return communityPage;
+			
+			final String generatedPage = generateHtml(page);
+			
+			_communityPages.put(page, generatedPage);
+			
+			return generatedPage;
 		}
-
-		if (!added)
+		
+		private String generateHtml(int page)
 		{
-			FastList<L2PcInstance> temp = new FastList<L2PcInstance>();
-			int page = _onlinePlayers.size() + 1;
-			if (temp.add(player))
+			if ((page - 1) * Config.NAME_PAGE_SIZE_COMMUNITYBOARD >= _players.size())
+				return null;
+			
+			final int fromIndex = (page - 1) * Config.NAME_PAGE_SIZE_COMMUNITYBOARD;
+			final int toIndex = Math.min(_players.size(), fromIndex + Config.NAME_PAGE_SIZE_COMMUNITYBOARD);
+			
+			final List<L2PcInstance> onlinePlayers = _players.subList(fromIndex, toIndex);
+			
+			final TextBuilder htmlCode = TextBuilder.newInstance();
+			htmlCode.append("<html><body><br>");
+			htmlCode.append("<table>");
 			{
-				_onlinePlayers.put(page, temp);
-				if (!player.getAppearance().isInvisible())
-					_onlineCount++;
-				_onlineCountGm++;
+				htmlCode.append(trOpen);
+				{
+					final String gameTime = GameTimeController.getInstance().getFormattedGameTime();
+					
+					htmlCode.append(tdOpen).append("Server Time: ").append(format.format(new Date())).append(tdClose);
+					htmlCode.append(colSpacer);
+					htmlCode.append(tdOpen).append("Game Time: ").append(gameTime).append(tdClose);
+					htmlCode.append(colSpacer);
+					htmlCode.append(tdOpen).append("Server Restarted: ").append(GameServer.getStartedTime().getTime()).append(tdClose);
+				}
+				htmlCode.append(trClose);
 			}
-		}
-	}
-
-	private void writeCommunityPages()
-	{
-		for (int page : _onlinePlayers.keySet())
-		{
-			FastMap<String, String> communityPage = new FastMap<String, String>();
-			TextBuilder htmlCode = new TextBuilder("<html><body><br>");
-			SimpleDateFormat format = new SimpleDateFormat("H:mm");
-			String gameTime = GameTimeController.getInstance().getFormattedGameTime();
-
-			String tdClose = "</td>";
-			String tdOpen = "<td align=left valign=top>";
-			String trClose = "</tr>";
-			String trOpen = "<tr>";
-			String colSpacer = "<td FIXWIDTH=15></td>";
-
-			htmlCode.append("<table>");
-			htmlCode.append(trOpen).append(tdOpen).append("Server Time: ").append(format.format(new Date())).append(tdClose).append(colSpacer);
-			htmlCode.append(tdOpen).append("Game Time: ").append(gameTime).append(tdClose).append(colSpacer);
-			htmlCode.append(tdOpen).append("Server Restarted: ").append(GameServer.getStartedTime().getTime()).append(tdClose).append(trClose);
 			htmlCode.append("</table>");
-
 			htmlCode.append("<table>");
-
-			htmlCode.append(trOpen);
-			htmlCode.append(tdOpen).append("XP Rate: x").append(Config.RATE_XP).append(tdClose);
-			htmlCode.append(colSpacer);
-			htmlCode.append(tdOpen).append("Party XP Rate: x").append(Config.RATE_XP * Config.RATE_PARTY_XP).append(tdClose);
-			htmlCode.append(colSpacer);
-			htmlCode.append(tdOpen).append("XP Exponent: ").append(Config.ALT_GAME_EXPONENT_XP).append(tdClose);
-			htmlCode.append(trClose);
-
-			htmlCode.append(trOpen);
-			htmlCode.append(tdOpen).append("SP Rate: x").append(Config.RATE_SP).append(tdClose);
-			htmlCode.append(colSpacer);
-			htmlCode.append(tdOpen).append("Party SP Rate: x").append(Config.RATE_SP * Config.RATE_PARTY_SP).append(tdClose);
-			htmlCode.append(colSpacer);
-			htmlCode.append(tdOpen).append("SP Exponent: ").append(Config.ALT_GAME_EXPONENT_SP).append(tdClose);
-			htmlCode.append(trClose);
-
-			htmlCode.append(trOpen);
-			htmlCode.append(tdOpen).append("Drop Rate: ").append(Config.RATE_DROP_ITEMS).append(tdClose);
-			htmlCode.append(colSpacer);
-			htmlCode.append(tdOpen).append("Spoil Rate: ").append(Config.RATE_DROP_SPOIL).append(tdClose);
-			htmlCode.append(colSpacer);
-			htmlCode.append(tdOpen).append("Adena Rate: ").append(Config.RATE_DROP_ADENA).append(tdClose);
-			htmlCode.append(trClose);
-
+			{
+				htmlCode.append(trOpen);
+				{
+					htmlCode.append(tdOpen).append("XP Rate: x").append(Config.RATE_XP).append(tdClose);
+					htmlCode.append(colSpacer);
+					htmlCode.append(tdOpen).append("Party XP Rate: x").append(Config.RATE_PARTY_XP).append(tdClose);
+					htmlCode.append(colSpacer);
+					htmlCode.append(tdOpen).append("XP Exponent: ").append(Config.ALT_GAME_EXPONENT_XP).append(tdClose);
+				}
+				htmlCode.append(trClose);
+				htmlCode.append(trOpen);
+				{
+					htmlCode.append(tdOpen).append("SP Rate: x").append(Config.RATE_SP).append(tdClose);
+					htmlCode.append(colSpacer);
+					htmlCode.append(tdOpen).append("Party SP Rate: x").append(Config.RATE_PARTY_SP).append(tdClose);
+					htmlCode.append(colSpacer);
+					htmlCode.append(tdOpen).append("SP Exponent: ").append(Config.ALT_GAME_EXPONENT_SP).append(tdClose);
+				}
+				htmlCode.append(trClose);
+				htmlCode.append(trOpen);
+				{
+					htmlCode.append(tdOpen).append("Drop Rate: ").append(Config.RATE_DROP_ITEMS).append(tdClose);
+					htmlCode.append(colSpacer);
+					htmlCode.append(tdOpen).append("Spoil Rate: ").append(Config.RATE_DROP_SPOIL).append(tdClose);
+					htmlCode.append(colSpacer);
+					htmlCode.append(tdOpen).append("Adena Rate: ").append(Config.RATE_DROP_ADENA).append(tdClose);
+				}
+				htmlCode.append(trClose);
+			}
 			htmlCode.append("</table>");
-
 			htmlCode.append("<table>");
-			htmlCode.append(trOpen);
-			htmlCode.append("<td><img src=\"sek.cbui355\" width=600 height=1><br></td>");
-			htmlCode.append(trClose);
-
-			htmlCode.append(trOpen).append(tdOpen).append(" Record of Player(s) Online:").append(RecordTable.getInstance().getMaxPlayer()).append(tdClose).append(trClose);
-			htmlCode.append(trOpen).append(tdOpen).append(" On date : ").append(RecordTable.getInstance().getDateMaxPlayer()).append(tdClose).append(trClose);
-
-			htmlCode.append(trOpen);
-			htmlCode.append(tdOpen).append(L2World.getInstance().getAllVisibleObjectsCount()).append(" Object count</td>");
-			htmlCode.append(trClose);
-
-			htmlCode.append(trOpen);
-			htmlCode.append(tdOpen).append(getOnlineCount("gm")).append(" Player(s) Online</td>");
-			htmlCode.append(trClose);
-			if (Config.SHOW_LEGEND)
-				htmlCode.append(trOpen).append(tdOpen).append("<font color=\"LEVEL\">GM</font><font color=\"00FF00\">Clan Leader</font><font color=\"FF0000\">Cursedweapon</font><font color=\"FF00FF\">Karma</font><font color=\"999999\">Jailed</font>")
-					.append(tdClose).append(trClose);
-
+			{
+				htmlCode.append(trOpen);
+				{
+					htmlCode.append("<td><img src=\"sek.cbui355\" width=600 height=1><br></td>");
+				}
+				htmlCode.append(trClose);
+				htmlCode.append(trOpen);
+				{
+					htmlCode.append(tdOpen).append(" Record of Player(s) Online:").append(RecordTable.getInstance().getMaxPlayer()).append(tdClose);
+				}
+				htmlCode.append(trClose);
+				htmlCode.append(trOpen);
+				{
+					htmlCode.append(tdOpen).append(" On date : ").append(RecordTable.getInstance().getDateMaxPlayer())
+						.append(tdClose);
+				}
+				htmlCode.append(trClose);
+				if (CommunityPageType.GM == CommunityPageType.this)
+				{
+					htmlCode.append(trOpen);
+					{
+						htmlCode.append(tdOpen).append(L2World.getInstance().getAllVisibleObjectsCount()).append(" Object count").append(tdClose);
+					}
+					htmlCode.append(trClose);
+				}
+				htmlCode.append(trOpen);
+				{
+					htmlCode.append(tdOpen).append(_players.size()).append(" Player(s) Online").append(tdClose);
+				}
+				htmlCode.append(trClose);
+				if (Config.SHOW_LEGEND)
+				{
+					htmlCode.append(trOpen);
+					{
+						htmlCode.append(tdOpen);
+						htmlCode.append("<font color=\"LEVEL\">GM</font><font color=\"00FF00\">Clan Leader</font><font color=\"FF0000\">Cursedweapon</font><font color=\"FF00FF\">Karma</font><font color=\"999999\">Jailed</font>");
+						htmlCode.append(tdClose);
+					}
+					htmlCode.append(trClose);
+				}
+			}
 			htmlCode.append("</table>");
-
-			int cell = 0;
+			
 			if (Config.BBS_SHOW_PLAYERLIST)
 			{
 				htmlCode.append("<table border=0>");
 				htmlCode.append("<tr><td><table border=0>");
-
-				for (L2PcInstance player : getOnlinePlayers(page))
+				
+				int cell = 0;
+				for (L2PcInstance player : onlinePlayers)
 				{
+					if (player == null || player.getAppearance().isInvisible())
+						continue; // Go to next
+					
 					cell++;
-
+					
 					if (cell == 1)
 						htmlCode.append(trOpen);
-
+					
 					htmlCode.append("<td align=left valign=top FIXWIDTH=110><a action=\"bypass _bbsloc;playerinfo;").append(player.getName()).append("\">");
-
+					
 					if (player.isGM())
 						htmlCode.append("<font color=\"LEVEL\">").append(player.getName()).append("</font>");
-					else if (player.getClan() != null && player.isClanLeader() && Config.SHOW_CLAN_LEADER && player.getClan().getLevel() >= Config.SHOW_CLAN_LEADER_CLAN_LEVEL)
-						htmlCode.append("<font color=\"00FF00\">").append(player.getName()).append("</font>");
+					else if (player.isInJail() && Config.SHOW_JAILED_PLAYERS)
+						htmlCode.append("<font color=\"999999\">").append(player.getName()).append("</font>");
 					else if (player.isCursedWeaponEquipped() && Config.SHOW_CURSED_WEAPON_OWNER)
 						htmlCode.append("<font color=\"FF0000\">").append(player.getName()).append("</font>");
 					else if (player.getKarma() > 0 && Config.SHOW_KARMA_PLAYERS)
 						htmlCode.append("<font color=\"FF00FF\">").append(player.getName()).append("</font>");
-					else if (player.isInJail() && Config.SHOW_JAILED_PLAYERS)
-						htmlCode.append("<font color=\"999999\">").append(player.getName()).append("</font>");
-					else
-						htmlCode.append(player.getName());
-
-					htmlCode.append("</a></td>");
-
-					if (cell < Config.NAME_PER_ROW_COMMUNITYBOARD)
-						htmlCode.append(colSpacer);
-
-					if (cell == Config.NAME_PER_ROW_COMMUNITYBOARD)
-					{
-						cell = 0;
-						htmlCode.append(trClose);
-					}
-				}
-				if (cell > 0 && cell < Config.NAME_PER_ROW_COMMUNITYBOARD)
-					htmlCode.append(trClose);
-				htmlCode.append("</table><br></td></tr>");
-
-				htmlCode.append(trOpen);
-				htmlCode.append("<td><img src=\"sek.cbui355\" width=600 height=1><br></td>");
-				htmlCode.append(trClose);
-
-				htmlCode.append("</table>");
-			}
-
-			if (getOnlineCount("gm") > Config.NAME_PAGE_SIZE_COMMUNITYBOARD)
-			{
-				htmlCode.append("<table border=0 width=600>");
-
-				htmlCode.append("<tr>");
-				if (page == 1)
-					htmlCode.append("<td align=right width=190><button value=\"Prev\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-				else
-					htmlCode.append("<td align=right width=190><button value=\"Prev\" action=\"bypass _bbsloc;page;").append(page - 1).append("\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-				htmlCode.append("<td FIXWIDTH=10></td>");
-				htmlCode.append("<td align=center valign=top width=200>Displaying ").append((page - 1) * Config.NAME_PAGE_SIZE_COMMUNITYBOARD + 1).append(" - ").append((page - 1) * Config.NAME_PAGE_SIZE_COMMUNITYBOARD + getOnlinePlayers(page).size())
-						.append(" player(s)</td>");
-				htmlCode.append("<td FIXWIDTH=10></td>");
-				if (getOnlineCount("gm") <= (page * Config.NAME_PAGE_SIZE_COMMUNITYBOARD))
-					htmlCode.append("<td width=190><button value=\"Next\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-				else
-					htmlCode.append("<td width=190><button value=\"Next\" action=\"bypass _bbsloc;page;").append(page + 1).append("\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-				htmlCode.append("</tr>");
-				htmlCode.append("</table>");
-			}
-
-			htmlCode.append("</body></html>");
-
-			communityPage.put("gm", htmlCode.toString());
-
-			htmlCode = new TextBuilder("<html><body><br>");
-			htmlCode.append("<table>");
-
-			htmlCode.append(trOpen);
-			htmlCode.append("<td align=left valign=top>Server Restarted: ").append(GameServer.getStartedTime().getTime()).append(tdClose);
-			htmlCode.append(trClose);
-
-			htmlCode.append("</table>");
-
-			htmlCode.append("<table>");
-
-			htmlCode.append(trOpen);
-			htmlCode.append(tdOpen).append("XP Rate: ").append(Config.RATE_XP).append(tdClose);
-			htmlCode.append(colSpacer);
-			htmlCode.append(tdOpen).append("Party XP Rate: ").append(Config.RATE_PARTY_XP).append(tdClose);
-			htmlCode.append(colSpacer);
-			htmlCode.append(tdOpen).append("XP Exponent: ").append(Config.ALT_GAME_EXPONENT_XP).append(tdClose);
-			htmlCode.append(trClose);
-
-			htmlCode.append(trOpen);
-			htmlCode.append(tdOpen).append("SP Rate: ").append(Config.RATE_SP).append(tdClose);
-			htmlCode.append(colSpacer);
-			htmlCode.append(tdOpen).append("Party SP Rate: ").append(Config.RATE_PARTY_SP).append(tdClose);
-			htmlCode.append(colSpacer);
-			htmlCode.append(tdOpen).append("SP Exponent: ").append(Config.ALT_GAME_EXPONENT_SP).append(tdClose);
-			htmlCode.append(trClose);
-
-			htmlCode.append(trOpen);
-			htmlCode.append(tdOpen).append("Drop Rate: ").append(Config.RATE_DROP_ITEMS).append(tdClose);
-			htmlCode.append(colSpacer);
-			htmlCode.append(tdOpen).append("Spoil Rate: ").append(Config.RATE_DROP_SPOIL).append(tdClose);
-			htmlCode.append(colSpacer);
-			htmlCode.append(tdOpen).append("Adena Rate: ").append(Config.RATE_DROP_ADENA).append(tdClose);
-			htmlCode.append(trClose);
-
-			htmlCode.append("</table>");
-
-			htmlCode.append("<table>");
-			htmlCode.append(trOpen);
-			htmlCode.append("<td><img src=\"sek.cbui355\" width=600 height=1><br></td>");
-			htmlCode.append(trClose);
-
-			htmlCode.append(trOpen);
-			htmlCode.append(tdOpen).append(getOnlineCount("pl")).append(" Player(s) Online</td>");
-			htmlCode.append(trClose);
-			if (Config.SHOW_LEGEND)
-				htmlCode.append(trOpen).append(tdOpen).append("<font color=\"LEVEL\">GM</font><font color=\"00FF00\">Clan Leader</font><font color=\"FF0000\">Cursedweapon</font><font color=\"FF00FF\">Karma</font><font color=\"999999\">Jailed</font>")
-					.append(tdClose).append(trClose);
-
-			htmlCode.append("</table>");
-
-			if (Config.BBS_SHOW_PLAYERLIST)
-			{
-				htmlCode.append("<table border=0>");
-				htmlCode.append("<tr><td><table border=0>");
-
-				cell = 0;
-				for (L2PcInstance player : getOnlinePlayers(page))
-				{
-					if (player == null || player.getAppearance().isInvisible())
-						continue; // Go to next
-
-					cell++;
-
-					if (cell == 1)
-						htmlCode.append(trOpen);
-
-					htmlCode.append("<td align=left valign=top FIXWIDTH=110><a action=\"bypass _bbsloc;playerinfo;").append(player.getName()).append("\">");
-
-					if (player.isGM())
-						htmlCode.append("<font color=\"LEVEL\">").append(player.getName()).append("</font>");
+					else if (player.getClan() != null && player.isClanLeader() && Config.SHOW_CLAN_LEADER && player.getClan().getLevel() >= Config.SHOW_CLAN_LEADER_CLAN_LEVEL)
+						htmlCode.append("<font color=\"00FF00\">").append(player.getName()).append("</font>");
 					else if (player.isInOfflineMode())
 						htmlCode.append(player.getName()).append(" (Offline Mode)");
 					else
 						htmlCode.append(player.getName());
-
+					
 					htmlCode.append("</a></td>");
-
+					
 					if (cell < Config.NAME_PER_ROW_COMMUNITYBOARD)
 						htmlCode.append(colSpacer);
-
+					
 					if (cell == Config.NAME_PER_ROW_COMMUNITYBOARD)
 					{
 						cell = 0;
@@ -595,61 +546,47 @@ public class RegionBBSManager extends BaseBBSManager
 				if (cell > 0 && cell < Config.NAME_PER_ROW_COMMUNITYBOARD)
 					htmlCode.append(trClose);
 				htmlCode.append("</table><br></td></tr>");
-
+				
 				htmlCode.append(trOpen);
 				htmlCode.append("<td><img src=\"sek.cbui355\" width=600 height=1><br></td>");
 				htmlCode.append(trClose);
-
+				
 				htmlCode.append("</table>");
 			}
-
-			if (getOnlineCount("pl") > Config.NAME_PAGE_SIZE_COMMUNITYBOARD)
+			
+			if (_players.size() > Config.NAME_PAGE_SIZE_COMMUNITYBOARD)
 			{
 				htmlCode.append("<table border=0 width=600>");
-
+				
 				htmlCode.append("<tr>");
 				if (page == 1)
 					htmlCode.append("<td align=right width=190><button value=\"Prev\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
 				else
 					htmlCode.append("<td align=right width=190><button value=\"Prev\" action=\"bypass _bbsloc;page;").append(page - 1).append("\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
 				htmlCode.append("<td FIXWIDTH=10></td>");
-				htmlCode.append("<td align=center valign=top width=200>Displaying ").append((page - 1) * Config.NAME_PAGE_SIZE_COMMUNITYBOARD + 1).append(" - ").append((page - 1) * Config.NAME_PAGE_SIZE_COMMUNITYBOARD + getOnlinePlayers(page).size())
-					.append(" player(s)</td>");
+				htmlCode.append("<td align=center valign=top width=200>Displaying ").append(
+					(page - 1) * Config.NAME_PAGE_SIZE_COMMUNITYBOARD + 1).append(" - ").append(
+					(page - 1) * Config.NAME_PAGE_SIZE_COMMUNITYBOARD + onlinePlayers.size()).append(
+					" player(s)</td>");
 				htmlCode.append("<td FIXWIDTH=10></td>");
-				if (getOnlineCount("pl") <= (page * Config.NAME_PAGE_SIZE_COMMUNITYBOARD))
+				if (_players.size() <= (page * Config.NAME_PAGE_SIZE_COMMUNITYBOARD))
 					htmlCode.append("<td width=190><button value=\"Next\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
 				else
 					htmlCode.append("<td width=190><button value=\"Next\" action=\"bypass _bbsloc;page;").append(page + 1).append("\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
 				htmlCode.append("</tr>");
 				htmlCode.append("</table>");
 			}
-
+			
 			htmlCode.append("</body></html>");
-
-			communityPage.put("pl", htmlCode.toString());
-
-			_communityPages.put(page, communityPage);
+			
+			try
+			{
+				return htmlCode.toString();
+			}
+			finally
+			{
+				TextBuilder.recycle(htmlCode);
+			}
 		}
-	}
-
-	private int getOnlineCount(String type)
-	{
-		if (type.equalsIgnoreCase("gm"))
-			return _onlineCountGm;
-
-		return _onlineCount;
-	}
-
-	private FastList<L2PcInstance> getOnlinePlayers(int page)
-	{
-		return _onlinePlayers.get(page);
-	}
-
-	public String getCommunityPage(int page, String type)
-	{
-		if (_communityPages.get(page) != null)
-			return _communityPages.get(page).get(type);
-
-		return null;
 	}
 }
