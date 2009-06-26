@@ -6439,9 +6439,6 @@ public abstract class L2Character extends L2Object
 
 		for (L2Object trg : targets)
 		{
-			if (trg == null)
-				continue;
-
 			if (player != null && trg instanceof L2PcInstance && Config.SIEGE_ONLY_REGISTERED)
 			{
 				if (!((L2PcInstance) trg).canBeTargetedByAtSiege(player))

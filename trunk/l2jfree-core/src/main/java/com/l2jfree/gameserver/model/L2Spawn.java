@@ -405,6 +405,10 @@ public class L2Spawn
 	 */
 	public void decreaseCount(L2Npc oldNpc)
 	{
+		// sanity check
+		if (_currentCount <= 0)
+			return;
+
 		// Decrease the current number of L2Npc of this L2Spawn
 		_currentCount--;
 

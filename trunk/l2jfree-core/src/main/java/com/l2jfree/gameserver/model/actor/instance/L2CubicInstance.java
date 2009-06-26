@@ -584,6 +584,8 @@ public class L2CubicInstance
 						}
 						if ((_target != null) && (!_target.isDead()))
 						{
+							_owner.broadcastPacket(new MagicSkillUse(_owner, _target, skill.getId(), skill.getLevel(), 0, 0));
+
 							if (_log.isDebugEnabled())
 							{
 								_log.info("L2CubicInstance: Action.run();");
@@ -599,9 +601,6 @@ public class L2CubicInstance
 								((L2SkillDrain) skill).useCubicSkill(L2CubicInstance.this, _target);
 							else
 								handler.useSkill(_owner, skill, _target);
-							
-							MagicSkillUse msu = new MagicSkillUse(_owner, _target, skill.getId(), skill.getLevel(), 0, 0);
-							_owner.broadcastPacket(msu);
 						}
 					}
 				}

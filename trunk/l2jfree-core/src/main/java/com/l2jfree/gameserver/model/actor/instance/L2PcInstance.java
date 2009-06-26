@@ -963,6 +963,8 @@ public final class L2PcInstance extends L2Playable
 
 	public String getAccountName()
 	{
+		if (getClient() == null)
+			return _accountName;
 		return getClient().getAccountName();
 	}
 
@@ -4793,9 +4795,9 @@ public final class L2PcInstance extends L2Playable
 				dropLimit = Config.PLAYER_DROP_LIMIT;
 			}
 
-			int dropCount = 0;
-			while (dropPercent > 0 && Rnd.get(100) < dropPercent && dropCount < dropLimit)
+			if (dropPercent > 0 && Rnd.get(100) < dropPercent)
 			{
+				int dropCount = 0;
 				int itemDropPercent = 0;
 				List<Integer> nonDroppableList = Config.KARMA_LIST_NONDROPPABLE_ITEMS;
 				List<Integer> nonDroppableListPet = Config.KARMA_LIST_NONDROPPABLE_PET_ITEMS;
@@ -4832,8 +4834,8 @@ public final class L2PcInstance extends L2Playable
 						else
 							_log.info(getName() + " dropped " + itemDrop);
 
-						dropCount++;
-						break;
+						if (++dropCount >= dropLimit)
+							break;
 					}
 				}
 			}

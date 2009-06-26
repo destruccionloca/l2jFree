@@ -62,7 +62,7 @@ public class Instance
 	private int							_tpz;
 	private String						_name;
 	private FastSet<Integer>			_players			= new FastSet<Integer>();
-	private FastList<L2Npc>		_npcs				= new FastList<L2Npc>();
+	private FastList<L2Npc>				_npcs				= new FastList<L2Npc>();
 	private FastList<L2DoorInstance>	_doors				= new FastList<L2DoorInstance>();
 	private int[]						_spawnLoc;
 	private boolean						_allowSummon		= true;
