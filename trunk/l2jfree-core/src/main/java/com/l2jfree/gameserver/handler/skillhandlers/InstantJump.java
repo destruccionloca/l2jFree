@@ -18,6 +18,7 @@ import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.FlyToLocation;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -92,12 +93,12 @@ public class InstantJump implements ISkillHandler
 					//sm.addSkillName(skill);
 					//target.sendPacket(sm);
 				}
-				else
+				else if (activeChar instanceof L2PcInstance)
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
 					sm.addCharName(target);
 					sm.addSkillName(skill);
-					activeChar.sendPacket(sm);
+					((L2PcInstance)activeChar).sendPacket(sm);
 				}
 			}
 		}

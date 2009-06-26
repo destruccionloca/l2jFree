@@ -18,6 +18,7 @@ import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -52,12 +53,16 @@ public class CPperHeal implements ISkillHandler
 			if (newCp > target.getMaxCp())
 				perCp = target.getMaxCp() - target.getStatus().getCurrentCp();
 			target.getStatus().setCurrentCp(target.getStatus().getCurrentCp() + perCp);
-			StatusUpdate sucp = new StatusUpdate(target.getObjectId());
-			sucp.addAttribute(StatusUpdate.CUR_CP, (int) target.getStatus().getCurrentCp());
-			target.sendPacket(sucp);
-			SystemMessage sm = new SystemMessage(SystemMessageId.S1_CP_WILL_BE_RESTORED);
-			sm.addNumber((int) perCp);
-			target.sendPacket(sm);
+			if (target instanceof L2PcInstance)
+			{
+				L2PcInstance player = (L2PcInstance)target;
+				StatusUpdate sucp = new StatusUpdate(target.getObjectId());
+				sucp.addAttribute(StatusUpdate.CUR_CP, (int)target.getStatus().getCurrentCp());
+				player.sendPacket(sucp);
+				SystemMessage sm = new SystemMessage(SystemMessageId.S1_CP_WILL_BE_RESTORED);
+				sm.addNumber((int)perCp);
+				player.sendPacket(sm);
+			}
 		}
 	}
 

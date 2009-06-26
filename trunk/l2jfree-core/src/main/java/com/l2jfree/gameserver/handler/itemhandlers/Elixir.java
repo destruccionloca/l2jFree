@@ -85,7 +85,7 @@ public class Elixir implements IItemHandler
 			activeChar = (L2PcInstance) playable;
 		else
 		{
-			playable.sendPacket(new SystemMessage(SystemMessageId.ITEM_NOT_FOR_PETS));
+			playable.sendPacket(SystemMessageId.ITEM_NOT_FOR_PETS);
 			return;
 		}
 

@@ -199,7 +199,6 @@ public class AdminEffects implements IAdminCommandHandler
 						player.startAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_2);
 					player.startParalyze();
 					StopMove sm = new StopMove(player);
-					player.sendPacket(sm);
 					player.broadcastPacket(sm);
 				}
 			}

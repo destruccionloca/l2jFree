@@ -32,7 +32,7 @@ public final class Maps implements IItemHandler
 		if (!(playable instanceof L2PcInstance))
 			return;
 		
-		playable.sendPacket(new ShowMiniMap(item.getItemId()));
+		((L2PcInstance)playable).sendPacket(new ShowMiniMap(item.getItemId()));
 	}
 	
 	public int[] getItemIds()

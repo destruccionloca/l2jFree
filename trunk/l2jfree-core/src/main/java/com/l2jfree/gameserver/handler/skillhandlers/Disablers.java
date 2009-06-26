@@ -137,12 +137,12 @@ public class Disablers implements ICubicSkillHandler
 			{
 				if (Formulas.calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss))
 					skill.getEffects(activeChar, target);
-				else
+				else if (activeChar instanceof L2PcInstance)
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
 					sm.addCharName(target);
 					sm.addSkillName(skill);
-					activeChar.sendPacket(sm);
+					((L2PcInstance)activeChar).sendPacket(sm);
 				}
 				break;
 			}

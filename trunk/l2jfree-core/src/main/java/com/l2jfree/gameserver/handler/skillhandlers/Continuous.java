@@ -173,7 +173,7 @@ public class Continuous implements ICubicSkillHandler
 				SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
 				sm.addString(target.getName());
 				sm.addSkillName(skill.getId());
-				activeChar.sendPacket(sm);
+				((L2PcInstance)activeChar).sendPacket(sm);
 			}
 			// Possibility of a lethal strike
 			Formulas.calcLethalHit(activeChar, target, skill);

@@ -51,8 +51,8 @@ import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.network.serverpackets.FlyToLocation.FlyType;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.network.serverpackets.FlyToLocation.FlyType;
 import com.l2jfree.gameserver.skills.ChanceCondition;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Formulas;
@@ -606,7 +606,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		caster.sendPacket(ActionFailed.STATIC_PACKET);
 
 		if (caster instanceof L2PcInstance)
-			caster.sendMessage("Skill not implemented. Skill ID: " + getId() + " " + getSkillType());
+			((L2PcInstance)caster).sendMessage("Skill not implemented. Skill ID: " + getId() + " " + getSkillType());
 	}
 
 	public final boolean isPotion()
@@ -1484,7 +1484,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		if (weapon2 != null && (weapon2.getItemType().mask() & weaponsAllowed) != 0)
 			return true;
 
-		if (message)
+		if (message && activeChar instanceof L2PcInstance)
 		{
 			if (_weaponDependancyMessage == null)
 			{
@@ -1505,7 +1505,8 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 				_weaponDependancyMessage = _weaponDependancyMessage.intern();
 			}
 
-			activeChar.sendMessage(_weaponDependancyMessage);
+			if (activeChar instanceof L2PcInstance)
+				((L2PcInstance)activeChar).sendMessage(_weaponDependancyMessage);
 		}
 
 		return false;
@@ -3575,7 +3576,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 	/**
 	 * This method has suffered some changes in CT2.2 ->CT2.3<br>
-	 * Effect engine is now supporting secondary effects with independent 
+	 * Effect engine is now supporting secondary effects with independent
 	 * success/fail calculus from effect skill. Env parameter has been added to
 	 * pass parameters like soulshot, spiritshots, blessed spiritshots or shield deffence.
 	 * Some other optimizations have been done
@@ -3634,7 +3635,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 	/**
 	 * This method has suffered some changes in CT2.2 ->CT2.3<br>
-	 * Effect engine is now supporting secondary effects with independent 
+	 * Effect engine is now supporting secondary effects with independent
 	 * success/fail calculus from effect skill. Env parameter has been added to
 	 * pass parameters like soulshot, spiritshots, blessed spiritshots or shield deffence.
 	 * Some other optimizations have been done

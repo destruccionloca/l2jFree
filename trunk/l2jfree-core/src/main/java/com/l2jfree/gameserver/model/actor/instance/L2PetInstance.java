@@ -518,7 +518,7 @@ public class L2PetInstance extends L2Summon
 		
 		if (weight > Integer.MAX_VALUE || weight < 0 || !getInventory().validateWeight((int)weight))
 		{
-			sendPacket(SystemMessageId.YOUR_PET_CANNOT_CARRY_ANY_MORE_ITEMS);
+			getOwner().sendPacket(SystemMessageId.YOUR_PET_CANNOT_CARRY_ANY_MORE_ITEMS);
 			return;
 		}
 		
@@ -532,13 +532,12 @@ public class L2PetInstance extends L2Summon
 			
 			if (!_inventory.validateCapacity(target))
 			{
-				getOwner().sendPacket(new SystemMessage(SystemMessageId.YOUR_PET_CANNOT_CARRY_ANY_MORE_ITEMS));
+				getOwner().sendPacket(SystemMessageId.YOUR_PET_CANNOT_CARRY_ANY_MORE_ITEMS);
 				return;
 			}
 			if (!_inventory.validateWeight(target, target.getCount()))
 			{
-				getOwner().sendPacket(
-					new SystemMessage(SystemMessageId.UNABLE_TO_PLACE_ITEM_YOUR_PET_IS_TOO_ENCUMBERED));
+				getOwner().sendPacket(SystemMessageId.UNABLE_TO_PLACE_ITEM_YOUR_PET_IS_TOO_ENCUMBERED);
 				return;
 			}
 			

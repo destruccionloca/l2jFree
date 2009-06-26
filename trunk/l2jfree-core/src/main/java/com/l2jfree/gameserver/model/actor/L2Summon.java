@@ -680,14 +680,14 @@ public abstract class L2Summon extends L2Playable
 			if (isInsidePeaceZone(this, target))
 			{
 				// If summon or target is in a peace zone, send a system message TARGET_IN_PEACEZONE
-				sendPacket(new SystemMessage(SystemMessageId.TARGET_IN_PEACEZONE));
+				getOwner().sendPacket(SystemMessageId.TARGET_IN_PEACEZONE);
 				return;
 			}
 
 			if (getOwner() != null && getOwner().isInOlympiadMode() && !getOwner().isOlympiadStart())
 			{
 				// if L2PcInstance is in Olympia and the match isn't already start, send a Server->Client packet ActionFailed
-				sendPacket(ActionFailed.STATIC_PACKET);
+				getOwner().sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
 
@@ -832,7 +832,7 @@ public abstract class L2Summon extends L2Playable
 
 		if (actingPlayer.isGM() && actingPlayer.getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
 		{
-			actingPlayer.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+			actingPlayer.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 			actingPlayer.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
@@ -840,7 +840,7 @@ public abstract class L2Summon extends L2Playable
 		if (!actingPlayer.checkPvpSkill(getTarget(), skill))
 		{
 			// Send a System Message to the L2PcInstance
-			actingPlayer.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+			actingPlayer.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 
 			// Send a Server->Client packet ActionFailed to the L2PcInstance
 			actingPlayer.sendPacket(ActionFailed.STATIC_PACKET);

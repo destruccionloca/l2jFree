@@ -372,7 +372,7 @@ public abstract class AbstractAI implements Ctrl
 				break;
 			case AI_INTENTION_MOVE_TO_IN_AIR_SHIP:
 				onIntentionMoveToInAirShip((L2CharPosition) arg0, (L2CharPosition) arg1);
-				break;				
+				break;
 			case AI_INTENTION_FOLLOW:
 				onIntentionFollow((L2Character)arg0);
 				break;
@@ -762,7 +762,6 @@ public abstract class AbstractAI implements Ctrl
 			{
 				// Send a Server->Client packet StopRotation to the actor and all L2PcInstance in its _knownPlayers
 				StopRotation sr = new StopRotation(_actor.getObjectId(), pos.heading, 0);
-				_actor.sendPacket(sr);
 				_actor.broadcastPacket(sr);
 			}
 		}

@@ -453,8 +453,10 @@ public class L2Zone implements FuncOwner
 	
 	protected void onEnter(L2Character character)
 	{
-		if (_onEnterMsg != null && character instanceof L2PcInstance)
-			character.sendPacket(_onEnterMsg);
+		final L2PcInstance player = character instanceof L2PcInstance ? (L2PcInstance)character : null;
+		
+		if (player != null && _onEnterMsg != null)
+			player.sendPacket(_onEnterMsg);
 		
 		if (_abnormal > 0)
 			character.startAbnormalEffect(_abnormal);
@@ -481,12 +483,12 @@ public class L2Zone implements FuncOwner
 				character.setInsideZone(FLAG_PEACE, true);
 		}
 		
-		if (_noWyvern && character instanceof L2PcInstance)
+		if (_noWyvern && player != null)
 		{
 			character.setInsideZone(FLAG_NOWYVERN, true);
 			
-			if (((L2PcInstance)character).getMountType() == 2)
-				((L2PcInstance)character).enteredNoWyvernZone();
+			if (player.getMountType() == 2)
+				player.enteredNoWyvernZone();
 		}
 		
 		if (_noEscape)
@@ -500,14 +502,16 @@ public class L2Zone implements FuncOwner
 		if (_landing)
 			character.setInsideZone(FLAG_LANDING, true);
 		
-		if (_instanceName != null && _instanceGroup != null && character instanceof L2PcInstance)
-			tryPortIntoInstance((L2PcInstance)character);
+		if (_instanceName != null && _instanceGroup != null && player != null)
+			tryPortIntoInstance(player);
 	}
 	
 	protected void onExit(L2Character character)
 	{
-		if (_onExitMsg != null && character instanceof L2PcInstance)
-			character.sendPacket(_onExitMsg);
+		final L2PcInstance player = character instanceof L2PcInstance ? (L2PcInstance)character : null;
+		
+		if (player != null && _onExitMsg != null)
+			player.sendPacket(_onExitMsg);
 		
 		if (_abnormal > 0)
 			character.stopAbnormalEffect(_abnormal);
@@ -533,12 +537,12 @@ public class L2Zone implements FuncOwner
 			character.setInsideZone(FLAG_PEACE, false);
 		}
 		
-		if (_noWyvern && character instanceof L2PcInstance)
+		if (_noWyvern && player != null)
 		{
 			character.setInsideZone(FLAG_NOWYVERN, false);
 			
-			if (((L2PcInstance)character).getMountType() == 2)
-				((L2PcInstance)character).exitedNoWyvernZone();
+			if (player.getMountType() == 2)
+				player.exitedNoWyvernZone();
 		}
 		
 		if (_noEscape)
@@ -552,8 +556,8 @@ public class L2Zone implements FuncOwner
 		if (_landing)
 			character.setInsideZone(FLAG_LANDING, false);
 		
-		if (_instanceName != null && character instanceof L2PcInstance && character.getInstanceId() > 0)
-			portIntoInstance((L2PcInstance)character, 0);
+		if (_instanceName != null && player != null && character.getInstanceId() > 0)
+			portIntoInstance(player, 0);
 	}
 	
 	private static final int REASON_OK = 0;
