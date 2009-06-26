@@ -33,10 +33,8 @@ import com.l2jfree.gameserver.model.restriction.AvailableRestriction;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.AgitDecoInfo;
-import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.SortedWareHouseWithdrawalList;
-import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.network.serverpackets.WareHouseDepositList;
 import com.l2jfree.gameserver.network.serverpackets.WareHouseWithdrawalList;
 import com.l2jfree.gameserver.network.serverpackets.SortedWareHouseWithdrawalList.WarehouseListType;
@@ -478,7 +476,7 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
                                 return;
                             }
                             else if (val.equalsIgnoreCase("mp"))
-                            {  
+                            {
                                 if (st.countTokens() >= 1)
                                 {
                                     int fee;
@@ -530,7 +528,7 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
                                 return;
                             }
                             else if (val.equalsIgnoreCase("exp"))
-                            {  
+                            {
                                 if (st.countTokens() >= 1)
                                 {
                                     int fee;
@@ -855,7 +853,7 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
                                 return;
                             }
                             else if (val.equalsIgnoreCase("item"))
-                            {  
+                            {
                                 if (st.countTokens() >= 1)
                                 {
                                     if(getClanHall().getOwnerId() == 0){
@@ -905,7 +903,7 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
                                 return;
                             }
                             else if (val.equalsIgnoreCase("tele"))
-                            {  
+                            {
                                 if (st.countTokens() >= 1)
                                 {
                                     int fee;
@@ -948,7 +946,7 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
                                 return;
                             }
                             else if (val.equalsIgnoreCase("support"))
-                            {  
+                            {
                                 if (st.countTokens() >= 1)
                                 {
                                     int fee;
@@ -1359,18 +1357,18 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
             {
                 NpcHtmlMessage html = new NpcHtmlMessage(1);
                 html.setFile("data/html/clanHallManager/chamberlain.htm");
-                html.replace("%objectId%", String.valueOf(this.getObjectId()));
-                html.replace("%npcname%", this.getName());
+                html.replace("%objectId%", String.valueOf(getObjectId()));
+                html.replace("%npcname%", getName());
                 sendHtmlMessage(player, html);
             }
             else if (actualCommand.equalsIgnoreCase("support_back"))
-            { 
-                NpcHtmlMessage html = new NpcHtmlMessage(1); 
-                if(getClanHall().getFunction(ClanHall.FUNC_SUPPORT).getLvl() == 0) 
-                    return; 
-                html.setFile("data/html/clanHallManager/support" + getClanHall().getFunction(ClanHall.FUNC_SUPPORT).getLvl()+".htm"); 
-                html.replace("%mp%", String.valueOf((int)getStatus().getCurrentMp())); 
-                sendHtmlMessage(player, html); 
+            {
+                NpcHtmlMessage html = new NpcHtmlMessage(1);
+                if(getClanHall().getFunction(ClanHall.FUNC_SUPPORT).getLvl() == 0)
+                    return;
+                html.setFile("data/html/clanHallManager/support" + getClanHall().getFunction(ClanHall.FUNC_SUPPORT).getLvl()+".htm");
+                html.replace("%mp%", String.valueOf((int)getStatus().getCurrentMp()));
+                sendHtmlMessage(player, html);
             }
             else if (actualCommand.equalsIgnoreCase("goto"))
             {
@@ -1404,13 +1402,6 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
         {
             // Set the target of the L2PcInstance player
             player.setTarget(this);
-
-            // Send a Server->Client packet MyTargetSelected to the L2PcInstance player
-            MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
-            player.sendPacket(my);
-
-            // Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client
-            player.sendPacket(new ValidateLocation(this));
         }
         else
         {
@@ -1444,9 +1435,9 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
         
         int condition = validateCondition(player);
         if (condition == COND_OWNER)
-            filename = "data/html/clanHallManager/chamberlain.htm";// Owner message window 
+            filename = "data/html/clanHallManager/chamberlain.htm";// Owner message window
         if (condition == COND_OWNER_FALSE)
-            filename = "data/html/clanHallManager/chamberlain-of.htm";   
+            filename = "data/html/clanHallManager/chamberlain-of.htm";
         NpcHtmlMessage html = new NpcHtmlMessage(1);
         html.setFile(filename);
         html.replace("%objectId%", String.valueOf(getObjectId()));
@@ -1456,7 +1447,7 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
     }
 
     protected int validateCondition(L2PcInstance player)
-    {   
+    {
         if (getClanHall() == null) return COND_ALL_FALSE;
         if (player.isGM()) return COND_OWNER;
         if (player.getClan() != null)

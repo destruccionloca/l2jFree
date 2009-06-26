@@ -18,9 +18,7 @@ import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.instancemanager.FactionManager;
 import com.l2jfree.gameserver.model.entity.faction.Faction;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
-import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 /**
@@ -43,13 +41,6 @@ public class L2FactionQuestManagerInstance extends L2NpcInstance
 		{
 			// Set the target of the L2PcInstance player
 			player.setTarget(this);
-
-			// Send a Server->Client packet MyTargetSelected to the L2PcInstance player
-			MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
-			player.sendPacket(my);
-
-			// Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client
-			player.sendPacket(new ValidateLocation(this));
 		}
 		else
 		{
@@ -107,7 +98,7 @@ public class L2FactionQuestManagerInstance extends L2NpcInstance
                 filename = path + "wrong.htm";
         }
         sendHtmlMessage(player, filename, replace, factionName);
-    } 
+    }
 
     private void sendHtmlMessage(L2PcInstance player, String filename, String replace, String factionName)
     {

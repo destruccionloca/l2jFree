@@ -22,9 +22,7 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
-import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public final class L2MercManagerInstance extends L2MerchantInstance
@@ -53,13 +51,6 @@ public final class L2MercManagerInstance extends L2MerchantInstance
 		{
 			// Set the target of the L2PcInstance player
 			player.setTarget(this);
-
-			// Send a Server->Client packet MyTargetSelected to the L2PcInstance player
-			MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
-			player.sendPacket(my);
-
-			// Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client
-			player.sendPacket(new ValidateLocation(this));
 		}
 		else
 		{
@@ -68,8 +59,8 @@ public final class L2MercManagerInstance extends L2MerchantInstance
 			{
 				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
 				player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-			} 
-			else 
+			}
+			else
 			{
 				showMessageWindow(player);
 			}
@@ -133,9 +124,9 @@ public final class L2MercManagerInstance extends L2MerchantInstance
             if (player.getClan() != null)
             {
                 if (getCastle().getSiege().getIsInProgress()) return COND_BUSY_BECAUSE_OF_SIEGE; // Busy because of siege
-                else if (getCastle().getOwnerId() == player.getClanId()) // Clan owns castle  
+                else if (getCastle().getOwnerId() == player.getClanId()) // Clan owns castle
                 {
-                    if ((player.getClanPrivileges() & L2Clan.CP_CS_MERCENARIES) == L2Clan.CP_CS_MERCENARIES) return COND_OWNER;  
+                    if ((player.getClanPrivileges() & L2Clan.CP_CS_MERCENARIES) == L2Clan.CP_CS_MERCENARIES) return COND_OWNER;
                 }
             }
         }

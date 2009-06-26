@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.model.actor;
 
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 /**
@@ -24,5 +25,11 @@ public abstract class L2SiegeGuard extends L2Guard
 	public L2SiegeGuard(int objectId, L2NpcTemplate template)
 	{
 		super(objectId, template);
+	}
+	
+	@Override
+	public int getMyTargetSelectedColor(L2PcInstance player)
+	{
+		return player.getLevel() - getLevel();
 	}
 }

@@ -44,9 +44,7 @@ import com.l2jfree.gameserver.network.serverpackets.ExShowCropSetting;
 import com.l2jfree.gameserver.network.serverpackets.ExShowManorDefaultInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExShowSeedInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExShowSeedSetting;
-import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
-import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.gameserver.util.IllegalPlayerAction;
@@ -96,12 +94,6 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 		{
 			// Set the target of the L2PcInstance player
 			player.setTarget(this);
-
-			// Send a Server->Client packet MyTargetSelected to the L2PcInstance player
-			player.sendPacket(new MyTargetSelected(getObjectId(), 0));
-
-			// Send a Server->Client packet ValidateLocation to correct the zL2NpcInstance position and heading on the client
-			player.sendPacket(new ValidateLocation(this));
 		}
 		else
 		{

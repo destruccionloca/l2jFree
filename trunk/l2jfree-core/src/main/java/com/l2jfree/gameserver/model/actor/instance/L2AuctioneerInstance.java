@@ -34,9 +34,7 @@ import com.l2jfree.gameserver.model.entity.Auction;
 import com.l2jfree.gameserver.model.entity.Town;
 import com.l2jfree.gameserver.model.entity.Auction.Bidder;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
-import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public final class L2AuctioneerInstance extends L2NpcInstance
@@ -65,13 +63,6 @@ public final class L2AuctioneerInstance extends L2NpcInstance
 		{
 			// Set the target of the L2PcInstance player
 			player.setTarget(this);
-
-			// Send a Server->Client packet MyTargetSelected to the L2PcInstance player
-			MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
-			player.sendPacket(my);
-
-			// Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client
-			player.sendPacket(new ValidateLocation(this));
 		}
 		else
 		{
@@ -268,12 +259,12 @@ public final class L2AuctioneerInstance extends L2NpcInstance
 					String filename = "data/html/auction/AgitBid1.htm";
 
 					int minimumBid = AuctionManager.getInstance().getAuction(Integer.parseInt(val)).getHighestBidderMaxBid();
-					if (minimumBid == 0) minimumBid = AuctionManager.getInstance().getAuction(Integer.parseInt(val)).getStartingBid(); 
+					if (minimumBid == 0) minimumBid = AuctionManager.getInstance().getAuction(Integer.parseInt(val)).getStartingBid();
 
 					NpcHtmlMessage html = new NpcHtmlMessage(1);
 					html.setFile(filename);
 					html.replace("%AGIT_LINK_BACK%", "bypass -h npc_"+getObjectId()+"_bidding "+val);
-					html.replace("%PLEDGE_ADENA%", String.valueOf(player.getClan().getWarehouse().getAdena())); 
+					html.replace("%PLEDGE_ADENA%", String.valueOf(player.getClan().getWarehouse().getAdena()));
 					html.replace("%AGIT_AUCTION_MINBID%", String.valueOf(minimumBid));
 					html.replace("npc_%objectId%_bid", "npc_"+getObjectId()+"_bid "+val);
 					player.sendPacket(html);
@@ -609,7 +600,7 @@ public final class L2AuctioneerInstance extends L2NpcInstance
 	}
 
 	/**
-	 * @param player  
+	 * @param player
 	 */
 	private int validateCondition(L2PcInstance player)
 	{
