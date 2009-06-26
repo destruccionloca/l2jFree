@@ -16,12 +16,12 @@ package com.l2jfree.gameserver.communitybbs.Manager;
 
 import java.util.StringTokenizer;
 
+import javolution.text.TextBuilder;
+
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-
-import javolution.text.TextBuilder;
 
 public class ClanBBSManager extends BaseBBSManager
 {
@@ -112,7 +112,7 @@ public class ClanBBSManager extends BaseBBSManager
 	private void clanNotice(L2PcInstance activeChar, int clanId)
 	{
 		L2Clan cl;
-
+		
 		try
 		{
 			cl = ClanTable.getInstance().getClan(clanId);
@@ -135,34 +135,27 @@ public class ClanBBSManager extends BaseBBSManager
 				{
 					if (activeChar.isClanLeader())
 					{
-						TextBuilder html = new TextBuilder("<html>");
+						final TextBuilder html = TextBuilder.newInstance();
+						html.append("<html>");
 						html.append("<body><br><br>");
 						html.append("<table border=0 width=610><tr><td width=10></td><td width=600 align=left>");
-						html
-								.append("<a action=\"bypass _bbshome\">HOME</a> &gt; <a action=\"bypass _bbsclan_clanlist\"> CLAN COMMUNITY </a>  &gt; <a action=\"bypass _bbsclan_clanhome;"
-										+ clanId + "\"> &amp;$802; </a>");
+						html.append("<a action=\"bypass _bbshome\">HOME</a> &gt; <a action=\"bypass _bbsclan_clanlist\"> CLAN COMMUNITY </a>  &gt; <a action=\"bypass _bbsclan_clanhome;")
+							.append(clanId).append("\"> &amp;$802; </a>");
 						html.append("</td></tr>");
 						html.append("</table>");
 						html.append("<br><br><center>");
 						html.append("<table width=610 border=0 cellspacing=0 cellpadding=0>");
-						html
-								.append("<tr><td fixwidth=610><font color=\"AAAAAA\">The Clan Notice function allows the clan leader to send messages through a pop-up window to clan members at login.</font> </td></tr>");
+						html.append("<tr><td fixwidth=610><font color=\"AAAAAA\">The Clan Notice function allows the clan leader to send messages through a pop-up window to clan members at login.</font> </td></tr>");
 						html.append("<tr><td height=20></td></tr>");
-
+						
 						if (activeChar.getClan().isNoticeEnabled())
-							html
-									.append("<tr><td fixwidth=610> Clan Notice Function:&nbsp;&nbsp;&nbsp;on&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;<a action=\"bypass _bbsclan_clannotice_disable\">off</a>");
+							html.append("<tr><td fixwidth=610> Clan Notice Function:&nbsp;&nbsp;&nbsp;on&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;<a action=\"bypass _bbsclan_clannotice_disable\">off</a>");
 						else
-							html
-									.append("<tr><td fixwidth=610> Clan Notice Function:&nbsp;&nbsp;&nbsp;<a action=\"bypass _bbsclan_clannotice_enable\">on</a>&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;off");
-
+							html.append("<tr><td fixwidth=610> Clan Notice Function:&nbsp;&nbsp;&nbsp;<a action=\"bypass _bbsclan_clannotice_enable\">on</a>&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;off");
 						html.append("</td></tr>");
 						html.append("</table>");
-
 						html.append("<img src=\"L2UI.Squaregray\" width=\"610\" height=\"1\">");
-
 						html.append("<br> <br>");
-
 						html.append("<table width=610 border=0 cellspacing=2 cellpadding=0>");
 						html.append("<tr><td>Edit Notice: </td></tr>");
 						html.append("<tr><td height=5></td></tr>");
@@ -174,9 +167,7 @@ public class ClanBBSManager extends BaseBBSManager
 						html.append("<table width=610 border=0 cellspacing=0 cellpadding=0>");
 						html.append("<tr><td height=5></td></tr>");
 						html.append("<tr>");
-						html
-								.append("<td align=center FIXWIDTH=65><button value=\"&$140;\" action=\"Write Notice Set _ Content Content Content\" back=\"l2ui_ch3.smallbutton2_down\" width=65 height=20 fore=\"l2ui_ch3.smallbutton2\" ></td>");
-
+						html.append("<td align=center FIXWIDTH=65><button value=\"&$140;\" action=\"Write Notice Set _ Content Content Content\" back=\"l2ui_ch3.smallbutton2_down\" width=65 height=20 fore=\"l2ui_ch3.smallbutton2\" ></td>");
 						html.append("<td align=center FIXWIDTH=45></td>");
 						html.append("<td align=center FIXWIDTH=500></td>");
 						html.append("</tr>");
@@ -184,17 +175,24 @@ public class ClanBBSManager extends BaseBBSManager
 						html.append("</center>");
 						html.append("</body>");
 						html.append("</html>");
-						send1001(html.toString(), activeChar);
-						send1002(activeChar, activeChar.getClan().getNoticeForBBS(), " ", "0");
+						try
+						{
+							send1001(html.toString(), activeChar);
+							send1002(activeChar, activeChar.getClan().getNoticeForBBS(), " ", "0");
+						}
+						finally
+						{
+							TextBuilder.recycle(html);
+						}
 					}
 					else
 					{
-						TextBuilder html = new TextBuilder("<html>");
+						final TextBuilder html = TextBuilder.newInstance();
+						html.append("<html>");
 						html.append("<body><br><br>");
 						html.append("<table border=0 width=610><tr><td width=10></td><td width=600 align=left>");
-						html
-								.append("<a action=\"bypass _bbshome\">HOME</a> &gt; <a action=\"bypass _bbsclan_clanlist\"> CLAN COMMUNITY </a>  &gt; <a action=\"bypass _bbsclan_clanhome;"
-										+ clanId + "\"> &amp;$802; </a>");
+						html.append("<a action=\"bypass _bbshome\">HOME</a> &gt; <a action=\"bypass _bbsclan_clanlist\"> CLAN COMMUNITY </a>  &gt; <a action=\"bypass _bbsclan_clanhome;")
+							.append(clanId).append("\"> &amp;$802; </a>");
 						html.append("</td></tr>");
 						html.append("</table>");
 						html.append("<img src=\"L2UI.squareblank\" width=\"1\" height=\"10\">");
@@ -210,7 +208,7 @@ public class ClanBBSManager extends BaseBBSManager
 							html.append("</tr>");
 							html.append("<tr><td fixwidth=5></td>");
 							String Mes = activeChar.getClan().getNotice();
-							html.append("<td FIXWIDTH=600 align=left>" + Mes + "</td>");
+							html.append("<td FIXWIDTH=600 align=left>").append(Mes).append("</td>");
 							html.append("<td fixqqwidth=5></td>");
 							html.append("</tr>");
 							html.append("</table>");
@@ -218,10 +216,16 @@ public class ClanBBSManager extends BaseBBSManager
 						html.append("</center>");
 						html.append("</body>");
 						html.append("</html>");
-						send1001(html.toString(), activeChar);
-						send1002(activeChar);
+						try
+						{
+							send1001(html.toString(), activeChar);
+							send1002(activeChar);
+						}
+						finally
+						{
+							TextBuilder.recycle(html);
+						}
 					}
-
 				}
 			}
 		}
@@ -241,7 +245,8 @@ public class ClanBBSManager extends BaseBBSManager
 			index = 1;
 		}
 		//header
-		TextBuilder html = new TextBuilder("<html><body><br><br><center>");
+		final TextBuilder html = TextBuilder.newInstance();
+		html.append("<html><body><br><br><center>");
 		html.append("<br1><br1><table border=0 cellspacing=0 cellpadding=0>");
 		html.append("<tr><td FIXWIDTH=15>&nbsp;</td>");
 		html.append("<td width=610 height=30 align=left>");
@@ -252,8 +257,9 @@ public class ClanBBSManager extends BaseBBSManager
 		html.append("<tr>");
 		html.append("<td fixWIDTH=5></td>");
 		html.append("<td fixWIDTH=600>");
-		html.append("<a action=\"bypass _bbsclan_clanhome;" + ((activeChar.getClan() != null) ? activeChar.getClan().getClanId() : 0)
-				+ "\">[GO TO MY CLAN]</a>&nbsp;&nbsp;");
+		html.append("<a action=\"bypass _bbsclan_clanhome;").append(
+			activeChar.getClan() != null ? activeChar.getClan().getClanId() : 0).append(
+			"\">[GO TO MY CLAN]</a>&nbsp;&nbsp;");
 		html.append("</td>");
 		html.append("<td fixWIDTH=5></td>");
 		html.append("</tr>");
@@ -285,10 +291,11 @@ public class ClanBBSManager extends BaseBBSManager
 				html.append("<table border=0 cellspacing=0 cellpadding=0 width=610>");
 				html.append("<tr> ");
 				html.append("<td FIXWIDTH=5></td>");
-				html.append("<td FIXWIDTH=200 align=center><a action=\"bypass _bbsclan_clanhome;" + cl.getClanId() + "\">" + cl.getName() + "</a></td>");
-				html.append("<td FIXWIDTH=200 align=center>" + cl.getLeaderName() + "</td>");
-				html.append("<td FIXWIDTH=100 align=center>" + cl.getLevel() + "</td>");
-				html.append("<td FIXWIDTH=100 align=center>" + cl.getMembersCount() + "</td>");
+				html.append("<td FIXWIDTH=200 align=center><a action=\"bypass _bbsclan_clanhome;").append(
+					cl.getClanId()).append("\">").append(cl.getName()).append("</a></td>");
+				html.append("<td FIXWIDTH=200 align=center>").append(cl.getLeaderName()).append("</td>");
+				html.append("<td FIXWIDTH=100 align=center>").append(cl.getLevel()).append("</td>");
+				html.append("<td FIXWIDTH=100 align=center>").append(cl.getMembersCount()).append("</td>");
 				html.append("<td FIXWIDTH=5></td>");
 				html.append("</tr>");
 				html.append("<tr><td height=5></td></tr>");
@@ -305,8 +312,8 @@ public class ClanBBSManager extends BaseBBSManager
 		}
 		else
 		{
-			html.append("<td><button action=\"_bbsclan_clanlist;" + (index - 1)
-					+ "\" back=\"l2ui_ch3.prev1_down\" fore=\"l2ui_ch3.prev1\" width=16 height=16 ></td>");
+			html.append("<td><button action=\"_bbsclan_clanlist;").append(index - 1).append(
+				"\" back=\"l2ui_ch3.prev1_down\" fore=\"l2ui_ch3.prev1\" width=16 height=16 ></td>");
 		}
 		i = 0;
 		int nbp;
@@ -319,13 +326,13 @@ public class ClanBBSManager extends BaseBBSManager
 		{
 			if (i == index)
 			{
-				html.append("<td> " + i + " </td>");
+				html.append("<td> ").append(i).append(" </td>");
 			}
 			else
 			{
-				html.append("<td><a action=\"bypass _bbsclan_clanlist;" + i + "\"> " + i + " </a></td>");
+				html.append("<td><a action=\"bypass _bbsclan_clanlist;").append(i).append("\"> ").append(i).append(" </a></td>");
 			}
-
+			
 		}
 		if (index == nbp)
 		{
@@ -333,24 +340,29 @@ public class ClanBBSManager extends BaseBBSManager
 		}
 		else
 		{
-			html.append("<td><button action=\"bypass _bbsclan_clanlist;" + (index + 1)
-					+ "\" back=\"l2ui_ch3.next1_down\" fore=\"l2ui_ch3.next1\" width=16 height=16 ></td>");
+			html.append("<td><button action=\"bypass _bbsclan_clanlist;").append(index + 1).append(
+				"\" back=\"l2ui_ch3.next1_down\" fore=\"l2ui_ch3.next1\" width=16 height=16 ></td>");
 		}
 		html.append("</tr></table>");
 		html.append("<table border=0 cellspacing=0 cellpadding=0>");
 		html.append("<tr><td width=610><img src=\"sek.cbui141\" width=\"610\" height=\"1\"></td></tr>");
 		html.append("</table>");
-		html
-				.append("<table border=0><tr><td><combobox width=65 var=keyword list=\"Name;Ruler\"></td><td><edit var = \"Search\" width=130 height=11 length=\"16\"></td>");
+		html.append("<table border=0><tr><td><combobox width=65 var=keyword list=\"Name;Ruler\"></td><td><edit var = \"Search\" width=130 height=11 length=\"16\"></td>");
 		//TODO: search (Write in BBS)
-		html
-				.append("<td><button value=\"&$420;\" action=\"Write 5 -1 0 Search keyword keyword\" back=\"l2ui_ch3.smallbutton2_down\" width=65 height=20 fore=\"l2ui_ch3.smallbutton2\"> </td> </tr></table>");
+		html.append("<td><button value=\"&$420;\" action=\"Write 5 -1 0 Search keyword keyword\" back=\"l2ui_ch3.smallbutton2_down\" width=65 height=20 fore=\"l2ui_ch3.smallbutton2\"> </td> </tr></table>");
 		html.append("<br>");
 		html.append("<br>");
 		html.append("</center>");
 		html.append("</body>");
 		html.append("</html>");
-		separateAndSend(html.toString(), activeChar);
+		try
+		{
+			separateAndSend(html.toString(), activeChar);
+		}
+		finally
+		{
+			TextBuilder.recycle(html);
+		}
 	}
 
 	/**
@@ -377,23 +389,23 @@ public class ClanBBSManager extends BaseBBSManager
 			}
 			else
 			{
-				TextBuilder html = new TextBuilder("<html><body><center><br><br>");
+				final TextBuilder html = TextBuilder.newInstance();
+				html.append("<html><body><center><br><br>");
 				html.append("<br1><br1><table border=0 cellspacing=0 cellpadding=0>");
 				html.append("<tr><td FIXWIDTH=15>&nbsp;</td>");
 				html.append("<td width=610 height=30 align=left>");
-				html
-						.append("<a action=\"bypass _bbshome\">HOME</a> &gt; <a action=\"bypass _bbsclan_clanlist\"> CLAN COMMUNITY </a>  &gt; <a action=\"bypass _bbsclan_clanhome;"
-								+ clanId + "\"> &amp;$802; </a>");
+				html.append("<a action=\"bypass _bbshome\">HOME</a> &gt; <a action=\"bypass _bbsclan_clanlist\"> CLAN COMMUNITY </a>  &gt; <a action=\"bypass _bbsclan_clanhome;")
+					.append(clanId).append("\"> &amp;$802; </a>");
 				html.append("</td></tr></table>");
 				html.append("<table border=0 cellspacing=0 cellpadding=0 width=610 bgcolor=434343>");
 				html.append("<tr><td height=10></td></tr>");
 				html.append("<tr>");
 				html.append("<td fixWIDTH=5></td>");
 				html.append("<td fixwidth=600>");
-				html.append("<a action=\"bypass _bbsclan_clanhome;" + clanId + ";announce\">[CLAN ANNOUNCEMENT]</a> <a action=\"bypass _bbsclan_clanhome;"
-						+ clanId + ";cbb\">[CLAN BULLETIN BOARD]</a>");
-				html.append("<a action=\"bypass _bbsclan_clanhome;" + clanId + ";cmail\">[CLAN MAIL]</a>");
-				html.append(" <a action=\"bypass _bbsclan_clannotice_edit;" + clanId + ";cnotice\">[CLAN NOTICE]</a>&nbsp;&nbsp;");
+				html.append("<a action=\"bypass _bbsclan_clanhome;").append(clanId).append(";announce\">[CLAN ANNOUNCEMENT]</a>");
+				html.append(" <a action=\"bypass _bbsclan_clanhome;").append(clanId).append(";cbb\">[CLAN BULLETIN BOARD]</a>");
+				html.append("<a action=\"bypass _bbsclan_clanhome;").append(clanId).append(";cmail\">[CLAN MAIL]</a>");
+				html.append(" <a action=\"bypass _bbsclan_clannotice_edit;").append(clanId).append(";cnotice\">[CLAN NOTICE]</a>&nbsp;&nbsp;");
 				html.append("</td>");
 				html.append("<td fixWIDTH=5></td>");
 				html.append("</tr>");
@@ -411,22 +423,22 @@ public class ClanBBSManager extends BaseBBSManager
 				html.append("<table border=0 cellspacing=0 cellpadding=0 width=295>");
 				html.append("<tr>");
 				html.append("<td fixWIDTH=100 align=left>CLAN NAME</td>");
-				html.append("<td fixWIDTH=195 align=left>" + cl.getName() + "</td>");
+				html.append("<td fixWIDTH=195 align=left>").append(cl.getName()).append("</td>");
 				html.append("</tr>");
 				html.append("<tr><td height=7></td></tr>");
 				html.append("<tr>");
 				html.append("<td fixWIDTH=100 align=left>CLAN LEVEL</td>");
-				html.append("<td fixWIDTH=195 align=left height=16>" + cl.getLevel() + "</td>");
+				html.append("<td fixWIDTH=195 align=left height=16>").append(cl.getLevel()).append("</td>");
 				html.append("</tr>");
 				html.append("<tr><td height=7></td></tr>");
 				html.append("<tr>");
 				html.append("<td fixWIDTH=100 align=left>CLAN MEMBERS</td>");
-				html.append("<td fixWIDTH=195 align=left height=16>" + cl.getMembersCount() + "</td>");
+				html.append("<td fixWIDTH=195 align=left height=16>").append(cl.getMembersCount()).append("</td>");
 				html.append("</tr>");
 				html.append("<tr><td height=7></td></tr>");
 				html.append("<tr>");
 				html.append("<td fixWIDTH=100 align=left>CLAN LEADER</td>");
-				html.append("<td fixWIDTH=195 align=left height=16>" + cl.getLeaderName() + "</td>");
+				html.append("<td fixWIDTH=195 align=left height=16>").append(cl.getLeaderName()).append("</td>");
 				html.append("</tr>");
 				html.append("<tr><td height=7></td></tr>");
 				//ADMINISTRATOR ??
@@ -437,7 +449,8 @@ public class ClanBBSManager extends BaseBBSManager
 				html.append("<tr><td height=7></td></tr>");
 				html.append("<tr>");
 				html.append("<td fixWIDTH=100 align=left>ALLIANCE</td>");
-				html.append("<td fixWIDTH=195 align=left height=16>" + ((cl.getAllyName() != null) ? cl.getAllyName() : "") + "</td>");
+				html.append("<td fixWIDTH=195 align=left height=16>").append(
+					cl.getAllyName() != null ? cl.getAllyName() : "").append("</td>");
 				html.append("</tr>");
 				html.append("</table>");
 				html.append("</td>");
@@ -454,7 +467,14 @@ public class ClanBBSManager extends BaseBBSManager
 				html.append("<br> <br>");
 				html.append("</body>");
 				html.append("</html>");
-				separateAndSend(html.toString(), activeChar);
+				try
+				{
+					separateAndSend(html.toString(), activeChar);
+				}
+				finally
+				{
+					TextBuilder.recycle(html);
+				}
 			}
 		}
 	}

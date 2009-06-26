@@ -17,6 +17,8 @@ package com.l2jfree.gameserver.communitybbs.Manager;
 import java.util.ArrayList;
 import java.util.List;
 
+import javolution.text.TextBuilder;
+
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.ShowBoard;
 
@@ -26,6 +28,18 @@ public abstract class BaseBBSManager
 
 	public abstract void parsewrite(String ar1, String ar2, String ar3, String ar4, String ar5, L2PcInstance activeChar);
 
+	protected void separateAndSend(TextBuilder html, L2PcInstance acha)
+	{
+		try
+		{
+			separateAndSend(html.toString(), acha);
+		}
+		finally
+		{
+			TextBuilder.recycle(html);
+		}
+	}
+	
 	protected void separateAndSend(String html, L2PcInstance acha)
 	{
 		if (html == null)
