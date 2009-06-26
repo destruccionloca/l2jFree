@@ -78,21 +78,24 @@ public final class Broadcast
 	
 	public static void toSelfAndKnownPlayers(L2Character character, L2GameServerPacket mov)
 	{
-		character.sendPacket(mov);
+		if (character instanceof L2PcInstance)
+			((L2PcInstance)character).sendPacket(mov);
 		
 		toKnownPlayers(character, mov);
 	}
 	
 	public static void toSelfAndKnownPlayersInRadius(L2Character character, L2GameServerPacket mov, int radius)
 	{
-		character.sendPacket(mov);
+		if (character instanceof L2PcInstance)
+			((L2PcInstance)character).sendPacket(mov);
 		
 		toKnownPlayersInRadius(character, mov, radius);
 	}
 	
 	public static void toSelfAndKnownPlayersInRadius(L2Character character, L2GameServerPacket mov, long radiusSq)
 	{
-		character.sendPacket(mov);
+		if (character instanceof L2PcInstance)
+			((L2PcInstance)character).sendPacket(mov);
 		
 		toKnownPlayersInRadius(character, mov, radiusSq);
 	}

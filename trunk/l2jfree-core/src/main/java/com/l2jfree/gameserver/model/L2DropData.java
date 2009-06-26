@@ -16,11 +16,13 @@ package com.l2jfree.gameserver.model;
 
 import java.util.Arrays;
 
+import com.l2jfree.lang.L2System;
+
 /**
 /*
  * 
  * Special thanks to nuocnam
- * Author: LittleVexy 
+ * Author: LittleVexy
  * 
  * @version $Revision: 1.1.4.4 $ $Date: 2005/03/29 23:15:15 $
  */
@@ -159,9 +161,9 @@ public class L2DropData
 	@Override
 	public String toString()
 	{
-		String out = "ItemID: " + getItemId() + " Min: " + getMinDrop() + 
+		String out = "ItemID: " + getItemId() + " Min: " + getMinDrop() +
 			" Max: " + getMaxDrop() + " Chance: " + (getChance() / 10000.0) + "%";
-		if (isQuestDrop()) 
+		if (isQuestDrop())
 		{
 			out += " QuestID: " + getQuestID() + " StateID's: " + Arrays.toString(getStateIDs());
 		}
@@ -172,29 +174,26 @@ public class L2DropData
 	/**
 	 * @see java.lang.Object#hashCode()
 	 */
+	@Override
 	public int hashCode()
 	{
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + _itemId;
-		return result;
+		return L2System.hash(_itemId);
 	}
-
+	
 	/**
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
 	public boolean equals(Object obj)
 	{
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
 		if (!(obj instanceof L2DropData))
 			return false;
-		final L2DropData other = (L2DropData) obj;
+		
+		final L2DropData other = (L2DropData)obj;
+		
 		if (_itemId != other._itemId)
 			return false;
+		
 		return true;
 	}
 

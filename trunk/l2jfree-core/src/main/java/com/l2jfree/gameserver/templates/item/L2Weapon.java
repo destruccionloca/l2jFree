@@ -20,6 +20,7 @@ import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.model.ChanceSkillList;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.templates.StatsSet;
 import com.l2jfree.tools.random.Rnd;
 
@@ -348,7 +349,8 @@ public final class L2Weapon extends L2Equip
 			// notify quests of a skill use
 			caster.notifyMobsAboutSkillCast(skill, target);
 			
-			caster.sendMessage("Your weapon used a skill caused by a critical hit!");
+			if (caster instanceof L2PcInstance)
+				((L2PcInstance)caster).sendMessage("Your weapon used a skill caused by a critical hit!");
 		}
 	}
 	
@@ -386,7 +388,8 @@ public final class L2Weapon extends L2Equip
 			// notify quests of a skill use
 			caster.notifyMobsAboutSkillCast(skill, target);
 			
-			caster.sendMessage("Your weapon used a skill caused by a skill casting!");
+			if (caster instanceof L2PcInstance)
+				((L2PcInstance)caster).sendMessage("Your weapon used a skill caused by a skill casting!");
 		}
 	}
 }

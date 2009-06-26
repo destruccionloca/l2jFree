@@ -129,7 +129,7 @@ public abstract class L2Effect implements FuncOwner, Runnable
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
 			sm.addSkillName(this);
-			_effected.sendPacket(sm);
+			((L2PcInstance)_effected).sendPacket(sm);
 		}
 		
 		scheduleEffect(_period);
@@ -351,7 +351,7 @@ public abstract class L2Effect implements FuncOwner, Runnable
 			{
 				if (isActing())
 				{
-					if (shouldSendExitMessage())
+					if (shouldSendExitMessage() && _effected instanceof L2PcInstance)
 					{
 						SystemMessage sm;
 						if (getCount() == 0)
@@ -362,7 +362,7 @@ public abstract class L2Effect implements FuncOwner, Runnable
 							sm = new SystemMessage(SystemMessageId.EFFECT_S1_DISAPPEARED);
 						sm.addSkillName(this);
 						
-						_effected.sendPacket(sm);
+						((L2PcInstance)_effected).sendPacket(sm);
 					}
 					
 					_currentFuture.cancel(false);

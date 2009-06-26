@@ -22,7 +22,6 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 /**

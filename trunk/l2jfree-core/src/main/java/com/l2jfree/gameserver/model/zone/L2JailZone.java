@@ -55,13 +55,14 @@ public class L2JailZone extends L2Zone
 		
 		if (character instanceof L2PcInstance)
 		{
+			L2PcInstance player = (L2PcInstance)character;
 			// This is for when a player tries to bug his way out of jail
-			if (((L2PcInstance)character).isInJail())
+			if (player.isInJail())
 			{
-				character.teleToLocation(JAIL_LOCATION, false);
-				character.sendMessage("You dare try and escape from jail before your time is up? Think again!");
+				player.teleToLocation(JAIL_LOCATION, false);
+				player.sendMessage("You dare try and escape from jail before your time is up? Think again!");
 				
-				String msg = "Player: " + character.getName() + " tried to escape from jail.";
+				String msg = "Player: " + player.getName() + " tried to escape from jail.";
 				_log.warn(msg);
 				GmListTable.broadcastMessageToGMs(msg);
 			}

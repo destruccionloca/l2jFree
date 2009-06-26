@@ -555,14 +555,14 @@ public class L2Npc extends L2Character
 		}
 		if (player.isLockedTarget() && player.getLockedTarget() != this)
 		{
-			player.sendPacket(new SystemMessage(SystemMessageId.FAILED_CHANGE_TARGET));
+			player.sendPacket(SystemMessageId.FAILED_CHANGE_TARGET);
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return false;
 		}
 		// Restrict interactions during restart/shutdown
 		if (Shutdown.isActionDisabled(DisableType.NPC_ITERACTION))
 		{
-			sendMessage("NPC interaction disabled during restart/shutdown.");
+			player.sendMessage("NPC interaction disabled during restart/shutdown.");
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return false;
 		}

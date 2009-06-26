@@ -20,7 +20,6 @@ import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2TrapInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
 public class Trap implements ISkillHandler
@@ -55,7 +54,7 @@ public class Trap implements ISkillHandler
 					{
 						target.setDetected();
 						if (activeChar instanceof L2PcInstance)
-							activeChar.sendMessage("A Trap has been detected!");
+							((L2PcInstance)activeChar).sendMessage("A Trap has been detected!");
 					}
 				}
 				break;
@@ -80,7 +79,7 @@ public class Trap implements ISkillHandler
 	
 					target.unSummon(trapOwner);
 					if (activeChar instanceof L2PcInstance)
-						activeChar.sendPacket(new SystemMessage(SystemMessageId.A_TRAP_DEVICE_HAS_BEEN_STOPPED));
+						activeChar.sendPacket(SystemMessageId.A_TRAP_DEVICE_HAS_BEEN_STOPPED);
 				}
 			}
 		}

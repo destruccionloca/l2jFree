@@ -68,13 +68,13 @@ public class Pdam implements ISkillHandler
 			{
 				if (activeChar.getLevel() < Config.ALT_PLAYER_PROTECTION_LEVEL)
 				{
-					activeChar.sendMessage("You are unable to attack players until level "
+					((L2PcInstance)activeChar).sendMessage("You are unable to attack players until level "
 							+ String.valueOf(Config.ALT_PLAYER_PROTECTION_LEVEL) + ".");
 					continue;
 				}
 				else if (target.getLevel() < Config.ALT_PLAYER_PROTECTION_LEVEL)
 				{
-					target.sendMessage("Player's level is below " + String.valueOf(Config.ALT_PLAYER_PROTECTION_LEVEL)
+					((L2PcInstance)target).sendMessage("Player's level is below " + String.valueOf(Config.ALT_PLAYER_PROTECTION_LEVEL)
 							+ ", so he cannot be attacked.");
 					continue;
 				}
@@ -245,7 +245,7 @@ public class Pdam implements ISkillHandler
 				}
 				else // No - damage
 				{
-					activeChar.sendPacket(new SystemMessage(SystemMessageId.ATTACK_FAILED));
+					activeChar.sendPacket(SystemMessageId.ATTACK_FAILED);
 				}
 			}
 			else

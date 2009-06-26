@@ -417,12 +417,12 @@ public class L2SignsPriestInstance extends L2NpcInstance
                         // Send inventory update packet
                         iu = new InventoryUpdate();
                         iu.addModifiedItem(player.getInventory().getAncientAdenaInstance());
-                        sendPacket(iu);
+                        player.sendPacket(iu);
 
                         // Update current load as well
                         su = new StatusUpdate(player.getObjectId());
                         su.addAttribute(StatusUpdate.CUR_LOAD, player.getCurrentLoad());
-                        sendPacket(su);
+                        player.sendPacket(su);
 
                         showChatWindow(player, 9, "a", false);
                     }
@@ -552,12 +552,12 @@ public class L2SignsPriestInstance extends L2NpcInstance
                             iu = new InventoryUpdate();
                             iu.addModifiedItem(player.getInventory().getAncientAdenaInstance());
                             iu.addModifiedItem(convertItem);
-                            sendPacket(iu);
+                            player.sendPacket(iu);
 
                             // Update current load as well
                             su = new StatusUpdate(player.getObjectId());
                             su.addAttribute(StatusUpdate.CUR_LOAD, player.getCurrentLoad());
-                            sendPacket(su);
+                            player.sendPacket(su);
                         }
                     }
                     else

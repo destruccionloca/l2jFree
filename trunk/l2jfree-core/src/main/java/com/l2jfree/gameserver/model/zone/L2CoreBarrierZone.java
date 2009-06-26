@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.model.zone;
 
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
@@ -31,7 +32,11 @@ public class L2CoreBarrierZone extends L2DamageZone
 	{
 		super.checkForDamage(character);
 		
-		if (getHPDamagePerSecond() > 0)
-			character.sendPacket(new SystemMessage(SystemMessageId.S1_DAMAGE_BY_CORE_BARRIER).addNumber(getHPDamagePerSecond()));
+		if (getHPDamagePerSecond() > 0 && character instanceof L2PcInstance)
+		{
+			SystemMessage sm = new SystemMessage(SystemMessageId.S1_DAMAGE_BY_CORE_BARRIER);
+			sm.addNumber(getHPDamagePerSecond());
+			((L2PcInstance)character).sendPacket(sm);
+		}
 	}
 }

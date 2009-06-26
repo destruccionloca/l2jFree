@@ -36,12 +36,13 @@ public class L2ClanhallZone extends L2Zone
 	{
 		if (character instanceof L2PcInstance)
 		{
+			L2PcInstance player = (L2PcInstance)character;
 			// Set as in clan hall
-			character.setInsideZone(FLAG_CLANHALL, true);
+			player.setInsideZone(FLAG_CLANHALL, true);
 			
 			// Send decoration packet
 			AgitDecoInfo deco = new AgitDecoInfo(_clanhall);
-			character.sendPacket(deco);
+			player.sendPacket(deco);
 		}
 		
 		super.onEnter(character);

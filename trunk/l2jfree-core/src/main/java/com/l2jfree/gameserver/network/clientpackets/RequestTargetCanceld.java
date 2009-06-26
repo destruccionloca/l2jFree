@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * This class ...
@@ -29,7 +28,7 @@ public class RequestTargetCanceld extends L2GameClientPacket
 	private static final String _C__37_REQUESTTARGETCANCELD = "[C] 37 RequestTargetCanceld";
 	//private final static Log _log = LogFactory.getLog(RequestTargetCanceld.class.getName());
 
-	private int _unselect; 
+	private int _unselect;
 
 	/**
 	 * packet type id 0x37
@@ -50,9 +49,9 @@ public class RequestTargetCanceld extends L2GameClientPacket
 		{
         	if (((L2PcInstance)activeChar).isLockedTarget())
         	{
-        		activeChar.sendPacket(new SystemMessage(SystemMessageId.FAILED_DISABLE_TARGET));
+        		activeChar.sendPacket(SystemMessageId.FAILED_DISABLE_TARGET);
         		return;
-        	}			
+        	}
 			if (_unselect == 0)
 			{
 				if (activeChar.isCastingNow())

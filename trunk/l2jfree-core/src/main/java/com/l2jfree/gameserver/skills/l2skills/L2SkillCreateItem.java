@@ -52,12 +52,7 @@ public class L2SkillCreateItem extends L2Skill
 	{
 		if (activeChar.isAlikeDead())
 			return;
-		if (_createItemId == null || _createItemCount == 0)
-		{
-			SystemMessage sm = new SystemMessage(SystemMessageId.S1_PREPARED_FOR_REUSE);
-			activeChar.sendPacket(sm);
-			return;
-		}
+		
 		L2PcInstance player = (L2PcInstance) activeChar;
 		if (activeChar instanceof L2PcInstance)
 		{

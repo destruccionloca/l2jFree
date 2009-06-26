@@ -54,28 +54,25 @@ public final class EffectSpoil extends L2Effect
 		
 		if (target.isSpoil())
 		{
-			getEffector().sendPacket(new SystemMessage(SystemMessageId.ALREADY_SPOILED));
+			getEffector().sendPacket(SystemMessageId.ALREADY_SPOILED);
 			return false;
 		}
 		
 		// SPOIL SYSTEM by Lbaldi
-		boolean spoil = false;
 		if (!target.isDead())
 		{
-			spoil = Formulas.calcMagicSuccess(getEffector(), target, getSkill());
-			
-			if (spoil)
+			if (Formulas.calcMagicSuccess(getEffector(), target, getSkill()))
 			{
 				target.setSpoil(true);
 				target.setIsSpoiledBy(getEffector().getObjectId());
-				getEffector().sendPacket(new SystemMessage(SystemMessageId.SPOIL_SUCCESS));
+				getEffector().sendPacket(SystemMessageId.SPOIL_SUCCESS);
 			}
-			else
+			else if (getEffector() instanceof L2PcInstance)
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
 				sm.addCharName(target);
 				sm.addSkillName(this);
-				getEffector().sendPacket(sm);
+				((L2PcInstance)getEffector()).sendPacket(sm);
 			}
 			target.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, getEffector());
 		}

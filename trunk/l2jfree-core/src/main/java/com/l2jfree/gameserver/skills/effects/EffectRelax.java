@@ -18,7 +18,6 @@ import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
@@ -68,9 +67,11 @@ public final class EffectRelax extends L2Effect
 		if (getEffected().isDead())
 			retval = false;
 		
-		if (getEffected() instanceof L2PcInstance)
+		L2PcInstance effectedPlayer = getEffected() instanceof L2PcInstance ? (L2PcInstance)getEffected() : null;
+		
+		if (effectedPlayer != null)
 		{
-			if (!((L2PcInstance)getEffected()).isSitting())
+			if (!effectedPlayer.isSitting())
 				retval = false;
 		}
 		
@@ -78,7 +79,8 @@ public final class EffectRelax extends L2Effect
 		{
 			if (getSkill().isToggle())
 			{
-				getEffected().sendMessage("Fully rested. Effect of " + getSkill().getName() + " has been removed.");
+				if (effectedPlayer != null)
+					effectedPlayer.sendMessage("Fully rested. Effect of " + getSkill().getName() + " has been removed.");
 				// if (getEffected() instanceof L2PcInstance)
 				// ((L2PcInstance)getEffected()).standUp();
 				retval = false;
@@ -91,8 +93,7 @@ public final class EffectRelax extends L2Effect
 		{
 			if (getSkill().isToggle())
 			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.SKILL_REMOVED_DUE_LACK_MP);
-				getEffected().sendPacket(sm);
+				getEffected().sendPacket(SystemMessageId.SKILL_REMOVED_DUE_LACK_MP);
 				// if (getEffected() instanceof L2PcInstance)
 				// ((L2PcInstance)getEffected()).standUp();
 				retval = false;

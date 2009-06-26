@@ -56,7 +56,7 @@ public final class EffectTargetMe extends L2Effect
 				getEffected().abortAttack();
 				getEffected().abortCast();
 				if (getEffected() instanceof L2PcInstance)
-					getEffected().sendPacket(new MyTargetSelected(getEffector().getObjectId(), 0));
+					((L2PcInstance)getEffected()).sendPacket(new MyTargetSelected(getEffector().getObjectId(), 0));
 				getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 			}
 			((L2Playable)getEffected()).setLockedTarget(getEffector());
