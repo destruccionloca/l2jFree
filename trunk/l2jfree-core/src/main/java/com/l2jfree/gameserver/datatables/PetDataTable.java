@@ -29,7 +29,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 public class PetDataTable
 {
 	private final static Log										_log						= LogFactory.getLog(L2PetInstance.class.getName());
-	private static PetDataTable										_instance;
 
 	public final static int											PET_WOLF_ID					= 12077;
 
@@ -70,10 +69,7 @@ public class PetDataTable
 
 	public static PetDataTable getInstance()
 	{
-		if (_instance == null)
-			_instance = new PetDataTable();
-
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	private PetDataTable()
@@ -384,5 +380,11 @@ public class PetDataTable
 		{
 			return _isMountabe;
 		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final PetDataTable _instance = new PetDataTable();
 	}
 }

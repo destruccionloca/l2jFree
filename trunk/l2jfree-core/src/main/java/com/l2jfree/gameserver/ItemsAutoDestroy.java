@@ -28,7 +28,6 @@ import com.l2jfree.gameserver.templates.item.L2EtcItemType;
 public class ItemsAutoDestroy
 {
 	protected static Log				_log	= LogFactory.getLog(ItemsAutoDestroy.class);
-	private static ItemsAutoDestroy		_instance;
 	protected FastList<L2ItemInstance>	_items	= null;
 	protected static long				_sleep;
 
@@ -44,13 +43,7 @@ public class ItemsAutoDestroy
 
 	public static ItemsAutoDestroy getInstance()
 	{
-		if (_instance == null)
-		{
-			if (_log.isDebugEnabled())
-				_log.debug("Initializing ItemsAutoDestroy.");
-			_instance = new ItemsAutoDestroy();
-		}
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	public synchronized void addItem(L2ItemInstance item)
@@ -100,12 +93,17 @@ public class ItemsAutoDestroy
 			_log.info("[ItemsAutoDestroy] : " + _items.size() + " items remaining.");
 	}
 
-	protected class CheckItemsForDestroy extends Thread
+	protected class CheckItemsForDestroy implements Runnable
 	{
-		@Override
 		public void run()
 		{
 			removeItems();
 		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final ItemsAutoDestroy _instance = new ItemsAutoDestroy();
 	}
 }

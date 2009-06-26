@@ -35,7 +35,6 @@ public class ForumsBBSManager extends BaseBBSManager
 	private final static Log		_log	= LogFactory.getLog(ForumsBBSManager.class);
 	private Map<Integer, Forum>		_root;
 	private List<Forum>				_table;
-	private static ForumsBBSManager	_instance;
 	private int						_lastid	= 1;
 
 	/**
@@ -43,13 +42,10 @@ public class ForumsBBSManager extends BaseBBSManager
 	 */
 	public static ForumsBBSManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new ForumsBBSManager();
-		
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
-	public ForumsBBSManager()
+	private ForumsBBSManager()
 	{
 		_root = new FastMap<Integer, Forum>();
 		_table = new FastList<Forum>();
@@ -171,6 +167,11 @@ public class ForumsBBSManager extends BaseBBSManager
 	public void parsewrite(String ar1, String ar2, String ar3, String ar4, String ar5, L2PcInstance activeChar)
 	{
 		// TODO Auto-generated method stub
+	}
 
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final ForumsBBSManager _instance = new ForumsBBSManager();
 	}
 }

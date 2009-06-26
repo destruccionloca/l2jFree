@@ -35,15 +35,10 @@ public class TopicBBSManager extends BaseBBSManager
 {
 	private List<Topic>				_table;
 	private Map<Forum, Integer>		_maxId;
-	private static TopicBBSManager	_instance;
 
 	public static TopicBBSManager getInstance()
 	{
-		if (_instance == null)
-		{
-			_instance = new TopicBBSManager();
-		}
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	private TopicBBSManager()
@@ -452,4 +447,9 @@ public class TopicBBSManager extends BaseBBSManager
 		separateAndSend(html, activeChar);
 	}
 
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final TopicBBSManager _instance = new TopicBBSManager();
+	}
 }

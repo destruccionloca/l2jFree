@@ -35,14 +35,9 @@ import com.l2jfree.util.HandlerRegistry;
  */
 public final class ChatHandler extends HandlerRegistry<SystemChatChannelId, IChatHandler>
 {
-	private static ChatHandler _instance;
-	
 	public static ChatHandler getInstance()
 	{
-		if (_instance == null)
-			_instance = new ChatHandler();
-		
-		return _instance;
+		return SingletonHolder._instance;
 	}
 	
 	private ChatHandler()
@@ -72,5 +67,11 @@ public final class ChatHandler extends HandlerRegistry<SystemChatChannelId, ICha
 	public IChatHandler getChatHandler(SystemChatChannelId chatId)
 	{
 		return get(chatId);
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final ChatHandler _instance = new ChatHandler();
 	}
 }

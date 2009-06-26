@@ -22,6 +22,9 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class TopBBSManager extends BaseBBSManager
 {
+	private TopBBSManager()
+	{
+	}
 
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.communitybbs.Manager.BaseBBSManager#parsecmd(java.lang.String, com.l2jfree.gameserver.model.actor.instance.L2PcInstance)
@@ -75,14 +78,17 @@ public class TopBBSManager extends BaseBBSManager
 
 	}
 
-	private static TopBBSManager	_instance	= new TopBBSManager();
-
 	/**
 	 * @return
 	 */
 	public static TopBBSManager getInstance()
 	{
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final TopBBSManager _instance = new TopBBSManager();
+	}
 }

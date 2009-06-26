@@ -65,17 +65,16 @@ public class RecipeController
 {
 	private final static Log									_log			= LogFactory.getLog(RecipeController.class.getName());
 
-	private static RecipeController								_instance;
 	private Map<Integer, L2RecipeList>							_lists;
 	protected static final Map<L2PcInstance, RecipeItemMaker>	_activeMakers	= Collections.synchronizedMap(new WeakHashMap<L2PcInstance, RecipeItemMaker>());
 	private static final String									RECIPES_FILE	= "recipes.xml";
 
 	public static RecipeController getInstance()
 	{
-		return _instance == null ? _instance = new RecipeController() : _instance;
+		return SingletonHolder._instance;
 	}
 
-	public RecipeController()
+	private RecipeController()
 	{
 		_lists = new FastMap<Integer, L2RecipeList>();
 
@@ -1046,5 +1045,11 @@ public class RecipeController
 			return null;
 		}
 		return recipeList;
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final RecipeController _instance = new RecipeController();
 	}
 }

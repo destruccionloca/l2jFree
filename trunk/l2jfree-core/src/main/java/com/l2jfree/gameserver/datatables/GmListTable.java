@@ -34,16 +34,13 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 public class GmListTable
 {
 	private final static Log				_log	= LogFactory.getLog(GmListTable.class.getName());
-	private static GmListTable				_instance;
 
 	/** Set(L2PcInstance>) containing all the GM in game */
 	private FastMap<L2PcInstance, Boolean>	_gmList;
 
 	public static GmListTable getInstance()
 	{
-		if (_instance == null)
-			_instance = new GmListTable();
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	public FastList<L2PcInstance> getAllGms(boolean includeHidden)
@@ -163,5 +160,11 @@ public class GmListTable
 		{
 			gm.sendPacket(SystemMessage.sendString(message));
 		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final GmListTable _instance = new GmListTable();
 	}
 }

@@ -25,14 +25,12 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 
 public class ClanBBSManager extends BaseBBSManager
 {
-	private static ClanBBSManager	_instance	= new ClanBBSManager();
-
 	/**
 	 * @return
 	 */
 	public static ClanBBSManager getInstance()
 	{
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	/**
@@ -476,7 +474,12 @@ public class ClanBBSManager extends BaseBBSManager
 			activeChar.getClan().setNotice(ar4);
 			parsecmd("_bbsclan_clanhome;" + activeChar.getClan().getClanId(), activeChar);
 		}
-
 	}
 
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final ClanBBSManager _instance = new ClanBBSManager();
+	}
 }

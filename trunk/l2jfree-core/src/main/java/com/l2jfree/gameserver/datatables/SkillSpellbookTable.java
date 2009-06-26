@@ -29,16 +29,12 @@ import com.l2jfree.gameserver.model.L2Skill;
 public class SkillSpellbookTable
 {
 	private final static Log					_log	= LogFactory.getLog(SkillTreeTable.class.getName());
-	private static SkillSpellbookTable			_instance;
 
 	private static FastMap<Integer, Integer>	_skillSpellbooks;
 
 	public static SkillSpellbookTable getInstance()
 	{
-		if (_instance == null)
-			_instance = new SkillSpellbookTable();
-
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	private SkillSpellbookTable()
@@ -110,5 +106,11 @@ public class SkillSpellbookTable
 	public int getBookForSkill(L2Skill skill, int level)
 	{
 		return getBookForSkill(skill.getId(), level);
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final SkillSpellbookTable _instance = new SkillSpellbookTable();
 	}
 }

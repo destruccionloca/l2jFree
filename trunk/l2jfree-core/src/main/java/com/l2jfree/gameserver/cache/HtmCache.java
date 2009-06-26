@@ -49,14 +49,9 @@ public final class HtmCache
 		}
 	};
 	
-	private static HtmCache _instance;
-	
 	public static HtmCache getInstance()
 	{
-		if (_instance == null)
-			_instance = new HtmCache();
-		
-		return _instance;
+		return SingletonHolder._instance;
 	}
 	
 	private final FastMap<String, String> _cache = new FastMap<String, String>();
@@ -313,5 +308,11 @@ public final class HtmCache
 	{
 		return "Cache[HTML]: " + String.format("%.3f", (float)_size / 1024) + " kilobytes on " + _loadedFiles
 			+ " file(s) loaded.";
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final HtmCache _instance = new HtmCache();
 	}
 }

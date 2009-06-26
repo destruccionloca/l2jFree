@@ -46,17 +46,13 @@ import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 
 public class ClanTable
 {
-	private static class InstanceHolder {
-		public static ClanTable INSTANCE = new ClanTable();
-	}
-	
 	private static final Log		_log	= LogFactory.getLog(ClanTable.class.getName());
 
 	private Map<Integer, L2Clan>	_clans;
 
 	public static ClanTable getInstance()
 	{
-		return InstanceHolder.INSTANCE;
+		return SingletonHolder._instance;
 	}
 
 	public L2Clan[] getClans()
@@ -456,5 +452,11 @@ public class ClanTable
 		{
 			L2DatabaseFactory.close(con);
 		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final ClanTable _instance = new ClanTable();
 	}
 }

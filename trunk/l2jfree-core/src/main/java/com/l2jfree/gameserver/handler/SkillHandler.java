@@ -65,14 +65,9 @@ import com.l2jfree.util.HandlerRegistry;
 
 public final class SkillHandler extends HandlerRegistry<L2SkillType, ISkillHandler> implements ISkillHandler
 {
-	private static SkillHandler	_instance;
-
 	public static SkillHandler getInstance()
 	{
-		if (_instance == null)
-			_instance = new SkillHandler();
-
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	private SkillHandler()
@@ -145,5 +140,11 @@ public final class SkillHandler extends HandlerRegistry<L2SkillType, ISkillHandl
 	public L2SkillType[] getSkillIds()
 	{
 		return null;
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final SkillHandler _instance = new SkillHandler();
 	}
 }

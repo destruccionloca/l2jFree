@@ -34,7 +34,6 @@ import com.l2jfree.gameserver.model.FishData;
 public class FishTable
 {
 	private final static Log		_log		= LogFactory.getLog(SkillTreeTable.class.getName());
-	private static final FishTable	_instance	= new FishTable();
 
 	private static List<FishData>	_fishsNormal;
 	private static List<FishData>	_fishsEasy;
@@ -42,7 +41,7 @@ public class FishTable
 
 	public static FishTable getInstance()
 	{
-		return _instance;
+		return SingletonHolder._instance; 
 	}
 
 	private FishTable()
@@ -142,5 +141,11 @@ public class FishTable
 		if (result.size() == 0)
 			_log.warn("FishTable: Fishes are not definied for Lvl " + lvl + " type " + type + " group " + group);
 		return result;
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final FishTable _instance = new FishTable();
 	}
 }

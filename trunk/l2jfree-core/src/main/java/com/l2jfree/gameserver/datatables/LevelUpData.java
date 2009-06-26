@@ -49,17 +49,11 @@ public class LevelUpData
 
 	private final static Log				_log		= LogFactory.getLog(LevelUpData.class.getName());
 
-	private static LevelUpData				_instance;
-
 	private FastMap<Integer, L2LvlupData>	_lvlTable;
 
 	public static LevelUpData getInstance()
 	{
-		if (_instance == null)
-		{
-			_instance = new LevelUpData();
-		}
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	private LevelUpData()
@@ -119,5 +113,11 @@ public class LevelUpData
 	public L2LvlupData getTemplate(ClassId classId)
 	{
 		return _lvlTable.get(classId.getId());
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final LevelUpData _instance = new LevelUpData();
 	}
 }

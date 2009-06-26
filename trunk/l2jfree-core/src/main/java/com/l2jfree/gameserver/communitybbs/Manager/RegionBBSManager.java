@@ -270,21 +270,20 @@ public class RegionBBSManager extends BaseBBSManager
 		}
 	}
 
-	private static RegionBBSManager								_instance		= null;
 
 	/**
 	 * @return
 	 */
 	public static RegionBBSManager getInstance()
 	{
-		if (_instance == null)
-		{
-			_instance = new RegionBBSManager();
-		}
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
-	public void changeCommunityBoard()
+	private RegionBBSManager()
+	{
+	}
+
+	public synchronized void changeCommunityBoard()
 	{
 		CommunityPageType.PLAYER.clear();
 		CommunityPageType.GM.clear();
@@ -577,5 +576,11 @@ public class RegionBBSManager extends BaseBBSManager
 				TextBuilder.recycle(htmlCode);
 			}
 		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final RegionBBSManager _instance = new RegionBBSManager();
 	}
 }

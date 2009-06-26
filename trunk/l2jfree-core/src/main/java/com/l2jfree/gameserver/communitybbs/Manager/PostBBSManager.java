@@ -33,19 +33,17 @@ public class PostBBSManager extends BaseBBSManager
 {
 
 	private Map<Topic,Post> _postByTopic;
-	private static PostBBSManager _instance;
+
 	public static PostBBSManager getInstance()
 	{
-		if (_instance == null)
-		{
-			_instance = new PostBBSManager();
-		}
-		return _instance;
+		return SingletonHolder._instance;
 	}
-	public PostBBSManager()
+
+	private PostBBSManager()
 	{
 		_postByTopic = new FastMap<Topic,Post>();
 	}
+
 	public Post getGPosttByTopic(Topic t)
 	{
 		Post post = null;
@@ -354,5 +352,10 @@ public class PostBBSManager extends BaseBBSManager
 			}
 		}
 	}
-}
 
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final PostBBSManager _instance = new PostBBSManager();
+	}
+}

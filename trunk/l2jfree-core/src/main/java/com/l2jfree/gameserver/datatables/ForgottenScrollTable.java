@@ -42,14 +42,9 @@ public final class ForgottenScrollTable
 {
 	private static final Log _log = LogFactory.getLog(ForgottenScrollTable.class);
 	
-	private static ForgottenScrollTable _instance;
-	
 	public static ForgottenScrollTable getInstance()
 	{
-		if (_instance == null)
-			_instance = new ForgottenScrollTable();
-		
-		return _instance;
+		return SingletonHolder._instance;
 	}
 	
 	public static final class ForgottenScrollData
@@ -165,5 +160,11 @@ public final class ForgottenScrollTable
 			_allowedSkills.put(classId, set = new HashSet<Integer>());
 		
 		return set;
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final ForgottenScrollTable _instance = new ForgottenScrollTable();
 	}
 }

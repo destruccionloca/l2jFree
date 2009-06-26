@@ -35,18 +35,12 @@ public class EventDroplist
 
 	private final static Log		_log	= LogFactory.getLog(EventDroplist.class.getName());
 
-	private static EventDroplist	_instance;
-
 	/** The table containing all DataDrop object */
 	private FastList<DateDrop>		_allNpcDateDrops;
 
 	public static EventDroplist getInstance()
 	{
-		if (_instance == null)
-		{
-			_instance = new EventDroplist();
-		}
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	public class DateDrop
@@ -127,5 +121,11 @@ public class EventDroplist
 				_log.debug("Event :: " + QuestName + " : Date Range From: " + drop.dateRange.getStartDate() + " To: " + drop.dateRange.getEndDate() + " Now: "
 						+ currentDate);
 		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final EventDroplist _instance = new EventDroplist();
 	}
 }

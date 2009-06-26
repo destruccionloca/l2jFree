@@ -28,14 +28,9 @@ import com.l2jfree.util.HandlerRegistry;
 
 public final class VoicedCommandHandler extends HandlerRegistry<String, IVoicedCommandHandler>
 {
-	private static VoicedCommandHandler	_instance;
-
 	public static VoicedCommandHandler getInstance()
 	{
-		if (_instance == null)
-			_instance = new VoicedCommandHandler();
-
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	/**
@@ -77,5 +72,11 @@ public final class VoicedCommandHandler extends HandlerRegistry<String, IVoicedC
 			voicedCommand = voicedCommand.substring(0, voicedCommand.indexOf(" "));
 
 		return get(voicedCommand);
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final VoicedCommandHandler _instance = new VoicedCommandHandler();
 	}
 }

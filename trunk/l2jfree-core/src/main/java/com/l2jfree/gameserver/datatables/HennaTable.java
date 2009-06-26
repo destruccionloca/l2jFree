@@ -30,15 +30,12 @@ public class HennaTable
 {
 	private static final Log	_log = LogFactory.getLog(HennaTable.class.getName());
 	private static final String LOAD_HENNA = "SELECT symbol_id,symbol_name,dye_id,dye_amount,price,mod_INT,mod_STR,mod_CON,mod_MEN,mod_DEX,mod_WIT FROM henna";
-	private static HennaTable	_instance;
 
 	private final FastMap<Integer, L2Henna> _henna = new FastMap<Integer, L2Henna>().setShared(true);
 
 	public static HennaTable getInstance()
 	{
-		if (_instance == null)
-			_instance = new HennaTable();
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	private HennaTable()
@@ -95,5 +92,11 @@ public class HennaTable
 	public L2Henna getTemplate(int id)
 	{
 		return _henna.get(id);
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final HennaTable _instance = new HennaTable();
 	}
 }

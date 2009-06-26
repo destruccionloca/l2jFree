@@ -31,14 +31,9 @@ public final class NobleSkillTable
 	
 	private static final int[] NOBLE_SKILL_IDS = { 325, 326, 327, 1323, 1324, 1325, 1326, 1327 };
 	
-	private static NobleSkillTable _instance;
-	
 	public static NobleSkillTable getInstance()
 	{
-		if (_instance == null)
-			_instance = new NobleSkillTable();
-		
-		return _instance;
+		return SingletonHolder._instance;
 	}
 	
 	private final ArrayList<L2Skill> _nobleSkills = new ArrayList<L2Skill>();
@@ -59,5 +54,11 @@ public final class NobleSkillTable
 	public static boolean isNobleSkill(int skillId)
 	{
 		return ArrayUtils.contains(NOBLE_SKILL_IDS, skillId);
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final NobleSkillTable _instance = new NobleSkillTable();
 	}
 }

@@ -32,14 +32,9 @@ public final class WarehouseCacheManager implements Runnable
 {
 	private static final Log _log = LogFactory.getLog(WarehouseCacheManager.class);
 	
-	private static WarehouseCacheManager _instance;
-	
 	public static WarehouseCacheManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new WarehouseCacheManager();
-		
-		return _instance;
+		return SingletonHolder._instance;
 	}
 	
 	private final Map<L2PcInstance, Long> _cache = new FastMap<L2PcInstance, Long>();
@@ -74,5 +69,11 @@ public final class WarehouseCacheManager implements Runnable
 				_cache.remove(player);
 			}
 		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final WarehouseCacheManager _instance = new WarehouseCacheManager();
 	}
 }

@@ -32,6 +32,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.InstanceListManager;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.model.actor.instance.L2MerchantInstance;
 import com.l2jfree.gameserver.model.entity.Castle;
@@ -40,19 +41,13 @@ import com.l2jfree.gameserver.model.entity.Castle;
  *
  * @author  KenM
  */
-public class MerchantPriceConfigTable
+public class MerchantPriceConfigTable implements InstanceListManager
 {
 	private static final Log				_log	= LogFactory.getLog(MerchantPriceConfigTable.class.getName());
 
-	private static MerchantPriceConfigTable	_instance;
-
 	public static MerchantPriceConfigTable getInstance()
 	{
-		if (_instance == null)
-		{
-			_instance = new MerchantPriceConfigTable();
-		}
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	private static final String					MPCS_FILE	= "MerchantPriceConfig.xml";
@@ -62,15 +57,6 @@ public class MerchantPriceConfigTable
 
 	private MerchantPriceConfigTable()
 	{
-		try
-		{
-			this.loadXML();
-			_log.info("MerchantPriceConfigTable: Loaded " + _mpcs.size() + " merchant price configs.");
-		}
-		catch (Exception e)
-		{
-			_log.fatal("Failed loading MerchantPriceConfigTable. Reason: " + e.getMessage(), e);
-		}
 	}
 
 	/**
@@ -138,9 +124,11 @@ public class MerchantPriceConfigTable
 	{
 		if (n.getNodeName().equals("priceConfig"))
 		{
-			int id, baseTax, castleId, zoneId = -1;
-			String name;
-			Castle castle = null;
+			final int id;
+			final int baseTax;
+			int castleId = -1;
+			int zoneId = -1;
+			final String name;
 
 			Node node = n.getAttributes().getNamedItem("id");
 			if (node == null)
@@ -170,7 +158,6 @@ public class MerchantPriceConfigTable
 			if (node != null)
 			{
 				castleId = Integer.parseInt(node.getNodeValue());
-				castle = CastleManager.getInstance().getCastleById(castleId);
 			}
 
 			node = n.getAttributes().getNamedItem("zoneId");
@@ -179,9 +166,34 @@ public class MerchantPriceConfigTable
 				zoneId = Integer.parseInt(node.getNodeValue());
 			}
 
-			return new MerchantPriceConfig(id, name, baseTax, castle, zoneId);
+			return new MerchantPriceConfig(id, name, baseTax, castleId, zoneId);
 		}
 		return null;
+	}
+
+	public void loadInstances()
+	{
+		try
+		{
+			loadXML();
+			_log.info("MerchantPriceConfigTable: Loaded " + _mpcs.size() + " merchant price configs.");
+		}
+		catch (Exception e)
+		{
+			_log.fatal("Failed loading MerchantPriceConfigTable. Reason: " + e.getMessage(), e);
+		}
+	}
+
+	public void updateReferences()
+	{
+		for (final MerchantPriceConfig mpc : _mpcs.values())
+		{
+			mpc.updateReferences();
+		}
+	}
+
+	public void activateInstances()
+	{
 	}
 
 	/**
@@ -194,15 +206,16 @@ public class MerchantPriceConfigTable
 		private final int		_id;
 		private final String	_name;
 		private final int		_baseTax;
-		private final Castle	_castle;
+		private final int		_castleId;
+		private Castle			_castle;
 		private final int		_zoneId;
 
-		public MerchantPriceConfig(int id, String name, int baseTax, Castle castle, int zoneId)
+		public MerchantPriceConfig(final int id, final String name, final int baseTax, final int castleId, final int zoneId)
 		{
 			_id = id;
 			_name = name;
 			_baseTax = baseTax;
-			_castle = castle;
+			_castleId = castleId;
 			_zoneId = zoneId;
 		}
 
@@ -273,5 +286,16 @@ public class MerchantPriceConfigTable
 		{
 			return this.getTotalTax() / 100.0;
 		}
+
+		public void updateReferences()
+		{
+			_castle = CastleManager.getInstance().getCastleById(_castleId);
+		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final MerchantPriceConfigTable _instance = new MerchantPriceConfigTable();
 	}
 }

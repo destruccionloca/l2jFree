@@ -50,17 +50,12 @@ public class NpcTable
 {
 	private final static Log			_log			= LogFactory.getLog(NpcTable.class.getName());
 
-	private static NpcTable				_instance;
-
 	private Map<Integer, L2NpcTemplate>	_npcs;
 	private boolean						_initialized	= false;
 
 	public static NpcTable getInstance()
 	{
-		if (_instance == null)
-			_instance = new NpcTable();
-
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	private NpcTable()
@@ -83,53 +78,53 @@ public class NpcTable
 				PreparedStatement statement;
 				statement = con.prepareStatement("SELECT "
 						+ L2DatabaseFactory.getInstance().safetyString(
-                        "id",
-                        "idTemplate",
-                        "name",
-                        "serverSideName",
-                        "title",
-                        "serverSideTitle",
-                        "class",
-                        "collision_radius",
-                        "collision_height",
-                        "level",
-                        "sex",
-                        "type",
-                        "attackrange",
-                        "hp",
-                        "mp",
-                        "hpreg",
-                        "mpreg",
-                        "str",
-                        "con",
-                        "dex",
-                        "int",
-                        "wit",
-                        "men",
-                        "exp",
-                        "sp",
-                        "patk",
-                        "pdef",
-                        "matk",
-                        "mdef",
-                        "atkspd",
-                        "aggro",
-                        "matkspd",
-                        "rhand",
-                        "lhand",
-                        "armor",
-                        "walkspd",
-                        "runspd",
-                        "faction_id",
-                        "faction_range",
-                        "isUndead",
-                        "absorb_level",
-                        "absorb_type",
-                        "ss",
-                        "bss",
-                        "ss_rate",
-                        "AI",
-                        "drop_herbs") + " FROM npc");
+						"id",
+						"idTemplate",
+						"name",
+						"serverSideName",
+						"title",
+						"serverSideTitle",
+						"class",
+						"collision_radius",
+						"collision_height",
+						"level",
+						"sex",
+						"type",
+						"attackrange",
+						"hp",
+						"mp",
+						"hpreg",
+						"mpreg",
+						"str",
+						"con",
+						"dex",
+						"int",
+						"wit",
+						"men",
+						"exp",
+						"sp",
+						"patk",
+						"pdef",
+						"matk",
+						"mdef",
+						"atkspd",
+						"aggro",
+						"matkspd",
+						"rhand",
+						"lhand",
+						"armor",
+						"walkspd",
+						"runspd",
+						"faction_id",
+						"faction_range",
+						"isUndead",
+						"absorb_level",
+						"absorb_type",
+						"ss",
+						"bss",
+						"ss_rate",
+						"AI",
+						"drop_herbs") + " FROM npc");
 				ResultSet npcdata = statement.executeQuery();
 
 				fillNpcTable(npcdata);
@@ -148,53 +143,53 @@ public class NpcTable
 				PreparedStatement statement;
 				statement = con.prepareStatement("SELECT "
 						+ L2DatabaseFactory.getInstance().safetyString(
-                        "id",
-                        "idTemplate",
-                        "name",
-                        "serverSideName",
-                        "title",
-                        "serverSideTitle",
-                        "class",
-                        "collision_radius",
-                        "collision_height",
-                        "level",
-                        "sex",
-                        "type",
-                        "attackrange",
-                        "hp",
-                        "mp",
-                        "hpreg",
-                        "mpreg",
-                        "str",
-                        "con",
-                        "dex",
-                        "int",
-                        "wit",
-                        "men",
-                        "exp",
-                        "sp",
-                        "patk",
-                        "pdef",
-                        "matk",
-                        "mdef",
-                        "atkspd",
-                        "aggro",
-                        "matkspd",
-                        "rhand",
-                        "lhand",
-                        "armor",
-                        "walkspd",
-                        "runspd",
-                        "faction_id",
-                        "faction_range",
-                        "isUndead",
-                        "absorb_level",
-                        "absorb_type",
-                        "ss",
-                        "bss",
-                        "ss_rate",
-                        "AI",
-                        "drop_herbs") + " FROM custom_npc");
+						"id",
+						"idTemplate",
+						"name",
+						"serverSideName",
+						"title",
+						"serverSideTitle",
+						"class",
+						"collision_radius",
+						"collision_height",
+						"level",
+						"sex",
+						"type",
+						"attackrange",
+						"hp",
+						"mp",
+						"hpreg",
+						"mpreg",
+						"str",
+						"con",
+						"dex",
+						"int",
+						"wit",
+						"men",
+						"exp",
+						"sp",
+						"patk",
+						"pdef",
+						"matk",
+						"mdef",
+						"atkspd",
+						"aggro",
+						"matkspd",
+						"rhand",
+						"lhand",
+						"armor",
+						"walkspd",
+						"runspd",
+						"faction_id",
+						"faction_range",
+						"isUndead",
+						"absorb_level",
+						"absorb_type",
+						"ss",
+						"bss",
+						"ss_rate",
+						"AI",
+						"drop_herbs") + " FROM custom_npc");
 				ResultSet npcdata = statement.executeQuery();
 				int npc_count = _npcs.size();
 				fillNpcTable(npcdata);
@@ -879,5 +874,11 @@ public class NpcTable
 			}
 		}
 		return returnVal;
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final NpcTable _instance = new NpcTable();
 	}
 }

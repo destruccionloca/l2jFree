@@ -37,23 +37,16 @@ public class NpcWalkerRoutesTable
 {
 	private final static Log			_log	= LogFactory.getLog(SpawnTable.class.getName());
 
-	private static NpcWalkerRoutesTable	_instance;
-
 	private FastList<L2NpcWalkerNode>	_routes = new FastList<L2NpcWalkerNode>();
 
 	public static NpcWalkerRoutesTable getInstance()
 	{
-		if (_instance == null)
-		{
-			_instance = new NpcWalkerRoutesTable();
-			_log.info("Initializing Walker Routes Table.");
-		}
-
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	private NpcWalkerRoutesTable()
 	{
+		_log.info("Initializing Walker Routes Table.");
 	}
 
 	public void load()
@@ -111,5 +104,11 @@ public class NpcWalkerRoutesTable
 			}
 		}
 		return _return;
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final NpcWalkerRoutesTable _instance = new NpcWalkerRoutesTable();
 	}
 }

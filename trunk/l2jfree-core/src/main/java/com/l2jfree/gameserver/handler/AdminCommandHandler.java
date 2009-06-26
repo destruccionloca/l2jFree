@@ -99,14 +99,9 @@ import com.l2jfree.util.HandlerRegistry;
 
 public final class AdminCommandHandler extends HandlerRegistry<String, IAdminCommandHandler>
 {
-	private static AdminCommandHandler	_instance;
-
 	public static AdminCommandHandler getInstance()
 	{
-		if (_instance == null)
-			_instance = new AdminCommandHandler();
-
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	private AdminCommandHandler()
@@ -292,5 +287,11 @@ public final class AdminCommandHandler extends HandlerRegistry<String, IAdminCom
 		{
 			activeChar.sendMessage("The execution of '" + message + "' takes more time than 1000 msec, so execution done asynchronusly.");
 		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final AdminCommandHandler _instance = new AdminCommandHandler();
 	}
 }

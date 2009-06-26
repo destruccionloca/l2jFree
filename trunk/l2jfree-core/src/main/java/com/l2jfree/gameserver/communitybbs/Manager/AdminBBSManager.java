@@ -19,18 +19,12 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class AdminBBSManager extends BaseBBSManager
 {
-	private static AdminBBSManager	_instance	= null;
-
 	/**
 	 * @return
 	 */
 	public static AdminBBSManager getInstance()
 	{
-		if (_instance == null)
-		{
-			_instance = new AdminBBSManager();
-		}
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	/* (non-Javadoc)
@@ -65,9 +59,12 @@ public class AdminBBSManager extends BaseBBSManager
 	public void parsewrite(String ar1, String ar2, String ar3, String ar4, String ar5, L2PcInstance activeChar)
 	{
 		if (activeChar.getAccessLevel() < Config.GM_ACCESSLEVEL)
-		{
 			return;
-		}
+	}
 
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final AdminBBSManager _instance = new AdminBBSManager();
 	}
 }

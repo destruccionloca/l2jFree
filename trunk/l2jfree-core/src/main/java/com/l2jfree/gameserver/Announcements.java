@@ -53,21 +53,17 @@ public class Announcements
 {
 	private final static Log		_log					= LogFactory.getLog(Announcements.class.getName());
 
-	private static Announcements	_instance;
 	private List<String>			_announcements			= new FastList<String>();
 	private List<List<Object>>		_eventAnnouncements		= new FastList<List<Object>>();
 
-	public Announcements()
+	private Announcements()
 	{
 		loadAnnouncements();
 	}
 
 	public static Announcements getInstance()
 	{
-		if (_instance == null)
-			_instance = new Announcements();
-
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	public void loadAnnouncements()
@@ -276,5 +272,11 @@ public class Announcements
 		// Get all players
 		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 			player.sendMessage(message);
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final Announcements _instance = new Announcements();
 	}
 }

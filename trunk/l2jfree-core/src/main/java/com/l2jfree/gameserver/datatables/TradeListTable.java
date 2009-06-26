@@ -36,7 +36,6 @@ import com.l2jfree.gameserver.model.L2TradeList;
 public class TradeListTable
 {
 	private final static Log				_log	= LogFactory.getLog(TradeListTable.class.getName());
-	private static TradeListTable			_instance;
 
 	private int								_nextListId;
 	private FastMap<Integer, L2TradeList>	_lists = new FastMap<Integer, L2TradeList>();
@@ -67,9 +66,7 @@ public class TradeListTable
 
 	public static TradeListTable getInstance()
 	{
-		if (_instance == null)
-			_instance = new TradeListTable();
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	private TradeListTable()
@@ -310,5 +307,11 @@ public class TradeListTable
 		{
 			L2DatabaseFactory.close(con);
 		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final TradeListTable _instance = new TradeListTable();
 	}
 }

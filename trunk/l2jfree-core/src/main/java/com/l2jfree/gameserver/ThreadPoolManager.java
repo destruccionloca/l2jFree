@@ -44,14 +44,9 @@ public final class ThreadPoolManager
 	
 	private static final long MAX_DELAY = TimeUnit.NANOSECONDS.toMillis(Long.MAX_VALUE - System.nanoTime()) / 2;
 	
-	private static ThreadPoolManager _instance;
-	
 	public static ThreadPoolManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new ThreadPoolManager();
-		
-		return _instance;
+		return SingletonHolder._instance;
 	}
 	
 	private final ScheduledThreadPoolExecutor _scheduledPool;
@@ -307,5 +302,11 @@ public final class ThreadPoolManager
 		_scheduledPool.purge();
 		_instantPool.purge();
 		_longRunningPool.purge();
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final ThreadPoolManager _instance = new ThreadPoolManager();
 	}
 }

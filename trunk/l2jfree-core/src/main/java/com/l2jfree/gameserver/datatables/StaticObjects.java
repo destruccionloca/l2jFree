@@ -37,17 +37,14 @@ public class StaticObjects
 {
 	private final static Log						_log	= LogFactory.getLog(StaticObjects.class.getName());
 
-	private static StaticObjects					_instance;
 	private Map<Integer, L2StaticObjectInstance>	_staticObjects;
 
 	public static StaticObjects getInstance()
 	{
-		if (_instance == null)
-			_instance = new StaticObjects();
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
-	public StaticObjects()
+	private StaticObjects()
 	{
 		_staticObjects = new FastMap<Integer, L2StaticObjectInstance>();
 		parseData();
@@ -169,5 +166,11 @@ public class StaticObjects
 	public void putObject(L2StaticObjectInstance obj)
 	{
 		_staticObjects.put(obj.getStaticObjectId(), obj);
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final StaticObjects _instance = new StaticObjects();
 	}
 }

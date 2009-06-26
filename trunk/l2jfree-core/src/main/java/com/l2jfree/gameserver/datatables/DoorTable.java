@@ -41,14 +41,9 @@ public final class DoorTable
 {
 	private static final Log _log = LogFactory.getLog(DoorTable.class);
 	
-	private static DoorTable _instance;
-	
 	public static DoorTable getInstance()
 	{
-		if (_instance == null)
-			_instance = new DoorTable();
-		
-		return _instance;
+		return SingletonHolder._instance;
 	}
 	
 	private final Map<Integer, L2DoorInstance> _doors = new FastMap<Integer, L2DoorInstance>();
@@ -336,5 +331,11 @@ public final class DoorTable
 			}
 		}
 		return false;
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final DoorTable _instance = new DoorTable();
 	}
 }

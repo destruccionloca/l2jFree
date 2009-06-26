@@ -31,15 +31,10 @@ import com.l2jfree.lang.L2Integer;
 public final class CharNameTable
 {
 	private static final Log _log = LogFactory.getLog(CharNameTable.class);
-	
-	private static CharNameTable _instance;
-	
+
 	public static CharNameTable getInstance()
 	{
-		if (_instance == null)
-			_instance = new CharNameTable();
-		
-		return _instance;
+		return SingletonHolder._instance;
 	}
 	
 	private final Map<Integer, CharacterInfo> _mapByObjectId = new FastMap<Integer, CharacterInfo>();
@@ -163,5 +158,11 @@ public final class CharNameTable
 		}
 		
 		return number;
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final CharNameTable _instance = new CharNameTable();
 	}
 }

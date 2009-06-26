@@ -37,22 +37,18 @@ public class BuffTemplateTable
 {
 	private final static Log			_log	= LogFactory.getLog(BuffTemplateTable.class.getName());
 
-	private static BuffTemplateTable	_instance;
-
 	/** The table containing all buff templates */
 	private FastList<L2BuffTemplate>	_buffs;
 
 	public static BuffTemplateTable getInstance()
 	{
-		if (_instance == null)
-			_instance = new BuffTemplateTable();
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	/**
 	 * Create and Load the buff templates from SQL Table buff_templates
 	 */
-	public BuffTemplateTable()
+	private BuffTemplateTable()
 	{
 		_buffs = new FastList<L2BuffTemplate>();
 		reloadBuffTemplates();
@@ -207,4 +203,9 @@ public class BuffTemplateTable
 		return _buffs;
 	}
 
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final BuffTemplateTable _instance = new BuffTemplateTable();
+	}
 }

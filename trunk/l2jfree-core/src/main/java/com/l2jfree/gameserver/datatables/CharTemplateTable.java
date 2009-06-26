@@ -39,8 +39,6 @@ public class CharTemplateTable
 {
 	private final static Log				_log			= LogFactory.getLog(CharTemplateTable.class.getName());
 
-	private static CharTemplateTable		_instance;
-
 	public static final String[]			CHAR_CLASSES	=
 															{
 			"Human Fighter",
@@ -132,7 +130,7 @@ public class CharTemplateTable
 			"dummyEntry29",
 			"dummyEntry30",
 			"Duelist",
-			"DreadNought",
+			"Dreadnought",
 			"Phoenix Knight",
 			"Hell Knight",
 			"Sagittarius",
@@ -185,11 +183,7 @@ public class CharTemplateTable
 
 	public static CharTemplateTable getInstance()
 	{
-		if (_instance == null)
-		{
-			_instance = new CharTemplateTable();
-		}
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	private CharTemplateTable()
@@ -334,5 +328,11 @@ public class CharTemplateTable
 	public static final String getClassNameById(int classId)
 	{
 		return CHAR_CLASSES[classId];
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final CharTemplateTable _instance = new CharTemplateTable();
 	}
 }

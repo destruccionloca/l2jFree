@@ -34,20 +34,16 @@ import com.l2jfree.gameserver.model.L2Skill;
 public class ExtractableItemsData
 {
 	private final static Log					_log		= LogFactory.getLog(ExtractableItemsData.class.getName());
+
 	//          Map<itemid, L2ExtractableItem>
 	private FastMap<Integer, L2ExtractableItem>	_items  = new FastMap<Integer, L2ExtractableItem>();
 
-	private static ExtractableItemsData			_instance	= null;
-
 	public static ExtractableItemsData getInstance()
 	{
-		if (_instance == null)
-			_instance = new ExtractableItemsData();
-
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
-	public ExtractableItemsData()
+	private ExtractableItemsData()
 	{
 		_items.clear();
 
@@ -190,5 +186,11 @@ public class ExtractableItemsData
 			result[i++] = ei.getItemId();
 		}
 		return result;
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final ExtractableItemsData _instance = new ExtractableItemsData();
 	}
 }

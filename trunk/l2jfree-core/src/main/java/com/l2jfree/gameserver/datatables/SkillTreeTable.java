@@ -59,7 +59,6 @@ public class SkillTreeTable
 	public static final int									UNTRAIN_ENCHANT_BOOK			= 9625;
 
 	private final static Log								_log							= LogFactory.getLog(SkillTreeTable.class.getName());
-	private static SkillTreeTable							_instance;
 
 	private FastMap<ClassId, Map<Integer, L2SkillLearn>>	_skillTrees;
 	private FastList<L2SkillLearn>							_fishingSkillTrees;																	//all common skills (teached by Fisherman)
@@ -70,10 +69,7 @@ public class SkillTreeTable
 
 	public static SkillTreeTable getInstance()
 	{
-		if (_instance == null)
-			_instance = new SkillTreeTable();
-
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	/**
@@ -818,5 +814,11 @@ public class SkillTreeTable
 		}
 
 		return 0;
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final SkillTreeTable _instance = new SkillTreeTable();
 	}
 }

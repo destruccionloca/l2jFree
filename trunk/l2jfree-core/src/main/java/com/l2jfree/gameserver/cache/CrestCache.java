@@ -41,14 +41,9 @@ public class CrestCache
 {
 	private static final Log _log = LogFactory.getLog(CrestCache.class);
 	
-	private static CrestCache _instance;
-	
 	public static CrestCache getInstance()
 	{
-		if (_instance == null)
-			_instance = new CrestCache();
-		
-		return _instance;
+		return SingletonHolder._instance;
 	}
 	
 	private FastMap<Integer, byte[]> _cachePledge = new FastMap<Integer, byte[]>().setShared(true);
@@ -330,5 +325,11 @@ public class CrestCache
 		{
 			return (file.getName().startsWith("Pledge_"));
 		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final CrestCache _instance = new CrestCache();
 	}
 }

@@ -30,7 +30,6 @@ public class MonsterRace
 {
 	private final static Log	_log	= LogFactory.getLog(MonsterRace.class);
 	private L2Npc[]				_monsters;
-	private static MonsterRace	_instance;
 	private Constructor<?>		_constructor;
 	private int[][]				_speeds;
 	private int[]				_first, _second;
@@ -45,12 +44,7 @@ public class MonsterRace
 
 	public static MonsterRace getInstance()
 	{
-		if (_instance == null)
-		{
-			_instance = new MonsterRace();
-		}
-
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	public void newRace()
@@ -144,4 +138,9 @@ public class MonsterRace
 		return _second[0];
 	}
 
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final MonsterRace _instance = new MonsterRace();
+	}
 }

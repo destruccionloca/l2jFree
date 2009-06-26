@@ -39,19 +39,14 @@ public class SummonItemsData
 
 	private FastMap<Integer, L2SummonItem>	_summonitems;
 
-	private static SummonItemsData			_instance;
-
 	private int[] _summonItemIds;
 
 	public static SummonItemsData getInstance()
 	{
-		if(_instance == null)
-			_instance = new SummonItemsData();
-
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
-	public SummonItemsData()
+	private SummonItemsData()
 	{
 		_summonitems	= new FastMap<Integer, L2SummonItem>();
 		Document doc	= null;
@@ -124,5 +119,11 @@ public class SummonItemsData
 	public int[] itemIDs()
 	{
 		return _summonItemIds;
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final SummonItemsData _instance = new SummonItemsData();
 	}
 }

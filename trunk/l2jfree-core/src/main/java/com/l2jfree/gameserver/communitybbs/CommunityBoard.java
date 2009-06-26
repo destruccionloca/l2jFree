@@ -31,20 +31,13 @@ import com.l2jfree.gameserver.network.serverpackets.ShowBoard;
 
 public class CommunityBoard
 {
-	private static CommunityBoard	_instance;
-
-	public CommunityBoard()
+	private CommunityBoard()
 	{
 	}
 
 	public static CommunityBoard getInstance()
 	{
-		if (_instance == null)
-		{
-			_instance = new CommunityBoard();
-		}
-
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	public void handleCommands(L2GameClient client, String command)
@@ -162,5 +155,11 @@ public class CommunityBoard
 			activeChar.sendPacket(SystemMessageId.CB_OFFLINE);
 			break;
 		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final CommunityBoard _instance = new CommunityBoard();
 	}
 }

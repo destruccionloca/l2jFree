@@ -32,16 +32,12 @@ import com.l2jfree.gameserver.templates.item.L2Henna;
 public class HennaTreeTable
 {
 	private static final Log _log = LogFactory.getLog(HennaTreeTable.class);
-	private static HennaTreeTable _instance;
-	
+
 	private final Map<Integer, L2Henna[]> _hennaTrees = new FastMap<Integer, L2Henna[]>();
 	
 	public static HennaTreeTable getInstance()
 	{
-		if (_instance == null)
-			_instance = new HennaTreeTable();
-		
-		return _instance;
+		return SingletonHolder._instance;
 	}
 	
 	private HennaTreeTable()
@@ -104,5 +100,11 @@ public class HennaTreeTable
 	public L2Henna[] getAvailableHenna(L2PcInstance player)
 	{
 		return _hennaTrees.get(player.getClassId().getId());
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final HennaTreeTable _instance = new HennaTreeTable();
 	}
 }

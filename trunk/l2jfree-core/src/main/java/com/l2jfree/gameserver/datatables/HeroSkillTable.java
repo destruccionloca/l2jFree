@@ -30,15 +30,10 @@ public final class HeroSkillTable
 	private static final Log _log = LogFactory.getLog(HeroSkillTable.class);
 	
 	private static final int[] HERO_SKILL_IDS = { 395, 396, 1374, 1375, 1376 };
-	
-	private static HeroSkillTable _instance;
-	
+
 	public static HeroSkillTable getInstance()
 	{
-		if (_instance == null)
-			_instance = new HeroSkillTable();
-		
-		return _instance;
+		return SingletonHolder._instance;
 	}
 	
 	private final ArrayList<L2Skill> _heroSkills = new ArrayList<L2Skill>();
@@ -59,5 +54,11 @@ public final class HeroSkillTable
 	public static boolean isHeroSkill(int skillId)
 	{
 		return ArrayUtils.contains(HERO_SKILL_IDS, skillId);
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final HeroSkillTable _instance = new HeroSkillTable();
 	}
 }

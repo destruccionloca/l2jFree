@@ -34,14 +34,9 @@ import com.l2jfree.util.NumberHandlerRegistry;
 
 public final class UserCommandHandler extends NumberHandlerRegistry<IUserCommandHandler>
 {
-	private static UserCommandHandler _instance;
-	
 	public static UserCommandHandler getInstance()
 	{
-		if (_instance == null)
-			_instance = new UserCommandHandler();
-		
-		return _instance;
+		return SingletonHolder._instance;
 	}
 	
 	private UserCommandHandler()
@@ -74,5 +69,11 @@ public final class UserCommandHandler extends NumberHandlerRegistry<IUserCommand
 	public IUserCommandHandler getUserCommandHandler(int userCommand)
 	{
 		return get(userCommand);
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final UserCommandHandler _instance = new UserCommandHandler();
 	}
 }

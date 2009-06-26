@@ -50,7 +50,6 @@ import com.l2jfree.gameserver.templates.StatsSet;
 public class SevenSigns
 {
 	protected static Log							_log						= LogFactory.getLog(SevenSigns.class.getName());
-	private static SevenSigns						_instance;
 
 	// Basic Seven Signs Constants \\
 	public static final String						SEVEN_SIGNS_DATA_FILE		= "config/signs.properties";
@@ -139,7 +138,7 @@ public class SevenSigns
 	private static Map<Integer, AutoSpawnInstance>	_preacherSpawns;
 	private static Map<Integer, AutoSpawnInstance>	_marketeerSpawns;
 
-	public SevenSigns()
+	private SevenSigns()
 	{
 		_signsPlayerData = new FastMap<Integer, StatsSet>();
 		_signsSealOwners = new FastMap<Integer, Integer>();
@@ -1514,5 +1513,11 @@ public class SevenSigns
 		{
 			L2DatabaseFactory.close(con);
 		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final SevenSigns _instance = new SevenSigns();
 	}
 }

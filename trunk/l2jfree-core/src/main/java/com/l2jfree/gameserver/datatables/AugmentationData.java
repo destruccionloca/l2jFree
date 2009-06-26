@@ -43,16 +43,9 @@ public class AugmentationData
 {
 	private final static Log		_log	= LogFactory.getLog(AugmentationData.class.getName());
 
-	// =========================================================
-	private static AugmentationData	_instance;
-
 	public static final AugmentationData getInstance()
 	{
-		if (_instance == null)
-		{
-			_instance = new AugmentationData();
-		}
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	// =========================================================
@@ -87,7 +80,7 @@ public class AugmentationData
 
 	// =========================================================
 	// Constructor
-	public AugmentationData()
+	private AugmentationData()
 	{
 		_augmentationStats = new FastList[4];
 		_augmentationStats[0] = new FastList<AugmentationStat>();
@@ -599,5 +592,11 @@ public class AugmentationData
 		}
 
 		return temp;
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final AugmentationData _instance = new AugmentationData();
 	}
 }

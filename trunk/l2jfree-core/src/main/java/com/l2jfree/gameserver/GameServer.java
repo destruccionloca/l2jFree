@@ -295,9 +295,9 @@ public class GameServer
 		TownManager.getInstance();
 		ClanHallManager.getInstance();
 		DoorTable.getInstance();
-		CastleManager.getInstance();
+		CastleManager.getInstance().loadInstances();
 		SiegeManager.getInstance();
-		FortManager.getInstance();
+		FortManager.getInstance().loadInstances();
 		FortSiegeManager.getInstance();
 		ZoneManager.getInstance();
 		MercTicketManager.getInstance();
@@ -416,6 +416,9 @@ public class GameServer
 		if (Config.ONLINE_PLAYERS_ANNOUNCE_INTERVAL > 0)
 			OnlinePlayers.getInstance();
 		ForumsBBSManager.getInstance();
+
+		CastleManager.getInstance().activateInstances();
+		FortManager.getInstance().activateInstances();
 
 		Runtime.getRuntime().addShutdownHook(Shutdown.getInstance());
 

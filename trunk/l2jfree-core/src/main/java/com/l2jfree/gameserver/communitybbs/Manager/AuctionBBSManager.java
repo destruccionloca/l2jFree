@@ -56,11 +56,9 @@ public class AuctionBBSManager extends BaseBBSManager
 
 	private static FastList<Integer>	_lotsBidded	= new FastList<Integer>();
 
-	private static AuctionBBSManager	_instance	= new AuctionBBSManager();
-
 	public static AuctionBBSManager getInstance()
 	{
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	private class LotList
@@ -1396,5 +1394,11 @@ public class AuctionBBSManager extends BaseBBSManager
 
 			showAuctionPage(activeChar, 1, viewOnly, false);
 		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final AuctionBBSManager _instance = new AuctionBBSManager();
 	}
 }

@@ -67,7 +67,6 @@ import com.l2jfree.util.L2Timer;
 public class SevenSignsFestival implements SpawnListener
 {
 	protected static Log							_log							= LogFactory.getLog(SevenSignsFestival.class.getName());
-	private static SevenSignsFestival				_instance;
 
 	private static final String						GET_CLAN_NAME					= "SELECT clan_name FROM clan_data WHERE clan_id = (SELECT clanid FROM characters WHERE char_name = ?)";
 
@@ -746,7 +745,7 @@ public class SevenSignsFestival implements SpawnListener
 	 */
 	private Map<Integer, Map<Integer, StatsSet>>	_festivalData;
 
-	public SevenSignsFestival()
+	private SevenSignsFestival()
 	{
 		_accumulatedBonuses = new FastList<Integer>();
 
@@ -774,10 +773,7 @@ public class SevenSignsFestival implements SpawnListener
 
 	public static SevenSignsFestival getInstance()
 	{
-		if (_instance == null)
-			_instance = new SevenSignsFestival();
-
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	/**
@@ -2396,5 +2392,11 @@ public class SevenSignsFestival implements SpawnListener
 			else
 				_npcId = -1;
 		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final SevenSignsFestival _instance = new SevenSignsFestival();
 	}
 }

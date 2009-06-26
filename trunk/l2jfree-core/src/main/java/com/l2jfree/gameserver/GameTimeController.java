@@ -44,11 +44,9 @@ public final class GameTimeController
 	public static final int TICKS_PER_SECOND = 10;
 	public static final int MILLIS_IN_TICK = 1000 / TICKS_PER_SECOND;
 	
-	private static final GameTimeController _instance = new GameTimeController();
-	
 	public static GameTimeController getInstance()
 	{
-		return _instance;
+		return SingletonHolder._instance;
 	}
 	
 	private final Calendar _calendar = new GregorianCalendar();
@@ -253,5 +251,11 @@ public final class GameTimeController
 			if (delay > 0)
 				Thread.sleep(delay);
 		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final GameTimeController _instance = new GameTimeController();
 	}
 }

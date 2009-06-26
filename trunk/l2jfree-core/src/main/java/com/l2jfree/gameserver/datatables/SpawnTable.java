@@ -41,8 +41,6 @@ public class SpawnTable
 {
 	private final static Log			_log		= LogFactory.getLog(SpawnTable.class.getName());
 
-	private static final SpawnTable		_instance	= new SpawnTable();
-
 	private Map<Integer, L2Spawn>		_spawntable	= new FastMap<Integer, L2Spawn>().setShared(true);
 	private int							_npcSpawnCount;
 	private int							_cSpawnCount;
@@ -51,7 +49,7 @@ public class SpawnTable
 
 	public static SpawnTable getInstance()
 	{
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	private SpawnTable()
@@ -411,5 +409,11 @@ public class SpawnTable
 		}
 		if (index == 0)
 			activeChar.sendMessage("No current spawns found.");
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final SpawnTable _instance = new SpawnTable();
 	}
 }
