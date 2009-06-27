@@ -70,7 +70,7 @@
   <skill id="402" levels="10" name="Arrest" enchantLevels1="30" enchantLevels2="30">
     <table name="#magicLvl"> 55 58 60 62 64 66 68 70 72 74 </table>
     <table name="#mpConsume"> 25 27 28 29 30 31 32 33 34 34 </table>
-    <table name="#ench1aggro"> 3536 3547 3558 3569 3580 3591 3602 3613 3624 3635 3646 3657 3668 3679 3690 3701 3712 3723 3734 3745 3756 3767 3778 3789 3800 3811 3822 3833 3844 3855 </table>
+    <table name="#ench1aggroPoints"> 3536 3547 3558 3569 3580 3591 3602 3613 3624 3635 3646 3657 3668 3679 3690 3701 3712 3723 3734 3745 3756 3767 3778 3789 3800 3811 3822 3833 3844 3855 </table>
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <table name="#ench2Power"> 80 81 82 82 83 84 84 85 86 86 87 88 88 89 90 90 91 92 92 93 94 94 95 96 96 97 98 98 99 100 </table>
     <set name="mpConsume" val="#mpConsume"/>
@@ -87,7 +87,7 @@
     <set name="effectRange" val="650"/>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant1 name="aggro" val="#ench1aggro"/>
+    <enchant1 name="aggroPoints" val="#ench1aggroPoints"/>
     <enchant2 name="power" val="#ench2Power"/>
     <for>
       <effect name="Root" time="10" val="0" stackOrder="1" stackType="Root"/>
@@ -96,7 +96,7 @@
   <skill id="403" levels="10" name="Shackle"  enchantLevels1="30" enchantLevels2="30">
     <table name="#magicLvl"> 55 58 60 62 64 66 68 70 72 74 </table>
     <table name="#mpConsume"> 25 27 28 29 30 31 32 33 34 34 </table>
-    <table name="#ench1aggro"> 3536 3547 3558 3569 3580 3591 3602 3613 3624 3635 3646 3657 3668 3679 3690 3701 3712 3723 3734 3745 3756 3767 3778 3789 3800 3811 3822 3833 3844 3855 </table>
+    <table name="#ench1aggroPoints"> 3536 3547 3558 3569 3580 3591 3602 3613 3624 3635 3646 3657 3668 3679 3690 3701 3712 3723 3734 3745 3756 3767 3778 3789 3800 3811 3822 3833 3844 3855 </table>
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <table name="#ench2Power"> 80 81 82 82 83 84 84 85 86 86 87 88 88 89 90 90 91 92 92 93 94 94 95 96 96 97 98 98 99 100 </table>
     <set name="mpConsume" val="#mpConsume"/>
@@ -113,7 +113,7 @@
     <set name="effectRange" val="1100"/>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant1 name="aggro" val="#ench1aggro"/>
+    <enchant1 name="aggroPoints" val="#ench1aggroPoints"/>
     <enchant2 name="power" val="#ench2Power"/>
     <for>
       <effect name="Root" time="10" val="0" stackOrder="1" stackType="Root"/>
@@ -122,8 +122,8 @@
   <skill id="404" levels="5" name="Mass Shackling" enchantLevels1="30" enchantLevels2="30" >
     <table name="#magicLvl"> 58 62 66 70 74 </table>
     <table name="#mpConsume">40 43 46 59 51</table>
-    <table name="#aggro"> 2401 2575 2847 3134 3332 </table>
-    <table name="#ench1aggro"> 3536 3547 3558 3569 3580 3591 3602 3613 3624 3635 3646 3657 3668 3679 3690 3701 3712 3723 3734 3745 3756 3767 3778 3789 3800 3811 3822 3833 3844 3855 </table>
+    <table name="#aggroPoints"> 2401 2575 2847 3134 3332 </table>
+    <table name="#ench1aggroPoints"> 3536 3547 3558 3569 3580 3591 3602 3613 3624 3635 3646 3657 3668 3679 3690 3701 3712 3723 3734 3745 3756 3767 3778 3789 3800 3811 3822 3833 3844 3855 </table>
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <table name="#ench2Power"> 40 40 41 41 41 42 42 42 43 43 43 44 44 44 45 45 45 46 46 46 47 47 47 48 48 48 49 49 49 50 </table>
     <set name="mpConsume" val="#mpConsume"/>
@@ -137,9 +137,10 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isDebuff" val="true"/>
+    <set name="aggroPoints" val="#aggroPoints"/>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant1 name="aggro" val="#ench1aggro"/>
+    <enchant1 name="aggroPoints" val="#ench1aggroPoints"/>
     <enchant2 name="power" val="#ench2Power"/>
     <for>
       <effect name="Root" time="10" val="0" stackOrder="1" stackType="Root"/>
@@ -516,6 +517,25 @@
         <mul order="0x30" stat="gainHp" val="0.5"/>
       </effect>
     </for>
+    <enchant2for>
+      <effect name="Buff" time="#ench2time" val="0">
+        <mul order="0x30" stat="debuffVuln" val="0.2"/>
+        <mul order="0x30" stat="cancelVuln" val="0.6"/>
+        <add order="0x40" stat="runSpd" val="30"/>
+        <add order="0x40" stat="accCombat" val="6">
+          <using kind="Sword,Big Sword,Blunt,Big Blunt,Pole,Dual Fist"/>
+        </add>
+        <mul order="0x30" stat="pAtkSpd" val="1.2"/>
+        <add order="0x40" stat="rCrit" val="100">
+          <using kind="Sword,Big Sword,Pole"/>
+        </add>
+        <mul order="0x30" stat="cAtk" val="1.91">
+          <using kind="Blunt,Big Blunt,Dual Fist"/>
+        </mul>
+        <mul order="0x30" stat="PhysicalMpConsumeRate" val="0.5"/>
+        <mul order="0x30" stat="gainHp" val="0.5"/>
+      </effect>
+    </enchant2for>
   </skill>
   <skill id="421" levels="5" name="Fell Swoop">
     <table name="#mpConsume">27 29 31 33 34</table>
@@ -1830,7 +1850,7 @@
     </cond>
   </skill>
   <skill id="494" levels="37" name="Shoulder Charge" enchantLevels1="30">
-	<table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <table name="#ench1Power"> 80 80 80 81 82 82 82 83 83 83 84 84 84 85 85 85 86 86 86 87 87 87 88 88 88 89 89 89 90 90 </table>
     <table name="#mpConsume"> 25 26 27 27 28 29 30 30 31 32 33 34 35 35 36 37 38 38 39 40 41 42 43 43 44 45 45 46 47 48 48 49 50 51 51 52 53 </table>
     <table name="#castRange"> 400 400 400 400 400 400 400 400 400 400 400 400 400 400 400 400 400 400 500 500 500 500 500 500 500 500 500 500 500 600 600 600 600 600 600 600 600 </table>
@@ -1860,7 +1880,7 @@
     <for>
       <effect name="EnemyCharge" val="0" noicon="1"/>
       <effect name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
-	  <effect name="RemoveTarget" noicon="1" val="0"/>
+      <effect name="RemoveTarget" noicon="1" val="0"/>
     </for>
       <enchant1for>
         <effect name="EnemyCharge" val="0" noicon="1"/>

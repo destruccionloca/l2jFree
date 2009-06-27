@@ -776,7 +776,7 @@
         <mul order="0x30" stat="daggerWpnVuln" val="#vuln"/>
         <mul order="0x30" stat="dualDaggerWpnVuln" val="#vuln"/>
         <mul order="0x30" stat="poleWpnVuln" val="#vuln"/>
-        <mul order="0x30" stat="fistWpnVuln" val="#vuln"/>
+        <!-- <mul order="0x30" stat="fistWpnVuln" val="#vuln"/> -->
         <mul order="0x30" stat="dualFistWpnVuln" val="#vuln"/>
         <mul order="0x30" stat="dualWpnVuln" val="#vuln"/>
         <mul order="0x30" stat="rapierWpnVuln" val="#vuln"/>

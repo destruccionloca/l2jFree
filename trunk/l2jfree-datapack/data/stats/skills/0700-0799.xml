@@ -1493,7 +1493,7 @@
     <set name="SSBoost" val="2.0"/>
     <set name="target" val="TARGET_FRONT_AREA"/>
     <set name="weaponsAllowed" val="32768"/> <!-- Ancient -->
-    <enchant1 name="ench1effectPower" val="#ench1effectPower"/>
+    <enchant1 name="effectPower" val="#ench1effectPower"/>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="mpConsume" val="#ench2MpConsume"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>

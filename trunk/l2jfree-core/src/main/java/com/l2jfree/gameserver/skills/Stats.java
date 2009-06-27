@@ -155,6 +155,7 @@ public enum Stats
 	REFLECT_SKILL_PHYSIC("reflectSkillPhysic"),
 	ABSORB_DAMAGE_PERCENT("absorbDam"),
 	TRANSFER_DAMAGE_PERCENT("transDam"),
+	ABSORB_MANA_DAMAGE_PERCENT("absorbDamMana"),
 	//ABSORB_CP_PERCENT("absorbCpPercent"),
 	SKILL_MASTERY("skillMastery"),
 	

@@ -1640,7 +1640,6 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="element" val="3"/> <!-- Earth -->
-    <set name="magicLvl" val="77"/>
     <set name="power" val="40"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="PARALYZE"/>

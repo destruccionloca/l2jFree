@@ -1146,8 +1146,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LUCK"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <!-- cannot be learned, given -->
-    <set name="canLearn" val=""/>
   </skill>
   <skill id="195" levels="2" name="Breath Boost">
     <!-- Done by DJ MELERIX -->

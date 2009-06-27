@@ -1885,6 +1885,11 @@
         <mul order="0x30" stat="pDef" val="#pDef"/>
       </effect>
     </for>
+    <enchant2for>
+      <effect name="Buff" time="#ench2time" val="0" stackOrder="0" stackType="Great">
+        <mul order="0x30" stat="pDef" val="1.15"/>
+      </effect>
+    </enchant2for>
   </skill>
   <skill id="1390" levels="3" name="War Chant">
     <!-- Done by KID -->
