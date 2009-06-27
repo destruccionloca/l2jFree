@@ -42,7 +42,7 @@ public class PetSkillsTable
 	
 	private PetSkillsTable()
 	{
-		_skillTrees.clear();
+		_skillTrees = new FastMap<Integer, Map<Integer, L2PetSkillLearn>>();
 		load();
 	}
 	

@@ -166,7 +166,7 @@ public final class ItemTable
 		"SELECT item_id, name, bodypart, crystallizable, weight, soulshots, spiritshots,"
 			+ " material, crystal_type, p_dam, rnd_dam, weaponType, critical, hit_modify, avoid_modify,"
 			+ " shield_def, shield_def_rate, atk_speed, mp_consume, m_dam, duration, time, price, crystal_count,"
-			+ " sellable,  dropable, destroyable, tradeable, skills_item, skills_enchant4,"
+			+ " sellable,  dropable, destroyable, tradeable, skills_item, enchant4_skill,"
 			+ " skills_onCast, skills_onCrit, change_weaponId FROM weapon" };
 	
 	private static final String[] SQL_CUSTOM_ITEM_SELECTS = {
@@ -180,7 +180,7 @@ public final class ItemTable
 		"SELECT item_id, item_display_id, name, bodypart, crystallizable, weight, soulshots, spiritshots,"
 			+ " material, crystal_type, p_dam, rnd_dam, weaponType, critical, hit_modify, avoid_modify,"
 			+ " shield_def, shield_def_rate, atk_speed, mp_consume, m_dam, duration, time, price, crystal_count,"
-			+ " sellable,  dropable, destroyable, tradeable, skills_item, skills_enchant4,"
+			+ " sellable,  dropable, destroyable, tradeable, skills_item, enchant4_skill,"
 			+ " skills_onCast, skills_onCrit, change_weaponId FROM custom_weapon" };
 	
 	private static ItemTable _instance;
@@ -375,7 +375,7 @@ public final class ItemTable
 		item.set.set("tradeable", Boolean.valueOf(rset.getString("tradeable")));
 		
 		item.set.set("skills_item", rset.getString("skills_item"));
-		item.set.set("skills_enchant4", rset.getString("skills_enchant4"));
+		item.set.set("enchant4_skill", rset.getString("enchant4_skill"));
 		item.set.set("skills_onCast", rset.getString("skills_onCast"));
 		item.set.set("skills_onCrit", rset.getString("skills_onCrit"));
 		item.set.set("change_weaponId", rset.getInt("change_weaponId"));

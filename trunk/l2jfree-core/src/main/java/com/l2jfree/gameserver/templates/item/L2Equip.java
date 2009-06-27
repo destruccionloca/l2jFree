@@ -51,7 +51,7 @@ public abstract class L2Equip extends L2Item
 		super(type, set);
 
 		String[] itemSkillDefs = set.getString("skills_item").split(";");
-		String[] enchant4SkillDefs = set.getString("skills_enchant4").split(";");
+		String[] enchant4SkillDefs = set.getString("enchant4_skill").split(";");
 
 		FastList<L2Skill> itemSkills = null;
 		FastList<L2Skill> enchant4Skills = null;
