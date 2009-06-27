@@ -701,34 +701,27 @@ public class CharStat
 		// 1st order - weapon element
 		if (weaponInstance != null && weaponInstance.getAttackElementType() >= 0)
 			return weaponInstance.getAttackElementType();
-
+		
 		// temp fix starts
-		int tempVal = 0, stats[] = { 0, 0, 0, 0, 0, 0 };
-
-		byte returnVal = -2;
-		stats[0] = (int) calcStat(Stats.FIRE_POWER, _activeChar.getTemplate().getBaseFire(), null, null);
-		stats[1] = (int) calcStat(Stats.WATER_POWER, _activeChar.getTemplate().getBaseWater(), null, null);
-		stats[2] = (int) calcStat(Stats.WIND_POWER, _activeChar.getTemplate().getBaseWind(), null, null);
-		stats[3] = (int) calcStat(Stats.EARTH_POWER, _activeChar.getTemplate().getBaseEarth(), null, null);
-		stats[4] = (int) calcStat(Stats.HOLY_POWER, _activeChar.getTemplate().getBaseHoly(), null, null);
-		stats[5] = (int) calcStat(Stats.DARK_POWER, _activeChar.getTemplate().getBaseDark(), null, null);
-
-		for (byte x = 0; x < 6; x++)
+		int maxValue = 0;
+		byte returnAttribute = -2;
+		
+		for (byte attribute = 0; attribute < 6; attribute++)
 		{
-			if (stats[x] > tempVal)
+			final int attackElementValue = getAttackElementValue(attribute);
+			
+			if (attackElementValue > maxValue)
 			{
-				returnVal = x;
-				tempVal = stats[x];
+				maxValue = attackElementValue;
+				returnAttribute = attribute;
 			}
 		}
-
-		return returnVal;
+		
+		return returnAttribute;
 		// temp fix ends
-
-		/*
-		 * uncomment me once deadlocks in getAllEffects() fixed return
-		 * _activeChar.getElementIdFromEffects();
-		 */
+		
+		// uncomment me once deadlocks in getAllEffects() fixed
+		// return _activeChar.getElementIdFromEffects();
 	}
 
 	public int getAttackElementValue(byte attackAttribute)
