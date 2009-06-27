@@ -27,19 +27,22 @@ import com.l2jfree.gameserver.network.L2IrcClient;
 public class IrcManager
 {
 	private static final Log	_log		= LogFactory.getLog(IrcManager.class.getName());
-	private static IrcManager	_Instance;
+	private static IrcManager	_instance;
 	private static L2IrcClient	_IrcConnection;
 	private static boolean		initilized	= false;
 
-	public static final IrcManager getInstance()
+	public static IrcManager getInstance()
 	{
-		if (_Instance == null)
-		{
-			_log.info("Initializing IrcManager");
-			_Instance = new IrcManager();
-			_Instance.load();
-		}
-		return _Instance;
+		if (_instance == null)
+			_instance = new IrcManager();
+		
+		return _instance;
+	}
+	
+	private IrcManager()
+	{
+		_log.info("Initializing IrcManager");
+		load();
 	}
 
 	public static boolean isInitialized()

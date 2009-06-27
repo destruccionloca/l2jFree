@@ -40,16 +40,14 @@ public class AirShipManager
 	public static AirShipManager getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new AirShipManager();
-			_instance.load();
-		}
 		
 		return _instance;
 	}
 	
 	private AirShipManager()
 	{
+		load();
 	}
 	
 	private final void load()

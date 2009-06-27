@@ -69,7 +69,7 @@ public abstract class LoginServerThread extends Thread
 	public void stopInstance()
 	{
 		_instance.interrupt();
-		_instance = null;
+		//_instance = null;
 	}
 	
 	/** {@see com.l2jfree.loginserver.LoginServer#PROTOCOL_REV } */
