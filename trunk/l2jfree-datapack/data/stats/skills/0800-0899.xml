@@ -530,24 +530,23 @@
     </for>
   </skill>
   <skill id="835" levels="4" name="Imbue Seed of Destruction">
-    <table name="#power">60 65 70 80</table>
-    <set name="mpInitialConsume" val="14" />
-    <set name="mpConsume" val="56" />
-    <set name="magicLvl" val="77" />
-    <set name="power" val="#power" />
-    <set name="lvlDepend" val="2" />
-    <set name="target" val="TARGET_ONE" />
-    <set name="reuseDelay" val="120000" />
-    <set name="hitTime" val="4000" />
-    <set name="skillType" val="MUTE" />
-    <set name="isDebuff" val="true" />
-    <set name="isMagic" val="true" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="castRange" val="600" />
-    <set name="effectRange" val="1100" />
+    <table name="#power"> 60 65 70 80 </table>
+    <set name="mpInitialConsume" val="14"/>
+    <set name="mpConsume" val="56"/>
+    <set name="magicLvl" val="77"/>
+    <set name="power" val="#power"/>
+    <set name="lvlDepend" val="2"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="reuseDelay" val="120000"/>
+    <set name="hitTime" val="4000"/>
+    <set name="skillType" val="MUTE"/>
+    <set name="isDebuff" val="true"/>
+    <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="600"/>
+    <set name="effectRange" val="1100"/>
     <for>
-      <effect count="1" name="SilenceMagicPhysical"
-        time="30" val="0" stackOrder="30" stackType="silence_all" />
+      <effect name="SilenceMagicPhysical" time="30" val="0" stackOrder="30" stackType="silence_all"/>
     </for>
   </skill>
   <skill id="836" levels="3" name="Oblivion Trap">
@@ -667,49 +666,85 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="848" levels="1" name="Gludio Territory Benefaction">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <add order="0x10" stat="STR" val="1"/>
+      <add order="0x10" stat="INT" val="1"/>
+    </for>
   </skill>
   <skill id="849" levels="1" name="Dion Territory Benefaction">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <add order="0x10" stat="DEX" val="1"/>
+      <add order="0x10" stat="WIT" val="1"/>
+    </for>
   </skill>
   <skill id="850" levels="1" name="Giran Territory Benefaction">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <add order="0x10" stat="STR" val="1"/>
+      <add order="0x10" stat="MEN" val="1"/>
+    </for>
   </skill>
   <skill id="851" levels="1" name="Oren Territory Benefaction">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <add order="0x10" stat="CON" val="1"/>
+      <add order="0x10" stat="MEN" val="1"/>
+    </for>
   </skill>
   <skill id="852" levels="1" name="Aden Territory Benefaction">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <add order="0x10" stat="DEX" val="1"/>
+      <add order="0x10" stat="MEN" val="1"/>
+    </for>
   </skill>
   <skill id="853" levels="1" name="Innadril Territory Benefaction">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <add order="0x10" stat="CON" val="1"/>
+      <add order="0x10" stat="INT" val="1"/>
+    </for>
   </skill>
   <skill id="854" levels="1" name="Goddard Territory Benefaction">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <add order="0x10" stat="DEX" val="1"/>
+      <add order="0x10" stat="INT" val="1"/>
+    </for>
   </skill>
   <skill id="855" levels="1" name="Rune Territory Benefaction">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <add order="0x10" stat="STR" val="1"/>
+      <add order="0x10" stat="WIT" val="1"/>
+    </for>
   </skill>
   <skill id="856" levels="1" name="Schuttgart Territory Benefaction">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <add order="0x10" stat="CON" val="1"/>
+      <add order="0x10" stat="WIT" val="1"/>
+    </for>
   </skill>
   <skill id="857" levels="1" name="Human Mercenary">
     <set name="target" val="TARGET_NONE"/>
