@@ -4781,19 +4781,22 @@ public final class L2PcInstance extends L2Playable
 			{
 				int dropCount = 0;
 				int itemDropPercent = 0;
-				List<Integer> nonDroppableList = Config.KARMA_LIST_NONDROPPABLE_ITEMS;
-				List<Integer> nonDroppableListPet = Config.KARMA_LIST_NONDROPPABLE_PET_ITEMS;
-				
 				for (L2ItemInstance itemDrop : getInventory().getItems())
 				{
 					// Don't drop
-					if (!itemDrop.isDropable() || itemDrop.getItemId() == 57 || // Adena
-							itemDrop.isShadowItem() || // Dont drop Shadow Items
-							itemDrop.isTimeLimitedItem() || // Dont drop Time Limited Items
-							itemDrop.getItem().getType2() == L2Item.TYPE2_QUEST || // Quest Items
-							nonDroppableList.contains(itemDrop.getItemId()) || // Item listed in the non droppable item list
-							nonDroppableListPet.contains(itemDrop.getItemId()) || // Item listed in the non droppable pet item list
-							getPet() != null && getPet().getControlItemId() == itemDrop.getItemId() // Control Item of active pet
+					if (!itemDrop.isDropable() || itemDrop.getItemId() == 57 // Adena
+							// Dont drop Shadow Items
+							|| itemDrop.isShadowItem()
+							// Dont drop Time Limited Items
+							|| itemDrop.isTimeLimitedItem()
+							// Quest Items
+							|| itemDrop.getItem().getType2() == L2Item.TYPE2_QUEST
+							// Control Item of active pet
+							|| getPet() != null && getPet().getControlItemId() == itemDrop.getItemId()
+							// Item listed in the non droppable item list
+							|| Arrays.binarySearch(Config.KARMA_LIST_NONDROPPABLE_ITEMS, itemDrop.getItemId()) >= 0
+							// Item listed in the non droppable pet item list
+							|| Arrays.binarySearch(Config.KARMA_LIST_NONDROPPABLE_PET_ITEMS, itemDrop.getItemId()) >= 0
 					)
 						continue;
 

@@ -115,7 +115,7 @@ public abstract class L2GameServerPacket extends SendablePacket<L2GameClient>
 	
 	public interface ElementalOwner
 	{
-		public int getAttackElementType();
+		public byte getAttackElementType();
 		
 		public int getAttackElementPower();
 		
@@ -134,7 +134,7 @@ public abstract class L2GameServerPacket extends SendablePacket<L2GameClient>
 	
 	protected final void writePlayerElementAttribute(L2PcInstance player)
 	{
-		int attackAttribute = player.getAttackElement();
+		byte attackAttribute = player.getAttackElement();
 		writeCompH(attackAttribute);
 		writeCompH(player.getAttackElementValue(attackAttribute));
 		writeCompH(player.getDefenseElementValue(Elementals.FIRE));

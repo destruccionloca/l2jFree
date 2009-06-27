@@ -47,32 +47,34 @@ public class RequestHennaEquip extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) return;
+		if (activeChar == null)
+			return;
 
 		L2Henna temp = HennaTable.getInstance().getTemplate(_symbolId);
-        if (temp == null)
-        {
-        	requestFailed(SystemMessageId.SYMBOL_NOT_FOUND);
-            return;
-        }
-        else if (activeChar.getHennaEmptySlots() < 1)
-        {
-        	requestFailed(SystemMessageId.SYMBOLS_FULL);
-        	return;
-        }
-        else if (!isDrawable(activeChar))
-        {
-        	requestFailed(SystemMessageId.CANT_DRAW_SYMBOL);
-        	return;
-        }
+		if (temp == null)
+		{
+			requestFailed(SystemMessageId.SYMBOL_NOT_FOUND);
+			return;
+		}
+		if (activeChar.getHennaEmptySlots() < 1)
+		{
+			requestFailed(SystemMessageId.SYMBOLS_FULL);
+			return;
+		}
+		if (!isDrawable(activeChar))
+		{
+			requestFailed(SystemMessageId.CANT_DRAW_SYMBOL);
+			return;
+		}
 
 		L2ItemInstance item = activeChar.getInventory().getItemByItemId(temp.getItemId());
 		long count = (item == null ? 0 : item.getCount());
 		if (count >= temp.getAmount() && activeChar.getAdena() >= temp.getPrice())
 		{
 			activeChar.addHenna(temp);
-			SystemMessage sm = new SystemMessage(SystemMessageId.S1_DISAPPEARED);
+			SystemMessage sm = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
 			sm.addItemName(temp.getItemId());
+			sm.addItemNumber(temp.getAmount());
 			sendPacket(sm);
 			activeChar.reduceAdena("Henna", temp.getPrice(), activeChar.getLastFolkNPC(), true);
 			L2ItemInstance dye = activeChar.getInventory().destroyItemByItemId("Henna", temp.getItemId(), temp.getAmount(), activeChar, activeChar.getLastFolkNPC());

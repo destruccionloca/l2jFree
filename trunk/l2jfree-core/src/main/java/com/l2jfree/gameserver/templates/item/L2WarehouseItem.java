@@ -38,7 +38,7 @@ public class L2WarehouseItem implements ElementalOwner
 	private int		_augmentationId;
 	private int		_manaLeft;
 
-	private int _elemAtkType = -2;
+	private byte _elemAtkType = -2;
 	private int _elemAtkPower = 0;
 	private int[] _elemDefAttr = {0, 0, 0, 0, 0, 0};
 
@@ -263,7 +263,7 @@ public class L2WarehouseItem implements ElementalOwner
 		return _manaLeft;
 	}
 
-	public int getAttackElementType()
+	public byte getAttackElementType()
 	{
 		return _elemAtkType;
 	}

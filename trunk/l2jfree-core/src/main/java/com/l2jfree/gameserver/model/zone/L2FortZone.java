@@ -15,7 +15,10 @@
 package com.l2jfree.gameserver.model.zone;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.L2Clan;
+import com.l2jfree.gameserver.model.L2Effect;
+import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.FortSiege;
@@ -62,5 +65,25 @@ public class L2FortZone extends SiegeableEntityZone
 		
 		if (character instanceof L2PcInstance)
 			((L2PcInstance)character).stopFameTask();
+	}
+
+	@Override
+	protected void onDieInside(L2Character character)
+	{
+		// debuff participants only if they die inside siege zone
+		if (character instanceof L2PcInstance && isSiegeInProgress())
+		{
+			int lvl;
+			L2Effect effect = character.getFirstEffect(5660);
+			if (effect != null)
+				lvl = Math.min(effect.getLevel() + 1, SkillTable.getInstance().getMaxLevel(5660));
+			else
+				lvl = 1;
+
+			L2Skill skill = SkillTable.getInstance().getInfo(5660, lvl);
+			if (skill != null)
+				skill.getEffects(character, character);
+		}
+		super.onDieInside(character);
 	}
 }

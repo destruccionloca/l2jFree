@@ -23,6 +23,7 @@ import java.io.InputStreamReader;
 import java.io.LineNumberReader;
 import java.io.OutputStream;
 import java.math.BigInteger;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Properties;
 import java.util.StringTokenizer;
@@ -774,8 +775,8 @@ public final class Config extends L2Config
 	public static int				KARMA_PK_LIMIT;
 	public static String			KARMA_NONDROPPABLE_PET_ITEMS;
 	public static String			KARMA_NONDROPPABLE_ITEMS;
-	public static FastList<Integer>	KARMA_LIST_NONDROPPABLE_PET_ITEMS	= new FastList<Integer>();
-	public static FastList<Integer>	KARMA_LIST_NONDROPPABLE_ITEMS		= new FastList<Integer>();
+	public static int[]				KARMA_LIST_NONDROPPABLE_PET_ITEMS;
+	public static int[]				KARMA_LIST_NONDROPPABLE_ITEMS;
 	public static int				PVP_TIME;
 	public static boolean			ALT_PLAYER_CAN_DROP_ADENA;											// Player can drop adena ?
 	public static boolean			ALT_ANNOUNCE_PK;													// Announce Pks ?
@@ -814,17 +815,24 @@ public final class Config extends L2Config
 			KARMA_NONDROPPABLE_PET_ITEMS = pvpSettings.getProperty("ListOfPetItems", "2375,3500,3501,3502,4422,4423,4424,4425,6648,6649,6650,9882");
 			KARMA_NONDROPPABLE_ITEMS = pvpSettings.getProperty("ListOfNonDroppableItems", "57,1147,425,1146,461,10,2368,7,6,2370,2369");
 
-			KARMA_LIST_NONDROPPABLE_PET_ITEMS = new FastList<Integer>();
-			for (String id : KARMA_NONDROPPABLE_PET_ITEMS.trim().split(","))
+			String[] ids = KARMA_NONDROPPABLE_PET_ITEMS.trim().split(",");
+			KARMA_LIST_NONDROPPABLE_PET_ITEMS = new int[ids.length];
+			for (int i = 0; i < ids.length; i++)
 			{
-				KARMA_LIST_NONDROPPABLE_PET_ITEMS.add(Integer.parseInt(id));
+				KARMA_LIST_NONDROPPABLE_PET_ITEMS[i] = Integer.parseInt(ids[i].trim());
 			}
 
-			KARMA_LIST_NONDROPPABLE_ITEMS = new FastList<Integer>();
-			for (String id : KARMA_NONDROPPABLE_ITEMS.trim().split(","))
+			ids = KARMA_NONDROPPABLE_ITEMS.trim().split(",");
+			KARMA_LIST_NONDROPPABLE_ITEMS = new int[ids.length];
+			for (int i = 0; i < ids.length; i++)
 			{
-				KARMA_LIST_NONDROPPABLE_ITEMS.add(Integer.parseInt(id));
+				KARMA_LIST_NONDROPPABLE_ITEMS[i] = Integer.parseInt(ids[i].trim());
 			}
+
+			// sorting so binarySearch can be used later
+			Arrays.sort(KARMA_LIST_NONDROPPABLE_PET_ITEMS);
+			Arrays.sort(KARMA_LIST_NONDROPPABLE_ITEMS);
+
 			ALT_PLAYER_CAN_DROP_ADENA = Boolean.parseBoolean(pvpSettings.getProperty("PlayerCanDropAdena", "false"));
 			PLAYER_RATE_DROP_ADENA = Integer.parseInt(pvpSettings.getProperty("PlayerRateDropAdena", "1"));
 			ALT_ANNOUNCE_PK = Boolean.parseBoolean(pvpSettings.getProperty("AnnouncePk", "false"));

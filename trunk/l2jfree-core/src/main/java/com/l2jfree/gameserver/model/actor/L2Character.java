@@ -5839,10 +5839,7 @@ public abstract class L2Character extends L2Object
 	{
 		if (skill.getSkillType() != L2SkillType.NOTDONE)
 			addStatFuncs(skill.getStatFuncs(this));
-		
-		if (skill.getElement() != 0)
-			getStat().addElement(skill);
-		
+
 		if (skill.isChance())
 			addChanceSkillTrigger(skill);
 	}
@@ -5850,10 +5847,7 @@ public abstract class L2Character extends L2Object
 	private void skillRemoved(L2Skill skill)
 	{
 		removeStatsOwner(skill);
-		
-		if (skill.getElement() != 0)
-			getStat().removeElement(skill);
-		
+
 		if (skill.isChance())
 			removeChanceSkillTrigger(skill);
 	}
@@ -7011,12 +7005,12 @@ public abstract class L2Character extends L2Object
 		return _chanceSkills;
 	}
 
-	public final int getAttackElement()
+	public final byte getAttackElement()
 	{
 		return getStat().getAttackElement();
 	}
 
-	public int getDefenseElementValue(int defenseAttribute)
+	public int getDefenseElementValue(byte defenseAttribute)
 	{
 		return getStat().getDefenseElementValue(defenseAttribute);
 	}
@@ -7039,7 +7033,7 @@ public abstract class L2Character extends L2Object
 		return getStatus().getCurrentCp();
 	}
 
-	public final int getAttackElementValue(int attackAttribute)
+	public final int getAttackElementValue(byte attackAttribute)
 	{
 		return getStat().getAttackElementValue(attackAttribute);
 	}

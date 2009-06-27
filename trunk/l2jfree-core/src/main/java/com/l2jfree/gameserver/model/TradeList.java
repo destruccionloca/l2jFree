@@ -47,7 +47,7 @@ public class TradeList
 		private long _count;
 		private long _price;
 
-		private int _elemAtkType = -2;
+		private byte _elemAtkType = -2;
 		private int _elemAtkPower = 0;
 		private int[] _elemDefAttr = {0, 0, 0, 0, 0, 0};
 
@@ -134,7 +134,7 @@ public class TradeList
 			return _price;
 		}
 
-		public int getAttackElementType()
+		public byte getAttackElementType()
 		{
 			 return _elemAtkType;
 		}

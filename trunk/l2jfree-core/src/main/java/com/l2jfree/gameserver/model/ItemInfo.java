@@ -57,7 +57,7 @@ public class ItemInfo implements ElementalOwner
 
 	private int _location;
 
-	private int _elemAtkType = -2;
+	private byte _elemAtkType = -2;
 	private int _elemAtkPower = 0;
 	private int[] _elemDefAttr = {0, 0, 0, 0, 0, 0};
 
@@ -233,7 +233,7 @@ public class ItemInfo implements ElementalOwner
 		return _location;
 	}
 
-	public int getAttackElementType()
+	public byte getAttackElementType()
 	{
 		return _elemAtkType;
 	}

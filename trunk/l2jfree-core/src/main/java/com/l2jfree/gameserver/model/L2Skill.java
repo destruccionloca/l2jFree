@@ -145,14 +145,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		OFFENSIVE, NEUTRAL, POSITIVE;
 	}
 
-	//elements
-	public final static int			ELEMENT_FIRE	= 1;
-	public final static int			ELEMENT_WATER	= 2;
-	public final static int			ELEMENT_WIND	= 3;
-	public final static int			ELEMENT_EARTH	= 4;
-	public final static int			ELEMENT_HOLY	= 5;
-	public final static int			ELEMENT_DARK	= 6;
-
 	// conditional values
 	public final static int			COND_BEHIND		= 0x0008;
 	public final static int			COND_CRIT		= 0x0010;
@@ -254,7 +246,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	private final int				_skill_landing_percent;
 
 	private final boolean			_ispotion;
-	private final int				_element;
+	private final byte				_element;
 	private final int				_elementPower;
 	private final int				_activateRate;
 	private final int				_magicLevel;
@@ -447,7 +439,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		_effectId = set.getInteger("effectId", 0);
 		_effectLvl = set.getFloat("effectLevel", 0.f);
 		_skill_landing_percent = set.getInteger("skill_landing_percent", 0);
-		_element = set.getInteger("element", -1);
+		_element = set.getByte("element", (byte) -1);
 		_elementPower = set.getInteger("elementPower", 0);
 		_activateRate = set.getInteger("activateRate", -1);
 		_magicLevel = set.getInteger("magicLvl", SkillTreeTable.getInstance().getMinSkillLevel(_id, _level));
@@ -639,7 +631,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		return _magicLevel;
 	}
 
-	public final int getElement()
+	public final byte getElement()
 	{
 		return _element;
 	}
@@ -2749,12 +2741,12 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 						if (activeChar instanceof L2PcInstance)
 							player = (L2PcInstance) activeChar;
-						L2PcInstance targetPlayer = null;
 
+						L2PcInstance targetPlayer = null;
 						if (target instanceof L2PcInstance)
 							targetPlayer = (L2PcInstance) target;
-						L2PetInstance targetPet = null;
 
+						L2PetInstance targetPet = null;
 						if (target instanceof L2PetInstance)
 							targetPet = (L2PetInstance) target;
 
@@ -2780,6 +2772,11 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 								if (targetPlayer != null)
 								{
+									if (targetPlayer.isFestivalParticipant()) // Check to see if the current player target is in a festival.
+									{
+										condGood = false;
+										activeChar.sendMessage("You may not resurrect participants in a festival.");
+									}
 									if (targetPlayer.isReviveRequested())
 									{
 										player.sendPacket(SystemMessageId.RES_HAS_ALREADY_BEEN_PROPOSED); // Resurrection is already been
@@ -2791,8 +2788,11 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 								{
 									if (targetPet.getOwner() != player)
 									{
-										condGood = false;
-										player.sendMessage("You are not the owner of this pet");
+										if (targetPet.getOwner().isPetReviveRequested())
+										{
+											player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_RES_PET2)); // A pet cannot be resurrected while it's owner is in the process of resurrecting.
+											condGood = false;
+										}
 									}
 								}
 							}

@@ -55,9 +55,9 @@ public class DlgAnswer extends L2GameClientPacket
             cha.teleportAnswer(_answer, _requesterId);
         else if (_messageId == SystemMessageId.S1.getId() && Config.ALLOW_WEDDING && cha.isEngageRequest())
             cha.engageAnswer(_answer);
-        else if (_messageId == 1140)
+        else if (_messageId == SystemMessageId.WOULD_YOU_LIKE_TO_OPEN_THE_GATE.getId())
             cha.gatesAnswer(_answer, 1);
-        else if (_messageId == 1141)
+        else if (_messageId == SystemMessageId.WOULD_YOU_LIKE_TO_CLOSE_THE_GATE.getId())
             cha.gatesAnswer(_answer, 0);
 
         sendPacket(ActionFailed.STATIC_PACKET);

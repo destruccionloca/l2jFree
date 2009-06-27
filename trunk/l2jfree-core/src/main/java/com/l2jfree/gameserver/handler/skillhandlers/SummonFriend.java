@@ -198,7 +198,7 @@ public class SummonFriend implements ISkillHandler
 				return;
 			}
 			targetChar.getInventory().destroyItemByItemId("Consume", itemConsumeId, itemConsumeCount, summonerChar, targetChar);
-			SystemMessage sm = new SystemMessage(SystemMessageId.S1_HAS_DISAPPEARED);
+			SystemMessage sm = new SystemMessage(SystemMessageId.S1_DISAPPEARED);
 			sm.addItemName(itemConsumeId);
 			targetChar.sendPacket(sm);
 		}

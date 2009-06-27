@@ -2839,8 +2839,8 @@ public final class Formulas
 		int calcPower = 0;
 		int calcDefen = 0;
 		int calcTotal = 0;
-		double result = 1;
-		int element;
+		double result = 1.0;
+		byte element;
 
 		if (skill != null)
 		{
@@ -2853,15 +2853,20 @@ public final class Formulas
 				if (attacker.getAttackElement() == element)
 					calcPower += attacker.getAttackElementValue(element);
 
-				calcTotal = Math.max(calcPower - calcDefen, -20);
-				if (calcTotal < 0)
-					result += calcTotal * 0.01;
-				else if (calcTotal < 75)
-					result += calcTotal * 0.0052;
-				else if (calcTotal < 150)
-					result = 1.4;
-				else
-					result = 1.7;
+				calcTotal = calcPower - calcDefen;
+				if (calcTotal > 0)
+				{
+					if (calcTotal < 75)
+						result += calcTotal * 0.0052;
+					else if (calcTotal < 150)
+						result = 1.4;
+					else if (calcTotal < 290)
+						result = 1.7;
+					else if (calcTotal < 300)
+						result = 1.8;
+					else
+						result = 2.0;
+				}
 
 				if (_log.isDebugEnabled())
 					_log.info(skill.getName() + ": " + calcPower + ", " + calcDefen + ", " + result);

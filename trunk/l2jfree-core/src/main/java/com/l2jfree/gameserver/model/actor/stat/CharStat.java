@@ -44,8 +44,6 @@ public class CharStat
 	private int					_sp		= 0;
 	private byte				_level	= 1;
 
-	private int					_earth	= 0, _water = 0, _wind = 0, _fire = 0, _holy = 0, _dark = 0;
-
 	// =========================================================
 	// Constructor
 	public CharStat(L2Character activeChar)
@@ -697,57 +695,7 @@ public class CharStat
 		return (int) calcStat(Stats.MP_CONSUME, skill.getMpInitialConsume(), null, skill);
 	}
 
-	public final void addElement(L2Skill skill)
-	{
-		switch (skill.getElement())
-		{
-			case L2Skill.ELEMENT_EARTH:
-				_earth += skill.getMagicLevel();
-				break;
-			case L2Skill.ELEMENT_FIRE:
-				_fire += skill.getMagicLevel();
-				break;
-			case L2Skill.ELEMENT_WATER:
-				_water += skill.getMagicLevel();
-				break;
-			case L2Skill.ELEMENT_WIND:
-				_wind += skill.getMagicLevel();
-				break;
-			case L2Skill.ELEMENT_HOLY:
-				_holy += skill.getMagicLevel();
-				break;
-			case L2Skill.ELEMENT_DARK:
-				_dark += skill.getMagicLevel();
-				break;
-		}
-	}
-
-	public final void removeElement(L2Skill skill)
-	{
-		switch (skill.getElement())
-		{
-			case L2Skill.ELEMENT_EARTH:
-				_earth -= skill.getMagicLevel();
-				break;
-			case L2Skill.ELEMENT_FIRE:
-				_fire -= skill.getMagicLevel();
-				break;
-			case L2Skill.ELEMENT_WATER:
-				_water -= skill.getMagicLevel();
-				break;
-			case L2Skill.ELEMENT_WIND:
-				_wind -= skill.getMagicLevel();
-				break;
-			case L2Skill.ELEMENT_HOLY:
-				_holy -= skill.getMagicLevel();
-				break;
-			case L2Skill.ELEMENT_DARK:
-				_dark -= skill.getMagicLevel();
-				break;
-		}
-	}
-
-	public int getAttackElement()
+	public byte getAttackElement()
 	{
 		L2ItemInstance weaponInstance = _activeChar.getActiveWeaponInstance();
 		// 1st order - weapon element
@@ -757,7 +705,7 @@ public class CharStat
 		// temp fix starts
 		int tempVal = 0, stats[] = { 0, 0, 0, 0, 0, 0 };
 
-		int returnVal = -2;
+		byte returnVal = -2;
 		stats[0] = (int) calcStat(Stats.FIRE_POWER, _activeChar.getTemplate().getBaseFire(), null, null);
 		stats[1] = (int) calcStat(Stats.WATER_POWER, _activeChar.getTemplate().getBaseWater(), null, null);
 		stats[2] = (int) calcStat(Stats.WIND_POWER, _activeChar.getTemplate().getBaseWind(), null, null);
@@ -765,7 +713,7 @@ public class CharStat
 		stats[4] = (int) calcStat(Stats.HOLY_POWER, _activeChar.getTemplate().getBaseHoly(), null, null);
 		stats[5] = (int) calcStat(Stats.DARK_POWER, _activeChar.getTemplate().getBaseDark(), null, null);
 
-		for (int x = 0; x < 6; x++)
+		for (byte x = 0; x < 6; x++)
 		{
 			if (stats[x] > tempVal)
 			{
@@ -783,7 +731,7 @@ public class CharStat
 		 */
 	}
 
-	public int getAttackElementValue(int attackAttribute)
+	public int getAttackElementValue(byte attackAttribute)
 	{
 		switch (attackAttribute)
 		{
@@ -804,7 +752,7 @@ public class CharStat
 		}
 	}
 
-	public int getDefenseElementValue(int defenseAttribute)
+	public int getDefenseElementValue(byte defenseAttribute)
 	{
 		switch (defenseAttribute)
 		{

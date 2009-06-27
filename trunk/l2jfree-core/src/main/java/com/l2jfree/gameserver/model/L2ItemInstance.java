@@ -1000,7 +1000,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 		return _elementals;
 	}
 
-	public int getAttackElementType()
+	public byte getAttackElementType()
 	{
 		if (isWeapon() && _elementals != null)
 			return _elementals.getElement();
@@ -1152,17 +1152,17 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 			{
 				case 10:
 					sm = new SystemMessage(SystemMessageId.S1S_REMAINING_MANA_IS_NOW_10);
-					sm.addString(getItemName());
+					sm.addItemName(_item);
 					player.sendPacket(sm);
 					break;
 				case 5:
 					sm = new SystemMessage(SystemMessageId.S1S_REMAINING_MANA_IS_NOW_5);
-					sm.addString(getItemName());
+					sm.addItemName(_item);
 					player.sendPacket(sm);
 					break;
 				case 1:
 					sm = new SystemMessage(SystemMessageId.S1S_REMAINING_MANA_IS_NOW_1);
-					sm.addString(getItemName());
+					sm.addItemName(_item);
 					player.sendPacket(sm);
 					break;
 			}
@@ -1170,7 +1170,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 			if (_mana == 0) // The life time has expired
 			{
 				sm = new SystemMessage(SystemMessageId.S1S_REMAINING_MANA_IS_NOW_0);
-				sm.addString(getItemName());
+				sm.addItemName(_item);
 				player.sendPacket(sm);
 				
 				// unequip

@@ -116,45 +116,20 @@ public class L2SiegeZone extends SiegeableEntityZone
 	@Override
 	protected void onDieInside(L2Character character)
 	{
-		if (_entity instanceof Fort)
+		// debuff participants only if they die inside siege zone
+		if (character instanceof L2PcInstance && isSiegeInProgress())
 		{
-			Fort fort = (Fort)_entity;
-			
-			// debuff participants only if they die inside siege zone
-			if (character instanceof L2PcInstance && ((L2PcInstance)character).getClan() != null)
-			{
-				int lvl;
-				
-				L2Effect effect = character.getFirstEffect(5660);
-				if (effect != null)
-					lvl = Math.min(effect.getLevel() + 1, SkillTable.getInstance().getMaxLevel(5660));
-				else
-					lvl = 1;
-				
-				if (fort.getOwnerClan() == ((L2PcInstance)character).getClan())
-				{
-					L2Skill skill = SkillTable.getInstance().getInfo(5660, lvl);
-					if (skill != null)
-						skill.getEffects(character, character);
-				}
-				else
-				{
-					for (L2SiegeClan siegeclan : fort.getSiege().getAttackerClans())
-					{
-						if (siegeclan == null)
-							continue;
-						if (((L2PcInstance)character).getClanId() == siegeclan.getClanId())
-						{
-							L2Skill skill = SkillTable.getInstance().getInfo(5660, lvl);
-							if (skill != null)
-								skill.getEffects(character, character);
-							break;
-						}
-					}
-				}
-			}
+			int lvl;
+			L2Effect effect = character.getFirstEffect(5660);
+			if (effect != null)
+				lvl = Math.min(effect.getLevel() + 1, SkillTable.getInstance().getMaxLevel(5660));
+			else
+				lvl = 1;
+
+			L2Skill skill = SkillTable.getInstance().getInfo(5660, lvl);
+			if (skill != null)
+				skill.getEffects(character, character);
 		}
-		
 		super.onDieInside(character);
 	}
 }

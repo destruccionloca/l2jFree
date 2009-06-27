@@ -1359,64 +1359,61 @@ public abstract class Inventory extends ItemContainer
 	 */
 	public L2ItemInstance findArrowForBow(L2Item bow)
 	{
-		int arrowsId = 0;
+		L2ItemInstance arrow = null;
 
 		switch (bow.getCrystalGrade())
 		{
 			case L2Item.CRYSTAL_NONE:
-				arrowsId = 17;
+				arrow = getItemByItemId(17);
 				break; // Wooden arrow
 			case L2Item.CRYSTAL_D:
-				arrowsId = 1341;
+				arrow = (arrow = getItemByItemId(1341)) != null ? arrow : getItemByItemId(22067);
 				break; // Bone arrow
 			case L2Item.CRYSTAL_C:
-				arrowsId = 1342;
+				arrow = (arrow = getItemByItemId(1342)) != null ? arrow : getItemByItemId(22068);
 				break; // Fine steel arrow
 			case L2Item.CRYSTAL_B:
-				arrowsId = 1343;
+				arrow = (arrow = getItemByItemId(1343)) != null ? arrow : getItemByItemId(22069);
 				break; // Silver arrow
 			case L2Item.CRYSTAL_A:
-				arrowsId = 1344;
+				arrow = (arrow = getItemByItemId(1344)) != null ? arrow : getItemByItemId(22070);
 				break; // Mithril arrow
 			case L2Item.CRYSTAL_S:
-				arrowsId = 1345;
+				arrow = (arrow = getItemByItemId(1345)) != null ? arrow : getItemByItemId(22071);
 				break; // Shining arrow
-			default: // broken weapon.csv ??
-				arrowsId = 17;
-				break; // Wooden arrow
 		}
 
 		// Get the L2ItemInstance corresponding to the item identifier and return it
-		return getItemByItemId(arrowsId);
+		return arrow;
 	}
 
 	public L2ItemInstance findBoltForCrossBow(L2Item crossbow)
 	{
-		int arrowsId = 0;
+		L2ItemInstance bolt = null;
 
 		switch (crossbow.getCrystalGrade())
 		{
 			default:
 			case L2Item.CRYSTAL_NONE:
-				arrowsId = 9632;
+				bolt = getItemByItemId(9632);
 				break;
 			case L2Item.CRYSTAL_D:
-				arrowsId = 9633;
+				bolt = (bolt = getItemByItemId(9633)) != null ? bolt : getItemByItemId(22144);
 				break;
 			case L2Item.CRYSTAL_C:
-				arrowsId = 9634;
+				bolt = (bolt = getItemByItemId(9634)) != null ? bolt : getItemByItemId(22145);
 				break;
 			case L2Item.CRYSTAL_B:
-				arrowsId = 9635;
+				bolt = (bolt = getItemByItemId(9635)) != null ? bolt : getItemByItemId(22146);
 				break;
 			case L2Item.CRYSTAL_A:
-				arrowsId = 9636;
+				bolt = (bolt = getItemByItemId(9636)) != null ? bolt : getItemByItemId(22147);
 				break;
 			case L2Item.CRYSTAL_S:
-				arrowsId = 9637;
+				bolt = (bolt = getItemByItemId(9637)) != null ? bolt : getItemByItemId(22148);
 				break;
 		}
-		return getItemByItemId(arrowsId);
+		return bolt;
 	}
 
 	public void restoreArmorSetPassiveSkill()

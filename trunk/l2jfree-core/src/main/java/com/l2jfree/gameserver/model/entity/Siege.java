@@ -1293,6 +1293,12 @@ public class Siege extends AbstractSiege
 			if (getCastle().getSiegeDate().get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY &&
 					getCastle().getSiegeDate().get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
 				getCastle().getSiegeDate().set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+
+			// from CT2.3 Castle sieges are on Sunday, but if server admins allow to set day of the siege
+			// than sieges can occur on Saturdays as well
+			if (getCastle().getSiegeDate().get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY && !Config.CL_SET_SIEGE_TIME_LIST.contains("day"))
+				getCastle().getSiegeDate().set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+
 			// set the next siege day to the next weekend
 			getCastle().getSiegeDate().add(Calendar.DAY_OF_MONTH, 7);
 		}
