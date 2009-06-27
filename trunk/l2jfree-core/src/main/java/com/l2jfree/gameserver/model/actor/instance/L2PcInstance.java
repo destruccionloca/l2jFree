@@ -99,6 +99,7 @@ import com.l2jfree.gameserver.instancemanager.lastimperialtomb.LastImperialTombM
 import com.l2jfree.gameserver.instancemanager.leaderboards.ArenaManager;
 import com.l2jfree.gameserver.model.BlockList;
 import com.l2jfree.gameserver.model.CursedWeapon;
+import com.l2jfree.gameserver.model.Elementals;
 import com.l2jfree.gameserver.model.FishData;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2ClanMember;
@@ -5366,6 +5367,10 @@ public final class L2PcInstance extends L2Playable
 	public void setPet(L2Summon summon)
 	{
 		_summon = summon;
+		// update attack element value display
+		if ((_summon == null || _summon instanceof L2SummonInstance)
+				&& getAttackElement() != Elementals.NONE)
+			sendPacket(new UserInfo(this));
 	}
 
 	/**

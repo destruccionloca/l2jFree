@@ -33,6 +33,7 @@ import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.util.Util;
 
 /**
  * This class ...
@@ -46,39 +47,42 @@ public class SendWareHouseWithDrawList extends L2GameClientPacket
 	private static final String	_C__32_SENDWAREHOUSEWITHDRAWLIST	= "[C] 32 SendWareHouseWithDrawList";
 	private final static Log	_log								= LogFactory.getLog(SendWareHouseWithDrawList.class.getName());
 
-	private int					_count;
-	private long[]				_items;
+	private static final int	BATCH_LENGTH = 8; // length of the one item
+	private static final int	BATCH_LENGTH_FINAL = 12;
+
+	private WarehouseItem		_items[] = null;
 
 	@Override
 	protected void readImpl()
 	{
-		_count = readD();
-		if (_count < 0 || _count * (Config.PACKET_FINAL ? 12 : 8) > getByteBuffer().remaining() || _count > Config.MAX_ITEM_IN_PACKET)
+		int count = readD();
+		if (count <= 0
+				|| count > Config.MAX_ITEM_IN_PACKET
+				|| count * (Config.PACKET_FINAL ? BATCH_LENGTH_FINAL : BATCH_LENGTH) != getByteBuffer().remaining())
 		{
-			_count = 0;
-			_items = null;
 			return;
 		}
-		_items = new long[_count * 2];
-		for (int i = 0; i < _count; i++)
+
+		_items = new WarehouseItem[count];
+		for (int i = 0; i < count; i++)
 		{
-			int objectId = readD();
-			_items[(i * 2)] = objectId;
-			long cnt;
-			cnt = readCompQ();
-			if (cnt >= Integer.MAX_VALUE || cnt < 0)
+			int objId = readD();
+			long cnt  = readCompQ();
+			if (objId < 1 || cnt < 0)
 			{
-				_count = 0;
 				_items = null;
 				return;
 			}
-			_items[i * 2 + 1] = cnt;
+			_items[i] = new WarehouseItem(objId, cnt);
 		}
 	}
 
 	@Override
 	protected void runImpl()
 	{
+		if (_items == null)
+			return;
+
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null)
 			return;
@@ -129,20 +133,22 @@ public class SendWareHouseWithDrawList extends L2GameClientPacket
 		int weight = 0;
 		int slots = 0;
 
-		for (int i = 0; i < _count; i++)
+		for (WarehouseItem i : _items)
 		{
-			int objectId = (int) _items[(i * 2)];
-			long count = _items[i * 2 + 1];
-
 			// Calculate needed slots
-			L2ItemInstance item = warehouse.getItemByObjectId(objectId);
-			if (item == null)
-				continue;
-			
-			weight += count * item.getItem().getWeight();
-			
+			L2ItemInstance item = warehouse.getItemByObjectId(i.getObjectId());
+			if (item == null || item.getCount() < i.getCount())
+			{
+				Util.handleIllegalPlayerAction(player, "Warning!! Character "
+						+ player.getName() + " of account "
+						+ player.getAccountName() + " tried to withdraw non-existent item from warehouse.",
+						Config.DEFAULT_PUNISH);
+				return;
+			}
+
+			weight += i.getCount() * item.getItem().getWeight();
 			if (!item.isStackable())
-				slots += count;
+				slots += i.getCount();
 			else if (player.getInventory().getItemByItemId(item.getItemId()) == null)
 				slots++;
 		}
@@ -163,25 +169,24 @@ public class SendWareHouseWithDrawList extends L2GameClientPacket
 
 		// Proceed to the transfer
 		InventoryUpdate playerIU = Config.FORCE_INVENTORY_UPDATE ? null : new InventoryUpdate();
-		for (int i = 0; i < _count; i++)
+		for (WarehouseItem i : _items)
 		{
-			int objectId = (int) _items[(i * 2)];
-			long count = _items[i * 2 + 1];
-
-			L2ItemInstance oldItem = warehouse.getItemByObjectId(objectId);
-			if (oldItem == null || oldItem.getCount() < count)
-				player.sendMessage("Can't withdraw requested item" + (count > 1 ? "s" : ""));
-			L2ItemInstance newItem = warehouse.transferItem((warehouse instanceof ClanWarehouse) ? "ClanWarehouse" : "Warehouse", objectId, count, player
-					.getInventory(), player, player.getLastFolkNPC());
+			L2ItemInstance oldItem = warehouse.getItemByObjectId(i.getObjectId());
+			if (oldItem == null || oldItem.getCount() < i.getCount())
+			{
+				_log.warn("Error withdrawing a warehouse object for char " + player.getName() + " (olditem == null)");
+				return;
+			}
+			L2ItemInstance newItem = warehouse.transferItem("Warehouse", i.getObjectId(), i.getCount(), player.getInventory(), player, player.getLastFolkNPC());
 			if (newItem == null)
 			{
-				_log.warn("Error withdrawing a warehouse object for char " + player.getName());
-				continue;
+				_log.warn("Error withdrawing a warehouse object for char " + player.getName() + " (newitem == null)");
+				return;
 			}
 
 			if (playerIU != null)
 			{
-				if (newItem.getCount() > count)
+				if (newItem.getCount() > i.getCount())
 					playerIU.addModifiedItem(newItem);
 				else
 					playerIU.addNewItem(newItem);
@@ -198,6 +203,28 @@ public class SendWareHouseWithDrawList extends L2GameClientPacket
 		StatusUpdate su = new StatusUpdate(player.getObjectId());
 		su.addAttribute(StatusUpdate.CUR_LOAD, player.getCurrentLoad());
 		player.sendPacket(su);
+	}
+
+	private class WarehouseItem
+	{
+		private final int _objectId;
+		private final long _count;
+
+		public WarehouseItem(int id, long num)
+		{
+			_objectId = id;
+			_count = num;
+		}
+
+		public int getObjectId()
+		{
+			return _objectId;
+		}
+
+		public long getCount()
+		{
+			return _count;
+		}
 	}
 
 	/* (non-Javadoc)

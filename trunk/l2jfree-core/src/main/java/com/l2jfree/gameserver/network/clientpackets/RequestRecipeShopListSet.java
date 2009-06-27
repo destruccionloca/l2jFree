@@ -21,6 +21,9 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.RecipeShopMsg;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.util.Util;
+
+import static com.l2jfree.gameserver.model.itemcontainer.PcInventory.MAX_ADENA;
 
 /**
  * This class ... cd(dd)
@@ -32,24 +35,33 @@ public class RequestRecipeShopListSet extends L2GameClientPacket
 	private static final String	_C__B2_RequestRecipeShopListSet	= "[C] b2 RequestRecipeShopListSet";
 	//private final static Log _log = LogFactory.getLog(RequestRecipeShopListSet.class.getName());
 
-	private int					_count;
-	private long[]				_items;																// count*2
+	private static final int BATCH_LENGTH = 8; // length of the one item
+	private static final int BATCH_LENGTH_FINAL = 12;
+
+	private Recipe[] _items = null;
 
 	@Override
 	protected void readImpl()
 	{
-		_count = readD();
-
-		if (_count < 0 || _count * (Config.PACKET_FINAL ? 12 : 8) > getByteBuffer().remaining() || _count > Config.MAX_ITEM_IN_PACKET)
-			_count = 0;
-		_items = new long[_count * 2];
-		for (int x = 0; x < _count; x++)
+		int count = readD();
+		if (count <= 0
+				|| count > Config.MAX_ITEM_IN_PACKET
+				|| count * (Config.PACKET_FINAL ? BATCH_LENGTH_FINAL : BATCH_LENGTH) != getByteBuffer().remaining())
 		{
-			int recipeID = readD();
-			_items[(x * 2)] = recipeID;
-			long cost = 0;
-			cost = readCompQ();
-			_items[x * 2 + 1] = cost;
+			return;
+		}
+
+		_items = new Recipe[count];
+		for (int i = 0; i < count ; i++)
+		{
+			int id = readD();
+			long cost = readCompQ();
+			if (cost < 0)
+			{
+				_items = null;
+				return;
+			}
+			_items[i] = new Recipe(id, cost);
 		}
 	}
 
@@ -60,35 +72,60 @@ public class RequestRecipeShopListSet extends L2GameClientPacket
 		if (player == null)
 			return;
 
+		if (_items == null)
+		{
+			player.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
+			player.broadcastUserInfo();
+			return;
+		}
+
 		if (player.isInDuel())
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.CANT_CRAFT_DURING_COMBAT));
 			return;
 		}
 
-		if (_count == 0)
-		{
-			player.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
-			player.broadcastUserInfo();
-			player.standUp();
-		}
-		else
-		{
-			L2ManufactureList createList = new L2ManufactureList();
+		L2ManufactureList createList = new L2ManufactureList();
 
-			for (int x = 0; x < _count; x++)
+		for (Recipe i : _items)
+		{
+			if (!i.addToList(createList))
 			{
-				int recipeID = (int) _items[(x * 2)];
-				long cost = _items[x * 2 + 1];
-				createList.add(new L2ManufactureItem(recipeID, cost));
+				Util.handleIllegalPlayerAction(player, "Warning!! Character "
+						+ player.getName() + " of account "
+						+ player.getAccountName() + " tried to set price more than "
+						+ MAX_ADENA + " adena in Private Manufacture.",
+						Config.DEFAULT_PUNISH);
+				return;
 			}
-			createList.setStoreName(player.getCreateList() != null ? player.getCreateList().getStoreName() : "");
-			player.setCreateList(createList);
+		}
 
-			player.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_MANUFACTURE);
-			player.sitDown();
-			player.broadcastUserInfo();
-			player.broadcastPacket(new RecipeShopMsg(player));
+		createList.setStoreName(player.getCreateList() != null ? player.getCreateList().getStoreName() : "");
+		player.setCreateList(createList);
+
+		player.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_MANUFACTURE);
+		player.sitDown();
+		player.broadcastUserInfo();
+		player.sendPacket(new RecipeShopMsg(player));
+		player.broadcastPacket(new RecipeShopMsg(player));
+	}
+
+	private class Recipe
+	{
+		private final int _recipeId;
+		private final long _cost;
+		
+		public Recipe(int id, long c)
+		{
+			_recipeId = id;
+			_cost = c;
+		}
+
+		public boolean addToList(L2ManufactureList list)
+		{
+			if (_cost > MAX_ADENA)
+				return false;
+			return true;
 		}
 	}
 

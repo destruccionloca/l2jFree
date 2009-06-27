@@ -47,7 +47,7 @@ public class TradeList
 		private long _count;
 		private long _price;
 
-		private byte _elemAtkType = -2;
+		private byte _elemAtkType = Elementals.NONE;
 		private int _elemAtkPower = 0;
 		private int[] _elemDefAttr = {0, 0, 0, 0, 0, 0};
 
@@ -342,7 +342,7 @@ public class TradeList
 		if (Config.ALT_STRICT_HERO_SYSTEM && item.isHeroItem())
 			return null;
 		
-		if (count > item.getCount())
+		if (count <= 0 || count > item.getCount())
 			return null;
 		
 		if (!item.isStackable() && count > 1)
@@ -350,6 +350,12 @@ public class TradeList
 			_log.warn(_owner.getName() + ": Attempt to add non-stackable item to TradeList with count > 1!");
 			return null;
 		}
+		if ((PcInventory.MAX_ADENA / count) < price)
+		{
+			_log.warn(_owner.getName() + ": Attempt to overflow adena !");
+			return null;
+		}
+
 		for (TradeItem checkitem : _items)
 		{
 			if (checkitem.getObjectId() == objectId)
@@ -714,7 +720,7 @@ public class TradeList
 	 * Buy items from this PrivateStore list
 	 * @return : boolean true if success
 	 */
-	public synchronized boolean privateStoreBuy(L2PcInstance player, ItemRequest[] items, int price)
+	public synchronized boolean privateStoreBuy(L2PcInstance player, ItemRequest[] items, long price)
 	{
 		if (_locked)
 			return false;

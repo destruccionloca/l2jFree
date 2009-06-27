@@ -14,16 +14,15 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-
-import javolution.util.FastList;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ItemInstance;
-import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.itemcontainer.ItemContainer;
@@ -36,6 +35,9 @@ import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.item.L2EtcItemType;
 
+import static com.l2jfree.gameserver.model.actor.L2Npc.INTERACTION_DISTANCE;
+import static com.l2jfree.gameserver.model.itemcontainer.PcInventory.ADENA_ID;
+
 /**
  * @author -Wooden-
  */
@@ -43,25 +45,30 @@ public final class RequestPackageSend extends L2GameClientPacket
 {
 	private static final String	_C_9F_REQUESTPACKAGESEND	= "[C] 9F RequestPackageSend";
 	protected static final Log	_log						= LogFactory.getLog(RequestPackageSend.class.getName());
-	private List<Item>			_items						= new FastList<Item>();
 	private int					_objectID;
-	private int					_count;
+
+	private static final int BATCH_LENGTH = 8; // length of the one item
+	private static final int BATCH_LENGTH_FINAL = 12;
+
+	private List<Item> _items = null;
 
 	@Override
 	protected void readImpl()
 	{
 		_objectID = readD();
-		_count = readD();
-		if (_count < 0 || _count > 500)
+		int count = readD();
+		if (count < 0
+				|| count > Config.MAX_ITEM_IN_PACKET
+				|| count * (Config.PACKET_FINAL ? BATCH_LENGTH_FINAL : BATCH_LENGTH) != getByteBuffer().remaining())
 		{
-			_count = -1;
 			return;
 		}
-		for (int i = 0; i < _count; i++)
+		_items = new ArrayList<Item>(count);
+		for(int i = 0; i < count; i++)
 		{
 			int id = readD(); //this is some id sent in PackageSendableList
-			long count = readCompQ();
-			_items.add(new Item(id, count));
+			long cnt = readCompQ();
+			_items.add(new Item(id, cnt));
 		}
 	}
 
@@ -71,8 +78,9 @@ public final class RequestPackageSend extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		if (_count == -1)
+		if (_items == null || _items.isEmpty())
 			return;
+
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null)
 			return;
@@ -86,7 +94,7 @@ public final class RequestPackageSend extends L2GameClientPacket
 			if (warehouse == null)
 				return;
 			L2NpcInstance manager = player.getLastFolkNPC();
-			if ((manager == null || !player.isInsideRadius(manager, L2Npc.INTERACTION_DISTANCE, false, false)) && !player.isGM())
+			if ((manager == null || !player.isInsideRadius(manager, INTERACTION_DISTANCE, false, false)) && !player.isGM())
 				return;
 
 			if (warehouse instanceof PcFreight && Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN
@@ -102,33 +110,35 @@ public final class RequestPackageSend extends L2GameClientPacket
 				return;
 
 			// Freight price from config or normal price per item slot (30)
-			long fee = _count * Config.ALT_GAME_FREIGHT_PRICE;
+			long fee = _items.size() * Config.ALT_GAME_FREIGHT_PRICE;
 			long currentAdena = player.getAdena();
 			int slots = 0;
 
-			for (Item i : _items)
+			Iterator<Item> iter = _items.iterator();
+			while (iter.hasNext())
 			{
-				int objectId = i.id;
-				long count = i.count;
+				Item i = iter.next();
 
 				// Check validity of requested item
-				L2ItemInstance item = player.checkItemManipulation(objectId, count, "deposit");
+				L2ItemInstance item = player.checkItemManipulation(i.objectId, i.count, "deposit");
 				if (item == null)
 				{
 					_log.warn("Error depositing a warehouse object for char " + player.getName() + " (validity check)");
-					i.id = 0;
-					i.count = 0;
+					iter.remove();
 					continue;
 				}
 
 				if (!item.isTradeable() || item.getItemType() == L2EtcItemType.QUEST)
-					return;
+				{
+					iter.remove();
+					continue;
+				}
 
 				// Calculate needed adena and slots
-				if (item.getItemId() == 57)
-					currentAdena -= count;
+				if (item.getItemId() == ADENA_ID)
+					currentAdena -= i.count;
 				if (!item.isStackable())
-					slots += count;
+					slots += i.count;
 				else if (warehouse.getItemByItemId(item.getItemId()) == null)
 					slots++;
 			}
@@ -151,14 +161,7 @@ public final class RequestPackageSend extends L2GameClientPacket
 			InventoryUpdate playerIU = Config.FORCE_INVENTORY_UPDATE ? null : new InventoryUpdate();
 			for (Item i : _items)
 			{
-				int objectId = i.id;
-				long count = i.count;
-
-				// check for an invalid item
-				if (objectId == 0 && count == 0)
-					continue;
-
-				L2ItemInstance oldItem = player.getInventory().getItemByObjectId(objectId);
+				L2ItemInstance oldItem = player.getInventory().getItemByObjectId(i.objectId);
 				if (oldItem == null)
 				{
 					_log.warn("Error depositing a warehouse object for char " + player.getName() + " (olditem == null)");
@@ -168,7 +171,7 @@ public final class RequestPackageSend extends L2GameClientPacket
 				if (oldItem.isHeroItem())
 					continue;
 
-				L2ItemInstance newItem = player.getInventory().transferItem("Warehouse", objectId, count, warehouse, player, player.getLastFolkNPC());
+				L2ItemInstance newItem = player.getInventory().transferItem("Warehouse", i.objectId, i.count, warehouse, player, player.getLastFolkNPC());
 				if (newItem == null)
 				{
 					_log.warn("Error depositing a warehouse object for char " + player.getName() + " (newitem == null)");
@@ -212,12 +215,12 @@ public final class RequestPackageSend extends L2GameClientPacket
 
 	private class Item
 	{
-		public int	id;
-		public long	count;
+		final int	objectId;
+		final long	count;
 
 		public Item(int i, long c)
 		{
-			id = i;
+			objectId = i;
 			count = c;
 		}
 	}

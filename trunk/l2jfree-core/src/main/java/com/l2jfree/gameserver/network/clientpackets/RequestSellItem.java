@@ -26,14 +26,14 @@ import com.l2jfree.gameserver.model.actor.instance.L2MerchantInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MerchantSummonInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetManagerInstance;
-import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
-import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.util.Util;
+
+import static com.l2jfree.gameserver.model.actor.L2Npc.INTERACTION_DISTANCE;
+import static com.l2jfree.gameserver.model.itemcontainer.PcInventory.MAX_ADENA;
 
 /**
  * This class ...
@@ -45,9 +45,12 @@ public class RequestSellItem extends L2GameClientPacket
 	private static final String _C__1E_REQUESTSELLITEM = "[C] 1E RequestSellItem";
 	//private final static Log _log = LogFactory.getLog(RequestSellItem.class.getName());
 
+	private static final int BATCH_LENGTH = 12; // length of the one item
+	private static final int BATCH_LENGTH_FINAL = 16;
+
 	private int _listId;
-	private int _count;
-	private int[] _items; // count*3
+	private Item[] _items = null;
+
 	/**
 	 * packet type id 0x1e
 	 * 
@@ -67,32 +70,31 @@ public class RequestSellItem extends L2GameClientPacket
 	 * 
 	 * format:		cdd (ddd)
 	 */
+
 	@Override
 	protected void readImpl()
 	{
 		_listId = readD();
-		_count = readD();
-		int acc = 12;
-		if (Config.PACKET_FINAL)
-			acc = 16;
-		if (_count <= 0  || _count * acc > getByteBuffer().remaining() || _count > Config.MAX_ITEM_IN_PACKET)
+		int count = readD();
+		if (count <= 0
+				|| count > Config.MAX_ITEM_IN_PACKET
+				|| count * (Config.PACKET_FINAL ? BATCH_LENGTH_FINAL : BATCH_LENGTH) != getByteBuffer().remaining())
 		{
-			_count = 0; _items = null;
 			return;
 		}
-		_items = new int[_count * 3];
-		for (int i = 0; i < _count; i++)
+
+		_items = new Item[count];
+		for (int i = 0; i < count; i++)
 		{
-			int objectId = readD(); _items[(i * 3)] = objectId;
-			int itemId   = readD(); _items[i * 3 + 1] = itemId;
-			long cnt      = 0;
-			cnt = readCompQ();
-			if (cnt >= Integer.MAX_VALUE || cnt <= 0)
+			int objectId = readD();
+			int itemId = readD();
+			long cnt = readCompQ();
+			if (objectId < 1 || itemId < 1 || cnt < 1)
 			{
-				_count = 0; _items = null;
+				_items = null;
 				return;
 			}
-			_items[i * 3 + 2] = (int)cnt;
+			_items[i] = new Item(objectId, itemId, cnt);
 		}
 	}
 
@@ -107,6 +109,12 @@ public class RequestSellItem extends L2GameClientPacket
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null)
 			return;
+
+		if(_items == null)
+		{
+			sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
 
 		if (Shutdown.isActionDisabled(DisableType.TRANSACTION))
 		{
@@ -123,7 +131,7 @@ public class RequestSellItem extends L2GameClientPacket
 		L2Object target = player.getTarget();
 		if (!player.isGM() && (target == null								// No target (ie GM Shop)
 				|| !(target instanceof L2MerchantInstance || target instanceof L2MerchantSummonInstance)	// Target not a merchant and not mercmanager
-				|| !player.isInsideRadius(target, L2Npc.INTERACTION_DISTANCE, false, false) 	// Distance is too far
+				|| !player.isInsideRadius(target, INTERACTION_DISTANCE, false, false) 	// Distance is too far
 					)) return;
 
 		boolean ok = true;
@@ -159,38 +167,26 @@ public class RequestSellItem extends L2GameClientPacket
 		
 		long totalPrice = 0;
 		// Proceed the sell
-		for (int i = 0; i < _count; i++)
+		for (Item i : _items)
 		{
-			int objectId = _items[(i * 3)];
-			@SuppressWarnings("unused")
-			int itemId   = _items[i * 3 + 1];
-			int count   = _items[i * 3 + 2];
-
-			if (count < 0)
-			{
-				Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" tried to purchase over "+Integer.MAX_VALUE+" items at the same time.",  Config.DEFAULT_PUNISH);
-				SystemMessage sm = new SystemMessage(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
-				sendPacket(sm);
-				sm = null;
-				return;
-			}
-
-			L2ItemInstance item = player.checkItemManipulation(objectId, count, "sell");
-			if (item == null || !item.isSellable())
+			L2ItemInstance item = player.checkItemManipulation(i.getObjectId(), i.getCount(), "sell");
+			if (item == null || (!item.isSellable()))
 				continue;
 
-			totalPrice += item.getReferencePrice() * count /2;
-			if (totalPrice > PcInventory.MAX_ADENA)
+			long price = item.getReferencePrice() / 2;
+			totalPrice += price * i.getCount();
+			if ((MAX_ADENA / i.getCount()) < price || totalPrice > MAX_ADENA)
 			{
-				Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" tried to purchase over "+PcInventory.MAX_ADENA+" adena worth of goods.",  Config.DEFAULT_PUNISH);
+				Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" tried to purchase over "+MAX_ADENA+" adena worth of goods.",  Config.DEFAULT_PUNISH);
 				return;
 			}
 
-			item = player.getInventory().destroyItem("Sell", objectId, count, player, null);
+			item = player.getInventory().destroyItem("Sell", i.getObjectId(), i.getCount(), player, null);
 		}
 		player.addAdena("Sell", totalPrice, merchant, false);
 
-		if (merchant != null) {
+		if (merchant != null)
+		{
 			String html = HtmCache.getInstance().getHtm("data/html/"+ htmlFolder +"/" + merchant.getNpcId() + "-sold.htm");
 	
 			if (html != null)
@@ -206,6 +202,35 @@ public class RequestSellItem extends L2GameClientPacket
 		su.addAttribute(StatusUpdate.CUR_LOAD, player.getCurrentLoad());
 		player.sendPacket(su);
 		player.sendPacket(new ItemList(player, true));
+	}
+
+	private class Item
+	{
+		private final int _objectId;
+		private final int _itemId;
+		private final long _count;
+
+		public Item(int objId, int id, long num)
+		{
+			_objectId = objId;
+			_itemId = id;
+			_count = num;
+		}
+
+		public int getObjectId()
+		{
+			return _objectId;
+		}
+
+		public int getItemId()
+		{
+			return _itemId;
+		}
+
+		public long getCount()
+		{
+			return _count;
+		}
 	}
 
 	/* (non-Javadoc)

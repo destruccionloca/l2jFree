@@ -18,6 +18,7 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.model.base.Experience;
 import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
@@ -411,5 +412,17 @@ public class PcStat extends PlayableStat
 		if (val > Config.ALT_MAX_EVASION && Config.ALT_MAX_EVASION > 0 && !getActiveChar().isGM())
 			return Config.ALT_MAX_EVASION;
 		return val;
+	}
+
+	@Override
+	public int getAttackElementValue(byte attribute)
+	{
+		int value = super.getAttackElementValue(attribute);
+
+		// 20% if summon exist
+		if (getActiveChar().getPet() instanceof L2SummonInstance)
+			return value / 5;
+
+		return value;
 	}
 }

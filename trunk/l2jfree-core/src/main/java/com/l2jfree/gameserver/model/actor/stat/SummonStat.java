@@ -14,7 +14,10 @@
  */
 package com.l2jfree.gameserver.model.actor.stat;
 
+import com.l2jfree.gameserver.model.Elementals;
 import com.l2jfree.gameserver.model.actor.L2Summon;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 
 public class SummonStat extends PlayableStat
 {
@@ -40,5 +43,34 @@ public class SummonStat extends PlayableStat
 	public L2Summon getActiveChar()
 	{
 		return (L2Summon) _activeChar;
+	}
+
+	@Override
+	public byte getAttackElement()
+	{
+		L2PcInstance owner = getActiveChar().getOwner();
+		if (owner == null)
+			return Elementals.NONE;
+		if (_activeChar instanceof L2SummonInstance)
+			return owner.getAttackElement();
+		return Elementals.NONE;
+	}
+
+	@Override
+	public int getAttackElementValue(byte attribute)
+	{
+		if (!(getActiveChar() instanceof L2SummonInstance) || getActiveChar().getOwner() == null)
+			return 0;
+		// 80% of the original value, this method call returns already 20%
+		return getActiveChar().getOwner().getAttackElementValue(attribute) * 4;
+	}
+
+	@Override
+	public int getDefenseElementValue(byte attribute)
+	{
+		if (getActiveChar().getOwner() == null)
+			return 0;
+
+		return getActiveChar().getOwner().getDefenseElementValue(attribute);
 	}
 }
