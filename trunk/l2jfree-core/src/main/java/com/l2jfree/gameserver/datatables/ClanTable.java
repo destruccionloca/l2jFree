@@ -269,7 +269,7 @@ public class ClanTable
 			statement.execute();
 			statement.close();
 
-			statement = con.prepareStatement("DELETE FROM clan_notices WHERE clan_id=?");
+			statement = con.prepareStatement("DELETE FROM clan_notices WHERE clanID=?");
 			statement.setInt(1, clanId);
 			statement.execute();
 			statement.close();
