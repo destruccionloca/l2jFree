@@ -1547,6 +1547,7 @@ public final class Config extends L2Config
 	public static int					ALT_OLY_BATTLE_REWARD_ITEM;
 	public static int					ALT_OLY_CLASSED_RITEM_C;
 	public static int					ALT_OLY_NONCLASSED_RITEM_C;
+	public static int					ALT_OLY_REG_DISPLAY;
 	public static int					ALT_OLY_GP_PER_POINT;
 	public static int					ALT_OLY_HERO_POINTS;
 	public static int					ALT_OLY_RANK1_POINTS;
@@ -1750,6 +1751,7 @@ public final class Config extends L2Config
 			ALT_OLY_BATTLE_REWARD_ITEM = Integer.parseInt(altSettings.getProperty("AltOlyBattleRewItem", "13722"));
 			ALT_OLY_CLASSED_RITEM_C = Integer.parseInt(altSettings.getProperty("AltOlyClassedRewItemCount", "50"));
 			ALT_OLY_NONCLASSED_RITEM_C = Integer.parseInt(altSettings.getProperty("AltOlyNonClassedRewItemCount", "30"));
+			ALT_OLY_REG_DISPLAY = Integer.parseInt(altSettings.getProperty("AltOlyRegistrationDisplayNumber","100"));
 			ALT_OLY_GP_PER_POINT = Integer.parseInt(altSettings.getProperty("AltOlyGPPerPoint", "1000"));
 			ALT_OLY_HERO_POINTS = Integer.parseInt(altSettings.getProperty("AltOlyHeroPoints","180"));
 			ALT_OLY_RANK1_POINTS = Integer.parseInt(altSettings.getProperty("AltOlyRank1Points","120"));

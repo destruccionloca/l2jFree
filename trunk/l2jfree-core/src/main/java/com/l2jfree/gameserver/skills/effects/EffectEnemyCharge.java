@@ -94,14 +94,11 @@ public final class EffectEnemyCharge extends L2Effect
 		getEffector().broadcastPacket(new FlyToLocation(getEffector(), _x, _y, _z, FlyType.CHARGE));
 		//getEffector().abortAttack();
 		//getEffector().abortCast();
-		return true;
-	}
-	
-	@Override
-	protected void onExit()
-	{
+
 		// maybe is need force set X,Y,Z
 		getEffector().getPosition().setXYZ(_x, _y, _z);
 		getEffector().broadcastPacket(new ValidateLocation(getEffector()));
+
+		return true;
 	}
 }

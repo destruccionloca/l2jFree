@@ -73,12 +73,12 @@ public final class RequestExEnchantSkillInfo extends L2GameClientPacket
             return;
         }
 
-        else if (activeChar.getLevel() < 76)
+        if (activeChar.getLevel() < 76)
         {
         	requestFailed(SystemMessageId.YOU_DONT_MEET_SKILL_LEVEL_REQUIREMENTS);
             return;
         }
-        else if (activeChar.getClassId().level() < 3)
+        if (activeChar.getClassId().level() < 3)
         {
         	requestFailed(SystemMessageId.NOT_COMPLETED_QUEST_FOR_SKILL_ACQUISITION);
         	return;
@@ -204,7 +204,7 @@ public final class RequestExEnchantSkillInfo extends L2GameClientPacket
                 {
                     // no previous enchant level, return to original
                     if (_skillLvl % 100 == 1)
-                        asi.addEnchantSkillDetail(enchantLearn.getBaseLevel(), 100, currentLevelDetail.getSpCost(), currentLevelDetail.getExp());
+                        asi.addEnchantSkillDetail(enchantLearn.getBaseLevel(), 100, (currentLevelDetail.getSpCost() * 8) / 10, currentLevelDetail.getExp());
                     else
                     {
                         // get detail for previous level
@@ -212,7 +212,7 @@ public final class RequestExEnchantSkillInfo extends L2GameClientPacket
 
                         // if it exists add it
                         if (esd != null)
-                            asi.addEnchantSkillDetail(esd.getLevel(), 100, currentLevelDetail.getSpCost(), currentLevelDetail.getExp());
+                            asi.addEnchantSkillDetail(esd.getLevel(), 100, (currentLevelDetail.getSpCost() * 8) / 10, currentLevelDetail.getExp());
                     }
                 }
                 else
