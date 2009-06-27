@@ -14,9 +14,7 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import static com.l2jfree.gameserver.model.actor.L2Npc.INTERACTION_DISTANCE;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.ItemTable;
@@ -25,7 +23,6 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Manor;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.instance.L2ManorManagerInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -34,8 +31,6 @@ import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.item.L2Item;
-
-import static com.l2jfree.gameserver.model.actor.L2Npc.INTERACTION_DISTANCE;
 
 public class RequestBuyProcure extends L2GameClientPacket
 {
@@ -106,8 +101,8 @@ public class RequestBuyProcure extends L2GameClientPacket
 			return;
 
 		Castle castle = ((L2ManorManagerInstance) manager).getCastle();
-		long subTotal = 0;
-		int tax = 0;
+		//long subTotal = 0;
+		//int tax = 0;
 		int slots = 0;
 		int weight = 0;
 

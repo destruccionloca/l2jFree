@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 import java.util.List;
 
-import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import com.l2jfree.gameserver.instancemanager.CastleManorManager.CropProcure;
