@@ -7,9 +7,9 @@
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
-    <table name="#ench1power"> 51 52 53 54 55 56 57 58 59 60 61 62 63 64
+    <table name="#ench1Power"> 51 52 53 54 55 56 57 58 59 60 61 62 63 64
       65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 </table>
-    <table name="#ench2mpConsume"> 66 65 65 63 62 62 61 60 58 58 57 56
+    <table name="#ench2MpConsume"> 66 65 65 63 62 62 61 60 58 58 57 56
       55 55 53 52 52 51 50 48 48 47 46 45 45 43 42 42 41 40 </table>
     <table name="#mpConsume"> 52 54 55 58 60 62 64 65 67 69 </table>
     <table name="#itemConsumeCount"> 3 3 4 4 4 4 5 5 5 5 </table>
@@ -29,16 +29,16 @@
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
     <set name="isMagic" val="true"/>
-    <enchant1 name="power" val="#ench1power"/>
-    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
+    <enchant1 name="power" val="#ench1Power"/>
+    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
     <for>
       <effect count="10" name="Fear" time="2" val="0"/>
     </for>
   </skill>
   <skill id="1401" levels="11" name="Major Heal" enchantLevels1="30" enchantLevels2="30">
-    <table name="#ench1power"> 947 949 951 954 956 958 960 963 965 967 969 972 974 976
+    <table name="#ench1Power"> 947 949 951 954 956 958 960 963 965 967 969 972 974 976
       979 981 983 985 988 990 992 994 997 999 1001 1003 1006 1008 1010 1013 </table>
-    <table name="#ench2mpConsume"> 78 77 76 75 73 72 72 71 70 68 67 66
+    <table name="#ench2MpConsume"> 78 77 76 75 73 72 72 71 70 68 67 66
       65 65 63 62 61 60 58 57 57 56 55 53 52 51 50 50 48 47 </table>
     <table name="#mpConsume"> 60 64 65 67 69 72 74 77 78 80 80 </table>
     <table name="#power"> 690 722 753 783 812 840 867 892 915 936 946 </table>
@@ -54,13 +54,13 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <set name="isMagic" val="true"/>
-    <enchant1 name="power" val="#ench1power"/>
-    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
+    <enchant1 name="power" val="#ench1Power"/>
+    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   </skill>
   <skill id="1402" levels="5" name="Major Group Heal" enchantLevels1="30" enchantLevels2="30">
-    <table name="#ench1power"> 1173 1176 1179 1182 1186 1189 1192 1195 1199 1202 1205 1208 1212
+    <table name="#ench1Power"> 1173 1176 1179 1182 1186 1189 1192 1195 1199 1202 1205 1208 1212
       1215 1218 1221 1224 1228 1231 123 1237 1241 1244 1247 1250 1254 1257 1260 1263 1267 </table>
-    <table name="#ench2mpConsume"> 233 231 227 225 221 218 215 212 208 206 202 198
+    <table name="#ench2MpConsume"> 233 231 227 225 221 218 215 212 208 206 202 198
       196 192 190 186 183 180 177 173 171 167 165 161 157 155 151 148 145 142 </table>
     <table name="#mpConsume">189 199 214 228 239</table>
     <table name="#power">902 979 1050 1115 1170</table>
@@ -75,8 +75,8 @@
     <set name="skillType" val="HEAL"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
-    <enchant1 name="power" val="#ench1power"/>
-    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
+    <enchant1 name="power" val="#ench1Power"/>
+    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   </skill>
   <skill id="1403" levels="1" name="Summon Friend">
     <set name="target" val="TARGET_PARTY_MEMBER"/>
@@ -794,9 +794,9 @@
     <!-- CT2.2 retail confirmed -->
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
-    <table name="#ench1power"> 78 78 79 79 79 79 80 80 80 80 81 81 81 81
+    <table name="#ench1Power"> 78 78 79 79 79 79 80 80 80 80 81 81 81 81
       82 82 82 82 83 83 83 83 84 84 84 84 85 85 85 85 </table>
-    <table name="#ench2mpConsume"> 89 88 87 85 84 83 82 80 79 78 77 75
+    <table name="#ench2MpConsume"> 89 88 87 85 84 83 82 80 79 78 77 75
       74 73 72 70 69 68 67 67 65 64 63 62 60 59 58 57 55 54 </table>
     <table name="#mpInitialConsume"> 16 16 17 17 18 19 19 20 20 21 22 22
       22 23 23 23 24 24 25 25 25 26 26 26 26 27 </table>
@@ -824,9 +824,9 @@
     <set name="isDebuff" val="true"/>
     <set name="soulMaxConsumeCount" val="5"/>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant1 name="power" val="#ench1power"/>
+    <enchant1 name="power" val="#ench1Power"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
+    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
     <for>
       <effect count="5" name="Fear" val="0" effectPower="#effectPower" effectType="FEAR"/>
     </for>
@@ -834,9 +834,9 @@
   <skill id="1438" levels="9" name="Annihilation Circle" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
-    <table name="#ench1power"> 111 112 112 112 113 113 113 114 114 115 115 115 116
+    <table name="#ench1Power"> 111 112 112 112 113 113 113 114 114 115 115 115 116
       116 116 117 117 117 118 118 119 119 119 120 120 120 121 121 121 122 </table>
-    <table name="#ench2mpConsume"> 89 88 87 85 84 83 82 80 79 78 77 75
+    <table name="#ench2MpConsume"> 89 88 87 85 84 83 82 80 79 78 77 75
       74 73 72 70 69 68 67 67 65 64 63 62 60 59 58 57 55 54 </table>
     <table name="#mpConsume"> 69 73 75 78 80 83 85 87 89 </table>
     <table name="#power"> 82 85 89 92 96 99 102 105 108 </table>
@@ -859,9 +859,9 @@
     <set name="effectRange" val="900"/>
     <set name="soulMaxConsumeCount" val="5"/>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant1 name="power" val="#ench1power"/>
+    <enchant1 name="power" val="#ench1Power"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
+    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   </skill>
   <skill id="1439" levels="5" name="Curse of Divinity">
     <!-- CT2.2 retail partially confirmed -->
@@ -947,7 +947,7 @@
   </skill>
   <skill id="1443" levels="1" name="Dark Weapon" enchantLevels1="30" enchantLevels2="30">
     <!-- by Sephiroth -->
-    <table name="#ench1power"> 101 102 103 104 105 106 107 108 109 110 111 112
+    <table name="#ench1Power"> 101 102 103 104 105 106 107 108 109 110 111 112
       113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 </table>
     <table name="#ench2Time"> 502 503 504 505 506 507 508 509 510 511 512 513 514 515 516
       517 518 519 520 521 522 523 524 525 526 527 528 529 530 531 </table>
@@ -962,7 +962,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <set name="element" val="5"/> <!-- Dark -->
-    <enchant1 name="power" val="#ench1power"/>
+    <enchant1 name="power" val="#ench1Power"/>
     <!--  <enchant2 name="buffDuration" val="#ench2Time"/>  -->
     <for>
       <effect name="Buff" time="1200" val="0" stackOrder="1" stackType="ElementPwr">
@@ -972,7 +972,7 @@
     <!-- This can be completed now, needs proper check on enchant values -->
     <enchant1for>
       <effect name="Buff" val="0" time="500" stackOrder="1" stackType="ElementPwr">
-        <!-- <set order="0x30" stat="dark" val="#ench1power"/> requires core support -->
+        <!-- <set order="0x30" stat="dark" val="#ench1Power"/> requires core support -->
       </effect>
     </enchant1for>
     <enchant2for>
