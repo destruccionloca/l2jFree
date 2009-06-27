@@ -182,10 +182,15 @@ public final class ItemTable
 			+ " shield_def, shield_def_rate, atk_speed, mp_consume, m_dam, duration, time, price, crystal_count,"
 			+ " sellable,  dropable, destroyable, tradeable, skills_item, skills_enchant4,"
 			+ " skills_onCast, skills_onCrit, change_weaponId FROM custom_weapon" };
-
+	
+	private static ItemTable _instance;
+	
 	public static ItemTable getInstance()
 	{
-		return SingletonHolder._instance;
+		if (_instance == null)
+			_instance = new ItemTable();
+		
+		return _instance;
 	}
 	
 	public static void reload()
@@ -826,11 +831,5 @@ public final class ItemTable
 			}
 		}
 		return returnVal;
-	}
-
-	@SuppressWarnings("synthetic-access")
-	private static class SingletonHolder
-	{
-		protected static final ItemTable _instance = new ItemTable();
 	}
 }

@@ -25,6 +25,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.L2DatabaseFactory;
+import com.l2jfree.gameserver.InstanceListManager;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2ClanMember;
 import com.l2jfree.gameserver.model.L2ItemInstance;
@@ -36,23 +37,19 @@ public class CastleManager
 {
 	protected static Log		_log			= LogFactory.getLog(CastleManager.class.getName());
 
-	private static CastleManager		_instance;
 	private FastMap<Integer, Castle>	_castles;
 
 	public static final CastleManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new CastleManager();
-		
-		return _instance;
+		return SingletonHolder._instance;
+
 	}
 
 	private static final int	_castleCirclets[]	=
 													{ 0, 6838, 6835, 6839, 6837, 6840, 6834, 6836, 8182, 8183 };
 
-	public CastleManager()
+	private CastleManager()
 	{
-		load();
 	}
 
 	public final Castle getClosestCastle(L2Object activeObject)
@@ -81,10 +78,10 @@ public class CastleManager
 	public void reload()
 	{
 		getCastles().clear();
-		load();
+		loadInstances();
 	}
 
-	private final void load()
+	public void loadInstances()
 	{
 		Connection con = null;
 		try
@@ -243,5 +240,23 @@ public class CastleManager
 				L2DatabaseFactory.close(con);
 			}
 		}
+	}
+
+	public void updateReferences()
+	{
+	}
+
+	public void activateInstances()
+	{
+		for (final Castle castle : _castles.values())
+		{
+			castle.activateInstance();
+		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final CastleManager _instance = new CastleManager();
 	}
 }

@@ -619,6 +619,14 @@ public class Fort extends Siegeable<FortSiege>
 		return true;
 	}
 
+	public void activateInstance()
+	{
+		for (final L2DoorInstance door : _doors)
+		{
+			door.spawnMe(door.getX(), door.getY(), door.getZ());
+		}
+	}
+
 	// This method loads fort door data from database
 	private void loadDoor()
 	{

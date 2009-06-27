@@ -626,6 +626,14 @@ public class Castle extends Siegeable<Siege>
 		}
 	}
 
+	public void activateInstance()
+	{
+		for (final L2DoorInstance door : _doors)
+		{
+			door.spawnMe(door.getX(), door.getY(), door.getZ());
+		}
+	}
+
 	// This method loads castle door data from database
 	private void loadDoor()
 	{

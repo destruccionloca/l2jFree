@@ -26,6 +26,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.L2DatabaseFactory;
+import com.l2jfree.gameserver.InstanceListManager;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.SpawnTable;
@@ -35,12 +36,11 @@ import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
-public class FortManager
+public class FortManager implements InstanceListManager
 {
 	protected static final Log	_log	= LogFactory.getLog(FortManager.class.getName());
 
 	// =========================================================
-	private static FortManager _instance;
 
 	protected FastMap<Integer, Integer> _envoyCastles = new FastMap<Integer, Integer>();
 	protected FastMap<Integer, FastList<L2Spawn>> _npcCommanders = new FastMap<Integer, FastList<L2Spawn>>();
@@ -53,10 +53,7 @@ public class FortManager
 
 	public static final FortManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new FortManager();
-		
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	// =========================================================
@@ -66,10 +63,8 @@ public class FortManager
 
 	// =========================================================
 	// Constructor
-	public FortManager()
+	private FortManager()
 	{
-		_log.info("Initializing FortManager");
-		load();
 	}
 
 	public FortManager(Fort fort)
@@ -116,8 +111,9 @@ public class FortManager
 
 	// =========================================================
 	// Method - Private
-	private final void load()
+	public void loadInstances()
 	{
+		_log.info("Initializing FortManager");
 		Connection con = null;
 		try
 		{
@@ -564,5 +560,23 @@ public class FortManager
 	public int getEnvoyCastle(int npcId)
 	{
 		return _envoyCastles.get(npcId);
+	}
+
+	public void updateReferences()
+	{
+	}
+
+	public void activateInstances()
+	{
+		for (final Fort fort : _forts)
+		{
+			fort.activateInstance();
+		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final FortManager _instance = new FortManager();
 	}
 }

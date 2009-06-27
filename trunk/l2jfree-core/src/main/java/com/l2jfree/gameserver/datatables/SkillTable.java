@@ -29,9 +29,14 @@ public final class SkillTable
 {
 	private static final Log _log = LogFactory.getLog(SkillTable.class);
 	
+	private static SkillTable _instance;
+	
 	public static SkillTable getInstance()
 	{
-		return SingletonHolder._instance;
+		if (_instance == null)
+			_instance = new SkillTable();
+		
+		return _instance;
 	}
 	
 	public static void reload()
@@ -160,11 +165,5 @@ public final class SkillTable
 		}
 		
 		return _siegeSkills;
-	}
-
-	@SuppressWarnings("synthetic-access")
-	private static class SingletonHolder
-	{
-		protected static final SkillTable _instance = new SkillTable();
 	}
 }
