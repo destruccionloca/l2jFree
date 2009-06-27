@@ -10165,11 +10165,11 @@
     <production id="9557" count="1"/>
     <ingredient id="14020" count="20"/>
   </item>
-  <item id="3000" recipeId="20191" name="mk_br_valen_dark_chocolate" craftLevel="1" type="dwarven" successRate="95">
+  <item id="3000" recipeId="20191" name="mk_br_valen_dark_chocolate" craftLevel="1" type="common" successRate="95">
     <statUse name="MP" value="50"/>
-    <production id="20195" count="1"/>
-    <ingredient id="20192" count="10"/>
-    <ingredient id="20193" count="10"/>
-    <ingredient id="20194" count="5"/>
+    <production id="20195" count="1"/> <!-- Simple Valentine Cake -->
+    <ingredient id="20192" count="10"/> <!-- Valentine Dark Chocolate -->
+    <ingredient id="20193" count="10"/> <!-- Valentine White Chocolate -->
+    <ingredient id="20194" count="5"/> <!-- Valentine Fresh Cream -->
   </item>
 </list>
