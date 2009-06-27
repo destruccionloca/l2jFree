@@ -33,7 +33,7 @@ import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Castle;
 
-public class CastleManager
+public class CastleManager implements InstanceListManager
 {
 	protected static Log		_log			= LogFactory.getLog(CastleManager.class.getName());
 

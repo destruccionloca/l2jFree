@@ -56,8 +56,6 @@ public class MapRegionManager
 {
 	private static Log							_log					= LogFactory.getLog(MapRegionManager.class.getName());
 
-	private static MapRegionManager				_instance				= null;
-
 	private Map<Integer, L2MapRegion>			_mapRegions				= new FastMap<Integer, L2MapRegion>();
 	private Map<Integer, L2MapRegionRestart>	_mapRegionRestart		= new FastMap<Integer, L2MapRegionRestart>();
 	private Map<Integer, L2MapArea>				_mapRestartArea			= new FastMap<Integer, L2MapArea>();

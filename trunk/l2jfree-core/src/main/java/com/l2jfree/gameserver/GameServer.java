@@ -49,6 +49,7 @@ import com.l2jfree.gameserver.datatables.HennaTreeTable;
 import com.l2jfree.gameserver.datatables.HeroSkillTable;
 import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.datatables.LevelUpData;
+import com.l2jfree.gameserver.datatables.MerchantPriceConfigTable;
 import com.l2jfree.gameserver.datatables.NobleSkillTable;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.NpcWalkerRoutesTable;
@@ -225,6 +226,7 @@ public class GameServer
 		TeleportLocationTable.getInstance();
 		BoatManager.getInstance();
 		InstanceManager.getInstance();
+		MerchantPriceConfigTable.getInstance().loadInstances();
 
 		Util.printSection("TaskManagers");
 		AttackStanceTaskManager.getInstance();
@@ -417,6 +419,7 @@ public class GameServer
 			OnlinePlayers.getInstance();
 		ForumsBBSManager.getInstance();
 
+		MerchantPriceConfigTable.getInstance().updateReferences();
 		CastleManager.getInstance().activateInstances();
 		FortManager.getInstance().activateInstances();
 
