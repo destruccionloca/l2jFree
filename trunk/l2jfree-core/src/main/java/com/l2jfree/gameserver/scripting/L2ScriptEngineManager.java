@@ -53,22 +53,18 @@ import com.l2jserver.script.jython.JythonScriptEngine;
  */
 public final class L2ScriptEngineManager
 {
-	private static final Log					_log;
-
-	private static final L2ScriptEngineManager	INSTANCE;
+	private static final Log					_log = LogFactory.getLog(L2ScriptEngineManager.class.getName());
 
 	public final static File					SCRIPT_FOLDER;
 
 	static
 	{
-		_log = LogFactory.getLog(L2ScriptEngineManager.class.getName());
 		SCRIPT_FOLDER = new File(Config.DATAPACK_ROOT.getAbsolutePath(), "data/scripts");
-		INSTANCE = new L2ScriptEngineManager();
 	}
 
 	public static L2ScriptEngineManager getInstance()
 	{
-		return INSTANCE;
+		return SingletonHolder._instance;
 	}
 
 	private final Map<String, ScriptEngine>	_nameEngines		= new FastMap<String, ScriptEngine>();
@@ -604,5 +600,11 @@ public final class L2ScriptEngineManager
 	protected File getCurrentLoadingScript()
 	{
 		return _currentLoadingScript;
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final L2ScriptEngineManager _instance = new L2ScriptEngineManager();
 	}
 }

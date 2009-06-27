@@ -70,13 +70,10 @@ public class MapRegionManager
 
 	public final static MapRegionManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new MapRegionManager();
-
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
-	public MapRegionManager()
+	private MapRegionManager()
 	{
 		load();
 	}
@@ -567,5 +564,11 @@ public class MapRegionManager
 			return 5;
 
 		return town.getCastleId();
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final MapRegionManager _instance = new MapRegionManager();
 	}
 }

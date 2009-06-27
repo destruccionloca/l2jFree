@@ -44,22 +44,16 @@ public class FaenorScriptEngine extends ScriptEngine
 	private static Log					_log				= LogFactory.getLog(GameServer.class.getName());
 	public static String				PACKAGE_DIRECTORY	= "data/faenor/";
 
-	private static FaenorScriptEngine	_instance;
-
 	private LinkedList<ScriptDocument>	_scripts;
 
 	public static FaenorScriptEngine getInstance()
 	{
-		if (_instance == null)
-		{
-			_log.info("FaenorScriptEngine: initialized");
-			_instance = new FaenorScriptEngine();
-		}
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	private FaenorScriptEngine()
 	{
+		_log.info("FaenorScriptEngine: initialized");
 		_scripts = new LinkedList<ScriptDocument>();
 		loadPackages();
 		parsePackages();
@@ -181,5 +175,11 @@ public class FaenorScriptEngine extends ScriptEngine
 			out += script;
 		}
 		return out;
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final FaenorScriptEngine _instance = new FaenorScriptEngine();
 	}
 }

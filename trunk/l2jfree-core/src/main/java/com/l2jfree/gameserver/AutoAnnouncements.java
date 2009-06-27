@@ -31,14 +31,9 @@ public final class AutoAnnouncements
 {
 	private static final Log _log = LogFactory.getLog(Announcements.class);
 	
-	private static AutoAnnouncements _instance;
-	
 	public static AutoAnnouncements getInstance()
 	{
-		if (_instance == null)
-			_instance = new AutoAnnouncements();
-		
-		return _instance;
+		return SingletonHolder._instance;
 	}
 	
 	private final List<AutoAnnouncer> _announcers = new FastList<AutoAnnouncer>();
@@ -137,5 +132,11 @@ public final class AutoAnnouncements
 			if (repeat == 0)
 				cancel();
 		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final AutoAnnouncements _instance = new AutoAnnouncements();
 	}
 }

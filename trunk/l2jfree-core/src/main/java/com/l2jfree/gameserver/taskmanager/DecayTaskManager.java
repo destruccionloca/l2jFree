@@ -28,14 +28,9 @@ public final class DecayTaskManager extends AbstractPeriodicTaskManager
 	public static final int RAID_BOSS_DECAY_TIME = 30000;
 	public static final int ATTACKABLE_DECAY_TIME = 8500;
 	
-	private static DecayTaskManager _instance;
-	
 	public static DecayTaskManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new DecayTaskManager();
-		
-		return _instance;
+		return SingletonHolder._instance;
 	}
 	
 	private final FastMap<L2Character, Long> _decayTasks = new FastMap<L2Character, Long>();
@@ -131,5 +126,11 @@ public final class DecayTaskManager extends AbstractPeriodicTaskManager
 		}
 		
 		return sb.toString();
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final DecayTaskManager _instance = new DecayTaskManager();
 	}
 }

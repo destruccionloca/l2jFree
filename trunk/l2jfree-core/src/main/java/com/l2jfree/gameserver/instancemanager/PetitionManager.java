@@ -43,7 +43,6 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 public final class PetitionManager
 {
 	protected static Log				_log	= LogFactory.getLog(PetitionManager.class.getName());
-	private static PetitionManager		_instance;
 
 	private static int _lastUsedId;
 
@@ -62,12 +61,7 @@ public final class PetitionManager
 
 	public static PetitionManager getInstance()
 	{
-		if (_instance == null)
-		{
-			_instance = new PetitionManager();
-		}
-
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	private class Petition
@@ -555,5 +549,11 @@ public final class PetitionManager
 		NpcHtmlMessage htmlMsg = new NpcHtmlMessage(0);
 		htmlMsg.setHtml(htmlContent.toString());
 		activeChar.sendPacket(htmlMsg);
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final PetitionManager _instance = new PetitionManager();
 	}
 }

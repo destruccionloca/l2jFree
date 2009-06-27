@@ -34,15 +34,14 @@ import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
 public class AirShipManager
 {
 	private final static Log						_log	= LogFactory.getLog(AirShipManager.class.getName());
-	private static AirShipManager _instance = null;
+
 	private L2AirShipInstance _airShip = null;
+
 	private ArrayList<L2AirShipControllerInstance> _atcs = new ArrayList<L2AirShipControllerInstance>(2);
+
 	public static AirShipManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new AirShipManager();
-		
-		return _instance;
+		return SingletonHolder._instance;
 	}
 	
 	private AirShipManager()
@@ -181,4 +180,9 @@ public class AirShipManager
 		return _atcs;
 	}
 
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final AirShipManager _instance = new AirShipManager();
+	}
 }

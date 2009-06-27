@@ -22,17 +22,12 @@ import com.l2jfree.gameserver.model.L2World;
  */
 public final class KnownListUpdateTaskManager extends AbstractPeriodicTaskManager
 {
-	private static KnownListUpdateTaskManager _instance;
-	
 	public static KnownListUpdateTaskManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new KnownListUpdateTaskManager();
-		
-		return _instance;
+		return SingletonHolder._instance;
 	}
 	
-	public KnownListUpdateTaskManager()
+	private KnownListUpdateTaskManager()
 	{
 		super(10 * 60 * 1000);
 	}
@@ -42,5 +37,11 @@ public final class KnownListUpdateTaskManager extends AbstractPeriodicTaskManage
 	{
 		for (L2Object obj : L2World.getInstance().getAllVisibleObjects())
 			obj.getKnownList().tryRemoveObjects();
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final KnownListUpdateTaskManager _instance = new KnownListUpdateTaskManager();
 	}
 }

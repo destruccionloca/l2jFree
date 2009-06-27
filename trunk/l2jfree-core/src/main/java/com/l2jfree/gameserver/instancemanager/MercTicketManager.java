@@ -52,15 +52,10 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 public class MercTicketManager
 {
 	protected static final Log			_log	= LogFactory.getLog(MercTicketManager.class.getName());
-	private static MercTicketManager	_instance;
 
 	public static final MercTicketManager getInstance()
 	{
-		//CastleManager.getInstance();
-		if (_instance == null)
-			_instance = new MercTicketManager();
-		
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	// =========================================================
@@ -1808,5 +1803,11 @@ public class MercTicketManager
 		if (_droppedTickets == null)
 			_droppedTickets = new FastList<L2ItemInstance>();
 		return _droppedTickets;
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final MercTicketManager _instance = new MercTicketManager();
 	}
 }

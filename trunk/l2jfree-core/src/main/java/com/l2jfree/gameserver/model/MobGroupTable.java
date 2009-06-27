@@ -24,23 +24,19 @@ import javolution.util.FastMap;
  */
 public class MobGroupTable 
 {
-	private static MobGroupTable _instance;
 	private FastMap<Integer, MobGroup> _groupMap;
 
 	public static final int FOLLOW_RANGE = 300;
 	public static final int RANDOM_RANGE = 300;
 
-	public MobGroupTable() 
+	private MobGroupTable() 
 	{
 		_groupMap = new FastMap<Integer, MobGroup>();
 	}
 
 	public static MobGroupTable getInstance() 
 	{
-		if (_instance == null)
-			_instance = new MobGroupTable();
-		
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	public void addGroup(int groupKey, MobGroup group) 
@@ -75,5 +71,11 @@ public class MobGroupTable
 	public boolean removeGroup(int groupKey)
 	{
 		return (_groupMap.remove(groupKey) != null);
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final MobGroupTable _instance = new MobGroupTable();
 	}
 }

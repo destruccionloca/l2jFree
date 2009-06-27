@@ -38,8 +38,6 @@ public class LastImperialTombSpawnlist
 {
     private final static Log _log = LogFactory.getLog(LastImperialTombSpawnlist.class.getName());
 
-    private static LastImperialTombSpawnlist _instance = null;
-
     private static List<L2Spawn> _Room1SpawnList1st = new FastList<L2Spawn>();
     private static List<L2Spawn> _Room1SpawnList2nd = new FastList<L2Spawn>();
     private static List<L2Spawn> _Room1SpawnList3rd = new FastList<L2Spawn>();
@@ -47,17 +45,14 @@ public class LastImperialTombSpawnlist
     private static List<L2Spawn> _Room2InsideSpawnList = new FastList<L2Spawn>();
     private static List<L2Spawn> _Room2OutsideSpawnList = new FastList<L2Spawn>();
 
-    public LastImperialTombSpawnlist()
+    private LastImperialTombSpawnlist()
     {
     }
 
-    public static LastImperialTombSpawnlist getInstance()
-    {
-    	if (_instance == null)
-    		_instance = new LastImperialTombSpawnlist();
-
-    	return _instance;
-    }
+	public static LastImperialTombSpawnlist getInstance()
+	{
+		return SingletonHolder._instance;
+	}
 
     public void fill()
     {
@@ -187,4 +182,10 @@ public class LastImperialTombSpawnlist
     {
     	return _Room2OutsideSpawnList;
     }
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final LastImperialTombSpawnlist _instance = new LastImperialTombSpawnlist();
+	}
 }

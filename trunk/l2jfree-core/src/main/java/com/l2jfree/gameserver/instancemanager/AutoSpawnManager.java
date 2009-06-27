@@ -71,7 +71,6 @@ import com.l2jfree.tools.random.Rnd;
 public class AutoSpawnManager
 {
 	protected static Log							_log					= LogFactory.getLog(AutoSpawnManager.class.getName());
-	private static AutoSpawnManager					_instance;
 
 	private static final int						DEFAULT_INITIAL_SPAWN	= 30000;												// 30 seconds after registration
 	private static final int						DEFAULT_RESPAWN			= 3600000;												//1 hour in millisecs
@@ -91,10 +90,7 @@ public class AutoSpawnManager
 
 	public static AutoSpawnManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new AutoSpawnManager();
-
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	public final int size()
@@ -758,5 +754,11 @@ public class AutoSpawnManager
 				return null;
 			}
 		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final AutoSpawnManager _instance = new AutoSpawnManager();
 	}
 }

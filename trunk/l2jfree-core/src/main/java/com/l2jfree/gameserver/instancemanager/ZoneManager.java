@@ -36,16 +36,11 @@ public class ZoneManager
 {
 	protected static Log						_log	= LogFactory.getLog(ZoneManager.class.getName());
 
-	private static ZoneManager					_instance;
-
 	private FastMap<ZoneType, FastMap<String, L2Zone>> _zones;
 
 	public static final ZoneManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new ZoneManager();
-		
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	private ZoneManager()
@@ -182,5 +177,11 @@ public class ZoneManager
 			if (temp.isInsideZone(x, y))
 				return temp;
 		return null;
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final ZoneManager _instance = new ZoneManager();
 	}
 }

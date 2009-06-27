@@ -44,11 +44,7 @@ public class ClanHallManager
 
 	public static ClanHallManager getInstance()
 	{
-		if (_instance == null)
-		{
-			_instance = new ClanHallManager();
-		}
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	public static boolean loaded()
@@ -264,5 +260,11 @@ public class ClanHallManager
 		}
 		
 		return clanH;
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final ClanHallManager _instance = new ClanHallManager();
 	}
 }

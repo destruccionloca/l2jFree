@@ -43,7 +43,8 @@ public final class SkillsEngine
 	{
 	}
 	
-	private static final FileFilter XML_FILTER = new FileFilter() {
+	private static final FileFilter XML_FILTER = new FileFilter()
+	{
 		@Override
 		public boolean accept(File f)
 		{

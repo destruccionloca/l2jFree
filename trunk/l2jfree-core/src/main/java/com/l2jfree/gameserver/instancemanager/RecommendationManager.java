@@ -52,14 +52,10 @@ public final class RecommendationManager
 
 	private long nextUpdate;
 
-	public static RecommendationManager _instance = null;
-
 	/** @return the only instance of this manager */
 	public static RecommendationManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new RecommendationManager();
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	private RecommendationManager()
@@ -373,5 +369,11 @@ public final class RecommendationManager
 			nextUpdate = update.getTimeInMillis();
 			ThreadPoolManager.getInstance().schedule(this, nextUpdate - System.currentTimeMillis());
 		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final RecommendationManager _instance = new RecommendationManager();
 	}
 }

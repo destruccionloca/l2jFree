@@ -35,12 +35,7 @@ public class QuestManager extends ScriptManager<Quest>
 
 	public static final QuestManager getInstance()
 	{
-		if (_instance == null)
-		{
-			_log.info("Initializing QuestManager");
-			_instance = new QuestManager();
-		}
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	// =========================================================
@@ -49,8 +44,9 @@ public class QuestManager extends ScriptManager<Quest>
 
 	// =========================================================
 	// Constructor
-	public QuestManager()
+	private QuestManager()
 	{
+		_log.info("Initializing QuestManager");
 	}
 
 	// =========================================================
@@ -192,5 +188,11 @@ public class QuestManager extends ScriptManager<Quest>
 	public String getScriptManagerName()
 	{
 		return "QuestManager";
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final QuestManager _instance = new QuestManager();
 	}
 }

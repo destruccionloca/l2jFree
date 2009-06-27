@@ -43,7 +43,6 @@ import com.l2jfree.gameserver.util.Util;
  */
 public class FishermanManager
 {
-	private static FishermanManager		_instance;
 	public Logger					_log					= Logger.getLogger(FishermanManager.class.getName());
 	public Map<Integer, FishRank>	_ranks					= new FastMap<Integer, FishRank>();
 	protected Future<?>				_actionTask				= null;
@@ -52,10 +51,7 @@ public class FishermanManager
 
 	public static FishermanManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new FishermanManager();
-
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	public void onCatch(int owner, String name)
@@ -329,5 +325,11 @@ public class FishermanManager
 		{
 			escaped++;
 		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final FishermanManager _instance = new FishermanManager();
 	}
 }

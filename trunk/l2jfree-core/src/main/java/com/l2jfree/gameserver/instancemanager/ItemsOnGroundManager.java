@@ -44,7 +44,6 @@ public class ItemsOnGroundManager
 {
 	protected static Log				_log	= LogFactory.getLog(ItemsOnGroundManager.class.getName());
 
-	private static ItemsOnGroundManager	_instance;
 	protected FastList<L2ItemInstance>	_items	= null;
 
 	private ItemsOnGroundManager()
@@ -59,10 +58,7 @@ public class ItemsOnGroundManager
 
 	public static final ItemsOnGroundManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new ItemsOnGroundManager();
-		
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	private void load()
@@ -264,5 +260,11 @@ public class ItemsOnGroundManager
 			if (_log.isDebugEnabled())
 				_log.warn("ItemsOnGroundManager: " + _items.size() + " items on ground saved");
 		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final ItemsOnGroundManager _instance = new ItemsOnGroundManager();
 	}
 }

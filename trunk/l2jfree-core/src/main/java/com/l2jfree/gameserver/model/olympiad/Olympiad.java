@@ -57,7 +57,6 @@ import com.l2jfree.gameserver.templates.StatsSet;
 public final class Olympiad
 {
 	private static final Log _log = LogFactory.getLog(Olympiad.class);
-	private static Olympiad _instance;
 	
 	private static Map<Integer, StatsSet> _nobles;
 	protected static FastList<StatsSet> _heroesToBe;
@@ -144,9 +143,7 @@ public final class Olympiad
 	
 	public static Olympiad getInstance()
 	{
-		if (_instance == null)
-			_instance = new Olympiad();
-		return _instance;
+		return SingletonHolder._instance;
 	}
 	
 	public Olympiad()
@@ -1519,5 +1516,11 @@ public final class Olympiad
 		if (arena >= 0)
 			Olympiad.removeSpectator(arena, player);
 		Olympiad.addSpectator(id, player, false);
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final Olympiad _instance = new Olympiad();
 	}
 }

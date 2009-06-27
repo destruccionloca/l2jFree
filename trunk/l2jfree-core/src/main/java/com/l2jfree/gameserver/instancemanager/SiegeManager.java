@@ -50,14 +50,10 @@ import com.l2jfree.gameserver.util.Util;
 public class SiegeManager
 {
 	protected static Log		_log	= LogFactory.getLog(SiegeManager.class.getName());
-	private static SiegeManager	_instance;
 
 	public static final SiegeManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new SiegeManager();
-		
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	private FastMap<Integer, FastList<SiegeSpawn>>	_artefactSpawnList;
@@ -457,5 +453,11 @@ public class SiegeManager
 		{
 			return _location;
 		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final SiegeManager _instance = new SiegeManager();
 	}
 }

@@ -55,8 +55,6 @@ import com.l2jfree.tools.random.Rnd;
  */
 public class FourSepulchersManager extends BossLair
 {
-	private static FourSepulchersManager	_instance;
-
 	private static final String				QUEST_ID				= "620_FourGoblets";
 
 	private static final int				ENTRANCE_PASS			= 7075;
@@ -141,9 +139,7 @@ public class FourSepulchersManager extends BossLair
 
 	public static final FourSepulchersManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new FourSepulchersManager();
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	@Override
@@ -1685,5 +1681,11 @@ public class FourSepulchersManager extends BossLair
 		if (member != null)
 			html.replace("%member%", member.getName());
 		player.sendPacket(html);
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final FourSepulchersManager _instance = new FourSepulchersManager();
 	}
 }

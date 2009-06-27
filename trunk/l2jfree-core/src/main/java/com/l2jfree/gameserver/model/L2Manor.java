@@ -39,11 +39,10 @@ import com.l2jfree.gameserver.templates.item.L2Item;
 public class L2Manor
 {
 	private final static Log _log = LogFactory.getLog(L2Manor.class.getName());
-	private static L2Manor _instance;
-	
+
 	private static FastMap<Integer,SeedData> _seeds;
-	
-	public L2Manor()
+
+	private L2Manor()
 	{
 		_seeds = new FastMap<Integer, SeedData>().setShared(true);
 		parseData();
@@ -51,9 +50,7 @@ public class L2Manor
 	
 	public static L2Manor getInstance()
 	{
-		if (_instance == null)
-			_instance = new L2Manor();
-		return _instance;
+		return SingletonHolder._instance;
 	}
 	
 	public FastList<Integer> getAllCrops()
@@ -391,5 +388,11 @@ public class L2Manor
 		seed.setData(seedId, type1R, type2R, manorId, isAlt, limitSeeds, limitCrops);
 
 		return seed;
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final L2Manor _instance = new L2Manor();
 	}
 }

@@ -27,19 +27,13 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.StatsSet;
 
 /**
- * 
- * @author Crion, kombat
+ * @author Crion/kombat
  */
 public class GrandBossSpawnManager extends BossSpawnManager
 {
-	private static GrandBossSpawnManager	_instance;
-
 	public static GrandBossSpawnManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new GrandBossSpawnManager();
-
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	@Override
@@ -236,5 +230,11 @@ public class GrandBossSpawnManager extends BossSpawnManager
 		if (!template.getType().equalsIgnoreCase("L2GrandBoss"))
 			return null;
 		return template;
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final GrandBossSpawnManager _instance = new GrandBossSpawnManager();
 	}
 }

@@ -41,8 +41,6 @@ import com.l2jfree.tools.random.Rnd;
  */
 public class LastImperialTombManager extends BossLair
 {
-	private static LastImperialTombManager	_instance					= null;
-
 	private static boolean					_isInvaded					= false;
 
 	// Instance list of monsters.
@@ -88,17 +86,14 @@ public class LastImperialTombManager extends BossLair
 	protected ScheduledFuture<?>			_CheckTimeUpTask			= null;
 
 	// Constructor
-	public LastImperialTombManager()
+	private LastImperialTombManager()
 	{
 	}
 
 	// Instance.
 	public static LastImperialTombManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new LastImperialTombManager();
-
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	public int getRandomRespawnDate()
@@ -1062,5 +1057,11 @@ public class LastImperialTombManager extends BossLair
 				}
 			}, 5000);
 		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final LastImperialTombManager _instance = new LastImperialTombManager();
 	}
 }

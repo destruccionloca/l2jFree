@@ -51,7 +51,6 @@ public class Hero
 {
 	private final static Log				_log			= LogFactory.getLog(Hero.class.getName());
 
-	private static Hero						_instance;
 	private static final String				GET_HEROES		= "SELECT * FROM heroes WHERE played = 1";
 	private static final String				GET_ALL_HEROES	= "SELECT * FROM heroes";
 	private static final String				UPDATE_ALL		= "UPDATE heroes SET played = 0";
@@ -78,12 +77,10 @@ public class Hero
 
 	public static Hero getInstance()
 	{
-		if (_instance == null)
-			_instance = new Hero();
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
-	public Hero()
+	private Hero()
 	{
 		init();
 	}
@@ -521,5 +518,11 @@ public class Hero
 		{
 			L2DatabaseFactory.close(con);
 		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final Hero _instance = new Hero();
 	}
 }

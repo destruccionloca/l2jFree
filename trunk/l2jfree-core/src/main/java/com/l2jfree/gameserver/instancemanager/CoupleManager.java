@@ -35,14 +35,10 @@ import com.l2jfree.gameserver.model.entity.Couple;
 public class CoupleManager
 {
 	private static final Log		_log	= LogFactory.getLog(CoupleManager.class.getName());
-	private static CoupleManager	_instance;
 
 	public static final CoupleManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new CoupleManager();
-		
-		return _instance;
+		return SingletonHolder._instance;
 	}
 	
 	private CoupleManager()
@@ -226,5 +222,11 @@ public class CoupleManager
 		if (_couples == null)
 			_couples = new FastList<Couple>();
 		return _couples;
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final CoupleManager _instance = new CoupleManager();
 	}
 }

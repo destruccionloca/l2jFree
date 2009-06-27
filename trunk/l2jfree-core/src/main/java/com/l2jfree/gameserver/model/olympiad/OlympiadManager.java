@@ -31,7 +31,6 @@ class OlympiadManager implements Runnable
 {
 	protected static final Logger				_log		= Logger.getLogger(OlympiadManager.class.getName());
 	private Map<Integer, OlympiadGame>			_olympiadInstances;
-	protected static OlympiadManager			_instance;
 
 	protected static final OlympiadStadium[]	STADIUMS	= {
 			new OlympiadStadium(-88000, -252637, -3331, 17100001, 17100002),
@@ -57,19 +56,14 @@ class OlympiadManager implements Runnable
 			new OlympiadStadium(-88000, -238825, -3331, 17100041, 17100042),
 			new OlympiadStadium(-83760, -238825, -3331, 17100043, 17100044) };
 
-	public OlympiadManager()
+	OlympiadManager()
 	{
 		_olympiadInstances = new FastMap<Integer, OlympiadGame>();
-		_instance = this;
 	}
 
 	public static OlympiadManager getInstance()
 	{
-		if (_instance == null)
-		{
-			_instance = new OlympiadManager();
-		}
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	public synchronized void run()
@@ -422,5 +416,11 @@ class OlympiadManager implements Runnable
 		}
 
 		return titles;
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final OlympiadManager _instance = new OlympiadManager();
 	}
 }

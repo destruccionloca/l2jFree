@@ -50,8 +50,6 @@ public class CastleManorManager
 {
 	private final static Log			_log							= LogFactory.getLog(CastleManorManager.class.getName());
 
-	private static CastleManorManager	_instance;
-
 	public static final int				PERIOD_CURRENT					= 0;
 	public static final int				PERIOD_NEXT						= 1;
 
@@ -77,9 +75,7 @@ public class CastleManorManager
 
 	public static final CastleManorManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new CastleManorManager();
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	public class CropProcure
@@ -591,5 +587,11 @@ public class CastleManorManager
 			c.saveSeedData();
 			c.saveCropData();
 		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final CastleManorManager _instance = new CastleManorManager();
 	}
 }

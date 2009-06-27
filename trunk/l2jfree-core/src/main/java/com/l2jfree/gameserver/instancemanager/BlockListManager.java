@@ -41,14 +41,9 @@ public final class BlockListManager
 	private static final String INSERT_QUERY = "INSERT INTO character_blocks (charId, name) VALUES (?,?)";
 	private static final String DELETE_QUERY = "DELETE FROM character_blocks WHERE charId=? AND name=?";
 	
-	private static BlockListManager _instance;
-	
 	public static BlockListManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new BlockListManager();
-		
-		return _instance;
+		return SingletonHolder._instance;
 	}
 	
 	private final Map<Integer, Set<String>> _blocks = new HashMap<Integer, Set<String>>();
@@ -149,5 +144,11 @@ public final class BlockListManager
 		{
 			L2DatabaseFactory.close(con);
 		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final BlockListManager _instance = new BlockListManager();
 	}
 }

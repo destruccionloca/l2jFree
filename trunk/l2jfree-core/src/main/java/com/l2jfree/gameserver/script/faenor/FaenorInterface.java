@@ -39,17 +39,12 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 public class FaenorInterface implements EngineInterface
 {
 	private final static Log		_log		= LogFactory.getLog(FaenorInterface.class);
-	private static FaenorInterface	_instance;
 
 	public NpcTable					npcTable	= NpcTable.getInstance();
 
 	public static FaenorInterface getInstance()
 	{
-		if (_instance == null)
-		{
-			_instance = new FaenorInterface();
-		}
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	private FaenorInterface()
@@ -158,5 +153,11 @@ public class FaenorInterface implements EngineInterface
 		{
 			_log.error(e.getMessage(), e);
 		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final FaenorInterface _instance = new FaenorInterface();
 	}
 }

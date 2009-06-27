@@ -31,7 +31,6 @@ import com.l2jfree.gameserver.model.entity.Auction;
 public class AuctionManager
 {
 	protected static Log			_log			= LogFactory.getLog(AuctionManager.class.getName());
-	private static AuctionManager	_instance;
 	private List<Auction>			_auctions;
 
 	private static final String[]	ITEM_INIT_DATA	=
@@ -116,12 +115,10 @@ public class AuctionManager
 
 	public static final AuctionManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new AuctionManager();
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
-	public AuctionManager()
+	private AuctionManager()
 	{
 		_auctions = new FastList<Auction>();
 		load();
@@ -219,5 +216,11 @@ public class AuctionManager
 		{
 			L2DatabaseFactory.close(con);
 		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final AuctionManager _instance = new AuctionManager();
 	}
 }

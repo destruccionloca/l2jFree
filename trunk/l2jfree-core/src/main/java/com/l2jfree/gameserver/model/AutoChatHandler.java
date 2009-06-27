@@ -48,7 +48,6 @@ import com.l2jfree.tools.random.Rnd;
 public class AutoChatHandler implements SpawnListener
 {
 	protected static Log _log = LogFactory.getLog(AutoChatHandler.class.getName());
-	private static AutoChatHandler _instance;
 
 	private static final int  DEFAULT_CHAT_RANGE = 1500;
 
@@ -147,10 +146,7 @@ public class AutoChatHandler implements SpawnListener
 
 	public static AutoChatHandler getInstance()
 	{
-		if (_instance == null)
-			_instance = new AutoChatHandler();
-		
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	public int size()
@@ -897,5 +893,11 @@ public class AutoChatHandler implements SpawnListener
 				}
 			}
 		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final AutoChatHandler _instance = new AutoChatHandler();
 	}
 }

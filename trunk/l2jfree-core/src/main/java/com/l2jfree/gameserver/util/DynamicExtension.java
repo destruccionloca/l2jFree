@@ -37,7 +37,6 @@ public class DynamicExtension
 	private static final String								CONFIG	= "config/extensions.properties";
 	private Properties										_prop;
 	private ConcurrentHashMap<String, Object>				_loadedExtensions;
-	private static DynamicExtension							_instance;
 	private ConcurrentHashMap<String, ExtensionFunction>	_getters;
 	private ConcurrentHashMap<String, ExtensionFunction>	_setters;
 
@@ -48,8 +47,6 @@ public class DynamicExtension
 	 */
 	private DynamicExtension()
 	{
-		if (_instance == null)
-			_instance = this;
 		_getters = new ConcurrentHashMap<String, ExtensionFunction>();
 		_setters = new ConcurrentHashMap<String, ExtensionFunction>();
 		initExtensions();
@@ -62,9 +59,7 @@ public class DynamicExtension
 	 */
 	public static DynamicExtension getInstance()
 	{
-		if (_instance == null)
-			_instance = new DynamicExtension();
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	/**
@@ -282,5 +277,11 @@ public class DynamicExtension
 		ExtensionFunction func = _setters.get(name);
 		if (func != null)
 			func.set(arg, obj);
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final DynamicExtension _instance = new DynamicExtension();
 	}
 }

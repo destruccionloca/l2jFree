@@ -29,15 +29,11 @@ public class InstanceManager
 {
 	private final static Log			_log			= LogFactory.getLog(InstanceManager.class.getName());
 	private FastMap<Integer, Instance>	_instanceList	= new FastMap<Integer, Instance>();
-	private static InstanceManager		_instance;
 	private int							_dynamic		= 300000;
 
 	public static final InstanceManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new InstanceManager();
-		
-		return _instance;
+		return SingletonHolder._instance;
 	}
 	
 	private InstanceManager()
@@ -143,5 +139,11 @@ public class InstanceManager
 		}
 		_instanceList.put(_dynamic, instance);
 		return _dynamic;
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final InstanceManager _instance = new InstanceManager();
 	}
 }

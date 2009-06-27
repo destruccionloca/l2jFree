@@ -32,14 +32,9 @@ import com.l2jfree.gameserver.templates.StatsSet;
  */
 public class RaidBossSpawnManager extends BossSpawnManager
 {
-	private static RaidBossSpawnManager	_instance;
-
 	public static RaidBossSpawnManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new RaidBossSpawnManager();
-
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	@Override
@@ -230,5 +225,11 @@ public class RaidBossSpawnManager extends BossSpawnManager
 		if (!template.getType().equalsIgnoreCase("L2RaidBoss"))
 			return null;
 		return template;
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final RaidBossSpawnManager _instance = new RaidBossSpawnManager();
 	}
 }

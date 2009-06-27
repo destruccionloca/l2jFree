@@ -42,7 +42,6 @@ public class L2Multisell
 {
 	private final static Log _log = LogFactory.getLog(L2Multisell.class.getName());
 	private final List<MultiSellListContainer> _entries = new FastList<MultiSellListContainer>();
-	private static L2Multisell _instance = new L2Multisell();
 
 	public MultiSellListContainer getList(int id)
 	{
@@ -59,7 +58,7 @@ public class L2Multisell
 		return null;
 	}
 
-	public L2Multisell()
+	private L2Multisell()
 	{
 		parseData();
 	}
@@ -71,7 +70,7 @@ public class L2Multisell
 
 	public static L2Multisell getInstance()
 	{
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	private void parseData()
@@ -624,5 +623,11 @@ public class L2Multisell
 		entry.setEntryId(entryId);
 
 		return entry;
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final L2Multisell _instance = new L2Multisell();
 	}
 }

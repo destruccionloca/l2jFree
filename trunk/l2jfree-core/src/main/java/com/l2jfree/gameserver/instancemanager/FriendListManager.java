@@ -41,14 +41,9 @@ public final class FriendListManager
 	private static final String INSERT_QUERY = "INSERT INTO character_friends (charId1, charId2) VALUES (?,?)";
 	private static final String DELETE_QUERY = "DELETE FROM character_friends WHERE (charId1=? AND charId2=?) OR (charId1=? AND charId2=?)";
 	
-	private static FriendListManager _instance;
-	
 	public static FriendListManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new FriendListManager();
-		
-		return _instance;
+		return SingletonHolder._instance;
 	}
 	
 	private final Map<Integer, Set<Integer>> _friends = new FastMap<Integer, Set<Integer>>();
@@ -177,5 +172,11 @@ public final class FriendListManager
 		}
 		
 		return true;
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final FriendListManager _instance = new FriendListManager();
 	}
 }

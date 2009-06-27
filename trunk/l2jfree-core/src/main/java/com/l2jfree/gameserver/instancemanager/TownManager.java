@@ -31,15 +31,9 @@ public class TownManager
 {
 	protected static Log		_log	= LogFactory.getLog(TownManager.class.getName());
 
-	private static TownManager	_instance;
-
 	public static final TownManager getInstance()
 	{
-		if (_instance == null)
-		{
-			_instance = new TownManager();
-		}
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	private FastMap<Integer, Town>	_towns;
@@ -353,5 +347,11 @@ public class TownManager
 	public String getClosestTownName(L2Character activeChar)
 	{
 		return getTownName(getClosestTown(activeChar).getTownId());
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final TownManager _instance = new TownManager();
 	}
 }

@@ -33,11 +33,9 @@ public class TransformationManager
 {
 	protected static final Log					_log		= LogFactory.getLog(TransformationManager.class.getName());
 
-	private static final TransformationManager	_instance	= new TransformationManager();
-
 	public static TransformationManager getInstance()
 	{
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	private Map<Integer, L2Transformation>	_transformations;
@@ -80,5 +78,11 @@ public class TransformationManager
 	public Collection<L2Transformation> getAllTransformations()
 	{
 		return _transformations.values();
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final TransformationManager _instance = new TransformationManager();
 	}
 }

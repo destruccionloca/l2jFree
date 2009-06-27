@@ -66,11 +66,9 @@ public final class L2World
 	public static final int REGIONS_Y = (MAP_MAX_Y >> SHIFT_BY) + OFFSET_Y;
 	public static final int REGIONS_Z = (MAP_MAX_Z >> SHIFT_BY_FOR_Z) + OFFSET_Z;
 	
-	private static final L2World _instance = new L2World();
-	
 	public static L2World getInstance()
 	{
-		return _instance;
+		return SingletonHolder._instance;
 	}
 	
 	/** all visible objects */
@@ -515,5 +513,11 @@ public final class L2World
 				_worldRegions[i][j].deleteVisibleNpcSpawns();
 		
 		_log.info("All visible NPC's deleted.");
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final L2World _instance = new L2World();
 	}
 }

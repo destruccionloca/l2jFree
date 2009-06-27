@@ -60,19 +60,14 @@ public class CursedWeaponsManager
 {
 	private static final Log			_log	= LogFactory.getLog(CursedWeaponsManager.class.getName());
 
-	private static CursedWeaponsManager	_instance;
-
 	public static final CursedWeaponsManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new CursedWeaponsManager();
-		
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	private FastMap<Integer, CursedWeapon>	_cursedWeapons;
 
-	public CursedWeaponsManager()
+	private CursedWeaponsManager()
 	{
 		_cursedWeapons = new FastMap<Integer, CursedWeapon>();
 		load();
@@ -462,5 +457,11 @@ public class CursedWeaponsManager
 		catch (Exception e)
 		{
 		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final CursedWeaponsManager _instance = new CursedWeaponsManager();
 	}
 }

@@ -43,7 +43,6 @@ import com.l2jfree.gameserver.util.Util;
  */
 public class ArenaManager
 {
-	private static ArenaManager		_instance;
 	public Logger					_log					= Logger.getLogger(ArenaManager.class.getName());
 	public Map<Integer, ArenaRank>	_ranks					= new FastMap<Integer, ArenaRank>();
 	protected Future<?>				_actionTask				= null;
@@ -52,10 +51,7 @@ public class ArenaManager
 
 	public static ArenaManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new ArenaManager();
-
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	public void onKill(int owner, String name)
@@ -337,5 +333,11 @@ public class ArenaManager
 		{
 			death++;
 		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final ArenaManager _instance = new ArenaManager();
 	}
 }

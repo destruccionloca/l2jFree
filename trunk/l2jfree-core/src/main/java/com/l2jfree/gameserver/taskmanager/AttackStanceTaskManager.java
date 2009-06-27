@@ -28,14 +28,9 @@ public final class AttackStanceTaskManager extends AbstractPeriodicTaskManager
 {
 	public static final long COMBAT_TIME = 15000;
 	
-	private static AttackStanceTaskManager _instance;
-	
 	public static AttackStanceTaskManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new AttackStanceTaskManager();
-		
-		return _instance;
+		return SingletonHolder._instance;
 	}
 	
 	private final Map<L2Character, Long> _attackStanceTasks = new FastMap<L2Character, Long>();
@@ -97,5 +92,11 @@ public final class AttackStanceTaskManager extends AbstractPeriodicTaskManager
 				_attackStanceTasks.remove(actor);
 			}
 		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final AttackStanceTaskManager _instance = new AttackStanceTaskManager();
 	}
 }

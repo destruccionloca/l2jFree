@@ -53,24 +53,18 @@ public class DimensionalRiftManager
 {
 	protected static Log										_log							= LogFactory.getLog(DimensionalRiftManager.class.getName());
 
-	private static DimensionalRiftManager						_instance;
 	private FastMap<Byte, FastMap<Byte, DimensionalRiftRoom>>	_rooms							= new FastMap<Byte, FastMap<Byte, DimensionalRiftRoom>>();
 	private final static int									DIMENSIONAL_FRAGMENT_ITEM_ID	= 7079;
 	private final static int									MAX_PARTY_PER_AREA				= 3;
 
 	public static DimensionalRiftManager getInstance()
 	{
-		if (_instance == null)
-		{
-			_instance = new DimensionalRiftManager();
-			new Quest(635, "RiftQuest", "Dummy Quest shown in players' questlist when inside the rift");
-		}
-
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	private DimensionalRiftManager()
 	{
+		new Quest(635, "RiftQuest", "Dummy Quest shown in players' questlist when inside the rift");
 		load();
 	}
 
@@ -513,5 +507,11 @@ public class DimensionalRiftManager
 			_log.warn("Player " + player.getName() + "(" + player.getObjectId() + ") was cheating in dimension rift area!");
 			Util.handleIllegalPlayerAction(player, "Warning! Character " + player.getName() + " tried to cheat in dimensional rift.", Config.DEFAULT_PUNISH);
 		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final DimensionalRiftManager _instance = new DimensionalRiftManager();
 	}
 }
