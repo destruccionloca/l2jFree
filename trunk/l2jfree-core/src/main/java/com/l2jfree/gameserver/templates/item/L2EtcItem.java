@@ -21,9 +21,10 @@ import com.l2jfree.gameserver.templates.StatsSet;
  * 
  * @version $Revision: 1.2.2.1.2.3 $ $Date: 2005/03/27 15:30:10 $
  */
-public final class L2EtcItem extends L2Item
+public final class L2EtcItem  extends L2Item
 {
 	private final String[] _skill;
+	private final String _handler;
 	
 	/**
 	 * Constructor for EtcItem.
@@ -37,6 +38,7 @@ public final class L2EtcItem extends L2Item
 	{
 		super(type, set);
 		_skill = set.getString("skills_item").split(";");
+		_handler = set.getString("handler").replaceAll("none", "").intern();
 	}
 
 	/**
@@ -68,5 +70,10 @@ public final class L2EtcItem extends L2Item
 	public String[] getSkills()
 	{
 		return _skill;
+	}
+	
+	public String getHandlerName()
+	{
+		return _handler;
 	}
 }

@@ -14,6 +14,10 @@
  */
 package com.l2jfree.gameserver.handler;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.handler.itemhandlers.AdvQuestItems;
 import com.l2jfree.gameserver.handler.itemhandlers.BeastSoulShot;
 import com.l2jfree.gameserver.handler.itemhandlers.BeastSpice;
@@ -33,6 +37,7 @@ import com.l2jfree.gameserver.handler.itemhandlers.ForgottenScroll;
 import com.l2jfree.gameserver.handler.itemhandlers.Harvester;
 import com.l2jfree.gameserver.handler.itemhandlers.HolyWater;
 import com.l2jfree.gameserver.handler.itemhandlers.ItemSkills;
+import com.l2jfree.gameserver.handler.itemhandlers.MagicBottle;
 import com.l2jfree.gameserver.handler.itemhandlers.Maps;
 import com.l2jfree.gameserver.handler.itemhandlers.MercTicket;
 import com.l2jfree.gameserver.handler.itemhandlers.PetFood;
@@ -48,16 +53,23 @@ import com.l2jfree.gameserver.handler.itemhandlers.SevenSignsRecord;
 import com.l2jfree.gameserver.handler.itemhandlers.SoulCrystals;
 import com.l2jfree.gameserver.handler.itemhandlers.SoulShots;
 import com.l2jfree.gameserver.handler.itemhandlers.SpecialXMas;
+import com.l2jfree.gameserver.handler.itemhandlers.SpellbookScrolls;
 import com.l2jfree.gameserver.handler.itemhandlers.SpiritShot;
 import com.l2jfree.gameserver.handler.itemhandlers.SummonItems;
+import com.l2jfree.gameserver.handler.itemhandlers.TeleportBookmark;
 import com.l2jfree.gameserver.handler.itemhandlers.TransformationItems;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
+import com.l2jfree.gameserver.templates.item.L2EtcItem;
+import com.l2jfree.gameserver.templates.item.L2Item;
+import com.l2jfree.util.HandlerRegistry;
 import com.l2jfree.util.NumberHandlerRegistry;
 
-public final class ItemHandler extends NumberHandlerRegistry<IItemHandler>
+public final class ItemHandler
 {
+	private static final Log _log = LogFactory.getLog(ItemHandler.class);
+	
 	private static ItemHandler _instance;
 	
 	public static ItemHandler getInstance()
@@ -67,6 +79,9 @@ public final class ItemHandler extends NumberHandlerRegistry<IItemHandler>
 		
 		return _instance;
 	}
+	
+	private final NumberHandlerRegistry<IItemHandler> _byItemId = new NumberHandlerRegistry<IItemHandler>();
+	private final HandlerRegistry<String, IItemHandler> _byHandlerName = new HandlerRegistry<String, IItemHandler>();
 	
 	private ItemHandler()
 	{
@@ -84,11 +99,12 @@ public final class ItemHandler extends NumberHandlerRegistry<IItemHandler>
 		registerItemHandler(new EnchantScrolls());
 		registerItemHandler(new EnergyStone());
 		registerItemHandler(new ExtractableItems());
-		registerItemHandler(new ItemSkills());
 		registerItemHandler(new FishShots());
 		registerItemHandler(new ForgottenScroll());
 		registerItemHandler(new Harvester());
 		registerItemHandler(new HolyWater());
+		registerItemHandler(new ItemSkills());
+		registerItemHandler(new MagicBottle());
 		registerItemHandler(new Maps());
 		registerItemHandler(new MercTicket());
 		registerItemHandler(new PetFood());
@@ -104,22 +120,44 @@ public final class ItemHandler extends NumberHandlerRegistry<IItemHandler>
 		registerItemHandler(new SoulCrystals());
 		registerItemHandler(new SoulShots());
 		registerItemHandler(new SpecialXMas());
+		registerItemHandler(new SpellbookScrolls());
 		registerItemHandler(new SpiritShot());
 		registerItemHandler(new SummonItems());
-		//registerItemHandler(new TeleportBookmark());
+		registerItemHandler(new TeleportBookmark());
 		registerItemHandler(new TransformationItems());
 		
-		_log.info("ItemHandler: Loaded " + size() + " handlers.");
+		_log.info("ItemHandler: Loaded " + _byItemId.size() + " handlers by itemId.");
+		_log.info("ItemHandler: Loaded " + _byHandlerName.size() + " handlers by handlerName.");
+		
+		for (L2Item item : ItemTable.getInstance().getAllTemplates())
+		{
+			if (!(item instanceof L2EtcItem))
+				continue;
+			
+			final L2EtcItem etcItem = (L2EtcItem)item;
+			
+			final IItemHandler handlerByItemId = _byItemId.get(etcItem.getItemId());
+			final IItemHandler handlerByHandlerName = _byHandlerName.get(etcItem.getHandlerName());
+			
+			if (handlerByItemId == handlerByHandlerName)
+				continue;
+			
+			_log.info("ItemHandler: Different handlers for " + etcItem.getName() + "(" + etcItem.getItemId() + ")");
+		}
 	}
 	
 	public void registerItemHandler(IItemHandler handler)
 	{
-		registerAll(handler, handler.getItemIds());
+		final int[] itemIds = handler.getItemIds();
+		if (itemIds != null)
+			_byItemId.registerAll(handler, handler.getItemIds());
+		
+		_byHandlerName.register(handler.getClass().getSimpleName(), handler);
 	}
 	
-	public boolean hasItemHandler(int itemId)
+	public boolean hasItemHandler(int itemId, L2ItemInstance item)
 	{
-		return get(itemId) != null;
+		return get(itemId, item) != null;
 	}
 	
 	public boolean useItem(int itemId, L2Playable playable, L2ItemInstance item)
@@ -129,7 +167,7 @@ public final class ItemHandler extends NumberHandlerRegistry<IItemHandler>
 	
 	public boolean useItem(int itemId, L2Playable playable, L2ItemInstance item, boolean warn)
 	{
-		final IItemHandler handler = get(itemId);
+		final IItemHandler handler = get(itemId, item);
 		
 		if (handler == null)
 		{
@@ -143,5 +181,20 @@ public final class ItemHandler extends NumberHandlerRegistry<IItemHandler>
 		
 		handler.useItem(playable, item);
 		return true;
+	}
+	
+	private IItemHandler get(int itemId, L2ItemInstance item)
+	{
+		final IItemHandler handlerByItemId = _byItemId.get(itemId);
+		
+		if (handlerByItemId != null)
+			return handlerByItemId;
+		
+		if (item == null)
+			return null;
+		
+		final IItemHandler handlerByHandlerName = _byHandlerName.get(item.getEtcItem().getHandlerName());
+		
+		return handlerByHandlerName;
 	}
 }

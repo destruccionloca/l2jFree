@@ -107,7 +107,7 @@ public class RequestPetUseItem extends L2GameClientPacket
 			return;
 		}
 
-		if (ItemHandler.getInstance().hasItemHandler(item.getItemId()))
+		if (ItemHandler.getInstance().hasItemHandler(item.getItemId(), item))
 		{
 			useItem(pet, item, activeChar);
 		}
