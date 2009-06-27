@@ -50,7 +50,6 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
-import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.PetInventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.PetItemList;
 import com.l2jfree.gameserver.network.serverpackets.PetStatusShow;
@@ -287,7 +286,7 @@ public class L2PetInstance extends L2Summon
 	public void onAction(L2PcInstance player)
 	{
 		boolean isOwner = player.getObjectId() == getOwner().getObjectId();
-		player.sendPacket(new ValidateLocation(this));
+		
 		if (isOwner && player != getOwner())
 			updateRefOwner(player);
 		if (this != player.getTarget())
@@ -298,9 +297,6 @@ public class L2PetInstance extends L2Summon
 			// Set the target of the L2PcInstance player
 			player.setTarget(this);
 			
-			MyTargetSelected my = new MyTargetSelected(getObjectId(), player.getLevel() - getLevel());
-			player.sendPacket(my);
-			
 			// Send a Server->Client packet StatusUpdate of the L2PetInstance to the L2PcInstance to update its HP bar
 			StatusUpdate su = new StatusUpdate(getObjectId());
 			su.addAttribute(StatusUpdate.CUR_HP, (int)getCurrentHp());
@@ -309,6 +305,8 @@ public class L2PetInstance extends L2Summon
 		}
 		else
 		{
+			player.sendPacket(new ValidateLocation(this));
+			
 			// Check if the pet is attackable (without a forced attack) and isn't dead
 			if (isAutoAttackable(player) && !isOwner)
 			{

@@ -16,22 +16,20 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import java.util.List;
 
-import com.l2jfree.gameserver.geodata.GeoData;
+import javolution.util.FastList;
+
 import com.l2jfree.gameserver.ai.CtrlIntention;
+import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
-import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
-
-import javolution.util.FastList;
 
 public class L2ControlTowerInstance extends L2Npc
 {
-    private List<L2Spawn> _guards; 
+    private List<L2Spawn> _guards;
 
 	public L2ControlTowerInstance(int objectId, L2NpcTemplate template)
 	{
@@ -51,8 +49,8 @@ public class L2ControlTowerInstance extends L2Npc
     public boolean isAutoAttackable(L2Character attacker)
 	{
 		// Attackable during siege by attacker only
-		return (attacker != null 
-		        && attacker instanceof L2PcInstance 
+		return (attacker != null
+		        && attacker instanceof L2PcInstance
 		        && getCastle() != null
 		        && getCastle().getCastleId() > 0
 		        && getCastle().getSiege().getIsInProgress()
@@ -76,18 +74,11 @@ public class L2ControlTowerInstance extends L2Npc
 			// Set the target of the L2PcInstance player
 			player.setTarget(this);
 
-			// Send a Server->Client packet MyTargetSelected to the L2PcInstance player
-			MyTargetSelected my = new MyTargetSelected(getObjectId(), player.getLevel() - getLevel());
-			player.sendPacket(my);
-
 			// Send a Server->Client packet StatusUpdate of the L2NpcInstance to the L2PcInstance to update its HP bar
 			StatusUpdate su = new StatusUpdate(getObjectId());
 			su.addAttribute(StatusUpdate.CUR_HP, (int)getStatus().getCurrentHp() );
 			su.addAttribute(StatusUpdate.MAX_HP, getMaxHp() );
 			player.sendPacket(su);
-
-			// Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client
-			player.sendPacket(new ValidateLocation(this));
 		}
 		else
 		{

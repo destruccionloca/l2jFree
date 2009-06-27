@@ -42,7 +42,6 @@ import com.l2jfree.gameserver.model.entity.GrandBossState;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.Earthquake;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
-import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -1632,8 +1631,6 @@ public class FrintezzaManager extends BossLair
 			if (pc != null && targeted[count])
 			{
 				pc.setTarget(target);
-				MyTargetSelected my = new MyTargetSelected(target.getObjectId(), pc.getLevel() - target.getLevel());
-				pc.sendPacket(my);
 
 				// Send a Server->Client packet StatusUpdate of the L2Npc to the L2PcInstance to update its HP bar
 				pc.sendPacket(su);

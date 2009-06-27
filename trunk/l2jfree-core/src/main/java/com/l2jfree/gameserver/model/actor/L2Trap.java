@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.model.actor;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
 import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
@@ -59,8 +58,12 @@ public class L2Trap extends L2Character
 	public void onAction(L2PcInstance player)
 	{
 		player.setTarget(this);
-		MyTargetSelected my = new MyTargetSelected(getObjectId(), player.getLevel() - getLevel());
-		player.sendPacket(my);
+	}
+	
+	@Override
+	public int getMyTargetSelectedColor(L2PcInstance player)
+	{
+		return player.getLevel() - getLevel();
 	}
 
 	/**

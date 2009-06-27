@@ -36,10 +36,8 @@ import com.l2jfree.gameserver.network.serverpackets.ExShowManorDefaultInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExShowProcureCropDetail;
 import com.l2jfree.gameserver.network.serverpackets.ExShowSeedInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExShowSellCropList;
-import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
-import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public class L2ManorManagerInstance extends L2MerchantInstance
@@ -64,14 +62,6 @@ public class L2ManorManagerInstance extends L2MerchantInstance
 		{
 			// Set the target of the L2PcInstance player
 			player.setTarget(this);
-			
-			// Send a Server->Client packet MyTargetSelected to the L2PcInstance player
-			// The player.getLevel() - getLevel() permit to display the correct color in the select window
-			MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
-			player.sendPacket(my);
-			
-			// Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client
-			player.sendPacket(new ValidateLocation(this));
 		}
 		else
 		{
@@ -93,12 +83,12 @@ public class L2ManorManagerInstance extends L2MerchantInstance
 					player.sendPacket(html);
 				}
 				else if (!player.isGM()									 		// Player is not GM
-					&& getCastle() != null && getCastle().getCastleId() > 0 	// Verification of castle 
+					&& getCastle() != null && getCastle().getCastleId() > 0 	// Verification of castle
 					&& player.getClan() != null 							 	// Player have clan
 					&& getCastle().getOwnerId() == player.getClanId()  			// Player's clan owning the castle
 					&& player.isClanLeader() 									// Player is clan leader of clan (then he is the lord)
 					)
-				{		
+				{
 						showMessageWindow(player, "manager-lord.htm");
 				}
 				else
@@ -115,7 +105,7 @@ public class L2ManorManagerInstance extends L2MerchantInstance
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
 		// BypassValidation Exploit plug.
-		if (player.getLastFolkNPC() == null || player.getLastFolkNPC().getObjectId() != this.getObjectId())
+		if (player.getLastFolkNPC() == null || player.getLastFolkNPC().getObjectId() != getObjectId())
 			return;
 
 		if (command.startsWith("manor_menu_select"))
@@ -183,7 +173,7 @@ public class L2ManorManagerInstance extends L2MerchantInstance
 				player.sendPacket(new ExShowManorDefaultInfo());
 				break;
 			case 6: // Buy harvester
-				this.showBuyWindow(player, Integer.parseInt("3" + getNpcId()));
+				showBuyWindow(player, Integer.parseInt("3" + getNpcId()));
 				break;
 			case 9: // Edit sales (Crop sales)
 				player.sendPacket(new ExShowProcureCropDetail(state));

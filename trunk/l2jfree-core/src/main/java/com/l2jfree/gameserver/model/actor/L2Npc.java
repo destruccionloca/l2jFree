@@ -94,14 +94,12 @@ import com.l2jfree.gameserver.network.serverpackets.ExShowVariationMakeWindow;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
-import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.RadarControl;
 import com.l2jfree.gameserver.network.serverpackets.ServerObjectInfo;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
-import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.taskmanager.AbstractIterativePeriodicTaskManager;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
@@ -621,30 +619,15 @@ public class L2Npc extends L2Character
 				// Check if the player is attackable (without a forced attack)
 				if (isAutoAttackable(player))
 				{
-					// Send a Server->Client packet MyTargetSelected to the L2PcInstance player
-					// The player.getLevel() - getLevel() permit to display the correct color in the select window
-					MyTargetSelected my = new MyTargetSelected(getObjectId(), player.getLevel() - getLevel());
-					player.sendPacket(my);
-
 					// Send a Server->Client packet StatusUpdate of the L2Npc to the L2PcInstance to update its HP bar
 					StatusUpdate su = new StatusUpdate(getObjectId());
 					su.addAttribute(StatusUpdate.CUR_HP, (int) getStatus().getCurrentHp());
 					su.addAttribute(StatusUpdate.MAX_HP, getMaxHp());
 					player.sendPacket(su);
 				}
-				else
-				{
-					// Send a Server->Client packet MyTargetSelected to the L2PcInstance player
-					MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
-					player.sendPacket(my);
-				}
-
-				// Send a Server->Client packet ValidateLocation to correct the L2Npc position and heading on the client
-				player.sendPacket(new ValidateLocation(this));
 			}
 			else
 			{
-				player.sendPacket(new ValidateLocation(this));
 				// Check if the player is attackable (without a forced attack) and isn't dead
 				if (isAutoAttackable(player) && !isAlikeDead())
 				{
@@ -703,7 +686,16 @@ public class L2Npc extends L2Character
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 		}
 	}
-
+	
+	@Override
+	public int getMyTargetSelectedColor(L2PcInstance player)
+	{
+		if (isAutoAttackable(player))
+			return player.getLevel() - getLevel();
+		else
+			return 0;
+	}
+	
 	/**
 	 * Manage and Display the GM console to modify the L2Npc (GM only).<BR><BR>
 	 *
@@ -730,11 +722,6 @@ public class L2Npc extends L2Character
 		{
 			// Set the target of the L2PcInstance player
 			player.setTarget(this);
-
-			// Send a Server->Client packet MyTargetSelected to the L2PcInstance player
-			// The player.getLevel() - getLevel() permit to display the correct color in the select window
-			MyTargetSelected my = new MyTargetSelected(getObjectId(), player.getLevel() - getLevel());
-			player.sendPacket(my);
 
 			// Check if the player is attackable (without a forced attack)
 			if (isAutoAttackable(player))
@@ -813,11 +800,6 @@ public class L2Npc extends L2Character
 		{
 			// Set the target of the L2PcInstance player
 			player.setTarget(this);
-
-			// Send a Server->Client packet MyTargetSelected to the L2PcInstance player
-			// The player.getLevel() - getLevel() permit to display the correct color in the select window
-			MyTargetSelected my = new MyTargetSelected(getObjectId(), player.getLevel() - getLevel());
-			player.sendPacket(my);
 
 			// Check if the player is attackable (without a forced attack)
 			if (isAutoAttackable(player))

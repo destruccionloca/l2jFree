@@ -26,7 +26,6 @@ import com.l2jfree.gameserver.model.L2Multisell;
 import com.l2jfree.gameserver.model.L2TradeList;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.BuyList;
-import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.SellList;
 import com.l2jfree.gameserver.network.serverpackets.SetupGauge;
@@ -104,8 +103,8 @@ public class L2MerchantInstance extends L2NpcInstance
         double taxRate = 1.;
 
         // Not ready yet
-        //taxRate = getMpc().getTotalTaxRate(); 
-        //instead: 
+        //taxRate = getMpc().getTotalTaxRate();
+        //instead:
         if (getIsInTown()) taxRate = getCastle().getTaxRate();
 
         player.tempInventoryDisable();
@@ -171,7 +170,7 @@ public class L2MerchantInstance extends L2NpcInstance
                     tryRentPet(player, val);
                 }
             }
-        }        
+        }
         else if (actualCommand.equalsIgnoreCase("Wear") && Config.ALLOW_WEAR)
         {
             if (st.countTokens() < 1) return;
@@ -264,9 +263,6 @@ public class L2MerchantInstance extends L2NpcInstance
         if (player.getAccessLevel() >= Config.GM_ACCESSLEVEL)
         {
             player.setTarget(this);
-
-            MyTargetSelected my = new MyTargetSelected(getObjectId(), player.getLevel() - getLevel());
-            player.sendPacket(my);
 
             if (isAutoAttackable(player))
             {

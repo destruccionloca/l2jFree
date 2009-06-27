@@ -34,7 +34,6 @@ import com.l2jfree.gameserver.model.actor.stat.StaticObjStat;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ChairSit;
-import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.ShowTownMap;
 import com.l2jfree.gameserver.network.serverpackets.StaticObject;
@@ -199,13 +198,9 @@ public class L2StaticObjectInstance extends L2Character
 		{
 			// Set the target of the L2PcInstance player
 			player.setTarget(this);
-			player.sendPacket(new MyTargetSelected(getObjectId(), 0));
 		}
 		else
 		{
-			MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
-			player.sendPacket(my);
-			
 			// Calculate the distance between the L2PcInstance and the L2NpcInstance
 			if (!player.isInsideRadius(this, INTERACTION_DISTANCE, false, false))
 			{
@@ -250,8 +245,6 @@ public class L2StaticObjectInstance extends L2Character
 		if (player.getAccessLevel() >= Config.GM_ACCESSLEVEL)
 		{
 			player.setTarget(this);
-			MyTargetSelected my = new MyTargetSelected(getObjectId(), player.getLevel());
-			player.sendPacket(my);
 			
 			StaticObject su = new StaticObject(this);
 			

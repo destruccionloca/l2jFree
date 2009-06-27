@@ -22,10 +22,8 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2TradeList;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.BuyList;
-import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.SellList;
-import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 /**
@@ -52,13 +50,6 @@ public class L2MerchantSummonInstance extends L2SummonInstance
 		{
 			// Set the target of the L2PcInstance player
 			player.setTarget(this);
-
-			// Send a Server->Client packet MyTargetSelected to the L2PcInstance player
-			MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
-			player.sendPacket(my);
-
-			// Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client
-			player.sendPacket(new ValidateLocation(this));
 		}
 		else
 		{
@@ -75,6 +66,12 @@ public class L2MerchantSummonInstance extends L2SummonInstance
 		}
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
 		player.sendPacket(ActionFailed.STATIC_PACKET);
+	}
+	
+	@Override
+	public int getMyTargetSelectedColor(L2PcInstance player)
+	{
+		return 0;
 	}
 
 	public void onBypassFeedback(L2PcInstance player, String command)
@@ -132,7 +129,7 @@ public class L2MerchantSummonInstance extends L2SummonInstance
 		String filename = "data/html/merchant/"+getNpcId()+".htm";
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 		html.setFile(filename);
-		html.replace("%objectId%", String.valueOf(getObjectId()));	   
+		html.replace("%objectId%", String.valueOf(getObjectId()));
 		player.sendPacket(html);
 	}
 }

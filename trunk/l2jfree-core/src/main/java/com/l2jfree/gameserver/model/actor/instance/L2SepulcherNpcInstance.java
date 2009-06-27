@@ -34,11 +34,9 @@ import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
-import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
-import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.random.Rnd;
@@ -122,13 +120,6 @@ public class L2SepulcherNpcInstance extends L2Npc
 			// Check if the player is attackable (without a forced attack)
 			if (isAutoAttackable(player))
 			{
-				// Send a Server->Client packet MyTargetSelected to the
-				// L2PcInstance player
-				// The player.getLevel() - getLevel() permit to display the
-				// correct color in the select window
-				MyTargetSelected my = new MyTargetSelected(getObjectId(), player.getLevel() - getLevel());
-				player.sendPacket(my);
-
 				// Send a Server->Client packet StatusUpdate of the
 				// L2NpcInstance to the L2PcInstance to update its HP bar
 				StatusUpdate su = new StatusUpdate(getObjectId());
@@ -136,17 +127,6 @@ public class L2SepulcherNpcInstance extends L2Npc
 				su.addAttribute(StatusUpdate.MAX_HP, getMaxHp());
 				player.sendPacket(su);
 			}
-			else
-			{
-				// Send a Server->Client packet MyTargetSelected to the
-				// L2PcInstance player
-				MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
-				player.sendPacket(my);
-			}
-
-			// Send a Server->Client packet ValidateLocation to correct the
-			// L2NpcInstance position and heading on the client
-			player.sendPacket(new ValidateLocation(this));
 		}
 		else
 		{

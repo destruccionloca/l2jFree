@@ -44,7 +44,6 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExPartyPetWindowAdd;
 import com.l2jfree.gameserver.network.serverpackets.ExPartyPetWindowDelete;
 import com.l2jfree.gameserver.network.serverpackets.ExPartyPetWindowUpdate;
-import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.PartySpelled;
 import com.l2jfree.gameserver.network.serverpackets.PetDelete;
 import com.l2jfree.gameserver.network.serverpackets.PetInfo;
@@ -206,8 +205,6 @@ public abstract class L2Summon extends L2Playable
 			if (_log.isDebugEnabled())
 				_log.debug("new target selected:" + getObjectId());
 			player.setTarget(this);
-			MyTargetSelected my = new MyTargetSelected(getObjectId(), player.getLevel() - getLevel());
-			player.sendPacket(my);
 
 			//sends HP/MP status of the summon to other characters
 			StatusUpdate su = new StatusUpdate(getObjectId());
@@ -246,6 +243,12 @@ public abstract class L2Summon extends L2Playable
 					player.getAI().setIntention(CtrlIntention.AI_INTENTION_FOLLOW, this);
 			}
 		}
+	}
+	
+	@Override
+	public int getMyTargetSelectedColor(L2PcInstance player)
+	{
+		return player.getLevel() - getLevel();
 	}
 
 	public long getExpForThisLevel()

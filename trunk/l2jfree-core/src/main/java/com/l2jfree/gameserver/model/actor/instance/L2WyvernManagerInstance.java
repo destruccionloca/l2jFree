@@ -22,9 +22,7 @@ import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
-import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
@@ -55,7 +53,7 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
             int petItemId = 0;
             L2ItemInstance petItem = null;
             
-            if (player.getPet() == null) 
+            if (player.getPet() == null)
             {
                 if (player.isMounted())
                 {
@@ -64,8 +62,8 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
                         petItemId = petItem.getItemId();
                 }
             }
-            else 
-                petItemId = player.getPet().getControlItemId(); 
+            else
+                petItemId = player.getPet().getControlItemId();
 
             if (petItemId == 0 || !player.isMounted() || !PetDataTable.isStrider(PetDataTable.getPetIdByItemId(petItemId)))
             {
@@ -76,7 +74,7 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
                          petItem != null && petItem.getEnchantLevel() < 55)
             {
                 player.sendMessage("Your Strider has not reached the required level.");
-                return; 
+                return;
             }
             
             // Wyvern requires Config.MANAGER_CRYSTAL_COUNT crystal for ride...
@@ -114,13 +112,6 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
 		{
 			// Set the target of the L2PcInstance player
 			player.setTarget(this);
-
-			// Send a Server->Client packet MyTargetSelected to the L2PcInstance player
-			MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
-			player.sendPacket(my);
-
-			// Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client
-			player.sendPacket(new ValidateLocation(this));
 		}
 		else
 		{

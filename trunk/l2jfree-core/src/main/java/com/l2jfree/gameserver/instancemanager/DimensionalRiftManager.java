@@ -34,7 +34,9 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.SpawnTable;
 import com.l2jfree.gameserver.model.L2ItemInstance;
+import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Spawn;
+import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.DimensionalRift;
@@ -42,7 +44,6 @@ import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.util.Util;
-import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.tools.random.Rnd;
 
 /**
@@ -424,6 +425,11 @@ public class DimensionalRiftManager
 			return _teleportCoords;
 		}
 
+		public boolean checkIfInZone(L2Object obj)
+		{
+			return checkIfInZone(obj.getX(), obj.getY(), obj.getZ());
+		}
+		
 		public boolean checkIfInZone(int x, int y, int z)
 		{
 			return _s.contains(x, y) && z >= _zMin && z <= _zMax;
