@@ -14,7 +14,7 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import javolution.util.FastList;
+import java.util.List;
 
 import com.l2jfree.gameserver.instancemanager.CastleManorManager.CropProcure;
 import com.l2jfree.gameserver.model.L2Manor;
@@ -32,17 +32,13 @@ import com.l2jfree.gameserver.model.L2Manor;
 public class ExShowCropInfo extends L2GameServerPacket
 {
 	private static final String		_S__FE_1C_EXSHOWSEEDINFO	= "[S] FE:1D ExShowCropInfo";
-	private FastList<CropProcure>	_crops;
+	private List<CropProcure>	_crops;
 	private int						_manorId;
 
-	public ExShowCropInfo(int manorId, FastList<CropProcure> crops)
+	public ExShowCropInfo(int manorId, List<CropProcure> crops)
 	{
 		_manorId = manorId;
 		_crops = crops;
-		if (_crops == null)
-		{
-			_crops = new FastList<CropProcure>();
-		}
 	}
 
 	@Override
@@ -53,6 +49,11 @@ public class ExShowCropInfo extends L2GameServerPacket
 		writeC(0);
 		writeD(_manorId); // Manor ID
 		writeD(0);
+		if (_crops == null)
+		{
+			writeD(0);
+			return;
+		}
 		writeD(_crops.size());
 		for (CropProcure crop : _crops)
 		{

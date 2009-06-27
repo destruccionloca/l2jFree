@@ -24,13 +24,16 @@ import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.instance.L2ManorManagerInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Castle;
-import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.item.L2Item;
+import com.l2jfree.gameserver.util.Util;
+
+import static com.l2jfree.gameserver.model.actor.L2Npc.INTERACTION_DISTANCE;
+import static com.l2jfree.gameserver.model.itemcontainer.PcInventory.MAX_ADENA;
 
 /**
  * Format: cdd[dd] c // id (0xC4)
@@ -43,108 +46,110 @@ public class RequestBuySeed extends L2GameClientPacket
 {
 	private static final String	_C__C4_REQUESTBUYSEED	= "[C] C4 RequestBuySeed";
 
-	private int					_count;
+	private static final int BATCH_LENGTH = 8; // length of the one item
+	private static final int BATCH_LENGTH_FINAL = 12;
+
 	private int					_manorId;
-	private int[]				_items;											// size _count * 2
+	private Seed[]				_seeds = null;
 
 	@Override
 	protected void readImpl()
 	{
-		_manorId = readD();
-		_count = readD();
-		// check values
-		int acc = 8;
-		if (Config.PACKET_FINAL)
-			acc = 12;
-		if (_count > 500 || _count * acc < getByteBuffer().remaining() || _count < 1)
+		int count = readD();
+		if (count <= 0
+				|| count > Config.MAX_ITEM_IN_PACKET
+				|| count * (Config.PACKET_FINAL ? BATCH_LENGTH_FINAL : BATCH_LENGTH) != getByteBuffer().remaining())
 		{
-			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 
-		_items = new int[_count * 2];
-
-		for (int i = 0; i < _count; i++)
+		_seeds = new Seed[count];
+		for (int i = 0; i < count; i++)
 		{
 			int itemId = readD();
-			_items[(i * 2)] = itemId;
-			long cnt = 0;
-			cnt = readCompQ();
-			if (cnt >= Integer.MAX_VALUE || cnt < 1)
+			long cnt = readCompQ();
+			if (cnt < 1)
 			{
-				_items = null;
-				sendPacket(ActionFailed.STATIC_PACKET);
+				_seeds = null;
 				return;
 			}
-			_items[i * 2 + 1] = (int) cnt;
+			_seeds[i] = new Seed(itemId, cnt);
 		}
 	}
 
 	@Override
 	protected void runImpl()
 	{
-		long totalPrice = 0;
-		int slots = 0;
-		int totalWeight = 0;
-
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null)
 			return;
 
-		L2Object target = player.getTarget();
-		if (!(target instanceof L2ManorManagerInstance))
-			target = player.getLastFolkNPC();
-		if (!(target instanceof L2ManorManagerInstance))
+		if (_seeds == null)
+		{
+			sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+
+		L2Object manager = player.getTarget();
+
+		if (!(manager instanceof L2ManorManagerInstance))
+			manager = player.getLastFolkNPC();
+
+		if (!(manager instanceof L2ManorManagerInstance))
+			return;
+
+		if (!player.isInsideRadius(manager, INTERACTION_DISTANCE, true, false))
 			return;
 
 		Castle castle = CastleManager.getInstance().getCastleById(_manorId);
 
-		for (int i = 0; i < _count; i++)
+		long totalPrice = 0;
+		int slots = 0;
+		int totalWeight = 0;
+
+		for (Seed i : _seeds)
 		{
-			int seedId = _items[(i * 2)];
-			long count = _items[i * 2 + 1];
-			long price = 0;
-			long residual = 0;
+			if (!i.setProduction(castle))
+				return;
 
-			SeedProduction seed = castle.getSeed(seedId, CastleManorManager.PERIOD_CURRENT);
-			price = seed.getPrice();
-			residual = seed.getCanProduce();
+			totalPrice += i.getPrice();
 
-			if (price <= 0 || residual < count)
+			if (totalPrice > MAX_ADENA)
 			{
-				//any message, or is it server's misconfiguration?
-				sendPacket(ActionFailed.STATIC_PACKET);
+				Util.handleIllegalPlayerAction(player, "Warning!! Character "
+						+ player.getName() + " of account "
+						+ player.getAccountName() + " tried to purchase over "
+						+ MAX_ADENA + " adena worth of goods.",
+						Config.DEFAULT_PUNISH);
 				return;
 			}
 
-			totalPrice += count * price;
-
-			L2Item template = ItemTable.getInstance().getTemplate(seedId);
-			totalWeight += count * template.getWeight();
+			L2Item template = ItemTable.getInstance().getTemplate(i.getSeedId());
+			totalWeight += i.getCount() * template.getWeight();
 			if (!template.isStackable())
-				slots += count;
-			else if (player.getInventory().getItemByItemId(seedId) == null)
+				slots += i.getCount();
+			else if (player.getInventory().getItemByItemId(i.getSeedId()) == null)
 				slots++;
 		}
 
-		if (totalPrice >= PcInventory.MAX_ADENA)
+		if (totalPrice >= MAX_ADENA)
 		{
 			requestFailed(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
 			return;
 		}
-		else if (!player.getInventory().validateWeight(totalWeight))
+		if (!player.getInventory().validateWeight(totalWeight))
 		{
 			requestFailed(SystemMessageId.WEIGHT_LIMIT_EXCEEDED);
 			return;
 		}
-		else if (!player.getInventory().validateCapacity(slots))
+		if (!player.getInventory().validateCapacity(slots))
 		{
 			requestFailed(SystemMessageId.SLOTS_FULL);
 			return;
 		}
 
 		// Charge buyer
-		if ((totalPrice < 0) || !player.reduceAdena("Buy", totalPrice, target, false))
+		if ((totalPrice < 0) || !player.reduceAdena("Buy", totalPrice, manager, false))
 		{
 			requestFailed(SystemMessageId.YOU_NOT_ENOUGH_ADENA);
 			return;
@@ -155,34 +160,26 @@ public class RequestBuySeed extends L2GameClientPacket
 
 		// Proceed the purchase
 		InventoryUpdate playerIU = new InventoryUpdate();
-		for (int i = 0; i < _count; i++)
+		for (Seed i : _seeds)
 		{
-			int seedId = _items[(i * 2)];
-			int count = _items[i * 2 + 1];
-			if (count < 0)
-				count = 0;
-
-			// Update Castle Seeds Amount
-			SeedProduction seed = castle.getSeed(seedId, CastleManorManager.PERIOD_CURRENT);
-			seed.setCanProduce(seed.getCanProduce() - count);
-			if (Config.ALT_MANOR_SAVE_ALL_ACTIONS)
-				CastleManager.getInstance().getCastleById(_manorId).updateSeed(seed.getId(), seed.getCanProduce(), CastleManorManager.PERIOD_CURRENT);
+			i.updateProduction(castle);
 
 			// Add item to Inventory and adjust update packet
-			L2ItemInstance item = player.getInventory().addItem("Buy", seedId, count, player, target);
+			L2ItemInstance item = player.getInventory().addItem("Buy", i.getSeedId(), i.getCount(), player, manager);
 
-			if (item.getCount() > count)
+			if (item.getCount() > i.getCount())
 				playerIU.addModifiedItem(item);
 			else
 				playerIU.addNewItem(item);
 
 			// Send Char Buy Messages
-			SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
+			SystemMessage sm = null;
+			sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
 			sm.addItemName(item);
-			sm.addItemNumber(count);
-			sendPacket(sm);
-			sm = null;
+			sm.addItemNumber(i.getCount());
+			player.sendPacket(sm);
 		}
+
 		// Send update packets
 		sendPacket(playerIU);
 
@@ -198,5 +195,57 @@ public class RequestBuySeed extends L2GameClientPacket
 	public String getType()
 	{
 		return _C__C4_REQUESTBUYSEED;
+	}
+
+	private class Seed
+	{
+		private final int _seedId;
+		private final long _count;
+		SeedProduction _seed;
+
+		public Seed(int id, long num)
+		{
+			_seedId = id;
+			_count = num;
+		}
+
+		public int getSeedId()
+		{
+			return _seedId;
+		}
+
+		public long getCount()
+		{
+			return _count;
+		}
+
+		public long getPrice()
+		{
+			return _seed.getPrice() * _count;
+		}
+
+		public boolean setProduction(Castle c)
+		{
+			_seed = c.getSeed(_seedId, CastleManorManager.PERIOD_CURRENT);
+			// invalid price - seed disabled
+			if (_seed.getPrice() <= 0)
+				return false;
+			// try to buy more than castle can produce 
+			if (_seed.getCanProduce() < _count)
+				return false;
+			// check for overflow
+			if ((MAX_ADENA / _count) < _seed.getPrice())
+				return false;
+
+			return true;
+		}
+
+		public void updateProduction(Castle c)
+		{
+			_seed.setCanProduce(_seed.getCanProduce() - _count);
+			// Update Castle Seeds Amount
+			if (Config.ALT_MANOR_SAVE_ALL_ACTIONS)
+				c.updateSeed(_seedId, _seed.getCanProduce(), CastleManorManager.PERIOD_CURRENT);
+		}
 	}
 }

@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import java.util.List;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
@@ -41,13 +43,13 @@ public class ExShowSellCropList extends L2GameServerPacket
 	private FastMap<Integer, L2ItemInstance>	_cropsItems;
 	private FastMap<Integer, CropProcure>		_castleCrops;
 
-	public ExShowSellCropList(L2PcInstance player, int manorId, FastList<CropProcure> crops)
+	public ExShowSellCropList(L2PcInstance player, int manorId, List<CropProcure> crops)
 	{
 		_manorId = manorId;
 		_castleCrops = new FastMap<Integer, CropProcure>();
 		_cropsItems = new FastMap<Integer, L2ItemInstance>();
 
-		FastList<Integer> allCrops = L2Manor.getInstance().getAllCrops();
+		List<Integer> allCrops = L2Manor.getInstance().getAllCrops();
 		for (int cropId : allCrops)
 		{
 			L2ItemInstance item = player.getInventory().getItemByItemId(cropId);

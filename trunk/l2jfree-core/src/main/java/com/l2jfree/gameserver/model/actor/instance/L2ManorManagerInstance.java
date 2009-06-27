@@ -14,9 +14,8 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
+import java.util.List;
 import java.util.StringTokenizer;
-
-import javolution.util.FastList;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -140,7 +139,7 @@ public class L2ManorManagerInstance extends L2MerchantInstance
 				else
 				{
 					L2TradeList tradeList = new L2TradeList(0);
-					FastList<SeedProduction> seeds = getCastle().getSeedProduction(CastleManorManager.PERIOD_CURRENT);
+					List<SeedProduction> seeds = getCastle().getSeedProduction(CastleManorManager.PERIOD_CURRENT);
 	
 					for (SeedProduction s : seeds) {
 						L2ItemInstance item = ItemTable.getInstance().createDummyItem(s.getId());

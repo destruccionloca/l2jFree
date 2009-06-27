@@ -5405,6 +5405,20 @@ public abstract class L2Character extends L2Object
 						}
 					}
 
+					// Absorb MP from the damage inflicted
+					absorbPercent = getStat().calcStat(Stats.ABSORB_MANA_DAMAGE_PERCENT, 0, null, null);
+					if (absorbPercent > 0)
+					{
+						int maxCanAbsorb = (int) (getMaxMp() - getCurrentMp());
+						int absorbDamage = (int) (absorbPercent / 100. * damage);
+						
+						if (absorbDamage > maxCanAbsorb)
+							absorbDamage = maxCanAbsorb; // Can't absord more than max hp
+							
+						if (absorbDamage > 0)
+							getStatus().increaseMp(absorbDamage);
+					}
+
 					/*
 					// Absorb CP from the damage inflicted
 					double absorbCPPercent = getStat().calcStat(Stats.ABSORB_CP_PERCENT, 0, null, null);

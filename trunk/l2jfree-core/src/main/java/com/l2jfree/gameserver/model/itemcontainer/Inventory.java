@@ -670,29 +670,32 @@ public abstract class Inventory extends ItemContainer
 		if (item == null)
 			return null;
 
-		// Adjust item quantity and create new instance to drop
-		if (item.getCount() > count)
+		synchronized (item)
 		{
-			// If we do a partial drop we have to log it here
-			if (actor.isGM())
+			// Adjust item quantity and create new instance to drop
+			if (item.getCount() > count)
 			{
-				// DaDummy: this way we log _every_ gmdrop with all related info
-				String command = process;
-				String params = "(" + String.valueOf(actor.getX()) + "," + String.valueOf(actor.getY()) + "," + String.valueOf(actor.getZ()) + ") - " + String.valueOf(count) + " - " + String.valueOf(item.getEnchantLevel()) + " - "
-						+ String.valueOf(item.getItemId()) + " - " + item.getItemName() + " - " + String.valueOf(item.getObjectId());
+				// If we do a partial drop we have to log it here
+				if (actor.isGM())
+				{
+					// DaDummy: this way we log _every_ gmdrop with all related info
+					String command = process;
+					String params = "(" + String.valueOf(actor.getX()) + "," + String.valueOf(actor.getY()) + "," + String.valueOf(actor.getZ()) + ") - " + String.valueOf(count) + " - " + String.valueOf(item.getEnchantLevel()) + " - "
+							+ String.valueOf(item.getItemId()) + " - " + item.getItemName() + " - " + String.valueOf(item.getObjectId());
 
-				GMAudit.auditGMAction(actor, "dropitem", command, params);
+					GMAudit.auditGMAction(actor, "dropitem", command, params);
+				}
+
+				item.changeCount(process, -count, actor, reference);
+				item.setLastChange(L2ItemInstance.MODIFIED);
+				item.updateDatabase();
+
+				item = ItemTable.getInstance().createItem(process, item.getItemId(), count, actor, reference);
+
+				item.updateDatabase();
+				refreshWeight();
+				return item;
 			}
-
-			item.changeCount(process, -count, actor, reference);
-			item.setLastChange(L2ItemInstance.MODIFIED);
-			item.updateDatabase();
-
-			item = ItemTable.getInstance().createItem(process, item.getItemId(), count, actor, reference);
-
-			item.updateDatabase();
-			refreshWeight();
-			return item;
 		}
 
 		// Directly drop entire item

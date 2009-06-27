@@ -2548,7 +2548,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 									// Siege battlefield resurrect has been made possible for participants
 									if (getSkillType() == L2SkillType.RESURRECT)
 									{
-										if (newTarget.isInsideZone(L2Zone.FLAG_SIEGE) && newTarget.getSiegeState() == 0)
+										if (newTarget.isInsideZone(L2Zone.FLAG_SIEGE) && !newTarget.isInSiege())
 											continue;
 									}
 								}

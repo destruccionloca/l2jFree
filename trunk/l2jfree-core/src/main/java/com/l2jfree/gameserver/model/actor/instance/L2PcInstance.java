@@ -6089,12 +6089,7 @@ public final class L2PcInstance extends L2Playable
 		}
 		else if (isMounted())
 		{
-			if (isInCombat())
-			{
-				sendPacket(ActionFailed.STATIC_PACKET);
-				return false;
-			}
-			else if (getMountType() == 2 && isInsideZone(L2Zone.FLAG_NOWYVERN))
+			if (getMountType() == 2 && isInsideZone(L2Zone.FLAG_NOWYVERN))
 			{
 				sendPacket(ActionFailed.STATIC_PACKET);
 				sendPacket(new SystemMessage(SystemMessageId.NO_DISMOUNT_HERE));

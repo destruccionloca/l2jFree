@@ -53,12 +53,11 @@ public class L2SkillCreateItem extends L2Skill
 		if (activeChar.isAlikeDead())
 			return;
 		
-		L2PcInstance player = (L2PcInstance) activeChar;
 		if (activeChar instanceof L2PcInstance)
 		{
 			int count = _createItemCount + Rnd.nextInt(_randomCount);
 			int rndid = Rnd.nextInt(_createItemId.length);
-			giveItems(player, _createItemId[rndid], count);
+			giveItems((L2PcInstance) activeChar, _createItemId[rndid], count);
 		}
 	}
 

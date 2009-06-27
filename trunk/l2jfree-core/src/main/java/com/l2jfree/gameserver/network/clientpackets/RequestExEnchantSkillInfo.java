@@ -176,9 +176,12 @@ public final class RequestExEnchantSkillInfo extends L2GameClientPacket
 					if (i != currentType)
 					{
 						route = routes[i];
-						EnchantSkillDetail esd = route.get(L2EnchantSkillLearn.getEnchantIndex(_skillLvl));
-						if (esd != null)
-							asi.addEnchantSkillDetail(activeChar, esd);
+						if (route != null)
+						{
+							EnchantSkillDetail esd = route.get(L2EnchantSkillLearn.getEnchantIndex(_skillLvl));
+							if (esd != null)
+								asi.addEnchantSkillDetail(activeChar, esd);
+						}
 					}
 				}
 
