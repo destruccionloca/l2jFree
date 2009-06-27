@@ -28,7 +28,7 @@ CREATE TABLE `weapon` (
   `dropable` VARCHAR(5) NOT NULL DEFAULT 'false',
   `destroyable` VARCHAR(5) NOT NULL DEFAULT 'true',
   `tradeable` VARCHAR(5) NOT NULL DEFAULT 'false',
-  `skills_enchant4` VARCHAR(70) NOT NULL DEFAULT '',
+  `enchant4_skill` VARCHAR(70) NOT NULL DEFAULT '',
   `skills_onCast` VARCHAR(70) NOT NULL DEFAULT '',
   `skills_onCrit` VARCHAR(70) NOT NULL DEFAULT '',
   `change_weaponId` MEDIUMINT(5) NOT NULL DEFAULT 0,
