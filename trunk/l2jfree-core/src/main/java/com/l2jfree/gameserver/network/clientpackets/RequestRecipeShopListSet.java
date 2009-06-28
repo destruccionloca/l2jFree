@@ -14,16 +14,15 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import static com.l2jfree.gameserver.model.itemcontainer.PcInventory.MAX_ADENA;
+
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.model.L2ManufactureItem;
 import com.l2jfree.gameserver.model.L2ManufactureList;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.RecipeShopMsg;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.util.Util;
-
-import static com.l2jfree.gameserver.model.itemcontainer.PcInventory.MAX_ADENA;
 
 /**
  * This class ... cd(dd)
@@ -112,12 +111,12 @@ public class RequestRecipeShopListSet extends L2GameClientPacket
 
 	private class Recipe
 	{
-		private final int _recipeId;
+		//private final int _recipeId;
 		private final long _cost;
 		
 		public Recipe(int id, long c)
 		{
-			_recipeId = id;
+			//_recipeId = id;
 			_cost = c;
 		}
 

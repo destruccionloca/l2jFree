@@ -184,7 +184,7 @@ public abstract class L2Item implements FuncOwner
 		_type = type;
 		_itemId = set.getInteger("item_id");
 		_itemDisplayId = set.getInteger("item_display_id");
-		_name = set.getString("name");
+		_name = set.getString("name").intern();
 		_type1 = set.getInteger("type1"); // needed for item list (inventory)
 		_type2 = set.getInteger("type2"); // different lists for armor, weapon, etc
 		_weight = set.getInteger("weight");

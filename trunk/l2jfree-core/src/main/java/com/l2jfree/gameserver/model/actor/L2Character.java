@@ -311,14 +311,14 @@ public abstract class L2Character extends L2Object
 		{
 			case L2Zone.FLAG_PVP:
 			{
-				if (InstanceManager.getInstance().getInstance(this.getInstanceId()).isPvPInstance())
+				if (InstanceManager.getInstance().getInstance(getInstanceId()).isPvPInstance())
 					return true;
 				if (isInsideZone(L2Zone.FLAG_PEACE))
 					return false;
 			}
 			case L2Zone.FLAG_PEACE:
 			{
-				if (InstanceManager.getInstance().getInstance(this.getInstanceId()).isPvPInstance())
+				if (InstanceManager.getInstance().getInstance(getInstanceId()).isPvPInstance())
 					return false;
 			}
 		}
@@ -7035,7 +7035,7 @@ public abstract class L2Character extends L2Object
 		return getStat().getAttackElement();
 	}
 
-	public int getDefenseElementValue(byte defenseAttribute)
+	public final int getDefenseElementValue(byte defenseAttribute)
 	{
 		return getStat().getDefenseElementValue(defenseAttribute);
 	}

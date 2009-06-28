@@ -14,6 +14,9 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import static com.l2jfree.gameserver.model.actor.L2Npc.INTERACTION_DISTANCE;
+import static com.l2jfree.gameserver.model.itemcontainer.PcInventory.MAX_ADENA;
+
 import java.util.List;
 
 import com.l2jfree.Config;
@@ -39,9 +42,6 @@ import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.gameserver.util.Util;
-
-import static com.l2jfree.gameserver.model.actor.L2Npc.INTERACTION_DISTANCE;
-import static com.l2jfree.gameserver.model.itemcontainer.PcInventory.MAX_ADENA;
 
 /**
  * This class represents a packet sent by the client when the player confirms his item
@@ -147,6 +147,7 @@ public class RequestBuyItem extends L2GameClientPacket
 				npcId = ((L2MerchantInstance)merchant).getTemplate().getNpcId();
 
 			List<L2TradeList> lists = TradeListTable.getInstance().getBuyListByNpcId(npcId);
+			/*
 			if (lists == null)
 			{
 				sendPacket(ActionFailed.STATIC_PACKET);
@@ -154,6 +155,7 @@ public class RequestBuyItem extends L2GameClientPacket
 						+ " sent a false BuyList list_id.", Config.DEFAULT_PUNISH);
 				return;
 			}
+			*/
 
 			if (!player.isGM())
 			{
