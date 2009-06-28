@@ -70,9 +70,9 @@ public class ExtractableItems implements IItemHandler
 				{
 					createItemID[i] = expi.getId()[i];
 
-					if ((itemID >= 6411 && itemID <= 6518) || (itemID >= 7726 && itemID <= 7860) || (itemID >= 8403 && itemID <= 8483)) 
-						createAmount[i] = (int)(expi.getAmmount()[i] * Config.RATE_EXTR_FISH);
-					else 
+					if ((itemID >= 6411 && itemID <= 6518) || (itemID >= 7726 && itemID <= 7860) || (itemID >= 8403 && itemID <= 8483))
+						createAmount[i] = expi.getAmmount()[i] * Config.RATE_EXTR_FISH;
+					else
 						createAmount[i] = expi.getAmmount()[i];
 				}
 				break;

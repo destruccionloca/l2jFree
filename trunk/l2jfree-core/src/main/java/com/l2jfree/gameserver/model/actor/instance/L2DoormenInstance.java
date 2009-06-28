@@ -249,7 +249,6 @@ public class L2DoormenInstance extends L2NpcInstance
 
 		// Prepare doormen for clan hall
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-		String str;
 		if (getClanHall() != null)
 		{
 			L2Clan owner = ClanTable.getInstance().getClan(getClanHall().getOwnerId());
