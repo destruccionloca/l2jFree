@@ -41,6 +41,7 @@ import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.datatables.EventDroplist;
 import com.l2jfree.gameserver.datatables.ExtractableItemsData;
+import com.l2jfree.gameserver.datatables.ExtractableSkillsData;
 import com.l2jfree.gameserver.datatables.FishTable;
 import com.l2jfree.gameserver.datatables.ForgottenScrollTable;
 import com.l2jfree.gameserver.datatables.GmListTable;
@@ -252,6 +253,7 @@ public class GameServer
 		SkillSpellbookTable.getInstance();
 		SummonItemsData.getInstance();
 		ExtractableItemsData.getInstance();
+		ExtractableSkillsData.getInstance();
 		if (Config.ALLOW_FISHING)
 		{
 			FishTable.getInstance();

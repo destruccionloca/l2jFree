@@ -18,11 +18,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.datatables.ExtractableItemsData;
+import com.l2jfree.gameserver.datatables.ExtractableSkillsData;
 import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.handler.ISkillHandler;
-import com.l2jfree.gameserver.items.model.L2ExtractableItem;
 import com.l2jfree.gameserver.items.model.L2ExtractableProductItem;
+import com.l2jfree.gameserver.items.model.L2ExtractableSkill;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -54,7 +54,7 @@ public class Extractable implements ISkillHandler
 		if (itemID == 0)
 			return;
 
-		L2ExtractableItem exitem = ExtractableItemsData.getInstance().getExtractableItem(itemID);
+		L2ExtractableSkill exitem = ExtractableSkillsData.getInstance().getExtractableItem(skill);
 
 		if (exitem == null)
 			return;

@@ -16,25 +16,21 @@ package com.l2jfree.gameserver.items.model;
 
 import java.util.List;
 
-/**
- *
- * @author -Nemesiss-
- */
-public class L2ExtractableItem
+public class L2ExtractableSkill
 {
-	private final int _itemId;
+	private final int _hash;
 	private final L2ExtractableProductItem[] _products;
 
-	public L2ExtractableItem(int itemid, List<L2ExtractableProductItem> products)
+	public L2ExtractableSkill(int hash, List<L2ExtractableProductItem> products)
 	{
-		_itemId = itemid;
+		_hash = hash;
 		_products = new L2ExtractableProductItem[products.size()];
 		products.toArray(_products);
 	}
 
-	public int getItemId()
+	public int getSkillHash()
 	{
-		return _itemId;
+		return _hash;
 	}
 
 	public L2ExtractableProductItem[] getProductItemsArray()

@@ -14,14 +14,21 @@
  */
 package com.l2jfree.gameserver.handler.itemhandlers;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.ExtractableItemsData;
+import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.items.model.L2ExtractableItem;
 import com.l2jfree.gameserver.items.model.L2ExtractableProductItem;
 import com.l2jfree.gameserver.model.L2ItemInstance;
-import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.tools.random.Rnd;
 
 /**
  *
@@ -31,6 +38,8 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class ExtractableItems implements IItemHandler
 {
+	protected static Log	_log						= LogFactory.getLog(ExtractableItems.class.getName());
+	
 	public void useItem(L2Playable playable, L2ItemInstance item)
 	{
 		if (!(playable instanceof L2PcInstance))
@@ -39,16 +48,85 @@ public class ExtractableItems implements IItemHandler
 		L2PcInstance activeChar = (L2PcInstance) playable;
 
 		int itemID = item.getItemId();
-		L2Skill skill = null;
 		L2ExtractableItem exitem = ExtractableItemsData.getInstance().getExtractableItem(itemID);
 
+		if (exitem == null)
+			return;
+
+		int rndNum = Rnd.get(100), chanceFrom = 0;
+		int[] createItemID = new int[20];
+		int[] createAmount = new int[20];
+
+		// calculate extraction
 		for (L2ExtractableProductItem expi : exitem.getProductItemsArray())
 		{
-			skill = expi.getSkill();
-			if (skill != null)
-				activeChar.useMagic(skill,false,false);
+			int chance = expi.getChance();
+			
+			if (rndNum >= chanceFrom && rndNum <= chance + chanceFrom)
+			{
+				createItemID = expi.getId();
+
+				for (int i = 0; i < expi.getId().length; i++)
+				{
+					createItemID[i] = expi.getId()[i];
+
+					if ((itemID >= 6411 && itemID <= 6518) || (itemID >= 7726 && itemID <= 7860) || (itemID >= 8403 && itemID <= 8483)) 
+						createAmount[i] = (int)(expi.getAmmount()[i] * Config.RATE_EXTR_FISH);
+					else 
+						createAmount[i] = expi.getAmmount()[i];
+				}
+				break;
+			}
+			
+			chanceFrom += chance;
+		}
+		
+		if (createItemID[0] <= 0 || createItemID.length == 0 )
+		{
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.NOTHING_INSIDE_THAT));
 			return;
 		}
+		
+		else
+		{
+			for (int i = 0; i < createItemID.length; i++)
+			{
+				if (createItemID[i] <= 0)
+					return;
+
+				if (ItemTable.getInstance().createDummyItem(createItemID[i]) == null)
+				{
+					_log.warn("createItemID " + createItemID[i] + " doesn't have template!");
+					activeChar.sendPacket(new SystemMessage(SystemMessageId.NOTHING_INSIDE_THAT));
+					return;
+				}
+
+				if (ItemTable.getInstance().createDummyItem(createItemID[i]).isStackable())
+				{
+					activeChar.addItem("Extract", createItemID[i], createAmount[i], activeChar, false);
+				}
+				else
+				{
+					for (int j = 0; j < createAmount[i]; j++)
+						activeChar.addItem("Extract", createItemID[i], 1, activeChar, false);
+				}
+				if (createItemID[i] == 57)
+				{
+					SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S1_ADENA);
+					sm.addNumber(createAmount[i]);
+					activeChar.sendPacket(sm);
+				}
+				else
+				{
+					SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
+					sm.addItemName(createItemID[i]);
+					if (createAmount[i] > 1)
+						sm.addNumber(createAmount[i]);
+					activeChar.sendPacket(sm);
+				}
+			}
+		}
+		activeChar.destroyItemByItemId("Extract", itemID, 1, activeChar.getTarget(), true);
 	}
 
 	public int[] getItemIds()

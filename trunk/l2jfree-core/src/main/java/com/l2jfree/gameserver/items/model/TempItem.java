@@ -23,69 +23,69 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
  */
 public class TempItem
 {
-    // 	No object id stored, this will be only "list" of items with it's owner
-    private int _itemId;
-    private int _quantity;
-    private int _ownerId;
-    private int _referencePrice;
-    private String _itemName;
+	// 	No object id stored, this will be only "list" of items with it's owner
+	private int _itemId;
+	private int _quantity;
+	private int _ownerId;
+	private int _referencePrice;
+	private String _itemName;
 
-    /**
-     * @param item
-     * @param quantity of that item
-     */
-    public TempItem(L2ItemInstance item, int quantity)
-    {
-        super();
-        _itemId = item.getItemId();
-        _quantity = quantity;
-        _ownerId = item.getOwnerId();
-        _itemName = item.getItem().getName();
-        _referencePrice = item.getReferencePrice();
-    }
+	/**
+	 * @param item
+	 * @param quantity of that item
+	 */
+	public TempItem(L2ItemInstance item, int quantity)
+	{
+		super();
+		_itemId = item.getItemId();
+		_quantity = quantity;
+		_ownerId = item.getOwnerId();
+		_itemName = item.getItem().getName();
+		_referencePrice = item.getReferencePrice();
+	}
 
-    /**
-     * @return Returns the quantity.
-     */
-    public int getQuantity()
-    {
-        return _quantity;
-    }
+	/**
+	 * @return Returns the quantity.
+	 */
+	public int getQuantity()
+	{
+		return _quantity;
+	}
 
-    /**
-     * @param quantity The quantity to set.
-     */
-    public void setQuantity(int quantity)
-    {
-        _quantity = quantity;
-    }
+	/**
+	 * @param quantity The quantity to set.
+	 */
+	public void setQuantity(int quantity)
+	{
+		_quantity = quantity;
+	}
 
-    public int getReferencePrice()
-    {
-        return _referencePrice;
-    }
+	public int getReferencePrice()
+	{
+		return _referencePrice;
+	}
 
-    /**
-     * @return Returns the itemId.
-     */
-    public int getItemId()
-    {
-        return _itemId;
-    }
+	/**
+	 * @return Returns the itemId.
+	 */
+	public int getItemId()
+	{
+		return _itemId;
+	}
 
-    /**
-     * @return Returns the ownerId.
-     */
-    public int getOwnerId()
-    {
-        return _ownerId;
-    }
+	/**
+	 * @return Returns the ownerId.
+	 */
+	public int getOwnerId()
+	{
+		return _ownerId;
+	}
 
-    /**
-     * @return Returns the itemName.
-     */
-    public String getItemName()
-    {
-        return _itemName;
-    }
+	/**
+	 * @return Returns the itemName.
+	 */
+	public String getItemName()
+	{
+		return _itemName;
+	}
 }

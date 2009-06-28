@@ -24,25 +24,26 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.items.model.L2ExtractableItem;
+import com.l2jfree.gameserver.items.model.L2ExtractableSkill;
 import com.l2jfree.gameserver.items.model.L2ExtractableProductItem;
+import com.l2jfree.gameserver.model.L2Skill;
 
 /**
  * @author FBIagent
  */
-public class ExtractableItemsData
+public class ExtractableSkillsData
 {
-	private final static Log					_log		= LogFactory.getLog(ExtractableItemsData.class.getName());
+	private final static Log					_log		= LogFactory.getLog(ExtractableSkillsData.class.getName());
 
-	//          Map<itemid, L2ExtractableItem>
-	private FastMap<Integer, L2ExtractableItem>	_items  = new FastMap<Integer, L2ExtractableItem>();
+	//          Map<itemid, L2ExtractableSkill>
+	private FastMap<Integer, L2ExtractableSkill>	_items  = new FastMap<Integer, L2ExtractableSkill>();
 
-	public static ExtractableItemsData getInstance()
+	public static ExtractableSkillsData getInstance()
 	{
 		return SingletonHolder._instance;
 	}
 
-	private ExtractableItemsData()
+	private ExtractableSkillsData()
 	{
 		_items.clear();
 
@@ -50,11 +51,11 @@ public class ExtractableItemsData
 
 		try
 		{
-			s = new Scanner(new File(Config.DATAPACK_ROOT, "data/extractable_items.csv"));
+			s = new Scanner(new File(Config.DATAPACK_ROOT, "data/extractable_skills.csv"));
 		}
 		catch (Exception e)
 		{
-			_log.warn("Extractable items data: Can not find '" + Config.DATAPACK_ROOT + "data/extractable_items.csv'");
+			_log.warn("Extractable items data: Can not find '" + Config.DATAPACK_ROOT + "data/extractable_skills.csv'");
 			return;
 		}
 
@@ -73,15 +74,25 @@ public class ExtractableItemsData
 
 			String[] lineSplit = line.split(";");
 			boolean ok = true;
-			int itemID = 0;
+			int skillID = 0;
+			int skillLevel = 0;
 
 			try
 			{
-				itemID = Integer.parseInt(lineSplit[0]);
+				skillID = Integer.parseInt(lineSplit[0]);
+				skillLevel = Integer.parseInt(lineSplit[1]);
 			}
 			catch (Exception e)
 			{
-				_log.warn("Extractable items data: Error in line " + lineCount + " -> invalid item id or wrong seperator after item id!");
+				_log.warn("Extractable skills data: Error in line " + lineCount + " -> invalid item id or wrong seperator after skill id!");
+				_log.warn("		" + line);
+				ok = false;
+			}
+
+			L2Skill skill = SkillTable.getInstance().getInfo(skillID, skillLevel);
+			if (skill == null)
+			{
+				_log.warn("Extractable skills data: Error in line " + lineCount + " -> skill is null!");
 				_log.warn("		" + line);
 				ok = false;
 			}
@@ -91,7 +102,7 @@ public class ExtractableItemsData
 
 			FastList<L2ExtractableProductItem> product_temp = new FastList<L2ExtractableProductItem>();
 
-			for (int i = 0; i < lineSplit.length -1 ; i++)
+			for (int i = 1; i < lineSplit.length -1 ; i++)
 			{
 				ok = true;
 
@@ -127,7 +138,7 @@ public class ExtractableItemsData
 				}
 				catch (Exception e)
 				{
-					_log.warn("Extractable items data: Error in line " + lineCount + " -> incomplete/invalid production data or wrong seperator!");
+					_log.warn("Extractable skills data: Error in line " + lineCount + " -> incomplete/invalid production data or wrong seperator!");
 					_log.warn("      " + line);
 					ok = false;
 				}
@@ -146,38 +157,27 @@ public class ExtractableItemsData
 
 			if (fullChances > 100)
 			{
-				_log.warn("Extractable items data: Error in line " + lineCount + " -> all chances together are more then 100!");
+				_log.warn("Extractable skills data: Error in line " + lineCount + " -> all chances together are more then 100!");
 				_log.warn("		" + line);
 				continue;
 			}
-			L2ExtractableItem product = new L2ExtractableItem(itemID, product_temp);
-			_items.put(itemID, product);
+			int hash = SkillTable.getSkillUID(skill);
+			L2ExtractableSkill product = new L2ExtractableSkill(hash, product_temp);
+			_items.put(hash, product);
 		}
 
 		s.close();
-		_log.info("Extractable items data: Loaded " + _items.size() + " extractable items!");
+		_log.info("Extractable items data: Loaded " + _items.size() + " extractable skills!");
 	}
 
-	public L2ExtractableItem getExtractableItem(int itemID)
+	public L2ExtractableSkill getExtractableItem(L2Skill skill)
 	{
-		return _items.get(itemID);
-	}
-
-	public int[] itemIDs()
-	{
-		int size = _items.size();
-		int[] result = new int[size];
-		int i = 0;
-		for (L2ExtractableItem ei : _items.values())
-		{
-			result[i++] = ei.getItemId();
-		}
-		return result;
+		return _items.get(SkillTable.getSkillUID(skill));
 	}
 
 	@SuppressWarnings("synthetic-access")
 	private static class SingletonHolder
 	{
-		protected static final ExtractableItemsData _instance = new ExtractableItemsData();
+		protected static final ExtractableSkillsData _instance = new ExtractableSkillsData();
 	}
 }
