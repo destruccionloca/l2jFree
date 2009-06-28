@@ -19,7 +19,6 @@ import java.lang.reflect.Constructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.conditions.Condition;
 
@@ -31,17 +30,14 @@ public final class FuncTemplate
 	private final static Log _log = LogFactory.getLog(FuncTemplate.class);
 	
 	private final Constructor<?> _constructor;
-	private final Condition _attachCond;
 	
 	public final Stats stat;
 	public final int order;
 	public final double lambda;
 	public final Condition applayCond;
 	
-	public FuncTemplate(Condition pAttachCond, Condition pApplayCond, String pFunc, Stats pStat, int pOrder, double pLambda)
+	public FuncTemplate(Condition pApplayCond, String pFunc, Stats pStat, int pOrder, double pLambda)
 	{
-		_attachCond = pAttachCond;
-		
 		Class<?> clazz;
 		try
 		{
@@ -145,12 +141,11 @@ public final class FuncTemplate
 			+ "\" stat=\"" + pStat.getValue() + "\" val=\"" + pLambda + "\"/>");
 	}
 	
-	public Func getFunc(Env env, FuncOwner funcOwner)
+	public Func getFunc(FuncOwner funcOwner)
 	{
 		try
 		{
-			if (_attachCond == null || _attachCond.test(env))
-				return (Func)_constructor.newInstance(stat, order, funcOwner, lambda, applayCond);
+			return (Func)_constructor.newInstance(stat, order, funcOwner, lambda, applayCond);
 		}
 		catch (Exception e)
 		{

@@ -19,18 +19,16 @@ import junit.framework.TestCase;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.conditions.Condition;
-import com.l2jfree.gameserver.skills.conditions.ConditionLogicAnd;
 import com.l2jfree.gameserver.skills.conditions.ConditionLogicOr;
 
 public class TestFuncTemplate extends TestCase
 {
     public void testInstantiateGoodFunc ()
     {
-        Condition cla = new ConditionLogicAnd();
         Condition clo = new ConditionLogicOr();
         try
         {
-            new FuncTemplate(cla,clo,"Add",Stats.MAX_HP, 1, 2);
+            new FuncTemplate(clo,"Add",Stats.MAX_HP, 1, 2);
         }
         catch (RuntimeException e)
         {
@@ -40,11 +38,10 @@ public class TestFuncTemplate extends TestCase
     
     public void testInstantiateInexistantFunc ()
     {
-        Condition cla = new ConditionLogicAnd();
         Condition clo = new ConditionLogicOr();
         try
         {
-            new FuncTemplate(cla,clo,"FuncNotExistant",Stats.MAX_HP, 1, 2);
+            new FuncTemplate(clo,"FuncNotExistant",Stats.MAX_HP, 1, 2);
             fail ("Function should be not found");
         }
         catch (RuntimeException e)
@@ -56,14 +53,13 @@ public class TestFuncTemplate extends TestCase
     
     public void testExecuteFuncWithNoConditions ()
     {
-        Condition cla = null;
         Condition clo = null;
         try
         {
-            FuncTemplate fa = new FuncTemplate(cla,clo,"Add",Stats.MAX_HP, 1, 2);
+            FuncTemplate fa = new FuncTemplate(clo,"Add",Stats.MAX_HP, 1, 2);
             Env env = new Env();
             env.value=1;
-            Func f = fa.getFunc(env, null);
+            Func f = fa.getFunc(null);
             f.calc(env);
             assertEquals(3.0,env.value);
         }

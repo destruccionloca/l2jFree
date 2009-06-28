@@ -71,6 +71,7 @@ import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.lang.L2Integer;
 import com.l2jfree.lang.L2System;
+import com.l2jfree.util.L2Arrays;
 import com.l2jfree.util.LinkedBunch;
 
 public class L2Skill implements FuncOwner, IChanceSkillTrigger
@@ -3539,25 +3540,31 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		return targets[0];
 	}
 
+	private Func[] _statFuncs;
+	
 	public final Func[] getStatFuncs(L2Character player)
 	{
 		if (!(player instanceof L2Playable) && !(player instanceof L2Attackable))
 			return Func.EMPTY_ARRAY;
-		if (_funcTemplates == null)
-			return Func.EMPTY_ARRAY;
-		LinkedBunch<Func> funcs = new LinkedBunch<Func>();
-		for (FuncTemplate t : _funcTemplates)
+		
+		if (_statFuncs == null)
 		{
-			Env env = new Env();
-			env.player = player;
-			env.skill = this;
-			Func f = t.getFunc(env, this); // skill is owner
-			if (f != null)
-				funcs.add(f);
+			if (_funcTemplates == null)
+			{
+				_statFuncs = Func.EMPTY_ARRAY;
+			}
+			else
+			{
+				final Func[] funcs = new Func[_funcTemplates.length];
+				
+				for (int i = 0; i < _funcTemplates.length; i++)
+					funcs[i] = _funcTemplates[i].getFunc(this);
+				
+				_statFuncs = L2Arrays.compact(funcs);
+			}
 		}
-		if (funcs.size() == 0)
-			return Func.EMPTY_ARRAY;
-		return funcs.moveToArray(new Func[funcs.size()]);
+		
+		return _statFuncs;
 	}
 
 	public boolean hasEffects()

@@ -1929,7 +1929,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 
 			if (item instanceof L2Equip)
 			{
-				Func[] funcs = ((L2Equip) item).getStatFuncs(ItemTable.getInstance().createDummyItem(itemId), activeChar);
+				Func[] funcs = ItemTable.getInstance().createDummyItem(itemId).getStatFuncs();
 				if (funcs != null && funcs.length > 0)
 				{
 					message += "<br1><font color=\"00FF00\">Item Functions:</font>";

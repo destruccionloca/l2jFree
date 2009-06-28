@@ -25,7 +25,6 @@ import org.w3c.dom.Node;
 
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
-import com.l2jfree.gameserver.skills.conditions.Condition;
 import com.l2jfree.gameserver.templates.ValidatingStatsSet;
 import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
@@ -347,15 +346,15 @@ final class DocumentSkill extends DocumentBase
 	}
 	
 	@Override
-	void parseTemplateNode(Node n, Object template, Condition condition)
+	void parseTemplateNode(Node n, Object template)
 	{
 		if ("effect".equalsIgnoreCase(n.getNodeName()))
-			attachEffect(n, template, condition);
+			attachEffect(n, template);
 		else
-			super.parseTemplateNode(n, template, condition);
+			super.parseTemplateNode(n, template);
 	}
 	
-	final void attachEffect(Node n, Object template, Condition attachCond)
+	final void attachEffect(Node n, Object template)
 	{
 		if (!(template instanceof L2Skill))
 			throw new IllegalStateException("Attaching an effect to a non-L2Skill template");
@@ -517,7 +516,7 @@ final class DocumentSkill extends DocumentBase
 				throw new NoSuchElementException(name + " requires proper ChanceCondition parameters!");
 		}
 		
-		EffectTemplate effectTemplate = new EffectTemplate(attachCond, name, lambda, count, time, abnormal, stackType,
+		EffectTemplate effectTemplate = new EffectTemplate(name, lambda, count, time, abnormal, stackType,
 			stackOrder, showIcon, effectPower, effectType, trigSkill, chanceCond);
 		
 		parseTemplate(n, effectTemplate);

@@ -14,8 +14,6 @@
  */
 package com.l2jfree.gameserver.model;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
@@ -36,11 +34,10 @@ import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.effects.EffectCharmOfCourage;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.funcs.FuncOwner;
-import com.l2jfree.gameserver.skills.funcs.FuncTemplate;
 import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 import com.l2jfree.gameserver.threadmanager.FIFORunnableQueue;
-import com.l2jfree.util.L2Collections;
+import com.l2jfree.util.L2Arrays;
 
 public abstract class L2Effect implements FuncOwner, Runnable
 {
@@ -435,26 +432,28 @@ public abstract class L2Effect implements FuncOwner, Runnable
 		exit();
 	}
 	
-	public final List<Func> getStatFuncs()
+	private Func[] _statFuncs;
+	
+	public final Func[] getStatFuncs()
 	{
-		if (_template.funcTemplates == null)
-			return L2Collections.emptyList();
-		
-		List<Func> funcs = new ArrayList<Func>(_template.funcTemplates.length);
-		
-		for (FuncTemplate t : _template.funcTemplates)
+		if (_statFuncs == null)
 		{
-			Env env = new Env();
-			env.player = _effector;
-			env.target = _effected;
-			env.skill = _skill;
-			
-			Func f = t.getFunc(env, this);
-			if (f != null)
-				funcs.add(f);
+			if (_template.funcTemplates == null)
+			{
+				_statFuncs = Func.EMPTY_ARRAY;
+			}
+			else
+			{
+				final Func[] funcs = new Func[_template.funcTemplates.length];
+				
+				for (int i = 0; i < _template.funcTemplates.length; i++)
+					funcs[i] = _template.funcTemplates[i].getFunc(this);
+				
+				_statFuncs = L2Arrays.compact(funcs);
+			}
 		}
 		
-		return funcs;
+		return _statFuncs;
 	}
 	
 	public final void addPacket(EffectInfoPacketList list)

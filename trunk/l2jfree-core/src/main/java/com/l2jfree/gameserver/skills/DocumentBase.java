@@ -99,48 +99,37 @@ abstract class DocumentBase
 	{
 		n = n.getFirstChild();
 		
-		Condition condition = null;
-		// TODO: does it really required?
-		if (n != null)
-		{
-			if ("cond".equalsIgnoreCase(n.getNodeName()))
-			{
-				condition = parseConditionWithMessage(n, template);
-				n = n.getNextSibling();
-			}
-		}
-		
 		for (; n != null; n = n.getNextSibling())
 		{
-			parseTemplateNode(n, template, condition);
+			parseTemplateNode(n, template);
 		}
 	}
 	
-	void parseTemplateNode(Node n, Object template, Condition condition)
+	void parseTemplateNode(Node n, Object template)
 	{
 		if ("add".equalsIgnoreCase(n.getNodeName()))
-			attachFunc(n, template, "Add", condition);
+			attachFunc(n, template, "Add");
 		
 		else if ("sub".equalsIgnoreCase(n.getNodeName()))
-			attachFunc(n, template, "Sub", condition);
+			attachFunc(n, template, "Sub");
 		
 		else if ("mul".equalsIgnoreCase(n.getNodeName()))
-			attachFunc(n, template, "Mul", condition);
+			attachFunc(n, template, "Mul");
 		
 		else if ("basemul".equalsIgnoreCase(n.getNodeName()))
-			attachFunc(n, template, "BaseMul", condition);
+			attachFunc(n, template, "BaseMul");
 		
 		else if ("div".equalsIgnoreCase(n.getNodeName()))
-			attachFunc(n, template, "Div", condition);
+			attachFunc(n, template, "Div");
 		
 		else if ("set".equalsIgnoreCase(n.getNodeName()))
-			attachFunc(n, template, "Set", condition);
+			attachFunc(n, template, "Set");
 		
 		else if (n.getNodeType() == Node.ELEMENT_NODE)
 			throw new IllegalStateException("Invalid tag <" + n.getNodeName() + "> in template");
 	}
 	
-	final void attachFunc(Node n, Object template, String name, Condition attachCond)
+	final void attachFunc(Node n, Object template, String name)
 	{
 		final NamedNodeMap attrs = n.getAttributes();
 		
@@ -150,7 +139,7 @@ abstract class DocumentBase
 		
 		final Condition applayCond = parseConditionIfExists(n.getFirstChild(), template);
 		
-		final FuncTemplate ft = new FuncTemplate(attachCond, applayCond, name, stat, ord, lambda);
+		final FuncTemplate ft = new FuncTemplate(applayCond, name, stat, ord, lambda);
 		
 		if (template instanceof L2Equip)
 			((L2Equip)template).attach(ft);

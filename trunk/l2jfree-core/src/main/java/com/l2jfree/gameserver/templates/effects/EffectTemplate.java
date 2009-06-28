@@ -24,7 +24,6 @@ import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.skills.ChanceCondition;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.TriggeredSkill;
-import com.l2jfree.gameserver.skills.conditions.Condition;
 import com.l2jfree.gameserver.skills.funcs.FuncTemplate;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
@@ -37,7 +36,6 @@ public final class EffectTemplate
 	
 	private final Constructor<?> _constructor;
 	private final Constructor<?> _stolenConstructor;
-	private final Condition _attachCond;
 	
 	public final String name;
 	public final double lambda;
@@ -55,12 +53,10 @@ public final class EffectTemplate
 	
 	public FuncTemplate[] funcTemplates;
 	
-	public EffectTemplate(Condition pAttachCond, String pName, double pLambda, int pCount, int pPeriod,
+	public EffectTemplate(String pName, double pLambda, int pCount, int pPeriod,
 		int pAbnormalEffect, String pStackType, float pStackOrder, boolean pShowIcon, double ePower, L2SkillType eType,
 		TriggeredSkill trigSkill, ChanceCondition chanceCond)
 	{
-		_attachCond = pAttachCond;
-		
 		name = pName;
 		lambda = pLambda;
 		count = pCount;
@@ -100,8 +96,7 @@ public final class EffectTemplate
 	{
 		try
 		{
-			if (_attachCond == null || _attachCond.test(env))
-				return (L2Effect)_constructor.newInstance(env, this);
+			return (L2Effect)_constructor.newInstance(env, this);
 		}
 		catch (Exception e)
 		{

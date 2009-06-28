@@ -56,6 +56,7 @@ import com.l2jfree.gameserver.templates.item.L2EtcItem;
 import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
 import com.l2jfree.sql.SQLQuery;
+import com.l2jfree.util.L2Arrays;
 
 /**
  * This class manages items.
@@ -1239,11 +1240,35 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 	 *            L2Character designating the player
 	 * @return Func[]
 	 */
-	public Func[] getStatFuncs(L2Character player)
+	private Func[] _statFuncs;
+	
+	public Func[] getStatFuncs()
 	{
-		if (getItem() instanceof L2Equip)
-			return ((L2Equip)getItem()).getStatFuncs(this, player);
-		return L2Equip.EMPTY_FUNC_SET;
+		if (_statFuncs == null)
+		{
+			if (getItem() instanceof L2Equip)
+			{
+				final L2Equip equip = (L2Equip)getItem();
+				
+				if (equip.getFuncTemplates() == null)
+				{
+					_statFuncs = Func.EMPTY_ARRAY;
+				}
+				else
+				{
+					final Func[] funcs = new Func[equip.getFuncTemplates().length];
+					
+					for (int i = 0; i < equip.getFuncTemplates().length; i++)
+						funcs[i] = equip.getFuncTemplates()[i].getFunc(this);
+					
+					_statFuncs = L2Arrays.compact(funcs);
+				}
+			}
+			else
+				_statFuncs = Func.EMPTY_ARRAY;
+		}
+		
+		return _statFuncs;
 	}
 	
 	/**

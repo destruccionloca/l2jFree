@@ -284,7 +284,7 @@ public abstract class L2Character extends L2Object
 			if (_skills != null)
 			{
 				for (Map.Entry<Integer, L2Skill> skill : _skills.entrySet())
-					addStatFuncs(skill.getValue().getStatFuncs(this));
+					skillAdded(skill.getValue());
 			}
 		}
 		else
@@ -298,7 +298,7 @@ public abstract class L2Character extends L2Object
 				if (_skills != null)
 				{
 					for (Map.Entry<Integer, L2Skill> skill : _skills.entrySet())
-						addStatFuncs(skill.getValue().getStatFuncs(this));
+						skillAdded(skill.getValue());
 				}
 			}
 			else
@@ -4049,12 +4049,6 @@ public abstract class L2Character extends L2Object
 			addStatFunc(f);
 	}
 	
-	public final void addStatFuncs(Iterable<Func> funcs)
-	{
-		for (Func f : funcs)
-			addStatFunc(f);
-	}
-	
 	public final void removeStatsOwner(FuncOwner owner)
 	{
 		// Go through the Calculator set
@@ -5764,12 +5758,12 @@ public abstract class L2Character extends L2Object
 		return oldSkill;
 	}
 	
-	public L2Skill addSkill(int skillId, int skillLvl)
+	public final L2Skill addSkill(int skillId, int skillLvl)
 	{
 		return addSkill(SkillTable.getInstance().getInfo(skillId, skillLvl));
 	}
 	
-	public L2Skill addSkill(int skillId)
+	public final L2Skill addSkill(int skillId)
 	{
 		return addSkill(skillId, 1);
 	}
@@ -6989,7 +6983,7 @@ public abstract class L2Character extends L2Object
 		{
 			for (Map.Entry<Integer, L2Skill> skill : _skills.entrySet())
 			{
-				addStatFuncs(skill.getValue().getStatFuncs(this));
+				skillAdded(skill.getValue());
 			}
 		}
 		getStatus().setCurrentHpMp(getMaxHp(), getMaxMp());

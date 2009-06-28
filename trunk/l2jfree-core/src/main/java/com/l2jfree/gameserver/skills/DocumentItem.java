@@ -22,7 +22,6 @@ import java.util.Map;
 import org.w3c.dom.Node;
 
 import com.l2jfree.gameserver.items.model.Item;
-import com.l2jfree.gameserver.skills.conditions.Condition;
 import com.l2jfree.gameserver.templates.item.L2Armor;
 import com.l2jfree.gameserver.templates.item.L2ArmorType;
 import com.l2jfree.gameserver.templates.item.L2EtcItem;
@@ -111,11 +110,11 @@ final class DocumentItem extends DocumentBase
 	}
 	
 	@Override
-	void parseTemplateNode(Node n, Object template, Condition condition)
+	void parseTemplateNode(Node n, Object template)
 	{
 		if ("enchant".equalsIgnoreCase(n.getNodeName()))
-			attachFunc(n, template, "Enchant", condition);
+			attachFunc(n, template, "Enchant");
 		else
-			super.parseTemplateNode(n, template, condition);
+			super.parseTemplateNode(n, template);
 	}
 }

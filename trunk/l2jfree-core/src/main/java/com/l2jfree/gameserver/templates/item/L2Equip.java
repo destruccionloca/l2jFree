@@ -16,28 +16,20 @@ package com.l2jfree.gameserver.templates.item;
 
 import javolution.util.FastList;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.gameserver.datatables.SkillTable;
-import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.funcs.FuncTemplate;
 import com.l2jfree.gameserver.templates.StatsSet;
-import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 
 public abstract class L2Equip extends L2Item
 {
 	protected static final Log		_log				= LogFactory.getLog(L2Equip.class.getName());
 	private L2Skill[]				_itemSkills			= null;
 	private L2Skill[]				_enchant4Skills		= null; // skill that activates when item is enchanted +4 (for duals)
-
-	protected FuncTemplate[]		_funcTemplates		= null;
-	protected EffectTemplate[]		_effectTemplates	= null;
-
-	public static final Func[]		EMPTY_FUNC_SET		= new Func[0];
-	public static final L2Effect[]	EMPTY_EFFECT_SET	= new L2Effect[0];
 
 	// TODO: Replace by chance skills
 	public static class WeaponSkill
@@ -203,4 +195,20 @@ public abstract class L2Equip extends L2Item
 	}
 	
 	public abstract int getItemMask();
+	
+	private FuncTemplate[] _funcTemplates;
+	
+	public FuncTemplate[] getFuncTemplates()
+	{
+		return _funcTemplates;
+	}
+	
+	/**
+	 * Add the FuncTemplate f to the list of functions used with the item
+	 * @param f : FuncTemplate to add
+	 */
+	public void attach(FuncTemplate f)
+	{
+		_funcTemplates = (FuncTemplate[])ArrayUtils.add(_funcTemplates, f);
+	}
 }

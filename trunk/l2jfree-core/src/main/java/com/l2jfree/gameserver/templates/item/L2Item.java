@@ -19,20 +19,15 @@ import java.util.Arrays;
 import org.apache.commons.lang.ArrayUtils;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.conditions.Condition;
-import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.funcs.FuncOwner;
-import com.l2jfree.gameserver.skills.funcs.FuncTemplate;
 import com.l2jfree.gameserver.templates.StatsSet;
-import com.l2jfree.util.LinkedBunch;
 
 /**
  * This class contains all informations concerning the item (weapon, armor, etc).<BR>
@@ -157,7 +152,6 @@ public abstract class L2Item implements FuncOwner
 
 	protected final AbstractL2ItemType	_type;
 
-	private FuncTemplate[] _funcTemplates;
 	private Condition[] _preConditions = Condition.EMPTY_ARRAY;
 
 	/**
@@ -521,58 +515,6 @@ public abstract class L2Item implements FuncOwner
 	public boolean isForBabyPet()
 	{
 		return (_type2 == TYPE2_PET_BABY);
-	}
-
-	/**
-	 * Returns array of Func objects containing the list of functions used by the item
-	 * @param instance : L2ItemInstance pointing out the item
-	 * @param player : L2Character pointing out the player
-	 * @return Func[] : array of functions
-	 */
-	public Func[] getStatFuncs(L2ItemInstance instance, L2Character player)
-	{
-		if (_funcTemplates == null)
-			return Func.EMPTY_ARRAY;
-		
-		LinkedBunch<Func> funcs = new LinkedBunch<Func>();
-		for (FuncTemplate t : _funcTemplates)
-		{
-			Env env = new Env();
-			env.player = player;
-			env.target = player;
-			env.item = instance;
-			Func f = t.getFunc(env, instance);
-			if (f != null)
-				funcs.add(f);
-		}
-		
-		if (funcs.size() == 0)
-			return Func.EMPTY_ARRAY;
-		return funcs.moveToArray(new Func[funcs.size()]);
-	}
-
-	/**
-	 * Add the FuncTemplate f to the list of functions used with the item
-	 * @param f : FuncTemplate to add
-	 */
-	public void attach(FuncTemplate f)
-	{
-		// If _functTemplates is empty, create it and add the FuncTemplate f in it
-		if (_funcTemplates == null)
-		{
-			_funcTemplates = new FuncTemplate[]
-			{ f };
-		}
-		else
-		{
-			int len = _funcTemplates.length;
-			FuncTemplate[] tmp = new FuncTemplate[len + 1];
-			// Definition : arraycopy(array source, begins copy at this position of source, array destination, begins copy at this position in dest,
-			//						  number of components to be copied)
-			System.arraycopy(_funcTemplates, 0, tmp, 0, len);
-			tmp[len] = f;
-			_funcTemplates = tmp;
-		}
 	}
 
 	public final void attach(Condition c)

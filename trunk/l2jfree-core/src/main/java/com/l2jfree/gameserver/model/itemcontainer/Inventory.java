@@ -225,7 +225,7 @@ public abstract class Inventory extends ItemContainer
 		{
 			if (slot == PAPERDOLL_LRHAND)
 				return;
-			getOwner().addStatFuncs(item.getStatFuncs(getOwner()));
+			getOwner().addStatFuncs(item.getStatFuncs());
 		}
 	}
 
