@@ -641,7 +641,7 @@ public class L2PetInstance extends L2Summon
 		getOwner().removeReviving();
 		getOwner().sendPacket(SystemMessageId.YOUR_PETS_CORPSE_HAS_DECAYED);
 		super.deleteMe(owner);
-		destroyControlItem(owner); // This should also delete the pet from the db
+		destroyControlItem(owner, false); // This should also delete the pet from the db
 	}
 	
 	@Override
@@ -790,7 +790,7 @@ public class L2PetInstance extends L2Summon
 	 * 
 	 * @param owner The owner from whose invenory we should delete the item
 	 */
-	public void destroyControlItem(L2PcInstance owner)
+	public void destroyControlItem(L2PcInstance owner, boolean evolve)
 	{
 		// Remove the pet instance from world
 		L2World.getInstance().removePet(owner.getObjectId());
@@ -798,9 +798,16 @@ public class L2PetInstance extends L2Summon
 		// Delete from inventory
 		try
 		{
-			L2ItemInstance removedItem =
-				owner.getInventory().destroyItem("PetDestroy", getControlItemId(), 1, getOwner(), this);
-			owner.sendPacket(new SystemMessage(SystemMessageId.S1_DISAPPEARED).addItemName(removedItem));
+			L2ItemInstance removedItem;
+			if (evolve)
+			{
+				removedItem = owner.getInventory().destroyItem("Evolve", getControlItemId(), 1, getOwner(), this);
+			}
+			else
+			{
+				removedItem = owner.getInventory().destroyItem("PetDestroy", getControlItemId(), 1, getOwner(), this);
+				owner.sendPacket(new SystemMessage(SystemMessageId.S1_DISAPPEARED).addItemName(removedItem));
+			}
 			
 			InventoryUpdate iu = new InventoryUpdate();
 			iu.addRemovedItem(removedItem);

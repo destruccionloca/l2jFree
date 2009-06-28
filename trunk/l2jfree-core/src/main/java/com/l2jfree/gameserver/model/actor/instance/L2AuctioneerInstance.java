@@ -578,7 +578,8 @@ public final class L2AuctioneerInstance extends L2NpcInstance
 				return;
 			}
 		}
-		super.onBypassFeedback(player, command);
+		else
+			super.onBypassFeedback(player, command);
 	}
 
 	public void showMessageWindow(L2PcInstance player)

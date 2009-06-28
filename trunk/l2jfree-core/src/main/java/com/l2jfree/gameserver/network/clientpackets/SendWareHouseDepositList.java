@@ -160,7 +160,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 		}
 
 		// Check if enough adena and charge the fee
-		if (currentAdena < fee || !player.reduceAdena(warehouse.getName(), fee, player.getLastFolkNPC(), false))
+		if (currentAdena < fee || !player.reduceAdena(warehouse.getName(), fee, manager, false))
 		{
 			sendPacket(SystemMessageId.YOU_NOT_ENOUGH_ADENA);
 			return;

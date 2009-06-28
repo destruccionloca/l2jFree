@@ -137,8 +137,8 @@ public final class L2TeleporterInstance extends L2NpcInstance
 				return;
 			}
 		}
-
-		super.onBypassFeedback(player, command);
+		else
+			super.onBypassFeedback(player, command);
 	}
 
 	@Override

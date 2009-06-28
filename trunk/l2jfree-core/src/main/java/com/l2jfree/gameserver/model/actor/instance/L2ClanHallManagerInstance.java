@@ -1389,7 +1389,8 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
                 return;
             }
         }
-        super.onBypassFeedback(player, command);
+        else
+            super.onBypassFeedback(player, command);
     }
 
     /**

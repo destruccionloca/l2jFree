@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 import com.l2jfree.Config;
@@ -26,6 +27,7 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
+import com.l2jfree.gameserver.util.Evolve;
 
 /**
  * This class ...
@@ -41,6 +43,9 @@ public class L2DoormenInstance extends L2NpcInstance
 	private static final int	COND_HALL_OWNER				= 3;
 	private static final int	COND_FORT_OWNER				= 4;
 
+	// list of clan halls with evolve function, should be sorted
+	private static final int[] CH_WITH_EVOLVE = {36, 37, 38, 39, 40, 41, 51, 52, 53, 54, 55, 56, 57};
+
 	/**
 	 * @param template
 	 */
@@ -54,6 +59,14 @@ public class L2DoormenInstance extends L2NpcInstance
 		if (_clanHall == null)
 			_clanHall = ClanHallManager.getInstance().getNearbyClanHall(getX(), getY(), 500);
 		return _clanHall;
+	}
+
+	public final boolean hasEvolve()
+	{
+		if (getClanHall() == null)
+			return false;
+
+		return Arrays.binarySearch(CH_WITH_EVOLVE, getClanHall().getId()) >= 0;
 	}
 
 	@Override
@@ -149,9 +162,42 @@ public class L2DoormenInstance extends L2NpcInstance
 					return;
 				}
 			}
+			else if (command.startsWith("evolve"))
+			{
+				StringTokenizer st = new StringTokenizer(command, " ");
+				if (st.countTokens() < 2 || !hasEvolve())
+					return;
+				
+				st.nextToken();
+				boolean ok = false;
+				switch (Integer.parseInt(st.nextToken()))
+				{
+					case 1:
+						ok = Evolve.doEvolve(player, this, 9882, 10307, 55);
+						break;
+					case 2:
+						ok = Evolve.doEvolve(player, this, 4422, 10308, 55);
+						break;
+					case 3:
+						ok = Evolve.doEvolve(player, this, 4423, 10309, 55);
+						break;
+					case 4:
+						ok = Evolve.doEvolve(player, this, 4424, 10310, 55);
+						break;
+					case 5:
+						ok = Evolve.doEvolve(player, this, 10426, 10611, 70);
+						break;
+				}
+				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+				if (ok)
+					html.setFile("data/html/clanHallDoormen/evolve-ok.htm");
+				else
+					html.setFile("data/html/clanHallDoormen/evolve-no.htm");
+				player.sendPacket(html);
+			}
 		}
-
-		super.onBypassFeedback(player, command);
+		else
+			super.onBypassFeedback(player, command);
 	}
 
 	/**
@@ -206,28 +252,34 @@ public class L2DoormenInstance extends L2NpcInstance
 		String str;
 		if (getClanHall() != null)
 		{
+			L2Clan owner = ClanTable.getInstance().getClan(getClanHall().getOwnerId());
 			if (condition == COND_HALL_OWNER)
 			{
-				str = "<html><body>Greetings!<br><br><font color=\"00FFFF\">" + getClanHall().getOwnerClan().getName()
-						+ "</font>, I am honored to serve your clan.<br>How may i assist you?<br>";
-				str += "<center><br><button value=\"Open Door\" action=\"bypass -h npc_%objectId%_open_doors\" width=80 height=27 back=\"L2UI_CT1.Button_DF_Down\" fore=\"L2UI_CT1.Button_DF\"><br>";
-				str += "<button value=\"Close Door\" action=\"bypass -h npc_%objectId%_close_doors\" width=80 height=27 back=\"L2UI_CT1.Button_DF_Down\" fore=\"L2UI_CT1.Button_DF\"></center></body></html>";
+				if (hasEvolve())
+				{
+					html.setFile("data/html/clanHallDoormen/doormen2.htm");
+					html.replace("%clanname%", owner.getName());
+				}
+				else
+				{
+					html.setFile("data/html/clanHallDoormen/doormen1.htm");
+					html.replace("%clanname%", owner.getName());
+				}
 			}
 			else
 			{
-				L2Clan owner = ClanTable.getInstance().getClan(getClanHall().getOwnerId());
 				if (owner != null && owner.getLeader() != null)
 				{
-					str = "<html><body>Hello there!<br><font color=\"LEVEL\">" + getClanHall().getName() + "</font> clan hall is owned by <font color=\"55FFFF\">" + owner.getLeader().getName()
-							+ " who is the Lord of the ";
-					str += owner.getName() + "</font> clan.<br>";
-					str += "I am sorry, but only the clan members who belong to the " + owner.getName() + " clan can enter the clan hall.</body></html>";
+					html.setFile("data/html/clanHallDoormen/doormen-no.htm");
+					html.replace("%leadername%", owner.getLeaderName());
+					html.replace("%clanname%", owner.getName());
 				}
 				else
-					str = "<html><body>" + getName() + ":<br1>Clan hall <font color=\"LEVEL\">" + getClanHall().getName()
-							+ "</font> has no owner clan.<br>You can rent it at auctioneers.</body></html>";
+				{
+					html.setFile("data/html/clanHallDoormen/emptyowner.htm");
+					html.replace("%hallname%", getClanHall().getName());
+				}
 			}
-			html.setHtml(str);
 		}
 		else
 			html.setFile(filename);
@@ -236,8 +288,10 @@ public class L2DoormenInstance extends L2NpcInstance
 		player.sendPacket(html);
 	}
 
-	private boolean validatePrivileges(L2PcInstance player, int privilege) {
-		if ((player.getClanPrivileges() & privilege) != privilege) {
+	private boolean validatePrivileges(L2PcInstance player, int privilege)
+	{
+		if ((player.getClanPrivileges() & privilege) != privilege)
+		{
 			player.sendPacket(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
 			return false;
 		}

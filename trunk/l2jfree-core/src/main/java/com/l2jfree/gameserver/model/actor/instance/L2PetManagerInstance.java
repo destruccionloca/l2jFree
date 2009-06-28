@@ -15,21 +15,11 @@
 package com.l2jfree.gameserver.model.actor.instance;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
-import com.l2jfree.gameserver.datatables.NpcTable;
-import com.l2jfree.gameserver.datatables.SummonItemsData;
-import com.l2jfree.gameserver.model.L2ItemInstance;
-import com.l2jfree.gameserver.model.L2SummonItem;
-import com.l2jfree.gameserver.model.L2World;
-import com.l2jfree.gameserver.model.actor.L2Summon;
-import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.network.serverpackets.ItemList;
-import com.l2jfree.gameserver.network.serverpackets.MagicSkillLaunched;
-import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
+import com.l2jfree.gameserver.util.Evolve;
 
 /**
  * This class ...
@@ -76,7 +66,7 @@ public class L2PetManagerInstance extends L2MerchantInstance
 	{
 		String filename = "data/html/petmanager/" + getNpcId() + ".htm";
 
-		NpcHtmlMessage html = new NpcHtmlMessage(1);
+		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 		html.setFile(filename);
 		if (Config.ALLOW_RENTPET && Config.LIST_PET_RENT_NPC.contains(getNpcId()))
 			html.replace("_Quest", "_RentPet\">Rent Pet</a><br><a action=\"bypass -h npc_%objectId%_Quest");
@@ -122,52 +112,67 @@ public class L2PetManagerInstance extends L2MerchantInstance
 		{
 			String[] params = command.split(" ");
 			int val = Integer.parseInt(params[1]);
+			boolean ok = false;
 			switch (val)
 			{
 			// Info evolve(player, "curent pet summon item", "new pet summon item", "lvl required to evolve")
 			// To ignore evolve just put value 0 where do you like example: evolve(player, 0, 9882, 55);
 			case 1:
-				evolve(player, 2375, 9882, 55);
+				ok = Evolve.doEvolve(player, this, 2375, 9882, 55);
 				break;
 			case 2:
-				evolve(player, 9882, 10426, 70);
+				ok = Evolve.doEvolve(player, this, 9882, 10426, 70);
 				break;
 			case 3:
-				evolve(player, 6648, 10311, 55);
+				ok = Evolve.doEvolve(player, this, 6648, 10311, 55);
 				break;
 			case 4:
-				evolve(player, 6650, 10313, 55);
+				ok = Evolve.doEvolve(player, this, 6650, 10313, 55);
 				break;
 			case 5:
-				evolve(player, 6649, 10312, 55);
+				ok = Evolve.doEvolve(player, this, 6649, 10312, 55);
 				break;
+			}
+			if (!ok)
+			{
+				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+				html.setFile("data/html/petmanager/evolve_no.htm");
+				player.sendPacket(html);
 			}
 		}
 		else if (command.startsWith("restore"))
 		{
 			String[] params = command.split(" ");
 			int val = Integer.parseInt(params[1]);
+			boolean ok = false;
 			switch (val)
 			{
 			// Info evolve(player, "curent pet summon item", "new pet summon item", "lvl required to evolve")
 			case 1:
-				evolve(player, 9882, 2375, 55);
+				ok = Evolve.doEvolve(player, this, 9882, 2375, 55);
 				break;
 			case 2:
-				evolve(player, 10611, 10426, 55);
+				ok = Evolve.doEvolve(player, this, 10611, 10426, 55);
 				break;
 			case 3:
-				evolve(player, 0, 4422, 55);
+				ok = Evolve.doEvolve(player, this, 10308, 4422, 55);
 				break;
 			case 4:
-				evolve(player, 0, 4423, 55);
+				ok = Evolve.doEvolve(player, this, 10309, 4423, 55);
 				break;
 			case 5:
-				evolve(player, 0, 4424, 55);
+				ok = Evolve.doEvolve(player, this, 10310, 4424, 55);
 				break;
 			}
+			if (!ok)
+			{
+				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+				html.setFile("data/html/petmanager/evolve_no.htm");
+				player.sendPacket(html);
+			}
 		}
-		super.onBypassFeedback(player, command);
+		else
+			super.onBypassFeedback(player, command);
 	}
 
 	public final void exchange(L2PcInstance player, int itemIdtake, int itemIdgive)
@@ -183,139 +188,6 @@ public class L2PetManagerInstance extends L2MerchantInstance
 		{
 			html.setFile("data/html/petmanager/exchange_no.htm");
 			player.sendPacket(html);
-		}
-	}
-
-	public final void evolve(L2PcInstance player, int itemIdtake, int itemIdgive, int petminlvl)
-	{
-		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-		L2Summon curpet = player.getPet();
-
-		if ((curpet == null) || (itemIdtake == 0) || (itemIdgive == 0) || (petminlvl == 0) || curpet.isAlikeDead())
-		{
-			html.setFile("data/html/petmanager/evolve_no.htm");
-			player.sendPacket(html);
-			return;
-		}
-
-		L2ItemInstance item = null;
-		long petexp = curpet.getStat().getExp();
-		String oldname = curpet.getName();
-
-		L2SummonItem olditem = SummonItemsData.getInstance().getSummonItem(itemIdtake);
-
-		if (olditem == null)
-			return;
-
-		int oldnpcID = olditem.getNpcId();
-
-		if (curpet.getStat().getLevel() < petminlvl || curpet.getNpcId() != oldnpcID)
-		{
-			html.setFile("data/html/petmanager/evolve_no.htm");
-			player.sendPacket(html);
-			return;
-		}
-
-		item = player.getInventory().addItem("", itemIdgive, 1, player, null);
-		ItemList il = new ItemList(player, true);
-		player.sendPacket(il);
-
-		L2SummonItem sitem = SummonItemsData.getInstance().getSummonItem(item.getItemId());
-
-		int npcID = sitem.getNpcId();
-
-		if (npcID == 0)
-			return;
-
-		L2NpcTemplate npcTemplate = NpcTable.getInstance().getTemplate(npcID);
-
-		curpet.unSummon(player);
-
-		// Summoning new pet
-		L2PetInstance petSummon = L2PetInstance.spawnPet(npcTemplate, player, item);
-
-		if (petSummon == null)
-			return;
-
-		// If new pet ok, deleting old pet item
-		player.destroyItem("", curpet.getControlItemId(), 1, this, true);
-
-		petSummon.getStat().addExp(petexp);
-		petSummon.getStatus().setCurrentHp(petSummon.getMaxHp());
-		petSummon.getStatus().setCurrentMp(petSummon.getMaxMp());
-		petSummon.setCurrentFed(petSummon.getMaxFed());
-		petSummon.setTitle(player.getName());
-		petSummon.setName(oldname);
-		petSummon.setRunning();
-		petSummon.store();
-
-		player.setPet(petSummon);
-
-		player.sendPacket(new MagicSkillUse(this, 2046, 1, 1000, 600000));
-		player.sendPacket(SystemMessageId.SUMMON_A_PET);
-		L2World.getInstance().storeObject(petSummon);
-		petSummon.spawnMe(player.getX() + 50, player.getY() + 100, player.getZ());
-		petSummon.startFeed();
-		item.setEnchantLevel(petSummon.getLevel());
-
-		ThreadPoolManager.getInstance().scheduleGeneral(new EvolveFinalizer(player, petSummon), 900);
-
-		if (petSummon.getCurrentFed() <= 0)
-			ThreadPoolManager.getInstance().scheduleGeneral(new EvolveFeedWait(player, petSummon), 60000);
-		else
-			petSummon.startFeed();
-	}
-
-	static class EvolveFeedWait implements Runnable
-	{
-		private L2PcInstance	_activeChar;
-		private L2PetInstance	_petSummon;
-
-		EvolveFeedWait(L2PcInstance activeChar, L2PetInstance petSummon)
-		{
-			_activeChar = activeChar;
-			_petSummon = petSummon;
-		}
-
-		public void run()
-		{
-			try
-			{
-				if (_petSummon.getCurrentFed() <= 0)
-					_petSummon.unSummon(_activeChar);
-				else
-					_petSummon.startFeed();
-			}
-			catch (Exception e)
-			{
-				_log.error(e.getMessage(), e);
-			}
-		}
-	}
-
-	static class EvolveFinalizer implements Runnable
-	{
-		private L2PcInstance	_activeChar;
-		private L2PetInstance	_petSummon;
-
-		EvolveFinalizer(L2PcInstance activeChar, L2PetInstance petSummon)
-		{
-			_activeChar = activeChar;
-			_petSummon = petSummon;
-		}
-
-		public void run()
-		{
-			try
-			{
-				_activeChar.sendPacket(new MagicSkillLaunched(_activeChar, 2046, 1));
-				_petSummon.setFollowStatus(true);
-				_petSummon.setShowSummonAnimation(false);
-			}
-			catch (Exception e)
-			{
-				_log.error(e.getMessage(), e);
-			}
 		}
 	}
 }

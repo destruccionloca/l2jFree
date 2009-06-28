@@ -891,7 +891,8 @@ public class L2FortManagerInstance extends L2MerchantInstance
 				doTeleport(player, whereTo);
 				return;
 			}
-			super.onBypassFeedback(player, command);
+			else
+				super.onBypassFeedback(player, command);
 		}
 	}
 

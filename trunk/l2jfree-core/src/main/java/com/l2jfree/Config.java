@@ -2018,8 +2018,8 @@ public final class Config extends L2Config
 			GM_STARTUP_INVISIBLE = Boolean.parseBoolean(gmSettings.getProperty("GMStartupInvisible", "True"));
 			GM_STARTUP_SILENCE = Boolean.parseBoolean(gmSettings.getProperty("GMStartupSilence", "True"));
 			
-			GM_ITEM_RESTRICTION	= Boolean.parseBoolean(gmSettings.getProperty("GmItemRestriction", "True"));
-			GM_SKILL_RESTRICTION = Boolean.parseBoolean(gmSettings.getProperty("GmSkillRestriction", "True"));
+			GM_ITEM_RESTRICTION	= Boolean.parseBoolean(gmSettings.getProperty("GMItemRestriction", "True"));
+			GM_SKILL_RESTRICTION = Boolean.parseBoolean(gmSettings.getProperty("GMSkillRestriction", "True"));
 			GM_ALLOW_CHAT_INVISIBLE	= Boolean.parseBoolean(gmSettings.getProperty("GMChatInvisible", "False"));
 			
 		    GM_NAME_HAS_BRACELETS = Boolean.parseBoolean(gmSettings.getProperty("GmBracelets", "true"));

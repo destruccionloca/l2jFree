@@ -37,8 +37,8 @@ public class L2BlacksmithInstance extends L2NpcInstance
 			int listId = Integer.parseInt(command.substring(9).trim());
 			L2Multisell.getInstance().separateAndSend(listId, player, false, getCastle().getTaxRate());
 		}
-
-		super.onBypassFeedback(player,command);
+		else
+			super.onBypassFeedback(player,command);
 	}
 
 	@Override

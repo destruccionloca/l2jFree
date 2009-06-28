@@ -96,8 +96,8 @@ public final class L2MercManagerInstance extends L2MerchantInstance
                 return;
             }
         }
-
-        super.onBypassFeedback(player, command);
+        else
+            super.onBypassFeedback(player, command);
     }
 
     public void showMessageWindow(L2PcInstance player)

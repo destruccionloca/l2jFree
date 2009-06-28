@@ -58,7 +58,8 @@ public class L2DooropenInstance extends L2NpcInstance
             return;
 
         }
-        super.onBypassFeedback(player, command);
+        else
+            super.onBypassFeedback(player, command);
     }
 
 	/**
