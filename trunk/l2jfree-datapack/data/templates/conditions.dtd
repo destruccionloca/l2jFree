@@ -44,6 +44,8 @@
 <!ATTLIST player active_skill_id_lvl CDATA #IMPLIED>
 <!ATTLIST player agathionId CDATA #IMPLIED>
 <!ATTLIST player active_effect_id CDATA #IMPLIED>
+<!ATTLIST player class_id_restriction CDATA #IMPLIED>
+<!ATTLIST player isClanLeader (%boolean;) #IMPLIED>
 <!ELEMENT player EMPTY>
 
 <!ATTLIST target aggro (%boolean;) #IMPLIED>
@@ -54,6 +56,7 @@
 <!ATTLIST target active_skill_id CDATA #IMPLIED>
 <!ATTLIST target mindistance CDATA #IMPLIED>
 <!ATTLIST target race_id CDATA #IMPLIED>
+<!ATTLIST target race CDATA #IMPLIED>
 <!ATTLIST target undead (%boolean;) #IMPLIED>
 <!ATTLIST target using CDATA #IMPLIED>
 <!ATTLIST target npcId CDATA #IMPLIED>

@@ -1513,7 +1513,7 @@
   </skill>
   <skill id="794" levels="1" name="Mass Disarm" enchantLevels1="30">
     <table name="#enchantMagicLvl"> 79 79 79 79 79 80 80 80 80 80 81 81 81 81 82 82 82 82 82 83 83 83 83 84 84 84 84 85 85 85 </table>
-    <table name="#ench1Power"> 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 67 68 69 70 </table>>
+    <table name="#ench1Power"> 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 67 68 69 70 </table>
     <!-- Done by DJ MELERIX -->
     <set name="hitTime" val="1500"/>
     <set name="isDebuff" val="true"/>
