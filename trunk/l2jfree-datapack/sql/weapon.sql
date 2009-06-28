@@ -2874,7 +2874,7 @@ INSERT INTO `weapon` VALUES
 (13035,'Enhanced Sprite\'s Sword','lrhand','false',817,3,3,'fine_steel','d',127,10,'dual',8,0,0,0,0,325,0,82,-1,-1,0,0,'true','true','true','true','','','',0,'8237-1'),
 (13036,'Sword of Ice and Fire','lrhand','false',817,3,3,'fine_steel','d',147,10,'dual',8,0,0,0,0,325,0,92,-1,-1,0,0,'true','true','true','true','','','',0,''),
 (13042,'Ancient Legacy Sword','rhand','false',643,1,1,'fine_steel','a',259,10,'sword',8,0,0,0,0,325,0,143,-1,-1,0,0,'false','false','true','false','','','',0,'8250-1'),
-(13043,'Enhanced Ancient Legacy Sword','rhand','false',643,1,1,'fine_steel','a',279,10,'sword',8,0,0,0,0,325,0,153,-1,-1,0,0,'false','false','true','false','','','',0,'8250-2;8242-1'),
+(13043,'Enhanced Ancient Legacy Sword','rhand','false',643,1,1,'fine_steel','a',279,10,'sword',8,0,0,0,0,325,0,153,-1,-1,0,0,'false','false','true','false','','','',0,'8250-1;8242-1'),
 (13044,'Complete Ancient Legacy Sword','rhand','false',643,1,1,'fine_steel','a',299,10,'sword',8,0,0,0,0,325,0,163,-1,-1,0,0,'false','false','true','false','','','',0,'8250-2;8242-1;8243-1'),
 (13052,'Spear of Silenos','lrhand','false',607,1,1,'fine_steel','a',251,10,'pole',8,-3,0,0,0,325,0,161,-1,-1,0,0,'false','false','false','false','','','',0,'3599-1;8239-1;8240-1;8241-1'),
 (13053,'Enhanced Spear of Silenos','lrhand','false',607,1,1,'fine_steel','a',271,10,'pole',8,-3,0,0,0,325,0,171,-1,-1,0,0,'false','false','false','false','','','',0,'3599-1;8239-1;8240-2;8241-1'),
