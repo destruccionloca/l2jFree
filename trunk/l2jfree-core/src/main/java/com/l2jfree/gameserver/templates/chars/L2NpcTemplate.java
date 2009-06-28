@@ -51,9 +51,9 @@ import com.l2jfree.gameserver.templates.StatsSet;
  * <br/>
  * <br/>
  * <font color="red">
- * <b>Property don't change in the time, this is just a template, not the currents status 
+ * <b>Property don't change in the time, this is just a template, not the currents status
  * of characters !</b>
- * </font> 
+ * </font>
  * 
  * @version $Revision: 1.1.2.4 $ $Date: 2005/04/02 15:57:51 $
  */
@@ -105,7 +105,7 @@ public final class L2NpcTemplate extends L2CharTemplate
 	private List<ClassId>						_teachInfo;
 
 	/** List of skills of this npc */
-	private Map<Integer, L2Skill>				_skills;
+	private FastMap<Integer, L2Skill> _skills;
 
 	/** List of resist stats for this npc*/
 	private Map<Stats, Double>					_vulnerabilities;
@@ -302,6 +302,7 @@ public final class L2NpcTemplate extends L2CharTemplate
 	{
 		if (_skills == null)
 			_skills = new FastMap<Integer, L2Skill>();
+		
 		_skills.put(skill.getId(), skill);
 	}
 
@@ -374,7 +375,7 @@ public final class L2NpcTemplate extends L2CharTemplate
 
 	public Map<Integer, L2Skill> getSkills()
 	{
-		return _skills;
+		return _skills.unmodifiable();
 	}
 
 	public void addQuestEvent(Quest.QuestEventType EventType, Quest q)
@@ -408,8 +409,8 @@ public final class L2NpcTemplate extends L2CharTemplate
 			{
 				// be ready to add a new quest to a new copy of the list, with larger size than previously.
 				Quest[] tmp = new Quest[len + 1];
-				// loop through the existing quests and copy them to the new list.  While doing so, also 
-				// check if this new quest happens to be just a replacement for a previously loaded quest.  
+				// loop through the existing quests and copy them to the new list.  While doing so, also
+				// check if this new quest happens to be just a replacement for a previously loaded quest.
 				// If so, just save the updated reference and do NOT use the new list. Else, add the new
 				// quest to the end of the new list
 				for (int i = 0; i < len; i++)

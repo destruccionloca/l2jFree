@@ -5741,7 +5741,7 @@ public abstract class L2Character extends L2Object
 	 *            The L2Skill to add to the L2Character
 	 * @return The L2Skill replaced or null if just added a new L2Skill
 	 */
-	public L2Skill addSkill(L2Skill newSkill)
+	public final L2Skill addSkill(L2Skill newSkill)
 	{
 		if (newSkill == null)
 			return null;
