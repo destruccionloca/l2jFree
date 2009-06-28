@@ -14,9 +14,9 @@
  */
 package com.l2jfree.gameserver.network.gameserverpackets;
 
-import com.l2jfree.gameserver.loginserverthread.CrossLoginServerThread;
-
 import javolution.util.FastList;
+
+import com.l2jfree.gameserver.loginserverthread.CrossLoginServerThread;
 
 public class ServerStatus extends GameServerBasePacket
 {

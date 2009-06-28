@@ -16,12 +16,12 @@ package com.l2jfree.gameserver.templates.chars;
 
 import java.util.List;
 
+import javolution.util.FastList;
+
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.base.ClassId;
 import com.l2jfree.gameserver.model.base.Race;
 import com.l2jfree.gameserver.templates.StatsSet;
-
-import javolution.util.FastList;
 
 /**
  * Base template for all type of playable characters 

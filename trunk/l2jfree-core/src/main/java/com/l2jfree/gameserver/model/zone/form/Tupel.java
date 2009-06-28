@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.model.zone.form;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.w3c.dom.Node;
 
 public class Tupel

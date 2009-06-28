@@ -15,6 +15,8 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 
+import static com.l2jfree.gameserver.model.itemcontainer.PcInventory.ADENA_ID;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -35,8 +37,6 @@ import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.templates.item.L2EtcItemType;
 import com.l2jfree.gameserver.util.IllegalPlayerAction;
 import com.l2jfree.gameserver.util.Util;
-
-import static com.l2jfree.gameserver.model.itemcontainer.PcInventory.ADENA_ID;
 
 /**
  * This class ...

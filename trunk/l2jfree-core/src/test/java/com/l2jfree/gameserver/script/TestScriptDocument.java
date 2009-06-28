@@ -16,8 +16,6 @@ package com.l2jfree.gameserver.script;
 
 import java.io.InputStream;
 
-import com.l2jfree.gameserver.script.ScriptDocument;
-
 import junit.framework.TestCase;
 
 public class TestScriptDocument extends TestCase

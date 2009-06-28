@@ -19,12 +19,12 @@ package com.l2jfree.gameserver.handler.admincommandhandlers;
  * @author  CubicVirtuoso - William McMahon
  */
 
+import javolution.text.TextBuilder;
+
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.events.VIP;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
-
-import javolution.text.TextBuilder;
 
 public class AdminVIPEngine implements IAdminCommandHandler
 {

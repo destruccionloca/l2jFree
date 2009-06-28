@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import static com.l2jfree.gameserver.model.itemcontainer.PcInventory.MAX_ADENA;
+
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Shutdown;
 import com.l2jfree.gameserver.Shutdown.DisableType;
@@ -26,8 +28,6 @@ import com.l2jfree.gameserver.network.serverpackets.PrivateStoreManageListSell;
 import com.l2jfree.gameserver.network.serverpackets.PrivateStoreMsgSell;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.util.Util;
-
-import static com.l2jfree.gameserver.model.itemcontainer.PcInventory.MAX_ADENA;
 
 /**
  * This class ...

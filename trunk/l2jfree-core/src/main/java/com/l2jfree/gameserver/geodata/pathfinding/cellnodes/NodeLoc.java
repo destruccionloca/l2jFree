@@ -14,8 +14,8 @@
  */
 package com.l2jfree.gameserver.geodata.pathfinding.cellnodes;
 
-import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.geodata.pathfinding.AbstractNodeLoc;
+import com.l2jfree.gameserver.model.L2World;
 
 /**
  *

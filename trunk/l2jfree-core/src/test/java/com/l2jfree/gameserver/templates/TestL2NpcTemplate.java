@@ -14,11 +14,10 @@
  */
 package com.l2jfree.gameserver.templates;
 
-import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
-import com.l2jfree.gameserver.templates.StatsSet;
-import com.l2jfree.gameserver.templates.chars.L2NpcTemplate.Race;
-
 import junit.framework.TestCase;
+
+import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
+import com.l2jfree.gameserver.templates.chars.L2NpcTemplate.Race;
 
 public class TestL2NpcTemplate extends TestCase
 {

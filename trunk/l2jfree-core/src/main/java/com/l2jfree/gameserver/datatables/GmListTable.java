@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.datatables;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

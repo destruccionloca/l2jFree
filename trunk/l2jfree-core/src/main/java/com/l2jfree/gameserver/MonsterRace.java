@@ -16,7 +16,6 @@ package com.l2jfree.gameserver;
 
 import java.lang.reflect.Constructor;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.idfactory;
 
+import gnu.trove.TIntArrayList;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,7 +26,6 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
-import gnu.trove.TIntArrayList;
 
 /**
  * This class ...

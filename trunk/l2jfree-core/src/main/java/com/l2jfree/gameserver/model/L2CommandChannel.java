@@ -16,6 +16,8 @@ package com.l2jfree.gameserver.model;
 
 import java.util.List;
 
+import javolution.util.FastList;
+
 import com.l2jfree.gameserver.model.actor.L2Attackable;
 import com.l2jfree.gameserver.model.actor.L2Boss;
 import com.l2jfree.gameserver.model.actor.L2Character;
@@ -27,8 +29,6 @@ import com.l2jfree.gameserver.network.serverpackets.ExMultiPartyCommandChannelIn
 import com.l2jfree.gameserver.network.serverpackets.ExOpenMPCC;
 import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
-
-import javolution.util.FastList;
 
 /**
  *

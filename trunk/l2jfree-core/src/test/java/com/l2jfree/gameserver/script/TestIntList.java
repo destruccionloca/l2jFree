@@ -14,8 +14,6 @@
  */
 package com.l2jfree.gameserver.script;
 
-import com.l2jfree.gameserver.script.IntList;
-
 import junit.framework.TestCase;
 
 public class TestIntList extends TestCase

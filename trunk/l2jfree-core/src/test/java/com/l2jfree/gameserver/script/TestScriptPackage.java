@@ -17,8 +17,6 @@ package com.l2jfree.gameserver.script;
 import java.io.IOException;
 import java.util.zip.ZipFile;
 
-import com.l2jfree.gameserver.script.ScriptPackage;
-
 import junit.framework.TestCase;
 
 public class TestScriptPackage extends TestCase

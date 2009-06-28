@@ -17,11 +17,10 @@ package com.l2jfree.gameserver.geodata;
 import java.util.logging.Logger;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.geodata.pathfinding.Node;
 import com.l2jfree.gameserver.model.L2Object;
-import com.l2jfree.gameserver.geodata.GeoEngine;
 import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.geodata.pathfinding.Node;
 import com.l2jfree.tools.geometry.Point3D;
 
 /**

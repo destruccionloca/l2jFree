@@ -20,8 +20,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import com.l2jfree.gameserver.script.DateRange;
-
 import junit.framework.TestCase;
 
 public class TestDateRange extends TestCase

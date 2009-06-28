@@ -16,10 +16,10 @@ package com.l2jfree.gameserver.model;
 
 import java.util.List;
 
+import javolution.util.FastList;
+
 import com.l2jfree.Config;
 import com.l2jfree.tools.random.Rnd;
-
-import javolution.util.FastList;
 
 /**
  *

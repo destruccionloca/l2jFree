@@ -27,8 +27,8 @@ import org.w3c.dom.Node;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.skills.conditions.Condition;
 import com.l2jfree.gameserver.skills.conditions.ConditionParser;
-import  com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.skills.funcs.FuncTemplate;
+import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.item.L2Equip;
 
 /**

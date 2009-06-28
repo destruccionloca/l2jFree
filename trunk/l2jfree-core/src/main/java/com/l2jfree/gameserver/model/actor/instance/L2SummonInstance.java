@@ -25,7 +25,6 @@ import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.status.SummonStatus;
 import com.l2jfree.gameserver.network.serverpackets.SetSummonRemainTime;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
-
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public class L2SummonInstance extends L2Summon

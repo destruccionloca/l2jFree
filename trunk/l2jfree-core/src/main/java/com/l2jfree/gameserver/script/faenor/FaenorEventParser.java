@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.script.faenor;
 
 import java.util.Date;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Node;

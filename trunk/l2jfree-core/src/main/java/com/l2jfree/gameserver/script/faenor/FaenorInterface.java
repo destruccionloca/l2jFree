@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.script.faenor;
 
 import java.util.Map;
 
-
 import org.apache.bsf.BSFException;
 import org.apache.bsf.BSFManager;
 import org.apache.commons.logging.Log;

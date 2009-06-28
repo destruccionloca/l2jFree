@@ -14,6 +14,9 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import static com.l2jfree.gameserver.model.actor.L2Npc.INTERACTION_DISTANCE;
+import static com.l2jfree.gameserver.model.itemcontainer.PcInventory.ADENA_ID;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -34,9 +37,6 @@ import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.item.L2EtcItemType;
-
-import static com.l2jfree.gameserver.model.actor.L2Npc.INTERACTION_DISTANCE;
-import static com.l2jfree.gameserver.model.itemcontainer.PcInventory.ADENA_ID;
 
 /**
  * @author -Wooden-

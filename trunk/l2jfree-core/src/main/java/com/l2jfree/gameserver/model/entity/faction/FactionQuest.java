@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.model.entity.faction;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

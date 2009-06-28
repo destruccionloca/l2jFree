@@ -16,9 +16,9 @@ package com.l2jfree.gameserver.model;
 
 import java.util.List;
 
-import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-
 import javolution.util.FastTable;
+
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 
 /**

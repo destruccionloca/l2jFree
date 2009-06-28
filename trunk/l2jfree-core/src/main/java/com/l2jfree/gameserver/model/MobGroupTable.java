@@ -14,9 +14,9 @@
  */
 package com.l2jfree.gameserver.model;
 
-import com.l2jfree.gameserver.model.actor.instance.L2ControllableMobInstance;
-
 import javolution.util.FastMap;
+
+import com.l2jfree.gameserver.model.actor.instance.L2ControllableMobInstance;
 
 /**
  * @author littlecrow
