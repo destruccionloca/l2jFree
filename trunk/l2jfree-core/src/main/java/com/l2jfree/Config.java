@@ -146,22 +146,22 @@ public final class Config extends L2Config
 			PORT_GAME = Integer.parseInt(serverSettings.getProperty("GameserverPort", "7777"));
 			try
 			{
-				CNAME_PATTERN = Pattern.compile(serverSettings.getProperty("CnameTemplate", "[A-Za-z0-9\\-]{3,16}"));
+				CNAME_PATTERN = Pattern.compile(serverSettings.getProperty("CnameTemplate", "[A-Za-z0-9\\-]{2,16}"));
 			}
 			catch (PatternSyntaxException e)
 			{
 				_log.warn("Character name pattern is wrong!", e);
-				CNAME_PATTERN = Pattern.compile("[A-Za-z0-9\\-]{3,16}");
+				CNAME_PATTERN = Pattern.compile("[A-Za-z0-9\\-]{2,16}");
 			}
 
 			try
 			{
-				PET_NAME_PATTERN = Pattern.compile(serverSettings.getProperty("PetNameTemplate", "[A-Za-z0-9\\-]{3,16}"));
+				PET_NAME_PATTERN = Pattern.compile(serverSettings.getProperty("PetNameTemplate", "[A-Za-z0-9\\-]{2,16}"));
 			}
 			catch (PatternSyntaxException e)
 			{
 				_log.warn("Pet name pattern is wrong!", e);
-				PET_NAME_PATTERN = Pattern.compile("[A-Za-z0-9\\-]{3,16}");
+				PET_NAME_PATTERN = Pattern.compile("[A-Za-z0-9\\-]{2,16}");
 			}
 
 			try
@@ -913,6 +913,7 @@ public final class Config extends L2Config
 	public static float				RAID_MAX_RESPAWN_MULTIPLIER;							// Mulitplier for Raid boss maximum time respawn
 	public static long				STARTING_ADENA;										// Amount of adenas when starting a new character
 	public static boolean			DEEPBLUE_DROP_RULES;									// Deep Blue Mobs' Drop Rules Enabled
+	public static boolean			DEEPBLUE_DROP_RULES_RAID;								// Deep Blue Mobs' Drop Rules Enabled
 	public static int				UNSTUCK_INTERVAL;
 	public static int				PLAYER_SPAWN_PROTECTION;								// Player Protection control
 	public static int				PLAYER_FAKEDEATH_UP_PROTECTION;
@@ -961,6 +962,7 @@ public final class Config extends L2Config
 		protected void loadImpl(Properties otherSettings) throws Exception
 		{
 			DEEPBLUE_DROP_RULES = Boolean.parseBoolean(otherSettings.getProperty("UseDeepBlueDropRules", "True"));
+			DEEPBLUE_DROP_RULES_RAID = Boolean.parseBoolean(otherSettings.getProperty("UseDeepBlueDropRulesRaid", "True"));
 			EFFECT_CANCELING = Boolean.parseBoolean(otherSettings.getProperty("CancelLesserEffect", "True"));
 
 			GREAT_WOLF_MOUNT_LEVEL = Integer.parseInt(otherSettings.getProperty("GreatWolfMountLevel", "70"));
@@ -1474,6 +1476,7 @@ public final class Config extends L2Config
 	public static boolean				ALT_GAME_SUBCLASS_WITHOUT_QUESTS;											// Alternative gaming - allow sub-class addition without
 	// quest completion.
 	public static int					ALT_MAX_SUBCLASS;															// Allow to change max number of subclasses
+	public static byte					ALT_MAX_SUBCLASS_LEVEL;
 	public static boolean				ALT_GAME_VIEWNPC;															// View npc stats/drop by shift-cliking it for nongm-players
 	public static boolean				ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE	= true;								// Alternative gaming - all new characters always are newbies.
 	public static boolean				ALT_MEMBERS_CAN_WITHDRAW_FROM_CLANWH;										// Alternative gaming - clan members with see privilege can
@@ -1704,6 +1707,7 @@ public final class Config extends L2Config
 			ALT_RECOMMEND = Boolean.parseBoolean(altSettings.getProperty("AltRecommend", "False"));
 			ALT_GAME_SUBCLASS_WITHOUT_QUESTS = Boolean.parseBoolean(altSettings.getProperty("AltSubClassWithoutQuests", "False"));
 			ALT_MAX_SUBCLASS = Integer.parseInt(altSettings.getProperty("MaxSubclass", "3"));
+			ALT_MAX_SUBCLASS_LEVEL = Byte.parseByte(altSettings.getProperty("MaxSubclassLevel", "80"));
 			ALT_GAME_VIEWNPC = Boolean.parseBoolean(altSettings.getProperty("AltGameViewNpc", "False"));
 			//ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE = Boolean.parseBoolean(altSettings.getProperty("AltNewCharAlwaysIsNewbie", "False"));
 			ALT_MEMBERS_CAN_WITHDRAW_FROM_CLANWH = Boolean.parseBoolean(altSettings.getProperty("AltMembersCanWithdrawFromClanWH", "False"));
@@ -3843,6 +3847,8 @@ public final class Config extends L2Config
 		// Other settings
 		else if (pName.equalsIgnoreCase("UseDeepBlueDropRules"))
 			DEEPBLUE_DROP_RULES = Boolean.parseBoolean(pValue);
+		else if (pName.equalsIgnoreCase("UseDeepBlueDropRulesRaid"))
+			DEEPBLUE_DROP_RULES_RAID = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("CancelLesserEffect"))
 			EFFECT_CANCELING = Boolean.parseBoolean(pValue);
 
@@ -4099,6 +4105,8 @@ public final class Config extends L2Config
 			ALT_GAME_SUBCLASS_WITHOUT_QUESTS = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("MaxSubclass"))
 			ALT_MAX_SUBCLASS = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("MaxSubclassLevel"))
+			ALT_MAX_SUBCLASS_LEVEL = Byte.parseByte(pValue);
 		//else if (pName.equalsIgnoreCase("AltNewCharAlwaysIsNewbie"))
 		//ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("DwarfRecipeLimit"))

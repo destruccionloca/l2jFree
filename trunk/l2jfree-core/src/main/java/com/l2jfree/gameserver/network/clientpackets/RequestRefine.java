@@ -248,13 +248,13 @@ public final class RequestRefine extends L2GameClientPacket
 		}
 
 		// consume the life stone
-		if (!player.destroyItem("RequestRefine", refinerItem, 1, null, false))
+		if (player.getInventory().destroyItem("RequestRefine", refinerItem.getObjectId(), 1, player, null) == null)
 		{
 			return false;
 		}
 
 		// consume the gemstones
-		if (!player.destroyItem("RequestRefine", gemstoneItem, modifyGemstoneCount, null, false))
+		if (player.getInventory().destroyItem("RequestRefine", gemstoneItem.getObjectId(), modifyGemstoneCount, player, null) == null)
 		{
 			return false;
 		}
@@ -265,6 +265,8 @@ public final class RequestRefine extends L2GameClientPacket
 		// finish and send the inventory update packet
 		InventoryUpdate iu = new InventoryUpdate();
 		iu.addModifiedItem(targetItem);
+		iu.addItem(gemstoneItem);
+		iu.addItem(refinerItem);
 		player.sendPacket(iu);
 
 		StatusUpdate su = new StatusUpdate(player.getObjectId());

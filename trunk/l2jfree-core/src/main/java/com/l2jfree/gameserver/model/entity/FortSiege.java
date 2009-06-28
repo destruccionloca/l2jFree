@@ -430,7 +430,7 @@ public class FortSiege extends AbstractSiege
 	@Override
 	public boolean checkIsDefender(L2Clan clan)
 	{
-		return getFort().getOwnerClan() == clan;
+		return clan != null && getFort().getOwnerClan() == clan;
 	}
 
 	/** Clear all registered siege clans from database for fort */

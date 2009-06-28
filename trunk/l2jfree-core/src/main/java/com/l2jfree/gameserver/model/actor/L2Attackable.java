@@ -927,43 +927,40 @@ public class L2Attackable extends L2Npc
 		// onAttack and onSkillSee in the AI Script (Fulminus)
 		if (attacker == null /*|| _aggroList == null*/)
 			return;
+		L2PcInstance targetPlayer = attacker.getActingPlayer();
 
 		// Get the AggroInfo of the attacker L2Character from the _aggroList of the L2Attackable
 		AggroInfo ai = getAggroListRP().get(attacker);
-		if (ai == null)
+		// aggro ai created in L2attackableAI script if not overriden in other AI files
+		if (ai != null)
 		{
-			ai = new AggroInfo(attacker);
-			ai._damage = 0;
-			ai._hate = 0;
-			getAggroListRP().put(attacker, ai);
-			if ((attacker instanceof L2PcInstance || attacker instanceof L2Summon) && !attacker.isAlikeDead())
+			// If aggro is negative, its comming from SEE_SPELL, buffs use constant 150
+			if (aggro < 0)
 			{
-				L2PcInstance targetPlayer = (attacker instanceof L2PcInstance) ? (L2PcInstance) attacker : ((L2Summon) attacker).getOwner();
-				Quest[] events = getTemplate().getEventQuests(Quest.QuestEventType.ON_AGGRO_RANGE_ENTER);
-				if (events != null)
-				{
-					for (Quest quest : events)
+				ai._hate -= (aggro * 150) / (getLevel() + 7);
+				aggro = -aggro;
+			}
+			// if damage == 0 -> this is case of adding only to aggro list, dont apply formula on it
+			else if (damage == 0)
+				ai._hate += aggro;
+			// else its damage that must be added using constant 100
+			else
+				ai._hate += (aggro * 100) / (getLevel() + 7);
+
+			// Add new damage and aggro (=damage) to the AggroInfo object
+			ai._damage += damage;
+			ai._hate += (aggro * 100) / (getLevel() + 7);
+		}
+		else
+		{
+			if (targetPlayer != null)
+			{
+				Quest[] quests = getTemplate().getEventQuests(Quest.QuestEventType.ON_AGGRO_RANGE_ENTER);
+				if (quests != null)
+					for (Quest quest : quests)
 						quest.notifyAggroRangeEnter(this, targetPlayer, (attacker instanceof L2Summon));
-				}
 			}
 		}
-
-		// If aggro is negative, its comming from SEE_SPELL, buffs use constant 150
-		if (aggro < 0)
-		{
-			ai._hate -= (aggro * 150) / (getLevel() + 7);
-			aggro = -aggro;
-		}
-		// if damage == 0 -> this is case of adding only to aggro list, dont apply formula on it
-		else if (damage == 0)
-			ai._hate += aggro;
-		// else its damage that must be added using constant 100
-		else
-			ai._hate += (aggro * 100) / (getLevel() + 7);
-
-		// Add new damage and aggro (=damage) to the AggroInfo object
-		ai._damage += damage;
-		ai._hate += (aggro * 100) / (getLevel() + 7);
 
 		// Set the intention to the L2Attackable to AI_INTENTION_ACTIVE
 		if (aggro > 0 && getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE)
@@ -976,14 +973,12 @@ public class L2Attackable extends L2Npc
 
 			try
 			{
-				if (attacker instanceof L2PcInstance || attacker instanceof L2Summon)
+				if (targetPlayer != null)
 				{
-					L2PcInstance player = attacker instanceof L2PcInstance ? (L2PcInstance) attacker : ((L2Summon) attacker).getOwner();
-
 					if (getTemplate().getEventQuests(Quest.QuestEventType.ON_ATTACK) != null)
 					{
 						for (Quest quest : getTemplate().getEventQuests(Quest.QuestEventType.ON_ATTACK))
-							quest.notifyAttack(this, player, damage, attacker instanceof L2Summon, skill);
+							quest.notifyAttack(this, targetPlayer, damage, attacker instanceof L2Summon, skill);
 					}
 				}
 			}
@@ -1173,6 +1168,26 @@ public class L2Attackable extends L2Npc
 		return ai._hate;
 	}
 
+	public AggroInfo addToAggroList(L2Character character)
+	{
+		// Get the AggroInfo of the attacker L2Character from the _aggroList of the L2Attackable
+		AggroInfo ai = getAggroListRP().get(character);
+		if (ai == null)
+		{
+			ai = new AggroInfo(character);
+			ai._damage = 0;
+			ai._hate = 0;
+			getAggroListRP().put(character, ai);
+		}
+		return ai;
+	}
+
+	private boolean shouldPunishDeepBlueDrops()
+	{
+		return (!isRaid() && Config.DEEPBLUE_DROP_RULES)
+			|| (isRaid() && Config.DEEPBLUE_DROP_RULES_RAID);
+	}
+
 	/**
 	 * Calculates quantity of items for specific drop acording to current
 	 * situation <br>
@@ -1190,7 +1205,7 @@ public class L2Attackable extends L2Npc
 		int champRate;
 
 		int deepBlueDrop = 1;
-		if (Config.DEEPBLUE_DROP_RULES)
+		if (shouldPunishDeepBlueDrops())
 		{
 			if (levelModifier > 0)
 			{
@@ -1205,7 +1220,7 @@ public class L2Attackable extends L2Npc
 		if (deepBlueDrop == 0) //avoid div by 0
 			deepBlueDrop = 1;
 		// Check if we should apply our maths so deep blue mobs will not drop that easy
-		if (Config.DEEPBLUE_DROP_RULES)
+		if (shouldPunishDeepBlueDrops())
 			dropChance = ((drop.getChance() - ((drop.getChance() * levelModifier) / 100)) / deepBlueDrop);
 
 		if (isChampion())
@@ -1305,7 +1320,7 @@ public class L2Attackable extends L2Npc
 		int champRate;
 
 		int deepBlueDrop = 1;
-		if (Config.DEEPBLUE_DROP_RULES)
+		if (shouldPunishDeepBlueDrops())
 		{
 			if (levelModifier > 0)
 			{
@@ -1318,7 +1333,7 @@ public class L2Attackable extends L2Npc
 		if (deepBlueDrop == 0) //avoid div by 0
 			deepBlueDrop = 1;
 		// Check if we should apply our maths so deep blue mobs will not drop that easy
-		if (Config.DEEPBLUE_DROP_RULES)
+		if (shouldPunishDeepBlueDrops())
 			categoryDropChance = ((categoryDropChance - ((categoryDropChance * levelModifier) / 100)) / deepBlueDrop);
 
 		// Applies Drop rates
@@ -1458,7 +1473,7 @@ public class L2Attackable extends L2Npc
 	 */
 	private int calculateLevelModifierForDrop(L2PcInstance lastAttacker)
 	{
-		if (Config.DEEPBLUE_DROP_RULES)
+		if (shouldPunishDeepBlueDrops())
 		{
 			int highestLevel = lastAttacker.getLevel();
 
