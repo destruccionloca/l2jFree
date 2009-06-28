@@ -20,7 +20,7 @@ import com.l2jfree.gameserver.datatables.AugmentationData;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.SkillCoolTime;
-import com.l2jfree.gameserver.skills.Stats;
+import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.funcs.FuncAdd;
 import com.l2jfree.gameserver.skills.funcs.FuncOwner;
 
@@ -52,47 +52,43 @@ public final class L2Augmentation
 
 	public final class AugmentationStatBoni implements FuncOwner
 	{
-		private Stats	_stats[];
-		private float	_values[];
-		private boolean	_active;
-
+		private final Func[] _statFuncs;
+		
+		private volatile boolean _active = false;
+		
 		public AugmentationStatBoni(int augmentationId)
 		{
-			_active = false;
 			FastList<AugmentationData.AugStat> as = AugmentationData.getInstance().getAugStatsById(augmentationId);
-
-			_stats = new Stats[as.size()];
-			_values = new float[as.size()];
-
+			
+			_statFuncs = new Func[as.size()];
+			
 			int i = 0;
 			for (AugmentationData.AugStat aStat : as)
 			{
-				_stats[i] = aStat.getStat();
-				_values[i] = aStat.getValue();
+				_statFuncs[i] = new FuncAdd(aStat.getStat(), 0x40, this, aStat.getValue(), null);
 				i++;
 			}
 		}
-
+		
 		public void applyBonus(L2PcInstance player)
 		{
 			// make sure the bonuses are not applied twice..
 			if (_active)
 				return;
-
-			for (int i = 0; i < _stats.length; i++)
-				player.addStatFunc(new FuncAdd(_stats[i], 0x40, this, _values[i], null));
-
+			
+			player.addStatFuncs(_statFuncs);
+			
 			_active = true;
 		}
-
+		
 		public void removeBonus(L2PcInstance player)
 		{
 			// make sure the bonuses are not removed twice
 			if (!_active)
 				return;
-
+			
 			player.removeStatsOwner(this);
-
+			
 			_active = false;
 		}
 		
