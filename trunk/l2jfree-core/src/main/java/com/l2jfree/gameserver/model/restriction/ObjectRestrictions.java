@@ -410,6 +410,14 @@ public final class ObjectRestrictions
 			list.add(action);
 	}
 	
+	private void removeTask(int objId, TimedRestrictionAction action)
+	{
+		List<TimedRestrictionAction> list = _runningActions.get(objId);
+		
+		if (list != null)
+			list.remove(action);
+	}
+	
 	/**
 	 * Adds a new paused scheduled task
 	 * 
@@ -491,6 +499,8 @@ public final class ObjectRestrictions
 		
 		public void run()
 		{
+			removeTask(getObjectId(), this);
+			
 			switch (getType())
 			{
 				case ADD:
