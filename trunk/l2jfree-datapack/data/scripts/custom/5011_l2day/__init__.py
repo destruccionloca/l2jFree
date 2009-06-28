@@ -6,6 +6,7 @@
 
 # Settings
 qn = "5011_l2day"
+QuestId = 5011
 QuestName   = "l2day"
 QuestDesc   = "custom"
 InitialHtml = "1.htm"
