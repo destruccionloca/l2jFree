@@ -32,6 +32,12 @@ public class PcFreight extends ItemContainer
 	}
 
 	@Override
+	public String getName()
+	{
+		return "Freight";
+	}
+
+	@Override
 	public L2PcInstance getOwner()
 	{
 		return _owner;
@@ -46,11 +52,6 @@ public class PcFreight extends ItemContainer
 	public void setActiveLocation(int locationId)
 	{
 		_activeLocationId = locationId;
-	}
-
-	public int getActiveLocation()
-	{
-		return _activeLocationId;
 	}
 
 	/**
@@ -154,5 +155,5 @@ public class PcFreight extends ItemContainer
 	{
 		_tempOwnerId = val;
 		restore();
-	} 
+	}
 }

@@ -468,6 +468,7 @@ public final class L2PcInstance extends L2Playable
 	private PcInventory						_inventory;
 	private PcWarehouse						_warehouse;
 	private PcFreight						_freight;
+	private List<PcFreight>					_depositedFreight;
 
 	/** True if the L2PcInstance is sitting */
 	private boolean							_waitTypeSitting;
@@ -1088,7 +1089,7 @@ public final class L2PcInstance extends L2Playable
 		getInventory().restore();
 		if (!Config.WAREHOUSE_CACHE)
 			getWarehouse();
-		getFreight().restore();
+		getFreight();
 
 		if (Config.ENABLE_VITALITY)
 			startVitalityTask();
@@ -2707,9 +2708,71 @@ public final class L2PcInstance extends L2Playable
 	public PcFreight getFreight()
 	{
 		if (_freight == null)
+		{
 			_freight = new PcFreight(this);
+			_freight.restore();
+		}
 		
 		return _freight;
+	}
+
+	/**
+	 * Free memory used by Freight
+	 */
+	public void clearFreight()
+	{
+		if (_freight != null)
+			_freight.deleteMe();
+		_freight = null;
+	}
+
+	/**
+	 * Return deposited PcFreight object for the objectId
+	 * or create new if not exist 
+	 */
+	public PcFreight getDepositedFreight(int objectId)
+	{
+		if (_depositedFreight == null)
+			_depositedFreight = new FastList<PcFreight>();
+		else
+		{
+			for (PcFreight freight : _depositedFreight)
+			{
+				if (freight != null && freight.getOwnerId() == objectId)
+					return freight;
+			}
+		}
+
+		PcFreight freight = new PcFreight(null);
+		freight.doQuickRestore(objectId);
+		_depositedFreight.add(freight);
+		return freight;
+	}
+
+	/**
+	 * Clear memory used by deposited freight
+	 */
+	public void clearDepositedFreight()
+	{
+		if (_depositedFreight == null)
+			return;
+
+		for (PcFreight freight : _depositedFreight)
+		{
+			if (freight != null)
+			{
+				try
+				{
+					freight.deleteMe();
+				}
+				catch (Exception e)
+				{
+					_log.fatal("clearDepositedFreight()", e);
+				}
+			}
+		}
+		_depositedFreight.clear();
+		_depositedFreight = null;
 	}
 
 	/**
@@ -11543,7 +11606,16 @@ public final class L2PcInstance extends L2Playable
 		// Update database with items in its freight and remove them from the world
 		try
 		{
-			getFreight().deleteMe();
+			clearFreight();
+		}
+		catch (Exception e)
+		{
+			_log.fatal(e.getMessage(), e);
+		}
+
+		try
+		{
+			clearDepositedFreight();
 		}
 		catch (Exception e)
 		{

@@ -46,6 +46,12 @@ public class L2CastleWarehouseInstance extends L2NpcInstance
 		super(objectId, template);
 	}
 
+	@Override
+	public boolean isWarehouse()
+	{
+		return true;
+	}
+
 	private void showRetrieveWindow(L2PcInstance player, WarehouseListType itemtype, byte sortorder)
 	{
 		player.sendPacket(ActionFailed.STATIC_PACKET);

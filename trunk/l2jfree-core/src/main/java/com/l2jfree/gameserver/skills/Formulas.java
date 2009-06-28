@@ -1368,7 +1368,6 @@ public final class Formulas
 	{
 		double power = skill.getPower();
 		double damage = attacker.getPAtk(target);
-		damage *= calcElemental(attacker, target, skill);
 		damage += calcValakasAttribute(attacker, target, skill);
 		double defence = target.getPDef(attacker);
 		if (ss)
@@ -1385,8 +1384,10 @@ public final class Formulas
 		if (ss && skill.getSSBoost() > 0)
 			power *= skill.getSSBoost();
 
-		damage = (attacker.calcStat(Stats.CRITICAL_DAMAGE, (damage + power), target, skill) + (attacker.calcStat(Stats.CRITICAL_DAMAGE_ADD, 0, target, skill) * 6.5))
-				* (target.calcStat(Stats.CRIT_VULN, target.getTemplate().baseCritVuln, target, skill));
+		damage = attacker.calcStat(Stats.CRITICAL_DAMAGE, (damage + power), target, skill);
+		damage *= calcElemental(attacker, target, skill);
+		damage += attacker.calcStat(Stats.CRITICAL_DAMAGE_ADD, 0, target, skill) * 6.5;
+		damage *= target.calcStat(Stats.CRIT_VULN, target.getTemplate().baseCritVuln, target, skill);
 
 		// get the natural vulnerability for the template
 		if (target instanceof L2Npc)
@@ -1432,7 +1433,6 @@ public final class Formulas
 	{
 		double damage = attacker.getPAtk(target);
 		double defence = target.getPDef(attacker);
-		damage *= calcElemental(attacker, target, skill);
 		damage += calcValakasAttribute(attacker, target, skill);
 		switch (shld)
 		{
@@ -1613,6 +1613,7 @@ public final class Formulas
 		else if (attacker instanceof L2Npc)
 			damage *= Config.ALT_NPC_PHYSICAL_DAMAGE_MULTI;
 
+		damage *= calcElemental(attacker, target, skill);
 		return GlobalRestrictions.calcDamage(attacker, target, damage, skill);
 	}
 
@@ -1632,7 +1633,6 @@ public final class Formulas
 
 		double damage = 91 * Math.sqrt(mAtk) / mDef * skill.getPower();
 		L2PcInstance owner = attacker.getOwner();
-		damage *= calcElemental(owner, target, skill);
 		// Failure calculation
 		if (Config.ALT_GAME_MAGICFAILURES && !calcMagicSuccess(owner, target, skill))
 		{
@@ -1676,8 +1676,8 @@ public final class Formulas
 
 		// CT2.3 general magic vuln
 		damage *= target.calcStat(Stats.MAGIC_DAMAGE_VULN, 1, null, null);
-
 		damage *= Config.ALT_PETS_MAGICAL_DAMAGE_MULTI;
+		damage *= calcElemental(owner, target, skill);
 		return damage;
 	}
 
@@ -1701,7 +1701,6 @@ public final class Formulas
 			mAtk *= 2;
 
 		double damage = 91 * Math.sqrt(mAtk) / mDef * skill.getPower(attacker);
-		damage *= calcElemental(attacker, target, skill);
 
 		// In C5 summons make 10 % less dmg in PvP.
 		if (attacker instanceof L2Summon && target instanceof L2PcInstance)
@@ -1778,6 +1777,7 @@ public final class Formulas
 			damage *= Config.ALT_PETS_MAGICAL_DAMAGE_MULTI;
 		else if (attacker instanceof L2Npc)
 			damage *= Config.ALT_NPC_MAGICAL_DAMAGE_MULTI;
+		damage *= calcElemental(attacker, target, skill);
 
 		return GlobalRestrictions.calcDamage(attacker, target, damage, skill);
 	}
@@ -2209,7 +2209,7 @@ public final class Formulas
 		if (skill != null)
 		{
 			if (skill.getElement() > 0)
-				multiplier *= calcElemental(attacker, target, skill);
+				multiplier *= Math.sqrt(calcElemental(attacker, target, skill));
 
 			// Finally, calculate skilltype vulnerabilities
 			L2SkillType type = skill.getSkillType();

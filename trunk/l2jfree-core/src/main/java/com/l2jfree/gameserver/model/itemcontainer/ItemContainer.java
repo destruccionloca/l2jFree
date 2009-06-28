@@ -54,6 +54,11 @@ public abstract class ItemContainer
 	protected abstract L2Character getOwner();
 	protected abstract ItemLocation getBaseLocation();
 
+	public String getName()
+	{
+		return "ItemContainer";
+	}
+
 	/**
 	 * Returns the ownerID of the inventory
 	 * @return int

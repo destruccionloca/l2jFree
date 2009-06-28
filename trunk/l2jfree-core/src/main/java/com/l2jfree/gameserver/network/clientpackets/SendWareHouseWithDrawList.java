@@ -99,7 +99,9 @@ public class SendWareHouseWithDrawList extends L2GameClientPacket
 			return;
 
 		L2NpcInstance manager = player.getLastFolkNPC();
-		if ((manager == null || !player.isInsideRadius(manager, L2Npc.INTERACTION_DISTANCE, false, false)) && !player.isGM())
+		if ((manager == null
+				|| !manager.isWarehouse()
+				|| !player.isInsideRadius(manager, L2Npc.INTERACTION_DISTANCE, false, false)) && !player.isGM())
 			return;
 
 		if (warehouse instanceof ClanWarehouse && Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN
@@ -177,7 +179,7 @@ public class SendWareHouseWithDrawList extends L2GameClientPacket
 				_log.warn("Error withdrawing a warehouse object for char " + player.getName() + " (olditem == null)");
 				return;
 			}
-			L2ItemInstance newItem = warehouse.transferItem("Warehouse", i.getObjectId(), i.getCount(), player.getInventory(), player, player.getLastFolkNPC());
+			L2ItemInstance newItem = warehouse.transferItem(warehouse.getName(), i.getObjectId(), i.getCount(), player.getInventory(), player, player.getLastFolkNPC());
 			if (newItem == null)
 			{
 				_log.warn("Error withdrawing a warehouse object for char " + player.getName() + " (newitem == null)");

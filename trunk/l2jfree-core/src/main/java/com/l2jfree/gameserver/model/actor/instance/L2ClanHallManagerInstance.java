@@ -43,21 +43,27 @@ import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
 public class L2ClanHallManagerInstance extends L2MerchantInstance
 {
-    private final static Log _log = LogFactory.getLog(L2ClanHallManagerInstance.class.getName());
-    protected static final int COND_OWNER_FALSE = 0;
-    protected static final int COND_ALL_FALSE = 1;
-    protected static final int COND_BUSY_BECAUSE_OF_SIEGE = 2;
-    protected static final int COND_OWNER = 3;
-    private int _clanHallId = -1;
+	private final static Log _log = LogFactory.getLog(L2ClanHallManagerInstance.class.getName());
+	protected static final int COND_OWNER_FALSE = 0;
+	protected static final int COND_ALL_FALSE = 1;
+	protected static final int COND_BUSY_BECAUSE_OF_SIEGE = 2;
+	protected static final int COND_OWNER = 3;
+	private int _clanHallId = -1;
 
-    /**
-     * @param objectId
-     * @param template
-     */
-    public L2ClanHallManagerInstance(int objectId, L2NpcTemplate template)
-    {
-        super(objectId, template);
-    }
+	/**
+	 * @param objectId
+	 * @param template
+	 */
+	public L2ClanHallManagerInstance(int objectId, L2NpcTemplate template)
+	{
+		super(objectId, template);
+	}
+
+	@Override
+	public boolean isWarehouse()
+	{
+		return true;
+	}
 
     @Override
     public void onBypassFeedback(L2PcInstance player, String command)
