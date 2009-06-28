@@ -14,17 +14,18 @@
  */
 package com.l2jfree.gameserver.model.restriction;
 
+import com.l2jfree.gameserver.model.L2Object;
+
 /**
- * @author engelbert
- *
+ * @author Noctarius
  */
-public class RestrictionBindClassException extends Exception {
+public class RestrictionBindClassException extends Exception
+{
 	private static final long serialVersionUID = -2193188657782054883L;
 	
-	public RestrictionBindClassException() {
-		super();
-	}
-	public RestrictionBindClassException(String message) {
-		super(message);
+	public RestrictionBindClassException(L2Object owner, AvailableRestriction restriction)
+	{
+		super("Restriction " + restriction.name() + " can not be bound to " + owner.getClass() + " [id="
+			+ owner.getObjectId() + "]");
 	}
 }

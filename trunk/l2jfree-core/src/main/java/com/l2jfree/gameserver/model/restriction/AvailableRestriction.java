@@ -14,12 +14,12 @@
  */
 package com.l2jfree.gameserver.model.restriction;
 
+import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
- *
- * @author  Noctarius
+ * @author Noctarius
  */
 public enum AvailableRestriction
 {
@@ -33,36 +33,37 @@ public enum AvailableRestriction
 	PlayerChat(L2PcInstance.class),
 	
 	// Restrictions can be applied to monsters
-	MonsterCast(L2MonsterInstance.class)
+	MonsterCast(L2MonsterInstance.class),
 	
 	// More restrictions classes can be easily set
 	// by adding new lines and new classes
 	;
 	
-	private final Class<?> _applyTo;
+	private final Class<? extends L2Object> _applyTo;
 	
-	private AvailableRestriction(Class<?> applyTo) {
+	private AvailableRestriction(Class<? extends L2Object> applyTo)
+	{
 		_applyTo = applyTo;
 	}
 	
-	public Class<?> getApplyableTo() {
+	public Class<? extends L2Object> getApplyableTo()
+	{
 		return _applyTo;
 	}
 	
+	public void checkApplyable(L2Object owner) throws RestrictionBindClassException
+	{
+		if (getApplyableTo().isInstance(owner))
+			return;
+		
+		throw new RestrictionBindClassException(owner, this);
+	}
 	
-	public static final AvailableRestriction forName(String name) {
-		for (AvailableRestriction restriction : AvailableRestriction.values()) {
+	public static final AvailableRestriction forName(String name)
+	{
+		for (AvailableRestriction restriction : AvailableRestriction.values())
 			if (restriction.name().equals(name))
 				return restriction;
-		}
-		
-		return null;
-	}
-	public static final AvailableRestriction forId(int id) {
-		for (AvailableRestriction restriction : AvailableRestriction.values()) {
-			if (restriction.ordinal() == id)
-				return restriction;
-		}
 		
 		return null;
 	}
