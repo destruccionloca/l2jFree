@@ -43,8 +43,7 @@ class warrior_monk(JQuest) :
           npc.addDamageHate(player, 0, 999)
           npc.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, player)
         else :
-          npc.getAggroListRP().remove(player)
-          npc.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE, None, None)
+          return str("NONAGGRO")
     return
 
 QUEST = warrior_monk(-1, "warrior_monk", "ai")

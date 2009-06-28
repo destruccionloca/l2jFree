@@ -165,15 +165,16 @@ class Quest (JQuest) :
 
     def onAggroRangeEnter(self, npc, player, isPet) : 
        if npc.getNpcId() == DORIAN_MOB:
-         if isPet: npc.getAggroListRP().remove(player.getPet())
+         if isPet:
+           return str("NONAGGRO")
          else :
-          npc.getAggroListRP().remove(player)
-          st = player.getQuestState(qn) 
-          if st and st.getQuestItemsCount(SilverCross):
+           st = player.getQuestState(qn) 
+           if st and st.getQuestItemsCount(SilverCross):
              st.takeItems(SilverCross,-1)
              st.giveItems(BrokenSilverCross,1)
              st.set("cond","4")
              AutoChat(npc,"That sign!")
+           return str("NONAGGRO")
        return
 
 QUEST     = Quest(24,qn,"Inhabitants of the Forest of the Dead")

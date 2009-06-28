@@ -30,8 +30,7 @@ class monastery(JQuest) :
           npc.addDamageHate(player, 0, 999)
           npc.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, player)
         else :
-          npc.getAggroListRP().remove(player)
-          npc.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE, None, None)
+          return str("NONAGGRO")
     return
 
 QUEST = monastery(-1, "monastery", "ai")

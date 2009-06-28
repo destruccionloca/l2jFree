@@ -931,7 +931,6 @@ public class L2Attackable extends L2Npc
 
 		// Get the AggroInfo of the attacker L2Character from the _aggroList of the L2Attackable
 		AggroInfo ai = getAggroListRP().get(attacker);
-		// aggro ai created in L2attackableAI script if not overriden in other AI files
 		if (ai != null)
 		{
 			// If aggro is negative, its comming from SEE_SPELL, buffs use constant 150
@@ -953,13 +952,24 @@ public class L2Attackable extends L2Npc
 		}
 		else
 		{
+			boolean shouldAggro = true;
 			if (targetPlayer != null)
 			{
 				Quest[] quests = getTemplate().getEventQuests(Quest.QuestEventType.ON_AGGRO_RANGE_ENTER);
 				if (quests != null)
+				{
 					for (Quest quest : quests)
-						quest.notifyAggroRangeEnter(this, targetPlayer, (attacker instanceof L2Summon));
+					{
+						// On default when using AI scripts, or if no script exists for this NPC,
+						// Null is returned which leads to shouldAggro stay "true".
+						// Returning the string "NONAGGRO" in script will result in "false", so the mob won't attack.
+						// Any other nonzero value will send a message to the player like any other quest event does.
+						shouldAggro &= quest.notifyAggroRangeEnter(this, targetPlayer, (attacker instanceof L2Summon));
+					}
+				}
 			}
+			if (shouldAggro)
+				addToAggroList(attacker);
 		}
 
 		// Set the intention to the L2Attackable to AI_INTENTION_ACTIVE
