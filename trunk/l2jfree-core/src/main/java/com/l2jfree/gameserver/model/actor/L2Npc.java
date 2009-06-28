@@ -844,7 +844,11 @@ public class L2Npc extends L2Character
 				{
 					for (L2DropData drop : cat.getAllDrops())
 					{
-						String name = ItemTable.getInstance().getTemplate(drop.getItemId()).getName();
+						final L2Item item = ItemTable.getInstance().getTemplate(drop.getItemId());
+						if (item == null)
+							continue;
+
+						String name = item.getName();
 
 						if (drop.getChance() >= 500000)
 							html1.append("<tr><td><font color=\"ff0000\">" + name + "</font></td><td>"

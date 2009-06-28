@@ -66,6 +66,7 @@ public class Instance
 	private FastList<L2DoorInstance>	_doors				= new FastList<L2DoorInstance>();
 	private int[]						_spawnLoc;
 	private boolean						_allowSummon		= true;
+	private boolean						_isPvPInstance		= false;
 	protected ScheduledFuture<?>		_checkTimeUpTask	= null;
 
 	public Instance(int id)
@@ -109,6 +110,22 @@ public class Instance
 	public void setAllowSummon(boolean b)
 	{
 		_allowSummon = b;
+	}
+
+	/**
+	 * Returns true if entire instance is PvP zone
+	 */
+	public boolean isPvPInstance()
+	{
+		return _isPvPInstance;
+	}
+
+	/**
+	 * Sets PvP zone status of the instance 
+	 */
+	public void setPvPInstance(boolean b)
+	{
+		_isPvPInstance = b;
 	}
 
 	/**
@@ -326,6 +343,12 @@ public class Instance
 				a = n.getAttributes().getNamedItem("val");
 				if (a != null)
 					setAllowSummon(Boolean.parseBoolean(a.getNodeValue()));
+			}
+			else if ("PvPInstance".equalsIgnoreCase(n.getNodeName()))
+			{
+				a = n.getAttributes().getNamedItem("val");
+				if (a != null)
+					setPvPInstance(Boolean.parseBoolean(a.getNodeValue()));
 			}
 			else if ("returnteleport".equalsIgnoreCase(n.getNodeName()))
 			{

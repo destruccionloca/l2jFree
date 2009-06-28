@@ -45,6 +45,7 @@ import com.l2jfree.gameserver.geodata.pathfinding.AbstractNodeLoc;
 import com.l2jfree.gameserver.geodata.pathfinding.PathFinding;
 import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.instancemanager.FactionManager;
+import com.l2jfree.gameserver.instancemanager.InstanceManager;
 import com.l2jfree.gameserver.instancemanager.MapRegionManager;
 import com.l2jfree.gameserver.model.ChanceSkillList;
 import com.l2jfree.gameserver.model.FusionSkill;
@@ -310,7 +311,14 @@ public abstract class L2Character extends L2Object
 		{
 			case L2Zone.FLAG_PVP:
 			{
+				if (InstanceManager.getInstance().getInstance(this.getInstanceId()).isPvPInstance())
+					return true;
 				if (isInsideZone(L2Zone.FLAG_PEACE))
+					return false;
+			}
+			case L2Zone.FLAG_PEACE:
+			{
+				if (InstanceManager.getInstance().getInstance(this.getInstanceId()).isPvPInstance())
 					return false;
 			}
 		}
@@ -5598,6 +5606,9 @@ public abstract class L2Character extends L2Object
 			return false;
 		
 		if (attackerPlayer.getAccessLevel() >= Config.GM_PEACEATTACK)
+			return false;
+		
+		if (InstanceManager.getInstance().getInstance(attacker.getInstanceId()).isPvPInstance())
 			return false;
 		
 		if (Config.ALT_GAME_KARMA_PLAYER_CAN_BE_KILLED_IN_PEACEZONE)

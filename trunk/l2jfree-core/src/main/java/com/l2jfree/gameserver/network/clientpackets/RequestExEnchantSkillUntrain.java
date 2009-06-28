@@ -130,7 +130,7 @@ public final class RequestExEnchantSkillUntrain extends L2GameClientPacket
 		boolean check = true;
 		if (Config.ALT_ES_SP_BOOK_NEEDED) //if (Config.ES_SP_BOOK_NEEDED && usesBook)  dissabled till official info - will request book for each untrain
 			check &= player.destroyItem("Consume", spb.getObjectId(), 1, trainer, true);
-		check &= player.getStat().addExpAndSp(0, (requiredSp * 8) / 10);
+		check &= player.getStat().addSp((requiredSp * 8) / 10);
 
 		if (!check)
 		{

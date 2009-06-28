@@ -69,8 +69,9 @@ public class SummonStat extends PlayableStat
 	public int getDefenseElementValue(byte attribute)
 	{
 		if (getActiveChar().getOwner() == null)
-			return 0;
+			return super.getDefenseElementValue(attribute);
 
-		return getActiveChar().getOwner().getDefenseElementValue(attribute);
+		// bonus from owner
+		return super.getDefenseElementValue(attribute) + getActiveChar().getOwner().getDefenseElementValue(attribute);
 	}
 }

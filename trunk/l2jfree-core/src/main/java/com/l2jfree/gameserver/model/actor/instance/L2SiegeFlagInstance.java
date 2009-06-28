@@ -44,17 +44,24 @@ public final class L2SiegeFlagInstance extends L2Npc
 		super(objectId, template);
 
 		_isAdvanced = advanced;
-		_clan = player.getClan();
 		_player = player;
+		_clan = player == null ? null : player.getClan();
 		_talkProtectionTime = 0;
+		if (_clan == null)
+		{
+			deleteMe();
+			return;
+		}
 		_siege = SiegeManager.getInstance().getSiege(_player);
 		_fortSiege = FortSiegeManager.getInstance().getSiege(_player);
 
-		if (_clan == null || (_siege == null && _fortSiege == null))
+		if (_siege == null && _fortSiege == null)
 		{
 			deleteMe();
+			return;
 		}
-		else if (_siege != null && _fortSiege == null)
+
+		if (_siege != null && _fortSiege == null)
 		{
 			L2SiegeClan sc = _siege.getAttackerClan(_player.getClan());
 			if (sc == null)
