@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.model;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.funcs.FuncAdd;
 import com.l2jfree.gameserver.skills.funcs.FuncOwner;
@@ -80,7 +79,6 @@ public final class Elementals implements FuncOwner
 	private int _value;
 	
 	private boolean _active;
-	private L2SummonInstance _summon;
 	
 	public Elementals(byte type, int value)
 	{
@@ -210,29 +208,10 @@ public final class Elementals implements FuncOwner
 		if (_active)
 			return;
 		
-		final Stats res = getResist(_element);
-		final Stats power = getPower(_element);
-		
-		if (!isArmor && player.getPet() instanceof L2SummonInstance && !player.getPet().isDead()
-			&& player.getExpertisePenalty() == 0) // grade penalty
-		{
-			_summon = (L2SummonInstance)player.getPet();
-		}
-		else
-			_summon = null;
-		
 		if (isArmor)
-			player.addStatFunc(new FuncAdd(res, 0x40, this, _value, null));
-		
-		else if (_summon == null)
-			player.addStatFunc(new FuncAdd(power, 0x40, this, _value, null));
-		
+			player.addStatFunc(new FuncAdd(getResist(_element), 0x40, this, _value, null));
 		else
-		{
-			player.addStatFunc(new FuncAdd(power, 0x40, this, _value * 0.2, null));
-			
-			_summon.addStatFunc(new FuncAdd(power, 0x40, this, _value * 0.8, null));
-		}
+			player.addStatFunc(new FuncAdd(getPower(_element), 0x40, this, _value, null));
 		
 		_active = true;
 	}
@@ -250,10 +229,6 @@ public final class Elementals implements FuncOwner
 		
 		player.removeStatsOwner(this);
 		
-		if (_summon != null)
-			_summon.removeStatsOwner(this);
-		
-		_summon = null;
 		_active = false;
 	}
 	

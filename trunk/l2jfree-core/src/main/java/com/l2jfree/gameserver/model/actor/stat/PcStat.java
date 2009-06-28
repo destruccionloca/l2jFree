@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.model.actor.stat;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
@@ -418,11 +419,16 @@ public class PcStat extends PlayableStat
 	public int getAttackElementValue(byte attribute)
 	{
 		int value = super.getAttackElementValue(attribute);
-
+		
 		// 20% if summon exist
-		if (getActiveChar().getPet() instanceof L2SummonInstance)
+		if (summonShouldHaveAttackElemental(getActiveChar().getPet()))
 			return value / 5;
-
+		
 		return value;
+	}
+	
+	public boolean summonShouldHaveAttackElemental(L2Summon pet)
+	{
+		return pet instanceof L2SummonInstance && !pet.isDead() && getActiveChar().getExpertisePenalty() == 0;
 	}
 }

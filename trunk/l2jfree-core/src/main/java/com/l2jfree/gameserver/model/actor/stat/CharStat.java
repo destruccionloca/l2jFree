@@ -723,7 +723,7 @@ public class CharStat
 		// uncomment me once deadlocks in getAllEffects() fixed
 		// return _activeChar.getElementIdFromEffects();
 	}
-
+	
 	public int getAttackElementValue(byte attackAttribute)
 	{
 		switch (attackAttribute)
@@ -744,7 +744,7 @@ public class CharStat
 				return 0;
 		}
 	}
-
+	
 	public int getDefenseElementValue(byte defenseAttribute)
 	{
 		switch (defenseAttribute)
@@ -765,5 +765,4 @@ public class CharStat
 				return 0;
 		}
 	}
-
 }
