@@ -118,7 +118,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
     <set name="hitTime" val="4000"/>
-    <set name="reuseDelay" val="3000000"/>
+    <set name="reuseDelay" val="3600000"/>
     <for>
       <effect name="Invincible" time="10" val="0" stackOrder="1" stackType="Instant_Shield"/>
     </for>
