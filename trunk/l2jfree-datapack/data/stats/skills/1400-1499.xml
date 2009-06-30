@@ -121,11 +121,11 @@
     <set name="itemConsumeIdOT" val="1461"/>
     <set name="itemConsumeCountOT" val="1"/>
     <set name="itemConsumeSteps" val="14"/>
-    <set name="summonTotalLifeTime" val="1200000"/>
+    <set name="summonTotalLifeTime" val="3600000"/>
     <set name="summonTimeLostIdle" val="500"/>
     <set name="summonTimeLostActive" val="1000"/>
     <set name="target" val="TARGET_SELF"/>
-    <set name="reuseDelay" val="1000"/> <!-- Guessing -->
+    <set name="reuseDelay" val="1000"/>
     <set name="hitTime" val="15000"/>
     <set name="skillType" val="SUMMON"/>
     <set name="isMagic" val="true"/>
@@ -143,7 +143,7 @@
     <set name="itemConsumeIdOT" val="1461"/>
     <set name="itemConsumeCountOT" val="1"/>
     <set name="itemConsumeSteps" val="14"/>
-    <set name="summonTotalLifeTime" val="1200000"/>
+    <set name="summonTotalLifeTime" val="3600000"/>
     <set name="summonTimeLostIdle" val="500"/>
     <set name="summonTimeLostActive" val="1000"/>
     <set name="target" val="TARGET_SELF"/>
@@ -183,7 +183,6 @@
     <set name="itemConsumeCount" val="1"/>
     <set name="mpInitialConsume" val="15"/>
     <set name="mpConsume" val="58"/>
-    <set name="power" val="100"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="8750"/>
     <set name="hitTime" val="4000"/>
@@ -556,7 +555,6 @@
     <set name="staticReuse" val="true"/>
     <set name="magicLvl" val="80"/>
     <set name="isMagic" val="true"/>
-    <set name="power" val="100"/>
     <set name="itemConsumeId" val="8876"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="mpInitialConsume" val="70"/>
