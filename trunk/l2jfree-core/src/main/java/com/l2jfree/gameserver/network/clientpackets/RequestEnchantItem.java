@@ -258,13 +258,24 @@ public class RequestEnchantItem extends AbstractEnchantPacket
 						sendPacket(sm);
 						L2World.getInstance().removeObject(destroyItem);
 
-						L2ItemInstance crystals = activeChar.getInventory().addItem("Enchant", crystalId, count, activeChar, destroyItem);
-						sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
-						sm.addItemName(crystals);
-						sm.addItemNumber(count);
-						sendPacket(sm);
-						activeChar.getInventory().updateInventory(crystals);
-						activeChar.sendPacket(new EnchantResult(1, crystalId, count));
+						L2ItemInstance crystals = null;
+						if (crystalId != 0)
+						{
+							crystals = activeChar.getInventory().addItem("Enchant", crystalId, count, activeChar, destroyItem);
+							sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
+							sm.addItemName(crystals);
+							sm.addItemNumber(count);
+							sendPacket(sm);
+						}
+						if (crystals != null)
+						{
+							activeChar.getInventory().updateInventory(crystals);
+							activeChar.sendPacket(new EnchantResult(1, crystalId, count));
+						}
+						else
+						{
+							activeChar.sendPacket(new EnchantResult(4, 0, 0));
+						}
 					}
 				}
 			}

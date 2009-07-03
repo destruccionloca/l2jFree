@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import java.util.Arrays;
 import java.util.Map;
 
 import javolution.util.FastMap;
@@ -37,13 +38,20 @@ public abstract class AbstractEnchantPacket extends L2GameClientPacket
 		protected final int _grade;
 		protected final int _maxEnchantLevel;
 		protected final int _chanceAdd;
+		protected final int[] _itemIds;
 
-		public EnchantItem(boolean wep, int type, int level, int chance)
+		public EnchantItem(boolean wep, int type, int level, int chance, int[] itemIds)
 		{
 			_isWeapon = wep;
 			_grade = type;
 			_maxEnchantLevel = level;
 			_chanceAdd = chance;
+			_itemIds = itemIds;
+		}
+
+		public EnchantItem(boolean wep, int type, int level, int chance)
+		{
+			this(wep, type, level, chance, null);
 		}
 
 		/*
@@ -88,6 +96,9 @@ public abstract class AbstractEnchantPacket extends L2GameClientPacket
 			if (_maxEnchantLevel != 0 && enchantItem.getEnchantLevel() >= _maxEnchantLevel)
 				return false;
 
+			if (_itemIds != null && Arrays.binarySearch(_itemIds, enchantItem.getItemId()) < 0)
+				return false;
+
 			return true;
 		}
 
@@ -106,9 +117,16 @@ public abstract class AbstractEnchantPacket extends L2GameClientPacket
 		private final boolean _isCrystal;
 		private final boolean _isSafe;
 
-		public EnchantScroll(boolean wep, boolean bless, boolean crystal, boolean safe, int type, int level, int chance)
+		public EnchantScroll(boolean wep, boolean bless, boolean crystal,
+				boolean safe, int type, int level, int chance)
 		{
-			super(wep, type, level, chance);
+			this(wep, bless, crystal, safe, type, level, chance, null);
+		}
+
+		public EnchantScroll(boolean wep, boolean bless, boolean crystal,
+				boolean safe, int type, int level, int chance, int[] itemIds)
+		{
+			super(wep, type, level, chance, itemIds);
 
 			_isBlessed = bless;
 			_isCrystal = crystal;
@@ -207,7 +225,8 @@ public abstract class AbstractEnchantPacket extends L2GameClientPacket
 
 	static
 	{
-		// itemId, (isWeapon, isBlessed, isCrystal, isSafe, grade, max enchant level, chance increase)
+		// itemId, (isWeapon, isBlessed, isCrystal, isSafe, grade, max enchant level, chance increase, allowed item IDs)
+		// allowed items list must be sorted by ascending order
 		_scrolls.put(729, new EnchantScroll(true, false, false, false, L2Item.CRYSTAL_A, 0, 0));
 		_scrolls.put(730, new EnchantScroll(false, false, false, false, L2Item.CRYSTAL_A, 0, 0));
 		_scrolls.put(731, new EnchantScroll(true, false, true, false, L2Item.CRYSTAL_A, 0, 0));
@@ -254,6 +273,9 @@ public abstract class AbstractEnchantPacket extends L2GameClientPacket
 		_scrolls.put(22019, new EnchantScroll(true, false, false, false, L2Item.CRYSTAL_A, 0, 100));
 		_scrolls.put(22020, new EnchantScroll(false, false, false, false, L2Item.CRYSTAL_B, 0, 100));
 		_scrolls.put(22021, new EnchantScroll(false, false, false, false, L2Item.CRYSTAL_A, 0, 100));
+
+		// Master Yogi's Scroll Enchant Weapon (event)
+		_scrolls.put(13540, new EnchantScroll(true, false, false, false, L2Item.CRYSTAL_NONE, 0, 0, new int[]{ 13539 }));
 
 		// itemId, (isWeapon, grade, max enchant level, chance increase)
 		_supports.put(12362, new EnchantItem(true, L2Item.CRYSTAL_D, 9, 20));

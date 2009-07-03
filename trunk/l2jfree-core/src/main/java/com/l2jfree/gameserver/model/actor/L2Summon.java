@@ -195,6 +195,14 @@ public abstract class L2Summon extends L2Playable
 	@Override
 	public void onAction(L2PcInstance player)
 	{
+		// Aggression target lock effect
+		if (player.isLockedTarget() && player.getLockedTarget() != this)
+		{
+			player.sendPacket(new SystemMessage(SystemMessageId.FAILED_CHANGE_TARGET));
+			player.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+
 		if (player == _owner && player.getTarget() == this)
 		{
 			player.sendPacket(new PetStatusShow(this));
