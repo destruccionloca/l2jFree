@@ -773,8 +773,6 @@ public final class Config extends L2Config
 	public static boolean			KARMA_DROP_GM;
 	public static boolean			KARMA_AWARD_PK_KILL;
 	public static int				KARMA_PK_LIMIT;
-	public static String			KARMA_NONDROPPABLE_PET_ITEMS;
-	public static String			KARMA_NONDROPPABLE_ITEMS;
 	public static int[]				KARMA_LIST_NONDROPPABLE_PET_ITEMS;
 	public static int[]				KARMA_LIST_NONDROPPABLE_ITEMS;
 	public static int				PVP_TIME;
@@ -812,8 +810,8 @@ public final class Config extends L2Config
 
 			KARMA_PK_LIMIT = Integer.parseInt(pvpSettings.getProperty("MinimumPKRequiredToDrop", "5"));
 
-			KARMA_NONDROPPABLE_PET_ITEMS = pvpSettings.getProperty("ListOfPetItems", "2375,3500,3501,3502,4422,4423,4424,4425,6648,6649,6650,9882");
-			KARMA_NONDROPPABLE_ITEMS = pvpSettings.getProperty("ListOfNonDroppableItems", "57,1147,425,1146,461,10,2368,7,6,2370,2369");
+			String KARMA_NONDROPPABLE_PET_ITEMS = pvpSettings.getProperty("ListOfPetItems", "2375,3500,3501,3502,4422,4423,4424,4425,6648,6649,6650,9882");
+			String KARMA_NONDROPPABLE_ITEMS = pvpSettings.getProperty("ListOfNonDroppableItems", "57,1147,425,1146,461,10,2368,7,6,2370,2369");
 
 			String[] ids = KARMA_NONDROPPABLE_PET_ITEMS.trim().split(",");
 			KARMA_LIST_NONDROPPABLE_PET_ITEMS = new int[ids.length];

@@ -47,6 +47,9 @@ public abstract class AbstractEnchantPacket extends L2GameClientPacket
 			_maxEnchantLevel = level;
 			_chanceAdd = chance;
 			_itemIds = itemIds;
+			
+			if (_itemIds != null)
+				Arrays.sort(_itemIds);
 		}
 
 		public EnchantItem(boolean wep, int type, int level, int chance)
@@ -55,7 +58,7 @@ public abstract class AbstractEnchantPacket extends L2GameClientPacket
 		}
 
 		/*
-		 * Return true if support item can be used for this item 
+		 * Return true if support item can be used for this item
 		 */
 		public final boolean isValid(L2ItemInstance enchantItem)
 		{
@@ -309,7 +312,7 @@ public abstract class AbstractEnchantPacket extends L2GameClientPacket
 	}
 
 	/**
-	 * Return enchant template for support item 
+	 * Return enchant template for support item
 	 */
 	protected static final EnchantItem getSupportItem(L2ItemInstance item)
 	{
@@ -317,7 +320,7 @@ public abstract class AbstractEnchantPacket extends L2GameClientPacket
 	}
 
 	/**
-	 * Return true if item can be enchanted 
+	 * Return true if item can be enchanted
 	 */
 	protected static final boolean isEnchantable(L2ItemInstance item)
 	{

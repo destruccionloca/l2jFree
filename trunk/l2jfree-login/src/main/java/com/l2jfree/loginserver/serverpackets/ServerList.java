@@ -21,8 +21,6 @@ package com.l2jfree.loginserver.serverpackets;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
 import javolution.util.FastMap;
@@ -60,10 +58,10 @@ import com.l2jfree.loginserver.manager.GameServerManager;
  */
 public final class ServerList extends L2LoginServerPacket
 {
-	private Map<Integer, ServerData>	_servers;
-	private List<Integer>				_serverIds;
+	private final Map<Integer, ServerData>	_servers;
+	private final Integer[]					_serverIds;
 
-	class ServerData
+	private static final class ServerData
 	{
 		protected final int			_serverId;
 	    protected final String		_ip;
@@ -79,7 +77,7 @@ public final class ServerList extends L2LoginServerPacket
 	    protected final boolean		_testServer;
 	    protected final boolean		_brackets;
 
-		ServerData(int pServer_id, String pIp, int pPort, int pAge, boolean pPvp, 
+	    private ServerData(int pServer_id, String pIp, int pPort, int pAge, boolean pPvp,
         		int pCurrentPlayers, int pMaxPlayers, boolean pOn, boolean pUnk1,
         		boolean pClock, boolean pHideName, boolean pTestServer, boolean pBrackets)
 		{
@@ -107,16 +105,16 @@ public final class ServerList extends L2LoginServerPacket
 		{
 			String _ip = (gsi.getGameServerThread() != null) ? gsi.getGameServerThread().getIp(client.getIp()) : "127.0.0.1";
 			_servers.put(gsi.getId(), new ServerData(
-        					gsi.getId(), _ip, gsi.getPort(), gsi.getAgeLimitation(), 
-        					gsi.isPvp(), gsi.getCurrentPlayerCount(), gsi.getMaxPlayers(), 
+        					gsi.getId(), _ip, gsi.getPort(), gsi.getAgeLimitation(),
+        					gsi.isPvp(), gsi.getCurrentPlayerCount(), gsi.getMaxPlayers(),
         					gsi.isOnline(), gsi.isUnk1(),
         					gsi.showClock(), gsi.hideName(), gsi.testServer(),
         					gsi.showBrackets())
         	);
 		}
 
-		_serverIds = Arrays.asList(_servers.keySet().toArray(new Integer[_servers.size()]));
-		Collections.sort(_serverIds);
+		_serverIds = _servers.keySet().toArray(new Integer[_servers.size()]);
+		Arrays.sort(_serverIds);
 	}
 
 	@Override

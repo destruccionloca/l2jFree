@@ -14,8 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import java.util.Arrays;
-
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2SummonAI;
 import com.l2jfree.gameserver.datatables.PetSkillsTable;
@@ -85,11 +83,18 @@ public class RequestActionUse extends L2GameClientPacket
 		// don't allow to do some action if player is transformed
 		if (activeChar.isTransformed())
 		{
-			int[] notAllowedActions = {0, 10, 28, 37, 51, 61};
-			if (Arrays.binarySearch(notAllowedActions, _actionId) >= 0)
+			switch (_actionId)
 			{
-				sendPacket(ActionFailed.STATIC_PACKET);
-				return;
+				case 0:
+				case 10:
+				case 28:
+				case 37:
+				case 51:
+				case 61:
+				{
+					sendPacket(ActionFailed.STATIC_PACKET);
+					return;
+				}
 			}
 		}
 
