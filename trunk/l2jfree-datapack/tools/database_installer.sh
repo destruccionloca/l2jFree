@@ -245,8 +245,9 @@ full_install()
 	$MYG < ../sql/minions.sql &> /dev/null
 	$MYG < ../sql/npc.sql &> /dev/null
 	$MYG < ../sql/npcskills.sql &> /dev/null
-	$MYG < ../sql/olympiad_nobles.sql&> /dev/null
-	$MYG < ../sql/olympiad_nobles_eom.sql&> /dev/null
+	$MYG < ../sql/olympiad_data.sql &> /dev/null
+	$MYG < ../sql/olympiad_nobles.sql &> /dev/null
+	$MYG < ../sql/olympiad_nobles_eom.sql &> /dev/null
 	$MYG < ../sql/petitions.sql &> /dev/null
 	$MYG < ../sql/pets.sql &> /dev/null
 	$MYG < ../sql/pets_skills.sql &> /dev/null
