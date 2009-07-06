@@ -286,12 +286,8 @@ public class L2PetInstance extends L2Summon
 	public void onAction(L2PcInstance player)
 	{
 		// Aggression target lock effect
-		if (player.isLockedTarget() && player.getLockedTarget() != this)
-		{
-			player.sendPacket(new SystemMessage(SystemMessageId.FAILED_CHANGE_TARGET));
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+		if (!player.canChangeLockedTarget(this))
 			return;
-		}
 
 		boolean isOwner = player.getObjectId() == getOwner().getObjectId();
 		

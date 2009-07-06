@@ -545,7 +545,7 @@ public class L2Npc extends L2Character
 	}
 
 	/**
-	 * Return true if this L2Npc instance can be warehouse manager.<BR><BR> 
+	 * Return true if this L2Npc instance can be warehouse manager.<BR><BR>
 	 */
 	public boolean isWarehouse()
 	{
@@ -559,12 +559,10 @@ public class L2Npc extends L2Character
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return false;
 		}
-		if (player.isLockedTarget() && player.getLockedTarget() != this)
-		{
-			player.sendPacket(SystemMessageId.FAILED_CHANGE_TARGET);
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+		
+		if (!player.canChangeLockedTarget(this))
 			return false;
-		}
+		
 		// Restrict interactions during restart/shutdown
 		if (Shutdown.isActionDisabled(DisableType.NPC_ITERACTION))
 		{

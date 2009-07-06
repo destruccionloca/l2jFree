@@ -21,6 +21,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.knownlist.PlayableKnownList;
 import com.l2jfree.gameserver.model.actor.stat.PcStat;
 import com.l2jfree.gameserver.model.actor.stat.PlayableStat;
+import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
@@ -47,7 +48,7 @@ public abstract class L2Playable extends L2Character
 	private boolean	_isPhoenixBlessed	= false;	// For Soul of The Phoenix or Salvation buffs
 	private boolean	_isSilentMoving		= false;	// Silent Move
 	private boolean	_protectionBlessing	= false;	// Blessed by Blessing of Protection
-	private L2Character _lockedTarget = null;
+	private boolean _lockedTarget = false;
 
 	/**
 	 * Constructor of L2Playable (use L2Character constructor).<BR><BR>
@@ -359,19 +360,34 @@ public abstract class L2Playable extends L2Character
 		//TODO
 	}
 	
-	public boolean isLockedTarget()
+	public void setLockedTarget(boolean value)
 	{
-		return _lockedTarget != null;
+		_lockedTarget = value;
 	}
-
-	public L2Character getLockedTarget()
+	
+	@Override
+	public void setTarget(L2Object newTarget)
 	{
-		return _lockedTarget;
+		// not sure about this
+		if (!canChangeLockedTarget(newTarget))
+			return;
+		
+		super.setTarget(newTarget);
 	}
-
-	public void setLockedTarget(L2Character cha)
+	
+	public boolean canChangeLockedTarget(L2Object newTarget)
 	{
-		_lockedTarget = cha;
+		if (getTarget() != newTarget && _lockedTarget)
+		{
+			if (newTarget == null)
+				getActingPlayer().sendPacket(SystemMessageId.FAILED_DISABLE_TARGET);
+			else
+				getActingPlayer().sendPacket(SystemMessageId.FAILED_CHANGE_TARGET);
+			sendPacket(ActionFailed.STATIC_PACKET);
+			return false;
+		}
+		
+		return true;
 	}
 	
 	public static final int WEIGHT_PENALTY_MIN = 0;

@@ -2728,7 +2728,7 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Return deposited PcFreight object for the objectId
-	 * or create new if not exist 
+	 * or create new if not exist
 	 */
 	public PcFreight getDepositedFreight(int objectId)
 	{
@@ -3762,12 +3762,9 @@ public final class L2PcInstance extends L2Playable
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 		}
 		// Aggression target lock effect
-		if (player.isLockedTarget() && player.getLockedTarget() != this)
-		{
-			player.sendPacket(new SystemMessage(SystemMessageId.FAILED_CHANGE_TARGET));
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+		if (!player.canChangeLockedTarget(this))
 			return;
-		}
+		
 		// Check if the player already target this L2PcInstance
 		if (player.getTarget() != this)
 		{

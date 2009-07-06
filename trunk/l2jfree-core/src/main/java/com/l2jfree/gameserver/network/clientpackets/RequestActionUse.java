@@ -34,7 +34,6 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.RecipeShopManageList;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.util.FloodProtector;
 import com.l2jfree.gameserver.util.FloodProtector.Protected;
 
@@ -177,11 +176,10 @@ public class RequestActionUse extends L2GameClientPacket
 					sendPacket(ActionFailed.STATIC_PACKET);
 					return;
 				}
-				if (pet.isLockedTarget())
-				{
-					pet.getOwner().sendPacket(new SystemMessage(SystemMessageId.FAILED_CHANGE_TARGET));
+				
+				if (!pet.canChangeLockedTarget(target))
 					return;
-				}
+				
 				if (target.isAutoAttackable(activeChar) || _ctrlPressed)
 				{
 					if (target instanceof L2DoorInstance)

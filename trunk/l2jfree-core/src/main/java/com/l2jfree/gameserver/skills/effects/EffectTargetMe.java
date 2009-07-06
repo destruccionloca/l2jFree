@@ -49,13 +49,15 @@ public final class EffectTargetMe extends L2Effect
 			
 			if (getEffected().getTarget() != getEffector())
 			{
+				// to be able to set the target even if it's already locked
+				((L2Playable)getEffected()).setLockedTarget(false);
 				// Target is different - stop autoattack and break cast
 				getEffected().setTarget(getEffector());
 				getEffected().abortAttack();
 				getEffected().abortCast();
 				getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 			}
-			((L2Playable)getEffected()).setLockedTarget(getEffector());
+			((L2Playable)getEffected()).setLockedTarget(true);
 			return true;
 		}
 		return false;
@@ -65,6 +67,6 @@ public final class EffectTargetMe extends L2Effect
 	protected void onExit()
 	{
 		if (getEffected() instanceof L2Playable)
-			((L2Playable)getEffected()).setLockedTarget(null);
+			((L2Playable)getEffected()).setLockedTarget(false);
 	}
 }
