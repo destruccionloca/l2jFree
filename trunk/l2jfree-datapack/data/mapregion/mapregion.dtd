@@ -1,43 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- Root -->
-<!ELEMENT list (restartpoints|regions|areas)+>
-<!ELEMENT restartpoints (restartpoint)+>
-<!ELEMENT regions (region)+>
-<!ELEMENT areas (restartarea)+>
+<!ELEMENT mapregion (restartpoints,regions,restartareas)>
+
 
 <!-- Restart Point -->
-<!ATTLIST restartpoint id CDATA #REQUIRED>
+<!ELEMENT restartpoints (restartpoint)+>
+
+<!ATTLIST restartpoint restartId CDATA #REQUIRED>
 <!ATTLIST restartpoint name CDATA #REQUIRED>
 <!ATTLIST restartpoint bbs CDATA #REQUIRED>
 <!ATTLIST restartpoint locname CDATA #REQUIRED>
-<!ELEMENT restartpoint (point+,chaospoint*,bannedrace*)>
-<!ATTLIST point X CDATA #REQUIRED>
-<!ATTLIST point Y CDATA #REQUIRED>
-<!-- Someone should separate point for restart and region! -->
-<!ATTLIST point Z CDATA #IMPLIED>
-<!ELEMENT point EMPTY>
-<!ATTLIST chaospoint X CDATA #REQUIRED>
-<!ATTLIST chaospoint Y CDATA #REQUIRED>
-<!ATTLIST chaospoint Z CDATA #REQUIRED>
-<!ELEMENT chaospoint EMPTY>
+<!ELEMENT restartpoint (normal+,chaotic+,bannedrace?)>
+
+<!ATTLIST normal X CDATA #REQUIRED>
+<!ATTLIST normal Y CDATA #REQUIRED>
+<!ATTLIST normal Z CDATA #REQUIRED>
+<!ELEMENT normal EMPTY>
+
+<!ATTLIST chaotic X CDATA #REQUIRED>
+<!ATTLIST chaotic Y CDATA #REQUIRED>
+<!ATTLIST chaotic Z CDATA #REQUIRED>
+<!ELEMENT chaotic EMPTY>
+
 <!ATTLIST bannedrace race (Human|Elf|Darkelf|Orc|Dwarf|Kamael) #REQUIRED>
 <!ATTLIST bannedrace restartId CDATA #REQUIRED>
 <!ELEMENT bannedrace EMPTY>
 
+
 <!-- Region -->
-<!ATTLIST region id CDATA #REQUIRED>
-<!ELEMENT region (zHeight?,point+,restart+)>
-<!ATTLIST zHeight min CDATA #REQUIRED>
-<!ATTLIST zHeight max CDATA #REQUIRED>
-<!ELEMENT zHeight EMPTY>
+<!ELEMENT regions (region)+>
+
+<!ATTLIST region restartId CDATA #REQUIRED>
+<!ATTLIST region zMin CDATA #REQUIRED>
+<!ATTLIST region zMax CDATA #REQUIRED>
+<!ELEMENT region (point,point,point+,restart*)>
+
+<!ATTLIST point X CDATA #REQUIRED>
+<!ATTLIST point Y CDATA #REQUIRED>
+<!ELEMENT point EMPTY>
+
 <!ATTLIST restart race (Human|Elf|Darkelf|Orc|Dwarf|Kamael) #REQUIRED>
 <!ATTLIST restart restartId CDATA #REQUIRED>
 <!ELEMENT restart EMPTY>
 
+
 <!-- Restart Area -->
-<!ATTLIST restartarea id CDATA #REQUIRED>
-<!ELEMENT restartarea (map+)>
+<!ELEMENT restartareas (restartarea)+>
+
+<!ATTLIST restartarea restartId CDATA #REQUIRED>
+<!ELEMENT restartarea (map)+>
+
 <!ATTLIST map X CDATA #REQUIRED>
 <!ATTLIST map Y CDATA #REQUIRED>
 <!ELEMENT map EMPTY>
