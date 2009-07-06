@@ -55,6 +55,8 @@ public class RequestBuySeed extends L2GameClientPacket
 	@Override
 	protected void readImpl()
 	{
+		_manorId = readD();
+
 		int count = readD();
 		if (count <= 0
 				|| count > Config.MAX_ITEM_IN_PACKET
