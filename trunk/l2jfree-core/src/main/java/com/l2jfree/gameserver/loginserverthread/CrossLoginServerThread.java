@@ -136,17 +136,16 @@ public final class CrossLoginServerThread extends LoginServerThread
 							InitLS init = new InitLS(decrypt);
 							if (_log.isDebugEnabled())
 								_log.debug("Init received");
-							if (init.getRevision() != PROTOCOL_L2J || init.getRevision() != PROTOCOL_LEGACY)
+							if (init.getRevision() != PROTOCOL_L2J && init.getRevision() != PROTOCOL_LEGACY)
 							{
 								// WTF? Some retard thinks he is God?
 								_log.warn("The specified login server does not support L2J!");
 								break;
 							}
-							else if (init.getTrueRevision() != -1 &&
-									init.getTrueRevision() == PROTOCOL_CURRENT)
+							else if (init.getTrueRevision() == PROTOCOL_CURRENT)
 							{
 								// Fully compatible login
-								_protocol = init.getTrueRevision();
+								_protocol = PROTOCOL_CURRENT;
 								sendPacket(new CompatibleProtocol());
 							}
 							else
