@@ -317,6 +317,8 @@ public abstract class LoginServerThread extends Thread
 			session = key;
 		}
 	}
+
+	public abstract int getServerStatus();
 	
 	public abstract void setServerStatus(int status);
 	
@@ -325,6 +327,8 @@ public abstract class LoginServerThread extends Thread
 	public abstract int getMaxPlayer();
 	
 	public abstract void setMaxPlayers(int maxPlayer);
+
+	public abstract void changeAttribute(int attr, int val);
 
 	protected abstract int getProtocol();
 }

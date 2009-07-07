@@ -326,28 +326,32 @@ public class LoginServerThreadL2jfree extends LoginServerThread
 		ss = null;
 	}
 
-	public void toggleServerAttribute(int attrib, boolean on)
+	/* (non-Javadoc)
+	 * @see com.l2jfree.gameserver.LoginServerThread#changeAttribute()
+	 */
+	@Override
+	public void changeAttribute(int attrib, int value)
 	{
 		switch (attrib)
 		{
 			case ServerStatusL2jfree.SERVER_LIST_UNK:
-				Config.SERVER_BIT_1 = on;
+				Config.SERVER_BIT_1 = (value > 0);
 				break;
 			case ServerStatusL2jfree.SERVER_LIST_CLOCK:
-				Config.SERVER_BIT_2 = on;
+				Config.SERVER_BIT_2 = (value > 0);
 				break;
 			case ServerStatusL2jfree.SERVER_LIST_HIDE_NAME:
-				Config.SERVER_BIT_3 = on;
+				Config.SERVER_BIT_3 = (value > 0);
 				break;
 			case ServerStatusL2jfree.TEST_SERVER:
-				Config.SERVER_BIT_4 = on;
+				Config.SERVER_BIT_4 = (value > 0);
 				break;
 			case ServerStatusL2jfree.SERVER_LIST_BRACKETS:
-				Config.SERVER_LIST_BRACKET = on;
+				Config.SERVER_LIST_BRACKET = (value > 0);
 				break;
 		}
 		ServerStatusL2jfree ss = new ServerStatusL2jfree();
-		ss.addAttribute(attrib, on);
+		ss.addAttribute(attrib, (value > 0));
 		try
 		{
 			sendPacket(ss);
@@ -386,7 +390,8 @@ public class LoginServerThreadL2jfree extends LoginServerThread
 		return ServerStatusL2jfree.STATUS_STRING[_status];
 	}
 
-	public int getGSStatus()
+	@Override
+	public int getServerStatus()
 	{
 		return _status;
 	}

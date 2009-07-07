@@ -293,11 +293,8 @@ public class LoginServerThreadL2j extends LoginServerThread
 		}
 	}
 
-	/**
-	 * @param id
-	 * @param value
-	 */
-	public void sendServerStatus(int id, int value)
+	@Override
+	public void changeAttribute(int id, int value)
 	{
 		ServerStatusL2j ss = new ServerStatusL2j();
 		ss.addAttribute(id, value);
@@ -321,32 +318,38 @@ public class LoginServerThreadL2j extends LoginServerThread
 	}
 
 	@Override
+	public int getServerStatus()
+	{
+		return _status;
+	}
+
+	@Override
 	public void setServerStatus(int status)
 	{
 		switch (status)
 		{
 			case ServerStatusL2j.STATUS_AUTO:
-				sendServerStatus(ServerStatusL2j.SERVER_LIST_STATUS, ServerStatusL2j.STATUS_AUTO);
+				changeAttribute(ServerStatusL2j.SERVER_LIST_STATUS, ServerStatusL2j.STATUS_AUTO);
 				_status = status;
 				break;
 			case ServerStatusL2j.STATUS_DOWN:
-				sendServerStatus(ServerStatusL2j.SERVER_LIST_STATUS, ServerStatusL2j.STATUS_DOWN);
+				changeAttribute(ServerStatusL2j.SERVER_LIST_STATUS, ServerStatusL2j.STATUS_DOWN);
 				_status = status;
 				break;
 			case ServerStatusL2j.STATUS_FULL:
-				sendServerStatus(ServerStatusL2j.SERVER_LIST_STATUS, ServerStatusL2j.STATUS_FULL);
+				changeAttribute(ServerStatusL2j.SERVER_LIST_STATUS, ServerStatusL2j.STATUS_FULL);
 				_status = status;
 				break;
 			case ServerStatusL2j.STATUS_GM_ONLY:
-				sendServerStatus(ServerStatusL2j.SERVER_LIST_STATUS, ServerStatusL2j.STATUS_GM_ONLY);
+				changeAttribute(ServerStatusL2j.SERVER_LIST_STATUS, ServerStatusL2j.STATUS_GM_ONLY);
 				_status = status;
 				break;
 			case ServerStatusL2j.STATUS_GOOD:
-				sendServerStatus(ServerStatusL2j.SERVER_LIST_STATUS, ServerStatusL2j.STATUS_GOOD);
+				changeAttribute(ServerStatusL2j.SERVER_LIST_STATUS, ServerStatusL2j.STATUS_GOOD);
 				_status = status;
 				break;
 			case ServerStatusL2j.STATUS_NORMAL:
-				sendServerStatus(ServerStatusL2j.SERVER_LIST_STATUS, ServerStatusL2j.STATUS_NORMAL);
+				changeAttribute(ServerStatusL2j.SERVER_LIST_STATUS, ServerStatusL2j.STATUS_NORMAL);
 				_status = status;
 				break;
 			default:

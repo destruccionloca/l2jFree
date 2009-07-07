@@ -20,6 +20,7 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.LoginServerThread;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.gameserverpackets.ServerStatus;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 
 /**
@@ -34,7 +35,7 @@ public class AdminLogin implements IAdminCommandHandler
 		"admin_login_age"
 	};
 
-	//private static final String HTML_ROOT = "data/html/admin/";
+	private static final String HTML_ROOT = "data/html/admin/";
 
 	private static final String ON = "ON";
 	private static final String OFF = "OFF";
@@ -68,7 +69,7 @@ public class AdminLogin implements IAdminCommandHandler
 		}
 		else if (command.startsWith(LOGIN_COMMANDS[3]))
 		{
-/*			st = new StringTokenizer(command, " "); st.nextToken();
+			st = new StringTokenizer(command, " "); st.nextToken();
 			int attrib; int value;
 			try
 			{
@@ -76,15 +77,15 @@ public class AdminLogin implements IAdminCommandHandler
 				value = Integer.parseInt(st.nextToken());
 			}
 			catch (Exception e) { showMenu(GM); return false; }
-			LoginServerThread.getInstance().toggleServerAttribute(attrib, value > 0);*/
+			LoginServerThread.getInstance().changeAttribute(attrib, value);
 		}
 		else if (command.startsWith(LOGIN_COMMANDS[4]))
 		{
-/*			st = new StringTokenizer(command, " "); st.nextToken();
+			st = new StringTokenizer(command, " "); st.nextToken();
 			int age;
 			try { age = Integer.parseInt(st.nextToken()); }
 			catch (Exception e) { showMenu(GM); return false; }
-			LoginServerThread.getInstance().setMinAge(age);*/
+			LoginServerThread.getInstance().changeAttribute(ServerStatus.SERVER_AGE_LIMITATION, age);
 		}
 		else
 			return false;
@@ -96,8 +97,8 @@ public class AdminLogin implements IAdminCommandHandler
 	private void showMenu(L2PcInstance GM)
 	{
 		NpcHtmlMessage html = new NpcHtmlMessage(1);
-		/*html.setFile(HTML_ROOT + "LoginMenu.html");
-		switch (LoginServerThread.getInstance().getGSStatus())
+		html.setFile(HTML_ROOT + "LoginMenu.html");
+		switch (LoginServerThread.getInstance().getServerStatus())
 		{
 		case ServerStatus.STATUS_DOWN:
 			html.replace("%statusCol%", "EE0000");
@@ -111,7 +112,7 @@ public class AdminLogin implements IAdminCommandHandler
 			html.replace("%statusCol%", "00EE00");
 			html.replace("%statusStr%", ON);
 			break;
-		}*/
+		}
 		html.replace("%statusB1%", Config.SERVER_BIT_1 ? ON : OFF);
 		html.replace("%statusB2%", Config.SERVER_BIT_2 ? ON : OFF);
 		html.replace("%statusB3%", Config.SERVER_BIT_3 ? ON : OFF);

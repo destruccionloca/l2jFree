@@ -311,11 +311,11 @@ public final class CrossLoginServerThread extends LoginServerThread
 		}
 	}
 
-	/**
-	 * @param id
-	 * @param value
+	/* (non-Javadoc)
+	 * @see com.l2jfree.gameserver.LoginServerThread#changeAttribute()
 	 */
-	public void sendServerStatus(int id, int value)
+	@Override
+	public void changeAttribute(int id, int value)
 	{
 		ServerStatus ss = new ServerStatus(_protocol);
 		ss.addAttribute(id, value);
@@ -331,13 +331,22 @@ public final class CrossLoginServerThread extends LoginServerThread
 	}
 
 	/* (non-Javadoc)
+	 * @see com.l2jfree.gameserver.LoginServerThread#getServerStatus()
+	 */
+	@Override
+	public int getServerStatus()
+	{
+		return _status;
+	}
+
+	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.LoginServerThread#setServerStatus(int)
 	 */
 	@Override
 	public void setServerStatus(int status)
 	{
 		_status = status;
-		sendServerStatus(ServerStatus.SERVER_LIST_STATUS, status);
+		changeAttribute(ServerStatus.SERVER_LIST_STATUS, status);
 	}
 
 	/* (non-Javadoc)
