@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "../templates/zones.dtd">
 <list>
-<!-- Retail zones. Verified by Savormix -->
+  <!-- Retail zones. Verified by Savormix -->
   <zone id="1" name="Partisan Hideaway" type="Clanhall">
     <entity castleId="-1" clanhallId="21"/>
     <restart_owner x="43370" y="108839" z="-1980"/>
@@ -152,7 +152,7 @@
     </shape>
   </zone>
 
-  <zone id="14" name="Devastated Castle" type="Clanhall"><!-- Not Done -->
+  <zone id="14" name="Devastated Castle" type="Clanhall"> <!-- Not Done -->
     <entity castleId="-1" clanhallId="34"/>
     <restart_chaotic x="136398" y="28901" z="-3582"/>
     <restart_chaotic x="137292" y="28485" z="-3290"/>
@@ -188,7 +188,7 @@
     </shape>
   </zone>
 
-  <zone id="15" name="Bandits Stronghold" type="Clanhall"><!-- Not Done -->
+  <zone id="15" name="Bandits Stronghold" type="Clanhall"> <!-- Not Done -->
     <entity castleId="5" clanhallId="35"/>
     <restart_chaotic x="76576" y="50151" z="-3200"/>
     <restart_chaotic x="77310" y="50317" z="-3160"/>
@@ -489,7 +489,7 @@
     </shape>
   </zone>
 
-  <zone id="42" name="Hot Springs Guild House" type="Clanhall"><!-- Not Done -->
+  <zone id="42" name="Hot Springs Guild House" type="Clanhall"> <!-- Not Done -->
     <entity castleId="-1" clanhallId="62"/>
     <restart_owner x="141005" y="-124605" z="-1870"/>
     <shape type="Rect" zMin="-1870" zMax="-1670">
@@ -498,7 +498,7 @@
     </shape>
   </zone>
 
-  <zone id="43" name="Beast Farm" type="Clanhall"><!-- Not Done -->
+  <zone id="43" name="Beast Farm" type="Clanhall"> <!-- Not Done -->
     <entity castleId="-1" clanhallId="63"/>
     <restart_owner x="60568" y="-94036" z="-1370"/>
     <shape type="Rect" zMin="-1370" zMax="-1170">
@@ -507,7 +507,7 @@
     </shape>
   </zone>
 
-  <zone id="44" name="Fortress of the Dead" type="Clanhall"><!-- Not Done -->
+  <zone id="44" name="Fortress of the Dead" type="Clanhall"> <!-- Not Done -->
     <entity castleId="-1" clanhallId="64"/>
     <restart_owner x="57962" y="-27515" z="590"/>
     <shape type="Rect" zMin="590" zMax="790">

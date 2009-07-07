@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "templates/pet_call_items.dtd">
-<list><!-- summonType: 0 = static, 1 = pet, 2 = wyvern -->
+<list> <!-- summonType: 0 = static, 1 = pet, 2 = wyvern -->
   <!-- Static -->
   <!-- Christmas Tree -->
   <item id="5560">

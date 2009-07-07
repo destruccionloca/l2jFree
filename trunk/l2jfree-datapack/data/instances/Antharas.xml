@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "instances.dtd">
 <instance name="Antharas Lair">
-  <activityTime val="300" />
-  <timeDelay val="24" />
-  <allowSummon val="false" />
+  <activityTime val="300"/>
+  <timeDelay val="24"/>
+  <allowSummon val="false"/>
 </instance>

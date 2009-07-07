@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "../templates/zones.dtd">
-<list>
 <!--
-The effect of these zones is only applied during siege.
-The strength of the effect depends on the adena invested (lvl 1-4).
-The zones affect both attackers and defenders.
-The zones are set up via Chamberlain; when Flame Control Tower dies during siege, the zones cease working.
-During siege, always show the danger area.
+  The effect of these zones is only applied during siege.
+  The strength of the effect depends on the adena invested (lvl 1-4).
+  The zones affect both attackers and defenders.
+  The zones are set up via Chamberlain; when Flame Control Tower dies during siege, the zones cease working.
+  During siege, always show the danger area.
 -->
 <!-- Retail zones, done by Savormix -->
 <!-- Missing: Rune and Schuttgart -->
 <!--
-Smaller castles have _i (inner) and _o (outer), 
-while larger have _e (east) and _w (west),
+  Smaller castles have _i (inner) and _o (outer), 
+  while larger have _e (east) and _w (west),
 -->
-
+<list>
   <!-- Gludio -->
   <zone id="1" name="gludio_slow_damage_i" type="SiegeDanger">
     <entity castleId="1"/>

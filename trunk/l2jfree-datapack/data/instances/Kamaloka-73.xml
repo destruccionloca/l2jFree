@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "instances.dtd">
 <instance name="Kamaloka-73">
-  <activityTime val="30" />
+  <activityTime val="30"/>
   <timeDelay val="24"/>
-  <allowSummon val="false" />
-  <returnteleport x="42673" y="-47988" z="-797" />
+  <allowSummon val="false"/>
+  <returnteleport x="42673" y="-47988" z="-797"/>
   <spawnlist>
-    <spawn npcId="18577" x="-56420" y="-212934" z="-8071" heading="0" respawn="0" amount="1" />
+    <spawn npcId="18577" x="-56420" y="-212934" z="-8071" heading="0" respawn="0" amount="1"/>
   </spawnlist>
 </instance>

@@ -117,7 +117,7 @@
   </zone>
   <zone id="15" name="spore_boss_swamp_poison_zone" type="Danger">
     <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
-    <skill applyEnter="4148,12;4625,12" removeExit="4148;4625"/><!-- Poison, Swamp -->
+    <skill applyEnter="4148,12;4625,12" removeExit="4148;4625"/> <!-- Poison, Swamp -->
     <shape type="Poly" zMin="-4468" zMax="-4118">
       <point x="43084" y="15944"/>
       <point x="45140" y="15816"/>

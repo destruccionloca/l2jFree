@@ -28,7 +28,7 @@
       <mkdir dir="${build}"/>
       <mkdir dir="${build.dist}"/>
       <mkdir dir="${build.dist.game}"/>
-      <mkdir dir="${build.dist.login}" />
+      <mkdir dir="${build.dist.login}"/>
     </target>
 
     <target name="dist"
@@ -93,7 +93,7 @@
       version=${l2j-free-dp.revision}
       builddate=${build.tstamp}
       detailed info:
-	  </concat>
+      </concat>
       <concat destfile="${properties-file}" append="true">
         <filelist dir="${src}/../.svn/" files="entries"/>
         <filterchain>
@@ -103,7 +103,7 @@
              <ignoreblank/>
           </tokenfilter>
         </filterchain>
-	  </concat>
+      </concat>
     </target>
 
     <target name="clean" 

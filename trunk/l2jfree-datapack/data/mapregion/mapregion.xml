@@ -999,29 +999,29 @@
       <chaotic X="181491" Y="-80868" Z="-2728"/>
     </restartpoint>
     <restartpoint restartId="34" name="schuttgart_town" bbs="16" locname="1714">
-<!--
-Schuttgart Spawn	1	84720	-141936	-1536	-1436
-Schuttgart Spawn	2	85056	-141328	-1536	-1436
-Schuttgart Spawn	3	85472	-140752	-1536	-1436
-Schuttgart Spawn	4	85968	-142384	-1336	-1436
-Schuttgart Spawn	5	86400	-142672	-1336	-1436
-Schuttgart Spawn	6	87184	-140256	-1536	-1436
-Schuttgart Spawn	7	87344	-141696	-1336	-1436
-Schuttgart Spawn	8	87776	-140384	-1536	-1436
-Schuttgart Spawn	9	88240	-142736	-1336	-1436
-Schuttgart Spawn	10	88448	-140512	-1536	-1436
-Schuttgart Spawn	11	88624	-142480	-1336	-1436
-Schuttgart Spawn	12	89360	-140944	-1536	-1436
-Schuttgart Spawn	13	89712	-141472	-1536	-1436
-Schuttgart PK Spawn	1	85210	-137791	-2339	-2239
-Schuttgart PK Spawn	2	83824	-138063	-2292	-2190
-Schuttgart PK Spawn	3	80994	-139829	-2287	-2187
-Schuttgart PK Spawn	4	82470	-142492	-2208	-2108
-Schuttgart PK Spawn	5	89756	-137288	-2435	-2335
-Schuttgart PK Spawn	6	92877	-138769	-2395	-2295
-Schuttgart PK Spawn	7	93255	-140516	-2269	-2169
-Schuttgart PK Spawn	8	92548	-142635	-2243	-2243
--->
+      <!--
+        Schuttgart Spawn	1	84720	-141936	-1536	-1436
+        Schuttgart Spawn	2	85056	-141328	-1536	-1436
+        Schuttgart Spawn	3	85472	-140752	-1536	-1436
+        Schuttgart Spawn	4	85968	-142384	-1336	-1436
+        Schuttgart Spawn	5	86400	-142672	-1336	-1436
+        Schuttgart Spawn	6	87184	-140256	-1536	-1436
+        Schuttgart Spawn	7	87344	-141696	-1336	-1436
+        Schuttgart Spawn	8	87776	-140384	-1536	-1436
+        Schuttgart Spawn	9	88240	-142736	-1336	-1436
+        Schuttgart Spawn	10	88448	-140512	-1536	-1436
+        Schuttgart Spawn	11	88624	-142480	-1336	-1436
+        Schuttgart Spawn	12	89360	-140944	-1536	-1436
+        Schuttgart Spawn	13	89712	-141472	-1536	-1436
+        Schuttgart PK Spawn	1	85210	-137791	-2339	-2239
+        Schuttgart PK Spawn	2	83824	-138063	-2292	-2190
+        Schuttgart PK Spawn	3	80994	-139829	-2287	-2187
+        Schuttgart PK Spawn	4	82470	-142492	-2208	-2108
+        Schuttgart PK Spawn	5	89756	-137288	-2435	-2335
+        Schuttgart PK Spawn	6	92877	-138769	-2395	-2295
+        Schuttgart PK Spawn	7	93255	-140516	-2269	-2169
+        Schuttgart PK Spawn	8	92548	-142635	-2243	-2243
+      -->
       <normal X="87331" Y="-142842" Z="-1317"/>
       <normal X="87346" Y="-142374" Z="-1340"/>
       <normal X="86685" Y="-143016" Z="-1340"/>
@@ -1793,8 +1793,8 @@ Schuttgart PK Spawn	8	92548	-142635	-2243	-2243
       <map X="17" Y="10"/>
       <map X="17" Y="11"/>
       <map X="18" Y="17"/>
-      <map X="18" Y="18"/><!-- Pagan temple -->
-      <map X="19" Y="16"/><!-- Pagan temple -->
+      <map X="18" Y="18"/> <!-- Pagan temple -->
+      <map X="19" Y="16"/> <!-- Pagan temple -->
       <map X="19" Y="17"/>
       <map X="20" Y="16"/>
       <map X="20" Y="17"/>
@@ -1832,7 +1832,7 @@ Schuttgart PK Spawn	8	92548	-142635	-2243	-2243
       <map X="17" Y="18"/>
       <map X="17" Y="19"/>
     </restartarea>
-    <restartarea restartId="37"><!-- Fantasy Isle -->
+    <restartarea restartId="37"> <!-- Fantasy Isle -->
       <map X="17" Y="15"/>
       <map X="18" Y="15"/>
       <map X="17" Y="16"/>
