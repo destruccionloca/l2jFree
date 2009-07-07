@@ -46,17 +46,17 @@
     <table name="#num_souls">1 2 3 4 5</table>
     <table name="#ench1Power">6 6 6 6 7 7 7 8 8 8 8 9 9 10 10 10 10 11 11 11 12 12 12
       13 13 13 14 14 15 15</table>
-	<table name="#ench2hpConsume">301 297 288 276 271 265 260 253 248 240 237 231 228 222 213 209 203 200 197 193 188 180 175 171 167 163 159 156 153 150</table>
-	<set name="hpConsume" val="#hpConsume"/>
+    <table name="#ench2hpConsume">301 297 288 276 271 265 260 253 248 240 237 231 228 222 213 209 203 200 197 193 188 180 175 171 167 163 159 156 153 150</table>
+    <set name="hpConsume" val="#hpConsume"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="reuseDelay" val="11000"/>
     <set name="hitTime" val="900"/>
     <set name="skillType" val="CHARGESOUL"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="num_souls" val="#num_souls"/>
-	<enchant1 name="num_souls" val="#ench1Power"/>
+    <enchant1 name="num_souls" val="#ench1Power"/>
     <enchant2 name="hpConsume" val="#ench2hpConsume"/>
-    </skill>
+  </skill>
   <skill id="503" levels="3" name="Scorn">
     <table name="#mpConsume">21 28 33</table>
     <table name="#skillRadius">80 160 240</table>
@@ -464,7 +464,7 @@
     <set name="random_count" val="4"/>
     <set name="reuseDelay" val="600000"/>
   </skill>
-  <skill id="521" levels="8" name="Sharpshooting"  enchantLevels1="30" enchantLevels2="30">
+  <skill id="521" levels="8" name="Sharpshooting" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <table name="#ench1pAtk"> 179 181 182 184 185 187 188 190 192 193 195 196 198
@@ -587,17 +587,17 @@
     <set name="npcId" val="#npcId"/>
   </skill>
   <skill id="526" levels="1" name="Enuma Elish" enchantLevels1="30" enchantLevels2="30">
-	<table name="#enchantMagicLvl"> 78 78 78 78 79 79 79 79 79 79 79 79
+    <table name="#enchantMagicLvl"> 78 78 78 78 79 79 79 79 79 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
-	<table name="#ench2MpConsume"> 77 76 75 74 73 72 71 70 69
+    <table name="#ench2MpConsume"> 77 76 75 74 73 72 71 70 69
       68 67 66 65 64 63 62 61 60 59 58 57 56 55 54 53 52 51 50 49 48 </table>
-	<table name="#ench1Power"> 6140 6161 6180 6201 6225 6248 6262 6280 6298 6315 6325 6344 6362
+    <table name="#ench1Power"> 6140 6161 6180 6201 6225 6248 6262 6280 6298 6315 6325 6344 6362
       6388 6401 6425 6448 6470 6491 6515 6535 6580 6613 6631 6662 6682 6702 6722 6744 6775 </table>
     <!-- Needs retail accuracy check -->
     <set name="mpConsume" val="78"/>
     <set name="power" val="6060"/>
     <set name="hitTime" val="1080"/>
-    <set name="SSBoost" val="2.0"/><!-- Guessing -->
+    <set name="SSBoost" val="2.0"/> <!-- Guessing -->
     <set name="overHit" val="true"/>
     <set name="magicLvl" val="78"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -608,11 +608,11 @@
     <set name="effectRange" val="400"/>
     <set name="reuseDelay" val="75000"/>
     <set name="soulMaxConsumeCount" val="5"/>
-	<enchant1 name="power" val="#ench1Power"/>
-	<enchant1 name="magicLvl" val="#enchantMagicLvl"/>
+    <enchant1 name="power" val="#ench1Power"/>
+    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="mpConsume" val="#ench2MpConsume"/>
-	<enchant2 name="magicLvl" val="#enchantMagicLvl"/>
-    </skill>
+    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
+  </skill>
   <skill id="527" levels="1" name="Iron Shield">
     <!-- Needs to be verified -->
     <set name="hitTime" val="1000"/>
@@ -720,7 +720,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="triggeredId" val="5427"/>
-    <set name="triggeredLevel" val="1"/>    
+    <set name="triggeredLevel" val="1"/>
     <set name="activationChance" val="10"/>
     <set name="chanceType" val="ON_ATTACKED"/>
   </skill>
@@ -730,7 +730,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="triggeredId" val="5428"/>
-    <set name="triggeredLevel" val="1"/>    
+    <set name="triggeredLevel" val="1"/>
     <set name="activationChance" val="10"/>
     <set name="chanceType" val="ON_ATTACKED"/>
   </skill>
@@ -740,7 +740,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="triggeredId" val="5429"/>
-    <set name="triggeredLevel" val="1"/>    
+    <set name="triggeredLevel" val="1"/>
     <set name="activationChance" val="5"/>
     <set name="chanceType" val="ON_ATTACKED"/>
   </skill>
@@ -1707,7 +1707,7 @@
     <set name="isDebuff" val="true"/>
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
-    <!--   <set name="nextAction" val="attack"/> --> <!-- To prevent character stop from attacking -->
+    <!--   <set name="nextAction" val="attack"/> --><!-- To prevent character stop from attacking -->
     <for>
       <effect count="5" name="DamOverTime" time="3" val="#dot" abnormal="bleed" effectPower="40" effectType="BLEED"> <!-- Guess effectPower -->
         <mul order="0x30" stat="runSpd" val="0.8"/>

@@ -500,18 +500,18 @@
     <set name="aggroPoints" val="659"/>
     <cond msgId="113" addName="1">
       <and>
-         <player cp="50"/>
-         <player SiegeZone="126"/>
+        <player cp="50"/>
+        <player SiegeZone="126"/>
       </and>
     </cond>
     <for>
       <effect name="Buff" time="15" val="0" stackOrder="1" stackType="Nobl">
-         <add order="0x40" stat="pDef" val="3000"/>
-         <mul order="0x30" stat="runSpd" val="1.25"/>
-         <mul order="0x30" stat="cancelVuln" val="0.2"/>
-         <mul order="0x30" stat="bowWpnVuln" val="0.2"/>
-         <mul order="0x30" stat="crossbowWpnVuln" val="0.2"/>
-         <mul order="0x30" stat="maxCp" val="0.8"/>
+        <add order="0x40" stat="pDef" val="3000"/>
+        <mul order="0x30" stat="runSpd" val="1.25"/>
+        <mul order="0x30" stat="cancelVuln" val="0.2"/>
+        <mul order="0x30" stat="bowWpnVuln" val="0.2"/>
+        <mul order="0x30" stat="crossbowWpnVuln" val="0.2"/>
+        <mul order="0x30" stat="maxCp" val="0.8"/>
       </effect>
     </for>
   </skill>
@@ -529,18 +529,18 @@
     <set name="aggroPoints" val="659"/>
     <cond msgId="113" addName="1">
       <and>
-         <player cp="50"/>
-         <player SiegeZone="126"/>
+        <player cp="50"/>
+        <player SiegeZone="126"/>
       </and>
     </cond>
     <for>
       <effect name="Buff" time="15" val="0" stackOrder="1" stackType="Nobl">
-         <add order="0x40" stat="pDef" val="4500"/>
-         <mul order="0x30" stat="runSpd" val="1.25"/>
-         <mul order="0x30" stat="cancelVuln" val="0.2"/>
-         <mul order="0x30" stat="bowWpnVuln" val="0.2"/>
-         <mul order="0x30" stat="crossbowWpnVuln" val="0.2"/>
-         <mul order="0x30" stat="maxCp" val="0.8"/>
+        <add order="0x40" stat="pDef" val="4500"/>
+        <mul order="0x30" stat="runSpd" val="1.25"/>
+        <mul order="0x30" stat="cancelVuln" val="0.2"/>
+        <mul order="0x30" stat="bowWpnVuln" val="0.2"/>
+        <mul order="0x30" stat="crossbowWpnVuln" val="0.2"/>
+        <mul order="0x30" stat="maxCp" val="0.8"/>
       </effect>
     </for>
   </skill>
@@ -1580,7 +1580,7 @@
       <effect name="Buff" time="120" val="0" stackOrder="1" stackType="hero">
         <add order="0x40" stat="pAtk" val="250"/>
         <add order="0x40" stat="pDef" val="500"/>
-       <mul order="0x30" stat="cancelVuln" val="0.6"/>
+        <mul order="0x30" stat="cancelVuln" val="0.6"/>
       </effect>
     </for>
   </skill>

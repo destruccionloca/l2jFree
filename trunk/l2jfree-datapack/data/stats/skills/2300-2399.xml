@@ -78,9 +78,9 @@
   <skill id="2306" levels="3" name="Primeval Crystals">
     <!--
       Description(s):
-        Lvl 1 Name - Blue Primeval Crystal
-        Lvl 2 Name - Green Primeval Crystal
-        Lvl 3 Name - Red Primeval Crystal
+      Lvl 1 Name - Blue Primeval Crystal
+      Lvl 2 Name - Green Primeval Crystal
+      Lvl 3 Name - Red Primeval Crystal
     -->
     <table name="#power">50000 100000 200000</table>
     <table name="#itemConsumeId"> 8954 8955 8956 </table>
@@ -931,7 +931,7 @@
       <player SiegeZone="126"/>
     </cond>
     <for>
-      <effect name="Buff" time="3600" val="0" >
+      <effect name="Buff" time="3600" val="0">
         <mul order="0x30" stat="gainHp" val="0.08"/>
       </effect>
     </for>

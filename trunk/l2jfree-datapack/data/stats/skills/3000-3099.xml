@@ -473,8 +473,8 @@
   <skill id="3042" levels="20" name="Special Ability: Critical Damage">
     <!--
       Descriptions:
-       Lvl 1-16: Inflicts additional damage during a critical attack.
-       Lvl 17-20: Increases critical attack damage inflicted during PvP.
+      Lvl 1-16: Inflicts additional damage during a critical attack.
+      Lvl 17-20: Increases critical attack damage inflicted during PvP.
     -->
     <!-- For Duals +4 -->
     <table name="#cAtkAdd"> 81.6 61.4 84.14 75.49 66.77 58.01 49.42 84.11 166.26 146.88 127 107.01 133.97 124.79 275.26 267.13 257.98 297.21 331.38 361.06 </table>
@@ -516,8 +516,8 @@
   <skill id="3045" levels="20" name="Special Ability: Haste">
     <!--
       Descriptions:
-       Lvl 1-16: Increases Atk. Spd.
-       Lvl 17-20: Increases Atk. Spd. and damage inflicted during PvP.
+      Lvl 1-16: Increases Atk. Spd.
+      Lvl 17-20: Increases Atk. Spd. and damage inflicted during PvP.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -526,8 +526,8 @@
   <skill id="3046" levels="20" name="Special Ability: Guidance">
     <!--
       Descriptions:
-       Lvl 1-16: Increases Accuracy.
-       Lvl 17-20: Increases Accuracy. Increases damage inflicted during PvP
+      Lvl 1-16: Increases Accuracy.
+      Lvl 17-20: Increases Accuracy. Increases damage inflicted during PvP
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -596,8 +596,8 @@
   <skill id="3051" levels="2" name="Special Ability: Focus">
     <!--
       Descriptions:
-        Lvl 1: Increases critical attack success rate and damage inflicted during PvP.
-        Lvl 2: Increases critical attack success rate. Increases damage inflicted during PvP
+      Lvl 1: Increases critical attack success rate and damage inflicted during PvP.
+      Lvl 2: Increases critical attack success rate. Increases damage inflicted during PvP
     -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -689,7 +689,7 @@
   <skill id="3058" levels="2" name="Special Ability: Anger">
     <!--
       Descriptions:
-        Lvl 1-2: Decreases maximum HP and increases P. Atk. Increases damage inflicted during PvP.
+      Lvl 1-2: Decreases maximum HP and increases P. Atk. Increases damage inflicted during PvP.
     -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -700,7 +700,6 @@
     </for>
   </skill>
   <skill id="3059" levels="2" name="Special Ability: Critical Drain">
-
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="isMagic" val="true"/>
@@ -774,8 +773,8 @@
   <skill id="3066" levels="4" name="Special Ability: Critical Damage">
     <!--
       Descriptions: 
-        Lvl 1-2: Increases critical attack damage and damage inflicted during PvP.
-        Lvl 3-4: Inflicts additional damage during a critical attack. Increases damage inflicted during PvP.
+      Lvl 1-2: Increases critical attack damage and damage inflicted during PvP.
+      Lvl 3-4: Inflicts additional damage during a critical attack. Increases damage inflicted during PvP.
     -->
     <table name="#val">200 370 370 370</table> <!-- (Custom lvls 3 and 4. Needs to be fixed) -->
     <set name="target" val="TARGET_SELF"/>
@@ -788,7 +787,7 @@
   <skill id="3067" levels="2" name="Special Ability: Critical Damage">
     <!--
       Descriptions: 
-        Lvl 1-2: Increases damage during a critical attack. Increases damage inflicted during PvP.
+      Lvl 1-2: Increases damage during a critical attack. Increases damage inflicted during PvP.
     -->
     <table name="#val">297 326</table>
     <set name="target" val="TARGET_SELF"/>
@@ -832,8 +831,8 @@
     <!--
       Done by SarutrA - SqueezeD
       Description(s):
-        Lvl 1-2: Temporarily stuns and paralyzes target.
-        Lvl 3-4: Instantly throws enemy into a state of shock, immobilizing them.
+      Lvl 1-2: Temporarily stuns and paralyzes target.
+      Lvl 3-4: Instantly throws enemy into a state of shock, immobilizing them.
     -->
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="STUN"/>
@@ -847,8 +846,8 @@
   <skill id="3071" levels="2" name="Special Ability: Rsk. Focus">
     <!--
       Descriptions:
-        Lvl 1: Critical attack rate increases when HP falls.
-        Lvl 2: Critical attack rate increases when HP falls. Increases damage inflicted during PvP.
+      Lvl 1: Critical attack rate increases when HP falls.
+      Lvl 2: Critical attack rate increases when HP falls. Increases damage inflicted during PvP.
     -->
     <table name="#pvpBonus">1 1.05</table>
     <table name="#val">120 130</table>
@@ -879,7 +878,7 @@
   <skill id="3073" levels="2" name="Special Ability: Magic Power">
     <!--
       Descriptions: 
-        Lvl 1-2: Increases MP consumption rate and M. Atk. Increases damage inflicted during PvP.
+      Lvl 1-2: Increases MP consumption rate and M. Atk. Increases damage inflicted during PvP.
     -->
     <table name="#val">153 167</table>
     <set name="target" val="TARGET_SELF"/>
@@ -894,7 +893,7 @@
     <!-- 
       Done by SarutrA - SqueezeD
       Descriptions: Lvl 1-2: Disables the ability to use one's magic skills.
-     -->
+    -->
     <set name="magicLvl" val="74"/>
     <set name="power" val="80"/>
     <set name="target" val="TARGET_ONE"/>

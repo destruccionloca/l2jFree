@@ -27,19 +27,19 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="effectRange" val="-1"/>
-     <for>
+    <for>
       <add order="0x40" stat="darkRes" val="5"/>
       <add order="0x40" stat="holyRes" val="5"/>
-     </for>
+    </for>
   </skill>
   <skill id="804" levels="1" name="Knight Ability - Resist Critical">
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="effectRange" val="-1"/>
-     <for>
+    <for>
       <mul order="0x30" stat="critVuln" val="0.95"/>
-     </for>
+    </for>
   </skill>
   <skill id="805" levels="1" name="not used">
     <set name="target" val="TARGET_NONE"/>
@@ -998,4 +998,4 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
- </list>
+</list>

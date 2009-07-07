@@ -13,10 +13,9 @@
       17 18 18 19 20 </table>
     <table name="#ench2cAtk"> 113 127 141 155 169 183 196 210 224 238 252 266 279 293 307 321
       335 349 362 376 390 404 418 432 445 459 473 487 501 515 </table>
-	<table name="#triggeredId"> 0 0 0 0 0 0 0 0 5604 5604 5604 5604 5604 5604 5604 5604 5604 5604
+    <table name="#triggeredId"> 0 0 0 0 0 0 0 0 5604 5604 5604 5604 5604 5604 5604 5604 5604 5604
 	  5604 5604 5604 5604 5604 5604 5604 5604 5604 5604 5604 5604 5604 5604 5604 5604 5604
 	  5604 5604 5604 5604 5604 5604 5604 5604 5604 5604 </table>
-      
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -74,13 +73,13 @@
     <table name="#ench1pAtk"> 116.84 117.78 118.72 119.66 120.6 121.54 122.48 123.42 124.36
       125.3 126.24 127.18 128.12 129.06 130 130.94 131.88 132.82 133.76 134.7 135.64 136.58
       137.52 138.46 139.4 140.34 141.28 142.22 143.16 144.1 </table>
-	<table name="#triggeredId"> 0 0 0 0 0 0 0 0 5603 5603 5603 5603 5603 5603 5603 5603
+    <table name="#triggeredId"> 0 0 0 0 0 0 0 0 5603 5603 5603 5603 5603 5603 5603 5603
 	  5603 5603 5603 5603 5603 5603 5603 5603 5603 5603 5603 5603 5603 5603 5603 5603
 	  5603 5603 5603 5603 5603 5603 5603 5603 5603 5603 5603 5603 5603 </table>
-  	<set name="target" val="TARGET_SELF"/>
-  	<set name="skillType" val="BUFF"/>
-  	<set name="operateType" val="OP_PASSIVE"/>
-  	<set name="triggeredId" val="#triggeredId"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="triggeredId" val="#triggeredId"/>
     <set name="triggeredLevel" val="1"/>
     <set name="activationChance" val="25"/>
     <set name="chanceType" val="ON_CRIT"/>
@@ -222,7 +221,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
       <add order="0x40" stat="pAtk" val="#pAtk">
-          <using kind="Sword,Big Sword,Blunt,Big Blunt"/>
+        <using kind="Sword,Big Sword,Blunt,Big Blunt"/>
       </add>
     </for>
     <enchant1for>
@@ -301,7 +300,7 @@
     <enchant2 name="power" val="#ench2Power"/>
     <for>
       <!-- Retail Values CT2.3: 25 25 25 25 25 25 34 34 34 34 34 34 34 34 44 44 44 44 44 44 44 44
-      44 44 54 54 54 54 54 54 54 54 54 54 62 62 62 62 62 62 62 62 62 62 67 67 67 67 67HP * 3 Sec -->
+        44 44 54 54 54 54 54 54 54 54 54 54 62 62 62 62 62 62 62 62 62 62 67 67 67 67 67HP * 3 Sec -->
       <effect count="7" name="DamOverTime" time="3" val="#dot" abnormal="bleed" effectPower="50" effectType="BLEED">
         <mul order="0x30" stat="runSpd" val="0.8"/>
       </effect>
@@ -588,7 +587,7 @@
       </mul>
     </for>
     <enchant1for>
-        <add order="0x40" stat="pDef" val="#ench1pDef">
+      <add order="0x40" stat="pDef" val="#ench1pDef">
         <and>
           <using kind="Light"/>
           <not>
@@ -614,7 +613,7 @@
       </mul>
     </enchant1for>
     <enchant2for>
-        <add order="0x40" stat="pDef" val="65.6">
+      <add order="0x40" stat="pDef" val="65.6">
         <and>
           <using kind="Light"/>
           <not>
@@ -660,7 +659,7 @@
       </add>
     </for>
     <enchant1for>
-        <add order="0x40" stat="pDef" val="#ench1pDef">
+      <add order="0x40" stat="pDef" val="#ench1pDef">
         <and>
           <using kind="Magic"/>
           <not>
@@ -690,7 +689,7 @@
       </add>
     </for>
     <enchant1for>
-        <add order="0x40" stat="pDef" val="#ench1pDef">
+      <add order="0x40" stat="pDef" val="#ench1pDef">
         <and>
           <using kind="Magic"/>
           <not>
@@ -877,7 +876,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="249" levels="42" name="Weapon Mastery">
-  <!-- Mage -->
+    <!-- Mage -->
     <table name="#pAtk"> 1.5 2.8 4.5 5.7 6.7 8.3 9.5 11.6 13.3 16 17 18.1 20.4 21.6 22.8
       25.5 26.9 28.3 31.4 33 34.6 38 39.8 41.7 43.5 45.4 47.4 49.4 51.4 53.5 55.6 57.7
       59.9 62 64.1 66.8 68.5 70.7 72.9 75.1 77.2 79.4 </table>
@@ -907,7 +906,7 @@
     </for>
   </skill>
   <skill id="250" levels="42" name="Weapon Mastery">
-  <!-- Shaman -->
+    <!-- Shaman -->
     <table name="#pAtk"> 1.5 2.8 4.5 5.7 6.7 8.3 9.5 11.6 13.3 16 17 18.1 20.4 21.6 22.8
       25.5 26.9 28.3 31.4 33 34.6 38 39.8 41.7 43.5 45.4 47.4 49.4 51.4 53.5 55.6 57.7
       59.9 62 64.1 66.8 68.5 70.7 72.9 75.1 77.2 79.4 </table>
@@ -2484,7 +2483,7 @@
         <add order="0x40" stat="rEvas" val="12">
           <using kind="Dual Fist"/>
         </add>
-	  </effect>
+      </effect>
     </for>
   </skill>
   <skill id="299" levels="1" name="Summon Wild Hog Cannon" enchantLevels1="30">

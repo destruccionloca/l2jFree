@@ -624,12 +624,12 @@
     <enchant1 name="power" val="#ench1Power"/>
     <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   </skill>
-  <skill id="321" levels="10" name="Blinding Blow"  enchantLevels1="30" enchantLevels2="30" >
+  <skill id="321" levels="10" name="Blinding Blow" enchantLevels1="30" enchantLevels2="30">
     <table name="#mpConsume"> 63 64 65 66 67 68 69 70 71 72 </table>
     <table name="#magicLvl"> 65 66 67 68 69 70 71 72 73 74 </table>
     <table name="#power"> 2751 2850 2950 3050 3151 3252 3353 3453 3553 3653 </table>
-    <table name="#ench2MpConsume"> 71 70 69 67 66 65 63 62 61 60 58 57 56 54 53 52 50 49 48 47 45 44 43 41 40 39 37 36 35 34 </table>  
-    <table name="#ench1Power"> 3875 3902 3928 3955 3981 4007 4034 4060 4086 4113 4139 4166 4192 4218 4245 4271 4298 4324 4350 4377 4403 4429 4456 4482 4509 4535 4561 4588 4614 4640 </table> 
+    <table name="#ench2MpConsume"> 71 70 69 67 66 65 63 62 61 60 58 57 56 54 53 52 50 49 48 47 45 44 43 41 40 39 37 36 35 34 </table>
+    <table name="#ench1Power"> 3875 3902 3928 3955 3981 4007 4034 4060 4086 4113 4139 4166 4192 4218 4245 4271 4298 4324 4350 4377 4403 4429 4456 4482 4509 4535 4561 4588 4614 4640 </table>
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <set name="weaponsAllowed" val="262160"/> <!-- Dagger/Dual Daggers -->
     <set name="mpConsume" val="#mpConsume"/>
@@ -932,7 +932,7 @@
     </for>
   </skill>
   <skill id="341" levels="1" name="Touch of Life">
-    <set name="element" val="4"/><!-- Holy -->
+    <set name="element" val="4"/> <!-- Holy -->
     <set name="hpConsume" val="1216"/>
     <set name="power" val="50"/>
     <set name="target" val="TARGET_ONE"/>
@@ -1121,10 +1121,10 @@
     <set name="useShield" val="true"/>
     <for>
       <effect name="Buff" time="300" val="0">
-        <add order="0x40" stat="reflectSkillPhysic" val="30" >
+        <add order="0x40" stat="reflectSkillPhysic" val="30">
           <using kind="Shield"/>
         </add>
-        <add order="0x40" stat="reflectSkillMagic" val="10" >
+        <add order="0x40" stat="reflectSkillMagic" val="10">
           <using kind="Shield"/>
         </add>
       </effect>
@@ -1143,10 +1143,10 @@
     <set name="useShield" val="true"/>
     <for>
       <effect name="Buff" time="300" val="0">
-        <add order="0x40" stat="reflectSkillPhysic" val="10" >
+        <add order="0x40" stat="reflectSkillPhysic" val="10">
           <using kind="Shield"/>
         </add>
-        <add order="0x40" stat="reflectSkillMagic" val="30" >
+        <add order="0x40" stat="reflectSkillMagic" val="30">
           <using kind="Shield"/>
         </add>
       </effect>
@@ -1510,7 +1510,7 @@
     </for>
   </skill>
   <skill id="367" levels="1" name="Dance of Medusa">
-    <set name="element" val="3"/><!-- Earth -->
+    <set name="element" val="3"/> <!-- Earth -->
     <set name="magicLvl" val="77"/>
     <set name="mpConsume" val="53"/>
     <set name="weaponsAllowed" val="512"/> <!-- Dual Sword -->

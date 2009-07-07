@@ -17,7 +17,7 @@
         <mul order="0x30" stat="mAtk" val="1.75"/>
       </effect>
       <effect name="Debuff" time="2400" val="0" stackOrder="99" stackType="MagicDefUp" noicon="1">
-      <!-- temp fix (debuff type) to have working stack -->
+        <!-- temp fix (debuff type) to have working stack -->
         <mul order="0x30" stat="mDef" val="1.3"/>
       </effect>
     </for>
@@ -38,7 +38,7 @@
         <mul order="0x30" stat="maxHp" val="1.35"/>
       </effect>
       <effect name="Debuff" time="2400" val="0" stackOrder="99" stackType="max_mp_up" noicon="1">
-      <!-- temp fix (debuff type) to have working stack -->
+        <!-- temp fix (debuff type) to have working stack -->
         <mul order="0x30" stat="maxMp" val="1.35"/>
       </effect>
     </for>
@@ -59,7 +59,7 @@
         <basemul order="0x30" stat="rCrit" val="0.3"/>
       </effect>
       <effect name="Debuff" time="2400" val="0" stackOrder="99" stackType="critical_dmg_up" noicon="1">
-      <!-- temp fix (debuff type) to have working stack -->
+        <!-- temp fix (debuff type) to have working stack -->
         <mul order="0x30" stat="cAtk" val="1.35"/>
       </effect>
     </for>
@@ -80,7 +80,7 @@
         <mul order="0x30" stat="rShld" val="1.3"/>
       </effect>
       <effect name="Debuff" time="2400" val="0" stackOrder="99" stackType="sdef_up" noicon="1">
-      <!-- temp fix (debuff type) to have working stack -->
+        <!-- temp fix (debuff type) to have working stack -->
         <mul order="0x30" stat="sDef" val="1.5"/>
       </effect>
     </for>
@@ -101,7 +101,7 @@
         <add order="0x40" stat="runSpd" val="33"/>
       </effect>
       <effect name="Debuff" time="2400" val="0" stackOrder="99" stackType="rEvas" noicon="1">
-      <!-- temp fix (debuff type) to have working stack -->
+        <!-- temp fix (debuff type) to have working stack -->
         <add order="0x40" stat="rEvas" val="4"/>
       </effect>
     </for>
@@ -235,7 +235,7 @@
     <set name="isMagic" val="true"/>
     <set name="isDebuff" val="true"/>
     <for>
-      <effect name="ChanceSkillTrigger" time="30" val="0" triggeredId="5591" triggeredLevel="#lvl" chanceType="ON_ATTACKED" activationChance="40"  abnormal="poison" stackOrder="8" stackType="poison"/>
+      <effect name="ChanceSkillTrigger" time="30" val="0" triggeredId="5591" triggeredLevel="#lvl" chanceType="ON_ATTACKED" activationChance="40" abnormal="poison" stackOrder="8" stackType="poison"/>
     </for>
   </skill>
   <skill id="1512" levels="1" name="Soul Vortex">
@@ -356,7 +356,7 @@
         <mul order="0x30" stat="pAtk" val="1.15"/>
       </effect>
       <effect name="Debuff" time="2400" val="0" stackOrder="99" stackType="pd_up" noicon="1">
-      <!-- temp fix (debuff type) to have working stack -->
+        <!-- temp fix (debuff type) to have working stack -->
         <mul order="0x30" stat="pDef" val="1.15"/>
       </effect>
     </for>
@@ -376,7 +376,7 @@
         <basemul order="0x30" stat="rCrit" val="0.3"/>
       </effect>
       <effect name="Debuff" time="2400" val="0" stackOrder="99" stackType="critical_dmg_up" noicon="1">
-      <!-- temp fix (debuff type) to have working stack -->
+        <!-- temp fix (debuff type) to have working stack -->
         <mul order="0x30" stat="cAtk" val="1.35"/>
       </effect>
     </for>
@@ -393,10 +393,10 @@
     <set name="aggroPoints" val="655"/>
     <for>
       <effect name="Buff" time="2400" val="0" stackOrder="99" stackType="vampRage">
-         <add order="0x40" stat="absorbDam" val="9"/> <!-- absorb 9% HP from damage inflicted on enemies -->
+        <add order="0x40" stat="absorbDam" val="9"/> <!-- absorb 9% HP from damage inflicted on enemies -->
       </effect>
       <effect name="Debuff" time="2400" val="0" stackOrder="99" stackType="attack_time_down" noicon="1">
-      <!-- temp fix (debuff type) to have working stack -->
+        <!-- temp fix (debuff type) to have working stack -->
         <mul order="0x30" stat="pAtkSpd" val="1.33"/>
       </effect>
     </for>
@@ -508,13 +508,13 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="power" val="70"/> <!-- Base Land Rate --> <!-- Guessing -->
+    <set name="power" val="70"/> <!-- Base Land Rate --><!-- Guessing -->
     <set name="reuseDelay" val="4000"/>
     <set name="skillType" val="DOT"/>
     <set name="target" val="TARGET_ONE"/>
     <for>
       <!-- Retail Values CT2.3: 9 9 9 9 9 9 11 11 11 11 11 11 11 11 11 11 13 13 13 13 13 13 13 13 13 13
-      14 14 14 14 14 14 14 14 14 14 15 15 15 15 15 15HP * 1 Sec -->
+        14 14 14 14 14 14 14 14 14 14 15 15 15 15 15 15HP * 1 Sec -->
       <effect count="120" name="DamOverTime" val="#dot">
         <mul order="0x30" stat="gainHp" val="0.5"/>
       </effect>
@@ -583,7 +583,7 @@
     <set name="isMagic" val="true"/>
     <for>
       <effect name="Debuff" time="60" val="0" stackOrder="0.7" stackType="RunSpeedDown">
-         <mul order="0x30" stat="runSpd" val="0.7"/>
+        <mul order="0x30" stat="runSpd" val="0.7"/>
       </effect>
     </for>
   </skill>
@@ -682,7 +682,7 @@
         <add order="0x40" stat="runSpd" val="33"/>
       </effect>
       <effect name="Debuff" time="2400" val="0" stackOrder="99" stackType="rEvas" noicon="1">
-      <!-- temp fix (debuff type) to have working stack -->
+        <!-- temp fix (debuff type) to have working stack -->
         <add order="0x40" stat="rEvas" val="4"/>
       </effect>
     </for>
@@ -704,7 +704,7 @@
         <mul order="0x30" stat="pAtk" val="1.15"/>
       </effect>
       <effect name="Debuff" time="2400" val="0" stackOrder="99" stackType="pd_up" noicon="1">
-      <!-- temp fix (debuff type) to have working stack -->
+        <!-- temp fix (debuff type) to have working stack -->
         <mul order="0x30" stat="pDef" val="1.15"/>
       </effect>
     </for>
@@ -724,7 +724,7 @@
         <basemul order="0x30" stat="rCrit" val="0.3"/>
       </effect>
       <effect name="Debuff" time="2400" val="0" stackOrder="99" stackType="critical_dmg_up" noicon="1">
-      <!-- temp fix (debuff type) to have working stack -->
+        <!-- temp fix (debuff type) to have working stack -->
         <mul order="0x30" stat="cAtk" val="1.35"/>
       </effect>
     </for>
@@ -744,7 +744,7 @@
         <mul order="0x30" stat="maxHp" val="1.35"/>
       </effect>
       <effect name="Debuff" time="2400" val="0" stackOrder="99" stackType="max_mp_up" noicon="1">
-      <!-- temp fix (debuff type) to have working stack -->
+        <!-- temp fix (debuff type) to have working stack -->
         <mul order="0x30" stat="maxMp" val="1.35"/>
       </effect>
     </for>

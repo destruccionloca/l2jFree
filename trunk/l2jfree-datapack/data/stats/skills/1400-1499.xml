@@ -317,7 +317,7 @@
         <mul order="0x30" stat="mDef" val="1.2"/>
         <mul order="0x30" stat="mAtkSpd" val="1.2"/>
         <mul order="0x30" stat="debuffVuln" val="0.9"/>
-        <mul order="0x30" stat="runSpd" val="0.8"/> 
+        <mul order="0x30" stat="runSpd" val="0.8"/>
       </effect>
     </for>
   </skill>
@@ -471,8 +471,8 @@
   </skill>
   <skill id="1422" levels="1" name="Day of Doom">
     <!-- Done by BoDiE - Needs to be Finished
-         Creates a seal that casts a powerful curse that decreases all the abilities of nearby enemies.
-	 The seal's effect disappears upon leaving the area. Consumes 1 Magic Symbol.
+      Creates a seal that casts a powerful curse that decreases all the abilities of nearby enemies.
+      The seal's effect disappears upon leaving the area. Consumes 1 Magic Symbol.
     -->
     <set name="mpConsume" val="89"/>
     <set name="target" val="TARGET_SELF"/>
@@ -492,7 +492,7 @@
     <for>
       <!--
         Require Core support to generate a static effect bassed on skill effect range,
-	further information on skill desc <effect name="Symbol" time="60" val="0"/>
+        further information on skill desc <effect name="Symbol" time="60" val="0"/>
       -->
     </for>
   </skill>
@@ -875,7 +875,7 @@
     <set name="element" val="5"/> <!-- Dark -->
     <set name="elementPower" val="20"/>
     <set name="coolTime" val="320"/>
-    <set name="skillType" val="MDAM"/> 
+    <set name="skillType" val="MDAM"/>
     <!-- missing core support for additional damage based on target buffs count -->
     <set name="lvlDepend" val="2"/>
     <set name="isMagic" val="true"/>
@@ -962,19 +962,19 @@
     <set name="element" val="5"/> <!-- Dark -->
     <for>
       <effect name="Buff" time="1200" val="0" stackOrder="1" stackType="ElementPwr">
-		<add order="0x40" stat="darkPower" val="20"/>
+        <add order="0x40" stat="darkPower" val="20"/>
       </effect>
     </for>
     <!-- <enchant1for>
       <effect name="Buff" time="1200" val="0" stackOrder="1" stackType="ElementPwr">
-	    <add order="0x40" stat="darkPower" val="#ench1Power"/>
+      <add order="0x40" stat="darkPower" val="#ench1Power"/>
       </effect>
-    </enchant1for> -->
+      </enchant1for> -->
     <!-- <enchant2for>
       <effect name="Buff" time="#ench2Time" val="0" stackOrder="1" stackType="ElementPwr">
-	    <add order="0x40" stat="darkPower" val="20"/>
+      <add order="0x40" stat="darkPower" val="20"/>
       </effect>
-    </enchant2for> -->
+      </enchant2for> -->
   </skill>
   <skill id="1444" levels="1" name="Pride of Kamael">
     <!-- CT2.2 retail confirmed -->
@@ -1103,18 +1103,18 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="2500"/>
   </skill>
-  <skill id="1450" levels="1" name="Chain Lightning"> 
-    <set name="hitTime" val="1200" />
-    <set name="reuseDelay" val="15000" />
-    <set name="mpConsume" val="100" />
-    <set name="element" val="3" /> <!-- Water -->
-    <set name="target" val="TARGET_AURA" />
-    <set name="skillType" val="MDAM" />
-    <set name="power" val="129" /> <!-- guessed -->
-    <set name="skillRadius" val="200" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="castRange" val="-1" />
-    <set name="soulConsumeCount" val="4" />
+  <skill id="1450" levels="1" name="Chain Lightning">
+    <set name="hitTime" val="1200"/>
+    <set name="reuseDelay" val="15000"/>
+    <set name="mpConsume" val="100"/>
+    <set name="element" val="3"/> <!-- Water -->
+    <set name="target" val="TARGET_AURA"/>
+    <set name="skillType" val="MDAM"/>
+    <set name="power" val="129"/> <!-- guessed -->
+    <set name="skillRadius" val="200"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="soulConsumeCount" val="4"/>
   </skill>
   <skill id="1451" levels="1" name="Fire Vortex Buster">
     <set name="mpInitialConsume" val="28"/>
@@ -1143,7 +1143,7 @@
     <set name="magicLvl" val="79"/>
     <set name="lvlDepend" val="1"/>
     <set name="mpConsume" val="109"/>
-    <set name="power" val="70"/> <!-- Base Land Rate --> <!-- Guessing -->
+    <set name="power" val="70"/> <!-- Base Land Rate --><!-- Guessing -->
     <set name="target" val="TARGET_ONE"/>
     <set name="skillRadius" val="200"/>
     <set name="reuseDelay" val="2000"/>
@@ -1204,7 +1204,7 @@
     <set name="magicLvl" val="79"/>
     <set name="lvlDepend" val="1"/>
     <set name="mpConsume" val="109"/>
-    <set name="power" val="70"/> <!-- Base Land Rate --> <!-- Guessing -->
+    <set name="power" val="70"/> <!-- Base Land Rate --><!-- Guessing -->
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="2000"/>
     <set name="skillType" val="MDAM"/>
@@ -1264,7 +1264,7 @@
     <set name="magicLvl" val="79"/>
     <set name="lvlDepend" val="1"/>
     <set name="mpConsume" val="109"/>
-    <set name="power" val="70"/> <!-- Base Land Rate --> <!-- Guessing -->
+    <set name="power" val="70"/> <!-- Base Land Rate --><!-- Guessing -->
     <set name="target" val="TARGET_ONE"/>
     <set name="skillRadius" val="200"/>
     <set name="reuseDelay" val="2000"/>
@@ -1643,8 +1643,8 @@
   <skill id="1480" levels="1" name="Soul Harmony">
     <!--
       Description(s):
-       Consumes a large amount of your soul to communicate with party members' souls. Communicating
-       to party members' souls while they are immobilized recovers MP. Consumes 20 Souls.
+      Consumes a large amount of your soul to communicate with party members' souls. Communicating
+      to party members' souls while they are immobilized recovers MP. Consumes 20 Souls.
     -->
     <set name="mpConsume" val="130"/>
     <set name="target" val="TARGET_PARTY"/>
@@ -1941,7 +1941,7 @@
         <mul order="0x30" stat="pAtk" val="1.15"/>
       </effect>
       <effect name="Debuff" time="2400" val="0" stackOrder="99" stackType="pd_up" noicon="1">
-      <!-- temp fix (debuff type) to have working stack -->
+        <!-- temp fix (debuff type) to have working stack -->
         <mul order="0x30" stat="pDef" val="1.15"/>
       </effect>
     </for>

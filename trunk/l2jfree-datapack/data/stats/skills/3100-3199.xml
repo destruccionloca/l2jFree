@@ -298,7 +298,7 @@
     <set name="effectRange" val="900"/>
     <set name="staticReuse" val="true"/>
     <for>
-      <effect name="Buff" time="120" val="0" >
+      <effect name="Buff" time="120" val="0">
         <add order="0x40" stat="maxHp" val="#maxHp"/>
       </effect>
     </for>
@@ -406,7 +406,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="staticReuse" val="true"/>
     <for>
-      <effect name="Buff" time="120" val="0" >
+      <effect name="Buff" time="120" val="0">
         <mul order="0x30" stat="gainMp" val="#maxMp"/>
       </effect>
     </for>
@@ -716,8 +716,8 @@
   <skill id="3144" levels="10" name="Item Skill: Acrobatics">
     <!--
       Description(s):
-        Lvl 1-10 - Active: Increases the height from which you can jump 
-	without sustaining damage temporarily.
+      Lvl 1-10 - Active: Increases the height from which you can jump 
+      without sustaining damage temporarily.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>

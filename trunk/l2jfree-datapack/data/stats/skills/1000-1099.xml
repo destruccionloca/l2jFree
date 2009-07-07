@@ -1070,7 +1070,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <for>
       <effect name="Buff" time="120" val="0" stackOrder="1" stackType="turn_passive">
-        <!-- <sub order="0x40" stat="aggression" val="100000"/> --> <!-- requires core support -->
+        <!-- <sub order="0x40" stat="aggression" val="100000"/> --><!-- requires core support -->
       </effect>
     </for>
   </skill>
@@ -1094,7 +1094,7 @@
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
-    <set name="power" val="85"/> <!-- Base Land Rate --> <!-- Should be more accurate now -->
+    <set name="power" val="85"/> <!-- Base Land Rate --><!-- Should be more accurate now -->
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="25000"/>
     <set name="hitTime" val="6000"/>

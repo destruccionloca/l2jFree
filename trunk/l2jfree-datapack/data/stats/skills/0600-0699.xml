@@ -982,7 +982,7 @@
   <skill id="676" levels="1" name="Divine Warrior Sonic Blaster">
     <!--
       Description(s):
-        Strikes the enemy a blow in a distance using sword energy. Critical enabled. Power 2323
+      Strikes the enemy a blow in a distance using sword energy. Critical enabled. Power 2323
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -992,8 +992,8 @@
   <skill id="677" levels="1" name="Divine Warrior Transfixion of Earth">
     <!--
       Description(s):
-        Attacks nearby enemies strongly by cutting with a downward blow.
-        Ignore shield defense. Over-hit is available. Power 2323.
+      Attacks nearby enemies strongly by cutting with a downward blow.
+      Ignore shield defense. Over-hit is available. Power 2323.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -1030,8 +1030,8 @@
   <skill id="682" levels="1" name="Divine Knight Stun Attack">
     <!--
       Description(s):
-        Cause damage and shock together at the same time. Make the enemies shocked momentarily.
-        Over-hit is available. Power 1162.
+      Cause damage and shock together at the same time. Make the enemies shocked momentarily.
+      Over-hit is available. Power 1162.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -1041,8 +1041,8 @@
   <skill id="683" levels="1" name="Divine Knight Thunder Storm">
     <!--
       Description(s):
-        Inflicts shock and damage to the enemies nearby at the same time.
-        Instantly makes nearby enemies shocked. Ignore shield defense. Over-hit is available. Power 775.
+      Inflicts shock and damage to the enemies nearby at the same time.
+      Instantly makes nearby enemies shocked. Ignore shield defense. Over-hit is available. Power 775.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -1052,8 +1052,8 @@
   <skill id="684" levels="1" name="Divine Knight Ultimate Defense">
     <!--
       Description(s):
-        Instantly and drastically increases tolerance to P. Def./M. Def, buff cancel attacks.
-        The player cannot move while the effect lasts. Effect 2.
+      Instantly and drastically increases tolerance to P. Def./M. Def, buff cancel attacks.
+      The player cannot move while the effect lasts. Effect 2.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -1069,8 +1069,8 @@
   <skill id="686" levels="1" name="Divine Rogue Stun Shot">
     <!--
       Description(s):
-       Shoots arrows that inflict both damage and shock to the enemy in order to cancel target state.
-       Puts an enemy into shock momentarily. Over-hit possible. Power 2323.
+      Shoots arrows that inflict both damage and shock to the enemy in order to cancel target state.
+      Puts an enemy into shock momentarily. Over-hit possible. Power 2323.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -1087,8 +1087,8 @@
   <skill id="688" levels="1" name="Divine Rogue Bleed Attack">
     <!--
       Description(s):
-        Causes injury by deadly attacks. Instantly causes the enemies to bleed.
-        Over-hit is available. Power 1549. Effect 3.
+      Causes injury by deadly attacks. Instantly causes the enemies to bleed.
+      Over-hit is available. Power 1549. Effect 3.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -1118,8 +1118,8 @@
   <skill id="692" levels="1" name="Divine Wizard Holy Flare">
     <!--
       Description(s):
-        Attacks a contacted target with non-attribute attack.
-        Temporarily decreases your magic attack power during PvP. Power 102.
+      Attacks a contacted target with non-attribute attack.
+      Temporarily decreases your magic attack power during PvP. Power 102.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -1143,8 +1143,8 @@
   <skill id="695" levels="1" name="Divine Wizard Holy Cloud">
     <!--
       Description(s):
-        Instantly bring divine clouds making nearby enemies sleep.
-        Decrease probability of additional sleep state while effects last.
+      Instantly bring divine clouds making nearby enemies sleep.
+      Decrease probability of additional sleep state while effects last.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>

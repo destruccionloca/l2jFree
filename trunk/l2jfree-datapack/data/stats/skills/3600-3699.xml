@@ -4,11 +4,11 @@
   <skill id="3600" levels="10" name="Special Ability: Anger">
     <!-- For Poles
       Description(s): 
-        Lvl 1-6:  Decreases the character's Maximum HP but increases P. Atk. Allows the character to attack multiple opponents.
-        Lvl 7-10:  Decreases the character's Maximum HP but increases P. Atk., and allows the character to attack multiple opponents and inflicts additional damage during PvP.
+      Lvl 1-6:  Decreases the character's Maximum HP but increases P. Atk. Allows the character to attack multiple opponents.
+      Lvl 7-10:  Decreases the character's Maximum HP but increases P. Atk., and allows the character to attack multiple opponents and inflicts additional damage during PvP.
     -->
     <!-- Guess Lvl 10 -->
-    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 75 80 </table> 
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 75 80 </table>
     <table name="#pAtk"> 20.44 22.64 24.77 26.78 28.59 30.12 31.30 39 45 78 </table>
     <table name="#pvp"> 1 1 1 1 1 1 1.05 1.05 1.05 1.05 </table>
     <set name="magicLvl" val="#magicLvl"/>
@@ -28,9 +28,9 @@
     <!-- For Poles -->
     <!--
       Description(s):
-            Lvl 1-6: Increases Atk.Spd., and enables the character to attack multiple opponents.
-	    Lvl 7-9: Increases Atk. Spd., and enables the character to attack multiple opponents
-	             and inflicts additional damage during PvP.
+      Lvl 1-6: Increases Atk.Spd., and enables the character to attack multiple opponents.
+      Lvl 7-9: Increases Atk. Spd., and enables the character to attack multiple opponents
+      and inflicts additional damage during PvP.
     -->
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 75 </table>
     <table name="#pAtkSpd"> 1.08 1.07 1.07 1.07 1.06 1.06 1.06 1.06 1.07 </table>
@@ -49,7 +49,7 @@
   <skill id="3602" levels="9" name="Special Ability: Guidance">
     <!--
       Lvl 1 - Increases Atk. Spd., and enables the character to attack multiple opponents
-              and inflicts additional damage during PvP.
+      and inflicts additional damage during PvP.
       Lvl 2-6 - Increases Accuracy, and enables the character to attack multiple opponents.
       Lvl 7-9 - Increases Accuracy, and enables the character to attack multiple opponents and inflicts additional damage during PvP.
     -->
@@ -149,12 +149,12 @@
       <!-- Retail value needed -->
       <!-- TODO lvl1:
         There is a 10% probability that magic defense power is increased by 5% and critical damage
-	is decreased by 3 if the damage inflicted by PC is more than 50.
-       -->
+        is decreased by 3 if the damage inflicted by PC is more than 50.
+      -->
       <!-- TODO lvl2:
         when the PC receives more than 50 damage, there is a 10% probability that magic defense power
-	is increased by 5%, the critical damage is decreased by 3, and the critical strike probability
-	is increased by 2.621.
+        is increased by 5%, the critical damage is decreased by 3, and the critical strike probability
+        is increased by 2.621.
       -->
     </for>
   </skill>
@@ -338,7 +338,7 @@
   <skill id="3626" levels="1" name="Kabokula">
     <!--
       Description(s): Used when trapping a roaring Tyrannosaurus.
-        Has no effect for other actions. Consumes 1 Trap Stone.
+      Has no effect for other actions. Consumes 1 Trap Stone.
     -->
     <set name="itemConsumeId" val="8764"/>
     <set name="itemConsumeCount" val="1"/>
@@ -364,7 +364,7 @@
   <skill id="3627" levels="1" name="Tapirawa">
     <!--
       Description(s):
-        Used on a quivering Tyrannosaurus. Has no effect for other actions. Consumes 1 Trap Stone.
+      Used on a quivering Tyrannosaurus. Has no effect for other actions. Consumes 1 Trap Stone.
     -->
     <set name="itemConsumeId" val="8764"/>
     <set name="itemConsumeCount" val="1"/>
@@ -379,7 +379,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="300"/>
     <set name="effectRange" val="900"/>
-    <set name="reuseDelay" val="30000"/>	
+    <set name="reuseDelay" val="30000"/>
     <set name="isMagic" val="true"/>
     <set name="isDebuff" val="true"/>
     <set name="offensive" val="true"/>
@@ -390,7 +390,7 @@
   <skill id="3628" levels="1" name="Shabonoba">
     <!--
       Description(s): 
-        Used on a struggling Tyrannosaurus. Has no effect for other actions. Consumes 1 Trap Stone.
+      Used on a struggling Tyrannosaurus. Has no effect for other actions. Consumes 1 Trap Stone.
     -->
     <set name="itemConsumeId" val="8764"/>
     <set name="itemConsumeCount" val="1"/>
@@ -441,7 +441,7 @@
   </skill>
   <skill id="3630" levels="1" name="Void Burst">
     <set name="mpConsume" val="140"/>
-    <set name="power" val="1000"/><!-- Guessing -->
+    <set name="power" val="1000"/> <!-- Guessing -->
     <set name="target" val="TARGET_AURA"/>
     <set name="hitTime" val="2000"/>
     <set name="reuseDelay" val="60000"/> <!-- Need check -->
@@ -451,7 +451,7 @@
   </skill>
   <skill id="3631" levels="1" name="Void Flow">
     <set name="mpConsume" val="140"/>
-    <set name="power" val="1000"/><!-- Guessing -->
+    <set name="power" val="1000"/> <!-- Guessing -->
     <set name="target" val="TARGET_ONE"/>
     <set name="hitTime" val="1900"/>
     <set name="reuseDelay" val="60000"/> <!-- Need check -->
