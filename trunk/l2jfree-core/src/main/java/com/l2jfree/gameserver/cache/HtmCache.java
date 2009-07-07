@@ -293,7 +293,7 @@ public final class HtmCache
 		return _cache.get(path);
 	}
 	
-	public boolean isLoadable(File file)
+	private boolean isLoadable(File file)
 	{
 		return file.exists() && !file.isDirectory() && HTM_FILTER.accept(file);
 	}
