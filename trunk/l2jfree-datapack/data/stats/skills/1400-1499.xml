@@ -944,11 +944,11 @@
     </for>
   </skill>
   <skill id="1443" levels="1" name="Dark Weapon" enchantLevels1="30" enchantLevels2="30">
-    <!-- by Sephiroth -->
-    <table name="#ench1Power"> 101 102 103 104 105 106 107 108 109 110 111 112
-      113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 </table>
-    <table name="#ench2Time"> 502 503 504 505 506 507 508 509 510 511 512 513 514 515 516
-      517 518 519 520 521 522 523 524 525 526 527 528 529 530 531 </table>
+    <!-- TODO -->
+    <!-- <table name="#ench1Power"> 101 102 103 104 105 106 107 108 109 110 111 112
+      113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 </table> -->
+    <!-- <table name="#ench2Time"> 502 503 504 505 506 507 508 509 510 511 512 513 514 515 516
+      517 518 519 520 521 522 523 524 525 526 527 528 529 530 531 </table> -->
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="36"/>
     <set name="target" val="TARGET_PARTY_MEMBER"/>
@@ -960,24 +960,21 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <set name="element" val="5"/> <!-- Dark -->
-    <enchant1 name="power" val="#ench1Power"/>
-    <!--  <enchant2 name="buffDuration" val="#ench2Time"/>  -->
     <for>
       <effect name="Buff" time="1200" val="0" stackOrder="1" stackType="ElementPwr">
-        <add order="0x40" stat="darkRes" val="20"/>
+		<add order="0x40" stat="darkPower" val="20"/>
       </effect>
     </for>
-    <!-- This can be completed now, needs proper check on enchant values -->
-    <enchant1for>
-      <effect name="Buff" val="0" time="500" stackOrder="1" stackType="ElementPwr">
-        <!-- <set order="0x30" stat="dark" val="#ench1Power"/> requires core support -->
+    <!-- <enchant1for>
+      <effect name="Buff" time="1200" val="0" stackOrder="1" stackType="ElementPwr">
+	    <add order="0x40" stat="darkPower" val="#ench1Power"/>
       </effect>
-    </enchant1for>
-    <enchant2for>
-      <effect name="Buff" val="0" time="#ench2Time" stackOrder="1" stackType="ElementPwr">
-        <!-- <set order="0x30" stat="dark" val="100"/> requires core support -->
+    </enchant1for> -->
+    <!-- <enchant2for>
+      <effect name="Buff" time="#ench2Time" val="0" stackOrder="1" stackType="ElementPwr">
+	    <add order="0x40" stat="darkPower" val="20"/>
       </effect>
-    </enchant2for>
+    </enchant2for> -->
   </skill>
   <skill id="1444" levels="1" name="Pride of Kamael">
     <!-- CT2.2 retail confirmed -->

@@ -518,7 +518,7 @@
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <set order="0x99" stat="shldAngle" val="360"/>
+      <set order="0x50" stat="shldAngle" val="360"/>
     </for>
   </skill>
   <skill id="317" levels="5" name="Focus Attack">
@@ -539,7 +539,7 @@
         <add order="0x40" stat="accCombat" val="#accCombat">
           <using kind="Pole"/>
         </add>
-        <set order="0x99" stat="atkCountMax" val="1">
+        <set order="0x50" stat="atkCountMax" val="1">
           <using kind="Pole"/>
         </set>
       </effect>
@@ -558,13 +558,13 @@
     <for>
       <effect count="0x7fffffff" name="ManaDamOverTime" time="3" val="0">
         <mul order="0x30" stat="sDef" val="0.6"/>
-        <set order="0x99" stat="shldAngle" val="360"/>
+        <set order="0x50" stat="shldAngle" val="360"/>
       </effect>
     </for>
     <enchant1for>
       <effect count="0x7fffffff" name="ManaDamOverTime" time="2" val="0">
         <mul order="0x30" stat="sDef" val="#ench1sDef"/>
-        <set order="0x99" stat="shldAngle" val="360"/>
+        <set order="0x50" stat="shldAngle" val="360"/>
       </effect>
     </enchant1for>
   </skill>

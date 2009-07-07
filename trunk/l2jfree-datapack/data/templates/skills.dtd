@@ -109,7 +109,7 @@
 <!ATTLIST mul     stat CDATA #REQUIRED>
 <!ATTLIST div     stat CDATA #REQUIRED>
 <!ATTLIST basemul stat CDATA #REQUIRED>
-<!ATTLIST set     order (0x08|0x99) #IMPLIED> <!-- one level to set it before calculations, and another to set if after --> <!-- overlapping with properties -->
+<!ATTLIST set     order (0x08|0x50) #IMPLIED> <!-- one level to set it before calculations, and another to set if after --> <!-- overlapping with properties -->
 <!ATTLIST add     order (0x10|0x40) #REQUIRED> <!-- same level for add/sub -->
 <!ATTLIST sub     order (0x10|0x40) #REQUIRED> <!-- same level for add/sub -->
 <!ATTLIST mul     order (0x30) #REQUIRED> <!-- same level for mul/div -->

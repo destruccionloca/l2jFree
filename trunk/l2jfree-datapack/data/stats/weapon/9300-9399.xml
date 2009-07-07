@@ -399,7 +399,7 @@
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
       <!-- SA: Critical Damage -->
-      <add val="297" order="0x08" stat="cAtkAdd"/>
+      <add val="297" order="0x40" stat="cAtkAdd"/>
     </for>
   </item>
   <item id="9335" name="Divine Pain - Focus">
