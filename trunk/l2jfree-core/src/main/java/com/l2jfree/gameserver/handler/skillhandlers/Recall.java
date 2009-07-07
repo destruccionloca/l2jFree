@@ -82,6 +82,8 @@ public class Recall implements ISkillHandler
 			else
 			{
 				target.setInstanceId(0);
+				if (target instanceof L2PcInstance)
+					((L2PcInstance) target).setIsIn7sDungeon(false);
 
 				String recall = skill.getRecallType();
 				if (recall.equalsIgnoreCase("Castle"))
