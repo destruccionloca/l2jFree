@@ -14,26 +14,26 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.network.serverpackets.ExShowDominionRegistry;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 /**
  * NPC that gives information about territory wars
- * @author  GodKratos
+ * 
+ * @author GodKratos
  */
 public class L2MercenaryManagerInstance extends L2NpcInstance
 {
-    /**
-     * @param objectId
-     * @param template
-     */
-    public L2MercenaryManagerInstance(int objectId, L2NpcTemplate template)
-    {
-           super(objectId, template);
-    }
-
+	/**
+	 * @param objectId
+	 * @param template
+	 */
+	public L2MercenaryManagerInstance(int objectId, L2NpcTemplate template)
+	{
+		super(objectId, template);
+	}
+	
 	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
@@ -45,7 +45,7 @@ public class L2MercenaryManagerInstance extends L2NpcInstance
 		else
 			super.onBypassFeedback(player, command);
 	}
-    
+	
 	@Override
 	public String getHtmlPath(int npcId, int val)
 	{
