@@ -12,16 +12,16 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.sf.l2j.gameserver.model.actor.instance;
+package com.l2jfree.gameserver.model.actor.instance;
 
 import java.util.StringTokenizer;
 
-import net.sf.l2j.gameserver.ai.CtrlIntention;
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
-import net.sf.l2j.gameserver.network.serverpackets.MyTargetSelected;
-import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
-import net.sf.l2j.gameserver.network.serverpackets.ValidateLocation;
-import net.sf.l2j.gameserver.templates.chars.L2NpcTemplate;
+import com.l2jfree.gameserver.ai.CtrlIntention;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
+import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
+import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
+import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
+import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 /**
  * @author Vice 
@@ -45,13 +45,6 @@ public class L2FortSupportCaptainInstance extends L2MerchantInstance
         {
             // Set the target of the L2PcInstance player
             player.setTarget(this);
-
-            // Send a Server->Client packet MyTargetSelected to the L2PcInstance player
-            MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
-            player.sendPacket(my);
-
-            // Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client
-            player.sendPacket(new ValidateLocation(this));
         }
         else
         {
