@@ -573,7 +573,7 @@ public class RequestActionUse extends L2GameClientPacket
 			useSocial(2, activeChar);
 			break;
 		case 13:
-			useSocial(2, activeChar);
+			useSocial(3, activeChar);
 			break;
 		case 14:
 			useSocial(4, activeChar);
