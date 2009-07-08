@@ -14668,4 +14668,9 @@ public final class L2PcInstance extends L2Playable
 	{
 		return getOnlineState() == ONLINE_STATE_ONLINE && getClient() == null;
 	}
+	
+	public boolean isChaotic()
+	{
+		return getKarma() > 0 || isCursedWeaponEquipped();
+	}
 }

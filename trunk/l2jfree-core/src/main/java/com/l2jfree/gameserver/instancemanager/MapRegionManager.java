@@ -15,7 +15,11 @@
 package com.l2jfree.gameserver.instancemanager;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -27,7 +31,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.L2Character;
@@ -43,57 +46,46 @@ import com.l2jfree.gameserver.model.entity.Town;
 import com.l2jfree.gameserver.model.mapregion.L2MapArea;
 import com.l2jfree.gameserver.model.mapregion.L2MapRegion;
 import com.l2jfree.gameserver.model.mapregion.L2MapRegionRestart;
+import com.l2jfree.gameserver.model.mapregion.L2SpecialMapRegion;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.util.Util;
-import com.l2jfree.tools.geometry.Point3D;
 
 /**
  * @author Noctarius
- *
  */
-public class MapRegionManager
+public final class MapRegionManager
 {
-	private static Log							_log					= LogFactory.getLog(MapRegionManager.class.getName());
-
-	private Map<Integer, L2MapRegion>			_mapRegions				= new FastMap<Integer, L2MapRegion>();
-	private Map<Integer, L2MapRegionRestart>	_mapRegionRestart		= new FastMap<Integer, L2MapRegionRestart>();
-	private Map<Integer, L2MapArea>				_mapRestartArea			= new FastMap<Integer, L2MapArea>();
-	private Map<Integer, L2MapArea>				_mapAreas				= new FastMap<Integer, L2MapArea>();
-
-	private Map<Integer, L2MapRegion>			_mapRegionsReload		= null;
-	private Map<Integer, L2MapRegionRestart>	_mapRegionRestartReload	= null;
-	private Map<Integer, L2MapArea>				_mapRestartAreaReload	= null;
-	private Map<Integer, L2MapArea>				_mapAreasReload			= null;
-
-	public final static MapRegionManager getInstance()
+	private static final Log _log = LogFactory.getLog(MapRegionManager.class);
+	
+	private final Map<Integer, L2MapRegionRestart> _mapRegionRestart = new FastMap<Integer, L2MapRegionRestart>();
+	
+	private L2SpecialMapRegion[] _specialMapRegions = new L2SpecialMapRegion[0];
+	private L2MapArea[] _mapAreas = new L2MapArea[0];
+	
+	public static MapRegionManager getInstance()
 	{
 		return SingletonHolder._instance;
 	}
-
+	
 	private MapRegionManager()
 	{
 		load();
 	}
-
+	
 	private void load()
 	{
-		_mapRegionsReload = new FastMap<Integer, L2MapRegion>();
-		_mapRegionRestartReload = new FastMap<Integer, L2MapRegionRestart>();
-		_mapRestartAreaReload = new FastMap<Integer, L2MapArea>();
-		_mapAreasReload = new FastMap<Integer, L2MapArea>();
-
 		for (File xml : Util.getDatapackFiles("mapregion", ".xml"))
 		{
 			Document doc = null;
-
+			
 			try
 			{
 				DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-
+				
 				factory.setValidating(false);
 				factory.setIgnoringComments(true);
-
+				
 				doc = factory.newDocumentBuilder().parse(xml);
 			}
 			catch (Exception e)
@@ -101,7 +93,7 @@ public class MapRegionManager
 				_log.warn("MapRegionManager: Error while loading XML definition: " + xml.getName() + e, e);
 				return;
 			}
-
+			
 			try
 			{
 				parseDocument(doc);
@@ -112,45 +104,22 @@ public class MapRegionManager
 				return;
 			}
 		}
-
-		// Replace old maps with reloaded ones
-		_mapRegions = _mapRegionsReload;
-		_mapRegionRestart = _mapRegionRestartReload;
-		_mapRestartArea = _mapRestartAreaReload;
-		_mapAreas = _mapAreasReload;
-
-		// Reset unused maps
-		_mapRegionsReload = null;
-		_mapRegionRestartReload = null;
-		_mapRestartAreaReload = null;
-		_mapAreasReload = null;
-
-		int redirectCount = 0;
-
-		for (L2MapRegionRestart restart : _mapRegionRestart.values())
-		{
-			if (restart.getBannedRace() != null)
-				redirectCount++;
-		}
-
-		_log.info("MapRegionManager: Loaded " + _mapRegionRestart.size() + " restartpoint(s).");
-		_log.info("MapRegionManager: Loaded " + _mapRestartArea.size() + " restartareas with " + _mapAreas.size() + " arearegion(s).");
-		_log.info("MapRegionManager: Loaded " + _mapRegions.size() + " zoneregion(s).");
-		_log.info("MapRegionManager: Loaded " + redirectCount + " race depending redirects.");
 	}
-
+	
 	public void reload()
 	{
 		load();
 	}
-
+	
 	private void parseDocument(Document doc) throws Exception
 	{
-		Map<Integer, L2MapRegion> regions = new FastMap<Integer, L2MapRegion>();
-		Map<Integer, L2MapRegionRestart> restarts = new FastMap<Integer, L2MapRegionRestart>();
-		Map<Integer, L2MapArea> restartAreas = new FastMap<Integer, L2MapArea>();
-		Map<Integer, L2MapArea> areas = new FastMap<Integer, L2MapArea>();
-
+		final Map<Integer, L2MapRegionRestart> restarts = new FastMap<Integer, L2MapRegionRestart>();
+		
+		final List<L2MapRegion> specialMapRegions = new ArrayList<L2MapRegion>();
+		final List<L2MapArea> mapAreas = new ArrayList<L2MapArea>();
+		
+		final Set<Integer> restartAreas = new HashSet<Integer>();
+		
 		for (Node n = doc.getFirstChild(); n != null; n = n.getNextSibling())
 		{
 			if ("mapregion".equalsIgnoreCase(n.getNodeName()))
@@ -163,12 +132,7 @@ public class MapRegionManager
 						{
 							if ("region".equalsIgnoreCase(f.getNodeName()))
 							{
-								L2MapRegion region = new L2MapRegion(f);
-
-								if (!regions.containsKey(region.getId()))
-									regions.put(region.getId(), region);
-								else
-									throw new Exception("Duplicate zoneRegionId: " + region.getId() + ".");
+								specialMapRegions.add(new L2SpecialMapRegion(f));
 							}
 						}
 					}
@@ -179,53 +143,32 @@ public class MapRegionManager
 							if ("restartpoint".equalsIgnoreCase(f.getNodeName()))
 							{
 								L2MapRegionRestart restart = new L2MapRegionRestart(f);
-
-								if (!restarts.containsKey(restart.getId()))
-									restarts.put(restart.getId(), restart);
+								
+								if (!restarts.containsKey(restart.getRestartId()))
+									restarts.put(restart.getRestartId(), restart);
 								else
-									throw new Exception("Duplicate restartpointId: " + restart.getId() + ".");
+									throw new Exception("Duplicate restartpointId: " + restart.getRestartId() + ".");
 							}
 						}
 					}
-					else if ("areas".equalsIgnoreCase(d.getNodeName()))
+					else if ("restartareas".equalsIgnoreCase(d.getNodeName()))
 					{
 						for (Node f = d.getFirstChild(); f != null; f = f.getNextSibling())
 						{
 							if ("restartarea".equalsIgnoreCase(f.getNodeName()))
 							{
-								int id = -1;
-
-								Node e = f.getAttributes().getNamedItem("id");
-								if (e != null)
+								final int restartId = Integer.parseInt(f.getAttributes().getNamedItem("restartId").getNodeValue());
+								
+								restartAreas.add(restartId);
+								
+								for (Node r = f.getFirstChild(); r != null; r = r.getNextSibling())
 								{
-									id = Integer.parseInt(e.getTextContent());
-
-									for (Node r = f.getFirstChild(); r != null; r = r.getNextSibling())
+									if ("map".equalsIgnoreCase(r.getNodeName()))
 									{
-										if ("map".equalsIgnoreCase(r.getNodeName()))
-										{
-											int X = 0;
-											int Y = 0;
-
-											Node t = r.getAttributes().getNamedItem("X");
-											if (t != null)
-												X = Integer.parseInt(t.getTextContent());
-
-											t = r.getAttributes().getNamedItem("Y");
-											if (t != null)
-												Y = Integer.parseInt(t.getTextContent());
-
-											L2MapArea area = new L2MapArea(id, X, Y);
-
-											if (!areas.containsKey(area.getId()))
-											{
-												restartAreas.put(id, area);
-												areas.put(area.getId(), area);
-												regions.put(area.getId(), area.getMapRegion());
-											}
-											else
-												throw new Exception("Duplicate areaRegionId: " + area.getId() + ".");
-										}
+										int X = Integer.parseInt(r.getAttributes().getNamedItem("X").getNodeValue());
+										int Y = Integer.parseInt(r.getAttributes().getNamedItem("Y").getNodeValue());
+										
+										mapAreas.add(new L2MapArea(restartId, X, Y));
 									}
 								}
 							}
@@ -234,163 +177,100 @@ public class MapRegionManager
 				}
 			}
 		}
-
-		_mapRegionsReload = regions;
-		_mapRegionRestartReload = restarts;
-		_mapRestartAreaReload = restartAreas;
-		_mapAreasReload = areas;
+		
+		_specialMapRegions = specialMapRegions.toArray(new L2SpecialMapRegion[specialMapRegions.size()]);
+		_mapAreas = mapAreas.toArray(new L2MapArea[mapAreas.size()]);
+		
+		_mapRegionRestart.clear();
+		_mapRegionRestart.putAll(restarts);
+		
+		int redirectCount = 0;
+		
+		for (L2MapRegionRestart restart : _mapRegionRestart.values())
+		{
+			if (restart.getBannedRace() != null)
+				redirectCount++;
+		}
+		
+		_log.info("MapRegionManager: Loaded " + _mapRegionRestart.size() + " restartpoint(s).");
+		_log.info("MapRegionManager: Loaded " + restartAreas.size() + " restartareas with " + _mapAreas.length + " arearegion(s).");
+		_log.info("MapRegionManager: Loaded " + _specialMapRegions.length + " zoneregion(s).");
+		_log.info("MapRegionManager: Loaded " + redirectCount + " race depending redirects.");
 	}
-
-	public Map<Integer, L2MapRegion> getRegions()
-	{
-		return _mapRegions;
-	}
-
+	
 	public L2MapRegionRestart getRestartLocation(L2PcInstance activeChar)
 	{
 		L2MapRegion region = getRegion(activeChar);
-
+		
 		// Temporary fix for new hunting grounds
 		if (region == null)
-		{
 			return _mapRegionRestart.get(Config.ALT_DEFAULT_RESTARTTOWN);
-		}
-
-		int restartId = region.getRestartId(activeChar.getRace());
-
-		return _mapRegionRestart.get(restartId);
+		else
+			return _mapRegionRestart.get(region.getRestartId(activeChar));
 	}
-
+	
 	public L2MapRegionRestart getRestartLocation(int restartId)
 	{
 		return _mapRegionRestart.get(restartId);
 	}
-
-	public Point3D getRestartPoint(L2PcInstance activeChar)
-	{
-		return getRestartPoint(getRegion(activeChar), activeChar);
-	}
-
-	public Point3D getRestartPoint(L2MapRegion region, L2PcInstance activeChar)
-	{
-		if (region != null)
-		{
-			int restartId = region.getRestartId(activeChar.getRace());
-
-			L2MapRegionRestart restart = _mapRegionRestart.get(restartId);
-
-			if (restart != null)
-				return restart.getRandomRestartPoint(activeChar.getRace());
-		}
-
-		L2MapRegionRestart restart = _mapRegionRestart.get(Config.ALT_DEFAULT_RESTARTTOWN);
-		return restart.getRandomRestartPoint(activeChar.getRace());
-	}
-
-	public Point3D getRestartPoint(int restartId)
+	
+	public Location getRestartPoint(int restartId, L2PcInstance activeChar)
 	{
 		L2MapRegionRestart restart = _mapRegionRestart.get(restartId);
-
-		if (restart != null)
-			return restart.getRandomRestartPoint();
-
-		restart = _mapRegionRestart.get(Config.ALT_DEFAULT_RESTARTTOWN);
-		return restart.getRandomRestartPoint();
+		
+		if (restart == null)
+			restart = _mapRegionRestart.get(Config.ALT_DEFAULT_RESTARTTOWN);
+		
+		return restart.getRandomRestartPoint(activeChar);
 	}
-
-	public Point3D getChaosRestartPoint(L2PcInstance activeChar)
-	{
-		L2MapRegion region = getRegion(activeChar);
-
-		if (region != null)
-		{
-			int restartId = region.getRestartId(activeChar.getRace());
-
-			L2MapRegionRestart restart = _mapRegionRestart.get(restartId);
-
-			if (restart != null)
-				return restart.getRandomChaosRestartPoint(activeChar.getRace());
-		}
-
-		L2MapRegionRestart restart = _mapRegionRestart.get(Config.ALT_DEFAULT_RESTARTTOWN);
-		return restart.getRandomChaosRestartPoint(activeChar.getRace());
-	}
-
-	public Point3D getChaosRestartPoint(int restartId)
+	
+	public Location getChaoticRestartPoint(int restartId, L2PcInstance activeChar)
 	{
 		L2MapRegionRestart restart = _mapRegionRestart.get(restartId);
-
-		if (restart != null)
-			return restart.getRandomChaosRestartPoint();
-
-		restart = _mapRegionRestart.get(Config.ALT_DEFAULT_RESTARTTOWN);
-		return restart.getRandomChaosRestartPoint();
+		
+		if (restart == null)
+			restart = _mapRegionRestart.get(Config.ALT_DEFAULT_RESTARTTOWN);
+		
+		return restart.getRandomChaoticRestartPoint(activeChar);
 	}
-
+	
 	public L2MapRegion getRegion(L2Character activeChar)
 	{
 		return getRegion(activeChar.getX(), activeChar.getY(), activeChar.getZ());
 	}
-
-	public L2MapRegion getRegionById(int regionId)
-	{
-		return _mapRegions.get(regionId);
-	}
-
+	
 	public L2MapRegion getRegion(int x, int y, int z)
 	{
-		L2MapRegion areaRegion = null;
-
-		for (L2MapRegion region : _mapRegions.values())
-		{
+		for (L2SpecialMapRegion region : _specialMapRegions)
 			if (region.checkIfInRegion(x, y, z))
-			{
-				// prefer special regions
-				if (region.isSpecialRegion())
-					return region;
-
-				areaRegion = region;
-			}
-		}
-
-		return areaRegion;
+				return region;
+		
+		for (L2MapArea region : _mapAreas)
+			if (region.checkIfInRegion(x, y, z))
+				return region;
+		
+		return null;
 	}
-
+	
 	public L2MapRegion getRegion(int x, int y)
 	{
 		return getRegion(x, y, -1);
 	}
-
-	public int getNextAccessibleRestartId(L2MapRegionRestart restart, L2PcInstance activeChar)
-	{
-		Town town = TownManager.getInstance().getTownByMaprestart(restart);
-		if (town != null && town.hasCastleInSiege() && SevenSigns.getInstance().getSealOwner(SevenSigns.SEAL_STRIFE) == SevenSigns.CABAL_DAWN)
-		{
-			int newTownId = TownManager.getInstance().getRedirectTownNumber(town.getTownId());
-			town = TownManager.getInstance().getTown(newTownId);
-			L2MapRegion region = town.getMapRegion();
-			if (region != null)
-			{
-				return region.getRestartId(activeChar.getRace());
-			}
-		}
-		return restart.getId();
-	}
-
+	
 	//TODO: Needs to be clean rewritten
 	public Location getTeleToLocation(L2Character activeChar, TeleportWhereType teleportWhere)
 	{
 		if (activeChar instanceof L2PcInstance)
 		{
-			L2PcInstance player = (L2PcInstance) activeChar;
+			L2PcInstance player = (L2PcInstance)activeChar;
 			L2Clan clan = player.getClan();
 			Castle castle = null;
 			Fort fort = null;
 			ClanHall clanhall = null;
-
+			
 			if (player.isFlyingMounted()) // prevent flying players to teleport outside of gracia
 				return new Location(-186330, 242944, 2544);
-
+			
 			// Checking if in Dimensinal Gap
 			if (DimensionalRiftManager.getInstance().checkIfInRiftZone(player.getX(), player.getY(), player.getZ(), true)) // true -> ignore waiting room :)
 			{
@@ -398,15 +278,15 @@ public class MapRegionManager
 				{
 					player.getParty().getDimensionalRift().usedTeleport(player);
 				}
-
+				
 				return DimensionalRiftManager.getInstance().getWaitingRoomTeleport();
 			}
-
+			
 			// Checking if in an instance
 			if (player.getInstanceId() > 0)
 			{
 				Instance playerInstance = InstanceManager.getInstance().getInstance(player.getInstanceId());
-				if(playerInstance!=null)
+				if (playerInstance != null)
 				{
 					if (playerInstance.getSpawnLoc() != null)
 					{
@@ -415,7 +295,7 @@ public class MapRegionManager
 					}
 				}
 			}
-
+			
 			// Checking if in arena
 			L2Zone arena = ZoneManager.getInstance().isInsideZone(L2Zone.ZoneType.Arena, player.getX(), player.getY());
 			if (arena != null && arena.isInsideZone(player))
@@ -425,25 +305,23 @@ public class MapRegionManager
 					loc = arena.getRandomLocation();
 				return loc;
 			}
-
+			
 			if (teleportWhere == TeleportWhereType.Town)
 			{
 				L2MapRegionRestart restart = getRestartLocation(player);
-				int restartId = getNextAccessibleRestartId(restart, player);
-
+				
 				Location loc = null;
+				
 				// Karma player land out of city
-				if (player.getKarma() > 0 || player.isCursedWeaponEquipped())
-				{
-					loc = getLocationFromPoint3D(getChaosRestartPoint(restartId));
-				}
+				if (player.isChaotic())
+					loc = restart.getRandomChaoticRestartPoint(player);
+				
 				if (loc == null)
-				{
-					loc = getLocationFromPoint3D(getRestartPoint(restartId));
-				}
+					loc = restart.getRandomRestartPoint(player);
+				
 				return loc;
 			}
-
+			
 			if (clan != null)
 			{
 				// If teleport to clan hall
@@ -453,7 +331,7 @@ public class MapRegionManager
 					if (clanhall != null)
 					{
 						L2Zone zone = clanhall.getZone();
-
+						
 						if (zone != null)
 						{
 							Location loc = zone.getRestartPoint(L2Zone.RestartType.OWNER);
@@ -463,26 +341,26 @@ public class MapRegionManager
 						}
 					}
 				}
-
+				
 				// If teleport to castle
 				if (teleportWhere == TeleportWhereType.Castle)
 					castle = CastleManager.getInstance().getCastleByOwner(clan);
-
+				
 				else if (teleportWhere == TeleportWhereType.Fortress)
 					fort = FortManager.getInstance().getFortByOwner(clan);
-
+				
 				// If Teleporting to castle or
 				if (castle != null && teleportWhere == TeleportWhereType.Castle)
 				{
 					L2Zone zone = castle.getZone();
 					if (zone != null)
 					{
-						if ((castle.getSiege() != null && castle.getSiege().getIsInProgress()) && (player.getKarma() > 0 || player.isCursedWeaponEquipped()))
+						if (castle.getSiege().getIsInProgress() && player.isChaotic())
 						{
 							// Karma player respawns out of siege zone (only during sieges ? o.O )
 							return zone.getRestartPoint(L2Zone.RestartType.CHAOTIC);
 						}
-
+						
 						return zone.getRestartPoint(L2Zone.RestartType.OWNER);
 					}
 				}
@@ -492,12 +370,12 @@ public class MapRegionManager
 					if (zone != null)
 					{
 						// If is on castle with siege and player's clan is defender
-						if ((fort.getSiege() != null && fort.getSiege().getIsInProgress()) && (player.getKarma() > 0 || player.isCursedWeaponEquipped()))
+						if (fort.getSiege().getIsInProgress() && player.isChaotic())
 						{
 							// Karma player respawns out of siege zone (only during sieges ? o.O )
 							return zone.getRestartPoint(L2Zone.RestartType.CHAOTIC);
 						}
-
+						
 						return zone.getRestartPoint(L2Zone.RestartType.OWNER);
 					}
 				}
@@ -510,7 +388,7 @@ public class MapRegionManager
 					if (siege != null && fsiege == null && siege.checkIsAttacker(clan) && siege.checkIfInZone(player))
 					{
 						// Karma player respawns out of siege zone
-						if (player.getKarma() > 0 || player.isCursedWeaponEquipped())
+						if (player.isChaotic())
 						{
 							L2Zone zone = siege.getCastle().getZone();
 							if (zone != null)
@@ -527,7 +405,7 @@ public class MapRegionManager
 					else if (siege == null && fsiege != null && fsiege.checkIsAttacker(clan) && fsiege.checkIfInZone(player))
 					{
 						// Karma player respawns out of siege zone
-						if (player.getKarma() > 0 || player.isCursedWeaponEquipped())
+						if (player.isChaotic())
 						{
 							L2Zone zone = fsiege.getFort().getZone();
 							if (zone != null)
@@ -544,26 +422,21 @@ public class MapRegionManager
 				}
 			}
 		}
-
+		
 		// teleport to default town if nothing else will work
-		return getLocationFromPoint3D(getRestartPoint(Config.ALT_DEFAULT_RESTARTTOWN));
+		return getRestartPoint(Config.ALT_DEFAULT_RESTARTTOWN, activeChar.getActingPlayer());
 	}
-
-	public Location getLocationFromPoint3D(Point3D point)
-	{
-		return new Location(point.getX(), point.getY(), point.getZ());
-	}
-
+	
 	public int getAreaCastle(L2Character activeChar)
 	{
 		Town town = TownManager.getInstance().getClosestTown(activeChar);
-
+		
 		if (town == null)
 			return 5;
-
+		
 		return town.getCastleId();
 	}
-
+	
 	@SuppressWarnings("synthetic-access")
 	private static class SingletonHolder
 	{

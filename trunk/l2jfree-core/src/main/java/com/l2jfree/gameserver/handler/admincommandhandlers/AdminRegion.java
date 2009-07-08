@@ -52,9 +52,9 @@ public class AdminRegion implements IAdminCommandHandler
 
 			if (region != null)
 			{
-				L2MapRegionRestart restart = MapRegionManager.getInstance().getRestartLocation(region.getRestartId(activeChar.getRace()));
+				L2MapRegionRestart restart = MapRegionManager.getInstance().getRestartLocation(region.getRestartId(activeChar));
 
-				activeChar.sendMessage("Actual region: " + region.getId());
+				//activeChar.sendMessage("Actual region: " + region.getId());
 				activeChar.sendMessage("Respawn position will be: " + restart.getName() + " (" + restart.getLocName() + ")");
 
 				if (restart.getBannedRace() != null)

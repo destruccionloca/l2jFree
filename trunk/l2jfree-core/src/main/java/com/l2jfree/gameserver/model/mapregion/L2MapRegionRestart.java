@@ -17,102 +17,68 @@ package com.l2jfree.gameserver.model.mapregion;
 import org.apache.commons.lang.ArrayUtils;
 import org.w3c.dom.Node;
 
+import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.instancemanager.MapRegionManager;
+import com.l2jfree.gameserver.instancemanager.TownManager;
+import com.l2jfree.gameserver.model.Location;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.base.Race;
-import com.l2jfree.tools.geometry.Point3D;
+import com.l2jfree.gameserver.model.entity.Town;
 import com.l2jfree.tools.random.Rnd;
 
 /**
  * @author Noctarius
- *
  */
-public class L2MapRegionRestart
+public final class L2MapRegionRestart
 {
-	private int _id = -1;
-	private String _name = "";
-	private int _bbsId = -1;
-	private int _locName = -1;
+	private final int _restartId;
+	private final String _name;
+	private final int _bbsId;
+	private final int _locName;
 	
-	private Point3D[] _restartPoints = new Point3D[0];
-	private Point3D[] _chaosPoints = new Point3D[0];
+	private Location[] _restartPoints = new Location[0];
+	private Location[] _chaoticPoints = new Location[0];
 	
-	private Race _bannedRace = Race.Human;
+	private Race _bannedRace;
 	private int _bannedRaceRestartId = -1;
 	
 	public L2MapRegionRestart(Node node)
 	{
-		Node e = node.getAttributes().getNamedItem("id");
-		if (e != null)
-			_id = Integer.parseInt(e.getNodeValue());
-
-		e = node.getAttributes().getNamedItem("name");
-		if (e != null)
-			_name = e.getNodeValue();
-
-		e = node.getAttributes().getNamedItem("bbs");
-		if (e != null)
-			_bbsId = Integer.parseInt(e.getNodeValue());
-
-		e = node.getAttributes().getNamedItem("locname");
-		if (e != null)
-			_locName = Integer.parseInt(e.getNodeValue());
+		_restartId = Integer.parseInt(node.getAttributes().getNamedItem("restartId").getNodeValue());
+		_name = node.getAttributes().getNamedItem("name").getNodeValue();
+		_bbsId = Integer.parseInt(node.getAttributes().getNamedItem("bbs").getNodeValue());
+		_locName = Integer.parseInt(node.getAttributes().getNamedItem("locname").getNodeValue());
 		
-		parsePoints(node);
-	}
-	
-	private void parsePoints(Node node)
-	{
 		for (Node n = node.getFirstChild(); n != null; n = n.getNextSibling())
 		{
-			if ("point".equals(n.getNodeName()))
+			if ("normal".equalsIgnoreCase(n.getNodeName()))
 			{
-				Point3D point = getPoint3D(n);
-				_restartPoints = (Point3D[])ArrayUtils.add(_restartPoints, point);
+				_restartPoints = (Location[])ArrayUtils.add(_restartPoints, getLocation(n));
 			}
-			else if ("chaospoint".equalsIgnoreCase(n.getNodeName()))
+			else if ("chaotic".equalsIgnoreCase(n.getNodeName()))
 			{
-				Point3D point = getPoint3D(n);
-				_chaosPoints = (Point3D[])ArrayUtils.add(_chaosPoints, point);
+				_chaoticPoints = (Location[])ArrayUtils.add(_chaoticPoints, getLocation(n));
 			}
 			else if ("bannedrace".equalsIgnoreCase(n.getNodeName()))
 			{
-				Node e = n.getAttributes().getNamedItem("race");
-				if (e != null)
-					_bannedRace = Race.getRaceByName(e.getNodeValue());
-
-				e = n.getAttributes().getNamedItem("restartId");
-				if (e != null)
-					_bannedRaceRestartId = Integer.parseInt(e.getNodeValue());
+				_bannedRace = Race.getRaceByName(n.getAttributes().getNamedItem("race").getNodeValue());
+				_bannedRaceRestartId = Integer.parseInt(n.getAttributes().getNamedItem("restartId").getNodeValue());
 			}
 		}
 	}
 	
-	private Point3D getPoint3D(Node node)
+	private static Location getLocation(Node node)
 	{
-		int X = 0;
-		int Y = 0;
-		int Z = 0;
+		final int x = Integer.parseInt(node.getAttributes().getNamedItem("X").getNodeValue());
+		final int y = Integer.parseInt(node.getAttributes().getNamedItem("Y").getNodeValue());
+		final int z = Integer.parseInt(node.getAttributes().getNamedItem("Z").getNodeValue());
 		
-		Node e = node.getAttributes().getNamedItem("X");
-		if (e != null)
-			X = Integer.parseInt(e.getNodeValue());
-
-		e = node.getAttributes().getNamedItem("Y");
-		if (e != null)
-			Y = Integer.parseInt(e.getNodeValue());
-
-		e = node.getAttributes().getNamedItem("Z");
-		if (e != null)
-			Z = Integer.parseInt(e.getNodeValue());
-		
-		Point3D point = new Point3D(X, Y, Z);
-		
-		return point;
+		return new Location(x, y, z);
 	}
 	
-	public int getId()
+	public int getRestartId()
 	{
-		return _id;
+		return _restartId;
 	}
 	
 	public int getBbsId()
@@ -130,38 +96,53 @@ public class L2MapRegionRestart
 		return _name;
 	}
 	
-	public Point3D getRandomRestartPoint(Race race)
+	private int getNextAccessibleRestartId(L2PcInstance activeChar)
 	{
-		if (_bannedRaceRestartId > -1 && race == _bannedRace)
-			return MapRegionManager.getInstance().getRestartPoint(_bannedRaceRestartId);
+		if (activeChar == null)
+			return getRestartId();
 		
-		return getRandomRestartPoint();
+		if (activeChar.getRace() == _bannedRace)
+			return _bannedRaceRestartId;
+		
+		if (SevenSigns.getInstance().getSealOwner(SevenSigns.SEAL_STRIFE) == SevenSigns.CABAL_DAWN)
+		{
+			final Town town = TownManager.getInstance().getTownByMaprestart(this);
+			if (town != null && town.hasCastleInSiege())
+			{
+				final int newTownId = TownManager.getInstance().getRedirectTownNumber(town.getTownId());
+				
+				final L2MapRegion region = TownManager.getInstance().getTown(newTownId).getMapRegion();
+				if (region != null)
+					return region.getRestartId(activeChar);
+			}
+		}
+		
+		return getRestartId();
 	}
 	
-	public Point3D getRandomRestartPoint()
+	public Location getRandomRestartPoint(L2PcInstance player)
 	{
+		final int restartId = getNextAccessibleRestartId(player);
+		
+		if (restartId != getRestartId())
+			return MapRegionManager.getInstance().getRestartPoint(restartId, player);
+		
 		return _restartPoints[Rnd.get(_restartPoints.length)];
 	}
 	
-	public Point3D getRandomChaosRestartPoint(Race race)
+	public Location getRandomChaoticRestartPoint(L2PcInstance player)
 	{
-		if (_bannedRaceRestartId > -1 && race == _bannedRace)
-			return MapRegionManager.getInstance().getChaosRestartPoint(_bannedRaceRestartId);
+		final int restartId = getNextAccessibleRestartId(player);
 		
-		return getRandomChaosRestartPoint();
-	}
-	
-	public Point3D getRandomChaosRestartPoint()
-	{
-		return _chaosPoints[Rnd.get(_chaosPoints.length)];
+		if (restartId != getRestartId())
+			return MapRegionManager.getInstance().getChaoticRestartPoint(restartId, player);
+		
+		return _chaoticPoints[Rnd.get(_chaoticPoints.length)];
 	}
 	
 	public Race getBannedRace()
 	{
-		if (_bannedRaceRestartId > -1)
-			return _bannedRace;
-		
-		return null;
+		return _bannedRace;
 	}
 	
 	public int getRedirectId()
