@@ -409,7 +409,7 @@ INSERT INTO `merchant_shopids` VALUES
 (300542,'gm'),
 (300410,'gm'),
 (300510,'gm'),
-(9157,'gm'),
+-- (9157,'gm'),
 
 -- Castle 
 (335103, '35103'),
