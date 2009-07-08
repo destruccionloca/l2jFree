@@ -269,6 +269,15 @@ public abstract class L2Character extends L2Object
 		// Set its template to the new L2Character
 		_template = template;
 		
+		if (this instanceof L2DoorInstance)
+			_calculators = Formulas.getStdDoorCalculators();
+		else if (this instanceof L2Npc)
+			_calculators = NPC_STD_CALCULATOR;
+		else
+			_calculators = new Calculator[Stats.NUM_STATS];
+		
+		Formulas.addFuncsToNewCharacter(this);
+		
 		if (_template instanceof L2NpcTemplate)
 		{
 			_skills = ((L2NpcTemplate)_template).getSkills();
@@ -279,15 +288,6 @@ public abstract class L2Character extends L2Object
 		}
 		else
 			_skills = new FastMap<Integer, L2Skill>().setShared(true);
-		
-		if (this instanceof L2DoorInstance)
-			_calculators = Formulas.getStdDoorCalculators();
-		else if (this instanceof L2Npc)
-			_calculators = NPC_STD_CALCULATOR;
-		else
-			_calculators = new Calculator[Stats.NUM_STATS];
-		
-		Formulas.addFuncsToNewCharacter(this);
 		
 		if (!(this instanceof L2Playable) && !(this instanceof L2Attackable) && !(this instanceof L2ControlTowerInstance)
 				&& !(this instanceof L2DoorInstance) && !(this instanceof L2Trap) && !(this instanceof L2SiegeFlagInstance) && !(this instanceof L2Decoy)
