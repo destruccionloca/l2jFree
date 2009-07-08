@@ -10486,12 +10486,6 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1702<br>
-	 * Message: $s1 is using a third party program.
-	 */
-	S1_USING_THIRD_PARTY_PROGRAM(1702),
-
-	/**
-	 * ID: 1702<br>
 	 * Message: The previous investigated user is not using a third party
 	 * program
 	 */
@@ -12291,12 +12285,6 @@ public enum SystemMessageId
 	 * Message: $s1's owner ($s2)
 	 */
 	S1_OWNER_S2(1986),
-
-	/**
-	 * ID: 1984<br>
-	 * Message: $s1
-	 */
-	S1_(1984),
 
 	/**
 	 * ID: 1988<br>
