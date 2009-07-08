@@ -60,7 +60,6 @@ import com.l2jfree.gameserver.datatables.CharNameTable;
 import com.l2jfree.gameserver.datatables.CharTemplateTable;
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.datatables.FishTable;
-import com.l2jfree.gameserver.datatables.ForgottenScrollTable;
 import com.l2jfree.gameserver.datatables.GmListTable;
 import com.l2jfree.gameserver.datatables.HennaTable;
 import com.l2jfree.gameserver.datatables.HeroSkillTable;
@@ -7426,7 +7425,6 @@ public final class L2PcInstance extends L2Playable
 			return;
 		
 		Set<Integer> skillTreeUIDs = SkillTreeTable.getInstance().getAllowedSkillUIDs(getClassId());
-		Set<Integer> forgottenIds = ForgottenScrollTable.getInstance().getAllowedSkillIds(getActiveClass());
 		
 		skill_loop: for (L2Skill skill : getAllSkills())
 		{
@@ -7437,7 +7435,11 @@ public final class L2PcInstance extends L2Playable
 			// Loop through all skills in players skilltree
 			if (skillTreeUIDs.contains(SkillTable.getSkillUID(skillid, SkillTable.getInstance().getNormalLevel(skill))))
 				continue;
-			if (forgottenIds.contains(skillid))
+			// forgotten scroll skills
+			if (skillid >= 755 && skillid <= 791)
+				continue skill_loop;
+			// amulet skills
+			if (skillid >= 1517 && skillid <= 1519)
 				continue skill_loop;
 			// Exclude noble skills
 			if (isNoble() && NobleSkillTable.isNobleSkill(skillid))
