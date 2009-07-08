@@ -16,13 +16,12 @@ package com.l2jfree.gameserver.model.mapregion;
 
 /**
  * @author Noctarius
- *
  */
 public enum TeleportWhereType
 {
-    Castle,
-    ClanHall,
-    Fortress,
-    SiegeFlag,
-    Town
+	Castle,
+	ClanHall,
+	Fortress,
+	SiegeFlag,
+	Town
 }

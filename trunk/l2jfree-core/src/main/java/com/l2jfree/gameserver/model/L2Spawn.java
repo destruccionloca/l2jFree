@@ -16,8 +16,7 @@ package com.l2jfree.gameserver.model;
 
 import java.lang.reflect.Constructor;
 
-import javolution.util.FastList;
-
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -46,10 +45,10 @@ import com.l2jfree.tools.random.Rnd;
  */
 public class L2Spawn
 {
-	protected static Log	_log		= LogFactory.getLog(L2Spawn.class.getName());
+	protected static final Log _log = LogFactory.getLog(L2Spawn.class);
 
 	/** The link on the L2NpcTemplate object containing generic and static properties of this spawn (ex : RewardExp, RewardSP, AggroRange...) */
-	private L2NpcTemplate	_template;
+	private final L2NpcTemplate	_template;
 
 	/** The Identifier of this spawn in the spawn table */
 	private int				_id;
@@ -107,21 +106,20 @@ public class L2Spawn
 	}
 
 	/** If True then spawn point is custom */
-	private boolean									_customSpawn;
+	private boolean			_customSpawn;
 
-	private L2Npc							_lastSpawn;
-	private final static FastList<SpawnListener>	_spawnListeners	= new FastList<SpawnListener>();
+	private L2Npc			_lastSpawn;
 
 	/** The task launching the function doSpawn() */
-	class SpawnTask implements Runnable
+	private final class SpawnTask implements Runnable
 	{
-		private L2Npc	_oldNpc;
-
-		public SpawnTask(L2Npc pOldNpc)
+		private final L2Npc _oldNpc;
+		
+		private SpawnTask(L2Npc pOldNpc)
 		{
 			_oldNpc = pOldNpc;
 		}
-
+		
 		public void run()
 		{
 			try
@@ -130,11 +128,11 @@ public class L2Spawn
 				if (_doRespawn)
 					respawnNpc(_oldNpc);
 			}
-			catch (Exception e)
+			catch (RuntimeException e)
 			{
 				_log.warn("", e);
 			}
-
+			
 			_scheduledCount--;
 		}
 	}
@@ -165,9 +163,6 @@ public class L2Spawn
 		// Set the _template of the L2Spawn
 		_template = mobTemplate;
 
-		if (_template == null)
-			return;
-
 		// The Name of the L2Npc type managed by this L2Spawn
 		String implementationName = _template.getType(); // implementing class name
 
@@ -185,7 +180,7 @@ public class L2Spawn
 		}
 		catch (ClassNotFoundException e)
 		{
-			_log.error("Unable to create a Npc ! " + e);
+			_log.fatal("", e);
 		}
 	}
 
@@ -534,7 +529,7 @@ public class L2Spawn
 		{
 			// Spawning failed
 			_currentCount++;
-			_log.warn("NPC " + _template.getNpcId() + " class not found: " + e.getMessage());
+			_log.warn("NPC " + _template.getNpcId() + " class not found: ", e);
 		}
 		return mob;
 	}
@@ -622,30 +617,22 @@ public class L2Spawn
 		return mob;
 	}
 
+	private static SpawnListener[] _spawnListeners = new SpawnListener[0];
+	
 	public static void addSpawnListener(SpawnListener listener)
 	{
 		synchronized (_spawnListeners)
 		{
-			_spawnListeners.add(listener);
+			_spawnListeners = (SpawnListener[])ArrayUtils.add(_spawnListeners, listener);
 		}
 	}
-
-	public static void removeSpawnListener(SpawnListener listener)
-	{
-		synchronized (_spawnListeners)
-		{
-			_spawnListeners.remove(listener);
-		}
-	}
-
+	
 	public static void notifyNpcSpawned(L2Npc npc)
 	{
 		synchronized (_spawnListeners)
 		{
 			for (SpawnListener listener : _spawnListeners)
-			{
 				listener.npcSpawned(npc);
-			}
 		}
 	}
 
