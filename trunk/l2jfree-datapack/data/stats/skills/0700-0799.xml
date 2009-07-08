@@ -571,8 +571,8 @@
   <skill id="743" levels="3" name="Vale Master Dark Explosion">
     <!-- 
       Description(s):
-      Detonate the soul to attack surrounding enemies. Power 56.	
-      Detonate the soul to attack surrounding enemies. Power 59.	
+      Detonate the soul to attack surrounding enemies. Power 56.
+      Detonate the soul to attack surrounding enemies. Power 59.
       Detonate the soul to attack surrounding enemies. Power 61.
     -->
     <set name="target" val="TARGET_NONE"/>

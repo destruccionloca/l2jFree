@@ -610,7 +610,7 @@
   </skill>
   <skill id="4998" levels="1" name="Lidia - Twister">
     <!-- Needs to be done -->
-    <set name="element" val="2"/><!-- Wind -->
+    <set name="element" val="2"/> <!-- Wind -->
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>

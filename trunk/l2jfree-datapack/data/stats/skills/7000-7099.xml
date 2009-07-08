@@ -381,7 +381,6 @@
       </effect>
     </for>
   </skill>
-
   <skill id="7045" levels="1" name="Master's Blessing - Blessed Body">
     <!-- A GM is always by your side. Increases maximum HP temporarily. Effect 6. -->
     <set name="mpConsume" val="2"/>

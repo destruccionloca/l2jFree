@@ -121,7 +121,7 @@
     <table name="#mpConsume"> 35 45 55 65 69 72 75 77 78 </table>
     <table name="#power"> 58 75 92 108 115 121 125 129 132 </table>
     <table name="#magicLvl"> 44 54 64 74 79 84 89 94 99 </table>
-    <set name="element" val="0"/><!-- Fire -->
+    <set name="element" val="0"/> <!-- Fire -->
     <set name="magicLvl" val="#magicLvl"/>
     <set name="lvlDepend" val="1"/>
     <set name="mpConsume" val="#mpConsume"/>
@@ -134,34 +134,34 @@
     <set name="effectRange" val="1250"/>
   </skill>
   <skill id="5315" levels="9" name="NPC(party) -Magic Range Close Range DD - Fire(Self-Destruction)">
-    <set name="element" val="0"/><!-- Fire -->
+    <set name="element" val="0"/> <!-- Fire -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5316" levels="9" name="NPC(party) -Magic Single Long Range DD - Water">
-    <set name="element" val="1"/><!-- Water -->
+    <set name="element" val="1"/> <!-- Water -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="4000"/>
   </skill>
   <skill id="5317" levels="9" name="NPC(party) -Magic Range Long Range DD - Water">
-    <set name="element" val="1"/><!-- Water -->
+    <set name="element" val="1"/> <!-- Water -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="4000"/>
   </skill>
   <skill id="5318" levels="9" name="NPC(party) -Magic Range Close Range DD - Water">
-    <set name="element" val="1"/><!-- Water -->
+    <set name="element" val="1"/> <!-- Water -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="4000"/>
   </skill>
   <skill id="5319" levels="9" name="NPC(party) -Magic Single Long Range DD - Wind">
-    <set name="element" val="2"/><!-- Wind -->
+    <set name="element" val="2"/> <!-- Wind -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -171,7 +171,7 @@
     <table name="#mpConsume"> 35 45 55 65 69 72 75 77 78 </table>
     <table name="#power"> 58 75 92 108 115 121 125 129 132 </table>
     <table name="#magicLvl"> 44 54 64 74 79 84 89 94 99 </table>
-    <set name="element" val="2"/><!-- Wind -->
+    <set name="element" val="2"/> <!-- Wind -->
     <set name="magicLvl" val="#magicLvl"/>
     <set name="lvlDepend" val="1"/>
     <set name="mpConsume" val="#mpConsume"/>
@@ -187,7 +187,7 @@
     <table name="#mpConsume"> 35 45 55 65 69 72 75 77 78 </table>
     <table name="#power"> 58 75 92 108 115 121 125 129 132 </table>
     <table name="#magicLvl"> 44 54 64 74 79 84 89 94 99 </table>
-    <set name="element" val="2"/><!-- Wind -->
+    <set name="element" val="2"/> <!-- Wind -->
     <set name="magicLvl" val="#magicLvl"/>
     <set name="lvlDepend" val="1"/>
     <set name="mpConsume" val="#mpConsume"/>
@@ -200,21 +200,21 @@
     <set name="effectRange" val="1250"/>
   </skill>
   <skill id="5322" levels="9" name="NPC(party) -Magic Single Long Range DD - Earth">
-    <set name="element" val="3"/><!-- Earth -->
+    <set name="element" val="3"/> <!-- Earth -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="4000"/>
   </skill>
   <skill id="5323" levels="9" name="NPC(party) -Magic Range Long Range DD - Earth">
-    <set name="element" val="3"/><!-- Earth -->
+    <set name="element" val="3"/> <!-- Earth -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="4000"/>
   </skill>
   <skill id="5324" levels="9" name="NPC(party) -Magic Range Close Range DD - Earth">
-    <set name="element" val="3"/><!-- Earth -->
+    <set name="element" val="3"/> <!-- Earth -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -229,7 +229,7 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="element" val="4"/><!-- Holy -->
+    <set name="element" val="4"/> <!-- Holy -->
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="MDAM"/>
@@ -239,28 +239,28 @@
     <set name="effectRange" val="1100"/>
   </skill>
   <skill id="5326" levels="9" name="NPC(party) -Magic Range Long Range DD - Holy">
-    <set name="element" val="4"/><!-- Holy -->
+    <set name="element" val="4"/> <!-- Holy -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="4000"/>
   </skill>
   <skill id="5327" levels="9" name="NPC(party) -Magic Range Close Range DD - Holy">
-    <set name="element" val="4"/><!-- Holy -->
+    <set name="element" val="4"/> <!-- Holy -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="4000"/>
   </skill>
   <skill id="5328" levels="9" name="NPC(party) -Magic Single Long Range DD - Dark">
-    <set name="element" val="5"/><!-- Dark -->
+    <set name="element" val="5"/> <!-- Dark -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="4000"/>
   </skill>
   <skill id="5329" levels="9" name="NPC(party) -Magic Range Long Range DD - Holy">
-    <set name="element" val="4"/><!-- Holy -->
+    <set name="element" val="4"/> <!-- Holy -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -275,7 +275,7 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="element" val="4"/><!-- Holy -->
+    <set name="element" val="4"/> <!-- Holy -->
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="MDAM"/>
@@ -329,7 +329,7 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="element" val="0"/><!-- Fire -->
+    <set name="element" val="0"/> <!-- Fire -->
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="830"/>
     <set name="skillType" val="PDAM"/>
@@ -356,14 +356,14 @@
     <set name="hitTime" val="3200"/>
   </skill>
   <skill id="5338" levels="9" name="NPC(party) - Physical Single Close Range Attack - Fire">
-    <set name="element" val="0"/><!-- Fire -->
+    <set name="element" val="0"/> <!-- Fire -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="830"/>
   </skill>
   <skill id="5339" levels="9" name="NPC(party) - Physical Single Long Range Attack - Fire">
-    <set name="element" val="0"/><!-- Fire -->
+    <set name="element" val="0"/> <!-- Fire -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -819,7 +819,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
-    <set name="absorbPart" val="0.2"/><!-- absorbs 20% of damage -->
+    <set name="absorbPart" val="0.2"/> <!-- absorbs 20% of damage -->
   </skill>
   <skill id="5393" levels="9" name="NPC MP Burn">
     <table name="#mpConsume"> 77 80 83 87 89 93 95 98 100 103 </table>

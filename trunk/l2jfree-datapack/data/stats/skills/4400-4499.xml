@@ -104,7 +104,7 @@
   </skill>
   <skill id="4406" levels="3" name="Agility">
     <!-- Done by DJ MELERIX -->
-    <table name="#rEvas"> 2 3 4 </table> 
+    <table name="#rEvas"> 2 3 4 </table>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <set name="isMagic" val="true"/>
@@ -121,8 +121,8 @@
   <skill id="4407" levels="2" name="Monster Type">
     <!--
       Description(s):
-        Lvl 1 Name - Ordinary Monster
-        Lvl 2 Name - Strong Type Monster
+      Lvl 1 Name - Ordinary Monster
+      Lvl 2 Name - Strong Type Monster
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -130,26 +130,26 @@
   </skill>
   <skill id="4408" levels="20" name="HP Modifiers">
     <!--
-        Lvl 1 Name - HP Increase (1x)
-        Lvl 2 Name - HP Medium-High
-        Lvl 3 Name - HP Medium-High
-        Lvl 4 Name - HP High
-        Lvl 5 Name - HP High
-        Lvl 6 Name - HP Very High
-        Lvl 7 Name - HP Very High
-        Lvl 8 Name - HP Increase (1/4x)
-        Lvl 9 Name - HP Increase (1/2x)
-        Lvl 10 Name - HP Increase (2x)
-        Lvl 11 Name - HP Increase (3x)
-        Lvl 12 Name - HP Increase (4x)
-        Lvl 13 Name - HP Increase (5x)
-        Lvl 14 Name - HP Increase (6x)
-        Lvl 15 Name - HP Increase (7x)
-        Lvl 16 Name - HP Increase (8x)
-        Lvl 17 Name - HP Increase (9x)
-        Lvl 18 Name - HP Increase (10x)
-        Lvl 19 Name - HP Increase (11x)
-        Lvl 20 Name - HP Increase (12x)      
+      Lvl 1 Name - HP Increase (1x)
+      Lvl 2 Name - HP Medium-High
+      Lvl 3 Name - HP Medium-High
+      Lvl 4 Name - HP High
+      Lvl 5 Name - HP High
+      Lvl 6 Name - HP Very High
+      Lvl 7 Name - HP Very High
+      Lvl 8 Name - HP Increase (1/4x)
+      Lvl 9 Name - HP Increase (1/2x)
+      Lvl 10 Name - HP Increase (2x)
+      Lvl 11 Name - HP Increase (3x)
+      Lvl 12 Name - HP Increase (4x)
+      Lvl 13 Name - HP Increase (5x)
+      Lvl 14 Name - HP Increase (6x)
+      Lvl 15 Name - HP Increase (7x)
+      Lvl 16 Name - HP Increase (8x)
+      Lvl 17 Name - HP Increase (9x)
+      Lvl 18 Name - HP Increase (10x)
+      Lvl 19 Name - HP Increase (11x)
+      Lvl 20 Name - HP Increase (12x)      
     -->
     <table name="#maxhp"> 1 1.2 1.3 2 2 4 4 0.25 0.5 2 3 4 5 6 7 8 9 10 11 12 </table>
     <set name="target" val="TARGET_SELF"/>
@@ -161,26 +161,26 @@
   </skill>
   <skill id="4409" levels="20" name="MP Modifiers">
     <!--
-        Lvl 1 Name - MP Increase (1x)
-        Lvl 2 Name - MP Medium-High
-        Lvl 3 Name - MP Medium-High
-        Lvl 4 Name - MP High
-        Lvl 5 Name - MP High
-        Lvl 6 Name - MP Very High
-        Lvl 7 Name - MP Very High
-        Lvl 8 Name - MP Increase (1/4x)
-        Lvl 9 Name - MP Increase (1/2x)
-        Lvl 10 Name - MP Increase (2x)
-        Lvl 11 Name - MP Increase (3x)
-        Lvl 12 Name - MP Increase (4x)
-        Lvl 13 Name - MP Increase (5x)
-        Lvl 14 Name - MP Increase (6x)
-        Lvl 15 Name - MP Increase (7x)
-        Lvl 16 Name - MP Increase (8x)
-        Lvl 17 Name - MP Increase (9x)
-        Lvl 18 Name - MP Increase (10x)
-        Lvl 19 Name - MP Increase (11x)
-        Lvl 20 Name - MP Increase (12x)
+      Lvl 1 Name - MP Increase (1x)
+      Lvl 2 Name - MP Medium-High
+      Lvl 3 Name - MP Medium-High
+      Lvl 4 Name - MP High
+      Lvl 5 Name - MP High
+      Lvl 6 Name - MP Very High
+      Lvl 7 Name - MP Very High
+      Lvl 8 Name - MP Increase (1/4x)
+      Lvl 9 Name - MP Increase (1/2x)
+      Lvl 10 Name - MP Increase (2x)
+      Lvl 11 Name - MP Increase (3x)
+      Lvl 12 Name - MP Increase (4x)
+      Lvl 13 Name - MP Increase (5x)
+      Lvl 14 Name - MP Increase (6x)
+      Lvl 15 Name - MP Increase (7x)
+      Lvl 16 Name - MP Increase (8x)
+      Lvl 17 Name - MP Increase (9x)
+      Lvl 18 Name - MP Increase (10x)
+      Lvl 19 Name - MP Increase (11x)
+      Lvl 20 Name - MP Increase (12x)
     -->
     <table name="#maxmp"> 1 1.2 1.3 2 2 4 4 0.25 0.5 2 3 4 5 6 7 8 9 10 11 12 </table>
     <set name="target" val="TARGET_SELF"/>
@@ -192,28 +192,28 @@
   </skill>
   <skill id="4410" levels="22" name="P. Atk. Modifiers">
     <!--
-        Lvl 1 Name - Extremely Weak P. Atk.
-        Lvl 2 Name - Extremely Weak P. Atk.
-        Lvl 3 Name - Extremely Weak P. Atk.
-        Lvl 4 Name - Extremely Weak P. Atk.
-        Lvl 5 Name - Very Weak P. Atk.
-        Lvl 6 Name - Very Weak P. Atk.
-        Lvl 7 Name - Weak P. Atk.
-        Lvl 8 Name - Weak P. Atk.
-        Lvl 9 Name - Slightly Weak P. Atk.
-        Lvl 10 Name - Slightly Weak P. Atk.
-        Lvl 11 Name - Average P. Atk.
-        Lvl 12 Name - Slightly Strong P. Atk.
-        Lvl 13 Name - Slightly Strong P. Atk.
-        Lvl 14 Name - Strong P. Atk.
-        Lvl 15 Name - Strong P. Atk.
-        Lvl 16 Name - Very Strong P. Atk.
-        Lvl 17 Name - Very Strong P. Atk.
-        Lvl 18 Name - Extremely Strong P. Atk.
-        Lvl 19 Name - Extremely Strong P. Atk.
-        Lvl 20 Name - Extremely Strong P. Atk.
-        Lvl 21 Name - Extremely Strong P. Atk.
-        Lvl 22 Name - Ultra Strong P. Atk.
+      Lvl 1 Name - Extremely Weak P. Atk.
+      Lvl 2 Name - Extremely Weak P. Atk.
+      Lvl 3 Name - Extremely Weak P. Atk.
+      Lvl 4 Name - Extremely Weak P. Atk.
+      Lvl 5 Name - Very Weak P. Atk.
+      Lvl 6 Name - Very Weak P. Atk.
+      Lvl 7 Name - Weak P. Atk.
+      Lvl 8 Name - Weak P. Atk.
+      Lvl 9 Name - Slightly Weak P. Atk.
+      Lvl 10 Name - Slightly Weak P. Atk.
+      Lvl 11 Name - Average P. Atk.
+      Lvl 12 Name - Slightly Strong P. Atk.
+      Lvl 13 Name - Slightly Strong P. Atk.
+      Lvl 14 Name - Strong P. Atk.
+      Lvl 15 Name - Strong P. Atk.
+      Lvl 16 Name - Very Strong P. Atk.
+      Lvl 17 Name - Very Strong P. Atk.
+      Lvl 18 Name - Extremely Strong P. Atk.
+      Lvl 19 Name - Extremely Strong P. Atk.
+      Lvl 20 Name - Extremely Strong P. Atk.
+      Lvl 21 Name - Extremely Strong P. Atk.
+      Lvl 22 Name - Ultra Strong P. Atk.
     -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
@@ -221,28 +221,28 @@
   </skill>
   <skill id="4411" levels="22" name="M. Atk. Modifiers">
     <!--
-        Lvl 1 Name - Extremely Weak M. Atk.
-        Lvl 2 Name - Extremely Weak M. Atk.
-        Lvl 3 Name - Extremely Weak M. Atk.
-        Lvl 4 Name - Extremely Weak M. Atk.
-        Lvl 5 Name - Very Weak M. Atk.
-        Lvl 6 Name - Very Weak M. Atk.
-        Lvl 7 Name - Weak M. Atk.
-        Lvl 8 Name - Weak M. Atk.
-        Lvl 9 Name - Slightly Weak M. Atk.
-        Lvl 10 Name - Slightly Weak M. Atk.
-        Lvl 11 Name - Average M. Atk.
-        Lvl 12 Name - Slightly Strong M. Atk.
-        Lvl 13 Name - Slightly Strong M. Atk.
-        Lvl 14 Name - Strong M. Atk.
-        Lvl 15 Name - Strong M. Atk.
-        Lvl 16 Name - Very Strong M. Atk.
-        Lvl 17 Name - Very Strong M. Atk.
-        Lvl 18 Name - Extremely Strong M. Atk.
-        Lvl 19 Name - Extremely Strong M. Atk.
-        Lvl 20 Name - Extremely Strong M. Atk.
-        Lvl 21 Name - Extremely Strong M. Atk.
-        Lvl 22 Name - Ultra Strong M. Atk.
+      Lvl 1 Name - Extremely Weak M. Atk.
+      Lvl 2 Name - Extremely Weak M. Atk.
+      Lvl 3 Name - Extremely Weak M. Atk.
+      Lvl 4 Name - Extremely Weak M. Atk.
+      Lvl 5 Name - Very Weak M. Atk.
+      Lvl 6 Name - Very Weak M. Atk.
+      Lvl 7 Name - Weak M. Atk.
+      Lvl 8 Name - Weak M. Atk.
+      Lvl 9 Name - Slightly Weak M. Atk.
+      Lvl 10 Name - Slightly Weak M. Atk.
+      Lvl 11 Name - Average M. Atk.
+      Lvl 12 Name - Slightly Strong M. Atk.
+      Lvl 13 Name - Slightly Strong M. Atk.
+      Lvl 14 Name - Strong M. Atk.
+      Lvl 15 Name - Strong M. Atk.
+      Lvl 16 Name - Very Strong M. Atk.
+      Lvl 17 Name - Very Strong M. Atk.
+      Lvl 18 Name - Extremely Strong M. Atk.
+      Lvl 19 Name - Extremely Strong M. Atk.
+      Lvl 20 Name - Extremely Strong M. Atk.
+      Lvl 21 Name - Extremely Strong M. Atk.
+      Lvl 22 Name - Ultra Strong M. Atk.
     -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
@@ -250,28 +250,28 @@
   </skill>
   <skill id="4412" levels="22" name="P. Def. Modifiers">
     <!--
-        Lvl 1 Name - Extremely Weak P. Def.
-        Lvl 2 Name - Extremely Weak P. Def.
-        Lvl 3 Name - Extremely Weak P. Def.
-        Lvl 4 Name - Extremely Weak P. Def.
-        Lvl 5 Name - Very Weak P. Def.
-        Lvl 6 Name - Very Weak P. Def.
-        Lvl 7 Name - Weak P. Def.
-        Lvl 8 Name - Weak P. Def.
-        Lvl 9 Name - Slightly Weak P. Def.
-        Lvl 10 Name - Slightly Weak P. Def.
-        Lvl 11 Name - Average P. Def.
-        Lvl 12 Name - Slightly Strong P. Def.
-        Lvl 13 Name - Slightly Strong P. Def.
-        Lvl 14 Name - Strong P. Def.
-        Lvl 15 Name - Strong P. Def.
-        Lvl 16 Name - Very Strong P. Def.
-        Lvl 17 Name - Very Strong P. Def.
-        Lvl 18 Name - Extremely Strong P. Def.
-        Lvl 19 Name - Extremely Strong P. Def.
-        Lvl 20 Name - Extremely Strong P. Def.
-        Lvl 21 Name - Extremely Strong P. Def.
-        Lvl 22 Name - Ultra Strong P. Def.
+      Lvl 1 Name - Extremely Weak P. Def.
+      Lvl 2 Name - Extremely Weak P. Def.
+      Lvl 3 Name - Extremely Weak P. Def.
+      Lvl 4 Name - Extremely Weak P. Def.
+      Lvl 5 Name - Very Weak P. Def.
+      Lvl 6 Name - Very Weak P. Def.
+      Lvl 7 Name - Weak P. Def.
+      Lvl 8 Name - Weak P. Def.
+      Lvl 9 Name - Slightly Weak P. Def.
+      Lvl 10 Name - Slightly Weak P. Def.
+      Lvl 11 Name - Average P. Def.
+      Lvl 12 Name - Slightly Strong P. Def.
+      Lvl 13 Name - Slightly Strong P. Def.
+      Lvl 14 Name - Strong P. Def.
+      Lvl 15 Name - Strong P. Def.
+      Lvl 16 Name - Very Strong P. Def.
+      Lvl 17 Name - Very Strong P. Def.
+      Lvl 18 Name - Extremely Strong P. Def.
+      Lvl 19 Name - Extremely Strong P. Def.
+      Lvl 20 Name - Extremely Strong P. Def.
+      Lvl 21 Name - Extremely Strong P. Def.
+      Lvl 22 Name - Ultra Strong P. Def.
     -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
@@ -279,28 +279,28 @@
   </skill>
   <skill id="4413" levels="22" name="M. Def. Modifiers">
     <!--
-        Lvl 1 Name - Extremely Weak M. Def.
-        Lvl 2 Name - Extremely Weak M. Def.
-        Lvl 3 Name - Extremely Weak M. Def.
-        Lvl 4 Name - Extremely Weak M. Def.
-        Lvl 5 Name - Very Weak M. Def.
-        Lvl 6 Name - Very Weak M. Def.
-        Lvl 7 Name - Weak M. Def.
-        Lvl 8 Name - Weak M. Def.
-        Lvl 9 Name - Slightly Weak M. Def.
-        Lvl 10 Name - Slightly Weak M. Def.
-        Lvl 11 Name - Average M. Def.
-        Lvl 12 Name - Slightly Strong M. Def.
-        Lvl 13 Name - Slightly Strong M. Def.
-        Lvl 14 Name - Strong M. Def.
-        Lvl 15 Name - Strong M. Def.
-        Lvl 16 Name - Very Strong M. Def.
-        Lvl 17 Name - Very Strong M. Def.
-        Lvl 18 Name - Extremely Strong M. Def.
-        Lvl 19 Name - Extremely Strong M. Def.
-        Lvl 20 Name - Extremely Strong M. Def.
-        Lvl 21 Name - Extremely Strong M. Def.
-        Lvl 22 Name - Ultra Strong M. Def.
+      Lvl 1 Name - Extremely Weak M. Def.
+      Lvl 2 Name - Extremely Weak M. Def.
+      Lvl 3 Name - Extremely Weak M. Def.
+      Lvl 4 Name - Extremely Weak M. Def.
+      Lvl 5 Name - Very Weak M. Def.
+      Lvl 6 Name - Very Weak M. Def.
+      Lvl 7 Name - Weak M. Def.
+      Lvl 8 Name - Weak M. Def.
+      Lvl 9 Name - Slightly Weak M. Def.
+      Lvl 10 Name - Slightly Weak M. Def.
+      Lvl 11 Name - Average M. Def.
+      Lvl 12 Name - Slightly Strong M. Def.
+      Lvl 13 Name - Slightly Strong M. Def.
+      Lvl 14 Name - Strong M. Def.
+      Lvl 15 Name - Strong M. Def.
+      Lvl 16 Name - Very Strong M. Def.
+      Lvl 17 Name - Very Strong M. Def.
+      Lvl 18 Name - Extremely Strong M. Def.
+      Lvl 19 Name - Extremely Strong M. Def.
+      Lvl 20 Name - Extremely Strong M. Def.
+      Lvl 21 Name - Extremely Strong M. Def.
+      Lvl 22 Name - Ultra Strong M. Def.
     -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
@@ -320,27 +320,27 @@
   </skill>
   <skill id="4415" levels="20" name="Weapon Type">
     <!--
-    Description(s):
-        Lvl 1 Name - Bare Hands
-        Lvl 2 Name - Bare Hands
-        Lvl 3 Name - One-handed Sword
-        Lvl 4 Name - One-handed Sword
-        Lvl 5 Name - Blunt Weapons
-        Lvl 6 Name - Blunt Weapons
-        Lvl 7 Name - Daggers
-        Lvl 8 Name - Daggers
-        Lvl 9 Name - Bows
-        Lvl 10 Name - Bows
-        Lvl 11 Name - Spears
-        Lvl 12 Name - Spears
-        Lvl 13 Name - Two-handed Sword
-        Lvl 14 Name - Two-handed Sword
-        Lvl 15 Name - Two-handed Blunt Weapons
-        Lvl 16 Name - Two-handed Blunt Weapons
-        Lvl 17 Name - Hand-to-hand weapons
-        Lvl 18 Name - Hand-to-hand weapons
-        Lvl 19 Name - Dual-Sword Weapons
-        Lvl 20 Name - Dual-Sword Weapons
+      Description(s):
+      Lvl 1 Name - Bare Hands
+      Lvl 2 Name - Bare Hands
+      Lvl 3 Name - One-handed Sword
+      Lvl 4 Name - One-handed Sword
+      Lvl 5 Name - Blunt Weapons
+      Lvl 6 Name - Blunt Weapons
+      Lvl 7 Name - Daggers
+      Lvl 8 Name - Daggers
+      Lvl 9 Name - Bows
+      Lvl 10 Name - Bows
+      Lvl 11 Name - Spears
+      Lvl 12 Name - Spears
+      Lvl 13 Name - Two-handed Sword
+      Lvl 14 Name - Two-handed Sword
+      Lvl 15 Name - Two-handed Blunt Weapons
+      Lvl 16 Name - Two-handed Blunt Weapons
+      Lvl 17 Name - Hand-to-hand weapons
+      Lvl 18 Name - Hand-to-hand weapons
+      Lvl 19 Name - Dual-Sword Weapons
+      Lvl 20 Name - Dual-Sword Weapons
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -348,32 +348,32 @@
   </skill>
   <skill id="4416" levels="25" name="Races">
     <!--
-    Description(s):
-        Lvl 1 Name - Undead
-        Lvl 2 Name - Magic Creatures
-        Lvl 3 Name - Beasts
-        Lvl 4 Name - Animals
-        Lvl 5 Name - Plants
-        Lvl 6 Name - Humanoids
-        Lvl 7 Name - Spirits
-        Lvl 8 Name - Angels
-        Lvl 9 Name - Demons
-        Lvl 10 Name - Dragons
-        Lvl 11 Name - Giants
-        Lvl 12 Name - Bugs
-        Lvl 13 Name - Fairies
-        Lvl 14 Name - Humans
-        Lvl 15 Name - Elves
-        Lvl 16 Name - Dark Elves
-        Lvl 17 Name - Orcs
-        Lvl 18 Name - Dwarves
-        Lvl 19 Name - Others
-        Lvl 20 Name - Non-living Beings
-        Lvl 21 Name - Siege Weapons
-        Lvl 22 Name - Defending Army
-        Lvl 23 Name - Mercenaries
-        Lvl 24 Name - Unknown Creature
-        Lvl 25 Name - Kamael
+      Description(s):
+      Lvl 1 Name - Undead
+      Lvl 2 Name - Magic Creatures
+      Lvl 3 Name - Beasts
+      Lvl 4 Name - Animals
+      Lvl 5 Name - Plants
+      Lvl 6 Name - Humanoids
+      Lvl 7 Name - Spirits
+      Lvl 8 Name - Angels
+      Lvl 9 Name - Demons
+      Lvl 10 Name - Dragons
+      Lvl 11 Name - Giants
+      Lvl 12 Name - Bugs
+      Lvl 13 Name - Fairies
+      Lvl 14 Name - Humans
+      Lvl 15 Name - Elves
+      Lvl 16 Name - Dark Elves
+      Lvl 17 Name - Orcs
+      Lvl 18 Name - Dwarves
+      Lvl 19 Name - Others
+      Lvl 20 Name - Non-living Beings
+      Lvl 21 Name - Siege Weapons
+      Lvl 22 Name - Defending Army
+      Lvl 23 Name - Mercenaries
+      Lvl 24 Name - Unknown Creature
+      Lvl 25 Name - Kamael
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -381,21 +381,21 @@
   </skill>
   <skill id="4417" levels="38" name="Race Types">
     <!--
-    Needs to be finished.
-    Description(s):
-        Lvl 1 Name - Animals
-        Lvl 2-5 Name - Beasts
-        Lvl 6-8 Name - Bugs
-        Lvl 9-11 Name - Magic Creatures
-        Lvl 12-14 Name - Demons
-        Lvl 15-17 Name - Angels
-        Lvl 18 Name - Dragons
-        Lvl 19-23 Name - Spirits
-        Lvl 24 Name - Fairies
-        Lvl 25 Name - Giants
-        Lvl 26-32 Name - Humanoids
-        Lvl 33 Name - Plants
-        Lvl 34-38 Name - Undead
+      Needs to be finished.
+      Description(s):
+      Lvl 1 Name - Animals
+      Lvl 2-5 Name - Beasts
+      Lvl 6-8 Name - Bugs
+      Lvl 9-11 Name - Magic Creatures
+      Lvl 12-14 Name - Demons
+      Lvl 15-17 Name - Angels
+      Lvl 18 Name - Dragons
+      Lvl 19-23 Name - Spirits
+      Lvl 24 Name - Fairies
+      Lvl 25 Name - Giants
+      Lvl 26-32 Name - Humanoids
+      Lvl 33 Name - Plants
+      Lvl 34-38 Name - Undead
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -954,7 +954,7 @@
       <effect name="Buff" time="1200" val="0" stackOrder="#runSpd" stackType="SpeedUp">
         <add order="0x40" stat="runSpd" val="#runSpd"/>
       </effect>
-    </for>  
+    </for>
   </skill>
   <skill id="4469" levels="1" name="Potion Drinking">
     <set name="target" val="TARGET_NONE"/>
@@ -977,10 +977,10 @@
     <set name="reuseDelay" val="6000"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <for>
-     <effect name="Buff" time="120" val="0">
-       <mul order="0x30" stat="pDef" val="#increase"/>
-       <mul order="0x30" stat="pAtk" val="#increase"/>
-     </effect>
+      <effect name="Buff" time="120" val="0">
+        <mul order="0x30" stat="pDef" val="#increase"/>
+        <mul order="0x30" stat="pAtk" val="#increase"/>
+      </effect>
     </for>
   </skill>
   <skill id="4472" levels="12" name="NPC Strike Golem">

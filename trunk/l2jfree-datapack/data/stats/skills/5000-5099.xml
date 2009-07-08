@@ -20,7 +20,7 @@
     <set name="hitTime" val="2000"/>
   </skill>
   <skill id="5003" levels="1" name="Giselle - Tempest">
-    <set name="element" val="2"/><!-- Wind -->
+    <set name="element" val="2"/> <!-- Wind -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -58,11 +58,11 @@
     <!--
       Needs to be finished.
       Description(s):
-        Lvl 1 - Frintezza's Healing Rhapsody Music to soothe the soul.
-        Lvl 2 - Frintezza's Rampaging Opus A Consecutive Dash + Portrait Replay Performance
-        Lvl 3 - Frintezza's Power Concerto A powerful tune affecting Attack/Speed.
-        Lvl 4 - Frintezza's Plagued Concerto A triumphant ballad of Heal Suppressing.
-        Lvl 5 - Frintezza's Psycho Symphony Two Can Dance + Cancel Performance.
+      Lvl 1 - Frintezza's Healing Rhapsody Music to soothe the soul.
+      Lvl 2 - Frintezza's Rampaging Opus A Consecutive Dash + Portrait Replay Performance
+      Lvl 3 - Frintezza's Power Concerto A powerful tune affecting Attack/Speed.
+      Lvl 4 - Frintezza's Plagued Concerto A triumphant ballad of Heal Suppressing.
+      Lvl 5 - Frintezza's Psycho Symphony Two Can Dance + Cancel Performance.
     -->
     <table name="#hitTime"> 32000 32000 32000 31000 35000 </table>
     <table name="#skill_landing_percent">0 60 0 0 0</table>
@@ -139,7 +139,7 @@
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
-    <set name="effectRange" val="900"/>    
+    <set name="effectRange" val="900"/>
     <set name="hitTime" val="4500"/>
     <set name="isMagic" val="true"/>
     <set name="effectType" val="PARALYZE"/>
@@ -333,9 +333,9 @@
   <skill id="5024" levels="12" name="Decrease Atk. Spd.">
     <!--
       Description(s): 
-        Lvl 1 - Instantly reduces Atk. Spd. Effect 1.
-        Lvl 2-3 - Instantly reduces Atk. Spd. Effect 2.
-        Lvl 4-12 - Instantly reduces Atk. Spd. Effect 3.
+      Lvl 1 - Instantly reduces Atk. Spd. Effect 1.
+      Lvl 2-3 - Instantly reduces Atk. Spd. Effect 2.
+      Lvl 4-12 - Instantly reduces Atk. Spd. Effect 3.
     -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
@@ -750,7 +750,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <for>
       <effect name="Buff" time="120" val="0">
-          <mul order="0x30" stat="pAtkSpd" val="1.33"/>
+        <mul order="0x30" stat="pAtkSpd" val="1.33"/>
       </effect>
     </for>
   </skill>
@@ -888,7 +888,7 @@
     <!-- Antharas Skills -->
     <set name="magicLvl" val="70"/>
     <set name="target" val="TARGET_AREA"/>
-    <set name="power" val="22000"/><!-- Guessing -->
+    <set name="power" val="22000"/> <!-- Guessing -->
     <set name="skillType" val="PDAM"/>
     <set name="hitTime" val="8000"/>
     <set name="operateType" val="OP_ACTIVE"/>

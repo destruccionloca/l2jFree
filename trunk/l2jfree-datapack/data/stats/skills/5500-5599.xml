@@ -631,10 +631,10 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
-    <for> 
-     <effect count="1" name="Buff" time="15" val="0">
-       <mul order="0x30" stat="pAtkSpd" val="1.32"/>
-      </effect> 
+    <for>
+      <effect count="1" name="Buff" time="15" val="0">
+        <mul order="0x30" stat="pAtkSpd" val="1.32"/>
+      </effect>
     </for>
   </skill>
   <skill id="5573" levels="1" name="Knight Ability - Defense">
@@ -643,10 +643,10 @@
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
     <for>
-     <effect count="1" name="Buff" time="15" val="0">
-      <mul order="0x30" stat="pDef" val="1.24"/>
-      <mul order="0x30" stat="mDef" val="1.24"/>
-     </effect>
+      <effect count="1" name="Buff" time="15" val="0">
+        <mul order="0x30" stat="pDef" val="1.24"/>
+        <mul order="0x30" stat="mDef" val="1.24"/>
+      </effect>
     </for>
   </skill>
   <skill id="5574" levels="1" name="Log Ability - Critical Chance">
@@ -654,10 +654,10 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
-    <for> 
-     <effect count="1" name="Buff" time="15" val="0">
-      <mul order="0x30" stat="rCrit" val="1.32"/>
-     </effect>
+    <for>
+      <effect count="1" name="Buff" time="15" val="0">
+        <mul order="0x30" stat="rCrit" val="1.32"/>
+      </effect>
     </for>
   </skill>
   <skill id="5575" levels="1" name="Wizard Ability - Mana Steel">

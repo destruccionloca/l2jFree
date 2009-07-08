@@ -5,19 +5,19 @@
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
-<!--   
-    <set name="target" val="TARGET_ONE" />
-    <set name="skillType" val="PDAM" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="600" />
-    <set name="effectRange" val="1200"/>
-    <set name="skillRadius" val="1000"/>
-    <for>
+    <!--   
+      <set name="target" val="TARGET_ONE"/>
+      <set name="skillType" val="PDAM"/>
+      <set name="operateType" val="OP_PASSIVE"/>
+      <set name="castRange" val="600"/>
+      <set name="effectRange" val="1200"/>
+      <set name="skillRadius" val="1000"/>
+      <for>
       <effect count="1" name="Debuff" time="30" val="0">
-        <add order="0x40" stat="transDam" val="100" />
+      <add order="0x40" stat="transDam" val="100"/>
       </effect>
-    </for>
-             -->
+      </for>
+    -->
   </skill>
   <skill id="5601" levels="12" name="Short-Range Physical Attack Resistance">
     <set name="target" val="TARGET_NONE"/>
@@ -53,7 +53,7 @@
     <for>
       <effect name="Buff" time="5" val="0">
         <mul order="0x30" stat="PhysicalMpConsumeRate" val="0.33">
-            <using kind="Blunt,Big Blunt"/>
+          <using kind="Blunt,Big Blunt"/>
         </mul>
       </effect>
     </for>
@@ -688,16 +688,16 @@
     <set name="stayAfterDeath" val="true"/>
     <for>
       <effect name="Debuff" time="300" val="0" stackOrder="#power" stackType="DeathPenalty">
-         <mul order="0x30" stat="pAtk" val="#pAtk"/>
-         <mul order="0x30" stat="mAtk" val="#mAtk"/>
-         <mul order="0x30" stat="pDef" val="#pDef"/>
-         <mul order="0x30" stat="mDef" val="#mDef"/>
-         <mul order="0x30" stat="pAtkSpd" val="#pAtkSpd"/>
-         <mul order="0x30" stat="mAtkSpd" val="#mAtkSpd"/>
-         <mul order="0x30" stat="runSpd" val="#runSpd"/>
-         <mul order="0x30" stat="rEvas" val="#rEvas"/>
-         <mul order="0x30" stat="cAtk" val="#cAtk"/>
-         <mul order="0x30" stat="accCombat" val="#accCombat"/>
+        <mul order="0x30" stat="pAtk" val="#pAtk"/>
+        <mul order="0x30" stat="mAtk" val="#mAtk"/>
+        <mul order="0x30" stat="pDef" val="#pDef"/>
+        <mul order="0x30" stat="mDef" val="#mDef"/>
+        <mul order="0x30" stat="pAtkSpd" val="#pAtkSpd"/>
+        <mul order="0x30" stat="mAtkSpd" val="#mAtkSpd"/>
+        <mul order="0x30" stat="runSpd" val="#runSpd"/>
+        <mul order="0x30" stat="rEvas" val="#rEvas"/>
+        <mul order="0x30" stat="cAtk" val="#cAtk"/>
+        <mul order="0x30" stat="accCombat" val="#accCombat"/>
       </effect>
     </for>
   </skill>
@@ -798,19 +798,19 @@
   </skill>
   <skill id="5676" levels="1" name="Steal Mana">
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="skillType" val="MANARECHARGE"/> 
+    <set name="skillType" val="MANARECHARGE"/>
     <set name="power" val="41"/>
     <set name="target" val="TARGET_SELF"/>
   </skill>
   <skill id="5677" levels="1" name="Steal Mana">
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="skillType" val="MANARECHARGE"/> 
+    <set name="skillType" val="MANARECHARGE"/>
     <set name="power" val="51"/>
     <set name="target" val="TARGET_SELF"/>
   </skill>
   <skill id="5678" levels="1" name="Steal Mana">
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="skillType" val="MANARECHARGE"/> 
+    <set name="skillType" val="MANARECHARGE"/>
     <set name="power" val="59"/>
     <set name="target" val="TARGET_SELF"/>
   </skill>

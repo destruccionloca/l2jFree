@@ -782,147 +782,147 @@
     <set name="hitTime" val="3200"/>
   </skill>
   <skill id="5277" levels="9" name="NPC(party) - Physical Single Close Range Attack - Fire">
-    <set name="element" val="0"/><!-- Fire -->
+    <set name="element" val="0"/> <!-- Fire -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="830"/>
   </skill>
   <skill id="5278" levels="9" name="NPC(party) - Physical Single Long Range Attack - Fire">
-    <set name="element" val="0"/><!-- Fire -->
+    <set name="element" val="0"/> <!-- Fire -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="4500"/>
   </skill>
   <skill id="5279" levels="9" name="NPC(party) - Physical Range Close Range Attack - Fire">
-    <set name="element" val="0"/><!-- Fire -->
+    <set name="element" val="0"/> <!-- Fire -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="1000"/>
   </skill>
   <skill id="5280" levels="9" name="NPC(party) - Physical Range Long Range Attack - Fire">
-    <set name="element" val="0"/><!-- Fire -->
+    <set name="element" val="0"/> <!-- Fire -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="3200"/>
   </skill>
   <skill id="5281" levels="9" name="NPC(party) - Physical Single Close Range Attack - Water">
-    <set name="element" val="1"/><!-- Water -->
+    <set name="element" val="1"/> <!-- Water -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="830"/>
   </skill>
   <skill id="5282" levels="9" name="NPC(party) - Physical Single Long Range Attack - Water">
-    <set name="element" val="1"/><!-- Water -->
+    <set name="element" val="1"/> <!-- Water -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="4500"/>
   </skill>
   <skill id="5283" levels="9" name="NPC(party) - Physical Range Close Range Attack - Water">
-    <set name="element" val="1"/><!-- Water -->
+    <set name="element" val="1"/> <!-- Water -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="1000"/>
   </skill>
   <skill id="5284" levels="9" name="NPC(party) - Physical Range Long Range Attack - Water">
-    <set name="element" val="1"/><!-- Water -->
+    <set name="element" val="1"/> <!-- Water -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="3200"/>
   </skill>
   <skill id="5285" levels="9" name="NPC(party) - Physical Single Close Range Attack - Wind">
-    <set name="element" val="2"/><!-- Wind -->
+    <set name="element" val="2"/> <!-- Wind -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="830"/>
   </skill>
   <skill id="5286" levels="9" name="NPC(party) - Physical Single Long Range Attack - Wind">
-    <set name="element" val="2"/><!-- Wind -->
+    <set name="element" val="2"/> <!-- Wind -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="4500"/>
   </skill>
   <skill id="5287" levels="9" name="NPC(party) - Physical Range Close Range Attack - Wind">
-    <set name="element" val="2"/><!-- Wind -->
+    <set name="element" val="2"/> <!-- Wind -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="1000"/>
   </skill>
   <skill id="5288" levels="9" name="NPC(party) - Physical Range Long Range Attack - Wind">
-    <set name="element" val="2"/><!-- Wind -->
+    <set name="element" val="2"/> <!-- Wind -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="3200"/>
   </skill>
   <skill id="5289" levels="9" name="NPC(party) - Physical Single Close Range Attack - Earth">
-    <set name="element" val="3"/><!-- Earth -->
+    <set name="element" val="3"/> <!-- Earth -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="830"/>
   </skill>
   <skill id="5290" levels="9" name="NPC(party) - Physical Single Long Range Attack - Earth">
-    <set name="element" val="3"/><!-- Earth -->
+    <set name="element" val="3"/> <!-- Earth -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="4500"/>
   </skill>
   <skill id="5291" levels="9" name="NPC(party) - Physical Range Close Range Attack - Earth">
-    <set name="element" val="3"/><!-- Earth -->
+    <set name="element" val="3"/> <!-- Earth -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="1000"/>
   </skill>
   <skill id="5292" levels="9" name="NPC(party) - Physical Range Long Range Attack - Earth">
-    <set name="element" val="3"/><!-- Earth -->
+    <set name="element" val="3"/> <!-- Earth -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="3200"/>
   </skill>
   <skill id="5293" levels="9" name="NPC(party) - Physical Single Close Range Attack - Holy">
-    <set name="element" val="4"/><!-- Holy -->
+    <set name="element" val="4"/> <!-- Holy -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="830"/>
   </skill>
   <skill id="5294" levels="9" name="NPC(party) - Physical Single Long Range Attack - Holy">
-    <set name="element" val="4"/><!-- Holy -->
+    <set name="element" val="4"/> <!-- Holy -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="4500"/>
   </skill>
   <skill id="5295" levels="9" name="NPC(party) - Physical Range Close Range Attack - Holy">
-    <set name="element" val="4"/><!-- Holy -->
+    <set name="element" val="4"/> <!-- Holy -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="1000"/>
   </skill>
   <skill id="5296" levels="9" name="NPC(party) - Physical Range Long Range Attack - Holy">
-    <set name="element" val="4"/><!-- Holy -->
+    <set name="element" val="4"/> <!-- Holy -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="3200"/>
   </skill>
   <skill id="5297" levels="9" name="NPC(party) - Physical Single Close Range Attack - Dark">
-    <set name="element" val="5"/><!-- Dark -->
+    <set name="element" val="5"/> <!-- Dark -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -936,7 +936,7 @@
     <set name="lvlDepend" val="1"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
-    <set name="element" val="5"/><!-- Dark -->
+    <set name="element" val="5"/> <!-- Dark -->
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="4500"/>
@@ -946,7 +946,7 @@
     <set name="effectRange" val="400"/>
   </skill>
   <skill id="5299" levels="9" name="NPC(party) - Physical Range Close Range Attack - Dark">
-    <set name="element" val="5"/><!-- Dark -->
+    <set name="element" val="5"/> <!-- Dark -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
