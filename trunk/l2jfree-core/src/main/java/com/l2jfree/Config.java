@@ -26,13 +26,13 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
-import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.apache.commons.io.IOUtils;
@@ -46,6 +46,7 @@ import com.l2jfree.gameserver.handler.VoicedCommandHandler;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.entity.events.AutomatedTvT;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.util.L2FastSet;
 
 /**
  * This class contains global server configuration.<br>
@@ -930,9 +931,8 @@ public final class Config extends L2Config
 	 */
 	public static boolean			EFFECT_CANCELING;
 	public static String			NONDROPPABLE_ITEMS;
-	public static FastList<Integer>	LIST_NONDROPPABLE_ITEMS	= new FastList<Integer>();
 	public static String			PET_RENT_NPC;
-	public static FastList<Integer>	LIST_PET_RENT_NPC		= new FastList<Integer>();
+	public static final Set<Integer> LIST_PET_RENT_NPC = new L2FastSet<Integer>();
 	public static boolean			LEVEL_ADD_LOAD;
 	public static int				WAREHOUSE_SLOTS_NO_DWARF;								// Warehouse slots limits
 	public static int				WAREHOUSE_SLOTS_DWARF;									// Warehouse slots limits
@@ -1034,7 +1034,7 @@ public final class Config extends L2Config
 			SEND_NOTDONE_SKILLS = Integer.parseInt(otherSettings.getProperty("SendNOTDONESkills", "2"));
 
 			PET_RENT_NPC = otherSettings.getProperty("ListPetRentNpc", "30827");
-			LIST_PET_RENT_NPC = new FastList<Integer>();
+			LIST_PET_RENT_NPC.clear();
 			for (String id : PET_RENT_NPC.split(","))
 			{
 				LIST_PET_RENT_NPC.add(Integer.parseInt(id));
@@ -1086,7 +1086,7 @@ public final class Config extends L2Config
 	public static int				AUTODESTROY_ITEM_AFTER;									// Time after which item will auto-destroy
 	public static int				HERB_AUTO_DESTROY_TIME;									// Auto destroy herb time
 	public static String			PROTECTED_ITEMS;
-	public static FastList<Integer>	LIST_PROTECTED_ITEMS	= new FastList<Integer>();			// List of items that will not be destroyed
+	public static final Set<Integer> LIST_PROTECTED_ITEMS = new L2FastSet<Integer>();			// List of items that will not be destroyed
 	public static int				CHAR_STORE_INTERVAL;										// Interval that the gameserver will update and store character information
 	public static boolean			UPDATE_ITEMS_ON_CHAR_STORE;								// Update items owned by this char when storing the char on DB
 	public static boolean			LAZY_ITEMS_UPDATE;											// Update items only when strictly necessary
@@ -1181,7 +1181,7 @@ public final class Config extends L2Config
 	public static int				GRID_NEIGHBOR_TURNOFF_TIME;					// Grid Options
 	public static boolean			CHECK_SKILLS_ON_ENTER;							// Skill Tree check on EnterWorld
 	public static String			ALLOWED_SKILLS;								// List of Skills that are allowed for all Classes if CHECK_SKILLS_ON_ENTER = true
-	public static FastList<Integer>	ALLOWED_SKILLS_LIST	= new FastList<Integer>();
+	public static final Set<Integer> ALLOWED_SKILLS_LIST = new L2FastSet<Integer>();
 	public static boolean			CHAR_VIP_SKIP_SKILLS_CHECK;					// VIP Characters configuration
 	public static boolean			CHAR_VIP_COLOR_ENABLED;						// VIP Characters configuration
 	public static int				CHAR_VIP_COLOR;								// VIP Characters configuration
@@ -1202,9 +1202,9 @@ public final class Config extends L2Config
 	public static int				AUCTION_SPECIAL_CURRENCY;
 	public static String			AUCTION_SPECIAL_CURRENCY_ICON;
 	public static String			AUCTION_EXCLUDED_ITEMS;
-	public static FastList<Integer>	AUCTION_EXCLUDED_ITEMS_LIST	= new FastList<Integer>();
+	public static final Set<Integer> AUCTION_EXCLUDED_ITEMS_LIST = new L2FastSet<Integer>();
 	public static String			AUCTION_INCLUDED_ITEMS;
-	public static FastList<Integer>	AUCTION_INCLUDED_ITEMS_LIST	= new FastList<Integer>();
+	public static final Set<Integer> AUCTION_INCLUDED_ITEMS_LIST = new L2FastSet<Integer>();
 	public static boolean			ALLOW_OFFLINE_TRADE;
 	public static boolean			ALLOW_OFFLINE_TRADE_CRAFT;
 	public static boolean			ALLOW_OFFLINE_TRADE_COLOR_NAME;
@@ -1241,7 +1241,7 @@ public final class Config extends L2Config
 			AUTODESTROY_ITEM_AFTER = Integer.parseInt(optionsSettings.getProperty("AutoDestroyDroppedItemAfter", "600"));
 			HERB_AUTO_DESTROY_TIME = Integer.parseInt(optionsSettings.getProperty("AutoDestroyHerbTime", "15")) * 1000;
 			PROTECTED_ITEMS = optionsSettings.getProperty("ListOfProtectedItems", "0");
-			LIST_PROTECTED_ITEMS = new FastList<Integer>();
+			LIST_PROTECTED_ITEMS.clear();
 			for (String id : PROTECTED_ITEMS.trim().split(","))
 			{
 				LIST_PROTECTED_ITEMS.add(Integer.parseInt(id.trim()));
@@ -1376,7 +1376,7 @@ public final class Config extends L2Config
 			
 			ALLOWED_SKILLS = optionsSettings
 					.getProperty("AllowedSkills", "541,542,543,544,545,546,547,548,549,550,551,552,553,554,555,556,557,558,617,618,619");
-			ALLOWED_SKILLS_LIST = new FastList<Integer>();
+			ALLOWED_SKILLS_LIST.clear();
 			for (String id : ALLOWED_SKILLS.trim().split(","))
 			{
 				ALLOWED_SKILLS_LIST.add(Integer.parseInt(id.trim()));
@@ -1394,14 +1394,14 @@ public final class Config extends L2Config
 			AUCTION_SPECIAL_CURRENCY = Integer.parseInt(optionsSettings.getProperty("AuctionSpecialCurrency", "8575"));
 			AUCTION_SPECIAL_CURRENCY_ICON = optionsSettings.getProperty("AuctionSpecialCurrencyIcon", "etc_box_of_adventure_3_i00");
 			AUCTION_EXCLUDED_ITEMS = optionsSettings.getProperty("AuctionExcludedItems", "57,5575");
-			AUCTION_EXCLUDED_ITEMS_LIST = new FastList<Integer>();
+			AUCTION_EXCLUDED_ITEMS_LIST.clear();
 			for (String id : AUCTION_EXCLUDED_ITEMS.trim().split(","))
 			{
 				AUCTION_EXCLUDED_ITEMS_LIST.add(Integer.parseInt(id.trim()));
 			}
 
 			AUCTION_INCLUDED_ITEMS = optionsSettings.getProperty("AuctionIncludedItems", "8575");
-			AUCTION_INCLUDED_ITEMS_LIST = new FastList<Integer>();
+			AUCTION_INCLUDED_ITEMS_LIST.clear();
 			for (String id : AUCTION_INCLUDED_ITEMS.trim().split(","))
 			{
 				AUCTION_INCLUDED_ITEMS_LIST.add(Integer.parseInt(id.trim()));
@@ -1568,7 +1568,7 @@ public final class Config extends L2Config
 	public static boolean				ALT_OLY_SHOW_MONTHLY_WINNERS;
 	public static boolean				ALT_OLY_ANNOUNCE_GAMES;
 	public static int					ALT_OLY_ENCHANT_LIMIT;
-	public static FastList<Integer>		ALT_LIST_OLY_RESTRICTED_ITEMS		= new FastList<Integer>();
+	public static final Set<Integer>	ALT_LIST_OLY_RESTRICTED_ITEMS = new L2FastSet<Integer>();
 	public static int					ALT_OLY_NONCLASSED;
 	public static boolean				ALT_OLY_SUMMON_DAMAGE_COUNTS;
 	public static boolean				ALT_OLY_REMOVE_CUBICS;
@@ -1772,7 +1772,7 @@ public final class Config extends L2Config
 			ALT_OLY_LOG_FIGHTS = Boolean.parseBoolean(altSettings.getProperty("AlyOlyLogFights","false"));
 			ALT_OLY_SHOW_MONTHLY_WINNERS = Boolean.parseBoolean(altSettings.getProperty("AltOlyShowMonthlyWinners","true"));
 			ALT_OLY_ANNOUNCE_GAMES = Boolean.parseBoolean(altSettings.getProperty("AltOlyAnnounceGames","true"));
-			ALT_LIST_OLY_RESTRICTED_ITEMS = new FastList<Integer>();
+			ALT_LIST_OLY_RESTRICTED_ITEMS.clear();
 			for (String id : altSettings.getProperty("AltOlyRestrictedItems","0").split(","))
 			{
 				ALT_LIST_OLY_RESTRICTED_ITEMS.add(Integer.parseInt(id));
@@ -2095,9 +2095,9 @@ public final class Config extends L2Config
 	public static boolean			SIEGE_ONLY_REGISTERED;
 	public static boolean			SIEGE_GATE_CONTROL;
 
-	public static FastList<String>	CL_SET_SIEGE_TIME_LIST;
-	public static FastList<Integer>	SIEGE_HOUR_LIST_MORNING;
-	public static FastList<Integer>	SIEGE_HOUR_LIST_AFTERNOON;
+	public static final Set<String> CL_SET_SIEGE_TIME_LIST = new L2FastSet<String>();
+	public static final Set<Integer> SIEGE_HOUR_LIST_MORNING = new L2FastSet<Integer>();
+	public static final Set<Integer> SIEGE_HOUR_LIST_AFTERNOON = new L2FastSet<Integer>();
 
 	private static final class SiegeConfig extends ConfigLoader
 	{
@@ -2123,9 +2123,9 @@ public final class Config extends L2Config
 			SIEGE_ONLY_REGISTERED = Boolean.parseBoolean(siegeSettings.getProperty("OnlyRegistered", "true"));
 			SIEGE_GATE_CONTROL = Boolean.parseBoolean(siegeSettings.getProperty("AllowGateControl", "true"));
 
-			CL_SET_SIEGE_TIME_LIST = new FastList<String>();
-			SIEGE_HOUR_LIST_MORNING = new FastList<Integer>();
-			SIEGE_HOUR_LIST_AFTERNOON = new FastList<Integer>();
+			CL_SET_SIEGE_TIME_LIST.clear();
+			SIEGE_HOUR_LIST_MORNING.clear();
+			SIEGE_HOUR_LIST_AFTERNOON.clear();
 			String[] sstl = siegeSettings.getProperty("CLSetSiegeTimeList", "").split(",");
 			if (sstl.length != 0)
 			{

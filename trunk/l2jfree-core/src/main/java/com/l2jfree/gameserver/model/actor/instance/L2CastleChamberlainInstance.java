@@ -16,8 +16,8 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 import javolution.text.TextBuilder;
@@ -1637,7 +1637,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 					break;
 				case 2:
 					ret.setFile("data/html/chamberlain/siegetime6.htm");
-					List<Integer> list;
+					Set<Integer> list;
 					int inc = 0;
 					String ampm = "";
 
