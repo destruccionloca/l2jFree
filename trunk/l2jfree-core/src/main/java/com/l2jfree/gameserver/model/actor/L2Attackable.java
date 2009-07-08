@@ -2618,13 +2618,10 @@ public class L2Attackable extends L2Npc
 		_seedType = id;
 		int count = 1;
 
-		Map<Integer, L2Skill> skills = getTemplate().getSkills();
-
-		if (skills != null)
 		{
-			for (int skillId : skills.keySet())
+			for (L2Skill skill : getAllSkills())
 			{
-				switch (skillId)
+				switch (skill.getId())
 				{
 				case 4303: //Strong type x2
 					count *= 2;

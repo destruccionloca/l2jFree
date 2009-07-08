@@ -265,53 +265,30 @@ public abstract class L2Character extends L2Object
 	{
 		super(objectId);
 		getKnownList();
-
+		
 		// Set its template to the new L2Character
 		_template = template;
-
-		if (template != null && this instanceof L2Npc)
+		
+		if (_template instanceof L2NpcTemplate)
 		{
-			// Copy the Standard Calcultors of the L2Npc in _calculators
-			if (this instanceof L2DoorInstance)
-				_calculators = Formulas.getStdDoorCalculators();
-			else
-				_calculators = NPC_STD_CALCULATOR;
-
-			// Copy the skills of the L2Npc from its template to the L2Character Instance
-			// The skills list can be affected by spell effects so it's necessary to make a copy
-			// to avoid that a spell affecting a L2Npc, affects others L2Npc of the same type too.
-			_skills = ((L2NpcTemplate) template).getSkills();
+			_skills = ((L2NpcTemplate)_template).getSkills();
+			
 			if (_skills != null)
-			{
-				for (Map.Entry<Integer, L2Skill> skill : _skills.entrySet())
-					skillAdded(skill.getValue());
-			}
+				for (L2Skill skill : _skills.values())
+					skillAdded(skill);
 		}
 		else
-		{
-			if (this instanceof L2Summon)
-			{
-				// Copy the skills of the L2Summon from its template to the L2Character Instance
-				// The skills list can be affected by spell effects so it's necessary to make a copy
-				// to avoid that a spell affecting a L2Summon, affects others L2Summon of the same type too.
-				_skills = ((L2NpcTemplate)template).getSkills();
-				if (_skills != null)
-				{
-					for (Map.Entry<Integer, L2Skill> skill : _skills.entrySet())
-						skillAdded(skill.getValue());
-				}
-			}
-			else
-			{
-				// Initialize the FastMap _skills to null
-				_skills = new FastMap<Integer,L2Skill>().setShared(true);
-			}
-
-			// If L2Character is a L2PcInstance or a L2Summon, create the basic calculator set
+			_skills = new FastMap<Integer, L2Skill>().setShared(true);
+		
+		if (this instanceof L2DoorInstance)
+			_calculators = Formulas.getStdDoorCalculators();
+		else if (this instanceof L2Npc)
+			_calculators = NPC_STD_CALCULATOR;
+		else
 			_calculators = new Calculator[Stats.NUM_STATS];
-			Formulas.addFuncsToNewCharacter(this);
-		}
-
+		
+		Formulas.addFuncsToNewCharacter(this);
+		
 		if (!(this instanceof L2Playable) && !(this instanceof L2Attackable) && !(this instanceof L2ControlTowerInstance)
 				&& !(this instanceof L2DoorInstance) && !(this instanceof L2Trap) && !(this instanceof L2SiegeFlagInstance) && !(this instanceof L2Decoy)
 				&& !(this instanceof L2EffectPointInstance) && !(this instanceof L2NpcInstance))
@@ -6977,15 +6954,13 @@ public abstract class L2Character extends L2Object
 	{
 		_calculators = NPC_STD_CALCULATOR;
 		_stat = new CharStat(this);
-
-		_skills = ((L2NpcTemplate) _template).getSkills();
+		
+		_skills = ((L2NpcTemplate)_template).getSkills();
+		
 		if (_skills != null)
-		{
-			for (Map.Entry<Integer, L2Skill> skill : _skills.entrySet())
-			{
-				skillAdded(skill.getValue());
-			}
-		}
+			for (L2Skill skill : _skills.values())
+				skillAdded(skill);
+		
 		getStatus().setCurrentHpMp(getMaxHp(), getMaxMp());
 	}
 

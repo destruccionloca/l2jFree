@@ -375,7 +375,7 @@ public final class L2NpcTemplate extends L2CharTemplate
 
 	public Map<Integer, L2Skill> getSkills()
 	{
-		return _skills.unmodifiable();
+		return _skills == null ? null : _skills.unmodifiable();
 	}
 
 	public void addQuestEvent(Quest.QuestEventType EventType, Quest q)

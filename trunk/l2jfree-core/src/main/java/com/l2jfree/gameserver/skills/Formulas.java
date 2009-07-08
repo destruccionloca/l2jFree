@@ -965,9 +965,11 @@ public final class Formulas
 		std[Stats.EVASION_RATE.ordinal()].addFunc(FuncAtkEvasion.getInstance());
 
 		//SevenSigns PDEF Modifier
+		std[Stats.POWER_DEFENCE.ordinal()] = new Calculator();
 		std[Stats.POWER_DEFENCE.ordinal()].addFunc(FuncGatesPDefMod.getInstance());
 
 		//SevenSigns MDEF Modifier
+		std[Stats.MAGIC_DEFENCE.ordinal()] = new Calculator();
 		std[Stats.MAGIC_DEFENCE.ordinal()].addFunc(FuncGatesMDefMod.getInstance());
 
 		return std;
