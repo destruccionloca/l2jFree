@@ -14,8 +14,12 @@
  */
 package com.l2jfree.gameserver.network;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.util.LookupTable;
 
 /**
  * @author Noctarius & Nille02 & crion & Skatershi
@@ -9626,7 +9630,7 @@ public enum SystemMessageId
 	 * Message: The clan, $s1, cannot declare a Clan War because their clan is
 	 * less than level three, or they do not have enough members.
 	 */
-	S1_CANNOT_DECLARE_WAR_TOO_LOW_LEVEL_OR_NOT_ENOUGH_MEMBERS(1562),
+	S1_CANNOT_DECLARE_WAR_TOO_LOW_LEVEL_OR_NOT_ENOUGH_MEMBERS(1563),
 
 	/**
 	 * ID: 1564<br>
@@ -12610,16 +12614,16 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2038<br>
-	 * Message: Some Lineage II features have been limited for free trials. 
-	 * Trial accounts aren't allowed to drop items and/or Adena.  
+	 * Message: Some Lineage II features have been limited for free trials.
+	 * Trial accounts aren't allowed to drop items and/or Adena.
 	 * To unlock all of the features of Lineage II, purchase the full version today.
 	 */
 	ACCOUNT_CANT_DROP_ITEMS(2038),
 
 	/**
 	 * ID: 2039<br>
-	 * Message: Some Lineage II features have been limited for free trials. 
-	 * Trial accounts aren't allowed to trade items and/or Adena.  
+	 * Message: Some Lineage II features have been limited for free trials.
+	 * Trial accounts aren't allowed to trade items and/or Adena.
 	 * To unlock all of the features of Lineage II, purchase the full version today.
 	 */
 	ACCOUNT_CANT_TRADE_ITEMS(2039),
@@ -12632,8 +12636,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2041<br>
-	 * Message: Some Lineage II features have been limited for free trials. 
-	 * Trial accounts aren't allowed to setup private stores. 
+	 * Message: Some Lineage II features have been limited for free trials.
+	 * Trial accounts aren't allowed to setup private stores.
 	 * To unlock all of the features of Lineage II, purchase the full version today.
 	 */
 	CANT_OPEN_PRIVATE_STORE(2041),
@@ -12662,24 +12666,24 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2045<br>
-	 * Message: Some Lineage II features have been limited for free trials. 
-	 * Trial accounts aren't allowed to use private manufacturing stores. 
+	 * Message: Some Lineage II features have been limited for free trials.
+	 * Trial accounts aren't allowed to use private manufacturing stores.
 	 * To unlock all of the features of Lineage II, purchase the full version today.
 	 */
 	CANT_USE_PRIVATE_WORKSHOP(2045),
 
 	/**
 	 * ID: 2046<br>
-	 * Message: Some Lineage II features have been limited for free trials. 
-	 * Trial accounts aren't allowed buy items from private stores. 
+	 * Message: Some Lineage II features have been limited for free trials.
+	 * Trial accounts aren't allowed buy items from private stores.
 	 * To unlock all of the features of Lineage II, purchase the full version today.
 	 */
 	CANT_USE_PRIVATE_STORES(2046),
 
 	/**
 	 * ID: 2047<br>
-	 * Message: Some Lineage II features have been limited for free trials. 
-	 * Trial accounts aren't allowed to access clan warehouses. 
+	 * Message: Some Lineage II features have been limited for free trials.
+	 * Trial accounts aren't allowed to access clan warehouses.
 	 * To unlock all of the features of Lineage II, purchase the full version today.
 	 */
 	CANT_USE_CLAN_WH(2047),
@@ -12989,8 +12993,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2095<br>
-	 * Message: Some Lineage II features have been limited for free trials. 
-	 * Trial accounts have limited chatting capabilities. 
+	 * Message: Some Lineage II features have been limited for free trials.
+	 * Trial accounts have limited chatting capabilities.
 	 * To unlock all of the features of Lineage II, purchase the full version today.
 	 */
 	ACCOUNT_CANNOT_SHOUT(2095),
@@ -15383,6 +15387,24 @@ public enum SystemMessageId
 		return _systemMessage;
 	}
 	
+	private static final Log _log = LogFactory.getLog(SystemMessageId.class);
+	
+	private static final LookupTable<SystemMessageId> TABLE;
+	
+	static
+	{
+		TABLE = new LookupTable<SystemMessageId>() {
+			@Override
+			protected void replacedValue(int key, SystemMessageId oldValue, SystemMessageId newValue)
+			{
+				_log.warn("Same ID for SystemMessageId." + oldValue + " and SystemMessageId." + newValue);
+			}
+		};
+		
+		for (SystemMessageId sm : SystemMessageId.values())
+			TABLE.set(sm.getId(), sm);
+	}
+	
 	public static final SystemMessageId getSystemMessageId(int id)
 	{
 		return getSystemMessageId(id, true);
@@ -15390,9 +15412,10 @@ public enum SystemMessageId
 	
 	public static final SystemMessageId getSystemMessageId(int id, boolean force)
 	{
-		for (SystemMessageId sm : SystemMessageId.values())
-			if (sm.getId() == id)
-				return sm;
+		final SystemMessageId sm = TABLE.get(id);
+		
+		if (sm != null)
+			return sm;
 		
 		return force ? S1 : null;
 	}
