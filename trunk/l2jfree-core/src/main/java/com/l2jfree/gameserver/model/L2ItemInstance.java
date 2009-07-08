@@ -95,10 +95,6 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 	/** For NPC buylists */
 	private int					_restoreTime				= -1;
 	
-	/** ID of the item */
-	private final int			_itemId;
-	private final int			_itemDisplayId;
-	
 	/** Object L2Item associated to the item */
 	private final L2Item		_item;
 	
@@ -157,54 +153,11 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 	 *            int designating the ID of the object in the world
 	 * @param itemId :
 	 *            int designating the ID of the item
-	 * @param itemDisplayId :
-	 *            int designating the ID of the item to the client
-	 */
-	public L2ItemInstance(int objectId, int itemId, int itemDisplayId)
-	{
-		super(objectId);
-		getKnownList();
-		_itemId = itemId;
-		_itemDisplayId = itemDisplayId;
-		_item = ItemTable.getInstance().getTemplate(itemId);
-		if (_itemId == 0 || _item == null)
-			throw new IllegalArgumentException();
-		super.setName(_item.getName());
-		setCount(1);
-		_loc = ItemLocation.VOID;
-		_type1 = 0;
-		_type2 = 0;
-		_dropTime = 0;
-		_mana = _item.getDuration();
-		_time = _item.getTime() == -1 ? -1 : System.currentTimeMillis() + ((long)_item.getTime() * 60 * 1000);
-		scheduleLifeTimeTask();
-	}
-	
-	/**
-	 * Constructor of the L2ItemInstance from the objectId and the itemId.
-	 * 
-	 * @param objectId :
-	 *            int designating the ID of the object in the world
-	 * @param itemId :
-	 *            int designating the ID of the item
 	 */
 	public L2ItemInstance(int objectId, int itemId)
 	{
-		super(objectId);
-		getKnownList();
-		_itemId = itemId;
-		_item = ItemTable.getInstance().getTemplate(itemId);
-		if (_itemId == 0 || _item == null)
-			throw new IllegalArgumentException();
-		super.setName(_item.getName());
-		_itemDisplayId = _item.getItemDisplayId();
-		setCount(1);
-		_loc = ItemLocation.VOID;
-		_type1 = 0;
-		_type2 = 0;
-		_dropTime = 0;
-		_mana = _item.getDuration();
-		_time = _item.getTime() == -1 ? -1 : System.currentTimeMillis() + ((long)_item.getTime() * 60 * 1000);
+		this(objectId, ItemTable.getInstance().getTemplate(itemId));
+		_time = (_item.getTime() == -1) ? -1 : (System.currentTimeMillis() + _item.getTime() * 60000);
 		scheduleLifeTimeTask();
 	}
 	
@@ -220,10 +173,8 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 	{
 		super(objectId);
 		getKnownList();
-		_itemId = item.getItemId();
-		_itemDisplayId = item.getItemDisplayId();
 		_item = item;
-		if (_itemId == 0)
+		if (_item == null)
 			throw new IllegalArgumentException();
 		super.setName(_item.getName());
 		setCount(1);
@@ -490,12 +441,12 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 	 */
 	public int getItemId()
 	{
-		return _itemId;
+		return _item.getItemId();
 	}
 	
 	public int getItemDisplayId()
 	{
-		return _itemDisplayId;
+		return _item.getItemDisplayId();
 	}
 	
 	/**
@@ -767,7 +718,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 	{
 		// this causes the validate position handler to do the pickup if the location is reached.
 		// mercenary tickets can only be picked up by the castle owner.
-		int _castleId = MercTicketManager.getInstance().getTicketCastleId(_itemId);
+		int _castleId = MercTicketManager.getInstance().getTicketCastleId(getItemId());
 		
 		if (_castleId > 0)
 		{
@@ -1082,27 +1033,12 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 	/**
 	 * Used to decrease mana (mana means life time for shadow items)
 	 */
-	public class ScheduleConsumeManaTask implements Runnable
+	private class ScheduleConsumeManaTask implements Runnable
 	{
-		private L2ItemInstance	_shadowItem;
-		
-		public ScheduleConsumeManaTask(L2ItemInstance item)
-		{
-			_shadowItem = item;
-		}
-		
 		public void run()
 		{
-			try
-			{
-				// decrease mana
-				if (_shadowItem != null)
-					_shadowItem.decreaseMana(true);
-			}
-			catch (Exception e)
-			{
-				_log.error(e.getMessage(), e);
-			}
+			// decrease mana
+			decreaseMana(true);
 		}
 	}
 	
@@ -1229,7 +1165,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 	private void scheduleConsumeManaTask()
 	{
 		_consumingMana = true;
-		ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleConsumeManaTask(this), MANA_CONSUMPTION_RATE);
+		ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleConsumeManaTask(), MANA_CONSUMPTION_RATE);
 	}
 	
 	/**
@@ -1539,7 +1475,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 					.prepareStatement("INSERT INTO items (owner_id,item_id,count,loc,loc_data,enchant_level,object_id,custom_type1,custom_type2,mana_left,time) "
 							+ "VALUES (?,?,?,?,?,?,?,?,?,?,?)");
 			statement.setInt(1, _ownerId);
-			statement.setInt(2, _itemId);
+			statement.setInt(2, getItemId());
 			statement.setLong(3, getCount());
 			statement.setString(4, _loc.name());
 			statement.setInt(5, _locData);
@@ -1636,7 +1572,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 	
 	public boolean isNightLure()
 	{
-		return (_itemId >= 8505 && _itemId <= 8513) || _itemId == 8485;
+		return (getItemId() >= 8505 && getItemId() <= 8513) || getItemId() == 8485;
 	}
 	
 	public void setCountDecrease(boolean decrease)
@@ -1745,36 +1681,21 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 		{
 			if (_lifeTimeTask != null)
 				_lifeTimeTask.cancel(false);
-			_lifeTimeTask = ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleLifeTimeTask(this), getRemainingTime());
+			_lifeTimeTask = ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleLifeTimeTask(), getRemainingTime());
 		}
 	}
 
-	public class ScheduleLifeTimeTask implements Runnable
+	private class ScheduleLifeTimeTask implements Runnable
 	{
-		private L2ItemInstance _limitedItem;
-		
-		public ScheduleLifeTimeTask(L2ItemInstance item)
-		{
-			_limitedItem = item;
-		}
-		
 		public void run()
 		{
-			try
-			{
-				if (_limitedItem != null)
-					_limitedItem.endOfLife();
-			}
-			catch (Exception e)
-			{
-				_log.fatal(e.getMessage(), e);
-			}
+			endOfLife();
 		}
 	}
 
 	public boolean isOlyRestrictedItem()
 	{
-		return (Config.ALT_LIST_OLY_RESTRICTED_ITEMS.contains(_itemId));
+		return (Config.ALT_LIST_OLY_RESTRICTED_ITEMS.contains(getItemId()));
 	}
 
 	@Override

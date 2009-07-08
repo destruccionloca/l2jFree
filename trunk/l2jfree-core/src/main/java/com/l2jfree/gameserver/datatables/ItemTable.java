@@ -717,20 +717,7 @@ public final class ItemTable
 		if (item == null)
 			return null;
 		
-		L2ItemInstance temp = new L2ItemInstance(0, item);
-		try
-		{
-			temp = new L2ItemInstance(0, itemId, itemId);
-		}
-		catch (ArrayIndexOutOfBoundsException e)
-		{
-			// this can happen if the item templates were not initialized
-		}
-		
-		if (temp.getItem() == null)
-			_log.warn("ItemTable: Item Template missing for Id: " + itemId);
-		
-		return temp;
+		return new L2ItemInstance(0, item);
 	}
 	
 	/**

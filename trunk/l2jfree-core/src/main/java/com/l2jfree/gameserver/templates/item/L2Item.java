@@ -140,7 +140,7 @@ public abstract class L2Item implements FuncOwner
 	private final int					_materialType;
 	private final int					_crystalType;																	// default to none-grade
 	private final int					_duration;
-	private final int					_time;
+	private final long					_time;
 	private final int					_bodyPart;
 	private final int					_referencePrice;
 	private final int					_crystalCount;
@@ -220,7 +220,7 @@ public abstract class L2Item implements FuncOwner
 	 * Returns the time of the item
 	 * @return int
 	 */
-	public final int getTime()
+	public final long getTime()
 	{
 		return _time;
 	}
