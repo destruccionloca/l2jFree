@@ -428,7 +428,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 		_power = set.getFloat("power", 0.f);
 
-		_levelDepend = set.getInteger("lvlDepend", 0);
+		_levelDepend = set.getInteger("lvlDepend", 1);
 		_ignoreResists = set.getBool("ignoreResists", false);
 
 		_isAdvanced = set.getBool("isAdvanced", false); // Used by siege flag summon skills
@@ -686,7 +686,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 			{
 				return _power * Math.pow(1.7165 - activeChar.getCurrentHp() / activeChar.getMaxHp(), 2) * 0.577;
 			}
-			case FATAL:
+			case FATALCOUNTER:
 			{
 				return _power * 3.5 * (1 - activeChar.getCurrentHp() / activeChar.getMaxHp());
 			}
@@ -758,11 +758,29 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	 * Return the additional effect power or base probability.<BR>
 	 * <BR>
 	 */
-	public final int getEffectPower()
+	public final double getEffectPower()
 	{
-		return _effectPower;
+		if (_effectTemplates != null)
+			for (EffectTemplate et : _effectTemplates)
+				if (et.effectPower > 0)
+					return et.effectPower;
+		
+		if (_effectPower > 0)
+			return _effectPower;
+		
+		// to let damage dealing skills having proper resist even without specified effectPower
+		switch (_skillType.getRoot())
+		{
+			case PDAM:
+				return 20;
+			case MDAM:
+				return 20;
+			default:
+				// to let debuffs succeed even without specified power
+				return (_power <= 0 || 100 < _power) ? 20 : _power;
+		}
 	}
-
+	
 	/**
 	 * Return true if skill should ignore all resistances
 	 */
@@ -795,9 +813,26 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	 */
 	public final L2SkillType getEffectType()
 	{
-		return _effectType;
+		if (_effectTemplates != null)
+			for (EffectTemplate et : _effectTemplates)
+				if (et.effectType != null)
+					return et.effectType;
+		
+		if (_effectType != null)
+			return _effectType;
+		
+		// to let damage dealing skills having proper resist even without specified effectType
+		switch (_skillType.getRoot())
+		{
+			case PDAM:
+				return L2SkillType.STUN;
+			case MDAM:
+				return L2SkillType.PARALYZE;
+			default:
+				return _skillType;
+		}
 	}
-
+	
 	/**
 	 * @return Returns the timeMulti.
 	 */
@@ -1364,7 +1399,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 			case INSTANT_JUMP:
 			case SIGNET_CASTTIME:
 			case BALLISTA:
-			case FATAL:
 				return OffensiveState.OFFENSIVE;
 			case BUFF:
 			case CONT:
@@ -1383,7 +1417,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 			case REFLECT:
 			case LUCK:
 			case PASSIVE:
-			case WEAPON_SA:
 			case RESURRECT:
 			case CANCEL_DEBUFF:
 			case FUSION:
@@ -3566,148 +3599,65 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		
 		return _statFuncs;
 	}
-
+	
 	public boolean hasEffects()
 	{
-		return (_effectTemplates != null && _effectTemplates.length > 0);
+		return _effectTemplates != null && _effectTemplates.length > 0;
 	}
-
-	/**
-	 * Warning: this method doesn't consider modifier (shield, ss, sps, bss) for secondary effects
-	 * 
-	 */
+	
 	public final void getEffects(L2Character effector, L2Character effected)
-	{
-		getEffects(effector, effected, null);
-	}
-
-	/**
-	 * This method has suffered some changes in CT2.2 ->CT2.3<br>
-	 * Effect engine is now supporting secondary effects with independent
-	 * success/fail calculus from effect skill. Env parameter has been added to
-	 * pass parameters like soulshot, spiritshots, blessed spiritshots or shield deffence.
-	 * Some other optimizations have been done
-	 * <br><br>
-	 * This new feature works following next rules:
-	 * <li> To enable feature, effectPower must be over -1 (check DocumentSkill#attachEffect for further information)</li>
-	 * <li> If main skill fails, secondary effect always fail</li>
-	 */
-	public final void getEffects(L2Character effector, L2Character effected, Env env)
 	{
 		if (_effectTemplates == null)
 			return;
-
+		
 		if (!GlobalRestrictions.canCreateEffect(effector, effected, this))
 			return;
-
-		if (env == null)
-			env = new Env();
+		
+		Env env = new Env();
 		env.player = effector;
 		env.target = effected;
 		env.skill = this;
 		env.skillMastery = Formulas.calcSkillMastery(effector, this);
-
+		
 		for (EffectTemplate et : _effectTemplates)
-		{
-			if (et.effectPower > -1)
-			{
-				boolean success = Formulas.calcEffectSuccess(effector, effected, et, this, env.shld, env.ss, env.sps, env.bss);
-				if (success)
-				{
-					et.getEffect(env);
-				}
-				else if (effector instanceof L2PcInstance)
-				{
-					SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
-					sm.addCharName(effected);
-					sm.addSkillName(this);
-					((L2PcInstance) effector).sendPacket(sm);
-				}
-			}
-			else
-			{
-				et.getEffect(env);
-			}
-		}
+			et.getEffect(env);
 	}
-
-	/**
-	 * Warning: this method doesn't consider modifier (shield, ss, sps, bss) for secondary effects
-	 * 
-	 */
+	
 	public final void getEffects(L2CubicInstance effector, L2Character effected)
-	{
-		getEffects(effector, effected, null);
-	}
-
-	/**
-	 * This method has suffered some changes in CT2.2 ->CT2.3<br>
-	 * Effect engine is now supporting secondary effects with independent
-	 * success/fail calculus from effect skill. Env parameter has been added to
-	 * pass parameters like soulshot, spiritshots, blessed spiritshots or shield deffence.
-	 * Some other optimizations have been done
-	 * <br><br>
-	 * This new feature works following next rules:
-	 * <li> To enable feature, effectPower must be over -1 (check DocumentSkill#attachEffect for further information)</li>
-	 * <li> If main skill fails, secondary effect always fail</li>
-	 */
-	public final void getEffects(L2CubicInstance effector, L2Character effected, Env env)
 	{
 		if (_effectTemplates == null)
 			return;
-
+		
 		if (!GlobalRestrictions.canCreateEffect(effector.getOwner(), effected, this))
 			return;
-
-		if (env == null)
-			env = new Env();
+		
+		Env env = new Env();
 		env.player = effector.getOwner();
 		//env.cubic = effector;
 		env.target = effected;
 		env.skill = this;
-
+		
 		for (EffectTemplate et : _effectTemplates)
-		{
-			if (et.effectPower > -1)
-			{
-				boolean success = Formulas.calcEffectSuccess(effector.getOwner(), effected, et, this, env.shld, env.ss, env.sps, env.bss);
-				if (success)
-				{
-					et.getEffect(env);
-				}
-				else
-				{
-					SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
-					sm.addCharName(effected);
-					sm.addSkillName(this);
-					effector.getOwner().sendPacket(sm);
-				}
-			}
-			else
-			{
-				et.getEffect(env);
-			}
-		}
+			et.getEffect(env);
 	}
-
+	
 	public final void getEffectsSelf(L2Character effector)
 	{
 		if (_effectTemplatesSelf == null)
 			return;
-
+		
 		if (!GlobalRestrictions.canCreateEffect(effector, effector, this))
 			return;
-
+		
+		Env env = new Env();
+		env.player = effector;
+		env.target = effector;
+		env.skill = this;
+		
 		for (EffectTemplate et : _effectTemplatesSelf)
-		{
-			Env env = new Env();
-			env.player = effector;
-			env.target = effector;
-			env.skill = this;
 			et.getEffect(env);
-		}
 	}
-
+	
 	public final void attach(FuncTemplate f)
 	{
 		if (_funcTemplates == null)

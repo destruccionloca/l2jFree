@@ -72,9 +72,9 @@ public enum L2SkillType
 	AGGREMOVE,
 	AGGREDUCE_CHAR,
 	CONFUSE_MOB_ONLY,
-	DEATHLINK,
-	BLOW,
-	FATALCOUNTER,
+	DEATHLINK(MDAM),
+	BLOW(PDAM),
+	FATALCOUNTER(PDAM),
 	DETECT_WEAKNESS,
 	ENCHANT_ARMOR, // should be deprecated
 	ENCHANT_WEAPON, // should be deprecated
@@ -104,7 +104,6 @@ public enum L2SkillType
 	DRAIN_SOUL, // should be deprecated
 	COMMON_CRAFT,
 	DWARVEN_CRAFT,
-	WEAPON_SA, // should be depreacted and replaced with BUFF
 	DELUXE_KEY_UNLOCK, // should be deprecated
 	SOW,
 	HARVEST,
@@ -134,22 +133,21 @@ public enum L2SkillType
 	CLAN_GATE,
 	UNDEAD_DEFENSE,
 	CANCEL_STATS,
-
+	
 	AGATHION(L2SkillAgathion.class),
 	MOUNT(L2SkillMount.class),
 	CHANGEWEAPON(L2SkillChangeWeapon.class),
-	CHARGEDAM(L2SkillChargeDmg.class),
+	CHARGEDAM(L2SkillChargeDmg.class, PDAM),
 	CHARGE_NEGATE(L2SkillChargeNegate.class), // should be merged into NEGATE
 	CREATE_ITEM(L2SkillCreateItem.class),
 	DECOY(L2SkillDecoy.class),
-	DRAIN(L2SkillDrain.class),
+	DRAIN(L2SkillDrain.class, MDAM),
 	SWEEP(L2SkillSweep.class),
 	RECOVER(L2SkillRecover.class),
 	SIGNET(L2SkillSignet.class),
 	SIGNET_CASTTIME(L2SkillSignetCasttime.class),
 	SUMMON(L2SkillSummon.class),
 	SUMMON_TRAP(L2SkillTrap.class),
-	FATAL,
 	// Skill that has no effect.
 	DUMMY,
 	// Skill is done within the core.
@@ -158,15 +156,26 @@ public enum L2SkillType
 	NOTDONE,
 	TELEPORT,
 	CHANGE_APPEARANCE;
-
-	private final Constructor<? extends L2Skill>	_constructor;
-
+	
+	private final Constructor<? extends L2Skill> _constructor;
+	private final L2SkillType _parent;
+	
 	private L2SkillType()
 	{
-		this(L2Skill.class);
+		this(L2Skill.class, null);
 	}
-
+	
+	private L2SkillType(L2SkillType parent)
+	{
+		this(L2Skill.class, parent);
+	}
+	
 	private L2SkillType(Class<? extends L2Skill> clazz)
+	{
+		this(clazz, null);
+	}
+	
+	private L2SkillType(Class<? extends L2Skill> clazz, L2SkillType parent)
 	{
 		try
 		{
@@ -176,10 +185,20 @@ public enum L2SkillType
 		{
 			throw new RuntimeException(e);
 		}
+		
+		_parent = parent;
 	}
-
+	
 	public L2Skill makeSkill(StatsSet set) throws Exception
 	{
 		return _constructor.newInstance(set);
+	}
+	
+	public L2SkillType getRoot()
+	{
+		if (_parent == null)
+			return this;
+		
+		return _parent.getRoot();
 	}
 }
