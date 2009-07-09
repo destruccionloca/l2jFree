@@ -102,8 +102,6 @@ public class L2SkillRecover extends L2Skill
 			for (L2Effect e : effects)
 				tryNegate(e);
 		}
-		//effect self :]
-		getEffectsSelf(activeChar);
 	}
 
 	private final boolean isBadAbnormal(L2Effect e)

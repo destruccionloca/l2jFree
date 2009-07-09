@@ -717,7 +717,7 @@ public class Disablers implements ICubicSkillHandler
 						else if (stat == "root" && removedBuffs < skill.getMaxNegatedEffects())
 							removedBuffs += negateEffect(target,L2SkillType.ROOT,-1, skill.getMaxNegatedEffects());
 						else if (stat == "heal" && removedBuffs < skill.getMaxNegatedEffects())
-							SkillHandler.getInstance().getSkillHandler(L2SkillType.HEAL).useSkill(activeChar, skill, target);
+							SkillHandler.getInstance().useSkill(L2SkillType.HEAL, activeChar, skill, target);
 					}
 				}
 			}
@@ -725,10 +725,7 @@ public class Disablers implements ICubicSkillHandler
 
 			// Possibility of a lethal strike
 			Formulas.calcLethalHit(activeChar, target, skill);
-
 		}
-		// Self Effect :]
-		skill.getEffectsSelf(activeChar);
 	}
 
 	public void useCubicSkill(L2CubicInstance activeCubic, L2Skill skill, L2Character... targets)

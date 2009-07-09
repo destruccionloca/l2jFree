@@ -184,9 +184,6 @@ public class Continuous implements ICubicSkillHandler
 		{
 			((L2PcInstance)activeChar).increaseCharges(skill.getGiveCharges(), skill.getMaxCharges());
 		}
-
-		// Self Effect :]
-		skill.getEffectsSelf(activeChar);
 	}
 
 	public void useCubicSkill(L2CubicInstance activeCubic, L2Skill skill, L2Character... targets)

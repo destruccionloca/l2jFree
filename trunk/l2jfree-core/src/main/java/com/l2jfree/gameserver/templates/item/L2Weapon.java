@@ -344,7 +344,7 @@ public final class L2Weapon extends L2Equip
 				continue;
 			
 			// Launch the magic skill and calculate its effects
-			SkillHandler.getInstance().getSkillHandler(skill.getSkillType()).useSkill(caster, skill, target);
+			SkillHandler.getInstance().useSkill(caster, skill, target);
 			
 			// notify quests of a skill use
 			caster.notifyMobsAboutSkillCast(skill, target);
@@ -383,7 +383,7 @@ public final class L2Weapon extends L2Equip
 				continue;
 			
 			// Launch the magic skill and calculate its effects
-			SkillHandler.getInstance().getSkillHandler(skill.getSkillType()).useSkill(caster, skill, target);
+			SkillHandler.getInstance().useSkill(caster, skill, target);
 			
 			// notify quests of a skill use
 			caster.notifyMobsAboutSkillCast(skill, target);

@@ -188,8 +188,6 @@ public class Mdam implements ICubicSkillHandler
 			// Possibility of a lethal strike
 			Formulas.calcLethalHit(activeChar, target, skill);
 		}
-		// Self Effect :]
-		skill.getEffectsSelf(activeChar);
 
 		if (skill.isSuicideAttack())
 		{

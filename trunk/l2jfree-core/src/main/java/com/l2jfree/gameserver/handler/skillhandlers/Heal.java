@@ -47,7 +47,7 @@ public class Heal implements ISkillHandler
 	 */
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
-		SkillHandler.getInstance().getSkillHandler(L2SkillType.BUFF).useSkill(activeChar, skill, targets);
+		SkillHandler.getInstance().useSkill(L2SkillType.BUFF, activeChar, skill, targets);
 
 		L2PcInstance player = null;
 		if (activeChar instanceof L2PcInstance)

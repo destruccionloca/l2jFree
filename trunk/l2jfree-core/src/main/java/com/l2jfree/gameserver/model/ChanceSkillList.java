@@ -213,6 +213,6 @@ public final class ChanceSkillList
 		
 		// Launch the magic skill and calculate its effects
 		// TODO: once core will support all posible effects, use effects (not handler)
-		SkillHandler.getInstance().getSkillHandler(skill.getSkillType()).useSkill(_owner, skill, targets);
+		SkillHandler.getInstance().useSkill(_owner, skill, targets);
 	}
 }

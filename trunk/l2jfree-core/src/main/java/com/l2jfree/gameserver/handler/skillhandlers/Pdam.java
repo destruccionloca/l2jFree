@@ -295,9 +295,6 @@ public class Pdam implements ISkillHandler
 					}
 				}
 			}
-
-			// Self Effect :]
-			skill.getEffectsSelf(activeChar);
 		}
 
 		if (skill.isSuicideAttack())

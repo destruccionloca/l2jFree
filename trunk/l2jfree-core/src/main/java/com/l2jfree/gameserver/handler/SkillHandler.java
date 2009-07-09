@@ -60,10 +60,12 @@ import com.l2jfree.gameserver.handler.skillhandlers.Trap;
 import com.l2jfree.gameserver.handler.skillhandlers.Unlock;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillDrain;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.util.HandlerRegistry;
 
-public final class SkillHandler extends HandlerRegistry<L2SkillType, ISkillHandler> implements ISkillHandler
+public final class SkillHandler extends HandlerRegistry<L2SkillType, ISkillHandler>
 {
 	public static SkillHandler getInstance()
 	{
@@ -124,24 +126,39 @@ public final class SkillHandler extends HandlerRegistry<L2SkillType, ISkillHandl
 	{
 		registerAll(handler, handler.getSkillIds());
 	}
-
-	public ISkillHandler getSkillHandler(L2SkillType skillType)
+	
+	public void useSkill(L2SkillType skillType, L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
-		ISkillHandler handler = get(skillType);
-
-		return handler == null ? this : handler;
+		final ISkillHandler handler = get(skillType);
+		
+		if (handler != null)
+			handler.useSkill(activeChar, skill, targets);
+		else
+			skill.useSkill(activeChar, targets);
 	}
-
+	
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
-		skill.useSkill(activeChar, targets);
+		useSkill(skill.getSkillType(), activeChar, skill, targets);
+		
+		if (!activeChar.isAlikeDead())
+			skill.getEffectsSelf(activeChar);
 	}
-
-	public L2SkillType[] getSkillIds()
+	
+	public void useCubicSkill(L2CubicInstance cubic, L2Skill skill, L2Character... targets)
 	{
-		return null;
+		final ISkillHandler handler = get(skill.getSkillType());
+		
+		if (handler instanceof ICubicSkillHandler)
+			((ICubicSkillHandler)handler).useCubicSkill(cubic, skill, targets);
+		else if (skill instanceof L2SkillDrain)
+			((L2SkillDrain)skill).useCubicSkill(cubic, targets);
+		else if (handler != null)
+			handler.useSkill(cubic.getOwner(), skill, targets);
+		else
+			skill.useSkill(cubic.getOwner(), targets);
 	}
-
+	
 	@SuppressWarnings("synthetic-access")
 	private static class SingletonHolder
 	{

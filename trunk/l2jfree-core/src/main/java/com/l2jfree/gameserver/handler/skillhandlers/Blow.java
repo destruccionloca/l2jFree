@@ -248,8 +248,6 @@ public class Blow implements ISkillHandler
 
 			// Possibility of a lethal strike
 			Formulas.calcLethalHit(activeChar, target, skill);
-
-			skill.getEffectsSelf(activeChar);
 		}
 	}
 

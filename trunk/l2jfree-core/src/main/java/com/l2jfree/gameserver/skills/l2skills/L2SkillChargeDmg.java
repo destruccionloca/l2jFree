@@ -101,7 +101,6 @@ public class L2SkillChargeDmg extends L2Skill
 			{
 				activeChar.sendDamageMessage(target, 0, false, false, true);
 			}
-		} // effect self :]
-		getEffectsSelf(activeChar);
+		}
 	}
 }

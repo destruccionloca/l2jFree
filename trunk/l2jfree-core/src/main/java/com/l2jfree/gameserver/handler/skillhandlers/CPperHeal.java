@@ -41,7 +41,7 @@ public class CPperHeal implements ISkillHandler
 	 */
 	public void useSkill(L2Character actChar, L2Skill skill, L2Character... targets)
 	{
-		SkillHandler.getInstance().getSkillHandler(L2SkillType.BUFF).useSkill(actChar, skill, targets);
+		SkillHandler.getInstance().useSkill(L2SkillType.BUFF, actChar, skill, targets);
 		
 		for (L2Character target : targets)
 		{

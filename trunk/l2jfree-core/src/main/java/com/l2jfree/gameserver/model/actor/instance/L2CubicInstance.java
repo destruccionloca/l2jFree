@@ -23,8 +23,6 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.SkillTable;
-import com.l2jfree.gameserver.handler.ICubicSkillHandler;
-import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.instancemanager.DuelManager;
 import com.l2jfree.gameserver.model.L2Effect;
@@ -37,7 +35,6 @@ import com.l2jfree.gameserver.model.entity.events.TvT;
 import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
-import com.l2jfree.gameserver.skills.l2skills.L2SkillDrain;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jfree.tools.random.Rnd;
 
@@ -592,15 +589,8 @@ public class L2CubicInstance
 								_log.info("Cubic Id: " + _id + " Target: " + _target.getName() + " distance: "
 										+ Math.sqrt(_target.getDistanceSq(_owner.getX(), _owner.getY(), _owner.getZ())));
 							}
-
-							ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(skill.getSkillType());
-
-							if (handler instanceof ICubicSkillHandler)
-								((ICubicSkillHandler) handler).useCubicSkill(L2CubicInstance.this, skill, _target);
-							else if (skill instanceof L2SkillDrain)
-								((L2SkillDrain) skill).useCubicSkill(L2CubicInstance.this, _target);
-							else
-								handler.useSkill(_owner, skill, _target);
+							
+							SkillHandler.getInstance().useCubicSkill(L2CubicInstance.this, skill, _target);
 						}
 					}
 				}
@@ -741,7 +731,7 @@ public class L2CubicInstance
 					{
 						if (target.getMaxHp() - target.getStatus().getCurrentHp() > skill.getPower())
 						{
-							SkillHandler.getInstance().getSkillHandler(skill.getSkillType()).useSkill(_owner, skill, target);
+							SkillHandler.getInstance().useSkill(_owner, skill, target);
 							
 							MagicSkillUse msu = new MagicSkillUse(_owner, target, skill.getId(), skill.getLevel(), 0, 0);
 							_owner.broadcastPacket(msu);

@@ -38,8 +38,6 @@ public final class L2SkillSignetCasttime extends L2Skill
 	{
 		if (caster.isAlikeDead())
 			return;
-
-		getEffectsSelf(caster);
 	}
 
 }

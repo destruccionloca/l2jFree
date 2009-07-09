@@ -6531,7 +6531,7 @@ public abstract class L2Character extends L2Object
 		}
 		
 		// Launch the magic skill and calculate its effects
-		SkillHandler.getInstance().getSkillHandler(skill.getSkillType()).useSkill(this, skill, targets);
+		SkillHandler.getInstance().useSkill(this, skill, targets);
 		
 		if (skill.useSpiritShot() && !skill.hasEffectWhileCasting())
 			useSpiritshotCharge();

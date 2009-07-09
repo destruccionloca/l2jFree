@@ -150,8 +150,6 @@ public class L2SkillDrain extends L2Skill
 				((L2Npc)target).endDecayTask();
 			}
 		}
-		//effect self :]
-		getEffectsSelf(activeChar);
 	}
 
 	public void useCubicSkill(L2CubicInstance activeCubic, L2Character... targets)
