@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.network.clientpackets;
 import static com.l2jfree.gameserver.model.itemcontainer.PcInventory.MAX_ADENA;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.model.L2ManufactureItem;
 import com.l2jfree.gameserver.model.L2ManufactureList;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -111,12 +112,12 @@ public class RequestRecipeShopListSet extends L2GameClientPacket
 
 	private class Recipe
 	{
-		//private final int _recipeId;
+		private final int _recipeId;
 		private final long _cost;
 		
 		public Recipe(int id, long c)
 		{
-			//_recipeId = id;
+			_recipeId = id;
 			_cost = c;
 		}
 
@@ -124,6 +125,7 @@ public class RequestRecipeShopListSet extends L2GameClientPacket
 		{
 			if (_cost > MAX_ADENA)
 				return false;
+			list.add(new L2ManufactureItem(_recipeId, _cost));
 			return true;
 		}
 	}
