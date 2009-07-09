@@ -22,13 +22,12 @@ import com.l2jfree.gameserver.Shutdown;
 import com.l2jfree.gameserver.Shutdown.DisableType;
 import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.model.L2ItemInstance;
-import com.l2jfree.gameserver.model.L2Object;
-import com.l2jfree.gameserver.model.actor.L2Npc;
+import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Merchant;
 import com.l2jfree.gameserver.model.actor.instance.L2FishermanInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2MerchantInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2MerchantSummonInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetManagerInstance;
+import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -124,38 +123,21 @@ public class RequestSellItem extends L2GameClientPacket
 			return;
 		}
 
-		// Alt game - Karma punishment
-		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_SHOP && player.getKarma() > 0)
-			return;
-
-		L2Object target = player.getTarget();
-		if (!player.isGM() && (target == null								// No target (ie GM Shop)
-				|| !(target instanceof L2MerchantInstance || target instanceof L2MerchantSummonInstance)	// Target not a merchant and not mercmanager
-				|| !player.isInsideRadius(target, INTERACTION_DISTANCE, false, false) 	// Distance is too far
-					)) return;
-
-		boolean ok = true;
-		String htmlFolder = "";
-
-		if (target != null)
-		{
-			if (target instanceof L2MerchantInstance)
-				htmlFolder = "merchant";
-			else if (target instanceof L2FishermanInstance)
-				htmlFolder = "fisherman";
-			else if (target instanceof L2PetManagerInstance)
-				htmlFolder = "petmanager";
-			else
-				ok = false;
-		}
+		final L2Merchant merchant = player.getTarget(L2Merchant.class);
+		final String htmlFolder;
+		if (merchant instanceof L2FishermanInstance)
+			htmlFolder = "fisherman";
+		else if (merchant instanceof L2PetManagerInstance)
+			htmlFolder = "petmanager";
 		else
-			ok = false;
-
-		L2Npc merchant = null;
-
-		if (ok)
-			merchant = (L2Npc)target;
-
+			htmlFolder = "merchant";
+		
+		if (!canShop(player, merchant))
+		{
+			sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+		
 		if (merchant != null && _listId > 1000000) // lease
 		{
 			if (merchant.getTemplate().getNpcId() != _listId-1000000)
@@ -183,7 +165,7 @@ public class RequestSellItem extends L2GameClientPacket
 
 			item = player.getInventory().destroyItem("Sell", i.getObjectId(), i.getCount(), player, null);
 		}
-		player.addAdena("Sell", totalPrice, merchant, false);
+		player.addAdena("Sell", totalPrice, (L2Character)merchant, false);
 
 		if (merchant != null)
 		{
@@ -202,6 +184,26 @@ public class RequestSellItem extends L2GameClientPacket
 		su.addAttribute(StatusUpdate.CUR_LOAD, player.getCurrentLoad());
 		player.sendPacket(su);
 		player.sendPacket(new ItemList(player, true));
+	}
+	
+	private boolean canShop(L2PcInstance player, L2Merchant target)
+	{
+		if (player.isGM())
+			return true;
+		
+		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_SHOP && player.getKarma() > 0)
+			return false;
+		
+		if (target == null)
+			return false;
+		
+		if (!player.isInsideRadius((L2Character)target, INTERACTION_DISTANCE, false, false))
+		{
+			sendPacket(SystemMessageId.TOO_FAR_FROM_NPC);
+			return false;
+		}
+		
+		return true;
 	}
 
 	private class Item

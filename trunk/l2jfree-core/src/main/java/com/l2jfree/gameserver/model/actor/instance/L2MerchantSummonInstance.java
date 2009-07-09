@@ -20,6 +20,7 @@ import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.TradeListTable;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2TradeList;
+import com.l2jfree.gameserver.model.actor.L2Merchant;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.BuyList;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -29,7 +30,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 /**
  * @author Kerberos
  */
-public class L2MerchantSummonInstance extends L2SummonInstance
+public class L2MerchantSummonInstance extends L2SummonInstance implements L2Merchant
 {
 	public L2MerchantSummonInstance(int objectId, L2NpcTemplate template, L2PcInstance owner, L2Skill skill)
 	{

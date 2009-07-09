@@ -4543,7 +4543,7 @@ public abstract class L2Character extends L2Object
 		return _target;
 	}
 	
-	public final <T extends L2Object> T getTarget(Class<T> clazz)
+	public final <T> T getTarget(Class<T> clazz)
 	{
 		L2Object target = getTarget();
 		
@@ -4553,7 +4553,7 @@ public abstract class L2Character extends L2Object
 			return null;
 	}
 	
-	public final <T extends L2Object> T getTarget(Class<T> clazz, int objectId)
+	public final <T> T getTarget(Class<T> clazz, int objectId)
 	{
 		L2Object target = getTarget();
 		

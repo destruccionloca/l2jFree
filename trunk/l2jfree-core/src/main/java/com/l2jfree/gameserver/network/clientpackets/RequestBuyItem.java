@@ -24,15 +24,11 @@ import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.datatables.TradeListTable;
 import com.l2jfree.gameserver.instancemanager.MercTicketManager;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2TradeList;
 import com.l2jfree.gameserver.model.actor.L2Character;
-import com.l2jfree.gameserver.model.actor.instance.L2CastleChamberlainInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2ClanHallManagerInstance;
+import com.l2jfree.gameserver.model.actor.L2Merchant;
 import com.l2jfree.gameserver.model.actor.instance.L2FishermanInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2MercManagerInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MerchantInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2MerchantSummonInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetManagerInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -116,35 +112,27 @@ public class RequestBuyItem extends L2GameClientPacket
 			return;
 		}
 
-		L2Object target = player.getTarget();
-		String htmlFolder = "";
-		if (target instanceof L2MerchantInstance || target instanceof L2MerchantSummonInstance)
-			htmlFolder = "merchant";
-		else if (target instanceof L2FishermanInstance)
+		final L2Merchant merchant = player.getTarget(L2Merchant.class);
+		final String htmlFolder;
+		if (merchant instanceof L2FishermanInstance)
 			htmlFolder = "fisherman";
-		else if (target instanceof L2PetManagerInstance)
+		else if (merchant instanceof L2PetManagerInstance)
 			htmlFolder = "petmanager";
-
-		L2Character merchant = null;
-		if (target instanceof L2Character)
-			merchant = (L2Character) target;
-
-		if (!canShop(player, target))
+		else
+			htmlFolder = "merchant";
+		
+		if (!canShop(player, merchant))
 		{
 			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
-
+		
 		int npcId = -1;
-
 		L2TradeList list = null;
 
 		if (merchant != null)
 		{
-			if (merchant instanceof L2MerchantSummonInstance)
-				npcId = ((L2MerchantSummonInstance)merchant).getTemplate().getNpcId();
-			else
-				npcId = ((L2MerchantInstance)merchant).getTemplate().getNpcId();
+			npcId = merchant.getTemplate().getNpcId();
 
 			List<L2TradeList> lists = TradeListTable.getInstance().getBuyListByNpcId(npcId);
 			/*
@@ -306,7 +294,7 @@ public class RequestBuyItem extends L2GameClientPacket
 
 		if (!player.isGM() || (player.isGM() && (player.getAccessLevel() < Config.GM_FREE_SHOP)))
 		{
-			if ((taxedPriceTotal < 0) || (taxedPriceTotal >= Integer.MAX_VALUE) || !player.reduceAdena("Buy", taxedPriceTotal, merchant, false))
+			if ((taxedPriceTotal < 0) || (taxedPriceTotal >= Integer.MAX_VALUE) || !player.reduceAdena("Buy", taxedPriceTotal, (L2Character)merchant, false))
 			{
 				requestFailed(SystemMessageId.YOU_NOT_ENOUGH_ADENA);
 				return;
@@ -348,21 +336,13 @@ public class RequestBuyItem extends L2GameClientPacket
 			}
 
 			// Add item to Inventory and adjust update packet
-			player.getInventory().addItem(list.isGm() ? "GMShop" : "Buy", i.getItemId(), i.getCount(), player, merchant);
+			player.getInventory().addItem(list.isGm() ? "GMShop" : "Buy", i.getItemId(), i.getCount(), player, (L2Character)merchant);
 		}
 
 		if (merchant != null)
 		{
-			String html;
-			if (merchant instanceof L2MerchantInstance)
-			{
-				html = HtmCache.getInstance().getHtm("data/html/" + htmlFolder
-						+ "/" + ((L2MerchantInstance)merchant).getTemplate().getNpcId() + "-bought.htm");
-			}
-			else
-				html = HtmCache.getInstance().getHtm("data/html/" + htmlFolder
-						+ "/" + ((L2MerchantSummonInstance)merchant).getTemplate().getNpcId() + "-bought.htm");
-
+			String html = HtmCache.getInstance().getHtm("data/html/" + htmlFolder + "/" + merchant.getTemplate().getNpcId() + "-bought.htm");
+			
 			if (html != null)
 			{
 				NpcHtmlMessage boughtMsg = new NpcHtmlMessage(merchant.getObjectId());
@@ -378,25 +358,23 @@ public class RequestBuyItem extends L2GameClientPacket
 		sendPacket(new ItemList(player, true));
 	}
 
-	private final boolean canShop(L2PcInstance player, L2Object target)
+	private boolean canShop(L2PcInstance player, L2Merchant target)
 	{
 		if (player.isGM())
 			return true;
-
+		
 		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_SHOP && player.getKarma() > 0)
 			return false;
-		if (!(target instanceof L2MerchantInstance ||
-				target instanceof L2FishermanInstance ||
-				target instanceof L2MercManagerInstance ||
-				target instanceof L2ClanHallManagerInstance ||
-				target instanceof L2CastleChamberlainInstance))
+		
+		if (target == null)
 			return false;
-		if (!player.isInsideRadius(target, INTERACTION_DISTANCE, false, false))
+		
+		if (!player.isInsideRadius((L2Character)target, INTERACTION_DISTANCE, false, false))
 		{
 			sendPacket(SystemMessageId.TOO_FAR_FROM_NPC);
 			return false;
 		}
-
+		
 		return true;
 	}
 

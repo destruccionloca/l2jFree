@@ -24,6 +24,7 @@ import com.l2jfree.gameserver.datatables.TradeListTable;
 import com.l2jfree.gameserver.datatables.MerchantPriceConfigTable.MerchantPriceConfig;
 import com.l2jfree.gameserver.model.L2Multisell;
 import com.l2jfree.gameserver.model.L2TradeList;
+import com.l2jfree.gameserver.model.actor.L2Merchant;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.BuyList;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -38,7 +39,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  *
  * @version $Revision: 1.10.4.9 $ $Date: 2005/04/11 10:06:08 $
  */
-public class L2MerchantInstance extends L2NpcInstance
+public class L2MerchantInstance extends L2NpcInstance implements L2Merchant
 {
     private MerchantPriceConfig _mpc;
 
