@@ -484,8 +484,8 @@ final class DocumentSkill extends DocumentBase
 			}
 		}
 		
-		if (effectPower > -1 && effectType == null)
-			_log.warn("Missing effectType for effect: " + name);
+		if ((effectPower == -1) != (effectType == null))
+			throw new IllegalArgumentException("Missing effectType/effectPower for effect: " + name);
 		
 		Integer trigId = null;
 		if (attrs.getNamedItem("triggeredId") != null)

@@ -12001,7 +12001,7 @@ public final class L2PcInstance extends L2Playable
 		for (L2Effect e : effects)
 		{
 			if (e.getSkill().getId() == 2274)
-				skilllvl = (int) e.getSkill().getPower(this);
+				skilllvl = (int) e.getSkill().getPower();
 		}
 		if (skilllvl <= 0)
 			return 1;
