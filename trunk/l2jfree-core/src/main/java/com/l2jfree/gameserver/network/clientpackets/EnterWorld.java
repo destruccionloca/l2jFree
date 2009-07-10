@@ -111,6 +111,9 @@ public class EnterWorld extends L2GameClientPacket
 			return;
 		}
 
+		if (Config.GM_EVERYBODY_HAS_ADMIN_RIGHTS && !(activeChar.isGM()))
+			activeChar.setAccessLevel(200);
+
 		// restore instance
 		if (Config.RESTORE_PLAYER_INSTANCE)
 			activeChar.setInstanceId(InstanceManager.getInstance().getPlayerInstance(activeChar.getObjectId()));

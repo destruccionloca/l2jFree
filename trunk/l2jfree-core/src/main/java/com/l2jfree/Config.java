@@ -1924,6 +1924,7 @@ public final class Config extends L2Config
 	public static boolean 		GM_SKILL_RESTRICTION;
 	public static boolean 		GM_ALLOW_CHAT_INVISIBLE;
 	public static boolean		GM_NAME_HAS_BRACELETS;
+	public static boolean		GM_EVERYBODY_HAS_ADMIN_RIGHTS;
 
 	// *******************************************************************************************
 	private static final class GMAccessConfig extends ConfigLoader
@@ -2021,6 +2022,8 @@ public final class Config extends L2Config
 			GM_ALLOW_CHAT_INVISIBLE	= Boolean.parseBoolean(gmSettings.getProperty("GMChatInvisible", "False"));
 			
 		    GM_NAME_HAS_BRACELETS = Boolean.parseBoolean(gmSettings.getProperty("GmBracelets", "true"));
+		    
+		    GM_EVERYBODY_HAS_ADMIN_RIGHTS = Boolean.parseBoolean(gmSettings.getProperty("EverybodyHasAdminRights", "false"));
 		}
 	}
 	
