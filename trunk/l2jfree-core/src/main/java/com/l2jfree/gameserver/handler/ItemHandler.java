@@ -69,8 +69,20 @@ public final class ItemHandler
 		return _instance;
 	}
 	
-	private final NumberHandlerRegistry<IItemHandler> _byItemId = new NumberHandlerRegistry<IItemHandler>();
-	private final HandlerRegistry<String, IItemHandler> _byHandlerName = new HandlerRegistry<String, IItemHandler>();
+	private final NumberHandlerRegistry<IItemHandler> _byItemId = new NumberHandlerRegistry<IItemHandler>() {
+		@Override
+		protected String getName()
+		{
+			return "ItemHandlerByItemId";
+		}
+	};
+	private final HandlerRegistry<String, IItemHandler> _byHandlerName = new HandlerRegistry<String, IItemHandler>() {
+		@Override
+		protected String getName()
+		{
+			return "ItemHandlerByHandlerName";
+		}
+	};
 	
 	private ItemHandler()
 	{

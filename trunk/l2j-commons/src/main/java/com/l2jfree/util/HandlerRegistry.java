@@ -52,7 +52,7 @@ public class HandlerRegistry<K, V>
 		V old = _map.put(key, handler);
 		
 		if (old != null && !old.equals(handler))
-			_log.warn(getClass().getSimpleName() + ": Replaced type(" + key + "), " + old + " -> " + handler + ".");
+			_log.warn(getName() + ": Replaced type(" + key + "), " + old + " -> " + handler + ".");
 	}
 	
 	public final void registerAll(V handler, K... keys)
@@ -75,5 +75,10 @@ public class HandlerRegistry<K, V>
 	public final Map<K, V> getHandlers()
 	{
 		return Collections.unmodifiableMap(_map);
+	}
+	
+	protected String getName()
+	{
+		return getClass().getSimpleName();
 	}
 }
