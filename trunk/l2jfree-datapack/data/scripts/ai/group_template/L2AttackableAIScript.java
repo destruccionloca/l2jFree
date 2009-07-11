@@ -14,6 +14,12 @@
  */
 package ai.group_template;
 
+import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_ATTACK;
+
+import com.l2jfree.Config;
+import com.l2jfree.gameserver.ai.CtrlEvent;
+import com.l2jfree.gameserver.ai.CtrlIntention;
+import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Npc;
@@ -80,10 +86,6 @@ public class L2AttackableAIScript extends QuestJython
 		super(questId, name, descr);
 	}
 
-	public static void main(String[] args)
-	{
-	}
-
 	@Override
 	public String onAdvEvent (String event, L2Npc npc, L2PcInstance player)
 	{
@@ -97,32 +99,82 @@ public class L2AttackableAIScript extends QuestJython
 	}
 
 	@Override
-	public String onSkillSee (L2Npc npc, L2PcInstance caster, L2Skill skill, L2Object[] targets, boolean isPet) 
+	public String onSkillSee(L2Npc npc, L2PcInstance caster, L2Skill skill, L2Object[] targets, boolean isPet)
 	{
+		if (caster == null) 
+			return null;
+
+		if (!(npc instanceof L2Attackable))
+			return null;
+
+		L2Attackable attackable = (L2Attackable)npc; 
+		int skillAggroPoints = skill.getAggroPoints();
+		if (caster.getPet() != null)
+		{
+			if (targets.length == 1 && contains(targets, caster.getPet()))
+				skillAggroPoints = 0;
+		}
+		if (skillAggroPoints > 0)
+		{
+			skillAggroPoints /= Config.ALT_BUFFER_HATE;
+
+			if (attackable.hasAI() && (attackable.getAI().getIntention() == AI_INTENTION_ATTACK))
+			{
+				L2Object npcTarget = attackable.getTarget();
+				for (L2Object skillTarget : targets)
+				{
+					if (npcTarget == skillTarget || npc == skillTarget)
+					{
+						L2Character originalCaster = isPet ? caster.getPet(): caster;
+						attackable.addDamageHate(originalCaster, 0, (skillAggroPoints*150)/(attackable.getLevel()+7));
+					}
+				}
+			}
+		}
 		return null;
 	}
 
 	@Override
 	public String onFactionCall (L2Npc npc, L2Npc caller, L2PcInstance attacker, boolean isPet) 
 	{
+		L2Character originalAttackTarget = (isPet ? attacker.getPet(): attacker);
+		// By default, when a faction member calls for help, attack the caller's attacker.
+		// Notify the AI with EVT_AGGRESSION
+		npc.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, originalAttackTarget, 1);
+		
 		return null;
 	}
 
 	@Override
 	public String onAggroRangeEnter (L2Npc npc, L2PcInstance player, boolean isPet) 
 	{
+		L2Character target = isPet ? player.getPet() : player;
+
+		((L2Attackable) npc).addDamageHate(target, 0, 1);
+
+		// Set the intention to the L2Attackable to AI_INTENTION_ACTIVE
+		if (npc.getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE)
+			npc.getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
 		return null; 
 	}
 
 	@Override
 	public String onSpawn (L2Npc npc) 
 	{
-		return null; 
+		return null;
 	}
 
 	@Override
-	public String onAttack (L2Npc npc, L2PcInstance attacker, int damage, boolean isPet)
+	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isPet)
 	{
+		if (attacker != null && (npc instanceof L2Attackable))
+		{
+			L2Attackable attackable = (L2Attackable) npc; 
+
+			L2Character originalAttacker = isPet ? attacker.getPet() : attacker;
+			attackable.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, originalAttacker);
+			attackable.addDamageHate(originalAttacker, damage, (damage*100)/(attackable.getLevel()+7));
+		}
 		return null;
 	}
 
@@ -130,5 +182,37 @@ public class L2AttackableAIScript extends QuestJython
 	public String onKill (L2Npc npc, L2PcInstance killer, boolean isPet) 
 	{
 		return null; 
+	}
+
+	public static void main(String[] args)
+	{
+		L2AttackableAIScript ai = new L2AttackableAIScript(-1, "L2AttackableAIScript", "L2AttackableAIScript");
+		// register all mobs here...
+		for (int level = 1; level < 100; level++)
+		{
+			L2NpcTemplate[] templates = NpcTable.getInstance().getAllOfLevel(level);
+			if (templates != null)
+			{
+				for (L2NpcTemplate t: templates)
+				{
+					try
+					{
+						if (L2Attackable.class.isAssignableFrom(Class.forName("com.l2jfree.gameserver.model.actor.instance."+t.type+"Instance")))
+						{
+							ai.addEventId(t.npcId, Quest.QuestEventType.ON_ATTACK);
+							ai.addEventId(t.npcId, Quest.QuestEventType.ON_KILL);
+							ai.addEventId(t.npcId, Quest.QuestEventType.ON_SPAWN);
+							ai.addEventId(t.npcId, Quest.QuestEventType.ON_SKILL_SEE);
+							ai.addEventId(t.npcId, Quest.QuestEventType.ON_FACTION_CALL);
+							ai.addEventId(t.npcId, Quest.QuestEventType.ON_AGGRO_RANGE_ENTER);
+						}
+					}
+					catch (ClassNotFoundException ex)
+					{
+						System.out.println("Class not found "+t.type+"Instance");
+					}
+				}
+			}
+		}
 	}
 }
