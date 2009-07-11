@@ -200,7 +200,8 @@ public class L2AttackableAIScript extends QuestJython
 				{
 					try
 					{
-						if (L2Attackable.class.isAssignableFrom(Class.forName("com.l2jfree.gameserver.model.actor.instance."+t.type+"Instance")))
+						if (L2Attackable.class.isAssignableFrom(
+								Class.forName("com.l2jfree.gameserver.model.actor.instance." + t.getType() + "Instance")))
 						{
 							ai.addEventId(t.getNpcId(), Quest.QuestEventType.ON_ATTACK);
 							ai.addEventId(t.getNpcId(), Quest.QuestEventType.ON_KILL);
