@@ -14,11 +14,13 @@
  */
 package com.l2jfree.gameserver.instancemanager;
 
+import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Instance;
 
 /**
@@ -28,8 +30,39 @@ import com.l2jfree.gameserver.model.entity.Instance;
 public class InstanceManager
 {
 	private final static Log			_log			= LogFactory.getLog(InstanceManager.class.getName());
+
 	private FastMap<Integer, Instance>	_instanceList	= new FastMap<Integer, Instance>();
+	private FastMap<Integer, InstanceWorld> _instanceWorlds = new FastMap<Integer, InstanceWorld>();
+
 	private int							_dynamic		= 300000;
+
+	public class InstanceWorld
+	{
+		public int instanceId;
+		public FastList<L2PcInstance> allowed = new FastList<L2PcInstance>();
+		public int status;
+	}
+
+	public void addWorld(InstanceWorld world)
+	{
+		_instanceWorlds.put(world.instanceId, world);
+	}
+
+	public InstanceWorld getWorld(int instanceId)
+	{
+		return _instanceWorlds.get(instanceId);
+	}
+
+	public InstanceWorld getPlayerWorld(L2PcInstance player)
+	{
+		for (InstanceWorld temp : _instanceWorlds.values())
+		{
+			// check if the player have a World Instance where he/she is allowed to enter
+			if (temp.allowed.contains(player))
+				return temp;
+		}
+		return null;
+	}
 
 	public static final InstanceManager getInstance()
 	{
@@ -67,6 +100,7 @@ public class InstanceManager
 			temp.removeDoors();
 			temp.cancelTimer();
 			_instanceList.remove(instanceid);
+			_instanceWorlds.remove(instanceid);
 		}
 	}
 
@@ -108,8 +142,8 @@ public class InstanceManager
 			return false;
 
 		Instance instance = new Instance(id);
-		instance.loadInstanceTemplate(template);
 		_instanceList.put(id, instance);
+		instance.loadInstanceTemplate(template);
 		return true;
 	}
 

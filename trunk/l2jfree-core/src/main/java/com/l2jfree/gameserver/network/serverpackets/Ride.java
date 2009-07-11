@@ -50,7 +50,7 @@ public class Ride extends L2GameServerPacket
             _rideType = 2;
         else if (PetDataTable.isEvolvedWolf(npcId))
             _rideType = 3;
-        else if (PetDataTable.isHorse(npcId))
+        else if (PetDataTable.isTransformationPet(npcId))
             _rideType = 4;
         else
             _rideType = 0;

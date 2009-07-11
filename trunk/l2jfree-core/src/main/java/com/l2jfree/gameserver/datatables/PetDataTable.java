@@ -62,7 +62,10 @@ public class PetDataTable
 	public final static int											GREAT_WOLF_ID				= 16025;
 	public final static int											FENRIR_WOLF_ID				= 16041;
 	public final static int											WFENRIR_WOLF_ID				= 16042;
+
 	public final static int											PURPLE_HORSE_ID				= 13130;
+	public final static int											TAWNY_MANED_LION_ID			= 13146;
+	public final static int											STEAM_SLEDGE				= 13147;
 
 	private static FastMap<Integer, FastMap<Integer, L2PetData>>	petTable;
 
@@ -306,9 +309,9 @@ public class PetDataTable
 		return npcId == SIN_EATER_ID;
 	}
 
-	public static boolean isHorse(int npcId)
+	public static boolean isTransformationPet(int npcId)
 	{
-		return npcId == PURPLE_HORSE_ID;
+		return (npcId == PURPLE_HORSE_ID || npcId == TAWNY_MANED_LION_ID || npcId == STEAM_SLEDGE);
 	}
 
 	/**

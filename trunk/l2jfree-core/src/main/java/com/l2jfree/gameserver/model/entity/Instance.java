@@ -68,6 +68,9 @@ public class Instance
 	private boolean						_allowSummon		= true;
 	private boolean						_isPvPInstance		= false;
 	protected ScheduledFuture<?>		_checkTimeUpTask	= null;
+	private long						_emptyDestroyTime = -1;
+	private long						_lastLeft = -1;
+	private long						_instanceEndTime = -1;
 
 	public Instance(int id)
 	{
@@ -136,12 +139,12 @@ public class Instance
 	{
 		if (_checkTimeUpTask != null)
 			_checkTimeUpTask.cancel(true);
-		_checkTimeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new CheckTimeUp(duration * 60000), 15000);
+		_checkTimeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new CheckTimeUp(duration), 500);
 	}
 
 	public boolean containsPlayer(int objectId)
 	{
-        return _players.contains(objectId);
+		return _players.contains(objectId);
 	}
 
 	public void addPlayer(int objectId)
@@ -154,6 +157,11 @@ public class Instance
 	{
 		if (_players.contains(objectId))
 			_players.remove(objectId);
+		if (_players.isEmpty() && _emptyDestroyTime >= 0)
+		{
+			_lastLeft = System.currentTimeMillis();
+			setDuration((int) (_instanceEndTime - System.currentTimeMillis() - 1000));
+		}
 	}
 
 	public void ejectPlayer(int objectId)
@@ -168,6 +176,11 @@ public class Instance
 			else
 				player.teleToLocation(_tpx, _tpy, _tpz);
 		}
+	}
+
+	public void addNpc(L2Npc npc)
+	{
+		_npcs.add(npc);
 	}
 
 	public void removeNpc(L2Spawn spawn)
@@ -330,7 +343,10 @@ public class Instance
 			{
 				a = n.getAttributes().getNamedItem("val");
 				if (a != null)
+				{
 					_checkTimeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new CheckTimeUp(Integer.parseInt(a.getNodeValue()) * 60000), 15000);
+					_instanceEndTime = System.currentTimeMillis() + Long.parseLong(a.getNodeValue()) * 60000 + 15000;
+				}
 			}
 			/*			else if ("timeDelay".equalsIgnoreCase(n.getNodeName()))
 						{
@@ -343,6 +359,12 @@ public class Instance
 				a = n.getAttributes().getNamedItem("val");
 				if (a != null)
 					setAllowSummon(Boolean.parseBoolean(a.getNodeValue()));
+			}
+			else if ("emptyDestroyTime".equalsIgnoreCase(n.getNodeName()))
+			{
+				a = n.getAttributes().getNamedItem("val");
+				if (a != null)
+					_emptyDestroyTime = Long.parseLong(a.getNodeValue()) * 1000;
 			}
 			else if ("PvPInstance".equalsIgnoreCase(n.getNodeName()))
 			{
@@ -406,8 +428,7 @@ public class Instance
 							else
 								spawnDat.startRespawn();
 							spawnDat.setInstanceId(getId());
-							L2Npc newmob = spawnDat.doSpawn();
-							_npcs.add(newmob);
+							spawnDat.doSpawn();
 						}
 						else
 						{
@@ -441,7 +462,41 @@ public class Instance
 		int timeLeft;
 		int interval;
 
-		if (remaining > 300000)
+		if (_players.isEmpty() && _emptyDestroyTime == 0)
+		{
+			remaining = 0;
+			interval = 500;
+		}
+		else if (_players.isEmpty() && _emptyDestroyTime > 0)
+		{
+			Long emptyTimeLeft = _lastLeft + _emptyDestroyTime - System.currentTimeMillis();
+			if (emptyTimeLeft <= 0)
+			{
+				interval = 0;
+				remaining = 0;
+			}
+			else if (remaining > 300000 && emptyTimeLeft > 300000)
+			{
+				interval = 300000;
+				remaining = remaining - 300000;
+			}
+			else if (remaining > 60000 && emptyTimeLeft > 60000)
+			{
+				interval = 60000;
+				remaining = remaining - 60000;
+			}
+			else if (remaining > 30000 && emptyTimeLeft > 30000)
+			{
+				interval = 30000;
+				remaining = remaining - 30000;
+			}
+			else
+			{
+				interval = 10000;
+				remaining = remaining - 10000;
+			}
+		}
+		else if (remaining > 300000)
 		{
 			timeLeft = remaining / 60000;
 			interval = 300000;

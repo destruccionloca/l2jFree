@@ -19,6 +19,7 @@ import javolution.text.TextBuilder;
 import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.instancemanager.InstanceManager;
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.knownlist.ObjectKnownList;
@@ -437,20 +438,43 @@ public abstract class L2Object implements L2Entity<Integer>
 		
 		if (this instanceof L2PcInstance)
 		{
-			if (_instanceId > 0)
+			if (_instanceId != instanceId)
 			{
-				Instance inst = InstanceManager.getInstance().getInstance(_instanceId);
-				if (inst != null)
-					inst.removePlayer(getObjectId());
-			}
-			if (instanceId > 0)
-			{
-				Instance inst = InstanceManager.getInstance().getInstance(instanceId);
-				if (inst != null)
-					inst.addPlayer(getObjectId());
+				Instance inst;
+				if (_instanceId > 0)
+				{
+					inst = InstanceManager.getInstance().getInstance(_instanceId);
+					if (inst != null)
+						inst.removePlayer(getObjectId());
+				}
+				if (instanceId > 0)
+				{
+					inst = InstanceManager.getInstance().getInstance(instanceId);
+					if (inst != null)
+						inst.addPlayer(getObjectId());
+				}
 			}
 			if (((L2PcInstance) this).getPet() != null)
 				((L2PcInstance) this).getPet().setInstanceId(instanceId);
+		}
+		else if (this instanceof L2Npc)
+		{
+			if (_instanceId != instanceId)
+			{
+				Instance inst;
+				if (_instanceId > 0)
+				{
+					inst = InstanceManager.getInstance().getInstance(_instanceId);
+					if (inst != null)
+						inst.removeNpc(((L2Npc)this).getSpawn());
+				}
+				if (instanceId > 0)
+				{
+					inst = InstanceManager.getInstance().getInstance(instanceId);
+					if (inst != null)
+						inst.addNpc(((L2Npc)this));
+				}
+			}
 		}
 		
 		_instanceId = instanceId;

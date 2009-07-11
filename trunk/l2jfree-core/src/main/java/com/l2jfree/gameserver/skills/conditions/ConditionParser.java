@@ -383,6 +383,11 @@ public abstract class ConditionParser
 			boolean val = Boolean.parseBoolean(nodeValue);
 			return new ConditionPlayerIsClanLeader(val);
 		}
+		else if ("subclass".equalsIgnoreCase(nodeName))
+		{
+			boolean val = Boolean.valueOf(nodeValue);
+			return new ConditionPlayerSubclass(val);
+		}
 		
 		throw new IllegalStateException("Invalid attribute at <player>: " + nodeName + "='" + nodeValue + "'");
 	}
