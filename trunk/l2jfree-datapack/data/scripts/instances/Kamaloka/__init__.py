@@ -2,11 +2,6 @@
 
 import sys
 from java.lang                                     import System
-from java.sql import Connection
-from java.sql import PreparedStatement
-from java.sql import ResultSet
-from java.sql import SQLException
-from com.l2jfree import L2DatabaseFactory
 from com.l2jfree.gameserver.instancemanager        import InstanceManager
 from com.l2jfree.gameserver.model.entity           import Instance
 from com.l2jfree.gameserver.model.actor            import L2Character
