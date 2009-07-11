@@ -25,10 +25,9 @@ import com.l2jfree.gameserver.Shutdown;
 import com.l2jfree.gameserver.Shutdown.DisableType;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.TradeList;
-import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.itemcontainer.ClanWarehouse;
+import com.l2jfree.gameserver.model.itemcontainer.PcWarehouse;
 import com.l2jfree.gameserver.model.itemcontainer.ItemContainer;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
@@ -59,7 +58,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 	@Override
 	protected void readImpl()
 	{
-		int count = readD();
+		final int count = readD();
 		if (count <= 0
 				|| count > Config.MAX_ITEM_IN_PACKET
 				|| count * (Config.PACKET_FINAL ? BATCH_LENGTH_FINAL : BATCH_LENGTH) != getByteBuffer().remaining())
@@ -88,15 +87,17 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 		if (_items == null)
 			return;
 
-		L2PcInstance player = getClient().getActiveChar();
+		final L2PcInstance player = getClient().getActiveChar();
 		if (player == null)
 			return;
 
-		ItemContainer warehouse = player.getActiveWarehouse();
+		final ItemContainer warehouse = player.getActiveWarehouse();
 		if (warehouse == null)
 			return;
 
-		L2NpcInstance manager = player.getLastFolkNPC();
+		final boolean isPrivate = warehouse instanceof PcWarehouse;
+
+		final L2NpcInstance manager = player.getLastFolkNPC();
 		
 		if (Shutdown.isActionDisabled(DisableType.TRANSACTION))
 		{
@@ -107,10 +108,10 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 		
 		if ((manager == null
 				|| !manager.isWarehouse()
-				|| !player.isInsideRadius(manager, L2Npc.INTERACTION_DISTANCE, false, false)) && !player.isGM())
+				|| !manager.canInteract(player)) && !player.isGM())
 			return;
 		
-		if ((warehouse instanceof ClanWarehouse) && Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
+		if (!isPrivate && Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
 		{
 			player.sendMessage("Unsufficient privileges.");
 			player.sendPacket(ActionFailed.STATIC_PACKET);
@@ -131,7 +132,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 		}
 		
 		// Freight price from config or normal price per item slot (30)
-		long fee = _items.length * 30;
+		final long fee = _items.length * 30;
 		long currentAdena = player.getAdena();
 		int slots = 0;
 
@@ -168,7 +169,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 		}
 
 		// get current tradelist if any
-		TradeList trade = player.getActiveTradeList();
+		final TradeList trade = player.getActiveTradeList();
 
 		// Proceed to the transfer
 		InventoryUpdate playerIU = Config.FORCE_INVENTORY_UPDATE ? null : new InventoryUpdate();
@@ -182,16 +183,14 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 				return;
 			}
 
-			if ((oldItem.isHeroItem() && Config.ALT_STRICT_HERO_SYSTEM)
-					|| ((warehouse instanceof ClanWarehouse) && !oldItem.isTradeable())
-					|| oldItem.getItemType() == L2EtcItemType.QUEST)
+			if (!oldItem.isDepositable(isPrivate))
 				continue;
 
 			// skip items from active tradelist, even for stackable
 			if (trade != null && trade.getItem(i.getObjectId()) != null)
 				continue;
 
-			L2ItemInstance newItem = player.getInventory().transferItem(warehouse.getName(), i.getObjectId(), i.getCount(), warehouse, player, manager);
+			final L2ItemInstance newItem = player.getInventory().transferItem(warehouse.getName(), i.getObjectId(), i.getCount(), warehouse, player, manager);
 			if (newItem == null)
 			{
 				_log.warn("Error depositing a warehouse object for char "+player.getName()+" (newitem == null)");

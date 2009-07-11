@@ -14,7 +14,7 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import java.util.List;
+import javolution.util.FastList;
 
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -26,15 +26,21 @@ public class PackageSendableList extends L2GameServerPacket
 {
 	private static final String			_S__C3_PACKAGESENDABLELIST	= "[S] C3 PackageSendableList";
 
-	private final List<L2ItemInstance>	_items;
-	private final int					_playerObjId;
-	private final long					_adena;
+	private final FastList<L2ItemInstance>	_items;
+	private final int						_targetPlayerObjId;
+	private final long						_playerAdena;
 
 	public PackageSendableList(L2PcInstance sender, int playerOID)
 	{
-		_items = sender.getInventory().getAvailableItems(true);
-		_playerObjId = playerOID;
-		_adena = sender.getAdena();
+		_targetPlayerObjId = playerOID;
+		_playerAdena = sender.getAdena();
+
+		_items = new FastList<L2ItemInstance>();
+		for (L2ItemInstance temp : sender.getInventory().getAvailableItems(true))
+		{
+			if (temp != null && temp.isDepositable(false))
+				_items.add(temp);
+		}
 	}
 
 	/**
@@ -45,8 +51,8 @@ public class PackageSendableList extends L2GameServerPacket
 	{
 		writeC(0xd2);
 
-		writeD(_playerObjId);
-		writeCompQ(_adena);
+		writeD(_targetPlayerObjId);
+		writeCompQ(_playerAdena);
 		writeD(_items.size());
 		for (L2ItemInstance item : _items) // format inside the for taken from SellList part use should be about the same
 		{
@@ -64,6 +70,7 @@ public class PackageSendableList extends L2GameServerPacket
 			//T1
 			writeElementalInfo(item); //8x h or d
 		}
+		_items.clear();
 	}
 
 	/**

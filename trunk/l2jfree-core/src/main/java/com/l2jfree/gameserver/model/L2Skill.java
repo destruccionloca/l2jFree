@@ -322,7 +322,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	private final int				_learnSkillId;
 	private final int				_learnSkillLvl;
 
-	private final boolean			_useShield;
 	private final boolean			_ignoreShield;
 	private final boolean			_isSuicideAttack;
 	private final boolean			_canBeReflected;
@@ -488,7 +487,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		_flyCourse = set.getFloat("flyCourse", 0);
 		_canBeReflected = set.getBool("canBeReflected", true);
 		_attribute = set.getString("attribute", "");
-		_useShield = set.getBool("useShield", false);
 		_ignoreShield = set.getBool("ignoreShld", false);
 
 		_learnSkillId = set.getInteger("learnSkillId", 0);
@@ -1157,7 +1155,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		switch (getSkillType())
 		{
 			case PDAM:
-			case STUN:
 			case CHARGEDAM:
 			case BLOW:
 				return true;
@@ -3814,11 +3811,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	public String getAttributeName()
 	{
 		return _attribute;
-	}
-
-	public boolean useShield()
-	{
-		return _useShield;
 	}
 
 	public boolean ignoreShield()

@@ -86,7 +86,7 @@ public abstract class L2Boss extends L2MonsterInstance
 	}
 
 	@Override
-	protected boolean canInteract(L2PcInstance player)
+	public boolean canInteract(L2PcInstance player)
 	{
 		// TODO: NPC busy check etc...
 		return isInsideRadius(player, BOSS_INTERACTION_DISTANCE, false, false);

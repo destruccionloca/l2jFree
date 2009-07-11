@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import static com.l2jfree.gameserver.model.actor.L2Npc.INTERACTION_DISTANCE;
 import static com.l2jfree.gameserver.model.itemcontainer.PcInventory.ADENA_ID;
 
 import org.apache.commons.logging.Log;
@@ -34,7 +33,6 @@ import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
-import com.l2jfree.gameserver.templates.item.L2EtcItemType;
 
 /**
  * @author -Wooden-
@@ -101,7 +99,7 @@ public final class RequestPackageSend extends L2GameClientPacket
 		L2NpcInstance manager = player.getLastFolkNPC();
 		if ((manager == null
 				|| !(manager instanceof L2WarehouseInstance)
-				|| !player.isInsideRadius(manager, INTERACTION_DISTANCE, false, false)) && !player.isGM())
+				|| !manager.canInteract(player)) && !player.isGM())
 			return;
 
 		if (warehouse instanceof PcFreight && Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN
@@ -124,11 +122,6 @@ public final class RequestPackageSend extends L2GameClientPacket
 			if (item == null)
 			{
 				_log.warn("Error depositing a warehouse object for char " + player.getName() + " (validity check)");
-				return;
-			}
-
-			if (!item.isTradeable() || item.getItemType() == L2EtcItemType.QUEST)
-			{
 				return;
 			}
 
@@ -169,7 +162,7 @@ public final class RequestPackageSend extends L2GameClientPacket
 				continue;
 			}
 
-			if (oldItem.isHeroItem())
+			if (!oldItem.isDepositable(false))
 				continue;
 
 			// skip items from active tradelist, even for stackable

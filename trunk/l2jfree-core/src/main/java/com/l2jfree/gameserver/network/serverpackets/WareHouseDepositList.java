@@ -14,7 +14,7 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import java.util.List;
+import javolution.util.FastList;
 
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -34,29 +34,23 @@ public class WareHouseDepositList extends L2GameServerPacket
 
 	private static final String		_S__41_WAREHOUSEDEPOSITLIST	= "[S] 41 WareHouseDepositList";
 
-	private L2PcInstance			_activeChar;
-	private long					_activeCharAdena;
-	private List<L2ItemInstance>	_items;
-	private int						_whType;
+	private long						_playerAdena;
+	private FastList<L2ItemInstance>	_items;
+	private int							_whType;
 
 	public WareHouseDepositList(L2PcInstance player, int type)
 	{
-		//TODO: make it one loop
-		_activeChar = player;
 		_whType = type;
-		_activeCharAdena = _activeChar.getAdena();
-		_items = _activeChar.getInventory().getAvailableItems(true);
 
-		// non-tradeable, augmented and shadow items can be stored in private wh
-		if (_whType == PRIVATE)
+		final boolean isPrivate = _whType == PRIVATE;
+		_playerAdena = player.getAdena();
+
+		_items = new FastList<L2ItemInstance>();
+
+		for (L2ItemInstance temp : player.getInventory().getAvailableItems(true))
 		{
-			for (L2ItemInstance temp : player.getInventory().getItems())
-			{
-				if (temp != null && !temp.isEquipped() && (temp.isShadowItem() || temp.isAugmented() || !temp.isTradeable()) && temp.getItem().getType2() != L2Item.TYPE2_QUEST) // exclude quest items
-				{
-					_items.add(temp);
-				}
-			}
+			if (temp != null && temp.isDepositable(isPrivate))
+				_items.add(temp);
 		}
 	}
 
@@ -69,8 +63,8 @@ public class WareHouseDepositList extends L2GameServerPacket
 		// 0x03-Castle Warehouse
 		// 0x04-Warehouse
 		writeH(_whType);
-		writeCompQ(_activeCharAdena);
-		int count = _items.size();
+		writeCompQ(_playerAdena);
+		final int count = _items.size();
 		if (_log.isDebugEnabled())
 			_log.debug("count:" + count);
 		writeH(count);
@@ -103,6 +97,7 @@ public class WareHouseDepositList extends L2GameServerPacket
 			// T2
 			writeD(item.isTimeLimitedItem() ? (int) (item.getRemainingTime() / 1000) : -1);
 		}
+		_items.clear();
 	}
 
 	/*

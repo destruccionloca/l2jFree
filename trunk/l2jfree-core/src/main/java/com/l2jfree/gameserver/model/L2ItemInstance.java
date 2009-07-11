@@ -53,6 +53,7 @@ import com.l2jfree.gameserver.templates.item.AbstractL2ItemType;
 import com.l2jfree.gameserver.templates.item.L2Armor;
 import com.l2jfree.gameserver.templates.item.L2Equip;
 import com.l2jfree.gameserver.templates.item.L2EtcItem;
+import com.l2jfree.gameserver.templates.item.L2EtcItemType;
 import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
 import com.l2jfree.sql.SQLQuery;
@@ -657,6 +658,33 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 	public boolean isSellable()
 	{
 		return !isAugmented() && _item.isSellable();
+	}
+	
+	/**
+	 * Returns if item can be deposited in warehouse or freight
+	 * @return boolean
+	 */
+	public boolean isDepositable(boolean isPrivateWareHouse)
+	{
+		// equipped, hero and quest items
+		if (isEquipped() || isHeroItem() || _item.getItemType() == L2EtcItemType.QUEST)
+			return false;
+
+		switch (getItemId())
+		{
+			// Staff of Master Yogi
+			case 13539:
+				return false;
+		}
+
+		if (!isPrivateWareHouse)
+		{
+			// augmented not tradeable
+			if (!isTradeable() || isShadowItem())
+				return false;
+		}
+
+		return true;
 	}
 	
 	/**
