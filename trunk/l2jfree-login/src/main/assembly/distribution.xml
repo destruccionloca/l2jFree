@@ -1,17 +1,17 @@
 <assembly>
-  <id>dist</id>
   <formats>
     <format>dir</format>
     <format>zip</format>
   </formats>
   <dependencySets>
     <dependencySet>
-      <outputDirectory>dist/</outputDirectory>
+      <outputDirectory>/</outputDirectory>
     </dependencySet>
   </dependencySets>
   <fileSets>
     <fileSet>
       <directory>dist/</directory>
+      <outputDirectory>/</outputDirectory>
       <includes>
         <include>*.sh</include>
         <include>*.bat</include>
@@ -20,17 +20,14 @@
     </fileSet>
     <fileSet>
       <directory>config/</directory>
-      <outputDirectory>dist/config/</outputDirectory>
-      <includes>
-        <include>*.*</include>
-      </includes>
+      <outputDirectory>config/</outputDirectory>
       <excludes>
         <exclude>log4j.xml</exclude>
       </excludes>
     </fileSet>
     <fileSet>
       <directory>config/</directory>
-      <outputDirectory>dist/</outputDirectory>
+      <outputDirectory>/</outputDirectory>
       <includes>
         <include>log4j.xml</include>
       </includes>
