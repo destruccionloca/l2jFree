@@ -1,121 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>l2jfree</groupId>
-  <artifactId>l2jfreeParent</artifactId>
-  <name>l2jfreeParent</name>
+  <artifactId>l2jfree</artifactId>
   <version>1.3.0</version>
+  <name>${project.artifactId}-${project.version}</name>
   <packaging>pom</packaging>
   <scm>
-    <connection>
-      scm:svn:svn://www.l2jfree.com/repo/l2j-free/trunk/
-    </connection>
-    <developerConnection>
-      scm:svn:svn://www.l2jfree.com/repo/l2j-free/trunk/
-    </developerConnection>
-    <url>
-      http://l2jfree.com:8060/changelog/l2jfree
-    </url>
+    <connection>scm:svn:http://svn.l2jfree.com/svn/l2j-free/trunk</connection> <!-- we aren't using it anyway -->
+    <developerConnection>scm:svn:http://svn.l2jfree.com/svn/l2j-free/trunk</developerConnection> <!-- we aren't using it anyway -->
   </scm>
   <pluginRepositories>
     <pluginRepository>
       <id>Maven Snapshots</id>
       <url>http://snapshots.maven.codehaus.org/maven2/</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
     </pluginRepository>
     <pluginRepository>
-      <id>central l2j backup</id>
-      <name>Backup Mirror Central L2j</name>
-      <url>
-        http://www.l2jfree.com:9091/repository/l2jm2/
-      </url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
+      <id>l2jfree.internal</id>
+      <url>http://www.l2jfree.com:8080/archiva/repository/internal/</url>
     </pluginRepository>
     <pluginRepository>
-      <id>central l2j</id>
-      <name>Mirror Central L2j</name>
-      <url>
-        http://www.l2jfree.com:9092/repository/l2jm2/
-      </url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
+      <id>old l2jfree</id>
+      <url>http://www.l2jfree.com/maven/</url>
     </pluginRepository>
   </pluginRepositories>
   <repositories>
     <repository>
-      <id>central l2j backup</id>
-      <name>Backup Mirror Central L2j</name>
-      <url>
-        http://www.l2jfree.com:9091/repository/l2jm2/
-      </url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
+      <id>l2jfree.internal</id>
+      <url>http://www.l2jfree.com:8080/archiva/repository/internal/</url>
     </repository>
     <repository>
-      <id>central l2j</id>
-      <name>Mirror Central L2j</name>
-      <url>
-        http://www.l2jfree.com:9092/repository/l2jm2/
-      </url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
+      <id>old l2jfree</id>
+      <url>http://www.l2jfree.com/maven/</url>
     </repository>
     <repository>
       <id>maven 2 (default)</id>
       <url>http://repo1.maven.org/maven2</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
     </repository>
     <repository>
       <id>Maven Snapshots</id>
       <url>http://snapshots.maven.codehaus.org/maven2/</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
     </repository>
     <repository>
       <id>apache.snapshots</id>
       <name>Apache Snapshot Repository</name>
-      <url>
-        http://people.apache.org/repo/m2-snapshot-repository
-      </url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
+      <url>http://repository.apache.org/snapshots</url>
     </repository>
     <repository>
       <id>mevenide repo</id>
@@ -125,13 +54,15 @@
       <id>ibiblio maven2</id>
       <url>http://www.ibiblio.org/maven2/</url>
     </repository>
+    <repository>
+      <id>jboss</id>
+      <url>http://repository.jboss.org/maven2</url>
+    </repository>
+    <repository>
+      <id>sun</id>
+      <url>http://download.java.net/maven/2</url>
+    </repository>
   </repositories>
-  <issueManagement>
-    <system>Trac</system>
-    <url>
-      http://l2jfree.com:8060/changelog/l2jfree
-    </url>
-  </issueManagement>
   <build>
     <extensions>
       <extension>
@@ -140,17 +71,8 @@
         <version>1.0-beta-2</version>
       </extension>
     </extensions>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-assembly-plugin</artifactId>
-          <version>2.1</version>
-        </plugin>
-      </plugins>
-    </pluginManagement>
     <defaultGoal>assembly:assembly</defaultGoal>
-    <finalName>${artifactId}</finalName>
+    <finalName>${project.artifactId}-${project.version}</finalName>
     <resources>
       <resource>
         <directory>src/main/resources</directory>
@@ -167,8 +89,8 @@
     <plugins>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
-        <artifactId>maven-buildnumber-plugin</artifactId>
-        <version>0.1.0</version>
+        <artifactId>buildnumber-maven-plugin</artifactId>
+        <version>1.0-beta-1</version>
         <executions>
           <execution>
             <phase>validate</phase>
@@ -184,14 +106,10 @@
         <configuration>
           <archive>
             <manifest>
-              <addDefaultImplementationEntries>
-                true
-              </addDefaultImplementationEntries>
+              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
             </manifest>
             <manifestEntries>
-              <Implementation-Build>
-                ${buildNumber}
-              </Implementation-Build>
+              <Implementation-Build>${buildNumber}</Implementation-Build>
             </manifestEntries>
           </archive>
         </configuration>
@@ -208,29 +126,34 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
+          <source>1.6</source>
+          <target>1.6</target>
           <encoding>UTF-8</encoding>
         </configuration>
       </plugin>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.1</version>
         <configuration>
           <descriptors>
-            <descriptor>
-              src/main/assembly/distribution.xml
-            </descriptor>
+            <descriptor>src/main/assembly/distribution.xml</descriptor>
           </descriptors>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <configuration>
+          <encoding>UTF-8</encoding>
         </configuration>
       </plugin>
     </plugins>
   </build>
   <distributionManagement>
     <repository>
-      <id>LOCAL</id>
-      <url>
-        dav:http://www.l2jfree.com:9092/repository/l2jm2
-      </url>
+      <id>l2jfree.internal</id>
+      <url>dav:http://www.l2jfree.com:8080/archiva/repository/internal/</url>
     </repository>
   </distributionManagement>
   <modules>
@@ -238,6 +161,6 @@
     <module>l2j-mmocore</module>
     <module>l2jfree-core</module>
     <module>l2jfree-login</module>
-    <module>l2jfree-datapack</module>
+    <!-- <module>l2jfree-datapack</module> -->
   </modules>
 </project>

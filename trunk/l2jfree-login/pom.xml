@@ -1,74 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
+  <parent>
+    <artifactId>l2jfree</artifactId>
+    <groupId>l2jfree</groupId>
+    <version>1.3.0</version>
+  </parent>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>l2jfree</groupId>
   <artifactId>l2jfree-login</artifactId>
-  <version>1.3.0</version>
+  <name>${project.artifactId}-${project.version}</name>
   <packaging>jar</packaging>
-  <url>http://www.l2jfree.com</url>
-  <pluginRepositories>
-    <pluginRepository>
-      <id>Maven Snapshots</id>
-      <url>http://snapshots.maven.codehaus.org/maven2/</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-    </pluginRepository>
-    <pluginRepository>
-      <id>l2jfree.internal</id>
-      <name>l2jfree maven repository</name>
-      <url>
-        http://www.l2jfree.com:8080/archiva/repository/internal/
-      </url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </pluginRepository>
-  </pluginRepositories>
-  <repositories>
-    <repository>
-      <id>l2jfree.internal</id>
-      <name>l2jfree maven repository</name>
-      <url>
-        http://www.l2jfree.com:8080/archiva/repository/internal/
-      </url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-    <repository>
-      <id>old l2jfree</id>
-      <name>l2jfree central</name>
-      <url>
-        http://www.l2jfree.com/maven/
-      </url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
   <dependencies>
     <dependency>
       <groupId>l2jfree</groupId>
       <artifactId>l2j-commons</artifactId>
-      <version>1.3.0</version>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>l2jfree</groupId>
       <artifactId>l2j-mmocore</artifactId>
-      <version>1.3.0</version>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>l2jfree</groupId>
@@ -92,42 +42,4 @@
       <version>3.2.2.ga</version>
     </dependency>
   </dependencies>
-  <build>
-    <extensions>
-      <extension>
-        <groupId>org.apache.maven.wagon</groupId>
-        <artifactId>wagon-webdav</artifactId>
-        <version>1.0-beta-2</version>
-      </extension>
-    </extensions>
-    <defaultGoal>assembly:assembly</defaultGoal>
-    <plugins>
-      <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <configuration>
-          <descriptors>
-            <descriptor>
-              src/main/assembly/distribution.xml
-            </descriptor>
-          </descriptors>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
-  <distributionManagement>
-    <repository>
-      <id>l2jfree.internal</id>
-      <url>
-        dav:http://www.l2jfree.com:8080/archiva/repository/internal/
-      </url>
-    </repository>
-  </distributionManagement>
 </project>
