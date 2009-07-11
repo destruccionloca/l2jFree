@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.model.actor;
 
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_ACTIVE;
-import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_ATTACK;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_FOLLOW;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_MOVE_TO;
 

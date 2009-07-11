@@ -27,7 +27,6 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ItemsAutoDestroy;
 import com.l2jfree.gameserver.ThreadPoolManager;
-import com.l2jfree.gameserver.ai.CtrlEvent;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2AttackableAI;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
