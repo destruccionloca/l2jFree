@@ -24,6 +24,7 @@ import com.l2jfree.gameserver.model.L2Multisell;
 import com.l2jfree.gameserver.model.L2Multisell.MultiSellEntry;
 import com.l2jfree.gameserver.model.L2Multisell.MultiSellIngredient;
 import com.l2jfree.gameserver.model.L2Multisell.MultiSellListContainer;
+import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
@@ -90,6 +91,12 @@ public class MultiSellChoose extends L2GameClientPacket
 		MultiSellListContainer list = L2Multisell.getInstance().getList(_listId);
 		if (list != null)
 		{
+			L2Object target = player.getTarget();
+			if (!player.isGM() && (!(target instanceof L2Npc)
+					|| !list.checkNpcId(((L2Npc)target).getNpcId())
+					|| !((L2Npc)target).canInteract(player)))
+				return;
+
 			for (MultiSellEntry entry : list.getEntries())
 			{
 				if (entry.getEntryId() == _entryId)
