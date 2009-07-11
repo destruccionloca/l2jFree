@@ -107,7 +107,7 @@ public class RequestGiveItemToPet extends L2GameClientPacket
 			requestFailed(SystemMessageId.ITEM_NOT_FOR_PETS);
 			return;
 		}
-		else if (!item.isAvailable(player, true))
+		else if (!item.isAvailable(player, true, false))
 		{
 			requestFailed(SystemMessageId.PET_CANNOT_USE_ITEM);
 			return;

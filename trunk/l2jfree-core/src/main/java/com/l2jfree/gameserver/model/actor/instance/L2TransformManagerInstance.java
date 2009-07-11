@@ -63,7 +63,7 @@ public class L2TransformManagerInstance extends L2MerchantInstance
 		else if (command.startsWith("BuyTransform"))
 		{
 			if (testQuestTransformation(player))
-				L2Multisell.getInstance().separateAndSend(getTemplate().getNpcId(), player, false, getCastle().getTaxRate());
+				L2Multisell.getInstance().separateAndSend(getNpcId(), player, getNpcId(), false, getCastle().getTaxRate());
 			else
 			{
 				showHtmlFile(player, getTemplate().getNpcId()+"-cantbuy.htm");

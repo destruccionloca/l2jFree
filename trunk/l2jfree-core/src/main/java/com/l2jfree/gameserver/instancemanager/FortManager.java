@@ -70,7 +70,11 @@ public class FortManager implements InstanceListManager
 	public FortManager(Fort fort)
 	{
 		_fort = fort;
-		initNpcs(); // load and spawn npcs
+	}
+
+	public void initNpcs()
+	{
+		spawnNpcs(); // load and spawn npcs
 		initSiegeNpcs(); // load suspicious merchants
 		spawnSuspiciousMerchant();// spawn suspicious merchants
 		initNpcCommanders(); // npc Commanders (not monsters)
@@ -233,7 +237,7 @@ public class FortManager implements InstanceListManager
 		return _fort;
 	}
 	
-	private void initNpcs()
+	private void spawnNpcs()
 	{
 		Connection con = null;
 
@@ -266,7 +270,7 @@ public class FortManager implements InstanceListManager
 				}
 				else
 				{
-					_log.warn("FortManager.initNpcs: Data missing in NPC table for ID: "
+					_log.warn("FortManager.spawnNpcs: Data missing in NPC table for ID: "
 							+ rset.getInt("npcId") + ".");
 				}
 			}
@@ -277,7 +281,7 @@ public class FortManager implements InstanceListManager
 		catch (Exception e)
 		{
 			// problem with initializing spawn, go to next one
-			_log.warn("FortManager.initNpcs: Spawn could not be initialized: "+ e.getMessage());
+			_log.warn("FortManager.spawnNpcs: Spawn could not be initialized: "+ e.getMessage());
 			e.printStackTrace();
 		}
 		finally

@@ -124,6 +124,7 @@ import com.l2jfree.gameserver.model.AutoChatHandler;
 import com.l2jfree.gameserver.model.L2Manor;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.entity.Castle;
+import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.model.entity.Hero;
 import com.l2jfree.gameserver.model.entity.events.AutomatedTvT;
 import com.l2jfree.gameserver.model.olympiad.Olympiad;
@@ -311,6 +312,10 @@ public class GameServer
 		for (Castle castle : CastleManager.getInstance().getCastles().values())
 		{
 			castle.getSiege().correctSiegeDateTime();
+		}
+		for (Fort fort : FortManager.getInstance().getForts())
+		{
+			fort.getSpawnManager().initNpcs();
 		}
 		Util.printSection("Quests");
 		QuestManager.getInstance();

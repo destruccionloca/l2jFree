@@ -55,7 +55,8 @@ public class L2CraftManagerInstance extends L2NpcInstance
 	{
 		if (command.startsWith("multisell"))
 		{
-			L2Multisell.getInstance().separateAndSend(Integer.parseInt(command.substring(9).trim()), player, false, getCastle().getTaxRate());
+			int listId = Integer.parseInt(command.substring(9).trim());
+			L2Multisell.getInstance().separateAndSend(listId, player, getNpcId(), false, getCastle().getTaxRate());
 		}
 		else if (command.startsWith("Crystallize")) // List player inventory items for crystallization
 		{

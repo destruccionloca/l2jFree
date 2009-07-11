@@ -754,13 +754,12 @@ public final class Olympiad
 					return;
 				
 				_inCompPeriod = true;
-				OlympiadManager om = new OlympiadManager();
 				
 				Announcements.getInstance().announceToAll(
 					new SystemMessage(SystemMessageId.THE_OLYMPIAD_GAME_HAS_STARTED));
 				_log.info("Olympiad System: Olympiad Game Started");
 				
-				Thread olyCycle = new Thread(om);
+				Thread olyCycle = new Thread(OlympiadManager.getInstance());
 				olyCycle.start();
 				
 				long regEnd = getMillisToCompEnd() - 600000;
