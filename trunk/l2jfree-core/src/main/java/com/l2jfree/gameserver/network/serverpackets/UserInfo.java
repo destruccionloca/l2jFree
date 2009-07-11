@@ -162,7 +162,7 @@ public class UserInfo extends L2GameServerPacket
 		writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_CHEST));
 		writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_LEGS));
 		writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_FEET));
-		writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_HAIR));
+		writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_BACK));
 		writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_RHAND));
 		writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_HAIR));
 		writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_HAIR2));
@@ -190,7 +190,7 @@ public class UserInfo extends L2GameServerPacket
 		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_CHEST));
 		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_LEGS));
 		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_FEET));
-		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
+		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_BACK));
 		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_RHAND));
 		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
 		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIR2));
