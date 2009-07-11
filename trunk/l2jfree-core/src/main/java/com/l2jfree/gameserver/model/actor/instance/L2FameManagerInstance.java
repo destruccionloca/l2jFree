@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.model.actor.instance;
 import java.util.StringTokenizer;
 
 import com.l2jfree.gameserver.ai.CtrlIntention;
-import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -29,7 +28,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  * Reputation score manager
  * @author Kerberos
  */
-public class L2FameManagerInstance extends L2Npc
+public class L2FameManagerInstance extends L2NpcInstance
 {
 	public L2FameManagerInstance(int objectId, L2NpcTemplate template)
 	{
@@ -45,7 +44,9 @@ public class L2FameManagerInstance extends L2Npc
 	{
 		if (!canTarget(player))
 			return;
-		
+
+		player.setLastFolkNPC(this);
+
 		// Check if the L2PcInstance already target the L2Npc
 		if (this != player.getTarget())
 		{

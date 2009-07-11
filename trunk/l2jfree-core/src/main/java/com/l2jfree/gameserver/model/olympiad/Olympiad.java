@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.model.olympiad;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
@@ -66,6 +65,12 @@ public final class Olympiad
 	
 	private static final String OLYMPIAD_DATA_FILE = "config/olympiad.properties";
 	public static final String OLYMPIAD_HTML_PATH = "data/html/olympiad/";
+	private static final String OLYMPIAD_LOAD_DATA = "SELECT current_cycle, period, olympiad_end, validation_end, "
+			+ "next_weekly_change FROM olympiad_data WHERE id = 0";
+	private static final String OLYMPIAD_SAVE_DATA = "INSERT INTO olympiad_data (id, current_cycle, "
+			+ "period, olympiad_end, validation_end, next_weekly_change) VALUES (0,?,?,?,?,?) "
+			+ "ON DUPLICATE KEY UPDATE current_cycle=?, period=?, olympiad_end=?, "
+			+ "validation_end=?, next_weekly_change=?";
 	private static final String OLYMPIAD_LOAD_NOBLES = "SELECT olympiad_nobles.charId, olympiad_nobles.class_id, "
 		+ "characters.char_name, olympiad_nobles.olympiad_points, olympiad_nobles.competitions_done, "
 		+ "olympiad_nobles.competitions_won, olympiad_nobles.competitions_lost, olympiad_nobles.competitions_drawn "
@@ -162,24 +167,56 @@ public final class Olympiad
 	private void load()
 	{
 		_nobles = new FastMap<Integer, StatsSet>();
-		
-		Properties properties;
+
+		Connection con = null;
+
+		boolean loaded = false;
 		try
 		{
-			properties = new L2Properties("./" + OLYMPIAD_DATA_FILE);
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement = con.prepareStatement(OLYMPIAD_LOAD_DATA);
+			ResultSet rset = statement.executeQuery();
+			while (rset.next())
+			{
+				_currentCycle = rset.getInt("current_cycle");
+				_period = rset.getInt("period");
+				_olympiadEnd = rset.getLong("olympiad_end");
+				_validationEnd = rset.getLong("validation_end");
+				_nextWeeklyChange = rset.getLong("next_weekly_change");
+				loaded = true;
+			}
+			rset.close();
+			statement.close();
 		}
-		catch (Exception e)
+ 		catch (Exception e)
+ 		{
+			_log.error("Olympiad System: Error loading olympiad data from database: ", e);
+		}
+		finally
 		{
-			_log.fatal("Olympiad System: Error loading olympiad properties: ", e);
-			return;
+			L2DatabaseFactory.close(con);
 		}
-		
-		_currentCycle = Integer.parseInt(properties.getProperty("CurrentCycle", "1"));
-		_period = Integer.parseInt(properties.getProperty("Period", "0"));
-		_olympiadEnd = Long.parseLong(properties.getProperty("OlympiadEnd", "0"));
-		_validationEnd = Long.parseLong(properties.getProperty("ValidationEnd", "0"));
-		_nextWeeklyChange = Long.parseLong(properties.getProperty("NextWeeklyChange", "0"));
-		
+
+		if (!loaded)
+		{
+			Properties properties;
+			try
+			{
+				properties = new L2Properties("./" + OLYMPIAD_DATA_FILE);
+			}
+			catch (Exception e)
+			{
+				_log.fatal("Olympiad System: Error loading olympiad properties: ", e);
+				return;
+			}
+			
+			_currentCycle = Integer.parseInt(properties.getProperty("CurrentCycle", "1"));
+			_period = Integer.parseInt(properties.getProperty("Period", "0"));
+			_olympiadEnd = Long.parseLong(properties.getProperty("OlympiadEnd", "0"));
+			_validationEnd = Long.parseLong(properties.getProperty("ValidationEnd", "0"));
+			_nextWeeklyChange = Long.parseLong(properties.getProperty("NextWeeklyChange", "0"));
+		}
+
 		switch (_period)
 		{
 			case 0:
@@ -208,7 +245,7 @@ public final class Olympiad
 				return;
 		}
 		
-		Connection con = null;
+		con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
@@ -1056,6 +1093,34 @@ public final class Olympiad
 	{
 		saveNobleData();
 		
+		Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement = con.prepareStatement(OLYMPIAD_SAVE_DATA);
+
+			statement.setInt(1, _currentCycle);
+			statement.setInt(2, _period);
+			statement.setLong(3, _olympiadEnd);
+			statement.setLong(4, _validationEnd);
+			statement.setLong(5, _nextWeeklyChange);
+			statement.setInt(6, _currentCycle);
+			statement.setInt(7, _period);
+			statement.setLong(8, _olympiadEnd);
+			statement.setLong(9, _validationEnd);
+			statement.setLong(10, _nextWeeklyChange);
+			statement.execute();
+			statement.close();
+		}
+		catch (SQLException e)
+		{
+			_log.error("Olympiad System: Failed to save olympiad data to database: ", e);
+		}
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
+		/*
 		FileOutputStream fos = null;
 		try
 		{
@@ -1085,6 +1150,7 @@ public final class Olympiad
 			{
 			}
 		}
+		*/
 	}
 	
 	protected void updateMonthlyData()

@@ -39,7 +39,10 @@ public class L2SiegeNpcInstance extends L2NpcInstance
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-		if (!canTarget(player)) return;
+		if (!canTarget(player))
+			return;
+
+		player.setLastFolkNPC(this);
 
 		// Check if the L2PcInstance already target the L2NpcInstance
 		if (this != player.getTarget())
@@ -64,11 +67,11 @@ public class L2SiegeNpcInstance extends L2NpcInstance
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
-    /**
-     * If siege is in progress shows the Busy HTML<BR>
-     * else Shows the SiegeInfo window
-     * @param player
-     */
+	/**
+	 * If siege is in progress shows the Busy HTML<BR>
+	 * else Shows the SiegeInfo window
+	 * @param player
+	 */
 	public void showSiegeInfoWindow(L2PcInstance player)
 	{
 		if (validateCondition(player))
@@ -83,12 +86,12 @@ public class L2SiegeNpcInstance extends L2NpcInstance
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 		}
 	}
-    
+
 	/**
 	 * @param player
 	 */
 	private boolean validateCondition(L2PcInstance player)
 	{
-        return !getCastle().getSiege().getIsInProgress();
-    }
+		return !getCastle().getSiege().getIsInProgress();
+	}
 }

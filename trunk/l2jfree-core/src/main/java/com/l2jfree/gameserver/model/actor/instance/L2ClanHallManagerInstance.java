@@ -1400,7 +1400,8 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
     @Override
     public void onAction(L2PcInstance player)
     {
-        if (!canTarget(player)) return;
+        if (!canTarget(player))
+            return;
 
         player.setLastFolkNPC(this);
 

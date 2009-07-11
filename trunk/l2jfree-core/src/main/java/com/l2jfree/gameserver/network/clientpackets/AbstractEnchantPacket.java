@@ -342,11 +342,17 @@ public abstract class AbstractEnchantPacket extends L2GameClientPacket
 		// apprentice and travelers weapons
 		if (item.getItemId() >= 7816 && item.getItemId() <= 7831)
 			return false;
-		// bracelets
-		if (item.getItem().getBodyPart() == L2Item.SLOT_L_BRACELET)
-			return false;
-		if (item.getItem().getBodyPart() == L2Item.SLOT_R_BRACELET)
-			return false;
+
+		switch (item.getItem().getBodyPart())
+		{
+			// bracelets
+			case L2Item.SLOT_L_BRACELET:
+			case L2Item.SLOT_R_BRACELET:
+			// cloaks
+			case L2Item.SLOT_BACK:
+				return false;
+		}
+
 		// only items in inventory and equipped can be enchanted
 		if (item.getLocation() != L2ItemInstance.ItemLocation.INVENTORY
 				&& item.getLocation() != L2ItemInstance.ItemLocation.PAPERDOLL)

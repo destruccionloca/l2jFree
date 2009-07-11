@@ -38,7 +38,8 @@ public class L2CastleBlacksmithInstance extends L2NpcInstance
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-		if (!canTarget(player)) return;
+		if (!canTarget(player))
+			return;
 
 		player.setLastFolkNPC(this);
 
