@@ -100,7 +100,7 @@ public class PcInventory extends Inventory
 		return getUniqueItems(allowAdena, allowAncientAdena, true);
 	}
 	
-	public L2ItemInstance[] getUniqueItems(boolean allowAdena, boolean allowAncientAdena, boolean onlyAvailable)	
+	public L2ItemInstance[] getUniqueItems(boolean allowAdena, boolean allowAncientAdena, boolean onlyAvailable)
 	{
 		List<L2ItemInstance> list = new ArrayList<L2ItemInstance>();
 		for (L2ItemInstance item : _items)
@@ -118,7 +118,8 @@ public class PcInventory extends Inventory
 					break;
 				}
 			}
-			if (!isDuplicate && (!onlyAvailable || (item.isSellable() && item.isAvailable(getOwner(), false)))) list.add(item);
+			if (!isDuplicate && (!onlyAvailable || (item.isSellable() && item.isAvailable(getOwner(), false, false))))
+				list.add(item);
 		}
 
 		return list.toArray(new L2ItemInstance[list.size()]);
@@ -153,7 +154,8 @@ public class PcInventory extends Inventory
 					break;
 				}
 			}
-			if (!isDuplicate && (!onlyAvailable || (item.isSellable() && item.isAvailable(getOwner(), false)))) list.add(item);
+			if (!isDuplicate && (!onlyAvailable || (item.isSellable() && item.isAvailable(getOwner(), false, false))))
+				list.add(item);
 		}
 
 		return list.toArray(new L2ItemInstance[list.size()]);
@@ -195,11 +197,12 @@ public class PcInventory extends Inventory
 	 * Returns the list of items in inventory available for transaction
 	 * @return L2ItemInstance : items in inventory
 	 */
-	public List<L2ItemInstance> getAvailableItems(boolean allowAdena)
+	public List<L2ItemInstance> getAvailableItems(boolean allowAdena, boolean allowNonTradeable)
 	{
 		FastList<L2ItemInstance> list = new FastList<L2ItemInstance>();
 		for (L2ItemInstance item : _items)
-			if (item != null && item.isAvailable(getOwner(), allowAdena)) list.add(item);
+			if (item != null && item.isAvailable(getOwner(), allowAdena, allowNonTradeable))
+				list.add(item);
 
 		return list;
 	}
@@ -243,7 +246,7 @@ public class PcInventory extends Inventory
 		LinkedBunch<TradeList.TradeItem> list = new LinkedBunch<TradeList.TradeItem>();
 		for (L2ItemInstance item : _items)
 		{
-			if (item.isAvailable(getOwner(), false))
+			if (item.isAvailable(getOwner(), false, false))
 			{
 				TradeList.TradeItem adjItem = tradeList.adjustAvailableItem(item);
 				if (adjItem != null)

@@ -149,6 +149,7 @@ public abstract class L2Item implements FuncOwner
 	private final boolean				_destroyable;
 	private final boolean				_tradeable;
 	private final boolean				_isCommonItem;
+	private final boolean				_heroItem;
 
 	protected final AbstractL2ItemType	_type;
 
@@ -196,6 +197,7 @@ public abstract class L2Item implements FuncOwner
 		_destroyable = set.getBool("destroyable", true);
 		_tradeable = set.getBool("tradeable", true);
 		_isCommonItem = _name.startsWith("Common Item") || _name.startsWith("Standard Item");
+		_heroItem = ((_itemId >= 6611 && _itemId <= 6621) || (_itemId >= 9388 && _itemId <= 9390) || _itemId == 6842);
 	}
 
 	/**
@@ -405,7 +407,7 @@ public abstract class L2Item implements FuncOwner
 	 */
 	public boolean isHeroItem()
 	{
-		return ((_itemId >= 6611 && _itemId <= 6621) || (_itemId >= 9388 && _itemId <= 9390) || _itemId == 6842);
+		return _heroItem;
 	}
 
 	public boolean isCommonItem()

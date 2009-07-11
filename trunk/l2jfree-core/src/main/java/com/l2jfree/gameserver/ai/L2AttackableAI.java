@@ -479,7 +479,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 
 					// Add the attacker to the L2Attackable _aggroList with 0 damage and 1 hate
 					if (hating == 0)
-						npc.addDamageHate(target, 0, 1);
+						npc.addDamageHate(target, 0, 0);
 				}
 			}
 
@@ -783,9 +783,10 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 							{
 								L2PcInstance player = (originalAttackTarget instanceof L2PcInstance) ? (L2PcInstance) originalAttackTarget : ((L2Summon) originalAttackTarget)
 										.getOwner();
-								if (npc.getTemplate().getEventQuests(Quest.QuestEventType.ON_FACTION_CALL) != null)
+								Quest[] quests = npc.getTemplate().getEventQuests(Quest.QuestEventType.ON_FACTION_CALL);
+								if (quests != null)
 								{
-									for (Quest quest : npc.getTemplate().getEventQuests(Quest.QuestEventType.ON_FACTION_CALL))
+									for (Quest quest : quests)
 										quest.notifyFactionCall(npc, (L2Npc) _actor, player, (originalAttackTarget instanceof L2Summon));
 								}
 							}

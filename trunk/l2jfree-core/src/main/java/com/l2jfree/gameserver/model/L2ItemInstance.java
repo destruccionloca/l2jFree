@@ -722,7 +722,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 	 * 
 	 * @return boolean
 	 */
-	public boolean isAvailable(L2PcInstance player, boolean allowAdena)
+	public boolean isAvailable(L2PcInstance player, boolean allowAdena, boolean allowNonTradeable)
 	{
 		return ((!isEquipped()) // Not equipped
 				&& (getItem().getType2() != 3) // Not Quest Item
@@ -732,7 +732,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 				&& (allowAdena || getItemId() != 57) // Not adena
 				&& (player.getCurrentSkill() == null || player.getCurrentSkill().getSkill().getItemConsumeId() != getItemId())
 				&& (!player.isCastingSimultaneouslyNow() || player.getLastSimultaneousSkillCast() == null || player.getLastSimultaneousSkillCast().getItemConsumeId() != getItemId())
-				&& (isTradeable()));
+				&& (allowNonTradeable || isTradeable()));
 	}
 	
 	/*
@@ -1109,7 +1109,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 		if (resetConsumingMana)
 			_consumingMana = false;
 		
-		L2PcInstance player = L2World.getInstance().getPlayer(getOwnerId());
+		final L2PcInstance player = L2World.getInstance().getPlayer(getOwnerId());
 		if (player != null)
 		{
 			SystemMessage sm;
@@ -1192,6 +1192,8 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 	
 	private void scheduleConsumeManaTask()
 	{
+		if (_consumingMana)
+			return;
 		_consumingMana = true;
 		ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleConsumeManaTask(), MANA_CONSUMPTION_RATE);
 	}
@@ -1365,8 +1367,12 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 		inst._time = time;
 
 		// consume 1 mana
-		if (inst._mana > 0 && inst.getLocation() == ItemLocation.PAPERDOLL)
+		if (inst.isShadowItem() && inst.isEquipped())
+		{
 			inst.decreaseMana(false);
+			// if player still not loaded and not found in the world - force task creation
+			inst.scheduleConsumeManaTask();
+		}
 
 		// if mana left is 0 delete this item
 		if (inst._mana == 0)

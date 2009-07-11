@@ -60,14 +60,14 @@ public class L2FortCommanderInstance extends L2FortSiegeGuardInstance
 	}
 
 	@Override
-	public void addDamageHate(L2Character attacker, int damage, int aggro, L2Skill skill)
+	public void addDamageHate(L2Character attacker, int damage, int aggro)
 	{
 		if (attacker == null)
 			return;
 
 		if (!(attacker instanceof L2FortCommanderInstance))
 		{
-			super.addDamageHate(attacker, damage, aggro, skill);
+			super.addDamageHate(attacker, damage, aggro);
 		}
 	}
 

@@ -498,9 +498,6 @@ public class Quest extends ManagedScript
 		{
 			return showError(player, e);
 		}
-		// TODO: Find a better solution or sync aggro behaviour to DP
-		if ("NONAGGRO".equals(res))
-			return false;
 		return showResult(player, res);
 	}
 

@@ -6637,30 +6637,7 @@ public abstract class L2Character extends L2Object
 			if (quests != null)
 				for (Quest quest : quests)
 					quest.notifySkillSee(npc, player, skill, targets, this instanceof L2Summon);
-			
-			/** ************** FULMINUS COMMENT START************** */
-			final L2Object npcTarget = npc.getTarget();
-			if (skill.getAggroPoints() > 0 && npc.hasAI() && npc.getAI().getIntention() == AI_INTENTION_ATTACK)
-				for (L2Object target : targets)
-					if (npcTarget == target || npc == target)
-						npc.seeSpell(player, target, skill);
-			/** ************** FULMINUS COMMENT END ************** */
-			// the section within "Fulminus Comment" should be deleted from core and placed
-			// within the mob's AI Script's onSkillSee, which is called by quest.notifySkillSee
 		}
-	}
-	
-	/**
-	 * @param caster
-	 * @param target
-	 * @param skill
-	 */
-	public void seeSpell(L2PcInstance caster, L2Object target, L2Skill skill)
-	{
-		// TODO: Aggro calculation due to spells ought to be inside the AI script's onSkillSee.
-		// when it is added there, this function will no longer be needed here.  (Fulminus)
-		if (this instanceof L2Attackable)
-			((L2Attackable) this).addDamageHate(caster, 0, (-skill.getAggroPoints() / Config.ALT_BUFFER_HATE));
 	}
 
 	public boolean isBehind(L2Object src)

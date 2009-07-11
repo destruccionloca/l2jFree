@@ -904,12 +904,30 @@ public class L2Attackable extends L2Npc
 	 */
 	public void addDamage(L2Character attacker, int damage, L2Skill skill)
 	{
-		addDamageHate(attacker, damage, damage, skill);
+		// Notify the L2Attackable AI with EVT_ATTACKED
+		if (!isDead())
+		{
+			try
+			{
+				L2PcInstance player = attacker.getActingPlayer();
+				if (player != null)
+				{
+					Quest[] quests = getTemplate().getEventQuests(Quest.QuestEventType.ON_ATTACK);
+					if (quests != null)
+						for (Quest quest: quests)
+							quest.notifyAttack(this, player, damage, attacker instanceof L2Summon, skill);
+				}
+			}
+			catch (Exception e)
+			{
+				_log.fatal(e.getMessage(), e);
+			}
+		}
 	}
 
 	public void addDamage(L2Character attacker, int damage)
 	{
-		addDamageHate(attacker, damage, damage, null);
+		addDamage(attacker, damage, null);
 	}
 
 	/**
@@ -921,88 +939,36 @@ public class L2Attackable extends L2Npc
 	 * @param damage The number of damages given by the attacker L2Character
 	 * @param aggro The hate (=damage) given by the attacker L2Character
 	 */
-	public void addDamageHate(L2Character attacker, int damage, int aggro, L2Skill skill)
-	{
-		// TODO: Aggro calculation ought to be removed from here and placed within
-		// onAttack and onSkillSee in the AI Script (Fulminus)
-		if (attacker == null /*|| _aggroList == null*/)
-			return;
-		L2PcInstance targetPlayer = attacker.getActingPlayer();
-
-		// Get the AggroInfo of the attacker L2Character from the _aggroList of the L2Attackable
-		AggroInfo ai = getAggroListRP().get(attacker);
-		if (ai != null)
-		{
-			// If aggro is negative, its comming from SEE_SPELL, buffs use constant 150
-			if (aggro < 0)
-			{
-				ai._hate -= (aggro * 150) / (getLevel() + 7);
-				aggro = -aggro;
-			}
-			// if damage == 0 -> this is case of adding only to aggro list, dont apply formula on it
-			else if (damage == 0)
-				ai._hate += aggro;
-			// else its damage that must be added using constant 100
-			else
-				ai._hate += (aggro * 100) / (getLevel() + 7);
-
-			// Add new damage and aggro (=damage) to the AggroInfo object
-			ai._damage += damage;
-			ai._hate += (aggro * 100) / (getLevel() + 7);
-		}
-		else
-		{
-			boolean shouldAggro = true;
-			if (targetPlayer != null)
-			{
-				Quest[] quests = getTemplate().getEventQuests(Quest.QuestEventType.ON_AGGRO_RANGE_ENTER);
-				if (quests != null)
-				{
-					for (Quest quest : quests)
-					{
-						// On default when using AI scripts, or if no script exists for this NPC,
-						// Null is returned which leads to shouldAggro stay "true".
-						// Returning the string "NONAGGRO" in script will result in "false", so the mob won't attack.
-						// Any other nonzero value will send a message to the player like any other quest event does.
-						shouldAggro &= quest.notifyAggroRangeEnter(this, targetPlayer, (attacker instanceof L2Summon));
-					}
-				}
-			}
-			if (shouldAggro)
-				addToAggroList(attacker);
-		}
-
-		// Set the intention to the L2Attackable to AI_INTENTION_ACTIVE
-		if (aggro > 0 && getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE)
-			getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
-
-		// Notify the L2Attackable AI with EVT_ATTACKED
-		if (!isDead() && damage > 0)
-		{
-			getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, attacker);
-
-			try
-			{
-				if (targetPlayer != null)
-				{
-					if (getTemplate().getEventQuests(Quest.QuestEventType.ON_ATTACK) != null)
-					{
-						for (Quest quest : getTemplate().getEventQuests(Quest.QuestEventType.ON_ATTACK))
-							quest.notifyAttack(this, targetPlayer, damage, attacker instanceof L2Summon, skill);
-					}
-				}
-			}
-			catch (Exception e)
-			{
-				_log.fatal("", e);
-			}
-		}
-	}
-
 	public void addDamageHate(L2Character attacker, int damage, int aggro)
 	{
-		addDamageHate(attacker, damage, aggro, null);
-	}
+		if (attacker == null)
+			return;
+		// Get the AggroInfo of the attacker L2Character from the _aggroList of the L2Attackable
+		AggroInfo ai = getAggroListRP().get(attacker);
+		if (ai == null)
+		{
+			ai = new AggroInfo(attacker);
+			getAggroListRP().put(attacker, ai);
+
+			ai._damage = 0;
+			ai._hate = 0;
+		}
+		ai._damage += damage;
+		ai._hate += aggro;
+
+		L2PcInstance targetPlayer = attacker.getActingPlayer();
+		if (targetPlayer != null && aggro == 0)
+		{
+			Quest[] quests = getTemplate().getEventQuests(Quest.QuestEventType.ON_AGGRO_RANGE_ENTER);
+			if (quests != null)
+				for (Quest quest: quests)
+					quest.notifyAggroRangeEnter(this, targetPlayer, (attacker instanceof L2Summon));
+		}
+
+ 		// Set the intention to the L2Attackable to AI_INTENTION_ACTIVE
+ 		if (aggro > 0 && getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE)
+ 			getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
+ 	}
 
 	public void reduceHate(L2Character target, int amount)
 	{
@@ -1176,20 +1142,6 @@ public class L2Attackable extends L2Npc
 			return 0;
 		}
 		return ai._hate;
-	}
-
-	public AggroInfo addToAggroList(L2Character character)
-	{
-		// Get the AggroInfo of the attacker L2Character from the _aggroList of the L2Attackable
-		AggroInfo ai = getAggroListRP().get(character);
-		if (ai == null)
-		{
-			ai = new AggroInfo(character);
-			ai._damage = 0;
-			ai._hate = 0;
-			getAggroListRP().put(character, ai);
-		}
-		return ai;
 	}
 
 	private boolean shouldPunishDeepBlueDrops()

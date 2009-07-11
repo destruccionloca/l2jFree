@@ -95,13 +95,10 @@ public final class EffectWarp extends L2Effect
 		_actor.broadcastPacket(new FlyToLocation(_actor, x, y, z, FlyType.DUMMY));
 		_actor.abortAttack();
 		_actor.abortCast();
-		return true;
-	}
-	
-	@Override
-	protected void onExit()
-	{
+
 		_actor.getPosition().setXYZ(x, y, z);
 		_actor.broadcastPacket(new ValidateLocation(_actor));
+
+		return true;
 	}
 }
