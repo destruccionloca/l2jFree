@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.skills.Stats;
 
 /**
  * Format: (ch)ddddddd
@@ -40,6 +41,7 @@ public class ExStorageMaxCount extends L2GameServerPacket
 	private int _privateBuy;
 	private int _receipeD;
 	private int _recipe;
+	private int _inventoryExtraSlots;
 	
 	public ExStorageMaxCount(L2PcInstance character)
 	{
@@ -51,6 +53,7 @@ public class ExStorageMaxCount extends L2GameServerPacket
 		_clan = Config.WAREHOUSE_SLOTS_CLAN;
 		_receipeD = _activeChar.getDwarfRecipeLimit();
 		_recipe = _activeChar.getCommonRecipeLimit();
+		_inventoryExtraSlots = (int) _activeChar.getStat().calcStat(Stats.INV_LIM, 0, null, null);
 	}
 
 	/* (non-Javadoc)
@@ -70,7 +73,7 @@ public class ExStorageMaxCount extends L2GameServerPacket
 		writeD(_receipeD);
 		writeD(_recipe);
 		if (Config.PACKET_FINAL)
-			writeD(0x00);
+			writeD(_inventoryExtraSlots); //belt inventory slots increase count
 	}
 
 	/* (non-Javadoc)
@@ -80,5 +83,5 @@ public class ExStorageMaxCount extends L2GameServerPacket
 	public String getType()
 	{
 		return _S__FE_2E_EXSTORAGEMAXCOUNT;
-	}	
+	}
 }
