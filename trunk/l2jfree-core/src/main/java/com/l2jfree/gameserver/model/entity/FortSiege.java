@@ -257,7 +257,6 @@ public class FortSiege extends AbstractSiege
 			unSpawnFlags();
 			teleportPlayer(FortSiege.TeleportWhoType.Attacker, TeleportWhereType.Town);
 			_isInProgress = false; // Flag so that siege instance can be started
-			updatePlayerSiegeStateFlags(true);
 			getZone().updateSiegeStatus();
 			saveFortSiege(); // Save fort specific data
 			clearSiegeClan(); // Clear siege clan from db
@@ -265,6 +264,7 @@ public class FortSiege extends AbstractSiege
 			getFort().getSpawnManager().spawnNpcCommanders(); // Spawn NPC commanders
 			getSiegeGuardManager().unspawnSiegeGuard(); // Remove all spawned siege guard from this fort
 			getFort().resetDoors(); // Respawn door to fort
+			updatePlayerSiegeStateFlags(true);
 			ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleSuspicoiusMerchantSpawn(getFort()), Config.FORTSIEGE_MERCHANT_DELAY*60*1000); // Prepare 3hr task for suspicious merchant respawn
 			if (_siegeEnd != null)
 				_siegeEnd.cancel(false);

@@ -193,7 +193,6 @@ import com.l2jfree.gameserver.network.serverpackets.ExFishingEnd;
 import com.l2jfree.gameserver.network.serverpackets.ExFishingStart;
 import com.l2jfree.gameserver.network.serverpackets.ExGetBookMarkInfoPacket;
 import com.l2jfree.gameserver.network.serverpackets.ExOlympiadMode;
-import com.l2jfree.gameserver.network.serverpackets.ExOlympiadSpelledInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExOlympiadUserInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExSetCompassZoneCode;
 import com.l2jfree.gameserver.network.serverpackets.ExSpawnEmitter;
@@ -3940,23 +3939,20 @@ public final class L2PcInstance extends L2Playable
 		if (isInParty() && (needHpUpdate(352) || needMpUpdate(352) || needCpUpdate(352)))
 			getParty().broadcastToPartyMembers(this, new PartySmallWindowUpdate(this));
 		
-		if (isInOlympiadMode())
+		if (isInOlympiadMode() && isOlympiadStart())
 		{
-			for (L2PcInstance player : getKnownList().getKnownPlayers().values())
-				if (player.getOlympiadGameId() == getOlympiadGameId() && player.isOlympiadStart())
-					player.sendPacket(new ExOlympiadUserInfo(this, 1));
+			for (L2PcInstance player : Olympiad.getInstance().getPlayers(_olympiadGameId))
+				if (player != null && player != this)
+					player.sendPacket(new ExOlympiadUserInfo(this, 2));
+
+			final List<L2PcInstance> spectators = Olympiad.getInstance().getSpectators(getOlympiadGameId());
 			
-			if (isOlympiadStart())
+			if (spectators != null && !spectators.isEmpty())
 			{
-				final List<L2PcInstance> spectators = Olympiad.getInstance().getSpectators(getOlympiadGameId());
+				final ExOlympiadUserInfo eoui = new ExOlympiadUserInfo(this);
 				
-				if (spectators != null && !spectators.isEmpty())
-				{
-					final ExOlympiadUserInfo eoui = new ExOlympiadUserInfo(this);
-					
-					for (L2PcInstance spectator : spectators)
-						spectator.sendPacket(eoui);
-				}
+				for (L2PcInstance spectator : spectators)
+					spectator.sendPacket(eoui);
 			}
 		}
 		
@@ -3973,19 +3969,6 @@ public final class L2PcInstance extends L2Playable
 		
 		if (isInParty())
 			getParty().broadcastToPartyMembers(this, new PartySpelled(list));
-		
-		if (isInOlympiadMode() && isOlympiadStart())
-		{
-			final List<L2PcInstance> spectators = Olympiad.getInstance().getSpectators(getOlympiadGameId());
-			
-			if (spectators != null && !spectators.isEmpty())
-			{
-				final ExOlympiadSpelledInfo os = new ExOlympiadSpelledInfo(list);
-				
-				for (L2PcInstance spectator : spectators)
-					spectator.sendPacket(os);
-			}
-		}
 	}
 
 	/**

@@ -51,7 +51,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 public class OlympiadGame
 {
 	protected static final Logger		_log			= Logger.getLogger(OlympiadGame.class.getName());
-	protected COMP_TYPE					_type;
+	protected final COMP_TYPE			_type;
 	protected boolean					_aborted;
 	protected boolean					_gamestarted;
 	protected boolean					_playerOneDisconnected;
@@ -79,9 +79,9 @@ public class OlympiadGame
 	public L2Spawn						_spawnOne;
 	public L2Spawn						_spawnTwo;
 	protected FastList<L2PcInstance>	_players;
-	private int[]						_stadiumPort;
+	private final int[]					_stadiumPort;
 	private int							x1, y1, z1, x2, y2, z2;
-	public int							_stadiumID;
+	public final int					_stadiumID;
 	private SystemMessage				_sm;
 	private SystemMessage				_sm2;
 	private SystemMessage				_sm3;
@@ -184,11 +184,10 @@ public class OlympiadGame
 
 	public L2Spawn SpawnBuffer(int xPos, int yPos, int zPos, int npcId)
 	{
-		L2NpcTemplate template;
-		template = NpcTable.getInstance().getTemplate(npcId);
+		inal L2NpcTemplate template = NpcTable.getInstance().getTemplate(npcId);
 		try
 		{
-			L2Spawn spawn = new L2Spawn(template);
+			final L2Spawn spawn = new L2Spawn(template);
 			spawn.setLocx(xPos);
 			spawn.setLocy(yPos);
 			spawn.setLocz(zPos);
@@ -319,8 +318,8 @@ public class OlympiadGame
 
 	protected boolean portPlayersToArena()
 	{
-		boolean _playerOneCrash = (_playerOne == null || _playerOneDisconnected);
-		boolean _playerTwoCrash = (_playerTwo == null || _playerTwoDisconnected);
+		final boolean _playerOneCrash = (_playerOne == null || _playerOneDisconnected);
+		final boolean _playerTwoCrash = (_playerTwo == null || _playerTwoDisconnected);
 
 		if (_playerOneCrash || _playerTwoCrash || _aborted)
 		{
@@ -377,31 +376,19 @@ public class OlympiadGame
 		return true;
 	}
 
-	protected void sendMessageToPlayers(boolean toBattleBegin, int nsecond)
-	{
-		if (!toBattleBegin)
-			_sm = new SystemMessage(SystemMessageId.YOU_WILL_ENTER_THE_OLYMPIAD_STADIUM_IN_S1_SECOND_S);
-		else
-			_sm = new SystemMessage(SystemMessageId.THE_GAME_WILL_START_IN_S1_SECOND_S);
-
-		_sm.addNumber(nsecond);
-		try
-		{
-			for (L2PcInstance player : _players)
-				player.sendPacket(_sm);
-		}
-		catch (Exception e)
-		{
-		}
-	}
-
 	protected void portPlayersBack()
 	{
 		if (_playerOne != null)
+		{
+			_playerOne.sendPacket(new ExOlympiadMatchEnd());
 			_playerOne.teleToLocation(x1, y1, z1, true);
+		}
 
 		if (_playerTwo != null)
+		{
+			_playerTwo.sendPacket(new ExOlympiadMatchEnd());
 			_playerTwo.teleToLocation(x2, y2, z2, true);
+		}
 	}
 
 	protected void PlayersStatusBack()
@@ -496,13 +483,13 @@ public class OlympiadGame
 		if (_aborted)
 			return;
 
-		boolean _pOneCrash = (_playerOne == null || _playerOneDisconnected);
-		boolean _pTwoCrash = (_playerTwo == null || _playerTwoDisconnected);
+		final boolean _pOneCrash = (_playerOne == null || _playerOneDisconnected);
+		final boolean _pTwoCrash = (_playerTwo == null || _playerTwoDisconnected);
 
-		int _div;
-		int _gpreward;
+		final int _div;
+		final int _gpreward;
 
-		String classed;
+		final String classed;
 		switch (_type)
 		{
 			case NON_CLASSED:
@@ -517,28 +504,28 @@ public class OlympiadGame
 				break;
 		}
 
-		StatsSet playerOneStat = Olympiad.getNobleStats(_playerOneID);
-		StatsSet playerTwoStat = Olympiad.getNobleStats(_playerTwoID);
+		final StatsSet playerOneStat = Olympiad.getNobleStats(_playerOneID);
+		final StatsSet playerTwoStat = Olympiad.getNobleStats(_playerTwoID);
 
-		int playerOnePlayed = playerOneStat.getInteger(COMP_DONE);
-		int playerTwoPlayed = playerTwoStat.getInteger(COMP_DONE);
-		int playerOneWon = playerOneStat.getInteger(COMP_WON);
-		int playerTwoWon = playerTwoStat.getInteger(COMP_WON);
-		int playerOneLost = playerOneStat.getInteger(COMP_LOST);
-		int playerTwoLost = playerTwoStat.getInteger(COMP_LOST);
-		int playerOneDrawn = playerOneStat.getInteger(COMP_DRAWN);
-		int playerTwoDrawn = playerTwoStat.getInteger(COMP_DRAWN);
+		final int playerOnePlayed = playerOneStat.getInteger(COMP_DONE);
+		final int playerTwoPlayed = playerTwoStat.getInteger(COMP_DONE);
+		final int playerOneWon = playerOneStat.getInteger(COMP_WON);
+		final int playerTwoWon = playerTwoStat.getInteger(COMP_WON);
+		final int playerOneLost = playerOneStat.getInteger(COMP_LOST);
+		final int playerTwoLost = playerTwoStat.getInteger(COMP_LOST);
+		final int playerOneDrawn = playerOneStat.getInteger(COMP_DRAWN);
+		final int playerTwoDrawn = playerTwoStat.getInteger(COMP_DRAWN);
 
-		int playerOnePoints = playerOneStat.getInteger(POINTS);
-		int playerTwoPoints = playerTwoStat.getInteger(POINTS);
-		int pointDiff = Math.min(playerOnePoints, playerTwoPoints) / _div;
+		final int playerOnePoints = playerOneStat.getInteger(POINTS);
+		final int playerTwoPoints = playerTwoStat.getInteger(POINTS);
+		final int pointDiff = Math.min(playerOnePoints, playerTwoPoints) / _div;
 
 		// Check for if a player defaulted before battle started
 		if (_playerOneDefaulted || _playerTwoDefaulted)
 		{
 			if (_playerOneDefaulted)
 			{
-				int lostPoints = playerOnePoints / 3;
+				final int lostPoints = playerOnePoints / 3;
 				playerOneStat.set(POINTS, playerOnePoints - lostPoints);
 				Olympiad.updateNobleStats(_playerOneID, playerOneStat);
 				SystemMessage sm = new SystemMessage(SystemMessageId.C1_HAS_LOST_S2_OLYMPIAD_POINTS);
@@ -555,7 +542,7 @@ public class OlympiadGame
 			}
 			if (_playerTwoDefaulted)
 			{
-				int lostPoints = playerTwoPoints / 3;
+				final int lostPoints = playerTwoPoints / 3;
 				playerTwoStat.set(POINTS, playerTwoPoints - lostPoints);
 				Olympiad.updateNobleStats(_playerTwoID, playerTwoStat);
 				SystemMessage sm = new SystemMessage(SystemMessageId.C1_HAS_LOST_S2_OLYMPIAD_POINTS);
@@ -815,40 +802,24 @@ public class OlympiadGame
 
 		Olympiad.logResult(_playerOneName, _playerTwoName, playerOneHp, playerTwoHp, _damageP1, _damageP2, winner, pointDiff, classed);
 
-		for (int i = 40; i > 10; i -= 10)
+		byte step = 10;
+		for (int i = 40; i > 0; i -= step)
 		{
 			_sm = new SystemMessage(SystemMessageId.YOU_WILL_BE_MOVED_TO_TOWN_IN_S1_SECONDS);
 			_sm.addNumber(i);
 			broadcastMessage(_sm, false);
+			switch (i)
+			{
+				case 10:
+					step = 5;
+					break;
+				case 5:
+					step = 1;
+					break;
+			}
 			try
 			{
-				Thread.sleep(10000);
-			}
-			catch (InterruptedException e)
-			{
-			}
-			if (i == 20)
-			{
-				_sm = new SystemMessage(SystemMessageId.YOU_WILL_BE_MOVED_TO_TOWN_IN_S1_SECONDS);
-				_sm.addNumber(10);
-				broadcastMessage(_sm, false);
-				try
-				{
-					Thread.sleep(5000);
-				}
-				catch (InterruptedException e)
-				{
-				}
-			}
-		}
-		for (int i = 5; i > 0; i--)
-		{
-			_sm = new SystemMessage(SystemMessageId.YOU_WILL_BE_MOVED_TO_TOWN_IN_S1_SECONDS);
-			_sm.addNumber(i);
-			broadcastMessage(_sm, false);
-			try
-			{
-				Thread.sleep(1000);
+				Thread.sleep(step * 1000);
 			}
 			catch (InterruptedException e)
 			{
@@ -890,58 +861,48 @@ public class OlympiadGame
 
 	protected String getTitle()
 	{
-		String msg = "";
-		msg += _playerOneName + " / " + _playerTwoName;
-		return msg;
+		return _playerOneName + " / " + _playerTwoName;
 	}
 
 	protected L2PcInstance[] getPlayers()
 	{
-		L2PcInstance[] players = new L2PcInstance[2];
-
-		if (_playerOne == null || _playerTwo == null)
+		if (_players == null || _players.isEmpty())
 			return null;
 
-		players[0] = _playerOne;
-		players[1] = _playerTwo;
+		final L2PcInstance[] players = new L2PcInstance[_players.size()];
+		_players.toArray(players);
 
 		return players;
 	}
 
-	private void broadcastMessage(SystemMessage sm, boolean toAll)
+	protected void broadcastMessage(SystemMessage sm, boolean toAll)
 	{
-		try
+		for (L2PcInstance player : _players)
 		{
-			_playerOne.sendPacket(sm);
-			_playerTwo.sendPacket(sm);
-		}
-		catch (Exception e)
-		{
+			if (player != null)
+				player.sendPacket(sm);
 		}
 
 		if (toAll && OlympiadManager.STADIUMS[_stadiumID].getSpectators() != null)
 		{
 			for (L2PcInstance spec : OlympiadManager.STADIUMS[_stadiumID].getSpectators())
 			{
-				try
-				{
+				if (spec != null)
 					spec.sendPacket(sm);
-				}
-				catch (NullPointerException e)
-				{
-				}
 			}
 		}
 	}
 
 	protected void announceGame()
 	{
+		int objId;
+		String npcName;
 		for (L2Spawn manager : SpawnTable.getInstance().getSpawnTable().values())
 		{
 			if (manager != null && manager.getNpcid() == OLY_MANAGER)
 			{
-				int objId = manager.getLastSpawn().getObjectId();
-				String npcName = manager.getLastSpawn().getName();
+				objId = manager.getLastSpawn().getObjectId();
+				npcName = manager.getLastSpawn().getName();
 				manager.getLastSpawn().broadcastPacket(
 						new CreatureSay(objId, SystemChatChannelId.Chat_Shout, npcName, "Olympiad is going to begin in Arena " + (_stadiumID + 1)
 								+ " in a moment."));
@@ -1114,6 +1075,7 @@ class OlympiadGameTask implements Runnable
 		{
 			return false;
 		}
+		SystemMessage sm;
 		OlympiadManager.STADIUMS[_game._stadiumID].closeDoors();
 		_game.portPlayersToArena();
 		_game.removals();
@@ -1133,37 +1095,28 @@ class OlympiadGameTask implements Runnable
 				OlympiadGame._battleStarted = true;
 		}
 
-		for (int i = 60; i > 10; i -= 10)
+		byte step = 10;
+		for (byte i = 60; i > 0; i -= step)
 		{
-			_game.sendMessageToPlayers(true, i);
+			sm = new SystemMessage(SystemMessageId.THE_GAME_WILL_START_IN_S1_SECOND_S);
+			sm.addNumber(i);
+			_game.broadcastMessage(sm, true);
+
+			switch (i)
+			{
+				case 10:
+					_game._damageP1 = 0;
+					_game._damageP2 = 0;
+					OlympiadManager.STADIUMS[_game._stadiumID].openDoors();
+					step = 5;
+					break;
+				case 5:
+					step = 1;
+					break;
+			}
 			try
 			{
-				Thread.sleep(10000);
-			}
-			catch (InterruptedException e)
-			{
-			}
-			if (i == 20)
-			{
-				_game._damageP1 = 0;
-				_game._damageP2 = 0;
-				OlympiadManager.STADIUMS[_game._stadiumID].openDoors();
-				_game.sendMessageToPlayers(true, 10);
-				try
-				{
-					Thread.sleep(5000);
-				}
-				catch (InterruptedException e)
-				{
-				}
-			}
-		}
-		for (int i = 5; i > 0; i--)
-		{
-			_game.sendMessageToPlayers(true, i);
-			try
-			{
-				Thread.sleep(1000);
+				Thread.sleep(step * 1000);
 			}
 			catch (InterruptedException e)
 			{
@@ -1174,8 +1127,11 @@ class OlympiadGameTask implements Runnable
 		{
 			return false;
 		}
-		_game._playerOne.sendPacket(new ExOlympiadUserInfo(_game._playerTwo, 1));
-		_game._playerTwo.sendPacket(new ExOlympiadUserInfo(_game._playerOne, 1));
+
+		_game._playerOne.sendPacket(new ExOlympiadUserInfo(_game._playerOne, 1));
+		_game._playerOne.sendPacket(new ExOlympiadUserInfo(_game._playerTwo, 2));
+		_game._playerTwo.sendPacket(new ExOlympiadUserInfo(_game._playerTwo, 1));
+		_game._playerTwo.sendPacket(new ExOlympiadUserInfo(_game._playerOne, 2));
 		
 		_game._playerOne.updateEffectIcons();
 		_game._playerTwo.updateEffectIcons();
@@ -1219,33 +1175,33 @@ class OlympiadGameTask implements Runnable
 
 	private boolean teleportCountdown()
 	{
+		SystemMessage sm;
 		// Waiting for teleport to arena
-		for (int i = 120; i > 10; i -= 5)
+		byte step = 60;
+		for (byte i = 120; i > 0; i -= step)
 		{
+			sm = new SystemMessage(SystemMessageId.YOU_WILL_ENTER_THE_OLYMPIAD_STADIUM_IN_S1_SECOND_S);
+			sm.addNumber(i);
+			_game.broadcastMessage(sm, false);
+
 			switch (i)
 			{
-				case 120:
 				case 60:
+					step = 30;
+					break;
 				case 30:
+					step = 15;
+					break;
 				case 15:
-					_game.sendMessageToPlayers(false, i);
+					step = 5;
+					break;
+				case 5:
+					step = 1;
 					break;
 			}
 			try
 			{
-				Thread.sleep(5000);
-			}
-			catch (InterruptedException e)
-			{
-				return false;
-			}
-		}
-		for (int i = 5; i > 0; i--)
-		{
-			_game.sendMessageToPlayers(false, i);
-			try
-			{
-				Thread.sleep(1000);
+				Thread.sleep(step * 1000);
 			}
 			catch (InterruptedException e)
 			{

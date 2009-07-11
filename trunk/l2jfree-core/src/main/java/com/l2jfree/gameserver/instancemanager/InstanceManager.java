@@ -159,6 +159,7 @@ public class InstanceManager
 			}
 		}
 		Instance instance = new Instance(_dynamic);
+		_instanceList.put(_dynamic, instance);
 		if (template != null)
 		{
 			try
@@ -171,7 +172,6 @@ public class InstanceManager
 				e.printStackTrace();
 			}
 		}
-		_instanceList.put(_dynamic, instance);
 		return _dynamic;
 	}
 
