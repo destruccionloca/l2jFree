@@ -184,7 +184,7 @@ public class OlympiadGame
 
 	public L2Spawn SpawnBuffer(int xPos, int yPos, int zPos, int npcId)
 	{
-		inal L2NpcTemplate template = NpcTable.getInstance().getTemplate(npcId);
+		final L2NpcTemplate template = NpcTable.getInstance().getTemplate(npcId);
 		try
 		{
 			final L2Spawn spawn = new L2Spawn(template);
