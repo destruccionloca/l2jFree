@@ -38,7 +38,6 @@ import com.l2jfree.gameserver.handler.itemhandlers.Potions;
 import com.l2jfree.gameserver.handler.itemhandlers.Recipes;
 import com.l2jfree.gameserver.handler.itemhandlers.RollingDice;
 import com.l2jfree.gameserver.handler.itemhandlers.ScrollOfResurrection;
-import com.l2jfree.gameserver.handler.itemhandlers.Scrolls;
 import com.l2jfree.gameserver.handler.itemhandlers.Seed;
 import com.l2jfree.gameserver.handler.itemhandlers.SevenSignsRecord;
 import com.l2jfree.gameserver.handler.itemhandlers.SoulCrystals;
@@ -106,7 +105,6 @@ public final class ItemHandler
 		registerItemHandler(new Recipes());
 		registerItemHandler(new RollingDice());
 		registerItemHandler(new ScrollOfResurrection());
-		registerItemHandler(new Scrolls());
 		registerItemHandler(new Seed());
 		registerItemHandler(new SevenSignsRecord());
 		registerItemHandler(new SoulCrystals());
