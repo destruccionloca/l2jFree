@@ -694,7 +694,6 @@
     <set name="skillType" val="UNLOCK"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
-    <set name="hitTime" val="500"/>
     <set name="staticHitTime" val="true"/>
     <set name="itemConsumeId" val="9698"/>
     <set name="itemConsumeCount" val="1"/>
@@ -709,7 +708,6 @@
     <set name="skillType" val="UNLOCK"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
-    <set name="hitTime" val="500"/>
     <set name="staticHitTime" val="true"/>
     <set name="itemConsumeId" val="9699"/>
     <set name="itemConsumeCount" val="1"/>
