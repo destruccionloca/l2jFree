@@ -465,32 +465,64 @@
     <set name="staticHitTime" val="true"/>
   </skill>
   <skill id="2235" levels="1" name="Anteroom Door Key">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="target" val="TARGET_UNLOCKABLE"/>
     <set name="hitTime" val="500"/>
     <set name="staticHitTime" val="true"/>
+    <set name="skillType" val="UNLOCK"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="40"/>
+    <set name="hitTime" val="500"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="itemConsumeId" val="8273"/>
+    <set name="itemConsumeCount" val="1"/>
+    <cond msgId="109">
+      <target doorId="19160002 19160003 19160004 19160005 19160006 19160007 19160008 19160009"/>
+    </cond>
   </skill>
   <skill id="2236" levels="1" name="Chapel Door Key">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="target" val="TARGET_UNLOCKABLE"/>
     <set name="hitTime" val="500"/>
     <set name="staticHitTime" val="true"/>
+    <set name="skillType" val="UNLOCK"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="40"/>
+    <set name="hitTime" val="500"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="itemConsumeId" val="8274"/>
+    <set name="itemConsumeCount" val="1"/>
+    <cond msgId="109">
+      <target doorId="19160014 19160015 19160016 19160017"/>
+    </cond>
   </skill>
   <skill id="2237" levels="1" name="Key of Darkness">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="target" val="TARGET_UNLOCKABLE"/>
     <set name="hitTime" val="500"/>
     <set name="staticHitTime" val="true"/>
+    <set name="skillType" val="UNLOCK"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="40"/>
+    <set name="hitTime" val="500"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="itemConsumeId" val="8275"/>
+    <set name="itemConsumeCount" val="1"/>
+    <cond msgId="109">
+      <target doorId="19160012 19160013"/>
+    </cond>
   </skill>
   <skill id="2238" levels="1" name="Room of Splendor Key">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="target" val="TARGET_UNLOCKABLE"/>
     <set name="hitTime" val="500"/>
     <set name="staticHitTime" val="true"/>
+    <set name="skillType" val="UNLOCK"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="40"/>
+    <set name="hitTime" val="500"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="itemConsumeId" val="8056"/>
+    <set name="itemConsumeCount" val="1"/>
+    <cond msgId="109">
+      <target doorId="23150003 23150004"/>
+    </cond>
   </skill>
   <skill id="2239" levels="1" name="Petrification Scroll">
     <set name="target" val="TARGET_NONE"/>
