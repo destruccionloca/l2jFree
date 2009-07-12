@@ -522,6 +522,11 @@ public abstract class ConditionParser
 			String[] npcTypes = nodeValue.trim().split(" ");
 			return new ConditionTargetNpcType(npcTypes);
 		}
+		else if ("doorId".equalsIgnoreCase(nodeName))
+		{
+			int[] doorIds = Util.toIntArray(nodeValue.trim(), " ");
+			return new ConditionTargetDoorId(doorIds);
+		}
 		
 		throw new IllegalStateException("Invalid attribute at <target>: " + nodeName + "='" + nodeValue + "'");
 	}
