@@ -804,8 +804,6 @@ public abstract class L2Summon extends L2Playable
 			
 			sm.addNumber(damage);
 		}
-
-		sm.addNumber(damage);
 		getOwner().sendPacket(sm);
 	}
 	
