@@ -10033,3 +10033,9 @@ UPDATE `npc` SET `type` = 'L2FortWyvernManager' WHERE `id` BETWEEN 36457 AND 364
 
 -- Small fix
 UPDATE `npc` SET `idTemplate` = 29099 WHERE `id` = 29099;
+
+-- Fix collision_height for Oracle Guides
+UPDATE `npc` SET `collision_height` = '40.5' WHERE `id` IN (32273,32274,32275,32276,32277,32278,32279,32280,32281,32284,32285,32286,32287);
+
+-- Update Rignos name
+UPDATE `npc` SET `name` = 'Rignos' WHERE `id` = '32349' LIMIT 1;
