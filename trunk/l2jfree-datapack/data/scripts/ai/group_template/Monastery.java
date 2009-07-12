@@ -17,6 +17,7 @@ package ai.group_template;
 import java.util.Collection;
 
 import javolution.util.FastList;
+
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.L2Object;

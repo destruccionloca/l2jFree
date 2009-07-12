@@ -15,7 +15,10 @@
 package ai.individual;
 
 import java.util.List;
+
 import javolution.util.FastList;
+
+import ai.group_template.L2AttackableAIScript;
 
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.SkillTable;
@@ -25,7 +28,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.PlaySound;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
 import com.l2jfree.tools.random.Rnd;
-import ai.group_template.L2AttackableAIScript;
 
 /**
  * Queen Ant AI

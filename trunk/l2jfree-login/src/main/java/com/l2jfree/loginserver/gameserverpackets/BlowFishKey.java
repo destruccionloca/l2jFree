@@ -21,10 +21,10 @@ package com.l2jfree.loginserver.gameserverpackets;
 import java.security.GeneralSecurityException;
 import java.security.interfaces.RSAPrivateKey;
 
+import javax.crypto.Cipher;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import javax.crypto.Cipher;
 
 /**
  * @author -Wooden-

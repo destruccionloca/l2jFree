@@ -30,8 +30,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import com.l2jfree.tools.db.hibernate.ADAOTestCase;
-
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatDtdDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
@@ -39,7 +37,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.orm.ObjectRetrievalFailureException;
 
 import com.l2jfree.loginserver.beans.Gameservers;
-import com.l2jfree.loginserver.dao.impl.GameserversDAOHib;
+import com.l2jfree.tools.db.hibernate.ADAOTestCase;
 
 /**
  * Test account DAO

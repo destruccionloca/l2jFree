@@ -37,8 +37,6 @@ import java.util.List;
 import java.util.Map;
 
 import javolution.util.FastMap;
-import com.l2jfree.tools.util.HexUtil;
-import com.l2jfree.tools.random.Rnd;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -47,6 +45,8 @@ import com.l2jfree.L2Registry;
 import com.l2jfree.loginserver.beans.GameServerInfo;
 import com.l2jfree.loginserver.beans.Gameservers;
 import com.l2jfree.loginserver.services.GameserversServices;
+import com.l2jfree.tools.random.Rnd;
+import com.l2jfree.tools.util.HexUtil;
 
 /**
  * Manager servers

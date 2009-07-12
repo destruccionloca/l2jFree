@@ -23,8 +23,6 @@ package com.l2jfree.tools.codec;
 
 import java.io.UnsupportedEncodingException;
 
-import com.l2jfree.tools.codec.Base64;
-
 import junit.framework.TestCase;
 
 /**

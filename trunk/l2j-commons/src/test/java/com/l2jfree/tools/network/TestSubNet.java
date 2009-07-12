@@ -1,7 +1,5 @@
 package com.l2jfree.tools.network;
 
-import com.l2jfree.tools.network.SubNet;
-
 import junit.framework.TestCase;
 
 public class TestSubNet extends TestCase {

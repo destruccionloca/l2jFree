@@ -15,10 +15,12 @@
 package ai.individual;
 
 
-import javolution.util.FastMap;
 import javolution.util.FastList;
+import javolution.util.FastMap;
 import javolution.util.FastSet;
+
 import ai.group_template.L2AttackableAIScript;
+
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.model.actor.L2Attackable;

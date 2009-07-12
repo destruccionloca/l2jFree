@@ -1,7 +1,5 @@
 package com.l2jfree;
 
-import com.l2jfree.Config;
-
 import junit.framework.TestCase;
 
 public class TestConfig extends TestCase

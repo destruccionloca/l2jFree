@@ -15,6 +15,7 @@
 package ai.group_template;
 
 import java.util.Map;
+
 import javolution.util.FastMap;
 
 import com.l2jfree.gameserver.model.actor.L2Attackable;

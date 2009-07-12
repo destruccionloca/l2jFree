@@ -21,8 +21,6 @@
  */
 package com.l2jfree.tools.geometry;
 
-import com.l2jfree.tools.geometry.Point3D;
-
 import junit.framework.TestCase;
 
 /**

@@ -4,8 +4,6 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 
-import com.l2jfree.tools.math.ScrambledKeyPair;
-
 import junit.framework.TestCase;
 
 public class TestScrambledKeyPair extends TestCase {

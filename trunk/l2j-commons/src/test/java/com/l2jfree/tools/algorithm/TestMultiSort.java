@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.l2jfree.tools.algorithm.MultiSort;
-
 import junit.framework.TestCase;
 
 /**

@@ -2,8 +2,6 @@ package com.l2jfree.tools.security;
 
 import java.io.IOException;
 
-import com.l2jfree.tools.security.BlowfishEngine;
-
 import junit.framework.TestCase;
 
 public class TestBlowFishEngine extends TestCase {

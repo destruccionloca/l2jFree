@@ -19,7 +19,6 @@ package com.l2jfree.loginserver.clientpackets;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.mmocore.network.ReceivablePacket;
 
 import com.l2jfree.loginserver.L2LoginClient;

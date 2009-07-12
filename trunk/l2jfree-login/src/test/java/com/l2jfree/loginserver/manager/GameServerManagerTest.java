@@ -30,7 +30,6 @@ import junit.framework.TestCase;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.l2jfree.L2Registry;
-import com.l2jfree.loginserver.manager.GameServerManager;
 
 /**
  * This class test ban management

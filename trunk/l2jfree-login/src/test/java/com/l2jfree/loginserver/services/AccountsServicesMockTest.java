@@ -30,7 +30,6 @@ import junit.framework.TestCase;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.l2jfree.loginserver.beans.Accounts;
-import com.l2jfree.loginserver.services.AccountsServices;
 import com.l2jfree.loginserver.services.exception.AccountModificationException;
 
 /**

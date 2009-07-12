@@ -30,8 +30,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
-import com.l2jfree.tools.codec.Base64;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.dao.DataAccessException;
@@ -40,6 +38,7 @@ import org.springframework.orm.ObjectRetrievalFailureException;
 import com.l2jfree.loginserver.beans.Accounts;
 import com.l2jfree.loginserver.dao.AccountsDAO;
 import com.l2jfree.loginserver.services.exception.AccountModificationException;
+import com.l2jfree.tools.codec.Base64;
 
 /**
  * Account service to handle account management
