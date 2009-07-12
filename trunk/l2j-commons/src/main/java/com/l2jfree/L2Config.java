@@ -24,6 +24,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.config.L2Properties;
 import com.l2jfree.util.HandlerRegistry;
+import com.l2jfree.util.logging.L2LogManager;
 
 /**
  * @author evill33t
@@ -34,6 +35,7 @@ public abstract class L2Config
 	{
 		System.setProperty("line.separator", "\r\n");
 		System.setProperty("file.encoding", "UTF-8");
+		System.setProperty("java.util.logging.manager", L2LogManager.class.getName());
 	}
 	
 	protected static final Log _log = LogFactory.getLog(L2Config.class);
