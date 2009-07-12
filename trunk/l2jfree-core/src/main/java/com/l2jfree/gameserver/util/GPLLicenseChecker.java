@@ -30,21 +30,55 @@ import org.apache.commons.io.IOUtils;
  */
 public final class GPLLicenseChecker
 {
+	private static final ArrayList<String> MODIFIED = new ArrayList<String>();
+	
+	/**
+	 * Determines that it will check the whole project, or only the core itself.<br>
+	 * If set to 'true' then it requires other projects to be checked out near the core.
+	 */
+	private static final boolean WHOLE_PROJECT = false;
+	
 	public static void main(String[] args) throws IOException
 	{
-		parse(new File("."));
+		if (WHOLE_PROJECT)
+			parse(new File(".").getCanonicalFile().getParentFile());
+		else
+			parse(new File("."));
+		
+		System.out.println();
+		
+		if (MODIFIED.isEmpty())
+		{
+			System.out.println("There was no modification.");
+		}
+		else
+		{
+			System.out.println("Modified files:");
+			System.out.println("================");
+			
+			for (String line : MODIFIED)
+				System.out.println(line);
+		}
+		
+		System.out.flush();
 	}
 	
 	private static final FileFilter FILTER = new FileFilter() {
 		@Override
 		public boolean accept(File f)
 		{
+			// to skip svn files
+			if (f.isHidden())
+				return false;
+			
 			return f.isDirectory() || f.getName().endsWith("java");
 		}
 	};
 	
 	private static void parse(File f) throws IOException
 	{
+		System.out.println(f.getCanonicalPath());
+		
 		if (f.isDirectory())
 		{
 			for (File tmp : f.listFiles(FILTER))
@@ -64,7 +98,7 @@ public final class GPLLicenseChecker
 			
 			boolean foundPackageDeclaration = false;
 			for (String line : tmpList)
-				if (foundPackageDeclaration |= line.contains("package com.l2jfree"))
+				if (foundPackageDeclaration |= containsPackageName(line))
 					list2.add(line);
 			
 			PrintStream ps = null;
@@ -120,17 +154,54 @@ public final class GPLLicenseChecker
 		{
 			if (!list.get(i).equals(LICENSE[i]))
 			{
-				System.out.println(f.getPath() + ":" + i);
+				MODIFIED.add(f.getPath() + ":" + i);
 				return list;
 			}
 		}
 		
-		if (!list.get(i).startsWith("package com.l2jfree"))
+		if (!startsWithPackageName(list.get(i)))
 		{
-			System.out.println(f.getPath() + ":" + lnr.getLineNumber());
+			MODIFIED.add(f.getPath() + ":" + lnr.getLineNumber());
 			return list;
 		}
 		
 		return null;
+	}
+	
+	private static final String[] WHOLE_PROJECT_PACKAGE_NAMES = {
+		"package com.l2jfree",
+		"package org.mmocore.network",
+		"package ai",
+		"package cron",
+		"package custom",
+		"package instances",
+		"package quests",
+		"package teleports",
+		"package transformations",
+		"package village_master"
+	};
+	
+	private static boolean startsWithPackageName(String line)
+	{
+		if (!WHOLE_PROJECT)
+			return line.startsWith("package com.l2jfree");
+		
+		for (String packageName : WHOLE_PROJECT_PACKAGE_NAMES)
+			if (line.startsWith(packageName))
+				return true;
+		
+		return false;
+	}
+	
+	private static boolean containsPackageName(String line)
+	{
+		if (!WHOLE_PROJECT)
+			return line.contains("package com.l2jfree");
+		
+		for (String packageName : WHOLE_PROJECT_PACKAGE_NAMES)
+			if (line.contains(packageName))
+				return true;
+		
+		return false;
 	}
 }
