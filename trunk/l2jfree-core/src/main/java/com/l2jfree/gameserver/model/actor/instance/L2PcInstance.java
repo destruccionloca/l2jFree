@@ -2100,14 +2100,20 @@ public final class L2PcInstance extends L2Playable
 				sm.addItemName(item);
 			}
 			sendPacket(sm);
-
-			if (bodyPart == L2Item.SLOT_L_EAR || bodyPart == L2Item.SLOT_LR_EAR || bodyPart == L2Item.SLOT_L_FINGER || bodyPart == L2Item.SLOT_LR_FINGER
-					|| bodyPart == L2Item.SLOT_DECO)
+			
+			switch (bodyPart)
 			{
-				getInventory().setPaperdollItem(item.getLocationSlot(), null);
-				sendPacket(new ItemList(this, false));
+				case L2Item.SLOT_L_EAR:
+				case L2Item.SLOT_LR_EAR:
+				case L2Item.SLOT_L_FINGER:
+				case L2Item.SLOT_LR_FINGER:
+				case L2Item.SLOT_DECO:
+				{
+					getInventory().setPaperdollItem(item.getLocationSlot(), null);
+					sendPacket(new ItemList(this, false));
+				}
 			}
-
+			
 			// We cant unequip talisman by body slot
 			if (bodyPart == L2Item.SLOT_DECO)
 				items = getInventory().unEquipItemInSlotAndRecord(item.getLocationSlot());
@@ -13606,14 +13612,7 @@ public final class L2PcInstance extends L2Playable
 		else
 			consumeRate = 1.0;
 
-		boolean isVitalityBuffed = false;
-
-		L2Effect[] effects = getAllEffects();
-		for (L2Effect e : effects)
-		{
-			if (e.getSkill().getId() == 2580 || e.getSkill().getId() == 8244 || e.getSkill().getId() == 5655 || e.getSkill().getId() == 23016 || e.getSkill().getId() == 23024 || e.getSkill().getId() == 23032 || e.getSkill().getId() == 23035 || e.getSkill().getId() == 23063 || e.getSkill().getId() == 23064)
-				isVitalityBuffed = true;
-		}
+		final boolean isVitalityBuffed = isVitalityBuffed();
 
 		points = Math.round(((((targetExp / (targetLevel * targetLevel)) * 100) / 9) * damageRate) * consumeRate);
 
@@ -13641,6 +13640,28 @@ public final class L2PcInstance extends L2Playable
 		}
 		else if (points < 0)
 			_log.warn("Vitality: Error in decrease " + getName() + " vitality points (no party), the calcul result was negative: " + points + "=> Target XP: " + targetExp + " TargetLevel: " + targetLevel + " Damage Rate: " + damageRate + " Vitality Rate Lost: " + Config.RATE_VITALITY_LOST + " Vitality Rate Gain: " + Config.RATE_VITALITY_GAIN + "");
+	}
+	
+	private boolean isVitalityBuffed()
+	{
+		for (L2Effect e : getAllEffects())
+		{
+			switch (e.getSkill().getId())
+			{
+				case 2580:
+				case 8244:
+				case 5655:
+				case 23016:
+				case 23024:
+				case 23032:
+				case 23035:
+				case 23063:
+				case 23064:
+					return true;
+			}
+		}
+		
+		return false;
 	}
 
 	/** Calcules points to add/remove on this PcInstance - in party **/
@@ -13683,13 +13704,7 @@ public final class L2PcInstance extends L2Playable
 		else
 			consumeRate = 1.0;
 
-		boolean isVitalityBuffed = false;
-		L2Effect[] effects = getAllEffects();
-		for (L2Effect e : effects)
-		{
-			if (e.getSkill().getId() == 2580 || e.getSkill().getId() == 8244 || e.getSkill().getId() == 5655 || e.getSkill().getId() == 23016 || e.getSkill().getId() == 23024 || e.getSkill().getId() == 23032 || e.getSkill().getId() == 23035 || e.getSkill().getId() == 23063 || e.getSkill().getId() == 23064)
-				isVitalityBuffed = true;
-		}
+		final boolean isVitalityBuffed = isVitalityBuffed();
 
 		points = Math.round((((((targetExp / (targetLevel * targetLevel)) * 100) / 9) * damageRate) * consumeRate) * partyExpRate);
 
