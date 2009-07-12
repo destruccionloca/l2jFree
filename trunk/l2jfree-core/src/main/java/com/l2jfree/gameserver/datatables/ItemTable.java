@@ -609,10 +609,20 @@ public final class ItemTable
 	 */
 	public L2Item getTemplate(int id)
 	{
-		if (id >= _allTemplates.length)
+		if (id < 0 || _allTemplates.length <= id)
 			return null;
 		
 		return _allTemplates[id];
+	}
+	
+	public <T extends L2Item> T getTemplate(int id, Class<T> clazz)
+	{
+		L2Item item = getTemplate(id);
+		
+		if (clazz.isInstance(item))
+			return clazz.cast(item);
+		else
+			return null;
 	}
 	
 	public L2Item[] getAllTemplates()

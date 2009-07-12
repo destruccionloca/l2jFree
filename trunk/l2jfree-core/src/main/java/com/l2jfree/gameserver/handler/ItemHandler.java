@@ -175,16 +175,21 @@ public final class ItemHandler
 	
 	private IItemHandler get(int itemId, L2ItemInstance item)
 	{
+		L2EtcItem etcItem = (item == null ? null : item.getEtcItem());
+		
+		if (etcItem == null)
+			etcItem = ItemTable.getInstance().getTemplate(itemId, L2EtcItem.class);
+		
+		if (etcItem != null)
+		{
+			final IItemHandler handlerByHandlerName = _byHandlerName.get(etcItem.getHandlerName());
+			
+			if (handlerByHandlerName != null)
+				return handlerByHandlerName;
+		}
+		
 		final IItemHandler handlerByItemId = _byItemId.get(itemId);
 		
-		if (handlerByItemId != null)
-			return handlerByItemId;
-		
-		if (item == null)
-			return null;
-		
-		final IItemHandler handlerByHandlerName = _byHandlerName.get(item.getEtcItem().getHandlerName());
-		
-		return handlerByHandlerName;
+		return handlerByItemId;
 	}
 }
