@@ -263,7 +263,7 @@ INSERT INTO `armorsets` VALUES (158, 11405, 2380, 2416, 5718, 5734,   3524,     
 INSERT INTO `armorsets` VALUES (159, 11395, 0,    2416, 5719, 5735,   3526,      1,      0,      0,      3618,            0,   12984,    11400,    11397,       0);--		Masterwork Blue wolf leather set
 INSERT INTO `armorsets` VALUES (160, 11402, 2403, 2416, 5720, 5736,   3528,      1,      0,      0,      3619,        11404,   12985,    11401,    11398,       0);--		Masterwork Blue Wolf robe set
 
-INSERT INTO `armorsets` VALUES (161, 11386, 0,    2417, 5722, 5738,   3525,      1,     110,   3549,     3617,            0,   11387,    11397,    11382,   11385);--		Masterwork Doom plate heavy set
+INSERT INTO `armorsets` VALUES (161, 11386, 0,    2417, 5722, 5738,   3525,      1,     110,   3549,     3617,            0,   11387,    11379,    11382,   11385);--		Masterwork Doom plate heavy set
 INSERT INTO `armorsets` VALUES (162, 11388, 0,    2417, 5723, 5739,   3527,      1,      0,      0,      3618,            0,   12982,    11380,    11383,       0);--		Masterwork Doom leather set
 INSERT INTO `armorsets` VALUES (163, 11393, 2404, 2417, 5724, 5740,   3529,      1,      0,      0,      3619,        11406,   12983,    11381,    11384,       0);--		Masterwork Doom robe set
 
