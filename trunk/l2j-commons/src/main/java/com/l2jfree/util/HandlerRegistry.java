@@ -31,9 +31,14 @@ public class HandlerRegistry<K, V>
 	
 	private final Map<K, V> _map;
 	
+	protected HandlerRegistry(Map<K, V> map)
+	{
+		_map = map;
+	}
+	
 	public HandlerRegistry(boolean sorted)
 	{
-		_map = sorted ? new TreeMap<K, V>() : new HashMap<K, V>();
+		this(sorted ? new TreeMap<K, V>() : new HashMap<K, V>());
 	}
 	
 	public HandlerRegistry()
@@ -41,7 +46,7 @@ public class HandlerRegistry<K, V>
 		this(false);
 	}
 	
-	public K standardizeKey(K key)
+	protected K standardizeKey(K key)
 	{
 		return key;
 	}

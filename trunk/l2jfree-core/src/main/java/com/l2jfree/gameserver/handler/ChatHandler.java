@@ -28,12 +28,12 @@ import com.l2jfree.gameserver.handler.chathandlers.ChatSystem;
 import com.l2jfree.gameserver.handler.chathandlers.ChatTrade;
 import com.l2jfree.gameserver.handler.chathandlers.ChatWhisper;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
-import com.l2jfree.util.HandlerRegistry;
+import com.l2jfree.util.EnumHandlerRegistry;
 
 /**
  * @author Noctarius
  */
-public final class ChatHandler extends HandlerRegistry<SystemChatChannelId, IChatHandler>
+public final class ChatHandler extends EnumHandlerRegistry<SystemChatChannelId, IChatHandler>
 {
 	public static ChatHandler getInstance()
 	{
@@ -42,6 +42,8 @@ public final class ChatHandler extends HandlerRegistry<SystemChatChannelId, ICha
 	
 	private ChatHandler()
 	{
+		super(SystemChatChannelId.class);
+		
 		registerChatHandler(new ChatAll());
 		registerChatHandler(new ChatAlliance());
 		registerChatHandler(new ChatAnnounce());
@@ -68,7 +70,7 @@ public final class ChatHandler extends HandlerRegistry<SystemChatChannelId, ICha
 	{
 		return get(chatId);
 	}
-
+	
 	@SuppressWarnings("synthetic-access")
 	private static class SingletonHolder
 	{

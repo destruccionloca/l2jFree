@@ -63,17 +63,20 @@ import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillDrain;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
+import com.l2jfree.util.EnumHandlerRegistry;
 import com.l2jfree.util.HandlerRegistry;
 
-public final class SkillHandler extends HandlerRegistry<L2SkillType, ISkillHandler>
+public final class SkillHandler extends EnumHandlerRegistry<L2SkillType, ISkillHandler>
 {
 	public static SkillHandler getInstance()
 	{
 		return SingletonHolder._instance;
 	}
-
+	
 	private SkillHandler()
 	{
+		super(L2SkillType.class);
+		
 		registerSkillHandler(new BalanceLife());
 		registerSkillHandler(new BallistaBomb());
 		registerSkillHandler(new BeastFeed());
@@ -118,10 +121,10 @@ public final class SkillHandler extends HandlerRegistry<L2SkillType, ISkillHandl
 		registerSkillHandler(new TransformDispel());
 		registerSkillHandler(new Trap());
 		registerSkillHandler(new Unlock());
-
+		
 		HandlerRegistry._log.info("SkillHandler: Loaded " + size() + " handlers.");
 	}
-
+	
 	public void registerSkillHandler(ISkillHandler handler)
 	{
 		registerAll(handler, handler.getSkillIds());
