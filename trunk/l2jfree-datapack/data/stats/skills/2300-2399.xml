@@ -485,6 +485,8 @@
     </for>
   </skill>
   <skill id="2341" levels="1" name="Caravan's Secret Medicine">
+    <set name="itemConsumeId" val="9702"/>
+    <set name="itemConsumeCount" val="1"/>  
     <set name="hitTime" val="100"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -691,7 +693,7 @@
     <set name="target" val="TARGET_UNLOCKABLE"/>
     <set name="hitTime" val="500"/>
     <set name="staticHitTime" val="true"/>
-    <set name="skillType" val="UNLOCK"/>
+    <set name="skillType" val="OPEN_DOOR"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
     <set name="itemConsumeId" val="9698"/>
@@ -704,7 +706,7 @@
     <set name="target" val="TARGET_UNLOCKABLE"/>
     <set name="hitTime" val="500"/>
     <set name="staticHitTime" val="true"/>
-    <set name="skillType" val="UNLOCK"/>
+    <set name="skillType" val="OPEN_DOOR"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
     <set name="itemConsumeId" val="9699"/>

@@ -155,7 +155,7 @@ public enum L2SkillType
 	// Unimplemented
 	NOTDONE,
 	TELEPORT,
-	CHANGE_APPEARANCE;
+	CHANGE_APPEARANCE, OPEN_DOOR;
 	
 	private final Constructor<? extends L2Skill> _constructor;
 	private final L2SkillType _parent;

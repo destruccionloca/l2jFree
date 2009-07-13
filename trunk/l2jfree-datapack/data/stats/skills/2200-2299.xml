@@ -467,7 +467,7 @@
   <skill id="2235" levels="1" name="Anteroom Door Key">
     <set name="target" val="TARGET_UNLOCKABLE"/>
     <set name="hitTime" val="500"/>
-    <set name="skillType" val="UNLOCK"/>
+    <set name="skillType" val="OPEN_DOOR"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
     <set name="staticHitTime" val="true"/>
@@ -480,7 +480,7 @@
   <skill id="2236" levels="1" name="Chapel Door Key">
     <set name="target" val="TARGET_UNLOCKABLE"/>
     <set name="hitTime" val="500"/>
-    <set name="skillType" val="UNLOCK"/>
+    <set name="skillType" val="OPEN_DOOR"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
     <set name="staticHitTime" val="true"/>
@@ -494,7 +494,7 @@
     <set name="target" val="TARGET_UNLOCKABLE"/>
     <set name="hitTime" val="500"/>
     <set name="staticHitTime" val="true"/>
-    <set name="skillType" val="UNLOCK"/>
+    <set name="skillType" val="OPEN_DOOR"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
     <set name="itemConsumeId" val="8275"/>
@@ -507,7 +507,7 @@
     <set name="target" val="TARGET_UNLOCKABLE"/>
     <set name="hitTime" val="500"/>
     <set name="staticHitTime" val="true"/>
-    <set name="skillType" val="UNLOCK"/>
+    <set name="skillType" val="OPEN_DOOR"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
     <set name="itemConsumeId" val="8056"/>

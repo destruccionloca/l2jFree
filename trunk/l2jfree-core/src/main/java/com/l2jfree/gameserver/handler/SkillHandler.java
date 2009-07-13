@@ -41,6 +41,7 @@ import com.l2jfree.gameserver.handler.skillhandlers.MakeKillable;
 import com.l2jfree.gameserver.handler.skillhandlers.ManaHeal;
 import com.l2jfree.gameserver.handler.skillhandlers.Manadam;
 import com.l2jfree.gameserver.handler.skillhandlers.Mdam;
+import com.l2jfree.gameserver.handler.skillhandlers.OpenDoor;
 import com.l2jfree.gameserver.handler.skillhandlers.Pdam;
 import com.l2jfree.gameserver.handler.skillhandlers.Recall;
 import com.l2jfree.gameserver.handler.skillhandlers.Resurrect;
@@ -121,7 +122,7 @@ public final class SkillHandler extends EnumHandlerRegistry<L2SkillType, ISkillH
 		registerSkillHandler(new TransformDispel());
 		registerSkillHandler(new Trap());
 		registerSkillHandler(new Unlock());
-		
+		registerSkillHandler(new OpenDoor());
 		HandlerRegistry._log.info("SkillHandler: Loaded " + size() + " handlers.");
 	}
 	
