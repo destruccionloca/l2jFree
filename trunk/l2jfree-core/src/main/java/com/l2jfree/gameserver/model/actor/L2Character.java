@@ -3129,10 +3129,24 @@ public abstract class L2Character extends L2Object
 	public static final int	ABNORMAL_EFFECT_UNKNOWN_27		= 0x4000000;
 	public static final int	ABNORMAL_EFFECT_INVULNERABLE	= 0x8000000;
 	public static final int	ABNORMAL_EFFECT_VITALITY		= 0x10000000;
-
+	public static final int ABNORMAL_EFFECT_UNKNOWN_30		= 0x20000000;
+	public static final int ABNORMAL_EFFECT_DEATH_MARK		= 0x40000000;
+	public static final int ABNORMAL_EFFECT_UNKNOWN_32		= 0x80000000;
+	 	
 	// FIXME: TEMP HACKS (get the proper mask for these effects)
 	public static final int	ABNORMAL_EFFECT_CONFUSED		= 0x0020;
 	public static final int	ABNORMAL_EFFECT_AFRAID			= 0x0010;
+
+    private int _SpecialEffects; 
+	public static final int SPECIAL_EFFECT_INVULNERABLE		= 0x000001;
+	public static final int SPECIAL_EFFECT_RED_GLOW			= 0x000002;
+	public static final int SPECIAL_EFFECT_RED_GLOW2		= 0x000004;
+	public static final int SPECIAL_EFFECT_BAGUETTE_SWORD	= 0x000008;
+	public static final int SPECIAL_EFFECT_YELLOW_AFFRO		= 0x000010;
+	public static final int SPECIAL_EFFECT_PINK_AFFRO		= 0x000020;
+	public static final int SPECIAL_EFFECT_BLACK_AFFRO		= 0x000040;
+	public static final int SPECIAL_EFFECT_UNKNOWN8			= 0x000080;
+	public static final int SPECIAL_EFFECT_UNKNOWN9			= 0x000100;
 
 	// Method - Public
 	/**
@@ -3142,6 +3156,15 @@ public abstract class L2Character extends L2Object
 	public final void startAbnormalEffect(int mask)
 	{
 		if (_abnormalEffects != (_abnormalEffects |= mask))
+			updateAbnormalEffect();
+	}
+
+	/**
+     * Active special effects flags in the binary mask and send Server->Client UserInfo/CharInfo packet.<BR><BR> 
+     */
+	public final void startSpecialEffect(int mask)
+	{
+		if (_SpecialEffects != (_SpecialEffects |= mask))
 			updateAbnormalEffect();
 	}
 
@@ -3371,6 +3394,15 @@ public abstract class L2Character extends L2Object
 	{
 		if (_abnormalEffects != (_abnormalEffects &= ~mask))
 			updateAbnormalEffect();
+	}
+
+	/** 
+	* Modify the special effect map according to the mask.<BR><BR> 
+	*/ 
+	public final void stopSpecialEffect(int mask) 
+	{ 
+		if (_SpecialEffects != (_SpecialEffects &= ~mask))
+		updateAbnormalEffect(); 
 	}
 
 	/**
@@ -3720,6 +3752,21 @@ public abstract class L2Character extends L2Object
 		if (isPhysicalMuted())
 			ae |= ABNORMAL_EFFECT_MUTED;
 		return ae;
+	}
+
+    /**
+	* Return a map of 32 bits (0x00000000) containing all special effect in progress for this L2Character.<BR><BR>
+	*
+	* <B><U> Concept</U> :</B><BR><BR>
+	* In Server->Client packet, each effect is represented by 1 bit of the map (ex : INVULNERABLE = 0x0001 (bit 1), PINK_AFFRO = 0x0020 (bit 6)...). 
+	* The map is calculated by applying a BINARY OR operation on each effect.<BR><BR>
+	*
+	* <B><U> Example of use </U> :</B><BR><BR>
+	* <li> Server Packet : CharInfo, UserInfo...</li><BR><BR>
+	*/
+	public int getSpecialEffect()
+	{
+		return _SpecialEffects;
 	}
 
 	/**
