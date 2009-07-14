@@ -3132,12 +3132,12 @@ public abstract class L2Character extends L2Object
 	public static final int ABNORMAL_EFFECT_UNKNOWN_30		= 0x20000000;
 	public static final int ABNORMAL_EFFECT_DEATH_MARK		= 0x40000000;
 	public static final int ABNORMAL_EFFECT_UNKNOWN_32		= 0x80000000;
-	 	
+
 	// FIXME: TEMP HACKS (get the proper mask for these effects)
 	public static final int	ABNORMAL_EFFECT_CONFUSED		= 0x0020;
 	public static final int	ABNORMAL_EFFECT_AFRAID			= 0x0010;
 
-    private int _SpecialEffects; 
+    private int _SpecialEffects;
 	public static final int SPECIAL_EFFECT_INVULNERABLE		= 0x000001;
 	public static final int SPECIAL_EFFECT_RED_GLOW			= 0x000002;
 	public static final int SPECIAL_EFFECT_RED_GLOW2		= 0x000004;
