@@ -2574,7 +2574,7 @@ UPDATE `armor` SET `skills_item` = '21002-1;3267-1;23002-1;23006-1' WHERE `item_
 UPDATE `armor` SET `skills_item` = '21003-1;3267-1;23003-1' WHERE `item_id` = 20012;
 UPDATE `armor` SET `skills_item` = '21003-1;3267-1;23003-1;23007-1' WHERE `item_id` = 20013;
 UPDATE `armor` SET `skills_item` = '21003-1;3267-1;23003-1;23009-1' WHERE `item_id` = 20014;
-UPDATE `armor` SET `skills_item` = '21003-1;3267-1;23003-1:23008-1' WHERE `item_id` = 20015;
+UPDATE `armor` SET `skills_item` = '21003-1;3267-1;23003-1;23008-1' WHERE `item_id` = 20015;
 UPDATE `armor` SET `skills_item` = '21008-1;3267-1;23010-1' WHERE `item_id` = 20063;
 UPDATE `armor` SET `skills_item` = '21009-1;3267-1;23011-1' WHERE `item_id` = 20064;
 UPDATE `armor` SET `skills_item` = '21010-1;3267-1;23012-1' WHERE `item_id` = 20065;
