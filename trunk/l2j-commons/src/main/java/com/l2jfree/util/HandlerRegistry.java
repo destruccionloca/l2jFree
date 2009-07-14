@@ -86,4 +86,9 @@ public class HandlerRegistry<K, V>
 	{
 		return getClass().getSimpleName();
 	}
+	
+	public final void clear()
+	{
+		_map.clear();
+	}
 }

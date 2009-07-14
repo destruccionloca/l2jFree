@@ -495,8 +495,8 @@ public class RegionBBSManager extends BaseBBSManager
 				int cell = 0;
 				for (L2PcInstance player : onlinePlayers)
 				{
-					if (player == null || player.getAppearance().isInvisible())
-						continue; // Go to next
+					if (player == null)
+						continue;
 					
 					cell++;
 					
