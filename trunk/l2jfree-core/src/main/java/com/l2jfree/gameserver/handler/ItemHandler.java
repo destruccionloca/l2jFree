@@ -132,6 +132,20 @@ public final class ItemHandler
 			
 			_log.info("ItemHandler: Different handlers for " + etcItem.getName() + "(" + etcItem.getItemId() + ")");
 		}
+		
+		_byItemId.clear();
+		
+		for (L2Item item : ItemTable.getInstance().getAllTemplates())
+		{
+			if (!(item instanceof L2EtcItem))
+				continue;
+			
+			final L2EtcItem etcItem = (L2EtcItem)item;
+			
+			final IItemHandler handlerByHandlerName = _byHandlerName.get(etcItem.getHandlerName());
+			
+			_byItemId.register(item.getItemId(), handlerByHandlerName);
+		}
 	}
 	
 	public void registerItemHandler(IItemHandler handler)
@@ -140,7 +154,7 @@ public final class ItemHandler
 		if (itemIds != null)
 			_byItemId.registerAll(handler, handler.getItemIds());
 		
-		_byHandlerName.register(handler.getClass().getSimpleName(), handler);
+		_byHandlerName.register(handler.getClass().getSimpleName().intern(), handler);
 	}
 	
 	public boolean hasItemHandler(int itemId, L2ItemInstance item)
@@ -173,21 +187,6 @@ public final class ItemHandler
 	
 	private IItemHandler get(int itemId, L2ItemInstance item)
 	{
-		L2EtcItem etcItem = (item == null ? null : item.getEtcItem());
-		
-		if (etcItem == null)
-			etcItem = ItemTable.getInstance().getTemplate(itemId, L2EtcItem.class);
-		
-		if (etcItem != null)
-		{
-			final IItemHandler handlerByHandlerName = _byHandlerName.get(etcItem.getHandlerName());
-			
-			if (handlerByHandlerName != null)
-				return handlerByHandlerName;
-		}
-		
-		final IItemHandler handlerByItemId = _byItemId.get(itemId);
-		
-		return handlerByItemId;
+		return _byItemId.get(itemId);
 	}
 }
