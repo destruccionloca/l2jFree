@@ -39,9 +39,7 @@ public class L2WyvernManagerInstance extends L2Npc
         if (command.startsWith("RideWyvern"))
         {
             if (!isOwnerClan(player))
-            {
-                return;
-            }
+            	return;
 
             if ((SevenSigns.getInstance().getSealOwner(SevenSigns.SEAL_STRIFE) == SevenSigns.CABAL_DUSK) && SevenSigns.getInstance().isSealValidationPeriod())
             {
@@ -67,12 +65,19 @@ public class L2WyvernManagerInstance extends L2Npc
             if (petItemId == 0 || !player.isMounted() || !PetDataTable.isStrider(PetDataTable.getPetIdByItemId(petItemId)))
             {
                 player.sendPacket(SystemMessageId.YOU_MAY_ONLY_RIDE_WYVERN_WHILE_RIDING_STRIDER);
+                if (!isCastleManager())
+                	sendNotPossibleMessage(player);
+
                 return;
             }
             else if (player.isMounted() && PetDataTable.isStrider(PetDataTable.getPetIdByItemId(petItemId)) &&
                          petItem != null && petItem.getEnchantLevel() < 55)
             {
                 player.sendMessage("Your Strider has not reached the required level.");
+
+                if (!isCastleManager())
+                	sendNotPossibleMessage(player);
+
                 return;
             }
             
@@ -97,7 +102,12 @@ public class L2WyvernManagerInstance extends L2Npc
                 }
             }
             else
+            {
+                if (!isCastleManager())
+                	sendNotPossibleMessage(player);
+
                 player.sendMessage("You need " + Config.ALT_MANAGER_CRYSTAL_COUNT + " Crystals: B Grade.");
+            }
         }
     }
 
@@ -129,11 +139,21 @@ public class L2WyvernManagerInstance extends L2Npc
 
 	private void showMessageWindow(L2PcInstance player)
 	{
+		int npcId = this.getNpcId();
+		
 		player.sendPacket(ActionFailed.STATIC_PACKET);
-		String filename = "data/html/wyvernmanager/wyvernmanager-no.htm";
+		
+		String filename = "data/html/wyvernmanager/fortress-wyvernmanager-no.htm";
+		
+		if (isCastleManager())
+			filename = "data/html/wyvernmanager/castle-wyvernmanager-no.htm";
+
 		if (isOwnerClan(player))
 		{
-			filename = "data/html/wyvernmanager/wyvernmanager.htm";      // Owner message window
+			if (isCastleManager())
+				filename = "data/html/wyvernmanager/castle-wyvernmanager.htm";    // Castle Owner message window
+			else
+				filename = "data/html/wyvernmanager/fortress-wyvernmanager.htm";  // Fort Owner message window
 		}
 		NpcHtmlMessage html = new NpcHtmlMessage(1);
 		html.setFile(filename);
@@ -146,5 +166,23 @@ public class L2WyvernManagerInstance extends L2Npc
 	protected boolean isOwnerClan(L2PcInstance player)
 	{
 		return true;
+	}
+	
+	private boolean isCastleManager()
+	{
+		int npcId = this.getNpcId();
+		
+		if (npcId >= 36457 && npcId <= 36477)
+			return false;
+
+		return true;
+	}
+	
+	private void sendNotPossibleMessage(L2PcInstance player)
+	{
+    	NpcHtmlMessage html = new NpcHtmlMessage(1);
+    	html.setFile("data/html/wyvernmanager/fortress-wyvernmanager-notpossible.htm");
+    	html.replace("%count%", String.valueOf(Config.ALT_MANAGER_CRYSTAL_COUNT));
+    	player.sendPacket(html);
 	}
 }
