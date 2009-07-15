@@ -75,7 +75,6 @@ import com.l2jfree.gameserver.network.serverpackets.ShortCutRegister;
 import com.l2jfree.gameserver.network.serverpackets.SkillCoolTime;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
-import com.l2jfree.gameserver.util.FloodProtector;
 
 /**
  * Enter World Packet Handler
@@ -127,9 +126,6 @@ public class EnterWorld extends L2GameClientPacket
 		// Restore Vitality
 		if (Config.RECOVER_VITALITY_ON_RECONNECT)
 			activeChar.restoreVitality();
-
-		// Register in flood protector
-		FloodProtector.registerNewPlayer(activeChar);
 
 		if (Config.PLAYER_SPAWN_PROTECTION > 0)
 			activeChar.setProtection(true);

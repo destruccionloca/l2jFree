@@ -48,6 +48,7 @@ import com.l2jfree.util.LinkedBunch;
  * 
  * @version $Revision: 1.13.2.2.2.8 $ $Date: 2005/04/06 16:13:25 $
  */
+@SuppressWarnings("unchecked")
 public class SkillTreeTable
 {
 	public static final int									NORMAL_ENCHANT_COST_MULTIPLIER	= 1;
@@ -60,7 +61,7 @@ public class SkillTreeTable
 
 	private final static Log								_log							= LogFactory.getLog(SkillTreeTable.class.getName());
 
-	private FastMap<ClassId, Map<Integer, L2SkillLearn>>	_skillTrees;
+	private final Map<Integer, L2SkillLearn>[] _skillTrees = new Map[ClassId.values().length];
 	private FastList<L2SkillLearn>							_fishingSkillTrees;																	//all common skills (teached by Fisherman)
 	private FastList<L2SkillLearn>							_expandDwarfCraftSkillTrees;															//list of special skill for dwarf (expand dwarf craft) learned by class teacher
 	private FastList<L2PledgeSkillLearn>					_pledgeSkillTrees;																		//pledge skill list
@@ -84,7 +85,7 @@ public class SkillTreeTable
 			return 0;
 
 		// since expertise comes at same level for all classes we use paladin for now
-		Map<Integer, L2SkillLearn> learnMap = getSkillTrees().get(ClassId.paladin);
+		Map<Integer, L2SkillLearn> learnMap = getSkillTrees()[ClassId.paladin.ordinal()];
 
 		int skillHashCode = SkillTable.getSkillUID(239, grade);
 		if (learnMap.containsKey(skillHashCode))
@@ -108,7 +109,7 @@ public class SkillTreeTable
 	 */
 	public int getMinSkillLevel(int skillId, ClassId classId, int skillLvl)
 	{
-		Map<Integer, L2SkillLearn> map = getSkillTrees().get(classId);
+		Map<Integer, L2SkillLearn> map = getSkillTrees()[classId.ordinal()];
 
 		int skillHashCode = SkillTable.getSkillUID(skillId, skillLvl);
 
@@ -125,8 +126,11 @@ public class SkillTreeTable
 		int skillHashCode = SkillTable.getSkillUID(skillId, skillLvl);
 
 		// Look on all classes for this skill (takes the first one found)
-		for (Map<Integer, L2SkillLearn> map : getSkillTrees().values())
+		for (Map<Integer, L2SkillLearn> map : getSkillTrees())
 		{
+			if (map == null)
+				continue;
+			
 			// checks if the current class has this skill
 			if (map.containsKey(skillHashCode))
 			{
@@ -165,7 +169,7 @@ public class SkillTreeTable
 
 				if (parentClassId != -1)
 				{
-					Map<Integer, L2SkillLearn> parentMap = getSkillTrees().get(ClassId.values()[parentClassId]);
+					Map<Integer, L2SkillLearn> parentMap = getSkillTrees()[parentClassId];
 					map.putAll(parentMap);
 				}
 
@@ -186,7 +190,7 @@ public class SkillTreeTable
 					map.put(SkillTable.getSkillUID(id, lvl), skillLearn);
 				}
 
-				getSkillTrees().put(ClassId.values()[classId], map);
+				getSkillTrees()[classId]= map;
 				skilltree.close();
 				statement2.close();
 
@@ -392,18 +396,15 @@ public class SkillTreeTable
 		_log.info("TransformSkillTreeTable: Loaded " + count6 + " transform skills.");
 	}
 
-	private Map<ClassId, Map<Integer, L2SkillLearn>> getSkillTrees()
+	private Map<Integer, L2SkillLearn>[] getSkillTrees()
 	{
-		if (_skillTrees == null)
-			_skillTrees = new FastMap<ClassId, Map<Integer, L2SkillLearn>>();
-
 		return _skillTrees;
 	}
 
 	public L2SkillLearn[] getAvailableSkills(L2PcInstance cha, ClassId classId)
 	{
 		LinkedBunch<L2SkillLearn> result = new LinkedBunch<L2SkillLearn>();
-		Collection<L2SkillLearn> skills = getSkillTrees().get(classId).values();
+		Collection<L2SkillLearn> skills = getSkillTrees()[classId.ordinal()].values();
 
 		if (skills == null)
 		{
@@ -449,7 +450,7 @@ public class SkillTreeTable
 	{
 		Map<Integer, L2Skill> skillsToAdd = new HashMap<Integer, L2Skill>();
 
-		for (L2SkillLearn temp : getSkillTrees().get(activeChar.getClassId()).values())
+		for (L2SkillLearn temp : getSkillTrees()[activeChar.getClassId().ordinal()].values())
 		{
 			if (temp.getMinLevel() > activeChar.getLevel())
 				continue;
@@ -668,18 +669,18 @@ public class SkillTreeTable
 	 */
 	public Collection<L2SkillLearn> getAllowedSkills(ClassId classId)
 	{
-		return getSkillTrees().get(classId).values();
+		return getSkillTrees()[classId.ordinal()].values();
 	}
 
 	public Set<Integer> getAllowedSkillUIDs(ClassId classId)
 	{
-		return getSkillTrees().get(classId).keySet();
+		return getSkillTrees()[classId.ordinal()].keySet();
 	}
 
 	public int getMinLevelForNewSkill(L2PcInstance cha, ClassId classId)
 	{
 		int minLevel = 0;
-		Collection<L2SkillLearn> skills = getSkillTrees().get(classId).values();
+		Collection<L2SkillLearn> skills = getSkillTrees()[classId.ordinal()].values();
 
 		if (skills == null)
 		{
@@ -757,9 +758,9 @@ public class SkillTreeTable
 		ClassId classId = player.getSkillLearningClassId();
 		int skillHashCode = SkillTable.getSkillUID(skill);
 
-		if (getSkillTrees().get(classId).containsKey(skillHashCode))
+		if (getSkillTrees()[classId.ordinal()].containsKey(skillHashCode))
 		{
-			L2SkillLearn skillLearn = getSkillTrees().get(classId).get(skillHashCode);
+			L2SkillLearn skillLearn = getSkillTrees()[classId.ordinal()].get(skillHashCode);
 			if (skillLearn.getMinLevel() <= player.getLevel())
 			{
 				skillCost = skillLearn.getSpCost();

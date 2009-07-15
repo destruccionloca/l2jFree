@@ -19,8 +19,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javolution.util.FastMap;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -179,7 +177,7 @@ public class CharTemplateTable
 			"Inspector",
 			"Judicator"									};
 
-	private final FastMap<Integer, L2PcTemplate> _templates = new FastMap<Integer, L2PcTemplate>();
+	private final L2PcTemplate[] _templates = new L2PcTemplate[ClassId.values().length];
 
 	public static CharTemplateTable getInstance()
 	{
@@ -196,7 +194,8 @@ public class CharTemplateTable
 			PreparedStatement statement = con.prepareStatement("SELECT * FROM class_list, char_templates, lvlupgain"
 					+ " WHERE class_list.id = char_templates.classId" + " AND class_list.id = lvlupgain.classId" + " ORDER BY class_list.id");
 			ResultSet rset = statement.executeQuery();
-
+			
+			int size = 0;
 			while (rset.next())
 			{
 				StatsSet set = new StatsSet();
@@ -247,13 +246,14 @@ public class CharTemplateTable
 				set.set("fcollision_height", rset.getDouble("f_col_h"));
 				ct = new L2PcTemplate(set);
 
-				_templates.put(ct.getClassId().getId(), ct);
+				_templates[ct.getClassId().getId()] = ct;
+				size++;
 			}
 
 			rset.close();
 			statement.close();
 
-			_log.info("CharTemplateTable: Loaded " + _templates.size() + " Character Templates.");
+			_log.info("CharTemplateTable: Loaded " + size + " Character Templates.");
 		}
 		catch (SQLException e)
 		{
@@ -279,14 +279,17 @@ public class CharTemplateTable
 				{
 					if (classId == -1)
 					{
-						for (L2PcTemplate pct : _templates.values())
+						for (L2PcTemplate pct : _templates)
 						{
+							if (pct == null)
+								continue;
+							
 							pct.addItem(itemId, amount, equipped);
 						}
 					}
 					else
 					{
-						L2PcTemplate pct = _templates.get(classId);
+						L2PcTemplate pct = _templates[classId];
 						if (pct != null)
 						{
 							pct.addItem(itemId, amount, equipped);
@@ -322,7 +325,7 @@ public class CharTemplateTable
 
 	public L2PcTemplate getTemplate(int classId)
 	{
-		return _templates.get(classId);
+		return _templates[classId];
 	}
 
 	public static final String getClassNameById(int classId)

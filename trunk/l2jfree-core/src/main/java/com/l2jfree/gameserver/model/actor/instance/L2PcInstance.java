@@ -11629,9 +11629,6 @@ public final class L2PcInstance extends L2Playable
 
 		untransform();
 
-		// Remove from flood protector
-		FloodProtector.removePlayer(this);
-
 		if (getClanId() > 0)
 			getClan().broadcastToOtherOnlineMembers(new PledgeShowMemberListUpdate(this), this);
 
@@ -14675,5 +14672,12 @@ public final class L2PcInstance extends L2Playable
 	public boolean isChaotic()
 	{
 		return getKarma() > 0 || isCursedWeaponEquipped();
+	}
+	
+	private final long[] _floodProtectors = new long[FloodProtector.Protected.VALUES_LENGTH];
+	
+	public long[] getFloodProtectors()
+	{
+		return _floodProtectors;
 	}
 }

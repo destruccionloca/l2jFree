@@ -14,8 +14,6 @@
  */
 package com.l2jfree.gameserver.util;
 
-import javolution.util.FastMap;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -27,8 +25,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  */
 public final class FloodProtector
 {
-	private static final FastMap<Integer, long[]> ENTRIES = new FastMap<Integer, long[]>().setShared(true);
-	
 	public static enum Protected
 	{
 		USEITEM(400),
@@ -54,24 +50,13 @@ public final class FloodProtector
 		{
 			return _reuseDelay;
 		}
-	}
-	
-	public static void registerNewPlayer(L2PcInstance player)
-	{
-		ENTRIES.put(player.getObjectId(), new long[Protected.values().length]);
-	}
-	
-	public static void removePlayer(L2PcInstance player)
-	{
-		ENTRIES.remove(player.getObjectId());
+		
+		public static final int VALUES_LENGTH = Protected.values();
 	}
 	
 	public static boolean tryPerformAction(L2PcInstance player, Protected action)
 	{
-		long[] value = ENTRIES.get(player.getObjectId());
-		
-		if (value == null)
-			return false;
+		long[] value = player.getFloodProtectors();
 		
 		synchronized (value)
 		{
