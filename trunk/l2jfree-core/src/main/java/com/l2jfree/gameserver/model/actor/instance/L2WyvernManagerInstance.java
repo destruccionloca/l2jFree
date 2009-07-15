@@ -20,14 +20,14 @@ import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.PetDataTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.L2ItemInstance;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
-public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
+public class L2WyvernManagerInstance extends L2Npc
 {
-
     public L2WyvernManagerInstance (int objectId, L2NpcTemplate template)
     {
         super(objectId, template);
@@ -38,9 +38,8 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
     {
         if (command.startsWith("RideWyvern"))
         {
-            if (!player.isClanLeader())
+            if (!isOwnerClan(player))
             {
-                player.sendPacket(SystemMessageId.ONLY_THE_CLAN_LEADER_IS_ENABLED);
                 return;
             }
 
@@ -128,22 +127,24 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
-    private void showMessageWindow(L2PcInstance player)
-    {
-        player.sendPacket(ActionFailed.STATIC_PACKET);
-        String filename = "data/html/wyvernmanager/wyvernmanager-no.htm";
-        
-        int condition = validateCondition(player);
-        if (condition > COND_ALL_FALSE)
-        {
-            if (condition == COND_OWNER)                                     // Clan owns castle
-                filename = "data/html/wyvernmanager/wyvernmanager.htm";      // Owner message window
-        }
-        NpcHtmlMessage html = new NpcHtmlMessage(1);
-        html.setFile(filename);
-        html.replace("%objectId%", String.valueOf(getObjectId()));
-        html.replace("%npcname%", getName());
-        html.replace("%count%", String.valueOf(Config.ALT_MANAGER_CRYSTAL_COUNT));
-        player.sendPacket(html);
-    }
+	private void showMessageWindow(L2PcInstance player)
+	{
+		player.sendPacket(ActionFailed.STATIC_PACKET);
+		String filename = "data/html/wyvernmanager/wyvernmanager-no.htm";
+		if (isOwnerClan(player))
+		{
+			filename = "data/html/wyvernmanager/wyvernmanager.htm";      // Owner message window
+		}
+		NpcHtmlMessage html = new NpcHtmlMessage(1);
+		html.setFile(filename);
+		html.replace("%objectId%", String.valueOf(getObjectId()));
+		html.replace("%npcname%", getName());
+		html.replace("%count%", String.valueOf(Config.ALT_MANAGER_CRYSTAL_COUNT));
+		player.sendPacket(html);
+	}
+
+	protected boolean isOwnerClan(L2PcInstance player)
+	{
+		return true;
+	}
 }

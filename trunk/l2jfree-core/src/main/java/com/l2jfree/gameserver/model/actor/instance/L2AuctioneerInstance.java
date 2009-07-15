@@ -30,6 +30,7 @@ import com.l2jfree.gameserver.instancemanager.AuctionManager;
 import com.l2jfree.gameserver.instancemanager.ClanHallManager;
 import com.l2jfree.gameserver.instancemanager.TownManager;
 import com.l2jfree.gameserver.model.L2Clan;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.entity.Auction;
 import com.l2jfree.gameserver.model.entity.Town;
 import com.l2jfree.gameserver.model.entity.Auction.Bidder;
@@ -37,7 +38,7 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
-public final class L2AuctioneerInstance extends L2NpcInstance
+public final class L2AuctioneerInstance extends L2Npc
 {
 	private final static Log _log = LogFactory.getLog(L2AuctioneerInstance.class.getName());
 	private static final int COND_ALL_FALSE = 0;

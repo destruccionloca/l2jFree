@@ -24,6 +24,7 @@ import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.SevenSignsFestival;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Party;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -36,7 +37,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  * 
  * @author Tempy
  */
-public final class L2FestivalGuideInstance extends L2NpcInstance
+public final class L2FestivalGuideInstance extends L2Npc
 {
     protected int _festivalType;
     protected int _festivalOracle;

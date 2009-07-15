@@ -66,8 +66,11 @@ public final class RequestExEnchantSkillInfo extends L2GameClientPacket
 		if (activeChar == null)
 			return;
 
-		L2NpcInstance trainer = activeChar.getLastFolkNPC();
-		if (trainer == null || !activeChar.isInsideRadius(trainer, L2Npc.INTERACTION_DISTANCE, false, false))
+		final L2Npc trainer = activeChar.getLastFolkNPC();
+		if (!(trainer instanceof L2NpcInstance))
+			return;
+
+		if (!trainer.canInteract(activeChar) && !activeChar.isGM())
 		{
 			requestFailed(SystemMessageId.TOO_FAR_FROM_NPC);
 			return;

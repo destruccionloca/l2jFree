@@ -27,6 +27,7 @@ import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Multisell;
 import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ExHeroList;
@@ -40,7 +41,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  * 
  * @author godson
  */
-public class L2OlympiadManagerInstance extends L2NpcInstance
+public class L2OlympiadManagerInstance extends L2Npc
 {
 	private final static Log	_log		= LogFactory.getLog(L2OlympiadManagerInstance.class.getName());
 

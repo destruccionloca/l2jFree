@@ -25,7 +25,7 @@ import com.l2jfree.gameserver.Shutdown;
 import com.l2jfree.gameserver.Shutdown.DisableType;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.TradeList;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.itemcontainer.ItemContainer;
 import com.l2jfree.gameserver.model.itemcontainer.PcWarehouse;
@@ -96,7 +96,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 
 		final boolean isPrivate = warehouse instanceof PcWarehouse;
 
-		final L2NpcInstance manager = player.getLastFolkNPC();
+		final L2Npc manager = player.getLastFolkNPC();
 		
 		if (Shutdown.isActionDisabled(DisableType.TRANSACTION))
 		{

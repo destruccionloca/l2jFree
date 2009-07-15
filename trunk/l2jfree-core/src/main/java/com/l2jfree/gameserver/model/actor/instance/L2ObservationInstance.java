@@ -20,6 +20,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
@@ -29,7 +30,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  * @version $Revision: 1.3.2.2.2.5 $ $Date: 2005/03/27 15:29:32 $
  *
  */
-public final class L2ObservationInstance extends L2NpcInstance
+public final class L2ObservationInstance extends L2Npc
 {
 	@SuppressWarnings("unused")
     private final static Log _log = LogFactory.getLog(L2ObservationInstance.class.getName());

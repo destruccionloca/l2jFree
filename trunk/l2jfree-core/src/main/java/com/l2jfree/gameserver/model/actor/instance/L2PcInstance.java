@@ -627,7 +627,7 @@ public final class L2PcInstance extends L2Playable
 	protected Map<Integer, L2CubicInstance>	_cubics					= new SingletonMap<Integer, L2CubicInstance>().setShared();
 
 	/** The L2NpcInstance corresponding to the last Folk wich one the player talked. */
-	private L2NpcInstance					_lastFolkNpc			= null;
+	private L2Npc							_lastFolkNpc			= null;
 
 	private int								_clanPrivileges			= 0;
 
@@ -8890,7 +8890,7 @@ public final class L2PcInstance extends L2Playable
 	/**
 	 * Set the _lastFolkNpc of the L2PcInstance corresponding to the last Folk wich one the player talked.<BR><BR>
 	 */
-	public void setLastFolkNPC(L2NpcInstance folkNpc)
+	public void setLastFolkNPC(L2Npc folkNpc)
 	{
 		_lastFolkNpc = folkNpc;
 	}
@@ -8898,7 +8898,7 @@ public final class L2PcInstance extends L2Playable
 	/**
 	 * Return the _lastFolkNpc of the L2PcInstance corresponding to the last Folk wich one the player talked.<BR><BR>
 	 */
-	public L2NpcInstance getLastFolkNPC()
+	public L2Npc getLastFolkNPC()
 	{
 		return _lastFolkNpc;
 	}

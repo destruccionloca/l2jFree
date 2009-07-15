@@ -48,7 +48,7 @@ public final class RequestExEnchantSkillRouteChange extends L2GameClientPacket
 	private int _skillLvl;
 
 	@Override
-    protected void readImpl()
+	protected void readImpl()
 	{
 		_skillId = readD();
 		_skillLvl = readD();
@@ -57,16 +57,19 @@ public final class RequestExEnchantSkillRouteChange extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-        L2PcInstance player = getClient().getActiveChar();
-        if (player == null) return;
+		final L2PcInstance player = getClient().getActiveChar();
+		if (player == null)
+			return;
 
-        L2NpcInstance trainer = player.getLastFolkNPC();
-        if (trainer == null || !player.isInsideRadius(trainer, L2Npc.INTERACTION_DISTANCE, false, false))
+		final L2Npc trainer = player.getLastFolkNPC();
+		if (!(trainer instanceof L2NpcInstance))
+			return;
+
+		if (!trainer.canInteract(player) && !player.isGM())
         {
         	requestFailed(SystemMessageId.TOO_FAR_FROM_NPC);
             return;
         }
-
         else if (player.getLevel() < 76)
         {
         	requestFailed(SystemMessageId.YOU_DONT_MEET_SKILL_LEVEL_REQUIREMENTS);
@@ -188,7 +191,7 @@ public final class RequestExEnchantSkillRouteChange extends L2GameClientPacket
         	sm.addNumber(levelPenalty);
         	sendPacket(sm);
         }
-        trainer.showEnchantChangeSkillList(player);
+        ((L2NpcInstance)trainer).showEnchantChangeSkillList(player);
         updateSkillShortcuts(player);
 
         sendPacket(ActionFailed.STATIC_PACKET);

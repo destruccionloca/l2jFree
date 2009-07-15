@@ -60,10 +60,14 @@ public final class RequestExEnchantSkill extends L2GameClientPacket
     protected void runImpl()
     {
         L2PcInstance player = getClient().getActiveChar();
-        if (player == null) return;
+        if (player == null)
+			return;
 
-        L2NpcInstance trainer = player.getLastFolkNPC();
-        if (trainer == null || !player.isInsideRadius(trainer, L2Npc.INTERACTION_DISTANCE, false, false))
+		final L2Npc trainer = player.getLastFolkNPC();
+		if (!(trainer instanceof L2NpcInstance))
+			return;
+
+		if (!trainer.canInteract(player) && !player.isGM())
         {
         	requestFailed(SystemMessageId.TOO_FAR_FROM_NPC);
             return;
@@ -169,7 +173,7 @@ public final class RequestExEnchantSkill extends L2GameClientPacket
         	player.sendSkillList();
         	sendPacket(SystemMessageId.YOU_HAVE_FAILED_TO_ENCHANT_THE_SKILL);
         }
-        trainer.showEnchantSkillList(player, false);
+        ((L2NpcInstance)trainer).showEnchantSkillList(player, false);
         updateSkillShortcuts(player);
 
         sendPacket(ActionFailed.STATIC_PACKET);

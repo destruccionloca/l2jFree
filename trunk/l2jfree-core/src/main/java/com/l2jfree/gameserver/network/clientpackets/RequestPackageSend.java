@@ -22,7 +22,7 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.TradeList;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2WarehouseInstance;
 import com.l2jfree.gameserver.model.itemcontainer.ItemContainer;
@@ -96,7 +96,7 @@ public final class RequestPackageSend extends L2GameClientPacket
 		if (warehouse == null)
 			return;
 
-		L2NpcInstance manager = player.getLastFolkNPC();
+		L2Npc manager = player.getLastFolkNPC();
 		if ((manager == null
 				|| !(manager instanceof L2WarehouseInstance)
 				|| !manager.canInteract(player)) && !player.isGM())

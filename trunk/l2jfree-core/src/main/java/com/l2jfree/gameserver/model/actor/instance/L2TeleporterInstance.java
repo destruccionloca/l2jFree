@@ -26,6 +26,7 @@ import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.instancemanager.TownManager;
 import com.l2jfree.gameserver.model.L2TeleportLocation;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.restriction.AvailableRestriction;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 import com.l2jfree.gameserver.model.zone.L2Zone;
@@ -39,7 +40,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  * @version $Revision: 1.3.2.2.2.5 $ $Date: 2005/03/27 15:29:32 $
  *
  */
-public final class L2TeleporterInstance extends L2NpcInstance
+public final class L2TeleporterInstance extends L2Npc
 {
 	private final static Log	_log						= LogFactory.getLog(L2TeleporterInstance.class.getName());
 

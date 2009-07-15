@@ -23,6 +23,7 @@ import com.l2jfree.gameserver.instancemanager.CoupleManager;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2World;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.entity.Couple;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
@@ -32,7 +33,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 /**
  * @author evill33t & squeezed
  */
-public class L2WeddingManagerInstance extends L2NpcInstance
+public class L2WeddingManagerInstance extends L2Npc
 {
 	public L2WeddingManagerInstance(int objectId, L2NpcTemplate template)
 	{

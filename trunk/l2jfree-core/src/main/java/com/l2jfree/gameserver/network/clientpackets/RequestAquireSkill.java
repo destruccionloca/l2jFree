@@ -69,10 +69,12 @@ public class RequestAquireSkill extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		L2PcInstance player = getClient().getActiveChar();
-		if (player == null) return;
-		L2NpcInstance trainer = player.getLastFolkNPC();
-		if (trainer == null)
+		final L2PcInstance player = getClient().getActiveChar();
+		if (player == null)
+			return;
+
+		final L2Npc trainer = player.getLastFolkNPC();
+		if (!(trainer instanceof L2NpcInstance))
 		{
 			if (player.isGM())
 				player.sendMessage("Request for skill terminated, wrong Npc");
@@ -82,7 +84,7 @@ public class RequestAquireSkill extends L2GameClientPacket
 
 		//int npcid = trainer.getNpcId();
 
-		if (!player.isInsideRadius(trainer, L2Npc.INTERACTION_DISTANCE, false, false) && !player.isGM())
+		if (!trainer.canInteract(player) && !player.isGM())
 		{
 			requestFailed(SystemMessageId.TOO_FAR_FROM_NPC);
 			return;
@@ -98,7 +100,7 @@ public class RequestAquireSkill extends L2GameClientPacket
 			return;
 		}
 
-		L2Skill skill = SkillTable.getInstance().getInfo(_id, _level);
+		final L2Skill skill = SkillTable.getInstance().getInfo(_id, _level);
 
 		int counts = 0;
 		int _requiredSp = 10000000;
@@ -381,7 +383,7 @@ public class RequestAquireSkill extends L2GameClientPacket
 		else if (trainer instanceof L2TransformManagerInstance)
 			((L2TransformManagerInstance) trainer).showTransformSkillList(player);
 		else
-			trainer.showSkillList(player, player.getSkillLearningClassId());
+			((L2NpcInstance)trainer).showSkillList(player, player.getSkillLearningClassId());
 
 		if (_id >= 1368 && _id <= 1372) //if skill is expand - send packet :)
 			sendPacket(new ExStorageMaxCount(player));

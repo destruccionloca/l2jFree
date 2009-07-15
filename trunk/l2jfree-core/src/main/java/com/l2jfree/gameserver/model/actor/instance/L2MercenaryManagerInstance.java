@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.model.actor.instance;
 
 import com.l2jfree.gameserver.cache.HtmCache;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.network.serverpackets.ExShowDominionRegistry;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
@@ -23,7 +24,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  * 
  * @author GodKratos
  */
-public class L2MercenaryManagerInstance extends L2NpcInstance
+public class L2MercenaryManagerInstance extends L2Npc
 {
 	/**
 	 * @param objectId

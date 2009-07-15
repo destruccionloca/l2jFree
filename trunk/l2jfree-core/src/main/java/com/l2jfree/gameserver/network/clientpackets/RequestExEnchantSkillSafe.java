@@ -57,11 +57,15 @@ public final class RequestExEnchantSkillSafe extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-        L2PcInstance player = getClient().getActiveChar();
-        if (player == null) return;
-        
-        L2NpcInstance trainer = player.getLastFolkNPC();
-        if (trainer == null || !player.isInsideRadius(trainer, L2Npc.INTERACTION_DISTANCE, false, false))
+		final L2PcInstance player = getClient().getActiveChar();
+		if (player == null)
+			return;
+
+		final L2Npc trainer = player.getLastFolkNPC();
+		if (!(trainer instanceof L2NpcInstance))
+			return;
+
+		if (!trainer.canInteract(player) && !player.isGM())
         {
         	requestFailed(SystemMessageId.TOO_FAR_FROM_NPC);
             return;
@@ -171,7 +175,7 @@ public final class RequestExEnchantSkillSafe extends L2GameClientPacket
         	sm.addSkillName(_skillId);
         	sendPacket(sm);
         }
-        trainer.showEnchantSkillList(player, true); // list of safe enchants
+        ((L2NpcInstance)trainer).showEnchantSkillList(player, true); // list of safe enchants
 
         sendPacket(ActionFailed.STATIC_PACKET);
 	}

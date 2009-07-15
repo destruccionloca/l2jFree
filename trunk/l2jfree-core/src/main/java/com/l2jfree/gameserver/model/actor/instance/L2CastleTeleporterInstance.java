@@ -21,6 +21,7 @@ import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.instancemanager.MapRegionManager;
 import com.l2jfree.gameserver.model.L2World;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.mapregion.L2MapRegion;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -32,7 +33,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  *
  */
 
-public final class L2CastleTeleporterInstance extends L2NpcInstance
+public final class L2CastleTeleporterInstance extends L2Npc
 {
 	private boolean	_currentTask	= false;
 

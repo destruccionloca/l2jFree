@@ -59,8 +59,11 @@ public final class RequestExEnchantSkillUntrain extends L2GameClientPacket
 		if (player == null)
 			return;
 		
-		L2NpcInstance trainer = player.getLastFolkNPC();
-		if (trainer == null || !player.isInsideRadius(trainer, L2Npc.INTERACTION_DISTANCE, false, false))
+		L2Npc trainer = player.getLastFolkNPC();
+		if (!(trainer instanceof L2NpcInstance))
+			return;
+
+		if (!trainer.canInteract(player) && !player.isGM())
 		{
 			requestFailed(SystemMessageId.TOO_FAR_FROM_NPC);
 			return;
@@ -162,7 +165,7 @@ public final class RequestExEnchantSkillUntrain extends L2GameClientPacket
 			sendPacket(sm);
 		}
 
-		trainer.showEnchantUntrainSkillList(player, player.getClassId());
+		((L2NpcInstance)trainer).showEnchantUntrainSkillList(player, player.getClassId());
 		updateSkillShortcuts(player);
 
 		sendPacket(ActionFailed.STATIC_PACKET);

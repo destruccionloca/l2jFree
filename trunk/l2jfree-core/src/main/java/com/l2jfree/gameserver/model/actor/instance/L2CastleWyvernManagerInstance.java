@@ -16,25 +16,21 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
-/**
- * @author Psychokiller1888
- */
-
-public class L2FortWyvernManagerInstance extends L2WyvernManagerInstance
+public class L2CastleWyvernManagerInstance extends L2WyvernManagerInstance
 {
-    public L2FortWyvernManagerInstance (int objectId, L2NpcTemplate template)
-    {
-        super(objectId, template);
-    }
+	public L2CastleWyvernManagerInstance (int objectId, L2NpcTemplate template)
+	{
+		super(objectId, template);
+	}
 
 	@Override
 	protected boolean isOwnerClan(L2PcInstance player)
 	{
 		if (player.isGM())
 			return true;
-		if (player.getClan() != null && getFort() != null && getFort().getOwnerClan() != null)
+		if (player.getClan() != null && getCastle() != null)
 		{
-			if (player.getClanId() == getFort().getOwnerClan().getClanId() && player.isClanLeader())
+			if (player.getClanId() == getCastle().getOwnerId() && player.isClanLeader())
 				return true;
 		}
 		return false;
