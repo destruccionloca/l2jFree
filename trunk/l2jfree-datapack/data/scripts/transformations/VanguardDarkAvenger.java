@@ -29,8 +29,8 @@ public class VanguardDarkAvenger extends L2DefaultTransformation
 	@Override
 	public void onTransform(L2PcInstance player)
 	{
-		//if (player.getTransformationId() != getId() || player.isCursedWeaponEquipped())
-		//	return;
+		if (player.getTransformationId() != getId() || player.isCursedWeaponEquipped())
+			return;
 		
 		// Update transformation ID into database and player instance variables.
 		player.transformInsertInfo();
