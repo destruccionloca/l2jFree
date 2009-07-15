@@ -15,7 +15,9 @@
 package com.l2jfree.util;
 
 import java.lang.reflect.Array;
+import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import javolution.util.FastList;
@@ -23,6 +25,7 @@ import javolution.util.FastList;
 /**
  * @author NB4L1
  */
+@SuppressWarnings("unchecked")
 public final class L2Arrays
 {
 	private L2Arrays()
@@ -54,7 +57,6 @@ public final class L2Arrays
 	 * @return an array without null elements - can be the same, if the original contains no null elements
 	 * @throws NullPointerException if array is null
 	 */
-	@SuppressWarnings("unchecked")
 	public static <T> T[] compact(T[] array)
 	{
 		final int newSize = countNotNull(array);
@@ -108,5 +110,79 @@ public final class L2Arrays
 				result.add(t);
 		
 		return result;
+	}
+	
+	public static <T> Iterator<T> iterator(Object[] array)
+	{
+		return new NullFreeArrayIterator<T>(array);
+	}
+	
+	public static <T> Iterator<T> iterator(Object[] array, boolean allowNull)
+	{
+		if (allowNull)
+			return new ArrayIterator<T>(array);
+		else
+			return new NullFreeArrayIterator<T>(array);
+	}
+	
+	private static class ArrayIterator<T> implements Iterator<T>
+	{
+		private final Object[] _array;
+		
+		private int _index;
+		
+		private ArrayIterator(Object[] array)
+		{
+			_array = array;
+		}
+		
+		boolean allowElement(Object obj)
+		{
+			return true;
+		}
+		
+		@Override
+		public final boolean hasNext()
+		{
+			for (;;)
+			{
+				if (_array.length <= _index)
+					return false;
+				
+				if (allowElement(_array[_index]))
+					return true;
+				
+				_index++;
+			}
+		}
+		
+		@Override
+		public final T next()
+		{
+			if (!hasNext())
+				throw new NoSuchElementException();
+			
+			return (T)_array[_index++];
+		}
+		
+		@Override
+		public final void remove()
+		{
+			throw new UnsupportedOperationException();
+		}
+	}
+	
+	private static final class NullFreeArrayIterator<T> extends ArrayIterator<T>
+	{
+		private NullFreeArrayIterator(Object[] array)
+		{
+			super(array);
+		}
+		
+		@Override
+		boolean allowElement(Object obj)
+		{
+			return obj != null;
+		}
 	}
 }

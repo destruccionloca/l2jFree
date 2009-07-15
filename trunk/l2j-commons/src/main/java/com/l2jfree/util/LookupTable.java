@@ -14,8 +14,8 @@
  */
 package com.l2jfree.util;
 
+import java.util.Arrays;
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 /**
  * @author NB4L1
@@ -28,6 +28,24 @@ public class LookupTable<T> implements Iterable<T>
 	private Object[] _array = EMPTY_ARRAY;
 	
 	private int _offset = 0;
+	
+	private int _size = 0;
+	
+	public int size()
+	{
+		return _size;
+	}
+	
+	public void clear(boolean force)
+	{
+		if (force)
+			_array = EMPTY_ARRAY;
+		else
+			Arrays.fill(_array, null);
+		
+		_offset = 0;
+		_size = 0;
+	}
 	
 	/**
 	 * @param key
@@ -59,8 +77,22 @@ public class LookupTable<T> implements Iterable<T>
 			
 			if (oldValue != null && oldValue != newValue)
 				replacedValue(key, oldValue, newValue);
+			
+			if (oldValue == null)
+			{
+				if (newValue != null)
+					_size++;
+			}
+			else
+			{
+				if (newValue == null)
+					_size--;
+			}
+			
 			return;
 		}
+		
+		_size++;
 		
 		if (_array.length == 0)
 		{
@@ -101,47 +133,6 @@ public class LookupTable<T> implements Iterable<T>
 	@Override
 	public Iterator<T> iterator()
 	{
-		return new Itr<T>(_array);
-	}
-	
-	private static final class Itr<T> implements Iterator<T>
-	{
-		private final Object[] _array;
-		private int _index;
-		
-		private Itr(Object[] array)
-		{
-			_array = array;
-		}
-		
-		@Override
-		public boolean hasNext()
-		{
-			for (;;)
-			{
-				if (_array.length <= _index)
-					return false;
-				
-				if (_array[_index] != null)
-					return true;
-				
-				_index++;
-			}
-		}
-		
-		@Override
-		public T next()
-		{
-			if (!hasNext())
-				throw new NoSuchElementException();
-			
-			return (T)_array[_index++];
-		}
-		
-		@Override
-		public void remove()
-		{
-			throw new UnsupportedOperationException();
-		}
+		return L2Arrays.iterator(_array, false);
 	}
 }
