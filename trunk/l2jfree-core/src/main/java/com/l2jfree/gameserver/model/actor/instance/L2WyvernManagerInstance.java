@@ -139,8 +139,6 @@ public class L2WyvernManagerInstance extends L2Npc
 
 	private void showMessageWindow(L2PcInstance player)
 	{
-		int npcId = this.getNpcId();
-		
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 		
 		String filename = "data/html/wyvernmanager/fortress-wyvernmanager-no.htm";
@@ -170,7 +168,7 @@ public class L2WyvernManagerInstance extends L2Npc
 	
 	private boolean isCastleManager()
 	{
-		int npcId = this.getNpcId();
+		int npcId = getNpcId();
 		
 		if (npcId >= 36457 && npcId <= 36477)
 			return false;

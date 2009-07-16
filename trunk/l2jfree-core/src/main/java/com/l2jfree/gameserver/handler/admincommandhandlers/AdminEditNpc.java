@@ -984,10 +984,10 @@ public class AdminEditNpc implements IAdminCommandHandler
 	}
 
 	/**
-	 * @param itemID  
-	 * @param price  
-	 * @param tradeListID  
-	 * @param order  
+	 * @param itemID
+	 * @param price
+	 * @param tradeListID
+	 * @param order
 	 */
 	private void updateTradeList(int itemID, long price, int tradeListID, int order)
 	{
@@ -1081,10 +1081,10 @@ public class AdminEditNpc implements IAdminCommandHandler
 	}
 
 	/**
-	 * @param itemID  
-	 * @param price  
-	 * @param tradeListID  
-	 * @param order  
+	 * @param itemID
+	 * @param price
+	 * @param tradeListID
+	 * @param order
 	 */
 	private void updateCustomTradeList(int itemID, long price, int tradeListID, int order)
 	{
@@ -2064,11 +2064,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			L2NpcTemplate npcData = NpcTable.getInstance().getTemplate(npcId);
 
-			L2Skill skillData = null;
-			if (npcData.getSkills() != null)
-			{
-				npcData.getSkills().clear();
-			}
+			npcData.clearSkills();
 
 			// with out race
 			String _sql = "SELECT npcid, skillid, level FROM npcskills WHERE npcid=? AND (skillid NOT BETWEEN 4290 AND 4302)";
@@ -2082,7 +2078,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 			{
 				int idval = skillDataList.getInt("skillid");
 				int levelval = skillDataList.getInt("level");
-				skillData = SkillTable.getInstance().getInfo(idval, levelval);
+				L2Skill skillData = SkillTable.getInstance().getInfo(idval, levelval);
 				if (skillData != null)
 				{
 					npcData.addSkill(skillData);

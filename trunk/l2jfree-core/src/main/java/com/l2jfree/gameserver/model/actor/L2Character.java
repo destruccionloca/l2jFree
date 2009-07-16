@@ -3160,7 +3160,7 @@ public abstract class L2Character extends L2Object
 	}
 
 	/**
-     * Active special effects flags in the binary mask and send Server->Client UserInfo/CharInfo packet.<BR><BR> 
+     * Active special effects flags in the binary mask and send Server->Client UserInfo/CharInfo packet.<BR><BR>
      */
 	public final void startSpecialEffect(int mask)
 	{
@@ -3396,13 +3396,13 @@ public abstract class L2Character extends L2Object
 			updateAbnormalEffect();
 	}
 
-	/** 
-	* Modify the special effect map according to the mask.<BR><BR> 
-	*/ 
-	public final void stopSpecialEffect(int mask) 
-	{ 
+	/**
+	* Modify the special effect map according to the mask.<BR><BR>
+	*/
+	public final void stopSpecialEffect(int mask)
+	{
 		if (_SpecialEffects != (_SpecialEffects &= ~mask))
-		updateAbnormalEffect(); 
+		updateAbnormalEffect();
 	}
 
 	/**
@@ -3758,7 +3758,7 @@ public abstract class L2Character extends L2Object
 	* Return a map of 32 bits (0x00000000) containing all special effect in progress for this L2Character.<BR><BR>
 	*
 	* <B><U> Concept</U> :</B><BR><BR>
-	* In Server->Client packet, each effect is represented by 1 bit of the map (ex : INVULNERABLE = 0x0001 (bit 1), PINK_AFFRO = 0x0020 (bit 6)...). 
+	* In Server->Client packet, each effect is represented by 1 bit of the map (ex : INVULNERABLE = 0x0001 (bit 1), PINK_AFFRO = 0x0020 (bit 6)...).
 	* The map is calculated by applying a BINARY OR operation on each effect.<BR><BR>
 	*
 	* <B><U> Example of use </U> :</B><BR><BR>
@@ -5764,10 +5764,14 @@ public abstract class L2Character extends L2Object
 	 *            The L2Skill to add to the L2Character
 	 * @return The L2Skill replaced or null if just added a new L2Skill
 	 */
-	public final L2Skill addSkill(L2Skill newSkill)
+	@Deprecated
+	public L2Skill addSkill(L2Skill newSkill)
 	{
 		if (newSkill == null)
 			return null;
+		
+		if (!(_skills instanceof FastMap)) // map returned by L2NpcTemplate.getSkills()
+			_skills = new FastMap<Integer, L2Skill>(_skills).setShared(true);
 		
 		// Replace oldSkill by newSkill or Add the newSkill
 		final L2Skill oldSkill = _skills.put(newSkill.getId(), newSkill);
@@ -5779,16 +5783,6 @@ public abstract class L2Character extends L2Object
 		skillAdded(newSkill);
 		
 		return oldSkill;
-	}
-	
-	public final L2Skill addSkill(int skillId, int skillLvl)
-	{
-		return addSkill(SkillTable.getInstance().getInfo(skillId, skillLvl));
-	}
-	
-	public final L2Skill addSkill(int skillId)
-	{
-		return addSkill(skillId, 1);
 	}
 	
 	/**
@@ -5814,14 +5808,10 @@ public abstract class L2Character extends L2Object
 	 *            The L2Skill to remove from the L2Character
 	 * @return The L2Skill removed
 	 */
-	public final L2Skill removeSkill(int skillId)
-	{
-		return removeSkill(getKnownSkill(skillId));
-	}
-	
+	@Deprecated
 	public L2Skill removeSkill(L2Skill skill)
 	{
-		if (skill == null)
+		if (skill == null || _skills == null)
 			return null;
 		
 		// Remove the skill from the L2Character _skills
@@ -6971,20 +6961,6 @@ public abstract class L2Character extends L2Object
 	public boolean isChampion()
 	{
 		return false;
-	}
-
-	protected void refreshSkills()
-	{
-		_calculators = NPC_STD_CALCULATOR;
-		_stat = new CharStat(this);
-		
-		_skills = ((L2NpcTemplate)_template).getSkills();
-		
-		if (_skills != null)
-			for (L2Skill skill : _skills.values())
-				skillAdded(skill);
-		
-		getStatus().setCurrentHpMp(getMaxHp(), getMaxMp());
 	}
 
 	/**

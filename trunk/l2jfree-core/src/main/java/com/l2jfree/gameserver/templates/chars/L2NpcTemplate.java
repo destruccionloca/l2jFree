@@ -302,11 +302,17 @@ public final class L2NpcTemplate extends L2CharTemplate
 	public void addSkill(L2Skill skill)
 	{
 		if (_skills == null)
-			_skills = new FastMap<Integer, L2Skill>();
+			_skills = new FastMap<Integer, L2Skill>().setShared(true);
 		
 		_skills.put(skill.getId(), skill);
 	}
-
+	
+	public void clearSkills()
+	{
+		if (_skills != null)
+			_skills.clear();
+	}
+	
 	public void addVulnerability(Stats id, double vuln)
 	{
 		if (vuln == 1)

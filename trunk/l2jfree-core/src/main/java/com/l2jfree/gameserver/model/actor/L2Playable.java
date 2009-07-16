@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.model.actor;
 
 import com.l2jfree.gameserver.ai.L2CharacterAI;
+import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -487,5 +488,29 @@ public abstract class L2Playable extends L2Character
 		}
 		
 		setIsOverloaded(newWeightPenalty == WEIGHT_PENALTY_MAX);
+	}
+	
+	public final L2Skill addSkill(int skillId, int skillLvl)
+	{
+		return addSkill(SkillTable.getInstance().getInfo(skillId, skillLvl));
+	}
+	
+	@Override
+	@SuppressWarnings("deprecation")
+	public final L2Skill addSkill(L2Skill newSkill)
+	{
+		return super.addSkill(newSkill);
+	}
+	
+	public final L2Skill removeSkill(int skillId)
+	{
+		return removeSkill(getKnownSkill(skillId));
+	}
+	
+	@Override
+	@SuppressWarnings("deprecation")
+	public L2Skill removeSkill(L2Skill skill)
+	{
+		return super.removeSkill(skill);
 	}
 }
