@@ -25,6 +25,7 @@ import java.util.Set;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -537,20 +538,20 @@ public final class NpcTable
 			if (old != null && old.getSkills() != null)
 				skills.putAll(old.getSkills());
 
-			FastList<L2DropCategory> categories = new FastList<L2DropCategory>();
+			L2DropCategory[] categories = new L2DropCategory[0];
 
 			if (old != null && old.getDropData() != null)
-				categories.addAll(old.getDropData());
+				categories = (L2DropCategory[])ArrayUtils.addAll(categories, old.getDropData());
 
 			FastList<ClassId> classIds = new FastList<ClassId>();
 
 			if (old != null && old.getTeachInfo() != null)
 				classIds.addAll(old.getTeachInfo());
 
-			FastList<L2MinionData> minions = new FastList<L2MinionData>();
+			L2MinionData[] minions = new L2MinionData[0];
 
 			if (old != null && old.getMinionData() != null)
-				minions.addAll(old.getMinionData());
+				minions = (L2MinionData[])ArrayUtils.addAll(minions, old.getMinionData());
 
 			// reload the NPC base data
 			con = L2DatabaseFactory.getInstance().getConnection();

@@ -23,11 +23,13 @@ import com.l2jfree.util.LookupTable;
  */
 public class SynchronizedLookupTable<T> extends LookupTable<T>
 {
+	@Override
 	public synchronized int size()
 	{
 		return super.size();
 	}
 	
+	@Override
 	public synchronized void clear(boolean force)
 	{
 		super.clear(force);

@@ -1388,7 +1388,7 @@ public final class Formulas
 		damage = attacker.calcStat(Stats.CRITICAL_DAMAGE, (damage + power), target, skill);
 		damage *= calcElemental(attacker, target, skill);
 		damage += attacker.calcStat(Stats.CRITICAL_DAMAGE_ADD, 0, target, skill) * 6.5;
-		damage *= target.calcStat(Stats.CRIT_VULN, target.getTemplate().baseCritVuln, target, skill);
+		damage *= target.calcStat(Stats.CRIT_VULN, target.getTemplate().getBaseCritVuln(), target, skill);
 
 		// get the natural vulnerability for the template
 		if (target instanceof L2Npc)
@@ -1492,7 +1492,7 @@ public final class Formulas
 		if (crit)
 		{
 			//Finally retail like formula
-			damage *= 2 * attacker.calcStat(Stats.CRITICAL_DAMAGE, 1, target, skill) * target.calcStat(Stats.CRIT_VULN, target.getTemplate().baseCritVuln, target, skill);
+			damage *= 2 * attacker.calcStat(Stats.CRITICAL_DAMAGE, 1, target, skill) * target.calcStat(Stats.CRIT_VULN, target.getTemplate().getBaseCritVuln(), target, skill);
 			//Crit dmg add is almost useless in normal hits...
 			damage += attacker.calcStat(Stats.CRITICAL_DAMAGE_ADD, 0, target, skill);
 		}

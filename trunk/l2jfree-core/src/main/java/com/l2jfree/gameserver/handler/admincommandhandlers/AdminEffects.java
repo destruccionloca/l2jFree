@@ -495,7 +495,7 @@ public class AdminEffects implements IAdminCommandHandler
 						if (player != null)
 						{
 							if (performSpecial(special, player))
-								activeChar.sendMessage(player.getName() + "'s special status was affected by your request."); 
+								activeChar.sendMessage(player.getName() + "'s special status was affected by your request.");
 							else
 								activeChar.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
 						}
@@ -516,29 +516,29 @@ public class AdminEffects implements IAdminCommandHandler
 						}
 					}
 				}
-				else if (st.countTokens() == 1) 
-				{ 
-					int special = Integer.decode("0x" + st.nextToken()); 
-					if (obj == null) 
-						obj = activeChar; 
-					if (obj != null) 
-					{ 
-						if (performSpecial(special, obj)) 
-							activeChar.sendMessage(obj.getName() + "'s special status was affected by your request."); 
-						else 
-							activeChar.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED)); 
-					} 
-					else 
-						activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET)); 
-				} 
-				else if (!command.contains("menu")) 
-					activeChar.sendMessage("Usage: //special <special_mask> [player_name|radius]"); 
-			} 
-			catch (Exception e) 
-			{ 
-				e.printStackTrace(); 
-			} 
-		} 
+				else if (st.countTokens() == 1)
+				{
+					int special = Integer.decode("0x" + st.nextToken());
+					if (obj == null)
+						obj = activeChar;
+					//if (obj != null)
+					//{
+						if (performSpecial(special, obj))
+							activeChar.sendMessage(obj.getName() + "'s special status was affected by your request.");
+						else
+							activeChar.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
+					//}
+					//else
+					//	activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+				}
+				else if (!command.contains("menu"))
+					activeChar.sendMessage("Usage: //special <special_mask> [player_name|radius]");
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
 		else if (command.startsWith("admin_effect"))
 		{
 			try
@@ -652,19 +652,19 @@ public class AdminEffects implements IAdminCommandHandler
 		return false;
 	}
 
-	private boolean performSpecial(int action, L2Object target) 
-	{ 
-		if (target instanceof L2PcInstance) 
-		{ 
-			L2Character character = (L2Character) target; 
-			if ((character.getSpecialEffect() & action) == action) 
-				character.stopSpecialEffect(action); 
-			else 
-				character.startSpecialEffect(action); 
-			return true; 
-		} 
-		else 
-			return false; 
+	private boolean performSpecial(int action, L2Object target)
+	{
+		if (target instanceof L2PcInstance)
+		{
+			L2Character character = (L2Character) target;
+			if ((character.getSpecialEffect() & action) == action)
+				character.stopSpecialEffect(action);
+			else
+				character.startSpecialEffect(action);
+			return true;
+		}
+		else
+			return false;
 	}
 
 	private boolean performSocial(int action, L2Object target, L2PcInstance activeChar)

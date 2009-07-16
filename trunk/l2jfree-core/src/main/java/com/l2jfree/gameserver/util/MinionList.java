@@ -168,7 +168,7 @@ public class MinionList
 	{
 		if (master == null || master.isAlikeDead())
 			return;
-		List<L2MinionData> minions = master.getTemplate().getMinionData();
+		L2MinionData[] minions = master.getTemplate().getMinionData();
 		if (minions == null)
 			return;
 
@@ -229,13 +229,13 @@ public class MinionList
 		int randSpawnLim = 170;
 		int randPlusMin = 1;
 		spawnConstant = Rnd.nextInt(randSpawnLim);
-		//randomize +/-  
+		//randomize +/-
 		randPlusMin = Rnd.nextInt(2);
 		if (randPlusMin == 1)
 			spawnConstant *= -1;
 		int newX = master.getX() + Math.round(spawnConstant);
 		spawnConstant = Rnd.nextInt(randSpawnLim);
-		//randomize +/-  
+		//randomize +/-
 		randPlusMin = Rnd.nextInt(2);
 		if (randPlusMin == 1)
 			spawnConstant *= -1;

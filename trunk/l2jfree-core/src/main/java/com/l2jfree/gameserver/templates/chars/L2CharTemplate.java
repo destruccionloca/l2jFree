@@ -22,7 +22,7 @@ import com.l2jfree.gameserver.templates.StatsSet;
  * <br/>
  * <br/>
  * <font color="red">
- * <b>Property don't change in the time, this is just a template, not the currents status 
+ * <b>Property don't change in the time, this is just a template, not the currents status
  * of characters !</b>
  * </font>
  */
@@ -76,23 +76,23 @@ public class L2CharTemplate
 	private int		baseHoly;
 	private int		baseDark;
 
-	public double	baseAggressionVuln;
-	public double	baseBleedVuln;
-	public double	basePoisonVuln;
-	public double	baseStunVuln;
-	public double	baseRootVuln;
-	public double	baseMovementVuln;
-	public double	baseConfusionVuln;
-	public double	baseSleepVuln;
-	public double 	baseFireRes;
-	public double 	baseWindRes;
-	public double 	baseWaterRes;
-	public double 	baseEarthRes;
-	public double 	baseHolyRes;
-	public double 	baseDarkRes;
-	public double	baseCritVuln;
+	private double	baseAggressionVuln;
+	private double	baseBleedVuln;
+	private double	basePoisonVuln;
+	private double	baseStunVuln;
+	private double	baseRootVuln;
+	private double	baseMovementVuln;
+	private double	baseConfusionVuln;
+	private double	baseSleepVuln;
+	private double	baseFireRes;
+	private double	baseWindRes;
+	private double	baseWaterRes;
+	private double	baseEarthRes;
+	private double	baseHolyRes;
+	private double	baseDarkRes;
+	private double	baseCritVuln;
 
-	public double	baseCancelVuln;
+	private double	baseCancelVuln;
 
 	private boolean	isUndead;
 
@@ -108,7 +108,7 @@ public class L2CharTemplate
 	 * Empty constructor (we have to use setter to initialize the object).
 	 * 
 	 * Be carefull, setter don't do the same verification that instantiation with statset {@link #L2CharTemplate(StatsSet)}
-	 * Don't use it ! 
+	 * Don't use it !
 	 * This constructor is designed for hibernate
 	 */
 	public L2CharTemplate()
@@ -1156,5 +1156,25 @@ public class L2CharTemplate
 	public void setUndead(boolean _isUndead)
 	{
 		isUndead = _isUndead;
+	}
+
+	public double getBaseCritVuln()
+	{
+		return baseCritVuln;
+	}
+
+	public void setBaseCritVuln(double baseCritVuln)
+	{
+		this.baseCritVuln = baseCritVuln;
+	}
+
+	public double getBaseCancelVuln()
+	{
+		return baseCancelVuln;
+	}
+
+	public void setBaseCancelVuln(double baseCancelVuln)
+	{
+		this.baseCancelVuln = baseCancelVuln;
 	}
 }

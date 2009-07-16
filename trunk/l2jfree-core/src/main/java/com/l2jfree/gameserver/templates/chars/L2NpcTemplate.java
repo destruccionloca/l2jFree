@@ -14,12 +14,15 @@
  */
 package com.l2jfree.gameserver.templates.chars;
 
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -96,13 +99,13 @@ public final class L2NpcTemplate extends L2CharTemplate
 	private Race								_race;
 
 	/** The table containing all Item that can be dropped by L2NpcInstance using this L2NpcTemplate*/
-	private List<L2DropCategory>				_categories	= null;
+	private L2DropCategory[]					_categories;
 
 	/** The table containing all Minions that must be spawn with the L2NpcInstance using this L2NpcTemplate*/
-	private List<L2MinionData>					_minions	= null;
+	private L2MinionData[]						_minions;
 
 	/** The list of class that this NpcTemplate can Teach */
-	private List<ClassId>						_teachInfo;
+	private EnumSet<ClassId>					_teachInfo;
 
 	/** List of skills of this npc */
 	private FastMap<Integer, L2Skill> _skills;
@@ -111,7 +114,7 @@ public final class L2NpcTemplate extends L2CharTemplate
 	private Map<Stats, Double>					_vulnerabilities;
 
 	/** contains a list of quests for each event type (questStart, questAttack, questKill, etc)*/
-	private Map<Quest.QuestEventType, Quest[]>	_questEvents;
+	private Quest[][] _questEvents;
 
 	public static enum AbsorbCrystalType
 	{
@@ -164,13 +167,13 @@ public final class L2NpcTemplate extends L2CharTemplate
 		super(set);
 		_npcId = set.getInteger("npcId");
 		_idTemplate = set.getInteger("idTemplate");
-		_type = set.getString("type");
-		_name = set.getString("name");
+		_type = set.getString("type").intern();
+		_name = set.getString("name").intern();
 		_serverSideName = set.getBool("serverSideName");
-		_title = set.getString("title");
-        _isQuestMonster = _title.equalsIgnoreCase("Quest Monster");
+		_title = set.getString("title").intern();
+		_isQuestMonster = _title.equalsIgnoreCase("Quest Monster");
 		_serverSideTitle = set.getBool("serverSideTitle");
-		_sex = set.getString("sex");
+		_sex = set.getString("sex").intern();
 		_level = set.getByte("level");
 		_rewardExp = set.getInteger("rewardExp");
 		_rewardSp = set.getInteger("rewardSp");
@@ -178,19 +181,19 @@ public final class L2NpcTemplate extends L2CharTemplate
 		_rhand = set.getInteger("rhand");
 		_lhand = set.getInteger("lhand");
 		_armor = set.getInteger("armor");
-		setFactionId(set.getString("factionId", null));
+		_factionId = set.getString("factionId").intern();
 		_factionRange = set.getInteger("factionRange");
-		_absorbLevel = set.getInteger("absorb_level", 0);
+		_absorbLevel = set.getInteger("absorb_level");
 		_absorbType = AbsorbCrystalType.valueOf(set.getString("absorb_type"));
-		_ss = (short) set.getInteger("ss", 0);
-		_bss = (short) set.getInteger("bss", 0);
-		_ssRate = (short) set.getInteger("ssRate", 0);
+		_ss = set.getShort("ss");
+		_bss = set.getShort("bss");
+		_ssRate = set.getShort("ssRate");
 		_npcFaction = set.getInteger("NPCFaction", 0);
-		_npcFactionName = set.getString("NPCFactionName", "Devine Clan");
-		_jClass = set.getString("jClass");
-		_dropHerbs = set.getBool("drop_herbs", false);
-
-		String ai = set.getString("AI", "fighter");
+		_npcFactionName = set.getString("NPCFactionName", "Devine Clan").intern();
+		_jClass = set.getString("jClass").intern();
+		_dropHerbs = set.getBool("drop_herbs");
+		
+		String ai = set.getString("AI");
 		if (ai.equalsIgnoreCase("archer"))
 			_ai = AIType.ARCHER;
 		else if (ai.equalsIgnoreCase("balanced"))
@@ -201,17 +204,17 @@ public final class L2NpcTemplate extends L2CharTemplate
 			_ai = AIType.HEALER;
 		else
 			_ai = AIType.FIGHTER;
-
+		
 		_race = null;
 		_teachInfo = null;
 		
 		// all NPCs has 20 resistance to all attributes
-		baseFireRes += 20;
-		baseWindRes += 20;
-		baseWaterRes += 20;
-		baseEarthRes += 20;
-		baseHolyRes += 20;
-		baseDarkRes += 20;
+		setBaseFireRes(getBaseFireRes() + 20);
+		setBaseWindRes(getBaseWindRes() + 20);
+		setBaseWaterRes(getBaseWaterRes() + 20);
+		setBaseEarthRes(getBaseEarthRes() + 20);
+		setBaseHolyRes(getBaseHolyRes() + 20);
+		setBaseDarkRes(getBaseDarkRes() + 20);
 	}
 
 	/**
@@ -221,14 +224,14 @@ public final class L2NpcTemplate extends L2CharTemplate
 	public void addTeachInfo(ClassId classId)
 	{
 		if (_teachInfo == null)
-			_teachInfo = new FastList<ClassId>();
+			_teachInfo = EnumSet.noneOf(ClassId.class);
 		_teachInfo.add(classId);
 	}
 
 	/**
 	 * @return the teach infos
 	 */
-	public List<ClassId> getTeachInfo()
+	public Set<ClassId> getTeachInfo()
 	{
 		return _teachInfo;
 	}
@@ -247,7 +250,7 @@ public final class L2NpcTemplate extends L2CharTemplate
 		// information for its parent class.
 		if (classId.level() == 3)
 			return _teachInfo.contains(classId.getParent());
-
+		
 		return _teachInfo.contains(classId);
 	}
 
@@ -256,7 +259,7 @@ public final class L2NpcTemplate extends L2CharTemplate
 	 * @param drop
 	 * @param categoryType
 	 */
-	public void addDropData(L2DropData drop, int categoryType)
+	public synchronized void addDropData(L2DropData drop, int categoryType)
 	{
 		if (drop.isQuestDrop())
 		{
@@ -268,7 +271,7 @@ public final class L2NpcTemplate extends L2CharTemplate
 		{
 			// if the category doesn't already exist, create it first
 			if (_categories == null)
-				_categories = new FastList<L2DropCategory>();
+				_categories = new L2DropCategory[0];
 			synchronized (_categories)
 			{
 				boolean catExists = false;
@@ -285,7 +288,7 @@ public final class L2NpcTemplate extends L2CharTemplate
 				{
 					L2DropCategory cat = new L2DropCategory(categoryType);
 					cat.addDropData(drop);
-					_categories.add(cat);
+					_categories = (L2DropCategory[])ArrayUtils.add(_categories, cat);
 				}
 			}
 		}
@@ -293,9 +296,7 @@ public final class L2NpcTemplate extends L2CharTemplate
 
 	public void addRaidData(L2MinionData minion)
 	{
-		if (_minions == null)
-			_minions = new FastList<L2MinionData>();
-		_minions.add(minion);
+		_minions = (L2MinionData[])ArrayUtils.add(_minions, minion);
 	}
 
 	public void addSkill(L2Skill skill)
@@ -308,6 +309,13 @@ public final class L2NpcTemplate extends L2CharTemplate
 
 	public void addVulnerability(Stats id, double vuln)
 	{
+		if (vuln == 1)
+		{
+			if (_vulnerabilities != null)
+				_vulnerabilities.remove(id);
+			return;
+		}
+		
 		if (_vulnerabilities == null)
 			_vulnerabilities = new FastMap<Stats, Double>();
 		_vulnerabilities.put(id, vuln);
@@ -315,9 +323,10 @@ public final class L2NpcTemplate extends L2CharTemplate
 
 	public double getVulnerability(Stats id)
 	{
-		if (_vulnerabilities == null || _vulnerabilities.get(id) == null)
+		if (_vulnerabilities == null)
 			return 1;
-		return _vulnerabilities.get(id);
+		Double vuln = _vulnerabilities.get(id);
+		return vuln == null ? 1 : vuln.doubleValue();
 	}
 
 	public double removeVulnerability(Stats id)
@@ -329,7 +338,7 @@ public final class L2NpcTemplate extends L2CharTemplate
 	 * Return the list of all possible UNCATEGORIZED drops of this L2NpcTemplate.<BR><BR>
 	 * @return the drop categories
 	 */
-	public List<L2DropCategory> getDropData()
+	public L2DropCategory[] getDropData()
 	{
 		return _categories;
 	}
@@ -357,18 +366,17 @@ public final class L2NpcTemplate extends L2CharTemplate
 	{
 		if (_categories == null)
 			return;
-		while (!_categories.isEmpty())
-		{
-			_categories.get(0).clearAllDrops();
-			_categories.remove(0);
-		}
-		_categories.clear();
+		
+		for (L2DropCategory category : _categories)
+			category.clearAllDrops();
+		
+		_categories = null;
 	}
 
 	/**
 	 * Return the list of all Minions that must be spawn with the L2NpcInstance using this L2NpcTemplate.<BR><BR>
 	 */
-	public List<L2MinionData> getMinionData()
+	public L2MinionData[] getMinionData()
 	{
 		return _minions;
 	}
@@ -381,16 +389,15 @@ public final class L2NpcTemplate extends L2CharTemplate
 	public void addQuestEvent(Quest.QuestEventType EventType, Quest q)
 	{
 		if (_questEvents == null)
-			_questEvents = new FastMap<Quest.QuestEventType, Quest[]>();
+			_questEvents = new Quest[Quest.QuestEventType.values().length][];
 
-		if (_questEvents.get(EventType) == null)
+		if (_questEvents[EventType.ordinal()] == null)
 		{
-			_questEvents.put(EventType, new Quest[]
-			{ q });
+			_questEvents[EventType.ordinal()] = new Quest[] { q };
 		}
 		else
 		{
-			Quest[] _quests = _questEvents.get(EventType);
+			Quest[] _quests = _questEvents[EventType.ordinal()];
 			int len = _quests.length;
 
 			// if only one registration per npc is allowed for this event type
@@ -423,7 +430,7 @@ public final class L2NpcTemplate extends L2CharTemplate
 					tmp[i] = _quests[i];
 				}
 				tmp[len] = q;
-				_questEvents.put(EventType, tmp);
+				_questEvents[EventType.ordinal()] = tmp;
 			}
 		}
 	}
@@ -432,7 +439,7 @@ public final class L2NpcTemplate extends L2CharTemplate
 	{
 		if (_questEvents == null)
 			return null;
-		return _questEvents.get(EventType);
+		return _questEvents[EventType.ordinal()];
 	}
 
 	public void setRace(int raceId)

@@ -115,7 +115,7 @@ public class RequestAquireSkillInfo extends L2GameClientPacket
 				sendPacket(asi);
 				return;
 			}
-			if (trainer != null && !trainer.getTemplate().canTeach(activeChar.getSkillLearningClassId()))
+			if (!trainer.getTemplate().canTeach(activeChar.getSkillLearningClassId()))
 			{
 				sendPacket(ActionFailed.STATIC_PACKET);
 				return; // cheater

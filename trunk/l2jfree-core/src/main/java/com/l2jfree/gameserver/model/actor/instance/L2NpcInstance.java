@@ -14,8 +14,6 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
-import java.util.List;
-
 import javolution.text.TextBuilder;
 
 import com.l2jfree.Config;
@@ -38,12 +36,9 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public class L2NpcInstance extends L2Npc
 {
-	private List<ClassId>	_classesToTeach;
-
 	public L2NpcInstance(int objectId, L2NpcTemplate template)
 	{
 		super(objectId, template);
-		_classesToTeach = template.getTeachInfo();
 	}
 
 	@Override
@@ -65,7 +60,7 @@ public class L2NpcInstance extends L2Npc
 
 		int npcId = getTemplate().getNpcId();
 
-		if (_classesToTeach == null)
+		if (getTemplate().getTeachInfo() == null)
 		{
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 			TextBuilder sb = new TextBuilder();
@@ -143,7 +138,7 @@ public class L2NpcInstance extends L2Npc
 			_log.debug("EnchantSkillList activated on: " + getObjectId());
 		int npcId = getTemplate().getNpcId();
 
-		if (_classesToTeach == null)
+		if (getTemplate().getTeachInfo() == null)
 		{
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 			TextBuilder sb = new TextBuilder();
@@ -230,7 +225,7 @@ public class L2NpcInstance extends L2Npc
 
 		int npcId = getTemplate().getNpcId();
 
-		if (_classesToTeach == null)
+		if (getTemplate().getTeachInfo() == null)
 		{
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 			TextBuilder sb = new TextBuilder();
@@ -310,7 +305,7 @@ public class L2NpcInstance extends L2Npc
 
 		int npcId = getTemplate().getNpcId();
 
-		if (_classesToTeach == null)
+		if (getTemplate().getTeachInfo() == null)
 		{
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 			TextBuilder sb = new TextBuilder();
@@ -395,9 +390,9 @@ public class L2NpcInstance extends L2Npc
 				{
 					boolean own_class = false;
 
-					if (_classesToTeach != null)
+					if (getTemplate().getTeachInfo() != null)
 					{
-						for (ClassId cid : _classesToTeach)
+						for (ClassId cid : getTemplate().getTeachInfo())
 						{
 							if (cid.equalsOrChildOf(player.getClassId()))
 							{
@@ -418,14 +413,14 @@ public class L2NpcInstance extends L2Npc
 					}
 
 					// Make a list of classes
-					if (_classesToTeach != null)
+					if (getTemplate().getTeachInfo() != null)
 					{
 						int count = 0;
 						ClassId classCheck = player.getClassId();
 
 						while ((count == 0) && (classCheck != null))
 						{
-							for (ClassId cid : _classesToTeach)
+							for (ClassId cid : getTemplate().getTeachInfo())
 							{
 								if (cid.level() > classCheck.level())
 									continue;
