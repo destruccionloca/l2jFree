@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.model.olympiad;
 
 import java.util.Map;
-import java.util.logging.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -29,7 +28,6 @@ import com.l2jfree.tools.random.Rnd;
  */
 class OlympiadManager implements Runnable
 {
-	protected static final Logger				_log		= Logger.getLogger(OlympiadManager.class.getName());
 	private Map<Integer, OlympiadGame>			_olympiadInstances;
 
 	protected static final OlympiadStadium[]	STADIUMS	= {

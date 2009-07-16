@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.handler.itemhandlers;
 
 import java.util.Map;
-import java.util.logging.Logger;
 
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.handler.IItemHandler;
@@ -31,8 +30,6 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 public class Elixir implements IItemHandler
 {
-	protected static final Logger	_log		= Logger.getLogger(Elixir.class.getName());
-
 	private static final int[]		ITEM_IDS	=
 												{
 			8622,

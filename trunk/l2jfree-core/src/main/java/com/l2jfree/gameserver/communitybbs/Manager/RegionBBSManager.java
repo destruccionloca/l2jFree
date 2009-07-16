@@ -29,6 +29,9 @@ import java.util.logging.Logger;
 import javolution.text.TextBuilder;
 import javolution.util.FastMap;
 
+import org.apache.commons.logging.LogFactory;
+import org.apache.commons.logging.impl.Jdk14Logger;
+
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameServer;
 import com.l2jfree.gameserver.GameTimeController;
@@ -44,8 +47,8 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 public class RegionBBSManager extends BaseBBSManager
 {
-	private static Logger	_logChat	= Logger.getLogger("chat");
-
+	private static final Logger _logChat = ((Jdk14Logger)LogFactory.getLog("chat")).getLogger();
+	
 	/*
 	 * (non-Javadoc)
 	 * 

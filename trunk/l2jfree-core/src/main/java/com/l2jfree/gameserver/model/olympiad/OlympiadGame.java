@@ -14,8 +14,6 @@
  */
 package com.l2jfree.gameserver.model.olympiad;
 
-import java.util.logging.Logger;
-
 import javolution.util.FastList;
 
 import com.l2jfree.Config;
@@ -50,7 +48,6 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  */
 public class OlympiadGame
 {
-	protected static final Logger		_log			= Logger.getLogger(OlympiadGame.class.getName());
 	protected final COMP_TYPE			_type;
 	protected boolean					_aborted;
 	protected boolean					_gamestarted;
@@ -916,7 +913,6 @@ public class OlympiadGame
  */
 class OlympiadGameTask implements Runnable
 {
-	protected static final Logger	_log			= Logger.getLogger(OlympiadGameTask.class.getName());
 	public OlympiadGame				_game			= null;
 	protected static final long		BATTLE_PERIOD	= Config.ALT_OLY_BATTLE;								// 6 mins
 

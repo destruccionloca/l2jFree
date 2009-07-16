@@ -26,7 +26,9 @@ import java.nio.channels.FileChannel;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
-import java.util.logging.Logger;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.geodata.GeoData;
@@ -43,7 +45,8 @@ import com.l2jfree.util.L2Arrays;
  */
 public class GeoPathFinding extends PathFinding
 {
-	private static Logger _log = Logger.getLogger(GeoPathFinding.class.getName());
+	private static final Log _log = LogFactory.getLog(GeoPathFinding.class);
+	
 	private static GeoPathFinding _instance;
 	private static Map<Short, ByteBuffer> _pathNodes = new HashMap<Short, ByteBuffer>();
 	private static Map<Short, IntBuffer> _pathNodesIndex = new HashMap<Short, IntBuffer>();
@@ -210,7 +213,7 @@ public class GeoPathFinding extends PathFinding
 		idx += layer*10+1;//byte + layer*10byte
 		if (nodes < layer)
 		{
-			_log.warning("SmthWrong!");
+			_log.warn("SmthWrong!");
 		}
 		short node_z = pn.getShort(idx);
 		idx += 2;
@@ -257,8 +260,7 @@ public class GeoPathFinding extends PathFinding
 
 			lnr = new LineNumberReader(new BufferedReader(new FileReader(Data)));
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new Error("Failed to Load pn_index File.");
+			throw new Error("Failed to Load pn_index File.", e);
 		}
 		String line;
 		try
@@ -272,8 +274,7 @@ public class GeoPathFinding extends PathFinding
 				LoadPathNodeFile(rx,ry);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new Error("Failed to Read pn_index File.");
+			throw new Error("Failed to Read pn_index File.", e);
 		}
 		finally
 		{
@@ -319,8 +320,7 @@ public class GeoPathFinding extends PathFinding
 			_pathNodes.put(regionoffset, nodes);
 		} catch (Exception e)
 		{
-			e.printStackTrace();
-			_log.warning("Failed to Load PathNode File: "+fname+"\n");
+			_log.warn("Failed to Load PathNode File: "+fname+"\n", e);
 	    }
 		finally
 		{

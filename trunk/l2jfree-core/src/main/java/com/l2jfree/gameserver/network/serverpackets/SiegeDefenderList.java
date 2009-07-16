@@ -14,9 +14,6 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-//import java.util.Calendar; //signed time related
-//import java.util.logging.Logger;
-
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2SiegeClan;
@@ -40,7 +37,7 @@ import com.l2jfree.gameserver.model.entity.Castle;
  * S = ClanLeaderName<BR>
  * d = ClanCrestID<BR>
  * d = signed time (seconds)<BR>
- * d = Type -> Owner = 0x01 || Waiting = 0x02 || Accepted = 0x03<BR> 
+ * d = Type -> Owner = 0x01 || Waiting = 0x02 || Accepted = 0x03<BR>
  * d = AllyID<BR>
  * S = AllyName<BR>
  * S = AllyLeaderName<BR>
@@ -56,7 +53,7 @@ public class SiegeDefenderList extends L2GameServerPacket
 
 	public SiegeDefenderList(Castle castle)
 	{
-		_castle = castle;   
+		_castle = castle;
 	}
 
 	@Override
@@ -107,7 +104,7 @@ public class SiegeDefenderList extends L2GameServerPacket
 			}
 			for (L2SiegeClan siegeclan : _castle.getSiege().getDefenderWaitingClans())
 			{
-				clan = ClanTable.getInstance().getClan(siegeclan.getClanId());  
+				clan = ClanTable.getInstance().getClan(siegeclan.getClanId());
 				writeD(clan.getClanId());
 				writeS(clan.getName());
 				writeS(clan.getLeaderName());

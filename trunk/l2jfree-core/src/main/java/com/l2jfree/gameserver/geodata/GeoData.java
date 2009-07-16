@@ -14,7 +14,8 @@
  */
 package com.l2jfree.gameserver.geodata;
 
-import java.util.logging.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.geodata.pathfinding.Node;
@@ -29,7 +30,8 @@ import com.l2jfree.tools.geometry.Point3D;
  */
 public class GeoData
 {
-	private static Logger _log = Logger.getLogger(GeoData.class.getName());
+	private static final Log _log = LogFactory.getLog(GeoData.class);
+	
 	private static GeoData _instance;
 
 	public static GeoData getInstance()
