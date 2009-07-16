@@ -181,7 +181,7 @@ public final class L2NpcTemplate extends L2CharTemplate
 		_rhand = set.getInteger("rhand");
 		_lhand = set.getInteger("lhand");
 		_armor = set.getInteger("armor");
-		_factionId = set.getString("factionId").intern();
+		setFactionId(set.getString("factionId", null));
 		_factionRange = set.getInteger("factionRange");
 		_absorbLevel = set.getInteger("absorb_level");
 		_absorbType = AbsorbCrystalType.valueOf(set.getString("absorb_type"));
