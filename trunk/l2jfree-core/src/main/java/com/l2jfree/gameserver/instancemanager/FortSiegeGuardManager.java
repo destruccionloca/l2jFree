@@ -66,8 +66,7 @@ public class FortSiegeGuardManager
 		}
 		catch (Exception e)
 		{
-			_log.warn("Error spawning siege guards for fort " + getFort().getName() + ":" + e.getMessage());
-			e.printStackTrace();
+			_log.warn("Error spawning siege guards for fort " + getFort().getName() + ":" + e.getMessage(), e);
 		}
 	}
 
@@ -90,8 +89,7 @@ public class FortSiegeGuardManager
 		}
 		catch (Exception e)
 		{
-			_log.warn("Error unspawning siege guards for fort " + getFort().getName() + ":" + e.getMessage());
-			e.printStackTrace();
+			_log.warn("Error unspawning siege guards for fort " + getFort().getName() + ":" + e.getMessage(), e);
 		}
 	}
 

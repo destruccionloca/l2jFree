@@ -41,7 +41,7 @@ public class SoulCrystals implements IItemHandler
 	protected static Log		_log		= LogFactory.getLog(SoulCrystals.class);
 
 	// First line is for Red Soul Crystals, second is Green and third is Blue Soul Crystals,
-	// ordered by ascending level, from 0 to 13... 
+	// ordered by ascending level, from 0 to 13...
 	private static final int[]	ITEM_IDS	=
 											{
 			4629,
@@ -103,7 +103,7 @@ public class SoulCrystals implements IItemHandler
 			// Send a System Message to the caster
 			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 
-			// Send a Server->Client packet ActionFailed to the L2PcInstance 
+			// Send a Server->Client packet ActionFailed to the L2PcInstance
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 
 			return;
@@ -147,15 +147,9 @@ public class SoulCrystals implements IItemHandler
 			if (_activeChar.isDead() || _target.isDead())
 				return;
 			_activeChar.enableAllSkills();
-			try
-			{
-				_target.addAbsorber(_activeChar, _crystalId);
-				_activeChar.setTarget(_target);
-			}
-			catch (Exception e)
-			{
-				_log.error(e.getMessage(), e);
-			}
+			
+			_target.addAbsorber(_activeChar, _crystalId);
+			_activeChar.setTarget(_target);
 		}
 	}
 

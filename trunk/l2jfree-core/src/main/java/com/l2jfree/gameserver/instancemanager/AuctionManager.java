@@ -147,7 +147,7 @@ public class AuctionManager
 		}
 		catch (SQLException e)
 		{
-			_log.fatal("Exception: AuctionManager.load(): " + e.getMessage());
+			_log.fatal("Exception: AuctionManager.load(): " + e.getMessage(), e);
 		}
 		finally
 		{

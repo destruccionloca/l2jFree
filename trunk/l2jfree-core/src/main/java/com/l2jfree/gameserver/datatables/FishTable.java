@@ -92,7 +92,7 @@ public class FishTable
 		}
 		catch (Exception e)
 		{
-			_log.fatal("error while creating fishes table" + e);
+			_log.fatal("error while creating fishes table", e);
 		}
 		finally
 		{

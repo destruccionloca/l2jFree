@@ -367,15 +367,8 @@ public class Wedding implements IVoicedCommandHandler
 			if (checkGoToLoveState(_activeChar) == null)
 				return;
 
-			try
-			{
-				_activeChar.setIsIn7sDungeon(_to7sDungeon);
-				_activeChar.teleToLocation(_partnerx, _partnery, _partnerz);
-			}
-			catch (Exception e)
-			{
-				_log.error(e.getMessage(), e);
-			}
+			_activeChar.setIsIn7sDungeon(_to7sDungeon);
+			_activeChar.teleToLocation(_partnerx, _partnery, _partnerz);
 		}
 	}
 

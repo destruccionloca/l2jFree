@@ -125,7 +125,7 @@ public class ClanHallManager
 		}
 		catch (SQLException e)
 		{
-			_log.fatal("Exception: ClanHallManager.load(): " + e.getMessage());
+			_log.fatal("Exception: ClanHallManager.load(): " + e.getMessage(), e);
 		}
 		finally
 		{

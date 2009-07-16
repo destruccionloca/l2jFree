@@ -26,7 +26,7 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
- * Support for /ClanWarsList command  
+ * Support for /ClanWarsList command
  * @author Tempy - 28 Jul 05
  */
 public class ClanWarsList implements IUserCommandHandler
@@ -107,7 +107,7 @@ public class ClanWarsList implements IUserCommandHandler
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			_log.warn("", e);
 		}
 		finally
 		{

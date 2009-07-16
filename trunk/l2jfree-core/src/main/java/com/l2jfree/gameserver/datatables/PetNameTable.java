@@ -51,7 +51,7 @@ public class PetNameTable
 		}
 		catch (SQLException e)
 		{
-			_log.warn("could not check existing petname:" + e.getMessage());
+			_log.warn("could not check existing petname:" + e.getMessage(), e);
 		}
 		finally
 		{

@@ -190,7 +190,7 @@ public class Announcements
 		}
 		catch (IOException e)
 		{
-			_log.warn("saving the announcements file has failed: " + e);
+			_log.warn("saving the announcements file has failed: ", e);
 		}
 		finally
 		{

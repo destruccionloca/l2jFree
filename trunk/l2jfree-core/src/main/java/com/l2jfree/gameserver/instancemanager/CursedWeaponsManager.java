@@ -271,7 +271,7 @@ public class CursedWeaponsManager
 		}
 		catch (Exception e)
 		{
-			_log.warn("Could not load CursedWeapons data: " + e);
+			_log.warn("Could not load CursedWeapons data: ", e);
 		}
 		finally
 		{
@@ -412,7 +412,7 @@ public class CursedWeaponsManager
 		}
 		catch (SQLException e)
 		{
-			_log.fatal("CursedWeaponsManager: Failed to remove data: " + e);
+			_log.fatal("CursedWeaponsManager: Failed to remove data: ", e);
 		}
 		finally
 		{

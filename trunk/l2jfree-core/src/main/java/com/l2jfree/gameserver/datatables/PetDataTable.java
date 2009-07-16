@@ -136,7 +136,7 @@ public class PetDataTable
 		}
 		catch (Exception e)
 		{
-			_log.warn("Could not load pets stats: " + e);
+			_log.warn("Could not load pets stats: ", e);
 		}
 		finally
 		{

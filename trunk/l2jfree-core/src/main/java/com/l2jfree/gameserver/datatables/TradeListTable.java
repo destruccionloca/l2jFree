@@ -53,15 +53,9 @@ public class TradeListTable
 
 		public void run()
 		{
-			try
-			{
-				restoreCount(timer);
-				dataTimerSave(timer);
-				ThreadPoolManager.getInstance().scheduleGeneral(new RestoreCount(timer), (long) timer * 60 * 60 * 1000);
-			}
-			catch (Throwable t)
-			{
-			}
+			restoreCount(timer);
+			dataTimerSave(timer);
+			ThreadPoolManager.getInstance().scheduleGeneral(new RestoreCount(timer), (long) timer * 60 * 60 * 1000);
 		}
 	}
 
@@ -123,7 +117,7 @@ public class TradeListTable
 						_itemCount++;
 						if (count > -1)
 							buyItem.setCountDecrease(true);
-						if (_price <= -1)  
+						if (_price <= -1)
 							_price = ItemTable.getInstance().getTemplate(_itemId).getReferencePrice();
 
 						buyItem.setPriceToSell(_price);

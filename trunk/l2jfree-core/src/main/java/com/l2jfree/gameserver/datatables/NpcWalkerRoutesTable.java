@@ -84,7 +84,7 @@ public class NpcWalkerRoutesTable
 		}
 		catch (Exception e)
 		{
-			_log.fatal("WalkerRoutesTable: Error while loading Npc Walker Routes: " + e.getMessage());
+			_log.fatal("WalkerRoutesTable: Error while loading Npc Walker Routes: " + e.getMessage(), e);
 		}
 		finally
 		{

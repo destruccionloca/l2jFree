@@ -106,7 +106,7 @@ public class CastleManager implements InstanceListManager
 		}
 		catch (SQLException e)
 		{
-			_log.warn("Exception: loadCastleData(): " + e.getMessage());
+			_log.warn("Exception: loadCastleData(): " + e.getMessage(), e);
 		}
 		finally
 		{

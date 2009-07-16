@@ -31,7 +31,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
+import com.l2jfree.gameserver.network.serverpackets.AbstractNpcHtmlMessage;
 import com.l2jfree.gameserver.util.Util;
 
 /**
@@ -90,7 +90,7 @@ public final class HtmCache
 				
 				entry.setValue(newHtml);
 			}
-			catch (Exception e)
+			catch (RuntimeException e)
 			{
 				_log.warn("Cache[HTML]: Error during compaction of " + entry.getKey(), e);
 			}
@@ -136,7 +136,7 @@ public final class HtmCache
 		//	_log.info("'" + tag + "'");
 		
 		set.remove("!--"); // comment
-		for (String tag : NpcHtmlMessage.VALID_TAGS)
+		for (String tag : AbstractNpcHtmlMessage.VALID_TAGS)
 			set.remove(tag);
 		
 		if (!set.isEmpty())

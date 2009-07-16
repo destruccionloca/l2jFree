@@ -146,7 +146,7 @@ public class FortSiegeManager
 		}
 		catch (Exception e)
 		{
-			_log.warn("Exception: checkIsRegistered(): " + e.getMessage());
+			_log.warn("Exception: checkIsRegistered(): " + e.getMessage(), e);
 		}
 		finally
 		{

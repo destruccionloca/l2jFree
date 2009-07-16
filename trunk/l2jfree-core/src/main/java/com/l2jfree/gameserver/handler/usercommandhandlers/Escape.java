@@ -111,14 +111,7 @@ public class Escape implements IUserCommandHandler
 			_activeChar.setIsCastingNow(false);
 			_activeChar.setInstanceId(0);
 
-			try
-			{
-				_activeChar.teleToLocation(TeleportWhereType.Town);
-			}
-			catch (Exception e)
-			{
-				_log.error(e.getMessage(), e);
-			}
+			_activeChar.teleToLocation(TeleportWhereType.Town);
 		}
 	}
 

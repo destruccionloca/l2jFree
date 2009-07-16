@@ -63,7 +63,7 @@ public class SkillSpellbookTable
 		}
 		catch (Exception e)
 		{
-			_log.warn("Error while loading spellbook data: " + e);
+			_log.warn("Error while loading spellbook data: ", e);
 		}
 		finally
 		{

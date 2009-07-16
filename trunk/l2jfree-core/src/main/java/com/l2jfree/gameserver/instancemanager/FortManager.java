@@ -141,7 +141,7 @@ public class FortManager implements InstanceListManager
 		}
 		catch (Exception e)
 		{
-			_log.warn("Exception: loadFortData(): " + e.getMessage());
+			_log.warn("Exception: loadFortData(): " + e.getMessage(), e);
 		}
 		finally
 		{
@@ -281,8 +281,7 @@ public class FortManager implements InstanceListManager
 		catch (Exception e)
 		{
 			// problem with initializing spawn, go to next one
-			_log.warn("FortManager.spawnNpcs: Spawn could not be initialized: "+ e.getMessage());
-			e.printStackTrace();
+			_log.warn("FortManager.spawnNpcs: Spawn could not be initialized: "+ e.getMessage(), e);
 		}
 		finally
 		{
@@ -344,8 +343,7 @@ public class FortManager implements InstanceListManager
 		{
 			// problem with initializing spawn, go to next one
 			_log.warn("FortManager.initNpcCommanders: Spawn could not be initialized: "
-					+ e.getMessage());
-			e.printStackTrace();
+					+ e.getMessage(), e);
 		}
 		finally
 		{
@@ -407,8 +405,7 @@ public class FortManager implements InstanceListManager
 		{
 			// problem with initializing spawn, go to next one
 			_log.warn("FortManager.initSiegeNpcs: Spawn could not be initialized: "
-					+ e.getMessage());
-			e.printStackTrace();
+					+ e.getMessage(), e);
 		}
 		finally
 		{
@@ -474,8 +471,7 @@ public class FortManager implements InstanceListManager
 		{
 			// problem with initializing spawn, go to next one
 			_log.warn("FortManager.initSpecialEnvoys: Spawn could not be initialized: "
-					+ e.getMessage());
-			e.printStackTrace();
+					+ e.getMessage(), e);
 		}
 		finally
 		{

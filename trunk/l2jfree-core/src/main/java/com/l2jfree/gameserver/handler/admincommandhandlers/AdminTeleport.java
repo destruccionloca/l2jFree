@@ -172,7 +172,7 @@ public class AdminTeleport implements IAdminCommandHandler
 			catch (Exception e)
 			{
 				if (_log.isDebugEnabled())
-					_log.info("admin_walk: " + e);
+					_log.info("admin_walk: ", e);
 			}
 		}
 		else if (command.startsWith("admin_move_to"))

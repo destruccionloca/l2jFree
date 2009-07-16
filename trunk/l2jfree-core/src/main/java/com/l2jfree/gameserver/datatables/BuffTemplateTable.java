@@ -30,7 +30,7 @@ import com.l2jfree.gameserver.templates.skills.L2BuffTemplate;
 /**
  * This class represents the buff templates list
  * 
- * Author: G1ta0 
+ * Author: G1ta0
  * 
  */
 
@@ -65,56 +65,53 @@ public class BuffTemplateTable
 		Connection con = null;
 		try
 		{
-			try
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement = con.prepareStatement("SELECT * FROM buff_templates ORDER BY id, skill_order");
+			ResultSet rset = statement.executeQuery();
+
+			int _buffTemplates = 0;
+			int templateId = -1;
+
+			while (rset.next())
 			{
-				con = L2DatabaseFactory.getInstance().getConnection(con);
-				PreparedStatement statement = con.prepareStatement("SELECT * FROM buff_templates ORDER BY id, skill_order");
-				ResultSet rset = statement.executeQuery();
+				StatsSet Buff = new StatsSet();
 
-				int _buffTemplates = 0;
-				int templateId = -1;
+				if (templateId != rset.getInt("id"))
+					_buffTemplates++;
+				templateId = rset.getInt("id");
 
-				while (rset.next())
+				Buff.set("id", templateId);
+				Buff.set("name", rset.getString("name"));
+				Buff.set("skillId", rset.getInt("skill_id"));
+				Buff.set("skillLevel", rset.getInt("skill_level"));
+				Buff.set("skillOrder", rset.getInt("skill_order"));
+				Buff.set("forceCast", rset.getInt("skill_force"));
+				Buff.set("minLevel", rset.getInt("char_min_level"));
+				Buff.set("maxLevel", rset.getInt("char_max_level"));
+				Buff.set("race", rset.getInt("char_race"));
+				Buff.set("class", rset.getInt("char_class"));
+				Buff.set("faction", rset.getInt("char_faction"));
+				Buff.set("adena", rset.getInt("price_adena"));
+				Buff.set("points", rset.getInt("price_points"));
+
+				// Add this buff template to the buff template list
+				L2BuffTemplate template = new L2BuffTemplate(Buff);
+				if (template.getSkill() == null)
 				{
-					StatsSet Buff = new StatsSet();
-
-					if (templateId != rset.getInt("id"))
-						_buffTemplates++;
-					templateId = rset.getInt("id");
-
-					Buff.set("id", templateId);
-					Buff.set("name", rset.getString("name"));
-					Buff.set("skillId", rset.getInt("skill_id"));
-					Buff.set("skillLevel", rset.getInt("skill_level"));
-					Buff.set("skillOrder", rset.getInt("skill_order"));
-					Buff.set("forceCast", rset.getInt("skill_force"));
-					Buff.set("minLevel", rset.getInt("char_min_level"));
-					Buff.set("maxLevel", rset.getInt("char_max_level"));
-					Buff.set("race", rset.getInt("char_race"));
-					Buff.set("class", rset.getInt("char_class"));
-					Buff.set("faction", rset.getInt("char_faction"));
-					Buff.set("adena", rset.getInt("price_adena"));
-					Buff.set("points", rset.getInt("price_points"));
-
-					// Add this buff template to the buff template list
-					L2BuffTemplate template = new L2BuffTemplate(Buff);
-					if (template.getSkill() == null)
-					{
-						_log.warn("Error while loading buff template Id " + template.getId() + " skill Id " + template.getSkillId());
-					}
-					else
-						_buffs.add(template);
+					_log.warn("Error while loading buff template Id " + template.getId() + " skill Id " + template.getSkillId());
 				}
-
-				_log.info("BuffTemplateTable: Loaded " + _buffTemplates + " Buff Templates.");
-
-				rset.close();
-				statement.close();
+				else
+					_buffs.add(template);
 			}
-			catch (Exception e)
-			{
-				_log.warn("Error while loading buff templates " + e.getMessage());
-			}
+
+			_log.info("BuffTemplateTable: Loaded " + _buffTemplates + " Buff Templates.");
+
+			rset.close();
+			statement.close();
+		}
+		catch (Exception e)
+		{
+			_log.warn("Error while loading buff templates " + e.getMessage(), e);
 		}
 		finally
 		{

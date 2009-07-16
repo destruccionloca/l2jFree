@@ -85,7 +85,7 @@ public class ArmorSetsTable
 		}
 		catch (Exception e)
 		{
-			_log.warn("Error while loading armor sets " + e.getMessage());
+			_log.warn("Error while loading armor sets ", e);
 		}
 		finally
 		{

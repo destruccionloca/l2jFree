@@ -58,7 +58,7 @@ public class ExecuteWrapper implements Runnable
 		{
 			runnable.run();
 		}
-		catch (Exception e)
+		catch (RuntimeException e)
 		{
 			_log.warn("Exception in a Runnable execution:", e);
 		}

@@ -102,7 +102,7 @@ public class Lottery
 		}
 		catch (SQLException e)
 		{
-			_log.warn("Lottery: Could not increase current lottery prize: " + e);
+			_log.warn("Lottery: Could not increase current lottery prize: ", e);
 		}
 		finally
 		{
@@ -192,7 +192,7 @@ public class Lottery
 			}
 			catch (SQLException e)
 			{
-				_log.warn("Lottery: Could not restore lottery data: " + e);
+				_log.warn("Lottery: Could not restore lottery data: ", e);
 			}
 			finally
 			{
@@ -248,7 +248,7 @@ public class Lottery
 			}
 			catch (SQLException e)
 			{
-				_log.warn("Lottery: Could not store new lottery data: " + e);
+				_log.warn("Lottery: Could not store new lottery data: ", e);
 			}
 			finally
 			{
@@ -378,7 +378,7 @@ public class Lottery
 			}
 			catch (SQLException e)
 			{
-				_log.warn("Lottery: Could restore lottery data: " + e);
+				_log.warn("Lottery: Could restore lottery data: ", e);
 			}
 			finally
 			{
@@ -448,7 +448,7 @@ public class Lottery
 			}
 			catch (SQLException e)
 			{
-				_log.warn("Lottery: Could not store finished lottery data: " + e);
+				_log.warn("Lottery: Could not store finished lottery data: ", e);
 			}
 			finally
 			{
@@ -571,7 +571,7 @@ public class Lottery
 		}
 		catch (SQLException e)
 		{
-			_log.warn("Lottery: Could not check lottery ticket #" + id + ": " + e);
+			_log.warn("Lottery: Could not check lottery ticket #" + id + ": ", e);
 		}
 		finally
 		{

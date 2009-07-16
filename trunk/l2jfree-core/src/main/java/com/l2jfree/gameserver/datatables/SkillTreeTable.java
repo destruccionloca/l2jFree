@@ -204,7 +204,7 @@ public class SkillTreeTable
 		}
 		catch (Exception e)
 		{
-			_log.fatal("Error while creating skill tree (Class ID " + classId + "):" + e);
+			_log.fatal("Error while creating skill tree (Class ID " + classId + "):", e);
 		}
 
 		_log.info("SkillTreeTable: Loaded " + count + " skills.");
@@ -253,7 +253,7 @@ public class SkillTreeTable
 		}
 		catch (Exception e)
 		{
-			_log.fatal("Error while creating fishing skill table: " + e);
+			_log.fatal("Error while creating fishing skill table: ", e);
 		}
 
 		int count4 = 0;
@@ -306,7 +306,7 @@ public class SkillTreeTable
 		}
 		catch (Exception e)
 		{
-			_log.fatal("Error while creating enchant skill table: " + e);
+			_log.fatal("Error while creating enchant skill table: ", e);
 		}
 
 		int count5 = 0;
@@ -344,7 +344,7 @@ public class SkillTreeTable
 		}
 		catch (Exception e)
 		{
-			_log.fatal("Error while creating pledge skill table: " + e);
+			_log.fatal("Error while creating pledge skill table: ", e);
 		}
 
 		int count6 = 0;
@@ -382,7 +382,7 @@ public class SkillTreeTable
 		}
 		catch (Exception e)
 		{
-			_log.fatal("Error while creating Transformation skill table " + e);
+			_log.fatal("Error while creating Transformation skill table ", e);
 		}
 		finally
 		{

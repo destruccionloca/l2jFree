@@ -145,7 +145,7 @@ public class SpawnTable
 		catch (Exception e)
 		{
 			// problem with initializing spawn, go to next one
-			_log.warn("SpawnTable: Spawn could not be initialized: " + e);
+			_log.warn("SpawnTable: Spawn could not be initialized: ", e);
 		}
 		_log.info("SpawnTable: Loaded " + _spawntable.size() + " Npc Spawn Locations.");
 
@@ -224,7 +224,7 @@ public class SpawnTable
 		catch (Exception e)
 		{
 			// problem with initializing spawn, go to next one
-			_log.warn("SpawnTable: Custom spawn could not be initialized: " + e);
+			_log.warn("SpawnTable: Custom spawn could not be initialized: ", e);
 		}
 		finally
 		{
@@ -287,7 +287,7 @@ public class SpawnTable
 			catch (Exception e)
 			{
 				// problem with storing spawn
-				_log.warn("SpawnTable: Could not store spawn in the DB:" + e);
+				_log.warn("SpawnTable: Could not store spawn in the DB:", e);
 			}
 			finally
 			{
@@ -321,7 +321,7 @@ public class SpawnTable
 		catch (Exception e)
 		{
 			// problem with storing spawn
-			_log.warn("SpawnTable: Could not update spawn in the DB:" + e);
+			_log.warn("SpawnTable: Could not update spawn in the DB:", e);
 		}
 		finally
 		{
@@ -349,7 +349,7 @@ public class SpawnTable
 			catch (Exception e)
 			{
 				// problem with deleting spawn
-				_log.warn("SpawnTable: Spawn " + spawn.getDbId() + " could not be removed from DB: " + e);
+				_log.warn("SpawnTable: Spawn " + spawn.getDbId() + " could not be removed from DB: ", e);
 			}
 			finally
 			{

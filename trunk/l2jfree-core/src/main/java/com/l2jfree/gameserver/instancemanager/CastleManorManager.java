@@ -272,7 +272,7 @@ public class CastleManorManager
 		}
 		catch (Exception e)
 		{
-			_log.info("Error restoring manor data: " + e.getMessage());
+			_log.info("Error restoring manor data: " + e.getMessage(), e);
 		}
 		finally
 		{
@@ -319,7 +319,7 @@ public class CastleManorManager
 							}
 							catch (Exception e)
 							{
-								_log.info("ManorSystem: Failed to save manor data: " + e);
+								_log.info("ManorSystem: Failed to save manor data: ", e);
 							}
 							setUnderMaintenance(false);
 						}

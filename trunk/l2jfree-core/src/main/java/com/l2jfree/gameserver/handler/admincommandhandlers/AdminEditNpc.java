@@ -1399,7 +1399,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 		}
 		catch (Exception e)
 		{
-			_log.warn("Error saving new npc value: " + e);
+			_log.warn("Error saving new npc value: ", e);
 		}
 
 		NpcTable.getInstance().saveNpc(newNpcData);

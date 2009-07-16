@@ -313,7 +313,7 @@ public class AdminMenu implements IAdminCommandHandler
 		}
 		catch (Exception e)
 		{
-			_log.warn("Could not set accessLevel:" + e);
+			_log.warn("Could not set accessLevel:", e);
 			if (_log.isDebugEnabled())
 				e.printStackTrace();
 		}

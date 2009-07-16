@@ -105,13 +105,13 @@ public class AdminEnchant implements IAdminCommandHandler
 				catch (StringIndexOutOfBoundsException e)
 				{
 					if (_log.isDebugEnabled())
-						_log.debug("Set enchant error: " + e);
+						_log.debug("Set enchant error: ", e);
 					activeChar.sendMessage("Please specify a new enchant value.");
 				}
 				catch (NumberFormatException e)
 				{
 					if (_log.isDebugEnabled())
-						_log.debug("Set enchant error: " + e);
+						_log.debug("Set enchant error: ", e);
 					activeChar.sendMessage("Please specify a valid new enchant value.");
 				}
 			}
