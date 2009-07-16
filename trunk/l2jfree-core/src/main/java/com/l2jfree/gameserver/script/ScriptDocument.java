@@ -51,7 +51,7 @@ public class ScriptDocument
 		catch (SAXException sxe)
 		{
 			// Error generated during parsing)
-			_log.error("Invalid document " + name + ". Error = " + sxe.getMessage());
+			_log.error("Invalid document " + name + ". Error = " + sxe.getMessage(), sxe);
 		}
 		catch (ParserConfigurationException pce)
 		{

@@ -40,6 +40,7 @@ import javax.script.SimpleScriptContext;
 
 import javolution.util.FastMap;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -159,7 +160,7 @@ public final class L2ScriptEngineManager
 			}
 		}
 
-		this.preConfigure();
+		preConfigure();
 	}
 
 	private void preConfigure()
@@ -175,7 +176,7 @@ public final class L2ScriptEngineManager
 		}
 		catch (ScriptException e)
 		{
-			_log.error("Failed preconfiguring jython: " + e.getMessage());
+			_log.error("Failed preconfiguring jython: ", e);
 		}
 	}
 
@@ -232,7 +233,7 @@ public final class L2ScriptEngineManager
 						}
 						catch (ScriptException e)
 						{
-							this.reportScriptFileError(file, e);
+							reportScriptFileError(file, e);
 						}
 					}
 					else
@@ -284,7 +285,7 @@ public final class L2ScriptEngineManager
 						if (lastIndex != -1)
 						{
 							extension = name.substring(lastIndex + 1);
-							ScriptEngine engine = this.getEngineByExtension(extension);
+							ScriptEngine engine = getEngineByExtension(extension);
 							if (engine != null)
 							{
 								this.executeScript(engine, file);
@@ -298,7 +299,7 @@ public final class L2ScriptEngineManager
 					}
 					catch (ScriptException e)
 					{
-						this.reportScriptFileError(file, e);
+						reportScriptFileError(file, e);
 						//_log.error(e.getMessage(),e);
 					}
 				}
@@ -343,13 +344,7 @@ public final class L2ScriptEngineManager
 				}
 				finally
 				{
-					try
-					{
-						ois.close();
-					}
-					catch (Exception e)
-					{
-					}
+					IOUtils.closeQuietly(ois);
 				}
 				return new CompiledScriptCache();
 			}
@@ -374,7 +369,7 @@ public final class L2ScriptEngineManager
 			throw new ScriptException("Script file (" + name + ") doesnt has an extension that identifies the ScriptEngine to be used.");
 		}
 
-		ScriptEngine engine = this.getEngineByExtension(extension);
+		ScriptEngine engine = getEngineByExtension(extension);
 		if (engine == null)
 			throw new ScriptException("No engine registered for extension (" + extension + ")");
 
@@ -383,7 +378,7 @@ public final class L2ScriptEngineManager
 
 	public void executeScript(String engineName, File file) throws FileNotFoundException, ScriptException
 	{
-		ScriptEngine engine = this.getEngineByName(engineName);
+		ScriptEngine engine = getEngineByName(engineName);
 		if (engine == null)
 			throw new ScriptException("No engine registered with name (" + engineName + ")");
 
@@ -450,14 +445,14 @@ public final class L2ScriptEngineManager
 			context.setAttribute(ScriptEngine.FILENAME, file.getName(), ScriptContext.ENGINE_SCOPE);
 			context.setAttribute("classpath", SCRIPT_FOLDER.getAbsolutePath(), ScriptContext.ENGINE_SCOPE);
 			context.setAttribute("sourcepath", SCRIPT_FOLDER.getAbsolutePath(), ScriptContext.ENGINE_SCOPE);
-			this.setCurrentLoadingScript(file);
+			setCurrentLoadingScript(file);
 			try
 			{
 				engine.eval(reader, context);
 			}
 			finally
 			{
-				this.setCurrentLoadingScript(null);
+				setCurrentLoadingScript(null);
 				engine.getContext().removeAttribute(ScriptEngine.FILENAME, ScriptContext.ENGINE_SCOPE);
 				engine.getContext().removeAttribute("mainClass", ScriptContext.ENGINE_SCOPE);
 			}
@@ -484,7 +479,7 @@ public final class L2ScriptEngineManager
 
 	public ScriptContext getScriptContext(String engineName)
 	{
-		ScriptEngine engine = this.getEngineByName(engineName);
+		ScriptEngine engine = getEngineByName(engineName);
 		if (engine == null)
 			throw new IllegalStateException("No engine registered with name (" + engineName + ")");
 
@@ -510,7 +505,7 @@ public final class L2ScriptEngineManager
 
 	public Object eval(String engineName, String script, ScriptContext context) throws ScriptException
 	{
-		ScriptEngine engine = this.getEngineByName(engineName);
+		ScriptEngine engine = getEngineByName(engineName);
 		if (engine == null)
 			throw new ScriptException("No engine registered with name (" + engineName + ")");
 
@@ -552,15 +547,7 @@ public final class L2ScriptEngineManager
 			}
 			finally
 			{
-				try
-				{
-					if (fos != null)
-						fos.close();
-				}
-				catch (Exception e1)
-				{
-					e.printStackTrace();
-				}
+				IOUtils.closeQuietly(fos);
 			}
 		}
 		else

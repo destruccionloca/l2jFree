@@ -46,13 +46,13 @@ public class L2AttackableAIScript extends QuestJython
 	{
 		for (int id : mobs)
 		{
-			this.addEventId(id, Quest.QuestEventType.ON_ATTACK);
-			this.addEventId(id, Quest.QuestEventType.ON_KILL);
-			this.addEventId(id, Quest.QuestEventType.ON_SPAWN);
-			this.addEventId(id, Quest.QuestEventType.ON_SPELL_FINISHED);
-			this.addEventId(id, Quest.QuestEventType.ON_SKILL_SEE);
-			this.addEventId(id, Quest.QuestEventType.ON_FACTION_CALL);
-			this.addEventId(id, Quest.QuestEventType.ON_AGGRO_RANGE_ENTER);
+			addEventId(id, Quest.QuestEventType.ON_ATTACK);
+			addEventId(id, Quest.QuestEventType.ON_KILL);
+			addEventId(id, Quest.QuestEventType.ON_SPAWN);
+			addEventId(id, Quest.QuestEventType.ON_SPELL_FINISHED);
+			addEventId(id, Quest.QuestEventType.ON_SKILL_SEE);
+			addEventId(id, Quest.QuestEventType.ON_FACTION_CALL);
+			addEventId(id, Quest.QuestEventType.ON_AGGRO_RANGE_ENTER);
 		}
 	}
 
@@ -104,13 +104,13 @@ public class L2AttackableAIScript extends QuestJython
 	@Override
 	public String onSkillSee(L2Npc npc, L2PcInstance caster, L2Skill skill, L2Object[] targets, boolean isPet)
 	{
-		if (caster == null) 
+		if (caster == null)
 			return null;
 
 		if (!(npc instanceof L2Attackable))
 			return null;
 
-		L2Attackable attackable = (L2Attackable)npc; 
+		L2Attackable attackable = (L2Attackable)npc;
 		int skillAggroPoints = skill.getAggroPoints();
 		if (caster.getPet() != null)
 		{
@@ -138,7 +138,7 @@ public class L2AttackableAIScript extends QuestJython
 	}
 
 	@Override
-	public String onFactionCall (L2Npc npc, L2Npc caller, L2PcInstance attacker, boolean isPet) 
+	public String onFactionCall (L2Npc npc, L2Npc caller, L2PcInstance attacker, boolean isPet)
 	{
 		L2Character originalAttackTarget = (isPet ? attacker.getPet(): attacker);
 		// By default, when a faction member calls for help, attack the caller's attacker.
@@ -149,7 +149,7 @@ public class L2AttackableAIScript extends QuestJython
 	}
 
 	@Override
-	public String onAggroRangeEnter (L2Npc npc, L2PcInstance player, boolean isPet) 
+	public String onAggroRangeEnter (L2Npc npc, L2PcInstance player, boolean isPet)
 	{
 		L2Character target = isPet ? player.getPet() : player;
 
@@ -158,11 +158,11 @@ public class L2AttackableAIScript extends QuestJython
 		// Set the intention to the L2Attackable to AI_INTENTION_ACTIVE
 		if (npc.getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE)
 			npc.getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
-		return null; 
+		return null;
 	}
 
 	@Override
-	public String onSpawn (L2Npc npc) 
+	public String onSpawn (L2Npc npc)
 	{
 		return null;
 	}
@@ -172,7 +172,7 @@ public class L2AttackableAIScript extends QuestJython
 	{
 		if (attacker != null && (npc instanceof L2Attackable))
 		{
-			L2Attackable attackable = (L2Attackable) npc; 
+			L2Attackable attackable = (L2Attackable) npc;
 
 			L2Character originalAttacker = isPet ? attacker.getPet() : attacker;
 			attackable.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, originalAttacker);
@@ -182,9 +182,9 @@ public class L2AttackableAIScript extends QuestJython
 	}
 
 	@Override
-	public String onKill (L2Npc npc, L2PcInstance killer, boolean isPet) 
+	public String onKill (L2Npc npc, L2PcInstance killer, boolean isPet)
 	{
-		return null; 
+		return null;
 	}
 
 	public static void main(String[] args)
@@ -213,7 +213,7 @@ public class L2AttackableAIScript extends QuestJython
 					}
 					catch (ClassNotFoundException ex)
 					{
-						System.out.println("Class not found "+t.getType()+"Instance");
+						_log.warn("Class not found " + t.getType() + "Instance", ex);
 					}
 				}
 			}

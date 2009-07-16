@@ -31,7 +31,7 @@ public class GameServerRegister
 	private static GameServerManager	gsServerManager;
 	private boolean						_choiceOk;
 
-	public static void main(String[] args) throws Throwable
+	public static void main(String[] args) throws IOException
 	{
 		// o Load config
 		// -------------
@@ -54,9 +54,9 @@ public class GameServerRegister
 	/**
 	* Display menu and return true or false if we should continue
 	* @return true or false if user want to stop
-	* @throws IOException 
-	* @throws  
-	* @throws IOException 
+	* @throws IOException
+	* @throws
+	* @throws IOException
 	*/
 	private void displayMenu() throws IOException
 	{
@@ -97,7 +97,7 @@ public class GameServerRegister
 			}
 			else
 			{
-				// o register server 
+				// o register server
 				// ----------------
 				registerServer();
 			}

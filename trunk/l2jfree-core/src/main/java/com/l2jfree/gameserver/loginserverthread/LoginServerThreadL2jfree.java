@@ -441,8 +441,9 @@ public class LoginServerThreadL2jfree extends LoginServerThread
 				{
 					new Disconnection(player).defaultSequence(true);
 				}
-				catch (Throwable t)
+				catch (RuntimeException e)
 				{
+					_log.warn("", e);
 				}
 			}
 		}

@@ -15,6 +15,7 @@
 package com.l2jfree.accountmanager;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -45,7 +46,7 @@ public final class AccountManager
 	private final AccountsServices accountService;
 	private final GameserversServices gameService;
 
-	private AccountManager() throws Throwable
+	private AccountManager()
 	{
 		Config.load();
 		L2Registry.loadRegistry("spring.xml");
@@ -114,7 +115,7 @@ public final class AccountManager
 			}
 			catch (AccountModificationException e)
 			{
-				_log.error(e.getMessage());
+				_log.error(e.getMessage(), e);
 			}
 		}
 		else if (cmd.startsWith(CMD[1]))
@@ -151,7 +152,7 @@ public final class AccountManager
 			}
 			catch (AccountModificationException e)
 			{
-				_log.error(e.getMessage());
+				_log.error(e.getMessage(), e);
 			}
 		}
 		else if (cmd.startsWith(CMD[2]))
@@ -169,7 +170,7 @@ public final class AccountManager
 			}
 			catch (AccountModificationException e)
 			{
-				_log.error(e.getMessage());
+				_log.error(e.getMessage(), e);
 			}
 		}
 		else if (cmd.startsWith(CMD[3]))
@@ -186,7 +187,7 @@ public final class AccountManager
 			}
 			catch (AccountModificationException e)
 			{
-				_log.error(e.getMessage());
+				_log.error(e.getMessage(), e);
 			}
 		}
 		else if (cmd.equals(CMD[4]))
@@ -214,8 +215,9 @@ public final class AccountManager
 
 	/**
 	 * @param args
+	 * @throws IOException
 	 */
-	public static void main(String[] args) throws Throwable
+	public static void main(String[] args) throws IOException
 	{
 		AccountManager am = new AccountManager();
 		_log.info("/=========================\\");

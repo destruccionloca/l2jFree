@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.taskmanager.tasks;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Vector;
 
@@ -69,18 +68,11 @@ public class TaskMailCleanUp extends TaskHandler
 		}
 		catch (Exception e)
 		{
+			_log.warn("", e);
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			L2DatabaseFactory.close(con);
 		}
 		_log.info("Mail Clean Up Global Task: launched.");
 	}

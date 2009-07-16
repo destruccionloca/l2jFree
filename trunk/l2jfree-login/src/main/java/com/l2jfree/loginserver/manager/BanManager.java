@@ -98,7 +98,7 @@ public class BanManager
 		}
 		catch (IOException e)
 		{
-            _log.warn("BanManager: Cannot read IP list: " + e);
+            _log.warn("BanManager: Cannot read IP list: ", e);
 		}
 	}
 

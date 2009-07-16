@@ -64,7 +64,7 @@ public abstract class FloodProtectedListener extends Thread
 			catch (Exception e2)
 			{
 			}
-			_log.warn("Error creating ServerSocket: " + e);
+			_log.warn("Error creating ServerSocket: ", e);
 		}
 	}
 

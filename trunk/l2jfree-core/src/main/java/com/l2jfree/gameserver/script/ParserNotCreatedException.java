@@ -23,4 +23,9 @@ public class ParserNotCreatedException extends Exception
 	{
 		super("Parser could not be created!");
 	}
+	
+	public ParserNotCreatedException(Throwable cause)
+	{
+		super("Parser could not be created!", cause);
+	}
 }

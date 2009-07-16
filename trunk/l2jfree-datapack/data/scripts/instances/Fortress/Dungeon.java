@@ -69,11 +69,11 @@ public class Dungeon extends QuestJython
 		{ 35666, 35698, 35735, 35767, 35804, 35835, 35867, 35904, 35936, 35974, 36011, 36043, 36081, 36118, 36149, 36181, 36219, 36257, 36294, 36326, 36364 };
 
 		for (int npcId : npcs)
-			this.addStartNpc(npcId);
+			addStartNpc(npcId);
 		for (int npcId : npcs)
-			this.addTalkId(npcId);
+			addTalkId(npcId);
 		for (int npcId : mobs)
-			this.addKillId(npcId);
+			addKillId(npcId);
 	}
 
 	@Override
@@ -211,8 +211,9 @@ public class Dungeon extends QuestJython
 				_instanceId = InstanceManager.getInstance().createDynamicInstance("Prison.xml");
 				ThreadPoolManager.getInstance().schedule(new ReEntrenceTimerTask(), 14400000);
 			}
-			catch (Exception e)
+			catch (RuntimeException e)
 			{
+				_log.warn("", e);
 			}
 		}
 
@@ -242,9 +243,9 @@ public class Dungeon extends QuestJython
 					_log.warn("PrisonDungeon: Data missing in NPC table for ID: " + 0);
 				}
 			}
-			catch (Exception e)
+			catch (RuntimeException e)
 			{
-				_log.warn("PrisonDungeon: Spawns could not be initialized: " + e);
+				_log.warn("PrisonDungeon: Spawns could not be initialized: ", e);
 			}
 		}
 

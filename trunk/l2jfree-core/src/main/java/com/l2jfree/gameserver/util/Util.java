@@ -93,9 +93,9 @@ public final class Util
 		{
 			interp.interact(null);
 		}
-		catch (Throwable t)
+		catch (RuntimeException e)
 		{
-			Py.printException(t);
+			Py.printException(e);
 		}
 		interp.cleanup();
 	}

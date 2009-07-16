@@ -51,7 +51,7 @@ public class JarClassLoader extends ClassLoader
 		}
 		catch (Exception e)
 		{
-			throw new ClassNotFoundException(name);
+			throw new ClassNotFoundException(name, e);
 		}
 	}
 
@@ -90,7 +90,7 @@ public class JarClassLoader extends ClassLoader
 				}
 				catch (Exception e)
 				{
-					e.printStackTrace();
+					_log.warn("", e);
 				}
 				try
 				{
@@ -99,7 +99,7 @@ public class JarClassLoader extends ClassLoader
 				}
 				catch (Exception e)
 				{
-					e.printStackTrace();
+					_log.warn("", e);
 				}
 			}
 		}

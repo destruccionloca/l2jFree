@@ -151,7 +151,7 @@ public class SevenSigns
 		}
 		catch (Exception e)
 		{
-			_log.fatal("SevenSigns: Failed to load configuration: " + e);
+			_log.fatal("SevenSigns: Failed to load configuration: ", e);
 		}
 
 		_log.info("SevenSigns: Currently in the " + getCurrentPeriodName() + " period!");
@@ -743,7 +743,7 @@ public class SevenSigns
 		}
 		catch (SQLException e)
 		{
-			_log.fatal("SevenSigns: Unable to load Seven Signs data from database: " + e);
+			_log.fatal("SevenSigns: Unable to load Seven Signs data from database: ", e);
 		}
 		finally
 		{
@@ -841,7 +841,7 @@ public class SevenSigns
 		}
 		catch (SQLException e)
 		{
-			_log.fatal("SevenSigns: Unable to save data to database: " + e);
+			_log.fatal("SevenSigns: Unable to save data to database: ", e);
 		}
 		finally
 		{
@@ -940,7 +940,7 @@ public class SevenSigns
 			}
 			catch (SQLException e)
 			{
-				_log.fatal("SevenSigns: Failed to save data: " + e);
+				_log.fatal("SevenSigns: Failed to save data: ", e);
 			}
 			finally
 			{
@@ -1504,7 +1504,7 @@ public class SevenSigns
 		}
 		catch (SQLException e)
 		{
-			_log.fatal("SevenSigns: Failed to update certificate shops: " + e);
+			_log.fatal("SevenSigns: Failed to update certificate shops: ", e);
 		}
 		finally
 		{

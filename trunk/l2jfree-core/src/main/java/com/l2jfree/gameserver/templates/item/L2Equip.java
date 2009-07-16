@@ -79,7 +79,7 @@ public abstract class L2Equip extends L2Item
 			}
 			catch (Exception e)
 			{
-				_log.error("Cannot parse " + restrictType + " restriction \"" + strVal + "\" for " + itemType + " " + getItemId());
+				_log.error("Cannot parse " + restrictType + " restriction \"" + strVal + "\" for " + itemType + " " + getItemId(), e);
 				continue;
 			}
 
@@ -112,7 +112,7 @@ public abstract class L2Equip extends L2Item
 			}
 			catch (Exception e)
 			{
-				_log.error("Cannot parse " + skillType + " skill \"" + skillStr + "\" for " + itemType + " item " + getItemId());
+				_log.error("Cannot parse " + skillType + " skill \"" + skillStr + "\" for " + itemType + " item " + getItemId(), e);
 				continue;
 			}
 
@@ -152,7 +152,7 @@ public abstract class L2Equip extends L2Item
 			}
 			catch (Exception e)
 			{
-				_log.error("Cannot parse " + skillType + " skill \"" + skillStr + "\" for " + itemType + " item " + getItemId());
+				_log.error("Cannot parse " + skillType + " skill \"" + skillStr + "\" for " + itemType + " item " + getItemId(), e);
 				continue;
 			}
 

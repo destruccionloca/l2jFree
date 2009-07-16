@@ -33,7 +33,7 @@ public abstract class ManagedScript
 	public ManagedScript()
 	{
 		_scriptFile = L2ScriptEngineManager.getInstance().getCurrentLoadingScript();
-		this.setLastLoadTime(System.currentTimeMillis());
+		setLastLoadTime(System.currentTimeMillis());
 	}
 
 	/**

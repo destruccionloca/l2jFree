@@ -974,7 +974,7 @@ public class SevenSignsFestival implements SpawnListener
 		}
 		catch (SQLException e)
 		{
-			_log.fatal("SevenSignsFestival: Failed to load configuration: " + e);
+			_log.fatal("SevenSignsFestival: Failed to load configuration: ", e);
 		}
 		finally
 		{
@@ -1054,7 +1054,7 @@ public class SevenSignsFestival implements SpawnListener
 		}
 		catch (SQLException e)
 		{
-			_log.fatal("SevenSignsFestival: Failed to save configuration: " + e);
+			_log.fatal("SevenSignsFestival: Failed to save configuration: ", e);
 		}
 		finally
 		{
@@ -1157,7 +1157,7 @@ public class SevenSignsFestival implements SpawnListener
 			}
 			catch (Exception e)
 			{
-				_log.warn("could not get clan name of " + partyMemberName + ": " + e);
+				_log.warn("could not get clan name of " + partyMemberName + ": ", e);
 			}
 			finally
 			{
@@ -2108,7 +2108,7 @@ public class SevenSignsFestival implements SpawnListener
 			}
 			catch (Exception e)
 			{
-				_log.warn("SevenSignsFestival: Error while spawning Festival Witch ID " + _witchSpawn._npcId + ": " + e);
+				_log.warn("SevenSignsFestival: Error while spawning Festival Witch ID " + _witchSpawn._npcId + ": ", e);
 			}
 
 			// Make it appear as though the Witch has apparated there.
@@ -2259,7 +2259,7 @@ public class SevenSignsFestival implements SpawnListener
 				}
 				catch (Exception e)
 				{
-					_log.warn("SevenSignsFestival: Error while spawning NPC ID " + currSpawn._npcId + ": " + e);
+					_log.warn("SevenSignsFestival: Error while spawning NPC ID " + currSpawn._npcId + ": ", e);
 				}
 			}
 		}

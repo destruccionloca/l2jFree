@@ -53,7 +53,7 @@ import com.mchange.v2.c3p0.PooledDataSource;
  * The registry store singleton and is able to act as a factory.
  * All singleton and factory are declared in spring.xml
  * 
- * There is no risk to call the load method more than one time. 
+ * There is no risk to call the load method more than one time.
  * The first call initialize all singleton by IoC mechanism.
  * 
  */
@@ -66,27 +66,25 @@ public class L2Registry
 	/**
 	 * Load registry from spring
 	 * The registry is a facade behind ApplicationContext from spring.
-	 * @throws Throwable 
 	 */
-	public static void loadRegistry(String[] paths) throws Throwable
+	public static void loadRegistry(String[] paths)
 	{
 		try
 		{
 			// Load the context if it is not already loaded
 			if (__ctx == null)
 			{
-				// init properties for spring 
+				// init properties for spring
 				__ctx = new ClassPathXmlApplicationContext(paths);
 			}
 		}
-		catch (Throwable e)
+		catch (RuntimeException e)
 		{
-			_log.fatal("Unable to load registry : " + e.getMessage() + " check that you update xml file in config folder !", e);
-			throw e;
+			throw new Error("Unable to load registry, check that you update xml file in config folder !", e);
 		}
 	}
 
-	public static void loadRegistry(String path) throws Throwable
+	public static void loadRegistry(String path)
 	{
 		loadRegistry(new String[] { path });
 	}
@@ -94,7 +92,7 @@ public class L2Registry
 	/**
 	 * Retrieve a bean from registry
 	 * @param bean - the bean name
-	 * @return the Object 
+	 * @return the Object
 	 */
 	public static Object getBean(String bean)
 	{

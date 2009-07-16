@@ -48,7 +48,7 @@ public class ScriptEngine
 			{
 				// We'll throw an exception to indicate that
 				// the shape could not be created
-				throw (new ParserNotCreatedException());
+				throw new ParserNotCreatedException(e);
 			}
 		}
 		return (s.create());

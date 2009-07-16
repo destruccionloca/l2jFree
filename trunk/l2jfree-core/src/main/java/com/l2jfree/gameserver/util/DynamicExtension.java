@@ -87,7 +87,7 @@ public class DynamicExtension
 		}
 		catch (FileNotFoundException ex)
 		{
-			_log.info(ex.getMessage() + ": no extensions to load");
+			_log.info(ex.getMessage() + ": no extensions to load", ex);
 		}
 		catch (Exception ex)
 		{

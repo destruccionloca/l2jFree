@@ -81,7 +81,7 @@ public class ValidatingStatsSet extends StatsSet
 	}
 	
 	@Override
-	protected void finalize() throws Throwable
+	protected void finalize()
 	{
 		clear();
 	}

@@ -102,11 +102,11 @@ public class GameserversDAOXml implements GameserversDAO
 		}
 		catch (FileNotFoundException e)
 		{
-			_log.warn("servername.xml could not be loaded : " + e.getMessage());
+			_log.warn("servername.xml could not be loaded : " + e.getMessage(), e);
 		}
 		catch (DocumentException e)
 		{
-			_log.warn("servername.xml could not be loaded : " + e.getMessage());
+			_log.warn("servername.xml could not be loaded : " + e.getMessage(), e);
 		}
 		finally
 		{

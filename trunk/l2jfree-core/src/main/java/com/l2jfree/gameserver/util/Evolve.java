@@ -133,17 +133,10 @@ public final class Evolve
 		
 		public void run()
 		{
-			try
-			{
-				if (_petSummon.getCurrentFed() <= 0)
-					_petSummon.unSummon(_activeChar);
-				else
-					_petSummon.startFeed();
-			}
-			catch (Exception e)
-			{
-				e.printStackTrace();
-			}
+			if (_petSummon.getCurrentFed() <= 0)
+				_petSummon.unSummon(_activeChar);
+			else
+				_petSummon.startFeed();
 		}
 	}
 	
@@ -160,16 +153,9 @@ public final class Evolve
 		
 		public void run()
 		{
-			try
-			{
-				_activeChar.sendPacket(new MagicSkillLaunched(_activeChar, 2046, 1));
-				_petSummon.setFollowStatus(true);
-				_petSummon.setShowSummonAnimation(false);
-			}
-			catch (Throwable e)
-			{
-				e.printStackTrace();
-			}
+			_activeChar.sendPacket(new MagicSkillLaunched(_activeChar, 2046, 1));
+			_petSummon.setFollowStatus(true);
+			_petSummon.setShowSummonAnimation(false);
 		}
 	}
 }

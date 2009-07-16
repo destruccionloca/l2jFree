@@ -139,7 +139,7 @@ public class LoginManager
 			}
 			catch (GeneralSecurityException e)
 			{
-				_log.fatal("Error in RSA setup:" + e);
+				_log.fatal("Error in RSA setup:", e);
 				_log.info("Server shutting down now");
 				System.exit(1);
 				return;
@@ -320,17 +320,17 @@ public class LoginManager
 		}
 		catch (NoSuchAlgorithmException e)
 		{
-			_log.error("could not check password:" + e);
+			_log.error("could not check password:", e);
 			ret = AuthLoginResult.SYSTEM_ERROR;
 		}
 		catch (UnsupportedEncodingException e)
 		{
-			_log.error("could not check password:" + e);
+			_log.error("could not check password:", e);
 			ret = AuthLoginResult.SYSTEM_ERROR;
 		}
 		catch (AccountModificationException e)
 		{
-			_log.warn("could not check password:" + e);
+			_log.warn("could not check password:", e);
 			ret = AuthLoginResult.SYSTEM_ERROR;
 		}
 		return ret;

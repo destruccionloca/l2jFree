@@ -318,7 +318,7 @@ public class RecipeController
 									}
 									catch (Exception e)
 									{
-										_log.fatal("Error in StatUse parameter for recipe item id: " + id + ", skipping");
+										_log.fatal("Error in StatUse parameter for recipe item id: " + id + ", skipping", e);
 										continue recipesFile;
 									}
 								}
@@ -332,7 +332,7 @@ public class RecipeController
 									}
 									catch (Exception e)
 									{
-										_log.fatal("Error in AltStatChange parameter for recipe item id: " + id + ", skipping");
+										_log.fatal("Error in AltStatChange parameter for recipe item id: " + id + ", skipping", e);
 										continue recipesFile;
 									}
 								}

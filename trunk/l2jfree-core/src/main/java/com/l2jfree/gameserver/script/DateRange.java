@@ -22,8 +22,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Class used to manipulate a range of date. 
- * you can instantiate it with the static function parse or with a public constructor with two dates 
+ * Class used to manipulate a range of date.
+ * you can instantiate it with the static function parse or with a public constructor with two dates
  * 
  * @author Luis Arias
  *
@@ -47,7 +47,7 @@ public class DateRange
 
 	/**
 	 * Create a DateRange with a single String and a Date formatter
-	 * The initial String is split on "-" 
+	 * The initial String is split on "-"
 	 * @param dateRange
 	 * @param format
 	 * @return DateRange
@@ -66,7 +66,7 @@ public class DateRange
 			}
 			catch (ParseException e)
 			{
-				_log.warn("Invalid Date Format for a dateRange.");
+				_log.warn("Invalid Date Format for a dateRange.", e);
 			}
 		}
 		return new DateRange(null, null);

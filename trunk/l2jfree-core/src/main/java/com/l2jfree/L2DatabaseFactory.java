@@ -126,7 +126,7 @@ public final class L2DatabaseFactory
 		}
 	}
 	
-	public void shutdown() throws Throwable
+	public void shutdown() throws Exception
 	{
 		_source.close();
 	}

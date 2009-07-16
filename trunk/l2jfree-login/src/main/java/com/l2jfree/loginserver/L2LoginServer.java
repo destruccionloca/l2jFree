@@ -65,14 +65,14 @@ public class L2LoginServer
 	 * Instantiate loginserver and launch it
 	 * Initialize log folder, telnet console and registry
 	 * @param args
-	 * @throws Exception
+	 * @throws IOException
 	 */
-	public static void main(String[] args) throws Throwable
+	public static void main(String[] args) throws IOException
 	{
 		_instance = new L2LoginServer();
 	}
 
-	public L2LoginServer() throws Throwable
+	public L2LoginServer() throws IOException
 	{
 		// Local Constants
 		// ----------------

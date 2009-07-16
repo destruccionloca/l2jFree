@@ -480,7 +480,7 @@ final class DocumentSkill extends DocumentBase
 			}
 			catch (RuntimeException e)
 			{
-				throw new IllegalArgumentException("Not skilltype found for: " + typeName);
+				throw new IllegalArgumentException("Not skilltype found for: " + typeName, e);
 			}
 		}
 		
