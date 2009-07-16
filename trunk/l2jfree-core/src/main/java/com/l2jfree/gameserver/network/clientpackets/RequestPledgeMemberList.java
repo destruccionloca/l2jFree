@@ -26,8 +26,7 @@ import com.l2jfree.gameserver.network.serverpackets.PledgeShowMemberListAll;
 public class RequestPledgeMemberList extends L2GameClientPacket
 {
 	private static final String _C__3C_REQUESTPLEDGEMEMBERLIST = "[C] 3C RequestPledgeMemberList";
-	//private final static Log _log = LogFactory.getLog(RequestPledgeMemberList.class.getName());
-
+	
 	/**
 	 * packet type id 0x3c
 	 * format:		c

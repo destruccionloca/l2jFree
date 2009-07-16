@@ -26,8 +26,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 public class RequestStartPledgeWar extends L2GameClientPacket
 {
     private static final String _C__4D_REQUESTSTARTPLEDGEWAR = "[C] 4D RequestStartPledgewar";
-    //private static final Log _log = LogFactory.getLog(RequestStartPledgeWar.class.getName());
-
+    
     String _pledgeName;
     L2Clan _clan;
     L2PcInstance player;
@@ -108,7 +107,7 @@ public class RequestStartPledgeWar extends L2GameClientPacket
         //        {
         //            player.sendMessage("Clan leader isn't online.");
         //            player.sendPacket(new ActionFailed());
-        //            return;                        
+        //            return;
         //        }
 
         //        if (leader.isProcessingRequest())
@@ -117,7 +116,7 @@ public class RequestStartPledgeWar extends L2GameClientPacket
         //            sm.addString(leader.getName());
         //            player.sendPacket(sm);
         //            return;
-        //        } 
+        //        }
 
         //        if (leader.isTransactionInProgress())
         //        {
@@ -125,7 +124,7 @@ public class RequestStartPledgeWar extends L2GameClientPacket
         //            sm.addString(leader.getName());
         //            player.sendPacket(sm);
         //            return;
-        //        } 
+        //        }
 
         //        leader.setTransactionRequester(player);
         //        player.setTransactionRequester(leader);

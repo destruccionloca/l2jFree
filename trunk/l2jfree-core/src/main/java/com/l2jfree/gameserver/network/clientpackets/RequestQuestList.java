@@ -24,8 +24,7 @@ import com.l2jfree.gameserver.network.serverpackets.QuestList;
 public class RequestQuestList extends L2GameClientPacket
 {
     private static final String _C__63_REQUESTQUESTLIST = "[C] 63 RequestQuestList";
-    //private final static Log _log = LogFactory.getLog(RequestQuestList.class.getName());
-
+    
     /**
      * packet type id 0x63<p>
      * format:      c<p>

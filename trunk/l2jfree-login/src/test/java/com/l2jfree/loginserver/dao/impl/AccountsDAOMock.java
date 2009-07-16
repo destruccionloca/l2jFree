@@ -33,8 +33,6 @@ import com.l2jfree.loginserver.dao.AccountsDAO;
  */
 public class AccountsDAOMock implements AccountsDAO
 {
-	//private static final Log _log = LogFactory.getLog(AccountsDAOHib.class);
-
 	private Map<String, Accounts>	referential	= new HashMap<String, Accounts>();
 
 	public AccountsDAOMock()

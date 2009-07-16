@@ -26,8 +26,7 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 public class ObserverReturn extends L2GameClientPacket
 {
 	private static final String OBSRETURN__C__04 = "[C] b8 ObserverReturn";
-	//private final static Log _log = LogFactory.getLog(Action.class.getName());
-
+	
 	// cddddc
 	@Override
 	protected void readImpl()

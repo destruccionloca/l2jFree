@@ -27,7 +27,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  */
 public class AdminHeal implements IAdminCommandHandler
 {
-	//private final static Log _log = LogFactory.getLog(AdminRes.class.getName());
 	private static final String[]	ADMIN_COMMANDS	=
 													{ "admin_heal" };
 

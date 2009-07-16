@@ -349,8 +349,6 @@ public final class L2PcInstance extends L2Playable
 	private static final int[]	COMMON_CRAFT_LEVELS				=
 																{ 5, 20, 28, 36, 43, 49, 55, 62 };
 
-	//private final static Log _log = LogFactory.getLog(L2PcInstance.class.getName());
-
 	public class AIAccessor extends L2Character.AIAccessor
 	{
 		protected AIAccessor()

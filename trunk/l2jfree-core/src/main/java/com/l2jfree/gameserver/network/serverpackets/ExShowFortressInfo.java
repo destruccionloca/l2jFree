@@ -27,8 +27,7 @@ import com.l2jfree.gameserver.model.entity.Fort;
 public class ExShowFortressInfo extends L2GameServerPacket
 {
     private static final String S_FE_15_EX_SHOW_FORTRESS_INFO = "[S] FE:15 ExShowFortressInfo";
-    //private static final Log _log = LogFactory.getLog(ExShowFortressInfo.class.getName());
-
+    
     /**
      * @see com.l2jfree.gameserver.serverpackets.L2GameServerPacket#getType()
      */

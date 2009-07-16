@@ -27,7 +27,6 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 public class RequestReplyStartPledgeWar extends L2GameClientPacket
 {
     private static final String _C__4e_REQUESTREPLYSTARTPLEDGEWAR = "[C] 4e RequestReplyStartPledgeWar";
-	//private final static Log _log = LogFactory.getLog(RequestReplyStartPledgeWar.class.getName());
     
     private int _answer;
             

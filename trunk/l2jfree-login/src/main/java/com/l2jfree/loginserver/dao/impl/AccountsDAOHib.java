@@ -28,8 +28,6 @@ import com.l2jfree.loginserver.dao.AccountsDAO;
  */
 public class AccountsDAOHib extends BaseRootDAOHib implements AccountsDAO
 {
-	//private static final Log _log = LogFactory.getLog(AccountsDAOHib.class);
-
 	/**
 	 * Search by id
 	 * @param id

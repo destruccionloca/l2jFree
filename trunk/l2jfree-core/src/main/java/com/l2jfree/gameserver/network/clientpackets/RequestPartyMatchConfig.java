@@ -24,8 +24,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public class RequestPartyMatchConfig extends L2GameClientPacket
 {
 	private static final String _C__6F_REQUESTPARTYMATCHCONFIG = "[C] 6F RequestPartyMatchConfig";
-	//private final static Log _log = LogFactory.getLog(RequestPartyMatchConfig.class.getName());
-
+	
 	@SuppressWarnings("unused")
 	private int _unk;
 	@SuppressWarnings("unused")

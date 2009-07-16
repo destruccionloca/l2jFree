@@ -26,8 +26,7 @@ import com.l2jfree.gameserver.network.serverpackets.SiegeAttackerList;
 public class RequestSiegeAttackerList extends L2GameClientPacket
 {
     private static final String _C__A2_RequestSiegeAttackerList = "[C] a2 RequestSiegeAttackerList";
-    //private final static Log _log = LogFactory.getLog(RequestJoinParty.class.getName());
-
+    
     private int _castleId;
     
     @Override

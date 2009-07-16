@@ -20,8 +20,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public class RequestReplySurrenderPledgeWar extends L2GameClientPacket
 {
     private static final String _C__52_REQUESTREPLYSURRENDERPLEDGEWAR = "[C] 52 RequestReplySurrenderPledgeWar";
-    //private final static Log _log = LogFactory.getLog(RequestReplySurrenderPledgeWar.class.getName());
-
+    
     int _answer;
     
     @Override
@@ -45,7 +44,7 @@ public class RequestReplySurrenderPledgeWar extends L2GameClientPacket
         {
             requestor.deathPenalty(false, false, false);
             ClanTable.getInstance().deleteclanswars(requestor.getClanId(), activeChar.getClanId());
-        } 
+        }
         else
         {
         }

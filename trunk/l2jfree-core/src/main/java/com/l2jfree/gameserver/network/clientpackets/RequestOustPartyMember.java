@@ -21,11 +21,10 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  * 
  * @version $Revision: 1.3.4.2 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestOustPartyMember extends L2GameClientPacket{
-	
+public class RequestOustPartyMember extends L2GameClientPacket
+{
 	private static final String _C__2C_REQUESTOUSTPARTYMEMBER = "[C] 2C RequestOustPartyMember";
-	//private final static Log _log = LogFactory.getLog(RequestJoinParty.class.getName());
-
+	
 	private String _name;
 	
     @Override

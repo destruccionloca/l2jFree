@@ -17,14 +17,13 @@ package com.l2jfree.gameserver.network.serverpackets;
 public class AskJoinParty extends L2GameServerPacket
 {
 	private static final String _S__39_ASKJOINPARTY = "[S] 39 AskJoinParty [sd]";
-	//private final static Log _log = LogFactory.getLog(AskJoinParty.class.getName());
-
+	
 	private String _requestorName;
 	private int _itemDistribution;
 
 	/**
 	 * @param int objectId of the target
-	 * @param int 
+	 * @param int
 	 */
 	public AskJoinParty(String requestorName, int itemDistribution)
 	{

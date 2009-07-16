@@ -19,10 +19,9 @@ import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.network.serverpackets.SiegeDefenderList;
 
 public class RequestSiegeDefenderList extends L2GameClientPacket
-{    
+{
     private static final String _C__a3_RequestSiegeDefenderList = "[C] a3 RequestSiegeDefenderList";
-    //private final static Log _log = LogFactory.getLog(RequestJoinParty.class.getName());
-
+    
     private int _castleId;
     
     @Override

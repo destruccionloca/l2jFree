@@ -27,7 +27,6 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 public class RequestReplyStopPledgeWar extends L2GameClientPacket
 {
     private static final String _C__50_REQUESTREPLYSTOPPLEDGEWAR = "[C] 50 RequestReplyStopPledgeWar";
-    //private final static Log _log = LogFactory.getLog(RequestReplyStopPledgeWar.class.getName());
     
     private int _answer;
             
@@ -52,7 +51,7 @@ public class RequestReplyStopPledgeWar extends L2GameClientPacket
         if (_answer == 1)
         {
             ClanTable.getInstance().deleteclanswars(requestor.getClanId(), activeChar.getClanId());
-        } 
+        }
         else
         {
             requestor.sendPacket(new SystemMessage(SystemMessageId.REQUEST_TO_END_WAR_HAS_BEEN_DENIED));

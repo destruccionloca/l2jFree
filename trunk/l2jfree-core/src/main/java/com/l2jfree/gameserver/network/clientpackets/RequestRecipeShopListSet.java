@@ -33,8 +33,7 @@ import com.l2jfree.gameserver.util.Util;
 public class RequestRecipeShopListSet extends L2GameClientPacket
 {
 	private static final String	_C__B2_RequestRecipeShopListSet	= "[C] b2 RequestRecipeShopListSet";
-	//private final static Log _log = LogFactory.getLog(RequestRecipeShopListSet.class.getName());
-
+	
 	private static final int BATCH_LENGTH = 8; // length of the one item
 	private static final int BATCH_LENGTH_FINAL = 12;
 

@@ -31,9 +31,9 @@ import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.tools.random.Rnd;
 
-/** 
+/**
 * Thanks to L2Fortress and balancer.ru - kombat
-*/ 
+*/
 public class DimensionalRift
 {
 	protected byte _roomType;
@@ -54,8 +54,6 @@ public class DimensionalRift
 	protected FastList<L2PcInstance> revivedInWaitingRoom = new FastList<L2PcInstance>();
 	private boolean isBossRoom = false;
 
-	//private final static Log _log = LogFactory.getLog(DimensionalRift.class.getName());
-	
 	public DimensionalRift(L2Party party, byte roomType, byte roomId)
 	{
 		_roomType = roomType;

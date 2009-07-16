@@ -53,8 +53,6 @@ import com.l2jfree.gameserver.templates.item.L2WeaponType;
  */
 public abstract class Inventory extends ItemContainer
 {
-	// protected static final Logger _log = Logger.getLogger(Inventory.class.getName());
-
 	public interface PaperdollListener
 	{
 		public void notifyEquiped(int slot, L2ItemInstance inst);

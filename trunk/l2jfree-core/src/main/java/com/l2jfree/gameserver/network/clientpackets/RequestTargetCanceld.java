@@ -24,8 +24,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public class RequestTargetCanceld extends L2GameClientPacket
 {
 	private static final String _C__37_REQUESTTARGETCANCELD = "[C] 37 RequestTargetCanceld";
-	//private final static Log _log = LogFactory.getLog(RequestTargetCanceld.class.getName());
-
+	
 	private int _unselect;
 
 	/**

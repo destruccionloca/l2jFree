@@ -33,8 +33,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 public class RequestPetition extends L2GameClientPacket
 {
 	private static final String _C__7F_RequestPetition = "[C] 7F RequestPetition";
-	//private final static Log _log = LogFactory.getLog(RequestPetition.class.getName());
-
+	
 	private String _content;
 	private int _type;       // 1 = on : 0 = off;
 

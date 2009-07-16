@@ -24,8 +24,6 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 public class CombatFlag
 {
-	//private static final Logger _log = Logger.getLogger(CombatFlag.class.getName());
-
 	protected L2PcInstance	_player		= null;
 	public int				playerId	= 0;
 	private L2ItemInstance	_item		= null;

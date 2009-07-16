@@ -32,12 +32,11 @@ package com.l2jfree.gameserver.network.serverpackets;
 public class JoinParty extends L2GameServerPacket
 {
 	private static final String _S__4C_JOINPARTY = "[S] 3a JoinParty";
-	//private static Logger _log = Logger.getLogger(JoinParty.class.getName());
 
 	private int _response;
 
 	/**
-	 * @param int 
+	 * @param int
 	 */
 	public JoinParty(int response)
 	{

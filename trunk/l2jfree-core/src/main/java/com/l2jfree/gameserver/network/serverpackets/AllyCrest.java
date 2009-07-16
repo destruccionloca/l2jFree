@@ -17,7 +17,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 public class AllyCrest extends L2GameServerPacket
 {
 	private static final String _S__AF_ALLYCREST = "[S] ae AllyCrest [ddb]";
-    //private final static Log _log = LogFactory.getLog(AllyCrest.class.getName());
+	
 	private int _crestId;
 	private int _crestSize;
 	private byte[] _data;

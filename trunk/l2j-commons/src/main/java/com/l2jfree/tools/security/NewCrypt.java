@@ -15,15 +15,19 @@
 package com.l2jfree.tools.security;
 
 import java.io.IOException;
-import java.util.logging.Logger;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
  * 
  * @version $Revision: 1.3.4.1 $ $Date: 2005/03/27 15:30:09 $
  */
-public class NewCrypt {
-	protected static Logger _log = Logger.getLogger(NewCrypt.class.getName());
+public class NewCrypt
+{
+	private static final Log _log = LogFactory.getLog(NewCrypt.class);
+	
 	BlowfishEngine _crypt;
 	BlowfishEngine _decrypt;
 

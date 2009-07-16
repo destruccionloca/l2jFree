@@ -27,11 +27,8 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
  */
 public class RequestJoinSiege extends L2GameClientPacket
 {
-
 	private static final String	_C__A4_RequestJoinSiege	= "[C] a4 RequestJoinSiege";
-	// private final static Log _log =
-	// LogFactory.getLog(RequestJoinSiege.class.getName());
-
+	
 	private int					_castleId;
 	private int					_isAttacker;
 	private int					_isJoining;

@@ -25,7 +25,6 @@ import com.l2jfree.gameserver.model.L2World;
  */
 public class CellPathFinding extends PathFinding
 {
-	//private static Logger _log = Logger.getLogger(WorldPathFinding.class.getName());
 	private static CellPathFinding _instance;
 	
 	public static CellPathFinding getInstance()

@@ -22,8 +22,7 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 public class RequestStopPledgeWar extends L2GameClientPacket
 {
 	private static final String _C__4F_REQUESTSTOPPLEDGEWAR = "[C] 4F RequestStopPledgeWar";
-	//private final static Log _log = LogFactory.getLog(RequestStopPledgeWar.class.getName());
-
+	
 	String _pledgeName;
 
     @Override
@@ -64,7 +63,7 @@ public class RequestStopPledgeWar extends L2GameClientPacket
 		//        {
 		//            player.sendMessage("Clan leader isn't online.");
 		//            player.sendPacket(new ActionFailed());
-		//            return;                        
+		//            return;
 		//        }
 
 		//        if (leader.isProcessingRequest())
@@ -73,7 +72,7 @@ public class RequestStopPledgeWar extends L2GameClientPacket
 		//            sm.addString(leader.getName());
 		//            player.sendPacket(sm);
 		//            return;
-		//        } 
+		//        }
 
 		ClanTable.getInstance().deleteclanswars(playerClan.getClanId(), clan.getClanId());
 		//        player.onTransactionRequest(leader);

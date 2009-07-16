@@ -24,7 +24,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public class RequestPrivateStoreManageBuy extends L2GameClientPacket
 {
 	private static final String _C__90_REQUESTPRIVATESTOREMANAGEBUY = "[C] 90 RequestPrivateStoreManageBuy";
-	//private final static Log _log = LogFactory.getLog(RequestPrivateStoreBuyManage.class.getName());
 	
 	@Override
 	protected void readImpl()

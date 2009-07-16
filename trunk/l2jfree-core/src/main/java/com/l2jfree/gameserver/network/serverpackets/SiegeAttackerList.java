@@ -48,7 +48,6 @@ import com.l2jfree.gameserver.model.entity.Castle;
 public class SiegeAttackerList extends L2GameServerPacket
 {
 	private static final String	_S__CA_SiegeAttackerList	= "[S] ca SiegeAttackerList";
-	//private static Logger _log = Logger.getLogger(SiegeAttackerList.class.getName());
 	private Castle				_castle;
 
 	public SiegeAttackerList(Castle castle)
@@ -61,7 +60,7 @@ public class SiegeAttackerList extends L2GameServerPacket
 	{
 		writeC(0xca);
 		writeD(_castle.getCastleId());
-		writeD(0x00); //0 
+		writeD(0x00); //0
 		writeD(0x01); //1
 		writeD(0x00); //0
 		int size = _castle.getSiege().getAttackerClans().size();

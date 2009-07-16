@@ -42,8 +42,7 @@ import com.l2jfree.gameserver.util.Util;
 public class RequestSellItem extends L2GameClientPacket
 {
 	private static final String _C__1E_REQUESTSELLITEM = "[C] 1E RequestSellItem";
-	//private final static Log _log = LogFactory.getLog(RequestSellItem.class.getName());
-
+	
 	private static final int BATCH_LENGTH = 12; // length of the one item
 	private static final int BATCH_LENGTH_FINAL = 16;
 

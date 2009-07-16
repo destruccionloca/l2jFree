@@ -33,8 +33,6 @@ import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 
 public class PcStat extends PlayableStat
 {
-	//private final static Log	_log	= LogFactory.getLog(L2PcInstance.class.getName());
-
 	// =========================================================
 	// Data Field
 
