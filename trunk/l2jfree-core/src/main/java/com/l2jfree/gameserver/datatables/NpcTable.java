@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.datatables;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -40,41 +41,32 @@ import com.l2jfree.gameserver.model.entity.faction.Faction;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.templates.StatsSet;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
+import com.l2jfree.util.LookupTable;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.8.2.6.2.9 $ $Date: 2005/04/06 16:13:25 $
- */
-public class NpcTable
+public final class NpcTable
 {
-	private final static Log			_log			= LogFactory.getLog(NpcTable.class.getName());
-
-	private Map<Integer, L2NpcTemplate>	_npcs;
-	private boolean						_initialized	= false;
-
+	private static final Log _log = LogFactory.getLog(NpcTable.class);
+	
 	public static NpcTable getInstance()
 	{
 		return SingletonHolder._instance;
 	}
-
+	
+	private final LookupTable<L2NpcTemplate> _npcs = new LookupTable<L2NpcTemplate>();
+	
 	private NpcTable()
 	{
-		_npcs = new FastMap<Integer, L2NpcTemplate>();
-
 		restoreNpcData();
 	}
-
-	@SuppressWarnings("null")
+	
 	private void restoreNpcData()
 	{
 		Connection con = null;
-
 		try
 		{
+			con = L2DatabaseFactory.getInstance().getConnection();
 			try
 			{
-				con = L2DatabaseFactory.getInstance().getConnection(con);
 				PreparedStatement statement;
 				statement = con.prepareStatement("SELECT "
 						+ L2DatabaseFactory.getInstance().safetyString(
@@ -139,7 +131,6 @@ public class NpcTable
 
 			try
 			{
-				con = L2DatabaseFactory.getInstance().getConnection(con);
 				PreparedStatement statement;
 				statement = con.prepareStatement("SELECT "
 						+ L2DatabaseFactory.getInstance().safetyString(
@@ -205,7 +196,6 @@ public class NpcTable
 
 			try
 			{
-				con = L2DatabaseFactory.getInstance().getConnection(con);
 				PreparedStatement statement = con.prepareStatement("SELECT npcid, skillid, level FROM npcskills");
 				ResultSet npcskills = statement.executeQuery();
 				L2NpcTemplate npcDat = null;
@@ -246,7 +236,6 @@ public class NpcTable
 
 			try
 			{
-				con = L2DatabaseFactory.getInstance().getConnection(con);
 				PreparedStatement statement = con.prepareStatement("SELECT npcid, skillid, level FROM custom_npcskills");
 				ResultSet npcskills = statement.executeQuery();
 				L2NpcTemplate npcDat = null;
@@ -419,12 +408,14 @@ public class NpcTable
 				_log.fatal("Error loading minion data: ", e);
 			}
 		}
+		catch (SQLException e)
+		{
+			_log.warn("", e);
+		}
 		finally
 		{
 			L2DatabaseFactory.close(con);
 		}
-
-		_initialized = true;
 	}
 
 	private boolean fillNpcTable(ResultSet NpcData) throws Exception
@@ -526,7 +517,7 @@ public class NpcTable
 			template.addVulnerability(Stats.BLUNT_WPN_VULN, 1);
 			template.addVulnerability(Stats.DAGGER_WPN_VULN, 1);
 
-			_npcs.put(id, template);
+			_npcs.set(id, template);
 
 			loaded = true;
 		}
@@ -562,7 +553,7 @@ public class NpcTable
 				minions.addAll(old.getMinionData());
 
 			// reload the NPC base data
-			con = L2DatabaseFactory.getInstance().getConnection(con);
+			con = L2DatabaseFactory.getInstance().getConnection();
 			PreparedStatement st = con.prepareStatement("SELECT "
 					+ L2DatabaseFactory.getInstance().safetyString(
                     "id",
@@ -710,16 +701,15 @@ public class NpcTable
 
 	public void cleanUp()
 	{
-		_npcs.clear();
+		_npcs.clear(false);
 	}
 
 	public void saveNpc(StatsSet npc)
 	{
 		Connection con = null;
-
 		try
 		{
-			con = L2DatabaseFactory.getInstance().getConnection(con);
+			con = L2DatabaseFactory.getInstance().getConnection();
 			Map<String, Object> set = npc.getSet();
 
 			String name = "";
@@ -773,29 +763,19 @@ public class NpcTable
 		}
 	}
 
-	public boolean isInitialized()
-	{
-		return _initialized;
-	}
-
-	public void replaceTemplate(L2NpcTemplate npc)
-	{
-		_npcs.put(npc.getNpcId(), npc);
-	}
-
 	public L2NpcTemplate getTemplate(int id)
 	{
 		return _npcs.get(id);
 	}
 
-	public Map<Integer, L2NpcTemplate> getAllTemplates()
+	public Iterable<L2NpcTemplate> getAllTemplates()
 	{
 		return _npcs;
 	}
 
 	public L2NpcTemplate getTemplateByName(String name)
 	{
-		for (L2NpcTemplate npcTemplate : _npcs.values())
+		for (L2NpcTemplate npcTemplate : _npcs)
 			if (npcTemplate.getName().equalsIgnoreCase(name))
 				return npcTemplate;
 		return null;
@@ -804,7 +784,7 @@ public class NpcTable
 	public L2NpcTemplate[] getAllOfLevel(int lvl)
 	{
 		FastList<L2NpcTemplate> list = new FastList<L2NpcTemplate>();
-		for (L2NpcTemplate t : _npcs.values())
+		for (L2NpcTemplate t : _npcs)
 			if (t.getLevel() == lvl)
 				list.add(t);
 		return list.toArray(new L2NpcTemplate[list.size()]);
@@ -813,7 +793,7 @@ public class NpcTable
 	public L2NpcTemplate[] getAllMonstersOfLevel(int lvl)
 	{
 		FastList<L2NpcTemplate> list = new FastList<L2NpcTemplate>();
-		for (L2NpcTemplate t : _npcs.values())
+		for (L2NpcTemplate t : _npcs)
 			if (t.getLevel() == lvl && "L2Monster".equals(t.getType()))
 				list.add(t);
 		return list.toArray(new L2NpcTemplate[list.size()]);
@@ -822,7 +802,7 @@ public class NpcTable
 	public L2NpcTemplate[] getAllNpcStartingWith(String letter)
 	{
 		FastList<L2NpcTemplate> list = new FastList<L2NpcTemplate>();
-		for (L2NpcTemplate t : _npcs.values())
+		for (L2NpcTemplate t : _npcs)
 			if (t.getName().startsWith(letter) && "L2Npc".equals(t.getType()))
 				list.add(t);
 		return list.toArray(new L2NpcTemplate[list.size()]);
@@ -838,7 +818,7 @@ public class NpcTable
 	}
 
 	/**
-	 * @param clazz 
+	 * @param clazz
 	 * @return
 	 */
 	public Set<Integer> getAllNpcOfL2jClass(Class<?> clazz)
@@ -858,7 +838,7 @@ public class NpcTable
 	public List<L2NpcTemplate> getMobsByDrop(int itemid)
 	{
 		List<L2NpcTemplate> returnVal = new FastList<L2NpcTemplate>();
-		for(L2NpcTemplate tempNpc:_npcs.values())
+		for(L2NpcTemplate tempNpc:_npcs)
 		{
 			List<L2DropData> dropdata = tempNpc.getAllDropData();
 			if(dropdata!=null)

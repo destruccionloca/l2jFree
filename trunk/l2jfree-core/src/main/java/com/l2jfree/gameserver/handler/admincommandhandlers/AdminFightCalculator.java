@@ -123,7 +123,7 @@ public class AdminFightCalculator implements IAdminCommandHandler
 		{
 			replyMSG.append("<html><title>Select first mob to fight</title>");
 			replyMSG.append("<body><table>");
-			for (L2NpcTemplate n : NpcTable.getInstance().getAllTemplates().values())
+			for (L2NpcTemplate n : NpcTable.getInstance().getAllTemplates())
 			{
 				if (n.getLevel() == lvl1)
 					replyMSG.append("<tr><td><a action=\"bypass -h admin_fight_calculator lvl1 " + lvl1 + " lvl2 " + lvl2 + " mid1 " + n.getNpcId() + " mid2 "
@@ -135,7 +135,7 @@ public class AdminFightCalculator implements IAdminCommandHandler
 		{
 			replyMSG.append("<html><title>Select second mob to fight</title>");
 			replyMSG.append("<body><table>");
-			for (L2NpcTemplate n : NpcTable.getInstance().getAllTemplates().values())
+			for (L2NpcTemplate n : NpcTable.getInstance().getAllTemplates())
 			{
 				if (n.getLevel() == lvl2)
 					replyMSG.append("<tr><td><a action=\"bypass -h admin_fight_calculator lvl1 " + lvl1 + " lvl2 " + lvl2 + " mid1 " + mid1 + " mid2 "

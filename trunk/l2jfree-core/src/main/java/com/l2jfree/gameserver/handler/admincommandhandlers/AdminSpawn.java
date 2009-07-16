@@ -528,7 +528,7 @@ public class AdminSpawn implements IAdminCommandHandler
 
 		FastList<L2NpcTemplate> list = new FastList<L2NpcTemplate>();
 
-		for (L2NpcTemplate t : NpcTable.getInstance().getAllTemplates().values())
+		for (L2NpcTemplate t : NpcTable.getInstance().getAllTemplates())
 		{
 			if (mode.equals("name") && (t.getName().toLowerCase().startsWith(string)))
 				list.add(t);
@@ -745,7 +745,7 @@ public class AdminSpawn implements IAdminCommandHandler
 	{
 		int npcId = 0;
 
-		for (L2NpcTemplate t : NpcTable.getInstance().getAllTemplates().values())
+		for (L2NpcTemplate t : NpcTable.getInstance().getAllTemplates())
 		{
 			if (t.getName().equalsIgnoreCase(npcName.replace("_", " ")))
 			{

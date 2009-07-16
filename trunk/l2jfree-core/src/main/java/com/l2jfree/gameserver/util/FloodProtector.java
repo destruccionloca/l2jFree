@@ -51,7 +51,7 @@ public final class FloodProtector
 			return _reuseDelay;
 		}
 		
-		public static final int VALUES_LENGTH = Protected.values();
+		public static final int VALUES_LENGTH = Protected.values().length;
 	}
 	
 	public static boolean tryPerformAction(L2PcInstance player, Protected action)
