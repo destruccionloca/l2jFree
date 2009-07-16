@@ -75,11 +75,11 @@ public class RequestSetAllyCrest extends L2GameClientPacket
         }
 
         if (activeChar.getAllyId() != 0)
-        {   
+        {
             L2Clan leaderclan = ClanTable.getInstance().getClan(activeChar.getAllyId());
             
             if (activeChar.getClanId() != leaderclan.getClanId() || !activeChar.isClanLeader())
-            {   
+            {
 	 			// [L2J_JP ADD]
 				SystemMessage sm = new SystemMessage(SystemMessageId.FEATURE_ONLY_FOR_ALLIANCE_LEADER);
 				activeChar.sendPacket(sm);
@@ -114,7 +114,7 @@ public class RequestSetAllyCrest extends L2GameClientPacket
             }
             catch (SQLException e)
             {
-                _log.warn("could not update the ally crest id:"+e.getMessage());
+                _log.warn("could not update the ally crest id:", e);
             }
             finally
             {

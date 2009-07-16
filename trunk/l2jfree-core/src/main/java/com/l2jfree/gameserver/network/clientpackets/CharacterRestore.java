@@ -39,13 +39,13 @@ public class CharacterRestore extends L2GameClientPacket
     @Override
     protected void runImpl()
 	{
-	    try 
+	    try
 	    {
 	    	getClient().markRestoredChar(_charSlot);
 	    }
 	    catch (Exception e)
 	    {
-	    	e.printStackTrace();
+	    	_log.warn("", e);
 	    }
 		CharSelectionInfo cl = new CharSelectionInfo(getClient().getAccountName(), getClient().getSessionId().playOkID1);
 		sendPacket(cl);

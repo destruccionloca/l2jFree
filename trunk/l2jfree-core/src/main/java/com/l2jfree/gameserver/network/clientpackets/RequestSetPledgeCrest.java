@@ -97,9 +97,9 @@ public class RequestSetPledgeCrest extends L2GameClientPacket
 		}
 
 		if ((activeChar.getClanPrivileges() & L2Clan.CP_CL_REGISTER_CREST) == L2Clan.CP_CL_REGISTER_CREST)
-		{	
+		{
 			if (clan.getLevel() < 3)
-			{	
+			{
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.CLAN_LVL_3_NEEDED_TO_SET_CREST));
 				return;
 			}
@@ -132,7 +132,7 @@ public class RequestSetPledgeCrest extends L2GameClientPacket
             }
             catch (SQLException e)
             {
-                _log.warn("could not update the crest id:"+e.getMessage());
+                _log.warn("could not update the crest id:", e);
             }
             finally
             {

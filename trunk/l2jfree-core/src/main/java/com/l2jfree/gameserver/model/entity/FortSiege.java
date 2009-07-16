@@ -183,8 +183,7 @@ public class FortSiege extends AbstractSiege
 			}
 			catch (Exception e)
 			{
-				_log.warn("Exception: ScheduleSuspicoiusMerchantSpawn() for Fort: "+_fortInst.getName()+" " + e.getMessage());
-				e.printStackTrace();
+				_log.warn("Exception: ScheduleSuspicoiusMerchantSpawn() for Fort: "+_fortInst.getName()+" " + e.getMessage(), e);
 			}
 		}
 	}
@@ -211,8 +210,7 @@ public class FortSiege extends AbstractSiege
 			}
 			catch (Exception e)
 			{
-				_log.warn("Exception: ScheduleSiegeRestore() for Fort: "+_fortInst.getName()+" " + e.getMessage());
-				e.printStackTrace();
+				_log.warn("Exception: ScheduleSiegeRestore() for Fort: "+_fortInst.getName()+" " + e.getMessage(), e);
 			}
 		}
 	}
@@ -1012,8 +1010,7 @@ public class FortSiege extends AbstractSiege
 		{
 			// problem with initializing spawn, go to next one
 			_log.warn("FortSiege.spawnCommander: Spawn could not be initialized: "
-			        + e.getMessage());
-			e.printStackTrace();
+			        + e.getMessage(), e);
 		}
 	}
 

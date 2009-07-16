@@ -1519,8 +1519,7 @@ public abstract class Inventory extends ItemContainer
 		}
 		catch (Exception e)
 		{
-			_log.warn("Could not restore inventory : " + e);
-			e.printStackTrace();
+			_log.warn("Could not restore inventory : ", e);
 		}
 		finally
 		{

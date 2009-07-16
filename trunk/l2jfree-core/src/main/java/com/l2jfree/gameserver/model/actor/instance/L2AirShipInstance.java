@@ -22,10 +22,13 @@ import java.io.LineNumberReader;
 import java.util.Collection;
 import java.util.Map;
 import java.util.StringTokenizer;
-import java.util.logging.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
@@ -51,9 +54,10 @@ import com.l2jfree.gameserver.templates.item.L2Weapon;
  */
 public class L2AirShipInstance extends L2Character
 {
+	private static final Log _log = LogFactory.getLog(L2AirShipInstance.class);
+	
 	public float boatSpeed;
 	protected final FastList<L2PcInstance> _passengers = new FastList<L2PcInstance>();
-	protected static final Logger _airShiplog = Logger.getLogger(L2AirShipInstance.class.getName());
 	
 	private class L2AirShipTrajet
 	{
@@ -119,25 +123,19 @@ public class L2AirShipInstance extends L2Character
 					parseLine(line);
 					return;
 				}
-				_airShiplog.warning("No path for airShip!!!");
+				_log.warn("No path for airShip!!!");
 			}
 			catch (FileNotFoundException e)
 			{
-				_airShiplog.warning("airship.csv is missing in data folder");
+				_log.warn("airship.csv is missing in data folder", e);
 			}
 			catch (Exception e)
 			{
-				_airShiplog.warning("error while creating airship table " + e);
+				_log.warn("error while creating airship table ", e);
 			}
 			finally
 			{
-				try
-				{
-					lnr.close();
-				}
-				catch (Exception e1)
-				{ /* ignore problems */
-				}
+				IOUtils.closeQuietly(lnr);
 			}
 		}
 	
@@ -194,7 +192,7 @@ public class L2AirShipInstance extends L2Character
 		super(objectId, template);
 		getKnownList();
 		setAI(new L2CharacterAI(new AIAccessor()));
-	}	
+	}
 	
 	@Override
 	public AirShipKnownList getKnownList()
@@ -221,7 +219,7 @@ public class L2AirShipInstance extends L2Character
 		double distance = Math.sqrt(dx * dx + dy * dy);
 		
 		if (_log.isDebugEnabled())
-			_airShiplog.fine("distance to target:" + distance);
+			_log.debug("distance to target:" + distance);
 		
 		// Define movement angles needed
 		// ^
@@ -250,7 +248,7 @@ public class L2AirShipInstance extends L2Character
 		getPosition().setHeading(heading);
 		
 		if (_log.isDebugEnabled())
-			_airShiplog.fine("dist:" + distance + "speed:" + speed + " ttt:"
+			_log.debug("dist:" + distance + "speed:" + speed + " ttt:"
 			        + ticksToMove + " heading:" + heading);
 		
 		m._xDestination = x;
@@ -261,7 +259,7 @@ public class L2AirShipInstance extends L2Character
 		m._moveStartTime = GameTimeController.getGameTicks();
 		
 		if (_log.isDebugEnabled())
-			_airShiplog.fine("time to target:" + ticksToMove);
+			_log.debug("time to target:" + ticksToMove);
 		
 		// Set the L2Character _move object to MoveData object
 		_move = m;
@@ -448,7 +446,7 @@ public class L2AirShipInstance extends L2Character
 				lastx = x;
 				lasty = y;
 			}
-			else if ((x - lastx) * (x - lastx) + (y - lasty) * (y - lasty) > 2250000) // 1500 * 1500 =  2250000 
+			else if ((x - lastx) * (x - lastx) + (y - lasty) * (y - lasty) > 2250000) // 1500 * 1500 =  2250000
 			{
 				lastx = x;
 				lasty = y;
@@ -559,7 +557,7 @@ public class L2AirShipInstance extends L2Character
 		{
 			x = -186563;
 			y = 243590;
-			z = 2608;			
+			z = 2608;
 		}
 		_passengers.remove(player);
 		player.broadcastPacket(new ExGetOffAirShip(player, this, x ,y ,z));

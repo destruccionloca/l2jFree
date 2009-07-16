@@ -87,8 +87,8 @@ public class SiegeGuardManager
 	}
 
 	/**
-	 * Remove a single mercenary, identified by the npcId and location.  
-	 * Presumably, this is used when a castle lord picks up a previously dropped ticket 
+	 * Remove a single mercenary, identified by the npcId and location.
+	 * Presumably, this is used when a castle lord picks up a previously dropped ticket
 	 */
 	public void removeMerc(int npcId, int x, int y, int z)
 	{
@@ -167,9 +167,9 @@ public class SiegeGuardManager
 				}
 			}
 		}
-		catch (Throwable t)
+		catch (RuntimeException e)
 		{
-			_log.warn("Error spawning siege guards for castle " + getCastle().getName() + ":" + t.toString());
+			_log.warn("Error spawning siege guards for castle " + getCastle().getName() + ":", e);
 		}
 	}
 

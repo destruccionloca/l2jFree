@@ -370,7 +370,7 @@ public class L2SepulcherNpcInstance extends L2Npc
 			}
 			catch (Exception e)
 			{
-				_log.warn(e.getMessage());
+				_log.warn(e.getMessage(), e);
 			}
 
 			if (_spawnNextMysteriousBoxTask != null)

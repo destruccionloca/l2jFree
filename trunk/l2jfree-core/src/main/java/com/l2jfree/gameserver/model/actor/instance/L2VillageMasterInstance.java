@@ -770,8 +770,9 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 					leaderSubPledge.getPlayerInstance().removeSkill(skill, false);
 				clan.getClanMember(leaderName).getPlayerInstance().setActiveClass(0);
 			}
-			catch (Throwable t)
+			catch (RuntimeException e)
 			{
+				_log.warn("", e);
 			}
 
 			for (L2ClanMember member : clan.getMembers())
@@ -942,8 +943,9 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 					L2ClanMember.getCurrentPledgeClass(clan.getClanMember(oldLeaderName).getPlayerInstance()));
 			clan.getClanMember(oldLeaderName).getPlayerInstance().setActiveClass(0);
 		}
-		catch (Throwable t)
+		catch (RuntimeException e)
 		{
+			_log.warn("", e);
 		}
 
 		int leaderId = clan.getClanMember(leaderName).getObjectId();

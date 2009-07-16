@@ -23,9 +23,12 @@ import java.io.LineNumberReader;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.Future;
-import java.util.logging.Logger;
 
 import javolution.util.FastMap;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Announcements;
@@ -43,7 +46,8 @@ import com.l2jfree.gameserver.util.Util;
  */
 public class FishermanManager
 {
-	public Logger					_log					= Logger.getLogger(FishermanManager.class.getName());
+	private static final Log _log = LogFactory.getLog(FishermanManager.class);
+	
 	public Map<Integer, FishRank>	_ranks					= new FastMap<Integer, FishRank>();
 	protected Future<?>				_actionTask				= null;
 	protected int					SAVETASK_DELAY			= Config.FISHERMAN_INTERVAL;
@@ -266,10 +270,9 @@ public class FishermanManager
 		}
 		catch (Exception e)
 		{
-			_log.warning("FishManager.engineInit() >> last line parsed is \n[" + lineId + "]\n");
-			e.printStackTrace();
+			_log.warn("FishManager.engineInit() >> last line parsed is \n[" + lineId + "]\n", e);
 		}
-		finally { try { if (lnr != null) lnr.close(); } catch (Exception e) { e.printStackTrace(); } }
+		finally { IOUtils.closeQuietly(lnr); }
 
 		startSaveTask();
 		_log.info("FishManager: Loaded " + _ranks.size() + " player(s).");
@@ -301,7 +304,7 @@ public class FishermanManager
 		}
 		catch (IOException e)
 		{
-			e.printStackTrace();
+			_log.warn("", e);
 		}
 	}
 

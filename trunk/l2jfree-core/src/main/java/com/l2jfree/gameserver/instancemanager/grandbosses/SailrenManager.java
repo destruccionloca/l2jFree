@@ -148,7 +148,7 @@ public class SailrenManager extends BossLair
 		}
 		catch (Exception e)
 		{
-			_log.warn(e.getMessage());
+			_log.warn(e.getMessage(), e);
 		}
 
 		// Setting spawn data of teleporte cube.
@@ -173,7 +173,7 @@ public class SailrenManager extends BossLair
 		}
 		catch (Exception e)
 		{
-			_log.warn(e.getMessage());
+			_log.warn(e.getMessage(), e);
 		}
 
 		_log.info("SailrenManager : State of Sailren is " + _state.getState() + ".");
@@ -185,7 +185,7 @@ public class SailrenManager extends BossLair
 		_log.info("SailrenManager : Init SailrenManager.");
 	}
 
-	// Whether it is permitted to enter the sailren's lair is confirmed. 
+	// Whether it is permitted to enter the sailren's lair is confirmed.
 	public int canIntoSailrenLair(L2PcInstance pc)
 	{
 		if ((!Config.FWS_ENABLESINGLEPLAYER) && (pc.getParty() == null))
@@ -239,7 +239,7 @@ public class SailrenManager extends BossLair
 			List<L2PcInstance> members = new FastList<L2PcInstance>(); // list of member of teleport candidate.
 			for (L2PcInstance mem : pc.getParty().getPartyMembers())
 			{
-				// teleporting it within alive and the range of recognition of the leader of the party. 
+				// teleporting it within alive and the range of recognition of the leader of the party.
 				if (!mem.isDead() && Util.checkIfInRange(700, pc, mem, true))
 				{
 					members.add(mem);

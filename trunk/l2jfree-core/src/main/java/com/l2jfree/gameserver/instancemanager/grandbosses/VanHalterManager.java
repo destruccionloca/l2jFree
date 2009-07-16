@@ -219,7 +219,7 @@ public class VanHalterManager extends BossLair
 		}
 		catch (Exception e)
 		{
-			_log.warn("VanHalterManager : " + e.getMessage());
+			_log.warn("VanHalterManager : " + e.getMessage(), e);
 		}
 
 		// Set time up.
@@ -291,7 +291,7 @@ public class VanHalterManager extends BossLair
 		catch (Exception e)
 		{
 			// Problem with initializing spawn, go to next one
-			_log.warn("VanHalterManager.loadRoyalGuard: Spawn could not be initialized: " + e);
+			_log.warn("VanHalterManager.loadRoyalGuard: Spawn could not be initialized: ", e);
 		}
 		finally
 		{
@@ -369,7 +369,7 @@ public class VanHalterManager extends BossLair
 		catch (Exception e)
 		{
 			// Problem with initializing spawn, go to next one
-			_log.warn("VanHalterManager.loadTriolRevelation: Spawn could not be initialized: " + e);
+			_log.warn("VanHalterManager.loadTriolRevelation: Spawn could not be initialized: ", e);
 		}
 		finally
 		{
@@ -448,7 +448,7 @@ public class VanHalterManager extends BossLair
 		catch (Exception e)
 		{
 			// Problem with initializing spawn, go to next one
-			_log.warn("VanHalterManager.loadRoyalGuardCaptain: Spawn could not be initialized: " + e);
+			_log.warn("VanHalterManager.loadRoyalGuardCaptain: Spawn could not be initialized: ", e);
 		}
 		finally
 		{
@@ -526,7 +526,7 @@ public class VanHalterManager extends BossLair
 		catch (Exception e)
 		{
 			// Problem with initializing spawn, go to next one
-			_log.warn("VanHalterManager.loadRoyalGuardHelper: Spawn could not be initialized: " + e);
+			_log.warn("VanHalterManager.loadRoyalGuardHelper: Spawn could not be initialized: ", e);
 		}
 		finally
 		{
@@ -599,7 +599,7 @@ public class VanHalterManager extends BossLair
 		catch (Exception e)
 		{
 			// Problem with initializing spawn, go to next one
-			_log.warn("VanHalterManager.loadGuardOfAltar: Spawn could not be initialized: " + e);
+			_log.warn("VanHalterManager.loadGuardOfAltar: Spawn could not be initialized: ", e);
 		}
 		finally
 		{
@@ -676,7 +676,7 @@ public class VanHalterManager extends BossLair
 		catch (Exception e)
 		{
 			// Problem with initializing spawn, go to next one
-			_log.warn("VanHalterManager.loadVanHalter: Spawn could not be initialized: " + e);
+			_log.warn("VanHalterManager.loadVanHalter: Spawn could not be initialized: ", e);
 		}
 		finally
 		{
@@ -746,7 +746,7 @@ public class VanHalterManager extends BossLair
 		catch (Exception e)
 		{
 			// Problem with initializing spawn, go to next one
-			_log.warn("VanHalterManager.loadRitualOffering: Spawn could not be initialized: " + e);
+			_log.warn("VanHalterManager.loadRitualOffering: Spawn could not be initialized: ", e);
 		}
 		finally
 		{
@@ -817,7 +817,7 @@ public class VanHalterManager extends BossLair
 		catch (Exception e)
 		{
 			// Problem with initializing spawn, go to next one
-			_log.warn("VanHalterManager.loadRitualSacrifice: Spawn could not be initialized: " + e);
+			_log.warn("VanHalterManager.loadRitualSacrifice: Spawn could not be initialized: ", e);
 		}
 		finally
 		{

@@ -14,6 +14,9 @@
  */
 package com.l2jfree.gameserver.network;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
@@ -23,6 +26,8 @@ import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
  */
 public final class Disconnection
 {
+	private static final Log _log = LogFactory.getLog(Disconnection.class);
+	
 	public static L2GameClient getClient(L2GameClient client, L2PcInstance activeChar)
 	{
 		if (client != null)
@@ -79,7 +84,7 @@ public final class Disconnection
 		}
 		catch (RuntimeException e)
 		{
-			e.printStackTrace();
+			_log.warn("", e);
 		}
 		
 		return this;
@@ -94,7 +99,7 @@ public final class Disconnection
 		}
 		catch (RuntimeException e)
 		{
-			e.printStackTrace();
+			_log.warn("", e);
 		}
 		
 		return this;

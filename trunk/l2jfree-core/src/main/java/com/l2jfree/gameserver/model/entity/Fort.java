@@ -277,8 +277,7 @@ public class Fort extends Siegeable<FortSiege>
 			}
 			catch (Exception e)
 			{
-				_log.warn("Exception: ScheduleSpecialEnvoysSpawn() for Fort: "+_fortInst.getName()+" " + e.getMessage());
-				e.printStackTrace();
+				_log.warn("Exception: ScheduleSpecialEnvoysSpawn() for Fort: "+_fortInst.getName()+" " + e.getMessage(), e);
 			}
 		}
 	}
@@ -762,8 +761,7 @@ public class Fort extends Siegeable<FortSiege>
 		}
 		catch (Exception e)
 		{
-			_log.warn("Exception: loadFlagPoles(): " + e.getMessage());
-			e.printStackTrace();
+			_log.warn("Exception: loadFlagPoles(): " + e.getMessage(), e);
 		}
 		finally
 		{
@@ -832,8 +830,7 @@ public class Fort extends Siegeable<FortSiege>
 		}
 		catch (Exception e)
 		{
-			_log.warn("Exception: updateOwnerInDB(L2Clan clan): " + e.getMessage());
-			e.printStackTrace();
+			_log.warn("Exception: updateOwnerInDB(L2Clan clan): " + e.getMessage(), e);
 		}
 		finally
 		{
@@ -933,15 +930,7 @@ public class Fort extends Siegeable<FortSiege>
 
 		public void run()
 		{
-			try
-			{
-				_f.Engrave(_clan);
-			}
-			catch (Exception e)
-			{
-				_log.warn("Exception in endFortressSiege "+e.getMessage());
-				e.printStackTrace();
-			}
+			_f.Engrave(_clan);
 		}
 		
 	}

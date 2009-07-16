@@ -1030,7 +1030,7 @@ public class Castle extends Siegeable<Siege>
 		}
 		catch (Exception e)
 		{
-			_log.info("Error adding seed production data for castle " + getName() + ": " + e.getMessage());
+			_log.info("Error adding seed production data for castle " + getName() + ": " + e.getMessage(), e);
 		}
 		finally
 		{
@@ -1082,7 +1082,7 @@ public class Castle extends Siegeable<Siege>
 		}
 		catch (Exception e)
 		{
-			_log.info("Error adding seed production data for castle " + getName() + ": " + e.getMessage());
+			_log.info("Error adding seed production data for castle " + getName() + ": " + e.getMessage(), e);
 		}
 		finally
 		{
@@ -1150,7 +1150,7 @@ public class Castle extends Siegeable<Siege>
 		}
 		catch (Exception e)
 		{
-			_log.info("Error adding crop data for castle " + getName() + ": " + e.getMessage());
+			_log.info("Error adding crop data for castle " + getName() + ": " + e.getMessage(), e);
 		}
 		finally
 		{
@@ -1202,7 +1202,7 @@ public class Castle extends Siegeable<Siege>
 		}
 		catch (Exception e)
 		{
-			_log.info("Error adding crop data for castle " + getName() + ": " + e.getMessage());
+			_log.info("Error adding crop data for castle " + getName() + ": " + e.getMessage(), e);
 		}
 		finally
 		{
@@ -1228,7 +1228,7 @@ public class Castle extends Siegeable<Siege>
 		}
 		catch (Exception e)
 		{
-			_log.info("Error adding crop data for castle " + getName() + ": " + e.getMessage());
+			_log.info("Error adding crop data for castle " + getName() + ": " + e.getMessage(), e);
 		}
 		finally
 		{
@@ -1254,7 +1254,7 @@ public class Castle extends Siegeable<Siege>
 		}
 		catch (Exception e)
 		{
-			_log.info("Error adding seed production data for castle " + getName() + ": " + e.getMessage());
+			_log.info("Error adding seed production data for castle " + getName() + ": " + e.getMessage(), e);
 		}
 		finally
 		{
@@ -1533,7 +1533,7 @@ public class Castle extends Siegeable<Siege>
 	 * <B>level</B> indicates the first cell in the zone array to be upgraded.<BR>
 	 * <B>newLevel</B> decides the last cell in the zone array to be upgraded.<BR><BR>
 	 * Only the Aden castle has more than one zone/side.
-	 * Level also decides which SQL statement will be used (INSERT/UPDATE). 
+	 * Level also decides which SQL statement will be used (INSERT/UPDATE).
 	 * @param east Inner/Eastern zones? Otherwise Outer/Western
 	 * @param level Previous upgrade level
 	 * @param newLevel New upgrade level

@@ -449,7 +449,7 @@ public class L2SignsPriestInstance extends L2Npc
                     }
                     catch (Exception e)
                     {
-                        _log.warn("SevenSigns: Error occurred while teleporting player: " + e);
+                        _log.warn("SevenSigns: Error occurred while teleporting player: ", e);
                     }
                     break;
                 case 17: // Exchange Seal Stones for Ancient Adena (Type Choice) - SevenSigns 17 x

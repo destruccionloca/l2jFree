@@ -43,7 +43,7 @@ public abstract class L2GameServerPacket extends SendablePacket<L2GameClient>
 			writeImpl();
 			writeImpl(client, client.getActiveChar());
 		}
-		catch (Exception e)
+		catch (RuntimeException e)
 		{
 			_log.fatal("Failed writing: " + client + " - " + getType() + " - " + CoreInfo.getVersionInfo(), e);
 		}

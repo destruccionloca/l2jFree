@@ -25,6 +25,7 @@ import java.util.StringTokenizer;
 
 import javolution.util.FastMap;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -164,13 +165,13 @@ public class L2BoatInstance extends L2Character
 			}
 			catch (FileNotFoundException e)
 			{
-				_log.warn("boatpath.csv is missing in data folder");
+				_log.warn("boatpath.csv is missing in data folder", e);
 			}
 			catch (Exception e)
 			{
-				_log.warn("error while creating boat table " + e);
+				_log.warn("error while creating boat table ", e);
 			}
-			finally { try { if (lnr != null) lnr.close(); } catch (Exception e) { e.printStackTrace(); } }
+			finally { IOUtils.closeQuietly(lnr); }
 		}
 
 		/**

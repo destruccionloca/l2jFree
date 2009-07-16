@@ -231,7 +231,7 @@ public final class QuestState
 			}
 			catch (Exception e)
 			{
-				_log.info(getPlayer().getName()+", "+getQuestName()+" cond ["+val+"] is not an integer.  Value stored, but no packet was sent: " + e);
+				_log.info(getPlayer().getName()+", "+getQuestName()+" cond ["+val+"] is not an integer.  Value stored, but no packet was sent: ", e);
 			}
 		}
 		return val;
@@ -479,7 +479,7 @@ public final class QuestState
         catch (Exception e)
         {
         	if(_log.isDebugEnabled())
-        		_log.info(getPlayer().getName()+": variable "+var+" isn't an integer: " + varint + e);
+        		_log.info(getPlayer().getName()+": variable "+var+" isn't an integer: " + varint, e);
 //	    if (Config.AUTODELETE_INVALID_QUEST_DATA)
 //		exitQuest(true);
         }

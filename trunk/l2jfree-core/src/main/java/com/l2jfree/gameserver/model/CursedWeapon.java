@@ -153,7 +153,7 @@ public class CursedWeapon
 				}
 				catch (Exception e)
 				{
-					_log.warn("Could not delete : " + e);
+					_log.warn("Could not delete:", e);
 				}
 				finally
 				{

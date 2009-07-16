@@ -168,9 +168,9 @@ public class TvTIMain
 		catch (Exception e)
 		{
 			if (activeChar == null)
-				_log.error("TvT Engine[spawnEventNpc(exception: " + e.getMessage());
+				_log.error("TvT Engine[spawnEventNpc(exception: ", e);
 			else
-				_log.error("TvTi Engine[spawnEventNpc(" + activeChar.getName() + ")]: exception: " + e.getMessage());
+				_log.error("TvTi Engine[spawnEventNpc(" + activeChar.getName() + ")]: exception: ", e);
 		}
 	}
 
@@ -250,7 +250,7 @@ public class TvTIMain
 		}
 		catch (Exception e)
 		{
-			_log.warn("TvT Engine[showEventHtlm(" + eventPlayer.getName() + ", " + objectId + ")]: exception" + e.getMessage());
+			_log.warn("TvT Engine[showEventHtlm(" + eventPlayer.getName() + ", " + objectId + ")]: exception", e);
 		}
 	}
 
@@ -305,7 +305,7 @@ public class TvTIMain
 		}
 		catch (Exception e)
 		{
-			_log.warn("TvT Engine[showEventHtlm(" + eventPlayer.getName() + ", " + objectId + ")]: exception" + e.getMessage());
+			_log.warn("TvT Engine[showEventHtlm(" + eventPlayer.getName() + ", " + objectId + ")]: exception", e);
 		}
 	}
 

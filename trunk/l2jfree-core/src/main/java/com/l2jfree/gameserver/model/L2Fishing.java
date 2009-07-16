@@ -16,6 +16,9 @@ package com.l2jfree.gameserver.model;
 
 import java.util.concurrent.Future;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.instancemanager.leaderboards.FishermanManager;
@@ -30,6 +33,8 @@ import com.l2jfree.tools.random.Rnd;
 
 public class L2Fishing implements Runnable
 {
+	private static final Log _log = LogFactory.getLog(L2Fishing.class);
+	
 	// =========================================================
 	// Data Field
 	private L2PcInstance	_fisher;
@@ -397,9 +402,9 @@ public class L2Fishing implements Runnable
 				spawn.stopRespawn();
 				((L2PenaltyMonsterInstance) spawn.doSpawn()).setPlayerToKill(_fisher);
 			}
-			catch (Exception e)
+			catch (RuntimeException e)
 			{
-				// Nothing
+				_log.warn("", e);
 			}
 		}
 	}

@@ -10126,7 +10126,7 @@ public final class L2PcInstance extends L2Playable
 		}
 		catch (Exception e)
 		{
-			_log.warn("WARNING: Could not add character sub class for " + getName() + ": " + e);
+			_log.warn("WARNING: Could not add character sub class for " + getName() + ": ", e);
 			return false;
 		}
 		finally
@@ -10229,7 +10229,7 @@ public final class L2PcInstance extends L2Playable
 		}
 		catch (Exception e)
 		{
-			_log.warn("Could not modify sub class for " + getName() + " to class index " + classIndex + ": " + e);
+			_log.warn("Could not modify sub class for " + getName() + " to class index " + classIndex + ": ", e);
 
 			// This must be done in order to maintain data consistency.
 			getSubClasses().remove(classIndex);
@@ -10359,7 +10359,7 @@ public final class L2PcInstance extends L2Playable
 			}
 			catch (Exception e)
 			{
-				_log.info("Could not switch " + getName() + "'s sub class to class index " + classIndex + ": " + e);
+				_log.info("Could not switch " + getName() + "'s sub class to class index " + classIndex + ": ", e);
 				return false;
 			}
 		}
@@ -11669,9 +11669,9 @@ public final class L2PcInstance extends L2Playable
 			
 			L2World.getInstance().removeOnlinePlayer(this);
 		}
-		catch (Throwable t)
+		catch (RuntimeException e)
 		{
-			_log.fatal( "deleteMe()", t);
+			_log.fatal( "deleteMe()", e);
 		}
 		
 		RegionBBSManager.getInstance().changeCommunityBoard();

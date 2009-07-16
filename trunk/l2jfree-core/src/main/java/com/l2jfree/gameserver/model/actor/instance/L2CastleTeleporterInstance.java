@@ -103,25 +103,18 @@ public final class L2CastleTeleporterInstance extends L2Npc
 	{
 		public void run()
 		{
-			try
+			NpcSay cs = new NpcSay(getObjectId(), 1, getNpcId(), "The defenders of " + getCastle().getName()
+					+ " castle will be teleported to the inner castle.");
+			L2MapRegion region = MapRegionManager.getInstance().getRegion(getX(), getY());
+			Collection<L2PcInstance> pls = L2World.getInstance().getAllPlayers();
+			//synchronized (L2World.getInstance().getAllPlayers())
 			{
-				NpcSay cs = new NpcSay(getObjectId(), 1, getNpcId(), "The defenders of " + getCastle().getName()
-						+ " castle will be teleported to the inner castle.");
-				L2MapRegion region = MapRegionManager.getInstance().getRegion(getX(), getY());
-				Collection<L2PcInstance> pls = L2World.getInstance().getAllPlayers();
-				//synchronized (L2World.getInstance().getAllPlayers())
-				{
-					for (L2PcInstance player : pls)
-						if (region == MapRegionManager.getInstance().getRegion(player.getX(), player.getY()))
-							player.sendPacket(cs);
-				}
-				oustAllPlayers();
-				setTask(false);
+				for (L2PcInstance player : pls)
+					if (region == MapRegionManager.getInstance().getRegion(player.getX(), player.getY()))
+						player.sendPacket(cs);
 			}
-			catch (NullPointerException e)
-			{
-				e.printStackTrace();
-			}
+			oustAllPlayers();
+			setTask(false);
 		}
 	}
 

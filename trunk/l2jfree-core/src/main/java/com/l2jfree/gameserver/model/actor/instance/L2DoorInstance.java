@@ -154,14 +154,7 @@ public class L2DoorInstance extends L2Character
 	{
 		public void run()
 		{
-			try
-			{
-				onClose();
-			}
-			catch (Exception e)
-			{
-				_log.error(e.getMessage(), e);
-			}
+			onClose();
 		}
 	}
 
@@ -192,8 +185,7 @@ public class L2DoorInstance extends L2Character
 			}
 			catch (Exception e)
 			{
-				_log.warn("Could not auto open/close door ID " + _doorId + " (" + _name + ")");
-				e.printStackTrace();
+				_log.warn("Could not auto open/close door ID " + _doorId + " (" + _name + ")", e);
 			}
 		}
 	}

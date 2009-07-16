@@ -182,28 +182,21 @@ public class Duel
 
 		public void run()
 		{
-			try
-			{
-				DuelResultEnum status =_duel.checkEndDuelCondition();
+			DuelResultEnum status =_duel.checkEndDuelCondition();
 
-				if (status == DuelResultEnum.Canceled)
-				{
-					// do not schedule duel end if it was interrupted
-					setFinished(true);
-					_duel.endDuel(status);
-				}
-				else if (status != DuelResultEnum.Continue)
-				{
-					setFinished(true);
-					playKneelAnimation();
-					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleEndDuelTask(_duel, status), 5000);
-				}
-				else ThreadPoolManager.getInstance().scheduleGeneral(this, 1000);
-			}
-			catch (Exception e)
+			if (status == DuelResultEnum.Canceled)
 			{
-				_log.error(e.getMessage(), e);
+				// do not schedule duel end if it was interrupted
+				setFinished(true);
+				_duel.endDuel(status);
 			}
+			else if (status != DuelResultEnum.Continue)
+			{
+				setFinished(true);
+				playKneelAnimation();
+				ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleEndDuelTask(_duel, status), 5000);
+			}
+			else ThreadPoolManager.getInstance().scheduleGeneral(this, 1000);
 		}
 	}
 
@@ -218,30 +211,23 @@ public class Duel
 
 		public void run()
 		{
-			try
-			{
-				// start/continue countdown
-				int count =_duel.countdown();
+			// start/continue countdown
+			int count =_duel.countdown();
 
-				if (count == 4)
-				{
-					// players need to be teleportet first
-					//TODO: stadia manager needs a function to return an unused stadium for duels currently only teleports to the same stadium
-					_duel.teleportPlayers(149485, 46718, -3413);
-
-					// give players 20 seconds to complete teleport and get ready (its ought to be 30 on offical..)
-					ThreadPoolManager.getInstance().scheduleGeneral(this, 20000);
-				}
-				else if (count > 0) // duel not started yet - continue countdown
-				{
-					ThreadPoolManager.getInstance().scheduleGeneral(this, 1000);
-				}
-				else _duel.startDuel();
-			}
-			catch (Exception e)
+			if (count == 4)
 			{
-				_log.error(e.getMessage(), e);
+				// players need to be teleportet first
+				//TODO: stadia manager needs a function to return an unused stadium for duels currently only teleports to the same stadium
+				_duel.teleportPlayers(149485, 46718, -3413);
+
+				// give players 20 seconds to complete teleport and get ready (its ought to be 30 on offical..)
+				ThreadPoolManager.getInstance().scheduleGeneral(this, 20000);
 			}
+			else if (count > 0) // duel not started yet - continue countdown
+			{
+				ThreadPoolManager.getInstance().scheduleGeneral(this, 1000);
+			}
+			else _duel.startDuel();
 		}
 	}
 
@@ -258,14 +244,7 @@ public class Duel
 
 		public void run()
 		{
-			try
-			{
-				_duel.endDuel(_result);
-			}
-			catch (Exception e)
-			{
-				_log.error(e.getMessage(), e);
-			}
+			_duel.endDuel(_result);
 		}
 	}
 
@@ -903,7 +882,7 @@ public class Duel
 				{
 					temp.setDuelState(DUELSTATE_WINNER);
 				}
-			}		
+			}
 		}
 		else
 		{

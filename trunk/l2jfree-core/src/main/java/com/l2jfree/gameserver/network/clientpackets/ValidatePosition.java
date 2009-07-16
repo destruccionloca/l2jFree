@@ -43,29 +43,11 @@ public class ValidatePosition extends L2GameClientPacket
     @Override
     protected void readImpl()
     {
-//        try
-//        {
-            _x  = readD();
-            _y  = readD();
-            _z  = readD();
-            _heading  = readD();
-            _data  = readD();
-//        }
-//        catch(Throwable t)
-//        {
-//            _log.warn("", t);
-//            int location[][] = {
-//                { 46934,51467,-2977 },        { 9745,15606,-4574 },        { -80826,149775,-3043 },
-//                { 15670,142983,-2705 },        { -44836,-112524,-235 },    { 115113,-178212,-901 },
-//                { -84318,244579,-3730 },    { 46934,51467,-2977 },        { 9745,15606,-4574 },
-//                { -12672,122776,-3116 }},
-//                i = Rnd.get(10);
-//            _x = location[i][0];
-//            _y = location[i][1];
-//            _z = location[i][2];
-//            _heading = 0;
-//            getClient().getActiveChar().teleToLocation(_x, _y, _z);
-//        }
+        _x  = readD();
+        _y  = readD();
+        _z  = readD();
+        _heading  = readD();
+        _data  = readD();
     }
 
     @Override

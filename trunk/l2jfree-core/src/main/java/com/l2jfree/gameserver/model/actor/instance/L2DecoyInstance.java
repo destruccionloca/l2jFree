@@ -87,19 +87,12 @@ public class L2DecoyInstance extends L2Decoy
         
         public void run()
         {
-            try
+            double newTimeRemaining;
+            _Decoy.decTimeRemaining(1000);
+            newTimeRemaining = _Decoy.getTimeRemaining();
+            if (newTimeRemaining < 0)
             {
-                double newTimeRemaining;
-                _Decoy.decTimeRemaining(1000);
-                newTimeRemaining = _Decoy.getTimeRemaining();
-                if (newTimeRemaining < 0)
-                {
-                    _Decoy.unSummon(_activeChar);
-                }
-            }
-            catch (Exception e)
-            {
-                _log.error(e.getMessage(), e);
+                _Decoy.unSummon(_activeChar);
             }
         }
     }
@@ -117,15 +110,8 @@ public class L2DecoyInstance extends L2Decoy
         
         public void run()
         {
-            try
-            {
-                _activeChar.setTarget(_activeChar);
-                _activeChar.doCast(_skill);
-            }
-            catch (Exception e)
-            {
-                _log.error(e.getMessage(), e);
-            }
+            _activeChar.setTarget(_activeChar);
+            _activeChar.doCast(_skill);
         }
     }
     

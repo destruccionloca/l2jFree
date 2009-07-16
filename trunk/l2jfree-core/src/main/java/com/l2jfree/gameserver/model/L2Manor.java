@@ -24,6 +24,7 @@ import java.util.StringTokenizer;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -110,10 +111,10 @@ public class L2Manor
 	public long getSeedBuyPrice (int seedId)
 	{
 		long buyPrice = getSeedBasicPrice(seedId) / 10;
-		return (buyPrice > 0 ? buyPrice : 1); 
+		return (buyPrice > 0 ? buyPrice : 1);
 	}
 
-	public int getSeedMinLevel(int seedId) 
+	public int getSeedMinLevel(int seedId)
 	{
 		SeedData seed = _seeds.get(seedId);
 		if (seed != null)
@@ -170,7 +171,7 @@ public class L2Manor
 		for (SeedData seed : _seeds.values())
 		{
 			if (seed.getCrop() == cropId)
-				return seed.getReward(type); 
+				return seed.getReward(type);
 				// there can be several seeds with same crop, but
 				// reward should be the same for all
 		}
@@ -205,7 +206,7 @@ public class L2Manor
 	/**
 	 * Return list of seed ids, which belongs to castle with given id
 	 * @param castleId - id of the castle
-	 * @return seedIds - list of seed ids 
+	 * @return seedIds - list of seed ids
 	 */
 	public FastList<Integer> getSeedsForCastle(int castleId) {
 		FastList<Integer> seedsID = new FastList<Integer>();
@@ -264,14 +265,14 @@ public class L2Manor
 
 		public SeedData(int level ,int crop, int mature)
 		{
-			this._level = level;
-			this._crop = crop;
-			this._mature = mature;
+			_level = level;
+			_crop = crop;
+			_mature = mature;
 		}
 
 		public void setData(int id, int t1, int t2, int manorId, int isAlt, int lim1, int lim2)
 		{
-			this._id = id;
+			_id = id;
 			_type1 = t1;
 			_type2 = t2;
 			_manorId = manorId;
@@ -349,23 +350,15 @@ public class L2Manor
 		}
 		catch (FileNotFoundException e)
 		{
-			_log.info("seeds.csv is missing in data folder");
+			_log.info("seeds.csv is missing in data folder", e);
 		}
 		catch (Exception e)
 		{
-			_log.info("error while loading seeds: " + e.getMessage());
+			_log.info("error while loading seeds: " + e.getMessage(), e);
 		}
 		finally
 		{
-			try
-			{
-				if (lnr != null)
-					lnr.close();
-			}
-			catch (Exception e)
-			{
-				e.printStackTrace();
-			}
+			IOUtils.closeQuietly(lnr);
 		}
 	}
 

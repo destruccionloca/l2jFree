@@ -216,7 +216,7 @@ public final class SortedWareHouseWithdrawalList extends L2GameServerPacket
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			_log.warn("", e);
 		}
 	}
 	

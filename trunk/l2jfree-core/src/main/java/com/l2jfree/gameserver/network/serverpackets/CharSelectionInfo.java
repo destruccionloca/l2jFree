@@ -214,7 +214,7 @@ public class CharSelectionInfo extends L2GameServerPacket
 		}
 		catch (Exception e)
 		{
-			_log.warn("Could not restore char info: " + e);
+			_log.warn("Could not restore char info: ", e);
 		}
 		finally
 		{
@@ -249,7 +249,7 @@ public class CharSelectionInfo extends L2GameServerPacket
 		}
 		catch (Exception e)
 		{
-			_log.warn("Could not restore char subclass info: " + e);
+			_log.warn("Could not restore char subclass info: ", e);
 		}
 		finally
 		{
@@ -359,7 +359,7 @@ public class CharSelectionInfo extends L2GameServerPacket
 			}
 			catch (Exception e)
 			{
-				_log.warn("Could not restore augmentation info: " + e);
+				_log.warn("Could not restore augmentation info: ", e);
 			}
 			finally
 			{

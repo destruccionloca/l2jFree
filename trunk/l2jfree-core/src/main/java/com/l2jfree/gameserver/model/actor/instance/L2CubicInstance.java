@@ -511,93 +511,86 @@ public class L2CubicInstance
 
 		public void run()
 		{
-			try
+			if (_owner.isDead() || _owner.isOnline() == 0)
 			{
-				if (_owner.isDead() || _owner.isOnline() == 0)
+				stopAction();
+				_owner.delCubic(_id);
+				_owner.broadcastUserInfo();
+				cancelDisappear();
+				return;
+			}
+			if (!AttackStanceTaskManager.getInstance().getAttackStanceTask(_owner))
+			{
+				if (_owner.getPet() != null)
 				{
-					stopAction();
-					_owner.delCubic(_id);
-					_owner.broadcastUserInfo();
-					cancelDisappear();
-					return;
-				}
-				if (!AttackStanceTaskManager.getInstance().getAttackStanceTask(_owner))
-				{
-					if (_owner.getPet() != null)
-					{
-						if (!AttackStanceTaskManager.getInstance().getAttackStanceTask(_owner.getPet()))
-						{
-							stopAction();
-							return;
-						}
-					}
-					else
+					if (!AttackStanceTaskManager.getInstance().getAttackStanceTask(_owner.getPet()))
 					{
 						stopAction();
 						return;
 					}
 				}
-				// Smart Cubic debuff cancel is 100%
-				boolean UseCubicCure = false;
-				L2Skill skill = null;
-
-				if (_id >= SMART_CUBIC_EVATEMPLAR && _id <= SMART_CUBIC_SPECTRALMASTER)
+				else
 				{
-					L2Effect[] effects = _owner.getAllEffects();
-
-					for (L2Effect e : effects)
-					{
-						if (e.getSkill().isDebuff())
-						{
-							UseCubicCure = true;
-							e.exit();
-						}
-					}
+					stopAction();
+					return;
 				}
+			}
+			// Smart Cubic debuff cancel is 100%
+			boolean UseCubicCure = false;
+			L2Skill skill = null;
 
-				if (UseCubicCure)
+			if (_id >= SMART_CUBIC_EVATEMPLAR && _id <= SMART_CUBIC_SPECTRALMASTER)
+			{
+				L2Effect[] effects = _owner.getAllEffects();
+
+				for (L2Effect e : effects)
 				{
-					// Smart Cubic debuff cancel is needed, no other skill is
-					// used in this activation period
-					MagicSkillUse msu = new MagicSkillUse(_owner, _owner, SKILL_CUBIC_CURE, 1, 0, 0);
-					_owner.broadcastPacket(msu);
-				}
-				else if (Rnd.get(1, 100) < _chance)
-				{
-					skill = _skills.get(Rnd.get(_skills.size()));
-					if (skill != null)
+					if (e.getSkill().isDebuff())
 					{
-						if (skill.getId() == SKILL_CUBIC_HEAL)
-						{
-							// Friendly skill, so we look a target in owner's party
-							setCubicTargetForHeal();
-						}
-						else
-						{
-							// Offensive skill, we look for an enemy target
-							getCubicTarget();
-							if (!isInCubicRange(_owner, _target))
-								_target = null;
-						}
-						if ((_target != null) && (!_target.isDead()))
-						{
-							_owner.broadcastPacket(new MagicSkillUse(_owner, _target, skill.getId(), skill.getLevel(), 0, 0));
-
-							if (_log.isDebugEnabled())
-							{
-								_log.info("L2CubicInstance: Action.run();");
-								_log.info("Cubic Id: " + _id + " Target: " + _target.getName() + " distance: "
-										+ Math.sqrt(_target.getDistanceSq(_owner.getX(), _owner.getY(), _owner.getZ())));
-							}
-							
-							SkillHandler.getInstance().useCubicSkill(L2CubicInstance.this, skill, _target);
-						}
+						UseCubicCure = true;
+						e.exit();
 					}
 				}
 			}
-			catch (Exception e)
+
+			if (UseCubicCure)
 			{
-				_log.fatal("Action:",e);
+				// Smart Cubic debuff cancel is needed, no other skill is
+				// used in this activation period
+				MagicSkillUse msu = new MagicSkillUse(_owner, _owner, SKILL_CUBIC_CURE, 1, 0, 0);
+				_owner.broadcastPacket(msu);
+			}
+			else if (Rnd.get(1, 100) < _chance)
+			{
+				skill = _skills.get(Rnd.get(_skills.size()));
+				if (skill != null)
+				{
+					if (skill.getId() == SKILL_CUBIC_HEAL)
+					{
+						// Friendly skill, so we look a target in owner's party
+						setCubicTargetForHeal();
+					}
+					else
+					{
+						// Offensive skill, we look for an enemy target
+						getCubicTarget();
+						if (!isInCubicRange(_owner, _target))
+							_target = null;
+					}
+					if ((_target != null) && (!_target.isDead()))
+					{
+						_owner.broadcastPacket(new MagicSkillUse(_owner, _target, skill.getId(), skill.getLevel(), 0, 0));
+
+						if (_log.isDebugEnabled())
+						{
+							_log.info("L2CubicInstance: Action.run();");
+							_log.info("Cubic Id: " + _id + " Target: " + _target.getName() + " distance: "
+									+ Math.sqrt(_target.getDistanceSq(_owner.getX(), _owner.getY(), _owner.getZ())));
+						}
+						
+						SkillHandler.getInstance().useCubicSkill(L2CubicInstance.this, skill, _target);
+					}
+				}
 			}
 		}
 	}
@@ -711,37 +704,31 @@ public class L2CubicInstance
 				cancelDisappear();
 				return;
 			}
-			try
+				
+			L2Skill skill = null;
+			for (L2Skill sk : _skills)
 			{
-				L2Skill skill = null;
-				for (L2Skill sk : _skills)
+				if (sk.getId() == SKILL_CUBIC_HEAL)
 				{
-					if (sk.getId() == SKILL_CUBIC_HEAL)
-					{
-						skill = sk;
-						break;
-					}
-				}
-
-				if (skill != null)
-				{
-					setCubicTargetForHeal();
-					L2Character target = _target;
-					if (target != null && !target.isDead())
-					{
-						if (target.getMaxHp() - target.getStatus().getCurrentHp() > skill.getPower())
-						{
-							SkillHandler.getInstance().useSkill(_owner, skill, target);
-							
-							MagicSkillUse msu = new MagicSkillUse(_owner, target, skill.getId(), skill.getLevel(), 0, 0);
-							_owner.broadcastPacket(msu);
-						}
-					}
+					skill = sk;
+					break;
 				}
 			}
-			catch (Exception e)
+
+			if (skill != null)
 			{
-				_log.fatal("Run",e);
+				setCubicTargetForHeal();
+				L2Character target = _target;
+				if (target != null && !target.isDead())
+				{
+					if (target.getMaxHp() - target.getStatus().getCurrentHp() > skill.getPower())
+					{
+						SkillHandler.getInstance().useSkill(_owner, skill, target);
+						
+						MagicSkillUse msu = new MagicSkillUse(_owner, target, skill.getId(), skill.getLevel(), 0, 0);
+						_owner.broadcastPacket(msu);
+					}
+				}
 			}
 		}
 	}

@@ -230,7 +230,7 @@ public class BaylorManager extends BossLair
 		}
 		catch (Exception e)
 		{
-			_log.warn(e.getMessage());
+			_log.warn(e.getMessage(), e);
 		}
 
 		// Setting spawn data of teleporte cube.
@@ -255,7 +255,7 @@ public class BaylorManager extends BossLair
 		}
 		catch (Exception e)
 		{
-			_log.warn(e.getMessage());
+			_log.warn(e.getMessage(), e);
 		}
 
 		_log.info("BaylorManager : State of Baylor is " + _state.getState() + ".");
@@ -267,7 +267,7 @@ public class BaylorManager extends BossLair
 		_log.info("BaylorManager : Init BaylorManager.");
 	}
 
-	// Whether it is permitted to enter the baylor's lair is confirmed. 
+	// Whether it is permitted to enter the baylor's lair is confirmed.
 	public int canIntoBaylorLair(L2PcInstance pc)
 	{
 		if ((!Config.FWBA_ENABLESINGLEPLAYER) && !pc.isInParty())
@@ -327,7 +327,7 @@ public class BaylorManager extends BossLair
 			List<L2PcInstance> members = new FastList<L2PcInstance>(); // list of member of teleport candidate.
 			for (L2PcInstance mem : pc.getParty().getPartyMembers())
 			{
-				// teleporting it within alive and the range of recognition of the leader of the party. 
+				// teleporting it within alive and the range of recognition of the leader of the party.
 				if (!mem.isDead() && Util.checkIfInRange(700, pc, mem, true))
 				{
 					members.add(mem);

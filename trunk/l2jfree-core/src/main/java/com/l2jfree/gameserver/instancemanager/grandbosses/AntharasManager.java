@@ -149,7 +149,7 @@ public class AntharasManager extends BossLair
 		}
 		catch (Exception e)
 		{
-			_log.warn(e.getMessage());
+			_log.warn(e.getMessage(), e);
 		}
 
 		// Setting spawn data of teleport cube.
@@ -173,7 +173,7 @@ public class AntharasManager extends BossLair
 		}
 		catch (Exception e)
 		{
-			_log.warn(e.getMessage());
+			_log.warn(e.getMessage(), e);
 		}
 
 		_log.info("AntharasManager : State of Antharas is " + _state.getState() + ".");
@@ -493,7 +493,7 @@ public class AntharasManager extends BossLair
 				// Set spawn.
 				template1 = NpcTable.getInstance().getTemplate(29069);
 				tempSpawn = new L2Spawn(template1);
-				// allocates it at random in the lair of Antharas. 
+				// allocates it at random in the lair of Antharas.
 				tempSpawn.setLocx(Rnd.get(175000, 179900));
 				tempSpawn.setLocy(Rnd.get(112400, 116000));
 				tempSpawn.setLocz(-7709);
@@ -509,7 +509,7 @@ public class AntharasManager extends BossLair
 			}
 			catch (Exception e)
 			{
-				_log.warn(e.getMessage());
+				_log.warn(e.getMessage(), e);
 			}
 
 			if (_behemothSpawnTask != null)
@@ -545,7 +545,7 @@ public class AntharasManager extends BossLair
 				// Set spawn.
 				template1 = NpcTable.getInstance().getTemplate(npcId);
 				tempSpawn = new L2Spawn(template1);
-				// Allocates it at random in the lair of Antharas. 
+				// Allocates it at random in the lair of Antharas.
 				tempSpawn.setLocx(Rnd.get(175000, 179900));
 				tempSpawn.setLocy(Rnd.get(112400, 116000));
 				tempSpawn.setLocz(-7709);
@@ -560,7 +560,7 @@ public class AntharasManager extends BossLair
 			}
 			catch (Exception e)
 			{
-				_log.warn(e.getMessage());
+				_log.warn(e.getMessage(), e);
 			}
 
 			// Set self destruction.
@@ -702,7 +702,7 @@ public class AntharasManager extends BossLair
 	// Start interval.
 	public void setIntervalEndTask()
 	{
-		//init state of Antharas's lair.  
+		//init state of Antharas's lair.
 		if (!_state.getState().equals(GrandBossState.StateEnum.INTERVAL))
 		{
 			_state.setRespawnDate(Rnd.get(Config.FWA_FIXINTERVALOFANTHARAS, Config.FWA_FIXINTERVALOFANTHARAS + Config.FWA_RANDOMINTERVALOFANTHARAS));

@@ -22,7 +22,7 @@ public class L2RecipeStatInstance
 		HP, MP, XP, SP, GIM
 		// grab item modifier:
 		// GIM: the default function uses only the skilllevel to determine
-		//      how many item is grabbed in each step 
+		//      how many item is grabbed in each step
 		//      with this stat changer you can multiple this
 	}
 
@@ -35,14 +35,7 @@ public class L2RecipeStatInstance
 	/** Constructor of L2RecipeStatInstance. */
 	public L2RecipeStatInstance(String type, int value)
 	{
-		try
-		{
-			_type = Enum.valueOf(statType.class, type);
-		}
-		catch (Exception e)
-		{
-			throw new IllegalArgumentException();
-		}
+		_type = Enum.valueOf(statType.class, type);
 		_value = value;
 	}
 

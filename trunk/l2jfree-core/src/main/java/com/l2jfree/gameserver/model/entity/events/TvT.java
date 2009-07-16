@@ -371,7 +371,7 @@ public class TvT
 		}
 		catch (Exception e)
 		{
-			_log.error("TvT Engine[spawnEventNpc(" + activeChar.getName() + ")]: exception: " + e.getMessage());
+			_log.error("TvT Engine[spawnEventNpc(" + activeChar.getName() + ")]: exception: ", e);
 		}
 	}
 
@@ -404,7 +404,7 @@ public class TvT
 		}
 		catch (Exception e)
 		{
-			_log.error("TvT Engine[spawnEventNpc(exception: " + e.getMessage());
+			_log.error("TvT Engine[spawnEventNpc(exception: ", e);
 		}
 	}
 
@@ -1075,7 +1075,7 @@ public class TvT
 		}
 		catch (Exception e)
 		{
-			_log.error("Exception: TvT.loadData(): " + e.getMessage());
+			_log.error("Exception: TvT.loadData(): ", e);
 		}
 		finally
 		{
@@ -1140,7 +1140,7 @@ public class TvT
 		}
 		catch (Exception e)
 		{
-			_log.error("Exception: TvT.saveData(): " + e.getMessage());
+			_log.error("Exception: TvT.saveData(): ", e);
 		}
 		finally
 		{
@@ -1256,7 +1256,7 @@ public class TvT
 		}
 		catch (Exception e)
 		{
-			_log.warn("TvT Engine[showEventHtlm(" + eventPlayer.getName() + ", " + objectId + ")]: exception" + e.getMessage());
+			_log.warn("TvT Engine[showEventHtlm(" + eventPlayer.getName() + ", " + objectId + ")]: exception", e);
 		}
 	}
 
@@ -1332,6 +1332,7 @@ public class TvT
 		}
 		catch (Exception e)
 		{
+			_log.warn("", e);
 		}
 		return false;
 	}
@@ -1383,7 +1384,7 @@ public class TvT
 		}
 		catch (Exception e)
 		{
-			_log.warn("TvT Engine exception: " + e.getMessage());
+			_log.warn("TvT Engine exception: ", e);
 		}
 
 		if (Config.TVT_EVEN_TEAMS.equals("NO"))

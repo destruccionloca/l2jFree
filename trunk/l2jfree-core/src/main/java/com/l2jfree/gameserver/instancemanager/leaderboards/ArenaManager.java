@@ -23,9 +23,12 @@ import java.io.LineNumberReader;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.Future;
-import java.util.logging.Logger;
 
 import javolution.util.FastMap;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Announcements;
@@ -43,7 +46,8 @@ import com.l2jfree.gameserver.util.Util;
  */
 public class ArenaManager
 {
-	public Logger					_log					= Logger.getLogger(ArenaManager.class.getName());
+	private static final Log _log = LogFactory.getLog(ArenaManager.class);
+	
 	public Map<Integer, ArenaRank>	_ranks					= new FastMap<Integer, ArenaRank>();
 	protected Future<?>				_actionTask				= null;
 	protected int					SAVETASK_DELAY			= Config.ARENA_INTERVAL;
@@ -263,20 +267,11 @@ public class ArenaManager
 		}
 		catch (Exception e)
 		{
-			_log.warning("ArenaManager.engineInit() >> last line parsed is \n[" + lineId + "]\n");
-			e.printStackTrace();
+			_log.warn("ArenaManager.engineInit() >> last line parsed is \n[" + lineId + "]\n", e);
 		}
 		finally
 		{
-			try
-			{
-				if (lnr != null)
-					lnr.close();
-			}
-			catch (Exception e)
-			{
-				e.printStackTrace();
-			}
+			IOUtils.closeQuietly(lnr);
 		}
 
 		startSaveTask();
@@ -309,7 +304,7 @@ public class ArenaManager
 		}
 		catch (IOException e)
 		{
-			e.printStackTrace();
+			_log.warn("", e);
 		}
 	}
 

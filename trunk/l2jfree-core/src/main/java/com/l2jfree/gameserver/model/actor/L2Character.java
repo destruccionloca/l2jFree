@@ -695,9 +695,7 @@ public abstract class L2Character extends L2Object
 
 			// Call this function for further checks in the short future (next time we either keep falling, or finalize the fall)
 			// This "next time" check is a rough estimate on how much time is needed to calculate the next check, and it is based on the current fall height.
-			CheckFalling cf = new CheckFalling(fallHeight);
-			Future<?> task = ThreadPoolManager.getInstance().scheduleGeneral(cf, Math.min(1200, moveChangeZ));
-			cf.setTask(task);
+			ThreadPoolManager.getInstance().scheduleGeneral(new CheckFalling(fallHeight), Math.min(1200, moveChangeZ));
 
 			// Value returned but not currently used. Maybe useful for future features.
 			return fallHeight;
@@ -814,34 +812,15 @@ public abstract class L2Character extends L2Object
 	public class CheckFalling implements Runnable
 	{
 		private int			_fallHeight;
-		private Future<?>	_task;
 
 		public CheckFalling(int fallHeight)
 		{
 			_fallHeight = fallHeight;
 		}
 
-		public void setTask(Future<?> task)
-		{
-			_task = task;
-		}
-
 		public void run()
 		{
-			if (_task != null)
-			{
-				_task.cancel(true);
-				_task = null;
-			}
-
-			try
-			{
-				isFalling(true, _fallHeight);
-			}
-			catch (Exception e)
-			{
-				_log.fatal(e.getMessage(), e);
-			}
+			isFalling(true, _fallHeight);
 		}
 	}
 
@@ -2862,14 +2841,7 @@ public abstract class L2Character extends L2Object
 
 		public void run()
 		{
-			try
-			{
-				enableSkill(_skillId);
-			}
-			catch (Exception e)
-			{
-				_log.error(e.getMessage(), e);
-			}
+			enableSkill(_skillId);
 		}
 	}
 
@@ -3046,14 +3018,7 @@ public abstract class L2Character extends L2Object
 
 		public void run()
 		{
-			try
-			{
-				getAI().notifyEvent(_evt, null);
-			}
-			catch (Exception e)
-			{
-				_log.error(e.getMessage(), e);
-			}
+			getAI().notifyEvent(_evt, null);
 		}
 	}
 
@@ -3062,24 +3027,17 @@ public abstract class L2Character extends L2Object
 	{
 		public void run()
 		{
-			try
+			if (System.currentTimeMillis() > getPvpFlagLasts())
 			{
-				if (System.currentTimeMillis() > getPvpFlagLasts())
-				{
-					stopPvPFlag();
-				}
-				else if (System.currentTimeMillis() > (getPvpFlagLasts() - 20000))
-				{
-					updatePvPFlag(2);
-				}
-				else
-				{
-					updatePvPFlag(1);
-				}
+				stopPvPFlag();
 			}
-			catch (Exception e)
+			else if (System.currentTimeMillis() > (getPvpFlagLasts() - 20000))
 			{
-				_log.warn(e.getMessage(), e);
+				updatePvPFlag(2);
+			}
+			else
+			{
+				updatePvPFlag(1);
 			}
 		}
 	} // =========================================================

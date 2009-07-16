@@ -128,7 +128,7 @@ public class LastImperialTombSpawnlist
         }
         catch (Exception e)
         {
-            _log.warn("LastImperialTombSpawnlist: Spawn could not be initialized: " + e);
+            _log.warn("LastImperialTombSpawnlist: Spawn could not be initialized: ", e);
         }
         finally
         {

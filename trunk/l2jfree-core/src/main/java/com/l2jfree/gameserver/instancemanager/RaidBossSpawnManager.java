@@ -118,7 +118,7 @@ public class RaidBossSpawnManager extends BossSpawnManager
 		catch (Exception e)
 		{
 			// Problem with storing spawn
-			_log.warn("RaidBossSpawnManager: Could not store raidboss #" + spawnDat.getNpcId() + " in the DB:" + e);
+			_log.warn("RaidBossSpawnManager: Could not store raidboss #" + spawnDat.getNpcId() + " in the DB:", e);
 		}
 		finally
 		{
@@ -145,7 +145,7 @@ public class RaidBossSpawnManager extends BossSpawnManager
 		}
 		catch (Exception e)
 		{
-			_log.warn("RaidBossSpawnManager: Could not update raidboss #" + bossId + " in DB: " + e);
+			_log.warn("RaidBossSpawnManager: Could not update raidboss #" + bossId + " in DB: ", e);
 		}
 		finally
 		{
@@ -169,7 +169,7 @@ public class RaidBossSpawnManager extends BossSpawnManager
 		catch (Exception e)
 		{
 			// Problem with deleting spawn
-			_log.warn("RaidBossSpawnManager: Could not remove raidboss #" + bossId + " from DB: " + e);
+			_log.warn("RaidBossSpawnManager: Could not remove raidboss #" + bossId + " from DB: ", e);
 		}
 		finally
 		{

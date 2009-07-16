@@ -18,6 +18,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -29,6 +32,8 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  */
 public class L2ClanMember
 {
+	private static final Log _log = LogFactory.getLog(L2ClanMember.class);
+	
 	private L2Clan			_clan;
 	private int				_objectId;
 	private String			_name;
@@ -238,7 +243,7 @@ public class L2ClanMember
 		}
 		catch (Exception e)
 		{
-			//_log.warning("could not set char power_grade:"+e);
+			_log.warn("could not set char subpledge:", e);
 		}
 		finally
 		{
@@ -288,7 +293,7 @@ public class L2ClanMember
 		}
 		catch (Exception e)
 		{
-			//_log.warning("could not set char power_grade:"+e);
+			_log.warn("could not set char pledge_rank:", e);
 		}
 		finally
 		{
@@ -391,7 +396,7 @@ public class L2ClanMember
 		L2Clan clan = player.getClan();
 		if (clan != null)
 		{
-			// Added 2nd hero check. Some other functions call this calculations. 
+			// Added 2nd hero check. Some other functions call this calculations.
 			if (player.isHero())
 				return 8;
 
@@ -554,7 +559,7 @@ public class L2ClanMember
 							}
 						break;
 				}
-				break;   
+				break;
 			case 10:
 				switch (player.getSubPledgeType())
 				{
@@ -620,7 +625,7 @@ public class L2ClanMember
 		}
 		catch (SQLException e)
 		{
-			//_log.warning("could not set apprentice/sponsor:"+e.getMessage());
+			_log.warn("could not set apprentice/sponsor:", e);
 		}
 		finally
 		{

@@ -151,9 +151,9 @@ public class FrintezzaManager extends BossLair
 		{
 			createMonsterSpawns();
 		}
-		catch (Throwable t)
+		catch (RuntimeException e)
 		{
-			_log.warn(t.getMessage());
+			_log.warn("", e);
 		}
 
 		_log.info("FrintezzaManager : State of Frintezza is " + _state.getState() + ".");
@@ -240,9 +240,9 @@ public class FrintezzaManager extends BossLair
 			SpawnTable.getInstance().addNewSpawn(tempSpawn, false);
 
 		}
-		catch (Throwable t)
+		catch (RuntimeException e)
 		{
-			_log.warn(t.getMessage());
+			_log.warn("", e);
 		}
 		return tempSpawn;
 	}
@@ -917,9 +917,9 @@ public class FrintezzaManager extends BossLair
 					break;
 				}
 			}
-			catch (Throwable t)
+			catch (RuntimeException e)
 			{
-				_log.error(t.getMessage(), t);
+				_log.warn("", e);
 			}
 		}
 	}
@@ -1089,15 +1089,15 @@ public class FrintezzaManager extends BossLair
 				// set the cancel task for this effect
 				ThreadPoolManager.getInstance().scheduleGeneral(new exitStunDanceEffect(_effected), getDebuffPeriod(_skill, _effected));
 			}
-			catch (Throwable t)
+			catch (RuntimeException e)
 			{
 				if (_effected != null && !_effected.isAlikeDead())
 				{
 					_effected.enableAllSkills();
 					_effected.setIsImmobilized(false);
 				}
-
-				_log.warn(t.getMessage());
+				
+				_log.warn("", e);
 			}
 		}
 	}
@@ -1212,8 +1212,9 @@ public class FrintezzaManager extends BossLair
 						// Scarlet, Frintezza - check if all bosses are dead.
 						bossDeadCheck((L2GrandBossInstance) _mob);
 				}
-				catch (Throwable t)
+				catch (RuntimeException e)
 				{
+					_log.warn("", e);
 				}
 				return;
 			}
@@ -1318,8 +1319,9 @@ public class FrintezzaManager extends BossLair
 			mob.deleteMe();
 			mob = null;
 		}
-		catch (Throwable t)
+		catch (RuntimeException e)
 		{
+			_log.warn("", e);
 		}
 
 		// Try to delete the portraits demon.
@@ -1331,8 +1333,9 @@ public class FrintezzaManager extends BossLair
 				demon.deleteMe();
 				demon = null;
 			}
-			catch (Throwable t)
+			catch (RuntimeException e)
 			{
+				_log.warn("", e);
 			}
 		}
 	}
@@ -1468,8 +1471,9 @@ public class FrintezzaManager extends BossLair
 					_mob.decayMe();
 					_mob.deleteMe();
 				}
-				catch (Throwable t)
+				catch (RuntimeException e)
 				{
+					_log.warn("", e);
 				}
 
 				return;
@@ -1797,8 +1801,9 @@ public class FrintezzaManager extends BossLair
 
 				}
 			}
-			catch (Throwable t)
+			catch (RuntimeException e)
 			{
+				_log.warn("", e);
 			}
 
 			ThreadPoolManager.getInstance().scheduleGeneral(new doSkill(_caster, _skill, _interval, _range), _interval + Rnd.get(500));
@@ -1935,9 +1940,9 @@ public class FrintezzaManager extends BossLair
 				weakScarlet.deleteMe();
 			}
 		}
-
-		catch (Throwable t)
+		catch (RuntimeException e)
 		{
+			_log.warn("", e);
 		}
 
 		frintezza = strongScarlet = weakScarlet = null;

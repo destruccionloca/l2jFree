@@ -70,17 +70,11 @@ public class RequestWearItem extends L2GameClientPacket
 	protected L2PcInstance _activeChar;
 
 
-	class RemoveWearItemsTask implements Runnable
+	private class RemoveWearItemsTask implements Runnable
 	{
 		public void run()
 		{
-			try
-			{
-				_activeChar.destroyWearedItems("Wear", null, true);
-				
-			} catch (Throwable e){
-				_log.fatal( "", e);
-			}
+			_activeChar.destroyWearedItems("Wear", null, true);
 		}
 	}
 

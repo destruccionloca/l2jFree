@@ -140,7 +140,7 @@ public class ValakasManager extends BossLair
 		}
 		catch (Exception e)
 		{
-			_log.warn(e.getMessage());
+			_log.warn(e.getMessage(), e);
 		}
 
 		// Setting spawn data of teleport cube.
@@ -164,7 +164,7 @@ public class ValakasManager extends BossLair
 		}
 		catch (Exception e)
 		{
-			_log.warn(e.getMessage());
+			_log.warn(e.getMessage(), e);
 		}
 
 		_log.info("ValakasManager : State of Valakas is " + _state.getState() + ".");

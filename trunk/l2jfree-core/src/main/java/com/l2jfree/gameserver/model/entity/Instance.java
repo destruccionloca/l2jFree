@@ -124,7 +124,7 @@ public class Instance
 	}
 
 	/**
-	 * Sets PvP zone status of the instance 
+	 * Sets PvP zone status of the instance
 	 */
 	public void setPvPInstance(boolean b)
 	{
@@ -448,7 +448,7 @@ public class Instance
 				}
 				catch (Exception e)
 				{
-					_log.warn("Error parsing instance xml: " + e);
+					_log.warn("Error parsing instance xml: ", e);
 				}
 			}
 		}

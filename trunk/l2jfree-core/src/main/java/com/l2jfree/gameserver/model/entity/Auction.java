@@ -59,7 +59,7 @@ public class Auction
 
 	private static final String[] ItemTypeName =
 	{
-		"ClanHall" 
+		"ClanHall"
 	};
 
 	public static enum ItemTypeEnum
@@ -119,14 +119,7 @@ public class Auction
 	{
 		public void run()
 		{
-			try
-			{
-				endAuction();
-			}
-			catch (Exception e)
-			{
-				_log.error(e.getMessage(), e);
-			}
+			endAuction();
 		}
 	}
 
@@ -273,7 +266,7 @@ public class Auction
 		catch (Exception e)
 		{
 			_log.fatal("Exception: saveAuctionDate(): " + e.getMessage(),e);
-		} 
+		}
 		finally
 		{
 			L2DatabaseFactory.close(con);
@@ -287,7 +280,7 @@ public class Auction
 		if (getHighestBidderName().equals(bidder.getClan().getLeaderName()))
 			requiredAdena = bid - getHighestBidderMaxBid();
 
-		if ((getHighestBidderId() > 0 && bid > getHighestBidderMaxBid()) 
+		if ((getHighestBidderId() > 0 && bid > getHighestBidderMaxBid())
 				|| (getHighestBidderId() == 0 && bid >= getStartingBid()))
 		{
 			if(takeItem(bidder, 57, requiredAdena))
@@ -300,7 +293,7 @@ public class Auction
 		bidder.sendMessage("Invalid bid!");
 	}
 
-	/** Return Item in WHC 
+	/** Return Item in WHC
 	* @param Clan
 	* @param itemId
 	* @param quantity
@@ -313,10 +306,10 @@ public class Auction
 		ClanTable.getInstance().getClanByName(Clan).getWarehouse().addItem("Outbidded", _adenaId, quantity, null, null);
 	}
 
-	/** Take Item in WHC 
-	* @param bidder 
-	* @param itemId 
-	* @param quantity 
+	/** Take Item in WHC
+	* @param bidder
+	* @param itemId
+	* @param quantity
 	*/
 	private boolean takeItem(L2PcInstance bidder, int itemId, int quantity)
 	{
@@ -486,7 +479,7 @@ public class Auction
 		else
 		{
 			/** Task waiting ClanHallManager is loaded every 3s */
-			ThreadPoolManager.getInstance().scheduleGeneral(new AutoEndTask(), 3000); 
+			ThreadPoolManager.getInstance().scheduleGeneral(new AutoEndTask(), 3000);
 		}
 	}
 
@@ -538,7 +531,7 @@ public class Auction
 			PreparedStatement statement;
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 
-			statement = con.prepareStatement("INSERT INTO auction (id, sellerId, sellerName, sellerClanName, itemType, itemId, itemObjectId, itemName, itemQuantity, startingBid, currentBid, endDate) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)"); 
+			statement = con.prepareStatement("INSERT INTO auction (id, sellerId, sellerName, sellerClanName, itemType, itemId, itemObjectId, itemName, itemQuantity, startingBid, currentBid, endDate) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
 			statement.setInt(1, getId());
 			statement.setInt(2, _sellerId);
 			statement.setString(3, _sellerName);
@@ -550,7 +543,7 @@ public class Auction
 			statement.setInt(9, _itemQuantity);
 			statement.setInt(10, _startingBid);
 			statement.setInt(11, _currentBid);
-			statement.setLong(12, _endDate); 
+			statement.setLong(12, _endDate);
 			statement.execute();
 			statement.close();
 			loadBid();

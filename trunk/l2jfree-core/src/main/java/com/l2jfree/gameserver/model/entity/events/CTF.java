@@ -443,9 +443,9 @@ public class CTF
 			}
 			_throneSpawns.removeAllElements();
 		}
-		catch (Throwable t)
+		catch (RuntimeException e)
 		{
-			_log.warn("CTF Engine[unspawnAllFlags()]: exception: " + t.getStackTrace());
+			_log.warn("CTF Engine[unspawnAllFlags()]: exception: ", e);
 		}
 	}
 
@@ -579,16 +579,16 @@ public class CTF
 						else
 						{
 							player.sendPacket(new RadarControl(0, 1, hasFlag.getX(), hasFlag.getY(), hasFlag.getZ()));
-							L2Radar rdr = new L2Radar(player);
-							L2Radar.RadarOnPlayer radar = rdr.new RadarOnPlayer(hasFlag, player);
+							L2Radar.RadarOnPlayer radar = new L2Radar.RadarOnPlayer(hasFlag, player);
 							ThreadPoolManager.getInstance().scheduleGeneral(radar, 10000 + Rnd.get(30000));
 						}
 					}
 				}
 			}
 		}
-		catch (Throwable t)
+		catch (RuntimeException e)
 		{
+			_log.warn("", e);
 		}
 	}
 

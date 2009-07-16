@@ -41,30 +41,23 @@ public class CastleUpdater implements Runnable
 	
 	public void run()
 	{
-		try
+		// Move current castle treasury to clan warehouse every 2 hour
+		ItemContainer warehouse = _clan.getWarehouse();
+		if (warehouse != null && _clan.getHasCastle() > 0)
 		{
-			// Move current castle treasury to clan warehouse every 2 hour
-			ItemContainer warehouse = _clan.getWarehouse();
-			if (warehouse != null && _clan.getHasCastle() > 0)
+			Castle castle = CastleManager.getInstance().getCastleById(_clan.getHasCastle());
+			if (!Config.ALT_MANOR_SAVE_ALL_ACTIONS)
 			{
-				Castle castle = CastleManager.getInstance().getCastleById(_clan.getHasCastle());
-				if (!Config.ALT_MANOR_SAVE_ALL_ACTIONS)
+				if (_runCount % Config.ALT_MANOR_SAVE_PERIOD_RATE == 0)
 				{
-					if (_runCount % Config.ALT_MANOR_SAVE_PERIOD_RATE == 0)
-					{
-						castle.saveSeedData();
-						castle.saveCropData();
-						if (_log.isDebugEnabled())
-							_log.info("Manor System: all data for " + castle.getName() + " saved");
-					}
+					castle.saveSeedData();
+					castle.saveCropData();
+					if (_log.isDebugEnabled())
+						_log.info("Manor System: all data for " + castle.getName() + " saved");
 				}
-				CastleUpdater cu = new CastleUpdater(_clan, ++_runCount);
-				ThreadPoolManager.getInstance().scheduleGeneral(cu, 3600000);
 			}
-		}
-		catch (Exception e)
-		{
-			_log.error(e.getMessage(), e);
+			CastleUpdater cu = new CastleUpdater(_clan, ++_runCount);
+			ThreadPoolManager.getInstance().scheduleGeneral(cu, 3600000);
 		}
 	}
 }

@@ -196,9 +196,7 @@ public class L2Clan
 		}
 		catch (Exception e)
 		{
-			System.out.println("BBS: Error while creating clan notice for clan " + getClanId() + "");
-			if (e.getMessage() != null)
-				System.out.println("BBS: Exception = " + e.getMessage() + "");
+			_log.warn("BBS: Error while creating clan notice for clan " + getClanId(), e);
 		}
 		finally
 		{
@@ -229,9 +227,7 @@ public class L2Clan
 		}
 		catch (Exception e)
 		{
-			System.out.println("BBS: Error while getting notice from DB for clan " + getClanId() + "");
-			if (e.getMessage() != null)
-				System.out.println("BBS: Exception = " + e.getMessage() + "");
+			_log.warn("BBS: Error while getting notice from DB for clan " + getClanId(), e);
 		}
 		finally
 		{
@@ -262,9 +258,7 @@ public class L2Clan
 		}
 		catch (Exception e)
 		{
-			System.out.println("BBS: Error while getting notice from DB for clan " + getClanId() + "");
-			if (e.getMessage() != null)
-				System.out.println("BBS: Exception = " + e.getMessage() + "");
+			_log.warn("BBS: Error while getting notice from DB for clan " + getClanId(), e);
 		}
 		finally
 		{
@@ -298,9 +292,7 @@ public class L2Clan
 		}
 		catch (Exception e)
 		{
-			System.out.println("BBS: Error while saving notice for clan " + getClanId() + "");
-			if (e.getMessage() != null)
-				System.out.println("BBS: Exception = " + e.getMessage() + "");
+			_log.warn("BBS: Error while saving notice for clan " + getClanId(), e);
 		}
 		finally
 		{
@@ -333,9 +325,7 @@ public class L2Clan
 		}
 		catch (Exception e)
 		{
-			System.out.println("BBS: Error while reading _noticeEnabled for clan " + getClanId() + "");
-			if (e.getMessage() != null)
-				System.out.println("BBS: Exception = " + e.getMessage() + "");
+			_log.warn("BBS: Error while reading _noticeEnabled for clan " + getClanId(), e);
 		}
 		finally
 		{
@@ -370,9 +360,7 @@ public class L2Clan
 		}
 		catch (Exception e)
 		{
-			System.out.println("BBS: Error while updating notice status for clan " + getClanId() + "");
-			if (e.getMessage() != null)
-				System.out.println("BBS: Exception = " + e.getMessage() + "");
+			_log.warn("BBS: Error while updating notice status for clan " + getClanId(), e);
 		}
 		finally
 		{
@@ -1861,7 +1849,7 @@ public class L2Clan
 			}
 			catch (Exception e)
 			{
-				_log.warn("Could not store clan privs for rank: " + e);
+				_log.warn("Could not store clan privs for rank: ", e);
 			}
 			finally
 			{
@@ -1906,7 +1894,7 @@ public class L2Clan
 			}
 			catch (Exception e)
 			{
-				_log.warn("Could not create new rank and store clan privs for rank: " + e);
+				_log.warn("Could not create new rank and store clan privs for rank: ", e);
 			}
 			finally
 			{
@@ -2021,7 +2009,7 @@ public class L2Clan
 			}
 			catch (Exception e)
 			{
-				_log.warn("Could not store auction for clan: " + e);
+				_log.warn("Could not store auction for clan: ", e);
 			}
 			finally
 			{
@@ -2591,7 +2579,7 @@ public class L2Clan
 		}
 		catch (Exception e)
 		{
-			_log.warn("could not increase clan level:" + e);
+			_log.warn("could not increase clan level:", e);
 		}
 		finally
 		{

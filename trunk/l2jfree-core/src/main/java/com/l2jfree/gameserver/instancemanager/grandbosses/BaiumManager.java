@@ -130,7 +130,7 @@ public class BaiumManager extends BossLair
 			L2NpcTemplate template1;
 			L2Spawn tempSpawn;
 
-			// Statue of Baium  
+			// Statue of Baium
 			template1 = NpcTable.getInstance().getTemplate(BAIUM_NPC);
 			_statueSpawn = new L2Spawn(template1);
 			_statueSpawn.setAmount(1);
@@ -152,7 +152,7 @@ public class BaiumManager extends BossLair
 		}
 		catch (Exception e)
 		{
-			_log.warn(e.getMessage());
+			_log.warn(e.getMessage(), e);
 		}
 
 		// Setting spawn data of teleport cube.
@@ -172,7 +172,7 @@ public class BaiumManager extends BossLair
 		}
 		catch (Exception e)
 		{
-			_log.warn(e.getMessage());
+			_log.warn(e.getMessage(), e);
 		}
 
 		// Setting spawn data of archangels.
@@ -208,7 +208,7 @@ public class BaiumManager extends BossLair
 		}
 		catch (Exception e)
 		{
-			_log.warn(e.getMessage());
+			_log.warn(e.getMessage(), e);
 		}
 
 		_log.info("BaiumManager : State of Baium is " + _state.getState() + ".");
@@ -266,7 +266,7 @@ public class BaiumManager extends BossLair
 
 		baiumSpawn.setInstanceId(_instanceId);
 
-		// Delete statue.  
+		// Delete statue.
 		_npcBaium.deleteMe();
 
 		final L2GrandBossInstance baium = (L2GrandBossInstance) baiumSpawn.doSpawn();
@@ -430,7 +430,7 @@ public class BaiumManager extends BossLair
 	{
 		setUnspawn();
 
-		//init state of Baium's lair.  
+		//init state of Baium's lair.
 		if (!_state.getState().equals(GrandBossState.StateEnum.INTERVAL))
 		{
 			_state.setRespawnDate(Rnd.get(Config.FWB_FIXINTERVALOFBAIUM, Config.FWB_FIXINTERVALOFBAIUM + Config.FWB_RANDOMINTERVALOFBAIUM));
