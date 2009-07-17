@@ -1503,14 +1503,13 @@
     </for>
   </skill>
   <skill id="475" levels="1" name="Strike Back">
-    <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="CONT"/>
+    <!-- Needs to be verified -->
     <set name="operateType" val="OP_TOGGLE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
+    <set name="skillType" val="CONT"/>
+    <set name="target" val="TARGET_SELF"/>
     <for>
-      <effect count="0x7fffffff" name="ManaDamOverTime" time="3" val="5"> <!-- TODO: MpConsumePerLevel amount is guessed -->
-        <add order="0x40" stat="vengeancePdam" val="30"/>
+      <effect count="0x7fffffff" name="MpConsumePerLevel" time="3" val="0.5"> <!-- TODO: MpConsumePerLevel amount is guessed -->
+        <add order="0x40" stat="vengeancePdam" val="10"/>
       </effect>
     </for>
   </skill>
