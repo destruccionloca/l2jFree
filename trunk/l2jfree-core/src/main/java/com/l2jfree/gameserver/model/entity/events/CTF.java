@@ -1245,6 +1245,7 @@ public class CTF
 			player = _playersShuffle.get(playerToAddIndex);
 			player._originalNameColorCTF = player.getAppearance().getNameColor();
 			player._originalKarmaCTF = player.getKarma();
+			player._originalTitleCTF = player.getTitle();
 
 			_players.add(player);
 			_players.get(playersCount)._teamNameCTF = _teams.get(teamCount);
@@ -1998,6 +1999,7 @@ public class CTF
 				{
 					player._originalNameColorCTF = player.getAppearance().getNameColor();
 					player._originalKarmaCTF = player.getKarma();
+					player._originalTitleCTF = player.getTitle();
 					player._inEventCTF = true;
 					player._countCTFflags = p._countCTFflags;
 					_players.remove(p); //removing old object id from vector
@@ -2023,6 +2025,7 @@ public class CTF
 			{
 				player.getAppearance().setNameColor(player._originalNameColorCTF);
 				player.setKarma(player._originalKarmaCTF);
+				player.setTitle(player._originalTitleCTF);
 				player.broadcastUserInfo();
 			}
 			player._teamNameCTF = "";
