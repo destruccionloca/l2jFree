@@ -68,7 +68,7 @@ class Quest (JQuest) :
 				if not (level > 0 and level <100): 
 					return "Please enter level between 1 and 99."
 				npcData = []
-				for t in NpcTable.getInstance().getAllTemplates().values():
+				for t in NpcTable.getInstance().getAllTemplates():
 					if  t.getLevel() == level:
 						npcData.append(t)
 				if npcData:
@@ -116,7 +116,7 @@ class Quest (JQuest) :
 			if count > 3:
 				name = param.replace('_',' ')
 				npcData = []
-				for t in NpcTable.getInstance().getAllTemplates().values():
+				for t in NpcTable.getInstance().getAllTemplates():
 					if name.lower() in t.getName().lower():
 						npcData.append(t)
 				if npcData:
