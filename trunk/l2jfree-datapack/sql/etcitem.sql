@@ -7074,7 +7074,7 @@ INSERT INTO `etcitem` VALUES
 (9691,'Water Dragon Scale','false','none',20,'stackable','wood','none',-1,-1,0,0,'true','true','true','true','none',''),
 (9692,'Red Coral','false','none',20,'stackable','wood','none',-1,-1,0,0,'true','true','true','true','none',''),
 (9693,'Crystal Fragment','false','none',20,'stackable','wood','none',-1,-1,0,0,'true','true','true','true','none',''),
-(9694,'Secret Key','false','none',10,'stackable','wood','none',-1,-1,0,0,'true','true','true','true','none',''),
+(9694,'Secret Key','false','none',10,'stackable','wood','none',-1,-1,0,0,'true','true','true','true','DoorKey',''),
 (9695,'Blue Crystal','false','none',20,'stackable','wood','none',-1,-1,0,0,'true','true','true','true','none',''),
 (9696,'Red Crystal','false','none',20,'stackable','wood','none',-1,-1,0,0,'true','true','true','true','none',''),
 (9697,'Clear Crystal','false','none',20,'stackable','wood','none',-1,-1,0,0,'true','true','true','true','none',''),
