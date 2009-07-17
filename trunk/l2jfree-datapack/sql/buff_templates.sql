@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS `buff_templates`;
 CREATE TABLE `buff_templates` (
   `id` INT UNSIGNED NOT NULL,
-  `name` VARCHAR(35) NOT NULL DEFAULT "",
+  `name` VARCHAR(35) NOT NULL DEFAULT '',
   `skill_id` SMALLINT UNSIGNED NOT NULL,
   `skill_name` VARCHAR(35) DEFAULT NULL,
   `skill_level` SMALLINT(3) UNSIGNED NOT NULL DEFAULT 1,

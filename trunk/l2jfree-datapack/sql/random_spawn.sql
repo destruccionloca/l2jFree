@@ -6,8 +6,8 @@ CREATE TABLE `random_spawn` (
   `initialDelay` BIGINT NOT NULL DEFAULT -1,
   `respawnDelay` BIGINT NOT NULL DEFAULT -1,
   `despawnDelay` BIGINT NOT NULL DEFAULT -1,
-  `broadcastSpawn` VARCHAR(5) NOT NULL DEFAULT "false",
-  `randomSpawn` VARCHAR(5) NOT NULL DEFAULT "true",
+  `broadcastSpawn` VARCHAR(5) NOT NULL DEFAULT 'false',
+  `randomSpawn` VARCHAR(5) NOT NULL DEFAULT 'true',
   PRIMARY KEY (`groupId`)
 ) DEFAULT CHARSET=utf8;
 

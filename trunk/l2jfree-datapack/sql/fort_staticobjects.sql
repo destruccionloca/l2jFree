@@ -15,8 +15,8 @@ CREATE TABLE `fort_staticobjects` (
   `hp` INT NOT NULL DEFAULT 0,
   `pDef` INT NOT NULL DEFAULT 0,
   `mDef` INT NOT NULL DEFAULT 0,
-  `openType` VARCHAR(5) NOT NULL DEFAULT "false",
-  `commanderDoor` VARCHAR(5) NOT NULL DEFAULT "false",
+  `openType` VARCHAR(5) NOT NULL DEFAULT 'false',
+  `commanderDoor` VARCHAR(5) NOT NULL DEFAULT 'false',
   `objectType` INT NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `id` (`fortId`)

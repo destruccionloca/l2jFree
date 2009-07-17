@@ -4,8 +4,8 @@
 -- to keep char-related data purely as char-related data, global purely as global.
 
 CREATE TABLE IF NOT EXISTS `quest_global_data` (
-  `quest_name` VARCHAR(40) NOT NULL DEFAULT "",
-  `var` VARCHAR(20) NOT NULL DEFAULT "",
+  `quest_name` VARCHAR(40) NOT NULL DEFAULT '',
+  `var` VARCHAR(20) NOT NULL DEFAULT '',
   `value` VARCHAR(255),
   PRIMARY KEY (`quest_name`,`var`)
 ) DEFAULT CHARSET=utf8;

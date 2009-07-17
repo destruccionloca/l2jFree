@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS `fish`;
 CREATE TABLE `fish` (
   `id` INT(5) NOT NULL DEFAULT 0,
   `level` INT(5) NOT NULL DEFAULT 0,
-  `name` VARCHAR(40) NOT NULL DEFAULT "",
+  `name` VARCHAR(40) NOT NULL DEFAULT '',
   `hp` INT(5) NOT NULL DEFAULT 0,
   `hpregen` INT(3) NOT NULL DEFAULT 5,
   `fish_type` INT(1) NOT NULL DEFAULT 0, -- 0 = wide, 1 = swift, 2 = ugly, 3 = box, 4 = easy_wide, 5 = easy_swift, 6 = easy_ugly, 7 = hard_wide, 8 = hard_swift, 9 = hard_ugly

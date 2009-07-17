@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS `four_sepulchers_spawnlist`;
 CREATE TABLE `four_sepulchers_spawnlist` (
   `id` INT(11) NOT NULL auto_increment,
-  `location` VARCHAR(19) NOT NULL DEFAULT "",
+  `location` VARCHAR(19) NOT NULL DEFAULT '',
   `count` INT(9) NOT NULL DEFAULT 0,
   `npc_templateid` INT(11) NOT NULL DEFAULT 0,
   `locx` INT(9) NOT NULL DEFAULT 0,

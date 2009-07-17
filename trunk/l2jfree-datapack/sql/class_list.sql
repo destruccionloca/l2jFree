@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS `class_list`;
 CREATE TABLE `class_list` (
-  `class_name` varchar(20) NOT NULL DEFAULT "",
+  `class_name` varchar(20) NOT NULL DEFAULT '',
   `id` int(10) unsigned NOT NULL DEFAULT 0,
   `parent_id` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)

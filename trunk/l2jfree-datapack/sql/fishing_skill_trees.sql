@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS `fishing_skill_trees`;
 CREATE TABLE `fishing_skill_trees` (
   `skill_id` INT(10) NOT NULL DEFAULT 0,
   `level` INT(10) NOT NULL DEFAULT 0,
-  `name` VARCHAR(25) NOT NULL DEFAULT "",
+  `name` VARCHAR(25) NOT NULL DEFAULT '',
   `sp` INT(10) NOT NULL DEFAULT 0,
   `min_level` INT(10) NOT NULL DEFAULT 0,
   `costid` INT(10) NOT NULL DEFAULT 0,

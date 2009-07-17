@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS `forums` (
   `forum_id` INT(8) NOT NULL DEFAULT 0,
-  `forum_name` VARCHAR(255) NOT NULL DEFAULT "",
+  `forum_name` VARCHAR(255) NOT NULL DEFAULT '',
   `forum_parent` INT(8) NOT NULL DEFAULT 0,
   `forum_post` INT(8) NOT NULL DEFAULT 0,
   `forum_type` INT(8) NOT NULL DEFAULT 0,

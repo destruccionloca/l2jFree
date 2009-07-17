@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS `ctf_teams`;
 CREATE TABLE `ctf_teams` (
   `teamId` int(4) NOT NULL DEFAULT 0,
-  `teamName` varchar(255) NOT NULL DEFAULT "",
+  `teamName` varchar(255) NOT NULL DEFAULT '',
   `teamX` int(11) NOT NULL DEFAULT 0,
   `teamY` int(11) NOT NULL DEFAULT 0,
   `teamZ` int(11) NOT NULL DEFAULT 0,
