@@ -28,14 +28,17 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 /**
  * @author chris
  */
-public class DoorKey implements IItemHandler {
+public class DoorKey implements IItemHandler
+{
 	// All the item IDs that this handler knows.
 	// TODO skill for 9694
-	private static final int[] ITEM_IDS = { 9694 };
+	private static final int[]	ITEM_IDS				=
+														{ 9694 };
 
-	public static final int INTERACTION_DISTANCE = 100;
+	public static final int		INTERACTION_DISTANCE	= 100;
 
-	public void useItem(L2Playable playable, L2ItemInstance item) {
+	public void useItem(L2Playable playable, L2ItemInstance item)
+	{
 
 		int itemId = item.getItemId();
 		if (!(playable instanceof L2PcInstance))
@@ -43,7 +46,8 @@ public class DoorKey implements IItemHandler {
 		L2PcInstance activeChar = (L2PcInstance) playable;
 
 		// Key of Enigma (Pavel Research Quest)
-		if (itemId == 8060) {
+		if (itemId == 8060)
+		{
 			L2Skill skill = SkillTable.getInstance().getInfo(2260, 1);
 			if (skill != null)
 				activeChar.doSimultaneousCast(skill);
@@ -52,38 +56,40 @@ public class DoorKey implements IItemHandler {
 
 		L2Object target = activeChar.getTarget();
 
-		if (!(target instanceof L2DoorInstance)) {
+		if (!(target instanceof L2DoorInstance))
+		{
 			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 		L2DoorInstance door = (L2DoorInstance) target;
 
-		if (!(activeChar.isInsideRadius(door, INTERACTION_DISTANCE, false,
-				false))) {
+		if (!(activeChar.isInsideRadius(door, INTERACTION_DISTANCE, false, false)))
+		{
 			activeChar.sendMessage("Too far.");
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
-		if (activeChar.getAbnormalEffect() > 0 || activeChar.isInCombat()) {
+		if (activeChar.getAbnormalEffect() > 0 || activeChar.isInCombat())
+		{
 			activeChar.sendMessage("You are currently engaged in combat.");
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 
-		switch (itemId) {
+		switch (itemId)
+		{
 		case 9694: // Secret Garden Key
 		{
-			if ((door.getDoorId() != 24220001 && door.getDoorId() != 24220002
-					&& door.getDoorId() != 24220003 && door.getDoorId() != 24220004)
-					|| door.getOpen()) {
+			if ((door.getDoorId() != 24220001 && door.getDoorId() != 24220002 && door.getDoorId() != 24220003 && door.getDoorId() != 24220004)
+					|| door.getOpen())
+			{
 				activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
 
-			if (!playable.destroyItem("Consume", item.getObjectId(), 1, null,
-					false))
+			if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
 				return;
 
 			door.openMe();
@@ -92,7 +98,8 @@ public class DoorKey implements IItemHandler {
 		}
 	}
 
-	public int[] getItemIds() {
+	public int[] getItemIds()
+	{
 		return ITEM_IDS;
 	}
 }

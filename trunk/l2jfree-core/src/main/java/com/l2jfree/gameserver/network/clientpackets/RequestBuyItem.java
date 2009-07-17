@@ -89,7 +89,8 @@ public class RequestBuyItem extends L2GameClientPacket
 		for (int i = 0; i < count; i++)
 		{
 			int itemId = readD();
-			long cnt = readQ();
+			long cnt = readCompQ();
+				
 			if (itemId < 1 || cnt < 1)
 			{
 				_items = null;
