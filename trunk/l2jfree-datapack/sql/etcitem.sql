@@ -7015,7 +7015,7 @@ INSERT INTO `etcitem` VALUES
 (9596,'Red Seed of Evil - Shard','false','none',0,'stackable','wood','none',-1,-1,0,0,'true','true','true','true','none',''),
 (9597,'White Seed of Evil - Shard','false','none',0,'stackable','wood','none',-1,-1,0,0,'true','true','true','true','none',''),
 (9598,'Black Seed of Evil - Shard','false','none',0,'stackable','wood','none',-1,-1,0,0,'true','true','true','true','none',''),
-(9599,'Ancient Tome of the Demon','false','none',0,'stackable','wood','none',-1,-1,0,0,'true','true','true','true','ExtractableItems',''),
+(9599,'Ancient Tome of the Demon','false','none',0,'stackable','wood','none',-1,-1,0,0,'true','true','true','true','ItemSkills','2440-1'),
 (9600,'Hidden First Page','false','none',0,'stackable','wood','none',-1,-1,0,0,'true','true','true','true','none',''),
 (9601,'Hidden Second Page','false','none',0,'stackable','wood','none',-1,-1,0,0,'true','true','true','true','none',''),
 (9602,'Demon Contract Fragment','false','none',0,'stackable','wood','none',-1,-1,0,0,'true','true','true','true','none',''),
