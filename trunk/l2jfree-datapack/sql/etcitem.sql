@@ -9546,3 +9546,5 @@ UPDATE `etcitem` SET `material` = 'fine_steel', `crystal_type` = 'c' WHERE `item
 UPDATE `etcitem` SET `material` = 'silver', `crystal_type` = 'b', `price` = 7 WHERE `item_id` = 9635;
 UPDATE `etcitem` SET `material` = 'mithril', `crystal_type` = 'a', `price` = 8 WHERE `item_id` = 9636;
 UPDATE `etcitem` SET `material` = 'adamantaite', `crystal_type` = 's', `price` = 10 WHERE `item_id` = 9637;
+
+UPDATE `etcitem` SET `handler` = 'EnchantAttr' WHERE `item_id` >= '9546' AND `item_id` <= '9569';
