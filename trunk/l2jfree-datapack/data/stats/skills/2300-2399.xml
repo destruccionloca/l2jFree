@@ -635,7 +635,7 @@
     <set name="hitTime" val="500"/>
     <set name="staticHitTime" val="true"/>
     <set name="reuseDelay" val="100"/>
-    <set name="itemConsumeId" val="9673"/>
+    <set name="itemConsumeId" val="9672"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="effectRange" val="400"/>
   </skill>
