@@ -169,7 +169,6 @@ public class InstanceManager
 			catch (Exception e)
 			{
 				_log.warn("InstanceManager: Failed creating instance from template " + template + ", " + e.getMessage(), e);
-				e.printStackTrace();
 			}
 		}
 		return _dynamic;

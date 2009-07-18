@@ -189,7 +189,7 @@ public class VIP {
 		}
 		catch (SQLException e)
 		{
-			_log.error("Could not check End & Start LOC for team" + _team + " got: " + e.getMessage());
+			_log.error("Could not check End & Start LOC for team" + _team + " got: ", e);
 		}
 		finally
 		{
@@ -246,7 +246,7 @@ public class VIP {
 		}
 		catch (Exception e)
 		{
-			_log.error("VIP Engine[endNPC]: exception: " + e.getMessage());
+			_log.error("VIP Engine[endNPC]: exception: ", e);
 		}
 	}
 
@@ -299,7 +299,7 @@ public class VIP {
 		}
 		catch (Exception e)
 		{
-			_log.error("VIP Engine[joinNPC]: exception: " + e.getMessage());
+			_log.error("VIP Engine[joinNPC]: exception: ", e);
 		}
 	}
 
@@ -321,7 +321,7 @@ public class VIP {
 		}
 		catch (Exception e)
 		{
-			_log.error("VIP Engine[spawnEndNPC()]: exception: " + e.getMessage());
+			_log.error("VIP Engine[spawnEndNPC()]: exception: ", e);
 		}
 	}
 
@@ -343,7 +343,7 @@ public class VIP {
 		}
 		catch (Exception e)
 		{
-			_log.error("VIP Engine[spawnJoinNPC()]: exception: " + e.getMessage());
+			_log.error("VIP Engine[spawnJoinNPC()]: exception: ", e);
 		}
 	}
 
@@ -634,7 +634,7 @@ public class VIP {
 		}
 		catch (Exception e)
 		{
-			if (_log.isDebugEnabled())_log.debug("VIP(showJoinHTML(" + eventPlayer.getName() + ", " + objectId + ")]: exception" + e.getMessage());
+			if (_log.isDebugEnabled())_log.debug("VIP(showJoinHTML(" + eventPlayer.getName() + ", " + objectId + ")]: exception", e);
 		}
 	}
 
@@ -971,7 +971,7 @@ public class VIP {
 		}
 		catch (Exception e)
 		{
-			if (_log.isDebugEnabled())_log.debug("VIP(showJoinHTML(" + eventPlayer.getName() + ", " + objectId + ")]: exception" + e.getMessage());
+			if (_log.isDebugEnabled())_log.debug("VIP(showJoinHTML(" + eventPlayer.getName() + ", " + objectId + ")]: exception", e);
 		}
 	}
 

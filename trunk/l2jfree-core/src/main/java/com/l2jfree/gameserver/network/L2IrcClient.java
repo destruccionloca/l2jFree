@@ -503,17 +503,11 @@ public class L2IrcClient extends Thread
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			_log.warn("", e);
 		}
 		finally
 		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 

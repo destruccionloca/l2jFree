@@ -154,41 +154,34 @@ public class Fort extends Siegeable<FortSiege>
 
 			public void run()
 			{
-				try
+				if (getOwnerClan() == null)
+					return;
+				if (getOwnerClan().getWarehouse().getAdena() >= _fee || !_cwh)
 				{
-					if (getOwnerClan() == null)
-						return;
-					if (getOwnerClan().getWarehouse().getAdena() >= _fee || !_cwh)
+					int fee = _fee;
+					boolean newfc = true;
+					if (getEndTime() == 0 || getEndTime() == -1)
 					{
-						int fee = _fee;
-						boolean newfc = true;
-						if (getEndTime() == 0 || getEndTime() == -1)
+						if (getEndTime() == -1)
 						{
-							if (getEndTime() == -1)
-							{
-								newfc = false;
-								fee = _tempFee;
-							}
-						}
-						else
 							newfc = false;
-						setEndTime(System.currentTimeMillis() + getRate());
-						dbSave(newfc);
-						if (_cwh)
-						{
-							getOwnerClan().getWarehouse().destroyItemByItemId("CS_function_fee", 57, fee, null, null);
-							if (_log.isDebugEnabled())
-								_log.warn("deducted " + fee + " adena from " + getName() + " owner's cwh for function id : " + getType());
+							fee = _tempFee;
 						}
-						ThreadPoolManager.getInstance().scheduleGeneral(new FunctionTask(true), getRate());
 					}
 					else
-						removeFunction(getType());
+						newfc = false;
+					setEndTime(System.currentTimeMillis() + getRate());
+					dbSave(newfc);
+					if (_cwh)
+					{
+						getOwnerClan().getWarehouse().destroyItemByItemId("CS_function_fee", 57, fee, null, null);
+						if (_log.isDebugEnabled())
+							_log.warn("deducted " + fee + " adena from " + getName() + " owner's cwh for function id : " + getType());
+					}
+					ThreadPoolManager.getInstance().scheduleGeneral(new FunctionTask(true), getRate());
 				}
-				catch (Exception e)
-				{
-					e.printStackTrace();
-				}
+				else
+					removeFunction(getType());
 			}
 		}
 
@@ -411,14 +404,7 @@ public class Fort extends Siegeable<FortSiege>
 		}
 		finally
 		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-				L2DatabaseFactory.close(con);
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 

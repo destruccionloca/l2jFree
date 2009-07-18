@@ -1313,13 +1313,7 @@ public final class L2PcInstance extends L2Playable
 		}
 		finally
 		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
@@ -1342,13 +1336,7 @@ public final class L2PcInstance extends L2Playable
 		}
 		finally
 		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
@@ -10027,14 +10015,7 @@ public final class L2PcInstance extends L2Playable
 	{
 		public void run()
 		{
-			try
-			{
-				dismount();
-			}
-			catch (Exception e)
-			{
-				e.printStackTrace();
-			}
+			dismount();
 		}
 	}
 

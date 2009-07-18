@@ -75,8 +75,7 @@ public class StaticObjects
 		}
 		catch (Exception e)
 		{
-			_log.warn("error while creating StaticObjects table");
-			 e.printStackTrace();
+			_log.warn("error while creating StaticObjects table", e);
 		}
 		finally
 		{

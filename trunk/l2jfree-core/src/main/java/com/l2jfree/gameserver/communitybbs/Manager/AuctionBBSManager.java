@@ -117,18 +117,11 @@ public class AuctionBBSManager extends BaseBBSManager
 		}
 		catch (Exception e)
 		{
+			_log.warn("", e);
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			L2DatabaseFactory.close(con);
 		}
 		return _lots;
 	}
@@ -156,32 +149,22 @@ public class AuctionBBSManager extends BaseBBSManager
 		}
 		catch (Exception e)
 		{
+			_log.warn("", e);
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			L2DatabaseFactory.close(con);
 		}
 		return _bids;
 	}
 
 	private LotList getLot(int lotId)
 	{
-		LotList lot = new LotList();
 		for (LotList temp : getLots())
-		{
-			lot = temp;
-			if (lot.lotId == lotId)
-				break;
-		}
-		return lot;
+			if (temp.lotId == lotId)
+				return temp;
+		
+		return new LotList();
 	}
 
 	/*
@@ -219,7 +202,7 @@ public class AuctionBBSManager extends BaseBBSManager
 				{
 					addBid(activeChar, Integer.parseInt(params[1]), Long.valueOf(params[2]), Integer.parseInt(params[3]), Long.valueOf(params[4].replaceAll(",", "")));
 				}
-				catch (Exception e)
+				catch (NumberFormatException e)
 				{
 					activeChar.sendMessage("Your must enter a number to bid!");
 				}
@@ -248,7 +231,7 @@ public class AuctionBBSManager extends BaseBBSManager
 				count = Long.parseLong(params[6].replaceAll(",", ""));
 				objectId = Integer.parseInt(params[7]);
 			}
-			catch (Exception e)
+			catch (NumberFormatException e)
 			{
 				activeChar.sendMessage("Error: Please enter how many of the item you would like to auction!");
 				showInventoryPage(activeChar, 1, hours, currency, startingBid, increment, buyNow);
@@ -293,7 +276,7 @@ public class AuctionBBSManager extends BaseBBSManager
 			catch (Exception e)
 			{
 				activeChar.sendMessage("Error: One of your fields was incorrect!");
-				_log.error(e);
+				_log.error("", e);
 			}
 		}
 		else if (command.startsWith("_bbsauction_buy_now "))
@@ -425,6 +408,7 @@ public class AuctionBBSManager extends BaseBBSManager
 		catch (Exception e)
 		{
 			activeChar.sendMessage("This auction lot does not exist anymore.");
+			_log.warn("", e);
 			return;
 		}
 		bidCount = countBids(lot.lotId);
@@ -539,6 +523,7 @@ public class AuctionBBSManager extends BaseBBSManager
 		}
 		catch (Exception e)
 		{
+			_log.warn("", e);
 		}
 		L2Item item = ItemTable.getInstance().getTemplate(lot.itemId);
 		int currentBid = getHighestBid(lotId);
@@ -725,6 +710,7 @@ public class AuctionBBSManager extends BaseBBSManager
 		}
 		catch (Exception e)
 		{
+			_log.warn("", e);
 		}
 		L2Item item = ItemTable.getInstance().getTemplate(lot.itemId);
 		int currentBid = getHighestBid(lotId);
@@ -848,18 +834,11 @@ public class AuctionBBSManager extends BaseBBSManager
 			}
 			catch (Exception e)
 			{
+				_log.warn("", e);
 			}
 			finally
 			{
-				try
-				{
-					if (con != null)
-						con.close();
-				}
-				catch (SQLException e)
-				{
-					_log.error(e);
-				}
+				L2DatabaseFactory.close(con);
 			}
 		}
 	}
@@ -926,18 +905,11 @@ public class AuctionBBSManager extends BaseBBSManager
 						}
 						catch (Exception e)
 						{
-							_log.error(e);
+							_log.warn("", e);
 						}
 						finally
 						{
-							try
-							{
-								if (con != null)
-									con.close();
-							}
-							catch (SQLException e)
-							{
-							}
+							L2DatabaseFactory.close(con);
 						}
 					}
 				}
@@ -967,18 +939,11 @@ public class AuctionBBSManager extends BaseBBSManager
 					}
 					catch (Exception e)
 					{
-						_log.error(e);
+						_log.warn("", e);
 					}
 					finally
 					{
-						try
-						{
-							if (con != null)
-								con.close();
-						}
-						catch (SQLException e)
-						{
-						}
+						L2DatabaseFactory.close(con);
 					}
 				}
 			}
@@ -1007,17 +972,11 @@ public class AuctionBBSManager extends BaseBBSManager
 				}
 				catch (Exception e)
 				{
+					_log.warn("", e);
 				}
 				finally
 				{
-					try
-					{
-						if (con != null)
-							con.close();
-					}
-					catch (SQLException e)
-					{
-					}
+					L2DatabaseFactory.close(con);
 				}
 			}
 		}
@@ -1082,6 +1041,7 @@ public class AuctionBBSManager extends BaseBBSManager
 					}
 					catch (Exception e)
 					{
+						_log.warn("", e);
 					}
 
 					con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -1107,19 +1067,11 @@ public class AuctionBBSManager extends BaseBBSManager
 				}
 				catch (Exception e)
 				{
-					_log.error(e);
+					_log.warn("", e);
 				}
 				finally
 				{
-					try
-					{
-						if (con != null)
-							con.close();
-					}
-					catch (SQLException e)
-					{
-						e.printStackTrace();
-					}
+					L2DatabaseFactory.close(con);
 				}
 			}
 			else
@@ -1180,18 +1132,11 @@ public class AuctionBBSManager extends BaseBBSManager
 		}
 		catch (Exception e)
 		{
+			_log.warn("", e);
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
@@ -1213,17 +1158,11 @@ public class AuctionBBSManager extends BaseBBSManager
 		}
 		catch (Exception e)
 		{
+			_log.warn("", e);
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-			}
+			L2DatabaseFactory.close(con);
 		}
 		return count;
 	}
@@ -1246,18 +1185,11 @@ public class AuctionBBSManager extends BaseBBSManager
 		}
 		catch (Exception e)
 		{
+			_log.warn("", e);
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			L2DatabaseFactory.close(con);
 		}
 		return bidAmount;
 	}
@@ -1282,18 +1214,11 @@ public class AuctionBBSManager extends BaseBBSManager
 		}
 		catch (Exception e)
 		{
+			_log.warn("", e);
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			L2DatabaseFactory.close(con);
 		}
 		return bid;
 	}
@@ -1315,18 +1240,11 @@ public class AuctionBBSManager extends BaseBBSManager
 		}
 		catch (Exception e)
 		{
+			_log.warn("", e);
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
@@ -1352,15 +1270,7 @@ public class AuctionBBSManager extends BaseBBSManager
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			L2DatabaseFactory.close(con);
 		}
 		return charName;
 	}

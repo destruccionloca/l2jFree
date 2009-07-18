@@ -79,7 +79,6 @@ public class AirShipManager
 		catch (Exception e)
 		{
 			_log.warn("error while creating AirShip table ", e);
-			e.printStackTrace();
 		}
 		finally
 		{

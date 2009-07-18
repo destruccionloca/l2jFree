@@ -691,7 +691,7 @@ public class L2Npc extends L2Character
 		}
 		catch (Exception e)
 		{
-			_log.error("Error: L2Npc--> onAction(){" + e.toString() + "}\n\n", e);
+			_log.error("", e);
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 		}
 	}

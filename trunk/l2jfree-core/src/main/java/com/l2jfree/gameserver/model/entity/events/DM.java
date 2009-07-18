@@ -155,7 +155,7 @@ public class DM
 		}
 		catch (Exception e)
 		{
-			if (_log.isDebugEnabled())_log.debug("DM Engine[spawnEventNpc(" + activeChar.getName() + ")]: exception: " + e.getMessage());
+			if (_log.isDebugEnabled())_log.debug("DM Engine[spawnEventNpc(" + activeChar.getName() + ")]: exception: ", e);
 		}
 	}
 
@@ -482,7 +482,7 @@ public class DM
 		}
 		catch (Exception e)
 		{
-			_log.error("Exception: DM.loadData(): " + e.getMessage());
+			_log.error("Exception: DM.loadData(): ", e);
 		}
 		finally
 		{
@@ -523,7 +523,7 @@ public class DM
 		}
 		catch (Exception e)
 		{
-			_log.error("Exception: DM.saveData(): " + e.getMessage());
+			_log.error("Exception: DM.saveData(): ", e);
 		}
 		finally
 		{
@@ -586,7 +586,7 @@ public class DM
 		}
 		catch (Exception e)
 		{
-			_log.error("DM Engine[showEventHtlm(" + eventPlayer.getName() + ", " + objectId + ")]: exception" + e.getMessage());
+			_log.error("DM Engine[showEventHtlm(" + eventPlayer.getName() + ", " + objectId + ")]: exception", e);
 		}
 	}
 

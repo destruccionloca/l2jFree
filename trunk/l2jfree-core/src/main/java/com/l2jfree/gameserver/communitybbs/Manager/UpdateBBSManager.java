@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.communitybbs.Manager;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -70,15 +69,7 @@ public class UpdateBBSManager extends BaseBBSManager
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			L2DatabaseFactory.close(con);
 		}
 		return _items;
 	}

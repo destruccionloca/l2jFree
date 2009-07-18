@@ -191,7 +191,7 @@ public class CTF
 		}
 		catch (Exception e)
 		{
-			_log.info("CTF.restoreFlags() Error:" + e.toString());
+			_log.info("CTF.restoreFlags() Error:", e);
 		}
 	}
 
@@ -556,7 +556,7 @@ public class CTF
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			_log.warn("", e);
 		}
 	}
 
@@ -893,7 +893,7 @@ public class CTF
 		}
 		catch (Exception e)
 		{
-			_log.error("CTF Engine[spawnEventNpc(" + activeChar.getName() + ")]: exception: " + e.getMessage());
+			_log.error("CTF Engine[spawnEventNpc(" + activeChar.getName() + ")]: exception: ", e);
 		}
 	}
 
@@ -926,7 +926,7 @@ public class CTF
 		}
 		catch (Exception e)
 		{
-			_log.error("CTF Engine[spawnEventNpc(exception: " + e.getMessage());
+			_log.error("CTF Engine[spawnEventNpc(exception: ", e);
 		}
 	}
 
@@ -1607,7 +1607,7 @@ public class CTF
 		}
 		catch (Exception e)
 		{
-			_log.error("Exception: CTF.loadData(): " + e.getMessage());
+			_log.error("Exception: CTF.loadData(): ", e);
 		}
 		finally
 		{
@@ -1676,7 +1676,7 @@ public class CTF
 		}
 		catch (Exception e)
 		{
-			_log.error("Exception: CTF.saveData(): " + e.getMessage());
+			_log.error("Exception: CTF.saveData(): ", e);
 		}
 		finally
 		{
@@ -1791,7 +1791,7 @@ public class CTF
 		}
 		catch (Exception e)
 		{
-			_log.warn("CTF Engine[showEventHtlm(" + eventPlayer.getName() + ", " + objectId + ")]: exception" + e.getMessage());
+			_log.warn("CTF Engine[showEventHtlm(" + eventPlayer.getName() + ", " + objectId + ")]: exception", e);
 		}
 	}
 
@@ -1918,7 +1918,7 @@ public class CTF
 		}
 		catch (Exception e)
 		{
-			_log.warn("CTF Siege Engine exception: " + e.getMessage());
+			_log.warn("CTF Siege Engine exception: ", e);
 		}
 
 		if (Config.CTF_EVEN_TEAMS.equals("NO"))

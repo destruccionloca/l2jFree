@@ -78,7 +78,7 @@ public class JarClassLoader extends ClassLoader
 			}
 			catch (IOException e)
 			{
-				_log.warn(jarFile + ":" + e.toString(), e);
+				_log.warn(jarFile + ":", e);
 				continue;
 			}
 			finally

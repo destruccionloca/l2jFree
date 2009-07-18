@@ -257,8 +257,7 @@ public final class CrossLoginServerThread extends LoginServerThread
 			}
 			catch (IOException e)
 			{
-				_log.info("Disconnected from Login, Trying to reconnect:");
-				_log.info(e.toString());
+				_log.info("Disconnected from Login, Trying to reconnect:", e);
 			}
 			finally
 			{

@@ -927,62 +927,62 @@ public final class GameStatusThread extends Thread
 						{
 							_print.print("Reloading multisell... ");
 							L2Multisell.getInstance().reload();
-							_print.print("done\n");
+							_print.println("done");
 						}
 						else if (type.equals("teleport"))
 						{
 							_print.print("Reloading teleports... ");
 							TeleportLocationTable.getInstance().reloadAll();
-							_print.print("done\n");
+							_print.println("done");
 						}
 						else if (type.equals("skill"))
 						{
 							_print.print("Reloading skills... ");
 							SkillTable.reload();
-							_print.print("done\n");
+							_print.println("done");
 						}
 						else if (type.equals("npc"))
 						{
 							_print.print("Reloading npc templates... ");
 							NpcTable.getInstance().cleanUp();
 							NpcTable.getInstance().reloadAll();
-							_print.print("done\n");
+							_print.println("done");
 						}
 						else if (type.equals("htm"))
 						{
 							_print.print("Reloading html cache... ");
 							HtmCache.getInstance().reload();
-							_print.print("done\n");
+							_print.println("done");
 						}
 						else if (type.equals("item"))
 						{
 							_print.print("Reloading item templates... ");
 							ItemTable.reload();
-							_print.print("done\n");
+							_print.println("done");
 						}
 						else if (type.equals("instancemanager"))
 						{
 							_print.print("Reloading instance managers... ");
 							Manager.reloadAll();
-							_print.print("done\n");
+							_print.println("done");
 						}
 						else if (type.equals("zone"))
 						{
 							_print.print("Reloading zone tables... ");
 							ZoneManager.getInstance().reload();
-							_print.print("done\n");
+							_print.println("done");
 						}
 						else if (type.equals("tradelist"))
 						{
 							_print.print("Reloading trade lists...");
 							TradeListTable.getInstance().reloadAll();
-							_print.print("done\n");
+							_print.println("done");
 						}
 						else if (type.startsWith("door"))
 						{
 							_print.print("Reloading Doors...");
 							DoorTable.getInstance().reloadAll();
-							_print.print("dona\n");
+							_print.println("done");
 						}
 						else
 						{
@@ -1094,10 +1094,10 @@ public final class GameStatusThread extends Thread
 					}
 					catch (Exception ex)
 					{
-						_print.print(ex.toString() + "\r\n");
+						_print.println(ex.toString());
 					}
 					if (o != null)
-						_print.print(o.toString() + "\r\n");
+						_print.println(o.toString());
 				}
 				else if (_usrCommand.length() > 0)
 				{

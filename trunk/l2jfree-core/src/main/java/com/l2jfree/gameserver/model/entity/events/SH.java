@@ -209,9 +209,9 @@ public class SH
 		catch (Exception e)
 		{
 			if (activeChar == null)
-				_log.error("SH Engine[spawnEventNpc(exception: " + e.getMessage());
+				_log.error("SH Engine[spawnEventNpc(exception: ", e);
 			else
-				_log.error("SH Engine[spawnEventNpc(" + activeChar.getName() + ")]: exception: " + e.getMessage());
+				_log.error("SH Engine[spawnEventNpc(" + activeChar.getName() + ")]: exception: ", e);
 		}
 	}
 
@@ -268,7 +268,7 @@ public class SH
 		}
 		catch (Exception e)
 		{
-			_log.warn("SH Engine[showEventHtlm(" + eventPlayer.getName() + ", " + objectId + ")]: exception" + e.getMessage());
+			_log.warn("SH Engine[showEventHtlm(" + eventPlayer.getName() + ", " + objectId + ")]: exception", e);
 		}
 	}
 

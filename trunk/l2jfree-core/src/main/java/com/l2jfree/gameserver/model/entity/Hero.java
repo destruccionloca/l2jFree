@@ -192,7 +192,7 @@ public class Hero
 
 			L2Clan clan = ClanTable.getInstance().getClan(clanId);
 			
-			if (clan != null) { 
+			if (clan != null) {
 				if (clanId > 0)
 				{
 					clanName = clan.getName();
@@ -380,7 +380,7 @@ public class Hero
 		Connection con = null;
 		try
 		{
-			con = L2DatabaseFactory.getInstance().getConnection(con);
+			con = L2DatabaseFactory.getInstance().getConnection();
 			if (setDefault)
 			{
 				try
@@ -394,10 +394,6 @@ public class Hero
 					_log.warn("HeroSystem: Couldnt update all Heroes");
 					if (_log.isDebugEnabled())
 						_log.debug("", e);
-				}
-				finally
-				{
-					L2DatabaseFactory.close(con);
 				}
 			}
 			else
@@ -419,10 +415,10 @@ public class Hero
 							statement.setInt(4, hero.getInteger(COUNT));
 							statement.setInt(5, hero.getInteger(PLAYED));
 							statement.execute();
+							statement.close();
 
-							Connection con2 = null;
-							con2 = L2DatabaseFactory.getInstance().getConnection(con2);
-							PreparedStatement statement2 = con2.prepareStatement(GET_CLAN_ALLY);
+							
+							PreparedStatement statement2 = con.prepareStatement(GET_CLAN_ALLY);
 							statement2.setInt(1, heroId);
 							ResultSet rset2 = statement2.executeQuery();
 
@@ -430,14 +426,11 @@ public class Hero
 
 							rset2.close();
 							statement2.close();
-							con2.close();
 
 							_heroes.remove(heroId);
 							_heroes.put(heroId, hero);
 
 							_completeHeroes.put(heroId, hero);
-
-							statement.close();
 						}
 						catch (SQLException e)
 						{
@@ -463,7 +456,6 @@ public class Hero
 							if (_log.isDebugEnabled())
 								_log.debug("", e);
 						}
-
 					}
 				}
 			}

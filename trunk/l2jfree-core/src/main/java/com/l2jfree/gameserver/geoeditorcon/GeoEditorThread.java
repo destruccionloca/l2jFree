@@ -104,7 +104,7 @@ public class GeoEditorThread extends Thread
 		}
 		catch (SocketException e)
 		{
-			_log.warn("GeoEditor disconnected. " + e.getMessage());
+			_log.warn("GeoEditor disconnected. ", e);
 		}
 		catch (Exception e)
 		{
@@ -141,7 +141,7 @@ public class GeoEditorThread extends Thread
 		}
 		catch (SocketException e)
 		{
-			_log.warn("GeoEditor disconnected. " + e.getMessage());
+			_log.warn("GeoEditor disconnected. ", e);
 			_working = false;
 		}
 		catch (Exception e)
@@ -178,7 +178,7 @@ public class GeoEditorThread extends Thread
 		}
 		catch (SocketException e)
 		{
-			_log.warn("GeoEditor disconnected. " + e.getMessage());
+			_log.warn("GeoEditor disconnected. ", e);
 			_working = false;
 		}
 		catch (Exception e)

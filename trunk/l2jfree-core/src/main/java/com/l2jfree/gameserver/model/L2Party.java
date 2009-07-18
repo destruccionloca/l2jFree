@@ -80,7 +80,7 @@ public class L2Party
 	 * @param leader
 	 * @param itemDistribution
 	 */
-	public L2Party(L2PcInstance leader, int itemDistribution) 
+	public L2Party(L2PcInstance leader, int itemDistribution)
 	{
 		_itemDistribution = itemDistribution;
 		getPartyMembers().add(leader);
@@ -154,9 +154,9 @@ public class L2Party
 			if (++_itemLastLoot >= getMemberCount())
 				_itemLastLoot = 0;
 			L2PcInstance member;
-			try 
+			try
 			{
-				member = getPartyMembers().get(_itemLastLoot); 
+				member = getPartyMembers().get(_itemLastLoot);
 				if (member.getInventory().validateCapacityByItemId(ItemId) &&
 						Util.checkIfInRange(Config.ALT_PARTY_RANGE2, target, member, true))
 					return member;
@@ -213,7 +213,7 @@ public class L2Party
 
 	/**
 	 * Returns the Object ID for the party leader to be used as a unique identifier of this party
-	 * @return int 
+	 * @return int
 	 */
 	public int getPartyLeaderOID()
 	{
@@ -221,10 +221,10 @@ public class L2Party
 	}
 
 	/**
-	 * Broadcasts packet to every party member 
+	 * Broadcasts packet to every party member
 	 * @param msg
 	 */
-	public void broadcastToPartyMembers(L2GameServerPacket msg) 
+	public void broadcastToPartyMembers(L2GameServerPacket msg)
 	{
 		for (L2PcInstance member : getPartyMembers())
 		{
@@ -249,7 +249,7 @@ public class L2Party
 	}
 
 	/**
-	 * Broadcasts packet to every party member 
+	 * Broadcasts packet to every party member
 	 * @param type
      * @param name
      * @param text
@@ -267,7 +267,7 @@ public class L2Party
 	/**
 	 * Send a Server->Client packet to all other L2PcInstance of the Party.<BR><BR>
 	 */
-	public void broadcastToPartyMembers(L2PcInstance player, L2GameServerPacket msg) 
+	public void broadcastToPartyMembers(L2PcInstance player, L2GameServerPacket msg)
     {
 		for (L2PcInstance member : getPartyMembers())
 		{
@@ -280,7 +280,7 @@ public class L2Party
 	 * adds new member to party
 	 * @param player
 	 */
-	public boolean addPartyMember(L2PcInstance player) 
+	public boolean addPartyMember(L2PcInstance player)
 	{
 		if (Config.MAX_PARTY_LEVEL_DIFFERENCE > 0)
 		{
@@ -346,7 +346,7 @@ public class L2Party
 		{
 			_partyLvl = player.getLevel();
 		}
-		//update partySpelled 
+		//update partySpelled
 		updateEffectIcons();
 		
 		for (L2PcInstance member : getPartyMembers())
@@ -357,7 +357,7 @@ public class L2Party
 			_dr.partyMemberInvited();
 		}
 
-		// open the CCInformationwindow 
+		// open the CCInformationwindow
 		if (isInCommandChannel())
 		{
 			player.sendPacket(ExOpenMPCC.STATIC_PACKET);
@@ -399,9 +399,9 @@ public class L2Party
 	 * Remove player from party
 	 * @param player
     */
-	public void removePartyMember(L2PcInstance player) 
+	public void removePartyMember(L2PcInstance player)
 	{
-		if (getPartyMembers().contains(player)) 
+		if (getPartyMembers().contains(player))
 		{
 			boolean isLeader = isLeader(player);
 			getPartyMembers().remove(player);
@@ -569,7 +569,7 @@ public class L2Party
 	 * @param name
 	 * @return
 	 */
-	private L2PcInstance getPlayerByName(String name) 
+	private L2PcInstance getPlayerByName(String name)
     {
 		for (L2PcInstance member : getPartyMembers())
 		{
@@ -598,7 +598,7 @@ public class L2Party
 		target.addItem("Party", item, player, true);
 		
 		// Send messages to other party members about reward
-		if (item.getCount() > 1) 
+		if (item.getCount() > 1)
 		{
 			SystemMessage msg = new SystemMessage(SystemMessageId.C1_PICKED_UP_S2_S3);
 			msg.addString(target.getName());
@@ -636,9 +636,9 @@ public class L2Party
 		looter.addItem(spoil ? "Sweep" : "Party", item.getItemId(), item.getCount(), player, true);
 
 		// Send messages to other aprty members about reward
-		if (item.getCount() > 1) 
+		if (item.getCount() > 1)
 		{
-			SystemMessage msg = spoil ?  new SystemMessage(SystemMessageId.C1_SWEEPED_UP_S2_S3) 
+			SystemMessage msg = spoil ?  new SystemMessage(SystemMessageId.C1_SWEEPED_UP_S2_S3)
 									  : new SystemMessage(SystemMessageId.C1_PICKED_UP_S2_S3);
 			msg.addString(looter.getName());
 			msg.addItemName(item.getItemId());
@@ -647,7 +647,7 @@ public class L2Party
 		}
 		else
 		{
-			SystemMessage msg = spoil ?  new SystemMessage(SystemMessageId.C1_SWEEPED_UP_S2) 
+			SystemMessage msg = spoil ?  new SystemMessage(SystemMessageId.C1_SWEEPED_UP_S2)
 									  : new SystemMessage(SystemMessageId.C1_PICKED_UP_S2);
 			msg.addString(looter.getName());
 			msg.addItemName(item.getItemId());
@@ -659,7 +659,7 @@ public class L2Party
 	 * distribute adena to party members
 	 * @param adena
 	 */
-	public void distributeAdena(L2PcInstance player, long adena, L2Character target) 
+	public void distributeAdena(L2PcInstance player, long adena, L2Character target)
 	{
 		// Get all the party members
 		FastList<L2PcInstance> membersList = getPartyMembers();
@@ -808,7 +808,7 @@ public class L2Party
 	 * refresh party level
 	 *
 	 */
-	public void recalculatePartyLevel() 
+	public void recalculatePartyLevel()
 	{
 		int newLevel = 0;
 		for (L2PcInstance member : getPartyMembers())
@@ -838,7 +838,7 @@ public class L2Party
 			}
 		}
 		//Fixed MinPercentage cutoff point
-		else if (Config.PARTY_XP_CUTOFF_METHOD.equalsIgnoreCase("percentage")) 
+		else if (Config.PARTY_XP_CUTOFF_METHOD.equalsIgnoreCase("percentage"))
 		{
 			int sqLevelSum = 0;
 			for (L2Playable member : members)
@@ -854,7 +854,7 @@ public class L2Party
 			}
 		}
 		//Automatic cutoff method
-		else if (Config.PARTY_XP_CUTOFF_METHOD.equalsIgnoreCase("auto")) 
+		else if (Config.PARTY_XP_CUTOFF_METHOD.equalsIgnoreCase("auto"))
 		{
 			int sqLevelSum = 0;
 			for (L2Playable member : members)
@@ -887,19 +887,19 @@ public class L2Party
 		return BONUS_EXP_SP[i];
 	}
 
-	private double getExpBonus(int membersCount) 
+	private double getExpBonus(int membersCount)
 	{
 		if (membersCount < 2)
 		{
 			//not is a valid party
-			return getBaseExpSpBonus(membersCount); 
+			return getBaseExpSpBonus(membersCount);
 		}
 
 		return getBaseExpSpBonus(membersCount) * Config.RATE_PARTY_XP;
 	}
 
-	private double getSpBonus(int membersCount) 
-	{ 
+	private double getSpBonus(int membersCount)
+	{
 		if (membersCount < 2)
 		{
 			//not is a valid party

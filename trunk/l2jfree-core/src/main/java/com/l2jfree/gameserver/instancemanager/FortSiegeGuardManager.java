@@ -140,8 +140,7 @@ public class FortSiegeGuardManager
 		}
 		catch (Exception e1)
 		{
-			_log.warn("Error loading siege guard for fort " + getFort().getName() + ":" + e1);
-			e1.printStackTrace();
+			_log.warn("Error loading siege guard for fort " + getFort().getName() + ":", e1);
 		}
 		finally
 		{

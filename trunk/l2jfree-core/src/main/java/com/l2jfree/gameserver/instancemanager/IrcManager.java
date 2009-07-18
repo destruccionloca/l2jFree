@@ -93,7 +93,7 @@ public class IrcManager
 		}
 		catch (Exception e)
 		{
-			_log.warn(e.toString());
+			_log.warn("", e);
 		}
 
 		initilized = true;

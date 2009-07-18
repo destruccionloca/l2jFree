@@ -24,6 +24,7 @@ import java.util.StringTokenizer;
 
 import javolution.util.FastMap;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -96,7 +97,7 @@ public class BoatManager
 			_initialized = false;
 			_log.warn("error while creating boat table ", e);
 		}
-		finally { try { if (lnr != null) lnr.close(); } catch (Exception e) { e.printStackTrace(); } }
+		finally { IOUtils.closeQuietly(lnr); }
 	}
 
 	/**

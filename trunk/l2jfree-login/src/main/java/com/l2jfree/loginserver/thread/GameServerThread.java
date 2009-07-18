@@ -282,7 +282,7 @@ public class GameServerThread extends Thread
 			}
 			catch (Exception e)
 			{
-				_log.warn("Access level could not be changed. Reason: " + e.getMessage());
+				_log.warn("Access level could not be changed. Reason: ", e);
 			}
 		}
 		else
@@ -343,7 +343,7 @@ public class GameServerThread extends Thread
 		}
 		catch (IOException e)
 		{
-			_log.info("GameServerThread: Failed kicking banned server. Reason: " + e.getMessage());
+			_log.info("GameServerThread: Failed kicking banned server. Reason: ", e);
 		}
 
 		try

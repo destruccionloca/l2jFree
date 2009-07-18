@@ -54,7 +54,7 @@ public class AccountsServices
 	 * @param bd
 	 * @param gs
 	 * @return the new account
-	 * @throws AccountModificationException 
+	 * @throws AccountModificationException
 	 */
 	public Accounts addOrUpdateAccount(String account, String password, String level, int by, int bm, int bd, int gs) throws AccountModificationException
 	{
@@ -114,7 +114,7 @@ public class AccountsServices
 	 * Add or update an account
 	 * @param acc
 	 * @return the new account
-	 * @throws AccountModificationException 
+	 * @throws AccountModificationException
 	 */
 	public Accounts addOrUpdateAccount(Accounts acc) throws AccountModificationException
 	{
@@ -232,12 +232,12 @@ public class AccountsServices
 		}
 		catch (ObjectRetrievalFailureException e)
 		{
-			_log.warn("The account [" + id + "] was not found in account table." + e.getMessage());
+			_log.warn("The account [" + id + "] was not found in account table.", e);
 			return null;
 		}
 		catch (Exception e)
 		{
-			_log.warn(e.getMessage());
+			_log.warn("", e);
 			return null;
 		}
 	}
