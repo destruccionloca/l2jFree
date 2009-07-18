@@ -123,7 +123,7 @@ public abstract class L2Item implements FuncOwner
 	public static final int				CRYSTAL_S84							= 0x07;									// ??
 
 	private static final int[]			crystalItemId						=
-																			{ 0, 1458, 1459, 1460, 1461, 1462 };
+																			{ 0, 1458, 1459, 1460, 1461, 1462, 1462, 1462 };
 	private static final int[]			crystalEnchantBonusArmor			=
 																			{ 0, 11, 6, 11, 19, 25 };
 	private static final int[]			crystalEnchantBonusWeapon			=
