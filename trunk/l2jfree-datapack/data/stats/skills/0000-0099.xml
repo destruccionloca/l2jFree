@@ -428,11 +428,7 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_AURA"/>
     <set name="skillRadius" val="200"/>
-<<<<<<< .mine
     <set name="reuseDelay" val="4000"/>
-=======
-    <set name="reuseDelay" val="40000"/>
->>>>>>> .r6448
     <set name="hitTime" val="1000"/>
 	<set name="staticHitTime" val="true"/>
 	<set name="staticReuse" val="true"/>

@@ -838,19 +838,12 @@
     <set name="power" val="140"/>
     <set name="lvlDepend" val="2"/>
     <set name="target" val="TARGET_ONE"/>
-<<<<<<< .mine
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="2000"/>
 	<set name="staticHitTime" val="true"/>
 	<set name="staticReuse" val="true"/>
     <set name="element" val="0"/><!-- Fire -->
 	<set name="elementPower" val="20"/>
-=======
-    <set name="hitTime" val="6000"/>
-    <set name="element" val="0"/> <!-- Fire -->
-    <set name="elementPower" val="20"/>
-    <set name="reuseDelay" val="12000"/>
->>>>>>> .r6448
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
@@ -877,18 +870,11 @@
     <set name="power" val="140"/>
     <set name="lvlDepend" val="2"/>
     <set name="target" val="TARGET_ONE"/>
-<<<<<<< .mine
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="2000"/>
 	<set name="staticHitTime" val="true"/>
 	<set name="staticReuse" val="true"/>
     <set name="element" val="1"/><!-- Water -->
-=======
-    <set name="hitTime" val="6000"/>
-    <set name="element" val="1"/> <!-- Water -->
-    <set name="elementPower" val="20"/>
-    <set name="reuseDelay" val="12000"/>
->>>>>>> .r6448
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
@@ -916,18 +902,11 @@
     <set name="power" val="140"/>
     <set name="lvlDepend" val="2"/>
     <set name="target" val="TARGET_ONE"/>
-<<<<<<< .mine
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="2000"/>
 	<set name="staticHitTime" val="true"/>
 	<set name="staticReuse" val="true"/>
     <set name="element" val="2"/><!-- Wind -->
-=======
-    <set name="hitTime" val="6000"/>
-    <set name="element" val="2"/> <!-- Wind -->
-    <set name="elementPower" val="20"/>
-    <set name="reuseDelay" val="12000"/>
->>>>>>> .r6448
     <set name="isDebuff" val="true"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -955,18 +934,11 @@
     <set name="power" val="139"/>
     <set name="lvlDepend" val="2"/>
     <set name="target" val="TARGET_ONE"/>
-<<<<<<< .mine
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="2000"/>
 	<set name="staticHitTime" val="true"/>
 	<set name="staticReuse" val="true"/>
     <set name="element" val="4"/><!-- Holy -->
-=======
-    <set name="hitTime" val="6000"/>
-    <set name="element" val="4"/> <!-- Holy -->
-    <set name="elementPower" val="20"/>
-    <set name="reuseDelay" val="12000"/>
->>>>>>> .r6448
     <set name="skillType" val="MDAM"/>
     <set name="isDebuff" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -991,18 +963,11 @@
     <set name="power" val="111"/>
     <set name="lvlDepend" val="2"/>
     <set name="target" val="TARGET_ONE"/>
-<<<<<<< .mine
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="2000"/>
 	<set name="staticHitTime" val="true"/>
 	<set name="staticReuse" val="true"/>
     <set name="element" val="5"/><!-- Dark -->
-=======
-    <set name="hitTime" val="6000"/>
-    <set name="element" val="5"/> <!-- Dark -->
-    <set name="elementPower" val="20"/>
-    <set name="reuseDelay" val="12000"/>
->>>>>>> .r6448
     <set name="skillType" val="DRAIN"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>

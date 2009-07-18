@@ -471,16 +471,16 @@
     </for>
   </skill>
   <skill id="5453" levels="4" name="Mental Impoverish">
-    <table name="#dmg"> 0.95 0.90 0.85 0.75 </table>
+    <table name="#mp"> 0.95 0.90 0.85 0.75 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="MANADAM" />
-    <set name="operateType" val="OP_CHANCE" />
+    <set name="operateType" val="OP_ACTIVE" />
     <set name="isDebuff" val="true"/>
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
     <for>
 	 <effect count="1" name="Debuff" time="30" val="0" noicon="1">
-		<mul order="0x30" stat="gainMp" val="#dmg"/>
+		<mul order="0x30" stat="gainMp" val="#mp"/>
       </effect>
     </for>
   </skill>
