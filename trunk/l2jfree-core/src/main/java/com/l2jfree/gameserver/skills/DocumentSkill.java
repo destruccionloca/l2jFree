@@ -449,6 +449,8 @@ final class DocumentSkill extends DocumentBase
 				abnormal = L2Character.ABNORMAL_EFFECT_INVULNERABLE;
 			else if (abn.equalsIgnoreCase("vitality"))
 				abnormal = L2Character.ABNORMAL_EFFECT_VITALITY;
+			else if (abn.equalsIgnoreCase("deathmark"))
+				abnormal = L2Character.ABNORMAL_EFFECT_DEATH_MARK;
 			else
 				throw new IllegalStateException("Invalid abnormal value: '" + abn + "'!");
 		}
