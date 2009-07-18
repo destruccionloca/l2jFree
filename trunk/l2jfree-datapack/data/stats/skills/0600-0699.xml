@@ -360,7 +360,7 @@
     <set name="soulMaxConsumeCount" val="5"/>
     <set name="effectRange" val="200"/>
     <for>
-      <effect count="3" name="Fear" val="0" effectPower="20" effectType="FEAR"/>
+      <effect count="3" name="Fear" val="0" effectPower="60" effectType="FEAR"/>
     </for>
   </skill>
   <skill id="628" levels="1" name="Warp">

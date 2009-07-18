@@ -40,7 +40,11 @@
       </effect>
     </for>
   </skill>
+<<<<<<< .mine
+  <skill id="502" levels="5" name="Life to Soul" enchantLevels1="30" enchantLevels1="30">
+=======
   <skill id="502" levels="5" name="Life to Soul" enchantLevels1="30" enchantLevels2="30">
+>>>>>>> .r6448
     <!-- CT2.2 retail confirmed -->
     <table name="#hpConsume">193 237 279 311 328</table>
     <table name="#num_souls">1 2 3 4 5</table>

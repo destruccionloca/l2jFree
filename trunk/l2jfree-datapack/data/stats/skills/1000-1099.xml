@@ -448,8 +448,8 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="3000"/>
-    <set name="hitTime" val="2000"/>
+    <set name="reuseDelay" val="2000"/>
+    <set name="hitTime" val="1800"/>
     <set name="skillType" val="HEAL"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -545,7 +545,7 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_PARTY"/>
     <set name="skillRadius" val="1000"/>
-    <set name="reuseDelay" val="5000"/>
+    <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="7000"/>
     <set name="skillType" val="HEAL"/>
     <set name="isMagic" val="true"/>
@@ -1335,8 +1335,9 @@
     <set name="power" val="80"/>
     <set name="lvlDepend" val="2"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="2000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="1500"/>
+	<set name="staticHitTime" val="true"/>
     <set name="skillType" val="WEAKNESS"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1446,8 +1447,9 @@
     <set name="power" val="80"/>
     <set name="lvlDepend" val="2"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="2000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="1500"/>
+	<set name="staticHitTime" val="true"/>
     <set name="skillType" val="WEAKNESS"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1579,8 +1581,9 @@
     <set name="power" val="80"/>
     <set name="lvlDepend" val="2"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="2000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="1500"/>
+	<set name="staticHitTime" val="true"/>
     <set name="skillType" val="WEAKNESS"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>

@@ -167,7 +167,9 @@
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2000"/>
+    <set name="reuseDelay" val="2000"/>
+    <set name="hitTime" val="1500"/>
+	<set name="staticHitTime" val="true"/>
   </skill>
   <skill id="5530" levels="12" name="Blood Storm">
     <set name="target" val="TARGET_NONE"/>
@@ -566,7 +568,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5567" levels="1" name="Flame Armor">
-    <set name="isMagic" val="false"/>
+    <set name="isMagic" val="true"/>
     <set name="isDebuff" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="DEBUFF"/>
@@ -578,7 +580,7 @@
     </for>
   </skill>
   <skill id="5568" levels="1" name="Frost Armor">
-    <set name="isMagic" val="false"/>
+    <set name="isMagic" val="true"/>
     <set name="isDebuff" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="DEBUFF"/>
@@ -592,7 +594,7 @@
     </for>
   </skill>
   <skill id="5569" levels="1" name="Hurricane Armor">
-    <set name="isMagic" val="false"/>
+    <set name="isMagic" val="true"/>
     <set name="isDebuff" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="DEBUFF"/>
@@ -840,7 +842,7 @@
   </skill>
   <skill id="5592" levels="1" name="Lightning Barrier">
     <set name="power" val="80"/>
-    <set name="isMagic" val="false"/>
+    <set name="isMagic" val="true"/>
     <set name="isDebuff" val="true"/>
     <set name="lvlDepend" val="1"/>
     <set name="target" val="TARGET_INITIATOR"/>

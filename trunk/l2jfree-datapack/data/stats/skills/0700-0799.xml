@@ -767,7 +767,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="triggeredId" val="5556"/>
     <set name="triggeredLevel" val="1"/>
-    <set name="activationChance" val="30"/> <!-- guessed -->
+    <set name="activationChance" val="10"/> <!-- guessed -->
     <set name="chanceType" val="ON_ATTACKED"/>
     <for>
       <mul order="0x30" stat="mDef" val="1.15"/>
@@ -779,7 +779,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="triggeredId" val="5557"/>
     <set name="triggeredLevel" val="1"/>
-    <set name="activationChance" val="30"/> <!-- guessed -->
+    <set name="activationChance" val="10"/> <!-- guessed -->
     <set name="chanceType" val="ON_ATTACKED"/>
     <for>
       <add order="0x40" stat="fireRes" val="20"/>
@@ -794,7 +794,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="triggeredId" val="5558"/>
     <set name="triggeredLevel" val="1"/>
-    <set name="activationChance" val="30"/> <!-- guessed -->
+    <set name="activationChance" val="10"/> <!-- guessed -->
     <set name="chanceType" val="ON_ATTACKED"/>
     <for>
       <add order="0x40" stat="holyRes" val="20"/>
@@ -807,22 +807,24 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="triggeredId" val="5559"/>
     <set name="triggeredLevel" val="1"/>
-    <set name="activationChance" val="30"/> <!-- guessed -->
-    <set name="chanceType" val="ON_HIT"/>
+    <set name="activationChance" val="10"/> <!-- guessed -->
+    <set name="chanceType" val="ON_MELEE"/>
     <for>
       <add order="0x40" stat="pAtk" val="100">
-        <and>
-          <not>
-            <using kind="Bow,Crossbow"/>
-          </not>
-        </and>
+       <and>
+	          <using kind="Sword,Big Sword,Blunt,Big Blunt,Pole,Dual Sword,Dual Fist,Dagger,Etc,Fist,Rod,Ancient,Rapier"/>
+	          <not>
+	          	<using kind="Bow,Crossbow"/>
+	          </not>
+	      	</and> 
       </add>
       <mul order="0x30" stat="pAtkSpd" val="1.1">
-        <and>
-          <not>
-            <using kind="Bow,Crossbow"/>
-          </not>
-        </and>
+      <and>
+	          <using kind="Sword,Big Sword,Blunt,Big Blunt,Pole,Dual Sword,Dual Fist,Dagger,Etc,Fist,Rod,Ancient,Rapier"/>
+	          <not>
+	          	<using kind="Bow,Crossbow"/>
+	          </not>
+	      	</and> 
       </mul>
     </for>
   </skill>
@@ -832,14 +834,24 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="triggeredId" val="5560"/>
     <set name="triggeredLevel" val="1"/>
-    <set name="activationChance" val="30"/> <!-- guessed -->
-    <set name="chanceType" val="ON_HIT"/>
+    <set name="activationChance" val="10"/> <!-- guessed -->
+    <set name="chanceType" val="ON_RANGE"/>
     <for>
-      <add order="0x40" stat="accCombat" val="8">
-        <using kind="Bow,Crossbow"/>
-      </add>
-      <add order="0x40" stat="pAtkRange" val="50">
-        <using kind="Bow,Crossbow"/>
+    <add order="0x40" stat="accCombat" val="8">
+        <and>
+	          <using kind="Bow,Crossbow"/>
+	          <not>
+			  <using kind="Sword,Big Sword,Blunt,Big Blunt,Pole,Dual Sword,Dual Fist,Dagger,Etc,Fist,Rod,Ancient,Rapier"/>	          	
+	          </not>
+	    </and> 
+	</add>
+	  <add order="0x40" stat="pAtkRange" val="50">
+        <and>
+	          <using kind="Bow,Crossbow"/>
+	          <not>
+			  <using kind="Sword,Big Sword,Blunt,Big Blunt,Pole,Dual Sword,Dual Fist,Dagger,Etc,Fist,Rod,Ancient,Rapier"/>	          	
+	          </not>
+	    </and> 
       </add>
     </for>
   </skill>
@@ -964,6 +976,7 @@
     <for>
       <add order="0x40" stat="rEvas" val="15">
         <player hp="30"/>
+		<player mp="5"/>
       </add>
     </for>
   </skill>

@@ -428,8 +428,14 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_AURA"/>
     <set name="skillRadius" val="200"/>
+<<<<<<< .mine
+    <set name="reuseDelay" val="4000"/>
+=======
     <set name="reuseDelay" val="40000"/>
+>>>>>>> .r6448
     <set name="hitTime" val="1000"/>
+	<set name="staticHitTime" val="true"/>
+	<set name="staticReuse" val="true"/>
     <set name="skillType" val="AGGDAMAGE"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isDebuff" val="true"/>
@@ -619,8 +625,10 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="6000"/>
-    <set name="hitTime" val="700"/>
+    <set name="reuseDelay" val="4000"/>
+    <set name="hitTime" val="1000"/>
+	<set name="staticHitTime" val="true"/>
+	<set name="staticReuse" val="true"/>
     <set name="coolTime" val="200"/>
     <set name="skillType" val="AGGDAMAGE"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1199,7 +1207,7 @@
     <set name="hpConsume" val="#hpConsume"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="10000"/>
+    <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="1200"/>
     <set name="skillType" val="HEAL"/>
     <set name="isMagic" val="true"/>

@@ -221,12 +221,12 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
       <add order="0x40" stat="pAtk" val="#pAtk">
-        <using kind="Sword,Big Sword,Blunt,Big Blunt"/>
+        <using kind="Sword,Blunt"/>
       </add>
     </for>
     <enchant1for>
       <add order="0x40" stat="pAtk" val="#ench1pAtk">
-        <using kind="Sword,Big Sword,Blunt,Big Blunt"/>
+        <using kind="Sword,Blunt"/>
       </add>
     </enchant1for>
   </skill>
@@ -1286,7 +1286,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
       <add order="0x40" stat="pAtk" val="#pAtk">
-        <using kind="Sword,Big Sword,Blunt,Big Blunt"/>
+        <using kind="Sword,Blunt"/>
       </add>
     </for>
   </skill>
@@ -1467,7 +1467,7 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="10000"/>
+    <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="HEAL"/>
     <set name="isMagic" val="true"/>
@@ -2233,7 +2233,9 @@
     <set name="target" val="TARGET_AURA"/>
     <set name="skillRadius" val="#skillRadius"/>
     <set name="reuseDelay" val="4000"/>
-    <set name="hitTime" val="1500"/>
+    <set name="hitTime" val="1000"/>
+	<set name="staticHitTime" val="true"/>
+	<set name="staticReuse" val="true"/>
     <set name="skillType" val="AGGDAMAGE"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <for>
@@ -2321,7 +2323,9 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="4000"/>
-    <set name="hitTime" val="3000"/>
+    <set name="hitTime" val="2500"/>
+	<set name="staticReuse" val="true">
+	<set name="staticHitTime" val="true">
     <set name="skillType" val="DRAIN"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>

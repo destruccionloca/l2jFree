@@ -838,10 +838,19 @@
     <set name="power" val="140"/>
     <set name="lvlDepend" val="2"/>
     <set name="target" val="TARGET_ONE"/>
+<<<<<<< .mine
+    <set name="reuseDelay" val="8000"/>
+    <set name="hitTime" val="2000"/>
+	<set name="staticHitTime" val="true"/>
+	<set name="staticReuse" val="true"/>
+    <set name="element" val="0"/><!-- Fire -->
+	<set name="elementPower" val="20"/>
+=======
     <set name="hitTime" val="6000"/>
     <set name="element" val="0"/> <!-- Fire -->
     <set name="elementPower" val="20"/>
     <set name="reuseDelay" val="12000"/>
+>>>>>>> .r6448
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
@@ -849,7 +858,9 @@
     <set name="overHit" val="true"/>
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
-    <for>
+	<set name="effectType" val="DEBUFF"/>
+	<set name="effectPower" val="80"/>
+	<for>
       <!-- Retail Values CT2.3: 12MP * 3 Sec -->
       <effect count="10" name="ManaDamOverTime" time="3" val="36" effectPower="80" effectType="MDOT">
         <mul order="0x30" stat="runSpd" val="0.9"/>
@@ -866,10 +877,18 @@
     <set name="power" val="140"/>
     <set name="lvlDepend" val="2"/>
     <set name="target" val="TARGET_ONE"/>
+<<<<<<< .mine
+    <set name="reuseDelay" val="8000"/>
+    <set name="hitTime" val="2000"/>
+	<set name="staticHitTime" val="true"/>
+	<set name="staticReuse" val="true"/>
+    <set name="element" val="1"/><!-- Water -->
+=======
     <set name="hitTime" val="6000"/>
     <set name="element" val="1"/> <!-- Water -->
     <set name="elementPower" val="20"/>
     <set name="reuseDelay" val="12000"/>
+>>>>>>> .r6448
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
@@ -877,6 +896,9 @@
     <set name="overHit" val="true"/>
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
+	<set name="elementPower" val="20"/>
+	<set name="effectType" val="DEBUFF"/>
+	<set name="effectPower" val="80"/>
     <for>
       <!-- Retail Values CT2.3: 12MP * 3 Sec -->
       <effect count="10" name="ManaDamOverTime" time="3" val="36" effectPower="80" effectType="MDOT">
@@ -894,10 +916,18 @@
     <set name="power" val="140"/>
     <set name="lvlDepend" val="2"/>
     <set name="target" val="TARGET_ONE"/>
+<<<<<<< .mine
+    <set name="reuseDelay" val="8000"/>
+    <set name="hitTime" val="2000"/>
+	<set name="staticHitTime" val="true"/>
+	<set name="staticReuse" val="true"/>
+    <set name="element" val="2"/><!-- Wind -->
+=======
     <set name="hitTime" val="6000"/>
     <set name="element" val="2"/> <!-- Wind -->
     <set name="elementPower" val="20"/>
     <set name="reuseDelay" val="12000"/>
+>>>>>>> .r6448
     <set name="isDebuff" val="true"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -905,6 +935,9 @@
     <set name="overHit" val="true"/>
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
+	<set name="elementPower" val="20"/>
+	<set name="effectType" val="DEBUFF"/>
+	<set name="effectPower" val="80"/>
     <for>
       <!-- Retail Values CT2.3: 12MP * 3 Sec -->
       <effect count="10" name="ManaDamOverTime" time="3" val="36" effectPower="80" effectType="MDOT">
@@ -922,16 +955,27 @@
     <set name="power" val="139"/>
     <set name="lvlDepend" val="2"/>
     <set name="target" val="TARGET_ONE"/>
+<<<<<<< .mine
+    <set name="reuseDelay" val="8000"/>
+    <set name="hitTime" val="2000"/>
+	<set name="staticHitTime" val="true"/>
+	<set name="staticReuse" val="true"/>
+    <set name="element" val="4"/><!-- Holy -->
+=======
     <set name="hitTime" val="6000"/>
     <set name="element" val="4"/> <!-- Holy -->
     <set name="elementPower" val="20"/>
     <set name="reuseDelay" val="12000"/>
+>>>>>>> .r6448
     <set name="skillType" val="MDAM"/>
     <set name="isDebuff" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
+	<set name="elementPower" val="20"/>
+	<set name="effectType" val="DEBUFF"/>
+	<set name="effectPower" val="80"/>
     <for>
       <!-- Retail Values CT2.3: 12MP * 3 Sec -->
       <effect count="10" name="ManaDamOverTime" time="3" val="36" effectPower="80" effectType="MDOT">
@@ -947,10 +991,18 @@
     <set name="power" val="111"/>
     <set name="lvlDepend" val="2"/>
     <set name="target" val="TARGET_ONE"/>
+<<<<<<< .mine
+    <set name="reuseDelay" val="8000"/>
+    <set name="hitTime" val="2000"/>
+	<set name="staticHitTime" val="true"/>
+	<set name="staticReuse" val="true"/>
+    <set name="element" val="5"/><!-- Dark -->
+=======
     <set name="hitTime" val="6000"/>
     <set name="element" val="5"/> <!-- Dark -->
     <set name="elementPower" val="20"/>
     <set name="reuseDelay" val="12000"/>
+>>>>>>> .r6448
     <set name="skillType" val="DRAIN"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
@@ -958,6 +1010,9 @@
     <set name="isDebuff" val="true"/>
     <set name="effectRange" val="1400"/>
     <set name="absorbPart" val="0.8"/>
+	<set name="elementPower" val="20"/>
+	<set name="effectType" val="DEBUFF"/>
+	<set name="effectPower" val="80"/>
     <!-- Dark Vortex: Power is reduced but drain percentage is increased - so I changed 0.7 -> 0.8 -->
     <for>
       <!-- Retail Values CT2.3: 12MP * 3 Sec -->

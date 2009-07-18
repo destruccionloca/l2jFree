@@ -244,10 +244,18 @@
     <set name="power" val="112"/>
     <set name="lvlDepend" val="2"/>
     <set name="target" val="TARGET_ONE"/>
+<<<<<<< .mine
+    <set name="reuseDelay" val="8000"/>
+    <set name="hitTime" val="2000"/>
+	<set name="staticHitTime" val="true"/>
+	<set name="staticReuse" val="true"/>
+    <set name="element" val="5"/><!-- Dark -->
+=======
     <set name="hitTime" val="1800"/>
     <set name="element" val="5"/> <!-- Dark -->
     <set name="elementPower" val="20"/>
     <set name="reuseDelay" val="7000"/>
+>>>>>>> .r6448
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
@@ -256,6 +264,9 @@
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
     <set name="soulMaxConsumeCount" val="5"/>
+	<set name="elementPower" val="20"/>
+	<set name="effectType" val="DEBUFF"/>
+	<set name="effectPower" val="80"/>
     <for>
       <!-- Retail Values CT2.3: 12MP * 3 Sec -->
       <effect count="10" name="ManaDamOverTime" time="3" val="36" effectPower="80" effectType="MDOT">
@@ -273,10 +284,18 @@
     <set name="magicLvl" val="79"/>
     <set name="power" val="162"/>
     <set name="target" val="TARGET_ONE"/>
+<<<<<<< .mine
+    <set name="reuseDelay" val="8000"/>
+    <set name="hitTime" val="2000"/>
+	<set name="staticHitTime" val="true"/>
+	<set name="staticReuse" val="true"/>
+    <set name="element" val="5"/> <!-- Dark -->
+=======
     <set name="hitTime" val="1800"/>
     <set name="element" val="5"/> <!-- Dark -->
     <set name="elementPower" val="20"/>
     <set name="reuseDelay" val="7000"/>
+>>>>>>> .r6448
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
@@ -325,13 +344,14 @@
     <!-- Done by DJ MELERIX -->
     <set name="castRange" val="750"/>
     <set name="effectRange" val="1250"/>
-    <set name="hitTime" val="4000"/>
+    <set name="reuseDelay" val="1200"/>
+    <set name="hitTime" val="2500"/>
+	<set name="staticHitTime" val="true"/>
     <set name="isMagic" val="true"/>
     <set name="magicLvl" val="76"/>
     <set name="mpConsume" val="35"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="power" val="166"/>
-    <set name="reuseDelay" val="1200"/>
     <set name="skillType" val="MDAM"/>
     <set name="soulMaxConsumeCount" val="5"/>
     <set name="target" val="TARGET_ONE"/>
@@ -452,13 +472,19 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="4"/> <!-- Holy -->
     <set name="elementPower" val="20"/>
-    <set name="hitTime" val="2000"/>
+    <set name="reuseDelay" val="1200"/>
+    <set name="hitTime" val="2500"/>
+	<set name="staticHitTime" val="true"/>
     <set name="skillType" val="MDAM"/>
-    <set name="reuseDelay" val="2400"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="750"/>
     <set name="effectRange" val="1250"/>
+	<for>
+      <effect self="1" name="Debuff" time="3" val="0" effectPower="60" effectType="DEBUFF" noicon="1">
+        <mul order="0x30" stat="pvpMagicalDmg" val="0.6"/>
+      </effect>
+    </for>
   </skill>
   <skill id="1524" levels="42" name="Surrender to the Holy">
     <!-- Inquisitor Stance Skill -->
@@ -472,8 +498,9 @@
     <set name="power" val="80"/>
     <set name="lvlDepend" val="2"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="2000"/>
-    <set name="hitTime" val="1800"/>
+    <set name="reuseDelay" val="8000"/>
+    <set name="hitTime" val="1500"/>
+	<set name="staticHitTime" val="true"/>
     <set name="skillType" val="WEAKNESS"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -500,7 +527,6 @@
     <set name="effectRange" val="1250"/>
     <set name="element" val="4"/> <!-- Holy -->
     <set name="elementPower" val="20"/>
-    <set name="hitTime" val="4000"/>
     <set name="isDebuff" val="true"/>
     <set name="isMagic" val="true"/>
     <set name="lvlDepend" val="1"/>
@@ -556,21 +582,28 @@
     <set name="element" val="4"/> <!-- Holy -->
     <set name="elementPower" val="20"/>
     <set name="reuseDelay" val="4000"/>
-    <set name="hitTime" val="4000"/>
+    <set name="hitTime" val="1200"/>
+	<set name="staticReuse" val="true"/>
     <set name="skillType" val="MDAM"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
     <set name="effectRange" val="1000"/>
+	<for>
+      <effect self="1" name="Debuff" time="3" val="0" effectPower="60" effectType="DEBUFF" noicon="1">
+        <mul order="0x30" stat="pvpMagicalDmg" val="0.6"/>
+      </effect>
+    </for>
   </skill>
   <skill id="1529" levels="7" name="Soul Web">
     <!-- CT2.2 retail confirmed -->
     <table name="#magicLvl"> 62 64 66 68 70 72 74 </table>
     <table name="#mpConsume"> 52 60 62 64 65 67 69 </table>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="hitTime" val="2500"/>
     <set name="coolTime" val="200"/>
-    <set name="reuseDelay" val="15000"/>
+    <set name="reuseDelay" val="5000"/>
+    <set name="hitTime" val="2000"/>
+	<set name="staticReuse" val="true"/>
     <set name="power" val="80"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="DEBUFF"/>
@@ -600,7 +633,8 @@
     <set name="element" val="5"/> <!-- Dark -->
     <set name="elementPower" val="20"/>
     <set name="reuseDelay" val="1200"/>
-    <set name="hitTime" val="4000"/>
+    <set name="hitTime" val="2500"/>
+	<set name="staticHitTime" val="true"/>
     <set name="skillType" val="MDAM"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -752,14 +786,15 @@
     <table name="#vuln"> 1.16 1.24 1.32 1.40 </table>
     <set name="castRange" val="#castRange"/>
     <set name="effectRange" val="#effectRange"/>
+    <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="1500"/>
+	<set name="staticReuse" val="true"/>
     <set name="isDebuff" val="true"/>
     <set name="lvlDepend" val="2"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="power" val="80"/> <!-- Base Land Rate -->
-    <set name="reuseDelay" val="5000"/>
     <set name="skillType" val="WEAKNESS"/>
     <set name="target" val="TARGET_ONE"/>
     <for>

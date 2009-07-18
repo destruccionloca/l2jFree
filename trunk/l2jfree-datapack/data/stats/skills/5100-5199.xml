@@ -53,12 +53,13 @@
   </skill>
   <skill id="5106" levels="4" name="Capture A State">
     <set name="target" val="TARGET_ONE"/>
-    <set name="skillType" val="CONT"/>
+    <set name="skillType" val="DEBUFF"/>
+	<set name="isDebuff" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="300"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect count="0x7fffffff" name="Fusion" time="600" val="15" stackOrder="0" stackType="Capture">
+      <effect count="0x7fffffff" name="Fusion" time="30" val="15" stackOrder="0" stackType="Capture">
         <mul order="0x30" stat="runSpd" val="0.7"/>
         <mul order="0x30" stat="pAtkSpd" val="0.7"/>
       </effect>
@@ -66,12 +67,13 @@
   </skill>
   <skill id="5107" levels="4" name="Capture B State">
     <set name="target" val="TARGET_ONE"/>
-    <set name="skillType" val="CONT"/>
+    <set name="skillType" val="DEBUFF"/>
+	<set name="isDebuff" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="300"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect count="0x7fffffff" name="Fusion" time="600" val="15" stackOrder="0" stackType="Capture">
+      <effect count="0x7fffffff" name="Fusion" time="30" val="15" stackOrder="0" stackType="Capture">
         <mul order="0x30" stat="runSpd" val="0.7"/>
         <mul order="0x30" stat="pAtkSpd" val="0.7"/>
       </effect>
@@ -79,12 +81,13 @@
   </skill>
   <skill id="5108" levels="4" name="Capture C State">
     <set name="target" val="TARGET_ONE"/>
-    <set name="skillType" val="CONT"/>
+    <set name="skillType" val="DEBUFF"/>
+	<set name="isDebuff" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="300"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect count="0x7fffffff" name="Fusion" time="600" val="15" stackOrder="0" stackType="Capture">
+      <effect count="0x7fffffff" name="Fusion" time="30" val="15" stackOrder="0" stackType="Capture">
         <mul order="0x30" stat="runSpd" val="0.7"/>
         <mul order="0x30" stat="pAtkSpd" val="0.7"/>
       </effect>
@@ -488,9 +491,10 @@
     <set name="effectRange" val="1400"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="AGGDAMAGE"/>
-    <set name="target" val="TARGET_ONE"/>
+    <set name="isMagic" val="false"/>
+    <set name="target" val="TARGET_INITIATOR"/>
     <for>
-      <effect name="RemoveTarget" val="0" noicon="1"/>
+      <effect name="RemoveTarget" time="2" val="0" noicon="1"/>
     </for>
   </skill>
   <skill id="5145" levels="1" name="Day of Doom">

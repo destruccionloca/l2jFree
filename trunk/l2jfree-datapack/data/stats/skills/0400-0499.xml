@@ -961,7 +961,7 @@
     <set name="magicLvl" val="79"/>
     <set name="mpConsume" val="43"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="reuseDelay" val="150000"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
     <for>
@@ -990,7 +990,7 @@
     <set name="hitTime" val="500"/>
     <set name="mpConsume" val="29"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="reuseDelay" val="75000"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
     <for>
@@ -1556,7 +1556,7 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="weaponsAllowed" val="32768"/> <!-- Ancient -->
     <set name="overHit" val="true"/>
-    <set name="skillType" val="PDAM"/>
+    <set name="skillType" val="BLOW"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="1500"/>
@@ -1565,6 +1565,8 @@
     <set name="effectRange" val="400"/>
     <set name="soulMaxConsumeCount" val="5"/>
     <set name="SSBoost" val="2.0"/>
+	<set name="lethal1" val="5"/>
+    <set name="baseCritRate" val="15"/>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant1 name="power" val="#ench1Power"/>
@@ -1677,6 +1679,7 @@
     <set name="effectRange" val="900"/>
     <set name="flyType" val="CHARGE"/>
     <set name="hitTime" val="800"/>
+	<set name="reuseDelay" val="500"/>
     <set name="isDebuff" val="true"/>
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="14"/>
@@ -2044,12 +2047,15 @@
     <set name="effectRange" val="400"/>
     <set name="isDebuff" val="true"/>
     <set name="soulMaxConsumeCount" val="5"/>
+	<cond msg="Invalid target.">
+	    <target active_effect_id="495"/>
+	</cond>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant1 name="power" val="#ench1Power"/>
     <enchant2 name="mpConsume" val="#ench2MpConsume"/>
     <for>
-      <effect count="7" name="DamOverTime" time="3" val="74" abnormal="bleed" effectPower="40" effectType="BLEED">
+      <effect count="7" name="DamOverTime" time="3" val="74" abnormal="bleed" effectPower="60" effectType="BLEED">
         <mul order="0x30" stat="runSpd" val="0.8"/>
       </effect>
     </for>

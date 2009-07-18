@@ -125,7 +125,9 @@
     <set name="target" val="TARGET_MULTIFACE"/>
     <set name="skillRadius" val="80"/>
     <set name="skillType" val="PDAM"/>
-    <set name="hitTime" val="1800"/>
+    <set name="reuseDelay" val="2000"/>
+    <set name="hitTime" val="1500"/>
+	<set name="staticHitTime" val="true"/>
     <set name="isDebuff" val="true"/>
     <set name="lvlDepend" val="2"/>
     <set name="magicLvl" val="#magicLvl"/>
