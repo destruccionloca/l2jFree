@@ -93,10 +93,12 @@ public final class ChanceSkillList
 		}
 		else
 		{
+			event = ChanceCondition.EVT_HIT;
+			
 			if(wasRange)
-				event = ChanceCondition.EVT_RANGE;
+				event |= ChanceCondition.EVT_RANGE;
 			else
-				event = ChanceCondition.EVT_HIT;
+				event |= ChanceCondition.EVT_MELEE;
 			
 			if (wasCrit)
 				event |= ChanceCondition.EVT_CRIT;
