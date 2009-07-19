@@ -200,7 +200,7 @@ public class L2MonsterInstance extends L2Attackable
 	@Override
 	public boolean doDie(L2Character killer)
 	{
-		if (isKillable())
+		if (!isKillable())
 			return false;
 
 		if (!super.doDie(killer))
