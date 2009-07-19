@@ -122,12 +122,9 @@ public abstract class L2Item implements FuncOwner
 	public static final int				CRYSTAL_S80							= 0x06;									// ??
 	public static final int				CRYSTAL_S84							= 0x07;									// ??
 
-	private static final int[]			crystalItemId						=
-																			{ 0, 1458, 1459, 1460, 1461, 1462, 1462, 1462 };
-	private static final int[]			crystalEnchantBonusArmor			=
-																			{ 0, 11, 6, 11, 19, 25 };
-	private static final int[]			crystalEnchantBonusWeapon			=
-																			{ 0, 90, 45, 67, 144, 250 };
+	private static final int[] crystalItemId             = { 0, 1458, 1459, 1460, 1461, 1462 };
+	private static final int[] crystalEnchantBonusArmor  = { 0,   11,    6,   11,   19,   25 };
+	private static final int[] crystalEnchantBonusWeapon = { 0,   90,   45,   67,  144,  250 };
 
 	private final int					_itemId;
 	private final int					_itemDisplayId;
@@ -301,7 +298,7 @@ public abstract class L2Item implements FuncOwner
 	 */
 	public final int getCrystalItemId()
 	{
-		return crystalItemId[_crystalType];
+		return crystalItemId[getCrystalGrade()];
 	}
 
 	/**
