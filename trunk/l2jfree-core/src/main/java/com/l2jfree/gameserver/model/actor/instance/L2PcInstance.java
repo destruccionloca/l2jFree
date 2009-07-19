@@ -1254,7 +1254,7 @@ public final class L2PcInstance extends L2Playable
 		_dwarvenRecipeBook.put(recipe.getId(), recipe);
 
 		if (saveToDb)
-			insertNewRecipeData(recipe.getId(), false);
+			insertNewRecipeData(recipe.getId(), true);
 	}
 
 	/**
