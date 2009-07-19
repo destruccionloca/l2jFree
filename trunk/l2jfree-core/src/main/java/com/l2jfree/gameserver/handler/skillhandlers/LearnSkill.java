@@ -21,21 +21,11 @@ import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
-/**
- * This class ...
- *
- * @version $Revision: 1.1.2.5.2.4 $ $Date: 2005/04/03 15:55:03 $
- */
-
 public class LearnSkill implements ISkillHandler
 {
 	private static final L2SkillType[]	SKILL_IDS	=
 													{ L2SkillType.LEARN_SKILL };
 
-	/**
-	 * 
-	 * @see net.sf.l2j.gameserver.handler.ISkillHandler#getSkillIds()
-	 */
 	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;

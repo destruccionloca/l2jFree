@@ -37,6 +37,7 @@ import com.l2jfree.gameserver.handler.skillhandlers.GiveSp;
 import com.l2jfree.gameserver.handler.skillhandlers.Harvest;
 import com.l2jfree.gameserver.handler.skillhandlers.Heal;
 import com.l2jfree.gameserver.handler.skillhandlers.InstantJump;
+import com.l2jfree.gameserver.handler.skillhandlers.LearnSkill;
 import com.l2jfree.gameserver.handler.skillhandlers.MakeKillable;
 import com.l2jfree.gameserver.handler.skillhandlers.ManaHeal;
 import com.l2jfree.gameserver.handler.skillhandlers.Manadam;
@@ -101,6 +102,7 @@ public final class SkillHandler extends EnumHandlerRegistry<L2SkillType, ISkillH
 		registerSkillHandler(new Harvest());
 		registerSkillHandler(new Heal());
 		registerSkillHandler(new InstantJump());
+		registerSkillHandler(new LearnSkill());
 		registerSkillHandler(new MakeKillable());
 		registerSkillHandler(new ManaHeal());
 		registerSkillHandler(new Manadam());

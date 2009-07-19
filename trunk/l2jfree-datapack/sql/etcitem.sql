@@ -9547,8 +9547,6 @@ UPDATE `etcitem` SET `material` = 'silver', `crystal_type` = 'b', `price` = 7 WH
 UPDATE `etcitem` SET `material` = 'mithril', `crystal_type` = 'a', `price` = 8 WHERE `item_id` = 9636;
 UPDATE `etcitem` SET `material` = 'adamantaite', `crystal_type` = 's', `price` = 10 WHERE `item_id` = 9637;
 
-UPDATE `etcitem` SET `handler` = 'EnchantAttr' WHERE `item_id` >= '9546' AND `item_id` <= '9569';
-
 -- Moving our Changes to update statements to make syncs easier
 UPDATE `etcitem` SET `sellable` = 'true', `dropable` = 'true', `destroyable` = 'true', `tradeable` = 'true', `handler` = 'SummonItems' WHERE `item_id` = 5249;
 UPDATE `etcitem` SET `item_type` = 'castle_guard' WHERE `item_id` = 7917;
@@ -9559,3 +9557,5 @@ UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2358-1' WHERE `i
 UPDATE `etcitem` SET `handler` = 'DoorKey' WHERE `item_id` = 9694;
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2341-1' WHERE `item_id` = 9702;
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2580-1' WHERE `item_id` = 13028;
+UPDATE `etcitem` SET `handler` = 'EnchantAttr' WHERE `item_id` >= '9546' AND `item_id` <= '9569';
+UPDATE `etcitem` SET `sellable` = 'true', `dropable` = 'true', `destroyable` = 'true', `tradeable` = 'true' where item_id >= 8570 and item_id <= 8575;
