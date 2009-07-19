@@ -193,6 +193,9 @@ public class L2Npc extends L2Character
 	private int						_currentCollisionHeight;													// used for npc grow effect skills
 	private int						_currentCollisionRadius;													// used for npc grow effect skills
 
+	private boolean					_isKillable						= true;
+	private boolean					_questDropable					= true;
+	
 	public final void broadcastRandomAnimation(boolean force)
 	{
 		if (!isInActiveRegion() || !hasRandomAnimation())
@@ -2905,5 +2908,25 @@ public class L2Npc extends L2Character
 	public void broadcastFullInfoImpl()
 	{
 		broadcastPacket(getRunSpeed() == 0 ? new ServerObjectInfo(this) : new AbstractNpcInfo.NpcInfo(this));
+	}
+
+	public void setKillable(boolean b)
+	{
+		_isKillable = b;
+	}
+
+	public boolean isKillable()
+	{
+		return _isKillable;
+	}
+
+	public void setQuestDropable(boolean b)
+	{
+		_questDropable = b;
+	}
+
+	public boolean getQuestDropable()
+	{
+		return _questDropable;
 	}
 }

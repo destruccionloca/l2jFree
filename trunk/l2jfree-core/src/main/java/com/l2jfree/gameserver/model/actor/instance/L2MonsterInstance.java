@@ -43,9 +43,6 @@ public class L2MonsterInstance extends L2Attackable
 
 	private static final int		MONSTER_MAINTENANCE_INTERVAL	= 1000;
 
-	private boolean					_isKillable						= true;
-	private boolean					_questDropable					= true;
-
 	/**
 	 * Constructor of L2MonsterInstance (use L2Character and L2NpcInstance constructor).<BR><BR>
 	 *  
@@ -203,7 +200,7 @@ public class L2MonsterInstance extends L2Attackable
 	@Override
 	public boolean doDie(L2Character killer)
 	{
-		if (!_isKillable)
+		if (isKillable())
 			return false;
 
 		if (!super.doDie(killer))
@@ -269,26 +266,6 @@ public class L2MonsterInstance extends L2Attackable
 		super.deleteMe();
 	}
 
-	public void setKillable(boolean b)
-	{
-		_isKillable = b;
-	}
-
-	public boolean getKillable()
-	{
-		return _isKillable;
-	}
-
-	public void setQuestDropable(boolean b)
-	{
-		_questDropable = b;
-	}
-
-	public boolean getQuestDropable()
-	{
-		return _questDropable;
-	}
-	
 	public void deleteSpawnedMinions()
 	{
 		for (L2MinionInstance minion : getSpawnedMinions())

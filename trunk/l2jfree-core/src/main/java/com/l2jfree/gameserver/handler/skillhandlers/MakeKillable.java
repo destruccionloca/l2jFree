@@ -45,7 +45,7 @@ public class MakeKillable implements ISkillHandler
 			
 			L2MonsterInstance target = (L2MonsterInstance) element;
 			
-			if (!target.getKillable())
+			if (!target.isKillable())
 				target.setKillable(true);
 			else
 			{
