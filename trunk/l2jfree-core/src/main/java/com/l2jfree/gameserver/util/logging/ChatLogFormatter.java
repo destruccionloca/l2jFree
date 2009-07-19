@@ -12,26 +12,21 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.util.logging;
+package com.l2jfree.gameserver.util.logging;
 
-import java.util.logging.LogManager;
+import java.util.logging.LogRecord;
 
-/**
- * @author NB4L1
- */
-public final class L2LogManager extends LogManager
+import javolution.text.TextBuilder;
+
+import com.l2jfree.util.logging.L2LogFormatter;
+
+public final class ChatLogFormatter extends L2LogFormatter
 {
-	public L2LogManager()
-	{
-	}
-	
 	@Override
-	public void reset() throws SecurityException
+	protected void format0(LogRecord record, TextBuilder tb)
 	{
-		for (StackTraceElement ste : Thread.currentThread().getStackTrace())
-			if ("java.util.logging.LogManager$Cleaner".equals(ste.getClassName()))
-				return;
-		
-		super.reset();
+		appendDate(record, tb);
+		appendParameters(record, tb, " ", false);
+		appendMessage(record, tb);
 	}
 }

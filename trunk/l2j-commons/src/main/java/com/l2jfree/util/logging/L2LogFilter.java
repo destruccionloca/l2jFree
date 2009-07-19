@@ -14,24 +14,19 @@
  */
 package com.l2jfree.util.logging;
 
-import java.util.logging.LogManager;
+import java.util.logging.Filter;
+import java.util.logging.LogRecord;
 
 /**
  * @author NB4L1
  */
-public final class L2LogManager extends LogManager
+public abstract class L2LogFilter implements Filter
 {
-	public L2LogManager()
+	@Override
+	public boolean isLoggable(LogRecord record)
 	{
+		return getLoggerName().equals(record.getLoggerName());
 	}
 	
-	@Override
-	public void reset() throws SecurityException
-	{
-		for (StackTraceElement ste : Thread.currentThread().getStackTrace())
-			if ("java.util.logging.LogManager$Cleaner".equals(ste.getClassName()))
-				return;
-		
-		super.reset();
-	}
+	protected abstract String getLoggerName();
 }

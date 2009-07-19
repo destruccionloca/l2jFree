@@ -14,24 +14,14 @@
  */
 package com.l2jfree.util.logging;
 
-import java.util.logging.LogManager;
+import java.util.logging.Filter;
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
 
-/**
- * @author NB4L1
- */
-public final class L2LogManager extends LogManager
+public final class ErrorLogFilter implements Filter
 {
-	public L2LogManager()
+	public boolean isLoggable(LogRecord record)
 	{
-	}
-	
-	@Override
-	public void reset() throws SecurityException
-	{
-		for (StackTraceElement ste : Thread.currentThread().getStackTrace())
-			if ("java.util.logging.LogManager$Cleaner".equals(ste.getClassName()))
-				return;
-		
-		super.reset();
+		return record.getLevel().intValue() > Level.INFO.intValue() || record.getThrown() != null;
 	}
 }

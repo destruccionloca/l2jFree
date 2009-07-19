@@ -14,24 +14,9 @@
  */
 package com.l2jfree.util.logging;
 
-import java.util.logging.LogManager;
-
 /**
  * @author NB4L1
  */
-public final class L2LogManager extends LogManager
+public final class ErrorLogFormatter extends L2RuntimeLogFormatter
 {
-	public L2LogManager()
-	{
-	}
-	
-	@Override
-	public void reset() throws SecurityException
-	{
-		for (StackTraceElement ste : Thread.currentThread().getStackTrace())
-			if ("java.util.logging.LogManager$Cleaner".equals(ste.getClassName()))
-				return;
-		
-		super.reset();
-	}
 }

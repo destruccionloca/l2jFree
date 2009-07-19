@@ -18,7 +18,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
 import java.io.OutputStream;
@@ -29,7 +28,6 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
@@ -127,7 +125,6 @@ public final class Config extends L2Config
 	public static int			MIN_PROTOCOL_REVISION;																// protocol revision
 	public static int			MAX_PROTOCOL_REVISION;
 	public static File			DATAPACK_ROOT;																		// Datapack root directory
-	public static Level			EXTENDED_LOG_LEVEL					= Level.WARNING;
 	public static boolean		PACKET_FINAL;
 	public static boolean		NEW_LOGIN_PROTOCOL;
 	public static boolean		L2JFREE_LOGIN;
@@ -3203,24 +3200,6 @@ public final class Config extends L2Config
 	}
 
 	// *******************************************************************************************
-	public static final String	LOG_FILE		= "./config/logging.properties";
-	// *******************************************************************************************
-	public static void loadLogConfig()
-	{
-		try
-		{
-			InputStream is = new FileInputStream(new File(LOG_FILE));
-			LogManager.getLogManager().readConfiguration(is);
-			is.close();
-		}
-		catch (Exception e)
-		{
-			throw new Error("Failed to Load logging.properties File.");
-		}
-		_log.info("logging initialized");
-	}
-
-	// *******************************************************************************************
 	public static final String	SAY_FILTER_FILE	= "./config/sayfilter.txt";
 
 	// *******************************************************************************************
@@ -3632,7 +3611,6 @@ public final class Config extends L2Config
 
 	public static void load() throws Exception
 	{
-		loadLogConfig(); // must be loaded b4 first log output
 		Util.printSection("Configuration");
 		loadConfiguration();
 		loadHexId();

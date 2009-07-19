@@ -12,26 +12,18 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.util.logging;
+package com.l2jfree.gameserver.util.logging;
 
-import java.util.logging.LogManager;
+import com.l2jfree.util.logging.L2LogFilter;
 
 /**
- * @author NB4L1
+ * @author zabbix Lets drink to code!
  */
-public final class L2LogManager extends LogManager
+public final class AuditLogFilter extends L2LogFilter
 {
-	public L2LogManager()
-	{
-	}
-	
 	@Override
-	public void reset() throws SecurityException
+	protected String getLoggerName()
 	{
-		for (StackTraceElement ste : Thread.currentThread().getStackTrace())
-			if ("java.util.logging.LogManager$Cleaner".equals(ste.getClassName()))
-				return;
-		
-		super.reset();
+		return "audit";
 	}
 }

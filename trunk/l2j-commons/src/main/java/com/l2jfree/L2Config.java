@@ -15,32 +15,67 @@
 package com.l2jfree;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.config.L2Properties;
 import com.l2jfree.util.HandlerRegistry;
-import com.l2jfree.util.logging.L2LogManager;
 
 /**
  * @author evill33t
  */
 public abstract class L2Config
 {
+	public static final String LOG_FILE = "./config/logging.properties";
+	public static final String TELNET_FILE = "./config/telnet.properties";
+	
+	public static Level EXTENDED_LOG_LEVEL = Level.WARNING;
+	
+	protected static final Log _log;
+	
 	static
 	{
 		System.setProperty("line.separator", "\r\n");
 		System.setProperty("file.encoding", "UTF-8");
-		System.setProperty("java.util.logging.manager", L2LogManager.class.getName());
+		System.setProperty("org.apache.commons.logging.LogFactory", "org.apache.commons.logging.impl.LogFactoryImpl");
+		System.setProperty("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.Jdk14Logger");
+		System.setProperty("java.util.logging.manager", "com.l2jfree.util.logging.L2LogManager");
+		
+		FileInputStream fis = null;
+		try
+		{
+			fis = new FileInputStream(LOG_FILE);
+			
+			LogManager.getLogManager().readConfiguration(fis);
+		}
+		catch (Exception e)
+		{
+			try
+			{
+				// if failed to load 'logging.properties', then load default logging parameters
+				LogManager.getLogManager().readConfiguration();
+			}
+			catch (Exception e1)
+			{
+				throw new Error(e1);
+			}
+		}
+		finally
+		{
+			IOUtils.closeQuietly(fis);
+		}
+		
+		_log = LogFactory.getLog(L2Config.class);
+		_log.info("logging initialized");
 	}
-	
-	protected static final Log _log = LogFactory.getLog(L2Config.class);
-	
-	public static final String TELNET_FILE = "./config/telnet.properties";
 	
 	protected L2Config()
 	{
