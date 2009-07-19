@@ -833,8 +833,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="isDebuff" val="true"/>
     <set name="reuseDelay" val="8000"/>
-    <set name="hitTime" val="1500"/>
-	<set name="staticHitTime" val="true"/>
+    <set name="hitTime" val="2000"/>
     <set name="skillType" val="WEAKNESS"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -858,8 +857,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="isDebuff" val="true"/>
     <set name="reuseDelay" val="8000"/>
-    <set name="hitTime" val="1500"/>
-	<set name="staticHitTime" val="true"/>
+    <set name="hitTime" val="2000"/>
     <set name="skillType" val="WEAKNESS"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -883,8 +881,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="isDebuff" val="true"/>
     <set name="reuseDelay" val="8000"/>
-    <set name="hitTime" val="1500"/>
-	<set name="staticHitTime" val="true"/>
+    <set name="hitTime" val="2000"/>
     <set name="skillType" val="WEAKNESS"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -908,8 +905,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="isDebuff" val="true"/>
     <set name="reuseDelay" val="8000"/>
-    <set name="hitTime" val="1500"/>
-	<set name="staticHitTime" val="true"/>
+    <set name="hitTime" val="2000"/>
     <set name="skillType" val="WEAKNESS"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -933,8 +929,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="isDebuff" val="true"/>
     <set name="reuseDelay" val="8000"/>
-    <set name="hitTime" val="1500"/>
-	<set name="staticHitTime" val="true"/>
+    <set name="hitTime" val="2000"/>
     <set name="skillType" val="WEAKNESS"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>

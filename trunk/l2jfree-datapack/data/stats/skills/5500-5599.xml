@@ -167,9 +167,7 @@
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="reuseDelay" val="2000"/>
-    <set name="hitTime" val="1500"/>
-	<set name="staticHitTime" val="true"/>
+    <set name="hitTime" val="2000"/>
   </skill>
   <skill id="5530" levels="12" name="Blood Storm">
     <set name="target" val="TARGET_NONE"/>

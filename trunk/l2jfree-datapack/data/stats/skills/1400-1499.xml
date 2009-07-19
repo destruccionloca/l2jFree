@@ -47,7 +47,7 @@
     <set name="itemConsumeCount" val="1"/>
     <set name="power" val="#power"/>
     <set name="reuseDelay" val="1000"/>
-    <set name="hitTime" val="2000"/>
+    <set name="hitTime" val="5000"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="HEAL"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -69,7 +69,7 @@
     <set name="itemConsumeCount" val="4"/>
     <set name="power" val="#power"/>
     <set name="reuseDelay" val="1200"/>
-    <set name="hitTime" val="3000"/>
+    <set name="hitTime" val="7000"/>
     <set name="skillRadius" val="1000"/>
     <set name="target" val="TARGET_PARTY"/>
     <set name="skillType" val="HEAL"/>
@@ -740,9 +740,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="lvlDepend" val="3"/>
-    <set name="reuseDelay" val="5000"/>
-    <set name="hitTime" val="1500"/>
-	<set name="staticReuse" val="true"/>
+    <set name="reuseDelay" val="3000"/>
+    <set name="hitTime" val="1200"/>
     <set name="coolTime" val="800"/>
     <set name="skillType" val="DEBUFF"/>
     <set name="isMagic" val="true"/>
@@ -776,9 +775,8 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="5"/> <!-- Dark -->
     <set name="elementPower" val="20"/>
-    <set name="reuseDelay" val="1200"/>
-    <set name="hitTime" val="2500"/>
-	<set name="staticHitTime" val="true"/>
+    <set name="reuseDelay" val="2400"/>
+    <set name="hitTime" val="1800"/>
     <set name="coolTime" val="300"/>
     <set name="skillType" val="MDAM"/>
     <set name="isMagic" val="true"/>
@@ -814,10 +812,7 @@
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
-    <set name="reuseDelay" val="4000"/>
-    <set name="hitTime" val="1500"/>
-	<set name="staticHitTime" val="true"/>
-	<set name="staticReuse" val="true"/>
+    <set name="hitTime" val="1800"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
     <set name="target" val="TARGET_FRONT_AREA"/>
@@ -828,6 +823,7 @@
     <set name="elementPower" val="20"/>
     <set name="lvlDepend" val="1"/>
     <set name="effectRange" val="400"/>
+    <set name="reuseDelay" val="3750"/>
     <set name="isDebuff" val="true"/>
     <set name="soulMaxConsumeCount" val="5"/>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
@@ -853,9 +849,8 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="target" val="TARGET_AREA"/>
     <set name="skillRadius" val="200"/>
-    <set name="reuseDelay" val="1200"/>
-    <set name="hitTime" val="2500"/>
-	<set name="staticHitTime" val="true"/>
+    <set name="reuseDelay" val="2400"/>
+    <set name="hitTime" val="1800"/>
     <set name="element" val="5"/> <!-- Dark -->
     <set name="elementPower" val="20"/>
     <set name="lvlDepend" val="2"/>
@@ -880,9 +875,8 @@
     <set name="power" val="#power"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="1200"/>
-    <set name="hitTime" val="2500"/>
-	<set name="staticHitTime" val="true"/>
+    <set name="hitTime" val="1800"/>
+    <set name="reuseDelay" val="2400"/>
     <set name="element" val="5"/> <!-- Dark -->
     <set name="elementPower" val="20"/>
     <set name="coolTime" val="320"/>
@@ -903,9 +897,8 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="6000"/>
-    <set name="hitTime" val="2500"/>
-	<set name="staticReuse" val="true"/>
+    <set name="reuseDelay" val="15000"/>
+    <set name="hitTime" val="1800"/>
     <set name="isDebuff" val="true"/>
     <set name="skillType" val="STEAL_BUFF"/>
     <set name="isMagic" val="true"/>
@@ -1029,9 +1022,8 @@
     <set name="power" val="80"/>
     <set name="lvlDepend" val="2"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="8000"/>
-    <set name="hitTime" val="1500"/>
-	<set name="staticHitTime" val="true"/>
+    <set name="reuseDelay" val="500"/>
+    <set name="hitTime" val="1200"/>
     <set name="skillType" val="WEAKNESS"/>
     <set name="isMagic" val="true"/>
     <set name="isDebuff" val="true"/>
@@ -1135,11 +1127,10 @@
     <set name="magicLvl" val="79"/>
     <set name="power" val="162"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="8000"/>
-    <set name="hitTime" val="2000"/>
-	<set name="staticHitTime" val="true"/>
-	<set name="staticReuse" val="true"/>
-    <set name="element" val="0"/><!-- Fire -->
+    <set name="hitTime" val="1200"/>
+    <set name="element" val="0"/> <!-- Fire -->
+    <set name="elementPower" val="20"/>
+    <set name="reuseDelay" val="12000"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
@@ -1180,11 +1171,10 @@
     <set name="magicLvl" val="79"/>
     <set name="power" val="162"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="8000"/>
-    <set name="hitTime" val="2000"/>
-	<set name="staticHitTime" val="true"/>
-	<set name="staticReuse" val="true"/>
-    <set name="element" val="1"/><!-- Water -->
+    <set name="hitTime" val="1200"/>
+    <set name="element" val="1"/> <!-- Water -->
+    <set name="elementPower" val="20"/>
+    <set name="reuseDelay" val="12000"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
@@ -1243,11 +1233,10 @@
     <set name="magicLvl" val="79"/>
     <set name="power" val="162"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="8000"/>
-    <set name="hitTime" val="2000"/>
-	<set name="staticHitTime" val="true"/>
-	<set name="staticReuse" val="true"/>
-    <set name="element" val="2"/><!-- Wind -->
+    <set name="hitTime" val="1200"/>
+    <set name="element" val="2"/> <!-- Wind -->
+    <set name="elementPower" val="20"/>
+    <set name="reuseDelay" val="12000"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
@@ -1786,9 +1775,9 @@
     <set name="skillType" val="HOT"/>
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1200"/>
-    <set name="reuseDelay" val="2000"/> <!-- Need retail -->
+    <set name="reuseDelay" val="9000"/> <!-- Need retail -->
     <for>
-      <effect count="5" name="HealOverTime" time="3" val="#Tab-Heal"/>
+      <effect count="40" name="HealOverTime" time="3" val="#Tab-Heal"/>
     </for>
   </skill>
   <skill id="1488" levels="3" name="Restoration Impact">
@@ -1805,7 +1794,7 @@
     <set name="skillType" val="HEAL_PERCENT"/>
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1200"/>
-    <set name="reuseDelay" val="2000"/> <!-- Need retail -->
+    <set name="reuseDelay" val="90000"/> <!-- Need retail -->
     <set name="negateId" val="1487"/>
     <cond msg="Target does not have an active Restoration skill."> <!-- Need retail msg if there is one. -->
       <target active_effect_id="1487"/>
