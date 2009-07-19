@@ -40,52 +40,78 @@ import com.l2jfree.gameserver.util.Util;
  */
 public class Say2 extends L2GameClientPacket
 {
-	private static final String		_C__38_SAY2	= "[C] 38 Say2";
-	private final static Log		_log		= LogFactory.getLog(Say2.class.getName());
-	private static Log				_logChat	= LogFactory.getLog("chat");
-
-	private String					_text;
-	private SystemChatChannelId		_type;
-	private String					_target;
-
-	private static final String[]	LINKED_ITEM	= { "Type=", "ID=", "Color=", "Underline=", "Title=" };
-
+	private static final String _C__38_SAY2 = "[C] 38 Say2";
+	
+	private static final Log _logChat = LogFactory.getLog("chat");
+	
+	private String _text;
+	private SystemChatChannelId _type;
+	private String _target;
+	
+	private static final String[] LINKED_ITEM = { "Type=", "ID=", "Color=", "Underline=", "Title=" };
+	
 	/**
 	 * packet type id 0x38 format: cSd (S)
 	 */
 	@Override
 	protected void readImpl()
 	{
-		_text = readS().replaceAll("\\\\n", "");
+		_text = readS();
 		_type = SystemChatChannelId.getChatType(readD());
 		_target = _type == SystemChatChannelId.Chat_Tell ? readS() : null;
 	}
-
+	
 	@Override
 	protected void runImpl()
 	{
-		L2PcInstance activeChar = getClient().getActiveChar();
+		final L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)
-		{
-			_log.warn("[Say2.java] Active Character is null.");
 			return;
-		}
-
-		// If no or wrong channel is used - return
-		if (_type == SystemChatChannelId.Chat_None || _type == SystemChatChannelId.Chat_Announce || _type == SystemChatChannelId.Chat_Critical_Announce || _type == SystemChatChannelId.Chat_System || _type == SystemChatChannelId.Chat_Custom
-				|| (_type == SystemChatChannelId.Chat_GM_Pet && !activeChar.isGM()))
+		
+		// If no or wrong channel is used - punish/return
+		switch (_type)
 		{
-			sendPacket(ActionFailed.STATIC_PACKET);
-			return;
+			case Chat_None:
+			case Chat_Announce:
+			case Chat_Critical_Announce:
+			case Chat_System:
+			case Chat_Custom:
+			{
+				if (Config.BAN_CLIENT_EMULATORS)
+					Util.handleIllegalPlayerAction(activeChar, "Bot usage for chatting with wrong type by " + activeChar);
+				else
+					sendPacket(ActionFailed.STATIC_PACKET);
+				return;
+			}
+			case Chat_GM_Pet:
+			{
+				if (!activeChar.isGM())
+				{
+					if (Config.BAN_CLIENT_EMULATORS)
+						Util.handleIllegalPlayerAction(activeChar, "Bot usage for chatting with wrong type by " + activeChar);
+					else
+						sendPacket(ActionFailed.STATIC_PACKET);
+					return;
+				}
+			}
 		}
-
-		// If player is chat banned
-		if (ObjectRestrictions.getInstance().checkRestriction(activeChar, AvailableRestriction.PlayerChat) && _type != SystemChatChannelId.Chat_User_Pet && _type != SystemChatChannelId.Chat_Tell)
+		
+		switch (_type)
 		{
-			requestFailed(SystemMessageId.CHATTING_IS_CURRENTLY_PROHIBITED);
-			return;
+			case Chat_User_Pet:
+			case Chat_Tell:
+				break;
+			default:
+			{
+				// If player is chat banned
+				if (ObjectRestrictions.getInstance().checkRestriction(activeChar, AvailableRestriction.PlayerChat))
+				{
+					requestFailed(SystemMessageId.CHATTING_IS_CURRENTLY_PROHIBITED);
+					return;
+				}
+			}
 		}
-
+		
 		if (activeChar.isCursedWeaponEquipped())
 		{
 			switch (_type)
@@ -96,61 +122,85 @@ public class Say2 extends L2GameClientPacket
 					return;
 			}
 		}
-
-		// If player is jailed
-		if ((activeChar.isInJail() || activeChar.isInsideZone(L2Zone.FLAG_JAIL)) && Config.JAIL_DISABLE_CHAT && !activeChar.isGM())
+		
+		switch (_type)
 		{
-			if (_type != SystemChatChannelId.Chat_User_Pet && _type != SystemChatChannelId.Chat_Normal)
+			case Chat_User_Pet:
+			case Chat_Normal:
+				break;
+			default:
 			{
-				requestFailed(SystemMessageId.CHATTING_IS_CURRENTLY_PROHIBITED);
-				return;
+				// If player is jailed
+				if ((activeChar.isInJail() || activeChar.isInsideZone(L2Zone.FLAG_JAIL)) && Config.JAIL_DISABLE_CHAT && !activeChar.isGM())
+				{
+					requestFailed(SystemMessageId.CHATTING_IS_CURRENTLY_PROHIBITED);
+					return;
+				}
 			}
 		}
-
+		
 		// If Petition and GM use GM_Petition Channel
 		if (_type == SystemChatChannelId.Chat_User_Pet && activeChar.isGM())
 			_type = SystemChatChannelId.Chat_GM_Pet;
-
-		if (!Config.GM_ALLOW_CHAT_INVISIBLE && activeChar.getAppearance().isInvisible() && (_type == SystemChatChannelId.Chat_Normal || _type == SystemChatChannelId.Chat_Shout || _type == SystemChatChannelId.Chat_Market))
+		
+		switch (_type)
 		{
-			requestFailed(SystemMessageId.NOT_CHAT_WHILE_INVISIBLE);
-			return;
-		}
-
-		if (Config.BAN_CLIENT_EMULATORS)
-		{
-			//Under no circumstances the official client will send a 400 character message
-			//If there are no linked items in the message, you can only input 105 characters
-			if (_text.length() > 400 || (_text.length() > 105 && !containsLinkedItems()))
+			case Chat_Normal:
+			case Chat_Shout:
+			case Chat_Market:
 			{
-				Util.handleIllegalPlayerAction(activeChar, "Bot usage for chatting by " + activeChar, IllegalPlayerAction.PUNISH_KICK);
+				if (!Config.GM_ALLOW_CHAT_INVISIBLE && activeChar.getAppearance().isInvisible())
+				{
+					requestFailed(SystemMessageId.NOT_CHAT_WHILE_INVISIBLE);
+					return;
+				}
 			}
 		}
-		else if (_text.length() > 400)
+		
+		//Under no circumstances the official client will send a 400 character message
+		//If there are no linked items in the message, you can only input 105 characters
+		if (_text.length() > 400 || (_text.length() > 105 && !containsLinkedItems()))
 		{
-			requestFailed(SystemMessageId.DONT_SPAM);
+			if (Config.BAN_CLIENT_EMULATORS)
+				Util.handleIllegalPlayerAction(activeChar, "Bot usage for chatting with too long messages by " + activeChar);
+			else
+				requestFailed(SystemMessageId.DONT_SPAM);
 			//prevent crashing official clients
 			return;
 		}
-
+		
+		final int oldLength = _text.length();
+		
+		_text = _text.replaceAll("\\\\n", "");
+		
+		if (oldLength != _text.length())
+		{
+			if (Config.BAN_CLIENT_EMULATORS)
+				Util.handleIllegalPlayerAction(activeChar, "Bot usage for chatting in multiple lines by " + activeChar);
+			else
+				requestFailed(SystemMessageId.DONT_SPAM);
+			//prevent crashing official clients
+			return;
+		}
+		
 		// Say Filter implementation
 		if (Config.USE_SAY_FILTER)
 			for (String pattern : Config.FILTER_LIST)
 				_text = _text.replaceAll("(?i)" + pattern, "-_-");
-
+		
 		if (_text.startsWith("."))
 		{
 			String[] _commandParams = _text.split(" ");
-
+			
 			String command = _commandParams[0].substring(1);
 			String params = "";
-
+			
 			// if entered "command text"
 			if (_commandParams.length > 1)
 				params = _text.substring(1 + command.length()).trim(); // get all text
 			else if (activeChar.getTarget() != null)
 				params = activeChar.getTarget().getName();
-
+			
 			IVoicedCommandHandler vch = VoicedCommandHandler.getInstance().getVoicedCommandHandler(command);
 			if (vch != null)
 			{
@@ -159,7 +209,7 @@ public class Say2 extends L2GameClientPacket
 				return;
 			}
 		}
-
+		
 		// Some custom implementation to show how to add channels
 		// (for me Chat_System is used for emotes - further informations
 		// in ChatSystem.java)
@@ -172,7 +222,7 @@ public class Say2 extends L2GameClientPacket
 		//	_text = _text.substring(1);
 		//	_text = "*" + _text + "*";
 		//}
-
+		
 		// Log chat to file
 		if (Config.LOG_CHAT)
 		{
@@ -181,30 +231,20 @@ public class Say2 extends L2GameClientPacket
 			else
 				_logChat.info(_type.getName() + "[" + activeChar.getName() + "] " + _text);
 		}
-
+		
 		IChatHandler ich = ChatHandler.getInstance().getChatHandler(_type);
 		if (ich != null)
 			ich.useChatHandler(activeChar, _target, _type, _text);
-
+		
 		sendPacket(ActionFailed.STATIC_PACKET);
 	}
-
+	
 	@Override
 	public String getType()
 	{
 		return _C__38_SAY2;
 	}
-
-	public void changeString(String newString)
-	{
-		_text = newString;
-	}
-
-	public String getSay()
-	{
-		return _text;
-	}
-
+	
 	private boolean containsLinkedItems()
 	{
 		for (int i = 0; i < LINKED_ITEM.length; i++)
