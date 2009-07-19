@@ -103,9 +103,9 @@ public class BanManager
 	}
 
 	/**
-	 * Store a ban IP in memory. 
+	 * Store a ban IP in memory.
 	 * Read a line, ignore comment and split it to get the IP and the expiration
-	 * If no expiration was found, this is a eternal ban 
+	 * If no expiration was found, this is a eternal ban
 	 * @param line
 	 */
 	private void addBannedIP(String line)
@@ -164,7 +164,7 @@ public class BanManager
      * @throws UnknownHostException if the address is invalid.
      */
     public void addBanForAddress(String address, long expiration) throws UnknownHostException
-    { 
+    {
         InetAddress netAddress = InetAddress.getByName(address);
         SubNet _net = new SubNet(netAddress.getHostAddress());
         if (expiration != 0)
@@ -186,7 +186,7 @@ public class BanManager
     		_bannedIps.put(_net, new BanInfo(_net,  System.currentTimeMillis() + duration));
     	else
     		_restrictedIps.put(_net, new BanInfo(_net,  0));
-    } 
+    }
     
     /**
      * Adds the address to the ban list of the login server, with the given duration.
@@ -201,7 +201,7 @@ public class BanManager
     		_bannedIps.put(_net, new BanInfo(_net,  System.currentTimeMillis() + duration));
     	else
     		_restrictedIps.put(_net, new BanInfo(_net,  0));
-    }    
+    }
     
     public boolean isRestrictedAddress(InetAddress address)
     {
@@ -317,6 +317,6 @@ public class BanManager
 
     public int getTempBanCount()
     {
-       return _bannedIps.size(); 
+       return _bannedIps.size();
     }
 }

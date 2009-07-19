@@ -590,7 +590,7 @@ public class LoginManager
 			_hackProtection.remove(address.getHostAddress());
 		}
 		if (_logLogin.isDebugEnabled())
-			_log.debug("login successfull for '" + user + "' " + (address == null ? "null" : address.getHostAddress()));
+			_logLogin.debug("login successfull for '" + user + "' " + (address == null ? "null" : address.getHostAddress()));
 	}
 
 	/**

@@ -15,11 +15,8 @@
 package com.l2jfree.loginserver;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.InetAddress;
-import java.util.logging.LogManager;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -74,22 +71,13 @@ public class L2LoginServer
 
 	public L2LoginServer() throws IOException
 	{
-		// Local Constants
-		// ----------------
-		final String LOG_FOLDER = "log"; // Name of folder for log file
-		final String LOG_NAME = "./config/logging.properties"; // Name of log file
-
 		// Create log folder
 		// ------------------
-		File logFolder = new File(LOG_FOLDER);
-		logFolder.mkdir();
-
-		// Create input stream for log file -- or store file data into memory
-		// ------------------------------------------------------------------
-		InputStream is = new FileInputStream(new File(LOG_NAME));
-		LogManager.getLogManager().readConfiguration(is);
-		is.close();
-
+		new File("log").mkdirs();
+		new File("log/java").mkdirs();
+		new File("log/error").mkdirs();
+		new File("log/login").mkdirs();
+		
 		// Initialize config
 		// ------------------
 		Config.load();
