@@ -226,7 +226,7 @@ public class RegionBBSManager extends BaseBBSManager
 				}
 				if (activeChar.isInJail() && Config.JAIL_DISABLE_CHAT)
 				{
-					activeChar.sendMessage("You can not chat while in jail.");
+					activeChar.sendMessage("You cannot chat while in jail.");
 					return;
 				}
 
@@ -291,7 +291,7 @@ public class RegionBBSManager extends BaseBBSManager
 		CommunityPageType.PLAYER.clear();
 		CommunityPageType.GM.clear();
 	}
-	
+
 	private static final SimpleDateFormat format = new SimpleDateFormat("H:mm");
 	private static final String tdClose = "</td>";
 	private static final String tdOpen = "<td align=left valign=top>";
@@ -303,101 +303,101 @@ public class RegionBBSManager extends BaseBBSManager
 	{
 		PLAYER,
 		GM;
-		
+
 		private static CommunityPageType getType(L2PcInstance activeChar)
 		{
 			return activeChar.isGM() ? GM : PLAYER;
 		}
-		
+
 		private final List<L2PcInstance> _players = new ArrayList<L2PcInstance>();
 		private final Map<Integer, String> _communityPages = new FastMap<Integer, String>();
-		
+
 		private synchronized void clear()
 		{
 			_players.clear();
 			_communityPages.clear();
 		}
-		
+
 		private synchronized String getPage(int page)
 		{
 			if (_players.isEmpty())
 			{
 				clear();
-				
+
 				for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 				{
 					if (player == null)
 						continue;
-					
+
 					if (player.isGM() && player.getAppearance().isInvisible())
 						if (CommunityPageType.PLAYER == this)
 							continue;
-					
+
 					_players.add(player);
 				}
-				
+
 				Collections.sort(_players, new Comparator<L2PcInstance>() {
 					private Integer getOrder(L2PcInstance player)
 					{
 						if (player.isGM())
 							return 1;
-						
+
 						if (Config.SHOW_JAILED_PLAYERS)
 							if (player.isInJail())
 								return 2;
-						
+
 						if (Config.SHOW_CURSED_WEAPON_OWNER)
 							if (player.isCursedWeaponEquipped())
 								return 3;
-						
+
 						if (Config.SHOW_KARMA_PLAYERS)
 							if (player.getKarma() > 0)
 								return 4;
-						
+
 						if (Config.SHOW_CLAN_LEADER)
 							if (player.isClanLeader() && player.getClan().getLevel() >= Config.SHOW_CLAN_LEADER_CLAN_LEVEL)
 								return 5;
-						
+
 						if (player.isInOfflineMode())
 							return 6;
-						
+
 						return 10;
 					}
-					
+
 					public int compare(L2PcInstance p1, L2PcInstance p2)
 					{
 						final int value = getOrder(p1).compareTo(getOrder(p2));
-						
+
 						if (value != 0)
 							return value;
-						
+
 						return p1.getName().compareToIgnoreCase(p2.getName());
 					}
 				});
 			}
-			
+
 			final String communityPage = _communityPages.get(page);
-			
+
 			if (communityPage != null)
 				return communityPage;
-			
+
 			final String generatedPage = generateHtml(page);
-			
+
 			_communityPages.put(page, generatedPage);
-			
+
 			return generatedPage;
 		}
-		
+
 		private String generateHtml(int page)
 		{
 			if ((page - 1) * Config.NAME_PAGE_SIZE_COMMUNITYBOARD >= _players.size())
 				return null;
-			
+
 			final int fromIndex = (page - 1) * Config.NAME_PAGE_SIZE_COMMUNITYBOARD;
 			final int toIndex = Math.min(_players.size(), fromIndex + Config.NAME_PAGE_SIZE_COMMUNITYBOARD);
-			
+
 			final List<L2PcInstance> onlinePlayers = _players.subList(fromIndex, toIndex);
-			
+
 			final TextBuilder htmlCode = TextBuilder.newInstance();
 			htmlCode.append("<html><body><br>");
 			htmlCode.append("<table>");
@@ -405,7 +405,7 @@ public class RegionBBSManager extends BaseBBSManager
 				htmlCode.append(trOpen);
 				{
 					final String gameTime = GameTimeController.getInstance().getFormattedGameTime();
-					
+
 					htmlCode.append(tdOpen).append("Server Time: ").append(format.format(new Date())).append(tdClose);
 					htmlCode.append(colSpacer);
 					htmlCode.append(tdOpen).append("Game Time: ").append(gameTime).append(tdClose);
@@ -489,25 +489,25 @@ public class RegionBBSManager extends BaseBBSManager
 				}
 			}
 			htmlCode.append("</table>");
-			
+
 			if (Config.BBS_SHOW_PLAYERLIST)
 			{
 				htmlCode.append("<table border=0>");
 				htmlCode.append("<tr><td><table border=0>");
-				
+
 				int cell = 0;
 				for (L2PcInstance player : onlinePlayers)
 				{
 					if (player == null)
 						continue;
-					
+
 					cell++;
-					
+
 					if (cell == 1)
 						htmlCode.append(trOpen);
-					
+
 					htmlCode.append("<td align=left valign=top FIXWIDTH=110><a action=\"bypass _bbsloc;playerinfo;").append(player.getName()).append("\">");
-					
+
 					if (player.isGM())
 						htmlCode.append("<font color=\"LEVEL\">").append(player.getName()).append("</font>");
 					else if (player.isInJail() && Config.SHOW_JAILED_PLAYERS)
@@ -522,12 +522,12 @@ public class RegionBBSManager extends BaseBBSManager
 						htmlCode.append(player.getName()).append(" (Offline Mode)");
 					else
 						htmlCode.append(player.getName());
-					
+
 					htmlCode.append("</a></td>");
-					
+
 					if (cell < Config.NAME_PER_ROW_COMMUNITYBOARD)
 						htmlCode.append(colSpacer);
-					
+
 					if (cell == Config.NAME_PER_ROW_COMMUNITYBOARD)
 					{
 						cell = 0;
@@ -537,18 +537,18 @@ public class RegionBBSManager extends BaseBBSManager
 				if (cell > 0 && cell < Config.NAME_PER_ROW_COMMUNITYBOARD)
 					htmlCode.append(trClose);
 				htmlCode.append("</table><br></td></tr>");
-				
+
 				htmlCode.append(trOpen);
 				htmlCode.append("<td><img src=\"sek.cbui355\" width=600 height=1><br></td>");
 				htmlCode.append(trClose);
-				
+
 				htmlCode.append("</table>");
 			}
-			
+
 			if (_players.size() > Config.NAME_PAGE_SIZE_COMMUNITYBOARD)
 			{
 				htmlCode.append("<table border=0 width=600>");
-				
+
 				htmlCode.append("<tr>");
 				if (page == 1)
 					htmlCode.append("<td align=right width=190><button value=\"Prev\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
@@ -567,9 +567,9 @@ public class RegionBBSManager extends BaseBBSManager
 				htmlCode.append("</tr>");
 				htmlCode.append("</table>");
 			}
-			
+
 			htmlCode.append("</body></html>");
-			
+
 			try
 			{
 				return htmlCode.toString();

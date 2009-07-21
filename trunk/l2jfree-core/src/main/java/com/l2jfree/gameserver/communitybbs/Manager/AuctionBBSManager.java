@@ -792,7 +792,7 @@ public class AuctionBBSManager extends BaseBBSManager
 		NpcHtmlMessage nhm = new NpcHtmlMessage(5);
 		TextBuilder html = new TextBuilder("<html><body>");
 
-		html.append("<title>Auction Buy NowComfirmation Window</title>");
+		html.append("<title>Auction Buy Now Comfirmation Window</title>");
 		html.append("Congrats! You have won the auction by default, the auction will soon be processed.");
 
 		html.append("</body></html>");
