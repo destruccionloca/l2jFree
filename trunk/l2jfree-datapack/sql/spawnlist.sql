@@ -40679,7 +40679,8 @@ DELETE FROM `spawnlist` WHERE `npc_templateId` IN
 DELETE FROM `spawnlist`WHERE `npc_templateid` = 30484;
 
 INSERT INTO `spawnlist` (`location`, `count`, `npc_templateid`, `locx`, `locy`, `locz`, `randomx`, `randomy`, `heading`, `respawn_delay`, `loc_id`, `periodOfDay`) VALUES 
-('', 1, 30484, 17539, 113911, -11673, 0, 0, 12333, 60, 0, 0);
+('', 1, 30484, 17539, 113911, -11673, 0, 0, 12333, 60, 0, 0),
+('', 1, 30487, 17904, 113931, -11673, 0, 0, 16383, 60, 0, 0);
 
 -- Clan Hall Doormen Fix
 UPDATE `spawnlist` SET `npc_templateid` = 35440 WHERE `id` = 33771;
