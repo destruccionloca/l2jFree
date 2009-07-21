@@ -145,7 +145,7 @@ abstract class AbstractFunEventRestriction extends AbstractRestriction
 	@Override
 	public final boolean canBeInsidePeaceZone(L2PcInstance activeChar, L2PcInstance target)
 	{
-		if (isInFunEvent(activeChar) && isInFunEvent(target))
+		if (isInFunEvent(activeChar) && isInFunEvent(target) && started())
 			return false;
 		
 		return true;
