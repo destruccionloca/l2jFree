@@ -33,7 +33,7 @@ public abstract class L2EntityMap<T extends L2Entity<Integer>>
 	
 	protected L2EntityMap()
 	{
-		if (this instanceof L2SharedEntityMap)
+		if (this instanceof L2SharedEntityMap<?>)
 			_map.setShared();
 	}
 	
@@ -96,7 +96,7 @@ public abstract class L2EntityMap<T extends L2Entity<Integer>>
 		
 		Collection<T> values = _map.values();
 		
-		if (values instanceof FastCollection)
+		if (values instanceof FastCollection<?>)
 		{
 			FastCollection<T> values2 = (FastCollection<T>)values;
 			

@@ -306,6 +306,7 @@ public abstract class L2Character extends L2Object
 					return true;
 				if (isInsideZone(L2Zone.FLAG_PEACE))
 					return false;
+				break;
 			}
 			case L2Zone.FLAG_PEACE:
 			{
@@ -5728,7 +5729,7 @@ public abstract class L2Character extends L2Object
 		if (newSkill == null)
 			return null;
 		
-		if (!(_skills instanceof FastMap)) // map returned by L2NpcTemplate.getSkills()
+		if (!(_skills instanceof FastMap<?, ?>)) // map returned by L2NpcTemplate.getSkills()
 			_skills = new FastMap<Integer, L2Skill>(_skills).setShared(true);
 		
 		// Replace oldSkill by newSkill or Add the newSkill
