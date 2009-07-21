@@ -9559,3 +9559,6 @@ UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2341-1' WHERE `i
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2580-1' WHERE `item_id` = 13028;
 UPDATE `etcitem` SET `handler` = 'EnchantAttr' WHERE `item_id` >= '9546' AND `item_id` <= '9569';
 UPDATE `etcitem` SET `sellable` = 'true', `dropable` = 'true', `destroyable` = 'true', `tradeable` = 'true' where item_id >= 8570 and item_id <= 8575;
+-- Temp fix for Sound Crystals 
+UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2073-1' WHERE `item_id` = 4416;
+UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2073-2' WHERE `item_id` = 7061;

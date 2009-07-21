@@ -748,7 +748,14 @@
     <set name="skillType" val="DUMMY"/>
     <set name="operateType" val="OP_ACTIVE"/>
   </skill>
-  <skill id="2073" levels="1" name="Item - Theme Sound Crystal">
+  <skill id="2073" levels="2" name="Item - Theme Sound Crystal">
+    <!--  
+      Since no icon is shown on sound crystals,
+      lvl 2 is just a temp fix for 2 items using same skill.
+    -->
+    <table name="#itemConsume"> 4416 7061 </table>
+    <set name="itemConsumeId" val="#itemConsume"/>
+    <set name="itemConsumeCount" val="1"/>
     <set name="isPotion" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="DUMMY"/>
