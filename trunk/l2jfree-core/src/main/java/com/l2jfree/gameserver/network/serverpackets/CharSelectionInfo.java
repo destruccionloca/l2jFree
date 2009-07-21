@@ -20,9 +20,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.datatables.ClanTable;
@@ -37,8 +34,6 @@ import com.l2jfree.gameserver.network.L2GameClient;
 public class CharSelectionInfo extends L2GameServerPacket
 {
 	private static final String _S__09_CHARSELECTINFO = "[S] 09 CharSelectInfo [ddc (sdsddd dddd ddd ff d q ddddd dddddddddddddddddddddddddddddddddd ff ddd hh d)]";
-
-	private final static Log _log = LogFactory.getLog(CharSelectionInfo.class.getName());
 
 	private String _loginName;
 

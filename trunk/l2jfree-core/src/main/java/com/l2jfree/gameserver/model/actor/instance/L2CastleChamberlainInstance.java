@@ -22,9 +22,6 @@ import java.util.StringTokenizer;
 
 import javolution.text.TextBuilder;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.ai.CtrlIntention;
@@ -56,8 +53,6 @@ import com.l2jfree.gameserver.util.Util;
  */
 public class L2CastleChamberlainInstance extends L2MerchantInstance
 {
-	private final static Log	_log						= LogFactory.getLog(L2CastleChamberlainInstance.class.getName());
-
 	protected static final int	COND_ALL_FALSE				= 0;
 	protected static final int	COND_BUSY_BECAUSE_OF_SIEGE	= 1;
 	protected static final int	COND_OWNER					= 2;

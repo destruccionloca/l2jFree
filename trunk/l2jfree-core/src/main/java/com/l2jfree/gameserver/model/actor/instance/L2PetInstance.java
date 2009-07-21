@@ -20,9 +20,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.concurrent.Future;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.ThreadPoolManager;
@@ -66,8 +63,6 @@ import com.l2jfree.tools.random.Rnd;
 
 public class L2PetInstance extends L2Summon
 {
-	private final static Log _log = LogFactory.getLog(L2PetInstance.class.getName());
-	
 	private int _curFed;
 	public PetInventory _inventory;
 	public final int _controlItemId;

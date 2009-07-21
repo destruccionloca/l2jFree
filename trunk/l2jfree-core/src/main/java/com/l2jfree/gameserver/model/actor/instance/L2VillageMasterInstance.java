@@ -19,9 +19,6 @@ import java.util.Set;
 
 import javolution.text.TextBuilder;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.CharTemplateTable;
 import com.l2jfree.gameserver.datatables.ClanTable;
@@ -65,8 +62,6 @@ import com.l2jfree.gameserver.util.FloodProtector.Protected;
  */
 public final class L2VillageMasterInstance extends L2NpcInstance
 {
-	private final static Log	_log	= LogFactory.getLog(L2VillageMasterInstance.class.getName());
-
 	/**
 	 * @param template
 	 */

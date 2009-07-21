@@ -17,9 +17,6 @@ package com.l2jfree.gameserver.network.serverpackets;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.model.ItemInfo;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 
@@ -51,7 +48,6 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 
 public class InventoryUpdate extends L2GameServerPacket
 {
-    private final static Log _log = LogFactory.getLog(InventoryUpdate.class.getName());
 	private static final String _S__37_INVENTORYUPDATE = "[S] 27 InventoryUpdate";
 	
     private List<ItemInfo> _items;

@@ -27,9 +27,6 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.ThreadPoolManager;
@@ -54,8 +51,6 @@ import com.l2jfree.gameserver.templates.item.L2Weapon;
  */
 public class L2AirShipInstance extends L2Character
 {
-	private static final Log _log = LogFactory.getLog(L2AirShipInstance.class);
-	
 	public float boatSpeed;
 	protected final FastList<L2PcInstance> _passengers = new FastList<L2PcInstance>();
 	

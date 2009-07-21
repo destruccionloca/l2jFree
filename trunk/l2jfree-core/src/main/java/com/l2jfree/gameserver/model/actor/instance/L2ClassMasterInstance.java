@@ -16,9 +16,6 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import javolution.text.TextBuilder;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.CharTemplateTable;
@@ -37,8 +34,6 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  **/
 public final class L2ClassMasterInstance extends L2NpcInstance
 {
-	private final static Log	_log	= LogFactory.getLog(L2ClassMasterInstance.class.getName());
-
 	/**
 	 * @param template
 	 */

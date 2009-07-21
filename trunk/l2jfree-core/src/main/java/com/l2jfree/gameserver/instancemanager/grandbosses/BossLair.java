@@ -14,9 +14,6 @@
  */
 package com.l2jfree.gameserver.instancemanager.grandbosses;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Entity;
@@ -33,8 +30,6 @@ import com.l2jfree.gameserver.model.quest.QuestState;
  */
 public abstract class BossLair extends Entity
 {
-	protected final static Log	_log	= LogFactory.getLog(BossLair.class.getName());
-
 	public abstract void init();
 
 	public abstract void setUnspawn();

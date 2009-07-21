@@ -16,9 +16,6 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import javolution.text.TextBuilder;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
@@ -44,8 +41,6 @@ import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
  */
 public class L2StaticObjectInstance extends L2Character
 {
-	protected final static Log _log = LogFactory.getLog(L2StaticObjectInstance.class.getName());
-	
 	/** The interaction distance of the L2StaticObjectInstance */
 	public static final int INTERACTION_DISTANCE = 150;
 	

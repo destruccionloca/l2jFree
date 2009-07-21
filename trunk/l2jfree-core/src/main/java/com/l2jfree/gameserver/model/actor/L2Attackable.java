@@ -21,9 +21,6 @@ import java.util.Map;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ItemsAutoDestroy;
 import com.l2jfree.gameserver.ThreadPoolManager;
@@ -80,8 +77,6 @@ import com.l2jfree.util.SingletonMap;
  */
 public class L2Attackable extends L2Npc
 {
-	protected final static Log	_log	= LogFactory.getLog(L2Attackable.class.getName());
-
 	/**
 	 * This class contains all AggroInfo of the L2Attackable against the
 	 * attacker L2Character.<BR>
@@ -567,7 +562,6 @@ public class L2Attackable extends L2Npc
 	 * 
 	 * @param lastAttacker The L2Character that has killed the L2Attackable
 	 */
-	@SuppressWarnings("null")
 	@Override
 	protected void calculateRewards(L2Character lastAttacker)
 	{

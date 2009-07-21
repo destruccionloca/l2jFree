@@ -15,9 +15,6 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.handler.IUserCommandHandler;
 import com.l2jfree.gameserver.handler.UserCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -30,8 +27,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public class BypassUserCmd extends L2GameClientPacket
 {
 	private static final String _C__AA_REQUESTUSERCOMMAND = "[C] aa BypassUserCmd";
-	static Log _log = LogFactory.getLog(BypassUserCmd.class.getName());
-			
+	
 	private int _command;
 	
 	/**

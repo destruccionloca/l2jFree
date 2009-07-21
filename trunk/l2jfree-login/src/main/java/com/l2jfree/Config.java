@@ -19,9 +19,6 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
  * This class containce global server configuration.<br>
  * It has static final fields initialized from configuration files.<br>
@@ -32,8 +29,6 @@ import org.apache.commons.logging.LogFactory;
  */
 public final class Config extends L2Config
 {
-	private static final Log	_log						= LogFactory.getLog(Config.class.getName());
-
 	/** Number of login tries before IP ban gets activated, default 10*/
 	public static int			LOGIN_TRY_BEFORE_BAN;
 	/** Number of seconds the IP ban will last, default 10 minutes */

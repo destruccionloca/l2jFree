@@ -22,9 +22,6 @@ import java.util.StringTokenizer;
 
 import javolution.util.FastMap;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.instancemanager.AuctionManager;
 import com.l2jfree.gameserver.instancemanager.ClanHallManager;
@@ -40,7 +37,6 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public final class L2AuctioneerInstance extends L2Npc
 {
-	private final static Log _log = LogFactory.getLog(L2AuctioneerInstance.class.getName());
 	private static final int COND_ALL_FALSE = 0;
 	private static final int COND_BUSY_BECAUSE_OF_SIEGE = 1;
 	private static final int COND_REGULAR = 3;

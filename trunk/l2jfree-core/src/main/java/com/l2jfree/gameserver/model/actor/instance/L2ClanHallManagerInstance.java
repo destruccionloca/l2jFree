@@ -17,9 +17,6 @@ package com.l2jfree.gameserver.model.actor.instance;
 import java.text.SimpleDateFormat;
 import java.util.StringTokenizer;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.datatables.SkillTable;
@@ -43,7 +40,6 @@ import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
 public class L2ClanHallManagerInstance extends L2MerchantInstance
 {
-	private final static Log _log = LogFactory.getLog(L2ClanHallManagerInstance.class.getName());
 	protected static final int COND_OWNER_FALSE = 0;
 	protected static final int COND_ALL_FALSE = 1;
 	protected static final int COND_BUSY_BECAUSE_OF_SIEGE = 2;

@@ -16,9 +16,6 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import java.util.StringTokenizer;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -32,8 +29,6 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  */
 public final class L2ObservationInstance extends L2Npc
 {
-	@SuppressWarnings("unused")
-    private final static Log _log = LogFactory.getLog(L2ObservationInstance.class.getName());
     /**
      * @param template
      */

@@ -20,9 +20,6 @@ import java.util.concurrent.Future;
 
 import javolution.util.FastMap;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.DoorTable;
@@ -47,8 +44,6 @@ import com.l2jfree.tools.random.Rnd;
  */
 public class L2SepulcherNpcInstance extends L2Npc
 {
-	private final static Log				_log						= LogFactory.getLog(L2SepulcherNpcInstance.class.getName());
-
 	protected static Map<Integer, Integer>	_hallGateKeepers			= new FastMap<Integer, Integer>();
 
 	protected Future<?>						_closeTask					= null;

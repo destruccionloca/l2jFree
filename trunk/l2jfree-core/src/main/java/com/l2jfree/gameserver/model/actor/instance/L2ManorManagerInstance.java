@@ -17,9 +17,6 @@ package com.l2jfree.gameserver.model.actor.instance;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
@@ -41,9 +38,6 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public class L2ManorManagerInstance extends L2MerchantInstance
 {
-	@SuppressWarnings("unused")
-	private final static Log _log = LogFactory.getLog(L2ManorManagerInstance.class.getName());
-
 	public L2ManorManagerInstance(int objectId, L2NpcTemplate template)
 	{
 		super(objectId, template);

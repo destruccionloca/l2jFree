@@ -14,9 +14,6 @@
  */
 package com.l2jfree.gameserver.model.actor;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.instancemanager.BossSpawnManager;
 import com.l2jfree.gameserver.instancemanager.RaidPointsManager;
@@ -33,8 +30,6 @@ public abstract class L2Boss extends L2MonsterInstance
 	private static final int	BOSS_MAINTENANCE_INTERVAL	= 10000;
 
 	public static final int		BOSS_INTERACTION_DISTANCE	= 500;
-
-	protected final static Log	_log						= LogFactory.getLog(L2Boss.class.getName());
 
 	public L2Boss(int objectId, L2NpcTemplate template)
 	{

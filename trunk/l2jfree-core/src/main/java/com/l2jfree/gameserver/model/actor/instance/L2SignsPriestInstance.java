@@ -18,9 +18,6 @@ import java.util.StringTokenizer;
 
 import javolution.text.TextBuilder;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.cache.HtmCache;
@@ -40,8 +37,6 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  */
 public class L2SignsPriestInstance extends L2Npc
 {
-    private final static Log _log = LogFactory.getLog(L2SignsPriestInstance.class.getName());
-    
     public L2SignsPriestInstance(int objectId, L2NpcTemplate template)
     {
         super(objectId, template);

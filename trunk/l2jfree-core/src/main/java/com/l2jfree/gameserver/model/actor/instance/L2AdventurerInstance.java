@@ -14,9 +14,6 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.instancemanager.RaidBossSpawnManager;
 import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.network.serverpackets.ExQuestInfo;
@@ -31,8 +28,6 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  */
 public class L2AdventurerInstance extends L2NpcInstance
 {
-    private final static Log _log = LogFactory.getLog(L2AdventurerInstance.class.getName());
-
     public L2AdventurerInstance(int objectId, L2NpcTemplate template)
     {
         super(objectId, template);

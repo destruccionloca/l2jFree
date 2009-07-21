@@ -15,17 +15,13 @@
 package com.l2jfree.gameserver.network.serverpackets;
 
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.templates.item.L2Item;
 
 public class EquipUpdate extends L2GameServerPacket
 {
 	private static final String _S__4B_EQUIPUPDATE = "[S] 4b EquipUpdate [ddd]";
-	private static final Log _log = LogFactory.getLog(EquipUpdate.class.getName());
-			
+	
 	private L2ItemInstance _item;
 	private int _change;
 	

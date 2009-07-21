@@ -14,9 +14,6 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.ai.L2FortSiegeGuardAI;
@@ -32,8 +29,6 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public class L2FortSiegeGuardInstance extends L2SiegeGuard
 {
-	private final static Log	_log	= LogFactory.getLog(L2FortSiegeGuardInstance.class.getName());
-
 	public L2FortSiegeGuardInstance(int objectId, L2NpcTemplate template)
 	{
 		super(objectId, template);

@@ -16,9 +16,6 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import java.util.concurrent.Future;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.instancemanager.FourSepulchersManager;
@@ -34,8 +31,6 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  */
 public class L2SepulcherMonsterInstance extends L2MonsterInstance
 {
-	protected static final Log	_log					= LogFactory.getLog(L2SepulcherMonsterInstance.class.getName());
-
 	public int					mysteriousBoxId			= 0;
 
 	protected Future<?>			_victimShout			= null;

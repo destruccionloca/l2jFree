@@ -40,7 +40,6 @@ import com.l2jfree.gameserver.model.quest.QuestState;
 public class RequestTutorialClientEvent extends L2GameClientPacket
 {
     private static final String _C__7E_REQUESTTUTORIALCLIENTEVENT = "[C] 7E RequestTutorialClientEvent";
-    @SuppressWarnings("unused")
     private int _event;
     
     @Override

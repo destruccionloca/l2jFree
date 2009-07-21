@@ -19,9 +19,6 @@ import java.util.HashMap;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.L2ItemInstance;
@@ -43,8 +40,6 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  */
 public class L2OlympiadManagerInstance extends L2Npc
 {
-	private final static Log	_log		= LogFactory.getLog(L2OlympiadManagerInstance.class.getName());
-
 	private static final int	GATE_PASS	= Config.ALT_OLY_BATTLE_REWARD_ITEM;
 
 	private static final String FEWER_THAN = "Fewer than" + String.valueOf(Config.ALT_OLY_REG_DISPLAY);

@@ -16,9 +16,6 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.model.L2Clan;
@@ -31,7 +28,6 @@ import com.l2jfree.gameserver.model.entity.Castle;
 public class ExShowCastleInfo extends L2GameServerPacket
 {
     private static final String S_FE_14_EX_SHOW_CASTLE_INFO = "[S] FE:14 ExShowFortressInfo";
-    private static final Log _log = LogFactory.getLog(ExShowCastleInfo.class.getName());
 
     /**
      * @see com.l2jfree.gameserver.serverpackets.L2GameServerPacket#getType()

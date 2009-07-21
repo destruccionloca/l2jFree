@@ -15,9 +15,6 @@
 package com.l2jfree.gameserver.network.serverpackets;
 
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
@@ -51,7 +48,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  */
 public class ItemList extends L2GameServerPacket
 {
-    private final static Log _log = LogFactory.getLog(ItemList.class.getName());
 	private static final String _S__11_ITEMLIST = "[S] 11 ItemList";
 	private L2ItemInstance[] _items;
 	private boolean _showWindow;

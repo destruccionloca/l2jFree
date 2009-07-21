@@ -25,7 +25,6 @@ import com.l2jfree.gameserver.model.quest.QuestState;
 public class RequestTutorialQuestionMark extends L2GameClientPacket
 {
     private static final String _C__7D_REQUESTTUTORIALQUESTIONMARK = "[C] 7D RequestTutorialQuestionMark";
-    @SuppressWarnings("unused")
     private int _id;
 
     @Override

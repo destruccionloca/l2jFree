@@ -43,7 +43,6 @@ public class Faction
     private FastList<Integer> _list_npcs        = new FastList<Integer>();
     private FastMap<Integer, String> _list_title = new FastMap<Integer, String>();
     
-    @SuppressWarnings("null")
 	public Faction(int factionId)
     {
         _Id = factionId;

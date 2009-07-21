@@ -140,7 +140,6 @@ public class SkillTreeTable
 		return 0;
 	}
 
-	@SuppressWarnings("null")
 	private SkillTreeTable()
 	{
 		int classId = 0;

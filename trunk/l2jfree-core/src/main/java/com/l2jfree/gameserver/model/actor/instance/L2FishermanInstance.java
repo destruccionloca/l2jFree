@@ -16,9 +16,6 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import java.util.StringTokenizer;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
 import com.l2jfree.gameserver.model.L2Skill;
@@ -31,8 +28,6 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public class L2FishermanInstance extends L2MerchantInstance
 {
-	@SuppressWarnings("unused")
-    private final static Log _log = LogFactory.getLog(L2FishermanInstance.class.getName());
     /**
      * @param objectId
      * @param template

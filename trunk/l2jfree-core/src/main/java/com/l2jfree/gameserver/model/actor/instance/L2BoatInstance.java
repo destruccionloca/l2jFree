@@ -26,9 +26,6 @@ import java.util.StringTokenizer;
 import javolution.util.FastMap;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.ThreadPoolManager;
@@ -54,8 +51,6 @@ import com.l2jfree.gameserver.util.Util;
  */
 public class L2BoatInstance extends L2Character
 {
-	private final static Log	_log	= LogFactory.getLog(L2BoatInstance.class.getName());
-
 	public float boatSpeed;
 
 	private class L2BoatTrajet

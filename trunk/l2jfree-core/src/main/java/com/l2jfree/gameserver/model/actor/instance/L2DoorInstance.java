@@ -18,9 +18,6 @@ import java.util.concurrent.ScheduledFuture;
 
 import javolution.text.TextBuilder;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
@@ -59,8 +56,6 @@ import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
  */
 public class L2DoorInstance extends L2Character
 {
-	protected static final Log		_log	= LogFactory.getLog(L2DoorInstance.class.getName());
-
 	/** The castle index in the array of L2Castle this L2DoorInstance belongs to */
 	private int					_castleIndex		= -2;
 	private Castle				_castle;

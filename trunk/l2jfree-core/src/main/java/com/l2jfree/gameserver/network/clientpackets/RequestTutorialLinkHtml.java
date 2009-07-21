@@ -29,7 +29,6 @@ import com.l2jfree.gameserver.model.quest.QuestState;
 public class RequestTutorialLinkHtml extends L2GameClientPacket
 {
     private static final String _C__7B_REQUESTTUTORIALLINKHTML = "[C] 7B equestTutorialLinkHtml";
-    @SuppressWarnings("unused")
     private String _link;
 
     @Override
