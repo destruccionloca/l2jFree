@@ -22,7 +22,7 @@ import com.l2jfree.loginserver.beans.Accounts;
 import com.l2jfree.loginserver.services.exception.AccountModificationException;
 
 /**
- * Test class for AccountsServices 
+ * Test class for AccountsServices
  * 
  */
 public class AccountsServicesMockTest extends TestCase

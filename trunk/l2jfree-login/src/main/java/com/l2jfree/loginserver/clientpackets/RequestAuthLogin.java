@@ -37,7 +37,7 @@ import com.l2jfree.loginserver.services.exception.IPRestrictedException;
  */
 public class RequestAuthLogin extends L2LoginClientPacket
 {
-	private byte[]	_raw	= new byte[128];
+	private final byte[]	_raw	= new byte[128];
 
 	private String	_user;
 	private String	_password;

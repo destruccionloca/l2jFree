@@ -862,13 +862,13 @@ public class Base64 {
 	 */
 	public static class InputStream extends java.io.FilterInputStream {
 		// private int options; // Options specified
-		private boolean encode; // Encoding or decoding
+		private final boolean encode; // Encoding or decoding
 		private int position; // Current position in the buffer
-		private byte[] buffer; // Small buffer holding converted data
-		private int bufferLength; // Length of buffer (3 or 4)
+		private final byte[] buffer; // Small buffer holding converted data
+		private final int bufferLength; // Length of buffer (3 or 4)
 		private int numSigBytes; // Number of meaningful bytes in the buffer
 		private int lineLength;
-		private boolean breakLines; // Break lines at less than 80 characters
+		private final boolean breakLines; // Break lines at less than 80 characters
 
 		/**
 		 * Constructs a {@link Base64#InputStream} in DECODE mode.
@@ -1075,13 +1075,13 @@ public class Base64 {
 	 */
 	public static class OutputStream extends java.io.FilterOutputStream {
 		// private int options;
-		private boolean encode;
+		private final boolean encode;
 		private int position;
 		private byte[] buffer;
-		private int bufferLength;
+		private final int bufferLength;
 		private int lineLength;
-		private boolean breakLines;
-		private byte[] b4; // Scratch used in a few places
+		private final boolean breakLines;
+		private final byte[] b4; // Scratch used in a few places
 		private boolean suspendEncoding;
 
 		/**

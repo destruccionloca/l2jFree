@@ -26,12 +26,12 @@ public class BanInfo
 	/**
 	 * The IP address banned
 	 */
-	private SubNet	_net;
+	private final SubNet	_net;
 
 	/**
 	 * expiration of the ban : represent the difference, measured in milliseconds, between the expiration time of the ban and midnight, January 1, 1970 UTC.
 	 */
-	private long	_expiration;
+	private final long	_expiration;
 
 	/**
 	 * Constructor

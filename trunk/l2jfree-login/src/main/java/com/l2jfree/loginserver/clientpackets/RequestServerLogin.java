@@ -61,7 +61,7 @@ public class RequestServerLogin extends L2LoginClientPacket
 	@Override
 	public boolean readImpl()
 	{
-		if (this.getAvaliableBytes() >= 9)
+		if (getAvaliableBytes() >= 9)
 		{
 			_skey1 = readD();
 			_skey2 = readD();
@@ -80,7 +80,7 @@ public class RequestServerLogin extends L2LoginClientPacket
 	@Override
 	public void run()
 	{
-		SessionKey sk = this.getClient().getSessionKey();
+		SessionKey sk = getClient().getSessionKey();
 
 		// if we didn't show the license we can't check these values
 		if (!Config.SHOW_LICENCE || sk.checkLoginPair(_skey1, _skey2))
@@ -89,27 +89,27 @@ public class RequestServerLogin extends L2LoginClientPacket
 			{
 				if (LoginManager.getInstance().isLoginPossible(getClient().getAge(), getClient().getAccessLevel(), _serverId))
 				{
-					this.getClient().setJoinedGS(true);
-					this.getClient().sendPacket(new PlayOk(sk));
+					getClient().setJoinedGS(true);
+					getClient().sendPacket(new PlayOk(sk));
 					LoginManager.getInstance().setAccountLastServerId(getClient().getAccount(), _serverId);
 				}
 				else
 				{
-					this.getClient().closeLoginGame(LoginFail.REASON_TOO_HIGH_TRAFFIC);
+					getClient().closeLoginGame(LoginFail.REASON_TOO_HIGH_TRAFFIC);
 				}
 			}
 			catch (MaintenanceException e)
 			{
-				this.getClient().closeLoginGame(LoginFail.REASON_MAINTENANCE_UNDERGOING);
+				getClient().closeLoginGame(LoginFail.REASON_MAINTENANCE_UNDERGOING);
 			}
 			catch (MaturityException e)
 			{
-				this.getClient().closeLoginGame(LoginFail.REASON_AGE_LIMITATION);
+				getClient().closeLoginGame(LoginFail.REASON_AGE_LIMITATION);
 			}
 		}
 		else
 		{
-			this.getClient().closeLogin(LoginFail.REASON_ACCESS_FAILED_TRY_AGAIN);
+			getClient().closeLogin(LoginFail.REASON_ACCESS_FAILED_TRY_AGAIN);
 		}
 	}
 }

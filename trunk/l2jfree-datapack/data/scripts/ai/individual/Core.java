@@ -124,7 +124,7 @@ public class Core extends L2AttackableAIScript
 	}
 
 	@Override
-	public String onKill (L2Npc npc, L2PcInstance killer, boolean isPet) 
+	public String onKill (L2Npc npc, L2PcInstance killer, boolean isPet)
 	{
 		int npcId = npc.getNpcId();
 		if (npcId == CORE)

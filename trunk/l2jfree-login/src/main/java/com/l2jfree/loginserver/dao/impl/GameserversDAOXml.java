@@ -46,7 +46,7 @@ public class GameserversDAOXml implements GameserversDAO
 {
 	private static final Log			_log		= LogFactory.getLog(GameserversDAOXml.class);
 
-	private Map<Integer, Gameservers>	serverNames	= new TreeMap<Integer, Gameservers>();
+	private final Map<Integer, Gameservers>	serverNames	= new TreeMap<Integer, Gameservers>();
 
 	/**
 	 * Load server name from xml

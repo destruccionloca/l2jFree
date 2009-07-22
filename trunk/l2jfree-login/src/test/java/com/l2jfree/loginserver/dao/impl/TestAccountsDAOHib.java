@@ -51,7 +51,7 @@ public class TestAccountsDAOHib extends ADAOTestCase
 
 	public void setAccountDao(AccountsDAOHib _dao)
 	{
-		this.dao = _dao;
+		dao = _dao;
 	}
 
 	@Override
@@ -64,9 +64,9 @@ public class TestAccountsDAOHib extends ADAOTestCase
 
 		InputStream inDTD = this.getClass().getResourceAsStream(dtdName);
 		FlatDtdDataSet dtdDataSet = new FlatDtdDataSet(inDTD);
-		for (int indice = 0; indice < dataSetNameList.length; indice++)
+		for (String finalElement : dataSetNameList)
 		{
-			InputStream in = this.getClass().getResourceAsStream(dataSetNameList[indice]);
+			InputStream in = this.getClass().getResourceAsStream(finalElement);
 			IDataSet dataSet = new FlatXmlDataSet(in, dtdDataSet);
 			dataSetList.add(dataSet);
 		}

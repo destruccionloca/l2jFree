@@ -36,7 +36,7 @@ public abstract class L2LoginClientPacket extends ReceivablePacket<L2LoginClient
 	{
 		try
 		{
-			return this.readImpl();
+			return readImpl();
 		}
 		catch (Exception e)
 		{

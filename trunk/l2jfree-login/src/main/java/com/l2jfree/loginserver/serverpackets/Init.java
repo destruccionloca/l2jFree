@@ -31,10 +31,10 @@ import com.l2jfree.loginserver.L2LoginClient;
  */
 public final class Init extends L2LoginServerPacket
 {
-	private int		_sessionId;
+	private final int		_sessionId;
 
-	private byte[]	_publicKey;
-	private byte[]	_blowfishKey;
+	private final byte[]	_publicKey;
+	private final byte[]	_blowfishKey;
 
 	public Init(L2LoginClient client)
 	{

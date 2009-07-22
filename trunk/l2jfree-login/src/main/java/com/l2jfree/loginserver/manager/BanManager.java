@@ -43,8 +43,8 @@ public class BanManager
 	private static BanManager			_instance	= null;
 	private static final Log			_log		= LogFactory.getLog(BanManager.class);
 	/** Banned ips */
-	private FastMap<SubNet, BanInfo>	_bannedIps	= new FastMap<SubNet, BanInfo>().setShared(true);
-	private FastMap<SubNet, BanInfo>	_restrictedIps = new FastMap<SubNet, BanInfo>().setShared(true);
+	private final FastMap<SubNet, BanInfo>	_bannedIps	= new FastMap<SubNet, BanInfo>().setShared(true);
+	private final FastMap<SubNet, BanInfo>	_restrictedIps = new FastMap<SubNet, BanInfo>().setShared(true);
 
 	public static String				BAN_LIST	= "config/banned_ip.cfg";
 	private static final String			ENCODING	= "UTF-8";

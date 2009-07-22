@@ -27,7 +27,7 @@ public class HackingException extends Exception
 	 */
 	private static final long	serialVersionUID	= 4050762693478463029L;
 	String						_ip;
-	private int					_connects;
+	private final int					_connects;
 
 	public HackingException(String ip, int connects)
 	{

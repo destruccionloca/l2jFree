@@ -23,17 +23,17 @@ import com.l2jfree.gameserver.model.quest.jython.QuestJython;
 
 public class querrySlave extends QuestJython
 {
-	private int[]	_npcId	=
+	private final int[]	_npcId	=
 							{ 32299 };
 
 	public querrySlave(int questId, String name, String descr)
 	{
 		super(questId, name, descr);
 
-		for (int i = 0; i < _npcId.length; i++)
+		for (int finalElement : _npcId)
 		{
-			this.addEventId(_npcId[i], Quest.QuestEventType.ON_FIRST_TALK);
-			this.addEventId(_npcId[i], Quest.QuestEventType.ON_TALK);
+			addEventId(finalElement, Quest.QuestEventType.ON_FIRST_TALK);
+			addEventId(finalElement, Quest.QuestEventType.ON_TALK);
 		}
 	}
 

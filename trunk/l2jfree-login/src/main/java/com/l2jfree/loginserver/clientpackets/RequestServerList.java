@@ -56,7 +56,7 @@ public class RequestServerList extends L2LoginClientPacket
 	@Override
 	public boolean readImpl()
 	{
-		if (this.getAvaliableBytes() >= 8)
+		if (getAvaliableBytes() >= 8)
 		{
 			_skey1 = readD(); // loginOk 1
 			_skey2 = readD(); // loginOk 2
@@ -74,13 +74,13 @@ public class RequestServerList extends L2LoginClientPacket
 	@Override
 	public void run()
 	{
-		if (this.getClient().getSessionKey().checkLoginPair(_skey1, _skey2))
+		if (getClient().getSessionKey().checkLoginPair(_skey1, _skey2))
 		{
-			this.getClient().sendPacket(new ServerList(this.getClient()));
+			getClient().sendPacket(new ServerList(getClient()));
 		}
 		else
 		{
-			this.getClient().closeLogin(LoginFail.REASON_ACCESS_FAILED_TRY_AGAIN);
+			getClient().closeLogin(LoginFail.REASON_ACCESS_FAILED_TRY_AGAIN);
 		}
 	}
 }

@@ -52,7 +52,7 @@ public class Akamanah extends L2DefaultTransformation
 	{
 		removeSkill(player, 3630); // Void Burst
 		removeSkill(player, 3631); // Void Flow
-	}	
+	}
 
 	@Override
 	public void onUntransform(L2PcInstance player)

@@ -32,7 +32,7 @@ import com.l2jfree.loginserver.dao.GameserversDAO;
  */
 public class GameserversDAOMock implements GameserversDAO
 {
-	private Map<Integer, Gameservers>	referential	= new HashMap<Integer, Gameservers>();
+	private final Map<Integer, Gameservers>	referential	= new HashMap<Integer, Gameservers>();
 
 	public GameserversDAOMock()
 	{

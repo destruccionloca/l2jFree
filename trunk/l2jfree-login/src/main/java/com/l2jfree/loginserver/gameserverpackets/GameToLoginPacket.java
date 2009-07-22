@@ -27,9 +27,9 @@ public abstract class GameToLoginPacket
 
 	protected GameToLoginPacket(byte[] decrypted, boolean l2j)
 	{
-		this._data = decrypted;
-		this._l2j = l2j;
-		this._off = 1;
+		_data = decrypted;
+		_l2j = l2j;
+		_off = 1;
 	}
 
 	/**

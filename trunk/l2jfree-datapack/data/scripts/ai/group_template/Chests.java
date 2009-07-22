@@ -53,11 +53,11 @@ public class Chests extends L2AttackableAIScript
 		// firstly, don't forget to call the parent constructor to prepare the event triggering
 		// mechanisms etc.
 		super(questId, name, descr);
-		this.registerMobs(NPC_IDS);
+		registerMobs(NPC_IDS);
 	}
 
 	@Override
-	public String onSkillSee (L2Npc npc, L2PcInstance caster, L2Skill skill, L2Object[] targets, boolean isPet) 
+	public String onSkillSee (L2Npc npc, L2PcInstance caster, L2Skill skill, L2Object[] targets, boolean isPet)
 	{
 		if (npc instanceof L2ChestInstance)
 		{

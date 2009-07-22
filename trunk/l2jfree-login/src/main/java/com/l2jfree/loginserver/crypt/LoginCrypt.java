@@ -44,7 +44,7 @@ public class LoginCrypt
 			(byte) 0x6c,
 			(byte) 0x6c							};
 
-	private NewCrypt			_staticCrypt		= new NewCrypt(STATIC_BLOWFISH_KEY);
+	private final NewCrypt			_staticCrypt		= new NewCrypt(STATIC_BLOWFISH_KEY);
 	private NewCrypt			_crypt;
 	private boolean				_static				= true;
 

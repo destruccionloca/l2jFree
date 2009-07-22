@@ -51,7 +51,7 @@ public final class L2LoginPacketHandler implements IPacketHandler<L2LoginClient>
 			}
 			else
 			{
-				this.debugOpcode(opcode, state);
+				debugOpcode(opcode, state);
 			}
 			break;
 		case AUTHED_GG:
@@ -61,7 +61,7 @@ public final class L2LoginPacketHandler implements IPacketHandler<L2LoginClient>
 			}
 			else
 			{
-				this.debugOpcode(opcode, state);
+				debugOpcode(opcode, state);
 			}
 			break;
 		case AUTHED_LOGIN:
@@ -75,7 +75,7 @@ public final class L2LoginPacketHandler implements IPacketHandler<L2LoginClient>
 			}
 			else
 			{
-				this.debugOpcode(opcode, state);
+				debugOpcode(opcode, state);
 			}
 			break;
 		}

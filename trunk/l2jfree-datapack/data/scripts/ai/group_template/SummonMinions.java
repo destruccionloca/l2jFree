@@ -29,7 +29,7 @@ public class SummonMinions extends L2AttackableAIScript
 {
 	private static int HasSpawned;
 	private static FastSet<Integer> myTrackingSet = new FastSet<Integer>(); //Used to track instances of npcs
-	private FastMap<Integer, FastList<L2PcInstance>> _attackersList = new FastMap<Integer, FastList<L2PcInstance>>().setShared(true);
+	private final FastMap<Integer, FastList<L2PcInstance>> _attackersList = new FastMap<Integer, FastList<L2PcInstance>>().setShared(true);
 	private static final FastMap<Integer, Integer[]> MINIONS = new FastMap<Integer, Integer[]>();
 
 	static
@@ -89,9 +89,9 @@ public class SummonMinions extends L2AttackableAIScript
 							if (Rnd.get(100) < 33) //mobs that summon minions only on certain chance
 							{
 								Integer[] minions = MINIONS.get(npcId);
-								for (int i = 0; i < minions.length; i++)
+								for (Integer finalMinion : minions)
 								{
-									L2Attackable newNpc = (L2Attackable) this.addSpawn(minions[i], (npc.getX() + Rnd.get(-150, 150)), (npc.getY() + Rnd.get(-150, 150)), npc.getZ(), 0, false, 0);
+									L2Attackable newNpc = (L2Attackable) this.addSpawn(finalMinion, (npc.getX() + Rnd.get(-150, 150)), (npc.getY() + Rnd.get(-150, 150)), npc.getZ(), 0, false, 0);
 									newNpc.setRunning();
 									newNpc.addDamageHate(attacker, 0, 999);
 									newNpc.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, attacker);
@@ -143,9 +143,9 @@ public class SummonMinions extends L2AttackableAIScript
 						{
 							HasSpawned = 0;
 							Integer[] minions = MINIONS.get(npcId);
-							for (int i = 0; i < minions.length; i++)
+							for (Integer finalMinion : minions)
 							{
-								L2Attackable newNpc = (L2Attackable) this.addSpawn(minions[i], npc.getX() + Rnd.get(-150, 150), npc.getY() + Rnd.get(-150, 150), npc.getZ(), 0, false, 0);
+								L2Attackable newNpc = (L2Attackable) this.addSpawn(finalMinion, npc.getX() + Rnd.get(-150, 150), npc.getY() + Rnd.get(-150, 150), npc.getZ(), 0, false, 0);
 								newNpc.setRunning();
 								newNpc.addDamageHate(attacker, 0, 999);
 								newNpc.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, attacker);
@@ -160,9 +160,9 @@ public class SummonMinions extends L2AttackableAIScript
 						Integer[] minions = MINIONS.get(npcId);
 						if (npcId != 20767)
 						{
-							for (int i = 0; i < minions.length; i++)
+							for (Integer finalMinion : minions)
 							{
-								L2Attackable newNpc = (L2Attackable) this.addSpawn(minions[i], npc.getX() + Rnd.get(-150, 150), npc.getY() + Rnd.get(-150, 150), npc.getZ(), 0, false, 0);
+								L2Attackable newNpc = (L2Attackable) this.addSpawn(finalMinion, npc.getX() + Rnd.get(-150, 150), npc.getY() + Rnd.get(-150, 150), npc.getZ(), 0, false, 0);
 								newNpc.setRunning();
 								newNpc.addDamageHate(attacker, 0, 999);
 								newNpc.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, attacker);
@@ -170,9 +170,9 @@ public class SummonMinions extends L2AttackableAIScript
 						}
 						else
 						{
-							for (int i = 0; i < minions.length; i++)
+							for (Integer finalMinion : minions)
 							{
-								this.addSpawn(minions[i], (npc.getX() + Rnd.get(-100, 100)), (npc.getY() + Rnd.get(-100, 100)), npc.getZ(), 0, false, 0);
+								this.addSpawn(finalMinion, (npc.getX() + Rnd.get(-100, 100)), (npc.getY() + Rnd.get(-100, 100)), npc.getZ(), 0, false, 0);
 							}
 						}
 						minions = null;

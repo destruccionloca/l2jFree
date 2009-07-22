@@ -27,7 +27,7 @@ public class SubNetHost {
 
 	private String _hostip;
 
-	private List<SubNet> _subnets;
+	private final List<SubNet> _subnets;
 
 	public SubNetHost(String hostName) {
 		_hostname = hostName;

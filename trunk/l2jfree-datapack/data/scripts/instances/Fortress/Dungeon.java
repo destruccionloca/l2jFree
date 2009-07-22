@@ -40,15 +40,15 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  */
 public class Dungeon extends QuestJython
 {
-	private FastMap<Integer, Prison>	_prisons				= new FastMap<Integer, Prison>();
+	private final FastMap<Integer, Prison>	_prisons				= new FastMap<Integer, Prison>();
 	//private FastMap<Integer, Integer>	_fortInstances;
 
-	private String						_default				= "<html><body>You are either not on a quest that involves this NPC, or you don't meet"
+	private final String						_default				= "<html><body>You are either not on a quest that involves this NPC, or you don't meet"
 																		+ " this NPC's minimum quest requirements.</body></html>";
-	private String						_noParty				= "<html><body>You must be in a party to enter.</body></html>";
-	private String						_notPartyLeader			= "<html><body>You must be the party leader to enter.</body></html>";
+	private final String						_noParty				= "<html><body>You must be in a party to enter.</body></html>";
+	private final String						_notPartyLeader			= "<html><body>You must be the party leader to enter.</body></html>";
 	//private String 						_notEnough 				= "<html><body>Not enough members in your party have completed the required quest.</body></html>";
-	private String						_canNotEnterYet			= "<html><body>The 4 hour time limit to re-enter is not over yet.</body></html>";
+	private final String						_canNotEnterYet			= "<html><body>The 4 hour time limit to re-enter is not over yet.</body></html>";
 
 	private final int					SOUL_HUNTER_CHAKUNDEL	= 25552;
 	private final int					RANGER_KARANKAWA		= 25557;

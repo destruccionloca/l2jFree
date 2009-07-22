@@ -39,6 +39,6 @@ public abstract class L2LoginServerPacket extends SendablePacket<L2LoginClient>
 	@Override
 	protected void writeHeader(int dataSize)
 	{
-		writeH(dataSize + this.getHeaderSize());
+		writeH(dataSize + getHeaderSize());
 	}
 }

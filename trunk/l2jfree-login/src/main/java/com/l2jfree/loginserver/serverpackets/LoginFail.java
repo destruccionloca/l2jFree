@@ -77,7 +77,7 @@ public final class LoginFail extends L2LoginServerPacket
 		writeC(_reason);
 		//overlap default message
 		/* not ready
-		if ((_reason <= -429 && _reason > -457) || 
+		if ((_reason <= -429 && _reason > -457) ||
 				(_reason < -457 &&  _reason >= -463) ||
 				_reason == -1136 || _reason == -1796 ||
 				(_reason <= -1804 && _reason >= -1809) ||
@@ -95,7 +95,7 @@ public final class LoginFail extends L2LoginServerPacket
 	 * @return reason
 	 */
 	public static final int getReasonFromBan(int accessLevel)
-    {		
+    {
     	switch (accessLevel)
     	{
     	//1-10: automatic bans

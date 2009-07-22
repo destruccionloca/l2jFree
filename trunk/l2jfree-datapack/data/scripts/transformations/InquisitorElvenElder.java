@@ -38,7 +38,7 @@ public class InquisitorElvenElder extends L2DefaultTransformation
 		// Switch Stance
 		addSkill(player, 838, 1);
 		// Decrease Bow/Crossbow Attack Speed
-		addSkill(player, 5491, 1);		
+		addSkill(player, 5491, 1);
 		
 		// give transformation skills
 		transformedSkills(player);
@@ -54,7 +54,7 @@ public class InquisitorElvenElder extends L2DefaultTransformation
 		
 		// remove transformation skills
 		removeSkills(player);
-	}	
+	}
 
 	@Override
 	public void transformedSkills(L2PcInstance player)

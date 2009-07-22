@@ -36,7 +36,7 @@ import com.l2jfree.tools.util.HexUtil;
 
 /**
  * Manager servers
- * Servers come from server.xml file and database. 
+ * Servers come from server.xml file and database.
  * For each server in database, an instance of Gameserver is launch. The manager controls each gameserver threads.
  */
 public class GameServerManager
@@ -45,7 +45,7 @@ public class GameServerManager
 	private static GameServerManager		__instance		= null;
 
 	// Game Server from database
-	private Map<Integer, GameServerInfo>	_gameServers	= new FastMap<Integer, GameServerInfo>().setShared(true);
+	private final Map<Integer, GameServerInfo>	_gameServers	= new FastMap<Integer, GameServerInfo>().setShared(true);
 
 	// RSA Config
 	private static final int				KEYS_SIZE		= 10;
@@ -55,7 +55,7 @@ public class GameServerManager
 	private GameserversServices				_gsServicesXml	= null;
 
 	/**
-	 * Return singleton 
+	 * Return singleton
 	 * exit the program if we didn't succeed to load the instance
 	 * @return  GameServerManager
 	 */
@@ -84,12 +84,12 @@ public class GameServerManager
 	/**
 	 * Initialize keypairs
 	 * Initialize servers list from xml and db
-	 * @throws InvalidAlgorithmParameterException 
-	 * @throws NoSuchAlgorithmException 
+	 * @throws InvalidAlgorithmParameterException
+	 * @throws NoSuchAlgorithmException
 	 */
 	private GameServerManager() throws NoSuchAlgorithmException, InvalidAlgorithmParameterException
 	{
-		// o Load DAO 
+		// o Load DAO
 		// ---------
 		_gsServices = (GameserversServices) L2Registry.getBean("GameserversServices");
 		_gsServicesXml = (GameserversServices) L2Registry.getBean("GameserversServicesXml");
@@ -100,12 +100,12 @@ public class GameServerManager
 
 		// o Load RSA keys
 		// ---------------
-		this.loadRSAKeys();
+		loadRSAKeys();
 	}
 
 	/**
-	 * Load RSA keys 
-	 * @throws NoSuchAlgorithmException 
+	 * Load RSA keys
+	 * @throws NoSuchAlgorithmException
 	 * @throws InvalidAlgorithmParameterException
 	 */
 	private void loadRSAKeys() throws NoSuchAlgorithmException, InvalidAlgorithmParameterException

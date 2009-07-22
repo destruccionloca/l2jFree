@@ -67,23 +67,23 @@ import com.l2jfree.tools.util.HexUtil;
 public class GameServerThread extends Thread
 {
 	private static final Log	_log					= LogFactory.getLog(GameServerThread.class.getName());
-	private Socket				_connection;
+	private final Socket				_connection;
 	private InputStream			_in;
 	private OutputStream		_out;
-	private RSAPublicKey		_publicKey;
-	private RSAPrivateKey		_privateKey;
+	private final RSAPublicKey		_publicKey;
+	private final RSAPrivateKey		_privateKey;
 	private NewCrypt			_blowfish;
 	private byte[]				_blowfishKey;
 
-	private String				_connectionIp;
+	private final String				_connectionIp;
 
 	private GameServerInfo		_gsi;
-	private List<SubNetHost>	_gameserverSubnets		= new FastList<SubNetHost>();
+	private final List<SubNetHost>	_gameserverSubnets		= new FastList<SubNetHost>();
 
 	private long				_lastIpUpdate;
 
 	/** Authed Clients on a GameServer*/
-	private Set<String>			_accountsOnGameServer	= new FastSet<String>();
+	private final Set<String>			_accountsOnGameServer	= new FastSet<String>();
 
 	private String				_connectionIpAddress;
 

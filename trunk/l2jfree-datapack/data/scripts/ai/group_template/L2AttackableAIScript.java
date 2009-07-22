@@ -62,9 +62,9 @@ public class L2AttackableAIScript extends QuestJython
 	 */
 	public static <T> boolean contains(T[] array, T obj)
 	{
-		for (int i = 0; i < array.length; i++)
+		for (T finalElement : array)
 		{
-			if (array[i] == obj)
+			if (finalElement == obj)
 			{
 				return true;
 			}
@@ -74,9 +74,9 @@ public class L2AttackableAIScript extends QuestJython
 
 	public static boolean contains(int[] array, int obj)
 	{
-		for (int i = 0; i < array.length; i++)
+		for (int finalElement : array)
 		{
-			if (array[i] == obj)
+			if (finalElement == obj)
 			{
 				return true;
 			}

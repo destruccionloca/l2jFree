@@ -43,7 +43,7 @@ public class PolymorphingAngel extends L2AttackableAIScript
 	{
 		super(questId, name, descr);
 		int[] temp = {20830, 21067, 21062, 20831, 21070};
-		this.registerMobs(temp);
+		registerMobs(temp);
 	}
 
 	@Override

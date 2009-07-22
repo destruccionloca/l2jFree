@@ -23,5 +23,5 @@ public class KickPlayer extends LoginToGamePacket
 		super(0x04, protocol);
 		writeS(account);
 		Status.tryBroadcast("Player " + account + " was kicked.");
-	}	
+	}
 }

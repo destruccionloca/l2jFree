@@ -22,8 +22,8 @@ import com.l2jfree.loginserver.beans.SessionKey;
  */
 public class PlayerAuthRequest extends GameToLoginPacket
 {
-	private String		_account;
-	private SessionKey	_sessionKey;
+	private final String		_account;
+	private final SessionKey	_sessionKey;
 
 	/**
 	 * @param decrypt

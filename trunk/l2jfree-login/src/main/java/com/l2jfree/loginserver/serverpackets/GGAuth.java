@@ -28,7 +28,7 @@ public final class GGAuth extends L2LoginServerPacket
 	private static final Log	_log					= LogFactory.getLog(GGAuth.class.getName());
 	public static final int		SKIP_GG_AUTH_REQUEST	= 0x0b;
 
-	private int					_response;
+	private final int					_response;
 
 	public GGAuth(int response)
 	{

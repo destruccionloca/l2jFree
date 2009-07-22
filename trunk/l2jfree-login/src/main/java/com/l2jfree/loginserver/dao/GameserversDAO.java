@@ -56,7 +56,7 @@ public interface GameserversDAO
 
 	/**
 	 * Search by id
-	 * @param id the id  
+	 * @param id the id
 	 * @return the gameserver
 	 */
 	public Gameservers getGameserverByServerId(int id);

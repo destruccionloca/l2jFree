@@ -29,14 +29,14 @@ package com.l2jfree.loginserver.gameserverpackets;
  */
 public class GameServerAuth extends GameToLoginPacket
 {
-	private byte[]	_hexId;
-	private int		_desiredId;
-	private boolean	_hostReserved;
-	private boolean	_acceptAlternativeId;
-	private int		_maxPlayers;
-	private int		_port;
-	private String	_gsNetConfig1;
-	private String	_gsNetConfig2;
+	private final byte[]	_hexId;
+	private final int		_desiredId;
+	private final boolean	_hostReserved;
+	private final boolean	_acceptAlternativeId;
+	private final int		_maxPlayers;
+	private final int		_port;
+	private final String	_gsNetConfig1;
+	private final String	_gsNetConfig2;
 
 	/**
 	 * @param decrypt

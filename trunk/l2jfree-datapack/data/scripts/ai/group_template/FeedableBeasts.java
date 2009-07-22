@@ -73,7 +73,7 @@ public class FeedableBeasts extends L2AttackableAIScript
 		MAD_COW_POLYMORPH.put(21829,21507);
 	}
 
-	private static final String[][] TEXT = 
+	private static final String[][] TEXT =
 	{
 		{
 			"What did you just do to me?","You want to tame me, huh?",
@@ -96,7 +96,7 @@ public class FeedableBeasts extends L2AttackableAIScript
 		}
 	};
 
-	private static final String[] TAMED_TEXT = 
+	private static final String[] TAMED_TEXT =
 	{
 		"Refills! Yeah!","I am such a gluttonous beast, it is embarrassing! Ha ha",
 		"Your cooperative feeling has been getting better and better.",
@@ -113,10 +113,10 @@ public class FeedableBeasts extends L2AttackableAIScript
 	// all mobs that grow by eating
 	private class GrowthCapableMob
 	{
-		private int _growthLevel;
-		private int _chance;
+		private final int _growthLevel;
+		private final int _chance;
 
-		private Map<Integer, int[][]> _spiceToMob = new FastMap<Integer,int[][]>();
+		private final Map<Integer, int[][]> _spiceToMob = new FastMap<Integer,int[][]>();
 
 		public GrowthCapableMob(int growthLevel, int chance)
 		{
@@ -160,7 +160,7 @@ public class FeedableBeasts extends L2AttackableAIScript
 	public FeedableBeasts (int questId, String name, String descr)
 	{
 		super(questId, name, descr);
-		this.registerMobs(FEEDABLE_BEASTS);
+		registerMobs(FEEDABLE_BEASTS);
 
 		GrowthCapableMob temp;
 
@@ -205,7 +205,7 @@ public class FeedableBeasts extends L2AttackableAIScript
 		temp = new GrowthCapableMob(1,40);
 		temp.addMobs(GOLDEN_SPICE,Kookabura_1_Gold_2);
 		_GrowthCapableMobs.put(21453, temp);
-		_GrowthCapableMobs.put(21455, temp);        
+		_GrowthCapableMobs.put(21455, temp);
 
 		temp = new GrowthCapableMob(1,40);
 		temp.addMobs(CRYSTAL_SPICE,Kookabura_1_Crystal_1);
@@ -251,7 +251,7 @@ public class FeedableBeasts extends L2AttackableAIScript
 		temp = new GrowthCapableMob(1,40);
 		temp.addMobs(GOLDEN_SPICE,Buffalo_1_Gold_2);
 		_GrowthCapableMobs.put(21472, temp);
-		_GrowthCapableMobs.put(21474, temp);        
+		_GrowthCapableMobs.put(21474, temp);
 
 		temp = new GrowthCapableMob(1,40);
 		temp.addMobs(CRYSTAL_SPICE,Buffalo_1_Crystal_1);
@@ -297,7 +297,7 @@ public class FeedableBeasts extends L2AttackableAIScript
 		temp = new GrowthCapableMob(1,40);
 		temp.addMobs(GOLDEN_SPICE,Cougar_1_Gold_2);
 		_GrowthCapableMobs.put(21491, temp);
-		_GrowthCapableMobs.put(21493, temp);        
+		_GrowthCapableMobs.put(21493, temp);
 
 		temp = new GrowthCapableMob(1,40);
 		temp.addMobs(CRYSTAL_SPICE,Cougar_1_Crystal_1);
@@ -327,7 +327,7 @@ public class FeedableBeasts extends L2AttackableAIScript
 		temp = new GrowthCapableMob(2,25);
 		temp.addMobs(CRYSTAL_SPICE,Cougar_2_2);
 		_GrowthCapableMobs.put(21503, temp);
-		_GrowthCapableMobs.put(21505, temp);        
+		_GrowthCapableMobs.put(21505, temp);
 	}
 
 	public void spawnNext(L2Npc npc, int growthLevel, L2PcInstance player, int food)
@@ -371,7 +371,7 @@ public class FeedableBeasts extends L2AttackableAIScript
 		}
 
 		// remove the feedinfo of the mob that got despawned, if any
-		if (_FeedInfo.containsKey(npc.getObjectId())) 
+		if (_FeedInfo.containsKey(npc.getObjectId()))
 		{
 			if (_FeedInfo.get(npc.getObjectId()) == player.getObjectId())
 				_FeedInfo.remove(npc.getObjectId());
@@ -470,7 +470,7 @@ public class FeedableBeasts extends L2AttackableAIScript
 				}
 				// despawn the mad cow
 				npc.deleteMe();
-				// spawn the new mob 
+				// spawn the new mob
 				L2Attackable nextNpc = (L2Attackable) this.addSpawn(MAD_COW_POLYMORPH.get(npc.getNpcId()),npc);
 
 				// register the player in the feedinfo for the mob that just spawned
@@ -510,7 +510,7 @@ public class FeedableBeasts extends L2AttackableAIScript
 		}
 
 		// prevent exploit which allows 2 players to simultaneously raise the same 0-growth beast
-		// If the mob is at 0th level (when it still listens to all feeders) lock it to the first feeder!       
+		// If the mob is at 0th level (when it still listens to all feeders) lock it to the first feeder!
 		if (growthLevel==0 && _FeedInfo.containsKey(objectId))
 		{
 			return super.onSkillSee(npc, caster, skill, targets, isPet);
@@ -558,7 +558,7 @@ public class FeedableBeasts extends L2AttackableAIScript
 			// Polymorph the mob, with a certain chance, given its current growth level
 			if (Rnd.get(100) < _GrowthCapableMobs.get(npcId).getChance())
 			{
-				this.spawnNext(npc, growthLevel, caster, food);
+				spawnNext(npc, growthLevel, caster, food);
 			}
 		}
 		else if (contains(TAMED_BEASTS,npcId) && npc instanceof L2TamedBeastInstance)

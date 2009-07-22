@@ -16,7 +16,6 @@ package com.l2jfree.loginserver.dao.impl;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.HibernateException;
@@ -81,9 +80,9 @@ public abstract class BaseRootDAOHib extends HibernateDaoSupport
 	 */
 	public void saveOrUpdateAll(Collection<?> entities)
 	{
-		for (Iterator<?> it = entities.iterator(); it.hasNext();)
+		for (Object name : entities)
 		{
-			getCurrentSession().saveOrUpdate(it.next());
+			getCurrentSession().saveOrUpdate(name);
 		}
 	}
 
@@ -110,9 +109,9 @@ public abstract class BaseRootDAOHib extends HibernateDaoSupport
 	 */
 	public void removeAll(Collection<?> entities)
 	{
-		for (Iterator<?> it = entities.iterator(); it.hasNext();)
+		for (Object name : entities)
 		{
-			getCurrentSession().delete(it.next());
+			getCurrentSession().delete(name);
 		}
 	}
 

@@ -34,10 +34,10 @@ import com.l2jfree.Config;
  */
 public abstract class FloodProtectedListener extends Thread
 {
-	private Log								_log				= LogFactory.getLog(FloodProtectedListener.class.getName());
-	private Map<String, ForeignConnection>	_floodProtection	= new FastMap<String, ForeignConnection>();
-	private String							_listenIp;
-	private int								_port;
+	private final Log								_log				= LogFactory.getLog(FloodProtectedListener.class.getName());
+	private final Map<String, ForeignConnection>	_floodProtection	= new FastMap<String, ForeignConnection>();
+	private final String							_listenIp;
+	private final int								_port;
 	private ServerSocket					_serverSocket;
 
 	public FloodProtectedListener(String listenIp, int port)
@@ -124,7 +124,7 @@ public abstract class FloodProtectedListener extends Thread
 				catch (Exception e2)
 				{
 				}
-				if (this.isInterrupted())
+				if (isInterrupted())
 				{
 					// shutdown?
 					try

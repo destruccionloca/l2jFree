@@ -74,8 +74,8 @@ public class SagasSuperClass extends QuestJython
 		for (int Archon_Minion = 21646; Archon_Minion < 21652; Archon_Minion++)
 			addKillId(Archon_Minion);
 		int[] Archon_Hellisha_Norm = {18212, 18214, 18215, 18216, 18218};
-		for (int i = 0; i < Archon_Hellisha_Norm.length; i++)
-			addKillId(Archon_Hellisha_Norm[i]);
+		for (int finalElement : Archon_Hellisha_Norm)
+			addKillId(finalElement);
 		for (int Guardian_Angel = 27214; Guardian_Angel < 27217; Guardian_Angel++)
 			addKillId(Guardian_Angel);
 	}
@@ -769,7 +769,7 @@ public class SagasSuperClass extends QuestJython
 		if (_SpawnList.containsKey(npc) && _SpawnList.get(npc) != player.getObjectId())
 		{
 			L2PcInstance quest_player = (L2PcInstance) L2World.getInstance().findObject(_SpawnList.get(npc));
-			if (quest_player == null) 
+			if (quest_player == null)
 				return null;
 			else
 			{
@@ -835,9 +835,9 @@ public class SagasSuperClass extends QuestJython
 		}
 
 		int[] Archon_Hellisha_Norm = {18212, 18214, 18215, 18216, 18218};
-		for (int i = 0; i < Archon_Hellisha_Norm.length; i++)
+		for (int finalElement : Archon_Hellisha_Norm)
 		{
-			if (npcId == Archon_Hellisha_Norm[i])
+			if (npcId == finalElement)
 			{
 				QuestState st1 = findQuest(player);
 				if (st1 != null)
@@ -913,7 +913,7 @@ public class SagasSuperClass extends QuestJython
 	                    st.set("cond", "16");
 	                    st.playSound("ItemSound.quest_middle");
 					}
-					else 
+					else
 	                    AutoChat(npc, Text[5].replace("PLAYERNAME", player.getName()));
 				}
 				cancelQuestTimer("Archon Hellisha has despawned", npc, st2.getPlayer());

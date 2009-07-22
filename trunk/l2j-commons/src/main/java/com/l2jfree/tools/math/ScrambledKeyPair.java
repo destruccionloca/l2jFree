@@ -28,8 +28,8 @@ public class ScrambledKeyPair {
 	private byte[] scrambledModulus;
 
 	public ScrambledKeyPair(KeyPair Pair) {
-		this.pair = Pair;
-		scrambledModulus = scrambleModulus(((RSAPublicKey) this.pair
+		pair = Pair;
+		scrambledModulus = scrambleModulus(((RSAPublicKey) pair
 				.getPublic()).getModulus());
 	}
 

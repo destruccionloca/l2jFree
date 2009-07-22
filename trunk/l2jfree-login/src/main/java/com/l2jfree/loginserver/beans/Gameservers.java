@@ -22,7 +22,7 @@ package com.l2jfree.loginserver.beans;
 public class Gameservers implements java.io.Serializable
 {
 
-	// Fields    
+	// Fields
 
 	/**
 	 * 
@@ -43,50 +43,50 @@ public class Gameservers implements java.io.Serializable
 	/** full constructor */
 	public Gameservers(int _serverId, String _hexid, String _host)
 	{
-		this.serverId = _serverId;
-		this.hexid = _hexid;
-		this.host = _host;
+		serverId = _serverId;
+		hexid = _hexid;
+		host = _host;
 	}
 
 	// Property accessors
 	public int getServerId()
 	{
-		return this.serverId;
+		return serverId;
 	}
 
 	public void setServerId(int _serverId)
 	{
-		this.serverId = _serverId;
+		serverId = _serverId;
 	}
 
 	public String getHexid()
 	{
-		return this.hexid;
+		return hexid;
 	}
 
 	public void setHexid(String _hexid)
 	{
-		this.hexid = _hexid;
+		hexid = _hexid;
 	}
 
 	public String getHost()
 	{
-		return this.host;
+		return host;
 	}
 
 	public void setHost(String _host)
 	{
-		this.host = _host;
+		host = _host;
 	}
 
 	public String getServerName()
 	{
-		return this.serverName;
+		return serverName;
 	}
 
 	public void setServerName(String _serverName)
 	{
-		this.serverName = _serverName;
+		serverName = _serverName;
 	}
 
 }

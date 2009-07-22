@@ -18,13 +18,13 @@ import com.l2jfree.loginserver.gameserverpackets.ServerStatus;
 import com.l2jfree.loginserver.thread.GameServerThread;
 
 /**
- *  
+ * 
  */
 public class GameServerInfo
 {
 	// auth
 	private int					_id;
-	private byte[]				_hexId;
+	private final byte[]				_hexId;
 	private boolean				_isAuthed;
 
 	// status
@@ -223,9 +223,9 @@ public class GameServerInfo
 
 	public void setDown()
 	{
-		this.setAuthed(false);
-		this.setPort(0);
-		this.setGameServerThread(null);
-		this.setStatus(ServerStatus.STATUS_DOWN);
+		setAuthed(false);
+		setPort(0);
+		setGameServerThread(null);
+		setStatus(ServerStatus.STATUS_DOWN);
 	}
 }

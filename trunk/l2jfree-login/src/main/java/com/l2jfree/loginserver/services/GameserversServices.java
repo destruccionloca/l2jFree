@@ -42,7 +42,7 @@ public class GameserversServices
 
 	/**
 	 * Return list of gameservers
-	 * @return 
+	 * @return
 	 */
 	public List<Gameservers> getAllGameservers()
 	{

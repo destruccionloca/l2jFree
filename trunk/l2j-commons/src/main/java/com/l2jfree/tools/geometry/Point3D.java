@@ -25,15 +25,15 @@ public class Point3D implements Serializable {
 	private volatile int x, y, z;
 
 	public Point3D(int pX, int pY, int pZ) {
-		this.x = pX;
-		this.y = pY;
-		this.z = pZ;
+		x = pX;
+		y = pY;
+		z = pZ;
 	}
 
 	public Point3D(int pX, int pY) {
-		this.x = pX;
-		this.y = pY;
-		this.z = 0;
+		x = pX;
+		y = pY;
+		z = 0;
 	}
 
 	/**
@@ -41,17 +41,17 @@ public class Point3D implements Serializable {
 	 */
 	public Point3D(Point3D worldPosition) {
 		synchronized (worldPosition) {
-			this.x = worldPosition.x;
-			this.y = worldPosition.y;
-			this.z = worldPosition.z;
+			x = worldPosition.x;
+			y = worldPosition.y;
+			z = worldPosition.z;
 		}
 	}
 
 	public synchronized void setTo(Point3D point) {
 		synchronized (point) {
-			this.x = point.x;
-			this.y = point.y;
-			this.z = point.z;
+			x = point.x;
+			y = point.y;
+			z = point.z;
 		}
 	}
 
