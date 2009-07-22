@@ -54,9 +54,9 @@ public class ZoneManager
 		L2WorldRegion[][] worldRegions = L2World.getInstance().getAllWorldRegions();
 		for (L2WorldRegion[] finalWorldRegion : worldRegions)
 		{
-			for (int y = 0; y < finalWorldRegion.length; y++)
+			for (L2WorldRegion finalElement : finalWorldRegion)
 			{
-				finalWorldRegion[y].clearZones();
+				finalElement.clearZones();
 			}
 		}
 		//remove registered siege danger zones
