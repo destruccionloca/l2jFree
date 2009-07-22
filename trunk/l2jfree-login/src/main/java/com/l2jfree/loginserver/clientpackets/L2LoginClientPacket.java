@@ -26,7 +26,7 @@ import com.l2jfree.loginserver.L2LoginClient;
  */
 public abstract class L2LoginClientPacket extends ReceivablePacket<L2LoginClient>
 {
-	private static Log	_log	= LogFactory.getLog(L2LoginClientPacket.class.getName());
+	private static Log	_log	= LogFactory.getLog(L2LoginClientPacket.class);
 
 	/**
 	 * @see com.l2jserver.mmocore.network.ReceivablePacket#read()

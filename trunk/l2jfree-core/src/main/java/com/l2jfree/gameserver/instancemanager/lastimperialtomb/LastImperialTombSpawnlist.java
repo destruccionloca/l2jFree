@@ -36,7 +36,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public class LastImperialTombSpawnlist
 {
-    private final static Log _log = LogFactory.getLog(LastImperialTombSpawnlist.class.getName());
+    private final static Log _log = LogFactory.getLog(LastImperialTombSpawnlist.class);
 
     private static List<L2Spawn> _Room1SpawnList1st = new FastList<L2Spawn>();
     private static List<L2Spawn> _Room1SpawnList2nd = new FastList<L2Spawn>();

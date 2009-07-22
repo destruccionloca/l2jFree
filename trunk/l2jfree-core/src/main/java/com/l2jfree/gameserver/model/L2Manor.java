@@ -39,7 +39,7 @@ import com.l2jfree.gameserver.templates.item.L2Item;
 
 public class L2Manor
 {
-	private final static Log _log = LogFactory.getLog(L2Manor.class.getName());
+	private final static Log _log = LogFactory.getLog(L2Manor.class);
 
 	private static FastMap<Integer,SeedData> _seeds;
 

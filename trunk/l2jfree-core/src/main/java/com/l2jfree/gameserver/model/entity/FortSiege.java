@@ -57,7 +57,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public class FortSiege extends AbstractSiege
 {
-	protected static final Log	_log	= LogFactory.getLog(FortSiege.class.getName());
+	protected static final Log	_log	= LogFactory.getLog(FortSiege.class);
 
 	public static enum TeleportWhoType
 	{

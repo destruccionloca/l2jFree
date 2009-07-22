@@ -27,7 +27,7 @@ import com.l2jfree.gameserver.templates.StatsSet;
 
 public abstract class L2Equip extends L2Item
 {
-	protected static final Log		_log				= LogFactory.getLog(L2Equip.class.getName());
+	protected static final Log		_log				= LogFactory.getLog(L2Equip.class);
 	private L2Skill[]				_itemSkills			= null;
 	private L2Skill[]				_enchant4Skills		= null; // skill that activates when item is enchanted +4 (for duals)
 

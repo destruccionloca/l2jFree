@@ -33,7 +33,7 @@ import com.l2jfree.gameserver.model.L2Skill;
  */
 public class ExtractableSkillsData
 {
-	private final static Log					_log		= LogFactory.getLog(ExtractableSkillsData.class.getName());
+	private final static Log					_log		= LogFactory.getLog(ExtractableSkillsData.class);
 
 	//          Map<itemid, L2ExtractableSkill>
 	private final FastMap<Integer, L2ExtractableSkill>	_items  = new FastMap<Integer, L2ExtractableSkill>();

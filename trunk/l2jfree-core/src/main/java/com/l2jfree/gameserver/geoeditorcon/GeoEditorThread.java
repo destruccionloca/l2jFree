@@ -32,7 +32,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  */
 public class GeoEditorThread extends Thread
 {
-	private static Log				_log		= LogFactory.getLog(GeoEditorThread.class.getName());
+	private static Log				_log		= LogFactory.getLog(GeoEditorThread.class);
 
 	private boolean					_working	= false;
 

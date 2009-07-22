@@ -49,7 +49,7 @@ import com.l2jfree.gameserver.util.Util;
 
 public class SiegeManager
 {
-	protected static Log		_log	= LogFactory.getLog(SiegeManager.class.getName());
+	protected static Log		_log	= LogFactory.getLog(SiegeManager.class);
 
 	public static final SiegeManager getInstance()
 	{

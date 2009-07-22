@@ -46,7 +46,7 @@ import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 
 public class ClanTable
 {
-	private static final Log		_log	= LogFactory.getLog(ClanTable.class.getName());
+	private static final Log		_log	= LogFactory.getLog(ClanTable.class);
 
 	private final Map<Integer, L2Clan>	_clans;
 

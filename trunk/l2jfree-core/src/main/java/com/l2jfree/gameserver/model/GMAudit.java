@@ -26,7 +26,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class GMAudit
 {
-	private static final Log _log = LogFactory.getLog(GMAudit.class.getName());
+	private static final Log _log = LogFactory.getLog(GMAudit.class);
 	
 	public static void auditGMAction(L2PcInstance gm, String type, String action, String param)
 	{

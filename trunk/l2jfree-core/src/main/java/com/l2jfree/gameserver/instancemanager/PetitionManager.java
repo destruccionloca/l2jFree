@@ -42,7 +42,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
  */
 public final class PetitionManager
 {
-	protected static Log				_log	= LogFactory.getLog(PetitionManager.class.getName());
+	protected static Log				_log	= LogFactory.getLog(PetitionManager.class);
 
 	private static int _lastUsedId;
 

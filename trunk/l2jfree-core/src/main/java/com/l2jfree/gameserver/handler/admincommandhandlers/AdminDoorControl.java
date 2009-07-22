@@ -45,7 +45,7 @@ import com.l2jfree.gameserver.model.entity.Castle;
  */
 public class AdminDoorControl implements IAdminCommandHandler
 {
-	private static Log				_log			= LogFactory.getLog(AdminDoorControl.class.getName());
+	private static Log				_log			= LogFactory.getLog(AdminDoorControl.class);
 	private static final String[]	ADMIN_COMMANDS	=
 													{ "admin_open", "admin_close", "admin_openall", "admin_closeall" };
 

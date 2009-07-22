@@ -30,7 +30,7 @@ import com.l2jfree.Config;
  */
 public class GameServerListener extends FloodProtectedListener
 {
-	private static Log						_log			= LogFactory.getLog(GameServerListener.class.getName());
+	private static Log						_log			= LogFactory.getLog(GameServerListener.class);
 	private static List<GameServerThread>	_gameServers	= new FastList<GameServerThread>();
 
 	public GameServerListener()

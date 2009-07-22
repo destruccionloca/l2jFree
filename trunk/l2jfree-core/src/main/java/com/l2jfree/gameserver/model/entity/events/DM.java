@@ -50,7 +50,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public class DM
 {
-	private final static Log _log = LogFactory.getLog(DM.class.getName());
+	private final static Log _log = LogFactory.getLog(DM.class);
 	public static String _eventName = "",
 						 _eventDesc = "",
 						 _joiningLocationName = "";

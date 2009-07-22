@@ -49,7 +49,7 @@ import com.l2jfree.gameserver.templates.StatsSet;
 
 public class Hero
 {
-	private final static Log				_log			= LogFactory.getLog(Hero.class.getName());
+	private final static Log				_log			= LogFactory.getLog(Hero.class);
 
 	private static final String				GET_HEROES		= "SELECT * FROM heroes WHERE played = 1";
 	private static final String				GET_ALL_HEROES	= "SELECT * FROM heroes";

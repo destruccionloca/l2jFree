@@ -54,7 +54,7 @@ import com.l2jserver.script.jython.JythonScriptEngine;
  */
 public final class L2ScriptEngineManager
 {
-	private static final Log					_log = LogFactory.getLog(L2ScriptEngineManager.class.getName());
+	private static final Log					_log = LogFactory.getLog(L2ScriptEngineManager.class);
 
 	public final static File					SCRIPT_FOLDER;
 

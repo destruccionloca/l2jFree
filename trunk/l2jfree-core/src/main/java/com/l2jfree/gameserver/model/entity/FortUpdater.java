@@ -25,7 +25,7 @@ import com.l2jfree.gameserver.model.L2Clan;
  */
 public class FortUpdater implements Runnable
 {
-	protected static Log _log = LogFactory.getLog(FortUpdater.class.getName());
+	protected static Log _log = LogFactory.getLog(FortUpdater.class);
 	
 	private final L2Clan _clan;
 	private final Fort _fort;

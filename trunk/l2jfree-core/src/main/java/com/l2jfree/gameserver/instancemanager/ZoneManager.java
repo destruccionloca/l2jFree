@@ -34,7 +34,7 @@ import com.l2jfree.gameserver.util.Util;
 
 public class ZoneManager
 {
-	protected static Log						_log	= LogFactory.getLog(ZoneManager.class.getName());
+	protected static Log						_log	= LogFactory.getLog(ZoneManager.class);
 
 	private FastMap<ZoneType, FastMap<String, L2Zone>> _zones;
 

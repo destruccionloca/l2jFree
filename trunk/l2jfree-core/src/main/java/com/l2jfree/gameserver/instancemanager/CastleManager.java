@@ -35,7 +35,7 @@ import com.l2jfree.gameserver.model.entity.Castle;
 
 public class CastleManager implements InstanceListManager
 {
-	protected static Log		_log			= LogFactory.getLog(CastleManager.class.getName());
+	protected static Log		_log			= LogFactory.getLog(CastleManager.class);
 
 	private FastMap<Integer, Castle>	_castles;
 

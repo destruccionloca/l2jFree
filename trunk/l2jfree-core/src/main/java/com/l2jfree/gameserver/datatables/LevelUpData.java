@@ -48,7 +48,7 @@ public class LevelUpData
 	private static final String				CP_BASE		= "defaultcpbase";
 	private static final String				CLASS_ID	= "classid";
 
-	private final static Log				_log		= LogFactory.getLog(LevelUpData.class.getName());
+	private final static Log				_log		= LogFactory.getLog(LevelUpData.class);
 
 	private final FastMap<Integer, L2LvlupData>	_lvlTable;
 

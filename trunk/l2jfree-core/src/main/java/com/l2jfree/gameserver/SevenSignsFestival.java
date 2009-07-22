@@ -66,7 +66,7 @@ import com.l2jfree.util.L2Timer;
 // FIXME: Archer mobs should target healer characters over other party members.
 public class SevenSignsFestival implements SpawnListener
 {
-	protected static Log							_log							= LogFactory.getLog(SevenSignsFestival.class.getName());
+	protected static Log							_log							= LogFactory.getLog(SevenSignsFestival.class);
 
 	private static final String						GET_CLAN_NAME					= "SELECT clan_name FROM clan_data WHERE clan_id = (SELECT clanid FROM characters WHERE char_name = ?)";
 

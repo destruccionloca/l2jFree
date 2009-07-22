@@ -68,7 +68,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 {
 	public static final L2ItemInstance[] EMPTY_ARRAY = new L2ItemInstance[0];
 	
-	protected static final Log	_log		= LogFactory.getLog(L2ItemInstance.class.getName());
+	protected static final Log	_log		= LogFactory.getLog(L2ItemInstance.class);
 
 	private static final Log	_logItems	= LogFactory.getLog("item");
 	

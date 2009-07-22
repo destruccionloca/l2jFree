@@ -33,7 +33,7 @@ import com.l2jfree.tools.util.PrimeFinder;
  */
 public class BitSetRebuildFactory extends IdFactory
 {
-	private final static Log	_log	= LogFactory.getLog(BitSetRebuildFactory.class.getName());
+	private final static Log	_log	= LogFactory.getLog(BitSetRebuildFactory.class);
 
 	private BitSet				_freeIds;
 	private AtomicInteger		_freeIdCount;

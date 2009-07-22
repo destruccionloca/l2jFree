@@ -26,7 +26,7 @@ import com.l2jfree.gameserver.network.L2IrcClient;
  */
 public class IrcManager
 {
-	private static final Log	_log		= LogFactory.getLog(IrcManager.class.getName());
+	private static final Log	_log		= LogFactory.getLog(IrcManager.class);
 	private static IrcManager	_instance;
 	private static L2IrcClient	_IrcConnection;
 	private static boolean		initilized	= false;

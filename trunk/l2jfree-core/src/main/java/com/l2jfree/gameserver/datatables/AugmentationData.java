@@ -41,7 +41,7 @@ import com.l2jfree.tools.random.Rnd;
  */
 public class AugmentationData
 {
-	private final static Log		_log	= LogFactory.getLog(AugmentationData.class.getName());
+	private final static Log		_log	= LogFactory.getLog(AugmentationData.class);
 
 	public static final AugmentationData getInstance()
 	{

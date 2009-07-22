@@ -33,7 +33,7 @@ import com.l2jfree.gameserver.model.FishData;
  */
 public class FishTable
 {
-	private final static Log		_log		= LogFactory.getLog(SkillTreeTable.class.getName());
+	private final static Log		_log		= LogFactory.getLog(SkillTreeTable.class);
 
 	private static List<FishData>	_fishsNormal;
 	private static List<FishData>	_fishsEasy;

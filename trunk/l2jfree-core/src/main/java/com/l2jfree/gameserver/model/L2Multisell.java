@@ -40,7 +40,7 @@ import com.l2jfree.gameserver.util.Util;
  */
 public class L2Multisell
 {
-	private final static Log _log = LogFactory.getLog(L2Multisell.class.getName());
+	private final static Log _log = LogFactory.getLog(L2Multisell.class);
 	private final List<MultiSellListContainer> _entries = new FastList<MultiSellListContainer>();
 
 	public MultiSellListContainer getList(int id)

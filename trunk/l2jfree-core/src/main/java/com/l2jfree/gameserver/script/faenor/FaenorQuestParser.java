@@ -29,7 +29,7 @@ import com.l2jfree.gameserver.script.ScriptEngine;
  */
 public class FaenorQuestParser extends FaenorParser
 {
-	private final static Log	_log	= LogFactory.getLog(FaenorQuestParser.class.getName());
+	private final static Log	_log	= LogFactory.getLog(FaenorQuestParser.class);
 
 	@Override
 	public void parseScript(Node questNode)

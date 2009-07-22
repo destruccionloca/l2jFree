@@ -56,7 +56,7 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 		super(null);
 	}
 	
-	private static final Log _log = LogFactory.getLog(L2GamePacketHandlerFinal.class.getName());
+	private static final Log _log = LogFactory.getLog(L2GamePacketHandlerFinal.class);
 	
 	public ReceivablePacket<L2GameClient> handlePacket(ByteBuffer buf, L2GameClient client)
 	{

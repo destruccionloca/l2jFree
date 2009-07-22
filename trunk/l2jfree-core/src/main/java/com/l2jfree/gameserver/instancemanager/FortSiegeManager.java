@@ -47,7 +47,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 public class FortSiegeManager
 {
-	protected static final Log		_log	= LogFactory.getLog(FortSiegeManager.class.getName());
+	protected static final Log		_log	= LogFactory.getLog(FortSiegeManager.class);
 
 	// =========================================================
 	private static FortSiegeManager	_instance;

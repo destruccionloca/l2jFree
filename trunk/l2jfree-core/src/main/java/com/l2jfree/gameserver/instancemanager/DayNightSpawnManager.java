@@ -36,7 +36,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2RaidBossInstance;
 public class DayNightSpawnManager
 {
 
-	private final static Log						_log	= LogFactory.getLog(DayNightSpawnManager.class.getName());
+	private final static Log						_log	= LogFactory.getLog(DayNightSpawnManager.class);
 	private static DayNightSpawnManager				_instance;
 	private static FastMap<L2Spawn, L2Npc>	_dayCreatures;
 	private static FastMap<L2Spawn, L2Npc>	_nightCreatures;

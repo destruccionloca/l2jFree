@@ -25,7 +25,7 @@ import com.l2jfree.loginserver.L2LoginClient;
  */
 public final class GGAuth extends L2LoginServerPacket
 {
-	private static final Log	_log					= LogFactory.getLog(GGAuth.class.getName());
+	private static final Log	_log					= LogFactory.getLog(GGAuth.class);
 	public static final int		SKIP_GG_AUTH_REQUEST	= 0x0b;
 
 	private final int					_response;

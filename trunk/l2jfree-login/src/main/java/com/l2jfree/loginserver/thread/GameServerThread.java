@@ -66,7 +66,7 @@ import com.l2jfree.tools.util.HexUtil;
  */
 public class GameServerThread extends Thread
 {
-	private static final Log	_log					= LogFactory.getLog(GameServerThread.class.getName());
+	private static final Log	_log					= LogFactory.getLog(GameServerThread.class);
 	private final Socket				_connection;
 	private InputStream			_in;
 	private OutputStream		_out;

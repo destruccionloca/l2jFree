@@ -34,7 +34,7 @@ import com.l2jfree.gameserver.model.L2TeleportLocation;
  */
 public class TeleportLocationTable
 {
-	private final static Log						_log	= LogFactory.getLog(TeleportLocationTable.class.getName());
+	private final static Log						_log	= LogFactory.getLog(TeleportLocationTable.class);
 
 	private FastMap<Integer, L2TeleportLocation>	_teleports;
 

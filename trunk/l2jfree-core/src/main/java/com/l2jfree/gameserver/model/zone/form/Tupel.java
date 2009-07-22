@@ -20,7 +20,7 @@ import org.w3c.dom.Node;
 
 public class Tupel
 {
-	protected static Log _log = LogFactory.getLog(Tupel.class.getName());
+	protected static Log _log = LogFactory.getLog(Tupel.class);
 
 	public int x = 0;
 	public int y = 0;

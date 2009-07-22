@@ -36,7 +36,7 @@ import com.l2jfree.gameserver.model.L2TradeList;
  */
 public class TradeListTable
 {
-	private final static Log				_log	= LogFactory.getLog(TradeListTable.class.getName());
+	private final static Log				_log	= LogFactory.getLog(TradeListTable.class);
 
 	private int								_nextListId;
 	private final FastMap<Integer, L2TradeList>	_lists = new FastMap<Integer, L2TradeList>();

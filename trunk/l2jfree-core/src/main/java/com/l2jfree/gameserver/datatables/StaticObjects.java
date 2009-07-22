@@ -35,7 +35,7 @@ import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
 
 public class StaticObjects
 {
-	private final static Log						_log	= LogFactory.getLog(StaticObjects.class.getName());
+	private final static Log						_log	= LogFactory.getLog(StaticObjects.class);
 
 	private final Map<Integer, L2StaticObjectInstance>	_staticObjects;
 

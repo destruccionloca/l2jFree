@@ -54,7 +54,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  */
 public class Instance
 {
-	private final static Log			_log				= LogFactory.getLog(Instance.class.getName());
+	private final static Log			_log				= LogFactory.getLog(Instance.class);
 
 	private final int							_id;
 	private int							_tpx;

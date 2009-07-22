@@ -33,7 +33,7 @@ import com.l2jfree.gameserver.network.serverpackets.BuyList;
  */
 public class AdminShop implements IAdminCommandHandler
 {
-	private final static Log		_log			= LogFactory.getLog(AdminShop.class.getName());
+	private final static Log		_log			= LogFactory.getLog(AdminShop.class);
 
 	private static final String[]	ADMIN_COMMANDS	=
 													{ "admin_buy", "admin_gmshop" };

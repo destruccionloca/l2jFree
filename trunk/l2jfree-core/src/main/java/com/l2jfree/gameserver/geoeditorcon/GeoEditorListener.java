@@ -28,7 +28,7 @@ public class GeoEditorListener extends Thread
 {
 	private static GeoEditorListener	_instance;
 	private static final int			PORT	= 9011;
-	private static Log					_log	= LogFactory.getLog(GeoEditorListener.class.getName());
+	private static Log					_log	= LogFactory.getLog(GeoEditorListener.class);
 	private ServerSocket				_serverSocket;
 	private static GeoEditorThread		_geoEditor;
 

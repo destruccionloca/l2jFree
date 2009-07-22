@@ -49,7 +49,7 @@ import com.l2jfree.gameserver.templates.StatsSet;
 
 public class SevenSigns
 {
-	protected static Log							_log						= LogFactory.getLog(SevenSigns.class.getName());
+	protected static Log							_log						= LogFactory.getLog(SevenSigns.class);
 
 	// Basic Seven Signs Constants \\
 	public static final String						SEVEN_SIGNS_DATA_FILE		= "config/signs.properties";

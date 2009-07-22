@@ -78,7 +78,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 {
 	public static final L2Skill[]	EMPTY_ARRAY					= new L2Skill[0];
 
-	protected static Log			_log						= LogFactory.getLog(L2Skill.class.getName());
+	protected static Log			_log						= LogFactory.getLog(L2Skill.class);
 
 	public static final int			SKILL_CUBIC_MASTERY			= 143;
 	public static final int			SKILL_LUCKY					= 194;

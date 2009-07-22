@@ -33,7 +33,7 @@ import com.l2jfree.L2DatabaseFactory;
  */
 public class StackIDFactory extends IdFactory
 {
-	private final static Log	_log			= LogFactory.getLog(IdFactory.class.getName());
+	private final static Log	_log			= LogFactory.getLog(IdFactory.class);
 
 	private int					_curOID;
 	private int					_tempOID;

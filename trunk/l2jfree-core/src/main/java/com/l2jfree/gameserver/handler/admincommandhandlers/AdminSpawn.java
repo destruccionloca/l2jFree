@@ -134,7 +134,7 @@ public class AdminSpawn implements IAdminCommandHandler
 			"Spawn day creatures.",
 			"Usage: //spawnday",					} };
 
-	public static Log				_log			= LogFactory.getLog(AdminSpawn.class.getName());
+	public static Log				_log			= LogFactory.getLog(AdminSpawn.class);
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{

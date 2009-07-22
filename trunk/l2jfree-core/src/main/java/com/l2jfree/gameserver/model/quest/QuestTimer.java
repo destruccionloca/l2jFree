@@ -25,7 +25,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class QuestTimer
 {
-    protected final static Log _log = LogFactory.getLog(QuestTimer.class.getName());
+    protected final static Log _log = LogFactory.getLog(QuestTimer.class);
 
     // =========================================================
     // Schedule Task

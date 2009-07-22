@@ -36,7 +36,7 @@ import com.l2jfree.gameserver.templates.skills.L2BuffTemplate;
 
 public class BuffTemplateTable
 {
-	private final static Log			_log	= LogFactory.getLog(BuffTemplateTable.class.getName());
+	private final static Log			_log	= LogFactory.getLog(BuffTemplateTable.class);
 
 	/** The table containing all buff templates */
 	private final FastList<L2BuffTemplate>	_buffs;

@@ -47,7 +47,7 @@ import com.l2jfree.tools.random.Rnd;
  */
 public class AutoChatHandler implements SpawnListener
 {
-	protected static Log _log = LogFactory.getLog(AutoChatHandler.class.getName());
+	protected static Log _log = LogFactory.getLog(AutoChatHandler.class);
 
 	private static final int  DEFAULT_CHAT_RANGE = 1500;
 

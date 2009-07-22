@@ -71,7 +71,7 @@ import com.l2jfree.gameserver.util.Util;
  */
 public class AdminEditChar implements IAdminCommandHandler
 {
-	private final static Log		_log				= LogFactory.getLog(AdminEditChar.class.getName());
+	private final static Log		_log				= LogFactory.getLog(AdminEditChar.class);
 
 	private static final String[]	ADMIN_COMMANDS		=
 														{ "admin_edit_character", "admin_current_player", "admin_nokarma", // this is to remove karma from selected char...

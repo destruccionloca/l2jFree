@@ -42,7 +42,7 @@ import com.l2jfree.gameserver.templates.item.L2EtcItemType;
  */
 public class ItemsOnGroundManager
 {
-	protected static Log				_log	= LogFactory.getLog(ItemsOnGroundManager.class.getName());
+	protected static Log				_log	= LogFactory.getLog(ItemsOnGroundManager.class);
 
 	protected FastList<L2ItemInstance>	_items	= null;
 

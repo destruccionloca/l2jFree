@@ -38,7 +38,7 @@ import com.l2jfree.tools.random.Rnd;
 
 public class ExtractableItems implements IItemHandler
 {
-	protected static Log	_log						= LogFactory.getLog(ExtractableItems.class.getName());
+	protected static Log	_log						= LogFactory.getLog(ExtractableItems.class);
 	
 	public void useItem(L2Playable playable, L2ItemInstance item)
 	{

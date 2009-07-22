@@ -26,7 +26,7 @@ import com.l2jfree.L2DatabaseFactory;
 
 public class PetNameTable
 {
-	private final static Log	_log	= LogFactory.getLog(PetNameTable.class.getName());
+	private final static Log	_log	= LogFactory.getLog(PetNameTable.class);
 
 	public static PetNameTable getInstance()
 	{

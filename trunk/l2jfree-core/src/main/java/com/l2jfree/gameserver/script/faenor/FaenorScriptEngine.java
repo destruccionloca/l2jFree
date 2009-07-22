@@ -40,7 +40,7 @@ import com.l2jfree.gameserver.script.ScriptPackage;
  */
 public class FaenorScriptEngine extends ScriptEngine
 {
-	private static Log					_log				= LogFactory.getLog(GameServer.class.getName());
+	private static Log					_log				= LogFactory.getLog(GameServer.class);
 	public static String				PACKAGE_DIRECTORY	= "data/faenor/";
 
 	private LinkedList<ScriptDocument>	_scripts;

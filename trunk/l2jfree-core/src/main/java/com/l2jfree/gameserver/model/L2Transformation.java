@@ -26,7 +26,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  */
 public abstract class L2Transformation
 {
-    protected final static Log _log = LogFactory.getLog(L2Transformation.class.getName());
+    protected final static Log _log = LogFactory.getLog(L2Transformation.class);
 
     private final int _id;
     private final int _graphicalId;

@@ -29,7 +29,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class GuardKnownList extends AttackableKnownList
 {
-	private final static Log _log = LogFactory.getLog(GuardKnownList.class.getName());
+	private final static Log _log = LogFactory.getLog(GuardKnownList.class);
 
 	// =========================================================
 	// Data Field

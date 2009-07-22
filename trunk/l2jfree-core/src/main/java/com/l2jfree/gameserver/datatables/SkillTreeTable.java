@@ -59,7 +59,7 @@ public class SkillTreeTable
 	public static final int									CHANGE_ENCHANT_BOOK				= 9626;
 	public static final int									UNTRAIN_ENCHANT_BOOK			= 9625;
 
-	private final static Log								_log							= LogFactory.getLog(SkillTreeTable.class.getName());
+	private final static Log								_log							= LogFactory.getLog(SkillTreeTable.class);
 
 	private final Map<Integer, L2SkillLearn>[] _skillTrees = new Map[ClassId.values().length];
 	private FastList<L2SkillLearn>							_fishingSkillTrees;																	//all common skills (teached by Fisherman)

@@ -52,7 +52,7 @@ import com.l2jfree.tools.random.Rnd;
  */
 public final class QuestState
 {
-	protected static Log _log = LogFactory.getLog(Quest.class.getName());
+	protected static Log _log = LogFactory.getLog(Quest.class);
 
 	/** Quest associated to the QuestState */
 	private final String _questName;

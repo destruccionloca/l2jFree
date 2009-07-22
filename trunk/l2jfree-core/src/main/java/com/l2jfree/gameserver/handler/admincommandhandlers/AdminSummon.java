@@ -27,7 +27,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  */
 public class AdminSummon implements IAdminCommandHandler
 {
-	protected static Log			_log			= LogFactory.getLog(AdminSummon.class.getName());
+	protected static Log			_log			= LogFactory.getLog(AdminSummon.class);
 
 	public static final String[]	ADMIN_COMMANDS	=
 													{ "admin_summon" };

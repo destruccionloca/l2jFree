@@ -34,7 +34,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 public class SiegeGuardManager
 {
 
-	private final static Log	_log				= LogFactory.getLog(SiegeGuardManager.class.getName());
+	private final static Log	_log				= LogFactory.getLog(SiegeGuardManager.class);
 
 	// =========================================================
 	// Data Field

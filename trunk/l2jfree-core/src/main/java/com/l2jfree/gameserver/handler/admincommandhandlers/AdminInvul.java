@@ -30,7 +30,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  */
 public class AdminInvul implements IAdminCommandHandler
 {
-	private final static Log		_log			= LogFactory.getLog(AdminInvul.class.getName());
+	private final static Log		_log			= LogFactory.getLog(AdminInvul.class);
 	private static final String[]	ADMIN_COMMANDS	=
 													{ "admin_invul", "admin_setinvul" };
 

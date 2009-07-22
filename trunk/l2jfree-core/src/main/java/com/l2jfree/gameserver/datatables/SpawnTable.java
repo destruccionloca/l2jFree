@@ -39,7 +39,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  */
 public class SpawnTable
 {
-	private final static Log			_log		= LogFactory.getLog(SpawnTable.class.getName());
+	private final static Log			_log		= LogFactory.getLog(SpawnTable.class);
 
 	private final Map<Integer, L2Spawn>		_spawntable	= new FastMap<Integer, L2Spawn>().setShared(true);
 	private int							_npcSpawnCount;

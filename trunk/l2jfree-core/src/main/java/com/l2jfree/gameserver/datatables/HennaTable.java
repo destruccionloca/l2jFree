@@ -29,7 +29,7 @@ import com.l2jfree.gameserver.templates.item.L2Henna;
 
 public class HennaTable
 {
-	private static final Log	_log = LogFactory.getLog(HennaTable.class.getName());
+	private static final Log	_log = LogFactory.getLog(HennaTable.class);
 	private static final String LOAD_HENNA = "SELECT symbol_id,symbol_name,dye_id,dye_amount,price,mod_INT,mod_STR,mod_CON,mod_MEN,mod_DEX,mod_WIT FROM henna";
 
 	private final FastMap<Integer, L2Henna> _henna = new FastMap<Integer, L2Henna>().setShared(true);

@@ -42,7 +42,7 @@ import com.l2jfree.gameserver.network.SystemMessageId;
  */
 public class AdminMenu implements IAdminCommandHandler
 {
-	private static final Log		_log			= LogFactory.getLog(AdminMenu.class.getName());
+	private static final Log		_log			= LogFactory.getLog(AdminMenu.class);
 
 	private static final String[]	ADMIN_COMMANDS	=
 													{

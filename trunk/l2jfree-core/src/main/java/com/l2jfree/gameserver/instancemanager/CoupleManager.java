@@ -35,7 +35,7 @@ import com.l2jfree.gameserver.model.entity.Couple;
  */
 public class CoupleManager
 {
-	private static final Log		_log	= LogFactory.getLog(CoupleManager.class.getName());
+	private static final Log		_log	= LogFactory.getLog(CoupleManager.class);
 
 	public static final CoupleManager getInstance()
 	{

@@ -31,7 +31,7 @@ import com.l2jfree.tools.random.Rnd;
 
 public class Entity
 {
-	protected static Log _log = LogFactory.getLog(Entity.class.getName());
+	protected static Log _log = LogFactory.getLog(Entity.class);
 
 	protected L2Zone _zone;
 

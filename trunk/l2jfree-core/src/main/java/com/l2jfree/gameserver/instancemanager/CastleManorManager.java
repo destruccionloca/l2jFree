@@ -48,7 +48,7 @@ import com.l2jfree.tools.random.Rnd;
 
 public class CastleManorManager
 {
-	private final static Log			_log							= LogFactory.getLog(CastleManorManager.class.getName());
+	private final static Log			_log							= LogFactory.getLog(CastleManorManager.class);
 
 	public static final int				PERIOD_CURRENT					= 0;
 	public static final int				PERIOD_NEXT						= 1;

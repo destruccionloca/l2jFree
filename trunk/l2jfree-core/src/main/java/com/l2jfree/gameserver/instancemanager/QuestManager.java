@@ -30,7 +30,7 @@ import com.l2jfree.gameserver.scripting.ScriptManager;
 
 public class QuestManager extends ScriptManager<Quest>
 {
-	protected static Log		_log	= LogFactory.getLog(QuestManager.class.getName());
+	protected static Log		_log	= LogFactory.getLog(QuestManager.class);
 	public static final QuestManager getInstance()
 	{
 		return SingletonHolder._instance;

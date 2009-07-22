@@ -51,7 +51,7 @@ import com.l2jfree.tools.random.Rnd;
 */
 public class DimensionalRiftManager
 {
-	protected static Log										_log							= LogFactory.getLog(DimensionalRiftManager.class.getName());
+	protected static Log										_log							= LogFactory.getLog(DimensionalRiftManager.class);
 
 	private final FastMap<Byte, FastMap<Byte, DimensionalRiftRoom>>	_rooms							= new FastMap<Byte, FastMap<Byte, DimensionalRiftRoom>>();
 	private final static int									DIMENSIONAL_FRAGMENT_ITEM_ID	= 7079;

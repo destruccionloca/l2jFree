@@ -34,7 +34,7 @@ import com.l2jfree.Config;
  */
 public abstract class FloodProtectedListener extends Thread
 {
-	private final Log								_log				= LogFactory.getLog(FloodProtectedListener.class.getName());
+	private final Log								_log				= LogFactory.getLog(FloodProtectedListener.class);
 	private final Map<String, ForeignConnection>	_floodProtection	= new FastMap<String, ForeignConnection>();
 	private final String							_listenIp;
 	private final int								_port;

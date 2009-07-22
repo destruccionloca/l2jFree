@@ -61,7 +61,7 @@ import com.l2jfree.util.L2FastSet;
 
 public class Siege extends AbstractSiege
 {
-	private final static Log _log = LogFactory.getLog(Siege.class.getName());
+	private final static Log _log = LogFactory.getLog(Siege.class);
 	
 	// ==========================================================================================
 	// Message to add/check

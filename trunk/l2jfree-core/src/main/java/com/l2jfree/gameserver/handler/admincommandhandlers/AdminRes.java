@@ -35,7 +35,7 @@ import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
  */
 public class AdminRes implements IAdminCommandHandler
 {
-	private final static Log		_log			= LogFactory.getLog(AdminRes.class.getName());
+	private final static Log		_log			= LogFactory.getLog(AdminRes.class);
 	private static final String[]	ADMIN_COMMANDS	=
 													{ "admin_res", "admin_res_monster" };
 

@@ -45,7 +45,7 @@ import com.l2jfree.tools.random.Rnd;
 
 public class CursedWeapon
 {
-	private static final Log _log = LogFactory.getLog(CursedWeaponsManager.class.getName());
+	private static final Log _log = LogFactory.getLog(CursedWeaponsManager.class);
 
 	// _name is the name of the cursed weapon associated with its ID.
 	private final String		_name;

@@ -33,7 +33,7 @@ import com.l2jfree.tools.random.Rnd;
 
 public class Extractable implements ISkillHandler
 {
-	protected static Log	_log						= LogFactory.getLog(Extractable.class.getName());
+	protected static Log	_log						= LogFactory.getLog(Extractable.class);
 	
 	private static final L2SkillType[] SKILL_IDS =
 	{

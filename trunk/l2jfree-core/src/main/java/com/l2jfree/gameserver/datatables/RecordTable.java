@@ -30,7 +30,7 @@ import com.l2jfree.L2DatabaseFactory;
  */
 public class RecordTable
 {
-	private final static Log	_log				= LogFactory.getLog(RecordTable.class.getName());
+	private final static Log	_log				= LogFactory.getLog(RecordTable.class);
 
 	private static RecordTable	_instance;
 

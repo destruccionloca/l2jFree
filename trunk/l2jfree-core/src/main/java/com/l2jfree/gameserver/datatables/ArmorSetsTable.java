@@ -33,7 +33,7 @@ import com.l2jfree.gameserver.model.L2ArmorSet;
  */
 public class ArmorSetsTable
 {
-	private final static Log				_log	= LogFactory.getLog(ArmorSetsTable.class.getName());
+	private final static Log				_log	= LogFactory.getLog(ArmorSetsTable.class);
 
 	private final FastMap<Integer, L2ArmorSet>	_armorSets;
 

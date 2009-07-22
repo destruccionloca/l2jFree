@@ -51,7 +51,7 @@ import com.l2jfree.tools.random.Rnd;
 public class L2IrcClient extends Thread
 {
 
-	private final static Log			_log				= LogFactory.getLog(L2IrcClient.class.getName());
+	private final static Log			_log				= LogFactory.getLog(L2IrcClient.class);
 	private static Log					_logChat			= LogFactory.getLog("irc");
 
 	private IRCConnection				conn;

@@ -34,7 +34,7 @@ import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
 
 public class AirShipManager
 {
-	private final static Log						_log	= LogFactory.getLog(AirShipManager.class.getName());
+	private final static Log						_log	= LogFactory.getLog(AirShipManager.class);
 
 	private L2AirShipInstance _airShip = null;
 

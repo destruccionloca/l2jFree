@@ -53,7 +53,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
  */
 public class AdminSkill implements IAdminCommandHandler
 {
-	private final static Log		_log			= LogFactory.getLog(AdminSkill.class.getName());
+	private final static Log		_log			= LogFactory.getLog(AdminSkill.class);
 
 	private static final String[]	ADMIN_COMMANDS	=
 													{

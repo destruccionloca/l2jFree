@@ -60,7 +60,7 @@ import com.l2jfree.util.LinkedBunch;
  */
 public class L2Clan
 {
-	private static final Log				_log						= LogFactory.getLog(L2Clan.class.getName());
+	private static final Log				_log						= LogFactory.getLog(L2Clan.class);
 	private String							_name;
 	private int								_clanId;
 	private L2ClanMember					_leader;

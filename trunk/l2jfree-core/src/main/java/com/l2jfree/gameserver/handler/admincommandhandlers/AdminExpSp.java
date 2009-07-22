@@ -34,7 +34,7 @@ import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
  */
 public class AdminExpSp implements IAdminCommandHandler
 {
-	private final static Log		_log			= LogFactory.getLog(AdminExpSp.class.getName());
+	private final static Log		_log			= LogFactory.getLog(AdminExpSp.class);
 
 	private static final String[]	ADMIN_COMMANDS	=
 													{ "admin_add_exp_sp_to_character", "admin_add_exp_sp", "admin_remove_exp_sp" };

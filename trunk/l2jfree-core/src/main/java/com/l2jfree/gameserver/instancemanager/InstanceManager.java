@@ -29,7 +29,7 @@ import com.l2jfree.gameserver.model.entity.Instance;
  */
 public class InstanceManager
 {
-	private final static Log			_log			= LogFactory.getLog(InstanceManager.class.getName());
+	private final static Log			_log			= LogFactory.getLog(InstanceManager.class);
 
 	private final FastMap<Integer, Instance>	_instanceList	= new FastMap<Integer, Instance>();
 	private final FastMap<Integer, InstanceWorld> _instanceWorlds = new FastMap<Integer, InstanceWorld>();

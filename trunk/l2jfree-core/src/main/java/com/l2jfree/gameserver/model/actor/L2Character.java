@@ -157,7 +157,7 @@ import com.l2jfree.util.SingletonSet;
  */
 public abstract class L2Character extends L2Object
 {
-	public final static Log		_log								= LogFactory.getLog(L2Character.class.getName());
+	public final static Log		_log								= LogFactory.getLog(L2Character.class);
 
 	// =========================================================
 	// Data Field

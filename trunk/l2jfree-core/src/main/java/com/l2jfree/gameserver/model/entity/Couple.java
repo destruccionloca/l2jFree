@@ -31,7 +31,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  */
 public class Couple
 {
-    private static final Log _log = LogFactory.getLog(Couple.class.getName());
+    private static final Log _log = LogFactory.getLog(Couple.class);
     
     // =========================================================
     // Data Field

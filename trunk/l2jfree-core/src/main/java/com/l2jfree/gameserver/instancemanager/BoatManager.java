@@ -36,7 +36,7 @@ import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
 
 public class BoatManager
 {
-	private final static Log	_log	= LogFactory.getLog(BoatManager.class.getName());
+	private final static Log	_log	= LogFactory.getLog(BoatManager.class);
 
 	public static final BoatManager getInstance()
 	{

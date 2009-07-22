@@ -35,7 +35,7 @@ import com.l2jfree.gameserver.templates.item.L2WeaponType;
 
 public class CharStat
 {
-	protected final static Log	_log	= LogFactory.getLog(CharStat.class.getName());
+	protected final static Log	_log	= LogFactory.getLog(CharStat.class);
 
 	// =========================================================
 	// Data Field

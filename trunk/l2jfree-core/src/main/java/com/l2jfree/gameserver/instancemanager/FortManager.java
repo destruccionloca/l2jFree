@@ -38,7 +38,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public class FortManager implements InstanceListManager
 {
-	protected static final Log	_log	= LogFactory.getLog(FortManager.class.getName());
+	protected static final Log	_log	= LogFactory.getLog(FortManager.class);
 
 	// =========================================================
 

@@ -31,7 +31,7 @@ import com.l2jfree.gameserver.script.ScriptEngine;
  */
 public class FaenorWorldDataParser extends FaenorParser
 {
-	static Log					_log		= LogFactory.getLog(FaenorWorldDataParser.class.getName());
+	static Log					_log		= LogFactory.getLog(FaenorWorldDataParser.class);
 	//Script Types
 	private final static String	PET_DATA	= "PetData";
 

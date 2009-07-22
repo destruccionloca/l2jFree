@@ -41,7 +41,7 @@ import com.l2jfree.tools.random.Rnd;
 
 public class TVTInstance
 {
-	private final Log				_log			= LogFactory.getLog(TVTInstance.class.getName());
+	private final Log				_log			= LogFactory.getLog(TVTInstance.class);
 
 	private String					_instanceName	= new String();
 

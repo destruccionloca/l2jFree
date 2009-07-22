@@ -35,7 +35,7 @@ import com.l2jfree.gameserver.model.L2NpcWalkerNode;
  */
 public class NpcWalkerRoutesTable
 {
-	private final static Log			_log	= LogFactory.getLog(SpawnTable.class.getName());
+	private final static Log			_log	= LogFactory.getLog(SpawnTable.class);
 
 	private final FastList<L2NpcWalkerNode>	_routes = new FastList<L2NpcWalkerNode>();
 

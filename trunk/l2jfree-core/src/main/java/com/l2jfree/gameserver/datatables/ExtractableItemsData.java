@@ -32,7 +32,7 @@ import com.l2jfree.gameserver.items.model.L2ExtractableProductItem;
  */
 public class ExtractableItemsData
 {
-	private final static Log					_log		= LogFactory.getLog(ExtractableItemsData.class.getName());
+	private final static Log					_log		= LogFactory.getLog(ExtractableItemsData.class);
 
 	//          Map<itemid, L2ExtractableItem>
 	private final FastMap<Integer, L2ExtractableItem>	_items  = new FastMap<Integer, L2ExtractableItem>();

@@ -37,7 +37,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class Auction
 {
-	protected static Log _log = LogFactory.getLog(Auction.class.getName());
+	protected static Log _log = LogFactory.getLog(Auction.class);
 	private int _id								= 0;
 	private final int _adenaId						= 57;
 	private long _endDate;

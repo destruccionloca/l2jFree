@@ -47,7 +47,7 @@ public final class RecommendationManager
 	private static final String REMOVE_RECOMMENDATION_RESTRICTIONS_PLAYER = "DELETE FROM character_recommends WHERE charId=? OR target_id=?";
 	private static final String RESTORE_RECOMMENDATION_RESTRICTIONS = "SELECT target_id FROM character_recommends WHERE charId=?";
 
-	private static final Log _log = LogFactory.getLog(RecommendationManager.class.getName());
+	private static final Log _log = LogFactory.getLog(RecommendationManager.class);
 	private static final long DAY = 24 * 3600 * 1000;
 
 	private long nextUpdate;

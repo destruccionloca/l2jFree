@@ -25,7 +25,7 @@ import com.l2jfree.L2DatabaseFactory;
 
 public class SqlUtils
 {
-	private final static Log	_log	= LogFactory.getLog(SqlUtils.class.getName());
+	private final static Log	_log	= LogFactory.getLog(SqlUtils.class);
 
 	// =========================================================
 	// Data Field

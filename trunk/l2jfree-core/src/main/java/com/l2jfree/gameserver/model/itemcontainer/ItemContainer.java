@@ -42,7 +42,7 @@ import com.l2jfree.gameserver.templates.item.L2Item;
  */
 public abstract class ItemContainer
 {
-	protected static final Log _log = LogFactory.getLog(ItemContainer.class.getName());
+	protected static final Log _log = LogFactory.getLog(ItemContainer.class);
 
 	protected final FastList<L2ItemInstance> _items;
 

@@ -48,7 +48,7 @@ import com.l2jfree.util.SingletonMap;
 
 public class MinionList
 {
-	private final static Log				_log			= LogFactory.getLog(L2MonsterInstance.class.getName());
+	private final static Log				_log			= LogFactory.getLog(L2MonsterInstance.class);
 
 	/** List containing the current spawned minions for this L2MonsterInstance */
 	private final List<L2MinionInstance> minionReferences = new SingletonList<L2MinionInstance>();

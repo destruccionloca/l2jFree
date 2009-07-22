@@ -64,7 +64,7 @@ import com.l2jfree.tools.random.Rnd;
 
 public class CTF
 {
-	private final static Log	_log	= LogFactory.getLog(CTF.class.getName());
+	private final static Log	_log	= LogFactory.getLog(CTF.class);
 	private static int			_FlagNPC	= 35062, _FLAG_IN_HAND_ITEM_ID = 6718;
 	public static String		_eventName	= "", _eventDesc = "", _topTeam = "", _joiningLocationName = "";
 	public static Vector<String>	_teams	= new Vector<String>(), _savePlayers = new Vector<String>(), _savePlayerTeams = new Vector<String>();

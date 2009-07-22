@@ -44,7 +44,7 @@ import com.l2jfree.gameserver.templates.item.L2Item;
 
 public class SH
 {
-	private final static Log		_log			= LogFactory.getLog(SH.class.getName());
+	private final static Log		_log			= LogFactory.getLog(SH.class);
 	private static String			_eventTitle		= new String();
 	private static String			_eventDesc		= new String();
 	private static String			_location		= new String();

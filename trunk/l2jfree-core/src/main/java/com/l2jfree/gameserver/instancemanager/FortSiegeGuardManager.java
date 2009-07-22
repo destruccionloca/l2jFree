@@ -33,7 +33,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public class FortSiegeGuardManager
 {
-	protected static final Log	_log				= LogFactory.getLog(FortSiegeGuardManager.class.getName());
+	protected static final Log	_log				= LogFactory.getLog(FortSiegeGuardManager.class);
 
 	private final Fort				_fort;
 	protected FastMap<Integer, FastList<L2Spawn>> _siegeGuards = new FastMap<Integer, FastList<L2Spawn>>();

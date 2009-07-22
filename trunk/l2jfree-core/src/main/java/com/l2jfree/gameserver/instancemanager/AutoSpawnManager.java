@@ -70,7 +70,7 @@ import com.l2jfree.tools.random.Rnd;
  */
 public class AutoSpawnManager
 {
-	protected static Log							_log					= LogFactory.getLog(AutoSpawnManager.class.getName());
+	protected static Log							_log					= LogFactory.getLog(AutoSpawnManager.class);
 
 	private static final int						DEFAULT_INITIAL_SPAWN	= 30000;												// 30 seconds after registration
 	private static final int						DEFAULT_RESPAWN			= 3600000;												//1 hour in millisecs

@@ -35,7 +35,7 @@ import com.l2jfree.gameserver.model.L2Skill;
  */
 public class ResidentialSkillTable
 {
-	private static final Log _log = LogFactory.getLog(ResidentialSkillTable.class.getName());
+	private static final Log _log = LogFactory.getLog(ResidentialSkillTable.class);
 
 	private static ResidentialSkillTable _instance = null;
 

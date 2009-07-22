@@ -63,7 +63,7 @@ import com.l2jfree.tools.random.Rnd;
 
 public class RecipeController
 {
-	private final static Log									_log			= LogFactory.getLog(RecipeController.class.getName());
+	private final static Log									_log			= LogFactory.getLog(RecipeController.class);
 
 	private final Map<Integer, L2RecipeList>							_lists;
 	protected static final Map<L2PcInstance, RecipeItemMaker>	_activeMakers	= Collections.synchronizedMap(new WeakHashMap<L2PcInstance, RecipeItemMaker>());

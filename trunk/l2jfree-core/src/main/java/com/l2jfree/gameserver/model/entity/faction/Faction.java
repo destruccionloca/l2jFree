@@ -32,7 +32,7 @@ import com.l2jfree.L2DatabaseFactory;
  */
 public class Faction
 {
-    private static final Log _log = LogFactory.getLog(Faction.class.getName());
+    private static final Log _log = LogFactory.getLog(Faction.class);
     
     private int _Id                             = 0;
     private String _name                        = null;

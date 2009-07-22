@@ -59,7 +59,7 @@ import com.mchange.v2.c3p0.PooledDataSource;
  */
 public class L2Registry
 {
-	private static final Log			_log	= LogFactory.getLog(L2Registry.class.getName());
+	private static final Log			_log	= LogFactory.getLog(L2Registry.class);
 
 	private static ApplicationContext	__ctx	= null;
 

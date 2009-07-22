@@ -30,7 +30,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  */
 public class FactionQuest
 {
-    protected static Log _log = LogFactory.getLog(FactionQuest.class.getName());
+    protected static Log _log = LogFactory.getLog(FactionQuest.class);
 
     private final int _questId;
     private static int _factionId;

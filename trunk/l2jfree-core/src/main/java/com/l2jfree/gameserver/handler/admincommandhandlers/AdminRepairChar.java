@@ -32,7 +32,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  */
 public class AdminRepairChar implements IAdminCommandHandler
 {
-	private final static Log _log = LogFactory.getLog(AdminRepairChar.class.getName());
+	private final static Log _log = LogFactory.getLog(AdminRepairChar.class);
 	
 	private static final String[] ADMIN_COMMANDS = { "admin_restore", "admin_repair" };
 	

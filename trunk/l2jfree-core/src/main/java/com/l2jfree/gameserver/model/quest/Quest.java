@@ -57,7 +57,7 @@ import com.l2jfree.tools.random.Rnd;
  */
 public class Quest extends ManagedScript
 {
-	protected static final Log							_log			= LogFactory.getLog(Quest.class.getName());
+	protected static final Log							_log			= LogFactory.getLog(Quest.class);
 
 	/** HashMap containing events from String value of the event */
 	private static Map<String, Quest>					_allEventsS		= new FastMap<String, Quest>();

@@ -29,7 +29,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 
 public class PetDataTable
 {
-	private final static Log										_log						= LogFactory.getLog(L2PetInstance.class.getName());
+	private final static Log										_log						= LogFactory.getLog(L2PetInstance.class);
 
 	public final static int											PET_WOLF_ID					= 12077;
 

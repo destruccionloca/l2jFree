@@ -29,7 +29,7 @@ import com.l2jfree.gameserver.model.L2Skill;
 
 public class SkillSpellbookTable
 {
-	private final static Log					_log	= LogFactory.getLog(SkillTreeTable.class.getName());
+	private final static Log					_log	= LogFactory.getLog(SkillTreeTable.class);
 
 	private static FastMap<Integer, Integer>	_skillSpellbooks;
 

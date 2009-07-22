@@ -150,7 +150,7 @@ public class TradeList
 		}
 	}
 
-	private final static Log _log = LogFactory.getLog(TradeList.class.getName());
+	private final static Log _log = LogFactory.getLog(TradeList.class);
 
 	private final L2PcInstance _owner;
 	private L2PcInstance _partner;

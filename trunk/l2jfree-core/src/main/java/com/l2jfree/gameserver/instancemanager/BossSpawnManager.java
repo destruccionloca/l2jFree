@@ -37,7 +37,7 @@ import com.l2jfree.tools.random.Rnd;
  */
 public abstract class BossSpawnManager
 {
-	protected final static Log						_log	= LogFactory.getLog(BossSpawnManager.class.getName());
+	protected final static Log						_log	= LogFactory.getLog(BossSpawnManager.class);
 
 	protected FastMap<Integer, L2Boss>				_bosses;
 	protected FastMap<Integer, L2Spawn>				_spawns;

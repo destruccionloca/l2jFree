@@ -30,7 +30,7 @@ import com.l2jfree.gameserver.model.Location;
  */
 public abstract class Shape
 {
-	protected static Log _log = LogFactory.getLog(Shape.class.getName());
+	protected static Log _log = LogFactory.getLog(Shape.class);
 
 	protected FastList<Tupel> _points;
 	protected int _zMin, _zMax;

@@ -31,7 +31,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  */
 public class TransformationManager
 {
-	protected static final Log					_log		= LogFactory.getLog(TransformationManager.class.getName());
+	protected static final Log					_log		= LogFactory.getLog(TransformationManager.class);
 
 	public static TransformationManager getInstance()
 	{

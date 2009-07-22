@@ -40,7 +40,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 public class Duel
 {
-	private final static Log _log = LogFactory.getLog(Duel.class.getName());
+	private final static Log _log = LogFactory.getLog(Duel.class);
 
     public static final int DUELSTATE_NODUEL		= 0;
     public static final int DUELSTATE_DUELLING		= 1;

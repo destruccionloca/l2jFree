@@ -65,7 +65,7 @@ public final class L2NpcTemplate extends L2CharTemplate
 	/**
 	 * Logger
 	 */
-	private final static Log					_log		= LogFactory.getLog(L2NpcTemplate.class.getName());
+	private final static Log					_log		= LogFactory.getLog(L2NpcTemplate.class);
 
 	private int									_npcId;
 	private int									_idTemplate;

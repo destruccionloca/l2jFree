@@ -29,7 +29,7 @@ import com.l2jfree.gameserver.model.zone.L2Zone;
 
 public class TownManager
 {
-	protected static Log		_log	= LogFactory.getLog(TownManager.class.getName());
+	protected static Log		_log	= LogFactory.getLog(TownManager.class);
 
 	public static final TownManager getInstance()
 	{

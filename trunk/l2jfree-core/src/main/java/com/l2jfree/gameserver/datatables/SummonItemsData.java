@@ -35,7 +35,7 @@ import com.l2jfree.gameserver.model.L2SummonItem;
  */
 public class SummonItemsData
 {
-	private static final Log				_log	= LogFactory.getLog(SummonItemsData.class.getName());
+	private static final Log				_log	= LogFactory.getLog(SummonItemsData.class);
 
 	private final FastMap<Integer, L2SummonItem>	_summonitems;
 

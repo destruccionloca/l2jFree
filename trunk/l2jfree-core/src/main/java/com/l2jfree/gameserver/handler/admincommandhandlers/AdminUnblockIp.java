@@ -32,7 +32,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public class AdminUnblockIp implements IAdminCommandHandler
 {
 
-	private static final Log		_log			= LogFactory.getLog(AdminTeleport.class.getName());
+	private static final Log		_log			= LogFactory.getLog(AdminTeleport.class);
 
 	private static final String[]	ADMIN_COMMANDS	=
 													{ "admin_unblockip" };

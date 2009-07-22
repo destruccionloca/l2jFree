@@ -39,7 +39,7 @@ import com.l2jfree.gameserver.network.serverpackets.SendMacroList;
  */
 public class MacroList
 {
-	private final static Log _log = LogFactory.getLog(MacroList.class.getName());
+	private final static Log _log = LogFactory.getLog(MacroList.class);
 
 	private final L2PcInstance _owner;
 	private int _revision;

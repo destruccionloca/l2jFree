@@ -40,7 +40,7 @@ import com.l2jfree.tools.random.Rnd;
 
 public class L2CubicInstance
 {
-	protected static Log		_log						= LogFactory.getLog(L2CubicInstance.class.getName());
+	protected static Log		_log						= LogFactory.getLog(L2CubicInstance.class);
 
 	// Type of Cubics
 	public static final int		STORM_CUBIC					= 1;

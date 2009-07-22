@@ -58,7 +58,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
  */
 public class CursedWeaponsManager
 {
-	private static final Log			_log	= LogFactory.getLog(CursedWeaponsManager.class.getName());
+	private static final Log			_log	= LogFactory.getLog(CursedWeaponsManager.class);
 
 	public static final CursedWeaponsManager getInstance()
 	{

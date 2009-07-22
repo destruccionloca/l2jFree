@@ -49,7 +49,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public class L2Event
 {
-    private final static Log _log = LogFactory.getLog(L2Event.class.getName());
+    private final static Log _log = LogFactory.getLog(L2Event.class);
    
     public static String eventName = "";
     public static int teamsNumber = 0;

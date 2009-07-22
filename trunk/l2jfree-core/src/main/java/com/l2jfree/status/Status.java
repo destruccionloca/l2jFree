@@ -30,7 +30,7 @@ import com.l2jfree.tools.random.Rnd;
 
 public class Status extends Thread
 {
-	private static final Log	_log	= LogFactory.getLog(Status.class.getName());
+	private static final Log	_log	= LogFactory.getLog(Status.class);
 
 	private final ServerSocket		statusServerSocket;
 

@@ -30,7 +30,7 @@ import com.l2jfree.gameserver.instancemanager.FactionManager;
  */
 public class FactionMember
 {
-    private static final Log _log = LogFactory.getLog(FactionMember.class.getName());
+    private static final Log _log = LogFactory.getLog(FactionMember.class);
     
     // =========================================================
     // Data Field

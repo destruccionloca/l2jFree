@@ -28,7 +28,7 @@ import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 
 public class DuelManager
 {
-	private final static Log	_log	= LogFactory.getLog(DuelManager.class.getName());
+	private final static Log	_log	= LogFactory.getLog(DuelManager.class);
 	private static DuelManager	_instance;
 
 	public static final DuelManager getInstance()

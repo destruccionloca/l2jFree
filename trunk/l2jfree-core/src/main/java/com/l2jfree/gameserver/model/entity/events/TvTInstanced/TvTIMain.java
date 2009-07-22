@@ -48,7 +48,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public class TvTIMain
 {
-	private final static Log			_log			= LogFactory.getLog(TvTIMain.class.getName());
+	private final static Log			_log			= LogFactory.getLog(TvTIMain.class);
 	private static String				_eventTitle		= new String();
 	private static String				_eventDesc		= new String();
 	private static String				_joinLocName	= new String();

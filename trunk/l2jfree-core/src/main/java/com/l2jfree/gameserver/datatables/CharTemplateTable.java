@@ -35,7 +35,7 @@ import com.l2jfree.gameserver.templates.chars.L2PcTemplate;
  */
 public class CharTemplateTable
 {
-	private final static Log				_log			= LogFactory.getLog(CharTemplateTable.class.getName());
+	private final static Log				_log			= LogFactory.getLog(CharTemplateTable.class);
 
 	public static final String[]			CHAR_CLASSES	=
 															{

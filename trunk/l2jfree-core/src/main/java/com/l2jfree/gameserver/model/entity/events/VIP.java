@@ -50,7 +50,7 @@ import com.l2jfree.tools.random.Rnd;
 
 public class VIP {
 	
-	private final static Log _log = LogFactory.getLog(VIP.class.getName());
+	private final static Log _log = LogFactory.getLog(VIP.class);
 	public static String	_teamName = "", _joinArea = "", _theVIPName = "";
 	
 	public static int	   _time = 0, _winners = 0, _minPlayers = Config.VIP_MIN_PARTICIPANTS,

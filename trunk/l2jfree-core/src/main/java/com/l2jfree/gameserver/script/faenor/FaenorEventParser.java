@@ -32,7 +32,7 @@ import com.l2jfree.gameserver.script.ScriptEngine;
  */
 public class FaenorEventParser extends FaenorParser
 {
-	static Log			_log		= LogFactory.getLog(FaenorEventParser.class.getName());
+	static Log			_log		= LogFactory.getLog(FaenorEventParser.class);
 	private DateRange	_eventDates	= null;
 
 	@Override

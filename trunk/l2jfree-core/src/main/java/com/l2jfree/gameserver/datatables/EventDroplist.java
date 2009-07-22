@@ -33,7 +33,7 @@ import com.l2jfree.gameserver.script.DateRange;
 public class EventDroplist
 {
 
-	private final static Log		_log	= LogFactory.getLog(EventDroplist.class.getName());
+	private final static Log		_log	= LogFactory.getLog(EventDroplist.class);
 
 	/** The table containing all DataDrop object */
 	private final FastList<DateDrop>		_allNpcDateDrops;

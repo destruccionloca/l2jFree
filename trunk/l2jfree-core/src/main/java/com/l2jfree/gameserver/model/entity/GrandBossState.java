@@ -39,7 +39,7 @@ public class GrandBossState
 	private long				_respawnDate;
 	private StateEnum			_state;
 
-	private static final Log	_log	= LogFactory.getLog(GrandBossState.class.getName());
+	private static final Log	_log	= LogFactory.getLog(GrandBossState.class);
 
 	public int getBossId()
 	{

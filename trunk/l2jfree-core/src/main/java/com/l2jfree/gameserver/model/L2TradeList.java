@@ -35,7 +35,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
  */
 public class L2TradeList
 {
-	private final static Log _log = LogFactory.getLog(L2TradeList.class.getName());
+	private final static Log _log = LogFactory.getLog(L2TradeList.class);
 
 	private final FastList<L2ItemInstance> _items;
 	private final int _listId;

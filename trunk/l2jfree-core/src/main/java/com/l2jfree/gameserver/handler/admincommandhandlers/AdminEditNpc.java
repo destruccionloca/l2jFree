@@ -56,7 +56,7 @@ import com.l2jfree.gameserver.templates.item.L2Item;
  */
 public class AdminEditNpc implements IAdminCommandHandler
 {
-	private static Log				_log			= LogFactory.getLog(AdminEditNpc.class.getName());
+	private static Log				_log			= LogFactory.getLog(AdminEditNpc.class);
 	private final static int		PAGE_LIMIT		= 7;
 
 	private static final String[]	ADMIN_COMMANDS	=

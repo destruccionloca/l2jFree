@@ -64,7 +64,7 @@ import com.l2jfree.tools.random.Rnd;
 public final class Formulas
 {
 	/** Regen Task period */
-	protected static final Log		_log							= LogFactory.getLog(L2Character.class.getName());
+	protected static final Log		_log							= LogFactory.getLog(L2Character.class);
 	private static final int		HP_REGENERATE_PERIOD			= 3000;											// 3 secs
 
 	public static final byte		SHIELD_DEFENSE_FAILED			= 0;												// no shield defense

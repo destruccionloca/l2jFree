@@ -29,7 +29,7 @@ import com.l2jfree.gameserver.model.actor.L2Playable;
 
 public interface IItemHandler
 {
-	public static Log	_log	= LogFactory.getLog(IItemHandler.class.getName());
+	public static Log	_log	= LogFactory.getLog(IItemHandler.class);
 
 	/**
 	 * Launch task associated to the item.

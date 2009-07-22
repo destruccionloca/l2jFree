@@ -38,7 +38,7 @@ public class Lottery
 	public static final long	SECOND					= 1000;
 	public static final long	MINUTE					= 60000;
 
-	protected static Log		_log					= LogFactory.getLog(Lottery.class.getName());
+	protected static Log		_log					= LogFactory.getLog(Lottery.class);
 
 	private static final String	INSERT_LOTTERY			= "INSERT INTO games(id, idnr, enddate, prize, newprize) VALUES (?, ?, ?, ?, ?)";
 	private static final String	UPDATE_PRICE			= "UPDATE games SET prize=?, newprize=? WHERE id = 1 AND idnr = ?";

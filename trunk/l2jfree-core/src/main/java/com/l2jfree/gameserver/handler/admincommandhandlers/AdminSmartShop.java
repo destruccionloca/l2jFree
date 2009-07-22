@@ -60,7 +60,7 @@ import com.l2jfree.gameserver.templates.item.L2Weapon;
  */
 public class AdminSmartShop implements IAdminCommandHandler
 {
-	private final static Log		_log			= LogFactory.getLog(AdminSmartShop.class.getName());
+	private final static Log		_log			= LogFactory.getLog(AdminSmartShop.class);
 
 	private static final String[]	ADMIN_COMMANDS	=
 													{ "admin_smartshop" };

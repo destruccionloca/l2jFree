@@ -26,7 +26,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  */
 public interface IVoicedCommandHandler
 {
-	public static Log	_log	= LogFactory.getLog(IVoicedCommandHandler.class.getName());
+	public static Log	_log	= LogFactory.getLog(IVoicedCommandHandler.class);
 
 	/**
 	 * this is the worker method that is called when someone uses an .user command.

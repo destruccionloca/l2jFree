@@ -64,7 +64,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  */
 public class AdminTeleport implements IAdminCommandHandler
 {
-	private static final Log		_log			= LogFactory.getLog(AdminTeleport.class.getName());
+	private static final Log		_log			= LogFactory.getLog(AdminTeleport.class);
 
 	private static final String[]	ADMIN_COMMANDS	=
 													{ "admin_bookmark", // L2JP_JP ADD

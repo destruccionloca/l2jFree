@@ -41,7 +41,7 @@ import com.l2jfree.gameserver.model.entity.Castle;
  */
 public class MerchantPriceConfigTable implements InstanceListManager
 {
-	private static final Log				_log	= LogFactory.getLog(MerchantPriceConfigTable.class.getName());
+	private static final Log				_log	= LogFactory.getLog(MerchantPriceConfigTable.class);
 
 	public static MerchantPriceConfigTable getInstance()
 	{

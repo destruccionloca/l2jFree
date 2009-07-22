@@ -33,7 +33,7 @@ import com.l2jfree.gameserver.model.entity.ClanHall;
 
 public class ClanHallManager
 {
-	protected static Log			_log	= LogFactory.getLog(ClanHallManager.class.getName());
+	protected static Log			_log	= LogFactory.getLog(ClanHallManager.class);
 
 	private final Map<Integer, ClanHall>	_clanHall;
 	private final Map<Integer, ClanHall>	_freeClanHall;

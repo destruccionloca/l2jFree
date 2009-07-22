@@ -52,7 +52,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  */
 public class MercTicketManager
 {
-	protected static final Log			_log	= LogFactory.getLog(MercTicketManager.class.getName());
+	protected static final Log			_log	= LogFactory.getLog(MercTicketManager.class);
 
 	public static final MercTicketManager getInstance()
 	{

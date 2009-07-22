@@ -51,7 +51,7 @@ import com.l2jfree.gameserver.script.DateRange;
  */
 public class Announcements
 {
-	private final static Log		_log					= LogFactory.getLog(Announcements.class.getName());
+	private final static Log		_log					= LogFactory.getLog(Announcements.class);
 
 	private final List<String>			_announcements			= new FastList<String>();
 	private final List<List<Object>>		_eventAnnouncements		= new FastList<List<Object>>();

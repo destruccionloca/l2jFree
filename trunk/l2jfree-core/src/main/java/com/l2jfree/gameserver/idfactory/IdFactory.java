@@ -34,7 +34,7 @@ import com.l2jfree.L2DatabaseFactory;
  */
 public abstract class IdFactory
 {
-	private final static Log		_log				= LogFactory.getLog(IdFactory.class.getName());
+	private final static Log		_log				= LogFactory.getLog(IdFactory.class);
 
 	protected static final String[]	ID_UPDATES			=
 														{
